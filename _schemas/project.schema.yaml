@@ -5,7 +5,7 @@ allOf:
 type: object
 properties:
   type: {const: project}
-  repository: {$ref: "_tracker.schema.yaml#/$defs/repository"}
-  tracker: {$ref: "_tracker.schema.yaml#/$defs/tracker"}
+  repository: {$ref: "_repository.schema.yaml"}
+  tracker: {$ref: "_tracker.schema.yaml"}
   license: {type: string}
 required: [repository, tracker]

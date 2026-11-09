@@ -1,0 +1,11 @@
+# Where a project's code lives.
+$schema: "https://json-schema.org/draft/2020-12/schema"
+type: object
+properties:
+  forge: {enum: [github, gitlab]}
+  host: {type: string, description: "Forge host, e.g. github.com or gitlab.example.com."}
+  path: {type: string, description: "owner/name, or group/subgroup/name on GitLab."}
+  default_branch: {type: string}
+  url: {type: string, format: uri}
+required: [forge, host, path, default_branch]
+additionalProperties: false

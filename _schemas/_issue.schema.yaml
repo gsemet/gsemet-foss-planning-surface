@@ -1,0 +1,28 @@
+# One issue in a tracker, as received: same kinds as _tracker.schema.yaml.
+$schema: "https://json-schema.org/draft/2020-12/schema"
+oneOf:
+  - type: object
+    properties:
+      kind: {const: github}
+      repository: {type: string}
+      number: {type: integer, minimum: 1}
+      url: {type: string, format: uri}
+    required: [kind, repository, number, url]
+    additionalProperties: false
+  - type: object
+    properties:
+      kind: {const: gitlab}
+      host: {type: string}
+      project: {type: string}
+      iid: {type: integer, minimum: 1}
+      url: {type: string, format: uri}
+    required: [kind, host, project, iid, url]
+    additionalProperties: false
+  - type: object
+    properties:
+      kind: {const: jira}
+      site: {type: string, format: uri}
+      key: {type: string, pattern: "^[A-Z][A-Z0-9_]+-[0-9]+$"}
+      url: {type: string, format: uri}
+    required: [kind, site, key, url]
+    additionalProperties: false
