@@ -1,29 +1,9 @@
 ---
 type: cr-intent
-title: Show frontmatter values in the body (`=this.<field>`)
-description: Render Dataview-style inline expressions that read the note's frontmatter; scope still open.
-generated: {at: "2026-11-09T13:30:00Z", by: Claude}
 id: 334-frontmatter-keys-in-body
-stage: inbox
-kind: feature
-priority: null
-issue: {kind: github, repository: gsemet/markdown-okf-schema-studio, number: 334, url: "https://github.com/gsemet/markdown-okf-schema-studio/issues/334"}
-issue_title: "Frontmatter keys display in body"
-issue_state: open
-reporter: phansoks
-reporter_role: external
-opened: "2026-11-09T11:58:06Z"
-synced: "2026-11-09"
-comments: 1
-labels: []
-platform: [any]
-area: [rendering, frontmatter]
-requirements: []
-code: [src/core/frontmatter/propertiesTable.ts, src/core/render/renderPipeline.ts]
-understanding: partial
-reproduced: true
-open_questions: 5
-attachments: [intake/attachments/01-studio-render-0f745592.png, intake/attachments/02-obsidian-render-13d7b96b.png, intake/attachments/03-markdown-source-cf9bc8d2.png]
+description: "Feature from an external user: render Dataview-style `=this.<field>` with the note's frontmatter values, as Obsidian does; scope still open."
+generated: {by: "agent:claude-opus-5-5", at: "2026-11-09T14:00:00Z"}
+sources: [{id: issue, resource: "https://github.com/gsemet/markdown-okf-schema-studio/issues/334", title: "Frontmatter keys display in body", author: "github:phansoks", last_modified: "2026-11-09"}]
 ---
 
 # Show frontmatter values in the body (`=this.<field>`)
