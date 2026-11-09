@@ -1,0 +1,15 @@
+# OKF 0.2 `sources`: what a document derives from, with objective credibility signals. An issue in
+# any tracker (GitHub, GitLab, Jira) is one entry whose `resource` is its URL.
+$schema: "https://json-schema.org/draft/2020-12/schema"
+type: array
+items:
+  type: object
+  properties:
+    id: {type: string, description: Key for body footnotes (`[^id]`).}
+    resource: {type: string, description: URI or document-relative path.}
+    title: {type: string}
+    author: {type: string, description: "Actor, e.g. github:gsemet or human:alice."}
+    usage_count: {type: integer, minimum: 0}
+    last_modified: {type: string, format: date}
+  required: [id, resource]
+  additionalProperties: false

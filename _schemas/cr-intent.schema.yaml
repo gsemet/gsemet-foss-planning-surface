@@ -1,5 +1,6 @@
 # 01-intent.md: the pre-analysis of a change request, the current understanding of the subject for
-# the operator and for agents. The issue as received stays in the CR's intake/ folder.
+# the operator and for agents. Kept small on purpose: everything else is in the body, in intake/,
+# or derived from the folder by `just validate` (stage, priority).
 $schema: "https://json-schema.org/draft/2020-12/schema"
 allOf:
   - $ref: "_base.schema.yaml"
@@ -10,53 +11,11 @@ properties:
     type: string
     description: The CR folder name, `<issue>-<slug>`.
     pattern: "^[A-Za-z0-9][A-Za-z0-9-]*$"
-  stage: {enum: [inbox, backlog, stash, batch, archived, trash]}
-  kind: {enum: [bug, feature, chore, docs, question]}
-  priority:
-    description: Set by the owner only; null until triaged.
-    oneOf: [{type: "null"}, {enum: [P1, P2, P3, P4]}]
-  issue: {$ref: "_issue.schema.yaml"}
-  issue_title: {type: string, description: The issue title as written.}
-  issue_state: {enum: [open, closed]}
-  reporter: {type: string}
-  reporter_role: {enum: [owner, maintainer, contributor, external]}
-  opened: {type: string, format: date-time}
-  synced:
-    type: string
-    format: date
-    description: When intake/ was last fetched from the tracker.
-  comments: {type: integer, minimum: 0}
-  labels: {type: array, items: {type: string}}
-  platform: {type: array, items: {enum: [windows, macos, linux, web, any]}}
-  area: {type: array, items: {type: string}}
-  requirements:
-    type: array
-    items: {type: string}
-    description: Requirement ids of the project touched by the change.
-  code:
-    type: array
-    items: {type: string}
-    description: Repository-relative paths read during the pre-analysis.
-  understanding:
-    enum: [raw, partial, hypothesis, confirmed]
-    description: >-
-      raw: not analysed; partial: the need is clear, the scope is not; hypothesis: a cause or a
-      design is proposed, not proved; confirmed: reproduced or agreed with the owner.
-  reproduced: {type: boolean}
-  open_questions: {type: integer, minimum: 0}
-  attachments:
-    type: array
-    items: {type: string, x-okf-link: {resolution: document-relative, syntax: plain}}
-    description: Files of intake/attachments/ shown in the body.
-required:
-  - id
-  - stage
-  - kind
-  - priority
-  - issue
-  - issue_title
-  - reporter
-  - opened
-  - synced
-  - understanding
-  - open_questions
+  description: {type: string}
+  generated: true
+  sources:
+    $ref: "_sources.schema.yaml"
+    minItems: 1
+    description: OKF 0.2 sources; the first entry is the issue in its tracker.
+required: [type, id, description, generated, sources]
+unevaluatedProperties: false
