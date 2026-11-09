@@ -46,10 +46,11 @@ Cancel buttons).
 
 ## What we know
 
-- **The text was probably saved.** The same `README.md`, read from disk right after the report,
-  held a fourth row `| dsfdsffsd | |`: the first cell's text reached the source. So the likely
-  bug is that the page shows the cell empty, not that the text is lost. To confirm: no reload
-  happened in between, and nothing else wrote that row.
+- **The text was probably saved.** Commit `5255bc1` of this planning surface (2026-11-09
+  12:01:32Z, a minute after the issue was opened) added a fourth row `| dsfdsffsd | |` to that
+  same `README.md`: the first cell's text reached the source. So the likely bug is that the page
+  shows the cell empty, not that the text is lost. To confirm with the owner: that row is the one
+  typed in the reproduction.
 - **Where it happens:** Tab in a cell editor calls `tabThroughTableCells`, then `switchTableCell`
   ([tableCellEditor.ts](../../../../../../markdown-okf-schema-studio/src/page/features/tableCellEditor.ts),
   SwRS-MDOKFSTUDIO-TABLE-035). `switchTableCell` writes the field's value into the table model,
