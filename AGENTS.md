@@ -17,7 +17,9 @@ validated by [okf-schema](https://github.com/gsemet/okf-schema) against the shar
   `just validate` passes. Autosync publishes within seconds, so validate as soon as an edit is
   done.
 - Every Markdown document of a bundle has a frontmatter `type` that names a schema of `_schemas/`
-  (`<type>.schema.yaml`), plus `title` and `description`. Lists in frontmatter are inline
+  (`<type>.schema.yaml`) and a `description`; provenance and origin follow OKF 0.2 (`generated`,
+  `sources`). Keep frontmatter minimal: what the folder already says (stage, priority) is never
+  written in it, and the rest goes in the body. Lists in frontmatter are inline
   (`[a, b]`), never block style. A folder holding Markdown has an `index.md`; only the bundle's root
   `index.md` has a frontmatter (`okf_version`). `log.md` sits at the bundle root only.
 - Write Markdown files in UTF-8 **without** BOM: a BOM hides the frontmatter (E1).
@@ -33,7 +35,12 @@ A change request is a folder `projects/<name>/changes/<stage>/<issue>-<slug>/`:
   readable name that keeps the tracker's id. Never edited.
 - `index.md`: the folder's contents and the link to the issue.
 - `01-intent.md` (`type: cr-intent`): the pre-analysis, the current understanding of the subject
-  for the operator and for agents. Its frontmatter carries what matters at a glance (issue, kind,
-  priority, reporter, area, requirements, how well it is understood, open questions,
-  attachments); its body shows the attachments and says what is known, what is open and the next
-  step.
+  for the operator and for agents. Frontmatter: `type`, `id` (the folder name), `description` (one
+  sentence: the kind, who asked, where we stand), `generated` (`by`, `at`) and `sources` (OKF 0.2;
+  the first entry is the issue: `id: issue`, `resource` its URL, `title`, `author` as
+  `github:<login>`, `gitlab:<login>` or `jira:<user>`, `last_modified`). Nothing else. The body
+  shows the attachments and says what is known, what is open and the next step. Link code by its
+  forge URL at a commit, never by a relative path out of the bundle: the folder moves.
+- **Stage and priority come from the folder**, and `just validate` derives them and prints them:
+  `1-inbox` inbox, `2-backlog/P1`..`P4` backlog with that priority, `3-stash`, `4-batches/1-pending`,
+  `2-actives`, `3-done`, `5-archives`, `6-trash`. Moving a CR is changing its stage or priority.

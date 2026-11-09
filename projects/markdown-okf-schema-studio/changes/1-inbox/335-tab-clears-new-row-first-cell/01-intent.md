@@ -27,7 +27,7 @@ Cancel buttons).
   shows the cell empty, not that the text is lost. To confirm with the owner: that row is the one
   typed in the reproduction.
 - **Where it happens:** Tab in a cell editor calls `tabThroughTableCells`, then `switchTableCell`
-  ([tableCellEditor.ts](../../../../../../markdown-okf-schema-studio/src/page/features/tableCellEditor.ts),
+  ([tableCellEditor.ts](https://github.com/gsemet/markdown-okf-schema-studio/blob/ccaf35b8/src/page/features/tableCellEditor.ts#L63-L126),
   SwRS-MDOKFSTUDIO-TABLE-035). `switchTableCell` writes the field's value into the table model,
   posts a save without a re-render (`postBlockEditSave(false)`), then
   `restoreTableCellContent` puts back the cell's **rendered content captured when the editor

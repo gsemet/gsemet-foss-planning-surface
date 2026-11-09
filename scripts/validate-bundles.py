@@ -53,9 +53,24 @@ def run_okf_schema(project: Path) -> bool:
     )
     output = result.stdout + result.stderr
     blocking = [code for code in WARNING.findall(output) if code not in TOLERATED_WARNINGS]
-    lines = [line for line in output.splitlines()
-             if not any(f"[{code}]" in line for code in TOLERATED_WARNINGS)]
-    print("\n".join(line for line in lines if line.strip()))
+    shown: list[str] = []
+    header: str | None = None  # a file's path line, printed only if one of its findings is shown
+    for line in output.splitlines():
+        if not line.strip():
+            continue
+        if not line.startswith(" "):
+            if line.startswith(("Bundle", "Validation")):
+                shown.append(line)
+            else:
+                header = line
+            continue
+        if any(f"[{code}]" in line for code in TOLERATED_WARNINGS):
+            continue
+        if header is not None:
+            shown.append(header)
+            header = None
+        shown.append(line)
+    print("\n".join(shown))
     return result.returncode == 0 and not blocking
 
 
