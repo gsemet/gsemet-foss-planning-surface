@@ -5,7 +5,7 @@ type: array
 items:
   type: object
   properties:
-    id: {type: string, description: Key for body footnotes (`[^id]`).}
+    id: {type: string, description: "Key for body footnotes ([^id])."}
     resource: {type: string, description: URI or document-relative path.}
     title: {type: string}
     author: {type: string, description: "Actor, e.g. github:gsemet or human:alice."}
