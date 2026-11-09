@@ -14,7 +14,7 @@ properties:
   description: {type: string}
   generated: true
   sources:
-    $ref: "_sources.schema.yaml"
+    allOf: [{$ref: "_sources.schema.yaml"}]
     minItems: 1
     description: OKF 0.2 sources; the first entry is the issue in its tracker.
 required: [type, id, description, generated, sources]
