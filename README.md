@@ -1,6 +1,15 @@
 # agentic-planning-surface
 A project dedicated to only planning for my opensource agentic projects
 
+## Projects
+
+| Project | Description |
+| --- | --- |
+| [Agentic Planing Surface](projects/agentic-planning-surface/project.md) | A CLI to manage a similar project. Maybe merged to Chantier soon |
+| [Chantier](projects/chantier/project.md)                                | A end to end agentic team planing, delivering, markdown first    |
+| [OKF-Schema](projects/okf-schema/project.md)                            | Structured OpenKnowledge Format                                  |
+| dsfdsffsd                                                               |                                                                  |
+
 ## Git autosync
 
 This project is automatically synced to git. Any change it uploaded at maximum after 10s. A bit like Obsidian-git does.
