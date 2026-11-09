@@ -1,34 +1,29 @@
 ---
+type: cr-intent
+title: Tab after editing the first cell of a new row empties that cell
+description: Probably a display bug of the table cell editor; the text seems saved in the source.
+generated: {at: "2026-11-09T13:30:00Z", by: Claude}
 id: 335-tab-clears-new-row-first-cell
-project: markdown-okf-schema-studio
 stage: inbox
 kind: bug
-source:
-  forge: github
-  repository: gsemet/markdown-okf-schema-studio
-  issue: 335
-  url: https://github.com/gsemet/markdown-okf-schema-studio/issues/335
-  title: "Create row + edition + tab = content of first cell disapears"
-  state: open
-  reporter: gsemet
-  reporter_role: owner
-  opened: 2026-11-09T12:00:16Z
-  comments: 0
-  labels: []
-  synced: 2026-11-09
-platform: windows
-area: table cell editor
-requirements:
-  - SwRS-MDOKFSTUDIO-TABLE-035
-code:
-  - src/page/features/tableCellEditor.ts
 priority: null
+issue: {kind: github, repository: gsemet/markdown-okf-schema-studio, number: 335, url: "https://github.com/gsemet/markdown-okf-schema-studio/issues/335"}
+issue_title: "Create row + edition + tab = content of first cell disapears"
+issue_state: open
+reporter: gsemet
+reporter_role: owner
+opened: "2026-11-09T12:00:16Z"
+synced: "2026-11-09"
+comments: 0
+labels: []
+platform: [windows]
+area: [table cell editor]
+requirements: [SwRS-MDOKFSTUDIO-TABLE-035]
+code: [src/page/features/tableCellEditor.ts]
 understanding: hypothesis
 reproduced: false
 open_questions: 3
-attachments:
-  - path: intake/attachments/01-new-row-empty-first-cell-7da383cf.png
-    shows: new table row, first cell rendered empty, cell editor open in the second cell
+attachments: [intake/attachments/01-new-row-empty-first-cell-7da383cf.png]
 ---
 
 # Tab after editing the first cell of a new row empties that cell

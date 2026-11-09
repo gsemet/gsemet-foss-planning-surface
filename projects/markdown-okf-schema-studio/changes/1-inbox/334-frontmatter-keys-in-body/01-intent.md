@@ -1,37 +1,29 @@
 ---
+type: cr-intent
+title: Show frontmatter values in the body (`=this.<field>`)
+description: Render Dataview-style inline expressions that read the note's frontmatter; scope still open.
+generated: {at: "2026-11-09T13:30:00Z", by: Claude}
 id: 334-frontmatter-keys-in-body
-project: markdown-okf-schema-studio
 stage: inbox
 kind: feature
-source:
-  forge: github
-  repository: gsemet/markdown-okf-schema-studio
-  issue: 334
-  url: https://github.com/gsemet/markdown-okf-schema-studio/issues/334
-  title: "Frontmatter keys display in body"
-  state: open
-  reporter: phansoks
-  reporter_role: external user
-  opened: 2026-11-09T11:58:06Z
-  comments: 1
-  labels: []
-  synced: 2026-11-09
-area: rendering, frontmatter
-requirements: []
-code:
-  - src/core/frontmatter/propertiesTable.ts
-  - src/core/render/renderPipeline.ts
 priority: null
+issue: {kind: github, repository: gsemet/markdown-okf-schema-studio, number: 334, url: "https://github.com/gsemet/markdown-okf-schema-studio/issues/334"}
+issue_title: "Frontmatter keys display in body"
+issue_state: open
+reporter: phansoks
+reporter_role: external
+opened: "2026-11-09T11:58:06Z"
+synced: "2026-11-09"
+comments: 1
+labels: []
+platform: [any]
+area: [rendering, frontmatter]
+requirements: []
+code: [src/core/frontmatter/propertiesTable.ts, src/core/render/renderPipeline.ts]
 understanding: partial
 reproduced: true
 open_questions: 5
-attachments:
-  - path: intake/attachments/01-studio-render-0f745592.png
-    shows: Studio renders `=this.<field>` as literal inline code
-  - path: intake/attachments/02-obsidian-render-13d7b96b.png
-    shows: Obsidian replaces each `=this.<field>` with the frontmatter value
-  - path: intake/attachments/03-markdown-source-cf9bc8d2.png
-    shows: the Markdown source, inline code spans `=this.<field>`
+attachments: [intake/attachments/01-studio-render-0f745592.png, intake/attachments/02-obsidian-render-13d7b96b.png, intake/attachments/03-markdown-source-cf9bc8d2.png]
 ---
 
 # Show frontmatter values in the body (`=this.<field>`)
