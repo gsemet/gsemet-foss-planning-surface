@@ -1,0 +1,11 @@
+# project.md: the root document of a project bundle under projects/<name>/.
+$schema: "https://json-schema.org/draft/2020-12/schema"
+allOf:
+  - $ref: "_base.schema.yaml"
+type: object
+properties:
+  type: {const: project}
+  repository: {$ref: "_tracker.schema.yaml#/$defs/repository"}
+  tracker: {$ref: "_tracker.schema.yaml#/$defs/tracker"}
+  license: {type: string}
+required: [repository, tracker]

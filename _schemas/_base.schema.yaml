@@ -1,0 +1,30 @@
+# Fields every document of a planning bundle carries. Applied through `allOf: [$ref]`.
+$schema: "https://json-schema.org/draft/2020-12/schema"
+type: object
+properties:
+  type:
+    type: string
+    description: The document kind; selects `<type>.schema.yaml` in `_schemas/`.
+  title:
+    type: string
+    description: Human-readable name.
+  description:
+    type: string
+    description: One sentence summarizing the document.
+  tags:
+    type: array
+    items: {type: string}
+  generated:
+    type: object
+    description: Provenance of the document.
+    properties:
+      at: {type: string, format: date-time}
+      by: {type: string, description: "Who wrote it: a person or an agent."}
+    required: [at]
+  links:
+    type: array
+    items: {type: string, x-okf-link: {resolution: bundle-relative, syntax: plain}}
+  backlinks:
+    type: array
+    items: {type: string, x-okf-link: {resolution: bundle-relative, syntax: plain}}
+required: [type, title, description]

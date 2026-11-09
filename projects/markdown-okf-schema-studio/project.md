@@ -1,3 +1,13 @@
+---
+type: project
+title: Markdown OKF-Schema Studio
+description: Schema-aware Markdown editor and live preview for OKF bundles, a VS Code extension.
+generated: {at: "2026-11-09T13:00:00Z", by: Claude}
+repository: {forge: github, host: github.com, path: gsemet/markdown-okf-schema-studio, default_branch: main, url: "https://github.com/gsemet/markdown-okf-schema-studio"}
+tracker: {kind: github, repository: gsemet/markdown-okf-schema-studio}
+license: MIT
+---
+
 # Markdown OKF-Schema Studio
 
 Schema-aware Markdown editor and live preview for OKF bundles: a VS Code extension where you read
