@@ -1,2 +1,2 @@
-repo: ../../../chantier/
-worktrees: ../../../chantier.worktrees/
+repo: ../../../okf-schema/
+worktrees: ../../../okf-schema.worktrees/

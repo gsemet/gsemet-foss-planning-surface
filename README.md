@@ -8,7 +8,7 @@ A project dedicated to only planning for my opensource agentic projects
 | [Agentic Planing Surface](projects/agentic-planning-surface/project.md) | A CLI to manage a similar project. Maybe merged to Chantier soon |
 | [Chantier](projects/chantier/project.md)                                | A end to end agentic team planing, delivering, markdown first    |
 | [OKF-Schema](projects/okf-schema/project.md)                            | Structured OpenKnowledge Format                                  |
-| dsfdsffsd                                                               |                                                                  |
+| [Markdown OKF-Schema Studio](projects/markdown-okf-schema-studio/project.md) | Schema-aware Markdown editor and live preview for OKF bundles (VS Code extension) |
 
 ## Git autosync
 
