@@ -42,5 +42,5 @@ A change request is a folder `projects/<name>/changes/<stage>/<issue>-<slug>/`:
   shows the attachments and says what is known, what is open and the next step. Link code by its
   forge URL at a commit, never by a relative path out of the bundle: the folder moves.
 - **Stage and priority come from the folder**, and `just validate` derives them and prints them:
-  `1-inbox` inbox, `2-backlog/P1`..`P4` backlog with that priority, `3-stash`, `4-batches/1-pending`,
+  `1-inbox` inbox, `2-backlog/P1`..`P4` backlog with that priority, `3-ready`, `4-batch/1-pending`,
   `2-actives`, `3-done`, `5-archives`, `6-trash`. Moving a CR is changing its stage or priority.

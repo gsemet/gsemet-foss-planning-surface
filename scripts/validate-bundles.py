@@ -33,10 +33,10 @@ TOLERATED_WARNINGS = {"W1"}
 STAGES = {
     "1-inbox": "inbox",
     "2-backlog": "backlog",
-    "3-stash": "stash",
-    "4-batches/1-pending": "batch-pending",
-    "4-batches/2-actives": "batch-active",
-    "4-batches/3-done": "batch-done",
+    "3-ready": "ready",
+    "4-batch/1-pending": "batch-pending",
+    "4-batch/2-actives": "batch-active",
+    "4-batch/3-done": "batch-done",
     "5-archives": "archived",
     "6-trash": "trash",
 }
