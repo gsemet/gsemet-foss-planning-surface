@@ -424,3 +424,19 @@ This authorizes interview/proposal persistence only, not implementation.
 The original Q1 through Q26 above remain authoritative, including their explicit
 supersession notes. Any new interview question continues at
 improve-skill-boot-Q27. Autosync remains stopped.
+
+## Batch go
+
+2026-11-16: the user approved the existing specification and the presented plan:
+"Go, lancer selon ce plan".
+
+One independent CR, direct steering, parallel batch, four slots with one Driver,
+three rounds maximum, no configured budget cap. Use the plugin's standard team
+and its agents' configured models. Implement in a dedicated Chantier branch and
+worktree, deliver a PR for the user to merge. Run `just check` and require the
+pipeline job `just scenario (ubuntu-latest)` green at the PR head. Delivery time
+is unknown (one-level critical path; no measured long-gate duration).
+
+Do not regenerate the specification, migrate the planning surface to OKF,
+restart autosync, add another CR or merge the PR. Directly necessary updates to
+existing project rules that contradict the accepted startup contract are in scope.
