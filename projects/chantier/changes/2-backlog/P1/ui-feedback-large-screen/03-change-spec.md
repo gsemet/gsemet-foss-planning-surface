@@ -118,7 +118,7 @@ After the change:
 The panel stays an overlay above the view, as today; a panel the user resizes by dragging is not
 part of this CR.
 
-### 5. The multi-project surface in the selector, and each project's path
+### 5. The multi-project surface in the selector, and each project's paths
 
 This applies when the board serves a planning surface with several projects (`Projects.surface_mode`
 in `board/projects.py` and more than one project; that is when the picker has an "All projects"
@@ -128,21 +128,31 @@ shows no change.
 Today the picker's button (`trigger`) and its menu's first line (`menu`) say "All projects" with
 "overview · N PRs to review" (`project.all`, `project.all_sub` in `board/web/js/i18n/en.js` and
 `fr.js`), and the view's title says "All projects" too (`title` in `board/web/js/ui/header.js`,
-`nav.overview`). The project lines (the menu's `row`, the overview table's `row` and the phone's
-`card` in `board/web/js/views/overview.js`) show the project's name, batch and counts, but not where
-the project is.
+`nav.overview`). The menu opens with the caption "Planning surface · N projects" (`project.head`).
+The project lines (the menu's `row`, the overview table's `row` and the phone's `card` in
+`board/web/js/views/overview.js`) show the project's name, batch and counts, but not where the
+project is.
 
 After the change:
 
-- The surface takes the place of "All projects": the picker's button, when the overview is shown,
-  and the menu's first line show the surface's name (the name of the surface's root folder) in bold,
-  and the surface's path under it, where the "overview · N PRs to review" line was. The view's title
-  on the overview is the surface's name. The words "All projects" no longer show anywhere in the
-  board (button, menu, title); the menu's caption "Planning surface · N projects" stays. The number of
-  PRs to review stays in the overview's stats line (`overall` in `header.js`), where it already is.
-- Each project's line shows where the project is declared: its path. The menu's lines, the
-  overview table's lines (a path under the project's name, in the Project column) and the phone's
-  cards show it. See the open questions for which path.
+- The surface takes the place of "All projects". The picker's button, when the overview is shown,
+  shows the surface's name (the name of the surface's root folder) in bold, the surface's path under
+  it, and under those the line "Planning surface · N projects" (`project.head`, N the number of
+  projects), on the button itself, without opening the menu (answer Q5). This line takes the place
+  of "overview · N PRs to review". The menu's first line shows the surface's name in bold and its
+  path under it; the menu's caption "Planning surface · N projects" stays at the top of the menu, as
+  today. The view's title on the overview is the surface's name. The words "All projects" and
+  "overview · N PRs to review" no longer show anywhere in the board (button, menu, title). The
+  number of PRs to review stays in the overview's stats line (`overall` in `header.js`), where it
+  already is.
+- Each project's line shows where the project is declared, by two paths (answer Q4):
+  - its folder in the surface, `projects/<name>/`, relative to the surface the selector shows;
+  - its code repository as the project's `checkout.yml` names it: the `repo:` value as written
+    there (e.g. `../../../chantier/`); with no `repo:` line, the value the CLI takes by default,
+    `.repo` (`Repo._external` in `skills/chantier/scripts/cli/src/chantier/core/repo.py`).
+  The folder comes first, the repository after it, each labelled so the user tells them apart
+  (e.g. "folder" and "repo", in both languages). The menu's lines, the overview table's lines (under
+  the project's name, in the Project column) and the phone's cards show both.
 - A path too long for its place is cut with an ellipsis and shown whole on hover (a `title`); it
   never widens the left bar or the table's first column beyond what they take today.
 - The surface's mark (the overview icon, `.mark.all`) stays as it is.
@@ -152,13 +162,17 @@ After the change:
 The server gives what the page needs to draw this, in `GET /api/board` (`board()` in
 `board/routes.py`): it already gives the surface's root as `served` (on a surface,
 `Projects.served` is the surface's root); each project's line (`project_line` in `board/state.py`,
-or `board()` around it) gains the project's path. Nothing else is added to the payload; the per-project
+or `board()` around it) gains the two paths: the folder relative to the surface (from
+`Repo.project_dir` and `Repo.surface`), and the `repo:` value of `checkout.yml` as written. `Repo`
+keeps only the resolved repository (`root`), so the server reads the written value with
+`read_keyed` (`core/repo.py`), read-only. Nothing else is added to the payload; the per-project
 `state` endpoint does not change. The board still reads only and writes nothing new.
 
 `docs/web-board.md` says "A planning surface with several projects adds an **All projects** entry to
 the picker" and "Home is the table of **All projects**": these sentences, and every other
 mention of All projects there, say instead that the picker's first entry is the surface, by its name
-and path, and that each project's line shows its path.
+and path with "Planning surface · N projects" under them, and that each project's line shows its
+folder in the surface and its code repository as `checkout.yml` names it.
 
 ### Docs pictures
 
@@ -168,7 +182,9 @@ script copies `docs/demo/` to a temporary folder; with point 5 the pictures woul
 folder's path, which differs on each run and on each machine. The pictures show a stable surface
 name and path that reveal nothing of the machine that took them (the Driver chooses how, in
 `scripts/docs_screenshots.py`, and says it in the PR); taking the pictures twice gives the same
-surface name and path in them.
+surface name and path in them. The projects' paths are relative or as written in `checkout.yml`,
+so they are the same on every run already; if a demo project has a `checkout.yml`, its `repo:`
+value names nothing of the machine.
 
 The pane drawn by `hooks/register.tsx` and `STATUS.json` do not change: no pane screenshot is due.
 
@@ -181,6 +197,7 @@ The pane drawn by `hooks/register.tsx` and `STATUS.json` do not change: no pane 
 - A new screenshot size in `scripts/docs_screenshots.py` (the large-screen checks below are the
   Driver's evidence, not docs pictures).
 - The Kanban, Batch, Costs and Home views, apart from points 1, 3b and 5 as they reach them.
+- Showing the repository's resolved or absolute path, or checking that it exists.
 - Any write by the board, any change to the autosync or the key.
 
 ## Evidence
@@ -194,12 +211,13 @@ Checks, before the PR:
   the next candidate; a `---` rule lower in a file is not skipped as a frontmatter; a file with no
   frontmatter gives what it gives today. The test fails on today's code for the frontmatter cases.
 - A test that `GET /api/board` on a prepared surface of two projects gives the surface's root and,
-  for each project, its path; and on a single in-project folder gives what it gives today. Kept
-  within `just test`'s time budget (`AGENTS.md`).
+  for each project, its folder (`projects/<name>/`) and its `repo:` value as written, one project
+  with a `repo:` line and one without (which gives `.repo`); and on a single in-project folder gives
+  what it gives today. Kept within `just test`'s time budget (`AGENTS.md`).
 - `just scenario` passes, and the pipeline's `just scenario (ubuntu-latest)` job is green at the
   PR's head (the board is part of the CLI package).
 - `just docs-screenshots` run, its pictures committed, and run a second time with no change in the
-  surface name or path they show.
+  surface name or path, or the projects' paths, they show.
 
 Browser checks, by the Driver or the QA, on the live board (`uv run --no-sync --project <checkout>
 chantier board` over a surface of several projects, such as a copy of `docs/demo/`, with one item
@@ -219,18 +237,13 @@ PR's evidence:
 5. The wide table's round file in the panel at 2560 and 2940 pixels: the table is readable, its
    cells are not one word per line, and nothing runs past the panel's edge; at 1400 pixels the panel
    is not narrower than on `main`; on a phone it is full screen.
-6. The picker shows the surface's name and path, never "All projects", in English and in French;
-   the overview's title is the surface's name; each project's line, in the menu, in the table and
-   on the phone's cards, shows its path; a long path is cut and shown whole on hover.
+6. The picker's button, menu closed, shows the surface's name, its path and "Planning surface · N
+   projects", never "All projects", in English and in French; the menu's first line shows the
+   surface's name and path; the overview's title is the surface's name; each project's line, in the
+   menu, in the table and on the phone's cards, shows its folder in the surface and its repository
+   as `checkout.yml` names it; a long path is cut and shown whole on hover.
 7. A board on a single project (in-project) shows no picker change and no path.
 
 ## Open questions
 
-1. Which path is "where the project is declared"? Two readings of the user's note: (a) the
-   project's folder in the planning surface (`projects/<name>/`, where its `checkout.yml` and
-   `changes/` declare it), or (b) the project's code repository, as its `checkout.yml` names it
-   (`repo: ../../../chantier/`, resolved). This specification draws the project's path as the
-   answer picks: (a), (b), or both (b under a). Absolute or relative to the surface shown in the
-   selector is the second half of the same question.
-2. Should the surface's line say, besides its name and path, that it is a multi-project surface
-   (e.g. "planning surface · 4 projects"), or is the menu's caption, which already says it, enough?
+None: the first run's two questions are answered in `02-answers.md` (Q4, Q5) and carried above.

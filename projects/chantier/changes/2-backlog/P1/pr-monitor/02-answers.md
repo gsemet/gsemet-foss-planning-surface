@@ -66,6 +66,10 @@ asking).
   Q10) is its own CR, `pr-merge-signal`, after this one.
 - Q12, the user chose the recommended answer: the page shows the batch the Batch view shows,
   running or paused; after the close it says "no batch running" and names the last batch.
+- Q13 (pr-merge-signal's open question), the user chose the recommended answer: in a stacked
+  batch, a PR merged into the PR under it (another CR's branch) is signalled, with its branch in
+  the line; the Chief of Staff does not record it as merged, tells the user where it went, and
+  waits until the PR under it lands.
 - The critic's text fixes (the sidebar count from the record, the merged-into branch and the
   unproved native-stack and GitLab reads, the AGENTS.md wording matching the read rule) are the
   spec-writer's.

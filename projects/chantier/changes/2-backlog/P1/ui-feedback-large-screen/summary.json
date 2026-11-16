@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Web board: fixes for a large screen",
-  "summary": "Specified: on a large screen the side panel closes on a view change and grows wider, Triage cards keep a card's width with no hover scroll bar and no raw frontmatter, and a multi-project surface shows its name, path and each project's path.",
+  "summary": "Specified: on a large screen the side panel closes on a view change and grows wider, Triage cards keep a card's width with no hover scroll bar or raw frontmatter, and a multi-project surface shows its name, path and project count, and each project its folder and repo.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "622b431095774b04e0c7a74fb53c64d43e0a7bfe2943eac8ddff83df079b1f5d",
-    "03-change-spec.md": "cd5d53459dd0df45b17aa87832208c2eaecb8bcc6d6c1983cb5bc6ff58af4ad6",
+    "02-answers.md": "0e358a07ede198cf238f7ee30c7e1dfa6c5b6c959ac39ddb6fe43a976f8d2e99",
+    "03-change-spec.md": "8e7a8343b46e20a878fa54753a2a3415bc7c3f39d1677e3846bc72fc89994412",
     "intake/request.md": "c4d8be9b43c0dc2e6e269de7217d9bd8da6307380d374bfba795c898f72635a4"
   },
-  "summarized": "2026-11-16T19:09:39Z"
+  "summarized": "2026-11-16T19:16:53Z"
 }

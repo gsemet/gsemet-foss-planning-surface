@@ -31,6 +31,18 @@ The request is written in intake/request.md.
 - Q5, the user chose the recommended answer: the selector shows, under the surface's name and
   path, "Planning surface · N projects", without opening the menu.
 
+## The spec critic's questions, 2026-11-16
+
+- Q6: the inbox item board-triage-polish asks for the same fix differently ("the items in the
+  middle column are too wide: give them the same width as in the Inbox column, several per row
+  (a grid)"). The user chose: the grid here. This CR caps the Triage cards and lays the backlog
+  out as a grid of several capped cards per row; board-triage-polish no longer owns the width.
+- Q7, the user chose the recommended answer: two CRs. This CR (ui-feedback-large-screen): the
+  large-screen fixes (the panel closes on a view change, no hover scroll bar, the Triage card
+  width and grid, the wider panel) and the raw frontmatter in a card's preview. The surface in
+  the selector and each project's two paths (point 5, its docs and pictures, Q1, Q4, Q5) are
+  their own CR, `board-surface-selector`.
+
 ## Grilled enough
 
 2026-11-16, the user: grilled enough; the spec-writer writes the specification.
