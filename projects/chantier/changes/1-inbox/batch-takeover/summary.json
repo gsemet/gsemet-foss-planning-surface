@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Take over a batch opened on another machine",
-  "summary": "Specified: a record published at start, restart and pause (brief, notes, events), pause --hold, a takeover command keeping each CR's PR branch, a stale copy replaced by takeover or open, carried and lost costs, batch-20 closed as superseded.",
+  "summary": "Specified: a record published at start, restart and pause (brief, notes, events, a publish counter), pause --hold, a takeover command keeping each CR's PR branch, a stale copy replaced, each publisher's own carried cost, batch-20 closed as superseded; three open questions.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "02-answers.md": "255a73ed04711d9e2401380fa2b4ae8dd96059bb98391bd79711fe6d099a29a0",
-    "03-change-spec.md": "a0b7d831ee20d6c954f4902cc17085257dd5d19a9471ab177c1aab3b48711cb4",
+    "03-change-spec.md": "7600c72f8ffb970d3a477e8a0ef14592d1b778c48e07f004ae132bb856b39593",
     "intake/request.md": "0bd630765f7dd1e2031344f83378f13207bdf680e84038b5190646825842789e"
   },
-  "summarized": "2026-11-16T19:45:41Z"
+  "summarized": "2026-11-16T19:54:23Z"
 }
