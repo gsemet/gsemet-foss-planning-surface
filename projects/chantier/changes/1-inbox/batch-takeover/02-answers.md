@@ -40,6 +40,14 @@ at the open, plus what the forge and the surface show (the PRs, the branches, th
 documents); the rounds, notes and costs never published are named "lost on <machine>", never
 estimated.
 
+## The specification's open questions (first run), 2026-11-16
+
+- Q7, the user chose the recommended answer: a paused batch that starts again (its first `take`
+  or `order qa`) counts as a start: the published record is written again as running, so another
+  machine cannot take it over without the user's confirmation.
+- Q9, the user chose the recommended answer: the published record holds the brief, the CRs' notes
+  and the events (no worktree paths, no session ids), so a takeover finds everything.
+
 ## Grilled enough
 
 2026-11-16, after the Chief of Staff's restatement, the user: grilled enough; the spec-writer

@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Copilot model catalog from GitHub's tables",
-  "summary": "Specified, no open question: MODELS copilot built from a repo copy of github/docs tables and the CLI reference, refreshed by just copilot-models; name-to-id rule; ambiguous short names refused with the matching ids; a model GitHub drops is reported and fails just check; no prices.",
+  "summary": "Specified, no open question: MODELS copilot built from a repo copy of github/docs tables and the CLI reference, refreshed by just copilot-models; name-to-id rule, ids the reference lacks marked unproved; ambiguous short names refused; a model GitHub drops fails just check; no prices.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "02-answers.md": "9ab619d37bbc5a770d8f18dfd0235a539ee2496cd1a5670129010fd2fa6c6483",
-    "03-change-spec.md": "287241481763762bf6088c68f49bf978deeeb05ac590378d4b00f76359816097",
+    "03-change-spec.md": "32bf0acf6dbc4c6f1694cefd171bc5c6de42a8f8ba4f8aca6c911ecabec740aa",
     "intake/request.md": "8e647c4ffea50d6f3b89142958b256880c59dff27db5c8148fa21ebe6d6be803"
   },
-  "summarized": "2026-11-16T19:35:09Z"
+  "summarized": "2026-11-16T19:41:50Z"
 }

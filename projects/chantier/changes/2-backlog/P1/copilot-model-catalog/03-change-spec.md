@@ -1,6 +1,7 @@
 # Change Specification: Copilot model catalog from GitHub's own tables
 
-Date: 2026-11-16 (second run: the open questions closed by [answers](02-answers.md)). Sources:
+Date: 2026-11-16 (third run: the spec critic's text fixes; second run: the open questions closed
+by [answers](02-answers.md)). Sources:
 [original request](intake/request.md); the grill is copilot-role-models'
 [answers](../copilot-role-models/02-answers.md), Q3 to Q9 and Q10 (this split), and its
 [specification](../copilot-role-models/03-change-spec.md), "Out of scope"; this CR's
@@ -67,9 +68,10 @@ included.
   the user writes the full identifier. No short name is kept resolving to the model chantier's
   agent files use (point 4).
 - A model GitHub stops listing while a Copilot agent file names it: the refresh drops it from the
-  catalog and reports it among the differences, and `just check` fails
+  catalog and reports it, and `just check` fails
   (`test_the_model_table_names_every_model_the_agent_files_name`) until the agent file changes.
-  The catalog never keeps such a model, marked or not: nothing hidden (points 2, 3, 6).
+  The catalog never keeps such a model, marked or not: nothing hidden (points 2, 3, 6). The
+  Driver of this CR changes no agent file for it: it stops and reports it (point 3).
 - Where a model's plans show: in `just copilot-models`' output and in `copilot-models.json`, as
   point 3 and point 2 say; no user command prints them in this CR. The board's Configuration page
   (board-config-page) shows them later (point 4).
@@ -92,7 +94,9 @@ CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
   date of the refresh, and each file's path in `github/docs`.
 - The folder is inside the package, so it ships with the CLI (hatchling takes every file under
   `packages`); `.gitattributes` gains `skills/chantier/scripts/cli/src/chantier/playbook/copilot_tables/** text eol=lf`
-  so a Windows checkout keeps the bytes.
+  and `skills/chantier/scripts/cli/src/chantier/playbook/copilot-models.json text eol=lf`, so a
+  Windows checkout with `core.autocrlf=true` keeps the bytes and the drift test (point 6) compares
+  like for like (the trap commit 82d8863 fixed for the startup budget).
 
 ### 2. The catalog (`playbook/copilot_catalog.py`, new; `playbook/copilot-models.json`, new)
 
@@ -102,15 +106,21 @@ CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
   - `identifier(name)` and `display_name(name)`: the Q5 rule above.
   - The catalog: every model the Q7 rule admits, keyed by identifier; a name two tables write
     differently but that gives one identifier is one model. For each model: `id`, `name` (the
-    cleaned display name; for a model only the CLI reference names, its identifier, see
-    differences), `release_status` (from `model-release-status.yml`, else `null`), `cli` and
+    cleaned display name: `model-release-status.yml`'s when it names the model, else that of the
+    first table naming it, in the order of point 1's list; for a model only the CLI reference
+    names, its identifier, see differences), `release_status` (from `model-release-status.yml`,
+    else `null`), `cli` and
     `app` (from the client tables: `true`, `false`, or `null` when no table names the model),
     `plans` (`pro`, `pro_plus`, `max`, `business`, `enterprise` as the plans table gives them,
-    `null` when the table does not name it), `in_cli_reference` (`true`/`false`), and `sources`
-    (the files that name it). Sorted by identifier, for stable diffs.
+    `null` when the table does not name it), `in_cli_reference` (`true`/`false`: `false` marks an
+    identifier derived by the Q5 rule that the CLI reference does not list, so unproved until the
+    runtime's `listModels()` shows it; `claude-opus-4.8-(fast-mode)` is likely not what Copilot
+    takes, copilot-session-usage#67), and `sources` (the files that name it). Sorted by
+    identifier, for stable diffs.
   - Only what GitHub's sources admit is in the catalog: a model an agent file names but no source
     lists any more is not kept (this CR's answers).
-  - The differences, one plain line each, refusing nothing:
+  - The differences, one plain line each, refusing nothing, built from the copied tables alone
+    (so the JSON and its drift test depend only on `copilot_tables/`):
     - a catalog model the CLI reference does not list (`gpt-5.6-luna: in the tables, not in the
       CLI reference's Supported models`, Q8);
     - a CLI reference identifier that no table's name gives (its display name is then its
@@ -118,10 +128,16 @@ CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
     - a model the client tables disagree on (`gpt-6.1-sol: absent from
       model-supported-clients.yml, cli and app in auto-model-selection.yml`, Q7);
     - a catalog model with no release status or no plans row;
-    - an identifier a Copilot agent file names (`com.github.copilot/agents/*.agent.md`, the
-      identifier of `model: [name, id]`) that the catalog does not hold, naming the agent file
-      (`gpt-5.6-luna: named by com.github.copilot/agents/investigator.agent.md, not listed by
-      GitHub; the agent file must change`).
+    - two catalog identifiers that share one `models.normalise` key (e.g.
+      `claude-opus-4.8-(fast-mode)` and `claude-opus-4.8-fast-mode`), named as a pair; nothing is
+      merged (point 3 says what the Driver does).
+  - `agent_file_differences(catalog, agents_folder)`, a separate function, compares the catalog
+    with the Copilot agent files (`com.github.copilot/agents/*.agent.md`, `model: [name, id]`),
+    one plain line each: an identifier an agent file names that the catalog does not hold
+    (`gpt-5.6-luna: named by com.github.copilot/agents/chantier-investigator.agent.md, not listed
+    by GitHub; the agent file must change`), and an agent file's display name that differs from
+    the catalog's `name` for its identifier. These lines are printed by the refresh (point 3) and
+    never written to `copilot-models.json`.
 - `copilot-models.json`: `{"schema": 1, "source": <SOURCE.json's content>, "models": [...],
   "differences": [...]}`, UTF-8, two-space indent, LF, written only by the refresh (point 3).
 - `playbook/models.py`:
@@ -134,6 +150,8 @@ CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
     agent files, by hand; Copilot's, from `copilot-models.json`, built by `just copilot-models`
     from GitHub's tables (`github/docs`, `data/tables/copilot/`) and the Copilot CLI reference's
     "Supported models", never edited by hand. model-defaults-board-config keeps this sentence.
+    It also says that an identifier with `in_cli_reference: false` is derived by the rule,
+    unproved until `listModels()`.
   - One function, `copilot_catalog()`, returns the file's models with their status, clients and
     plans, for later readers (model-defaults-board-config's board list, board-config-page);
     nothing in the CLI prints it in this CR beyond what point 4 says.
@@ -157,10 +175,17 @@ CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
     `copilot_catalog.py` from the files it just wrote;
   - prints the commit, one row per model (identifier, display name, release status, CLI, App,
     plans, in the CLI reference), then the differences under `differences:` (or
-    `differences: none`), and exits 0 whatever the differences, a dropped model an agent file
+    `differences: none`), then `agent_file_differences`' lines under `agent files:` (or
+    `agent files: none`), and exits 0 whatever the differences, a dropped model an agent file
     names included (`just check` is what stops it, point 6).
 - The commit that follows a refresh is the maintainer's (the CLI keeps no git write); the PR shows
   the diff of the copy and of the JSON.
+- What the Driver of this CR does with the refresh's lines (behaviour, never a workaround):
+  - a model a current agent file names that the refresh drops (e.g. Luna, should it fail Q7's
+    rule): it stops and reports it to the user, and changes no agent file;
+  - a pair of identifiers sharing one `normalise` key: it reports the pair to the user and never
+    merges or edits the catalog by hand; `test_the_model_table_names_no_model_twice_per_host` is
+    the stop.
 - `CONTRIBUTING.md`, in the commands list: `just copilot-models  # refresh the Copilot model
   catalog from GitHub's tables (network), then review the diff and its differences`, and one
   sentence where the release steps list what to check before a release: run it, and carry the
@@ -188,13 +213,17 @@ CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
 - `skills/chantier/references/hosts/copilot.md`, row "Models": after the agent files' sentence,
   "chantier's list of Copilot models is a copy of GitHub's tables (`github/docs`,
   `data/tables/copilot/`) and of the CLI reference's "Supported models", refreshed by
-  `just copilot-models`; a model's plans are shown, none refused." The "Startup core" section does
-  not change (`test_startup_manifest.py` holds).
+  `just copilot-models`; a model's plans are shown, none refused. An identifier the CLI reference
+  does not list is derived by the rule, unproved until `listModels()`." The "Startup core" section
+  does not change (`test_startup_manifest.py` holds).
 - `docs/agents-and-models.md`, after "the CLI ... turns a model name into an exact identifier":
   on Copilot, the names it knows are GitHub's (the tables above), the identifier being the display
-  name in lower case, spaces as `-`, dots kept; a short name such as `opus` can match several
-  Copilot models and is then refused as ambiguous, with the matching identifiers: write the
-  identifier.
+  name with each footnote marker (`[^...]`) and `(preview)` dropped, every other parenthetical
+  kept, in lower case, each run of spaces made one `-`, dots kept, ends trimmed (Q5, point 2); an
+  identifier the CLI reference does not list is derived by that rule, unproved until
+  `listModels()` (for example `claude-opus-4.8-(fast-mode)`, likely not what Copilot takes,
+  copilot-session-usage#67); a short name such as `opus` can match several Copilot models and is
+  then refused as ambiguous, with the matching identifiers: write the identifier.
 
 ### 6. Tests (`skills/chantier/scripts/cli/tests/`)
 
@@ -211,13 +240,21 @@ Few, parametrized, fast; no network:
     absent from the CLI reference is out; a model in the tables but not the CLI reference is in,
     with its difference line (the Luna case); a CLI reference identifier no table names is in,
     named by its identifier, with its difference line; a model with `pro: false` keeps it in
-    `plans` and is in; an identifier an agent file names that no table lists is out of the
-    catalog, with its difference line naming the agent file.
+    `plans` and is in; two names giving identifiers that share one `normalise` key give a
+    difference line naming the pair; a model named differently by two tables takes
+    `model-release-status.yml`'s cleaned name, else the first table's;
+  - `agent_file_differences` on a temporary agents folder: an identifier no table lists is out of
+    the catalog, with its line naming the agent file; a display name differing from the catalog's
+    gives its line; neither line is in the built JSON.
 - `test_plugin_files.py`:
-  - `test_the_model_table_names_every_model_the_agent_files_name` holds unchanged, now against the
-    built catalog (every Copilot agent file's identifier, `gpt-5.6-luna` and `gpt-6.1-terra`
-    among them, resolves to itself); it is the stop when GitHub drops a model an agent file names;
-  - `test_the_model_table_names_no_model_twice_per_host` holds unchanged.
+  - `test_the_model_table_names_every_model_the_agent_files_name`, as copilot-role-models' point 5
+    extends it (on Copilot, the agent file's display name equals `MODELS`' name for that
+    identifier), holds unchanged, now against the built catalog: every Copilot agent file's
+    identifier, `gpt-5.6-luna` and `gpt-6.1-terra` among them, resolves to itself, and its display
+    name equals the catalog's `name` (the source rule of point 2). It is the stop when GitHub
+    drops a model an agent file names or names it differently;
+  - `test_the_model_table_names_no_model_twice_per_host` holds unchanged; it is the stop when two
+    catalog identifiers share one `normalise` key.
 - `test_playbook_config.py`, `test_playbook_and_preflight_name_the_problem_and_its_line`: the
   Copilot `model: gpt` case still finds "ambiguous" with Luna and Sol; the `model: opus` case on
   Copilot becomes `model: claude-opus-5.5` for the "cannot set a model when it starts an agent"
@@ -252,8 +289,9 @@ Few, parametrized, fast; no network:
   is not needed (`hooks/`, `types/` untouched).
 - `just copilot-models` run once by the Driver, its output pasted in the PR (the commit of
   `github/docs`, the model rows, the differences, among them `gpt-5.6-luna` not in the CLI
-  reference and GPT-6.1 Sol absent from `model-supported-clients.yml`); the committed copy and
-  JSON are that run's.
+  reference and GPT-6.1 Sol absent from `model-supported-clients.yml`, and its `agent files:`
+  lines); the committed copy and JSON are that run's. A dropped agent-file model or a `normalise`
+  pair in that output stops the Driver, who reports it to the user (point 3).
 - `git diff`: `costs/`, `session_usage.py`, `agents/`, `com.github.copilot/agents/` untouched;
   `models.py` loses its hand-written Copilot rows.
 - `chantier playbook --host copilot` with no `chantier.yaml` prints the plugin's agents as before;

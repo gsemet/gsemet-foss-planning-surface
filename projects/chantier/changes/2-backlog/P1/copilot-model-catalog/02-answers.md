@@ -18,3 +18,9 @@ The grill is copilot-role-models' 02-answers.md, Q3 to Q10.
 - Where a model's plans show: the user chose the recommended answer: in `just copilot-models`'
   output and in the JSON, as specified; the board's Configuration page (board-config-page) shows
   them later.
+
+## The spec critic's question, 2026-11-16
+
+- board-config-page's specification did not show plans: the user chose the recommended answer:
+  add it there; the Configuration page shows each Copilot model's plans, read from
+  `copilot_catalog()`.
