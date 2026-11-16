@@ -440,3 +440,14 @@ is unknown (one-level critical path; no measured long-gate duration).
 Do not regenerate the specification, migrate the planning surface to OKF,
 restart autosync, add another CR or merge the PR. Directly necessary updates to
 existing project rules that contradict the accepted startup contract are in scope.
+
+## Additional round
+
+2026-11-16: after the third Inspector returned FIX-REQUIRED, the Chief of Staff
+reported the remaining reload/deferred-reading gaps, delayed autosync join-failure
+monitoring and missing failure-path test, unproved PR evidence claim, incomplete
+Foreman reading measurement, and two scenario assertions not proved pre-existing.
+The user answered: "Autoriser un quatrième round ciblé".
+
+The maximum is now four rounds, not an open-ended grant. Scope and validation
+criteria remain unchanged; no merge permission or validation waiver is granted.
