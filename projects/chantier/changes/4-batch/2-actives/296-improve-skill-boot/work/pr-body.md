@@ -1,11 +1,3 @@
-> **WORK IN PROGRESS, DRAFT, NOT READY TO MERGE.** Snapshot pushed on the user's request to pause and hand over. No review passed and no gate is complete at this head: round-5 and round-6 changes were **never reviewed by an Inspector** (last verdict, round 4: FIX-REQUIRED), no Verifier ran, no long gate or CI ran on this head. Nothing here waives a gate or claims completion.
->
-> - Rounds used: 6 of 6; no seventh authorised.
-> - Round 5 Coder: requested `gpt-6.1-sol`; host reported "Required model enforcement replaced requested model `gpt-6.1-sol` with `gpt-5.6-luna`", so it ran on Luna (edits preserved, unreviewed).
-> - Round 6 Coder: generic agent with explicit `model: gpt-6.1-sol` (user-authorised one-off, tools unrestricted). Host telemetry events (`subagent.started`/`completed`, read after the run, not a pre-execution validation) record `gpt-6.1-sol`, `firstDispatchedModel gpt-6.1-sol`, `explicit_override`.
-> - Reported by the Coder, not re-run by the Driver: `just check` 258 passed; startup/board tests 30 passed; watcher pair 100/100.
-> - Restart: `work/handoff.md` in the CR folder (next: fresh Inspector, then long gate, CI, Verifier).
-
 ## Summary
 
 Starting a chantier role used to make it read very large reference cards in full (about 213 KB for the Chief of Staff on Copilot, about 273 KB on Claude Code), long before any action needed them. This change gives every role and host a short mandatory startup core of at most 12,288 bytes, and turns the large cards into references that are read before the action that needs them. The startup behaviour is also made effect-specific: official CLI preparation is automatic, a free seat is taken without a redundant question, and the board and persistent autosync are each started only on their own explicit permission.
@@ -30,7 +22,7 @@ flowchart LR
 | verifier | 10,333+ | 9,951 / 10,014 | 10,535 / 10,598 |
 | foreman (own session, no wrapper) | 178,819 / 119,049 | 9,784 / 9,930 | 10,368 / 10,514 |
 
-A structure test derives every role and host from the installed wrappers and skills and enforces a hard 12,288-byte limit on both startup and reload. It counts unique raw bytes of actual files and sections: the loaded skill or wrapper, common/host/role cores, the entire manifest, mandatory card sections, and reload action readings including session-start's Reload section. Foreman also includes the selected full host reference's Startup core (751 / 891 bytes), not merely the short host-core file. There are no documentation exclusions; only project rules and command output are outside the contract's limit. `env UV_NO_CONFIG=1 uv run --locked --project skills/chantier/scripts/cli pytest -q skills/chantier/scripts/cli/tests/test_startup_manifest.py -s` prints the full 19-role by 2-host table. An independent raw-byte union measurement agreed for all 38 startup and 38 reload paths. The largest reload is 12,258 bytes (Chief of Staff / Copilot), 30 bytes below the limit.
+A structure test derives every role and host from the installed wrappers and skills and enforces a hard 12,288-byte limit on both startup and reload. It counts unique bytes (line endings normalised to LF, so a CRLF checkout measures the same) of actual files and sections: the loaded skill or wrapper, common/host/role cores, the entire manifest, mandatory card sections, and reload action readings including session-start's Reload section. Foreman also includes the selected full host reference's Startup core (751 / 891 bytes), not merely the short host-core file. There are no documentation exclusions; only project rules and command output are outside the contract's limit. `env UV_NO_CONFIG=1 uv run --locked --project skills/chantier/scripts/cli pytest -q skills/chantier/scripts/cli/tests/test_startup_manifest.py -s` prints the full 19-role by 2-host table. An independent raw-byte union measurement agreed for all 38 startup and 38 reload paths. The largest reload is 12,258 bytes (Chief of Staff / Copilot), 30 bytes below the limit.
 
 Large cards are deferred: read by named section or file before the action that needs them, and an unavailable indispensable reference blocks only that action.
 
@@ -53,10 +45,10 @@ Grade: **2**. Card text, the four skill entry points, both host wrapper sets (id
 
 ## Known gaps
 
-- **UNVERIFIED:** behaviour on a real Claude Code and a real Copilot session; the byte limit and the card text are measured, host-session behaviour is not.
-- The round-4 macOS scenario run failed `parallel` (211/212: rules output) and `surface-board` (153/154: the `cli:` fact). Round 4 reproduced the identical two failures and counts on `origin/main` at `5eb0c1e`. Those scenario units **are changed** by this CR; baseline comparison, not an untouched-unit claim, establishes these failures as pre-existing. Round 6 did not rerun the long scenario. The pipeline job `just scenario (ubuntu-latest)` remains the long gate at the pushed head.
-- There is no `just validate` recipe in the chantier repository. The planning surface's `env UV_NO_CONFIG=1 just validate chantier` skips Chantier because `projects/chantier/index.md` does not exist. Its successful exit is **not content validation**; none is claimed.
-
+- **UNVERIFIED:** behaviour in a real Claude Code and a real Copilot session; the byte limit and the card text are measured, host-session behaviour is not.
+- The reload margin is 30 bytes (12,258 of 12,288, Chief of Staff on Copilot, measured on LF bytes): any mandatory prose change must rerun `test_startup_manifest.py`.
+- The local long gate ran on Windows only; Linux and macOS are covered by CI alone (`just check` on the three systems, `just scenario` on Ubuntu).
+- There is no `just validate` recipe in the chantier repository; the planning surface's `just validate chantier` skips Chantier (no `index.md`) and is not content validation.
 <details>
 <summary>Details</summary>
 
@@ -84,17 +76,16 @@ Smaller boot reading for every role; no visual change.
 
 ## Test plan
 
-- [x] New or changed tests: all roles x both hosts startup and reload, hard 12,288-byte limit, raw-byte/nested-section deduplication and an oversized real-file reload mutation that must fail; board-without-autosync and safe process-identity checks.
-- [x] Working-tree fast gate: `env UV_NO_CONFIG=1 just check` passed (258 tests; ruff, mypy, lock, Biome and release-notes checks). Earlier round-6 formatting, lint, type and function-size failures were fixed before this pass.
-- [x] Targeted startup/board tests: 30 passed; the delayed-failure and live-success watcher pair also passed 100 consecutive runs (200 tests).
-- [ ] Local gates at `<sha7>`: working-tree results must be restated with the committed SHA.
+- [x] New or changed tests: all roles x both hosts startup and reload, hard 12,288-byte limit, LF-byte/nested-section deduplication and an oversized real-file reload mutation that must fail; board-without-autosync and safe process-identity checks.
+- [x] Fast gate: `env UV_NO_CONFIG=1 just check` passed on Windows (258 tests; ruff, mypy, lock, Biome, release-notes); CI `just check` passed on macos, ubuntu and windows at `12213eb`.
+- [x] Targeted startup/board tests passed; the delayed-failure and live-success watcher pair passed 100 consecutive runs (200 tests).
+- [x] Long gate at `12213eb`: local `just scenario` (Windows) passed; CI `just scenario (ubuntu-latest)` green. A first local run at `e6ff8a6` failed `surface-board` on a timing race in the scenario's join check, fixed in `12213eb` (bounded poll).
 - [ ] Evidence: none beyond the measured table above
-- [ ] Review: pending
-- [ ] Verified at `<sha7>`: pending
-- [ ] CI green at `<sha7>`: pending
-
+- [x] Review: Inspector approved at `12213eb`
+- [x] Verified at `12213eb`: VERIFIED (work/verify.md)
+- [x] CI green at `12213eb`
 ## Internal references
 
-- CR-296 improve-skill-boot, batch-20.
+- CR-296 improve-skill-boot (taken over in batch-21 from batch-20; draft PR 247 kept).
 
 </details>

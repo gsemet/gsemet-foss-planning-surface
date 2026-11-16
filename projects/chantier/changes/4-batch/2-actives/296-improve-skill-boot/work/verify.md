@@ -1,0 +1,19 @@
+# Verify CR-296
+
+Head: 12213ebac10bea22826739a951a1765601aa3c7d
+
+Verdict: VERIFIED
+
+All claims judged at 12213eb (`git rev-parse HEAD` in the worktree; `git status --short` clean).
+
+1. Startup manifest test (criteria 1, 2). Command, from the worktree: `UV_NO_CONFIG=1 uv run --locked --project skills/chantier/scripts/cli pytest -q skills/chantier/scripts/cli/tests/test_startup_manifest.py -s`. Output: 38 `startup-bytes` lines (19 roles x 2 hosts) and `5 passed`. Examples: chief-of-staff claude 11668/12252, copilot 11674/12258; router 11446/12030 and 11452/12036; cr-driver 9763/10347 and 9839/10423; verifier 9951/10535 and 10014/10598; foreman 9784/10368 and 9930/10514. All equal the body's table; the maximum reload is 12258 = 30 bytes under 12288.
+2. Independent recount (own Python script, LF-normalised bytes, unique pieces): chief-of-staff copilot startup 11674 = the five whole files (skill, startup-core, host-core, role-core, manifest; sizes on disk are CRLF, my script normalises to LF), reload 12258 (adds the `## 5. Reload` section, 584 bytes); claude 11668 / 12252. cr-driver: wrapper + startup-core + role-core + manifest + host core + driver.md `## Startup core` = 9839 (copilot), 9763 (claude); reload = +584 = 10423 / 10347. All four agree with the test and the body.
+3. Board start joins no autosync (criteria 5-7 side). `git diff 5eb0c1e HEAD -- .../board/command.py` removes `_join_autosync` and its call, and the `spawn_join`/`watch_join`/`find_site` imports. `UV_NO_CONFIG=1 uv run --locked --project skills/chantier/scripts/cli pytest -q .../tests/test_board.py` (the project's `chantier.__file__` resolves to the worktree source): `25 passed`. Join-failure and identity tests are in that file.
+4. Watcher stress claim (100/100). Re-ran the body's loop (100 subprocess runs of the two watcher tests, from a script file): `PASS: 100/100 runs; zero failures`.
+5. Scenario unit: `UV_NO_CONFIG=1 uv run --locked python scenario/run_scenario.py --unit surface-board`: `ok surface-board (github): 154/154 checks, 142.0 s`.
+6. Gates and CI. Gate log `work/gates/20261116-175655.log`, first line `gate CR-296 branch chantier/batch-21/cr-296-proposal-improve-skill-boot head 12213ebac10bea22826739a951a1765601aa3c7d`; `chantier log` shows `gate result=pass head=12213eb... command=just scenario`. `gh pr checks 247`: just check macos/ubuntu/windows, eval-dry-run, just scenario (ubuntu-latest) all pass; PR head is 12213eb. `just check` with 258 tests is Coder/Driver-recorded (handoff.md, coder/r2.md) and CI `just check` passes on three systems; I did not rerun it.
+7. Review box. `chantier log`: `r2 inspector approved at e6ff8a6` and `r2 approved at e6ff8a6, committed as 12213eb`: matches `Inspector approved at 12213eb` (the round's committed SHA).
+8. Description. The posted PR body equals `work/pr-body.md` (`same=True`, 8727 chars). It renders (sections, mermaid block, `<details>` fold, no images). Summary, Deliverables and Changes match the diff stat (63 files: AGENTS.md, docs/use-cases.md, wrappers on both hosts, SKILL.md x4, cards, manifest, cores, board code, tests, scenario). Known gaps list the host-session UNVERIFIED claim, the 30-byte margin, Windows-only local gate and the missing `just validate`; "Verified at" is pending as instructed. Role names are product terms of a change to those roles.
+9. Acceptance criteria 3, 4, 8-11 are card/behaviour text of the startup cores, not code paths; their only proof is the text and the host-session behaviour, which the body marks UNVERIFIED. Not run in a real Claude Code or Copilot session. Criteria 5-7 are proven at CLI level by items 3 and 5 (board never joins autosync); the opt-in rule and seat rules are card text only.
+
+Evidence capture: none beyond the commands above (no UI); before-after not applicable.
