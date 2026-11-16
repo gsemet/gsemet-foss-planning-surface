@@ -186,6 +186,16 @@ copilot-model-catalog; this CR builds on that one.
   backward compatibility." A top-level `roles` is refused, as specified (the release notes name
   the breaking change); no reading of the old form, no warning-only path.
 
+- The split specification's open question on Q20's spelling, 2026-11-16: the user chose the
+  recommended answer: `~` and `null` unset a node; an empty value (`agent:` with nothing after
+  it) stays refused, so a forgotten value never unsets in silence.
+- Q23, 2026-11-16, the user's words (French, translated): "To unset the node in YAML, put the value
+  `default` (equivalent to `~`). It is simpler, and no model has that name." So `default` unsets
+  a node, as `~` and `null` do; it is the spelling the docs, the examples and the board show. A
+  model or an agent can never be named `default`.
+- C's reading of Q20 (the Chief of Staff's decision): the board's view shows a layer's `~` as
+  "reset"; the page's "inherited" choice removes the key, a `~` included, and never writes one.
+
 ## Grilled enough
 
 2026-11-16, the user: grilled enough; the spec-writer writes the specification.

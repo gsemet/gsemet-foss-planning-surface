@@ -1,13 +1,14 @@
 {
   "schema": 1,
   "title": "Copilot model catalog from GitHub's tables",
-  "summary": "Specified, 3 open questions (where plans are shown, short names now ambiguous, a dropped agent-file model): MODELS copilot built from a repo copy of github/docs tables and the CLI reference, refreshed by just copilot-models; name-to-id rule; differences reported; no prices.",
+  "summary": "Specified, no open question: MODELS copilot built from a repo copy of github/docs tables and the CLI reference, refreshed by just copilot-models; name-to-id rule; ambiguous short names refused with the matching ids; a model GitHub drops is reported and fails just check; no prices.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "03-change-spec.md": "4a934b8d7e805014fbac66f8f8c9a7c03f59c41d19406a6bcb8c1a0a253d1a09",
+    "02-answers.md": "9ab619d37bbc5a770d8f18dfd0235a539ee2496cd1a5670129010fd2fa6c6483",
+    "03-change-spec.md": "287241481763762bf6088c68f49bf978deeeb05ac590378d4b00f76359816097",
     "intake/request.md": "8e647c4ffea50d6f3b89142958b256880c59dff27db5c8148fa21ebe6d6be803"
   },
-  "summarized": "2026-11-16T19:29:57Z"
+  "summarized": "2026-11-16T19:35:09Z"
 }

@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Configuration in layers and the shipped defaults",
-  "summary": "Stack A of 3. Specified: defaults file, surface root, surface project, then repository chantier.yaml/.yml, merged node by node; ~ unsets a node (weaker value back); roles only under hosts.<host>.roles, top-level roles refused. Open: null and empty value as reset.",
+  "summary": "Stack A of 3. Specified, no open question: defaults file, surface root, surface project, then repository chantier.yaml/.yml, merged node by node; default (or ~, null) unsets a node, an empty value refused; roles only under hosts.<host>.roles, top-level roles refused.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "7902ab7a16bd39e1bd39332abd26bb3ec0a3ca2601357f7a6f8676955f18e068",
-    "02-answers.md": "61343ce40544e733066e89a3470d7c236bf5ade923680e835943d9c6650668ca",
-    "03-change-spec.md": "a5404ae1d6343f0bb9248a0db4613aa3412db934a37b2e97da0f11ab73c11c00",
+    "02-answers.md": "a5eb758c7f4bb415ccf0f9b09c9daaa159331397378dc2e13199d30f856561f4",
+    "03-change-spec.md": "bf153123de8b2c07422942b1565f1606eac2bc2a94cf2fa914db723e07ec70f2",
     "intake/request.md": "3998c64c2169bff257da850c0c2d2f97bdd89ffd63032f5963c49efe49844e36"
   },
-  "summarized": "2026-11-16T19:28:23Z"
+  "summarized": "2026-11-16T19:35:09Z"
 }

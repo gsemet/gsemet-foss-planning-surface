@@ -1,10 +1,11 @@
 # Change Specification: the web board's Configuration page
 
-Date: 2026-11-16 (second run: Q22 carried, and A's reset (Q20) shown). Split from
+Date: 2026-11-16 (third run: A's reset spelled `default` (Q23); second run: Q22 carried, and A's
+reset (Q20) shown). Split from
 model-defaults-board-config by its Q18 (the user's choice): (C), the third of a stack of three.
 Sources: [request](intake/request.md); the grill is model-defaults-board-config's
-[answers](../model-defaults-board-config/02-answers.md) (Q4, Q7, Q13, Q14, Q16, Q19, Q20, Q22, the
-critic's text fixes, the Chief of Staff's AGENTS.md decision) and its
+[answers](../model-defaults-board-config/02-answers.md) (Q4, Q7, Q13, Q14, Q16, Q19, Q20, Q22,
+Q23, the critic's text fixes, the Chief of Staff's AGENTS.md decision and reading of Q20) and its
 [intent](../model-defaults-board-config/01-intent.md). No tracker issue.
 
 ## Depends on, and the stack
@@ -17,7 +18,8 @@ The stack, bottom to top: [copilot-role-models](../copilot-role-models/03-change
 - copilot-model-catalog: `MODELS[host]`, the page's model choice.
 - A: the layers and their reading (`playbook/layers.py`: each layer's path, presence and
   problems, the merged tree with each leaf's layer and each reset's layer), the paths as printed,
-  Q1's refusal, every role setting under `hosts.<host>.roles`, the reset with `~` (Q20).
+  Q1's refusal, every role setting under `hosts.<host>.roles`, the reset with `default` (or `~`,
+  `null`) (Q20, Q23).
 - B: each role's start per host (`plugin`, `named`, `generic`, or Q13's refusal) and
   `NAMED_AGENT_MODEL_AT_START`.
 
@@ -43,9 +45,11 @@ the page says so and shows the value that applies: nothing hidden.
   still writes the surface project's file, and shows the row "overridden by <path>" with the
   effective value (the repository's); the edit is not refused, and takes effect if the
   repository's value goes.
-- Q20 (A's): a layer's `~` unsets a node and the weaker value comes back; the page shows a reset
-  where a layer holds one. The page's own "inherited" removes the key from the surface project's
-  file; it does not write a `~` (Q14 keeps the page to setting or removing `agent` and `model`).
+- Q20, Q23 (A's): a layer's `default` (or `~`, `null`) unsets a node and the weaker value comes
+  back; the page shows a reset where a layer holds one, spelled `default` (Q23). The Chief of
+  Staff's reading of Q20: the page's own "inherited" removes the key from the surface project's
+  file, a reset included, and never writes one (Q14 keeps the page to setting or removing `agent`
+  and `model`). The page offers no agent or model named `default` (Q23).
 - Q16: there is no role setting for all hosts: the page edits each host's roles only; it has no
   "all hosts" section.
 - Q14: the page edits only each role's `agent` and `model`; the rest of the configuration
@@ -75,7 +79,8 @@ The board knows no role and holds no configuration logic: it calls these two fun
 - `config_view(repo)`: for each host of `plugin_files.HOSTS` and each role of
   `plugin_roles(host)`: the value of `agent` and `model` in each layer (A's labels: `defaults`,
   `surface`, `surface project`, `repository`; `null` where unset, `"reset"` where the layer writes
-  `~`), the effective agent and model (identifier and name), the layer it comes from, and
+  `default`, `~` or `null`), the effective agent and model (identifier and name), the layer it
+  comes from, and
   `overridden_by`: when the `repository` layer sets (or resets) the key the page writes for that
   row and host, the repository file's path as A prints it, else `null` (Q22); the start from B (`plugin`, `named`, `generic`, or `refused` with the CLI's
   line); `tools`: `"the agent file's"` or `"the caller's, not restricted"`. Per host:
@@ -86,14 +91,17 @@ The board knows no role and holds no configuration logic: it calls these two fun
   `sha256` (`null` when absent); and, when a batch is open, its id.
 - `edit_surface_file(repo, changes, base_sha256, dry_run)`, `changes` a list of `{host, role, key,
   value}`, `host` one of `HOSTS` (Q16: no `null`), `key` `agent` or `model` (Q14), `value` a text
-  or `null` (remove the key, and any `roles`, host or `hosts` map left empty; a `~` the file held
-  for that key is removed the same way). It refuses, writing nothing, with a reason the board
+  or `null` (remove the key, and any `roles`, host or `hosts` map left empty; a reset the file
+  held for that key, `default`, `~` or `null`, is removed the same way). It refuses, writing
+  nothing, with a reason the board
   passes on:
   - no surface: `the configuration is read-only with no planning surface: edit chantier.yaml by
     hand` (Q7);
   - the file's `sha256` differs from `base_sha256`: the file changed since it was read;
   - both `chantier.yaml` and `chantier.yml` in the project's folder: Q1's line;
   - a key other than `agent` or `model`: the two keys named;
+  - a `value` of `default`: A's line (no agent or model is named `default`; "inherited" is
+    `null`);
   - the resulting text, read with A's checks and merged with the other layers, has a problem (a
     key, a value, a model the host's catalog does not resolve): the problem lines, the surface
     file named with the line numbers the new text would have.
@@ -132,7 +140,8 @@ The board knows no role and holds no configuration logic: it calls these two fun
   among the host's catalog, plus "inherited"); the effective agent and model with its layer; the
   start: "named agent", "named agent, model given at the start", "generic agent: the caller's
   tools, not restricted", or the refusal's text in the error style. A layer's reset is shown where
-  its value would be, as "reset (~) in <layer>".
+  its value would be, as "reset (default) in <layer>", whether the file writes `default`, `~` or
+  `null`.
 - Q22: when the row's `overridden_by` is set, the row keeps the `surface project` value as written
   (editable, saved like any other) and says next to it "overridden by <path>", with the effective
   value (the repository's) in the effective column; the edit is never disabled for it. A line
@@ -185,9 +194,11 @@ read and approve in the diff at the merge.
   read-only); both `.yaml` and `.yml` (409); a Copilot agent with a model (written, the Copilot
   row `refused` with the CLI's line); Q22: a repository file setting the same model (200, the
   surface file written, the row's `overridden_by` the repository file's path and the effective
-  model the repository's, the journal line naming it); a `~` in the repository shown `"reset"`.
+  model the repository's, the journal line naming it); a `default` and a `~` in the repository
+  shown `"reset"`; a `value` of `default` refused (409, nothing written).
 - `test_playbook_config.py`: `edit_surface_file` keeps a comment and an unrelated key, removes an
-  emptied map, and removes a `~` the file held when the key is set back to "inherited".
+  emptied map, and removes a `default` or `~` the file held when the key is set back to
+  "inherited".
 
 ### 6. Scenario (`scenario/run_scenario.py`)
 
@@ -199,7 +210,7 @@ read and approve in the diff at the merge.
 ## Out of scope
 
 - Editing any key other than each role's `agent` and `model` (Q14), the surface root's file, or
-  the code repository's file from the board (Q7); writing a `~` from the page.
+  the code repository's file from the board (Q7); writing a reset (`default`, `~`) from the page.
 - Refusing or disabling an edit the code repository's file overrides (Q22).
 - A setting for all hosts (Q16).
 - A new `chantier` command to write the configuration: the page and a hand edit are the writers.

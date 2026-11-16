@@ -1,9 +1,10 @@
 # Change Specification: Copilot model catalog from GitHub's own tables
 
-Date: 2026-11-16 (first run). Sources: [original request](intake/request.md); the grill is
-copilot-role-models' [answers](../copilot-role-models/02-answers.md), Q3 to Q9 and Q10 (this
-split), and its [specification](../copilot-role-models/03-change-spec.md), "Out of scope". No
-tracker issue.
+Date: 2026-11-16 (second run: the open questions closed by [answers](02-answers.md)). Sources:
+[original request](intake/request.md); the grill is copilot-role-models'
+[answers](../copilot-role-models/02-answers.md), Q3 to Q9 and Q10 (this split), and its
+[specification](../copilot-role-models/03-change-spec.md), "Out of scope"; this CR's
+[answers](02-answers.md) to the first run's open questions. No tracker issue.
 
 ## Goal
 
@@ -59,6 +60,20 @@ included.
   repository, refreshed by a command.
 - Spec critic: yes (copilot-role-models' grill; this CR touches the CLI).
 
+## Decisions carried from this CR's answers (2026-11-16)
+
+- Short names on Copilot: a short name (`opus`, `sonnet`, `luna`, `sol`, `terra`) that matches
+  several catalog models is refused as ambiguous, the message listing the matching identifiers;
+  the user writes the full identifier. No short name is kept resolving to the model chantier's
+  agent files use (point 4).
+- A model GitHub stops listing while a Copilot agent file names it: the refresh drops it from the
+  catalog and reports it among the differences, and `just check` fails
+  (`test_the_model_table_names_every_model_the_agent_files_name`) until the agent file changes.
+  The catalog never keeps such a model, marked or not: nothing hidden (points 2, 3, 6).
+- Where a model's plans show: in `just copilot-models`' output and in `copilot-models.json`, as
+  point 3 and point 2 say; no user command prints them in this CR. The board's Configuration page
+  (board-config-page) shows them later (point 4).
+
 ## What changes
 
 CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
@@ -93,6 +108,8 @@ CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
     `plans` (`pro`, `pro_plus`, `max`, `business`, `enterprise` as the plans table gives them,
     `null` when the table does not name it), `in_cli_reference` (`true`/`false`), and `sources`
     (the files that name it). Sorted by identifier, for stable diffs.
+  - Only what GitHub's sources admit is in the catalog: a model an agent file names but no source
+    lists any more is not kept (this CR's answers).
   - The differences, one plain line each, refusing nothing:
     - a catalog model the CLI reference does not list (`gpt-5.6-luna: in the tables, not in the
       CLI reference's Supported models`, Q8);
@@ -102,7 +119,9 @@ CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
       model-supported-clients.yml, cli and app in auto-model-selection.yml`, Q7);
     - a catalog model with no release status or no plans row;
     - an identifier a Copilot agent file names (`com.github.copilot/agents/*.agent.md`, the
-      identifier of `model: [name, id]`) that the catalog does not hold.
+      identifier of `model: [name, id]`) that the catalog does not hold, naming the agent file
+      (`gpt-5.6-luna: named by com.github.copilot/agents/investigator.agent.md, not listed by
+      GitHub; the agent file must change`).
 - `copilot-models.json`: `{"schema": 1, "source": <SOURCE.json's content>, "models": [...],
   "differences": [...]}`, UTF-8, two-space indent, LF, written only by the refresh (point 3).
 - `playbook/models.py`:
@@ -116,8 +135,8 @@ CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
     from GitHub's tables (`github/docs`, `data/tables/copilot/`) and the Copilot CLI reference's
     "Supported models", never edited by hand. model-defaults-board-config keeps this sentence.
   - One function, `copilot_catalog()`, returns the file's models with their status, clients and
-    plans, for later readers (model-defaults-board-config's board list); nothing in the CLI
-    prints it in this CR beyond what point 4 says.
+    plans, for later readers (model-defaults-board-config's board list, board-config-page);
+    nothing in the CLI prints it in this CR beyond what point 4 says.
 - A missing or unparsable `copilot-models.json` is a bug of the release, not a user's state: the
   import fails with the file's path; no fallback list.
 
@@ -138,26 +157,31 @@ CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
     `copilot_catalog.py` from the files it just wrote;
   - prints the commit, one row per model (identifier, display name, release status, CLI, App,
     plans, in the CLI reference), then the differences under `differences:` (or
-    `differences: none`), and exits 0 whatever the differences.
+    `differences: none`), and exits 0 whatever the differences, a dropped model an agent file
+    names included (`just check` is what stops it, point 6).
 - The commit that follows a refresh is the maintainer's (the CLI keeps no git write); the PR shows
   the diff of the copy and of the JSON.
 - `CONTRIBUTING.md`, in the commands list: `just copilot-models  # refresh the Copilot model
   catalog from GitHub's tables (network), then review the diff and its differences`, and one
   sentence where the release steps list what to check before a release: run it, and carry the
-  differences that touch an agent file's model into the PR.
+  differences that touch an agent file's model into the PR; a model GitHub no longer lists that an
+  agent file names makes `just check` fail until the agent file changes.
 
 ### 4. What the user sees
 
 - `chantier playbook --host copilot` and `chantier preflight` resolve a `chantier.yaml` `model:`
   against the larger catalog (about thirty models on 2026-11-16), then refuse any model on
-  Copilot with "cannot set a model when it starts an agent", as today. The unknown and ambiguous
-  messages list the catalog's `id (name)` pairs, as today, so they get longer.
+  Copilot with "cannot set a model when it starts an agent", as today. The unknown message lists
+  the catalog's `id (name)` pairs, as today, so it gets longer.
 - Short names that resolved alone on Copilot become ambiguous, since GitHub lists several models
   of a family: `opus` (Claude Opus 4.8, 4.8 (fast mode), 5, 5.5), `sonnet`, `luna` (GPT-5.6, GPT-6),
-  `sol`, `terra` (GPT-5.6, GPT-6.1). On Copilot the result is a refusal either way; the message
-  changes from "cannot set a model" to "ambiguous". Claude Code's resolution does not change.
-- Plans (Q7) are shown in the refresh's output and kept in `copilot-models.json`; see open
-  question 1.
+  `sol`, `terra` (GPT-5.6, GPT-6.1). Such a name is refused as ambiguous, the message listing the
+  matching identifiers; the user writes the full identifier (this CR's answers). On Copilot the
+  result is a refusal either way today; the message changes from "cannot set a model" to
+  "ambiguous". Claude Code's resolution does not change.
+- Plans (Q7) are shown in the refresh's output and kept in `copilot-models.json`; no user command
+  prints them in this CR, and the board's Configuration page (board-config-page) shows them later
+  (this CR's answers).
 
 ### 5. Documentation
 
@@ -169,7 +193,8 @@ CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
 - `docs/agents-and-models.md`, after "the CLI ... turns a model name into an exact identifier":
   on Copilot, the names it knows are GitHub's (the tables above), the identifier being the display
   name in lower case, spaces as `-`, dots kept; a short name such as `opus` can match several
-  Copilot models and is then refused as ambiguous: write the identifier.
+  Copilot models and is then refused as ambiguous, with the matching identifiers: write the
+  identifier.
 
 ### 6. Tests (`skills/chantier/scripts/cli/tests/`)
 
@@ -186,16 +211,18 @@ Few, parametrized, fast; no network:
     absent from the CLI reference is out; a model in the tables but not the CLI reference is in,
     with its difference line (the Luna case); a CLI reference identifier no table names is in,
     named by its identifier, with its difference line; a model with `pro: false` keeps it in
-    `plans` and is in.
+    `plans` and is in; an identifier an agent file names that no table lists is out of the
+    catalog, with its difference line naming the agent file.
 - `test_plugin_files.py`:
   - `test_the_model_table_names_every_model_the_agent_files_name` holds unchanged, now against the
     built catalog (every Copilot agent file's identifier, `gpt-5.6-luna` and `gpt-6.1-terra`
-    among them, resolves to itself);
+    among them, resolves to itself); it is the stop when GitHub drops a model an agent file names;
   - `test_the_model_table_names_no_model_twice_per_host` holds unchanged.
 - `test_playbook_config.py`, `test_playbook_and_preflight_name_the_problem_and_its_line`: the
   Copilot `model: gpt` case still finds "ambiguous" with Luna and Sol; the `model: opus` case on
   Copilot becomes `model: claude-opus-5.5` for the "cannot set a model when it starts an agent"
-  refusal, and `model: opus` on Copilot is checked "ambiguous".
+  refusal, and `model: opus` on Copilot is checked "ambiguous" with the matching Opus identifiers
+  in the message.
 - The `just test` budget is unchanged (the JSON is read once at import).
 
 ## Out of scope
@@ -207,6 +234,9 @@ Few, parametrized, fast; no network:
   models, `ESCALATION`, `SETS_MODEL_AT_START`.
 - Refusing or warning on a model for its plan, its release status, or its absence from the CLI
   reference (Q7, Q8): reported only.
+- A short name kept resolving on Copilot, and a model kept in the catalog because an agent file
+  names it (this CR's answers).
+- Showing plans in a user command or on the board (board-config-page).
 - Retired models (`model-deprecation-history.yml`) and the comparison table.
 - A scheduled or CI refresh; the refresh is by hand.
 - The configuration layers, the board's model list and any change to `resolve`
@@ -228,23 +258,5 @@ Few, parametrized, fast; no network:
   `models.py` loses its hand-written Copilot rows.
 - `chantier playbook --host copilot` with no `chantier.yaml` prints the plugin's agents as before;
   with `model: claude-opus-5.5` under a role it refuses with "cannot set a model when it starts an
-  agent"; with `model: opus` it refuses as ambiguous, listing the Opus models.
+  agent"; with `model: opus` it refuses as ambiguous, listing the matching Opus identifiers.
 - No CI job is added or changed.
-
-## Open questions
-
-1. Where the user sees a model's plans (Q7: "shown"). This specification shows them in
-   `just copilot-models`' output (a maintainer's view) and keeps them in `copilot-models.json` for
-   model-defaults-board-config's board list; no CLI command a user runs prints them, since Copilot
-   refuses every configured model today. Is that enough for this CR, or should a user command show
-   them now (for example the ambiguous and unknown messages on Copilot naming each model's plans)?
-2. Short names on Copilot (point 4): `opus`, `sonnet`, `luna`, `sol`, `terra` become ambiguous
-   once GitHub's full list is in. On Copilot every model is refused anyway, so only the message
-   changes; once model-defaults-board-config lets Copilot take a configured model, a user's
-   `model: opus` will need the identifier. Accept that, or keep a short name resolving to the
-   model chantier's agent files use?
-3. When a refresh shows that GitHub no longer lists a model a Copilot agent file names, the
-   refresh writes the catalog without it and reports it, and `just check` then fails
-   (`test_the_model_table_names_every_model_the_agent_files_name`) until the agent file changes.
-   Is that the wanted stop, or should the catalog keep a model an agent file names, marked as no
-   longer listed by GitHub?

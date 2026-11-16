@@ -25,6 +25,26 @@ allowed only on the user's explicit confirmation.
 priced to date on the machine that pauses is written in the published record at the pause; a
 takeover carries it over.
 
+## batch-takeover-Q5: a batch that is not paused
+
+2026-11-16, the user chose the recommended answer: since the published record changes only at the
+open and the pause (Q1), another machine cannot see the first one's silence, so Q2's "silent for
+a while" is dropped. A paused batch is taken over at once; a batch not paused is refused with its
+open time and machine named, and taken over only when the user confirms the other machine has
+stopped.
+
+## batch-takeover-Q6: a machine stopped without a pause
+
+2026-11-16, the user chose the recommended answer: the takeover starts from the record published
+at the open, plus what the forge and the surface show (the PRs, the branches, the CRs' pushed
+documents); the rounds, notes and costs never published are named "lost on <machine>", never
+estimated.
+
+## Grilled enough
+
+2026-11-16, after the Chief of Staff's restatement, the user: grilled enough; the spec-writer
+writes the specification. Spec critic: yes.
+
 ## batch-takeover-Q4: scope
 
 2026-11-16, the user chose the recommended answer: the whole retro point. `pause` accepts a batch

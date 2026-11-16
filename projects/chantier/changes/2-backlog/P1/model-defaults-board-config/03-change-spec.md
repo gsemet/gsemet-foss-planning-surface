@@ -1,8 +1,8 @@
 # Change Specification: chantier's configuration in layers, and the shipped defaults
 
-Date: 2026-11-16 (fourth run: Q20 and Q21 carried; the CR was split in three by Q18; this is (A),
-the first of the stack).
-Sources: [intent](01-intent.md), [answers](02-answers.md) (Q1 to Q22 and the Chief of Staff's
+Date: 2026-11-16 (fifth run: Q20's spelling and Q23 carried, the open question closed; the CR was
+split in three by Q18; this is (A), the first of the stack).
+Sources: [intent](01-intent.md), [answers](02-answers.md) (Q1 to Q23 and the Chief of Staff's
 decisions; they rank above the intent; Q19 supersedes Q2, Q16 removes any role setting shared by
 all hosts, Q22 is C's), [original request](intake/request.md). No tracker issue.
 
@@ -41,7 +41,11 @@ to the agent files by a test.
   `chantier.yaml`. Each layer is merged node by node: a layer carries only the nodes it changes.
   With no surface: the defaults, then the code repository's file.
 - Q20: a stronger layer unsets a node by writing it null (`agent: ~`); the weaker value (here the
-  plugin's) comes back (section 1, "Unsetting a node").
+  plugin's) comes back (section 1, "Unsetting a node"). Its spelling (the user's answer to the
+  split specification's open question): `~` and `null` unset a node; an empty value (`agent:` with
+  nothing after it) stays refused, so a forgotten value never unsets in silence.
+- Q23: the value `default` unsets a node too, like `~` and `null`; it is the spelling the docs,
+  the examples and the board show. No model and no agent can be named `default`.
 - Q16: there is no model, nor any role setting, for all hosts. Every layer sets roles per host
   only (`hosts.<host>.roles`). The configuration for all projects of a surface is its root file;
   inside it, roles are still per host.
@@ -105,7 +109,7 @@ All CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
   `"roles" goes under a host: hosts: claude: roles: or hosts: copilot: roles: (every role setting
   is per host)`. A file written for today's chantier stops at `playbook`, `preflight` and `open`
   with that line; the release notes say so (Q21: the old form is never read, nor only warned
-  about; `roles: ~` is refused the same way).
+  about; `roles: default` and `roles: ~` are refused the same way).
 - The unknown-key message lists `hosts`, `prices`, `board`, `ci` and `long_gate`; `hosts:`'s own
   keys are checked (`unknown host "<x>": one of claude, copilot`), and a host's only key is
   `roles`.
@@ -127,24 +131,30 @@ All CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
 #### Unsetting a node (Q20)
 
 - In a user layer (surface, surface project, repository), a key whose value is a plain, unquoted
-  `~` or `null` is a reset: `hosts: copilot: roles: coder: agent: ~`. `yaml_subset` reads those
-  two plain scalars as its `null` node (its docstring says so); a quoted `"~"` or `"null"` stays
-  text. An empty value (`agent:` with nothing after it) is not a reset: it keeps today's refusal
-  (`role "coder": "agent" is one string`, and the other "is empty" lines), so a forgotten value is
-  never read as a reset (open question 1).
+  `default`, `~` or `null` is a reset: `hosts: copilot: roles: coder: agent: default` (Q20, Q23).
+  `default` is the spelling every doc, example, card and board text shows; `~` and `null` are read
+  the same way. `yaml_subset` reads the plain `~` and `null` as its `null` node (its docstring says
+  so); the layer reader reads a plain `default` as a reset before any key's own check, so
+  `default` never reaches `models.resolve` or the agent check. A quoted `"~"` or `"null"` stays
+  text. A quoted `"default"` under `agent` or `model` is refused at its line (`"default" resets
+  the value: write it plain, default; no agent or model is named "default"`), so no model or agent
+  is ever named `default` (Q23). An empty value (`agent:` with nothing after it) is not a reset: it
+  keeps today's refusal (`role "coder": "agent" is one string`, and the other "is empty" lines), so
+  a forgotten value is never read as a reset (Q20's spelling).
 - A reset removes the node, and everything under it, from every weaker user layer: the defaults
   layer's value, when it has one, comes back; with none the node is unset, as if no user layer had
   set it (for `agent`, the plugin's agent). A layer stronger than the reset may set the node
   again; the strongest layer that writes the node, with a value or a reset, wins.
 - Examples: the surface root sets `hosts.claude.roles.coder.agent: my-coder` for every project,
-  and one project's `projects/<name>/chantier.yaml` writes `agent: ~`: that project runs the
+  and one project's `projects/<name>/chantier.yaml` writes `agent: default`: that project runs the
   plugin's Coder. The surface root sets the Coder's `model: opus`, the code repository writes
-  `model: ~`: the defaults' model comes back, which counts as no configured model (section 3).
-  `prices: <id>: ~` brings back the built-in price of that model; `board: ~`, `ci: ~`,
-  `long_gate: ~` bring back their weaker or built-in values; `hosts: copilot: roles: coder: ~`
-  resets every key of that role on that host.
+  `model: default`: the defaults' model comes back, which counts as no configured model (section
+  3). `prices: <id>: default` brings back the built-in price of that model; `board: default`,
+  `ci: default`, `long_gate: default` bring back their weaker or built-in values;
+  `hosts: copilot: roles: coder: default` resets every key of that role on that host.
 - A reset is checked like a value for its place: its key, host and role names are checked as
-  today (an unknown key, host or role written `~` is refused with today's line). A reset of a node
+  today (an unknown key, host or role written `default` or `~` is refused with today's line). A
+  reset of a node
   no weaker layer sets is accepted and changes nothing. The defaults file holds no reset (its test,
   section 8).
 - What the CLI prints for a reset: the value that came back, labelled as such (`model=(its
@@ -159,7 +169,7 @@ All CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
   declares (`agents/<role>.md` `model:`; `com.github.copilot/agents/chantier-<role>.agent.md`, the
   identifier of `model: [name, id]`), as they are after copilot-role-models.
 - A header comment: the plugin's defaults, the lowest layer; do not edit it in an install, set
-  your values in your `chantier.yaml` (where `~` takes a value back to this file's); changed only
+  your values in your `chantier.yaml` (where `default` takes a value back to this file's); changed only
   by a release, together with the agent files (a test checks it).
 - It sets no `agent`, no `prices` (the built-in table stays in `costs/`), no escalation
   (`ESCALATION` stays in `playbook/models.py`), and no reset.
@@ -204,11 +214,12 @@ All CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
 
 - `chief-of-staff.md`, "The team": the YAML example moves under `hosts: claude: roles:`, and one
   line says the same keys go under `hosts: copilot: roles:`; the text names the four layers and
-  their order (Q19), says a layer carries only what it changes and that `~` takes a weaker layer's
-  value back (Q20), that every role setting is per host (Q16), and that the Chief of Staff edits
+  their order (Q19), says a layer carries only what it changes and that `default` takes a weaker
+  layer's value back (Q20, Q23), that every role setting is per host (Q16), and that the Chief of
+  Staff edits
   the code repository's or the surface's file only on the user's word. The table row "use my agent
   for <role>" names `hosts.<host>.roles.<role>.agent`, and "back to the plugin's agent" names
-  `agent: ~`.
+  `agent: default`.
 - `concepts.md`, "Starting an agent": the playbook is the configuration in layers, read, merged
   and resolved only by the CLI; nothing else changes there (B changes the starts).
 - `hosts/claude-code.md` and `hosts/copilot.md`, row "Models": "unless the project's
@@ -226,8 +237,9 @@ All CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
 - `docs/agents-and-models.md`, "Your own agents": the example under `hosts:`; the four layers and
   their paths, `.yaml` or `.yml` (not both); node-by-node merge with an example (the surface root
   sets the Coder's model for every project, one project's code repository changes it back); the
-  reset with `~` (Q20) and its example (the surface root names `agent: my-coder`, one project
-  writes `agent: ~` and runs the plugin's Coder), and that an empty value is not a reset; every
+  reset with `default` (Q23; `~` and `null` read the same) and its example (the surface root names
+  `agent: my-coder`, one project writes `agent: default` and runs the plugin's Coder), that no
+  model or agent can be named `default`, and that an empty value is not a reset; every
   role setting per host (Q16); Q15: `tools` and `skills` list what the role needs, checked at
   preflight, and restrict nothing. "Models": the table's values come from
   `config/chantier.defaults.yml`.
@@ -236,7 +248,7 @@ All CLI paths below are under `skills/chantier/scripts/cli/src/chantier/`.
   hold a `chantier.yaml`; the code repository's file is the strongest.
 - `README.md`: the configuration sentence as in section 7; the row "run the inspector on Opus":
   "a `model` for the role under `hosts.<host>.roles` in `chantier.yaml`".
-- Release notes, as the project's release process asks: the layers, `.yml`, the reset with `~`,
+- Release notes, as the project's release process asks: the layers, `.yml`, the reset with `default`,
   and the breaking change (Q21: a top-level `roles` is refused, move it under
   `hosts.<host>.roles`; shown with one before/after example, today's `roles: coder: {agent:
   rust-coder, model: opus}` and its `hosts: claude: roles:` form).
@@ -265,14 +277,15 @@ read and approve in the diff at the merge:
   - the order of Q19: a model set in the surface root, changed in the surface project, changed
     again in the repository; each step's winner printed with its label;
   - a list replaced whole; a `prices` entry replaced whole;
-  - Q20: `agent: ~` in the surface project over the surface root's agent (the plugin's agent,
-    `[reset in surface project]`); `model: ~` in the repository over the surface root's model
-    (`model=(its file's)`, no model passed, accepted on Copilot); a reset set again by a stronger
-    layer; `null` read like `~`, a quoted `"~"` read as text; an empty `agent:` refused as today;
-    a reset under an unknown role refused;
+  - Q20, Q23: `agent: default` in the surface project over the surface root's agent (the plugin's
+    agent, `[reset in surface project]`); `model: default` in the repository over the surface
+    root's model (`model=(its file's)`, no model passed, accepted on Copilot); a reset set again by
+    a stronger layer; `~` and `null` read like `default`, a quoted `"~"` read as text; a quoted
+    `model: "default"` and `agent: "default"` refused with their line; an empty `agent:` refused as
+    today; a reset under an unknown role refused;
   - Q1: both names in one place refused with both paths (repository, surface root, surface
     project); `chantier.yml` alone read like `chantier.yaml`;
-  - Q16, Q21: a top-level `roles` refused with its line, `roles: ~` too;
+  - Q16, Q21: a top-level `roles` refused with its line, `roles: default` too;
   - problems name their path (`projects/<name>/chantier.yaml:<line>:`);
   - a bad model under `hosts.copilot` refused on a Claude Code view;
   - a configured model equal to the default: no model passed, accepted on Copilot;
@@ -289,7 +302,7 @@ read and approve in the diff at the merge:
 - §20 (a planning surface): the surface root's `chantier.yaml` sets a role's model under
   `hosts.claude.roles`, the project folder's file sets another, the code repository's file a
   third; `playbook` prints the third with `[repository]`; `open` freezes it; the code repository's
-  file then writes the model `~`: `playbook` prints `model=(its file's)` with `[reset in
+  file then writes the model `default`: `playbook` prints `model=(its file's)` with `[reset in
   repository]`; after the code repository's file is removed, `playbook` prints the project
   folder's value with `[surface project]`; `playbook --batch` still prints the frozen one
   throughout.
@@ -322,10 +335,3 @@ read and approve in the diff at the merge:
   repository's reset, on both hosts (`--host claude`, `--host copilot`).
 - `git diff` of `agents/` and `com.github.copilot/agents/`: empty.
 - No CI job is added or changed.
-
-## Open questions
-
-1. Q20 names `~` as the reset. This specification also reads a plain `null` as a reset (YAML's
-   other spelling of the same value) and keeps an empty value (`agent:` with nothing after it)
-   refused as today, so a forgotten value is never a silent reset. Is that right, or should an
-   empty value reset too (as YAML reads it), or `~` alone be accepted?
