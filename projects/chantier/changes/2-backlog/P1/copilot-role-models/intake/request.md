@@ -1,0 +1,1 @@
+User request, 2026-11-16: add a P1 change to update Copilot role model defaults: Driver Claude Sonnet 5.5; Investigator GPT-5.6 Luna; Coder GPT-6.1 Sol; Inspector GPT-6.1 Sol; Verifier GPT-6.1 Terra; Debugger and Conflict resolver GPT-6.1 Terra when needed. Other roles and Claude Code defaults are unchanged. Record only; do not resume CR-296 or change installed plugin agents.
