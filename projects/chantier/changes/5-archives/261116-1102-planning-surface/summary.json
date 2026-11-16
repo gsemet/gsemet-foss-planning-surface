@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Move chantier's planning to the foss surface",
+  "summary": "Done 2026-11-16, PR 246 merged: planning moved to the surface (2269 files, hash-checked), zip backup in Downloads, local folder renamed changes.disabled-use-surface, Archive in the PR: no.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "c89c6e62b10efeb9a62c705ffa74942d53bf7b64a6255af2c18408bda1b796fd",
+    "delivery.md": "8fa4e6952728d46ac7aa75e17ee8edb765a39450b14e0a5b70e2f64971acb870",
+    "intake/request.md": "ac3222e21e5a771816f589d94a3749128c5e8fdd181b0438f41413faa07068a4"
+  },
+  "summarized": "2026-11-16T11:06:42Z"
+}
