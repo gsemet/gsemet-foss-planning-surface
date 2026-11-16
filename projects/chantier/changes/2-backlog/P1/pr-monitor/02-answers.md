@@ -50,3 +50,22 @@ asking).
   local record (no forge); a new PR in the batch starts the forge refresh again by itself.
 - A picture of the page in docs/web-board.md: the Chief of Staff's decision, none for now (the
   demo has no forge; a fake forge read is not worth it).
+
+## The spec critic's questions, 2026-11-16
+
+- Q9, the user chose the recommended answer: while the forge has not computed a PR's
+  mergeability (GitHub's UNKNOWN after a push or a neighbour's merge), or its checks have not
+  started, the row says "being checked by the forge" and the PR is not ready; "no checks" counts
+  as ready only when the forge says the repository has none.
+- Q10, the user chose the recommended answer: Q5 stays; when nothing runs (no heartbeat, the
+  batch-18 case), the row says "merged on the forge, not recorded yet: tell the Chief of Staff",
+  and the docs say so.
+- Q11, the user chose the recommended answer: two CRs. This CR (pr-monitor) is the read-only PRs
+  page (route, view, the forge-read exception in AGENTS.md, docs). The merge signal
+  (`board-seen.jsonl`, the `status` line, the two cards, the second AGENTS.md exception, Q4, Q5,
+  Q10) is its own CR, `pr-merge-signal`, after this one.
+- Q12, the user chose the recommended answer: the page shows the batch the Batch view shows,
+  running or paused; after the close it says "no batch running" and names the last batch.
+- The critic's text fixes (the sidebar count from the record, the merged-into branch and the
+  unproved native-stack and GitLab reads, the AGENTS.md wording matching the read rule) are the
+  spec-writer's.

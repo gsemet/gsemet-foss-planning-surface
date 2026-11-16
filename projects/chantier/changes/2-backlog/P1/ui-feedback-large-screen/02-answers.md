@@ -23,6 +23,14 @@ view changes; hovering a Triage card makes a horizontal scroll bar appear; the T
 cards are far wider than on other pages, and a card's preview shows the raw frontmatter.
 The request is written in intake/request.md.
 
+## The specification's open questions (first run), 2026-11-16
+
+- Q4, the user chose the recommended answer: each project's line shows both paths: its folder
+  in the surface (`projects/<name>/`, relative to the surface the selector shows) and its code
+  repository as `checkout.yml` names it.
+- Q5, the user chose the recommended answer: the selector shows, under the surface's name and
+  path, "Planning surface · N projects", without opening the menu.
+
 ## Grilled enough
 
 2026-11-16, the user: grilled enough; the spec-writer writes the specification.

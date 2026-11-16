@@ -147,6 +147,32 @@ copilot-model-catalog; this CR builds on that one.
   switches Copilot's capability on (a later CR). The test asserting `model-policy: required`
   changes accordingly.
 
+## The spec critic's questions, 2026-11-16
+
+- Q16, a model only one host knows in a section for all hosts. The user (French, translated):
+  "There is no model for all hosts. There is a configuration for all the projects of an agentic
+  surface, but there is always a configuration per host." So no layer has role settings shared
+  by all hosts: every layer sets roles per host only.
+- Q19, the layers' order (the user's words, translated): "the shipped chantier.yaml, then the
+  surface at its root, then in the surface's subfolder, then the target project. Merge per node,
+  to put only the node that changes." So, weakest to strongest: the shipped
+  `config/chantier.defaults.yml`; the surface root's `chantier.yaml` (all its projects);
+  `projects/<name>/chantier.yaml` in the surface; the target project's (code repository's)
+  `chantier.yaml`. Each layer is merged node by node: a layer carries only the nodes it changes.
+  This supersedes Q2's order (there the surface's project file overrode the code repository's).
+- Q17, the user chose: remove `model-policy: required` from `chantier-coder` only (the probe's
+  agent), not from the other thirteen files, until the proof covers them (supersedes Q12's
+  "every file").
+- Q18, the user chose the recommended answer: three CRs in a stack. (A) this CR,
+  model-defaults-board-config: the configuration in layers and the shipped defaults. (B)
+  `role-model-per-host`: a model per role on each host (the host capability, the generic agent
+  with its contract, the Coder's `model-policy` removal, the probe, `cost --explain`). (C)
+  `board-config-page`: the board's Configuration page. B builds on A, C on A and B.
+- The critic's text fixes (the "writes only plain JSON and Markdown" clause and the other places
+  the old configuration sentence stands, the Copilot start rows, the probe step as the
+  operator's explicit eval order, the surface file's read/check/write as CLI code the board only
+  routes to) are the spec-writer's.
+
 ## Grilled enough
 
 2026-11-16, the user: grilled enough; the spec-writer writes the specification.
