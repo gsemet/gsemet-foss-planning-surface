@@ -1,13 +1,15 @@
 {
   "schema": 1,
-  "title": "Flexible cross-harness agent configuration and board editor",
-  "summary": "Cross-harness role configuration from shipped agent bases: models, tools, root chantier.yml and surface-project overrides, editable in the board without modifying plugin files or scattering temporary agents. Merge and enforcement design pending; outside batch-20.",
+  "title": "Role configuration in layers, a model per role on each host, board Configuration page",
+  "summary": "Shipped defaults, repo chantier.yaml/.yml and surface file merged key by key; a model change starts the named agent on Claude Code, a generic agent on Copilot; model-policy removed, eval probe added; board edits agent and model. Specified, no open questions.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "7902ab7a16bd39e1bd39332abd26bb3ec0a3ca2601357f7a6f8676955f18e068",
+    "02-answers.md": "c6b122ad5472da8374a4f59a52a2978db2c2b9661dbd035e46ee2ba16e8e4481",
+    "03-change-spec.md": "c65f7652a5eb88691184f6c43d46b07260df6c00a7d5fe9fcfe03d01e1450b72",
     "intake/request.md": "3998c64c2169bff257da850c0c2d2f97bdd89ffd63032f5963c49efe49844e36"
   },
-  "summarized": "2026-11-16T16:10:24Z"
+  "summarized": "2026-11-16T19:02:52Z"
 }

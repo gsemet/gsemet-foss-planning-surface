@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A live view of the batch's PRs on the web board",
+  "summary": "Specified: a board page reads the forge read-only every 10 s, shows each PR's state and readiness (record and forge), stops when all are merged or closed, restarts on a new PR, and signals unrecorded merges for the Chief of Staff; no open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "d652ccf0d6a0e34cbce3ef49c69f1e11334b3c2827a4dfe22986776f32db88a9",
+    "03-change-spec.md": "f7f4cd1cb32e5c066353dc1a0001620ced1b3605421f59c10bb8b4b401b6c2f4",
+    "intake/request.md": "c0dbe1455e86adf68901da3623b5bda19fa3fdb6c38ce513bbd91ebf46329b8e"
+  },
+  "summarized": "2026-11-16T19:02:55Z"
+}

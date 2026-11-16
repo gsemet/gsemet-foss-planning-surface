@@ -1,13 +1,15 @@
 {
   "schema": 1,
   "title": "Update Copilot role model defaults",
-  "summary": "Copilot defaults: Driver Sonnet 5.5; Investigator GPT-5.6 Luna; Coder and Inspector GPT-6.1 Sol; Verifier, Debugger and Conflict resolver GPT-6.1 Terra. Keep other roles and Claude defaults unchanged; align shipped agents, model catalog and documentation. No batch restart.",
+  "summary": "Specified, no open question: Copilot Coder to GPT-6.1 Sol; Verifier, Debugger, Conflict resolver to GPT-6.1 Terra (added by hand to the model list); host docs cite CR-296's observed enforcement; model eval prepared in the runbook; catalog moved to copilot-model-catalog; pricing unchanged.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "ae8900724a895967a31798470061fef3d0eeb4f6a8025ff8b7e9f796163d9043",
+    "02-answers.md": "d9a4122a5a8fa2226b7522432f0bbfd7b7648e7f863f539bd0897d736267a2bb",
+    "03-change-spec.md": "39665673ab5016ca994b849b18e76ca838b300f4a98106e9cceec87428f9fd71",
     "intake/request.md": "9ff54e98cbe07c637978993ab56bbe17def3900d6d8f92e14af16f461d945a7e"
   },
-  "summarized": "2026-11-16T16:21:22Z"
+  "summarized": "2026-11-16T18:55:23Z"
 }
