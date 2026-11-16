@@ -491,3 +491,17 @@ edits. Do not modify installed plugin agents or create temporary agent files.
 Verify the effective host model, with no silent fallback to Luna. Keep the
 named Inspector and Verifier and all existing acceptance criteria and gates.
 No seventh round or merge is authorized.
+
+## Stop and draft handoff
+
+2026-11-16: the user requested:
+"tu vas arreter ce que tu as fait, pousser la PR en draft, mettre a jour le
+status avec les findings pour reprise par une autre partie plus tard."
+
+Stop implementation and further validation work. Preserve the current code,
+commit and push a safe work-in-progress snapshot, and open or retain a draft
+PR. Record actual findings, model evidence, completed and missing checks, and
+restart context for another operator. This authorizes draft publication despite
+incomplete acceptance evidence, not a validation waiver, completion claim,
+additional coding round or merge. Pause the batch after the Driver and its
+workers have stopped. Keep autosync stopped.

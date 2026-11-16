@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Improve skill boot",
-  "summary": "Existing startup specification approved for realization in one direct-mode CR; short mandatory core, effect-specific permissions and evidence-grounded reporting across roles and hosts.",
+  "summary": "Stopped by user after round 6; package safe WIP as draft PR and pause for another operator. Generic Sol trial follows enforced Luna override. Changes and reported tests need independent review; Verifier and exact-head Ubuntu scenario gate remain required.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "9fc6c6622c84d54cca8dac377eaf2b9460e665b72208e3814fb112b1e0f7bb0e",
-    "02-answers.md": "28d6d70772283d881812d994f508a68f6666653bf75c9e273397473c3fd960db",
+    "02-answers.md": "0fc12a19b9e2aa3ff72ac08e2e598619a03a210744a23b3495151df459a17a71",
     "03-change-spec.md": "a4eb80dbd6117cdf57497843ebf20252ad1b13855f73defec0cdc12de70b1c9b"
   },
-  "summarized": "2026-11-16T16:10:18Z"
+  "summarized": "2026-11-16T16:18:36Z"
 }
