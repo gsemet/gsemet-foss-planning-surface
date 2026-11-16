@@ -1,5 +1,7 @@
 # Interview: improve skill boot
 
+Short name: `improve-skill-boot`
+
 Date: 2026-11-16.
 
 This record preserves every numbered question, its choices and recommendation,
@@ -403,3 +405,22 @@ Answer:
 > A. Sauvegarder l'entretien complet et la proposition dans le dossier demandé (recommandé)
 
 This authorizes interview/proposal persistence only, not implementation.
+
+## Subsequent lifecycle decisions
+
+- 2026-11-16: the user selected P1: "je l'ai mis en P1".
+- 2026-11-16: the user requested realization from the external surface:
+  "chantier reload. faisons la CR improve-skill-boot en mode directe."
+  This supersedes the earlier persistence-only authorization, not the
+  functional interview decisions.
+- 2026-11-16: after restoring GitHub access, the user requested continuation:
+  "reprennons le CR demandé".
+- 2026-11-16: the user confirmed the existing specification should be reused:
+  "tu refais la spec ? Elle n'est pas deja dans
+  /Users/az02065/Projects/DevTools/gsemet-foss-planning-surface/projects/chantier/changes/2-backlog/P1/improve-skill-boot/03-specification.md ?"
+- 2026-11-16: the user authorized naming alignment:
+  "ah tu peux realigner les noms dans les CR importés".
+
+The original Q1 through Q26 above remain authoritative, including their explicit
+supersession notes. Any new interview question continues at
+improve-skill-boot-Q27. Autosync remains stopped.

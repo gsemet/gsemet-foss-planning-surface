@@ -47,12 +47,20 @@ Improve startup for all Chantier roles and hosts through a short mandatory core,
 action-specific reference loading, explicit capability evidence, and deliberate
 handling of startup effects.
 
-The final decisions are in [the proposal](03-specification.md). The complete
+The final decisions are in [the proposal](03-change-spec.md). The complete
 question-and-answer record, including superseded choices, is in
-[the interview](02-interview-responses.md).
+[the interview](02-answers.md).
 
 ## Delivery boundary
 
 The user selected saving the complete interview and proposal in this directory.
 They did not authorize implementation, a batch, a PR, or a priority assignment.
 This handoff does not stop or change services already running in the session.
+
+## Subsequent lifecycle decisions
+
+The user subsequently selected P1 and requested realization from the external
+surface in direct mode on 2026-11-16. This supersedes the persistence-only
+authorization above, not the functional interview decisions. See
+[the answer record](02-answers.md). No batch has been opened; autosync remains
+stopped by the user's instruction.

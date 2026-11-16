@@ -5,8 +5,8 @@ Date: 2026-11-16.
 This is the saved interview proposal, not an implementation plan, an approved
 batch or a claim that the behavior below is already available.
 
-Sources: [request and observations](01-request.md) and
-[complete interview decisions](02-interview-responses.md).
+Sources: [request and observations](01-intent.md) and
+[complete interview decisions](02-answers.md).
 
 ## Shared understanding
 
