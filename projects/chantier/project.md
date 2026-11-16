@@ -8,6 +8,7 @@ Markdown first.
 - Remote: [gsemet/chantier](https://github.com/gsemet/chantier) (GitHub).
 - Default branch: `main`.
 - Local checkout and worktrees: see [checkout.yml](checkout.yml).
+- Archive in the PR: no
 
 ## Rules for changes
 
