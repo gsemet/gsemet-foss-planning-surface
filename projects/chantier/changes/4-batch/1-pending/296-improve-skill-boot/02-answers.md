@@ -505,3 +505,23 @@ restart context for another operator. This authorizes draft publication despite
 incomplete acceptance evidence, not a validation waiver, completion claim,
 additional coding round or merge. Pause the batch after the Driver and its
 workers have stopped. Keep autosync stopped.
+
+## Takeover on the Windows machine, direct mode
+
+2026-11-16: the user, to the Chief of Staff on Claude Code (Windows): "I spent
+a lot of time on CR 247 [PR 247]. I want you to take it over and finish it.
+Direct mode, no Foreman."
+
+This is the explicit resume instruction `work/handoff.md` asks for. It grants
+the coding rounds needed to finish (beyond the six spent); merging stays the
+user's.
+
+batch-20's local state (`batch.json`, `events.jsonl`, `brief.md`) exists only on
+the machine that opened it, so the CLI here knows no running batch. Grill
+reprise-Q1, the user's answer (recommended): move CR-296 back to `3-ready` and
+open a new batch here with `open --direct`. The Driver resumes from the existing
+branch and draft PR 247 (head `97490a3`), starting from `work/handoff.md`.
+batch-20's record stays `running` until it is closed on the other machine.
+
+On Claude Code the plugin's named Coder, Inspector and Verifier run with their
+own models; the Copilot model enforcement noted above does not apply here.
