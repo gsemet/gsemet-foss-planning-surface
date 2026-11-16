@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "The web board's Configuration page",
+  "summary": "Stack C of 3, on A and B. Specified: per-host role agent and model edited in the surface project chantier.yaml through CLI code, autosync commits; rest read-only; AGENTS.md write clause updated. One open question: an edit the repository file overrides.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "03-change-spec.md": "a6ee44ed72b01277f28a3a6e6419f9ee1e3875e9e92adf343d24329d6d736228",
+    "intake/request.md": "d23537c082763f237a7cda397f7679e88b631ae256993fe073b86ff9f3f3a4ff"
+  },
+  "summarized": "2026-11-16T19:22:28Z"
+}

@@ -173,6 +173,19 @@ copilot-model-catalog; this CR builds on that one.
   operator's explicit eval order, the surface file's read/check/write as CLI code the board only
   routes to) are the spec-writer's.
 
+## The split specifications' open questions, 2026-11-16
+
+- Q20, the user chose the recommended answer: a stronger layer can unset a node by writing it
+  null (`agent: ~`); the weaker layer's value (here the plugin's) comes back.
+- Q22 (board-config-page), the user chose the recommended answer: when the code repository's
+  `chantier.yaml` already sets the role's value, the page still writes the surface's project file
+  and shows "overridden by <path>" with the effective value; nothing hidden.
+- Q21 (an existing top-level `roles:` once roles live under `hosts.<host>.roles`): the user asked
+  for an example (the Chief of Staff showed today's `roles: coder: {agent: rust-coder, model:
+  opus}` and the new `hosts.claude.roles` / `hosts.copilot.roles` form), then answered: "No
+  backward compatibility." A top-level `roles` is refused, as specified (the release notes name
+  the breaking change); no reading of the old form, no warning-only path.
+
 ## Grilled enough
 
 2026-11-16, the user: grilled enough; the spec-writer writes the specification.

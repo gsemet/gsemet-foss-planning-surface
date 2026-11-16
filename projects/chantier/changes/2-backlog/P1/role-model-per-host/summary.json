@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "A model per role on each host",
+  "summary": "Stack B of 3, on A. Specified: named agent with the model on Claude Code, generic agent with contract on Copilot until proved; own agent plus model refused on Copilot; model-policy removed from chantier-coder only; eval probe; cost --explain note. No open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "03-change-spec.md": "d5f0d90b731f51e50e1b46ccaf43b600a66b88be14de1fc5c6fdbb68246e6b4d",
+    "intake/request.md": "86bed14cb4437d8d904b036634132091002aafad1fd8c06b42f57a5043cdbb3f"
+  },
+  "summarized": "2026-11-16T19:22:28Z"
+}
