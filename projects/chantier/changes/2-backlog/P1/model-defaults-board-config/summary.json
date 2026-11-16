@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Flexible cross-harness agent configuration and board editor",
+  "summary": "Cross-harness role configuration from shipped agent bases: models, tools, root chantier.yml and surface-project overrides, editable in the board without modifying plugin files or scattering temporary agents. Merge and enforcement design pending; outside batch-20.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "cf9b199d58b500b313b7ce748d4db63b6929735bd9127818755907521b32d763",
+    "intake/request.md": "3998c64c2169bff257da850c0c2d2f97bdd89ffd63032f5963c49efe49844e36"
+  },
+  "summarized": "2026-11-16T16:00:05Z"
+}
