@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Configuration in layers and the shipped defaults",
-  "summary": "Stack A of 3. Specified: defaults file, surface root, surface project, then repository chantier.yaml/.yml, merged node by node; roles only under hosts.<host>.roles; defaults kept equal to agent files. One open question: unsetting a weaker layer.",
+  "summary": "Stack A of 3. Specified: defaults file, surface root, surface project, then repository chantier.yaml/.yml, merged node by node; ~ unsets a node (weaker value back); roles only under hosts.<host>.roles, top-level roles refused. Open: null and empty value as reset.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "7902ab7a16bd39e1bd39332abd26bb3ec0a3ca2601357f7a6f8676955f18e068",
-    "02-answers.md": "eb1cb9839cc102469fcc1bdfc3e9d6649ad2a5871a9dd45d701e3a18ac053383",
-    "03-change-spec.md": "57a46c2fc55a48749757b7f2fae47a8fd740f1e7461a28aa64e122025a079cee",
+    "02-answers.md": "61343ce40544e733066e89a3470d7c236bf5ade923680e835943d9c6650668ca",
+    "03-change-spec.md": "a5404ae1d6343f0bb9248a0db4613aa3412db934a37b2e97da0f11ab73c11c00",
     "intake/request.md": "3998c64c2169bff257da850c0c2d2f97bdd89ffd63032f5963c49efe49844e36"
   },
-  "summarized": "2026-11-16T19:22:27Z"
+  "summarized": "2026-11-16T19:28:23Z"
 }

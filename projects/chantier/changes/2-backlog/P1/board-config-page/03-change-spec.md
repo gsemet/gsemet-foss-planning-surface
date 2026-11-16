@@ -1,9 +1,10 @@
 # Change Specification: the web board's Configuration page
 
-Date: 2026-11-16. Split from model-defaults-board-config by its Q18 (the user's choice): (C), the
-third of a stack of three. Sources: [request](intake/request.md); the grill is
-model-defaults-board-config's [answers](../model-defaults-board-config/02-answers.md) (Q4, Q7,
-Q13, Q14, Q16, Q19, the critic's text fixes, the Chief of Staff's AGENTS.md decision) and its
+Date: 2026-11-16 (second run: Q22 carried, and A's reset (Q20) shown). Split from
+model-defaults-board-config by its Q18 (the user's choice): (C), the third of a stack of three.
+Sources: [request](intake/request.md); the grill is model-defaults-board-config's
+[answers](../model-defaults-board-config/02-answers.md) (Q4, Q7, Q13, Q14, Q16, Q19, Q20, Q22, the
+critic's text fixes, the Chief of Staff's AGENTS.md decision) and its
 [intent](../model-defaults-board-config/01-intent.md). No tracker issue.
 
 ## Depends on, and the stack
@@ -15,8 +16,8 @@ The stack, bottom to top: [copilot-role-models](../copilot-role-models/03-change
 
 - copilot-model-catalog: `MODELS[host]`, the page's model choice.
 - A: the layers and their reading (`playbook/layers.py`: each layer's path, presence and
-  problems, the merged tree with each leaf's layer), the paths as printed, Q1's refusal, every
-  role setting under `hosts.<host>.roles`.
+  problems, the merged tree with each leaf's layer and each reset's layer), the paths as printed,
+  Q1's refusal, every role setting under `hosts.<host>.roles`, the reset with `~` (Q20).
 - B: each role's start per host (`plugin`, `named`, `generic`, or Q13's refusal) and
   `NAMED_AGENT_MODEL_AT_START`.
 
@@ -26,7 +27,8 @@ From the web board, the user sees for each host and each role which agent runs i
 model, from which layer, and how it starts, and changes a role's agent or model for one project
 without opening a YAML file. The page writes only the project's file in the planning surface,
 through the CLI's own reading, checking and writing of it; the surface's autosync commits it. A
-change applies at the next batch.
+change applies at the next batch. When the code repository's file overrides what the page writes,
+the page says so and shows the value that applies: nothing hidden.
 
 ## Decisions carried from the grill
 
@@ -36,7 +38,14 @@ change applies at the next batch.
 - Q19 (supersedes Q2's order): the layers, weakest to strongest: the shipped defaults, the
   surface root's `chantier.yaml`, `projects/<name>/chantier.yaml`, the code repository's
   `chantier.yaml`, merged node by node. So the file the page writes sits under the code
-  repository's: the page shows when that one overrides it (open question 1).
+  repository's.
+- Q22: when the code repository's `chantier.yaml` already sets the role's agent or model, the page
+  still writes the surface project's file, and shows the row "overridden by <path>" with the
+  effective value (the repository's); the edit is not refused, and takes effect if the
+  repository's value goes.
+- Q20 (A's): a layer's `~` unsets a node and the weaker value comes back; the page shows a reset
+  where a layer holds one. The page's own "inherited" removes the key from the surface project's
+  file; it does not write a `~` (Q14 keeps the page to setting or removing `agent` and `model`).
 - Q16: there is no role setting for all hosts: the page edits each host's roles only; it has no
   "all hosts" section.
 - Q14: the page edits only each role's `agent` and `model`; the rest of the configuration
@@ -65,20 +74,21 @@ The board knows no role and holds no configuration logic: it calls these two fun
 
 - `config_view(repo)`: for each host of `plugin_files.HOSTS` and each role of
   `plugin_roles(host)`: the value of `agent` and `model` in each layer (A's labels: `defaults`,
-  `surface`, `surface project`, `repository`; `null` where unset), the effective agent and model
-  (identifier and name), the layer it comes from, and whether the `surface project` value is
-  overridden by the `repository` file; the start from B (`plugin`, `named`, `generic`, or
-  `refused` with the CLI's line); `tools`: `"the agent file's"` or `"the caller's, not
-  restricted"`. Per host: `NAMED_AGENT_MODEL_AT_START[host]` and the catalog (`MODELS[host]`: id
-  and name). Also: the other keys (`prices`, `board`, `ci`, `long_gate`, the roles'
-  `skills`/`tools`) as merged values with their layer; the files read and their problems (A's
-  paths and lines); `writable` (external mode, the project has its folder); the surface project
-  file's path from the surface root and its `sha256` (`null` when absent); and, when a batch is
-  open, its id.
+  `surface`, `surface project`, `repository`; `null` where unset, `"reset"` where the layer writes
+  `~`), the effective agent and model (identifier and name), the layer it comes from, and
+  `overridden_by`: when the `repository` layer sets (or resets) the key the page writes for that
+  row and host, the repository file's path as A prints it, else `null` (Q22); the start from B (`plugin`, `named`, `generic`, or `refused` with the CLI's
+  line); `tools`: `"the agent file's"` or `"the caller's, not restricted"`. Per host:
+  `NAMED_AGENT_MODEL_AT_START[host]` and the catalog (`MODELS[host]`: id and name). Also: the
+  other keys (`prices`, `board`, `ci`, `long_gate`, the roles' `skills`/`tools`) as merged values
+  with their layer; the files read and their problems (A's paths and lines); `writable` (external
+  mode, the project has its folder); the surface project file's path from the surface root and its
+  `sha256` (`null` when absent); and, when a batch is open, its id.
 - `edit_surface_file(repo, changes, base_sha256, dry_run)`, `changes` a list of `{host, role, key,
   value}`, `host` one of `HOSTS` (Q16: no `null`), `key` `agent` or `model` (Q14), `value` a text
-  or `null` (remove the key, and any `roles`, host or `hosts` map left empty). It refuses, writing
-  nothing, with a reason the board passes on:
+  or `null` (remove the key, and any `roles`, host or `hosts` map left empty; a `~` the file held
+  for that key is removed the same way). It refuses, writing nothing, with a reason the board
+  passes on:
   - no surface: `the configuration is read-only with no planning surface: edit chantier.yaml by
     hand` (Q7);
   - the file's `sha256` differs from `base_sha256`: the file changed since it was read;
@@ -87,11 +97,14 @@ The board knows no role and holds no configuration logic: it calls these two fun
   - the resulting text, read with A's checks and merged with the other layers, has a problem (a
     key, a value, a model the host's catalog does not resolve): the problem lines, the surface
     file named with the line numbers the new text would have.
-  A start refused on one host (Q13) does not block the write: it is the user's configuration; the
-  view shows it `refused` with the CLI's line, and `open` on that host refuses it (B). With
-  `dry_run` it writes nothing and returns the view the changes would give. Otherwise it writes the
-  project folder's existing file (else creates `chantier.yaml`), UTF-8, LF, keeping the file's
-  other keys and its comments (ruamel.yaml's round trip, imported inside the function: the
+  Two things do not block the write, and the view shows them:
+  - a start refused on one host (Q13): it is the user's configuration; the view shows it
+    `refused` with the CLI's line, and `open` on that host refuses it (B);
+  - the code repository's file setting the same key (Q22): the surface project's value is
+    written, and the view's row carries `overridden_by` and the repository's effective value.
+  With `dry_run` it writes nothing and returns the view the changes would give. Otherwise it
+  writes the project folder's existing file (else creates `chantier.yaml`), UTF-8, LF, keeping the
+  file's other keys and its comments (ruamel.yaml's round trip, imported inside the function: the
   project bans it at module level), and returns the new view and `sha256`.
 - It writes no other file, never the surface root's `chantier.yaml`, never the code repository's
   file, and commits nothing.
@@ -103,8 +116,9 @@ The board knows no role and holds no configuration logic: it calls these two fun
   "<role>", "key": "agent" | "model", "value": "<text>" | null}], "base_sha256": "<hash or
   null>", "dry_run": true | false}`: `edit_surface_file`; a refusal answers 400 (a key other than
   `agent`/`model`, a missing or unknown `host`) or 409 (the others), with the reason or the
-  problem lines; a success answers the view and the new `sha256`, and adds one journal line
-  (`config`, per change e.g. `coder.model = gpt-6.1-terra (copilot)`).
+  problem lines; a success answers the view and the new `sha256` (an overridden row answers 200
+  like any other, its `overridden_by` set), and adds one journal line (`config`, per change e.g.
+  `coder.model = gpt-6.1-terra (copilot)`, and `, overridden by <path>` when the view says so).
 - Both go through the existing key check and `_write`'s rules (415 for a non-JSON body, 404 for an
   unknown project). Nothing else in `board/` changes.
 
@@ -117,12 +131,15 @@ The board knows no role and holds no configuration logic: it calls these two fun
   value greyed with its layer, the `surface project` value editable as text); the model (a choice
   among the host's catalog, plus "inherited"); the effective agent and model with its layer; the
   start: "named agent", "named agent, model given at the start", "generic agent: the caller's
-  tools, not restricted", or the refusal's text in the error style. When the `repository` file
-  overrides the row's `surface project` value, the row says "overridden by <path>" next to it. A
-  line above each table states the host's capability ("starts a named agent with a model: yes /
-  not yet").
+  tools, not restricted", or the refusal's text in the error style. A layer's reset is shown where
+  its value would be, as "reset (~) in <layer>".
+- Q22: when the row's `overridden_by` is set, the row keeps the `surface project` value as written
+  (editable, saved like any other) and says next to it "overridden by <path>", with the effective
+  value (the repository's) in the effective column; the edit is never disabled for it. A line
+  above each table states the host's capability ("starts a named agent with a model: yes / not
+  yet").
 - Each change of an agent or model field sends a `dry_run` `PUT`; the rows show its result at
-  once, Q13's refusal included.
+  once, Q13's refusal and Q22's "overridden by <path>" included.
 - "Save" sends the changes; a refusal shows its lines and keeps the edits; a 409 on the hash says
   the file changed and reloads it.
 - With an open batch: a banner "applies at the next batch" (Q4).
@@ -155,7 +172,8 @@ read and approve in the diff at the merge.
   screenshot (`docs/web-board/config-pc.png`, `config-phone.png`, taken with `just
   docs-screenshots` on the demo surface `docs/demo/`, which gains
   `projects/shop-api/chantier.yaml` setting one Copilot model under `hosts.copilot.roles`, so the
-  page shows a generic start).
+  page shows a generic start); the section says that a value the code repository's file overrides
+  is still written and shown "overridden by <path>" (Q22).
 - Release notes, as the project's release process asks.
 
 ### 5. Tests (`skills/chantier/scripts/cli/tests/`), few, parametrized, fast
@@ -165,10 +183,11 @@ read and approve in the diff at the merge.
   nothing written); a stale hash (409, nothing written); an invalid model (409 with the line,
   nothing written); a key other than `agent`/`model` and a `null` host (400); no surface (409
   read-only); both `.yaml` and `.yml` (409); a Copilot agent with a model (written, the Copilot
-  row `refused` with the CLI's line); a repository file overriding the written value (the view
-  marks it).
-- `test_playbook_config.py`: `edit_surface_file` keeps a comment and an unrelated key, and
-  removes an emptied map.
+  row `refused` with the CLI's line); Q22: a repository file setting the same model (200, the
+  surface file written, the row's `overridden_by` the repository file's path and the effective
+  model the repository's, the journal line naming it); a `~` in the repository shown `"reset"`.
+- `test_playbook_config.py`: `edit_surface_file` keeps a comment and an unrelated key, removes an
+  emptied map, and removes a `~` the file held when the key is set back to "inherited".
 
 ### 6. Scenario (`scenario/run_scenario.py`)
 
@@ -180,11 +199,12 @@ read and approve in the diff at the merge.
 ## Out of scope
 
 - Editing any key other than each role's `agent` and `model` (Q14), the surface root's file, or
-  the code repository's file from the board (Q7).
+  the code repository's file from the board (Q7); writing a `~` from the page.
+- Refusing or disabling an edit the code repository's file overrides (Q22).
 - A setting for all hosts (Q16).
 - A new `chantier` command to write the configuration: the page and a hand edit are the writers.
 - The board committing or pushing anything; changing a running batch's team (Q4).
-- The layers, the starts and the catalog themselves (A, B, copilot-model-catalog).
+- The layers, the reset, the starts and the catalog themselves (A, B, copilot-model-catalog).
 - The CR board pane (`hooks/register.tsx`): untouched, so no pane screenshot is needed.
 
 ## Evidence
@@ -195,12 +215,10 @@ read and approve in the diff at the merge.
   untouched: no `just mod`.
 - The Configuration page's screenshots (PC and phone) in the PR and in `docs/web-board/`, from the
   demo surface.
-- In the PR: one `PUT /config` and its answer on the demo surface, and the written file's diff.
+- In the PR: one `PUT /config` and its answer on the demo surface, and the written file's diff;
+  one `GET /config` answer with a row `overridden_by` a repository file.
 - No CI job is added or changed.
 
 ## Open questions
 
-1. The code repository's `chantier.yaml` is stronger than the surface project's file the page
-   writes (Q19). When it already sets the role's agent or model, should the page still write the
-   surface's value and show it "overridden by <path>" (the recommended answer: nothing hidden,
-   the edit takes effect if the repository's value goes), or refuse the edit with that reason?
+None.
