@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The web board's Configuration page",
+  "summary": "Stack C of 3, on A and B. Per-host role agent and model edited in the surface project chantier.yaml via CLI code, autosync commits; overridden edits written and shown; resets shown as default; Copilot models' plans shown from copilot_catalog(), refusing none; rest read-only. No open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "f3343c8e4bb696fab9d3182ffcab4dcf175a8a32cd269bdbe6c355f6eb22306e",
+    "03-change-spec.md": "0c71022e68a6bad5c5781f6315f27fc00fcc0153e07705d46b6cf56407dbbf5b",
+    "intake/request.md": "d23537c082763f237a7cda397f7679e88b631ae256993fe073b86ff9f3f3a4ff"
+  },
+  "summarized": "2026-11-16T19:44:46Z"
+}

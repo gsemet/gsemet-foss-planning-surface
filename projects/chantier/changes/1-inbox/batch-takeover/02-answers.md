@@ -47,6 +47,9 @@ estimated.
   machine cannot take it over without the user's confirmation.
 - Q9, the user chose the recommended answer: the published record holds the brief, the CRs' notes
   and the events (no worktree paths, no session ids), so a takeover finds everything.
+- Q8, the user chose the recommended answer: machine A's leftover local copy is replaced when
+  needed: A takes the batch back with `takeover` once it is paused again, and A's `open` replaces
+  the leftover copy of a batch closed elsewhere, after saying so.
 
 ## Grilled enough
 

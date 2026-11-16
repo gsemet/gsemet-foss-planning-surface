@@ -38,6 +38,14 @@ branch name the CLI expected for its pushed check.
 - **Q4, scope: the whole retro point.** `pause` accepts a batch whose remaining CRs are stopped or
   blocked by the user; the CR keeps its existing PR branch; batch-20's stale record (`running` in
   `5-archives/batches/`) is closed as superseded.
+- **Q7, a paused batch that starts again is a start.** Its first `take` or `order qa` writes the
+  published record again as `running`, so another machine cannot take it over without the user's
+  confirmation.
+- **Q8, machine A's leftover local copy is replaced when needed.** A takes the batch back with
+  `takeover` once it is paused again; A's `open` replaces the leftover copy of a batch closed
+  elsewhere, after saying so. The user removes nothing by hand.
+- **Q9, what the record publishes.** The published record holds the brief, the CRs' notes and the
+  events (no worktree paths, no session ids), so a takeover finds everything.
 
 ## What changes
 
@@ -55,18 +63,19 @@ It gains:
   as today.
 - `paused`: the pause's time, or `null`.
 - At a pause, `cost_usd` and `cost_unpriced`: the cost to date (see 4), with `carried` (see 4).
-- `resume`: what a takeover needs, as of the publish:
-  - `batch`: `batch.json`'s content, less what only means something on the machine that wrote it:
-    the CRs' `worktree` paths, the transcript and session ids (`foreman`, `foreman_transcript`,
-    `foreman_transcripts`, `foreman_claims`, `chief_transcript`, `chief_transcripts`) and
-    `heartbeat`/`heartbeat_stopped`.
-  - `events`: the lines of `events.jsonl`, as they are.
+- `resume`: what a takeover needs, as of the publish (Q9):
+  - `batch`: `batch.json`'s content, the CRs' notes included, less what only means something on
+    the machine that wrote it: the CRs' `worktree` paths, the transcript and session ids
+    (`foreman`, `foreman_transcript`, `foreman_transcripts`, `foreman_claims`, `chief_transcript`,
+    `chief_transcripts`) and `heartbeat`/`heartbeat_stopped`.
+  - `events`: the lines of `events.jsonl`, as they are, less any worktree path or session id
+    field an event carries.
   - `brief`: `brief.md`'s text.
 - `taken_over`: a list, one entry per takeover: `{from, to, at, record_published, confirmed}`
   (`confirmed`: true when the batch was not paused and the user confirmed the other machine had
   stopped).
 
-The publishes ("a start" and "a pause" of Q1):
+The publishes ("a start" and "a pause" of Q1, with Q7's restart counted as a start):
 
 - `open` (as today, plus the new fields, `state: running`);
 - `pause`, plain or held (see 2): `state: paused`;
@@ -74,8 +83,8 @@ The publishes ("a start" and "a pause" of Q1):
   it (paused when taken over from a pause);
 - the first `take` that sets a paused batch running again (`commands/driver.py`, the `reopen`
   event) and `order qa` on a paused batch (`commands/orders.py`, `_reopen`): the batch starts
-  again, `state: running`. This keeps a paused record from being taken over at once while the
-  first machine works on it again (open question 1).
+  again, `state: running` (Q7). Another machine then cannot take it over at once while the first
+  machine works on it again: it needs the user's confirmation, as for any running record.
 
 `close` writes the record as today; it drops `resume` and keeps `machine`, `taken_over` and the
 cost lines. A record written before this change has no `resume`: it cannot be taken over (the
@@ -88,7 +97,8 @@ project's repository, in-project) through the surface's autosync or the Chief of
 commit, as every planning-folder file today.
 
 Docs: `docs/planning-modes.md` ("What stays local, what is pushed": the record and its `resume`
-are published, written at the start and the pause only, the live files stay local),
+are published, written at the start and the pause only, the live files stay local; the `resume`
+holds the brief, the notes and the events, with no worktree path and no session id),
 `docs/planning-folder.md` (the `5-archives/batches/` line and the pause paragraph),
 `skills/chantier/references/concepts.md` ("Planning folder": "written by `open` as `running`,
 completed by `close`" becomes the list of publishes above).
@@ -138,7 +148,8 @@ planning folder (the surface's autosync `sync`, or a plain pull).
   - a CR folder found nowhere in the planning folder (see below), named.
 - **A local copy of the same batch** is replaced only when it is older than the record
   (`resume.published` later than this machine's own last publish of it); a local copy as new as
-  the record is refused: `this machine already holds <batch> as published`.
+  the record is refused: `this machine already holds <batch> as published`. This is how machine A
+  takes back a batch B took over and paused again (Q8, and 5).
 - **Writes**, under the lifecycle lock, all or nothing:
   - `4-batch/batch.json` from `resume.batch`, with: `host` this machine's host; the transcript
     and session fields empty, then `chief_transcript(s)` this session's own id (`own_transcript`,
@@ -218,7 +229,20 @@ reads the CR's own branch, so no second push is needed.
 - On machine A, once B has taken the batch over: every command that writes the batch refuses when
   the record's `published` is later than A's own last publish and names another machine:
   `<batch> was taken over by <machine> at <time>: this machine's copy is stale, nothing was
-  written`; A's `status` says the same in its first line (open question 2 for what A does next).
+  written`; A's `status` says the same in its first line, and adds what clears it (Q8): `takeover
+  <batch>` once the record is paused, or `open` once it is closed.
+- A's leftover copy is replaced, never removed by hand (Q8):
+  - **The batch paused again elsewhere**: A runs `takeover <batch>`; its local copy is older than
+    the record, so it is replaced (3).
+  - **The batch closed elsewhere**: A's `open` (`rails.check_no_open_batch`, and `open`'s own
+    step) reads the local `4-batch/batch.json`'s id; when that batch's published record is
+    `closed` and names another machine, `open` prints `<batch> was closed on <machine> at <time>:
+    this machine's leftover copy is replaced`, removes the local batch files (`batch.json`,
+    `events.jsonl`, `brief.md`, the batch's STATUS files and locks: the git-ignored files of
+    `4-batch/`), and opens the new batch in the same lifecycle lock, all or nothing. It removes
+    no worktree and no branch: those are the agents' (the Chief of Staff names A's leftover
+    worktrees to the user, as at any close). A local batch whose record is not `closed` is
+    refused as today.
 
 ### 6. batch-20's stale record, closed as superseded
 
@@ -233,10 +257,12 @@ reads the CR's own branch, so no second push is needed.
 ## Out of scope
 
 - A batch run on two machines at once, and any live mirror of the batch's state: the record moves
-  only at a start, a pause and a takeover.
+  only at a start (Q7's restart included), a pause and a takeover.
 - Any estimate of a lost cost or of lost rounds.
 - Moving a running Driver from one machine to another: a Driver is never moved; a takeover starts
   fresh Drivers from the published state.
+- Removing a machine's leftover worktrees or branches: the CLI replaces only the batch's local
+  files (5).
 - The CR board pane (`hooks/register.tsx`) and the `STATUS.json` fields it shows: unchanged, so no
   pane screenshot is due. `hooks/` and `types/` are untouched (no `just mod`).
 - The `agents/` and `com.github.copilot/agents/` files: unchanged (the contract is in the cards).
@@ -251,10 +277,13 @@ reads the CR's own branch, so no second push is needed.
   `--confirmed-stopped`, a local copy as new as the record); `pause` with and without `--hold`
   for each CR state of 2 (accepted: queued, ready, blocked, working with no agent; refused: working
   with an agent, an open order, a stack agent), and the hint line; `open` refused by a published
-  open record of another batch; the published record's fields after `open`, a held `pause`, a
-  `takeover` and a reopening `take` (no worktree path, no transcript id in `resume.batch`); the
-  carried and lost cost lines; `last_closed_text` with `superseded_by`. `just test` stays inside
-  its budget.
+  open record of another batch; `open` replacing a leftover local copy whose record is `closed`
+  on another machine (the line printed, the old files gone, the new batch open) and refusing one
+  whose record is not `closed`; the published record's fields after `open`, a held `pause`, a
+  `takeover` and a reopening `take` or `order qa` (`state: running` again; no worktree path, no
+  transcript or session id in `resume.batch` and `resume.events`; the notes and the brief
+  present); the carried and lost cost lines; `last_closed_text` with `superseded_by`.
+  `just test` stays inside its budget.
 - Scenario (`scenario/run_scenario.py`): a case `batch_takeover` in the `surface-board` unit
   (README Coverage bullet `(unit: surface-board)`), on a `SurfaceWorld` with a second checkout of
   the surface and of the project's clone standing for machine B:
@@ -267,30 +296,16 @@ reads the CR's own branch, so no second push is needed.
      plus `takeover`; `status` shows the batch paused.
   3. In B: the ready CR's scripted Driver creates its worktree from `origin/<branch>` and hands
      back `ready` again at the same branch: the pushed check passes with no second branch on the
-     remote (`git ls-remote` lists one branch for the CR).
+     remote (`git ls-remote` lists one branch for the CR). The record now reads `running` (Q7).
   4. In B: `pause` again; the cost lines show `Carried from <machine>` and the total is A's plus
      B's.
-  5. Back in A: a writing command refuses with `taken over by`; `open` in a third clean checkout
-     refuses naming the open batch.
+  5. Back in A, after a pull: a writing command refuses with `taken over by`, and `status` names
+     `takeover`; `takeover` then replaces A's copy (the record is paused); `open` in a third clean
+     checkout refuses naming the open batch.
   6. A running record (no pause): `takeover` without `--confirmed-stopped` refuses naming the
      open time and the machine; with it, the CRs follow their folders (`2-actives` → `blocked`
      `context:`, `3-done` → `merged`), and the `lost on <machine>` note and cost line are there.
+  7. The batch closed on one machine (its CRs merged or cancelled); in the other, after a pull,
+     `open` prints the `leftover copy is replaced` line and opens the next batch.
 - The data step of 6 is seen in the surface after the merge: batch-20.json reads `closed`,
   `superseded_by: batch-21`, and `status`'s line says it.
-
-## Open questions
-
-1. **The first `take` after a pause republishes the record as `running`.** Q1 says the published
-   record is written "only at the start and at the pause". This specification counts a paused
-   batch set running again (its first `take`, or `order qa`) as a start, so another machine does
-   not take over at once a batch the first machine is working on again. Keep that, or publish only
-   at `open` and `pause`?
-2. **Machine A's stale copy after a takeover.** Its writing commands refuse (5). What then clears
-   A's local `4-batch/` files: A takes the batch back with `takeover` when it is paused again
-   (the specification already allows a newer record to replace an older copy), and, once B has
-   closed it, A's `open` replaces a stale copy of a closed batch after saying so? Or the user
-   removes them by hand?
-3. **What the record publishes.** The `resume` snapshot publishes the brief, the CRs' notes and
-   the events as written (local paths and agent ids among them; worktree paths and session ids
-   are left out). A surface may be public: is that acceptable, or should notes and events be
-   left out of the snapshot (then a takeover keeps only the CRs' state, the brief and the costs)?

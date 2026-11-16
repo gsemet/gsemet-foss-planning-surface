@@ -1,21 +1,29 @@
 # Change Specification: the web board's Configuration page
 
-Date: 2026-11-16 (third run: A's reset spelled `default` (Q23); second run: Q22 carried, and A's
-reset (Q20) shown). Split from
+Date: 2026-11-16 (fourth run: each Copilot model's plans shown, read from `copilot_catalog()`;
+third run: A's reset spelled `default` (Q23); second run: Q22 carried, and A's reset (Q20)
+shown). Split from
 model-defaults-board-config by its Q18 (the user's choice): (C), the third of a stack of three.
 Sources: [request](intake/request.md); the grill is model-defaults-board-config's
 [answers](../model-defaults-board-config/02-answers.md) (Q4, Q7, Q13, Q14, Q16, Q19, Q20, Q22,
 Q23, the critic's text fixes, the Chief of Staff's AGENTS.md decision and reading of Q20) and its
-[intent](../model-defaults-board-config/01-intent.md). No tracker issue.
+[intent](../model-defaults-board-config/01-intent.md); copilot-model-catalog's
+[answers](../copilot-model-catalog/02-answers.md), "The spec critic's question" (this page shows
+each Copilot model's plans, read from `copilot_catalog()`), and its
+[specification](../copilot-model-catalog/03-change-spec.md) (point 2, `copilot_catalog()` and
+`plans`); this CR's [answers](02-answers.md). No tracker issue.
 
 ## Depends on, and the stack
 
 The stack, bottom to top: [copilot-role-models](../copilot-role-models/03-change-spec.md),
-[copilot-model-catalog](../copilot-model-catalog/),
+[copilot-model-catalog](../copilot-model-catalog/03-change-spec.md),
 [model-defaults-board-config](../model-defaults-board-config/03-change-spec.md) (A),
 [role-model-per-host](../role-model-per-host/03-change-spec.md) (B), this CR (C).
 
-- copilot-model-catalog: `MODELS[host]`, the page's model choice.
+- copilot-model-catalog: `MODELS[host]`, the page's model choice; `copilot_catalog()`
+  (`playbook/models.py`), each Copilot model's `plans` (`pro`, `pro_plus`, `max`, `business`,
+  `enterprise` as GitHub's plans table gives them, or `null` when that table does not name the
+  model).
 - A: the layers and their reading (`playbook/layers.py`: each layer's path, presence and
   problems, the merged tree with each leaf's layer and each reset's layer), the paths as printed,
   Q1's refusal, every role setting under `hosts.<host>.roles`, the reset with `default` (or `~`,
@@ -26,7 +34,8 @@ The stack, bottom to top: [copilot-role-models](../copilot-role-models/03-change
 ## Goal
 
 From the web board, the user sees for each host and each role which agent runs it, on which
-model, from which layer, and how it starts, and changes a role's agent or model for one project
+model, from which layer, and how it starts, sees on which plans GitHub offers each Copilot model,
+and changes a role's agent or model for one project
 without opening a YAML file. The page writes only the project's file in the planning surface,
 through the CLI's own reading, checking and writing of it; the surface's autosync commits it. A
 change applies at the next batch. When the code repository's file overrides what the page writes,
@@ -65,6 +74,9 @@ the page says so and shows the value that applies: nothing hidden.
   that say what chantier writes name this file (section 4).
 - The Chief of Staff's decision: the AGENTS.md wording (section 4) is written by the Driver as
   below; the user reads and approves it in the PR's diff at the merge.
+- copilot-model-catalog's answer to the spec critic's question (2026-11-16): the Configuration
+  page shows each Copilot model's plans, read from `copilot_catalog()`. As that CR's Q7 says, a
+  plan is shown and refuses nothing: no model is hidden, disabled or refused for its plans.
 - Spec critic: yes (on the CR before the split).
 
 ## What changes
@@ -84,7 +96,10 @@ The board knows no role and holds no configuration logic: it calls these two fun
   `overridden_by`: when the `repository` layer sets (or resets) the key the page writes for that
   row and host, the repository file's path as A prints it, else `null` (Q22); the start from B (`plugin`, `named`, `generic`, or `refused` with the CLI's
   line); `tools`: `"the agent file's"` or `"the caller's, not restricted"`. Per host:
-  `NAMED_AGENT_MODEL_AT_START[host]` and the catalog (`MODELS[host]`: id and name). Also: the
+  `NAMED_AGENT_MODEL_AT_START[host]` and the catalog (`MODELS[host]`: id and name; on Copilot
+  each entry also carries `plans`, copied unchanged from the `copilot_catalog()` entry of the same
+  identifier: the plans object as `copilot-models.json` holds it, or `null` when GitHub's plans
+  table does not name the model; Claude Code's entries carry no `plans`). Also: the
   other keys (`prices`, `board`, `ci`, `long_gate`, the roles' `skills`/`tools`) as merged values
   with their layer; the files read and their problems (A's paths and lines); `writable` (external
   mode, the project has its folder); the surface project file's path from the surface root and its
@@ -142,6 +157,13 @@ The board knows no role and holds no configuration logic: it calls these two fun
   tools, not restricted", or the refusal's text in the error style. A layer's reset is shown where
   its value would be, as "reset (default) in <layer>", whether the file writes `default`, `~` or
   `null`.
+- Copilot's plans (copilot-model-catalog's answer): in the Copilot table's model choice, each
+  option reads `<id> (<name>)` followed by its plans; under the Copilot table, a read-only list
+  "Copilot models" gives each catalog model's identifier, name and plans, in the view's order. A
+  plan the object marks `true` is named (`Pro`, `Pro+`, `Max`, `Business`, `Enterprise`), one marked
+  `false` is not; any other value is shown next to the plan's name as the table gives it; `plans:
+  null` reads "not in GitHub's plans table". No option is disabled, hidden or marked as refused for
+  its plans. The plan names and the sentence are words in `i18n/en-board.js` and `fr-board.js`.
 - Q22: when the row's `overridden_by` is set, the row keeps the `surface project` value as written
   (editable, saved like any other) and says next to it "overridden by <path>", with the effective
   value (the repository's) in the effective column; the edit is never disabled for it. A line
@@ -182,7 +204,8 @@ read and approve in the diff at the merge.
   docs-screenshots` on the demo surface `docs/demo/`, which gains
   `projects/shop-api/chantier.yaml` setting one Copilot model under `hosts.copilot.roles`, so the
   page shows a generic start); the section says that a value the code repository's file overrides
-  is still written and shown "overridden by <path>" (Q22).
+  is still written and shown "overridden by <path>" (Q22), and that the Copilot table shows each
+  model's plans, from GitHub's tables, which refuse no model.
 - Release notes, as the project's release process asks.
 
 ### 5. Tests (`skills/chantier/scripts/cli/tests/`), few, parametrized, fast
@@ -195,7 +218,10 @@ read and approve in the diff at the merge.
   row `refused` with the CLI's line); Q22: a repository file setting the same model (200, the
   surface file written, the row's `overridden_by` the repository file's path and the effective
   model the repository's, the journal line naming it); a `default` and a `~` in the repository
-  shown `"reset"`; a `value` of `default` refused (409, nothing written).
+  shown `"reset"`; a `value` of `default` refused (409, nothing written); the `GET` with
+  `copilot_catalog()` patched to a small catalog holding one model with plans and one with `plans:
+  null`: each Copilot catalog entry's `plans` equals that catalog's for its identifier (`null`
+  kept), and no Claude Code entry carries `plans`.
 - `test_playbook_config.py`: `edit_surface_file` keeps a comment and an unrelated key, removes an
   emptied map, and removes a `default` or `~` the file held when the key is set back to
   "inherited".
@@ -217,6 +243,9 @@ read and approve in the diff at the merge.
 - The board committing or pushing anything; changing a running batch's team (Q4).
 - The layers, the reset, the starts and the catalog themselves (A, B, copilot-model-catalog).
 - The CR board pane (`hooks/register.tsx`): untouched, so no pane screenshot is needed.
+- Refusing, warning on or filtering a model for its plans (copilot-model-catalog's Q7); plans on
+  Claude Code (no catalog there); any other field of `copilot_catalog()` (release status, clients)
+  on the page; editing the catalog from the board.
 
 ## Evidence
 
@@ -225,9 +254,10 @@ read and approve in the diff at the merge.
   the local Windows run when this CR is on top of its stack (AGENTS.md). `hooks/` and `types/`
   untouched: no `just mod`.
 - The Configuration page's screenshots (PC and phone) in the PR and in `docs/web-board/`, from the
-  demo surface.
+  demo surface, the PC one showing the "Copilot models" list with its plans.
 - In the PR: one `PUT /config` and its answer on the demo surface, and the written file's diff;
-  one `GET /config` answer with a row `overridden_by` a repository file.
+  one `GET /config` answer with a row `overridden_by` a repository file, and its Copilot catalog
+  entries with their `plans`.
 - No CI job is added or changed.
 
 ## Open questions
