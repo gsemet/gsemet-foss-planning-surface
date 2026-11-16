@@ -1,0 +1,6 @@
+﻿usage: chantier init [-h]
+
+options:
+  -h, --help  show this help message and exit
+
+exit=0

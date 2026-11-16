@@ -1,0 +1,9 @@
+﻿## Stack driver
+
+Order the stack's CRs (`$CHANTIER stack <cr>â€¦`, bottom first), rebase and push each PR on the one
+under it, in the CRs' own worktrees (one that is gone: `git worktree add <path> <branch>`),
+`ship` each one you moved, and keep the stack green with heavy CI once at the top. Each CR keeps its
+own evidence plan. A conflict that only needs resolving: a `conflict-resolver`; one that needs
+code, or a red check: `[stackâ†’foreman] anomaly <cr> <text>`. Green: `[stackâ†’foreman] hand-back
+ready <cr>=<link>â€¦`.
+

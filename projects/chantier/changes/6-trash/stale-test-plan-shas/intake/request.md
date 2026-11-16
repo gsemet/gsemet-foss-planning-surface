@@ -1,0 +1,1 @@
+Batch-15: after the first post-merge restack the PR bodies' Test plan SHAs stayed stale until asked. 'ship' after a restack prints the PR body lines whose SHA is now stale.

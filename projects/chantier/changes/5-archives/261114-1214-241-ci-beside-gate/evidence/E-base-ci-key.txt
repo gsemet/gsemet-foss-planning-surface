@@ -1,0 +1,2 @@
+﻿playbook: chantier.yaml is not valid (1 problems)
+chantier.yaml:1: unknown key "ci": the top-level keys are "roles", "prices" and "board"

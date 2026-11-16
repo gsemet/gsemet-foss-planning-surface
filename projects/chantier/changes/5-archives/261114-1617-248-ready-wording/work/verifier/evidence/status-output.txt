@@ -1,0 +1,6 @@
+batch-01 running steering Foreman shape parallel live 1/4 queued 0 foreman none e0 heartbeat never spent unknown
+last closed: none
+CR-101 ready to merge r1/3 https://github.com/acme/demo/pull/40 | -
+CR-102 PR in draft r1/3 https://github.com/acme/demo/pull/42 | -
+CR-103 ready locally r1/3 - | -
+CR-104 working r0/3 - | no Driver recorded | -

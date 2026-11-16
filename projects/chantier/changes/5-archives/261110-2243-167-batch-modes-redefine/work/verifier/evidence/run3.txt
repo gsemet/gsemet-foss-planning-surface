@@ -1,0 +1,75 @@
+﻿
+$ chantier open --mode series --default-branch main .agents\changes\1-inbox\11-alpha .agents\changes\1-inbox\12-bravo .agents\changes\1-inbox\13-charlie
+opened batch-01 on claude: 3 CRs, 4 slots, series, steering foreman
+next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+CR-101 CR 11-alpha: 1-inbox/11-alpha -> 4-batch/1-pending/101-alpha
+CR-102 CR 12-bravo: 1-inbox/12-bravo -> 4-batch/1-pending/102-bravo
+CR-103 CR 13-charlie: 1-inbox/13-charlie -> 4-batch/1-pending/103-charlie
+[exit 0]
+
+took CR-101 (1 of 4 slots held)
+worktree: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\p4.
+worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-cr-11-alpha base origin/main; not created yet: a Driver 
+creates it first
+--- Driver creates CR-101's worktree, commits, pushes (manual stand-in)
+
+$ chantier ship CR-101 https://example.com/pr/1 --batch batch-01
+recorded https://example.com/pr/1 (base main, head e3cf898)
+off: no long gate passed at e3cf898 (`chantier gate`)
+[exit 0]
+
+$ chantier handback CR-101 ready https://example.com/pr/1 --batch batch-01
+[driver CR-101→foreman] hand-back ready https://example.com/pr/1
+CR-101 ready
+[exit 0]
+
+$ chantier status --batch batch-01
+batch-01 running series live 0/4 queued 2 steering foreman foreman none e0 heartbeat never spent $0.00
+CR-101 ready r0/3 https://example.com/pr/1 | -
+CR-102 queued r0/3 - | -
+CR-103 queued r0/3 - | waits for CR-102 queued | -
+[exit 0]
+took CR-102 (1 of 4 slots held)
+worktree: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\p4.
+worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-cr-12-bravo base chantier/batch-01/cr-101-cr-11-alpha; not 
+created yet: a Driver creates it first
+
+$ chantier ship CR-102 https://example.com/pr/2 --batch batch-01
+error: CR-102: no worktree at C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\p4.worktrees\batch-01-CR-102; its Driver creates it (`git worktree add -b chantier/batch-01/cr-102-cr-12-bravo C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\p4.worktrees\batch-01-CR-102 <base>`)
+[exit 2]
+
+$ chantier order merged CR-101 --batch batch-01
+[chief-of-staff→foreman] order O-1: merged CR-101
+merged CR-101: moved to 3-done
+[exit 0]
+worktree: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\p4.
+worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-cr-12-bravo base origin/main; not created yet: a Driver 
+creates it first
+=== order mode on series, --note stack
+
+$ chantier order mode --note parallel --batch batch-01
+error: order mode: only a series batch switches, to a stack (`order mode --note stack`)
+[exit 2]
+
+$ chantier order mode --batch batch-01
+error: order mode: only a series batch switches, to a stack (`order mode --note stack`)
+[exit 2]
+
+$ chantier order mode --note stack --batch batch-01
+[chief-of-staff→foreman] order O-2: mode stack
+batch-01 is a stack now: a queued CR waits only for its `after`; the stack driver stacks the PRs
+[exit 0]
+
+$ chantier status --batch batch-01
+batch-01 running stack live 1/4 queued 1 steering foreman foreman none e0 heartbeat never spent $0.00
+CR-101 merged r0/3 https://example.com/pr/1 | -
+CR-102 working r0/3 - | -
+CR-103 queued r0/3 - | -
+orders the CLI applied, the Foreman marks each `order done <O-k>`: O-1 merged CR-101; O-2 mode stack
+[exit 0]
+took CR-103 (2 of 4 slots held)
+worktree: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\p4.
+worktrees\batch-01-CR-103 branch chantier/batch-01/cr-103-cr-13-charlie base origin/main; not created yet: a Driver 
+creates it first
+
+

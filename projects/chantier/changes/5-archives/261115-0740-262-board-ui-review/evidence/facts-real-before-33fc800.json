@@ -1,0 +1,318 @@
+{
+ "en": {
+  "body_top": "R\nreal2\nbatch-18 · batch running · 0 in intake\nViews\nHome\nTriage\n15\nKanban\n25\nBatch\nbatch-18\nCosts\n$70.79\nData: 0 s ago\nEnglish\nKanban\n0 intake\n15 in grill\n6 working\n3 handed back\n+ New\n25 items · 147 merged\nIntake\n0\n+ New: a new idea\n1-inbox: filed, not triaged yet\nempty\nGrill\n15\n2-backlog: prioritised, being grilled\nP1\nboard-history\nA dedicated History page on the board: what was done, per day, ",
+  "cols": [
+   [
+    "col-intake",
+    "Intake",
+    "0",
+    0,
+    "empty"
+   ],
+   [
+    "col-grill",
+    "Grill",
+    "15",
+    15,
+    ""
+   ],
+   [
+    "col-ready",
+    "3-ready",
+    "0",
+    0,
+    "empty"
+   ],
+   [
+    "col-progress",
+    "In progress",
+    "7",
+    7,
+    ""
+   ],
+   [
+    "col-handed",
+    "Handed back",
+    "3",
+    3,
+    ""
+   ]
+  ],
+  "count_line": "25 items · 147 merged",
+  "pf_present": [],
+  "card_titles": [
+   "A dedicated History page on the board: what was done, per day, with every CR merged or dropped, every PR opened, made ready and merged, and every release.",
+   "Audit the move of chantier's planning to the planning surface (read-only)",
+   "Rewrite the documentation as a Sphinx site on Read the Docs",
+   "The planning surface (https://github.com/gsemet/gsemet-foss-planning-surface) launches chantier's board and sync with no agent.",
+   "audit.py's -u/--set-upstream exemption accepts 'git push -f -u origin main': check forced first (found by CR-191's Inspector, batch-14, pre-existing).",
+   "A landing page on GitHub Pages that shows what chantier brings at a glance",
+   "A batch running with the user away is watched by a wake that does not depend on a session being idle.",
+   "Planning-folder file types checked by a test (batch-11 retro). CR-184 Inspector caught a plain-text number file in the planning folder, where chantier writes only JSON and Markdown. A structure test or the long gate should catch a non-JSON, non-Markdown file the CLI writes there.",
+   "a planning server owned by the Chief of Staff",
+   "Plugin reload needed as a named block (batch-11 retro). The epoch-1 Foreman ran an old write guard after main removed it and a round was spent for nothing. A CR blocked by a stale loaded plugin should be a named block cause with a take --note path, or the Chief of Staff restarts the Foreman before a batch when a hook of the plugin changed on main.",
+   "PR body for an outside reader (batch-11 retro). CR-185 PR body took two Inspector passes on wording: roles and batch terms leaked from the internal references. The Driver card should say the PR body is written for an outside reader from the first draft.",
+   "Retro batch-13: nothing of the eval kit was proved on the host (setup.py's allow rules, sandbox.py merge on a real PR, reset --yes with real refs/pull/*). Fix: the first paid campaign proves them, running setup.py from the main checkout since its merge rule embeds the checkout's path.",
+   "A spec needing an external fact names its source (batch-11 retro). CR-181 shipped without the claude-fable-5-2 price because no Driver had a network tool to read a price page. The spec-writer card should make a spec that needs an external fact name its source or the tools the Driver needs.",
+   "real-direct run 1 retro (2026-11-12, PR 137): plain `status` (and the board) showed a stale spend, $0.57, long after `cost` said $9.57, until `status --refresh`. Fix: `status` and STATUS.json say how old the spend figure is.",
+   "Upstream tickets come into the inbox by a setting in `chantier.yaml`, per tracker.",
+   "every steering command refuses a missing `--epoch`",
+   "a retro critic cuts every list of changes chantier proposes on its own",
+   "each working CR shows the step it is at, and the board shows the next CR to start",
+   "the web board after the user's first page-by-page tour",
+   "batch-17 CLI fixes",
+   "three long-gate rules (the next merge first, early push, clean rebase)",
+   "the stack's one long gate, and a long-gate waiver recorded per CR",
+   "a CR's folder is self-contained",
+   "batch-17 retro, card fixes",
+   "A running batch switches between any two modes"
+  ],
+  "pri_tags_before": [
+   "P1",
+   "P2",
+   "P3",
+   "P4",
+   "CR-255",
+   "working",
+   "CR-259",
+   "CR-261",
+   "CR-262",
+   "CR-264",
+   "CR-265",
+   "CR-266",
+   "waits",
+   "CR-257",
+   "ready to merge",
+   "CR-263",
+   "CR-267"
+  ],
+  "cols_p3p4_off": [
+   [
+    "col-intake",
+    "Intake",
+    "0",
+    0,
+    "empty"
+   ],
+   [
+    "col-grill",
+    "Grill",
+    "15",
+    15,
+    ""
+   ],
+   [
+    "col-ready",
+    "3-ready",
+    "0",
+    0,
+    "empty"
+   ],
+   [
+    "col-progress",
+    "In progress",
+    "7",
+    7,
+    ""
+   ],
+   [
+    "col-handed",
+    "Handed back",
+    "3",
+    3,
+    ""
+   ]
+  ],
+  "body_top_after_toggle": "R\nreal2\nbatch-18 · batch running · 0 in intake\nViews\nHome\nTriage\n15\nKanban\n25\nBatch\nbatch-18\nCosts\n$70.79\nData: 0 s ago\nEnglish\nKanban\n0 intake\n15 in grill\n6 working\n3 handed back\n+ New\n25 items · 147 merged\nIntake\n0\n+ New: a new idea\n1-inbox: filed, not triaged yet\nempty\nGrill\n15\n2-backlog: prioritised, being grilled\nP1\nboard-history\nA dedicated History page on the board: what was done, per day, ",
+  "pri_tags_after": [
+   "P1",
+   "P2",
+   "P3",
+   "P4",
+   "CR-255",
+   "working",
+   "CR-259",
+   "CR-261",
+   "CR-262",
+   "CR-264",
+   "CR-265",
+   "CR-266",
+   "waits",
+   "CR-257",
+   "ready to merge",
+   "CR-263",
+   "CR-267"
+  ],
+  "triage_card_html": "<div class=\"pi raw\" draggable=\"true\" tabindex=\"0\" role=\"group\" aria-label=\"board-history, A dedicated History page on the board: what was done, per day, with every CR merged or dropped, every PR opened, made ready and merged, and every release.\" aria-busy=\"false\" data-slug=\"board-history\" data-key=\"pi-board-history\" title=\"Raw: not grilled yet\"><div class=\"row\"><span class=\"gs raw\" aria-hidden=\"true\"></span><span class=\"sl\">board-history</span></div><div class=\"pt\">A dedicated History page on the board: what was done, per day, with every CR merged or dropped, every PR opened, made ready and merged, and every release.</div><div class=\"pm\"><span>raw</span><span><svg class=\"svgi\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z\"></path><path d=\"M14 3v5h5\"></path></svg> 1 file</span><button type=\"button\" class=\"open\" data-open=\"i:boar",
+  "triage_card_classes": "pi raw",
+  "hover_transform": "matrix(0.999945, -0.0104718, 0.0104718, 0.999945, 0, 0)",
+  "hover_shadow": "rgba(30, 30, 50, 0.12) 0px 6px 16px 0px",
+  "sel_count": 1,
+  "sel_style": {
+   "outline": "solid 2px rgb(59, 111, 224)",
+   "shadow": "rgba(0, 0, 0, 0.06) 0px 1px 1px 0px, rgba(30, 30, 50, 0.07) 0px 3px 8px 0px",
+   "hasChk": false
+  },
+  "costs_text": "R\nreal2\nbatch-18 · batch running · 0 in intake\nViews\nHome\nTriage\n15\nKanban\n25\nBatch\nbatch-18\nCosts\n$70.79\nData: 0 s ago\nEnglish\nCosts\n0 intake\n15 in grill\n6 working\n3 handed back\n+ New\nLast computed: 8 min ago\n↻ Recompute\nthe server reads the transcripts again: no agent turn\nSpent (batch-18)\n$70.79\nBudget\n$300.00\n24 % used\nSum of the CRs\n$57.60\nthe rest: steering\nAverage cost per active CR\n$4.11\n14 CRs with a cost\nPer CR, batch-18\nCR\tTitle\tState\tCost\t\nCR-254 fast-scenario\t`just scenario` under 5 minutes: independent units run in parallel\tmerged r5/5\t$12.49\t\n\nCR-253 baseline-and-legacy\ta green long gate on main, and no backward compatibility\tmerged r4/4\t$6.25\t\n\nCR-257 cr-folder-self-contained\ta CR's folder is self-contained\tready to merge r1/3\t$4.66\t\n\nCR-264 b17-cli-fixes\tbatch-17 CLI fixes\tworking r1/3\t$4.37\t\n\nCR-261 board-cr-step\teach working CR shows the step it is at, and the board shows the next CR to start\tworking r4/4\t$4.23\t\n\nCR-262 board-ui-review\tthe web board after the user's first page-by-page tour\tworking r1/3\t$4.15\t\n\nCR-263 b17-card-fixes\tbatch-17 retro, card fixes\tready to merge r1/3\t$3.64\t\n\nCR-267 batch-mode-switch\tA running batch switches between any two modes\tready to merge r1/3\t$3.56\t\n\nCR-255 epoch-required-everywhere\tevery steering command refuses a missing `--epoch`\tworking r2/3\t$3.40\t\n\nCR-259 retro-critic\ta retro critic cuts every list of changes chantier proposes on its own\tworking r2/3\t$3.34\t\n\nCR-265 gate-rules\tthree long-gate rules (the next merge first, early push, clean rebase)\tworking r1/3\t$2.29\t\n\nCR-256 worker-reply-length\tworkers reply in an exact template, and `verdict` names its words\tmerged r1/3\t$1.88\t\n\nCR-258 push-refusal-lessons\ta refused force push is recorded with its exact text, and its Driver hands back instead of waiting\tmerged r1/3",
+  "hist_rows": [],
+  "home_text": "R\nreal2\nbatch-18 · batch running · 0 in intake\nViews\nHome\nTriage\n15\nKanban\n25\nBatch\nbatch-18\nCosts\n$70.79\nData: 0 s ago\nEnglish\nHome\n0 intake\n15 in grill\n6 working\n3 handed back\n+ New\nTo review\n3\nPRs ready to merge\nWaiting for you\n4\n0 blocked, 4 questions\nNext batch\n0\nin preparation (3-ready)\nWritten by the board\n0\nnothing since your last ‘rescan’\nbatch-18\nrunning\nParallel · Foreman\nsee the batch →\n5 merged\n3 ready to merge\n0 PR in draft\n0 ready locally\n6 working\n0 blocked\n1 queued\nSpent\n$70.79 / $300.00\nSlots\n6/8\nLast sign of the Foreman\n8 min ago\nOpened\n7 h ago\nOpen PRs\n8\nworking\nCR-255\nevery steering command refuses a missing `--epoch`\n#213\nready to merge\nCR-257\na CR's folder is self-contained\n#203\nworking\nCR-259\na retro critic cuts every list of changes chantier proposes on its own\n#207\nworking\nCR-261\neach working CR shows the step it is at, and the board shows the next CR to start\n#208\nworking\nCR-262\nthe web board after the user's first page-by-page tour\n#209\nready to merge\nCR-263\nbatch-17 retro, card fixes\n#205\nworking\nCR-264\nbatch-17 CLI fixes\n#210\nready to merge\nCR-267\nA running batch switches between any two modes\n#212\nRecent activity\nbatch-18\n02:57\n✓\nCR-262 gate just scenario passed\n02:56\n?\nquestion to the Chief of Staff\n02:56\n⇠\nCR-263 handed back ready\n02:56\n⇪\nCR-263 PR #205 pushed\n02:56\n✓\nCR-263 verified\n02:50\n✓\nCR-263 gate just scenario passed\n02:47\n?\nquestion to the Chief of Staff\n02:47\n⇠\nCR-267 handed back ready\n02:47\n✓\nCR-267 verified\n02:47\n⇪\nCR-267 PR #212 pushed\n02:44\n✎\nCR-267 note\n02:43\n✓\nCR-267 gate just scenario passed\n02:35\n✎\nCR-255 note\n02:35\n✓\nCR-259 gate just scenario passed\n02:26\n✎\nCR-267 note\n02:25\n⇪\nCR-255 PR #213 pushed\n02:25\n✎\nCR-255 note\n02:25\n✎\nCR-255 note\n02:25\n✎\nCR-255 note\n02:24\n✎\nCR-267 note\n02:24\n⇪\nCR-267 PR #212 pushed\n02:24\n✎\nCR-267 note\n02:14\n↻\nCR-255 round 2\n02:13\n✎\nCR-255 note\n02:12\n✎\nCR-265 note\nPipeline\nsort →\nInbox\n0\nP1\n2\nP2\n2\nP3\n10\nP4\n1\n3-ready\n0\nspecified\nin grill\nraw\nautomatable\nLast merged\n147 in total\nCR-254\n`just scenario` under 5 minutes: independent units run in parallel\n11-15\nCR-253\nChange Specification: a green long gate on main, and no backward compatibility\n11-15\nCR-256\nChange Specification: workers reply in an exact template, and `verdict` names its words\n11-14\nCR-258\nChange Specification: a refused force push is recorded with its exact text, and its Driver hands back instead of waiting\n11-14"
+ },
+ "fr": {
+  "body_top": "R\nreal2\nbatch-18 · batch en cours · 0 en intake\nVues\nHome\nTriage\n15\nKanban\n25\nBatch\nbatch-18\nCoûts\n$70.79\nDonnées : il y a 0 s\nFrançais\nKanban\n0 intake\n15 au grill\n6 en cours\n3 rendus\n+ Nouveau\n25 items · 147 mergés\nIntake\n0\n+ New: a new idea\n1-inbox : déposé, pas encore trié\nvide\nGrill\n15\n2-backlog : priorisé, en cours de grill\nP1\nboard-history\nA dedicated History page on the board: what was done",
+  "cols": [
+   [
+    "col-intake",
+    "Intake",
+    "0",
+    0,
+    "vide"
+   ],
+   [
+    "col-grill",
+    "Grill",
+    "15",
+    15,
+    ""
+   ],
+   [
+    "col-ready",
+    "3-ready",
+    "0",
+    0,
+    "vide"
+   ],
+   [
+    "col-progress",
+    "In progress",
+    "7",
+    7,
+    ""
+   ],
+   [
+    "col-handed",
+    "Rendus",
+    "3",
+    3,
+    ""
+   ]
+  ],
+  "count_line": "25 items · 147 mergés",
+  "pf_present": [],
+  "card_titles": [
+   "A dedicated History page on the board: what was done, per day, with every CR merged or dropped, every PR opened, made ready and merged, and every release.",
+   "Audit the move of chantier's planning to the planning surface (read-only)",
+   "Rewrite the documentation as a Sphinx site on Read the Docs",
+   "The planning surface (https://github.com/gsemet/gsemet-foss-planning-surface) launches chantier's board and sync with no agent.",
+   "audit.py's -u/--set-upstream exemption accepts 'git push -f -u origin main': check forced first (found by CR-191's Inspector, batch-14, pre-existing).",
+   "A landing page on GitHub Pages that shows what chantier brings at a glance",
+   "A batch running with the user away is watched by a wake that does not depend on a session being idle.",
+   "Planning-folder file types checked by a test (batch-11 retro). CR-184 Inspector caught a plain-text number file in the planning folder, where chantier writes only JSON and Markdown. A structure test or the long gate should catch a non-JSON, non-Markdown file the CLI writes there.",
+   "a planning server owned by the Chief of Staff",
+   "Plugin reload needed as a named block (batch-11 retro). The epoch-1 Foreman ran an old write guard after main removed it and a round was spent for nothing. A CR blocked by a stale loaded plugin should be a named block cause with a take --note path, or the Chief of Staff restarts the Foreman before a batch when a hook of the plugin changed on main.",
+   "PR body for an outside reader (batch-11 retro). CR-185 PR body took two Inspector passes on wording: roles and batch terms leaked from the internal references. The Driver card should say the PR body is written for an outside reader from the first draft.",
+   "Retro batch-13: nothing of the eval kit was proved on the host (setup.py's allow rules, sandbox.py merge on a real PR, reset --yes with real refs/pull/*). Fix: the first paid campaign proves them, running setup.py from the main checkout since its merge rule embeds the checkout's path.",
+   "A spec needing an external fact names its source (batch-11 retro). CR-181 shipped without the claude-fable-5-2 price because no Driver had a network tool to read a price page. The spec-writer card should make a spec that needs an external fact name its source or the tools the Driver needs.",
+   "real-direct run 1 retro (2026-11-12, PR 137): plain `status` (and the board) showed a stale spend, $0.57, long after `cost` said $9.57, until `status --refresh`. Fix: `status` and STATUS.json say how old the spend figure is.",
+   "Upstream tickets come into the inbox by a setting in `chantier.yaml`, per tracker.",
+   "every steering command refuses a missing `--epoch`",
+   "a retro critic cuts every list of changes chantier proposes on its own",
+   "each working CR shows the step it is at, and the board shows the next CR to start",
+   "the web board after the user's first page-by-page tour",
+   "batch-17 CLI fixes",
+   "three long-gate rules (the next merge first, early push, clean rebase)",
+   "the stack's one long gate, and a long-gate waiver recorded per CR",
+   "a CR's folder is self-contained",
+   "batch-17 retro, card fixes",
+   "A running batch switches between any two modes"
+  ],
+  "pri_tags_before": [
+   "P1",
+   "P2",
+   "P3",
+   "P4",
+   "CR-255",
+   "en cours",
+   "CR-259",
+   "CR-261",
+   "CR-262",
+   "CR-264",
+   "CR-265",
+   "CR-266",
+   "attend",
+   "CR-257",
+   "prête à merger",
+   "CR-263",
+   "CR-267"
+  ],
+  "cols_p3p4_off": [
+   [
+    "col-intake",
+    "Intake",
+    "0",
+    0,
+    "vide"
+   ],
+   [
+    "col-grill",
+    "Grill",
+    "15",
+    15,
+    ""
+   ],
+   [
+    "col-ready",
+    "3-ready",
+    "0",
+    0,
+    "vide"
+   ],
+   [
+    "col-progress",
+    "In progress",
+    "7",
+    7,
+    ""
+   ],
+   [
+    "col-handed",
+    "Rendus",
+    "3",
+    3,
+    ""
+   ]
+  ],
+  "body_top_after_toggle": "R\nreal2\nbatch-18 · batch en cours · 0 en intake\nVues\nHome\nTriage\n15\nKanban\n25\nBatch\nbatch-18\nCoûts\n$70.79\nDonnées : il y a 0 s\nFrançais\nKanban\n0 intake\n15 au grill\n6 en cours\n3 rendus\n+ Nouveau\n25 items · 147 mergés\nIntake\n0\n+ New: a new idea\n1-inbox : déposé, pas encore trié\nvide\nGrill\n15\n2-backlog : priorisé, en cours de grill\nP1\nboard-history\nA dedicated History page on the board: what was done",
+  "pri_tags_after": [
+   "P1",
+   "P2",
+   "P3",
+   "P4",
+   "CR-255",
+   "en cours",
+   "CR-259",
+   "CR-261",
+   "CR-262",
+   "CR-264",
+   "CR-265",
+   "CR-266",
+   "attend",
+   "CR-257",
+   "prête à merger",
+   "CR-263",
+   "CR-267"
+  ],
+  "triage_card_html": "<div class=\"pi raw\" draggable=\"true\" tabindex=\"0\" role=\"group\" aria-label=\"board-history, A dedicated History page on the board: what was done, per day, with every CR merged or dropped, every PR opened, made ready and merged, and every release.\" aria-busy=\"false\" data-slug=\"board-history\" data-key=\"pi-board-history\" title=\"Brut : pas encore grillé\"><div class=\"row\"><span class=\"gs raw\" aria-hidden=\"true\"></span><span class=\"sl\">board-history</span></div><div class=\"pt\">A dedicated History page on the board: what was done, per day, with every CR merged or dropped, every PR opened, made ready and merged, and every release.</div><div class=\"pm\"><span>brut</span><span><svg class=\"svgi\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z\"></path><path d=\"M14 3v5h5\"></path></svg> 1 fichier</span><button type=\"button\" class=\"open\" data-open",
+  "triage_card_classes": "pi raw",
+  "hover_transform": "matrix(0.999945, -0.0104718, 0.0104718, 0.999945, 0, 0)",
+  "hover_shadow": "rgba(30, 30, 50, 0.12) 0px 6px 16px 0px",
+  "sel_count": 1,
+  "sel_style": {
+   "outline": "solid 2px rgb(59, 111, 224)",
+   "shadow": "rgba(0, 0, 0, 0.06) 0px 1px 1px 0px, rgba(30, 30, 50, 0.07) 0px 3px 8px 0px",
+   "hasChk": false
+  },
+  "costs_text": "R\nreal2\nbatch-18 · batch en cours · 0 en intake\nVues\nHome\nTriage\n15\nKanban\n25\nBatch\nbatch-18\nCoûts\n$70.79\nDonnées : il y a 0 s\nFrançais\nCoûts\n0 intake\n15 au grill\n6 en cours\n3 rendus\n+ Nouveau\nDernier calcul : il y a 9 min\n↻ Recalculer\nle serveur relit les transcripts : aucun tour d'agent\nDépensé (batch-18)\n$70.79\nBudget\n$300.00\n24 % utilisé\nSomme des CRs\n$57.60\nle reste : le steering\nCoût moyen par CR actif\n$4.11\n14 CRs avec un coût\nPar CR, batch-18\nCR\tTitre\tÉtat\tCoût\t\nCR-254 fast-scenario\t`just scenario` under 5 minutes: independent units run in parallel\tmergé r5/5\t$12.49\t\n\nCR-253 baseline-and-legacy\ta green long gate on main, and no backward compatibility\tmergé r4/4\t$6.25\t\n\nCR-257 cr-folder-self-contained\ta CR's folder is self-contained\tprête à merger r1/3\t$4.66\t\n\nCR-264 b17-cli-fixes\tbatch-17 CLI fixes\ten cours r1/3\t$4.37\t\n\nCR-261 board-cr-step\teach working CR shows the step it is at, and the board shows the next CR to start\ten cours r4/4\t$4.23\t\n\nCR-262 board-ui-review\tthe web board after the user's first page-by-page tour\ten cours r1/3\t$4.15\t\n\nCR-263 b17-card-fixes\tbatch-17 retro, card fixes\tprête à merger r1/3\t$3.64\t\n\nCR-267 batch-mode-switch\tA running batch switches between any two modes\tprête à merger r1/3\t$3.56\t\n\nCR-255 epoch-required-everywhere\tevery steering command refuses a missing `--epoch`\ten cours r2/3\t$3.40\t\n\nCR-259 retro-critic\ta retro critic cuts every list of changes chantier proposes on its own\ten cours r2/3\t$3.34\t\n\nCR-265 gate-rules\tthree long-gate rules (the next merge first, early push, clean rebase)\ten cours r1/3\t$2.29\t\n\nCR-256 worker-reply-length\tworkers reply in an exact template, and `verdict` names its words\tmergé r1/3\t$1.88\t\n\nCR-258 push-refusal-lessons\ta refused force push is recorded with its exact text, and its Driver hands back instead ",
+  "hist_rows": [],
+  "home_text": "R\nreal2\nbatch-18 · batch en cours · 0 en intake\nVues\nHome\nTriage\n15\nKanban\n25\nBatch\nbatch-18\nCoûts\n$70.79\nDonnées : il y a 0 s\nFrançais\nHome\n0 intake\n15 au grill\n6 en cours\n3 rendus\n+ Nouveau\nÀ revoir\n3\nPR prêtes à merger\nT'attendent\n4\n0 bloqué(s), 4 question(s)\nBatch suivant\n0\nen préparation (3-ready)\nÉcrit par le board\n0\nrien depuis ton dernier « rescan »\nbatch-18\nrunning\nParallèle · Foreman\nvoir le batch →\n5 mergé(s)\n3 prête(s) à merger\n0 PR en draft\n0 prête(s) localement\n6 en cours\n0 bloqué(s)\n1 en file\nDépensé\n$70.79 / $300.00\nSlots\n6/8\nDernier signe du Foreman\nil y a 9 min\nOuvert\nil y a 7 h\nPR ouvertes\n8\nen cours\nCR-255\nevery steering command refuses a missing `--epoch`\n#213\nprête à merger\nCR-257\na CR's folder is self-contained\n#203\nen cours\nCR-259\na retro critic cuts every list of changes chantier proposes on its own\n#207\nen cours\nCR-261\neach working CR shows the step it is at, and the board shows the next CR to start\n#208\nen cours\nCR-262\nthe web board after the user's first page-by-page tour\n#209\nprête à merger\nCR-263\nbatch-17 retro, card fixes\n#205\nen cours\nCR-264\nbatch-17 CLI fixes\n#210\nprête à merger\nCR-267\nA running batch switches between any two modes\n#212\nActivité récente\nbatch-18\n02:57\n✓\nCR-262 gate just scenario passé\n02:56\n?\nquestion au Chief of Staff\n02:56\n⇠\nCR-263 rendu ready\n02:56\n⇪\nCR-263 PR #205 poussée\n02:56\n✓\nCR-263 vérifié\n02:50\n✓\nCR-263 gate just scenario passé\n02:47\n?\nquestion au Chief of Staff\n02:47\n⇠\nCR-267 rendu ready\n02:47\n✓\nCR-267 vérifié\n02:47\n⇪\nCR-267 PR #212 poussée\n02:44\n✎\nCR-267 note\n02:43\n✓\nCR-267 gate just scenario passé\n02:35\n✎\nCR-255 note\n02:35\n✓\nCR-259 gate just scenario passé\n02:26\n✎\nCR-267 note\n02:25\n⇪\nCR-255 PR #213 poussée\n02:25\n✎\nCR-255 note\n02:25\n✎\nCR-255 note\n02:25\n✎\nCR-255 note\n02:24\n✎\nCR-267 note\n02:24\n⇪\nCR-267 PR #212 poussée\n02:24\n✎\nCR-267 note\n02:14\n↻\nCR-255 round 2\n02:13\n✎\nCR-255 note\n02:12\n✎\nCR-265 note\nPipeline\ntrier →\nInbox\n0\nP1\n2\nP2\n2\nP3\n10\nP4\n1\n3-ready\n0\nspécifié\nen grill\nbrut\nautomatable\nDerniers mergés\n147 au total\nCR-254\n`just scenario` under 5 minutes: independent units run in parallel\n11-15\nCR-253\nChange Specification: a green long gate on main, and no backward compatibility\n11-15\nCR-256\nChange Specification: workers reply in an exact template, and `verdict` names its words\n11-14\nCR-258\nChange Specification: a refused force push is recorded with its exact text, and its Driver hands back instead of waiting\n11-14"
+ }
+}

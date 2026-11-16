@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A CR's new readiness ask supersedes its earlier one",
+  "summary": "Specified: a new ready-to-merge, pr-in-draft or ready-locally ask marks the same CR's earlier unread readiness ask read (stack-ready-to-merge per batch), logged superseded by A-n; question and blocked never; two open questions on the stack key.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "fcfa6c427cb5389bf979182198a0b2e2c27dbfee18a6c54f7b3104a96b9617de",
+    "03-change-spec.md": "a1415176b27eda6b446f6f258417f8c3af87f20bbed45469a83efcc8cfd10b78",
+    "intake/request.md": "e2c9653f3c28b3c1f0193700e4196c6e3afdb674826dc739f4452e55139b3c5f"
+  },
+  "summarized": "2026-11-15T08:11:40Z"
+}

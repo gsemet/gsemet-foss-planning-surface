@@ -1,0 +1,1 @@
+To grill: the Change Specifications are a bit light. Do we need a spec-generation subagent, or can the Chief of Staff write richer ones itself? How, and on which criteria?

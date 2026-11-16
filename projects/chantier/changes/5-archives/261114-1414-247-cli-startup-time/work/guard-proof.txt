@@ -1,0 +1,4 @@
+﻿E       AssertionError: `chantier --version` imports pydantic, pydantic_core, typing_extensions, typing_inspection at start: import them in the command that needs them
+skills\chantier\scripts\cli\tests\test_code_targets.py:159: AssertionError
+FAILED skills/chantier/scripts/cli/tests/test_code_targets.py::test_the_start_up_imports_only_the_standard_library_and_chantier
+1 failed, 3 passed in 0.75s

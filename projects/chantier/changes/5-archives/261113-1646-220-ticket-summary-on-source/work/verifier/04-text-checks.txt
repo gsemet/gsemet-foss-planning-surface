@@ -1,0 +1,50 @@
+﻿### Ticket summary block  [Ticket summary]
+chief-of-staff.md:195: Ticket summary: a CR with an `issue:` line ([concepts](concepts.md)) has its ticket's reporter told
+chief-of-staff.md:950: list; one yes from the user covers the whole list; post each as in "Ticket summary" step 7 (an
+### yes per ticket  [yes\*{0,2} for that ticket]
+(none)
+### skip line  [no way to write to Jira]
+chief-of-staff.md:211: what is missing (for example "no way to write to Jira found in this session (no MCP tool, no
+### rules first  [project's rules first]
+chief-of-staff.md:213: 3. **The project's rules first.** Read what `$CHANTIER rules` lists for any rule on tickets: the
+pr-template.md:44: The form of each line, the project's rules first (form, keyword, title or body, for instance
+worker.md:8: Every worker reads the project's rules first (`$CHANTIER rules`; what touches your task ranks
+### rule quote  [Followed:]
+chief-of-staff.md:242: project rule followed, the rule quoted ("Followed: `<the rule's text>`, from `<file>`"). Ask
+### Jira capability, no CLI named  [names no Jira CLI]
+chief-of-staff.md:209: provided it reads the ticket. This card names no Jira CLI and no MCP server.
+### PR follow-up  [pull request is open]
+chief-of-staff.md:285: the ticket's language: "The pull request is open: <PR link>." Same rule as step 6 (a yes for that
+### Never post  [Post on a tracker issue]
+chief-of-staff.md:968: - Post on a tracker issue a text, a plan or a demo the user did not approve for that ticket, or
+griller.md:42: Post on a tracker issue, comment on it, close or reopen it.
+### Never close  [Close or reopen an issue by hand]
+chief-of-staff.md:970: - Close or reopen an issue by hand: only a reference that closes, in the PR's Issues References
+### Issues References pr-template  [Issues References]
+pr-template.md:15: silent. With a project template, the Issues References lines go where that template puts its
+pr-template.md:16: issue links; with no such place, the `## Issues References` section is added after its first
+pr-template.md:42: - When the CR's specification has an `issue:` line, the body has a section `## Issues References`,
+pr-template.md:61: - The layout: Summary, Issues References (when present), Deliverables, Blast radius, Autonomous
+### Issues References driver  [Issues References]
+driver.md:107: the `## Issues References` section for the specification's `issue:` lines ([pr-template](pr-template.md)), left out when there is none; a
+### closing verb note  [only links]
+pr-template.md:51: The verb is what closes the issue at the merge (a bare `#<n>` only links it); a project that
+### ABSENT no plan file, no demo  [no plan file, no demo]
+(none)
+### ABSENT PR opened comment  [No "PR opened"]
+(none)
+### ABSENT Closes <reference> default  [Closes <reference>]
+(none)
+### diff stat of forbidden paths
+(end)
+### svg
+parsed OK
+<!-- Ticket summary -->
+<text x="800" y="355" font-size="14.5" font-weight="700" fill="#0f172a" text-anchor="middle">🎫 ticket summary</text>
+<text x="800" y="385" font-size="12" fill="#1e3a8a" text-anchor="middle">posted on your yes</text>
+### evals
+True
+| [ticket-summary](ticket-summary/RUNBOOK.md) | One issue on the sandbox, the Chief of Staff alone, no batch: the ticket summary (comment, plan, demo) drafted, refused, then posted on the user's yes; a CR with no ticket gets none | ~$1 | not run yet |
+- (a) Before the yes, the issue has no comment and no artifact (`gh issue view <n> --json
+- (d) After the yes, the comment and the artifacts are on the issue, the user is told what is
+`evals/results/ticket-summary-<date>-run<n>.md`.

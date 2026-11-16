@@ -1,0 +1,20 @@
+﻿== batch-lifecycle
+Comparaison des fichiers C:\USERS\GAETA\PROJETS\CHANTIER\.AGENTS\CHANGES\3-REQUESTS\BATCH-08\150-DOCS-LIFECYCLE\WORK\APPROVED-SVGS\batch-lifecycle.svg et DOCS\BATCH-LIFECYCLE.SVG
+FC�: aucune diff�rence trouv�e
+
+== how-chantier-works
+Comparaison des fichiers C:\USERS\GAETA\PROJETS\CHANTIER\.AGENTS\CHANGES\3-REQUESTS\BATCH-08\150-DOCS-LIFECYCLE\WORK\APPROVED-SVGS\how-chantier-works.svg et DOCS\HOW-CHANTIER-WORKS.SVG
+FC�: aucune diff�rence trouv�e
+
+== how-chantier-works-simple
+Comparaison des fichiers C:\USERS\GAETA\PROJETS\CHANTIER\.AGENTS\CHANGES\3-REQUESTS\BATCH-08\150-DOCS-LIFECYCLE\WORK\APPROVED-SVGS\how-chantier-works-simple.svg et DOCS\HOW-CHANTIER-WORKS-SIMPLE.SVG
+FC�: aucune diff�rence trouv�e
+
+== cr-lifecycle
+Comparaison des fichiers C:\USERS\GAETA\PROJETS\CHANTIER\.AGENTS\CHANGES\3-REQUESTS\BATCH-08\150-DOCS-LIFECYCLE\WORK\APPROVED-SVGS\cr-lifecycle.svg et DOCS\CR-LIFECYCLE.SVG
+FC�: aucune diff�rence trouv�e
+
+== cr-lifecycle-simple
+Comparaison des fichiers C:\USERS\GAETA\PROJETS\CHANTIER\.AGENTS\CHANGES\3-REQUESTS\BATCH-08\150-DOCS-LIFECYCLE\WORK\APPROVED-SVGS\cr-lifecycle-simple.svg et DOCS\CR-LIFECYCLE-SIMPLE.SVG
+FC�: aucune diff�rence trouv�e
+

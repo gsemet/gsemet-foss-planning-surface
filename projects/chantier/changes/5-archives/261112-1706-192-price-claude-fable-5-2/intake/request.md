@@ -1,0 +1,1 @@
+Retro batch-13: claude-fable-5-2 has no price, so the batch cost is a floor and shares and the orchestration ratio read not measured. Fix: add claude-fable-5-2 to the CLI's built-in price table (or under prices: in chantier.yaml).

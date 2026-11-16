@@ -1,0 +1,10 @@
+uv run --locked python scenario/run_scenario.py 
+         ok  parallel (github): 185/185 checks, 244.0 s
+         ok  gates (github): 85/85 checks, 373.1 s
+         ok  release (github): 107/107 checks, 387.5 s
+         ok  direct (github): 60/60 checks, 115.0 s
+over budget  stack (github): 129/129 checks, 519.3 s
+over budget  series-deps (github): 73/73 checks, 282.6 s
+         ok  surface-board (github): 154/154 checks, 211.1 s
+         ok  gitlab (gitlab): 32/32 checks, 66.7 s
+error: recipe `scenario` failed on line 33 with exit code 1

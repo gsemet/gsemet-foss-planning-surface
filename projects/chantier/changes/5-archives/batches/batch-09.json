@@ -1,0 +1,216 @@
+{
+  "schema": 1,
+  "batch": "batch-09",
+  "number": 9,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-153",
+      "title": "Change Specification: multi-session-chief-of-staff",
+      "result": "merged",
+      "archive": "5-archives/261110-0940-153-multi-session-chief-of-staff",
+      "pr": "https://github.com/gsemet/chantier/pull/92",
+      "rounds": 3,
+      "cost_usd": 3.9333,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-154",
+      "title": "Change Specification: claude-code-config",
+      "result": "merged",
+      "archive": "5-archives/261110-0919-154-claude-code-config",
+      "pr": "https://github.com/gsemet/chantier/pull/91",
+      "rounds": 2,
+      "cost_usd": 1.6166,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-155",
+      "title": "Change Specification: pr-details-fold",
+      "result": "merged",
+      "archive": "5-archives/261110-0857-155-pr-details-fold",
+      "pr": "https://github.com/gsemet/chantier/pull/90",
+      "rounds": 2,
+      "cost_usd": 1.2122,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-156",
+      "title": "Change Specification: diagrams-modes-griller",
+      "result": "merged",
+      "archive": "5-archives/261110-1044-156-diagrams-modes-griller",
+      "pr": "https://github.com/gsemet/chantier/pull/93",
+      "rounds": 2,
+      "cost_usd": 3.0775,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-157",
+      "title": "Change Specification: verifier-checks-pr-description",
+      "result": "merged",
+      "archive": "5-archives/261110-1125-157-verifier-checks-pr-description",
+      "pr": "https://github.com/gsemet/chantier/pull/94",
+      "rounds": 0,
+      "cost_usd": 0.2961,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-158",
+      "title": "The changes tree, version 2: 3-ready, 4-batches with three states, 5-archives, 6-trash",
+      "result": "merged",
+      "archive": "5-archives/261110-1449-158-changes-tree-v2",
+      "pr": "https://github.com/gsemet/chantier/pull/95",
+      "rounds": 3,
+      "cost_usd": 8.3326,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-159",
+      "title": "Change Specification: status-command",
+      "result": "merged",
+      "archive": "5-archives/261110-1612-159-status-command",
+      "pr": "https://github.com/gsemet/chantier/pull/96",
+      "rounds": 2,
+      "cost_usd": 2.8384,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-160",
+      "title": "External planning surface: chantier plans in a git repository of its own",
+      "result": "merged",
+      "archive": "5-archives/261110-1709-160-planning-repo",
+      "pr": "https://github.com/gsemet/chantier/pull/97",
+      "rounds": 2,
+      "cost_usd": 5.3191,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-161",
+      "title": "Add several CRs to a paused batch before it resumes",
+      "result": "merged",
+      "archive": "5-archives/261110-1950-161-add-several-while-paused",
+      "pr": "https://github.com/gsemet/chantier/pull/98",
+      "rounds": 1,
+      "cost_usd": 1.0173,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-162",
+      "title": "Change Specification: subagents can write every file chantier asks them to write",
+      "result": "merged",
+      "archive": "5-archives/261110-2050-162-write-refuses-report-md",
+      "pr": "https://github.com/gsemet/chantier/pull/100",
+      "rounds": 3,
+      "cost_usd": 1.2635,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-163",
+      "title": "Change Specification: the Chief of Staff keeps its rules, through compaction",
+      "result": "merged",
+      "archive": "5-archives/261110-2114-163-chief-of-staff-keeps-its-rules",
+      "pr": "https://github.com/gsemet/chantier/pull/99",
+      "rounds": 1,
+      "cost_usd": 2.5899,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-164",
+      "title": "Release retro v0.8.0: a safe `just tag`, the full release command, no go for the user's merge, the UUID scan",
+      "result": "merged",
+      "archive": "5-archives/261110-2245-164-release-retro-v0-8-0",
+      "pr": "https://github.com/gsemet/chantier/pull/103",
+      "rounds": 1,
+      "cost_usd": 1.0623,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-165",
+      "title": "Change Specification: systematic-retro",
+      "result": "merged",
+      "archive": "5-archives/261111-0801-165-systematic-retro",
+      "pr": "https://github.com/gsemet/chantier/pull/106",
+      "rounds": 3,
+      "cost_usd": 6.0779,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-166",
+      "title": "Change Specification: release \"auto\" and contextual tips",
+      "result": "merged",
+      "archive": "5-archives/261110-2246-166-release-auto-and-tips",
+      "pr": "https://github.com/gsemet/chantier/pull/102",
+      "rounds": 1,
+      "cost_usd": 1.1228,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-167",
+      "title": "Change Specification: redefine the batch modes (parallel, series, stack)",
+      "result": "merged",
+      "archive": "5-archives/261110-2243-167-batch-modes-redefine",
+      "pr": "https://github.com/gsemet/chantier/pull/104",
+      "rounds": 2,
+      "cost_usd": 3.3237,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-168",
+      "title": "Change Specification: proof bound to the head",
+      "result": "merged",
+      "archive": "5-archives/261110-2317-168-proof-bound-to-head",
+      "pr": "https://github.com/gsemet/chantier/pull/105",
+      "rounds": 1,
+      "cost_usd": 2.0187,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-169",
+      "title": "Change Specification: an optional `chantier.yaml` playbook, parsed and resolved by the CLI",
+      "result": "merged",
+      "archive": "5-archives/261111-0739-169-playbook-config",
+      "pr": "https://github.com/gsemet/chantier/pull/107",
+      "rounds": 2,
+      "cost_usd": 4.9614,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-170",
+      "title": "Change Specification: the Chief of Staff judges a refused force push and runs it",
+      "result": "merged",
+      "archive": "5-archives/261111-0840-170-force-push-judgement",
+      "pr": "https://github.com/gsemet/chantier/pull/108",
+      "rounds": 2,
+      "cost_usd": 1.5015,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-171",
+      "title": "Change Specification: the batch-09 retro's fixes",
+      "result": "merged",
+      "archive": "5-archives/261111-1247-171-batch-09-retro-fixes",
+      "pr": "https://github.com/gsemet/chantier/pull/109",
+      "rounds": 3,
+      "cost_usd": 5.6705,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-09.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": null,
+    "first_step": "2026-11-10T08:28:23Z",
+    "last_merge": "2026-11-11T12:47:00Z",
+    "retros": [
+      "5-archives/261111-1247-171-batch-09-retro-fixes/retro.md"
+    ]
+  }
+}

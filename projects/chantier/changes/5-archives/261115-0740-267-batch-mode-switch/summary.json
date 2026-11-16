@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A running batch switches between any two modes",
+  "summary": "Specified: order mode takes every pair of parallel, series and stack; open PRs restacked or rebased per MS-Q1/Q2, order by readiness (MS-Q3), merged CRs untouched, new forge-stack unstack. Five open points with defaults. After fast-scenario in batch-18.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "0ccd90abd3ea7335f4a8bfc5e307c000e687aeeaf7af67299cc19e4635b24346",
+    "03-change-spec.md": "dcabff19ca782becc5d40489ad7ec44a663325aa799fa4d01330f6ec9f59bec0",
+    "intake/request.md": "e362b3cf2e1ab2857bc800d05d8fd82abcf6d80fbe12c37b1c76103cee2d749c"
+  },
+  "summarized": "2026-11-14T22:26:41Z"
+}

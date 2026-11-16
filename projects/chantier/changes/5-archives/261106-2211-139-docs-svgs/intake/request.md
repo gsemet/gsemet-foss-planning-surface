@@ -1,0 +1,1 @@
+Land the three docs SVGs: the two lifecycle diagrams redrawn on two rows, and the new batch pace diagram, not linked from the README

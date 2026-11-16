@@ -1,0 +1,58 @@
+﻿### git diff --stat origin/main...HEAD (names)
+evals/README.md
+evals/copilot/RUNBOOK.md
+evals/full/RUNBOOK.md
+evals/kit/audit.py
+evals/kit/sandbox-crs/release-v0-2-0/03-change-spec.md
+evals/kit/sandbox-crs/release-v0-3-0/03-change-spec.md
+evals/kit/sandbox.py
+evals/kit/setup.py
+evals/real-direct/RUNBOOK.md
+evals/real-foreman/RUNBOOK.md
+non-evals files: 
+
+### release spec diffs
+diff --git a/evals/kit/sandbox-crs/release-v0-2-0/03-change-spec.md b/evals/kit/sandbox-crs/release-v0-2-0/03-change-spec.md
+index 8e044b6..b2546a7 100644
+--- a/evals/kit/sandbox-crs/release-v0-2-0/03-change-spec.md
++++ b/evals/kit/sandbox-crs/release-v0-2-0/03-change-spec.md
+@@ -5,6 +5,7 @@
+ - Version: `0.2.0`.
+ - Scope: everything merged on `main`.
+ - Procedure: `RELEASING.md`, at the repository's root.
++- The version bump changes `uv.lock` (it records the project's own version): after setting the version, run `uv lock` and commit `uv.lock` with the release commit, or the long gate (`uv run --locked pytest -q`) fails on the release PR.
+ - The maintainer approves the release notes before they go anywhere.
+ 
+ ## Files
+@@ -14,6 +15,7 @@ By `RELEASING.md`:
+ - `pyproject.toml`
+ - `src/shelf/__init__.py`
+ - `CHANGELOG.md`
++- `uv.lock` (the bump changes it)
+ 
+ ## Done when
+ 
+diff --git a/evals/kit/sandbox-crs/release-v0-3-0/03-change-spec.md b/evals/kit/sandbox-crs/release-v0-3-0/03-change-spec.md
+index ac2e974..6a0114d 100644
+--- a/evals/kit/sandbox-crs/release-v0-3-0/03-change-spec.md
++++ b/evals/kit/sandbox-crs/release-v0-3-0/03-change-spec.md
+@@ -5,6 +5,7 @@
+ - Version: `0.3.0`.
+ - Scope: everything merged on `main`.
+ - Procedure: `RELEASING.md`, at the repository's root.
++- The version bump changes `uv.lock` (it records the project's own version): after setting the version, run `uv lock` and commit `uv.lock` with the release commit, or the long gate (`uv run --locked pytest -q`) fails on the release PR.
+ - The maintainer approves the release notes before they go anywhere.
+ 
+ ## Files
+@@ -14,6 +15,7 @@ By `RELEASING.md`:
+ - `pyproject.toml`
+ - `src/shelf/__init__.py`
+ - `CHANGELOG.md`
++- `uv.lock` (the bump changes it)
+ 
+ ## Done when
+ 
+
+### worktree status
+(clean if empty)
+

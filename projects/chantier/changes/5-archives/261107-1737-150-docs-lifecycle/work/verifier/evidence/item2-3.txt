@@ -1,0 +1,20 @@
+﻿xml ok
+batch-lifecycle desc==para: True
+  missing 0 []
+  companion lines not drawn 0 []
+batch-pace NO COMPANION
+cr-folder-lifecycle desc==para: True
+  missing 0 []
+  companion lines not drawn 0 []
+cr-lifecycle-simple desc==para: True
+  missing 0 []
+  companion lines not drawn 1 ['🔨 Coder ⇄ 📏 Inspector']
+cr-lifecycle desc==para: True
+  missing 0 []
+  companion lines not drawn 0 []
+how-chantier-works-simple desc==para: True
+  missing 0 []
+  companion lines not drawn 0 []
+how-chantier-works desc==para: True
+  missing 0 []
+  companion lines not drawn 0 []

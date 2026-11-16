@@ -1,0 +1,20 @@
+Proof at 9d6131a, worktree chantier.py, temporary repositories (scratchpad t1, t3). Transcript of the commands, trimmed.
+
+[t1] open <2 prepared> --default-branch main -> "opened batch-01 on claude: 2 CRs, 4 slots, stack"; 3-requests/batch-01/; .batch-number=1
+     branch chantier/batch-01/cr-101-alpha-one; worktree <repo>.worktrees/batch-01-CR-101; STATUS.json batch/folder = "batch-01"
+     (4-archives held old 03-older and 04-old; a repo with no .batch-number started at batch-01, see verify.md)
+[t1] open (second) -> "error: batch-01 is open (a landed batch stays until `close`): `order add` joins new work to it" exit 2
+[t1] open --stack -> "unrecognized arguments: --stack" exit 2; open --help lists --parallel
+[t1] status --batch 1 / batch-01 / CHANTIER_BATCH=1 / batch-01 -> same batch; CHANTIER_BATCH=7 -> "unknown batch batch-07" exit 2
+[t1] order add --note <prepared> --batch 1 -> "added CR-103, queued", folder 3-requests/batch-01/103-gamma-three, no 2nd batch
+[t1] take CR-101..103, order merged CR-101 -> archived to 4-archives/261106-0709-101-alpha-one; batch open; 102,103 remain
+[t1] take stack -> "CR-102 -> CR-103"; CR-102 base origin/main; CR-103 base chantier/batch-01/cr-102-beta-two
+[t1] land refused while live/orders pending (exit 2); after merging all and order done O-1..O-4: "landed batch-01"
+[t1] close --batch 1 (preview) then --yes -> folder deleted; next open --parallel --slots 2 -> batch-02 (.batch-number=2)
+[t1] batch-02 landed, open <new> -> "error: batch-02 is open (a landed batch stays until `close`)..." exit 2
+[t3] .batch-number=4 with an old 04-old in 4-archives -> "opened batch-05 on claude: 1 CRs, 4 slots, stack"; status lists 04-old under landed
+[t3] STATUS.json batch fields: asks_unread,batch,budget_usd,crs,folder,heartbeat,orders_pending,spent_usd,state
+[t3] STATUS.json cr fields: blocked,branch,cost_usd,cr,folder,label,pr,round,severity,silent_minutes,specification,state,status,step,title
+[t3] legacy landed batch 04-old left in 3-requests: status --batch 04-old reads it; --batch 4 -> unknown batch batch-04; open refused naming 04-old
+git grep "<NN>-<batch>" skills docs README.md -> nothing (exit 1); git grep -- --stack in skills docs README scenario evals -> nothing
+git grep slots default: cli.py:45 default=4 only

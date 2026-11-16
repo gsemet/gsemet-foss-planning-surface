@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "batch": "batch-05",
+  "number": 5,
+  "state": "closed",
+  "opened": "2026-11-13T18:37:25Z",
+  "closed": "2026-11-13T18:38:26Z",
+  "mode": "parallel",
+  "steering": "direct",
+  "host": "claude",
+  "budget_usd": 50.0,
+  "cost_usd": 3.0,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-101",
+      "title": "one",
+      "result": "merged",
+      "archive": "5-archives/261113-1838-101-one",
+      "pr": "http://x/9",
+      "rounds": 2,
+      "cost_usd": null,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-102",
+      "title": "two",
+      "result": "dropped",
+      "archive": "5-archives/261113-1838-102-two",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-05.md",
+  "backfill": null
+}

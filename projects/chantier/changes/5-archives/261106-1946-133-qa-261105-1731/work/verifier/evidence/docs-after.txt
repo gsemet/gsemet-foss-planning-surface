@@ -1,0 +1,57 @@
+﻿$ chantier file One
+filed .agents/changes/1-inbox/one; write the intent and grill the CR here
+[exit 0]
+
+$ chantier open .agents/changes/1-inbox/one
+opened batch-01 on claude: 1 CRs, 4 slots, stack
+next: complete the brief .agents/changes/3-requests/batch-01/brief.md, then start the Foreman
+CR-101 s: 1-inbox/one -> 3-requests/batch-01/101-one
+[exit 0]
+
+$ chantier close
+error: cannot close batch-01, something still runs: CR-101 is queued, not merged or cancelled. Nothing was deleted.
+[exit 2]
+
+$ chantier cost
+error: no Foreman transcript recorded: the Foreman runs `chantier foreman transcript $CLAUDE_CODE_SESSION_ID`
+[exit 2]
+
+$ chantier cancel CR-101
+cancelled CR-101; stopped 0: none
+every CR is merged or cancelled: `chantier land`
+[exit 0]
+
+$ chantier order drop CR-101
+error: CR-101 is already dropped: .agents/changes/5-trash/261106-1942-101-one
+[exit 2]
+
+$ chantier order done O-1
+error: unknown order O-1
+[exit 1]
+
+$ chantier land
+landed batch-01: the cost is not final, it runs until `close`
+report: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\r-docs\D\.agents\changes\3-requests\batch-01\STATUS.md
+[exit 0]
+
+$ chantier status
+error: no open batch: run `chantier open` first
+[exit 2]
+
+$ chantier cost
+error: no open batch: run `chantier open` first
+[exit 2]
+
+$ chantier close
+error: cannot close batch-01: its final cost cannot be priced (no Foreman transcript recorded). Nothing was deleted.
+[exit 2]
+
+$ chantier status --batch batch-01
+batch-01 landed stack live 0/4 queued 0 foreman none e0 heartbeat never spent $0.00 (landed, cost not final)
+CR-101 cancelled r0/3 - | -
+[exit 0]
+
+$ chantier cost --batch batch-01
+error: no Foreman transcript recorded: the Foreman runs `chantier foreman transcript $CLAUDE_CODE_SESSION_ID`
+[exit 2]
+

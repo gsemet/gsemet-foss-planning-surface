@@ -1,0 +1,33 @@
+﻿### order add (Foreman mode now)
+[chief-of-staff→foreman] order O-1: add .agents/changes/1-inbox/cr-c
+added CR-103, queued
+[exit 0]
+### order add with the old epoch is not an epoch command; stale epoch on merged:
+uv : error: stale Foreman: epoch 1, batch batch-02 is at epoch 2; stop now
+Au caractère 
+C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\env.ps1:5 
+: 15
++ ... nction CH { uv run --script 'C:\Users\gaeta\Projets\chantier.worktree ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: stale Fo...och 2; stop now:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[exit 3]
+### log CR-102
+2026-11-07T11:11:30Z chief-of-staff add title=Change Specification: demo B path=.agents/changes/3-requests/batch-02/102-cr-b origin=.agents/changes/1-inbox/cr-b
+[exit 0]
+### batch STATUS.md header
+# batch-02: open
+
+Updated 2026-11-07T11:11:52Z Â· steering foreman Â· spent $5.00 of $50 Â· 0 asks unread Â· 1 orders pending
+### batch.json steering fields
+  "foreman_epoch": 2,
+      "transcript": "uuid-chief",
+      "since": "2026-11-07T11:11:32Z"
+      "transcript": "uuid-foreman",
+      "since": "2026-11-07T11:11:37Z"
+  "steering": "foreman",
+### events with kind steering
+C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\proj\.agents\changes\3-requests\batch-02\events.jsonl
+{"t": "2026-11-07T11:11:37Z", "actor": "foreman", "kind": "steering", "cr": null, "steering": "foreman", "transcript": "uuid-foreman"}
+

@@ -1,0 +1,24 @@
+﻿campaign  full
+run       1
+prefix    [eval 1 2026-11-12 full]
+workspace C:\Users\gaeta\Projets\chantier-eval\cr189-verify\full
+base      6e87a361c1b192e6d081c162f0cb2cc28bb72b25
+chantier  0.8.0 4e111ac3944cf0480f94142670ea9eed8279bf57
+CRs placed in .agents/changes/3-ready/ (13):
+  delete-item
+  edit-item
+  status-filter
+  json-api
+  stats-page
+  csv-export
+  item-notes
+  title-search
+  release-v0-2-0
+  item-rating
+  sort-list
+  duplicate-url
+  release-v0-3-0
+
+CHANTIER = uv run --script "C:\Users\gaeta\Projets\chantier.worktrees\batch-13-CR-189\skills\chantier\scripts\cli\chantier.py"   (run from the workspace)
+batch 1: $CHANTIER open .agents/changes/3-ready/delete-item .agents/changes/3-ready/edit-item .agents/changes/3-ready/status-filter .agents/changes/3-ready/json-api .agents/changes/3-ready/stats-page .agents/changes/3-ready/csv-export .agents/changes/3-ready/item-notes .agents/changes/3-ready/title-search .agents/changes/3-ready/release-v0-2-0 --release 9 --mode parallel --slots 4 --budget 40 --default-branch main   (added during it: item-rating)
+batch 2: $CHANTIER open .agents/changes/3-ready/sort-list .agents/changes/3-ready/duplicate-url .agents/changes/3-ready/release-v0-3-0 --release 3 --mode parallel --slots 4 --budget 15 --default-branch main

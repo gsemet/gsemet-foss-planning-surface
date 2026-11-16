@@ -1,0 +1,1 @@
+A batch is the n CRs active at the same time; a CR added to a Foreman joins the same batch: it is dynamic. So the folder must be .agents/changes/3-requests/batch-<n>/<cr>-<slug>/, for example .agents/changes/3-requests/batch-01/04-cr-board/, instead of .agents/changes/3-requests/04-cr-board/.

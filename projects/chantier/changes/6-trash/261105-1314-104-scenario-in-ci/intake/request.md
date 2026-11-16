@@ -1,0 +1,1 @@
+just scenario runs only by hand, on Windows, so the batch workflow has no check on Linux or in CI.

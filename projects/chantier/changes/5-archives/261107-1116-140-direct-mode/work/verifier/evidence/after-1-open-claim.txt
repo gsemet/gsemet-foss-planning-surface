@@ -1,0 +1,59 @@
+﻿### preflight (no --direct, cli entry): P1 refused
+P1 FAIL host is cli (CLAUDE_CODE_ENTRYPOINT), not claude-desktop or a Copilot agent session
+P4 ok   the plugin's agents are at 0.7.0 on claude
+P5 ok   chantier 0.7.0, uv found
+P6 ok   in the main checkout of proj
+P7 ok   not a linked worktree
+P8 ok   project instructions: AGENTS.md
+P2, P3, P9 and 'not unattended' are the Chief of Staff's own checks
+preflight FAILED: start nothing
+[exit 2]
+### preflight --direct: P1 ok, own checks omit P2
+P1 ok   host is Claude Code (cli)
+P4 ok   the plugin's agents are at 0.7.0 on claude
+P5 ok   chantier 0.7.0, uv found
+P6 ok   in the main checkout of proj
+P7 ok   not a linked worktree
+P8 ok   project instructions: AGENTS.md
+P3, P9 and 'not unattended' are the Chief of Staff's own checks
+preflight passed
+[exit 0]
+G : Le terme «G» n'est pas reconnu comme nom d'applet de commande, fonction, fichier de script ou programme 
+exécutable. Vérifiez l'orthographe du nom, ou si un chemin d'accès existe, vérifiez que le chemin d'accès est correct 
+et réessayez.
+Au caractère Ligne:8 : 1
++ G uuid-chief - -7200 m-pre 100000
++ ~
+    + CategoryInfo          : ObjectNotFound: (G:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+### open --direct
+opened batch-01 on claude: 1 CRs, 2 slots, stack, steering direct
+next: complete the brief .agents/changes/3-requests/batch-01/brief.md, then steer it yourself
+CR-101 Change Specification: demo A: 1-inbox/cr-a -> 3-requests/batch-01/101-cr-a
+[exit 0]
+### foreman set uuid-chief --epoch 1
+foreman uuid-chief epoch 1
+[exit 0]
+### foreman transcript uuid-chief --epoch 1
+transcript uuid-chief
+[exit 0]
+G : Le terme «G» n'est pas reconnu comme nom d'applet de commande, fonction, fichier de script ou programme 
+exécutable. Vérifiez l'orthographe du nom, ou si un chemin d'accès existe, vérifiez que le chemin d'accès est correct 
+et réessayez.
+Au caractère Ligne:14 : 1
++ G uuid-chief - 0 m-in 200000
++ ~
+    + CategoryInfo          : ObjectNotFound: (G:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+G : Le terme «G» n'est pas reconnu comme nom d'applet de commande, fonction, fichier de script ou programme 
+exécutable. Vérifiez l'orthographe du nom, ou si un chemin d'accès existe, vérifiez que le chemin d'accès est correct 
+et réessayez.
+Au caractère Ligne:15 : 1
++ G uuid-chief drv1 0 d-in 100000
++ ~
+    + CategoryInfo          : ObjectNotFound: (G:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+

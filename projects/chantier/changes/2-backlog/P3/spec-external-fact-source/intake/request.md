@@ -1,0 +1,1 @@
+A spec needing an external fact names its source (batch-11 retro). CR-181 shipped without the claude-fable-5-2 price because no Driver had a network tool to read a price page. The spec-writer card should make a spec that needs an external fact name its source or the tools the Driver needs.

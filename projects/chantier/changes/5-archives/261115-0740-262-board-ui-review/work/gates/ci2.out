@@ -1,0 +1,46 @@
+﻿Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+just check (ubuntu-latest)	pass	29s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967453	
+just check (macos-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967499	
+just check (windows-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967436	
+just eval-dry-run (ubuntu-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967460	
+just scenario (ubuntu-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967295	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+just check (ubuntu-latest)	pass	29s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967453	
+just check (macos-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967499	
+just check (windows-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967436	
+just scenario (ubuntu-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967295	
+just eval-dry-run (ubuntu-latest)	pass	1m2s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967460	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+just check (ubuntu-latest)	pass	29s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967453	
+just check (macos-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967499	
+just check (windows-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967436	
+just scenario (ubuntu-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967295	
+just eval-dry-run (ubuntu-latest)	pass	1m2s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967460	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+just check (ubuntu-latest)	pass	29s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967453	
+just check (macos-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967499	
+just check (windows-latest)	pass	1m21s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967436	
+just scenario (ubuntu-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967295	
+just eval-dry-run (ubuntu-latest)	pass	1m2s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967460	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+just check (macos-latest)	pass	1m31s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967499	
+just check (ubuntu-latest)	pass	29s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967453	
+just check (windows-latest)	pass	1m21s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967436	
+just scenario (ubuntu-latest)	pending	0	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967295	
+just eval-dry-run (ubuntu-latest)	pass	1m2s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967460	
+just check (macos-latest)	pass	1m31s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967499	
+just check (ubuntu-latest)	pass	29s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967453	
+just check (windows-latest)	pass	1m21s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967436	
+just eval-dry-run (ubuntu-latest)	pass	1m2s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967460	
+just scenario (ubuntu-latest)	pass	1m45s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967295	
+just check (macos-latest)	pass	1m31s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967499	
+just check (ubuntu-latest)	pass	29s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967453	
+just check (windows-latest)	pass	1m21s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967436	
+just eval-dry-run (ubuntu-latest)	pass	1m2s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967460	
+just scenario (ubuntu-latest)	pass	1m45s	https://github.com/gsemet/chantier/actions/runs/43666509239/job/132666967295	
+done 0

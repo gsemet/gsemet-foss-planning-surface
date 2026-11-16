@@ -1,0 +1,1 @@
+A /chantier:status command: a small skill that runs status --refresh and cost and shows the Progress report in its fixed shape, from a short report card (references/report.md) that chief-of-staff.md points to, instead of reloading the main skill. Born when the Chief of Staff lost the report format after a /compact (2026-11-10).

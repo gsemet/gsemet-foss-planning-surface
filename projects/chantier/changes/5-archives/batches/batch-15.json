@@ -1,0 +1,206 @@
+{
+  "schema": 1,
+  "batch": "batch-15",
+  "number": 15,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-196",
+      "title": "A release CR asked in a batch is a normal CR of that batch",
+      "result": "merged",
+      "archive": "5-archives/261113-0704-196-release-cr-in-batch",
+      "pr": "https://github.com/gsemet/chantier/pull/140",
+      "rounds": 1,
+      "cost_usd": 7.2238,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-197",
+      "title": "A Driver's claim about CI comes from the forge's checks at the pushed head",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-197-driver-ci-from-pr-checks",
+      "pr": "https://github.com/gsemet/chantier/pull/142",
+      "rounds": 1,
+      "cost_usd": 1.6733,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-198",
+      "title": "A Driver stops its own long gate by a named means, never with `cancel`",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-198-stop-own-gate",
+      "pr": "https://github.com/gsemet/chantier/pull/139",
+      "rounds": 2,
+      "cost_usd": 3.0856,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-199",
+      "title": "`just check` rejects a byte-order mark; the worker cards repeat the rule",
+      "result": "merged",
+      "archive": "5-archives/261112-2217-199-check-rejects-bom",
+      "pr": "https://github.com/gsemet/chantier/pull/138",
+      "rounds": 1,
+      "cost_usd": 1.0913,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-200",
+      "title": "Cost: steering turns are not grill turns",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-200-cost-steering-vs-grill",
+      "pr": "https://github.com/gsemet/chantier/pull/141",
+      "rounds": 1,
+      "cost_usd": 2.0207,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-201",
+      "title": "Change Specification: boot mode by surface, README rework and the board's docs",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-201-boot-mode-by-surface",
+      "pr": "https://github.com/gsemet/chantier/pull/144",
+      "rounds": 1,
+      "cost_usd": 2.2412,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-202",
+      "title": "Change Specification: the board's Refresh button and refresh period",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-202-board-refresh-button",
+      "pr": "https://github.com/gsemet/chantier/pull/143",
+      "rounds": 1,
+      "cost_usd": 1.5053,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-203",
+      "title": "The steering session reads `status` before a note that carries work, and takes a ready CR instead of messaging it",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-203-rebase-note-check-status",
+      "pr": "https://github.com/gsemet/chantier/pull/145",
+      "rounds": 1,
+      "cost_usd": 1.0155,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-204",
+      "title": "A Driver records each Inspector pass before the PR body cites it",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-204-record-inspector-pass",
+      "pr": "https://github.com/gsemet/chantier/pull/146",
+      "rounds": 1,
+      "cost_usd": 0.9724,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-205",
+      "title": "The steering session reads the rules after its claim",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-205-rules-after-claim",
+      "pr": "https://github.com/gsemet/chantier/pull/151",
+      "rounds": 1,
+      "cost_usd": 1.4551,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-206",
+      "title": "A change that adds or changes a CI job proves it once with a cold uv cache before the push",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-206-ci-job-cold-cache-check",
+      "pr": "https://github.com/gsemet/chantier/pull/148",
+      "rounds": 2,
+      "cost_usd": 1.243,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-207",
+      "title": "A text sent to the forge is written with the Write tool and posted from its file, never from a shell string",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-207-pr-body-from-file-only",
+      "pr": "https://github.com/gsemet/chantier/pull/147",
+      "rounds": 1,
+      "cost_usd": 1.5316,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-208",
+      "title": "Change Specification: Claude Desktop's Auto-fix events are left to the CR's Driver; the heartbeat's prompt names no interval",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-208-autofix-event-vs-driver",
+      "pr": "https://github.com/gsemet/chantier/pull/149",
+      "rounds": 1,
+      "cost_usd": 1.0687,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-209",
+      "title": "Audit: two checks fail on lawful behaviour",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-209-audit-direct-false-fails",
+      "pr": "https://github.com/gsemet/chantier/pull/150",
+      "rounds": 1,
+      "cost_usd": 1.6007,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-210",
+      "title": "The steering session fast-forwards a clean main checkout after each merge it records",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-210-main-checkout-fast-forward",
+      "pr": "https://github.com/gsemet/chantier/pull/153",
+      "rounds": 1,
+      "cost_usd": 3.3892,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-211",
+      "title": "Change Specification: parallel-rebase-cost",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-211-parallel-rebase-cost",
+      "pr": "https://github.com/gsemet/chantier/pull/152",
+      "rounds": 2,
+      "cost_usd": 2.6725,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-212",
+      "title": "Version PR for chantier v0.9.0, at the top of the batch's stack",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-212-release-v0-9-0",
+      "pr": "https://github.com/gsemet/chantier/pull/154",
+      "rounds": 3,
+      "cost_usd": 2.6967,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-213",
+      "title": "Change Specification: a stack is merged in one go; inserting into a ready stack; agents started right the first time",
+      "result": "merged",
+      "archive": "5-archives/261113-1149-213-stack-merges-in-one-go",
+      "pr": "https://github.com/gsemet/chantier/pull/156",
+      "rounds": 2,
+      "cost_usd": 5.5243,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-15.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": null,
+    "first_step": "2026-11-12T21:40:36Z",
+    "last_merge": "2026-11-13T11:49:00Z",
+    "retros": [
+      "5-archives/261113-1149-213-stack-merges-in-one-go/retro.md"
+    ]
+  }
+}

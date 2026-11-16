@@ -1,0 +1,111 @@
+﻿HEAD: aa746500c6e981665af50be09977f16c77c98645
+== 3a rule 9
+skills/chantier/references/concepts.md:321:9. **Commands and files.** One command per call when you can: a chain (`a; b`, `a && b`, a
+skills/chantier/references/concepts.md-322-   pipe) passes the host's allow rules only if every part does, and a refused part stops the
+skills/chantier/references/concepts.md-323-   whole call. No leading assignment before a command (`X=1 cmd`, `$w='…'; cmd`): write the value
+skills/chantier/references/concepts.md-324-   into the command itself, because an allow rule does not see past it. Read a file before you
+skills/chantier/references/concepts.md-325-   overwrite it; to change part of a file, edit it rather than rewrite it. The host's side of
+skills/chantier/references/concepts.md-326-   this is in your host's reference, section "Configuration" (the workers do not need it).
+skills/chantier/references/concepts.md-327-   Every file you write, a PR body included, is UTF-8 without a byte-order mark (on Windows
+skills/chantier/references/concepts.md-328-   PowerShell 5.1, `Out-File` and `Set-Content -Encoding utf8` add one).
+skills/chantier/references/concepts.md-329-   A multi-line text sent to the forge (a PR or MR body, a PR, MR or issue comment, release notes)
+skills/chantier/references/concepts.md-330-   is a file written with the host's Write tool (Edit to change it), in the work folder or where
+skills/chantier/references/concepts.md-331-   your card or the project's procedure keeps it, and the forge command takes it from that file
+skills/chantier/references/concepts.md-332-   (`--body-file`, `--notes-file`, or the forge CLI's equivalent). Its text is never typed, built
+skills/chantier/references/concepts.md-333-   or escaped in a shell command, in any shell, and the file is never written by the shell (a
+== 3b arg forms in driver.md
+== 3c unproved driver
+skills/chantier/references/driver.md:71:  unproved; trial: a GitLab MR opened and edited from `pr-body.md` whose body holds backticks,
+skills/chantier/references/driver.md:252:--body-file` / `glab mr update` with the file form of the Push bullet (unproved there). A touched proof you cannot judge again stays
+skills/chantier/references/driver.md:310:  own CLI (`gh pr edit --body-file`, `glab mr update` with the file form of the Push bullet (unproved there), or the equivalent for
+== 3d rule 9 driver
+skills/chantier/references/driver.md:68:  as in [concepts](concepts.md), rule 9, never as text in the command. For GitLab, use `glab`'s
+skills/chantier/references/driver.md:311:  another forge; from the file, [concepts](concepts.md) rule 9) when you open the PR, each time a draft changes, and once more just before `handback
+== 3e cos
+skills/chantier/references/chief-of-staff.md:12:Never tell the user as a fact what it marks unproved. Read [session-start](session-start.md):
+skills/chantier/references/chief-of-staff.md:196:  the issue's tracker: for instance `gh issue comment <link> --body-file <file>`, `glab issue note
+skills/chantier/references/chief-of-staff.md:198:  text in the command (unproved; trial: an issue note posted from a file whose text holds
+skills/chantier/references/chief-of-staff.md:292:   say "I have not tested this path" for a block it marks unproved. On
+== 4 diff stat
+ skills/chantier/references/chief-of-staff.md |  5 ++++-
+ skills/chantier/references/concepts.md       |  8 ++++++++
+ skills/chantier/references/driver.md         | 19 ++++++++++++-------
+ 3 files changed, 24 insertions(+), 8 deletions(-)
+== diff
+diff --git a/skills/chantier/references/chief-of-staff.md b/skills/chantier/references/chief-of-staff.md
+index 5499537..dfb0f71 100644
+--- a/skills/chantier/references/chief-of-staff.md
++++ b/skills/chantier/references/chief-of-staff.md
+@@ -194,7 +194,10 @@ told what happens to it; a CR with none skips all of this.
+ - **No "PR opened" comment:** the PR's closing line makes the forge show the PR on the issue.
+ - **How to post.** With the forge's CLI the session already uses (`gh`, `glab`), when it reaches
+   the issue's tracker: for instance `gh issue comment <link> --body-file <file>`, `glab issue note
+-  <id> --message …`; read the CLI's help for the exact form. Where it does not reach the tracker
++  <id>` with `glab`'s option that reads the message from a file, `work/issue-comment.md`, and no
++  text in the command (unproved; trial: an issue note posted from a file whose text holds
++  backticks, `$` and quotes, and that matches the file on the forge); read the CLI's help for the
++  exact form. Where it does not reach the tracker
+   (Jira or another tracker with no CLI in the session, no access): give the user the text to post
+   themselves, and post nothing. A refused or failed post is told to the user with its exact text
+   and the text stays in the CR's folder; never another tool, never a retry another way.
+diff --git a/skills/chantier/references/concepts.md b/skills/chantier/references/concepts.md
+index bd3064d..7c216d1 100644
+--- a/skills/chantier/references/concepts.md
++++ b/skills/chantier/references/concepts.md
+@@ -326,3 +326,11 @@ running agent's model, never a retry of the same agent, and never a model typed
+    this is in your host's reference, section "Configuration" (the workers do not need it).
+    Every file you write, a PR body included, is UTF-8 without a byte-order mark (on Windows
+    PowerShell 5.1, `Out-File` and `Set-Content -Encoding utf8` add one).
++   A multi-line text sent to the forge (a PR or MR body, a PR, MR or issue comment, release notes)
++   is a file written with the host's Write tool (Edit to change it), in the work folder or where
++   your card or the project's procedure keeps it, and the forge command takes it from that file
++   (`--body-file`, `--notes-file`, or the forge CLI's equivalent). Its text is never typed, built
++   or escaped in a shell command, in any shell, and the file is never written by the shell (a
++   redirection, a here-string, `Out-File`, `Set-Content`): PowerShell reads a backtick as an escape
++   (`` `f `` is a form feed), Bash expands `$` and backticks, and Markdown is full of both. A
++   one-line text with no Markdown (a PR title, a `--note`) and a commit message are not covered.
+diff --git a/skills/chantier/references/driver.md b/skills/chantier/references/driver.md
+index e41b7b3..3a7143c 100644
+--- a/skills/chantier/references/driver.md
++++ b/skills/chantier/references/driver.md
+@@ -60,11 +60,16 @@ The CLI keeps the CR's record and tells you what is off.
+ - Push: a plain `git push -u <remote> <branch>` when the remote branch is an ancestor of your
+   head, `git push --force-with-lease -u <remote> <branch>` only for a rewrite (a rebase).
+   Open or edit the PR yourself; a CR Driver opens it as a draft (`gh pr create --draft
+-  --body-file <work folder>/pr-body.md`, `glab mr create --draft`), a Release driver
+-  opens its PR ready. A CR Driver writes the title and `<work folder>/pr-body.md` from the
++  --body-file <work folder>/pr-body.md`, `glab mr create --draft` with the form below), a Release
++  driver opens its PR ready. A CR Driver writes the title and `<work folder>/pr-body.md` from the
+   project's PR template and rules, else from [pr-template](pr-template.md), and keeps the body
+-  and the PR's description current with the scope (`gh pr edit --body-file`, `glab mr update
+-  --description`); `glab mr create --draft` takes the body with `--description`. The body carries
++  and the PR's description current with the scope (`gh pr edit --body-file`, `glab mr update`
++  with the form below). The body is always written with the Write tool and posted from that file,
++  as in [concepts](concepts.md), rule 9, never as text in the command. For GitLab, use `glab`'s
++  option that reads the description from a file (settle the exact form from `glab mr create
++  --help`), with no text in the command and no shell substitution such as `"$(cat file)"`;
++  unproved; trial: a GitLab MR opened and edited from `pr-body.md` whose body holds backticks,
++  `$` and quotes, and whose description on the forge matches the file byte for byte. The body carries
+   the closing line of each `issue:` of the specification ([pr-template](pr-template.md)); a
+   Driver never comments on, closes or reopens an issue. The stack driver's and a Release
+   driver's PRs keep their form, by the project's rules. Then
+@@ -244,7 +249,7 @@ code, or a red check: `[stack→foreman] anomaly <cr> <text>`. For each PR it mo
+ touched a CR's proofs (its patch changed, or the base brought changes to what the proofs run),
+ start a `verifier` with that CR's previous `verify.md` and the move, and an `inspector` when the
+ CR's patch changed; update the PR's Test plan SHAs (carried, or judged again) with `gh pr edit
+---body-file` / `glab mr update --description`. A touched proof you cannot judge again stays
++--body-file` / `glab mr update` with the file form of the Push bullet (unproved there). A touched proof you cannot judge again stays
+ marked stale in the PR and is an `anomaly`. Green: `[stack→foreman] hand-back
+ ready <cr>=<link>…`.
+ 
+@@ -302,8 +307,8 @@ inside the procedure and the grant, and ask for anything beyond them.
+   own description stays the procedure's; the notes and thread are appended under it, never in its
+   place.
+ - The files are the source and the body a copy. Write the body from the files with the forge's
+-  own CLI (`gh pr edit --body-file`, `glab mr update --description`, or the equivalent for another
+-  forge) when you open the PR, each time a draft changes, and once more just before `handback
++  own CLI (`gh pr edit --body-file`, `glab mr update` with the file form of the Push bullet (unproved there), or the equivalent for
++  another forge; from the file, [concepts](concepts.md) rule 9) when you open the PR, each time a draft changes, and once more just before `handback
+   blocked merge: <pr link>`. Never copy the body back into a file. A change the user asks for in
+   the PR is made in the file (by the user, or on the Chief of Staff's word), then the body is
+   refreshed.

@@ -1,0 +1,42 @@
+﻿$ seat take A
+seat A
+exit 0
+
+$ seat get
+seat A env Battlestation title "[Battlestation] T [Chief of Staff]" link http://l/A
+transcript 91f1382a-eacd-437e-b5a8-f9e545753a8c
+exit 0
+
+$ seat take B
+error: the seat is held by A (http://l/A): take it over only on the user's word, with --over A
+exit 2
+
+$ seat leave B (non-holder)
+error: the seat is held by A
+exit 2
+
+$ seat take B --over A
+seat B
+exit 0
+
+$ seat leave A (now non-holder)
+error: the seat is held by B
+exit 2
+
+seat.json:
+{
+  "session": "B",
+  "transcript": "91f1382a-eacd-437e-b5a8-f9e545753a8c",
+  "env": "Mac",
+  "title": "tb",
+  "link": "http://l/B"
+}
+
+files:
+C:\Users\gaeta\AppData\Local\Temp\seatrepo704529494\.agents\changes\.lifecycle.lock
+C:\Users\gaeta\AppData\Local\Temp\seatrepo704529494\.agents\changes\seat.json
+$ seat leave B
+seat none
+exit 0
+$ seat
+seat none

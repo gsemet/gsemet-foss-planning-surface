@@ -1,0 +1,2 @@
+﻿['Total: $1.31 of a $50 budget', 'Foreman $0.33 (26%), Drivers $0.67 (51%), workers $0.31 (23%)']
+bad 0

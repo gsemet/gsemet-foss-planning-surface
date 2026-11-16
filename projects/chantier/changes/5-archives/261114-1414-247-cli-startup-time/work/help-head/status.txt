@@ -1,0 +1,18 @@
+﻿usage: chantier status [-h] [--batch BATCH] [--epoch EPOCH] [--notes]
+                       [--refresh] [--stop-heartbeat]
+
+options:
+  -h, --help        show this help message and exit
+  --batch BATCH     batch number, 4 or batch-04 (default: $CHANTIER_BATCH,
+                    else the only running one)
+  --epoch EPOCH     the Foreman's epoch; stale ones exit 3
+  --notes           each CR's last note
+  --refresh         the activity of each working CR (age of its last event or
+                    session record, `gate running`, `not measured`) and the
+                    spend (recorded); with --epoch, the steering session's
+                    wake: it records the heartbeat and prints the gap since
+                    the wake before; without, it moves nothing
+  --stop-heartbeat  with --epoch: record that the steering session ended its
+                    loop (`heartbeat stopped`, until the next wake)
+
+exit=0

@@ -1,0 +1,71 @@
+﻿### BEFORE (origin/main): preflight --direct
+uv : usage: chantier [-h] [--version]
+Au caractère Ligne:6 : 15
++ ... nction CB { uv run --script "$B\skills\chantier\scripts\cli\chantier. ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (usage: chantier [-h] [--version]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+                {preflight,file,triage,abandon,open,order,foreman,status,asks,agents,take,round,handback,note,log,rules
+,handoff,gate,ship,stack,release,cancel,land,close,cost} ...
+chantier: error: unrecognized arguments: --direct
+[exit 2]
+### BEFORE: open --direct (needs a fresh repo state; batch 2 open there, so use help)
+usage: chantier open [-h] [--slots SLOTS] [--budget BUDGET] [--parallel]
+                     [--release N] [--autonomous-releases N] [--grant-fixes]
+                     [--default-branch DEFAULT_BRANCH] [--remote REMOTE]
+                     items [items ...]
+
+positional arguments:
+  items                 path to a prepared CR folder or specification
+
+options:
+  -h, --help            show this help message and exit
+  --slots SLOTS
+  --budget BUDGET       USD; no Driver starts past it
+  --parallel            independent CRs, each on the default branch (default:
+                        a stack of PRs)
+  --release N           the item number of the release CR; it starts once the
+                        others have ended, on the user's word if it has
+                        company
+  --autonomous-releases N
+                        releases the user allows without asking (needs
+                        --budget)
+  --grant-fixes         the Foreman starts and merges the release's fixes
+                        (needs --budget)
+  --default-branch DEFAULT_BRANCH
+                        default: the remote's HEAD
+  --remote REMOTE
+[exit 0]
+### BEFORE: foreman set / transcript help has no steering; order add in a batch
+usage: chantier cost [-h] [--batch BATCH] [--by {role,cr}] [--explain]
+                     [--summary]
+
+options:
+  -h, --help      show this help message and exit
+  --batch BATCH   batch number, 4 or batch-04 (default: $CHANTIER_BATCH, else
+                  the only open one)
+  --by {role,cr}  role: the Foreman, each Driver type, each worker type; cr: a
+                  CR's own
+  --explain       under each line: agents, model, shares of cost, calls after
+                  the cache expired, restarted Drivers; ends with what the
+                  figures do not count
+  --summary       total, budget, Foreman, Drivers and workers, the costliest
+                  CRs
+[exit 0]
+### BEFORE: grep for 'steering' in source
+0
+
+### BEFORE: open --direct
+uv : usage: chantier [-h] [--version]
+Au caractère Ligne:3 : 15
++ ... nction CB { uv run --script "$B\skills\chantier\scripts\cli\chantier. ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (usage: chantier [-h] [--version]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+                {preflight,file,triage,abandon,open,order,foreman,status,asks,agents,take,round,handback,note,log,rules
+,handoff,gate,ship,stack,release,cancel,land,close,cost} ...
+chantier: error: unrecognized arguments: --direct
+[exit 2]
+

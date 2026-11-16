@@ -1,0 +1,1 @@
+Batch-15: CR-213's first Driver was ended by a host API 403 (Cloudflare) right after its long gate; the Foreman restarted it and a second Driver finished. Measure what such an end loses (the gate's result, the round), and say in the cards that a host failure is a restart from the recorded state, not a silent end.

@@ -1,0 +1,37 @@
+﻿CR-274 "Change Specification: every worker reads its card before it works" (change) working in batch batch-18 (stack)
+cli: uv run --no-sync --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274" chantier <command> --batch batch-18
+cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+project instructions: C:/Users/gaeta/Projets/chantier/AGENTS.md
+specification: C:/Users/gaeta/Projets/chantier/.agents/changes/4-batch/2-actives/274-workers-read-card/03-change-spec.md
+folder: C:/Users/gaeta/Projets/chantier/.agents/changes/4-batch/2-actives/274-workers-read-card (work/, evidence/)
+worktree: C:\Users\gaeta\Projets\chantier.worktrees\batch-18-CR-274 branch chantier/batch-18/cr-274-change-specification-every-worker-reads- base origin/main
+PR: none; head -
+rounds: 1 of 3
+notes: none
+gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+  [ ] long gate passed (gate CR-274 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-274 ready --no-gate "<rule>")
+  [ ] verdict VERIFIED (the Verifier: verdict CR-274 VERIFIED|"NOT VERIFIED")
+coder prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier coder for CR-274 "Change Specification: every worker reads its card before it works" of batch batch-18, in the project C:/Users/gaeta/Projets/chantier.
+  Read C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/worker.md, section "Coder", and C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/concepts.md;
+  the project's rules rank above them: run `$CHANTIER rules` first and read what touches your work.
+conflict-resolver prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier conflict-resolver for CR-274 "Change Specification: every worker reads its card before it works" of batch batch-18, in the project C:/Users/gaeta/Projets/chantier.
+  Read C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/worker.md, section "Conflict resolver", and C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/concepts.md;
+  the project's rules rank above them: run `$CHANTIER rules` first and read what touches your work.
+debugger prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier debugger for CR-274 "Change Specification: every worker reads its card before it works" of batch batch-18, in the project C:/Users/gaeta/Projets/chantier.
+  Read C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/worker.md, section "Debugger", and C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/concepts.md;
+  the project's rules rank above them: run `$CHANTIER rules` first and read what touches your work.
+inspector prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier inspector for CR-274 "Change Specification: every worker reads its card before it works" of batch batch-18, in the project C:/Users/gaeta/Projets/chantier.
+  Read C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/worker.md, section "Inspector", and C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/concepts.md;
+  the project's rules rank above them: run `$CHANTIER rules` first and read what touches your work.
+investigator prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier investigator for CR-274 "Change Specification: every worker reads its card before it works" of batch batch-18, in the project C:/Users/gaeta/Projets/chantier.
+  Read C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/worker.md, section "Investigator", and C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/concepts.md;
+  the project's rules rank above them: run `$CHANTIER rules` first and read what touches your work.
+verifier prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier verifier for CR-274 "Change Specification: every worker reads its card before it works" of batch batch-18, in the project C:/Users/gaeta/Projets/chantier.
+  Read C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/worker.md, section "Verifier", and C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-274/skills/chantier/references/concepts.md;
+  the project's rules rank above them: run `$CHANTIER rules` first and read what touches your work.

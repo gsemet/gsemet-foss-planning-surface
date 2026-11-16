@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The spend is fresh when the budget is checked",
+  "summary": "Specified: every budget check (take, round, order qa, granted fix, release go) refreshes the spend first, and status and STATUS.json show its age; absorbs status-spend-age; two questions open for the user.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "af438965936ecd5c882d2297dd32a5c2b345489de428056bd24d88810322c3f4",
+    "02-answers.md": "6c436b37104e3c850ba19448c363687eb5a7eeb836b5340852cdcfe6cd938c32",
+    "03-change-spec.md": "7424df097bb0866bf394eca67f41cad1245dea9678537ae68e503444077ea7c9",
+    "intake/request.md": "faa2a5dc37b99d74888f05fb5fdcf4a35c3244b39d82c9630161aa1754fdaa56"
+  },
+  "summarized": "2026-11-15T13:39:55Z"
+}

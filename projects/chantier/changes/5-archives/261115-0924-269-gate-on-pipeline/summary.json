@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A project's rule may name a pipeline job as its long gate",
+  "summary": "Specified: cards let a rule name a CI job as the long gate (Driver hands back --no-gate once it is green at the PR's head, steering session reads it on the forge); this project's long gate becomes the scenario job, one local Windows run on the stack's top. No CLI change; 3 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "5ad916b5ee4ba0dcf376d014d32c7320a73a605e77fd144ebaf5c2c197433d86",
+    "03-change-spec.md": "27f7181bffd053ec817ed3416836b0b7a38448b98d2de86114c0a550604f9546",
+    "intake/request.md": "cd20e97e9bee9433642b1aefbbd1c3d9806a617099299cc02e32bc3a7bd5ba97"
+  },
+  "summarized": "2026-11-15T08:11:09Z"
+}

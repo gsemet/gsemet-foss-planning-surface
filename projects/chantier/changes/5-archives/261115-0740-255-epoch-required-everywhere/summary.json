@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Every steering command refuses a missing --epoch",
+  "summary": "Specified: take, pause, order done, agents set, foreman transcript, foreman set and status --stop-heartbeat refuse a call with no --epoch (exit 2); status --refresh goes without; the user sees Foreman n°<k>, never epoch. Two questions open.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "ba7ec19563c5afc1ee577127f3fe7d70a04c1e20697484eacd99ee73a843f89f",
+    "03-change-spec.md": "c821383e34be1b82129e7e61a3c0bf9872104c868c3193b7c1a1e0a4fb402904",
+    "intake/request.md": "ddeee3cc894c79f1347b5340d63ed88e68c5ab60a7775d5725c905574213a9b8"
+  },
+  "summarized": "2026-11-14T18:41:01Z"
+}

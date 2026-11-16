@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The eval audit gives no false FAIL",
+  "summary": "Specified: J1 accepts the 'for the Chief of Staff' prompt forms, J14 counts the claim's own shell call, J26 reads a here-doc's body as data; three dry-run cases from the 2026-11-15 transcripts; one scope question (QA driver's first line).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "cc6e4e10cbb6ed1db4f67238dbfa3de1269e43824dbd1c46e288c1da374fb7df",
+    "02-answers.md": "11892e233c43d1ede9b359eb2b63e8875ca6a88bea607e227c93950b2ec7f84c",
+    "03-change-spec.md": "f882ef12aa4d7d25c9ea1f477a741cb3be08a77c928f00b0ac3f4fc37c836325",
+    "intake/request.md": "696a5fa340ff68d5a7fa95c87cae4a7deb3326ad7b65fbdcc6d384fbc4e1e918"
+  },
+  "summarized": "2026-11-15T13:42:43Z"
+}

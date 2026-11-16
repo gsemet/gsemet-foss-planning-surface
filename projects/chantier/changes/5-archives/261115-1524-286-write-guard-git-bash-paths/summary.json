@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The write guard reads Git Bash paths",
+  "summary": "Specified: on Windows the write guard maps a Git Bash drive path (/c/...) to C:/... before judging Write, Edit, NotebookEdit and shell targets; POSIX unchanged; proved by just mod. No open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "0bf6341c7831953c4cdd8113a7a1debd1f0b1b4c54761a6016bb38e29b998717",
+    "02-answers.md": "59d243580b2571a8d8f49bb00baf0dcba4799a2e880ad888d6cad8c9c9f4bd65",
+    "03-change-spec.md": "6ef5a16bcc75e552c75a29645b374a514bb2633bd4cbd1e2326538bb06d70afd",
+    "intake/request.md": "082913bbeebb5693200ae4fd43d8bb4688daf7b82f0de70cce9644e58c0cff1d"
+  },
+  "summarized": "2026-11-15T13:38:46Z"
+}

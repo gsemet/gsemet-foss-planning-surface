@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "batch": "batch-02",
+  "number": 2,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-102",
+      "title": "The Foreman's cleanup works after a rebase merge",
+      "result": "dropped",
+      "archive": "6-trash/261105-1314-102-cleanup-after-rebase",
+      "pr": "https://github.com/gsemet/chantier/pull/25",
+      "rounds": 1,
+      "cost_usd": 0.8297,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-103",
+      "title": "`open` and `order add` take plain paths",
+      "result": "dropped",
+      "archive": "6-trash/261105-1314-103-plain-folder-arguments",
+      "pr": "https://github.com/gsemet/chantier/pull/27",
+      "rounds": 1,
+      "cost_usd": 1.389,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-104",
+      "title": "CI runs the scenario on Linux",
+      "result": "dropped",
+      "archive": "6-trash/261105-1314-104-scenario-in-ci",
+      "pr": "https://github.com/gsemet/chantier/pull/26",
+      "rounds": 1,
+      "cost_usd": 1.3632,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-105",
+      "title": "The batch's cost report splits by level",
+      "result": "dropped",
+      "archive": "6-trash/261105-1314-105-cost-by-role",
+      "pr": "https://github.com/gsemet/chantier/pull/28",
+      "rounds": 1,
+      "cost_usd": 1.4503,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-02.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": "02-eval-heavy",
+    "first_step": "2026-11-05T11:51:34Z",
+    "last_merge": null,
+    "retros": []
+  }
+}

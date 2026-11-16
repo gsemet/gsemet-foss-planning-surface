@@ -1,0 +1,61 @@
+﻿=== 1. open --parallel (removed)
+
+$ chantier open --parallel .agents\changes\1-inbox\11-alpha .agents\changes\1-inbox\12-bravo
+usage: chantier [-h] [--version] [--project PROJECT]
+                {preflight,init,file,triage,abandon,open,order,foreman,seat,status,asks,agents,take,round,handback,note,log,rules,handoff,gate,ship,stack,release,cancel,pause,close,cost} ...
+chantier: error: unrecognized arguments: --parallel
+[exit 2]
+=== 2. default open: mode parallel; take stack / stack refused
+
+$ chantier open --default-branch main .agents\changes\1-inbox\11-alpha .agents\changes\1-inbox\12-bravo
+opened batch-01 on claude: 2 CRs, 4 slots, parallel, steering foreman
+next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+CR-101 CR 11-alpha: 1-inbox/11-alpha -> 4-batch/1-pending/101-alpha
+CR-102 CR 12-bravo: 1-inbox/12-bravo -> 4-batch/1-pending/102-bravo
+[exit 0]
+
+$ chantier status --batch batch-01
+batch-01 running parallel live 0/4 queued 2 steering foreman foreman none e0 heartbeat never spent $0.00
+CR-101 queued r0/3 - | -
+CR-102 queued r0/3 - | -
+[exit 0]
+
+$ chantier stack --batch batch-01
+usage: chantier stack [-h] [--batch BATCH] crs [crs ...]
+chantier stack: error: the following arguments are required: crs
+[exit 2]
+
+$ chantier take stack --batch batch-01
+error: batch batch-01 is not a stack
+[exit 2]
+=== 3. series A,B,C
+
+$ chantier open --mode series --default-branch main .agents\changes\1-inbox\11-alpha .agents\changes\1-inbox\12-bravo .agents\changes\1-inbox\13-charlie
+opened batch-01 on claude: 3 CRs, 4 slots, series, steering foreman
+next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+CR-101 CR 11-alpha: 1-inbox/11-alpha -> 4-batch/1-pending/101-alpha
+CR-102 CR 12-bravo: 1-inbox/12-bravo -> 4-batch/1-pending/102-bravo
+CR-103 CR 13-charlie: 1-inbox/13-charlie -> 4-batch/1-pending/103-charlie
+[exit 0]
+
+$ chantier status --batch batch-01
+batch-01 running series live 0/4 queued 3 steering foreman foreman none e0 heartbeat never spent $0.00
+CR-101 queued r0/3 - | -
+CR-102 queued r0/3 - | waits for CR-101 queued | -
+CR-103 queued r0/3 - | waits for CR-102 queued | -
+[exit 0]
+
+$ chantier take CR-2 --batch batch-01
+error: unknown CR CR-2 in batch batch-01
+[exit 1]
+
+$ chantier take CR-1 --batch batch-01
+error: unknown CR CR-1 in batch batch-01
+[exit 1]
+
+$ chantier status --batch batch-01
+batch-01 running series live 0/4 queued 3 steering foreman foreman none e0 heartbeat never spent $0.00
+CR-101 queued r0/3 - | -
+CR-102 queued r0/3 - | waits for CR-101 queued | -
+CR-103 queued r0/3 - | waits for CR-102 queued | -
+[exit 0]

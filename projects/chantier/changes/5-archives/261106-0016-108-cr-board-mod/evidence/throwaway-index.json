@@ -1,0 +1,552 @@
+{
+  "schema": 2,
+  "updated": "2026-11-06T00:15:52Z",
+  "batches": [],
+  "active_crs": 0,
+  "backlog": [
+    {
+      "priority": "inbox",
+      "item": "fix-the-login-timeout",
+      "title": "Fix the login timeout",
+      "path": "../1-inbox/fix-the-login-timeout",
+      "files": 1
+    },
+    {
+      "priority": "inbox",
+      "item": "trigger-rewrite",
+      "title": "Trigger rewrite",
+      "path": "../1-inbox/trigger-rewrite",
+      "files": 1
+    },
+    {
+      "priority": "inbox",
+      "item": "trigger-three",
+      "title": "Trigger three",
+      "path": "../1-inbox/trigger-three",
+      "files": 1
+    },
+    {
+      "priority": "inbox",
+      "item": "trigger-two",
+      "title": "Trigger two",
+      "path": "../1-inbox/trigger-two",
+      "files": 1
+    }
+  ],
+  "landed": [
+    {
+      "cr": "CR-55",
+      "title": "Thing 55",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/55",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-55-thing"
+    },
+    {
+      "cr": "CR-54",
+      "title": "Thing 54",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/54",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-54-thing"
+    },
+    {
+      "cr": "CR-53",
+      "title": "Thing 53",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/53",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-53-thing"
+    },
+    {
+      "cr": "CR-52",
+      "title": "Thing 52",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/52",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-52-thing"
+    },
+    {
+      "cr": "CR-51",
+      "title": "Thing 51",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/51",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-51-thing"
+    },
+    {
+      "cr": "CR-50",
+      "title": "Thing 50",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/50",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-50-thing"
+    },
+    {
+      "cr": "CR-49",
+      "title": "Thing 49",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/49",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-49-thing"
+    },
+    {
+      "cr": "CR-48",
+      "title": "Thing 48",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/48",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-48-thing"
+    },
+    {
+      "cr": "CR-47",
+      "title": "Thing 47",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/47",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-47-thing"
+    },
+    {
+      "cr": "CR-46",
+      "title": "Thing 46",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/46",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-46-thing"
+    },
+    {
+      "cr": "CR-45",
+      "title": "Thing 45",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/45",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-45-thing"
+    },
+    {
+      "cr": "CR-44",
+      "title": "Thing 44",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/44",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-44-thing"
+    },
+    {
+      "cr": "CR-43",
+      "title": "Thing 43",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/43",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-43-thing"
+    },
+    {
+      "cr": "CR-42",
+      "title": "Thing 42",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/42",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-42-thing"
+    },
+    {
+      "cr": "CR-41",
+      "title": "Thing 41",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/41",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-41-thing"
+    },
+    {
+      "cr": "CR-40",
+      "title": "Thing 40",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/40",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-40-thing"
+    },
+    {
+      "cr": "CR-39",
+      "title": "Thing 39",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/39",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-39-thing"
+    },
+    {
+      "cr": "CR-38",
+      "title": "Thing 38",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/38",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-38-thing"
+    },
+    {
+      "cr": "CR-37",
+      "title": "Thing 37",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/37",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-37-thing"
+    },
+    {
+      "cr": "CR-36",
+      "title": "Thing 36",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/36",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-36-thing"
+    },
+    {
+      "cr": "CR-35",
+      "title": "Thing 35",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/35",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-35-thing"
+    },
+    {
+      "cr": "CR-34",
+      "title": "Thing 34",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/34",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-34-thing"
+    },
+    {
+      "cr": "CR-33",
+      "title": "Thing 33",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/33",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-33-thing"
+    },
+    {
+      "cr": "CR-32",
+      "title": "Thing 32",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/32",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-32-thing"
+    },
+    {
+      "cr": "CR-31",
+      "title": "Thing 31",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/31",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-31-thing"
+    },
+    {
+      "cr": "CR-30",
+      "title": "Thing 30",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/30",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-30-thing"
+    },
+    {
+      "cr": "CR-29",
+      "title": "Thing 29",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/29",
+      "cost_usd": 1.5,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-29-thing"
+    },
+    {
+      "cr": null,
+      "title": "261128-1000-cr-28-thing",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": "2026-11-28T10:00:00Z",
+      "path": "../4-archives/261128-1000-cr-28-thing"
+    },
+    {
+      "cr": "CR-27",
+      "title": "Thing 27",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/27",
+      "cost_usd": 1.5,
+      "when": "2026-11-27T10:00:00Z",
+      "path": "../4-archives/261127-1000-cr-27-thing"
+    },
+    {
+      "cr": "CR-26",
+      "title": "Thing 26",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/26",
+      "cost_usd": 1.5,
+      "when": "2026-11-26T10:00:00Z",
+      "path": "../4-archives/261126-1000-cr-26-thing"
+    },
+    {
+      "cr": "CR-25",
+      "title": "Thing 25",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/25",
+      "cost_usd": 1.5,
+      "when": "2026-11-25T10:00:00Z",
+      "path": "../4-archives/261125-1000-cr-25-thing"
+    },
+    {
+      "cr": "CR-24",
+      "title": "Thing 24",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/24",
+      "cost_usd": 1.5,
+      "when": "2026-11-24T10:00:00Z",
+      "path": "../4-archives/261124-1000-cr-24-thing"
+    },
+    {
+      "cr": "CR-23",
+      "title": "Thing 23",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/23",
+      "cost_usd": 1.5,
+      "when": "2026-11-23T10:00:00Z",
+      "path": "../4-archives/261123-1000-cr-23-thing"
+    },
+    {
+      "cr": "CR-22",
+      "title": "Thing 22",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/22",
+      "cost_usd": 1.5,
+      "when": "2026-11-22T10:00:00Z",
+      "path": "../4-archives/261122-1000-cr-22-thing"
+    },
+    {
+      "cr": "CR-21",
+      "title": "Thing 21",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/21",
+      "cost_usd": 1.5,
+      "when": "2026-11-21T10:00:00Z",
+      "path": "../4-archives/261121-1000-cr-21-thing"
+    },
+    {
+      "cr": "CR-20",
+      "title": "Thing 20",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/20",
+      "cost_usd": 1.5,
+      "when": "2026-11-20T10:00:00Z",
+      "path": "../4-archives/261120-1000-cr-20-thing"
+    },
+    {
+      "cr": "CR-19",
+      "title": "Thing 19",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/19",
+      "cost_usd": 1.5,
+      "when": "2026-11-19T10:00:00Z",
+      "path": "../4-archives/261119-1000-cr-19-thing"
+    },
+    {
+      "cr": "CR-18",
+      "title": "Thing 18",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/18",
+      "cost_usd": 1.5,
+      "when": "2026-11-18T10:00:00Z",
+      "path": "../4-archives/261118-1000-cr-18-thing"
+    },
+    {
+      "cr": "CR-17",
+      "title": "Thing 17",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/17",
+      "cost_usd": 1.5,
+      "when": "2026-11-17T10:00:00Z",
+      "path": "../4-archives/261117-1000-cr-17-thing"
+    },
+    {
+      "cr": "CR-16",
+      "title": "Thing 16",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/16",
+      "cost_usd": 1.5,
+      "when": "2026-11-16T10:00:00Z",
+      "path": "../4-archives/261116-1000-cr-16-thing"
+    },
+    {
+      "cr": "CR-15",
+      "title": "Thing 15",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/15",
+      "cost_usd": 1.5,
+      "when": "2026-11-15T10:00:00Z",
+      "path": "../4-archives/261115-1000-cr-15-thing"
+    },
+    {
+      "cr": "CR-14",
+      "title": "Thing 14",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/14",
+      "cost_usd": 1.5,
+      "when": "2026-11-14T10:00:00Z",
+      "path": "../4-archives/261114-1000-cr-14-thing"
+    },
+    {
+      "cr": "CR-13",
+      "title": "Thing 13",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/13",
+      "cost_usd": 1.5,
+      "when": "2026-11-13T10:00:00Z",
+      "path": "../4-archives/261113-1000-cr-13-thing"
+    },
+    {
+      "cr": "CR-12",
+      "title": "Thing 12",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/12",
+      "cost_usd": 1.5,
+      "when": "2026-11-12T10:00:00Z",
+      "path": "../4-archives/261112-1000-cr-12-thing"
+    },
+    {
+      "cr": "CR-11",
+      "title": "Thing 11",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/11",
+      "cost_usd": 1.5,
+      "when": "2026-11-11T10:00:00Z",
+      "path": "../4-archives/261111-1000-cr-11-thing"
+    },
+    {
+      "cr": "CR-10",
+      "title": "Thing 10",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/10",
+      "cost_usd": 1.5,
+      "when": "2026-11-10T10:00:00Z",
+      "path": "../4-archives/261110-1000-cr-10-thing"
+    },
+    {
+      "cr": "CR-9",
+      "title": "Thing 9",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/9",
+      "cost_usd": 1.5,
+      "when": "2026-11-09T10:00:00Z",
+      "path": "../4-archives/261109-1000-cr-9-thing"
+    },
+    {
+      "cr": "CR-8",
+      "title": "Thing 8",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/8",
+      "cost_usd": 1.5,
+      "when": "2026-11-08T10:00:00Z",
+      "path": "../4-archives/261108-1000-cr-8-thing"
+    },
+    {
+      "cr": "CR-7",
+      "title": "Thing 7",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/7",
+      "cost_usd": 1.5,
+      "when": "2026-11-07T10:00:00Z",
+      "path": "../4-archives/261107-1000-cr-7-thing"
+    },
+    {
+      "cr": "CR-6",
+      "title": "Thing 6",
+      "state": "merged",
+      "batch": "b",
+      "pr": "https://x/pull/6",
+      "cost_usd": 1.5,
+      "when": "2026-11-06T10:00:00Z",
+      "path": "../4-archives/261106-1000-cr-6-thing"
+    }
+  ],
+  "landed_total": 55,
+  "trashed": [
+    {
+      "cr": null,
+      "title": "Add csv export",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": "2026-11-06T00:15:00Z",
+      "path": "../5-trash/261106-0015-add-csv-export"
+    }
+  ],
+  "trashed_total": 1
+}

@@ -1,0 +1,46 @@
+    $ chantier cost  → exit 0
+      batch-01: $60.060 over 6 model calls
+      Chief of Staff, steering the batch: $30.030 (3 calls, 50%)
+      Driver cr-driver: $30.030 (3 calls, 50%)
+      Orchestration (steering + Drivers): 100% of the batch's spend
+      Chief of Staff, steering the batch (outside the budget): $10.01 since the batch opened (1 calls)
+      Chief of Staff, grill and specifications with the user (outside the budget): $20.02 since the batch opened (2 calls, 0 spec-writers, 0 spec critics)
+      Chief of Staff, whole session: $110.11 ($60.06 of it in the batch's spend), context 22,010 tokens; not counted: 2 compactions since the batch opened, which leave no record (about $0.12 each)
+- [x] `cost` shows one 'Chief of Staff, steering the batch' row without the grill turns, no 'Foreman' row, and the lines add up
+- [x] the Chief of Staff's lines add up: the steering row's three calls (one of them names and reads a specification: steering), one steering call before the claim, the two grill and specification turns (the repeated call priced once), and the whole session holds the steering window and names the part in the batch's spend
+- [x] the whole-session line counts the compactions of the window, not the one before it
+    $ chantier cost --by cr  → exit 0
+      batch-01: $60.060 over 6 model calls
+      Chief of Staff, steering the batch, and its own subagents: $30.030 (3 calls)
+      CR-101: $30.030 (3 calls; Driver peak context 22,010 tokens, 0 compactions)
+      Chief of Staff, steering the batch (outside the budget): $10.01 since the batch opened (1 calls)
+      Chief of Staff, grill and specifications with the user (outside the budget): $20.02 since the batch opened (2 calls, 0 spec-writers, 0 spec critics)
+      Chief of Staff, whole session: $110.11 ($60.06 of it in the batch's spend), context 22,010 tokens; not counted: 2 compactions since the batch opened, which leave no record (about $0.12 each)
+- [x] `cost --by cr` names the steering role by the mode: the Chief of Staff, no 'foreman:'
+    $ chantier cost  → exit 0
+      batch-01: $80.080 over 8 model calls
+      Chief of Staff, steering the batch: $30.030 (3 calls, 38%)
+      Chief of Staff's own subagents: $20.020 (2 calls, 25%)
+      Driver cr-driver: $30.030 (3 calls, 37%)
+      Orchestration (steering + Drivers): 100% of the batch's spend
+    $ chantier order add --note C:\Users\gaeta\AppData\Local\Temp\cs-direct-sm1z8286\proj\.agents\changes\2-backlog\P1\direct-extra-after-the-takeover  → exit 0
+      [chief-of-staff→foreman] order O-2: add C:\Users\gaeta\AppData\Local\Temp\cs-direct-sm1z8286\proj\.agents\changes\2-backlog\P1\direct-extra-after-the-takeover
+      added CR-107, queued
+- [x] a batch steered by a Foreman takes added work
+    $ chantier cost  → exit 0
+      batch-02: $40.040 over 4 model calls
+      Chief of Staff, steering the batch: $30.030 (3 calls, 75%)
+      Foreman: $10.010 (1 calls, 25%)
+      Orchestration (steering + Drivers): 100% of the batch's spend
+      Chief of Staff, steering the batch (outside the budget): $10.01 since the batch opened (1 calls)
+      Chief of Staff, grill and specifications with the user (outside the budget): $20.02 since the batch opened (2 calls, 0 spec-writers, 0 spec critics)
+      Chief of Staff, whole session: $80.08 ($30.03 of it in the batch's spend), context 22,010 tokens; not counted: 2 compactions since the batch opened, which leave no record (about $0.12 each)
+- [x] each steering session is priced under its own name
+    $ chantier cost --by cr  → exit 0
+      batch-02: $40.040 over 4 model calls
+      Chief of Staff, steering the batch, and the Foreman, with their own subagents: $40.040 (4 calls)
+      Chief of Staff, steering the batch (outside the budget): $10.01 since the batch opened (1 calls)
+      Chief of Staff, grill and specifications with the user (outside the budget): $20.02 since the batch opened (2 calls, 0 spec-writers, 0 spec critics)
+      Chief of Staff, whole session: $80.08 ($30.03 of it in the batch's spend), context 22,010 tokens; not counted: 2 compactions since the batch opened, which leave no record (about $0.12 each)
+- [x] `cost --by cr` of a taken-over direct batch names both steering sessions
+

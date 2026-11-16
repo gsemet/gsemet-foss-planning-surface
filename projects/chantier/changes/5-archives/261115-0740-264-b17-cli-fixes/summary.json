@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Batch-17 CLI fixes: blocked-to-ready hand-back, sync once then --no-sync, stacked bases from the forge",
+  "summary": "Specified, 5 open questions for the user: a recorded Driver hands a blocked CR back ready; own checkout syncs at named moments then runs uv run --no-sync, never uvx; take, handoff, ship read a stacked PR's base; forge-stack point already met by CR-244.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "03-change-spec.md": "8ab51af8b75e70bd7e5f238e941daa6934b69929242967fa62d03a0a5bf5ce94",
+    "intake/request.md": "dec66608a7918eeb0a18ffaf506cdbf1fd850282fa3b9c7720caeccba47b9123"
+  },
+  "summarized": "2026-11-14T18:44:21Z"
+}

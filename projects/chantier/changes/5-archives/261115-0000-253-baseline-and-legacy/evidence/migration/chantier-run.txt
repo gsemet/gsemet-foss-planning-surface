@@ -1,0 +1,38 @@
+﻿== C:\Users\gaeta\Projets\chantier\.agents\changes (chantier)
+map read from 5-archives/batches (5 entries):
+  01-eval-real -> batch-01
+  02-eval-heavy -> batch-02
+  03-eval-real-050 -> batch-03
+  04-cr-board -> batch-04
+  05-batch-folder -> batch-05
+5-archives/261105-1059-101-forge-auth-status/STATUS.json: 01-eval-real -> batch-01
+5-archives/261105-2126-106-qa-budget-rail/STATUS.json: 03-eval-real-050 -> batch-03
+5-archives/261105-2126-107-release-long-check/STATUS.json: 03-eval-real-050 -> batch-03
+5-archives/261106-0016-108-cr-board-mod/STATUS.json: 04-cr-board -> batch-04
+5-archives/261106-0616-109-foreman-session-name/STATUS.json: 04-cr-board -> batch-04
+5-archives/261106-0631-110-foreman-stop-conditions/STATUS.json: 04-cr-board -> batch-04
+5-archives/261106-0812-111-batch-folder/STATUS.json: 05-batch-folder -> batch-05
+5-archives/261106-0837-112-slots-and-dependencies/STATUS.json: 05-batch-folder -> batch-05
+5-archives/261106-0902-113-chief-of-staff-cost/STATUS.json: 05-batch-folder -> batch-05
+5-archives/261106-0929-114-report-format/STATUS.json: 05-batch-folder -> batch-05
+6-trash/261105-1314-102-cleanup-after-rebase/STATUS.json: 02-eval-heavy -> batch-02
+6-trash/261105-1314-103-plain-folder-arguments/STATUS.json: 02-eval-heavy -> batch-02
+6-trash/261105-1314-104-scenario-in-ci/STATUS.json: 02-eval-heavy -> batch-02
+6-trash/261105-1314-105-cost-by-role/STATUS.json: 02-eval-heavy -> batch-02
+14 file(s) changed
+== scan
+scan: clean
+
+--- second real run ---
+== C:\Users\gaeta\Projets\chantier\.agents\changes (chantier)
+map read from 5-archives/batches (5 entries):
+  01-eval-real -> batch-01
+  02-eval-heavy -> batch-02
+  03-eval-real-050 -> batch-03
+  04-cr-board -> batch-04
+  05-batch-folder -> batch-05
+nothing to do
+== scan
+scan: clean
+
+note: the first real run read and wrote the 14 files with LF line endings; the files are CRLF, so the Coder restored CRLF in those 14 by hand (each diff is the one batch line), and the script now reads and writes bytes. The third run above reports nothing to do.

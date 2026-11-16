@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Batch-17 retro: card fixes",
+  "summary": "Specified: nine card and doc fixes from the batch-17 retro (git -C, one restack pass, scratch folder for board tests, no .git/info/exclude, Inspector on the commit, steering address, bundle check, gaps on the stack line, asks read as relayed); four open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "03-change-spec.md": "0087609eedd7f56d4f8c7c59e317fffce66b51cc48e13b77ed7f24b6fb29886e",
+    "intake/request.md": "816a3b303982d6c23a17d3b87564014bda4a0fa71480f7d7af87969a41060ef7"
+  },
+  "summarized": "2026-11-14T18:42:31Z"
+}

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The Foreman finds a conflict between ready PRs at the second one",
+  "summary": "Specified: in a parallel batch the Foreman runs git merge-tree of each new ready branch against the other ready PRs and, on a conflict, sends one ask to switch to a stack; cards and scenario only, no CLI change.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "fe0e114bf622c63e4509306dcb7e64a230f0277813a4dc5a10619f7aebca2f2c",
+    "03-change-spec.md": "f325b18ac71b68b9b4f1a4f6430aab8d75ff30437d5bb02953833d35a3b0f09e",
+    "intake/request.md": "95aabf8352efcda3e4611b7fbb06520be0d9638fa98d3539d42857141bbef9cb"
+  },
+  "summarized": "2026-11-15T08:11:44Z"
+}

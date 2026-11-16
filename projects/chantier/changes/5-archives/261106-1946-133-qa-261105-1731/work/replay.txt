@@ -1,0 +1,416 @@
+## A. file twice
+$ chantier file Export the report as CSV
+filed .agents/changes/1-inbox/export-the-report-as-csv; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file Export the report as CSV
+error: CR folder already exists: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\1-inbox\export-the-report-as-csv; choose another slug
+[exit 3]
+
+$ chantier file Dark mode
+filed .agents/changes/1-inbox/dark-mode; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file Third thing
+filed .agents/changes/1-inbox/third-thing; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file x --slug dark
+filed .agents/changes/1-inbox/dark; write the intent and grill the CR here
+[exit 0]
+
+## B. triage
+$ chantier triage .agents/changes/1-inbox/dark-mode --priority P2
+triaged .agents/changes/2-backlog/P2/dark-mode (P2)
+[exit 0]
+
+## C. triage a backlog item, bare name, other path
+$ chantier triage .agents/changes/2-backlog/P2/dark-mode --priority P3
+error: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\2-backlog\P2\dark-mode is not directly inside C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\1-inbox
+[exit 1]
+
+$ chantier triage dark --priority P3
+error: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\dark is not directly inside C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\1-inbox
+[exit 1]
+
+$ chantier triage .agents/changes/3-requests --priority P3
+error: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\3-requests is not directly inside C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\1-inbox
+[exit 1]
+
+$ chantier triage README.md --priority P3
+error: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\README.md is not directly inside C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\1-inbox
+[exit 1]
+
+## D. open (specs written)
+$ chantier open .agents/changes/2-backlog/P2/dark-mode .agents/changes/1-inbox/export-the-report-as-csv .agents/changes/1-inbox/third-thing
+opened batch-01 on claude: 3 CRs, 4 slots, stack
+CR-101 Dark mode
+CR-102 export-the-report-as-csv
+CR-103 third-thing
+brief: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\3-requests\batch-01\brief.md
+[exit 0]
+
+## E. orders
+$ chantier order drop CR-101
+[chief-of-staff→foreman] order O-1: drop CR-101
+dropped CR-101: .agents/changes/5-trash/261106-1900-101-dark-mode
+[exit 0]
+
+$ chantier order drop CR-101
+[chief-of-staff→foreman] order O-2: drop CR-101
+dropped CR-101: .agents/changes/5-trash/261106-1900-101-dark-mode
+[exit 0]
+
+$ chantier order drop 101x
+error: unknown CR 101x in batch batch-01
+[exit 1]
+
+$ chantier order drop 101
+error: unknown CR 101 in batch batch-01
+[exit 1]
+
+$ chantier order note CR-101 --note hello
+[chief-of-staff→foreman] order O-3: note CR-101 hello
+noted on CR-101: the Foreman reads it in `status`
+[exit 0]
+
+$ chantier order note CR-102 --note hello
+[chief-of-staff→foreman] order O-4: note CR-102 hello
+noted on CR-102: the Foreman reads it in `status`
+[exit 0]
+
+$ chantier order merged CR-101
+error: cannot mark cancelled CR-101 merged
+[exit 2]
+
+$ chantier order rounds --note 0
+error: order rounds <cr>
+[exit 1]
+
+$ chantier order rounds CR-102 --note 0
+error: order rounds <cr> --note <n>
+[exit 1]
+
+$ chantier order rounds CR-102 --note abc
+error: order rounds <cr> --note <n>
+[exit 1]
+
+$ chantier order rounds CR-102
+error: order rounds <cr> --note <n>
+[exit 1]
+
+$ chantier order budget --note -5
+error: order budget --note <usd>
+[exit 1]
+
+$ chantier order budget --note 0
+error: order budget --note <usd>
+[exit 1]
+
+$ chantier order budget --note abc
+error: order budget --note <usd>
+[exit 1]
+
+$ chantier order budget
+error: order budget --note <usd>
+[exit 1]
+
+$ chantier order slots --note x
+error: order slots --note <n> (0 pauses: no new Driver starts)
+[exit 1]
+
+$ chantier order after 101 --note CR-102
+error: order after: unknown CR 101 in batch batch-01
+[exit 2]
+
+$ chantier order drop CR-102
+[chief-of-staff→foreman] order O-5: drop CR-102
+dropped CR-102: .agents/changes/5-trash/261106-1900-102-export-the-report-as-csv
+[exit 0]
+
+$ chantier order drop CR-102
+[chief-of-staff→foreman] order O-6: drop CR-102
+dropped CR-102: .agents/changes/5-trash/261106-1900-102-export-the-report-as-csv
+[exit 0]
+
+$ chantier order note CR-102 --note late
+[chief-of-staff→foreman] order O-7: note CR-102 late
+noted on CR-102: the Foreman reads it in `status`
+[exit 0]
+
+$ chantier order merged CR-102
+error: cannot mark cancelled CR-102 merged
+[exit 2]
+
+$ chantier status
+batch-01 open stack live 0/4 queued 1 foreman none e0 heartbeat never spent $0.00
+CR-101 cancelled r0/3 - | -
+CR-102 cancelled r0/3 - | -
+CR-103 queued r0/3 - | -
+orders pending: O-1 drop CR-101; O-2 drop CR-101; O-3 note CR-101 hello; O-4 note CR-102 hello; O-5 drop CR-102; O-6 drop CR-102; O-7 note CR-102 late
+[exit 0]
+
+$ chantier land
+error: cannot land batch-01: live -, queued ['CR-103'], not merged -, orders pending ['O-1', 'O-2', 'O-3', 'O-4', 'O-5', 'O-6', 'O-7'], stack driver none
+[exit 2]
+
+## F. status, land, cost, close
+$ chantier status
+batch-01 open stack live 0/4 queued 1 foreman none e0 heartbeat never spent $0.00
+CR-101 cancelled r0/3 - | -
+CR-102 cancelled r0/3 - | -
+CR-103 queued r0/3 - | -
+orders pending: O-1 drop CR-101; O-2 drop CR-101; O-3 note CR-101 hello; O-4 note CR-102 hello; O-5 drop CR-102; O-6 drop CR-102; O-7 note CR-102 late
+[exit 0]
+
+$ chantier land
+error: cannot land batch-01: live -, queued ['CR-103'], not merged -, orders pending ['O-1', 'O-2', 'O-3', 'O-4', 'O-5', 'O-6', 'O-7'], stack driver none
+[exit 2]
+
+$ chantier cost
+error: no Foreman transcript recorded: the Foreman runs `chantier foreman transcript $CLAUDE_CODE_SESSION_ID`
+[exit 2]
+
+$ chantier close
+error: cannot close batch-01, something still runs: CR-103 is queued, not merged or cancelled; order O-1 (drop) is open; order O-2 (drop) is open; order O-3 (note) is open; order O-4 (note) is open; order O-5 (drop) is open; order O-6 (drop) is open; order O-7 (note) is open. Nothing was deleted.
+[exit 2]
+
+$ chantier close --yes
+error: cannot close batch-01, something still runs: CR-103 is queued, not merged or cancelled; order O-1 (drop) is open; order O-2 (drop) is open; order O-3 (note) is open; order O-4 (note) is open; order O-5 (drop) is open; order O-6 (drop) is open; order O-7 (note) is open. Nothing was deleted.
+[exit 2]
+
+## G. QA
+$ chantier order qa --note try the export
+[chief-of-staff→foreman] order O-8: qa .agents/changes/1-inbox/qa-261106-1900 try the export
+QA folder: .agents/changes/1-inbox/qa-261106-1900; the Foreman starts its QA driver, which holds a slot until `order done`
+[exit 0]
+
+$ chantier open .agents/changes/1-inbox/qa-261106-1900
+error: missing Change Specification: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\1-inbox\qa-261106-1900\03-change-spec.md; grill the CR first
+[exit 2]
+
+$ chantier status
+batch-01 open stack live 1/4 queued 1 foreman none e0 heartbeat never spent $0.00
+CR-101 cancelled r0/3 - | -
+CR-102 cancelled r0/3 - | -
+CR-103 queued r0/3 - | -
+orders pending: O-1 drop CR-101; O-2 drop CR-101; O-3 note CR-101 hello; O-4 note CR-102 hello; O-5 drop CR-102; O-6 drop CR-102; O-7 note CR-102 late; O-8 qa .agents/changes/1-inbox/qa-261106-1900 try the export
+[exit 0]
+
+## H. multiple batches/ no --batch
+$ chantier -h
+usage: chantier [-h] [--version]
+                {preflight,file,triage,abandon,open,order,foreman,status,asks,agents,take,round,handback,note,log,rules,handoff,gate,ship,stack,release,cancel,land,close,cost} ...
+
+The chantier team's CLI.
+
+positional arguments:
+  {preflight,file,triage,abandon,open,order,foreman,status,asks,agents,take,round,handback,note,log,rules,handoff,gate,ship,stack,release,cancel,land,close,cost}
+    preflight           check P1 and P4–P8; exit 2 if any fails
+    file                file a request in the inbox
+    triage              move an inbox CR to the priority backlog
+    abandon             move an explicitly abandoned CR to trash
+    open                open a batch: each prepared CR gets its folder, and a
+                        branch and worktree name
+    order               the user's word, recorded at once; the Foreman does
+                        what needs its hands
+    foreman             the Foreman claims its epoch (set) and records its
+                        transcript
+    status              one line per CR, the pending orders, the unread asks;
+                        --refresh: the live facts
+    asks                the Foreman's asks still unread; with text, record one
+    agents              map a CR (or stack) to its agent id
+    take                a Driver takes the CR (or `stack`): the slot, then its
+                        facts
+    round               count a round of the CR (exit 5 past the limit); its
+                        facts
+    handback            a Driver's end: ready <link> or blocked <reason>
+    note                a line in the CR's record, shown in its STATUS.md
+    log                 the CR's events
+    rules               the project's instruction file and the files it links
+    handoff             the CR's facts, for any agent; changes nothing
+    gate                run the long gate in the CR worktree, alone in the
+                        repository
+    ship                record the PR the Driver opened or updated; say what
+                        is off
+    stack               the stack's order, as its driver set it
+    release             release driver: start an attempt, go for an
+                        irreversible action, published
+    cancel              stop a CR's processes and mark it cancelled
+    land                finish the batch's work: refused while anything is
+                        live or already landed; the cost is not final
+    close               refused while anything runs; prints the final cost and
+                        what deleting a landed batch would remove; --yes
+                        deletes it
+    cost                price the Foreman's transcript and its subagents
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+[exit 0]
+
+## I. extras on the batch of E: done without epoch, rounds on cancelled, QA twice in a minute, triage same priority, status after done
+$ chantier order done O-1
+O-1 done
+[exit 0]
+
+$ chantier order rounds CR-101 --note 5
+[chief-of-staff→foreman] order O-9: rounds CR-101 5
+CR-101: up to 5 rounds
+[exit 0]
+
+$ chantier order approve CR-101 --note x
+error: order approve names the batch's release CR (none)
+[exit 1]
+
+$ chantier order qa --note one
+[chief-of-staff→foreman] order O-10: qa .agents/changes/1-inbox/qa-261106-1902 one
+QA folder: .agents/changes/1-inbox/qa-261106-1902; the Foreman starts its QA driver, which holds a slot until `order done`
+[exit 0]
+
+$ chantier order qa --note two
+error: CR folder already exists: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\1-inbox\qa-261106-1902; choose another slug
+[exit 3]
+
+$ chantier status
+batch-01 open stack live 2/4 queued 1 foreman none e0 heartbeat never spent $0.00
+CR-101 cancelled r0/5 - | -
+CR-102 cancelled r0/3 - | -
+CR-103 queued r0/3 - | -
+orders pending: O-2 drop CR-101; O-3 note CR-101 hello; O-4 note CR-102 hello; O-5 drop CR-102; O-6 drop CR-102; O-7 note CR-102 late; O-8 qa .agents/changes/1-inbox/qa-261106-1900 try the export; O-9 rounds CR-101 5; O-10 qa .agents/changes/1-inbox/qa-261106-1902 one
+[exit 0]
+
+$ chantier handoff CR-103
+CR-103 "third-thing" (change) queued in batch batch-01 (stack)
+cli: uv run --script "C:/Users/gaeta/Projets/chantier.worktrees/batch-07-CR-133/skills/chantier/scripts/cli/chantier.py" <command> --batch batch-01
+cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-07-CR-133/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+project instructions: none
+specification: C:/Users/gaeta/AppData/Local/Temp/claude/C--Users-gaeta-Projets-chantier/3068c1b7-a425-47d1-9d61-3b92b73644a4/scratchpad/replay/.agents/changes/3-requests/batch-01/103-third-thing/03-change-spec.md
+folder: C:/Users/gaeta/AppData/Local/Temp/claude/C--Users-gaeta-Projets-chantier/3068c1b7-a425-47d1-9d61-3b92b73644a4/scratchpad/replay/.agents/changes/3-requests/batch-01/103-third-thing (work/, evidence/)
+worktree: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay.worktrees\batch-01-CR-103 branch chantier/batch-01/cr-103-third-thing base origin/main; not created yet: a Driver creates it first
+PR: none; head -
+rounds: 0 of 3
+notes: none
+[exit 0]
+
+$ chantier cancel CR-103
+cancelled CR-103; stopped 0: none
+every CR is merged or cancelled: `chantier land`
+[exit 0]
+
+$ chantier cancel CR-103
+cancelled CR-103; stopped 0: none
+every CR is merged or cancelled: `chantier land`
+[exit 0]
+
+$ chantier order drop CR-103
+[chief-of-staff→foreman] order O-11: drop CR-103
+dropped CR-103: .agents/changes/5-trash/261106-1902-103-third-thing
+[exit 0]
+
+## J. triage same priority and collision
+$ chantier file Alpha
+filed .agents/changes/1-inbox/alpha; write the intent and grill the CR here
+[exit 0]
+
+$ chantier triage .agents/changes/1-inbox/alpha --priority P2
+triaged .agents/changes/2-backlog/P2/alpha (P2)
+[exit 0]
+
+$ chantier triage .agents/changes/2-backlog/P2/alpha --priority P2
+error: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\2-backlog\P2\alpha is not directly inside C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\1-inbox
+[exit 1]
+
+$ chantier file Alpha --slug alpha2
+filed .agents/changes/1-inbox/alpha2; write the intent and grill the CR here
+[exit 0]
+
+$ chantier abandon nothing
+error: only an inbox, backlog, or unclaimed active CR can be abandoned
+[exit 1]
+
+## K. no Foreman ever: clear orders by hand, land, cost, close
+$ chantier order done O-2
+O-2 done
+[exit 0]
+
+$ chantier order done O-3
+O-3 done
+[exit 0]
+
+$ chantier order done O-4
+O-4 done
+[exit 0]
+
+$ chantier order done O-5
+O-5 done
+[exit 0]
+
+$ chantier order done O-6
+O-6 done
+[exit 0]
+
+$ chantier order done O-7
+O-7 done
+[exit 0]
+
+$ chantier order done O-8
+O-8 done
+[exit 0]
+
+$ chantier order done O-9
+O-9 done
+[exit 0]
+
+$ chantier order done O-10
+O-10 done
+[exit 0]
+
+$ chantier order done O-11
+O-11 done
+[exit 0]
+
+$ chantier status
+batch-01 open stack live 0/4 queued 0 foreman none e0 heartbeat never spent $0.00
+CR-101 cancelled r0/5 - | -
+CR-102 cancelled r0/3 - | -
+CR-103 cancelled r0/3 - | -
+[exit 0]
+
+$ chantier land
+landed batch-01: the cost is not final, it runs until `close`
+report: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\replay\.agents\changes\3-requests\batch-01\STATUS.md
+[exit 0]
+
+$ chantier status
+error: no open batch: run `chantier open` first
+[exit 2]
+
+$ chantier cost
+error: no open batch: run `chantier open` first
+[exit 2]
+
+$ chantier cost --summary
+error: no open batch: run `chantier open` first
+[exit 2]
+
+$ chantier close
+error: cannot close batch-01: its final cost cannot be priced (no Foreman transcript recorded). Nothing was deleted.
+[exit 2]
+
+$ chantier close --yes
+error: cannot close batch-01: its final cost cannot be priced (no Foreman transcript recorded). Nothing was deleted.
+[exit 2]
+
+## L. landed batch needs --batch
+$ chantier status --batch batch-01
+batch-01 landed stack live 0/4 queued 0 foreman none e0 heartbeat never spent $0.00 (landed, cost not final)
+CR-101 cancelled r0/5 - | -
+CR-102 cancelled r0/3 - | -
+CR-103 cancelled r0/3 - | -
+[exit 0]
+
+$ chantier cost --batch batch-01
+error: no Foreman transcript recorded: the Foreman runs `chantier foreman transcript $CLAUDE_CODE_SESSION_ID`
+[exit 2]
+

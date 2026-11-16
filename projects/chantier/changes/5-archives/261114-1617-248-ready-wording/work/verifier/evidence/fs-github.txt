@@ -1,0 +1,701 @@
+﻿    $ chantier init  → exit 0
+      created .agents/changes/1-inbox
+      created .agents/changes/2-backlog
+      created .agents/changes/3-ready
+      created .agents/changes/4-batch/1-pending
+      created .agents/changes/4-batch/2-actives
+      created .agents/changes/4-batch/3-done
+      created .agents/changes/5-archives
+      created .agents/changes/6-trash
+
+## 13. A stack on request, one open batch, a stack merged in part
+    $ chantier file Stack bottom  → exit 0
+      filed .agents/changes/1-inbox/stack-bottom; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\1-inbox\stack-bottom --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/stack-bottom (P1)
+    $ chantier file Stack middle  → exit 0
+      filed .agents/changes/1-inbox/stack-middle; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\1-inbox\stack-middle --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/stack-middle (P1)
+    $ chantier file Stack top  → exit 0
+      filed .agents/changes/1-inbox/stack-top; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\1-inbox\stack-top --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/stack-top (P1)
+    $ chantier file Stack joiner  → exit 0
+      filed .agents/changes/1-inbox/stack-joiner; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\1-inbox\stack-joiner --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/stack-joiner (P1)
+    $ chantier open C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\stack-bottom C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\stack-middle C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\stack-top --mode stack --default-branch main  → exit 0
+      opened batch-01 on claude: 3 CRs, 4 slots, stack, steering foreman
+      next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+      CR-101 Stack bottom: 2-backlog/P1/stack-bottom -> 4-batch/1-pending/101-stack-bottom
+      CR-102 Stack middle: 2-backlog/P1/stack-middle -> 4-batch/1-pending/102-stack-middle
+      CR-103 Stack top: 2-backlog/P1/stack-top -> 4-batch/1-pending/103-stack-top
+- [x] `open --mode stack` makes a stack of four slots; the batch is `batch-<n>`
+    $ chantier open C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\stack-joiner --default-branch main  → exit 2
+      stderr: error: batch-01 is not closed (a paused batch stays until `close`): `order add` joins new work to it
+- [x] a second `open` is refused while a batch is open, and says which
+    $ chantier foreman set local_foreman8 --epoch 1  → exit 0
+      foreman local_foreman8 epoch 1
+    $ chantier take CR-101 --epoch 1  → exit 0
+      took CR-101 (1 of 4 slots held)
+      CR-101 "Stack bottom" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/101-stack-bottom/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/101-stack-bottom (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-stack-bottom base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+    $ chantier agents set CR-101 agent-1 --epoch 1  → exit 0
+      CR-101 → agent-1
+    $ chantier take CR-102 --epoch 1  → exit 0
+      took CR-102 (2 of 4 slots held)
+      CR-102 "Stack middle" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/102-stack-middle/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/102-stack-middle (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-stack-middle base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-102 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-102 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-102 VERIFIED|"NOT VERIFIED")
+    $ chantier agents set CR-102 agent-2 --epoch 1  → exit 0
+      CR-102 → agent-2
+    $ chantier take CR-103 --epoch 1  → exit 0
+      took CR-103 (3 of 4 slots held)
+      CR-103 "Stack top" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/103-stack-top/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/103-stack-top (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-103 branch chantier/batch-01/cr-103-stack-top base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-103 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-103 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-103 VERIFIED|"NOT VERIFIED")
+    $ chantier agents set CR-103 agent-3 --epoch 1  → exit 0
+      CR-103 → agent-3
+    $ chantier handoff CR-101  → exit 0
+      CR-101 "Stack bottom" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/101-stack-bottom/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/101-stack-bottom (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-stack-bottom base origin/main
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+    $ chantier handoff CR-102  → exit 0
+      CR-102 "Stack middle" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/102-stack-middle/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/102-stack-middle (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-stack-middle base origin/main
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-102 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-102 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-102 VERIFIED|"NOT VERIFIED")
+    $ chantier handoff CR-103  → exit 0
+      CR-103 "Stack top" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/103-stack-top/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/103-stack-top (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-103 branch chantier/batch-01/cr-103-stack-top base origin/main
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-103 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-103 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-103 VERIFIED|"NOT VERIFIED")
+    $ chantier take stack --epoch 1  → exit 0
+      the stack of batch batch-01: CR-101 → CR-102 → CR-103
+      CR-101 working worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-stack-bottom base origin/main PR none head - restack: none
+      CR-102 working worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-stack-middle base chantier/batch-01/cr-101-stack-bottom PR none head - restack: none
+      CR-103 working worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-103 branch chantier/batch-01/cr-103-stack-top base chantier/batch-01/cr-102-stack-middle PR none head - restack: none
+    $ chantier agents set stack - --epoch 1  → exit 0
+      stack → None
+- [x] a stack: independent CRs are all taken at once and start on the default branch; their place in the stack is the one under it
+    $ chantier round CR-101 --note edit stack0.py  → exit 0
+      round 1 of 3 for CR-101
+      CR-101 "Stack bottom" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/101-stack-bottom/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/101-stack-bottom (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-stack-bottom base origin/main
+      PR: none; head -
+      rounds: 1 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+      context: not measured (no steering transcript recorded)
+    $ chantier gate CR-101 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 27c9dda
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\4-batch\2-actives\101-stack-bottom\work\gates\20261114-170407.log
+    $ gh pr create --base main…  → exit 0
+    $ chantier ship CR-101 https://github.com/acme/demo/pull/40  → exit 0
+      recorded https://github.com/acme/demo/pull/40 (base main, head 27c9dda, out of draft)
+    $ chantier gate CR-101 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 27c9dda
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\4-batch\2-actives\101-stack-bottom\work\gates\20261114-170409.log
+    $ chantier verdict CR-101 VERIFIED  → exit 0
+      verdict CR-101 VERIFIED at 27c9dda
+    $ chantier handback CR-101 ready https://github.com/acme/demo/pull/40  → exit 0
+      [driver CR-101→foreman] hand-back ready to merge https://github.com/acme/demo/pull/40
+      CR-101 ready to merge
+    $ chantier round CR-102 --note edit stack1.py  → exit 0
+      round 1 of 3 for CR-102
+      CR-102 "Stack middle" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/102-stack-middle/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/102-stack-middle (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-stack-middle base origin/main
+      PR: none; head -
+      rounds: 1 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-102 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-102 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-102 VERIFIED|"NOT VERIFIED")
+      context: not measured (no steering transcript recorded)
+    $ chantier gate CR-102 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 5efa13f
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\4-batch\2-actives\102-stack-middle\work\gates\20261114-170412.log
+    $ gh pr create --base main…  → exit 0
+    $ chantier ship CR-102 https://github.com/acme/demo/pull/41  → exit 0
+      recorded https://github.com/acme/demo/pull/41 (base main, head 5efa13f, out of draft)
+    $ chantier gate CR-102 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 5efa13f
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\4-batch\2-actives\102-stack-middle\work\gates\20261114-170414.log
+    $ chantier verdict CR-102 VERIFIED  → exit 0
+      verdict CR-102 VERIFIED at 5efa13f
+    $ chantier handback CR-102 ready https://github.com/acme/demo/pull/41  → exit 0
+      [driver CR-102→foreman] hand-back ready to merge https://github.com/acme/demo/pull/41
+      CR-102 ready to merge
+    $ chantier round CR-103 --note edit stack2.py  → exit 0
+      round 1 of 3 for CR-103
+      CR-103 "Stack top" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/103-stack-top/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/103-stack-top (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-103 branch chantier/batch-01/cr-103-stack-top base origin/main
+      PR: none; head -
+      rounds: 1 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-103 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-103 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-103 VERIFIED|"NOT VERIFIED")
+      context: not measured (no steering transcript recorded)
+    $ chantier gate CR-103 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at b2a8232
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\4-batch\2-actives\103-stack-top\work\gates\20261114-170417.log
+    $ gh pr create --base main…  → exit 0
+    $ chantier ship CR-103 https://github.com/acme/demo/pull/42  → exit 0
+      recorded https://github.com/acme/demo/pull/42 (base main, head b2a8232, out of draft)
+    $ chantier gate CR-103 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at b2a8232
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\4-batch\2-actives\103-stack-top\work\gates\20261114-170419.log
+    $ chantier verdict CR-103 VERIFIED  → exit 0
+      verdict CR-103 VERIFIED at b2a8232
+    $ chantier handback CR-103 ready https://github.com/acme/demo/pull/42  → exit 0
+      [driver CR-103→foreman] hand-back ready to merge https://github.com/acme/demo/pull/42
+      CR-103 ready to merge
+- [x] before `stack`, `ship` records the default branch for every independent CR
+    $ chantier stack CR-101 CR-102 CR-103  → exit 0
+      stack order: CR-101 → CR-102 → CR-103
+    $ chantier ship CR-103 https://github.com/acme/demo/pull/42  → exit 0
+      recorded https://github.com/acme/demo/pull/42 (base chantier/batch-01/cr-102-stack-middle, head b2a8232, out of draft)
+    $ chantier ship CR-101 https://github.com/acme/demo/pull/40  → exit 0
+      recorded https://github.com/acme/demo/pull/40 (base main, head 27c9dda, out of draft)
+- [x] after `stack`, `ship` records the CR under it, the first on the default branch
+    $ chantier order add --note C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\stack-joiner  → exit 0
+      [chief-of-staff→foreman] order O-1: add C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\stack-joiner
+      added CR-104, queued
+    $ chantier handoff CR-104  → exit 0
+      CR-104 "Stack joiner" (change) queued in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/1-pending/104-stack-joiner/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/1-pending/104-stack-joiner (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-104 branch chantier/batch-01/cr-104-stack-joiner base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-104 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-104 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-104 VERIFIED|"NOT VERIFIED")
+- [x] `order add` joins the open batch, on top of the stack; no batch is opened
+    $ chantier order after CR-104 --note CR-102  → exit 0
+      [chief-of-staff→foreman] order O-2: after CR-104 CR-102
+      CR-104 now waits for CR-102
+    $ chantier handoff CR-104  → exit 0
+      CR-104 "Stack joiner" (change) queued in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/1-pending/104-stack-joiner/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/1-pending/104-stack-joiner (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-104 branch chantier/batch-01/cr-104-stack-joiner base chantier/batch-01/cr-102-stack-middle; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      after: CR-102 (the base is the branch of the last one still open)
+      orders pending: O-2 after CR-102
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-104 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-104 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-104 VERIFIED|"NOT VERIFIED")
+    $ chantier order after CR-104 --note -  → exit 0
+      [chief-of-staff→foreman] order O-3: after CR-104 -
+      CR-104 waits for nothing
+    $ chantier handoff CR-104  → exit 0
+      CR-104 "Stack joiner" (change) queued in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/1-pending/104-stack-joiner/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/1-pending/104-stack-joiner (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-104 branch chantier/batch-01/cr-104-stack-joiner base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      orders pending: O-2 after CR-102; O-3 after -
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-104 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-104 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-104 VERIFIED|"NOT VERIFIED")
+- [x] a chain through `order after` starts on the ready CR's branch; `--note -` puts the queued CR back on the default branch
+    $ chantier order after CR-104 --note CR-101  → exit 0
+      [chief-of-staff→foreman] order O-4: after CR-104 CR-101
+      CR-104 now waits for CR-101
+    $ chantier stack CR-101 CR-102 CR-104 CR-103  → exit 0
+      stack order: CR-101 → CR-102 → CR-104 → CR-103
+    $ chantier stack  → exit 0
+      the stack of batch batch-01: CR-101 → CR-102 → CR-104 → CR-103
+      CR-101 ready to merge worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-stack-bottom base origin/main PR https://github.com/acme/demo/pull/40 head 27c9dda restack: none
+      CR-102 ready to merge worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-stack-middle base chantier/batch-01/cr-101-stack-bottom PR https://github.com/acme/demo/pull/41 head 5efa13f restack: none
+      CR-104 queued worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-104 branch chantier/batch-01/cr-104-stack-joiner base chantier/batch-01/cr-102-stack-middle PR none head - restack: none
+      CR-103 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-103 branch chantier/batch-01/cr-103-stack-top base chantier/batch-01/cr-104-stack-joiner PR https://github.com/acme/demo/pull/42 head b2a8232 restack: none
+      context: not measured (no agent recorded)
+- [x] a stacked CR with an `after` sits on the CR under it in the stack (`stack` with no CR and `take stack` print the same base), and the CR above it sits on it
+    $ chantier stack CR-101 CR-102 CR-103 CR-104  → exit 0
+      stack order: CR-101 → CR-102 → CR-103 → CR-104
+    $ chantier order after CR-104 --note -  → exit 0
+      [chief-of-staff→foreman] order O-5: after CR-104 -
+      CR-104 waits for nothing
+    $ chantier order done O-1 --epoch 1  → exit 0
+      O-1 done
+    $ chantier order done O-2 --epoch 1  → exit 0
+      O-2 done
+    $ chantier order done O-3 --epoch 1  → exit 0
+      O-3 done
+    $ chantier order done O-4 --epoch 1  → exit 0
+      O-4 done
+    $ chantier order done O-5 --epoch 1  → exit 0
+      O-5 done
+    $ chantier asks -- ready-to-merge CR-101 https://github.com/acme/demo/pull/40  → exit 0
+      [foreman→chief-of-staff] ask A-1: ready-to-merge CR-101 https://github.com/acme/demo/pull/40
+    $ chantier asks -- ready-to-merge CR-102 https://github.com/acme/demo/pull/41  → exit 0
+      [foreman→chief-of-staff] ask A-2: ready-to-merge CR-102 https://github.com/acme/demo/pull/41
+    $ chantier asks -- ready-to-merge CR-103 https://github.com/acme/demo/pull/42  → exit 0
+      [foreman→chief-of-staff] ask A-3: ready-to-merge CR-103 https://github.com/acme/demo/pull/42
+    $ chantier take CR-104 --epoch 1  → exit 0
+      took CR-104 (1 of 4 slots held)
+      CR-104 "Stack joiner" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/104-stack-joiner/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/104-stack-joiner (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-104 branch chantier/batch-01/cr-104-stack-joiner base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-104 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-104 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-104 VERIFIED|"NOT VERIFIED")
+    $ chantier agents set CR-104 agent-4 --epoch 1  → exit 0
+      CR-104 → agent-4
+    $ chantier round CR-104 --note edit stack3.py  → exit 0
+      round 1 of 3 for CR-104
+      CR-104 "Stack joiner" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/104-stack-joiner/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-glj6kvk3/proj/.agents/changes/4-batch/2-actives/104-stack-joiner (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-104 branch chantier/batch-01/cr-104-stack-joiner base origin/main
+      PR: none; head -
+      rounds: 1 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-104 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-104 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-104 VERIFIED|"NOT VERIFIED")
+      context: not measured (no steering transcript recorded)
+    $ chantier gate CR-104 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 4f612c8
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\4-batch\2-actives\104-stack-joiner\work\gates\20261114-170434.log
+    $ gh pr create --base main…  → exit 0
+    $ chantier ship CR-104 https://github.com/acme/demo/pull/43  → exit 0
+      recorded https://github.com/acme/demo/pull/43 (base chantier/batch-01/cr-103-stack-top, head 4f612c8, out of draft)
+    $ chantier gate CR-104 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 4f612c8
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\4-batch\2-actives\104-stack-joiner\work\gates\20261114-170436.log
+    $ chantier verdict CR-104 VERIFIED  → exit 0
+      verdict CR-104 VERIFIED at 4f612c8
+    $ chantier handback CR-104 ready https://github.com/acme/demo/pull/43  → exit 0
+      [driver CR-104→foreman] hand-back ready to merge https://github.com/acme/demo/pull/43
+      CR-104 ready to merge
+    $ chantier ship CR-104 https://github.com/acme/demo/pull/43  → exit 0
+      recorded https://github.com/acme/demo/pull/43 (base chantier/batch-01/cr-103-stack-top, head 4f612c8, out of draft)
+- [x] `ship` records the stack place as base for a stacked CR that has an `after`
+    $ chantier ship CR-104 https://github.com/acme/demo/pull/43  → exit 0
+      recorded https://github.com/acme/demo/pull/43 (base chantier/batch-01/cr-103-stack-top, head 8ab73f2, out of draft)
+      off: origin/chantier/batch-01/cr-104-stack-joiner is at 4f612c8, not this head: push with --force-with-lease, then ship again
+      off: no long gate passed at 8ab73f2 (`chantier gate`)
+      off: pr-body.md line 3 names 4f612c8, not in 8ab73f2's history: Tested at 4f612c8 on the gate
+- [x] `ship` names the PR body line whose SHA left the head's history; `carried from`, `STALE` and a token that is no commit are not named
+    $ chantier ship CR-104 https://github.com/acme/demo/pull/43  → exit 0
+      recorded https://github.com/acme/demo/pull/43 (base chantier/batch-01/cr-103-stack-top, head 8ab73f2, out of draft)
+      off: origin/chantier/batch-01/cr-104-stack-joiner is at 4f612c8, not this head: push with --force-with-lease, then ship again
+      off: no long gate passed at 8ab73f2 (`chantier gate`)
+- [x] with the body fixed, `ship` names no line
+    $ chantier ship CR-104 https://github.com/acme/demo/pull/43  → exit 0
+      recorded https://github.com/acme/demo/pull/43 (base chantier/batch-01/cr-103-stack-top, head 8ab73f2, out of draft)
+      off: origin/chantier/batch-01/cr-104-stack-joiner is at 4f612c8, not this head: push with --force-with-lease, then ship again
+      off: no long gate passed at 8ab73f2 (`chantier gate`)
+      off: pr-body.md line 4 names 4f612c8, not in 8ab73f2's history: Tested at 4f612c8 again
+- [x] `ship` does not take a token of digits for a commit, though it resolves outside the head; the line naming the old head with a letter is still named
+    $ chantier order merged CR-101  → exit 0
+      [chief-of-staff→foreman] order O-6: merged CR-101
+      merged CR-101: moved to 3-done
+- [x] the bottom merges alone: it moves to 3-done at once and the batch stays open
+    $ chantier take stack --epoch 1  → exit 0
+      the stack of batch batch-01: CR-102 → CR-103 → CR-104
+      CR-102 ready to merge worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-stack-middle base origin/main PR https://github.com/acme/demo/pull/41 head 5efa13f restack: none
+      CR-103 ready to merge worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-103 branch chantier/batch-01/cr-103-stack-top base chantier/batch-01/cr-102-stack-middle PR https://github.com/acme/demo/pull/42 head b2a8232 restack: none
+      CR-104 ready to merge worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-104 branch chantier/batch-01/cr-104-stack-joiner base chantier/batch-01/cr-103-stack-top PR https://github.com/acme/demo/pull/43 head 8ab73f2 restack: none
+- [x] what remains forms another stack: the first now stands on the default branch
+    $ chantier agents set stack agent-stack --epoch 1  → exit 0
+      stack → agent-stack
+    $ chantier take stack --epoch 1  → exit 2
+      stderr: error: a stack driver is recorded (agent-stack); one that ended: `agents set stack -` first (a stack driver reads the stack with `stack`, which changes nothing)
+    $ chantier pause --epoch 1  → exit 2
+      stderr: error: cannot pause batch-01: live -, queued -, not merged CR-102, CR-103, CR-104, orders pending O-6 (the Foreman ends each with `order done <O-k>`), stack driver agent-stack
+- [x] one stack driver at a time, and the batch does not pause under it
+- [x] `take stack` refused because a stack driver is recorded names `stack`, which changes nothing
+    $ chantier stack  → exit 0
+      the stack of batch batch-01: CR-102 → CR-103 → CR-104
+      CR-102 ready to merge worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-stack-middle base origin/main PR https://github.com/acme/demo/pull/41 head 5efa13f restack: none
+      CR-103 ready to merge worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-103 branch chantier/batch-01/cr-103-stack-top base chantier/batch-01/cr-102-stack-middle PR https://github.com/acme/demo/pull/42 head b2a8232 restack: none
+      CR-104 ready to merge worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-01-CR-104 branch chantier/batch-01/cr-104-stack-joiner base chantier/batch-01/cr-103-stack-top PR https://github.com/acme/demo/pull/43 head 8ab73f2 restack: none
+      context: not measured (no steering transcript recorded)
+- [x] `stack` with no CR prints the lines `take stack` printed plus a last `context:` line, and writes nothing (`batch.json`, `events.jsonl`)
+    $ chantier order after CR-104 --note CR-102  → exit 2
+      stderr: error: cannot change what CR-104 waits for: it is ready, not queued; in a stack, its place and base are set by `stack`
+- [x] `order after` on a ready CR in a stack batch is refused, and the message names `stack`
+    $ chantier ship CR-102 https://github.com/acme/demo/pull/41  → exit 0
+      recorded https://github.com/acme/demo/pull/41 (base main, head 5efa13f, out of draft)
+- [x] the restacked PR is recorded on the default branch
+    $ chantier agents set stack - --epoch 1  → exit 0
+      stack → None
+    $ chantier order merged CR-102  → exit 0
+      [chief-of-staff→foreman] order O-7: merged CR-102
+      merged CR-102: moved to 3-done
+    $ chantier order merged CR-103  → exit 0
+      [chief-of-staff→foreman] order O-8: merged CR-103
+      merged CR-103: moved to 3-done
+    $ chantier order merged CR-104  → exit 0
+      [chief-of-staff→foreman] order O-9: merged CR-104
+      merged CR-104: moved to 3-done
+      every CR is merged or cancelled: `chantier pause`
+    $ chantier note CR-104 main checkout: already at 7a956a0  → exit 0
+      ok
+      context: not measured (no steering transcript recorded)
+    $ chantier order done O-6 --epoch 1  → exit 0
+      O-6 done
+    $ chantier order done O-7 --epoch 1  → exit 0
+      O-7 done
+    $ chantier order done O-8 --epoch 1  → exit 0
+      O-8 done
+    $ chantier order done O-9 --epoch 1  → exit 0
+      O-9 done
+    $ chantier pause --epoch 1  → exit 0
+      paused batch-01: cost to date below
+      report: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\4-batch\STATUS.md
+      Spent: unknown (no Foreman transcript recorded)
+    $ chantier close --batch 01 --yes  → exit 0
+      closed batch-01: its files are deleted, 4 CRs archived
+      4 CRs move from 3-done to 5-archives: CR-101, CR-102, CR-103, CR-104
+      retro: no retro
+      record: .agents/changes/5-archives/batches/batch-01.json closed
+      the dropped CRs, to remove on the same word where they still exist (`git worktree remove --force`, `git branch -D`): none
+      final cost, up to now (nothing runs):
+      Total: $0.01, no budget
+      Foreman $0.01 (100%), Drivers $0.00 (0%), workers $0.00 (0%)
+      Most: -
+      Chief of Staff, steering the batch (outside the budget): unknown (Chief of staff transcript not found: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\claude-projects\C--Users-gaeta-AppData-Local-Temp-chantier-rw-glj6kvk3-proj\uuid-chief.jsonl)
+      Chief of Staff, grill and specifications with the user (outside the budget): unknown (Chief of staff transcript not found: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\claude-projects\C--Users-gaeta-AppData-Local-Temp-chantier-rw-glj6kvk3-proj\uuid-chief.jsonl)
+      Chief of Staff, whole session: unknown (Chief of staff transcript not found: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\claude-projects\C--Users-gaeta-AppData-Local-Temp-chantier-rw-glj6kvk3-proj\uuid-chief.jsonl)
+      Not counted: compaction calls, which leave no record (about $0.12 each)
+- [x] the stack merged piece by piece: the batch pauses, then closes
+
+## 13a. `forge-stack`: the native stack made and read back on the forge
+    $ chantier file Forge piece a  → exit 0
+      filed .agents/changes/1-inbox/forge-piece-a; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\1-inbox\forge-piece-a --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/forge-piece-a (P1)
+    $ chantier file Forge piece b  → exit 0
+      filed .agents/changes/1-inbox/forge-piece-b; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\1-inbox\forge-piece-b --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/forge-piece-b (P1)
+    $ chantier file Forge release  → exit 0
+      filed .agents/changes/1-inbox/forge-release; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\1-inbox\forge-release --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/forge-release (P1)
+    $ chantier open C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\forge-piece-a C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\forge-piece-b C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\forge-release --mode stack --release 3 --default-branch main  → exit 0
+      opened batch-02 on claude: 3 CRs, 4 slots, stack, steering foreman
+      next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+      CR-105 Forge piece a: 2-backlog/P1/forge-piece-a -> 4-batch/1-pending/105-forge-piece-a
+      CR-106 Forge piece b: 2-backlog/P1/forge-piece-b -> 4-batch/1-pending/106-forge-piece-b
+      CR-107 Forge release: 2-backlog/P1/forge-release -> 4-batch/1-pending/107-forge-release
+    $ chantier stack CR-106  → exit 0
+      stack order: CR-106
+- [x] `stack` naming one CR of three: it takes order 1, the others keep their relative order above it, and only the CR named is `stacked`
+    $ chantier stack CR-106  → exit 2
+      stderr: error: CR-106 depends on CR-105, which is not named: it cannot sit below it
+- [x] `stack` naming a CR whose dependency is open and not named is refused: `which is not named`
+    $ chantier stack CR-105 CR-106 CR-107  → exit 0
+      stack order: CR-105 → CR-106 → CR-107
+    $ chantier foreman set local_foreman_fs --epoch 1  → exit 0
+      foreman local_foreman_fs epoch 1
+    $ chantier forge-stack create  → exit 0
+      stack #100 https://github.com/acme/demo/pull/202 (PRs bottom to top: #201 #202)
+- [x] `forge-stack create` stacks the CRs that have a PR (the release has none): the stacks endpoint once, `201 202` only, and the stack's link
+    $ chantier forge-stack show  → exit 0
+      stack #100 ready to merge: open, 2 PRs in order, partial stack mergeable below 4f27f26 (#202, 2 PRs)
+      to come: CR-107 queued
+- [x] `forge-stack show` on that stack names the commit the user may merge below, and the release as to come; it writes nothing
+    $ chantier forge-stack create  → exit 4
+      stderr: error: gh api -X POST repos/acme/demo/stacks -F pull_requests[]=201 -F pull_requests[]=202: fake gh: HTTP 422: pull request already in a stack (`forge-stack rebuild` replaces a stack)
+- [x] a second `create` over PRs already stacked comes back with the forge's exact text (exit 4)
+    $ chantier forge-stack create  → exit 2
+      stderr: error: no PR at the bottom of the stack: CR-105 is ready, no PR
+- [x] `forge-stack create` with no PR at the bottom is refused (exit 2), naming the CR
+    $ chantier forge-stack rebuild  → exit 2
+      stderr: error: no PR at the bottom of the stack: CR-105 is ready, no PR
+- [x] `forge-stack rebuild` with no PR at the bottom is refused (exit 2), naming the CR
+    $ chantier forge-stack show  → exit 2
+      check 1: no PR at the bottom of the stack: CR-105 is ready, no PR
+- [x] `forge-stack show` with no PR at the bottom prints `check 1: no PR at the bottom`, exit 2
+    $ chantier file Forge joined  → exit 0
+      filed .agents/changes/1-inbox/forge-joined; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\1-inbox\forge-joined --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/forge-joined (P1)
+    $ chantier order add --note C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\forge-joined  → exit 0
+      [chief-of-staff→foreman] order O-1: add C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\forge-joined
+      added CR-108, queued
+    $ chantier stack CR-105 CR-106 CR-108  → exit 0
+      stack order: CR-105 → CR-106 → CR-108
+    $ chantier forge-stack rebuild  → exit 0
+      unstacked #100
+      #202 base main -> chantier/batch-02/cr-105-forge-piece-a
+      #204 base main -> chantier/batch-02/cr-106-forge-piece-b
+      stack #101 https://github.com/acme/demo/pull/204 (PRs bottom to top: #201 #202 #204)
+      stack #101 ready to merge: open, 3 PRs in order, partial stack mergeable below 4f27f26 (#202, 2 PRs), drafts on top #204
+      to come: CR-108 working, CR-107 queued
+- [x] a CR joins as a draft: `rebuild` unstacks the stack, retargets the new PR onto the CR below, stacks `201 202 204`, and prints the draft on top and what is to come
+    $ chantier forge-stack show  → exit 0
+      stack #101 ready to merge: open, 3 PRs in order, partial stack mergeable below 4f27f26 (#202, 2 PRs), drafts on top #204
+      to come: CR-108 working, CR-107 queued
+- [x] `forge-stack show` of that stack: mergeable below the second PR, the draft on top, `to come:` the draft's CR and the release
+    $ chantier forge-stack show  → exit 2
+      check 4: still a draft #204
+- [x] a ready CR whose PR is still a draft: `check 4: still a draft #204`
+    $ chantier forge-stack show  → exit 2
+      check 4: not a draft #204 (CR-108 working)
+- [x] a CR that is not ready whose PR is not a draft: `check 4: not a draft #204 (<cr> working)`
+    $ chantier forge-stack show  → exit 2
+      check 4: a draft under a ready PR #201
+- [x] a draft under a ready PR: `check 4: a draft under a ready PR #201`
+    $ chantier forge-stack show  → exit 0
+      stack #100 ready to merge: open, 4 PRs in order, stack complete, mergeable below 4de6281 (#203), the release on top
+- [x] the complete stack (every CR ready, no draft, the release on top): `stack complete, mergeable below` the release's head, and no `to come:` line
+    $ chantier forge-stack show  → exit 2
+      check 4: a draft under a ready PR #202
+- [x] `forge-stack show` on a draft: a `check 4` line naming the cause, exit 2
+    $ chantier forge-stack show  → exit 2
+      check 3: order on the forge #202 #201 #204 #203, expected #201 #202 #204 #203 (bottom first)
+- [x] `forge-stack show` on a wrong order: a `check 3` line naming the cause, exit 2
+    $ chantier forge-stack show  → exit 2
+      check 3: order on the forge #201 #202 #203 #204, expected #201 #202 #204 #203 (bottom first)
+      check 5: the release PR #203 is not on top (top is #204)
+- [x] `forge-stack show` on the release not on top: a `check 5` line naming the cause, exit 2
+    $ chantier forge-stack show  → exit 2
+      check 1: stack #100 is not open
+- [x] `forge-stack show` on a closed stack: a `check 1` line naming the cause, exit 2
+    $ chantier forge-stack show  → exit 2
+      check 2: missing #204
+- [x] `forge-stack show` on a missing PR: a `check 2` line naming the cause, exit 2
+    $ chantier forge-stack show  → exit 2
+      check 2: not in the batch's stack #999
+      check 5: the release PR #203 is not on top (top is #999)
+- [x] `forge-stack show` on a foreign PR: a `check 2` line naming the cause, exit 2
+    $ chantier forge-stack show  → exit 2
+      check 4: still a draft #204 #203
+- [x] `forge-stack show` prints one line per failed check
+    $ chantier forge-stack show  → exit 0
+      stack #100 ready to merge: open, 4 PRs in order, stack complete, mergeable below 4de6281 (#203), the release on top
+- [x] `forge-stack show` without --stack prefers the open stack over a closed one that overlaps the batch's PRs
+    $ chantier forge-stack show  → exit 2
+      check 4: recorded draft #201, the forge says out of draft
+- [x] check 4 reads the draft state the CLI recorded: `recorded draft #201, the forge says out of draft`
+    $ chantier forge-stack show  → exit 2
+      check 2: not in the batch's stack #999
+      check 5: the release PR #203 is not on top (top is #999)
+- [x] a foreign PR is still named `not in the batch's stack #999`
+    $ chantier forge-stack show  → exit 2
+      check 2: dropped #202 (CR-106): close it
+- [x] a dropped CR's PR still held by the forge's stack: `check 2: … dropped #202 (CR-106): close it`, exit 2, and #202 is not called foreign
+    $ chantier forge-stack rebuild  → exit 0
+      unstacked #100 (it also held #202 of CR-106, dropped: close it)
+      #204 base chantier/batch-02/cr-106-forge-piece-b -> chantier/batch-02/cr-105-forge-piece-a
+      #203 base main -> chantier/batch-02/cr-108-forge-joined
+      stack #102 https://github.com/acme/demo/pull/203 (PRs bottom to top: #201 #204 #203)
+      stack #102 ready to merge: open, 3 PRs in order, stack complete, mergeable below 4de6281 (#203), the release on top
+- [x] `rebuild` unstacks with `(it also held #202 of CR-106, dropped: close it)` and posts the stack without #202
+    $ chantier forge-stack create  → exit 2
+      stderr: error: the stack's PRs are not all in one repository
+- [x] a GitLab link in a GitHub stack: `forge-stack create` is refused, not all in one repository
+    $ chantier forge-stack show  → exit 2
+      stderr: error: the stack's PRs are not all in one repository
+- [x] a GitLab link in a GitHub stack: `forge-stack show` is refused, not all in one repository
+    $ chantier forge-stack show  → exit 2
+      stderr: error: forge-stack reads GitHub pull requests and GitLab merge requests: https://example.com/acme/demo/issues/202 is neither
+- [x] a link of neither shape is refused naming `is neither`
+    $ chantier file Forge inserted  → exit 0
+      filed .agents/changes/1-inbox/forge-inserted; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\1-inbox\forge-inserted --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/forge-inserted (P1)
+    $ chantier order add --note C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\forge-inserted  → exit 0
+      [chief-of-staff→foreman] order O-2: add C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\forge-inserted
+      added CR-109, queued
+    $ chantier stack CR-105 CR-109 CR-106 CR-108 CR-107  → exit 0
+      stack order: CR-105 → CR-109 → CR-106 → CR-108 → CR-107
+    $ chantier take stack --epoch 1  → exit 0
+      the stack of batch batch-02: CR-105 → CR-109 → CR-106 → CR-108 → CR-107
+      CR-105 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-105 branch chantier/batch-02/cr-105-forge-piece-a base origin/main PR https://github.com/acme/demo/pull/201 head 81a3ca3 restack: none
+      CR-109 queued worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-109 branch chantier/batch-02/cr-109-forge-inserted base chantier/batch-02/cr-105-forge-piece-a PR none head - restack: none
+      CR-106 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-106 branch chantier/batch-02/cr-106-forge-piece-b base chantier/batch-02/cr-109-forge-inserted PR https://github.com/acme/demo/pull/202 head 4f27f26 restack: none
+      CR-108 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-108 branch chantier/batch-02/cr-108-forge-joined base chantier/batch-02/cr-106-forge-piece-b PR https://github.com/acme/demo/pull/204 head 9eb5a83 restack: none
+      CR-107 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-107 branch chantier/batch-02/cr-107-forge-release base chantier/batch-02/cr-108-forge-joined PR https://github.com/acme/demo/pull/203 head 4de6281 restack: none
+    $ chantier agents set stack - --epoch 1  → exit 0
+      stack → None
+- [x] insertion: a CR added to the stack batch and ordered below the release CR sits there in `take stack`, the release CR still last
+- [x] `take stack` prints the rows with no `context:` line (its agent has not started yet)
+    $ chantier stack  → exit 0
+      the stack of batch batch-02: CR-105 → CR-109 → CR-106 → CR-108 → CR-107
+      CR-105 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-105 branch chantier/batch-02/cr-105-forge-piece-a base origin/main PR https://github.com/acme/demo/pull/201 head 81a3ca3 restack: none
+      CR-109 queued worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-109 branch chantier/batch-02/cr-109-forge-inserted base chantier/batch-02/cr-105-forge-piece-a PR none head - restack: none
+      CR-106 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-106 branch chantier/batch-02/cr-106-forge-piece-b base chantier/batch-02/cr-109-forge-inserted PR https://github.com/acme/demo/pull/202 head 4f27f26 restack: none
+      CR-108 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-108 branch chantier/batch-02/cr-108-forge-joined base chantier/batch-02/cr-106-forge-piece-b PR https://github.com/acme/demo/pull/204 head 9eb5a83 restack: none
+      CR-107 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-107 branch chantier/batch-02/cr-107-forge-release base chantier/batch-02/cr-108-forge-joined PR https://github.com/acme/demo/pull/203 head 4de6281 restack: none
+      context: not measured (no agent recorded)
+- [x] `stack` with no CR prints each row with `head <head7>` (or `head -`) and `restack: none`, then a `context:` line (`not measured` here: no transcript)
+    $ chantier note CR-105 restack: on main 81a3ca3, head 81a3ca3  → exit 0
+      ok
+      context: not measured (no agent recorded)
+    $ chantier stack  → exit 0
+      the stack of batch batch-02: CR-105 → CR-109 → CR-106 → CR-108 → CR-107
+      CR-105 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-105 branch chantier/batch-02/cr-105-forge-piece-a base origin/main PR https://github.com/acme/demo/pull/201 head 81a3ca3 restack: on main 81a3ca3, head 81a3ca3
+      CR-109 queued worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-109 branch chantier/batch-02/cr-109-forge-inserted base chantier/batch-02/cr-105-forge-piece-a PR none head - restack: none
+      CR-106 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-106 branch chantier/batch-02/cr-106-forge-piece-b base chantier/batch-02/cr-109-forge-inserted PR https://github.com/acme/demo/pull/202 head 4f27f26 restack: none
+      CR-108 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-108 branch chantier/batch-02/cr-108-forge-joined base chantier/batch-02/cr-106-forge-piece-b PR https://github.com/acme/demo/pull/204 head 9eb5a83 restack: none
+      CR-107 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj.worktrees\batch-02-CR-107 branch chantier/batch-02/cr-107-forge-release base chantier/batch-02/cr-108-forge-joined PR https://github.com/acme/demo/pull/203 head 4de6281 restack: none
+      context: not measured (no agent recorded)
+- [x] after `note <cr> "restack: on … head …"`, that CR's row shows the note and the others still say `restack: none`
+    $ chantier forge-stack show  → exit 2
+      check 2: not in the stack as it stands #202 (CR-106) #204 (CR-108) #203 (CR-107)
+- [x] after the insertion, `forge-stack show` reads the stack as it stands (the CR with no PR is to come): the PRs above it are not in it
+- [x] the release's base is the CR just under it after an insertion below it, and the CR above the new one sits on it (`take stack`)
+    $ chantier forge-stack rebuild  → exit 0
+      unstacked #100
+      #205 base main -> chantier/batch-02/cr-105-forge-piece-a
+      #202 base chantier/batch-02/cr-105-forge-piece-a -> chantier/batch-02/cr-109-forge-inserted
+      #203 base main -> chantier/batch-02/cr-108-forge-joined
+      stack #102 https://github.com/acme/demo/pull/203 (PRs bottom to top: #201 #205 #202 #204 #203)
+      stack #102 ready to merge: open, 5 PRs in order, stack complete, mergeable below 4de6281 (#203), the release on top
+- [x] `forge-stack rebuild` after an insertion: unstacks the old stack, retargets the PRs that sit on another base, creates one stack bottom to top (the release on top) and reads it back
+    $ chantier forge-stack rebuild  → exit 0
+      unstacked #102
+      stack #103 https://github.com/acme/demo/pull/203 (PRs bottom to top: #201 #205 #202 #204 #203)
+      check 4: still a draft #203 (the stack driver turns the PRs ready)
+- [x] `rebuild` is idempotent, and prints a draft as a line to act on, with exit 0
+    $ chantier forge-stack rebuild  → exit 0
+      unstacked #103 (it also held #201, not in the batch's stack: a plain PR now)
+      #205 base chantier/batch-02/cr-105-forge-piece-a -> main
+      stack #104 https://github.com/acme/demo/pull/203 (PRs bottom to top: #205 #202 #204 #203)
+      stack #104 ready to merge: open, 4 PRs in order, stack complete, mergeable below 4de6281 (#203), the release on top
+- [x] `forge-stack rebuild` after a partial merge: the first PR left is retargeted to the default branch, the merged PR is left out, one stack is created
+    $ chantier forge-stack rebuild  → exit 4
+      stderr: error: unstacked #150
+gh api -X PATCH repos/acme/demo/pulls/202 -f base=chantier/batch-02/cr-109-forge-inserted: fake gh: HTTP 403: cannot edit the pull request
+- [x] a `rebuild` stopped by the forge prints what was done and the forge's exact text (exit 4)
+    $ chantier forge-stack rebuild  → exit 0
+      #202 base elsewhere -> chantier/batch-02/cr-109-forge-inserted
+      stack #105 https://github.com/acme/demo/pull/203 (PRs bottom to top: #205 #202 #204 #203)
+      stack #105 ready to merge: open, 4 PRs in order, stack complete, mergeable below 4de6281 (#203), the release on top
+- [x] run again, `rebuild` finds no stack, retargets what is still off and completes
+    $ chantier forge-stack rebuild  → exit 4
+      stderr: error: stack #105 is still open after 5 unstack tries (the forge reads it back with #205 #202 #204 #203)
+- [x] a `rebuild` whose stack stays open after five unstack tries exits 4 and names the stack and the tries
+    $ chantier forge-stack rebuild  → exit 0
+      unstacked #105
+      stack #200 https://github.com/acme/demo/pull/203 (PRs bottom to top: #205 #202 #204 #203)
+      stack #200 ready to merge: open, 4 PRs in order, stack complete, mergeable below 4de6281 (#203), the release on top
+- [x] with the forge answering again, the next `rebuild` unstacks it and completes
+    $ chantier forge-stack rebuild  → exit 2
+      stderr: error: the stack's PRs are not all in one repository
+- [x] a GitLab link in a GitHub stack: `forge-stack rebuild` is refused, not all in one repository
+    $ chantier file Forge parallel  → exit 0
+      filed .agents/changes/1-inbox/forge-parallel; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\1-inbox\forge-parallel --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/forge-parallel (P1)
+    $ chantier open C:\Users\gaeta\AppData\Local\Temp\chantier-rw-glj6kvk3\proj\.agents\changes\2-backlog\P1\forge-parallel --default-branch main  → exit 0
+      opened batch-03 on claude: 1 CRs, 4 slots, parallel, steering foreman
+      next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+      CR-105 Forge parallel: 2-backlog/P1/forge-parallel -> 4-batch/1-pending/105-forge-parallel
+    $ chantier forge-stack create  → exit 2
+      stderr: error: batch batch-03 is not a stack
+- [x] `forge-stack create` is refused (exit 2) on a parallel batch
+    $ chantier forge-stack rebuild  → exit 2
+      stderr: error: batch batch-03 is not a stack
+- [x] `forge-stack rebuild` is refused (exit 2) on a parallel batch
+PASS 65 FAIL 0

@@ -1,0 +1,1 @@
+Respecify the batch lifecycle: once every CR is merged the batch is paused (land), not closed. The cards are not clear: chief-of-staff.md 'The pause' says a landed batch is paused and takes new CRs, but 'The end' and the Completion report lead straight to the close flow (For you: closing the batch). Filed by the user during batch-08, priority P1.

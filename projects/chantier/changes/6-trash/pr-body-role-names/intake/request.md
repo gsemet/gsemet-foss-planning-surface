@@ -1,0 +1,1 @@
+Batch-15: PR descriptions failed the description pass for role names (CR-203, CR-206 and others). The PR template says where role names may appear, and the Driver checks it before posting.

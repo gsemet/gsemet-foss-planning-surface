@@ -1,0 +1,1 @@
+Progress and completion reports from the Chief of Staff always have the same shape: one progress table and one completion table, the same columns each time, with free text around them. Also, status and STATUS.md show a lower spent figure than chantier cost at the same moment.

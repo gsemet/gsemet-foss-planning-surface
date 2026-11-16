@@ -1,0 +1,1 @@
+A draft PR on a dependency's branch in a parallel batch has no owner to turn it ready once its dependency merges. Left open by PR 69 (CR-131): who turns it ready, and when?

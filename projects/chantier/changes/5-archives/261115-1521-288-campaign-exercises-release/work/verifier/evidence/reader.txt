@@ -1,0 +1,6 @@
+rows: 49
+C6 | by hand | full, real-foreman, real-direct, claude-planted | cells ok
+C21 | by hand | full, real-foreman, real-direct, claude-planted | cells ok
+J27 | by hand | none on the sandbox as it is (its rule names a local long gate) | cells ok
+J28 | by hand | full, real-foreman (parallel), claude-planted | cells ok
+dup ids: 0

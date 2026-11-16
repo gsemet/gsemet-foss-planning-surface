@@ -1,0 +1,12 @@
+﻿usage: chantier triage [-h] (--priority {P1,P2,P3,P4} | --ready) item
+
+positional arguments:
+  item                  path to the CR folder: 1-inbox/<item>,
+                        2-backlog/P<n>/<item> or 3-ready/<item>
+
+options:
+  -h, --help            show this help message and exit
+  --priority {P1,P2,P3,P4}
+  --ready               the CR waits in 3-ready for the next batch
+
+exit=0

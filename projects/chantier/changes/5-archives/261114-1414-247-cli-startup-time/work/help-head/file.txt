@@ -1,0 +1,10 @@
+﻿usage: chantier file [-h] [--slug SLUG] item
+
+positional arguments:
+  item         request text, or @path to the raw request
+
+options:
+  -h, --help   show this help message and exit
+  --slug SLUG  folder name when the inferred slug is already used
+
+exit=0

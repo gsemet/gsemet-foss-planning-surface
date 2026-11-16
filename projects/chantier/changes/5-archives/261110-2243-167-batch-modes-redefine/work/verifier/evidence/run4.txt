@@ -1,0 +1,25 @@
+﻿=== series, bravo before its dependency alpha
+
+$ chantier open --mode series --default-branch main .agents\changes\1-inbox\11-alpha .agents\changes\1-inbox\12-bravo
+error: CR-101 depends on CR-102: it cannot come before it in the series
+[exit 2]
+=== same order, same files, stack mode is the comparison / series in right order accepted
+
+$ chantier open --mode series --default-branch main .agents\changes\1-inbox\12-bravo .agents\changes\1-inbox\11-alpha
+opened batch-01 on claude: 2 CRs, 4 slots, series, steering foreman
+next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+CR-101 CR 12-bravo: 1-inbox/12-bravo -> 4-batch/1-pending/101-bravo
+CR-102 CR 11-alpha: 1-inbox/11-alpha -> 4-batch/1-pending/102-alpha
+[exit 0]
+=== order mode on parallel
+
+
+$ chantier order mode --note stack --batch batch-01
+error: unknown batch batch-01
+[exit 2]
+=== order mode on stack
+
+
+$ chantier order mode --note stack --batch batch-01
+error: unknown batch batch-01
+[exit 2]

@@ -1,0 +1,1 @@
+Batch-15: the Foreman recorded the stack driver's id before it ran 'take stack', which then refused it, twice. The Foreman runs 'take stack' and passes its output in the prompt, or 'take stack' gives a read-only form for the stack driver.

@@ -1,0 +1,7 @@
+0.9.0 notes has For contributors: True
+title: <h1 align="center">chantier 0.10</h1>
+A no bullet, 0.10.0 -> refused: The notes must say, under For contributors, "- **Not exercised by an eval.** ..." (docs/release-process.md)
+B claims bullet, 0.10.0 -> accepted
+C None form, 0.10.0 -> accepted
+D no bullet, 0.9.0 -> refused: The notes must start with a title naming version 0.9
+E real 0.9.0 notes unchanged, 0.9.0 -> accepted

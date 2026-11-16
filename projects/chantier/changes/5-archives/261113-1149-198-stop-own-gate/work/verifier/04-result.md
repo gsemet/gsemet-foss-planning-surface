@@ -1,0 +1,1 @@
+﻿Delta verify of CR-198 at 24d6c45 after restack onto 99113b7. range-diff 373e08a,fb7b193 vs 5859f0a,24d6c45: both patches identical (=). Base moved touched cli.py, commands.py, concepts.md, driver.md, scenario; just check at 24d6c45: 50 passed, release-notes ok. Scenario step and review carried from cdd65a5; long gate left to the stack top. VERIFIED.

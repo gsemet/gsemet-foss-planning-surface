@@ -1,0 +1,44 @@
+﻿### workspaces' sandbox files placed? (settings file and run records)
+full, rf, full.run.json, rf.run.json
+
+### A4 in sandbox build (a2/ref): git status
+### baseline: uv run --locked pytest -q
+uv : Using CPython 3.12.10
+Au caractère Ligne:6 : 50
++ ...  uv run --locked pytest -q`n"+(uv run --locked pytest -q 2>&1 | Out-S ...
++                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Using CPython 3.12.10:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Creating virtual environment at: .venv
+   Building shelf @ file:///C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/cd5055f5-2871-4472-99b6-23742d3a5
+770/scratchpad/a2/ref
+      Built shelf @ file:///C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/cd5055f5-2871-4472-99b6-23742d3a5
+770/scratchpad/a2/ref
+Installed 7 packages in 91ms
+............................                                             [100%]
+28 passed in 0.78s
+exit 0
+pyproject: [project]
+name = "shelf"
+version = "0.1.0"
+description = "A small reading list served on the web."
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+# A build backend makes `uv run python -m shelf` find src/shelf (uv installs the project in place).
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/shelf"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+init: __version__ = "0.1.0"
+

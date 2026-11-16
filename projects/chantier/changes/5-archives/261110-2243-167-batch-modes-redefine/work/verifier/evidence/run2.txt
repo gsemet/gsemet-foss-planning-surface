@@ -1,0 +1,59 @@
+﻿
+$ chantier take CR-102 --batch batch-01
+error: CR-102 waits for CR-101 queued: it starts once each is ready or merged
+[exit 2]
+
+$ chantier take CR-101 --batch batch-01
+took CR-101 (1 of 4 slots held)
+CR-101 "CR 11-alpha" (change) working in batch batch-01 (series)
+cli: uv run --script "C:/Users/gaeta/Projets/chantier.worktrees/batch-09-CR-167/skills/chantier/scripts/cli/chantier.py" <command> --batch batch-01
+cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-09-CR-167/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+project instructions: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/p3/AGENTS.md
+specification: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/p3/.agents/changes/4-batch/2-actives/101-alpha/03-change-spec.md
+folder: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/p3/.agents/changes/4-batch/2-actives/101-alpha (work/, evidence/)
+worktree: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\p3.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-cr-11-alpha base origin/main; not created yet: a Driver creates it first
+PR: none; head -
+rounds: 0 of 3
+notes: none
+[exit 0]
+
+$ chantier handback CR-101 ready https://example/pr/1 --batch batch-01
+error: CR-101: ready means a PR recorded (`chantier ship`)
+[exit 2]
+
+$ chantier take CR-102 --batch batch-01
+error: CR-102 waits for CR-101 working: it starts once each is ready or merged
+[exit 2]
+
+$ chantier status --batch batch-01
+batch-01 running series live 1/4 queued 2 steering foreman foreman none e0 heartbeat never spent $0.00
+CR-101 working r0/3 - | -
+CR-102 queued r0/3 - | waits for CR-101 working | -
+CR-103 queued r0/3 - | waits for CR-102 queued | -
+[exit 0]
+
+$ chantier order merged CR-101 --batch batch-01
+[chief-of-staff→foreman] order O-1: merged CR-101
+merged CR-101: moved to 3-done
+[exit 0]
+
+$ chantier status --batch batch-01
+batch-01 running series live 0/4 queued 2 steering foreman foreman none e0 heartbeat never spent $0.00
+CR-101 merged r0/3 - | -
+CR-102 queued r0/3 - | -
+CR-103 queued r0/3 - | waits for CR-102 queued | -
+orders the CLI applied, the Foreman marks each `order done <O-k>`: O-1 merged CR-101
+[exit 0]
+
+$ chantier handoff CR-102 --batch batch-01
+CR-102 "CR 12-bravo" (change) queued in batch batch-01 (series)
+cli: uv run --script "C:/Users/gaeta/Projets/chantier.worktrees/batch-09-CR-167/skills/chantier/scripts/cli/chantier.py" <command> --batch batch-01
+cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-09-CR-167/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+project instructions: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/p3/AGENTS.md
+specification: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/p3/.agents/changes/4-batch/1-pending/102-bravo/03-change-spec.md
+folder: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/p3/.agents/changes/4-batch/1-pending/102-bravo (work/, evidence/)
+worktree: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\p3.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-cr-12-bravo base origin/main; not created yet: a Driver creates it first
+PR: none; head -
+rounds: 0 of 3
+notes: none
+[exit 0]

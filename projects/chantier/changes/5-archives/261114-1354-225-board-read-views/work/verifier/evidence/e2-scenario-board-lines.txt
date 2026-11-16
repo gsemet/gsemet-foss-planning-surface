@@ -1,0 +1,54 @@
+﻿- [x] a spend not priced yet is unknown, never $0.00: `status`, the batch's STATUS.md and the board
+- [x] the board shows the open batch and what `triage` just moved
+- [x] every link of the board and the batch resolves
+$ chantier file Board index probe  → exit 0
+filed .agents/changes/1-inbox/board-index-probe; write the intent and grill the CR here
+- [x] once the spend is priced, `status`, the batch's STATUS.md and the board show a dollar figure
+- [x] `status`, the batch's STATUS.md, its STATUS.json and the board say `at least`
+- [x] the archives and the trash stay, and the board forgets the batch
+- [x] a batch of cancelled CRs: the board neither counts nor lists the batches' records
+{preflight,init,file,triage,abandon,restore,open,order,foreman,seat,board,status,asks,agents,take,round,handback,note,log,rules,playbook,handoff,gate,verdict,ship,stack,forge-stack,release,cancel,pause,close,cost,summary} ...
+{preflight,init,file,triage,abandon,restore,open,order,foreman,seat,board,status,asks,agents,take,round,handback,note,log,rules,playbook,handoff,gate,verdict,ship,stack,forge-stack,release,cancel,pause,close,cost,summary} ...
+chantier: error: argument cmd: invalid choice: 'land' (choose from 'preflight', 'init', 'file', 'triage', 'abandon', 'restore', 'open', 'order', 'foreman', 'seat', 'board', 'status', 'asks', 'agents', 'take', 'round', 'handback', 'note', 'log', 'rules', 'playbook', 'handoff', 'gate', 'verdict', 'ship', 'stack', 'forge-stack', 'release', 'cancel', 'pause', 'close', 'cost', 'summary')
+## 16c. The remote board: the web board's server, behind a key
+$ chantier file Board working  → exit 0
+filed .agents/changes/1-inbox/board-working; write the intent and grill the CR here
+$ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-scenario-hthjauiv\proj\.agents\changes\1-inbox\board-working --priority P1  → exit 0
+triaged .agents/changes/2-backlog/P1/board-working (P1)
+$ chantier file Board blocked  → exit 0
+filed .agents/changes/1-inbox/board-blocked; write the intent and grill the CR here
+$ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-scenario-hthjauiv\proj\.agents\changes\1-inbox\board-blocked --priority P1  → exit 0
+triaged .agents/changes/2-backlog/P1/board-blocked (P1)
+$ chantier file Board queued <b>bold</b> title  → exit 0
+filed .agents/changes/1-inbox/board-queued-b-bold-b-title; write the intent and grill the CR here
+$ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-scenario-hthjauiv\proj\.agents\changes\1-inbox\board-queued-b-bold-b-title --priority P1  → exit 0
+triaged .agents/changes/2-backlog/P1/board-queued-b-bold-b-title (P1)
+$ chantier file Board last  → exit 0
+filed .agents/changes/1-inbox/board-last; write the intent and grill the CR here
+$ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-scenario-hthjauiv\proj\.agents\changes\1-inbox\board-last --priority P1  → exit 0
+triaged .agents/changes/2-backlog/P1/board-last (P1)
+$ chantier file Board backlog item  → exit 0
+- [x] the user's merge landed on origin by rebase, through no forge call, and the main checkout has not moved by itself
+- [x] `open --direct` records the steering, and says to steer it yourself
+- [x] `cost` puts a subagent the steering session ran itself on its own line, not on a Driver
+- [x] with no key `/`, `/api/board`, a static file and a file answer 401
+- [x] `GET /` with the cookie is HTML in UTF-8, its policy `script-src 'self'` with no `unsafe-inline`, nothing sniffed
+- [x] `js/main.js` answers as text/javascript with an ETag
+- [x] the policy allows scripts, styles, images and fetches from `'self'` only
+- [x] every module and stylesheet the page loads answers 200 with its JavaScript or CSS type
+- [x] a static file asked again with its ETag answers 304
+- [x] when the seat moves the board stops by itself, exit 0
+- [x] the board whose seats are gone stops by itself, with no request of ours
+- [x] a board that had no seat takes its first over `POST /api/seats`, then stops by itself when that session goes
+- [x] the user's merge landed on origin by rebase, through no forge call, and the main checkout has not moved by itself
+- [x] `open --direct` records the steering, and says to steer it yourself
+- [x] `cost` puts a subagent the steering session ran itself on its own line, not on a Driver
+- [x] with no key `/`, `/api/board`, a static file and a file answer 401
+- [x] `GET /` with the cookie is HTML in UTF-8, its policy `script-src 'self'` with no `unsafe-inline`, nothing sniffed
+- [x] `js/main.js` answers as text/javascript with an ETag
+- [x] the policy allows scripts, styles, images and fetches from `'self'` only
+- [x] every module and stylesheet the page loads answers 200 with its JavaScript or CSS type
+- [x] a static file asked again with its ETag answers 304
+- [x] when the seat moves the board stops by itself, exit 0
+- [x] the board whose seats are gone stops by itself, with no request of ours
+- [x] a board that had no seat takes its first over `POST /api/seats`, then stops by itself when that session goes

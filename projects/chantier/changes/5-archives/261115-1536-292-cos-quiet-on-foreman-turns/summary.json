@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The Chief of Staff stays quiet on a Foreman's turn end",
+  "summary": "Specified: on Claude Desktop's notice that the Foreman ended a turn, the Chief of Staff ends that turn with no tool call; one line to the user only when the notice shows the Foreman stopped on an error. Scorecard row J29.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "85a7a6ad765fe45b48be2739cb99175a5c7112aa4d8e1d6a5b8bf6227c7e70f3",
+    "02-answers.md": "7e241edf55fc88d8ab504ab9f0d104ed42859520411f834e0cace56376aca6a8",
+    "03-change-spec.md": "759539823ec63cd6e483d347920ff34b84148e4ecc45c78594f6a8178bfebf36",
+    "intake/request.md": "8261ae0b08a889cc01c39dcc078e6fbebbec9076f8fbe8e1ef583c4b90d3eb66"
+  },
+  "summarized": "2026-11-15T13:54:14Z"
+}

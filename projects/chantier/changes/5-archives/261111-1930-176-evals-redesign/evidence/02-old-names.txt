@@ -1,0 +1,5 @@
+﻿evals/README.md:20:| [claude-planted](claude-planted/RUNBOOK.md) | The planted failures a real run does not produce, on `tasks-cli`: parallel and added work, a change order, a question, QA, rebases, a red CI from the product, the round limit; then a release with a fix, approvals and a grant | ~$15, 3 h | 2026-11-04 (as `claude-full`): passed with findings, $8.41, [report](results/claude-full-2026-11-04-ask-only.md) |
+evals/README.md:24:`claude-smoke-*` or `claude-full-*` is a `claude-planted` run, from before the campaigns merged.
+--- untracked files too (working tree):
+C:\Users\gaeta\Projets\chantier.worktrees\batch-11-CR-176\evals\README.md:20
+C:\Users\gaeta\Projets\chantier.worktrees\batch-11-CR-176\evals\README.md:24

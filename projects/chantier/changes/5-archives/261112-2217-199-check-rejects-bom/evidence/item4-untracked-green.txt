@@ -1,0 +1,9 @@
+﻿just : cd skills/chantier/scripts/cli; uv run --group dev pytest -q 
+Au caractère Ligne:12 : 1
++ just test *> "$ev/item4-untracked-green.txt"
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (cd skills/chant... dev pytest -q :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+..................................................                       [100%]
+50 passed in 14.61s

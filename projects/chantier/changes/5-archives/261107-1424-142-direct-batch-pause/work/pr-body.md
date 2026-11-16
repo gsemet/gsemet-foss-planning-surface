@@ -1,0 +1,1 @@
+﻿A landed batch is paused and, in direct mode too, takes new CRs: order add/qa reopen it. A running direct batch stays strict (message says when it will accept), except order add --release / --fix-for. Cards (concepts, chief-of-staff, init, README), structure test and scenario updated. just check and just scenario pass at the head.

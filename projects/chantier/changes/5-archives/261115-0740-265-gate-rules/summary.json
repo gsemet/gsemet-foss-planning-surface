@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Three long-gate rules: the next merge first, early push, clean rebase",
+  "summary": "Specified: the next merge goes first in the gate queue (stack and series batches), an existing PR is pushed in draft at once after a rebase, and a clean rebase carries the gate (git-checked). Rule 4, the stack's one gate and the waiver, split to stack-gate-waiver.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "b04634119d8aebc64d0741a20be93c00678cc9499a25b897c301bc7a3bc1e37e",
+    "03-change-spec.md": "172906ea80e712ca40f968750c709fea9d2ff8648d2e0cd068e58c6fa0799292",
+    "intake/request.md": "de2b7f0edcc8f67eb3fc849a0970c4c07d24ce7b75799e16a0dae3d7f9f8ed29"
+  },
+  "summarized": "2026-11-14T18:45:29Z"
+}

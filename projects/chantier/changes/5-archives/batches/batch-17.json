@@ -1,0 +1,338 @@
+{
+  "schema": 1,
+  "batch": "batch-17",
+  "number": 17,
+  "state": "closed",
+  "opened": "2026-11-13T17:33:25Z",
+  "closed": "2026-11-14T17:38:29Z",
+  "mode": "stack",
+  "steering": "foreman",
+  "host": "claude",
+  "budget_usd": 300.0,
+  "cost_usd": 229.2224,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-221",
+      "title": "Change Specification: the CLI takes its dependencies through PEP 723, and its code is split and checked",
+      "result": "merged",
+      "archive": "5-archives/261114-0647-221-python-inline-deps",
+      "pr": "https://github.com/gsemet/chantier/pull/170",
+      "rounds": 6,
+      "cost_usd": 23.2716,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-222",
+      "title": "Change Specification: `chantier board` becomes the web board's server",
+      "result": "merged",
+      "archive": "5-archives/261114-1354-222-visualization-backend",
+      "pr": "https://github.com/gsemet/chantier/pull/174",
+      "rounds": 4,
+      "cost_usd": 12.6835,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-234",
+      "title": "Change Specification: forge-stack follow-ups from CR-214 and CR-215",
+      "result": "merged",
+      "archive": "5-archives/261114-1313-234-forge-stack-followups",
+      "pr": "https://github.com/gsemet/chantier/pull/175",
+      "rounds": 1,
+      "cost_usd": 7.4275,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-242",
+      "title": "Change Specification: the project says how many long gates may run at once",
+      "result": "merged",
+      "archive": "5-archives/261114-1447-242-gate-parallel-isolation",
+      "pr": "https://github.com/gsemet/chantier/pull/188",
+      "rounds": 1,
+      "cost_usd": 7.5949,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-225",
+      "title": "Change Specification: the board's reading views, as in the prototype",
+      "result": "merged",
+      "archive": "5-archives/261114-1354-225-board-read-views",
+      "pr": "https://github.com/gsemet/chantier/pull/183",
+      "rounds": 4,
+      "cost_usd": 21.7703,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-244",
+      "title": "Change Specification: the stack grows from the bottom",
+      "result": "merged",
+      "archive": "5-archives/261114-1332-244-stack-grows-from-bottom",
+      "pr": "https://github.com/gsemet/chantier/pull/180",
+      "rounds": 1,
+      "cost_usd": 3.8697,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-252",
+      "title": "Change Specification: lifecycle-line, a CR's life in one line of steps",
+      "result": "merged",
+      "archive": "5-archives/261114-1447-252-lifecycle-line-svg",
+      "pr": "https://github.com/gsemet/chantier/pull/190",
+      "rounds": 2,
+      "cost_usd": 2.3697,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-223",
+      "title": "Change Specification: each CR carries a condensed JSON summary, kept fresh by a linter",
+      "result": "merged",
+      "archive": "5-archives/261114-1152-223-cr-summaries",
+      "pr": "https://github.com/gsemet/chantier/pull/177",
+      "rounds": 1,
+      "cost_usd": 6.1273,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-245",
+      "title": "Change Specification: a stack on GitLab behaves as a stack on GitHub",
+      "result": "merged",
+      "archive": "5-archives/261114-1332-245-gitlab-stack-delivery",
+      "pr": "https://github.com/gsemet/chantier/pull/182",
+      "rounds": 3,
+      "cost_usd": 4.9866,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-250",
+      "title": "Change Specification: grill questions with a reference, context, examples and a recommendation, the same in the text and in the tool",
+      "result": "merged",
+      "archive": "5-archives/261114-1447-250-grill-question-format",
+      "pr": "https://github.com/gsemet/chantier/pull/191",
+      "rounds": 1,
+      "cost_usd": 1.146,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-224",
+      "title": "Change Specification: each batch leaves a record of its own in `5-archives/batches/`",
+      "result": "merged",
+      "archive": "5-archives/261113-1936-224-batch-history",
+      "pr": "https://github.com/gsemet/chantier/pull/165",
+      "rounds": 2,
+      "cost_usd": 4.5256,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-246",
+      "title": "Change Specification: the stack holds when it breaks mid-way",
+      "result": "merged",
+      "archive": "5-archives/261114-1332-246-stack-robustness",
+      "pr": "https://github.com/gsemet/chantier/pull/184",
+      "rounds": 3,
+      "cost_usd": 2.6398,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-249",
+      "title": "New session titles",
+      "result": "merged",
+      "archive": "5-archives/261114-1447-249-session-titles",
+      "pr": "https://github.com/gsemet/chantier/pull/192",
+      "rounds": 1,
+      "cost_usd": 1.2604,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-251",
+      "title": "Change Specification: a spec critic checks an impactful CR's specification before it is final",
+      "result": "merged",
+      "archive": "5-archives/261114-1447-251-spec-critic",
+      "pr": "https://github.com/gsemet/chantier/pull/193",
+      "rounds": 1,
+      "cost_usd": 4.3813,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-226",
+      "title": "Change Specification: the board edits the backlog",
+      "result": "merged",
+      "archive": "5-archives/261114-1553-226-board-backlog-edit",
+      "pr": "https://github.com/gsemet/chantier/pull/194",
+      "rounds": 4,
+      "cost_usd": 11.3873,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-227",
+      "title": "Change Specification: a planning surface stays in sync through its own autosync",
+      "result": "merged",
+      "archive": "5-archives/261114-1553-227-surface-autosync",
+      "pr": "https://github.com/gsemet/chantier/pull/195",
+      "rounds": 3,
+      "cost_usd": 7.5247,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-248",
+      "title": "Change Specification: \"ready locally\" and \"ready to merge\"",
+      "result": "merged",
+      "archive": "5-archives/261114-1617-248-ready-wording",
+      "pr": "https://github.com/gsemet/chantier/pull/197",
+      "rounds": 3,
+      "cost_usd": 9.0196,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-228",
+      "title": "Change Specification: the web board documented, with screenshots taken by a command",
+      "result": "merged",
+      "archive": "5-archives/261114-1728-228-board-docs-screenshots",
+      "pr": "https://github.com/gsemet/chantier/pull/199",
+      "rounds": 4,
+      "cost_usd": 6.604,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-229",
+      "title": "Change Specification: the CR Driver and the stack driver get the Edit tool",
+      "result": "merged",
+      "archive": "5-archives/261113-1908-229-driver-edit-tool",
+      "pr": "https://github.com/gsemet/chantier/pull/166",
+      "rounds": 1,
+      "cost_usd": 1.4121,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-230",
+      "title": "Change Specification: one rule for a worker reply that breaks its format",
+      "result": "merged",
+      "archive": "5-archives/261113-2015-230-worker-reply-contract",
+      "pr": "https://github.com/gsemet/chantier/pull/168",
+      "rounds": 1,
+      "cost_usd": 2.0852,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-247",
+      "title": "Change Specification: the CLI starts as fast as it did before CR-221",
+      "result": "merged",
+      "archive": "5-archives/261114-1414-247-cli-startup-time",
+      "pr": "https://github.com/gsemet/chantier/pull/179",
+      "rounds": 3,
+      "cost_usd": 4.4606,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-231",
+      "title": "Change Specification: the batch retro splits the target project from chantier itself",
+      "result": "merged",
+      "archive": "5-archives/261113-2127-231-retro-target-vs-chantier",
+      "pr": "https://github.com/gsemet/chantier/pull/167",
+      "rounds": 2,
+      "cost_usd": 3.2486,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-232",
+      "title": "Change Specification: eval-campaign-cr220",
+      "result": "merged",
+      "archive": "5-archives/261114-1155-232-eval-campaign-cr220",
+      "pr": "https://github.com/gsemet/chantier/pull/172",
+      "rounds": 1,
+      "cost_usd": 1.857,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-233",
+      "title": "Change Specification: a merge may come at any moment, one PR at a time, in any batch shape",
+      "result": "merged",
+      "archive": "5-archives/261114-1155-233-merge-any-time",
+      "pr": "https://github.com/gsemet/chantier/pull/173",
+      "rounds": 2,
+      "cost_usd": 4.6598,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-235",
+      "title": "Change Specification: the gate lock and the activity line tell the truth",
+      "result": "merged",
+      "archive": "5-archives/261114-1202-235-gate-liveness",
+      "pr": "https://github.com/gsemet/chantier/pull/178",
+      "rounds": 1,
+      "cost_usd": 3.4242,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-236",
+      "title": "Change Specification: the Driver's context threshold, set from the measure",
+      "result": "merged",
+      "archive": "5-archives/261113-2234-236-driver-context-budget",
+      "pr": "https://github.com/gsemet/chantier/pull/169",
+      "rounds": 1,
+      "cost_usd": 1.4898,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-237",
+      "title": "Change Specification: one way to run the CLI, a root pyproject.toml, uvx at the pinned release ref, the local code in chantier's own checkout",
+      "result": "merged",
+      "archive": "5-archives/261114-1138-237-root-pyproject-launch",
+      "pr": "https://github.com/gsemet/chantier/pull/171",
+      "rounds": 1,
+      "cost_usd": 5.4871,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-238",
+      "title": "Allow rules: the Chief of Staff asks to add the missing ones, and adds them on the user's yes",
+      "result": "merged",
+      "archive": "5-archives/261114-1155-238-allow-rules-ask",
+      "pr": "https://github.com/gsemet/chantier/pull/176",
+      "rounds": 1,
+      "cost_usd": 3.0319,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-239",
+      "title": "Change Specification: no delivery time without the batch's floor",
+      "result": "merged",
+      "archive": "5-archives/261114-1022-239-batch-duration-plan",
+      "pr": "https://github.com/gsemet/chantier/pull/181",
+      "rounds": 2,
+      "cost_usd": 1.4366,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-240",
+      "title": "Permissions per capability: each capability's commands known, tried and warned before the go",
+      "result": "merged",
+      "archive": "5-archives/261114-1214-240-permissions-per-capability",
+      "pr": "https://github.com/gsemet/chantier/pull/186",
+      "rounds": 2,
+      "cost_usd": 4.9328,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-241",
+      "title": "Change Specification: CI runs beside the long gate, when the project asks for it",
+      "result": "merged",
+      "archive": "5-archives/261114-1214-241-ci-beside-gate",
+      "pr": "https://github.com/gsemet/chantier/pull/187",
+      "rounds": 1,
+      "cost_usd": 1.719,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-243",
+      "title": "Change Specification: a CR with a dependency starts once that dependency is ready, in a stack and in a parallel batch",
+      "result": "merged",
+      "archive": "5-archives/261114-1211-243-stack-dependency-wording",
+      "pr": "https://github.com/gsemet/chantier/pull/185",
+      "rounds": 1,
+      "cost_usd": 0.6751,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-17.md",
+  "backfill": null
+}

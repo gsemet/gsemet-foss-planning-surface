@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The eval campaign exercises what a release claims",
+  "summary": "Specified: a claims file per release maps each feat/fix to a scorecard rail and an eval run; three new rails; pre-release runs launched in the modes the claims need; release notes list what no eval exercised, checked from 0.9.1 on.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "30e2347d4bd59f74cff844b600a6c25c0e7259568e6e11c01df8a80355f1937c",
+    "02-answers.md": "0b00d875840823b5f7c58c22dd20cecc7994550797359fb50def10f9881f4319",
+    "03-change-spec.md": "aa4187fa2641cb4aad24b6817bc27a81f7b499e726de1a012ea36b850ef70d53",
+    "intake/request.md": "daa7388431eb95e2d12597acf893f69491cca9f66a587c85a2f5288b0205748b"
+  },
+  "summarized": "2026-11-15T13:40:58Z"
+}

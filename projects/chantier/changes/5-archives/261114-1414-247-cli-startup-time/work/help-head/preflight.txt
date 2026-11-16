@@ -1,0 +1,8 @@
+﻿usage: chantier preflight [-h] [--direct]
+
+options:
+  -h, --help  show this help message and exit
+  --direct    the Chief of Staff steers the batch: P1 passes on any Claude
+              Code entry point
+
+exit=0

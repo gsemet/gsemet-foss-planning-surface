@@ -1,0 +1,1 @@
+﻿96bffda: only scenario/run_scenario.py changed (stack no-CR assertion: stack lines plus last context: line, matches spec). PR 184 CI green at 96bffda: just check x3, eval-dry-run, just scenario. No local long gate (waiver).

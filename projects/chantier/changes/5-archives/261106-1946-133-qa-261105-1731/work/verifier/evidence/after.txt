@@ -1,0 +1,253 @@
+﻿## file twice
+$ chantier file Export the report as CSV
+filed .agents/changes/1-inbox/export-the-report-as-csv; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file Export the report as CSV
+error: CR folder already exists: .agents/changes/1-inbox/export-the-report-as-csv; file it again with --slug <other>
+[exit 2]
+
+$ chantier file Dark mode
+filed .agents/changes/1-inbox/dark-mode; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file Third thing
+filed .agents/changes/1-inbox/third-thing; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file Fourth
+filed .agents/changes/1-inbox/fourth; write the intent and grill the CR here
+[exit 0]
+
+## triage
+$ chantier triage .agents/changes/1-inbox/dark-mode --priority P2
+triaged .agents/changes/2-backlog/P2/dark-mode (P2)
+[exit 0]
+
+$ chantier triage .agents/changes/2-backlog/P2/dark-mode --priority P3
+triaged .agents/changes/2-backlog/P3/dark-mode (P3)
+[exit 0]
+
+$ chantier triage .agents/changes/2-backlog/P3/dark-mode --priority P3
+error: dark-mode is already P3
+[exit 2]
+
+$ chantier triage .agents/changes/3-requests --priority P3
+error: triage expects a CR folder: 1-inbox/<item> or 2-backlog/P<n>/<item>; got C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\r-after\A\.agents\changes\3-requests
+[exit 1]
+
+$ chantier triage README.md --priority P3
+error: triage expects a CR folder: 1-inbox/<item> or 2-backlog/P<n>/<item>; got C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\r-after\A\README.md
+[exit 1]
+
+$ chantier triage dark --priority P3
+error: triage expects a CR folder: 1-inbox/<item> or 2-backlog/P<n>/<item>; got C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\r-after\A\dark
+[exit 1]
+
+## open 2 CRs
+$ chantier open .agents/changes/2-backlog/P3/dark-mode .agents/changes/1-inbox/export-the-report-as-csv
+opened batch-01 on claude: 2 CRs, 4 slots, stack
+next: complete the brief .agents/changes/3-requests/batch-01/brief.md, then start the Foreman
+CR-101 Dark mode: 2-backlog/P3/dark-mode -> 3-requests/batch-01/101-dark-mode
+CR-102 Export the report as CSV: 1-inbox/export-the-report-as-csv -> 3-requests/batch-01/102-export-the-report-as-csv
+[exit 0]
+
+## order drop
+$ chantier order drop CR-101
+[chief-of-staff→foreman] order O-1: drop CR-101
+dropped CR-101: .agents/changes/5-trash/261106-1942-101-dark-mode
+[exit 0]
+
+$ chantier status
+batch-01 open stack live 0/4 queued 1 foreman none e0 heartbeat never spent $0.00
+CR-101 cancelled r0/3 - | -
+CR-102 queued r0/3 - | -
+orders the CLI applied, the Foreman marks each `order done <O-k>`: O-1 drop CR-101
+[exit 0]
+
+$ chantier order drop CR-101
+error: CR-101 is already dropped: .agents/changes/5-trash/261106-1942-101-dark-mode
+[exit 2]
+
+$ chantier status
+batch-01 open stack live 0/4 queued 1 foreman none e0 heartbeat never spent $0.00
+CR-101 cancelled r0/3 - | -
+CR-102 queued r0/3 - | -
+orders the CLI applied, the Foreman marks each `order done <O-k>`: O-1 drop CR-101
+[exit 0]
+
+$ chantier order drop 101
+error: CR-101 is already dropped: .agents/changes/5-trash/261106-1942-101-dark-mode
+[exit 2]
+
+$ chantier order drop 101x
+error: unknown CR 101x in batch batch-01
+[exit 1]
+
+## cancel then order drop; note on cancelled
+$ chantier cancel CR-102
+cancelled CR-102; stopped 0: none
+every CR is merged or cancelled: `chantier land`
+[exit 0]
+
+$ chantier order drop CR-102
+error: CR-102 is already dropped: .agents/changes/5-trash/261106-1942-102-export-the-report-as-csv
+[exit 2]
+
+$ chantier order note CR-102 --note hello
+error: cannot note CR-102: it is cancelled
+[exit 2]
+
+$ chantier order note CR-101 --note hello
+error: cannot note CR-101: it is cancelled
+[exit 2]
+
+$ chantier order note CR-101 --note hello
+error: cannot note CR-101: it is cancelled
+[exit 2]
+
+## rounds and budget
+$ chantier order rounds --note 0
+error: order rounds <cr> --note <n>
+[exit 1]
+
+$ chantier order rounds CR-102 --note 0
+error: order rounds <cr> --note <n>: '0' is not a whole number of rounds, 1 or more
+[exit 1]
+
+$ chantier order rounds CR-102 --note 3
+[chief-of-staff→foreman] order O-2: rounds CR-102 3
+CR-102: up to 3 rounds
+[exit 0]
+
+$ chantier order rounds CR-102
+error: order rounds <cr> --note <n>: no value given: a whole number of rounds, 1 or more
+[exit 1]
+
+$ chantier order budget --note -5
+error: order budget --note <usd>: '-5' is not a positive amount in dollars
+[exit 1]
+
+$ chantier order budget --note abc
+error: order budget --note <usd>: 'abc' is not a positive amount in dollars
+[exit 1]
+
+$ chantier order budget
+error: order budget --note <usd>: no value given: a positive amount in dollars
+[exit 1]
+
+## status and land: applied and pending
+$ chantier order qa --note check the export
+[chief-of-staff→foreman] order O-3: qa .agents/changes/1-inbox/qa-261106-1942 check the export
+QA folder: .agents/changes/1-inbox/qa-261106-1942; the Foreman starts its QA driver, which holds a slot until `order done`
+[exit 0]
+
+$ chantier status
+batch-01 open stack live 1/4 queued 0 foreman none e0 heartbeat never spent $0.00
+CR-101 cancelled r0/3 - | -
+CR-102 cancelled r0/3 - | -
+orders pending: O-3 qa .agents/changes/1-inbox/qa-261106-1942 check the export
+orders the CLI applied, the Foreman marks each `order done <O-k>`: O-1 drop CR-101; O-2 rounds CR-102 3
+[exit 0]
+
+$ chantier land
+error: cannot land batch-01: live -, queued -, not merged -, orders pending O-1, O-2, O-3 (the Foreman ends each with `order done <O-k>`), stack driver none
+[exit 2]
+
+## unchanged: close, cost
+$ chantier close
+error: cannot close batch-01, something still runs: order O-1 (drop) is open; order O-2 (rounds) is open; order O-3 (qa) is open. Nothing was deleted.
+[exit 2]
+
+$ chantier close --yes
+error: cannot close batch-01, something still runs: order O-1 (drop) is open; order O-2 (rounds) is open; order O-3 (qa) is open. Nothing was deleted.
+[exit 2]
+
+$ chantier cost
+error: no Foreman transcript recorded: the Foreman runs `chantier foreman transcript $CLAUDE_CODE_SESSION_ID`
+[exit 2]
+
+$ chantier status
+batch-01 open stack live 1/4 queued 0 foreman none e0 heartbeat never spent $0.00
+CR-101 cancelled r0/3 - | -
+CR-102 cancelled r0/3 - | -
+orders pending: O-3 qa .agents/changes/1-inbox/qa-261106-1942 check the export
+orders the CLI applied, the Foreman marks each `order done <O-k>`: O-1 drop CR-101; O-2 rounds CR-102 3
+[exit 0]
+
+## QA folder open
+$ chantier open .agents/changes/1-inbox/qa-261106-1942
+error: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets-chantier\3068c1b7-a425-47d1-9d61-3b92b73644a4\scratchpad\r-after\A\.agents\changes\1-inbox\qa-261106-1942 is a QA report: an item to triage and split into CRs, not to open
+[exit 2]
+
+## open 8 CRs
+$ chantier file Item number 1 with a fairly long title for the line
+filed .agents/changes/1-inbox/item-number-1-with-a-fairly-long-title-f; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file Item number 2 with a fairly long title for the line
+filed .agents/changes/1-inbox/item-number-2-with-a-fairly-long-title-f; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file Item number 3 with a fairly long title for the line
+filed .agents/changes/1-inbox/item-number-3-with-a-fairly-long-title-f; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file Item number 4 with a fairly long title for the line
+filed .agents/changes/1-inbox/item-number-4-with-a-fairly-long-title-f; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file Item number 5 with a fairly long title for the line
+filed .agents/changes/1-inbox/item-number-5-with-a-fairly-long-title-f; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file Item number 6 with a fairly long title for the line
+filed .agents/changes/1-inbox/item-number-6-with-a-fairly-long-title-f; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file Item number 7 with a fairly long title for the line
+filed .agents/changes/1-inbox/item-number-7-with-a-fairly-long-title-f; write the intent and grill the CR here
+[exit 0]
+
+$ chantier file Item number 8 with a fairly long title for the line
+filed .agents/changes/1-inbox/item-number-8-with-a-fairly-long-title-f; write the intent and grill the CR here
+[exit 0]
+
+$ chantier open .agents/changes/1-inbox/item-number-1-with-a-fairly-long-title-f .agents/changes/1-inbox/item-number-2-with-a-fairly-long-title-f .agents/changes/1-inbox/item-number-3-with-a-fairly-long-title-f .agents/changes/1-inbox/item-number-4-with-a-fairly-long-title-f .agents/changes/1-inbox/item-number-5-with-a-fairly-long-title-f .agents/changes/1-inbox/item-number-6-with-a-fairly-long-title-f .agents/changes/1-inbox/item-number-7-with-a-fairly-long-title-f .agents/changes/1-inbox/item-number-8-with-a-fairly-long-title-f
+opened batch-01 on claude: 8 CRs, 4 slots, stack
+next: complete the brief .agents/changes/3-requests/batch-01/brief.md, then start the Foreman
+CR-101 item-number-1-with-a-fairly-long-title-f: 1-inbox/item-number-1-with-a-fairly-long-title-f -> 3-requests/batch-01/101-item-number-1-with-a-fairly-long-title-f
+CR-102 item-number-2-with-a-fairly-long-title-f: 1-inbox/item-number-2-with-a-fairly-long-title-f -> 3-requests/batch-01/102-item-number-2-with-a-fairly-long-title-f
+CR-103 item-number-3-with-a-fairly-long-title-f: 1-inbox/item-number-3-with-a-fairly-long-title-f -> 3-requests/batch-01/103-item-number-3-with-a-fairly-long-title-f
+CR-104 item-number-4-with-a-fairly-long-title-f: 1-inbox/item-number-4-with-a-fairly-long-title-f -> 3-requests/batch-01/104-item-number-4-with-a-fairly-long-title-f
+CR-105 item-number-5-with-a-fairly-long-title-f: 1-inbox/item-number-5-with-a-fairly-long-title-f -> 3-requests/batch-01/105-item-number-5-with-a-fairly-long-title-f
+CR-106 item-number-6-with-a-fairly-long-title-f: 1-inbox/item-number-6-with-a-fairly-long-title-f -> 3-requests/batch-01/106-item-number-6-with-a-fairly-long-title-f
+CR-107 item-number-7-with-a-fairly-long-title-f: 1-inbox/item-number-7-with-a-fairly-long-title-f -> 3-requests/batch-01/107-item-number-7-with-a-fairly-long-title-f
+CR-108 item-number-8-with-a-fairly-long-title-f: 1-inbox/item-number-8-with-a-fairly-long-title-f -> 3-requests/batch-01/108-item-number-8-with-a-fairly-long-title-f
+[exit 0]
+
+## cost fresh; rounds on cancelled
+$ chantier file One
+filed .agents/changes/1-inbox/one; write the intent and grill the CR here
+[exit 0]
+
+$ chantier open .agents/changes/1-inbox/one
+opened batch-01 on claude: 1 CRs, 4 slots, stack
+next: complete the brief .agents/changes/3-requests/batch-01/brief.md, then start the Foreman
+CR-101 One: 1-inbox/one -> 3-requests/batch-01/101-one
+[exit 0]
+
+$ chantier cost
+error: no Foreman transcript recorded: the Foreman runs `chantier foreman transcript $CLAUDE_CODE_SESSION_ID`
+[exit 2]
+
+$ chantier cancel CR-101
+cancelled CR-101; stopped 0: none
+every CR is merged or cancelled: `chantier land`
+[exit 0]
+
+$ chantier order rounds CR-101 --note 4
+[chief-of-staff→foreman] order O-1: rounds CR-101 4
+CR-101: up to 4 rounds
+[exit 0]
+

@@ -1,0 +1,112 @@
+﻿GET / 200 text/html; charset=utf-8 | no-store | nosniff | default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+raw <b>bold in page: False ; escaped: True ; slug: True
+api 200 application/json; charset=utf-8 schema 3 seat s-1 board True folder C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/4215b12b-dd4b-4824-bd9f-62117b7d8f91/scratchpad/vproj/.agents/changes
+GET /file?p=1-inbox 200
+GET /file?p=1-inbox/probe-b-bold-b-item/01-intent.md 404
+GET /file?p=../../AGENTS.md 404
+GET /file?p=..%2F..%2FAGENTS.md 404
+GET /file?p=C:/Windows/win.ini 404
+GET /file?p=/etc/passwd 404
+GET /file?p=nope.md 404
+GET /zzz 404
+POST / 405
+PUT / 405
+DELETE / 405
+CompletedProcess(args=['uv', 'run', '--script', 'C:\\Users\\gaeta\\Projets\\chantier.worktrees\\batch-11-CR-182\\skills\\chantier\\scripts\\cli\\chantier.py', 'board', '--host', '127.0.0.1', '--port', '8791', '--seat', 's-1'], returncode=0, stdout='board already running at http://127.0.0.1:8791/\n', stderr='')
+
+file inbox request: 200
+seat: seat s-2
+board 8791 processes alive after seat move: 0
+port answers: 000
+--- 0.0.0.0 start line (killed after 5s)
+board on http://0.0.0.0:8792/ over C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/4215b12b-dd4b-4824-bd9f-62117b7d8f91/scratchpad/vproj/.agents/changes
+board: listens beyond this machine (0.0.0.0, on every network of this machine), no password
+--- yaml port abc
+playbook: chantier.yaml is not valid (1 problems)
+chantier.yaml:2: board: "port" is an integer from 1 to 65535, found "abc"
+
+exit 2
+uv : error: chantier.yaml:2: board: "port" is an integer from 1 to 65535, found "abc"
+Au caractère Ligne:17 : 6
++ $o+=(uv run --script $cli board 2>&1 | Out-String); $o+="exit $LASTEX ...
++      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: chantier...35, found "abc":String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+exit 2
+
+## 2nd run at 372aef1: real file and write snapshot (seat s-3, port 8793)
+start line: 
+board on http://127.0.0.1:8793/ over C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/4215b12b-dd4b-4824-bd9f-62117b7d8f91/scratchpad/vproj/.agents/changes
+GET /file?p=1-inbox/probe-b-bold-b-item/intake/request.md:
+HTTP/1.0 200 OK
+Server: chantier-board 
+Date: Wed, 11 Nov 2026 19:01:21 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 1730
+Cache-Control: no-store
+X-Content-Type-Options: nosniff
+Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>vproj: 1-inbox/probe-b-bold-b-item/intake/request.md</title><style>
+:root{color-scheme:light dark;--bg:#fafafa;--card:#fff;--fg:#222;--mut:#777;--line:#e4e4e4}
+@media (prefers-color-scheme:dark){:root{--bg:#151515;--card:#1f1f1f;--fg:#e8e8e8;--mut:#999;--line:#333}}
+body{font:15px/1.4 system-ui,sans-serif;background:var(--bg);color:var(--fg);margin:auto;padding:12px;max-width:760px}
+h1{font-size:18px;margin:4px 0 12px}h2{font-size:16px;margin:0 0 8px}
+section,.sec{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px}
+.pill{font-size:11px;font-weight:normal;border:1px solid var(--line);border-radius:9px;padding:1px 7px;margin-left:6px}
+.bar{height:6px;background:var(--line);border-radius:3px;margin:6px 0}.bar div{height:100%;background:#4a7fd4;border-radius:3px}
+.cr{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--line)}.crbody{flex:1;min-width:0}
+.dot{width:10px;height:10px;border-radius:50%;margin-top:6px;flex:none;background:#888}
+.green{background:#2e9d5b}.yellow{background:#d79b00}.red{background:#d1453b}.grey{background:#888}
+.muted{color:var(--mut);font-size:13px}.blk{color:#d1453b;font-size:13px}
+a{color:#4a7fd4;text-decoration:none}ul{padding-left:18px;margin:6px 0}li{margin:4px 0}
+.ev{list-style:none;padding:0;font-size:13px}summary{cursor:pointer}pre{white-space:pre-wrap;word-wrap:break-word}
+</style></head><body><h1>vproj</h1><section><h2>1-inbox/probe-b-bold-b-item/intake/request.md</h2><pre>Probe &lt;b&gt;bold&lt;/b&gt; item</pre></section><p class="muted"><a href="/">Board</a></p></body></html>
+GET /file?p=1-inbox/probe-b-bold-b-item/01-intent.md (earlier probe): 000  (file does not exist in the folder: wrong path in my probe, not a defect)
+GET /: 000; /api/status: 000
+(waited 31 s: a second seat check and a page refresh period passed)
+snapshot before (hash16 size mtime path):
+A61F68B30212FF89  272  2026-11-11T18:57:20.1469672Z  .agents\changes\.gitignore
+E3B0C44298FC1C14  0  2026-11-11T18:57:20.4310108Z  .agents\changes\.lifecycle.lock
+182676226E7C4AD4  22  2026-11-11T18:57:20.4315165Z  .agents\changes\1-inbox\probe-b-bold-b-item\intake\request.md
+FB3F39C492E99E5A  134  2026-11-11T18:59:21.5993695Z  .agents\changes\seat.json
+E56F3D0B0E69EDEC  406  2026-11-11T18:57:20.4400412Z  .agents\changes\STATUS.json
+E7F6009FCF6CBFF1  298  2026-11-11T18:57:20.4395405Z  .agents\changes\STATUS.md
+snapshot after:
+A61F68B30212FF89  272  2026-11-11T18:57:20.1469672Z  .agents\changes\.gitignore
+E3B0C44298FC1C14  0  2026-11-11T18:57:20.4310108Z  .agents\changes\.lifecycle.lock
+182676226E7C4AD4  22  2026-11-11T18:57:20.4315165Z  .agents\changes\1-inbox\probe-b-bold-b-item\intake\request.md
+FB3F39C492E99E5A  134  2026-11-11T18:59:21.5993695Z  .agents\changes\seat.json
+E56F3D0B0E69EDEC  406  2026-11-11T18:57:20.4400412Z  .agents\changes\STATUS.json
+E7F6009FCF6CBFF1  298  2026-11-11T18:57:20.4395405Z  .agents\changes\STATUS.md
+snapshots identical: True
+git status --porcelain before: [?? .agents/] after: [?? .agents/] equal: True
+
+## 3rd run at 372aef1 (supersedes the 2nd: its board correctly stopped, the seat was still s-2 because my seat take s-3 lacked --over)
+seat take: seat s-3
+
+start line: 
+board on http://127.0.0.1:8795/ over C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/4215b12b-dd4b-4824-bd9f-62117b7d8f91/scratchpad/vproj/.agents/changes
+GET /file?p=1-inbox/probe-b-bold-b-item/intake/request.md -> <pre>Probe &lt;b&gt;bold&lt;/b&gt; item</pre></section><p class="muted"><a href="/">Board</a></p></body></html> [200]
+GET /file?p=1-inbox/probe-b-bold-b-item/01-intent.md -> 404 (no such file: my first probe used a wrong path, the item's file is intake/request.md; not a defect)
+GET /file?p=1-inbox/probe-b-bold-b-item/ (folder) -> 200
+GET / -> 200; /api/status -> 200; POST / -> 405
+after 32 s: GET / -> 200
+snapshot before (hash16 size mtime path):
+A61F68B30212FF89  272  2026-11-11T18:57:20.1469672Z  .agents\changes\.gitignore
+E3B0C44298FC1C14  0  2026-11-11T18:57:20.4310108Z  .agents\changes\.lifecycle.lock
+182676226E7C4AD4  22  2026-11-11T18:57:20.4315165Z  .agents\changes\1-inbox\probe-b-bold-b-item\intake\request.md
+1F90E4B5C1D3B8B4  134  2026-11-11T19:02:18.8633551Z  .agents\changes\seat.json
+E56F3D0B0E69EDEC  406  2026-11-11T18:57:20.4400412Z  .agents\changes\STATUS.json
+E7F6009FCF6CBFF1  298  2026-11-11T18:57:20.4395405Z  .agents\changes\STATUS.md
+snapshot after:
+A61F68B30212FF89  272  2026-11-11T18:57:20.1469672Z  .agents\changes\.gitignore
+E3B0C44298FC1C14  0  2026-11-11T18:57:20.4310108Z  .agents\changes\.lifecycle.lock
+182676226E7C4AD4  22  2026-11-11T18:57:20.4315165Z  .agents\changes\1-inbox\probe-b-bold-b-item\intake\request.md
+1F90E4B5C1D3B8B4  134  2026-11-11T19:02:18.8633551Z  .agents\changes\seat.json
+E56F3D0B0E69EDEC  406  2026-11-11T18:57:20.4400412Z  .agents\changes\STATUS.json
+E7F6009FCF6CBFF1  298  2026-11-11T18:57:20.4395405Z  .agents\changes\STATUS.md
+snapshots identical: True
+git status --porcelain before [?? .agents/] after [?? .agents/] equal: True

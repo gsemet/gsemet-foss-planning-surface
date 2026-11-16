@@ -1,0 +1,24 @@
+﻿### Chief file mtime (fresh):
+2026-11-07T12:11:19.0531594+01:00
+now: 2026-11-07T12:11:19.0681661+01:00
+### order done O-1
+O-1 done
+[exit 0]
+### land
+landed batch-01: the cost is not final, it runs until `close`
+report: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\proj\.agents\changes\3-requests\batch-01\STATUS.md
+[exit 0]
+### close (dry): the Chief's own fresh transcript does not block
+close batch-01 deletes the folder .agents/changes/3-requests/batch-01
+the dropped CRs, to remove on the same word where they still exist (`git worktree remove --force`, `git branch -D`): CR-101 worktree C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-change-specification-demo-a
+final cost, up to now (nothing runs):
+Total: $3.00 of a $50 budget
+Chief of Staff (steering) $2.00 (67%), Drivers $1.00 (33%), workers $0.00 (0%)
+Most: CR-1 $1.00
+Driver chief-of-staff with its workers: $2.00 (1 calls)
+Driver driver with its workers: $1.00 (1 calls)
+Chief of Staff: $0.00 since the batch opened, $1.00 the whole session, context 1,000 tokens
+Not counted: compaction calls, which leave no record (about $0.12 each)
+ask the user, then `chantier close --yes`
+[exit 0]
+

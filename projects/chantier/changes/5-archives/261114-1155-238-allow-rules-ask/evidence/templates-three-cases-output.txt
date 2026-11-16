@@ -1,0 +1,104 @@
+﻿=== powershell, case 1 file absent
+run 1 exit=0
+OK valid JSON, no BOM, no duplicate, nothing removed; 7 allow rules
+run 2 exit=0
+OK valid JSON, no BOM, no duplicate, nothing removed; 7 allow rules
+after:  {"permissions":{"allow":["Bash(git push --force-with-lease -u origin chantier/*)","PowerShell(git push --force-with-lease -u origin chantier/*)","Bash(git -C * push --force-with-lease -u origin chantier/*)","PowerShell(git -C * push --force-with-lease -u origin chantier/*)","Bash(gh pr view*)","PowerShell(gh pr view*)","SendMessage"]}}
+first bytes: 123 34 112
+=== powershell, case 2 file with other keys
+before: {"model":"opus","env":{"A":"é <x> 'q'"},"hooks":{}}
+
+run 1 exit=0
+OK valid JSON, no BOM, no duplicate, nothing removed; 7 allow rules
+run 2 exit=0
+OK valid JSON, no BOM, no duplicate, nothing removed; 7 allow rules
+after:  {"model":"opus","env":{"A":"é \u003cx\u003e \u0027q\u0027"},"hooks":{},"permissions":{"allow":["Bash(git push --force-with-lease -u origin chantier/*)","PowerShell(git push --force-with-lease -u origin chantier/*)","Bash(git -C * push --force-with-lease -u origin chantier/*)","PowerShell(git -C * push --force-with-lease -u origin chantier/*)","Bash(gh pr view*)","PowerShell(gh pr view*)","SendMessage"]}}
+first bytes: 123 34 109
+=== powershell, case 3 file already holding some of the rules
+before: {"model":"opus","env":{"A":"é <x> 'q'"},"permissions":{"deny":["Bash(rm -rf*)"],"allow":["Bash(gh pr view*)","Bash(ls*)"],"defaultMode":"auto"},"hooks":{}}
+
+run 1 exit=0
+OK valid JSON, no BOM, no duplicate, nothing removed; 8 allow rules
+run 2 exit=0
+OK valid JSON, no BOM, no duplicate, nothing removed; 8 allow rules
+after:  {"model":"opus","env":{"A":"é \u003cx\u003e \u0027q\u0027"},"permissions":{"deny":["Bash(rm -rf*)"],"allow":["Bash(gh pr view*)","Bash(ls*)","Bash(git push --force-with-lease -u origin chantier/*)","PowerShell(git push --force-with-lease -u origin chantier/*)","Bash(git -C * push --force-with-lease -u origin chantier/*)","PowerShell(git -C * push --force-with-lease -u origin chantier/*)","PowerShell(gh pr view*)","SendMessage"],"defaultMode":"auto"},"hooks":{}}
+first bytes: 123 34 109
+=== posix, case 1 file absent
+run 1 exit=0
+OK valid JSON, no BOM, no duplicate, nothing removed; 7 allow rules
+run 2 exit=0
+OK valid JSON, no BOM, no duplicate, nothing removed; 7 allow rules
+after:  {
+  "permissions": {
+    "allow": [
+      "Bash(git push --force-with-lease -u origin chantier/*)",
+      "PowerShell(git push --force-with-lease -u origin chantier/*)",
+      "Bash(git -C * push --force-with-lease -u origin chantier/*)",
+      "PowerShell(git -C * push --force-with-lease -u origin chantier/*)",
+      "Bash(gh pr view*)",
+      "PowerShell(gh pr view*)",
+      "SendMessage"
+    ]
+  }
+}
+
+first bytes: 123 10 32
+=== posix, case 2 file with other keys
+before: {"model":"opus","env":{"A":"é <x> 'q'"},"hooks":{}}
+
+run 1 exit=0
+OK valid JSON, no BOM, no duplicate, nothing removed; 7 allow rules
+run 2 exit=0
+OK valid JSON, no BOM, no duplicate, nothing removed; 7 allow rules
+after:  {
+  "model": "opus",
+  "env": {
+    "A": "é <x> 'q'"
+  },
+  "hooks": {},
+  "permissions": {
+    "allow": [
+      "Bash(git push --force-with-lease -u origin chantier/*)",
+      "PowerShell(git push --force-with-lease -u origin chantier/*)",
+      "Bash(git -C * push --force-with-lease -u origin chantier/*)",
+      "PowerShell(git -C * push --force-with-lease -u origin chantier/*)",
+      "Bash(gh pr view*)",
+      "PowerShell(gh pr view*)",
+      "SendMessage"
+    ]
+  }
+}
+
+first bytes: 123 10 32
+=== posix, case 3 file already holding some of the rules
+before: {"model":"opus","env":{"A":"é <x> 'q'"},"permissions":{"deny":["Bash(rm -rf*)"],"allow":["Bash(gh pr view*)","Bash(ls*)"],"defaultMode":"auto"},"hooks":{}}
+
+run 1 exit=0
+OK valid JSON, no BOM, no duplicate, nothing removed; 8 allow rules
+run 2 exit=0
+OK valid JSON, no BOM, no duplicate, nothing removed; 8 allow rules
+after:  {
+  "model": "opus",
+  "env": {
+    "A": "é <x> 'q'"
+  },
+  "permissions": {
+    "deny": [
+      "Bash(rm -rf*)"
+    ],
+    "allow": [
+      "Bash(gh pr view*)",
+      "Bash(ls*)",
+      "Bash(git push --force-with-lease -u origin chantier/*)",
+      "PowerShell(git push --force-with-lease -u origin chantier/*)",
+      "Bash(git -C * push --force-with-lease -u origin chantier/*)",
+      "PowerShell(git -C * push --force-with-lease -u origin chantier/*)",
+      "PowerShell(gh pr view*)",
+      "SendMessage"
+    ],
+    "defaultMode": "auto"
+  },
+  "hooks": {}
+}
+
+first bytes: 123 10 32

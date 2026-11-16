@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Every worker reads its card before it works",
+  "summary": "Specified from batch-18's measure: 13 of 149 worker prompts named no card, 87 of 136 workers skipped the card named. Fix both: take/round/handoff print each worker's opening lines; worker agent files point to their card.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "c4bb4a8469e48c7e32c16c719ec174bdec571cc88427df84763e62290c86ced9",
+    "03-change-spec.md": "20bc00dedac6f2fa6b22b807ecb2f3a8125b5b119f6f1d7c1adeb3b852401eca",
+    "intake/request.md": "e168de11696d8e3af92b8168f508d7ace1f0943d34a9eddd6533cfc2d9fb8f37"
+  },
+  "summarized": "2026-11-15T08:24:48Z"
+}

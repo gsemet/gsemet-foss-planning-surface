@@ -1,0 +1,81 @@
+﻿usage: chantier [-h] [--version] [--project PROJECT] [--skill SKILL]
+                {preflight,init,file,triage,abandon,restore,open,order,foreman,seat,board,status,asks,agents,take,round,handback,note,log,rules,playbook,handoff,gate,verdict,ship,stack,forge-stack,release,cancel,pause,close,cost} ...
+
+The chantier team's CLI.
+
+positional arguments:
+  {preflight,init,file,triage,abandon,restore,open,order,foreman,seat,board,status,asks,agents,take,round,handback,note,log,rules,playbook,handoff,gate,verdict,ship,stack,forge-stack,release,cancel,pause,close,cost}
+    preflight           check P1, P4–P8, P10 and P12; exit 2 if any fails (P10
+                        only warns)
+    init                create the empty stage folders of the planning folder
+                        and its .gitignore; changes nothing else
+    file                file a request in the inbox
+    triage              move an inbox, backlog or 3-ready CR to a priority of
+                        the backlog, or to 3-ready
+    abandon             move an explicitly abandoned CR to trash
+    restore             bring a trashed CR back to the inbox
+    open                open a batch: each prepared CR gets its folder, and a
+                        branch and worktree name
+    order               the user's word, recorded at once; the Foreman does
+                        what needs its hands
+    foreman             the Foreman claims its epoch (set) and records its
+                        transcript
+    seat                the repository's Chief of Staff session: show, take or
+                        leave the seat
+    board               serve the web board (the record, the planning folder's
+                        files, the backlog) on this machine and the local
+                        network, behind a key in its URL
+    status              one line per CR, the open orders (untouched, then
+                        applied), the unread asks; --refresh: the live facts;
+                        its line says `heartbeat N min` (since the last
+                        `--refresh --epoch`), `never` or `stopped`
+    asks                the Foreman's asks still unread; with text, record one
+    agents              map a CR (or stack) to its agent id
+    take                a Driver takes the CR (or `stack`): the slot, then its
+                        facts
+    round               count a round of the CR (exit 5 past the budget or the
+                        limit); its facts
+    handback            a Driver's end: ready <link> or blocked <reason>
+    note                a line in the CR's record, shown in its STATUS.md
+    log                 the CR's events
+    rules               the project's instruction file and the files it links
+    playbook            the agent and model each role runs, from chantier.yaml
+                        (or, with --batch, as the batch opened); exit 2 if the
+                        file is invalid
+    handoff             the CR's facts, for any agent; changes nothing
+    gate                run the long gate in the CR worktree, alone in the
+                        repository, a second one waits its turn, first come
+                        first served; --stop stops this CR's running one
+    verdict             the Verifier's verdict on the CR's worktree head:
+                        VERIFIED or "NOT VERIFIED"
+    ship                record the PR the Driver opened or updated; say what
+                        is off
+    stack               the stack's order, as its driver set it
+    forge-stack         create: the stack batch's native stack on GitHub, PRs
+                        bottom to top, the release last; show: read it back,
+                        one line per failed check (exit 2); rebuild: make the
+                        forge's stack match the record (unstack, retarget,
+                        create again); GitHub only
+    release             release driver: start an attempt, go for an
+                        irreversible action, published
+    cancel              stop a CR's processes and mark it cancelled
+    pause               pause the batch once its work is done: refused while
+                        anything is live or already paused; prints the cost to
+                        date
+    close               refused while anything runs; prints the final cost and
+                        what deleting a paused batch would remove; --yes
+                        deletes it
+    cost                price the Foreman's transcript and its subagents
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --project PROJECT     the project's folder in a planning surface
+                        (`<surface>/projects/<name>`, or the bare name);
+                        omitted: the project's own .agents/changes/, or the
+                        surface's only project
+  --skill SKILL         the chantier skill's folder, needed when this code
+                        runs from uv's cache (a plugin install); omitted:
+                        CHANTIER_SKILL_DIR, else the folder this code lives in
+
+exit=0

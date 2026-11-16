@@ -1,0 +1,9 @@
+﻿usage: chantier abandon [-h] item
+
+positional arguments:
+  item        path to the unclaimed CR folder
+
+options:
+  -h, --help  show this help message and exit
+
+exit=0

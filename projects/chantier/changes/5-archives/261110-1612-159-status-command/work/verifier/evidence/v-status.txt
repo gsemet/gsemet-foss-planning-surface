@@ -1,0 +1,8 @@
+﻿batch-09 running stack live 1/4 queued 0 steering direct foreman 91f1382a-eacd-437e-b5a8-f9e545753a8c e1 heartbeat 2 min spent $39.00 of $50
+CR-153 merged r3/3 https://github.com/gsemet/chantier/pull/92 | $3.93
+CR-154 merged r2/3 https://github.com/gsemet/chantier/pull/91 | $1.62
+CR-155 merged r2/3 https://github.com/gsemet/chantier/pull/90 | $1.21
+CR-156 merged r2/3 https://github.com/gsemet/chantier/pull/93 | $3.08
+CR-157 merged r0/3 https://github.com/gsemet/chantier/pull/94 | $0.30
+CR-158 merged r3/3 https://github.com/gsemet/chantier/pull/95 | $8.33
+CR-159 working r2/3 https://github.com/gsemet/chantier/pull/96 | $2.41

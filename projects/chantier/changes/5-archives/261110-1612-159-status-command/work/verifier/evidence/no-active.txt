@@ -1,0 +1,2 @@
+﻿$ status (fresh init-ed repo, no batch)
+error: no running batch: run `chantier open` first

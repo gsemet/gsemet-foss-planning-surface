@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Run the real-foreman and real-direct evals on the chantier batch-18 leaves on main",
+  "summary": "Specified: after every other batch-18 CR merges, the user runs real-foreman (stack) then real-direct (parallel) on the sandbox at the desktop; the Driver checks before, then writes both reports and the README rows on one PR.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "7d0c5bb7f7bfce3d0d8926e9d8ae444cc8305c702c3bd3d61510bb6e741a675c",
+    "03-change-spec.md": "895868f3c1a092dc26dbef9ca8903a178bd123cdd6e172c4a608ad2bae315602",
+    "intake/request.md": "ba751eb27a8de3fe5ae5ec5dff64e8e026a2dfbede32c6dfdc331859ea44d4d5"
+  },
+  "summarized": "2026-11-15T08:22:41Z"
+}

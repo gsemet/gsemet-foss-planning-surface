@@ -1,0 +1,20 @@
+﻿# Change requests
+
+> Updated 2026-11-07T11:10:28Z: 1 active CRs in 1 batches.
+
+## Active
+
+### [batch-01](batch-01/STATUS.md): open, $3.00 of $50
+
+| CR | Subject | Status | Branch | PR/MR | Cost |
+| --- | --- | --- | --- | --- | ---: |
+| [101](batch-01/101-cr-a/03-change-spec.md) | Change Specification: demo A | [âšª queued](batch-01/101-cr-a/STATUS.md) | `chantier/batch-01/cr-101-change-specification-demo-a` | - | - |
+
+# batch-01: open
+
+Updated 2026-11-07T11:10:28Z Â· steering direct Â· spent $3.00 of $50 Â· 0 asks unread Â· 0 orders pending
+
+[All change requests](../STATUS.md)
+
+| CR | Subject | Status | Branch | PR/MR | Cost |
+| --- | --- | --- | --- | --- | ---: |

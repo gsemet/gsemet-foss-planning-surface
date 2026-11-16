@@ -1,0 +1,1 @@
+open and order add need @<folder>, which PowerShell reads as a splat and refuses unquoted.

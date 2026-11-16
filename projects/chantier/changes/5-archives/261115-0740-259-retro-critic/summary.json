@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A retro critic cuts every list of changes chantier proposes on its own",
+  "summary": "Grilled and specified: a new retro-critic subagent (Opus) judges each retro or suggested change keep, merge or drop; the Foreman writes only kept points in retro.md; three open questions (release retro, single suggestion, critic failure).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "1d197f9a7398ef37c99366a7760120ba8d4fd3f3c13f8ff9beeb93534724626d",
+    "03-change-spec.md": "7f8e160d7dac3e4f817495be59c0d212120b1c4efbaf4fd25afc59d8e84fdf8b",
+    "intake/request.md": "a530d68e4b001ee7c6be82888bb578a82ed1150bae8065ec672ab8473eef116b"
+  },
+  "summarized": "2026-11-14T18:40:43Z"
+}

@@ -1,0 +1,17 @@
+﻿usage: chantier board [-h] [--host HOST] [--port PORT] [--seat SESSION]
+                      [--clock TIMESTAMP] [--new-key]
+
+options:
+  -h, --help         show this help message and exit
+  --host HOST        the address to listen on (default: chantier.yaml's
+                     board.host, else 0.0.0.0, the local network)
+  --port PORT        the port, or 0 for a free one the system picks (default:
+                     chantier.yaml's board.port, else 8765)
+  --seat SESSION     the Chief of Staff session this board is for: the board
+                     follows its seats and stops when none of them names its
+                     session any more
+  --clock TIMESTAMP  answer as if it were this instant (UTC, YYYY-MM-
+                     DDTHH:MM:SSZ), for screenshots and tests
+  --new-key          replace the board's key: the old link stops working
+
+exit=0

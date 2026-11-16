@@ -1,0 +1,53 @@
+Every $CHANTIER command of the three new runbooks, checked against `chantier.py <command> --help`
+(run from the main checkout's CLI on 2026-11-11). OK = the command and each flag the runbook uses
+exist in --help.
+
+real-foreman
+  open <A> <B> ... --mode parallel --default-branch main --slots 3 --budget 20   OK (open --help)
+  cost --explain ; cost --by cr                                                  OK (cost: --explain, --by {role,cr})
+  log <cr>                                                                       OK (log: cr)
+  order merged <cr> ; order drop <cr>                                            OK (order: kind [cr]; merged, drop)
+  pause --epoch <n>                                                              OK (pause: --epoch)
+  close                                                                          OK (close: --yes, the user's word)
+
+real-direct
+  preflight --direct                                                             OK (preflight: --direct)
+  open ... --direct                                                              OK (open: --direct)
+  order merged <cr> ; order drop <cr> ; pause --epoch <n> ; close                OK as above
+
+claude-planted
+  open <A> <B> <C> <R> --mode parallel --release 4 --slots 3 --budget 25
+       --default-branch main                                                      OK (open: --release N, item number of the release CR)
+  order add --note "<D>"                                                          OK (order add, --note: <folder>)
+  order note CR-<B> --note "change: ..."                                          OK (order note, --note: the line)
+  order drop CR-<F>                                                               OK
+  order merged <cr>                                                               OK
+  order qa --note "<notes>"                                                       OK (order qa, --note: what to test; no cr)
+  order confirm CR-<R> --note "v0.2.0, ..."                                       OK (CR orders: approve, grant, confirm; --note: the version)
+  order grant CR-<R> --note "fixes=on budget=25"                                  OK (--note grant: releases=N fixes=on|off budget=N)
+  order add --note "<V>" --fix-for CR-<R>                                         OK (--fix-for)
+  order approve CR-<R> --note "<action>"                                          OK (approve: the action)
+  status                                                                          OK
+  close --yes                                                                     OK
+  (cost --explain, cost --by cr : README step 4, OK)
+
+Expected lines of the old claude-full, against the current CLI (commands.py, rails.py, read):
+  - verdict: `verdict VERIFIED | "NOT VERIFIED"`, bound to the head, refused on uncommitted work
+    -> C6, in the Expected of every CR.
+  - handback ready: needs a recorded PR, a passed long gate and a VERIFIED verdict at the head
+    (or --no-gate "<rule>", which waives the gate only) -> C7, stated.
+  - gate: one command per argument, one long gate at a time, recorded with its head -> C5, stated.
+  - write guard: a `writes:` line in each worker's prompt -> J12, stated (no planted refusal).
+  - force-push route: Driver -> steering -> Chief of Staff; not planted, said in the runbook.
+  - direct mode: `open --direct`, `preflight --direct`, `order qa` refused while a direct batch
+    runs -> real-direct.
+  - FOUND: the old claude-full turns never gave `order confirm`, which `rails.needs_word` requires
+    for a release that shares its batch (take refused: "needs the user's confirmation"). Added as
+    turn 8 of claude-planted.
+
+Answer 10 (a CR still blocked at the report), from the CLI:
+  `pause` refuses while any CR is live, queued, `ready` or `blocked` (commands.pause), and `close`
+  refuses an unpaused batch (commands._close_target). So a blocked CR blocks both. The only way
+  out is `order drop <cr>` (commands.order: trash_cr, status cancelled; folder to 6-trash/). The
+  runbook step: on the user's word, `order drop`, then the Chief of Staff moves the folder back
+  to 1-inbox/ by hand; the reason goes in the report.

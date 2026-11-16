@@ -1,0 +1,18 @@
+﻿exit 0
+just : uv run --script scripts/validate-bundles.py 
+Au caractère Ligne:6 : 27
++ Push-Location $s; $out = (just validate 2>&1 | Out-String); $code=$LA ...
++                           ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (uv run --script...ate-bundles.py :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+-- agentic-planning-surface: not a bundle yet (no index.md), skipped
+-- chantier: not a bundle yet (no index.md), skipped
+== markdown-okf-schema-studio
+Bundle is conformant (2 warning(s)).
+  change request                     stage          priority
+  334-frontmatter-keys-in-body       inbox          -
+  335-tab-clears-new-row-first-cell  inbox          -
+-- okf-schema: not a bundle yet (no index.md), skipped
+all bundles conformant
+

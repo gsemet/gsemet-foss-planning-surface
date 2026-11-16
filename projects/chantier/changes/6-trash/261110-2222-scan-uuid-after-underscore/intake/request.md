@@ -1,0 +1,1 @@
+scripts/release_notes.py --scan misses a UUID right after '_' (e.g. local_<uuid>): its pattern relies on \b and '_' is a word character. Bound it with (?<![0-9a-fA-F])...(?![0-9a-fA-F]) and add a structure test for name_<uuid>. Found in the v0.8.0 release retro.

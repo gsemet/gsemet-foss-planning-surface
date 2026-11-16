@@ -1,0 +1,1 @@
+Batch-15 retro: the Foreman reported 'two cosmetic gaps left, the PR says so' for PR 144, but its body names none. Fix: a gap left on purpose is named in the PR body, and the ready line quotes it.

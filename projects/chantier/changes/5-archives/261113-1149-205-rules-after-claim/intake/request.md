@@ -1,0 +1,1 @@
+real-direct run 1 (2026-11-12, PR 137), audit J14: the direct-mode Chief of Staff read `chantier rules` at the start of the session, before `open`, and not again after its claim of the batch. Fix: the steering card says the steering session reads the rules right after its claim, every batch, in direct mode too.

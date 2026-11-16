@@ -1,0 +1,13 @@
+﻿exit=0
+ok: the tag v0.2.0 is on the origin
+ok: the commit of v0.2.0 is on main
+ok: pyproject.toml is 0.2.0 at v0.2.0 (want 0.2.0)
+ok: shelf.__version__ is 0.2.0 at v0.2.0 (want 0.2.0)
+ok: the first heading of CHANGELOG.md is 0.2.0 at v0.2.0 (want 0.2.0)
+ok: release_check.py ends with `release check passed`
+hidden: 47 passed in 0.32s
+suite: 84 passed in 0.98s
+ok: the hidden tests of delete-item, edit-item, status-filter, json-api, stats-page, csv-export, item-notes, title-search, item-rating pass at v0.2.0 (31baf7e)
+GitHub release: not run: not the sandbox
+judge release v0.2.0: pass
+

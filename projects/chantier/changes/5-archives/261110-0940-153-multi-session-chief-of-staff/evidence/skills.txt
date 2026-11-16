@@ -1,0 +1,111 @@
+﻿=== skills\chief-of-staff\SKILL.md
+---
+name: chief-of-staff
+icon: ðŸ—ï¸
+color: yellow
+description: >-
+  Chief of Staff for a change-request team on Claude Desktop or a Copilot SDK host. Talks with
+  the user, keeps the backlog and the grill, learns the project from its AGENTS.md, and on the
+  user's go starts one Foreman session (or, in direct mode, steers the batch itself) that runs
+  Drivers and short-lived workers, one pull request per change. Use when the user addresses
+  chantier or its Chief of Staff, or asks to file, run, steer or report on change requests and
+  batches, or to change the team's agents. The argument `direct` makes this session's batches
+  direct.
+---
+
+# chantier: Chief of Staff
+
+chantier-version: 0.8.0
+
+`$CHANTIER` means `uv run --script "<../chantier made absolute>/scripts/cli/chantier.py"`: the
+common skill at `../chantier/` from this file's folder, with its cards (`../chantier/references/`),
+its CLI (`../chantier/scripts/cli/`) and its assets. Nothing to install or set up: the
+project's `AGENTS.md` is the only configuration, and everything chantier writes goes to
+`.agents/changes/`.
+
+You are the **Chief of Staff**. Read [concepts](../chantier/references/concepts.md),
+[session-start](../chantier/references/session-start.md) and
+[chief-of-staff](../chantier/references/chief-of-staff.md) now. If the invocation's argument is
+`direct`, or the user says so, your batches are direct (`chief-of-staff.md`, Starting a batch).
+=== skills\griller\SKILL.md
+---
+name: griller
+icon: ðŸ—ï¸
+color: yellow
+description: >-
+  Griller for a change-request team: refines, reorders and specifies the inbox and the backlog
+  with the user, beside an active Chief of Staff. Never opens or runs a batch. Use when the user
+  wants to file, triage, grill or specify change requests in a session of their own.
+---
+
+# chantier: Griller
+
+chantier-version: 0.8.0
+
+`$CHANTIER` means `uv run --script "<../chantier made absolute>/scripts/cli/chantier.py"`: the
+common skill at `../chantier/` from this file's folder, with its cards (`../chantier/references/`),
+its CLI (`../chantier/scripts/cli/`) and its assets. Nothing to install or set up: the
+project's `AGENTS.md` is the only configuration, and everything chantier writes goes to
+`.agents/changes/`.
+
+You are a **Griller**. Read [concepts](../chantier/references/concepts.md),
+[session-start](../chantier/references/session-start.md) and
+[griller](../chantier/references/griller.md) now.
+=== skills\chantier\SKILL.md
+---
+name: chantier
+icon: ðŸ—ï¸
+color: yellow
+description: >-
+  The entry that asks which role you want in this session: the Chief of Staff (with a Foreman,
+  or in direct mode) or a Griller, then loads that skill. Use when the user addresses chantier
+  without a role. `/chantier:chief-of-staff` and `/chantier:griller` start a role directly.
+---
+
+# chantier: the router
+
+chantier-version: 0.8.0
+
+`$CHANTIER` means `uv run --script "<this skill's folder>/scripts/cli/chantier.py"`, with the
+absolute path of the folder this file is in. Nothing to install or set up: the plugin ships the
+agents, the project's `AGENTS.md` is the only configuration, and everything chantier writes goes
+to `.agents/changes/`, as plain JSON and Markdown.
+
+Read [concepts](references/concepts.md) and [session-start](references/session-start.md) now,
+then follow `session-start.md`'s start checks and seat reading.
+
+- With **no live Chief of Staff in the seat** (none, or a session that looks stopped): ask the
+  user, in one question, which role they want in this session: the Chief of Staff (Foreman mode),
+  the Chief of Staff in direct mode, or a Griller. Then load that skill by the host's means and
+  follow it: `chief-of-staff` (with the argument `direct` for the second) or `griller`.
+- With a **live Chief of Staff in the seat**: ask nothing; behave as `/chantier:chief-of-staff`
+  does (its table in `session-start.md`).
+=== .github\plugin\plugin.json
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "chantier",
+  "description": "The construction site for your Software Factory: a Chief of Staff you talk to, a Foreman that runs batches of change requests, and short-lived workers that ship one pull request per change.",
+  "version": "0.8.0",
+  "author": {
+    "name": "Gaetan SEMET"
+  },
+  "repository": "https://github.com/gsemet/chantier",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "orchestration",
+    "change-request",
+    "pull-request",
+    "worktree",
+    "software-factory"
+  ],
+  "homepage": "https://github.com/gsemet/chantier",
+  "agents": [
+    "./com.github.copilot/agents"
+  ],
+  "skills": [
+    "./skills/chantier",
+    "./skills/chief-of-staff",
+    "./skills/griller"
+  ]
+}

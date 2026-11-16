@@ -1,0 +1,1 @@
+The Release driver asked release go for a merge the user had already done, leaving an extra ask in the record. Its card should say a merge done by the user needs no release go. From the v0.8.0 release retro.

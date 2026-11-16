@@ -1,0 +1,1 @@
+driver.md says a round is refused past the batch budget, but the CLI refuses only on the round limit. Make the card and the CLI agree (batch-11 retro).

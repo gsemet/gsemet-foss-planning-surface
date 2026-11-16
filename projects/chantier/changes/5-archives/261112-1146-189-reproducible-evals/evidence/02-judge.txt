@@ -1,0 +1,156 @@
+# Evidence 2: the hidden tests on the base (each must fail) and on each reference branch (each must pass)
+# base 6e87a361c1b192e6d081c162f0cb2cc28bb72b25 ; reference repo: scratch clone made by sandbox.py build (main = base)
+
+## On the base
+
+$ judge.py <ref> <base> delete-item
+hidden: 4 failed, 1 passed in 0.13s
+suite: 4 failed, 29 passed in 0.75s
+judge delete-item at 6e87a36: fail
+exit 1
+
+$ judge.py <ref> <base> edit-item
+hidden: 4 failed, 1 passed in 0.10s
+suite: 4 failed, 29 passed in 0.22s
+judge edit-item at 6e87a36: fail
+exit 1
+
+$ judge.py <ref> <base> status-filter
+hidden: 5 failed, 1 passed in 0.15s
+suite: 5 failed, 29 passed in 0.26s
+judge status-filter at 6e87a36: fail
+exit 1
+
+$ judge.py <ref> <base> json-api
+hidden: 6 failed in 0.12s
+suite: 6 failed, 28 passed in 0.24s
+judge json-api at 6e87a36: fail
+exit 1
+
+$ judge.py <ref> <base> stats-page
+hidden: 4 failed in 0.10s
+suite: 4 failed, 28 passed in 0.23s
+judge stats-page at 6e87a36: fail
+exit 1
+
+$ judge.py <ref> <base> csv-export
+hidden: 6 failed in 0.11s
+suite: 6 failed, 28 passed in 0.22s
+judge csv-export at 6e87a36: fail
+exit 1
+
+$ judge.py <ref> <base> item-notes
+hidden: 5 failed, 1 passed in 0.11s
+suite: 5 failed, 29 passed in 0.23s
+judge item-notes at 6e87a36: fail
+exit 1
+
+$ judge.py <ref> <base> title-search
+hidden: 3 failed, 1 passed in 0.11s
+suite: 3 failed, 29 passed in 0.73s
+judge title-search at 6e87a36: fail
+exit 1
+
+$ judge.py <ref> <base> item-rating
+hidden: 4 failed, 1 passed in 0.10s
+suite: 4 failed, 29 passed in 0.24s
+judge item-rating at 6e87a36: fail
+exit 1
+
+$ judge.py <ref> <base> sort-list
+hidden: 4 failed in 0.12s
+suite: 4 failed, 28 passed in 0.23s
+judge sort-list at 6e87a36: fail
+exit 1
+
+$ judge.py <ref> <base> duplicate-url
+hidden: 2 failed, 4 passed in 0.14s
+suite: 2 failed, 32 passed in 0.73s
+judge duplicate-url at 6e87a36: fail
+exit 1
+
+## On each reference branch
+
+$ judge.py <ref> delete-item delete-item
+hidden: 5 passed in 0.06s
+suite: 34 passed in 0.21s
+judge delete-item at 1f6774d: pass
+exit 0
+
+$ judge.py <ref> edit-item edit-item
+hidden: 5 passed in 0.05s
+suite: 34 passed in 0.20s
+judge edit-item at dc52294: pass
+exit 0
+
+$ judge.py <ref> status-filter status-filter
+hidden: 6 passed in 0.08s
+suite: 35 passed in 0.22s
+judge status-filter at 68104e1: pass
+exit 0
+
+$ judge.py <ref> json-api json-api
+hidden: 6 passed in 0.05s
+suite: 35 passed in 0.18s
+judge json-api at b7131a1: pass
+exit 0
+
+$ judge.py <ref> stats-page stats-page
+hidden: 4 passed in 0.05s
+suite: 33 passed in 0.68s
+judge stats-page at a4b26b3: pass
+exit 0
+
+$ judge.py <ref> csv-export csv-export
+hidden: 6 passed in 0.04s
+suite: 35 passed in 0.67s
+judge csv-export at cf5646c: pass
+exit 0
+
+$ judge.py <ref> item-notes item-notes
+hidden: 6 passed in 0.06s
+suite: 35 passed in 0.18s
+judge item-notes at 452e4ec: pass
+exit 0
+
+$ judge.py <ref> title-search title-search
+hidden: 4 passed in 0.04s
+suite: 33 passed in 0.17s
+judge title-search at 2db9762: pass
+exit 0
+
+$ judge.py <ref> item-rating item-rating
+hidden: 5 passed in 0.06s
+suite: 34 passed in 0.21s
+judge item-rating at 7207cd4: pass
+exit 0
+
+$ judge.py <ref> sort-list sort-list
+hidden: 4 passed in 0.06s
+suite: 33 passed in 0.18s
+judge sort-list at 1779ced: pass
+exit 0
+
+$ judge.py <ref> duplicate-url duplicate-url
+hidden: 6 passed in 0.06s
+suite: 35 passed in 0.70s
+judge duplicate-url at e3c244f: pass
+exit 0
+
+## Combined heads
+
+$ judge.py <ref> batch1 (9 slugs of batch 1)
+hidden: 47 passed in 0.34s
+suite: 84 passed in 0.49s
+judge delete-item, edit-item, status-filter, json-api, stats-page, csv-export, item-notes, title-search, item-rating at 570b572: pass
+exit 0
+
+$ judge.py <ref> batch2 (11 slugs)
+hidden: 57 passed in 0.40s
+suite: 97 passed in 1.11s
+judge delete-item, edit-item, status-filter, json-api, stats-page, csv-export, item-notes, title-search, item-rating, sort-list, duplicate-url at 0955ff0: pass
+exit 0
+
+
+# Cleanup
+Temporary clones left behind after all runs (chantier-judge-* in %TEMP%): 0

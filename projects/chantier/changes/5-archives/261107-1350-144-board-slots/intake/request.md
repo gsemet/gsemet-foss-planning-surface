@@ -1,0 +1,1 @@
+The CR board mod does not show how many slots a batch has, how many are taken and how many are free. To prioritise later.

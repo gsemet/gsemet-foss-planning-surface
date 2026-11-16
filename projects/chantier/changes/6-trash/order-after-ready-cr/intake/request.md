@@ -1,0 +1,1 @@
+Batch-15: after CR-213 was inserted below CR-212 (release), 'order after CR-212' was refused ('it is ready, not queued'), so the record kept CR-212's base on CR-211's branch. An insertion must be able to change a ready CR's base: 'stack' (the recorded order) sets it, or 'order after' accepts a ready CR with a restack note.

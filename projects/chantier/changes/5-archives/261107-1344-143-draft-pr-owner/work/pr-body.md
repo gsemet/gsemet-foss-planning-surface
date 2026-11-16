@@ -1,0 +1,1 @@
+﻿The steering session (Foreman, or the Chief of Staff in direct mode) owns the step after a dependency merges: it sends each dependent draft CR back to a Driver with note 'rebase: <dependency> merged'; the CR Driver rebases, retargets, pushes, reads CI and turns the PR ready. Cards only (foreman, driver, chief-of-staff). just check and just scenario pass.

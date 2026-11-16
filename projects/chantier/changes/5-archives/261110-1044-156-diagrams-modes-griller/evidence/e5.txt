@@ -1,0 +1,3 @@
+﻿links checked 32 bad 0
+--- git grep -n how-chantier-works-simple.svg
+matches: 0  

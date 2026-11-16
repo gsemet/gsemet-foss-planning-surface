@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "batch": "batch-19",
+  "number": 19,
+  "state": "closed",
+  "opened": "2026-11-15T16:20:49Z",
+  "closed": "2026-11-15T18:50:46Z",
+  "mode": "parallel",
+  "steering": "direct",
+  "host": "claude",
+  "budget_usd": 30.0,
+  "cost_usd": 7.5545,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-295",
+      "title": "Version PR for chantier v0.10.0",
+      "result": "merged",
+      "archive": "5-archives/261115-1804-295-release-0-10-0",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-19.md",
+  "stopped_agents": [
+    {
+      "agent": "agent-a0efdc32dca6c61a7",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a0efdc32dca6c61a7.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-15T18:50:46Z"
+    },
+    {
+      "agent": "agent-a22025d94b0425f76",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a22025d94b0425f76.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-15T18:50:46Z"
+    },
+    {
+      "agent": "agent-a2527633954813a84",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a2527633954813a84.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-15T18:50:46Z"
+    },
+    {
+      "agent": "agent-a4481a8d0b396f19f",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a4481a8d0b396f19f.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-15T18:50:46Z"
+    },
+    {
+      "agent": "agent-a82a4e8172fa0b0d4",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a82a4e8172fa0b0d4.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-15T18:50:46Z"
+    },
+    {
+      "agent": "agent-aa2b04a9ea02a0446",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-aa2b04a9ea02a0446.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-15T18:50:46Z"
+    },
+    {
+      "agent": "agent-aa835f48f2788b16f",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-aa835f48f2788b16f.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-15T18:50:46Z"
+    }
+  ]
+}

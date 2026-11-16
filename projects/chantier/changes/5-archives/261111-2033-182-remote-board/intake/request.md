@@ -1,0 +1,1 @@
+A progress board that works in remote: a small read-only web server (uv run, background) that shows the batches, their CRs and the backlog from .agents/changes, so the user can follow a batch from a phone when the local mod pane is not available. Prototype in the item's prototype/ folder.

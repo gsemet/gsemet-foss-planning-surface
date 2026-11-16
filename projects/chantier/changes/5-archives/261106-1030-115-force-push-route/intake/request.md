@@ -1,0 +1,1 @@
+A force push that auto mode refuses to a Driver goes up to the Foreman, then to the Chief of Staff, who runs it. Today the cards send the user to type a line in the Foreman's session.

@@ -1,0 +1,1 @@
+real-direct run 1 retro (2026-11-12, PR 137): the steering session's rebase note reached CR-101's Driver right after its ready hand-back, so the Driver waited for a formal take-back, at the cost of one exchange. Fix: the steering card says to read `status` just before sending a rebase note, and to `take` a ready CR (with its note) instead of messaging it.

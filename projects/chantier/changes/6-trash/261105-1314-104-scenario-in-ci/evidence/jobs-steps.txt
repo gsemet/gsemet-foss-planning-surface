@@ -1,0 +1,40 @@
+﻿just check (windows-latest): success
+   Set up job = success
+   Run actions/checkout@v4 = success
+   Run astral-sh/setup-uv@v6 = success
+   Run extractions/setup-just@v3 = success
+   Git identity for the test repositories = success
+   Run just check = success
+   Post Run astral-sh/setup-uv@v6 = success
+   Post Run actions/checkout@v4 = success
+   Complete job = success
+just scenario (ubuntu-latest): success
+   Set up job = success
+   Run actions/checkout@v4 = success
+   Run astral-sh/setup-uv@v6 = success
+   Run extractions/setup-just@v3 = success
+   Git identity for the test repositories = success
+   Run just scenario = success
+   Post Run astral-sh/setup-uv@v6 = success
+   Post Run actions/checkout@v4 = success
+   Complete job = success
+just check (ubuntu-latest): success
+   Set up job = success
+   Run actions/checkout@v4 = success
+   Run astral-sh/setup-uv@v6 = success
+   Run extractions/setup-just@v3 = success
+   Git identity for the test repositories = success
+   Run just check = success
+   Post Run astral-sh/setup-uv@v6 = success
+   Post Run actions/checkout@v4 = success
+   Complete job = success
+just check (macos-latest): success
+   Set up job = success
+   Run actions/checkout@v4 = success
+   Run astral-sh/setup-uv@v6 = success
+   Run extractions/setup-just@v3 = success
+   Git identity for the test repositories = success
+   Run just check = success
+   Post Run astral-sh/setup-uv@v6 = success
+   Post Run actions/checkout@v4 = success
+   Complete job = success

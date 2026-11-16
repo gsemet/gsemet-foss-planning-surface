@@ -1,0 +1,29 @@
+﻿commit 13555a8f5a79d515d52d59e458c3f81baf902596
+Author: Gaetan SEMET <gaetan@xeberon.net>
+Date:   Sat Nov 14 20:46:48 2026 +0100
+
+    chore: autosync repository changes
+    
+    Authored-By: Ai-Autosync-git 1.0.0
+
+ AGENTS.md                                                         | 2 +-
+ .../changes/{3-batches => 4-batch}/.gitkeep                       | 0
+ .../changes/{4-archive => 5-archives}/.gitkeep                    | 0
+ .../changes/{5-trash => 6-trash}/.gitkeep                         | 0
+ projects/chantier/changes/{3-stash => 3-ready}/.gitkeep           | 0
+ .../chantier/changes/{4-batches => 4-batch}/1-pending/.gitkeep    | 0
+ .../chantier/changes/{4-batches => 4-batch}/2-actives/.gitkeep    | 0
+ projects/chantier/changes/{4-batches => 4-batch}/3-done/.gitkeep  | 0
+ .../changes/{3-stash => 3-ready}/.gitkeep                         | 0
+ .../changes/{4-batches => 4-batch}/1-pending/.gitkeep             | 0
+ .../changes/{4-batches => 4-batch}/2-actives/.gitkeep             | 0
+ .../changes/{4-batches => 4-batch}/3-done/.gitkeep                | 0
+ projects/okf-schema/changes/{3-stash => 3-ready}/.gitkeep         | 0
+ .../okf-schema/changes/{4-batches => 4-batch}/1-pending/.gitkeep  | 0
+ .../okf-schema/changes/{4-batches => 4-batch}/2-actives/.gitkeep  | 0
+ .../okf-schema/changes/{4-batches => 4-batch}/3-done/.gitkeep     | 0
+ scripts/validate-bundles.py                                       | 8 ++++----
+ 17 files changed, 5 insertions(+), 5 deletions(-)
+
+$ git status --porcelain -- projects/*/changes AGENTS.md scripts/validate-bundles.py
+(empty above)

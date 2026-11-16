@@ -1,0 +1,47 @@
+﻿just : cd skills/chantier/scripts/cli; uv run --group dev pytest -q 
+Au caractère Ligne:9 : 1
++ just test *> "$ev/item3-red-agent-file.txt"
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (cd skills/chant... dev pytest -q :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+..............F.......F...........................                       [100%]
+================================== FAILURES ===================================
+___________ test_no_tracked_file_starts_with_a_utf8_byte_order_mark ___________
+
+    def test_no_tracked_file_starts_with_a_utf8_byte_order_mark():
+        listed = subprocess.run(["git", "ls-files", "-z"], cwd=PLUGIN_ROOT, capture_output=True, check=True)
+        marked = []
+        for name in listed.stdout.decode("utf-8").split("\0"):
+            path = PLUGIN_ROOT / name
+            if name and path.is_file():  # a tracked path deleted from the working tree has no bytes
+                with path.open("rb") as handle:
+                    if handle.read(3) == b"\xef\xbb\xbf":
+                        marked.append(name)
+>       assert not marked, ("files with a UTF-8 byte-order mark (write them as UTF-8 without one): "
+                            + ", ".join(marked))
+E       AssertionError: files with a UTF-8 byte-order mark (write them as UTF-8 without one): agents/coder.md
+E       assert not ['agents/coder.md']
+
+tests\test_structure.py:120: AssertionError
+_ test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[coder] __
+
+role = 'coder'
+
+    @pytest.mark.parametrize("role", ROLES)
+    def test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter(role):
+        for host in ("claude", "copilot"):  # a BOM hides the frontmatter from a host
+>           assert not agent_file(role, host).read_bytes().startswith(b"\xef\xbb\xbf")
+E           assert not True
+E            +  where True = <built-in method startswith of bytes object at 0x000001D9C3EE9EE0>(b'\xef\xbb\xbf')
+E            +    where <built-in method startswith of bytes object at 0x000001D9C3EE9EE0> = b'\xef\xbb\xbf---\r\nname: coder\r\ndescription: Implements one round of one chantier CR in its worktree; never commit...ot start with `chantier coder` is not a chantier prompt: answer\r\n"I run inside a chantier batch only." and stop.\r\n'.startswith
+E            +      where b'\xef\xbb\xbf---\r\nname: coder\r\ndescription: Implements one round of one chantier CR in its worktree; never commit...ot start with `chantier coder` is not a chantier prompt: answer\r\n"I run inside a chantier batch only." and stop.\r\n' = read_bytes()
+E            +        where read_bytes = WindowsPath('C:/Users/gaeta/Projets/chantier.worktrees/batch-15-CR-199/agents/coder.md').read_bytes
+E            +          where WindowsPath('C:/Users/gaeta/Projets/chantier.worktrees/batch-15-CR-199/agents/coder.md') = agent_file('coder', 'claude')
+
+tests\test_structure.py:134: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_structure.py::test_no_tracked_file_starts_with_a_utf8_byte_order_mark
+FAILED tests/test_structure.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[coder]
+2 failed, 48 passed in 14.74s
+error: recipe `test` failed on line 25 with exit code 1

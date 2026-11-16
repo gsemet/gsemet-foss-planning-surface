@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Each working CR shows its step; the board shows the next CR to start",
+  "summary": "Specified: the Driver records the CR's step (chantier phase, round sets coder); STATUS files, chantier status, the board and the pane show it; the board marks the next queued CR to start. Three open questions for the user.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "1b8dc708f5b04525f9ff400b76ce83a11745f5af3bbbd5b67d7efb825c718677",
+    "03-change-spec.md": "d585d450da6c34552624b4ed4f20ae81eeb3529ec1a2e53a1412010bb8490f32",
+    "intake/request.md": "f95500bb3f78ed99285d8ea6c46af431b501e90243572fb53783b3f3ea1fe06c"
+  },
+  "summarized": "2026-11-14T18:41:34Z"
+}

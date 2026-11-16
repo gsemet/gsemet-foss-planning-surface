@@ -1,0 +1,31 @@
+# 12f at worktree head 842b800 + uncommitted diff (just scenario, gates unit, 86/86 checks)
+
+## ready line (clean rebase)
+12f ready line: [driver CR-106→foreman] hand-back ready to merge, long gate and verdict carried from 91aca36 (clean rebase onto main) https://github.com/acme/demo/pull/41
+
+## conflict refusal stderr
+    $ chantier handback CR-107 ready https://github.com/acme/demo/pull/42  → exit 2
+      stderr: error: refused: no long gate passed at a4e0b6a75c908a578bd064bd401656cfd075699e (the pass at b687e7b does not carry: the replay conflicts) (gate CR-107 "<cmd>"..., or --no-gate "<the project's rule>")
+refused: no verdict VERIFIED at a4e0b6a75c908a578bd064bd401656cfd075699e (the verdict VERIFIED at b687e7b does not carry: the replay conflicts) (the last verdict there: none)
+- [x] a rebase with a resolved conflict: `handback ready` is refused, `no long gate passed` and `no verdict VERIFIED` each with the `does not carry` clause and its reason; the CR is not ready
+12f conflict refusal: error: refused: no long gate passed at a4e0b6a75c908a578bd064bd401656cfd075699e (the pass at b687e7b does not carry: the replay conflicts) (gate CR-107 "<cmd>"..., or --no-gate "<the project's rule>")
+refused: no verdict VERIFIED at a4e0b6a75c908a578bd064bd401656cfd075699e (the verdict VERIFIED at b687e7b does not carry: the replay conflicts) (the last verdict there: none)
+    $ chantier ship CR-108 https://github.com/acme/demo/pull/43  → exit 0
+      recorded https://github.com/acme/demo/pull/43 (base main, head c701063, out of draft)
+
+## commit after the verdict refusal
+862:        [ ] long gate passed (gate CR-108 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-108 ready --no-gate "<rule>")
+863:        [ ] verdict VERIFIED (the Verifier: verdict CR-108 VERIFIED|"NOT VERIFIED")
+--
+1543:        [ ] long gate passed (gate CR-108 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-108 ready --no-gate "<rule>")
+--
+2305:    $ chantier handback CR-108 ready https://github.com/acme/demo/pull/43  → exit 2
+2306-      stderr: error: refused: no verdict VERIFIED at c7010635ea827f00194b08664387b8926c0843d8 (the verdict VERIFIED at 1988ba3 does not carry: the rebase changed the patch) (the last verdict there: none)
+2307-- [x] a commit after the verdict, then `ship` and the long gate: `handback ready` is refused, `no verdict VERIFIED` with `does not carry: the rebase changed the patch`
+2308-- [x] chantier wrote nothing outside the planning folder (`git status` shows only .agents/changes/)
+2309-
+
+2283:- [x] after a clean rebase and a `ship`, `handoff` shows the long gate and the verdict boxes `[x]` with `carried from <sha7>`
+2287:- [x] a clean rebase onto a moved main: `handback ready` is accepted with no new gate and no new verdict, the line says `long gate and verdict carried from <sha7> (clean rebase onto main)` and the event has `gate_from` and `verdict_from`
+2296:- [x] a rebase with a resolved conflict: `handback ready` is refused, `no long gate passed` and `no verdict VERIFIED` each with the `does not carry` clause and its reason; the CR is not ready
+2307:- [x] a commit after the verdict, then `ship` and the long gate: `handback ready` is refused, `no verdict VERIFIED` with `does not carry: the rebase changed the patch`

@@ -1,0 +1,7 @@
+﻿cr-folder-lifecycle: OK (138 texts, 142 words)
+cr-lifecycle: OK (176 texts, 262 words)
+cr-lifecycle-simple: OK (55 texts, 126 words)
+how-chantier-works: OK (74 texts, 160 words)
+batch-lifecycle: OK (65 texts, 144 words)
+how-chantier-works-simple-foreman: OK (50 texts, 95 words)
+RESULT: all in step, no old names

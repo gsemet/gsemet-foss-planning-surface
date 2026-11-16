@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The README says what a batch costs, Foreman or direct",
+  "summary": "Specified: a short section in the root README with the two 2026-11-15 eval runs' costs (Foreman on Sonnet vs direct on Opus), what they show and do not, and how to measure one's own with chantier cost; docs only, no open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "73d7a3c44cd54efa8cb749e6d7fb4ef31e01fbdad2f611d957080a66522fcc93",
+    "02-answers.md": "7ebb9f61b4ff42bc06f42f30b6bd91254bc5d33c318d2eb59ce935cb6ed7f217",
+    "03-change-spec.md": "f641f8016aa09880b246a54e5bb6d000f3cf39cbc6bc0ae72cc579ed9c2ee686",
+    "intake/request.md": "a333794dbeb1e1517071c66ad49855717e7eef2553ee7c53e188201dddc39117"
+  },
+  "summarized": "2026-11-15T13:38:37Z"
+}

@@ -1,0 +1,6 @@
+﻿## Investigator
+
+Before the first round, map the code the CR touches and name the smallest change that meets
+the specification. Read only. Output: `investigation.md`: files and entry points, the smallest
+change, risks, the questions only the user can answer.
+

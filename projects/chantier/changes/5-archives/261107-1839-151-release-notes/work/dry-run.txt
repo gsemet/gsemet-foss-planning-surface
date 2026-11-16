@@ -1,0 +1,85 @@
+﻿
+### 1. version 0.8.0, no notes folder: just check
+$ just check
+cd skills/chantier/scripts/cli; uv run --group dev pytest -q 
+   Building chantier @ file:///C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/dry/skills/chantier/scripts/cli
+      Built chantier @ file:///C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/dry/skills/chantier/scripts/cli
+Uninstalled 1 package in 2ms
+Installed 1 package in 7ms
+................................                                         [100%]
+32 passed in 8.51s
+uv run --script scripts/release_notes.py --check
+release-notes: Expected one docs/release-notes/YYYY-MM-DD-v0.8.0/release-notes.md, found 0
+error: recipe `release-notes` failed on line 34 with exit code 1
+exit=1
+
+### 2. sample folder: just check
+$ just check
+cd skills/chantier/scripts/cli; uv run --group dev pytest -q 
+................................                                         [100%]
+32 passed in 8.66s
+uv run --script scripts/release_notes.py --check
+release-notes: docs/release-notes/2026-11-07-v0.8.0/release-notes.md ok
+exit=0
+
+### 3. image in subfolder
+$ uv run --script scripts/release_notes.py --check
+release-notes: Image next to the notes expected, found: sub/shot.png
+exit=1
+
+### 3. image at https URL
+$ uv run --script scripts/release_notes.py --check
+release-notes: Image next to the notes expected, found: https://example.com/shot.png
+exit=1
+
+### 3. missing ## 3/
+$ uv run --script scripts/release_notes.py --check
+release-notes: tweet.md must hold ## 1/, ## 2/ and ## 3/ in order, found ['1/', '2/']
+exit=1
+
+### 3. two Image: lines
+$ uv run --script scripts/release_notes.py --check
+release-notes: tweet.md must hold exactly one Image: line, in post 1
+exit=1
+
+### 3. post 3 without install link
+$ uv run --script scripts/release_notes.py --check
+release-notes: Post 3 of tweet.md must link https://github.com/gsemet/chantier#install
+exit=1
+
+### 3. C:/Users/someone/ in tweet.md
+$ uv run --script scripts/release_notes.py --check
+release-notes: Private data in the release text: tweet.md:5: home path
+exit=1
+
+### 3. email in release-notes.md
+$ uv run --script scripts/release_notes.py --check
+release-notes: Private data in the release text: release-notes.md:5: email
+exit=1
+
+### 3. UUID in release-notes.md
+$ uv run --script scripts/release_notes.py --check
+release-notes: Private data in the release text: release-notes.md:5: uuid
+exit=1
+
+### 4. --prepare v0.8.0
+$ uv run --script scripts/release_notes.py --prepare v0.8.0 --output C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\dry\..\dry-tmp\n.md --assets C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\dry\..\dry-tmp\a
+C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\dry\..\dry-tmp\a\shot.png
+exit=0
+<h1 align="center">chantier 0.8</h1>
+
+<img src="https://github.com/gsemet/chantier/releases/download/v0.8.0/shot.png" width="600">
+
+assets: shot.png
+
+### 5a. --scan, git user name + home path + UUID
+$ uv run --script scripts/release_notes.py --scan docs\release-notes\2026-11-07-v0.8.0\scan-bad.md
+docs\release-notes\2026-11-07-v0.8.0\scan-bad.md:1: git user name
+docs\release-notes\2026-11-07-v0.8.0\scan-bad.md:2: home path
+docs\release-notes\2026-11-07-v0.8.0\scan-bad.md:3: uuid
+exit=1
+
+### 5b. --scan, clean file
+$ uv run --script scripts/release_notes.py --scan docs\release-notes\2026-11-07-v0.8.0\scan-ok.md
+
+exit=0

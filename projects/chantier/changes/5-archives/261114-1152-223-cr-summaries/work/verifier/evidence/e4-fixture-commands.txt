@@ -1,0 +1,15 @@
+﻿summary set .agents/changes/1-inbox/docs-sphinx-rtd (origin github #41; 2 files)
+labels .agents/changes/1-inbox/docs-sphinx-rtd: docs
+summary set .agents/changes/1-inbox/landing-page (origin gitlab #12; 2 files)
+labels .agents/changes/1-inbox/landing-page: docs
+summary set .agents/changes/1-inbox/epoch-required-everywhere (origin jira CHT-118; 2 files)
+labels .agents/changes/1-inbox/epoch-required-everywhere: cli
+summary set .agents/changes/1-inbox/visualization-backend (origin verbal; 1 files)
+labels .agents/changes/1-inbox/visualization-backend: board
+summary set .agents/changes/1-inbox/planning-server (origin verbal; 1 files)
+labels .agents/changes/1-inbox/planning-server: board
+summary set .agents/changes/1-inbox/audit-force-upstream-exemption (origin verbal; 1 files)
+--- lint
+2 gap(s) in 6 CRs
+.agents/changes/1-inbox/audit-force-upstream-exemption: summary late (02-answers.md new) → read them, then summary set .agents/changes/1-inbox/audit-force-upstream-exemption --summary "<…>" or --unchanged
+.agents/changes/1-inbox/visualization-backend: summary late (02-answers.md new) → read them, then summary set .agents/changes/1-inbox/visualization-backend --summary "<…>" or --unchanged

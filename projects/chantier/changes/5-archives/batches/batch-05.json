@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "batch": "batch-05",
+  "number": 5,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-111",
+      "title": "A batch is numbered, single and a stack by default",
+      "result": "merged",
+      "archive": "5-archives/261106-0812-111-batch-folder",
+      "pr": "https://github.com/gsemet/chantier/pull/48",
+      "rounds": 3,
+      "cost_usd": 5.5333,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-112",
+      "title": "A CR declares what it depends on; a slot is a running Driver",
+      "result": "merged",
+      "archive": "5-archives/261106-0837-112-slots-and-dependencies",
+      "pr": "https://github.com/gsemet/chantier/pull/49",
+      "rounds": 2,
+      "cost_usd": 3.6469,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-113",
+      "title": "The Chief of Staff's session is priced, and each report splits the cost",
+      "result": "merged",
+      "archive": "5-archives/261106-0902-113-chief-of-staff-cost",
+      "pr": "https://github.com/gsemet/chantier/pull/50",
+      "rounds": 3,
+      "cost_usd": 2.4478,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-114",
+      "title": "The Chief of Staff's reports always have the same shape",
+      "result": "merged",
+      "archive": "5-archives/261106-0929-114-report-format",
+      "pr": "https://github.com/gsemet/chantier/pull/51",
+      "rounds": 2,
+      "cost_usd": 2.1312,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-05.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": "05-batch-folder",
+    "first_step": "2026-11-06T06:36:47Z",
+    "last_merge": "2026-11-06T09:29:00Z",
+    "retros": []
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "batch": "batch-16",
+  "number": 16,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-214",
+      "title": "Change Specification: forge permissions checked at the start",
+      "result": "merged",
+      "archive": "5-archives/261113-1431-214-forge-permissions-at-start",
+      "pr": "https://github.com/gsemet/chantier/pull/159",
+      "rounds": 1,
+      "cost_usd": 2.8849,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-215",
+      "title": "Change Specification: work on a stack after it is ready",
+      "result": "merged",
+      "archive": "5-archives/261113-1726-215-stack-after-ready",
+      "pr": "https://github.com/gsemet/chantier/pull/161",
+      "rounds": 1,
+      "cost_usd": 5.0504,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-216",
+      "title": "Change Specification: a Driver stays a Driver",
+      "result": "merged",
+      "archive": "5-archives/261113-1557-216-driver-stays-a-driver",
+      "pr": "https://github.com/gsemet/chantier/pull/163",
+      "rounds": 2,
+      "cost_usd": 4.0615,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-217",
+      "title": "Change Specification: an ended or refused agent is restarted once, from the recorded state",
+      "result": "merged",
+      "archive": "5-archives/261113-1431-217-agent-restart-once",
+      "pr": "https://github.com/gsemet/chantier/pull/158",
+      "rounds": 2,
+      "cost_usd": 1.435,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-218",
+      "title": "Change Specification: PR body says the gaps, keeps role names in place, and a board pane change shows a real screenshot",
+      "result": "merged",
+      "archive": "5-archives/261113-1441-218-pr-body-and-evidence",
+      "pr": "https://github.com/gsemet/chantier/pull/160",
+      "rounds": 2,
+      "cost_usd": 2.1736,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-219",
+      "title": "Change Specification: the long gates queue first-come, and a refusal names what is live",
+      "result": "merged",
+      "archive": "5-archives/261113-1557-219-gate-queue-limit",
+      "pr": "https://github.com/gsemet/chantier/pull/162",
+      "rounds": 1,
+      "cost_usd": 1.5621,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-220",
+      "title": "Change Specification: ticket-summary-on-source",
+      "result": "merged",
+      "archive": "5-archives/261113-1646-220-ticket-summary-on-source",
+      "pr": "https://github.com/gsemet/chantier/pull/164",
+      "rounds": 2,
+      "cost_usd": 3.043,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-16.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": null,
+    "first_step": "2026-11-13T13:18:32Z",
+    "last_merge": "2026-11-13T17:26:00Z",
+    "retros": [
+      "5-archives/261113-1726-215-stack-after-ready/retro.md"
+    ]
+  }
+}

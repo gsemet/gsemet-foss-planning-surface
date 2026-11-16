@@ -1,0 +1,5 @@
+﻿home img[src=x]: 0 script in body: 1 elements with onerror attr: 0 b elements with text 'bold': 0 literal markup in text: False
+kanban img[src=x]: 0 script in body: 1 elements with onerror attr: 0 b elements with text 'bold': 0 literal markup in text: True
+batch img[src=x]: 0 script in body: 1 elements with onerror attr: 0 b elements with text 'bold': 0 literal markup in text: True
+costs img[src=x]: 0 script in body: 1 elements with onerror attr: 0 b elements with text 'bold': 0 literal markup in text: True
+p=* v=kanban -> http://127.0.0.1:8811/?p=chantier&v=kanban | h1: Kanban

@@ -1,0 +1,221 @@
+# probe on C:\Users\gaeta\Projets\chantier.worktrees\batch-07-CR-136
+
+## slots, working, waits:, question:, ready, merged
+### queued, slot free, no waits (expect white)  [CR-102 status=queued]
+- batch STATUS.json : ⚪ queued   first char U+26AA  severity=yellow
+- batch STATUS.md has it : True   line: | [101](101-case-0/03-change-spec.md) | Case 0 | [⚪ queued](101-case-0/STATUS.md) | `chantier/batch-01/cr-101-case-0` | - | - |
+- index STATUS.json : ['⚪ queued']
+- own STATUS.json   : ⚪ queued   own STATUS.md has it : True
+- Now : Waiting for a free slot.
+- Next: A Driver starts it.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+### working (expect yellow)  [CR-101 status=working]
+- batch STATUS.json : 🟡 working Round 1/3   first char U+1F7E1  severity=yellow
+- batch STATUS.md has it : True   line: | [101](101-case-0/03-change-spec.md) | Case 0 | [🟡 working Round 1/3](101-case-0/STATUS.md) | `chantier/batch-01/cr-101-case-0` | - | - |
+- index STATUS.json : ['🟡 working Round 1/3']
+- own STATUS.json   : 🟡 working Round 1/3   own STATUS.md has it : True
+- Now : A coder and its reviews are working.
+- Next: The long gate, then the ship.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+### queued, 1 of 2 slots held (expect white)  [CR-102 status=queued]
+- batch STATUS.json : ⚪ queued   first char U+26AA  severity=yellow
+- batch STATUS.md has it : True   line: | [102](102-case-1/03-change-spec.md) | Case 1 | [⚪ queued](102-case-1/STATUS.md) | `chantier/batch-01/cr-102-case-1` | - | - |
+- index STATUS.json : ['⚪ queued']
+- own STATUS.json   : ⚪ queued   own STATUS.md has it : True
+- Now : Waiting for a free slot.
+- Next: A Driver starts it.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+- `take CR-102` (slots held by a working CR plus an open QA order) -> exit 2: error: no free slot for CR-102: 2 of 2 held (CR-101 working, O-1 qa)
+### queued, working CR + open QA order hold both slots (expect orange)  [CR-102 status=queued]
+- batch STATUS.json : 🟠 queued   first char U+1F7E0  severity=yellow
+- batch STATUS.md has it : True   line: | [102](102-case-1/03-change-spec.md) | Case 1 | [🟠 queued](102-case-1/STATUS.md) | `chantier/batch-01/cr-102-case-1` | - | - |
+- index STATUS.json : ['🟠 queued']
+- own STATUS.json   : 🟠 queued   own STATUS.md has it : True
+- Now : Waiting for a free slot.
+- Next: A Driver starts it.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+### queued after `order done` (expect white)  [CR-102 status=queued]
+- batch STATUS.json : ⚪ queued   first char U+26AA  severity=yellow
+- batch STATUS.md has it : True   line: | [102](102-case-1/03-change-spec.md) | Case 1 | [⚪ queued](102-case-1/STATUS.md) | `chantier/batch-01/cr-102-case-1` | - | - |
+- index STATUS.json : ['⚪ queued']
+- own STATUS.json   : ⚪ queued   own STATUS.md has it : True
+- Now : Waiting for a free slot.
+- Next: A Driver starts it.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+### blocked waits: (expect orange)  [CR-101 status=blocked]
+- batch STATUS.json : 🟠 blocked Waits 1/3   first char U+1F7E0  severity=red
+- batch STATUS.md has it : True   line: | [101](101-case-0/03-change-spec.md) | Case 0 | [🟠 blocked Waits 1/3](101-case-0/STATUS.md) | `chantier/batch-01/cr-101-case-0` | - | - |
+- index STATUS.json : ['🟠 blocked Waits 1/3']
+- own STATUS.json   : 🟠 blocked Waits 1/3   own STATUS.md has it : True
+- Now : waits: the stack driver
+- Next: Waits for the stack driver; the Foreman takes it back when that lands.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+### blocked question: (expect red)  [CR-101 status=blocked]
+- batch STATUS.json : 🔴 blocked Question 1/3   first char U+1F534  severity=red
+- batch STATUS.md has it : True   line: | [101](101-case-0/03-change-spec.md) | Case 0 | [🔴 blocked Question 1/3](101-case-0/STATUS.md) | `chantier/batch-01/cr-101-case-0` | - | - |
+- index STATUS.json : ['🔴 blocked Question 1/3']
+- own STATUS.json   : 🔴 blocked Question 1/3   own STATUS.md has it : True
+- Now : question: which one?
+- Next: The user's answer, through the Chief of Staff.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+### ready (expect blue)  [CR-101 status=ready]
+- batch STATUS.json : 🔵 ready Notify 1/3   first char U+1F535  severity=green
+- batch STATUS.md has it : True   line: | [101](101-case-0/03-change-spec.md) | Case 0 | [🔵 ready Notify 1/3](101-case-0/STATUS.md) | `chantier/batch-01/cr-101-case-0` | [PR](https://github.com/acme/demo/pull/40) | - |
+- index STATUS.json : ['🔵 ready Notify 1/3']
+- own STATUS.json   : 🔵 ready Notify 1/3   own STATUS.md has it : True
+- Now : Ready: https://github.com/acme/demo/pull/40 waits for the user's merge.
+- Next: The merge, then the archive.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+### merged (expect check mark)  [CR-101 status=merged]
+- batch STATUS.json : ✅ merged   first char U+2705  severity=green
+- batch STATUS.md has it : True   line: | [101](../../4-archives/261106-2145-101-case-0/03-change-spec.md) | Case 0 | [✅ merged](../../4-archives/261106-2145-101-case-0/STATUS.md) | `chantier/batch-01/cr-101-case-0` | [PR](https://github.com/acme/demo/pull/40) | - |
+- index STATUS.json : (not listed: ended)
+- own STATUS.json   : ✅ merged   own STATUS.md has it : True
+- Now : Merged: https://github.com/acme/demo/pull/40.
+- Next: Nothing.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+
+## slots full by a working CR
+- `take CR-103` (slots 1, held by a working CR) -> exit 2: error: no free slot for CR-103: 1 of 1 held (CR-102 working)
+### queued, slots full (expect orange)  [CR-103 status=queued]
+- batch STATUS.json : 🟠 queued   first char U+1F7E0  severity=yellow
+- batch STATUS.md has it : True   line: | [103](103-case-1/03-change-spec.md) | Case 1 | [🟠 queued](103-case-1/STATUS.md) | `chantier/batch-02/cr-103-case-1` | - | - |
+- index STATUS.json : ['🟠 queued']
+- own STATUS.json   : 🟠 queued   own STATUS.md has it : True
+- Now : Waiting for a free slot.
+- Next: A Driver starts it.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+
+## waits and dropped
+- `take CR-103` (waits for a CR) -> exit 2: error: CR-103 waits for CR-102 queued: it starts once each is ready or merged
+### queued with waits (expect orange)  [CR-103 status=queued]
+- batch STATUS.json : 🟠 queued, waits for CR-102 queued   first char U+1F7E0  severity=yellow
+- batch STATUS.md has it : True   line: | [103](103-case-1/03-change-spec.md) | Case 1 | [🟠 queued, waits for CR-102 queued](103-case-1/STATUS.md) | `chantier/batch-03/cr-103-case-1` | - | - |
+- index STATUS.json : ['🟠 queued, waits for CR-102 queued']
+- own STATUS.json   : 🟠 queued, waits for CR-102 queued   own STATUS.md has it : True
+- Now : Waits for CR-102 queued.
+- Next: A Driver starts it.
+- waits: ['CR-102 queued']
+- ONE STRING EVERYWHERE : True
+
+### queued, free slot, no waits (expect white)  [CR-102 status=queued]
+- batch STATUS.json : ⚪ queued   first char U+26AA  severity=yellow
+- batch STATUS.md has it : True   line: | [102](102-case-0/03-change-spec.md) | Case 0 | [⚪ queued](102-case-0/STATUS.md) | `chantier/batch-03/cr-102-case-0` | - | - |
+- index STATUS.json : ['⚪ queued']
+- own STATUS.json   : ⚪ queued   own STATUS.md has it : True
+- Now : Waiting for a free slot.
+- Next: A Driver starts it.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+### dropped (expect white)  [CR-104 status=cancelled]
+- batch STATUS.json : ⚪ dropped   first char U+26AA  severity=grey
+- batch STATUS.md has it : True   line: | [104](../../5-trash/261106-2145-104-case-2/03-change-spec.md) | Case 2 | [⚪ dropped](../../5-trash/261106-2145-104-case-2/STATUS.md) | `chantier/batch-03/cr-104-case-2` | - | - |
+- index STATUS.json : (not listed: ended)
+- own STATUS.json   : ⚪ dropped   own STATUS.md has it : True
+- Now : Dropped on the user's word.
+- Next: Nothing.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+
+## spent budget
+### queued, budget not set (expect white)  [CR-106 status=queued]
+- batch STATUS.json : ⚪ queued   first char U+26AA  severity=yellow
+- batch STATUS.md has it : True   line: | [105](105-case-0/03-change-spec.md) | Case 0 | [⚪ queued](105-case-0/STATUS.md) | `chantier/batch-04/cr-105-case-0` | - | - |
+- index STATUS.json : ['⚪ queued']
+- own STATUS.json   : ⚪ queued   own STATUS.md has it : True
+- Now : Waiting for a free slot.
+- Next: A Driver starts it.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+- `take CR-106` (spent budget) -> exit 5: error: budget spent: $2.00 of $1.0; only the user raises it (`order budget`)
+### queued on a spent budget (expect orange; Now says the budget)  [CR-106 status=queued]
+- batch STATUS.json : 🟠 queued   first char U+1F7E0  severity=yellow
+- batch STATUS.md has it : True   line: | [105](105-case-0/03-change-spec.md) | Case 0 | [🟠 queued](105-case-0/STATUS.md) | `chantier/batch-04/cr-105-case-0` | - | - |
+- index STATUS.json : ['🟠 queued']
+- own STATUS.json   : 🟠 queued   own STATUS.md has it : True
+- Now : Waiting for the budget.
+- Next: A Driver starts it.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+### budget raised (expect white)  [CR-106 status=queued]
+- batch STATUS.json : ⚪ queued   first char U+26AA  severity=yellow
+- batch STATUS.md has it : True   line: | [105](105-case-0/03-change-spec.md) | Case 0 | [⚪ queued](105-case-0/STATUS.md) | `chantier/batch-04/cr-105-case-0` | - | - |
+- index STATUS.json : ['⚪ queued']
+- own STATUS.json   : ⚪ queued   own STATUS.md has it : True
+- Now : Waiting for a free slot.
+- Next: A Driver starts it.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+
+## release behind other CRs
+- `take CR-106` (release behind other CRs) -> exit 2: error: CR-106 waits for CR-105 queued: it starts once each is merged or cancelled
+### queued release behind other CRs (expect orange)  [CR-106 status=queued]
+- batch STATUS.json : 🟠 queued, waits for CR-105 queued   first char U+1F7E0  severity=yellow
+- batch STATUS.md has it : True   line: | [106](106-release-v9-9-0/03-change-spec.md) | Release v9.9.0 | [🟠 queued, waits for CR-105 queued](106-release-v9-9-0/STATUS.md) | `chantier/batch-05/cr-106-release-v9-9-0` | - | - |
+- index STATUS.json : ['🟠 queued, waits for CR-105 queued']
+- own STATUS.json   : 🟠 queued, waits for CR-105 queued   own STATUS.md has it : True
+- Now : Waits for CR-105 queued.
+- Next: A Driver starts it.
+- waits: ['CR-105 queued']
+- ONE STRING EVERYWHERE : True
+
+- `take CR-106` (release waits for the user's word) -> exit 2: error: CR-106 needs the user's confirmation (`order confirm`): the Chief of Staff grills the version with the user once the others have ended, then gives it
+### queued release waiting for the confirmation (expect orange)  [CR-106 status=queued]
+- batch STATUS.json : 🟠 queued, waits for the user's confirmation (`order confirm`)   first char U+1F7E0  severity=yellow
+- batch STATUS.md has it : True   line: | [106](106-release-v9-9-0/03-change-spec.md) | Release v9.9.0 | [🟠 queued, waits for the user's confirmation (`order confirm`)](106-release-v9-9-0/STATUS.md) | `chantier/batch-05/cr-106-release-v9-9-0` | - | - |
+- index STATUS.json : ["🟠 queued, waits for the user's confirmation (`order confirm`)"]
+- own STATUS.json   : 🟠 queued, waits for the user's confirmation (`order confirm`)   own STATUS.md has it : True
+- Now : Waits for the user's confirmation (`order confirm`).
+- Next: A Driver starts it.
+- waits: ["the user's confirmation (`order confirm`)"]
+- ONE STRING EVERYWHERE : True
+
+
+## release with a pending fix
+- `take CR-107` (queued release with a pending fix) -> exit 2: error: CR-107 waits for CR-108, CR-109: a fix of the release must be merged or cancelled first
+### queued release with a pending fix (expect orange)  [CR-107 status=queued]
+- batch STATUS.json : 🟠 queued, waits for CR-108 queued, CR-109 queued   first char U+1F7E0  severity=yellow
+- batch STATUS.md has it : True   line: | [107](107-release-v8-8-0/03-change-spec.md) | Release v8.8.0 | [🟠 queued, waits for CR-108 queued, CR-109 queued](107-release-v8-8-0/STATUS.md) | `chantier/batch-06/cr-107-release-v8-8-0` | - | - |
+- index STATUS.json : ['🟠 queued, waits for CR-108 queued, CR-109 queued']
+- own STATUS.json   : 🟠 queued, waits for CR-108 queued, CR-109 queued   own STATUS.md has it : True
+- Now : Waits for CR-108 queued, CR-109 queued.
+- Next: A Driver starts it.
+- waits: ['CR-108 queued', 'CR-109 queued']
+- ONE STRING EVERYWHERE : True
+
+### fixes ended (expect white)  [CR-107 status=queued]
+- batch STATUS.json : ⚪ queued   first char U+26AA  severity=yellow
+- batch STATUS.md has it : True   line: | [107](107-release-v8-8-0/03-change-spec.md) | Release v8.8.0 | [⚪ queued](107-release-v8-8-0/STATUS.md) | `chantier/batch-06/cr-107-release-v8-8-0` | - | - |
+- index STATUS.json : ['⚪ queued']
+- own STATUS.json   : ⚪ queued   own STATUS.md has it : True
+- Now : Waiting for a free slot.
+- Next: A Driver starts it.
+- waits: []
+- ONE STRING EVERYWHERE : True
+
+

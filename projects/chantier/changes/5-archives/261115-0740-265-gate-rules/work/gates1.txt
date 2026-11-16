@@ -1,0 +1,22 @@
+﻿uv : Using CPython 3.15.2
+Au caractère Ligne:1 : 364
++ ... -18-CR-265; uv run --locked python scenario/run_scenario.py --unit ga ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Using CPython 3.15.2:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Creating virtual environment at: .venv
+   Building chantier @ file:///C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-265
+      Built chantier @ file:///C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-265
+Installed 20 packages in 190ms
+over budget  gates (github): 78/78 checks, 421.4 s
+
+| unit | forge | checks | commands | seconds | budget | status |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| gates | github | 78/78 | 462 | 421.4 | 330 | over budget |
+
+wall time: 421.4 s
+sum of the units' seconds: 421.4 s
+WARN gates (github) over its budget: 421.4 s > 330 s
+transcript C:\Users\gaeta\Projets\chantier.worktrees\batch-18-CR-265\scenario\results\scenario-20261115-020308-28152.md
+unit files C:\Users\gaeta\Projets\chantier.worktrees\batch-18-CR-265\scenario\results\20261115-020308-28152

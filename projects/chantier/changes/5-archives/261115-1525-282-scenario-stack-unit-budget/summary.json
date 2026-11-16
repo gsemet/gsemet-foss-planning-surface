@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The scenario's stack unit fits its budget",
+  "summary": "Specified: re-measure the stack unit, then trim or move its checks or set its budget from fresh --jobs 4 times plus 25 percent, and refresh the README's measured table; no new unit.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "6254d096ecdac3fcb4c03ef2422ab6619d51ff6149c7011e886961fa7bf73ddb",
+    "02-answers.md": "408ab31fde322d49b7837d3b660db8a9269d4c36cd1ecc824fc5b939dac02d71",
+    "03-change-spec.md": "8a7206ff480f834c0763c9b9de6bdf5ac6f6ed34a8c9d745f8801c234d5775d7",
+    "intake/request.md": "46ae19428338a21805e9030e776e69c0afa3a792a494aecbe3620226ebfc619b"
+  },
+  "summarized": "2026-11-15T13:38:48Z"
+}

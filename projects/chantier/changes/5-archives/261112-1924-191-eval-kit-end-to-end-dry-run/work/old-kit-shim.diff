@@ -1,0 +1,39 @@
+diff --git a/evals/kit/audit.py b/evals/kit/audit.py
+index eb4b6b3..8bd2292 100644
+--- a/evals/kit/audit.py
++++ b/evals/kit/audit.py
+@@ -588,6 +588,8 @@ def release_checks(data: dict, events: list[dict], remote: str, calls: list[dict
+ 
+ def run_cmd(cmd: list[str], cwd: Path | None = None, timeout: int = 90) -> tuple[bool, str]:
+     """A read-only command: whether it worked, and its stdout (else the last line of its text)."""
++    import shutil  # plumbing shim: resolve the program on the PATH (the fake `gh.cmd`)
++    cmd = [shutil.which(cmd[0]) or cmd[0], *cmd[1:]]
+     try:
+         p = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, encoding="utf-8",
+                            errors="replace", timeout=timeout)
+diff --git a/evals/kit/sandbox.py b/evals/kit/sandbox.py
+index da0e604..75b47e7 100644
+--- a/evals/kit/sandbox.py
++++ b/evals/kit/sandbox.py
+@@ -69,6 +69,12 @@ def remote_env() -> dict:
+     return env
+ 
+ 
++def resolve(cmd):
++    """Plumbing shim: find the program through the PATH (a `gh.cmd` fake on Windows)."""
++    found = shutil.which(cmd[0])
++    return [found, *cmd[1:]] if found else list(cmd)
++
++
+ def run(cmd, cwd=None, data=None, env=None, code=EXTERNAL):
+     """Run a command; on failure raise Stop with the tool's own error text."""
+     try:
+@@ -201,7 +207,7 @@ def gh(*args, code=EXTERNAL) -> str:
+ 
+ def check_preconditions() -> None:
+     try:
+-        done = subprocess.run(["gh", "auth", "status"], capture_output=True)
++        done = subprocess.run(resolve(["gh", "auth", "status"]), capture_output=True)
+     except FileNotFoundError:
+         raise Stop(PRECONDITION, "`gh` is not installed or not on the PATH") from None
+     shown = (done.stdout + done.stderr).decode("utf-8", "replace")  # gh prints on either stream

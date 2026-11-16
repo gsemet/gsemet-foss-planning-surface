@@ -1,0 +1,1 @@
+real-direct run 1 retro (2026-11-12, PR 137): plain `status` (and the board) showed a stale spend, $0.57, long after `cost` said $9.57, until `status --refresh`. Fix: `status` and STATUS.json say how old the spend figure is.

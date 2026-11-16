@@ -1,0 +1,8 @@
+﻿batch-09: $39.003 over 1129 model calls
+Chief of Staff (steering): $18.127 (319 calls)
+Driver chantier:cr-driver: $6.069 (213 calls)
+Worker chantier:coder: $9.716 (385 calls)
+Worker chantier:inspector: $2.169 (83 calls)
+Worker chantier:verifier: $2.001 (103 calls)
+Worker chantier:investigator: $0.921 (26 calls)
+Chief of Staff: $8.55 since the batch opened, $167.88 the whole session, context 197,586 tokens

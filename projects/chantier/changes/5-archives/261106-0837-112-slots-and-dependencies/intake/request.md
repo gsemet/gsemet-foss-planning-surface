@@ -1,0 +1,1 @@
+Redesign the slots and the dependencies between CRs. A small CR, to go on top of the running work and of batch-folder.

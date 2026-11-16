@@ -1,0 +1,57 @@
+﻿== merge_refusal
+MERGED                 -> 'PR #3 is merged, not open'
+CLOSED                 -> 'PR #3 is closed, not open'
+no prefix              -> "PR #3's title does not start with the run's prefix [eval 9 2026-11-14 full]"
+failed check           -> "PR #3's checks are not all green at its head 1234567: gate=FAILURE"
+pending check          -> "PR #3's checks are not all green at its head 1234567: gate=PENDING"
+no check               -> 'PR #3 has no check at its head 1234567'
+open+prefixed+green    -> None
+checks_green: skipped/neutral -> False False ; all success -> True
+
+== cmd_merge end to end, sandbox.gh replaced by a recorder
+MERGED                 exit 2; pr merge calls: []
+CLOSED                 exit 2; pr merge calls: []
+no prefix              exit 2; pr merge calls: []
+failed check           exit 2; pr merge calls: []
+pending check          exit 2; pr merge calls: []
+no check               exit 2; pr merge calls: []
+merged PR #3 at 1234567 into main by rebase
+open+prefixed+green    exit 0; pr merge calls: [('pr', 'merge', '3', '--repo', 'gsemet/chantier-eval-sandbox', '--rebase', '--match-head-commit', '1234567890abcdef1234567890abcdef12345678')]
+
+== command line (no gh reached)
+merge abc -> exit 1; stderr: ["sandbox.py: merge takes a PR number or the sandbox's PR link, not 'abc'"]
+merge https://github.com/other/repo/pull/3 -> exit 2; stderr: ['sandbox.py: merge works on gsemet/chantier-eval-sandbox only: https://github.com/other/repo/pull/3']
+merge 3 --workspace C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\cd5055f5-2871-4472-99b6-23742d3a5770\scratchpad\a3\norecord -> exit 2; stderr: ['sandbox.py: not a sandbox workspace: no norecord.run.json next to norecord']
+merge 3 --workspace C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\cd5055f5-2871-4472-99b6-23742d3a5770\scratchpad\a3\bad -> exit 2; stderr: ['sandbox.py: not a sandbox workspace: no bad.run.json next to bad']
+merge 3 --workspace C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\cd5055f5-2871-4472-99b6-23742d3a5770\scratchpad\a3\other -> exit 2; stderr: ['sandbox.py: the run record names x/y, not gsemet/chantier-eval-sandbox']
+
+== merge_command / allow_rules
+merge_command: uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge
+
+full (host claude):
+   Bash(uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge *)
+   PowerShell(uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge *)
+   Bash(git push origin v0.2.0)
+   PowerShell(git push origin v0.2.0)
+   Bash(git -C * push origin v0.2.0)
+   PowerShell(git -C * push origin v0.2.0)
+   Bash(gh release create v0.2.0 *)
+   PowerShell(gh release create v0.2.0 *)
+   Bash(git push origin v0.3.0)
+   PowerShell(git push origin v0.3.0)
+   Bash(git -C * push origin v0.3.0)
+   PowerShell(git -C * push origin v0.3.0)
+   Bash(gh release create v0.3.0 *)
+   PowerShell(gh release create v0.3.0 *)
+
+real-foreman (host claude):
+   Bash(uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge *)
+   PowerShell(uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge *)
+
+real-direct (host claude):
+   Bash(uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge *)
+   PowerShell(uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge *)
+
+copilot (host copilot):
+   Bash(uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge *)
+   PowerShell(uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge *)

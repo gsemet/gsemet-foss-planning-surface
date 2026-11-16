@@ -1,0 +1,6 @@
+# Answers
+
+1. **Where and how it runs** (2026-11-14). The user: "fais tous ces nouveaux P1 et P2 à la fin du stack en cours". Asked how, the user chose to grill and specify each one first (over running it as automatable from its request alone), then add it at the end of batch-17's stack, one native stack at the end, the budget raised to $210.
+2. **Default** (2026-11-14). Off; the project turns it on with a `chantier.yaml` key; without it the Driver keeps today's order, the gate then the push (chosen over on by default).
+3. **chantier's own repository** (2026-11-14). Yes: turn it on, and add mypy `--platform linux` and `--platform darwin` to `just check`, as a separate project item filed once this CR lands.4. **Grilled enough** (2026-11-14). The user, after the full restatement (the key off by default, the early draft push, a red CI stopping the gate, the systems only CI covers in Known gaps, the Driver's rules rewritten for this mode, chantier's own repository as a separate project item): yes, to the specification.
+5. **The spec's open questions** (2026-11-14). The user accepted every default: the key `ci: beside_gate: true`; only a red CI that is the CR's own stops the gate; the Known gaps line only with the key on; `ship` unchanged; the CR Driver alone follows the new order.

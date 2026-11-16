@@ -1,0 +1,234 @@
+{
+ "en": {
+  "body_top": "M\nmobile-app\nno batch · 3 intake\nViews\nHome\nTriage\n7\nKanban\n7\nBatch\nCosts\nAutosync stopped\nmanual commits\nData: 0 s ago\nEnglish\nKanban\n3 intake\n3 in grill\nno batch\n+ New\nLabels\nbug\ndesign\nlinks\nlogin\noffline\npush\nsearch\n7 items · 4 merged\nIntake\n3\n+ New: a new idea\n1-inbox: filed, not triaged yet\nInbox\nbiometric-login\nSign in with a fingerprint or a face\nlogin\nCustomers ask to skip the password on",
+  "cols": [
+   [
+    "col-intake",
+    "Intake",
+    "3",
+    3,
+    ""
+   ],
+   [
+    "col-grill",
+    "Grill",
+    "3",
+    3,
+    ""
+   ],
+   [
+    "col-ready",
+    "3-ready",
+    "1",
+    1,
+    ""
+   ],
+   [
+    "col-progress",
+    "In progress",
+    "0",
+    0,
+    "empty"
+   ],
+   [
+    "col-handed",
+    "Handed back",
+    "0",
+    0,
+    "empty"
+   ]
+  ],
+  "count_line": "7 items · 4 merged",
+  "pf_present": [],
+  "card_titles": [
+   "Sign in with a fingerprint or a face",
+   "The cart works offline",
+   "Push notifications for order updates",
+   "Crash on launch on Android 9",
+   "Open product links in the app",
+   "Refresh the app icon",
+   "Scan a barcode to find a product"
+  ],
+  "pri_tags_before": [
+   "Inbox",
+   "P1",
+   "P2",
+   "P3",
+   "3-ready"
+  ],
+  "cols_p3p4_off": [
+   [
+    "col-intake",
+    "Intake",
+    "3",
+    3,
+    ""
+   ],
+   [
+    "col-grill",
+    "Grill",
+    "3",
+    3,
+    ""
+   ],
+   [
+    "col-ready",
+    "3-ready",
+    "1",
+    1,
+    ""
+   ],
+   [
+    "col-progress",
+    "In progress",
+    "0",
+    0,
+    "empty"
+   ],
+   [
+    "col-handed",
+    "Handed back",
+    "0",
+    0,
+    "empty"
+   ]
+  ],
+  "body_top_after_toggle": "M\nmobile-app\nno batch · 3 intake\nViews\nHome\nTriage\n7\nKanban\n7\nBatch\nCosts\nAutosync stopped\nmanual commits\nData: 0 s ago\nEnglish\nKanban\n3 intake\n3 in grill\nno batch\n+ New\nLabels\nbug\ndesign\nlinks\nlogin\noffline\npush\nsearch\n7 items · 4 merged\nIntake\n3\n+ New: a new idea\n1-inbox: filed, not triaged yet\nInbox\nbiometric-login\nSign in with a fingerprint or a face\nlogin\nCustomers ask to skip the password on",
+  "pri_tags_after": [
+   "Inbox",
+   "P1",
+   "P2",
+   "P3",
+   "3-ready"
+  ],
+  "triage_card_html": "<div class=\"pi raw\" draggable=\"true\" tabindex=\"0\" role=\"group\" aria-label=\"biometric-login, Sign in with a fingerprint or a face\" aria-busy=\"false\" data-slug=\"biometric-login\" data-key=\"pi-biometric-login\" title=\"Raw: not grilled yet\"><div class=\"row\"><span class=\"gs raw\" aria-hidden=\"true\"></span><span class=\"sl\">biometric-login</span><span class=\"tag badge origin\" title=\"Where the request came from\">#17</span></div><div class=\"pt\">Sign in with a fingerprint or a face</div><div class=\"labs\"><span class=\"lab\" data-vars=\"{&quot;--lc&quot;:&quot;var(--label-3)&quot;}\" style=\"--lc: var(--label-3);\">login</span></div><div class=\"pm\"><span>raw</span><span><svg class=\"svgi\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z\"></path><path d=\"M14 3v5h5\"></path></svg> 2 files</span><button type=\"button\" class=\"open\" data-open=\"i:biometric-lo",
+  "triage_card_classes": "pi raw",
+  "hover_transform": "matrix(0.999945, -0.0104718, 0.0104718, 0.999945, 0, 0)",
+  "hover_shadow": "rgba(30, 30, 50, 0.12) 0px 6px 16px 0px",
+  "sel_count": 1,
+  "sel_style": {
+   "outline": "solid 2px rgb(59, 111, 224)",
+   "shadow": "rgba(0, 0, 0, 0.06) 0px 1px 1px 0px, rgba(30, 30, 50, 0.07) 0px 3px 8px 0px",
+   "hasChk": false
+  },
+  "costs_text": "M\nmobile-app\nno batch · 3 intake\nViews\nHome\nTriage\n7\nKanban\n7\nBatch\nCosts\nAutosync stopped\nmanual commits\nData: 0 s ago\nEnglish\nCosts\n3 intake\n3 in grill\nno batch\n+ New\nNo batch running.",
+  "hist_rows": [],
+  "home_text": "M\nmobile-app\nno batch · 3 intake\nViews\nHome\nTriage\n7\nKanban\n7\nBatch\nCosts\nAutosync stopped\nmanual commits\nData: 0 s ago\nEnglish\nHome\n3 intake\n3 in grill\nno batch\n+ New\nTo review\n0\n0 handed back, none ready to merge\nWaiting for you\n0\n0 blocked, 0 questions\nNext batch\n1\nin preparation (3-ready)\nWritten by the board\n0\nnothing since your last ‘rescan’\nBatch\nThe next batch opens on your go.\nOpen PRs\n0\nnone\nRecent activity\nnone\nPipeline\nsort →\nInbox\n3\nP1\n1\nP2\n1\nP3\n1\nP4\n0\n3-ready\n1\nspecified\nin grill\nraw\nautomatable\nLast merged\n4 in total\nCR-34\nChange Specification: Buttons have accessible labels\n06-12\nCR-33\nChange Specification: Start the app in under two seconds\n06-12\nCR-32\nChange Specification: Dark mode follows the system setting\n06-04\nCR-31\nChange Specification: A two-column layout on tablets\n06-04"
+ },
+ "fr": {
+  "body_top": "M\nmobile-app\npas de batch · 3 intake\nVues\nHome\nTriage\n7\nKanban\n7\nBatch\nCoûts\nAutosync arrêté\ncommits manuels\nDonnées : il y a 0 s\nFrançais\nKanban\n3 intake\n3 au grill\npas de batch\n+ Nouveau\nLabels\nbug\ndesign\nlinks\nlogin\noffline\npush\nsearch\n7 items · 4 mergés\nIntake\n3\n+ New: a new idea\n1-inbox : déposé, pas encore trié\nInbox\nbiometric-login\nSign in with a fingerprint or a face\nlogin\nCustomers ask to",
+  "cols": [
+   [
+    "col-intake",
+    "Intake",
+    "3",
+    3,
+    ""
+   ],
+   [
+    "col-grill",
+    "Grill",
+    "3",
+    3,
+    ""
+   ],
+   [
+    "col-ready",
+    "3-ready",
+    "1",
+    1,
+    ""
+   ],
+   [
+    "col-progress",
+    "In progress",
+    "0",
+    0,
+    "vide"
+   ],
+   [
+    "col-handed",
+    "Rendus",
+    "0",
+    0,
+    "vide"
+   ]
+  ],
+  "count_line": "7 items · 4 mergés",
+  "pf_present": [],
+  "card_titles": [
+   "Sign in with a fingerprint or a face",
+   "The cart works offline",
+   "Push notifications for order updates",
+   "Crash on launch on Android 9",
+   "Open product links in the app",
+   "Refresh the app icon",
+   "Scan a barcode to find a product"
+  ],
+  "pri_tags_before": [
+   "Inbox",
+   "P1",
+   "P2",
+   "P3",
+   "3-ready"
+  ],
+  "cols_p3p4_off": [
+   [
+    "col-intake",
+    "Intake",
+    "3",
+    3,
+    ""
+   ],
+   [
+    "col-grill",
+    "Grill",
+    "3",
+    3,
+    ""
+   ],
+   [
+    "col-ready",
+    "3-ready",
+    "1",
+    1,
+    ""
+   ],
+   [
+    "col-progress",
+    "In progress",
+    "0",
+    0,
+    "vide"
+   ],
+   [
+    "col-handed",
+    "Rendus",
+    "0",
+    0,
+    "vide"
+   ]
+  ],
+  "body_top_after_toggle": "M\nmobile-app\npas de batch · 3 intake\nVues\nHome\nTriage\n7\nKanban\n7\nBatch\nCoûts\nAutosync arrêté\ncommits manuels\nDonnées : il y a 0 s\nFrançais\nKanban\n3 intake\n3 au grill\npas de batch\n+ Nouveau\nLabels\nbug\ndesign\nlinks\nlogin\noffline\npush\nsearch\n7 items · 4 mergés\nIntake\n3\n+ New: a new idea\n1-inbox : déposé, pas encore trié\nInbox\nbiometric-login\nSign in with a fingerprint or a face\nlogin\nCustomers ask to",
+  "pri_tags_after": [
+   "Inbox",
+   "P1",
+   "P2",
+   "P3",
+   "3-ready"
+  ],
+  "triage_card_html": "<div class=\"pi raw\" draggable=\"true\" tabindex=\"0\" role=\"group\" aria-label=\"biometric-login, Sign in with a fingerprint or a face\" aria-busy=\"false\" data-slug=\"biometric-login\" data-key=\"pi-biometric-login\" title=\"Brut : pas encore grillé\"><div class=\"row\"><span class=\"gs raw\" aria-hidden=\"true\"></span><span class=\"sl\">biometric-login</span><span class=\"tag badge origin\" title=\"D’où vient la demande\">#17</span></div><div class=\"pt\">Sign in with a fingerprint or a face</div><div class=\"labs\"><span class=\"lab\" data-vars=\"{&quot;--lc&quot;:&quot;var(--label-3)&quot;}\" style=\"--lc: var(--label-3);\">login</span></div><div class=\"pm\"><span>brut</span><span><svg class=\"svgi\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z\"></path><path d=\"M14 3v5h5\"></path></svg> 2 fichiers</span><button type=\"button\" class=\"open\" data-open=\"i:biometric-",
+  "triage_card_classes": "pi raw",
+  "hover_transform": "matrix(0.999945, -0.0104718, 0.0104718, 0.999945, 0, 0)",
+  "hover_shadow": "rgba(30, 30, 50, 0.12) 0px 6px 16px 0px",
+  "sel_count": 1,
+  "sel_style": {
+   "outline": "solid 2px rgb(59, 111, 224)",
+   "shadow": "rgba(0, 0, 0, 0.06) 0px 1px 1px 0px, rgba(30, 30, 50, 0.07) 0px 3px 8px 0px",
+   "hasChk": false
+  },
+  "costs_text": "M\nmobile-app\npas de batch · 3 intake\nVues\nHome\nTriage\n7\nKanban\n7\nBatch\nCoûts\nAutosync arrêté\ncommits manuels\nDonnées : il y a 0 s\nFrançais\nCoûts\n3 intake\n3 au grill\npas de batch\n+ Nouveau\nAucun batch en cours.",
+  "hist_rows": [],
+  "home_text": "M\nmobile-app\npas de batch · 3 intake\nVues\nHome\nTriage\n7\nKanban\n7\nBatch\nCoûts\nAutosync arrêté\ncommits manuels\nDonnées : il y a 0 s\nFrançais\nHome\n3 intake\n3 au grill\npas de batch\n+ Nouveau\nÀ revoir\n0\n0 rendu(s), aucun prêt à merger\nT'attendent\n0\n0 bloqué(s), 0 question(s)\nBatch suivant\n1\nen préparation (3-ready)\nÉcrit par le board\n0\nrien depuis ton dernier « rescan »\nBatch\nLe batch suivant s'ouvrira sur ton go.\nPR ouvertes\n0\naucune\nActivité récente\naucune\nPipeline\ntrier →\nInbox\n3\nP1\n1\nP2\n1\nP3\n1\nP4\n0\n3-ready\n1\nspécifié\nen grill\nbrut\nautomatable\nDerniers mergés\n4 au total\nCR-34\nChange Specification: Buttons have accessible labels\n06-12\nCR-33\nChange Specification: Start the app in under two seconds\n06-12\nCR-32\nChange Specification: Dark mode follows the system setting\n06-04\nCR-31\nChange Specification: A two-column layout on tablets\n06-04"
+ }
+}

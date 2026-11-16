@@ -1,0 +1,64 @@
+﻿668e002b9f93797daf383cd3e08b000ef5bc6073
+
+===== batch spent (budget=1) =====
+triaged .agents/changes/2-backlog/P1/item-spent (P1)
+$ chantier open spent C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets\7e28309f-e2f1-4c1b-9546-2766a46919d0\scratchpad\repo\.agents\changes\2-backlog\P1\item-spent --default-branch main --budget 1
+opened spent on claude: 1 CRs, 2 slots, parallel
+CR-101 S
+brief: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets\7e28309f-e2f1-4c1b-9546-2766a46919d0\scratchpad\repo\.agents\changes\3-requests\01-spent\brief.md
+exit=0
+--- state (spent 2 of 1, before)
+qa folders: 0
+orders=0 budget=1.0 spent=2
+events lines=2
+$ chantier order qa --note try the export on a phone
+error: budget spent: $2.00 of $1.0; only the user raises it (`order budget`)
+exit=5
+--- state (after refused order qa)
+qa folders: 0
+orders=0 budget=1.0 spent=2
+events lines=2
+$ chantier order budget --note 10
+[chief-of-staff→foreman] order O-1: budget 10
+budget $10
+exit=0
+$ chantier order qa --note try the export on a phone
+[chief-of-staff→foreman] order O-2: qa .agents/changes/1-inbox/qa-261105-1757 try the export on a phone
+QA folder: .agents/changes/1-inbox/qa-261105-1757; the Foreman starts its QA driver
+exit=0
+--- state (after raise to 10)
+qa folders: 1
+orders=2 budget=10.0 spent=2
+events lines=4
+
+===== batch within (budget=5) =====
+triaged .agents/changes/2-backlog/P1/item-within (P1)
+$ chantier open within C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets\7e28309f-e2f1-4c1b-9546-2766a46919d0\scratchpad\repo\.agents\changes\2-backlog\P1\item-within --default-branch main --budget 5
+opened within on claude: 1 CRs, 2 slots, parallel
+CR-102 S
+brief: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets\7e28309f-e2f1-4c1b-9546-2766a46919d0\scratchpad\repo\.agents\changes\3-requests\02-within\brief.md
+exit=0
+$ chantier order qa --note within budget
+[chief-of-staff→foreman] order O-1: qa .agents/changes/1-inbox/qa-261105-1758 within budget
+QA folder: .agents/changes/1-inbox/qa-261105-1758; the Foreman starts its QA driver
+exit=0
+--- state (within)
+qa folders: 2
+orders=1 budget=5.0 spent=0.0
+events lines=3
+
+===== batch nobudget (budget=) =====
+triaged .agents/changes/2-backlog/P1/item-nobudget (P1)
+$ chantier open nobudget C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets\7e28309f-e2f1-4c1b-9546-2766a46919d0\scratchpad\repo\.agents\changes\2-backlog\P1\item-nobudget --default-branch main
+opened nobudget on claude: 1 CRs, 2 slots, parallel
+CR-103 S
+brief: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets\7e28309f-e2f1-4c1b-9546-2766a46919d0\scratchpad\repo\.agents\changes\3-requests\03-nobudget\brief.md
+exit=0
+$ chantier order qa --note no budget
+[chief-of-staff→foreman] order O-1: qa .agents/changes/1-inbox/qa-261105-1759 no budget
+QA folder: .agents/changes/1-inbox/qa-261105-1759; the Foreman starts its QA driver
+exit=0
+--- state (no budget)
+qa folders: 3
+orders=1 budget= spent=0.0
+events lines=3

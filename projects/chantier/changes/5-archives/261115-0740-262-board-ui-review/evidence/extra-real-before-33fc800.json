@@ -1,0 +1,16 @@
+{
+ "self_contained_card": [
+  "a CR's folder is self-contained"
+ ],
+ "self_contained_triage": [],
+ "data_cols": [
+  "inbox",
+  "P1",
+  "P2",
+  "P3",
+  "P4",
+  "3-ready"
+ ],
+ "focus_on_pi": true,
+ "focus_style": "solid 2px rgb(42, 98, 201)"
+}

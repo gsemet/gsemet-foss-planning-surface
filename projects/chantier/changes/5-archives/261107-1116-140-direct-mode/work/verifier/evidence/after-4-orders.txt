@@ -1,0 +1,34 @@
+﻿### order add --note <valid prepared CR>
+uv : error: a direct batch is strict: switch to Foreman mode to add work
+Au caractère 
+C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\env.ps1:5 
+: 15
++ ... nction CH { uv run --script 'C:\Users\gaeta\Projets\chantier.worktree ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: a direct...ode to add work:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[exit 2]
+### order qa --note
+uv : error: a direct batch is strict: switch to Foreman mode to add work
+Au caractère 
+C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\env.ps1:5 
+: 15
++ ... nction CH { uv run --script 'C:\Users\gaeta\Projets\chantier.worktree ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: a direct...ode to add work:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[exit 2]
+### order slots 3 (an order on the batch itself still works)
+uv : error: order slots --note <n> (0 pauses: no new Driver starts)
+Au caractère 
+C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\env.ps1:5 
+: 15
++ ... nction CH { uv run --script 'C:\Users\gaeta\Projets\chantier.worktree ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: order sl... Driver starts):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[exit 1]
+

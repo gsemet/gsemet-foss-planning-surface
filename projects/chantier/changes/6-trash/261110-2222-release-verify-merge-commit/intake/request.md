@@ -1,0 +1,1 @@
+The version PR merges by rebase, so the merged commit differs from the PR head: CONTRIBUTING's release steps should say to verify origin/main is the PR's merge commit (gh pr view --json mergeCommit) before just tag. From the v0.8.0 release retro.

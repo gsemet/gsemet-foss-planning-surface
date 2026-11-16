@@ -1,0 +1,26 @@
+﻿github-20261112-005454.md: - [x] a verdict and a gate made before a new commit do not count at the new head
+github-20261112-005454.md: - [x] `handback ready` on a ready CR is refused with the `take` that reopens it
+github-20261112-005454.md: - [x] `order note` on a ready CR names the `take`
+github-20261112-005454.md: - [x] `take --note` reopens a ready CR to working: no round, the note and the `take` event say why
+github-20261112-005454.md:       stderr: error: refused: the worktree's head c128fba is not the head ship recorded (35ccdc592000da7d37b81d4e639e251cbdda49b7): ship CR-135 https://github.com/acme/demo/pull/57 again, then the long gate and a verdict VERIFIED at the new head
+github-20261112-005454.md: - [x] after a commit with no `ship`, `handback ready` names the head `ship` recorded, alone
+github-20261112-005454.md:       stderr: error: refused: the worktree's head c128fba is not the head ship recorded (35ccdc592000da7d37b81d4e639e251cbdda49b7): ship CR-135 https://github.com/acme/demo/pull/57 again, then the long gate and a verdict VERIFIED at the new head
+github-20261112-005454.md: - [x] after a commit with no `ship`, `handback ready` names the head `ship` recorded, alone, with `--no-gate`
+github-20261112-005454.md: - [x] after `ship`, the gate and the verdict are wanted at the new head
+github-20261112-005454.md: - [x] with `ship`, the gate and a verdict at the new head, the CR hands back ready again, in the same round
+github-20261112-005454.md: - [x] a second hand-back on a blocked CR is refused with the `take` that reopens it
+github-20261112-005454.md:       stderr: error: refused: the worktree's head 6baf9fc is not the head ship recorded (f52df3aba1422dbfc0e34f25d587c7825a00216d): ship CR-135 https://github.com/acme/demo/pull/57 again, then the long gate and a verdict VERIFIED at the new head
+github-20261112-005454.md:       stderr: error: refused: the worktree's head 6baf9fc is not the head ship recorded (f52df3aba1422dbfc0e34f25d587c7825a00216d): ship CR-135 https://github.com/acme/demo/pull/57 again, then the long gate and a verdict VERIFIED at the new head
+gitlab-20261112-010256.md: - [x] a verdict and a gate made before a new commit do not count at the new head
+gitlab-20261112-010256.md: - [x] `handback ready` on a ready CR is refused with the `take` that reopens it
+gitlab-20261112-010256.md: - [x] `order note` on a ready CR names the `take`
+gitlab-20261112-010256.md: - [x] `take --note` reopens a ready CR to working: no round, the note and the `take` event say why
+gitlab-20261112-010256.md:       stderr: error: refused: the worktree's head bd3d803 is not the head ship recorded (82d6e8a88723a3ec5f2eb24468bb69c828ed4a95): ship CR-135 https://gitlab.example.com/acme/demo/-/merge_requests/57 again, then the long gate and a verdict VERIFIED at the new head
+gitlab-20261112-010256.md: - [x] after a commit with no `ship`, `handback ready` names the head `ship` recorded, alone
+gitlab-20261112-010256.md:       stderr: error: refused: the worktree's head bd3d803 is not the head ship recorded (82d6e8a88723a3ec5f2eb24468bb69c828ed4a95): ship CR-135 https://gitlab.example.com/acme/demo/-/merge_requests/57 again, then the long gate and a verdict VERIFIED at the new head
+gitlab-20261112-010256.md: - [x] after a commit with no `ship`, `handback ready` names the head `ship` recorded, alone, with `--no-gate`
+gitlab-20261112-010256.md: - [x] after `ship`, the gate and the verdict are wanted at the new head
+gitlab-20261112-010256.md: - [x] with `ship`, the gate and a verdict at the new head, the CR hands back ready again, in the same round
+gitlab-20261112-010256.md: - [x] a second hand-back on a blocked CR is refused with the `take` that reopens it
+gitlab-20261112-010256.md:       stderr: error: refused: the worktree's head ea247a3 is not the head ship recorded (fe3bf6d6a427b378373d2e285a312f71779972e4): ship CR-135 https://gitlab.example.com/acme/demo/-/merge_requests/57 again, then the long gate and a verdict VERIFIED at the new head
+gitlab-20261112-010256.md:       stderr: error: refused: the worktree's head ea247a3 is not the head ship recorded (fe3bf6d6a427b378373d2e285a312f71779972e4): ship CR-135 https://gitlab.example.com/acme/demo/-/merge_requests/57 again, then the long gate and a verdict VERIFIED at the new head

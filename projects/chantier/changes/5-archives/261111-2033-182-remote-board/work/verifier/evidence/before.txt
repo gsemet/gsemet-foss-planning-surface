@@ -1,0 +1,16 @@
+﻿before: base 04ed67b (origin/main)
+uv : usage: chantier [-h] [--version] [--project PROJECT]
+Au caractère Ligne:4 : 45
++ ... "Continue"; uv run --script "$sp\vbase\skills\chantier\scripts\cli\ch ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (usage: chantier...roject PROJECT]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+                {preflight,init,file,triage,abandon,open,order,foreman,seat,status,asks,agents,take,round,handback,note
+,log,rules,playbook,handoff,gate,verdict,ship,stack,release,cancel,pause,close,cost} ...
+chantier: error: argument cmd: invalid choice: 'board', maybe you meant 'order'? (choose from 'preflight', 'init', 
+'file', 'triage', 'abandon', 'open', 'order', 'foreman', 'seat', 'status', 'asks', 'agents', 'take', 'round', 
+'handback', 'note', 'log', 'rules', 'playbook', 'handoff', 'gate', 'verdict', 'ship', 'stack', 'release', 'cancel', 
+'pause', 'close', 'cost')
+
+exit 2

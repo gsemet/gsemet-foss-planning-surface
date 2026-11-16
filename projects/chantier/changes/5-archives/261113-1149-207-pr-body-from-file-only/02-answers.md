@@ -1,0 +1,17 @@
+# Answers
+
+- Q: Does the rule cover the PR body only, or every multi-line text an agent sends to the forge? — Advisor (Fable, answering in the user's place on the user's word of 2026-11-12): every multi-line text sent to the forge: a PR or MR body, a PR or issue comment, release notes. The fault is the shell string, not the PR; `chief-of-staff.md` already posts an issue comment with `--body-file` and the release already uses `--notes-file`, so the rule only names what the cards do.
+- Q: Are one-line texts (a PR title, a short `--note`) covered? — Advisor (Fable, answering in the user's place on the user's word of 2026-11-12): no, a single line with no Markdown stays in the command. No fault was measured there, and a file per title would cost calls for nothing.
+- Q: Are commit messages covered? — Advisor (Fable, answering in the user's place on the user's word of 2026-11-12): no, out of scope. No fault was measured, and the project's commit messages are one line.
+- Q: Is the rule about PowerShell only, or about any shell? — Advisor (Fable, answering in the user's place on the user's word of 2026-11-12): any shell; PowerShell's backtick is given as the example that happened. Bash breaks Markdown too (quotes, `$`, backticks as command substitution), and a card that names one shell invites the other.
+- Q: Which tool writes the file? — Advisor (Fable, answering in the user's place on the user's word of 2026-11-12): the host's Write tool (or Edit for a change), never a shell redirection or here-string. A shell write brings back the same escapes, and on Windows PowerShell 5.1 a BOM as well.
+- Q: What about GitLab, where the card gives `--description` with the text as an argument? — Advisor (Fable, answering in the user's place on the user's word of 2026-11-12): the same rule holds: the text is authored in the file with the Write tool and the command only passes the file's content on, never text written in the command. How `glab` takes it is the Driver's to settle and prove, and the card marks the form unproved until a trial, as the host references do.
+- Q: Where does the rule live? — Advisor (Fable, answering in the user's place on the user's word of 2026-11-12): once in `concepts.md` rule 9, next to the no-BOM sentence, since every role reads it; `driver.md` turns its examples into "always from the file" and points there. One statement, one meaning; the Chief of Staff's and the Release driver's posts are then covered without a line of their own.
+- Q: Does the CLI or a test enforce it? — Advisor (Fable, answering in the user's place on the user's word of 2026-11-12): no, a card rule only. The CLI runs no forge command and knows no role, and the structure tests do not judge behaviour.
+- Q: Does the Inspector's description pass gain a check for control characters? — Advisor (Fable, answering in the user's place on the user's word of 2026-11-12): no. The pass already failed the broken body twice; the fix belongs at the source.
+- Q: Which gates does this CR pass? — Advisor (Fable, answering in the user's place on the user's word of 2026-11-12): `just check` and `just scenario`, as a change to the cards. AGENTS.md says so.
+
+## Open for the user
+
+None.
+- Q: chief-of-staff.md's example `glab issue note <id> --message ...` passes the text as an argument; replace it? — Chief of Staff (on the user's word of 2026-11-12, no user impact): yes, replace that one example with a form that reads the file, marked unproved like the other glab forms; still no line of its own for the Chief of Staff.

@@ -1,0 +1,163 @@
+﻿$ chantier file Fix login
+  exit 0
+  out: filed .agents/changes/1-inbox/fix-login; write the intent and grill the CR here
+$ chantier triage C:\Users\gaeta\AppData\Local\Temp\verify255\proj\.agents\changes\1-inbox\fix-login --priority P1
+  exit 0
+  out: triaged .agents/changes/2-backlog/P1/fix-login (P1)
+$ chantier file Add export
+  exit 0
+  out: filed .agents/changes/1-inbox/add-export; write the intent and grill the CR here
+$ chantier triage C:\Users\gaeta\AppData\Local\Temp\verify255\proj\.agents\changes\1-inbox\add-export --priority P1
+  exit 0
+  out: triaged .agents/changes/2-backlog/P1/add-export (P1)
+$ chantier open C:\Users\gaeta\AppData\Local\Temp\verify255\proj\.agents\changes\2-backlog\P1\fix-login C:\Users\gaeta\AppData\Local\Temp\verify255\proj\.agents\changes\2-backlog\P1\add-export --slots 2 --default-branch main
+  exit 0
+  out: opened batch-01 on claude: 2 CRs, 2 slots, parallel, steering foreman
+  out: next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+  out: CR-101 Fix login: 2-backlog/P1/fix-login -> 4-batch/1-pending/101-fix-login
+  out: CR-102 Add export: 2-backlog/P1/add-export -> 4-batch/1-pending/102-add-export
+$ chantier foreman set local_f1 --epoch 1
+  exit 0
+  out: foreman local_f1 epoch 1
+$ chantier foreman transcript uuid-f --epoch 1
+  exit 0
+  out: transcript uuid-f
+$ chantier take CR-101 --epoch 1
+  exit 0
+  out: took CR-101 (1 of 2 slots held)
+  out: CR-101 "Fix login" (change) working in batch batch-01 (parallel)
+  out: cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-255" chantier <command> --batch batch-01
+  out: cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-18-CR-255/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+  out: project instructions: C:/Users/gaeta/AppData/Local/Temp/verify255/proj/AGENTS.md
+  out: specification: C:/Users/gaeta/AppData/Local/Temp/verify255/proj/.agents/changes/4-batch/2-actives/101-fix-login/03-change-spec.md
+  out: folder: C:/Users/gaeta/AppData/Local/Temp/verify255/proj/.agents/changes/4-batch/2-actives/101-fix-login (work/, evidence/)
+  out: worktree: C:\Users\gaeta\AppData\Local\Temp\verify255\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-fix-login base origin/main; not created yet: a Driver creates it first
+  out: PR: none; head -
+  out: rounds: 0 of 3
+  out: notes: none
+  out: gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+  out:   [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+  out:   [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+
+##### CLAIM 1: take CR-102 without --epoch
+
+=== take CR-102
+$ chantier take CR-102
+  exit 2
+  err: error: take CR-102 --epoch <n>: the steering session's command; <n> is your number as Foreman of the batch (Foreman n°<n>)
+  RESULT exit=2 (want 2) no-epoch-word-outside-flag=True files-identical=True
+  before={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+  after ={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+
+##### CLAIM 2
+
+=== pause
+$ chantier pause
+  exit 2
+  err: error: pause --epoch <n>: the steering session's command; <n> is your number as Foreman of the batch (Foreman n°<n>)
+  RESULT exit=2 (want 2) no-epoch-word-outside-flag=True files-identical=True
+  before={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+  after ={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+
+=== agents set CR-101 -
+$ chantier agents set CR-101 -
+  exit 2
+  err: error: agents set CR-101 <id>|- --epoch <n>: the steering session's command; <n> is your number as Foreman of the batch (Foreman n°<n>)
+  RESULT exit=2 (want 2) no-epoch-word-outside-flag=True files-identical=True
+  before={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+  after ={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+
+=== agents set CR-101 id
+$ chantier agents set CR-101 agent1
+  exit 2
+  err: error: agents set CR-101 <id>|- --epoch <n>: the steering session's command; <n> is your number as Foreman of the batch (Foreman n°<n>)
+  RESULT exit=2 (want 2) no-epoch-word-outside-flag=True files-identical=True
+  before={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+  after ={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+
+=== agents set stack
+$ chantier agents set stack agent1
+  exit 2
+  err: error: agents set stack <id>|- --epoch <n>: the steering session's command; <n> is your number as Foreman of the batch (Foreman n°<n>)
+  RESULT exit=2 (want 2) no-epoch-word-outside-flag=True files-identical=True
+  before={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+  after ={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+
+=== order done O-1
+$ chantier order done O-1
+  exit 2
+  err: error: order done O-1 --epoch <n>: the steering session's command; <n> is your number as Foreman of the batch (Foreman n°<n>)
+  RESULT exit=2 (want 2) no-epoch-word-outside-flag=True files-identical=True
+  before={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+  after ={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+
+=== foreman transcript
+$ chantier foreman transcript uuid-x
+  exit 2
+  err: error: foreman transcript <uuid> --epoch <n>: the steering session's command; <n> is your number as Foreman of the batch (Foreman n°<n>)
+  RESULT exit=2 (want 2) no-epoch-word-outside-flag=True files-identical=True
+  before={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+  after ={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+
+=== foreman set
+$ chantier foreman set local_f9
+  exit 2
+  err: error: foreman set <session-id> --epoch <n>: the steering session's command; <n> is your number as Foreman of the batch (Foreman n°<n>)
+  RESULT exit=2 (want 2) no-epoch-word-outside-flag=True files-identical=True
+  before={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+  after ={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+
+=== status --stop-heartbeat
+$ chantier status --stop-heartbeat
+  exit 2
+  err: error: status --stop-heartbeat --epoch <n>: the steering session's command; <n> is your number as Foreman of the batch (Foreman n°<n>)
+  RESULT exit=2 (want 2) no-epoch-word-outside-flag=True files-identical=True
+  before={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+  after ={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+
+=== take stack
+$ chantier take stack
+  exit 2
+  err: error: take stack --epoch <n>: the steering session's command; <n> is your number as Foreman of the batch (Foreman n°<n>)
+  RESULT exit=2 (want 2) no-epoch-word-outside-flag=True files-identical=True
+  before={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+  after ={'batch.json': '4ede5e40e000fe76942a72ff112f139eced3016d2890d676a0f7317651ddada9', 'events.jsonl': 'c8f6b11b799d6c74a1a6f469c5c51aecc03ee826a0252a2a25e9695d74b4cb60'}
+
+##### exceptions
+$ chantier status --refresh
+  exit 4
+  out: batch-01 running steering Foreman shape parallel live 1/2 queued 1 foreman local_f1 e1 heartbeat never spent unknown
+  out: last closed: none
+  out: CR-101 working r0/3 - | no Driver recorded | -
+  out: CR-102 queued r0/3 - | -
+  out: activity CR-101 0 min
+  out: spend not updated: Foreman transcript not found: C:\Users\gaeta\AppData\Local\Temp\verify255\cp\C--Users-gaeta-AppData-Local-Temp-verify255-proj\uuid-f.jsonl
+  status --refresh exit 4
+$ chantier status
+  exit 0
+  out: batch-01 running steering Foreman shape parallel live 1/2 queued 1 foreman local_f1 e1 heartbeat never spent unknown
+  out: last closed: none
+  out: CR-101 working r0/3 - | no Driver recorded | -
+  out: CR-102 queued r0/3 - | -
+  status exit 0
+
+##### order merged without --epoch (any refusal must not be about --epoch)
+$ chantier order merged CR-102
+  exit 0
+  out: [chief-of-staff→foreman] order O-1: merged CR-102
+  out: merged CR-102: moved to 3-done
+
+##### CLAIM 3: stale
+$ chantier foreman set local_f2 --epoch 2
+  exit 0
+  out: foreman local_f2 epoch 2
+$ chantier status --refresh --epoch 1
+  exit 3
+  err: error: stale Foreman: Foreman n°1 of batch-01, which is now at Foreman n°2; stop now
+$ chantier take CR-102 --epoch 1
+  exit 3
+  err: error: stale Foreman: Foreman n°1 of batch-01, which is now at Foreman n°2; stop now
+$ chantier foreman set local_f1b --epoch 1
+  exit 3
+  err: error: Foreman n°1 of batch-01 cannot be claimed: the batch is at Foreman n°2; stop now
+

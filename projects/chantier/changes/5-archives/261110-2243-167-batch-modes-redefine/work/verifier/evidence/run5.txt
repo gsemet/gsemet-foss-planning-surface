@@ -1,0 +1,10 @@
+﻿=== order mode on parallel
+
+$ chantier order mode --note stack --batch batch-01
+error: order mode: only a series batch switches, to a stack (`order mode --note stack`)
+[exit 2]
+=== order mode on stack
+
+$ chantier order mode --note stack --batch batch-01
+error: order mode: only a series batch switches, to a stack (`order mode --note stack`)
+[exit 2]

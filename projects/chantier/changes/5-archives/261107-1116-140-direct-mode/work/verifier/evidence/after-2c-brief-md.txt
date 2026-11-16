@@ -1,0 +1,3 @@
+﻿# batch-01
+
+- Mode: stack. Slots: 2. Budget: 50.0. Host: claude. Steering: direct.

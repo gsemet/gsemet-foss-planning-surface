@@ -1,0 +1,9 @@
+﻿just : cd skills/chantier/scripts/cli; uv run --group dev pytest -q 
+Au caractère Ligne:7 : 1
++ just check *>&1 | Tee-Object "$E\just-check.txt" | Select-Object -Las ...
++ ~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (cd skills/chant... dev pytest -q :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+............................                                             [100%]
+28 passed in 4.63s

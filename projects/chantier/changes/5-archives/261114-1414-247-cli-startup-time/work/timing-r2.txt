@@ -1,0 +1,13 @@
+﻿Windows 11, venv python, empty git project (AGENTS.md only), warm, median of 10 (mean of the two middle), two rounds alternating before/after in one sitting. before = round-1 state, rebuilt in a scratch copy (the same 6 imports moved back to module level); after = this worktree. The machine ran faster than for the Inspector's figures (floor 280 ms vs 401), so compare within the table.
+
+
+cmd                 before1 after1 before2 after2
+---                 ------- ------ ------- ------
+--version               126    131     124    124
+status                  453    452     451    452
+take CR-1 --batch b     444    426     443    425
+rules                   409    400     415    424
+
+
+floor import chantier.core.records: 280 ms; bare python: 31 ms
+

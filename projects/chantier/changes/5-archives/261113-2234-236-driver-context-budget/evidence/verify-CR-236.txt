@@ -1,0 +1,2 @@
+Verifier CR-236 at 05b6375: git grep hits (130,000 driver.md:66-70; never end your turn driver.md:71; 300/five/3,000 worker.md:65-70; 161,951 to 166,684 claude-code.md:347; handback-send-enforce claude-code.md:507); 150,000 under skills: none; diff: driver.md, worker.md, hosts/claude-code.md only.
+Measure rerun: CR-215 Driver 14 calls last 92,125; CR-216 Driver 12 calls last 91,771; compaction last prompts 161,951 / 164,772 / 166,684 (plus 165,041, 166,828 from other agents).

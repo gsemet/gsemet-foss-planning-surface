@@ -1,0 +1,156 @@
+{
+  "schema": 1,
+  "batch": "batch-08",
+  "number": 8,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-140",
+      "title": "Change Specification: direct mode, a batch steered by the Chief of Staff",
+      "result": "merged",
+      "archive": "5-archives/261107-1116-140-direct-mode",
+      "pr": "https://github.com/gsemet/chantier/pull/77",
+      "rounds": 1,
+      "cost_usd": 3.1874,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-141",
+      "title": "Change Specification: `/chantier:chantier init`, a guided tour for a newcomer",
+      "result": "merged",
+      "archive": "5-archives/261107-1255-141-chantier-init-tour",
+      "pr": "https://github.com/gsemet/chantier/pull/78",
+      "rounds": 1,
+      "cost_usd": 0.8509,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-142",
+      "title": "Change Specification: a landed batch is paused, and takes new CRs in direct mode too",
+      "result": "merged",
+      "archive": "5-archives/261107-1424-142-direct-batch-pause",
+      "pr": "https://github.com/gsemet/chantier/pull/84",
+      "rounds": 1,
+      "cost_usd": 0.9871,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-143",
+      "title": "Change Specification: who turns a dependent draft PR ready, once its dependency merges",
+      "result": "merged",
+      "archive": "5-archives/261107-1344-143-draft-pr-owner",
+      "pr": "https://github.com/gsemet/chantier/pull/79",
+      "rounds": 1,
+      "cost_usd": 0.4537,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-144",
+      "title": "Change Specification: the CR board shows each batch's slots",
+      "result": "merged",
+      "archive": "5-archives/261107-1350-144-board-slots",
+      "pr": "https://github.com/gsemet/chantier/pull/80",
+      "rounds": 1,
+      "cost_usd": 0.6076,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-145",
+      "title": "Change Specification: the runbook says a PR is turned ready",
+      "result": "merged",
+      "archive": "5-archives/261107-1404-145-runbook-ready",
+      "pr": "https://github.com/gsemet/chantier/pull/81",
+      "rounds": 0,
+      "cost_usd": 0.1376,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-146",
+      "title": "Change Specification: answers recorded at once, a shared understanding before \"grilled enough?\", and a CR named by number and slug",
+      "result": "merged",
+      "archive": "5-archives/261107-1424-146-grill-rules",
+      "pr": "https://github.com/gsemet/chantier/pull/82",
+      "rounds": 1,
+      "cost_usd": 0.6428,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-147",
+      "title": "Change Specification: a spec-writer agent writes the Change Specifications",
+      "result": "merged",
+      "archive": "5-archives/261107-1440-147-richer-specs",
+      "pr": "https://github.com/gsemet/chantier/pull/83",
+      "rounds": 2,
+      "cost_usd": 1.9334,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-148",
+      "title": "Change Specification: a default PR description template, shipped in the skill",
+      "result": "merged",
+      "archive": "5-archives/261107-1558-148-pr-template",
+      "pr": "https://github.com/gsemet/chantier/pull/85",
+      "rounds": 1,
+      "cost_usd": 1.0315,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-149",
+      "title": "A clear batch lifecycle, ending in a pause",
+      "result": "merged",
+      "archive": "5-archives/261107-1623-149-batch-lifecycle",
+      "pr": "https://github.com/gsemet/chantier/pull/86",
+      "rounds": 1,
+      "cost_usd": 2.8138,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-150",
+      "title": "Change Specification: docs-lifecycle",
+      "result": "merged",
+      "archive": "5-archives/261107-1737-150-docs-lifecycle",
+      "pr": "https://github.com/gsemet/chantier/pull/87",
+      "rounds": 1,
+      "cost_usd": 1.5852,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-151",
+      "title": "Change Specification: visual release notes and an announcement thread for each release",
+      "result": "merged",
+      "archive": "5-archives/261107-1839-151-release-notes",
+      "pr": "https://github.com/gsemet/chantier/pull/88",
+      "rounds": 2,
+      "cost_usd": 1.9748,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-152",
+      "title": "Change Specification: Release v0.8.0",
+      "result": "merged",
+      "archive": "5-archives/261107-1906-152-release-0-8-0",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": 3.4122,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-08.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": null,
+    "first_step": "2026-11-07T10:32:19Z",
+    "last_merge": "2026-11-07T19:06:00Z",
+    "retros": [
+      "5-archives/261107-1906-152-release-0-8-0/work/retro.md"
+    ]
+  }
+}

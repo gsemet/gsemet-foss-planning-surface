@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset='utf-8'><style>
+body { margin: 0; background: #f6f7f9; font: 15px/1.45 'Segoe UI', system-ui, sans-serif; color: #1f2328; }
+.card { margin: 24px; background: #fff; border: 1px solid #d0d7de; border-radius: 10px; padding: 20px 24px; }
+h1 { font-size: 20px; margin: 0 0 6px; }
+h2 { font-size: 16px; margin: 18px 0 8px; }
+.sub { color: #57606a; margin-bottom: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { border: 1px solid #d8dee4; padding: 5px 9px; text-align: left; vertical-align: top; }
+th { background: #f3f4f6; }
+td.num, th.num { text-align: right; white-space: nowrap; }
+code { font-family: Consolas, 'Cascadia Mono', monospace; font-size: 13px; background: #eff1f3; padding: 1px 4px; border-radius: 4px; }
+.label { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: #8c959f; margin-bottom: 8px; }
+
+.turn { max-width: 78%; margin: 8px 0; padding: 8px 14px; border-radius: 14px; }
+.turn p { margin: 4px 0; }
+.turn.you { margin-left: auto; background: #dbeafe; border-bottom-right-radius: 4px; }
+.turn.cos { background: #f3f4f6; border-bottom-left-radius: 4px; }
+.who { font-size: 12px; font-weight: 600; color: #57606a; }
+h2 { color: #57606a; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; margin-top: 18px; }
+</style></head><body><div class='card'><div class='label'>Talking to the Chief of Staff</div><h2>Adding work to a paused batch</h2><div class='turn you'><div class='who'>You</div><p>Raise the budget to 50 and launch them.</p></div><div class='turn cos'><div class='who'>Chief of Staff</div><p>Done: batch-08&#x27;s budget is now $50 and both P1 CRs are running, each with its Driver. CR-150 docs-lifecycle, round 1, $0.51. CR-151 release-notes, round 1, $0.26. $35.90 spent of $50. Heartbeat every 30 minutes; as soon as a Driver hands back its PR, I send it to you for review and merge.</p></div><h2>A PR handed back</h2><div class='turn cos'><div class='who'>Chief of Staff</div><p>CR-150 (docs-lifecycle) is ready: PR #87, &quot;docs: describe the batch lifecycle, both steerings and one use-case document per configuration&quot;. CI green on all 4 checks (<code>just check</code> on Linux, macOS and Windows, and <code>just scenario</code>), mergeable. One round, approved by the Inspector, verified on the 7 evidence items of the specification.</p><p>Will you merge PR #87, or do you want changes?</p></div><h2>A merge, then a rebase handled by the Driver</h2><div class='turn you'><div class='who'>You</div><p>87 merged</p></div><div class='turn cos'><div class='who'>Chief of Staff</div><p>CR-150 is done: merge recorded, CR archived, worktree and branch removed, <code>main</code> up to date. PR #88 (CR-151) now conflicts with <code>main</code>, as expected, on the README. I asked its Driver to rebase it, run its gates again and push; I send it back to you once its CI is green.</p></div><h2>The grill, in plain words</h2><div class='turn cos'><div class='who'>Chief of Staff</div><p>The release 0.8.0: what may the Release driver do alone? The irreversible actions are merging the version PR, the tag and publishing the GitHub release.</p></div><div class='turn you'><div class='who'>You</div><p>Approval at each step.</p></div></div></body></html>

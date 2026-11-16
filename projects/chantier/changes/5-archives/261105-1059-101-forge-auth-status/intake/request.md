@@ -1,0 +1,1 @@
+The eval kit's fake gh refuses gh auth status, which the Chief of Staff's preflight needs (P9).

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The ready line of a stacked CR names the CR it waits on",
+  "summary": "Specified: a PR-in-draft hand-back line says its PR's draft state on the forge and the CR (with its PR) it waits on, not the forge's base branch; one open question on the STATUS.md now line.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "66d63f73af38b7eefdeb660de156af83c89a328a6a671ff14eb0eff15efb5a6c",
+    "02-answers.md": "f3ffc9870966167261055039bca87ff55087260fef94788adb097967a4f68655",
+    "03-change-spec.md": "dcf488caa914b381362263f101ea1f62f631553ea3ea3403777b6144137d880b",
+    "intake/request.md": "abc06657a4f1caec68ef5b291e695b1af01c4bd28aac2d64596344bd17f7fbf7"
+  },
+  "summarized": "2026-11-15T13:39:46Z"
+}

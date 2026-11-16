@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "A green long gate on main, and no backward compatibility",
+  "summary": "Specified: the long gate on main with its fixes, a one-off migration of both planning folders, and the legacy readers and their scenario cases removed; two open questions on the surface remain.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "03-change-spec.md": "aa1525410f69b0a24cc173ada177725295f1c44238790545f17f1bbf0f01c537",
+    "intake/request.md": "84374e4261b2c9061dd1682ac6478718e61865f9f143e3ba1f1af3d09f28c2ff"
+  },
+  "summarized": "2026-11-14T18:03:09Z"
+}

@@ -1,0 +1,586 @@
+﻿    $ chantier init  → exit 0
+      created .agents/changes/1-inbox
+      created .agents/changes/2-backlog
+      created .agents/changes/3-ready
+      created .agents/changes/4-batch/1-pending
+      created .agents/changes/4-batch/2-actives
+      created .agents/changes/4-batch/3-done
+      created .agents/changes/5-archives
+      created .agents/changes/6-trash
+
+## 13b. Ready locally, PR in draft, ready to merge: a ready CR reads its state
+    $ chantier file Words a  → exit 0
+      filed .agents/changes/1-inbox/words-a; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\1-inbox\words-a --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/words-a (P1)
+    $ chantier file Words b  → exit 0
+      filed .agents/changes/1-inbox/words-b; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\1-inbox\words-b --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/words-b (P1)
+    $ chantier file Words c  → exit 0
+      filed .agents/changes/1-inbox/words-c; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\1-inbox\words-c --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/words-c (P1)
+    $ chantier open C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\2-backlog\P1\words-a C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\2-backlog\P1\words-b C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\2-backlog\P1\words-c --mode stack --default-branch main  → exit 0
+      opened batch-01 on claude: 3 CRs, 4 slots, stack, steering foreman
+      next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+      CR-101 Words a: 2-backlog/P1/words-a -> 4-batch/1-pending/101-words-a
+      CR-102 Words b: 2-backlog/P1/words-b -> 4-batch/1-pending/102-words-b
+      CR-103 Words c: 2-backlog/P1/words-c -> 4-batch/1-pending/103-words-c
+    $ chantier foreman set local_foreman_words --epoch 1  → exit 0
+      foreman local_foreman_words epoch 1
+    $ chantier take CR-101 --epoch 1  → exit 0
+      took CR-101 (1 of 4 slots held)
+      CR-101 "Words a" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-a/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-a (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-words-a base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+    $ chantier agents set CR-101 agent-1 --epoch 1  → exit 0
+      CR-101 → agent-1
+    $ chantier take CR-102 --epoch 1  → exit 0
+      took CR-102 (2 of 4 slots held)
+      CR-102 "Words b" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-b/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-b (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-words-b base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-102 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-102 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-102 VERIFIED|"NOT VERIFIED")
+    $ chantier agents set CR-102 agent-2 --epoch 1  → exit 0
+      CR-102 → agent-2
+    $ chantier take CR-103 --epoch 1  → exit 0
+      took CR-103 (3 of 4 slots held)
+      CR-103 "Words c" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/103-words-c/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/103-words-c (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-01-CR-103 branch chantier/batch-01/cr-103-words-c base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-103 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-103 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-103 VERIFIED|"NOT VERIFIED")
+    $ chantier agents set CR-103 agent-3 --epoch 1  → exit 0
+      CR-103 → agent-3
+    $ chantier stack CR-101 CR-102 CR-103  → exit 0
+      stack order: CR-101 → CR-102 → CR-103
+    $ chantier round CR-101 --note edit words0.py  → exit 0
+      round 1 of 3 for CR-101
+      CR-101 "Words a" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-a/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-a (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-words-a base origin/main
+      PR: none; head -
+      rounds: 1 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+      context: not measured (no steering transcript recorded)
+    $ chantier gate CR-101 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at b444da6
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\101-words-a\work\gates\20261114-170248.log
+    $ glab api projects/local/merge_requests --method POST…  → exit 0
+    $ chantier ship CR-101 https://gitlab.example.com/acme/demo/-/merge_requests/40  → exit 0
+      recorded https://gitlab.example.com/acme/demo/-/merge_requests/40 (base main, head b444da6, out of draft)
+    $ chantier round CR-102 --note edit words1.py  → exit 0
+      round 1 of 3 for CR-102
+      CR-102 "Words b" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-b/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-b (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-words-b base origin/main
+      PR: none; head -
+      rounds: 1 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-102 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-102 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-102 VERIFIED|"NOT VERIFIED")
+      context: not measured (no steering transcript recorded)
+    $ chantier gate CR-102 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 837d863
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\102-words-b\work\gates\20261114-170251.log
+    $ glab api projects/local/merge_requests --method POST…  → exit 0
+    $ chantier ship CR-102 https://gitlab.example.com/acme/demo/-/merge_requests/41  → exit 0
+      recorded https://gitlab.example.com/acme/demo/-/merge_requests/41 (base chantier/batch-01/cr-101-words-a, head 837d863, out of draft)
+    $ chantier round CR-103 --note edit words2.py  → exit 0
+      round 1 of 3 for CR-103
+      CR-103 "Words c" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/103-words-c/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/103-words-c (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-01-CR-103 branch chantier/batch-01/cr-103-words-c base origin/main
+      PR: none; head -
+      rounds: 1 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-103 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-103 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-103 VERIFIED|"NOT VERIFIED")
+      context: not measured (no steering transcript recorded)
+    $ chantier gate CR-103 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at e46d280
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\103-words-c\work\gates\20261114-170253.log
+    $ glab api projects/local/merge_requests --method POST…  → exit 0
+    $ chantier ship CR-103 https://gitlab.example.com/acme/demo/-/merge_requests/42  → exit 0
+      recorded https://gitlab.example.com/acme/demo/-/merge_requests/42 (base chantier/batch-01/cr-102-words-b, head e46d280, out of draft)
+    $ chantier ship CR-102 https://gitlab.example.com/acme/demo/-/merge_requests/41 --draft  → exit 0
+      recorded https://gitlab.example.com/acme/demo/-/merge_requests/41 (base chantier/batch-01/cr-101-words-a, head 837d863, draft)
+- [x] 1. `ship --draft` records the PR as a draft and says so; `ship` alone records it out of draft
+    $ chantier gate CR-101 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at b444da6
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\101-words-a\work\gates\20261114-170256.log
+    $ chantier verdict CR-101 VERIFIED  → exit 0
+      verdict CR-101 VERIFIED at b444da6
+    $ chantier handback CR-101 ready https://gitlab.example.com/acme/demo/-/merge_requests/40  → exit 0
+      [driver CR-101→foreman] hand-back ready to merge https://gitlab.example.com/acme/demo/-/merge_requests/40
+      CR-101 ready to merge
+- [x] 2. a CR out of draft at the bottom is handed back `ready to merge`, in the line to the Foreman and in the state's own line
+- [x] a ready CR out of draft at the bottom: 🟢 in STATUS.md and STATUS.json, at every level
+    $ chantier status  → exit 0
+      batch-01 running steering Foreman shape stack live 2/4 queued 0 foreman local_foreman_words e1 heartbeat never spent unknown
+      last closed: none
+      CR-101 ready to merge r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/40 | -
+      CR-102 working r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/41 | -
+      CR-103 working r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/42 | -
+    $ chantier handoff CR-101  → exit 0
+      CR-101 "Words a" (change) ready to merge in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-a/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-a (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-words-a base origin/main
+      PR: https://gitlab.example.com/acme/demo/-/merge_requests/40; head b444da6
+      rounds: 1 of 3
+      notes: none
+      gates before handback ready, at the PR's head b444da6c5233b76efc78ebc44b6e98d762c1a154 (the full SHA; the gate log's first line names it):
+        [x] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [x] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+      last gate log 20261114-170256.log:
+        gate CR-101 branch chantier/batch-01/cr-101-words-a head b444da6c5233b76efc78ebc44b6e98d762c1a154
+        $ uv run --no-project python -m compileall -q .
+        result: pass at b444da6c5233b76efc78ebc44b6e98d762c1a154
+    $ chantier status  → exit 0
+      batch-01 running steering Foreman shape stack live 2/4 queued 0 foreman local_foreman_words e1 heartbeat never spent unknown
+      last closed: none
+      CR-101 ready to merge r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/40 | -
+      CR-102 working r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/41 | -
+      CR-103 working r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/42 | -
+- [x] 2. its STATUS files and `status` read `ready to merge`
+    $ chantier gate CR-102 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 837d863
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\102-words-b\work\gates\20261114-170259.log
+    $ chantier verdict CR-102 VERIFIED  → exit 0
+      verdict CR-102 VERIFIED at 837d863
+    $ chantier handback CR-102 ready https://gitlab.example.com/acme/demo/-/merge_requests/41  → exit 0
+      [driver CR-102→foreman] hand-back PR in draft https://gitlab.example.com/acme/demo/-/merge_requests/41
+      CR-102 PR in draft: it waits on chantier/batch-01/cr-101-words-a
+- [x] 3. a PR in draft is handed back `PR in draft`, naming the base it waits on
+- [x] a ready CR whose PR is a draft: 🟤 in STATUS.md and STATUS.json, at every level
+- [x] 3. its label and `readiness` read `PR in draft`, held by the CR it sits on
+    $ chantier gate CR-103 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at e46d280
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\103-words-c\work\gates\20261114-170302.log
+    $ chantier verdict CR-103 VERIFIED  → exit 0
+      verdict CR-103 VERIFIED at e46d280
+    $ chantier handback CR-103 ready https://gitlab.example.com/acme/demo/-/merge_requests/42  → exit 0
+      [driver CR-103→foreman] hand-back PR in draft https://gitlab.example.com/acme/demo/-/merge_requests/42
+      CR-103 PR in draft: it waits on chantier/batch-01/cr-102-words-b
+- [x] 4. a PR out of draft over a draft reads `PR in draft` too, and waits for the CR under it
+- [x] a PR out of draft over a draft: 🟤 in STATUS.md and STATUS.json, at every level
+    $ chantier status  → exit 0
+      batch-01 running steering Foreman shape stack live 0/4 queued 0 foreman local_foreman_words e1 heartbeat never spent unknown
+      last closed: none
+      CR-101 ready to merge r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/40 | -
+      CR-102 PR in draft r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/41 | -
+      CR-103 PR in draft r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/42 | -
+    $ chantier stack  → exit 0
+      the stack of batch batch-01: CR-101 → CR-102 → CR-103
+      CR-101 ready to merge worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-words-a base origin/main PR https://gitlab.example.com/acme/demo/-/merge_requests/40 head b444da6 restack: none
+      CR-102 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-words-b base chantier/batch-01/cr-101-words-a PR https://gitlab.example.com/acme/demo/-/merge_requests/41 head 837d863 restack: none
+      CR-103 PR in draft worktree C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-01-CR-103 branch chantier/batch-01/cr-103-words-c base chantier/batch-01/cr-102-words-b PR https://gitlab.example.com/acme/demo/-/merge_requests/42 head e46d280 restack: none
+      context: not measured (no agent recorded)
+    $ chantier status  → exit 0
+      batch-01 running steering Foreman shape stack live 0/4 queued 0 foreman local_foreman_words e1 heartbeat never spent unknown
+      last closed: none
+      CR-101 ready to merge r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/40 | -
+      CR-102 PR in draft r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/41 | -
+      CR-103 PR in draft r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/42 | -
+- [x] 4. `status` and the `stack` rows read the same word
+    $ chantier stack --out-of-draft CR-103  → exit 2
+      stderr: error: CR-103: under it is a draft: CR-102
+- [x] 5. `stack --out-of-draft` over a draft is refused, naming it; nothing is written
+    $ chantier stack --out-of-draft CR-101 CR-102 CR-103  → exit 0
+      CR-101 ready to merge
+      CR-102 ready to merge
+      CR-103 ready to merge
+- [x] 5. `stack --out-of-draft a b c` records the three and each reads `ready to merge`
+- [x] a stack ready to merge: 🟢 in STATUS.md and STATUS.json, at every level
+- [x] a stack ready to merge: 🟢 in STATUS.md and STATUS.json, at every level
+- [x] a stack ready to merge: 🟢 in STATUS.md and STATUS.json, at every level
+    $ chantier stack --out-of-draft --draft CR-101  → exit 1
+      stderr: error: stack takes --out-of-draft or --draft, not both
+- [x] 5. `--out-of-draft` and `--draft` together are refused
+    $ chantier agents set CR-102 - --epoch 1  → exit 0
+      CR-102 → None
+    $ chantier take CR-102 --epoch 1 --note round: a change  → exit 0
+      took CR-102 (1 of 4 slots held)
+      CR-102 "Words b" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-b/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-b (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-words-b base origin/main
+      PR: https://gitlab.example.com/acme/demo/-/merge_requests/41; head 837d863
+      rounds: 1 of 3
+      notes:
+        back to a Driver: round: a change
+      gates before handback ready, at the PR's head 837d86335ab349259256cdac0684993de58f5875 (the full SHA; the gate log's first line names it):
+        [x] long gate passed (gate CR-102 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-102 ready --no-gate "<rule>")
+        [x] verdict VERIFIED (the Verifier: verdict CR-102 VERIFIED|"NOT VERIFIED")
+      last gate log 20261114-170259.log:
+        gate CR-102 branch chantier/batch-01/cr-102-words-b head 837d86335ab349259256cdac0684993de58f5875
+        $ uv run --no-project python -m compileall -q .
+        result: pass at 837d86335ab349259256cdac0684993de58f5875
+    $ chantier agents set CR-102 agent-4 --epoch 1  → exit 0
+      CR-102 → agent-4
+- [x] 6. a CR taken back for a round: the PR above it falls back to `PR in draft`
+- [x] the CR above a CR taken back: 🟤 in STATUS.md and STATUS.json, at every level
+- [x] 6. `readiness` of the CR above follows, and it waits for the CR taken back
+    $ chantier stack --out-of-draft CR-102  → exit 2
+      stderr: error: CR-102: only a CR handed back ready leaves draft
+- [x] 6. `--out-of-draft` on a CR that is working is refused: only a CR handed back ready
+    $ chantier round CR-102 --note edit words1.py  → exit 0
+      round 2 of 3 for CR-102
+      CR-102 "Words b" (change) working in batch batch-01 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-b/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-b (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-words-b base origin/main
+      PR: https://gitlab.example.com/acme/demo/-/merge_requests/41; head 837d863
+      rounds: 2 of 3
+      notes:
+        back to a Driver: round: a change
+      gates before handback ready, at the PR's head 837d86335ab349259256cdac0684993de58f5875 (the full SHA; the gate log's first line names it):
+        [x] long gate passed (gate CR-102 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-102 ready --no-gate "<rule>")
+        [x] verdict VERIFIED (the Verifier: verdict CR-102 VERIFIED|"NOT VERIFIED")
+      last gate log 20261114-170259.log:
+        gate CR-102 branch chantier/batch-01/cr-102-words-b head 837d86335ab349259256cdac0684993de58f5875
+        $ uv run --no-project python -m compileall -q .
+        result: pass at 837d86335ab349259256cdac0684993de58f5875
+      context: not measured (no steering transcript recorded)
+    $ chantier gate CR-102 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 7642dd3
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\102-words-b\work\gates\20261114-170309.log
+    $ chantier ship CR-102 https://gitlab.example.com/acme/demo/-/merge_requests/41  → exit 0
+      recorded https://gitlab.example.com/acme/demo/-/merge_requests/41 (base chantier/batch-01/cr-101-words-a, head 7642dd3, out of draft)
+    $ chantier gate CR-102 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 7642dd3
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\102-words-b\work\gates\20261114-170311.log
+    $ chantier verdict CR-102 VERIFIED  → exit 0
+      verdict CR-102 VERIFIED at 7642dd3
+    $ chantier handback CR-102 ready https://gitlab.example.com/acme/demo/-/merge_requests/41  → exit 0
+      [driver CR-102→foreman] hand-back ready to merge https://gitlab.example.com/acme/demo/-/merge_requests/41
+      CR-102 ready to merge
+    $ chantier stack --draft CR-103  → exit 0
+      CR-103 PR in draft
+- [x] 7. `stack --draft` records a PR turned back to a draft; the CR reads `PR in draft`
+    $ chantier stack --out-of-draft CR-103  → exit 0
+      CR-103 ready to merge
+    $ chantier note CR-103 record edited by hand  → exit 0
+      ok
+      context: not measured (no steering transcript recorded)
+- [x] 8. an old record with no draft state reads `PR in draft`, never ahead of the forge
+    $ chantier note CR-101 record edited by hand  → exit 0
+      ok
+      context: not measured (no steering transcript recorded)
+- [x] a ready CR with no PR recorded: 🟣 in STATUS.md and STATUS.json, at every level
+    $ chantier status  → exit 0
+      batch-01 running steering Foreman shape stack live 0/4 queued 0 foreman local_foreman_words e1 heartbeat never spent unknown
+      last closed: none
+      CR-101 ready locally r1/3 - | -
+      CR-102 PR in draft r2/3 https://gitlab.example.com/acme/demo/-/merge_requests/41 | -
+      CR-103 PR in draft r1/3 https://gitlab.example.com/acme/demo/-/merge_requests/42 | -
+- [x] 8. a hand-edited ready CR with no `pr` reads `ready locally`
+- [x] no STATUS file draws the retired blue icon
+    $ chantier file Words top  → exit 0
+      filed .agents/changes/1-inbox/words-top; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\1-inbox\words-top --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/words-top (P1)
+    $ chantier file Words release  → exit 0
+      filed .agents/changes/1-inbox/words-release; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\1-inbox\words-release --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/words-release (P1)
+    $ chantier open C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\2-backlog\P1\words-top C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\2-backlog\P1\words-release --mode stack --release 2 --default-branch main  → exit 0
+      opened batch-02 on claude: 2 CRs, 4 slots, stack, steering foreman
+      next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+      CR-101 Words top: 2-backlog/P1/words-top -> 4-batch/1-pending/101-words-top
+      CR-102 Words release: 2-backlog/P1/words-release -> 4-batch/1-pending/102-words-release
+    $ chantier foreman set local_foreman_words2 --epoch 1  → exit 0
+      foreman local_foreman_words2 epoch 1
+    $ chantier take CR-101 --epoch 1  → exit 0
+      took CR-101 (1 of 4 slots held)
+      CR-101 "Words top" (change) working in batch batch-02 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-02
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-top/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-top (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-02-CR-101 branch chantier/batch-02/cr-101-words-top base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+    $ chantier agents set CR-101 agent-1 --epoch 1  → exit 0
+      CR-101 → agent-1
+    $ chantier take CR-102 --epoch 1  → exit 2
+      stderr: error: CR-102 waits for CR-101 working: it starts once each is handed back ready or merged
+    $ chantier round CR-101 --note edit words_top.py  → exit 0
+      round 1 of 3 for CR-101
+      CR-101 "Words top" (change) working in batch batch-02 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-02
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-top/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-top (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-02-CR-101 branch chantier/batch-02/cr-101-words-top base origin/main
+      PR: none; head -
+      rounds: 1 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+      context: not measured (no steering transcript recorded)
+    $ chantier gate CR-101 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 97482e6
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\101-words-top\work\gates\20261114-170321.log
+    $ chantier ship CR-101 https://gitlab.example.com/acme/demo/-/merge_requests/40  → exit 0
+      recorded https://gitlab.example.com/acme/demo/-/merge_requests/40 (base main, head 97482e6, out of draft)
+    $ chantier gate CR-101 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 97482e6
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\101-words-top\work\gates\20261114-170323.log
+    $ chantier verdict CR-101 VERIFIED  → exit 0
+      verdict CR-101 VERIFIED at 97482e6
+    $ chantier handback CR-101 ready https://gitlab.example.com/acme/demo/-/merge_requests/40  → exit 0
+      [driver CR-101→foreman] hand-back ready to merge https://gitlab.example.com/acme/demo/-/merge_requests/40
+      CR-101 ready to merge
+    $ chantier stack CR-101 CR-102  → exit 0
+      stack order: CR-101 → CR-102
+    $ chantier take CR-102 --epoch 1  → exit 0
+      took CR-102 (1 of 4 slots held)
+      CR-102 "Words release" (release) working in batch batch-02 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-02
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-release/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-release (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-02-CR-102 branch chantier/batch-02/cr-102-words-release base chantier/batch-02/cr-101-words-top
+      PR: none; head -
+      rounds: 0 of 3
+      grant: every irreversible action waits for the user's approval; the user starts and merges the fixes; attempts 0; approvals unused: none
+      after: CR-101 (a release starts on the top CR's branch in an ordered batch, on the default branch once the others are merged in a parallel one)
+      notes: none
+    $ chantier agents set CR-102 agent-2 --epoch 1  → exit 0
+      CR-102 → agent-2
+- [x] 9. the release is taken
+    $ chantier order approve CR-102 --note tag v1.9.0  → exit 0
+      [chief-of-staff→foreman] order O-1: approve CR-102 tag v1.9.0
+      approved: tag v1.9.0
+    $ chantier release start CR-102  → exit 0
+      attempt 1: the procedure starts from its first step
+    $ chantier gate CR-102 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at caad8dd
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\102-words-release\work\gates\20261114-170328.log
+    $ glab api projects/local/merge_requests --method POST…  → exit 0
+    $ chantier ship CR-102 https://gitlab.example.com/acme/demo/-/merge_requests/43 --draft  → exit 0
+      recorded https://gitlab.example.com/acme/demo/-/merge_requests/43 (base chantier/batch-02/cr-101-words-top, head caad8dd, draft)
+    $ chantier handback CR-102 ready https://gitlab.example.com/acme/demo/-/merge_requests/43 waits for the merge  → exit 0
+      [driver CR-102→foreman] hand-back PR in draft https://gitlab.example.com/acme/demo/-/merge_requests/43 waits for the merge
+      CR-102 PR in draft: the release PR https://gitlab.example.com/acme/demo/-/merge_requests/43 waits on chantier/batch-02/cr-101-words-top
+- [x] 9. a prepared release whose PR is a draft is handed back `PR in draft`, naming the PR and what it waits on
+- [x] a prepared release whose PR is a draft: 🟤 in STATUS.md and STATUS.json, at every level
+    $ chantier stack --out-of-draft CR-101 CR-102  → exit 0
+      CR-101 ready to merge
+      CR-102 ready to merge
+    $ chantier handoff CR-102  → exit 0
+      CR-102 "Words release" (release) ready to merge in batch batch-02 (stack)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-02
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-release/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-release (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-02-CR-102 branch chantier/batch-02/cr-102-words-release base chantier/batch-02/cr-101-words-top
+      PR: https://gitlab.example.com/acme/demo/-/merge_requests/43; head caad8dd
+      rounds: 0 of 3
+      grant: every irreversible action waits for the user's approval; the user starts and merges the fixes; attempts 1; approvals unused: tag v1.9.0
+      after: CR-101 (a release starts on the top CR's branch in an ordered batch, on the default branch once the others are merged in a parallel one)
+      orders pending: O-1 approve tag v1.9.0
+      notes:
+        approved: tag v1.9.0
+      last gate log 20261114-170328.log:
+        gate CR-102 branch chantier/batch-02/cr-102-words-release head caad8dded45a8edb5d9ee9ee2ac377a41303c3a6
+        $ uv run --no-project python -m compileall -q .
+        result: pass at caad8dded45a8edb5d9ee9ee2ac377a41303c3a6
+- [x] 9. out of draft with the CR under it, the prepared release reads `ready to merge`
+- [x] a prepared release out of draft: 🟢 in STATUS.md and STATUS.json, at every level
+    $ chantier file Words base  → exit 0
+      filed .agents/changes/1-inbox/words-base; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\1-inbox\words-base --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/words-base (P1)
+    $ chantier file Words next  → exit 0
+      filed .agents/changes/1-inbox/words-next; write the intent and grill the CR here
+    $ chantier triage C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\1-inbox\words-next --priority P1  → exit 0
+      triaged .agents/changes/2-backlog/P1/words-next (P1)
+    $ chantier open C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\2-backlog\P1\words-base C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\2-backlog\P1\words-next --slots 3 --default-branch main  → exit 0
+      opened batch-03 on claude: 2 CRs, 3 slots, parallel, steering foreman
+      next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+      CR-101 Words base: 2-backlog/P1/words-base -> 4-batch/1-pending/101-words-base
+      CR-102 Words next: 2-backlog/P1/words-next -> 4-batch/1-pending/102-words-next
+    $ chantier take CR-101  → exit 0
+      took CR-101 (1 of 3 slots held)
+      CR-101 "Words base" (change) working in batch batch-03 (parallel)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-03
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-base/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-base (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-03-CR-101 branch chantier/batch-03/cr-101-words-base base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+    $ chantier round CR-101 --note edit words_p.py  → exit 0
+      round 1 of 3 for CR-101
+      CR-101 "Words base" (change) working in batch batch-03 (parallel)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-03
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-base/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/101-words-base (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-03-CR-101 branch chantier/batch-03/cr-101-words-base base origin/main
+      PR: none; head -
+      rounds: 1 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+      context: not measured (no agent recorded)
+    $ chantier gate CR-101 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 9bfee9b
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\101-words-base\work\gates\20261114-170335.log
+    $ chantier ship CR-101 https://gitlab.example.com/acme/demo/-/merge_requests/40  → exit 0
+      recorded https://gitlab.example.com/acme/demo/-/merge_requests/40 (base main, head 9bfee9b, out of draft)
+    $ chantier gate CR-101 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 9bfee9b
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\101-words-base\work\gates\20261114-170337.log
+    $ chantier verdict CR-101 VERIFIED  → exit 0
+      verdict CR-101 VERIFIED at 9bfee9b
+    $ chantier handback CR-101 ready https://gitlab.example.com/acme/demo/-/merge_requests/40  → exit 0
+      [driver CR-101→foreman] hand-back ready to merge https://gitlab.example.com/acme/demo/-/merge_requests/40
+      CR-101 ready to merge
+- [x] a parallel CR on the default branch, out of draft: 🟢 in STATUS.md and STATUS.json, at every level
+    $ chantier take CR-102  → exit 0
+      took CR-102 (1 of 3 slots held)
+      CR-102 "Words next" (change) working in batch batch-03 (parallel)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-03
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-next/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-next (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-03-CR-102 branch chantier/batch-03/cr-102-words-next base chantier/batch-03/cr-101-words-base; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      after: CR-101 (the base is the branch of the last one still open)
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-102 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-102 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-102 VERIFIED|"NOT VERIFIED")
+    $ chantier round CR-102 --note edit words_q.py  → exit 0
+      round 1 of 3 for CR-102
+      CR-102 "Words next" (change) working in batch batch-03 (parallel)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-03
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-next/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-next (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-03-CR-102 branch chantier/batch-03/cr-102-words-next base chantier/batch-03/cr-101-words-base
+      PR: none; head -
+      rounds: 1 of 3
+      after: CR-101 (the base is the branch of the last one still open)
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+        [ ] long gate passed (gate CR-102 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-102 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-102 VERIFIED|"NOT VERIFIED")
+      context: not measured (no agent recorded)
+    $ chantier gate CR-102 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 9e5d6a7
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\102-words-next\work\gates\20261114-170341.log
+    $ chantier ship CR-102 https://gitlab.example.com/acme/demo/-/merge_requests/41  → exit 0
+      recorded https://gitlab.example.com/acme/demo/-/merge_requests/41 (base chantier/batch-03/cr-101-words-base, head 9e5d6a7, out of draft)
+    $ chantier gate CR-102 uv run --no-project python -m compileall -q .  → exit 0
+      pass uv run --no-project python -m compileall -q . at 9e5d6a7
+      log C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj\.agents\changes\4-batch\2-actives\102-words-next\work\gates\20261114-170343.log
+    $ chantier verdict CR-102 VERIFIED  → exit 0
+      verdict CR-102 VERIFIED at 9e5d6a7
+    $ chantier handback CR-102 ready https://gitlab.example.com/acme/demo/-/merge_requests/41  → exit 0
+      [driver CR-102→foreman] hand-back PR in draft https://gitlab.example.com/acme/demo/-/merge_requests/41
+      CR-102 PR in draft: it waits on chantier/batch-03/cr-101-words-base
+- [x] 10. a CR on an open CR's branch, shipped out of draft, is still `PR in draft`: its base is not the default branch
+- [x] a CR on an open CR's branch: 🟤 in STATUS.md and STATUS.json, at every level
+    $ chantier order merged CR-101  → exit 0
+      [chief-of-staff→foreman] order O-1: merged CR-101
+      merged CR-101: moved to 3-done
+    $ chantier handoff CR-102  → exit 0
+      CR-102 "Words next" (change) ready to merge in batch batch-03 (parallel)
+      cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248" chantier <command> --batch batch-03
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-248/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-next/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/chantier-rw-4wqh6cnk/proj/.agents/changes/4-batch/2-actives/102-words-next (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\chantier-rw-4wqh6cnk\proj.worktrees\batch-03-CR-102 branch chantier/batch-03/cr-102-words-next base origin/main
+      PR: https://gitlab.example.com/acme/demo/-/merge_requests/41; head 9e5d6a7
+      rounds: 1 of 3
+      after: CR-101 (the base is the branch of the last one still open)
+      notes: none
+      gates before handback ready, at the PR's head 9e5d6a719e6358c4b077a8d13fe74fbb1e3fbe8f (the full SHA; the gate log's first line names it):
+        [x] long gate passed (gate CR-102 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-102 ready --no-gate "<rule>")
+        [x] verdict VERIFIED (the Verifier: verdict CR-102 VERIFIED|"NOT VERIFIED")
+      last gate log 20261114-170343.log:
+        gate CR-102 branch chantier/batch-03/cr-102-words-next head 9e5d6a719e6358c4b077a8d13fe74fbb1e3fbe8f
+        $ uv run --no-project python -m compileall -q .
+        result: pass at 9e5d6a719e6358c4b077a8d13fe74fbb1e3fbe8f
+- [x] 10. once the CR under it is merged, it reads `ready to merge`
+- [x] that CR once its base merged: 🟢 in STATUS.md and STATUS.json, at every level
+PASS 35 FAIL 0

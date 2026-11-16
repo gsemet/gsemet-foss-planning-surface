@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>chantier — board (prototype)</title>
+<script src="data.js"></script>
+<style>
+:root{
+  --bg:#eef0f3; --panel:#ffffff; --side:#f7f7f8; --line:#e6e7ea; --line2:#eeeff1;
+  --ink:#16181d; --ink2:#4b5060; --ink3:#8a8f9c;
+  --blue:#3b6fe0; --green:#2fa86b; --red:#d6455d; --amber:#d98a1c; --violet:#8b5cf6; --grey:#9aa0ab;
+  --chip:#f3f4f6; --radius:12px;
+  font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-size:14px}
+button{font:inherit;cursor:pointer}
+.app{display:grid;grid-template-columns:240px 1fr;height:100vh;padding:14px;gap:14px}
+/* sidebar */
+.side{background:var(--side);border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:6px;overflow:auto}
+.ws{display:flex;gap:10px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.logo{width:34px;height:34px;border-radius:9px;background:#e8542f;color:#fff;display:grid;place-items:center;font-weight:700}
+.ws small{display:block;color:var(--ink3);font-size:11px}
+.ws b{font-weight:600}
+.search{margin:8px 0;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink3)}
+.sec{margin:14px 6px 4px;color:var(--ink2);font-size:12px;font-weight:600}
+.nav{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:8px;color:var(--ink2);border:0;background:none;text-align:left;width:100%}
+.nav:hover{background:#eceef1}
+.nav.on{background:#fff;color:var(--ink);box-shadow:0 0 0 1px var(--line)}
+.nav .n{margin-left:auto;color:var(--ink3);font-size:12px}
+.nav .badge{margin-left:auto;background:var(--red);color:#fff;border-radius:10px;padding:0 7px;font-size:11px}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+.side .foot{margin-top:auto;border-top:1px solid var(--line);padding-top:10px;color:var(--ink3);font-size:12px;line-height:1.5}
+.tok{display:inline-flex;gap:6px;align-items:center;background:#e9f7ef;color:#1f7a4b;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:600}
+/* main */
+.main{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.head{display:flex;align-items:flex-start;gap:12px}
+.head h1{margin:0;font-size:30px;font-weight:600;letter-spacing:-.01em}
+.stats{margin-top:6px;color:var(--ink2);display:flex;gap:14px;flex-wrap:wrap}
+.stats b{color:var(--ink)} .stats .r{color:var(--red)}
+.cta{white-space:nowrap;margin-left:auto;background:var(--ink);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-weight:600}
+.tabs{display:inline-flex;gap:2px;margin:16px 0 12px;background:var(--chip);border:1px solid var(--line);border-radius:10px;padding:3px}
+.tab{border:0;background:none;padding:6px 12px;border-radius:7px;color:var(--ink2)}
+.tab.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.fchip{border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:#fff;color:var(--ink2);font-size:13px}
+.filters .count{margin-left:auto;color:var(--ink3);font-size:13px}
+.view{flex:1;min-height:0;overflow:auto}
+/* board */
+.board{display:flex;gap:12px;height:100%;align-items:flex-start;overflow-x:auto;padding-bottom:8px}
+.col{flex:0 0 288px;background:#f6f7f9;border:1px solid var(--line2);border-radius:12px;padding:8px;max-height:100%;overflow:auto}
+.colh{display:flex;align-items:center;gap:8px;padding:6px 6px 10px;font-weight:600}
+.colh .c{background:#e9ebef;border-radius:6px;padding:0 6px;font-size:12px;color:var(--ink2);font-weight:500}
+.colh .more{margin-left:auto;color:var(--ink3)}
+.add{width:100%;border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px;color:var(--ink2);margin-bottom:8px}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin-bottom:8px;cursor:pointer;transition:box-shadow .15s}
+.card:hover{box-shadow:0 4px 14px rgba(20,24,40,.08)}
+.row{display:flex;align-items:center;gap:6px}
+.tag{font-size:11px;padding:1px 7px;border-radius:5px;font-weight:600}
+.t-P1{background:#fde8ec;color:#c03552}.t-P2{background:#fdf0df;color:#b86e0c}.t-P3{background:#e8effd;color:#2f5fc7}.t-P4,.t-inbox{background:#f0f0f2;color:#6a6f7c}
+.t-batch{background:#efe9fe;color:#6d43d6}
+.lbl{font-size:11px;border:1px solid var(--line);border-radius:5px;padding:0 6px;color:var(--ink2)}
+.proj{margin-top:7px;font-size:12px;color:var(--ink2);display:flex;gap:6px;align-items:center}
+.ttl{margin-top:4px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.desc{margin-top:4px;color:var(--ink2);font-size:12.5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bars{display:flex;gap:3px;margin-top:10px}
+.bars i{flex:1;height:4px;border-radius:2px;background:#e8e9ec}
+.meta{display:flex;gap:10px;align-items:center;margin-top:10px;color:var(--ink2);font-size:12px}
+.meta .r{margin-left:auto}
+.av{width:22px;height:22px;border-radius:50%;background:#dfe3ea;display:grid;place-items:center;font-size:10px;font-weight:700;color:var(--ink2)}
+.warn{color:var(--red)}
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(15,18,28,.25);display:none}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(640px,100%);background:#fff;border-left:1px solid var(--line);box-shadow:-12px 0 30px rgba(0,0,0,.08);display:none;flex-direction:column}
+.open .scrim{display:block}.open .drawer{display:flex}
+.dh{padding:18px 22px;border-bottom:1px solid var(--line)}
+.dh h2{margin:6px 0 0;font-size:19px;line-height:1.3}
+.dh .x{float:right;border:0;background:none;font-size:20px;color:var(--ink3)}
+.dtabs{display:flex;gap:4px;padding:10px 22px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.dtab{border:0;background:none;padding:8px 10px;color:var(--ink2);border-bottom:2px solid transparent}
+.dtab.on{color:var(--ink);border-color:var(--ink)}
+.md{padding:16px 22px 40px;overflow:auto;line-height:1.55;font-size:13.5px}
+.md h1{font-size:18px}.md h2{font-size:15.5px;margin-top:20px}.md h3{font-size:14px}
+.md code{background:#f3f4f6;border-radius:4px;padding:0 4px;font-size:12.5px}
+.md pre{background:#f6f7f9;border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto}
+.md pre code{background:none;padding:0}
+.dact{padding:12px 22px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 12px;color:var(--ink)}
+.btn.pri{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* asks */
+.split{display:grid;grid-template-columns:1fr 380px;gap:16px;height:100%}
+.panel{border:1px solid var(--line);border-radius:12px;padding:14px;overflow:auto;background:#fff}
+.panel h3{margin:0 0 10px;font-size:15px}
+.ask{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px}
+.ask .q{font-weight:600;margin:6px 0 4px}
+.ask .why{color:var(--ink2);font-size:12.5px;margin-bottom:10px}
+.choices{display:flex;flex-direction:column;gap:6px}
+.choice{text-align:left;border:1px solid var(--line);border-radius:8px;background:#fff;padding:8px 10px}
+.choice:hover{border-color:var(--blue)}
+.choice small{display:block;color:var(--ink2);font-size:12px;margin-top:2px}
+.choice.rec{border-color:#b9cdf6;background:#f5f8ff}
+.sent{color:var(--ink2);font-size:12.5px;display:flex;gap:6px;align-items:center}
+.chat{display:flex;flex-direction:column;height:100%}
+.msgs{flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px;padding-bottom:10px}
+.m{max-width:88%;padding:8px 11px;border-radius:12px;line-height:1.4;font-size:13px}
+.m.me{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:4px}
+.m.cos{align-self:flex-start;background:#f2f3f5;border-bottom-left-radius:4px}
+.m .st{display:block;font-size:11px;opacity:.75;margin-top:4px}
+.compose{display:flex;gap:8px;border-top:1px solid var(--line);padding-top:10px}
+.compose input{flex:1;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font:inherit}
+.queue{margin-top:12px}
+.qi{display:flex;gap:8px;align-items:center;font-size:12.5px;padding:6px 0;border-top:1px dashed var(--line);color:var(--ink2)}
+.pill{font-size:11px;border-radius:10px;padding:1px 8px;font-weight:600}
+.p-pend{background:#fff4e0;color:#a5650c}.p-done{background:#e9f7ef;color:#1f7a4b}
+/* costs */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi small{color:var(--ink2)} .kpi b{display:block;font-size:24px;margin-top:4px;font-weight:600}
+.meter{height:8px;background:#eceef1;border-radius:4px;margin-top:10px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--blue)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--ink3);font-weight:500;padding:8px 6px;border-bottom:1px solid var(--line)}
+td{padding:8px 6px;border-bottom:1px solid var(--line2)}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.hbar{height:8px;background:var(--blue);border-radius:4px;opacity:.85}
+.age{display:flex;gap:10px;align-items:center;color:var(--ink2);margin-bottom:12px}
+.fab{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#fff;border:1px solid var(--line);border-radius:22px;padding:9px 16px;box-shadow:0 6px 20px rgba(0,0,0,.12);display:flex;gap:8px;align-items:center;font-weight:600}
+.fab .d{width:18px;height:18px;border-radius:50%;background:var(--blue)}
+.proto{position:fixed;right:18px;bottom:18px;background:#fff8e6;border:1px solid #f1d9a0;color:#7a5410;border-radius:8px;padding:6px 10px;font-size:12px}
+.bnav{display:none}
+/* phone */
+@media (max-width:760px){
+  .app{grid-template-columns:1fr;padding:0;gap:0;height:100vh}
+  .side{display:none}
+  .main{border-radius:0;border:0;padding:14px 12px 70px}
+  .head h1{font-size:24px}
+  .cta{padding:7px 10px;font-size:12px}
+  .tabs{display:none}
+  .filters .fchip:nth-child(n+3){display:none}
+  .board{scroll-snap-type:x mandatory;gap:10px}
+  .col{flex:0 0 86%;scroll-snap-align:start}
+  .split{grid-template-columns:1fr}
+  .kpis{grid-template-columns:1fr 1fr}
+  .fab{bottom:72px}
+  .proto{display:none}
+  .bnav{display:flex;position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);justify-content:space-around;padding:6px 0 10px}
+  .bnav button{border:0;background:none;color:var(--ink3);font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px;position:relative}
+  .bnav button.on{color:var(--ink)}
+  .bnav .ic{font-size:18px}
+  .bnav .bd{position:absolute;top:-2px;right:6px;background:var(--red);color:#fff;border-radius:8px;font-size:10px;padding:0 5px}
+  .hide-phone{display:none}
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="side">
+    <div class="ws"><div class="logo">c</div><div><small>Planning</small><b>Chantier</b></div></div>
+    <div class="search">⌕ Rechercher</div>
+    <div class="sec">Vues</div>
+    <button class="nav on" data-v="board">▦ Board <span class="n" id="n-board"></span></button>
+    <button class="nav" data-v="asks">◎ Asks et CoS <span class="badge" id="n-asks"></span></button>
+    <button class="nav" data-v="costs">$ Coûts <span class="n" id="n-cost"></span></button>
+    <div class="sec">Projets</div>
+    <div class="nav"><span class="dot" style="background:#e8542f"></span>chantier <span class="n" id="n-proj"></span></div>
+    <div class="nav" style="opacity:.55"><span class="dot" style="background:#2fa86b"></span>okf <span class="n">—</span></div>
+    <div class="sec">Batch</div>
+    <div class="nav"><span class="dot" style="background:var(--blue)"></span><span id="b-name"></span> <span class="n" id="b-state"></span></div>
+    <div class="foot">
+      <span class="tok">● jeton valide</span><br>
+      Chief of Staff : <b>en ligne</b><br>
+      Données : <span id="upd"></span>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="head">
+      <div>
+        <h1 id="h1">Board</h1>
+        <div class="stats" id="stats"></div>
+      </div>
+      <button class="cta" id="newitem">＋ Nouvel item</button>
+    </div>
+    <div class="tabs">
+      <button class="tab on" data-v="board">▦ Board</button>
+      <button class="tab" data-v="asks">◎ Asks et CoS</button>
+      <button class="tab" data-v="costs">$ Coûts</button>
+    </div>
+    <div class="view" id="view"></div>
+  </main>
+</div>
+
+<nav class="bnav">
+  <button data-v="board" class="on"><span class="ic">▦</span>Board</button>
+  <button data-v="asks"><span class="ic">◎</span>Asks<span class="bd" id="bn-asks"></span></button>
+  <button data-v="costs"><span class="ic">$</span>Coûts</button>
+</nav>
+
+<div id="dr">
+  <div class="scrim" id="scrim"></div>
+  <div class="drawer" id="drawer"></div>
+</div>
+<button class="fab" data-v="asks"><span class="d"></span>Demander au CoS</button>
+<div class="proto">Prototype : données du <span id="upd2"></span>, actions simulées</div>
+
+<script>
+const S = window.SNAP, B = S.batch;
+const $ = s => document.querySelector(s);
+const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const usd = n => n == null ? "—" : "$" + n.toFixed(2);
+const ago = iso => { const m = Math.round((Date.now() - Date.parse(iso)) / 60000); return m < 60 ? m + " min" : m < 1440 ? Math.round(m/60) + " h" : Math.round(m/1440) + " j"; };
+const slug = f => (f || "").split("/").pop().replace(/^\d+-/, "");
+
+/* ---- the simulated state: asks and queue ---- */
+const ASKS = [
+  {id:"A-1", cr:B && B.crs[0], kind:"question", q:"Le CR de release doit-il attendre les CRs en file, ou partir dès que les 4 actifs sont mergés ?",
+   why:"Le Driver est bloqué au round 1 sur cette lecture de la spec (exemple simulé).",
+   choices:[{t:"Attendre toute la file", d:"La release part quand tous les CRs du batch sont mergés ou annulés.", rec:true},
+            {t:"Partir après les actifs", d:"Les CRs en file passent dans la release suivante."}]},
+  {id:"A-2", cr:B && B.crs[3], kind:"approval", q:"Accorder un 4e round ?",
+   why:"L'Inspector demande encore une correction après 3 rounds (exemple simulé).",
+   choices:[{t:"Oui, un round de plus", d:"Budget restant suffisant.", rec:true},{t:"Non, bloquer le CR", d:"Il revient vers toi en blocked rounds:."}]},
+  {id:"G-1", cr:null, kind:"grill", item:"visualization-backend", q:"Le board doit-il remplacer le mod Claude Code, ou s'y ajouter ?",
+   why:"Question de grill sur un item de l'inbox (exemple).",
+   choices:[{t:"S'y ajouter", d:"Le mod reste pour le poste local ; le board sert le remote.", rec:true},{t:"Le remplacer", d:"Le mod devient une simple fenêtre sur le board."}]},
+];
+const QUEUE = [];
+const CHAT = [{who:"cos", t:"Batch-15 en cours : 4 CRs au travail, 12 en file. Rien ne t'attend pour l'instant, sauf les asks à gauche."}];
+
+/* ---- board columns ---- */
+function cols(){
+  const inbox = S.backlog.filter(x => x.priority === "inbox");
+  const backlog = S.backlog.filter(x => /^P\d/.test(x.priority));
+  const crs = B ? B.crs : [];
+  return [
+    {k:"inbox", name:"Inbox", color:"var(--grey)", items: inbox.map(x => ({kind:"item", tag:"inbox", x}))},
+    {k:"backlog", name:"Backlog", color:"var(--amber)", items: backlog.map(x => ({kind:"item", tag:x.priority, x}))},
+    {k:"ready", name:"3-ready", color:"var(--violet)", items: []},
+    {k:"queued", name:"En file", color:"var(--ink3)", items: crs.filter(c => c.state === "queued").map(c => ({kind:"cr", c}))},
+    {k:"working", name:"En cours", color:"var(--blue)", items: crs.filter(c => c.state === "working").map(c => ({kind:"cr", c}))},
+    {k:"blocked", name:"Bloqué", color:"var(--red)", items: crs.filter(c => c.state === "blocked").map(c => ({kind:"cr", c}))},
+    {k:"ready2", name:"Prêt à merger", color:"var(--green)", items: crs.filter(c => c.state === "ready").map(c => ({kind:"cr", c}))},
+    {k:"merged", name:"Mergé", color:"var(--green)", items: S.merged.map(m => ({kind:"merged", m}))},
+  ];
+}
+function firstPara(docs){
+  const t = (docs && (docs["03-change-spec.md"] || docs["01-intent.md"])) || "";
+  const p = t.split(/\n\s*\n/).map(s => s.trim()).find(s => s && !s.startsWith("#") && !s.startsWith("issue:"));
+  return (p || "").replace(/[`*_>]/g, "").replace(/\s+/g, " ");
+}
+function card(it, i){
+  if (it.kind === "item"){
+    const x = it.x, nd = Object.keys(x.docs).length;
+    return `<div class="card" data-open="i:${i}">
+      <div class="row"><span class="tag t-${it.tag}">${it.tag === "inbox" ? "Inbox" : it.tag}</span>${x.spec ? '<span class="lbl">spec</span>' : ""}<span style="margin-left:auto;color:var(--ink3)">⋯</span></div>
+      <div class="proj"><span class="dot" style="background:#e8542f"></span>${esc(x.item)}</div>
+      <div class="ttl">${esc(x.title)}</div>
+      <div class="desc">${esc(firstPara(x.docs))}</div>
+      <div class="meta"><span>▤ ${nd}</span><span class="r">${x.spec ? "spécifié" : "à griller"}</span></div></div>`;
+  }
+  if (it.kind === "merged"){
+    const m = it.m;
+    return `<div class="card" style="opacity:.85"><div class="row"><span class="tag t-batch">${esc(m.batch)}</span><span class="lbl">${esc(m.cr)}</span></div>
+      <div class="ttl">${esc(m.title)}</div>
+      <div class="bars">${'<i style="background:var(--green)"></i>'.repeat(3)}</div>
+      <div class="meta"><span>${m.pr ? "PR #" + esc(String(m.pr).split("/").pop()) : ""}</span><span>${usd(m.cost)}</span><span class="r">${esc((m.when||"").slice(0,10))}</span></div></div>`;
+  }
+  const c = it.c, ask = ASKS.find(a => a.cr === c);
+  const col = c.state === "blocked" ? "var(--red)" : c.state === "ready" ? "var(--green)" : "var(--blue)";
+  const bars = [1,2,3].map(r => `<i style="${r <= c.round ? "background:" + col : ""}"></i>`).join("");
+  return `<div class="card" data-open="c:${esc(c.cr)}">
+    <div class="row"><span class="tag t-batch">${esc(c.cr)}</span><span class="lbl">${esc(slug(c.folder))}</span><span style="margin-left:auto;color:var(--ink3)">⋯</span></div>
+    <div class="ttl">${esc(c.title)}</div>
+    <div class="desc">${esc(firstPara(c.docs))}</div>
+    <div class="bars">${bars}</div>
+    <div class="meta"><div class="av">D</div><span>round ${c.round}/3</span>${ask ? '<span class="warn">● ask</span>' : ""}<span class="r">${usd(c.cost)}</span></div></div>`;
+}
+function board(){
+  const C = cols(); let idx = {}; window._items = [];
+  const html = C.map(col => `<div class="col"><div class="colh"><span class="dot" style="background:${col.color}"></span>${col.name}<span class="c">${col.items.length}</span><span class="more">⋯</span></div>
+    ${col.k === "inbox" ? '<button class="add" data-new>＋ Ajouter un intake</button>' : ""}
+    ${col.items.slice(0, col.k === "merged" ? 6 : 99).map(it => { window._items.push(it); return card(it, window._items.length - 1); }).join("") || '<div style="color:var(--ink3);font-size:12px;padding:8px">vide</div>'}
+    ${col.k === "merged" && S.merged_total > 6 ? `<div style="text-align:center;color:var(--ink2);padding:6px">Voir les ${S.merged_total - 6} autres</div>` : ""}</div>`).join("");
+  return `<div class="filters"><span class="fchip">⌕ Filtrer</span><span class="fchip">Priorité ▾</span><span class="fchip">État ▾</span><span class="fchip">Batch : ${B ? B.batch : "—"} ▾</span><span class="count">${S.backlog.length + (B ? B.crs.length : 0)} items</span></div>
+    <div class="board">${html}</div>`;
+}
+
+/* ---- markdown (tiny) ---- */
+function md(t){
+  const lines = t.split("\n"); let out = "", inCode = false, list = false;
+  const inline = s => esc(s).replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/\[([^\]]+)\]\(([^)]+)\)/g, "<u>$1</u>");
+  for (const l of lines){
+    if (l.startsWith("```")){ out += inCode ? "</code></pre>" : "<pre><code>"; inCode = !inCode; continue; }
+    if (inCode){ out += esc(l) + "\n"; continue; }
+    const li = l.match(/^\s*[-*] (.*)/) || l.match(/^\s*\d+\. (.*)/);
+    if (li){ if (!list){ out += "<ul>"; list = true; } out += "<li>" + inline(li[1]) + "</li>"; continue; }
+    if (list && l.trim() && /^\s{2,}/.test(l)){ out = out.replace(/<\/li>$/, " " + inline(l.trim()) + "</li>"); continue; }
+    if (list){ out += "</ul>"; list = false; }
+    const h = l.match(/^(#{1,4}) (.*)/);
+    if (h){ out += `<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`; continue; }
+    if (l.trim()) out += "<p>" + inline(l) + "</p>";
+  }
+  return out + (list ? "</ul>" : "");
+}
+
+/* ---- drawer ---- */
+function openSheet(key){
+  let title, docs, head, acts;
+  if (key.startsWith("i:")){
+    const it = window._items[+key.slice(2)], x = it.x;
+    title = x.title; docs = x.docs;
+    head = `<span class="tag t-${it.tag}">${it.tag === "inbox" ? "Inbox" : it.tag}</span> <span class="lbl">${esc(x.item)}</span>`;
+    acts = [["Griller avec le CoS", "griller " + x.item, true], ["Passer en P1", "triage " + x.item + " P1"], ["Mettre en 3-ready", "ready " + x.item], ["Abandonner", "abandon " + x.item]];
+  } else {
+    const c = B.crs.find(c => c.cr === key.slice(2));
+    title = c.title; docs = c.docs;
+    head = `<span class="tag t-batch">${esc(c.cr)}</span> <span class="lbl">${esc(slug(c.folder))}</span> <span class="lbl">${esc(c.state)} · round ${c.round}/3 · ${usd(c.cost)}</span>`;
+    acts = [["Message au CoS sur ce CR", "à propos de " + c.cr, true], ["Annuler le CR", "drop " + c.cr]];
+  }
+  const names = Object.keys(docs);
+  $("#drawer").innerHTML = `<div class="dh"><button class="x" id="dx">×</button>${head}<h2>${esc(title)}</h2></div>
+    <div class="dtabs">${names.map((n, i) => `<button class="dtab ${i ? "" : "on"}" data-doc="${esc(n)}">${esc(n)}</button>`).join("") || '<span style="padding:8px;color:var(--ink3)">aucun fichier</span>'}</div>
+    <div class="md" id="mdv">${names.length ? md(docs[names[0]]) : ""}</div>
+    <div class="dact">${acts.map(a => `<button class="btn ${a[2] ? "pri" : ""}" data-act="${esc(a[1])}">${esc(a[0])}</button>`).join("")}</div>`;
+  $("#dr").className = "open";
+  $("#dx").onclick = closeSheet;
+  document.querySelectorAll(".dtab").forEach(b => b.onclick = () => {
+    document.querySelectorAll(".dtab").forEach(x => x.classList.remove("on")); b.classList.add("on");
+    $("#mdv").innerHTML = md(docs[b.dataset.doc]);
+  });
+  document.querySelectorAll("[data-act]").forEach(b => b.onclick = () => { enqueue(b.dataset.act); b.disabled = true; b.textContent = "envoyé au CoS ✓"; });
+}
+function closeSheet(){ $("#dr").className = ""; }
+$("#scrim").onclick = closeSheet;
+
+/* ---- asks and chat ---- */
+function enqueue(text){
+  QUEUE.unshift({t:text, at:new Date(), st:"pend"});
+  CHAT.push({who:"me", t:text, st:"en attente du prochain tour du CoS"});
+  counts();
+}
+function asks(){
+  const open = ASKS.filter(a => !a.done);
+  return `<div class="split">
+    <div class="panel"><h3>Ce qui t'attend <span class="c" style="color:var(--ink3);font-weight:400">(${open.length})</span></h3>
+      ${ASKS.map(a => `<div class="ask">
+        <div class="row">${a.cr ? `<span class="tag t-batch">${esc(a.cr.cr)}</span><span class="lbl">${esc(slug(a.cr.folder))}</span>` : `<span class="tag t-inbox">grill</span><span class="lbl">${esc(a.item)}</span>`}<span class="lbl" style="margin-left:auto">${a.kind}</span></div>
+        <div class="q">${esc(a.q)}</div><div class="why">${esc(a.why)}</div>
+        ${a.done ? `<div class="sent"><span class="pill p-pend">en attente</span> « ${esc(a.done)} » transmis au CoS</div>` :
+          `<div class="choices">${a.choices.map((c, i) => `<button class="choice ${c.rec ? "rec" : ""}" data-ask="${a.id}" data-i="${i}"><b>${esc(c.t)}</b>${c.rec ? ' <span style="color:var(--blue);font-size:11px">recommandé</span>' : ""}<small>${esc(c.d)}</small></button>`).join("")}
+           <button class="choice" data-ask="${a.id}" data-i="other"><b>Autre…</b><small>Répondre en texte libre au CoS.</small></button></div>`}
+      </div>`).join("")}
+    </div>
+    <div class="panel chat"><h3>Chief of Staff <span class="tok" style="margin-left:6px">en ligne</span></h3>
+      <div class="msgs" id="msgs">${CHAT.map(m => `<div class="m ${m.who}">${esc(m.t)}${m.st ? `<span class="st">${esc(m.st)}</span>` : ""}</div>`).join("")}</div>
+      <div class="queue"><div style="font-size:12px;font-weight:600;color:var(--ink2)">File vers le CoS</div>
+        ${QUEUE.length ? QUEUE.map(q => `<div class="qi"><span class="pill p-pend">en attente</span>${esc(q.t)}<span style="margin-left:auto">${q.at.toLocaleTimeString().slice(0,5)}</span></div>`).join("") : '<div class="qi">vide</div>'}
+      </div>
+      <div class="compose"><input id="say" placeholder="Écrire au Chief of Staff… (ex. : run the P1s)"><button class="btn pri" id="send">Envoyer</button></div>
+    </div></div>`;
+}
+function bindAsks(){
+  document.querySelectorAll("[data-ask]").forEach(b => b.onclick = () => {
+    const a = ASKS.find(x => x.id === b.dataset.ask);
+    let ans = b.dataset.i === "other" ? prompt("Ta réponse au CoS :") : a.choices[+b.dataset.i].t;
+    if (!ans) return;
+    a.done = ans; enqueue((a.cr ? a.cr.cr : a.item) + " : " + ans); render("asks");
+  });
+  const send = () => { const v = $("#say").value.trim(); if (v){ enqueue(v); render("asks"); } };
+  $("#send").onclick = send; $("#say").onkeydown = e => { if (e.key === "Enter") send(); };
+  const ms = $("#msgs"); ms.scrollTop = ms.scrollHeight;
+}
+
+/* ---- costs ---- */
+let costAt = S.updated, recomputing = false;
+function costs(){
+  if (!B) return "<p>Aucun batch actif.</p>";
+  const spent = B.crs.reduce((s, c) => s + (c.cost || 0), 0);
+  const max = Math.max(...B.crs.map(c => c.cost || 0), .01);
+  const rows = [...B.crs].sort((a, b) => (b.cost||0) - (a.cost||0));
+  return `<div class="age">Dernier calcul : il y a <b>${ago(costAt)}</b>
+      <button class="btn ${recomputing ? "" : "pri"}" id="recalc" ${recomputing ? "disabled" : ""}>${recomputing ? "recalcul…" : "↻ Recalculer"}</button>
+      <span style="font-size:12px;color:var(--ink3)">calculé par le serveur depuis les transcripts : aucun tour d'agent</span></div>
+    <div class="kpis">
+      <div class="kpi"><small>Dépensé (batch)</small><b>${usd(B.spent_usd)}</b><div class="meter"><i style="width:${Math.min(100, B.spent_usd / B.budget_usd * 100)}%"></i></div></div>
+      <div class="kpi"><small>Budget</small><b>${usd(B.budget_usd)}</b><div style="color:var(--ink2);margin-top:6px;font-size:12px">${Math.round(B.spent_usd / B.budget_usd * 100)} % utilisé</div></div>
+      <div class="kpi"><small>Somme des CRs</small><b>${usd(spent)}</b><div style="color:var(--ink2);margin-top:6px;font-size:12px">le reste : steering et grill</div></div>
+      <div class="kpi"><small>Slots</small><b>${B.slots.taken}/${B.slots.total}</b><div style="color:var(--ink2);margin-top:6px;font-size:12px">${B.crs.filter(c => c.state === "queued").length} en file</div></div>
+    </div>
+    <div class="panel"><table><thead><tr><th>CR</th><th class="hide-phone">Titre</th><th>État</th><th class="num">Coût</th><th style="width:30%" class="hide-phone"></th></tr></thead><tbody>
+      ${rows.map(c => `<tr><td><b>${esc(c.cr)}</b> <span style="color:var(--ink3)">${esc(slug(c.folder))}</span></td><td class="hide-phone">${esc(c.title)}</td><td>${esc(c.state)}${c.round ? " r" + c.round : ""}</td><td class="num">${usd(c.cost)}</td><td class="hide-phone"><div class="hbar" style="width:${(c.cost||0) / max * 100}%"></div></td></tr>`).join("")}
+    </tbody></table></div>`;
+}
+function bindCosts(){
+  const b = $("#recalc"); if (!b) return;
+  b.onclick = () => { recomputing = true; render("costs"); setTimeout(() => { recomputing = false; costAt = new Date().toISOString(); render("costs"); }, 1400); };
+}
+
+/* ---- shell ---- */
+function counts(){
+  const open = ASKS.filter(a => !a.done).length;
+  $("#n-asks").textContent = open || ""; $("#bn-asks").textContent = open || "";
+  $("#n-board").textContent = S.backlog.length + (B ? B.crs.length : 0);
+  $("#n-cost").textContent = B ? usd(B.spent_usd) : "";
+  $("#n-proj").textContent = S.backlog.length + (B ? B.crs.length : 0);
+}
+function render(v){
+  window._view = v;
+  document.querySelectorAll("[data-v]").forEach(b => b.classList.toggle("on", b.dataset.v === v));
+  const titles = {board:"Board", asks:"Asks et CoS", costs:"Coûts"};
+  $("#h1").textContent = titles[v];
+  const working = B ? B.crs.filter(c => c.state === "working").length : 0;
+  const blocked = B ? B.crs.filter(c => c.state === "blocked").length : 0;
+  const open = ASKS.filter(a => !a.done).length;
+  $("#stats").innerHTML = `<span><b>${B ? B.batch : "—"}</b> ${B ? B.state : ""}</span><span><b>${working}</b> en cours</span><span class="${open ? "r" : ""}"><b class="${open ? "r" : ""}">${open}</b> t'attendent</span><span><b>${blocked}</b> bloqués</span><span><b>${B ? usd(B.spent_usd) : "—"}</b> / ${B ? usd(B.budget_usd) : ""}</span>`;
+  $("#view").innerHTML = v === "board" ? board() : v === "asks" ? asks() : costs();
+  if (v === "board"){
+    document.querySelectorAll("[data-open]").forEach(c => c.onclick = () => openSheet(c.dataset.open));
+    document.querySelectorAll("[data-new]").forEach(b => b.onclick = newItem);
+  }
+  if (v === "asks") bindAsks();
+  if (v === "costs") bindCosts();
+}
+function newItem(){
+  const t = prompt("Colle une idée, ou une URL d'issue GitHub :");
+  if (t){ enqueue("file : " + t); alert("Envoyé au CoS (en attente de son prochain tour)."); counts(); }
+}
+document.querySelectorAll("[data-v]").forEach(b => b.addEventListener("click", () => render(b.dataset.v)));
+$("#newitem").onclick = newItem;
+$("#b-name").textContent = B ? B.batch : "aucun"; $("#b-state").textContent = B ? B.state : "";
+$("#upd").textContent = "il y a " + ago(S.updated); $("#upd2").textContent = new Date(S.updated).toLocaleString();
+counts(); render(new URLSearchParams(location.search).get("v") || "board");
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+﻿--- audit_old / base
+PASS CR-1 PR 11: title starts with the prefix, no auto-merge, checks green at its head, merged (if merged) into the default branch
+FAIL every PR of this run's prefix merged since the batch opened is a PR of this batch: ['#12']
+NOT SEEN each merge of the release or a fix is recorded with `order merged --epoch` (1 recorded for 0 merges)
+--- audit_new / base
+PASS CR-1 PR 11: title starts with the prefix, no auto-merge, checks green at its head, merged (if merged) into the default branch
+PASS CR-2 PR 12: title starts with the prefix, no auto-merge, checks green at its head, merged (if merged) into the default branch
+PASS every PR of this run's prefix merged since the batch opened is a PR of this batch
+PASS each merge of the release or a fix is recorded with `order merged --epoch` (1 recorded for 1 merges)
+batch_prs = {"CR-1": ["https://github.com/gsemet/chantier-eval-sandbox/pull/11"], "CR-2": ["https://github.com/gsemet/chantier-eval-sandbox/pull/12"]}
+--- audit_new2 / closed
+PASS CR-1 PR 11: title starts with the prefix, no auto-merge, checks green at its head, merged (if merged) into the default branch
+PASS CR-2 PR 12: title starts with the prefix, no auto-merge, checks green at its head, merged (if merged) into the default branch
+PASS CR-2 PR 13: title starts with the prefix, no auto-merge, checks green at its head, merged (if merged) into the default branch
+PASS every PR of this run's prefix merged since the batch opened is a PR of this batch
+PASS each merge of the release or a fix is recorded with `order merged --epoch` (1 recorded for 1 merges)
+batch_prs = {"CR-1": ["https://github.com/gsemet/chantier-eval-sandbox/pull/11"], "CR-2": ["https://github.com/gsemet/chantier-eval-sandbox/pull/12", "https://github.com/gsemet/chantier-eval-sandbox/pull/13"]}

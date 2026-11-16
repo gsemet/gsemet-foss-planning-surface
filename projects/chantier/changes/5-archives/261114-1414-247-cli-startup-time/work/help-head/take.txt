@@ -1,0 +1,14 @@
+﻿usage: chantier take [-h] [--batch BATCH] [--epoch EPOCH] [--note NOTE] cr
+
+positional arguments:
+  cr             the CR, or `stack` for the stack driver
+
+options:
+  -h, --help     show this help message and exit
+  --batch BATCH  batch number, 4 or batch-04 (default: $CHANTIER_BATCH, else
+                 the only running one)
+  --epoch EPOCH  the Foreman's epoch; stale ones exit 3
+  --note NOTE    why a ready or blocked CR goes back to a Driver, or a working
+                 CR restarts (needs `agents set <cr> -` first)
+
+exit=0

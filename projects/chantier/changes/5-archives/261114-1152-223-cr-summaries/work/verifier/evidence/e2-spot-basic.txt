@@ -1,0 +1,93 @@
+﻿
+> chantier init
+created .agents/changes/1-inbox
+created .agents/changes/2-backlog
+created .agents/changes/3-ready
+created .agents/changes/4-batch/1-pending
+created .agents/changes/4-batch/2-actives
+created .agents/changes/4-batch/3-done
+created .agents/changes/5-archives
+created .agents/changes/6-trash
+[exit 0]
+
+> chantier file first request --slug a
+filed .agents/changes/1-inbox/a; write the intent and grill the CR here
+[exit 0]
+
+> chantier file second request --slug b
+filed .agents/changes/1-inbox/b; write the intent and grill the CR here
+[exit 0]
+
+> chantier summary lint
+2 gap(s) in 2 CRs
+.agents/changes/1-inbox/a: no summary → summary set .agents/changes/1-inbox/a --title "<title>" --summary "<the CR's state now>"
+.agents/changes/1-inbox/b: no summary → summary set .agents/changes/1-inbox/b --title "<title>" --summary "<the CR's state now>"
+[exit 2]
+
+> chantier summary set .agents/changes/1-inbox/a --title A --summary multi
+line
+[exit 1]
+
+> chantier summary set .agents/changes/1-inbox/a --title A --summary xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+[exit 1]
+
+> chantier summary set .agents/changes/1-inbox/a --unchanged
+[exit 1]
+
+> chantier summary set .agents/changes/1-inbox/a --tracker gitlab --title A --summary s
+[exit 1]
+
+> chantier summary set .agents/changes/1-inbox/a --title A --summary state one
+summary set .agents/changes/1-inbox/a (origin verbal; 1 files)
+[exit 0]
+
+> chantier summary lint
+1 gap(s) in 2 CRs
+.agents/changes/1-inbox/b: no summary → summary set .agents/changes/1-inbox/b --title "<title>" --summary "<the CR's state now>"
+[exit 2]
+
+> chantier summary set .agents/changes/1-inbox/a/STATUS.md --title A
+[exit 1]
+
+> chantier summary label .agents/changes/1-inbox/a .agents/changes/1-inbox/b --add Board,cli
+labels .agents/changes/1-inbox/a: board, cli
+labels .agents/changes/1-inbox/b: board, cli
+[exit 0]
+
+> chantier summary label .agents/changes/1-inbox/a --add no way
+[exit 1]
+
+> chantier summary label .agents/changes/1-inbox/b --remove cli
+labels .agents/changes/1-inbox/b: board
+[exit 0]
+
+> chantier summary group .agents/changes/1-inbox/a .agents/changes/1-inbox/b --name board v1
+group .agents/changes/1-inbox/a: board v1
+group .agents/changes/1-inbox/b: board v1
+[exit 0]
+
+> chantier summary group .agents/changes/1-inbox/b --clear
+group .agents/changes/1-inbox/b: none
+[exit 0]
+{
+  "schema": 1,
+  "title": "A",
+  "summary": "state one",
+  "origin": {
+    "kind": "verbal"
+  },
+  "labels": [
+    "board",
+    "cli"
+  ],
+  "group": "board v1",
+  "sources": {
+    "intake/request.md": "97178ee8c2242a4d929fe554c0a14d037372702ef1f3166eecd5c161930e15f8"
+  },
+  "summarized": "2026-11-14T06:56:24Z"
+}
+
+> chantier summary lint
+1 gap(s) in 2 CRs
+.agents/changes/1-inbox/b: no summary → summary set .agents/changes/1-inbox/b --title "<title>" --summary "<the CR's state now>"
+[exit 2]

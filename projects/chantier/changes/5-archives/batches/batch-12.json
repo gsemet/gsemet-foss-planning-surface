@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "batch": "batch-12",
+  "number": 12,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-186",
+      "title": "A ready CR sent back to its Driver can be handed back again",
+      "result": "merged",
+      "archive": "5-archives/261112-0706-186-handback-after-rebase",
+      "pr": "https://github.com/gsemet/chantier/pull/124",
+      "rounds": 1,
+      "cost_usd": 2.1079,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-187",
+      "title": "Change Specification: the heartbeat says something true in direct mode",
+      "result": "merged",
+      "archive": "5-archives/261112-0609-187-heartbeat-odd-values",
+      "pr": "https://github.com/gsemet/chantier/pull/123",
+      "rounds": 1,
+      "cost_usd": 2.1141,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-12.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": null,
+    "first_step": "2026-11-11T23:18:22Z",
+    "last_merge": "2026-11-12T07:06:00Z",
+    "retros": [
+      "5-archives/261112-0706-186-handback-after-rebase/retro.md"
+    ]
+  }
+}

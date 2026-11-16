@@ -1,0 +1,1 @@
+Batch-15 retro: a stray 'round' call spent a round of CR-211 before any work. Fix: 'round' refuses a new round with no commit or note since the previous one, or the Driver's card says when to call it.

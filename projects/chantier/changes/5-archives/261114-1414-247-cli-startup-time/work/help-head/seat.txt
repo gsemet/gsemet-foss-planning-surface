@@ -1,0 +1,17 @@
+﻿usage: chantier seat [-h] [--env ENV] [--title TITLE] [--link LINK]
+                     [--over SESSION]
+                     [{get,take,leave}] [session]
+
+positional arguments:
+  {get,take,leave}
+  session           the session id, for take and leave
+
+options:
+  -h, --help        show this help message and exit
+  --env ENV         take: the machine's name, or Remote
+  --title TITLE     take: the session's current title
+  --link LINK       take: the session's link
+  --over SESSION    take: the session whose seat this one takes, on the user's
+                    word
+
+exit=0

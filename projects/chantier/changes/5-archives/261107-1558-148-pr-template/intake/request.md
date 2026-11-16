@@ -1,0 +1,1 @@
+A default PR description template, shipped as a skill reference, easy to audit, taken from the markdown-okf-schema-studio template (Summary, Deliverables with visuals, Changes, Impacts, Blast radius 1-3, Test plan, Autonomous decisions)

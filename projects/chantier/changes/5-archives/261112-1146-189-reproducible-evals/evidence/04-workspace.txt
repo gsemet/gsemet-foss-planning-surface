@@ -1,0 +1,216 @@
+# Evidence 4: the workspace (sandbox at its base, read-only)
+
+$ sandbox.py reset   (plan only)
+main is at 6e87a361c1b192e6d081c162f0cb2cc28bb72b25
+open PRs: none
+branches other than main: none
+tags: none
+releases: none
+sandbox already at 6e87a361c1b192e6d081c162f0cb2cc28bb72b25: nothing to do
+
+$ setup.py full <repo>/evals/kit/inside-test   (refused)
+setup.py: C:\Users\gaeta\Projets\chantier.worktrees\batch-13-CR-189\evals\kit\inside-test is inside this repository (C:\Users\gaeta\Projets\chantier.worktrees\batch-13-CR-189): an eval's workspace is outside it
+exit 2; folder created: False
+
+$ setup.py full <scratch>/ws/full   (second call, destination exists: refused)
+setup.py: C:\Users\gaeta\Projets\chantier-eval\cr189\ws\full already exists
+exit 2
+
+$ setup.py full <scratch>/ws/full   (the first call, which created it; exit 0)
+campaign  full
+run       1
+prefix    [eval 1 2026-11-12 full]
+workspace C:\Users\gaeta\Projets\chantier-eval\cr189\ws\full
+base      6e87a361c1b192e6d081c162f0cb2cc28bb72b25
+chantier  0.8.0 8ad392648255ce1d1e7c403628f4a9f58523af46 (dirty tree)
+CRs placed in .agents/changes/3-ready/ (13):
+  delete-item
+  edit-item
+  status-filter
+  json-api
+  stats-page
+  csv-export
+  item-notes
+  title-search
+  release-v0-2-0
+  item-rating
+  sort-list
+  duplicate-url
+  release-v0-3-0
+
+CHANTIER = uv run --script "C:\Users\gaeta\Projets\chantier.worktrees\batch-13-CR-189\skills\chantier\scripts\cli\chantier.py"   (run from the workspace)
+batch 1: $CHANTIER open .agents/changes/3-ready/delete-item .agents/changes/3-ready/edit-item .agents/changes/3-ready/status-filter .agents/changes/3-ready/json-api .agents/changes/3-ready/stats-page .agents/changes/3-ready/csv-export .agents/changes/3-ready/item-notes .agents/changes/3-ready/title-search .agents/changes/3-ready/release-v0-2-0 --release 9 --mode parallel --slots 4 --budget 40 --default-branch main   (added during it: item-rating)
+batch 2: $CHANTIER open .agents/changes/3-ready/sort-list .agents/changes/3-ready/duplicate-url .agents/changes/3-ready/release-v0-3-0 --release 3 --mode parallel --slots 4 --budget 15 --default-branch main
+
+$ type <scratch>/ws/full.run.json
+{
+  "campaign": "full",
+  "run": 1,
+  "date": "2026-11-12",
+  "prefix": "[eval 1 2026-11-12 full]",
+  "repository": "gsemet/chantier-eval-sandbox",
+  "base": "6e87a361c1b192e6d081c162f0cb2cc28bb72b25",
+  "chantier": {
+    "version": "0.8.0",
+    "commit": "8ad392648255ce1d1e7c403628f4a9f58523af46",
+    "dirty": true
+  },
+  "host": "claude",
+  "crs": [
+    "delete-item",
+    "edit-item",
+    "status-filter",
+    "json-api",
+    "stats-page",
+    "csv-export",
+    "item-notes",
+    "title-search",
+    "release-v0-2-0",
+    "item-rating",
+    "sort-list",
+    "duplicate-url",
+    "release-v0-3-0"
+  ]
+}
+
+$ git -C full rev-parse HEAD
+6e87a361c1b192e6d081c162f0cb2cc28bb72b25
+
+$ git -C full status --porcelain -uall   (after setup and after open: paths NOT under .agents/changes/)
+(none)  count of other lines: 0
+total untracked lines: 53
+
+$ tail of delete-item/03-change-spec.md   (read before `open` moved the CR folders)
+- the fast gate (`uv run pytest -q -x`) and the long gate (`uv run --locked pytest -q`) pass.
+
+## Eval run
+
+This CR runs in chantier's eval campaign `full`, run 1, set up on 2026-11-12.
+
+- Every pull request this CR opens has a title that starts with `[eval 1 2026-11-12 full] `, followed by the title it would have anyway, for example `[eval 1 2026-11-12 full] feat: delete an item`.
+
+$ tail of release-v0-2-0/03-change-spec.md   (read before `open`)
+- `uv run python scripts/release_check.py` ends with `release check passed` at the tag.
+
+## Eval run
+
+This CR runs in chantier's eval campaign `full`, run 1, set up on 2026-11-12.
+
+- Every pull request this CR opens has a title that starts with `[eval 1 2026-11-12 full] `, followed by the title it would have anyway, for example `[eval 1 2026-11-12 full] feat: delete an item`.
+- A fix this release needs carries this section into its fix-<n>.md, so its pull request's title starts the same way.
+(run.json first bytes: 7B 0A, no BOM; spec has no CR)
+
+$ files named test_judge_* anywhere in the workspace (outside .venv): 0
+
+$ CHANTIER open <nine folders> --release 9 --mode parallel --slots 4 --budget 40 --default-branch main
+opened batch-01 on claude: 9 CRs, 4 slots, parallel, steering foreman
+next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+CR-101 Delete an item: 3-ready/delete-item -> 4-batch/1-pending/101-delete-item
+CR-102 Edit an item: 3-ready/edit-item -> 4-batch/1-pending/102-edit-item
+CR-103 Filter the list by status: 3-ready/status-filter -> 4-batch/1-pending/103-status-filter
+CR-104 Read the items as JSON: 3-ready/json-api -> 4-batch/1-pending/104-json-api
+CR-105 A statistics page: 3-ready/stats-page -> 4-batch/1-pending/105-stats-page
+CR-106 Export the shelf as CSV: 3-ready/csv-export -> 4-batch/1-pending/106-csv-export
+CR-107 Notes on an item: 3-ready/item-notes -> 4-batch/1-pending/107-item-notes
+… 2 more lines
+exit 0
+
+$ CHANTIER status
+batch-01 running steering Foreman shape parallel live 0/4 queued 9 foreman none e0 heartbeat never spent unknown of $40
+CR-101 queued r0/3 - | -
+CR-102 queued r0/3 - | -
+CR-103 queued r0/3 - | -
+CR-104 queued r0/3 - | -
+CR-105 queued r0/3 - | -
+CR-106 queued r0/3 - | -
+CR-107 queued r0/3 - | -
+CR-108 queued r0/3 - | -
+CR-109 queued r0/3 - release | waits for CR-101 queued, CR-102 queued, CR-103 queued, CR-104 queued, CR-105 queued, CR-106 queued, CR-107 queued, CR-108 queued | -
+exit 0
+
+$ CHANTIER order add --note .agents/changes/3-ready/item-rating
+[chief-of-staff→foreman] order O-1: add .agents/changes/3-ready/item-rating
+added CR-110, queued
+exit 0
+
+$ CHANTIER status
+batch-01 running steering Foreman shape parallel live 0/4 queued 10 foreman none e0 heartbeat never spent unknown of $40
+CR-101 queued r0/3 - | -
+CR-102 queued r0/3 - | -
+CR-103 queued r0/3 - | -
+CR-104 queued r0/3 - | -
+CR-105 queued r0/3 - | -
+CR-106 queued r0/3 - | -
+CR-107 queued r0/3 - | -
+CR-108 queued r0/3 - | -
+CR-109 queued r0/3 - release | waits for CR-101 queued, CR-102 queued, CR-103 queued, CR-104 queued, CR-105 queued, CR-106 queued, CR-107 queued, CR-108 queued, CR-110 queued | -
+CR-110 queued r0/3 - | -
+orders the CLI applied, the Foreman marks each `order done <O-k>`: O-1 add .agents/changes/3-ready/item-rating
+exit 0
+
+# Other campaigns
+
+$ setup.py real-foreman <scratch>/ws/rf
+campaign  real-foreman
+run       1
+prefix    [eval 1 2026-11-12 real-foreman]
+workspace C:\Users\gaeta\Projets\chantier-eval\cr189\ws\rf
+base      6e87a361c1b192e6d081c162f0cb2cc28bb72b25
+chantier  0.8.0 8ad392648255ce1d1e7c403628f4a9f58523af46 (dirty tree)
+CRs placed in .agents/changes/3-ready/ (5):
+  delete-item
+  edit-item
+  status-filter
+  json-api
+  stats-page
+
+CHANTIER = uv run --script "C:\Users\gaeta\Projets\chantier.worktrees\batch-13-CR-189\skills\chantier\scripts\cli\chantier.py"   (run from the workspace)
+batch 1: $CHANTIER open .agents/changes/3-ready/delete-item .agents/changes/3-ready/edit-item .agents/changes/3-ready/status-filter .agents/changes/3-ready/json-api .agents/changes/3-ready/stats-page --mode <stack|parallel|series> --slots 3 --budget 20 --default-branch main
+exit 0
+
+$ setup.py copilot <scratch>/ws/cp
+campaign  copilot
+run       1
+prefix    [eval 1 2026-11-12 copilot]
+workspace C:\Users\gaeta\Projets\chantier-eval\cr189\ws\cp
+base      6e87a361c1b192e6d081c162f0cb2cc28bb72b25
+chantier  0.8.0 8ad392648255ce1d1e7c403628f4a9f58523af46 (dirty tree)
+CRs placed in .agents/changes/3-ready/ (1):
+  delete-item
+
+CHANTIER = uv run --script "C:\Users\gaeta\Projets\chantier.worktrees\batch-13-CR-189\skills\chantier\scripts\cli\chantier.py"   (run from the workspace)
+batch 1: $CHANTIER open .agents/changes/3-ready/delete-item --slots 1 --budget 3 --default-branch main
+exit 0
+
+$ setup.py real-direct <scratch>/ws/rd
+campaign  real-direct
+run       1
+prefix    [eval 1 2026-11-12 real-direct]
+workspace C:\Users\gaeta\Projets\chantier-eval\cr189\ws\rd
+base      6e87a361c1b192e6d081c162f0cb2cc28bb72b25
+chantier  0.8.0 8ad392648255ce1d1e7c403628f4a9f58523af46 (dirty tree)
+CRs placed in .agents/changes/3-ready/ (5):
+  delete-item
+  edit-item
+  status-filter
+  json-api
+  stats-page
+
+CHANTIER = uv run --script "C:\Users\gaeta\Projets\chantier.worktrees\batch-13-CR-189\skills\chantier\scripts\cli\chantier.py"   (run from the workspace)
+batch 1: $CHANTIER open .agents/changes/3-ready/delete-item .agents/changes/3-ready/edit-item .agents/changes/3-ready/status-filter .agents/changes/3-ready/json-api .agents/changes/3-ready/stats-page --mode <stack|parallel|series> --slots 3 --budget 20 --default-branch main --direct
+exit 0
+
+$ ls .agents/changes/3-ready   in rf, cp, rd
+rf : delete-item, edit-item, json-api, stats-page, status-filter
+cp : delete-item
+rd : delete-item, edit-item, json-api, stats-page, status-filter
+
+# Cleanup: workspaces deleted; nothing pushed to the sandbox (sandbox.py reset still prints 'nothing to do')
+remaining in ws: 0
+$ sandbox.py reset
+main is at 6e87a361c1b192e6d081c162f0cb2cc28bb72b25
+open PRs: none
+branches other than main: none
+tags: none
+releases: none
+sandbox already at 6e87a361c1b192e6d081c162f0cb2cc28bb72b25: nothing to do

@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "batch": "batch-11",
+  "number": 11,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-174",
+      "title": "Change Specification: the worker write guard, redesigned",
+      "result": "merged",
+      "archive": "5-archives/261111-1904-174-worker-write-guard-redesign",
+      "pr": "https://github.com/gsemet/chantier/pull/113",
+      "rounds": 3,
+      "cost_usd": 4.8178,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-175",
+      "title": "﻿# Change Specification: release-driver-diagram",
+      "result": "merged",
+      "archive": "5-archives/261111-1538-175-release-driver-diagram",
+      "pr": "https://github.com/gsemet/chantier/pull/111",
+      "rounds": 1,
+      "cost_usd": 1.6289,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-176",
+      "title": "﻿# Change Specification: the eval campaigns, redesigned",
+      "result": "merged",
+      "archive": "5-archives/261111-1930-176-evals-redesign",
+      "pr": "https://github.com/gsemet/chantier/pull/118",
+      "rounds": 3,
+      "cost_usd": 3.2408,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-177",
+      "title": "Change Specification: Sonnet by default for the Foreman and the Drivers, escalation on named trouble, a 300K auto-compact window",
+      "result": "merged",
+      "archive": "5-archives/261111-1607-177-foreman-sonnet-300k",
+      "pr": "https://github.com/gsemet/chantier/pull/114",
+      "rounds": 1,
+      "cost_usd": 1.2893,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-178",
+      "title": "﻿# Change Specification: the version PR shows the rendered release notes and thread",
+      "result": "merged",
+      "archive": "5-archives/261111-1544-178-version-pr-rendered-notes",
+      "pr": "https://github.com/gsemet/chantier/pull/112",
+      "rounds": 1,
+      "cost_usd": 1.0665,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-179",
+      "title": "Change Specification: retro-kept-at-close",
+      "result": "merged",
+      "archive": "5-archives/261111-1904-179-retro-kept-at-close",
+      "pr": "https://github.com/gsemet/chantier/pull/116",
+      "rounds": 1,
+      "cost_usd": 1.7259,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-180",
+      "title": "﻿# Report back on tracker issues",
+      "result": "merged",
+      "archive": "5-archives/261111-1640-180-tracker-reports-and-draft-prs",
+      "pr": "https://github.com/gsemet/chantier/pull/115",
+      "rounds": 2,
+      "cost_usd": 1.3721,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-181",
+      "title": "﻿# Change Specification: cost-unknown-model",
+      "result": "merged",
+      "archive": "5-archives/261111-1949-181-cost-unknown-model",
+      "pr": "https://github.com/gsemet/chantier/pull/117",
+      "rounds": 3,
+      "cost_usd": 4.1275,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-182",
+      "title": "﻿# Change Specification: a progress board that works in remote",
+      "result": "merged",
+      "archive": "5-archives/261111-2033-182-remote-board",
+      "pr": "https://github.com/gsemet/chantier/pull/119",
+      "rounds": 3,
+      "cost_usd": 3.5739,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-183",
+      "title": "Change Specification: driver-liveness",
+      "result": "dropped",
+      "archive": "6-trash/261111-2136-183-driver-liveness",
+      "pr": null,
+      "rounds": 1,
+      "cost_usd": 1.6707,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-184",
+      "title": "Gate proof and small CLI fixes",
+      "result": "merged",
+      "archive": "5-archives/261111-2237-184-gate-proof-cli-fixes",
+      "pr": "https://github.com/gsemet/chantier/pull/121",
+      "rounds": 2,
+      "cost_usd": 2.3934,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-185",
+      "title": "Change Specification: driver-liveness",
+      "result": "merged",
+      "archive": "5-archives/261111-2309-185-driver-liveness",
+      "pr": "https://github.com/gsemet/chantier/pull/122",
+      "rounds": 1,
+      "cost_usd": 0.3444,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-11.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": null,
+    "first_step": "2026-11-11T14:37:57Z",
+    "last_merge": "2026-11-11T23:09:00Z",
+    "retros": [
+      "5-archives/261111-2309-185-driver-liveness/retro.md"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+uvx ruff@0.17.5 format --check skills
+Downloading ruff (9.8MiB)
+ Downloaded ruff
+Installed 1 package in 354ms
+119 files already formatted
+uvx ruff@0.17.5 check skills
+All checks passed!
+uv run --locked --group dev --with mypy==1.20.0 --with types-psutil mypy
+Downloading mypy (2.5MiB)
+ Downloaded mypy
+Installed 6 packages in 318ms
+pyproject.toml: note: unused section(s): module = ['copilot_session_usage']
+Success: no issues found in 99 source files
+uv lock --check
+Resolved 20 packages in 0.50ms
+uvx --from nodejs-wheel==24.19.0 npx --yes @biomejs/biome@2.6.7 check skills/chantier/scripts/cli/src/chantier/board/web
+Downloading nodejs-wheel-binaries (40.5MiB)
+ Downloaded nodejs-wheel-binaries
+Installed 2 packages in 705ms
+Checked 60 files in 23ms. No fixes applied.
+npm notice
+npm notice New major version of npm available! 11.17.0 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice
+Version: 2.6.7
+

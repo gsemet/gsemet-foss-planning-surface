@@ -1,0 +1,43 @@
+﻿## present: Ticket summary
+skills\chantier\references\chief-of-staff.md:195: Ticket summary: a CR with an `issue:` line ([concepts](concepts.md)) has its ticket's reporter told
+skills\chantier\references\griller.md:22: chief-of-staff's "Ticket summary" (the skip line included), write the three drafts in `work/`
+skills\chantier\references\ticket-summary-example.md:1: # Ticket summary: a reference
+skills\chantier\references\ticket-summary-example.md:3: Modelled on a real ticket summary of 2026-11-10; its text is not kept here. The shape and the size
+skills\chantier\references\ticket-summary-example.md:4: are the point: [chief-of-staff](chief-of-staff.md), "Ticket summary", says how it is made and posted.
+## present: yes \*\*for that ticket
+skills\chantier\references\chief-of-staff.md:243: for a yes **for that ticket**. The user may edit any part, drop the demo (or the plan), or
+## present: \*\*skip\*\*
+skills\chantier\references\chief-of-staff.md:210: - No capability found, or no access: **skip** the step and tell the user in one line, naming
+## present: project's rules first
+skills\chantier\references\chief-of-staff.md:213: 3. **The project's rules first.** Read what `$CHANTIER rules` lists for any rule on tickets: the
+skills\chantier\references\pr-template.md:37: The form of each line, the project's rules first (form, keyword, title or body, for instance
+skills\chantier\references\worker.md:8: Every worker reads the project's rules first (`$CHANTIER rules`; what touches your task ranks
+## present: capability
+skills\chantier\references\chief-of-staff.md:207: tool). The project's rules say which, when they do. Otherwise look for the capability the
+skills\chantier\references\chief-of-staff.md:210: - No capability found, or no access: **skip** the step and tell the user in one line, naming
+skills\chantier\references\chief-of-staff.md:248: before the ask (step 6) from what the tracker and the capability offer, in this order: the
+skills\chantier\references\chief-of-staff.md:265: - **Jira and other trackers** (unproved; same trial): the capability found in step 2 (MCP
+## present: PR follow-up
+skills\chantier\references\chief-of-staff.md:283: **PR follow-up.** The first time you see the PR link of a CR with an `issue:` line and a recorded
+## present: Post on a tracker issue
+skills\chantier\references\chief-of-staff.md:958: - Post on a tracker issue a text the user did not approve, or let a Driver, the Foreman or a
+skills\chantier\references\griller.md:42: Post on a tracker issue, comment on it, close or reopen it.
+## present: Close or reopen an issue by hand
+skills\chantier\references\chief-of-staff.md:960: - Close or reopen an issue by hand: the merge closes it through the PR's closing line.
+## present: Issues References
+skills\chantier\references\concepts.md:19: `03-change-spec.md`. The CR's PR names it in its `## Issues References` section
+skills\chantier\references\driver.md:86: the `## Issues References` section for the specification's `issue:` lines ([pr-template](pr-template.md)), left out when there is none; a
+skills\chantier\references\pr-template.md:15: silent. With a project template, the Issues References lines go where that template puts its
+skills\chantier\references\pr-template.md:16: issue links; with no such place, the `## Issues References` section is added after its first
+skills\chantier\references\pr-template.md:35: - When the CR's specification has an `issue:` line, the body has a section `## Issues References`,
+skills\chantier\references\pr-template.md:54: - The layout: Summary, Issues References (when present), Deliverables, Blast radius and Autonomous
+## present: closes the issue at the merge|only links
+skills\chantier\references\pr-template.md:44: The verb is what closes the issue at the merge (a bare `#<n>` only links it); a project that
+## present: ticket-summary-example
+skills\chantier\references\chief-of-staff.md:198: [ticket-summary-example](ticket-summary-example.md). Steps, in this order:
+## gone: no plan file -> 0 matches
+## gone: No "PR opened" -> 0 matches
+## gone: Closes <reference> -> 0 matches
+## gone: Tracker comments -> 1 matches
+## recheck after final edits: Tracker comments / closing line in cards
+0 matches

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "ship always reads the PR's base and draft state from the forge",
+  "summary": "Specified, no open question: ship reads and records the forge's base and draft state for every CR (gh and glab), ship --draft goes, the ready word and the draft's wait read the recorded base; a failed read prints base ? and draft not read.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "babe35ecee81622ff9c068350a695cf2114d58aa8d53df74389100907bb31073",
+    "03-change-spec.md": "a4880e5ede6f7b5523d9b81171a2e7c690737609e7d047332008d859e37ddab0",
+    "intake/request.md": "901b721fee34599d75bf5ff4eaa51f24ef7a474535d3c95f346d5b5d05d0a68e"
+  },
+  "summarized": "2026-11-15T08:13:56Z"
+}

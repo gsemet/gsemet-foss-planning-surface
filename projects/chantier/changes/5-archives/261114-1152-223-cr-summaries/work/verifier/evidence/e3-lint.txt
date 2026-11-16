@@ -1,0 +1,11 @@
+﻿time 0.9936365s exit 2
+39 gap(s) in 39 CRs
+.agents/changes/1-inbox/board-cr-step: no summary → summary set .agents/changes/1-inbox/board-cr-step --title "<title>" --summary "<the CR's state now>"
+.agents/changes/1-inbox/board-history: no summary → summary set .agents/changes/1-inbox/board-history --title "<title>" --summary "<the CR's state now>"
+.agents/changes/1-inbox/cr-folder-self-contained: no summary → summary set .agents/changes/1-inbox/cr-folder-self-contained --title "<title>" --summary "<the CR's state now>"
+.agents/changes/1-inbox/driver-opening-reads: no summary → summary set .agents/changes/1-inbox/driver-opening-reads --title "<title>" --summary "<the CR's state now>"
+.agents/changes/1-inbox/epoch-required-everywhere: no summary → summary set .agents/changes/1-inbox/epoch-required-everywhere --title "<title>" --summary "<the CR's state now>"
+.agents/changes/1-inbox/push-refusal-lessons: no summary → summary set .agents/changes/1-inbox/push-refusal-lessons --title "<title>" --summary "<the CR's state now>"
+.agents/changes/1-inbox/retro-critic: no summary → summary set .agents/changes/1-inbox/retro-critic --title "<title>" --summary "<the CR's state now>"
+.agents/changes/1-inbox/surface-agentless-launch: no summary → summary set .agents/changes/1-inbox/surface-agentless-launch --title "<title>" --summary "<the CR's state now>"
+… 31 more lines

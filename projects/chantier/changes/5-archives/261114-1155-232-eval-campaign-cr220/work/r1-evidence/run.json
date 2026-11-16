@@ -1,0 +1,19 @@
+{
+  "campaign": "ticket-summary",
+  "run": 1,
+  "date": "2026-11-14",
+  "prefix": "[eval 1 2026-11-14 ticket-summary]",
+  "repository": "gsemet/chantier-eval-sandbox",
+  "base": "6e87a361c1b192e6d081c162f0cb2cc28bb72b25",
+  "chantier": {
+    "version": "0.9.0",
+    "commit": "e54e29979ffcc3212ac4d0b4491a403a4e1d58c8",
+    "dirty": true
+  },
+  "host": "claude",
+  "crs": [],
+  "issue": {
+    "title": "[eval 1 2026-11-14 ticket-summary] Dark theme for the reading list",
+    "body": "C:\\Users\\gaeta\\Projets\\chantier.worktrees\\batch-17-CR-232\\evals\\kit\\ticket-summary\\issue.md"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "A CR's folder is self-contained",
+  "summary": "Specified: prototypes in versions, experiments and kept screenshots live in the CR folder, created only when used; the retained prototype goes in the PR archive; three open questions on size limits.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "709af30b18aa0a15f645f35d1c7167da2f3662470afa6b1c63cc68216ee38136",
+    "02-answers.md": "a1d03a8f0698f04b9404705213b47187fc45525c5d7d7e14256717e1e9fa2de2",
+    "03-change-spec.md": "3b5fbff5600bd1124a00136674101a31ea642359d77e9d22d96e4b8d8e46850e",
+    "intake/request.md": "e651848883e33c371471a10d7b06c77e5e187e11b80dee2cab558f9dd72c59e8"
+  },
+  "summarized": "2026-11-14T18:39:18Z"
+}

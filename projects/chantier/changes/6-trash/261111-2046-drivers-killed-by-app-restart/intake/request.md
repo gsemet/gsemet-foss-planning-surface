@@ -1,0 +1,1 @@
+An app restart killed all four running Drivers silently; worktrees showed no write for 40+ minutes before the Chief of Staff noticed. The Foreman heartbeat should detect a dead Driver (no write, no session) and restart it without counting a round (batch-11 retro).

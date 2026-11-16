@@ -1,0 +1,8 @@
+﻿scan run by migrate-legacy.py after the real runs, on both folders:
+  C:/Users/gaeta/Projets/chantier/.agents/changes
+  C:/Users/gaeta/Projets/gsemet-foss-planning-surface (projects/*/changes)
+checks: no CR-level STATUS.json names a batch outside batch-NN; no crs[].path or crs[].archive in any
+batch.json or record starts with .agents/changes/; no folder 3-requests, 4-archives, 5-trash, 3-stash,
+4-batches, 3-batches or 4-archive in any planning folder of the two.== scan
+scan: clean
+

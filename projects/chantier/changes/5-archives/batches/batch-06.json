@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "batch": "batch-06",
+  "number": 6,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-115",
+      "title": "A refused force push goes up to the Chief of Staff",
+      "result": "merged",
+      "archive": "5-archives/261106-1030-115-force-push-route",
+      "pr": "https://github.com/gsemet/chantier/pull/52",
+      "rounds": 2,
+      "cost_usd": 2.1889,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-119",
+      "title": "The Chief of Staff ends some messages with a line of tips",
+      "result": "merged",
+      "archive": "5-archives/261106-1030-119-user-tips",
+      "pr": "https://github.com/gsemet/chantier/pull/53",
+      "rounds": 2,
+      "cost_usd": 1.3765,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-120",
+      "title": "A CR leaves before and after evidence of what it delivers",
+      "result": "merged",
+      "archive": "5-archives/261106-1106-120-delivery-evidence",
+      "pr": "https://github.com/gsemet/chantier/pull/54",
+      "rounds": 1,
+      "cost_usd": 2.9696,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-121",
+      "title": "The Chief of Staff offers a guided demo of a ready stack",
+      "result": "merged",
+      "archive": "5-archives/261106-1138-121-stack-demo",
+      "pr": "https://github.com/gsemet/chantier/pull/58",
+      "rounds": 2,
+      "cost_usd": 2.5835,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-122",
+      "title": "A batch runs its CRs in parallel unless the plan says why not",
+      "result": "merged",
+      "archive": "5-archives/261106-1106-122-parallel-rules",
+      "pr": "https://github.com/gsemet/chantier/pull/56",
+      "rounds": 1,
+      "cost_usd": 3.3479,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-123",
+      "title": "Each host has its reference, and the user gets exact instructions for what only they can do",
+      "result": "merged",
+      "archive": "5-archives/261106-1342-123-host-reference",
+      "pr": "https://github.com/gsemet/chantier/pull/63",
+      "rounds": 3,
+      "cost_usd": 4.471,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-124",
+      "title": "A Foreman's session is named after the Chief of Staff's, with no epoch",
+      "result": "merged",
+      "archive": "5-archives/261106-1435-124-foreman-title",
+      "pr": "https://github.com/gsemet/chantier/pull/64",
+      "rounds": 3,
+      "cost_usd": 4.8805,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-125",
+      "title": "The board's toggle says where the pane is",
+      "result": "merged",
+      "archive": "5-archives/261106-1257-125-board-remote-notice",
+      "pr": "https://github.com/gsemet/chantier/pull/62",
+      "rounds": 1,
+      "cost_usd": 2.0119,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-126",
+      "title": "The board and the CR sheet draw tables under folds",
+      "result": "merged",
+      "archive": "5-archives/261106-1221-126-board-tables",
+      "pr": "https://github.com/gsemet/chantier/pull/61",
+      "rounds": 2,
+      "cost_usd": 1.5705,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-127",
+      "title": "In a stack, CRs run in parallel on main; only the stack driver stacks them",
+      "result": "merged",
+      "archive": "5-archives/261106-1208-127-parallel-then-stack",
+      "pr": "https://github.com/gsemet/chantier/pull/59",
+      "rounds": 1,
+      "cost_usd": 1.3152,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-128",
+      "title": "`status` gives every CR's cost, merged ones included",
+      "result": "merged",
+      "archive": "5-archives/261106-1221-128-status-cr-cost",
+      "pr": "https://github.com/gsemet/chantier/pull/60",
+      "rounds": 1,
+      "cost_usd": 1.5396,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-129",
+      "title": "The cost report says who spent what, and explains it",
+      "result": "merged",
+      "archive": "5-archives/261106-1535-129-cost-report",
+      "pr": "https://github.com/gsemet/chantier/pull/65",
+      "rounds": 2,
+      "cost_usd": 3.0002,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-130",
+      "title": "A batch closes only when nothing runs, and its cost is final there",
+      "result": "merged",
+      "archive": "5-archives/261106-1741-130-close-when-idle",
+      "pr": "https://github.com/gsemet/chantier/pull/66",
+      "rounds": 3,
+      "cost_usd": 8.9499,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-06.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": null,
+    "first_step": "2026-11-06T09:55:11Z",
+    "last_merge": "2026-11-06T17:41:00Z",
+    "retros": []
+  }
+}

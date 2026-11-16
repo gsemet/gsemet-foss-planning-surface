@@ -1,0 +1,1 @@
+real-direct run 1 retro (2026-11-12, PR 137): three Drivers reported no CI while a `test` check ran on every PR. Fix: the Driver card makes `gh pr checks` (or the forge's equivalent) at the pushed head the only source for a claim about CI, and no CI only when it lists no check after the push.

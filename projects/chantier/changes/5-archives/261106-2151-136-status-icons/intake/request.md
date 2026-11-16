@@ -1,0 +1,1 @@
+ah les couleurs des pastilles sont pas les meme entre le status (attente = orange) et dans le mod. align les pastilles stp => CR a mettre dans le batch

@@ -1,0 +1,1 @@
+real-direct run 1 retro (2026-11-12, PR 137): the Verifier said NOT VERIFIED three times only because the PR description cited an Inspector pass that was not recorded. Fix: a Driver records the Inspector's pass as a note before the PR body cites it.

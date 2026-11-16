@@ -1,0 +1,9 @@
+﻿== linux
+pyproject.toml: note: unused section(s): module = ['copilot_session_usage']
+Success: no issues found in 84 source files
+== darwin
+pyproject.toml: note: unused section(s): module = ['copilot_session_usage']
+Success: no issues found in 84 source files
+== win32
+pyproject.toml: note: unused section(s): module = ['copilot_session_usage']
+Success: no issues found in 84 source files

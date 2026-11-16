@@ -1,0 +1,9 @@
+﻿usage: chantier close [-h] [--batch BATCH] [--yes]
+
+options:
+  -h, --help     show this help message and exit
+  --batch BATCH  batch number, 4 or batch-04 (default: $CHANTIER_BATCH, else
+                 the only running one)
+  --yes          on the user's word
+
+exit=0

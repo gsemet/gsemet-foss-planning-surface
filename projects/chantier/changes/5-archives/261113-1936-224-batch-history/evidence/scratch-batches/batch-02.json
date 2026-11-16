@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "batch": "batch-02",
+  "number": 2,
+  "state": "unknown",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [],
+  "report": null,
+  "backfill": {
+    "written": "2026-11-13T18:36:59Z",
+    "former_id": null,
+    "first_step": null,
+    "last_merge": null,
+    "retros": []
+  }
+}

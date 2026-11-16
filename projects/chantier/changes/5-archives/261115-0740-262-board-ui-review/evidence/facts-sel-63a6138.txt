@@ -1,0 +1,11 @@
+﻿en sidebar line: ['M | mobile-app | no batch · 3 inbox', 'Mmobile-appno batch · 3 inbox']
+en unselected {'borderColor': 'rgb(230, 231, 234)', 'borderWidth': '1px', 'boxShadow': 'none', 'outline': 'none', 'cls': 'card pi'}
+en selected   {'borderColor': 'rgb(230, 231, 234)', 'borderWidth': '1px', 'boxShadow': 'rgba(30, 30, 50, 0.12) 0px 6px 16px 0px', 'outline': 'none', 'cls': 'card pi sel'}
+en check mark: ['chk']
+en kbd focus   {'cls': 'card pi', 'fv': True, 'outline': 'solid 2px rgb(42, 98, 201)'}
+fr sidebar line: ['M | mobile-app | pas de batch · 3 inbox', 'Mmobile-apppas de batch · 3 inbox']
+fr unselected {'borderColor': 'rgb(230, 231, 234)', 'borderWidth': '1px', 'boxShadow': 'none', 'outline': 'none', 'cls': 'card pi'}
+fr selected   {'borderColor': 'rgb(230, 231, 234)', 'borderWidth': '1px', 'boxShadow': 'rgba(30, 30, 50, 0.12) 0px 6px 16px 0px', 'outline': 'none', 'cls': 'card pi sel'}
+fr check mark: ['chk']
+fr kbd focus   {'cls': 'card pi', 'fv': True, 'outline': 'solid 2px rgb(42, 98, 201)'}
+

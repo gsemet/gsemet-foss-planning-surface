@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "order merged stops the CR's gate before it moves the folder",
+  "summary": "Specified: order merged checks its refusals, then out of the locks stops the CR's running long gate and waits for its process to end, then records and moves the folder; past a bound it refuses with nothing changed. One open question: the wait's bound.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "d1086fa315bb4c175cd58f6f099e89eb55d1e25186cedcd142bc1b027d847919",
+    "03-change-spec.md": "9957e5d37678600ba52137f080ab76d8e81e452370e3f060882ae8a2fb96379a",
+    "intake/request.md": "8fb8e96a52dbcfcf9f6b7365f496dab5fb6533fcd42109453380fb7c2a8c745f"
+  },
+  "summarized": "2026-11-15T08:11:35Z"
+}

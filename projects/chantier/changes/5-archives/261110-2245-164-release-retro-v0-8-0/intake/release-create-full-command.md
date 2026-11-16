@@ -1,0 +1,1 @@
+CONTRIBUTING's release step names gh release create without its full flags; the Release driver added --title vX.Y.Z and --verify-tag on its own. CONTRIBUTING should write the full command, title included. From the v0.8.0 release retro.

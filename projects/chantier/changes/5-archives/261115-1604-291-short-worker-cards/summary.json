@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "One short card per worker role",
+  "summary": "Specified: each worker reads only its own short card (no worker.md, no concepts.md) to cut cache writes; runs last in its batch",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "90925a0be242f1161ad6ab8c82a1421db6c1c35adf466cdb0bf7991f16188fa5",
+    "02-answers.md": "46241334e5ff0056e17f182fdf7f3b8f82f9479cd147a363757307fb4212bf5a",
+    "03-change-spec.md": "243d24592ada2ace19b0094699113e16baca8f4ea03b03ebc9028541c3c0627c",
+    "intake/request.md": "4539307aa001249589828bd392cde90bb3d963831e054e1abecfacbe712986e9"
+  },
+  "summarized": "2026-11-15T13:40:24Z"
+}

@@ -1,0 +1,8 @@
+﻿live proc, file written after it started: True
+live proc, file written 10s before it started (reused pid): False
+dead pid: False
+lock names dead pid + reused pg: CR-3 -> None
+CR-2 -> gate queued
+live holder: CR-3 -> gate running | CR-2 -> gate queued behind CR-3 | CR-4 -> gate queued behind CR-3
+empty lock: CR-2 -> gate queued | CR-4 -> gate queued behind CR-2
+dead ticket: CR-5 -> None ticket kept: True

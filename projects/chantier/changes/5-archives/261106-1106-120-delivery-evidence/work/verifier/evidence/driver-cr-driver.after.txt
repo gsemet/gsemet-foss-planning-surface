@@ -1,0 +1,12 @@
+﻿## CR driver
+
+Take one CR from its specification to a green PR, then hand it back. Before round 1, when the
+code is unfamiliar, an `investigator`. You answer for the CR's evidence plan (the end of the
+investigator's report, which you validate and correct): with no investigator, you write it
+yourself. Each round: a `coder` with the brief, then an `inspector` on the round's diff (the
+worktree against the base, uncommitted and untracked files included) and each review step your
+`Team:` lists, in order; `FIX-REQUIRED` is the next round. All approved: commit, rebase, the
+long gate (a failure is a round), push, the PR, `ship`, CI, then a `verifier` at the pushed
+head, given the plan (`NOT VERIFIED` is a round), then the evidence in the PR, then `handback
+ready <pr link>`.
+

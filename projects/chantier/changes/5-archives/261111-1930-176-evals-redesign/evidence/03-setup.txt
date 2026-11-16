@@ -1,0 +1,41 @@
+﻿== setup.py claude-planted
+campaign  claude-planted
+workspace C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\4215b12b-dd4b-4824-bd9f-62117b7d8f91\scratchpad\t1
+origin    C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\4215b12b-dd4b-4824-bd9f-62117b7d8f91\scratchpad\t1.origin.git
+forge     C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\4215b12b-dd4b-4824-bd9f-62117b7d8f91\scratchpad\t1.forge\state.json
+-- CRs in 2-backlog/P1:
+add-priority
+delete-command
+done-unknown-id
+export-csv
+list-json
+release-v0-2-0
+stats-command
+version-option
+-- count: 8 -- AGENTS.md chantier section:
+
+## chantier
+
+- docs-review: `chantier-eval-docs-reviewer`, after the Inspector: every new or changed CLI command or option is documented in README.md, with an example
+- style-review: `chantier-eval-strict-reviewer`, after the Inspector: the house style of the command line
+- release: RELEASING.md
+== setup.py claude-smoke (refused)
+uv : campaign: one of claude-planted, copilot
+Au caractère Ligne:1 : 667
++ ... utf8; $r = (uv run --no-project python evals/kit/setup.py claude-smok ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (campaign: one of claude-planted, copilot:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+exit 1
+== setup.py copilot
+campaign  copilot
+workspace C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\4215b12b-dd4b-4824-bd9f-62117b7d8f91\scratchpad\t3
+origin    C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\4215b12b-dd4b-4824-bd9f-62117b7d8f91\scratchpad\t3.origin.git
+forge     C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\4215b12b-dd4b-4824-bd9f-62117b7d8f91\scratchpad\t3.forge\state.json
+environment for every session of the batch:
+  FAKE_GH_STATE=C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\4215b12b-dd4b-4824-bd9f-62117b7d8f91\scratchpad\t3.forge\state.json
+  LIVE_ORIGIN=C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\4215b12b-dd4b-4824-bd9f-62117b7d8f91\scratchpad\t3.origin.git
+  LIVE_CI_DELAY=120
+  PATH=C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\4215b12b-dd4b-4824-bd9f-62117b7d8f91\scratchpad\t3.forge;C:\Users\gaeta\scoop\persist\uv\python\versions\cpython-3.15-windows-x86_64-none\Scripts;C:\Users\gaeta\scoop\persist\uv\python\versions\cpython-3.15-windows-x86_64-none;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Windows\AtlasModules;C:\Windows\AtlasModules\Tools;C:\Windows\AtlasModules\Scripts;C:\Program Files\dotnet\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Apollo;C:\Program Files\Apollo\tools;C:\Program Files\Gpg4win\..\GnuPG\bin;C:\Users\gaeta\scoop\persist\uv\tools\shims;C:\Users\gaeta\scoop\persist\uv\python\shims;C:\Users\gaeta\scoop\shims;C:\Users\gaeta\AppData\Local\Microsoft\WindowsApps;C:\Users\gaeta\AppData\Local\Microsoft\WinGet\Packages\SecretsOPerationS.SOPS_Microsoft.Winget.Source_8wekyb3d8bbwe;C:\Users\gaeta\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\gaeta\AppData\Local\GitHubCopilotCLI\;C:\Users\gaeta\AppData\Local\Programs\Microsoft VS Code\bin\copilot-shim;C:\Users\gaeta\AppData\Local\Microsoft\WinGet\Packages\Gitleaks.Gitleaks_Microsoft.Winget.Source_8wekyb3d8bbwe
+exit 0

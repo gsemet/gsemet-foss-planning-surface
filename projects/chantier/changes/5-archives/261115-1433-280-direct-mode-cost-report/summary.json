@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Direct mode's cost report says Chief of Staff and its lines add up",
+  "summary": "Specified: the whole-session line prices the whole session and names its part in the batch's spend; cost --by cr names the Chief of Staff's steering in direct mode; one open question on the whole-session figure.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "890a97de530ce723677cb9031d0fb768cca72f2567741134f2ad848ee0754de9",
+    "02-answers.md": "81afc5f0f52d09c0ecdcbbcbc0dcf95b73a355a41fe21d3c694e6cd6016f1fc6",
+    "03-change-spec.md": "bbf4e12326589c838516d915825adf63f132cafff5712f0932575b39e223aaf2",
+    "intake/request.md": "04b89524b6c801da630de7004e29539dc13db3610039074d2f17186a8615c482"
+  },
+  "summarized": "2026-11-15T13:40:37Z"
+}

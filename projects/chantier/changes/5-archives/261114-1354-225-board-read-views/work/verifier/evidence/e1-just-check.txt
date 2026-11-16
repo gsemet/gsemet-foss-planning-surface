@@ -1,0 +1,23 @@
+﻿just : uvx ruff@0.17.5 format --check skills
+Au caractère Ligne:3 : 1
++ just check *> "$ev/e1-just-check.txt"; "exit $LASTEXITCODE"; Get-Cont ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (uvx ruff@0.17.5 format --check skills:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+119 files already formatted
+uvx ruff@0.17.5 check skills
+All checks passed!
+uv run --locked --group dev --with mypy==1.20.0 --with types-psutil mypy
+pyproject.toml: note: unused section(s): module = ['copilot_session_usage']
+Success: no issues found in 99 source files
+uv lock --check
+Resolved 20 packages in 0.57ms
+uvx --from nodejs-wheel==24.19.0 npx --yes @biomejs/biome@2.6.7 check 
+skills/chantier/scripts/cli/src/chantier/board/web
+Checked 60 files in 21ms. No fixes applied.
+uv run --locked --group dev pytest -q 
+....................................................................     [100%]
+68 passed in 16.98s
+uv run --script scripts/release_notes.py --check
+release-notes: docs/release-notes/2026-11-13-v0.9.0/release-notes.md ok

@@ -1,0 +1,1 @@
+The Chief of Staff asks a project to plan a long check on the exact head of the default branch before the version commit, if its release procedure has none (point 6 of lessons-from-studio-run)

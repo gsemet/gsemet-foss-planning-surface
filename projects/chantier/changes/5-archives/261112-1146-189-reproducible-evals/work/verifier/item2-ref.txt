@@ -1,0 +1,65 @@
+﻿== REF csv-export exit=0
+hidden: 6 passed in 0.05s
+suite: 35 passed in 0.67s
+judge csv-export at cf5646c: pass
+
+== REF delete-item exit=0
+hidden: 5 passed in 0.06s
+suite: 34 passed in 0.20s
+judge delete-item at 1f6774d: pass
+
+== REF duplicate-url exit=0
+hidden: 6 passed in 0.06s
+suite: 35 passed in 0.20s
+judge duplicate-url at e3c244f: pass
+
+== REF edit-item exit=0
+hidden: 5 passed in 0.06s
+suite: 34 passed in 0.70s
+judge edit-item at dc52294: pass
+
+== REF item-notes exit=0
+hidden: 6 passed in 0.07s
+suite: 35 passed in 0.21s
+judge item-notes at 452e4ec: pass
+
+== REF item-rating exit=0
+hidden: 5 passed in 0.06s
+suite: 34 passed in 0.18s
+judge item-rating at 7207cd4: pass
+
+== REF json-api exit=0
+hidden: 6 passed in 0.06s
+suite: 35 passed in 0.18s
+judge json-api at b7131a1: pass
+
+== REF sort-list exit=0
+hidden: 4 passed in 0.06s
+suite: 33 passed in 0.72s
+judge sort-list at 1779ced: pass
+
+== REF stats-page exit=0
+hidden: 4 passed in 0.06s
+suite: 33 passed in 0.19s
+judge stats-page at a4b26b3: pass
+
+== REF status-filter exit=0
+hidden: 6 passed in 0.08s
+suite: 35 passed in 0.71s
+judge status-filter at 68104e1: pass
+
+== REF title-search exit=0
+hidden: 4 passed in 0.07s
+suite: 33 passed in 0.68s
+judge title-search at 2db9762: pass
+
+== COMBINED batch1 exit=0
+hidden: 47 passed in 0.33s
+suite: 84 passed in 0.51s
+judge delete-item, edit-item, status-filter, json-api, stats-page, csv-export, item-notes, title-search, item-rating at 570b572: pass
+
+== COMBINED batch2 exit=0
+hidden: 57 passed in 0.41s
+suite: 97 passed in 1.13s
+judge delete-item, edit-item, status-filter, json-api, stats-page, csv-export, item-notes, title-search, item-rating, sort-list, duplicate-url at 0955ff0: pass
+

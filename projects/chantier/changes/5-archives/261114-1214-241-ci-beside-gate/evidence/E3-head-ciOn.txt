@@ -1,0 +1,69 @@
+﻿## open
+opened batch-01 on claude: 1 CRs, 1 slots, parallel, steering foreman
+next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+CR-101 T: 3-ready/thing -> 4-batch/1-pending/101-thing
+batchjson: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\bd1945f6-9982-485f-b29f-477277e80753\scratchpad\run-head-ciOn\.agents\changes\4-batch\batch.json
+## playbook
+playbook: chantier.yaml, valid, host claude
+coder: agent=chantier:coder model=(its file's)
+conflict-resolver: agent=chantier:conflict-resolver model=(its file's)
+cr-driver: agent=chantier:cr-driver model=(its file's)
+debugger: agent=chantier:debugger model=(its file's)
+demo-explorer: agent=chantier:demo-explorer model=(its file's)
+inspector: agent=chantier:inspector model=(its file's)
+investigator: agent=chantier:investigator model=(its file's)
+qa-driver: agent=chantier:qa-driver model=(its file's)
+release-driver: agent=chantier:release-driver model=(its file's)
+spec-writer: agent=chantier:spec-writer model=(its file's)
+stack-driver: agent=chantier:stack-driver model=(its file's)
+verifier: agent=chantier:verifier model=(its file's)
+ci: beside the long gate (chantier.yaml): push at the approved round, run the long gate while CI runs
+spec-writer prompt, first line: chantier spec-writer for the Chief of Staff, in the project C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/bd1945f6-9982-485f-b29f-477277e80753/scratchpad/run-head-ciOn.
+escalate: opus (claude-opus-5-5, Claude Opus 5.5)
+## playbook --batch
+playbook: chantier.yaml as batch-01 opened it, host claude
+coder: agent=chantier:coder model=(its file's)
+conflict-resolver: agent=chantier:conflict-resolver model=(its file's)
+cr-driver: agent=chantier:cr-driver model=(its file's)
+debugger: agent=chantier:debugger model=(its file's)
+demo-explorer: agent=chantier:demo-explorer model=(its file's)
+inspector: agent=chantier:inspector model=(its file's)
+investigator: agent=chantier:investigator model=(its file's)
+qa-driver: agent=chantier:qa-driver model=(its file's)
+release-driver: agent=chantier:release-driver model=(its file's)
+spec-writer: agent=chantier:spec-writer model=(its file's)
+stack-driver: agent=chantier:stack-driver model=(its file's)
+verifier: agent=chantier:verifier model=(its file's)
+ci: beside the long gate (chantier.yaml): push at the approved round, run the long gate while CI runs
+escalate: opus (claude-opus-5-5, Claude Opus 5.5)
+## take
+took CR-101 (1 of 1 slots held)
+CR-101 "T" (change) working in batch batch-01 (parallel)
+cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-241" chantier <command> --batch batch-01
+cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-241/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+project instructions: none
+specification: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/bd1945f6-9982-485f-b29f-477277e80753/scratchpad/run-head-ciOn/.agents/changes/4-batch/2-actives/101-thing/03-change-spec.md
+folder: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/bd1945f6-9982-485f-b29f-477277e80753/scratchpad/run-head-ciOn/.agents/changes/4-batch/2-actives/101-thing (work/, evidence/)
+worktree: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\bd1945f6-9982-485f-b29f-477277e80753\scratchpad\run-head-ciOn.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-t base origin/main; not created yet: a Driver creates it first
+PR: none; head -
+rounds: 0 of 3
+notes: none
+gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+  [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+  [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+ci: beside the long gate (chantier.yaml): push at the approved round, run the long gate while CI runs
+## handoff
+CR-101 "T" (change) working in batch batch-01 (parallel)
+cli: uv run --locked --project "C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-241" chantier <command> --batch batch-01
+cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-17-CR-241/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+project instructions: none
+specification: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/bd1945f6-9982-485f-b29f-477277e80753/scratchpad/run-head-ciOn/.agents/changes/4-batch/2-actives/101-thing/03-change-spec.md
+folder: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/bd1945f6-9982-485f-b29f-477277e80753/scratchpad/run-head-ciOn/.agents/changes/4-batch/2-actives/101-thing (work/, evidence/)
+worktree: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\bd1945f6-9982-485f-b29f-477277e80753\scratchpad\run-head-ciOn.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-t base origin/main; not created yet: a Driver creates it first
+PR: none; head -
+rounds: 0 of 3
+notes: none
+gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+  [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+  [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+ci: beside the long gate (chantier.yaml): push at the approved round, run the long gate while CI runs

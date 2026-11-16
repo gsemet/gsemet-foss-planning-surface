@@ -1,0 +1,10 @@
+﻿usage: chantier restore [-h] [--slug SLUG] item
+
+positional arguments:
+  item         path to the folder directly under 6-trash
+
+options:
+  -h, --help   show this help message and exit
+  --slug SLUG  the inbox name, when the old one is taken or to rename
+
+exit=0

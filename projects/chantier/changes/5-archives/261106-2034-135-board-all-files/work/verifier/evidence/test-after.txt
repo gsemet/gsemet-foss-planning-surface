@@ -1,0 +1,28 @@
+﻿
+hooks\register.test.tsx:
+(pass) the chantier skill opens the pane and returns its prompt unchanged [84.39ms]
+(pass) /chantier-board opens the pane, then closes it [45.68ms]
+(pass) the command is registered immediate, to run during a turn [33.98ms]
+(pass) a session in a worktree reads the main checkout [35.48ms]
+(pass) outside a git repository the session folder is the root [35.63ms]
+(pass) a process that is refused is said in one line, with its error [33.60ms]
+(pass) a file whose time did not change is not read again; one that changed is [37.38ms]
+(pass) a closed pane runs no timer [34.64ms]
+(pass) without an index the pane says so in one line [44.56ms]
+(pass) a file that does not parse keeps the last view; another schema is said alone [44.21ms]
+(pass) the board, a sheet and a document open and go back; a path leaving the checkout is plain text [64.53ms]
+(pass) a landed batch is folded, with its cost on its title line [46.74ms]
+(pass) a row draws its severity icon once, in the State column [51.57ms]
+(pass) Backlog, Landed and Trashed are folded and open when pressed [59.93ms]
+(pass) a table holds no long text: why a CR is blocked is a fold of its own [38.30ms]
+(pass) a cell escapes backslash and pipe and folds whitespace; a link out of the checkout opens nothing on the board [32.61ms]
+(pass) a live batch whose Foreman is silent for long says so [45.10ms]
+(pass) an item holding only a sub-folder lists it, and the folder lists its file, which opens [55.25ms]
+(pass) an inbox or backlog item opens as the list of every file it holds [41.00ms]
+(pass) a document over 200 KB or not UTF-8 is not shown, with one line [49.38ms]
+(pass) an https link stays a link; a relative link opens in the pane [43.58ms]
+
+ 21 pass
+ 0 fail
+Ran 21 tests across 1 file. [1.21s]
+exit 0

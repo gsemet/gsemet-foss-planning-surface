@@ -1,0 +1,10 @@
+1289:      CR-106 PR in draft: its PR https://github.com/acme/demo/pull/45 is of unknown draft state (draft not read: ship CR-106 https://github.com/acme/demo/pull/45); it waits on CR-105 (https://github.com/acme/demo/pull/44)
+1630:- [x] handed back ready over a draft, it reads `PR in draft`, not `ready to merge`: the hand-back line, its label and the `notify` text name the forge's base and the CR it waits for
+2598:- [x] 3. a PR in draft is handed back `PR in draft`, naming its draft state and the CR it waits on
+2621:- [x] 4. a stacked PR out of draft with the forge's base `main` waits on the CR under it, never on `main`
+2629:      CR-107 PR in draft: its PR https://github.com/acme/demo/pull/46 is out of draft on the forge; it waits on CR-106 (no PR yet)
+2630:- [x] 4. a CR waited on with no PR recorded reads `(no PR yet)`
+2640:      CR-107 PR in draft: its PR https://github.com/acme/demo/pull/46 is of unknown draft state (draft not read: ship CR-107 https://github.com/acme/demo/pull/46); it waits on CR-106 (https://github.com/acme/demo/pull/45)
+2641:- [x] 4. a PR with no recorded draft state reads `of unknown draft state` and stays `PR in draft`
+3284:- [x] 9. a prepared release whose PR is a draft is handed back `PR in draft`, naming the PR and what it waits on
+3285:- [x] a prepared release whose PR is a draft: 🟤 in STATUS.md and STATUS.json, at every level

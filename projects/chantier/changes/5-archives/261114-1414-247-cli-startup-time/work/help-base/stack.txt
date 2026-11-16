@@ -1,0 +1,12 @@
+﻿usage: chantier stack [-h] [--batch BATCH] [crs ...]
+
+positional arguments:
+  crs            the stack's order, as its driver set it, bottom first; with
+                 no CR, print the stack as it stands (writes nothing)
+
+options:
+  -h, --help     show this help message and exit
+  --batch BATCH  batch number, 4 or batch-04 (default: $CHANTIER_BATCH, else
+                 the only running one)
+
+exit=0

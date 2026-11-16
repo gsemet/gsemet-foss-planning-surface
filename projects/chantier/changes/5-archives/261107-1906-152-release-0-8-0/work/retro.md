@@ -1,0 +1,7 @@
+# Retro: release v0.8.0 (CR-152 release-0-8-0)
+
+- `scripts/release_notes.py --scan` misses a UUID right after `_` (its pattern relies on `\b`, and `_` is a word character), found in attempt 1. Long-term fix: a fix CR that bounds the UUID pattern with `(?<![0-9a-fA-F])…(?![0-9a-fA-F])` and adds a structure test for `name_<uuid>`.
+- `just tag` tags `origin/main` but reads the version from the local checkout, and checks neither that the head is a `release: vX.Y.Z` commit nor that the two agree; a commit pushed to `main` after the merge would get the tag. Long-term fix: `just tag` takes the expected SHA (or checks `origin/main`'s subject is `release: v<version>`) and refuses otherwise.
+- The version PR merges by rebase, so the merged commit (d670e24) differs from the PR head (4a708bf): the worktree had to be reset to `origin/main` before tagging. Long-term fix: CONTRIBUTING step 4 says to verify `origin/main` is the PR's merge commit (`gh pr view --json mergeCommit`) before `just tag`.
+- Attempt 1 asked `release go` for "merge PR #89" after the user had already merged it, which left an extra ask in the record. Long-term fix: the Release driver card says a merge done by the user needs no `release go`.
+- `gh release create` was given `--title v0.8.0` and `--verify-tag`, which CONTRIBUTING does not name; both match earlier releases' titles. Long-term fix: CONTRIBUTING step 5 writes the full command, title included.

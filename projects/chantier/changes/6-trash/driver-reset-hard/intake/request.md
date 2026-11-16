@@ -1,0 +1,1 @@
+Batch-15: CR-212's round-3 Driver ran 'git reset --hard' in its worktree after a coder's botched attempt (nothing pushed lost). The Driver card says whether a Driver may reset its worktree, and if not, that a dirty worktree after a failed coder goes to a new coder or a conflict-resolver.

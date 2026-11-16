@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "The web board after the user's first page-by-page tour",
+  "summary": "Specified from the tour's notes, no grill answers yet: Kanban columns with Inbox, Grill and Done, a priority filter, Triage cards like the Kanban's, Costs and Home reading the closed batches; six open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "03-change-spec.md": "be37ac7b6ff5d9d2961f97396bbdee6ab6c541a89d7923873e16906387d6169f",
+    "intake/request.md": "5f7f2b2161024e5c1bc053db25658d05fba26b543251a6b27431a3a12f08e2ca"
+  },
+  "summarized": "2026-11-14T18:41:35Z"
+}

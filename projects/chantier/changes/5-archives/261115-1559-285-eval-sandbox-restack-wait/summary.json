@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The sandbox merge waits for the restack's checks",
+  "summary": "Specified: sandbox.py merge waits, bounded (about 300 s), for pending checks at a PR's head after a stack's restack instead of refusing at once; dry run and README follow. One question open: wait on an empty rollup.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "6b99e961061a5aba4a7b837371101328b86883744554c4b5851083fa05cd9969",
+    "02-answers.md": "e436c3e0f7b89b1958aeab4a54ee02f7ed10cb70c7d64b3cfe898f88e6dc02b5",
+    "03-change-spec.md": "9a55806e35c9a22337752652f47863d64b0e3c50e0bbb2e39afd75a075c87e1d",
+    "intake/request.md": "7082eb88df39a96efab7f2e1e699115474fc65a233b1aa9066366c796518d6d0"
+  },
+  "summarized": "2026-11-15T13:39:36Z"
+}

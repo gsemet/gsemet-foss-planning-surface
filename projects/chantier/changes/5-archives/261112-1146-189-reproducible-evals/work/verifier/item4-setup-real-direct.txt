@@ -1,0 +1,15 @@
+﻿campaign  real-direct
+run       1
+prefix    [eval 1 2026-11-12 real-direct]
+workspace C:\Users\gaeta\Projets\chantier-eval\cr189-verify\rd
+base      6e87a361c1b192e6d081c162f0cb2cc28bb72b25
+chantier  0.8.0 4e111ac3944cf0480f94142670ea9eed8279bf57
+CRs placed in .agents/changes/3-ready/ (5):
+  delete-item
+  edit-item
+  status-filter
+  json-api
+  stats-page
+
+CHANTIER = uv run --script "C:\Users\gaeta\Projets\chantier.worktrees\batch-13-CR-189\skills\chantier\scripts\cli\chantier.py"   (run from the workspace)
+batch 1: $CHANTIER open .agents/changes/3-ready/delete-item .agents/changes/3-ready/edit-item .agents/changes/3-ready/status-filter .agents/changes/3-ready/json-api .agents/changes/3-ready/stats-page --mode <stack|parallel|series> --slots 3 --budget 20 --default-branch main --direct

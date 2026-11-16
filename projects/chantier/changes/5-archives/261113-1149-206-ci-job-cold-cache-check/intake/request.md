@@ -1,0 +1,1 @@
+batch-14 retro: CR-191's local long gate passed but its new CI job just eval-dry-run was red on ubuntu (uv lock --offline with a cold uv cache), costing a round. Fix: an eval-kit change that adds a CI job runs its recipe once locally with an empty uv cache (UV_CACHE_DIR set to a fresh folder) before the push; the spec-writer names the CI environment when a spec adds a job.

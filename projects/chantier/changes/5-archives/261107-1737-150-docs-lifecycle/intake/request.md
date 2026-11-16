@@ -1,0 +1,1 @@
+Update the docs SVG diagrams and the docs with the batch lifecycle (running, paused, closed on the user's word) and the direct mode (no Foreman), and with all the changes of 2026-11-07. Filed by the user during batch-08, P1, to follow batch-lifecycle and pr-template.

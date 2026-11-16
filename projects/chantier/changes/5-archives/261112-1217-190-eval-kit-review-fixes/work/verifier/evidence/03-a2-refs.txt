@@ -1,0 +1,10 @@
+﻿parse_refs -> {'refs/heads/main': 'aaa', 'refs/tags/v0.2.0': 'ddd'}
+ref_problems(that, base=aaa) -> ['tags: v0.2.0']
+ref_problems({main: base}) -> []
+ref_problems(main elsewhere, branch x) -> ['main is at zzz, not aaa', 'branches other than main: x']
+sandbox.py build exit 0 ['base 6e87a361c1b192e6d081c162f0cb2cc28bb72b25', '27 files'] 
+bare refs (all): ['refs/heads/main', 'refs/pull/1/head']
+remote_refs(bare) -> {'refs/heads/main': '6e87a361c1b192e6d081c162f0cb2cc28bb72b25'} == {main: base}: True
+ref_problems -> []
+d72df44 whole-map comparison: map = {'refs/heads/main': '6e87a361c1b192e6d081c162f0cb2cc28bb72b25', 'refs/pull/1/head': '6e87a361c1b192e6d081c162f0cb2cc28bb72b25'}
+d72df44 verify problem: refs are {'refs/heads/main': '6e87a361c1b192e6d081c162f0cb2cc28bb72b25', 'refs/pull/1/head': '6e87a361c1b192e6d081c162f0cb2cc28bb72b25'}, expected only refs/heads/main at 6e87a361c1b192e6d081c162f0cb2cc28bb72b25

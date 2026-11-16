@@ -1,0 +1,1 @@
+The Chief of Staff regularly shows a few tips at the end of its messages, for example: compact this session now with /compact; type Status to get a progress table at once.

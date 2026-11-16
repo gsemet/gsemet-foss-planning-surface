@@ -1,0 +1,1 @@
+﻿Verify CR-178 at 963d576: VERIFIED. Diff only 4 allowed files; A1-A8, R1, R2 met. Nits: long unwrapped lines in driver.md, release-template.md, CONTRIBUTING.md; template relies on its header for procedure-first.

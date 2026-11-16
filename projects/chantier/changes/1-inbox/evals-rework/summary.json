@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Rework the eval campaigns",
+  "summary": "Specified (Q1-Q6, A7-A9). Campaigns named by host, ticket-summary and copilot removed, copilot-real-foreman and copilot-real-direct ready (runbooks, setup, dry-run case copilot-setup, shared audit checks), reports renamed date-time first in UTC, claims in results/claims/.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "42cbe4c824b8f45a46b7943608616d2696b75bc01f88baca8990d965291d8e37",
+    "02-answers.md": "ec41c6d68f8b815780529312b750a7bc4601f3012dd0c0687e9026669a22b72e",
+    "03-change-spec.md": "8710894e3979a99d0c616f5df7bff8a58f206c0520ae53fc1bbd4fa5fed86e8c",
+    "intake/request.md": "ffa07aa24522ba9b550d5e7d60099bb08252b9d045d24d5a4c04bf87ba90faeb"
+  },
+  "summarized": "2026-11-16T10:43:25Z"
+}

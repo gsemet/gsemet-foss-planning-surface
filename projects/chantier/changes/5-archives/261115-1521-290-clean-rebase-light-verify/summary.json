@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "A clean rebase carries the Verifier's verdict",
+  "summary": "Specified: a rebase with no conflict and the patch unchanged (proved by git) carries the VERIFIED verdict like the long gate pass; CI green at the new head, no new Verifier; same in parallel and stack. Two open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "847c7dde54ea2539164b3d4d3ba7ea4d609643bf7e72db782769bdf0e602ac9a",
+    "02-answers.md": "f4da3261dea5d0da65c936305edd3b90089e8ac59148712de99f197028fd28ea",
+    "03-change-spec.md": "608830c1a6bbbf9f1ebe1b63182aec24f2683a512f68a27493d53d3358602b3c",
+    "intake/request.md": "203b22730b3a52212cc7cd589d5d28d185d40fad67bcd531262bd9ffedebed9b"
+  },
+  "summarized": "2026-11-15T13:42:53Z"
+}

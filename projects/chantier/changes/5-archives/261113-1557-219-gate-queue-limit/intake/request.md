@@ -1,0 +1,1 @@
+Batch-15 retro: with 4 Drivers and one long gate at a time, the gate queue went past its one-hour limit; CR-196 and CR-205 were refused (CR-205 waited about 2 h). The refusal names a stale holder while the lock is live. Fix: size the limit on the slots or queue first-come with no limit, and word the refusal right.

@@ -1,0 +1,1 @@
+on va reflechir a une idee de backend de visualization en complement du mod claude (qui ne passe pas en mode remote)

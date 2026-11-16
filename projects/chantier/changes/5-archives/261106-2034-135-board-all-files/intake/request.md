@@ -1,0 +1,1 @@
+The CR board lists every file of an item. The user, on the board: 'il marche, mais actuellement je ne vois rien dans les dossier driver-sonnet par exemple car il n y a pas le fichier attendu il faudra etre plus flexible et lister tous les fichiers'

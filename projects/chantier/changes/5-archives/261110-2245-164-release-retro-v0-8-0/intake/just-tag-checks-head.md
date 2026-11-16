@@ -1,0 +1,1 @@
+just tag tags origin/main but reads the version from the local checkout, and checks neither that origin/main's head is a 'release: vX.Y.Z' commit nor that the two agree: a commit pushed after the merge would get the tag. just tag should refuse unless origin/main's subject is 'release: v<version>' (or take the expected SHA). From the v0.8.0 release retro.

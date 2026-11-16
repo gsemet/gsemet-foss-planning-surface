@@ -1,0 +1,40 @@
+﻿# before at 7d58b96 (fresh batch, before any priced refresh)
+
+## chantier open
+opened batch-01 on claude: 1 CRs, 4 slots, parallel, steering foreman
+next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+CR-101 Change Specification: a thing: 3-ready/a-thing -> 4-batch/1-pending/101-a-thing
+
+## chantier status
+batch-01 running parallel live 0/4 queued 1 steering foreman foreman none e0 heartbeat never spent $0.00 of $50
+CR-101 queued r0/3 - | -
+
+## \.agents\changes\STATUS.md
+# Change requests
+
+> Updated 2026-11-10T23:02:41Z: 1 active CRs in 1 batches.
+
+## Active
+
+### [batch-01](4-batch/STATUS.md): running, $0.00 of $50
+
+| CR | Subject | Status | Branch | PR/MR | Cost |
+| --- | --- | --- | --- | --- | ---: |
+| [101](4-batch/1-pending/101-a-thing/03-change-spec.md) | Change Specification: a thing | [âšª queued](4-batch/1-pending/101-a-thing/STATUS.md) | `chantier/batch-01/cr-101-change-specification-a-thing` | - | - |
+
+## Backlog
+
+| Priority | Item | Title | Spec | Files |
+| --- | --- | --- | --- | ---: |
+
+## \.agents\changes\4-batch\STATUS.md
+# batch-01: running
+
+Updated 2026-11-10T23:02:41Z Â· steering foreman Â· spent $0.00 of $50 Â· 0 asks unread Â· 0 orders pending
+
+[All change requests](../STATUS.md)
+
+| CR | Subject | Status | Branch | PR/MR | Cost |
+| --- | --- | --- | --- | --- | ---: |
+| [101](1-pending/101-a-thing/03-change-spec.md) | Change Specification: a thing | [âšª queued](1-pending/101-a-thing/STATUS.md) | `chantier/batch-01/cr-101-change-specification-a-thing` | - | - |
+

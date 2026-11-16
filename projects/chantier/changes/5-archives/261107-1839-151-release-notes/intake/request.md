@@ -1,0 +1,1 @@
+Chantier's release procedure, after Markdown OKF-Schema Studio's: each release ships release notes with the most visual evidence possible, usage and call examples, and links to the relevant docs; and an announcement thread of 3 posts (the first may be long) with 1 image. Model: markdown-okf-schema-studio .agents/guidelines/release-process.guidelines.md and docs/releases-notes/.

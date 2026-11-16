@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "batch": "batch-03",
+  "number": 3,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-106",
+      "title": "`order qa` is refused once the budget is spent",
+      "result": "merged",
+      "archive": "5-archives/261105-2126-106-qa-budget-rail",
+      "pr": "https://github.com/gsemet/chantier/pull/41",
+      "rounds": 1,
+      "cost_usd": 1.4355,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-107",
+      "title": "The Chief of Staff asks for a long check before a release",
+      "result": "merged",
+      "archive": "5-archives/261105-2126-107-release-long-check",
+      "pr": "https://github.com/gsemet/chantier/pull/40",
+      "rounds": 1,
+      "cost_usd": 0.8343,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-03.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": "03-eval-real-050",
+    "first_step": "2026-11-05T17:32:26Z",
+    "last_merge": "2026-11-05T21:26:00Z",
+    "retros": []
+  }
+}

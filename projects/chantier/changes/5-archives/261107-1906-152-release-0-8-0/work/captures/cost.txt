@@ -1,0 +1,11 @@
+﻿batch-08: $41.111 over 1182 model calls
+Chief of Staff (steering): $20.905 (374 calls)
+Driver chantier:cr-driver: $5.584 (266 calls)
+Driver general-purpose: $3.303 (47 calls)
+Driver chantier:release-driver: $0.697 (18 calls)
+Worker chantier:coder: $7.044 (296 calls)
+Worker chantier:inspector: $1.530 (79 calls)
+Worker chantier:verifier: $1.508 (79 calls)
+Worker chantier:investigator: $0.420 (12 calls)
+Worker chantier:conflict-resolver: $0.120 (11 calls)
+Chief of Staff: $48.36 since the batch opened, $140.28 the whole session, context 149,387 tokens

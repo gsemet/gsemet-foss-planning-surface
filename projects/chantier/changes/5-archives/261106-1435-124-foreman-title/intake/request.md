@@ -1,0 +1,1 @@
+epoch -> j'aime pas, nomme les foreman avec le nom de la session chief of staff + ' - [Foreman Batch 01]'. Fix ca dans une nouvelle CR.

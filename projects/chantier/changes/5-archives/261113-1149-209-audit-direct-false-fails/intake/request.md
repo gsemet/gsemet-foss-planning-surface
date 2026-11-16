@@ -1,0 +1,1 @@
+real-direct run 1 (2026-11-12, PR 137): 4 of the 6 audit FAILs were the audit's own mistakes. J3 flags the Verifier's detached worktree that its rail allows (3 FAILs); C9 flags the `status --refresh` with no epoch that status-layout.md requires before a report (1 FAIL). Fix evals/kit/audit.py so both pass.

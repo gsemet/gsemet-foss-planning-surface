@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>chantier · board (prototype 6)</title>
+<script src="data.js"></script>
+<style>
+:root{
+  --bg:#eef0f3; --panel:#fff; --side:#f7f7f8; --line:#e6e7ea; --line2:#eeeff1;
+  --ink:#16181d; --ink2:#454a58; --ink3:#666b78;
+  --blue:#3b6fe0; --green:#2fa86b; --red:#d6455d; --amber:#d98a1c; --violet:#8b5cf6; --grey:#9aa0ab;
+  --chip:#f3f4f6; --radius:12px;
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+*{box-sizing:border-box}
+::selection{background:#d6e2fa;color:var(--ink)}
+:focus-visible{outline:2px solid #2a62c9;outline-offset:2px;border-radius:6px}
+*{scrollbar-width:thin;scrollbar-color:#cdd1d8 transparent}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:#cdd1d8;border-radius:10px;border:3px solid #fff}::-webkit-scrollbar-track{background:transparent}
+a{text-underline-offset:3px}
+td > b:first-child{white-space:nowrap}
+.svgi{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px;flex:none}
+.nav .ic .svgi{width:17px;height:17px}
+.bnav .ic .svgi{width:21px;height:21px}
+.car .svgi{width:14px;height:14px;vertical-align:-2px}
+.meta .svgi,.nm .svgi,.pm .svgi{width:13px;height:13px;vertical-align:-2px}
+.prlink .svgi{width:12px;height:12px;vertical-align:-1px}
+html,body{margin:0;height:100%;background:#fff;color:var(--ink);font-size:14px;overflow:hidden}
+button{font:inherit;cursor:pointer}
+.app{display:grid;grid-template-columns:240px 1fr;height:100vh}
+.side{background:var(--side);border-right:1px solid var(--line);padding:14px;display:flex;flex-direction:column;gap:6px}
+.ws{display:flex;gap:10px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.logo{width:34px;height:34px;border-radius:9px;background:#c8401f;color:#fff;display:grid;place-items:center;font-weight:700}
+.ws small{display:block;color:var(--ink3);font-size:12px}
+.ws{width:100%;text-align:left;cursor:pointer;position:relative}
+.ws:hover{border-color:#cfd3da}
+.ws .car{margin-left:auto;color:var(--ink3);font-size:12px}
+.pwrap{position:relative}
+.pmenu{display:none;position:absolute;left:0;right:0;top:calc(100% + 6px);background:#fff;border:0;border-radius:10px;box-shadow:0 8px 24px rgba(20,24,31,.12);padding:6px;z-index:20;min-width:240px}
+.pmenu.open{display:block}
+.pmenu .ph{color:var(--ink3);font-size:12px;padding:4px 8px 6px}
+.popt{display:flex;gap:10px;align-items:center;width:100%;border:0;background:none;border-radius:8px;padding:7px 8px;text-align:left}
+.popt:hover{background:#f3f4f6}
+.popt.on{background:#f4f6fb}
+.popt .logo{width:26px;height:26px;border-radius:7px;font-size:12px}
+.popt small{display:block;color:var(--ink3);font-size:12px}
+.popt .ok{margin-left:auto;color:var(--ink2)}
+.live{width:7px;height:7px;border-radius:50%;background:var(--blue);display:inline-block;margin-left:4px;vertical-align:middle}
+.pbtn{display:none}
+.mut{color:var(--ink3)}
+.aptab{width:100%;border-collapse:collapse;margin-top:16px;font-size:13.5px}
+.aptab th{text-align:left;color:var(--ink3);font-weight:500;font-size:12px;padding:6px 10px;border-bottom:1px solid var(--line)}
+.aptab td{padding:12px 10px;border-bottom:1px solid var(--line2,#eef0f3);vertical-align:middle}
+.aptab tr[data-pick]{cursor:pointer}
+.aptab tr[data-pick]:hover td{background:#fafbfc}
+.aptab tr.hasrev td:first-child{box-shadow:inset 0 0 0 0 transparent}
+.aptab td:first-child{display:flex;align-items:center;gap:9px}
+.aptab .logo{width:26px;height:26px;border-radius:7px;font-size:12px}
+.aptab .num{white-space:nowrap}
+.prlink{display:inline-block;border:1px solid #cbe9d7;background:#f6fcf8;color:#1d6b43;border-radius:7px;padding:2px 7px;margin:2px 4px 2px 0;font-size:12px;text-decoration:none;font-weight:600}
+.prlink:hover{border-color:#8fcfaa}
+.mbar{width:110px;height:6px;border-radius:4px;background:#eef0f3;overflow:hidden;margin-bottom:3px}
+.mbar i{display:block;height:100%;background:#b9a3e6}
+.apcards{display:none}
+.apc{background:var(--bg,#fff);border:1px solid var(--bc,var(--line));border-radius:9px;padding:11px 12px;margin-bottom:10px;cursor:pointer}
+.apt{display:flex;align-items:center;gap:8px;font-size:14px}
+.apt .logo{width:24px;height:24px;border-radius:7px;font-size:12px}
+.apt .mut{font-size:12px}
+.aps{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;color:var(--ink2);font-size:12.5px}
+.aps b{color:var(--ink)}
+.empty{border:1px dashed var(--line);border-radius:10px;padding:28px;color:var(--ink2);text-align:center;margin-top:20px;line-height:1.6}
+.sec{margin:16px 6px 4px;color:var(--ink2);font-size:12px;font-weight:600}
+.nav{display:flex;align-items:center;gap:10px;padding:8px 9px;border-radius:8px;color:var(--ink2);border:0;background:none;text-align:left;width:100%}
+.nav:hover{background:#eceef1}
+.nav.on{background:#fff;color:var(--ink);box-shadow:0 0 0 1px var(--line)}
+.nav .n{margin-left:auto;color:var(--ink3);font-size:12px}
+.nav .ic{width:18px;text-align:center}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+.side .foot{margin-top:auto;border-top:1px solid var(--line);padding-top:10px;color:var(--ink3);font-size:12px;line-height:1.6}
+.main{background:var(--panel);padding:24px 28px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.head{display:flex;align-items:flex-start;gap:12px}
+.head h1{margin:0;font-size:30px;font-weight:600;letter-spacing:-.01em}
+.stats{margin-top:6px;color:var(--ink2);display:flex;gap:14px;flex-wrap:wrap}
+.stats b{color:var(--ink)}
+.cta{white-space:nowrap;margin-left:auto;background:var(--ink);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-weight:600}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0 12px}
+.fchip{border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:#fff;color:var(--ink2);font-size:13px}
+.filters .count{margin-left:auto;color:var(--ink3);font-size:13px}
+.view{flex:1;min-height:0;overflow:auto}
+/* kanban */
+.board{display:flex;gap:12px;height:100%;align-items:flex-start;overflow-x:auto;padding-bottom:8px}
+.col{flex:0 0 290px;background:#f6f7f9;border:1px solid var(--line2);border-radius:12px;padding:8px;max-height:100%;overflow:auto}
+.colh{display:flex;align-items:center;gap:8px;padding:6px 6px 4px;font-weight:600}
+.colh .c{background:#e9ebef;border-radius:6px;padding:0 6px;font-size:12px;color:var(--ink2);font-weight:500}
+.colsub{padding:0 6px 10px 23px;color:var(--ink3);font-size:12px}
+.add{width:100%;border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px;color:var(--ink2);margin-bottom:8px}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin-bottom:8px;cursor:pointer;transition:border-color .15s}
+.card:hover{border-color:color-mix(in srgb,var(--bc,#e6e7ea),#1b2030 22%)}
+.card.sel{border-color:var(--blue);box-shadow:0 0 0 2px #dbe5fb}
+.row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.tag{font-size:12px;padding:1px 7px;border-radius:5px;font-weight:600;white-space:nowrap}
+.t-P1{background:#fde8ec;color:#c03552}.t-P2{background:#fdf0df;color:#b86e0c}.t-P3{background:#e8effd;color:#2f5fc7}.t-P4,.t-inbox{background:#f0f0f2;color:#6a6f7c}
+.t-cr{background:#efe9fe;color:#6d43d6}
+.t-rel{background:#f0f0f2;color:#454a58}
+.src{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;border-radius:6px;padding:1px 5px;white-space:nowrap}
+.src .svgi{width:12px;height:12px;vertical-align:0}
+.lab{display:inline-flex;align-items:center;font-size:11px;font-weight:600;border-radius:999px;padding:0 7px;line-height:18px;color:var(--lc);background:color-mix(in srgb,var(--lc) 11%,#fff);border:1px solid color-mix(in srgb,var(--lc) 28%,#fff)}
+.labs{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.lfil{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.lfil .lt{font-size:12px;color:var(--ink3)}
+.lbtn{cursor:pointer}.lbtn.on{background:var(--lc);color:#fff;border-color:var(--lc)}
+.lclr{border:0;background:none;color:var(--blue);font-size:12px;cursor:pointer}
+.late{flex:none;color:#8a5208;display:inline-flex}.late .svgi{width:13px;height:13px}
+.toast{position:fixed;left:50%;bottom:64px;transform:translateX(-50%) translateY(8px);background:var(--ink);color:#fff;border-radius:9px;padding:7px 12px;font-size:12.5px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:30;max-width:calc(100% - 24px)}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.aswrap{position:relative;margin-bottom:8px}
+.asy{display:flex;align-items:center;gap:8px;width:100%;border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 8px;text-align:left;color:var(--ink)}
+.asy:hover{border-color:color-mix(in srgb,var(--line) 60%,var(--ink3))}
+.asy span:nth-child(2){flex:1;min-width:0}.asy b{display:block;font-size:12px}.asy small{display:block;color:var(--ink3);font-size:11px}
+.asy .svgi{width:13px;height:13px;transform:rotate(-90deg);color:var(--ink3)}
+.adot{width:8px;height:8px;border-radius:50%;flex:none;display:inline-block}
+.apop{display:none;position:absolute;left:0;bottom:calc(100% + 6px);width:300px;background:#fff;border-radius:10px;box-shadow:0 0 0 1px rgba(20,24,31,.06),0 10px 30px rgba(0,0,0,.12);padding:12px;z-index:20;font-size:12.5px;color:var(--ink)}
+.apop.open{display:block}
+.apop .ah{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px}
+.apop dl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:0 0 8px}.apop dt{color:var(--ink3)}.apop dd{margin:0}
+.apop .aw{border-radius:8px;padding:8px;margin-bottom:8px;line-height:1.4}.apop .aw.ko{background:#fff4f5;color:#9c2a41}.apop .aw.wa{background:#fff6ec;color:#7a4a0c}
+.apop .aw .btn{display:block;margin-top:6px}
+.apop .aa{display:flex;gap:6px;margin-bottom:8px}
+.asim{border-top:1px solid var(--line2);padding-top:8px;color:var(--ink3);font-size:11px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.asim button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:1px 6px;font-size:11px;color:var(--ink2)}.asim button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.asph{display:none;vertical-align:top;margin:0 0 8px 6px}
+.asyd{border:1px solid var(--line);background:#fff;border-radius:9px;width:34px;height:33px;display:grid;place-items:center}
+.asph .apop{position:fixed;left:12px;right:12px;top:58px;bottom:auto;width:auto}
+.row:has(.src){flex-wrap:nowrap}.row:has(.src)>.tag,.row:has(.src)>.gs,.row:has(.src)>.late{flex:none}
+.row:has(.src)>.lbl,.row:has(.src)>.sl{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.src-verbal{color:#666b78;padding:1px 3px}.src-github{background:#eceef1;color:#24292f}.src-gitlab{background:#fdeee6;color:#a8400f}.src-jira{background:#e6effc;color:#1d58c4}
+.s-working{background:#e8effd;color:#2f5fc7}.s-queued{background:#f0f0f2;color:#6a6f7c}.s-blocked{background:#fde8ec;color:#c03552}.s-ready{background:#e3f6ec;color:#1f7a4b}.s-waiting{background:#fdf0df;color:#8a5208}.s-merged{background:#e3f6ec;color:#1f7a4b}
+.lbl{font-size:12px;border:1px solid var(--line);border-radius:5px;padding:0 6px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
+.ttl{margin-top:6px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.desc{margin-top:4px;color:var(--ink2);font-size:12.5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bars{display:flex;gap:3px;margin-top:10px}
+.bars i{flex:1;height:4px;border-radius:2px;background:#e8e9ec}
+.meta{display:flex;gap:10px;align-items:center;margin-top:10px;color:var(--ink2);font-size:12px}
+.meta .r{margin-left:auto}
+.empty{color:var(--ink3);font-size:12px;padding:10px 8px}
+/* batch */
+.bhead{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:16px 0}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi small{color:var(--ink2)} .kpi b{display:block;font-size:21px;margin-top:4px;font-weight:600}
+.kpi .sub{color:var(--ink3);font-size:12px;margin-top:4px}
+.meter{height:6px;background:#eceef1;border-radius:3px;margin-top:8px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--blue)}
+.legend{display:flex;gap:14px;align-items:center;color:var(--ink2);font-size:12px;margin-bottom:10px;flex-wrap:wrap}
+.legend .k{display:flex;gap:6px;align-items:center}
+.graph{position:relative;display:flex;gap:90px;align-items:flex-start;padding:8px 4px 30px;min-width:max-content}
+.lvl{display:flex;flex-direction:column;gap:12px;width:300px;position:relative;z-index:1}
+.lvlh{color:var(--ink3);font-size:12px;font-weight:600;margin-bottom:-2px}
+.grp{border:1px dashed var(--line);border-radius:12px;padding:8px;display:flex;flex-direction:column;gap:6px}
+.grp .gh{font-size:12px;color:var(--ink2);font-weight:600;display:flex;gap:6px;align-items:center;padding:2px 2px 4px}
+.st-queued,.st-cancelled{--bc:#e0e3e8;--bg:#fbfbfc}
+.st-working{--bc:#cddcf6;--bg:#f7faff}
+.st-waiting{--bc:#f1dcb8;--bg:#fffaf2}
+.st-blocked{--bc:#f1cfcf;--bg:#fff8f8}
+.st-ready{--bc:#cbe9d7;--bg:#f6fcf8}
+.st-merged{--bc:#e0d5f3;--bg:#fbf9ff}
+.node{background:var(--bg,#fff);border:1px solid var(--bc,var(--line));border-radius:9px;padding:8px 10px;cursor:pointer;transition:opacity .15s,box-shadow .15s}
+.node:hover{border-color:color-mix(in srgb,var(--bc,#e6e7ea),#1b2030 22%)}
+.node .nt{font-size:12.5px;font-weight:600;line-height:1.3;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.node .nm{display:flex;gap:8px;color:var(--ink3);font-size:12px;margin-top:5px}
+.node .nm .r{margin-left:auto}
+.node.dim{opacity:.28}.node.hl{box-shadow:0 0 0 2px #dbe5fb}
+.node.sel{box-shadow:0 0 0 2px var(--blue)}
+.mode{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:-4px 0 14px;font-size:12.5px;color:var(--ink2)}
+.mode .mb{font-weight:700;font-size:12px;padding:3px 9px;border-radius:999px;color:#fff;white-space:nowrap}
+.mode .ms{display:flex;gap:4px;margin-left:auto}.mode .ms span{padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--ink3);font-size:12px}
+.mode .ms span.on{border-color:var(--ink);color:var(--ink);font-weight:600}
+.bwrap{display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:18px;align-items:start}
+.gscroll{overflow-x:auto;min-width:0}
+.prs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prcol{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fbfbfc;display:flex;flex-direction:column;gap:7px}
+.prcol h3{margin:0 0 2px;font-size:13px;display:flex;gap:6px;align-items:center}.prcol h3 .c{margin-left:auto;color:var(--ink3);font-weight:500}
+.prcol .hint{color:var(--ink3);font-size:12px;margin:-2px 0 4px}
+.prc{display:block;text-decoration:none;color:inherit;background:var(--bg,#fff);border:1px solid var(--bc,var(--line));border-radius:9px;padding:8px 10px;transition:box-shadow .15s}
+.prc:hover{border-color:color-mix(in srgb,var(--bc,#e6e7ea),#1b2030 22%)}
+.prc .top{display:flex;gap:6px;align-items:center;font-size:12px}.prc .top b{font-size:13px}
+.prc .top .pos{margin-left:auto;font-size:12px;font-weight:700;color:#fff;background:var(--ink);border-radius:6px;padding:1px 6px}
+.prc .nt{font-size:12.5px;font-weight:600;line-height:1.3;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prc .nm{display:flex;gap:8px;color:var(--ink3);font-size:12px;margin-top:5px;align-items:center}
+.prc .nm .r{margin-left:auto}.prc .fold{border:1px solid var(--line);border-radius:6px;padding:0 6px;cursor:pointer;color:var(--ink2)}
+.prc.draft{opacity:.8}
+.prsub{color:var(--ink3);font-size:12px;font-weight:600;margin-top:6px}
+.stackrail{border-left:2px dashed var(--line);margin-left:8px;padding-left:8px;display:flex;flex-direction:column;gap:7px}
+svg.edges{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:visible}
+svg.edges path{fill:none;stroke:#c7ccd6;stroke-width:1.4;transition:stroke .15s,opacity .15s}
+svg.edges path.hl{stroke:var(--blue);stroke-width:2}
+svg.edges path.dim{opacity:.15}
+.note{color:var(--ink3);font-size:12px;margin-top:6px;max-width:760px}
+/* costs */
+.age{display:flex;gap:10px;align-items:center;color:var(--ink2);margin:16px 0 12px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 12px;color:var(--ink)}
+.btn.pri{background:var(--ink);color:#fff;border-color:var(--ink)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.tbl{border:1px solid var(--line);border-radius:12px;padding:6px 10px;overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--ink3);font-weight:500;padding:8px 6px;border-bottom:1px solid var(--line)}
+td{padding:8px 6px;border-bottom:1px solid var(--line2)}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.click{cursor:pointer} tr.click:hover td{background:#fafbfc}
+.hbar{height:8px;background:var(--blue);border-radius:4px;opacity:.85}
+h2.t{font-size:15px;margin:22px 0 8px}
+/* home */
+.hgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:16px}
+.hc{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fff;min-width:0}
+.hc h2{margin:0 0 10px;font-size:14px;display:flex;gap:8px;align-items:center}
+.hc h2 .more{margin-left:auto;font-weight:400;font-size:12px;color:var(--blue);cursor:pointer;border:0;background:none}
+.span12{grid-column:span 12}.span8{grid-column:span 8}.span7{grid-column:span 7}.span6{grid-column:span 6}.span5{grid-column:span 5}.span4{grid-column:span 4}.span3{grid-column:span 3}
+.att{display:flex;flex-direction:column;gap:4px;border-radius:12px;padding:12px 14px;border:1px solid var(--line);cursor:pointer;min-width:0}
+.att b{font-size:26px;font-weight:600;line-height:1.1}
+.att span{color:var(--ink2);font-size:12.5px}
+.att .l{font-size:12px;font-weight:600;color:var(--ink)}
+.att.hot{background:#fff4f5;border-color:#f3c9d1}.att.hot b{color:var(--red)}
+.att.go{background:#eefaf3;border-color:#bfe8d1}.att.go b{color:#1f7a4b}
+.att.calm b{color:var(--ink3)}
+.stack{display:flex;height:14px;border-radius:7px;overflow:hidden;background:#eceef1;margin:6px 0 8px}
+.stack i{display:block;height:100%}
+.slegend{display:flex;gap:12px;flex-wrap:wrap;color:var(--ink2);font-size:12px}
+.slegend span{display:flex;gap:5px;align-items:center}
+.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.mini div{border-top:1px solid var(--line2);padding-top:8px}
+.mini small{color:var(--ink3);font-size:12px;display:block}
+.mini b{font-size:16px;font-weight:600}
+.mini .w{color:#8a5208}
+.feed{list-style:none;margin:0;padding:0;max-height:330px;overflow:auto}
+.feed li{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--line2);font-size:12.5px;align-items:flex-start}
+.feed li:last-child{border-bottom:0}
+.feed .t{color:var(--ink3);width:42px;flex:none;font-variant-numeric:tabular-nums}
+.feed .ic{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:12px;flex:none;background:#f0f1f4}
+.feed .ok{background:#e3f6ec;color:#1f7a4b}.feed .ko{background:#fde8ec;color:#c03552}.feed .pr{background:#efe9fe;color:#6d43d6}
+.pipe{display:flex;flex-direction:column;gap:8px}
+.pipe .pr{display:grid;grid-template-columns:70px 1fr 34px;gap:8px;align-items:center;font-size:12.5px;color:var(--ink2)}
+.pipe .bar{height:10px;border-radius:5px;background:#eceef1;overflow:hidden;display:flex}
+.pipe .bar i{display:block;height:100%}
+.pipe .n{text-align:right;color:var(--ink);font-weight:600}
+.prl{display:flex;flex-direction:column;gap:6px}
+.prl a,.prl div.x{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--ink);text-decoration:none;padding:6px 8px;border:1px solid var(--line2);border-radius:8px;cursor:pointer}
+.prl a:hover,.prl div.x:hover{background:#fafbfc}
+.prl .r{margin-left:auto;color:var(--ink3)}
+.prl b,.prl .r{flex:none;white-space:nowrap}.prl span{min-width:0}.prl .tag{flex:none;white-space:nowrap}
+@media (max-width:760px){
+  .hgrid{grid-template-columns:1fr 1fr;gap:10px}
+  .span12,.span8,.span7,.span6,.span5,.span4{grid-column:span 2}
+  .span3{grid-column:span 1}
+  .mini{grid-template-columns:1fr 1fr}
+}
+/* triage */
+.tbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0 12px}
+.ind{display:flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:13px}
+.ind.ok{background:#eefaf3;border-color:#bfe8d1;color:#1f6b44}
+.ind.no{background:#fff6ec;border-color:#f3d6ad;color:#8a5410}
+.ind b{font-weight:600}
+.legend2{display:flex;gap:12px;color:var(--ink2);font-size:12px;margin-left:auto;flex-wrap:wrap}
+.legend2 span{display:flex;gap:5px;align-items:center}
+.gs{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;font-size:11px;font-weight:700;flex:none}
+.gs.raw{border:1.5px dashed #9aa0ab;color:#9aa0ab}
+.gs.grill{background:conic-gradient(var(--amber) 0 50%,#f3e2c4 50% 100%)}
+.gs.spec{background:var(--green);color:#fff}
+.gs.auto{background:var(--violet);color:#fff}
+.pi.auto{background:#f3eefe}
+.tri{display:flex;gap:12px;height:100%;align-items:stretch;overflow-x:auto;padding-bottom:8px}
+.tcol{flex:1 0 180px;max-width:300px;background:#f6f7f9;border:1px solid var(--line2);border-radius:12px;padding:8px;display:flex;flex-direction:column;min-height:0;transition:background .12s,border-color .12s}
+.tcol.over{background:#eef3fd;border-color:#b9cdf6}
+.lanes{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:8px;overflow:auto;padding-right:2px}
+.lanesh{font-size:12px;font-weight:600;color:var(--ink2);padding:2px 4px}
+.lanesh span{font-weight:400;color:var(--ink3);margin-left:8px}
+.tcol.lane{flex:0 0 auto;max-width:none;flex-direction:row;align-items:stretch;padding:6px;gap:8px}
+.tcol.lane .colh{flex:0 0 64px;flex-direction:column;align-items:flex-start;gap:4px;padding:4px 4px;border-right:1px solid var(--line2)}
+.tcol.lane .colh > span:last-child{margin-left:0 !important}
+.tcol.lane .tbody{flex:1;flex-direction:row;flex-wrap:wrap;align-content:flex-start;overflow:visible;min-height:0}
+.tcol.lane .pi{width:210px}
+.tcol.lane .grpf{flex-direction:row;flex-wrap:wrap;align-items:flex-start;width:auto;max-width:100%}
+.tcol.lane .grpf .gh{flex:0 0 100%}
+.tcol.lane .dropzone{flex:1;min-width:120px}
+.tcol.lane.empty{padding:2px 6px;opacity:.85}
+.tcol.lane.empty .colh{flex-direction:row;align-items:center;padding:2px 4px}
+.tcol.lane.empty .colh > span:last-child{display:none !important}
+.tcol.lane.empty .tbody{min-height:26px}
+.tcol.lane.empty .dropzone{min-height:26px}
+.tcol:not(.lane){flex:0 0 240px}
+.tcol.rdy{flex:0 0 270px;max-width:340px;background:#f3faf6;border-color:#d3eedf}
+.tcol .colh{padding:6px 6px 8px}
+.tbody{flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:2px;min-height:60px}
+.pi{position:relative;border-radius:4px 4px 4px 14px;padding:10px 10px 9px;cursor:grab;user-select:none;box-shadow:0 1px 1px rgba(0,0,0,.06),0 3px 8px rgba(30,30,50,.07);transition:transform .12s,box-shadow .12s;border:1px solid transparent}
+.pi:hover{transform:rotate(-.6deg) translateY(-1px);box-shadow:0 6px 16px rgba(30,30,50,.12)}
+.pi.raw{background:#fafafa;border-color:#e4e5e8}
+.pi.grill{background:#fff6e0}
+.pi.spec{background:#e9f8ef}
+.pi.sel{outline:2px solid var(--blue);outline-offset:1px}
+.pi.drag{opacity:.4}
+.pi.chg::after{content:"modifié";position:absolute;top:-7px;right:8px;background:var(--blue);color:#fff;font-size:11px;border-radius:6px;padding:0 6px}
+.pi .pt{font-weight:600;font-size:13px;line-height:1.3;margin-top:5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pi .pm{display:flex;gap:8px;align-items:center;margin-top:7px;color:var(--ink2);font-size:12px}
+.pi .pm .open{margin-left:auto;border:0;background:rgba(0,0,0,.05);border-radius:6px;padding:1px 7px;color:var(--ink2)}
+.pi .sl{font-size:12px;color:var(--ink2);font-family:ui-monospace,Consolas,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grpf{border:1.5px dashed #c6cbd6;border-radius:12px;padding:6px;display:flex;flex-direction:column;gap:7px;background:rgba(255,255,255,.55)}
+.grpf.over{border-color:var(--blue);background:#eef3fd}
+.grpf .gh{display:flex;gap:6px;align-items:center;font-size:12px;font-weight:600;color:var(--ink2);cursor:grab;padding:2px 2px 0}
+.grpf .gh .x{margin-left:auto;border:0;background:none;color:var(--ink3);font-size:12px}
+.dropzone{border:1.5px dashed transparent;border-radius:8px;min-height:30px;color:var(--ink3);font-size:12px;display:grid;place-items:center}
+.tcol.over .dropzone{border-color:#b9cdf6}
+.rfoot{border-top:1px solid #d3eedf;margin-top:8px;padding-top:8px;display:flex;flex-direction:column;gap:6px}
+.rfoot .btn{width:100%}
+.rfoot small{color:var(--ink3);font-size:12px;line-height:1.4}
+.selbar{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:var(--ink);color:#fff;border-radius:12px;padding:8px 10px;display:none;gap:6px;align-items:center;z-index:8;box-shadow:0 10px 30px rgba(0,0,0,.25);flex-wrap:wrap;justify-content:center;max-width:calc(100% - 20px)}
+.selbar.on{display:flex}
+.selbar button{border:0;border-radius:7px;padding:5px 9px;background:#2c2f37;color:#fff;font-size:12.5px}
+.selbar button:hover{background:#3a3e48}
+.selbar .n{padding:0 6px;font-size:12.5px;color:#c9ccd4}
+.drafts{border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:13px;display:flex;gap:8px;align-items:center}
+.drafts.has{border-color:#b9cdf6;background:#f5f8ff}
+.dlist{position:fixed;right:18px;top:110px;width:330px;background:#fff;border:0;border-radius:12px;box-shadow:0 0 0 1px rgba(20,24,31,.06),0 10px 30px rgba(0,0,0,.12);padding:12px;display:none;z-index:9;font-size:12.5px}
+.dlist.on{display:block}
+.dlist li{margin:4px 0;color:var(--ink2)}
+.dlist ul{padding-left:18px;margin:6px 0 10px;max-height:300px;overflow:auto}
+/* sliding panel */
+.panel{position:fixed;top:14px;right:14px;bottom:14px;width:min(680px,calc(100% - 28px));background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:-14px 0 40px rgba(15,18,28,.14);display:flex;flex-direction:column;transform:translateX(calc(100% + 30px));transition:transform .25s ease;z-index:10}
+.panel.open{transform:none}
+.ph{padding:16px 20px 12px;border-bottom:1px solid var(--line)}
+.ph h2{margin:8px 0 0;font-size:18px;line-height:1.3}
+.ph .x{float:right;border:0;background:#f3f4f6;border-radius:8px;width:30px;height:30px;font-size:18px;color:var(--ink2)}
+.ph .path{color:var(--ink3);font-size:12px;margin-top:6px;font-family:ui-monospace,Consolas,monospace}
+.pbody{display:grid;grid-template-columns:210px 1fr;flex:1;min-height:0}
+.tree{border-right:1px solid var(--line);overflow:auto;padding:10px 6px;font-size:12.5px}
+.tree .dir{color:var(--ink3);font-weight:600;padding:8px 8px 3px;font-size:12px}
+.tree button{display:flex;gap:6px;align-items:center;width:100%;border:0;background:none;text-align:left;padding:5px 8px;border-radius:6px;color:var(--ink2);overflow:hidden}
+.tree button span.nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tree button .sz{margin-left:auto;color:var(--ink3);font-size:12px;flex:none}
+.tree button:hover{background:#f3f4f6}
+.tree button.on{background:#eef3fd;color:var(--ink)}
+.tree .ind{padding-left:20px}
+.doc{overflow:auto;padding:14px 22px 40px;line-height:1.55;font-size:13.5px;min-width:0}
+.doc h1{font-size:18px}.doc h2{font-size:15.5px;margin-top:20px}.doc h3{font-size:14px}
+.doc code{background:#f3f4f6;border-radius:4px;padding:0 4px;font-size:12.5px}
+.doc pre{background:#f6f7f9;border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;font-size:12px;line-height:1.45}
+.doc pre code{background:none;padding:0}
+.doc img{max-width:100%;border:1px solid var(--line);border-radius:8px}
+.doc table{font-size:12.5px;margin:8px 0}
+.doc td,.doc th{border:1px solid var(--line);padding:4px 6px}
+.doc .info{color:var(--ink3);font-size:12px;margin-bottom:10px}
+.proto{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:#fff8e6;border:1px solid #f1d9a0;color:#7a5410;border-radius:8px;padding:6px 10px;font-size:12px;z-index:5}
+.bnav{display:none}
+@media (max-width:760px){
+  .app{grid-template-columns:1fr;padding:0;gap:0}
+  .side{display:none}
+  .pbtn{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:9px;background:#fff;padding:5px 9px;margin-bottom:8px;font-size:13px}
+  .pbtn .logo{width:22px;height:22px;border-radius:6px;font-size:12px}
+  .pwrap.ph-only,.asph{display:inline-block;vertical-align:top}
+  .pwrap.ph-only .pmenu{right:auto;width:280px}
+  .aptab{display:none}.apcards{display:block;margin-top:12px}
+  .main{border-radius:0;border:0;padding:14px 12px 66px}
+  .head h1{font-size:24px}
+  .cta{padding:7px 10px;font-size:12px}
+  .filters .fchip:nth-child(n+3){display:none}
+  .tri{scroll-snap-type:x mandatory;gap:10px}
+  .tcol:not(.lane),.tcol.rdy,.lanes{flex:0 0 86%;max-width:none;scroll-snap-align:start}
+  .tcol.lane{flex-direction:column}.tcol.lane .colh{flex:none;flex-direction:row;border-right:0;border-bottom:1px solid var(--line2)}
+  .tcol.lane .pi{width:100%}
+  .legend2{display:none}
+  .board{scroll-snap-type:x mandatory;gap:10px}
+  .col{flex:0 0 86%;scroll-snap-align:start}
+  .bhead{grid-template-columns:1fr 1fr}
+  .bhead .kpi:nth-child(5){display:none}
+  .kpis{grid-template-columns:1fr 1fr}
+  .graph{gap:50px}.lvl{width:250px}
+  .bwrap{grid-template-columns:1fr}.prs{grid-template-columns:1fr;order:-1}.gscroll{order:1}
+  .mode .ms{display:none}.mode{flex-wrap:wrap}
+  .panel{top:0;right:0;bottom:0;width:100%;border-radius:0}
+  .pbody{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .tree{border-right:0;border-bottom:1px solid var(--line);max-height:150px}
+  .hide-phone,.proto{display:none}
+  .bnav{display:flex;position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);justify-content:space-around;padding:6px 0 10px;z-index:6}
+  .bnav button{border:0;background:none;color:var(--ink3);font-size:12px;display:flex;flex-direction:column;align-items:center;gap:2px}
+  .bnav button.on{color:var(--ink)}
+  .bnav .ic{font-size:18px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="pwrap"><button class="ws" data-pm="side" title="Changer de projet" aria-label="Changer de projet"><div class="logo" id="plogo">c</div><div><b id="pname">chantier</b></div><span class="car"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></span></button><div class="pmenu" id="pm-side"></div></div>
+    <div class="sec">Vues</div>
+    <button class="nav" data-v="home"><span class="ic"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span>Home <span class="n" id="n-h"></span></button>
+    <button class="nav" data-v="triage"><span class="ic"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l1.5 3h5l1.5-3h5"/><path d="M5.5 5h13L21 13v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6z"/></svg></span>Triage <span class="n" id="n-t"></span></button>
+    <button class="nav on" data-v="kanban"><span class="ic"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/></svg></span>Kanban <span class="n" id="n-k"></span></button>
+    <button class="nav" data-v="batch"><span class="ic"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="7" r="2"/><path d="M6 7v10"/><path d="M18 9a7 7 0 0 1-7 7H8"/></svg></span>Batch <span class="n" id="n-b"></span></button>
+    <button class="nav" data-v="costs"><span class="ic"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .9 3 2.1-1.3 1.9-3 1.9c-1.5 0-2.6-.6-3.1-1.6M12 6v2M12 16v2"/></svg></span>Coûts <span class="n" id="n-c"></span></button>
+    <div class="foot">
+      <div class="aswrap"><button class="asy" id="asy" aria-haspopup="true"></button><div class="apop" id="apop"></div></div>
+      Données : il y a <span id="upd"></span><br>
+      <span style="color:#8a5208">Prototype : lecture d'un instantané</span>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="head">
+      <div><div class="pwrap ph-only"><button class="pbtn" data-pm="phone" aria-label="Changer de projet"><span class="logo" id="plogo2">c</span><b id="pname2">chantier</b><span class="car"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></span></button><div class="pmenu" id="pm-phone"></div></div><div class="aswrap ph-only asph"><button class="asyd" id="asy2" aria-haspopup="true"></button><div class="apop" id="apop2"></div></div><h1 id="h1"></h1><div class="stats" id="stats"></div></div>
+      <button class="cta" id="newitem">＋ New</button>
+    </div>
+    <div class="view" id="view"></div>
+  </main>
+</div>
+<nav class="bnav">
+  <button data-v="home"><span class="ic"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span>Home</button>
+  <button data-v="triage"><span class="ic"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l1.5 3h5l1.5-3h5"/><path d="M5.5 5h13L21 13v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6z"/></svg></span>Triage</button>
+  <button data-v="kanban" class="on"><span class="ic"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/></svg></span>Kanban</button>
+  <button data-v="batch"><span class="ic"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="7" r="2"/><path d="M6 7v10"/><path d="M18 9a7 7 0 0 1-7 7H8"/></svg></span>Batch</button>
+  <button data-v="costs"><span class="ic"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .9 3 2.1-1.3 1.9-3 1.9c-1.5 0-2.6-.6-3.1-1.6M12 6v2M12 16v2"/></svg></span>Coûts</button>
+</nav>
+<aside class="panel" id="panel"></aside>
+<div class="selbar" id="selbar"></div>
+<div class="dlist" id="dlist"></div>
+<div class="proto" id="proto">Prototype 6 : instantané du <span id="upd2"></span> ; actions simulées</div>
+
+<script>
+const IC = {home:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>',triage:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h5l1.5 3h5l1.5-3h5"/><path d="M5.5 5h13L21 13v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6z"/></svg>',kanban:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/></svg>',batch:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="7" r="2"/><path d="M6 7v10"/><path d="M18 9a7 7 0 0 1-7 7H8"/></svg>',costs:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .9 3 2.1-1.3 1.9-3 1.9c-1.5 0-2.6-.6-3.1-1.6M12 6v2M12 16v2"/></svg>',file:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/></svg>',folder:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a1 1 0 0 1 1-1h5l2 2h9a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg>',expand:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg>',ext:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4 10 14"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',dep:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4v8a4 4 0 0 0 4 4h8"/><path d="m15 13 3 3-3 3"/></svg>',img:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="m21 16-5-5-9 9"/></svg>',blank:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1"/></svg>',chev:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>'};
+const S = window.SNAP, B = S.batch;
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const usd = n => n == null ? "—" : "$" + n.toFixed(2);
+const kb = n => n < 1024 ? n + " o" : (n / 1024).toFixed(n < 10240 ? 1 : 0) + " Ko";
+const ago = iso => { const m = Math.max(0, Math.round((Date.now() - Date.parse(iso)) / 60000)); return m < 60 ? m + " min" : m < 1440 ? Math.round(m/60) + " h" : Math.round(m/1440) + " j"; };
+const slug = f => (f || "").split("/").pop().replace(/^\d+-/, "");
+const STATE = {working:"en cours", queued:"en file", waiting:"attend", blocked:"bloqué", ready:"rendu", merged:"mergé", cancelled:"annulé"};
+const SCOL = {working:"var(--blue)", queued:"var(--grey)", waiting:"var(--amber)", blocked:"var(--red)", ready:"var(--green)", merged:"var(--green)"};
+const crs = B ? B.crs : [];
+const byId = Object.fromEntries(crs.map(c => [c.cr, c]));
+const RDY = "3-ready";                                   /* the folder that waits for the next batch */
+const DEF = (B && B.default_branch) || "main";
+const isFix = c => c.kind === "fix", isRel = c => c.kind === "release";
+const open_ = c => c && !["merged", "cancelled"].includes(c.state);
+const vstate = c => c.state === "queued" && c.waits && c.waits.length ? "waiting" : c.state;
+const lim = c => c.rounds || (B && B.max_rounds) || null;
+const rtxt = c => lim(c) ? c.round + "/" + lim(c) : String(c.round);
+/* the stack or the series, bottom first: every CR but a fix, the release on top */
+const chainOf = () => crs.filter(c => open_(c) && !isFix(c)).sort((a, b) => (isRel(a) - isRel(b)) || (a.order ?? 0) - (b.order ?? 0));
+/* where a CR's PR sits: its place in the stack, the previous CR of a series, else its last open dependency, else the default branch */
+function baseOf(c){
+  if (isFix(c)) return {on:DEF, txt:"sur " + DEF + ", hors stack"};
+  const chain = chainOf(), k = chain.indexOf(c);
+  if (B.mode === "stack" && c.stacked) return k > 0 ? {on:chain[k - 1].cr, txt:"sur " + chain[k - 1].cr} : {on:DEF, txt:"sur " + DEF + ", bas de la stack"};
+  if (B.mode === "series" && k > 0) return {on:chain[k - 1].cr, txt:"sur " + chain[k - 1].cr + ", brouillon jusqu'à son merge"};
+  const dep = [...(c.after || [])].reverse().find(id => open_(byId[id]));
+  const b = dep ? {on:dep, txt:"sur " + dep + ", sa dépendance ouverte"} : {on:DEF, txt:"sur " + DEF};
+  if (B.mode === "stack") b.txt += " · pas encore empilée";
+  return b;
+}
+/* to review = handed back ready, and its PR on the default branch, or its stack verified on the forge */
+const reviewable = c => c.state === "ready" && (B.mode === "stack" && !isFix(c) ? !!B.stack_verified : baseOf(c).on === DEF);
+
+/* ---- every openable thing, by key ---- */
+const OBJ = {};
+S.items.forEach(x => OBJ["i:" + x.item] = {kind:"item", key:"i:" + x.item, title:x.title, folder:x.folder, files:x.files, x});
+crs.forEach(c => OBJ["c:" + c.cr] = {kind:"cr", key:"c:" + c.cr, title:c.title, folder:c.folder, files:c.files, c});
+
+function firstPara(files){
+  const f = files.find(f => f.path === "03-change-spec.md") || files.find(f => f.path === "01-intent.md") || files.find(f => /\.md$/.test(f.path) && f.text);
+  const t = f && f.text || "";
+  const p = t.split(/\n\s*\n/).map(s => s.trim()).find(s => s && !s.startsWith("#") && !/^issue:/.test(s));
+  return (p || "").replace(/[`*_>]/g, "").replace(/\s+/g, " ");
+}
+const nFiles = files => files.length;
+/* where the request comes from: in the real board, a field of the JSON the agent refreshes
+   (read from the `issue:` line, else "verbal"); here read the same way, plus three simulated examples */
+const DEMO_SRC = {"docs-sphinx-rtd":"https://github.com/gsemet/chantier/issues/41", "landing-page":"https://gitlab.com/gsemet/chantier/-/issues/12", "epoch-required-everywhere":"https://example.atlassian.net/browse/CHT-118"};
+const SRCI = {
+  github:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg>',
+  gitlab:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21 3 13l2.5-9 2.5 7h8l2.5-7 2.5 9z"/></svg>',
+  jira:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8a2 2 0 0 0 0 4v0a2 2 0 0 1 0 4v2h16v-2a2 2 0 0 1 0-4 2 2 0 0 0 0-4V6H4z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>',
+  verbal:'<svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>'};
+function srcOf(o){
+  const f = o.files.find(f => f.path === "01-intent.md") || o.files.find(f => f.path === "03-change-spec.md");
+  const m = f && f.text && f.text.match(/^issue:\s*(https?:\/\/\S+)/m);
+  const url = m ? m[1] : DEMO_SRC[slug(o.folder)], demo = !m && !!url;
+  if (!url) return {kind:"verbal", label:"", title:"demande verbale (dans le chat)"};
+  const kind = /github\.com/.test(url) ? "github" : /gitlab/.test(url) ? "gitlab" : /atlassian|jira/.test(url) ? "jira" : "github";
+  const ref = kind === "jira" ? url.split("/").pop() : "#" + url.split("/").pop();
+  return {kind, url, label:ref, title:{github:"ticket GitHub", gitlab:"ticket GitLab", jira:"ticket Jira"}[kind] + " " + ref + (demo ? " (exemple simulé)" : "")};
+}
+const DEMO_LATE = new Set(["visualization-backend", "audit-force-upstream-exemption"]);
+const lateTag = x => DEMO_LATE.has(x.item) ? `<span class="late" title="résumé en retard : ses fichiers md ont changé depuis le dernier résumé (simulé)" aria-label="résumé en retard"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span>` : "";
+const srcTag = o => { const s = srcOf(o); return `<span class="src src-${s.kind}" title="${esc(s.title)}" aria-label="${esc(s.title)}">${SRCI[s.kind]}${s.label ? esc(s.label) : ""}</span>`; };
+
+/* ---- kanban ---- */
+function kcols(){
+  const prio = p => +(p || "P9").slice(1);
+  return [
+    {name:"Intake", sub:"1-inbox : déposé, pas encore trié", color:"var(--grey)", items:S.items.filter(x => x.priority === "inbox" && lshow(x.item)).map(x => OBJ["i:" + x.item]), add:true},
+    {name:"Grill", sub:"2-backlog : priorisé, en cours de grill", color:"var(--amber)", items:S.items.filter(x => /^P\d/.test(x.priority) && lshow(x.item)).sort((a,b) => prio(a.priority) - prio(b.priority)).map(x => OBJ["i:" + x.item])},
+    {name:"3-ready", sub:"attend le prochain batch (pas « prêt à merger »)", color:"var(--violet)", items:S.items.filter(x => x.priority === RDY && lshow(x.item)).map(x => OBJ["i:" + x.item])},
+    {name:"In progress", sub:(B ? B.batch : "aucun batch") + " : en file, au travail, bloqué", color:"var(--blue)", items:crs.filter(c => ["queued","working","blocked"].includes(c.state)).sort((a,b) => ["blocked","working","queued"].indexOf(a.state) - ["blocked","working","queued"].indexOf(b.state)).map(c => OBJ["c:" + c.cr])},
+    {name:"Rendus", sub:"handback ready : à revoir quand la PR est sur " + DEF + " ou la stack vérifiée", color:"var(--green)", items:crs.filter(c => c.state === "ready").map(c => OBJ["c:" + c.cr])},
+  ];
+}
+function kcard(o){
+  if (o.kind === "item"){
+    const x = o.x, tag = x.priority === "inbox" ? "Inbox" : x.priority;
+    return `<div class="card" data-open="${esc(o.key)}">
+      <div class="row"><span class="tag t-${esc(x.priority)}">${esc(tag)}</span><span class="lbl">${esc(x.item)}</span>${lateTag(x)}${srcTag(o)}</div>
+      <div class="ttl">${esc(x.title)}</div>${labsOf(x.item).length ? `<div class="labs">${labTags(x.item)}</div>` : ""}<div class="desc">${esc(firstPara(x.files))}</div>
+      <div class="meta"><span>${IC.file} ${nFiles(x.files)} fichiers</span><span class="r">${x.spec ? "spécifié" : "à griller"}</span></div></div>`;
+  }
+  const c = o.c, col = SCOL[vstate(c)] || "var(--grey)";
+  return `<div class="card" data-open="${esc(o.key)}">
+    <div class="row"><span class="tag t-cr">${esc(c.cr)}</span><span class="tag s-${vstate(c)}">${STATE[vstate(c)] || c.state}</span><span class="lbl">${esc(slug(c.folder))}</span>${srcTag(o)}</div>
+    <div class="ttl">${esc(c.title)}</div><div class="desc">${esc(firstPara(c.files))}</div>
+    <div class="bars">${Array.from({length:lim(c) || Math.max(c.round, 1)}, (_, i) => i + 1).map(r => `<i style="${r <= c.round ? "background:" + col : ""}"></i>`).join("")}</div>
+    <div class="meta"><span>round ${rtxt(c)}</span><span>${IC.file} ${nFiles(c.files)}</span>${c.after.length ? `<span>${IC.dep} ${c.after.length} dép.</span>` : ""}<span class="r">${usd(c.cost)}</span></div></div>`;
+}
+function kanban(){
+  const C = kcols();
+  return `<div class="filters">${lfilter()}<span class="count">${C.reduce((s, c) => s + c.items.length, 0)} items · ${S.merged_total} mergés</span></div>
+  <div class="board">${C.map(col => `<div class="col">
+    <div class="colh"><span class="dot" style="background:${col.color}"></span>${col.name}<span class="c">${col.items.length}</span></div>
+    <div class="colsub">${col.sub}</div>
+    ${col.add ? '<button class="add" data-new>＋ New : une nouvelle idée</button>' : ""}
+    ${col.items.map(kcard).join("") || '<div class="empty">vide</div>'}</div>`).join("")}</div>`;
+}
+
+/* ---- batch: grouped on the current batch, its dependencies ---- */
+function levels(){
+  const lv = {}, seen = new Set();
+  const L = id => { if (lv[id] != null) return lv[id]; if (seen.has(id)) return 0; seen.add(id);
+    const c = byId[id]; const deps = (c ? c.after : []).filter(d => byId[d]);
+    return lv[id] = deps.length ? 1 + Math.max(...deps.map(L)) : 0; };
+  crs.forEach(c => L(c.cr));
+  const cols = [];
+  crs.forEach(c => (cols[lv[c.cr]] = cols[lv[c.cr]] || []).push(c));
+  return cols;
+}
+function node(c){
+  return `<div class="node st-${esc(vstate(c))}" data-open="c:${esc(c.cr)}" data-id="${esc(c.cr)}">
+    <div class="row"><span class="tag t-cr">${esc(c.cr)}</span><span class="lbl">${esc(slug(c.folder))}</span></div>
+    <div class="nt">${esc(c.title)}</div>
+    <div class="nm"><span>r${rtxt(c)}</span>${c.after.length ? `<span>${IC.dep} ${c.after.length}</span>` : ""}${c.pr ? `<span>PR</span>` : ""}<span class="r">${usd(c.cost)}</span></div></div>`;
+}
+function batch(){
+  if (!B) return `<p class="empty">Aucun batch en cours.</p>`;
+  const cols = levels(), order = ["blocked","working","ready","waiting","queued","merged"];
+  const by = s => crs.filter(c => c.state === s).length;
+  const lvl = (cs, i) => {
+    const groups = order.map(s => [s, cs.filter(c => vstate(c) === s)]).filter(g => g[1].length);
+    return `<div class="lvl"><div class="lvlh">${i === 0 ? "Sans dépendance" : "Niveau " + i + " : après le niveau " + (i - 1)}</div>
+      ${groups.map(([s, g]) => `<div class="grp"><div class="gh"><span class="dot" style="background:${SCOL[s]}"></span>${STATE[s]} · ${g.length}</div>${g.map(node).join("")}</div>`).join("")}</div>`;
+  };
+  return `<div class="bhead">
+      <div class="kpi"><small>Batch</small><b>${esc(B.batch)}</b><div class="sub">${esc(B.state)} · ${esc(B.mode)} · ${B.steering === "direct" ? "direct" : "Foreman"}</div></div>
+      <div class="kpi"><small>Slots</small><b>${B.slots.taken}/${B.slots.total}</b><div class="sub">${by("queued")} en file</div></div>
+      <div class="kpi"><small>Au travail</small><b>${by("working")}</b><div class="sub">${by("blocked")} bloqué(s)</div></div>
+      <div class="kpi"><small>Rendus ready</small><b>${by("ready")}</b><div class="sub">${crs.filter(reviewable).length} à revoir · ${by("merged") || 0} mergés</div></div>
+      <div class="kpi"><small>Dépensé</small><b>${usd(B.spent_usd)}</b><div class="meter"><i style="width:${Math.min(100, B.spent_usd / B.budget_usd * 100)}%"></i></div><div class="sub">sur ${usd(B.budget_usd)}</div></div>
+    </div>
+    ${modeBar()}
+    <div class="bwrap"><div class="gscroll">
+    <div class="legend">${order.map(s => `<span class="k"><span class="dot" style="background:${SCOL[s]}"></span>${STATE[s]}</span>`).join("")}
+      <span class="k">— une flèche va d'un CR à celui qui l'attend (depends.json, ou une chaîne décidée)</span></div>
+    <div class="graph" id="graph"><svg class="edges" id="edges"></svg>${cols.map(lvl).join("")}</div>
+    <div class="note">Survole un CR pour voir ce qu'il attend et qui l'attend ; clique pour ouvrir son dossier.</div></div>
+    ${prCols()}</div>`;
+}
+/* ---- the batch's mode, and its PRs: to review (in merge order), merged ---- */
+const MODES = {
+  stack: ["Stack", "#2f6fdf", "chaque PR repose sur la précédente, la release en haut ; une fois la stack vérifiée sur le forge, tu la merges en une action depuis sa PR du haut."],
+  series: ["Série", "#c07a12", "un CR après l'autre : le suivant part de la branche du précédent, sa PR reste brouillon jusqu'au merge du précédent ; la release en dernier."],
+  parallel: ["Parallèle", "#2e9d62", "chaque PR part de la branche par défaut, ou de sa dépendance ouverte : tu merges dans l'ordre où elles sont prêtes, la release après les autres."]};
+function modeBar(){
+  const m = MODES[B.mode] || [B.mode, "var(--grey)", ""];
+  return `<div class="mode"><span class="mb" style="background:${m[1]}">${esc(m[0])}</span><span>${esc(m[2])}</span>
+    <span class="ms">${Object.keys(MODES).map(k => `<span class="${k === B.mode ? "on" : ""}">${MODES[k][0]}</span>`).join("")}</span></div>`;
+}
+function mergeOrder(){
+  /* stack and series: the chain, bottom first, the release on top, a fix apart; parallel: the order they became ready */
+  const open = crs.filter(c => c.pr && open_(c));
+  return B.mode === "parallel" ? open.sort((a, b) => (isRel(a) - isRel(b)) || (a.updated || "").localeCompare(b.updated || ""))
+                               : open.sort((a, b) => (isFix(a) - isFix(b)) || (isRel(a) - isRel(b)) || (a.order ?? 0) - (b.order ?? 0));
+}
+function prCard(c, i, cls){
+  const chain = chainOf(), k = chain.indexOf(c), stacked = B.mode === "stack" && !isFix(c) && k >= 0;
+  let place = "";
+  if (cls !== "mrg"){
+    if (stacked) place = `<span class="pos" title="place dans la stack, 1 = le bas ; pas un ordre de merge">${k === chain.length - 1 ? "haut · " : ""}${k + 1}</span>`;
+    else if (cls === "" && B.mode !== "stack") place = `<span class="pos" title="ordre de merge recommandé">${i + 1}</span>`;
+  }
+  const why = cls === "draft" ? (c.state === "ready" ? "rendu, PR brouillon" : STATE[vstate(c)] || c.state) : "";
+  return `<a class="prc ${cls} st-${esc(vstate(c))}" href="${esc(c.pr)}" target="_blank" rel="noopener" title="ouvrir la PR">
+    <div class="top"><b>${prn(c.pr)}</b><span class="tag t-cr">${esc(c.cr)}</span>${isRel(c) ? '<span class="tag t-rel">release</span>' : isFix(c) ? '<span class="tag t-rel">fix</span>' : ""}${place}</div>
+    <div class="nt">${esc(c.title)}</div>
+    <div class="nm"><span>${cls === "mrg" ? "mergée il y a " + ago(c.updated) : esc(baseOf(c).txt)}</span>${why ? `<span>${esc(why)}</span>` : ""}<span class="r">${usd(c.cost)}</span><span class="fold" data-openp="c:${esc(c.cr)}" title="ouvrir le dossier du CR" aria-label="ouvrir le dossier du CR">${IC.folder}</span></div></a>`;
+}
+function prCols(){
+  const all = mergeOrder(), top = l => B.mode === "stack" ? [...l].reverse() : l;   /* a stack reads from its top PR, where it is merged */
+  const ready = all.filter(reviewable), drafts = all.filter(c => !reviewable(c));
+  const merged = crs.filter(c => c.state === "merged" && c.pr).sort((a, b) => (b.updated || "").localeCompare(a.updated || ""));
+  const before = S.merged.filter(m => m.batch !== B.batch).slice(0, 4);
+  const hint = B.mode === "stack" ? (B.stack_verified ? "La stack est vérifiée sur le forge : tu la merges en une action, depuis sa PR du haut. Les numéros sont des places dans la stack, pas un ordre de merge."
+                                                       : "La stack n'est pas encore faite et vérifiée sur le forge : ses PR restent des brouillons, rien à merger. Les numéros sont des places dans la stack.")
+    : B.mode === "series" ? "De bas en haut : la première, puis la suivante une fois rebasée sur " + DEF + "." : "Chacune se merge seule, dans l'ordre où elles sont devenues prêtes ; la release après les autres.";
+  const wrap = h => B.mode === "stack" ? `<div class="stackrail">${h}</div>` : h;
+  return `<div class="prs">
+    <div class="prcol"><h3><span class="dot" style="background:var(--green)"></span>PR à revoir<span class="c">${ready.length}</span></h3>
+      <div class="hint">${hint} Un clic ouvre la PR.</div>
+      ${ready.length ? wrap(top(ready).map((c, i) => prCard(c, i, "")).join("")) : '<div class="empty">Aucune PR à revoir pour l\'instant.</div>'}
+      ${drafts.length ? `<div class="prsub">Brouillons, pas encore à revoir · ${drafts.length}</div>${wrap(top(drafts).map((c, i) => prCard(c, i, "draft")).join(""))}` : ""}</div>
+    <div class="prcol"><h3><span class="dot" style="background:#8a63d2"></span>PR mergées<span class="c">${merged.length}</span></h3>
+      <div class="hint">Pour info.</div>
+      ${merged.map(c => prCard(c, 0, "mrg")).join("") || '<div class="empty">Aucune dans ce batch.</div>'}
+      ${before.length ? `<div class="prsub">Batchs précédents</div>${before.map(m => `<a class="prc mrg st-merged" href="${esc(m.pr)}" target="_blank" rel="noopener"><div class="top"><b>${prn(m.pr)}</b><span class="tag t-cr">${esc(m.cr)}</span><span style="margin-left:auto;color:var(--ink3)">${esc(m.batch)}</span></div><div class="nt">${esc(m.title)}</div></a>`).join("")}` : ""}</div>
+  </div>`;
+}
+function drawEdges(){
+  const g = $("#graph"), svg = $("#edges"); if (!g) return;
+  const gr = g.getBoundingClientRect(); let p = "";
+  crs.forEach(c => c.after.forEach(d => {
+    const a = g.querySelector(`[data-id="${d}"]`), b = g.querySelector(`[data-id="${c.cr}"]`); if (!a || !b) return;
+    const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+    const x1 = ra.right - gr.left, y1 = ra.top + ra.height / 2 - gr.top, x2 = rb.left - gr.left, y2 = rb.top + rb.height / 2 - gr.top, mx = (x1 + x2) / 2;
+    p += `<path data-from="${d}" data-to="${c.cr}" d="M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2 - 6},${y2}" marker-end="url(#ar)"/>`;
+  }));
+  svg.setAttribute("width", g.scrollWidth); svg.setAttribute("height", g.scrollHeight);
+  svg.innerHTML = `<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#aab1bf"/></marker></defs>` + p;
+}
+function bindBatch(){
+  drawEdges();
+  $$("[data-openp]").forEach(b => b.onclick = e => { e.preventDefault(); e.stopPropagation(); openPanel(b.dataset.openp); });
+  $$(".node").forEach(n => {
+    n.onmouseenter = () => {
+      const id = n.dataset.id, rel = new Set([id]);
+      (byId[id].after || []).forEach(d => rel.add(d)); crs.forEach(c => c.after.includes(id) && rel.add(c.cr));
+      $$(".node").forEach(m => { m.classList.toggle("dim", !rel.has(m.dataset.id)); m.classList.toggle("hl", rel.has(m.dataset.id) && m !== n); });
+      $$("#edges path[data-from]").forEach(e => { const on = e.dataset.from === id || e.dataset.to === id; e.classList.toggle("hl", on); e.classList.toggle("dim", !on); });
+    };
+    n.onmouseleave = () => { $$(".node").forEach(m => m.classList.remove("dim", "hl")); $$("#edges path").forEach(e => e.classList.remove("hl", "dim")); };
+  });
+}
+
+/* ---- costs ---- */
+let costAt = S.updated, recomputing = false;
+function costs(){
+  if (!B) return `<p class="empty">Aucun batch en cours.</p>`;
+  const sum = crs.reduce((s, c) => s + (c.cost || 0), 0), max = Math.max(...crs.map(c => c.cost || 0), .01);
+  const rows = [...crs].sort((a, b) => (b.cost || 0) - (a.cost || 0));
+  const mmax = Math.max(...S.merged.map(m => m.cost || 0), .01);
+  return `<div class="age">Dernier calcul : il y a <b>${ago(costAt)}</b>
+      <button class="btn ${recomputing ? "" : "pri"}" id="recalc" ${recomputing ? "disabled" : ""}>${recomputing ? "recalcul…" : "↻ Recalculer"}</button>
+      <span style="font-size:12px;color:var(--ink3)">le serveur relit les transcripts : aucun tour d'agent</span></div>
+    <div class="kpis">
+      <div class="kpi"><small>Dépensé (${esc(B.batch)})</small><b>${usd(B.spent_usd)}</b><div class="meter"><i style="width:${Math.min(100, B.spent_usd / B.budget_usd * 100)}%"></i></div></div>
+      <div class="kpi"><small>Budget</small><b>${usd(B.budget_usd)}</b><div class="sub">${Math.round(B.spent_usd / B.budget_usd * 100)} % utilisé</div></div>
+      <div class="kpi"><small>Somme des CRs</small><b>${usd(sum)}</b><div class="sub">le reste : le steering</div></div>
+      <div class="kpi"><small>Coût moyen par CR actif</small><b>${usd(sum / Math.max(1, crs.filter(c => c.cost).length))}</b><div class="sub">${crs.filter(c => c.cost).length} CRs avec un coût</div></div>
+    </div>
+    <h2 class="t">Par CR, ${esc(B.batch)}</h2>
+    <div class="tbl"><table><thead><tr><th>CR</th><th class="hide-phone">Titre</th><th>État</th><th class="num">Coût</th><th style="width:28%" class="hide-phone"></th></tr></thead><tbody>
+      ${rows.map(c => `<tr class="click" data-open="c:${esc(c.cr)}"><td><b>${esc(c.cr)}</b> <span style="color:var(--ink3)">${esc(slug(c.folder))}</span></td><td class="hide-phone">${esc(c.title)}</td><td><span class="tag s-${c.state}">${STATE[c.state] || c.state}</span>${c.round ? " r" + c.round : ""}</td><td class="num">${usd(c.cost)}</td><td class="hide-phone"><div class="hbar" style="width:${(c.cost || 0) / max * 100}%"></div></td></tr>`).join("")}
+    </tbody></table></div>
+    <h2 class="t">Derniers CRs mergés</h2>
+    <div class="tbl"><table><thead><tr><th>CR</th><th class="hide-phone">Titre</th><th>Batch</th><th class="num">Coût</th><th style="width:28%" class="hide-phone"></th></tr></thead><tbody>
+      ${S.merged.map(m => `<tr><td><b>${esc(m.cr)}</b></td><td class="hide-phone">${esc(m.title)}</td><td>${esc(m.batch)}</td><td class="num">${usd(m.cost)}</td><td class="hide-phone"><div class="hbar" style="background:var(--green);width:${(m.cost || 0) / mmax * 100}%"></div></td></tr>`).join("")}
+    </tbody></table></div>`;
+}
+function bindCosts(){
+  const b = $("#recalc"); if (b) b.onclick = () => { recomputing = true; render(); setTimeout(() => { recomputing = false; costAt = new Date().toISOString(); render(); }, 1400); };
+}
+
+/* ---- home: the main state at a glance ---- */
+const hhmm = iso => iso ? new Date(iso).toLocaleTimeString().slice(0, 5) : "";
+const prn = u => u ? "#" + String(u).split("/").pop() : "";
+function evText(e){
+  const c = e.cr ? `<b>${esc(e.cr)}</b> ` : "";
+  switch (e.kind){
+    case "open": return ["⊕", "", "batch ouvert"];
+    case "add": return ["+", "", c + "ajouté au batch"];
+    case "take": return ["▶", "", c + "pris par un Driver"];
+    case "round": return ["↻", "", c + "round " + (e.round || "suivant")];
+    case "gate": return [e.result === "pass" ? "✓" : "✗", e.result === "pass" ? "ok" : "ko", c + "gate <code>" + esc(e.command || "") + "</code> " + (e.result === "pass" ? "passé" : "en échec")];
+    case "verdict": return [e.result === "VERIFIED" ? "✓" : "✗", e.result === "VERIFIED" ? "ok" : "ko", c + (e.result === "VERIFIED" ? "vérifié" : "non vérifié")];
+    case "ship": return ["⇪", "pr", c + "PR " + prn(e.pr) + " poussée"];
+    case "handback": return ["⇠", e.result === "ready" ? "ok" : "ko", c + "rendu " + esc(e.result || "")];
+    case "ask": return ["?", "ko", c + "question au Chief of Staff"];
+    case "order": return e.order_kind === "merged" ? ["⛙", "ok", c + "mergé"] : ["⚑", "", c + "ordre " + esc(e.order_kind || "") + (e.note ? " : " + esc(e.note) : "")];
+    case "merged": return ["⛙", "ok", c + "mergé"];
+    case "note": return ["✎", "", c + "note"];
+    default: return ["·", "", c + esc(e.kind)];
+  }
+}
+function home(){
+  const by = s => crs.filter(c => c.state === s);
+  const ready = by("ready"), toReview = crs.filter(reviewable), blocked = by("blocked"), working = by("working"), queued = by("queued"), merged = by("merged");
+  const total = crs.length || 1, hb = B && B.heartbeat ? Math.round((Date.now() - Date.parse(B.heartbeat)) / 60000) : null;
+  const r = readiness(), decl = T.declared && T.declared.list.join() === r.ready.map(x => x.item).join();
+  const prio = p => S.items.filter(x => T.col[x.item] === p);
+  const att = (cls, n, label, sub, to) => `<div class="att ${cls}" data-go="${to}"><span class="l">${label}</span><b>${n}</b><span>${sub}</span></div>`;
+  const seg = (n, col) => n ? `<i style="width:${n / total * 100}%;background:${col}"></i>` : "";
+  const pipeRow = (label, list, color) => { const n = list.length, max = Math.max(S.items.length, 1);
+    const sp = list.filter(x => hasSpec(x)).length, gr = list.filter(x => !hasSpec(x) && x.files.some(f => f.path === "02-answers.md")).length;
+    return `<div class="pr"><span>${label}</span><div class="bar"><i style="width:${sp / max * 100}%;background:var(--green)"></i><i style="width:${gr / max * 100}%;background:var(--amber)"></i><i style="width:${(n - sp - gr) / max * 100}%;background:${color}"></i></div><span class="n">${n}</span></div>`; };
+  const prs = crs.filter(c => c.pr && c.state !== "merged");
+  return `<div class="hgrid">
+    <div class="span3">${att(toReview.length ? "go" : "calm", toReview.length, "À revoir", toReview.length ? "PR prêtes à merger" : ready.length + " rendu(s), aucune PR à merger", "batch")}</div>
+    <div class="span3">${att(blocked.length || (B && B.asks_unread) ? "hot" : "calm", blocked.length + (B ? B.asks_unread || 0 : 0), "T'attendent", `${blocked.length} bloqué(s), ${B ? B.asks_unread || 0 : 0} question(s)`, "batch")}</div>
+    <div class="span3">${att(T.drafts.length ? "" : "calm", T.drafts.length, "Écrit par le board", T.drafts.length ? "depuis ton dernier « rescan » au CoS" : "rien depuis ton dernier « rescan »", "triage")}</div>
+    <div class="span3">${att(decl ? "go" : "calm", r.ready.length, "Batch suivant", decl ? "déclaré prêt par toi" : "en préparation (3-ready)", "triage")}</div>
+
+    <div class="hc span7"><h2>${B ? esc(B.batch) : "Aucun batch"} <span class="tag s-${B && B.state === "running" ? "working" : "queued"}">${B ? esc(B.state) : ""}</span><span style="font-weight:400;color:var(--ink3);font-size:12px">${B ? esc(B.mode) + " · " + (B.steering === "direct" ? "direct" : "Foreman") : ""}</span><button class="more" data-go="batch">voir le batch →</button></h2>
+      ${B ? `<div class="stack">${seg(merged.length, "#1f7a4b")}${seg(ready.length, "var(--green)")}${seg(working.length, "var(--blue)")}${seg(blocked.length, "var(--red)")}${seg(queued.length, "#c9cdd6")}</div>
+      <div class="slegend"><span><span class="dot" style="background:#1f7a4b"></span>${merged.length} mergé(s)</span><span><span class="dot" style="background:var(--green)"></span>${ready.length} rendu(s)</span><span><span class="dot" style="background:var(--blue)"></span>${working.length} en cours</span><span><span class="dot" style="background:var(--red)"></span>${blocked.length} bloqué(s)</span><span><span class="dot" style="background:#c9cdd6"></span>${queued.length} en file</span></div>
+      <div class="mini">
+        <div><small>Dépensé</small><b>${usd(B.spent_usd)}</b> <span style="color:var(--ink3);font-size:12px">/ ${usd(B.budget_usd)}</span><div class="meter"><i style="width:${Math.min(100, B.spent_usd / B.budget_usd * 100)}%"></i></div></div>
+        <div><small>Slots</small><b>${B.slots.taken}/${B.slots.total}</b></div>
+        <div><small>Dernier signe du ${B.steering === "direct" ? "CoS" : "Foreman"}</small><b class="${hb > 15 ? "w" : ""}">${hb == null ? "—" : "il y a " + hb + " min"}</b></div>
+        <div><small>Ouvert</small><b>${B.created ? "il y a " + ago(B.created) : "—"}</b></div>
+      </div>` : `<p class="empty">Le batch suivant s'ouvrira sur ton go.</p>`}
+    </div>
+    <div class="hc span5"><h2>PR ouvertes <span class="c" style="color:var(--ink3);font-weight:400">${prs.length}</span></h2>
+      <div class="prl">${prs.map(c => `<div class="x" data-open="c:${esc(c.cr)}"><span class="tag s-${vstate(c)}">${STATE[vstate(c)] || c.state}</span><b>${esc(c.cr)}</b><span style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${esc(c.title)}</span><span class="r">${prn(c.pr)}</span></div>`).join("") || '<div class="empty">aucune</div>'}</div>
+      ${blocked.length ? `<h2 style="margin-top:14px">Bloqués</h2><div class="prl">${blocked.map(c => `<div class="x" data-open="c:${esc(c.cr)}"><b>${esc(c.cr)}</b><span>${esc(c.blocked || "")}</span></div>`).join("")}</div>` : ""}
+    </div>
+
+    <div class="hc span7"><h2>Activité récente <span style="font-weight:400;color:var(--ink3);font-size:12px">${B ? esc(B.batch) : ""}</span></h2>
+      <ul class="feed">${B ? [...B.events].reverse().slice(0, 25).map(e => { const [ic, cls, txt] = evText(e); return `<li><span class="t">${hhmm(e.t)}</span><span class="ic ${cls}">${ic}</span><span>${txt}</span></li>`; }).join("") : ""}</ul>
+    </div>
+    <div class="hc span5"><h2>Pipeline <button class="more" data-go="triage">trier →</button></h2>
+      <div class="pipe">${pipeRow("Inbox", prio("inbox"), "#c9cdd6")}${pipeRow("P1", prio("P1"), "#c9cdd6")}${pipeRow("P2", prio("P2"), "#c9cdd6")}${pipeRow("P3", prio("P3"), "#c9cdd6")}${pipeRow("P4", prio("P4"), "#c9cdd6")}${pipeRow("3-ready", prio(RDY), "var(--violet)")}</div>
+      <div class="slegend" style="margin-top:10px"><span><span class="dot" style="background:var(--green)"></span>spécifié</span><span><span class="dot" style="background:var(--amber)"></span>en grill</span><span><span class="dot" style="background:#c9cdd6"></span>brut</span><span><span class="dot" style="background:var(--violet)"></span>automatable</span></div>
+      <h2 style="margin-top:16px">Derniers mergés <span style="font-weight:400;color:var(--ink3);font-size:12px">${S.merged_total} au total</span></h2>
+      <div class="prl">${S.merged.slice(0, 4).map(m => `<div class="x"><b>${esc(m.cr)}</b><span style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${esc(m.title)}</span><span class="r">${esc((m.when || "").slice(5, 10))}</span></div>`).join("")}</div>
+    </div>
+  </div>`;
+}
+
+/* ---- triage: post-its, groups, labels; every change written at once ---- */
+const TCOLS = [["inbox","Inbox","var(--grey)"],["P1","P1","#c03552"],["P2","P2","#b86e0c"],["P3","P3","#2f5fc7"],["P4","P4","#6a6f7c"],["3-ready","3-ready","var(--green)"]];
+const GRILL = {raw:["Brut","pas encore grillé"], grill:["En grill","des réponses, pas de spec"], spec:["Spécifié","spec écrite"], auto:["Automatable","trivial : le Driver part de la demande, sans spec"]};
+const hasSpec = x => x.files.some(f => f.path === "03-change-spec.md");
+const gstate = x => hasSpec(x) ? "spec" : T.col[x.item] === RDY ? "auto" : x.files.some(f => f.path === "02-answers.md") ? "grill" : "raw";
+const KEY = "chantier-proto-triage-3";
+const T0 = () => ({col:Object.fromEntries(S.items.map(x => [x.item, x.priority])), grp:{}, groups:{}, drafts:[], lab:{"visualization-backend":["board"], "planning-server":["board"], "docs-sphinx-rtd":["docs"], "landing-page":["docs"], "epoch-required-everywhere":["cli"]}});
+let T = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || T0(); } catch(e){ return T0(); } })();
+const save = () => localStorage.setItem(KEY, JSON.stringify(T));
+let SEL = new Set();
+const itemBy = Object.fromEntries(S.items.map(x => [x.item, x]));
+const orig = Object.fromEntries(S.items.map(x => [x.item, x.priority]));
+const colName = c => (TCOLS.find(t => t[0] === c) || [c, c])[1];
+/* v1: the board writes at once, through the CLI's role-free commands; the journal lists what it wrote
+   since the user's last "rescan" to the Chief of Staff */
+function draft(t){ T.drafts.push({t, at:Date.now()}); save(); toast("Écrit : " + t); }
+let LF = new Set();   /* the label filter */
+const LCOL = ["#2f5fc7", "#b86e0c", "#23805a", "#8a4fd6", "#c03552", "#5b6270"];
+const labels = () => [...new Set(Object.values(T.lab || {}).flat())].sort();
+const lcol = l => LCOL[labels().indexOf(l) % LCOL.length];
+const labsOf = s => (T.lab && T.lab[s]) || [];
+const lshow = s => !LF.size || labsOf(s).some(l => LF.has(l));
+const labTags = s => labsOf(s).map(l => `<span class="lab" style="--lc:${lcol(l)}">${esc(l)}</span>`).join("");
+function lfilter(){
+  const ls = labels();
+  return `<div class="lfil"><span class="lt">Labels</span>${ls.map(l => `<button class="lab lbtn ${LF.has(l) ? "on" : ""}" style="--lc:${lcol(l)}" data-lf="${esc(l)}">${esc(l)}</button>`).join("")}${LF.size ? '<button class="lclr" data-lf="">tout afficher</button>' : ""}</div>`;
+}
+function bindLabels(){ $$("[data-lf]").forEach(b => b.onclick = () => { const l = b.dataset.lf; if (!l) LF.clear(); else LF.has(l) ? LF.delete(l) : LF.add(l); render(); }); }
+function labelOf(slugs){
+  const l = (prompt("Label à poser (un mot ; un label existant ou nouveau) :", labels()[0] || "") || "").trim().toLowerCase();
+  if (!l) return; T.lab = T.lab || {};
+  slugs.forEach(s => { const a = T.lab[s] = T.lab[s] || []; if (!a.includes(l)) a.push(l); });
+  draft(`label « ${l} » sur ${slugs.join(", ")}`); SEL.clear(); save(); render();
+}
+let toastT = null;
+function toast(m){ let e = $("#toast"); if (!e){ e = document.createElement("div"); e.id = "toast"; document.body.appendChild(e); }
+  e.textContent = m; e.className = "toast on"; clearTimeout(toastT); toastT = setTimeout(() => e.className = "toast", 2600); }
+function move(slugs, col, viaGroup){
+  slugs.forEach(s => {
+    if (T.col[s] === col && !viaGroup) return;
+    const from = T.col[s]; T.col[s] = col;
+    if (!viaGroup && T.grp[s] && T.groups[T.grp[s]] && T.groups[T.grp[s]].col !== col) delete T.grp[s];
+    draft(col === RDY ? `${s} → 3-ready${hasSpec(itemBy[s]) ? " (spécifié)" : " (automatable, sans spec : ton choix)"}` : col === "inbox" ? `${s} → inbox` : `${s} : priorité ${colName(from)} → ${col}`);
+  });
+  save();
+}
+function groupOf(slugs){
+  const name = prompt("Nom du groupe (un thème, ce qui part ensemble) :", "groupe " + (Object.keys(T.groups).length + 1));
+  if (!name) return;
+  const id = "g" + Date.now(), col = T.col[slugs[0]];
+  T.groups[id] = {name, col};
+  slugs.forEach(s => { T.grp[s] = id; if (T.col[s] !== col){ T.col[s] = col; } });
+  draft(`groupe « ${name} » : ${slugs.join(", ")} (en ${colName(col)})`);
+  SEL.clear(); save(); render();
+}
+function ungroup(id){ const g = T.groups[id]; Object.keys(T.grp).forEach(s => T.grp[s] === id && delete T.grp[s]); delete T.groups[id]; draft(`groupe « ${g.name} » défait`); save(); render(); }
+function moveGroup(id, col){
+  const g = T.groups[id]; if (!g || g.col === col) return; g.col = col;
+  const m = Object.keys(T.grp).filter(s => T.grp[s] === id);
+  move(m, col, true); draft(`groupe « ${g.name} » → ${colName(col)}`); save();
+}
+function readiness(){
+  const ready = S.items.filter(x => T.col[x.item] === RDY);
+  const notSpec = ready.filter(x => !hasSpec(x));
+  return {ready, notSpec, ok: ready.length > 0 && notSpec.length === 0};
+}
+function postit(x){
+  const g = gstate(x), changed = T.col[x.item] !== orig[x.item];
+  return `<div class="pi ${g} ${SEL.has(x.item) ? "sel" : ""} ${changed ? "chg" : ""}" draggable="true" data-slug="${esc(x.item)}">
+    <div class="row"><span class="gs ${g}" title="${GRILL[g][0]} : ${GRILL[g][1]}">${g === "spec" ? "✓" : g === "auto" ? "⚡" : ""}</span><span class="sl">${esc(x.item)}</span>${lateTag(x)}${srcTag(x)}</div>
+    <div class="pt">${esc(x.title)}</div>${labsOf(x.item).length ? `<div class="labs">${labTags(x.item)}</div>` : ""}
+    <div class="pm"><span>${GRILL[g][0]}</span><span>${IC.file} ${x.files.length}</span><button class="open" data-openi="i:${esc(x.item)}" title="ouvrir le dossier" aria-label="ouvrir le dossier">${IC.expand}</button></div></div>`;
+}
+function triage(){
+  const r = readiness(), run = B && B.state !== "closed";
+  const decl = T.declared && T.declared.list.join() === r.ready.map(x => x.item).join() ? T.declared : null;
+  const ind = decl ? `<div class="ind ok">● <b>Batch suivant prêt</b> : tu l'as dit à ${new Date(decl.at).toLocaleTimeString().slice(0,5)}, ${decl.list.length} CR</div>`
+    : T.declared ? `<div class="ind no">● <b>En préparation</b> : 3-ready a changé depuis ton « prêt »</div>`
+    : `<div class="ind no">● <b>En préparation</b> : ${r.ready.length} CR en 3-ready</div>`;
+  Object.keys(T.groups).forEach(id => {     // a group lives where its post-its are; an empty one goes
+    const m = Object.keys(T.grp).filter(s => T.grp[s] === id && itemBy[s]);
+    if (!m.length){ delete T.groups[id]; return; }
+    T.groups[id].col = T.col[m[0]]; m.forEach(s => { if (T.col[s] !== T.groups[id].col) delete T.grp[s]; });
+  });
+  const cols = {}; TCOLS.forEach(([k, name, color]) => { cols[k] = (() => {
+    const here = S.items.filter(x => T.col[x.item] === k && lshow(x.item));
+    const gids = Object.keys(T.groups).filter(id => T.groups[id].col === k);
+    const loose = here.filter(x => !T.grp[x.item] || !T.groups[T.grp[x.item]]);
+    const groups = gids.map(id => { const m = here.filter(x => T.grp[x.item] === id);
+      return `<div class="grpf" data-gid="${id}"><div class="gh" draggable="true" data-gdrag="${id}">⠿ ${esc(T.groups[id].name)} · ${m.length}<button class="x" data-ungroup="${id}">défaire</button></div>${m.map(postit).join("")}</div>`; }).join("");
+    const counts = {raw:0, grill:0, spec:0, auto:0}; here.forEach(x => counts[gstate(x)]++);
+    const foot = k === RDY ? `<div class="rfoot">
+        ${r.ready.length ? `<small>${r.ready.length - r.notSpec.length} spécifié(s), ${r.notSpec.length} automatable(s) ⚡ : le Driver part de la demande.</small>` : ""}
+        <button class="btn pri" data-ready="next" ${r.ready.length && !decl ? "" : "disabled"}>${decl ? "Batch suivant déclaré prêt ✓" : "Le batch suivant est prêt"}</button>
+        <small>${run ? `${esc(B.batch)} est ${esc(B.state)} : le batch suivant s'ouvrira après sa clôture. Le board ne touche pas au batch.` : "Aucun batch en cours : le batch suivant peut s'ouvrir."}</small></div>` : "";
+    const lane = /^P\d$/.test(k);
+    return `<div class="tcol ${k === RDY ? "rdy" : ""} ${lane ? "lane" : ""} ${lane && !here.length ? "empty" : ""}" data-col="${k}">
+      <div class="colh"><span class="dot" style="background:${color}"></span>${name}<span class="c">${here.length}</span>
+        <span style="margin-left:auto;display:flex;gap:4px;font-size:12px;color:var(--ink3)">${counts.spec ? `<span class="gs spec" style="width:12px;height:12px"></span>${counts.spec}` : ""}${counts.auto ? `<span class="gs auto" style="width:12px;height:12px"></span>${counts.auto}` : ""}${counts.grill ? `<span class="gs grill" style="width:12px;height:12px"></span>${counts.grill}` : ""}${counts.raw ? `<span class="gs raw" style="width:12px;height:12px"></span>${counts.raw}` : ""}</span></div>
+      <div class="tbody">${groups}${loose.map(postit).join("")}<div class="dropzone">${here.length ? "" : lane ? "vide : dépose un post-it ici" : "dépose ici"}</div></div>${foot}</div>`;
+  })(); });
+  const nd = T.drafts.length;
+  return `<div class="tbar">${ind}
+      <button class="drafts ${nd ? "has" : ""}" id="dbtn">✎ <b>${nd}</b> écriture(s) depuis ton dernier « rescan »</button>${lfilter()}
+      <div class="legend2"><span><span class="gs raw"></span>brut</span><span><span class="gs grill"></span>en grill</span><span><span class="gs spec">✓</span>spécifié</span><span><span class="gs auto">⚡</span>automatable</span></div></div>
+    <div class="tri">${cols.inbox}<div class="lanes"><div class="lanesh">Backlog <span>↑ plus urgent · glisse un post-it vers le haut ou le bas</span></div>${cols.P1}${cols.P2}${cols.P3}${cols.P4}</div>${cols[RDY]}</div>`;
+}
+function selbar(){
+  const b = $("#selbar");
+  if (view !== "triage" || !SEL.size){ b.classList.remove("on"); return; }
+  b.innerHTML = `<span class="n">${SEL.size} sélectionné(s)</span>${TCOLS.map(([k, n]) => `<button data-to="${k}">→ ${n}</button>`).join("")}
+    ${SEL.size > 1 ? '<button data-act="group">Grouper</button>' : ""}<button data-act="label">Label…</button>${SEL.size === 1 ? '<button data-act="open">Ouvrir</button>' : ""}<button data-act="clear">✕</button>`;
+  b.classList.add("on");
+  b.querySelectorAll("[data-to]").forEach(x => x.onclick = () => { move([...SEL], x.dataset.to); SEL.clear(); render(); });
+  b.querySelectorAll("[data-act]").forEach(x => x.onclick = () => {
+    if (x.dataset.act === "group") groupOf([...SEL]);
+    if (x.dataset.act === "label") labelOf([...SEL]);
+    if (x.dataset.act === "open") openPanel("i:" + [...SEL][0]);
+    if (x.dataset.act === "clear"){ SEL.clear(); render(); }
+  });
+}
+function dlist(show){
+  const d = $("#dlist");
+  if (!show){ d.classList.remove("on"); return; }
+  d.innerHTML = `<b>Écrit par le board dans le dossier</b>
+    <ul>${T.drafts.map(x => `<li><span style="color:var(--ink3)">${new Date(x.at).toLocaleTimeString().slice(0, 5)}</span> ${esc(x.t)}</li>`).join("") || "<li>rien</li>"}</ul>
+    <div class="row"><button class="btn pri" id="dsend" ${T.drafts.length ? "" : "disabled"}>J'ai dit « rescan » au CoS</button><button class="btn" id="dreset">Tout annuler (prototype)</button><button class="btn" id="dclose">Fermer</button></div>
+    <div style="color:var(--ink3);font-size:12px;margin-top:8px">Chaque changement est déjà écrit (commandes du CLI : file, triage, abandon…). Le board ne parle pas au Chief of Staff : dis-lui « rescan » dans le chat pour qu'il relise.</div>`;
+  d.classList.add("on");
+  $("#dsend").onclick = () => { T.drafts = []; save(); render(); dlist(false); };
+  $("#dreset").onclick = () => { T = T0(); SEL.clear(); save(); render(); dlist(false); };
+  $("#dclose").onclick = () => dlist(false);
+}
+function bindTriage(){
+  let dragging = null;
+  $$(".pi").forEach(p => {
+    p.ondragstart = e => { dragging = {slug:p.dataset.slug}; p.classList.add("drag"); e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", p.dataset.slug); };
+    p.ondragend = () => p.classList.remove("drag");
+    p.onclick = e => { if (e.target.closest("[data-openi]")) return; const s = p.dataset.slug; SEL.has(s) ? SEL.delete(s) : SEL.add(s); p.classList.toggle("sel"); selbar(); };
+    p.ondragover = e => { if (dragging && dragging.slug && dragging.slug !== p.dataset.slug){ e.preventDefault(); e.stopPropagation(); } };
+    p.ondrop = e => { if (!dragging || !dragging.slug || dragging.slug === p.dataset.slug) return; e.preventDefault(); e.stopPropagation();
+      const a = dragging.slug, b = p.dataset.slug, gb = T.grp[b];
+      if (gb && T.groups[gb]){ T.col[a] !== T.groups[gb].col && move([a], T.groups[gb].col, true); T.grp[a] = gb; draft(`${a} rejoint le groupe « ${T.groups[gb].name} »`); save(); render(); }
+      else { if (T.col[a] !== T.col[b]) move([a], T.col[b], true); groupOf([b, a]); render(); }
+      dragging = null; };
+  });
+  $$("[data-openi]").forEach(b => b.onclick = e => { e.stopPropagation(); openPanel(b.dataset.openi); });
+  $$("[data-gdrag]").forEach(h => { h.ondragstart = e => { dragging = {gid:h.dataset.gdrag}; e.dataTransfer.setData("text/plain", h.dataset.gdrag); }; });
+  $$("[data-ungroup]").forEach(b => b.onclick = () => ungroup(b.dataset.ungroup));
+  $$(".grpf").forEach(g => {
+    g.ondragover = e => { if (dragging && dragging.slug){ e.preventDefault(); e.stopPropagation(); g.classList.add("over"); } };
+    g.ondragleave = () => g.classList.remove("over");
+    g.ondrop = e => { if (!dragging || !dragging.slug) return; e.preventDefault(); e.stopPropagation(); const id = g.dataset.gid, a = dragging.slug;
+      if (T.col[a] !== T.groups[id].col) move([a], T.groups[id].col, true); T.grp[a] = id; draft(`${a} rejoint le groupe « ${T.groups[id].name} »`); save(); dragging = null; render(); };
+  });
+  $$(".tcol").forEach(c => {
+    c.ondragover = e => { e.preventDefault(); c.classList.add("over"); };
+    c.ondragleave = e => { if (!c.contains(e.relatedTarget)) c.classList.remove("over"); };
+    c.ondrop = e => { e.preventDefault(); c.classList.remove("over"); if (!dragging) return;
+      if (dragging.gid) moveGroup(dragging.gid, c.dataset.col);
+      else { move([dragging.slug], c.dataset.col); delete T.grp[dragging.slug]; save(); }
+      dragging = null; render(); };
+  });
+  $$("[data-ready]").forEach(b => b.onclick = () => {
+    const r = readiness().ready.map(x => x.item);
+    T.declared = {list:r, at:Date.now()}; draft(`batch suivant prêt à partir avec : ${r.join(", ")}`); save();
+    render();
+  });
+  $("#dbtn").onclick = () => dlist(!$("#dlist").classList.contains("on"));
+}
+
+/* ---- markdown (small) ---- */
+function md(t){
+  const lines = t.split("\n"); let out = "", code = false, list = false, tbl = false;
+  const il = s => esc(s).replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/\[([^\]]+)\]\(([^)]+)\)/g, "<u>$1</u>");
+  const close = () => { if (list){ out += "</ul>"; list = false; } if (tbl){ out += "</table>"; tbl = false; } };
+  for (const l of lines){
+    if (l.startsWith("```")){ close(); out += code ? "</code></pre>" : "<pre><code>"; code = !code; continue; }
+    if (code){ out += esc(l) + "\n"; continue; }
+    if (/^\s*\|/.test(l)){ if (/^\s*\|[\s:|-]+\|\s*$/.test(l)) continue; if (!tbl){ close(); out += "<table>"; tbl = true; }
+      out += "<tr>" + l.trim().replace(/^\||\|$/g, "").split("|").map(c => "<td>" + il(c.trim()) + "</td>").join("") + "</tr>"; continue; }
+    const li = l.match(/^\s*[-*] (.*)/) || l.match(/^\s*\d+\. (.*)/);
+    if (li){ if (tbl){ out += "</table>"; tbl = false; } if (!list){ out += "<ul>"; list = true; } out += "<li>" + il(li[1]) + "</li>"; continue; }
+    if (list && /^\s{2,}\S/.test(l)){ out = out.replace(/<\/li>$/, " " + il(l.trim()) + "</li>"); continue; }
+    close();
+    const h = l.match(/^(#{1,4}) (.*)/);
+    if (h){ out += `<h${h[1].length}>${il(h[2])}</h${h[1].length}>`; continue; }
+    if (l.trim()) out += "<p>" + il(l) + "</p>";
+  }
+  close(); return out;
+}
+
+/* ---- the sliding panel: a CR is a folder, its files as they are ---- */
+let cur = null;
+function pick(files){
+  return ["03-change-spec.md", "01-intent.md", "STATUS.md"].map(n => files.find(f => f.path === n)).find(Boolean) || files.find(f => /\.md$/.test(f.path)) || files[0];
+}
+function showFile(o, f){
+  $$(".tree button").forEach(b => b.classList.toggle("on", b.dataset.f === f.path));
+  const ext = (f.path.match(/\.[^.\/]+$/) || [""])[0].toLowerCase();
+  let body;
+  if (f.img) body = `<img src="${f.img}" alt="${esc(f.path)}">`;
+  else if (f.text == null) body = `<p class="info">Fichier ${esc(ext || "sans extension")}, ${kb(f.size)} : non affiché dans le prototype (format inconnu ou trop lourd). Le vrai board le servirait en téléchargement.</p>`;
+  else if (ext === ".md") body = md(f.text);
+  else if (ext === ".json"){ let t = f.text; try { t = JSON.stringify(JSON.parse(t), null, 2); } catch(e){} body = `<pre><code>${esc(t)}</code></pre>`; }
+  else body = `<pre><code>${esc(f.text)}</code></pre>`;
+  $("#doc").innerHTML = `<div class="info">${esc(o.folder)}/${esc(f.path)} · ${kb(f.size)}${f.cut ? " · tronqué" : ""}</div>` + body;
+  $("#doc").scrollTop = 0;
+}
+function openPanel(key){
+  const o = OBJ[key]; if (!o) return; cur = key;
+  $$(".card,.node").forEach(e => e.classList.toggle("sel", e.dataset.open === key));
+  const top = o.files.filter(f => !f.path.includes("/")), dirs = {};
+  o.files.filter(f => f.path.includes("/")).forEach(f => { const d = f.path.split("/")[0]; (dirs[d] = dirs[d] || []).push(f); });
+  const btn = f => `<button data-f="${esc(f.path)}" class="${f.path.includes("/") ? "ind" : ""}"><span>${f.img ? IC.img : f.text != null ? IC.file : IC.blank}</span><span class="nm">${esc(f.path.includes("/") ? f.path.slice(f.path.indexOf("/") + 1) : f.path)}</span><span class="sz">${kb(f.size)}</span></button>`;
+  let head;
+  if (o.kind === "cr"){ const c = o.c;
+    head = `<div class="row"><span class="tag t-cr">${esc(c.cr)}</span><span class="tag s-${vstate(c)}">${STATE[vstate(c)] || c.state}</span><span class="lbl">round ${rtxt(c)}</span><span class="lbl">${usd(c.cost)}</span>${c.after.length ? `<span class="lbl">après ${c.after.length} CR</span>` : ""}</div>`;
+  } else { const x = o.x;
+    head = `<div class="row"><span class="tag t-${esc(x.priority)}">${x.priority === "inbox" ? "Inbox" : esc(x.priority)}</span><span class="lbl">${esc(x.item)}</span><span class="lbl">${x.spec ? "spécifié" : "à griller"}</span></div>`;
+  }
+  $("#panel").innerHTML = `<div class="ph"><button class="x" id="px">×</button>${head}<h2>${esc(o.title)}</h2><div class="path">${esc(o.folder)}/ · ${o.files.length} fichiers</div></div>
+    <div class="pbody"><div class="tree">${top.map(btn).join("")}${Object.keys(dirs).sort().map(d => `<div class="dir">${esc(d)}/ · ${dirs[d].length}</div>${dirs[d].map(btn).join("")}`).join("")}${o.files.length ? "" : '<div class="empty">dossier vide</div>'}</div>
+    <div class="doc" id="doc"></div></div>`;
+  $("#panel").classList.add("open");
+  $("#px").onclick = closePanel;
+  $$(".tree button").forEach(b => b.onclick = () => showFile(o, o.files.find(f => f.path === b.dataset.f)));
+  const f = pick(o.files); if (f) showFile(o, f);
+}
+function closePanel(){ $("#panel").classList.remove("open"); cur = null; $$(".sel").forEach(e => e.classList.remove("sel")); }
+document.addEventListener("keydown", e => { if (e.key === "Escape") closePanel(); });
+
+/* ---- shell ---- */
+let view = new URLSearchParams(location.search).get("v") || "home";
+/* ---- projects of the planning surface (only chantier has a snapshot) ---- */
+const PROJECTS = [
+  {id:"chantier", color:"#c8401f", batch: B ? `${B.batch} · ${B.state}` : "pas de batch", live: B && B.state === "running",
+   inbox: S.items.filter(x => x.priority === "inbox").length, grill: S.items.filter(x => /^P\d/.test(x.priority)).length,
+   mode: B ? B.mode : null, working: crs.filter(c => c.state === "working").length, blocked: crs.filter(c => c.state === "blocked").length,
+   review: crs.filter(reviewable).map(c => ({cr:c.cr, title:c.title, pr:c.pr})),
+   merged: crs.filter(c => c.state === "merged").length, total: crs.length,
+   spent: B ? B.spent_usd : null, budget: B ? B.budget_usd : null, upd: S.updated, real:true},
+  {id:"exemple-web", color:"#3b6fd8", batch:"batch-03 · paused", live:false, inbox:4, grill:6, mode:"parallel", working:0, blocked:0,
+   review:[{cr:"CR-031", title:"Page de tarifs", pr:"#"}, {cr:"CR-033", title:"Formulaire de contact", pr:"#"}], merged:3, total:5,
+   spent:11.2, budget:40, upd: new Date(Date.now() - 3*3600e3).toISOString()},
+  {id:"exemple-api", color:"#23805a", batch:"pas de batch", live:false, inbox:1, grill:2, mode:null, working:0, blocked:0,
+   review:[], merged:0, total:0, spent:null, budget:null, upd: new Date(Date.now() - 2*86400e3).toISOString()},
+];
+function allProjects(){
+  const rows = PROJECTS.map(p => {
+    const wait = p.blocked ? `<span style="color:var(--red)">● ${p.blocked} bloquée${p.blocked > 1 ? "s" : ""}</span>` : "";
+    const rev = p.review.length ? p.review.map(r => `<a class="prlink" href="${esc(r.pr || "#")}" target="_blank" onclick="event.stopPropagation()">${esc(r.cr)} ${IC.ext}</a>`).join(" ") : '<span class="mut">—</span>';
+    const bar = p.total ? `<div class="mbar"><i style="width:${Math.round(100*p.merged/p.total)}%"></i></div><small>${p.merged}/${p.total} mergées</small>` : '<span class="mut">—</span>';
+    return `<tr data-pick="${p.id}" class="${p.review.length ? "hasrev" : ""}">
+      <td><span class="logo" style="background:${p.color}">${p.id[0]}</span><b>${esc(p.id)}</b>${p.live ? '<span class="live"></span>' : ""}${p.real ? "" : ' <small class="mut">exemple</small>'}</td>
+      <td>${esc(p.batch)}${p.mode ? `<br><small class="mut">${esc(p.mode)}</small>` : ""}</td>
+      <td class="num">${p.working || '<span class="mut">0</span>'} ${wait}</td>
+      <td>${rev}</td>
+      <td>${bar}</td>
+      <td class="num">${p.spent == null ? '<span class="mut">—</span>' : usd(p.spent) + `<br><small class="mut">/ ${usd(p.budget)}</small>`}</td>
+      <td class="num">${p.inbox} · ${p.grill}</td>
+      <td class="mut">il y a ${ago(p.upd)}</td></tr>`;
+  }).join("");
+  const cards = PROJECTS.map(p => `<div class="apc ${p.review.length ? "st-ready" : p.live ? "st-working" : "st-queued"}" data-pick="${p.id}">
+      <div class="apt"><span class="logo" style="background:${p.color}">${p.id[0]}</span><b>${esc(p.id)}</b>${p.live ? '<span class="live"></span>' : ""}<span class="mut" style="margin-left:auto">${esc(p.batch)}</span></div>
+      <div class="aps"><span><b>${p.review.length}</b> PR à revoir</span><span><b>${p.working}</b> en cours</span><span><b>${p.spent == null ? "—" : usd(p.spent)}</b></span><span><b>${p.inbox}</b> intake</span></div></div>`).join("");
+  return `<table class="aptab"><thead><tr><th>Projet</th><th>Batch</th><th>En cours</th><th>PR à revoir</th><th>Avancement</th><th>Dépensé</th><th>Intake · grill</th><th>Données</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="apcards">${cards}</div>
+    <p class="mut" style="font-size:12px;margin-top:12px">Une ligne par projet de la surface. Un clic ouvre le projet ; un lien CR ouvre la PR à revoir.</p>`;
+}
+let project = new URLSearchParams(location.search).get("p") || localStorage.getItem("proj") || "chantier";
+if (project !== "*" && !PROJECTS.some(p => p.id === project)) project = "chantier";
+const ALL = {id:"*", color:"#5b6270", label:"Tous les projets"};
+const P = () => project === "*" ? ALL : PROJECTS.find(p => p.id === project);
+function pmenu(){
+  const nrev = PROJECTS.reduce((n, p) => n + p.review.length, 0);
+  return `<div class="ph">Surface de planification · ${PROJECTS.length} projets</div>
+    <button class="popt ${project === "*" ? "on" : ""}" data-proj="*"><span class="logo" style="background:${ALL.color}">∗</span>
+     <span><b>Tous les projets</b><small>vue d'ensemble · ${nrev} PR à revoir</small></span>${project === "*" ? '<span class="ok">✓</span>' : ""}</button>
+    <div style="border-top:1px solid var(--line);margin:4px 0"></div>` + PROJECTS.map(p =>
+    `<button class="popt ${p.id === project ? "on" : ""}" data-proj="${p.id}"><span class="logo" style="background:${p.color}">${p.id[0]}</span>
+     <span><b>${esc(p.id)}</b>${p.live ? '<span class="live" title="batch en cours"></span>' : ""}<small>${esc(p.batch)} · ${p.inbox} en intake${p.real ? "" : " · exemple"}</small></span>
+     ${p.id === project ? '<span class="ok">✓</span>' : ""}</button>`).join("");
+}
+function paintProject(){
+  const p = P();
+  if (project !== "*") localStorage.setItem("projLast", project);
+  ["", "2"].forEach(s => { $("#plogo" + s).textContent = p.id === "*" ? "∗" : p.id[0]; $("#plogo" + s).style.background = p.color; $("#pname" + s).textContent = p.label || p.id; });
+  $("#pm-side").innerHTML = $("#pm-phone").innerHTML = pmenu();
+  $$("[data-proj]").forEach(b => b.onclick = e => { e.stopPropagation(); project = b.dataset.proj; localStorage.setItem("proj", project);
+    $$(".pmenu").forEach(m => m.classList.remove("open")); closePanel(); paintProject(); render(); });
+}
+$$("[data-pm]").forEach(b => b.onclick = e => { e.stopPropagation(); const m = $("#pm-" + b.dataset.pm); const o = !m.classList.contains("open");
+  $$(".pmenu").forEach(x => x.classList.remove("open")); m.classList.toggle("open", o); });
+document.addEventListener("click", e => { if (!e.target.closest(".pwrap")) $$(".pmenu").forEach(m => m.classList.remove("open")); });
+function render(){
+  $$("[data-v]").forEach(b => b.classList.toggle("on", b.dataset.v === view));
+  $("#h1").textContent = {home:"Home", triage:"Triage",kanban:"Kanban", batch:"Batch", costs:"Coûts"}[view];
+  const nums = ["#n-h", "#n-t", "#n-k", "#n-b", "#n-c"];
+  /* all projects: only Home stays, as the overview; the views of one project and its intake go */
+  $$("[data-v]").forEach(b => b.style.display = project === "*" && b.dataset.v !== "home" ? "none" : "");
+  $("#newitem").style.display = project === "*" ? "none" : "";
+  if (project === "*") {
+    nums.forEach(n => $(n).style.visibility = "hidden");
+    $$("[data-v]").forEach(b => b.classList.toggle("on", b.dataset.v === "home"));
+    $("#h1").textContent = "Tous les projets";
+    const sum = k => PROJECTS.reduce((n, p) => n + (typeof p[k] === "number" ? p[k] : p[k].length), 0);
+    $("#stats").innerHTML = `<span><b>${PROJECTS.length}</b> projets</span><span><b>${PROJECTS.filter(p => p.live).length}</b> batch en cours</span><span><b>${sum("review")}</b> PR à revoir</span><span><b>${sum("working")}</b> CR en cours</span><span><b>${sum("inbox")}</b> intake</span>`;
+    $("#view").innerHTML = allProjects();
+    $$("#view [data-pick]").forEach(e => e.onclick = () => { project = e.dataset.pick; localStorage.setItem("proj", project); paintProject(); render(); });
+    selbar(); dlist(false); return;
+  }
+  if (!P().real) {
+    nums.forEach(n => $(n).style.visibility = "hidden");
+    $("#stats").innerHTML = `<span><b>${esc(P().id)}</b></span><span>${esc(P().batch)}</span><span><b>${P().inbox}</b> intake</span>`;
+    $("#view").innerHTML = `<div class="empty"><b>${esc(P().id)}</b> est un projet d'exemple : ce prototype n'a d'instantané que pour <b>chantier</b>.<br>
+      Dans le vrai board, chaque vue (Home, Triage, Kanban, Batch, Coûts) montre ici ce projet seul,<br>lu dans <code>projects/${esc(P().id)}/changes/</code> de la surface.</div>`;
+    selbar(); dlist(false); return;
+  }
+  nums.forEach(n => $(n).style.visibility = "");
+  const by = s => crs.filter(c => c.state === s).length;
+  $("#stats").innerHTML = `<span><b>${S.items.filter(x => x.priority === "inbox").length}</b> intake</span><span><b>${S.items.filter(x => /^P\d/.test(x.priority)).length}</b> au grill</span><span><b>${B ? B.batch : "—"}</b> ${B ? B.state : ""}</span><span><b>${by("working")}</b> en cours</span><span><b>${by("ready")}</b> rendus</span><span><b>${B ? usd(B.spent_usd) : "—"}</b> / ${B ? usd(B.budget_usd) : ""}</span>`;
+  $("#view").innerHTML = view === "home" ? home() : view === "triage" ? triage() : view === "kanban" ? kanban() : view === "batch" ? batch() : costs();
+  $$("#view [data-open]").forEach(e => e.onclick = () => openPanel(e.dataset.open));
+  $$("[data-new]").forEach(b => b.onclick = newItem);
+  bindLabels();
+  $$("#view [data-go]").forEach(e => e.onclick = () => { view = e.dataset.go; render(); });
+  selbar(); if (view !== "triage") dlist(false);
+  if (view === "triage") bindTriage();
+  if (view === "batch") bindBatch();
+  if (view === "costs") bindCosts();
+  if (cur) $$(".card,.node").forEach(e => e.classList.toggle("sel", e.dataset.open === cur));
+}
+function newItem(){ const t = prompt("Ta nouvelle idée :"); if (t) alert("Simulé : un nouveau dossier dans 1-inbox (chantier file), rien de plus."); }
+/* ---- the surface's autosync: a pill at the foot of the sidebar (a dot on the phone), a panel on click.
+   Simulated: the real board reads .git/ai-autosync/ and runs the surface's own commands. ---- */
+const AS = {state:"active", pushed:Date.now() - 12000, leader:"chief-of-staff", parts:["chief-of-staff", "foreman", "board (ce serveur)"],
+  reason:"upstream a bougé : origin/main a 2 commits de plus", incidents:[{id:3, what:"secret possible dans projects/exemple-web/changes/1-inbox/token-idea/intake/request.md"}]};
+const ASL = {active:["actif", "#23805a"], stopped:["arrêté", "#8b909c"], blocked:["bloqué", "#c03552"], approval:["à approuver", "#b86e0c"]};
+function asPaint(){
+  const [lbl, col] = ASL[AS.state], s = Math.round((Date.now() - AS.pushed) / 1000);
+  const sub = AS.state === "active" ? `poussé il y a ${s < 60 ? s + " s" : Math.round(s / 60) + " min"}` : AS.state === "blocked" ? "le Chief of Staff doit intégrer" : AS.state === "approval" ? AS.incidents.length + " incident à approuver" : "commits manuels";
+  $("#asy").innerHTML = `<span class="adot" style="background:${col}"></span><span><b>Autosync ${lbl}</b><small>${sub}</small></span>${IC.chev}`;
+  $("#asy2").innerHTML = `<span class="adot" style="background:${col}"></span>`;
+  $("#asy2").title = $("#asy2").ariaLabel = "Autosync " + lbl;
+  const pop = `<div class="ah"><span class="adot" style="background:${col}"></span><b>Autosync ${lbl}</b></div>
+    ${AS.state === "blocked" ? `<div class="aw ko">${esc(AS.reason)}. Demande au Chief of Staff d'intégrer puis de relancer.</div>` : ""}
+    <dl><dt>Leader</dt><dd>${AS.state === "stopped" ? "—" : esc(AS.leader)}</dd><dt>Participants</dt><dd>${AS.parts.map(esc).join(", ")}</dd><dt>Dernier push</dt><dd>${new Date(AS.pushed).toLocaleTimeString().slice(0, 5)}</dd></dl>
+    ${AS.state === "approval" ? AS.incidents.map(i => `<div class="aw wa"><b>Incident #${i.id}</b> : ${esc(i.what)}<button class="btn pri" data-asapprove="${i.id}">Approuver</button></div>`).join("") : ""}
+    <div class="aa">${AS.state === "stopped" ? '<button class="btn pri" data-as="active">Démarrer</button>' : AS.state === "blocked" ? "" : '<button class="btn" data-as="stopped">Arrêter</button>'}</div>
+    <div class="asim">Simuler : ${Object.keys(ASL).map(k => `<button data-as="${k}" class="${k === AS.state ? "on" : ""}">${ASL[k][0]}</button>`).join("")}</div>`;
+  $("#apop").innerHTML = $("#apop2").innerHTML = pop;
+  $$("[data-as]").forEach(b => b.onclick = e => { e.stopPropagation(); AS.state = b.dataset.as; if (AS.state === "active") AS.pushed = Date.now(); asPaint(); });
+  $$("[data-asapprove]").forEach(b => b.onclick = e => { e.stopPropagation(); AS.incidents = AS.incidents.filter(i => i.id != b.dataset.asapprove); AS.state = "active"; AS.pushed = Date.now(); asPaint(); });
+}
+[["#asy", "#apop"], ["#asy2", "#apop2"]].forEach(([b, p]) => $(b).onclick = e => { e.stopPropagation(); const o = !$(p).classList.contains("open"); $$(".apop").forEach(x => x.classList.remove("open")); $(p).classList.toggle("open", o); });
+document.addEventListener("click", e => { if (!e.target.closest(".aswrap")) $$(".apop").forEach(m => m.classList.remove("open")); });
+asPaint(); setInterval(() => AS.state === "active" && !$("#apop").classList.contains("open") && asPaint(), 5000);
+$$("[data-v]").forEach(b => b.addEventListener("click", () => {
+  view = b.dataset.v;
+  if (project === "*" && view !== "home") { project = localStorage.getItem("projLast") || "chantier"; paintProject(); }
+  render(); }));
+$("#newitem").onclick = newItem;
+window.addEventListener("resize", () => view === "batch" && drawEdges());
+$("#n-t").textContent = S.items.length;
+$("#n-k").textContent =S.items.length + crs.filter(c => c.state !== "merged").length;
+$("#n-b").textContent = B ? B.batch : "";
+$("#n-c").textContent = B ? usd(B.spent_usd) : "";
+$("#upd").textContent = ago(S.updated); $("#upd2").textContent = new Date(S.updated).toLocaleString();
+paintProject();
+render();
+</script>
+</body>
+</html>

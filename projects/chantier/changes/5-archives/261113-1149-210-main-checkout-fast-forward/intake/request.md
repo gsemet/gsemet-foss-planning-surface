@@ -1,0 +1,1 @@
+batch-14 retro: the main checkout's CLI stayed at an old commit after the price of claude-fable-5-2 merged, so cost still left its calls unpriced. Fix: the steering session fast-forwards a clean main checkout after each merge it records, never touching untracked files (outside an eval, when the main checkout must not change).

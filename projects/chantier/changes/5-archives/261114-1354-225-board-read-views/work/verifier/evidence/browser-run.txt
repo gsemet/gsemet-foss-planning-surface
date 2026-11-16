@@ -1,0 +1,31 @@
+﻿E7 parallel words: ['PRs to review', 'Merge', 'waits', 'blocked', 'release', 'Level 1', 'after']
+E7 series words: ['PRs to review', 'Merge', 'waits', 'blocked', 'release', 'Level 1', 'after']
+E7 stack words: ['PRs to review', 'Merge', 'waits', 'blocked', 'release', 'Level 1', 'after']
+E4 view home injected nodes: 22 markup shown as text: False
+E4 view kanban injected nodes: 0 markup shown as text: True
+E4 view batch injected nodes: 5 markup shown as text: True
+E4 view costs injected nodes: 10 markup shown as text: True
+E4 backlog panel has <script> literal: True injected: 0
+E4 CR panel head: CR-103 | working | round 0/3 | — | Board <b>bold</b> <img src=x onerror=alert(1)> | 4-batch/2-actives/103-gamma/ · 7 files | 01-intent.md | 83 B | 03-change-spec.md | 98 B | STATUS.json | 1.3 KB | STATUS.md | 702 B | evil.md | 72 
+E4 CR tree: 01-intent.md | 83 B | 03-change-spec.md | 98 B | STATUS.json | 1.3 KB | STATUS.md | 702 B | evil.md | 72 B | evil.svg | 73 B | intake/ · 1 | request.md | 11 B
+E4 evil.svg -> batch/2-actives/103-gamma/ · 7 files | 01-intent.md | 83 B | 03-change-spec.md | 98 B | STATUS.json | 1.3 KB | STATUS.md | 702 B | evil.md | 72 B | evil.svg | 73 B | intake/ · 1 | request.md | 11 B | 4-batch/2-actives/103-gamma/evil.svg · 73 B |  | evil.svg (73 B) cannot be shown here. |  | Download | injected: 0
+E4 evil.md ->  | 4-batch/2-actives/103-gamma/ · 7 files | 01-intent.md | 83 B | 03-change-spec.md | 98 B | STATUS.json | 1.3 KB | STATUS.md | 702 B | evil.md | 72 B | evil.svg | 73 B | intake/ · 1 | request.md | 11 B | 4-batch/2-actives/103-gamma/evil.md · 72 B | evil md |  | <script>alert(4)</script> <b>x</b> l) | injected: 0
+E4 dialogs: []
+E6 panel open after: 1 same file head: True round r2/3 visible without reload: True
+E5 tree text: CR-222 | handed back | round 4/5 | $10.88 | after 2 CRs | `chantier board` becomes the web board's server | 4-batch/2-actives/222-visualization-backend/ · 70 files | 01-intent.md | 1.7 KB | 02-answers.md | 34 KB | 03-change-spec.md | 44 KB | STATUS.json | 16 KB | STATUS.md | 9.2 KB | depends.json | 37 B | evidence/ · 43 | prototype/v1-01-board.jpg | 52 KB | prototype/v1-02-pc-and-phone.jpg | 27 KB | prototype/v1-03-asks-and-chat.jpg | 16 KB | prototype/v1-04-costs.jpg | 22 KB | prototype/v2-01-kanban.jpg | 42 KB | prototype/v2-02-batch.jpg | 28 KB | prototype/v2-03-cr-folder-panel.jpg | 30 KB | prototype/v2-04-costs.jpg | 42 KB | prototype/v2-05-pc-and-phone.jpg | 28 KB | prototype/v3-01-triage-groups.jpg | 32 KB | prototype/v3-02-selection-and-drafts.jpg | 35 KB | prototype/v3-03-pc-and-phone.jpg | 25 KB | prototype/v3-04-batch-declared-ready.jpg | 34 KB | prototype/v3-05-automatable.jpg | 33 KB | prototype/v3-06-this-cr-folder.jpg | 40 KB | prototype/v4-01-home.jpg | 31 KB | prototype/v4
+E5 data.js view: /20261114-054541.log | 2.4 KB | gates/20261114-074143.log | 208 B | gates/20261114-074211.log | 2.5 KB | investigation.md | 21 KB | pr-body.md | 2.3 KB | r1.md | 2.8 KB | r2.md | 4.1 KB | r3.md | 4.7 KB | 4-batch/2-actives/222-visualization-backend/prototype/data.js · 1.5 MB |  | prototype/data.js is 1.5 MB: too large to show as text.
+E5 img count in panel: 1 natural width: 510
+E8 main picker button: 0 | nav: Home | Kanban | 47 | Batch | batch-17 | Costs | $125.81
+E8 pc menu: Planning surface · 3 projects | All projects | overview · 0 PRs to review | C | chantier | batch-17 · batch running · 11 in intake | E | empty | no batch · 0 intake | S | small | no batch · 1 intake
+E8 pc nav (project): Home | Kanban | 47 | Batch | batch-17 | Costs | $125.81
+E8 pc overview url: http://127.0.0.1:8811/?p=*&v=home nav: Home | actions place visible btn: 0
+E8 pc after clicking only view on overview: http://127.0.0.1:8811/?p=*&v=home
+E8 phone menu: Planning surface · 3 projects | All projects | overview · 0 PRs to review | C | chantier | batch-17 · batch running · 11 in intake | E | empty | no batch · 0 intake | S | small | no batch · 1 intake
+E8 phone nav (project): Home | Kanban | Batch | Costs
+E8 phone overview url: http://127.0.0.1:8811/?p=*&v=home nav: Home | actions place visible btn: 1
+E8 phone after clicking only view on overview: http://127.0.0.1:8811/?p=*&v=home
+KBD Enter opens: 1 Escape closes: 1
+KBD menu closed by Escape: True
+PROBLEMS: []
+DIALOGS: []
+FOREIGN REQUESTS: []

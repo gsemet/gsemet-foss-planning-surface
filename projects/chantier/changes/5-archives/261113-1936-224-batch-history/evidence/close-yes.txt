@@ -1,0 +1,12 @@
+﻿closed batch-05: its files are deleted, 2 CRs archived
+2 CRs move from 3-done to 5-archives: CR-101, CR-102
+retro: kept in .agents/changes/5-archives/batches/batch-05.md
+record: .agents/changes/5-archives/batches/batch-05.json closed
+the dropped CRs, to remove on the same word where they still exist (`git worktree remove --force`, `git branch -D`): CR-102 worktree C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\bd1945f6-9982-485f-b29f-477277e80753\scratchpad\p1.worktrees\batch-05-CR-102 branch chantier/batch-05/cr-102-two
+final cost, up to now (nothing runs):
+Total: $3.00 of a $50 budget
+Chief of Staff, steering the batch $3.00 (100%), Drivers $0.00 (0%), workers $0.00 (0%)
+Most: -
+Chief of Staff, steering the batch (outside the budget): $3.00 since the batch opened (1 calls)
+Chief of Staff, grill and specifications with the user (outside the budget): $0.00 since the batch opened (0 calls, 0 spec-writers)
+Chief of Staff, whole session: $3.00, context 1,000,000 tokens; not counted: 0 compactions since the batch opened, which leave no record (about $0.12 each)

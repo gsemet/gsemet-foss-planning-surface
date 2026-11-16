@@ -1,0 +1,7 @@
+﻿slug | kind | ref | labels | late | title | summary
+audit-force-upstream-exemption | verbal | None | [] | True | T audit-force-upstream-exemption | state of audit-force-upstream-exemption
+docs-sphinx-rtd | github | #41 | ['docs'] | False | T docs-sphinx-rtd | state of docs-sphinx-rtd
+epoch-required-everywhere | jira | CHT-118 | ['cli'] | False | T epoch-required-everywhere | state of epoch-required-everywhere
+landing-page | gitlab | #12 | ['docs'] | False | T landing-page | state of landing-page
+planning-server | verbal | None | ['board'] | False | T planning-server | state of planning-server
+visualization-backend | verbal | None | ['board'] | True | T visualization-backend | state of visualization-backend

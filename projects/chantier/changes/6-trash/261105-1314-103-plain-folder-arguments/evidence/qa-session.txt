@@ -1,0 +1,57 @@
+﻿PS> chantier open qab .agents\changes\1-inbox\nope
+uv : error: prepared CR not found: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets\7e28309f-e2f1-4c1b-9
+546-2766a46919d0\scratchpad\qa\repo\.agents\changes\1-inbox\nope
+Au caractère Ligne:8 : 86
++ ... n ' ')" | Tee-Object -Append $log; uv run --script $c @a 2>&1 | Out-S ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: prepared...es\1-inbox\nope:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+exit=1
+PS> chantier open qab @.agents/changes/1-inbox/one
+uv : error: prepared CR not found: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets\7e28309f-e2f1-4c1b-9
+546-2766a46919d0\scratchpad\qa\repo\@.agents\changes\1-inbox\one
+Au caractère Ligne:8 : 86
++ ... n ' ')" | Tee-Object -Append $log; uv run --script $c @a 2>&1 | Out-S ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: prepared...ges\1-inbox\one:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+exit=1
+PS> chantier open qab .agents\changes\1-inbox\one .agents\changes\1-inbox\two\03-change-spec.md --slots 2
+opened qab on claude: 2 CRs, 2 slots, parallel
+CR-101 ﻿# CR one
+CR-102 ﻿# CR two
+brief: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets\7e28309f-e2f1-4c1b-9546-2766a46919d0\scratchpad\qa\repo\.agents\changes\3-requests\01-qab\brief.md
+
+exit=0
+PS> chantier order add --batch qab --note .agents\changes\1-inbox\three
+[chief-of-staff→foreman] order O-1: add .agents\changes\1-inbox\three
+added CR-103, queued
+
+exit=0
+PS> chantier order add --batch qab --note @.agents/changes/1-inbox/three
+uv : error: prepared CR not found: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets\7e28309f-e2f1-4c1b-9
+546-2766a46919d0\scratchpad\qa\repo\@.agents\changes\1-inbox\three
+Au caractère Ligne:8 : 86
++ ... n ' ')" | Tee-Object -Append $log; uv run --script $c @a 2>&1 | Out-S ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: prepared...s\1-inbox\three:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+exit=1
+PS> chantier order add --batch qab --note .agents\changes\1-inbox\missing
+uv : error: prepared CR not found: C:\Users\gaeta\AppData\Local\Temp\claude\C--Users-gaeta-Projets\7e28309f-e2f1-4c1b-9
+546-2766a46919d0\scratchpad\qa\repo\.agents\changes\1-inbox\missing
+Au caractère Ligne:8 : 86
++ ... n ' ')" | Tee-Object -Append $log; uv run --script $c @a 2>&1 | Out-S ...
++                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: prepared...1-inbox\missing:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+exit=1
+?? .agents/

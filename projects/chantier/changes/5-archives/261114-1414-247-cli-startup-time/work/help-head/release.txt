@@ -1,0 +1,15 @@
+﻿usage: chantier release [-h] [--batch BATCH] [--note NOTE]
+                        {start,go,published} cr
+
+positional arguments:
+  {start,go,published}
+  cr
+
+options:
+  -h, --help            show this help message and exit
+  --batch BATCH         batch number, 4 or batch-04 (default: $CHANTIER_BATCH,
+                        else the only running one)
+  --note NOTE           go: the irreversible action; published: version and
+                        link
+
+exit=0

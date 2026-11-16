@@ -1,0 +1,445 @@
+{
+  "schema": 1,
+  "batch": "batch-18",
+  "number": 18,
+  "state": "closed",
+  "opened": "2026-11-14T18:41:48Z",
+  "closed": "2026-11-15T16:18:18Z",
+  "mode": "parallel",
+  "steering": "foreman",
+  "host": "claude",
+  "budget_usd": 450.0,
+  "cost_usd": 183.9194,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-253",
+      "title": "Change Specification: a green long gate on main, and no backward compatibility",
+      "result": "merged",
+      "archive": "5-archives/261115-0000-253-baseline-and-legacy",
+      "pr": "https://github.com/gsemet/chantier/pull/206",
+      "rounds": 4,
+      "cost_usd": 6.25,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-254",
+      "title": "`just scenario` under 5 minutes: independent units run in parallel",
+      "result": "merged",
+      "archive": "5-archives/261115-0056-254-fast-scenario",
+      "pr": "https://github.com/gsemet/chantier/pull/211",
+      "rounds": 5,
+      "cost_usd": 12.4924,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-255",
+      "title": "Change Specification: every steering command refuses a missing `--epoch`",
+      "result": "merged",
+      "archive": "5-archives/261115-0740-255-epoch-required-everywhere",
+      "pr": "https://github.com/gsemet/chantier/pull/213",
+      "rounds": 2,
+      "cost_usd": 6.0172,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-256",
+      "title": "Change Specification: workers reply in an exact template, and `verdict` names its words",
+      "result": "merged",
+      "archive": "5-archives/261114-2334-256-worker-reply-length",
+      "pr": "https://github.com/gsemet/chantier/pull/202",
+      "rounds": 1,
+      "cost_usd": 1.8809,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-257",
+      "title": "Change Specification: a CR's folder is self-contained",
+      "result": "merged",
+      "archive": "5-archives/261115-0740-257-cr-folder-self-contained",
+      "pr": "https://github.com/gsemet/chantier/pull/203",
+      "rounds": 1,
+      "cost_usd": 4.6613,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-258",
+      "title": "Change Specification: a refused force push is recorded with its exact text, and its Driver hands back instead of waiting",
+      "result": "merged",
+      "archive": "5-archives/261114-2145-258-push-refusal-lessons",
+      "pr": "https://github.com/gsemet/chantier/pull/204",
+      "rounds": 1,
+      "cost_usd": 1.8262,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-259",
+      "title": "Change Specification: a retro critic cuts every list of changes chantier proposes on its own",
+      "result": "merged",
+      "archive": "5-archives/261115-0740-259-retro-critic",
+      "pr": "https://github.com/gsemet/chantier/pull/207",
+      "rounds": 2,
+      "cost_usd": 4.346,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-260",
+      "title": "Change Specification: a Driver's opening reads cost a third less",
+      "result": "merged",
+      "archive": "5-archives/261114-2015-260-driver-opening-reads",
+      "pr": "https://github.com/gsemet/chantier/pull/201",
+      "rounds": 1,
+      "cost_usd": 1.5015,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-261",
+      "title": "Change Specification: each working CR shows the step it is at, and the board shows the next CR to start",
+      "result": "merged",
+      "archive": "5-archives/261115-0740-261-board-cr-step",
+      "pr": "https://github.com/gsemet/chantier/pull/208",
+      "rounds": 4,
+      "cost_usd": 5.1836,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-262",
+      "title": "Change Specification: the web board after the user's first page-by-page tour",
+      "result": "merged",
+      "archive": "5-archives/261115-0740-262-board-ui-review",
+      "pr": "https://github.com/gsemet/chantier/pull/209",
+      "rounds": 2,
+      "cost_usd": 7.6418,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-263",
+      "title": "Change Specification: batch-17 retro, card fixes",
+      "result": "merged",
+      "archive": "5-archives/261115-0740-263-b17-card-fixes",
+      "pr": "https://github.com/gsemet/chantier/pull/205",
+      "rounds": 1,
+      "cost_usd": 4.0976,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-264",
+      "title": "Change Specification: batch-17 CLI fixes",
+      "result": "merged",
+      "archive": "5-archives/261115-0740-264-b17-cli-fixes",
+      "pr": "https://github.com/gsemet/chantier/pull/210",
+      "rounds": 1,
+      "cost_usd": 5.767,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-265",
+      "title": "Change Specification: three long-gate rules (the next merge first, early push, clean rebase)",
+      "result": "merged",
+      "archive": "5-archives/261115-0740-265-gate-rules",
+      "pr": "https://github.com/gsemet/chantier/pull/214",
+      "rounds": 1,
+      "cost_usd": 3.5058,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-266",
+      "title": "Change Specification: the stack's one long gate, and a long-gate waiver recorded per CR",
+      "result": "merged",
+      "archive": "5-archives/261115-0740-266-stack-gate-waiver",
+      "pr": "https://github.com/gsemet/chantier/pull/215",
+      "rounds": 3,
+      "cost_usd": 10.783,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-267",
+      "title": "A running batch switches between any two modes",
+      "result": "merged",
+      "archive": "5-archives/261115-0740-267-batch-mode-switch",
+      "pr": "https://github.com/gsemet/chantier/pull/212",
+      "rounds": 1,
+      "cost_usd": 3.9384,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-268",
+      "title": "Change Specification: `order merged` stops the CR's gate before it moves the folder",
+      "result": "merged",
+      "archive": "5-archives/261115-0855-268-gate-race-on-merge",
+      "pr": "https://github.com/gsemet/chantier/pull/218",
+      "rounds": 1,
+      "cost_usd": 1.6338,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-269",
+      "title": "Change Specification: a project's rule may name a pipeline job as its long gate",
+      "result": "merged",
+      "archive": "5-archives/261115-0924-269-gate-on-pipeline",
+      "pr": "https://github.com/gsemet/chantier/pull/220",
+      "rounds": 1,
+      "cost_usd": 1.3225,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-270",
+      "title": "`ship` always reads the PR's base and draft state from the forge",
+      "result": "merged",
+      "archive": "5-archives/261115-0953-270-ship-reads-forge",
+      "pr": "https://github.com/gsemet/chantier/pull/222",
+      "rounds": 1,
+      "cost_usd": 3.9431,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-271",
+      "title": "Change Specification: the Foreman finds a conflict between ready PRs at the second one",
+      "result": "merged",
+      "archive": "5-archives/261115-0939-271-early-conflicts",
+      "pr": "https://github.com/gsemet/chantier/pull/221",
+      "rounds": 1,
+      "cost_usd": 2.0983,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-272",
+      "title": "Change Specification: a CR's new readiness ask supersedes its earlier one",
+      "result": "merged",
+      "archive": "5-archives/261115-0858-272-ask-supersedes",
+      "pr": "https://github.com/gsemet/chantier/pull/217",
+      "rounds": 1,
+      "cost_usd": 1.1896,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-273",
+      "title": "Change Specification: `verdict VERIFIED` refuses a verify note that does not name the head",
+      "result": "merged",
+      "archive": "5-archives/261115-0924-273-verdict-head",
+      "pr": "https://github.com/gsemet/chantier/pull/219",
+      "rounds": 1,
+      "cost_usd": 1.4937,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-274",
+      "title": "Change Specification: every worker reads its card before it works",
+      "result": "merged",
+      "archive": "5-archives/261115-0939-274-workers-read-card",
+      "pr": "https://github.com/gsemet/chantier/pull/223",
+      "rounds": 1,
+      "cost_usd": 2.0488,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-275",
+      "title": "Change Specification: run the real-foreman and real-direct evals on the chantier batch-18 leaves on main",
+      "result": "merged",
+      "archive": "5-archives/261115-1352-275-evals-run-b18",
+      "pr": "https://github.com/gsemet/chantier/pull/225",
+      "rounds": 1,
+      "cost_usd": 3.697,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-276",
+      "title": "Change Specification: the README says what a batch costs, Foreman or direct",
+      "result": "merged",
+      "archive": "5-archives/261115-1409-276-eval-cost-readme",
+      "pr": "https://github.com/gsemet/chantier/pull/226",
+      "rounds": 1,
+      "cost_usd": 1.1674,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-277",
+      "title": "Change Specification: the ready line of a stacked CR names the CR it waits on",
+      "result": "merged",
+      "archive": "5-archives/261115-1521-277-stacked-ready-line-names-cr",
+      "pr": "https://github.com/gsemet/chantier/pull/231",
+      "rounds": 1,
+      "cost_usd": 1.7441,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-278",
+      "title": "Change Specification: commands name a paused batch and the way out",
+      "result": "merged",
+      "archive": "5-archives/261115-1433-278-paused-batch-messages",
+      "pr": "https://github.com/gsemet/chantier/pull/229",
+      "rounds": 1,
+      "cost_usd": 1.6795,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-279",
+      "title": "Change Specification: the spend is fresh when the budget is checked",
+      "result": "merged",
+      "archive": "5-archives/261115-1521-279-spend-fresh-at-budget-check",
+      "pr": "https://github.com/gsemet/chantier/pull/233",
+      "rounds": 1,
+      "cost_usd": 2.8476,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-280",
+      "title": "Change Specification: direct mode's cost report says \"Chief of Staff\" and its lines add up",
+      "result": "merged",
+      "archive": "5-archives/261115-1433-280-direct-mode-cost-report",
+      "pr": "https://github.com/gsemet/chantier/pull/230",
+      "rounds": 1,
+      "cost_usd": 1.6461,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-281",
+      "title": "chantier's merge route works for a PR of a native GitHub stack",
+      "result": "merged",
+      "archive": "5-archives/261115-1410-281-release-merge-native-stack",
+      "pr": "https://github.com/gsemet/chantier/pull/227",
+      "rounds": 1,
+      "cost_usd": 1.2949,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-282",
+      "title": "The scenario's stack unit fits its budget",
+      "result": "merged",
+      "archive": "5-archives/261115-1525-282-scenario-stack-unit-budget",
+      "pr": "https://github.com/gsemet/chantier/pull/238",
+      "rounds": 3,
+      "cost_usd": 4.7426,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-283",
+      "title": "Change Specification: the eval judge follows a PR whose head was replaced",
+      "result": "merged",
+      "archive": "5-archives/261115-1433-283-eval-judge-follows-pr-head",
+      "pr": "https://github.com/gsemet/chantier/pull/228",
+      "rounds": 1,
+      "cost_usd": 1.2701,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-284",
+      "title": "Change Specification: the eval audit gives no false FAIL",
+      "result": "merged",
+      "archive": "5-archives/261115-1433-284-eval-audit-no-false-fails",
+      "pr": "https://github.com/gsemet/chantier/pull/232",
+      "rounds": 1,
+      "cost_usd": 1.5995,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-285",
+      "title": "The sandbox merge waits for the restack's checks",
+      "result": "merged",
+      "archive": "5-archives/261115-1559-285-eval-sandbox-restack-wait",
+      "pr": "https://github.com/gsemet/chantier/pull/236",
+      "rounds": 2,
+      "cost_usd": 4.2637,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-286",
+      "title": "Change Specification: the write guard reads Git Bash paths",
+      "result": "merged",
+      "archive": "5-archives/261115-1524-286-write-guard-git-bash-paths",
+      "pr": "https://github.com/gsemet/chantier/pull/234",
+      "rounds": 1,
+      "cost_usd": 0.8984,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-287",
+      "title": "Change Specification: the stack driver starts when the stack can form",
+      "result": "merged",
+      "archive": "5-archives/261115-1540-287-stack-driver-when-stack-forms",
+      "pr": "https://github.com/gsemet/chantier/pull/242",
+      "rounds": 1,
+      "cost_usd": 4.3304,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-288",
+      "title": "Change Specification: the eval campaign exercises what a release claims",
+      "result": "merged",
+      "archive": "5-archives/261115-1521-288-campaign-exercises-release",
+      "pr": "https://github.com/gsemet/chantier/pull/235",
+      "rounds": 1,
+      "cost_usd": 1.1991,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-289",
+      "title": "Change Specification: a Driver always hands back, within its context",
+      "result": "merged",
+      "archive": "5-archives/261115-1521-289-driver-handback-and-context",
+      "pr": "https://github.com/gsemet/chantier/pull/239",
+      "rounds": 1,
+      "cost_usd": 1.6705,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-290",
+      "title": "Change Specification: a clean rebase carries the Verifier's verdict",
+      "result": "merged",
+      "archive": "5-archives/261115-1521-290-clean-rebase-light-verify",
+      "pr": "https://github.com/gsemet/chantier/pull/240",
+      "rounds": 1,
+      "cost_usd": 2.7685,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-291",
+      "title": "One short card per worker role",
+      "result": "merged",
+      "archive": "5-archives/261115-1604-291-short-worker-cards",
+      "pr": "https://github.com/gsemet/chantier/pull/244",
+      "rounds": 2,
+      "cost_usd": 2.5581,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-292",
+      "title": "The Chief of Staff stays quiet on a Foreman's turn end",
+      "result": "merged",
+      "archive": "5-archives/261115-1536-292-cos-quiet-on-foreman-turns",
+      "pr": "https://github.com/gsemet/chantier/pull/237",
+      "rounds": 1,
+      "cost_usd": 1.6767,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-293",
+      "title": "The evals folder is self-sufficient: anyone can run a campaign from it",
+      "result": "merged",
+      "archive": "5-archives/261115-1524-293-evals-self-sufficient",
+      "pr": "https://github.com/gsemet/chantier/pull/243",
+      "rounds": 1,
+      "cost_usd": 3.4716,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-294",
+      "title": "close sees a finished agent as finished",
+      "result": "merged",
+      "archive": "5-archives/261115-1536-294-close-sees-finished-agent",
+      "pr": "https://github.com/gsemet/chantier/pull/241",
+      "rounds": 2,
+      "cost_usd": 4.1386,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-18.md",
+  "stopped_agents": [
+    {
+      "agent": "agent-aa7881ed0014ba980",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\446cff2e-8291-4f73-9ff0-f19c29743e6e\\subagents\\agent-aa7881ed0014ba980.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-15T16:18:18Z"
+    }
+  ]
+}

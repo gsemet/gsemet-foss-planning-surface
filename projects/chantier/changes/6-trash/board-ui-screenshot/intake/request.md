@@ -1,0 +1,1 @@
+Batch-15: CR-202's Refresh button placement was never seen in a real pane. A change to the board's pane gets one screenshot from a real session as evidence.

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "just scenario under 5 minutes: independent units in parallel",
+  "summary": "Specified, three questions open: about 9 scenario units run 4 at a time, GitLab only its own unit, pure refusals moved to pytest, no change under src; done at three Windows runs and one Linux CI run under 300 s.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "50fcaadd1050caf53ea6880935e655f30daad352bd08da1343e6110942a4e050",
+    "03-change-spec.md": "1fa51cc178ed810e310cb4a3502d8e19c2046ab691a66b4757b815d58f3b5ac5",
+    "intake/request.md": "4a5833b61bd5bf6982f5319db981f6981aa97415ab4618380d8bb7e33bd19ef0"
+  },
+  "summarized": "2026-11-14T18:02:15Z"
+}

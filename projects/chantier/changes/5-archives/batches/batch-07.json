@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "batch": "batch-07",
+  "number": 7,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-131",
+      "title": "A PR says on the forge when it is not ready to merge",
+      "result": "merged",
+      "archive": "5-archives/261106-1946-131-pr-readiness",
+      "pr": "https://github.com/gsemet/chantier/pull/69",
+      "rounds": 3,
+      "cost_usd": 2.5013,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-132",
+      "title": "The CR Driver runs Sonnet",
+      "result": "merged",
+      "archive": "5-archives/261106-1952-132-drivers-sonnet",
+      "pr": "https://github.com/gsemet/chantier/pull/71",
+      "rounds": 1,
+      "cost_usd": 1.697,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-133",
+      "title": "The CLI's errors say what happened and what to do",
+      "result": "merged",
+      "archive": "5-archives/261106-1946-133-qa-261105-1731",
+      "pr": "https://github.com/gsemet/chantier/pull/70",
+      "rounds": 2,
+      "cost_usd": 3.965,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-134",
+      "title": "A report tells blocked from waiting, with a legend and a short explanation",
+      "result": "merged",
+      "archive": "5-archives/261106-1914-134-report-legend",
+      "pr": "https://github.com/gsemet/chantier/pull/68",
+      "rounds": 1,
+      "cost_usd": 0.9508,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-135",
+      "title": "The board lists every file of an inbox or backlog item",
+      "result": "merged",
+      "archive": "5-archives/261106-2034-135-board-all-files",
+      "pr": "https://github.com/gsemet/chantier/pull/72",
+      "rounds": 1,
+      "cost_usd": 1.938,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-136",
+      "title": "The report, the board and STATUS.md draw the same icons",
+      "result": "merged",
+      "archive": "5-archives/261106-2151-136-status-icons",
+      "pr": "https://github.com/gsemet/chantier/pull/73",
+      "rounds": 4,
+      "cost_usd": 7.153,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-137",
+      "title": "A release CR depends on every other CR of its batch",
+      "result": "merged",
+      "archive": "5-archives/261106-2034-137-release-last",
+      "pr": "https://github.com/gsemet/chantier/pull/74",
+      "rounds": 1,
+      "cost_usd": 3.4906,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-138",
+      "title": "Release v0.7.0",
+      "result": "merged",
+      "archive": "5-archives/261106-2307-138-release-v0-7-0",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": 2.2678,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-139",
+      "title": "Land the three docs SVGs",
+      "result": "merged",
+      "archive": "5-archives/261106-2211-139-docs-svgs",
+      "pr": "https://github.com/gsemet/chantier/pull/75",
+      "rounds": 1,
+      "cost_usd": 0.4795,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-07.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": null,
+    "first_step": "2026-11-06T18:58:21Z",
+    "last_merge": "2026-11-06T23:07:00Z",
+    "retros": [
+      "5-archives/261106-2307-138-release-v0-7-0/work/retro.md"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The stack's one long gate, and a long-gate waiver recorded per CR",
+  "summary": "Specified, split from gate-rules: an order waive recorded per CR (stack scope, or one CR with a filed follow-up), the stack's top as the one validating gate, and a Long gate column in status, STATUS files, the pane and the web board.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "fb87d8695b02c5739ce7a11a1b37cb6dc276f92382d57b0c2022c2271d5756af",
+    "03-change-spec.md": "f8d6848d0f033b24c6557b87486c310e62d96f52bb279486b8561c87695ee69e",
+    "intake/request.md": "9446699f0457b5b10ab68e6746373c91aca5347863bd0369950e1334bce687cb"
+  },
+  "summarized": "2026-11-14T18:45:29Z"
+}

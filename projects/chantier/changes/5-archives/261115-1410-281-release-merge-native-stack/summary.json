@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Merge route for a PR in a native GitHub stack",
+  "summary": "Specified: the steering session's granted merge reads the PR's stack and uses GitHub's asynchronous merge for a stacked PR, with grant-only allow rules; two questions open for the user",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "03c3fc50f00cb1adc733f4e720a4c8788d45ba914fbff47ba076d2c22feecc99",
+    "02-answers.md": "489cfe297ff7368940126ad06f8b45bf72435df650c32529d85fe1d5158b2ed6",
+    "03-change-spec.md": "7457c548a42b792adf02b670b58f5d118144ce2cbbed832814d255e8ab0b0f72",
+    "intake/request.md": "3aa340016c011dedde9b1057394438dbcf9987cc05e3b4739632c9be6071737a"
+  },
+  "summarized": "2026-11-15T13:40:22Z"
+}

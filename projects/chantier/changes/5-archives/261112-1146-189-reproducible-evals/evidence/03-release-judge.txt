@@ -1,0 +1,49 @@
+# Evidence 3: the release judge
+
+## Against today's sandbox (no tag v0.2.0 yet)
+
+$ judge.py --release 0.2.0 https://github.com/gsemet/chantier-eval-sandbox.git
+FAIL: the tag v0.2.0 is not on the origin
+judge release v0.2.0: fail
+exit 1
+
+## On the scratch repository: batch 1 (A..I) + release commit by RELEASING.md steps 1 and 3, tag v0.2.0 local
+(release commit c4adeea: version in pyproject.toml and __init__.py, notes under ## 0.2.0, uv.lock refreshed by step 1's uv run, release_check passed)
+
+$ judge.py --release 0.2.0 <scratch repo> <9 slugs>
+ok: the tag v0.2.0 is on the origin
+ok: the commit of v0.2.0 is on main
+ok: pyproject.toml is 0.2.0 at v0.2.0 (want 0.2.0)
+ok: shelf.__version__ is 0.2.0 at v0.2.0 (want 0.2.0)
+ok: the first heading of CHANGELOG.md is 0.2.0 at v0.2.0 (want 0.2.0)
+ok: release_check.py ends with `release check passed`
+hidden: 47 passed in 0.31s
+suite: 84 passed in 0.97s
+ok: the hidden tests of delete-item, edit-item, status-filter, json-api, stats-page, csv-export, item-notes, title-search, item-rating pass at v0.2.0 (c4adeea)
+GitHub release: not run: not the sandbox
+judge release v0.2.0: pass
+exit 0
+
+## Not run and failing cases
+
+$ judge.py --release 0.3.0 <scratch repo> (no tag)
+FAIL: the tag v0.3.0 is not on the origin
+judge release v0.3.0: fail
+exit 1
+
+$ judge.py <scratch repo> no-such-ref delete-item
+judge: not run: head no-such-ref not found on the origin
+exit 4
+
+$ judge.py <scratch repo> main no-such-slug
+judge: not run: no hidden test for no-such-slug
+exit 4
+
+$ judge.py <missing path> main delete-item
+judge: not run: `git -c core.autocrlf=false clone --quiet --no-checkout C:/Users/gaeta/Projets/chantier-eval/cr189/nope C:\Users\gaeta\AppData\Local\Temp\chantier-judge-fxo3qfe7\repo` failed (128): fatal: 'C:/Users/gaeta/Projets/chantier-eval/cr189/nope' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+exit 4
+

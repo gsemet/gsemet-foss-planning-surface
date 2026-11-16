@@ -1,0 +1,16 @@
+﻿python.exe : usage: chantier [-h] [--version] [--project PROJECT] [--skill SKILL]
+Au caractère C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\bd1945f6-9982-485f-b29f-477277e80753\scratchpad\
+measure.ps1:24 : 6
++ $r = & $py -m chantier nosuchcmd 2>&1 | Out-String; "$r`nexit=$LASTEX ...
++      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (usage: chantier...[--skill SKILL]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+                {preflight,init,file,triage,abandon,restore,open,order,foreman,seat,board,status,asks,agents,take,round
+,handback,note,log,rules,playbook,handoff,gate,verdict,ship,stack,forge-stack,release,cancel,pause,close,cost} ...
+chantier: error: argument cmd: invalid choice: 'nosuchcmd' (choose from 'preflight', 'init', 'file', 'triage', 
+'abandon', 'restore', 'open', 'order', 'foreman', 'seat', 'board', 'status', 'asks', 'agents', 'take', 'round', 
+'handback', 'note', 'log', 'rules', 'playbook', 'handoff', 'gate', 'verdict', 'ship', 'stack', 'forge-stack', 
+'release', 'cancel', 'pause', 'close', 'cost')
+
+exit=2

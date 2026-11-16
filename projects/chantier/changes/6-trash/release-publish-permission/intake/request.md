@@ -1,0 +1,1 @@
+Batch-15: 'gh release create v0.9.0' was refused to the Foreman by the permission check after 'just tag' passed (ask A-24); the Chief of Staff ran it on the user's word. The release's publication step is run by the user or allowed by a named permission rule, and the cards say which.

@@ -1,0 +1,1 @@
+evals/real/RUNBOOK.md lines 18 and 32 still say a PR is a draft; since PR 69 (CR-131) a PR is turned ready once it can merge. Bring the runbook in line.

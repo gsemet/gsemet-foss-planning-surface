@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "batch": "batch-03",
+  "number": 3,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-12",
+      "title": "Beta",
+      "result": "merged",
+      "archive": "5-archives/261002-1000-12-beta",
+      "pr": "http://x/2",
+      "rounds": 1,
+      "cost_usd": null,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-13",
+      "title": "Gamma",
+      "result": "dropped",
+      "archive": "6-trash/13-gamma",
+      "pr": null,
+      "rounds": null,
+      "cost_usd": null,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-03.md",
+  "backfill": {
+    "written": "2026-11-13T18:36:59Z",
+    "former_id": null,
+    "first_step": null,
+    "last_merge": "2026-10-02T10:00:00Z",
+    "retros": [
+      "5-archives/261002-1000-12-beta/retro.md"
+    ]
+  }
+}

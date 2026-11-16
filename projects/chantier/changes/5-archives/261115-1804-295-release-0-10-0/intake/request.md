@@ -1,0 +1,3 @@
+# Release v0.10.0
+
+The user's word, 2026-11-15, after batch-18 closed: "tu feras la release en mode direct. 0.10". Version 0.10.0 (minor: batch-18 brings new behaviour). It ships everything merged since v0.9.0 (batch-18's 42 CRs, the post-eval fixes CR-276..CR-294 among them), by the project's own procedure: CONTRIBUTING.md "Release" and docs/release-process.md (release folder docs/release-notes/<date>-v0.10.0/, notes, three-post thread, images from the real batch, the claims file evals/results/claims-v0.10.0.md and its "Not exercised by an eval" bullet).

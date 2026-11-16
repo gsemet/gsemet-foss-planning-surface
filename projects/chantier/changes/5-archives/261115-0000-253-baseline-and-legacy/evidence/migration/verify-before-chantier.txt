@@ -1,0 +1,3160 @@
+﻿$ uv run --no-sync --project "C:/Users/gaeta/Projets/chantier" chantier status
+error: no running batch: run `chantier open` first; last closed: batch-17
+[exit 2]
+$ uv run --no-sync --project "C:/Users/gaeta/Projets/chantier" chantier cost --batch batch-17
+error: unknown batch batch-17
+[exit 2]
+$ uv run --no-sync --project "C:/Users/gaeta/Projets/chantier" python "C:\Users\gaeta\Projets\chantier\.agents\changes\4-batch\2-actives\253-baseline-and-legacy\work\board_state.py" chantier . 0
+{
+ "backlog": {
+  "3-ready": [],
+  "P1": [],
+  "P2": [],
+  "P3": [
+   {
+    "depends": [],
+    "description": "audit.py's -u/--set-upstream exemption accepts 'git push -f -u origin main': check forced first (found by CR-191's Inspector, batch-14, pre-existing).",
+    "files": 1,
+    "folder": "2-backlog/P3/audit-force-upstream-exemption",
+    "grill": "raw",
+    "group": null,
+    "item": "audit-force-upstream-exemption",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "audit.py's -u/--set-upstream exemption accepts 'git push -f -u origin main': check forced first (found by CR-191's Inspector, batch-14, pre-existing)."
+   },
+   {
+    "depends": [],
+    "description": "The theme. The user: \"M\u00eame chose que la doc de okf-schema je crois que c'est pydata.\" The user wants what okf-schema's docs do. Checked by the Chief of Staff in gsemet/okf-schema's docs/source/conf.py: html_theme = \"furo\". So the theme is Furo, as in okf-schema, not pydata. The Chief of Staff tells \u2026",
+    "files": 2,
+    "folder": "2-backlog/P3/docs-sphinx-rtd",
+    "grill": "grill",
+    "group": null,
+    "item": "docs-sphinx-rtd",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "Rewrite the documentation as a Sphinx site on Read the Docs"
+   },
+   {
+    "depends": [],
+    "description": "A visual identity shared with the Sphinx site. The user chose \"Non, chacun la sienne\": the landing page has its own style, and the docs keep Furo. What to build it with. The user: \"Met la landing page de cote pour l'instant\". The CR is set aside: the Chief of Staff moves it to P3. The grill stops he\u2026",
+    "files": 2,
+    "folder": "2-backlog/P3/landing-page",
+    "grill": "grill",
+    "group": null,
+    "item": "landing-page",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "A landing page on GitHub Pages that shows what chantier brings at a glance"
+   },
+   {
+    "depends": [],
+    "description": "A batch running with the user away is watched by a wake that does not depend on a session being idle.",
+    "files": 1,
+    "folder": "2-backlog/P3/night-watch-independent",
+    "grill": "raw",
+    "group": null,
+    "item": "night-watch-independent",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "A batch running with the user away is watched by a wake that does not depend on a session being idle."
+   },
+   {
+    "depends": [],
+    "description": "Planning-folder file types checked by a test (batch-11 retro). CR-184 Inspector caught a plain-text number file in the planning folder, where chantier writes only JSON and Markdown. A structure test or the long gate should catch a non-JSON, non-Markdown file the CLI writes there.",
+    "files": 1,
+    "folder": "2-backlog/P3/planning-file-types-test",
+    "grill": "raw",
+    "group": null,
+    "item": "planning-file-types-test",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "Planning-folder file types checked by a test (batch-11 retro). CR-184 Inspector caught a plain-text number file in the planning folder, where chantier writes only JSON and Markdown. A structure test or the long gate should catch a non-JSON, non-Markdown file the CLI writes there."
+   },
+   {
+    "depends": [],
+    "description": "2026-11-10, the user, after a study of Beads and similar tools (in a Chief of Staff side session). A follow-up of planning-repo (P1, the external planning surface), to take up after it; it does not replace it. Related: remote-board (inbox, a read-only progress board) and planning-surface-positioning\u2026",
+    "files": 4,
+    "folder": "2-backlog/P3/planning-server",
+    "grill": "grill",
+    "group": null,
+    "item": "planning-server",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "Intent: a planning server owned by the Chief of Staff"
+   },
+   {
+    "depends": [],
+    "description": "Plugin reload needed as a named block (batch-11 retro). The epoch-1 Foreman ran an old write guard after main removed it and a round was spent for nothing. A CR blocked by a stale loaded plugin should be a named block cause with a take --note path, or the Chief of Staff restarts the Foreman before a\u2026",
+    "files": 1,
+    "folder": "2-backlog/P3/plugin-reload-needed",
+    "grill": "raw",
+    "group": null,
+    "item": "plugin-reload-needed",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "Plugin reload needed as a named block (batch-11 retro). The epoch-1 Foreman ran an old write guard after main removed it and a round was spent for nothing. A CR blocked by a stale loaded plugin should be a named block cause with a take --note path, or the Chief of Staff restarts the Foreman before a batch when a hook of the plugin changed on main."
+   },
+   {
+    "depends": [],
+    "description": "PR body for an outside reader (batch-11 retro). CR-185 PR body took two Inspector passes on wording: roles and batch terms leaked from the internal references. The Driver card should say the PR body is written for an outside reader from the first draft.",
+    "files": 1,
+    "folder": "2-backlog/P3/pr-body-outside-reader",
+    "grill": "raw",
+    "group": null,
+    "item": "pr-body-outside-reader",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "PR body for an outside reader (batch-11 retro). CR-185 PR body took two Inspector passes on wording: roles and batch terms leaked from the internal references. The Driver card should say the PR body is written for an outside reader from the first draft."
+   },
+   {
+    "depends": [],
+    "description": "Retro batch-13: nothing of the eval kit was proved on the host (setup.py's allow rules, sandbox.py merge on a real PR, reset --yes with real refs/pull/). Fix: the first paid campaign proves them, running setup.py from the main checkout since its merge rule embeds the checkout's path.",
+    "files": 1,
+    "folder": "2-backlog/P3/prove-eval-kit-on-host",
+    "grill": "raw",
+    "group": null,
+    "item": "prove-eval-kit-on-host",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "Retro batch-13: nothing of the eval kit was proved on the host (setup.py's allow rules, sandbox.py merge on a real PR, reset --yes with real refs/pull/*). Fix: the first paid campaign proves them, running setup.py from the main checkout since its merge rule embeds the checkout's path."
+   },
+   {
+    "depends": [],
+    "description": "A spec needing an external fact names its source (batch-11 retro). CR-181 shipped without the claude-fable-5-2 price because no Driver had a network tool to read a price page. The spec-writer card should make a spec that needs an external fact name its source or the tools the Driver needs.",
+    "files": 1,
+    "folder": "2-backlog/P3/spec-external-fact-source",
+    "grill": "raw",
+    "group": null,
+    "item": "spec-external-fact-source",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "A spec needing an external fact names its source (batch-11 retro). CR-181 shipped without the claude-fable-5-2 price because no Driver had a network tool to read a price page. The spec-writer card should make a spec that needs an external fact name its source or the tools the Driver needs."
+   },
+   {
+    "depends": [],
+    "description": "real-direct run 1 retro (2026-11-12, PR 137): plain status (and the board) showed a stale spend, $0.57, long after cost said $9.57, until status --refresh. Fix: status and STATUS.json say how old the spend figure is.",
+    "files": 1,
+    "folder": "2-backlog/P3/status-spend-age",
+    "grill": "raw",
+    "group": null,
+    "item": "status-spend-age",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "real-direct run 1 retro (2026-11-12, PR 137): plain `status` (and the board) showed a stale spend, $0.57, long after `cost` said $9.57, until `status --refresh`. Fix: `status` and STATUS.json say how old the spend figure is."
+   }
+  ],
+  "P4": [],
+  "inbox": [
+   {
+    "depends": [],
+    "description": "A dedicated History page on the board: what was done, per day, with every CR merged or dropped, every PR opened, made ready and merged, and every release.",
+    "files": 1,
+    "folder": "1-inbox/board-history",
+    "grill": "raw",
+    "group": null,
+    "item": "board-history",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "A dedicated History page on the board: what was done, per day, with every CR merged or dropped, every PR opened, made ready and merged, and every release."
+   },
+   {
+    "depends": [],
+    "description": "The planning surface (https://github.com/gsemet/gsemet-foss-planning-surface) launches chantier's board and sync with no agent.",
+    "files": 1,
+    "folder": "1-inbox/surface-agentless-launch",
+    "grill": "raw",
+    "group": null,
+    "item": "surface-agentless-launch",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "The planning surface (https://github.com/gsemet/gsemet-foss-planning-surface) launches chantier's board and sync with no agent."
+   },
+   {
+    "depends": [],
+    "description": "Audit the move of chantier's planning to the planning surface (read-only)",
+    "files": 1,
+    "folder": "1-inbox/surface-transition-audit",
+    "grill": "raw",
+    "group": null,
+    "item": "surface-transition-audit",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "Audit the move of chantier's planning to the planning surface (read-only)"
+   },
+   {
+    "depends": [],
+    "description": "Upstream tickets come into the inbox by a setting in chantier.yaml, per tracker.",
+    "files": 1,
+    "folder": "1-inbox/tracker-import",
+    "grill": "raw",
+    "group": null,
+    "item": "tracker-import",
+    "labels": [],
+    "late": false,
+    "origin": null,
+    "title": "Upstream tickets come into the inbox by a setting in `chantier.yaml`, per tracker."
+   }
+  ]
+ },
+ "batch": null,
+ "events": [],
+ "history": [
+  {
+   "backfill": null,
+   "batch": "batch-18",
+   "budget_usd": 300.0,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [],
+   "host": "claude",
+   "mode": "parallel",
+   "number": 18,
+   "opened": "2026-11-14T18:41:48Z",
+   "report": null,
+   "schema": 1,
+   "state": "running",
+   "steering": "foreman"
+  },
+  {
+   "backfill": null,
+   "batch": "batch-17",
+   "budget_usd": 300.0,
+   "closed": "2026-11-14T17:38:29Z",
+   "cost_unpriced": {},
+   "cost_usd": 229.2224,
+   "crs": [
+    {
+     "archive": "5-archives/261114-0647-221-python-inline-deps",
+     "cost_unpriced": {},
+     "cost_usd": 23.2716,
+     "cr": "CR-221",
+     "pr": "https://github.com/gsemet/chantier/pull/170",
+     "result": "merged",
+     "rounds": 6,
+     "title": "Change Specification: the CLI takes its dependencies through PEP 723, and its code is split and checked"
+    },
+    {
+     "archive": "5-archives/261114-1354-222-visualization-backend",
+     "cost_unpriced": {},
+     "cost_usd": 12.6835,
+     "cr": "CR-222",
+     "pr": "https://github.com/gsemet/chantier/pull/174",
+     "result": "merged",
+     "rounds": 4,
+     "title": "Change Specification: `chantier board` becomes the web board's server"
+    },
+    {
+     "archive": "5-archives/261114-1313-234-forge-stack-followups",
+     "cost_unpriced": {},
+     "cost_usd": 7.4275,
+     "cr": "CR-234",
+     "pr": "https://github.com/gsemet/chantier/pull/175",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: forge-stack follow-ups from CR-214 and CR-215"
+    },
+    {
+     "archive": "5-archives/261114-1447-242-gate-parallel-isolation",
+     "cost_unpriced": {},
+     "cost_usd": 7.5949,
+     "cr": "CR-242",
+     "pr": "https://github.com/gsemet/chantier/pull/188",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: the project says how many long gates may run at once"
+    },
+    {
+     "archive": "5-archives/261114-1354-225-board-read-views",
+     "cost_unpriced": {},
+     "cost_usd": 21.7703,
+     "cr": "CR-225",
+     "pr": "https://github.com/gsemet/chantier/pull/183",
+     "result": "merged",
+     "rounds": 4,
+     "title": "Change Specification: the board's reading views, as in the prototype"
+    },
+    {
+     "archive": "5-archives/261114-1332-244-stack-grows-from-bottom",
+     "cost_unpriced": {},
+     "cost_usd": 3.8697,
+     "cr": "CR-244",
+     "pr": "https://github.com/gsemet/chantier/pull/180",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: the stack grows from the bottom"
+    },
+    {
+     "archive": "5-archives/261114-1447-252-lifecycle-line-svg",
+     "cost_unpriced": {},
+     "cost_usd": 2.3697,
+     "cr": "CR-252",
+     "pr": "https://github.com/gsemet/chantier/pull/190",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: lifecycle-line, a CR's life in one line of steps"
+    },
+    {
+     "archive": "5-archives/261114-1152-223-cr-summaries",
+     "cost_unpriced": {},
+     "cost_usd": 6.1273,
+     "cr": "CR-223",
+     "pr": "https://github.com/gsemet/chantier/pull/177",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: each CR carries a condensed JSON summary, kept fresh by a linter"
+    },
+    {
+     "archive": "5-archives/261114-1332-245-gitlab-stack-delivery",
+     "cost_unpriced": {},
+     "cost_usd": 4.9866,
+     "cr": "CR-245",
+     "pr": "https://github.com/gsemet/chantier/pull/182",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Change Specification: a stack on GitLab behaves as a stack on GitHub"
+    },
+    {
+     "archive": "5-archives/261114-1447-250-grill-question-format",
+     "cost_unpriced": {},
+     "cost_usd": 1.146,
+     "cr": "CR-250",
+     "pr": "https://github.com/gsemet/chantier/pull/191",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: grill questions with a reference, context, examples and a recommendation, the same in the text and in the tool"
+    },
+    {
+     "archive": "5-archives/261113-1936-224-batch-history",
+     "cost_unpriced": {},
+     "cost_usd": 4.5256,
+     "cr": "CR-224",
+     "pr": "https://github.com/gsemet/chantier/pull/165",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: each batch leaves a record of its own in `5-archives/batches/`"
+    },
+    {
+     "archive": "5-archives/261114-1332-246-stack-robustness",
+     "cost_unpriced": {},
+     "cost_usd": 2.6398,
+     "cr": "CR-246",
+     "pr": "https://github.com/gsemet/chantier/pull/184",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Change Specification: the stack holds when it breaks mid-way"
+    },
+    {
+     "archive": "5-archives/261114-1447-249-session-titles",
+     "cost_unpriced": {},
+     "cost_usd": 1.2604,
+     "cr": "CR-249",
+     "pr": "https://github.com/gsemet/chantier/pull/192",
+     "result": "merged",
+     "rounds": 1,
+     "title": "New session titles"
+    },
+    {
+     "archive": "5-archives/261114-1447-251-spec-critic",
+     "cost_unpriced": {},
+     "cost_usd": 4.3813,
+     "cr": "CR-251",
+     "pr": "https://github.com/gsemet/chantier/pull/193",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: a spec critic checks an impactful CR's specification before it is final"
+    },
+    {
+     "archive": "5-archives/261114-1553-226-board-backlog-edit",
+     "cost_unpriced": {},
+     "cost_usd": 11.3873,
+     "cr": "CR-226",
+     "pr": "https://github.com/gsemet/chantier/pull/194",
+     "result": "merged",
+     "rounds": 4,
+     "title": "Change Specification: the board edits the backlog"
+    },
+    {
+     "archive": "5-archives/261114-1553-227-surface-autosync",
+     "cost_unpriced": {},
+     "cost_usd": 7.5247,
+     "cr": "CR-227",
+     "pr": "https://github.com/gsemet/chantier/pull/195",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Change Specification: a planning surface stays in sync through its own autosync"
+    },
+    {
+     "archive": "5-archives/261114-1617-248-ready-wording",
+     "cost_unpriced": {},
+     "cost_usd": 9.0196,
+     "cr": "CR-248",
+     "pr": "https://github.com/gsemet/chantier/pull/197",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Change Specification: \"ready locally\" and \"ready to merge\""
+    },
+    {
+     "archive": "5-archives/261114-1728-228-board-docs-screenshots",
+     "cost_unpriced": {},
+     "cost_usd": 6.604,
+     "cr": "CR-228",
+     "pr": "https://github.com/gsemet/chantier/pull/199",
+     "result": "merged",
+     "rounds": 4,
+     "title": "Change Specification: the web board documented, with screenshots taken by a command"
+    },
+    {
+     "archive": "5-archives/261113-1908-229-driver-edit-tool",
+     "cost_unpriced": {},
+     "cost_usd": 1.4121,
+     "cr": "CR-229",
+     "pr": "https://github.com/gsemet/chantier/pull/166",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: the CR Driver and the stack driver get the Edit tool"
+    },
+    {
+     "archive": "5-archives/261113-2015-230-worker-reply-contract",
+     "cost_unpriced": {},
+     "cost_usd": 2.0852,
+     "cr": "CR-230",
+     "pr": "https://github.com/gsemet/chantier/pull/168",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: one rule for a worker reply that breaks its format"
+    },
+    {
+     "archive": "5-archives/261114-1414-247-cli-startup-time",
+     "cost_unpriced": {},
+     "cost_usd": 4.4606,
+     "cr": "CR-247",
+     "pr": "https://github.com/gsemet/chantier/pull/179",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Change Specification: the CLI starts as fast as it did before CR-221"
+    },
+    {
+     "archive": "5-archives/261113-2127-231-retro-target-vs-chantier",
+     "cost_unpriced": {},
+     "cost_usd": 3.2486,
+     "cr": "CR-231",
+     "pr": "https://github.com/gsemet/chantier/pull/167",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: the batch retro splits the target project from chantier itself"
+    },
+    {
+     "archive": "5-archives/261114-1155-232-eval-campaign-cr220",
+     "cost_unpriced": {},
+     "cost_usd": 1.857,
+     "cr": "CR-232",
+     "pr": "https://github.com/gsemet/chantier/pull/172",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: eval-campaign-cr220"
+    },
+    {
+     "archive": "5-archives/261114-1155-233-merge-any-time",
+     "cost_unpriced": {},
+     "cost_usd": 4.6598,
+     "cr": "CR-233",
+     "pr": "https://github.com/gsemet/chantier/pull/173",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: a merge may come at any moment, one PR at a time, in any batch shape"
+    },
+    {
+     "archive": "5-archives/261114-1202-235-gate-liveness",
+     "cost_unpriced": {},
+     "cost_usd": 3.4242,
+     "cr": "CR-235",
+     "pr": "https://github.com/gsemet/chantier/pull/178",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: the gate lock and the activity line tell the truth"
+    },
+    {
+     "archive": "5-archives/261113-2234-236-driver-context-budget",
+     "cost_unpriced": {},
+     "cost_usd": 1.4898,
+     "cr": "CR-236",
+     "pr": "https://github.com/gsemet/chantier/pull/169",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: the Driver's context threshold, set from the measure"
+    },
+    {
+     "archive": "5-archives/261114-1138-237-root-pyproject-launch",
+     "cost_unpriced": {},
+     "cost_usd": 5.4871,
+     "cr": "CR-237",
+     "pr": "https://github.com/gsemet/chantier/pull/171",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: one way to run the CLI, a root pyproject.toml, uvx at the pinned release ref, the local code in chantier's own checkout"
+    },
+    {
+     "archive": "5-archives/261114-1155-238-allow-rules-ask",
+     "cost_unpriced": {},
+     "cost_usd": 3.0319,
+     "cr": "CR-238",
+     "pr": "https://github.com/gsemet/chantier/pull/176",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Allow rules: the Chief of Staff asks to add the missing ones, and adds them on the user's yes"
+    },
+    {
+     "archive": "5-archives/261114-1022-239-batch-duration-plan",
+     "cost_unpriced": {},
+     "cost_usd": 1.4366,
+     "cr": "CR-239",
+     "pr": "https://github.com/gsemet/chantier/pull/181",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: no delivery time without the batch's floor"
+    },
+    {
+     "archive": "5-archives/261114-1214-240-permissions-per-capability",
+     "cost_unpriced": {},
+     "cost_usd": 4.9328,
+     "cr": "CR-240",
+     "pr": "https://github.com/gsemet/chantier/pull/186",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Permissions per capability: each capability's commands known, tried and warned before the go"
+    },
+    {
+     "archive": "5-archives/261114-1214-241-ci-beside-gate",
+     "cost_unpriced": {},
+     "cost_usd": 1.719,
+     "cr": "CR-241",
+     "pr": "https://github.com/gsemet/chantier/pull/187",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: CI runs beside the long gate, when the project asks for it"
+    },
+    {
+     "archive": "5-archives/261114-1211-243-stack-dependency-wording",
+     "cost_unpriced": {},
+     "cost_usd": 0.6751,
+     "cr": "CR-243",
+     "pr": "https://github.com/gsemet/chantier/pull/185",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: a CR with a dependency starts once that dependency is ready, in a stack and in a parallel batch"
+    }
+   ],
+   "host": "claude",
+   "mode": "stack",
+   "number": 17,
+   "opened": "2026-11-13T17:33:25Z",
+   "report": "batch-17.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": "foreman"
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-13T13:18:32Z",
+    "former_id": null,
+    "last_merge": "2026-11-13T17:26:00Z",
+    "retros": [
+     "5-archives/261113-1726-215-stack-after-ready/retro.md"
+    ],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-16",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261113-1431-214-forge-permissions-at-start",
+     "cost_unpriced": {},
+     "cost_usd": 2.8849,
+     "cr": "CR-214",
+     "pr": "https://github.com/gsemet/chantier/pull/159",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: forge permissions checked at the start"
+    },
+    {
+     "archive": "5-archives/261113-1726-215-stack-after-ready",
+     "cost_unpriced": {},
+     "cost_usd": 5.0504,
+     "cr": "CR-215",
+     "pr": "https://github.com/gsemet/chantier/pull/161",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: work on a stack after it is ready"
+    },
+    {
+     "archive": "5-archives/261113-1557-216-driver-stays-a-driver",
+     "cost_unpriced": {},
+     "cost_usd": 4.0615,
+     "cr": "CR-216",
+     "pr": "https://github.com/gsemet/chantier/pull/163",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: a Driver stays a Driver"
+    },
+    {
+     "archive": "5-archives/261113-1431-217-agent-restart-once",
+     "cost_unpriced": {},
+     "cost_usd": 1.435,
+     "cr": "CR-217",
+     "pr": "https://github.com/gsemet/chantier/pull/158",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: an ended or refused agent is restarted once, from the recorded state"
+    },
+    {
+     "archive": "5-archives/261113-1441-218-pr-body-and-evidence",
+     "cost_unpriced": {},
+     "cost_usd": 2.1736,
+     "cr": "CR-218",
+     "pr": "https://github.com/gsemet/chantier/pull/160",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: PR body says the gaps, keeps role names in place, and a board pane change shows a real screenshot"
+    },
+    {
+     "archive": "5-archives/261113-1557-219-gate-queue-limit",
+     "cost_unpriced": {},
+     "cost_usd": 1.5621,
+     "cr": "CR-219",
+     "pr": "https://github.com/gsemet/chantier/pull/162",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: the long gates queue first-come, and a refusal names what is live"
+    },
+    {
+     "archive": "5-archives/261113-1646-220-ticket-summary-on-source",
+     "cost_unpriced": {},
+     "cost_usd": 3.043,
+     "cr": "CR-220",
+     "pr": "https://github.com/gsemet/chantier/pull/164",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: ticket-summary-on-source"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 16,
+   "opened": null,
+   "report": "batch-16.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-12T21:40:36Z",
+    "former_id": null,
+    "last_merge": "2026-11-13T11:49:00Z",
+    "retros": [
+     "5-archives/261113-1149-213-stack-merges-in-one-go/retro.md"
+    ],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-15",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261113-0704-196-release-cr-in-batch",
+     "cost_unpriced": {},
+     "cost_usd": 7.2238,
+     "cr": "CR-196",
+     "pr": "https://github.com/gsemet/chantier/pull/140",
+     "result": "merged",
+     "rounds": 1,
+     "title": "A release CR asked in a batch is a normal CR of that batch"
+    },
+    {
+     "archive": "5-archives/261113-1149-197-driver-ci-from-pr-checks",
+     "cost_unpriced": {},
+     "cost_usd": 1.6733,
+     "cr": "CR-197",
+     "pr": "https://github.com/gsemet/chantier/pull/142",
+     "result": "merged",
+     "rounds": 1,
+     "title": "A Driver's claim about CI comes from the forge's checks at the pushed head"
+    },
+    {
+     "archive": "5-archives/261113-1149-198-stop-own-gate",
+     "cost_unpriced": {},
+     "cost_usd": 3.0856,
+     "cr": "CR-198",
+     "pr": "https://github.com/gsemet/chantier/pull/139",
+     "result": "merged",
+     "rounds": 2,
+     "title": "A Driver stops its own long gate by a named means, never with `cancel`"
+    },
+    {
+     "archive": "5-archives/261112-2217-199-check-rejects-bom",
+     "cost_unpriced": {},
+     "cost_usd": 1.0913,
+     "cr": "CR-199",
+     "pr": "https://github.com/gsemet/chantier/pull/138",
+     "result": "merged",
+     "rounds": 1,
+     "title": "`just check` rejects a byte-order mark; the worker cards repeat the rule"
+    },
+    {
+     "archive": "5-archives/261113-1149-200-cost-steering-vs-grill",
+     "cost_unpriced": {},
+     "cost_usd": 2.0207,
+     "cr": "CR-200",
+     "pr": "https://github.com/gsemet/chantier/pull/141",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Cost: steering turns are not grill turns"
+    },
+    {
+     "archive": "5-archives/261113-1149-201-boot-mode-by-surface",
+     "cost_unpriced": {},
+     "cost_usd": 2.2412,
+     "cr": "CR-201",
+     "pr": "https://github.com/gsemet/chantier/pull/144",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: boot mode by surface, README rework and the board's docs"
+    },
+    {
+     "archive": "5-archives/261113-1149-202-board-refresh-button",
+     "cost_unpriced": {},
+     "cost_usd": 1.5053,
+     "cr": "CR-202",
+     "pr": "https://github.com/gsemet/chantier/pull/143",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: the board's Refresh button and refresh period"
+    },
+    {
+     "archive": "5-archives/261113-1149-203-rebase-note-check-status",
+     "cost_unpriced": {},
+     "cost_usd": 1.0155,
+     "cr": "CR-203",
+     "pr": "https://github.com/gsemet/chantier/pull/145",
+     "result": "merged",
+     "rounds": 1,
+     "title": "The steering session reads `status` before a note that carries work, and takes a ready CR instead of messaging it"
+    },
+    {
+     "archive": "5-archives/261113-1149-204-record-inspector-pass",
+     "cost_unpriced": {},
+     "cost_usd": 0.9724,
+     "cr": "CR-204",
+     "pr": "https://github.com/gsemet/chantier/pull/146",
+     "result": "merged",
+     "rounds": 1,
+     "title": "A Driver records each Inspector pass before the PR body cites it"
+    },
+    {
+     "archive": "5-archives/261113-1149-205-rules-after-claim",
+     "cost_unpriced": {},
+     "cost_usd": 1.4551,
+     "cr": "CR-205",
+     "pr": "https://github.com/gsemet/chantier/pull/151",
+     "result": "merged",
+     "rounds": 1,
+     "title": "The steering session reads the rules after its claim"
+    },
+    {
+     "archive": "5-archives/261113-1149-206-ci-job-cold-cache-check",
+     "cost_unpriced": {},
+     "cost_usd": 1.243,
+     "cr": "CR-206",
+     "pr": "https://github.com/gsemet/chantier/pull/148",
+     "result": "merged",
+     "rounds": 2,
+     "title": "A change that adds or changes a CI job proves it once with a cold uv cache before the push"
+    },
+    {
+     "archive": "5-archives/261113-1149-207-pr-body-from-file-only",
+     "cost_unpriced": {},
+     "cost_usd": 1.5316,
+     "cr": "CR-207",
+     "pr": "https://github.com/gsemet/chantier/pull/147",
+     "result": "merged",
+     "rounds": 1,
+     "title": "A text sent to the forge is written with the Write tool and posted from its file, never from a shell string"
+    },
+    {
+     "archive": "5-archives/261113-1149-208-autofix-event-vs-driver",
+     "cost_unpriced": {},
+     "cost_usd": 1.0687,
+     "cr": "CR-208",
+     "pr": "https://github.com/gsemet/chantier/pull/149",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: Claude Desktop's Auto-fix events are left to the CR's Driver; the heartbeat's prompt names no interval"
+    },
+    {
+     "archive": "5-archives/261113-1149-209-audit-direct-false-fails",
+     "cost_unpriced": {},
+     "cost_usd": 1.6007,
+     "cr": "CR-209",
+     "pr": "https://github.com/gsemet/chantier/pull/150",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Audit: two checks fail on lawful behaviour"
+    },
+    {
+     "archive": "5-archives/261113-1149-210-main-checkout-fast-forward",
+     "cost_unpriced": {},
+     "cost_usd": 3.3892,
+     "cr": "CR-210",
+     "pr": "https://github.com/gsemet/chantier/pull/153",
+     "result": "merged",
+     "rounds": 1,
+     "title": "The steering session fast-forwards a clean main checkout after each merge it records"
+    },
+    {
+     "archive": "5-archives/261113-1149-211-parallel-rebase-cost",
+     "cost_unpriced": {},
+     "cost_usd": 2.6725,
+     "cr": "CR-211",
+     "pr": "https://github.com/gsemet/chantier/pull/152",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: parallel-rebase-cost"
+    },
+    {
+     "archive": "5-archives/261113-1149-212-release-v0-9-0",
+     "cost_unpriced": {},
+     "cost_usd": 2.6967,
+     "cr": "CR-212",
+     "pr": "https://github.com/gsemet/chantier/pull/154",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Version PR for chantier v0.9.0, at the top of the batch's stack"
+    },
+    {
+     "archive": "5-archives/261113-1149-213-stack-merges-in-one-go",
+     "cost_unpriced": {},
+     "cost_usd": 5.5243,
+     "cr": "CR-213",
+     "pr": "https://github.com/gsemet/chantier/pull/156",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: a stack is merged in one go; inserting into a ready stack; agents started right the first time"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 15,
+   "opened": null,
+   "report": "batch-15.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-12T12:41:35Z",
+    "former_id": null,
+    "last_merge": "2026-11-12T19:24:00Z",
+    "retros": [
+     "5-archives/261112-1924-191-eval-kit-end-to-end-dry-run/retro.md"
+    ],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-14",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261112-1924-191-eval-kit-end-to-end-dry-run",
+     "cost_unpriced": {},
+     "cost_usd": 9.1868,
+     "cr": "CR-191",
+     "pr": "https://github.com/gsemet/chantier/pull/136",
+     "result": "merged",
+     "rounds": 5,
+     "title": "Eval kit: an end-to-end dry run as evidence"
+    },
+    {
+     "archive": "5-archives/261112-1706-192-price-claude-fable-5-2",
+     "cost_unpriced": {},
+     "cost_usd": 1.3267,
+     "cr": "CR-192",
+     "pr": "https://github.com/gsemet/chantier/pull/134",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: price claude-fable-5-2 in the CLI's table"
+    },
+    {
+     "archive": "5-archives/261112-1321-193-driver-checkpoint-commit-message",
+     "cost_unpriced": {},
+     "cost_usd": 0.6843,
+     "cr": "CR-193",
+     "pr": "https://github.com/gsemet/chantier/pull/132",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: a Driver's checkpoint commit carries a real message"
+    },
+    {
+     "archive": "5-archives/261112-1706-194-powershell-gh-jq-and-epoch-flags",
+     "cost_unpriced": {},
+     "cost_usd": 1.335,
+     "cr": "CR-194",
+     "pr": "https://github.com/gsemet/chantier/pull/133",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: PowerShell quoting of `gh --jq`, and the exact `--epoch` list"
+    },
+    {
+     "archive": "5-archives/261112-1758-195-readme-reorg",
+     "cost_unpriced": {},
+     "cost_usd": 1.7705,
+     "cr": "CR-195",
+     "pr": "https://github.com/gsemet/chantier/pull/135",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: README reorganisation"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 14,
+   "opened": null,
+   "report": "batch-14.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-12T10:30:48Z",
+    "former_id": null,
+    "last_merge": "2026-11-12T12:17:00Z",
+    "retros": [
+     "5-archives/261112-1217-190-eval-kit-review-fixes/retro.md"
+    ],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-13",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261112-1107-188-eval-sandbox-app",
+     "cost_unpriced": {},
+     "cost_usd": 2.2603,
+     "cr": "CR-188",
+     "pr": "https://github.com/gsemet/chantier/pull/129",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Build the eval sandbox project"
+    },
+    {
+     "archive": "5-archives/261112-1146-189-reproducible-evals",
+     "cost_unpriced": {},
+     "cost_usd": 8.0223,
+     "cr": "CR-189",
+     "pr": "https://github.com/gsemet/chantier/pull/130",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Reproducible eval campaigns on the sandbox"
+    },
+    {
+     "archive": "5-archives/261112-1217-190-eval-kit-review-fixes",
+     "cost_unpriced": {},
+     "cost_usd": 1.9899,
+     "cr": "CR-190",
+     "pr": "https://github.com/gsemet/chantier/pull/131",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Fix the eval kit's review findings before the first sandbox campaign"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 13,
+   "opened": null,
+   "report": "batch-13.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-11T23:18:22Z",
+    "former_id": null,
+    "last_merge": "2026-11-12T07:06:00Z",
+    "retros": [
+     "5-archives/261112-0706-186-handback-after-rebase/retro.md"
+    ],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-12",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261112-0706-186-handback-after-rebase",
+     "cost_unpriced": {},
+     "cost_usd": 2.1079,
+     "cr": "CR-186",
+     "pr": "https://github.com/gsemet/chantier/pull/124",
+     "result": "merged",
+     "rounds": 1,
+     "title": "A ready CR sent back to its Driver can be handed back again"
+    },
+    {
+     "archive": "5-archives/261112-0609-187-heartbeat-odd-values",
+     "cost_unpriced": {},
+     "cost_usd": 2.1141,
+     "cr": "CR-187",
+     "pr": "https://github.com/gsemet/chantier/pull/123",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: the heartbeat says something true in direct mode"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 12,
+   "opened": null,
+   "report": "batch-12.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-11T14:37:57Z",
+    "former_id": null,
+    "last_merge": "2026-11-11T23:09:00Z",
+    "retros": [
+     "5-archives/261111-2309-185-driver-liveness/retro.md"
+    ],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-11",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261111-1904-174-worker-write-guard-redesign",
+     "cost_unpriced": {},
+     "cost_usd": 4.8178,
+     "cr": "CR-174",
+     "pr": "https://github.com/gsemet/chantier/pull/113",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Change Specification: the worker write guard, redesigned"
+    },
+    {
+     "archive": "5-archives/261111-1538-175-release-driver-diagram",
+     "cost_unpriced": {},
+     "cost_usd": 1.6289,
+     "cr": "CR-175",
+     "pr": "https://github.com/gsemet/chantier/pull/111",
+     "result": "merged",
+     "rounds": 1,
+     "title": "\ufeff# Change Specification: release-driver-diagram"
+    },
+    {
+     "archive": "5-archives/261111-1930-176-evals-redesign",
+     "cost_unpriced": {},
+     "cost_usd": 3.2408,
+     "cr": "CR-176",
+     "pr": "https://github.com/gsemet/chantier/pull/118",
+     "result": "merged",
+     "rounds": 3,
+     "title": "\ufeff# Change Specification: the eval campaigns, redesigned"
+    },
+    {
+     "archive": "5-archives/261111-1607-177-foreman-sonnet-300k",
+     "cost_unpriced": {},
+     "cost_usd": 1.2893,
+     "cr": "CR-177",
+     "pr": "https://github.com/gsemet/chantier/pull/114",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: Sonnet by default for the Foreman and the Drivers, escalation on named trouble, a 300K auto-compact window"
+    },
+    {
+     "archive": "5-archives/261111-1544-178-version-pr-rendered-notes",
+     "cost_unpriced": {},
+     "cost_usd": 1.0665,
+     "cr": "CR-178",
+     "pr": "https://github.com/gsemet/chantier/pull/112",
+     "result": "merged",
+     "rounds": 1,
+     "title": "\ufeff# Change Specification: the version PR shows the rendered release notes and thread"
+    },
+    {
+     "archive": "5-archives/261111-1904-179-retro-kept-at-close",
+     "cost_unpriced": {},
+     "cost_usd": 1.7259,
+     "cr": "CR-179",
+     "pr": "https://github.com/gsemet/chantier/pull/116",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: retro-kept-at-close"
+    },
+    {
+     "archive": "5-archives/261111-1640-180-tracker-reports-and-draft-prs",
+     "cost_unpriced": {},
+     "cost_usd": 1.3721,
+     "cr": "CR-180",
+     "pr": "https://github.com/gsemet/chantier/pull/115",
+     "result": "merged",
+     "rounds": 2,
+     "title": "\ufeff# Report back on tracker issues"
+    },
+    {
+     "archive": "5-archives/261111-1949-181-cost-unknown-model",
+     "cost_unpriced": {},
+     "cost_usd": 4.1275,
+     "cr": "CR-181",
+     "pr": "https://github.com/gsemet/chantier/pull/117",
+     "result": "merged",
+     "rounds": 3,
+     "title": "\ufeff# Change Specification: cost-unknown-model"
+    },
+    {
+     "archive": "5-archives/261111-2033-182-remote-board",
+     "cost_unpriced": {},
+     "cost_usd": 3.5739,
+     "cr": "CR-182",
+     "pr": "https://github.com/gsemet/chantier/pull/119",
+     "result": "merged",
+     "rounds": 3,
+     "title": "\ufeff# Change Specification: a progress board that works in remote"
+    },
+    {
+     "archive": "6-trash/261111-2136-183-driver-liveness",
+     "cost_unpriced": {},
+     "cost_usd": 1.6707,
+     "cr": "CR-183",
+     "pr": null,
+     "result": "dropped",
+     "rounds": 1,
+     "title": "Change Specification: driver-liveness"
+    },
+    {
+     "archive": "5-archives/261111-2237-184-gate-proof-cli-fixes",
+     "cost_unpriced": {},
+     "cost_usd": 2.3934,
+     "cr": "CR-184",
+     "pr": "https://github.com/gsemet/chantier/pull/121",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Gate proof and small CLI fixes"
+    },
+    {
+     "archive": "5-archives/261111-2309-185-driver-liveness",
+     "cost_unpriced": {},
+     "cost_usd": 0.3444,
+     "cr": "CR-185",
+     "pr": "https://github.com/gsemet/chantier/pull/122",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: driver-liveness"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 11,
+   "opened": null,
+   "report": "batch-11.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-11T13:19:58Z",
+    "former_id": null,
+    "last_merge": null,
+    "retros": [],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-10",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "6-trash/261111-1418-172-handback-after-rebase",
+     "cost_unpriced": {},
+     "cost_usd": 0.3048,
+     "cr": "CR-172",
+     "pr": null,
+     "result": "dropped",
+     "rounds": 1,
+     "title": "A ready CR sent back to its Driver can be handed back again"
+    },
+    {
+     "archive": "6-trash/261111-1418-173-heartbeat-odd-values",
+     "cost_unpriced": {},
+     "cost_usd": 0.7585,
+     "cr": "CR-173",
+     "pr": null,
+     "result": "dropped",
+     "rounds": 0,
+     "title": "Change Specification: the heartbeat says something true in direct mode"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 10,
+   "opened": null,
+   "report": "batch-10.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-10T08:28:23Z",
+    "former_id": null,
+    "last_merge": "2026-11-11T12:47:00Z",
+    "retros": [
+     "5-archives/261111-1247-171-batch-09-retro-fixes/retro.md"
+    ],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-09",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261110-0940-153-multi-session-chief-of-staff",
+     "cost_unpriced": {},
+     "cost_usd": 3.9333,
+     "cr": "CR-153",
+     "pr": "https://github.com/gsemet/chantier/pull/92",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Change Specification: multi-session-chief-of-staff"
+    },
+    {
+     "archive": "5-archives/261110-0919-154-claude-code-config",
+     "cost_unpriced": {},
+     "cost_usd": 1.6166,
+     "cr": "CR-154",
+     "pr": "https://github.com/gsemet/chantier/pull/91",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: claude-code-config"
+    },
+    {
+     "archive": "5-archives/261110-0857-155-pr-details-fold",
+     "cost_unpriced": {},
+     "cost_usd": 1.2122,
+     "cr": "CR-155",
+     "pr": "https://github.com/gsemet/chantier/pull/90",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: pr-details-fold"
+    },
+    {
+     "archive": "5-archives/261110-1044-156-diagrams-modes-griller",
+     "cost_unpriced": {},
+     "cost_usd": 3.0775,
+     "cr": "CR-156",
+     "pr": "https://github.com/gsemet/chantier/pull/93",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: diagrams-modes-griller"
+    },
+    {
+     "archive": "5-archives/261110-1125-157-verifier-checks-pr-description",
+     "cost_unpriced": {},
+     "cost_usd": 0.2961,
+     "cr": "CR-157",
+     "pr": "https://github.com/gsemet/chantier/pull/94",
+     "result": "merged",
+     "rounds": 0,
+     "title": "Change Specification: verifier-checks-pr-description"
+    },
+    {
+     "archive": "5-archives/261110-1449-158-changes-tree-v2",
+     "cost_unpriced": {},
+     "cost_usd": 8.3326,
+     "cr": "CR-158",
+     "pr": "https://github.com/gsemet/chantier/pull/95",
+     "result": "merged",
+     "rounds": 3,
+     "title": "The changes tree, version 2: 3-ready, 4-batches with three states, 5-archives, 6-trash"
+    },
+    {
+     "archive": "5-archives/261110-1612-159-status-command",
+     "cost_unpriced": {},
+     "cost_usd": 2.8384,
+     "cr": "CR-159",
+     "pr": "https://github.com/gsemet/chantier/pull/96",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: status-command"
+    },
+    {
+     "archive": "5-archives/261110-1709-160-planning-repo",
+     "cost_unpriced": {},
+     "cost_usd": 5.3191,
+     "cr": "CR-160",
+     "pr": "https://github.com/gsemet/chantier/pull/97",
+     "result": "merged",
+     "rounds": 2,
+     "title": "External planning surface: chantier plans in a git repository of its own"
+    },
+    {
+     "archive": "5-archives/261110-1950-161-add-several-while-paused",
+     "cost_unpriced": {},
+     "cost_usd": 1.0173,
+     "cr": "CR-161",
+     "pr": "https://github.com/gsemet/chantier/pull/98",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Add several CRs to a paused batch before it resumes"
+    },
+    {
+     "archive": "5-archives/261110-2050-162-write-refuses-report-md",
+     "cost_unpriced": {},
+     "cost_usd": 1.2635,
+     "cr": "CR-162",
+     "pr": "https://github.com/gsemet/chantier/pull/100",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Change Specification: subagents can write every file chantier asks them to write"
+    },
+    {
+     "archive": "5-archives/261110-2114-163-chief-of-staff-keeps-its-rules",
+     "cost_unpriced": {},
+     "cost_usd": 2.5899,
+     "cr": "CR-163",
+     "pr": "https://github.com/gsemet/chantier/pull/99",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: the Chief of Staff keeps its rules, through compaction"
+    },
+    {
+     "archive": "5-archives/261110-2245-164-release-retro-v0-8-0",
+     "cost_unpriced": {},
+     "cost_usd": 1.0623,
+     "cr": "CR-164",
+     "pr": "https://github.com/gsemet/chantier/pull/103",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Release retro v0.8.0: a safe `just tag`, the full release command, no go for the user's merge, the UUID scan"
+    },
+    {
+     "archive": "5-archives/261111-0801-165-systematic-retro",
+     "cost_unpriced": {},
+     "cost_usd": 6.0779,
+     "cr": "CR-165",
+     "pr": "https://github.com/gsemet/chantier/pull/106",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Change Specification: systematic-retro"
+    },
+    {
+     "archive": "5-archives/261110-2246-166-release-auto-and-tips",
+     "cost_unpriced": {},
+     "cost_usd": 1.1228,
+     "cr": "CR-166",
+     "pr": "https://github.com/gsemet/chantier/pull/102",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: release \"auto\" and contextual tips"
+    },
+    {
+     "archive": "5-archives/261110-2243-167-batch-modes-redefine",
+     "cost_unpriced": {},
+     "cost_usd": 3.3237,
+     "cr": "CR-167",
+     "pr": "https://github.com/gsemet/chantier/pull/104",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: redefine the batch modes (parallel, series, stack)"
+    },
+    {
+     "archive": "5-archives/261110-2317-168-proof-bound-to-head",
+     "cost_unpriced": {},
+     "cost_usd": 2.0187,
+     "cr": "CR-168",
+     "pr": "https://github.com/gsemet/chantier/pull/105",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: proof bound to the head"
+    },
+    {
+     "archive": "5-archives/261111-0739-169-playbook-config",
+     "cost_unpriced": {},
+     "cost_usd": 4.9614,
+     "cr": "CR-169",
+     "pr": "https://github.com/gsemet/chantier/pull/107",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: an optional `chantier.yaml` playbook, parsed and resolved by the CLI"
+    },
+    {
+     "archive": "5-archives/261111-0840-170-force-push-judgement",
+     "cost_unpriced": {},
+     "cost_usd": 1.5015,
+     "cr": "CR-170",
+     "pr": "https://github.com/gsemet/chantier/pull/108",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: the Chief of Staff judges a refused force push and runs it"
+    },
+    {
+     "archive": "5-archives/261111-1247-171-batch-09-retro-fixes",
+     "cost_unpriced": {},
+     "cost_usd": 5.6705,
+     "cr": "CR-171",
+     "pr": "https://github.com/gsemet/chantier/pull/109",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Change Specification: the batch-09 retro's fixes"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 9,
+   "opened": null,
+   "report": "batch-09.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-07T10:32:19Z",
+    "former_id": null,
+    "last_merge": "2026-11-07T19:06:00Z",
+    "retros": [
+     "5-archives/261107-1906-152-release-0-8-0/work/retro.md"
+    ],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-08",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261107-1116-140-direct-mode",
+     "cost_unpriced": {},
+     "cost_usd": 3.1874,
+     "cr": "CR-140",
+     "pr": "https://github.com/gsemet/chantier/pull/77",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: direct mode, a batch steered by the Chief of Staff"
+    },
+    {
+     "archive": "5-archives/261107-1255-141-chantier-init-tour",
+     "cost_unpriced": {},
+     "cost_usd": 0.8509,
+     "cr": "CR-141",
+     "pr": "https://github.com/gsemet/chantier/pull/78",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: `/chantier:chantier init`, a guided tour for a newcomer"
+    },
+    {
+     "archive": "5-archives/261107-1424-142-direct-batch-pause",
+     "cost_unpriced": {},
+     "cost_usd": 0.9871,
+     "cr": "CR-142",
+     "pr": "https://github.com/gsemet/chantier/pull/84",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: a landed batch is paused, and takes new CRs in direct mode too"
+    },
+    {
+     "archive": "5-archives/261107-1344-143-draft-pr-owner",
+     "cost_unpriced": {},
+     "cost_usd": 0.4537,
+     "cr": "CR-143",
+     "pr": "https://github.com/gsemet/chantier/pull/79",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: who turns a dependent draft PR ready, once its dependency merges"
+    },
+    {
+     "archive": "5-archives/261107-1350-144-board-slots",
+     "cost_unpriced": {},
+     "cost_usd": 0.6076,
+     "cr": "CR-144",
+     "pr": "https://github.com/gsemet/chantier/pull/80",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: the CR board shows each batch's slots"
+    },
+    {
+     "archive": "5-archives/261107-1404-145-runbook-ready",
+     "cost_unpriced": {},
+     "cost_usd": 0.1376,
+     "cr": "CR-145",
+     "pr": "https://github.com/gsemet/chantier/pull/81",
+     "result": "merged",
+     "rounds": 0,
+     "title": "Change Specification: the runbook says a PR is turned ready"
+    },
+    {
+     "archive": "5-archives/261107-1424-146-grill-rules",
+     "cost_unpriced": {},
+     "cost_usd": 0.6428,
+     "cr": "CR-146",
+     "pr": "https://github.com/gsemet/chantier/pull/82",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: answers recorded at once, a shared understanding before \"grilled enough?\", and a CR named by number and slug"
+    },
+    {
+     "archive": "5-archives/261107-1440-147-richer-specs",
+     "cost_unpriced": {},
+     "cost_usd": 1.9334,
+     "cr": "CR-147",
+     "pr": "https://github.com/gsemet/chantier/pull/83",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: a spec-writer agent writes the Change Specifications"
+    },
+    {
+     "archive": "5-archives/261107-1558-148-pr-template",
+     "cost_unpriced": {},
+     "cost_usd": 1.0315,
+     "cr": "CR-148",
+     "pr": "https://github.com/gsemet/chantier/pull/85",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: a default PR description template, shipped in the skill"
+    },
+    {
+     "archive": "5-archives/261107-1623-149-batch-lifecycle",
+     "cost_unpriced": {},
+     "cost_usd": 2.8138,
+     "cr": "CR-149",
+     "pr": "https://github.com/gsemet/chantier/pull/86",
+     "result": "merged",
+     "rounds": 1,
+     "title": "A clear batch lifecycle, ending in a pause"
+    },
+    {
+     "archive": "5-archives/261107-1737-150-docs-lifecycle",
+     "cost_unpriced": {},
+     "cost_usd": 1.5852,
+     "cr": "CR-150",
+     "pr": "https://github.com/gsemet/chantier/pull/87",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Change Specification: docs-lifecycle"
+    },
+    {
+     "archive": "5-archives/261107-1839-151-release-notes",
+     "cost_unpriced": {},
+     "cost_usd": 1.9748,
+     "cr": "CR-151",
+     "pr": "https://github.com/gsemet/chantier/pull/88",
+     "result": "merged",
+     "rounds": 2,
+     "title": "Change Specification: visual release notes and an announcement thread for each release"
+    },
+    {
+     "archive": "5-archives/261107-1906-152-release-0-8-0",
+     "cost_unpriced": {},
+     "cost_usd": 3.4122,
+     "cr": "CR-152",
+     "pr": null,
+     "result": "merged",
+     "rounds": 0,
+     "title": "Change Specification: Release v0.8.0"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 8,
+   "opened": null,
+   "report": "batch-08.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-06T18:58:21Z",
+    "former_id": null,
+    "last_merge": "2026-11-06T23:07:00Z",
+    "retros": [
+     "5-archives/261106-2307-138-release-v0-7-0/work/retro.md"
+    ],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-07",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261106-1946-131-pr-readiness",
+     "cost_unpriced": {},
+     "cost_usd": 2.5013,
+     "cr": "CR-131",
+     "pr": "https://github.com/gsemet/chantier/pull/69",
+     "result": "merged",
+     "rounds": 3,
+     "title": "A PR says on the forge when it is not ready to merge"
+    },
+    {
+     "archive": "5-archives/261106-1952-132-drivers-sonnet",
+     "cost_unpriced": {},
+     "cost_usd": 1.697,
+     "cr": "CR-132",
+     "pr": "https://github.com/gsemet/chantier/pull/71",
+     "result": "merged",
+     "rounds": 1,
+     "title": "The CR Driver runs Sonnet"
+    },
+    {
+     "archive": "5-archives/261106-1946-133-qa-261105-1731",
+     "cost_unpriced": {},
+     "cost_usd": 3.965,
+     "cr": "CR-133",
+     "pr": "https://github.com/gsemet/chantier/pull/70",
+     "result": "merged",
+     "rounds": 2,
+     "title": "The CLI's errors say what happened and what to do"
+    },
+    {
+     "archive": "5-archives/261106-1914-134-report-legend",
+     "cost_unpriced": {},
+     "cost_usd": 0.9508,
+     "cr": "CR-134",
+     "pr": "https://github.com/gsemet/chantier/pull/68",
+     "result": "merged",
+     "rounds": 1,
+     "title": "A report tells blocked from waiting, with a legend and a short explanation"
+    },
+    {
+     "archive": "5-archives/261106-2034-135-board-all-files",
+     "cost_unpriced": {},
+     "cost_usd": 1.938,
+     "cr": "CR-135",
+     "pr": "https://github.com/gsemet/chantier/pull/72",
+     "result": "merged",
+     "rounds": 1,
+     "title": "The board lists every file of an inbox or backlog item"
+    },
+    {
+     "archive": "5-archives/261106-2151-136-status-icons",
+     "cost_unpriced": {},
+     "cost_usd": 7.153,
+     "cr": "CR-136",
+     "pr": "https://github.com/gsemet/chantier/pull/73",
+     "result": "merged",
+     "rounds": 4,
+     "title": "The report, the board and STATUS.md draw the same icons"
+    },
+    {
+     "archive": "5-archives/261106-2034-137-release-last",
+     "cost_unpriced": {},
+     "cost_usd": 3.4906,
+     "cr": "CR-137",
+     "pr": "https://github.com/gsemet/chantier/pull/74",
+     "result": "merged",
+     "rounds": 1,
+     "title": "A release CR depends on every other CR of its batch"
+    },
+    {
+     "archive": "5-archives/261106-2307-138-release-v0-7-0",
+     "cost_unpriced": {},
+     "cost_usd": 2.2678,
+     "cr": "CR-138",
+     "pr": null,
+     "result": "merged",
+     "rounds": 0,
+     "title": "Release v0.7.0"
+    },
+    {
+     "archive": "5-archives/261106-2211-139-docs-svgs",
+     "cost_unpriced": {},
+     "cost_usd": 0.4795,
+     "cr": "CR-139",
+     "pr": "https://github.com/gsemet/chantier/pull/75",
+     "result": "merged",
+     "rounds": 1,
+     "title": "Land the three docs SVGs"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 7,
+   "opened": null,
+   "report": "batch-07.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-06T09:55:11Z",
+    "former_id": null,
+    "last_merge": "2026-11-06T17:41:00Z",
+    "retros": [],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-06",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261106-1030-115-force-push-route",
+     "cost_unpriced": {},
+     "cost_usd": 2.1889,
+     "cr": "CR-115",
+     "pr": "https://github.com/gsemet/chantier/pull/52",
+     "result": "merged",
+     "rounds": 2,
+     "title": "A refused force push goes up to the Chief of Staff"
+    },
+    {
+     "archive": "5-archives/261106-1030-119-user-tips",
+     "cost_unpriced": {},
+     "cost_usd": 1.3765,
+     "cr": "CR-119",
+     "pr": "https://github.com/gsemet/chantier/pull/53",
+     "result": "merged",
+     "rounds": 2,
+     "title": "The Chief of Staff ends some messages with a line of tips"
+    },
+    {
+     "archive": "5-archives/261106-1106-120-delivery-evidence",
+     "cost_unpriced": {},
+     "cost_usd": 2.9696,
+     "cr": "CR-120",
+     "pr": "https://github.com/gsemet/chantier/pull/54",
+     "result": "merged",
+     "rounds": 1,
+     "title": "A CR leaves before and after evidence of what it delivers"
+    },
+    {
+     "archive": "5-archives/261106-1138-121-stack-demo",
+     "cost_unpriced": {},
+     "cost_usd": 2.5835,
+     "cr": "CR-121",
+     "pr": "https://github.com/gsemet/chantier/pull/58",
+     "result": "merged",
+     "rounds": 2,
+     "title": "The Chief of Staff offers a guided demo of a ready stack"
+    },
+    {
+     "archive": "5-archives/261106-1106-122-parallel-rules",
+     "cost_unpriced": {},
+     "cost_usd": 3.3479,
+     "cr": "CR-122",
+     "pr": "https://github.com/gsemet/chantier/pull/56",
+     "result": "merged",
+     "rounds": 1,
+     "title": "A batch runs its CRs in parallel unless the plan says why not"
+    },
+    {
+     "archive": "5-archives/261106-1342-123-host-reference",
+     "cost_unpriced": {},
+     "cost_usd": 4.471,
+     "cr": "CR-123",
+     "pr": "https://github.com/gsemet/chantier/pull/63",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Each host has its reference, and the user gets exact instructions for what only they can do"
+    },
+    {
+     "archive": "5-archives/261106-1435-124-foreman-title",
+     "cost_unpriced": {},
+     "cost_usd": 4.8805,
+     "cr": "CR-124",
+     "pr": "https://github.com/gsemet/chantier/pull/64",
+     "result": "merged",
+     "rounds": 3,
+     "title": "A Foreman's session is named after the Chief of Staff's, with no epoch"
+    },
+    {
+     "archive": "5-archives/261106-1257-125-board-remote-notice",
+     "cost_unpriced": {},
+     "cost_usd": 2.0119,
+     "cr": "CR-125",
+     "pr": "https://github.com/gsemet/chantier/pull/62",
+     "result": "merged",
+     "rounds": 1,
+     "title": "The board's toggle says where the pane is"
+    },
+    {
+     "archive": "5-archives/261106-1221-126-board-tables",
+     "cost_unpriced": {},
+     "cost_usd": 1.5705,
+     "cr": "CR-126",
+     "pr": "https://github.com/gsemet/chantier/pull/61",
+     "result": "merged",
+     "rounds": 2,
+     "title": "The board and the CR sheet draw tables under folds"
+    },
+    {
+     "archive": "5-archives/261106-1208-127-parallel-then-stack",
+     "cost_unpriced": {},
+     "cost_usd": 1.3152,
+     "cr": "CR-127",
+     "pr": "https://github.com/gsemet/chantier/pull/59",
+     "result": "merged",
+     "rounds": 1,
+     "title": "In a stack, CRs run in parallel on main; only the stack driver stacks them"
+    },
+    {
+     "archive": "5-archives/261106-1221-128-status-cr-cost",
+     "cost_unpriced": {},
+     "cost_usd": 1.5396,
+     "cr": "CR-128",
+     "pr": "https://github.com/gsemet/chantier/pull/60",
+     "result": "merged",
+     "rounds": 1,
+     "title": "`status` gives every CR's cost, merged ones included"
+    },
+    {
+     "archive": "5-archives/261106-1535-129-cost-report",
+     "cost_unpriced": {},
+     "cost_usd": 3.0002,
+     "cr": "CR-129",
+     "pr": "https://github.com/gsemet/chantier/pull/65",
+     "result": "merged",
+     "rounds": 2,
+     "title": "The cost report says who spent what, and explains it"
+    },
+    {
+     "archive": "5-archives/261106-1741-130-close-when-idle",
+     "cost_unpriced": {},
+     "cost_usd": 8.9499,
+     "cr": "CR-130",
+     "pr": "https://github.com/gsemet/chantier/pull/66",
+     "result": "merged",
+     "rounds": 3,
+     "title": "A batch closes only when nothing runs, and its cost is final there"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 6,
+   "opened": null,
+   "report": "batch-06.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-06T06:36:47Z",
+    "former_id": "05-batch-folder",
+    "last_merge": "2026-11-06T09:29:00Z",
+    "retros": [],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-05",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261106-0812-111-batch-folder",
+     "cost_unpriced": {},
+     "cost_usd": 5.5333,
+     "cr": "CR-111",
+     "pr": "https://github.com/gsemet/chantier/pull/48",
+     "result": "merged",
+     "rounds": 3,
+     "title": "A batch is numbered, single and a stack by default"
+    },
+    {
+     "archive": "5-archives/261106-0837-112-slots-and-dependencies",
+     "cost_unpriced": {},
+     "cost_usd": 3.6469,
+     "cr": "CR-112",
+     "pr": "https://github.com/gsemet/chantier/pull/49",
+     "result": "merged",
+     "rounds": 2,
+     "title": "A CR declares what it depends on; a slot is a running Driver"
+    },
+    {
+     "archive": "5-archives/261106-0902-113-chief-of-staff-cost",
+     "cost_unpriced": {},
+     "cost_usd": 2.4478,
+     "cr": "CR-113",
+     "pr": "https://github.com/gsemet/chantier/pull/50",
+     "result": "merged",
+     "rounds": 3,
+     "title": "The Chief of Staff's session is priced, and each report splits the cost"
+    },
+    {
+     "archive": "5-archives/261106-0929-114-report-format",
+     "cost_unpriced": {},
+     "cost_usd": 2.1312,
+     "cr": "CR-114",
+     "pr": "https://github.com/gsemet/chantier/pull/51",
+     "result": "merged",
+     "rounds": 2,
+     "title": "The Chief of Staff's reports always have the same shape"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 5,
+   "opened": null,
+   "report": "batch-05.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-05T23:30:50Z",
+    "former_id": "04-cr-board",
+    "last_merge": "2026-11-06T06:31:00Z",
+    "retros": [],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-04",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261106-0016-108-cr-board-mod",
+     "cost_unpriced": {},
+     "cost_usd": 6.8157,
+     "cr": "CR-108",
+     "pr": "https://github.com/gsemet/chantier/pull/45",
+     "result": "merged",
+     "rounds": 3,
+     "title": "Change Specification: CR board"
+    },
+    {
+     "archive": "5-archives/261106-0616-109-foreman-session-name",
+     "cost_unpriced": {},
+     "cost_usd": 0.8247,
+     "cr": "CR-109",
+     "pr": "https://github.com/gsemet/chantier/pull/46",
+     "result": "merged",
+     "rounds": 1,
+     "title": "The Foreman's session is named by its batch number"
+    },
+    {
+     "archive": "5-archives/261106-0631-110-foreman-stop-conditions",
+     "cost_unpriced": {},
+     "cost_usd": 1.2111,
+     "cr": "CR-110",
+     "pr": "https://github.com/gsemet/chantier/pull/47",
+     "result": "merged",
+     "rounds": 1,
+     "title": "The Foreman stops waking when nothing can move"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 4,
+   "opened": null,
+   "report": "batch-04.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-05T17:32:26Z",
+    "former_id": "03-eval-real-050",
+    "last_merge": "2026-11-05T21:26:00Z",
+    "retros": [],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-03",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261105-2126-106-qa-budget-rail",
+     "cost_unpriced": {},
+     "cost_usd": 1.4355,
+     "cr": "CR-106",
+     "pr": "https://github.com/gsemet/chantier/pull/41",
+     "result": "merged",
+     "rounds": 1,
+     "title": "`order qa` is refused once the budget is spent"
+    },
+    {
+     "archive": "5-archives/261105-2126-107-release-long-check",
+     "cost_unpriced": {},
+     "cost_usd": 0.8343,
+     "cr": "CR-107",
+     "pr": "https://github.com/gsemet/chantier/pull/40",
+     "result": "merged",
+     "rounds": 1,
+     "title": "The Chief of Staff asks for a long check before a release"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 3,
+   "opened": null,
+   "report": "batch-03.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-05T11:51:34Z",
+    "former_id": "02-eval-heavy",
+    "last_merge": null,
+    "retros": [],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-02",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "6-trash/261105-1314-102-cleanup-after-rebase",
+     "cost_unpriced": {},
+     "cost_usd": 0.8297,
+     "cr": "CR-102",
+     "pr": "https://github.com/gsemet/chantier/pull/25",
+     "result": "dropped",
+     "rounds": 1,
+     "title": "The Foreman's cleanup works after a rebase merge"
+    },
+    {
+     "archive": "6-trash/261105-1314-103-plain-folder-arguments",
+     "cost_unpriced": {},
+     "cost_usd": 1.389,
+     "cr": "CR-103",
+     "pr": "https://github.com/gsemet/chantier/pull/27",
+     "result": "dropped",
+     "rounds": 1,
+     "title": "`open` and `order add` take plain paths"
+    },
+    {
+     "archive": "6-trash/261105-1314-104-scenario-in-ci",
+     "cost_unpriced": {},
+     "cost_usd": 1.3632,
+     "cr": "CR-104",
+     "pr": "https://github.com/gsemet/chantier/pull/26",
+     "result": "dropped",
+     "rounds": 1,
+     "title": "CI runs the scenario on Linux"
+    },
+    {
+     "archive": "6-trash/261105-1314-105-cost-by-role",
+     "cost_unpriced": {},
+     "cost_usd": 1.4503,
+     "cr": "CR-105",
+     "pr": "https://github.com/gsemet/chantier/pull/28",
+     "result": "dropped",
+     "rounds": 1,
+     "title": "The batch's cost report splits by level"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 2,
+   "opened": null,
+   "report": "batch-02.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  },
+  {
+   "backfill": {
+    "first_step": "2026-11-05T10:53:46Z",
+    "former_id": "01-eval-real",
+    "last_merge": "2026-11-05T10:59:00Z",
+    "retros": [],
+    "written": "2026-11-13T19:36:26Z"
+   },
+   "batch": "batch-01",
+   "budget_usd": null,
+   "closed": null,
+   "cost_unpriced": {},
+   "cost_usd": null,
+   "crs": [
+    {
+     "archive": "5-archives/261105-1059-101-forge-auth-status",
+     "cost_unpriced": {},
+     "cost_usd": 0.7477,
+     "cr": "CR-101",
+     "pr": "https://github.com/gsemet/chantier/pull/21",
+     "result": "merged",
+     "rounds": 1,
+     "title": "The eval's fake forge answers `gh auth status`"
+    }
+   ],
+   "host": null,
+   "mode": null,
+   "number": 1,
+   "opened": null,
+   "report": "batch-01.md",
+   "schema": 1,
+   "state": "closed",
+   "steering": null
+  }
+ ],
+ "journal": {
+  "count": 0
+ },
+ "live": null,
+ "merged": [
+  {
+   "batch": "batch-17",
+   "cost_usd": 6.604,
+   "cr": "CR-228",
+   "path": "5-archives/261114-1728-228-board-docs-screenshots",
+   "pr": "https://github.com/gsemet/chantier/pull/199",
+   "state": "merged",
+   "title": "Change Specification: the web board documented, with screenshots taken by a command",
+   "when": "2026-11-14T17:28:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 9.0196,
+   "cr": "CR-248",
+   "path": "5-archives/261114-1617-248-ready-wording",
+   "pr": "https://github.com/gsemet/chantier/pull/197",
+   "state": "merged",
+   "title": "Change Specification: \"ready locally\" and \"ready to merge\"",
+   "when": "2026-11-14T16:17:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 7.5247,
+   "cr": "CR-227",
+   "path": "5-archives/261114-1553-227-surface-autosync",
+   "pr": "https://github.com/gsemet/chantier/pull/195",
+   "state": "merged",
+   "title": "Change Specification: a planning surface stays in sync through its own autosync",
+   "when": "2026-11-14T15:53:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 11.3873,
+   "cr": "CR-226",
+   "path": "5-archives/261114-1553-226-board-backlog-edit",
+   "pr": "https://github.com/gsemet/chantier/pull/194",
+   "state": "merged",
+   "title": "Change Specification: the board edits the backlog",
+   "when": "2026-11-14T15:53:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 2.3697,
+   "cr": "CR-252",
+   "path": "5-archives/261114-1447-252-lifecycle-line-svg",
+   "pr": "https://github.com/gsemet/chantier/pull/190",
+   "state": "merged",
+   "title": "Change Specification: lifecycle-line, a CR's life in one line of steps",
+   "when": "2026-11-14T14:47:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 4.3813,
+   "cr": "CR-251",
+   "path": "5-archives/261114-1447-251-spec-critic",
+   "pr": "https://github.com/gsemet/chantier/pull/193",
+   "state": "merged",
+   "title": "Change Specification: a spec critic checks an impactful CR's specification before it is final",
+   "when": "2026-11-14T14:47:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 1.146,
+   "cr": "CR-250",
+   "path": "5-archives/261114-1447-250-grill-question-format",
+   "pr": "https://github.com/gsemet/chantier/pull/191",
+   "state": "merged",
+   "title": "Change Specification: grill questions with a reference, context, examples and a recommendation, the same in the text and in the tool",
+   "when": "2026-11-14T14:47:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 1.2604,
+   "cr": "CR-249",
+   "path": "5-archives/261114-1447-249-session-titles",
+   "pr": "https://github.com/gsemet/chantier/pull/192",
+   "state": "merged",
+   "title": "New session titles",
+   "when": "2026-11-14T14:47:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 7.5949,
+   "cr": "CR-242",
+   "path": "5-archives/261114-1447-242-gate-parallel-isolation",
+   "pr": "https://github.com/gsemet/chantier/pull/188",
+   "state": "merged",
+   "title": "Change Specification: the project says how many long gates may run at once",
+   "when": "2026-11-14T14:47:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 4.4606,
+   "cr": "CR-247",
+   "path": "5-archives/261114-1414-247-cli-startup-time",
+   "pr": "https://github.com/gsemet/chantier/pull/179",
+   "state": "merged",
+   "title": "Change Specification: the CLI starts as fast as it did before CR-221",
+   "when": "2026-11-14T14:14:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 21.7703,
+   "cr": "CR-225",
+   "path": "5-archives/261114-1354-225-board-read-views",
+   "pr": "https://github.com/gsemet/chantier/pull/183",
+   "state": "merged",
+   "title": "Change Specification: the board's reading views, as in the prototype",
+   "when": "2026-11-14T13:54:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 12.6835,
+   "cr": "CR-222",
+   "path": "5-archives/261114-1354-222-visualization-backend",
+   "pr": "https://github.com/gsemet/chantier/pull/174",
+   "state": "merged",
+   "title": "Change Specification: `chantier board` becomes the web board's server",
+   "when": "2026-11-14T13:54:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 2.6398,
+   "cr": "CR-246",
+   "path": "5-archives/261114-1332-246-stack-robustness",
+   "pr": "https://github.com/gsemet/chantier/pull/184",
+   "state": "merged",
+   "title": "Change Specification: the stack holds when it breaks mid-way",
+   "when": "2026-11-14T13:32:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 4.9866,
+   "cr": "CR-245",
+   "path": "5-archives/261114-1332-245-gitlab-stack-delivery",
+   "pr": "https://github.com/gsemet/chantier/pull/182",
+   "state": "merged",
+   "title": "Change Specification: a stack on GitLab behaves as a stack on GitHub",
+   "when": "2026-11-14T13:32:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 3.8697,
+   "cr": "CR-244",
+   "path": "5-archives/261114-1332-244-stack-grows-from-bottom",
+   "pr": "https://github.com/gsemet/chantier/pull/180",
+   "state": "merged",
+   "title": "Change Specification: the stack grows from the bottom",
+   "when": "2026-11-14T13:32:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 7.4275,
+   "cr": "CR-234",
+   "path": "5-archives/261114-1313-234-forge-stack-followups",
+   "pr": "https://github.com/gsemet/chantier/pull/175",
+   "state": "merged",
+   "title": "Change Specification: forge-stack follow-ups from CR-214 and CR-215",
+   "when": "2026-11-14T13:13:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 1.719,
+   "cr": "CR-241",
+   "path": "5-archives/261114-1214-241-ci-beside-gate",
+   "pr": "https://github.com/gsemet/chantier/pull/187",
+   "state": "merged",
+   "title": "Change Specification: CI runs beside the long gate, when the project asks for it",
+   "when": "2026-11-14T12:14:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 4.9328,
+   "cr": "CR-240",
+   "path": "5-archives/261114-1214-240-permissions-per-capability",
+   "pr": "https://github.com/gsemet/chantier/pull/186",
+   "state": "merged",
+   "title": "Permissions per capability: each capability's commands known, tried and warned before the go",
+   "when": "2026-11-14T12:14:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 0.6751,
+   "cr": "CR-243",
+   "path": "5-archives/261114-1211-243-stack-dependency-wording",
+   "pr": "https://github.com/gsemet/chantier/pull/185",
+   "state": "merged",
+   "title": "Change Specification: a CR with a dependency starts once that dependency is ready, in a stack and in a parallel batch",
+   "when": "2026-11-14T12:11:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 3.4242,
+   "cr": "CR-235",
+   "path": "5-archives/261114-1202-235-gate-liveness",
+   "pr": "https://github.com/gsemet/chantier/pull/178",
+   "state": "merged",
+   "title": "Change Specification: the gate lock and the activity line tell the truth",
+   "when": "2026-11-14T12:02:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 3.0319,
+   "cr": "CR-238",
+   "path": "5-archives/261114-1155-238-allow-rules-ask",
+   "pr": "https://github.com/gsemet/chantier/pull/176",
+   "state": "merged",
+   "title": "Allow rules: the Chief of Staff asks to add the missing ones, and adds them on the user's yes",
+   "when": "2026-11-14T11:55:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 4.6598,
+   "cr": "CR-233",
+   "path": "5-archives/261114-1155-233-merge-any-time",
+   "pr": "https://github.com/gsemet/chantier/pull/173",
+   "state": "merged",
+   "title": "Change Specification: a merge may come at any moment, one PR at a time, in any batch shape",
+   "when": "2026-11-14T11:55:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 1.857,
+   "cr": "CR-232",
+   "path": "5-archives/261114-1155-232-eval-campaign-cr220",
+   "pr": "https://github.com/gsemet/chantier/pull/172",
+   "state": "merged",
+   "title": "Change Specification: eval-campaign-cr220",
+   "when": "2026-11-14T11:55:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 6.1273,
+   "cr": "CR-223",
+   "path": "5-archives/261114-1152-223-cr-summaries",
+   "pr": "https://github.com/gsemet/chantier/pull/177",
+   "state": "merged",
+   "title": "Change Specification: each CR carries a condensed JSON summary, kept fresh by a linter",
+   "when": "2026-11-14T11:52:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 5.4871,
+   "cr": "CR-237",
+   "path": "5-archives/261114-1138-237-root-pyproject-launch",
+   "pr": "https://github.com/gsemet/chantier/pull/171",
+   "state": "merged",
+   "title": "Change Specification: one way to run the CLI, a root pyproject.toml, uvx at the pinned release ref, the local code in chantier's own checkout",
+   "when": "2026-11-14T11:38:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 1.4366,
+   "cr": "CR-239",
+   "path": "5-archives/261114-1022-239-batch-duration-plan",
+   "pr": "https://github.com/gsemet/chantier/pull/181",
+   "state": "merged",
+   "title": "Change Specification: no delivery time without the batch's floor",
+   "when": "2026-11-14T10:22:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 23.2716,
+   "cr": "CR-221",
+   "path": "5-archives/261114-0647-221-python-inline-deps",
+   "pr": "https://github.com/gsemet/chantier/pull/170",
+   "state": "merged",
+   "title": "Change Specification: the CLI takes its dependencies through PEP 723, and its code is split and checked",
+   "when": "2026-11-14T06:47:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 1.4898,
+   "cr": "CR-236",
+   "path": "5-archives/261113-2234-236-driver-context-budget",
+   "pr": "https://github.com/gsemet/chantier/pull/169",
+   "state": "merged",
+   "title": "Change Specification: the Driver's context threshold, set from the measure",
+   "when": "2026-11-13T22:34:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 3.2486,
+   "cr": "CR-231",
+   "path": "5-archives/261113-2127-231-retro-target-vs-chantier",
+   "pr": "https://github.com/gsemet/chantier/pull/167",
+   "state": "merged",
+   "title": "Change Specification: the batch retro splits the target project from chantier itself",
+   "when": "2026-11-13T21:27:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 2.0852,
+   "cr": "CR-230",
+   "path": "5-archives/261113-2015-230-worker-reply-contract",
+   "pr": "https://github.com/gsemet/chantier/pull/168",
+   "state": "merged",
+   "title": "Change Specification: one rule for a worker reply that breaks its format",
+   "when": "2026-11-13T20:15:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 4.5256,
+   "cr": "CR-224",
+   "path": "5-archives/261113-1936-224-batch-history",
+   "pr": "https://github.com/gsemet/chantier/pull/165",
+   "state": "merged",
+   "title": "Change Specification: each batch leaves a record of its own in `5-archives/batches/`",
+   "when": "2026-11-13T19:36:00Z"
+  },
+  {
+   "batch": "batch-17",
+   "cost_usd": 1.4121,
+   "cr": "CR-229",
+   "path": "5-archives/261113-1908-229-driver-edit-tool",
+   "pr": "https://github.com/gsemet/chantier/pull/166",
+   "state": "merged",
+   "title": "Change Specification: the CR Driver and the stack driver get the Edit tool",
+   "when": "2026-11-13T19:08:00Z"
+  },
+  {
+   "batch": "batch-16",
+   "cost_usd": 5.0504,
+   "cr": "CR-215",
+   "path": "5-archives/261113-1726-215-stack-after-ready",
+   "pr": "https://github.com/gsemet/chantier/pull/161",
+   "state": "merged",
+   "title": "Change Specification: work on a stack after it is ready",
+   "when": "2026-11-13T17:26:00Z"
+  },
+  {
+   "batch": "batch-16",
+   "cost_usd": 3.043,
+   "cr": "CR-220",
+   "path": "5-archives/261113-1646-220-ticket-summary-on-source",
+   "pr": "https://github.com/gsemet/chantier/pull/164",
+   "state": "merged",
+   "title": "Change Specification: ticket-summary-on-source",
+   "when": "2026-11-13T16:46:00Z"
+  },
+  {
+   "batch": "batch-16",
+   "cost_usd": 1.5621,
+   "cr": "CR-219",
+   "path": "5-archives/261113-1557-219-gate-queue-limit",
+   "pr": "https://github.com/gsemet/chantier/pull/162",
+   "state": "merged",
+   "title": "Change Specification: the long gates queue first-come, and a refusal names what is live",
+   "when": "2026-11-13T15:57:00Z"
+  },
+  {
+   "batch": "batch-16",
+   "cost_usd": 4.0615,
+   "cr": "CR-216",
+   "path": "5-archives/261113-1557-216-driver-stays-a-driver",
+   "pr": "https://github.com/gsemet/chantier/pull/163",
+   "state": "merged",
+   "title": "Change Specification: a Driver stays a Driver",
+   "when": "2026-11-13T15:57:00Z"
+  },
+  {
+   "batch": "batch-16",
+   "cost_usd": 2.1736,
+   "cr": "CR-218",
+   "path": "5-archives/261113-1441-218-pr-body-and-evidence",
+   "pr": "https://github.com/gsemet/chantier/pull/160",
+   "state": "merged",
+   "title": "Change Specification: PR body says the gaps, keeps role names in place, and a board pane change shows a real screenshot",
+   "when": "2026-11-13T14:41:00Z"
+  },
+  {
+   "batch": "batch-16",
+   "cost_usd": 1.435,
+   "cr": "CR-217",
+   "path": "5-archives/261113-1431-217-agent-restart-once",
+   "pr": "https://github.com/gsemet/chantier/pull/158",
+   "state": "merged",
+   "title": "Change Specification: an ended or refused agent is restarted once, from the recorded state",
+   "when": "2026-11-13T14:31:00Z"
+  },
+  {
+   "batch": "batch-16",
+   "cost_usd": 2.8849,
+   "cr": "CR-214",
+   "path": "5-archives/261113-1431-214-forge-permissions-at-start",
+   "pr": "https://github.com/gsemet/chantier/pull/159",
+   "state": "merged",
+   "title": "Change Specification: forge permissions checked at the start",
+   "when": "2026-11-13T14:31:00Z"
+  },
+  {
+   "batch": "batch-15",
+   "cost_usd": 5.5243,
+   "cr": "CR-213",
+   "path": "5-archives/261113-1149-213-stack-merges-in-one-go",
+   "pr": "https://github.com/gsemet/chantier/pull/156",
+   "state": "merged",
+   "title": "Change Specification: a stack is merged in one go; inserting into a ready stack; agents started right the first time",
+   "when": "2026-11-13T11:49:00Z"
+  },
+  {
+   "batch": "batch-15",
+   "cost_usd": 2.6967,
+   "cr": "CR-212",
+   "path": "5-archives/261113-1149-212-release-v0-9-0",
+   "pr": "https://github.com/gsemet/chantier/pull/154",
+   "state": "merged",
+   "title": "Version PR for chantier v0.9.0, at the top of the batch's stack",
+   "when": "2026-11-13T11:49:00Z"
+  },
+  {
+   "batch": "batch-15",
+   "cost_usd": 2.6725,
+   "cr": "CR-211",
+   "path": "5-archives/261113-1149-211-parallel-rebase-cost",
+   "pr": "https://github.com/gsemet/chantier/pull/152",
+   "state": "merged",
+   "title": "Change Specification: parallel-rebase-cost",
+   "when": "2026-11-13T11:49:00Z"
+  },
+  {
+   "batch": "batch-15",
+   "cost_usd": 3.3892,
+   "cr": "CR-210",
+   "path": "5-archives/261113-1149-210-main-checkout-fast-forward",
+   "pr": "https://github.com/gsemet/chantier/pull/153",
+   "state": "merged",
+   "title": "The steering session fast-forwards a clean main checkout after each merge it records",
+   "when": "2026-11-13T11:49:00Z"
+  },
+  {
+   "batch": "batch-15",
+   "cost_usd": 1.6007,
+   "cr": "CR-209",
+   "path": "5-archives/261113-1149-209-audit-direct-false-fails",
+   "pr": "https://github.com/gsemet/chantier/pull/150",
+   "state": "merged",
+   "title": "Audit: two checks fail on lawful behaviour",
+   "when": "2026-11-13T11:49:00Z"
+  },
+  {
+   "batch": "batch-15",
+   "cost_usd": 1.0687,
+   "cr": "CR-208",
+   "path": "5-archives/261113-1149-208-autofix-event-vs-driver",
+   "pr": "https://github.com/gsemet/chantier/pull/149",
+   "state": "merged",
+   "title": "Change Specification: Claude Desktop's Auto-fix events are left to the CR's Driver; the heartbeat's prompt names no interval",
+   "when": "2026-11-13T11:49:00Z"
+  },
+  {
+   "batch": "batch-15",
+   "cost_usd": 1.5316,
+   "cr": "CR-207",
+   "path": "5-archives/261113-1149-207-pr-body-from-file-only",
+   "pr": "https://github.com/gsemet/chantier/pull/147",
+   "state": "merged",
+   "title": "A text sent to the forge is written with the Write tool and posted from its file, never from a shell string",
+   "when": "2026-11-13T11:49:00Z"
+  },
+  {
+   "batch": "batch-15",
+   "cost_usd": 1.243,
+   "cr": "CR-206",
+   "path": "5-archives/261113-1149-206-ci-job-cold-cache-check",
+   "pr": "https://github.com/gsemet/chantier/pull/148",
+   "state": "merged",
+   "title": "A change that adds or changes a CI job proves it once with a cold uv cache before the push",
+   "when": "2026-11-13T11:49:00Z"
+  },
+  {
+   "batch": "batch-15",
+   "cost_usd": 1.4551,
+   "cr": "CR-205",
+   "path": "5-archives/261113-1149-205-rules-after-claim",
+   "pr": "https://github.com/gsemet/chantier/pull/151",
+   "state": "merged",
+   "title": "The steering session reads the rules after its claim",
+   "when": "2026-11-13T11:49:00Z"
+  },
+  {
+   "batch": "batch-15",
+   "cost_usd": 0.9724,
+   "cr": "CR-204",
+   "path": "5-archives/261113-1149-204-record-inspector-pass",
+   "pr": "https://github.com/gsemet/chantier/pull/146",
+   "state": "merged",
+   "title": "A Driver records each Inspector pass before the PR body cites it",
+   "when": "2026-11-13T11:49:00Z"
+  },
+  {
+   "batch": "batch-15",
+   "cost_usd": 1.0155,
+   "cr": "CR-203",
+   "path": "5-archives/261113-1149-203-rebase-note-check-status",
+   "pr": "https://github.com/gsemet/chantier/pull/145",
+   "state": "merged",
+   "title": "The steering session reads `status` before a note that carries work, and takes a ready CR instead of messaging it",
+   "when": "2026-11-13T11:49:00Z"
+  }
+ ],
+ "merged_total": 142,
+ "next_batch": null,
+ "project": "chantier",
+ "seat": null,
+ "surface": false,
+ "trashed": [
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/surface-autosync",
+   "pr": null,
+   "state": null,
+   "title": "A planning surface stays in sync through its own autosync",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/stray-round-call",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15 retro: a stray 'round' call spent a round of CR-211 before any work. Fix: 'round' refuses a new round with no commit or note since the previous one, or the Driver's card says when to call it.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/stale-test-plan-shas",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15: after the first post-merge restack the PR bodies' Test plan SHAs stayed stale until asked. 'ship' after a restack prints the PR body lines whose SHA is now stale.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/stack-merge-restack-cost",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15 retro: merging a stack of 16 PRs bottom-up needs a restack (force pushes, a CI per PR) after each merge: hours, and blocked when a force push is refused. Fix: let the user merge several PRs at once, or the whole stack top-down, and restack once (see CR-211 parallel-rebase-cost).",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/stack-driver-take-race",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15: the Foreman recorded the stack driver's id before it ran 'take stack', which then refused it, twice. The Foreman runs 'take stack' and passes its output in the prompt, or 'take stack' gives a read-only form for the stack driver.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/release-publish-permission",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15: 'gh release create v0.9.0' was refused to the Foreman by the permission check after 'just tag' passed (ask A-24); the Chief of Staff ran it on the user's word. The release's publication step is run by the user or allowed by a named permission rule, and the cards say which.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/pr-body-role-names",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15: PR descriptions failed the description pass for role names (CR-203, CR-206 and others). The PR template says where role names may appear, and the Driver checks it before posting.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/order-after-ready-cr",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15: after CR-213 was inserted below CR-212 (release), 'order after CR-212' was refused ('it is ready, not queued'), so the record kept CR-212's base on CR-211's branch. An insertion must be able to change a ready CR's base: 'stack' (the recorded order) sets it, or 'order after' accepts a ready CR with a restack note.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/one-spec-writer-per-cr",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15: the spec-writer refused a prompt without its first line; the Chief of Staff resent the line by SendMessage, which resumed that agent, and also started a second one: two spec-writers wrote the same 03-change-spec.md. After a first-line refusal, the card says whether a message resumes the agent or a new start is needed (one of them, never both), and the CLI or card guards one spec-writer per CR.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/name-left-gaps-in-pr",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15 retro: the Foreman reported 'two cosmetic gaps left, the PR says so' for PR 144, but its body names none. Fix: a gap left on purpose is named in the PR body, and the ready line quotes it.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/mode-switch-restarts-crs",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15: switching the batch from direct to Foreman mode lost the epoch-1 Drivers of CR-196 to CR-199 when the direct session stopped; the Foreman restarted them by the restart path. The switch's card says that a switch restarts every live CR.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/host-error-driver-restart",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15: CR-213's first Driver was ended by a host API 403 (Cloudflare) right after its long gate; the Foreman restarted it and a second Driver finished. Measure what such an end loses (the gate's result, the round), and say in the cards that a host failure is a restart from the recorded state, not a silent end.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/forge-stack-insert",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15: inserting CR-213 below the release in GitHub stack #155 was refused to the stack driver and the Foreman by the permission check; the Chief of Staff, on the user's yes, ran POST /stacks/155/unstack, gh pr edit 154 --base <CR-213 branch>, then POST /stacks (stack #157). forge-stack has no insert: add one (unstack, retarget the PR above, re-create bottom to top, read back), and fix forge_stack.py's docstring, which says the API cannot add a PR to a stack or dissolve one: POST /stacks/{n}/add (append on top) and POST /stacks/{n}/unstack exist.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/driver-reset-hard",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15: CR-212's round-3 Driver ran 'git reset --hard' in its worktree after a coder's botched attempt (nothing pushed lost). The Driver card says whether a Driver may reset its worktree, and if not, that a dirty worktree after a failed coder goes to a new coder or a conflict-resolver.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/driver-no-shell-writes",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15: CR-200's Driver, out of context, patched costs.py itself through PowerShell and damaged a docstring. The Driver's no-edit rule also covers shell writes, and the write guard names it.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/driver-context-exhaustion",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15 retro: the Drivers of CR-200 and CR-208 ran out of context with no hand-back, and 8 Drivers were restarted on a CR that already had one. Fix: measure a Driver's context and keep large outputs (gate logs, diffs) in files it reads in part.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/board-ui-screenshot",
+   "pr": null,
+   "state": null,
+   "title": "Batch-15: CR-202's Refresh button placement was never seen in a real pane. A change to the board's pane gets one screenshot from a real session as evidence.",
+   "when": null
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261114-1752-long-gate-defaults",
+   "pr": null,
+   "state": null,
+   "title": "Review the default rules for running long gates",
+   "when": "2026-11-14T17:52:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261114-1752-long-gate-after-batch-17",
+   "pr": null,
+   "state": null,
+   "title": "Run the long gate on main after batch-17 and fix what it finds",
+   "when": "2026-11-14T17:52:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261114-1752-gate-priority",
+   "pr": null,
+   "state": null,
+   "title": "Gate queue and push order: put the user's next merge first",
+   "when": "2026-11-14T17:52:00Z"
+  },
+  {
+   "batch": "batch-11",
+   "cost_usd": 1.6707,
+   "cr": "CR-183",
+   "path": "6-trash/261111-2136-183-driver-liveness",
+   "pr": null,
+   "state": "cancelled",
+   "title": "Change Specification: driver-liveness",
+   "when": "2026-11-11T21:36:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-2046-undrop-cr",
+   "pr": null,
+   "state": null,
+   "title": "There is no CLI way to bring a dropped or cancelled CR back to the inbox; today it needs a hand edit (batch-11 retro).",
+   "when": "2026-11-11T20:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-2046-gate-log-commit",
+   "pr": null,
+   "state": null,
+   "title": "The gate log does not record the commit it ran at, so a Verifier cannot prove the long gate passed at the pushed head (batch-11, CR-179). Record the head commit in the gate log and let the Verifier check it.",
+   "when": "2026-11-11T20:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-2046-drivers-killed-by-app-restart",
+   "pr": null,
+   "state": null,
+   "title": "An app restart killed all four running Drivers silently; worktrees showed no write for 40+ minutes before the Chief of Staff noticed. The Foreman heartbeat should detect a dead Driver (no write, no session) and restart it without counting a round (batch-11 retro).",
+   "when": "2026-11-11T20:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-2046-driver-context-exhaustion",
+   "pr": null,
+   "state": null,
+   "title": "CR-182 Driver ran out of context mid-CR; the Foreman restarted a fresh one from the committed rounds. Make the Driver card hand off cleanly before its context runs out (state in the CR folder, resume prompt) (batch-11 retro).",
+   "when": "2026-11-11T20:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-2046-driver-budget-refusal",
+   "pr": null,
+   "state": null,
+   "title": "driver.md says a round is refused past the batch budget, but the CLI refuses only on the round limit. Make the card and the CLI agree (batch-11 retro).",
+   "when": "2026-11-11T20:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-2046-dead-driver-slot",
+   "pr": null,
+   "state": null,
+   "title": "When the Foreman takes a CR back from a dead Driver, the dead Driver still holds its slot, so the restart competes for slots. Taking a CR back should free the slot (batch-11 retro, see .agents/changes/4-batch/retro.md).",
+   "when": "2026-11-11T20:46:00Z"
+  },
+  {
+   "batch": "batch-10",
+   "cost_usd": 0.7585,
+   "cr": "CR-173",
+   "path": "6-trash/261111-1418-173-heartbeat-odd-values",
+   "pr": null,
+   "state": "cancelled",
+   "title": "Change Specification: the heartbeat says something true in direct mode",
+   "when": "2026-11-11T14:18:00Z"
+  },
+  {
+   "batch": "batch-10",
+   "cost_usd": 0.3048,
+   "cr": "CR-172",
+   "path": "6-trash/261111-1418-172-handback-after-rebase",
+   "pr": null,
+   "state": "cancelled",
+   "title": "A ready CR sent back to its Driver can be handed back again",
+   "when": "2026-11-11T14:18:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-0946-workers-outside-worktree",
+   "pr": null,
+   "state": null,
+   "title": "A worker cannot write outside its CR's worktree",
+   "when": "2026-11-11T09:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-0946-spec-writer-first-line",
+   "pr": null,
+   "state": null,
+   "title": "The CLI prints the spec-writer's first prompt line",
+   "when": "2026-11-11T09:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-0946-order-add-direct",
+   "pr": null,
+   "state": null,
+   "title": "`order add` queues a CR on a running direct batch",
+   "when": "2026-11-11T09:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-0946-gate-portable-commands",
+   "pr": null,
+   "state": null,
+   "title": "`gate` runs several commands the same way on every OS",
+   "when": "2026-11-11T09:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-0946-drivers-skip-verifier",
+   "pr": null,
+   "state": null,
+   "title": "Drivers skip the Verifier and Inspector passes to save budget. Batch-09 retro, 2026-11-10; the user: 'Oui c'est pas normal'. CR-161's Driver skipped the Verifier and recorded no long gate. CR-162's Driver skipped the Inspector on round 3 and the Verifier at the pushed head and on the PR description. CR-163's Driver skipped the second Inspector pass and both Verifier passes. All three said 'to save budget', yet the CLI never refused on the budget (CR-163's hand-back: 'The CLI never refused on the budget'). A Driver decided alone to drop the proof its card asks for. Find why (the card's wording, the budget shown to the Driver) and make the Verifier pass hold unless the budget really stops it.",
+   "when": "2026-11-11T09:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-0946-cost-explore-own-line",
+   "pr": null,
+   "state": null,
+   "title": "`cost` counts the steering session's own subagents on their own line",
+   "when": "2026-11-11T09:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-0946-brief-cites-sources",
+   "pr": null,
+   "state": null,
+   "title": "A brief states only facts it can cite",
+   "when": "2026-11-11T09:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261111-0946-bare-cr-number",
+   "pr": null,
+   "state": null,
+   "title": "Every CLI command accepts a CR's bare number",
+   "when": "2026-11-11T09:46:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261110-2222-scan-uuid-after-underscore",
+   "pr": null,
+   "state": null,
+   "title": "scripts/release_notes.py --scan misses a UUID right after '_' (e.g. local_<uuid>): its pattern relies on \\b and '_' is a word character. Bound it with (?<![0-9a-fA-F])...(?![0-9a-fA-F]) and add a structure test for name_<uuid>. Found in the v0.8.0 release retro.",
+   "when": "2026-11-10T22:22:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261110-2222-release-verify-merge-commit",
+   "pr": null,
+   "state": null,
+   "title": "The version PR merges by rebase, so the merged commit differs from the PR head: CONTRIBUTING's release steps should say to verify origin/main is the PR's merge commit (gh pr view --json mergeCommit) before just tag. From the v0.8.0 release retro.",
+   "when": "2026-11-10T22:22:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261110-2222-release-user-merge-no-go",
+   "pr": null,
+   "state": null,
+   "title": "The Release driver asked release go for a merge the user had already done, leaving an extra ask in the record. Its card should say a merge done by the user needs no release go. From the v0.8.0 release retro.",
+   "when": "2026-11-10T22:22:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261110-2222-release-create-full-command",
+   "pr": null,
+   "state": null,
+   "title": "CONTRIBUTING's release step names gh release create without its full flags; the Release driver added --title vX.Y.Z and --verify-tag on its own. CONTRIBUTING should write the full command, title included. From the v0.8.0 release retro.",
+   "when": "2026-11-10T22:22:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261110-2222-just-tag-checks-head",
+   "pr": null,
+   "state": null,
+   "title": "just tag tags origin/main but reads the version from the local checkout, and checks neither that origin/main's head is a 'release: vX.Y.Z' commit nor that the two agree: a commit pushed after the merge would get the tag. just tag should refuse unless origin/main's subject is 'release: v<version>' (or take the expected SHA). From the v0.8.0 release retro.",
+   "when": "2026-11-10T22:22:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261110-1655-options-by-environment",
+   "pr": null,
+   "state": null,
+   "title": "Offer only options the user can take where they are",
+   "when": "2026-11-10T16:55:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261110-1655-no-grill-while-steering",
+   "pr": null,
+   "state": null,
+   "title": "A CLI gate: no grill by the steering session while its direct batch runs",
+   "when": "2026-11-10T16:55:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261110-1651-chantier-reload",
+   "pr": null,
+   "state": null,
+   "title": "\"chantier reload\": reload chantier's rules, by hand or after a compaction",
+   "when": "2026-11-10T16:51:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261110-1140-planning-surface-positioning",
+   "pr": null,
+   "state": null,
+   "title": "Explain where chantier's planning surface stands next to Jira, GitLab work items or GitHub issues: the surface (inside the project or external) is the tactical, short-term plan, the closest to the work site; Jira and the like keep the strategic, long-term plan, or serve as the interface for outside customers and support.",
+   "when": "2026-11-10T11:40:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261110-0950-release-template-deliverables",
+   "pr": null,
+   "state": null,
+   "title": "release-template-deliverables",
+   "when": "2026-11-10T09:50:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261110-0812-skill-entry-points",
+   "pr": null,
+   "state": null,
+   "title": "Intent: two skill entry points, the steering mode chosen at invocation",
+   "when": "2026-11-10T08:12:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261109-0851-chief-of-staff-and-planners",
+   "pr": null,
+   "state": null,
+   "title": "The user (2026-11-08), in their words:",
+   "when": "2026-11-09T08:51:00Z"
+  },
+  {
+   "batch": null,
+   "cost_usd": null,
+   "cr": null,
+   "path": "6-trash/261106-1844-stack-pr-base",
+   "pr": null,
+   "state": null,
+   "title": "Intent",
+   "when": "2026-11-06T18:44:00Z"
+  }
+ ],
+ "trashed_total": 56
+}
+[exit 0]

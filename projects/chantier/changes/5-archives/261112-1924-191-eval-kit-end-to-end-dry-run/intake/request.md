@@ -1,0 +1,1 @@
+Retro batch-13: four blockers of the full campaign were found by the end review after CR-189 merged, not by its Inspector or Verifier. Fix: an eval-kit CR's specification asks for an end-to-end dry run of the campaign (setup, a staged run, audit) as Verifier evidence, and the independent review runs before the merge.

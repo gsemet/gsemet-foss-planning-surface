@@ -1,0 +1,37 @@
+﻿
+> chantier summary set .agents/changes/1-inbox/a --title T --summary s
+summary set .agents/changes/1-inbox/a (origin verbal; 1 files)
+[exit 0]
+
+> chantier summary lint .agents/changes/1-inbox/a
+1 gap(s) in 1 CRs
+.agents/changes/1-inbox/a: summary late (02-answers.md new) → read them, then summary set .agents/changes/1-inbox/a --summary "<…>" or --unchanged
+[exit 2]
+
+> chantier summary set .agents/changes/1-inbox/a --title T2
+summary set .agents/changes/1-inbox/a (origin verbal; 1 files)
+[exit 0]
+
+> chantier summary lint .agents/changes/1-inbox/a
+1 gap(s) in 1 CRs
+.agents/changes/1-inbox/a: summary late (02-answers.md new) → read them, then summary set .agents/changes/1-inbox/a --summary "<…>" or --unchanged
+[exit 2]
+
+> chantier summary set .agents/changes/1-inbox/a --unchanged
+summary set .agents/changes/1-inbox/a (origin verbal; 2 files)
+[exit 0]
+
+> chantier summary lint .agents/changes/1-inbox/a
+no gap (1 CRs)
+[exit 0]
+### CRLF+BOM
+
+> chantier summary lint .agents/changes/1-inbox/a
+no gap (1 CRs)
+[exit 0]
+### unreadable
+
+> chantier summary set .agents/changes/1-inbox/a --title x --summary y
+error: summary.json unreadable (Invalid JSON: key must be a string at line 1 column 2); repair or remove it
+[exit 2]
+{bad

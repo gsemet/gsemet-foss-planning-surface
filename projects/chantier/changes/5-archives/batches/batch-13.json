@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "batch": "batch-13",
+  "number": 13,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-188",
+      "title": "Build the eval sandbox project",
+      "result": "merged",
+      "archive": "5-archives/261112-1107-188-eval-sandbox-app",
+      "pr": "https://github.com/gsemet/chantier/pull/129",
+      "rounds": 2,
+      "cost_usd": 2.2603,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-189",
+      "title": "Reproducible eval campaigns on the sandbox",
+      "result": "merged",
+      "archive": "5-archives/261112-1146-189-reproducible-evals",
+      "pr": "https://github.com/gsemet/chantier/pull/130",
+      "rounds": 3,
+      "cost_usd": 8.0223,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-190",
+      "title": "Fix the eval kit's review findings before the first sandbox campaign",
+      "result": "merged",
+      "archive": "5-archives/261112-1217-190-eval-kit-review-fixes",
+      "pr": "https://github.com/gsemet/chantier/pull/131",
+      "rounds": 1,
+      "cost_usd": 1.9899,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-13.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": null,
+    "first_step": "2026-11-12T10:30:48Z",
+    "last_merge": "2026-11-12T12:17:00Z",
+    "retros": [
+      "5-archives/261112-1217-190-eval-kit-review-fixes/retro.md"
+    ]
+  }
+}

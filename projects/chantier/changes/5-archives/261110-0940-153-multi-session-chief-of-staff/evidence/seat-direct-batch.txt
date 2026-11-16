@@ -1,0 +1,131 @@
+﻿$ triage
+triaged .agents/changes/2-backlog/P1/x (P1)
+exit 0
+
+$ seat take A (CLAUDE_CODE_SESSION_ID=transcript-A)
+seat A
+exit 0
+
+$ open --direct
+opened batch-01 on claude: 1 CRs, 1 slots, stack, steering direct
+next: complete the brief .agents/changes/3-requests/batch-01/brief.md, then steer it yourself
+CR-101 x: 2-backlog/P1/x -> 3-requests/batch-01/101-x
+exit 0
+
+$ batch.json
+C:\Users\gaeta\AppData\Local\Temp\seatrepo5840750\.agents\changes\3-requests\batch-01\batch.json
+{
+  "id": "batch-01",
+  "version": "0.8.0",
+  "created": "2026-11-10T09:35:31Z",
+  "status": "running",
+  "host": "claude",
+  "mode": "stack",
+  "slots": 1,
+  "budget_usd": null,
+  "spent_usd": 0.0,
+  "foreman": null,
+  "foreman_epoch": 0,
+  "foreman_transcript": null,
+  "foreman_transcripts": [],
+  "foreman_claims": [],
+  "steering": "direct",
+  "chief_transcript": "transcript-A",
+  "chief_transcripts": [
+    "transcript-A"
+  ],
+  "stack_agent": null,
+  "heartbeat": null,
+  "settings": {
+    "default_branch": "main",
+    "remote": "origin",
+    "max_rounds": 3
+  },
+  "orders": [],
+  "asks": [],
+  "crs": [
+    {
+      "id": "CR-101",
+      "title": "x",
+      "kind": "change",
+      "status": "queued",
+      "order": 1,
+      "path": ".agents/changes/3-requests/batch-01/101-x",
+      "specification": "03-change-spec.md",
+      "round": 0,
+      "agent": null,
+      "pr": null,
+      "branch": "chantier/batch-01/cr-101-x",
+      "worktree": "C:\\Users\\gaeta\\AppData\\Local\\Temp\\seatrepo5840750.worktrees\\batch-01-CR-101",
+      "notes": [],
+      "updated": "2026-11-10T09:35:31Z"
+    }
+  ],
+  "release": null
+}
+
+exit 0
+
+$ seat take B (no over)
+error: the seat is held by A (lA): take it over only on the user's word, with --over A
+exit 2
+
+$ seat take B --over A
+seat B
+batch-01: Chief of Staff transcript transcript-B
+exit 0
+
+$ batch.json after
+{
+  "id": "batch-01",
+  "version": "0.8.0",
+  "created": "2026-11-10T09:35:31Z",
+  "status": "running",
+  "host": "claude",
+  "mode": "stack",
+  "slots": 1,
+  "budget_usd": null,
+  "spent_usd": 0.0,
+  "foreman": null,
+  "foreman_epoch": 0,
+  "foreman_transcript": null,
+  "foreman_transcripts": [],
+  "foreman_claims": [],
+  "steering": "direct",
+  "chief_transcript": "transcript-B",
+  "chief_transcripts": [
+    "transcript-A",
+    "transcript-B"
+  ],
+  "stack_agent": null,
+  "heartbeat": null,
+  "settings": {
+    "default_branch": "main",
+    "remote": "origin",
+    "max_rounds": 3
+  },
+  "orders": [],
+  "asks": [],
+  "crs": [
+    {
+      "id": "CR-101",
+      "title": "x",
+      "kind": "change",
+      "status": "queued",
+      "order": 1,
+      "path": ".agents/changes/3-requests/batch-01/101-x",
+      "specification": "03-change-spec.md",
+      "round": 0,
+      "agent": null,
+      "pr": null,
+      "branch": "chantier/batch-01/cr-101-x",
+      "worktree": "C:\\Users\\gaeta\\AppData\\Local\\Temp\\seatrepo5840750.worktrees\\batch-01-CR-101",
+      "notes": [],
+      "updated": "2026-11-10T09:35:31Z"
+    }
+  ],
+  "release": null
+}
+
+exit 0
+

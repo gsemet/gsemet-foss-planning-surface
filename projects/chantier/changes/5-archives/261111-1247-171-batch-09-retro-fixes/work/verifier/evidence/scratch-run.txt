@@ -1,0 +1,199 @@
+﻿  $ chantier take CR-101 -> exit 0
+      took CR-101 (1 of 1 slots held)
+      CR-101 "Scratch one" (change) working in batch batch-01 (parallel)
+      cli: uv run --script "C:/Users/gaeta/Projets/chantier.worktrees/batch-09-CR-171/skills/chantier/scripts/cli/chantier.py" <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-09-CR-171/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/v171-9kl0nyqt/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/v171-9kl0nyqt/proj/.agents/changes/4-batch/2-actives/101-scratch-one/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/v171-9kl0nyqt/proj/.agents/changes/4-batch/2-actives/101-scratch-one (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\v171-9kl0nyqt\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-scratch-one base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet:
+        [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+take at start (not shipped):
+PASS: take prints checklist 'not shipped yet' 
+  $ chantier handback CR-101 ready https://github.com/acme/demo/pull/40 -> exit 2
+
+      stderr: error: refused: no long gate passed at 2a0e7c1 (gate CR-101 "<cmd>"..., or --no-gate "<the project's rule>")
+refused: no verdict VERIFIED at 2a0e7c1 (the last verdict there: none)
+PASS: ready refused, exit 2, both gates named 
+  $ chantier handback CR-101 ready https://github.com/acme/demo/pull/40 --no-gate  -> exit 1
+
+      stderr: error: handback <cr> ready <pr link> --no-gate "<the project's rule that declares no long gate or exempts this CR>"
+PASS: --no-gate '' usage error exit 1 
+  $ chantier handback CR-101 ready https://github.com/acme/demo/pull/40 --no-gate docs only -> exit 2
+
+      stderr: error: refused: no verdict VERIFIED at 2a0e7c1 (the last verdict there: none)
+PASS: --no-gate without verdict refused (verdict only) 
+  $ chantier gate CR-101 uv run --no-project python -m compileall -q . "C:\Users\gaeta\scoop\persist\uv\python\versions\cpython-3.15-windows-x86_64-none\python.exe" -c "import sys; sys.exit(3)" "C:\Users\gaeta\scoop\persist\uv\python\versions\cpython-3.15-windows-x86_64-none\python.exe" -c "print(2)" -> exit 4
+      pass uv run --no-project python -m compileall -q . at 2a0e7c1
+      FAIL "C:\Users\gaeta\scoop\persist\uv\python\versions\cpython-3.15-windows-x86_64-none\python.exe" -c "import sys; sys.exit(3)" (exit 3) at 2a0e7c1
+      log C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\v171-9kl0nyqt\proj\.agents\changes\4-batch\2-actives\101-scratch-one\work\gates\20261111-130545.log
+      $ uv run --no-project python -m compileall -q .
+      $ "C:\Users\gaeta\scoop\persist\uv\python\versions\cpython-3.15-windows-x86_64-none\python.exe" -c "import sys; sys.exit(3)"
+PASS: two-command gate with failing second: exit 4, 3rd not run 
+  $ chantier verdict 101 VERIFIED -> exit 0
+      verdict CR-101 VERIFIED at 2a0e7c1
+  $ chantier handback CR-101 ready https://github.com/acme/demo/pull/40 -> exit 2
+
+      stderr: error: refused: no long gate passed at 2a0e7c1 (gate CR-101 "<cmd>"..., or --no-gate "<the project's rule>")
+PASS: failed gate + VERIFIED: still refused on gate 
+  $ chantier gate CR-101 uv run --no-project python -m compileall -q . "C:\Users\gaeta\scoop\persist\uv\python\versions\cpython-3.15-windows-x86_64-none\python.exe" -c "print(2)" -> exit 0
+      pass uv run --no-project python -m compileall -q . at 2a0e7c1
+      pass "C:\Users\gaeta\scoop\persist\uv\python\versions\cpython-3.15-windows-x86_64-none\python.exe" -c "print(2)" at 2a0e7c1
+      log C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\v171-9kl0nyqt\proj\.agents\changes\4-batch\2-actives\101-scratch-one\work\gates\20261111-130547.log
+PASS: two-cmd gate passes 
+  $ chantier verdict CR-101 NOT VERIFIED -> exit 0
+      verdict CR-101 NOT VERIFIED at 2a0e7c1
+PASS: verdict NOT VERIFIED as two words accepted 
+  $ chantier handback CR-101 ready https://github.com/acme/demo/pull/40 -> exit 2
+
+      stderr: error: refused: no verdict VERIFIED at 2a0e7c1 (the last verdict there: NOT VERIFIED)
+PASS: NOT VERIFIED last: refused 
+  $ chantier handoff CR-101 -> exit 0
+      CR-101 "Scratch one" (change) working in batch batch-01 (parallel)
+      cli: uv run --script "C:/Users/gaeta/Projets/chantier.worktrees/batch-09-CR-171/skills/chantier/scripts/cli/chantier.py" <command> --batch batch-01
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-09-CR-171/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/v171-9kl0nyqt/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/v171-9kl0nyqt/proj/.agents/changes/4-batch/2-actives/101-scratch-one/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/v171-9kl0nyqt/proj/.agents/changes/4-batch/2-actives/101-scratch-one (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\v171-9kl0nyqt\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-scratch-one base origin/main
+      PR: https://github.com/acme/demo/pull/40; head 2a0e7c1
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head 2a0e7c1:
+        [x] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [ ] verdict NOT VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+      last gate log 20261111-130547.log:
+        $ uv run --no-project python -m compileall -q .
+        $ "C:\Users\gaeta\scoop\persist\uv\python\versions\cpython-3.15-windows-x86_64-none\python.exe" -c "print(2)"
+        2
+PASS: handoff checklist: [x] long gate and verdict line says NOT VERIFIED 
+  $ chantier verdict cr-101 VERIFIED -> exit 0
+      verdict CR-101 VERIFIED at 2a0e7c1
+  $ chantier handback CR-101 ready https://github.com/acme/demo/pull/40 -> exit 0
+      [driver CR-101→foreman] hand-back ready https://github.com/acme/demo/pull/40
+      CR-101 ready
+PASS: VERIFIED after NOT VERIFIED + gate: accepted (cr-N and CR-N forms) 
+STATUS.md:
+# CR-101 Scratch one
+
+🔵 ready Notify 1/3 · [batch-01](../../STATUS.md) · [PR](https://github.com/acme/demo/pull/40)
+
+**Now:** Ready: https://github.com/acme/demo/pull/40 waits for the user's merge.
+**Next:** The merge, then the archive.
+
+## Progress
+
+- [x] Shipped: https://github.com/acme/demo/pull/40
+- [x] Long gate pass: 2a0e7c1
+- [x] Long gate fail: 2a0e7c1
+- [x] Verdict VERIFIED: 2a0e7c1
+- [x] Long gate pass: 2a0e7c1
+- [x] Long gate pass: 2a0e7c1
+- [x] Verdict NOT VERIFIED: 2a0e7c1
+- [x] Verdict VERIFIED: 2a0e7c1
+- [x] Handed back
+
+## Documents
+
+- [request](intake/request.md)
+- [intent](01-intent.md)
+- [answers](02-answers.md)
+- [specification](03-change-spec.md)
+- [pr-body](work/pr-body.md)
+- [long gate log](work/gates/20261111-130547.log)
+
+## Where
+
+- Branch: `chantier/batch-01/cr-101-scratch-one`
+- Worktree: `C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\v171-9kl0nyqt\proj.worktrees\batch-01-CR-101`
+- Driver: `-`
+
+## Decisions and open questions
+
+- None.
+
+## Cost
+
+No figure yet.
+
+PASS: STATUS.md has Verdict step 
+  $ chantier handback CR-101 ready https://github.com/acme/demo/pull/40 -> exit 2
+
+      stderr: error: refused: no long gate passed at 4b24551 (gate CR-101 "<cmd>"..., or --no-gate "<the project's rule>")
+refused: no verdict VERIFIED at 4b24551 (the last verdict there: none)
+PASS: verdict+gate at old head don't count 
+  $ chantier verdict CR-101 VERIFIED -> exit 0
+      verdict CR-101 VERIFIED at 4b24551
+  $ chantier handback CR-101 ready https://github.com/acme/demo/pull/40 --no-gate AGENTS.md: docs only -> exit 0
+      [driver CR-101→foreman] hand-back ready, no long gate: AGENTS.md: docs only https://github.com/acme/demo/pull/40
+      CR-101 ready
+PASS: --no-gate w/ verdict accepted, reason on line 
+PASS: handback event has no_gate 
+  $ chantier log CR-101 -> exit 0
+      2026-11-11T12:05:43Z chief-of-staff add title=Scratch one path=4-batch/1-pending/101-scratch-one origin=2-backlog/P1/scratch-one
+      2026-11-11T12:05:43Z foreman take
+      2026-11-11T12:05:45Z driver ship pr=https://github.com/acme/demo/pull/40 base=main head=2a0e7c1 off=['no long gate passed at 2a0e7c1 (`chantier gate`)']
+      2026-11-11T12:05:46Z driver gate result=pass head=2a0e7c1 command=uv run --no-project python -m compileall -q . run=20261111-130545-10120
+      2026-11-11T12:05:46Z driver gate result=fail head=2a0e7c1 command="C:\Users\gaeta\scoop\persist\uv\python\versions\cpython-3.15-windows-x86_64-none\python.exe" -c "import sys; sys.exit(3)" run=20261111-130545-10120
+      2026-11-11T12:05:46Z driver verdict result=VERIFIED head=2a0e7c1
+      2026-11-11T12:05:47Z driver gate result=pass head=2a0e7c1 command=uv run --no-project python -m compileall -q . run=20261111-130547-20172
+      2026-11-11T12:05:47Z driver gate result=pass head=2a0e7c1 command="C:\Users\gaeta\scoop\persist\uv\python\versions\cpython-3.15-windows-x86_64-none\python.exe" -c "print(2)" run=20261111-130547-20172
+      2026-11-11T12:05:47Z driver verdict result=NOT VERIFIED head=2a0e7c1
+      2026-11-11T12:05:48Z driver verdict result=VERIFIED head=2a0e7c1
+      2026-11-11T12:05:48Z driver handback result=ready note=https://github.com/acme/demo/pull/40
+      2026-11-11T12:05:49Z driver ship pr=https://github.com/acme/demo/pull/40 base=main head=4b24551 off=['no long gate passed at 4b24551 (`chantier gate`)']
+      2026-11-11T12:05:49Z foreman take note=again
+      2026-11-11T12:05:50Z driver verdict result=VERIFIED head=4b24551
+      2026-11-11T12:05:50Z driver handback result=ready note=https://github.com/acme/demo/pull/40 no_gate=AGENTS.md: docs only
+  $ chantier playbook -> exit 0
+      playbook: no chantier.yaml, the plugin's agents and models
+      coder: agent=chantier:coder model=(its file's)
+      conflict-resolver: agent=chantier:conflict-resolver model=(its file's)
+      cr-driver: agent=chantier:cr-driver model=(its file's)
+      debugger: agent=chantier:debugger model=(its file's)
+      demo-explorer: agent=chantier:demo-explorer model=(its file's)
+      inspector: agent=chantier:inspector model=(its file's)
+      investigator: agent=chantier:investigator model=(its file's)
+      qa-driver: agent=chantier:qa-driver model=(its file's)
+      release-driver: agent=chantier:release-driver model=(its file's)
+      spec-writer: agent=chantier:spec-writer model=(its file's)
+      stack-driver: agent=chantier:stack-driver model=(its file's)
+      verifier: agent=chantier:verifier model=(its file's)
+      spec-writer prompt, first line: chantier spec-writer for the Chief of Staff, in the project C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/v171-9kl0nyqt/proj.
+PASS: playbook prints spec-writer first line with root 
+  $ chantier verdict 165 VERIFIED -> exit 2
+
+      stderr: error: no batch holds CR-165
+PASS: bare number unknown CR names CR-165 
+  $ chantier verdict CR-101 maybe -> exit 1
+
+      stderr: error: verdict <cr> VERIFIED | "NOT VERIFIED"
+PASS: verdict garbage rejected 
+  $ chantier take CR-101 -> exit 0
+      took CR-101 (1 of 1 slots held)
+      CR-101 "Direct one" (change) working in batch batch-02 (parallel)
+      cli: uv run --script "C:/Users/gaeta/Projets/chantier.worktrees/batch-09-CR-171/skills/chantier/scripts/cli/chantier.py" <command> --batch batch-02
+      cards: C:/Users/gaeta/Projets/chantier.worktrees/batch-09-CR-171/skills/chantier/references/ (driver.md, worker.md, concepts.md); the project's rules rank above them: `rules`
+      project instructions: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/v171-9kl0nyqt/proj/AGENTS.md
+      specification: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/v171-9kl0nyqt/proj/.agents/changes/4-batch/2-actives/101-direct-one/03-change-spec.md
+      folder: C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/91f1382a-eacd-437e-b5a8-f9e545753a8c/scratchpad/v171-9kl0nyqt/proj/.agents/changes/4-batch/2-actives/101-direct-one (work/, evidence/)
+      worktree: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\v171-9kl0nyqt\proj.worktrees\batch-02-CR-101 branch chantier/batch-02/cr-101-direct-one base origin/main; not created yet: a Driver creates it first
+      PR: none; head -
+      rounds: 0 of 3
+      notes: none
+      gates before handback ready, at the PR's head not shipped yet:
+        [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+        [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+  $ chantier order add --note C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\v171-9kl0nyqt\proj\.agents\changes\2-backlog\P1\direct-extra -> exit 0
+      [chief-of-staff→foreman] order O-1: add C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\v171-9kl0nyqt\proj\.agents\changes\2-backlog\P1\direct-extra
+      added CR-102, queued
+PASS: order add on running direct batch queues 
+  $ chantier order qa --note try -> exit 2
+
+      stderr: error: a running direct batch takes no QA: order it once the batch is paused (`pause`)
+PASS: order qa still refused 

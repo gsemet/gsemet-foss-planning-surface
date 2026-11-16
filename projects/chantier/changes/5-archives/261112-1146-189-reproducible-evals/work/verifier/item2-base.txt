@@ -1,0 +1,55 @@
+﻿== BASE csv-export exit=1
+hidden: 6 failed in 0.21s
+suite: 6 failed, 28 passed in 0.35s
+judge csv-export at 6e87a36: fail
+
+== BASE delete-item exit=1
+hidden: 4 failed, 1 passed in 0.21s
+suite: 4 failed, 29 passed in 0.75s
+judge delete-item at 6e87a36: fail
+
+== BASE duplicate-url exit=1
+hidden: 2 failed, 4 passed in 0.11s
+suite: 2 failed, 32 passed in 0.23s
+judge duplicate-url at 6e87a36: fail
+
+== BASE edit-item exit=1
+hidden: 4 failed, 1 passed in 0.11s
+suite: 4 failed, 29 passed in 0.76s
+judge edit-item at 6e87a36: fail
+
+== BASE item-notes exit=1
+hidden: 5 failed, 1 passed in 0.11s
+suite: 5 failed, 29 passed in 0.73s
+judge item-notes at 6e87a36: fail
+
+== BASE item-rating exit=1
+hidden: 4 failed, 1 passed in 0.11s
+suite: 4 failed, 29 passed in 0.22s
+judge item-rating at 6e87a36: fail
+
+== BASE json-api exit=1
+hidden: 6 failed in 0.12s
+suite: 6 failed, 28 passed in 0.25s
+judge json-api at 6e87a36: fail
+
+== BASE sort-list exit=1
+hidden: 4 failed in 0.11s
+suite: 4 failed, 28 passed in 0.23s
+judge sort-list at 6e87a36: fail
+
+== BASE stats-page exit=1
+hidden: 4 failed in 0.10s
+suite: 4 failed, 28 passed in 0.22s
+judge stats-page at 6e87a36: fail
+
+== BASE status-filter exit=1
+hidden: 5 failed, 1 passed in 0.14s
+suite: 5 failed, 29 passed in 0.26s
+judge status-filter at 6e87a36: fail
+
+== BASE title-search exit=1
+hidden: 3 failed, 1 passed in 0.10s
+suite: 3 failed, 29 passed in 0.24s
+judge title-search at 6e87a36: fail
+

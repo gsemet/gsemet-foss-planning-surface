@@ -1,0 +1,1 @@
+Stop conditions of the Foreman: the heartbeat goes to 30 minutes; once the batch landed, or nothing is live and nothing changed for a wake, the Foreman stops waking. A review can take long: the user wakes it.

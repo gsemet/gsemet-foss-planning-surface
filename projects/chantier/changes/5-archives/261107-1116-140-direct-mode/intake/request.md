@@ -1,0 +1,1 @@
+Il devrait y avoir un mode où il n'y a pas de Foreman et où c'est le Chief of Staff qui pilote les Drivers directement, tout en respectant le process et le lifecycle des CR. Grille-moi les conditions direct ou avec Foreman. On place ça en inbox et on traitera après chantier init.

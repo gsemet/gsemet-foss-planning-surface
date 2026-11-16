@@ -1,0 +1,68 @@
+﻿$ git init --bare -b main C:\Users\gaeta\AppData\Local\Temp\tmpl2zxqicc\remote.git   [tmpl2zxqicc]
+  Initialized empty Git repository in C:/Users/gaeta/AppData/Local/Temp/tmpl2zxqicc/remote.git/
+$ git clone C:\Users\gaeta\AppData\Local\Temp\tmpl2zxqicc\remote.git C:\Users\gaeta\AppData\Local\Temp\tmpl2zxqicc\repo   [tmpl2zxqicc]
+  Cloning into 'C:\Users\gaeta\AppData\Local\Temp\tmpl2zxqicc\repo'...
+  warning: You appear to have cloned an empty repository.
+  done.
+$ git add .   [repo]
+$ git commit -m base   [repo]
+  [main (root-commit) dfa0eaf] base
+   1 file changed, 1 insertion(+)
+   create mode 100644 a.txt
+$ git push origin HEAD:main   [repo]
+  To C:\Users\gaeta\AppData\Local\Temp\tmpl2zxqicc\remote.git
+   * [new branch]      HEAD -> main
+$ git worktree add -b chantier/b/cr-1-x C:\Users\gaeta\AppData\Local\Temp\tmpl2zxqicc\repo.worktrees\b-CR-1 origin/main   [repo]
+  branch 'chantier/b/cr-1-x' set up to track 'origin/main'.
+  HEAD is now at dfa0eaf base
+  Preparing worktree (new branch 'chantier/b/cr-1-x')
+$ git add .   [b-CR-1]
+$ git commit -m cr work   [b-CR-1]
+  [chantier/b/cr-1-x 56fa525] cr work
+   1 file changed, 1 insertion(+)
+   create mode 100644 f.txt
+$ git push origin HEAD   [b-CR-1]
+  To C:\Users\gaeta\AppData\Local\Temp\tmpl2zxqicc\remote.git
+   * [new branch]      HEAD -> chantier/b/cr-1-x
+$ git add .   [repo]
+$ git commit -m other   [repo]
+  [main 840aa72] other
+   1 file changed, 1 insertion(+)
+   create mode 100644 b.txt
+$ git push origin HEAD:main   [repo]
+  To C:\Users\gaeta\AppData\Local\Temp\tmpl2zxqicc\remote.git
+     dfa0eaf..840aa72  HEAD -> main
+--- rebase merge (what the forge does), pushed to the remote's main
+$ git checkout -b tmp-rebase origin/main   [repo]
+  branch 'tmp-rebase' set up to track 'origin/main'.
+  Switched to a new branch 'tmp-rebase'
+$ git cherry-pick chantier/b/cr-1-x   [repo]
+  [tmp-rebase 2a05e5e] cr work
+   Date: Thu Nov 5 12:52:35 2026 +0100
+   1 file changed, 1 insertion(+)
+   create mode 100644 f.txt
+$ git push origin HEAD:main   [repo]
+  To C:\Users\gaeta\AppData\Local\Temp\tmpl2zxqicc\remote.git
+     840aa72..2a05e5e  HEAD -> main
+$ git checkout main   [repo]
+  Your branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.
+    (use "git pull" to update your local branch)
+  Switched to branch 'main'
+$ git pull   [repo]
+  Updating 840aa72..2a05e5e
+  Fast-forward
+   f.txt | 1 +
+   1 file changed, 1 insertion(+)
+   create mode 100644 f.txt
+$ git fetch origin   [repo]
+--- old way: refuses, the rebased commit has another hash
+$ git worktree remove C:\Users\gaeta\AppData\Local\Temp\tmpl2zxqicc\repo.worktrees\b-CR-1   [repo]
+$ git branch -d chantier/b/cr-1-x   [repo]
+  error: the branch 'chantier/b/cr-1-x' is not fully merged
+  hint: If you are sure you want to delete it, run 'git branch -D chantier/b/cr-1-x'
+  hint: Disable this message with "git config set advice.forceDeleteBranch false"
+--- card's steps: PR merged (stand-in, see header), then -D from the main checkout
+$ git branch -D chantier/b/cr-1-x   [repo]
+  Deleted branch chantier/b/cr-1-x (was 56fa525).
+$ git branch --list chantier/*   [repo]
+RESULT: -d refused after the rebase merge; worktree remove + branch -D removed it

@@ -1,0 +1,1 @@
+CR-182 Driver ran out of context mid-CR; the Foreman restarted a fresh one from the committed rounds. Make the Driver card hand off cleanly before its context runs out (state in the CR folder, resume prompt) (batch-11 retro).

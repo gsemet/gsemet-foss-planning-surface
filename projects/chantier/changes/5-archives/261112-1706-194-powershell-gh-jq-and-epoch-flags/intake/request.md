@@ -1,0 +1,1 @@
+Retro batch-13: the steering session's gh --jq expressions with spaces broke under PowerShell quoting, and order add --epoch was refused. Fix: the cards tell the steering session to print gh --json plainly on PowerShell and to pass --epoch only where the card lists it.

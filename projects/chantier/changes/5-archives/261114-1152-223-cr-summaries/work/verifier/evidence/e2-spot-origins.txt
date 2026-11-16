@@ -1,0 +1,77 @@
+﻿### issue https://github.com/o/r/issues/41
+
+> chantier summary set .agents/changes/1-inbox/a --summary s
+summary set .agents/changes/1-inbox/a (origin github #41; 2 files)
+[exit 0]
+### issue https://gitlab.com/o/r/-/issues/12
+
+> chantier summary set .agents/changes/1-inbox/a --summary s
+summary set .agents/changes/1-inbox/a (origin gitlab #12; 2 files)
+[exit 0]
+### issue https://example.atlassian.net/browse/CHT-118
+
+> chantier summary set .agents/changes/1-inbox/a --summary s
+summary set .agents/changes/1-inbox/a (origin jira CHT-118; 2 files)
+[exit 0]
+### issue https://tracker.example.org/t/7
+
+> chantier summary set .agents/changes/1-inbox/a --summary s
+error: the issue: line's tracker is not known from its URL: add --tracker github|gitlab|jira
+[exit 1]
+
+> chantier summary set .agents/changes/1-inbox/a --summary s --tracker gitlab
+summary set .agents/changes/1-inbox/a (origin gitlab #7; 2 files)
+[exit 0]
+
+>   "origin": {
+      "kind": "gitlab",
+      "ref": "#7",
+      "url": "https://tracker.example.org/t/7"
+    },
+### late after changing intent, STATUS, work/
+
+> chantier summary lint .agents/changes/1-inbox/a
+1 gap(s) in 1 CRs
+.agents/changes/1-inbox/a: summary late (02-answers.md new) → read them, then summary set .agents/changes/1-inbox/a --summary "<…>" or --unchanged
+[exit 2]
+
+> chantier summary set .agents/changes/1-inbox/a --title T2
+error: the issue: line's tracker is not known from its URL: add --tracker github|gitlab|jira
+[exit 1]
+
+> chantier summary lint .agents/changes/1-inbox/a
+1 gap(s) in 1 CRs
+.agents/changes/1-inbox/a: summary late (02-answers.md new) → read them, then summary set .agents/changes/1-inbox/a --summary "<…>" or --unchanged
+[exit 2]
+
+> chantier summary set .agents/changes/1-inbox/a --unchanged
+error: the issue: line's tracker is not known from its URL: add --tracker github|gitlab|jira
+[exit 1]
+
+> chantier summary lint .agents/changes/1-inbox/a
+1 gap(s) in 1 CRs
+.agents/changes/1-inbox/a: summary late (02-answers.md new) → read them, then summary set .agents/changes/1-inbox/a --summary "<…>" or --unchanged
+[exit 2]
+### CRLF+BOM rewrite
+
+> chantier summary lint .agents/changes/1-inbox/a
+1 gap(s) in 1 CRs
+.agents/changes/1-inbox/a: summary late (02-answers.md new) → read them, then summary set .agents/changes/1-inbox/a --summary "<…>" or --unchanged
+[exit 2]
+### trash + unreadable
+
+> chantier summary set .agents/changes/6-trash/b --title x --summary y
+error: a dropped CR keeps its summary as it is: restore it first
+[exit 1]
+
+> chantier summary lint .agents/changes/1-inbox/a
+1 gap(s) in 1 CRs
+.agents/changes/1-inbox/a: summary.json unreadable (Invalid JSON: key must be a string at line 1 column 2) → repair or remove it, then summary set .agents/changes/1-inbox/a …
+[exit 2]
+
+> chantier summary set .agents/changes/1-inbox/a --title x --summary y
+error: the issue: line's tracker is not known from its URL: add --tracker github|gitlab|jira
+[exit 1]
+{bad
+
+

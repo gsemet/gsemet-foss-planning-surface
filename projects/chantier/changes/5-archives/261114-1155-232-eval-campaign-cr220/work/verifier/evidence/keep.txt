@@ -1,0 +1,10 @@
+﻿ok ticket-summary-setup: setup passes, no CR placed, record has the issue `[eval 1 2026-11-14 ticket-summary] Dark theme for the reading list`, the `issue` and `chat` lines, no `merge` or `batch` line, 4 allow rules, 4 read-only forge calls, no write
+uv : (took 5 s)
+Au caractère Ligne:2 : 1
++ uv run --no-project python evals/kit/dry_run.py --case ticket-summary ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((took 5 s):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+dry run: 1 of 1 cases as expected
+kept: C:\Users\gaeta\AppData\Local\Temp\chantier-dry-run-lw5592s1

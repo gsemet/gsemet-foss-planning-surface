@@ -1,0 +1,36 @@
+﻿### after setting 0.2.0 in pyproject.toml and src/shelf/__init__.py: uv run --locked pytest -q
+error: The lockfile at `uv.lock` needs to be updated, but `--locked` was provided.
+
+hint: To update the lockfile, run `uv lock`.
+exit 1
+### uv lock
+Resolved 7 packages in 5ms
+Updated shelf v0.1.0 -> v0.2.0
+exit 0
+### uv run --locked pytest -q
+   Building shelf @ file:///C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/cd5055f5-2871-4472-99b6-23742d3a5770/scratchpad/a2/ref
+      Built shelf @ file:///C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/cd5055f5-2871-4472-99b6-23742d3a5770/scratchpad/a2/ref
+Uninstalled 1 package in 1ms
+Installed 1 package in 5ms
+............................                                             [100%]
+28 passed in 0.25s
+exit 0
+### git status --porcelain
+ M pyproject.toml
+ M src/shelf/__init__.py
+ M uv.lock
+### git diff --stat uv.lock
+diff --git a/uv.lock b/uv.lock
+index 9cc4d54..65065c2 100644
+--- a/uv.lock
++++ b/uv.lock
+@@ -65,7 +65,7 @@ wheels = [
+ 
+ [[package]]
+ name = "shelf"
+-version = "0.1.0"
++version = "0.2.0"
+ source = { editable = "." }
+ 
+ [package.dev-dependencies]
+

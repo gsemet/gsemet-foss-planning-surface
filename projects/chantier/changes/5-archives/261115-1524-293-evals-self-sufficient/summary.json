@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The evals folder is self-sufficient: anyone can run a campaign from it",
+  "summary": "Specified, no question open: a person's public sandbox named in an ignored sandbox.local.json with publish and a reset that refuses foreign history, setup prints the operator's prompt, start and trust steps, one prerequisites list, Auto-fix off by the operator on run PRs, two staging lines.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "03923b852393d9c5c5ce11a8157d280fc84fd9b460d8cb1ec7586c9cccd53430",
+    "02-answers.md": "cede6b702a2499d78c42b69a3396218a4af8b48eba7c0393d0ae7c5dae58d4c9",
+    "03-change-spec.md": "7ccdc77ef12356d8096fb3288113254ba4f4109acd5b391b7a029655edfc91cd",
+    "intake/request.md": "e4397c8003e9ce48200eae42d99f5cc5102e852da1a090f455707cd72461d401"
+  },
+  "summarized": "2026-11-15T13:54:27Z"
+}

@@ -1,0 +1,34 @@
+﻿usage: chantier open [-h] [--slots SLOTS] [--budget BUDGET]
+                     [--mode {parallel,series,stack}] [--release N]
+                     [--autonomous-releases N] [--grant-fixes] [--direct]
+                     [--default-branch DEFAULT_BRANCH] [--remote REMOTE]
+                     items [items ...]
+
+positional arguments:
+  items                 path to a prepared CR folder or specification
+
+options:
+  -h, --help            show this help message and exit
+  --slots SLOTS
+  --budget BUDGET       USD; no Driver starts past it
+  --mode {parallel,series,stack}
+                        parallel (default): independent CRs, each on the
+                        default branch; series: one after the other, in the
+                        order given, each on the previous one's branch; stack:
+                        independent CRs, then a stack driver stacks the PRs
+  --release N           the item number of the release CR; it waits for every
+                        other CR: prepared on top of a stack or a series once
+                        they are ready, after the merges in a parallel batch;
+                        its PR is the user's to merge
+  --autonomous-releases N
+                        releases the user allows without asking (needs
+                        --budget)
+  --grant-fixes         the Foreman starts and merges the release's fixes
+                        (needs --budget)
+  --direct              no Foreman session: the Chief of Staff steers the
+                        batch itself
+  --default-branch DEFAULT_BRANCH
+                        default: the remote's HEAD
+  --remote REMOTE
+
+exit=0

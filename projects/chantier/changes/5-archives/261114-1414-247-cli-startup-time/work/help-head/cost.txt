@@ -1,0 +1,16 @@
+﻿usage: chantier cost [-h] [--batch BATCH] [--by {role,cr}] [--explain]
+                     [--summary]
+
+options:
+  -h, --help      show this help message and exit
+  --batch BATCH   batch number, 4 or batch-04 (default: $CHANTIER_BATCH, else
+                  the only running one)
+  --by {role,cr}  role: the Foreman, each Driver type, each worker type; cr: a
+                  CR's own
+  --explain       under each line: agents, model, shares of cost, calls after
+                  the cache expired, restarted Drivers; ends with what the
+                  figures do not count
+  --summary       total, budget, Foreman, Drivers and workers, the costliest
+                  CRs
+
+exit=0

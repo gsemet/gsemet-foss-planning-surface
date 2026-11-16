@@ -1,0 +1,1 @@
+The heartbeat shows odd values. Batch-09 retro, 2026-11-10; the user: 'Oui c'est pas normal'. In direct mode, 'status --refresh --epoch 1' printed values such as 'heartbeat 170 min' while the steering session had just refreshed, and 'heartbeat 0 min' at other times. Find what the heartbeat measures in direct mode and make it say something true and useful.

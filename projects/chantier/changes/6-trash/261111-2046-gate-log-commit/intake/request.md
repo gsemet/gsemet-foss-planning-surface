@@ -1,0 +1,1 @@
+The gate log does not record the commit it ran at, so a Verifier cannot prove the long gate passed at the pushed head (batch-11, CR-179). Record the head commit in the gate log and let the Verifier check it.

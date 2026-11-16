@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The stack driver starts when the stack can form",
+  "summary": "Specified: once two CRs are ready, new CRs start on the top ready CR, forge-stack create retargets and leaves out a working PR off its place, so the forge stack is made once; two questions open for the user.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "1bd705ba1da26f2cadd3322232dfc16276725b4a7ed56dac094a2de3fb8cbb6f",
+    "02-answers.md": "e7f6261c4e90fb9b1059fcc87b4ab0dbfc792edae732c82f14cf211eba9e9035",
+    "03-change-spec.md": "dc84e0fff2e7767c651854204497b2139d1ad774c5935326bef9c6d044759bd5",
+    "intake/request.md": "da1bba63ba17bf952c55fc55bfb82e2c2c37649b679a27979eef2d052a857484"
+  },
+  "summarized": "2026-11-15T13:46:01Z"
+}

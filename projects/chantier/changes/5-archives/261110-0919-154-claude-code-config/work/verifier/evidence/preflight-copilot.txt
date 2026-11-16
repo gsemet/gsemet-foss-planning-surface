@@ -1,0 +1,9 @@
+﻿P1 FAIL host is Copilot but COPILOT_AGENT_SESSION_ID is empty: not a Copilot agent session
+P4 ok   the plugin's agents are at 0.8.0 on copilot
+P5 ok   chantier 0.8.0, uv and git found
+P6 FAIL session folder C:\Users\gaeta\Projets\chantier.worktrees\batch-09-CR-154 is not the repository root C:\Users\gaeta\Projets\chantier
+P7 FAIL this session runs in a linked worktree: the Foreman must start in the main checkout
+P8 ok   project instructions: AGENTS.md
+P2, P3, P9 and 'not unattended' are the Chief of Staff's own checks
+preflight FAILED: start nothing
+exit=2

@@ -1,0 +1,48 @@
+<!doctype html><html><head><meta charset='utf-8'><style>
+body { margin: 0; background: #f6f7f9; font: 15px/1.45 'Segoe UI', system-ui, sans-serif; color: #1f2328; }
+.card { margin: 24px; background: #fff; border: 1px solid #d0d7de; border-radius: 10px; padding: 20px 24px; }
+h1 { font-size: 20px; margin: 0 0 6px; }
+h2 { font-size: 16px; margin: 18px 0 8px; }
+.sub { color: #57606a; margin-bottom: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { border: 1px solid #d8dee4; padding: 5px 9px; text-align: left; vertical-align: top; }
+th { background: #f3f4f6; }
+td.num, th.num { text-align: right; white-space: nowrap; }
+code { font-family: Consolas, 'Cascadia Mono', monospace; font-size: 13px; background: #eff1f3; padding: 1px 4px; border-radius: 4px; }
+.label { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: #8c959f; margin-bottom: 8px; }
+
+body { background: #f6f7f9; }
+.term { margin: 24px; background: #0d1117; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.2); }
+.bar { background: #161b22; padding: 9px 12px; }
+.bar span { display: inline-block; width: 11px; height: 11px; border-radius: 50%; background: #484f58; margin-right: 6px; }
+pre { margin: 0; padding: 16px 20px; color: #e6edf3; font: 13.5px/1.5 Consolas, 'Cascadia Mono', monospace; white-space: pre-wrap; }
+.p { color: #7ee787; }
+</style></head><body><div class='term'><div class='bar'><span></span><span></span><span></span></div><pre><span class='p'>$</span> chantier status --batch 8
+batch-08 running stack live 1/4 queued 0 steering foreman foreman local_&lt;session&gt; e1
+  heartbeat 3 min spent $40.05 of $50
+CR-140 merged r1/3 https://github.com/gsemet/chantier/pull/77 | $3.19
+CR-141 merged r1/3 https://github.com/gsemet/chantier/pull/78 | $0.85
+CR-142 merged r1/3 https://github.com/gsemet/chantier/pull/84 | $0.99
+CR-143 merged r1/3 https://github.com/gsemet/chantier/pull/79 | $0.45
+CR-144 merged r1/3 https://github.com/gsemet/chantier/pull/80 | $0.61
+CR-145 merged r0/3 https://github.com/gsemet/chantier/pull/81 | $0.14
+CR-146 merged r1/3 https://github.com/gsemet/chantier/pull/82 | $0.64
+CR-147 merged r2/3 https://github.com/gsemet/chantier/pull/83 | $1.93
+CR-148 merged r1/3 https://github.com/gsemet/chantier/pull/85 | $1.03
+CR-149 merged r1/3 https://github.com/gsemet/chantier/pull/86 | $2.81
+CR-150 merged r1/3 https://github.com/gsemet/chantier/pull/87 | $1.59
+CR-151 merged r2/3 https://github.com/gsemet/chantier/pull/88 | $1.97
+CR-152 working r0/3 - release | -
+
+<span class='p'>$</span> chantier cost --batch 8
+batch-08: $41.111 over 1182 model calls
+Chief of Staff (steering): $20.905 (374 calls)
+Driver chantier:cr-driver: $5.584 (266 calls)
+Driver general-purpose: $3.303 (47 calls)
+Driver chantier:release-driver: $0.697 (18 calls)
+Worker chantier:coder: $7.044 (296 calls)
+Worker chantier:inspector: $1.530 (79 calls)
+Worker chantier:verifier: $1.508 (79 calls)
+Worker chantier:investigator: $0.420 (12 calls)
+Worker chantier:conflict-resolver: $0.120 (11 calls)
+Chief of Staff: $48.36 since the batch opened, $140.28 the whole session, context 149,387 tokens</pre></div></body></html>

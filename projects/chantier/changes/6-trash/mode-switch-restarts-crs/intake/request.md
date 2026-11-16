@@ -1,0 +1,1 @@
+Batch-15: switching the batch from direct to Foreman mode lost the epoch-1 Drivers of CR-196 to CR-199 when the direct session stopped; the Foreman restarted them by the restart path. The switch's card says that a switch restarts every live CR.

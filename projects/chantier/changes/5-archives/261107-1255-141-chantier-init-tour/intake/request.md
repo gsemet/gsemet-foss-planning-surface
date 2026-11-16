@@ -1,0 +1,1 @@
+Je veux rajouter un mode d'initialisation dans un nouveau projet en faisant /chantier init. Il faut créer les fichiers et expliquer comment le tool fonctionne, les concepts... il faut être très didactique pour une personne qui ne connaît pas du tout le projet.

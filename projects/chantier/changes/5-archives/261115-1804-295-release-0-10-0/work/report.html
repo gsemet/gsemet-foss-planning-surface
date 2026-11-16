@@ -1,0 +1,54 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Completion report</title>
+<style>
+body{margin:0;background:#fff;color:#1f2328;font:16px/1.5 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+.w{padding:26px 34px 22px}
+h1{font-size:26px;margin:0 0 8px;border-bottom:1px solid #d0d7de;padding-bottom:8px}
+h2{font-size:20px;margin:18px 0 6px}
+p{margin:6px 0}
+table{border-collapse:collapse;margin:8px 0;font-size:15px}
+th,td{border:1px solid #d0d7de;padding:4px 12px;text-align:left}
+th{background:#f6f8fa}
+td.r{text-align:right}
+ul{margin:6px 0;padding-left:24px}
+code{background:#eff1f3;padding:1px 5px;border-radius:4px;font-size:14px}
+</style></head><body><div class="w">
+<h1>Batch-18: Completion report</h1>
+<p>Batch-18 is closed: 42 CRs merged, the last 19 of them (CR-276 to CR-294) in one parallel round of 8 slots, fixes from the study of the two real eval runs of 2026-11-15.</p>
+<h2>Final cost</h2>
+<table>
+<tr><th></th><th>Cost</th><th>Share</th></tr>
+<tr><td>Foreman</td><td class="r">$41.38</td><td class="r">22%</td></tr>
+<tr><td>Drivers</td><td class="r">$63.52</td><td class="r">35%</td></tr>
+<tr><td>Workers</td><td class="r">$79.02</td><td class="r">43%</td></tr>
+<tr><td><b>Total</b></td><td class="r"><b>$183.92</b> of a $450 budget</td><td></td></tr>
+</table>
+<ul>
+<li>Most costly CRs: CR-254 $12.49, CR-266 $10.78, CR-262 $7.64.</li>
+<li>Foreman: 226 wakes, context 166,848 tokens on average, 265,766 at its peak.</li>
+<li>Outside the budget, the Chief of Staff: $49.39 steering, $45.92 grilling with the user and writing 34 specifications.</li>
+</ul>
+<h2>What the round shipped</h2>
+<table>
+<tr><th>CR</th><th>Change</th><th>PR</th></tr>
+<tr><td>CR-276</td><td>The README says what a batch costs, Foreman or direct</td><td>#226</td></tr>
+<tr><td>CR-277</td><td>The ready line of a stacked CR names the CR it waits on</td><td>#231</td></tr>
+<tr><td>CR-278</td><td>Commands name a paused batch and the way out</td><td>#229</td></tr>
+<tr><td>CR-279</td><td>The spend is fresh when the budget is checked (about 1.5 s per round)</td><td>#233</td></tr>
+<tr><td>CR-280</td><td>Direct mode's cost report names the Chief of Staff, its lines add up</td><td>#230</td></tr>
+<tr><td>CR-281</td><td>The merge route works for a PR of a native GitHub stack</td><td>#227</td></tr>
+<tr><td>CR-282</td><td>The scenario's stack unit fits its budget</td><td>#238</td></tr>
+<tr><td>CR-283</td><td>The eval judge follows a PR whose head was replaced</td><td>#228</td></tr>
+<tr><td>CR-284</td><td>The eval audit gives no false FAIL</td><td>#232</td></tr>
+<tr><td>CR-285</td><td>The sandbox merge waits for the restack's checks</td><td>#236</td></tr>
+<tr><td>CR-286</td><td>The write guard reads Git Bash paths</td><td>#234</td></tr>
+<tr><td>CR-287</td><td>The stack driver starts when the stack can form</td><td>#242</td></tr>
+<tr><td>CR-288</td><td>The eval campaign lists what a release claims</td><td>#235</td></tr>
+<tr><td>CR-289</td><td>A Driver that ended with no hand-back is flagged</td><td>#239</td></tr>
+<tr><td>CR-290</td><td>A clean rebase carries the Verifier's verdict</td><td>#240</td></tr>
+<tr><td>CR-291</td><td>One short card per worker role</td><td>#244</td></tr>
+<tr><td>CR-292</td><td>The Chief of Staff stays quiet on a Foreman's turn end</td><td>#237</td></tr>
+<tr><td>CR-293</td><td>Anyone can run an eval campaign from the README</td><td>#243</td></tr>
+<tr><td>CR-294</td><td>close sees a finished agent from its transcript's end</td><td>#241</td></tr>
+</table>
+</div></body></html>

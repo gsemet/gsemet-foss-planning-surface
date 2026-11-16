@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "close sees a finished agent as finished",
+  "summary": "Specified: close judges each Claude transcript by its end (hand-back with result, or turn ended), not a 5-minute file age; an agent stopped without hand-back passes only by close --stopped on the user's yes, kept in the batch record. Copilot keeps the 5-minute rule.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "38c07b548d17a1e8818e013170f95552faf3015e73bf0bad8904e2af35954355",
+    "02-answers.md": "016ed370d063bdc450d67505ea5f6c2ac404ab5dca26c2979c7ba9ca257c76e6",
+    "03-change-spec.md": "2151d6a771e1de6c5b43d247ce41921c322e8984bd7c28703781de89b10e0933",
+    "intake/request.md": "6582745e0502ec64bb00d1fc33302b178575bfced4ecadc78d62785e8f95d315"
+  },
+  "summarized": "2026-11-15T13:54:44Z"
+}

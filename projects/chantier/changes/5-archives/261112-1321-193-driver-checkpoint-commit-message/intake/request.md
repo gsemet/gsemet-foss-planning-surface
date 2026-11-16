@@ -1,0 +1,1 @@
+Retro batch-13: CR-189's r2 checkpoint commit 'wip(evals)' stayed in the merged history. Fix: a Driver gives a checkpoint commit a real message before ship, or folds it into the round's commit.

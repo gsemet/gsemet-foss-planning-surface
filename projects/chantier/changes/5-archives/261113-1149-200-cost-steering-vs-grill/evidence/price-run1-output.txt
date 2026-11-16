@@ -1,0 +1,3 @@
+﻿old rule (loose): row $0.987 (18 calls); grill $2.573 (41 calls); sum $3.560
+strict rule in the window: row $3.560 (59 calls); grill $0.000 (0 calls); sum $3.560
+since open, strict inside window: row $3.560 (59); grill $0.090 (2)

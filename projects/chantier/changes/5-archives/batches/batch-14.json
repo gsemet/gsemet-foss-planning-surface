@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "batch": "batch-14",
+  "number": 14,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-191",
+      "title": "Eval kit: an end-to-end dry run as evidence",
+      "result": "merged",
+      "archive": "5-archives/261112-1924-191-eval-kit-end-to-end-dry-run",
+      "pr": "https://github.com/gsemet/chantier/pull/136",
+      "rounds": 5,
+      "cost_usd": 9.1868,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-192",
+      "title": "Change Specification: price claude-fable-5-2 in the CLI's table",
+      "result": "merged",
+      "archive": "5-archives/261112-1706-192-price-claude-fable-5-2",
+      "pr": "https://github.com/gsemet/chantier/pull/134",
+      "rounds": 1,
+      "cost_usd": 1.3267,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-193",
+      "title": "Change Specification: a Driver's checkpoint commit carries a real message",
+      "result": "merged",
+      "archive": "5-archives/261112-1321-193-driver-checkpoint-commit-message",
+      "pr": "https://github.com/gsemet/chantier/pull/132",
+      "rounds": 1,
+      "cost_usd": 0.6843,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-194",
+      "title": "Change Specification: PowerShell quoting of `gh --jq`, and the exact `--epoch` list",
+      "result": "merged",
+      "archive": "5-archives/261112-1706-194-powershell-gh-jq-and-epoch-flags",
+      "pr": "https://github.com/gsemet/chantier/pull/133",
+      "rounds": 1,
+      "cost_usd": 1.335,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-195",
+      "title": "Change Specification: README reorganisation",
+      "result": "merged",
+      "archive": "5-archives/261112-1758-195-readme-reorg",
+      "pr": "https://github.com/gsemet/chantier/pull/135",
+      "rounds": 1,
+      "cost_usd": 1.7705,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-14.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": null,
+    "first_step": "2026-11-12T12:41:35Z",
+    "last_merge": "2026-11-12T19:24:00Z",
+    "retros": [
+      "5-archives/261112-1924-191-eval-kit-end-to-end-dry-run/retro.md"
+    ]
+  }
+}

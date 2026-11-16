@@ -1,0 +1,75 @@
+﻿# Batch batch-01 on claude
+
+## What happened to each CR
+
+| CR | Title | Ended | Rounds | Long gates | Ships | Notes | Blocked |
+| --- | --- | --- | ---: | --- | ---: | ---: | --- |
+| CR-101 | `tasks delete <id>` | queued | 0 | - | 0 | 0 | - |
+
+## Checks
+
+- FAIL the steering session's transcript None is found
+- NOT SEEN [C5] each of the 0 gate events of the log carries its head and its command
+- NOT SEEN [C7] each CR handed back ready has a verdict VERIFIED and a passed long gate (or a `no_gate` hand-back) at its head (0 CRs)
+- NOT SEEN [J24] each of the 0 `blocked` hand-backs of the log has a reason that starts with a hand-back word
+- FAIL [C14] the batch paused (status running)
+- FAIL [C14] CR-101 ended queued
+- PASS [C14] the batch's STATUS.md (the exit report) is there
+- PASS [C12] no agent tried to merge or close on the forge
+- PASS [J13] nothing written in the main checkout outside .agents/changes
+
+3/6 checks passed
+
+## Scorecard
+
+| id | rail | mark | evidence |
+| --- | --- | --- | --- |
+| C1 | `take` is refused with no free slot (a slot is a CR in `working` or an open QA order) |  |  |
+| C2 | `take` is refused while a queued CR's `after` (or, in a series, its predecessor) is not `ready` or `merged`, and while a release's other CRs are not merged or cancelled |  |  |
+| C3 | `take` (also `take stack`) and `order qa` are refused past the budget (exit 5), then the Driver hands back `blocked budget:`; `release go` past the budget is refused too |  |  |
+| C4 | `round` is refused past the round limit, the batch's or the one the user granted (exit 5), then `blocked rounds:` |  |  |
+| C5 | `gate`: one command per argument, stops at the first failure, one long gate at a time in the repository, each result recorded with its head | not seen |  |
+| C6 | `verdict` is refused on a worktree with uncommitted work (exit 2) and is bound to the head; only `VERIFIED` or `NOT VERIFIED` is taken |  |  |
+| C7 | `handback ready` is refused (exit 2) without a recorded PR, without a passed long gate at the head (or `--no-gate` quoting a project rule, which the steering session checks) and without a last verdict `VERIFIED` at the head | not seen |  |
+| C8 | `ship` records the PR at the head and says what is off: uncommitted work, a head not pushed, an archive missing from the PR, no passed long gate at the head |  |  |
+| C9 | every steering command (`take`, `cancel`, `pause`, `status --refresh`, `agents set`, `order done`, `order merged`, `order add --fix-for`) carries its epoch; a stale epoch is refused (exit 3) | not seen |  |
+| C10 | the heartbeat: `status --refresh --epoch` runs on a wake while a Driver runs; it ends right after `pause` and on a wake with no Driver run and no order undone |  |  |
+| C11 | `release go`: an irreversible action of the release waits for the user's `go` (an approval, the grant, or the user's own merge of the release PR); with a fix of the release not merged, `release go` says no | not seen |  |
+| C12 | no Driver merges: only the steering session merges, and only the release's PR and its granted fixes (up to three, within the budget), recording each with `order merged --epoch` | seen, right | 1 check |
+| C13 | `order qa` is refused (exit 2) while a direct batch runs; it is accepted once the batch is paused |  |  |
+| C14 | `pause` is refused while a CR is working, queued, `ready` or `blocked`, an order is open or a stack driver is recorded, and on a paused batch; `close` is refused unless the batch is paused and idle, and prices the final cost (refused when it cannot) | seen, wrong | the batch paused (status running); CR-101 ended queued |
+| C15 | `open` is refused (exit 2) while another batch is not closed: new work joins it by `order add` |  |  |
+| C16 | a merged CR's folder goes to `4-batch/3-done/<number>-<slug>` until `close` archives it, a dropped CR's to `6-trash/` | not seen |  |
+| C17 | `take` of a `ready` or `blocked` CR is refused without `--note` saying why |  |  |
+| C18 | a release that shares its batch is taken only on the user's `order confirm`, once every other CR has ended |  |  |
+| C19 | `order drop` of a `working` CR stops nothing itself: the steering session stops its Driver, then runs `cancel`; a merged CR is refused, and a second drop is refused (exit 2) |  |  |
+| C20 | after a fix of the release merges, the procedure starts again from its first step: `release start` counts a new attempt | not seen |  |
+| J1 | each agent starts with a `chantier <role>` prompt, told to read its card and run `$CHANTIER rules` | not seen |  |
+| J2 | a Driver is started by the steering session (the Foreman, or the Chief of Staff in direct mode), a worker by a Driver; a CR Driver per CR | not seen |  |
+| J3 | a Driver writes no code; a worker never commits, pushes, rebases or merges (the conflict resolver stages and continues a rebase, never pushes); a read-only role writes only its notes and proof; no worker creates a worktree (except the Verifier's detached one) | not seen |  |
+| J4 | a Driver creates its CR's worktree, rebases before the gate, pushes plain when the remote branch is an ancestor and with `--force-with-lease` after a rewrite (never `--force`), and stages explicit paths | not seen |  |
+| J5 | a CR's PR opens as a draft and turns ready only on the default branch, with no auto-merge and CI green at its head (a release PR opens ready); in a sandbox campaign its title starts with the run's prefix | not seen |  |
+| J6 | the Driver reads CI with the forge's CLI and judges it: a product red is a round, with a Debugger when the cause is not plain; a job also red on the default branch is not the CR's; an infrastructure failure gets one re-run | not seen |  |
+| J7 | a Verifier at the pushed head proves each claim, records the verdict, and its evidence is in the PR's Deliverables |  |  |
+| J8 | an Inspector's `FIX-REQUIRED` on code is a new round; one whose blocking items are all on `pr-body.md` is not |  |  |
+| J9 | a decision only the user can take is `blocked question:`, and the answer goes to a new Driver |  |  |
+| J10 | after an `order merged`, every PR still open in a parallel batch goes back to a Driver with a `rebase:` note, in conflict or not; a ready PR that stopped merging is noticed with the forge's CLI (`gh pr view --json mergeable`) |  |  |
+| J11 | a refused force push: the Driver sends the `push` line and waits; the Chief of Staff checks the branch is the batch's, judges, runs it without asking the user in the normal case, and the Driver hears the result as a note |  |  |
+| J12 | each worker's prompt holds a `writes:` line, the worktree first; a guard pass that cannot judge shows its note on the board | not seen |  |
+| J13 | the steering session runs `git status --porcelain` on the main checkout before each report and names the paths outside the planning folder; nothing is written there | seen, right | 1 check |
+| J14 | the steering session reads the project's rules, removes the merged CRs' worktrees and branches, writes the retro and pauses | not seen |  |
+| J15 | under the host's message limit, a refused send is reported, never sent another way |  |  |
+| J16 | the Progress and Completion reports keep the format of `status-layout.md`, with the cost lines as printed (`unknown` and `not measured` stay so, never `$0.00`) |  |  |
+| J17 | each plugin agent stays within its context window | not seen |  |
+| J18 | a CR sent back to a CR Driver with a PR has the PR turned back to a draft first, by the Driver |  |  |
+| J19 | escalation: a CR blocked twice on trouble in the work, or a red check the Debugger could not explain, goes to a new agent on the escalation model, noted `escalated:` first, once per trigger |  |  |
+| J20 | an agent names a CR to a person or in a report with its number and slug together, never one alone |  |  |
+| J21 | state changes only through `$CHANTIER`: no hand edit of `batch.json`, `events.jsonl` or a `STATUS` file | not seen |  |
+| J22 | the steering session never codes, commits, pushes, rebases or creates a worktree (its cleanup of merged CRs' worktrees and a force push it runs on a Driver's `push` line, J11, excepted) | not seen |  |
+| J23 | a release's notes and announcement are drafts the user reviews (`note --draft`), and the Release driver reports one | not seen |  |
+| J24 | a `blocked` hand-back's reason starts with one of the hand-back words (`question:`, `approval:`, `merge:`, `fix:`, `infra:`, `budget:`, `rounds:`, `refused`, `waits:`, `context:`) | not seen |  |
+
+Rows with no mark are read by hand. Below the table, the report gives:
+
+- **Cost:** from `cost --by cr` and `cost --explain`
+- **Steering share:** the steering row's cost over the batch's spend, as a percentage

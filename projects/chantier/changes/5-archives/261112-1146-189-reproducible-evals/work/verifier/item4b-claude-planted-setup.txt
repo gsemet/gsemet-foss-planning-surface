@@ -1,0 +1,4 @@
+﻿campaign  claude-planted
+workspace C:\Users\gaeta\Projets\chantier-eval\cr189-verify\cp2
+origin    C:\Users\gaeta\Projets\chantier-eval\cr189-verify\cp2.origin.git
+forge     C:\Users\gaeta\Projets\chantier-eval\cr189-verify\cp2.forge\state.json

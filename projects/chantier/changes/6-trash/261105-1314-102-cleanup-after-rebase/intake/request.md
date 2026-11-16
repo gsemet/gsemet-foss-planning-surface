@@ -1,0 +1,1 @@
+The Foreman card asks for git branch -d, which always refuses after a rebase merge.

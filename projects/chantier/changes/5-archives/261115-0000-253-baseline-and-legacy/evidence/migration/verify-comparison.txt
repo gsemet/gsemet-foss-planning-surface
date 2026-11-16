@@ -1,0 +1,8 @@
+﻿# Part C comparison
+Snapshots: this project's .agents/changes (no 4-batch content) and the surface's four projects, taken after the surface commit 13555a8.
+Before: main's CLI (ce00ec3). After: the PR head's CLI (worktree, uncommitted Part D-F changes).
+Compared line by line (Compare-Object) with the $ uv run ... command header lines removed: no difference, for status, the board state of each project (time fields removed), on both folders.
+No stderr line converted .agents/changes... or ackfilled 5-archives/batches... in either run (Select-String: 0 matches).
+Known limit: cost --batch batch-17 fails identically before and after ("unknown batch batch-17"): a closed batch has no folder, so cost cannot read it from any snapshot. status on this project's snapshot reads 
+o running batch ... last closed: batch-17, as the spec expects.
+No record with no close date is the last closed one, so the expected (no close date) difference does not show.

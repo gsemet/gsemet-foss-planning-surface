@@ -1,0 +1,1 @@
+PR 153 description check at b14f86f: every claim matches the diff and gate log 20261113-030359 (check 50 passed, scenario 594/594 github and gitlab, dry run 7 of 7, plain-merge FAIL [J22]). No CLI file changed. Result: VERIFIED. Remaining unchecked boxes (tests, evidence, CI) are honest.

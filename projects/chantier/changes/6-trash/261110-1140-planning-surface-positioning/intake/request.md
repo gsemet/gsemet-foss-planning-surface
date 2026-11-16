@@ -1,0 +1,1 @@
+Explain where chantier's planning surface stands next to Jira, GitLab work items or GitHub issues: the surface (inside the project or external) is the tactical, short-term plan, the closest to the work site; Jira and the like keep the strategic, long-term plan, or serve as the interface for outside customers and support.

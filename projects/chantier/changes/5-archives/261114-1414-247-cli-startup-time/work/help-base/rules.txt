@@ -1,0 +1,8 @@
+﻿usage: chantier rules [-h] [--batch BATCH]
+
+options:
+  -h, --help     show this help message and exit
+  --batch BATCH  batch number, 4 or batch-04 (default: $CHANTIER_BATCH, else
+                 the only running one)
+
+exit=0

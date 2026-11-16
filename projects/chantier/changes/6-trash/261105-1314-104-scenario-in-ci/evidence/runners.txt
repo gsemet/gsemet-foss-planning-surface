@@ -1,0 +1,11 @@
+﻿job 127232020867
+just check (windows-latest)	Set up job	2026-11-05T12:00:46.7269564Z Microsoft Windows Server 2025
+just check (windows-latest)	Set up job	2026-11-05T12:00:46.7272865Z Image: windows-2025-vs2026
+job 127232021186
+just scenario (ubuntu-latest)	Set up job	2026-11-05T12:00:46.9073688Z Image: ubuntu-26.04
+job 127232021264
+just check (ubuntu-latest)	Set up job	2026-11-05T12:00:47.2811610Z Image: ubuntu-26.04
+job 127232021702
+just check (macos-latest)	Set up job	﻿2026-11-05T12:00:47.8004020Z Current runner version: '2.338.2'
+just check (macos-latest)	Set up job	2026-11-05T12:00:47.8041610Z ##[group]Runner Image Provisioner
+just check (macos-latest)	Set up job	2026-11-05T12:00:47.8043560Z Hosted Compute Agent

@@ -1,0 +1,12 @@
+﻿usage: chantier asks [-h] [--batch BATCH] [--read A-k|all] [text ...]
+
+positional arguments:
+  text            the Foreman's own ask
+
+options:
+  -h, --help      show this help message and exit
+  --batch BATCH   batch number, 4 or batch-04 (default: $CHANTIER_BATCH, else
+                  the only running one)
+  --read A-k|all  mark heard
+
+exit=0

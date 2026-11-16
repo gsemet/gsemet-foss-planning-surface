@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Workers reply in an exact template, and verdict names its words",
+  "summary": "Specified: the Coder, Inspector and Verifier cards end with an exact reply template; a long reply is read and noted by the Driver, not restarted; verdict's refusal names VERIFIED and NOT VERIFIED; gain measured on batch-18. Three open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "07174ae97aac7c3568e71cc364dd7d38aaa7503c328ec9e7402e7df1709dacf9",
+    "03-change-spec.md": "313b57ca0e119452d1903f0eca07e1a67fe747464662439c782ecd268acd2c09",
+    "intake/request.md": "75318cfcbcac754cbdbb0eaa05195d2cd6be1606872ac773f064271273299052"
+  },
+  "summarized": "2026-11-14T18:39:06Z"
+}

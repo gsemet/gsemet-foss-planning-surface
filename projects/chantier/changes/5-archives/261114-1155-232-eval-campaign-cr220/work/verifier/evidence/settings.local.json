@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh issue comment *)",
+      "PowerShell(gh issue comment *)",
+      "Bash(gh issue artifact create *)",
+      "PowerShell(gh issue artifact create *)"
+    ]
+  }
+}

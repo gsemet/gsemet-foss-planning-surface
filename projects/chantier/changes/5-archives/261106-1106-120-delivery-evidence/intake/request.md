@@ -1,0 +1,1 @@
+Each CR provides before and after evidence of what it delivers, planned during the implementation according to the kind of change (UI or other), as the target project says, reusing its e2e test environments and technique.

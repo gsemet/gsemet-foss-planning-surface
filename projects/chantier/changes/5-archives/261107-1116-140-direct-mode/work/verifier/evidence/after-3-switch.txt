@@ -1,0 +1,89 @@
+﻿### close --yes (first direct batch)
+closed batch-01: the folder is deleted
+the dropped CRs, to remove on the same word where they still exist (`git worktree remove --force`, `git branch -D`): CR-101 worktree C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\proj.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-change-specification-demo-a
+final cost, up to now (nothing runs):
+Total: $3.00 of a $50 budget
+Chief of Staff (steering) $2.00 (67%), Drivers $1.00 (33%), workers $0.00 (0%)
+Most: CR-1 $1.00
+Driver chief-of-staff with its workers: $2.00 (1 calls)
+Driver driver with its workers: $1.00 (1 calls)
+Chief of Staff: $0.00 since the batch opened, $1.00 the whole session, context 1,000 tokens
+Not counted: compaction calls, which leave no record (about $0.12 each)
+[exit 0]
+### open --direct again, batch 2
+opened batch-02 on claude: 1 CRs, 2 slots, stack, steering direct
+next: complete the brief .agents/changes/3-requests/batch-02/brief.md, then steer it yourself
+CR-102 Change Specification: demo B: 1-inbox/cr-b -> 3-requests/batch-02/102-cr-b
+[exit 0]
+foreman uuid-chief epoch 1
+[exit 0]
+transcript uuid-chief
+[exit 0]
+C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\projects\C--Users-gaeta-AppData-Local-Temp-claude-f81ba1603abd10b3-91f1382a-eacd-437e-b5a8-f9e545753a8c-scratchpad-fx-proj\uuid-chief.jsonl 2026-11-07T11:11:34Z
+### status before the switch
+batch-02 open stack live 0/2 queued 1 steering direct foreman uuid-chief e1 heartbeat 0 min spent $2.00 of $50
+CR-102 queued r0/3 - | -
+spent $2.00
+[exit 0]
+### foreman set uuid-foreman --epoch 2
+foreman uuid-foreman epoch 2
+[exit 0]
+### foreman transcript uuid-foreman --epoch 2
+transcript uuid-foreman
+[exit 0]
+C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\projects\C--Users-gaeta-AppData-Local-Temp-claude-f81ba1603abd10b3-91f1382a-eacd-437e-b5a8-f9e545753a8c-scratchpad-fx-proj\uuid-foreman.jsonl 2026-11-07T11:11:39Z
+C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\projects\C--Users-gaeta-AppData-Local-Temp-claude-f81ba1603abd10b3-91f1382a-eacd-437e-b5a8-f9e545753a8c-scratchpad-fx-proj\uuid-chief.jsonl 2026-11-07T11:11:39Z
+### status --refresh --epoch 1 (stale epoch, expect exit 3)
+uv : error: stale Foreman: epoch 1, batch batch-02 is at epoch 2; stop now
+Au caractère 
+C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\env.ps1:5 
+: 15
++ ... nction CH { uv run --script 'C:\Users\gaeta\Projets\chantier.worktree ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: stale Fo...och 2; stop now:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[exit 3]
+### status --refresh --epoch 2
+batch-02 open stack live 0/2 queued 1 steering foreman foreman uuid-foreman e2 heartbeat 0 min spent $5.00 of $50
+CR-102 queued r0/3 - | -
+spent $5.00
+[exit 0]
+### order add (now Foreman mode)
+uv : error: prepared CR not found: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9
+e545753a8c\scratchpad\fx\proj\.agents\changes\1-inbox\cr-a
+Au caractère 
+C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\env.ps1:5 
+: 15
++ ... nction CH { uv run --script 'C:\Users\gaeta\Projets\chantier.worktree ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: prepared...es\1-inbox\cr-a:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[exit 1]
+### cost
+batch-02: $5.004 over 2 model calls
+Foreman: $3.002 (1 calls)
+Chief of Staff (steering): $2.002 (1 calls)
+Chief of Staff: $7.00 since the batch opened, $11.01 the whole session, context 1,000 tokens
+[exit 0]
+### log
+uv : usage: chantier log [-h] [--batch BATCH] cr
+Au caractère 
+C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\91f1382a-eacd-437e-b5a8-f9e545753a8c\scratchpad\fx\env.ps1:5 
+: 15
++ ... nction CH { uv run --script 'C:\Users\gaeta\Projets\chantier.worktree ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (usage: chantier...batch BATCH] cr:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+chantier log: error: the following arguments are required: cr
+[exit 2]
+### batch.json steering
+  "foreman_claims": [
+  "steering": "foreman",
+  "chief_transcript": "uuid-chief",
+# batch-02
+
+- Mode: stack. Slots: 2. Budget: 50.0. Host: claude. Steering: direct.
+

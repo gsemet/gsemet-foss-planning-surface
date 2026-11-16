@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "batch": "batch-04",
+  "number": 4,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-108",
+      "title": "Change Specification: CR board",
+      "result": "merged",
+      "archive": "5-archives/261106-0016-108-cr-board-mod",
+      "pr": "https://github.com/gsemet/chantier/pull/45",
+      "rounds": 3,
+      "cost_usd": 6.8157,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-109",
+      "title": "The Foreman's session is named by its batch number",
+      "result": "merged",
+      "archive": "5-archives/261106-0616-109-foreman-session-name",
+      "pr": "https://github.com/gsemet/chantier/pull/46",
+      "rounds": 1,
+      "cost_usd": 0.8247,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-110",
+      "title": "The Foreman stops waking when nothing can move",
+      "result": "merged",
+      "archive": "5-archives/261106-0631-110-foreman-stop-conditions",
+      "pr": "https://github.com/gsemet/chantier/pull/47",
+      "rounds": 1,
+      "cost_usd": 1.2111,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-04.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": "04-cr-board",
+    "first_step": "2026-11-05T23:30:50Z",
+    "last_merge": "2026-11-06T06:31:00Z",
+    "retros": []
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A Driver's opening reads cost a third less",
+  "summary": "Specified: a Driver reads whole only its rules, card sections and the spec's core, the rest by section; measured before and after on batch-18, target a third less",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "b0b039d09e5658e9bc4bfe95297b1013b248d8d674eccf9a57ad698d1f82c696",
+    "03-change-spec.md": "619390e1ec0135a8653530e6e2041ee2f46b09551e7dd6a057d584aeee39e2a5",
+    "intake/request.md": "445b842a9690d527183cb0c33e6c3c3bcec1f666d64faac743d951f5c5d2bb89"
+  },
+  "summarized": "2026-11-14T18:41:43Z"
+}

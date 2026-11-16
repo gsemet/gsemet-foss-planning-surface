@@ -1,0 +1,84 @@
+# Evidence 5: audit.py --sandbox on a made-up scratch workspace
+
+Workspace: a clone of the scratch reference repo (main = the sandbox base 6e87a36), with the CLI's real 'open' for three CRs (delete-item, edit-item, status-filter), then batch.json edited by hand: host copilot, status paused, all three merged, PR urls that do not exist (gsemet/chantier-eval-sandbox/pull/991..993), CR-101 head = the reference solution (origin/delete-item, 1f6774d), CR-102 head = the base (6e87a36), CR-103 no head. <workspace>.run.json written by hand (campaign full, run 7, prefix '[eval 7 2026-11-12 full]').
+
+$ uv run --no-project python evals/kit/audit.py <ws>/aud --sandbox   -> exit 1 (a failed check and two judge fails)
+
+# Batch batch-01 on copilot (sandbox campaign)
+
+## The run
+
+| | |
+| --- | --- |
+| Campaign, run, date | full, run 7, 2026-11-12 |
+| PR prefix | `[eval 7 2026-11-12 full]` |
+| chantier at setup | 0.8.0, commit `8ad392648255ce1d1e7c403628f4a9f58523af46`, with uncommitted changes |
+| chantier now | the same commit |
+| Sandbox base | `6e87a361c1b192e6d081c162f0cb2cc28bb72b25`; the workspace's root commit is the base |
+| Batch | batch-01, mode parallel, steered by the Foreman, host copilot |
+| Models | not read |
+
+## What happened to each CR
+
+| CR | Title | Ended | Rounds | Long gates | Ships | Notes | Blocked |
+| --- | --- | --- | ---: | --- | ---: | ---: | --- |
+| CR-101 | Delete an item | merged | 0 | - | 0 | 0 | - |
+| CR-102 | Edit an item | merged | 0 | - | 0 | 0 | - |
+| CR-103 | Filter the list by status | merged | 0 | - | 0 | 0 | - |
+
+## The agents
+
+Not audited: the copilot transcript checks are not written yet.
+
+## Checks
+
+- NOT SEEN each of the 0 gate events of the log carries its head and its command
+- FAIL each CR handed back ready has a verdict VERIFIED and a passed long gate (or a `no_gate` hand-back) at its head (2 CRs): ['CR-101 no verdict VERIFIED at 1f6774d85911150b976018ab704f5d82d6209721', 'CR-101 no passed gate at 1f6774d85911150b976018ab704f5d82d6209721']
+- NOT SEEN each of the 0 `blocked` hand-backs of the log has a reason that starts with a hand-back word
+- PASS the batch paused (status paused)
+- PASS CR-101 ended merged
+- FAIL CR-101 is in 4-batch/3-done as 101-<slug>
+- PASS CR-102 ended merged
+- FAIL CR-102 is in 4-batch/3-done as 102-<slug>
+- PASS CR-103 ended merged
+- FAIL CR-103 is in 4-batch/3-done as 103-<slug>
+- PASS the batch's STATUS.md (the exit report) is there
+- NOT SEEN CR-101 PR 991: `gh pr view` said: GraphQL: Could not resolve to a PullRequest with the number of 991. (repository.pullRequest)
+- NOT SEEN CR-102 PR 992: `gh pr view` said: GraphQL: Could not resolve to a PullRequest with the number of 992. (repository.pullRequest)
+- NOT SEEN CR-103 PR 993: `gh pr view` said: GraphQL: Could not resolve to a PullRequest with the number of 993. (repository.pullRequest)
+- PASS every PR of this run's prefix merged since the batch opened is a PR of this batch
+- PASS nothing written in the main checkout outside .agents/changes
+
+7/11 checks passed
+
+## The judge
+
+| CR | PR | head judged | hidden tests | suite | result |
+| --- | --- | --- | --- | --- | --- |
+| CR-101 delete-item | 991 | 1f6774d | 5 passed in 0.07s | 34 passed in 0.72s | pass |
+| CR-102 edit-item | 992 | 6e87a36 | 4 failed, 1 passed in 0.12s | 4 failed, 29 passed in 0.73s | fail |
+| CR-103 status-filter | 993 | - | - | - | not run (no head) |
+| main (3 CRs) | - | main 6e87a36 | 13 failed, 3 passed in 0.20s | 13 failed, 31 passed in 0.82s | fail |
+
+Judge: 1 pass, 2 fail, 1 not run
+
+## Cost
+
+```text
+$CHANTIER cost
+error: no Foreman transcript recorded: the Foreman runs `chantier foreman transcript $COPILOT_AGENT_SESSION_ID`
+```
+
+```text
+$CHANTIER cost --by cr
+error: no Foreman transcript recorded: the Foreman runs `chantier foreman transcript $COPILOT_AGENT_SESSION_ID`
+```
+
+
+
+$ audit.py <ws>/nowhere --sandbox (no nowhere.run.json): exit 2, stderr: not a sandbox workspace
+$ audit.py <ws>/aud (staged path, no --sandbox): ran, exit 1, sections: see below
+## What happened to each CR
+## The agents
+## Checks
+7/11 checks passed

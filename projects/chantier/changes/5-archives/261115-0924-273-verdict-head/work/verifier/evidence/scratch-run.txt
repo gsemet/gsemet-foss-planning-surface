@@ -1,0 +1,31 @@
+﻿scratch repo: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\446cff2e-8291-4f73-9ff0-f19c29743e6e\scratchpad\scr\proj ; CLI from worktree code C:\Users\gaeta\Projets\chantier.worktrees\batch-18-CR-273 at 6af61f5dfda0a8e20aea72146f6c364299dbc565
+scratch head: aaa7f726bad93f08ef054be20932623c49585439 ; CR folder: C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\446cff2e-8291-4f73-9ff0-f19c29743e6e\scratchpad\scr\proj\.agents\changes\4-batch\2-actives\101-scratch-one
+
+### 1. no work/verify.md
+verdict events before=0 after=0
+error: CR-101: verdict VERIFIED needs C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/446cff2e-8291-4f73-9ff0-f19c29743e6e/scratchpad/scr/proj/.agents/changes/4-batch/2-actives/101-scratch-one/work/verify.md with a line "Head: <full SHA>" for the head aaa7f72 it records: no such file
+exit=2
+
+### 2. note without a Head: line
+verdict events before=0 after=0
+error: CR-101: verdict VERIFIED needs C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/446cff2e-8291-4f73-9ff0-f19c29743e6e/scratchpad/scr/proj/.agents/changes/4-batch/2-actives/101-scratch-one/work/verify.md with a line "Head: <full SHA>" for the head aaa7f72 it records: no Head: line
+exit=2
+
+### 3. stale Head:
+verdict events before=0 after=0
+error: CR-101: verdict VERIFIED needs C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/446cff2e-8291-4f73-9ff0-f19c29743e6e/scratchpad/scr/proj/.agents/changes/4-batch/2-actives/101-scratch-one/work/verify.md with a line "Head: <full SHA>" for the head aaa7f72 it records: its Head: line names 0123456
+exit=2
+
+### 4. note names the head (accepted)
+verdict events before=0 after=1
+verdict CR-101 VERIFIED at aaa7f72
+exit=0
+
+### 5. NOT VERIFIED, no note
+verdict events before=1 after=2
+verdict CR-101 NOT VERIFIED at aaa7f72
+exit=0
+
+events.jsonl verdict lines:
+{"t": "2026-11-15T09:03:26Z", "actor": "driver", "kind": "verdict", "cr": "CR-101", "result": "VERIFIED", "head": "aaa7f726bad93f08ef054be20932623c49585439"}
+{"t": "2026-11-15T09:03:27Z", "actor": "driver", "kind": "verdict", "cr": "CR-101", "result": "NOT VERIFIED", "head": "aaa7f726bad93f08ef054be20932623c49585439"}

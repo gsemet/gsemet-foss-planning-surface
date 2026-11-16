@@ -1,0 +1,1 @@
+At its first turn, the Chief of Staff checks that this session and its agents can do the forge operations a batch needs (push, force-with-lease on chantier/ branches, PR create/edit/ready, CI read) on GitHub, or GitLab when the project is there, and says what is missing before any go, not when a Driver is refused at night.

@@ -1,0 +1,4 @@
+﻿base --version: min 687 median 701 max 729 ms
+base --help: min 687 median 712 max 740 ms
+base status: min 734 median 743 max 780 ms
+base rules: min 739 median 767 max 809 ms

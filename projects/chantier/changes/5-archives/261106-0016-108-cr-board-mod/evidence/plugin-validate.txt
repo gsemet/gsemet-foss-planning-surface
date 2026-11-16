@@ -1,0 +1,37 @@
+﻿Validating marketplace manifest: C:\Users\gaeta\Projets\chantier.worktrees\cr-board-CR-108\.claude-plugin\marketplace.json
+
+‼ Found 1 warning:
+
+  > description: No marketplace description provided. Adding a description helps users understand what this marketplace offers
+
+Validating plugin: C:\Users\gaeta\Projets\chantier.worktrees\cr-board-CR-108\.claude-plugin\plugin.json
+
+  > types ./types/index.d.ts declares on $: nothing (no EngineInterface member)
+  > types ./types/index.d.ts declares state: chantier.site, chantier.feed, chantier.pages, chantier.turned, chantier.checkedAt
+
+Validating hooks: C:\Users\gaeta\Projets\chantier.worktrees\cr-board-CR-108\hooks\hooks.json
+
+  > ./register.tsx hooks: skill.prompt, session.start, command.run{command=chantier-board}, ui.close{id=cr-board}, ui.render{component=Pane, requestId=cr-board}
+  > ./register.tsx gating hook without .catch: command.run{command=chantier-board}
+  > ./register.tsx gating hook without .catch: ui.close{id=cr-board}
+  > ./register.tsx calls: $.clock.every (via begin), $.clock.now, $.command.register, $.fs.exists (via showCr), $.fs.list (via loadPage), $.fs.read (via loadPage, readJson), $.fs.stat (via checkIndex, checkPage, loadPage, showPath), $.process.run (via findRoot), $.session.cwd (via findRoot), $.state.get, $.state.set, $.ui.close, $.ui.open (via open), $.ui.panes, $.ui.resolve
+  > ./register.tsx state writes: chantier.checkedAt, chantier.feed, chantier.pages, chantier.site, chantier.turned
+  > ./register.tsx state reads: chantier.checkedAt, chantier.feed, chantier.pages, chantier.site, chantier.turned
+
+Plugin directory checks for C:\Users\gaeta\Projets\chantier.worktrees\cr-board-CR-108. The plugin directory is the catalog that plugins are submitted to; this is a subset of what it runs.
+
+‼ Found 1 plugin directory warning:
+
+  > .claude-plugin/plugin.json icon: No icon (ICON_MISSING). No icon found in the plugin. The validator looked for `icon` in plugin.json and for a file at .claude-plugin/icon.png or .svg, assets/icon.png or .svg, or a similar path.
+    Fix: Add a square PNG to the plugin folder at .claude-plugin/icon.png, or set `icon` in plugin.json to the path of a square PNG or JPEG in the plugin: 512 to 2048 px on each side, under 2 MB. SVG and WebP are not accepted. That file may become the listing icon only once: the first time the plugin is saved or submitted in the developer portal. Adding or changing it later does not change the icon.
+
+About these checks:
+
+  > This folder also holds a marketplace manifest. The plugin directory treats such a folder as a plugin, so these checks cover only the plugin in this folder. To check another plugin that the marketplace lists, run validate on that plugin's folder.
+  > hooks/hooks.json names a hooks module (a code file listed under `modules`). The plugin directory has rules of its own for such code, and these checks apply none of them, so passing here does not mean the directory accepts the plugin. The developer portal's own validation applies those rules.
+
+These plugin directory checks do not change the result below.
+
+The directory also runs a safety scan and a policy review that this command does not.
+
+√ Validation passed with warnings

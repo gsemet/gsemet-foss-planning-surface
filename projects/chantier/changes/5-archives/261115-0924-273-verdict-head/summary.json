@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "verdict VERIFIED refuses a verify note that does not name the head",
+  "summary": "Specified: verdict VERIFIED is refused (exit 2) unless the CR's work/verify.md has a Head: line with the full SHA it records; cards, scenario, tests and dry run follow. Two open questions: the note's place and which head.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "81306bb4caa140a5d102b036c61b10b9290705312ff54aebd7bb82992c2d5df1",
+    "03-change-spec.md": "4c392ec4ec7691876cafe0b534741b1239b3039bede2031696d89cadcc31c41a",
+    "intake/request.md": "37622065c99a759b33d3be49d3c501b9a2287a0f31a36c9202c9b249300f20e9"
+  },
+  "summarized": "2026-11-15T08:13:56Z"
+}

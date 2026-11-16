@@ -1,0 +1,1 @@
+Batch-15 retro: merging a stack of 16 PRs bottom-up needs a restack (force pushes, a CI per PR) after each merge: hours, and blocked when a force push is refused. Fix: let the user merge several PRs at once, or the whole stack top-down, and restack once (see CR-211 parallel-rebase-cost).

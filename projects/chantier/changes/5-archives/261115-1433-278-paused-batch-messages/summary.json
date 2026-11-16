@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Commands name a paused batch and the way out",
+  "summary": "Specified: cost and plain status read the only paused batch; writing commands name it and --batch; a held board port names the port, what holds it and --port. One open question: the pick/name split.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "ecbe868bcb570090f6dd8ff8411b3bce76b67a0bcd6c2942bf164f5ecbf50251",
+    "02-answers.md": "84a4f56ebf151b3c86317a0cb66994abf4cdc00d84954d7b215628299d6f49c9",
+    "03-change-spec.md": "9577fa84bd3ab064639fdc34ba9c124d6c2ea59296c2d353589dd925b509e6c3",
+    "intake/request.md": "d27ba3c9808516c0b954ae03cdd7001581e1e67926b33f4e7e36eda0a1cb89e4"
+  },
+  "summarized": "2026-11-15T13:39:47Z"
+}

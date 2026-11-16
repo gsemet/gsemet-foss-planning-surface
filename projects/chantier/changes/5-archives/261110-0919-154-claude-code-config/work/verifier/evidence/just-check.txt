@@ -1,0 +1,11 @@
+﻿just : cd skills/chantier/scripts/cli; uv run --group dev pytest -q 
+Au caractère Ligne:1 : 374
++ ... -09-CR-154; just check *> "C:\Users\gaeta\Projets\chantier\.agents\ch ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (cd skills/chant... dev pytest -q :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+..................................                                       [100%]
+34 passed in 9.36s
+uv run --script scripts/release_notes.py --check
+release-notes: docs/release-notes/2026-11-07-v0.8.0/release-notes.md ok

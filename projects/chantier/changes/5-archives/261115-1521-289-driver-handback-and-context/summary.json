@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "A Driver always hands back: status flags an unrecorded hand-back, the Foreman resumes it",
+  "summary": "Spec written. status flags a working CR whose Driver called SubagentHandback with no handback recorded. Foreman: background wait is not an end; resume once to record. Driver: early host ask is not a context end. Threshold unchanged.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2a46f7db5cd7cb7bbdcaeae2c73c94da39fff3fe7cf7ab1823996591f293754d",
+    "02-answers.md": "a2699f54e701365da6c259d5b6d158d3839a7d8ea57bdc09fa6c521b10b78495",
+    "03-change-spec.md": "0f31ab448e3e01df182a1093d2c0b731258af4f92f3ecbb5556bed46638f921c",
+    "intake/request.md": "696f9c827d13d6d957c7bad398b16c9475e7c5ad0e9e5ab675c7b5bcc94316fd"
+  },
+  "summarized": "2026-11-15T13:44:52Z"
+}

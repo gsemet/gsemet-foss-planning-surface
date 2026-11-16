@@ -1,0 +1,1 @@
+order qa is refused once the batch's budget is spent, by the CLI and not only by the Foreman's card

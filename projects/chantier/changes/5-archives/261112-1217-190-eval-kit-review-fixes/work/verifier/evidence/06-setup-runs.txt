@@ -1,0 +1,162 @@
+﻿### setup.py full <scratch>/full
+campaign  full
+run       1
+prefix    [eval 1 2026-11-12 full]
+workspace C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\cd5055f5-2871-4472-99b6-23742d3a5770\scratchpad\a4\full
+base      6e87a361c1b192e6d081c162f0cb2cc28bb72b25
+chantier  0.8.0 179304bbdc22fbeece307af6e6188c21f4a21d87
+CRs placed in .agents/changes/3-ready/ (13):
+  delete-item
+  edit-item
+  status-filter
+  json-api
+  stats-page
+  csv-export
+  item-notes
+  title-search
+  release-v0-2-0
+  item-rating
+  sort-list
+  duplicate-url
+  release-v0-3-0
+
+CHANTIER = uv run --script "C:\Users\gaeta\Projets\chantier.worktrees\batch-13-CR-190\skills\chantier\scripts\cli\chantier.py"   (run from the workspace)
+merge     uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge <pr>   (run from the workspace)
+allowed   14 rules in .claude/settings.local.json
+batch 1: $CHANTIER open .agents/changes/3-ready/delete-item .agents/changes/3-ready/edit-item .agents/changes/3-ready/status-filter .agents/changes/3-ready/json-api .agents/changes/3-ready/stats-page .agents/changes/3-ready/csv-export .agents/changes/3-ready/item-notes .agents/changes/3-ready/title-search .agents/changes/3-ready/release-v0-2-0 --release 9 --mode parallel --slots 4 --budget 40 --default-branch main   (added during it: item-rating)
+batch 2: $CHANTIER open .agents/changes/3-ready/sort-list .agents/changes/3-ready/duplicate-url .agents/changes/3-ready/release-v0-3-0 --release 3 --mode parallel --slots 4 --budget 15 --default-branch main
+exit 0
+### setup.py real-foreman <scratch>/rf
+campaign  real-foreman
+run       1
+prefix    [eval 1 2026-11-12 real-foreman]
+workspace C:\Users\gaeta\AppData\Local\Temp\claude\f81ba1603abd10b3\cd5055f5-2871-4472-99b6-23742d3a5770\scratchpad\a4\rf
+base      6e87a361c1b192e6d081c162f0cb2cc28bb72b25
+chantier  0.8.0 179304bbdc22fbeece307af6e6188c21f4a21d87
+CRs placed in .agents/changes/3-ready/ (5):
+  delete-item
+  edit-item
+  status-filter
+  json-api
+  stats-page
+
+CHANTIER = uv run --script "C:\Users\gaeta\Projets\chantier.worktrees\batch-13-CR-190\skills\chantier\scripts\cli\chantier.py"   (run from the workspace)
+merge     uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge <pr>   (run from the workspace)
+allowed   2 rules in .claude/settings.local.json
+batch 1: $CHANTIER open .agents/changes/3-ready/delete-item .agents/changes/3-ready/edit-item .agents/changes/3-ready/status-filter .agents/changes/3-ready/json-api .agents/changes/3-ready/stats-page --mode <stack|parallel|series> --slots 3 --budget 20 --default-branch main
+exit 0
+
+### settings.local.json of full
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge *)",
+      "PowerShell(uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge *)",
+      "Bash(git push origin v0.2.0)",
+      "PowerShell(git push origin v0.2.0)",
+      "Bash(git -C * push origin v0.2.0)",
+      "PowerShell(git -C * push origin v0.2.0)",
+      "Bash(gh release create v0.2.0 *)",
+      "PowerShell(gh release create v0.2.0 *)",
+      "Bash(git push origin v0.3.0)",
+      "PowerShell(git push origin v0.3.0)",
+      "Bash(git -C * push origin v0.3.0)",
+      "PowerShell(git -C * push origin v0.3.0)",
+      "Bash(gh release create v0.3.0 *)",
+      "PowerShell(gh release create v0.3.0 *)"
+    ]
+  }
+}
+
+### git status --porcelain -uall (full)
+?? .agents/changes/.gitignore
+?? .agents/changes/3-ready/csv-export/01-intent.md
+?? .agents/changes/3-ready/csv-export/02-answers.md
+?? .agents/changes/3-ready/csv-export/03-change-spec.md
+?? .agents/changes/3-ready/csv-export/intake/request.md
+?? .agents/changes/3-ready/delete-item/01-intent.md
+?? .agents/changes/3-ready/delete-item/02-answers.md
+?? .agents/changes/3-ready/delete-item/03-change-spec.md
+?? .agents/changes/3-ready/delete-item/intake/request.md
+?? .agents/changes/3-ready/duplicate-url/01-intent.md
+?? .agents/changes/3-ready/duplicate-url/02-answers.md
+?? .agents/changes/3-ready/duplicate-url/03-change-spec.md
+?? .agents/changes/3-ready/duplicate-url/intake/request.md
+?? .agents/changes/3-ready/edit-item/01-intent.md
+?? .agents/changes/3-ready/edit-item/02-answers.md
+?? .agents/changes/3-ready/edit-item/03-change-spec.md
+?? .agents/changes/3-ready/edit-item/intake/request.md
+?? .agents/changes/3-ready/item-notes/01-intent.md
+?? .agents/changes/3-ready/item-notes/02-answers.md
+?? .agents/changes/3-ready/item-notes/03-change-spec.md
+?? .agents/changes/3-ready/item-notes/intake/request.md
+?? .agents/changes/3-ready/item-rating/01-intent.md
+?? .agents/changes/3-ready/item-rating/02-answers.md
+?? .agents/changes/3-ready/item-rating/03-change-spec.md
+?? .agents/changes/3-ready/item-rating/intake/request.md
+?? .agents/changes/3-ready/json-api/01-intent.md
+?? .agents/changes/3-ready/json-api/02-answers.md
+?? .agents/changes/3-ready/json-api/03-change-spec.md
+?? .agents/changes/3-ready/json-api/intake/request.md
+?? .agents/changes/3-ready/release-v0-2-0/01-intent.md
+?? .agents/changes/3-ready/release-v0-2-0/02-answers.md
+?? .agents/changes/3-ready/release-v0-2-0/03-change-spec.md
+?? .agents/changes/3-ready/release-v0-2-0/intake/request.md
+?? .agents/changes/3-ready/release-v0-3-0/01-intent.md
+?? .agents/changes/3-ready/release-v0-3-0/02-answers.md
+?? .agents/changes/3-ready/release-v0-3-0/03-change-spec.md
+?? .agents/changes/3-ready/release-v0-3-0/intake/request.md
+?? .agents/changes/3-ready/sort-list/01-intent.md
+?? .agents/changes/3-ready/sort-list/02-answers.md
+?? .agents/changes/3-ready/sort-list/03-change-spec.md
+?? .agents/changes/3-ready/sort-list/intake/request.md
+?? .agents/changes/3-ready/stats-page/01-intent.md
+?? .agents/changes/3-ready/stats-page/02-answers.md
+?? .agents/changes/3-ready/stats-page/03-change-spec.md
+?? .agents/changes/3-ready/stats-page/intake/request.md
+?? .agents/changes/3-ready/status-filter/01-intent.md
+?? .agents/changes/3-ready/status-filter/02-answers.md
+?? .agents/changes/3-ready/status-filter/03-change-spec.md
+?? .agents/changes/3-ready/status-filter/intake/request.md
+?? .agents/changes/3-ready/title-search/01-intent.md
+?? .agents/changes/3-ready/title-search/02-answers.md
+?? .agents/changes/3-ready/title-search/03-change-spec.md
+?? .agents/changes/3-ready/title-search/intake/request.md
+(end)
+first bytes: 123,10,32 ; CR count: 0
+
+### settings.local.json of rf
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge *)",
+      "PowerShell(uv run --no-project python C:/Users/gaeta/Projets/chantier.worktrees/batch-13-CR-190/evals/kit/sandbox.py merge *)"
+    ]
+  }
+}
+
+### git status --porcelain -uall (rf)
+?? .agents/changes/.gitignore
+?? .agents/changes/3-ready/delete-item/01-intent.md
+?? .agents/changes/3-ready/delete-item/02-answers.md
+?? .agents/changes/3-ready/delete-item/03-change-spec.md
+?? .agents/changes/3-ready/delete-item/intake/request.md
+?? .agents/changes/3-ready/edit-item/01-intent.md
+?? .agents/changes/3-ready/edit-item/02-answers.md
+?? .agents/changes/3-ready/edit-item/03-change-spec.md
+?? .agents/changes/3-ready/edit-item/intake/request.md
+?? .agents/changes/3-ready/json-api/01-intent.md
+?? .agents/changes/3-ready/json-api/02-answers.md
+?? .agents/changes/3-ready/json-api/03-change-spec.md
+?? .agents/changes/3-ready/json-api/intake/request.md
+?? .agents/changes/3-ready/stats-page/01-intent.md
+?? .agents/changes/3-ready/stats-page/02-answers.md
+?? .agents/changes/3-ready/stats-page/03-change-spec.md
+?? .agents/changes/3-ready/stats-page/intake/request.md
+?? .agents/changes/3-ready/status-filter/01-intent.md
+?? .agents/changes/3-ready/status-filter/02-answers.md
+?? .agents/changes/3-ready/status-filter/03-change-spec.md
+?? .agents/changes/3-ready/status-filter/intake/request.md
+(end)
+first bytes: 123,10,32 ; CR count: 0
+

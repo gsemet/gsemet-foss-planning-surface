@@ -1,0 +1,1 @@
+When the Foreman takes a CR back from a dead Driver, the dead Driver still holds its slot, so the restart competes for slots. Taking a CR back should free the slot (batch-11 retro, see .agents/changes/4-batch/retro.md).

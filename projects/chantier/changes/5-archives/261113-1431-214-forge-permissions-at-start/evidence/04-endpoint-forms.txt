@@ -1,0 +1,6 @@
+Rules endpoint, run on gsemet/chantier with the name chantier/x/y (2026-11-13):
+- raw slash  : gh api repos/gsemet/chantier/rules/branches/chantier/x/y     -> exit 0, body []
+- %2F        : gh api repos/gsemet/chantier/rules/branches/chantier%2Fx%2Fy -> exit 0, body []
+Both forms answered (the repository has no ruleset, so the empty list does not tell the forms apart
+by content). The card keeps the raw '/' form.
+Viewer permission: ADMIN. Token scopes: gist, read:org, repo, workflow.

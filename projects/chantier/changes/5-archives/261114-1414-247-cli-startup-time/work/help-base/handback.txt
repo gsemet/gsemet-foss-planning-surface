@@ -1,0 +1,16 @@
+﻿usage: chantier handback [-h] [--batch BATCH] [--no-gate REASON]
+                         cr {ready,blocked} [note ...]
+
+positional arguments:
+  cr
+  {ready,blocked}
+  note
+
+options:
+  -h, --help        show this help message and exit
+  --batch BATCH     batch number, 4 or batch-04 (default: $CHANTIER_BATCH,
+                    else the only running one)
+  --no-gate REASON  ready: the project's rule that declares no long gate or
+                    exempts this CR from it; the steering session checks it
+
+exit=0

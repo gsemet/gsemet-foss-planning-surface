@@ -1,0 +1,42 @@
+﻿- [x] a CR folder already queued in the paused batch is refused, the batch unchanged
+- [x] `close` on the paused batch names what holds it, with the queued CR, not a bare usage error
+- [x] `close --yes` on the paused batch names what holds it, with the queued CR, not a bare usage error
+- [x] `take` on a queued CR is not refused for a model with no price, and the batch keeps its calls apart
+- [x] a chain through `order after` starts on the ready CR's branch; `--note -` puts the queued CR back on the default branch
+- [x] after the switch, a queued CR is taken at once, on the default branch
+- [x] a queued release behind other CRs: 🟠 in STATUS.md and STATUS.json, at every level
+- [x] a queued release with the others ended: no confirmation to wait for: ⚪ in STATUS.md and STATUS.json, at every level
+- [x] a merged release PR puts the release back to queued, attempts kept
+- [x] a queued release with an open fix (`take` refuses it): 🟠 in STATUS.md and STATUS.json, at every level
+- [x] a queued release once its fixes have ended: ⚪ in STATUS.md and STATUS.json, at every level
+- [x] 1. a stack's release is refused while the CRs under it are queued or working, each named; status shows no confirmation
+- [x] 10. `order merged` puts the release back to `queued`, taken by a new Driver; `release go` answers `go` naming the merged PR for two steps, with no grant
+- [x] queued goes to 1-pending, ready to 2-actives, working stays; archives and trash are renamed
+- [x] a queued CR with a free slot: ⚪ in STATUS.md and STATUS.json, at every level
+- [x] a queued CR with `waits`: 🟠 in STATUS.md and STATUS.json, at every level
+- [x] `status` shows what a queued CR waits for
+- [x] the STATUS files name what a queued CR waits for, as `status` does
+- [x] `order after` with `-` frees a queued CR; it is logged and printed for the Foreman
+- [x] `order after` replaces the dependencies of a queued CR, with no new number
+- [x] `order after` refuses a CR that is not queued
+- [x] a queued CR with no free slot (a QA order holds the last one): 🟠 in STATUS.md and STATUS.json, at every level
+- [x] a queued CR once `order done` frees the slot: ⚪ in STATUS.md and STATUS.json, at every level
+- [x] a queued CR on a spent budget (`take` refuses it): 🟠 in STATUS.md and STATUS.json, at every level
+- [x] a queued CR once the budget is raised: ⚪ in STATUS.md and STATUS.json, at every level
+- [x] a wake names the activity of each working CR and says what it knows of the spend
+- [x] `gate <cr> --stop` with no gate running exits 0 and says there is nothing to stop
+- [x] `order merged` stops the CR's own long gate: its output names the group, the suite is gone, the gate says STOPPED and exits 4, the last gate event is `stopped`, the CR is in 3-done
+- [x] a gate of another CR then runs at once: no waiting line, no `its command still runs`
+- [x] long gates take the lock in arrival order; the later waiter's log names the earlier one (`queued ahead:`); the queue is empty at the end
+- [x] a waiter killed in the queue leaves a ticket that the next gate skips
+- [x] a lock naming a reused pid is not waited for: the next gate runs at once
+- [x] a ticket naming a reused pid is deleted by the next gate and not waited for
+- [x] `cancel` does not signal a reused pid: no `pg` in `stopped …`, the process lives on
+- [x] `order merged` does not signal a reused pid: no `stopped` line, the process lives on
+- [x] `status --refresh` gives one activity age per working CR, and no longest silent Driver
+- [x] a live ticket of the queue gives `gate queued behind <holder>`, and `status` keeps it
+- [x] with the lock empty and a live ticket alone the line is `gate queued`
+- [x] a lock or a ticket naming a dead pid is no gate: an age, never `gate running` or `gate queued`
+- [x] `order add` 2 on a paused direct batch leaves it paused, with the new CR queued
+- [x] `order add` 3 on a paused direct batch leaves it paused, with the new CR queued
+- [x] `close` puts the merged CR in 5-archives with its delivery.md, the gate log staying off the surface's git

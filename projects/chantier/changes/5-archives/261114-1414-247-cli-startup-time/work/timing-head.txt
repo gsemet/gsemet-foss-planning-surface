@@ -1,0 +1,5 @@
+﻿head --version: min 243 median 263 max 278 ms
+head --help: min 237 median 246 max 253 ms
+head status: min 577 median 595 max 685 ms
+head rules: min 558 median 566 max 610 ms
+agent launch (uv run --locked --project) --version median 286 ms

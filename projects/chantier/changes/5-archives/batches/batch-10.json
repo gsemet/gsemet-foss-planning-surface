@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "batch": "batch-10",
+  "number": 10,
+  "state": "closed",
+  "opened": null,
+  "closed": null,
+  "mode": null,
+  "steering": null,
+  "host": null,
+  "budget_usd": null,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [
+    {
+      "cr": "CR-172",
+      "title": "A ready CR sent back to its Driver can be handed back again",
+      "result": "dropped",
+      "archive": "6-trash/261111-1418-172-handback-after-rebase",
+      "pr": null,
+      "rounds": 1,
+      "cost_usd": 0.3048,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-173",
+      "title": "Change Specification: the heartbeat says something true in direct mode",
+      "result": "dropped",
+      "archive": "6-trash/261111-1418-173-heartbeat-odd-values",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": 0.7585,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-10.md",
+  "backfill": {
+    "written": "2026-11-13T19:36:26Z",
+    "former_id": null,
+    "first_step": "2026-11-11T13:19:58Z",
+    "last_merge": null,
+    "retros": []
+  }
+}

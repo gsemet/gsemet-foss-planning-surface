@@ -1,0 +1,41 @@
+﻿opened batch-01 on claude: 9 CRs, 4 slots, parallel, steering foreman
+next: complete the brief .agents/changes/4-batch/brief.md, then start the Foreman
+CR-101 Delete an item: 3-ready/delete-item -> 4-batch/1-pending/101-delete-item
+CR-102 Edit an item: 3-ready/edit-item -> 4-batch/1-pending/102-edit-item
+CR-103 Filter the list by status: 3-ready/status-filter -> 4-batch/1-pending/103-status-filter
+CR-104 Read the items as JSON: 3-ready/json-api -> 4-batch/1-pending/104-json-api
+CR-105 A statistics page: 3-ready/stats-page -> 4-batch/1-pending/105-stats-page
+CR-106 Export the shelf as CSV: 3-ready/csv-export -> 4-batch/1-pending/106-csv-export
+CR-107 Notes on an item: 3-ready/item-notes -> 4-batch/1-pending/107-item-notes
+… 2 more lines
+
+--- status 1
+batch-01 running steering Foreman shape parallel live 0/4 queued 9 foreman none e0 heartbeat never spent unknown of $40
+CR-101 queued r0/3 - | -
+CR-102 queued r0/3 - | -
+CR-103 queued r0/3 - | -
+CR-104 queued r0/3 - | -
+CR-105 queued r0/3 - | -
+CR-106 queued r0/3 - | -
+CR-107 queued r0/3 - | -
+CR-108 queued r0/3 - | -
+CR-109 queued r0/3 - release | waits for CR-101 queued, CR-102 queued, CR-103 queued, CR-104 queued, CR-105 queued, CR-106 queued, CR-107 queued, CR-108 queued | -
+
+--- order add
+[chief-of-staff→foreman] order O-1: add .agents/changes/3-ready/item-rating
+added CR-110, queued
+
+--- status 2
+batch-01 running steering Foreman shape parallel live 0/4 queued 10 foreman none e0 heartbeat never spent unknown of $40
+CR-101 queued r0/3 - | -
+CR-102 queued r0/3 - | -
+CR-103 queued r0/3 - | -
+CR-104 queued r0/3 - | -
+CR-105 queued r0/3 - | -
+CR-106 queued r0/3 - | -
+CR-107 queued r0/3 - | -
+CR-108 queued r0/3 - | -
+CR-109 queued r0/3 - release | waits for CR-101 queued, CR-102 queued, CR-103 queued, CR-104 queued, CR-105 queued, CR-106 queued, CR-107 queued, CR-108 queued, CR-110 queued | -
+CR-110 queued r0/3 - | -
+orders the CLI applied, the Foreman marks each `order done <O-k>`: O-1 add .agents/changes/3-ready/item-rating
+

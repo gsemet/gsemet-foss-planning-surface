@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The eval judge follows a PR whose head was replaced",
+  "summary": "Specified: the audit's judge judges each CR's PR head as the forge reports it (its head at merge after a stack restack), names that head and the recorded one, and the dry run plays a restack to prove it.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "4f5c96faadc4081e5f7da6750df788d363244bad67e41ab505ecf1993d898a2c",
+    "02-answers.md": "67e8937155eb140ca241eba426493102d16c815edbb73c74667e78511633dc60",
+    "03-change-spec.md": "ef3545a98c36f5f8bfc20385a2e07bbc9d2d797bb7113b39c66c43e63ac9eea1",
+    "intake/request.md": "ae3a675f40446a7e85e03eef2f2c751d6aa3bc31cc2a070bde85b202cb0fee08"
+  },
+  "summarized": "2026-11-15T13:39:47Z"
+}

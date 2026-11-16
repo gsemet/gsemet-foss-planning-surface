@@ -1,0 +1,1 @@
+﻿E3 lint on a copy (.agents/changes minus work/, locks) outside the repo: see e3-lint.txt (0.99 s).

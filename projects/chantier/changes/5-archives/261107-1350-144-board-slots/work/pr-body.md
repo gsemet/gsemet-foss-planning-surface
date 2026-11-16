@@ -1,0 +1,1 @@
+﻿Each batch entry of STATUS.json gains slots {taken,total} (same rails.held as status's live n/m); the CR board shows 'Slots t/n, f free' in the batch header, nothing for an older STATUS.json. Gate: just scenario passed. register.test.tsx covers both cases (not run locally: no claude CLI here).

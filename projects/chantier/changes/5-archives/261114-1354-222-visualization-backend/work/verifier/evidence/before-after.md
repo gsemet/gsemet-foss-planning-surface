@@ -1,0 +1,1 @@
+﻿- Not captured: E6 screenshots (no browser session), E3, E5 live-vs-cost on a running batch, E7 wall times. Before/after: the before (febd917) has the old read-only board without an API; not captured.

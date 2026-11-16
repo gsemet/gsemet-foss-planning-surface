@@ -1,0 +1,1 @@
+﻿  â”œâ”€â”€ evidence/            â† other proof kept with the CR (the Verifier's: work/verifier/evidence/)

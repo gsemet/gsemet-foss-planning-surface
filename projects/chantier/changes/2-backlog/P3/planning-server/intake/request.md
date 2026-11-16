@@ -1,0 +1,1 @@
+A planning server owned by the Chief of Staff: one writer per project on the external planning surface, serving the ticket tracking (after planning-repo). Includes the 2026-11-10 study of Beads (gastownhall/beads) and of similar tools as the agentic surface, and what chantier should take from them.

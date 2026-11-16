@@ -1,0 +1,19 @@
+﻿== C:\Users\gaeta\Projets\gsemet-foss-planning-surface (surface)
+rename projects/agentic-planning-surface/changes/3-batches -> 4-batch
+rename projects/agentic-planning-surface/changes/4-archive -> 5-archives
+rename projects/agentic-planning-surface/changes/5-trash -> 6-trash
+rename projects/chantier/changes/3-stash -> 3-ready
+rename projects/chantier/changes/4-batches -> 4-batch
+rename projects/markdown-okf-schema-studio/changes/3-stash -> 3-ready
+rename projects/markdown-okf-schema-studio/changes/4-batches -> 4-batch
+rename projects/okf-schema/changes/3-stash -> 3-ready
+rename projects/okf-schema/changes/4-batches -> 4-batch
+9 rename(s) done
+== scan
+scan: clean
+
+--- second real run ---
+== C:\Users\gaeta\Projets\gsemet-foss-planning-surface (surface)
+nothing to do
+== scan
+scan: clean

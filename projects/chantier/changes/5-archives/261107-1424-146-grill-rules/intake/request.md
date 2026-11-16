@@ -1,0 +1,1 @@
+Strengthen the grill rules: every human answer and decision is recorded in the CR at once, after each answer; the Chief of Staff may ask whether a CR is grilled enough only after a complete restatement (the shared understanding).
