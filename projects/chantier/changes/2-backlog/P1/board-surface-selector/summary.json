@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Web board: the surface in the selector and each project's paths",
+  "summary": "Specified: on a multi-project surface the picker shows the surface's name, path and 'Planning surface - N projects' instead of All projects; each project's line shows its folder in the surface and its repo as checkout.yml names it; docs and pictures follow.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "03-change-spec.md": "12ce97dfdde5b7f4f7cb0285613adfe458794282cf4516d3c7016e4d3125a61d",
+    "intake/request.md": "47b06c5dad01ebcf8158e02e30dc23e3aa51c21fac89f67abc4f0b809c9f52c6"
+  },
+  "summarized": "2026-11-16T19:21:40Z"
+}

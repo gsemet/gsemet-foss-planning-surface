@@ -10,7 +10,7 @@ merged that the record does not hold yet, the board leaves one line in a local f
 next `status`. The board itself records nothing.
 
 **Its grill is `pr-monitor`'s:** `projects/chantier/changes/2-backlog/P1/pr-monitor/02-answers.md`,
-answers Q4, Q5, Q10 and Q11 (this CR's folder holds only `intake/request.md`).
+answers Q4, Q5, Q10, Q11 and Q13 (this CR's folder holds only `intake/request.md`).
 
 **It comes after `pr-monitor`:** it builds on that CR's route `GET /api/projects/<id>/prs`
 (`board/prs.py`), its forge read and its rows (`state`, `merged_into`, `merged_at`). It starts only
@@ -24,6 +24,7 @@ once `pr-monitor` is merged, or stacked on it in the same batch.
 | Q5 | In Foreman mode too, the Chief of Staff sees the line and records the merge at its own next `status`. The Foreman does nothing more with it and sends no extra message. | 2, 3 |
 | Q10 | Q5 stays. When nothing runs (no heartbeat, the batch-18 case), the PRs page's row says "merged on the forge, not recorded yet: tell the Chief of Staff", and the docs say so. The row text is already drawn by `pr-monitor`'s page and does not change here; this CR adds the docs' side: the signal is read only when a `status` runs, and with nothing running the user tells the Chief of Staff, as the row says. | 4 |
 | Q11 | Two CRs. This one holds the merge signal: `board-seen.jsonl`, the `status` line, the two cards, the second AGENTS.md exception, Q4, Q5, Q10. | Whole spec |
+| Q13 | In a stacked batch, a PR merged into the PR under it (another CR's branch) is signalled, with its branch in the line. The Chief of Staff does not record it as merged: it tells the user where it went and waits until the PR under it lands. | 1, 2, 3 |
 
 No other decision is made here.
 
@@ -36,7 +37,7 @@ No other decision is made here.
   appends one line, once per batch and CR, to a new local file at the planning folder's root,
   `board-seen.jsonl`:
   `{"t": <now>, "kind": "merged", "batch": <batch id>, "cr": <cr>, "pr": <link>, "into": <the branch it was merged into>, "merged_at": <the forge's time>}`.
-  `into` is the row's `merged_into` branch, carried as it is (see the open question).
+  `into` is the row's `merged_into` branch, carried as it is, with `into_cr`: the CR whose branch it is, or null when it is no CR's branch (the default branch). A merge into another CR's branch is signalled too (Q13).
 - It is written under the lifecycle lock (`changes_lock`), as `board/journal.py`'s `_append`
   does, in UTF-8. Before writing, the server reads the file for that batch and CR: a later read
   that sees the same merge writes nothing more. A cached read (less than 10 s old, `pr-monitor`'s
@@ -56,6 +57,8 @@ No other decision is made here.
   entry of `board-seen.jsonl` for the current batch whose CR the record does not yet show merged,
   next to the order lines (a helper beside `_order_lines` and `_autosync_lines`):
   `board saw merged: <cr> <pr link> into <branch> at <merged_at>; for the Chief of Staff: order merged <cr>`.
+  For a merge into another CR's branch (`into_cr` set, Q13) the tail differs:
+  `board saw merged: <cr> <pr link> into <into_cr>'s branch at <merged_at>; for the Chief of Staff: not landed, tell the user, record nothing until <into_cr> lands`.
 - Once the merge is recorded the line no longer prints, so nothing has to clear the file. A CR
   cancelled since prints no line either. The batch's `close` leaves the file alone; entries for
   another batch never print. An unreadable line of the file is skipped and named once in the
@@ -69,7 +72,7 @@ No other decision is made here.
   bullet about a merge the user makes before its `ready-to-merge` line ("record it as any merge"):
   a `board saw merged: <cr> …` line in `status` is a merge the user made; record it like any merge,
   at the `status` that shows it: `order merged <cr>`, then, in Foreman mode, send its line to the
-  Foreman as for any order. The line's `into` branch is read as the open question below settles.
+  Foreman as for any order. A line that says `into <other cr>'s branch` (Q13) is not a merge to record: do not run `order merged`; tell the user where the PR went (into `<other cr>`'s PR, not the default branch) and wait until the PR under it lands; the line keeps printing until the CR is recorded merged.
 - `foreman.md`, beside the heartbeat bullet (line 617, "Heartbeat: the wake that runs `chantier
   status --refresh --batch <batch> --epoch <n>`"): a `board saw merged` line in `status` is the
   Chief of Staff's; do nothing with it, send no message about it, and it is not an undone order
@@ -95,7 +98,8 @@ No other decision is made here.
   `status` prints it; the Chief of Staff records it at its next `status`, in direct and Foreman
   mode alike), and Q10: the signal is read only when a `status` runs; when nothing runs (no
   heartbeat), the row's "merged on the forge, not recorded yet: tell the Chief of Staff" means just
-  that: tell the Chief of Staff, who records it. The intro line keeps "It never touches a batch."
+  that: tell the Chief of Staff, who records it. And Q13: a PR merged into another CR's PR is
+  signalled with its branch, and the Chief of Staff records nothing until the PR under it lands. The intro line keeps "It never touches a batch."
   (the signal file is not the batch's).
 - No picture (as `pr-monitor`).
 
@@ -116,12 +120,12 @@ No other decision is made here.
   parametrized, no network; `gh` stubbed as in `pr-monitor`'s tests):
   - A read that finds one PR merged on the forge and not in the record: exactly one
     `board-seen.jsonl` line with its fields (`into` included); a second read, and a cached read,
-    write none more.
+    write none more. A PR merged into another CR's branch: one line, with `into` and `into_cr` (Q13).
   - A PR closed without a merge: no line.
   - `status` prints `board saw merged: <cr> … for the Chief of Staff: order merged <cr>` for an
     unrecorded merge, parametrized over the direct form and the `--refresh --batch <batch> --epoch
     <n>` form, and stops printing it after `order merged <cr>`; an entry of another batch never
-    prints; a cancelled CR's entry never prints; an unreadable line is named, not guessed.
+    prints; a cancelled CR's entry never prints; an unreadable line is named, not guessed; an entry with `into_cr` prints the `not landed, tell the user, record nothing until <into_cr> lands` tail, never `order merged` (Q13).
   - `board-seen.jsonl` is in `IGNORED` and in the fingerprint; the rescan leaves it.
   - The route writes nothing in the planning folder but `board-seen.jsonl`.
   - `just test` stays within its budget (AGENTS.md: at most 30 s above 18.5 s).
@@ -139,11 +143,4 @@ No other decision is made here.
 
 ## Open questions (for the user)
 
-1. **A merge into another CR's branch.** `pr-monitor`'s page shows the branch a merged PR went
-   into; in a stacked batch the user may merge a PR into the PR under it (its base is that CR's
-   branch), not into the default branch. Should the board signal such a merge for the Chief of
-   Staff to record with `order merged`, as any merge? Recommended: signal it, with its `into`
-   branch in the line, and the Chief of Staff's card says that a merge into another CR's branch is
-   not recorded as merged: the Chief of Staff tells the user where it went and records nothing
-   until the PR under it lands (alternatives: signal only merges into the default branch; or
-   signal all and record all).
+None: the first run's question is answered in pr-monitor's `02-answers.md` (Q13).

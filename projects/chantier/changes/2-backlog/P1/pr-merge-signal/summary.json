@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "title": "The board signals a merge it sees",
-  "summary": "Specified, after pr-monitor (grill in its 02-answers.md): an unrecorded merge seen by the PRs page leaves a line in board-seen.jsonl that status prints for the Chief of Staff to record; Foreman ignores it. One open question: a merge into another CR's branch.",
+  "summary": "Specified, after pr-monitor (grill in its 02-answers.md, Q13 included): an unrecorded merge seen by the PRs page leaves a line in board-seen.jsonl that status prints for the Chief of Staff to record; a merge into another CR's branch is signalled, not recorded; no open questions.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "03-change-spec.md": "6da5be03a1fa1667150f0751525d7d4b7a3e7e5f10e05f1cc45d75ccc596e790",
+    "03-change-spec.md": "9c4d9e184467b8a4e0679876082e9229027062fe83803605b2d6a487ece71f62",
     "intake/request.md": "466741414464185398e169a06f269bb682d138f0689f2e0a5b981db12bb87e8c"
   },
-  "summarized": "2026-11-16T19:19:01Z"
+  "summarized": "2026-11-16T19:20:18Z"
 }

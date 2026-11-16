@@ -6,25 +6,28 @@ No issue.
 
 The user looked at `chantier board` on a large screen (about 2900 CSS pixels wide) and filed five
 screenshots, kept in this CR's folder. Their reading, confirmed by the user on 2026-11-16
-(`intake/request.md`, `02-answers.md`), is the whole request:
+(`intake/request.md`, `02-answers.md` Q2, Q3), gives this CR four points and a fifth fix:
 
 1. The side panel of a CR stays open when the user switches view (Kanban to Home)
    (`sidepanel-not-closing-when-switching-view.png`).
 2. Hovering a card in a Triage lane (P1 in the screenshot) makes a horizontal scroll bar appear at
    the bottom of the lane (`triage-hovering-create-scrollbar.png`).
 3. In Triage the backlog cards take the whole width of the screen, far wider than the cards of the
-   other pages; and a card's text shows the raw frontmatter (`--- type: cr-intent id: ...`)
-   instead of the text (`triage-cell-very-large-compared-to-other-pages.png`).
+   other pages (`triage-cell-very-large-compared-to-other-pages.png`). The user chose (Q6) to cap
+   the Triage cards and to lay the backlog out as a grid of several capped cards per row, as the
+   inbox item `board-triage-polish` asked ("the items in the middle column are too wide: give them
+   the same width as in the Inbox column, several per row (a grid)"); that item no longer owns it.
+3b. A card's text shows the raw frontmatter (`--- type: cr-intent id: ...`) instead of the text
+   (same screenshot).
 4. The side panel is too narrow on a large screen: its content (a table in a round's file) is
    compressed and overflows (`compressed-sidepanel.png`).
-5. On a multi-project planning surface, the selector at the top left shows the surface (its name and
-   its path) instead of "All projects", and each project's line shows where the project is
-   declared, its path (`home-multiproject.png`; the user's note: "Missing: where the project has
-   been stated (path); model in project (no need to display 'all project') /
-   multi-project-surface").
 
-The board stays as it is on a laptop (the docs' 1400 x 860 size) and on a phone (375 x 812), apart
-from point 5, which shows on every size.
+The fifth screenshot's point, the surface in the selector and each project's paths
+(`home-multiproject.png`, Q1, Q4, Q5), is its own CR, `2-backlog/P1/board-surface-selector`
+(Q7): nothing of it is done here.
+
+Apart from points 1, 3 and 3b, the board stays as it is on a laptop (the docs' 1400 x 860 size) and
+on a phone (375 x 812).
 
 ## Where the code is
 
@@ -33,7 +36,7 @@ The board's server and front-end are in the CLI package,
 `board/web/` (plain ES modules and CSS, no build step). Tests: `skills/chantier/scripts/cli/tests/test_board.py`
 and the others under `skills/chantier/scripts/cli/tests/`. Docs: `docs/web-board.md`, its pictures
 `docs/web-board/*.png`, taken by `just docs-screenshots` (`scripts/docs_screenshots.py`, Playwright,
-on the made-up surface `docs/demo/`).
+on the made-up surface `docs/demo/`, at 1400 x 860 and 375 x 812).
 
 ## What changes
 
@@ -64,22 +67,46 @@ rotated card overflows its scrolling container (`.tbody`, `.lanes` in
 
 After the change, hovering, focusing, selecting or dragging a card shows no horizontal scroll bar
 in the inbox column, in any backlog lane (P1 to P4), in 3-ready, or in the lanes' column, at any
-window width; the tilt and the shadow are still seen, not clipped visibly. The vertical scrolling
-of a column or of the lanes is unchanged. The phone's horizontal swipe between the three columns
-(`.tri` under 760 px) is not a hover scroll bar and stays.
+window width, with one card or several per row (point 3); the tilt and the shadow are still seen,
+not clipped visibly. The vertical scrolling of a column or of the lanes is unchanged. The phone's
+horizontal swipe between the three columns (`.tri` under 760 px) is not a hover scroll bar and
+stays.
 
-### 3a. Triage cards keep the width of the other pages' cards
+### 3. Triage cards are capped, and the backlog is a grid
 
-Today `.tri` lays the three columns out as `minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr)`, so on
-a 2900-pixel window a backlog card is well over 1000 pixels wide, while a Kanban card sits in a
-290-pixel column (`.kanban .col { flex: 0 0 290px }`, `board/web/css/views/kanban.css`).
+Today `.tri` lays the three columns out as `minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr)`, and
+each column's body (`.tbody`) is a single flex column of cards, so a card is as wide as its column:
+on a 2900-pixel window a backlog card is well over 1000 pixels wide, while a Kanban card sits in a
+290-pixel column (`.kanban .col { flex: 0 0 290px }`, `board/web/css/views/kanban.css`). The markup
+is drawn by `column`, `body` and `lanes` in `board/web/js/triage/columns.js`.
 
-After the change, on a wide window a Triage card is no wider than a fixed cap of the same order as
-a Kanban card (the Driver picks the cap, no wider than about one and a half Kanban columns, and
-says it in the PR); the space the columns no longer take stays empty on the right of the view,
-the three columns keep their order and their left alignment. On a laptop (1400 pixels) the view
-does not change in a visible way: a card there is already under the cap, or close to it. On a
-phone the columns keep their 86% swipe.
+After the change (answer Q6):
+
+- **One card width.** Every Triage card (inbox, P1 to P4, 3-ready) has the same width, a fixed cap
+  of the same order as a Kanban card (the Driver picks it, no narrower than a Kanban card and no
+  wider than about one and a half Kanban columns, and says it in the PR). This is "the same width
+  as in the Inbox column": the inbox column and 3-ready hold one card per row, the width of that
+  card. Where a column is narrower than the cap (a narrow window, a phone), a card takes the
+  column's width, as today.
+- **The backlog is a grid.** In each backlog lane (P1 to P4) the cards are laid out side by side,
+  as many capped cards per row as the lane's width holds, then on the next row; the order of the
+  cards is the order of today, read left to right then top to bottom. The backlog column takes the
+  width the window has beyond the inbox and 3-ready columns, so a large screen shows several cards
+  per row and the space is used, not left empty; on a laptop (1400 pixels) a lane shows as many
+  capped cards as fit (one or two), which is the user's request, not a regression.
+- **Groups and the drop zone.** A group's frame (`.grpf`, `frame` in `columns.js`) keeps its
+  members together under its handle, inside the lane's grid (its members capped like any card); the
+  Driver chooses whether the frame spans a full row or sits as one cell, and says it in the PR. A
+  lane's drop zone (`.dropzone`) and an empty lane's thin strip stay where they are today, never a
+  single narrow cell that is hard to hit.
+- **Unchanged behaviour.** Dragging a card or a group onto a lane, a card or a group's frame
+  (`board/web/js/triage/drag.js`), selecting cards and the selection bar, the labels' filter and
+  the lanes' vertical scrolling work as today, whatever the number of cards per row.
+- **Phone.** Under 760 pixels the three columns keep their 86% swipe and a lane shows one card per
+  row.
+
+`docs/web-board.md`'s Triage section gains one sentence: on a wide screen each priority shows its
+post-its side by side, as many per row as fit, each the width of an inbox post-it.
 
 ### 3b. A card's text never shows a frontmatter
 
@@ -118,86 +145,29 @@ After the change:
 The panel stays an overlay above the view, as today; a panel the user resizes by dragging is not
 part of this CR.
 
-### 5. The multi-project surface in the selector, and each project's paths
-
-This applies when the board serves a planning surface with several projects (`Projects.surface_mode`
-in `board/projects.py` and more than one project; that is when the picker has an "All projects"
-entry today, `canPick` in `board/web/js/ui/picker.js`). A single project, in-project or on a surface,
-shows no change.
-
-Today the picker's button (`trigger`) and its menu's first line (`menu`) say "All projects" with
-"overview · N PRs to review" (`project.all`, `project.all_sub` in `board/web/js/i18n/en.js` and
-`fr.js`), and the view's title says "All projects" too (`title` in `board/web/js/ui/header.js`,
-`nav.overview`). The menu opens with the caption "Planning surface · N projects" (`project.head`).
-The project lines (the menu's `row`, the overview table's `row` and the phone's `card` in
-`board/web/js/views/overview.js`) show the project's name, batch and counts, but not where the
-project is.
-
-After the change:
-
-- The surface takes the place of "All projects". The picker's button, when the overview is shown,
-  shows the surface's name (the name of the surface's root folder) in bold, the surface's path under
-  it, and under those the line "Planning surface · N projects" (`project.head`, N the number of
-  projects), on the button itself, without opening the menu (answer Q5). This line takes the place
-  of "overview · N PRs to review". The menu's first line shows the surface's name in bold and its
-  path under it; the menu's caption "Planning surface · N projects" stays at the top of the menu, as
-  today. The view's title on the overview is the surface's name. The words "All projects" and
-  "overview · N PRs to review" no longer show anywhere in the board (button, menu, title). The
-  number of PRs to review stays in the overview's stats line (`overall` in `header.js`), where it
-  already is.
-- Each project's line shows where the project is declared, by two paths (answer Q4):
-  - its folder in the surface, `projects/<name>/`, relative to the surface the selector shows;
-  - its code repository as the project's `checkout.yml` names it: the `repo:` value as written
-    there (e.g. `../../../chantier/`); with no `repo:` line, the value the CLI takes by default,
-    `.repo` (`Repo._external` in `skills/chantier/scripts/cli/src/chantier/core/repo.py`).
-  The folder comes first, the repository after it, each labelled so the user tells them apart
-  (e.g. "folder" and "repo", in both languages). The menu's lines, the overview table's lines (under
-  the project's name, in the Project column) and the phone's cards show both.
-- A path too long for its place is cut with an ellipsis and shown whole on hover (a `title`); it
-  never widens the left bar or the table's first column beyond what they take today.
-- The surface's mark (the overview icon, `.mark.all`) stays as it is.
-- Both languages: the French board says the same things (`fr.js`); the words removed from `en.js`
-  are removed from `fr.js` too.
-
-The server gives what the page needs to draw this, in `GET /api/board` (`board()` in
-`board/routes.py`): it already gives the surface's root as `served` (on a surface,
-`Projects.served` is the surface's root); each project's line (`project_line` in `board/state.py`,
-or `board()` around it) gains the two paths: the folder relative to the surface (from
-`Repo.project_dir` and `Repo.surface`), and the `repo:` value of `checkout.yml` as written. `Repo`
-keeps only the resolved repository (`root`), so the server reads the written value with
-`read_keyed` (`core/repo.py`), read-only. Nothing else is added to the payload; the per-project
-`state` endpoint does not change. The board still reads only and writes nothing new.
-
-`docs/web-board.md` says "A planning surface with several projects adds an **All projects** entry to
-the picker" and "Home is the table of **All projects**": these sentences, and every other
-mention of All projects there, say instead that the picker's first entry is the surface, by its name
-and path with "Planning surface · N projects" under them, and that each project's line shows its
-folder in the surface and its code repository as `checkout.yml` names it.
-
 ### Docs pictures
 
-`just docs-screenshots` is run again and its new pictures committed: at least `picker-pc.png`,
-`picker-phone.png`, `home-pc.png`, `home-phone.png`, `triage-pc.png`, `panel-pc.png` change. The
-script copies `docs/demo/` to a temporary folder; with point 5 the pictures would show that
-folder's path, which differs on each run and on each machine. The pictures show a stable surface
-name and path that reveal nothing of the machine that took them (the Driver chooses how, in
-`scripts/docs_screenshots.py`, and says it in the PR); taking the pictures twice gives the same
-surface name and path in them. The projects' paths are relative or as written in `checkout.yml`,
-so they are the same on every run already; if a demo project has a `checkout.yml`, its `repo:`
-value names nothing of the machine.
+`just docs-screenshots` is run again and its changed pictures committed: at least `triage-pc.png`
+(capped cards, the grid) and those whose cards show a description from a file with a frontmatter,
+if the demo has one. `picker-*.png` and `home-*.png` are not this CR's (they change with
+`board-surface-selector`); a picture this CR does not change is not committed.
 
 The pane drawn by `hooks/register.tsx` and `STATUS.json` do not change: no pane screenshot is due.
 
 ## Out of scope
 
+- The surface in the picker, the overview's title and each project's two paths, with their
+  `/api/board` fields, docs and pictures: the CR `board-surface-selector`.
+- The other points of the inbox item `board-triage-polish` (a collapse per priority, the "writes
+  since your last 'rescan'" explanation, the sticky header's border and shadow); its card width and
+  grid are done here.
 - Any other change to the board's look (the visual refresh is its own inbox item,
-  `board-visual-refresh`; the Triage polish is `board-triage-polish`).
+  `board-visual-refresh`).
 - A resizable side panel, a panel docked beside the view instead of over it.
-- Using the extra width of a large screen to show several Triage cards per row, or more columns.
+- More Triage columns, or a change to the order or meaning of the lanes.
 - A new screenshot size in `scripts/docs_screenshots.py` (the large-screen checks below are the
   Driver's evidence, not docs pictures).
-- The Kanban, Batch, Costs and Home views, apart from points 1, 3b and 5 as they reach them.
-- Showing the repository's resolved or absolute path, or checking that it exists.
+- The Kanban, Batch, Costs and Home views, apart from points 1 and 3b as they reach them.
 - Any write by the board, any change to the autosync or the key.
 
 ## Evidence
@@ -210,40 +180,35 @@ Checks, before the PR:
   with a byte-order mark and with CRLF line ends; a file with only a frontmatter falls through to
   the next candidate; a `---` rule lower in a file is not skipped as a frontmatter; a file with no
   frontmatter gives what it gives today. The test fails on today's code for the frontmatter cases.
-- A test that `GET /api/board` on a prepared surface of two projects gives the surface's root and,
-  for each project, its folder (`projects/<name>/`) and its `repo:` value as written, one project
-  with a `repo:` line and one without (which gives `.repo`); and on a single in-project folder gives
-  what it gives today. Kept within `just test`'s time budget (`AGENTS.md`).
+  Kept within `just test`'s time budget (`AGENTS.md`).
 - `just scenario` passes, and the pipeline's `just scenario (ubuntu-latest)` job is green at the
   PR's head (the board is part of the CLI package).
-- `just docs-screenshots` run, its pictures committed, and run a second time with no change in the
-  surface name or path, or the projects' paths, they show.
+- `just docs-screenshots` run and its changed pictures committed.
 
 Browser checks, by the Driver or the QA, on the live board (`uv run --no-sync --project <checkout>
-chantier board` over a surface of several projects, such as a copy of `docs/demo/`, with one item
-whose `01-intent.md` starts with a frontmatter and one CR folder whose round file holds a wide
-table), at 2560 x 1440, at 2940 x 1280, at 1400 x 860 and at 375 x 812, each with a screenshot in the
-PR's evidence:
+chantier board` over a copy of `docs/demo/` with at least six items in one priority, one group of
+two in a lane, one item whose `01-intent.md` starts with a frontmatter, and one CR folder whose
+round file holds a wide table), at 2560 x 1440, at 2940 x 1280, at 1400 x 860 and at 375 x 812,
+each with a screenshot in the PR's evidence:
 
 1. Open a CR's panel on Kanban, then go to Home by the left bar: the panel is closed. Again with
    Home's "see the batch" link and with the browser's back button. Open a file for edit, change it,
    then click another view: the board asks; on "stay", the view and the panel with the edit are
    still there.
-2. On Triage, hover each card of a lane holding several cards, then of the inbox and of 3-ready: no
-   horizontal scroll bar appears; the card still tilts.
-3. On Triage at 2940 pixels, a backlog card is no wider than the cap the PR names; at 1400 pixels,
-   the view looks as on `main` (side by side screenshots).
-4. The item with a frontmatter shows its first paragraph on Triage, Kanban and Home, never `---`.
-5. The wide table's round file in the panel at 2560 and 2940 pixels: the table is readable, its
+2. On Triage, hover each card of a lane holding several cards per row, then of the inbox and of
+   3-ready: no horizontal scroll bar appears; the card still tilts.
+3. On Triage at 2940 pixels: every card, inbox, backlog and 3-ready, is the width the PR names;
+   the priority with six items shows several cards per row, in today's order; the group's members
+   stay together in their frame. At 1400 pixels a backlog card is the inbox card's width. On a
+   phone the swipe and one card per row remain.
+4. On Triage at 2940 pixels: drag a card from the inbox to the middle of a full P1 row, onto
+   another card (a group is made), and a group by its handle to P2: each lands as on `main`.
+5. The item with a frontmatter shows its first paragraph on Triage, Kanban and Home, never `---`.
+6. The wide table's round file in the panel at 2560 and 2940 pixels: the table is readable, its
    cells are not one word per line, and nothing runs past the panel's edge; at 1400 pixels the panel
    is not narrower than on `main`; on a phone it is full screen.
-6. The picker's button, menu closed, shows the surface's name, its path and "Planning surface · N
-   projects", never "All projects", in English and in French; the menu's first line shows the
-   surface's name and path; the overview's title is the surface's name; each project's line, in the
-   menu, in the table and on the phone's cards, shows its folder in the surface and its repository
-   as `checkout.yml` names it; a long path is cut and shown whole on hover.
-7. A board on a single project (in-project) shows no picker change and no path.
 
 ## Open questions
 
-None: the first run's two questions are answered in `02-answers.md` (Q4, Q5) and carried above.
+None: Q6 and Q7 of `02-answers.md` are carried above; the first run's Q4 and Q5 belong to
+`board-surface-selector`.
