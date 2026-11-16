@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Post the grill summary, plan and demo on the source ticket",
+  "summary": "Imported intent describing user-approved tracker summaries, plans, demos and PR follow-up; no local answers or change specification accompany it.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "afd88d50a0b6dc254f0cde4a8497be59b4e33ac9a0f75f49dd62776c0f68b48f"
+  },
+  "summarized": "2026-11-16T10:57:06Z"
+}

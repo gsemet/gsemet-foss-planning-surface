@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Use a portable shell invocation for the CLI",
+  "summary": "Imported raw request to avoid storing a whole CLI command in a shell variable; no local interview or specification accompanies it.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "f6497c6406cd0a90785ce6039557c28337ac2ea980675a698529698feebaffcf"
+  },
+  "summarized": "2026-11-16T10:57:06Z"
+}
