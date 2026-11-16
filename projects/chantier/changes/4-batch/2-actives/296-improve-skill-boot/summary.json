@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "title": "Improve skill boot",
-  "summary": "Stopped by user after round 6; package safe WIP as draft PR and pause for another operator. Generic Sol trial follows enforced Luna override. Changes and reported tests need independent review; Verifier and exact-head Ubuntu scenario gate remain required.",
+  "summary": "Stopped by user; WIP draft gsemet/chantier#247 at 97490a3. Generic Coder verified on Sol by host logs; named Coder forced Luna. R5/r6 unreviewed; Inspector, Verifier and exact-head Ubuntu scenario evidence missing. Handoff: work/handoff.md. Resume only on user instruction.",
   "origin": {
     "kind": "verbal"
   },
@@ -10,5 +10,5 @@
     "02-answers.md": "0fc12a19b9e2aa3ff72ac08e2e598619a03a210744a23b3495151df459a17a71",
     "03-change-spec.md": "a4eb80dbd6117cdf57497843ebf20252ad1b13855f73defec0cdc12de70b1c9b"
   },
-  "summarized": "2026-11-16T16:18:36Z"
+  "summarized": "2026-11-16T16:20:08Z"
 }
