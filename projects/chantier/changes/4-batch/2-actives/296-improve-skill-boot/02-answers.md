@@ -451,3 +451,22 @@ The user answered: "Autoriser un quatrième round ciblé".
 
 The maximum is now four rounds, not an open-ended grant. Scope and validation
 criteria remain unchanged; no merge permission or validation waiver is granted.
+
+## Fifth round and Coder model override
+
+2026-11-16: after the fourth Inspector returned FIX-REQUIRED, the user requested
+GPT-6.1 Sol instead of Luna for the current task. The Chief of Staff explained
+that no agent was running and requested a bounded extension. The user confirmed:
+"Autoriser le cinquième round avec Coder GPT-6.1 Sol".
+
+The maximum is now five rounds. Launch the Coder with the explicit
+`gpt-6.1-sol` model override, without modifying installed agent definitions.
+Keep the Inspector on its configured Sol model. Verify the actual model from
+host execution evidence; do not infer it from the requested value or the
+agent's self-description. If the host refuses or cannot apply the override,
+stop and report it rather than silently using Luna.
+
+The remaining work includes safe Windows participant liveness checks, the
+over-budget router reload path, the flaky join-watcher test, complete Foreman
+startup measurements and accurate PR evidence. Scope, validation gates and
+the prohibition on merging remain unchanged.
