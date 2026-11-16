@@ -470,3 +470,24 @@ The remaining work includes safe Windows participant liveness checks, the
 over-budget router reload path, the flaky join-watcher test, complete Foreman
 startup measurements and accurate PR evidence. Scope, validation gates and
 the prohibition on merging remain unchanged.
+
+## Sixth round with a generic Sol Coder
+
+2026-11-16: the fifth-round Driver reported the host message:
+"Required model enforcement replaced requested model `gpt-6.1-sol` with
+`gpt-5.6-luna`." The named Coder had already edited the worktree before its
+result reached the Driver. Those edits remain uncommitted and unverified.
+The Driver stopped without Inspector, PR or Verifier.
+
+The Chief of Staff disclosed this outcome and the proposed generic-agent
+alternative, including that its tools are not restricted like the plugin
+Coder's. The user confirmed:
+"Autoriser un sixième round avec agent générique GPT-6.1 Sol".
+
+The maximum is now six rounds. Use a generic agent explicitly launched with
+`model: gpt-6.1-sol`, supplied with the complete Coder contract and task brief,
+to assess and finish the preserved implementation, including the fifth-round
+edits. Do not modify installed plugin agents or create temporary agent files.
+Verify the effective host model, with no silent fallback to Luna. Keep the
+named Inspector and Verifier and all existing acceptance criteria and gates.
+No seventh round or merge is authorized.

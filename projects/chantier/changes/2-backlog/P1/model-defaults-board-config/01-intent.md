@@ -54,6 +54,14 @@ separate from CR-296 improve-skill-boot and is not authorized to join batch-20.
   not a verified design or an equivalent replacement for enforced tool restrictions.
 - Effective model selection and tool restrictions must be verified on each supported
   harness. Do not equate prompt instructions with harness-enforced permissions.
+- CR-296 round 5 provides a concrete Copilot-host finding: its Driver passed
+  `model: gpt-6.1-sol` with the named `chantier-coder`, but the host reported
+  "Required model enforcement replaced requested model `gpt-6.1-sol` with
+  `gpt-5.6-luna`." Thus this named agent's required model took precedence in
+  this execution. The Coder had already edited files when the Driver received
+  the result; post-completion detection is not a pre-execution guarantee.
+  The user authorized a sixth-round generic Sol Coder trial with the role
+  contract supplied explicitly; its outcome is not yet established.
 - No attachment or source tracker issue has been supplied.
 
 ## Open design questions
