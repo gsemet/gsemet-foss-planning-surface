@@ -1,0 +1,162 @@
+---
+type: SwRS
+id: SwRS-MDOKFSTUDIO-MYST-038
+uuid: 0bf9bdd0-2e90-4a37-b7d8-1efb9ea673ea
+title: "The anchor icon opens a rename field that sends valid names"
+description: "When a reader clicks the anchor icon of a label in edit mode, the extension
+  SHALL open a Rename label popover with a prefilled, selected, focused Label name
+  field before block click handling, send a rename only for a changed valid name and
+  show the answer of the host in the field, placed so that it does not cover the block
+  its label introduces."
+project: markdown-okf-schema-studio
+scope: myst
+req_lifecycle: proposed
+status: stable
+origin: native
+tier: SwRS
+derives_from:
+- StRS-MDOKFSTUDIO-MYST-009
+depends_on:
+- SwRS-MDOKFSTUDIO-BLOCK-041
+annotation_exemption: false
+exemption_reason:
+derived_by: []
+implemented_in_files:
+- src/core/mapping/labelRename.ts
+- src/page/modules/labelRename.ts
+- src/session/pageMessages.ts
+tested_in_files:
+- test/core/mapping/labelRename.test.ts
+- test/core/protocol/pageToHost.test.ts
+- test/integration/realInput/labelRenameAboveTable.ts
+- test/page/modules/labelRename.test.ts
+- test/page/modules/renderReq.labelRename.requirements.test.ts
+- test/session/trustReq.requirements.test.ts
+- test/visual/capture_label_rename.py
+- test/visual/labelRenameScenarios.ts
+default_owner_email: gaetan@xeberon.net
+supersedes:
+- SwRS-MDOKFSTUDIO-MYST-039
+- SwRS-MDOKFSTUDIO-MYST-040
+- SwRS-MDOKFSTUDIO-MYST-041
+- SwRS-MDOKFSTUDIO-MYST-047
+- SwRS-MDOKFSTUDIO-MYST-048
+- SwRS-MDOKFSTUDIO-MYST-049
+- SwRS-MDOKFSTUDIO-MYST-090
+- SwRS-MDOKFSTUDIO-MYST-094
+---
+
+## The anchor icon opens a rename field that sends valid names
+
+### Normative behavior
+
+When a reader clicks the anchor icon of a label in edit mode, the extension SHALL open a Rename label popover with a prefilled, selected, focused Label name field before block click handling, send a rename only for a changed valid name and show the answer of the host in the field, placed so that it does not cover the block its label introduces.
+
+### Scenario (nominal): The click opens the rename field
+- GIVEN edit mode on and the label `(draft_1)=` before a paragraph, which shows an anchor icon with a pointer cursor
+- WHEN the anchor icon is clicked
+- THEN a dialog Rename label opens under it with the Label name field prefilled with `draft_1`, selected and focused, and no block editor opens
+
+### Scenario (boundary): A label above a table opens the field above its icon
+| Input | Outcome |
+| --- | --- |
+| Anchor icon of a label held by no paragraph or heading (`(table-label)=` right before a table, also a code block, a figure or a directive) clicked in edit mode, with room above the icon | The field opens above the icon: its bottom edge is 6 px above the icon's top edge, its left edge as for any label; it covers no cell of the table |
+| The same click with too little room above (less than the field's height between the icon and the top obstruction: the bottom of the preview toolbar when it overlaps the field's horizontal span, else 8 px from the top of the pane) and a page that can scroll up by the missing height | The page scrolls up by the missing height, then the field opens above the icon |
+| The same click at the very top of the document, where the page cannot scroll up by the missing height | The field opens under the icon, as for a label before a paragraph, and covers the first rows of the table until Escape or a press elsewhere |
+| Renaming..., Renamed. or a refusal shown in the field | The field grows upwards, away from the table |
+
+The field is anchored by its bottom edge when it opens above. A label held by a paragraph or a heading keeps the placement under its icon. The field never exceeds the width of the pane (its padding and border included).
+
+### Scenario (refusal): Clicks that open no field
+| Input | Outcome |
+| --- | --- |
+| Anchor icon clicked with edit mode off | Nothing opens and the icon stays a link target |
+
+### Scenario (nominal): Enter sends the rename or closes
+| Input (Enter pressed in the field) | Outcome |
+| --- | --- |
+| A changed valid name | One rename with the label line is posted |
+| The name left unchanged | The field closes and nothing is posted |
+
+### Scenario (refusal): Invalid names are not sent
+| Input (Enter pressed in the field) | Outcome |
+| --- | --- |
+| `bad name` (a space) | The message is shown and nothing is posted |
+| An empty name | The same message is shown and nothing is posted |
+| A 101-character name | The same message is shown and nothing is posted |
+| A name with characters other than letters, digits and `_ . : -` | The same message is shown and nothing is posted |
+
+The message reads: Use letters, digits and _ . : - only (100 characters at most). The host and the message validator repeat the check.
+
+### Scenario (nominal): Labels starting with a symbol
+| Input | Outcome |
+| --- | --- |
+| Anchor icon of the label `(_draft)=`, `(.hidden)=` or `(-dash)=` clicked in edit mode | The rename field opens prefilled and selected, like for any other label, and no block editor opens |
+| `-new` typed for `_draft` and Enter pressed | One rename is posted |
+
+The anchor icon, the field and the host share one name pattern: letters, digits and `_ . : -`, 100 characters at most. Every label that shows an icon can be renamed.
+
+### Scenario (refusal): A rename from a stale render
+| Input | Outcome |
+| --- | --- |
+| A rename sent from an older render | The host answers ok false with The label is no longer on that line. Refresh the preview.; the field shows it and is editable again |
+
+### Scenario (boundary): Escape or an outside press closes the field
+| Input (field open) | Outcome |
+| --- | --- |
+| Escape | The field closes and nothing is sent |
+| Pointer press outside the popover and the icon | The field closes and nothing is sent |
+| Pointer press on a table cell while the field is open | The field closes, nothing is sent and the cell editor opens in the same click |
+
+### Scenario (nominal): A successful rename reports the remaining uses
+| Input (rename succeeds) | Outcome |
+| --- | --- |
+| Two `{ref}` uses of the old name | The field shows Renamed. 2 uses of "old" remain in this document. |
+| No `{ref}` use, or `{doc}` and `{numref}` uses only | The field shows Renamed. No use of the old name remains. |
+
+Only `{ref}` forms are counted. The field closes itself 5 s after the success message; a new rename or Escape within the 5 s makes the field follow the new action and no stale close occurs.
+
+### Scenario (boundary): Progress, refusal and silence of the host
+| Input | Outcome |
+| --- | --- |
+| A posted rename the host has not answered | The field is disabled and reads Renaming... |
+| An answer with another edit id | The answer is ignored |
+| A refusal with a reason | The reason is shown and the field is editable again |
+| No host answer within 6 s | The field is editable again with The editor did not answer. Try again. |
+| An answer arriving before 6 s | The answer is matched by edit id, the timer is cleared and no timeout message is shown |
+
+### Related requirements
+- SwRS-MDOKFSTUDIO-BLOCK-041: an open editor blocks a rename; see it for the refusal reason.
+- SwRS-MDOKFSTUDIO-MYST-045: the host side of the rename.
+- SwRS-MDOKFSTUDIO-MYST-051: the message the field posts and the answer it receives.
+
+### Verification notes
+- Method: test/page/modules/labelRename.test.ts ("a click on the anchor in edit mode opens a prefilled, selected field before the block handlers": click opens and edit mode off; "Enter posts one rename with the label line; Escape cancels": Enter and Escape; "an invalid or unchanged name is not sent": invalid names and unchanged name; "the result shows how many {ref} uses of the old name remain": remaining uses, progress and refusal)
+- Method: test/page/modules/renderReq.labelRename.requirements.test.ts ("without an answer after 6 s the field is editable again with a message; an answer clears the timer": silence of the host; "a successful rename closes the field 5 s later and a new action cancels the stale close": 5 s close; "a label starting with an underscore, dot or hyphen opens the rename field like any other": symbol label)
+- Method: test/session/trustReq.requirements.test.ts ("a label rename from an older render is answered with the stale-line refusal": stale render, other document, disposed preview)
+- Method: test/core/mapping/labelRename.test.ts ("the renderer, the page and the host share one label name pattern": shared pattern; "label names follow the MyST pattern and the length limit": invalid names; "counts {ref} uses with and without a title, not other roles or names": remaining uses)
+- Method: test/core/protocol/pageToHost.test.ts ("previewLabelRename validates the line and both label names": the validator repeats the name check)
+- Method: test/page/modules/labelRename.test.ts ("an icon in an anchor row opens the field above the icon, anchored by its bottom edge", "with too little room above, the page scrolls up by the missing height, then the field opens above", "the preview toolbar band counts as the top obstruction", "a toolbar that floats beside the field, not over it, is no top obstruction", "when the page cannot scroll up by the missing height, the field opens below the icon", "an icon held by a paragraph or a heading keeps the placement under the icon": placement; "a press on an element outside the popover (a table cell) closes it; a press inside keeps it": outside press)
+- Method: test/integration/realInput/labelRenameAboveTable.ts (the field of a table label covers no cell; a click on a cell closes it and opens the cell editor)
+- Method: test/visual/capture_label_rename.py, scenario myst/v46-label-rename-above-table-light-290 (a 290 px pane: the field is above the icon, inside the pane, and covers no cell)
+- Criteria: The icon shows a pointer cursor in edit mode only; the field opens above the icon of a label held by no paragraph, never covers a cell of the table below it unless the page cannot scroll up; no message is posted on a closed field, an invalid name or an unchanged name; page and host both reject invalid names; matching of the answer is by edit id; `{ref}`-only counting and the message texts match.
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derives from:
+  - [StRS-MDOKFSTUDIO-MYST-009](../../strs/myst/StRS-MDOKFSTUDIO-MYST-009.md): A writer sees, links and renames labels safely
+- Depends on:
+  - [SwRS-MDOKFSTUDIO-BLOCK-041](../block-editing/SwRS-MDOKFSTUDIO-BLOCK-041.md): One edit at a time: an open editor blocks other edits, opens and refreshes
+- Supersedes:
+  - [SwRS-MDOKFSTUDIO-MYST-039](SwRS-MDOKFSTUDIO-MYST-039.md): Enter sends the label rename and an unchanged name sends nothing
+  - [SwRS-MDOKFSTUDIO-MYST-040](SwRS-MDOKFSTUDIO-MYST-040.md): Escape or an outside press closes the rename field
+  - [SwRS-MDOKFSTUDIO-MYST-041](SwRS-MDOKFSTUDIO-MYST-041.md): Invalid label names are not sent
+  - [SwRS-MDOKFSTUDIO-MYST-047](SwRS-MDOKFSTUDIO-MYST-047.md): A successful rename reports the remaining uses
+  - [SwRS-MDOKFSTUDIO-MYST-048](SwRS-MDOKFSTUDIO-MYST-048.md): The rename field shows progress and refusals
+  - [SwRS-MDOKFSTUDIO-MYST-049](SwRS-MDOKFSTUDIO-MYST-049.md): The rename field times out after 6 seconds
+  - [SwRS-MDOKFSTUDIO-MYST-090](SwRS-MDOKFSTUDIO-MYST-090.md): The rename field closes itself after 5 seconds
+  - [SwRS-MDOKFSTUDIO-MYST-094](SwRS-MDOKFSTUDIO-MYST-094.md): A label starting with underscore, dot or hyphen cannot be renamed
+<!-- okf:links:end -->

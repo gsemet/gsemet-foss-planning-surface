@@ -1,0 +1,58 @@
+---
+type: SwRS
+id: SwRS-MDOKFSTUDIO-MYST-058
+uuid: de89efa6-d6e6-48e1-b385-4323d5a4041a
+title: Toctree caption and hidden options
+description: When a toctree has `:caption:` or `:hidden:`, the extension SHALL
+  show the caption as a level-2 heading above the list or show nothing.
+project: markdown-okf-schema-studio
+scope: myst
+req_lifecycle: superseded
+status: deprecated
+origin: native
+tier: SwRS
+derives_from:
+- StRS-MDOKFSTUDIO-MYST-012
+annotation_exemption: true
+exemption_reason: "Superseded by SwRS-MDOKFSTUDIO-MYST-057; no marker expected."
+derived_by: []
+implemented_in_files: []
+tested_in_files: []
+superseded_by:
+- SwRS-MDOKFSTUDIO-MYST-057
+default_owner_email: gaetan@xeberon.net
+---
+
+## Toctree caption and hidden options
+
+### Normative behavior
+
+When a toctree has `:caption:` or `:hidden:`, the extension SHALL show the caption as a level-2 heading above the list or show nothing.
+
+### Scenario: Nominal
+
+- GIVEN `:caption: Guide`
+- WHEN the preview renders
+- THEN a level-2 heading Guide appears above the list
+
+### Scenario: Boundary or refusal
+
+- GIVEN `:hidden:`
+- WHEN the preview renders
+- THEN nothing is shown
+
+### Verification notes
+
+- Method: Unit test "a toctree lists links labelled by the target H1, the file name or an explicit title" in test/core/render/gridToctree.test.ts
+- Criteria: Options are independent.
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derives from:
+  - [StRS-MDOKFSTUDIO-MYST-012](../../strs/myst/StRS-MDOKFSTUDIO-MYST-012.md): A toctree shows the linked documents and marks missing ones
+- Superseded by:
+  - [SwRS-MDOKFSTUDIO-MYST-057](SwRS-MDOKFSTUDIO-MYST-057.md): Toctree lists linked documents and marks missing ones
+<!-- okf:links:end -->

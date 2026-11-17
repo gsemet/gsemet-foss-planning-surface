@@ -1,0 +1,58 @@
+---
+type: SwRS
+id: SwRS-MDOKFSTUDIO-MYST-064
+uuid: 849299c6-0763-409c-83a0-fb3ed2793cc0
+title: Invalid list-table widths are ignored
+description: When `:widths:` is `auto`, `grid`, non numeric or does not match
+  the column count, the extension SHALL ignore it and make no column group.
+project: markdown-okf-schema-studio
+scope: myst
+req_lifecycle: superseded
+status: deprecated
+origin: native
+tier: SwRS
+derives_from:
+- StRS-MDOKFSTUDIO-MYST-001
+annotation_exemption: true
+exemption_reason: "Superseded by SwRS-MDOKFSTUDIO-MYST-063; no marker expected."
+derived_by: []
+implemented_in_files: []
+tested_in_files: []
+superseded_by:
+- SwRS-MDOKFSTUDIO-MYST-063
+default_owner_email: gaetan@xeberon.net
+---
+
+## Invalid list-table widths are ignored
+
+### Normative behavior
+
+When `:widths:` is `auto`, `grid`, non numeric or does not match the column count, the extension SHALL ignore it and make no column group.
+
+### Scenario: Nominal
+
+- GIVEN `:widths: auto`
+- WHEN the preview renders
+- THEN no column group exists
+
+### Scenario: Boundary or refusal
+
+- GIVEN three widths for two columns
+- WHEN the preview renders
+- THEN no column group exists
+
+### Verification notes
+
+- Method: Unit test "CR038: list-table widths that do not match the columns or are not numbers are ignored" in test/core/render/mystFeatures.test.ts
+- Criteria: Valid widths are applied as percent.
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derives from:
+  - [StRS-MDOKFSTUDIO-MYST-001](../../strs/myst/StRS-MDOKFSTUDIO-MYST-001.md): MyST directives and roles render as readable blocks
+- Superseded by:
+  - [SwRS-MDOKFSTUDIO-MYST-063](SwRS-MDOKFSTUDIO-MYST-063.md): Table directives render as ordinary tables
+<!-- okf:links:end -->

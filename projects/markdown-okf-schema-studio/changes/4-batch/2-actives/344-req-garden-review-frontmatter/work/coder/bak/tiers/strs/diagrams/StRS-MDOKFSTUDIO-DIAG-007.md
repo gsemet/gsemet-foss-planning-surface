@@ -1,0 +1,173 @@
+---
+type: StRS
+id: StRS-MDOKFSTUDIO-DIAG-007
+uuid: 1247ef56-cfef-408e-ae74-0a5c1074a2c3
+title: A writer renders PlantUML with an own JAR or command, safely bounded
+description: When a writer sets the PlantUML options, the Studio SHALL draw with
+  the bundled engine by default, or with the writer's own Java JAR or PlantUML
+  command only when the JAR option is on and the workspace is trusted, name the
+  cause on the diagram when that rendering is blocked or fails, and stop a
+  diagram that is too large, too slow, too chatty or cancelled.
+project: markdown-okf-schema-studio
+scope: diagrams
+req_lifecycle: proposed
+status: stable
+origin: native
+tier: StRS
+derives_from: []
+user_need: As a writer, I decide whether PlantUML runs in the safe bundled
+  engine or in my own installation, changing the choice applies to open
+  previews, and a blocked, failing or heavy diagram never freezes the editor or
+  leaves processes running.
+derived_by:
+- SwRS-MDOKFSTUDIO-DIAG-024
+- SwRS-MDOKFSTUDIO-DIAG-025
+- SwRS-MDOKFSTUDIO-DIAG-026
+- SwRS-MDOKFSTUDIO-DIAG-027
+- SwRS-MDOKFSTUDIO-DIAG-032
+- SwRS-MDOKFSTUDIO-DIAG-054
+- SwRS-MDOKFSTUDIO-DIAG-057
+- SwRS-MDOKFSTUDIO-DIAG-075
+- SwRS-MDOKFSTUDIO-DIAG-076
+- SwRS-MDOKFSTUDIO-DIAG-077
+- SwRS-MDOKFSTUDIO-DIAG-078
+- SwRS-MDOKFSTUDIO-DIAG-082
+- SwRS-MDOKFSTUDIO-DIAG-084
+- SwRS-MDOKFSTUDIO-DIAG-085
+- SwRS-MDOKFSTUDIO-DIAG-086
+- SwRS-MDOKFSTUDIO-DIAG-087
+- SwRS-MDOKFSTUDIO-DIAG-088
+- SwRS-MDOKFSTUDIO-DIAG-089
+- SwRS-MDOKFSTUDIO-DIAG-090
+- SwRS-MDOKFSTUDIO-DIAG-091
+- SwRS-MDOKFSTUDIO-DIAG-092
+- SwRS-MDOKFSTUDIO-DIAG-093
+- SwRS-MDOKFSTUDIO-DIAG-094
+- SwRS-MDOKFSTUDIO-DIAG-095
+- SwRS-MDOKFSTUDIO-DIAG-096
+- SwRS-MDOKFSTUDIO-DIAG-097
+- SwRS-MDOKFSTUDIO-DIAG-098
+- SwRS-MDOKFSTUDIO-DIAG-099
+- SwRS-MDOKFSTUDIO-DIAG-100
+- SwRS-MDOKFSTUDIO-DIAG-101
+- SwRS-MDOKFSTUDIO-DIAG-102
+- SwRS-MDOKFSTUDIO-DIAG-103
+- SwRS-MDOKFSTUDIO-DIAG-104
+- SwRS-MDOKFSTUDIO-DIAG-105
+- SwRS-MDOKFSTUDIO-DIAG-106
+- SwRS-MDOKFSTUDIO-DIAG-107
+- SwRS-MDOKFSTUDIO-DIAG-108
+- SwRS-MDOKFSTUDIO-DIAG-109
+- SwRS-MDOKFSTUDIO-DIAG-110
+- SwRS-MDOKFSTUDIO-DIAG-111
+- SwRS-MDOKFSTUDIO-DIAG-117
+- SwRS-MDOKFSTUDIO-DIAG-118
+- SwRS-MDOKFSTUDIO-DIAG-120
+default_owner_email: gaetan@xeberon.net
+supersedes:
+- StRS-MDOKFSTUDIO-DIAG-012
+- StRS-MDOKFSTUDIO-DIAG-013
+- StRS-MDOKFSTUDIO-DIAG-014
+---
+
+## A writer renders PlantUML with an own JAR or command, safely bounded
+
+### Normative behavior
+
+When a writer sets the PlantUML options, the Studio SHALL draw with the bundled engine by default, or with the writer's own Java JAR or PlantUML command only when the JAR option is on and the workspace is trusted, name the cause on the diagram when that rendering is blocked or fails, and stop a diagram that is too large, too slow, too chatty or cancelled.
+
+### Preserved stakeholder intent
+
+Writers and security-minded teams expect to choose between a safe bundled engine and their own PlantUML installation, and expect a change of choice to take effect at once. Writers with an installation expect its exact output, including features the bundled engine lacks such as remote includes, and expect a blocked or failing render to name its cause, with Restricted Mode as a hard stop. They expect a heavy, hung or abandoned diagram not to freeze the editor or leave processes behind.
+
+### Rationale and constraints
+
+- Choice: the JAR option is off by default. Only a real `true` selects the JAR pipeline; a non-boolean value never starts a process. In an untrusted workspace the option still routes to the JAR pipeline, which refuses without starting a process.
+- The JAR path option is used only when the JAR option is on and is kept, ignored, while it is off.
+- Changing any PlantUML setting re-reads the settings of every open preview and renders the open document again, without reopening the preview.
+- Both settings are explained in the Settings UI, in a "PlantUML" category (order 5), each with a unique order and a description of its effect.
+- Known issue: when the renderer is called without an engine option it defaults to the JAR pipeline; only the VS Code session passes the bundled engine.
+- Rendering: with the JAR option on in a trusted workspace, a diagram is rendered by `java -jar <jar> -pipe -tsvg` when the JAR path is set, or by `plantuml -pipe -tsvg` when it is empty. The source goes in on standard input in the workspace folder and the SVG is taken from the output; log lines around it are ignored.
+- The JAR path is trimmed, and a relative path is resolved from the workspace folder; a non-string value reads as empty.
+- With several diagrams, one process is started per diagram in parallel; each result is matched to its diagram in document order, and one failure does not affect the others.
+- Results reach the open preview in place when ready: pictures with a rendered state, failures as a red message paragraph plus a status-line warning with code `plantuml-render`. A save, a PlantUML result or a link update waits for an open block edit to finish.
+- Known issue: the executable path option of the renderer is fed by no setting; only visual fixtures pass it. The success visual scenario fails when `plantuml` is not on the PATH, and many diagrams mean many JVMs at once.
+- Blocked or failed: in Restricted Mode with the JAR option on, no process starts: every PlantUML diagram shows "PlantUML preview is disabled in an untrusted workspace." with one warning each. The bundled engine is not swapped in silently.
+- A JAR path that does not exist shows "The PlantUML JAR could not be found: followed by the path"; a directory shows "The PlantUML JAR path is not a file: followed by the path"; no process starts. The diagram state is `error`.
+- A missing `plantuml` command shows `PlantUML executable "plantuml" was not found on PATH. Set markdownOkfSchemaStudio.plantuml.jarPath to a valid JAR path.` with the source kept and the state `unavailable`. Known issue: a missing Java gives the same wording about the executable "java", which does not name Java or Graphviz and misleads when the JAR path is already set; a missing Graphviz is neither checked nor reported.
+- A process exiting with an error shows `PlantUML exited with code N: followed by the error output` (or `signal S`, or "PlantUML returned no diagnostic."); output without `<svg` shows "PlantUML did not return SVG output."; a spawn that throws is reported the same way. A process that exits before reading its input, or a stdin error, becomes a normal message instead of crashing the extension host.
+- Bounds: a source over 1 MiB is refused before spawning ("PlantUML source exceeds the 1 MiB preview limit."); an SVG output over 8 MiB kills the process ("PlantUML SVG output exceeds the 8 MiB preview limit.").
+- A render over 30 s is stopped, the whole process group killed, with "PlantUML did not finish within 30 s."
+- Error text from a process is capped at 64 KiB with "[stderr truncated at 64 KiB]".
+- Cancelling a render (a newer render stage, the preview closing) sends SIGTERM to the whole process group on POSIX, falling back to the direct child; an exited child is not signalled. A render that sees close, error and timeout together settles once. Known issue: Windows, which has no process group, is untested.
+
+### Main paths
+
+#### Path 1: Draw with an own JAR
+
+1. PlantUML diagrams are drawn by the built-in engine
+   - SwRS-MDOKFSTUDIO-DIAG-024: the writer sets useJar to true and the JAR pipeline is selected
+   - Option SwRS-MDOKFSTUDIO-DIAG-024 (refusal): a value that is not the boolean true keeps the built-in engine
+2. The JAR pipeline is selected
+   - SwRS-MDOKFSTUDIO-DIAG-084: java or the plantuml command runs once per diagram
+   - Option SwRS-MDOKFSTUDIO-DIAG-089 (refusal): a jarPath that does not exist shows a message on the diagram
+   - Option SwRS-MDOKFSTUDIO-DIAG-097 (refusal): a render that runs past 30 seconds stops with a message
+3. The JAR has drawn the diagrams of the render
+   - SwRS-MDOKFSTUDIO-DIAG-105: each result replaces the content of its diagram in document order
+   - Option SwRS-MDOKFSTUDIO-DIAG-105 (boundary): one failing diagram does not affect the others
+4. Each diagram shows the picture the JAR drew
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derived by:
+  - [SwRS-MDOKFSTUDIO-DIAG-024](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-024.md): The useJar and jarPath settings choose the PlantUML engine
+  - [SwRS-MDOKFSTUDIO-DIAG-025](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-025.md): useJar in an untrusted workspace keeps the JAR pipeline
+  - [SwRS-MDOKFSTUDIO-DIAG-026](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-026.md): The built-in engine starts no process
+  - [SwRS-MDOKFSTUDIO-DIAG-027](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-027.md): jarPath is ignored until useJar is on
+  - [SwRS-MDOKFSTUDIO-DIAG-032](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-032.md): The built-in engine refuses what needs a URL, a library or more than 1 MiB
+  - [SwRS-MDOKFSTUDIO-DIAG-054](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-054.md): The host reads an include only next to the including file in allowed folders
+  - [SwRS-MDOKFSTUDIO-DIAG-057](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-057.md): The trust state sets the folders an include may read
+  - [SwRS-MDOKFSTUDIO-DIAG-075](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-075.md): Changing a PlantUML setting renders the open document again
+  - [SwRS-MDOKFSTUDIO-DIAG-076](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-076.md): The useJar setting is contributed with an explanation
+  - [SwRS-MDOKFSTUDIO-DIAG-077](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-077.md): The jarPath setting is contributed with an explanation
+  - [SwRS-MDOKFSTUDIO-DIAG-078](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-078.md): The PlantUML settings form their own category
+  - [SwRS-MDOKFSTUDIO-DIAG-082](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-082.md): PlantUML messages use the error style
+  - [SwRS-MDOKFSTUDIO-DIAG-084](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-084.md): The JAR pipeline runs java or plantuml once per diagram on stdin
+  - [SwRS-MDOKFSTUDIO-DIAG-085](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-085.md): Without a JAR the plantuml command is run
+  - [SwRS-MDOKFSTUDIO-DIAG-086](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-086.md): The JAR pipeline takes the SVG from the process output
+  - [SwRS-MDOKFSTUDIO-DIAG-087](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-087.md): jarPath is read as a trimmed string
+  - [SwRS-MDOKFSTUDIO-DIAG-088](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-088.md): A relative jarPath is resolved from the workspace folder
+  - [SwRS-MDOKFSTUDIO-DIAG-089](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-089.md): JAR failures are reported on the diagram and in the status line
+  - [SwRS-MDOKFSTUDIO-DIAG-090](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-090.md): A jarPath that is a directory is reported
+  - [SwRS-MDOKFSTUDIO-DIAG-091](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-091.md): Restricted Mode disables JAR rendering
+  - [SwRS-MDOKFSTUDIO-DIAG-092](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-092.md): A missing plantuml command is reported
+  - [SwRS-MDOKFSTUDIO-DIAG-093](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-093.md): A missing Java is reported like a missing command
+  - [SwRS-MDOKFSTUDIO-DIAG-094](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-094.md): A failing PlantUML process shows its exit and error output
+  - [SwRS-MDOKFSTUDIO-DIAG-095](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-095.md): Output without an SVG is reported
+  - [SwRS-MDOKFSTUDIO-DIAG-096](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-096.md): A process that cannot be spawned is reported
+  - [SwRS-MDOKFSTUDIO-DIAG-097](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-097.md): A JAR render is bounded in input, output, time, process lifetime and concurrency
+  - [SwRS-MDOKFSTUDIO-DIAG-098](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-098.md): The JAR pipeline refuses a source over 1 MiB
+  - [SwRS-MDOKFSTUDIO-DIAG-099](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-099.md): The JAR pipeline stops an output over 8 MiB
+  - [SwRS-MDOKFSTUDIO-DIAG-100](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-100.md): A JAR render stops after 30 seconds
+  - [SwRS-MDOKFSTUDIO-DIAG-101](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-101.md): Cancelling a render stops the PlantUML process group
+  - [SwRS-MDOKFSTUDIO-DIAG-102](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-102.md): A process that ignores its input becomes a message
+  - [SwRS-MDOKFSTUDIO-DIAG-103](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-103.md): A render settles exactly once
+  - [SwRS-MDOKFSTUDIO-DIAG-104](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-104.md): The JAR pipeline starts one process per diagram
+  - [SwRS-MDOKFSTUDIO-DIAG-105](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-105.md): JAR results replace the diagrams of the current render in order
+  - [SwRS-MDOKFSTUDIO-DIAG-106](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-106.md): JAR results replace the diagrams in the open preview
+  - [SwRS-MDOKFSTUDIO-DIAG-107](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-107.md): Each JAR failure is also a status-line warning
+  - [SwRS-MDOKFSTUDIO-DIAG-108](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-108.md): JAR results reach a ready page in place
+  - [SwRS-MDOKFSTUDIO-DIAG-109](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-109.md): Results of an older render stage are dropped
+  - [SwRS-MDOKFSTUDIO-DIAG-110](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-110.md): JAR results wait for an open block edit
+  - [SwRS-MDOKFSTUDIO-DIAG-111](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-111.md): A working JAR draws a diagram as a loaded picture
+  - [SwRS-MDOKFSTUDIO-DIAG-117](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-117.md): One failing JAR diagram does not affect the others
+  - [SwRS-MDOKFSTUDIO-DIAG-118](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-118.md): A cancelled JAR render reports the cancellation
+  - [SwRS-MDOKFSTUDIO-DIAG-120](../../swrs/diagrams/SwRS-MDOKFSTUDIO-DIAG-120.md): The JAR pipeline feeds the text on stdin in the workspace folder
+- Supersedes:
+  - [StRS-MDOKFSTUDIO-DIAG-012](StRS-MDOKFSTUDIO-DIAG-012.md): Render PlantUML with my own JAR or command
+  - [StRS-MDOKFSTUDIO-DIAG-013](StRS-MDOKFSTUDIO-DIAG-013.md): Understand why a JAR-rendered diagram failed or was blocked
+  - [StRS-MDOKFSTUDIO-DIAG-014](StRS-MDOKFSTUDIO-DIAG-014.md): A runaway PlantUML process cannot hang the preview
+<!-- okf:links:end -->

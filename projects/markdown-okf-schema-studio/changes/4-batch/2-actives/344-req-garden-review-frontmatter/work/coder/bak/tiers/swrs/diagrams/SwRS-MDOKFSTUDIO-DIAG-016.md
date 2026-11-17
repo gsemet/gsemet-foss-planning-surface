@@ -1,0 +1,63 @@
+---
+type: SwRS
+id: SwRS-MDOKFSTUDIO-DIAG-016
+uuid: b5d800bd-6eff-4481-9029-9cae0cf17993
+title: An invalid Mermaid diagram keeps exactly one error
+description: When a Mermaid diagram that cannot be drawn is drawn again, the
+  page SHALL replace the earlier error with the new one so that the diagram
+  holds exactly one error message and one parser details section.
+project: markdown-okf-schema-studio
+scope: diagrams
+req_lifecycle: superseded
+status: deprecated
+origin: native
+tier: SwRS
+derives_from:
+- StRS-MDOKFSTUDIO-DIAG-001
+annotation_exemption: true
+exemption_reason: "Superseded by SwRS-MDOKFSTUDIO-DIAG-015; no marker expected."
+derived_by: []
+implemented_in_files: []
+tested_in_files: []
+superseded_by:
+- SwRS-MDOKFSTUDIO-DIAG-015
+default_owner_email: gaetan@xeberon.net
+---
+
+## An invalid Mermaid diagram keeps exactly one error
+
+### Normative behavior
+
+When a Mermaid diagram that cannot be drawn is drawn again, the page SHALL replace the earlier error with the new one so that the diagram holds exactly one error message and one parser details section.
+
+### Scenario: Theme switches
+
+- GIVEN an invalid Mermaid diagram
+- WHEN the theme changes through dark, white, cream and the original mode
+- THEN after each change the diagram holds one error message and one details section
+
+### Scenario: Changing reason
+
+- GIVEN an error shown for line 2 and a new error for line 3
+- WHEN the page shows the second error
+- THEN the details section holds only the line 3 reason
+
+### Known issues
+
+- Known issue: The visual check sets the render state to pending before each theme change to force a redraw.
+
+### Verification notes
+
+- Method: Unit test of the error element; visual scenarios diagrams v08 and v09 (theme switch check).
+- Criteria: Never more than one error element and one details section per diagram.
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derives from:
+  - [StRS-MDOKFSTUDIO-DIAG-001](../../strs/diagrams/StRS-MDOKFSTUDIO-DIAG-001.md): A writer reads and inserts Mermaid diagrams that follow the theme
+- Superseded by:
+  - [SwRS-MDOKFSTUDIO-DIAG-015](SwRS-MDOKFSTUDIO-DIAG-015.md): Invalid Mermaid shows one message with the parser reason
+<!-- okf:links:end -->

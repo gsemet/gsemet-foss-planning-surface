@@ -1,0 +1,63 @@
+---
+type: SwRS
+id: SwRS-MDOKFSTUDIO-DIAG-004
+uuid: 87b5459e-2418-488b-8d9f-22e12f388bd9
+title: Mermaid pictures keep their natural size within the content width
+description: "When a Mermaid picture is wider than the content column, the extension
+  SHALL scale it down to the column width keeping its proportions, and does not enlarge
+  a picture that is narrower."
+project: markdown-okf-schema-studio
+scope: diagrams
+req_lifecycle: superseded
+status: deprecated
+origin: native
+tier: SwRS
+derives_from:
+- StRS-MDOKFSTUDIO-DIAG-001
+annotation_exemption: true
+exemption_reason: "Superseded by SwRS-MDOKFSTUDIO-DIAG-001; no marker expected."
+derived_by: []
+implemented_in_files: []
+tested_in_files: []
+superseded_by:
+- SwRS-MDOKFSTUDIO-DIAG-001
+default_owner_email: gaetan@xeberon.net
+---
+
+## Mermaid pictures keep their natural size within the content width
+
+### Normative behavior
+
+When a Mermaid picture is wider than the content column, the extension SHALL scale it down to the column width keeping its proportions, and does not enlarge a picture that is narrower.
+
+### Scenario: Wide picture
+
+- GIVEN a Mermaid picture whose natural width exceeds the content column
+- WHEN the preview is shown
+- THEN the picture is displayed at the column width with its height scaled in proportion (max-width 100 percent, height auto)
+
+### Scenario: Narrow picture
+
+- GIVEN a Mermaid picture narrower than the content column
+- WHEN the preview is shown
+- THEN the picture keeps its natural size, is not enlarged and is centred
+
+### Known issues
+
+- Known issue: There is no minimum scale and no zoom: a very wide diagram is scaled until its labels become small. The unit test locks the containment, not a minimum label size.
+
+### Verification notes
+
+- Method: Unit test on the preview stylesheet; visual scenarios diagrams v01 to v03 check that the picture is not enlarged.
+- Criteria: The stylesheet contains the containment rules and the rendered picture is never larger than its natural size.
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derives from:
+  - [StRS-MDOKFSTUDIO-DIAG-001](../../strs/diagrams/StRS-MDOKFSTUDIO-DIAG-001.md): A writer reads and inserts Mermaid diagrams that follow the theme
+- Superseded by:
+  - [SwRS-MDOKFSTUDIO-DIAG-001](SwRS-MDOKFSTUDIO-DIAG-001.md): Mermaid fences become inert diagram pictures
+<!-- okf:links:end -->

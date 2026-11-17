@@ -1,0 +1,86 @@
+---
+type: StRS
+id: StRS-MDOKFSTUDIO-LIFE-003
+uuid: 0e0f7e03-2869-48c9-beb3-e45588bf5fb2
+title: The side preview follows the active file and refreshes on demand
+description: When a writer moves to another Markdown file, the Studio SHALL
+  switch the side preview to that file and name it in the panel title, and, when
+  a reader asks for a refresh, render the shown document again from its current
+  text and keep the reading position.
+project: markdown-okf-schema-studio
+scope: lifecycle-sync
+req_lifecycle: proposed
+status: stable
+origin: native
+tier: StRS
+derives_from: []
+user_need: As a writer, I keep one preview beside my editor and it shows the
+  Markdown file I am working in, without opening a new preview each time; as a
+  reader, I redraw the preview myself when I doubt that it is current, and I
+  stay where I was reading.
+derived_by:
+- SwRS-MDOKFSTUDIO-LIFE-003
+- SwRS-MDOKFSTUDIO-LIFE-024
+- SwRS-MDOKFSTUDIO-LIFE-026
+- SwRS-MDOKFSTUDIO-LIFE-032
+- SwRS-MDOKFSTUDIO-LIFE-049
+- SwRS-MDOKFSTUDIO-LIFE-100
+- SwRS-MDOKFSTUDIO-LIFE-119
+- SwRS-MDOKFSTUDIO-LIFE-125
+default_owner_email: gaetan@xeberon.net
+---
+
+## The side preview follows the active file and refreshes on demand
+
+### Normative behavior
+
+When a writer moves to another Markdown file, the Studio SHALL switch the side preview to that file and name it in the panel title, and, when a reader asks for a refresh, render the shown document again from its current text and keep the reading position.
+
+### Preserved stakeholder intent
+
+As a writer, I keep one preview beside my editor and it shows the Markdown file I am working in, without opening a new preview each time; as a reader, I redraw the preview myself when I doubt that it is current, and I stay where I was reading.
+
+### Rationale and constraints
+
+- Moving to a file that is not Markdown leaves the preview as it was, like the built-in Markdown preview.
+- Switching quickly between files ends on the last file the writer chose.
+- Refresh is offered as a command and as a toolbar button.
+- A refresh never discards text that is being typed in an open editor of the preview without being asked: the toolbar button refuses while an editor is open.
+
+### Main paths
+
+#### Path 1: Follow the active file
+
+1. A saved Markdown file is the active editor
+   - SwRS-MDOKFSTUDIO-LIFE-003: the reader runs Open Preview to Side and the side preview shows the file
+   - Option SwRS-MDOKFSTUDIO-LIFE-003 (refusal): no eligible file opens no preview
+2. A side preview shows the file
+   - SwRS-MDOKFSTUDIO-LIFE-026: another saved Markdown file becomes active and the preview switches to it, with Preview pending until its render ends
+   - Option SwRS-MDOKFSTUDIO-LIFE-026 (boundary): quick switching renders only the last requested document
+3. The preview shows the newly active file
+   - SwRS-MDOKFSTUDIO-LIFE-049: the status reads Preview ready after a good render
+   - Option SwRS-MDOKFSTUDIO-LIFE-049 (refusal): a failed render is labelled in the status
+4. The status says the render is ready
+
+#### Path 2: Refresh on demand
+
+1. A side preview shows the file
+   - SwRS-MDOKFSTUDIO-LIFE-032: the reader runs Refresh Preview or presses the Refresh button and the document is rendered again from its buffer
+   - Option SwRS-MDOKFSTUDIO-LIFE-032 (refusal): the active text editor shows another document and nothing happens
+2. The preview shows the text of the buffer, unsaved text included
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derived by:
+  - [SwRS-MDOKFSTUDIO-LIFE-003](../../swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-003.md): Open Preview to Side opens or reveals a side preview
+  - [SwRS-MDOKFSTUDIO-LIFE-024](../../swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-024.md): The panel title names the document and whether it follows
+  - [SwRS-MDOKFSTUDIO-LIFE-026](../../swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-026.md): The side preview follows the active Markdown editor
+  - [SwRS-MDOKFSTUDIO-LIFE-032](../../swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-032.md): Refresh Preview renders the shown document again
+  - [SwRS-MDOKFSTUDIO-LIFE-049](../../swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-049.md): The status names the render state and shows pending, failed and recovered notices
+  - [SwRS-MDOKFSTUDIO-LIFE-100](../../swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-100.md): Scrolling the text editor scrolls the preview to the same line
+  - [SwRS-MDOKFSTUDIO-LIFE-119](../../swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-119.md): Both panes share one reading anchor that survives updates
+  - [SwRS-MDOKFSTUDIO-LIFE-125](../../swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-125.md): The reading state of recent documents is saved within bounds
+<!-- okf:links:end -->

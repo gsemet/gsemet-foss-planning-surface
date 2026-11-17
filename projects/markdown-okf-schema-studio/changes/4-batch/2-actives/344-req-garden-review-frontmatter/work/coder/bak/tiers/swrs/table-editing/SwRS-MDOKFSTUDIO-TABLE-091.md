@@ -1,0 +1,91 @@
+---
+type: SwRS
+id: SwRS-MDOKFSTUDIO-TABLE-091
+uuid: 2edf16f4-a8f9-409f-b4d5-8bf4f88f8d3f
+title: Pipes in cell text are escaped and line breaks become spaces
+description: When the writer types text into a table cell or inserts text into a
+  cell from the table bar, the extension SHALL write the pipes of that text as
+  \| so that the edited row keeps its cell count, and replace every line break
+  of text inserted from the bar or pasted into the cell with a space.
+project: markdown-okf-schema-studio
+scope: table-editing
+req_lifecycle: proposed
+status: stable
+origin: native
+tier: SwRS
+derives_from:
+- StRS-MDOKFSTUDIO-TABLE-012
+depends_on:
+- SwRS-MDOKFSTUDIO-TABLE-102
+annotation_exemption: false
+exemption_reason:
+derived_by: []
+implemented_in_files:
+- src/page/features/tableCellEditor.ts
+- src/page/modules/markdownTable.ts
+- src/page/modules/textEditing.ts
+tested_in_files:
+- test/page/fmtableReqTable.requirements.test.ts
+- test/page/modules/markdownTablePreservation.test.ts
+- test/page/runtimePaletteActions.test.ts
+- test/page/runtimeTableCellPaste.test.ts
+default_owner_email: gaetan@xeberon.net
+---
+
+## Pipes in cell text are escaped and line breaks become spaces
+
+### Normative behavior
+
+When the writer types text into a table cell or inserts text into a cell from the table bar, the extension SHALL write the pipes of that text as \| so that the edited row keeps its cell count, and replace every line break of text inserted from the bar or pasted into the cell with a space.
+
+### Scenario (nominal): Typed pipe
+- GIVEN the value a|b typed in a cell
+- WHEN the table is saved
+- THEN the source holds a\|b and the table parses back to the same number of cells
+
+### Scenario (boundary): Pipe in a code span typed in a cell
+- GIVEN the value `a|b` typed
+- WHEN the table is saved
+- THEN the source holds `a\|b` and the preview shows a|b in the code span, because a pipe inside a code span splits a cell like any other (see the cell splitting in SwRS-MDOKFSTUDIO-TABLE-102)
+
+### Scenario (nominal): Link text and URL inserted from the bar
+- GIVEN a link text and a URL that contain a pipe, inserted from the Link panel, a text with a pipe inside a code span, and a link text containing a line break
+- WHEN the text is inserted
+- THEN every unescaped pipe is written \|, also the one inside the code span, each line break is a space, and the row keeps its cell count and stays one line
+
+### Scenario (boundary): Escaped pipes and line break pairs in text inserted from the bar
+| Inserted text | Outcome |
+| --- | --- |
+| a pipe that is already escaped (\|) | left as it is |
+| a pipe preceded by an odd number of backslashes in the cell | left as it is |
+| a pipe preceded by an even number of backslashes (or none) | written \| |
+| a CRLF pair | one space |
+| a lone line feed or a lone carriage return | one space |
+| the colour inserted from the bar | no test of its own for this rule (untested) |
+
+### Scenario (boundary): Line break pasted into the cell text box
+- GIVEN the clipboard holds "a\nb" (or "a\r\nb"), a text without a tab, and the cell text box is focused
+- WHEN the writer pastes
+- THEN the text box holds "a b", the caret keeps its place after the pasted text and the source row stays one line with the same cell count
+
+### Related requirements
+- SwRS-MDOKFSTUDIO-TABLE-102: the cell splitting that leaves only a pipe after a backslash inside its cell.
+- SwRS-MDOKFSTUDIO-TABLE-120: a pasted text with a tab is a grid paste that fills the cells; only a text without a tab pastes as one cell.
+- SwRS-MDOKFSTUDIO-TABLE-070: the List table button, which converts the table after a pasted line break.
+
+### Verification notes
+- Method: test/page/modules/markdownTablePreservation.test.ts (typed pipe and pipe in a code span: every single-cell edit reparses and changes at most one line, value a|b).
+- Method: test/page/runtimePaletteActions.test.ts (T35: link text and URL with a pipe are escaped and newlines become spaces in a cell; scenarios "Link text and URL inserted from the bar"; the rows of the boundary table are read from cellSafeEdit in src/page/modules/textEditing.ts and are untested).
+- Method: test/page/fmtableReqTable.requirements.test.ts (a line break pasted into the cell text box becomes a space in the source row).
+- Criteria: The saved line and the reparsed rows, the inserted text in the cell with the unchanged cell count, and one saved line for the paste case.
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derives from:
+  - [StRS-MDOKFSTUDIO-TABLE-012](../../strs/table-editing/StRS-MDOKFSTUDIO-TABLE-012.md): Tables and cell text are formatted, inserted, aligned and captioned
+- Depends on:
+  - [SwRS-MDOKFSTUDIO-TABLE-102](SwRS-MDOKFSTUDIO-TABLE-102.md): Edge pipes are optional and only an escaped pipe stays in its cell
+<!-- okf:links:end -->

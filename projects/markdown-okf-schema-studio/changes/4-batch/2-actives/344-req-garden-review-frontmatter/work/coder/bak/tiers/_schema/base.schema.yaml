@@ -1,0 +1,236 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: base.schema.yaml
+title: okfreq requirement base profile
+description: >-
+  Shared frontmatter contract for every okfreq requirement. It owns stable
+  identity, ownership, lifecycle, provenance, and relationship fields.
+type: object
+properties:
+  type:
+    type: string
+    description: Configured level and schema discriminator.
+  id:
+    type: string
+    pattern: '^[A-Za-z][A-Za-z0-9_-]*$'
+    description: Stable requirement identifier, for example
+      StRS-MDOKFSTUDIO-CORE-001.
+  uuid:
+    type: string
+    format: uuid
+    description: Stable UUID retained when the document moves or is renamed.
+  title:
+    type: string
+    minLength: 1
+    description: Concise human-readable subject of the requirement.
+  description:
+    type: string
+    minLength: 1
+    description: Normative requirement statement supplied by the author.
+  project:
+    type: string
+    minLength: 1
+    description: Project or product that owns the requirement.
+  scope:
+    type: string
+    minLength: 1
+    description: Domain used for organization, ID allocation, and evidence
+      scanning.
+  req_lifecycle:
+    type: string
+    enum: [draft, proposed, approved, deprecated, superseded]
+    x-okf-status-projection:
+      draft: draft
+      proposed: stable
+      approved: stable
+      deprecated: deprecated
+      superseded: deprecated
+    description: |
+      Explicit, human-controlled okfreq lifecycle state. Named req_lifecycle so it
+      never competes with the OKF status field, generated from it through
+      x-okf-status-projection.
+      - draft: a requirement proposal that is not implemented yet. A project whose
+        requirements are delivered with the code they describe should not keep drafts
+        on its default branch.
+      - proposed: implemented and in force, but not frozen. It may change through the
+        usual plan and review, without an explicit owner agreement.
+      - approved: frozen by its owner. Any significant change (normative statement,
+        scenarios, criteria, deprecation or supersession) needs the owner's explicit,
+        justified agreement, recorded in approved_by and approved_at. Allowed only where
+        approval_lock is true for the requirement's tier and scope.
+      - deprecated: no longer in force and not replaced; kept for history.
+      - superseded: replaced by the requirements listed in superseded_by; kept for history.
+  status:
+    type: string
+    enum: [draft, stable, deprecated]
+    description: >-
+      Generated OKF v0.2 lifecycle (section 5.4), mapped from req_lifecycle by its
+      x-okf-status-projection.
+  verified:
+    type: object
+    additionalProperties: false
+    required: [by, at]
+    properties:
+      by:
+        type: string
+        pattern: '^human:'
+      at:
+        type: string
+        format: date-time
+    description: >-
+      Generated OKF v0.2 verification event (section 5.2) of the owner approval:
+      human:<approved_by> at approved_at.
+  owner_email:
+    type: string
+    format: email
+    description: Authored owner of this requirement. Overrides default_owner_email;
+      the owner approves the requirement and any change to it once approved.
+  default_owner_email:
+    type: string
+    format: email
+    description: Generated owner from config.yml (scopes.<scope>.tiers.<tier>.owner_email,
+      else scopes.<scope>.owner_email, else tiers.<tier>.owner_email). Absent when none
+      is configured; owner_email, when set, replaces it.
+  approved_by:
+    type: string
+    format: email
+    description: Email of the owner who approved the current content. Required when
+      the lifecycle is approved; set only on the owner's explicit agreement, never by
+      an agent's own decision.
+  approved_at:
+    type: string
+    format: date-time
+    description: ISO 8601 datetime with an explicit UTC offset (for example
+      2026-10-28T09:00:00+01:00) of the owner's approval of the current content.
+      Required when the lifecycle is approved; updated with every agreed change.
+  origin:
+    type: string
+    minLength: 1
+    description: Producer or source, such as native or imported.
+  tier:
+    type: string
+    description: Configured level label; the tier schema constrains its value.
+  derives_from:
+    type: array
+    items:
+      type: string
+      x-okf-link:
+        resolution: filename-stem
+        syntax: plain
+        id_marker: id
+        tooltip_shows_fields: [description]
+        preview_shows_fields: [description]
+        link-projection: Derives from
+    description: Authored parent IDs; file navigation uses matching Markdown
+      filename stems.
+  derived_by:
+    type: array
+    items:
+      type: string
+      x-okf-link:
+        resolution: filename-stem
+        syntax: plain
+        id_marker: id
+        tooltip_shows_fields: [description]
+        preview_shows_fields: [description]
+        link-projection: Derived by
+    description: Generated reverse IDs; file navigation uses matching Markdown
+      filename stems.
+  depends_on:
+    type: array
+    items:
+      type: string
+      x-okf-link:
+        resolution: filename-stem
+        syntax: plain
+        id_marker: id
+        link-projection: Depends on
+    description: Authored dependency IDs; file navigation uses matching Markdown
+      filename stems.
+  superseded_by:
+    type: array
+    items:
+      type: string
+      x-okf-link:
+        resolution: filename-stem
+        syntax: plain
+        id_marker: id
+        tooltip_shows_fields: [description]
+        preview_shows_fields: [description]
+        link-projection: Superseded by
+    description: Requirement IDs that replace this one; required when the lifecycle
+      is superseded and forbidden otherwise.
+  supersedes:
+    type: array
+    items:
+      type: string
+      x-okf-link:
+        resolution: filename-stem
+        syntax: plain
+        id_marker: id
+        tooltip_shows_fields: [description]
+        preview_shows_fields: [description]
+        link-projection: Supersedes
+    description: Generated IDs of the requirements this one replaces.
+  relates_to:
+    type: array
+    items:
+      type: string
+      x-okf-link:
+        resolution: filename-stem
+        syntax: plain
+        id_marker: id
+        tooltip_shows_fields: [description]
+        preview_shows_fields: [description]
+        link-projection: Relates to
+    description: Requirement IDs this one is laterally related to; carries no
+      derivation, supersession or coverage meaning.
+  external_id:
+    type: string
+    minLength: 1
+    description: Identifier of the corresponding requirement in an external
+      system.
+  external_url:
+    type: string
+    format: uri
+    description: Link to the corresponding requirement in an external system.
+  documentation_files:
+    type: array
+    description: Human documentation explaining this behavior.
+    items:
+      type: string
+      x-okf-link:
+        resolution: project-relative
+        syntax: plain
+  agent_skill_files:
+    type: array
+    description: Standalone agent guidance shipped for this behavior.
+    items:
+      type: string
+      x-okf-link:
+        resolution: project-relative
+        syntax: plain
+  example_files:
+    type: array
+    description: Runnable concrete examples exercising this behavior.
+    items:
+      type: string
+      x-okf-link:
+        resolution: project-relative
+        syntax: plain
+  owner:
+    type: string
+    description: Project team responsible for maintaining the contract.
+required: [type, id, uuid, title, description, project, scope, req_lifecycle, origin,
+  tier]
+examples:
+- type: StRS
+  id: StRS-MDOKFSTUDIO-CORE-001
+  uuid: 00000000-0000-4000-8000-000000000001
+  title: Validate requirements
+  description: The tool SHALL validate requirement frontmatter.
+  project: markdown-okf-schema-studio
+  scope: core
+  req_lifecycle: proposed
+  status: stable
+  origin: native
+  tier: StRS

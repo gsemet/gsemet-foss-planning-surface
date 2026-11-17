@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Build the CI gallery and site on a heavy dispatch",
+  "summary": "Specified (owner's go, batch-06): gallery defaults on, needs integration and report, gets !cancelled() and explicit result checks, so gh workflow run ci.yml -f heavy=true uploads the site artifact; proved by a dispatch run on the PR branch.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "118e1f810730b3d562668a44c0f5949159e33c8647b0505314dda71906976c17",
+    "03-change-spec.md": "0b3c901d52506948b46b4b323eb8b319c77a4fa02f60dee981ad02586284cafd",
+    "intake/request.md": "3b5f478e59cc5e70bef1af6c690902c969d33fe99ac6c2c6ec400fa7a0d7470e"
+  },
+  "summarized": "2026-11-17T21:43:22Z"
+}

@@ -1,0 +1,79 @@
+---
+type: StRS
+id: StRS-MDOKFSTUDIO-BLOCK-011
+uuid: bc2f36af-c3a3-45a9-b0d4-f36307664d3c
+title: A writer adds blocks and starts an empty document from the preview
+description: When a writer clicks the insert point after a block in edit mode,
+  or opens the preview of a document with no body in edit mode and uses the
+  Start writing button or the Enter key, the Studio SHALL open an empty editor
+  at that place and insert the typed text as a new block with one blank line on
+  each side.
+project: markdown-okf-schema-studio
+scope: block-editing
+req_lifecycle: proposed
+status: stable
+origin: native
+tier: StRS
+derives_from: []
+user_need: As a writer, I add a paragraph, a list or a heading between two
+  blocks, or after the last one, and I open an empty file, or a file with only
+  metadata, and start writing from the preview, without opening the text editor.
+derived_by:
+- SwRS-MDOKFSTUDIO-BLOCK-087
+- SwRS-MDOKFSTUDIO-BLOCK-094
+- SwRS-MDOKFSTUDIO-BLOCK-102
+- SwRS-MDOKFSTUDIO-BLOCK-253
+default_owner_email: gaetan@xeberon.net
+---
+
+## A writer adds blocks and starts an empty document from the preview
+
+### Normative behavior
+
+When a writer clicks the insert point after a block in edit mode, or opens the preview of a document with no body in edit mode and uses the Start writing button or the Enter key, the Studio SHALL open an empty editor at that place and insert the typed text as a new block with one blank line on each side.
+
+### Preserved stakeholder intent
+
+Writers expect to extend a document from the preview, also after a figure or an image that ends the file.
+
+Writers expect an empty document to be as easy to start as any other.
+
+As a writer, I add a paragraph, a list or a heading between two blocks, or after the last one, and I open an empty file, or a file with only metadata, and start writing from the preview, without opening the text editor.
+
+### Rationale and constraints
+
+- Whitespace-only text inserts nothing and cancelling an inserted block removes it.
+- A document with Windows line endings gets Windows line endings in the inserted text.
+- The Start writing button is not offered when the render failed.
+- Escape in the first editor brings the button back.
+
+### Main paths
+
+#### Path 1: Add a block between two blocks
+
+1. Edit mode is on
+   - SwRS-MDOKFSTUDIO-BLOCK-087: the writer clicks the plus button of an insert point and an empty insertion editor opens
+   - Option SwRS-MDOKFSTUDIO-BLOCK-087 (boundary): the properties table has an insert point too
+2. An empty insertion editor is open
+   - SwRS-MDOKFSTUDIO-BLOCK-094: the host writes the new block with one blank line before it and one after it
+   - Option SwRS-MDOKFSTUDIO-BLOCK-094 (refusal): a whitespace-only new block writes nothing
+3. The new block is in the document between its neighbours
+
+#### Path 2: Start an empty document
+
+1. Edit mode is on and the body of the document is empty
+   - SwRS-MDOKFSTUDIO-BLOCK-102: the writer clicks Start writing and the editor of the first block opens
+   - Option SwRS-MDOKFSTUDIO-BLOCK-253 (nominal): Enter on the selected Start writing button opens the same editor
+2. The editor of the first block is open
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derived by:
+  - [SwRS-MDOKFSTUDIO-BLOCK-087](../../swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-087.md): Edit mode places an insert point with a plus button after every body block
+  - [SwRS-MDOKFSTUDIO-BLOCK-094](../../swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-094.md): The host inserts a new block with clean blank lines
+  - [SwRS-MDOKFSTUDIO-BLOCK-102](../../swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-102.md): An empty body offers one Start writing button
+  - [SwRS-MDOKFSTUDIO-BLOCK-253](../../swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-253.md): Start writing is the keyboard selection of an empty document
+<!-- okf:links:end -->

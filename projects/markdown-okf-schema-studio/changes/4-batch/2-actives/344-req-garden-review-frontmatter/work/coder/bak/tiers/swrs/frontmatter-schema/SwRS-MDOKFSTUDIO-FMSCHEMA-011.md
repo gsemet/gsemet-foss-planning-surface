@@ -1,0 +1,60 @@
+---
+type: SwRS
+id: SwRS-MDOKFSTUDIO-FMSCHEMA-011
+uuid: 1a67d083-3877-41bc-88a6-629588860b8b
+title: The table fits a narrow preview
+description: When the preview is 640 px wide or less, the extension SHALL lay
+  the properties table out with fixed columns and let names, values, links and
+  type labels wrap anywhere so that nothing pushes the page sideways.
+project: markdown-okf-schema-studio
+scope: frontmatter-schema
+req_lifecycle: superseded
+status: deprecated
+origin: native
+tier: SwRS
+derives_from:
+- StRS-MDOKFSTUDIO-FMSCHEMA-001
+annotation_exemption: true
+exemption_reason: "Superseded by SwRS-MDOKFSTUDIO-FMSCHEMA-006; no marker expected."
+derived_by: []
+implemented_in_files: []
+tested_in_files: []
+superseded_by:
+- SwRS-MDOKFSTUDIO-FMSCHEMA-006
+default_owner_email: gaetan@xeberon.net
+---
+
+## The table fits a narrow preview
+
+### Normative behavior
+
+When the preview is 640 px wide or less, the extension SHALL lay the properties table out with fixed columns and let names, values, links and type labels wrap anywhere so that nothing pushes the page sideways.
+
+### Scenario: Narrow preview
+
+- GIVEN a preview 460 px wide showing a schema table with alert rows and link details
+- WHEN the preview is rendered
+- THEN the page has no horizontal overflow and long names, values and links wrap inside their cells
+
+### Scenario: Preview just above the limit
+
+- GIVEN a preview wider than 640 px
+- WHEN the preview is rendered
+- THEN the table keeps its normal automatic layout
+
+### Verification notes
+
+- Method: Visual scenarios v10, v17 and v19 (no-overflow checks).
+- Criteria: The narrow rules apply under the media query max-width 640px.
+- Known issue: a word can still break in the middle of a name in a narrow preview; there is no stacked layout.
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derives from:
+  - [StRS-MDOKFSTUDIO-FMSCHEMA-001](../../strs/frontmatter-schema/StRS-MDOKFSTUDIO-FMSCHEMA-001.md): Frontmatter appears as a readable, configurable properties table
+- Superseded by:
+  - [SwRS-MDOKFSTUDIO-FMSCHEMA-006](SwRS-MDOKFSTUDIO-FMSCHEMA-006.md): Property values read like YAML in a lean table
+<!-- okf:links:end -->

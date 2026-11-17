@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Layout tests that do not depend on the page font",
+  "summary": "Specified: tableBreakout.test.ts draws its tables in KaTeX's bundled sans and mono fonts, so its widths and the twelve Auto width verdicts are the same on Windows, Linux and macOS; the survey found no other font-dependent unit test.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "61c3303ebb265e339140eaa49b4077304e16b86f033979d77892d94ca14fd2ca",
+    "03-change-spec.md": "4725397472451aa1a249170327a39c4cf8185cd42666fa0c44150bd723a391c7",
+    "intake/request.md": "8971bdae3fa05a68c586976ff22e4326c01295e87af2b55e127221e62260622e"
+  },
+  "summarized": "2026-11-17T21:46:39Z"
+}

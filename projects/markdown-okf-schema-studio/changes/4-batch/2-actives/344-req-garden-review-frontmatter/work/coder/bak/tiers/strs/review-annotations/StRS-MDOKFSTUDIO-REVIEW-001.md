@@ -1,0 +1,103 @@
+---
+type: StRS
+id: StRS-MDOKFSTUDIO-REVIEW-001
+uuid: 3feae4eb-bda5-4d73-8e9f-3d6a46cae5fe
+title: A reviewer reads review threads on the text, and unplaceable ones are
+  kept
+description: When a document has a review comments file next to it, the Studio
+  SHALL highlight the quoted text of each thread in the preview, open the thread
+  when the reviewer selects the highlight, and list a thread whose text can no
+  longer be found with confidence among the orphaned comments, keeping it in the
+  file.
+project: markdown-okf-schema-studio
+scope: review-annotations
+req_lifecycle: approved
+status: stable
+approved_by: gaetan@xeberon.net
+approved_at: '2026-11-12T12:30:00+01:00'
+verified:
+  by: human:gaetan@xeberon.net
+  at: '2026-11-12T12:30:00+01:00'
+origin: native
+tier: StRS
+derives_from: []
+user_need: As a reviewer, I see where each discussion sits in the document and
+  read it where it applies, I prefer a thread listed as orphaned over a thread
+  attached to the wrong text, and I trust that a damaged comments file is never
+  shown half and never lost by a later comment.
+derived_by:
+- SwRS-MDOKFSTUDIO-REVIEW-001
+- SwRS-MDOKFSTUDIO-REVIEW-004
+- SwRS-MDOKFSTUDIO-REVIEW-012
+- SwRS-MDOKFSTUDIO-REVIEW-017
+- SwRS-MDOKFSTUDIO-REVIEW-021
+- SwRS-MDOKFSTUDIO-REVIEW-028
+- SwRS-MDOKFSTUDIO-REVIEW-100
+- SwRS-MDOKFSTUDIO-REVIEW-101
+- SwRS-MDOKFSTUDIO-REVIEW-107
+- SwRS-MDOKFSTUDIO-REVIEW-119
+- SwRS-MDOKFSTUDIO-REVIEW-216
+- SwRS-MDOKFSTUDIO-REVIEW-219
+- SwRS-MDOKFSTUDIO-TRUST-001
+default_owner_email: gaetan@xeberon.net
+---
+
+## A reviewer reads review threads on the text, and unplaceable ones are kept
+
+### Normative behavior
+
+When a document has a review comments file next to it, the Studio SHALL highlight the quoted text of each thread in the preview, open the thread when the reviewer selects the highlight, and list a thread whose text can no longer be found with confidence among the orphaned comments, keeping it in the file.
+
+### Preserved stakeholder intent
+
+As a reviewer, I see where each discussion sits in the document and read it where it applies, I prefer a thread listed as orphaned over a thread attached to the wrong text, and I trust that a damaged comments file is never shown half and never lost by a later comment.
+
+### Rationale and constraints
+
+- The threads live in a file named after the document, next to it; a resolved thread is shown dimmed.
+- A thread whose text cannot be shown in the page stays reachable through a badge or the orphaned comments box.
+- An orphaned thread keeps its stored lines and is never deleted by the Studio.
+- When the review comments file of a document is not valid, the Studio shows none of its threads, warns the reviewer once and leaves the file untouched.
+- A file that is too large, not JSON, of another version or with one bad thread counts as not valid.
+- Writing a new comment is refused while the file is not valid.
+
+### Main paths
+
+#### Path 1: Open a thread from its highlight
+
+1. A document with a review comments file is shown
+   - SwRS-MDOKFSTUDIO-REVIEW-012: the host posts the threads of the file to the page
+   - Option SwRS-MDOKFSTUDIO-REVIEW-004 (refusal): a file with any problem or over its limits is ignored
+2. The threads reach the page
+   - SwRS-MDOKFSTUDIO-REVIEW-017: the first occurrence of each thread quote is highlighted once in its block
+   - Option SwRS-MDOKFSTUDIO-REVIEW-028 (nominal): a thread that cannot be placed is listed in the Orphaned comments box
+3. The quoted text is highlighted
+   - SwRS-MDOKFSTUDIO-REVIEW-021: the reader clicks the highlight, or presses Enter or Space on it, and the thread popover opens
+4. The thread popover lists the comments
+
+#### Path 2: A thread comes back after an undo
+
+1. A thread is listed in the Orphaned comments box
+   - SwRS-MDOKFSTUDIO-REVIEW-219: the quote is found again and the thread is placed on the found lines
+2. The quoted text is highlighted
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derived by:
+  - [SwRS-MDOKFSTUDIO-REVIEW-001](../../swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-001.md): The review comments file next to a document holds its threads as data
+  - [SwRS-MDOKFSTUDIO-REVIEW-004](../../swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-004.md): A review comments file with any problem or over its limits is ignored with one warning
+  - [SwRS-MDOKFSTUDIO-REVIEW-012](../../swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-012.md): The host posts the threads of the review comments file and follows its changes
+  - [SwRS-MDOKFSTUDIO-REVIEW-017](../../swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-017.md): The quote of a thread is highlighted once in its block
+  - [SwRS-MDOKFSTUDIO-REVIEW-021](../../swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-021.md): A highlight, badge or orphan entry opens the thread popover
+  - [SwRS-MDOKFSTUDIO-REVIEW-028](../../swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-028.md): Threads that cannot be placed are listed in the Orphaned comments box
+  - [SwRS-MDOKFSTUDIO-REVIEW-100](../../swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-100.md): A thread follows its quote in the plain text, narrowed by its context
+  - [SwRS-MDOKFSTUDIO-REVIEW-101](../../swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-101.md): A thread whose quote is gone or ambiguous is orphaned and keeps its lines
+  - [SwRS-MDOKFSTUDIO-REVIEW-107](../../swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-107.md): A slightly changed quote is followed by a bounded fuzzy search
+  - [SwRS-MDOKFSTUDIO-REVIEW-119](../../swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-119.md): Moved thread lines are written with the document save only
+  - [SwRS-MDOKFSTUDIO-REVIEW-216](../../swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-216.md): A quote over a line break of the source is highlighted
+  - [SwRS-MDOKFSTUDIO-REVIEW-219](../../swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-219.md): An orphaned thread whose quote returns is placed again
+  - [SwRS-MDOKFSTUDIO-TRUST-001](../../swrs/trust-security/SwRS-MDOKFSTUDIO-TRUST-001.md): A document is editable whatever the trust; only its reads are restricted
+<!-- okf:links:end -->

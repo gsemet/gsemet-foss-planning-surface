@@ -1,0 +1,60 @@
+---
+type: SwRS
+id: SwRS-MDOKFSTUDIO-FMSCHEMA-041
+uuid: f001d142-9245-49b6-8d2d-fa31657a5c59
+title: A closed schema reports every undeclared field
+description: 'When a schema root declares `additionalProperties: false`, the extension
+  SHALL report each undeclared field as the schema error row "must NOT have additional
+  properties", whatever the strict setting.'
+project: markdown-okf-schema-studio
+scope: frontmatter-schema
+req_lifecycle: superseded
+status: deprecated
+origin: native
+tier: SwRS
+derives_from:
+- StRS-MDOKFSTUDIO-FMSCHEMA-010
+annotation_exemption: true
+exemption_reason: "Superseded by SwRS-MDOKFSTUDIO-FMSCHEMA-084; no marker expected."
+derived_by: []
+implemented_in_files: []
+tested_in_files: []
+superseded_by:
+- SwRS-MDOKFSTUDIO-FMSCHEMA-084
+default_owner_email: gaetan@xeberon.net
+---
+
+## A closed schema reports every undeclared field
+
+### Normative behavior
+
+When a schema root declares `additionalProperties: false`, the extension SHALL report each undeclared field as the schema error row "must NOT have additional properties", whatever the strict setting.
+
+### Scenario: Undeclared field
+
+- GIVEN a schema with additionalProperties false declaring type and a, and a document that also sets zz
+- WHEN the preview is rendered
+- THEN one error row reads must NOT have additional properties
+
+### Scenario: Open schema
+
+- GIVEN the same schema without additionalProperties false
+- WHEN the preview is rendered
+- THEN no such row appears
+
+### Verification notes
+
+- Method: Unit test of the analysis; integration test; unit tests "T25 ..." in the okfFrontmatter and propertiesTable tests for the section flag.
+- Criteria: The strict setting has no effect on this error; one row is reported per undeclared key, including type when the schema does not declare it. A closed schema also flags the properties section `data-okf-additional-properties="false"`, which the editing picker reads to offer no custom key (see SwRS-MDOKFSTUDIO-FMEDIT-035).
+- Known issue: the error is not attached to the field row (the validator reports it at the document root), so the undeclared row itself carries no underline.
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derives from:
+  - [StRS-MDOKFSTUDIO-FMSCHEMA-010](../../strs/frontmatter-schema/StRS-MDOKFSTUDIO-FMSCHEMA-010.md): Fields follow the schema and problems show on the field concerned
+- Superseded by:
+  - [SwRS-MDOKFSTUDIO-FMSCHEMA-084](SwRS-MDOKFSTUDIO-FMSCHEMA-084.md): Every schema violation is reported on its field or in a row of its own
+<!-- okf:links:end -->

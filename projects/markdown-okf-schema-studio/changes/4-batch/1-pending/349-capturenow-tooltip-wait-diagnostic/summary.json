@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Name the stuck tooltip when captureNow's wait times out",
+  "summary": "Specified: the capture helper's toolbar-tooltip wait gets a 10 s timeout and, on timeout, fails naming each still-shown tooltip with its hover and focus state. Diagnostic only, from CR-337; owner's ok 2026-11-17, no grill, no spec critic.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "9a2aa2528db91e9e50b39c6956b3d8d18a59280f3353ea14ec52fa5b68aef33c",
+    "03-change-spec.md": "1949c03df51ff54e5b0020a88a5f75a1ca45e5005a8ccd6048681a988399237e",
+    "intake/request.md": "443a70b389ccfca56b5b9354323b2f20408aae52f41408789656164a88d1760f"
+  },
+  "summarized": "2026-11-17T21:42:03Z"
+}

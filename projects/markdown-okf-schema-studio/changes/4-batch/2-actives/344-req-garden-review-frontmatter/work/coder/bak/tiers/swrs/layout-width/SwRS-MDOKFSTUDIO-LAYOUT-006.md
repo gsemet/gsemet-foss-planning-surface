@@ -1,0 +1,64 @@
+---
+type: SwRS
+id: SwRS-MDOKFSTUDIO-LAYOUT-006
+uuid: a77e17ef-100c-4c4b-ad2c-8f5d6a56938f
+title: Open previews follow a change of the width setting
+description: When the setting maxContentWidth changes, the extension SHALL read
+  it again and update every open preview from its last good render without
+  reloading the editor.
+project: markdown-okf-schema-studio
+scope: layout-width
+req_lifecycle: superseded
+status: deprecated
+origin: native
+tier: SwRS
+derives_from:
+- StRS-MDOKFSTUDIO-LAYOUT-003
+annotation_exemption: true
+exemption_reason: "Superseded by SwRS-MDOKFSTUDIO-LAYOUT-002; no marker expected."
+derived_by: []
+implemented_in_files: []
+tested_in_files: []
+superseded_by:
+- SwRS-MDOKFSTUDIO-LAYOUT-002
+default_owner_email: gaetan@xeberon.net
+---
+
+## Open previews follow a change of the width setting
+
+### Normative behavior
+
+When the setting maxContentWidth changes, the extension SHALL read it again and update every open preview from its last good render without reloading the editor.
+
+### Scenario: Setting changed with a preview open
+
+- GIVEN an open preview that has a last good render and maxContentWidth changed from 960 to 1200
+- WHEN the settings change event arrives
+- THEN the session re-reads the preview configuration, schedules the incoming-changes refresh, and updates the preview from the last good render; the page shell now carries the new width rule, so the whole page is replaced (no in-place content patch)
+
+### Scenario: No last good render or unrelated section
+
+- GIVEN an open preview that has no last good render yet, or a settings change outside the preview, PlantUML and frontmatter sections
+- WHEN the settings change event arrives
+- THEN the preview is not updated (no change for an unrelated section; nothing to redraw without a last good render)
+
+### Known issues
+
+- Known issue: No automated test changes the setting on an open preview.
+- Known issue: The width rule is an inline style of the page shell and the shell key includes it, so a changed rule makes the content patch planner return nothing and the whole page is replaced; the scroll position is restored by the normal page reload path.
+
+### Verification notes
+
+- Method: Unit test `a preview setting change reads the width again and updates the preview from its last good render` in `test/session/diagReq.settings.requirements.test.ts`.
+- Criteria: The handler re-reads the section and calls the preview update with the last good render, only when one exists.
+
+<!-- okf:links:start -->
+### Links
+
+<!-- Generated from the frontmatter relations; edit them instead. -->
+
+- Derives from:
+  - [StRS-MDOKFSTUDIO-LAYOUT-003](../../strs/layout-width/StRS-MDOKFSTUDIO-LAYOUT-003.md): A reader chooses how wide the text column is
+- Superseded by:
+  - [SwRS-MDOKFSTUDIO-LAYOUT-002](SwRS-MDOKFSTUDIO-LAYOUT-002.md): The text column width follows the maxContentWidth setting
+<!-- okf:links:end -->
