@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The CLI wakes the Chief of Staff on board and forge events",
+  "summary": "A chantier watch, run with Monitor for the whole session, prints one line per board event and per merge seen on the forge, grouped over about 30 s; the Chief of Staff records merges alone and reports the rest. Where nothing can wake the session, events are read at the next turn.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a43cae6d3d21303de22b937e82f7183178272f2611a1632568483269419394e8",
+    "02-answers.md": "55531351ca9f400fa36fd27b3bb520c1a7aa093cd93cb6364c3f90e0ddf563dc",
+    "intake/request.md": "ca04946805739d42473ea3cf775bea190b85d19a2f906f56c2c458651d6281c2"
+  },
+  "summarized": "2026-11-17T10:45:50Z"
+}
