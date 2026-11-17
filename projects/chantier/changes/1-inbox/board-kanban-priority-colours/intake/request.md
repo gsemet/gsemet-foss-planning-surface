@@ -1,0 +1,1 @@
+Web board Kanban: (1) no horizontal scrollbar is visible. (2) A colour code per priority, P1 to P4, as a gradient of one colour. The user, 2026-11-17.

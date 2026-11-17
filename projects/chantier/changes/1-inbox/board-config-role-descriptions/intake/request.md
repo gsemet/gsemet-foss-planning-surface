@@ -1,0 +1,1 @@
+Web board Configuration page: a description of each role next to it. The user, 2026-11-17.

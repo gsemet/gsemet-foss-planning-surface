@@ -1,0 +1,1 @@
+Web board project picker: (1) bug: clicking the planning surface item in the picker does nothing when the board shows a project page (seen on markdown-okf-schema-studio Costs); it seems to work only from Home. (2) The surface item is the umbrella of the projects: tell it apart visually from the project items. The user, 2026-11-17, with a screenshot.

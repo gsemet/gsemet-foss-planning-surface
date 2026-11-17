@@ -14,3 +14,12 @@ keeps one position; its state shows by its colour plus a badge in the top right 
 connected cards and their arrowheads, and the tooltip on the batch mode. The P1 CR
 cost-receipt's batch chooser was split off as the inbox item cost-receipt-batch-chooser, to move
 through batches the same way as this item's navigation.
+
+## Scope the batch history navigation (previous /
+next) is done in board-batch-navigator, with the same navigator as the Costs page. This item
+keeps the connected cards, their arrowheads and the tooltip on the batch mode. from board-batch-navigator (2026-11-17)
+
+The user chose (board-batch-navigator, scope-Q1): the batch history navigation (previous /
+next) is done in board-batch-navigator, with the same navigator as the Costs page. This item
+keeps the connected cards, their arrowheads and the tooltip on the batch mode.
+
