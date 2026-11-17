@@ -106,7 +106,7 @@ it.
 
 The links to `concepts.md` elsewhere in `driver.md` stay as they are (lines 24, 91, 98, 163,
 278, 409, 484, 507, 723). Each already names a section, a rule or a word. There is one exception:
-line 197 links "[ready to merge](concepts.md)" with no section. It gains the section that holds
+line 197 links "[ready to merge](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md)" with no section. It gains the section that holds
 the word ("Words", the entry that defines "ready to merge"), so that the Driver can read it by
 section.
 

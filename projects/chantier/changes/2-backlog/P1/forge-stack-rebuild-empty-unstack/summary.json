@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "forge-stack rebuild takes the forge's empty unstack reply as a success",
-  "summary": "Specified: an empty body on a 2xx unstack is a success and rebuild goes on; a rebuild failing after the unstack names the dissolved stack and says to run forge-stack create. One open question on the stack driver's card.",
+  "summary": "Specified: an empty 2xx unstack reply is a success; a rebuild failing after the unstack says the stack is dissolved and the driver runs forge-stack create; an unreadable create reply says to run forge-stack show. Cards: driver, chief-of-staff. One open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "274e5cce3a9586b5e0ae18adec779a101b83f0723f574b10f65f274b485826c2",
-    "03-change-spec.md": "02ba3fe8c2f7b6d181aac594660ed59ca50669338b1b287576b53bc64996fb6d",
+    "02-answers.md": "fb7d3292b4fde299c4f8864dfbc8ed4fac6cedc3d3fe79cc674d3e881c306208",
+    "03-change-spec.md": "15ea906f886964ecc33e58cfba7b101824747d5a55ac095a8d9df03d5704965b",
     "intake/request.md": "b1d46ff64c4627aa4d945d6a2861b6d8011b5d4b933638d416eb310fce557bdf"
   },
-  "summarized": "2026-11-17T08:26:21Z"
+  "summarized": "2026-11-17T09:33:17Z"
 }

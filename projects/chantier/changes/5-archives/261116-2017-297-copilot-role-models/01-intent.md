@@ -32,7 +32,7 @@ implementation; the display names above are the user's requested mapping.
 
 The [original request](intake/request.md) is preserved unchanged. This is a
 separate model-default update, related to the broader
-[flexible configuration request](../model-defaults-board-config/01-intent.md).
+[flexible configuration request](../261116-2138-299-model-defaults-board-config/01-intent.md).
 The defaults change must remain consistent with whichever configuration
 source is in place when it is implemented, without duplicating sources of truth.
 

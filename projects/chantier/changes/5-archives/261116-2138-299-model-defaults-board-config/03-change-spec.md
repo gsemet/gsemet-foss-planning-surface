@@ -8,10 +8,10 @@ all hosts, Q22 is C's), [original request](intake/request.md). No tracker issue.
 
 ## Depends on, and the stack
 
-The stack, bottom to top: [copilot-role-models](../copilot-role-models/03-change-spec.md),
-[copilot-model-catalog](../copilot-model-catalog/), this CR (A),
-[role-model-per-host](../role-model-per-host/) (B, on A),
-[board-config-page](../board-config-page/) (C, on A and B).
+The stack, bottom to top: [copilot-role-models](../261116-2017-297-copilot-role-models/03-change-spec.md),
+[copilot-model-catalog](../261116-2119-298-copilot-model-catalog/), this CR (A),
+[role-model-per-host](../261116-2239-300-role-model-per-host/) (B, on A),
+[board-config-page](../261116-2341-301-board-config-page/) (C, on A and B).
 
 - copilot-role-models: the Copilot agent files' `model:` lines (Coder on Sol; Verifier, Debugger,
   Conflict resolver on Terra). The shipped defaults (section 2) copy them; this CR takes the agent

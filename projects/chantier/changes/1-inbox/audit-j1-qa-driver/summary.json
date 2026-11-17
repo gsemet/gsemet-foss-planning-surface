@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Eval audit J1 accepts the QA driver's first line",
+  "summary": "Filed, not grilled: J1 would fail the QA driver's prompt first line as it did the Chief of Staff's; no run has shown it yet; set for later, not for this release.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "ef2e04a5f8c01b89071f3f3132999e4f9d13e05d81570c5c73879c08e4ee5c9b"
+  },
+  "summarized": "2026-11-17T09:45:03Z"
+}

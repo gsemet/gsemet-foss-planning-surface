@@ -283,7 +283,7 @@ mechanics (version, tag, publication, gates) are always the project's own, and t
 - folded fixes and contributor notes.
 
 They are written for the project's users, with no CR, batch or agent-role reference, as in
-[pr-template](pr-template.md).
+[pr-template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/pr-template.md).
 
 **c. Visible evidence.** Each highlight shows what ships. The sources are:
 - the Verifier's before/after in the archived CRs' `evidence/` folders;
@@ -305,7 +305,7 @@ CR's grill.
 The tone is that of section 1g. No agent posts: the thread is a draft for the user.
 
 **e. Where they go.** By default the Driver writes `release-notes.md`, `tweet.md` and the images in
-`<work folder>/release/` and runs `note --draft` on each text, as [driver](driver.md) says. Where
+`<work folder>/release/` and runs `note --draft` on each text, as [driver](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/driver.md) says. Where
 the procedure publishes notes (a forge release, a changelog entry), the Driver uses the reviewed
 text there. The images are attached with the forge's own CLI, and that is an irreversible action
 (`release go`). Where the procedure publishes no notes, they stay a draft for the user.
@@ -316,7 +316,7 @@ text there. The images are attached with the forge's own CLI, and that is an irr
   work folder, then `note --draft <path>`", say: "goes early in the work folder, or where the
   project's procedure keeps it (a folder committed with the version), then `note --draft <path>`".
 - Add one bullet: the release notes and the announcement thread follow the project's procedure,
-  else [release-template](release-template.md). Their captures come from the release's batch (its
+  else [release-template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/release-template.md). Their captures come from the release's batch (its
   `STATUS.md`, the board, CLI output) and from `report.md` and `conversation.md` in the release CR's
   folder when the Chief of Staff wrote them; a docs diagram only when the release CR's
   specification names it. Their images are anonymised before they leave the machine, and the
@@ -326,7 +326,7 @@ text there. The images are attached with the forge's own CLI, and that is an irr
 
 - After "nothing written, or a gap, is a question for the user", add one sentence: a procedure
   silent on release notes or on an announcement is no gap, because the release Driver then follows
-  [release-template](release-template.md). Offer the user to write the project's own version in
+  [release-template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/release-template.md). Offer the user to write the project's own version in
   the project.
 - At the confirmation ("When the Foreman asks for the confirmation, grill the version …"): before
   `$CHANTIER order confirm`, write your latest Progress report and the conversation excerpts you

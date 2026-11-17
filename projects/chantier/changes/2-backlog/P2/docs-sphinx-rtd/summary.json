@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Documentation rewritten as a Sphinx site on Read the Docs",
+  "summary": "Grilled in part, then set aside by the user: Furo theme, Diataxis sections replacing docs/, a style guide with an agent review against AI slop, the README keeping its images; no spec yet.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "411e218a87b953025841e614951553708932155ffe77898b78a9a001998be332",
+    "intake/request.md": "314df3d5d585282f30f1fc2e03106f2d551275dc75828877461305ba38613341"
+  },
+  "summarized": "2026-11-17T09:45:10Z"
+}

@@ -236,7 +236,7 @@ chantier gate <cr> --first --epoch <n>
   on the same rule. The `chantier.yaml` section (lines 86 to 112) lists the key beside `roles`. You
   edit the key only on the user's word, as for every key.
 - **`docs/agents-and-models.md`, line 28:** "The file's other keys are `prices` and `board`" becomes
-  "`prices`, `board` and `long_gate` (how many long gates may run at once, [your gates](gates.md))".
+  "`prices`, `board` and `long_gate` (how many long gates may run at once, [your gates](https://github.com/gsemet/chantier/blob/main/docs/gates.md))".
 
 ### F. The Foreman card: the move-up and the report
 

@@ -81,7 +81,7 @@ Rewrite the `description` to say it is the entry that asks which role, and that
 
 - The `$CHANTIER` paragraph as today (this folder's `scripts/cli/chantier.py`; nothing to
   install; everything goes to `.agents/changes/`).
-- "Read [concepts](references/concepts.md) and [session-start](references/session-start.md)
+- "Read [concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md) and [session-start](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/session-start.md)
   now", then the router's own rule: follow `session-start.md`'s start checks and seat reading;
   with no live Chief of Staff in the seat, ask the user in one question which role they want:
   Chief of Staff (Foreman mode), Chief of Staff in direct mode, or Griller; then load that skill
@@ -122,7 +122,7 @@ backlog beside an active Chief of Staff; never batches), `chantier-version: 0.8.
   the mode comes from the session (Area 4); the sentence "The Foreman, the Drivers and the workers
   get their own instructions in their prompts; you never read theirs, except the Foreman's when
   you steer a batch yourself in direct mode" goes with them. "Who talks to whom:
-  [routing](routing.md)" too.
+  [routing](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/routing.md)" too.
 
 ### Manifests and tooling
 

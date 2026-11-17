@@ -65,7 +65,7 @@ before "## While it runs"), headed `### The floor`. It says, in the card's own s
     release CR waits for every other CR, one more level). It is said with the CRs of that chain,
     in order: "critical path: CR-221 → CR-237 → … ". A parallel batch with no `after` has depth 1.
   - **The gates:** the CRs still to pass their long gate. Long gates run one at a time under one
-    lock ([concepts](concepts.md), the long gate), so every CR's gate queues behind the others
+    lock ([concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md), the long gate), so every CR's gate queues behind the others
     whatever the slots. A CR whose project rules exempt it from the long gate (`handback
     --no-gate`) does not count.
 - **The two terms, and the floor.**

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "just check runs ruff's lint rules on scripts/",
+  "summary": "Filed, not grilled: just check lints scripts/ with ruff check, not only the format; ruff reports 15 findings across the five scripts today.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "9a28cd977bbbf657234b34986deb7478d31e488de9e88f9cb89e8d866b2e7635"
+  },
+  "summarized": "2026-11-17T09:45:08Z"
+}

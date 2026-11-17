@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "A periodic wake for each Driver, set per host in chantier.yaml",
+  "summary": "Filed, not grilled: split from timing-settings; a new mechanism to specify on its own: how a Driver is woken, what it checks and what it costs.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "0a49822d0c5749b6d38be23f5a67a93e30a8fe270ba68aeb6533dafc766460f9"
+  },
+  "summarized": "2026-11-17T09:45:06Z"
+}

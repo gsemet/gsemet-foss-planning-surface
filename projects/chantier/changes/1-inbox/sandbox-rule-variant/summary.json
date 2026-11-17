@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "A sandbox rule variant lets a real eval run exercise the pipeline long gate",
+  "summary": "Filed, not grilled, low priority: a sandbox rule variant chosen at setup would let a campaign exercise J27; until then such claims stay listed as not exercised by an eval.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "9f735af4b891491571026b43e50c1f3c7e5a572eb9a026fe951482a8b71c77c7"
+  },
+  "summarized": "2026-11-17T09:45:09Z"
+}

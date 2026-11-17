@@ -3,8 +3,8 @@
 ## 1. What
 
 Release chantier 0.8.0 from `main` (head 648289c at filing), by the project's own procedure:
-[CONTRIBUTING.md](../../../../CONTRIBUTING.md) "Release" for the mechanics and
-[docs/release-process.md](../../../../docs/release-process.md) for the notes, the announcement
+[CONTRIBUTING.md](https://github.com/gsemet/chantier/blob/main/CONTRIBUTING.md) "Release" for the mechanics and
+[docs/release-process.md](https://github.com/gsemet/chantier/blob/main/docs/release-process.md) for the notes, the announcement
 thread and their images. This is the first release under that process: `just check` refuses a
 missing or invalid `docs/release-notes/YYYY-MM-DD-v0.8.0/` folder.
 

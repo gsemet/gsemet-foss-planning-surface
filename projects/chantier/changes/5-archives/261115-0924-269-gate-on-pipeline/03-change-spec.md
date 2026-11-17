@@ -45,7 +45,7 @@ The mark "unproved" stays until the user's trial on a real GitLab and on Copilot
 In "The long gate" bullet (lines 190-217), next to "A CR the rules exempt hands back with
 `--no-gate "<the rule>"`", add one sentence:
 
-> When the project's rules name a pipeline job as the long gate ([concepts](concepts.md)), run no
+> When the project's rules name a pipeline job as the long gate ([concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md)), run no
 > `gate`: push and open the PR after the approved round (the first push starts the gate, so no
 > wait before it; `ship`'s `off: no long gate passed at <sha>` is then expected), read CI as the
 > "CI" bullet says, and once that job is green at the PR's head with the `VERIFIED` verdict there,

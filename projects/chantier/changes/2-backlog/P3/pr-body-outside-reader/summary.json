@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "The Driver writes the PR body for an outside reader from the first draft",
+  "summary": "Filed, not grilled: from the batch-11 retro, after CR-185's PR body took two Inspector passes because role and batch terms leaked into it.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "cac71324c0942adc034315c6bfb6d8bd389b3d556a400357919f2c1754b15e02"
+  },
+  "summarized": "2026-11-17T09:45:14Z"
+}

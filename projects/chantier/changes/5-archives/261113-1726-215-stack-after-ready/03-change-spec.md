@@ -123,7 +123,7 @@ insertion and must read the result.
 File: `commands.py`, `ship`.
 
 After the checks it makes today, `ship` reads `<CR folder>/work/pr-body.md` when it exists (the
-file the Driver posts, [pr-template](../../../../../skills/chantier/references/pr-template.md)) and,
+file the Driver posts, [pr-template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/pr-template.md)) and,
 for each line that names a hex token of 7 to 40 characters which resolves to a commit in the
 worktree (`git rev-parse --verify --quiet <tok>^{commit}`) and is not an ancestor of the new head
 (`git merge-base --is-ancestor`), prints

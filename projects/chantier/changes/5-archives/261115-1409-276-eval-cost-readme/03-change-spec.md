@@ -10,7 +10,7 @@ they let a reader conclude and what not, and tells a user how to measure their o
 ## Which README
 
 - **The root `README.md`** gets the section. It is the user's page, it already sells "Direct or
-  Foreman" (its first bullets) and links [Costs and budgets](docs/costs.md); the choice between the
+  Foreman" (its first bullets) and links [Costs and budgets](https://github.com/gsemet/chantier/blob/main/docs/costs.md); the choice between the
   two modes is a user's choice, so its cost belongs there.
 - **`evals/README.md` does not change.** It is the maintainers' page for running campaigns; its
   Campaigns table already carries each campaign's cost and last run, and refreshing those rows from
@@ -63,7 +63,7 @@ The section holds, in this order:
    `chantier cost --explain` (what explains each figure: agents, calls, model, cache shares), and
    the Chief of Staff's own session, priced apart on its own lines and never in the budget. In the
    README's own words the user can simply ask "what did it cost?" (the `## Use` table's row). It
-   ends with a link to [Costs and budgets](docs/costs.md) for how the cost is measured and capped.
+   ends with a link to [Costs and budgets](https://github.com/gsemet/chantier/blob/main/docs/costs.md) for how the cost is measured and capped.
 
 The section stays short: about 30-40 lines of Markdown, table included. The Driver words it; the
 figures, the two lists' substance and the commands above are fixed.

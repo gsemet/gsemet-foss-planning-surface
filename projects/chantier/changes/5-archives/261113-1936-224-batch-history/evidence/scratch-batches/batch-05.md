@@ -6,8 +6,8 @@ Opened 2026-11-13T18:37:25Z, closed 2026-11-13T18:38:26Z, parallel, steered by d
 
 | CR | Subject | Result | PR | Rounds | Cost |
 | --- | --- | --- | --- | ---: | ---: |
-| [CR-101](../261113-1838-101-one/) | one | merged | http://x/9 | 2 | - |
-| [CR-102](../261113-1838-102-two/) | two | dropped | - | 0 | - |
+| CR-101 (`../261113-1838-101-one/`) | one | merged | http://x/9 | 2 | - |
+| CR-102 (`../261113-1838-102-two/`) | two | dropped | - | 0 | - |
 
 ## Cost
 

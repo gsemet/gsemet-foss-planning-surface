@@ -70,7 +70,7 @@ One short line in each of two sections; `concepts.md` rule 9 stays the one full 
 not changed.
 
 - **`## Coder`:** never add a byte-order mark to a file: on Windows PowerShell 5.1, `Out-File`
-  and `Set-Content -Encoding utf8` add one ([concepts](concepts.md), rule 9). A file of the
+  and `Set-Content -Encoding utf8` add one ([concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md), rule 9). A file of the
   project that already has a BOM keeps it: the rule is "add none", not "strip all".
 - **`## Conflict resolver`:** the same rule, plus a check before the rebase continues: each
   resolved file starts as it did before the conflict (the base's encoding, so no new BOM, and a

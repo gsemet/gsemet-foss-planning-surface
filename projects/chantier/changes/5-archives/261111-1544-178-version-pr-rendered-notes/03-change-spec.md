@@ -86,7 +86,7 @@ The PR's own description stays the procedure's (its form is kept "by the project
 Add, after the first sentence, in substance: when the release has a version PR, the Driver also
 shows `release-notes.md` and then `tweet.md` in the PR's body, rendered, each after a `---` rule,
 the thread headed as a draft the user posts; the files stay the source and the body is refreshed
-from them, as [driver](driver.md) says. An image shows in the body once it is on the forge (its
+from them, as [driver](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/driver.md) says. An image shows in the body once it is on the forge (its
 upload is an irreversible action, `release go`), else it is named in prose. What the forge's size
 limit leaves out is named by its path. A release with no PR keeps the drafts only.
 

@@ -10,7 +10,7 @@ All claims judged at d7baadd (full SHA above).
    - Table rows match the spec exactly: $10.28; $11.52 ($11.91 once closed); $2.10 (20%); $3.39 (30%); about $4.67; $0.05; about $14.6-15.0; about $11.5-11.9.
    - Lists match: over 60%, coding 7-8%, about 70k tokens, $2.10 against $3.39, about $3 more all in; about 200k tokens context line.
    - Plain words: "one run each", "No general conclusion that a Foreman is cheaper or dearer than direct mode".
-   - Names `chantier cost`, `chantier cost --by cr`, `chantier cost --explain`; links [Costs and budgets](docs/costs.md); asks "what did it cost?".
+   - Names `chantier cost`, `chantier cost --by cr`, `chantier cost --explain`; links [Costs and budgets](https://github.com/gsemet/chantier/blob/main/docs/costs.md); asks "what did it cost?".
    - Command: grep for local paths, session ids, names over the section lines: output NO_MATCH.
 4. PR description (pr-body.md, equal to posted head d7baadd per `gh pr view 226 --json headRefOid`): Summary, Deliverables and Changes match the diff (one new section, README only); table identical; Known gaps "None" is consistent (no UNVERIFIED claim; evidence none, docs-only per plan). Review box "approved at d7baadd": the driver note in `chantier log` says "r1 approved at 9d4136c, committed as d7baadd", which matches.
 5. Evidence plan docs-only: no before/after captured (nothing to show); no long gate needed per AGENTS.md.

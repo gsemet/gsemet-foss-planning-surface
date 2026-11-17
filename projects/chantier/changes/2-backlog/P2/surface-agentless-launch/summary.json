@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "The planning surface launches chantier's board and sync with no agent",
+  "summary": "Filed, not grilled: the surface's just board and just sync run chantier at one pinned version, replacing its autosync script, with an optional autostart; the change lands in the surface's repository.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "0e910fcdd121167bdadb1a70347e782ed1613804d6b94c584924f1ddeca52644"
+  },
+  "summarized": "2026-11-17T09:45:10Z"
+}

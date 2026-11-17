@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Prove the eval kit's host steps in a real campaign",
+  "summary": "Proved in part by real-direct run 1 (sandbox merge 5 of 5); left to prove: setup.py's allow rules outside auto mode, and reset --yes with real refs/pull/*.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "c9d2eb2ed381c06a4c9dc18ff512a95dab9bf6fedd7bb5ee7e777de4afb32b25"
+  },
+  "summarized": "2026-11-17T09:45:15Z"
+}

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "A stale loaded plugin is a named block cause",
+  "summary": "Filed, not grilled: from the batch-11 retro; a CR blocked by an old loaded plugin gets a named block cause, or the Chief of Staff restarts the Foreman when a plugin hook changed on main.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "2dc77e348b20f243b11b8c3ee203f2ad0feeb4a6bdaee1122d69cb1d44643863"
+  },
+  "summarized": "2026-11-17T09:45:14Z"
+}

@@ -186,7 +186,7 @@ project's version ranks above this file.
 - "Your means", the PR bullet (lines 34-42 today, "the title and body follow the project's rules
   and template"): replace that clause with: a CR Driver writes the title and
   `<work folder>/pr-body.md` from the project's PR template and rules, else from
-  [pr-template](pr-template.md), and keeps the body and the PR's description current with the
+  [pr-template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/pr-template.md), and keeps the body and the PR's description current with the
   scope (`gh pr edit --body-file`, `glab mr update --description`); `glab mr create --draft`
   takes the body with `--description`. The stack driver's and a Release driver's PRs keep their
   form, by the project's rules.
@@ -204,7 +204,7 @@ project's version ranks above this file.
 ### 3. `skills/chantier/references/worker.md`, section "Inspector"
 
 Add: on a CR's round, read `<work folder>/pr-body.md` with the diff and audit it against the
-project's PR template and rules, else against [pr-template](pr-template.md) (its audit list). A
+project's PR template and rules, else against [pr-template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/pr-template.md) (its audit list). A
 missing `pr-body.md` or a failed audit item is `blocking`, written `pr-body.md: <section>: …`.
 The extra review steps do not audit the body.
 
@@ -212,7 +212,7 @@ The extra review steps do not audit the body.
 
 Add two or three lines: on the user's request for their own PR template, file a CR for it
 (`$CHANTIER file`, section "Backlog and grill"), grilled and specified like any other; a CR Driver
-delivers the guideline and the template by PR, as [pr-template](pr-template.md) part "A
+delivers the guideline and the template by PR, as [pr-template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/pr-template.md) part "A
 customised version" says. The Chief of Staff does not write them in the main checkout itself. And
 `SKILL.md`, "Entry points" (the table at line 57): one row, "my own PR template" → `$CHANTIER
 file` a CR for the guideline and the template, section "The project".

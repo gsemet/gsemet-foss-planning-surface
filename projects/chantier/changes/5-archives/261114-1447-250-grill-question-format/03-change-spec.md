@@ -100,7 +100,7 @@ with no host figure (no 4, no 5: it points to the host's reference):
   the CR has a number. `<n>` keeps counting across the item's series: read the last reference in
   its `02-answers.md` before a new series. The list number of an answer there need not match its Q
   number. The reference names the question only: the context, and anything else that names the CR
-  (status, PR, `depends.json`), names it by number and slug as [concepts](concepts.md) says
+  (status, PR, `depends.json`), names it by number and slug as [concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md) says
   ("CR-250 grill-question-format").
 - **The text first, every time:** every call of the question tool is preceded by its text,
   without exception: the first series of an item and every later one, a single question, the

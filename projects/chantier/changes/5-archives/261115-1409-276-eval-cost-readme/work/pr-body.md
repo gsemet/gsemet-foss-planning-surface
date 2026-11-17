@@ -7,7 +7,7 @@ A user choosing between a Foreman and direct steering had no figure on what each
 - A new `## What a batch costs` section in `README.md`, between "Batch modes" and "Change Requests Lifecycle":
   a frame sentence, a four-row comparison table (batch spend, steering, the Chief of Staff's session, all in),
   what the two runs show, what they do not show, and how to measure one's own (`chantier cost`,
-  `--by cr`, `--explain`) with a link to [Costs and budgets](docs/costs.md).
+  `--by cr`, `--explain`) with a link to [Costs and budgets](https://github.com/gsemet/chantier/blob/main/docs/costs.md).
 - The comparison table, as it reads in the README:
 
   | | Run 1: Foreman (Sonnet 5.5), stack | Run 2: direct (Opus 5.5), parallel |

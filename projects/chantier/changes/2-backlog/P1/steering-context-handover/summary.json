@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Study: hand a long batch's steering to a fresh session",
-  "summary": "Specified as a costed study only (no behaviour): steering share by batch, context or wakes threshold vs none, what a fresh session reads to take over, risks, a recommendation; hand-over on the user's yes. Two open questions: where the study lives, Foreman in scope.",
+  "summary": "Costed study only, no PR, written in the CR's folder: steering share by batch, context or wakes threshold vs none, what a fresh session reads to take over, risks, a recommendation, for the direct Chief of Staff and the Foreman; hand-over on the user's yes. Open: how a no-PR CR runs and ends.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "dc36bce572dcd9851d676278805b77db1a834e73a33f7e821c50450e2e429da7",
-    "03-change-spec.md": "0d987fc8507965ebe2a9397ccf6da090de4c9f1aa9a680652d2541220dc1cabc",
+    "02-answers.md": "01f6a32b7c9769998049f3a8993d25e9098062b53405877bd683bf30f57d3828",
+    "03-change-spec.md": "ab9202c46d2ea50169f01f7776de392a0a1818b9564eb8f33fff495708190848",
     "intake/request.md": "fe91cc41c091ac0c51093a889cb2c0610bb5fd4de2b3ded63419234286d0acc4"
   },
-  "summarized": "2026-11-17T08:26:17Z"
+  "summarized": "2026-11-17T09:33:16Z"
 }

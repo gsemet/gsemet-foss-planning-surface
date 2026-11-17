@@ -159,7 +159,7 @@ there". The same exception goes into the matching sentence of `CONTRIBUTING.md` 
 
 - Line 31, "what the configuration checks add to the first message (P5, P9, P10), which goes in
   the same message": add that P10's warning comes as the Chief of Staff's question
-  ([chief-of-staff](chief-of-staff.md), "The project").
+  ([chief-of-staff](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/chief-of-staff.md), "The project").
 - Section 4, the introduction's bullet "Zero configuration" (lines 145–148), "Everything chantier
   writes is Markdown and JSON in the planning folder": add "and, on your yes, the allow rules in
   your Claude Code settings".

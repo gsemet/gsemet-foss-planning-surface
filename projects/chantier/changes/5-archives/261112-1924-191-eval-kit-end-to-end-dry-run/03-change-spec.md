@@ -236,7 +236,7 @@ takes no time and catches the text the dry run cannot see.
 - **`CONTRIBUTING.md`**, "Daily work":
   - in the recipe block, `just eval-dry-run   # the eval kit's dry run: no model, no GitHub`;
   - in the bullet on the eval campaigns, a sentence: a change to the eval kit passes `just
-    eval-dry-run` (see [evals/README.md](evals/README.md#changing-the-kit));
+    eval-dry-run` (see [evals/README.md](https://github.com/gsemet/chantier/blob/main/evals/README.md#changing-the-kit));
   - if a CI job is added, the closing bullet's CI list names it.
 - `AGENTS.md` does not change. Its line "a change to the docs or the eval kit alone needs none"
   is about `just scenario` and stays true.

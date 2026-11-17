@@ -27,4 +27,4 @@ Backfilled on 2026-11-13T19:36:26Z from the archived STATUS.json files on this m
 
 ## Retro
 
-- [5-archives/261113-1149-213-stack-merges-in-one-go/retro.md](../../5-archives/261113-1149-213-stack-merges-in-one-go/retro.md)
+- [5-archives/261113-1149-213-stack-merges-in-one-go/retro.md](../261113-1149-213-stack-merges-in-one-go/work/retro.md)

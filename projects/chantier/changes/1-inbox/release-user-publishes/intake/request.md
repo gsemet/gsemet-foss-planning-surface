@@ -1,0 +1,1 @@
+Release: when the host refuses the publication and the user publishes by hand, nobody finishes the release (release published, retro, handback ready). After the user's publication, the steering session takes the release back to a Driver, which runs the end checklist. Split off from release-driver-end-checklist on 2026-11-17 (release-checklist-Q1).

@@ -33,7 +33,7 @@ Add a bullet right after the one on starting children (the bullet that ends at l
 "…and you do your part without it."). It covers every worker the Driver starts. It says, in the
 card's own style:
 
-- Each worker's reply has the format its section of [worker](worker.md) names. Before acting on a
+- Each worker's reply has the format its section of worker (`worker.md`) names. Before acting on a
   reply, the Driver checks it against that format:
   - Inspector, and each extra review step: the reply is the JSON object alone, parseable, with
     `verdict` exactly `APPROVE` or `FIX-REQUIRED` and `head` a commit SHA. Prose, prose around the
@@ -101,7 +101,7 @@ stays as written.
 
 - In the shared paragraph (line ~20-21, "replies in at most ten lines, or in the format its
   section names"), add: a reply out of that format is a failed worker, which the Driver starts
-  again rather than reads ([driver](driver.md)). The worker's reply is the whole of its output to
+  again rather than reads ([driver](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/driver.md)). The worker's reply is the whole of its output to
   its Driver.
 - In "Verifier" (line ~91-92), make the existing rule explicit for a refusal or a negative claim:
   "each claim with the SHA it was judged at, the command and the output that prove it" also holds

@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "The stack shows a CR's hand-back apart from its PR's draft flag",
-  "summary": "Specified: take stack and stack rows print one label, the hand-back state then the PR's draft flag (ready, PR draft (#251)); the stack-driver card makes the stack from ready, whatever the draft flag. Two wording questions open.",
+  "summary": "Specified, no open question: take stack and stack rows print one label, the stored status then the PR's draft flag (ready, PR draft (#251); working; PR out of draft, never PR ready); the stack-driver card makes the stack from ready, whatever the draft flag.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "37427c7d6d848d9194b620cb03204f58cd22042276c6de68e8d4e33bf042fe34",
-    "03-change-spec.md": "1e56d8ed864b3e041172bceac4d00924039178b57a2be75794f5346ed3cc91a4",
+    "02-answers.md": "18fe1f2be33192ba0ac437f29c8c629f3882062d05652f2b3f024473cbf1ebff",
+    "03-change-spec.md": "b3fdcde3664d1d66e73fce0c54d5b0d03c4bcc23af5ffe2e3ae2ff57f9c968dd",
     "intake/request.md": "233c8a880034aa8141074234b88452003224df1c2f451443d09506e1cea170c3"
   },
-  "summarized": "2026-11-17T08:30:20Z"
+  "summarized": "2026-11-17T09:46:36Z"
 }

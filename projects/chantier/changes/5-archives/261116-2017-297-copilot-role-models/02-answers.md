@@ -10,7 +10,7 @@ description: The user's answers to the grill of the Copilot role model defaults.
 2026-11-16, the user chose the recommended answer: ship now, as a small independent CR. The
 models change in the current Copilot agent files (`com.github.copilot/agents/`) and in the
 documentation. The future configuration system
-([model-defaults-board-config](../model-defaults-board-config/01-intent.md)) takes these values
+([model-defaults-board-config](../261116-2138-299-model-defaults-board-config/01-intent.md)) takes these values
 as its Copilot defaults.
 
 ## copilot-role-models-Q2: a model the host enforces

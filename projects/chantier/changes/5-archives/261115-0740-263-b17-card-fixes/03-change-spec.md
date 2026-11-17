@@ -54,7 +54,7 @@ one bullet, before the worktree bullet, that says:
   there). The two commands that name it are the worktree's creation, `git -C <main checkout> fetch
   <remote> <default branch>` and `git -C <main checkout> worktree add …` (with a planning surface,
   `git -C <clone>`, as today), which change neither its branch nor its files. The one move of the
-  main checkout is the steering session's post-merge fast-forward ([concepts](concepts.md), rule 8;
+  main checkout is the steering session's post-merge fast-forward ([concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md), rule 8;
   `foreman.md`, "The main checkout after a merge"), never a Driver's.
 - A git command run in the wrong place by mistake: stop, undo only what is safe to undo
   (`git -C <main checkout> rebase --abort`, `merge --abort`), and `note` it; anything else left in

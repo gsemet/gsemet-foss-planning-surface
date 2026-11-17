@@ -61,7 +61,7 @@ In "Words", after "Ready to merge", a new entry, about four lines:
 - **Tracker issue:** an issue in the project's tracker (GitHub, GitLab, Jira…) that a CR comes
   from, named by an `issue: <link>` line under the title of the CR's `01-intent.md` and
   `03-change-spec.md`. Its PR closes it at the merge through the closing line of the
-  [PR template](pr-template.md); no agent closes or reopens an issue by hand. Only the Chief of
+  [PR template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/pr-template.md); no agent closes or reopens an issue by hand. Only the Chief of
   Staff posts on an issue, and only text the user approved; a comment carries no CR number,
   batch, agent role or cost (decisions 3, 7, 8).
 
@@ -149,7 +149,7 @@ under the specification's title as `concepts.md` places it, when the CR has an i
 
 One line in the push/PR bullet of the Drivers' common part (the one that starts "Push:" and
 says "A CR Driver writes the title and `<work folder>/pr-body.md`"): the body carries the
-closing line of each `issue:` of the specification ([pr-template](pr-template.md)); a Driver
+closing line of each `issue:` of the specification ([pr-template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/pr-template.md)); a Driver
 never comments on, closes or reopens an issue (decisions 2, 3, 7). The stack driver's text
 ("on another base, a draft") is unchanged (decision 9).
 

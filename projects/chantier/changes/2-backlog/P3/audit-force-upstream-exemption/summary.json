@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "audit.py's set-upstream exemption lets a forced push to main through",
+  "summary": "Filed, not grilled: the -u/--set-upstream exemption accepts git push -f -u origin main; the force flag should be checked first; found by CR-191's Inspector.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "b723bdc079b70b34cb8f506a15a4f70976ecaee28b4bbccdda8c5e1cb980fd7e"
+  },
+  "summarized": "2026-11-17T09:45:11Z"
+}

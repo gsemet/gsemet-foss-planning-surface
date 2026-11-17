@@ -95,7 +95,7 @@ Today's `real/RUNBOOK.md`, with these changes:
 ### 3. `evals/real-direct/RUNBOOK.md` (answer 1, the start prompt)
 
 The same campaign as `real-foreman`, steered in **direct mode**. The runbook does not repeat the
-text both real campaigns share: it says "as [real-foreman](../real-foreman/RUNBOOK.md), except"
+text both real campaigns share: it says "as [real-foreman](https://github.com/gsemet/chantier/blob/main/evals/real-foreman/RUNBOOK.md), except"
 and lists only the differences.
 
 - **Start:** a new Code session of the Claude Desktop app on this repository's main checkout, on

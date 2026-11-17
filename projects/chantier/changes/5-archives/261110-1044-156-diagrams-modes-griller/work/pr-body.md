@@ -6,19 +6,19 @@ The README and the docs showed one picture with two arrows for chantier's two wa
 
 Renders of the changed drawings (PNG, made with headless Chrome from the SVGs in this PR):
 
-![how-chantier-works-simple-direct](./how-chantier-works-simple-direct.png)
+how-chantier-works-simple-direct (`./how-chantier-works-simple-direct.png`)
 
-![how-chantier-works-simple-foreman](./how-chantier-works-simple-foreman.png)
+how-chantier-works-simple-foreman (`./how-chantier-works-simple-foreman.png`)
 
-![how-chantier-works](./how-chantier-works.png)
+how-chantier-works (`./how-chantier-works.png`)
 
-![cr-lifecycle-simple](./cr-lifecycle-simple.png)
+cr-lifecycle-simple (`./cr-lifecycle-simple.png`)
 
-![cr-lifecycle](./cr-lifecycle.png)
+cr-lifecycle (`./cr-lifecycle.png`)
 
-![cr-folder-lifecycle](./cr-folder-lifecycle.png)
+cr-folder-lifecycle (`./cr-folder-lifecycle.png`)
 
-![batch-lifecycle](./batch-lifecycle.png)
+batch-lifecycle (`./batch-lifecycle.png`)
 
 - README: direct mode first, then Foreman mode, each with one line on when to pick it, then one plain sentence on the difference: in direct mode a CR joins a running batch only once every other CR is handled and the batch is paused; in Foreman mode it can join while the batch runs.
 - Detailed diagram: the Foreman box is split in two halves, "Foreman mode" (nested session, natural conversation, not recommended in remote) and "direct mode" (the Chief of Staff plays the Foreman's role, works in a remote session, no grill during the batch: use a Griller session).

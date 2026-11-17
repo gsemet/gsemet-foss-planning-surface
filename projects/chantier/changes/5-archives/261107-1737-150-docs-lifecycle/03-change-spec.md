@@ -141,7 +141,7 @@ equal; every text drawn is in the companion, and every companion text is drawn.
     which the Chief of Staff reviews against your answers before showing it to you.
   - Step 3: keep direct mode, and add one sentence: direct mode is less dynamic than Foreman mode
     (a running batch takes no new CR, and the Chief of Staff, busy steering, holds no grill in
-    that session) but has the same lifecycle; see [direct mode](docs/use-cases-direct.md).
+    that session) but has the same lifecycle; see [direct mode](https://github.com/gsemet/chantier/blob/main/docs/use-cases-direct.md).
   - Step 5: the Driver writes the PR description from the default template shipped in the skill
     (`skills/chantier/references/pr-template.md`) unless your project has its own template, which
     ranks above it.

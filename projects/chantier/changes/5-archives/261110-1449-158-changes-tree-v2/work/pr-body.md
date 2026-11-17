@@ -41,17 +41,17 @@ flowchart LR
 
 The folder life of a change, redrawn:
 
-![The folder life of a change](./cr-folder-lifecycle.png)
+![The folder life of a change](png/cr-folder-lifecycle.png)
 
 The change lifecycle, with the new `triage --ready` step:
 
-![The change lifecycle](./cr-lifecycle.png)
+![The change lifecycle](png/cr-lifecycle.png)
 
-![The simple change lifecycle](./cr-lifecycle-simple.png)
+![The simple change lifecycle](png/cr-lifecycle-simple.png)
 
-![The batch lifecycle](./batch-lifecycle.png)
+![The batch lifecycle](png/batch-lifecycle.png)
 
-![How chantier works](./how-chantier-works.png)
+![How chantier works](png/how-chantier-works.png)
 
 ## Blast radius
 

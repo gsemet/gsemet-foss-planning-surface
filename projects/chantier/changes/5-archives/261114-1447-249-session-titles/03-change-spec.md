@@ -90,7 +90,7 @@ check of the form.
   where the host cannot) and the `seat take --title` bullet as they are.
 - `chief-of-staff.md`:
   - "Starting a batch", step 4, the paragraph after the Foreman's prompt (lines 460-463):
-    `<title>` is `[<code>] ⚙️ Project <nn> · Foreman` ([session-start](session-start.md),
+    `<title>` is `[<code>] ⚙️ Project <nn> · Foreman` ([session-start](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/session-start.md),
     "Titles"), e.g. `[Battle] ⚙️ Chantier 17 · Foreman`; a later Foreman of the same batch has the same
     title. The prompt's line `Your session title: <title>. Set it on yourself first.` (line 450)
     stays.
@@ -99,7 +99,7 @@ check of the form.
   - "Reusing the last Foreman" (line 475) and the hand-over (line 902): no change (they name no
     form).
 - `concepts.md`, "Session title" (line 195): `[<code>] 💬 Project · <role>` for a session the user
-  talks to, `[<code>] ⚙️ Project <nn> · Foreman` for the Foreman ([session-start](session-start.md),
+  talks to, `[<code>] ⚙️ Project <nn> · Foreman` for the Foreman ([session-start](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/session-start.md),
   "Titles").
 - `foreman.md` (lines 7-8, 339): no change; it sets the title its prompt gives.
 - `griller.md` (line 7): no change; it points to session-start.

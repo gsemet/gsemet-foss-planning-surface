@@ -51,12 +51,12 @@ On what to borrow:
 - **Where on the remote:** a dedicated branch is acceptable; a separate planning project is better.
   A hidden ref, as Beads does now with `refs/dolt/data`, is ruled out because the forge cannot
   show it. So is a database as the store.
-- The comparison tables go into the CR's study: `study/plan-storage-comparison.md`.
+- The comparison tables go into the CR's study: `experiments/plan-storage-comparison.md`.
 
 ## 2026-11-10, the user: the storage table, corrected
 
 The user rewrote the "chantier, studied" column of the storage table, now in
-`study/plan-storage-comparison.md`, section 2. What changed against the first draft:
+`experiments/plan-storage-comparison.md`, section 2. What changed against the first draft:
 
 - **Format:** the append-only events are additional Markdown and JSON files. The table no longer
   says the STATUS files are regenerated and never merged.

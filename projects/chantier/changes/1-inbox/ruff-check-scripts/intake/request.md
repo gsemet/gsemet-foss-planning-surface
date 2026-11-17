@@ -1,0 +1,1 @@
+just check: run ruff check (the lint rules) on scripts/, not only the format. Today ruff check scripts reports 15 findings over the five scripts (E501, RUF005, PLR2004, PLC0207, PLW1510, PLR0911, RUF100, B905). Left out of just-check-scripts-format (2026-11-17), which adds only the format check.

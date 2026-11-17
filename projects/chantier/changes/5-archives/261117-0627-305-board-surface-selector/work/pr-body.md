@@ -17,9 +17,9 @@ Before (at `f11132b`, from a live board) and after (carried from `f3af2c0`, the 
 
 | Before | After |
 | --- | --- |
-| ![before, desktop](./verifier/evidence/before-surface-pc-en-closed.png) | ![after, desktop](./docs/web-board/home-pc.png) |
-| ![before, phone](./verifier/evidence/before-surface-phone-en-closed.png) | ![after, phone](./docs/web-board/home-phone.png) |
-| ![before, menu](./verifier/evidence/before-surface-pc-en-menu.png) | ![after, menu](./docs/web-board/picker-pc.png) |
+| ![before, desktop](./verifier/evidence/before-surface-pc-en-closed.png) | ![after, desktop](https://github.com/gsemet/chantier/blob/main/docs/web-board/home-pc.png) |
+| ![before, phone](./verifier/evidence/before-surface-phone-en-closed.png) | ![after, phone](https://github.com/gsemet/chantier/blob/main/docs/web-board/home-phone.png) |
+| ![before, menu](./verifier/evidence/before-surface-pc-en-menu.png) | ![after, menu](https://github.com/gsemet/chantier/blob/main/docs/web-board/picker-pc.png) |
 
 ## Blast radius
 

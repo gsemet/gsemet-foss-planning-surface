@@ -207,7 +207,7 @@ board:
 `skills/chantier/references/chief-of-staff.md`:
 
 - The opening paragraph's "You start no Driver or background agent" gains: "the board, a
-  background command of the CLI, is not an agent ([session-start](session-start.md))".
+  background command of the CLI, is not an agent ([session-start](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/session-start.md))".
 - "Handing the seat over": one line: the old Chief of Staff's board stops by itself when the seat
   moves; the new one starts its own at its `seat take`.
 - Tips, "After a status" examples: in remote, when the board listens on `127.0.0.1` only, the

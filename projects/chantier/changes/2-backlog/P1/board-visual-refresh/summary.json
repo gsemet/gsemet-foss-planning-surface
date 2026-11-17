@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Web board: a lighter, more elegant visual style",
-  "summary": "Specified: Inter shipped at two weights, a white sidebar with breadcrumbs, one teal accent with state icons, two-tone cards on every view; the Batch view loses its Batch card and earlier PRs and gets one PR column.",
+  "summary": "Specified: Inter at two weights, a white sidebar, a sticky breadcrumb bar, one teal accent with state icons, two-tone cards on every view; the Batch view loses its Batch card, earlier and merged PRs and state groups: each CR keeps its place, its state a badge.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "0c665b3cab54c9a2f6104653d085523447c8a84ec6bd170c75b139ee6885802f",
-    "03-change-spec.md": "27862e957806e36b2f77df36804fa13276772a397f01ba0b303edf00dcd219f8",
+    "02-answers.md": "0577c0a0cce07636f8e2127a24e126e4eed5d4ffb124279b0c97c6c77161b007",
+    "03-change-spec.md": "00da90401c3d12b42c9cd850aa3fdda358c893b430ed5c32e0915abf9112da5a",
     "intake/request.md": "6ebef8cfdeee6d67187653f8c8bb69a7a843ffc11d1588b84baf635102175223"
   },
-  "summarized": "2026-11-17T08:32:07Z"
+  "summarized": "2026-11-17T09:43:36Z"
 }

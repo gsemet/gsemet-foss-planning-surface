@@ -1,0 +1,1 @@
+Cost receipt: choose another batch. Split off from cost-receipt on 2026-11-17 (cost-receipt-Q4): the receipt shows the running batch, else the last closed one; choosing another batch is its own change, aligned with board-batch-view's previous/next navigation so both pages move through batches the same way.

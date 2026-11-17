@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "A GitHub Pages landing page that shows what chantier brings",
+  "summary": "Grilled in part, then set aside by the user: its own style apart from the docs, the tour animated on scroll; how to build it is not decided; no spec.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "3348397d93483f57dd5c0448dd00374a88b7493edd0285bcd535b77ad0abcca5",
+    "intake/request.md": "90e24b945bde0d204880566abe74dfb6e5e61511ffdac382cfeac38ee7b8b54e"
+  },
+  "summarized": "2026-11-17T09:45:12Z"
+}

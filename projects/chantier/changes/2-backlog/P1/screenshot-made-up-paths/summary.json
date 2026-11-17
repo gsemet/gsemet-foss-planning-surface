@@ -1,14 +1,14 @@
 {
   "schema": 1,
-  "title": "Images use made-up paths, checked before any upload",
-  "summary": "Specified: Driver and Verifier cards require made-up paths and no username in any image, with a look at each image for the username and home folder before every upload to the forge; one open question on the user's own screenshot.",
+  "title": "Images use made-up paths, checked before they are kept or uploaded",
+  "summary": "Specified: Driver and Verifier keep or upload no image showing the username or home folder, after a look at each; the user's leaking screenshot is not uploaded, a late leak is replaced and told to the Chief of Staff through the Foreman's relay.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "4e47b9e2398d76460c3a86d0a8d8fdef7acf78f0934722f7e9404f88da113064",
-    "03-change-spec.md": "e47005e2294d284301ee3333bf2f27742592b8ec17f59670cdbc5de75a4e741a",
+    "02-answers.md": "7e31e0124adfb091ff10ab308b816c06358e3929e477b6019620923b97813707",
+    "03-change-spec.md": "3ed59cfb4ec18b6ca5559227ebe23efcde59e85b073b879973b12f45fb1c37b4",
     "intake/request.md": "81a17b175d8a029c8c32276c9abf9d0ccd0720c3af424c0b97c40c942d235589"
   },
-  "summarized": "2026-11-17T08:30:06Z"
+  "summarized": "2026-11-17T09:46:36Z"
 }

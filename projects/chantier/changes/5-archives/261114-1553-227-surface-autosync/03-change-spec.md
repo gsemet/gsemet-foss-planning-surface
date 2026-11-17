@@ -305,7 +305,7 @@ One ES module per view (Technology): `board/static/js/views/autosync.js` and its
   or `autosync waits for the user's approval`, it sends one ask to the Chief of Staff (`$CHANTIER asks
   "autosync <state>: <reason>"`), once per block, and does nothing else about it.
 - **`griller.md`, "In a planning surface":** add "join the surface's autosync as
-  [session-start](session-start.md) says". Its "In a worktree" line (joins nothing) stays.
+  [session-start](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/session-start.md) says". Its "In a worktree" line (joins nothing) stays.
 - **`docs/planning-modes.md`:** lines 42–44 and the "Grillers" section get the same account in the
   user's terms. Add a short "The surface's autosync" section: who joins, the four states, who fixes
   a block, that approvals are the user's in the board, and that the board's server joins while it

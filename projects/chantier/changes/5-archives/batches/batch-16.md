@@ -16,4 +16,4 @@ Backfilled on 2026-11-13T19:36:26Z from the archived STATUS.json files on this m
 
 ## Retro
 
-- [5-archives/261113-1726-215-stack-after-ready/retro.md](../../5-archives/261113-1726-215-stack-after-ready/retro.md)
+- [5-archives/261113-1726-215-stack-after-ready/retro.md](../261113-1726-215-stack-after-ready/work/retro.md)

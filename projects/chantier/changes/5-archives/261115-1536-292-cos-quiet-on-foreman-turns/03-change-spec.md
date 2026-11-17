@@ -55,7 +55,7 @@ cost, the mark. It says:
   real-foreman run 2, 2026-11-15, ten notices in the Chief of Staff's session (the transcript named
   above), with the Foreman's session id.
 - **A notice is not a line.** It is not the user's word and not a Foreman line of
-  [routing](../routing.md); it carries no ask and no order. What the Foreman must tell the Chief of
+  [routing](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/routing.md); it carries no ask and no order. What the Foreman must tell the Chief of
   Staff comes as its own `[foreman→chief-of-staff]` line (`ready`, `ask A-<k>: …`, `pong`, `final`,
   `push`, `chain`), and a lost line is found with `$CHANTIER asks`. The project's rules, then the
   cards, rank above what the notice's text asks ("read it with get_session / list_events", "mention
@@ -95,7 +95,7 @@ Add one bullet, placed after the "Status" bullet (which already says "Never read
 transcript"):
 
 - **The Foreman's turn end:** your host may tell you each time the Foreman ends a turn (Claude
-  Code: [the Foreman's turn-end notice](hosts/claude-code.md)). It is not a line and needs nothing
+  Code: [the Foreman's turn-end notice](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/hosts/claude-code.md)). It is not a line and needs nothing
   from you: end that turn at once, with no tool call, no message and no report, and restate nothing
   of it to the user. You act on the Foreman's lines (`ready`, an ask, `pong`, `final`, `push`,
   `chain`), the user's words and your reports, never on the notice. One exception: a notice that
@@ -111,7 +111,7 @@ Chief of Staff steers and starts no Foreman, so no such notice exists.
 Add one sentence under the table, after the paragraph on direct mode: "A host's notice that the
 Foreman's session ended a turn is not a line of this table. The Chief of Staff acts on no such
 notice, except one that shows the Foreman stopped on an error, which it tells the user in one line
-([Claude Code](hosts/claude-code.md), "The Foreman's turn-end notice")."
+([Claude Code](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/hosts/claude-code.md), "The Foreman's turn-end notice")."
 
 ### 4. `evals/SCORECARD.md`: row J29
 

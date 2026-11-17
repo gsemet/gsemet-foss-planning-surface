@@ -63,7 +63,7 @@ contradiction.
 
 Rule 8 says "No `sleep`, no polling loop: a wait is the forge's own watch, in a background shell."
 It gains a short pointer to the one exception, in substance: "except the one bounded wait before
-a second CI look that [driver](driver.md), `CI:`, names". Nothing else in the rule changes.
+a second CI look that [driver](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/driver.md), `CI:`, names". Nothing else in the rule changes.
 
 ### 3. `skills/chantier/references/pr-template.md`, the template's Test plan
 

@@ -38,7 +38,7 @@ bullet list so it says, in this order:
   your `AGENTS.md`, and an optional `chantier.yaml` at the project's root (the agent and model of
   each role, the skills it needs), are the only configuration; everything chantier writes is
   Markdown and JSON in the planning folder (`.agents/changes/` or the project's folder of an
-  [external planning surface](docs/planning-modes.md)).
+  [external planning surface](https://github.com/gsemet/chantier/blob/main/docs/planning-modes.md)).
 
 ### 2. `README.md`, "How Chantier works" (lines 18-36 today)
 
@@ -74,7 +74,7 @@ page covers.
 | "## Supported hosts" (hosts, forges, Windows; lines 429-464) | `docs/hosts.md` |
 | "## Costs and budgets" (lines 466-491) | `docs/costs.md` |
 
-`docs/planning-folder.md` links to [planning modes](docs/planning-modes.md) for the full account
+`docs/planning-folder.md` links to [planning modes](https://github.com/gsemet/chantier/blob/main/docs/planning-modes.md) for the full account
 of an external surface; it does not merge into `docs/planning-modes.md` (that page keeps its own
 text, unchanged).
 
@@ -92,8 +92,8 @@ text, unchanged).
 
 ### 6. Links elsewhere that point at a moved section
 
-- `docs/tutorial-claude-code.md` line 53-54: "The README's [Your gates](../README.md#your-gates)"
-  becomes a link to [Your gates](gates.md) (wording adjusted, same meaning).
+- `docs/tutorial-claude-code.md` line 53-54: "The README's [Your gates](https://github.com/gsemet/chantier/blob/main/README.md#your-gates)"
+  becomes a link to [Your gates](https://github.com/gsemet/chantier/blob/main/docs/gates.md) (wording adjusted, same meaning).
 - The cards name the README's moved sections (see Decisions):
   `skills/chantier/references/chief-of-staff.md` line 76 ("(README, "Your gates")"),
   `skills/chantier/references/init.md` line 76 ("Point to the README's "Your gates""),

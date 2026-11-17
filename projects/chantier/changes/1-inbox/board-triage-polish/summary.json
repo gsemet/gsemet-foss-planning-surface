@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Web board Triage view: a collapse per priority and an explained rescan counter",
+  "summary": "Filed, not grilled: a collapse per priority and an in-board explanation of the writes-since-rescan count; the card width went to ui-feedback-large-screen, the sticky header to board-visual-refresh.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "5686e831691bb012948d9b419980786db51f1caff15c3a8496699296d27970e0",
+    "intake/request.md": "616dc288c3d26c62c13bb1ddc4ce2093b8b74742388cf6cd7503a91a21d74e32"
+  },
+  "summarized": "2026-11-17T09:45:04Z"
+}

@@ -3,8 +3,8 @@
 Date: 2026-11-16 (third run: the spec critic's text fixes; second run: the open questions closed
 by [answers](02-answers.md)). Sources:
 [original request](intake/request.md); the grill is copilot-role-models'
-[answers](../copilot-role-models/02-answers.md), Q3 to Q9 and Q10 (this split), and its
-[specification](../copilot-role-models/03-change-spec.md), "Out of scope"; this CR's
+[answers](../261116-2017-297-copilot-role-models/02-answers.md), Q3 to Q9 and Q10 (this split), and its
+[specification](../261116-2017-297-copilot-role-models/03-change-spec.md), "Out of scope"; this CR's
 [answers](02-answers.md) to the first run's open questions. No tracker issue.
 
 ## Goal
@@ -19,9 +19,9 @@ refuses nothing. Each model's plans are kept and shown. Prices stay with copilot
 
 ## The stack
 
-Bottom to top: [copilot-role-models](../copilot-role-models/03-change-spec.md) (the four Copilot
+Bottom to top: [copilot-role-models](../261116-2017-297-copilot-role-models/03-change-spec.md) (the four Copilot
 `model:` lines; GPT-6.1 Terra added by hand to `MODELS["copilot"]`), this CR, then
-[model-defaults-board-config](../model-defaults-board-config/03-change-spec.md), which resolves
+[model-defaults-board-config](../261116-2138-299-model-defaults-board-config/03-change-spec.md), which resolves
 its configuration's model names against `MODELS[host]` (`models.resolve`) and keeps, in the
 comment above `MODELS`, "the catalog's source as copilot-model-catalog wrote it". This CR's branch
 starts from copilot-role-models' head; it removes that CR's hand-written Copilot rows, Terra

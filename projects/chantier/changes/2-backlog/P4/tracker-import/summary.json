@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Upstream tracker tickets come into the inbox by a chantier.yaml setting",
+  "summary": "Filed, partly decided: a switch for GitHub or GitLab open issues and a JQL query for Jira, no duplicates, the ticket parent read only; open: who runs the import and when.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "b5312ade375529b636e9378a69f8391570eaeb398a3beee56dd9b2bf622ff6a8"
+  },
+  "summarized": "2026-11-17T09:45:16Z"
+}

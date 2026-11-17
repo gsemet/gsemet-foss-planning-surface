@@ -171,7 +171,7 @@ plus the user's own two answers at its end). No tracker issue.
    written and maintained in the project.
 7. **The CR board** (new section): two or three lines on what it is (a read-only pane of Claude
    Code over the planning folder, opened by `/chantier-board` or by loading the Chief of Staff),
-   the picture `docs/board-mod-batch.png`, and a link to [`docs/boards.md`](docs/boards.md).
+   the picture `docs/board-mod-batch.png`, and a link to [`docs/boards.md`](https://github.com/gsemet/chantier/blob/main/docs/boards.md).
 8. **Install**: the entries paragraph says `/chief-of-staff` makes the session the Chief of Staff,
    its mode following the surface (`/chief-of-staff foreman` or `/chief-of-staff direct` to force
    one), and `/chantier` asks Chief of Staff or Griller. Rest unchanged.

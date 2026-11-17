@@ -60,8 +60,8 @@ contract changes: what each role does, refuses, writes and replies stays the sam
     `concepts.md`.
 - **Links out of a card:** only where the role needs another file to do its part, and then to the
   one section it needs. `inspector.md` keeps its audit of `pr-body.md` against the project's
-  template, else [pr-template](pr-template.md) "its audit list". `verifier.md` keeps the
-  role-name rule of [pr-template](pr-template.md), naming the section. The link to
+  template, else [pr-template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/pr-template.md) "its audit list". `verifier.md` keeps the
+  role-name rule of [pr-template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/pr-template.md), naming the section. The link to
   `concepts.md` rule 9 (Coder, Conflict resolver) becomes the rule's own text.
 - **Reply templates and caps stay identical:** the Coder's text template, the Inspector's JSON and
   its caps, the Verifier's template and its `verdict` duty, the Conflict resolver's
@@ -86,10 +86,10 @@ contract changes: what each role does, refuses, writes and replies stays the sam
   - "Opening reads" (line 40), "`worker.md`: only the section of the role whose reply you check"
     becomes "a worker's own card (`<role>.md`): only when its reply needs checking beyond what
     'Your means' gives".
-  - "Your means" (line 81), "the format its section of [worker](worker.md) names", points to the
-    worker's own card (for example [coder](coder.md), [inspector](inspector.md),
-    [verifier](verifier.md)).
-  - CR Driver (line 511): the scratch-folder rule now links [coder](coder.md) (it is the same in
+  - "Your means" (line 81), "the format its section of worker (`worker.md`) names", points to the
+    worker's own card (for example [coder](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/coder.md), [inspector](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/inspector.md),
+    [verifier](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/verifier.md)).
+  - CR Driver (line 511): the scratch-folder rule now links [coder](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/coder.md) (it is the same in
     `verifier.md`).
   - Any other `worker.md` mention found by grep changes too.
 - **`chief-of-staff.md`** (line 1480, "The study"): `worker.md`, section "Demo explorer" becomes

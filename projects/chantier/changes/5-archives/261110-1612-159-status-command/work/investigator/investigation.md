@@ -16,7 +16,7 @@ Other report rules elsewhere in the card, to decide for report.md:
 Note chief-of-staff.md has icons as mojibake-safe UTF-8; keep UTF-8 without BOM. The spec file itself shows mojibake (ðŸŸ ) when read by PowerShell: only a console decoding issue, but check encoding of new files.
 
 ## 2. skills/griller/ as model
-`skills/griller/SKILL.md` (24 lines): front matter `name`, `icon`, `color`, `description`; H1; line `chantier-version: 0.8.0` (regex `^chantier-version: V$`); paragraph defining `$CHANTIER` via `../chantier/`; "You are a **Griller**. Read [concepts](../chantier/references/concepts.md), ... now." Links relative to `../chantier/references/`.
+`skills/griller/SKILL.md` (24 lines): front matter `name`, `icon`, `color`, `description`; H1; line `chantier-version: 0.8.0` (regex `^chantier-version: V$`); paragraph defining `$CHANTIER` via `../chantier/`; "You are a **Griller**. Read [concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md), ... now." Links relative to `../chantier/references/`.
 skills/status/SKILL.md copies that; name `status`; read only `../chantier/references/report.md` (not concepts/session-start). Note report.md refers to concepts.md ("A CR's name", "ready PR"): the status skill reads report.md only per spec, so report.md should carry what it needs inline or the spec's "reads report.md only" tolerates its links (decide).
 Router skills/chantier/SKILL.md l.8 lists `/chantier:chief-of-staff` and `/chantier:griller`: may add `/chantier:status`.
 

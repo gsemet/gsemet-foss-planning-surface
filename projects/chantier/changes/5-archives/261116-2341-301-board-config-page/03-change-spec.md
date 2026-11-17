@@ -5,20 +5,20 @@ third run: A's reset spelled `default` (Q23); second run: Q22 carried, and A's r
 shown). Split from
 model-defaults-board-config by its Q18 (the user's choice): (C), the third of a stack of three.
 Sources: [request](intake/request.md); the grill is model-defaults-board-config's
-[answers](../model-defaults-board-config/02-answers.md) (Q4, Q7, Q13, Q14, Q16, Q19, Q20, Q22,
+[answers](../261116-2138-299-model-defaults-board-config/02-answers.md) (Q4, Q7, Q13, Q14, Q16, Q19, Q20, Q22,
 Q23, the critic's text fixes, the Chief of Staff's AGENTS.md decision and reading of Q20) and its
-[intent](../model-defaults-board-config/01-intent.md); copilot-model-catalog's
-[answers](../copilot-model-catalog/02-answers.md), "The spec critic's question" (this page shows
+[intent](../261116-2138-299-model-defaults-board-config/01-intent.md); copilot-model-catalog's
+[answers](../261116-2119-298-copilot-model-catalog/02-answers.md), "The spec critic's question" (this page shows
 each Copilot model's plans, read from `copilot_catalog()`), and its
-[specification](../copilot-model-catalog/03-change-spec.md) (point 2, `copilot_catalog()` and
+[specification](../261116-2119-298-copilot-model-catalog/03-change-spec.md) (point 2, `copilot_catalog()` and
 `plans`); this CR's [answers](02-answers.md). No tracker issue.
 
 ## Depends on, and the stack
 
-The stack, bottom to top: [copilot-role-models](../copilot-role-models/03-change-spec.md),
-[copilot-model-catalog](../copilot-model-catalog/03-change-spec.md),
-[model-defaults-board-config](../model-defaults-board-config/03-change-spec.md) (A),
-[role-model-per-host](../role-model-per-host/03-change-spec.md) (B), this CR (C).
+The stack, bottom to top: [copilot-role-models](../261116-2017-297-copilot-role-models/03-change-spec.md),
+[copilot-model-catalog](../261116-2119-298-copilot-model-catalog/03-change-spec.md),
+[model-defaults-board-config](../261116-2138-299-model-defaults-board-config/03-change-spec.md) (A),
+[role-model-per-host](../261116-2239-300-role-model-per-host/03-change-spec.md) (B), this CR (C).
 
 - copilot-model-catalog: `MODELS[host]`, the page's model choice; `copilot_catalog()`
   (`playbook/models.py`), each Copilot model's `plans` (`pro`, `pro_plus`, `max`, `business`,

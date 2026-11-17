@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Web board History page: CRs, PRs and releases per day, week or month",
+  "summary": "Filed, not grilled: a History page like Home Assistant's Energy page, with a period selector, totals and items by day; open: the data source, what the records lack, the cost per period.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "b4bc6d1826608e0336e4f3a82deb0395782b218a7dca61e58a9430739f394552"
+  },
+  "summarized": "2026-11-17T09:45:11Z"
+}

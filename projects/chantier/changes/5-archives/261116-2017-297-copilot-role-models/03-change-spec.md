@@ -12,13 +12,13 @@ resolver on GPT-6.1 Terra. Each model is named by its identifier, from a source.
 the four agent files, adds GPT-6.1 Terra to chantier's hand-written Copilot model list, updates
 the documentation, and prepares the proof the user runs later on Copilot (Q2). Claude Code, every
 other role and the cost computation stay as they are. Building chantier's Copilot model list from
-GitHub's tables is the separate CR [copilot-model-catalog](../copilot-model-catalog/) (Q10).
+GitHub's tables is the separate CR [copilot-model-catalog](../261116-2119-298-copilot-model-catalog/) (Q10).
 
 ## Decisions carried from the grill
 
 - Q1: ship now, as a small independent CR. The models change in `com.github.copilot/agents/` and
   in the documentation. The future configuration CR
-  ([model-defaults-board-config](../model-defaults-board-config/01-intent.md)) takes these values
+  ([model-defaults-board-config](../261116-2138-299-model-defaults-board-config/01-intent.md)) takes these values
   as its Copilot defaults; this CR does not wait for it.
 - Q2: this CR does not run a Copilot session. It prepares an evaluation the user runs in a later
   CR on Copilot: for each role, the model the host records as used, and what to do when the host
@@ -215,7 +215,7 @@ Few, parametrized, fast (`just test` budget unchanged):
   `data/tables/copilot/` tables, the `just copilot-models` refresh recipe and its script,
   `copilot-models.json`, a `MODELS["copilot"]` built from it, the catalog rule (Q7), the
   comparison with the CLI reference (Q8), the plans shown, and their tests. All in
-  [copilot-model-catalog](../copilot-model-catalog/) (Q10).
+  [copilot-model-catalog](../261116-2119-298-copilot-model-catalog/) (Q10).
 - The Claude Code agent files and Claude's models, prices and escalation.
 - The other Copilot roles' models (Demo explorer, Opus roles), `model-policy`, tools and bodies.
 - The configuration system of model-defaults-board-config (it takes these values later).

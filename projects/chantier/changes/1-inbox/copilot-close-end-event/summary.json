@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "close reads a Copilot agent's end from events.jsonl",
+  "summary": "Filed, not grilled: close still uses the 5-minute file-time rule for Copilot agents; a real Copilot session must first show which events.jsonl event marks an agent's end.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "fdef02811944594a6ff8663df102f9990aaf4912037e9c1ac0ac64de82e84a50"
+  },
+  "summarized": "2026-11-17T09:45:05Z"
+}

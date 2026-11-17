@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Evals that start away from the desk",
-  "summary": "Specified: one eval root the user trusts once at the desk; every run's workspace goes inside it so the operator can start from the phone; chantier never edits trust. Ordered with evals-rework. Open: setup's enforcement, Foreman campaigns, phone session's checkout.",
+  "summary": "Specified: one eval root the user trusts once at the desk, named in a git-ignored eval-root.local.json; setup refuses a workspace outside it. Only no-Foreman campaigns start from the phone. Trial checks main checkout. Open: setup with no root file.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "81becc1a797775222a317ccad576d8e20f761af7e6c05f95e9960759627424e3",
-    "03-change-spec.md": "ea6df7b385003bb00e3926f9072044973b7a392734a968c84e029f9ae6d419d1",
+    "02-answers.md": "a47a9fdb41c51975e132aa11411d91a6d63b0237082150810d09b909ebc4b79a",
+    "03-change-spec.md": "5e67e35b517fbcaf75a250e8185202f65a28fd76cedacbd4d1c8b2f5034ed04f",
     "intake/request.md": "8b5c0c6c2d80894ea4db865e17b50582843b23c8dabe4bf7dc62aefc93939aed"
   },
-  "summarized": "2026-11-17T08:29:37Z"
+  "summarized": "2026-11-17T09:33:17Z"
 }

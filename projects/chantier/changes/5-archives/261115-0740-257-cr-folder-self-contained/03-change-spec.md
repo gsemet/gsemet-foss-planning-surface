@@ -132,7 +132,7 @@ optional entries and a clearer `evidence/` line, each marked "only once somethin
 
 - Next to "The host's scratchpad is outside the worktree" (today line 467): one sentence that the
   host's instruction to send scripts and intermediate results to its scratchpad does not apply
-  to a CR's work, which goes in the CR's folder ([concepts](../concepts.md)); a worker still writes
+  to a CR's work, which goes in the CR's folder ([concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md)); a worker still writes
   in its work folder, as today.
 - `hosts/copilot.md`: no change unless it names a scratchpad (it does not today).
 

@@ -103,7 +103,7 @@ A new reference card the Chief of Staff reads when the user asks for init. It sa
 ### 4. The entry points
 
 - `skills/chantier/SKILL.md`: a row in the Entry points table, "init, a guided tour, 'I am new
-  here'" → `$CHANTIER init`, then the tour → [init](references/init.md).
+  here'" → `$CHANTIER init`, then the tour → [init](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/init.md).
 - The first-turn introduction stays as it is, except: when the project has no `.agents/changes/`,
   it ends with one line offering init ("new here? say init for a guided tour"). When the user's
   first request is init, the introduction is skipped: the tour covers it.

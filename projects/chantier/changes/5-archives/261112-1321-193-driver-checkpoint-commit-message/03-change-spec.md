@@ -48,7 +48,7 @@ card's style (short sentences, no new term), close to this wording:
 >   commit of the default branch. Every commit you make, a round's commit or a checkpoint (work set
 >   aside before a rebase, a commit before a gate, a commit after a `FIX-REQUIRED` round), has a
 >   message in the project's commit style (its rules; where they give none, a Conventional Commit
->   subject, as for the PR title in [pr-template](pr-template.md)) that says what the commit holds.
+>   subject, as for the PR title in [pr-template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/pr-template.md)) that says what the commit holds.
 >   Never a `wip` type, never "pending", "checkpoint", a round or a review state, never a CR
 >   number, a batch or a role. Before the branch's first push, a checkpoint that is your head may
 >   be folded into the next round's commit: stage that round's files by name, then `git commit

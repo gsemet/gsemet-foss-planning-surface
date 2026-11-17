@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Web board Help page explaining chantier's concepts and roles",
+  "summary": "Filed, not grilled: a Help page under Home with clickable cards on the concepts and roles, drawn from the README, in English and French.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "bc6550d90f5b705ea7c846d9f8d71829a32c8d7ec4b8cedd9e08a8d1e0ba7099"
+  },
+  "summarized": "2026-11-17T09:45:04Z"
+}

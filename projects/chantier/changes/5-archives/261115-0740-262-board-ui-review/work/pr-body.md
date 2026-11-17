@@ -23,16 +23,16 @@ Before (base `33fc800`) and after (head `93a67aa`; the selected card at `63a6138
 
 | View | Before | After |
 | --- | --- | --- |
-| Kanban, P3 and P4 off (EN) | ![Kanban before EN](./kanban-p3p4-off-en-real-before-33fc800.png) | ![Kanban after EN](./kanban-p3p4-off-en-real-after-93a67aa.png) |
-| Kanban, P3 and P4 off (FR) | ![Kanban before FR](./kanban-p3p4-off-fr-real-before-33fc800.png) | ![Kanban after FR](./kanban-p3p4-off-fr-real-after-93a67aa.png) |
-| Triage (EN) | ![Triage before EN](./triage-en-real-before-33fc800.png) | ![Triage after EN](./triage-en-real-after-93a67aa.png) |
-| Triage (FR) | ![Triage before FR](./triage-fr-real-before-33fc800.png) | ![Triage after FR](./triage-fr-real-after-93a67aa.png) |
-| Selected Triage card (EN) | ![Selected before EN](./triage-selected-en-demo-mobile-before-33fc800.png) | ![Selected after EN](./triage-selected-en-after-63a6138.png) |
-| Selected Triage card (FR) | ![Selected before FR](./triage-selected-fr-demo-mobile-before-33fc800.png) | ![Selected after FR](./triage-selected-fr-after-63a6138.png) |
-| Costs, no batch running (EN) | ![Costs before EN](./costs-en-demo-mobile-before-33fc800.png) | ![Costs after EN](./costs-en-demo-mobile-after-93a67aa.png) |
-| Costs, no batch running (FR) | ![Costs before FR](./costs-fr-demo-mobile-before-33fc800.png) | ![Costs after FR](./costs-fr-demo-mobile-after-93a67aa.png) |
-| Home (EN) | ![Home before EN](./home-en-real-before-33fc800.png) | ![Home after EN](./home-en-real-after-93a67aa.png) |
-| Home (FR) | ![Home before FR](./home-fr-real-before-33fc800.png) | ![Home after FR](./home-fr-real-after-93a67aa.png) |
+| Kanban, P3 and P4 off (EN) | ![Kanban before EN](../evidence/kanban-p3p4-off-en-real-before-33fc800.png) | ![Kanban after EN](../evidence/kanban-p3p4-off-en-real-after-93a67aa.png) |
+| Kanban, P3 and P4 off (FR) | ![Kanban before FR](../evidence/kanban-p3p4-off-fr-real-before-33fc800.png) | ![Kanban after FR](../evidence/kanban-p3p4-off-fr-real-after-93a67aa.png) |
+| Triage (EN) | ![Triage before EN](../evidence/triage-en-real-before-33fc800.png) | ![Triage after EN](../evidence/triage-en-real-after-93a67aa.png) |
+| Triage (FR) | ![Triage before FR](../evidence/triage-fr-real-before-33fc800.png) | ![Triage after FR](../evidence/triage-fr-real-after-93a67aa.png) |
+| Selected Triage card (EN) | ![Selected before EN](../evidence/triage-selected-en-demo-mobile-before-33fc800.png) | ![Selected after EN](../evidence/triage-selected-en-after-63a6138.png) |
+| Selected Triage card (FR) | ![Selected before FR](../evidence/triage-selected-fr-demo-mobile-before-33fc800.png) | ![Selected after FR](../evidence/triage-selected-fr-after-63a6138.png) |
+| Costs, no batch running (EN) | ![Costs before EN](../evidence/costs-en-demo-mobile-before-33fc800.png) | ![Costs after EN](../evidence/costs-en-demo-mobile-after-93a67aa.png) |
+| Costs, no batch running (FR) | ![Costs before FR](../evidence/costs-fr-demo-mobile-before-33fc800.png) | ![Costs after FR](../evidence/costs-fr-demo-mobile-after-93a67aa.png) |
+| Home (EN) | ![Home before EN](../evidence/home-en-real-before-33fc800.png) | ![Home after EN](../evidence/home-en-real-after-93a67aa.png) |
+| Home (FR) | ![Home before FR](../evidence/home-fr-real-before-33fc800.png) | ![Home after FR](../evidence/home-fr-real-after-93a67aa.png) |
 
 ```js
 // model/columns.js: one rule per column, read by kanban.js, header.js and Home's In grill tile

@@ -6,8 +6,13 @@
 2026-11-14 on the user's Windows machine, so 48.5 s. The slow tests are profiled and sped up; each
 keeps what it covers. The budget line in AGENTS.md stays as it is (test-budget-Q1).
 
-The change touches the speed of the tests only: no behaviour of the CLI, the cards or the board
-changes (the spec critic was not run, on that ground: test-budget-Q1).
+Two levers, both required (test-budget-Q2): `just test` runs the suite in parallel with
+`pytest-xdist`, and the tests themselves get faster where the profile puts the cost. The Driver may
+also speed up the CLI's own code (the STATUS rewriting after each save), with byte-identical
+output (test-budget-Q3).
+
+No behaviour of the CLI, the cards or the board changes (the spec critic was not run, on that
+ground: test-budget-Q1).
 
 ## Where the time goes (measured 2026-11-17, the user's Windows machine, main at 3df17b9)
 
@@ -32,11 +37,25 @@ Paths under `skills/chantier/scripts/cli/` (`src/chantier/...` and `tests/...`).
 
 ## What changes
 
-The Driver profiles first (`--durations=0` and a cProfile run, as above), then removes the cost
-where it lies, largest first, until the budget holds with margin. The ways below fit the costs
-measured; the Driver chooses among them and may find others, within the rules that follow.
+The Driver profiles first (`--durations=0` and a cProfile run, as above, serially), then does all
+three parts below. In part 2 it removes the cost where it lies, largest first; the ways listed fit
+the costs measured, and the Driver chooses among them and may find others, within the rules that
+follow.
 
-1. **Tests and fixtures** (`skills/chantier/scripts/cli/tests/`):
+1. **A parallel runner** (test-budget-Q2):
+   - `pytest-xdist` joins the `dev` dependency group in the root `pyproject.toml`
+     (`[dependency-groups] dev`, today `["pytest>=8"]`), locked in `uv.lock` (`uv lock`;
+     `just lint`'s `uv lock --check` passes).
+   - The `test` recipe in `justfile` (today `uv run --locked --group dev pytest -q {{args}}`) runs
+     the suite in parallel (`-n auto` or an equivalent set in the recipe or in
+     `[tool.pytest.ini_options]`); `{{args}}` still pass through, so `just test -k <name>` and a
+     serial run (`just test -n 0`) keep working.
+   - Every test passes under the parallel run, on Linux, macOS and Windows, and still passes
+     serially: no test depends on another's order or shared state. A session-scoped fixture
+     (`repo_template`, and the ones part 2 adds) runs once per worker under xdist; each must stay
+     right that way (its own `tmp_path_factory` folder per worker, nothing written outside it).
+2. **Tests and fixtures** (`skills/chantier/scripts/cli/tests/`), also required (test-budget-Q2):
+   the parallel runner alone does not close the CR.
    - Answer once what a test's repository makes certain, without a git process: the common git
      folder of the `repo` fixture's copy is its own `.git`. A seeded answer holds only while the
      test does not change what it answers (a test that removes the remote, moves the repository or
@@ -49,10 +68,13 @@ measured; the Driver chooses among them and may find others, within the rules th
      read it.
    - In the held-port test, keep the refusal it checks (exit code, the one error line, the port
      and `--port` named) without waiting out the probe's timeout.
-2. **The CLI's own code** (`src/chantier/`), only where the cost is in the code itself (the STATUS
-   rewriting, git calls repeated within one command): a faster way to the same output. Every
-   message, exit code, written file and its bytes stay the same; a refusal still refuses.
-3. Nothing in `AGENTS.md`, the cards, `agents/`, `com.github.copilot/agents/`, the scenario or the
+3. **The CLI's own code** (`skills/chantier/scripts/cli/src/chantier/`), allowed
+   (test-budget-Q3), where the cost is in the code itself: chiefly the STATUS rewriting after each
+   save (`RenderedBatch.after_save`, `status/write.py`, `status/views.py`, about 14 s profiled), and
+   git calls repeated within one command. A faster way to the same output: every message, exit
+   code, written file and its bytes stay the same; a refusal still refuses. Such a change makes
+   `just scenario` due before the PR (AGENTS.md's long gate).
+4. Nothing in `AGENTS.md`, the cards, `agents/`, `com.github.copilot/agents/`, the scenario or the
    CI files changes.
 
 Rules for every change:
@@ -62,9 +84,20 @@ Rules for every change:
   is listed in the PR with the test that now holds its assertions.
 - The CLI's behaviour does not change; a test that used a real git answer to check a refusal still
   gets it.
-- The tests keep calling the CLI in-process (AGENTS.md) and stay portable: `just check` passes on
-  Linux, macOS and Windows.
-- No new dependency, unless the user says yes to the open question below.
+- The tests keep calling the CLI in-process (AGENTS.md; an xdist worker is a pytest process that
+  calls the CLI in-process like the serial run) and stay portable: `just check` passes on Linux,
+  macOS and Windows.
+- `pytest-xdist` is the one new dependency (test-budget-Q2); no other is added.
+
+## Decisions
+
+- test-budget-Q1: speed up the slow tests, keeping what they cover; the budget line in AGENTS.md
+  stays.
+- test-budget-Q2: both levers: `pytest-xdist` (dev dependency, locked in `uv.lock`) runs
+  `just test` in parallel, and the tests themselves get faster (git per test, `cost_world` rebuilt
+  per test, the `surface` fixture, the held-port wait). Not one or the other.
+- test-budget-Q3: the Driver may speed up the CLI's own code (the STATUS rewriting after each
+  save) with byte-identical output; then `just scenario` is due before the PR.
 
 ## Out of scope
 
@@ -75,22 +108,27 @@ Rules for every change:
 ## Evidence
 
 - Before and after, on the user's Windows machine: `just test` three times each, the wall times
-  and their median, at the PR's base and head; the after median at most 48.5 s. In the PR's
-  Deliverables, with the machine named.
-- `uv run --locked --group dev pytest -q --durations=25` at base and head, the two lists in the
-  PR, so a reviewer sees which costs moved.
-- `uv run --locked --group dev pytest --collect-only -q` at base and head: the collected test ids
-  are the same set, or each difference is listed with where its assertions went.
-- `just check` passes (Linux, macOS and Windows, CI's `just check` matrix in
-  `.github/workflows/ci.yml`).
-- When the CLI's code changes (way 2): `just scenario` passes at the PR's head, per AGENTS.md's
-  long gate; a change to the tests alone needs none.
+  and their median, at the PR's base (serial, as base runs it) and head (parallel, as the new
+  recipe runs it); the after median at most 48.5 s. In the PR's Deliverables, with the machine
+  named and its core count (what `-n auto` uses).
+- The tests' own speed, apart from the runner: at the PR's head, `just test -n 0` (serial) three
+  times, its median beside the base's, so a reviewer sees that part 2 cut time on its own.
+- `uv run --locked --group dev pytest -q -n 0 --durations=25` at base and head (serial, so the
+  durations compare), the two lists in the PR, so a reviewer sees which costs moved.
+- `uv run --locked --group dev pytest --collect-only -q -n 0` at base and head (at base without
+  `-n 0`, which it does not know yet): the collected test ids are the same set, or each difference
+  is listed with where its assertions went.
+- `just check` passes, which now runs the suite under xdist, on Linux, macOS and Windows (CI's
+  `just check` matrix in `.github/workflows/ci.yml`); and `just lint`'s `uv lock --check` passes
+  with the new lock.
+- When the CLI's code changes (part 3): `just scenario` passes at the PR's head, per AGENTS.md's
+  long gate (CI's `just scenario (ubuntu-latest)` job, green at the head). A change to the tests alone
+  needs none; for a head that changes only the tests, `pyproject.toml`, `uv.lock` and
+  `justfile`, see open question 1.
 
 ## Open questions
 
-1. A parallel runner (for example `pytest-xdist`, a new dev dependency in `pyproject.toml` and
-   `uv.lock`, `-n auto` in `just test`) would cut the wall time on its own, without touching what
-   the tests cover. The answer chose to speed up the slow tests; may the Driver also add such a
-   runner, or should the budget be met by the tests' own speed alone?
-2. May the Driver speed up the CLI's own code (way 2, the STATUS rewriting after each save, about
-   14 s profiled), with the same output byte for byte, or should this CR change the tests only?
+None. The Chief of Staff settled the last one (2026-11-17): adding `pytest-xdist` changes the root
+`pyproject.toml` and `uv.lock`, which also lock the CLI's package, so `just scenario` is due before
+the PR whether or not the Driver touches the CLI's code (part 3): the pipeline's
+`just scenario (ubuntu-latest)` job green at the PR's head.

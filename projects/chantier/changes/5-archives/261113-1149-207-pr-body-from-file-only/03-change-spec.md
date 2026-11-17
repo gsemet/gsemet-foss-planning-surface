@@ -100,7 +100,7 @@ Each place below gets the file form. The GitLab forms are no longer given as tex
 - **Section "All drivers" (or the shared list above "CR driver"), the "Push" bullet (now lines
   62–67).**
   - Say that a CR Driver **always** opens and edits the PR from `<work folder>/pr-body.md`,
-    written with the Write tool as in [concepts](concepts.md), rule 9. Keep
+    written with the Write tool as in [concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md), rule 9. Keep
     `gh pr create --draft --body-file <work folder>/pr-body.md` and `gh pr edit --body-file`.
   - Replace `glab mr update --description` and the sentence "`glab mr create --draft` takes the
     body with `--description`" with the GitLab form that passes the file's content, for

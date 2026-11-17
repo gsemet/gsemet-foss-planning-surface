@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "A spec that needs an external fact names its source",
+  "summary": "Filed, not grilled: from the batch-11 retro, after CR-181 shipped without a model price no Driver could read; the spec-writer card should name the source or the tools the Driver needs.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "c8de090f36a80117a0a71afcded0e5c9b785c42b7ae5c798979934f39bb3c169"
+  },
+  "summarized": "2026-11-17T09:45:15Z"
+}

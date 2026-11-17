@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "A test catches a non-JSON, non-Markdown file the CLI writes in the planning folder",
+  "summary": "Filed, not grilled: from the batch-11 retro, after CR-184's Inspector found a plain-text number file; a structure test or the long gate should catch such a file.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "eb31b4ef23611f05950cee5f807bbfd6d422684b5f3c0023184ffe95f98487f1"
+  },
+  "summarized": "2026-11-17T09:45:13Z"
+}

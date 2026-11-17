@@ -50,7 +50,7 @@ its other keys. When the code repository's own file overrides a value, the row s
 
 | Configuration, per host and role |
 | --- |
-| ![The Configuration page: Copilot's roles with their agents and models, and the Copilot models with their plans](board-config.png) |
+| ![The Configuration page: Copilot's roles with their agents and models, and the Copilot models with their plans](../rel/assets/board-config.png) |
 
 See [the web board](https://github.com/gsemet/chantier/blob/v0.11.0/docs/web-board.md).
 
@@ -64,7 +64,7 @@ page sees a PR merged that the record does not hold, it leaves one line in a loc
 
 | The PRs page |
 | --- |
-| ![The PRs page: five PRs of a batch, merged, open, conflicting, draft and being checked by the forge](board-prs.png) |
+| ![The PRs page: five PRs of a batch, merged, open, conflicting, draft and being checked by the forge](../rel/assets/board-prs.png) |
 
 See [the web board](https://github.com/gsemet/chantier/blob/v0.11.0/docs/web-board.md).
 
@@ -75,7 +75,7 @@ See [the web board](https://github.com/gsemet/chantier/blob/v0.11.0/docs/web-boa
 
   | The project picker |
   | --- |
-  | ![The project picker: the planning surface, then three projects with their folder and repository](board-picker.png) |
+  | ![The project picker: the planning surface, then three projects with their folder and repository](../rel/assets/board-picker.png) |
 
 - **A roomier Triage.** The cards are at most 320 px wide, the backlog is a
   grid, hovering shows no scroll bar, and the side panel closes when you change view.

@@ -2,16 +2,16 @@
 
 Date: 2026-11-16. Split from model-defaults-board-config by its Q18 (the user's choice): (B), the
 second of a stack of three. Sources: [request](intake/request.md); the grill is
-model-defaults-board-config's [answers](../model-defaults-board-config/02-answers.md) (Q3, Q5,
+model-defaults-board-config's [answers](../261116-2138-299-model-defaults-board-config/02-answers.md) (Q3, Q5,
 Q6, Q8 to Q10, Q12 as narrowed by Q17, Q13, Q16, the Chief of Staff's grill cost line decision)
-and its [intent](../model-defaults-board-config/01-intent.md). No tracker issue.
+and its [intent](../261116-2138-299-model-defaults-board-config/01-intent.md). No tracker issue.
 
 ## Depends on, and the stack
 
-The stack, bottom to top: [copilot-role-models](../copilot-role-models/03-change-spec.md),
-[copilot-model-catalog](../copilot-model-catalog/),
-[model-defaults-board-config](../model-defaults-board-config/03-change-spec.md) (A), this CR
-(B), [board-config-page](../board-config-page/) (C, on A and B).
+The stack, bottom to top: [copilot-role-models](../261116-2017-297-copilot-role-models/03-change-spec.md),
+[copilot-model-catalog](../261116-2119-298-copilot-model-catalog/),
+[model-defaults-board-config](../261116-2138-299-model-defaults-board-config/03-change-spec.md) (A), this CR
+(B), [board-config-page](../261116-2341-301-board-config-page/) (C, on A and B).
 
 - copilot-role-models: the Copilot agent files' `model:` lines, the `hosts/copilot.md` rows
   "Models", "Models at an agent's start" and "The model a role ran on", the

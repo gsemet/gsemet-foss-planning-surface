@@ -13,11 +13,16 @@ the PR's draft flag.
 ## Decisions carried from `02-answers.md`
 
 - stack-state-Q1 (2026-11-17, the user): one combined label in one column, not two columns:
-  e.g. `ready, PR draft (#251)`, `running`.
+  e.g. `ready, PR draft (#251)`, `working` (the answer's `running` is read as `working`, per
+  stack-state-Q2).
 - stack-state-Q1: the stack-driver card says the stack is made from the hand-back state (`ready`),
   whatever the PR's draft flag.
 - Spec critic on stack-state-Q1: it changes what `take stack` and `stack` print and the stack
   driver's card. Nothing else.
+- stack-state-Q2 (2026-11-17, the user): a CR with a live Driver reads `working`, the stored
+  status, the same word everywhere; never `running`.
+- stack-state-Q3 (2026-11-17, the user): a PR out of draft reads `PR out of draft`, never
+  `PR ready` (`ready` is the ambiguous word this CR removes).
 
 ## What changes
 
@@ -39,10 +44,11 @@ New: the second field of each row is the combined label, built by a new small he
 only:
 
 - the CR's recorded status, as stored (`queued`, `working`, `ready`, `blocked`; the stack holds no
-  merged or cancelled CR), never a derived word;
+  merged or cancelled CR), never a derived word; a CR with a live Driver reads `working`, never
+  `running` (stack-state-Q2);
 - when the CR has a PR recorded (`c.pr`), followed by `, PR <flag> (<ref>)`:
-  - `<flag>` is the recorded draft flag `c.pr_draft`: `draft` (True), `out of draft` (False),
-    `draft not read` (None; the same words `ship` prints);
+  - `<flag>` is the recorded draft flag `c.pr_draft`: `draft` (True), `out of draft` (False,
+    never `ready`: stack-state-Q3), `draft not read` (None; the same words `ship` prints);
   - `<ref>` is the PR's number: `#<n>` for a GitHub PR link, `!<n>` for a GitLab MR link (a link
     that `forge_stack_gitlab.GITLAB_LINK` matches); a link with no trailing number gives no
     parenthesis (`, PR draft`). `status/gate.py::pr_number` gives `#<n>` today; reuse or extend
@@ -57,7 +63,7 @@ The rest of the row is unchanged (`worktree … branch … base … PR <link> he
 reader splits on that word, as today.
 
 Not changed: `state_word` itself and its other callers, which keep the derived words of
-[concepts](concepts.md), "Words": `status` rows (`batch_status.py`), `handoff`/`cr_facts`
+[concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md), "Words": `status` rows (`batch_status.py`), `handoff`/`cr_facts`
 (`facts.py` line 75), `forge-stack` (`forge_stack.py`), the hand-back lines (`driver.py`
 `_ready_lines`), `stack --out-of-draft|--draft` replies, STATUS.md, STATUS.json (`readiness`), the
 pane and the board. No `STATUS.json` field changes, so no pane screenshot is due.
@@ -72,7 +78,7 @@ pane and the board. No `STATUS.json` field changes, so no pane screenshot is due
   never a reason to wait. Add one sentence: in the rows, the mergeable part is the run from the
   bottom of rows that read `ready, PR out of draft (…)`, and "ready to merge" in this section
   means a CR of that run (so the section's other uses, `driver.md` lines ~687-693, 735, 757 and
-  776, and [concepts](concepts.md), "Stack", lines ~216-218, read consistently with the rows).
+  776, and [concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md), "Stack", lines ~216-218, read consistently with the rows).
 - "**Making the stack.**": "Once two CRs are handed back ready with their PRs" reads as the
   rows' `ready` (state), whatever the draft flag: say so in that sentence. Replace "the CRs with a
   draft PR on top as drafts" by the CRs not handed back ready on top, as drafts; the CRs handed
@@ -134,7 +140,7 @@ in `tests/` and fast (AGENTS.md: few, parametrized, fast).
 - Any change of the record (`batch.json`), the events, or a rail: `stack --out-of-draft` keeps its
   refusals.
 - The Foreman's card: it passes `take stack`'s output as it is.
-- Renaming a stored status (see open question 1).
+- Renaming a stored status: `working` stays the word everywhere (stack-state-Q2).
 
 ## Evidence
 
@@ -149,10 +155,4 @@ in `tests/` and fast (AGENTS.md: few, parametrized, fast).
 
 ## Open questions
 
-1. The user's example names `running`; the stored status of a CR with a live Driver is `working`
-   (the word `status`, `handoff` and the record use). This specification prints the stored status
-   (`working`). Should the stack rows print `running` instead of `working` (a word only these rows
-   would use)?
-2. The answer gives `PR draft` for a draft; this specification prints `PR out of draft` for a PR
-   out of draft and `PR draft not read` when no forge read is recorded, the words `ship` prints.
-   Does the user want another word for out of draft (e.g. `PR ready`)?
+None.

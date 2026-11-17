@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "A night watch of the batch that does not depend on an idle session",
+  "summary": "Filed, not grilled: after a critic review, a trial first on why the session cron did not fire and whether existing wakes suffice; build only if the trial shows a real gap.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "05f36b83d06f37aba1ebc440c87a0369219d6f49345d5758c8214d8d4003a1ce"
+  },
+  "summarized": "2026-11-17T09:45:12Z"
+}

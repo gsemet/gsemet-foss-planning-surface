@@ -1,6 +1,6 @@
 ---
 type: cr-change-spec
-description: A Driver stopped from outside is restarted by the steering session on the batch's go, and the heartbeat sees it.
+description: A Driver stopped from outside is restarted by the steering session on the batch's go, at each such stop and counting toward nothing, and the heartbeat sees it.
 ---
 
 # Change Specification: a stopped Driver resumes without the user's word
@@ -15,11 +15,22 @@ host at a compaction of the steering session. The steering session tried to resu
 
 The steering session read that as a need for the user's word, and the batch waited on the user.
 
-The user's decision (`02-answers.md`, driver-resume-Q1): the batch's go already covers this. A
-Driver stopped from outside is restarted by the steering session itself, as a fresh Driver by
-`take <cr> --note "resume: <cause>"`, with no question to the user, and the restart is said in
-the report. The heartbeat detects a Driver that is still recorded but stopped, so the restart
-does not hang on someone noticing.
+The user's decisions (`02-answers.md`):
+
+- **driver-resume-Q1:** the batch's go already covers this. A Driver stopped from outside is
+  restarted by the steering session itself, as a fresh Driver by `take <cr> --note "resume:
+  <cause>"`, with no question to the user, and the restart is said in the report. The heartbeat
+  detects a Driver that is still recorded but stopped, so the restart does not hang on someone
+  noticing.
+- **resume-stop-Q2 (counting):** a stop from outside counts neither toward `driver ended twice`
+  nor toward "blocked twice": it is the host's doing. The Driver is restarted at each such stop.
+- **resume-stop-Q3 (which stops):** the rule covers only a stop the steering session did not make
+  itself. Its own `TaskStop` (a switch to Foreman mode, a drop, the user's stop or hold) is never
+  restarted by this rule. A stop the user makes in the app is not the steering session's, so it
+  is a stop from outside.
+- **resume-stop-Q4 (what is detected):** the stops a compaction snapshot reports (`task_status`
+  `killed`), plus the host's refusal of a message; the card and the host row say so. A trial
+  records what a stop made by the user in the app leaves in the transcript.
 
 ## Evidence of the case (batch-22, Chief of Staff session `91f1382a-eacd-437e-b5a8-f9e545753a8c`)
 
@@ -33,6 +44,8 @@ does not hang on someone noticing.
 - Each stopped Driver's own transcript ends on a prompt with no answer (the record's
   `close --stopped` lines name the same agents with "its last record is a prompt with no answer
   yet"). Its transcript alone cannot tell it from a running one.
+- Not yet seen: what a stop made by the user in the app leaves in the steering transcript (Q4's
+  trial, below).
 
 ## What changes
 
@@ -41,33 +54,54 @@ does not hang on someone noticing.
 `skills/chantier/references/foreman.md`, "A lost Driver" (it holds in a direct batch too, whose
 Chief of Staff reads this card):
 
-- **Proof of death:** add a third proof, read at once, with no ping round and no message first:
-  the host says the Driver was stopped (Claude Code: the notice `Task "<name>" (<id>) was
-  stopped.`, or the `status` flag of section 2 (a CR's row in any `status`; the stack driver's
-  and a QA order's `activity` line in `status --refresh` only), or the refusal `Agent <id> was
-  stopped and won't be resumed…` of a message sent to it). Never try `SendMessage` to resume such a Driver: the
-  host refuses it (proved, batch-22).
+- **Proof of death** (today "one of two"; it becomes "one of three"): add a third proof, read at
+  once, with no ping round and no message first: the host says the Driver was stopped. On Claude
+  Code that is exactly two things (Q4): the stop a compaction snapshot reports (the `task_status`
+  `killed` record, which the session sees as `Task "<name>" (<id>) was stopped.`, and which the
+  `status` flag of section 2 reads: a CR's row in any `status`; the stack driver's and a QA
+  order's `activity` line in `status --refresh` only), and the host's refusal `Agent <id> was
+  stopped and won't be resumed…` of a message sent to it. Never try `SendMessage` to resume such a
+  Driver: the host refuses it (proved, batch-22).
 - **A new bullet, "A Driver stopped from outside"** (any Driver kind: CR, release, stack, QA
-  order), next to "A host failure": it takes the restart path at once (`agents set <cr> - --epoch
-  <n>`, `handoff <cr>`, `take <cr> --note "resume: stopped from outside: <the host's text>"
-  --epoch <n>`, a new Driver, `agents set <cr> <id> --epoch <n>`; for the stack, `take stack
-  --note …` as in its existing restart). It is covered by the batch's go: no ask, no question to
-  the user, no wait for the user's word. The host's words "only launch a new agent if the user
-  explicitly asks" are answered by that go; the card says so in one sentence.
+  order), next to "A host failure":
+  - **Which stops (Q3):** only a stop the steering session did not make itself. Its own stop by
+    the host's means (`TaskStop` on Claude Code: a switch to Foreman mode, a drop, the user's stop
+    or hold, the `stop` after a `pong` with no progress for 3 hours) is never restarted by this
+    rule; each of those keeps its own path. A stop the user makes in the app is from outside.
+  - **Keeping its own stops apart:** the snapshot record does not say who stopped the agent, and a
+    compaction may come after the steering session's own stop. So when the steering session stops
+    a Driver itself and does not restart it at once by the restart path, it clears the id it
+    recorded for it in the same turn (`agents set <cr> - --epoch <n>`, or the stack's or the QA
+    order's own clearing as the restart path names it), after a `note <cr> "stopped: <why>"` for a
+    CR. The `status` flag names only a recorded agent, so it never shows for the steering
+    session's own stop; and a refusal to a message to an agent it no longer has recorded is not
+    this rule.
+  - **What it does:** it takes the restart path at once (`agents set <cr> - --epoch <n>`,
+    `handoff <cr>`, `take <cr> --note "resume: stopped from outside: <the host's text>" --epoch
+    <n>`, a new Driver, `agents set <cr> <id> --epoch <n>`; for the stack, `take stack --note …`
+    as in its existing restart). It is covered by the batch's go: no ask, no question to the user,
+    no wait for the user's word. The host's words "only launch a new agent if the user explicitly
+    asks" are answered by that go; the card says so in one sentence.
+  - **Counting (Q2):** it is the host's doing, like a death by the host: it counts neither toward
+    `driver ended twice` nor toward "blocked twice" in Escalation, and it is restarted at each
+    such stop, however many (no "second stop" ask, unlike a second host failure).
 - **Said in the report:** the steering session's next report names each such restart: the CR,
   "stopped from outside", the time of the stop, and the new Driver's agent id. In Foreman mode
   the Foreman's report line to the Chief of Staff carries it, and the Chief of Staff gives it in
   its report to the user.
-- Whether such a stop counts toward `driver ended twice` and toward "blocked twice" is open
-  question Q1 below; the card states the user's answer.
-- **"A Driver that ended with no hand-back recorded"** (foreman.md, lines ~601-611): today, when
-  the host refuses the `[foreman→driver <cr>] record your hand-back: …` message, the bullet sends
-  the Driver down the restart path with `--note "resume: ended with no hand-back recorded: …"`
-  and says "This counts as a silent end". Change it so that a refusal that says the Driver was
-  stopped (`Agent <id> was stopped and won't be resumed…`) is the outside stop: it goes to "A
-  Driver stopped from outside", with its note `resume: stopped from outside: <the host's text>`,
-  and this bullet does not count it as a silent end (its count is the one Q1 sets). Any other
-  refusal, or no hand-back by the next wake, keeps today's rule.
+- **"A Driver that ended with no hand-back recorded"** (lines ~601-611): today, when the host
+  refuses the `[foreman→driver <cr>] record your hand-back: …` message, the bullet sends the
+  Driver down the restart path with `--note "resume: ended with no hand-back recorded: …"` and
+  says "This counts as a silent end". Change it so that a refusal that says the Driver was stopped
+  (`Agent <id> was stopped and won't be resumed…`) is the outside stop: it goes to "A Driver
+  stopped from outside", with its note `resume: stopped from outside: <the host's text>`, and
+  counts as nothing. Any other refusal, or no hand-back by the next wake, keeps today's rule.
+- **"A silent end"** (lines ~613-616): its last sentence lists what does not count ("a death by
+  the host (a new epoch, all Drivers lost at one wake) and a `context:` hand-back do not"); add
+  "a Driver stopped from outside".
+- **"Your means"**, the `status` bullet (lines ~153-158): add the new flag next to `Driver <id>
+  ended, no hand-back recorded`: `Driver <id> stopped from outside, no hand-back recorded`
+  (Claude Code only).
 
 `skills/chantier/references/concepts.md`:
 
@@ -75,26 +109,37 @@ Chief of Staff reads this card):
   <the host's text>`.
 - The same section's first bullet (line ~492, "Each such end is restarted **once**"): add that a
   Driver stopped from outside is restarted as foreman.md's "A Driver stopped from outside" says,
-  at each such stop, not under this "once"; whether a repeated stop blocks the CR is the count
-  Q1 sets, not this bullet. Other agents and other causes keep "once".
+  at each such stop, not under this "once", and that such a stop counts toward nothing. Other
+  agents and other causes keep "once".
+- "Escalation", the row "A CR blocked twice" (line ~530): add, with the hand-backs that never
+  count, that a Driver stopped from outside never counts (it is no hand-back, and it does not
+  make `driver ended twice`).
 - Line ~463 ("on Claude Code a message resumes a stopped agent with its context"): say that this
   holds for an agent that ended its turn, and not for one the host stopped (a `killed` task),
   which the host refuses to resume.
 
 `skills/chantier/references/hosts/claude-code.md`, the capabilities table:
 
-- Row "Resume a stopped subagent": add that a subagent the host stopped (its `task_status`
-  `killed`, the notice `Task "<name>" (<id>) was stopped.`) is not resumable: `SendMessage` gets
-  `Agent <id> was stopped and won't be resumed. Treat its work as cancelled; only launch a new
-  agent if the user explicitly asks.`; proved, batch-22 (the three agent ids and the time above).
-- A new row, "A background subagent is stopped from outside": the steering transcript gets an
-  `attachment` record `task_status` with `status: "killed"` and the agent's id as `taskId`, and
-  the session sees `Task "<name>" (<id>) was stopped.`; seen at a compaction of the steering
-  session (batch-22, manual compaction); other triggers unproved.
+- Row "Resume a stopped subagent" (line ~615): add that a subagent the host stopped (its
+  `task_status` `killed`, the notice `Task "<name>" (<id>) was stopped.`) is not resumable:
+  `SendMessage` gets `Agent <id> was stopped and won't be resumed. Treat its work as cancelled;
+  only launch a new agent if the user explicitly asks.`; proved, batch-22 (the three agent ids and
+  the time above).
+- A new row, "A background subagent is stopped from outside": what chantier detects, and nothing
+  else (Q4): the stop a compaction snapshot reports (the steering transcript's `attachment` record
+  `task_status` with `status: "killed"` and the agent's id as `taskId`, seen by the session as
+  `Task "<name>" (<id>) was stopped.`), and the refusal of a message to it. Proved: batch-22, a
+  manual compaction. Unproved, with its trial: what a stop made by the user in the app leaves in
+  the steering transcript (trial: in a session with a background subagent, the user stops it in
+  the app; record whether and when a `task_status` `killed` record or another record appears,
+  before and after a compaction).
+- Row "Stop a Driver" (`TaskStop`, line ~37): add that after its own `TaskStop` with no restart at
+  once, the steering session clears the recorded id (foreman.md, "A Driver stopped from outside").
 
 `skills/chantier/references/chief-of-staff.md`: the "Recovery" bullet (line ~1323) gets one
 sentence pointing to foreman.md's "A Driver stopped from outside" for a direct batch, so the
-Chief of Staff steering in direct mode restarts with no question to the user.
+Chief of Staff steering in direct mode restarts with no question to the user, and clears the id
+after its own stop as that bullet says.
 
 The Copilot host's reference (`hosts/copilot.md`) gets one line: an outside stop on Copilot is
 unproved, and the card's rule holds when the host says the Driver was stopped. The agent files
@@ -123,6 +168,10 @@ decides nor stops), or once every agent asked has its record, whichever comes fi
 older than an agent's start never decides for it (an id is not reused, but the bound costs
 nothing). An agent with no recorded start is not asked (None).
 
+The reader does not try to tell the steering session's own stop from an outside one: the record
+does not say, and the card's rule (section 1, the id cleared after its own stop) keeps an agent
+the steering session stopped itself out of the agents asked.
+
 `skills/chantier/scripts/cli/src/chantier/commands/batch_status.py`, `_cr_row`: a working CR
 whose recorded agent the reader says stopped gets ` | Driver <id> stopped from outside, no
 hand-back recorded`, checked before the existing `ended, no hand-back recorded` flag (the two
@@ -132,13 +181,12 @@ never show together). A plain `status` prints one row per CR (`_cr_row`, from `s
 each open QA order with an agent id get the flag on their `activity stack` / `activity <O-k> qa`
 line only (`activity` in `commands/activity.py`, its `_targets`), which only `status --refresh`
 prints: the heartbeat's wake (`status --refresh --epoch <n>`) shows it for all three kinds, a
-plain `status` for a CR's Driver only. The card's "Proof of death" (section 1) says so: for the
-stack driver and a QA order, the flag is read at the wake or by `status --refresh`. Like
+plain `status` for a CR's Driver only. The card's "Proof of death" (section 1) says so. Like
 `_ended_unrecorded`: no flag on the Copilot host (`d.host == "copilot"`), none when no steering
 transcript is recorded (`foreman_uuid` raises), and `status` writes no event for it.
 
-A flag the CLI shows is a fact, not an order: the CLI knows no role and starts nothing. The
-card (section 1) tells the steering session what to do on it.
+A flag the CLI shows is a fact, not an order: the CLI knows no role and starts nothing, and it
+counts nothing for it. The card (section 1) tells the steering session what to do on it.
 
 The flag is in the `status` text only: no new `STATUS.json` field, so the CR board pane and the
 web board do not change (no screenshot rule applies).
@@ -155,6 +203,10 @@ Driver whose `killed` record is the last one.
 - Workers (Coder, Verifier, Inspector...) stopped inside a Driver: the Driver's existing rule
   ("An agent that ends before its part is done") holds; the new Driver restarts them from the
   recorded state.
+- Detecting an outside stop by any other sign than the two of Q4 (for example a Driver's
+  transcript ending on a prompt with no answer): not detected.
+- Making the CLI tell the steering session's own `TaskStop` from an outside stop (for example by
+  reading `TaskStop` calls in the transcript): the card's cleared id does it.
 - What causes the host to stop background agents at a compaction: not chantier's; the retro's
   separate point on handing a long batch's steering to a fresh session is another CR.
 - `close --stopped` and the counting of the session's other subagents at `close`: another kept
@@ -176,22 +228,16 @@ Driver whose `killed` record is the last one.
   - a `killed` record for `<one>` whose `timestamp` is older than `<one>`'s `agent` event flags
     nothing (the scan's bound);
   - `status` writes no event for the flag (events file unchanged);
-  - after `agents set <one> - --epoch 1` the row shows `no Driver recorded` and no stopped flag,
-    and `take <one> --note "resume: stopped from outside: x" --epoch 1` is accepted with no
-    round counted (the existing restart check covers the take).
+  - after `agents set <one> - --epoch 1` the row shows `no Driver recorded` and no stopped flag
+    (the cleared id of the steering session's own stop, and the restart path's first step), and
+    `take <one> --note "resume: stopped from outside: x" --epoch 1` is accepted with no round
+    counted (the existing restart check covers the take);
+  - a second stop of the new Driver (a `killed` record for its new id, then the same restart)
+    is accepted the same way, with no round counted and no block.
 - `just check` passes; `just test` stays within its time limit.
 - The long gate: the pipeline's `just scenario (ubuntu-latest)` job green at the PR's head (a CLI
   and cards change), and the batch's top-of-stack local `just scenario` as the project's rules
   say.
 - The PR's description quotes the batch-22 evidence above (agent ids, the refusal text, the
-  `task_status` record) as the source of the host reference's new rows.
-
-## Open questions for the user
-
-- **Q1.** Does a Driver stopped from outside count toward `driver ended twice` (the second silent
-  end blocks the CR) and toward "blocked twice" (escalation)? Today a death by the host (a new
-  epoch, all Drivers lost at one wake) and a host failure count toward neither.
-- **Q2.** The host's `killed` status also comes, as far as is known, when the user stops a
-  background agent in the app on purpose. Should the steering session restart such a Driver too
-  (the go covers every outside stop), or only when the stop is not the user's (and then how is
-  it told apart, since the transcript record does not say who stopped it)?
+  `task_status` record) as the source of the host reference's new rows, and names the user's
+  in-app stop as an unproved row with its trial (Q4), in its Known gaps.

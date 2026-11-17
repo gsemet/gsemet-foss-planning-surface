@@ -78,6 +78,8 @@ mandatory section).
 - It changes a role's card (the release Driver's contract), on both hosts: one shared card, read by
   both.
 - Priority P1, in the next batch (the user, 2026-11-17).
+- The host refusing the publication, with the user publishing, is out of this CR, filed as its own
+  inbox item (`1-inbox/release-user-publishes`); this CR stays card-only on `driver.md` (release-checklist-Q1, 2026-11-17).
 
 ## Out of scope
 
@@ -86,6 +88,10 @@ mandatory section).
   role judges.
 - The other roles' cards, the Foreman's and the Chief of Staff's handling of a release Driver.
 - The other retro points of batch-22 (each is its own inbox item).
+- The path where the host refuses the publication and the user publishes it by hand: its own inbox
+  item (after the user's publication, the steering session takes the release back to a Driver,
+  which runs this checklist). This CR stays card-only on `driver.md` (`02-answers.md`,
+  release-checklist-Q1).
 - The docs diagrams and their texts (`docs/cr-lifecycle*`, `docs/how-chantier-works*`): they draw
   the release Driver's steps at a level this change does not alter.
 - `release-template.md` and the release procedure in `CONTRIBUTING.md`.

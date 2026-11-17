@@ -7,7 +7,7 @@ whole PR body with Write to change part of it, because the `cr-driver` agent has
 agreed to give the Drivers their editing tools ("ok pour les outils d'edition"). The CR Driver and
 the stack driver get Edit on Claude Code, as the Release driver already has, and the CR Driver's
 card stops saying that the body is "always written with the Write tool", so that a Driver changes
-part of `pr-body.md` with Edit, as [concepts](../../../../../skills/chantier/references/concepts.md)
+part of `pr-body.md` with Edit, as [concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md)
 rule 9 already asks ("to change part of a file, edit it rather than rewrite it"; "written with the
 host's Write tool (Edit to change it)").
 
@@ -75,12 +75,12 @@ read the missing Copilot diff as a forgotten twin.
 The sentence in the "Push" bullet (near line 101):
 
 > The body is always written with the Write tool and posted from that file, as in
-> [concepts](concepts.md), rule 9, never as text in the command.
+> [concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md), rule 9, never as text in the command.
 
 becomes, in substance:
 
 > The body is a file written with the host's Write tool and changed with its Edit tool, and is
-> posted from that file, as in [concepts](concepts.md), rule 9, never as text in the command.
+> posted from that file, as in [concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md), rule 9, never as text in the command.
 
 The rest of the bullet (the GitLab form, the audit read before each post) stays as it is. The
 Driver word-smiths the exact sentence; the requirement is: Write to create, Edit to change part of

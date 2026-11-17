@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Timing and retry settings in the configuration, per host and model family",
-  "summary": "Specified: steering and Driver wakes, prompt cache TTL and CI infrastructure re-runs in hosts.<host>.timing, printed as timing: lines, shown on a Timing tab; seven open questions for the user, the Driver wake first.",
+  "summary": "Specified: steering wake, prompt cache TTL and CI infrastructure re-runs in hosts.<host>.timing, layer-first resolution, proved bounds, timing: lines and TTL warning, read-only Timing tab, late mark on the steering wake (longest wake on Copilot); Driver wake split off.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "a3603c9fccdb23ab25350c8c118e474c9246034f4b934a911b817d23316d519a",
-    "03-change-spec.md": "7f0e0121f4d8c0e362d778c2eacb4a5c3c073f610cfe859fc49f2f68db12cbe6",
+    "02-answers.md": "3701e7d4f9aa1a322ee26ab48ed86288e16e6c4c28a7c8820a6c8f0d28181c55",
+    "03-change-spec.md": "020095200fae1c2793c048e12864601d4a605844714504804d8195b5e1b78822",
     "intake/request.md": "0234460339b1a5bea28257ea2ee8a9173b0742ee6998cc586c5623c9d5c9651c"
   },
-  "summarized": "2026-11-17T08:33:50Z"
+  "summarized": "2026-11-17T09:43:37Z"
 }

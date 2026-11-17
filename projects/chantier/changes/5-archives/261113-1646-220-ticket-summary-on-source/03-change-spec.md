@@ -164,7 +164,7 @@ next reads the CR's folder (as today). "Never" unchanged.
 ### 3. `skills/chantier/references/concepts.md`
 
 - **Tracker issue** (lines 17-22): the CR's PR names the issue in its `## Issues References`
-  section ([PR template](pr-template.md)), in the form the project's rules give, else the
+  section ([PR template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/pr-template.md)), in the form the project's rules give, else the
   template's default. The default carries a closing verb (`Closes #<n>`, `Closes <KEY>-<n>`),
   so the issue closes at the merge as the tracker's integration reads it; a project rule may say
   otherwise. No
@@ -215,7 +215,7 @@ next reads the CR's folder (as today). "Never" unchanged.
 
 Lines 83-85: "The body carries the closing line of each `issue:` of the specification" becomes
 "The body carries the `## Issues References` section for the specification's `issue:` lines
-([pr-template](pr-template.md)), left out when there is none". The rest of the sentence stays.
+([pr-template](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/pr-template.md)), left out when there is none". The rest of the sentence stays.
 
 ### 6. A reference example: `skills/chantier/references/ticket-summary-example.md` (new)
 

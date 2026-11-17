@@ -27,7 +27,7 @@ Text only: no recipe, no CLI change, no test.
 
 In the bullet list after the `just mod` / `tsc` paragraphs, next to the bullet that ends
 "A change to the eval kit (`evals/kit/`) runs `just eval-dry-run`, as
-[Changing the kit](evals/README.md#changing-the-kit) says.", add one bullet (or extend that one;
+[Changing the kit](https://github.com/gsemet/chantier/blob/main/evals/README.md#changing-the-kit) says.", add one bullet (or extend that one;
 the Driver chooses, in the style of the surrounding text) that says:
 
 - A change that adds a CI job to `.github/workflows/`, or changes the steps of one, runs that

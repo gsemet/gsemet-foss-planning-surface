@@ -5,18 +5,22 @@
 The user finds the web board beautiful but wants it "a little lighter and even more elegant", in
 the spirit of the reference mock-up (`intake/reference.png`): one modern sans-serif at two
 weights, a white sidebar with a hairline, almost no colour but one deep accent, states as tiny
-icons, two-tone cards, a breadcrumb header. Every view of the board takes this style; what the
-board shows and does stays the same, except the few Batch view changes the critique named.
+icons, two-tone cards, a breadcrumb header that stays on top when the page scrolls. Every view of
+the board takes this style; what the board shows and does stays the same, except the Batch view
+changes the critique named (Q7) and the three the user's inbox item `board-batch-view` asked for
+(Q9): no Merged PR section, no grouping by state (each CR keeps one place, its state a coloured
+badge in the top right corner), and level heads without ": after level N".
 
 The reference to compare at delivery, approved by the user (02-answers, Q7):
-`mockups/final-batch.html`, `mockups/final-costs.html`, `mockups/final-costs-phone.html`,
-`mockups/final-config.html`, with `mockups/critique.md`. The HTML files are the reference, not the
+`prototypes/01-mockups/final-batch.html`, `prototypes/01-mockups/final-costs.html`, `prototypes/01-mockups/final-costs-phone.html`,
+`prototypes/01-mockups/final-config.html`, with `prototypes/01-mockups/critique.md`. The HTML files are the reference, not the
 scripts that generated them. The single-option files (`layout-a-sidebar-light.html`,
 `spacing-comfortable.html`, `colour-one-accent-dots.html`, `cards-two-tone.html`,
 `type-inter-two-weights.html`) show each choice alone; where they differ from a `final-*` file,
-the `final-*` file wins.
+the `final-*` file wins. Where `final-batch.html` differs from Q9, Q9 wins: see section 5, "Where
+the delivery differs from `final-batch.html`".
 
-The CR is verbal (no `issue:` line).
+The CR is verbal (no `issue:` line). It is one CR (Q10).
 
 ## Decisions carried from 02-answers.md
 
@@ -28,7 +32,14 @@ The CR is verbal (no `issue:` line).
 | Q4 typography | One sans-serif, Inter, shipped with the board (no network); two weights, regular (400) and medium (500); page titles 24px medium. |
 | Q5 cards | Two-tone: a white body, a grey band at the bottom for the metadata (rounds, PR, cost, folder, long gate); radius 14px; a diffuse shadow. |
 | Q6 scope | Every view: Home (surface and project), Triage, Kanban, Batch, PRs, Costs (with its receipt), Configuration; the docs screenshots redone; cost-receipt's ticket follows this style. |
-| Q7 combined and critique | On the Batch page: no "For information." label, no earlier batches' CRs; one PR column (to review, then merged); no "Batch" figure card and no counters line under the title; one "nothing to review" sentence; the picker's subtitle names the batch, not a cut path. |
+| Q7 combined and critique | On the Batch page: no "For information." label, no earlier batches' CRs; one PR column; no "Batch" figure card and no counters line under the title; one "nothing to review" sentence; the picker's subtitle names the batch, not a cut path. |
+| Q8 order | cost-receipt waits for this CR (`depends.json`); timing-settings runs in parallel (they share files only), and whichever of the two lands second takes the other's changes. |
+| Q9 board-batch-view | This CR takes three points of that inbox item: no Merged PR section; no grouping by state (each CR keeps one position, its state shown by its colour plus a badge in the top right corner); no ": after level 0". The rest of that item (history navigation, arrowheads, the mode tooltip) stays there. |
+| Q10 split | No split: one CR; the approved mock-up covers the restyle and the Batch view's content. |
+| Q11 sticky header | The breadcrumb bar stays sticky, with its hairline and a light shadow when the page scrolls; the point leaves board-triage-polish. |
+
+Q8 is the batch's frame, not code: when the batch opens, the Chief of Staff writes cost-receipt's
+`depends.json` on this CR; timing-settings gets none on it.
 
 ## What changes
 
@@ -79,9 +90,9 @@ those of the `final-*` mock-ups; a Driver may round a value but not change the l
 
   The three shades are those of the mock-ups' ticket (`--tk`, `--tk1`, `--tk3` in
   `final-costs.html`).
-- States: one colour each, used only in a state icon or dot, never in a border or a fill:
-  blocked `#d14b5e`, working `#4a76d9`, ready `#2f9e6b`, draft `#a77b4f`, local `#8b6bd8`, waits
-  `#d08a1f`, queued `#a3a7af`, merged `#2a7a55`.
+- States: one colour each, used only in a state icon, dot or badge (the Batch node's badge, section
+  5), never in a card's border or fill: blocked `#d14b5e`, working `#4a76d9`, ready `#2f9e6b`,
+  draft `#a77b4f`, local `#8b6bd8`, waits `#d08a1f`, queued `#a3a7af`, merged `#2a7a55`.
 - Removed: the `--tint-*-edge` / `--tint-*-fill` pairs, the `--tag-*-fill` / `--tag-*-ink` pairs
   of the states, `--tag-cr-*`, and the three `--mode-*` colours, once nothing uses them. The
   six label colours stay, for a label's small square only (below). The autosync pill's state
@@ -94,7 +105,9 @@ those of the `final-*` mock-ups; a Driver may round a value but not change the l
   16px (a column, a section), a card's radius 14px; sidebar 248px wide, padding 16px / 14px; the
   main area's side padding 32px; the breadcrumb bar about 58px high.
 - Shadows: a card `0 1px 2px rgb(16 24 40 / 4%), 0 8px 24px -10px rgb(16 24 40 / 14%)`; a figure
-  card the same, a little softer; menus and the tooltip `0 10px 30px rgb(16 24 40 / 12%)`.
+  card the same, a little softer; menus and the tooltip `0 10px 30px rgb(16 24 40 / 12%)`; the
+  sticky breadcrumb bar, once the page has scrolled, a light one such as
+  `0 1px 8px rgb(16 24 40 / 6%)` (a token, e.g. `--shadow-head`).
 
 ### 3. The shell (`web/index.html`, `web/css/shell.css`, `web/js/ui/`)
 
@@ -119,6 +132,14 @@ those of the `final-*` mock-ups; a Driver may round a value but not change the l
   figures in `#545862` medium), not under it. The Batch view shows no counters line: the crumbs
   and the mode strip say it (critique 2). The refused-key notice stays, restyled as a quiet
   bordered line without a red fill (red text is enough).
+- Sticky breadcrumb bar (Q11): today `.head` (`shell.css`) is not sticky. It becomes
+  `position: sticky` at the top of the scrolling area, on a white background, above the content
+  (a `z-index` under the menus, the panel and the dialogs), with its bottom hairline always drawn;
+  once the page has scrolled away from the top, it also carries the light shadow above (a class
+  that `ui/header.js` sets from the scroll position, or an equivalent the Driver picks), and loses
+  it back at the top. The page title under the bar scrolls away with the content. The same holds
+  at a phone width for the top row the bar folds to. The picker's menu and the **+ New** dialog
+  still open above everything.
 - Phone (`@media (max-width: 760px)`, `ui/bottombar.js`): the same tokens; the bottom bar white
   with a hairline, the active item in ink medium; the breadcrumb bar folds to the picker button
   and **+ New** at the top as today; the page title stays. A row of every view fits 390px wide.
@@ -130,8 +151,9 @@ those of the `final-*` mock-ups; a Driver may round a value but not change the l
   waits: a ring with a clock hand; merged: the merge glyph; blocked, queued, local: their own
   glyph or a plain dot). `parts.js` gets `stateIcon(state)`; `stateTag` and every view that drew a
   tinted tag or card for a state draw the icon (or a dot where there is no room) and the state's
-  word in grey ink. `tint()` and the `st-*` fill and border rules go; a card is white with its
-  hairline in every state.
+  word in grey ink, except the Batch node's badge (section 5), whose word takes the state's
+  colour. `tint()` and the `st-*` fill and border rules go; a card is white with its hairline in
+  every state.
 - Chips and tags: neutral grey (`#eceef1` / `#f2f3f5`), no border, 12px, radius 6px, ink
   `#545862`. The CR id keeps a colour: the accent, medium, with no fill. A label is a grey chip
   with a 6px square in its label colour before the word. A priority (P1...P4) is a grey chip;
@@ -157,26 +179,54 @@ The rule for every view: the tokens and the shared pieces above; the content and
 as today unless this list says otherwise.
 
 - **Batch** (`views/batch.js`, `batch-graph.js`, `batch-prs.js`, `batch-pr-card.js`,
-  `css/views/batch.css`, `css/views/batch-prs.css`):
+  `model/semantics.js`, `css/views/batch.css`, `css/views/batch-prs.css`):
   - Four figure cards: Slots, Working, Handed back ready, Spent. The "Batch" figure card goes
     (`figures` drops the `t('batch.batch')` kpi; the key goes from both languages if unused).
+    Handed back ready keeps its sub-line (`batch.review_merged`, "N to review · N merged").
   - The mode strip names the mode and the steering, "Stack · Foreman" (`modeWords(...).name` and
     `steeringWord(batch)`), on the accent tint; its text and the three mode pills as today, the
     current one a grey pill.
   - The graph sits on a light dotted grid (a 1px dot every 16px on `#fcfcfd`, a hairline border,
-    radius 16px). The level heads and state group heads in grey, each group head with the state's
-    icon. The arrows a light grey as today.
+    radius 16px). The arrows a light grey as today.
+  - Levels, no state groups (Q9): each level is one column with its head in grey and its CRs
+    under it, with no state group head. `batch-graph.js`'s `group` and the `groupByState` call
+    go; `groupByState` goes from `model/semantics.js` when nothing else uses it (today only
+    `batch-graph.js` does), and the `.batch .grp` and `.batch .gh` rules from `batch.css`. A CR's
+    place is its level and its order in the batch's record (`batch.crs`, as `levels` keeps it):
+    a change of state never moves it, so a CR stays where it is from queued to merged. A merged
+    CR stays in its level as a node like the others.
+  - Level heads (Q9): level 0 keeps `batch.no_dep` ("No dependency" / its French); the others say
+    only "Level N": `batch.level` becomes `'Level {i}'` in `en.js` and `'Niveau {i}'` in `fr.js`,
+    and `batch-graph.js` passes only `i`.
+  - The state on a node (Q9): a badge in the node's top right corner, on the row of the CR id and
+    the folder's slug, the CR id and slug at its left: a small chip (radius 6px, 11px text) with
+    the state's icon and the state's word (`t('state.<state>')`), both in the state's colour, on
+    white with a hairline, or on a light grey; the node itself stays white with its hairline
+    (Q3, Q5): no tinted border or fill. The badge does not push the title to a second row: the
+    slug truncates first. `nextTag` keeps its place. For a merged CR, the band (Q5) says
+    "merged N ago" (`prs.merged_ago`) and, when the record holds it, the long gate's line, so
+    nothing the Merged section showed is lost.
   - The legend row goes from the page: a "States and arrows" grey pill, focusable
-    (`tabindex="0"`), opens a tooltip on hover and on focus with the eight states (icon and word)
-    and the arrow's sentence; beside it, a grey hint ("hover for the legend"; new key in both
-    languages). The note under the graph (`batch.hover`) stays.
+    (`tabindex="0"`), opens a tooltip on hover and on focus with the eight states (icon and word,
+    in `STATE_ORDER`) and the arrow's sentence; beside it, a grey hint ("hover for the legend";
+    new key in both languages). The note under the graph (`batch.hover`) stays.
   - One PR column (`batch-prs.js`), about 380px wide, so the graph gets the width back
     (critique 1): "PRs to review" with its count; when there is none, one sentence that says
     there is nothing to review and why (today's `reviewHint` and `prs.none` become one sentence,
-    critique 3); the drafts under it ("In draft · N") on the stack rail as today; then, under a
-    hairline rule, "Merged" with its count and this batch's merged PRs. The "For information."
-    line (`prs.info`), the earlier batches' PRs (`earlierCard`, `EARLIER`, `prs.earlier`) go
-    from the code and from both language files.
+    critique 3); the drafts under it ("In draft · N") on the stack rail as today. Nothing under
+    the drafts: no Merged section (Q9). `mergedColumn`, `mergedCard`, `earlierCard`, `EARLIER`
+    go from the code, and `prs.merged`, `prs.none_merged`, `prs.info`, `prs.earlier` from both
+    language files (`prs.merged_ago` stays, for the merged node's band). The board's `merged`
+    data stays served (Home and Costs read it).
+  - Where the delivery differs from `prototypes/01-mockups/final-batch.html` (Q9 wins over the mock-up): the
+    mock-up groups each level's nodes under state heads ("working · 1", "PR in draft · 1", ...);
+    the delivery has no state heads and keeps each CR in its record order. The mock-up says
+    "Level 1: after level 0"; the delivery says "Level 1". The mock-up's nodes carry no state
+    badge (the state is in the group head); the delivery's carry the badge in the top right
+    corner. The mock-up's PR column ends with "Merged · 1" under a hairline rule; the delivery
+    ends with the drafts. Everything else on the page (the crumbs, the figures, the mode strip,
+    the legend pill, the dotted grid, the two-tone nodes, the PR cards, the Triage strip) follows
+    the mock-up.
 - **Triage** (`views/triage.js`, `triage/*.js`, `css/views/triage.css`, `css/views/postit.css`):
   the columns on `#fbfbfc` with a hairline, radius 16px; the post-its as two-tone cards; the
   grill-state legend stays inline in the bar, grey; the next-batch indicator a grey pill; the
@@ -199,14 +249,15 @@ as today unless this list says otherwise.
   and state columns, no Recompute note, so a row fits 390px; critique 7) belongs to the
   cost-receipt CR, which owns the Costs page and edits `costs-tables.js` on the same lines. The
   receipt (the ticket) and the page's two-column arrangement (ticket on the left, sticky, the
-  cards on the right; ticket on top on a phone) are the cost-receipt CR's work too;
-  its ticket uses this CR's font and the accent's three shades, `--accent`, `--accent-dark` and
-  `--accent-light` (Q6).
+  cards on the right; ticket on top on a phone) are the cost-receipt CR's work too, done after
+  this CR lands (Q8); its ticket uses this CR's font and the accent's three shades, `--accent`,
+  `--accent-dark` and `--accent-light` (Q6).
 - **Configuration** (`views/config.js`, `css/views/config.css`): a white card per host, radius
   16px, a header row in grey small text, hairline rows, a value in a grey chip, a value set in the
   project's `chantier.yaml` in the accent tint; the select boxes and the Save button in the button
-  style above. The Timing tab of `final-config.html` belongs to the timing-settings CR; when it
-  lands, it uses these pieces.
+  style above. The Timing tab of `final-config.html` belongs to the timing-settings CR, which runs
+  in parallel with this one (Q8): whichever of the two lands second rebases on the other and
+  takes its changes in `tokens.css` and `css/views/config.css` (the Timing tab in these pieces).
 - **Panel, dialogs, editor, journal, autosync, toast** (`css/panel.css`, `css/dialog.css`,
   `css/editor.css`, `css/journal.css`, `css/autosync.css`): the tokens, the font and the radii;
   structure unchanged. The autosync pill keeps its state colours (as dots).
@@ -216,10 +267,13 @@ as today unless this list says otherwise.
 - `just docs-screenshots` retakes every picture of `docs/web-board/` (all views, both sizes) on the
   new style.
 - `docs/web-board.md`, "Batch": the figures are four (slots, working, handed back ready, spent);
-  the state is a small icon, its legend in the "States and arrows" tooltip; the right column is one
-  column, the PRs to review, the drafts, then this batch's merged PRs (the "for information,
-  this batch's and the earlier batches'" bullet is rewritten). "The views": the breadcrumb at the
-  top. Nothing else in the docs names the old look.
+  the CRs sit in levels, "Level N" with no "after level" words, each CR in one place for its whole
+  life, merged ones included; "The colour is the state" becomes: the state is a badge in the CR's
+  top right corner, its icon and word in the state's colour, its legend in the "States and
+  arrows" tooltip; the right column is one column, the PRs to review then the drafts (the
+  "**Merged PRs**: for information, this batch's and the earlier batches'" bullet goes, and the
+  batch picture's alt text no longer names merged PRs). "The views": the breadcrumb at the top,
+  which stays in place when the page scrolls. Nothing else in the docs names the old look.
 - `CONTRIBUTING.md`: the "Page" bullet adds that the page loads its own font from `web/fonts/`
   (`font-src 'self'`), and no font from outside.
 - The release notes of the version that ships it name the new look, as the release process asks.
@@ -227,11 +281,16 @@ as today unless this list says otherwise.
 ## Out of scope
 
 - The cost receipt itself, the Costs page's two-column layout and the phone fold of its per-CR
-  table and Recompute note (CR cost-receipt), including the
-  two points `mockups/critique.md` leaves open (which batch Costs shows by default and how to pick
+  table and Recompute note (CR cost-receipt, which waits for this one), including the
+  two points `prototypes/01-mockups/critique.md` leaves open (which batch Costs shows by default and how to pick
   another one; whether the receipt's "thank you · N PRs · 0 reverted" line has record figures or
   goes): cost-receipt's answers keep them open for its own specification.
 - The Configuration page's Timing tab and its settings (CR timing-settings).
+- The rest of the inbox item `board-batch-view`: the batch history navigation (previous / next
+  batch), the arrowheads when a CR waits for several others, the tooltip on the mode pills, and
+  the wider rework of the connected cards (Q9). Removing from that item the three points this CR
+  takes, and from `board-triage-polish` its sticky-header point (Q11), is the Chief of Staff's
+  edit of those folders, not this CR's.
 - The Triage column alignment of the inbox item `board-triage-polish`; only the clipped "modified"
   mark is fixed here, because the reference draws it inside the card.
 - Layouts B and C, the compact and airy spacings, serif titles, soft tints, flat cards: rejected
@@ -242,26 +301,37 @@ as today unless this list says otherwise.
 ## Evidence
 
 - `just check` passes (Linux, macOS, Windows): Biome on `board/web`, and
-  `skills/chantier/scripts/cli/tests/test_code_targets.py` (no colour outside `tokens.css`, at most 300 lines per CSS or JS
-  file, no id selector, nesting at most 3, every `url()` relative and inside `web/`, no other
-  origin).
-- `skills/chantier/scripts/cli/tests/test_board.py`, `test_the_frame_is_shipped_with_the_package`: add the two `woff2` files
-  and `fonts/OFL.txt` to its list; and one assertion that `reply.HTML_POLICY` holds
-  `font-src 'self'`. No other new test.
-- The words' test (`skills/chantier/scripts/cli/tests/`): the keys stay the same in both languages (the existing check), with
-  `nav.sync` and the legend hint added and `prs.info`, `prs.earlier` (and `batch.batch` if unused)
-  removed from both.
+  `skills/chantier/scripts/cli/tests/test_code_targets.py` (no colour outside `tokens.css`, at
+  most 300 lines per CSS or JS file, no id selector, nesting at most 3, every `url()` relative and
+  inside `web/`, no other origin).
+- `skills/chantier/scripts/cli/tests/test_board.py`, `test_the_frame_is_shipped_with_the_package`:
+  add the two `woff2` files and `fonts/OFL.txt` to its list; and one assertion that
+  `reply.HTML_POLICY` holds `font-src 'self'`. No other new test.
+- The words' test (`skills/chantier/scripts/cli/tests/`): the keys stay the same in both languages
+  (the existing check), with `nav.sync` and the legend hint added, and `prs.info`, `prs.earlier`,
+  `prs.merged`, `prs.none_merged` (and `batch.batch` if unused) removed from both.
 - In a browser on `chantier board` over `docs/demo/` (as `just docs-screenshots` starts it), the
   developer tools show the two Inter files loaded from the board itself, no CSP error, no request
   to another origin, and the computed font of a title "Inter" at 500.
+- The Batch view over the demo: no state group heads; level heads "No dependency", "Level 1",
+  "Level 2" (French "Niveau 1"...); each node carries its state badge at its top right in the
+  state's colour, the node white; a merged CR sits in its level with its "merged ... ago" band;
+  the PR column ends with the drafts, with no Merged section. Then, on a copy of the demo with
+  one CR's state changed in the record (e.g. working to ready, and draft to merged), the board
+  redraws those CRs at the same place in their level, only their badge changed.
+- The sticky bar: on a view longer than the window (Triage, Batch, Costs over the demo) at desktop
+  and at 390px, scrolling keeps the breadcrumb bar (or its phone row) at the top with its
+  hairline, the shadow shows once scrolled and goes back at the top; the picker's menu and the
+  **+ New** dialog open above it.
 - `just docs-screenshots` run; the new `docs/web-board/*.png` committed. The PR's Deliverables
   carry, side by side, the Batch, Costs (desktop and phone) and Configuration screenshots with
-  `mockups/final-batch.html`, `final-costs.html`, `final-costs-phone.html` and
+  `prototypes/01-mockups/final-batch.html`, `final-costs.html`, `final-costs-phone.html` and
   `final-config.html` at the same size, and the Home, Triage, Kanban and PRs screenshots, each
-  captioned with the head's SHA (seven characters). A difference from a mock-up that the
-  cost-receipt or timing-settings CR owns is named, not hidden.
+  captioned with the head's SHA (seven characters). The Batch pair names the Q9 differences
+  listed in section 5; a difference from a mock-up that the cost-receipt or timing-settings CR
+  owns is named, not hidden.
 - The French page checked once (`?lang=fr`): the accents in Inter, no text cut in the sidebar,
-  the crumbs or the PR column.
+  the crumbs, the node badges or the PR column.
 - A phone width of 390px and 375px: no horizontal scroll on any view but the Batch graph's own
   scroller.
 - The long gate: the board is part of the CLI package, so the PR passes `just scenario
@@ -269,7 +339,6 @@ as today unless this list says otherwise.
 
 ## Open questions
 
-1. Order in the batch: cost-receipt's ticket uses this CR's font and the accent's shades, and
-   timing-settings' tab uses its pieces; all three edit `tokens.css` and the Costs or
-   Configuration CSS. Does cost-receipt (and timing-settings) wait for this CR (`depends.json`),
-   or do they run in parallel, the one that lands second taking the other's tokens?
+None. The Chief of Staff settled the last one (2026-11-17), keeping the approved Q3 and Q5: the
+state's colour is in the badge (icon and word, in the state's colour), the node stays white. The
+user sees it in the PR's screenshots and can ask for a coloured edge then.

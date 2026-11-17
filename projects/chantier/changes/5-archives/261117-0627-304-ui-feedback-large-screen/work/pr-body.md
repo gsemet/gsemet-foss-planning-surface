@@ -6,7 +6,7 @@ On a very wide screen (about 2900 px) the web board had several rough edges: the
 
 - **Triage cards capped, backlog as a grid.** Every Triage card (inbox, P1 to P4, 3-ready) has one width, at most 320 px (`--card-w`, a little wider than a 290 px Kanban card); at 1400 px every card, inbox, backlog and 3-ready, is 291 px; each backlog lane lays its cards side by side, as many per row as fit, in the same order as before. A group's frame spans a full row of the lane's grid, its members capped like any card. Picture: the updated docs/web-board/triage-pc.png, carried from f11132b.
 
-![Triage carried from f11132b](./triage-pc.png)
+![Triage carried from f11132b](https://github.com/gsemet/chantier/blob/main/docs/web-board/triage-pc.png)
 
 | | Before | After |
 | --- | --- | --- |

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Cost receipt: choose another batch",
+  "summary": "Filed, not grilled: split from cost-receipt; choosing a batch other than the running or last closed one, moving through batches as board-batch-view's previous/next navigation does.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "3fae2cb3689ebf5f125298b733ee5915ed9d4425b59efa8916560534cc4a20f3"
+  },
+  "summarized": "2026-11-17T09:45:05Z"
+}

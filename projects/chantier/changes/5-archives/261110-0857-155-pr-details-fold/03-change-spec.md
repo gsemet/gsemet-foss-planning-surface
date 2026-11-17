@@ -76,7 +76,7 @@ Nothing follows `</details>`. Both GitHub and GitLab render `<details><summary>`
 
   They come with the visuals already asked for (diagram, before/after, code sketch). The bullet
   on before/after screenshots no longer says "they go in Impacts": for a visible change they are
-  Deliverables' main visual, side by side, attached as [driver](driver.md) says (the forge's own
+  Deliverables' main visual, side by side, attached as [driver](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/driver.md) says (the forge's own
   CLI).
 - Impacts (existing rule, changed): what users and developers will notice, inside the fold; the
   Verifier's before/after screenshots are no longer placed there but in Deliverables, and Impacts

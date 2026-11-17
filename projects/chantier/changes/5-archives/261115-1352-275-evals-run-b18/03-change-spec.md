@@ -6,8 +6,8 @@ The user's words: "rajoute une CR qui pilotera les evals après tout (donc en d�
 les autres tâches ouvertes du batch). Il me faudra les exécutions sur le nouveau Chantier."
 
 Once every other open CR of batch-18 is merged, run each of the two quick sandbox campaigns once:
-`real-foreman` ([evals/real-foreman/RUNBOOK.md](../../../../evals/real-foreman/RUNBOOK.md)) and
-`real-direct` ([evals/real-direct/RUNBOOK.md](../../../../evals/real-direct/RUNBOOK.md)). Run them
+`real-foreman` ([evals/real-foreman/RUNBOOK.md](https://github.com/gsemet/chantier/blob/main/evals/real-foreman/RUNBOOK.md)) and
+`real-direct` ([evals/real-direct/RUNBOOK.md](https://github.com/gsemet/chantier/blob/main/evals/real-direct/RUNBOOK.md)). Run them
 with the chantier that `main` holds then, and deliver both reports and the campaigns' rows of
 `evals/README.md` on one PR. The point is to measure the new chantier on the path a user takes,
 with the Foreman and in direct mode, and to bring back findings.
@@ -61,7 +61,7 @@ after the first operator has written its audit file and run `close --yes`.
   base from the forge (CR-270), the gate race on merge (CR-268), the mode switch (CR-267).
 - `real-direct` in **`parallel`** mode, so it compares line by line with its run 1 (2026-11-12,
   parallel, same sandbox base if `kit/sandbox.json` has not changed since:
-  [report](../../../../evals/results/real-direct-2026-11-12-run1.md)).
+  [report](https://github.com/gsemet/chantier/blob/main/evals/results/real-direct-2026-11-12-run1.md)).
 
 ## The main checkout during the runs
 
@@ -205,7 +205,7 @@ In its worktree, on its branch, it writes:
    the same.
 2. In `evals/README.md`, table "Campaigns":
    - the `real-foreman` row: its "Last run" cell becomes `<date>, run <n>, stack: <verdict>, <m> of
-     5 CRs merged, judge <line>, audit <passed>/<total>, $<cost>, [report](results/…)`, keeping
+     5 CRs merged, judge <line>, audit <passed>/<total>, $<cost>, report (`results/…`)`, keeping
      the link to the 2026-11-12 report as the run before the sandbox. Its "Cost" cell is written
      from this first sandbox run (budget $20; the run's cost and duration), as real-direct's cell
      was after its first run.

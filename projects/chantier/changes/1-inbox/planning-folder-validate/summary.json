@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "chantier validate: check a whole planning folder",
+  "summary": "Filed, not grilled: a validate command that checks the stages, each CR folder's shape, summary.json's format and broken links, with exit codes a surface's just validate can use.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "55202dd7c9e33aae0757c8e5b110dfa43bdbe3b08d09145b4dbc2c0c944f4ae6"
+  },
+  "summarized": "2026-11-17T09:45:07Z"
+}

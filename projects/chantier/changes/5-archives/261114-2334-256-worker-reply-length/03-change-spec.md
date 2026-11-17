@@ -41,7 +41,7 @@ nothing else (no greeting, no summary of the work, no list of what was checked a
 
 The sentence after it ("a reply out of that format is a failed worker, which the Driver starts
 again") is narrowed: a reply out of format is a failed worker; a reply in format that is only longer
-than its cap is read and noted ([driver](driver.md)), not restarted.
+than its cap is read and noted ([driver](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/driver.md)), not restarted.
 
 ### 2. `worker.md`, "Coder": ends with its reply template
 

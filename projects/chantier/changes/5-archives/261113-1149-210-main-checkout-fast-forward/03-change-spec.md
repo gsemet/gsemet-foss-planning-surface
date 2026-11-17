@@ -163,7 +163,7 @@ again from step 1.
 
 - The `$CHANTIER` paragraph ("the agents create the worktrees, commit, rebase, push, open, watch
   and merge PRs and clean up"): add "and fast-forward the main checkout after a recorded merge
-  ([foreman](foreman.md))".
+  ([foreman](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/foreman.md))".
 - Rule 8 (Git): add one clause: the main checkout moves only by the steering session's
   `merge --ff-only --no-overwrite-ignore` after a merge it records, and only when clean; the
   user's uncommitted changes and untracked files are never touched.

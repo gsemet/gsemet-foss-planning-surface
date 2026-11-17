@@ -188,7 +188,7 @@ first line comes from the same place, so both starters copy it the same way:
 - "An agent that ends before its part is done": the list of agents names the spec critic; its
   restart is recorded on the line of `work/specifying`, as the spec-writer's.
 - The paragraph on the Spec-writer gains a sentence: the Spec critic is a subagent of the Chief
-  of Staff or of a Griller too, outside any batch; it reads [`spec-critic.md`](spec-critic.md),
+  of Staff or of a Griller too, outside any batch; it reads [`spec-critic.md`](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/spec-critic.md),
   its brief gives the CR folder, it writes nothing and takes no slot and no budget of a batch.
 
 ### 5. `skills/chantier/references/routing.md`
@@ -230,7 +230,7 @@ On CR-250's text of "Backlog and grill", and the old rules elsewhere in the card
      (nothing dropped, nothing invented).
   2. With the critic due, start one `spec-critic` in the background (you or the Griller who
      grills), its first line copied unchanged from `$CHANTIER playbook` (or the Spec critic's row
-     of [concepts](concepts.md) "Starting an agent"), with the agent and model the playbook
+     of [concepts](https://github.com/gsemet/chantier/blob/main/skills/chantier/references/concepts.md) "Starting an agent"), with the agent and model the playbook
      prints for it (Fable on the user's word, section 2); the prompt names the card and the CR
      folder and nothing of the grill. `work/specifying` stays the guard of the specification
      from the spec-writer's start until the specification is shown: each agent started on it
