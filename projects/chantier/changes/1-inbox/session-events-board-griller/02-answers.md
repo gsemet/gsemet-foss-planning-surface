@@ -61,3 +61,9 @@ user's word, ask to add a CR to the running batch; the Chief of Staff decides, a
 The user chose the recommended answer: two. This CR is the events (the watch, the events file,
 the wake-up, the forge, the fallback). The Griller started from the board is its own CR,
 `board-griller`, which waits for this one; griller-Q4 and griller-Q7 are recorded there.
+
+## Grilled enough (2026-11-17)
+
+After the restatement, the user: grilled enough. The specification is written after batch-23.
+Left for the spec-writer to check: whether a `Monitor` expires and must be started again, and
+which tool wakes a Copilot session.
