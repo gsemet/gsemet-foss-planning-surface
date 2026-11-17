@@ -7,3 +7,5 @@
 ## handover-Q2: automatic or on the user's yes
 
 2026-11-17, the user chose "on the user's yes", not the recommended automatic hand-over: when the mechanism comes, the steering session offers the hand-over and waits for the user's answer. The study takes this as given.
+
+Spec critic: no, it delivers a study, no behaviour.

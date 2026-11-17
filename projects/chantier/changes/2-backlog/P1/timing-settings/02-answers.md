@@ -15,3 +15,9 @@
 ## timing-Q4: which settings
 
 2026-11-17, the user chose "the main ones only", not the recommended all: the prompt cache's TTL, the wakes (steering, Driver) and the CI retries' maximum. Every other wait or maximum stays where it is.
+
+## timing-Q5: the tab after the design critique
+
+2026-11-17, in the combined mock-up the tab keeps a card per host, but each setting shows once with one value column per model family (or context), instead of a band per family repeating every setting; the legend (shipped default, set in chantier.yaml) sits beside the tabs. The user approved it as the specification's reference, to compare at delivery: board-visual-refresh's `mockups/final-config.html`.
+
+Spec critic: yes, it adds configuration the CLI reads and changes the loops' waits and what the Configuration page shows and writes.

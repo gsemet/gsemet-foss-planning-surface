@@ -29,3 +29,9 @@ Mock-ups: `mockups/index.html` (13 options on one base, plus today's look).
 ## visual-refresh-Q4: typography
 
 2026-11-17, the user asked to see each choice visually first (screenshots sent), and to be shown every choice visually from now on. After the screenshots, the user chose the recommended answer: one sans-serif (Inter, shipped with the board), two weights (regular and medium), page titles 24px medium (`mockups/type-inter-two-weights.html`).
+
+## visual-refresh-Q7: every choice at once, and the critique
+
+2026-11-17, the user asked for one mock-up with every choice on at least two pages; after it, the user asked: on the Batch page, drop the Merged column's "For information." label and the earlier batches' CRs (they add nothing), and a design critique of everything. The critique (`mockups/critique.md`) was applied: one PR column (to review, then merged) so the graph is not clipped; no "Batch" figure card nor counters line under the title (the crumbs and the mode strip, "Stack · Foreman", say it); one "nothing to review" sentence; the picker's subtitle names the batch, not a cut path. The user approved the result as the specification's reference, to compare at delivery: `mockups/final-batch.html`, `mockups/final-costs.html`, `mockups/final-costs-phone.html`, `mockups/final-config.html`, with `mockups/critique.md`.
+
+Spec critic: yes, it changes what the user sees on every view of the board.

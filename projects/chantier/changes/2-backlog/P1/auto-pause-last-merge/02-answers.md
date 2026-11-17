@@ -12,3 +12,5 @@ description: The user's answers to the grill of the automatic pause at a batch's
 ## auto-pause-Q2: the close
 
 2026-11-17, the user chose the recommended answer: offered, on the user's yes: the steering session shows the bilan and asks at once, unprompted; `close --yes` only on the user's yes, as today.
+
+Spec critic: yes, it changes the CLI's lifecycle (a pause run by `order merged`) and the steering session's contract.
