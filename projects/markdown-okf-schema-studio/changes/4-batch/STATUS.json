@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "updated": "2026-11-17T10:07:27Z",
+  "updated": "2026-11-17T10:08:37Z",
   "batch": "batch-05",
   "folder": "4-batch",
   "state": "running",
@@ -24,7 +24,7 @@
       "state": "working",
       "severity": "yellow",
       "step": "Round",
-      "phase": "coder r2",
+      "phase": "inspector r2",
       "label": "🟡 working Round 2/3",
       "readiness": null,
       "waits": [],
