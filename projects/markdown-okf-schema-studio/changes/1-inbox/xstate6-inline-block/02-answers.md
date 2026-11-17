@@ -41,3 +41,5 @@ Short name: `xstate6-inline-block`
    pas en mermaid ou plantuml ». xstate-viz is dropped as a base. The block's purpose is an
    efficient agent-to-human channel for behaviour that Mermaid and PlantUML cannot carry; the
    Stately look is no longer the goal in itself.
+9. xstate6-inline-block-Q9: **Keep the CR?** Owner, after the proposed scope (validation,
+   simulation, scenarios, diff, editing): « ok, abandonne l'idée ». Abandoned; no PR was opened.
