@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Refocus after a refused frontmatter value: menu and list editor",
+  "summary": "Two edge cases left by CR 218: refocus after the host refuses a value in the menu and in the list editor. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "86b029a46cd6fc2a7fc722dea1394867b8b9e7052c9c21460e842b6ac4a2a93b"
+  },
+  "summarized": "2026-11-17T09:16:40Z"
+}

@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Per-block side-by-side diff with the last commit",
+  "summary": "Feature from the parity grill: a toolbar toggle turns each block changed since the last commit into a small side-by-side diff. Specified in its intent; not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3d7b9faeeaad6d45a250517df5a0cb2b0dbce597345b40119ffb8afb681a7cf8",
+    "intake/request.md": "81d0f4d67f29fa62d37d53340654aab6f65c3c1b1c4090a2acd43cce521de00f"
+  },
+  "summarized": "2026-11-17T09:16:27Z"
+}

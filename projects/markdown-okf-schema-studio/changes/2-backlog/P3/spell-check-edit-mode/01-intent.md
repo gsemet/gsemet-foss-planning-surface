@@ -1,6 +1,6 @@
 # Spell check in edit mode, with a toolbar toggle and a language
 
-Type: feat · Priority: P3 · Filed 2026-10-27 from the parity grill with the user ([decisions](../../../4-archives/136-parity-grill/decisions.md))
+Type: feat · Priority: P3 · Filed 2026-10-27 from the parity grill with the user ([decisions](../../../5-archives/136-parity-grill/work/decisions.md))
 
 ## Expected
 

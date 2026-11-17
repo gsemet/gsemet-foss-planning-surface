@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Release v1.9.1",
+  "summary": "Patch release with the v1.9.0 retro fixes, proving the version push publishes to Open VSX. v1.9.1 is published; this item is left to archive.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "f0f4f882d5f9d5305e5764e3e354c2d3272f28482c2b32c9fc6f2d47761b88d1",
+    "02-answers.md": "b114b4ded222fd8667c9c712daa698b5a1498bb4d6423229f0bf19aa0f832531",
+    "intake/request.md": "8970fec955af2dca87e0fd57dff089927c47d5b5d7a11c5160928c72ef0b1dc5"
+  },
+  "summarized": "2026-11-17T09:16:24Z"
+}

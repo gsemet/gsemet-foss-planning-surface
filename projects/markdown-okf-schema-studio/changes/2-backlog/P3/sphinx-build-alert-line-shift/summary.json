@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Sphinx build path: alert rewrite still shifts later lines",
+  "summary": "Bug: the build path's alert rewrite shifts later line numbers, as the preview did before PR #185. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a8398d2399cc9b22ef4a5685e7fae7da889963e9649bc77b7269ee0a0b307513"
+  },
+  "summarized": "2026-11-17T09:17:07Z"
+}

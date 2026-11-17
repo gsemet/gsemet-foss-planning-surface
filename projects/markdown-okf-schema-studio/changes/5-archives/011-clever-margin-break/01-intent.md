@@ -2,7 +2,7 @@
 
 Look in this large table in Markdown Studio
 
-![image.png](image.png)
+![image.png](evidence/image.png)
 
 For some cases, it would be awesome to break the margin:
 - large table

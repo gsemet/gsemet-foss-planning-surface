@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "README diagram crop cuts the bottom of the figure",
+  "summary": "Docs: the README image crop of the fleet-loop figure cuts its bottom since the narrow-toolbar fix moved the boxes down. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2b10c8f62e4158544d1ee72963f63878b9b4a3e3c096c023025577cc5d97a877"
+  },
+  "summarized": "2026-11-17T09:17:01Z"
+}

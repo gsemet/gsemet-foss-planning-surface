@@ -1,6 +1,6 @@
 # Per-block side-by-side diff with the last commit
 
-Type: feat · Priority: P1 · Filed 2026-10-27 from the parity grill with the user ([decisions](../../../4-archives/136-parity-grill/decisions.md))
+Type: feat · Priority: P1 · Filed 2026-10-27 from the parity grill with the user ([decisions](../../../5-archives/136-parity-grill/work/decisions.md))
 
 ## Expected
 
@@ -16,4 +16,4 @@ Proof: unit tests of the parser/renderer, a webview or e2e test of the interacti
 
 ## Why parked (2026-10-28)
 
-See [00-request.md](00-request.md#why-parked-2026-10-28).
+See [00-request.md](intake/request.md#why-parked-2026-10-28).

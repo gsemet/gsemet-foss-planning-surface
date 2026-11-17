@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "draw.io block with an inline editor",
+  "summary": "Feature idea from the user: a drawio fence that renders and can be edited inline. Raw notes; not grilled.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2b863f4138691c791dfe80a29a8fb8c9c3c718696bfeadf11195241d1a428df9"
+  },
+  "summarized": "2026-11-17T09:17:21Z"
+}

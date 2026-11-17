@@ -1,6 +1,6 @@
 Add a collapse frontmatter button
 
-![image.png](image.png)
+![image.png](evidence/image.png)
 
 
 Difference with the "description" column collapse:

@@ -1,6 +1,6 @@
 I do not see slash commands in MyST mode for versionchanged, versionadded,...
 
-![image.png](image.png)
+![image.png](evidence/image.png)
 
 Also the other MyST admonitions types are not displayed
 

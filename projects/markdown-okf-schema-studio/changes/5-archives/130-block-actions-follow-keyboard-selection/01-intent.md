@@ -8,7 +8,7 @@ Moving the focus a bit, the + / up / down icons stay on the previous block: in t
 keyboard focus ring is on the paragraph of section 3, while the block actions are still shown on
 "Premier paragraphe" in section 5.
 
-![Block actions on a stale block](image.png)
+![Block actions on a stale block](evidence/image.png)
 
 ## Expected
 

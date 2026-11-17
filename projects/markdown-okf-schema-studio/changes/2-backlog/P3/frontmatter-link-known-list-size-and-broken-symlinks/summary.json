@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Frontmatter link editor sends the full name list on every row",
+  "summary": "Perf item from CR 220: each capped row also emits the uncapped known list of stems; broken symlinks are a second point. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "15578bc2cc60d01f4f707a5b5b4de5aff0cbec19bb0cd27b32efafd2c15e9344"
+  },
+  "summarized": "2026-11-17T09:16:39Z"
+}

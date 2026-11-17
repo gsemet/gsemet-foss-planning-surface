@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Test cleanup in finally can mask the first error",
+  "summary": "Test hygiene: cleanup that clicks and waits in finally can throw and hide the original assertion. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "ef7b8941ae513218d592c48f27d7cd7cb55f6ecd561dde87be0b3522d7e7bf64"
+  },
+  "summarized": "2026-11-17T09:17:15Z"
+}

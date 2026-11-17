@@ -2,7 +2,7 @@
 
 Type: fix · Priority: P1 · Reported 2026-10-27 by the user with a screenshot
 
-![A rendered table whose first columns are so narrow that "document", "parse" and "HTML out" wrap one or two letters per line](image-narrow-columns.png)
+![A rendered table whose first columns are so narrow that "document", "parse" and "HTML out" wrap one or two letters per line](evidence/image-narrow-columns.png)
 
 ## Problem
 

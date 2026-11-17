@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Stress flake: incoming-changes scenario timeout",
+  "summary": "The incoming-changes scenario timed out once (30 s waitForFunction) in a scoped stress run on PR #402. Seen once; the run, its wait condition and whether it repeats are still to find.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "8208f65249fd59d5aa565616c11ebf41da1a3056a95b9cfa31d099dfe8177afa"
+  },
+  "summarized": "2026-11-17T09:16:25Z"
+}

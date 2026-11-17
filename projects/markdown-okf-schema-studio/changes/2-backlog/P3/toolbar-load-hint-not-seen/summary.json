@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Toolbar load hint not seen when the preview opens",
+  "summary": "Fix from the user's manual test of #175: the collapsed toolbar's load hint is not seen when the preview opens. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "1ee15b851909f0f8cb1ad791f81b6a1f4b581952df9ad850d86cd7e357c7da1d"
+  },
+  "summarized": "2026-11-17T09:17:17Z"
+}

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Raw block editor shows bold, italic and code styled",
+  "summary": "Feature asked by the user: in the raw block and cell editors, show bold, italic and inline code styled while keeping the markers, as Obsidian does. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "6f341c81e915d49e50f810902137f77b1a7e0a3f1fa8803ce2c4b77896d2eb26"
+  },
+  "summarized": "2026-11-17T09:16:59Z"
+}

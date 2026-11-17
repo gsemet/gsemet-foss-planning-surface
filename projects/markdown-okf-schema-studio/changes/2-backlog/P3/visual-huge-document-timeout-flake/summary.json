@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Visual flake: huge-document v20 timeout",
+  "summary": "Seen in CI on PR #206: the v20 huge-document scenario timed out at 30 s. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3f8a04d00d56b34c4842e03e8e19325bf1a939314e3a0c3b455c76de4229ac69"
+  },
+  "summarized": "2026-11-17T09:17:19Z"
+}

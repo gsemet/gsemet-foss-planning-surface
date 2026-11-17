@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Demo videos, one feature each",
+  "summary": "The remaining short demo-video ideas (horizontal, vertical, presentation, chapter showcase) after the first video landed in archive 257. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2bffe4d08143e95e4518f395180472074536aa4ab9ec6a05bbd572db62ac4c2b",
+    "intake/request.md": "f266f269b4895541e7acae752e40c0ef7cd9f10371750aa2ab33ee10f7294950"
+  },
+  "summarized": "2026-11-17T09:16:36Z"
+}

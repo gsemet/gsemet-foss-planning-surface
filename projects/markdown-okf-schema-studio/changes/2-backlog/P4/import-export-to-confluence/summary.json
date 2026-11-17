@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Transparent sync with Confluence",
+  "summary": "Feature idea from the user: sync a Markdown file with a Confluence page named in its frontmatter. Answers recorded; not specified.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "6b5388bd257ed00b3ef67a92225c86befe2f526e91161cda58a19c7c0011194c",
+    "02-answers.md": "3222689c90733916da53a2c3604e1a74ac45d9a4327e54e0831ceec1c5cd4205"
+  },
+  "summarized": "2026-11-17T09:17:22Z"
+}

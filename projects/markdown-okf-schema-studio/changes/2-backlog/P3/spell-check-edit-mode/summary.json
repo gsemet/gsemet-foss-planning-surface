@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Spell check in edit mode, with a toolbar toggle and a language",
+  "summary": "Feature from the parity grill: spell-check the block editors in edit mode, with a remembered toggle and language; feasibility in webviews to check first. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "c5273c948be0eeb09d80a194aa53c655822647b3a53bfe239ba2a4fe3c7d8340"
+  },
+  "summarized": "2026-11-17T09:17:06Z"
+}

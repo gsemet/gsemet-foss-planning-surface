@@ -15,7 +15,7 @@ The history below comes from the original item; its "Owner direction" round is t
 ## History
 
 Back in the backlog (P2) on 2026-11-03, by the owner, from CR 170 (status blocked, owner-paced).
-The full request is [00-request.md](00-request.md). The three tracks were delivered and wait for the
+The full request is [00-request.md](intake/request.md). The three tracks were delivered and wait for the
 owner's review: see `STATE-a.md`, `STATE-b.md`, `STATE-c.md` and the branches
 `change-requests/170-demo-video-{a,b,c}-assets`, kept as they are.
 

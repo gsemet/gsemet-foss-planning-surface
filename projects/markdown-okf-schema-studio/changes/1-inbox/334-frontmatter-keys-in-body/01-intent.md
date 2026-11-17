@@ -8,6 +8,8 @@ sources: [{id: issue, resource: "https://github.com/gsemet/markdown-okf-schema-s
 
 # Show frontmatter values in the body (`=this.<field>`)
 
+issue: https://github.com/gsemet/markdown-okf-schema-studio/issues/334
+
 In Obsidian, an inline code span `` `=this.<key>` `` shows the value of `<key>` from the note's
 frontmatter. Studio shows the code span as is. The user asks for the same rendering.
 

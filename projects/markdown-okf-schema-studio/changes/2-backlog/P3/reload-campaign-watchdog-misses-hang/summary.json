@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Reload-campaign watchdog does not fail a hung campaign",
+  "summary": "Seen once in CI on PR #365: the final reload campaign hung and the watchdog never fired. Not reproduced; not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "6d5d613acf0f6bff52c1352e8dfe4aba48bde7302c1aae5872e209f1e381fee5"
+  },
+  "summarized": "2026-11-17T09:17:02Z"
+}

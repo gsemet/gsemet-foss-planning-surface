@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Type-check against the minimum VS Code API (1.95)",
+  "summary": "Nothing protects the engines.vscode ^1.95.0 minimum: add a check that type-checks src/ against @types/vscode 1.95. Filed by the cursor-compatibility spec-writer; not grilled.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "587ea17da0ffba6803031898b011a212e79559ce12fbb8e94ef22c0ba076f480"
+  },
+  "summarized": "2026-11-17T09:16:23Z"
+}

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Writing skill docs: use the full extension name",
+  "summary": "Docs from CR 158: replace \"Studio\" alone with the full extension name in the writing skill's references. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "49f488256edad5ce89fb397330e672dab343b94d198d69f2208bb6aba0a4a938"
+  },
+  "summarized": "2026-11-17T09:17:04Z"
+}

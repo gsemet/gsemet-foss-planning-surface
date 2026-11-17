@@ -7,7 +7,7 @@ Type: feat · Priority: P1 · Filed 2026-10-27 from the parity grill with the us
 In edit mode an HTML comment or a TODO comment is shown as an admonition-like block, but its title
 is a word ("TODO"), not the syntax that produced it. The user wants to see the "tag" itself:
 
-![The edit-mode block of a TODO comment titled "TODO"; the user's note: replace it with <!-- TODO -->](image-todo-title.png)
+![The edit-mode block of a TODO comment titled "TODO"; the user's note: replace it with <!-- TODO -->](evidence/image-todo-title.png)
 
 The user also doubts that TODO comments are detected correctly: a TODO is **an HTML comment whose
 text starts with `TODO`** (`<!-- TODO: cite the slop zone below -->`, case and the `:` optional,

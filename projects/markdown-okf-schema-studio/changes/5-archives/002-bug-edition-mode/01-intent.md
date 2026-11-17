@@ -1,6 +1,6 @@
 # Little updated in Block Editor
 
-![image.png](image.png)
+![image.png](evidence/image.png)
 
 Need:
 - move the status line to the same line that the done/revert

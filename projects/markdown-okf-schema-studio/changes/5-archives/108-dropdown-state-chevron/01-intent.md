@@ -8,7 +8,7 @@ Content
 
 This does not show the state (collapsed or expanded)
 
-![image.png](image.png)
+![image.png](evidence/image.png)
 
 Expected => show a > or V icon to the right
 

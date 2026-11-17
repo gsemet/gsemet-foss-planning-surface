@@ -1,4 +1,4 @@
-> **Superseded in part (2026-10-27):** the marker is `[TOC]` / `[[_TOC_]]` (and MyST `{contents}`), not `[[toc]]`. See "Scope change" in [00-request.md](00-request.md).
+> **Superseded in part (2026-10-27):** the marker is `[TOC]` / `[[_TOC_]]` (and MyST `{contents}`), not `[[toc]]`. See "Scope change" in [00-request.md](intake/request.md).
 
 # `[[toc]]` marker: a table of contents of the document where the marker is
 

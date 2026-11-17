@@ -12,4 +12,4 @@ Owner's answers (2026-11-05):
 - Project rules: several guidelines, by theme.
 - `release-process.guidelines.md` is split in the same work.
 
-Analysis: [02-audit.md](02-audit.md).
+Analysis: [02-audit.md](work/02-audit.md).

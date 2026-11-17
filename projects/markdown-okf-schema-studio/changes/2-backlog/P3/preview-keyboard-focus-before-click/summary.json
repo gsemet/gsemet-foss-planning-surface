@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "A fresh preview gets no keyboard focus until clicked",
+  "summary": "Found by CR 152: a new preview does not take keyboard focus until clicked, so arrow keys go to the workbench. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "1d2d315043529f099db69ceb3aa8bb561d50fc154b55eec1767f5c4b134f030c"
+  },
+  "summarized": "2026-11-17T09:16:50Z"
+}

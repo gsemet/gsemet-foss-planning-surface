@@ -11,7 +11,7 @@ this mini-formatting.
 
 Addition (user, 2026-10-27): inline code too (`` `CHUNK_SIZE` ``).
 
-![A raw block editor with a **bold** sentence shown as plain text](image.png)
+![A raw block editor with a **bold** sentence shown as plain text](evidence/image.png)
 
 ## Expected
 

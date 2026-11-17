@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "ORCHESTRATOR.md generator: follow-ups",
+  "summary": "Tooling gaps seen in the first dry run of just orchestrator (#238); none blocked the first live run. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "b94c4b1dff6423fde7da803ca5270ac316298be8dc1430d0fa12661b89a4f7fd"
+  },
+  "summarized": "2026-11-17T09:16:49Z"
+}

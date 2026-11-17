@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "QA replay c7-1 depends on font and theme metrics",
+  "summary": "Flake risk from CR 228: the toolbar-expand replay uses hard-coded pixel thresholds tied to font and theme. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "bcc0ba115bf7ccfa8df75d51252b17cff36fd1ccaf82e24d0d003e5800023a6f"
+  },
+  "summarized": "2026-11-17T09:16:54Z"
+}

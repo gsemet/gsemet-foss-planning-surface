@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Show .md files in Studio inside Claude desktop",
+  "summary": "Feature asked by the user. Blocked, waiting for a Claude desktop extension point; feature request drafted for the user to send.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "bfa56a9363a84a05b11e015984ef3f53db95d3f1d6969613f07d056e0dd460e7",
+    "02-answers.md": "169cbfb777e8bb781135026e8883f43384b0b22de01cb084d426404af8d5f172"
+  },
+  "summarized": "2026-11-17T09:17:26Z"
+}

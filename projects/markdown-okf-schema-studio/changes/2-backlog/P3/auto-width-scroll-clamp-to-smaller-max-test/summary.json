@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Test the scroll clamp when an Auto re-measure shrinks a table",
+  "summary": "Test gap from the Auto-width scroll fix review: no test covers the restored sideways scroll being clamped to a smaller maximum. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "98e8bbc6374fbacdcfbd7eb35f4123a2a51578bcbe6828313f14003cd88b6e58"
+  },
+  "summarized": "2026-11-17T09:16:29Z"
+}

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Side-by-side pairing for a partly changed wrapped paragraph",
+  "summary": "Edge case accepted at GATE 234b: a wrapped paragraph with only some lines changed is not paired in the side-by-side diff. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "61e58cdf31f65f03e89aa62cf4f2721581467290b2f50fce8d0fcebb362736b2"
+  },
+  "summarized": "2026-11-17T09:17:03Z"
+}

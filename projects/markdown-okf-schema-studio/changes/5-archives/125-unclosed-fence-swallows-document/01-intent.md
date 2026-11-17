@@ -19,7 +19,7 @@ This paragraph should still render.
 Seen: no crash, but the preview shows nothing after the heading: the raw ```` ```{list-table} ````
 line is not shown, and every section after it is gone.
 
-![image.png](image.png)
+![image.png](evidence/image.png)
 
 Cause: in Markdown an unclosed fence runs to the end of the file, so the whole rest of the
 document becomes the body of the `list-table`, which is not a list and renders empty. The

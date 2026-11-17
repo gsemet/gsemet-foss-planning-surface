@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Record a demo video",
+  "summary": "The user's request for a demo video, with interview answers and a specification. Superseded in part by the demo process of archive 257.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "74c69e5fed2c920c8c60ad1d45731d205b8bfcd75f0d4f09ae044fdb2faf3550",
+    "03-change-spec.md": "fab0c26dfba5cbab32fd915c96a87119deb83ea7268620d0ddc6333a0886bcc7",
+    "intake/request.md": "bc0561bcfeac44eb70714e38456389e973c80c037e67f0ae8ee15943d914f19c"
+  },
+  "summarized": "2026-11-17T09:17:24Z"
+}

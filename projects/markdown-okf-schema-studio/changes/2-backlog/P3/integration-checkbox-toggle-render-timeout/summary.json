@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Integration flake: checkbox-toggle render timeout",
+  "summary": "Seen once in CI on PR #365: checkbox-toggle timed out waiting for the first checkbox render; the retry passed. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "c40f8f20e1d88d8535e15fc09d8eb006462bf93bfcfe135fcf9265c758e1980c"
+  },
+  "summarized": "2026-11-17T09:16:42Z"
+}

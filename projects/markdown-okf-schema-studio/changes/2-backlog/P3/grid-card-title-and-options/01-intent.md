@@ -34,5 +34,5 @@ Update 2026-11-03: the Grid form no longer writes these options; it writes the h
 with the `^^^` and `+++` separators of a grid card (#304). Only a hand-written `:header:` or
 `:footer:` option on a grid-item-card is left.
 
-Sources: [campaign 215 index](../../../4-archives/215-qa-campaign-2026-10-31/00-index.md), sheets in
-[02-grid-cards](../../../4-archives/215-qa-campaign-2026-10-31/02-grid-cards/).
+Sources: [campaign 215 index](../../../5-archives/215-qa-campaign-2026-10-31/work/00-index.md), sheets in
+[02-grid-cards](../../../5-archives/215-qa-campaign-2026-10-31/work/02-grid-cards).

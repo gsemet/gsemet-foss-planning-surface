@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Split the SwRS BLOCK-258 requirement",
+  "summary": "Requirements: BLOCK-258 grew over several CRs and should be split into focused requirements. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "7d16b942479911dd90c30eccbfb4131b6fb8e30d0edd86dea4c856303c5548b3"
+  },
+  "summarized": "2026-11-17T09:17:09Z"
+}

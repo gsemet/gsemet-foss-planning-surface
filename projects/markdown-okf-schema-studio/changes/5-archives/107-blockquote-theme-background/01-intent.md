@@ -1,6 +1,6 @@
 Look how quote block is rendered, especially the background
 
-![image-1.png](image-1.png)
+![image-1.png](evidence/image-1.png)
 
 this:
 

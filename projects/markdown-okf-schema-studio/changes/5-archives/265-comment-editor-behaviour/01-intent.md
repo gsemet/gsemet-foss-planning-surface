@@ -2,7 +2,7 @@
 
 Reported by the owner and a colleague on 2026-11-06.
 
-![Editor opened at the bottom of the page, cut off by the window](bottom-of-page.png)
+![Editor opened at the bottom of the page, cut off by the window](evidence/bottom-of-page.png)
 
 - At the bottom of the page the comment editor opens cut off by the window, as in the screenshot.
 - On scroll the editor does not follow the text it is anchored to.

@@ -1,6 +1,6 @@
 It seems like not all edition tool bar has a tooltip
 
-![Tooltip](image.png)
+![Tooltip](evidence/image.png)
 
 And i would like to see the same slide effect than the tooltip on the main floating toolbar
 
@@ -8,7 +8,7 @@ And i would like to see the same slide effect than the tooltip on the main float
 
 Change the icon for the horizontal bar
 
-![image-1.png](image-1.png)
+![image-1.png](evidence/image-1.png)
 
 should be `---` not like the "centered text"
 

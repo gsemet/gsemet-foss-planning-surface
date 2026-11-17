@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "The toolbar-float :has() rule slows very large pages",
+  "summary": "Perf: the document-wide :has() selectors of the narrow-toolbar fix slow the load of huge pages. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "df66695b0113635fc985e5bc95dbd23860571d25355e678c9179fab94b4b446d"
+  },
+  "summarized": "2026-11-17T09:17:16Z"
+}

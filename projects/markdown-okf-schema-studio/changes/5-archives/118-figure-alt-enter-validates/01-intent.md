@@ -1,6 +1,6 @@
 When i paste or or edit a picture the alt text is selected
 
-![image.png](image.png)
+![image.png](evidence/image.png)
 
 In this case, when i hit enter i would expect to validate and move the cursor to the right, instead it replace the text by enter. this is logical BUT for human this is not expected.
 

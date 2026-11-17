@@ -4,4 +4,4 @@ In the builtin text edition, i can see which line are incoming (diff compared to
 
 i would like to have in markdown studio with a green status for all changed lines (added/modified)
 
-![image.png](image.png)
+![image.png](evidence/image.png)

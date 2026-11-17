@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Small nits in the capture retry and demo capture",
+  "summary": "Nits from CR 232 and 233 reviews, e.g. a negative retryOnTimeout gives zero attempts. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9d1496e205ec405522b875d2afb6699710b31198717687953bce39442bf9bdbc"
+  },
+  "summarized": "2026-11-17T09:17:18Z"
+}

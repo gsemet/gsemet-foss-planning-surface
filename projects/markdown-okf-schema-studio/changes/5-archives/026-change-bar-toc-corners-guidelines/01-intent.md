@@ -6,7 +6,7 @@ alignment on several text is not perfect.
 
 on the toc panel when displayed, the highlight has rounded corner
 
-![toc-highlight.png](toc-highlight.png)
+![toc-highlight.png](evidence/toc-highlight.png)
 
 
 

@@ -50,7 +50,7 @@ Facts in the repository that matter once unblocked:
 
 ## Feature request for Anthropic
 
-Draft following their issue template: [03-anthropic-feature-request.md](03-anthropic-feature-request.md).
+Draft following their issue template: [03-anthropic-feature-request.md](work/03-anthropic-feature-request.md).
 Posted 2026-10-31: https://github.com/anthropics/claude-code/issues/106384
 
 ## Expected (once unblocked)

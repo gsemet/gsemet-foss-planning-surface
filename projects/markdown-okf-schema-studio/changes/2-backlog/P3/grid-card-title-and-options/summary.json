@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Grid card titles lose markup; header and footer options vanish",
+  "summary": "QA gaps QA215-07/08: a numbered card title shows its emphasis literally, and header/footer options disappear. Reproduced; not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a38f45fc4df504edc13c5aafd7101b0d15e2f1b96c5ff933c28d420b9a3dfb95"
+  },
+  "summarized": "2026-11-17T09:16:41Z"
+}

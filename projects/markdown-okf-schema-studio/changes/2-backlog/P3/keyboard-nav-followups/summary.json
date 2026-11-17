@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Keyboard navigation: follow-ups",
+  "summary": "Review notes from PRs #170 and #171, e.g. Right on a tab can select a block in a hidden panel. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "8ba32df7901b4f49c3580156b7df7cba9411b5eadddb5b2f6037680274ec9b5b"
+  },
+  "summarized": "2026-11-17T09:16:43Z"
+}

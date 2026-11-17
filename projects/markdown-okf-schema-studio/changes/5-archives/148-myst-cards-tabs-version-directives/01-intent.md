@@ -30,7 +30,7 @@ each tab item is editable like any other block.
 
 ## 3. `versionadded` / `versionchanged` / `deprecated` title
 
-![The admonition titled "Added in version :: 0.47:"](image-versionadded-title.png)
+![The admonition titled "Added in version :: 0.47:"](evidence/image-versionadded-title.png)
 
 The user's screenshot came from a typo in their source (`:::{versionadded}:: 0.47`, an extra
 `::`): **no lenient parsing for that** (user decision). Check only the valid form:

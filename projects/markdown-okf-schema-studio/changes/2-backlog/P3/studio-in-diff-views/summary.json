@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Studio in VS Code diff views",
+  "summary": "Feature: offer Studio for Markdown diffs. Parked, waiting for a public VS Code API.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3309ea65eac9581e028d157835bf5f9ff6ea2ddfd939dfc917448631c91facf3"
+  },
+  "summarized": "2026-11-17T09:17:12Z"
+}

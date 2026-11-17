@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "QA replay c6-2 may fail when the file watcher lags",
+  "summary": "Flake risk from CR 228: the replay writes its target file right before the preview opens, so a lagging watcher can fail it. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "fe0032a679572729e7570a68fe9f95580b588e61c0a80be197976d5169b819ce"
+  },
+  "summarized": "2026-11-17T09:16:44Z"
+}

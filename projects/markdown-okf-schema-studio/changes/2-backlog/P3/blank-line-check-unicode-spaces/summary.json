@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Block range checks treat no-break and ideographic spaces as blank",
+  "summary": "Bug from the host guard PR #187: isBlank uses trim(), so a paragraph of only U+00A0/U+3000 cannot be opened. Fix and tests described; not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "33f3d2a67c6ff7070a4a323fd85216c3a4233ccf4634ee96b88bea0ccb96873c"
+  },
+  "summarized": "2026-11-17T09:16:30Z"
+}

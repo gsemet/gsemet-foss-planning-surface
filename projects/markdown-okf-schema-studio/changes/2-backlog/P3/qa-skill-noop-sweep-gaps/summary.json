@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "QA skill: no-op sweep gaps",
+  "summary": "Test-campaign gaps found in QA campaign 271 (tables) in the no-op sweep. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "6fe7cc36dd02c15c8912200c936419917b60f18c15369aa79a3b491aa582649e"
+  },
+  "summarized": "2026-11-17T09:16:55Z"
+}

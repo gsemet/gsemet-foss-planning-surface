@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Split commentThreads.ts before it hits the 800-line cap",
+  "summary": "Refactor: src/page/modules/commentThreads.ts is 787 lines, so the next feature there breaks the size gate. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "f0baf5f7ffcf7f9305a1c2d57ab7d4db0a7ad8b91dd2b972b8e0afc94cc5bc43"
+  },
+  "summarized": "2026-11-17T09:17:10Z"
+}

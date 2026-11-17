@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Front matter change bars: follow-ups",
+  "summary": "Review notes from PR #169: no row bars after a BOM, and no visual scenario for a removed field. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "4ad4e843f637db6ee76ef70b1c1bc5085f9fb224aea342b6de2bd38327feae25"
+  },
+  "summarized": "2026-11-17T09:16:37Z"
+}

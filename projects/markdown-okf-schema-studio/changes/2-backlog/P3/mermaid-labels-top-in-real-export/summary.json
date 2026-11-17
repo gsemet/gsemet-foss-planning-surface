@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Mermaid flowchart labels sit at the top of boxes in a real export",
+  "summary": "Found at the 1.7.0 release check: labels sit at the top of their boxes in a real VS Code HTML export; CR 299 could not reproduce it. Open.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "4b6e5180ac81f6669906dc29c880c025f5eda4624279ac6add779c7400ef44ac"
+  },
+  "summarized": "2026-11-17T09:16:45Z"
+}

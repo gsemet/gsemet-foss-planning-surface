@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "A YAML value box shows no hint of the key that saves it",
+  "summary": "UX gap: the YAML value box should say Cmd/Ctrl+Enter saves, as the one-line box hints. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a55f813ee107bc675e323848dea6a43fc09d6d82a387bd92f68d8a6c1800e17c"
+  },
+  "summarized": "2026-11-17T09:17:20Z"
+}

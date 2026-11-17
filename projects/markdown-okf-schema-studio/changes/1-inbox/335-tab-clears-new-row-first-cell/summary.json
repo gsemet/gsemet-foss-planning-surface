@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Tab empties the first cell of a new table row",
+  "summary": "Bug reported on GitHub (Windows): after typing in the first cell of a new row, Tab shows that cell empty. Likely display only; not reproduced yet.",
+  "origin": {
+    "kind": "github",
+    "ref": "#335",
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/issues/335"
+  },
+  "sources": {
+    "01-intent.md": "a89cac7a405f257be6a9099db60226b04558145e1653938781802c359cbbf862"
+  },
+  "summarized": "2026-11-17T09:16:22Z"
+}

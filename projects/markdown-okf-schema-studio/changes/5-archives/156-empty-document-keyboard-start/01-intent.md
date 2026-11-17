@@ -6,13 +6,13 @@
 - enter edit mode
 - screen is like this
 
-![image.png](image.png)
+![image.png](evidence/image.png)
 
 ➡️ moving up or down or enter does not allow to start edition.
 Expected: the button have a underlaying text "Enter to create a new block".
 Same typo than
 
-![image-1.png](image-1.png)
+![image-1.png](evidence/image-1.png)
 
 ## Right or left on table to enter cell edition
 

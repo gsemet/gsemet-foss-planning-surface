@@ -8,7 +8,7 @@ Improve the visual rendering of documents like the one in the screenshot, starti
 `<code>` (inline and block). It is already rather nice, but we can do better. The goal is reading
 comfort.
 
-![A technical report with code blocks in the cream theme](image.png)
+![A technical report with code blocks in the cream theme](evidence/image.png)
 
 - Multi-line blocks: show line numbers, with a setting to turn them on or off (no toolbar switch).
 - Syntax highlighting is rather poor. Code blocks can stay on a dark grey background, with a setting

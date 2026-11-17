@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Handles and Convert to list-table for a table in a quote or admonition",
+  "summary": "Follow-up of CR 291 (QA271-11), left out of its scope by the owner. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "5c7def17bfc6c2418504bc8d7457dfb9f6769f93003fd8b6df0c02986144a1cc"
+  },
+  "summarized": "2026-11-17T09:17:13Z"
+}

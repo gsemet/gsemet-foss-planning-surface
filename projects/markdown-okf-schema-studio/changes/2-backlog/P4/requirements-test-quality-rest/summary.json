@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Requirements baseline: remaining test and marker quality work",
+  "summary": "What is left of requirements-test-quality after CR 103: about 40 tests approximate their requirement, plus markers. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "b7da6fdb9464689080b6c336db6805fd29e2ada6a2cba7f3bc7ee8ed7434d82c"
+  },
+  "summarized": "2026-11-17T09:17:25Z"
+}

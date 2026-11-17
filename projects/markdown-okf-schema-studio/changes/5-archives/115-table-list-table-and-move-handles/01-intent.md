@@ -1,6 +1,6 @@
 in a table, click on "new column" just removes the current column title
 
-![image.png](image.png)
+![image.png](evidence/image.png)
 
 expected:
 - insert a column to the left

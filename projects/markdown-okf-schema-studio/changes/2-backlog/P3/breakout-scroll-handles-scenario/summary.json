@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Handles on a breakout table that scrolls sideways",
+  "summary": "Coverage gap from CR 242: row and column handles of a breakout table scrolled sideways have no scenario. No known bug; not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2e1f10f18a2e821721f2bcdbdc2236539fb96cf31ffb6c7851aadc1e13444a24"
+  },
+  "summarized": "2026-11-17T09:16:32Z"
+}

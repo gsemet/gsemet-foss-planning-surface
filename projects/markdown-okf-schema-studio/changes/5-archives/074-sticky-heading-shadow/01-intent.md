@@ -3,7 +3,7 @@
 User request (2026-10-23, P2): add a small shadow effect under the sticky heading block of the
 preview, so the pinned headings read as floating above the scrolled text.
 
-![Sticky headings over scrolled text (cream theme)](sticky-header.png)
+![Sticky headings over scrolled text (cream theme)](evidence/sticky-header.png)
 
 Today the sticky block (`preview.stickyHeadingDepth`, here 3 levels) ends with a flat 1 px line
 (arrow in the screenshot); the text scrolling under it is cut sharply.

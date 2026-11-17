@@ -1,8 +1,8 @@
 # Studio in the VS Code Agents window
 
 Type: feat · Priority: P1 · Filed 2026-10-29 by the user (main session) · Spike done, CR not
-opened. Next files: [02-decisions.md](02-decisions.md), [03-spike-report.md](03-spike-report.md),
-[04-implementation-plan.md](04-implementation-plan.md).
+opened. Next files: [02-decisions.md](02-answers.md), [03-spike-report.md](work/03-spike-report.md),
+[04-implementation-plan.md](work/04-implementation-plan.md).
 
 ## Problem
 

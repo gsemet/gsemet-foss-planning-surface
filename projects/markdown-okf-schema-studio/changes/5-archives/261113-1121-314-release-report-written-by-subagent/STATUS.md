@@ -19,7 +19,7 @@
 - [answers](02-answers.md)
 - [specification](03-change-spec.md)
 - [long gate log](work/gates/20261113-115533.log)
-- [.agents/changes/4-archives/261113-0726-313-release-v1-8-0/04-report.md](../261113-0726-313-release-v1-8-0/04-report.md)
+- [.agents/changes/4-archives/261113-0726-313-release-v1-8-0/04-report.md](../261113-0726-313-release-v1-8-0/delivery.md)
 - [.agents/guidelines/change-requests-lifecycle.guidelines.md](../../../guidelines/change-requests-lifecycle.guidelines.md)
 - [.agents/guidelines/owner-review.guidelines.md](../../../guidelines/owner-review.guidelines.md)
 - [.agents/guidelines/release-process.guidelines.md](../../../guidelines/release-process.guidelines.md)

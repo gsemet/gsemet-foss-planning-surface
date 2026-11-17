@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Radio choice lists: follow-ups",
+  "summary": "Review notes from #240, e.g. a click on the option text should select it. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "bde1e068aa06214427eef84e120c9b06c5c9e055a2ee33f2d7b54102c4f96472"
+  },
+  "summarized": "2026-11-17T09:16:57Z"
+}

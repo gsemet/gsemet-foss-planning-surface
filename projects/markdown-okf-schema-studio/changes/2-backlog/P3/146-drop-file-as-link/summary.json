@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Dropping a file from the Explorer inserts a link",
+  "summary": "Feature from the parity grill: dropping a file onto the preview in edit mode inserts a link at the drop point (a wiki link in Extended mode). Specified in its intent; not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "15541f0737c7d5c6a0a1be1e227762294750bb8a97220dcf8f2cf1efa86d67c9",
+    "intake/request.md": "092998ccb44c64819d355e0bb7c7a77660ef6f75f47fbcf74a986dde46d8e238"
+  },
+  "summarized": "2026-11-17T09:16:26Z"
+}

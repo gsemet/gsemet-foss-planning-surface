@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Comment threads: raw error on a failed save, draft lost silently",
+  "summary": "QA gap (QA215-09): a failed comment save shows the raw OS error, and a typed draft is lost without warning. Reproduced; not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "b0f1baca4f96bcb2fb22030833b5094ba755dd89b0e05da9166e75ff15127dd9"
+  },
+  "summarized": "2026-11-17T09:16:35Z"
+}

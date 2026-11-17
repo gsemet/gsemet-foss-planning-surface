@@ -32,7 +32,7 @@ become one CR (variant D).
 ## Run 2026-11-03 (afternoon): close P1 and P2, then 1.3.0
 
 CRs 242-253, one stack, run by a new foreman session (brief archived as
-[RUN-BRIEF-2026-11-03-afternoon.md](../4-archives/RUN-BRIEF-2026-11-03-afternoon.md)). Done: 16 CRs
+[RUN-BRIEF-2026-11-03-afternoon.md](../5-archives/RUN-BRIEF-2026-11-03-afternoon.md)). Done: 16 CRs
 landed, 253 closed without a change; the foreman session is finished and its loop stopped.
 P2 `demo-video` stays in the backlog (owner).
 

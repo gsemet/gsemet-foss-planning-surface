@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "QA annotate: warn on an unknown colour",
+  "summary": "Tooling: scripts/qa.mjs accepts an unknown colour in the object form of --annotate silently; warn and fall back to red. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "c87c9361f65938924b86dcc77d4de79723922e5795147b2d0b588b898ca642f0"
+  },
+  "summarized": "2026-11-17T09:16:51Z"
+}

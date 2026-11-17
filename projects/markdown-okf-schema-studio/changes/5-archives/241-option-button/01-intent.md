@@ -1,6 +1,6 @@
 Missing prefill on enter in an option list and button in toolbar
 
-![image.png](image.png)
+![image.png](evidence/image.png)
 
 Verify slash command contains all recent features (options, ...).
 

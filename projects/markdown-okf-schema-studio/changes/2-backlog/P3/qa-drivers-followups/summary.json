@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "QA skill: harden the no-op sweep",
+  "summary": "Review note from #237: the goBack()/abort path of the no-op sweep has never run in a live window. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "91388882295bdcc0a8bd114f6c561c990f9c999929aaaee674a6d1b22b33a63a"
+  },
+  "summarized": "2026-11-17T09:16:52Z"
+}

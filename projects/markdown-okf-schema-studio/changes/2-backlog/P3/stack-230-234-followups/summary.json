@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Follow-ups from the final inspection of stack #230-#234",
+  "summary": "Non-blocking notes from that stack, e.g. the grid card editor's min-width makes narrow panes scroll. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "0d1bb3548d3479439dce73bcea2da42627a2633fa940d44066398fc2e7f72a77"
+  },
+  "summarized": "2026-11-17T09:17:11Z"
+}

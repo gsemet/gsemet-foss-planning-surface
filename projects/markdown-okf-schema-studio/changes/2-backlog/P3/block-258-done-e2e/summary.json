@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "End-to-end test: Done on a card title edits only the directive line",
+  "summary": "Test gap from CR 209: assert that Done on a grid card title editor changes only the directive line of the document. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "f92b764de1df7404aed55f2a50a8a5f086e263815fc2005add9798bc89c37888"
+  },
+  "summarized": "2026-11-17T09:16:31Z"
+}

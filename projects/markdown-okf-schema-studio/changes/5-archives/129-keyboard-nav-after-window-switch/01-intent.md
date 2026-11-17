@@ -12,7 +12,7 @@ It seems to happen when I leave the window completely and come back: by default 
 then the whole page and keyboard navigation does not work. Opening an edit box and leaving it brings
 back the block-by-block selection.
 
-![Whole page focused](image.png)
+![Whole page focused](evidence/image.png)
 
 ## Expected
 

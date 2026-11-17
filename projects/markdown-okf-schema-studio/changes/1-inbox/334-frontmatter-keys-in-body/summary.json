@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Show frontmatter values in the body with `=this.<field>`",
+  "summary": "Feature asked by an external user on GitHub: render Obsidian/Dataview-style `=this.<key>` code spans with the note's frontmatter value. Not grilled; scope still open.",
+  "origin": {
+    "kind": "github",
+    "ref": "#334",
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/issues/334"
+  },
+  "sources": {
+    "01-intent.md": "c2825dcd7b7c01295e2daff5649ce01e59575f290a2f08e6a6c3b59b9f99d03d"
+  },
+  "summarized": "2026-11-17T09:16:21Z"
+}

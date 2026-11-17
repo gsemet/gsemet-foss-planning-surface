@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Mermaid labels as SVG text (htmlLabels: false)?",
+  "summary": "Question kept open: drawing Mermaid labels as SVG text would end label clipping; CR 178 tried it and the owner kept HTML labels. Undecided.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2d397637d9c0e0670e6907d828a0699cc4b0a49f2e33ede926209cb4af40d62a"
+  },
+  "summarized": "2026-11-17T09:16:47Z"
+}

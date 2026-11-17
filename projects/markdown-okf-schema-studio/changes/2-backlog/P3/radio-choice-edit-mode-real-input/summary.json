@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Radio choices: real-input coverage in edit mode",
+  "summary": "Coverage gap: the real-input radio steps run only in reading mode; add the same steps in edit mode. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "fadfc04836081e378d8bbca410273c0c3e5cf7c0fad86a8ce6fe7db4c6caab77"
+  },
+  "summarized": "2026-11-17T09:16:56Z"
+}

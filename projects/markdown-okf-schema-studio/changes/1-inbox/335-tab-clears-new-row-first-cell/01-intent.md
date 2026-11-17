@@ -8,6 +8,8 @@ sources: [{id: issue, resource: "https://github.com/gsemet/markdown-okf-schema-s
 
 # Tab empties the first cell of a new table row
 
+issue: https://github.com/gsemet/markdown-okf-schema-studio/issues/335
+
 New table row, type in the first cell, Tab: the caret goes to the second cell, the first cell
 shows empty.
 

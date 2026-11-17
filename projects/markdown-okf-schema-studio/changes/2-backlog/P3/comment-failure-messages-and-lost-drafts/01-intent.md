@@ -20,4 +20,4 @@ warn before closing. Uncheck to disagree: [x]
 **Test.** No test: message wording; the draft path is covered once the fix is chosen. Uncheck to disagree: [x]
 
 Source: "Also observed" in sheet
-[QA215-06](../../../4-archives/215-qa-campaign-2026-10-31/03-review-comments/c4-1-comments-button-leaves-review-threads.md).
+[QA215-06](../../../5-archives/215-qa-campaign-2026-10-31/work/03-review-comments/c4-1-comments-button-leaves-review-threads.md).

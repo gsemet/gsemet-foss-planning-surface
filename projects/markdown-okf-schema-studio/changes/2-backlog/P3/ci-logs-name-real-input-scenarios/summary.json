@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "CI logs name each real-input scenario",
+  "summary": "CI improvement: the integration log should print one line per real-input scenario with its name and result. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "438796866f323e28c2fbd5f7dc4fa54125704d3fabf9b59e43e69dd663829a1d"
+  },
+  "summarized": "2026-11-17T09:16:34Z"
+}

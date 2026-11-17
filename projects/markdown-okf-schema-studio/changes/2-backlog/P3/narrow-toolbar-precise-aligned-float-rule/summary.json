@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Aligned images, figures and tables keep the toolbar float",
+  "summary": "Fix from the narrow-toolbar work: an aligned box should no longer turn off the toolbar float for the whole page. Not started.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "43c3dbfae2285740883ed4078cc7e44c25878227cf417196dc70764af94896d2"
+  },
+  "summarized": "2026-11-17T09:16:48Z"
+}

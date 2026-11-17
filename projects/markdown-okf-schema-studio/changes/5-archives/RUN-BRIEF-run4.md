@@ -7,7 +7,7 @@ The user asked: every remaining point of the audit (proposed CRs 3–28), "plusi
 parallèle pour optimiser le dev mais livre qu'une seule PR avec tout". Fully autonomous: no
 questions to the user; decisions under "Autonomous decisions" in `00-request.md` and the PR body.
 
-One CR: [135](135-audit-security-performance-pack/00-request.md), 26 tasks in
+One CR: [135](135-audit-security-performance-pack/intake/request.md), 26 tasks in
 `135-audit-security-performance-pack/tasks/T1…T26`. Process:
 `.agents/guidelines/change-requests-lifecycle.guidelines.md`, adapted as below.
 

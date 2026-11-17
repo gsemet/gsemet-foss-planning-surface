@@ -1,7 +1,0 @@
-
-> markdown-okf-schema-studio@0.1.0 check-types
-> tsc --noEmit -p .
-
-test/frontmatter/propertiesTable.test.ts(10,3): error TS2724: '"../../src/frontmatter/propertiesTable"' has no exported member named 'replacePropertiesTableHtml'. Did you mean 'replacePropertiesTableMarkup'?
-test/webview/scrollSync.test.ts(4921,64): error TS2339: Property 'position' does not exist on type 'never'.
-test/webview/scrollSync.test.ts(4956,64): error TS2339: Property 'position' does not exist on type 'never'.
