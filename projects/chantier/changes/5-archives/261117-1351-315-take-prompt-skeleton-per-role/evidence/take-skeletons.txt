@@ -1,0 +1,194 @@
+$ chantier take CR-101 --note "start with the parser" --epoch 1
+took CR-101 (1 of 4 slots held)
+CR-101 "one" (change) working in batch batch-01 (stack)
+cli: uv run --no-sync --project "/home/user/Projets/chantier.worktrees/batch-23-CR-315" chantier <command> --batch batch-01
+cards: /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/ (driver.md, concepts.md; each worker's own card, named in its opening lines); the project's rules rank above them: `rules`
+project instructions: C:/cvscratch/acme/AGENTS.md
+specification: C:/cvscratch/acme/.agents/changes/4-batch/2-actives/101-one/03-change-spec.md
+folder: C:/cvscratch/acme/.agents/changes/4-batch/2-actives/101-one (work/, evidence/)
+worktree: C:\cvscratch\acme.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-one base origin/main; not created yet: a Driver creates it first
+PR: none; head -
+rounds: 0 of 3
+notes: none
+gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+  [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+  [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+coder prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier coder for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/coder.md;
+  the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+conflict-resolver prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier conflict-resolver for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/conflict-resolver.md;
+  the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+debugger prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier debugger for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/debugger.md;
+  the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+inspector prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier inspector for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/inspector.md;
+  the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+investigator prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier investigator for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/investigator.md;
+  the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+verifier prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier verifier for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/verifier.md;
+  the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+cr-driver prompt (copy it whole, without the two leading spaces, and fill each <…>; add no line and drop none):
+  chantier cr-driver for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/startup-core.md, the host core, role core, and the short startup section named by /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/startup-manifest.json; defer the rest until an action names it.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/driver.md;
+  the project's rules rank above them: run `$CHANTIER rules` first and read what touches your work.
+  CLI ($CHANTIER): uv run --no-sync --project "/home/user/Projets/chantier.worktrees/batch-23-CR-315" chantier <command> --batch batch-01
+  cards: /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/ (driver.md, concepts.md; each worker's own card, named in its opening lines); the project's rules rank above them: `rules`
+  project instructions: C:/cvscratch/acme/AGENTS.md
+  specification: C:/cvscratch/acme/.agents/changes/4-batch/2-actives/101-one/03-change-spec.md
+  folder: C:/cvscratch/acme/.agents/changes/4-batch/2-actives/101-one (work/, evidence/)
+  worktree: C:\cvscratch\acme.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-one base origin/main; not created yet: a Driver creates it first
+  PR: none; head -
+  rounds: 0 of 3
+  notes: none
+  gates before handback ready, at the PR's head not shipped yet (the full SHA; the gate log's first line names it):
+    [ ] long gate passed (gate CR-101 "<cmd>" ["<cmd>"...]; none in the project's rules: handback CR-101 ready --no-gate "<rule>")
+    [ ] verdict VERIFIED (the Verifier: verdict CR-101 VERIFIED|"NOT VERIFIED")
+  coder prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+    chantier coder for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+    Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/coder.md;
+    the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+  conflict-resolver prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+    chantier conflict-resolver for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+    Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/conflict-resolver.md;
+    the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+  debugger prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+    chantier debugger for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+    Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/debugger.md;
+    the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+  inspector prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+    chantier inspector for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+    Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/inspector.md;
+    the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+  investigator prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+    chantier investigator for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+    Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/investigator.md;
+    the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+  verifier prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+    chantier verifier for CR-101 "one" of batch batch-01, in the project C:/cvscratch/acme.
+    Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/verifier.md;
+    the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+  writes: C:/cvscratch/acme/.agents/changes/4-batch/2-actives/101-one
+  Steering: the Foreman <the host's means, from its reference's row "A Driver messages its steering session">
+  Team: <the team: lines, as printed, then the review steps>
+  Note: start with the parser
+
+$ chantier take CR-102 --note "cut the release" --epoch 1  (CR-102 recorded as kind release)
+took CR-102 (2 of 4 slots held)
+CR-102 "two" (release) working in batch batch-01 (stack)
+cli: uv run --no-sync --project "/home/user/Projets/chantier.worktrees/batch-23-CR-315" chantier <command> --batch batch-01
+cards: /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/ (driver.md, concepts.md; each worker's own card, named in its opening lines); the project's rules rank above them: `rules`
+project instructions: C:/cvscratch/acme/AGENTS.md
+specification: C:/cvscratch/acme/.agents/changes/4-batch/2-actives/102-two/03-change-spec.md
+folder: C:/cvscratch/acme/.agents/changes/4-batch/2-actives/102-two (work/, evidence/)
+worktree: C:\cvscratch\acme.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-two base chantier/batch-01/cr-101-one; not created yet: a Driver creates it first
+PR: none; head -
+rounds: 0 of 3
+grant: every irreversible action waits for the user's approval; the user starts and merges the fixes; attempts 0; approvals unused: none
+notes: none
+coder prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier coder for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/coder.md;
+  the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+conflict-resolver prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier conflict-resolver for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/conflict-resolver.md;
+  the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+debugger prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier debugger for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/debugger.md;
+  the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+inspector prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier inspector for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/inspector.md;
+  the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+investigator prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier investigator for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/investigator.md;
+  the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+verifier prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+  chantier verifier for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/verifier.md;
+  the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+release-driver prompt (no writes: line: this Driver gets none; copy it whole, without the two leading spaces, and fill each <…>; add no line and drop none):
+  chantier release-driver for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/startup-core.md, the host core, role core, and the short startup section named by /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/startup-manifest.json; defer the rest until an action names it.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/driver.md;
+  the project's rules rank above them: run `$CHANTIER rules` first and read what touches your work.
+  CLI ($CHANTIER): uv run --no-sync --project "/home/user/Projets/chantier.worktrees/batch-23-CR-315" chantier <command> --batch batch-01
+  cards: /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/ (driver.md, concepts.md; each worker's own card, named in its opening lines); the project's rules rank above them: `rules`
+  project instructions: C:/cvscratch/acme/AGENTS.md
+  specification: C:/cvscratch/acme/.agents/changes/4-batch/2-actives/102-two/03-change-spec.md
+  folder: C:/cvscratch/acme/.agents/changes/4-batch/2-actives/102-two (work/, evidence/)
+  worktree: C:\cvscratch\acme.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-two base chantier/batch-01/cr-101-one; not created yet: a Driver creates it first
+  PR: none; head -
+  rounds: 0 of 3
+  grant: every irreversible action waits for the user's approval; the user starts and merges the fixes; attempts 0; approvals unused: none
+  notes: none
+  coder prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+    chantier coder for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+    Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/coder.md;
+    the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+  conflict-resolver prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+    chantier conflict-resolver for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+    Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/conflict-resolver.md;
+    the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+  debugger prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+    chantier debugger for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+    Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/debugger.md;
+    the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+  inspector prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+    chantier inspector for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+    Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/inspector.md;
+    the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+  investigator prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+    chantier investigator for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+    Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/investigator.md;
+    the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+  verifier prompt, opening lines (copy them unchanged, without the two leading spaces, at the top of the prompt):
+    chantier verifier for CR-102 "two" of batch batch-01, in the project C:/cvscratch/acme.
+    Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/verifier.md;
+    the project's rules rank above it: run `$CHANTIER rules` first and read what touches your work.
+  Steering: the Foreman <the host's means, from its reference's row "A Driver messages its steering session">
+  Note: cut the release
+
+$ chantier take stack --note "rebase the stack" --epoch 1
+the stack of batch batch-01: CR-101 → CR-102
+CR-101 working worktree C:\cvscratch\acme.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-one base origin/main PR none head - restack: none
+CR-102 working worktree C:\cvscratch\acme.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-two base chantier/batch-01/cr-101-one PR none head - restack: none
+stack-driver prompt (no writes: line: this Driver gets none; copy it whole, without the two leading spaces, and fill each <…>; add no line and drop none):
+  chantier stack-driver for the stack of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/startup-core.md, the host core, role core, and the short startup section named by /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/startup-manifest.json; defer the rest until an action names it.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/driver.md;
+  the project's rules rank above them: run `$CHANTIER rules` first and read what touches your work.
+  CLI ($CHANTIER): uv run --no-sync --project "/home/user/Projets/chantier.worktrees/batch-23-CR-315" chantier <command> --batch batch-01
+  the stack of batch batch-01: CR-101 → CR-102
+  CR-101 working worktree C:\cvscratch\acme.worktrees\batch-01-CR-101 branch chantier/batch-01/cr-101-one base origin/main PR none head - restack: none
+  CR-102 working worktree C:\cvscratch\acme.worktrees\batch-01-CR-102 branch chantier/batch-01/cr-102-two base chantier/batch-01/cr-101-one PR none head - restack: none
+  Steering: the Foreman <the host's means, from its reference's row "A Driver messages its steering session">
+  Team: <the team: lines, as printed, then the review steps>
+  Note: rebase the stack
+
+$ chantier order qa --note "try the export on a phone"
+[chief-of-staff→foreman] order O-1: qa .agents/changes/1-inbox/qa-261117-1116 try the export on a phone
+QA folder: .agents/changes/1-inbox/qa-261117-1116; the Foreman starts its QA driver, which holds a slot until `order done`
+qa-driver prompt (no writes: line: this Driver gets none; copy it whole, without the two leading spaces, and fill each <…>; add no line and drop none):
+  chantier qa-driver for .agents/changes/1-inbox/qa-261117-1116 of batch batch-01, in the project C:/cvscratch/acme.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/startup-core.md, the host core, role core, and the short startup section named by /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/startup-manifest.json; defer the rest until an action names it.
+  Read /home/user/Projets/chantier.worktrees/batch-23-CR-315/skills/chantier/references/driver.md;
+  the project's rules rank above them: run `$CHANTIER rules` first and read what touches your work.
+  CLI ($CHANTIER): uv run --no-sync --project "/home/user/Projets/chantier.worktrees/batch-23-CR-315" chantier <command> --batch batch-01
+  QA folder: .agents/changes/1-inbox/qa-261117-1116; order O-1
+  default branch: main
+  Steering: the Foreman <the host's means, from its reference's row "A Driver messages its steering session">
+  Note: try the export on a phone

@@ -1,0 +1,198 @@
+{
+ "state2_before": {
+  "CR-141": {
+   "lvl": "No dependency",
+   "idx": 0,
+   "x": 297,
+   "y": 395,
+   "h": 129,
+   "state": "merged"
+  },
+  "CR-142": {
+   "lvl": "No dependency",
+   "idx": 1,
+   "x": 297,
+   "y": 536,
+   "h": 92,
+   "state": "PR in draft"
+  },
+  "CR-144": {
+   "lvl": "No dependency",
+   "idx": 2,
+   "x": 297,
+   "y": 641,
+   "h": 129,
+   "state": "working"
+  },
+  "CR-146": {
+   "lvl": "No dependency",
+   "idx": 3,
+   "x": 297,
+   "y": 782,
+   "h": 129,
+   "state": "blocked"
+  },
+  "CR-148": {
+   "lvl": "No dependency",
+   "idx": 4,
+   "x": 297,
+   "y": 923,
+   "h": 93,
+   "state": "queued"
+  },
+  "CR-149": {
+   "lvl": "No dependency",
+   "idx": 5,
+   "x": 297,
+   "y": 1029,
+   "h": 110,
+   "state": "PR in draft"
+  },
+  "CR-143": {
+   "lvl": "Level 1",
+   "idx": 0,
+   "x": 687,
+   "y": 395,
+   "h": 110,
+   "state": "PR in draft"
+  },
+  "CR-147": {
+   "lvl": "Level 1",
+   "idx": 1,
+   "x": 687,
+   "y": 517,
+   "h": 92,
+   "state": "waits"
+  },
+  "CR-150": {
+   "lvl": "Level 1",
+   "idx": 2,
+   "x": 687,
+   "y": 622,
+   "h": 92,
+   "state": "queued"
+  },
+  "CR-152": {
+   "lvl": "Level 1",
+   "idx": 3,
+   "x": 687,
+   "y": 726,
+   "h": 92,
+   "state": "queued"
+  },
+  "CR-145": {
+   "lvl": "Level 2",
+   "idx": 0,
+   "x": 1077,
+   "y": 395,
+   "h": 129,
+   "state": "working"
+  },
+  "CR-151": {
+   "lvl": "Level 2",
+   "idx": 1,
+   "x": 1077,
+   "y": 536,
+   "h": 92,
+   "state": "waits"
+  }
+ },
+ "state2_after": {
+  "CR-141": {
+   "lvl": "No dependency",
+   "idx": 0,
+   "x": 297,
+   "y": 395,
+   "h": 129,
+   "state": "merged"
+  },
+  "CR-142": {
+   "lvl": "No dependency",
+   "idx": 1,
+   "x": 297,
+   "y": 536,
+   "h": 92,
+   "state": "PR in draft"
+  },
+  "CR-144": {
+   "lvl": "No dependency",
+   "idx": 2,
+   "x": 297,
+   "y": 641,
+   "h": 110,
+   "state": "PR in draft"
+  },
+  "CR-146": {
+   "lvl": "No dependency",
+   "idx": 3,
+   "x": 297,
+   "y": 763,
+   "h": 129,
+   "state": "blocked"
+  },
+  "CR-148": {
+   "lvl": "No dependency",
+   "idx": 4,
+   "x": 297,
+   "y": 904,
+   "h": 92,
+   "state": "queued"
+  },
+  "CR-149": {
+   "lvl": "No dependency",
+   "idx": 5,
+   "x": 297,
+   "y": 1009,
+   "h": 110,
+   "state": "PR in draft"
+  },
+  "CR-143": {
+   "lvl": "Level 1",
+   "idx": 0,
+   "x": 687,
+   "y": 395,
+   "h": 110,
+   "state": "merged"
+  },
+  "CR-147": {
+   "lvl": "Level 1",
+   "idx": 1,
+   "x": 687,
+   "y": 517,
+   "h": 93,
+   "state": "queued"
+  },
+  "CR-150": {
+   "lvl": "Level 1",
+   "idx": 2,
+   "x": 687,
+   "y": 623,
+   "h": 92,
+   "state": "queued"
+  },
+  "CR-152": {
+   "lvl": "Level 1",
+   "idx": 3,
+   "x": 687,
+   "y": 727,
+   "h": 92,
+   "state": "queued"
+  },
+  "CR-145": {
+   "lvl": "Level 2",
+   "idx": 0,
+   "x": 1077,
+   "y": 395,
+   "h": 129,
+   "state": "working"
+  },
+  "CR-151": {
+   "lvl": "Level 2",
+   "idx": 1,
+   "x": 1077,
+   "y": 536,
+   "h": 92,
+   "state": "waits"
+  }
+ }
+}

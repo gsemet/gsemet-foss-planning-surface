@@ -1,0 +1,281 @@
+{
+ "menu_probe_pc": {
+  "rows": [
+   [
+    "planning-surface",
+    true
+   ],
+   [
+    "Ddocs-portal",
+    true
+   ],
+   [
+    "Mmobile-app",
+    true
+   ],
+   [
+    "Sshop-apibatch-03 \u00b7 ",
+    true
+   ],
+   [
+    "planning-surface",
+    false
+   ],
+   [
+    "Ddocs-portal",
+    false
+   ],
+   [
+    "Mmobile-app",
+    false
+   ],
+   [
+    "Sshop-apibatch-03 \u00b7 ",
+    false
+   ]
+  ],
+  "headZ": "5",
+  "menuZ": "8",
+  "menuPos": "absolute",
+  "menuTop": 72,
+  "headBottom": 58
+ },
+ "menu_probe_390": {
+  "rows": [
+   [
+    "planning-surface",
+    false
+   ],
+   [
+    "Ddocs-portal",
+    false
+   ],
+   [
+    "Mmobile-app",
+    false
+   ],
+   [
+    "Sshop-apibatch-03 \u00b7 ",
+    false
+   ],
+   [
+    "planning-surface",
+    true
+   ],
+   [
+    "Ddocs-portal",
+    true
+   ],
+   [
+    "Mmobile-app",
+    true
+   ],
+   [
+    "Sshop-apibatch-03 \u00b7 ",
+    true
+   ]
+  ],
+  "headZ": "5",
+  "menuZ": "8",
+  "menuPos": "absolute",
+  "menuTop": 0,
+  "headBottom": 50
+ },
+ "responses_font": [
+  [
+   "ORIGIN/css/fonts.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/base.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/tokens.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/picker.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/crumbs.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/sidebar.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/shell.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/tags.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/components.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/cards.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/widgets.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/panel.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/dialog.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/journal.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/editor.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/views/triage.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/autosync.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/views/postit.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/views/home.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/views/batch.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/views/kanban.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/views/batch-graph.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/views/costs.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/views/config.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/views/overview.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/views/batch-prs.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/views/prs.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/css/views/home-project.css",
+   200,
+   "text/css; charset=utf-8",
+   null
+  ],
+  [
+   "ORIGIN/fonts/Inter-Medium.woff2",
+   200,
+   "font/woff2",
+   null
+  ],
+  [
+   "ORIGIN/fonts/Inter-Regular.woff2",
+   200,
+   "font/woff2",
+   null
+  ]
+ ],
+ "response_hosts": [
+  "ORIGIN"
+ ],
+ "console2": [],
+ "fontcheck": {
+  "h1": [
+   "Inter, \"Se",
+   "500"
+  ],
+  "loaded": [
+   "Inter 400",
+   "Inter 500"
+  ]
+ },
+ "ERROR_run_C2": "Traceback (most recent call last):\n  File \"C:\\Users\\gaeta\\Projets\\gsemet-foss-planning-surface\\projects\\chantier\\changes\\4-batch\\2-actives\\319-board-visual-refresh\\work\\verifier\\shots2.py\", line 152, in <module>\n    fn(br)\n    ~~^^^^\n  File \"C:\\Users\\gaeta\\Projets\\gsemet-foss-planning-surface\\projects\\chantier\\changes\\4-batch\\2-actives\\319-board-visual-refresh\\work\\verifier\\shots2.py\", line 124, in run_C2\n    before = page.evaluate(POS)\n                           ^^^\nNameError: name 'POS' is not defined\n"
+}

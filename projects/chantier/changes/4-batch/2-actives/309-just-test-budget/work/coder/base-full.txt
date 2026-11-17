@@ -1,9 +1,0 @@
-Using CPython 3.15.2
-Creating virtual environment at: .venv
-   Building chantier @ file:///C:/Users/gaeta/Projets/chantier.worktrees/batch-23-CR-309
-      Built chantier @ file:///C:/Users/gaeta/Projets/chantier.worktrees/batch-23-CR-309
-Installed 20 packages in 112ms
-........................................................................ [ 19%]
-........................................................................ [ 39%]
-........................................................................ [ 58%]
-.....................

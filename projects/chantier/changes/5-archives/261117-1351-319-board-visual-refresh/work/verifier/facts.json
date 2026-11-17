@@ -1,0 +1,1106 @@
+{
+ "project_text": "shop-api\n/\nHome\n+ New\nHome\n4 inbox\n2 in grill\n5 in progress\n3 handed back\nTo review\n0\n3 handed back, none ready to merge\nWaiting for you\n1\nblocked CRs\nIn grill\n2\n1 specified\nNext batch\n2\nin preparation (3-ready)\nWritten by the board\n0\nnothing since your last \u2018rescan\u2019\nbatch-03\nrunning\nStack \u00b7 Foreman\nsee the batch \u2192\n1 merged\n0 ready to merge\n3 PR in draft\n0 ready locally\n2 working\n1 blocked\n2 queued\nSpent\n$63.18 / $120.00\nSlots\n2/4\nLast sign of the Foreman\n1 min ago\nOpened\n3 h ago\nOpen PRs\n4\nPR in draft\nCR-142\nThe cart keeps its items across sessions\n#14\nPR in draft\nCR-143\nProduct search ranks in-stock items first\n#15\nworking\nCR-144\nPayment webhooks retry with a back-off\n#16\nPR in draft\nCR-149\nFix: stock goes negative after a cancelled order\n#17\nBlocked\nCR-146\nquestion: should refunds of orders paid before the switch keep the v2 endpoint for 30 days, or move to v3 at once?\nRecent activity\nbatch-03\n10:27\n\u21bb\nCR-144 round 2\n10:26\n\u21bb\nCR-145 round 3\n10:20\n\u270e\nCR-145 note\n10:15\n\u21ea\nCR-144 PR #16 pushed\n10:14\n\u21e0\nCR-149 handed back ready\n10:13\n\u2713\nCR-149 verified\n10:11\n?\nquestion to the Chief of Staff\n10:11\n\u21e0\nCR-146 handed back blocked\n10:10\n\u25b6\nCR-149 taken by a Driver\n10:09\n\u21bb\nCR-146 round 1\n10:08\n\u21bb\nCR-145 round 2\n10:05\n\u21e0\nCR-143 handed back ready\n10:04\n\u2713\nCR-143 verified\n10:01\n\u21ea\nCR-143 PR #15 pushed\n09:58\n\u21bb\nCR-144 round 1\n09:58\n\u21e0\nCR-142 handed back ready\n09:57\n\u2713\nCR-142 verified\n09:50\n\u21ea\nCR-142 PR #14 pushed\n09:49\n\u21bb\nCR-145 round 1\n09:41\n\u21bb\nCR-143 round 1\n09:35\n\u25b6\nCR-144 taken by a Driver\n09:30\n\u2691\nCR-145 order rounds : 3\n09:24\n\u21bb\nCR-142 round 2\n09:20\n\u25b6\nCR-145 taken by a Driver\n09:12\n\u26d9\nCR-141 merged\nPipeline\nsort \u2192\nInbox\n4\nP1\n2\nP2\n2\nP3\n0\nP4\n1\n3-ready\n2\nspecified\nin grill\nraw\nautomatable\nLast merged\n4 in total\nCR-141\nOrder totals use the tax rules of the delivery country\nbatch-03\n06-18\nCR-140\nThe product list loads in under a second\nbatch-02\n06-11\nCR-139\nInvoices are downloadable as PDF files\nbatch-02\n06-11\nCR-138\nA newsletter opt-in at checkout\nbatch-02\n06-11\nEarlier batches\nsee the costs \u2192\nnone\nProject\nFolder\nprojects/shop-api/\nRepository\n/home/demo/shop-api\nUpstream\nhttps://github.com/demo/shop-api",
+ "links": [
+  "https://github.com/demo/shop-api"
+ ],
+ "menu_text": "PLANNING SURFACE \u00b7 3 PROJECTS\nplanning-surface\nD\ndocs-portal\nM\nmobile-app\nS\nshop-api\nbatch-03 \u00b7 11 %",
+ "fonts": {
+  "res": [],
+  "origins": [],
+  "h1": [
+   "Triage",
+   "Inter, \"Segoe UI Variable Text\", \"Segoe UI\", system-ui, -apple-system, \"Helvetica Neue\", sans-serif",
+   "500"
+  ],
+  "check": true,
+  "check400": true,
+  "loaded": [
+   "Inter 400",
+   "Inter 500"
+  ]
+ },
+ "console": [],
+ "fr_levels_pc": [
+  "Sans d\u00e9pendance",
+  "Niveau 1",
+  "Niveau 2"
+ ],
+ "fr_levels_390": [
+  "Sans d\u00e9pendance",
+  "Niveau 1",
+  "Niveau 2"
+ ],
+ "widths": {
+  "390:home:*": {
+   "doc": 390,
+   "inner": 390,
+   "main": 390,
+   "mainClient": 390
+  },
+  "390:home:shop-api": {
+   "doc": 390,
+   "inner": 390,
+   "main": 390,
+   "mainClient": 390
+  },
+  "390:batch:shop-api": {
+   "doc": 390,
+   "inner": 390,
+   "main": 390,
+   "mainClient": 390
+  },
+  "390:kanban:shop-api": {
+   "doc": 390,
+   "inner": 390,
+   "main": 390,
+   "mainClient": 390
+  },
+  "390:triage:shop-api": {
+   "doc": 390,
+   "inner": 390,
+   "main": 390,
+   "mainClient": 390
+  },
+  "390:prs:shop-api": {
+   "doc": 390,
+   "inner": 390,
+   "main": 390,
+   "mainClient": 390
+  },
+  "390:costs:shop-api": {
+   "doc": 390,
+   "inner": 390,
+   "main": 390,
+   "mainClient": 390
+  },
+  "390:config:shop-api": {
+   "doc": 390,
+   "inner": 390,
+   "main": 390,
+   "mainClient": 390
+  },
+  "375:home:*": {
+   "doc": 375,
+   "inner": 375,
+   "main": 375,
+   "mainClient": 375
+  },
+  "375:home:shop-api": {
+   "doc": 375,
+   "inner": 375,
+   "main": 375,
+   "mainClient": 375
+  },
+  "375:batch:shop-api": {
+   "doc": 375,
+   "inner": 375,
+   "main": 375,
+   "mainClient": 375
+  },
+  "375:kanban:shop-api": {
+   "doc": 375,
+   "inner": 375,
+   "main": 375,
+   "mainClient": 375
+  },
+  "375:triage:shop-api": {
+   "doc": 375,
+   "inner": 375,
+   "main": 375,
+   "mainClient": 375
+  },
+  "375:prs:shop-api": {
+   "doc": 375,
+   "inner": 375,
+   "main": 375,
+   "mainClient": 375
+  },
+  "375:costs:shop-api": {
+   "doc": 375,
+   "inner": 375,
+   "main": 375,
+   "mainClient": 375
+  },
+  "375:config:shop-api": {
+   "doc": 375,
+   "inner": 375,
+   "main": 375,
+   "mainClient": 375
+  }
+ },
+ "sticky_pc_triage_top": {
+  "scrollTop": 0,
+  "scrollH": 1455,
+  "client": 860,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head",
+  "shadow": "none",
+  "z": "5"
+ },
+ "sticky_pc_triage_scrolled": {
+  "scrollTop": 400,
+  "scrollH": 1455,
+  "client": 860,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head scrolled",
+  "shadow": "rgba(16, 24, 40, 0.06) 0px 1px 8px 0px",
+  "z": "5"
+ },
+ "menu_above_pc": true,
+ "dialog_above_pc": true,
+ "sticky_pc_triage_back": {
+  "scrollTop": 0,
+  "scrollH": 1455,
+  "client": 860,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head",
+  "shadow": "none",
+  "z": "5"
+ },
+ "sticky_pc_batch_top": {
+  "scrollTop": 0,
+  "scrollH": 1215,
+  "client": 860,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head",
+  "shadow": "none",
+  "z": "5"
+ },
+ "sticky_pc_batch_scrolled": {
+  "scrollTop": 355,
+  "scrollH": 1215,
+  "client": 860,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head scrolled",
+  "shadow": "rgba(16, 24, 40, 0.06) 0px 1px 8px 0px",
+  "z": "5"
+ },
+ "sticky_pc_batch_back": {
+  "scrollTop": 0,
+  "scrollH": 1215,
+  "client": 860,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head",
+  "shadow": "none",
+  "z": "5"
+ },
+ "sticky_pc_costs_top": {
+  "scrollTop": 0,
+  "scrollH": 948,
+  "client": 860,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head",
+  "shadow": "none",
+  "z": "5"
+ },
+ "sticky_pc_costs_scrolled": {
+  "scrollTop": 88,
+  "scrollH": 948,
+  "client": 860,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head scrolled",
+  "shadow": "rgba(16, 24, 40, 0.06) 0px 1px 8px 0px",
+  "z": "5"
+ },
+ "sticky_pc_costs_back": {
+  "scrollTop": 0,
+  "scrollH": 948,
+  "client": 860,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head",
+  "shadow": "none",
+  "z": "5"
+ },
+ "sticky_390_triage_top": {
+  "scrollTop": 0,
+  "scrollH": 1598,
+  "client": 844,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head",
+  "shadow": "none",
+  "z": "5"
+ },
+ "sticky_390_triage_scrolled": {
+  "scrollTop": 400,
+  "scrollH": 1598,
+  "client": 844,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head scrolled",
+  "shadow": "rgba(16, 24, 40, 0.06) 0px 1px 8px 0px",
+  "z": "5"
+ },
+ "menu_above_390": false,
+ "dialog_above_390": true,
+ "sticky_390_triage_back": {
+  "scrollTop": 0,
+  "scrollH": 1598,
+  "client": 844,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head",
+  "shadow": "none",
+  "z": "5"
+ },
+ "sticky_390_batch_top": {
+  "scrollTop": 0,
+  "scrollH": 2057,
+  "client": 844,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head",
+  "shadow": "none",
+  "z": "5"
+ },
+ "sticky_390_batch_scrolled": {
+  "scrollTop": 400,
+  "scrollH": 2057,
+  "client": 844,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head scrolled",
+  "shadow": "rgba(16, 24, 40, 0.06) 0px 1px 8px 0px",
+  "z": "5"
+ },
+ "sticky_390_batch_back": {
+  "scrollTop": 0,
+  "scrollH": 2057,
+  "client": 844,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head",
+  "shadow": "none",
+  "z": "5"
+ },
+ "sticky_390_costs_top": {
+  "scrollTop": 0,
+  "scrollH": 1259,
+  "client": 844,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head",
+  "shadow": "none",
+  "z": "5"
+ },
+ "sticky_390_costs_scrolled": {
+  "scrollTop": 400,
+  "scrollH": 1259,
+  "client": 844,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head scrolled",
+  "shadow": "rgba(16, 24, 40, 0.06) 0px 1px 8px 0px",
+  "z": "5"
+ },
+ "sticky_390_costs_back": {
+  "scrollTop": 0,
+  "scrollH": 1259,
+  "client": 844,
+  "pos": "sticky",
+  "top": 0,
+  "cls": "head",
+  "shadow": "none",
+  "z": "5"
+ },
+ "long_pc": {
+  "btn": {
+   "x": 14,
+   "y": 16,
+   "width": 219,
+   "height": 50,
+   "top": 16,
+   "right": 233,
+   "bottom": 66,
+   "left": 14
+  },
+  "kids": [
+   {
+    "tag": "SPAN",
+    "cls": "mark",
+    "t": "A",
+    "r": {
+     "x": 22,
+     "y": 24,
+     "width": 34,
+     "height": 34,
+     "top": 24,
+     "right": 56,
+     "bottom": 58,
+     "left": 22
+    },
+    "ov": "clip",
+    "sw": 34,
+    "cw": 34
+   },
+   {
+    "tag": "SPAN",
+    "cls": "who",
+    "t": "agentic-planning-surfacebatch-03 \u00b7 runni",
+    "r": {
+     "x": 66,
+     "y": 25,
+     "width": 127,
+     "height": 32,
+     "top": 25,
+     "right": 193,
+     "bottom": 57,
+     "left": 66
+    },
+    "ov": "clip",
+    "sw": 127,
+    "cw": 127
+   },
+   {
+    "tag": "B",
+    "cls": "null",
+    "t": "agentic-planning-surface",
+    "r": {
+     "x": 66,
+     "y": 25,
+     "width": 127,
+     "height": 17,
+     "top": 25,
+     "right": 193,
+     "bottom": 42,
+     "left": 66
+    },
+    "ov": "ellipsis",
+    "sw": 176,
+    "cw": 127
+   },
+   {
+    "tag": "SMALL",
+    "cls": "null",
+    "t": "batch-03 \u00b7 running",
+    "r": {
+     "x": 66,
+     "y": 42,
+     "width": 127,
+     "height": 15,
+     "top": 42,
+     "right": 193,
+     "bottom": 57,
+     "left": 66
+    },
+    "ov": "ellipsis",
+    "sw": 127,
+    "cw": 127
+   },
+   {
+    "tag": "SPAN",
+    "cls": "car",
+    "t": "",
+    "r": {
+     "x": 211,
+     "y": 34,
+     "width": 14,
+     "height": 14,
+     "top": 34,
+     "right": 225,
+     "bottom": 48,
+     "left": 211
+    },
+    "ov": "clip",
+    "sw": 14,
+    "cw": 14
+   },
+   {
+    "tag": "svg",
+    "cls": "svgi",
+    "t": "",
+    "r": {
+     "x": 211,
+     "y": 34,
+     "width": 14,
+     "height": 14,
+     "top": 34,
+     "right": 225,
+     "bottom": 48,
+     "left": 211
+    },
+    "ov": "clip",
+    "sw": 14,
+    "cw": 14
+   },
+   {
+    "tag": "path",
+    "cls": "null",
+    "t": "",
+    "r": {
+     "x": 215.0833282470703,
+     "y": 39.83333206176758,
+     "width": 5.833343505859375,
+     "height": 2.916667938232422,
+     "top": 39.83333206176758,
+     "right": 220.9166717529297,
+     "bottom": 42.75,
+     "left": 215.0833282470703
+    },
+    "ov": "clip",
+    "sw": 0,
+    "cw": 0
+   }
+  ]
+ },
+ "long_390": {
+  "btn": {
+   "x": 12,
+   "y": 8.5,
+   "width": 244.96875,
+   "height": 32,
+   "top": 8.5,
+   "right": 256.96875,
+   "bottom": 40.5,
+   "left": 12
+  },
+  "kids": [
+   {
+    "tag": "SPAN",
+    "cls": "mark",
+    "t": "A",
+    "r": {
+     "x": 20,
+     "y": 13.5,
+     "width": 22,
+     "height": 22,
+     "top": 13.5,
+     "right": 42,
+     "bottom": 35.5,
+     "left": 20
+    },
+    "ov": "clip",
+    "sw": 22,
+    "cw": 22
+   },
+   {
+    "tag": "SPAN",
+    "cls": "who",
+    "t": "agentic-planning-surfacebatch-03 \u00b7 runni",
+    "r": {
+     "x": 52,
+     "y": 16,
+     "width": 164.96875,
+     "height": 17,
+     "top": 16,
+     "right": 216.96875,
+     "bottom": 33,
+     "left": 52
+    },
+    "ov": "clip",
+    "sw": 165,
+    "cw": 165
+   },
+   {
+    "tag": "B",
+    "cls": "null",
+    "t": "agentic-planning-surface",
+    "r": {
+     "x": 52,
+     "y": 16,
+     "width": 164.96875,
+     "height": 17,
+     "top": 16,
+     "right": 216.96875,
+     "bottom": 33,
+     "left": 52
+    },
+    "ov": "ellipsis",
+    "sw": 176,
+    "cw": 165
+   },
+   {
+    "tag": "SMALL",
+    "cls": "null",
+    "t": "batch-03 \u00b7 running",
+    "r": {
+     "x": 0,
+     "y": 0,
+     "width": 0,
+     "height": 0,
+     "top": 0,
+     "right": 0,
+     "bottom": 0,
+     "left": 0
+    },
+    "ov": "ellipsis",
+    "sw": 0,
+    "cw": 0
+   },
+   {
+    "tag": "SPAN",
+    "cls": "car",
+    "t": "",
+    "r": {
+     "x": 234.96875,
+     "y": 17.5,
+     "width": 14,
+     "height": 14,
+     "top": 17.5,
+     "right": 248.96875,
+     "bottom": 31.5,
+     "left": 234.96875
+    },
+    "ov": "clip",
+    "sw": 14,
+    "cw": 14
+   },
+   {
+    "tag": "svg",
+    "cls": "svgi",
+    "t": "",
+    "r": {
+     "x": 234.96875,
+     "y": 17.5,
+     "width": 14,
+     "height": 14,
+     "top": 17.5,
+     "right": 248.96875,
+     "bottom": 31.5,
+     "left": 234.96875
+    },
+    "ov": "clip",
+    "sw": 14,
+    "cw": 14
+   },
+   {
+    "tag": "path",
+    "cls": "null",
+    "t": "",
+    "r": {
+     "x": 239.0520782470703,
+     "y": 23.33333396911621,
+     "width": 5.833343505859375,
+     "height": 2.916666030883789,
+     "top": 23.33333396911621,
+     "right": 244.8854217529297,
+     "bottom": 26.25,
+     "left": 239.0520782470703
+    },
+    "ov": "clip",
+    "sw": 0,
+    "cw": 0
+   }
+  ]
+ },
+ "edges": [
+  {
+   "edge": "CR-142->CR-143",
+   "tipX": 687,
+   "targetLeft": 687,
+   "gapPx": 0,
+   "tipY": 450.2,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": -132
+  },
+  {
+   "edge": "CR-143->CR-145",
+   "tipX": 1077,
+   "targetLeft": 1077,
+   "gapPx": 0,
+   "tipY": 459.7,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": 10
+  },
+  {
+   "edge": "CR-144->CR-147",
+   "tipX": 687,
+   "targetLeft": 687,
+   "gapPx": 0,
+   "tipY": 563.5,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": -142
+  },
+  {
+   "edge": "CR-149->CR-150",
+   "tipX": 687,
+   "targetLeft": 687,
+   "gapPx": 0,
+   "tipY": 667.7,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": -416
+  },
+  {
+   "edge": "CR-150->CR-151",
+   "tipX": 1077,
+   "targetLeft": 1077,
+   "gapPx": 0,
+   "tipY": 582.5,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": -85
+  },
+  {
+   "edge": "CR-141->CR-152",
+   "tipX": 687,
+   "targetLeft": 687,
+   "gapPx": 0,
+   "tipY": 771.8,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": 312
+  }
+ ],
+ "levels": [
+  [
+   "No dependency",
+   "CR-141:merged",
+   "CR-142:PR in draft",
+   "CR-144:working",
+   "CR-146:blocked",
+   "CR-148:queued",
+   "CR-149:PR in draft"
+  ],
+  [
+   "Level 1",
+   "CR-143:PR in draft",
+   "CR-147:waits",
+   "CR-150:queued",
+   "CR-152:queued"
+  ],
+  [
+   "Level 2",
+   "CR-145:working",
+   "CR-151:waits"
+  ]
+ ],
+ "no_groups": 0,
+ "page_has_Merged_word": false,
+ "node_colors": [
+  [
+   "CR-141",
+   "rgb(42, 122, 85)",
+   "rgb(255, 255, 255)",
+   "rgb(235, 236, 239)"
+  ],
+  [
+   "CR-142",
+   "rgb(167, 123, 79)",
+   "rgb(255, 255, 255)",
+   "rgb(235, 236, 239)"
+  ],
+  [
+   "CR-144",
+   "rgb(74, 118, 217)",
+   "rgb(255, 255, 255)",
+   "rgb(235, 236, 239)"
+  ],
+  [
+   "CR-146",
+   "rgb(209, 75, 94)",
+   "rgb(255, 255, 255)",
+   "rgb(235, 236, 239)"
+  ],
+  [
+   "CR-148",
+   "rgb(163, 167, 175)",
+   "rgb(255, 255, 255)",
+   "rgb(235, 236, 239)"
+  ],
+  [
+   "CR-149",
+   "rgb(167, 123, 79)",
+   "rgb(255, 255, 255)",
+   "rgb(235, 236, 239)"
+  ],
+  [
+   "CR-143",
+   "rgb(167, 123, 79)",
+   "rgb(255, 255, 255)",
+   "rgb(235, 236, 239)"
+  ],
+  [
+   "CR-147",
+   "rgb(208, 138, 31)",
+   "rgb(255, 255, 255)",
+   "rgb(235, 236, 239)"
+  ],
+  [
+   "CR-150",
+   "rgb(163, 167, 175)",
+   "rgb(255, 255, 255)",
+   "rgb(235, 236, 239)"
+  ],
+  [
+   "CR-152",
+   "rgb(163, 167, 175)",
+   "rgb(255, 255, 255)",
+   "rgb(235, 236, 239)"
+  ],
+  [
+   "CR-145",
+   "rgb(74, 118, 217)",
+   "rgb(255, 255, 255)",
+   "rgb(235, 236, 239)"
+  ],
+  [
+   "CR-151",
+   "rgb(208, 138, 31)",
+   "rgb(255, 255, 255)",
+   "rgb(235, 236, 239)"
+  ]
+ ],
+ "main_text": "shop-api\n/\nBatch\n/\nbatch-03\nworking\n+ New\nBatch\nSlots\n2/4\n5 queued \u00b7 next: CR-148\nWorking\n2\n1 blocked\nHanded back ready\n0\n0 to review \u00b7 1 merged\nSpent\n$63.18\nof $120.00\nStack \u00b7 Foreman\neach PR sits on the previous one, the release on top; once the stack is verified on the forge, you merge it in one action from its top PR.\nStack\nSeries\nParallel\nStates and arrows\nhover for the legend\nNo dependency\nCR-141\norder-tax-rules\nmerged\nOrder totals use the tax rules of the delivery country\nr2/3\nPR\n$6.82\nmerged 1 h ago\nLong gate: passed a1f03c9\nCR-142\npersistent-cart\nPR in draft\nThe cart keeps its items across sessions\nr2/3\nPR\n$9.35\nCR-144\nwebhook-backoff\nworking\nPayment webhooks retry with a back-off\nCI\nr2/3\nPR\n$11.60\nCR-146\npayment-api-v3\nblocked\nMove the payment provider integration to its v3 API\nwaits for the user\nr1/3\n$5.20\nCR-148\nnext to start\nlocalised-receipts\nqueued\nEmail receipts are localised\nr0/3\n\u2014\nCR-149\nnegative-stock-fix\nPR in draft\nFix: stock goes negative after a cancelled order\nr1/3\nPR\n$3.45\nLevel 1\nCR-143\nsearch-in-stock-first\nPR in draft\nProduct search ranks in-stock items first\nr1/3\n 1\nPR\n$8.10\nCR-147\nadmin-csv-export\nwaits\nExport the orders list as a CSV file\nr0/3\n 1\n\u2014\nCR-150\nqueued\nVerifier case 150\nr0/3\n 1\n$0.00\nCR-152\nqueued\nVerifier case 152\nr0/3\n 1\n$0.00\nLevel 2\nCR-145\ndelivery-dates\nworking\nThe checkout page shows delivery dates\ninspector r3\nr3/3\n 1\n$14.85\nCR-151\nwaits\nVerifier case 151\nr0/3\n 1\n$0.00\n\nHover a CR to see what it waits for and what waits for it; click to open its folder.\n\nPRs to review\n0\nNothing to review yet: no CR has handed back a PR that is ready to merge.\nPRs in draft, not to merge yet \u00b7 4\n#17\nCR-149\nfix\nFix: stock goes negative after a cancelled order\non main, outside the stack\nPR in draft, do not merge\n$3.45\n#16\nCR-144\n3\nPayment webhooks retry with a back-off\non main \u00b7 not stacked yet\nworking\n$11.60\n#15\nCR-143\n2\nProduct search ranks in-stock items first\non CR-142\nPR in draft, do not merge\n$8.10\n#14\nCR-142\n1\nThe cart keeps its items across sessions\non main, bottom of the stack\nPR in draft, do not merge\n$9.35",
+ "bigedge": {
+  "edge": "CR-149->CR-150",
+  "tipX": 687,
+  "targetLeft": 687,
+  "gapPx": 0,
+  "tipY": 667.7,
+  "withinCardY": true,
+  "lastDirDx": 1,
+  "lastDirDy": 0,
+  "bend": -416
+ },
+ "state_before": {
+  "CR-141": {
+   "lvl": "No dependency",
+   "idx": 0,
+   "x": 297,
+   "y": 395,
+   "h": 129,
+   "state": "merged"
+  },
+  "CR-142": {
+   "lvl": "No dependency",
+   "idx": 1,
+   "x": 297,
+   "y": 536,
+   "h": 92,
+   "state": "PR in draft"
+  },
+  "CR-144": {
+   "lvl": "No dependency",
+   "idx": 2,
+   "x": 297,
+   "y": 641,
+   "h": 129,
+   "state": "working"
+  },
+  "CR-146": {
+   "lvl": "No dependency",
+   "idx": 3,
+   "x": 297,
+   "y": 782,
+   "h": 129,
+   "state": "blocked"
+  },
+  "CR-148": {
+   "lvl": "No dependency",
+   "idx": 4,
+   "x": 297,
+   "y": 923,
+   "h": 93,
+   "state": "queued"
+  },
+  "CR-149": {
+   "lvl": "No dependency",
+   "idx": 5,
+   "x": 297,
+   "y": 1029,
+   "h": 110,
+   "state": "PR in draft"
+  },
+  "CR-143": {
+   "lvl": "Level 1",
+   "idx": 0,
+   "x": 687,
+   "y": 395,
+   "h": 110,
+   "state": "PR in draft"
+  },
+  "CR-147": {
+   "lvl": "Level 1",
+   "idx": 1,
+   "x": 687,
+   "y": 517,
+   "h": 92,
+   "state": "waits"
+  },
+  "CR-150": {
+   "lvl": "Level 1",
+   "idx": 2,
+   "x": 687,
+   "y": 622,
+   "h": 92,
+   "state": "queued"
+  },
+  "CR-152": {
+   "lvl": "Level 1",
+   "idx": 3,
+   "x": 687,
+   "y": 726,
+   "h": 92,
+   "state": "queued"
+  },
+  "CR-145": {
+   "lvl": "Level 2",
+   "idx": 0,
+   "x": 1077,
+   "y": 395,
+   "h": 129,
+   "state": "working"
+  },
+  "CR-151": {
+   "lvl": "Level 2",
+   "idx": 1,
+   "x": 1077,
+   "y": 536,
+   "h": 92,
+   "state": "waits"
+  }
+ },
+ "state_after": {
+  "CR-141": {
+   "lvl": "No dependency",
+   "idx": 0,
+   "x": 297,
+   "y": 395,
+   "h": 129,
+   "state": "merged"
+  },
+  "CR-142": {
+   "lvl": "No dependency",
+   "idx": 1,
+   "x": 297,
+   "y": 536,
+   "h": 92,
+   "state": "PR in draft"
+  },
+  "CR-144": {
+   "lvl": "No dependency",
+   "idx": 2,
+   "x": 297,
+   "y": 641,
+   "h": 110,
+   "state": "PR in draft"
+  },
+  "CR-146": {
+   "lvl": "No dependency",
+   "idx": 3,
+   "x": 297,
+   "y": 763,
+   "h": 129,
+   "state": "blocked"
+  },
+  "CR-148": {
+   "lvl": "No dependency",
+   "idx": 4,
+   "x": 297,
+   "y": 904,
+   "h": 92,
+   "state": "queued"
+  },
+  "CR-149": {
+   "lvl": "No dependency",
+   "idx": 5,
+   "x": 297,
+   "y": 1009,
+   "h": 110,
+   "state": "PR in draft"
+  },
+  "CR-143": {
+   "lvl": "Level 1",
+   "idx": 0,
+   "x": 687,
+   "y": 395,
+   "h": 110,
+   "state": "merged"
+  },
+  "CR-147": {
+   "lvl": "Level 1",
+   "idx": 1,
+   "x": 687,
+   "y": 517,
+   "h": 93,
+   "state": "queued"
+  },
+  "CR-150": {
+   "lvl": "Level 1",
+   "idx": 2,
+   "x": 687,
+   "y": 623,
+   "h": 92,
+   "state": "queued"
+  },
+  "CR-152": {
+   "lvl": "Level 1",
+   "idx": 3,
+   "x": 687,
+   "y": 727,
+   "h": 92,
+   "state": "queued"
+  },
+  "CR-145": {
+   "lvl": "Level 2",
+   "idx": 0,
+   "x": 1077,
+   "y": 395,
+   "h": 129,
+   "state": "working"
+  },
+  "CR-151": {
+   "lvl": "Level 2",
+   "idx": 1,
+   "x": 1077,
+   "y": 536,
+   "h": 92,
+   "state": "waits"
+  }
+ },
+ "edges_after_state": [
+  {
+   "edge": "CR-142->CR-143",
+   "tipX": 668,
+   "targetLeft": 668,
+   "gapPx": 0,
+   "tipY": 450.2,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": -132
+  },
+  {
+   "edge": "CR-143->CR-145",
+   "tipX": 1058,
+   "targetLeft": 1058,
+   "gapPx": 0,
+   "tipY": 459.7,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": 10
+  },
+  {
+   "edge": "CR-144->CR-147",
+   "tipX": 668,
+   "targetLeft": 668,
+   "gapPx": 0,
+   "tipY": 564,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": -132
+  },
+  {
+   "edge": "CR-149->CR-150",
+   "tipX": 668,
+   "targetLeft": 668,
+   "gapPx": 0,
+   "tipY": 668.7,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": -395
+  },
+  {
+   "edge": "CR-150->CR-151",
+   "tipX": 1058,
+   "targetLeft": 1058,
+   "gapPx": 0,
+   "tipY": 582.5,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": -86
+  },
+  {
+   "edge": "CR-141->CR-152",
+   "tipX": 668,
+   "targetLeft": 668,
+   "gapPx": 0,
+   "tipY": 772.8,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": 313
+  }
+ ],
+ "edges_phone": [
+  {
+   "edge": "CR-142->CR-143",
+   "tipX": 329,
+   "targetLeft": 329,
+   "gapPx": 0,
+   "tipY": 1132.4,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": -132
+  },
+  {
+   "edge": "CR-143->CR-145",
+   "tipX": 629,
+   "targetLeft": 629,
+   "gapPx": 0,
+   "tipY": 1132.4,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": 0
+  },
+  {
+   "edge": "CR-144->CR-147",
+   "tipX": 329,
+   "targetLeft": 329,
+   "gapPx": 0,
+   "tipY": 1264.8,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": -122
+  },
+  {
+   "edge": "CR-149->CR-150",
+   "tipX": 329,
+   "targetLeft": 329,
+   "gapPx": 0,
+   "tipY": 1378.6,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": -376
+  },
+  {
+   "edge": "CR-150->CR-151",
+   "tipX": 629,
+   "targetLeft": 629,
+   "gapPx": 0,
+   "tipY": 1255.2,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": -123
+  },
+  {
+   "edge": "CR-141->CR-152",
+   "tipX": 329,
+   "targetLeft": 329,
+   "gapPx": 0,
+   "tipY": 1482.8,
+   "withinCardY": true,
+   "lastDirDx": 1,
+   "lastDirDy": 0,
+   "bend": 350
+  }
+ ]
+}

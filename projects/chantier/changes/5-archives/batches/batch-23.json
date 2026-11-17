@@ -2,15 +2,229 @@
   "schema": 1,
   "batch": "batch-23",
   "number": 23,
-  "state": "running",
+  "state": "closed",
   "opened": "2026-11-17T10:11:33Z",
-  "closed": null,
+  "closed": "2026-11-17T14:32:40Z",
   "mode": "stack",
   "steering": "foreman",
   "host": "claude",
   "budget_usd": 200.0,
-  "cost_usd": null,
+  "cost_usd": 63.9358,
   "cost_unpriced": {},
-  "crs": [],
-  "report": null
+  "crs": [
+    {
+      "cr": "CR-308",
+      "title": "Change Specification: `just check` format-checks `scripts`",
+      "result": "merged",
+      "archive": "5-archives/261117-1028-308-just-check-scripts-format",
+      "pr": "https://github.com/gsemet/chantier/pull/261",
+      "rounds": 1,
+      "cost_usd": 0.8268,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-309",
+      "title": "`just test` back within its budget",
+      "result": "merged",
+      "archive": "5-archives/261117-1053-309-just-test-budget",
+      "pr": "https://github.com/gsemet/chantier/pull/265",
+      "rounds": 1,
+      "cost_usd": 2.0859,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-315",
+      "title": "Change Specification: `take` prints each Driver role's prompt skeleton",
+      "result": "merged",
+      "archive": "5-archives/261117-1351-315-take-prompt-skeleton-per-role",
+      "pr": "https://github.com/gsemet/chantier/pull/270",
+      "rounds": 1,
+      "cost_usd": 4.4132,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-310",
+      "title": "The release Driver's end steps as a checklist",
+      "result": "merged",
+      "archive": "5-archives/261117-1103-310-release-driver-end-checklist",
+      "pr": "https://github.com/gsemet/chantier/pull/262",
+      "rounds": 1,
+      "cost_usd": 0.8307,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-316",
+      "title": "Change Specification: `close` judges only the batch's own agents",
+      "result": "merged",
+      "archive": "5-archives/261117-1351-316-close-batch-agents-only",
+      "pr": "https://github.com/gsemet/chantier/pull/272",
+      "rounds": 1,
+      "cost_usd": 4.1758,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-311",
+      "title": "Change Specification: images use made-up paths, checked before they are kept or uploaded",
+      "result": "merged",
+      "archive": "5-archives/261117-1103-311-screenshot-made-up-paths",
+      "pr": "https://github.com/gsemet/chantier/pull/263",
+      "rounds": 1,
+      "cost_usd": 1.1435,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-317",
+      "title": "Change Specification: the batch pauses when its last CR ends, and the close is offered",
+      "result": "merged",
+      "archive": "5-archives/261117-1351-317-auto-pause-last-merge",
+      "pr": "https://github.com/gsemet/chantier/pull/277",
+      "rounds": 6,
+      "cost_usd": 7.3511,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-312",
+      "title": "Change Specification: evals that start away from the desk",
+      "result": "merged",
+      "archive": "5-archives/261117-1130-312-eval-operator-away-from-desk",
+      "pr": "https://github.com/gsemet/chantier/pull/266",
+      "rounds": 2,
+      "cost_usd": 3.8596,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-318",
+      "title": "---",
+      "result": "merged",
+      "archive": "5-archives/261117-1351-318-driver-resume-after-stop",
+      "pr": "https://github.com/gsemet/chantier/pull/273",
+      "rounds": 2,
+      "cost_usd": 3.0255,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-313",
+      "title": "Change Specification: `forge-stack rebuild` takes the forge's empty unstack reply as a success",
+      "result": "merged",
+      "archive": "5-archives/261117-1130-313-forge-stack-rebuild-empty-unstack",
+      "pr": "https://github.com/gsemet/chantier/pull/267",
+      "rounds": 1,
+      "cost_usd": 1.897,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-319",
+      "title": "Change Specification: the web board, lighter and more elegant",
+      "result": "merged",
+      "archive": "5-archives/261117-1351-319-board-visual-refresh",
+      "pr": "https://github.com/gsemet/chantier/pull/275",
+      "rounds": 3,
+      "cost_usd": 7.4732,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-314",
+      "title": "Change Specification: the stack shows a CR's hand-back apart from its PR's draft flag",
+      "result": "merged",
+      "archive": "5-archives/261117-1130-314-stack-handback-state-vs-draft",
+      "pr": "https://github.com/gsemet/chantier/pull/264",
+      "rounds": 1,
+      "cost_usd": 2.5457,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-320",
+      "title": "Change Specification: timing and retry settings in the configuration, per host and model family",
+      "result": "merged",
+      "archive": "5-archives/261117-1351-320-timing-settings",
+      "pr": "https://github.com/gsemet/chantier/pull/276",
+      "rounds": 2,
+      "cost_usd": 6.4449,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-321",
+      "title": "Change Specification: the web board's Costs page shows the batch's cost as a supermarket receipt",
+      "result": "merged",
+      "archive": "5-archives/261117-1351-321-cost-receipt",
+      "pr": "https://github.com/gsemet/chantier/pull/279",
+      "rounds": 2,
+      "cost_usd": 4.4069,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-322",
+      "title": "Session titles: the batch number last, in parentheses",
+      "result": "merged",
+      "archive": "5-archives/261117-1351-322-session-title-batch-suffix",
+      "pr": "https://github.com/gsemet/chantier/pull/274",
+      "rounds": 1,
+      "cost_usd": 0.8093,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-323",
+      "title": "Two chantier sessions on one machine",
+      "result": "merged",
+      "archive": "5-archives/261117-1351-323-two-sessions-one-machine",
+      "pr": "https://github.com/gsemet/chantier/pull/278",
+      "rounds": 1,
+      "cost_usd": 3.6636,
+      "cost_unpriced": {}
+    }
+  ],
+  "cost_receipt": {
+    "steering": {
+      "label": "Foreman",
+      "usd": 7.29,
+      "calls": 242,
+      "unpriced": {},
+      "wakes": 75,
+      "context_avg": 176158
+    },
+    "drivers": [
+      {
+        "type": "chantier:cr-driver",
+        "usd": 53.5133,
+        "calls": 2279,
+        "unpriced": {}
+      },
+      {
+        "type": "chantier:stack-driver",
+        "usd": 3.1365,
+        "calls": 190,
+        "unpriced": {}
+      }
+    ],
+    "split": [
+      {
+        "part": "steering",
+        "usd": 7.29,
+        "unpriced": {}
+      },
+      {
+        "part": "drivers",
+        "usd": 20.1,
+        "unpriced": {}
+      },
+      {
+        "part": "workers",
+        "usd": 36.55,
+        "unpriced": {}
+      }
+    ],
+    "outside": {
+      "grill": {
+        "usd": 10.9457,
+        "calls": 168,
+        "unpriced": {}
+      },
+      "steering": {
+        "usd": 8.4517,
+        "calls": 192,
+        "unpriced": {}
+      }
+    }
+  },
+  "report": "batch-23.md"
 }

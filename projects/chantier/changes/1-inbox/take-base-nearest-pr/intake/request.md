@@ -1,0 +1,1 @@
+Retro batch-23: the PRs formed a tree on the forge, not one stack: Drivers based later CRs on branches with no PR or no commit yet, merges moved the bases, and three stack-driver runs were needed to restack. Make `take` base a CR on the nearest earlier CR that has a PR, and let one stack-driver run own the final ordering.

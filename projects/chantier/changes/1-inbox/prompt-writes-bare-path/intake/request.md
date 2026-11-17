@@ -1,0 +1,1 @@
+Retro batch-23: a Coder could not write its round file because the prompt `writes:` line carried a parenthetical (CR-317 r6), and a Verifier wrote C:/cvscratch outside its writes and could not delete it (CR-315). The Driver prompt skeleton should print `writes:` as a bare path and name a scratch folder inside work/ for Verifiers.

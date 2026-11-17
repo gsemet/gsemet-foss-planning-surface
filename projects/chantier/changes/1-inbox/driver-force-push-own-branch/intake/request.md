@@ -1,0 +1,1 @@
+Retro batch-23: the host refused a Driver `git push --force-with-lease` on its own chantier/ branch (CR-318), which went Driver, Foreman, Chief of Staff, the user. Let the hosts capability table allow it on chantier/ branches the Driver owns.

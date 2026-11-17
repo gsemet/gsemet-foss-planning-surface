@@ -1,0 +1,12 @@
+base serial just test (ab9b0b5)
+87
+104
+98
+head parallel just test (head = r1 working tree)
+22
+21
+16
+head serial just test -n 0
+44
+43
+45

@@ -1,0 +1,1 @@
+Retro batch-23: CR-317 ran six rounds (rails.py over 400 lines after a rebase, then just eval-dry-run red, then the spec card edits missing). The Driver card should run `just check` and `just eval-dry-run` before the first push of a CLI-behaviour change, and the Coder round prompt should carry the spec card-edit list as a checklist.

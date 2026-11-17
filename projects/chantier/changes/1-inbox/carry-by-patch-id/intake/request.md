@@ -1,0 +1,1 @@
+Retro batch-23: a rebase with an identical patch-id was refused by the CLI as not carrying the verdict (CR-316), and six CRs ended with no verdict at their final heads. Make the carry check compare the patch-id, not the diff text, and record the carry at the restack.
