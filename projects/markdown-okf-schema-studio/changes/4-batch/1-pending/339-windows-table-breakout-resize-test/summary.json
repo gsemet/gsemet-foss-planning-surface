@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Windows: the table breakout resize unit test fails on main",
+  "summary": "tableBreakout.test.ts:398 fails on Windows on main too, so just preflight is red there for every change. Find the cause and fix it. Follow-up of CR-336's long-gate waiver; owner asked for the fix 2026-11-17.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "a453fe3963bff55ce077de91b89ba53f20d6e95b0ead8ef80782b54ed165baa3"
+  },
+  "summarized": "2026-11-17T10:17:40Z"
+}
