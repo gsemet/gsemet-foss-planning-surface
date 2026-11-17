@@ -1,0 +1,1 @@
+The CLI tells a running Chief of Staff session (Claude Code or Copilot) what happened in the web board or on the forge (a priority or stage changed, a comment, a merge seen), and the board can start a Griller that talks with the Chief of Staff.

@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "A Griller started from the web board",
+  "summary": "A Grill button on a board card starts a headless Griller (claude -p or copilot -p, or a remote worktree session) that talks with the Chief of Staff, files included. Direction only; to be grilled later, after session-events-board-griller.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "b72fe5242d556e0dcc35ca51a19da6650ed1a03eef355e1f9dcdf04702ed5008",
+    "intake/request.md": "25ff8aedd1079723a9b6b6955b5c6cb0adc7315744e3e3803e5b167e98eb118f"
+  },
+  "summarized": "2026-11-17T10:45:37Z"
+}
