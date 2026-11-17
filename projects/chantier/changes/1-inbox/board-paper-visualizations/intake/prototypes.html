@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Prototypes — visualisations du board</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #f4f5f4; --panel: #fff; --ink: #1d2523; --muted: #6b7672; --line: #e2e6e4;
+    --accent: #1f7a6d; --red: #c8352b; --paper: #fbf7ec; --paper-line: #e9e1cb;
+    --stamp: #4b3f9e; --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    --sans: Inter, "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 var(--sans); }
+  header { padding: 20px 28px 0; }
+  header h1 { margin: 0 0 4px; font-size: 20px; }
+  header p { margin: 0; color: var(--muted); }
+  nav { display: flex; gap: 6px; padding: 16px 28px; flex-wrap: wrap; }
+  nav button { font: inherit; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px;
+    background: var(--panel); cursor: pointer; color: var(--ink); }
+  nav button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  section { display: none; padding: 8px 28px 40px; }
+  section.on { display: block; }
+  .why { max-width: 760px; color: var(--muted); margin: 0 0 18px; }
+  .why b { color: var(--ink); }
+
+  /* 1. Time cards */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 22px; }
+  .tc { position: relative; background: var(--paper); padding: 26px 16px 14px; font-family: var(--mono);
+    font-size: 12px; box-shadow: 0 1px 2px rgb(0 0 0 / .08), 0 6px 16px rgb(0 0 0 / .06);
+    background-image: repeating-linear-gradient(transparent 0 21px, var(--paper-line) 21px 22px);
+    background-position: 0 70px; }
+  .tc::before { content: ""; position: absolute; top: 9px; left: 50%; width: 34px; height: 8px;
+    margin-left: -17px; border-radius: 4px; background: var(--bg); box-shadow: inset 0 1px 2px rgb(0 0 0 / .2); }
+  .tc h3 { margin: 0; font-size: 12px; letter-spacing: .12em; text-align: center; color: var(--muted); }
+  .tc .id { display: flex; justify-content: space-between; margin: 6px 0 2px; font-size: 15px; font-weight: 700; }
+  .tc .tt { font-family: var(--sans); font-size: 12px; min-height: 34px; color: var(--ink); }
+  .tc .row { display: grid; grid-template-columns: 22px 128px 1fr; height: 22px; align-items: center; }
+  .tc .row span { white-space: nowrap; font-size: 11.5px; color: var(--stamp); font-weight: 600; transform: rotate(-1.5deg); display: inline-block; }
+  .tc .row span.k { color: var(--muted); font-weight: 400; transform: none; }
+  .tc .foot { display: flex; justify-content: space-between; margin-top: 8px; color: var(--muted); }
+  .tc { padding-bottom: 48px; }
+  .tc .punch { position: absolute; right: 14px; bottom: 10px; padding: 3px 9px; border: 2.5px solid currentColor;
+    border-radius: 4px; font-weight: 800; letter-spacing: .08em; transform: rotate(-11deg); opacity: .85; }
+  .punch.merged { color: var(--red); }
+  .punch.ready { color: var(--accent); }
+  .punch.working { color: var(--stamp); border-style: dashed; }
+
+  /* 2. Departure board */
+  .board { background: #111513; border-radius: 10px; padding: 18px 20px; max-width: 980px;
+    box-shadow: inset 0 0 0 1px #2a302d; }
+  .board h2 { color: #f2c94c; margin: 0 0 12px; font: 700 16px var(--mono); letter-spacing: .2em; }
+  .dep { display: grid; grid-template-columns: 70px 70px 1fr 54px 120px; gap: 10px; align-items: center;
+    padding: 5px 0; border-top: 1px solid #222826; }
+  .dep.h { color: #8a948f; font: 11px var(--mono); letter-spacing: .15em; border-top: 0; }
+  .flap { display: inline-flex; gap: 2px; }
+  .flap i { font: 700 15px var(--mono); font-style: normal; color: #f6f3e8; background: #1e2422;
+    width: 15px; height: 22px; display: inline-grid; place-items: center; border-radius: 2px; position: relative;
+    animation: flip .5s ease-out both; }
+  .flap i::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #0b0d0c; }
+  .dep .dest { color: #f6f3e8; font: 14px var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase; }
+  .st i { color: #111; }
+  .st.merged i { background: #5c6661; color: #e9ece9; }
+  .st.ready i { background: #3fb68b; }
+  .st.working i { background: #f2c94c; }
+  .st.queued i { background: #2b3230; color: #8a948f; }
+  @keyframes flip { 0% { transform: rotateX(90deg); } 100% { transform: rotateX(0); } }
+
+  /* 3. Building */
+  .site { display: flex; gap: 40px; align-items: flex-end; }
+  .bld { position: relative; width: 420px; padding-top: 70px; }
+  .crane { position: absolute; top: 0; left: 300px; width: 6px; height: 100%; background:
+    repeating-linear-gradient(45deg, #e0a526 0 6px, #2b2b2b 6px 9px); }
+  .crane::before { content: ""; position: absolute; top: 8px; left: -240px; width: 300px; height: 6px;
+    background: repeating-linear-gradient(90deg, #e0a526 0 10px, #2b2b2b 10px 12px); }
+  .crane::after { content: ""; position: absolute; top: 14px; left: -150px; width: 1px; height: 40px; background: #2b2b2b; }
+  .fl { position: relative; height: 30px; margin: 0 40px 0 0; border: 1px solid #b7beba; border-bottom: 0;
+    display: flex; align-items: center; gap: 8px; padding: 0 10px; font-size: 12px; background: #fff; }
+  .fl:last-of-type { border-bottom: 1px solid #b7beba; }
+  .fl b { font-family: var(--mono); width: 54px; }
+  .fl .win { display: flex; gap: 6px; }
+  .fl .win i { width: 12px; height: 14px; border: 1px solid #9aa39f; background: #dfe4e2; }
+  .fl.merged .win i { background: #f6d77a; border-color: #c9a43c; }
+  .fl.ready { background: #eaf5f1; }
+  .fl.ready .win i { background: #bfe6d6; }
+  .fl.working { background: repeating-linear-gradient(135deg, #fff 0 8px, #f3f0e4 8px 10px); }
+  .fl.working::after { content: ""; position: absolute; right: -36px; top: 0; bottom: 0; width: 30px;
+    background: linear-gradient(#8f8f8f 0 0) 6px 0/2px 100% no-repeat, linear-gradient(#8f8f8f 0 0) 22px 0/2px 100% no-repeat,
+    linear-gradient(#8f8f8f 0 0) 0 50%/100% 2px no-repeat; }
+  .fl.queued { background: transparent; border-style: dashed; color: var(--muted); }
+  .fl .s { margin-left: auto; font-size: 11px; color: var(--muted); }
+  .ground { height: 14px; margin-right: 40px; background: #6f5a43; border-radius: 0 0 4px 4px; }
+  .legend { color: var(--muted); font-size: 13px; line-height: 2; }
+  .legend i { display: inline-block; width: 14px; height: 12px; margin-right: 6px; vertical-align: -1px; border: 1px solid #9aa39f; }
+
+  /* 4. Telex */
+  .tape { max-width: 760px; background: #fbf8ef; position: relative; padding: 16px 20px 16px 52px;
+    font: 13px/1.9 var(--mono); text-transform: uppercase; letter-spacing: .04em;
+    box-shadow: 0 1px 2px rgb(0 0 0 / .08), 0 8px 20px rgb(0 0 0 / .06);
+    -webkit-mask: radial-gradient(circle 5px at 6px 50%, transparent 98%, #000) 0 0/12px 14px repeat-y,
+      linear-gradient(#000 0 0) 12px 0/100% 100% no-repeat; }
+  .tape::before { content: ""; position: absolute; left: 22px; top: 0; bottom: 0; width: 10px;
+    background: radial-gradient(circle 2.5px, #d9d2bd 95%, transparent) 0 0/10px 10px repeat-y; }
+  .tape p { margin: 0; white-space: nowrap; overflow: hidden; border-right: 0; width: 0;
+    animation: type 0.9s steps(48, end) forwards; }
+  .tape p.ask { color: var(--red); font-weight: 700; }
+  .tape p.ok { color: var(--accent); }
+  .tape time { color: var(--muted); margin-right: 12px; }
+  @keyframes type { to { width: 100%; } }
+  .still * { animation: none !important; }
+  .still .tape p { width: auto; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Quatre visualisations « objet réel », dans l'esprit du ticket de caisse</h1>
+  <p>Données réelles du batch-24 (CR, état, rounds, coût, PR). Les heures sont inventées pour le prototype.</p>
+</header>
+<nav>
+  <button data-v="v1" aria-pressed="true">1 · Carte de pointage</button>
+  <button data-v="v2">2 · Tableau des départs</button>
+  <button data-v="v3">3 · L'immeuble en chantier</button>
+  <button data-v="v4">4 · Ruban de télex</button>
+</nav>
+
+<section id="v1" class="on">
+  <p class="why"><b>Page Batch.</b> Chaque CR est une carte de pointage d'usine. Chaque round est
+  une ligne tamponnée (coder, inspector, puis verifier). Le merge pose un tampon rouge. La carte
+  appartient à la même famille « objet papier » que le ticket des Coûts.</p>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section id="v2">
+  <p class="why"><b>Accueil ou page Batch.</b> Un panneau à palettes de gare, avec une ligne par
+  CR. La « destination » est le titre et le « quai » est le slot du Driver. Le statut retourne ses
+  palettes quand il change : RETARD au-delà de 2 rounds, PARTI une fois mergé.</p>
+  <div class="board"><h2>DÉPARTS · BATCH-24</h2><div id="deps"></div></div>
+</section>
+
+<section id="v3">
+  <p class="why"><b>Page Batch.</b> Le batch est un immeuble en construction. Chaque CR est un
+  étage, empilé dans l'ordre de la pile. Un étage en cours est sous échafaudage, un étage prêt est
+  vitré, et les fenêtres d'un étage mergé sont allumées. La grue représente le stack driver, qui
+  monte la pile. C'est un clin d'œil au nom « chantier ».</p>
+  <div class="site"><div class="bld" id="bld"><div class="crane"></div></div>
+  <div class="legend"><div><i style="background:#f6d77a"></i>mergé (fenêtres allumées)</div>
+  <div><i style="background:#bfe6d6"></i>prêt, avec sa PR</div>
+  <div><i style="background:repeating-linear-gradient(135deg,#fff 0 4px,#f3f0e4 4px 5px)"></i>en cours (échafaudage)</div>
+  <div><i style="border-style:dashed;background:none"></i>en attente d'un slot</div></div></div>
+</section>
+
+<section id="v4">
+  <p class="why"><b>Page Journal.</b> Les événements défilent sur la bande perforée d'un
+  téléscripteur, horodatés et terminés par STOP. Les asks sont en rouge, les hand-backs prêts en
+  vert. Les nouvelles lignes s'impriment caractère par caractère.</p>
+  <div class="tape" id="tape"></div>
+</section>
+
+<script>
+const CRS = [
+  ['CR-324', 'merged', 1, 282, 1.45, 'Picker: surface item'],
+  ['CR-325', 'merged', 1, 283, 1.19, 'Config: role descriptions'],
+  ['CR-326', 'merged', 1, 284, 2.37, 'Stack: first take'],
+  ['CR-327', 'merged', 4, 285, 6.80, 'Batch navigator, receipt as image'],
+  ['CR-328', 'merged', 1, 287, 1.82, 'Workers: bare writes: line'],
+  ['CR-329', 'merged', 1, 286, 1.03, 'Board: landed line'],
+  ['CR-330', 'merged', 1, 288, 1.47, 'Record: merged stack'],
+  ['CR-331', 'merged', 6, 289, 9.00, 'Copilot shipped default'],
+  ['CR-332', 'merged', 2, 290, 5.61, 'Gate pass over a rebase'],
+  ['CR-333', 'merged', 1, 291, 2.33, 'Take: nearest base with a PR'],
+  ['CR-334', 'merged', 2, 293, 2.48, 'Reload after compaction'],
+  ['CR-335', 'ready', 1, 295, 0.94, 'Round one: host matrix'],
+  ['CR-336', 'ready', 2, 296, 1.59, 'Board sees a landed stacked PR'],
+  ['CR-337', 'working', 1, 297, 1.39, 'Status: take stack trigger'],
+  ['CR-338', 'working', 3, null, 1.92, 'Drawer, chips and titles'],
+  ['CR-339', 'working', 2, 298, 1.65, 'Receipt: NOT FINISHED stamp'],
+  ['CR-340', 'working', 1, null, 0.91, 'Costs by model'],
+];
+const pad = (n) => String(n).padStart(2, '0');
+const time = (i, r, k) => `${pad(18 + Math.floor((i * 23 + r * 17 + k * 9) / 60) % 6)}:${pad((i * 23 + r * 17 + k * 9) % 60)}`;
+const LBL = { merged: 'MERGÉ', ready: 'PRÊT', working: 'EN COURS', queued: 'ATTENTE' };
+
+// 1. Time cards
+document.getElementById('cards').innerHTML = CRS.map(([cr, st, rounds, pr, cost, title], i) => {
+  let rows = '';
+  for (let r = 1; r <= rounds; r++) {
+    const last = r === rounds;
+    const done = st !== 'working' || !last;
+    rows += `<div class="row"><span class="k">R${r}</span><span>${time(i, r, 0)} ▣ coder</span><span>${done ? time(i, r, 1) + ' ▣ insp' : '…'}</span></div>`;
+  }
+  if (st !== 'working') rows += `<div class="row"><span class="k"></span><span>${time(i, rounds, 2)} ▣ verifier</span><span>VERIFIED</span></div>`;
+  return `<article class="tc"><h3>CARTE DE POINTAGE</h3><div class="id"><span>${cr}</span><span>N° ${cr.slice(3)}</span></div>
+    <div class="tt">${title}</div>${rows}<div class="foot"><span>${pr ? 'PR #' + pr : 'pas de PR'}</span><span>$${cost.toFixed(2)} · ${rounds} rd</span></div>
+    <span class="punch ${st}">${LBL[st]}</span></article>`;
+}).join('');
+
+// 2. Departure board
+const flap = (s, w, d = 0) => `<span class="flap">${s.padEnd(w).slice(0, w).split('').map((c, k) => `<i style="animation-delay:${d + k * 40}ms">${c === ' ' ? '&nbsp;' : c}</i>`).join('')}</span>`;
+let slot = 0;
+document.getElementById('deps').innerHTML = `<div class="dep h"><span>HEURE</span><span>CR</span><span>DESTINATION</span><span>QUAI</span><span>STATUT</span></div>` +
+  CRS.slice(-10).map(([cr, st, rounds, pr, cost, title], i) => {
+    const quai = st === 'working' ? String(++slot) : '-';
+    const lab = st === 'working' && rounds > 2 ? 'RETARD' : { merged: 'PARTI', ready: 'A QUAI', working: 'R' + rounds, queued: 'ATTENTE' }[st];
+    return `<div class="dep">${flap(time(i, 1, 0), 5, i * 60)}${flap(cr.slice(3), 3, i * 60)}<span class="dest">${title}</span>${flap(quai, 2, i * 60)}<span class="st ${st}">${flap(lab, 7, i * 60 + 200)}</span></div>`;
+  }).join('');
+
+// 3. Building: earliest at the bottom
+const bld = document.getElementById('bld');
+bld.insertAdjacentHTML('beforeend', [...CRS].reverse().map(([cr, st, rounds, pr, cost, title]) =>
+  `<div class="fl ${st}"><b>${cr}</b><span class="win">${'<i></i>'.repeat(Math.min(rounds, 6))}</span><span>${title}</span><span class="s">${LBL[st]}</span></div>`).join('') + '<div class="ground"></div>');
+
+// 4. Telex
+const EV = [
+  ['22:18', 'FOREMAN TAKE CR-335 SLOT 1', ''], ['22:41', 'CR-335 ROUND 1 SHIP 5B86C93', ''],
+  ['23:02', 'CR-335 HANDBACK READY PR 295', 'ok'], ['23:10', 'CR-336 ROUND 2 INSPECTOR PASS', ''],
+  ['23:31', 'CR-336 VERIFIED AT 2A514CB', ''], ['23:33', 'CR-336 HANDBACK READY PR 296', 'ok'],
+  ['23:34', 'FOREMAN TAKE STACK CR-335 CR-336', ''], ['23:35', 'STACK GATE WINDOWS START', ''],
+  ['23:52', 'CR-338 ROUND 3 OF 3 CODER', ''], ['00:05', 'ASK A-2 STACK READY TO MERGE', 'ask'],
+];
+document.getElementById('tape').innerHTML = EV.map(([t, s, k], i) =>
+  `<p class="${k}" style="animation-delay:${i * 0.35}s"><time>${t}</time>${s} STOP</p>`).join('');
+
+// tabs (also by URL hash: #v2)
+const show = (v) => {
+  document.querySelectorAll('nav button').forEach((x) => x.setAttribute('aria-pressed', x.dataset.v === v));
+  document.querySelectorAll('section').forEach((s) => s.classList.toggle('on', s.id === v));
+};
+document.querySelectorAll('nav button').forEach((b) => b.onclick = () => show(b.dataset.v));
+if (location.hash) show(location.hash.slice(1));
+if (location.search.includes('still')) document.documentElement.classList.add('still');
+</script>
+</body>
+</html>
