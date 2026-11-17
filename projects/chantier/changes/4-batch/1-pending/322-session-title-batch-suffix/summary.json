@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Session titles put the batch number last",
+  "summary": "Session titles put the batch number last, in parentheses: '[Battle] 💬 Chantier · CoS (Batch 23)', '[Battle] ⚙️ Chantier · Foreman (Batch 23)'.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "c59f5c66d7963f1d45e1f2befac9dfb40ac7146d7252a683ad996bc6795f415b",
+    "03-change-spec.md": "571cc7c202f94907025110b33a29dffab7d674088ae3eabc68200c82a990d77a",
+    "intake/request.md": "cc9ad62204abf9b763c11124b411e5945c8cdc15dfbe54d63d0fae9480c1350e"
+  },
+  "summarized": "2026-11-17T10:16:17Z"
+}
