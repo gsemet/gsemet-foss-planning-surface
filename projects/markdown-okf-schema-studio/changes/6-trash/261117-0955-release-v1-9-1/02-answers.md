@@ -16,3 +16,9 @@ Decided by the Chief of Staff:
   fails again, one recovery dispatch of `release.yml` with the tag, as for v1.9.0, and it is
   reported as a failure of the fix.
 - No hero image (no visual change); the announcement thread is drafted, never posted.
+
+## 2026-11-17: discarded, already done
+
+Owner, 2026-11-17: « 334 est deja faite je crois. reverifie ce qui est deja fait et discard ».
+
+Checked by the Chief of Staff: v1.9.1 published on 2026-11-14 (work/04-report.md), success criterion met.
