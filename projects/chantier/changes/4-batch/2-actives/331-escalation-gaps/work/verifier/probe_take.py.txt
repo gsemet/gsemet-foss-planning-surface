@@ -1,0 +1,24 @@
+import os
+
+from batch_helpers import FROM_AGENTS_MD, host, prepared, record
+
+LOG = os.environ["PROBE_LOG"]
+
+
+def test_probe(repo, chantier, monkeypatch):
+    host(monkeypatch, "copilot")
+    if os.environ.get("PROBE_USER"):
+        (repo / "chantier.yaml").write_text(os.environ["PROBE_USER"].replace("|", "\n"), "utf-8")
+    code, _, err = chantier("open", str(prepared(repo, chantier, "Esc coder")), *FROM_AGENTS_MD)
+    assert code == 0, err
+    monkeypatch.setenv("CHANTIER_BATCH", record(repo)["id"])
+    assert chantier("foreman", "set", "local_foreman_t", "--epoch", 1)[0] == 0
+    crid = record(repo)["crs"][0]["id"]
+    res = ["record escalation coder: %r" % record(repo).get("escalation", {}).get("coder")]
+    for cmd in ("take", "round", "handoff"):
+        args = [cmd, crid] + (["--epoch", "1"] if cmd == "take" else [])
+        code, out, err = chantier(*args)
+        res.append(f"== {cmd} exit={code} lines={len(out)} err={err[:200]}")
+        res += [ln[:170] for ln in out if ln.startswith(("team:", "escalate:", "coder:")) or "contract (a generic" in ln]
+        res.append("heading count: %d" % sum("contract (a generic agent" in ln for ln in out))
+    open(LOG, "w", encoding="utf-8").write("\n".join(res) + "\n")

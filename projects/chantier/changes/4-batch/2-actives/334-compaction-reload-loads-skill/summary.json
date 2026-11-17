@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The reload after a compaction loads the role's skill again",
+  "summary": "Specified, revised after the spec critic: the compaction hook tells the session its role and to call its chantier skill with reload; the skill follows the seat, the router delegates, an open pane keeps its page. One open question: the free seat.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "4774e90996899d58466eee9bd365a15df4e6a11a2a8d1c3a6f035e16213051fa",
+    "03-change-spec.md": "7be8b3e0161f1a7b5840a5ed408e20a02b8393adc21821f7f4765a512604791e",
+    "intake/request.md": "9024f5915cb27ad2200a15835de265e90fb4d1aed7102dac328dfbcf8df5602c"
+  },
+  "summarized": "2026-11-17T19:01:27Z"
+}
