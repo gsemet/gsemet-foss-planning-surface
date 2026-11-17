@@ -2,19 +2,23 @@
 # requires-python = ">=3.12"
 # dependencies = []
 # ///
-"""Validate every project bundle of the planning surface against the shared schemas.
+"""Validate the planning folders of the surface's projects (all, or the ones named).
 
-A project is a bundle once it has an `index.md` at its root (projects/<name>/index.md); the others
-are listed as not yet bundles and fail nothing.
+The format of a change request belongs to chantier: the surface checks only what chantier does
+not check yet, and runs chantier for the rest.
 
-For each bundle:
+For each project with a `changes/` folder:
 
-1. okf-schema validates it against `_schemas/`. Every error fails, and every warning except W1
-   (recommended `title`): a change request's frontmatter is minimal on purpose, its title is the
-   body's heading.
-2. Each change request (a folder with `01-intent.md`) is placed from its path: its stage and its
-   priority are derived from the folder, never written in the frontmatter. Its frontmatter `id` must
-   be the folder's name. The table of change requests is printed.
+1. Each change request (a folder with `01-intent.md`) is placed from its path: its stage and its
+   priority come from the folder. A change request outside a stage folder, a priority folder
+   outside `2-backlog`, or a backlog item without a P1..P4 folder fails. The table of change
+   requests is printed.
+2. `chantier summary lint` lists the change requests whose `summary.json` (read by chantier's
+   board) is missing or late. It is reported and fails nothing (chantier: a late summary blocks
+   nothing); only a chantier that cannot run fails.
+
+chantier runs from its GitHub tag through `uvx`, with the surface's `uv.toml` passed explicitly:
+`uvx` reads only the user's uv configuration, not the one of the current folder.
 """
 
 from __future__ import annotations
@@ -24,10 +28,13 @@ import subprocess
 import sys
 from pathlib import Path
 
-OKF_SCHEMA = ["uvx", "--python", "3.12", "--from", "okf-schema==0.17.0", "okf-schema"]
 ROOT = Path(__file__).resolve().parent.parent
-SCHEMAS = ROOT / "_schemas"
-TOLERATED_WARNINGS = {"W1"}
+CHANTIER_REF = "v0.11.0"
+CHANTIER = [
+    "uvx", "--quiet", "--config-file", str(ROOT / "uv.toml"),
+    "--from", f"git+https://github.com/gsemet/chantier@{CHANTIER_REF}", "chantier",
+]
+LINT_GAPS = 2  # chantier summary lint's exit code when it lists gaps
 
 # Folder under changes/ -> stage. A stage folder may hold P1..P4 priority folders (the backlog).
 STAGES = {
@@ -41,37 +48,6 @@ STAGES = {
     "6-trash": "trash",
 }
 PRIORITY = re.compile(r"^P[1-4]$")
-WARNING = re.compile(r"WARNING \[(W\d+)\]")
-ID_LINE = re.compile(r"^id:\s*['\"]?([^'\"\s]+)", re.MULTILINE)
-
-
-def run_okf_schema(project: Path) -> bool:
-    result = subprocess.run(
-        [*OKF_SCHEMA, "validate", "--path", str(project), "--schema-db", str(SCHEMAS),
-         "--check-links"],
-        check=False, capture_output=True, text=True, encoding="utf-8", errors="replace",
-    )
-    output = result.stdout + result.stderr
-    blocking = [code for code in WARNING.findall(output) if code not in TOLERATED_WARNINGS]
-    shown: list[str] = []
-    header: str | None = None  # a file's path line, printed only if one of its findings is shown
-    for line in output.splitlines():
-        if not line.strip():
-            continue
-        if not line.startswith(" "):
-            if line.startswith(("Bundle", "Validation")):
-                shown.append(line)
-            else:
-                header = line
-            continue
-        if any(f"[{code}]" in line for code in TOLERATED_WARNINGS):
-            continue
-        if header is not None:
-            shown.append(header)
-            header = None
-        shown.append(line)
-    print("\n".join(shown))
-    return result.returncode == 0 and not blocking
 
 
 def place(intent: Path, changes: Path) -> tuple[str, str | None, str | None]:
@@ -90,29 +66,43 @@ def place(intent: Path, changes: Path) -> tuple[str, str | None, str | None]:
     return stage, priority, None
 
 
-def check_change_requests(project: Path) -> bool:
-    changes = project / "changes"
-    if not changes.is_dir():
-        return True
+def check_change_requests(changes: Path) -> bool:
     ok = True
     rows = []
     for intent in sorted(changes.rglob("01-intent.md")):
-        folder = intent.parent.name
         stage, priority, problem = place(intent, changes)
-        match = ID_LINE.search(intent.read_text(encoding="utf-8").split("\n---", 1)[0])
-        if match is None or match.group(1) != folder:
-            found = match.group(1) if match else "none"
-            problem = problem or f"frontmatter id {found} is not the folder name {folder}"
         if problem:
             ok = False
             print(f"  ERROR   {intent.relative_to(ROOT)}: {problem}")
-        rows.append((folder, stage, priority or "-"))
+        rows.append((intent.parent.name, stage, priority or "-"))
     if rows:
         width = max(len(r[0]) for r in rows)
         print(f"  {'change request':<{width}}  {'stage':<13}  priority")
         for folder, stage, priority in rows:
             print(f"  {folder:<{width}}  {stage:<13}  {priority}")
     return ok
+
+
+def summary_lint(project: Path) -> bool:
+    """Print chantier's summary lint; False only when chantier itself could not run."""
+    result = subprocess.run(
+        [*CHANTIER, "--project", str(project), "summary", "lint"],
+        check=False, capture_output=True, text=True, encoding="utf-8", errors="replace",
+        cwd=ROOT,
+    )
+    lines = [line for line in (result.stdout + result.stderr).splitlines() if line.strip()]
+    if result.returncode not in (0, LINT_GAPS) or (lines and lines[0].startswith("error")):
+        print(f"  ERROR   chantier summary lint could not run (exit {result.returncode}):")
+        for line in lines:
+            print(f"    {line}")
+        return False
+    if result.returncode == LINT_GAPS:
+        print("  NOTE    chantier summary lint (fails nothing):")
+        for line in lines:
+            print(f"    {line.split(' → ', 1)[0]}")
+    else:
+        print(f"  chantier summary lint: {lines[0] if lines else 'no gap'}")
+    return True
 
 
 def main(argv: list[str]) -> int:
@@ -126,18 +116,19 @@ def main(argv: list[str]) -> int:
             return 2
     failed: list[str] = []
     for project in projects:
-        if not (project / "index.md").is_file():
-            print(f"-- {project.name}: not a bundle yet (no index.md), skipped")
+        changes = project / "changes"
+        if not changes.is_dir():
+            print(f"-- {project.name}: no changes/ folder, skipped")
             continue
         print(f"== {project.name}", flush=True)
-        valid = run_okf_schema(project)
-        placed = check_change_requests(project)
-        if not (valid and placed):
+        placed = check_change_requests(changes)
+        linted = summary_lint(project)
+        if not (placed and linted):
             failed.append(project.name)
     if failed:
         print(f"FAILED: {', '.join(failed)}", file=sys.stderr)
         return 1
-    print("all bundles conformant")
+    print("all planning folders conformant")
     return 0
 
 
