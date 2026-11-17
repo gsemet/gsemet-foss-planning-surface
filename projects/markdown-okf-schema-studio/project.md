@@ -28,6 +28,8 @@ Flavored Markdown, Sphinx MyST, OKF and OKF-Schema.
 The project's own `AGENTS.md` and `.agents/constitution.md` rule every change (build, tests,
 commits, PRs, requirements, releases). Completion gate: `just preflight`.
 
+- Archive in the PR: no (the repository gitignores `.agents/changes/`; the CRs live on this surface).
+
 ## Issues
 
 Open tickets: [GitHub issues](https://github.com/gsemet/markdown-okf-schema-studio/issues).
