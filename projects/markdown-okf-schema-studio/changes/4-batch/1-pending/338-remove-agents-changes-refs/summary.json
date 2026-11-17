@@ -1,12 +1,13 @@
 {
   "schema": 1,
   "title": "Remove the Studio repo's references to .agents/changes/",
-  "summary": "Point the guidelines, the QA skill and docs at the planning surface's folder; decide whether the orchestrator generator (just orchestrator) still has a use. Mission order from the OKF Studio Chief of Staff, 2026-11-17; not triaged.",
+  "summary": "Point the guidelines, the QA skill and docs at the planning surface's folder. Added to batch-05 on the owner's ok (2026-11-17); the Driver asks before removing the just orchestrator generator.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
+    "02-answers.md": "a76ff32c7f18176930f274a6bb403149cf253151e39f861fe659530d9f0550b6",
     "intake/request.md": "2b58bb9ac04b6bcf7e3e5dd84f9a221f339bb57c450203945cb92bc1638df7b8"
   },
-  "summarized": "2026-11-17T10:14:30Z"
+  "summarized": "2026-11-17T10:18:37Z"
 }
