@@ -19,3 +19,11 @@ The reference picture: `intake/reference.jpg` (a card "Where the money went", by
 - money-Q6 (columns): as in the picture, colour swatch, provider logo, model name and version, the
   number of calls, and the cost; the calls column is labelled "turns" (not "runs").
 - money-Q7 (logos): the providers' real logos (SVG icons), as in the picture.
+- money-Q8 (logo source): vendor the marks of Lobe Icons (MIT, coloured, as in the picture) as
+  inline SVG, with their licence file beside them and a docs line that the marks are their owners'
+  trademarks.
+- money-Q9 (providers): Anthropic (Claude, on both hosts; Copilot's Claude models show as Claude),
+  OpenAI (GPT), Google (Gemini) and xAI (Grok) get a logo and a parsed name; any other model shows
+  its exact id with no logo, never a guessed one.
+- money-Q10 (colour): one colour per model, from a fixed palette in cost order (Opus and Sonnet stay
+  apart in the bar).

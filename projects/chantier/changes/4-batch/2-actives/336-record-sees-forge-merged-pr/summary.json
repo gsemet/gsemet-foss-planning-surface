@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The board sees a stacked PR that landed with its base",
+  "summary": "Spec revised after the spec critic: the PRs page marks a PR merged into another CR's branch as landed when its base PR merged later into main; line text in board/seen.py; no patch-id check (user); same-second order unproved.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "dc049c97650274e842dbb9a051771f528a5b299d0256ff91ab9f4c2e31175abe",
+    "03-change-spec.md": "54c4d9ee752d2f0f18bed88b100708b8bdacb2a14f53830abe6310568e0f43d2",
+    "intake/request.md": "6a1d6965966f0c59dbe496f28f82233a1a15dc194dc0ca41d85c0386673f554d"
+  },
+  "summarized": "2026-11-17T22:06:45Z"
+}

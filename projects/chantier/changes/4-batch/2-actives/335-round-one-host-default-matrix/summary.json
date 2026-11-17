@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Round 1 briefs name the host and default matrix",
+  "summary": "Specified, cards only: a CR whose behaviour depends on the host or on shipped defaults names its matrix in the spec; round 1's Coder and Inspector carry it, and a Verifier probes it before the first push.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "8802620a3d60c8b3729af5578f5c9cc65789bf0bccca8d57f3af1da8536cc35a",
+    "03-change-spec.md": "88e1e4eadc2b5262128d6ac25924732b63525738aca443425d3591422087c0e6",
+    "intake/request.md": "1d0d607e096074e3e3d7bd2f2b24cdb59ff2236ddb146242e56b25f318a930c3"
+  },
+  "summarized": "2026-11-17T22:06:31Z"
+}

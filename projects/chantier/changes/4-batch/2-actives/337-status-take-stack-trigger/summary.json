@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Status prints a trigger line when the first stack is due",
+  "summary": "Specified, not grilled (user put it in the batch): status prints 'stack: take stack now' for the batch's first stack only, while two CRs are ready with a PR.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "483cdb164a246fd7dd58a2663f829097651e86266fc9c6e340b7195736c5500f",
+    "03-change-spec.md": "bd45328eeccb9a755bf9965e3e6f5bafef1b5765d52c43816b5a1278c983de5a",
+    "intake/request.md": "a7038094de1731133a5f739f8419938e3aac991d108e1842f0af8939ec2cf928"
+  },
+  "summarized": "2026-11-17T22:07:00Z"
+}

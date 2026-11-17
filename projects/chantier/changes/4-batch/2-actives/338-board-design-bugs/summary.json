@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The board's drawer, Kanban priority chips and CR titles render correctly",
+  "summary": "Specified, in batch-24: the drawer's file list without the .nm/.ind collisions, priority toggles with no border or square, front matter as a muted key/value list, and titles from the first heading after any front matter, no more '---'.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "2ad776da6f56e0d3887efdacff10b543a112a145965091010930db8ed917cbb7",
+    "03-change-spec.md": "86cf8f2f9cc22cd0db721d5c4c3ecab5fffa101e378a04d3aa68eefc6f4f31e5",
+    "intake/request.md": "9a7e02eb5736232e8318f14dd55b5d50a224ae114e4fb2d46785758cc00de870"
+  },
+  "summarized": "2026-11-17T22:01:15Z"
+}

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The board's web UI realigned to one design on every page, every word translated",
+  "summary": "One card, chip, filter chip, segmented control and KPI tile; type 11/12/14/16/24, radii 6/10/full; no side bars; the Costs paper ticket kept; every string through en/fr, an AGENTS.md rule and two just check tests; before/after shots.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "4c01e5084f57470b452c1fa6e02edb37d593fcca65f80d2e29de142234aa5c11",
+    "03-change-spec.md": "fe34c9bd34b5e48c3195c0681d29f37a7739d6baefc6478f1005a796cdbc4f6c",
+    "intake/request.md": "2c362b5a860b0764d77f74d4aa8845ab96bc1e7c3237308535807635b4b3fa98",
+    "intake/ux-qa.md": "95cd9268b05721bff64c1968f86741967d210176c4c32c7f4495894407f9e258"
+  },
+  "summarized": "2026-11-17T22:08:58Z"
+}

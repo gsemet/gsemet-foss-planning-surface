@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A CR Driver starts in its worktree; background tasks stop when done",
+  "summary": "The mod starts a CR Driver in its worktree (or the project's root), never its CR folder. No shell enters a CR folder; each background task is stopped once read, all before a hand-back except a running long gate's shell. The Foreman stops an ended Driver that wakes. No CLI change; just mod owed.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "925c5bfbd4151368e8acaa4f649bf1f4171e861bc1a94d505af45ac0ce37684b",
+    "03-change-spec.md": "2398b417d2343f9e6d941614a6f65b44a9e78a5969d5e899c0965b955a6d7802",
+    "intake/request.md": "d4c5acd53fc0046f1ddecdd01eb5835c9e55943e21e833454f15a4b1e42589f5"
+  },
+  "summarized": "2026-11-17T22:12:17Z"
+}

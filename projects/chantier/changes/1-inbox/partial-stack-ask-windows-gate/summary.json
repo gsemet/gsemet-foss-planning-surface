@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The partial-stack ask says whether the local gate ran at its top",
+  "summary": "Specified, settled by the Chief of Staff: under a rule asking the stack's top for a local run, the stack driver gates each new top of the mergeable part (no rerun on a pass or carry); the partial ask states passed/failed/not run and goes only on passed. Cards only.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "828fc7e1e0555c56a5a5521f2a8b2c48ba0cd1ea586682b9e330f167c7c10198",
+    "03-change-spec.md": "46a96b8d75d2d89ad318adf4bbdfffb4b534f24f6b8cc71e3ebb691bb579a8a6",
+    "intake/request.md": "a6e2c2b10225cbe90f0b7e66a8a8ee95595390afc59f5061b0fecd7d0ce3756f"
+  },
+  "summarized": "2026-11-17T21:57:13Z"
+}

@@ -1,0 +1,9 @@
+## 2026-11-17, CR-324..CR-334 (batch-24)
+
+- [chantier] The first `take stack` was missed when CR-324 and CR-326 were handed back ready with a PR (first stack agent at 18:39, first ask A-1 at 18:48), though the card's rule exists: print a trigger line in `status` (e.g. "stack: take stack now") when two CRs are ready with a PR, so it does not rest on the Foreman remembering the card.
+- [chantier] An ended Driver's leftover background tasks woke the Foreman 75 times, resent hand-backs, and one `until grep ... sleep` shell with its cwd in the CR-330 folder locked it on Windows (WinError 32), delaying the record of CR-330's merge from 20:29 to 21:25: the Driver card requires stopping one's own background tasks before hand-back and running them with a cwd outside any CR folder or worktree, and the Foreman card names TaskStop of an ended Driver's tasks.
+- [chantier] The record held CR-330 as ready while its content was on main (the partial stack merged by the user at 18:58, PR 288 merged on the forge), so the board said "not landed" and `forge-stack create` was refused (HTTP 422 on the merged PR): the CLI recognises a PR merged on the forge, or whose patch-id is on main, as landed and tells the Foreman to record it.
+- [chantier] A partial stack was merged before the local Windows `just scenario` had run at its top (only one `gate` event, for CR-334 at 796686b): the `stack-ready-to-merge` ask for a partial stack states whether the Windows gate ran at its top, and the card names it as a condition of that ask.
+- [chantier] CR-331 took 6 rounds and the batch's top cost ($9.00), needing two user grants of rounds (O-6, O-15), because the Copilot shipped-default path was found by the Verifier only at round 4 and still failed at round 5: the Coder and Inspector briefs name the host and shipped-default matrix from round 1, and the Verifier's probe of it runs before round 1's ship.
+
+(critic: kept 5, dropped 5)

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Costs receipt: a red NOT FINISHED stamp on a batch that is not closed",
+  "summary": "Specified: the Costs receipt of a batch whose state is not closed carries a red, angled stamp (NOT FINISHED / PAS FINI), on the page and in its copied image; closed receipts unchanged.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "798e63e6c5c02f7c235568d6b1faf23e0a3f61ee8fe80ab7f98fe75cbdc99db2",
+    "03-change-spec.md": "9c7f3cea99ca0f165a4ee5d242a5cc06f437a012314ee669f1542d394238fd70",
+    "intake/request.md": "634c7db6a33cc6f535f0a1312ec403fee0d07f16f781c3e9343384e30bd96191"
+  },
+  "summarized": "2026-11-17T22:15:17Z"
+}

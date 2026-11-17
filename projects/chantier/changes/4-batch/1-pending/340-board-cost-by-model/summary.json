@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The board's Costs page shows where the money went, by model",
+  "summary": "Specified, no open question: a Costs card for the navigator's batch, by model or by role, a bar against the budget, rows with Lobe Icons logos, turns and cost, a grey Chief of Staff row; close records per-model figures.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "0de3a3c50ac5c93879082a39ec24425208fa31b6a93475144e4c48ed671c9f3c",
+    "03-change-spec.md": "8037bb969b1c84be0bd1a5c6c31c1da78b661a448819e5b72ea07d438a0eeb95",
+    "intake/request.md": "96dd3dc1154f33a032c49da57675946e61f90c3ede7c75c2a42bf0bd750e7f0d"
+  },
+  "summarized": "2026-11-17T22:15:26Z"
+}
