@@ -25,4 +25,13 @@
   of the same planning surface, read from their folders; another surface or repository on the
   machine is not seen.
 
+## Round 3, the spec-writer's questions (2026-11-17)
+
+- two-sessions-Q7 (the one-board rule in a project with no external surface, planning in its own
+  `.agents/changes/`): A, everywhere. One board per repository too: one rule everywhere; the
+  `remote_board` scenario step changes accordingly.
+- two-sessions-Q8 (the board keeps its PID, address and version in `chantier/board.json`, in the
+  git folder, beside its key): A, yes. Same file, never published; `AGENTS.md`'s sentence says
+  the board keeps there its key and the running board's address, PID and version.
+
 The user asked to include this CR in the running batch-23.

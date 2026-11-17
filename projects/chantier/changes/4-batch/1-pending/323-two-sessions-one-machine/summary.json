@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Two chantier sessions on one machine",
+  "summary": "One board per surface or repository (a second board prints the running one's link, or says why it will not start); each session stages only its own project's folder; preflight P14 and status show the other batches running on the same surface, with their Drivers.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "88859a8e1ac52e38094ac818dc6ad045db468ea789a5963f97ebed428bbc822c",
+    "02-answers.md": "45d504a4028f305a5b046c1f8c4d1a5440d21f3690e866a36a381c7a3f71f291",
+    "03-change-spec.md": "a2b39dacfa6f6374625d09416c000c67451331caa26bfe18df39d7e134b89b4f",
+    "intake/request.md": "b90feabd7a3ad8061c28104f2bfe3ff40e0b6c78c562ecb3eb011e2ee8de7815"
+  },
+  "summarized": "2026-11-17T10:31:50Z"
+}
