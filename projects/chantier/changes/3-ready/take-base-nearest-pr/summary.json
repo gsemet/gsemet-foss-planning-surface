@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "take bases a stack CR on the nearest earlier CR with a PR",
+  "summary": "Specified, no open question: in a stack batch take starts a CR on the nearest earlier CR with a PR, else main; in-batch stack-driver runs keep the stack current as today, one final-order run at the batch's end sets one linear stack.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "da8ceb9a993b78d256be9b6bc41e0e85863f005aa30985c53e2b53f2f49b2f84",
+    "03-change-spec.md": "1992e6375e6ff01af807d95912d8c9da91a2225dbaf7f77662461ba69d455ced",
+    "intake/request.md": "f3bbe30b41950714e135f2f89a07815998bc4a70c1d3c14df8567789a5899ffd"
+  },
+  "summarized": "2026-11-17T17:40:58Z"
+}

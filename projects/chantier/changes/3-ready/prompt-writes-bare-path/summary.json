@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Workers get a bare writes: line to copy, Verifiers a scratch folder inside work/",
+  "summary": "Specified, no open question: take, round and handoff print each worker's writes: line bare and a scratch: folder under work/ (gitignored, its own git repo, called explicitly) for Verifiers' own throwaways; cards stop composing writes: from folder:/worktree:.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "17d61ba0102516ea2351659efcd2c526503234116a71ca9a6a47d15de5f99678",
+    "03-change-spec.md": "766db0e273ae4dbdd1da2fa3160c2202a9b3d2bb18970216a0afe07f5e6a92d7",
+    "intake/request.md": "0e8c30aec4d1002e3dac9b028fbe166baab792e5038a39f5d837faed931b21b9"
+  },
+  "summarized": "2026-11-17T17:37:10Z"
+}

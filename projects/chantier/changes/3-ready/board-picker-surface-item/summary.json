@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Board picker: the planning surface as the menu's header, and it opens the overview from any page",
+  "summary": "Specified: a click on the picker's surface item opens the overview from any page (the click handler in main.js switches to Home; router unchanged); the surface becomes the menu's bold header with 'overview - N projects', a separator, projects indented.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "3b40162ee72702ca9063a35b450965301583fb8a35525842267f072197e517fc",
+    "03-change-spec.md": "b68da17e9bc684b4ea705ad649c1cab838c91a490716a02e07a07fabcca1a40f",
+    "intake/request.md": "03c1950f3478a6fae59544f7b83f859b8a3a1e5b4e0661812826d9b8384cb161"
+  },
+  "summarized": "2026-11-17T16:07:46Z"
+}

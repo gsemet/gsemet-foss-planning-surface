@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "title": "Web board Batch view: batch history navigation, working dependency cards, a mode tooltip",
-  "summary": "Filed, not grilled: previous/next batch navigation, dependency cards with correct arrowheads, a tooltip on the batch mode; the merged column, state grouping and level label went to board-visual-refresh.",
+  "title": "Web board Batch view: working dependency cards and a mode tooltip",
+  "summary": "Filed, not grilled: dependency cards with correct arrowheads and a tooltip on the batch mode; batch navigation went to board-batch-navigator, the merged column, state grouping and level label to board-visual-refresh.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "ecf5be06b16fc83b3b87b2a0e5ebe4943103f4e09efa42d4a30411e495deee45",
+    "02-answers.md": "6195cd3bf7c35f4484b794b486136a1813ea1cba4d5317124950de338c27243e",
     "intake/request.md": "1bb22915647f50999482cd6f8b035c44b923b9ff36fee208ccc5cc31215af8de"
   },
-  "summarized": "2026-11-17T09:45:03Z"
+  "summarized": "2026-11-17T17:41:11Z"
 }

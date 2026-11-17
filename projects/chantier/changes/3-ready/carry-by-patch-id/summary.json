@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Change Specification: the carry compares exact patch-ids and is recorded at the restack",
+  "summary": "Specified after three critiques: the gate and verdict carry compares exact patch-ids (git 2.39+) of the CR's own commits above the branch each head sits on; ship records a carry event; ship --conflict voids earlier judgments.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "b3f86a95f5a987f369be182b0590999613391be97db0473887483f5c29c2ae2c",
+    "03-change-spec.md": "43eba0953a503fa8b3c2d24b203bd90874ebab103435bfa69f51bb824eb777cc",
+    "intake/request.md": "8c3fb51ac1d0d9a7c4fc2e80a5f9f7063392673ad384541657afc27b452df88f"
+  },
+  "summarized": "2026-11-17T17:40:11Z"
+}

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Board: Kanban scrollbar, teal priority colours, pastel style",
+  "summary": "Specified, no open question: Kanban horizontal scrollbar always visible; P1-P4 teal gradient on the Pn chip and left border (Kanban, Triage, panel); pastel state chips, avatars, Costs cards; column headers in the accent tint; tinted sidebar; project marks off the state hues.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "7b99421da508be6c2e159428af9f5c0e47bf99b0f77f2e331dfe61a38761f922",
+    "03-change-spec.md": "8cd2f582845e3fa407721c688c30a048e932b6260ce5e6eeb0eb40a445ed9a85",
+    "intake/request.md": "b3940173db1b0a07d36798fff63721ba8a49f6b4a3e11b2dc99e11eed66b4f5a"
+  },
+  "summarized": "2026-11-17T17:37:00Z"
+}

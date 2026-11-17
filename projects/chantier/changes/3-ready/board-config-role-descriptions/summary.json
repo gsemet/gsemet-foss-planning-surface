@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Board Configuration page: each role's description",
+  "summary": "Specified: each role on the board's Configuration page shows, in grey under its name, its agent file's description line (without the prompt line), read by the CLI; no text written for the board.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "bd190d234fd915d37007c665f01af4dda3c26fb67bd1e7985b5ebb3e40ff54ff",
+    "03-change-spec.md": "dcacba28c16e8cd6d65b8e7db91e3ba57f8487cad81c7eac4448f710582bfc37",
+    "intake/request.md": "bd71eaa7c13fe0a84f37461685cbf9fd9aad86ec3f4928f2e91bbfc3e444d01c"
+  },
+  "summarized": "2026-11-17T16:06:37Z"
+}

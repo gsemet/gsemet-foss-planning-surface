@@ -46,3 +46,23 @@ the card's background stays white. This replaces kanban-Q3's answer.
 ### The sidebar (the user, after pastel-Q4)
 
 The user: also tint the left sidebar's background lightly (on top of pastel-Q4's variant A).
+## Spec questions (2026-11-17, after the spec-writer)
+
+### colours-Q11: where the priority colour shows
+
+The user chose: the `Pn` chip and the card's left border everywhere the card is drawn (Kanban,
+Triage, the panel's head), not on the Kanban only.
+
+### colours-Q12: the project avatars' colours
+
+The user chose the recommended answer: this CR moves the project-mark colours that look like a
+state colour (blocked, working, local, draft/waits) to hues no state uses, to keep the CR colour
+code.
+
+Settled by the Chief of Staff: the Costs figure cards take the accent's teal tint (no violet,
+warm or blue tint, which read as states); a P4 chip close to the 3-ready chip is acceptable.
+### colours-Q13: the Kanban column headers
+
+Tinting each header in its column's hue would make Backlog, Grill and 3-ready look like the
+draft, waits and local states. The user chose the recommended answer: one neutral pastel (the
+accent's tint) for every header; the column dots stay as they are.

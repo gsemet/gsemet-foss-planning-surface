@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A Driver force-pushes only its own branch; batch-23's refusal with the rule set recorded",
+  "summary": "Specified: P10's force-push rule and the git -C push kept; the host reference records that batch-23's classifier refused a matching push; a Driver force-pushes only its own branch; a refusal keeps the route, no question for a legitimate push; no in-worktree trial.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "521b709da60b3f749117950b29485ab8aa21dc04ae63b0bfb2837ea2793a8174",
+    "03-change-spec.md": "060ca17723977949d6c4f255625ede30b0eb20263937273b22c8c5dc97ef40c5",
+    "intake/request.md": "052fc77f6d6ffbce0929bd69a4dcc7878aab59e6cbb8374711441042a2cbfd05"
+  },
+  "summarized": "2026-11-17T17:36:35Z"
+}

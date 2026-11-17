@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Escalation gaps: escalate the code writers after a failed round, configured per host",
+  "summary": "Specified after two critiques: blocked rounds: or blocked twice escalates the next rounds' Coder; only coder, debugger, conflict-resolver escalate, via a per-host setting from the defaults (generic on Copilot, none over a user's agent); an escalated CR failing again goes to the user.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "3cbc0240c0c87cd1ac42307e83d7e3be675eadb7348c46dc8beeb1b73c320b00",
+    "03-change-spec.md": "319ff5d017cedfb4e64452d8e41fd5f8aaa4c840d51514d0500276bc7d7576e9",
+    "intake/request.md": "ba587305074815f3275a3f85a57827dfc17b92dbc6a9e8bf77d73e35bbda3c3c"
+  },
+  "summarized": "2026-11-17T17:40:31Z"
+}

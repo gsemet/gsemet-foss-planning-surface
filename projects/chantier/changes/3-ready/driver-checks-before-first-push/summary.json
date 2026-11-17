@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Before its first push a Driver reruns the fast gate and the rules' pre-push checks; Coder gets the spec's file edits",
+  "summary": "Specified, no open question: before the first push the Driver reruns the fast gate at the rebased head plus the rules' pre-push checks (chantier: just check; just eval-dry-run for CLI src or evals/kit); the Coder's prompt carries the spec's file edits as a checklist marked in r<n>.md.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "e66588f56797a44838b7554bde0e6713c073d85e495e541ebb071485ce60b291",
+    "03-change-spec.md": "9105a84e040427fce424705903f6cd7fccd2f8bf976b07ef3235930cb77c2d7e",
+    "intake/request.md": "243bda856974665c701c649c18686a1b9a60bdefe8ea075089f3433e58701555"
+  },
+  "summarized": "2026-11-17T17:36:42Z"
+}

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Web board: a batch navigator on Costs and Batch, past batches' graphs, the receipt copied as an image",
+  "summary": "Specified: previous/next/Latest navigator on Costs and Batch (b= in the URL); close records each CR's order and after, past graphs never invented; receipt copied as PNG, proved per browser; the board also prints its 127.0.0.1 link.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "57dc15c465e469bdb29edef8980fcd1c255ce8494df12a625c87790059b32398",
+    "03-change-spec.md": "a33f1572762aedca1af0a0ec58846ff98ed2639f0699c263a6720c2b7412eaa1",
+    "intake/request.md": "8a983a8f3bfbe3a14e6ea5ebabcc2ed35b1ee079a0fdd2fa311d323af322f2d6"
+  },
+  "summarized": "2026-11-17T17:37:37Z"
+}
