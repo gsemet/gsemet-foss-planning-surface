@@ -19,3 +19,7 @@ Short name: `agents-changes-refs`
    Asked: waive CR-338's long gate (CR-339 already fixes that test), or hold CR-338 until CR-339
    merges. Owner: « Passer outre ». Long gate waived for this CR; its follow-up is CR-339, no new
    CR.
+4. agents-changes-refs-Q4: **Waiver needs a backlog follow-up.** chantier refuses the waiver
+   with CR-339 as follow-up (it is in the batch, not the backlog). Asked: merge CR-339 first, or
+   file a new follow-up CR and waive. Owner: « Fusionner le 339 d'abord ». Q3's waiver is
+   withdrawn: CR-338 waits for PR 407 to merge, rebases on main and runs its long gate.
