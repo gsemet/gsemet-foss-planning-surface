@@ -2,8 +2,15 @@
 
 ## Git autosync
 
-This project has strong rules for file synchronization. You HAVE to follow the [autosync guidelines](.agents/guidelines/autosync.guidelines.md) when you have this project in your environment.
-Use can request starting or stopping autosync with `start autosync` or `stop autosync` in their chat.
+Agent sessions do **not** run the surface's autosync (2026-11-17): do not join its group, start
+it, stop it or approve its incidents, even when the user says `start autosync`; say so and point
+to the board. The goal is that chantier's web board (`chantier board`) owns the autosync: it joins
+the group itself and shows Start, Stop and Approve, on the user's click only, as chantier's
+`docs/planning-modes.md` ("The surface's autosync") describes. The tool and its rules stay in
+[autosync guidelines](.agents/guidelines/autosync.guidelines.md), for the board and for the user.
+
+Until then, commit by hand: stage only your own paths, commit, `git pull --rebase`, `git push`.
+Never force-push, never stage what another session changed.
 
 ## Validation
 
@@ -12,8 +19,7 @@ surface adds no schema of its own, and checks only what chantier does not check 
 
 - **Mandatory:** after you create, edit, move or delete any file under `projects/`, run
   `just validate` (or `just validate <name>` for one project) before you end your turn, and fix
-  every error it reports. Autosync publishes within seconds, so validate as soon as an edit is
-  done.
+  every error it reports, before you commit.
 - `just validate` places each change request from its folder (stage, priority) and runs
   `chantier summary lint`, which lists the change requests whose `summary.json` (read by
   chantier's board) is missing or late; that list fails nothing.
