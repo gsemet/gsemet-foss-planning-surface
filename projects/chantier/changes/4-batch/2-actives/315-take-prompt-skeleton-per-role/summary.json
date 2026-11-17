@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "take prints each Driver role's prompt skeleton",
+  "summary": "Specified: take, take stack and order qa print the Driver's whole prompt skeleton from a new card table in concepts.md; no writes: line for a release, stack or QA Driver, an absolute archive path for a CR Driver; the QA block goes to the Foreman with the order's line.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "a69d85ace22e8248642fda7ebbfe3ab621030b813354cf5ea8555718591212d4",
+    "03-change-spec.md": "20f892c9455a07890c5111df5803ccb82205aacf763d7c933117d8b60d46356f",
+    "intake/request.md": "9038a3ea3011b96ec233bd4ec4af004e1c99bb55a7390e1a683f3473be393cec"
+  },
+  "summarized": "2026-11-17T09:46:37Z"
+}
