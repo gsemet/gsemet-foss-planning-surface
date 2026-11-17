@@ -1,0 +1,8 @@
+--- a/chantier.yaml
++++ b/chantier.yaml
+@@ -4,3 +4,5 @@
+     roles:
+       coder:
+         model: gpt-6.1-terra
++      inspector:
++        model: gpt-6.1-terra

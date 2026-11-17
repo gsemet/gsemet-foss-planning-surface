@@ -1,0 +1,1269 @@
+{
+  "ok": true,
+  "dry_run": false,
+  "lines": [
+    "wrote projects/shop-api/chantier.yaml",
+    "applies at the next batch"
+  ],
+  "journal": [
+    {
+      "t": "2026-11-16T23:10:30Z",
+      "kind": "config",
+      "items": [],
+      "text": "inspector.model = gpt-6.1-terra (copilot)"
+    }
+  ],
+  "view": {
+    "hosts": {
+      "claude": {
+        "name": "Claude Code",
+        "named_agent_model_at_start": true,
+        "catalog": [
+          {
+            "id": "claude-opus-5-5",
+            "name": "Claude Opus 5.5"
+          },
+          {
+            "id": "claude-sonnet-5-5",
+            "name": "Claude Sonnet 5.5"
+          },
+          {
+            "id": "claude-haiku-5-5",
+            "name": "Claude Haiku 5.5"
+          }
+        ],
+        "roles": [
+          {
+            "role": "coder",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:coder",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5-5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "conflict-resolver",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:conflict-resolver",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5-5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "cr-driver",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:cr-driver",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5-5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "debugger",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:debugger",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5-5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "demo-explorer",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:demo-explorer",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5-5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "inspector",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:inspector",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5-5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "investigator",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:investigator",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5-5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "qa-driver",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:qa-driver",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5-5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "release-driver",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:release-driver",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5-5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "retro-critic",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:retro-critic",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-opus-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-opus-5-5",
+                "name": "Claude Opus 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "spec-critic",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:spec-critic",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-opus-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-opus-5-5",
+                "name": "Claude Opus 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "spec-writer",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:spec-writer",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-opus-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-opus-5-5",
+                "name": "Claude Opus 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "stack-driver",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:stack-driver",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5-5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "verifier",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier:verifier",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5-5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5-5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          }
+        ]
+      },
+      "copilot": {
+        "name": "Copilot",
+        "named_agent_model_at_start": false,
+        "catalog": [
+          {
+            "id": "claude-fable-5",
+            "name": "Claude Fable 5",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "claude-fable-5.1",
+            "name": "Claude Fable 5.1",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "claude-fable-5.2",
+            "name": "Claude Fable 5.2",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "claude-haiku-4.5",
+            "name": "Claude Haiku 4.5",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "claude-haiku-5.5",
+            "name": "Claude Haiku 5.5",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "claude-opus-4.8",
+            "name": "Claude Opus 4.8",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "claude-opus-4.8-(fast-mode)",
+            "name": "Claude Opus 4.8 (fast mode)",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "claude-opus-5",
+            "name": "Claude Opus 5",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "claude-opus-5.5",
+            "name": "Claude Opus 5.5",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "claude-sonnet-4.6",
+            "name": "Claude Sonnet 4.6",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": false,
+              "business": false,
+              "enterprise": false
+            }
+          },
+          {
+            "id": "claude-sonnet-5",
+            "name": "Claude Sonnet 5",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "claude-sonnet-5.5",
+            "name": "Claude Sonnet 5.5",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gemini-3.8-flash",
+            "name": "Gemini 3.8 Flash",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gemini-4-argon",
+            "name": "Gemini 4 Argon",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gemini-4-carbon",
+            "name": "Gemini 4 Carbon",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gemini-4-hydrogen",
+            "name": "Gemini 4 Hydrogen",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gpt-5.3-codex",
+            "name": "GPT-5.3-Codex",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gpt-5.6-luna",
+            "name": "GPT-5.6 Luna",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gpt-5.6-sol",
+            "name": "GPT-5.6 Sol",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gpt-5.6-terra",
+            "name": "GPT-5.6 Terra",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gpt-6-astra",
+            "name": "GPT-6 Astra",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gpt-6-luna",
+            "name": "GPT-6 Luna",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gpt-6-sol",
+            "name": "GPT-6 Sol",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gpt-6.1-sol",
+            "name": "GPT-6.1 Sol",
+            "plans": {
+              "pro": false,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "gpt-6.1-terra",
+            "name": "GPT-6.1 Terra",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "grok-4.5",
+            "name": "Grok 4.5",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "grok-4.6",
+            "name": "Grok 4.6",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "grok-4.7",
+            "name": "Grok 4.7",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "kimi-k3",
+            "name": "Kimi K3",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          },
+          {
+            "id": "mai-code-1.1-flash",
+            "name": "MAI-Code-1.1-Flash",
+            "plans": {
+              "pro": true,
+              "pro_plus": true,
+              "max": true,
+              "business": true,
+              "enterprise": true
+            }
+          }
+        ],
+        "roles": [
+          {
+            "role": "coder",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-coder",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "gpt-6.1-sol",
+                "surface": null,
+                "surface project": "gpt-6.1-terra",
+                "repository": "gpt-6.1-sol"
+              },
+              "effective": {
+                "id": "gpt-6.1-sol",
+                "name": "GPT-6.1 Sol"
+              },
+              "layer": "repository"
+            },
+            "overridden_by": "projects/shop-api/.repo/chantier.yaml",
+            "overridden_keys": [
+              "model"
+            ],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "conflict-resolver",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-conflict-resolver",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "gpt-6.1-terra",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "gpt-6.1-terra",
+                "name": "GPT-6.1 Terra"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "cr-driver",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-cr-driver",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5.5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5.5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "debugger",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-debugger",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "gpt-6.1-terra",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "gpt-6.1-terra",
+                "name": "GPT-6.1 Terra"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "demo-explorer",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-demo-explorer",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "gpt-5.6-luna",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "gpt-5.6-luna",
+                "name": "GPT-5.6 Luna"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "inspector",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "(generic)",
+              "layer": null
+            },
+            "model": {
+              "layers": {
+                "defaults": "gpt-6.1-sol",
+                "surface": null,
+                "surface project": "gpt-6.1-terra",
+                "repository": null
+              },
+              "effective": {
+                "id": "gpt-6.1-terra",
+                "name": "GPT-6.1 Terra"
+              },
+              "layer": "surface project"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "generic",
+            "refusal": null,
+            "tools": "the caller's, not restricted"
+          },
+          {
+            "role": "investigator",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-investigator",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "gpt-5.6-luna",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "gpt-5.6-luna",
+                "name": "GPT-5.6 Luna"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "qa-driver",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-qa-driver",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-sonnet-5.5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-sonnet-5.5",
+                "name": "Claude Sonnet 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "release-driver",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-release-driver",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-opus-5.5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-opus-5.5",
+                "name": "Claude Opus 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "retro-critic",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-retro-critic",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-opus-5.5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-opus-5.5",
+                "name": "Claude Opus 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "spec-critic",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-spec-critic",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-opus-5.5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-opus-5.5",
+                "name": "Claude Opus 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "spec-writer",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-spec-writer",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-opus-5.5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-opus-5.5",
+                "name": "Claude Opus 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "stack-driver",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-stack-driver",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "claude-opus-5.5",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "claude-opus-5.5",
+                "name": "Claude Opus 5.5"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          },
+          {
+            "role": "verifier",
+            "agent": {
+              "layers": {
+                "defaults": null,
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": "chantier-verifier",
+              "layer": "defaults"
+            },
+            "model": {
+              "layers": {
+                "defaults": "gpt-6.1-terra",
+                "surface": null,
+                "surface project": null,
+                "repository": null
+              },
+              "effective": {
+                "id": "gpt-6.1-terra",
+                "name": "GPT-6.1 Terra"
+              },
+              "layer": "defaults"
+            },
+            "overridden_by": null,
+            "overridden_keys": [],
+            "start": "plugin",
+            "refusal": null,
+            "tools": "the agent file's"
+          }
+        ]
+      }
+    },
+    "others": [],
+    "files": [
+      {
+        "label": "defaults",
+        "path": "config/chantier.defaults.yml"
+      },
+      {
+        "label": "surface project",
+        "path": "projects/shop-api/chantier.yaml"
+      },
+      {
+        "label": "repository",
+        "path": "projects/shop-api/.repo/chantier.yaml"
+      }
+    ],
+    "problems": [],
+    "writable": true,
+    "file": "projects/shop-api/chantier.yaml",
+    "sha256": "aec408fa7f3721262d8b14d1f48d00e79e7da7b821a955975c5e8cae3a291dfa",
+    "batch": "batch-03"
+  },
+  "sha256": "aec408fa7f3721262d8b14d1f48d00e79e7da7b821a955975c5e8cae3a291dfa"
+}

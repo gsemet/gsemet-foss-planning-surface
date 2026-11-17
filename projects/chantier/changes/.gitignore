@@ -20,3 +20,4 @@ work/gates/
 .long-gate.*.run
 .long-gate.*.stop
 board-journal.jsonl
+board-seen.jsonl

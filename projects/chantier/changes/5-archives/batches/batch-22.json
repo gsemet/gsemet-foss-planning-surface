@@ -2,15 +2,206 @@
   "schema": 1,
   "batch": "batch-22",
   "number": 22,
-  "state": "running",
+  "state": "closed",
   "opened": "2026-11-16T19:45:52Z",
-  "closed": null,
+  "closed": "2026-11-17T06:42:10Z",
   "mode": "stack",
   "steering": "direct",
   "host": "claude",
   "budget_usd": null,
-  "cost_usd": null,
+  "cost_usd": 61.7799,
   "cost_unpriced": {},
-  "crs": [],
-  "report": null
+  "crs": [
+    {
+      "cr": "CR-297",
+      "title": "Change Specification: Copilot role model defaults",
+      "result": "merged",
+      "archive": "5-archives/261116-2017-297-copilot-role-models",
+      "pr": "https://github.com/gsemet/chantier/pull/248",
+      "rounds": 2,
+      "cost_usd": 1.5921,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-302",
+      "title": "Change Specification: a live, read-only view of the batch's PRs on the web board",
+      "result": "merged",
+      "archive": "5-archives/261117-0627-302-pr-monitor",
+      "pr": "https://github.com/gsemet/chantier/pull/251",
+      "rounds": 2,
+      "cost_usd": 6.9142,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-298",
+      "title": "Change Specification: Copilot model catalog from GitHub's own tables",
+      "result": "merged",
+      "archive": "5-archives/261116-2119-298-copilot-model-catalog",
+      "pr": "https://github.com/gsemet/chantier/pull/250",
+      "rounds": 1,
+      "cost_usd": 2.3789,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-303",
+      "title": "Change Specification: the board signals a merge it sees",
+      "result": "merged",
+      "archive": "5-archives/261117-0627-303-pr-merge-signal",
+      "pr": "https://github.com/gsemet/chantier/pull/252",
+      "rounds": 1,
+      "cost_usd": 2.3703,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-299",
+      "title": "Change Specification: chantier's configuration in layers, and the shipped defaults",
+      "result": "merged",
+      "archive": "5-archives/261116-2138-299-model-defaults-board-config",
+      "pr": "https://github.com/gsemet/chantier/pull/253",
+      "rounds": 2,
+      "cost_usd": 6.6954,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-304",
+      "title": "Change Specification: the web board on a large screen",
+      "result": "merged",
+      "archive": "5-archives/261117-0627-304-ui-feedback-large-screen",
+      "pr": "https://github.com/gsemet/chantier/pull/249",
+      "rounds": 3,
+      "cost_usd": 4.785,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-300",
+      "title": "Change Specification: a model per role on each host",
+      "result": "merged",
+      "archive": "5-archives/261116-2239-300-role-model-per-host",
+      "pr": "https://github.com/gsemet/chantier/pull/255",
+      "rounds": 2,
+      "cost_usd": 5.3413,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-305",
+      "title": "Change Specification: the web board's selector shows the surface, and each project its paths",
+      "result": "merged",
+      "archive": "5-archives/261117-0627-305-board-surface-selector",
+      "pr": "https://github.com/gsemet/chantier/pull/254",
+      "rounds": 3,
+      "cost_usd": 3.9865,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-301",
+      "title": "Change Specification: the web board's Configuration page",
+      "result": "merged",
+      "archive": "5-archives/261116-2341-301-board-config-page",
+      "pr": "https://github.com/gsemet/chantier/pull/256",
+      "rounds": 4,
+      "cost_usd": 7.8143,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-306",
+      "title": "Change Specification: the board's Configuration page writes the project file with LF",
+      "result": "merged",
+      "archive": "5-archives/261117-0627-306-board-config-lf",
+      "pr": "https://github.com/gsemet/chantier/pull/257",
+      "rounds": 1,
+      "cost_usd": 1.0718,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-307",
+      "title": "Version PR for chantier v0.11.0",
+      "result": "merged",
+      "archive": "5-archives/261117-0628-307-release-0-11-0",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": 1.4434,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-22.md",
+  "stopped_agents": [
+    {
+      "agent": "agent-a0106566b6aa3f0cb",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a0106566b6aa3f0cb.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    },
+    {
+      "agent": "agent-a0efdc32dca6c61a7",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a0efdc32dca6c61a7.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    },
+    {
+      "agent": "agent-a103955deaf241307",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a103955deaf241307.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    },
+    {
+      "agent": "agent-a164f7a02355addd0",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a164f7a02355addd0.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    },
+    {
+      "agent": "agent-a20c37340cb1f40bf",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a20c37340cb1f40bf.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    },
+    {
+      "agent": "agent-a22025d94b0425f76",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a22025d94b0425f76.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    },
+    {
+      "agent": "agent-a2527633954813a84",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a2527633954813a84.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    },
+    {
+      "agent": "agent-a4481a8d0b396f19f",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a4481a8d0b396f19f.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    },
+    {
+      "agent": "agent-a82a4e8172fa0b0d4",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-a82a4e8172fa0b0d4.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    },
+    {
+      "agent": "agent-aa2b04a9ea02a0446",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-aa2b04a9ea02a0446.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    },
+    {
+      "agent": "agent-aa835f48f2788b16f",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-aa835f48f2788b16f.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    },
+    {
+      "agent": "agent-aa9c906f13b56448b",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-aa9c906f13b56448b.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    },
+    {
+      "agent": "agent-aaf5f1a3bd386a2cf",
+      "transcript": "C:\\Users\\gaeta\\.claude\\projects\\C--Users-gaeta-Projets-chantier\\91f1382a-eacd-437e-b5a8-f9e545753a8c\\subagents\\agent-aaf5f1a3bd386a2cf.jsonl",
+      "cause": "its last record is a prompt with no answer yet",
+      "declared": "2026-11-17T06:42:10Z"
+    }
+  ]
 }

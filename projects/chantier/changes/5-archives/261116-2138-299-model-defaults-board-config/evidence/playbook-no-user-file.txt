@@ -1,0 +1,42 @@
+## chantier playbook --host claude (chantier's own checkout, no user file)
+playbook: no chantier.yaml, the plugin's agents and models
+coder: agent=chantier:coder model=(its file's)
+conflict-resolver: agent=chantier:conflict-resolver model=(its file's)
+cr-driver: agent=chantier:cr-driver model=(its file's)
+debugger: agent=chantier:debugger model=(its file's)
+demo-explorer: agent=chantier:demo-explorer model=(its file's)
+inspector: agent=chantier:inspector model=(its file's)
+investigator: agent=chantier:investigator model=(its file's)
+qa-driver: agent=chantier:qa-driver model=(its file's)
+release-driver: agent=chantier:release-driver model=(its file's)
+retro-critic: agent=chantier:retro-critic model=(its file's)
+spec-critic: agent=chantier:spec-critic model=(its file's)
+spec-writer: agent=chantier:spec-writer model=(its file's)
+stack-driver: agent=chantier:stack-driver model=(its file's)
+verifier: agent=chantier:verifier model=(its file's)
+retro-critic prompt, first line: chantier retro-critic for the Chief of Staff, in the project C:/Users/gaeta/Projets/chantier.
+spec-critic prompt, first line: chantier spec-critic for the Chief of Staff, in the project C:/Users/gaeta/Projets/chantier.
+spec-writer prompt, first line: chantier spec-writer for the Chief of Staff, in the project C:/Users/gaeta/Projets/chantier.
+escalate: opus (claude-opus-5-5, Claude Opus 5.5)
+
+## chantier playbook --host copilot (chantier's own checkout, no user file)
+playbook: no chantier.yaml, the plugin's agents and models
+coder: agent=chantier-coder model=(its file's)
+conflict-resolver: agent=chantier-conflict-resolver model=(its file's)
+cr-driver: agent=chantier-cr-driver model=(its file's)
+debugger: agent=chantier-debugger model=(its file's)
+demo-explorer: agent=chantier-demo-explorer model=(its file's)
+inspector: agent=chantier-inspector model=(its file's)
+investigator: agent=chantier-investigator model=(its file's)
+qa-driver: agent=chantier-qa-driver model=(its file's)
+release-driver: agent=chantier-release-driver model=(its file's)
+retro-critic: agent=chantier-retro-critic model=(its file's)
+spec-critic: agent=chantier-spec-critic model=(its file's)
+spec-writer: agent=chantier-spec-writer model=(its file's)
+stack-driver: agent=chantier-stack-driver model=(its file's)
+verifier: agent=chantier-verifier model=(its file's)
+retro-critic prompt, first line: chantier retro-critic for the Chief of Staff, in the project C:/Users/gaeta/Projets/chantier.
+spec-critic prompt, first line: chantier spec-critic for the Chief of Staff, in the project C:/Users/gaeta/Projets/chantier.
+spec-writer prompt, first line: chantier spec-writer for the Chief of Staff, in the project C:/Users/gaeta/Projets/chantier.
+escalate: (none on this host)
+
