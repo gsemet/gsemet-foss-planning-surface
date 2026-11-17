@@ -1,0 +1,1721 @@
+=== level E
+
+> markdown-okf-schema-studio@0.3.1 test:e2e
+> node scripts/run-e2e.mjs
+
+
+> markdown-okf-schema-studio@0.3.1 review:begin
+> npm run compile && node out/test/integration/review-index.js --begin
+
+
+> markdown-okf-schema-studio@0.3.1 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.3.1 test:visual
+> npm run visual:render && uv run --no-sync --group docs python test/visual/capture.py
+
+
+> markdown-okf-schema-studio@0.3.1 visual:render
+> npm run compile && npm run bundle && node out/test/visual/renderFixtures.js
+
+
+> markdown-okf-schema-studio@0.3.1 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.3.1 bundle
+> node esbuild.mjs
+
+
+  out/bundle/extension.js      1.7mb ⚠️
+  out/bundle/extension.js.map  5.6mb
+
+⚡ Done in 104ms
+
+  out/bundle/mermaidPreview.js  5.0mb ⚠️
+
+⚡ Done in 248ms
+rendered 57 pages, 151 scenarios
+  placeholder: 03-unresolved-constructs:30 Directive {animation} is not available outside a full build.
+  placeholder: 03-unresolved-constructs:36 Directive {bibliography} is not available outside a full build.
+  placeholder: 03-unresolved-constructs:39 Directive {toctree} is not available outside a full build.
+warning: `VIRTUAL_ENV=/Users/az02065/Projects/Nestor/agentic-coding-white-paper/.venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+passed: handbook-narrow-top
+passed: handbook-dark-top
+passed: handbook-forced-cream
+passed: handbook-narrow-table
+passed: handbook-light-failures
+passed: handbook-light-top
+passed: handbook-dark-third
+passed: handbook-dark-bottom
+passed: handbook-forced-white
+passed: admonitions-narrow-full
+passed: admonitions-dark-full
+passed: admonitions-forced-cream-full
+passed: admonitions-dark-titled
+passed: admonitions-dark-nested
+passed: chapter-dark-top
+passed: admonitions-light-full
+passed: chapter-dark-three-quarters
+passed: chapter-figure-dark
+passed: chapter-dark-quarter
+passed: chapter-dark-half
+passed: chapter-dark-bottom
+passed: chapter-light-top
+passed: chapter-max-width-dark-full
+passed: chapter-max-width-light-full
+passed: first-element-gap-h1-460
+passed: first-element-gap-h1-900
+passed: nested-list-typing-dark
+passed: nested-list-typing-light
+passed: bare-urls-light-wide
+passed: first-element-gap-paragraph-460
+passed: first-element-gap-empty-460
+passed: first-element-gap-empty-900
+passed: first-element-gap-h2-460
+passed: first-element-gap-h2-900
+passed: first-element-gap-paragraph-900
+passed: first-element-gap-wide-margin-1600
+passed: first-element-gap-table-460
+passed: first-element-gap-table-900
+passed: first-element-gap-h3-460
+passed: first-element-gap-h3-900
+passed: first-element-gap-admonition-460
+passed: first-element-gap-admonition-900
+passed: first-element-gap-image-460
+passed: first-element-gap-image-900
+passed: width-modes-dark-900
+passed: width-modes-dark-1600
+passed: width-modes-cream-900
+passed: width-modes-cream-1600
+passed: toc-column-light-460
+passed: width-modes-light-900
+passed: width-modes-light-1600
+passed: toc-column-dark-1600
+passed: code-copy-button-cream
+passed: unresolved-dark-full
+passed: code-dark-top
+passed: unresolved-light-full
+passed: toc-column-light-900
+passed: code-dark-table-narrow
+passed: code-light-full
+passed: code-copy-button-dark
+passed: code-tables-forced-cream
+passed: code-light-table-narrow
+passed: syntax-dark-python
+passed: code-copy-button-light
+passed: code-dark-table
+passed: syntax-dark-markdown
+passed: diff-light-preview
+passed: syntax-dark-rust
+passed: syntax-narrow-python
+passed: syntax-light-rust
+passed: inline-code-light
+passed: syntax-light-shell (alias of diff-light-preview)
+passed: diff-dark-preview
+passed: inline-code-narrow
+passed: context-tags-light-narrow
+passed: inline-code-dark
+passed: inline-code-cream
+passed: context-tags-dark-narrow
+passed: context-tags-dark-wide
+passed: inline-code-white
+passed: mermaid-map-light
+passed: mermaid-map-dark
+passed: context-tags-light-wide
+passed: plantuml-executable-not-found
+passed: mermaid-map-fallback
+passed: plantuml-success-light
+passed: plantuml-success-dark
+passed: frontmatter-light
+passed: plantuml-unconfigured
+passed: frontmatter-dark
+passed: frontmatter-forced-cream
+passed: okf-schema-narrow (alias of frontmatter-scroll-feedback)
+passed: first-element-gap-properties-460
+passed: first-element-gap-properties-1600
+passed: first-element-gap-properties-900
+passed: okf-schema-missing-required-dark
+passed: frontmatter-forced-white
+passed: preview-toolbar-dark (alias of okf-schema-dark)
+passed: okf-schema-dark
+passed: schema-validation-error-light
+passed: okf-schema-table
+passed: schema-validation-error-dark
+passed: okf-schema-missing-required-light
+passed: frontmatter-links-loading
+passed: schema-validation-error-narrow
+passed: standalone-frontmatter-dark
+passed: standalone-frontmatter-light
+passed: frontmatter-link-details-white-900
+passed: frontmatter-link-details-dark-460
+passed: frontmatter-links-loaded
+passed: frontmatter-link-details-dark-900
+passed: edit-insert-point-hover
+passed: frontmatter-link-details-white-460
+passed: edit-affordances-narrow
+passed: edit-affordances-hover-and-open
+passed: edit-table-wide-end-dark
+passed: math-edit-offline-light-narrow
+passed: preview-edit-activation-scroll-wide
+passed: math-edit-offline-dark
+passed: preview-edit-activation-scroll-narrow
+passed: edit-table-wrapped-dark-460
+passed: diff-dark-edit
+passed: diff-light-edit
+passed: edit-paragraph-forced-cream
+passed: edit-admonition-dark
+passed: edit-mode-dark (alias of edit-paragraph-dark)
+passed: edit-paragraph-dark
+passed: edit-frontmatter-value-dark
+passed: edit-table-wrapped-dark-900
+passed: edit-frontmatter-key-dark
+passed: edit-frontmatter-list-light
+passed: edit-table-wrapped-light-460
+passed: frontmatter-scroll-feedback-edit
+passed: edit-first-block-top-narrow
+passed: edit-table-wrapped-light-900
+passed: edit-list-narrow
+passed: edit-empty-document-start-writing
+passed: edit-table-cell-dark (alias of edit-table-wrapped-dark-900)
+passed: editor-keyboard-wrapped-narrow
+passed: edit-insert-after-final-figure
+passed: edit-frontmatter-list-dark
+passed: edit-insert-after-final-image
+passed: preview-sticky-headings-1
+passed: edit-frontmatter-boolean-dark
+passed: preview-sticky-headings-2
+passed: preview-sticky-headings-3
+passed: edit-first-block-top-wide
+passed: preview-sticky-headings-natural-growth
+passed: edit-empty-document-enter-opens-editor
+passed: preview-sticky-headings-3-light-narrow
+passed: frontmatter-scroll-feedback
+
+146 screenshots in /Users/az02065/Projects/DevTools/markdown-okf-schema-studio/out/reports/e2e/screenshots
+{"status": "passed", "scenario_count": 151, "screenshot_count": 146}
+
+> markdown-okf-schema-studio@0.3.1 test:integration
+> npm run compile && npm run bundle && node out/test/integration/run-tests.js
+
+
+> markdown-okf-schema-studio@0.3.1 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.3.1 bundle
+> node esbuild.mjs
+
+
+  out/bundle/extension.js      1.7mb ⚠️
+  out/bundle/extension.js.map  5.6mb
+
+⚡ Done in 92ms
+
+  out/bundle/mermaidPreview.js  5.0mb ⚠️
+
+⚡ Done in 218ms
+
+DevTools listening on ws://127.0.0.1:51641/devtools/browser/8a7e35c7-454c-446a-b22f-b5b14236b092
+Warning: 'remote-debugging-port' is not in the list of known options, but still passed to Electron/Chromium.
+Warning: 'remote-debugging-address' is not in the list of known options, but still passed to Electron/Chromium.
+[90m[main 2026-10-16T04:52:33.728Z][0m [node-compile-cache] main: packaged cache inactive (status: disabled, configured: /Applications/Visual Studio Code.app/Contents/Resources/app/node-compile-cache/main, active: none)
+[90m[main 2026-10-16T04:52:33.747Z][0m StorageMainService: creating application shared storage
+[90m[main 2026-10-16T04:52:33.834Z][0m [shared storage] Creating shared storage database at ':memory:' (wasCreated: true)
+[90m[main 2026-10-16T04:52:33.834Z][0m [shared storage] Initializing fallback application storage (path: in-memory)
+[90m[main 2026-10-16T04:52:33.908Z][0m [shared storage] Fallback application storage initialized with 3 items
+[90m[main 2026-10-16T04:52:33.908Z][0m update#setState disabled
+[90m[main 2026-10-16T04:52:33.909Z][0m update#ctor - updates are disabled by the environment
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[AgentHost:renderer] Acquiring MessagePort to agent host...
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Loading development extension at /Users/az02065/Projects/DevTools/markdown-okf-schema-studio
+Extension 'github.copilot-chat' appears in product.json but enables LESS API proposals than the extension wants.
+package.json (LOSES): agentSessionsWorkspace
+agentsWindowConfiguration
+chatDebug
+chatHooks
+envIsConnectionMetered
+extensionsAny
+newSymbolNamesProvider
+interactive
+codeActionAI
+activeComment
+commentReveal
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+documentFiltersExclusive
+embeddings
+findTextInFiles
+findTextInFiles2
+languageModelToolSupportsModel
+findFiles2
+textSearchProvider
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+chatParticipantAdditions
+defaultChatParticipant
+contribSourceControlInputBoxMenu
+authLearnMore
+authIssuers
+testObserver
+aiTextSearchProvider
+chatParticipantPrivate
+chatProvider
+contribDebugCreateConfiguration
+chatReferenceDiagnostic
+textSearchProvider2
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelPricing
+inlineCompletionsAdditions
+chatStatusItem
+chatInputNotification
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+languageModelThinkingPart
+chatSessionsProvider
+devDeviceId
+contribEditorContentMenu
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+environmentPower
+terminalTitle
+toolInvocationApproveCombination
+chatSessionCustomizationProvider
+product.json (WINS): agentSessionsWorkspace
+agentsWindowConfiguration
+interactive
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+chatParticipantAdditions
+defaultChatParticipant
+embeddings
+chatProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+codeActionAI
+findTextInFiles
+findTextInFiles2
+textSearchProvider
+textSearchProvider2
+activeComment
+commentReveal
+contribSourceControlInputBoxMenu
+contribCommentEditorActionsMenu
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+extensionAffinity
+newSymbolNamesProvider
+findFiles2
+chatReferenceDiagnostic
+extensionsAny
+authLearnMore
+testObserver
+aiTextSearchProvider
+documentFiltersExclusive
+chatParticipantPrivate
+contribDebugCreateConfiguration
+inlineCompletionsAdditions
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelThinkingPart
+languageModelToolSupportsModel
+chatStatusItem
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+chatSessionsProvider
+chatSessionCustomizationProvider
+devDeviceId
+contribEditorContentMenu
+tokenInformation
+toolInvocationApproveCombination
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+chatHooks
+chatDebug
+envIsConnectionMetered
+environmentPower
+terminalTitle
+languageModelPricing
+chatInputNotification
+DELTA: authIssuers
+Proceeding with EXTRA proposals (authIssuers) because extension is in development mode. Still, this EXTENSION WILL BE BROKEN unless product.json is updated.
+[AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[90m[main 2026-10-16T04:52:34.914Z][0m AgentHostProcessManager: agent host started
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[AgentHost:renderer] MessagePort acquired, creating client...
+Started local extension host with pid 98637.
+Settings Sync: Account status changed from uninitialized to unavailable
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[NativePluginGitCommandService] git fetch failed: Command failed: git fetch
+remote: RBAC: access denied
+fatal: unable to access 'https://gitlabee.dt.renault.com/swlabs/nestor/agentic/compendium.git/': The requested URL returned error: 403
+ 
+[91m[main 2026-10-16T04:52:35.206Z][0m [AgentHost:stderr] (node:98636) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `Code Helper --trace-deprecation ...` to show where the warning was created)
+
+[RemoteAgentHostProtocol] Sending initialize: address=local clientId=5a2c606e-9fbd-4911-9195-5e0a29cb8e58 requestId=1
+[RemoteAgentHostProtocol] Initialized: address=local clientId=5a2c606e-9fbd-4911-9195-5e0a29cb8e58 durationMs=900
+[AgentHost:renderer] Protocol connection established; clientId=5a2c606e-9fbd-4911-9195-5e0a29cb8e58
+[CloudSandboxApi] No 'github' session with scopes [read:user, user:email, repo, workflow]
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/ODcxOGUxYmUtZDA2ZS00ODI2LTg3MDEtMjk5MDUzMThkOTdk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+(node:98637) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `Code Helper (Plugin) --trace-deprecation ...` to show where the warning was created)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/ODcxOGUxYmUtZDA2ZS00ODI2LTg3MDEtMjk5MDUzMThkOTdk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Unknown channel: agentHostClientByokLm
+Unknown channel: agentHostClientProxy
+Unknown channel: agentHostClientProxy
+Unknown channel: agentHostClientProxy
+[AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+PASS scroll E2E: solo-reading-anchored
+PASS scroll E2E: solo-reading-independent
+PASS scroll E2E: solo-editing-anchored
+PASS scroll E2E: solo-editing-independent
+PASS scroll E2E: solo-block-anchored
+PASS scroll E2E: solo-block-independent
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/ODcxOGUxYmUtZDA2ZS00ODI2LTg3MDEtMjk5MDUzMThkOTdk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS scroll E2E: paired-reading-anchored
+PASS scroll E2E: paired-reading-independent
+PASS scroll E2E: paired-editing-anchored
+PASS scroll E2E: paired-editing-independent
+PASS scroll E2E: paired-block-anchored
+PASS scroll E2E: paired-block-independent
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/ODcxOGUxYmUtZDA2ZS00ODI2LTg3MDEtMjk5MDUzMThkOTdk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS block keyboard navigation E2E
+[90m[main 2026-10-16T04:54:24.922Z][0m Extension host with pid 98637 exited with code: 0, signal: unknown.
+Exit code:   0
+[90m[main 2026-10-16T04:54:25.241Z][0m [node-compile-cache] main: packaged cache inactive (status: disabled, configured: /Applications/Visual Studio Code.app/Contents/Resources/app/node-compile-cache/main, active: none)
+[90m[main 2026-10-16T04:54:25.258Z][0m StorageMainService: creating application shared storage
+[90m[main 2026-10-16T04:54:25.334Z][0m [shared storage] Creating shared storage database at ':memory:' (wasCreated: true)
+[90m[main 2026-10-16T04:54:25.334Z][0m [shared storage] Initializing fallback application storage (path: in-memory)
+[90m[main 2026-10-16T04:54:25.406Z][0m [shared storage] Fallback application storage initialized with 3 items
+[90m[main 2026-10-16T04:54:25.406Z][0m update#setState disabled
+[90m[main 2026-10-16T04:54:25.406Z][0m update#ctor - updates are disabled by the environment
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[AgentHost:renderer] Acquiring MessagePort to agent host...
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Started initializing default profile extensions in extensions installation folder. file:///tmp/liveview-ext-juD2Z9
+Completed initializing default profile extensions in extensions installation folder. file:///tmp/liveview-ext-juD2Z9
+[AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Loading development extension at /Users/az02065/Projects/DevTools/markdown-okf-schema-studio
+Extension 'github.copilot-chat' appears in product.json but enables LESS API proposals than the extension wants.
+package.json (LOSES): agentSessionsWorkspace
+agentsWindowConfiguration
+chatDebug
+chatHooks
+envIsConnectionMetered
+extensionsAny
+newSymbolNamesProvider
+interactive
+codeActionAI
+activeComment
+commentReveal
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+documentFiltersExclusive
+embeddings
+findTextInFiles
+findTextInFiles2
+languageModelToolSupportsModel
+findFiles2
+textSearchProvider
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+chatParticipantAdditions
+defaultChatParticipant
+contribSourceControlInputBoxMenu
+authLearnMore
+authIssuers
+testObserver
+aiTextSearchProvider
+chatParticipantPrivate
+chatProvider
+contribDebugCreateConfiguration
+chatReferenceDiagnostic
+textSearchProvider2
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelPricing
+inlineCompletionsAdditions
+chatStatusItem
+chatInputNotification
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+languageModelThinkingPart
+chatSessionsProvider
+devDeviceId
+contribEditorContentMenu
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+environmentPower
+terminalTitle
+toolInvocationApproveCombination
+chatSessionCustomizationProvider
+product.json (WINS): agentSessionsWorkspace
+agentsWindowConfiguration
+interactive
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+chatParticipantAdditions
+defaultChatParticipant
+embeddings
+chatProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+codeActionAI
+findTextInFiles
+findTextInFiles2
+textSearchProvider
+textSearchProvider2
+activeComment
+commentReveal
+contribSourceControlInputBoxMenu
+contribCommentEditorActionsMenu
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+extensionAffinity
+newSymbolNamesProvider
+findFiles2
+chatReferenceDiagnostic
+extensionsAny
+authLearnMore
+testObserver
+aiTextSearchProvider
+documentFiltersExclusive
+chatParticipantPrivate
+contribDebugCreateConfiguration
+inlineCompletionsAdditions
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelThinkingPart
+languageModelToolSupportsModel
+chatStatusItem
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+chatSessionsProvider
+chatSessionCustomizationProvider
+devDeviceId
+contribEditorContentMenu
+tokenInformation
+toolInvocationApproveCombination
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+chatHooks
+chatDebug
+envIsConnectionMetered
+environmentPower
+terminalTitle
+languageModelPricing
+chatInputNotification
+DELTA: authIssuers
+Proceeding with EXTRA proposals (authIssuers) because extension is in development mode. Still, this EXTENSION WILL BE BROKEN unless product.json is updated.
+[90m[main 2026-10-16T04:54:26.216Z][0m AgentHostProcessManager: agent host started
+Settings Sync: Account status changed from uninitialized to unavailable
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Started local extension host with pid 99781.
+[AgentHost:renderer] MessagePort acquired, creating client...
+[91m[main 2026-10-16T04:54:26.471Z][0m [AgentHost:stderr] (node:99770) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `Code Helper --trace-deprecation ...` to show where the warning was created)
+
+[RemoteAgentHostProtocol] Sending initialize: address=local clientId=9907641e-4ab3-4abc-9352-50cec5d5bd8f requestId=1
+[RemoteAgentHostProtocol] Initialized: address=local clientId=9907641e-4ab3-4abc-9352-50cec5d5bd8f durationMs=648
+[AgentHost:renderer] Protocol connection established; clientId=9907641e-4ab3-4abc-9352-50cec5d5bd8f
+[CloudSandboxApi] No 'github' session with scopes [read:user, user:email, repo, workflow]
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWZiNTdjYjctNTJlMC00NWQ1LTkxYTctOGMzOTNhOTM3YTYy" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWZiNTdjYjctNTJlMC00NWQ1LTkxYTctOGMzOTNhOTM3YTYy" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[90m[main 2026-10-16T04:54:27.072Z][0m Extension host with pid 99781 exited with code: 0, signal: unknown.
+
+DevTools listening on ws://127.0.0.1:51716/devtools/browser/6bffffbb-4cd5-4e2f-8462-6e10389e28fa
+Warning: 'remote-debugging-port' is not in the list of known options, but still passed to Electron/Chromium.
+Warning: 'remote-debugging-address' is not in the list of known options, but still passed to Electron/Chromium.
+[90m[main 2026-10-16T04:54:27.431Z][0m [node-compile-cache] main: packaged cache inactive (status: disabled, configured: /Applications/Visual Studio Code.app/Contents/Resources/app/node-compile-cache/main, active: none)
+[90m[main 2026-10-16T04:54:27.447Z][0m StorageMainService: creating application shared storage
+[90m[main 2026-10-16T04:54:27.532Z][0m [shared storage] Creating shared storage database at ':memory:' (wasCreated: true)
+[90m[main 2026-10-16T04:54:27.532Z][0m [shared storage] Initializing fallback application storage (path: in-memory)
+[90m[main 2026-10-16T04:54:27.601Z][0m [shared storage] Fallback application storage initialized with 3 items
+[90m[main 2026-10-16T04:54:27.601Z][0m update#setState disabled
+[90m[main 2026-10-16T04:54:27.601Z][0m update#ctor - updates are disabled by the environment
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[AgentHost:renderer] Acquiring MessagePort to agent host...
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Loading development extension at /Users/az02065/Projects/DevTools/markdown-okf-schema-studio
+Extension 'github.copilot-chat' appears in product.json but enables LESS API proposals than the extension wants.
+package.json (LOSES): agentSessionsWorkspace
+agentsWindowConfiguration
+chatDebug
+chatHooks
+envIsConnectionMetered
+extensionsAny
+newSymbolNamesProvider
+interactive
+codeActionAI
+activeComment
+commentReveal
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+documentFiltersExclusive
+embeddings
+findTextInFiles
+findTextInFiles2
+languageModelToolSupportsModel
+findFiles2
+textSearchProvider
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+chatParticipantAdditions
+defaultChatParticipant
+contribSourceControlInputBoxMenu
+authLearnMore
+authIssuers
+testObserver
+aiTextSearchProvider
+chatParticipantPrivate
+chatProvider
+contribDebugCreateConfiguration
+chatReferenceDiagnostic
+textSearchProvider2
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelPricing
+inlineCompletionsAdditions
+chatStatusItem
+chatInputNotification
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+languageModelThinkingPart
+chatSessionsProvider
+devDeviceId
+contribEditorContentMenu
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+environmentPower
+terminalTitle
+toolInvocationApproveCombination
+chatSessionCustomizationProvider
+product.json (WINS): agentSessionsWorkspace
+agentsWindowConfiguration
+interactive
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+chatParticipantAdditions
+defaultChatParticipant
+embeddings
+chatProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+codeActionAI
+findTextInFiles
+findTextInFiles2
+textSearchProvider
+textSearchProvider2
+activeComment
+commentReveal
+contribSourceControlInputBoxMenu
+contribCommentEditorActionsMenu
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+extensionAffinity
+newSymbolNamesProvider
+findFiles2
+chatReferenceDiagnostic
+extensionsAny
+authLearnMore
+testObserver
+aiTextSearchProvider
+documentFiltersExclusive
+chatParticipantPrivate
+contribDebugCreateConfiguration
+inlineCompletionsAdditions
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelThinkingPart
+languageModelToolSupportsModel
+chatStatusItem
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+chatSessionsProvider
+chatSessionCustomizationProvider
+devDeviceId
+contribEditorContentMenu
+tokenInformation
+toolInvocationApproveCombination
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+chatHooks
+chatDebug
+envIsConnectionMetered
+environmentPower
+terminalTitle
+languageModelPricing
+chatInputNotification
+DELTA: authIssuers
+Proceeding with EXTRA proposals (authIssuers) because extension is in development mode. Still, this EXTENSION WILL BE BROKEN unless product.json is updated.
+[90m[main 2026-10-16T04:54:28.356Z][0m AgentHostProcessManager: agent host started
+[AgentHost:renderer] MessagePort acquired, creating client...
+Started local extension host with pid 561.
+[AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Settings Sync: Account status changed from uninitialized to unavailable
+[91m[main 2026-10-16T04:54:28.616Z][0m [AgentHost:stderr] (node:554) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `Code Helper --trace-deprecation ...` to show where the warning was created)
+
+[RemoteAgentHostProtocol] Sending initialize: address=local clientId=de5bb506-5375-4c11-81aa-3be097c760e3 requestId=1
+[RemoteAgentHostProtocol] Initialized: address=local clientId=de5bb506-5375-4c11-81aa-3be097c760e3 durationMs=634
+[AgentHost:renderer] Protocol connection established; clientId=de5bb506-5375-4c11-81aa-3be097c760e3
+[CloudSandboxApi] No 'github' session with scopes [read:user, user:email, repo, workflow]
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Unknown channel: agentHostClientByokLm
+Unknown channel: agentHostClientProxy
+Unknown channel: agentHostClientProxy
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Cannot read properties of undefined (reading 'selection'): TypeError: Cannot read properties of undefined (reading 'selection')
+    at np.applyOptions (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:715:93592)
+    at PF.applyNavigationOptions (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:715:70669)
+    at PF.setOptions (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:715:70558)
+    at D$e.doSetInput (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1021:36202)
+    at D$e.doOpenEditor (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1021:34214)
+    at D$e.openEditor (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1021:33162)
+    at vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1134:77139
+    at iI.doShowEditor (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1134:77387)
+    at iI.doOpenEditor (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1134:76885)
+    at iI.openEditor (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1134:75722)
+    at o (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1015:9039)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T04:54:30.134Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Unknown channel: agentHostClientProxy
+{"stockPreview":"pass","stockSettingsUnchanged":"pass","stockCommands":"pass","nativeTextDiff":"pass","stockRenderedDiffRegistration":"pass","coexistence":"pass"}
+(node:561) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `Code Helper (Plugin) --trace-deprecation ...` to show where the warning was created)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS checkbox screenshot: 01-reading-unchecked
+PASS checkbox screenshot: 02-reading-checked
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS checkbox screenshot: 03-edit-mode-unchecked
+PASS checkbox screenshot: 04-edit-mode-checked
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 01-paragraph-blur-commit
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 02-ctrl-enter-commit
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 03-arrow-navigation
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T04:54:36.222Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+PASS real-input screenshot: 04-table-cell-enter
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T04:54:37.085Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+PASS real-input screenshot: 06-table-padded-edit
+PASS real-input screenshot: 07-table-compact-edit
+[91m[main 2026-10-16T04:54:38.188Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 05-open-with-editor
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 08-frontmatter-value-minimal-patch
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 09-frontmatter-rename-minimal-patch
+PASS real-input screenshot: 10-frontmatter-remove-minimal-patch
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 11-frontmatter-title-enter
+PASS real-input screenshot: 12-frontmatter-title-multiline
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 13-escape-cancels-block
+PASS real-input screenshot: 14-escape-cancels-table-cell
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 15-typing-undo-grouping
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 16-undo-stays-side
+[91m[main 2026-10-16T04:54:53.755Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 16-undo-stays-open-with
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 17-enter-continues-list
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 18-tab-indents
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T04:54:59.052Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 19-preview-keeps-markdown
+[91m[main 2026-10-16T04:55:00.144Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 20-caret-at-click
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T04:55:01.003Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+PASS real-input screenshot: 21-edit-hover
+PASS real-input screenshot: 22-editor-frame-and-buttons
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 23-edit-mode-no-reflow
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 24-table-tab
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T04:55:06.003Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 25-table-toolbar
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 26-boolean-one-click
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 27-list-click-edits
+PASS real-input screenshot: 28-list-enter-adds
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 29-list-link-warning
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 30-frontmatter-actions-value
+PASS real-input screenshot: 31-frontmatter-actions-picker
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 32-required-remove-disabled
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 33-custom-key-added
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: t41-add-field-position
+PASS real-input screenshot: t41-custom-key-plain
+PASS real-input screenshot: t41-escape-on-picker
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 34-link-diagnostic-tooltip
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 24-start-writing-open
+PASS real-input screenshot: 25-block-inserted
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 25b-insert-after-figure-with-newline
+[91m[main 2026-10-16T04:55:21.437Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 25b-insert-after-figure-without-newline
+[91m[main 2026-10-16T04:55:22.767Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 07-image-editing
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T31 case A: Y0=1200 Y1=1200 Y2=1200
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T31 case B cell top: before=438.375 after100ms=438.375 editorOpen=438.375
+PASS real-input screenshot: 26-focus-change-still
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T31b: editor top line 196, anchor distance 1
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 27-hidden-preview-catches-up
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T32 list (realinput-t32-list): reading=81.80000000000001 T0=39.8125 T1=39.8125 drift=0
+RI-T32 list second render: T2=39.8125 drift=0
+PASS real-input screenshot: 32-save-keeps-list-in-place
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T04:55:33.343Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+RI-T32 table: T0=322.328125 Tcommit=322.328125 T1=322.328125 drift=0
+PASS real-input screenshot: 33-save-keeps-table-in-place
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T04:55:35.798Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+PASS real-input screenshot: 35-status-two-lines
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 36-title-bar-button
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 38-anchor-disabled
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 38-anchor-enabled
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 38-toolbar-dark-current
+PASS real-input screenshot: 38-toolbar-dark-dark
+PASS real-input screenshot: 38-toolbar-dark-white
+PASS real-input screenshot: 38-toolbar-dark-cream
+PASS real-input screenshot: 38-toolbar-light-current
+PASS real-input screenshot: 38-toolbar-light-dark
+PASS real-input screenshot: 38-toolbar-light-white
+PASS real-input screenshot: 38-toolbar-light-cream
+PASS real-input screenshot: 38-edit-mode-remembered
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T04:55:44.766Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 39-quick-open-beside-preview
+[91m[main 2026-10-16T04:55:45.504Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T43 fast edit html assignments: 1
+RI-T43 slow edit: assignments 0, paragraph shift 0 px
+PASS real-input screenshot: 43-pending-overlay
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T30 typing: 0 html assignments, 10 ready renders
+PASS real-input screenshot: 30-properties-in-place
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T34 typing: 0 html assignments, 20 content patches
+PASS real-input screenshot: 34-content-patched
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T34 large document typing: 0 html assignments, 32 content patches
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T04:56:35.556Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+PASS frontmatter screenshot: description-white-expanded
+PASS frontmatter screenshot: description-white-collapsed
+PASS frontmatter screenshot: description-white-collapsed-after-refresh
+PASS frontmatter screenshot: description-white-expanded-again
+PASS frontmatter screenshot: description-dark-expanded
+PASS frontmatter screenshot: description-dark-collapsed
+PASS frontmatter screenshot: description-dark-collapsed-after-refresh
+PASS frontmatter screenshot: description-dark-expanded-again
+PASS frontmatter screenshot: description-white-expanded-narrow
+PASS frontmatter screenshot: description-white-collapsed-narrow
+PASS frontmatter screenshot: description-white-collapsed-after-refresh-narrow
+PASS frontmatter screenshot: description-white-expanded-again-narrow
+PASS frontmatter screenshot: description-dark-expanded-narrow
+PASS frontmatter screenshot: description-dark-collapsed-narrow
+PASS frontmatter screenshot: description-dark-collapsed-after-refresh-narrow
+PASS frontmatter screenshot: description-dark-expanded-again-narrow
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[Task 02] measured initial command-to-render=80ms; normal edit-to-render=61ms; delayed obsolete build=500ms
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T04:57:04.475Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjI0MDI4YTktMmVkYy00NTcyLWEyNzAtMTEyMTEzZDM0YjVi" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[90m[main 2026-10-16T04:57:04.898Z][0m Extension host with pid 561 exited with code: 0, signal: unknown.
+Exit code:   0
+[90m[main 2026-10-16T04:57:05.304Z][0m [node-compile-cache] main: packaged cache inactive (status: disabled, configured: /Applications/Visual Studio Code.app/Contents/Resources/app/node-compile-cache/main, active: none)
+[90m[main 2026-10-16T04:57:05.321Z][0m StorageMainService: creating application shared storage
+[90m[main 2026-10-16T04:57:05.400Z][0m [shared storage] Creating shared storage database at ':memory:' (wasCreated: true)
+[90m[main 2026-10-16T04:57:05.400Z][0m [shared storage] Initializing fallback application storage (path: in-memory)
+[90m[main 2026-10-16T04:57:05.471Z][0m [shared storage] Fallback application storage initialized with 3 items
+[90m[main 2026-10-16T04:57:05.471Z][0m update#setState disabled
+[90m[main 2026-10-16T04:57:05.471Z][0m update#ctor - updates are disabled by the environment
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[AgentHost:renderer] Acquiring MessagePort to agent host...
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Loading development extension at /Users/az02065/Projects/DevTools/markdown-okf-schema-studio
+Extension 'github.copilot-chat' appears in product.json but enables LESS API proposals than the extension wants.
+package.json (LOSES): agentSessionsWorkspace
+agentsWindowConfiguration
+chatDebug
+chatHooks
+envIsConnectionMetered
+extensionsAny
+newSymbolNamesProvider
+interactive
+codeActionAI
+activeComment
+commentReveal
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+documentFiltersExclusive
+embeddings
+findTextInFiles
+findTextInFiles2
+languageModelToolSupportsModel
+findFiles2
+textSearchProvider
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+chatParticipantAdditions
+defaultChatParticipant
+contribSourceControlInputBoxMenu
+authLearnMore
+authIssuers
+testObserver
+aiTextSearchProvider
+chatParticipantPrivate
+chatProvider
+contribDebugCreateConfiguration
+chatReferenceDiagnostic
+textSearchProvider2
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelPricing
+inlineCompletionsAdditions
+chatStatusItem
+chatInputNotification
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+languageModelThinkingPart
+chatSessionsProvider
+devDeviceId
+contribEditorContentMenu
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+environmentPower
+terminalTitle
+toolInvocationApproveCombination
+chatSessionCustomizationProvider
+product.json (WINS): agentSessionsWorkspace
+agentsWindowConfiguration
+interactive
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+chatParticipantAdditions
+defaultChatParticipant
+embeddings
+chatProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+codeActionAI
+findTextInFiles
+findTextInFiles2
+textSearchProvider
+textSearchProvider2
+activeComment
+commentReveal
+contribSourceControlInputBoxMenu
+contribCommentEditorActionsMenu
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+extensionAffinity
+newSymbolNamesProvider
+findFiles2
+chatReferenceDiagnostic
+extensionsAny
+authLearnMore
+testObserver
+aiTextSearchProvider
+documentFiltersExclusive
+chatParticipantPrivate
+contribDebugCreateConfiguration
+inlineCompletionsAdditions
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelThinkingPart
+languageModelToolSupportsModel
+chatStatusItem
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+chatSessionsProvider
+chatSessionCustomizationProvider
+devDeviceId
+contribEditorContentMenu
+tokenInformation
+toolInvocationApproveCombination
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+chatHooks
+chatDebug
+envIsConnectionMetered
+environmentPower
+terminalTitle
+languageModelPricing
+chatInputNotification
+DELTA: authIssuers
+Proceeding with EXTRA proposals (authIssuers) because extension is in development mode. Still, this EXTENSION WILL BE BROKEN unless product.json is updated.
+[AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[90m[main 2026-10-16T04:57:06.462Z][0m AgentHostProcessManager: agent host started
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Started local extension host with pid 2430.
+[AgentHost:renderer] MessagePort acquired, creating client...
+Settings Sync: Account status changed from uninitialized to unavailable
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T04:57:06.716Z][0m [AgentHost:stderr] (node:2429) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `Code Helper --trace-deprecation ...` to show where the warning was created)
+
+[RemoteAgentHostProtocol] Sending initialize: address=local clientId=38d99c6d-994e-4510-a098-b2e7d7dd7741 requestId=1
+[RemoteAgentHostProtocol] Initialized: address=local clientId=38d99c6d-994e-4510-a098-b2e7d7dd7741 durationMs=817
+[AgentHost:renderer] Protocol connection established; clientId=38d99c6d-994e-4510-a098-b2e7d7dd7741
+[CloudSandboxApi] No 'github' session with scopes [read:user, user:email, repo, workflow]
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/M2Q3ZWU1N2EtMTMyOS00NGI5LTk3OTItODgyYzNmZWIwZWQ0" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/M2Q3ZWU1N2EtMTMyOS00NGI5LTk3OTItODgyYzNmZWIwZWQ0" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/M2Q3ZWU1N2EtMTMyOS00NGI5LTk3OTItODgyYzNmZWIwZWQ0" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/M2Q3ZWU1N2EtMTMyOS00NGI5LTk3OTItODgyYzNmZWIwZWQ0" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[90m[main 2026-10-16T04:57:07.635Z][0m Extension host with pid 2430 exited with code: 0, signal: unknown.
+Exit code:   0
+
+> markdown-okf-schema-studio@0.3.1 review:finish
+> node out/test/integration/review-index.js
+
+Review index: /Users/az02065/Projects/DevTools/markdown-okf-schema-studio/out/reports/e2e/REVIEW.md
+=== level E exit 0
+GATE EXIT 0

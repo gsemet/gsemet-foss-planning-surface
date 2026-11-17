@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cream">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design system · Requirements viewer · Markdown OKF-Schema Studio</title>
+<style>
+:root{--serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--ease:cubic-bezier(.2,.8,.2,1)}
+[data-theme=cream]{--bg:#f6f1e7;--paper:#fffdf8;--ink:#2b2620;--soft:#6f665a;--faint:#c9bfae;--line:#e6decf;--accent:#b5532a;--p2:#7a4fa0;--nom:#2f8f6f;--bnd:#2d6fb0;--ref:#c0392b;--alt:#a89c88}
+[data-theme=white]{--bg:#ffffff;--paper:#ffffff;--ink:#1d1f24;--soft:#5f6570;--faint:#c7cbd2;--line:#e7e9ee;--accent:#c2410c;--p2:#6d28d9;--nom:#047857;--bnd:#1d4ed8;--ref:#b91c1c;--alt:#9aa1ad}
+[data-theme=dark]{--bg:#15140f;--paper:#1f1d17;--ink:#efe8da;--soft:#a99f8d;--faint:#4d463b;--line:#332f26;--accent:#f08a5d;--p2:#b896de;--nom:#5fd0a8;--bnd:#7fb0ee;--ref:#ff7a6b;--alt:#6d6455}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);transition:background .35s,color .35s}
+main{max-width:1180px;margin:0 auto;padding:40px 24px 110px}
+.kicker{font:600 11.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+h1{font:400 clamp(30px,4.2vw,44px)/1.08 var(--serif);margin:10px 0 12px}
+h1 em{color:var(--accent)}
+h2{font:400 26px/1.2 var(--serif);margin:52px 0 6px}
+h2 small{display:block;font:13px var(--sans);color:var(--soft);margin-top:6px}
+p{font:16px/1.6 var(--serif);color:var(--soft);max-width:760px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:18px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.card h3{font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin:0 0 10px}
+.card p{font-size:14px;margin:6px 0 0}
+.do{border-left:5px solid var(--nom)} .dont{border-left:5px solid var(--ref)}
+.do h3{color:var(--nom)} .dont h3{color:var(--ref)}
+ul{margin:6px 0 0;padding-left:18px;font:14px/1.6 var(--serif);color:var(--ink)}
+.lines{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin-top:16px}
+.ln{display:flex;align-items:center;gap:10px;font:13px var(--sans);padding:8px 10px;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+.ln b{font:700 10.5px var(--mono);color:#fff;border-radius:5px;padding:3px 6px}
+.sw{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.sw div{width:120px;font:11.5px var(--mono);color:var(--soft)}
+.sw i{display:block;height:46px;border-radius:10px;border:1px solid var(--line);margin-bottom:6px}
+.type div{display:grid;grid-template-columns:140px 1fr;gap:16px;align-items:baseline;padding:12px 0;border-top:1px solid var(--line)}
+.type small{font:11.5px var(--mono);color:var(--soft)}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;font:11px var(--sans);letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:3px 9px;color:var(--soft);background:var(--paper)}
+.chip.ap{color:var(--nom);border-color:var(--nom)} .chip.old{color:var(--ref);border-color:var(--ref)}
+.k{font:700 10px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#fff;border-radius:5px;padding:3px 7px}
+.pill{font:700 11px var(--mono);border:1.6px solid var(--accent);border-radius:12px;padding:4px 10px;background:var(--paper)}
+.sta{position:relative;padding:12px 16px;background:var(--paper);border:1px solid var(--line);border-radius:12px;margin-left:40px;width:340px;max-width:calc(100% - 40px)}
+.sta::before{content:"";position:absolute;left:-32px;top:15px;width:18px;height:18px;border-radius:50%;background:var(--paper);border:5px solid #1d4ed8;box-sizing:border-box}
+.sta::after{content:"";position:absolute;left:-26px;top:-14px;bottom:-14px;width:7px;background:#1d4ed8;border-radius:3px;z-index:-1}
+.sta h4{font:400 17px var(--serif);margin:2px 0 4px}.sta small{font:11px var(--mono);color:var(--soft)}
+.file{display:flex;gap:10px;align-items:center;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);font:12.5px var(--mono);width:420px;max-width:100%}
+.file::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--bnd)}
+.file span{color:var(--soft)} .file em{margin-left:auto;font:600 9.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:4px;background:var(--line);color:var(--soft);font-style:normal}
+svg{display:block}
+.bar{position:fixed;top:14px;right:18px;display:flex;gap:6px}
+.ib{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:7px 12px;font:13px var(--sans);cursor:pointer}
+.ib[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.proto{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:30;display:flex;gap:2px;padding:4px;border-radius:999px;background:var(--ink);font:12px var(--sans)}
+.proto a{color:var(--paper);opacity:.6;padding:6px 11px;border-radius:999px;white-space:nowrap;text-decoration:none}
+.proto a.on{opacity:1;background:color-mix(in srgb,var(--paper) 18%,transparent)}
+@media (max-width:700px){.proto a .w{display:none}.type div{grid-template-columns:1fr}}
+.motion div{display:flex;justify-content:space-between;gap:20px;padding:10px 0;border-top:1px solid var(--line);font:14px/1.5 var(--serif)}
+.motion code{font:12px var(--mono);color:var(--soft);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="bar"><button class="ib" data-t="cream" aria-pressed="true">Cream</button><button class="ib" data-t="white">White</button><button class="ib" data-t="dark">Dark</button></div>
+<main>
+  <div class="kicker">Requirements viewer · step 0</div>
+  <h1>A public-transport <em>signage</em>, not a sci-fi map.</h1>
+  <p>The viewer borrows the language of transit signage: each area is a line with its own colour, each use case a station, and a use case's paths are drawn as a metro map. The metaphor stays in the signage; the pages stay calm documents a team can read every day.</p>
+
+  <h2>Principles<small>What each page must and must not do</small></h2>
+  <div class="grid">
+    <div class="card do"><h3>Do</h3><ul><li>One level of detail per page: areas, then use cases, then the map, then the behaviour.</li><li>Colour means one thing: the area. Path 1, path 2 and the scenario kinds are the only other colours.</li><li>Every number links to what it counts.</li><li>Motion only to show a direction or a change (a path being walked, a panel replacing another).</li><li>Works the same on a phone: lists stack, the map turns vertical.</li></ul></div>
+    <div class="card dont"><h3>Don't</h3><ul><li>No glow, neon, particles, starfields, 3D or glassmorphism.</li><li>No gradient text, no decorative blobs, no emoji as icons.</li><li>No metro map outside the use case page.</li><li>No animation that loops while the reader reads (except the pulse of a goal station).</li><li>No number without its unit in words.</li></ul></div>
+    <div class="card"><h3>Tone</h3><p>Editorial serif for what people read (titles, needs, rules, scenarios); a plain sans for labels and controls; a monospace for identifiers and file paths. Sentences, not jargon: “4 use cases · 27 behaviours”, not “StRS: 4 / SwRS: 27”.</p></div>
+  </div>
+
+  <h2>Line colours<small>One per area, in the order of the e2e groups; the same colour on every page</small></h2>
+  <div class="lines" id="lines"></div>
+
+  <h2>Themes and semantic colours<small>The three themes of Studio; the semantic colours keep their meaning in each</small></h2>
+  <div class="sw" id="sw"></div>
+
+  <h2>Type<small>Three families, five sizes</small></h2>
+  <div class="type card">
+    <div><small>Title · serif 44/1.08</small><span style="font:400 40px/1.1 var(--serif)">Diagrams</span></div>
+    <div><small>Item · serif 20/1.25</small><span style="font:400 20px/1.25 var(--serif)">A writer reads and inserts Mermaid diagrams</span></div>
+    <div><small>Need · serif italic 15</small><span style="font:italic 15px/1.5 var(--serif);color:var(--soft)">“I put a Mermaid diagram in my document and see it drawn.”</span></div>
+    <div><small>Label · sans 11 caps</small><span style="font:600 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--soft)">Transfers to other areas</span></div>
+    <div><small>Identifier · mono 11.5</small><span style="font:600 11.5px var(--mono)">SwRS DIAG-015 · 2 tests</span></div>
+  </div>
+
+  <h2>Components<small>The pieces every page is made of</small></h2>
+  <div class="grid">
+    <div class="card"><h3>Station (use case in a line)</h3><div style="padding:16px 0 10px;position:relative;z-index:0"><div class="sta"><small>DIAG-001</small><h4>A writer reads and inserts Mermaid diagrams</h4></div></div></div>
+    <div class="card"><h3>Metro transition</h3><svg viewBox="0 0 300 90" width="100%"><path d="M30 50 L270 50" stroke="var(--accent)" stroke-width="7" stroke-linecap="round"/><circle cx="30" cy="50" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="3.5"/><circle cx="270" cy="50" r="15" fill="var(--paper)" stroke="var(--accent)" stroke-width="5"/><rect x="100" y="38" width="100" height="24" rx="12" fill="var(--paper)" stroke="var(--accent)" stroke-width="1.6"/><text x="150" y="54" text-anchor="middle" style="font:700 11px var(--mono);fill:var(--ink)">DIAG-015 · 2✓</text><circle cx="138" cy="70" r="4.2" fill="var(--nom)"/><circle cx="150" cy="70" r="4.2" fill="var(--bnd)"/><circle cx="162" cy="70" r="4.2" fill="var(--bnd)"/><text x="150" y="26" text-anchor="middle" style="font:italic 12.5px var(--serif);fill:var(--soft)">an invalid line is saved</text></svg><p>A pill on the line: the behaviour and its test files; dots: its scenarios by kind.</p></div>
+    <div class="card"><h3>Paths and options</h3><svg viewBox="0 0 300 80" width="100%"><path d="M20 20 L280 20" stroke="var(--accent)" stroke-width="7" stroke-linecap="round"/><path d="M20 45 L280 45" stroke="var(--p2)" stroke-width="7" stroke-linecap="round"/><path d="M20 68 L280 68" stroke="var(--alt)" stroke-width="2.5" stroke-dasharray="6 6"/></svg><p>Path 1 (accent), path 2 (violet), an option (dashed): what can also happen at a station.</p></div>
+    <div class="card"><h3>Scenario kinds</h3><div class="row"><span class="k" style="background:var(--nom)">nominal</span><span class="k" style="background:var(--bnd)">boundary</span><span class="k" style="background:var(--ref)">refusal</span></div><p>Always the same three colours, as badges or as dots.</p></div>
+    <div class="card"><h3>Lifecycle chips</h3><div class="row"><span class="chip ap">approved</span><span class="chip">draft</span><span class="chip old">superseded</span></div><p>“proposed” is the default and shows no chip.</p></div>
+    <div class="card"><h3>File link</h3><div class="file"><span>test/page/</span>runtimeMermaid.test.ts<em>unit</em></div><p>Opens GitHub at the published commit; the tag says what kind of test.</p></div>
+  </div>
+
+  <h2>Motion<small>Short, eased, and only with a meaning</small></h2>
+  <div class="card motion">
+    <div>A page enters: fade and rise of 10 px.<code>450 ms · ease-out</code></div>
+    <div>The network ribbon grows from the left on the areas page.<code>900 ms · once</code></div>
+    <div>Play: a token walks a path station by station; the rest of the map dims.<code>1 s per step · on demand</code></div>
+    <div>The goal station pulses softly: the only loop.<code>2.4 s · infinite</code></div>
+    <div>A selected behaviour replaces the preview card.<code>300 ms</code></div>
+    <div>Reduced motion: no ribbon growth, no token, no pulse.<code>prefers-reduced-motion</code></div>
+  </div>
+</main>
+<nav class="proto" id="proto"></nav>
+<!--DS-CONFIG-->
+<script>
+const PAL = ["#c2410c","#be185d","#7c3aed","#4338ca","#1d4ed8","#0369a1","#0f766e","#047857","#4d7c0f","#a16207","#b45309","#b91c1c","#9333ea","#0e7490","#475569","#9d174d"];
+const AREAS = window.DS_AREAS;
+document.getElementById("lines").innerHTML = AREAS.map((a, i) => `<div class="ln"><b style="background:${PAL[i]}">${String(i + 1).padStart(2, "0")}</b>${a}</div>`).join("");
+const VARS = [["--bg", "page"], ["--paper", "surface"], ["--ink", "text"], ["--accent", "path 1, goal"], ["--p2", "path 2"], ["--nom", "nominal"], ["--bnd", "boundary"], ["--ref", "refusal, issue"], ["--alt", "option"]];
+document.getElementById("sw").innerHTML = VARS.map(([v, l]) => `<div><i style="background:var(${v})"></i>${v}<br>${l}</div>`).join("");
+document.querySelectorAll("[data-t]").forEach(b => b.onclick = () => { document.documentElement.dataset.theme = b.dataset.t; document.querySelectorAll("[data-t]").forEach(x => x.setAttribute("aria-pressed", x === b)); });
+document.getElementById("proto").innerHTML = window.PROTO_STEPS.map((x, i) => `<a href="${x.file}" class="${i === 0 ? "on" : ""}">${i}<span class="w"> ${x.name}</span></a>`).join("");
+</script>
+</body>
+</html>

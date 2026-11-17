@@ -1,0 +1,36 @@
+{
+  "name": "UX-11-setup",
+  "file": "fixtures-visual/04-code-and-tables.md",
+  "steps": [
+    {
+      "key": "Meta+1",
+      "wait": 500
+    },
+    {
+      "open": "fixtures-visual/04-code-and-tables.md",
+      "wait": 2000
+    },
+    {
+      "palette": "Markdown OKF-Schema Studio: Open Preview to Side",
+      "wait": 5000
+    },
+    {
+      "waitFor": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent.includes('Code')",
+      "timeout": 20000,
+      "label": "side preview shows 04-code-and-tables"
+    },
+    {
+      "editMode": false,
+      "wait": 600
+    },
+    {
+      "clicksel": "h2",
+      "text": "Deeply nested lists",
+      "wait": 1200
+    },
+    {
+      "editMode": true,
+      "wait": 800
+    }
+  ]
+}

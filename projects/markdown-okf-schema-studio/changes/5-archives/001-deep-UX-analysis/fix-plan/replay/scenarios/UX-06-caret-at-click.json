@@ -1,0 +1,208 @@
+{
+  "name": "UX-06-caret-at-click",
+  "file": "book/chapters/02-foundations.md",
+  "steps": [
+    {
+      "key": "Meta+1",
+      "wait": 500
+    },
+    {
+      "palette": "File: Revert File",
+      "wait": 1200
+    },
+    {
+      "open": "book/chapters/02-foundations.md",
+      "wait": 3000
+    },
+    {
+      "waitFor": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent && D.querySelector('#sphinx-myst-preview-content h1').textContent.includes('Foundations')",
+      "timeout": 20000,
+      "label": "preview shows 02-foundations"
+    },
+    {
+      "mark": "book/chapters/02-foundations.md"
+    },
+    {
+      "editMode": true
+    },
+    {
+      "clicksel": "p",
+      "text": "Training and deploying an LLM",
+      "dx": 40,
+      "dy": 8
+    },
+    {
+      "waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')",
+      "label": "block editor open"
+    },
+    {
+      "eval": "(()=>{const t=D.querySelector('[data-sphinx-preview-block-editor] textarea'); if(!t) return 'NO TEXTAREA'; const c=t.selectionStart; return JSON.stringify({caret:c,len:t.value.length,line:t.value.slice(0,c).split('\\n').length,ctx:t.value.slice(Math.max(0,c-14),c)+'|'+t.value.slice(c,c+14)})})()"
+    },
+    {
+      "type": "Z"
+    },
+    {
+      "wait": 800
+    },
+    {
+      "check": "diff",
+      "file": "book/chapters/02-foundations.md",
+      "against": "mark",
+      "maxLines": 1,
+      "show": true,
+      "label": "UX-06 paragraph, first word, first rendered line"
+    },
+    {
+      "key": "Meta+z",
+      "wait": 300
+    },
+    {
+      "key": "Escape",
+      "wait": 1500
+    },
+    {
+      "clicksel": "p",
+      "text": "Training and deploying an LLM",
+      "dx": 40,
+      "dy": 64
+    },
+    {
+      "waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')",
+      "label": "block editor open"
+    },
+    {
+      "eval": "(()=>{const t=D.querySelector('[data-sphinx-preview-block-editor] textarea'); if(!t) return 'NO TEXTAREA'; const c=t.selectionStart; return JSON.stringify({caret:c,len:t.value.length,line:t.value.slice(0,c).split('\\n').length,ctx:t.value.slice(Math.max(0,c-14),c)+'|'+t.value.slice(c,c+14)})})()"
+    },
+    {
+      "type": "Z"
+    },
+    {
+      "wait": 800
+    },
+    {
+      "check": "diff",
+      "file": "book/chapters/02-foundations.md",
+      "against": "mark",
+      "maxLines": 1,
+      "show": true,
+      "label": "UX-06 paragraph, third rendered line"
+    },
+    {
+      "key": "Meta+z",
+      "wait": 300
+    },
+    {
+      "key": "Escape",
+      "wait": 1500
+    },
+    {
+      "clicksel": "h3",
+      "text": "Model parameters",
+      "dx": 60,
+      "dy": 12,
+      "exact": true
+    },
+    {
+      "waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')",
+      "label": "block editor open"
+    },
+    {
+      "eval": "(()=>{const t=D.querySelector('[data-sphinx-preview-block-editor] textarea'); if(!t) return 'NO TEXTAREA'; const c=t.selectionStart; return JSON.stringify({caret:c,len:t.value.length,line:t.value.slice(0,c).split('\\n').length,ctx:t.value.slice(Math.max(0,c-14),c)+'|'+t.value.slice(c,c+14)})})()"
+    },
+    {
+      "type": "Z"
+    },
+    {
+      "wait": 800
+    },
+    {
+      "check": "diff",
+      "file": "book/chapters/02-foundations.md",
+      "against": "mark",
+      "maxLines": 1,
+      "show": true,
+      "label": "UX-06 heading, first word"
+    },
+    {
+      "key": "Meta+z",
+      "wait": 300
+    },
+    {
+      "key": "Escape",
+      "wait": 1500
+    },
+    {
+      "check": "diff",
+      "file": "book/chapters/02-foundations.md",
+      "against": "mark",
+      "equal": true,
+      "label": "UX-06 foundations buffer back to mark"
+    },
+    {
+      "key": "Meta+1",
+      "wait": 500
+    },
+    {
+      "open": "fixtures-visual/04-code-and-tables.md",
+      "wait": 3000
+    },
+    {
+      "waitFor": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent && D.querySelector('#sphinx-myst-preview-content h1').textContent.includes('Code')",
+      "timeout": 20000,
+      "label": "preview shows 04-code-and-tables"
+    },
+    {
+      "mark": "fixtures-visual/04-code-and-tables.md"
+    },
+    {
+      "editMode": true
+    },
+    {
+      "clicksel": "li",
+      "text": "Dry goods",
+      "dx": 30,
+      "dy": 8,
+      "exact": true
+    },
+    {
+      "waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')",
+      "label": "block editor open"
+    },
+    {
+      "eval": "(()=>{const t=D.querySelector('[data-sphinx-preview-block-editor] textarea'); if(!t) return 'NO TEXTAREA'; const c=t.selectionStart; return JSON.stringify({caret:c,len:t.value.length,line:t.value.slice(0,c).split('\\n').length,ctx:t.value.slice(Math.max(0,c-14),c)+'|'+t.value.slice(c,c+14)})})()"
+    },
+    {
+      "type": "Z"
+    },
+    {
+      "wait": 800
+    },
+    {
+      "check": "diff",
+      "file": "fixtures-visual/04-code-and-tables.md",
+      "against": "mark",
+      "maxLines": 1,
+      "show": true,
+      "label": "UX-06 list, first item first word"
+    },
+    {
+      "key": "Meta+z",
+      "wait": 300
+    },
+    {
+      "key": "Escape",
+      "wait": 1500
+    },
+    {
+      "check": "diff",
+      "file": "fixtures-visual/04-code-and-tables.md",
+      "against": "mark",
+      "equal": true,
+      "label": "UX-06 tables buffer back to mark"
+    },
+    {
+      "check": "errors",
+      "ignore": "401"
+    }
+  ]
+}

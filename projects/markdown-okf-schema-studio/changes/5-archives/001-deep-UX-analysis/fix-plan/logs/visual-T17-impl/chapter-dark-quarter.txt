@@ -1,0 +1,49 @@
+chapter-dark-quarter
+====================
+
+Fixture:  05-long-chapter.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 900x1000
+Scroll:   selector (aside.important) - final y=786; first `aside.important` positioned below toolbar/sticky overlays plus 24px
+Status:   failed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested selector (aside.important) position.
+
+Captured state
+--------------
+The preview is scrolled to 786 pixels. Edit mode is off.
+Visible content: assigned — a vehicle and driver are bound to the leg,; in transit — the parcel has been scanned onto the vehicle,; completed — the destination depot has scanned it off.; Important; There is no cancelled state. A leg that will never complete stays
+assigned forever, and the only way; The paragraph after that important block is ordinary body text and must look
+exactly like the paragr; The original design had one. It was removed after an incident in which a
+partial network split cause; The safest state machine is the one with the fewest edges you can reach by
+accident. We removed the ; Danger; Do not add a cancelled state back without a distributed agreement mechanism.
+The incident review is ; Shift changes are the busiest sixty seconds in the system. Every depot
+simultaneously re-reports veh; Outgoing shift scans off remaining parcels.; Depot reports vehicle availability.; Planner refreshes the rolling window.; Incoming shift scans on.; Do not drain during a shift change; Intake keeps accepting manifests for up to ninety seconds after a drain begins,
+and those manifests ; northwind depot drain nw-07 --wait-for-quiet
+northwind depot status nw-07 --watch
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+The important-block landmark and following body-colour paragraph.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Machine checks
+--------------
+n/a overlay-covers-text: no visible overlay
+n/a overlay-clipped: no visible overlay
+PASS identifier-split: identifier cells stay on one line
+n/a status-two-lines: no status with a strong line and message
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.
+Assertion failure: sticky heading overlaps the reserved toolbar row

@@ -1,0 +1,88 @@
+{
+ "name": "UX-21-custom-key-value",
+ "file": "synth/frontmatter-edge.md",
+ "vars": {
+  "fe": "[data-okf-frontmatter-editor]",
+  "menu": "[data-okf-frontmatter-menu]"
+ },
+ "steps": [
+  {
+   "open": "${file}"
+  },
+  {
+   "waitFor": "D.querySelector('tr[data-okf-field=\"custom_key\"]')",
+   "timeout": 15000,
+   "label": "preview follows file"
+  },
+  {
+   "mark": "${file}"
+  },
+  {
+   "editMode": true
+  },
+  {
+   "clicksel": "tr[data-okf-field=\"status\"] [data-okf-value-cell]"
+  },
+  {
+   "waitFor": "D.querySelector('${menu}')",
+   "label": "status editor and menu"
+  },
+  {
+   "clicksel": "${menu} button[data-okf-frontmatter-operation=\"add\"]",
+   "wait": 700
+  },
+  {
+   "check": "focus",
+   "selector": ".sphinx-preview-frontmatter-picker input",
+   "label": "custom key input focused"
+  },
+  {
+   "type": "approver"
+  },
+  {
+   "key": "Enter",
+   "wait": 2500
+  },
+  {
+   "check": "feval",
+   "expr": "!!D.querySelector('tr[data-okf-field=\"approver\"] ${fe}')",
+   "label": "UX-21 custom field's editor opens"
+  },
+  {
+   "eval": "(() => { const c = D.querySelector('tr[data-okf-field=\"approver\"] ${fe} textarea, tr[data-okf-field=\"approver\"] ${fe} input'); return JSON.stringify({tag: c && c.tagName, value: c && c.value, focused: D.activeElement === c}); })()"
+  },
+  {
+   "type": "Ann"
+  },
+  {
+   "key": "Enter",
+   "wait": 800
+  },
+  {
+   "eval": "(() => { const c = D.querySelector('tr[data-okf-field=\"approver\"] ${fe} textarea, tr[data-okf-field=\"approver\"] ${fe} input'); return c ? 'editor still open, value=' + JSON.stringify(c.value) : 'editor closed'; })()"
+  },
+  {
+   "clicksel": "h1",
+   "text": "Frontmatter edge cases",
+   "exact": true,
+   "wait": 1500
+  },
+  {
+   "key": "Escape",
+   "wait": 800
+  },
+  {
+   "check": "diff",
+   "file": "${file}",
+   "against": "mark",
+   "maxLines": 1,
+   "contains": "Ann",
+   "show": true,
+   "label": "UX-21 custom key value saved on blur, one line after status",
+   "notContains": "approver: |"
+  },
+  {
+   "check": "errors"
+  }
+ ]
+}

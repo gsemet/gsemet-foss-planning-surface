@@ -1,0 +1,260 @@
+✔ a numbered grid card title maps to its directive line, never to line 1 (321.815208ms)
+✔ a numbered standalone card title maps to its directive line (3.513542ms)
+✔ a numbered card title is literal inline text: the leading number stays and no list is built (9.864208ms)
+✔ a plain grid card title maps to its directive line too (3.762334ms)
+✔ a card title with a link option maps to its directive line like a plain title (2.296958ms)
+✔ a linked grid card title maps to its directive line and keeps its link (24.267875ms)
+✔ a standalone card header option maps to its own option line and keeps its leading number (2.800667ms)
+✔ header and footer options that are not the first option line map to their own lines (3.590166ms)
+✔ the header, footer and unlinked title lines are marked single-line; the body is not (5.097625ms)
+✔ a linked card title is marked single-line like any card title (5.303042ms)
+✔ a quoted grid whose body starts with a blank quoted line maps its card, title and body to their own lines (3.009291ms)
+✔ a doubly quoted grid whose body starts with a blank quoted line maps its card, title and body to their own lines (2.576667ms)
+✔ a quoted grid with the cards on the next line maps its card, title and body to their own lines (2.450375ms)
+✔ a quoted grid with a gutter option and a blank line maps its card, title and body to their own lines (2.269666ms)
+✔ an unquoted grid whose body starts with a blank line maps its card, title and body to their own lines (2.203167ms)
+✔ a quoted standalone card maps its card, title and body to their own lines (5.222083ms)
+✔ a quoted standalone card with a backtick fence and a blank first body line maps its card, title and body to their own lines (1.939458ms)
+✔ an unquoted standalone card with a backtick fence and a blank first body line maps its card, title and body to their own lines (1.53025ms)
+✔ a doubly quoted standalone card maps its card, title and body to their own lines (1.598625ms)
+✔ a quoted card with an option line maps its card, title and body to their own lines (1.626125ms)
+✔ a quoted card with the header and footer markers maps its card, title and body to their own lines (2.710208ms)
+✔ a quoted card whose body has a lazy continuation line maps its card, title and body to their own lines (8.415958ms)
+✖ a bullet grid whose body starts with a blank line maps its card, title and body to their own lines (4.028917ms)
+✖ a star bullet grid whose body starts with a blank line maps its card, title and body to their own lines (2.4895ms)
+✖ an ordered grid whose body starts with a blank line maps its card, title and body to their own lines (2.671334ms)
+✖ a two-digit ordered grid whose body starts with a blank line maps its card, title and body to their own lines (2.312625ms)
+✖ a nested bullet grid whose body starts with a blank line maps its card, title and body to their own lines (2.672167ms)
+✖ a list item inside a quote whose grid body starts with a blank line maps its card, title and body to their own lines (2.524667ms)
+✖ a quote inside a list item whose grid body starts with a blank line maps its card, title and body to their own lines (2.503792ms)
+✖ a standalone card in a list item with a blank first body line maps its card, title and body to their own lines (1.763166ms)
+✔ a bullet grid with the cards on the next line maps its card, title and body to their own lines (2.195125ms)
+✔ an ordered grid with the cards on the next line maps its card, title and body to their own lines (2.695666ms)
+✔ a bullet grid with a gutter option and a blank line maps its card, title and body to their own lines (2.412833ms)
+✔ a grid opened on its own indented line in a list item maps its card, title and body to their own lines (2.264375ms)
+✖ a tab panel of a tab set written in a list item maps to its directive line (3.07325ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 26
+ℹ fail 9
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 656.004791
+
+✖ failing tests:
+
+test at out/test/core/render/gridCardTitleSourceLine.test.js:323:26
+✖ a bullet grid whose body starts with a blank line maps its card, title and body to their own lines (4.028917ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   body: 5,
+  +   card: 4,
+  +   title: 4
+  -   body: 6,
+  -   card: 5,
+  -   title: 5
+    }
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/DevTools/mdokf-before-319/out/test/core/render/gridCardTitleSourceLine.test.js:325:16)
+      at async Test.run (node:internal/test_runner/test:1102:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:777:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { card: 4, title: 4, body: 5 },
+    expected: { card: 5, title: 5, body: 6 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/core/render/gridCardTitleSourceLine.test.js:323:26
+✖ a star bullet grid whose body starts with a blank line maps its card, title and body to their own lines (2.4895ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   body: 5,
+  +   card: 4,
+  +   title: 4
+  -   body: 6,
+  -   card: 5,
+  -   title: 5
+    }
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/DevTools/mdokf-before-319/out/test/core/render/gridCardTitleSourceLine.test.js:325:16)
+      at async Test.run (node:internal/test_runner/test:1102:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:777:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { card: 4, title: 4, body: 5 },
+    expected: { card: 5, title: 5, body: 6 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/core/render/gridCardTitleSourceLine.test.js:323:26
+✖ an ordered grid whose body starts with a blank line maps its card, title and body to their own lines (2.671334ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   body: 5,
+  +   card: 4,
+  +   title: 4
+  -   body: 6,
+  -   card: 5,
+  -   title: 5
+    }
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/DevTools/mdokf-before-319/out/test/core/render/gridCardTitleSourceLine.test.js:325:16)
+      at async Test.run (node:internal/test_runner/test:1102:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:777:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { card: 4, title: 4, body: 5 },
+    expected: { card: 5, title: 5, body: 6 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/core/render/gridCardTitleSourceLine.test.js:323:26
+✖ a two-digit ordered grid whose body starts with a blank line maps its card, title and body to their own lines (2.312625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   body: 5,
+  +   card: 4,
+  +   title: 4
+  -   body: 6,
+  -   card: 5,
+  -   title: 5
+    }
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/DevTools/mdokf-before-319/out/test/core/render/gridCardTitleSourceLine.test.js:325:16)
+      at async Test.run (node:internal/test_runner/test:1102:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:777:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { card: 4, title: 4, body: 5 },
+    expected: { card: 5, title: 5, body: 6 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/core/render/gridCardTitleSourceLine.test.js:323:26
+✖ a nested bullet grid whose body starts with a blank line maps its card, title and body to their own lines (2.672167ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   body: 6,
+  +   card: 5,
+  +   title: 5
+  -   body: 7,
+  -   card: 6,
+  -   title: 6
+    }
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/DevTools/mdokf-before-319/out/test/core/render/gridCardTitleSourceLine.test.js:325:16)
+      at async Test.run (node:internal/test_runner/test:1102:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:777:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { card: 5, title: 5, body: 6 },
+    expected: { card: 6, title: 6, body: 7 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/core/render/gridCardTitleSourceLine.test.js:323:26
+✖ a list item inside a quote whose grid body starts with a blank line maps its card, title and body to their own lines (2.524667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   body: 5,
+  +   card: 4,
+  +   title: 4
+  -   body: 6,
+  -   card: 5,
+  -   title: 5
+    }
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/DevTools/mdokf-before-319/out/test/core/render/gridCardTitleSourceLine.test.js:325:16)
+      at async Test.run (node:internal/test_runner/test:1102:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:777:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { card: 4, title: 4, body: 5 },
+    expected: { card: 5, title: 5, body: 6 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/core/render/gridCardTitleSourceLine.test.js:323:26
+✖ a quote inside a list item whose grid body starts with a blank line maps its card, title and body to their own lines (2.503792ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   body: 5,
+  +   card: 4,
+  +   title: 4
+  -   body: 6,
+  -   card: 5,
+  -   title: 5
+    }
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/DevTools/mdokf-before-319/out/test/core/render/gridCardTitleSourceLine.test.js:325:16)
+      at async Test.run (node:internal/test_runner/test:1102:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:777:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { card: 4, title: 4, body: 5 },
+    expected: { card: 5, title: 5, body: 6 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/core/render/gridCardTitleSourceLine.test.js:323:26
+✖ a standalone card in a list item with a blank first body line maps its card, title and body to their own lines (1.763166ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   body: 4,
+  -   body: 5,
+      card: 3,
+      title: 3
+    }
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/DevTools/mdokf-before-319/out/test/core/render/gridCardTitleSourceLine.test.js:325:16)
+      at async Test.run (node:internal/test_runner/test:1102:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:777:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { card: 3, title: 3, body: 4 },
+    expected: { card: 3, title: 3, body: 5 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/core/render/gridCardTitleSourceLine.test.js:329:22
+✖ a tab panel of a tab set written in a list item maps to its directive line (3.07325ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  4 !== 5
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/DevTools/mdokf-before-319/out/test/core/render/gridCardTitleSourceLine.test.js:334:12)
+      at async Test.run (node:internal/test_runner/test:1102:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:777:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 5,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

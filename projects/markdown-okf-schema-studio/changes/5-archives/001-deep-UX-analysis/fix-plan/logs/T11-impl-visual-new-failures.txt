@@ -1,0 +1,2 @@
+  08-okf-schema--dark--sticky-3--default.html: wrapped table-cell edit did not autosave its updated Markdown
+  08-okf-schema--light--sticky-3--default.html: wrapped table-cell edit did not autosave its updated Markdown

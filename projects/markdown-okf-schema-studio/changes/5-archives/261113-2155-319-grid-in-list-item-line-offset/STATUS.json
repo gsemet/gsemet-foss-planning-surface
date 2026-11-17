@@ -1,0 +1,165 @@
+{
+  "schema": 2,
+  "updated": "2026-11-14T17:14:19Z",
+  "cr": "CR-319",
+  "title": "Change Specification: a grid inside a list item maps its cards one line too early",
+  "batch": "batch-04",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 1,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/392.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/392",
+    "number": 392
+  },
+  "steps": [
+    {
+      "name": "Round 1",
+      "done": true,
+      "verdict": "",
+      "note": "Implement the change specification in full: failing tests first, fix, requirement scenario, log, changelog, requirements-update. Do not commit.",
+      "at": "2026-11-13T19:17:09Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Round 1 approved, committed; running long gate",
+      "at": "2026-11-13T19:31:50Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "fc21e5e5",
+      "at": "2026-11-13T20:05:14Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Local preflight: static and visual passed; integration failed on tall-block-scroll toolbar clearance (real VS Code, unrelated to line mapping), so report/gallery failed. Running heavy CI on the branch as proof.",
+      "at": "2026-11-13T20:05:45Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/392",
+      "at": "2026-11-13T20:05:45Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Rebased onto main after CR-320 merged (log.md conflict only); just check green; pushed force-with-lease; heavy CI rerun",
+      "at": "2026-11-13T20:23:38Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/392",
+      "at": "2026-11-13T20:23:38Z"
+    },
+    {
+      "name": "Blocked",
+      "done": true,
+      "verdict": "",
+      "note": "waits: heavy CI run 43501134204 on head 00569bd (PR 392, draft); resume: read gh run view 43501134204, if green + Verifier then gh pr ready 392 and handback ready",
+      "at": "2026-11-13T20:24:19Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Verifier VERIFIED at 00569bd; evidence in PR Impacts; PR ready",
+      "at": "2026-11-13T20:48:26Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-13T20:48:26Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/392",
+      "at": "2026-11-13T21:55:32Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "request",
+      "path": "intake/request.md"
+    },
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261113-203150.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../constitution.md",
+      "name": ".agents/constitution.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../AGENTS.md",
+      "name": "AGENTS.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CHANGELOG.md",
+      "name": "CHANGELOG.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/log.md",
+      "name": "requirements/tiers/log.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-258.md",
+      "name": "requirements/tiers/swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-258.md"
+    }
+  ],
+  "branch": "chantier/batch-04/cr-319-change-specification-a-grid-inside-a-lis",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-04-CR-319",
+  "agent": null,
+  "notes": [
+    "Round 1 approved, committed; running long gate",
+    "Local preflight: static and visual passed; integration failed on tall-block-scroll toolbar clearance (real VS Code, unrelated to line mapping), so report/gallery failed. Running heavy CI on the branch as proof.",
+    "Rebased onto main after CR-320 merged (log.md conflict only); just check green; pushed force-with-lease; heavy CI rerun",
+    "back to a Driver: resume: heavy run green at 00569bd; Verifier, PR body Impacts, gh pr ready, handback ready",
+    "Verifier VERIFIED at 00569bd; evidence in PR Impacts; PR ready"
+  ],
+  "blocked": null,
+  "cost_usd": 1.8424,
+  "final_cost": true,
+  "silent_minutes": null
+}

@@ -1,0 +1,27 @@
+{
+  "name": "UX-27-preview-group-lock",
+  "file": "synth/tables.md",
+  "precondition": "No side preview open; one editor group.",
+  "steps": [
+    {"open": "${file}", "wait": 1500},
+    {"palette": "Markdown OKF-Schema Studio: Open Preview to Side", "wait": 4000},
+    {"waitFor": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent.includes('Table')", "timeout": 15000, "label": "preview shows tables.md"},
+    {"check": "peval", "expr": "[...document.querySelectorAll('.editor-group-container')].map(g => !!g.querySelector('.codicon-lock')).join(',')", "equals": "false,true", "label": "UX-27 preview group locked"},
+    {"clicksel": "#sphinx-myst-preview-content p", "wait": 600},
+    {"key": "Meta+p", "wait": 700},
+    {"type": "links.md", "wait": 900},
+    {"key": "Enter", "wait": 2500},
+    {"check": "editor", "active": "synth/links.md", "label": "UX-27 Quick Open from preview opened the file"},
+    {"check": "peval", "expr": "document.querySelectorAll('.editor-group-container').length", "equals": 2, "label": "UX-27 still two groups"},
+    {"check": "feval", "expr": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent.includes('Links')", "equals": true, "label": "UX-27 preview visible and following"},
+    {"clicksel": "#sphinx-myst-preview-content p", "wait": 600},
+    {"key": "Meta+w", "wait": 1500},
+    {"check": "peval", "expr": "document.querySelectorAll('.editor-group-container').length", "equals": 1, "label": "UX-27 closing the preview removes its group"},
+    {"key": "Meta+p", "wait": 700},
+    {"type": "crlf.md", "wait": 900},
+    {"key": "Enter", "wait": 2000},
+    {"check": "editor", "active": "synth/crlf.md"},
+    {"check": "peval", "expr": "document.querySelectorAll('.editor-group-container').length", "equals": 1, "label": "UX-27 no new split after closing the preview"},
+    {"check": "errors"}
+  ]
+}

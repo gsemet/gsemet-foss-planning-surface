@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIAG-124 · Studio requirements</title>
+<meta name="description" content="When the rendered content contains a chart figure, the extension SHALL add the chart runtime script to the page, and the runtime SHALL evaluate chart expressions with the Vega interpreter so that the ">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markdown OKF-Schema Studio">
+<meta property="og:title" content="Behaviour DIAG-124: The chart runtime loads only with a chart and needs no eval">
+<meta property="og:description" content="When the rendered content contains a chart figure, the extension SHALL add the chart runtime script to the page, and the runtime SHALL evaluate chart expressions with the Vega interpreter so that the ">
+<meta property="og:url" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/behaviour-diag-124.html">
+<meta property="og:image" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/og/behaviour.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Behaviour: One rule, tested on its own, linked to its code">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body style="--c:#1d4ed8">
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Areas</a><span class="sep">/</span><a href="area-diagrams.html">Diagrams</a><span class="sep">/</span><a href="use-case-diag-001.html">DIAG-001</a><span class="sep">/</span><span aria-current="page">DIAG-124</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<p class="eyebrow"><span class="sw" style="background:#1d4ed8"></span>Behaviour DIAG-124</p>
+<h1>The chart runtime loads only with a chart and needs no eval</h1>
+<p class="rule">When the rendered content contains a chart figure, the extension <strong>SHALL</strong> add the chart runtime script to the page, and the runtime <strong>SHALL</strong> evaluate chart expressions with the Vega interpreter so that the page content security policy keeps no unsafe-eval and no network access.</p>
+<div class="where"><p>Part of <a href="use-case-diag-001.html">DIAG-001</a>, outside the paths drawn on its map.</p></div>
+<h2>Scenarios <small>3</small></h2>
+<p class="hint">The situations the tests check. Open one to read it.</p>
+<details class="scn"><summary><span class="k nom">nominal</span>The runtime is added only with a chart</summary><div class="gwt"><div><b>Given</b>rendered content with a chart figure, and another page with only a Mermaid figure</div><div><b>When</b>the page is built</div><div><b>Then</b>the first page carries one script with the page nonce, the attribute data-sphinx-preview-vega and the source vegaPreview.js of the extension bundle, once however many charts the page holds, and the second page carries none; a page with both loads both runtimes, and a chart appearing in or leaving a page is a different page shell</div></div></details><details class="scn"><summary><span class="k nom">nominal</span>No eval and no network</summary><div class="gwt"><div><b>Given</b>a page with a Vega-Lite chart and a Vega chart whose expressions (calculate, filter, signals, formulas) need evaluating</div><div><b>When</b>the page is opened under its content security policy</div><div><b>Then</b>the policy has no unsafe-eval, no unsafe-inline and connect-src none, both charts are drawn, no policy violation and no console error is reported, and the chart code builds no function from a string (the specification is parsed with ast true and evaluated by the Vega interpreter)</div></div></details><details class="scn"><summary><span class="k ref">refusal</span>The policy is unchanged</summary><div class="gwt"><div><b>Given</b>the page policy of a page with charts</div><div><b>When</b>it is compared with a page without charts</div><div><b>Then</b>the directives are the same</div></div></details>
+<div class="cols">
+  <section><h2>Implemented in <small>2</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/session/webview.ts"><span class="dir">src/session/</span>webview.ts</a></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/page/modules/vegaChart.ts"><span class="dir">src/page/modules/</span>vegaChart.ts</a></li></ul></section>
+  <section><h2>Tested by <small>5</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/chartCsp.test.ts"><span class="dir">test/page/</span>chartCsp.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/security/package-contract.test.ts"><span class="dir">test/security/</span>package-contract.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/session/diagReq.chart.requirements.test.ts"><span class="dir">test/session/</span>diagReq.chart.requirements.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/modules/vegaChart.test.ts"><span class="dir">test/page/modules/</span>vegaChart.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/core/preview/contentPatch.test.ts"><span class="dir">test/core/preview/</span>contentPatch.test.ts</a><span class="tag">unit</span></li></ul></section>
+</div>
+
+<nav class="pager"><a href="behaviour-diag-123.html">← Charts are drawn as themed SVG pictures with errors in place</a><a class="next" href="behaviour-diag-125.html">SVG blocks are drawn inline after the sanitizer rebuilt them →</a></nav>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

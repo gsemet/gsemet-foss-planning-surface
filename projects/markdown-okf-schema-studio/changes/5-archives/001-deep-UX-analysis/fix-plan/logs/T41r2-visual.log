@@ -1,0 +1,177 @@
+
+> markdown-okf-schema-studio@0.1.0 test:visual
+> npm run visual:render && cd ../.. && uv run --no-sync --group docs python src/markdown-okf-schema-studio/test/visual/capture.py
+
+
+> markdown-okf-schema-studio@0.1.0 visual:render
+> npm run compile && npm run bundle && node out/test/visual/renderFixtures.js
+
+
+> markdown-okf-schema-studio@0.1.0 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.1.0 bundle
+> node esbuild.mjs
+
+
+  out/bundle/extension.js      1.7mb ⚠️
+  out/bundle/extension.js.map  5.5mb
+
+⚡ Done in 172ms
+
+  out/bundle/mermaidPreview.js  5.0mb ⚠️
+
+⚡ Done in 375ms
+rendered 38 pages, 99 scenarios
+  placeholder: 03-unresolved-constructs:30 Directive {animation} is not available outside a full build.
+  placeholder: 03-unresolved-constructs:36 Directive {bibliography} is not available outside a full build.
+  placeholder: 03-unresolved-constructs:39 Directive {toctree} is not available outside a full build.
+warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead.
+
+rendering checks failed:
+  01-handbook-overview--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  01-handbook-overview--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  01-handbook-overview--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  01-handbook-overview--light--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  02-admonition-gallery--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  02-admonition-gallery--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  04-code-and-tables--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  06-syntax-highlighting--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  06-syntax-highlighting--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  06-syntax-highlighting--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  06-syntax-highlighting--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  06-syntax-highlighting--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  06-syntax-highlighting--light--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  06-syntax-highlighting--light--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  06-syntax-highlighting--light--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--light--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--light--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  06-syntax-highlighting--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  06-syntax-highlighting--light--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  08-okf-schema--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  08-okf-schema--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  08-okf-schema--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  08-okf-schema--light--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  08-okf-schema--light--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--dark--sticky-1--default.html: rightmost preview button is covered or overlaps the sticky heading text row
+  05-long-chapter--dark--sticky-1--default.html: sticky heading top 0.0px overlaps toolbar bottom 50.0px
+  05-long-chapter--dark--sticky-1--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--dark--sticky-2--default.html: rightmost preview button is covered or overlaps the sticky heading text row
+  05-long-chapter--dark--sticky-2--default.html: sticky heading top 0.0px overlaps toolbar bottom 50.0px
+  05-long-chapter--dark--sticky-2--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--dark--sticky-3--default.html: rightmost preview button is covered or overlaps the sticky heading text row
+  05-long-chapter--dark--sticky-3--default.html: sticky heading top 0.0px overlaps toolbar bottom 50.0px
+  05-long-chapter--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  05-long-chapter--light--sticky-3--default.html: rightmost preview button is covered or overlaps the sticky heading text row
+  05-long-chapter--light--sticky-3--default.html: sticky heading top 0.0px overlaps toolbar bottom 50.0px
+  05-long-chapter--light--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+  10-sticky-heading-wrap--dark--sticky-3--default.html: rightmost preview button is covered or overlaps the sticky heading text row
+  10-sticky-heading-wrap--dark--sticky-3--default.html: sticky heading top 0.0px overlaps toolbar bottom 50.0px
+  10-sticky-heading-wrap--dark--sticky-3--default.html: sticky heading overlaps the reserved toolbar row
+passed: handbook-narrow-top
+failed: handbook-narrow-table
+passed: handbook-dark-top
+failed: handbook-dark-third
+failed: handbook-dark-bottom
+passed: handbook-light-top
+failed: handbook-light-failures
+passed: handbook-forced-white
+passed: admonitions-narrow-full
+passed: admonitions-dark-full
+failed: admonitions-dark-titled
+failed: admonitions-dark-nested
+passed: admonitions-light-full
+passed: chapter-dark-top
+failed: chapter-figure-dark
+failed: chapter-dark-quarter
+failed: chapter-dark-half
+failed: chapter-dark-three-quarters
+failed: chapter-dark-bottom
+passed: chapter-max-width-dark-full
+passed: chapter-light-top
+passed: chapter-max-width-light-full
+passed: nested-list-typing-dark
+passed: nested-list-typing-light
+passed: unresolved-dark-full
+passed: unresolved-light-full
+passed: code-dark-table-narrow
+passed: code-dark-top
+failed: code-dark-table
+passed: code-light-table-narrow
+passed: code-light-full
+failed: syntax-narrow-python
+failed: syntax-dark-markdown
+failed: syntax-dark-rust
+failed: syntax-dark-python
+failed: diff-dark-preview
+failed: syntax-light-rust
+failed: syntax-light-shell (alias of diff-light-preview)
+failed: diff-light-preview
+passed: context-tags-dark-narrow
+passed: context-tags-dark-wide
+passed: context-tags-light-narrow
+passed: context-tags-light-wide
+passed: mermaid-map-dark
+passed: mermaid-map-fallback
+passed: mermaid-map-light
+passed: plantuml-success-dark
+passed: plantuml-success-light
+passed: plantuml-unconfigured
+passed: plantuml-executable-not-found
+passed: frontmatter-dark
+passed: frontmatter-light
+passed: frontmatter-forced-white
+passed: okf-schema-narrow (alias of frontmatter-scroll-feedback)
+passed: preview-toolbar-dark (alias of okf-schema-dark)
+passed: okf-schema-dark
+passed: okf-schema-table
+passed: okf-schema-missing-required-dark
+passed: okf-schema-missing-required-light
+passed: schema-validation-error-dark
+passed: schema-validation-error-narrow
+passed: schema-validation-error-light
+passed: standalone-frontmatter-dark
+passed: standalone-frontmatter-light
+passed: frontmatter-link-details-dark-460
+passed: frontmatter-links-loading
+passed: frontmatter-links-loaded
+passed: frontmatter-link-details-dark-900
+passed: frontmatter-link-details-white-460
+passed: frontmatter-link-details-white-900
+passed: edit-affordances-hover-and-open
+passed: edit-insert-point-hover
+failed: preview-edit-activation-scroll-wide
+failed: math-edit-offline-dark
+failed: preview-edit-activation-scroll-narrow
+failed: math-edit-offline-light-narrow
+failed: diff-dark-edit
+failed: diff-light-edit
+failed: edit-table-wrapped-dark-460
+passed: frontmatter-scroll-feedback-edit
+passed: edit-mode-dark (alias of edit-paragraph-dark)
+passed: edit-paragraph-dark
+passed: edit-admonition-dark
+failed: edit-table-cell-dark (alias of edit-table-wrapped-dark-900)
+failed: edit-table-wrapped-dark-900
+passed: edit-frontmatter-key-dark
+passed: edit-frontmatter-value-dark
+passed: edit-frontmatter-list-dark
+failed: edit-table-wrapped-light-460
+failed: edit-table-wrapped-light-900
+passed: edit-frontmatter-list-light
+passed: edit-frontmatter-boolean-dark
+passed: edit-list-narrow
+failed: preview-sticky-headings-1
+failed: preview-sticky-headings-2
+failed: preview-sticky-headings-3
+failed: preview-sticky-headings-3-light-narrow
+passed: frontmatter-scroll-feedback
+failed: preview-sticky-headings-natural-growth

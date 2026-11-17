@@ -1,0 +1,23 @@
+{
+  "phase": "3-opened-after-mount",
+  "folders": [
+    "file:///Users/az02065/.copilot/session-state/5398490d-6084-42f6-ac5c-0bcf9a7a2ca4/files/agents-spike/ws"
+  ],
+  "tabs": [
+    {
+      "label": "sample.md",
+      "active": false,
+      "kind": "kc",
+      "viewType": "markdown-okf-schema-studio.editor",
+      "uri": "file:///Users/az02065/.copilot/session-state/5398490d-6084-42f6-ac5c-0bcf9a7a2ca4/files/agents-spike/ws/sample.md"
+    },
+    {
+      "label": "second.md",
+      "active": true,
+      "kind": "kc",
+      "viewType": "markdown-okf-schema-studio.editor",
+      "uri": "file:///Users/az02065/.copilot/session-state/5398490d-6084-42f6-ac5c-0bcf9a7a2ca4/files/agents-spike/ws/second.md"
+    }
+  ],
+  "studioActive": true
+}

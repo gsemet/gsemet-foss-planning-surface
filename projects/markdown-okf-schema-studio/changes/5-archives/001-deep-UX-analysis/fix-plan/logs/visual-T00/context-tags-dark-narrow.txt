@@ -1,0 +1,36 @@
+context-tags-dark-narrow
+========================
+
+Fixture:  15-context-tags.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 460x900 (full page capture)
+Scroll:   top - final y=0; pinned to the top of the document
+Status:   passed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested top position.
+
+Captured state
+--------------
+The preview is scrolled to 0 pixels. Edit mode is off.
+Visible content: The first wrapper matches the original screenshot shape:
+its YAML fence starts immediately after the; <fullcycle-model-allocation>; models:
+  planner: gpt-5.6
+  reviewer: gpt-5.6; <context>; The allocation body remains Markdown and includes a documentation link.; <model_allocation>; planning uses the selected model; review stays visible at narrow widths; The paragraph after the wrappers remains outside the panels.
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+Narrow dark side-panel capture of the exact adjacent YAML form plus simple and snake_case tags. The panels must wrap without widening the page or hiding the YAML code.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.

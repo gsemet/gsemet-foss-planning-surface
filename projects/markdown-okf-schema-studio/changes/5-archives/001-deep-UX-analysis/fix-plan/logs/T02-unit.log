@@ -1,0 +1,1506 @@
+
+> markdown-okf-schema-studio@0.1.0 test:unit
+> node --test out/test/security/*.test.js out/test/build/*.test.js out/test/configuration/*.test.js out/test/frontmatter/*.test.js out/test/mapping/*.test.js out/test/navigation/*.test.js out/test/rendering/*.test.js out/test/state/*.test.js out/test/webview/*.test.js
+
+✔ lets an in-flight build finish and starts the newest queued edit right after (1.692291ms)
+✔ retains a successful result as stale after a failed newer build (1.55275ms)
+✔ still renders a build whose buffer already moved on, and cleans up on dispose (0.270167ms)
+✔ tracks referenced dependencies for refresh decisions (0.257292ms)
+✔ debounces pending edits and cancels them without invoking the builder (0.203291ms)
+✔ cancellation discards late results and permits a fresh build (0.202291ms)
+✔ disposal releases the last result once and rejects future requests (0.148209ms)
+✔ stages the dirty active buffer and only its referenced inputs (12.463416ms)
+✔ reuses a stage root so doctrees and theme assets survive the next build (2.519209ms)
+✔ reports missing referenced inputs with source line diagnostics (1.129334ms)
+✔ github alerts become MyST admonitions (0.679167ms)
+✔ github alert expansion preserves line numbers (0.100958ms)
+✔ every supported github alert type maps to an admonition (0.092708ms)
+✔ unknown alert markers stay untouched (0.0475ms)
+✔ alerts inside fenced code blocks are not rewritten (0.046625ms)
+✔ appends a bibliography when citations need resolving (0.519083ms)
+✔ does not touch documents without citations (0.041916ms)
+✔ respects an existing bibliography directive (0.037541ms)
+✔ checks workspace trust before staging or spawning Sphinx (1.23625ms)
+✔ invokes only the authentic isolated Sphinx HTML command (3.199792ms)
+✔ returns actionable source diagnostics for a failing Sphinx directive (4.774333ms)
+✔ terminates an active Sphinx child and removes its temporary stage on cancellation (2.084041ms)
+✔ frontmatter settings use their own section and defaults (1.325667ms)
+✔ frontmatter visibility and strict validation can be configured independently (0.216416ms)
+✔ reads and trims the configured PlantUML JAR path (1.322875ms)
+✔ uses an empty path for non-string configuration values (0.160875ms)
+✔ reads independent studio preview settings without stock configuration keys (0.706167ms)
+✔ normalizes preview content width and reserves zero for unlimited (0.084583ms)
+✔ normalizes sticky heading depth to one through six levels (0.073208ms)
+✔ link annotations read target fields and exact marker lines afresh (5.41775ms)
+✔ link display options reject invalid metadata (0.43225ms)
+✔ oneOf annotations are collected only when exactly one branch matches (29.4015ms)
+✔ conditional, patternProperties, and additionalProperties schemas are traversed (5.182125ms)
+✔ document-relative links stay inside workspace roots unless explicitly allowed (17.767209ms)
+✔ auto-detected git roots outside the workspace are ignored (4.933ms)
+⚠ value edit F1 title changes only the named field (11.364ms) # UX-16 (T05)
+⚠ value edit F1 lifecycle changes only the named field (3.287958ms) # UX-16 (T05)
+⚠ value edit F1 annotation_exemption changes only the named field (0.801375ms) # UX-16 (T05)
+⚠ value edit F1 exemption_reason changes only the named field (1.695416ms) # UX-16 (T05)
+⚠ value edit F1 derives_from changes only the named field (2.520333ms) # UX-16 (T05)
+⚠ value edit F1 derived_by changes only the named field (1.36775ms) # UX-16 (T05)
+⚠ value edit F2 title changes only the named field (1.465375ms) # UX-16 (T05)
+⚠ value edit F2 tags changes only the named field (0.577708ms) # UX-16 (T05)
+⚠ value edit F2 links changes only the named field (0.579125ms) # UX-16 (T05)
+⚠ value edit F2 quoted changes only the named field (0.834333ms) # UX-16 (T05)
+⚠ value edit F2 summary changes only the named field (1.14675ms) # UX-16 (T05)
+⚠ value edit F2 status changes only the named field (8.158709ms) # UX-16 (T05)
+⚠ value edit F3 title changes only the named field (4.272708ms) # UX-16 (T05)
+⚠ value edit F4 status changes only the named field (1.998125ms) # UX-16 (T05)
+⚠ structural F2 rename title to heading keeps the trailing comment (1.606125ms) # UX-16 (T06)
+⚠ structural F2 remove links deletes exactly that line (1.375042ms) # UX-16 (T06)
+⚠ structural F2 remove tags deletes exactly the sequence lines (4.958042ms) # UX-16 (T06)
+⚠ structural F1 add owner appends one line before the closing delimiter (2.327709ms) # UX-16 (T06)
+✔ structural F2 edits keep both comments unless their own line is removed (9.7195ms)
+✔ extractFrontmatter detects and parses the leading YAML block (2.88825ms)
+✔ fieldIconType maps schema declarations and generic values to display types (0.281375ms)
+✔ frontmatter field patches preserve comments, fences, line endings, and body (1.701041ms)
+✔ frontmatter scalar and object edits preserve YAML node metadata (8.55475ms)
+✔ frontmatter array edits keep comments attached to reordered items (6.043959ms)
+✔ frontmatter key renames preserve comments and reject duplicate destinations (0.62575ms)
+✔ frontmatter field removal preserves comments, fences, and body (0.249709ms)
+✔ extractFrontmatter rejects a document without frontmatter (0.0655ms)
+✔ extractFrontmatter reports invalid YAML with the parse error (0.682667ms)
+✔ parseYamlValue handles structured values and rejects malformed YAML (0.334042ms)
+✔ findSchemaDirectory walks ancestors and prefers _schema over _schemas (1.133166ms)
+✔ findSchemaDirectory still finds _schemas when _schema is absent (10.234917ms)
+✔ matchSchemaFile matches case-insensitively on the stem before .schema (1.587917ms)
+✔ resolveSchemaRefs inlines relative references with extension fallbacks (1.987667ms)
+✔ effectiveProperties collapses allOf branches and collects required (0.338959ms)
+✔ analyzeFrontmatter yields schema-ordered fields with docs and enums (70.601625ms)
+✔ nullable reset metadata preserves declared nullability while conditional validation stays active (22.169917ms)
+✔ frontmatter without a type skips schema discovery and validation (1.988208ms)
+✔ analyzeFrontmatter surfaces an info when the type has no schema (1.600417ms)
+✔ reduced mode explains that schema validation needs a trusted workspace (1.716292ms)
+✔ unmatched OKF-like SKILL frontmatter remains generic and skips schema validation (1.677458ms)
+✔ analyzeFrontmatter validates enums, consts, and formats against the schema (2.809959ms)
+✔ analyzeFrontmatter inspects annotated scalar and array links without AJV keyword errors (9.177542ms)
+✔ frontmatter link identity prefers the configured id and otherwise uses the basename (0.14875ms)
+✔ analyzeFrontmatter attaches nested link results to the parent field (1.867708ms)
+✔ file-link union applicability honors pattern and explicit root precedence (5.458042ms)
+✔ file-link union applicability preserves boolean local references (1.071583ms)
+✔ filename-stem links recheck symlink containment after an internal target drifts (2.720834ms)
+✔ filename-stem links report W15 when matching candidates are unavailable (1.415125ms)
+✔ strict mode warns on unknown fields; lenient mode does not (3.100875ms)
+✔ missing required fields are exposed as an ordered schema summary (3.339834ms)
+✔ json5 and json schema formats parse correctly (5.051458ms)
+✔ schema declarations do not become description annotations (3.232792ms)
+✔ no markup when frontmatter is absent or the table is disabled (1.96925ms)
+✔ renders a two-column Obsidian-like table with escaped values (5.396667ms)
+✔ description controls live in column headers with an adjacent collapsed restore slot (0.33975ms)
+✔ read-only tables expose values without edit targets (0.362541ms)
+✔ annotated scalar and list values render independent navigation and status markup (0.903792ms)
+✔ valid link tooltips expose workspace-relative paths (0.391375ms)
+✔ pending links show a spinner after their text (0.136583ms)
+✔ deferred replacement removes pending link spinners (15.822875ms)
+✔ nested annotated values render links and diagnostics inside object previews (2.269417ms)
+✔ renders boolean values as read-only checkboxes in preview mode (0.906459ms)
+✔ caps long list previews and reports omitted items (0.616ms)
+✔ does not match a list link by array index without a field path (0.177875ms)
+✔ renders list items with hyphen markers (0.0895ms)
+✔ maps the injected properties section to the frontmatter source (1.931375ms)
+✔ error rows carry the red underline class and hover tooltip (0.215708ms)
+✔ missing required fields are summarized after the table (0.152916ms)
+✔ exposes unused schema keys for frontmatter key editing (0.548459ms)
+✔ exposes unused schema field metadata for the frontmatter toolbar (0.083875ms)
+✔ structured values and enum choices are exposed for schema-aware editing (0.251458ms)
+✔ unknown fields are marked and info rows render (0.112875ms)
+✔ diagnostic errors span every table column and expose their severity (0.066625ms)
+✔ replacePropertiesTableMarkup swaps the table in place (2.501041ms)
+✔ repeated checkbox refreshes replace source-mapped tables without duplication (4.653583ms)
+✔ replacement removes serialized duplicates and nested sections while preserving other HTML (1.340875ms)
+✔ schema-matched tables add a third description column (0.255292ms)
+✔ renders empty lists without a phantom preview item (0.078458ms)
+✔ marks schema-nullable fields in row metadata (0.084459ms)
+✔ escapes list preview items without truncating short lists (0.061542ms)
+✔ plain yaml tables stay two-column even when docs are absent (0.044667ms)
+✔ nested object values render as escaped YAML while keeping edit metadata (0.274208ms)
+✔ schema declarations do not appear as description annotations (0.11475ms)
+✔ name cells carry a size-bounded Obsidian-style type icon (0.128625ms)
+✔ validator cache returns the same compiled function for a schema object (27.915542ms)
+✔ MarkdownStemIndex excludes generated, dependency, and hidden directories (6.6455ms)
+✔ invalidateStemIndex refreshes the cached index for a root (1.236833ms)
+✔ keeps only active-document mappings in DOM order for ties (0.854709ms)
+✔ accepts Windows separators without weakening document identity (0.079875ms)
+✔ source ranges preserve line endings and reject invalid bounds (0.140916ms)
+✔ Markdown fragments select headings and source lines, not fenced examples (3.884708ms)
+✔ marker navigation selects exact marker identities (2.275292ms)
+✔ searches every workspace root and blocks cross-root wikilink ambiguity (7.504333ms)
+✔ discovers bare wikilinks before accepting an active-root sibling (2.7355ms)
+✔ classifies relative links without touching the filesystem (0.262333ms)
+▶ discovers wikilinks on demand and refuses ambiguous or escaping targets
+  ✔ allows document-relative resolved targets outside a workspace root only in that mode (4.461959ms)
+✔ discovers wikilinks on demand and refuses ambiguous or escaping targets (6.166333ms)
+✔ classifies anchors, external links, and workspace-local files (2.679375ms)
+✔ blocks unsafe anchors, schemes, and paths (0.431041ms)
+✔ markers are found with document line and UTF-16 column, and line breaks are preserved (0.947458ms)
+✔ placeholders contain no character Markdown could interpret (1.403333ms)
+✔ link syntax, escapes, wikilinks, images and headings are not checkboxes (0.310417ms)
+✔ a defined [x] reference label keeps [x] as a link but [ ] stays a checkbox (0.1485ms)
+✔ a colon after a marker mid-line does not prevent a checkbox (0.135125ms)
+✔ placeholders split and restore to the original marker text (0.358583ms)
+✔ toggling computes a one-character edit and validates the marker (0.23075ms)
+✔ task lists, paragraphs and table cells render interactive checkboxes mapped to the source (242.521ms)
+✔ CRLF documents keep exact columns (1.834375ms)
+✔ markers stay literal in code, math, diagrams, links, headings and raw HTML (10.170333ms)
+✔ markers inside directives and their titles become checkboxes (1.655042ms)
+✔ the webview sanitizer keeps checkbox inputs and their source attributes (0.966417ms)
+✔ colours tokens for a registered grammar (9.520958ms)
+✔ resolves the fence label through aliases (6.036208ms)
+✔ renders diff and patch fences with signed-line treatments (2.228625ms)
+✔ wraps numbered lines without breaking multiline highlighted spans (0.341083ms)
+✔ leaves an unregistered grammar as plain text (0.080916ms)
+✔ decodes numeric references before highlighting and does not double-escape (0.271208ms)
+LaTeX-incompatible input and strict mode is set to 'warn': HTML extension is disabled on strict mode [htmlExtension]
+✔ typesets inline and display math with local assets and CSP-compatible styles (13.314083ms)
+✔ supports Sphinx math delimiters and leaves ordinary text and code alone (8.118917ms)
+✔ invalid LaTeX stays readable without breaking valid equations (4.159375ms)
+✔ math cannot inject trusted HTML commands or external links (3.687042ms)
+✔ wikilinks render as lazy note targets without changing code or existing links (154.279416ms)
+✔ the in-process renderer preserves the active-file MyST feature contract (8.693375ms)
+✔ figure references render figures whose body supplies the caption (2.00075ms)
+✔ references to captionless figures and tables stay readable (2.301875ms)
+✔ MyST code directives number and emphasize lines relative to their start (1.842083ms)
+✔ MyST code-cell directives render numbered input without claiming execution (3.429666ms)
+✔ Mermaid fences and directives preserve diagram source for webview rendering (2.34375ms)
+✔ PlantUML fences and directives preserve diagram source for external rendering (2.064166ms)
+✔ Sphinx version admonitions render generated titles and Markdown bodies (1.701167ms)
+✔ custom admonition titles preserve inline Markdown and their class (0.707334ms)
+✔ nested backtick and colon delimiters preserve their enclosing Markdown (3.275792ms)
+✔ GitHub alert syntax preserves an explicit title (1.312333ms)
+✔ GitHub alert syntax defaults the title when none is provided (0.523625ms)
+✔ GitHub bold Note, Important, and Warning markers become simple admonitions (0.690625ms)
+✔ MyST typography renders definitions, abbreviations, scripts, and footnotes (1.271792ms)
+✔ all named MyST admonitions receive their documented default title (1.573125ms)
+✔ a leading bold paragraph or heading supplies the MyST admonition title (0.708417ms)
+✔ Quarto callout classes render as semantic MyST admonitions (0.557583ms)
+✔ dropdown admonitions render as openable details with a summary (0.745375ms)
+✔ MyST GFM and directive tables preserve captions, headers, and alignment (5.753208ms)
+✔ raw HTML tables preserve complex cell spans without active content (1.300333ms)
+✔ raw HTML table cell styles are preserved as safe preview metadata (1.815583ms)
+✔ table directives render trusted workspace-local HTML includes (1.739416ms)
+✔ Jupyter table output embeds show a project-build placeholder (0.731583ms)
+✔ block elements carry the source line the editor scrolls against (0.691209ms)
+✔ multiline blocks retain their full mapped source range (0.406042ms)
+✔ MyST admonitions retain the directive range through the closing fence (0.432792ms)
+✔ standalone hyphenated context tags render as mapped Markdown admonitions (2.089583ms)
+✔ simple and snake_case context tags preserve adjacent fences and source ranges (1.107667ms)
+✔ nested context tags preserve each wrapper range (0.501167ms)
+✔ unsupported context boundaries stay literal and fenced XML stays code (3.444334ms)
+✔ standard HTML and inline or fenced XML stay outside context grouping (0.770042ms)
+✔ block source ranges stay absolute when leading frontmatter is stripped (2.646792ms)
+✔ project-scoped roles and directives degrade to labelled placeholders (0.641166ms)
+✔ an untrusted workspace refuses to render (0.18275ms)
+✔ renders PlantUML through the configured external JAR and injects an image (6.672917ms)
+✔ uses the PATH executable when no JAR is configured and reports missing commands (1.205167ms)
+✔ returns diagnostics for PlantUML process failures and malformed output (0.760417ms)
+✔ cancels an active PlantUML process (0.44725ms)
+✔ the render pipeline retains buffer identity and attaches source diagnostics (3.518708ms)
+✔ the trust gate prevents renderer invocation unless reduced mode is allowed (0.437875ms)
+✔ renderer failures preserve the stage and original failure message (0.21375ms)
+✔ cancellation while rendering rejects a late successful result (0.826042ms)
+✔ rewrites local resources and removes active HTML content (12.784958ms)
+✔ reduced previews remove external scripts while retaining contained media (0.887625ms)
+✔ maps rendered source lines to the active preview document (1.357375ms)
+✔ rewrites sanitized table styles into a nonce-bearing stylesheet (2.326125ms)
+✔ blocks hostile CSS imports, schemes, and URLs while preserving local assets (4.027208ms)
+✔ generates a restrictive nonce-bearing CSP (0.3055ms)
+✔ adds the CSP as a head meta without retaining a weaker policy (1.346167ms)
+✔ removes refresh metadata with surrounding whitespace (1.110042ms)
+✔ keeps deferred relative navigation inert and host-routable (0.32275ms)
+✔ resolves parent-relative figure images through the workspace root (6.320333ms)
+✔ strips figure images that escape even the workspace root (1.655583ms)
+✔ contributes only opt-in Markdown OKF-Schema Studio commands (1.726292ms)
+✔ pins Node 24 and keeps the lockfile on Artifactory (1.814417ms)
+✔ canonicalizes local resources and rejects hostile paths (5.435125ms)
+✔ allows only explicit navigation schemes (2.435458ms)
+✔ rewrites srcset candidates without allowing data or script URLs (0.266375ms)
+✔ resolves parent-relative figure references through an ancestor root (1.997416ms)
+✔ still blocks references escaping the workspace root (1.306916ms)
+✔ parses bounded preview panel state and preserves supported fields (1.43625ms)
+✔ rejects invalid identity and drops malformed optional state (0.111583ms)
+✔ accepts only complete theme-mode change messages (0.603958ms)
+✔ restores a valid workspace theme mode and ignores invalid stored values (0.289875ms)
+✔ anchors long paragraphs at the start of each source line (1.023ms)
+✔ falls back to block bounds when paragraph lines cannot be measured (0.155917ms)
+✔ converts lines to scroll positions and back through the reading offset (0.308083ms)
+✔ ramps the reading line so the top of the page is line 1 (0.134292ms)
+✔ reports the editor top line as the floor of the anchor (0.7255ms)
+✔ ignores editor echoes across re-renders, then yields to the user (0.272125ms)
+✔ accepts one centered-reveal echo, then treats further scrolling as the user's (0.124209ms)
+✔ shifts the anchor when lines change above it only (0.215208ms)
+✔ link discovery waits for the viewport and deduplicates bounded batches (4.051709ms)
+✔ local and wiki clicks are host-routed even before discovery, including middle click (0.446375ms)
+✔ discovery hints ignore stale renders and never replace the original target (0.333375ms)
+✔ pipe tables round-trip escaped cells and CRLF line endings (1.325ms)
+✔ inserting and deleting table rows and columns preserves the remaining cells (0.206667ms)
+✔ table tools cannot delete the header, final body row, or final column (0.132708ms)
+✔ non-table blocks and malformed separator rows cannot be edited as pipe tables (0.083708ms)
+✔ lineDelta: identical input has no removed or added lines (2.050959ms)
+✔ lineDelta: one changed line is reported as one removed and one added line (0.09025ms)
+✔ lineDelta: one inserted line is reported as one added line (0.059583ms)
+⚠ round trip preserves the source: compact-book (0.862083ms) # UX-12 (T04)
+⚠ round trip preserves the source: padded (0.125291ms) # UX-12 (T04)
+⚠ round trip preserves the source: no-spaces (0.104917ms) # UX-12 (T04)
+✔ round trip preserves the source: alignment (0.067833ms)
+⚠ round trip preserves the source: no-outer-pipes (0.079584ms) # UX-12 (T04)
+⚠ round trip preserves the source: escaped-and-code (0.2895ms) # UX-12 (T04)
+⚠ round trip preserves the source: indented (0.123708ms) # UX-12 (T04)
+⚠ round trip preserves the source: crlf (0.076459ms) # UX-12 (T04)
+⚠ round trip preserves the source: wider-than-padding (0.066625ms) # UX-12 (T04)
+⚠ one-cell edit changes exactly one line: compact-book (0.123625ms) # UX-12 (T04)
+⚠ one-cell edit changes exactly one line: padded (0.062333ms) # UX-12 (T04)
+⚠ one-cell edit changes exactly one line: no-spaces (0.055833ms) # UX-12 (T04)
+✔ one-cell edit changes exactly one line: alignment (0.041667ms)
+⚠ one-cell edit changes exactly one line: no-outer-pipes (0.585042ms) # UX-12 (T04)
+⚠ one-cell edit changes exactly one line: escaped-and-code (0.190958ms) # UX-12 (T04)
+⚠ one-cell edit changes exactly one line: indented (0.143792ms) # UX-12 (T04)
+⚠ one-cell edit changes exactly one line: crlf (0.112584ms) # UX-12 (T04)
+⚠ one-cell edit changes exactly one line: wider-than-padding (0.132959ms) # UX-12 (T04)
+✔ frontmatter link tooltips wrap text in a fixed theme-aware pointer-transparent surface (0.941708ms)
+✔ typography is driven by VS Code markdown preview variables (0.209292ms)
+✔ scrollbar tracks and thumbs follow the preview theme (0.331167ms)
+✔ linked file details are muted, italic, and clipped to the available line (0.295083ms)
+✔ list insertion lines show the drop boundary without moving the rows (0.344041ms)
+✔ the top heading keeps the stock preview rule underneath it (0.175541ms)
+✔ sticky headings align with content and emphasize text in a full-width band (0.653167ms)
+✔ preview controls stack above the sticky heading band (0.095041ms)
+✔ the theme neutralises Shibuya page gutters (0.178667ms)
+✔ description header controls align right and restore only when collapsed (0.447792ms)
+✔ properties tables fill the preview content column (0.231916ms)
+✔ narrow properties wrap long paths without hiding expanded descriptions (0.31775ms)
+✔ every admonition flavour gets an accent colour (0.634083ms)
+✔ block editing grows without internal scrolling and uses a square theme-aware margin marker (0.127583ms)
+✔ active paragraph editors share the rendered paragraph spacing (0.084ms)
+✔ Sphinx version admonitions use success, warning, and danger accents (0.124ms)
+✔ MyST simple and no-icon admonition modifiers are styled (0.076458ms)
+✔ MyST table alignment and notebook output placeholders are styled (0.121833ms)
+✔ MyST numbered and emphasized code lines are styled (0.079042ms)
+✔ diff lines use full-width theme-aware add and delete treatments (0.328166ms)
+✔ Mermaid diagrams keep SVG images contained and source inspectable (0.111125ms)
+✔ figure captions are centred and de-emphasised (0.066583ms)
+✔ images never overflow the preview column (0.069375ms)
+✔ floating preview toolbar supports forced dark and white palettes (0.231ms)
+✔ preview toolbar provides refresh, editor anchoring, edit mode and theme controls (0.38ms)
+✔ control tooltips retain their offset while sticky headings remain at the top (0.541208ms)
+✔ white mode keeps code backgrounds soft and code text readable blue (0.226041ms)
+✔ fenced code uses the editor foreground and one font scale (0.091708ms)
+✔ frontmatter properties label is inset, table-matched, and unboxed (0.114708ms)
+✔ frontmatter edit hover colors follow the selected preview theme (0.070958ms)
+✔ frontmatter edits stay inline while edit mode preserves source newlines (0.592ms)
+✔ active toolbar toggles do not show a redundant focus ring (0.038125ms)
+✔ frontmatter and table editors keep the active cell surface without nested input frames (0.208375ms)
+✔ preview content width is configurable and can be unlimited (0.121125ms)
+✔ latest saved Description visibility wins over an older enrichment snapshot (5.837875ms)
+✔ Description column toggles persist and restore both states (6.519334ms)
+✔ narrow previews default to collapsed descriptions without overriding an explicit choice (3.933375ms)
+✔ sticks to the active Markdown heading hierarchy in up to three lines (1.759292ms)
+✔ caps sticky heading convergence at three passes (0.464625ms)
+✔ maps the frontmatter table for stable top and mid-table scroll round-trips (0.646625ms)
+✔ preserves preview scroll when layout changes during sticky heading activation (1.586667ms)
+✔ uses the configured sticky heading depth (5.579333ms)
+✔ anchors the editor source line below the sticky heading band without reverse sync (1.820958ms)
+✔ source anchoring does not reserve a row for floating controls (0.432208ms)
+✔ runtime script cannot terminate its containing script element (0.192208ms)
+✔ observes preview content instead of the document body (0.427125ms)
+✔ cycles preview theme modes and restores the saved selection (2.196916ms)
+✔ frontmatter tooltips preserve exact safe text and restore accessible metadata on dismissal (4.610334ms)
+✔ switching frontmatter tooltip links removes the old tooltip and absent ARIA metadata (0.37225ms)
+✔ refresh preserves viewport state while reverse synchronization stays disabled (1.631541ms)
+✔ disabling editor anchoring stops preview-to-editor scrolling (2.325834ms)
+✔ preview can revisit its last reported line after the source editor scrolls elsewhere (0.541583ms)
+✔ source scrolling remains bidirectional while a block editor is open (0.783458ms)
+✔ restores saved editor anchoring when the configured preference changed (1.59975ms)
+✔ activating a centered block editor preserves scroll before and after layout stabilization (0.451125ms)
+✔ fenced Markdown editors sit outside the rendered pre and preserve source when saving (0.500208ms)
+✔ active Markdown editors leave repeated spaces and Enter to native text input (0.40675ms)
+✔ block textareas resize on input and preview layout changes (0.497917ms)
+✔ edit mode loads raw Markdown and saves changes when the block loses focus (0.403583ms)
+✔ raw Markdown block edits autosave on input without disabling the textarea (0.36975ms)
+✔ arrow boundaries transfer block editing in every direction (1.507459ms)
+✔ table cell editing exposes row and column operations and saves the edited table (1.453542ms)
+✔ table editing switches cells without losing changes and finalizes before leaving the table (0.787208ms)
+✔ table header cannot be deleted from the cell toolbar (0.518792ms)
+✔ table toolbar cannot delete the last body row (0.442292ms)
+✔ edit mode opens mapped figures and admonition titles at their source ranges (1.724459ms)
+✔ frontmatter name cells open a schema-suggesting key editor and save on blur (0.780708ms)
+✔ Escape cancels an unsaved frontmatter key edit (0.408792ms)
+✔ edit mode exposes schema enum controls and saves the selected value (0.698125ms)
+✔ boolean frontmatter values use a checkbox and save on change (0.400584ms)
+✔ frontmatter list editor supports add, reorder, remove, and direct array saves (0.658792ms)
+✔ list dragging shows the insertion boundary, reorders items, and suppresses drag blur saves (0.911333ms)
+✔ nullable list editor can set its value as null (0.458167ms)
+✔ nullable scalar editor can set its value to null (0.406958ms)
+✔ frontmatter list editor adds from empty and saves after removing every item (0.797ms)
+✔ frontmatter list editor keeps invalid edits open and Escape cancels them (0.441083ms)
+✔ frontmatter validation errors show an explicit error state (0.382167ms)
+✔ frontmatter floating bar follows the active field and stays within the viewport (2.461791ms)
+✔ frontmatter field toolbar adds and removes fields (0.798375ms)
+✔ empty enum values show an explicit placeholder (0.334917ms)
+✔ schema-free frontmatter values use a generic YAML editor (0.425709ms)
+✔ text frontmatter values use a wrapping textarea that grows with its content (0.376375ms)
+✔ Escape cancels an unsaved frontmatter value edit (0.355125ms)
+✔ frontmatter cells open their field editor with the keyboard in edit mode (0.334667ms)
+✔ executes source and preview synchronization across layout changes (2.125959ms)
+✔ marks editor selection without moving the preview when following is disabled (1.466958ms)
+▶ source scrolling rejects stale identities and invalid line numbers
+  ✔ other document (0.322333ms)
+  ✔ old document version (0.276833ms)
+  ✔ old render request (0.292ms)
+  ✔ zero line (0.28575ms)
+  ✔ non-finite line (0.277333ms)
+✔ source scrolling rejects stale identities and invalid line numbers (1.660708ms)
+✔ scrolls to host-approved anchors and ignores invalid or stale requests (0.36275ms)
+✔ clicking a checkbox posts a source toggle instead of revealing the block (0.404542ms)
+✔ a rejected checkbox toggle reverts the box and explains why (0.305625ms)
+✔ in edit mode a checkbox click toggles the box without opening a block editor (0.310417ms)
+✔ a checkbox click is refused while a block editor is open (0.322083ms)
+✔ checkboxes are disabled when the preview cannot edit the document (0.325667ms)
+ℹ tests 355
+ℹ suites 0
+ℹ pass 321
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 34
+ℹ duration_ms 553.46375
+
+✖ failing tests:
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F1 title changes only the named field (11.364ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      'type: SwRS\n' +
+      'id: SwRS-CORE-001\n' +
+      'uuid: 00000000-0000-4000-8000-000000000002\n' +
+      'title: Write CSV output v2\n' +
+  +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+  -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+  -   '  output.\n' +
+      'project: OKFREQXMP\n' +
+      'scope: Core\n' +
+      'lifecycle: draft\n' +
+      'origin: native\n' +
+      'tier: SwRS\n' +
+      'derives_from:\n' +
+  +   '  - StRS-CORE-001\n' +
+  -   '- StRS-CORE-001\n' +
+      'annotation_exemption: false\n' +
+      'exemption_reason:\n' +
+      'derived_by: []\n' +
+      'implemented_in_files:\n' +
+  +   '  - src/export.py\n' +
+  -   '- src/export.py\n' +
+      'tested_in_files:\n' +
+  +   '  - tests/test_export.py\n' +
+  -   '- tests/test_export.py\n' +
+      '---\n' +
+      '\n' +
+      '## EARS Expression\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output v2\ndescription: When export is requested, the service SHALL write the report as CSV output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n  - StRS-CORE-001\nannotation_exemption: false\nexemption_reason:\nderived_by: []\nimplemented_in_files:\n  - src/export.py\ntested_in_files:\n  - tests/test_export.py\n---\n\n## EARS Expression\n',
+    expected: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output v2\ndescription: When export is requested, the service SHALL write the report as CSV\n  output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n- StRS-CORE-001\nannotation_exemption: false\nexemption_reason:\nderived_by: []\nimplemented_in_files:\n- src/export.py\ntested_in_files:\n- tests/test_export.py\n---\n\n## EARS Expression\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F1 lifecycle changes only the named field (3.287958ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      'type: SwRS\n' +
+      'id: SwRS-CORE-001\n' +
+      'uuid: 00000000-0000-4000-8000-000000000002\n' +
+      'title: Write CSV output\n' +
+  +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+  -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+  -   '  output.\n' +
+      'project: OKFREQXMP\n' +
+      'scope: Core\n' +
+      'lifecycle: approved\n' +
+      'origin: native\n' +
+      'tier: SwRS\n' +
+      'derives_from:\n' +
+  +   '  - StRS-CORE-001\n' +
+  -   '- StRS-CORE-001\n' +
+      'annotation_exemption: false\n' +
+      'exemption_reason:\n' +
+      'derived_by: []\n' +
+      'implemented_in_files:\n' +
+  +   '  - src/export.py\n' +
+  -   '- src/export.py\n' +
+      'tested_in_files:\n' +
+  +   '  - tests/test_export.py\n' +
+  -   '- tests/test_export.py\n' +
+      '---\n' +
+      '\n' +
+      '## EARS Expression\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: approved\norigin: native\ntier: SwRS\nderives_from:\n  - StRS-CORE-001\nannotation_exemption: false\nexemption_reason:\nderived_by: []\nimplemented_in_files:\n  - src/export.py\ntested_in_files:\n  - tests/test_export.py\n---\n\n## EARS Expression\n',
+    expected: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV\n  output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: approved\norigin: native\ntier: SwRS\nderives_from:\n- StRS-CORE-001\nannotation_exemption: false\nexemption_reason:\nderived_by: []\nimplemented_in_files:\n- src/export.py\ntested_in_files:\n- tests/test_export.py\n---\n\n## EARS Expression\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F1 annotation_exemption changes only the named field (0.801375ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      'type: SwRS\n' +
+      'id: SwRS-CORE-001\n' +
+      'uuid: 00000000-0000-4000-8000-000000000002\n' +
+      'title: Write CSV output\n' +
+  +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+  -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+  -   '  output.\n' +
+      'project: OKFREQXMP\n' +
+      'scope: Core\n' +
+      'lifecycle: draft\n' +
+      'origin: native\n' +
+      'tier: SwRS\n' +
+      'derives_from:\n' +
+  +   '  - StRS-CORE-001\n' +
+  -   '- StRS-CORE-001\n' +
+      'annotation_exemption: true\n' +
+      'exemption_reason:\n' +
+      'derived_by: []\n' +
+      'implemented_in_files:\n' +
+  +   '  - src/export.py\n' +
+  -   '- src/export.py\n' +
+      'tested_in_files:\n' +
+  +   '  - tests/test_export.py\n' +
+  -   '- tests/test_export.py\n' +
+      '---\n' +
+      '\n' +
+      '## EARS Expression\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n  - StRS-CORE-001\nannotation_exemption: true\nexemption_reason:\nderived_by: []\nimplemented_in_files:\n  - src/export.py\ntested_in_files:\n  - tests/test_export.py\n---\n\n## EARS Expression\n',
+    expected: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV\n  output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n- StRS-CORE-001\nannotation_exemption: true\nexemption_reason:\nderived_by: []\nimplemented_in_files:\n- src/export.py\ntested_in_files:\n- tests/test_export.py\n---\n\n## EARS Expression\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F1 exemption_reason changes only the named field (1.695416ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      'type: SwRS\n' +
+      'id: SwRS-CORE-001\n' +
+      'uuid: 00000000-0000-4000-8000-000000000002\n' +
+      'title: Write CSV output\n' +
+  +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+  -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+  -   '  output.\n' +
+      'project: OKFREQXMP\n' +
+      'scope: Core\n' +
+      'lifecycle: draft\n' +
+      'origin: native\n' +
+      'tier: SwRS\n' +
+      'derives_from:\n' +
+  +   '  - StRS-CORE-001\n' +
+  -   '- StRS-CORE-001\n' +
+      'annotation_exemption: false\n' +
+      'exemption_reason: n/a\n' +
+      'derived_by: []\n' +
+      'implemented_in_files:\n' +
+  +   '  - src/export.py\n' +
+  -   '- src/export.py\n' +
+      'tested_in_files:\n' +
+  +   '  - tests/test_export.py\n' +
+  -   '- tests/test_export.py\n' +
+      '---\n' +
+      '\n' +
+      '## EARS Expression\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n  - StRS-CORE-001\nannotation_exemption: false\nexemption_reason: n/a\nderived_by: []\nimplemented_in_files:\n  - src/export.py\ntested_in_files:\n  - tests/test_export.py\n---\n\n## EARS Expression\n',
+    expected: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV\n  output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n- StRS-CORE-001\nannotation_exemption: false\nexemption_reason: n/a\nderived_by: []\nimplemented_in_files:\n- src/export.py\ntested_in_files:\n- tests/test_export.py\n---\n\n## EARS Expression\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F1 derives_from changes only the named field (2.520333ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      'type: SwRS\n' +
+      'id: SwRS-CORE-001\n' +
+      'uuid: 00000000-0000-4000-8000-000000000002\n' +
+      'title: Write CSV output\n' +
+  +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+  -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+  -   '  output.\n' +
+      'project: OKFREQXMP\n' +
+      'scope: Core\n' +
+      'lifecycle: draft\n' +
+      'origin: native\n' +
+      'tier: SwRS\n' +
+      'derives_from:\n' +
+  +   '  - StRS-CORE-001\n' +
+  +   '  - StRS-CORE-002\n' +
+  -   '- StRS-CORE-001\n' +
+  -   '- StRS-CORE-002\n' +
+      'annotation_exemption: false\n' +
+      'exemption_reason:\n' +
+      'derived_by: []\n' +
+      'implemented_in_files:\n' +
+  +   '  - src/export.py\n' +
+  -   '- src/export.py\n' +
+      'tested_in_files:\n' +
+  +   '  - tests/test_export.py\n' +
+  -   '- tests/test_export.py\n' +
+      '---\n' +
+      '\n' +
+      '## EARS Expression\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n  - StRS-CORE-001\n  - StRS-CORE-002\nannotation_exemption: false\nexemption_reason:\nderived_by: []\nimplemented_in_files:\n  - src/export.py\ntested_in_files:\n  - tests/test_export.py\n---\n\n## EARS Expression\n',
+    expected: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV\n  output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n- StRS-CORE-001\n- StRS-CORE-002\nannotation_exemption: false\nexemption_reason:\nderived_by: []\nimplemented_in_files:\n- src/export.py\ntested_in_files:\n- tests/test_export.py\n---\n\n## EARS Expression\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F1 derived_by changes only the named field (1.36775ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      'type: SwRS\n' +
+      'id: SwRS-CORE-001\n' +
+      'uuid: 00000000-0000-4000-8000-000000000002\n' +
+      'title: Write CSV output\n' +
+  +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+  -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+  -   '  output.\n' +
+      'project: OKFREQXMP\n' +
+      'scope: Core\n' +
+      'lifecycle: draft\n' +
+      'origin: native\n' +
+      'tier: SwRS\n' +
+      'derives_from:\n' +
+  +   '  - StRS-CORE-001\n' +
+  -   '- StRS-CORE-001\n' +
+      'annotation_exemption: false\n' +
+      'exemption_reason:\n' +
+  +   'derived_by: [ X-1 ]\n' +
+  -   'derived_by: [X-1]\n' +
+      'implemented_in_files:\n' +
+  +   '  - src/export.py\n' +
+  -   '- src/export.py\n' +
+      'tested_in_files:\n' +
+  +   '  - tests/test_export.py\n' +
+  -   '- tests/test_export.py\n' +
+      '---\n' +
+      '\n' +
+      '## EARS Expression\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n  - StRS-CORE-001\nannotation_exemption: false\nexemption_reason:\nderived_by: [ X-1 ]\nimplemented_in_files:\n  - src/export.py\ntested_in_files:\n  - tests/test_export.py\n---\n\n## EARS Expression\n',
+    expected: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV\n  output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n- StRS-CORE-001\nannotation_exemption: false\nexemption_reason:\nderived_by: [X-1]\nimplemented_in_files:\n- src/export.py\ntested_in_files:\n- tests/test_export.py\n---\n\n## EARS Expression\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F2 title changes only the named field (1.465375ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'title: Beta # trailing comment\n' +
+  -   'title: Beta  # trailing comment\n' +
+      'tags:\n' +
+      '  - one\n' +
+      '  - two\n' +
+      'summary: >-\n' +
+  +   '  Folded text that spans lines.\n' +
+  +   'links: [ a.md, b.md ]\n' +
+  -   '  Folded text that\n' +
+  -   '  spans lines.\n' +
+  -   'links: [a.md, b.md]\n' +
+      'quoted: "keep: me"\n' +
+      '\n' +
+      'status: draft\n' +
+      '---\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\ntitle: Beta # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that spans lines.\nlinks: [ a.md, b.md ]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    expected: '---\n# leading comment\ntitle: Beta  # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that\n  spans lines.\nlinks: [a.md, b.md]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F2 tags changes only the named field (0.577708ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'title: Alpha # trailing comment\n' +
+  -   'title: Alpha  # trailing comment\n' +
+      'tags:\n' +
+      '  - one\n' +
+      '  - two\n' +
+      '  - three\n' +
+      'summary: >-\n' +
+  +   '  Folded text that spans lines.\n' +
+  +   'links: [ a.md, b.md ]\n' +
+  -   '  Folded text that\n' +
+  -   '  spans lines.\n' +
+  -   'links: [a.md, b.md]\n' +
+      'quoted: "keep: me"\n' +
+      '\n' +
+      'status: draft\n' +
+      '---\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\ntitle: Alpha # trailing comment\ntags:\n  - one\n  - two\n  - three\nsummary: >-\n  Folded text that spans lines.\nlinks: [ a.md, b.md ]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    expected: '---\n# leading comment\ntitle: Alpha  # trailing comment\ntags:\n  - one\n  - two\n  - three\nsummary: >-\n  Folded text that\n  spans lines.\nlinks: [a.md, b.md]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F2 links changes only the named field (0.579125ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'title: Alpha # trailing comment\n' +
+  -   'title: Alpha  # trailing comment\n' +
+      'tags:\n' +
+      '  - one\n' +
+      '  - two\n' +
+      'summary: >-\n' +
+  +   '  Folded text that spans lines.\n' +
+  +   'links: [ a.md, c.md ]\n' +
+  -   '  Folded text that\n' +
+  -   '  spans lines.\n' +
+  -   'links: [a.md, c.md]\n' +
+      'quoted: "keep: me"\n' +
+      '\n' +
+      'status: draft\n' +
+      '---\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\ntitle: Alpha # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that spans lines.\nlinks: [ a.md, c.md ]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    expected: '---\n# leading comment\ntitle: Alpha  # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that\n  spans lines.\nlinks: [a.md, c.md]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F2 quoted changes only the named field (0.834333ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'title: Alpha # trailing comment\n' +
+  -   'title: Alpha  # trailing comment\n' +
+      'tags:\n' +
+      '  - one\n' +
+      '  - two\n' +
+      'summary: >-\n' +
+  +   '  Folded text that spans lines.\n' +
+  +   'links: [ a.md, b.md ]\n' +
+  -   '  Folded text that\n' +
+  -   '  spans lines.\n' +
+  -   'links: [a.md, b.md]\n' +
+      'quoted: "still: quoted"\n' +
+      '\n' +
+      'status: draft\n' +
+      '---\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\ntitle: Alpha # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that spans lines.\nlinks: [ a.md, b.md ]\nquoted: "still: quoted"\n\nstatus: draft\n---\nBody\n',
+    expected: '---\n# leading comment\ntitle: Alpha  # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that\n  spans lines.\nlinks: [a.md, b.md]\nquoted: "still: quoted"\n\nstatus: draft\n---\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F2 summary changes only the named field (1.14675ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'title: Alpha # trailing comment\n' +
+  -   'title: Alpha  # trailing comment\n' +
+      'tags:\n' +
+      '  - one\n' +
+      '  - two\n' +
+  +   'summary: New summary\n' +
+  +   'links: [ a.md, b.md ]\n' +
+  -   'summary: >-\n' +
+  -   '  New summary\n' +
+  -   'links: [a.md, b.md]\n' +
+      'quoted: "keep: me"\n' +
+      '\n' +
+      'status: draft\n' +
+      '---\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\ntitle: Alpha # trailing comment\ntags:\n  - one\n  - two\nsummary: New summary\nlinks: [ a.md, b.md ]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    expected: '---\n# leading comment\ntitle: Alpha  # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  New summary\nlinks: [a.md, b.md]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F2 status changes only the named field (8.158709ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'title: Alpha # trailing comment\n' +
+  -   'title: Alpha  # trailing comment\n' +
+      'tags:\n' +
+      '  - one\n' +
+      '  - two\n' +
+      'summary: >-\n' +
+  +   '  Folded text that spans lines.\n' +
+  +   'links: [ a.md, b.md ]\n' +
+  -   '  Folded text that\n' +
+  -   '  spans lines.\n' +
+  -   'links: [a.md, b.md]\n' +
+      'quoted: "keep: me"\n' +
+      '\n' +
+      'status: active\n' +
+      '---\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\ntitle: Alpha # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that spans lines.\nlinks: [ a.md, b.md ]\nquoted: "keep: me"\n\nstatus: active\n---\nBody\n',
+    expected: '---\n# leading comment\ntitle: Alpha  # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that\n  spans lines.\nlinks: [a.md, b.md]\nquoted: "keep: me"\n\nstatus: active\n---\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F3 title changes only the named field (4.272708ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\r\n' +
+      'type: SwRS\r\n' +
+      'id: SwRS-CORE-001\r\n' +
+      'uuid: 00000000-0000-4000-8000-000000000002\r\n' +
+      'title: Write CSV output v2\r\n' +
+  +   'description: When export is requested, the service SHALL write the report as CSV output.\r\n' +
+  -   'description: When export is requested, the service SHALL write the report as CSV\r\n' +
+  -   '  output.\r\n' +
+      'project: OKFREQXMP\r\n' +
+      'scope: Core\r\n' +
+      'lifecycle: draft\r\n' +
+      'origin: native\r\n' +
+      'tier: SwRS\r\n' +
+      'derives_from:\r\n' +
+  +   '  - StRS-CORE-001\r\n' +
+  -   '- StRS-CORE-001\r\n' +
+      'annotation_exemption: false\r\n' +
+      'exemption_reason:\r\n' +
+      'derived_by: []\r\n' +
+      'implemented_in_files:\r\n' +
+  +   '  - src/export.py\r\n' +
+  -   '- src/export.py\r\n' +
+      'tested_in_files:\r\n' +
+  +   '  - tests/test_export.py\r\n' +
+  -   '- tests/test_export.py\r\n' +
+      '---\r\n' +
+      '\r\n' +
+      '## EARS Expression\r\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\r\ntype: SwRS\r\nid: SwRS-CORE-001\r\nuuid: 00000000-0000-4000-8000-000000000002\r\ntitle: Write CSV output v2\r\ndescription: When export is requested, the service SHALL write the report as CSV output.\r\nproject: OKFREQXMP\r\nscope: Core\r\nlifecycle: draft\r\norigin: native\r\ntier: SwRS\r\nderives_from:\r\n  - StRS-CORE-001\r\nannotation_exemption: false\r\nexemption_reason:\r\nderived_by: []\r\nimplemented_in_files:\r\n  - src/export.py\r\ntested_in_files:\r\n  - tests/test_export.py\r\n---\r\n\r\n## EARS Expression\r\n',
+    expected: '---\r\ntype: SwRS\r\nid: SwRS-CORE-001\r\nuuid: 00000000-0000-4000-8000-000000000002\r\ntitle: Write CSV output v2\r\ndescription: When export is requested, the service SHALL write the report as CSV\r\n  output.\r\nproject: OKFREQXMP\r\nscope: Core\r\nlifecycle: draft\r\norigin: native\r\ntier: SwRS\r\nderives_from:\r\n- StRS-CORE-001\r\nannotation_exemption: false\r\nexemption_reason:\r\nderived_by: []\r\nimplemented_in_files:\r\n- src/export.py\r\ntested_in_files:\r\n- tests/test_export.py\r\n---\r\n\r\n## EARS Expression\r\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:26
+⚠ value edit F4 status changes only the named field (1.998125ms) # UX-16 (T05)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'title: Alpha # trailing comment\n' +
+  -   'title: Alpha  # trailing comment\n' +
+      'tags:\n' +
+      '  - one\n' +
+      '  - two\n' +
+      'summary: >-\n' +
+  +   '  Folded text that spans lines.\n' +
+  +   'links: [ a.md, b.md ]\n' +
+  -   '  Folded text that\n' +
+  -   '  spans lines.\n' +
+  -   'links: [a.md, b.md]\n' +
+      'quoted: "keep: me"\n' +
+      '\n' +
+      'status: active\n' +
+      '...\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:187:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\ntitle: Alpha # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that spans lines.\nlinks: [ a.md, b.md ]\nquoted: "keep: me"\n\nstatus: active\n...\nBody\n',
+    expected: '---\n# leading comment\ntitle: Alpha  # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that\n  spans lines.\nlinks: [a.md, b.md]\nquoted: "keep: me"\n\nstatus: active\n...\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:191:22
+⚠ structural F2 rename title to heading keeps the trailing comment (1.606125ms) # UX-16 (T06)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'heading: Alpha # trailing comment\n' +
+  -   'heading: Alpha  # trailing comment\n' +
+      'tags:\n' +
+      '  - one\n' +
+      '  - two\n' +
+      'summary: >-\n' +
+  +   '  Folded text that spans lines.\n' +
+  +   'links: [ a.md, b.md ]\n' +
+  -   '  Folded text that\n' +
+  -   '  spans lines.\n' +
+  -   'links: [a.md, b.md]\n' +
+      'quoted: "keep: me"\n' +
+      '\n' +
+      'status: draft\n' +
+      '---\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:194:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\nheading: Alpha # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that spans lines.\nlinks: [ a.md, b.md ]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    expected: '---\n# leading comment\nheading: Alpha  # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that\n  spans lines.\nlinks: [a.md, b.md]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:196:22
+⚠ structural F2 remove links deletes exactly that line (1.375042ms) # UX-16 (T06)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'title: Alpha # trailing comment\n' +
+  -   'title: Alpha  # trailing comment\n' +
+      'tags:\n' +
+      '  - one\n' +
+      '  - two\n' +
+      'summary: >-\n' +
+  +   '  Folded text that spans lines.\n' +
+  -   '  Folded text that\n' +
+  -   '  spans lines.\n' +
+      'quoted: "keep: me"\n' +
+      '\n' +
+      'status: draft\n' +
+      '---\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:199:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\ntitle: Alpha # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that spans lines.\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    expected: '---\n# leading comment\ntitle: Alpha  # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that\n  spans lines.\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:201:22
+⚠ structural F2 remove tags deletes exactly the sequence lines (4.958042ms) # UX-16 (T06)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'title: Alpha # trailing comment\n' +
+  -   'title: Alpha  # trailing comment\n' +
+      'summary: >-\n' +
+  +   '  Folded text that spans lines.\n' +
+  +   'links: [ a.md, b.md ]\n' +
+  -   '  Folded text that\n' +
+  -   '  spans lines.\n' +
+  -   'links: [a.md, b.md]\n' +
+      'quoted: "keep: me"\n' +
+      '\n' +
+      'status: draft\n' +
+      '---\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:204:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\ntitle: Alpha # trailing comment\nsummary: >-\n  Folded text that spans lines.\nlinks: [ a.md, b.md ]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    expected: '---\n# leading comment\ntitle: Alpha  # trailing comment\nsummary: >-\n  Folded text that\n  spans lines.\nlinks: [a.md, b.md]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:206:22
+⚠ structural F1 add owner appends one line before the closing delimiter (2.327709ms) # UX-16 (T06)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      'type: SwRS\n' +
+      'id: SwRS-CORE-001\n' +
+      'uuid: 00000000-0000-4000-8000-000000000002\n' +
+      'title: Write CSV output\n' +
+  +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+  -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+  -   '  output.\n' +
+      'project: OKFREQXMP\n' +
+      'scope: Core\n' +
+      'lifecycle: draft\n' +
+      'origin: native\n' +
+      'tier: SwRS\n' +
+      'derives_from:\n' +
+  +   '  - StRS-CORE-001\n' +
+  -   '- StRS-CORE-001\n' +
+      'annotation_exemption: false\n' +
+      'exemption_reason:\n' +
+      'derived_by: []\n' +
+      'implemented_in_files:\n' +
+  +   '  - src/export.py\n' +
+  -   '- src/export.py\n' +
+      'tested_in_files:\n' +
+  +   '  - tests/test_export.py\n' +
+  -   '- tests/test_export.py\n' +
+      'owner: Ana\n' +
+      '---\n' +
+      '\n' +
+      '## EARS Expression\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:209:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n  - StRS-CORE-001\nannotation_exemption: false\nexemption_reason:\nderived_by: []\nimplemented_in_files:\n  - src/export.py\ntested_in_files:\n  - tests/test_export.py\nowner: Ana\n---\n\n## EARS Expression\n',
+    expected: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV\n  output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n- StRS-CORE-001\nannotation_exemption: false\nexemption_reason:\nderived_by: []\nimplemented_in_files:\n- src/export.py\ntested_in_files:\n- tests/test_export.py\nowner: Ana\n---\n\n## EARS Expression\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:134:26
+⚠ round trip preserves the source: compact-book (0.862083ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '| Step | Owner |\n| --- | --- |\n| Plan | Ana |\n| Ship | Bo |'
+  - '| Step | Owner |\n|---|---|\n| Plan | Ana |\n| Ship | Bo |'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:138:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '| Step | Owner |\n| --- | --- |\n| Plan | Ana |\n| Ship | Bo |',
+    expected: '| Step | Owner |\n|---|---|\n| Plan | Ana |\n| Ship | Bo |',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:134:26
+⚠ round trip preserves the source: padded (0.125291ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '| Column A | Column B |\n| ---------- | ---------- |\n| first | second |'
+  - '| Column A | Column B |\n|----------|----------|\n| first    | second   |'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:138:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '| Column A | Column B |\n| ---------- | ---------- |\n| first | second |',
+    expected: '| Column A | Column B |\n|----------|----------|\n| first    | second   |',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:134:26
+⚠ round trip preserves the source: no-spaces (0.104917ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '| a | b |\n| --- | --- |\n| c | d |'
+  - '|a|b|\n|---|---|\n|c|d|'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:138:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '| a | b |\n| --- | --- |\n| c | d |',
+    expected: '|a|b|\n|---|---|\n|c|d|',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:134:26
+⚠ round trip preserves the source: no-outer-pipes (0.079584ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '| a | b |\n| --- | --- |\n| c | d |'
+  - 'a | b\n--- | ---\nc | d'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:138:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '| a | b |\n| --- | --- |\n| c | d |',
+    expected: 'a | b\n--- | ---\nc | d',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:134:26
+⚠ round trip preserves the source: escaped-and-code (0.2895ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '| Key | Value | Code |\n' +
+  +   '| --- | --- | --- |\n' +
+  +   '| a \\| b | x | `y|z` |\n' +
+  +   '| k | v | z |'
+  - '| Key | Value | Code |\n|---|---|---|\n| a \\| b | x | `y|z` |\n| k | v | z |'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:138:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '| Key | Value | Code |\n| --- | --- | --- |\n| a \\| b | x | `y|z` |\n| k | v | z |',
+    expected: '| Key | Value | Code |\n|---|---|---|\n| a \\| b | x | `y|z` |\n| k | v | z |',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:134:26
+⚠ round trip preserves the source: indented (0.123708ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '| a | b |\n| --- | --- |\n| c | d |'
+  - '  | a | b |\n  |---|---|\n  | c | d |'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:138:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '| a | b |\n| --- | --- |\n| c | d |',
+    expected: '  | a | b |\n  |---|---|\n  | c | d |',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:134:26
+⚠ round trip preserves the source: crlf (0.076459ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '| Step | Owner |\r\n| --- | --- |\r\n| Plan | Ana |\r\n| Ship | Bo |\r\n'
+  - '| Step | Owner |\r\n|---|---|\r\n| Plan | Ana |\r\n| Ship | Bo |\r\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:138:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '| Step | Owner |\r\n| --- | --- |\r\n| Plan | Ana |\r\n| Ship | Bo |\r\n',
+    expected: '| Step | Owner |\r\n|---|---|\r\n| Plan | Ana |\r\n| Ship | Bo |\r\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:134:26
+⚠ round trip preserves the source: wider-than-padding (0.066625ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '| Column A | Column B |\n| ---------- | ---------- |\n| first | second |'
+  - '| Column A | Column B |\n|----------|----------|\n| first    | second   |'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:138:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '| Column A | Column B |\n| ---------- | ---------- |\n| first | second |',
+    expected: '| Column A | Column B |\n|----------|----------|\n| first    | second   |',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:142:26
+⚠ one-cell edit changes exactly one line: compact-book (0.123625ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:149:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:142:26
+⚠ one-cell edit changes exactly one line: padded (0.062333ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:149:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:142:26
+⚠ one-cell edit changes exactly one line: no-spaces (0.055833ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 1
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:149:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:142:26
+⚠ one-cell edit changes exactly one line: no-outer-pipes (0.585042ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 1
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:149:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:142:26
+⚠ one-cell edit changes exactly one line: escaped-and-code (0.190958ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 1
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:149:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:142:26
+⚠ one-cell edit changes exactly one line: indented (0.143792ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 1
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:149:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:142:26
+⚠ one-cell edit changes exactly one line: crlf (0.112584ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 1
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:149:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/markdownTablePreservation.test.js:142:26
+⚠ one-cell edit changes exactly one line: wider-than-padding (0.132959ms) # UX-12 (T04)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/markdownTablePreservation.test.js:149:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

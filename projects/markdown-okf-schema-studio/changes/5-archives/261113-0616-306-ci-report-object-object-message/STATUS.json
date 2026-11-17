@@ -1,0 +1,132 @@
+{
+  "schema": 2,
+  "updated": "2026-11-13T11:49:05Z",
+  "cr": "CR-306",
+  "title": "Change Specification: `ci-report` names each failed visual check",
+  "batch": "batch-02",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 1,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/379.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/379",
+    "number": 379
+  },
+  "steps": [
+    {
+      "name": "Round 1",
+      "done": true,
+      "verdict": "",
+      "note": "implement spec 03-change-spec.md",
+      "at": "2026-11-12T21:20:29Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "foreman O-1 noted: full autonomy, no open question in this CR; continuing preflight gate",
+      "at": "2026-11-12T21:57:35Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "5b458421",
+      "at": "2026-11-12T22:30:23Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/379",
+      "at": "2026-11-12T22:30:58Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "preflight local: static+visual pass, integration real-input failed (wide-table-tab, unrelated); heavy branch run dispatched as proof",
+      "at": "2026-11-12T22:30:58Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-12T22:53:31Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/379",
+      "at": "2026-11-13T02:34:49Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/379",
+      "at": "2026-11-13T06:16:11Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261112-223807.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/git-commit-allowed-scopes.md",
+      "name": ".agents/guidelines/git-commit-allowed-scopes.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CHANGELOG.md",
+      "name": "CHANGELOG.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/log.md",
+      "name": "requirements/tiers/log.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/rendering-core/SwRS-MDOKFSTUDIO-CORE-076.md",
+      "name": "requirements/tiers/swrs/rendering-core/SwRS-MDOKFSTUDIO-CORE-076.md"
+    }
+  ],
+  "branch": "chantier/batch-02/cr-306-change-specification-ci-report-names-eac",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-02-CR-306",
+  "agent": null,
+  "notes": [
+    "foreman O-1 noted: full autonomy, no open question in this CR; continuing preflight gate",
+    "preflight local: static+visual pass, integration real-input failed (wide-table-tab, unrelated); heavy branch run dispatched as proof"
+  ],
+  "blocked": null,
+  "cost_usd": 1.6163,
+  "final_cost": true,
+  "silent_minutes": null
+}

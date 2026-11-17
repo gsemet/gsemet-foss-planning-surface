@@ -1,0 +1,158 @@
+{
+  "schema": 2,
+  "updated": "2026-11-13T11:49:05Z",
+  "cr": "CR-309",
+  "title": "Change Specification: a GitHub alert keeps its title when it starts with a heading or a bold line",
+  "batch": "batch-02",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 1,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/380.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/380",
+    "number": 380
+  },
+  "steps": [
+    {
+      "name": "Round 1",
+      "done": true,
+      "verdict": "",
+      "note": "Implement the spec 03-change-spec.md in full: renderer condition, tests, GitHub fixtures, requirements, changelog",
+      "at": "2026-11-12T22:45:08Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Round 1 approved by inspector; committed; running long gate",
+      "at": "2026-11-12T22:56:10Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "pass",
+      "note": "69642b10",
+      "at": "2026-11-12T23:19:49Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/380",
+      "at": "2026-11-12T23:20:17Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "PR 380 CI green (static, windows, visual, checks, report); starting verifier",
+      "at": "2026-11-12T23:34:48Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/380",
+      "at": "2026-11-12T23:39:11Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-12T23:39:12Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/380",
+      "at": "2026-11-13T02:34:49Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/380",
+      "at": "2026-11-13T06:16:11Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "conflicts",
+      "path": "work/conflicts.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261112-235610.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../.github/PULL_REQUEST_TEMPLATE.md",
+      "name": ".github/PULL_REQUEST_TEMPLATE.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../AGENTS.md",
+      "name": "AGENTS.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CHANGELOG.md",
+      "name": "CHANGELOG.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/guidelines/project.guidelines.md",
+      "name": "requirements/guidelines/project.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/log.md",
+      "name": "requirements/tiers/log.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/gfm/SwRS-MDOKFSTUDIO-GFM-009.md",
+      "name": "requirements/tiers/swrs/gfm/SwRS-MDOKFSTUDIO-GFM-009.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/myst/SwRS-MDOKFSTUDIO-MYST-001.md",
+      "name": "requirements/tiers/swrs/myst/SwRS-MDOKFSTUDIO-MYST-001.md"
+    }
+  ],
+  "branch": "chantier/batch-02/cr-309-change-specification-a-github-alert-keep",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-02-CR-309",
+  "agent": null,
+  "notes": [
+    "Round 1 approved by inspector; committed; running long gate",
+    "PR 380 CI green (static, windows, visual, checks, report); starting verifier"
+  ],
+  "blocked": null,
+  "cost_usd": 1.7557,
+  "final_cost": true,
+  "silent_minutes": null
+}

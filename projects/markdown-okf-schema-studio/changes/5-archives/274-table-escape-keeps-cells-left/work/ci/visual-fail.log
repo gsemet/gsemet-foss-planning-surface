@@ -1,0 +1,606 @@
+visual	Run just ci-visual	﻿2026-11-10T18:51:49.7675803Z ##[group]Run just ci-visual
+visual	Run just ci-visual	2026-11-10T18:51:49.7676270Z ^[[36;1mjust ci-visual^[[0m
+visual	Run just ci-visual	2026-11-10T18:51:49.7719209Z shell: /usr/bin/bash -e {0}
+visual	Run just ci-visual	2026-11-10T18:51:49.7719746Z env:
+visual	Run just ci-visual	2026-11-10T18:51:49.7720202Z   STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+visual	Run just ci-visual	2026-11-10T18:51:49.7720766Z   STUDIO_E2E_RUN_ID: 42879302136
+visual	Run just ci-visual	2026-11-10T18:51:49.7721277Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+visual	Run just ci-visual	2026-11-10T18:51:49.7721783Z   RUNNER_IMAGE_OS: ubuntu26
+visual	Run just ci-visual	2026-11-10T18:51:49.7722168Z ##[endgroup]
+visual	Run just ci-visual	2026-11-10T18:51:49.9203985Z 
+visual	Run just ci-visual	2026-11-10T18:51:49.9204975Z > markdown-okf-schema-studio@1.6.0 test:visual
+visual	Run just ci-visual	2026-11-10T18:51:49.9206277Z > npm run visual:render && uv run --no-sync --group docs python test/visual/capture.py
+visual	Run just ci-visual	2026-11-10T18:51:49.9206984Z 
+visual	Run just ci-visual	2026-11-10T18:51:50.0163923Z 
+visual	Run just ci-visual	2026-11-10T18:51:50.0164793Z > markdown-okf-schema-studio@1.6.0 visual:render
+visual	Run just ci-visual	2026-11-10T18:51:50.0166211Z > npm run compile && npm run bundle && node --import ./scripts/register-myst-patches.mjs out/test/visual/renderFixtures.js
+visual	Run just ci-visual	2026-11-10T18:51:50.0167295Z 
+visual	Run just ci-visual	2026-11-10T18:51:50.1134647Z 
+visual	Run just ci-visual	2026-11-10T18:51:50.1135569Z > markdown-okf-schema-studio@1.6.0 compile
+visual	Run just ci-visual	2026-11-10T18:51:50.1136177Z > tsc -p .
+visual	Run just ci-visual	2026-11-10T18:51:50.1136382Z 
+visual	Run just ci-visual	2026-11-10T18:51:52.9376437Z 
+visual	Run just ci-visual	2026-11-10T18:51:52.9377624Z > markdown-okf-schema-studio@1.6.0 bundle
+visual	Run just ci-visual	2026-11-10T18:51:52.9378295Z > node esbuild.mjs
+visual	Run just ci-visual	2026-11-10T18:51:52.9378513Z 
+visual	Run just ci-visual	2026-11-10T18:51:53.2674944Z 
+visual	Run just ci-visual	2026-11-10T18:51:53.2676086Z   out/bundle/extension.js      1.5mb ⚠️
+visual	Run just ci-visual	2026-11-10T18:51:53.2676736Z   out/bundle/extension.js.map  5.2mb
+visual	Run just ci-visual	2026-11-10T18:51:53.2677123Z 
+visual	Run just ci-visual	2026-11-10T18:51:53.2677524Z ⚡ Done in 278ms
+visual	Run just ci-visual	2026-11-10T18:51:53.4620330Z 
+visual	Run just ci-visual	2026-11-10T18:51:53.4621877Z   out/test/bundle/mystRenderer.js  4.7mb ⚠️
+visual	Run just ci-visual	2026-11-10T18:51:53.4640249Z 
+visual	Run just ci-visual	2026-11-10T18:51:53.4641211Z ⚡ Done in 190ms
+visual	Run just ci-visual	2026-11-10T18:51:53.6781309Z 
+visual	Run just ci-visual	2026-11-10T18:51:53.6782351Z   out/bundle/renderWorker.js      1.0mb ⚠️
+visual	Run just ci-visual	2026-11-10T18:51:53.6782895Z   out/bundle/renderWorker.js.map  3.7mb
+visual	Run just ci-visual	2026-11-10T18:51:53.6783163Z 
+visual	Run just ci-visual	2026-11-10T18:51:53.6783358Z ⚡ Done in 214ms
+visual	Run just ci-visual	2026-11-10T18:51:53.7758650Z 
+visual	Run just ci-visual	2026-11-10T18:51:53.7760115Z   out/bundle/lazy/highlight.js        2.4mb ⚠️
+visual	Run just ci-visual	2026-11-10T18:51:53.7760683Z   out/bundle/lazy/katex.js          262.1kb
+visual	Run just ci-visual	2026-11-10T18:51:53.7761247Z   out/bundle/lazy/highlight.js.map    3.7mb
+visual	Run just ci-visual	2026-11-10T18:51:53.7761814Z   out/bundle/lazy/katex.js.map      979.8kb
+visual	Run just ci-visual	2026-11-10T18:51:53.7762160Z 
+visual	Run just ci-visual	2026-11-10T18:51:53.7762534Z ⚡ Done in 95ms
+visual	Run just ci-visual	2026-11-10T18:51:54.5199953Z 
+visual	Run just ci-visual	2026-11-10T18:51:54.5217354Z   out/bundle/mermaid-chunks/elk-QONTBCTQ-M4NHPKDL.js                   1.4mb ⚠️
+visual	Run just ci-visual	2026-11-10T18:51:54.5220994Z   out/bundle/mermaid-chunks/chunk-GZMU6YTR.js                        619.2kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5221935Z   out/bundle/mermaid-chunks/chunk-HXTS3G4B.js                        433.4kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5222768Z   out/bundle/mermaid-chunks/katex-BFZFNELX.js                        261.8kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5223589Z   out/bundle/mermaid-chunks/chunk-K34RBSU4.js                        238.5kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5224444Z   out/bundle/mermaid-chunks/usecaseDiagram-WPOLBNNX-MIKA7GPU.js      184.7kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5225381Z   ...bundle/mermaid-chunks/architectureDiagram-ZHVYKT53-VKOWJMOF.js  149.4kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5226282Z   out/bundle/mermaid-chunks/sequenceDiagram-BLEHNHQU-XUTSWT4P.js     116.1kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5227118Z   out/bundle/mermaid-chunks/chunk-3276WZQ2.js                        113.5kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5228348Z   out/bundle/mermaid-chunks/swimlanes-B3ENRKFQ-Z4PILPQR.js           106.3kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5229167Z   out/bundle/mermaid-chunks/chunk-SKEBRI6Z.js                        106.2kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5230093Z   out/bundle/mermaid-chunks/cose-bilkent-JH36ORCC-3OCAWF5O.js         80.5kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5230908Z   out/bundle/mermaid-chunks/diagram-TYUNFSNR-NU6BFF5V.js              79.6kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5231698Z   out/bundle/mermaid-chunks/c4Diagram-XDPPPE54-NMRNSPOQ.js            64.6kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5232499Z   out/bundle/mermaid-chunks/chunk-NEH7PAIG.js                         62.1kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5233505Z   out/bundle/mermaid-chunks/chunk-PEKIN7MZ.js                         51.3kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5234299Z   out/bundle/mermaid-chunks/ganttDiagram-R7GPNTJY-A4M2CBCA.js         49.9kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5235115Z   out/bundle/mermaid-chunks/classDiagram-v2-4MYWR3UA-TGXLLIZD.js      49.1kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5235920Z   out/bundle/mermaid-chunks/chunk-ARZCLBB6.js                         46.0kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5236719Z   out/bundle/mermaid-chunks/xychartDiagram-4URNHDU4-B3G5UJ6H.js       42.7kb
+visual	Run just ci-visual	2026-11-10T18:51:54.5237362Z   ...and 87 more output files...
+visual	Run just ci-visual	2026-11-10T18:51:54.5237639Z 
+visual	Run just ci-visual	2026-11-10T18:51:54.5237989Z ⚡ Done in 742ms
+visual	Run just ci-visual	2026-11-10T18:51:54.6810153Z 
+visual	Run just ci-visual	2026-11-10T18:51:54.6810716Z   out/bundle/vegaPreview.js  867.1kb
+visual	Run just ci-visual	2026-11-10T18:51:54.6811203Z 
+visual	Run just ci-visual	2026-11-10T18:51:54.6811844Z ⚡ Done in 142ms
+visual	Run just ci-visual	2026-11-10T18:51:55.3380111Z 
+visual	Run just ci-visual	2026-11-10T18:51:55.3381115Z   out/bundle/plantumlPreview.js  3.3mb ⚠️
+visual	Run just ci-visual	2026-11-10T18:51:55.3381493Z 
+visual	Run just ci-visual	2026-11-10T18:51:55.3381710Z ⚡ Done in 656ms
+visual	Run just ci-visual	2026-11-10T18:51:55.8772358Z 
+visual	Run just ci-visual	2026-11-10T18:51:55.8773298Z   out/bundle/preview.js  408.8kb
+visual	Run just ci-visual	2026-11-10T18:51:55.8773661Z 
+visual	Run just ci-visual	2026-11-10T18:51:55.8774087Z ⚡ Done in 33ms
+visual	Run just ci-visual	2026-11-10T18:52:03.4398736Z rendered 195 pages, 462 scenarios
+visual	Run just ci-visual	2026-11-10T18:52:03.4400013Z   placeholder: 03-unresolved-constructs:30 Directive {animation} is not available outside a full build.
+visual	Run just ci-visual	2026-11-10T18:52:03.4401398Z   placeholder: 03-unresolved-constructs:36 Directive {bibliography} is not available outside a full build.
+visual	Run just ci-visual	2026-11-10T18:52:03.4402839Z   placeholder: 83-frontmatter-this-field:17 `= this.reviewer` shows as written: the front matter has no value for it (field "reviewer").
+visual	Run just ci-visual	2026-11-10T18:52:03.4404368Z   placeholder: 65-unclosed-fence-mid-document:5 Unclosed fence: the closing fence is missing, so only this line is shown as written.
+visual	Run just ci-visual	2026-11-10T18:52:03.4405867Z   placeholder: 65-unclosed-fence-mid-document:15 Unclosed fence: the closing fence is missing, so only this line is shown as written.
+visual	Run just ci-visual	2026-11-10T18:52:03.4407795Z   placeholder: 53-conf-warnings:3 Warning: `$...$` is used but this needs the MyST extension `dollarmath`, which is not enabled in your conf.py. Add "dollarmath" to `myst_enable_extensions`.
+visual	Run just ci-visual	2026-11-10T18:52:03.4409962Z   placeholder: 53-conf-warnings:6 Warning: `:::` is used but this needs the MyST extension `colon_fence`, which is not enabled in your conf.py. Add "colon_fence" to `myst_enable_extensions`.
+visual	Run just ci-visual	2026-11-10T18:52:12.0051950Z passed: rendering-core/v04-handbook-top-light-900
+visual	Run just ci-visual	2026-11-10T18:52:12.1015720Z passed: rendering-core/v03-handbook-bottom-dark-900
+visual	Run just ci-visual	2026-11-10T18:52:12.2650957Z passed: rendering-core/v02-handbook-mid-code-dark-900
+visual	Run just ci-visual	2026-11-10T18:52:12.3391591Z passed: rendering-core/v01-handbook-top-dark-900
+visual	Run just ci-visual	2026-11-10T18:52:17.3641631Z passed: rendering-core/v33-frontmatter-this-field-dark-900
+visual	Run just ci-visual	2026-11-10T18:52:17.4821081Z passed: rendering-core/v32-frontmatter-this-field-white-900
+visual	Run just ci-visual	2026-11-10T18:52:17.7675609Z passed: rendering-core/v28-table-row-colours-cream-900
+visual	Run just ci-visual	2026-11-10T18:52:18.4411165Z passed: rendering-core/v05-handbook-top-dark-460
+visual	Run just ci-visual	2026-11-10T18:52:22.7269756Z passed: rendering-core/v31-table-row-colours-overflow-dark-460
+visual	Run just ci-visual	2026-11-10T18:52:23.0258315Z passed: rendering-core/v30-table-row-colours-dark-900
+visual	Run just ci-visual	2026-11-10T18:52:23.6932484Z passed: rendering-core/v06-mixed-blocks-full-light-900
+visual	Run just ci-visual	2026-11-10T18:52:23.8991115Z passed: rendering-core/v29-table-row-colours-white-900
+visual	Run just ci-visual	2026-11-10T18:52:28.4002384Z passed: rendering-core/v09-chapter-three-quarters-dark-900
+visual	Run just ci-visual	2026-11-10T18:52:28.7362505Z passed: rendering-core/v08-chapter-quarter-dark-900
+visual	Run just ci-visual	2026-11-10T18:52:29.5980619Z passed: rendering-core/v10-chapter-bottom-sentinel-dark-900
+visual	Run just ci-visual	2026-11-10T18:52:29.6743338Z passed: rendering-core/v07-chapter-top-dark-900
+visual	Run just ci-visual	2026-11-10T18:52:33.3738289Z passed: rendering-core/v13-inline-code-full-light-900
+visual	Run just ci-visual	2026-11-10T18:52:33.7309188Z passed: rendering-core/v12-inline-code-full-dark-900
+visual	Run just ci-visual	2026-11-10T18:52:34.7391007Z passed: rendering-core/v14-inline-code-full-white-900
+visual	Run just ci-visual	2026-11-10T18:52:35.4725642Z passed: rendering-core/v11-chapter-top-light-900
+visual	Run just ci-visual	2026-11-10T18:52:39.1075262Z passed: rendering-core/v16-inline-code-narrow-full-dark-460
+visual	Run just ci-visual	2026-11-10T18:52:40.1122078Z passed: rendering-core/v25-readme-showcase-hero-cream-1200
+visual	Run just ci-visual	2026-11-10T18:52:41.0981245Z passed: rendering-core/v15-inline-code-full-cream-900
+visual	Run just ci-visual	2026-11-10T18:52:42.6941678Z passed: rendering-core/v26-release-showcase-cream-1200
+visual	Run just ci-visual	2026-11-10T18:52:44.2446544Z passed: rendering-core/v17-cjk-rtl-light-900
+visual	Run just ci-visual	2026-11-10T18:52:45.0385650Z passed: rendering-core/v18-cjk-rtl-light-460
+visual	Run just ci-visual	2026-11-10T18:52:47.6927124Z passed: rendering-core/v21-long-words-light-900
+visual	Run just ci-visual	2026-11-10T18:52:47.7797744Z passed: rendering-core/v27-release-1-3-showcase-cream-1200
+visual	Run just ci-visual	2026-11-10T18:52:49.2840378Z passed: rendering-core/v19-missing-image-dark-900
+visual	Run just ci-visual	2026-11-10T18:52:52.6896752Z passed: rendering-core/v23-inline-image-in-text-light-900
+visual	Run just ci-visual	2026-11-10T18:52:52.8773996Z passed: rendering-core/v22-long-words-light-460
+visual	Run just ci-visual	2026-11-10T18:52:55.4778733Z passed: code-blocks/v01-copy-button-light-900
+visual	Run just ci-visual	2026-11-10T18:52:58.1010706Z passed: rendering-core/v24-inline-image-in-text-edit-dark-900
+visual	Run just ci-visual	2026-11-10T18:52:58.7422609Z passed: code-blocks/v03-copy-button-cream-900
+visual	Run just ci-visual	2026-11-10T18:53:01.4524831Z passed: code-blocks/v18-copy-button-keyboard-focus-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:04.0832173Z passed: code-blocks/v20-comfort-white-900
+visual	Run just ci-visual	2026-11-10T18:53:04.2887535Z passed: code-blocks/v17-copy-button-keyboard-focus-light-900
+visual	Run just ci-visual	2026-11-10T18:53:06.7713395Z passed: code-blocks/v22-comfort-no-numbers-cream-900
+visual	Run just ci-visual	2026-11-10T18:53:09.5604384Z passed: code-blocks/v21-comfort-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:10.0104829Z passed: code-blocks/v04-typescript-block-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:11.6066527Z v20 attempt 1 duration 26529 ms (rendering-core/v20-huge-document-bottom-dark-900, budget 60000 ms)
+visual	Run just ci-visual	2026-11-10T18:53:11.7774627Z passed: rendering-core/v20-huge-document-bottom-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:12.6723238Z passed: code-blocks/v06-rust-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:15.3059260Z passed: code-blocks/v05-markdown-fence-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:15.7404865Z passed: code-blocks/v08-rust-light-900
+visual	Run just ci-visual	2026-11-10T18:53:17.7131044Z passed: code-blocks/v02-copy-button-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:18.2209975Z passed: code-blocks/v10-shell-json-diff-unknown-light-900
+visual	Run just ci-visual	2026-11-10T18:53:20.9769951Z passed: code-blocks/v09-diff-fence-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:21.3381145Z passed: code-blocks/v12-diff-fence-edit-mode-light-900
+visual	Run just ci-visual	2026-11-10T18:53:22.8322158Z passed: code-blocks/v19-comfort-cream-900
+visual	Run just ci-visual	2026-11-10T18:53:23.0805944Z passed: code-blocks/v14-code-block-caption-light-900
+visual	Run just ci-visual	2026-11-10T18:53:26.0224445Z passed: code-blocks/v16-code-block-caption-cream-900
+visual	Run just ci-visual	2026-11-10T18:53:26.4789147Z passed: code-blocks/v13-python-overflow-dark-460
+visual	Run just ci-visual	2026-11-10T18:53:28.0570175Z passed: code-blocks/v23-comfort-light-blocks-cream-900
+visual	Run just ci-visual	2026-11-10T18:53:28.2980558Z passed: gfm/v10-radio-plan-cream-900
+visual	Run just ci-visual	2026-11-10T18:53:31.6028890Z passed: gfm/v12-radio-tab-entry-cream-900
+visual	Run just ci-visual	2026-11-10T18:53:31.9004575Z passed: gfm/v09-alert-body-opens-whole-alert-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:32.8157340Z passed: gfm/v01-bare-urls-light-900
+visual	Run just ci-visual	2026-11-10T18:53:33.7018851Z passed: code-blocks/v07-python-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:36.6691043Z passed: gfm/v03-gfm-gallery-full-light-900
+visual	Run just ci-visual	2026-11-10T18:53:37.5015776Z passed: gfm/v13-radio-tab-entry-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:38.0918391Z passed: gfm/v05-checkbox-refusal-light-900
+visual	Run just ci-visual	2026-11-10T18:53:39.1997808Z passed: code-blocks/v11-diff-fence-edit-mode-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:40.9041031Z passed: gfm/v07-raw-table-colour-spans-light-900
+visual	Run just ci-visual	2026-11-10T18:53:42.5627041Z passed: gfm/v04-gfm-gallery-full-light-460
+visual	Run just ci-visual	2026-11-10T18:53:43.8765546Z passed: myst/v01-failure-admonitions-light-900
+visual	Run just ci-visual	2026-11-10T18:53:44.0823336Z passed: code-blocks/v15-code-block-caption-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:46.2583494Z passed: myst/v03-admonition-gallery-full-light-900
+visual	Run just ci-visual	2026-11-10T18:53:46.7292744Z passed: gfm/v08-raw-table-colour-spans-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:48.9385135Z passed: myst/v05-admonition-nested-content-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:49.2711831Z passed: gfm/v11-radio-plan-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:51.8598525Z passed: myst/v04-admonition-titles-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:52.1698326Z passed: myst/v07-citations-toctree-unresolved-full-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:54.0698021Z passed: myst/v09-context-tags-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:54.4168587Z passed: gfm/v02-gfm-gallery-full-dark-900
+visual	Run just ci-visual	2026-11-10T18:53:57.0507411Z passed: myst/v11-context-tags-light-900
+visual	Run just ci-visual	2026-11-10T18:53:57.7107297Z passed: myst/v08-citations-toctree-unresolved-full-light-900
+visual	Run just ci-visual	2026-11-10T18:53:59.1354913Z passed: myst/v41-cards-tabs-version-cream-900
+visual	Run just ci-visual	2026-11-10T18:53:59.7512922Z passed: gfm/v06-checkbox-refusal-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:02.4247816Z passed: myst/v12-context-tags-light-460
+visual	Run just ci-visual	2026-11-10T18:54:02.8433252Z passed: myst/v43-tabs-keyboard-light-900
+visual	Run just ci-visual	2026-11-10T18:54:04.4256175Z passed: myst/v45-tab-panel-edit-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:04.9291836Z passed: myst/v02-admonition-gallery-full-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:07.6971224Z passed: myst/v44-tab-panel-edit-light-900
+visual	Run just ci-visual	2026-11-10T18:54:08.4729169Z passed: myst/v14-display-math-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:09.3466954Z passed: myst/v38-unclosed-directives-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:10.1718837Z passed: myst/v06-admonition-gallery-full-dark-460
+visual	Run just ci-visual	2026-11-10T18:54:12.4494853Z passed: myst/v37-unclosed-directives-cream-900
+visual	Run just ci-visual	2026-11-10T18:54:13.3389590Z passed: myst/v40-unclosed-fence-mid-document-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:14.8470520Z passed: myst/v10-context-tags-dark-460
+visual	Run just ci-visual	2026-11-10T18:54:17.8023979Z passed: myst/v16-math-edit-source-offline-light-460
+visual	Run just ci-visual	2026-11-10T18:54:19.4971897Z passed: myst/v17-figure-width-align-anchor-full-light-900
+visual	Run just ci-visual	2026-11-10T18:54:19.6380723Z passed: myst/v42-cards-tabs-version-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:20.9538218Z passed: myst/v15-math-edit-source-offline-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:23.8194842Z passed: myst/v19-figure-width-align-anchor-full-cream-900
+visual	Run just ci-visual	2026-11-10T18:54:24.6449020Z passed: myst/v21-myst-gallery-full-light-900
+visual	Run just ci-visual	2026-11-10T18:54:25.2847881Z passed: myst/v13-figure-external-svg-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:27.4188409Z passed: myst/v18-figure-width-align-anchor-full-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:28.7824150Z passed: myst/v23-grid-cards-full-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:29.2329780Z passed: myst/v25-toctree-caption-full-light-900
+visual	Run just ci-visual	2026-11-10T18:54:30.0305864Z passed: myst/v39-unclosed-fence-mid-document-cream-900
+visual	Run just ci-visual	2026-11-10T18:54:32.3247409Z passed: myst/v22-grid-cards-full-light-900
+visual	Run just ci-visual	2026-11-10T18:54:33.6115836Z passed: myst/v27-list-table-full-light-900
+visual	Run just ci-visual	2026-11-10T18:54:34.1150011Z passed: myst/v29-conf-warning-banner-light-900
+visual	Run just ci-visual	2026-11-10T18:54:36.8747500Z passed: myst/v34-readme-showcase-edit-cream-1000
+visual	Run just ci-visual	2026-11-10T18:54:37.0740867Z passed: myst/v26-toctree-caption-full-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:38.5767929Z passed: myst/v31-conf-warning-banner-cream-900
+visual	Run just ci-visual	2026-11-10T18:54:39.3100766Z passed: myst/v33-conf-warning-banner-closed-light-900
+visual	Run just ci-visual	2026-11-10T18:54:41.9815154Z passed: myst/v20-myst-gallery-full-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:42.0370719Z passed: myst/v30-conf-warning-banner-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:43.5499602Z passed: myst/v36-dollar-prices-full-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:44.7451360Z passed: diagrams/v02-mermaid-map-light-900
+visual	Run just ci-visual	2026-11-10T18:54:46.6848639Z passed: myst/v24-grid-cards-full-light-460
+visual	Run just ci-visual	2026-11-10T18:54:46.9398744Z passed: myst/v35-dollar-prices-full-light-900
+visual	Run just ci-visual	2026-11-10T18:54:48.5099172Z passed: diagrams/v04-plantuml-success-light-900
+visual	Run just ci-visual	2026-11-10T18:54:49.5433885Z passed: diagrams/v06-plantuml-unconfigured-light-900
+visual	Run just ci-visual	2026-11-10T18:54:51.5874905Z passed: myst/v28-list-table-full-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:52.4241957Z passed: diagrams/v03-mermaid-map-fallback-900
+visual	Run just ci-visual	2026-11-10T18:54:53.3982357Z passed: diagrams/v19-svg-picture-cream-900
+visual	Run just ci-visual	2026-11-10T18:54:54.3364819Z passed: diagrams/v21-svg-picture-dark-900
+visual	Run just ci-visual	2026-11-10T18:54:56.4346651Z passed: myst/v32-conf-warning-banner-narrow-dark-460
+visual	Run just ci-visual	2026-11-10T18:54:57.3389697Z passed: diagrams/v07-plantuml-not-found-light-900
+visual	Run just ci-visual	2026-11-10T18:54:59.4474138Z passed: diagrams/v09-mermaid-syntax-error-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:00.2525779Z passed: diagrams/v17-readme-showcase-diagrams-cream-1000
+visual	Run just ci-visual	2026-11-10T18:55:02.5131457Z passed: diagrams/v01-mermaid-map-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:02.8816909Z passed: diagrams/v22-svg-picture-edit-light-900
+visual	Run just ci-visual	2026-11-10T18:55:04.7142445Z passed: diagrams/v13-plantuml-file-light-900
+visual	Run just ci-visual	2026-11-10T18:55:05.5081050Z passed: diagrams/v11-plantuml-builtin-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:07.3626874Z passed: diagrams/v05-plantuml-success-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:08.0959914Z passed: diagrams/v10-plantuml-builtin-light-900
+visual	Run just ci-visual	2026-11-10T18:55:10.1067329Z passed: diagrams/v18-plantuml-theme-sprite-light-900
+visual	Run just ci-visual	2026-11-10T18:55:10.6330296Z passed: diagrams/v15-plantuml-include-light-900
+visual	Run just ci-visual	2026-11-10T18:55:12.1583024Z passed: diagrams/v20-svg-picture-white-900
+visual	Run just ci-visual	2026-11-10T18:55:13.3010147Z passed: diagrams/v14-plantuml-file-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:15.4869498Z passed: frontmatter-schema/v31-frontmatter-expanded-again-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:15.8561005Z passed: frontmatter-schema/v29-frontmatter-expanded-again-light-900
+visual	Run just ci-visual	2026-11-10T18:55:17.0842205Z passed: diagrams/v08-mermaid-syntax-error-light-900
+visual	Run just ci-visual	2026-11-10T18:55:18.3624287Z passed: frontmatter-schema/v28-frontmatter-collapsed-light-900
+visual	Run just ci-visual	2026-11-10T18:55:20.2900299Z passed: frontmatter-schema/v04-links-loaded-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:20.9518105Z passed: frontmatter-schema/v02-okf-schema-narrow-hidden-description-dark-460 (alias of frontmatter-schema/v11-okf-schema-narrow-scroll-stress-dark-460)
+visual	Run just ci-visual	2026-11-10T18:55:22.0384947Z passed: diagrams/v12-plantuml-builtin-unsupported-light-900
+visual	Run just ci-visual	2026-11-10T18:55:23.6007764Z passed: frontmatter-schema/v01-okf-schema-table-white-900
+visual	Run just ci-visual	2026-11-10T18:55:25.1403799Z passed: frontmatter-schema/v27-frontmatter-short-keys-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:25.7085928Z passed: frontmatter-schema/v25-frontmatter-long-keys-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:27.1274981Z passed: diagrams/v16-plantuml-include-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:28.4442967Z passed: frontmatter-schema/v24-frontmatter-long-keys-cream-900
+visual	Run just ci-visual	2026-11-10T18:55:30.0479823Z passed: frontmatter-schema/v08-schema-compile-error-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:30.6526760Z passed: frontmatter-schema/v06-missing-required-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:32.1469481Z passed: frontmatter-schema/v30-frontmatter-collapsed-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:33.6845471Z passed: frontmatter-schema/v05-okf-schema-table-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:34.8098785Z passed: frontmatter-schema/v12-properties-plain-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:35.6779627Z passed: frontmatter-schema/v10-schema-compile-error-light-460
+visual	Run just ci-visual	2026-11-10T18:55:37.3175595Z passed: frontmatter-schema/v03-links-loading-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:38.3919439Z passed: frontmatter-schema/v09-schema-compile-error-light-900
+visual	Run just ci-visual	2026-11-10T18:55:40.4373235Z passed: frontmatter-schema/v14-generic-yaml-skill-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:40.9147671Z passed: frontmatter-schema/v23-readme-showcase-schema-cream-1000
+visual	Run just ci-visual	2026-11-10T18:55:42.0832636Z passed: frontmatter-schema/v26-frontmatter-skill-metadata-cream-900
+visual	Run just ci-visual	2026-11-10T18:55:43.1411049Z passed: frontmatter-schema/v13-properties-plain-light-900
+visual	Run just ci-visual	2026-11-10T18:55:45.3131979Z passed: frontmatter-schema/v17-links-details-white-460
+visual	Run just ci-visual	2026-11-10T18:55:45.7696858Z passed: frontmatter-schema/v19-links-details-dark-460
+visual	Run just ci-visual	2026-11-10T18:55:47.0010577Z passed: frontmatter-schema/v07-missing-required-light-900
+visual	Run just ci-visual	2026-11-10T18:55:47.8480604Z passed: frontmatter-schema/v16-links-details-white-900
+visual	Run just ci-visual	2026-11-10T18:55:50.1510943Z passed: frontmatter-schema/v21-unknown-field-strict-light-900
+visual	Run just ci-visual	2026-11-10T18:55:51.4244452Z passed: frontmatter-editing/v01-edit-key-suggestions-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:52.5573868Z passed: frontmatter-schema/v20-invalid-yaml-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:55.6330035Z passed: frontmatter-editing/v03-edit-list-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:56.8432512Z passed: frontmatter-editing/v05-edit-boolean-white-900
+visual	Run just ci-visual	2026-11-10T18:55:58.2488344Z passed: frontmatter-editing/v02-edit-enum-value-dark-900
+visual	Run just ci-visual	2026-11-10T18:55:59.2481147Z passed: frontmatter-schema/v11-okf-schema-narrow-scroll-stress-dark-460
+visual	Run just ci-visual	2026-11-10T18:56:01.7486169Z passed: frontmatter-editing/v08-link-hint-known-stem-dark-900
+visual	Run just ci-visual	2026-11-10T18:56:02.5925470Z passed: layout-width/v01-narrow-table-scroll-dark-460
+visual	Run just ci-visual	2026-11-10T18:56:03.9127774Z passed: frontmatter-schema/v15-generic-yaml-skill-light-900
+visual	Run just ci-visual	2026-11-10T18:56:04.5063586Z passed: frontmatter-editing/v07-link-hint-known-stem-cream-900
+visual	Run just ci-visual	2026-11-10T18:56:06.8938278Z passed: layout-width/v89-toolbar-float-box-below-reach-cream-900
+visual	Run just ci-visual	2026-11-10T18:56:08.7104301Z passed: frontmatter-schema/v18-links-details-dark-900
+visual	Run just ci-visual	2026-11-10T18:56:09.1146217Z passed: layout-width/v88-toolbar-float-first-lines-cream-393
+visual	Run just ci-visual	2026-11-10T18:56:09.8803466Z passed: layout-width/v91-auto-wide-table-keeps-scroll-light-656
+visual	Run just ci-visual	2026-11-10T18:56:12.3620873Z passed: layout-width/v03-table-identifiers-nowrap-dark-640
+visual	Run just ci-visual	2026-11-10T18:56:13.3282803Z passed: frontmatter-schema/v22-properties-hidden-light-900
+visual	Run just ci-visual	2026-11-10T18:56:14.6812432Z passed: layout-width/v02-wide-table-scroll-dark-900
+visual	Run just ci-visual	2026-11-10T18:56:16.0852688Z passed: layout-width/v05-max-content-width-full-dark-1600
+visual	Run just ci-visual	2026-11-10T18:56:17.3328071Z passed: layout-width/v07-first-block-top-light-900
+visual	Run just ci-visual	2026-11-10T18:56:18.8618454Z passed: frontmatter-editing/v04-edit-list-light-900
+visual	Run just ci-visual	2026-11-10T18:56:19.6984692Z passed: layout-width/v09-empty-start-writing-light-900
+visual	Run just ci-visual	2026-11-10T18:56:20.1323954Z passed: layout-width/v06-max-content-width-full-light-1600
+visual	Run just ci-visual	2026-11-10T18:56:20.8846523Z passed: layout-width/v87-empty-start-writing-hint-dark-700
+visual	Run just ci-visual	2026-11-10T18:56:23.6158309Z passed: layout-width/v86-empty-start-writing-hint-light-700
+visual	Run just ci-visual	2026-11-10T18:56:24.2490362Z passed: layout-width/v11-first-gap-paragraph-edit-light-460
+visual	Run just ci-visual	2026-11-10T18:56:26.0488226Z passed: layout-width/v13-first-gap-h1-edit-light-900
+visual	Run just ci-visual	2026-11-10T18:56:28.1100742Z passed: layout-width/v12-first-gap-paragraph-edit-light-1600
+visual	Run just ci-visual	2026-11-10T18:56:29.4598825Z passed: layout-width/v15-first-gap-h1-edit-light-1600
+visual	Run just ci-visual	2026-11-10T18:56:30.9445007Z passed: frontmatter-editing/v06-okf-schema-narrow-scroll-stress-edit-dark-460
+visual	Run just ci-visual	2026-11-10T18:56:31.1997031Z passed: layout-width/v17-first-gap-h2-edit-light-460
+visual	Run just ci-visual	2026-11-10T18:56:33.2190663Z passed: layout-width/v16-first-gap-h2-edit-light-900
+visual	Run just ci-visual	2026-11-10T18:56:34.6500482Z passed: layout-width/v19-first-gap-h3-edit-light-900
+visual	Run just ci-visual	2026-11-10T18:56:35.3742190Z passed: layout-width/v21-first-gap-table-edit-light-900
+visual	Run just ci-visual	2026-11-10T18:56:35.6219155Z passed: layout-width/v90-heading-clears-raw-align-light-900
+visual	Run just ci-visual	2026-11-10T18:56:38.2761071Z passed: layout-width/v20-first-gap-h3-edit-light-1600
+visual	Run just ci-visual	2026-11-10T18:56:38.7905724Z passed: layout-width/v23-first-gap-table-edit-light-1600
+visual	Run just ci-visual	2026-11-10T18:56:39.6933609Z passed: layout-width/v25-first-gap-image-edit-light-460
+visual	Run just ci-visual	2026-11-10T18:56:40.7593199Z passed: layout-width/v04-table-identifiers-nowrap-light-640
+visual	Run just ci-visual	2026-11-10T18:56:42.7410408Z passed: layout-width/v24-first-gap-image-edit-light-900
+visual	Run just ci-visual	2026-11-10T18:56:43.2411665Z passed: layout-width/v27-first-gap-admonition-edit-light-900
+visual	Run just ci-visual	2026-11-10T18:56:44.1796167Z passed: layout-width/v29-first-gap-admonition-edit-light-1600
+visual	Run just ci-visual	2026-11-10T18:56:45.5679152Z passed: layout-width/v08-first-block-top-dark-460
+visual	Run just ci-visual	2026-11-10T18:56:47.2091166Z passed: layout-width/v28-first-gap-admonition-edit-light-460
+visual	Run just ci-visual	2026-11-10T18:56:48.2942159Z passed: layout-width/v31-first-gap-properties-edit-light-460
+visual	Run just ci-visual	2026-11-10T18:56:49.6075134Z passed: layout-width/v33-first-gap-properties-docs-edit-light-900
+visual	Run just ci-visual	2026-11-10T18:56:50.2276148Z passed: layout-width/v10-first-gap-paragraph-edit-light-900
+visual	Run just ci-visual	2026-11-10T18:56:52.1912228Z passed: layout-width/v32-first-gap-properties-edit-light-1600
+visual	Run just ci-visual	2026-11-10T18:56:53.6129035Z passed: layout-width/v35-first-gap-properties-docs-edit-light-1600
+visual	Run just ci-visual	2026-11-10T18:56:55.0154611Z passed: layout-width/v37-first-gap-properties-issues-edit-light-460
+visual	Run just ci-visual	2026-11-10T18:56:55.4318407Z passed: layout-width/v14-first-gap-h1-edit-light-460
+visual	Run just ci-visual	2026-11-10T18:56:57.3284379Z passed: layout-width/v39-first-gap-empty-edit-dark-900
+visual	Run just ci-visual	2026-11-10T18:56:57.4481910Z passed: layout-width/v36-first-gap-properties-issues-edit-light-900
+visual	Run just ci-visual	2026-11-10T18:56:58.6154113Z passed: layout-width/v41-first-gap-empty-edit-dark-1600
+visual	Run just ci-visual	2026-11-10T18:57:00.6292880Z passed: layout-width/v18-first-gap-h2-edit-light-1600
+visual	Run just ci-visual	2026-11-10T18:57:01.0133213Z passed: layout-width/v40-first-gap-empty-edit-dark-460
+visual	Run just ci-visual	2026-11-10T18:57:02.0904951Z passed: layout-width/v43-first-gap-h1-read-light-900
+visual	Run just ci-visual	2026-11-10T18:57:03.2940085Z passed: layout-width/v45-first-gap-h3-read-light-900
+visual	Run just ci-visual	2026-11-10T18:57:04.7772457Z passed: layout-width/v22-first-gap-table-edit-light-460
+visual	Run just ci-visual	2026-11-10T18:57:05.7068514Z passed: layout-width/v44-first-gap-h2-read-light-900
+visual	Run just ci-visual	2026-11-10T18:57:06.0428255Z passed: layout-width/v47-first-gap-image-read-light-900
+visual	Run just ci-visual	2026-11-10T18:57:08.3771521Z passed: layout-width/v49-first-gap-properties-docs-read-light-900
+visual	Run just ci-visual	2026-11-10T18:57:09.1584432Z passed: layout-width/v26-first-gap-image-edit-light-1600
+visual	Run just ci-visual	2026-11-10T18:57:09.7727756Z passed: layout-width/v48-first-gap-admonition-read-light-900
+visual	Run just ci-visual	2026-11-10T18:57:11.2481724Z passed: layout-width/v51-first-gap-h1-edit-light-360
+visual	Run just ci-visual	2026-11-10T18:57:13.5306563Z passed: layout-width/v53-first-gap-properties-edit-light-360
+visual	Run just ci-visual	2026-11-10T18:57:14.0065535Z passed: layout-width/v52-first-gap-table-edit-light-360
+visual	Run just ci-visual	2026-11-10T18:57:14.1942162Z passed: layout-width/v30-first-gap-properties-edit-light-900
+visual	Run just ci-visual	2026-11-10T18:57:16.1013935Z passed: layout-width/v55-first-gap-paragraph-edit-collapsed-light-360
+visual	Run just ci-visual	2026-11-10T18:57:18.2993448Z passed: layout-width/v57-first-gap-paragraph-edit-auto-light-900
+visual	Run just ci-visual	2026-11-10T18:57:18.5777478Z passed: layout-width/v56-first-gap-table-edit-collapsed-light-360
+visual	Run just ci-visual	2026-11-10T18:57:19.9323078Z passed: layout-width/v34-first-gap-properties-docs-edit-light-460
+visual	Run just ci-visual	2026-11-10T18:57:20.0644902Z passed: layout-width/v59-first-gap-empty-edit-auto-dark-900
+visual	Run just ci-visual	2026-11-10T18:57:23.6633251Z passed: layout-width/v60-first-gap-paragraph-edit-full-light-900
+visual	Run just ci-visual	2026-11-10T18:57:23.7934964Z passed: layout-width/v61-first-gap-properties-edit-full-light-900
+visual	Run just ci-visual	2026-11-10T18:57:24.6319130Z passed: layout-width/v63-first-gap-paragraph-edit-dark-900
+visual	Run just ci-visual	2026-11-10T18:57:25.2104862Z passed: layout-width/v38-first-gap-properties-issues-edit-light-1600
+visual	Run just ci-visual	2026-11-10T18:57:28.0124051Z passed: layout-width/v65-first-gap-table-edit-dark-900
+visual	Run just ci-visual	2026-11-10T18:57:28.6650262Z passed: layout-width/v64-first-gap-properties-edit-dark-900
+visual	Run just ci-visual	2026-11-10T18:57:29.3579556Z passed: layout-width/v42-first-gap-paragraph-read-light-900
+visual	Run just ci-visual	2026-11-10T18:57:30.1300153Z passed: layout-width/v67-width-cycle-light-1600
+visual	Run just ci-visual	2026-11-10T18:57:33.3603787Z passed: layout-width/v46-first-gap-table-read-light-900
+visual	Run just ci-visual	2026-11-10T18:57:33.5165025Z passed: layout-width/v69-width-cycle-dark-1600
+visual	Run just ci-visual	2026-11-10T18:57:34.2481950Z passed: layout-width/v68-width-cycle-dark-900
+visual	Run just ci-visual	2026-11-10T18:57:35.7809802Z passed: layout-width/v71-width-cycle-cream-1600
+visual	Run just ci-visual	2026-11-10T18:57:37.9634827Z passed: layout-width/v50-first-gap-paragraph-edit-light-360
+visual	Run just ci-visual	2026-11-10T18:57:39.0676366Z passed: layout-width/v73-break-auto-light-900
+visual	Run just ci-visual	2026-11-10T18:57:39.4214267Z passed: layout-width/v72-break-margin-light-900
+visual	Run just ci-visual	2026-11-10T18:57:41.0523368Z passed: layout-width/v75-break-margin-light-1600
+visual	Run just ci-visual	2026-11-10T18:57:41.5300888Z passed: layout-width/v54-first-gap-empty-edit-dark-360
+visual	Run just ci-visual	2026-11-10T18:57:44.9322908Z passed: layout-width/v77-break-full-light-1600
+visual	Run just ci-visual	2026-11-10T18:57:44.9955417Z passed: layout-width/v76-break-auto-light-1600
+visual	Run just ci-visual	2026-11-10T18:57:46.5052563Z passed: layout-width/v79-break-auto-light-460
+visual	Run just ci-visual	2026-11-10T18:57:46.9767727Z passed: layout-width/v58-first-gap-properties-edit-auto-light-900
+visual	Run just ci-visual	2026-11-10T18:57:50.1433194Z passed: layout-width/v81-break-margin-dark-900
+visual	Run just ci-visual	2026-11-10T18:57:50.7624026Z passed: layout-width/v80-break-full-light-460
+visual	Run just ci-visual	2026-11-10T18:57:51.0945726Z passed: layout-width/v62-first-gap-empty-edit-full-dark-900
+visual	Run just ci-visual	2026-11-10T18:57:52.0786081Z passed: layout-width/v83-break-full-dark-900
+visual	Run just ci-visual	2026-11-10T18:57:55.8842393Z passed: layout-width/v85-max-width-setting-light-2000
+visual	Run just ci-visual	2026-11-10T18:57:56.1804278Z passed: layout-width/v84-break-auto-readme-cream-1200
+visual	Run just ci-visual	2026-11-10T18:57:56.7954068Z passed: layout-width/v66-width-cycle-light-900
+visual	Run just ci-visual	2026-11-10T18:57:58.2733058Z passed: theme-zoom/v02-forced-cream-handbook-cream-900
+visual	Run just ci-visual	2026-11-10T18:58:01.5921311Z passed: theme-zoom/v03-forced-cream-admonitions-full-cream-900
+visual	Run just ci-visual	2026-11-10T18:58:02.0298998Z passed: theme-zoom/v04-forced-cream-code-tables-full-cream-900
+visual	Run just ci-visual	2026-11-10T18:58:02.5639661Z passed: layout-width/v70-width-cycle-cream-900
+visual	Run just ci-visual	2026-11-10T18:58:03.7905537Z passed: theme-zoom/v06-forced-cream-paragraph-editor-cream-900
+visual	Run just ci-visual	2026-11-10T18:58:06.5563921Z passed: theme-zoom/v07-forced-white-properties-white-900
+visual	Run just ci-visual	2026-11-10T18:58:08.0283122Z passed: theme-zoom/v08-forced-dark-handbook-light-900
+visual	Run just ci-visual	2026-11-10T18:58:08.5663794Z passed: layout-width/v74-break-full-light-900
+visual	Run just ci-visual	2026-11-10T18:58:09.9691279Z passed: theme-zoom/v10-zoom-200-light-900
+visual	Run just ci-visual	2026-11-10T18:58:12.4924942Z passed: theme-zoom/v11-zoom-150-light-460
+visual	Run just ci-visual	2026-11-10T18:58:13.8160160Z passed: layout-width/v78-break-margin-light-460
+visual	Run just ci-visual	2026-11-10T18:58:14.6962327Z passed: theme-zoom/v12-fresh-workspace-light-900
+visual	Run just ci-visual	2026-11-10T18:58:15.0128970Z passed: toolbar-navigation/v39-sticky-running-text-light-900
+visual	Run just ci-visual	2026-11-10T18:58:17.5090959Z passed: toolbar-navigation/v40-sticky-running-text-dark-900
+visual	Run just ci-visual	2026-11-10T18:58:19.2565285Z passed: layout-width/v82-break-auto-dark-900
+visual	Run just ci-visual	2026-11-10T18:58:19.6532740Z passed: toolbar-navigation/v37-mark-containing-block-light-900
+visual	Run just ci-visual	2026-11-10T18:58:20.7999240Z passed: toolbar-navigation/v01-sticky-depth-1-dark-900
+visual	Run just ci-visual	2026-11-10T18:58:23.2772267Z passed: toolbar-navigation/v02-sticky-depth-2-dark-900
+visual	Run just ci-visual	2026-11-10T18:58:25.3436160Z passed: theme-zoom/v01-forced-white-handbook-white-900
+visual	Run just ci-visual	2026-11-10T18:58:25.6880839Z passed: toolbar-navigation/v05-sticky-wrapped-growth-dark-460
+visual	Run just ci-visual	2026-11-10T18:58:28.1683989Z passed: toolbar-navigation/v06-toolbar-expanded-light-900
+visual	Run just ci-visual	2026-11-10T18:58:29.5519238Z passed: toolbar-navigation/v03-sticky-depth-3-oscillation-dark-900
+visual	Run just ci-visual	2026-11-10T18:58:30.1043420Z passed: theme-zoom/v05-forced-cream-properties-cream-900
+visual	Run just ci-visual	2026-11-10T18:58:30.7158706Z passed: toolbar-navigation/v09-toolbar-collapsed-light-360
+visual	Run just ci-visual	2026-11-10T18:58:32.9926554Z passed: toolbar-navigation/v10-toolbar-expanded-dark-900
+visual	Run just ci-visual	2026-11-10T18:58:34.8097422Z passed: toolbar-navigation/v07-toolbar-collapsed-light-900
+visual	Run just ci-visual	2026-11-10T18:58:35.9728310Z passed: toolbar-navigation/v13-toolbar-collapsed-dark-360
+visual	Run just ci-visual	2026-11-10T18:58:36.0504534Z passed: theme-zoom/v09-zoom-70-light-900
+visual	Run just ci-visual	2026-11-10T18:58:37.8569216Z passed: toolbar-navigation/v14-toolbar-expanded-white-900
+visual	Run just ci-visual	2026-11-10T18:58:39.9980515Z passed: toolbar-navigation/v11-toolbar-collapsed-dark-900
+visual	Run just ci-visual	2026-11-10T18:58:41.1448074Z passed: toolbar-navigation/v17-toolbar-collapsed-white-360
+visual	Run just ci-visual	2026-11-10T18:58:42.4472187Z passed: theme-zoom/v13-fresh-workspace-dark-460
+visual	Run just ci-visual	2026-11-10T18:58:42.8884291Z passed: toolbar-navigation/v18-toolbar-expanded-cream-900
+visual	Run just ci-visual	2026-11-10T18:58:45.1098047Z passed: toolbar-navigation/v15-toolbar-collapsed-white-900
+visual	Run just ci-visual	2026-11-10T18:58:46.2278816Z passed: toolbar-navigation/v21-toolbar-collapsed-cream-360
+visual	Run just ci-visual	2026-11-10T18:58:47.4578019Z passed: toolbar-navigation/v38-mark-containing-block-dark-900
+visual	Run just ci-visual	2026-11-10T18:58:50.3587717Z passed: toolbar-navigation/v19-toolbar-collapsed-cream-900
+visual	Run just ci-visual	2026-11-10T18:58:53.0074087Z passed: toolbar-navigation/v04-sticky-depth-3-light-460
+visual	Run just ci-visual	2026-11-10T18:58:54.1310032Z passed: toolbar-navigation/v22-toc-margin-light-900
+visual	Run just ci-visual	2026-11-10T18:58:56.9244853Z passed: toolbar-navigation/v25-toc-margin-dark-1600
+visual	Run just ci-visual	2026-11-10T18:58:57.6999269Z passed: toolbar-navigation/v08-toolbar-expanded-light-360
+visual	Run just ci-visual	2026-11-10T18:59:01.6921108Z passed: toolbar-navigation/v23-toc-auto-light-900
+visual	Run just ci-visual	2026-11-10T18:59:02.5210969Z passed: toolbar-navigation/v12-toolbar-expanded-dark-360
+visual	Run just ci-visual	2026-11-10T18:59:05.1566665Z passed: toolbar-navigation/v26-toc-auto-dark-1600
+visual	Run just ci-visual	2026-11-10T18:59:05.2602563Z passed: toolbar-navigation/v29-toc-rail-dark-460
+visual	Run just ci-visual	2026-11-10T18:59:07.2050186Z passed: toolbar-navigation/v16-toolbar-expanded-white-360
+visual	Run just ci-visual	2026-11-10T18:59:11.0198217Z passed: toolbar-navigation/v33-sticky-shadow-dark-900
+visual	Run just ci-visual	2026-11-10T18:59:11.3801779Z passed: toolbar-navigation/v30-back-enabled-after-anchor-light-900
+visual	Run just ci-visual	2026-11-10T18:59:12.0532469Z passed: toolbar-navigation/v20-toolbar-expanded-cream-360
+visual	Run just ci-visual	2026-11-10T18:59:13.5215046Z passed: toolbar-navigation/v27-toc-full-dark-1600
+visual	Run just ci-visual	2026-11-10T18:59:16.7478068Z passed: block-editing/v01-nested-list-typing-dark-460
+visual	Run just ci-visual	2026-11-10T18:59:17.1138200Z passed: toolbar-navigation/v34-sticky-shadow-cream-900
+visual	Run just ci-visual	2026-11-10T18:59:19.4356786Z passed: toolbar-navigation/v31-mark-editor-selection-light-900
+visual	Run just ci-visual	2026-11-10T18:59:21.8405716Z passed: block-editing/v16-paste-rich-text-light-900
+visual	Run just ci-visual	2026-11-10T18:59:22.6711644Z passed: block-editing/v02-nested-list-typing-light-900
+visual	Run just ci-visual	2026-11-10T18:59:23.7536745Z passed: toolbar-navigation/v24-toc-full-light-900
+visual	Run just ci-visual	2026-11-10T18:59:24.2470443Z passed: toolbar-navigation/v35-link-warning-light-900
+visual	Run just ci-visual	2026-11-10T18:59:27.2937267Z passed: block-editing/v25-grid-card-title-editor-layout-cream-900
+visual	Run just ci-visual	2026-11-10T18:59:29.3708462Z passed: block-editing/v35-card-header-enter-commits-line-cream-900
+visual	Run just ci-visual	2026-11-10T18:59:29.4652683Z passed: block-editing/v03-wrapped-paragraph-keyboard-dark-460
+visual	Run just ci-visual	2026-11-10T18:59:32.1546044Z passed: toolbar-navigation/v28-toc-rail-light-460
+visual	Run just ci-visual	2026-11-10T18:59:32.4009099Z passed: block-editing/v29-link-edit-mode-linkonly-hover-cream-900
+visual	Run just ci-visual	2026-11-10T18:59:34.8879088Z passed: block-editing/v26-grid-card-title-editor-layout-dark-900
+visual	Run just ci-visual	2026-11-10T18:59:34.9635643Z passed: block-editing/v23-grid-card-body-editor-layout-cream-900
+visual	Run just ci-visual	2026-11-10T18:59:37.8355734Z passed: toolbar-navigation/v32-sticky-shadow-light-900
+visual	Run just ci-visual	2026-11-10T18:59:37.9708487Z passed: block-editing/v33-link-edit-mode-card-hover-cream-900
+visual	Run just ci-visual	2026-11-10T18:59:40.1400221Z passed: block-editing/v30-link-edit-mode-linkonly-hover-dark-900
+visual	Run just ci-visual	2026-11-10T18:59:40.2081065Z passed: block-editing/v27-link-edit-mode-linkonly-click-cream-900
+visual	Run just ci-visual	2026-11-10T18:59:42.6832125Z passed: toolbar-navigation/v36-link-warning-dark-900
+visual	Run just ci-visual	2026-11-10T18:59:43.4423926Z passed: block-editing/v05-admonition-editor-open-dark-900
+visual	Run just ci-visual	2026-11-10T18:59:45.7139075Z passed: block-editing/v34-link-edit-mode-card-hover-dark-900
+visual	Run just ci-visual	2026-11-10T18:59:45.9738294Z passed: block-editing/v31-link-edit-mode-card-click-cream-900
+visual	Run just ci-visual	2026-11-10T18:59:47.7441871Z passed: block-editing/v15-paste-rich-text-dark-460
+visual	Run just ci-visual	2026-11-10T18:59:48.6066429Z passed: block-editing/v09-insert-after-final-figure-light-900
+visual	Run just ci-visual	2026-11-10T18:59:51.3584578Z passed: block-editing/v22-admonition-body-opens-whole-directive-dark-900
+visual	Run just ci-visual	2026-11-10T18:59:51.7703481Z passed: block-editing/v06-hover-outline-then-editor-dark-900
+visual	Run just ci-visual	2026-11-10T18:59:53.3414307Z passed: block-editing/v24-grid-card-body-editor-layout-dark-900
+visual	Run just ci-visual	2026-11-10T18:59:55.8357082Z passed: block-editing/v19-keyboard-selection-dark-900
+visual	Run just ci-visual	2026-11-10T18:59:56.7514235Z passed: block-editing/v10-insert-after-final-image-light-900
+visual	Run just ci-visual	2026-11-10T18:59:57.0614923Z passed: block-editing/v07-editor-status-wrap-dark-460
+visual	Run just ci-visual	2026-11-10T18:59:58.5441989Z passed: block-editing/v28-link-edit-mode-linkonly-click-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:00.6796316Z passed: block-editing/v11-empty-doc-enter-opens-editor-light-900
+visual	Run just ci-visual	2026-11-10T19:00:01.4037075Z passed: block-editing/v20-keyboard-table-cell-light-900
+visual	Run just ci-visual	2026-11-10T19:00:04.0131364Z passed: block-editing/v32-link-edit-mode-card-click-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:04.3245585Z passed: block-editing/v13-activation-keeps-scroll-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:05.2245063Z passed: block-editing/v21-keyboard-table-cell-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:09.3336537Z passed: palette-slash/v26-pasted-image-alt-enter-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:09.5022786Z passed: block-editing/v04-paragraph-editor-open-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:09.8585894Z passed: block-editing/v14-activation-keeps-scroll-light-460
+visual	Run just ci-visual	2026-11-10T19:00:12.1005505Z passed: block-editing/v17-block-selection-light-900
+visual	Run just ci-visual	2026-11-10T19:00:15.0632348Z passed: palette-slash/v33-option-list-button-cream-900
+visual	Run just ci-visual	2026-11-10T19:00:15.4443555Z passed: block-editing/v08-insert-point-hover-light-900
+visual	Run just ci-visual	2026-11-10T19:00:15.8411064Z passed: palette-slash/v30-option-list-enter-cream-900
+visual	Run just ci-visual	2026-11-10T19:00:18.1001526Z passed: palette-slash/v31-option-list-enter-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:20.9901057Z passed: palette-slash/v37-alert-type-picker-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:22.6633470Z passed: block-editing/v18-keyboard-selection-cream-900
+visual	Run just ci-visual	2026-11-10T19:00:24.0463397Z passed: palette-slash/v34-slash-myst-admonitions-light-900
+visual	Run just ci-visual	2026-11-10T19:00:26.1616598Z passed: palette-slash/v35-slash-myst-admonitions-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:27.4576154Z passed: block-editing/v12-list-item-opens-whole-list-dark-460
+visual	Run just ci-visual	2026-11-10T19:00:27.9922414Z passed: palette-slash/v41-grid-form-light-900
+visual	Run just ci-visual	2026-11-10T19:00:30.0759719Z passed: palette-slash/v38-admonition-type-picker-light-900
+visual	Run just ci-visual	2026-11-10T19:00:32.1994664Z passed: palette-slash/v39-admonition-type-picker-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:32.4919008Z passed: palette-slash/v25-pasted-image-alt-enter-cream-900
+visual	Run just ci-visual	2026-11-10T19:00:36.8214868Z passed: palette-slash/v42-card-form-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:38.7883518Z passed: palette-slash/v32-option-list-exit-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:39.1486400Z passed: palette-slash/v43-grid-form-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:42.6341060Z passed: palette-slash/v02-palette-sticky-tall-editor-light-900
+visual	Run just ci-visual	2026-11-10T19:00:44.9561781Z passed: palette-slash/v36-alert-type-picker-light-900
+visual	Run just ci-visual	2026-11-10T19:00:50.5778144Z passed: palette-slash/v19-table-toolbar-sticky-tall-table-light-900
+visual	Run just ci-visual	2026-11-10T19:00:51.3967830Z passed: palette-slash/v03-palette-sticky-tall-editor-dark-900
+visual	Run just ci-visual	2026-11-10T19:00:51.8542722Z passed: palette-slash/v40-card-form-light-900
+visual	Run just ci-visual	2026-11-10T19:00:54.8596412Z passed: palette-slash/v04-palette-not-sticky-narrow-dark-360
+visual	Run just ci-visual	2026-11-10T19:00:57.2670714Z passed: palette-slash/v07-mode-gfm-light-900
+visual	Run just ci-visual	2026-11-10T19:00:58.7093670Z passed: palette-slash/v20-table-toolbar-sticky-tall-table-light-460
+visual	Run just ci-visual	2026-11-10T19:01:01.7834070Z passed: palette-slash/v05-mode-strict-light-900
+visual	Run just ci-visual	2026-11-10T19:01:02.8501010Z passed: palette-slash/v01-palette-popups-light-900
+visual	Run just ci-visual	2026-11-10T19:01:05.2240494Z passed: palette-slash/v08-mode-gfm-dark-900
+visual	Run just ci-visual	2026-11-10T19:01:05.2663423Z passed: palette-slash/v11-slash-strict-light-900
+visual	Run just ci-visual	2026-11-10T19:01:08.5347076Z passed: palette-slash/v09-mode-myst-light-900
+visual	Run just ci-visual	2026-11-10T19:01:14.4204705Z passed: palette-slash/v12-slash-gfm-light-900
+visual	Run just ci-visual	2026-11-10T19:01:15.6456445Z passed: palette-slash/v15-palette-above-editor-dark-900
+visual	Run just ci-visual	2026-11-10T19:01:16.7421252Z passed: palette-slash/v13-slash-myst-light-900
+visual	Run just ci-visual	2026-11-10T19:01:19.1045444Z passed: palette-slash/v18-palette-sticky-tall-editor-light-460
+visual	Run just ci-visual	2026-11-10T19:01:23.6353104Z passed: palette-slash/v29-edit-figure-button-narrow-cream-420
+visual	Run just ci-visual	2026-11-10T19:01:24.1257905Z passed: palette-slash/v16-palette-above-editor-cream-900
+visual	Run just ci-visual	2026-11-10T19:01:25.4536868Z passed: palette-slash/v06-mode-strict-dark-900
+visual	Run just ci-visual	2026-11-10T19:01:26.5351693Z passed: palette-slash/v17-palette-wraps-narrow-dark-360
+visual	Run just ci-visual	2026-11-10T19:01:29.8254593Z passed: palette-slash/v28-palette-clears-text-rule-cream-900
+visual	Run just ci-visual	2026-11-10T19:01:31.5705772Z passed: palette-slash/v21-slash-gfm-light-360
+visual	Run just ci-visual	2026-11-10T19:01:31.8820119Z passed: palette-slash/v10-mode-myst-dark-900
+visual	Run just ci-visual	2026-11-10T19:01:32.2783850Z passed: palette-slash/v23-edit-bar-tooltip-rule-cream-900
+visual	Run just ci-visual	2026-11-10T19:01:34.7309750Z passed: palette-slash/v22-pasted-image-paragraph-light-900
+visual	Run just ci-visual	2026-11-10T19:01:36.9790534Z passed: table-editing/v28-table-row-hover-below-handles-light-900
+visual	Run just ci-visual	2026-11-10T19:01:37.1533203Z passed: table-editing/v26-handles-breakout-table-auto-light-900
+visual	Run just ci-visual	2026-11-10T19:01:39.8102372Z passed: palette-slash/v14-slash-myst-filtered-dark-900
+visual	Run just ci-visual	2026-11-10T19:01:40.7697206Z passed: table-editing/v01-wide-table-end-key-dark-900
+visual	Run just ci-visual	2026-11-10T19:01:44.5636503Z failed: table-editing/v04-cell-editor-wraps-dark-900
+visual	Run just ci-visual	2026-11-10T19:01:45.0996670Z failed: table-editing/v02-cell-editor-wraps-light-900
+visual	Run just ci-visual	2026-11-10T19:01:48.1961004Z failed: table-editing/v05-cell-editor-wraps-dark-460
+visual	Run just ci-visual	2026-11-10T19:01:49.3836397Z passed: table-editing/v07-row-handles-dark-900
+visual	Run just ci-visual	2026-11-10T19:01:50.0334694Z passed: table-editing/v06-row-handles-light-900
+visual	Run just ci-visual	2026-11-10T19:01:53.0861065Z passed: table-editing/v10-row-dragging-dark-900
+visual	Run just ci-visual	2026-11-10T19:01:54.2265605Z passed: table-editing/v12-list-table-row-handles-light-900
+visual	Run just ci-visual	2026-11-10T19:01:54.8733237Z passed: table-editing/v08-row-handles-cream-900
+visual	Run just ci-visual	2026-11-10T19:01:57.8839045Z passed: table-editing/v13-list-table-row-handles-dark-900
+visual	Run just ci-visual	2026-11-10T19:01:58.9162039Z passed: table-editing/v18-list-table-row-handles-narrow-light-360
+visual	Run just ci-visual	2026-11-10T19:01:59.7443956Z passed: table-editing/v14-list-table-row-handles-cream-900
+visual	Run just ci-visual	2026-11-10T19:01:59.9453124Z passed: palette-slash/v27-palette-clears-content-cream-1100
+visual	Run just ci-visual	2026-11-10T19:02:02.6510081Z passed: table-editing/v16-row-handles-narrow-dark-360
+visual	Run just ci-visual	2026-11-10T19:02:03.7422930Z passed: table-editing/v20-list-table-row-handles-narrow-cream-360
+visual	Run just ci-visual	2026-11-10T19:02:04.5999757Z passed: table-editing/v19-list-table-row-handles-narrow-dark-360
+visual	Run just ci-visual	2026-11-10T19:02:05.5496904Z passed: palette-slash/v24-edit-bar-tooltip-rule-dark-900
+visual	Run just ci-visual	2026-11-10T19:02:07.4886206Z passed: table-editing/v21-row-handles-scrolling-table-light-900
+visual	Run just ci-visual	2026-11-10T19:02:09.4246069Z passed: table-editing/v22-row-handles-scrolling-table-dark-900
+visual	Run just ci-visual	2026-11-10T19:02:10.7601769Z failed: table-editing/v24-table-bar-groups-light-360
+visual	Run just ci-visual	2026-11-10T19:02:11.4884502Z passed: table-editing/v27-row-move-breakout-table-auto-light-900
+visual	Run just ci-visual	2026-11-10T19:02:14.3791433Z passed: review-annotations/v29-comments-button-hides-review-marks-light-900
+visual	Run just ci-visual	2026-11-10T19:02:14.5153359Z failed: table-editing/v25-table-bar-groups-dark-360
+visual	Run just ci-visual	2026-11-10T19:02:15.5705600Z passed: review-annotations/v27-frontmatter-change-bar-light-900
+visual	Run just ci-visual	2026-11-10T19:02:18.8799096Z failed: table-editing/v03-cell-editor-wraps-light-460
+visual	Run just ci-visual	2026-11-10T19:02:19.3203238Z passed: review-annotations/v28-frontmatter-change-bar-dark-900
+visual	Run just ci-visual	2026-11-10T19:02:19.4977407Z passed: review-annotations/v23-review-thread-contrast-cream-900
+visual	Run just ci-visual	2026-11-10T19:02:20.6682373Z passed: review-annotations/v25-review-thread-contrast-white-900
+visual	Run just ci-visual	2026-11-10T19:02:23.7936222Z passed: table-editing/v09-row-dragging-light-900
+visual	Run just ci-visual	2026-11-10T19:02:24.3889791Z passed: review-annotations/v01-orphan-box-end-padding-dark-900
+visual	Run just ci-visual	2026-11-10T19:02:26.1591466Z passed: review-annotations/v26-readme-showcase-comment-thread-cream-1000
+visual	Run just ci-visual	2026-11-10T19:02:28.6020607Z passed: review-annotations/v02-comment-todo-chips-light-900
+visual	Run just ci-visual	2026-11-10T19:02:28.7886198Z passed: table-editing/v11-row-dragging-cream-900
+visual	Run just ci-visual	2026-11-10T19:02:32.1164878Z passed: review-annotations/v04-comment-todo-chips-cream-900
+visual	Run just ci-visual	2026-11-10T19:02:33.5085649Z passed: table-editing/v15-row-handles-narrow-light-360
+visual	Run just ci-visual	2026-11-10T19:02:33.9207862Z passed: review-annotations/v03-comment-todo-chips-dark-900
+visual	Run just ci-visual	2026-11-10T19:02:34.8986133Z passed: review-annotations/v08-comment-list-chips-visible-dark-900
+visual	Run just ci-visual	2026-11-10T19:02:38.2351921Z passed: table-editing/v17-row-handles-narrow-cream-360
+visual	Run just ci-visual	2026-11-10T19:02:38.6403039Z passed: review-annotations/v10-comment-list-chips-hidden-dark-900
+visual	Run just ci-visual	2026-11-10T19:02:40.4742502Z passed: review-annotations/v09-comment-list-chips-hidden-light-900
+visual	Run just ci-visual	2026-11-10T19:02:42.7741278Z passed: review-annotations/v12-inline-thread-dark-900
+visual	Run just ci-visual	2026-11-10T19:02:43.0695556Z passed: table-editing/v23-row-handles-scrolling-table-cream-900
+visual	Run just ci-visual	2026-11-10T19:02:43.9965713Z passed: review-annotations/v05-change-bar-light-900
+visual	Run just ci-visual	2026-11-10T19:02:47.5810803Z passed: review-annotations/v14-incoming-bars-light-900
+visual	Run just ci-visual	2026-11-10T19:02:47.9409805Z passed: review-annotations/v30-comments-button-hides-review-marks-dark-900
+visual	Run just ci-visual	2026-11-10T19:02:48.0969668Z passed: review-annotations/v13-inline-thread-cream-900
+visual	Run just ci-visual	2026-11-10T19:02:48.8432766Z passed: review-annotations/v16-incoming-diff-off-light-900
+visual	Run just ci-visual	2026-11-10T19:02:52.5390313Z passed: review-annotations/v18-review-thread-resolved-light-900
+visual	Run just ci-visual	2026-11-10T19:02:52.9200199Z passed: review-annotations/v15-incoming-bars-dark-900
+visual	Run just ci-visual	2026-11-10T19:02:53.0031388Z passed: review-annotations/v24-review-thread-contrast-dark-900
+visual	Run just ci-visual	2026-11-10T19:02:53.4457338Z passed: review-annotations/v20-comment-chips-hidden-light-900
+visual	Run just ci-visual	2026-11-10T19:02:57.7063764Z passed: lifecycle-sync/v01-update-glow-light-900
+visual	Run just ci-visual	2026-11-10T19:02:57.8739794Z passed: review-annotations/v19-orphaned-list-light-900
+visual	Run just ci-visual	2026-11-10T19:02:58.7947720Z passed: lifecycle-sync/v03-update-glow-cream-900
+visual	Run just ci-visual	2026-11-10T19:02:59.5975761Z passed: review-annotations/v21-readme-showcase-diff-cream-1000
+visual	Run just ci-visual	2026-11-10T19:03:03.0479683Z passed: lifecycle-sync/v02-update-glow-dark-900
+visual	Run just ci-visual	2026-11-10T19:03:03.3110394Z passed: trust-security/v01-restricted-page-dark-900
+visual	Run just ci-visual	2026-11-10T19:03:04.3598542Z passed: trust-security/v03-restricted-opens-block-editor-light-900
+visual	Run just ci-visual	2026-11-10T19:03:05.9606106Z passed: review-annotations/v07-comment-list-chips-visible-light-900
+visual	Run just ci-visual	2026-11-10T19:03:08.1839174Z passed: trust-security/v02-restricted-page-light-460
+visual	Run just ci-visual	2026-11-10T19:03:13.6935464Z passed: review-annotations/v11-inline-thread-light-900
+visual	Run just ci-visual	2026-11-10T19:03:18.8637543Z passed: review-annotations/v06-change-bar-dark-900
+visual	Run just ci-visual	2026-11-10T19:03:23.6700141Z passed: review-annotations/v17-review-thread-open-light-900
+visual	Run just ci-visual	2026-11-10T19:03:28.4576227Z passed: review-annotations/v22-comments-button-hides-thread-light-900
+visual	Run just ci-visual	2026-11-10T19:03:32.9699883Z passed: trust-security/v04-read-only-images-light-900
+visual	Run just ci-visual	2026-11-10T19:03:33.1339911Z 
+visual	Run just ci-visual	2026-11-10T19:03:33.1342548Z rendering checks failed:
+visual	Run just ci-visual	2026-11-10T19:03:33.1343556Z   08-okf-schema--dark--sticky-3--default.html: Escape in a table cell did not cancel the edit
+visual	Run just ci-visual	2026-11-10T19:03:33.1344973Z   08-okf-schema--dark--sticky-3--default.html: final editor is clipped: Markdown table cell
+visual	Run just ci-visual	2026-11-10T19:03:33.1346056Z   60-table-bar-groups--dark--sticky-3--default.html: Escape in a table cell did not cancel the edit
+visual	Run just ci-visual	2026-11-10T19:03:33.1347183Z   60-table-bar-groups--dark--sticky-3--default.html: final editor is clipped: Markdown table cell
+visual	Run just ci-visual	2026-11-10T19:03:33.1348242Z   08-okf-schema--light--sticky-3--default.html: Escape in a table cell did not cancel the edit
+visual	Run just ci-visual	2026-11-10T19:03:33.1349189Z   08-okf-schema--light--sticky-3--default.html: Escape in a table cell did not cancel the edit
+visual	Run just ci-visual	2026-11-10T19:03:33.1350355Z   08-okf-schema--light--sticky-3--default.html: final editor is clipped: Markdown table cell
+visual	Run just ci-visual	2026-11-10T19:03:33.1351414Z   08-okf-schema--dark--sticky-3--default.html: Escape in a table cell did not cancel the edit
+visual	Run just ci-visual	2026-11-10T19:03:33.1352447Z   60-table-bar-groups--light--sticky-3--default.html: Escape in a table cell did not cancel the edit
+visual	Run just ci-visual	2026-11-10T19:03:33.1353166Z   60-table-bar-groups--light--sticky-3--default.html: final editor is clipped: Markdown table cell
+visual	Run just ci-visual	2026-11-10T19:03:33.1759028Z ci-visual: FAILED
+visual	Run just ci-visual	2026-11-10T19:03:33.1764875Z error: recipe `ci-visual` failed with exit code 1
+visual	Run just ci-visual	2026-11-10T19:03:33.1779647Z ##[error]Process completed with exit code 1.
+report	Run just ci-report visual	﻿2026-11-10T19:04:03.9133823Z ##[group]Run just ci-report visual
+report	Run just ci-report visual	2026-11-10T19:04:03.9134202Z ^[[36;1mjust ci-report visual^[[0m
+report	Run just ci-report visual	2026-11-10T19:04:03.9183503Z shell: /usr/bin/bash -e {0}
+report	Run just ci-report visual	2026-11-10T19:04:03.9183790Z env:
+report	Run just ci-report visual	2026-11-10T19:04:03.9184136Z   STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+report	Run just ci-report visual	2026-11-10T19:04:03.9184504Z   STUDIO_E2E_RUN_ID: 42879302136
+report	Run just ci-report visual	2026-11-10T19:04:03.9184826Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+report	Run just ci-report visual	2026-11-10T19:04:03.9185337Z ##[endgroup]
+report	Run just ci-report visual	2026-11-10T19:04:04.0290438Z 
+report	Run just ci-report visual	2026-11-10T19:04:04.0291332Z > markdown-okf-schema-studio@1.6.0 compile
+report	Run just ci-report visual	2026-11-10T19:04:04.0292005Z > tsc -p .
+report	Run just ci-report visual	2026-11-10T19:04:04.0292280Z 
+report	Run just ci-report visual	2026-11-10T19:04:07.0562910Z 
+report	Run just ci-report visual	2026-11-10T19:04:07.0563992Z > markdown-okf-schema-studio@1.6.0 review:finish
+report	Run just ci-report visual	2026-11-10T19:04:07.0564645Z > node out/test/integration/review-index.js --visual-only
+report	Run just ci-report visual	2026-11-10T19:04:07.0564970Z 
+report	Run just ci-report visual	2026-11-10T19:04:07.1572067Z Review index: /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/out/reports/e2e/REVIEW.md
+report	Run just ci-report visual	2026-11-10T19:04:07.2596034Z PO gallery: /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/out/reports/e2e/GALLERY.md
+report	Run just ci-report visual	2026-11-10T19:04:07.2646346Z Removed 0 old run folders under out/reports (keep 5 per kind).
+report	Run just ci-report visual	2026-11-10T19:04:07.3389709Z FAILED visual: [object Object]; [object Object]; [object Object]; [object Object]; [object Object]; [object Object]; [object Object]; [object Object]; [object Object]; [object Object]
+report	Run just ci-report visual	2026-11-10T19:04:07.3391293Z FAILED review-index: visual campaign did not pass
+report	Run just ci-report visual	2026-11-10T19:04:07.3392195Z skipped integration: the real VS Code stage did not run (manual heavy CI job)
+report	Run just ci-report visual	2026-11-10T19:04:07.3450217Z ci-report: FAILED
+report	Run just ci-report visual	2026-11-10T19:04:07.3457663Z error: recipe `ci-report` failed with exit code 1
+report	Run just ci-report visual	2026-11-10T19:04:07.3473877Z ##[error]Process completed with exit code 1.
+checks	Require every check job to pass	﻿2026-11-10T19:04:18.1401081Z ##[group]Run echo "job results: $RESULTS"
+checks	Require every check job to pass	2026-11-10T19:04:18.1401783Z ^[[36;1mecho "job results: $RESULTS"^[[0m
+checks	Require every check job to pass	2026-11-10T19:04:18.1402434Z ^[[36;1mfor result in $RESULTS; do^[[0m
+checks	Require every check job to pass	2026-11-10T19:04:18.1403139Z ^[[36;1m  [ "$result" = "success" ] || exit 1^[[0m
+checks	Require every check job to pass	2026-11-10T19:04:18.1403812Z ^[[36;1mdone^[[0m
+checks	Require every check job to pass	2026-11-10T19:04:18.3840131Z shell: /usr/bin/bash -e {0}
+checks	Require every check job to pass	2026-11-10T19:04:18.3840865Z env:
+checks	Require every check job to pass	2026-11-10T19:04:18.3841333Z   STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+checks	Require every check job to pass	2026-11-10T19:04:18.3841894Z   STUDIO_E2E_RUN_ID: 42879302136
+checks	Require every check job to pass	2026-11-10T19:04:18.3842353Z   RESULTS: success success failure failure
+checks	Require every check job to pass	2026-11-10T19:04:18.3842817Z ##[endgroup]
+checks	Require every check job to pass	2026-11-10T19:04:18.4008100Z job results: success success failure failure
+checks	Require every check job to pass	2026-11-10T19:04:18.4021213Z ##[error]Process completed with exit code 1.

@@ -1,0 +1,77 @@
+## StRS use cases (first member keep, others merge-into)
+CORE.uc-faithful-render | | A reader reads a faithful rendering of any document | StRS-CORE-001 StRS-CORE-004
+CORE.uc-includes | | A writer composes a document from included files | StRS-CORE-002
+CORE.uc-render-problems | | A reader sees what cannot be rendered and keeps a usable preview | StRS-CORE-003 StRS-CORE-005
+CODE.uc-read-code | | A reader reads highlighted, numbered and diff code | StRS-CODE-001 StRS-CODE-002 StRS-CODE-003
+CODE.uc-copy-code | | A reader copies the exact code of a block | StRS-CODE-004
+GFM.uc-gfm-render | | GitHub Flavored Markdown renders as on GitHub, safely | StRS-GFM-002 StRS-GFM-001 StRS-GFM-004
+GFM.uc-checkbox-toggle | | A writer toggles task checkboxes from the preview | StRS-GFM-003
+MYST.uc-directives | | MyST directives and roles render as readable blocks | StRS-MYST-001 StRS-MYST-002 StRS-MYST-003 StRS-MYST-008 StRS-MYST-011 StRS-MYST-013
+MYST.uc-labels-references | | A writer sees, links and renames labels safely | StRS-MYST-009 StRS-MYST-004 StRS-MYST-010
+MYST.uc-build-placeholders | | Build-dependent constructs appear as labelled placeholders | StRS-MYST-005
+MYST.uc-math | | Maths is typeset offline and bad formulas stay readable | StRS-MYST-006
+MYST.uc-conf-warnings | | Sphinx configuration gaps are reported before building | StRS-MYST-007 StRS-MYST-014
+MYST.uc-toctree | | A toctree shows the linked documents and marks missing ones | StRS-MYST-012
+DIAG.uc-mermaid | | A writer reads and inserts Mermaid diagrams that follow the theme | StRS-DIAG-001 StRS-DIAG-002 StRS-DIAG-003 StRS-DIAG-004 StRS-DIAG-005
+DIAG.uc-plantuml-builtin | | A writer reads PlantUML diagrams without any setup | StRS-DIAG-006 StRS-DIAG-008 StRS-DIAG-010
+DIAG.uc-plantuml-includes | | PlantUML diagrams use local include files and PUML files | StRS-DIAG-009 StRS-DIAG-011
+DIAG.uc-plantuml-jar | | A writer renders PlantUML with an own JAR or command, safely bounded | StRS-DIAG-007 StRS-DIAG-012 StRS-DIAG-013 StRS-DIAG-014
+FMSCHEMA.uc-properties-table | | Frontmatter appears as a readable, configurable properties table | StRS-FMSCHEMA-001 StRS-FMSCHEMA-003 StRS-FMSCHEMA-004 StRS-FMSCHEMA-005 StRS-FMSCHEMA-013
+FMSCHEMA.uc-invalid-frontmatter | | Invalid frontmatter is explained and the body still renders | StRS-FMSCHEMA-002
+FMSCHEMA.uc-schema-discovery | | A document finds its schema and schema problems are reported | StRS-FMSCHEMA-006 StRS-FMSCHEMA-007 StRS-FMSCHEMA-008 StRS-FMSCHEMA-009
+FMSCHEMA.uc-schema-validation | | Fields follow the schema and problems show on the field concerned | StRS-FMSCHEMA-010 StRS-FMSCHEMA-011 StRS-FMSCHEMA-012
+FMSCHEMA.uc-frontmatter-links | | Frontmatter link fields resolve, show their status and can be followed | StRS-FMSCHEMA-014 StRS-FMSCHEMA-015 StRS-FMSCHEMA-016 StRS-FMSCHEMA-017 StRS-FMSCHEMA-018
+FMEDIT.uc-edit-values | | A writer edits metadata values in place with fitting controls | StRS-FMEDIT-001 StRS-FMEDIT-002 StRS-FMEDIT-003 StRS-FMEDIT-004
+FMEDIT.uc-add-rename-remove | | A writer adds, renames and removes metadata fields | StRS-FMEDIT-005 StRS-FMEDIT-006 StRS-FMEDIT-007
+FMEDIT.uc-safe-edits | | Metadata edits keep the source intact, follow the schema and never lose text | StRS-FMEDIT-008 StRS-FMEDIT-009 StRS-FMEDIT-010 StRS-FMEDIT-011
+LAYOUT.uc-no-sideways | | The preview never scrolls sideways and wide content scrolls in its box | StRS-LAYOUT-001 StRS-LAYOUT-002 StRS-LAYOUT-009
+LAYOUT.uc-column-width | | A reader chooses how wide the text column is | StRS-LAYOUT-003 StRS-LAYOUT-006 StRS-LAYOUT-007 StRS-LAYOUT-008
+LAYOUT.uc-clear-top | | The first element starts clear of the top and of the floating toolbar | StRS-LAYOUT-004 StRS-LAYOUT-005
+THEME.uc-theme | | A reader chooses a preview theme that paints the whole page readably | StRS-THEME-002 StRS-THEME-001 StRS-THEME-006 StRS-THEME-007 StRS-THEME-008 StRS-THEME-010
+THEME.uc-theme-persistence | | The theme choice holds for the workspace and survives slow loads and bad values | StRS-THEME-004 StRS-THEME-003 StRS-THEME-009 StRS-THEME-013
+THEME.uc-zoom | | A reader zooms the text and the column and keeps the zoom | StRS-THEME-011 StRS-THEME-012
+TOOLBAR.uc-toolbar | | The toolbar groups its controls, collapses and remembers view choices | StRS-TOOLBAR-001 StRS-TOOLBAR-002 StRS-TOOLBAR-003
+TOOLBAR.uc-sticky-section | | The reader always sees the section being read | StRS-TOOLBAR-004 StRS-TOOLBAR-005
+TOOLBAR.uc-toc | | The reader uses a table of contents beside the document | StRS-TOOLBAR-006 StRS-TOOLBAR-007 StRS-TOOLBAR-008
+TOOLBAR.uc-back-next | | The reader goes Back and Next through followed links without losing typed text | StRS-TOOLBAR-009 StRS-TOOLBAR-010
+TOOLBAR.uc-links | | Links open the right target, show where they lead, or are refused with a reason | StRS-TOOLBAR-011 StRS-TOOLBAR-012
+TOOLBAR.uc-scroll-cursor | | The reader decides how the panes scroll together and sees the cursor block | StRS-TOOLBAR-013 StRS-TOOLBAR-014
+BLOCK.uc-edit-mode | | A writer switches edit mode and finds it as left | StRS-BLOCK-001 StRS-BLOCK-002
+BLOCK.uc-edit-block | | A writer edits the raw Markdown of a block in a framed editor | StRS-BLOCK-003 StRS-BLOCK-004 StRS-BLOCK-005 StRS-BLOCK-013
+BLOCK.uc-keep-typed-text | | Typed text is saved, survives updates and is never lost on leaving | StRS-BLOCK-006 StRS-BLOCK-007 StRS-BLOCK-019 StRS-BLOCK-020 StRS-BLOCK-022
+BLOCK.uc-editor-keys | | A writer types and moves between blocks with text editor keys | StRS-BLOCK-008 StRS-BLOCK-009
+BLOCK.uc-add-blocks | | A writer adds blocks and starts an empty document from the preview | StRS-BLOCK-011 StRS-BLOCK-012
+BLOCK.uc-reorder | | A writer reorders blocks with arrows, keys and selections | StRS-BLOCK-014 StRS-BLOCK-015 StRS-BLOCK-017
+BLOCK.uc-select-clipboard | | A writer selects blocks and copies, cuts and pastes them as Markdown | StRS-BLOCK-016 StRS-BLOCK-018
+BLOCK.uc-edit-integrity | | Preview edits land exactly, in one undo step, keep line endings, or are refused with a reason | StRS-BLOCK-025 StRS-BLOCK-021 StRS-BLOCK-023 StRS-BLOCK-024
+PALETTE.uc-format-insert | | A writer formats and inserts Markdown, GFM and MyST constructs from the palette | StRS-PALETTE-001 StRS-PALETTE-011 StRS-PALETTE-012 StRS-PALETTE-025 StRS-PALETTE-026 StRS-PALETTE-027
+PALETTE.uc-palette-mode | | A writer chooses which palette buttons are offered | StRS-PALETTE-002 StRS-PALETTE-003 StRS-PALETTE-004
+PALETTE.uc-palette-reach | | The palette stays in reach, appears softly and never closes the editor by accident | StRS-PALETTE-005 StRS-PALETTE-006 StRS-PALETTE-024
+PALETTE.uc-pickers | | A writer inserts links, images, figures, tables, colours and emoji through pickers | StRS-PALETTE-007 StRS-PALETTE-008 StRS-PALETTE-009 StRS-PALETTE-010
+PALETTE.uc-references | | A writer picks labels, documents, citations and code languages from host lists, with feedback | StRS-PALETTE-013 StRS-PALETTE-021 StRS-PALETTE-022
+PALETTE.uc-slash | | A writer runs any palette command from an accessible slash menu | StRS-PALETTE-015 StRS-PALETTE-014 StRS-PALETTE-016 StRS-PALETTE-017
+PALETTE.uc-paste | | A writer pastes screenshots and rich text safely as Markdown | StRS-PALETTE-018 StRS-PALETTE-019 StRS-PALETTE-020 StRS-BLOCK-010
+TABLE.uc-cell-edit | | A writer edits a table cell in place and never loses the text | StRS-TABLE-001 StRS-TABLE-002 StRS-TABLE-003 StRS-TABLE-004 StRS-TABLE-005 StRS-TABLE-015
+TABLE.uc-cell-keys | | Tab, arrows and editing keys work in a table cell | StRS-TABLE-006 StRS-TABLE-007
+TABLE.uc-table-bar | | A table bar locates the writer and edits rows and columns | StRS-TABLE-008 StRS-TABLE-009 StRS-TABLE-010
+TABLE.uc-convert | | A table converts between forms and a cell edit is a one-line change | StRS-TABLE-011 StRS-TABLE-013
+TABLE.uc-format-insert | | Tables and cell text are formatted, inserted, aligned and captioned | StRS-TABLE-012 StRS-TABLE-014
+REVIEW.uc-read-threads | | A reviewer reads review threads on the text, and unplaceable ones are kept | StRS-REVIEW-001 StRS-REVIEW-002 StRS-REVIEW-009
+REVIEW.uc-comment | | A reviewer comments, replies, resolves and deletes, and no comment is lost | StRS-REVIEW-003 StRS-REVIEW-004 StRS-REVIEW-005 StRS-REVIEW-006 StRS-REVIEW-007
+REVIEW.uc-follow-text | | Review threads follow edits and renames of the document | StRS-REVIEW-008 StRS-REVIEW-010 StRS-REVIEW-016
+REVIEW.uc-chips | | A writer sees HTML comments and TODO notes as chips and toggles them | StRS-REVIEW-012 StRS-REVIEW-013 StRS-REVIEW-014
+REVIEW.uc-inline-thread | | A writer keeps a discussion in the Markdown source and answers it from the preview | StRS-REVIEW-015
+REVIEW.uc-changes | | A writer sees which blocks changed since the last commit | StRS-REVIEW-017 StRS-REVIEW-018
+LIFE.uc-open | | A writer opens previews beside the editor or as tabs, beside the built-in preview | StRS-LIFE-001 StRS-LIFE-002 StRS-LIFE-016 StRS-LIFE-017 StRS-LIFE-020
+LIFE.uc-follow-refresh | | The side preview follows the active file and refreshes on demand | StRS-LIFE-003 StRS-LIFE-004
+LIFE.uc-live-update | | The preview updates in place as the text and its dependencies change | StRS-LIFE-005 StRS-LIFE-006 StRS-LIFE-008 StRS-LIFE-009 StRS-LIFE-023
+LIFE.uc-render-state | | The reader knows the render state and why a preview has no source | StRS-LIFE-007 StRS-LIFE-022
+LIFE.uc-scroll-sync | | The panes scroll together and the reading position survives updates | StRS-LIFE-010 StRS-LIFE-011 StRS-LIFE-012 StRS-LIFE-013
+LIFE.uc-restore-cleanup | | Previews come back after a reload, remember recent documents and leave nothing behind | StRS-LIFE-014 StRS-LIFE-015 StRS-LIFE-018
+LIFE.uc-settings | | The settings editor lists the Studio settings in clear groups | StRS-LIFE-021
+TRUST.uc-readonly | | A document outside a trusted folder opens read-only and keeps the viewing actions | StRS-TRUST-001 StRS-TRUST-002 StRS-TRUST-003 StRS-THEME-005 StRS-PALETTE-023 StRS-REVIEW-011
+TRUST.uc-isolation | | Local files load only from the allowed folders | StRS-TRUST-004 StRS-TRUST-007
+TRUST.uc-no-foreign-code | | The preview runs no foreign code and unsafe HTML is made inert | StRS-TRUST-006 StRS-TRUST-005 StRS-TRUST-008
+TRUST.uc-checked-messages | | What the page and the host exchange is checked and never applied to another version | StRS-TRUST-009 StRS-TRUST-010 StRS-TRUST-011
+TRUST.uc-product-identity | | Visible text and the icon speak of the product | StRS-TRUST-012 StRS-TRUST-013
+TRUST.uc-supply-chain | | The extension is built from pinned dependencies and ships what it loads | StRS-TRUST-014 StRS-TRUST-015

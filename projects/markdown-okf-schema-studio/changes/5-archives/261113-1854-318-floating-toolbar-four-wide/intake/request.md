@@ -1,0 +1,1 @@
+Owner, 2026-11-13: « j'aimerais reorg le menu flottant en 4 icones de large . dis moi ce que tu comprends ». Annotated screenshot in intake/floating-toolbar-annotated.png (red circles and arrows on the preview's floating toolbar).

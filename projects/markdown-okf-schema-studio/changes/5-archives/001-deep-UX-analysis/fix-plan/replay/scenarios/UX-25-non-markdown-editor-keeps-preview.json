@@ -1,0 +1,74 @@
+{
+  "name": "UX-25-non-markdown-editor-keeps-preview",
+  "file": "okf/okfreq-examples/requirements/tiers/swrs/SwRS-CORE-001.md",
+  "steps": [
+    {
+      "waitFor": "D.querySelector('tr[data-okf-field=\"implemented_in_files\"] a.okf-link-valid')",
+      "timeout": 20000,
+      "label": "implemented_in_files link valid with projectRoot"
+    },
+    {
+      "editMode": false,
+      "wait": 600
+    },
+    {
+      "clicksel": "tr[data-okf-field=\"implemented_in_files\"] a.okf-frontmatter-link",
+      "text": "src/export.py",
+      "wait": 3000
+    },
+    {
+      "check": "editor",
+      "active": "okf/okfreq-examples/src/export.py",
+      "label": "UX-25 link opened export.py"
+    },
+    {
+      "check": "feval",
+      "expr": "(D.querySelector('tr[data-okf-field=\"id\"] td')||{}).innerText",
+      "equals": "SwRS-CORE-001",
+      "label": "UX-25 preview still shows the requirement"
+    },
+    {
+      "check": "feval",
+      "expr": "!D.body.innerText.includes('Preview source missing')",
+      "equals": true,
+      "label": "UX-25 no missing-source page"
+    },
+    {
+      "shot": "UX-25-after-link",
+      "png": false
+    },
+    {
+      "open": "okf/okfreq-examples/requirements/config.yml",
+      "wait": 2500
+    },
+    {
+      "check": "editor",
+      "active": "okf/okfreq-examples/requirements/config.yml"
+    },
+    {
+      "check": "feval",
+      "expr": "(D.querySelector('tr[data-okf-field=\"id\"] td')||{}).innerText",
+      "equals": "SwRS-CORE-001",
+      "label": "UX-25 preview kept after YAML editor"
+    },
+    {
+      "open": "${file}",
+      "wait": 2500
+    },
+    {
+      "check": "feval",
+      "expr": "(D.querySelector('tr[data-okf-field=\"id\"] td')||{}).innerText",
+      "equals": "SwRS-CORE-001",
+      "label": "UX-25 back on Markdown"
+    },
+    {
+      "check": "navs",
+      "max": 0,
+      "label": "UX-25 no full reload across the round trip"
+    },
+    {
+      "check": "errors"
+    }
+  ],
+  "precondition": "Side preview on ${file}; ws .vscode/settings.json sets frontmatter.projectRoot = okf/okfreq-examples (UX-22 workaround)."
+}

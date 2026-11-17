@@ -1,0 +1,86 @@
+{
+ "name": "UX-21-schema-field-select",
+ "file": "okf/okfreq-examples/requirements/tiers/swrs/SwRS-CORE-001.md",
+ "vars": {
+  "fe": "[data-okf-frontmatter-editor]",
+  "menu": "[data-okf-frontmatter-menu]",
+  "act": "(() => { const a = D.activeElement; return a ? a.tagName + ' ' + (a.getAttribute('aria-label') || '') : 'none'; })()"
+ },
+ "steps": [
+  {
+   "open": "${file}"
+  },
+  {
+   "waitFor": "/SwRS-CORE-001/.test((D.querySelector('tr[data-okf-field=\"id\"]')||{}).textContent||'')",
+   "timeout": 15000,
+   "label": "preview follows file"
+  },
+  {
+   "mark": "${file}"
+  },
+  {
+   "editMode": true
+  },
+  {
+   "clicksel": "tr[data-okf-field=\"scope\"] [data-okf-value-cell]"
+  },
+  {
+   "waitFor": "D.querySelector('${menu}')",
+   "label": "scope editor and menu"
+  },
+  {
+   "eval": "${act}"
+  },
+  {
+   "clicksel": "${menu} button[data-okf-frontmatter-operation=\"add\"]",
+   "wait": 700
+  },
+  {
+   "eval": "${act}"
+  },
+  {
+   "eval": "${act}"
+  },
+  {
+   "type": "d",
+   "wait": 2500
+  },
+  {
+   "eval": "(() => { const r = D.querySelector('tr[data-okf-field=\"depends_on\"]'); return JSON.stringify({row: !!r, editorInRow: !!(r && r.querySelector('${fe}')), act: ${act}}); })()"
+  },
+  {
+   "check": "feval",
+   "expr": "!!D.querySelector('tr[data-okf-field=\"depends_on\"] ${fe}')",
+   "label": "UX-21 select choice confirms and opens the new field's editor"
+  },
+  {
+   "check": "diff",
+   "file": "${file}",
+   "against": "mark",
+   "maxLines": 1,
+   "contains": "depends_on",
+   "show": true,
+   "label": "UX-21 one added line after scope"
+  },
+  {
+   "shot": "UX-21-schema-field",
+   "clip": "preview"
+  },
+  {
+   "key": "Escape",
+   "wait": 800
+  },
+  {
+   "check": "diff",
+   "file": "${file}",
+   "against": "mark",
+   "maxLines": 1,
+   "contains": "depends_on",
+   "show": true,
+   "label": "after Escape"
+  },
+  {
+   "check": "errors"
+  }
+ ]
+}

@@ -1,0 +1,76 @@
+{
+  "schema": 2,
+  "updated": "2026-11-14T17:14:19Z",
+  "cr": "CR-329",
+  "title": "Change Specification: Cursor, VSCodium and Windsurf compatibility",
+  "batch": "batch-04",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 0,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/401.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/401",
+    "number": 401
+  },
+  "steps": [
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/401",
+      "at": "2026-11-14T12:42:35Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-14T12:42:38Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/401",
+      "at": "2026-11-14T13:15:25Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../README.md",
+      "name": "README.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../docs/user/open-studio.md",
+      "name": "docs/user/open-studio.md"
+    }
+  ],
+  "branch": "chantier/batch-04/cr-329-change-specification-cursor-vscodium-and",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-04-CR-329",
+  "agent": null,
+  "notes": [],
+  "blocked": null,
+  "cost_usd": 0.1921,
+  "final_cost": true,
+  "silent_minutes": null
+}

@@ -1,0 +1,4 @@
+passed: toolbar-navigation/v44-export-html-edited-cell-light-900
+
+1 screenshots in /Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-02-CR-310/out/reports/e2e/screenshots
+{"status": "passed", "scenario_count": 1, "screenshot_count": 1}

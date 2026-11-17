@@ -1,0 +1,1240 @@
+[
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/admonitions-dark-full.png",
+    "scenario": "admonitions-dark-full",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Every admonition variant (note, warning, danger, titled, generic, version changes, stacked, rich) is in the capture",
+        "pass": true,
+        "why": "All sections from Admonition gallery to the final paragraph are present"
+      },
+      {
+        "id": "S2",
+        "text": "Each paragraph between blocks matches the baseline paragraph colour (no colour bleed)",
+        "pass": true,
+        "why": "All inter-block paragraphs render in the same light-grey body colour as the baseline"
+      },
+      {
+        "id": "S3",
+        "text": "Titled admonitions show exactly one title line",
+        "pass": true,
+        "why": "Each titled block shows only its custom title, no default heading above it"
+      },
+      {
+        "id": "S4",
+        "text": "No unintended whole-page horizontal overflow",
+        "pass": true,
+        "why": "Content column fits the 900px viewport"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Column A / Column B / first / second each on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "All text is legible on the dark tints; accents are distinct"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Full admonition gallery visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/admonitions-dark-nested.png",
+    "scenario": "admonitions-dark-nested",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The structured admonition contains a list, a code block, a table and a blockquote",
+        "pass": true,
+        "why": "Important block shows ordered list, Python code, 2x2 table and a nested blockquote"
+      },
+      {
+        "id": "S2",
+        "text": "Nested elements keep their own spacing",
+        "pass": true,
+        "why": "List, code, table and quote have distinct, even vertical gaps"
+      },
+      {
+        "id": "S3",
+        "text": "The last child has no trailing margin inside the panel",
+        "pass": true,
+        "why": "Bottom padding below 'The final paragraph...' matches the top padding"
+      },
+      {
+        "id": "S4",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "Machine check 'sticky heading overlaps the reserved toolbar row' disagrees with the image: the sticky breadcrumb band is left-aligned and the toolbar right-aligned; they share the row but do not visually overlap"
+      },
+      {
+        "id": "S5",
+        "text": "Scrolled to the true bottom (final paragraph visible)",
+        "pass": true,
+        "why": "'Final paragraph of the document...' is visible with trailing space"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text; the sticky band text stays left of the toolbar"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Table identifiers stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable on purple and green tints"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Rich-content admonition fully visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/admonitions-dark-titled.png",
+    "scenario": "admonitions-dark-titled",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Exactly one title line per titled block",
+        "pass": true,
+        "why": "Vehicles/Written by/Fully custom/Generic each show a single title line"
+      },
+      {
+        "id": "S2",
+        "text": "The generic admonition with an author class picks up the tip accent",
+        "pass": true,
+        "why": "'Fully custom heading' uses the green tip accent"
+      },
+      {
+        "id": "S3",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "The paragraph above 'Titled admonitions' is shaved at the opaque band edge, which is normal scroll occlusion. Machine check 'sticky heading overlaps the reserved toolbar row' disagrees with the image: the sticky breadcrumb band is left-aligned and the toolbar right-aligned; they share the row but do not visually overlap"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text; the band is one row and the toolbar hangs below it on the right, over empty space"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in the capture"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "All titles and bodies legible on dark tints"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "'Titled admonitions' h2 sits below the band with clearance"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/admonitions-light-full.png",
+    "scenario": "admonitions-light-full",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Every admonition variant is in the capture",
+        "pass": true,
+        "why": "All sections present through the final paragraph"
+      },
+      {
+        "id": "S2",
+        "text": "Generic admonition with an author-supplied class uses the tip accent, not the link colour",
+        "pass": true,
+        "why": "'Fully custom heading' is green, distinct from the blue 'Generic with no class'"
+      },
+      {
+        "id": "S3",
+        "text": "Inter-block paragraphs keep the baseline colour",
+        "pass": true,
+        "why": "All body paragraphs render in the same dark grey"
+      },
+      {
+        "id": "S4",
+        "text": "Titled admonitions show exactly one title line",
+        "pass": true,
+        "why": "One title line per block"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Column A / Column B cells on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark text on pale tints is readable; accent titles have adequate contrast"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Full gallery visible in light theme"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/admonitions-narrow-full.png",
+    "scenario": "admonitions-narrow-full",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Text wraps inside the tinted panels at 460px",
+        "pass": true,
+        "why": "Long bodies wrap inside every panel; nothing spills past the right border"
+      },
+      {
+        "id": "S2",
+        "text": "No unintended whole-page horizontal overflow",
+        "pass": true,
+        "why": "Everything fits within the 460px width; the code block fits too"
+      },
+      {
+        "id": "S3",
+        "text": "Title does not collide with the toolbar",
+        "pass": true,
+        "why": "'Admonition gallery' ends before the toolbar pill begins"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text; at 460px it sits just right of the h1 without covering it"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Column A / Column B cells on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable on all dark tints"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Gallery visible at panel width"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/chapter-dark-bottom.png",
+    "scenario": "chapter-dark-bottom",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The self-naming final paragraph is visible (scroll reached the true end)",
+        "pass": true,
+        "why": "'The final paragraph of this chapter exists so that...' is fully visible"
+      },
+      {
+        "id": "S2",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "Three-level breadcrumb band is opaque; the Hint body underneath starts cleanly below it. Machine check 'sticky heading overlaps the reserved toolbar row' disagrees with the image: the sticky breadcrumb band is left-aligned and the toolbar right-aligned; they share the row but do not visually overlap"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in the capture"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "All text readable on dark tints"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Final paragraph and Runbook summary visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/chapter-dark-half.png",
+    "scenario": "chapter-dark-half",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The typeset display equation is visible",
+        "pass": true,
+        "why": "H = b x s x (1 - m/60) is rendered by the math typesetter, centered"
+      },
+      {
+        "id": "S2",
+        "text": "Surrounding shift-change content is visible",
+        "pass": true,
+        "why": "Breadcrumb shows Shift changes > Capacity arithmetic; the 'where b is bays...' line follows"
+      },
+      {
+        "id": "S3",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "Lead-in sentence 'Available bay-hours...' is mostly hidden under the opaque band edge; normal scroll occlusion, not a collision. Machine check 'sticky heading overlaps the reserved toolbar row' disagrees with the image: the sticky breadcrumb band is left-aligned and the toolbar right-aligned; they share the row but do not visually overlap"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "'leg state changes', 'very high', '400 days' each stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text and math readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Display equation visible below the band"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/chapter-dark-quarter.png",
+    "scenario": "chapter-dark-quarter",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The important block is visible",
+        "pass": true,
+        "why": "Purple Important admonition is fully visible below the band"
+      },
+      {
+        "id": "S2",
+        "text": "The following paragraph uses the body colour",
+        "pass": true,
+        "why": "'The paragraph after that important block...' matches surrounding body text"
+      },
+      {
+        "id": "S3",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "A list line is shaved at the band edge, which is normal scroll occlusion. Machine check 'sticky heading overlaps the reserved toolbar row' disagrees with the image: the sticky breadcrumb band is left-aligned and the toolbar right-aligned; they share the row but do not visually overlap"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in the capture"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable; code block contrast fine"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "aside.important visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/chapter-dark-three-quarters.png",
+    "scenario": "chapter-dark-three-quarters",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Incident patterns heading is visible",
+        "pass": true,
+        "why": "'Incident patterns' h2 sits below the band with clearance"
+      },
+      {
+        "id": "S2",
+        "text": "Back-to-back admonitions render cleanly",
+        "pass": true,
+        "why": "Hint, Danger and See Also blocks are separated by their headings and paragraphs, no merge"
+      },
+      {
+        "id": "S3",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "Machine check 'sticky heading overlaps the reserved toolbar row' disagrees with the image: the sticky breadcrumb band is left-aligned and the toolbar right-aligned; they share the row but do not visually overlap"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in the capture"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable on all tints"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Incident patterns landmark visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/chapter-dark-top.png",
+    "scenario": "chapter-dark-top",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The chapter opens with note, prose, then a loaded figure",
+        "pass": true,
+        "why": "Note, intro paragraph and the Plan/Dispatch/Observe/Correct SVG are present"
+      },
+      {
+        "id": "S2",
+        "text": "The figure caption has no generated figure number",
+        "pass": false,
+        "why": "Caption reads 'Figure 1 The operating loop...': a generated number is present, against the note (the note may be stale)"
+      },
+      {
+        "id": "S3",
+        "text": "The caption is clearly separated from the body text",
+        "pass": true,
+        "why": "Caption is italic, muted and centered with space above the next h2"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in the capture"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable; dark-on-light diagram is readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Figure and caption visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/chapter-figure-dark.png",
+    "scenario": "chapter-figure-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The SVG loads from the sibling external-img directory",
+        "pass": true,
+        "why": "The four-box loop diagram is rendered, not a broken-image icon"
+      },
+      {
+        "id": "S2",
+        "text": "The caption remains visible beneath the figure",
+        "pass": true,
+        "why": "'Figure 1 The operating loop...' sits right under the figure"
+      },
+      {
+        "id": "S3",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "'hand.' sits just below the one-row band; the toolbar hangs below the band on the right, over empty space. Machine check 'sticky heading overlaps the reserved toolbar row' disagrees with the image: the sticky breadcrumb band is left-aligned and the toolbar right-aligned; they share the row but do not visually overlap"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in the capture"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable; diagram legible"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Figure visible below the band"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/chapter-light-top.png",
+    "scenario": "chapter-light-top",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Same chapter opening on the light theme: note, prose, figure, caption",
+        "pass": true,
+        "why": "All present"
+      },
+      {
+        "id": "S2",
+        "text": "Contrast is adequate for side-by-side review",
+        "pass": true,
+        "why": "Dark text on white, accents on pale tints"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in the capture"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "All text readable on the light background"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Chapter opening visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/chapter-max-width-dark-full.png",
+    "scenario": "chapter-max-width-dark-full",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The content column is centered in the 1600px preview",
+        "pass": true,
+        "why": "Left and right margins are equal"
+      },
+      {
+        "id": "S2",
+        "text": "The column stays at the configured maximum width (about 960px) instead of filling 1600px",
+        "pass": true,
+        "why": "Column is roughly 850px of text plus padding, consistent with a 960px cap"
+      },
+      {
+        "id": "S3",
+        "text": "The full long chapter is captured",
+        "pass": true,
+        "why": "From the h1 down to the self-naming final paragraph"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text; the toolbar is pinned to the far right, outside the column"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Table cells stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Whole chapter visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/chapter-max-width-light-full.png",
+    "scenario": "chapter-max-width-light-full",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The readable column is centered in the 1600px preview",
+        "pass": true,
+        "why": "Equal margins on both sides"
+      },
+      {
+        "id": "S2",
+        "text": "The column stays at the configured maximum width",
+        "pass": true,
+        "why": "Same width as the dark capture, consistent with a 960px cap"
+      },
+      {
+        "id": "S3",
+        "text": "The full long chapter is captured",
+        "pass": true,
+        "why": "From the h1 to the final paragraph"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text; the toolbar is pinned to the far right, outside the column"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Table cells stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable on the light theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Whole chapter visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/code-dark-table-narrow.png",
+    "scenario": "code-dark-table-narrow",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Short identifiers such as nw-02 and North stay on one line",
+        "pass": true,
+        "why": "Depot and Region cells are each on a single line"
+      },
+      {
+        "id": "S2",
+        "text": "A shadow on the overflow edge shows the table scrolls",
+        "pass": true,
+        "why": "Right edge of the table shows a fade shadow over the 'Last audit' column"
+      },
+      {
+        "id": "S3",
+        "text": "No unintended whole-page horizontal overflow",
+        "pass": true,
+        "why": "Wide code lines and the table scroll inside their own boxes"
+      },
+      {
+        "id": "S4",
+        "text": "Title does not collide with the toolbar",
+        "pass": true,
+        "why": "The h1 ends before the toolbar pill begins"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "nw-01..nw-14, North/East/South, primary/replica all on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Wide table visible at 640px"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/code-dark-table.png",
+    "scenario": "code-dark-table",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The table is scrolled to its FAR-RIGHT-ACCESS column",
+        "pass": true,
+        "why": "'FAR-RIGHT-ACCESS' is visible in the Evidence column"
+      },
+      {
+        "id": "S2",
+        "text": "No horizontal page scrollbar",
+        "pass": true,
+        "why": "No page scrollbar visible; the table scrolls internally"
+      },
+      {
+        "id": "S3",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "Table header starts below the band. Machine check 'sticky heading overlaps the reserved toolbar row' disagrees with the image: the sticky breadcrumb band is left-aligned and the toolbar right-aligned; they share the row but do not visually overlap"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "FAR-RIGHT-ACCESS, 80ms, enabled, ready all on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Wide table visible and scrolled right"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/code-dark-top.png",
+    "scenario": "code-dark-top",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The long TypeScript block is visible with monospace font",
+        "pass": true,
+        "why": "Code block renders in monospace with syntax colours"
+      },
+      {
+        "id": "S2",
+        "text": "The code block has padding and a rounded border",
+        "pass": true,
+        "why": "Even inner padding and rounded corners are visible"
+      },
+      {
+        "id": "S3",
+        "text": "The long inline identifier wraps without overflowing the gutter",
+        "pass": true,
+        "why": "REGIONAL_ARBITER_ELECTION_TIMEOUT_MILLISECONDS moves to its own line inside the column"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in the capture"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Syntax colours readable on the near-black code background"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Code block visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/code-light-full.png",
+    "scenario": "code-light-full",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Code, wide table, four-level nested list and definition list are all in one frame",
+        "pass": true,
+        "why": "All four structures are present"
+      },
+      {
+        "id": "S2",
+        "text": "The wide table scrolls internally with an edge shadow",
+        "pass": true,
+        "why": "Table is cut at 'Latency' with a right-edge shadow; page does not overflow"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Dates like 2024-03-11 and ids like nw-01 stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable on light theme; code colours legible"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Whole document visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/code-light-table-narrow.png",
+    "scenario": "code-light-table-narrow",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Short identifiers such as nw-02 and North stay on one line",
+        "pass": true,
+        "why": "Depot and Region cells are on single lines"
+      },
+      {
+        "id": "S2",
+        "text": "A shadow on the overflow edge shows the table scrolls",
+        "pass": true,
+        "why": "Fade shadow visible on the right table edge"
+      },
+      {
+        "id": "S3",
+        "text": "No unintended whole-page horizontal overflow",
+        "pass": true,
+        "why": "Code and table scroll internally"
+      },
+      {
+        "id": "S4",
+        "text": "Title does not collide with the toolbar",
+        "pass": true,
+        "why": "The h1 ends just before the toolbar pill"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Identifiers stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable on light theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Wide table visible at 640px"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/context-tags-dark-narrow.png",
+    "scenario": "context-tags-dark-narrow",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The adjacent YAML form renders: the YAML fence directly follows the opening tag",
+        "pass": true,
+        "why": "<fullcycle-model-allocation> panel contains the models/planner/reviewer YAML block"
+      },
+      {
+        "id": "S2",
+        "text": "Simple and snake_case tags render as panels",
+        "pass": true,
+        "why": "<context> and nested <model_allocation> panels are visible"
+      },
+      {
+        "id": "S3",
+        "text": "Panels wrap without widening the page or hiding the YAML code",
+        "pass": true,
+        "why": "All panels fit the 460px width; YAML is fully visible"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits in the top-right corner clear of all text; at 460px it sits right of 'Context tags' without covering it"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport with a right margin"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in the capture"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Blue tag titles and body text readable on dark tints"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Context tag panels visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  }
+]

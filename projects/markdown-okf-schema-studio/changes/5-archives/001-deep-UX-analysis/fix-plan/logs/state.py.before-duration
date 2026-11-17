@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+"""Orchestrator helper: update one task row of STATE.md and append to journal.md.
+
+Usage:
+  state.py show Txx
+  state.py set Txx <column>=<value> [<column>=<value> ...] [--log "<step> · <outcome> · <details>"]
+  state.py log Txx "<step> · <outcome> · <details>"
+
+Columns: status, round, base, commit, gates, notes. Values must not contain "|".
+"""
+import datetime
+import pathlib
+import sys
+
+PLAN = pathlib.Path(__file__).resolve().parent.parent
+STATE = PLAN / "STATE.md"
+JOURNAL = PLAN / "journal.md"
+COLUMNS = {"status": 3, "round": 4, "base": 5, "commit": 6, "gates": 7, "notes": 8}
+STATUSES = {"todo", "implementing", "gating", "reviewing", "changes-requested", "done", "blocked"}
+
+
+def find_row(lines, task):
+    for index, line in enumerate(lines):
+        if line.startswith(f"| [{task}]("):
+            return index
+    sys.exit(f"no row for {task} in STATE.md")
+
+
+def log(task, text):
+    stamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    with JOURNAL.open("a", encoding="utf-8") as journal:
+        journal.write(f"{stamp} · {task} · {text}\n")
+
+
+def main(argv):
+    if len(argv) < 3:
+        sys.exit(__doc__)
+    command, task = argv[1], argv[2]
+    lines = STATE.read_text(encoding="utf-8").split("\n")
+    index = find_row(lines, task)
+    if command == "show":
+        print(lines[index])
+        return
+    if command == "log":
+        log(task, argv[3])
+        return
+    if command != "set":
+        sys.exit(__doc__)
+    cells = [cell.strip() for cell in lines[index].strip().strip("|").split("|")]
+    message = None
+    rest = argv[3:]
+    while rest:
+        item = rest.pop(0)
+        if item == "--log":
+            message = rest.pop(0)
+            continue
+        name, _, value = item.partition("=")
+        if name not in COLUMNS or "|" in value:
+            sys.exit(f"bad assignment: {item}")
+        if name == "status" and value not in STATUSES:
+            sys.exit(f"bad status: {value}")
+        cells[COLUMNS[name]] = value
+    lines[index] = "| " + " | ".join(cells) + " |"
+    STATE.write_text("\n".join(lines), encoding="utf-8")
+    print(lines[index])
+    if message:
+        log(task, message)
+
+
+if __name__ == "__main__":
+    main(sys.argv)

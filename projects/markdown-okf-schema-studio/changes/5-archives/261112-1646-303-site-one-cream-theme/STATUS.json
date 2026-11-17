@@ -1,0 +1,126 @@
+{
+  "schema": 2,
+  "updated": "2026-11-12T20:41:47Z",
+  "cr": "CR-303",
+  "title": "Change Specification: one cream look for the whole published site",
+  "batch": "batch-01",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 2,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/374.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/374",
+    "number": 374
+  },
+  "steps": [
+    {
+      "name": "Round 1",
+      "done": true,
+      "verdict": "",
+      "note": "Implement the whole spec (sections 1-7) with the three working defaults",
+      "at": "2026-11-12T15:35:12Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "36635ddb",
+      "at": "2026-11-12T16:07:54Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/374",
+      "at": "2026-11-12T16:08:25Z"
+    },
+    {
+      "name": "Round 2",
+      "done": true,
+      "verdict": "",
+      "note": "Fix breadcrumb clipped in the shared header at 1280px; no horizontal page scroll at 375px on home and contributing",
+      "at": "2026-11-12T16:28:43Z"
+    },
+    {
+      "name": "Blocked",
+      "done": true,
+      "verdict": "",
+      "note": "waits: PR 374 CI at 246e600d (static, static-windows, visual pending); Verifier VERIFIED; PR is a draft",
+      "at": "2026-11-12T16:38:51Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/374",
+      "at": "2026-11-12T16:46:17Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "request",
+      "path": "intake/request.md"
+    },
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261112-165224.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../glossary/common.md",
+      "name": ".agents/glossary/common.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/pull-request.guidelines.md",
+      "name": ".agents/guidelines/pull-request.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/guidelines/project.guidelines.md",
+      "name": "requirements/guidelines/project.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/guidelines/requirements.guidelines.md",
+      "name": "requirements/guidelines/requirements.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/log.md",
+      "name": "requirements/tiers/log.md"
+    }
+  ],
+  "branch": "chantier/batch-01/cr-303-change-specification-one-cream-look-for-",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-01-CR-303",
+  "agent": null,
+  "notes": [
+    "answer: owner approves the three open-question defaults of the spec as decisions (headings h1-h3 serif in text colour; social cards serif headline, sans label/subline/brand; viewer per-area colours unchanged)"
+  ],
+  "blocked": null,
+  "cost_usd": 3.6981,
+  "final_cost": true,
+  "silent_minutes": null
+}

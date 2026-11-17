@@ -1,0 +1,1052 @@
+{
+  "schema": 2,
+  "updated": "2026-11-14T17:14:19Z",
+  "batches": [],
+  "active_crs": 0,
+  "backlog": [
+    {
+      "priority": "P3",
+      "item": "146-drop-file-as-link",
+      "title": "Dropping a file from the VS Code Explorer inserts a link",
+      "path": "../2-backlog/P3/146-drop-file-as-link",
+      "spec": null,
+      "files": 20
+    },
+    {
+      "priority": "P3",
+      "item": "147-rich-diff-side-by-side",
+      "title": "Per-block side-by-side diff with the last commit",
+      "path": "../2-backlog/P3/147-rich-diff-side-by-side",
+      "spec": null,
+      "files": 10
+    },
+    {
+      "priority": "P3",
+      "item": "auto-width-scroll-clamp-to-smaller-max-test",
+      "title": "Test the clamp when an Auto re-measure shrinks a table's scroll range",
+      "path": "../2-backlog/P3/auto-width-scroll-clamp-to-smaller-max-test",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "blank-line-check-unicode-spaces",
+      "title": "Block range checks treat no-break / ideographic spaces as blank",
+      "path": "../2-backlog/P3/blank-line-check-unicode-spaces",
+      "spec": null,
+      "files": 2
+    },
+    {
+      "priority": "P3",
+      "item": "block-258-done-e2e",
+      "title": "End-to-end test: Done on a card title editor replaces only the directive line",
+      "path": "../2-backlog/P3/block-258-done-e2e",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "breakout-scroll-handles-scenario",
+      "title": "Handles on a breakout table that scrolls sideways",
+      "path": "../2-backlog/P3/breakout-scroll-handles-scenario",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "ci-logs-name-real-input-scenarios",
+      "title": "CI logs name each real-input scenario",
+      "path": "../2-backlog/P3/ci-logs-name-real-input-scenarios",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "comment-failure-messages-and-lost-drafts",
+      "title": "Comment threads: raw error text on a failed save, and a typed draft lost silently",
+      "path": "../2-backlog/P3/comment-failure-messages-and-lost-drafts",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "demo-video-1-feature",
+      "title": "Demo videos, one feature each",
+      "path": "../2-backlog/P3/demo-video-1-feature",
+      "spec": null,
+      "files": 31
+    },
+    {
+      "priority": "P3",
+      "item": "frontmatter-diff-bars-followups",
+      "title": "Front matter change bars: follow-ups",
+      "path": "../2-backlog/P3/frontmatter-diff-bars-followups",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "frontmatter-link-known-list-size-and-broken-symlinks",
+      "title": "The frontmatter link editor sends the full name list on every capped row",
+      "path": "../2-backlog/P3/frontmatter-link-known-list-size-and-broken-symlinks",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "frontmatter-refused-value-refocus-followups",
+      "title": "Refocus after a refused frontmatter value: menu and list editor",
+      "path": "../2-backlog/P3/frontmatter-refused-value-refocus-followups",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "grid-card-title-and-options",
+      "title": "Grid card titles and options: numbered titles lose their markup, header and footer options vanish",
+      "path": "../2-backlog/P3/grid-card-title-and-options",
+      "spec": null,
+      "files": 2
+    },
+    {
+      "priority": "P3",
+      "item": "integration-checkbox-toggle-render-timeout",
+      "title": "Integration flake: `checkbox-toggle` times out waiting for the first checkbox render",
+      "path": "../2-backlog/P3/integration-checkbox-toggle-render-timeout",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "keyboard-nav-followups",
+      "title": "Keyboard navigation: follow-ups",
+      "path": "../2-backlog/P3/keyboard-nav-followups",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "link-hint-test-watcher-lag",
+      "title": "QA replay c6-2 may fail when the file watcher lags",
+      "path": "../2-backlog/P3/link-hint-test-watcher-lag",
+      "spec": null,
+      "files": 2
+    },
+    {
+      "priority": "P3",
+      "item": "mermaid-labels-top-in-real-export",
+      "title": "Mermaid flowchart labels sit at the top of their boxes in a real VS Code export",
+      "path": "../2-backlog/P3/mermaid-labels-top-in-real-export",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "mermaid-svg-text-labels",
+      "title": "Backlog (P3): Mermaid labels as SVG text (`htmlLabels: false`)?",
+      "path": "../2-backlog/P3/mermaid-svg-text-labels",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "narrow-toolbar-precise-aligned-float-rule",
+      "title": "Aligned images, figures and tables no longer turn off the toolbar float for the whole page",
+      "path": "../2-backlog/P3/narrow-toolbar-precise-aligned-float-rule",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "orchestrator-generator-followups",
+      "title": "ORCHESTRATOR.md generator: follow-ups",
+      "path": "../2-backlog/P3/orchestrator-generator-followups",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "preview-keyboard-focus-before-click",
+      "title": "A fresh preview gets no keyboard focus until it is clicked",
+      "path": "../2-backlog/P3/preview-keyboard-focus-before-click",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "qa-annotate-followups",
+      "title": "QA annotate: warn on an unknown colour",
+      "path": "../2-backlog/P3/qa-annotate-followups",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "qa-drivers-followups",
+      "title": "QA skill: harden the no-op sweep",
+      "path": "../2-backlog/P3/qa-drivers-followups",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "qa-replay-c7-1-font-thresholds",
+      "title": "QA replay c7-1 depends on font and theme metrics",
+      "path": "../2-backlog/P3/qa-replay-c7-1-font-thresholds",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "qa-skill-noop-sweep-gaps",
+      "title": "---",
+      "path": "../2-backlog/P3/qa-skill-noop-sweep-gaps",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "radio-choice-edit-mode-real-input",
+      "title": "Radio choices: real-input coverage in edit mode",
+      "path": "../2-backlog/P3/radio-choice-edit-mode-real-input",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "radio-choice-followups",
+      "title": "Radio choice lists: follow-ups",
+      "path": "../2-backlog/P3/radio-choice-followups",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "radio-list-palette-button",
+      "title": "Radio list palette button",
+      "path": "../2-backlog/P3/radio-list-palette-button",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "raw-editor-bold-italic-styling",
+      "title": "Raw block and cell editor: show bold, italic and inline code styled, like Obsidian",
+      "path": "../2-backlog/P3/raw-editor-bold-italic-styling",
+      "spec": null,
+      "files": 2
+    },
+    {
+      "priority": "P3",
+      "item": "readme-diagram-crop-cuts-figure",
+      "title": "README diagram crop cuts the bottom of the fleet-loop figure",
+      "path": "../2-backlog/P3/readme-diagram-crop-cuts-figure",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "reload-campaign-watchdog-misses-hang",
+      "title": "Reload-campaign watchdog does not fail a hung campaign",
+      "path": "../2-backlog/P3/reload-campaign-watchdog-misses-hang",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "side-by-side-partial-paragraph-pairing",
+      "title": "Side-by-side pairing for a wrapped paragraph where only some lines changed",
+      "path": "../2-backlog/P3/side-by-side-partial-paragraph-pairing",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "skill-examples-full-extension-name",
+      "title": "Writing skill references and docs: full extension name",
+      "path": "../2-backlog/P3/skill-examples-full-extension-name",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "spell-check-edit-mode",
+      "title": "Spell check in edit mode, with a toolbar toggle and a language",
+      "path": "../2-backlog/P3/spell-check-edit-mode",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "sphinx-build-alert-line-shift",
+      "title": "Sphinx build path: alert rewrite still shifts later lines",
+      "path": "../2-backlog/P3/sphinx-build-alert-line-shift",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "split-block-258-requirement",
+      "title": "Split the SwRS BLOCK-258 requirement",
+      "path": "../2-backlog/P3/split-block-258-requirement",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "split-commentthreads-module",
+      "title": "Split `src/page/modules/commentThreads.ts` (787 of 800 lines)",
+      "path": "../2-backlog/P3/split-commentthreads-module",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "stack-230-234-followups",
+      "title": "Follow-ups from the final inspection of stack #230 → #234 (2026-10-31)",
+      "path": "../2-backlog/P3/stack-230-234-followups",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "studio-in-diff-views",
+      "title": "Intent: Studio in VS Code diff views",
+      "path": "../2-backlog/P3/studio-in-diff-views",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "table-in-container-handles-and-convert",
+      "title": "---",
+      "path": "../2-backlog/P3/table-in-container-handles-and-convert",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "test-cleanup-in-finally-masks-first-error",
+      "title": "Test cleanup in `finally` can mask the first error",
+      "path": "../2-backlog/P3/test-cleanup-in-finally-masks-first-error",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "toolbar-float-has-rule-slows-huge-pages",
+      "title": "The toolbar-float `:has()` rule slows the load of very large pages",
+      "path": "../2-backlog/P3/toolbar-float-has-rule-slows-huge-pages",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "toolbar-load-hint-not-seen",
+      "title": "Toolbar load hint not seen when the preview opens",
+      "path": "../2-backlog/P3/toolbar-load-hint-not-seen",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "visual-capture-retry-nits",
+      "title": "Small nits after the capture retry and the demo-capture changes",
+      "path": "../2-backlog/P3/visual-capture-retry-nits",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "visual-huge-document-timeout-flake",
+      "title": "Backlog (P3, rule 12): visual huge-document v20 timeout",
+      "path": "../2-backlog/P3/visual-huge-document-timeout-flake",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P3",
+      "item": "yaml-box-save-key-hint",
+      "title": "A YAML value box shows no hint of the key that saves it",
+      "path": "../2-backlog/P3/yaml-box-save-key-hint",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P4",
+      "item": "deep-analysis-review",
+      "title": "deep-analysis-review",
+      "path": "../2-backlog/P4/deep-analysis-review",
+      "spec": null,
+      "files": 17
+    },
+    {
+      "priority": "P4",
+      "item": "drawio-block",
+      "title": "Draw IO Integration",
+      "path": "../2-backlog/P4/drawio-block",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P4",
+      "item": "editor-improvements",
+      "title": "editor-improvements",
+      "path": "../2-backlog/P4/editor-improvements",
+      "spec": null,
+      "files": 3
+    },
+    {
+      "priority": "P4",
+      "item": "import-export-to-confluence",
+      "title": "Transparent sync with Confluence",
+      "path": "../2-backlog/P4/import-export-to-confluence",
+      "spec": null,
+      "files": 2
+    },
+    {
+      "priority": "P4",
+      "item": "record-demo-video",
+      "title": "record-demo-video",
+      "path": "../2-backlog/P4/record-demo-video",
+      "spec": null,
+      "files": 3
+    },
+    {
+      "priority": "P4",
+      "item": "requirements-test-quality-rest",
+      "title": "Requirements baseline: remaining test and marker quality work",
+      "path": "../2-backlog/P4/requirements-test-quality-rest",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "P4",
+      "item": "studio-render-in-claude-desktop",
+      "title": "Show .md files in Studio inside Claude desktop",
+      "path": "../2-backlog/P4/studio-render-in-claude-desktop",
+      "spec": null,
+      "files": 3
+    },
+    {
+      "priority": "inbox",
+      "item": "check-against-minimum-vscode-types",
+      "title": "Nothing protects the engines.vscode ^1.95.0 minimum: the lock file resolves @types/vscode to 1.140.0, so a change could use a newer API without any check failing. Add a just check step that type-checks src/ against @types/vscode 1.95. Found by the cursor-compatibility spec-writer, 2026-11-14.",
+      "path": "../1-inbox/check-against-minimum-vscode-types",
+      "spec": null,
+      "files": 1
+    },
+    {
+      "priority": "inbox",
+      "item": "release-v1-9-1",
+      "title": "Release v1.9.1",
+      "path": "../1-inbox/release-v1-9-1",
+      "spec": null,
+      "files": 5
+    },
+    {
+      "priority": "inbox",
+      "item": "stress-incoming-changes-wait-timeout",
+      "title": "Stress flake: the incoming-changes scenario timed out once in frame.waitForFunction (30 s) in round 2 of a scoped stress run on CR-328's branch (PR #402). The step was not touched by that CR. Seen once; find the run, the condition it waited for, and whether it repeats.",
+      "path": "../1-inbox/stress-incoming-changes-wait-timeout",
+      "spec": null,
+      "files": 1
+    }
+  ],
+  "merged": [
+    {
+      "cr": null,
+      "title": "_orchestration-2026-10-26",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/_orchestration-2026-10-26"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/299-campaign-export-draws-mermaid"
+    },
+    {
+      "cr": null,
+      "title": "297 — Release 1.7.0",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/297-release-1-7-0"
+    },
+    {
+      "cr": null,
+      "title": "CI: visual job must not depend on the Ubuntu mirrors",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/295-ci-apt-mirror-outage"
+    },
+    {
+      "cr": null,
+      "title": "A \"How we ship\" page on GitHub Pages",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/294-how-we-ship-page"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/293-table-keyboard-row-add-discoverable"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/292-table-paste-tsv"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/291-table-in-quote-or-admonition-editing"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/290-label-popover-covers-table"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/289-find-scrolls-wide-table-to-hit"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/288-export-single-html"
+    },
+    {
+      "cr": null,
+      "title": "Retro at the end of each CR and each run",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/287-cr-retro"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/286-release-pr-body-shows-notes"
+    },
+    {
+      "cr": null,
+      "title": "285-release-1-6-1",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/285-release-1-6-1"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/284-verifier-step"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/283-foreman-heartbeat-cache-ttl"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/282-table-cell-editor-clamp-to-pane"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/281-frontmatter-click-lost-below-open-editor"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/280-table-comment-mark-after-undo"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/279-table-row-tokens-and-anchors"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/278-table-short-delimiter-not-editable"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/277-table-preview-stale-after-undo-or-revert"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/276-issue-tracker-links"
+    },
+    {
+      "cr": null,
+      "title": "275 Release 1.6.0",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/275-release-1-6-0"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/274-table-escape-keeps-cells-left"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/273-frontmatter-this-field"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/272-svg-fence-rendering"
+    },
+    {
+      "cr": null,
+      "title": "271-qa-campaign-tables-2026-11-10",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/271-qa-campaign-tables-2026-11-10"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/270-cell-inline-markdown-hardening"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/269-table-narrows-on-cell-edit"
+    },
+    {
+      "cr": null,
+      "title": "---",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/268-tab-clears-new-row-first-cell"
+    },
+    {
+      "cr": null,
+      "title": "CR 267, release 1.5.0",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/267-release-1-5-0"
+    },
+    {
+      "cr": null,
+      "title": "266: comments not shown on a very long document",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/266-comments-unanchored-long-document"
+    },
+    {
+      "cr": null,
+      "title": "265: comment editor position, scroll and dismissal",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/265-comment-editor-behaviour"
+    },
+    {
+      "cr": null,
+      "title": "264-edit-outside-trusted-workspace",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/264-edit-outside-trusted-workspace"
+    },
+    {
+      "cr": null,
+      "title": "Split the change request process from the project rules",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../4-archives/263-lifecycle-generic-split"
+    },
+    {
+      "cr": "CR-330",
+      "title": "Change Specification: find why a click on a palette list option is lost and closes the block editor",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/403",
+      "cost_usd": 2.0228,
+      "when": "2026-11-14T17:08:00Z",
+      "path": "../4-archives/261114-1708-330-palette-heading-focus-bounce"
+    },
+    {
+      "cr": "CR-328",
+      "title": "Change Specification: the edit toggle loses its clicks right after a preview opens (toc, myst-blocks)",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/402",
+      "cost_usd": 5.0106,
+      "when": "2026-11-14T15:00:00Z",
+      "path": "../4-archives/261114-1500-328-toc-edit-toggle-clicks-lost-after-readme"
+    },
+    {
+      "cr": "CR-329",
+      "title": "Change Specification: Cursor, VSCodium and Windsurf compatibility",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/401",
+      "cost_usd": 0.1921,
+      "when": "2026-11-14T13:15:00Z",
+      "path": "../4-archives/261114-1315-329-cursor-compatibility"
+    },
+    {
+      "cr": "CR-327",
+      "title": "Change Specification: size the stress launch deadline to its rounds",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/399",
+      "cost_usd": 0.9062,
+      "when": "2026-11-14T11:00:00Z",
+      "path": "../4-archives/261114-1100-327-stress-launch-deadline-budget"
+    },
+    {
+      "cr": "CR-326",
+      "title": "Change Specification: fix the flaky real-window integration steps of the v1.9.0 release",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/398",
+      "cost_usd": 5.1678,
+      "when": "2026-11-14T09:47:00Z",
+      "path": "../4-archives/261114-0947-326-flaky-real-window-integration-steps"
+    },
+    {
+      "cr": "CR-324",
+      "title": "Change Specification: publish to Open VSX on the version push",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/397",
+      "cost_usd": 1.2782,
+      "when": "2026-11-14T09:29:00Z",
+      "path": "../4-archives/261114-0929-324-open-vsx-publish-on-version-push"
+    },
+    {
+      "cr": "CR-325",
+      "title": "---",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/396",
+      "cost_usd": 0.4124,
+      "when": "2026-11-14T09:13:00Z",
+      "path": "../4-archives/261114-0913-325-bump-version-no-signed-off-by"
+    },
+    {
+      "cr": "CR-323",
+      "title": "Change Specification: release v1.9.0",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": null,
+      "cost_usd": 7.0377,
+      "when": "2026-11-14T07:09:00Z",
+      "path": "../4-archives/261114-0709-323-release-v1-9-0"
+    },
+    {
+      "cr": "CR-322",
+      "title": "Change Specification: publish to Open VSX with trusted publishing",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/394",
+      "cost_usd": 1.3724,
+      "when": "2026-11-14T00:13:00Z",
+      "path": "../4-archives/261114-0013-322-publish-to-open-vsx"
+    },
+    {
+      "cr": "CR-321",
+      "title": "Change Specification: a grid behind a tab list marker maps its cards one line too early",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/393",
+      "cost_usd": 1.1913,
+      "when": "2026-11-13T23:14:00Z",
+      "path": "../4-archives/261113-2314-321-grid-after-tab-list-marker-line-offset"
+    },
+    {
+      "cr": "CR-319",
+      "title": "Change Specification: a grid inside a list item maps its cards one line too early",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/392",
+      "cost_usd": 1.8424,
+      "when": "2026-11-13T21:55:00Z",
+      "path": "../4-archives/261113-2155-319-grid-in-list-item-line-offset"
+    },
+    {
+      "cr": "CR-320",
+      "title": "Change specification: a grid inside a GitHub alert stays inside it",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/391",
+      "cost_usd": 1.3057,
+      "when": "2026-11-13T20:17:00Z",
+      "path": "../4-archives/261113-2017-320-grid-inside-gfm-alert-cut"
+    },
+    {
+      "cr": "CR-318",
+      "title": "Change specification: the floating toolbar becomes a 4 × 4 grid",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/390",
+      "cost_usd": 4.1414,
+      "when": "2026-11-13T18:54:00Z",
+      "path": "../4-archives/261113-1854-318-floating-toolbar-four-wide"
+    },
+    {
+      "cr": "CR-317",
+      "title": "Change Specification: run `just dev` first in a new worktree or a clean checkout",
+      "state": "merged",
+      "batch": "batch-04",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/389",
+      "cost_usd": 0.9104,
+      "when": "2026-11-13T18:13:00Z",
+      "path": "../4-archives/261113-1813-317-just-dev-on-fresh-checkout"
+    }
+  ],
+  "merged_total": 320,
+  "trashed": [
+    {
+      "cr": null,
+      "title": "qa-271-replays",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../5-trash/qa-271-replays"
+    },
+    {
+      "cr": null,
+      "title": "orphan-branches",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../5-trash/orphan-branches"
+    },
+    {
+      "cr": null,
+      "title": "demo",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../5-trash/demo"
+    },
+    {
+      "cr": null,
+      "title": "cost-analysis",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../5-trash/cost-analysis"
+    },
+    {
+      "cr": null,
+      "title": "chantier-release-driver-visual",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": null,
+      "path": "../5-trash/chantier-release-driver-visual"
+    },
+    {
+      "cr": null,
+      "title": "Intent",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": "2026-11-12T20:49:00Z",
+      "path": "../5-trash/261112-2049-release-step8-empty-issue-list"
+    },
+    {
+      "cr": null,
+      "title": "Intent",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": "2026-11-12T20:49:00Z",
+      "path": "../5-trash/261112-2049-release-marketplace-check-of-record"
+    },
+    {
+      "cr": null,
+      "title": "Per-StRS social images: one social card per StRS page of the requirements viewer (about 80 today), showing its metro map once the StRS has its Main paths. Owner decision 2026-11-12 during the grill of CR-302 requirements-viewer: 'a later change'; CR-302 keeps one image per level (4 in all). Source: .agents/changes/3-requests/batch-01/302-requirements-viewer/02-answers.md and 03-change-spec.md.",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": "2026-11-12T15:15:00Z",
+      "path": "../5-trash/261112-1515-per-strs-social-images"
+    },
+    {
+      "cr": null,
+      "title": "261105-2310-262-chantier-lifecycle-rule",
+      "state": null,
+      "batch": null,
+      "pr": null,
+      "cost_usd": null,
+      "when": "2026-11-05T23:10:00Z",
+      "path": "../5-trash/261105-2310-262-chantier-lifecycle-rule"
+    }
+  ],
+  "trashed_total": 9
+}

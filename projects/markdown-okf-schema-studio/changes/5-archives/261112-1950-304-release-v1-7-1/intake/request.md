@@ -1,0 +1,1 @@
+Release v1.7.1 of Markdown OKF-Schema Studio, by the project's release procedure (.agents/guidelines/release-process.guidelines.md and CONTRIBUTING.md 'How to Release'). Owner, 2026-11-12: 'Fait une release', then 'Ok pour 1.7.1'.

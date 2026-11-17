@@ -1,0 +1,18 @@
+✖ an alert whose first body line is a heading keeps the default title and the heading (215.615083ms)
+✖ an alert whose first body line is a lone bold line keeps the default title and the bold line (2.295333ms)
+✔ an alert with marker text keeps it as the title and keeps a heading in the body (1.730625ms)
+✖ a legacy bold-marker alert keeps a heading in the body (0.939625ms)
+✖ an alert between context tags keeps a heading in the body (2.703083ms)
+✖ the heading inside an alert sits in the admonition, which the TOC column and sticky band exclude (1.00325ms)
+✖ Studio and GitHub agree on the title and the body order of the committed GitHub fixtures (1.839416ms)
+✔ a MyST admonition still takes its title from a leading heading (0.770417ms)
+ℹ tests 8
+ℹ pass 2
+ℹ fail 6
+✖ failing tests:
+✖ an alert whose first body line is a heading keeps the default title and the heading (215.615083ms)
+✖ an alert whose first body line is a lone bold line keeps the default title and the bold line (2.295333ms)
+✖ a legacy bold-marker alert keeps a heading in the body (0.939625ms)
+✖ an alert between context tags keeps a heading in the body (2.703083ms)
+✖ the heading inside an alert sits in the admonition, which the TOC column and sticky band exclude (1.00325ms)
+✖ Studio and GitHub agree on the title and the body order of the committed GitHub fixtures (1.839416ms)

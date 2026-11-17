@@ -1,0 +1,50 @@
+admonitions-dark-nested
+=======================
+
+Fixture:  02-admonition-gallery.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 900x1000
+Scroll:   bottom - final y=1462; last content element visible with 40px trailing padding below it
+Status:   failed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested bottom position.
+
+Captured state
+--------------
+The preview is scrolled to 1462 pixels. Edit mode is off.
+Visible content: Tip; First of three stacked admonitions.; Hint; Second of three stacked admonitions.; Important; Third of three stacked admonitions.; Paragraph after three stacked admonitions.; Important; Admonitions can hold structure, and the nested elements must keep their own
+spacing rules rather tha; an ordered list,; with a second item,; and a third.; def contained(value: int) -> int:
+    return value * 2; Column A
+Column B
+
+
+
+
+first
+second; A blockquote nested inside an admonition.; The final paragraph of the admonition must have no trailing margin.; Final paragraph of the document, immediately after a structured admonition.
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+An admonition containing a list, a code block, a table and a blockquote. Nested elements keep their own spacing and the last child has no trailing margin.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Machine checks
+--------------
+n/a overlay-covers-text: no visible overlay
+n/a overlay-clipped: no visible overlay
+PASS identifier-split: identifier cells stay on one line
+n/a status-two-lines: no status with a strong line and message
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.
+Assertion failure: sticky heading overlaps the reserved toolbar row

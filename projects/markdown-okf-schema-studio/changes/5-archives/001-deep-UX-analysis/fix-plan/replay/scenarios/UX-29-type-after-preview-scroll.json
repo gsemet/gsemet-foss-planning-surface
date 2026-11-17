@@ -1,0 +1,19 @@
+{
+  "name": "UX-29-type-after-preview-scroll",
+  "file": "book/chapters/02-foundations.md",
+  "precondition": "Side preview open on the chapter (UX-28-setup.json), buffer equal to disk, edit mode off.",
+  "steps": [
+    {"check": "diff", "file": "${file}", "against": "disk", "equal": true, "label": "clean start"},
+    {"wheel": [940, 450, 900], "steps": 6, "wait": 2000},
+    {"eval": "'after wheel scrollY=' + Math.round(W.scrollY)"},
+    {"click": [520, 420], "wait": 1500},
+    {"eval": "'after click in editor scrollY=' + Math.round(W.scrollY)"},
+    {"mark": true},
+    {"type": "Q", "delay": 60, "wait": 2500},
+    {"eval": "'after first keystroke scrollY=' + Math.round(W.scrollY)"},
+    {"type": "QQ", "delay": 60, "wait": 2500},
+    {"eval": "'after 3 keystrokes scrollY=' + Math.round(W.scrollY)"},
+    {"check": "diff", "file": "${file}", "against": "mark", "maxLines": 1, "contains": "QQQ", "label": "typing landed in the source"},
+    {"check": "errors"}
+  ]
+}

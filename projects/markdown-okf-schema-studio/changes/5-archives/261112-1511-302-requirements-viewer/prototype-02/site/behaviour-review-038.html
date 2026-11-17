@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>REVIEW-038 · Studio requirements</title>
+<meta name="description" content="When a reader selects text inside mapped body blocks of a preview, the page SHALL show a Comment button near the selection, and open the comment box for that selection on Cmd+Alt+M (macOS) or Ctrl+Alt">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markdown OKF-Schema Studio">
+<meta property="og:title" content="Behaviour REVIEW-038: Selected body text offers a Comment button and a keyboard shortcut">
+<meta property="og:description" content="When a reader selects text inside mapped body blocks of a preview, the page SHALL show a Comment button near the selection, and open the comment box for that selection on Cmd+Alt+M (macOS) or Ctrl+Alt">
+<meta property="og:url" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/behaviour-review-038.html">
+<meta property="og:image" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/og/behaviour.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Behaviour: One rule, tested on its own, linked to its code">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body style="--c:#0e7490">
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Areas</a><span class="sep">/</span><a href="area-diagrams.html">Diagrams</a><span class="sep">/</span><a href="use-case-diag-001.html">DIAG-001</a><span class="sep">/</span><span aria-current="page">REVIEW-038</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<p class="eyebrow"><span class="sw" style="background:#0e7490"></span>Behaviour REVIEW-038</p>
+<h1>Selected body text offers a Comment button and a keyboard shortcut</h1>
+<p class="rule">When a reader selects text inside mapped body blocks of a preview, the page <strong>SHALL</strong> show a Comment button near the selection, and open the comment box for that selection on Cmd+Alt+M (macOS) or Ctrl+Alt+M (elsewhere).</p>
+<div class="where"><p>Part of <a href="use-case-diag-001.html">DIAG-001</a>, outside the paths drawn on its map.</p></div>
+<h2>Scenarios <small>0</small></h2>
+<p class="hint">The situations the tests check. Open one to read it.</p>
+<p class="hint">Stated as one rule, without scenarios.</p>
+<div class="cols">
+  <section><h2>Implemented in <small>1</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/page/modules/commentCompose.ts"><span class="dir">src/page/modules/</span>commentCompose.ts</a></li></ul></section>
+  <section><h2>Tested by <small>2</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/modules/commentCompose.test.ts"><span class="dir">test/page/modules/</span>commentCompose.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/modules/diagReq.diagrams.requirements.test.ts"><span class="dir">test/page/modules/</span>diagReq.diagrams.requirements.test.ts</a><span class="tag">unit</span></li></ul></section>
+</div>
+
+<nav class="pager"><a href="behaviour-review-017.html">← The quote of a thread is highlighted once in its block</a></nav>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

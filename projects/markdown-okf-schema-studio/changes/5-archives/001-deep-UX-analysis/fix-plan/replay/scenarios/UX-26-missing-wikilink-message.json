@@ -1,0 +1,16 @@
+{
+  "name": "UX-26-missing-wikilink-message",
+  "file": "synth/links.md",
+  "precondition": "Side preview already open (it follows the active Markdown editor).",
+  "steps": [
+    {"key": "Meta+1", "wait": 500},
+    {"open": "${file}", "wait": 2500},
+    {"waitFor": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent.includes('Links and navigation')", "timeout": 15000, "label": "preview shows links.md"},
+    {"editMode": false, "wait": 500},
+    {"eval": "JSON.stringify([...D.querySelectorAll('#sphinx-myst-preview-content a, #sphinx-myst-preview-content [data-sphinx-preview-navigation]')].filter(e => e.textContent.includes('Missing Note')).map(e => e.outerHTML.slice(0, 300)))", "max": 700},
+    {"clicksel": "#sphinx-myst-preview-content a, #sphinx-myst-preview-content [data-sphinx-preview-navigation]", "text": "Missing Note", "wait": 2000},
+    {"check": "notifs", "contains": "could not follow the link", "label": "UX-26 part-2 missing wikilink wording"},
+    {"check": "editor", "visible": "${file}"},
+    {"check": "errors"}
+  ]
+}

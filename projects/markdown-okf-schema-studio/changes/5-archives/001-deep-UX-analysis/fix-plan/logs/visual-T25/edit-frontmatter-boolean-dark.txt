@@ -1,0 +1,55 @@
+edit-frontmatter-boolean-dark
+=============================
+
+Fixture:  08-okf-schema.md
+Theme:    Dark Modern
+Preview:  forced white
+Viewport: 900x1200
+Scroll:   top - final y=0; pinned to the top of the document
+Status:   passed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: True; target: frontmatter-boolean.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the forced white preview theme.
+Scroll to the requested top position.
+Activate editing for frontmatter-boolean.
+
+Captured state
+--------------
+The preview is scrolled to 0 pixels. Edit mode is on.
+The visible Frontmatter annotation_exemption contains: on
+Visible content: NameValue◀▶Description◀▶type(enum)swrsDocument type of the OKF entry.title(text)Brake pedal release ; Saving frontmatter…; This page carries OKF frontmatter with a type: swrs field, so the preview
+resolves the matching sche; The release threshold is reviewed against the latest pedal travel measurement.; Calibration gate; This warning must be acknowledged before
+calibration.; Review item
+State
+Expected behavior
+Evidence
+Verification
+
+
+
+
+Brake release
+approved
+Sequences steps
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+The checkbox starts checked, is clicked once, and is captured unchecked after posting a false save to the mock host.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Machine checks
+--------------
+PASS overlay-covers-text: no overlay covers preview text
+PASS overlay-clipped: every overlay is inside the viewport
+PASS identifier-split: identifier cells stay on one line
+n/a status-two-lines: no status with a strong line and message
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.

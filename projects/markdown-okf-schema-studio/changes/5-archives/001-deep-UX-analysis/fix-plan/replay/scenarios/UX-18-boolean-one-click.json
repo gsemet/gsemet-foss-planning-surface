@@ -1,0 +1,25 @@
+{
+  "name": "UX-18-boolean-one-click",
+  "file": "okf/okfreq-examples/requirements/tiers/swrs/SwRS-CORE-001.md",
+  "vars": {"cb": "tr[data-okf-field=\"annotation_exemption\"] input[type=\"checkbox\"]", "edge": "synth/frontmatter-edge.md", "cb2": "tr[data-okf-field=\"published\"] input[type=\"checkbox\"]"},
+  "steps": [
+    {"open": "${file}"},
+    {"waitFor": "D.querySelector('tr[data-okf-field=\"id\"]') && /SwRS-CORE-001/.test(D.querySelector('tr[data-okf-field=\"id\"]').textContent)", "timeout": 15000, "label": "preview follows file"},
+    {"mark": "${file}"},
+    {"editMode": true},
+    {"eval": "(() => { const c = D.querySelector('${cb}'); return c ? 'checked=' + c.checked + ' disabled=' + c.disabled : 'no checkbox'; })()"},
+    {"clicksel": "${cb}", "wait": 1500},
+    {"eval": "(() => { const c = D.querySelector('${cb}'); return JSON.stringify({checked: c && c.checked, editorOpen: !!D.querySelector('[data-okf-frontmatter-editor]'), status: (D.querySelector('[data-okf-frontmatter-editor] [role=status]')||{}).textContent || ''}); })()"},
+    {"check": "diff", "file": "${file}", "against": "mark", "maxLines": 1, "contains": "annotation_exemption: true", "show": true, "label": "UX-18 one click toggles and saves"},
+    {"open": "${edge}"},
+    {"waitFor": "D.querySelector('tr[data-okf-field=\"custom_key\"]')", "timeout": 15000, "label": "preview follows edge file"},
+    {"mark": "${edge}"},
+    {"editMode": true},
+    {"clicksel": "${cb2}", "wait": 1500},
+    {"check": "diff", "file": "${edge}", "against": "mark", "maxLines": 1, "contains": "published: true", "show": true, "label": "UX-18 edge: one click to true"},
+    {"clicksel": "${cb2}", "wait": 1500},
+    {"check": "diff", "file": "${edge}", "against": "mark", "equal": true, "label": "UX-18 edge: second click back to false"},
+    {"check": "errors"},
+    {"shot": "UX-18-boolean", "clip": "preview"}
+  ]
+}

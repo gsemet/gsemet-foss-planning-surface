@@ -1,0 +1,11 @@
+ci: run the static, visual and integration checks as parallel jobs
+
+The CI ran every stage in one job, one after the other (11 to 18 min).
+The static checks, the visual campaign and the integration suites now run
+in parallel jobs, each calling `just dev-ci` and one `just ci-<name>`
+target that can be run locally the same way. A report job merges the two
+end-to-end results, and the `checks` job keeps its name for branch
+protection. The gallery and site are built only on demand (manual run
+with the gallery option). `just preflight` runs the same targets in order.
+
+Assisted-by: Claude:Sonnet-5.5

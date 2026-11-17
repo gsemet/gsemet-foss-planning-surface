@@ -1,0 +1,1 @@
+just bump-version creates the version commit with a Signed-off-by trailer, which the commit guideline (.agents/guidelines/git-commit-message.guidelines.md) does not allow; the v1.9.0 version commit carries it. Drop the trailer from the recipe and check the guideline's attribution rule.

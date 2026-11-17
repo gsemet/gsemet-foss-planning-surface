@@ -1,0 +1,59 @@
+{
+  "name": "UX-34-sticky-band-frozen",
+  "file": "book/chapters/02-foundations.md",
+  "precondition": "Side preview open; buffers clean. UX-34 is frozen: the band must keep '#' markers, one heading per line.",
+  "steps": [
+    {
+      "open": "${file}",
+      "wait": 4000
+    },
+    {
+      "waitFor": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent.includes('Foundations')",
+      "timeout": 30000,
+      "label": "preview shows 02-foundations"
+    },
+    {
+      "editMode": false,
+      "wait": 800
+    },
+    {
+      "key": "Meta+1",
+      "wait": 400
+    },
+    {
+      "key": "Control+g",
+      "wait": 600
+    },
+    {
+      "type": "150",
+      "wait": 300
+    },
+    {
+      "key": "Enter",
+      "wait": 3000
+    },
+    {
+      "eval": "JSON.stringify((b => b && {active: D.body.getAttribute('data-sphinx-preview-sticky-headings-active'), text: b.innerText, lines: [...b.children].map(c => c.innerText), height: Math.round(b.getBoundingClientRect().height)})(D.querySelector('[data-sphinx-preview-sticky-headings]')))",
+      "max": 800
+    },
+    {
+      "check": "feval",
+      "expr": "(D.querySelector('[data-sphinx-preview-sticky-headings]')||{}).innerText.replace(/\\s+/g,' ').trim()",
+      "equals": "# Foundations ## Definitions ### LLM",
+      "label": "UX-34 frozen band text"
+    },
+    {
+      "shot": "UX-34-sticky-band",
+      "clip": "preview"
+    },
+    {
+      "check": "diff",
+      "file": "${file}",
+      "against": "disk",
+      "equal": true
+    },
+    {
+      "check": "errors"
+    }
+  ]
+}

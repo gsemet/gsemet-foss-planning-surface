@@ -1,0 +1,23 @@
+{
+  "name": "UX-16-edge-enum",
+  "file": "synth/frontmatter-edge.md",
+  "vars": {"fe": "[data-okf-frontmatter-editor]"},
+  "steps": [
+    {"open": "${file}"},
+    {"waitFor": "D.querySelector('tr[data-okf-field=\"custom_key\"]')", "timeout": 15000, "label": "preview follows file"},
+    {"mark": "${file}"},
+    {"editMode": true},
+    {"clicksel": "tr[data-okf-field=\"status\"] [data-okf-value-cell]"},
+    {"waitFor": "D.querySelector('${fe} select')", "label": "status select"},
+    {"check": "focus", "selector": "select", "label": "select focused"},
+    {"type": "a", "wait": 500},
+    {"eval": "D.querySelector('${fe} select').value"},
+    {"clicksel": "h1", "text": "Frontmatter edge cases", "exact": true, "wait": 1500},
+    {"check": "feval", "expr": "!D.querySelector('${fe}')", "label": "frontmatter editor closed on blur"},
+    {"key": "Escape", "wait": 800},
+    {"check": "diff", "file": "${file}", "against": "mark", "maxLines": 1, "contains": "status: approved", "show": true, "label": "UX-16 enum edit changes one line"},
+    {"check": "diff", "file": "${file}", "against": "disk", "maxLines": 1, "notContains": "[ braking", "show": true, "label": "UX-16 vs disk"},
+    {"check": "errors"},
+    {"shot": "UX-16-fail", "clip": "preview", "onFail": true}
+  ]
+}

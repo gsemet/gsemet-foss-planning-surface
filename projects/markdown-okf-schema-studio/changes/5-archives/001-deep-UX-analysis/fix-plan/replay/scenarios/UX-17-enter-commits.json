@@ -1,0 +1,64 @@
+{
+ "name": "UX-17-enter-commits",
+ "file": "okf/okfreq-examples/requirements/tiers/swrs/SwRS-CORE-001.md",
+ "vars": {
+  "fe": "[data-okf-frontmatter-editor]"
+ },
+ "steps": [
+  {
+   "open": "${file}"
+  },
+  {
+   "waitFor": "D.querySelector('tr[data-okf-field=\"id\"]') && /SwRS-CORE-001/.test(D.querySelector('tr[data-okf-field=\"id\"]').textContent)",
+   "timeout": 15000,
+   "label": "preview follows file"
+  },
+  {
+   "mark": "${file}"
+  },
+  {
+   "editMode": true
+  },
+  {
+   "clicksel": "tr[data-okf-field=\"title\"] [data-okf-value-cell]"
+  },
+  {
+   "waitFor": "D.querySelector('${fe} textarea, ${fe} input')",
+   "label": "title editor"
+  },
+  {
+   "key": "Meta+a"
+  },
+  {
+   "type": "Export CSV: with quotes \"and\" colons",
+   "delay": 20
+  },
+  {
+   "key": "Enter",
+   "wait": 1500
+  },
+  {
+   "check": "feval",
+   "expr": "!D.querySelector('${fe}')",
+   "label": "UX-17 Enter closes the editor (saved)"
+  },
+  {
+   "check": "diff",
+   "file": "${file}",
+   "against": "mark",
+   "maxLines": 1,
+   "contains": "Export CSV",
+   "notContains": "title: |",
+   "show": true,
+   "label": "UX-17 one-line value, no block scalar"
+  },
+  {
+   "check": "errors"
+  },
+  {
+   "shot": "UX-17-fail",
+   "clip": "preview",
+   "onFail": true
+  }
+ ]
+}

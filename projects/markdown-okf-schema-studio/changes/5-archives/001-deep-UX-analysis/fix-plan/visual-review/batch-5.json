@@ -1,0 +1,954 @@
+[
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/preview-sticky-headings-2.png",
+    "scenario": "preview-sticky-headings-2",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Sticky band shows the current h2 and its h1 parent",
+        "pass": true,
+        "why": "Band shows '# Operating the fleet' and '## Incident patterns'."
+      },
+      {
+        "id": "S2",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "Band headings end at x~465, toolbar starts at x~1505; body heading below band is uncovered. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the toolbar sits at the right of the band and covers no heading text."
+      },
+      {
+        "id": "S3",
+        "text": "No unintended page-level horizontal overflow",
+        "pass": true,
+        "why": "No horizontal page overflow; content fits the 900px width."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar covers only empty band space. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the toolbar sits at the right of the band and covers no heading text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar pill is fully inside the viewport."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a, no table in view."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Light-grey text on dark background; admonition titles readable."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Sticky heading band visible at the top."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/preview-sticky-headings-3-light-narrow.png",
+    "scenario": "preview-sticky-headings-3-light-narrow",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Depth-three sticky band is legible in a narrow light preview",
+        "pass": true,
+        "why": "Band shows '#', '##' and '### Graph drift' at normal text size."
+      },
+      {
+        "id": "S2",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "Headings end at x~395, toolbar starts at x~625; no overlap. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the toolbar sits at the right of the band and covers no heading text."
+      },
+      {
+        "id": "S3",
+        "text": "No unintended page-level horizontal overflow",
+        "pass": true,
+        "why": "Body wraps within 460px; no page-level overflow."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar covers no text. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the toolbar sits at the right of the band and covers no heading text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a, no table in view."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark text on white; admonition text readable on pale blue."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Three-level sticky band visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/preview-sticky-headings-3.png",
+    "scenario": "preview-sticky-headings-3",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Sticky band shows the current h3 and two parent levels",
+        "pass": true,
+        "why": "Band shows '# Operating the fleet', '## Incident patterns', '### Graph drift'."
+      },
+      {
+        "id": "S2",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "Headings end at x~465, toolbar at x~1505; no collision. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the toolbar sits at the right of the band and covers no heading text."
+      },
+      {
+        "id": "S3",
+        "text": "No unintended page-level horizontal overflow",
+        "pass": true,
+        "why": "No page-level overflow."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar covers no text. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the toolbar sits at the right of the band and covers no heading text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a, no table in view."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text readable on dark background."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Three-level sticky band visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/preview-sticky-headings-natural-growth.png",
+    "scenario": "preview-sticky-headings-natural-growth",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Sticky band grows to its full wrapped content height",
+        "pass": true,
+        "why": "Band grew to ~420px and shows every wrapped line of the h1, h2 and h3."
+      },
+      {
+        "id": "S2",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": false,
+        "why": "The toolbar sits over the wrapped h1: 'vehicle software' and 'several' are hidden behind it. The machine assertion failures agree."
+      },
+      {
+        "id": "S3",
+        "text": "No unintended page-level horizontal overflow",
+        "pass": true,
+        "why": "No page-level overflow at 460px."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": false,
+        "why": "Toolbar covers the end of h1 lines 1-2 ('...vehicle software', 'across seve[ral]') in the sticky band."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a, no table."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Light text on dark background readable where not covered."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Grown sticky band visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/schema-validation-error-dark.png",
+    "scenario": "schema-validation-error-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Schema-compilation error is a red row across all three columns",
+        "pass": true,
+        "why": "Red diagnostic 'Schema validation failed to run: schema is invalid...' spans Name, Value and Description columns."
+      },
+      {
+        "id": "S2",
+        "text": "The diagnostic stays legible in the dark theme",
+        "pass": true,
+        "why": "Red text readable on a tinted dark background."
+      },
+      {
+        "id": "S3",
+        "text": "No unintended page-level horizontal overflow",
+        "pass": true,
+        "why": "No page-level overflow."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar overlaps the table's top border above the Description header but covers no text; the column toggle and 'Description' stay visible."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Field names (implemented_in_files, tested_in_files) and type labels stay on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Headers, values and descriptions readable."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Frontmatter table and red diagnostic visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/schema-validation-error-light.png",
+    "scenario": "schema-validation-error-light",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Schema-compilation error is a red row across all three columns",
+        "pass": true,
+        "why": "Red diagnostic 'Schema validation failed to run: schema is invalid...' spans Name, Value and Description columns."
+      },
+      {
+        "id": "S2",
+        "text": "The diagnostic stays legible in the light theme",
+        "pass": true,
+        "why": "Red text readable on a tinted light background."
+      },
+      {
+        "id": "S3",
+        "text": "No unintended page-level horizontal overflow",
+        "pass": true,
+        "why": "No page-level overflow."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar overlaps the table's top border above the Description header but covers no text; the column toggle and 'Description' stay visible."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Field names (implemented_in_files, tested_in_files) and type labels stay on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Headers, values and descriptions readable."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Frontmatter table and red diagnostic visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/schema-validation-error-narrow.png",
+    "scenario": "schema-validation-error-narrow",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Full-width diagnostic wraps without overflowing its cell",
+        "pass": true,
+        "why": "Diagnostic wraps to three lines inside the full-width row with no overflow."
+      },
+      {
+        "id": "S2",
+        "text": "Table fits a narrow viewport",
+        "pass": true,
+        "why": "Description column collapsed behind the toggle; Name and Value fit."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar overlaps the table's top-right border above the Value header but covers no text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": false,
+        "why": "The value 'src/okf_schema/okfkb/finding.py' breaks mid-word as 'findin' / 'g.py'. The machine identifier-split check says PASS; the image disagrees."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark text on light background; red diagnostic readable on pink."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Frontmatter table and diagnostic visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/standalone-frontmatter-dark.png",
+    "scenario": "standalone-frontmatter-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Generic fields stay in a two-column table",
+        "pass": true,
+        "why": "Two columns 'Names' / 'Values' for type, id, name, description, status, required, properties, allowed-tools, metadata."
+      },
+      {
+        "id": "S2",
+        "text": "Nested object values render as YAML code",
+        "pass": true,
+        "why": "properties and metadata are YAML blocks (lifecycle: enum: - draft; owner: ... review: ...), not JSON."
+      },
+      {
+        "id": "S3",
+        "text": "Missing-schema notice is shown",
+        "pass": true,
+        "why": "Info footer 'No schema found for type \"skill\" in _schema/.' visible."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar overlaps the top-right border of the Values header but covers no text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Identifiers like internal-tooling-guide and allowed-tools stay on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Table text and code blocks readable in the dark theme."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Frontmatter table visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/standalone-frontmatter-light.png",
+    "scenario": "standalone-frontmatter-light",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Generic fields stay in a two-column table",
+        "pass": true,
+        "why": "Two columns 'Names' / 'Values' for type, id, name, description, status, required, properties, allowed-tools, metadata."
+      },
+      {
+        "id": "S2",
+        "text": "Nested object values render as YAML code",
+        "pass": true,
+        "why": "properties and metadata are YAML blocks (lifecycle: enum: - draft; owner: ... review: ...), not JSON."
+      },
+      {
+        "id": "S3",
+        "text": "Missing-schema notice is shown",
+        "pass": true,
+        "why": "Info footer 'No schema found for type \"skill\" in _schema/.' visible."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar overlaps the top-right border of the Values header but covers no text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Identifiers like internal-tooling-guide and allowed-tools stay on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Table text and code blocks readable in the light theme."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Frontmatter table visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/syntax-dark-markdown.png",
+    "scenario": "syntax-dark-markdown",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Quadruple-backtick fence keeps inner fences, table and link literal",
+        "pass": true,
+        "why": "Inner ```bash fence, the pipe table and the [link](./escalation.md) are shown as literal highlighted text inside the block."
+      },
+      {
+        "id": "S2",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "Band shows '# Syntax highlighting across languages', ending at x~750; toolbar at x~1505. The intro line 'look in the preview.' is scrolling under the band, which is normal. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the band heading ends well left of the toolbar and nothing is covered."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar covers no text. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the band heading ends well left of the toolbar and nothing is covered."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a, no rendered table."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Token colours readable on the near-black code background."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "'Markdown inside Markdown' section and its code block visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/syntax-dark-python.png",
+    "scenario": "syntax-dark-python",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Decorator, docstring, f-string and trailing comment are highlighted correctly",
+        "pass": true,
+        "why": "Decorators purple, docstring orange, f-string orange with interpolations, trailing comment grey italic; each is scoped correctly."
+      },
+      {
+        "id": "S2",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "Band ('#' + '## Rust') ends at x~750; toolbar at x~1505. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the band heading ends well left of the toolbar and nothing is covered."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar covers no text. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the band heading ends well left of the toolbar and nothing is covered."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a, no table."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "All tokens readable on the dark code background."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Python heading and code block visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/syntax-dark-rust.png",
+    "scenario": "syntax-dark-rust",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Keywords, attribute, doc comment, strings and numbers each have a distinct colour",
+        "pass": true,
+        "why": "Keywords blue, #[derive] attribute purple, /// doc comment grey italic, strings orange, numbers green; all distinct."
+      },
+      {
+        "id": "S2",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "Band ends at x~625; toolbar at x~1505. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the band heading ends well left of the toolbar and nothing is covered."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar covers no text. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the band heading ends well left of the toolbar and nothing is covered."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a, no table."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Tokens readable on the dark code background."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Rust heading and code block visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/syntax-light-rust.png",
+    "scenario": "syntax-light-rust",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Rust tokens keep distinct colours on a light theme",
+        "pass": true,
+        "why": "Keywords blue, attribute purple, doc comment grey italic, strings amber, numbers green; all distinct."
+      },
+      {
+        "id": "S2",
+        "text": "Chart-palette token colours stay legible on the pale code background",
+        "pass": true,
+        "why": "All tokens legible on the pale grey background. The amber strings and bindings ('nw-07', 'previous') have the lowest contrast but are still readable."
+      },
+      {
+        "id": "S3",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": true,
+        "why": "Band ends at x~625; toolbar at x~1505. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the band heading ends well left of the toolbar and nothing is covered."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar covers no text. Machine checks report 'sticky heading overlaps the reserved toolbar row'; visually the band heading ends well left of the toolbar and nothing is covered."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a, no table."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Readable; amber is borderline but acceptable."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Rust heading and code block visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/syntax-narrow-python.png",
+    "scenario": "syntax-narrow-python",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Code block is captured at its far-right internal scroll position",
+        "pass": false,
+        "why": "The note says the capture is at the code block's far-right scroll position, but the block is at scroll-left 0: lines start at the left and are cut at the right edge ('...arbiter's v', 'time')."
+      },
+      {
+        "id": "S2",
+        "text": "Long signatures scroll internally without widening the page",
+        "pass": true,
+        "why": "Long lines are clipped inside the code block; the page does not widen beyond 460px."
+      },
+      {
+        "id": "S3",
+        "text": "Text does not collide with the toolbar or sticky band",
+        "pass": false,
+        "why": "The toolbar covers the end of the band's h1 ('...languag[es]'). The machine check reports a band/toolbar overlap."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": false,
+        "why": "Toolbar covers the end of '# Syntax highlighting across languages' in the sticky band."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a, no table."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Tokens readable on the dark code background."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Python heading and code block visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/unresolved-dark-full.png",
+    "scenario": "unresolved-dark-full",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Citations and citation groups stay inline",
+        "pass": true,
+        "why": "Citation groups [kessler2021] [okoye2019] [vartanen2023] stay inline in the paragraph, list items and admonition."
+      },
+      {
+        "id": "S2",
+        "text": "Build-only directives degrade to readable placeholders",
+        "pass": true,
+        "why": "{animation}, {bibliography} and {toctree} render as inert dashed placeholders; the following paragraph renders normally."
+      },
+      {
+        "id": "S3",
+        "text": "Both Mermaid syntaxes render as SVG diagrams",
+        "pass": true,
+        "why": "The flowchart (intake to archive) and the Editor/Preview sequence diagram both render as SVG."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar sits right of the H1 'Unresolved constructs' and covers no text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Depot ids nw-01/nw-03/nw-07 stay on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text, diagram labels and figure readable (the figure keeps its own light panel on the dark page)."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "All named constructs visible in the full-page capture."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/unresolved-light-full.png",
+    "scenario": "unresolved-light-full",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Citations and citation groups stay inline",
+        "pass": true,
+        "why": "Citation groups [kessler2021] [okoye2019] [vartanen2023] stay inline in the paragraph, list items and admonition."
+      },
+      {
+        "id": "S2",
+        "text": "Build-only directives degrade to readable placeholders",
+        "pass": true,
+        "why": "{animation}, {bibliography} and {toctree} render as inert dashed placeholders; the following paragraph renders normally."
+      },
+      {
+        "id": "S3",
+        "text": "Both Mermaid syntaxes render as SVG diagrams",
+        "pass": true,
+        "why": "The flowchart (intake to archive) and the Editor/Preview sequence diagram both render as SVG."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text belonging to another element",
+        "pass": true,
+        "why": "Toolbar sits right of the H1 'Unresolved constructs' and covers no text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the view edge",
+        "pass": true,
+        "why": "Toolbar fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Depot ids nw-01/nw-03/nw-07 stay on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text, diagram labels and figure readable."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "All named constructs visible in the full-page capture."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show title and message on separate lines",
+        "pass": true,
+        "why": "n/a, not a status page"
+      }
+    ],
+    "overall": "pass"
+  }
+]

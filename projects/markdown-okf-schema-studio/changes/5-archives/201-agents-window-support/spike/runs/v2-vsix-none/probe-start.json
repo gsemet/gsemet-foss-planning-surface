@@ -1,0 +1,19 @@
+{
+  "when": "2026-10-29T13:22:35.405Z",
+  "appName": "Visual Studio Code",
+  "uiKind": 1,
+  "appHost": "desktop",
+  "workspaceFolders": [],
+  "workspaceName": "agent-sessions (Workspace)",
+  "workspaceFile": "file:///private/tmp/ags-RhQixA/data/User/agent-sessions.code-workspace",
+  "isTrusted": true,
+  "studioFound": false,
+  "extensions": [
+    "TypeScriptTeam.jsts-chat-features (active)",
+    "GitHub.copilot-chat (active)",
+    "ms-vscode.js-debug-companion",
+    "ms-vscode.vscode-js-profile-table",
+    "spike.agents-probe"
+  ],
+  "studioCommands": []
+}

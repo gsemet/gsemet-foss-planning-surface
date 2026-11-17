@@ -1,0 +1,95 @@
+{
+  "schema": 2,
+  "updated": "2026-11-14T17:14:19Z",
+  "cr": "CR-324",
+  "title": "Change Specification: publish to Open VSX on the version push",
+  "batch": "batch-04",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 0,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/397.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/397",
+    "number": 397
+  },
+  "steps": [
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/397",
+      "at": "2026-11-14T08:29:49Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-14T08:34:45Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/397",
+      "at": "2026-11-14T09:29:38Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "request",
+      "path": "intake/request.md"
+    },
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/ci.guidelines.md",
+      "name": ".agents/guidelines/ci.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/release-process.guidelines.md",
+      "name": ".agents/guidelines/release-process.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CHANGELOG.md",
+      "name": "CHANGELOG.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CONTRIBUTING.md",
+      "name": "CONTRIBUTING.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/log.md",
+      "name": "requirements/tiers/log.md"
+    }
+  ],
+  "branch": "chantier/batch-04/cr-324-change-specification-publish-to-open-vsx",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-04-CR-324",
+  "agent": null,
+  "notes": [],
+  "blocked": null,
+  "cost_usd": 1.2782,
+  "final_cost": true,
+  "silent_minutes": null
+}

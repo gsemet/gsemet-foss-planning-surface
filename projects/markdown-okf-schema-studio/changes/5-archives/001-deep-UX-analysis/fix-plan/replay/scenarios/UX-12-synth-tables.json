@@ -1,0 +1,26 @@
+{
+  "name": "UX-12-synth-tables",
+  "file": "synth/tables.md",
+  "steps": [
+    {"open": "${file}"},
+    {"waitFor": "D.querySelector('#sphinx-myst-preview-content h1') && /Table formatting variants/.test(D.querySelector('#sphinx-myst-preview-content h1').textContent)", "timeout": 15000, "label": "preview follows tables.md"},
+    {"mark": "${file}"},
+    {"editMode": true},
+    {"clicksel": "td", "text": "alpha", "exact": true, "nth": 0},
+    {"waitFor": "D.querySelector('[data-sphinx-preview-table-cell-editor] textarea')", "label": "cell editor (compact)"},
+    {"key": "End"},
+    {"type": "X"},
+    {"key": "Enter", "wait": 1200},
+    {"check": "diff", "file": "${file}", "against": "mark", "maxLines": 1, "contains": "|alphaX|1|", "show": true, "label": "UX-12 compact table"},
+    {"mark": "${file}"},
+    {"clicksel": "td", "text": "left", "exact": true, "nth": 0},
+    {"waitFor": "D.querySelector('[data-sphinx-preview-table-cell-editor] textarea')", "label": "cell editor (aligned)"},
+    {"key": "End"},
+    {"type": "X"},
+    {"key": "Enter", "wait": 1200},
+    {"check": "diff", "file": "${file}", "against": "mark", "maxLines": 1, "contains": "leftX", "show": true, "label": "UX-12 aligned table"},
+    {"check": "diff", "file": "${file}", "against": "disk", "maxLines": 2, "show": true, "label": "UX-12 both edits vs disk"},
+    {"check": "errors"},
+    {"shot": "UX-12-synth-tables", "clip": "preview"}
+  ]
+}

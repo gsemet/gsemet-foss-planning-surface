@@ -1,0 +1,32 @@
+{
+  "name": "UX-19-list-editor",
+  "file": "okf/okfreq-examples/requirements/tiers/swrs/SwRS-CORE-001.md",
+  "vars": {"li": "[data-okf-frontmatter-editor] [data-okf-list-item-input]", "fe": "[data-okf-frontmatter-editor]", "same": "/SwRS-CORE-001/.test((D.querySelector('tr[data-okf-field=\"id\"]')||{}).textContent||'')"},
+  "steps": [
+    {"open": "${file}"},
+    {"waitFor": "${same}", "timeout": 15000, "label": "preview follows file"},
+    {"mark": "${file}"},
+    {"editMode": true},
+    {"clicksel": "tr[data-okf-field=\"derives_from\"] a", "text": "StRS-CORE-001", "wait": 1500},
+    {"check": "feval", "expr": "${same}", "label": "UX-19 plain click on link text does not navigate"},
+    {"check": "feval", "expr": "D.querySelectorAll('${li}').length", "equals": 1, "label": "UX-19 plain click opens the list editor"},
+    {"eval": "(() => { const a = D.activeElement; const i = D.querySelector('${li}'); const dl = i && i.list; return JSON.stringify({active: a && (a.getAttribute('aria-label') || a.tagName), listAttr: i && i.getAttribute('list'), options: dl ? dl.options.length : 0, sample: dl ? [...dl.options].slice(0, 6).map(o => o.value) : []}); })()", "max": 800},
+    {"clicksel": "[data-okf-frontmatter-editor] [data-okf-list-item-input]", "nth": 0},
+    {"key": "End"},
+    {"key": "Enter", "wait": 500},
+    {"check": "feval", "expr": "D.querySelectorAll('${li}').length", "equals": 2, "label": "UX-19 Enter adds an item"},
+    {"check": "feval", "expr": "D.activeElement === D.querySelectorAll('${li}')[1] && D.activeElement.value === ''", "label": "UX-19 focus in the new empty item"},
+    {"type": "StRS-CORE-999"},
+    {"check": "feval", "expr": "(D.querySelector('${fe} [role=status]')||{}).textContent || ''", "equals": "No Markdown file named \"StRS-CORE-999.md\" was found. It will be saved as typed.", "label": "UX-19 unknown target warning before save"},
+    {"check": "feval", "expr": "(() => { const i = D.querySelectorAll('${li}')[1]; return !!(i.list && [...i.list.options].some(o => o.value === 'StRS-CORE-001')); })()", "label": "UX-19 link suggestions attached (datalist)"},
+    {"key": "Enter", "wait": 500},
+    {"check": "feval", "expr": "D.querySelectorAll('${li}').length", "equals": 3, "label": "UX-19 Enter opens the next empty item"},
+    {"key": "Backspace", "wait": 500},
+    {"check": "feval", "expr": "D.querySelectorAll('${li}').length", "equals": 2, "label": "UX-19 Backspace removes the empty item"},
+    {"shot": "UX-19-list-editor", "clip": "preview"},
+    {"key": "Meta+Enter", "wait": 1500},
+    {"check": "feval", "expr": "!D.querySelector('${fe}')", "label": "UX-19 Cmd+Enter saves and closes"},
+    {"check": "diff", "file": "${file}", "against": "mark", "maxLines": 1, "contains": "- StRS-CORE-999", "show": true, "label": "UX-19 one added list line"},
+    {"check": "errors"}
+  ]
+}

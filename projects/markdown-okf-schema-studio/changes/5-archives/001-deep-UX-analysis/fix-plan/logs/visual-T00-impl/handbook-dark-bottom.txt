@@ -1,0 +1,43 @@
+handbook-dark-bottom
+====================
+
+Fixture:  01-handbook-overview.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 900x1000
+Scroll:   bottom - final y=2958; last content element visible with 40px trailing padding below it
+Status:   failed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested bottom position.
+
+Captured state
+--------------
+The preview is scrolled to 2958 pixels. Edit mode is off.
+Visible content: The storage handbook covers the regional store’s consistency guarantees,
+which is where most planner; Attention; Depot identifiers are reused after a depot is decommissioned for two years.
+Historical queries that ; Deployments are region-at-a-time, never global.; We tried global rollouts twice. Both times the rollback took longer than
+the outage it was meant to ; The rollout order is fixed: smallest region first, largest region last,
+with a thirty-minute soak be; northwind deploy --service planner --region nw-03 --soak 30m
+northwind deploy --service planner --re; Rollback is a forward deploy of the previous tag. There is no separate
+rollback path, and there is d; Note; This means graph migrations must be backward compatible for one full release.
+The review checklist e; Nothing below this line is settled. Treat it as a record of the arguments,
+not as guidance.; Should the planner own transit estimates, or should the tracker?; Is the six-hour rolling window too short for cross-region legs?; Can the hop limit become a per-region setting without breaking the contract?; The last paragraph of the document exists so that scrolling to the very bottom
+shows a stable, recog
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+Bottom of the document. The trailing padding must keep the last paragraph reachable and visible rather than pinned against the viewport edge.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.
+Assertion failure: sticky heading overlaps the reserved toolbar row

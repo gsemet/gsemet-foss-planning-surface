@@ -1,0 +1,41 @@
+frontmatter-link-details-dark-460
+=================================
+
+Fixture:  14-frontmatter-links.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 460x900
+Scroll:   top - final y=0; pinned to the top of the document
+Status:   passed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested top position.
+
+Captured state
+--------------
+The preview is scrolled to 0 pixels. Edit mode is off.
+Visible content: NameValue◀▶Description◀▶type(enum)deferred-linksDocument type for the deferred-link visual fixture.t; This fixture keeps link resolution pending long enough to capture the first-pass
+properties table be
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+Resolved links show fresh target metadata and a clipped long excerpt. Beta intentionally lacks the optional description. Inspect excerpt ellipsis, Alpha's line 9 label and the visible Refresh tooltip without page overflow; native link title metadata is DOM-asserted, not visible in the PNG.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Machine checks
+--------------
+n/a overlay-covers-text: no visible overlay
+n/a overlay-clipped: no visible overlay
+FAIL identifier-split: 3 split identifier(s): type(enum), title(text), references(list)
+n/a status-two-lines: no status with a strong line and message
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.

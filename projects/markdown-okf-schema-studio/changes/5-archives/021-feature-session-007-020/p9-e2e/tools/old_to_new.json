@@ -1,0 +1,2094 @@
+{
+ "handbook-dark-top": {
+  "new": "rendering-core/v01-handbook-top-dark-900",
+  "action": "K",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "handbook-dark-third": {
+  "new": "rendering-core/v02-handbook-mid-code-dark-900",
+  "action": "K",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "handbook-dark-bottom": {
+  "new": "rendering-core/v03-handbook-bottom-dark-900",
+  "action": "A",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "handbook-light-top": {
+  "new": "rendering-core/v04-handbook-top-light-900",
+  "action": "K",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "handbook-forced-white": {
+  "new": "theme-zoom/v01-forced-white-handbook-white-900",
+  "action": "K",
+  "group": "theme-zoom",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "handbook-forced-cream": {
+  "new": "theme-zoom/v02-forced-cream-handbook-cream-900",
+  "action": "K",
+  "group": "theme-zoom",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "admonitions-forced-cream-full": {
+  "new": "theme-zoom/v03-forced-cream-admonitions-full-cream-900",
+  "action": "K",
+  "group": "theme-zoom",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "code-tables-forced-cream": {
+  "new": "theme-zoom/v04-forced-cream-code-tables-full-cream-900",
+  "action": "K",
+  "group": "theme-zoom",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "frontmatter-forced-cream": {
+  "new": "theme-zoom/v05-forced-cream-properties-cream-900",
+  "action": "K",
+  "group": "theme-zoom",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-paragraph-forced-cream": {
+  "new": "theme-zoom/v06-forced-cream-paragraph-editor-cream-900",
+  "action": "A",
+  "group": "theme-zoom",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "handbook-light-failures": {
+  "new": "myst/v01-failure-admonitions-light-900",
+  "action": "A",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "handbook-narrow-top": {
+  "new": "rendering-core/v05-handbook-top-dark-460",
+  "action": "K",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "handbook-narrow-table": {
+  "new": "layout-width/v01-narrow-table-scroll-dark-460",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "admonitions-dark-full": {
+  "new": "myst/v02-admonition-gallery-full-dark-900",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "admonitions-light-full": {
+  "new": "myst/v03-admonition-gallery-full-light-900",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "admonitions-dark-titled": {
+  "new": "myst/v04-admonition-titles-dark-900",
+  "action": "A",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "admonitions-dark-nested": {
+  "new": "myst/v05-admonition-nested-content-dark-900",
+  "action": "A",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "admonitions-narrow-full": {
+  "new": "myst/v06-admonition-gallery-full-dark-460",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "unresolved-dark-full": {
+  "new": "myst/v07-citations-toctree-unresolved-full-dark-900",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "unresolved-light-full": {
+  "new": "myst/v08-citations-toctree-unresolved-full-light-900",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "nested-list-typing-dark": {
+  "new": "block-editing/v01-nested-list-typing-dark-460",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "nested-list-typing-light": {
+  "new": "block-editing/v02-nested-list-typing-light-900",
+  "action": "A",
+  "group": "block-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "editor-keyboard-wrapped-narrow": {
+  "new": "block-editing/v03-wrapped-paragraph-keyboard-dark-460",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [
+   "selected"
+  ],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "context-tags-dark-wide": {
+  "new": "myst/v09-context-tags-dark-900",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "context-tags-dark-narrow": {
+  "new": "myst/v10-context-tags-dark-460",
+  "action": "A",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "context-tags-light-wide": {
+  "new": "myst/v11-context-tags-light-900",
+  "action": "A",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "context-tags-light-narrow": {
+  "new": "myst/v12-context-tags-light-460",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "mermaid-map-dark": {
+  "new": "diagrams/v01-mermaid-map-dark-900",
+  "action": "K",
+  "group": "diagrams",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "mermaid-map-light": {
+  "new": "diagrams/v02-mermaid-map-light-900",
+  "action": "K",
+  "group": "diagrams",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "mermaid-map-fallback": {
+  "new": "diagrams/v03-mermaid-map-fallback-900",
+  "action": "K",
+  "group": "diagrams",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "plantuml-success-light": {
+  "new": "diagrams/v04-plantuml-success-light-900",
+  "action": "K",
+  "group": "diagrams",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "plantuml-success-dark": {
+  "new": "diagrams/v05-plantuml-success-dark-900",
+  "action": "K",
+  "group": "diagrams",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "plantuml-unconfigured": {
+  "new": "diagrams/v06-plantuml-unconfigured-light-900",
+  "action": "K",
+  "group": "diagrams",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "plantuml-executable-not-found": {
+  "new": "diagrams/v07-plantuml-not-found-light-900",
+  "action": "K",
+  "group": "diagrams",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "code-copy-button-light": {
+  "new": "code-blocks/v01-copy-button-light-900",
+  "action": "K",
+  "group": "code-blocks",
+  "stepsKept": [
+   "hover"
+  ],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "code-copy-button-dark": {
+  "new": "code-blocks/v02-copy-button-dark-900",
+  "action": "K",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [
+   "hover"
+  ],
+  "aliasOf": null
+ },
+ "code-copy-button-cream": {
+  "new": "code-blocks/v03-copy-button-cream-900",
+  "action": "A",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [
+   "hover"
+  ],
+  "aliasOf": null
+ },
+ "code-dark-top": {
+  "new": "code-blocks/v04-typescript-block-dark-900",
+  "action": "K",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "code-dark-table": {
+  "new": "layout-width/v02-wide-table-scroll-dark-900",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "code-dark-table-narrow": {
+  "new": "layout-width/v03-table-identifiers-nowrap-dark-640",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "code-light-table-narrow": {
+  "new": "layout-width/v04-table-identifiers-nowrap-light-640",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "code-light-full": {
+  "new": "rendering-core/v06-mixed-blocks-full-light-900",
+  "action": "K",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "chapter-dark-top": {
+  "new": "rendering-core/v07-chapter-top-dark-900",
+  "action": "K",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "chapter-figure-dark": {
+  "new": "myst/v13-figure-external-svg-dark-900",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "chapter-dark-quarter": {
+  "new": "rendering-core/v08-chapter-quarter-dark-900",
+  "action": "A",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "chapter-dark-half": {
+  "new": "myst/v14-display-math-dark-900",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "chapter-dark-three-quarters": {
+  "new": "rendering-core/v09-chapter-three-quarters-dark-900",
+  "action": "A",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "chapter-dark-bottom": {
+  "new": "rendering-core/v10-chapter-bottom-sentinel-dark-900",
+  "action": "K",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "chapter-light-top": {
+  "new": "rendering-core/v11-chapter-top-light-900",
+  "action": "A",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "chapter-max-width-dark-full": {
+  "new": "layout-width/v05-max-content-width-full-dark-1600",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "chapter-max-width-light-full": {
+  "new": "layout-width/v06-max-content-width-full-light-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "syntax-dark-markdown": {
+  "new": "code-blocks/v05-markdown-fence-dark-900",
+  "action": "K",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "syntax-dark-rust": {
+  "new": "code-blocks/v06-rust-dark-900",
+  "action": "K",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "syntax-dark-python": {
+  "new": "code-blocks/v07-python-dark-900",
+  "action": "K",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "syntax-light-rust": {
+  "new": "code-blocks/v08-rust-light-900",
+  "action": "K",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "syntax-light-shell": {
+  "new": "code-blocks/v10-shell-json-diff-unknown-light-900",
+  "action": "M",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": "diff-light-preview"
+ },
+ "diff-dark-preview": {
+  "new": "code-blocks/v09-diff-fence-dark-900",
+  "action": "K",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "diff-light-preview": {
+  "new": "code-blocks/v10-shell-json-diff-unknown-light-900",
+  "action": "K",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "diff-dark-edit": {
+  "new": "code-blocks/v11-diff-fence-edit-mode-dark-900",
+  "action": "A",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "diff-light-edit": {
+  "new": "code-blocks/v12-diff-fence-edit-mode-light-900",
+  "action": "A",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "syntax-narrow-python": {
+  "new": "code-blocks/v13-python-overflow-dark-460",
+  "action": "K",
+  "group": "code-blocks",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "frontmatter-forced-white": {
+  "new": "theme-zoom/v07-forced-white-properties-white-900",
+  "action": "K",
+  "group": "theme-zoom",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "okf-schema-table": {
+  "new": "frontmatter-schema/v01-okf-schema-table-white-900",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "okf-schema-narrow": {
+  "new": "frontmatter-schema/v02-okf-schema-narrow-hidden-description-dark-460",
+  "action": "A",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "frontmatter-links-loading": {
+  "new": "frontmatter-schema/v03-links-loading-dark-900",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "frontmatter-links-loaded": {
+  "new": "frontmatter-schema/v04-links-loaded-dark-900",
+  "action": "A",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "preview-toolbar-dark": {
+  "new": "frontmatter-schema/v05-okf-schema-table-dark-900",
+  "action": "M",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": "okf-schema-dark"
+ },
+ "edit-mode-dark": {
+  "new": "block-editing/v04-paragraph-editor-open-dark-900",
+  "action": "M",
+  "group": "block-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": "edit-paragraph-dark"
+ },
+ "edit-paragraph-dark": {
+  "new": "block-editing/v04-paragraph-editor-open-dark-900",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-admonition-dark": {
+  "new": "block-editing/v05-admonition-editor-open-dark-900",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-affordances-hover-and-open": {
+  "new": "block-editing/v06-hover-outline-then-editor-dark-900",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [
+   "hover"
+  ],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-affordances-narrow": {
+  "new": "block-editing/v07-editor-status-wrap-dark-460",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [],
+  "stepsDropped": [
+   "hover"
+  ],
+  "aliasOf": null
+ },
+ "edit-palette-light": {
+  "new": "palette-slash/v01-palette-popups-light-900",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [
+   "alert",
+   "bar",
+   "colour",
+   "colour-code",
+   "emoji",
+   "grid",
+   "menu"
+  ],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-palette-tall-light": {
+  "new": "palette-slash/v02-palette-sticky-tall-editor-light-900",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [
+   "end",
+   "top"
+  ],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-palette-tall-dark": {
+  "new": "palette-slash/v03-palette-sticky-tall-editor-dark-900",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [],
+  "stepsDropped": [
+   "end",
+   "top"
+  ],
+  "aliasOf": null
+ },
+ "edit-palette-tall-narrow-360": {
+  "new": "palette-slash/v04-palette-not-sticky-narrow-dark-360",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [
+   "end"
+  ],
+  "stepsDropped": [
+   "top"
+  ],
+  "aliasOf": null
+ },
+ "palette-mode-strict-light": {
+  "new": "palette-slash/v05-mode-strict-light-900",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [
+   "palette"
+  ],
+  "stepsDropped": [
+   "insert-point"
+  ],
+  "aliasOf": null
+ },
+ "palette-mode-strict-dark": {
+  "new": "palette-slash/v06-mode-strict-dark-900",
+  "action": "A",
+  "group": "palette-slash",
+  "stepsKept": [],
+  "stepsDropped": [
+   "insert-point",
+   "palette"
+  ],
+  "aliasOf": null
+ },
+ "palette-mode-gfm-light": {
+  "new": "palette-slash/v07-mode-gfm-light-900",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [
+   "palette"
+  ],
+  "stepsDropped": [
+   "insert-point"
+  ],
+  "aliasOf": null
+ },
+ "palette-mode-gfm-dark": {
+  "new": "palette-slash/v08-mode-gfm-dark-900",
+  "action": "A",
+  "group": "palette-slash",
+  "stepsKept": [],
+  "stepsDropped": [
+   "insert-point",
+   "palette"
+  ],
+  "aliasOf": null
+ },
+ "palette-mode-myst-light": {
+  "new": "palette-slash/v09-mode-myst-light-900",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [],
+  "stepsDropped": [
+   "insert-point",
+   "palette"
+  ],
+  "aliasOf": null
+ },
+ "palette-mode-myst-dark": {
+  "new": "palette-slash/v10-mode-myst-dark-900",
+  "action": "A",
+  "group": "palette-slash",
+  "stepsKept": [],
+  "stepsDropped": [
+   "insert-point",
+   "palette"
+  ],
+  "aliasOf": null
+ },
+ "slash-menu-strict-light": {
+  "new": "palette-slash/v11-slash-strict-light-900",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [],
+  "stepsDropped": [
+   "filtered",
+   "flip",
+   "nomatch",
+   "open"
+  ],
+  "aliasOf": null
+ },
+ "slash-menu-gfm-light": {
+  "new": "palette-slash/v12-slash-gfm-light-900",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [
+   "filtered",
+   "flip",
+   "nomatch",
+   "open"
+  ],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "slash-menu-myst-light": {
+  "new": "palette-slash/v13-slash-myst-light-900",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [],
+  "stepsDropped": [
+   "filtered",
+   "flip",
+   "nomatch",
+   "open"
+  ],
+  "aliasOf": null
+ },
+ "slash-menu-myst-dark": {
+  "new": "palette-slash/v14-slash-myst-filtered-dark-900",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [],
+  "stepsDropped": [
+   "filtered",
+   "flip",
+   "nomatch",
+   "open"
+  ],
+  "aliasOf": null
+ },
+ "edit-palette-dark": {
+  "new": "palette-slash/v15-palette-above-editor-dark-900",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [],
+  "stepsDropped": [
+   "alert",
+   "bar",
+   "colour",
+   "colour-code",
+   "emoji",
+   "grid",
+   "menu"
+  ],
+  "aliasOf": null
+ },
+ "edit-palette-cream": {
+  "new": "palette-slash/v16-palette-above-editor-cream-900",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [],
+  "stepsDropped": [
+   "alert",
+   "bar",
+   "colour",
+   "colour-code",
+   "emoji",
+   "grid",
+   "menu"
+  ],
+  "aliasOf": null
+ },
+ "edit-palette-narrow-360": {
+  "new": "palette-slash/v17-palette-wraps-narrow-dark-360",
+  "action": "K",
+  "group": "palette-slash",
+  "stepsKept": [
+   "emoji",
+   "grid",
+   "menu"
+  ],
+  "stepsDropped": [
+   "alert",
+   "bar",
+   "colour",
+   "colour-code"
+  ],
+  "aliasOf": null
+ },
+ "edit-insert-point-hover": {
+  "new": "block-editing/v08-insert-point-hover-light-900",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [
+   "hover"
+  ],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-insert-after-final-figure": {
+  "new": "block-editing/v09-insert-after-final-figure-light-900",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-insert-after-final-image": {
+  "new": "block-editing/v10-insert-after-final-image-light-900",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-first-block-top-wide": {
+  "new": "layout-width/v07-first-block-top-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-first-block-top-narrow": {
+  "new": "layout-width/v08-first-block-top-dark-460",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-empty-document-start-writing": {
+  "new": "layout-width/v09-empty-start-writing-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-empty-document-enter-opens-editor": {
+  "new": "block-editing/v11-empty-doc-enter-opens-editor-light-900",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-list-narrow": {
+  "new": "block-editing/v12-list-item-opens-whole-list-dark-460",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-table-wide-end-dark": {
+  "new": "table-editing/v01-wide-table-end-key-dark-900",
+  "action": "K",
+  "group": "table-editing",
+  "stepsKept": [
+   "end"
+  ],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-table-cell-dark": {
+  "new": "table-editing/v04-cell-editor-wraps-dark-900",
+  "action": "M",
+  "group": "table-editing",
+  "stepsKept": [],
+  "stepsDropped": [
+   "arrowdown",
+   "cell-bar",
+   "cell-emoji",
+   "end",
+   "open"
+  ],
+  "aliasOf": "edit-table-wrapped-dark-900"
+ },
+ "edit-table-wrapped-light-900": {
+  "new": "table-editing/v02-cell-editor-wraps-light-900",
+  "action": "K",
+  "group": "table-editing",
+  "stepsKept": [
+   "arrowdown",
+   "cell-bar",
+   "cell-emoji",
+   "open"
+  ],
+  "stepsDropped": [
+   "end"
+  ],
+  "aliasOf": null
+ },
+ "edit-table-wrapped-light-460": {
+  "new": "table-editing/v03-cell-editor-wraps-light-460",
+  "action": "K",
+  "group": "table-editing",
+  "stepsKept": [
+   "open"
+  ],
+  "stepsDropped": [
+   "arrowdown",
+   "cell-bar",
+   "cell-emoji",
+   "end"
+  ],
+  "aliasOf": null
+ },
+ "edit-table-wrapped-dark-900": {
+  "new": "table-editing/v04-cell-editor-wraps-dark-900",
+  "action": "K",
+  "group": "table-editing",
+  "stepsKept": [
+   "open"
+  ],
+  "stepsDropped": [
+   "arrowdown",
+   "cell-bar",
+   "cell-emoji",
+   "end"
+  ],
+  "aliasOf": null
+ },
+ "edit-table-wrapped-dark-460": {
+  "new": "table-editing/v05-cell-editor-wraps-dark-460",
+  "action": "A",
+  "group": "table-editing",
+  "stepsKept": [],
+  "stepsDropped": [
+   "arrowdown",
+   "cell-bar",
+   "cell-emoji",
+   "end",
+   "open"
+  ],
+  "aliasOf": null
+ },
+ "edit-frontmatter-key-dark": {
+  "new": "frontmatter-editing/v01-edit-key-suggestions-dark-900",
+  "action": "K",
+  "group": "frontmatter-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-frontmatter-value-dark": {
+  "new": "frontmatter-editing/v02-edit-enum-value-dark-900",
+  "action": "K",
+  "group": "frontmatter-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-frontmatter-list-dark": {
+  "new": "frontmatter-editing/v03-edit-list-dark-900",
+  "action": "K",
+  "group": "frontmatter-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-frontmatter-list-light": {
+  "new": "frontmatter-editing/v04-edit-list-light-900",
+  "action": "A",
+  "group": "frontmatter-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "edit-frontmatter-boolean-dark": {
+  "new": "frontmatter-editing/v05-edit-boolean-white-900",
+  "action": "K",
+  "group": "frontmatter-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "preview-edit-activation-scroll-wide": {
+  "new": "block-editing/v13-activation-keeps-scroll-dark-900",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "preview-edit-activation-scroll-narrow": {
+  "new": "block-editing/v14-activation-keeps-scroll-light-460",
+  "action": "K",
+  "group": "block-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "math-edit-offline-dark": {
+  "new": "myst/v15-math-edit-source-offline-dark-900",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "math-edit-offline-light-narrow": {
+  "new": "myst/v16-math-edit-source-offline-light-460",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "preview-sticky-headings-1": {
+  "new": "toolbar-navigation/v01-sticky-depth-1-dark-900",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "preview-sticky-headings-2": {
+  "new": "toolbar-navigation/v02-sticky-depth-2-dark-900",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "preview-sticky-headings-3": {
+  "new": "toolbar-navigation/v03-sticky-depth-3-oscillation-dark-900",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "preview-sticky-headings-3-light-narrow": {
+  "new": "toolbar-navigation/v04-sticky-depth-3-light-460",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "preview-sticky-headings-natural-growth": {
+  "new": "toolbar-navigation/v05-sticky-wrapped-growth-dark-460",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "okf-schema-dark": {
+  "new": "frontmatter-schema/v05-okf-schema-table-dark-900",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "okf-schema-missing-required-dark": {
+  "new": "frontmatter-schema/v06-missing-required-dark-900",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "okf-schema-missing-required-light": {
+  "new": "frontmatter-schema/v07-missing-required-light-900",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "schema-validation-error-dark": {
+  "new": "frontmatter-schema/v08-schema-compile-error-dark-900",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "schema-validation-error-light": {
+  "new": "frontmatter-schema/v09-schema-compile-error-light-900",
+  "action": "A",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "schema-validation-error-narrow": {
+  "new": "frontmatter-schema/v10-schema-compile-error-light-460",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "frontmatter-scroll-feedback": {
+  "new": "frontmatter-schema/v11-okf-schema-narrow-scroll-stress-dark-460",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "frontmatter-scroll-feedback-edit": {
+  "new": "frontmatter-editing/v06-okf-schema-narrow-scroll-stress-edit-dark-460",
+  "action": "A",
+  "group": "frontmatter-editing",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "frontmatter-dark": {
+  "new": "frontmatter-schema/v12-properties-plain-dark-900",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "frontmatter-light": {
+  "new": "frontmatter-schema/v13-properties-plain-light-900",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "standalone-frontmatter-dark": {
+  "new": "frontmatter-schema/v14-generic-yaml-skill-dark-900",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "standalone-frontmatter-light": {
+  "new": "frontmatter-schema/v15-generic-yaml-skill-light-900",
+  "action": "A",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "bare-urls-light-wide": {
+  "new": "gfm/v01-bare-urls-light-900",
+  "action": "K",
+  "group": "gfm",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "inline-code-dark": {
+  "new": "rendering-core/v12-inline-code-full-dark-900",
+  "action": "K",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "inline-code-light": {
+  "new": "rendering-core/v13-inline-code-full-light-900",
+  "action": "K",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "inline-code-white": {
+  "new": "rendering-core/v14-inline-code-full-white-900",
+  "action": "A",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "inline-code-cream": {
+  "new": "rendering-core/v15-inline-code-full-cream-900",
+  "action": "K",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "orphan-box-document-end": {
+  "new": "review-annotations/v01-orphan-box-end-padding-dark-900",
+  "action": "K",
+  "group": "review-annotations",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "inline-code-narrow": {
+  "new": "rendering-core/v16-inline-code-narrow-full-dark-460",
+  "action": "K",
+  "group": "rendering-core",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-paragraph-900": {
+  "new": "layout-width/v10-first-gap-paragraph-edit-light-900",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-paragraph-460": {
+  "new": "layout-width/v11-first-gap-paragraph-edit-light-460",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-paragraph-1600": {
+  "new": "layout-width/v12-first-gap-paragraph-edit-light-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-h1-900": {
+  "new": "layout-width/v13-first-gap-h1-edit-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-h1-460": {
+  "new": "layout-width/v14-first-gap-h1-edit-light-460",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-h1-1600": {
+  "new": "layout-width/v15-first-gap-h1-edit-light-1600",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-h2-900": {
+  "new": "layout-width/v16-first-gap-h2-edit-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-h2-460": {
+  "new": "layout-width/v17-first-gap-h2-edit-light-460",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-h2-1600": {
+  "new": "layout-width/v18-first-gap-h2-edit-light-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-h3-900": {
+  "new": "layout-width/v19-first-gap-h3-edit-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-h3-1600": {
+  "new": "layout-width/v20-first-gap-h3-edit-light-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-table-900": {
+  "new": "layout-width/v21-first-gap-table-edit-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-table-460": {
+  "new": "layout-width/v22-first-gap-table-edit-light-460",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-table-1600": {
+  "new": "layout-width/v23-first-gap-table-edit-light-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-image-900": {
+  "new": "layout-width/v24-first-gap-image-edit-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-image-460": {
+  "new": "layout-width/v25-first-gap-image-edit-light-460",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-image-1600": {
+  "new": "layout-width/v26-first-gap-image-edit-light-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-admonition-900": {
+  "new": "layout-width/v27-first-gap-admonition-edit-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-admonition-460": {
+  "new": "layout-width/v28-first-gap-admonition-edit-light-460",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-admonition-1600": {
+  "new": "layout-width/v29-first-gap-admonition-edit-light-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-900": {
+  "new": "layout-width/v30-first-gap-properties-edit-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-460": {
+  "new": "layout-width/v31-first-gap-properties-edit-light-460",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-1600": {
+  "new": "layout-width/v32-first-gap-properties-edit-light-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-docs-900": {
+  "new": "layout-width/v33-first-gap-properties-docs-edit-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-docs-460": {
+  "new": "layout-width/v34-first-gap-properties-docs-edit-light-460",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-docs-1600": {
+  "new": "layout-width/v35-first-gap-properties-docs-edit-light-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-issues-900": {
+  "new": "layout-width/v36-first-gap-properties-issues-edit-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-issues-460": {
+  "new": "layout-width/v37-first-gap-properties-issues-edit-light-460",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-issues-1600": {
+  "new": "layout-width/v38-first-gap-properties-issues-edit-light-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-empty-900": {
+  "new": "layout-width/v39-first-gap-empty-edit-dark-900",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-empty-460": {
+  "new": "layout-width/v40-first-gap-empty-edit-dark-460",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-empty-1600": {
+  "new": "layout-width/v41-first-gap-empty-edit-dark-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-paragraph-read-900": {
+  "new": "layout-width/v42-first-gap-paragraph-read-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-h1-read-900": {
+  "new": "layout-width/v43-first-gap-h1-read-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-h2-read-900": {
+  "new": "layout-width/v44-first-gap-h2-read-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-h3-read-900": {
+  "new": "layout-width/v45-first-gap-h3-read-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-table-read-900": {
+  "new": "layout-width/v46-first-gap-table-read-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-image-read-900": {
+  "new": "layout-width/v47-first-gap-image-read-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-admonition-read-900": {
+  "new": "layout-width/v48-first-gap-admonition-read-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-docs-read-900": {
+  "new": "layout-width/v49-first-gap-properties-docs-read-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-paragraph-360": {
+  "new": "layout-width/v50-first-gap-paragraph-edit-light-360",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-h1-360": {
+  "new": "layout-width/v51-first-gap-h1-edit-light-360",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-table-360": {
+  "new": "layout-width/v52-first-gap-table-edit-light-360",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-360": {
+  "new": "layout-width/v53-first-gap-properties-edit-light-360",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-empty-360": {
+  "new": "layout-width/v54-first-gap-empty-edit-dark-360",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-expanded-light-900": {
+  "new": "toolbar-navigation/v06-toolbar-expanded-light-900",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-collapsed-light-900": {
+  "new": "toolbar-navigation/v07-toolbar-collapsed-light-900",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-expanded-light-360": {
+  "new": "toolbar-navigation/v08-toolbar-expanded-light-360",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-collapsed-light-360": {
+  "new": "toolbar-navigation/v09-toolbar-collapsed-light-360",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-expanded-dark-900": {
+  "new": "toolbar-navigation/v10-toolbar-expanded-dark-900",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-collapsed-dark-900": {
+  "new": "toolbar-navigation/v11-toolbar-collapsed-dark-900",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-expanded-dark-360": {
+  "new": "toolbar-navigation/v12-toolbar-expanded-dark-360",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-collapsed-dark-360": {
+  "new": "toolbar-navigation/v13-toolbar-collapsed-dark-360",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-expanded-white-900": {
+  "new": "toolbar-navigation/v14-toolbar-expanded-white-900",
+  "action": "A",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-collapsed-white-900": {
+  "new": "toolbar-navigation/v15-toolbar-collapsed-white-900",
+  "action": "A",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-expanded-white-360": {
+  "new": "toolbar-navigation/v16-toolbar-expanded-white-360",
+  "action": "A",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-collapsed-white-360": {
+  "new": "toolbar-navigation/v17-toolbar-collapsed-white-360",
+  "action": "A",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-expanded-cream-900": {
+  "new": "toolbar-navigation/v18-toolbar-expanded-cream-900",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-collapsed-cream-900": {
+  "new": "toolbar-navigation/v19-toolbar-collapsed-cream-900",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-expanded-cream-360": {
+  "new": "toolbar-navigation/v20-toolbar-expanded-cream-360",
+  "action": "A",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toolbar-rows-collapsed-cream-360": {
+  "new": "toolbar-navigation/v21-toolbar-collapsed-cream-360",
+  "action": "A",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-paragraph-360-collapsed": {
+  "new": "layout-width/v55-first-gap-paragraph-edit-collapsed-light-360",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-table-360-collapsed": {
+  "new": "layout-width/v56-first-gap-table-edit-collapsed-light-360",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-paragraph-auto-900": {
+  "new": "layout-width/v57-first-gap-paragraph-edit-auto-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-auto-900": {
+  "new": "layout-width/v58-first-gap-properties-edit-auto-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-empty-auto-900": {
+  "new": "layout-width/v59-first-gap-empty-edit-auto-dark-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-paragraph-full-900": {
+  "new": "layout-width/v60-first-gap-paragraph-edit-full-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-full-900": {
+  "new": "layout-width/v61-first-gap-properties-edit-full-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-empty-full-900": {
+  "new": "layout-width/v62-first-gap-empty-edit-full-dark-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-paragraph-dark-900": {
+  "new": "layout-width/v63-first-gap-paragraph-edit-dark-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-properties-dark-900": {
+  "new": "layout-width/v64-first-gap-properties-edit-dark-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "first-element-gap-table-dark-900": {
+  "new": "layout-width/v65-first-gap-table-edit-dark-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-modes-light-900": {
+  "new": "layout-width/v66-width-cycle-light-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-modes-light-1600": {
+  "new": "layout-width/v67-width-cycle-light-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-modes-dark-900": {
+  "new": "layout-width/v68-width-cycle-dark-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-modes-dark-1600": {
+  "new": "layout-width/v69-width-cycle-dark-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-modes-cream-900": {
+  "new": "layout-width/v70-width-cycle-cream-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-modes-cream-1600": {
+  "new": "layout-width/v71-width-cycle-cream-1600",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-mode-break-margin-900": {
+  "new": "layout-width/v72-break-margin-light-900",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-mode-break-auto-900": {
+  "new": "layout-width/v73-break-auto-light-900",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-mode-break-full-900": {
+  "new": "layout-width/v74-break-full-light-900",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-mode-break-margin-1600": {
+  "new": "layout-width/v75-break-margin-light-1600",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-mode-break-auto-1600": {
+  "new": "layout-width/v76-break-auto-light-1600",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-mode-break-full-1600": {
+  "new": "layout-width/v77-break-full-light-1600",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-mode-break-margin-460": {
+  "new": "layout-width/v78-break-margin-light-460",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-mode-break-auto-460": {
+  "new": "layout-width/v79-break-auto-light-460",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-mode-break-full-460": {
+  "new": "layout-width/v80-break-full-light-460",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-mode-break-margin-dark-900": {
+  "new": "layout-width/v81-break-margin-dark-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-mode-break-auto-dark-900": {
+  "new": "layout-width/v82-break-auto-dark-900",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "width-mode-break-full-dark-900": {
+  "new": "layout-width/v83-break-full-dark-900",
+  "action": "A",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "readme-margin-break-cream": {
+  "new": "layout-width/v84-break-auto-readme-cream-1200",
+  "action": "K",
+  "group": "layout-width",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toc-column-light-900": {
+  "new": "toolbar-navigation/v22-toc-margin-light-900",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toc-column-light-900-auto": {
+  "new": "toolbar-navigation/v23-toc-auto-light-900",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toc-column-light-900-full": {
+  "new": "toolbar-navigation/v24-toc-full-light-900",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toc-column-dark-1600": {
+  "new": "toolbar-navigation/v25-toc-margin-dark-1600",
+  "action": "A",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toc-column-dark-1600-auto": {
+  "new": "toolbar-navigation/v26-toc-auto-dark-1600",
+  "action": "A",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toc-column-dark-1600-full": {
+  "new": "toolbar-navigation/v27-toc-full-dark-1600",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toc-column-light-460": {
+  "new": "toolbar-navigation/v28-toc-hidden-narrow-light-460",
+  "action": "K",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "toc-column-dark-460": {
+  "new": "toolbar-navigation/v29-toc-hidden-narrow-dark-460",
+  "action": "A",
+  "group": "toolbar-navigation",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "comment-chips-light-theme": {
+  "new": "review-annotations/v02-comment-todo-chips-light-900",
+  "action": "K",
+  "group": "review-annotations",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "comment-chips-dark-theme": {
+  "new": "review-annotations/v03-comment-todo-chips-dark-900",
+  "action": "K",
+  "group": "review-annotations",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "comment-chips-dark-cream": {
+  "new": "review-annotations/v04-comment-todo-chips-cream-900",
+  "action": "A",
+  "group": "review-annotations",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "figure-anchors-light-theme": {
+  "new": "myst/v17-figure-width-align-anchor-full-light-900",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "figure-anchors-dark-theme": {
+  "new": "myst/v18-figure-width-align-anchor-full-dark-900",
+  "action": "K",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "figure-anchors-dark-cream": {
+  "new": "myst/v19-figure-width-align-anchor-full-cream-900",
+  "action": "A",
+  "group": "myst",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "frontmatter-link-details-white-900": {
+  "new": "frontmatter-schema/v16-links-details-white-900",
+  "action": "A",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "frontmatter-link-details-white-460": {
+  "new": "frontmatter-schema/v17-links-details-white-460",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "frontmatter-link-details-dark-900": {
+  "new": "frontmatter-schema/v18-links-details-dark-900",
+  "action": "K",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ },
+ "frontmatter-link-details-dark-460": {
+  "new": "frontmatter-schema/v19-links-details-dark-460",
+  "action": "A",
+  "group": "frontmatter-schema",
+  "stepsKept": [],
+  "stepsDropped": [],
+  "aliasOf": null
+ }
+}

@@ -1,0 +1,1969 @@
+
+> markdown-okf-schema-studio@0.1.0 test:unit
+> node --test out/test/security/*.test.js out/test/build/*.test.js out/test/configuration/*.test.js out/test/frontmatter/*.test.js out/test/mapping/*.test.js out/test/navigation/*.test.js out/test/rendering/*.test.js out/test/state/*.test.js out/test/webview/*.test.js
+
+✔ lets an in-flight build finish and starts the newest queued edit right after (1.674542ms)
+✔ retains a successful result as stale after a failed newer build (0.293541ms)
+✔ still renders a build whose buffer already moved on, and cleans up on dispose (0.203208ms)
+✔ tracks referenced dependencies for refresh decisions (0.24475ms)
+✔ debounces pending edits and cancels them without invoking the builder (0.21825ms)
+✔ cancellation discards late results and permits a fresh build (0.193667ms)
+✔ disposal releases the last result once and rejects future requests (0.454ms)
+✔ stages the dirty active buffer and only its referenced inputs (9.529209ms)
+✔ reuses a stage root so doctrees and theme assets survive the next build (3.673709ms)
+✔ reports missing referenced inputs with source line diagnostics (1.228083ms)
+✔ github alerts become MyST admonitions (1.24025ms)
+✔ github alert expansion preserves line numbers (0.309375ms)
+✔ every supported github alert type maps to an admonition (0.246083ms)
+✔ unknown alert markers stay untouched (0.104ms)
+✔ alerts inside fenced code blocks are not rewritten (0.188917ms)
+✔ appends a bibliography when citations need resolving (0.905042ms)
+✔ does not touch documents without citations (0.12375ms)
+✔ respects an existing bibliography directive (0.095042ms)
+✔ checks workspace trust before staging or spawning Sphinx (1.822084ms)
+✔ invokes only the authentic isolated Sphinx HTML command (3.220459ms)
+✔ returns actionable source diagnostics for a failing Sphinx directive (4.603375ms)
+✔ terminates an active Sphinx child and removes its temporary stage on cancellation (2.524708ms)
+✔ frontmatter settings use their own section and defaults (1.162791ms)
+✔ frontmatter visibility and strict validation can be configured independently (0.143458ms)
+✔ reads and trims the configured PlantUML JAR path (1.133125ms)
+✔ uses an empty path for non-string configuration values (0.08275ms)
+✔ reads independent studio preview settings without stock configuration keys (0.694458ms)
+✔ normalizes preview content width and reserves zero for unlimited (0.086ms)
+✔ normalizes sticky heading depth to one through six levels (0.071958ms)
+✔ link annotations read target fields and exact marker lines afresh (29.789125ms)
+✔ link display options reject invalid metadata (4.197458ms)
+✔ oneOf annotations are collected only when exactly one branch matches (148.040333ms)
+✔ conditional, patternProperties, and additionalProperties schemas are traversed (6.947834ms)
+✔ document-relative links stay inside workspace roots unless explicitly allowed (4.549625ms)
+✔ auto-detected git roots outside the workspace are ignored (0.869541ms)
+✔ value edit F1 title changes only the named field (25.434041ms)
+✔ value edit F1 lifecycle changes only the named field (1.170333ms)
+✔ value edit F1 annotation_exemption changes only the named field (1.752ms)
+✔ value edit F1 exemption_reason changes only the named field (13.987708ms)
+✔ value edit F1 derives_from changes only the named field (7.30025ms)
+✔ value edit F1 derived_by changes only the named field (2.277ms)
+✔ value edit F2 title changes only the named field (2.986583ms)
+✔ value edit F2 tags changes only the named field (1.263292ms)
+✔ value edit F2 links changes only the named field (1.292916ms)
+✔ value edit F2 quoted changes only the named field (1.919292ms)
+✔ value edit F2 summary changes only the named field (12.597167ms)
+✔ value edit F2 status changes only the named field (1.585917ms)
+✔ value edit F3 title changes only the named field (2.432708ms)
+✔ value edit F4 status changes only the named field (1.307833ms)
+✔ structural F2 rename title to heading keeps the trailing comment (1.030833ms)
+✔ structural F2 remove links deletes exactly that line (0.499458ms)
+✔ structural F2 remove tags deletes exactly the sequence lines (0.392917ms)
+✔ structural F1 add owner appends one line before the closing delimiter (0.818291ms)
+✔ structural F2 edits keep both comments unless their own line is removed (3.775458ms)
+✔ structural F2 add owner after title inserts one line directly after the title (0.389958ms)
+✔ structural F2 add after the last field matches the add without afterField (0.591458ms)
+✔ structural add to an empty frontmatter block writes the pair into the fence (0.121042ms)
+✔ structural F1 add of a list uses the compact sequence style (2.023875ms)
+✔ structural F2 remove of the last field keeps the blank line and the closing fence (1.067792ms)
+✔ structural F2 rename to a key that needs quoting changes only that line (1.045708ms)
+✔ structural CRLF add after a field keeps CRLF line endings (0.642375ms)
+✔ structural CRLF add at the end appends one CRLF line before the fence (0.628167ms)
+✔ structural CRLF remove deletes the field lines and keeps CRLF (0.318667ms)
+✔ structural CRLF remove of the last field drops the preceding break (0.369916ms)
+✔ add after a list keeps its commented-out item above the new field (0.775ms)
+✔ add after a list keeps its commented-out item above the new field on CRLF (0.632917ms)
+✔ add after a nested map keeps its trailing comment above the new field (0.731041ms)
+✔ add of a multi-line value after a commented list is still positioned (0.598667ms)
+✔ add after a list keeps a column-0 comment with the next field (0.529334ms)
+✔ removing the only field leaves a valid empty mapping (0.44425ms)
+✔ removing the only field of a CRLF document leaves a valid empty mapping (1.360541ms)
+✔ extractFrontmatter detects and parses the leading YAML block (5.729792ms)
+✔ fieldIconType maps schema declarations and generic values to display types (0.190583ms)
+✔ frontmatter field patches preserve comments, fences, line endings, and body (2.217875ms)
+✔ frontmatter scalar and object edits preserve YAML node metadata (3.546084ms)
+✔ frontmatter array edits keep comments attached to reordered items (2.479667ms)
+✔ frontmatter key renames preserve comments and reject duplicate destinations (8.269875ms)
+✔ frontmatter field removal preserves comments, fences, and body (9.569833ms)
+✔ extractFrontmatter rejects a document without frontmatter (0.98875ms)
+✔ extractFrontmatter reports invalid YAML with the parse error (7.272542ms)
+✔ parseYamlValue handles structured values and rejects malformed YAML (12.091417ms)
+✔ findSchemaDirectory walks ancestors and prefers _schema over _schemas (4.894834ms)
+✔ findSchemaDirectory still finds _schemas when _schema is absent (2.81725ms)
+✔ matchSchemaFile matches case-insensitively on the stem before .schema (0.851541ms)
+✔ resolveSchemaRefs inlines relative references with extension fallbacks (1.056375ms)
+✔ effectiveProperties collapses allOf branches and collects required (0.162041ms)
+✔ analyzeFrontmatter yields schema-ordered fields with docs and enums (74.709375ms)
+✔ nullable reset metadata preserves declared nullability while conditional validation stays active (112.752083ms)
+✔ frontmatter without a type skips schema discovery and validation (2.196917ms)
+✔ analyzeFrontmatter surfaces an info when the type has no schema (0.812459ms)
+✔ reduced mode explains that schema validation needs a trusted workspace (0.670792ms)
+✔ unmatched OKF-like SKILL frontmatter remains generic and skips schema validation (3.33925ms)
+✔ analyzeFrontmatter validates enums, consts, and formats against the schema (3.851584ms)
+✔ analyzeFrontmatter inspects annotated scalar and array links without AJV keyword errors (10.71225ms)
+✔ frontmatter link identity prefers the configured id and otherwise uses the basename (0.659ms)
+✔ analyzeFrontmatter attaches nested link results to the parent field (3.400292ms)
+✔ file-link union applicability honors pattern and explicit root precedence (2.629666ms)
+✔ file-link union applicability preserves boolean local references (1.176041ms)
+✔ filename-stem links recheck symlink containment after an internal target drifts (1.20875ms)
+✔ filename-stem links report W15 when matching candidates are unavailable (0.539375ms)
+✔ strict mode warns on unknown fields; lenient mode does not (3.735333ms)
+✔ missing required fields are exposed as an ordered schema summary (1.369667ms)
+✔ json5 and json schema formats parse correctly (1.751125ms)
+✔ schema declarations do not become description annotations (5.253166ms)
+✔ value patch rewrites only the edited field line and keeps its inline comment (1.598959ms)
+✔ value patch for an anchored value still writes correct data (1.283667ms)
+✔ value patch for a nested map written as an object yields the same data (0.9095ms)
+✔ appending a sequence item keeps a comment line between existing items (1.164208ms)
+✔ value patch with an unchanged value leaves the document text identical (1.185875ms)
+✔ value patch fills an empty value on CRLF documents without touching the next line (0.725167ms)
+✔ appending to a sequence keeps a trailing commented-out item once (1.009917ms)
+✔ a commented last item of a block sequence keeps its comment once (1.265333ms)
+✔ editing a nested map keeps its trailing comment once (0.763834ms)
+✔ editing a block scalar keeps its header comment (2.462708ms)
+✔ replacing a commented scalar by a list keeps the comment once (0.489417ms)
+✔ a multi-line value on a plain field is written as a literal block (0.342458ms)
+✔ a multi-line comment between CRLF sequence items keeps CRLF line endings (0.306417ms)
+✔ a multi-line comment inside a CRLF nested map keeps CRLF line endings (0.270708ms)
+✔ frontmatter field removal keeps the comment lines above the removed key (0.166708ms)
+✔ frontmatter add with afterField reports whether the field was placed (1.597625ms)
+✔ no markup when frontmatter is absent or the table is disabled (0.570084ms)
+✔ renders a two-column Obsidian-like table with escaped values (1.658667ms)
+✔ description controls live in column headers with an adjacent collapsed restore slot (0.117208ms)
+✔ read-only tables expose values without edit targets (0.111834ms)
+✔ annotated scalar and list values render independent navigation and status markup (0.259583ms)
+✔ valid link tooltips expose workspace-relative paths (0.199875ms)
+✔ pending links show a spinner after their text (0.100584ms)
+✔ deferred replacement removes pending link spinners (3.796583ms)
+✔ nested annotated values render links and diagnostics inside object previews (0.5005ms)
+✔ renders boolean values as read-only checkboxes in preview mode (0.159375ms)
+✔ caps long list previews and reports omitted items (0.301417ms)
+✔ does not match a list link by array index without a field path (0.115667ms)
+✔ renders list items with hyphen markers (0.064333ms)
+✔ maps the injected properties section to the frontmatter source (0.650875ms)
+✔ error rows carry the red underline class and hover tooltip (0.08725ms)
+✔ missing required fields are summarized after the table (0.046625ms)
+✔ exposes unused schema keys for frontmatter key editing (0.068167ms)
+✔ exposes unused schema field metadata for the frontmatter toolbar (0.038ms)
+✔ structured values and enum choices are exposed for schema-aware editing (0.145541ms)
+✔ unknown fields are marked and info rows render (0.072ms)
+✔ diagnostic errors span every table column and expose their severity (0.050542ms)
+✔ replacePropertiesTableMarkup swaps the table in place (0.645083ms)
+✔ repeated checkbox refreshes replace source-mapped tables without duplication (1.160792ms)
+✔ replacement removes serialized duplicates and nested sections while preserving other HTML (1.838333ms)
+✔ schema-matched tables add a third description column (0.9155ms)
+✔ renders empty lists without a phantom preview item (0.072458ms)
+✔ marks schema-nullable fields in row metadata (0.074459ms)
+✔ escapes list preview items without truncating short lists (0.057708ms)
+✔ plain yaml tables stay two-column even when docs are absent (0.04175ms)
+✔ nested object values render as escaped YAML while keeping edit metadata (0.252ms)
+✔ schema declarations do not appear as description annotations (0.085125ms)
+✔ name cells carry a size-bounded Obsidian-style type icon (0.129042ms)
+✔ validator cache returns the same compiled function for a schema object (85.363542ms)
+✔ MarkdownStemIndex excludes generated, dependency, and hidden directories (8.082667ms)
+✔ invalidateStemIndex refreshes the cached index for a root (1.393083ms)
+✔ keeps only active-document mappings in DOM order for ties (0.679667ms)
+✔ accepts Windows separators without weakening document identity (0.076625ms)
+✔ source ranges preserve line endings and reject invalid bounds (0.129833ms)
+✔ identical input yields an empty replacement (0.951208ms)
+✔ insertion, deletion and replacement in the middle (0.705041ms)
+✔ insertion at the start and at the end (0.139875ms)
+✔ repeated characters do not let prefix and suffix overlap (0.213666ms)
+✔ a CRLF pair is never split (0.198292ms)
+✔ a surrogate pair is never split (1.165917ms)
+✔ replacement reproduces the target for 200 seeded random pairs (0.973583ms)
+✔ Markdown fragments select headings and source lines, not fenced examples (1.83325ms)
+✔ marker navigation selects exact marker identities (0.766042ms)
+✔ searches every workspace root and blocks cross-root wikilink ambiguity (2.8115ms)
+✔ discovers bare wikilinks before accepting an active-root sibling (1.130167ms)
+✔ classifies relative links without touching the filesystem (0.094083ms)
+▶ discovers wikilinks on demand and refuses ambiguous or escaping targets
+  ✔ allows document-relative resolved targets outside a workspace root only in that mode (1.659125ms)
+✔ discovers wikilinks on demand and refuses ambiguous or escaping targets (2.725333ms)
+✔ classifies anchors, external links, and workspace-local files (0.708ms)
+✔ blocks unsafe anchors, schemes, and paths (0.336334ms)
+✔ markers are found with document line and UTF-16 column, and line breaks are preserved (1.586208ms)
+✔ placeholders contain no character Markdown could interpret (1.369583ms)
+✔ link syntax, escapes, wikilinks, images and headings are not checkboxes (0.375167ms)
+✔ a defined [x] reference label keeps [x] as a link but [ ] stays a checkbox (0.18325ms)
+✔ a colon after a marker mid-line does not prevent a checkbox (0.140292ms)
+✔ placeholders split and restore to the original marker text (0.383833ms)
+✔ toggling computes a one-character edit and validates the marker (0.234584ms)
+✔ task lists, paragraphs and table cells render interactive checkboxes mapped to the source (308.249292ms)
+✔ CRLF documents keep exact columns (1.462417ms)
+✔ markers stay literal in code, math, diagrams, links, headings and raw HTML (9.794875ms)
+✔ markers inside directives and their titles become checkboxes (1.753791ms)
+✔ the webview sanitizer keeps checkbox inputs and their source attributes (1.039958ms)
+✔ colours tokens for a registered grammar (31.8295ms)
+✔ resolves the fence label through aliases (30.622334ms)
+✔ renders diff and patch fences with signed-line treatments (1.129167ms)
+✔ wraps numbered lines without breaking multiline highlighted spans (0.212916ms)
+✔ leaves an unregistered grammar as plain text (0.0605ms)
+✔ decodes numeric references before highlighting and does not double-escape (0.274708ms)
+LaTeX-incompatible input and strict mode is set to 'warn': HTML extension is disabled on strict mode [htmlExtension]
+✔ typesets inline and display math with local assets and CSP-compatible styles (15.210625ms)
+✔ supports Sphinx math delimiters and leaves ordinary text and code alone (14.830708ms)
+✔ invalid LaTeX stays readable without breaking valid equations (7.052375ms)
+✔ math cannot inject trusted HTML commands or external links (7.855375ms)
+✔ wikilinks render as lazy note targets without changing code or existing links (208.942334ms)
+✔ the in-process renderer preserves the active-file MyST feature contract (9.182042ms)
+✔ figure references render figures whose body supplies the caption (1.644125ms)
+✔ references to captionless figures and tables stay readable (2.337916ms)
+✔ MyST code directives number and emphasize lines relative to their start (1.923041ms)
+✔ MyST code-cell directives render numbered input without claiming execution (1.634417ms)
+✔ Mermaid fences and directives preserve diagram source for webview rendering (1.332583ms)
+✔ PlantUML fences and directives preserve diagram source for external rendering (2.009834ms)
+✔ Sphinx version admonitions render generated titles and Markdown bodies (1.849292ms)
+✔ custom admonition titles preserve inline Markdown and their class (0.85025ms)
+✔ nested backtick and colon delimiters preserve their enclosing Markdown (3.310542ms)
+✔ GitHub alert syntax preserves an explicit title (0.632709ms)
+✔ GitHub alert syntax defaults the title when none is provided (0.503458ms)
+✔ GitHub bold Note, Important, and Warning markers become simple admonitions (0.793792ms)
+✔ MyST typography renders definitions, abbreviations, scripts, and footnotes (1.446375ms)
+✔ all named MyST admonitions receive their documented default title (3.103708ms)
+✔ a leading bold paragraph or heading supplies the MyST admonition title (0.897375ms)
+✔ Quarto callout classes render as semantic MyST admonitions (0.693583ms)
+✔ dropdown admonitions render as openable details with a summary (0.829958ms)
+✔ MyST GFM and directive tables preserve captions, headers, and alignment (5.518333ms)
+✔ raw HTML tables preserve complex cell spans without active content (1.438375ms)
+✔ raw HTML table cell styles are preserved as safe preview metadata (2.650833ms)
+✔ table directives render trusted workspace-local HTML includes (3.326583ms)
+✔ Jupyter table output embeds show a project-build placeholder (0.780792ms)
+✔ block elements carry the source line the editor scrolls against (0.715958ms)
+✔ multiline blocks retain their full mapped source range (0.404166ms)
+✔ MyST admonitions retain the directive range through the closing fence (0.474458ms)
+✔ standalone hyphenated context tags render as mapped Markdown admonitions (2.26475ms)
+✔ simple and snake_case context tags preserve adjacent fences and source ranges (1.200666ms)
+✔ nested context tags preserve each wrapper range (0.548208ms)
+✔ unsupported context boundaries stay literal and fenced XML stays code (3.558ms)
+✔ standard HTML and inline or fenced XML stay outside context grouping (0.856542ms)
+✔ block source ranges stay absolute when leading frontmatter is stripped (2.924916ms)
+✔ project-scoped roles and directives degrade to labelled placeholders (1.054375ms)
+✔ an untrusted workspace refuses to render (0.238208ms)
+✔ renders PlantUML through the configured external JAR and injects an image (6.781792ms)
+✔ uses the PATH executable when no JAR is configured and reports missing commands (1.957833ms)
+✔ returns diagnostics for PlantUML process failures and malformed output (1.534083ms)
+✔ cancels an active PlantUML process (0.708959ms)
+✔ the render pipeline retains buffer identity and attaches source diagnostics (7.200958ms)
+✔ the trust gate prevents renderer invocation unless reduced mode is allowed (0.581583ms)
+✔ renderer failures preserve the stage and original failure message (0.215166ms)
+✔ cancellation while rendering rejects a late successful result (0.190167ms)
+✔ rewrites local resources and removes active HTML content (27.566375ms)
+✔ reduced previews remove external scripts while retaining contained media (5.156917ms)
+✔ maps rendered source lines to the active preview document (8.904958ms)
+✔ rewrites sanitized table styles into a nonce-bearing stylesheet (4.494666ms)
+✔ blocks hostile CSS imports, schemes, and URLs while preserving local assets (0.481041ms)
+✔ generates a restrictive nonce-bearing CSP (0.124417ms)
+✔ adds the CSP as a head meta without retaining a weaker policy (0.212541ms)
+✔ removes refresh metadata with surrounding whitespace (0.14225ms)
+✔ keeps deferred relative navigation inert and host-routable (0.611084ms)
+✔ resolves parent-relative figure images through the workspace root (1.13325ms)
+✔ strips figure images that escape even the workspace root (0.542166ms)
+✔ contributes only opt-in Markdown OKF-Schema Studio commands (1.831791ms)
+✔ pins Node 24 and keeps the lockfile on Artifactory (1.328ms)
+✔ canonicalizes local resources and rejects hostile paths (2.70625ms)
+✔ allows only explicit navigation schemes (1.222084ms)
+✔ rewrites srcset candidates without allowing data or script URLs (0.17125ms)
+✔ resolves parent-relative figure references through an ancestor root (0.762292ms)
+✔ still blocks references escaping the workspace root (0.485209ms)
+✔ parses bounded preview panel state and preserves supported fields (1.62775ms)
+✔ rejects invalid identity and drops malformed optional state (0.244083ms)
+✔ accepts only complete theme-mode change messages (0.731209ms)
+✔ restores a valid workspace theme mode and ignores invalid stored values (0.266042ms)
+✔ anchors long paragraphs at the start of each source line (0.455417ms)
+✔ falls back to block bounds when paragraph lines cannot be measured (0.061958ms)
+✔ converts lines to scroll positions and back through the reading offset (0.138583ms)
+✔ ramps the reading line so the top of the page is line 1 (0.061916ms)
+✔ reports the editor top line as the floor of the anchor (0.636375ms)
+✔ ignores editor echoes across re-renders, then yields to the user (0.289708ms)
+✔ accepts one centered-reveal echo, then treats further scrolling as the user's (0.124208ms)
+✔ shifts the anchor when lines change above it only (0.167708ms)
+✔ geometry checks define one function that reports the four check ids (3.323125ms)
+✔ without any DOM content every geometry check is not applicable and passes (1.148875ms)
+✔ identifier-split passes when a cell's text nodes share one line at different sizes (2.2045ms)
+✔ identifier-split ignores list items on separate lines (0.861666ms)
+✔ identifier-split reports a text node wrapped over two lines (0.491541ms)
+✔ overlay-covers-text counts a text node once when nested blocks both contain it (0.835958ms)
+✔ link discovery waits for the viewport and deduplicates bounded batches (1.825875ms)
+✔ local and wiki clicks are host-routed even before discovery, including middle click (0.321959ms)
+✔ discovery hints ignore stale renders and never replace the original target (0.291917ms)
+✔ pipe tables round-trip escaped cells and CRLF line endings (1.8325ms)
+✔ inserting and deleting table rows and columns preserves the remaining cells (0.93375ms)
+✔ table tools cannot delete the header, final body row, or final column (0.081459ms)
+✔ non-table blocks and malformed separator rows cannot be edited as pipe tables (0.187667ms)
+✔ cellSegments returns the text between the delimiting pipes, offsets in the untrimmed line (0.591709ms)
+✔ inserting a row after the first body row of a padded table adds one padded line (0.534333ms)
+✔ a shrinking value in a padded table keeps the original cell width (0.289125ms)
+✔ deleting the first body row of a compact table removes exactly one line (0.295958ms)
+✔ inserting a column re-serializes the table with one more column (0.179792ms)
+✔ a row inserted into a CRLF table keeps CRLF line endings (0.405667ms)
+✔ rows without outer pipes stay parseable when an edge cell is emptied (0.324833ms)
+✔ inserting a row into a table without outer pipes adds one parseable row (0.191666ms)
+✔ rows with only one outer pipe stay parseable (0.221792ms)
+✔ filling an empty cell keeps the table's padding (0.518417ms)
+✔ lineDelta: identical input has no removed or added lines (1.701958ms)
+✔ lineDelta: one changed line is reported as one removed and one added line (0.167041ms)
+✔ lineDelta: one inserted line is reported as one added line (0.156167ms)
+✔ round trip preserves the source: compact-book (0.695916ms)
+✔ round trip preserves the source: padded (0.155333ms)
+✔ round trip preserves the source: no-spaces (0.10025ms)
+✔ round trip preserves the source: alignment (0.089875ms)
+✔ round trip preserves the source: no-outer-pipes (0.102125ms)
+✔ round trip preserves the source: escaped-and-code (0.126167ms)
+✔ round trip preserves the source: indented (0.184375ms)
+✔ round trip preserves the source: crlf (0.107166ms)
+✔ round trip preserves the source: wider-than-padding (0.101417ms)
+✔ one-cell edit changes exactly one line: compact-book (0.269791ms)
+✔ one-cell edit changes exactly one line: padded (0.109708ms)
+✔ one-cell edit changes exactly one line: no-spaces (0.747084ms)
+✔ one-cell edit changes exactly one line: alignment (0.108333ms)
+✔ one-cell edit changes exactly one line: no-outer-pipes (0.081333ms)
+✔ one-cell edit changes exactly one line: escaped-and-code (0.061583ms)
+✔ one-cell edit changes exactly one line: indented (0.046125ms)
+✔ one-cell edit changes exactly one line: crlf (0.053459ms)
+✔ one-cell edit changes exactly one line: wider-than-padding (0.069417ms)
+✔ every single-cell edit reparses and changes at most one line: compact-book (0.727625ms)
+✔ every single-cell edit reparses and changes at most one line: padded (0.357625ms)
+✔ every single-cell edit reparses and changes at most one line: no-spaces (0.301584ms)
+✔ every single-cell edit reparses and changes at most one line: alignment (0.363375ms)
+✔ every single-cell edit reparses and changes at most one line: no-outer-pipes (0.26675ms)
+✔ every single-cell edit reparses and changes at most one line: escaped-and-code (0.676417ms)
+✔ every single-cell edit reparses and changes at most one line: indented (0.229292ms)
+✔ every single-cell edit reparses and changes at most one line: crlf (0.415833ms)
+✔ every single-cell edit reparses and changes at most one line: wider-than-padding (0.235334ms)
+✔ frontmatter link tooltips wrap text in a fixed theme-aware pointer-transparent surface (3.227792ms)
+✔ typography is driven by VS Code markdown preview variables (0.090083ms)
+✔ scrollbar tracks and thumbs follow the preview theme (0.171875ms)
+✔ linked file details are muted, italic, and clipped to the available line (0.146958ms)
+✔ list insertion lines show the drop boundary without moving the rows (0.165709ms)
+✔ the top heading keeps the stock preview rule underneath it (0.077375ms)
+✔ sticky headings align with content and emphasize text in a full-width band (0.406125ms)
+✔ preview controls stack above the sticky heading band (1.016417ms)
+✔ the theme neutralises Shibuya page gutters (0.445208ms)
+✔ description header controls align right and restore only when collapsed (0.429584ms)
+✔ properties tables fill the preview content column (0.468667ms)
+✔ narrow properties wrap long paths without hiding expanded descriptions (0.481333ms)
+✔ every admonition flavour gets an accent colour (0.651083ms)
+✖ block editing grows without internal scrolling and is framed (0.815084ms)
+✖ edit mode outlines the hovered block without moving the layout (0.328625ms)
+✖ raw Markdown and YAML editors use the editor font, text fields keep the preview font (0.452542ms)
+✔ active paragraph editors share the rendered paragraph spacing (0.076708ms)
+✔ Sphinx version admonitions use success, warning, and danger accents (0.112042ms)
+✔ MyST simple and no-icon admonition modifiers are styled (0.079583ms)
+✔ MyST table alignment and notebook output placeholders are styled (0.114417ms)
+✔ MyST numbered and emphasized code lines are styled (0.081542ms)
+✔ diff lines use full-width theme-aware add and delete treatments (0.249583ms)
+✔ Mermaid diagrams keep SVG images contained and source inspectable (0.076083ms)
+✔ figure captions are centred and de-emphasised (0.053208ms)
+✔ images never overflow the preview column (0.043417ms)
+✔ floating preview toolbar supports forced dark and white palettes (0.133208ms)
+✔ preview toolbar provides refresh, editor anchoring, edit mode and theme controls (0.247292ms)
+✔ control tooltips retain their offset while sticky headings remain at the top (0.178083ms)
+✔ white mode keeps code backgrounds soft and code text readable blue (0.152ms)
+✔ fenced code uses the editor foreground and one font scale (0.083ms)
+✔ frontmatter properties label is inset, table-matched, and unboxed (0.102042ms)
+✔ frontmatter edit hover colors follow the selected preview theme (0.068833ms)
+✖ frontmatter edits stay inline while edit mode preserves source newlines (0.3375ms)
+✔ active toolbar toggles do not show a redundant focus ring (0.037167ms)
+✔ frontmatter and table editors keep the active cell surface without nested input frames (0.159625ms)
+✔ preview content width is configurable and can be unlimited (0.059417ms)
+✔ latest saved Description visibility wins over an older enrichment snapshot (7.86075ms)
+✔ Description column toggles persist and restore both states (7.41275ms)
+✔ narrow previews default to collapsed descriptions without overriding an explicit choice (3.317042ms)
+✔ sticks to the active Markdown heading hierarchy in up to three lines (1.763375ms)
+✔ caps sticky heading convergence at three passes (0.471416ms)
+✔ maps the frontmatter table for stable top and mid-table scroll round-trips (0.807666ms)
+✔ preserves preview scroll when layout changes during sticky heading activation (2.563875ms)
+✔ uses the configured sticky heading depth (5.037875ms)
+✔ anchors the editor source line below the sticky heading band without reverse sync (1.831125ms)
+✔ source anchoring does not reserve a row for floating controls (0.486958ms)
+✔ runtime script cannot terminate its containing script element (0.2095ms)
+✔ observes preview content instead of the document body (0.583791ms)
+✔ cycles preview theme modes and restores the saved selection (2.492542ms)
+✔ frontmatter tooltips preserve exact safe text and restore accessible metadata on dismissal (5.386833ms)
+✔ switching frontmatter tooltip links removes the old tooltip and absent ARIA metadata (0.385916ms)
+✔ refresh preserves viewport state while reverse synchronization stays disabled (0.465291ms)
+✔ disabling editor anchoring stops preview-to-editor scrolling (2.033375ms)
+✔ preview can revisit its last reported line after the source editor scrolls elsewhere (0.397708ms)
+✔ source scrolling remains bidirectional while a block editor is open (0.7825ms)
+✔ restores saved editor anchoring when the configured preference changed (1.64325ms)
+✔ activating a centered block editor preserves scroll before and after layout stabilization (0.46875ms)
+✔ fenced Markdown editors sit outside the rendered pre and preserve source when saving (0.609292ms)
+✔ without caretRangeFromPoint a click opens the editor with the caret at the end of the block (0.374958ms)
+✔ active Markdown editors leave repeated spaces and Enter to native text input (0.533084ms)
+✔ Enter in a list item continues the list, and Shift+Enter stays native (0.485791ms)
+✔ Tab and Shift+Tab indent the block editor without closing it (0.535125ms)
+✔ Enter on an empty list item empties the line and Enter in plain text stays native (1.780375ms)
+✔ block textareas resize on input and preview layout changes (1.007875ms)
+✖ edit mode loads raw Markdown and saves changes when the block loses focus (1.255625ms)
+✖ edit mode hover marks the whole list that a click would edit (1.541875ms)
+✖ an opened block editor shows its line range, Done and a disabled Revert (1.602208ms)
+✖ Revert enables on change and cancels only what reached the document (1.434875ms)
+✖ Done posts a final save and both buttons keep the textarea focused on press (1.471625ms)
+✔ raw Markdown block edits autosave on input without disabling the textarea (0.880792ms)
+✔ arrow boundaries transfer block editing in every direction (1.704584ms)
+✔ table cell editing exposes row and column operations and saves the edited table (1.159292ms)
+✔ table editing switches cells without losing changes and finalizes before leaving the table (1.050167ms)
+✔ Escape in a changed Markdown block editor saves the text and never cancels (0.471916ms)
+✔ undo and redo shortcuts stop at the block textarea and keep the native undo (0.483875ms)
+✔ Escape in an unchanged Markdown block editor closes it without a message (0.395042ms)
+✔ Escape in a changed table cell saves the table and never cancels (0.48725ms)
+✔ turning edit mode off saves a changed block editor and ignores an unchanged one (0.738958ms)
+✔ table header cannot be deleted from the cell toolbar (0.375333ms)
+✔ table toolbar cannot delete the last body row (0.368459ms)
+✔ edit mode opens mapped figures and admonition titles at their source ranges (0.679417ms)
+✔ frontmatter name cells open a schema-suggesting key editor and save on blur (0.971584ms)
+✔ Escape cancels an unsaved frontmatter key edit (0.434333ms)
+✔ edit mode exposes schema enum controls and saves the selected value (0.736375ms)
+✔ boolean frontmatter values use a checkbox and save on change (0.620375ms)
+✔ frontmatter list editor supports add, reorder, remove, and direct array saves (0.818541ms)
+✔ list dragging shows the insertion boundary, reorders items, and suppresses drag blur saves (0.701125ms)
+✔ nullable list editor can set its value as null (0.632167ms)
+✔ nullable scalar editor can set its value to null (0.4ms)
+✔ frontmatter list editor adds from empty and saves after removing every item (2.608458ms)
+✔ frontmatter list editor keeps invalid edits open and Escape cancels them (0.553208ms)
+✔ frontmatter validation errors show an explicit error state (0.430334ms)
+✔ frontmatter floating bar follows the active field and stays within the viewport (2.960375ms)
+✔ frontmatter field toolbar adds and removes fields (0.878625ms)
+✔ empty enum values show an explicit placeholder (0.376292ms)
+✔ schema-free frontmatter values use a generic YAML editor (0.439291ms)
+✔ text frontmatter values use a wrapping textarea that grows with its content (0.387541ms)
+✔ Enter saves a one-line frontmatter text field and Shift+Enter does not (0.421458ms)
+✔ Enter in a multi-line frontmatter text value inserts a line; Cmd/Ctrl+Enter saves (0.429042ms)
+✔ saving a frontmatter text field strips trailing line breaks unless the original had one (0.714417ms)
+✔ Enter in the YAML frontmatter editor inserts a line; Cmd/Ctrl+Enter saves (0.36825ms)
+✔ Escape cancels an unsaved frontmatter value edit (0.411834ms)
+✔ frontmatter cells open their field editor with the keyboard in edit mode (0.388166ms)
+✔ executes source and preview synchronization across layout changes (2.445917ms)
+✔ marks editor selection without moving the preview when following is disabled (1.678458ms)
+▶ source scrolling rejects stale identities and invalid line numbers
+  ✔ other document (0.384416ms)
+  ✔ old document version (0.328291ms)
+  ✔ old render request (0.301417ms)
+  ✔ zero line (0.34175ms)
+  ✔ non-finite line (0.336084ms)
+✔ source scrolling rejects stale identities and invalid line numbers (1.92075ms)
+✔ scrolls to host-approved anchors and ignores invalid or stale requests (0.408167ms)
+✔ clicking a checkbox posts a source toggle instead of revealing the block (0.437833ms)
+✔ a rejected checkbox toggle reverts the box and explains why (0.332042ms)
+✔ in edit mode a checkbox click toggles the box without opening a block editor (0.323875ms)
+✔ a checkbox click is refused while a block editor is open (0.355042ms)
+✔ checkboxes are disabled when the preview cannot edit the document (0.313042ms)
+✔ typing is saved once after the autosave delay, carrying the last text (2.8795ms)
+✔ pagehide flushes a pending autosave without waiting for the timer (0.606583ms)
+✔ visibilitychange to hidden flushes a pending autosave without waiting for the timer (0.505875ms)
+✔ hide events post nothing when no edit is pending or the page stays visible (0.466833ms)
+✔ blur after typing posts one final save and clears the autosave timer (0.492917ms)
+✔ switching table cells posts the pending change immediately (1.724083ms)
+✔ continueOnEnter "- a|" (1.383542ms)
+✔ continueOnEnter "      - Dry goods|" (0.169875ms)
+✔ continueOnEnter "1. a|" (0.188416ms)
+✔ continueOnEnter "9) a|" (0.144625ms)
+✔ continueOnEnter "* a|" (0.139584ms)
+✔ continueOnEnter "+ a|" (0.064458ms)
+✔ continueOnEnter "- [x] done|" (0.044125ms)
+✔ continueOnEnter "- [ ] todo|" (0.045209ms)
+✔ continueOnEnter "> quote|" (0.053333ms)
+✔ continueOnEnter "> - item|" (0.0955ms)
+✔ continueOnEnter "- |" (0.60225ms)
+✔ continueOnEnter "a\n  - |\nb" (0.0415ms)
+✔ continueOnEnter ">  |" (0.027083ms)
+✔ continueOnEnter "|- a" (0.021ms)
+✔ continueOnEnter "-| a" (0.031041ms)
+✔ continueOnEnter "plain|" (0.042709ms)
+✔ continueOnEnter "    code|" (0.058666ms)
+✔ continueOnEnter "```\n- a|" (0.02475ms)
+✔ continueOnEnter "```\n  x|" (0.020209ms)
+✔ continueOnEnter "```\n- a\n```\n- b|" (0.022ms)
+✔ continueOnEnter "- a|b" (0.022458ms)
+✔ continueOnEnter leaves non-collapsed selections to the native behaviour (0.031541ms)
+✔ indentSelection indent "- a|" (0.189541ms)
+✔ indentSelection indent "|- a" (0.02475ms)
+✔ indentSelection indent "1. a|" (0.02125ms)
+✔ indentSelection indent "10. a|" (0.02175ms)
+✔ indentSelection indent "[- a\n- b]" (0.022584ms)
+✔ indentSelection indent "- a\n[- b\n]" (0.021417ms)
+✔ indentSelection outdent "    - a|" (0.031375ms)
+✔ indentSelection outdent "  - a|" (0.02075ms)
+✔ indentSelection outdent "- a|" (0.023166ms)
+✔ indentSelection outdent "plain|" (0.016625ms)
+✔ indentSelection outdent "    plain|" (0.016291ms)
+✔ indentSelection outdent "\tplain|" (0.02525ms)
+✔ indentSelection indent "some| prose" (0.021875ms)
+✔ indentSelection indent "[some prose]" (0.019792ms)
+✔ indentSelection indent "> - a|" (0.016416ms)
+✔ indentSelection outdent "> - a|" (0.01475ms)
+✔ indentSelection outdent ">   - a|" (0.015417ms)
+✔ indentSelection indent "a\n  - b|\nc" (0.01725ms)
+✔ mapRenderedCaret three-line paragraph (0.605417ms)
+✔ mapRenderedCaret emphasis (0.127333ms)
+✔ mapRenderedCaret link label (0.065791ms)
+✔ mapRenderedCaret list (0.063833ms)
+✔ mapRenderedCaret heading (0.085792ms)
+✔ mapRenderedCaret only the last 12 characters before the click match (0.110208ms)
+✔ mapRenderedCaret fenced code with underscore (documents the current result) (0.16775ms)
+✔ mapRenderedCaret ambiguous (0.065042ms)
+✔ mapRenderedCaret no match (0.116ms)
+✔ mapRenderedCaret empty context (0.073917ms)
+ℹ tests 495
+ℹ suites 0
+ℹ pass 486
+ℹ fail 9
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 642.155333
+
+✖ failing tests:
+
+test at out/test/webview/previewStyles.test.js:115:22
+✖ block editing grows without internal scrolling and is framed (0.815084ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /\.sphinx-preview-block-editor::before/u. Input:
+  
+  '\n' +
+    ':root {\n' +
+    '  --sphinx-preview-font: var(--vscode-markdown-font-family, var(--vscode-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, sans-serif));\n' +
+    '  --sphinx-preview-font-size: var(--vscode-markdown-font-size, 14px);\n' +
+    '  --sphinx-preview-line-height: var(--vscode-markdown-line-height, 1.6);\n' +
+    '  --sphinx-preview-border: var(--vscode-widget-border, var(--vscode-panel-border, rgba(128, 128, 128, 0.35)));\n' +
+    '  --sphinx-preview-content-max-width: 960px;\n' +
+    '  --sphinx-preview-controls-height: 116px;\n' +
+    '  --sphinx-preview-content-gutter: clamp(16px, 8vw, 78px);\n' +
+    '  --sphinx-preview-diff-addition: var(--vscode-charts-green, #2da44e);\n' +
+    '  --sphinx-preview-diff-deletion: var(--vscode-charts-red, #cf222e);\n' +
+    '  --sphinx-preview-scrollbar-thumb: var(--vscode-scrollbarSlider-background, rgba(128, 128, 128, 0.4));\n' +
+    '  --sphinx-preview-scrollbar-hover: var(--vscode-scrollbarSlider-hoverBackground, rgba(128, 128, 128, 0.7));\n' +
+    '}\n' +
+    '\n' +
+    '* {\n' +
+    '  scrollbar-color: var(--sphinx-preview-scrollbar-thumb) var(--vscode-editor-background, Canvas);\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar {\n' +
+    '  width: 12px;\n' +
+    '  height: 12px;\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar-track,\n' +
+    '::-webkit-scrollbar-corner {\n' +
+    '  background: var(--vscode-editor-background, Canvas);\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar-thumb {\n' +
+    '  background: var(--sphinx-preview-scrollbar-thumb);\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar-thumb:hover {\n' +
+    '  background: var(--sphinx-preview-scrollbar-hover);\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-theme-mode="dark"],\n' +
+    'html[data-sphinx-preview-theme-mode="dark"] body {\n' +
+    '  color-scheme: dark;\n' +
+    '  --sphinx-preview-scrollbar-thumb: #686868;\n' +
+    '  --sphinx-preview-scrollbar-hover: #9e9e9e;\n' +
+    '  --vscode-editor-background: #1e1e1e;\n' +
+    '  --vscode-editor-foreground: #d4d4d4;\n' +
+    '  --vscode-descriptionForeground: #9d9d9d;\n' +
+    '  --vscode-textLink-foreground: #3794ff;\n' +
+    '  --vscode-focusBorder: #007fd4;\n' +
+    '  --vscode-editor-findMatchHighlightBackground: #ea5c0055;\n' +
+    '  --vscode-list-hoverBackground: rgba(255, 255, 255, 0.1);\n' +
+    '  --vscode-widget-border: #454545;\n' +
+    '  --vscode-editorHoverWidget-background: #252526;\n' +
+    '  --vscode-editorHoverWidget-foreground: #d4d4d4;\n' +
+    '  --vscode-editorHoverWidget-border: #454545;\n' +
+    '  --vscode-panel-border: #454545;\n' +
+    '  --vscode-textBlockQuote-background: #292929;\n' +
+    '  --vscode-textCodeBlock-background: #292929;\n' +
+    '  --vscode-button-secondaryBackground: #3a3d41;\n' +
+    '  --vscode-button-secondaryForeground: #d4d4d4;\n' +
+    '  --vscode-charts-blue: #75beff;\n' +
+    '  --vscode-charts-green: #89d185;\n' +
+    '  --vscode-charts-purple: #d3a0ff;\n' +
+    '  --vscode-charts-yellow: #e2c08d;\n' +
+    '  --vscode-charts-red: #f48771;\n' +
+    '  --vscode-charts-orange: #d18616;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-theme-mode="white"],\n' +
+    'html[data-sphinx-preview-theme-mode="white"] body {\n' +
+    '  color-scheme: light;\n' +
+    '  --sphinx-preview-scrollbar-thumb: #b3b3b3;\n' +
+    '  --sphinx-preview-scrollbar-hover: #808080;\n' +
+    '  --vscode-editor-background: #ffffff;\n' +
+    '  --vscode-editor-foreground: #1f1f1f;\n' +
+    '  --vscode-descriptionForeground: #5f5f5f;\n' +
+    '  --vscode-textLink-foreground: #006ab1;\n' +
+    '  --vscode-focusBorder: #005fb8;\n' +
+    '  --vscode-editor-findMatchHighlightBackground: #ffdf5d80;\n' +
+    '  --vscode-list-hoverBackground: rgba(0, 0, 0, 0.08);\n' +
+    '  --vscode-widget-border: #c8c8c8;\n' +
+    '  --vscode-editorHoverWidget-background: #f3f3f3;\n' +
+    '  --vscode-editorHoverWidget-foreground: #1f1f1f;\n' +
+    '  --vscode-editorHoverWidget-border: #c8c8c8;\n' +
+    '  --vscode-panel-border: #e5e5e5;\n' +
+    '  --vscode-textBlockQuote-background: #f3f3f3;\n' +
+    '  --vscode-textCodeBlock-background: #f0f0f0;\n' +
+    '  --vscode-button-secondaryBackground: #ededed;\n' +
+    '  --vscode-button-secondaryForeground: #333333;\n' +
+    '  --vscode-charts-blue: #005fb8;\n' +
+    '  --vscode-charts-green: #16825d;\n' +
+    '  --vscode-charts-purple: #652d90;\n' +
+    '  --vscode-charts-yellow: #8f6100;\n' +
+    '  --vscode-charts-red: #b5200d;\n' +
+    '  --vscode-charts-orange: #a65e00;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] {\n' +
+    '  position: fixed;\n' +
+    '  inset-block-start: 12px;\n' +
+    '  inset-inline-end: 14px;\n' +
+    '  z-index: 1100;\n' +
+    '  display: flex;\n' +
+    '  align-items: center;\n' +
+    '  gap: 2px;\n' +
+    '  padding: 3px;\n' +
+    '  border: 1px solid var(--sphinx-preview-border);\n' +
+    '  border-radius: 18px;\n' +
+    '  background: var(--vscode-editorWidget-background, var(--vscode-editor-background, Canvas));\n' +
+    '  color: var(--vscode-icon-foreground, var(--vscode-editor-foreground, CanvasText));\n' +
+    '  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.2);\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button {\n' +
+    '  display: grid;\n' +
+    '  width: 30px;\n' +
+    '  height: 30px;\n' +
+    '  place-items: center;\n' +
+    '  padding: 0;\n' +
+    '  border: 0;\n' +
+    '  border-radius: 50%;\n' +
+    '  background: transparent;\n' +
+    '  color: inherit;\n' +
+    '  cursor: pointer;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button:hover {\n' +
+    '  background: var(--vscode-toolbar-hoverBackground, rgba(128, 128, 128, 0.25));\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[aria-pressed="true"] {\n' +
+    '  background: var(--vscode-button-background, #0e639c);\n' +
+    '  color: var(--vscode-button-foreground, #ffffff);\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[aria-pressed="true"]:focus-visible {\n' +
+    '  outline: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button > svg {\n' +
+    '  width: 16px;\n' +
+    '  height: 16px;\n' +
+    '  fill: none;\n' +
+    '  stroke: currentColor;\n' +
+    '  stroke-linecap: round;\n' +
+    '  stroke-linejoin: round;\n' +
+    '  stroke-width: 1.7;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button:disabled {\n' +
+    '  cursor: not-allowed;\n' +
+    '  opacity: 0.5;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip],\n' +
+    '.sphinx-preview-table-menu button[data-tooltip],\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip] {\n' +
+    '  position: relative;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]::after {\n' +
+    '  position: absolute;\n' +
+    '  inset-block-start: calc(100% + 8px);\n' +
+    '  inset-inline-start: 50%;\n' +
+    '  z-index: 1300;\n' +
+    '  width: max-content;\n' +
+    '  max-width: min(240px, calc(100vw - 16px));\n' +
+    '  padding: 5px 8px;\n' +
+    '  border: 1px solid var(--vscode-editorHoverWidget-border, var(--vscode-widget-border, currentColor));\n' +
+    '  border-radius: 4px;\n' +
+    '  background: var(--vscode-editorHoverWidget-background, var(--vscode-editor-background, Canvas));\n' +
+    '  color: var(--vscode-editorHoverWidget-foreground, var(--vscode-editor-foreground, CanvasText));\n' +
+    '  content: attr(data-tooltip);\n' +
+    '  font-size: 11px;\n' +
+    '  font-weight: 400;\n' +
+    '  line-height: 1.3;\n' +
+    '  text-align: start;\n' +
+    '  white-space: normal;\n' +
+    '  visibility: hidden;\n' +
+    '  opacity: 0;\n' +
+    '  pointer-events: none;\n' +
+    '  transform: translate(-50%, -3px);\n' +
+    '  transition: opacity 100ms ease, transform 100ms ease;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]::after {\n' +
+    '  inset-inline-start: auto;\n' +
+    '  inset-inline-end: 0;\n' +
+    '  transform: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after {\n' +
+    '  transform: none;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n' +
+    '  position: fixed;\n' +
+    '  inset-block-start: var(--sphinx-preview-controls-height);\n' +
+    '  inset-inline-start: 8px;\n' +
+    '  transform: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n' +
+    '  visibility: visible;\n' +
+    '  opacity: 1;\n' +
+    '  transform: translate(-50%, 0);\n' +
+    '}\n' +
+    '\n' +
+    '/* Fixed, out of flow: showing or resizing the band never moves the content (scroll anchoring R8). */\n' +
+    '[data-sphinx-preview-sticky-headings] {\n' +
+    '  position: fixed;\n' +
+    '  inset-block-start: 0;\n' +
+    '  inset-inline: 0;\n' +
+    '  z-index: 999;\n' +
+    '  box-sizing: border-box;\n' +
+    '  width: 100%;\n' +
+    '  margin: 0;\n' +
+    '  padding-block: 0 4px;\n' +
+    '  padding-inline: max(var(--sphinx-preview-content-gutter), calc((100% - var(--sphinx-preview-content-max-width)) / 2 + var(--sphinx-preview-content-gutter)));\n' +
+    '  border: 0;\n' +
+    '  border-bottom: 1px solid var(--sphinx-preview-border);\n' +
+    '  border-radius: 0;\n' +
+    '  background: var(--vscode-editor-background, Canvas);\n' +
+    '  color: var(--vscode-editor-foreground, CanvasText);\n' +
+    '  font-family: var(--sphinx-preview-font);\n' +
+    '  font-size: calc(var(--sphinx-preview-font-size) + 2px);\n' +
+    '  font-weight: 700;\n' +
+    '  line-height: var(--sphinx-preview-line-height);\n' +
+    '  white-space: pre-wrap;\n' +
+    '  overflow-wrap: anywhere;\n' +
+    '  pointer-events: none;\n' +
+    '}\n' +
+    '\n' +
+    '/* The runtime owns scroll anchoring; browser scroll anchoring would fight it. */\n' +
+    'html,\n' +
+    'body {\n' +
+    '  overflow-anchor: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-sticky-headings][hidden] {\n' +
+    '  display: none;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-edit-mode="on"] [data-sphinx-source-file][data-sphinx-source-line] {\n' +
+    '  cursor: text;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content p[data-sphinx-source-line] {\n' +
+    '  overflow-wrap: anywhere;\n' +
+    '  white-space: pre-wrap;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content table p[data-sphinx-source-line] {\n' +
+    '  overflow-x: visible;\n' +
+    '  overflow-wrap: normal;\n' +
+    '  white-space: normal;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-editing="true"] {\n' +
+    '  display: none !important;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor {\n' +
+    '  position: relative;\n' +
+    '  z-index: 1;\n' +
+    '  margin: 0;\n' +
+    '  padding: 0;\n' +
+    '  border: 0;\n' +
+    '  background: transparent;\n' +
+    '  color: inherit;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor::before {\n' +
+    '  content: "";\n' +
+    '  position: absolute;\n' +
+    '  inset-block: 0;\n' +
+    '  inset-inline-start: -12px;\n' +
+    '  width: 3px;\n' +
+    '  border-radius: 0;\n' +
+    '  background: var(--vscode-charts-blue, #3794ff);\n' +
+    '  pointer-events: none;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor textarea {\n' +
+    '  display: block;\n' +
+    '  box-sizing: border-box;\n' +
+    '  width: 100%;\n' +
+    '  min-height: 1.5em;\n' +
+    '  max-height: none;\n' +
+    '  resize: none;\n' +
+    '  padding: 0;\n' +
+    '  border: 0;\n' +
+    '  border-radius: 0;\n' +
+    '  outline: none;\n' +
+    '  background: transparent;\n' +
+    '  color: inherit;\n' +
+    '  font: inherit;\n' +
+    '  line-height: inherit;\n' +
+    '  white-space: pre-wrap;\n' +
+    '  overflow-wrap: anywhere;\n' +
+    '  overflow: hidden;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor [data-sphinx-preview-edit-status]:empty {\n' +
+    '  display: none;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-ed'... 42222 more characters
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/previewStyles.test.js:120:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '\n:root {\n  --sphinx-preview-font: var(--vscode-markdown-font-family, var(--vscode-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, sans-serif));\n  --sphinx-preview-font-size: var(--vscode-markdown-font-size, 14px);\n  --sphinx-preview-line-height: var(--vscode-markdown-line-height, 1.6);\n  --sphinx-preview-border: var(--vscode-widget-border, var(--vscode-panel-border, rgba(128, 128, 128, 0.35)));\n  --sphinx-preview-content-max-width: 960px;\n  --sphinx-preview-controls-height: 116px;\n  --sphinx-preview-content-gutter: clamp(16px, 8vw, 78px);\n  --sphinx-preview-diff-addition: var(--vscode-charts-green, #2da44e);\n  --sphinx-preview-diff-deletion: var(--vscode-charts-red, #cf222e);\n  --sphinx-preview-scrollbar-thumb: var(--vscode-scrollbarSlider-background, rgba(128, 128, 128, 0.4));\n  --sphinx-preview-scrollbar-hover: var(--vscode-scrollbarSlider-hoverBackground, rgba(128, 128, 128, 0.7));\n}\n\n* {\n  scrollbar-color: var(--sphinx-preview-scrollbar-thumb) var(--vscode-editor-background, Canvas);\n}\n\n::-webkit-scrollbar {\n  width: 12px;\n  height: 12px;\n}\n\n::-webkit-scrollbar-track,\n::-webkit-scrollbar-corner {\n  background: var(--vscode-editor-background, Canvas);\n}\n\n::-webkit-scrollbar-thumb {\n  background: var(--sphinx-preview-scrollbar-thumb);\n}\n\n::-webkit-scrollbar-thumb:hover {\n  background: var(--sphinx-preview-scrollbar-hover);\n}\n\nhtml[data-sphinx-preview-theme-mode="dark"],\nhtml[data-sphinx-preview-theme-mode="dark"] body {\n  color-scheme: dark;\n  --sphinx-preview-scrollbar-thumb: #686868;\n  --sphinx-preview-scrollbar-hover: #9e9e9e;\n  --vscode-editor-background: #1e1e1e;\n  --vscode-editor-foreground: #d4d4d4;\n  --vscode-descriptionForeground: #9d9d9d;\n  --vscode-textLink-foreground: #3794ff;\n  --vscode-focusBorder: #007fd4;\n  --vscode-editor-findMatchHighlightBackground: #ea5c0055;\n  --vscode-list-hoverBackground: rgba(255, 255, 255, 0.1);\n  --vscode-widget-border: #454545;\n  --vscode-editorHoverWidget-background: #252526;\n  --vscode-editorHoverWidget-foreground: #d4d4d4;\n  --vscode-editorHoverWidget-border: #454545;\n  --vscode-panel-border: #454545;\n  --vscode-textBlockQuote-background: #292929;\n  --vscode-textCodeBlock-background: #292929;\n  --vscode-button-secondaryBackground: #3a3d41;\n  --vscode-button-secondaryForeground: #d4d4d4;\n  --vscode-charts-blue: #75beff;\n  --vscode-charts-green: #89d185;\n  --vscode-charts-purple: #d3a0ff;\n  --vscode-charts-yellow: #e2c08d;\n  --vscode-charts-red: #f48771;\n  --vscode-charts-orange: #d18616;\n}\n\nhtml[data-sphinx-preview-theme-mode="white"],\nhtml[data-sphinx-preview-theme-mode="white"] body {\n  color-scheme: light;\n  --sphinx-preview-scrollbar-thumb: #b3b3b3;\n  --sphinx-preview-scrollbar-hover: #808080;\n  --vscode-editor-background: #ffffff;\n  --vscode-editor-foreground: #1f1f1f;\n  --vscode-descriptionForeground: #5f5f5f;\n  --vscode-textLink-foreground: #006ab1;\n  --vscode-focusBorder: #005fb8;\n  --vscode-editor-findMatchHighlightBackground: #ffdf5d80;\n  --vscode-list-hoverBackground: rgba(0, 0, 0, 0.08);\n  --vscode-widget-border: #c8c8c8;\n  --vscode-editorHoverWidget-background: #f3f3f3;\n  --vscode-editorHoverWidget-foreground: #1f1f1f;\n  --vscode-editorHoverWidget-border: #c8c8c8;\n  --vscode-panel-border: #e5e5e5;\n  --vscode-textBlockQuote-background: #f3f3f3;\n  --vscode-textCodeBlock-background: #f0f0f0;\n  --vscode-button-secondaryBackground: #ededed;\n  --vscode-button-secondaryForeground: #333333;\n  --vscode-charts-blue: #005fb8;\n  --vscode-charts-green: #16825d;\n  --vscode-charts-purple: #652d90;\n  --vscode-charts-yellow: #8f6100;\n  --vscode-charts-red: #b5200d;\n  --vscode-charts-orange: #a65e00;\n}\n\n[data-sphinx-preview-toolbar] {\n  position: fixed;\n  inset-block-start: 12px;\n  inset-inline-end: 14px;\n  z-index: 1100;\n  display: flex;\n  align-items: center;\n  gap: 2px;\n  padding: 3px;\n  border: 1px solid var(--sphinx-preview-border);\n  border-radius: 18px;\n  background: var(--vscode-editorWidget-background, var(--vscode-editor-background, Canvas));\n  color: var(--vscode-icon-foreground, var(--vscode-editor-foreground, CanvasText));\n  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.2);\n}\n\n[data-sphinx-preview-toolbar] button {\n  display: grid;\n  width: 30px;\n  height: 30px;\n  place-items: center;\n  padding: 0;\n  border: 0;\n  border-radius: 50%;\n  background: transparent;\n  color: inherit;\n  cursor: pointer;\n}\n\n[data-sphinx-preview-toolbar] button:hover {\n  background: var(--vscode-toolbar-hoverBackground, rgba(128, 128, 128, 0.25));\n}\n\n[data-sphinx-preview-toolbar] button[aria-pressed="true"] {\n  background: var(--vscode-button-background, #0e639c);\n  color: var(--vscode-button-foreground, #ffffff);\n}\n\n[data-sphinx-preview-toolbar] button[aria-pressed="true"]:focus-visible {\n  outline: none;\n}\n\n[data-sphinx-preview-toolbar] button > svg {\n  width: 16px;\n  height: 16px;\n  fill: none;\n  stroke: currentColor;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n  stroke-width: 1.7;\n}\n\n[data-sphinx-preview-toolbar] button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip],\n.sphinx-preview-table-menu button[data-tooltip],\n.sphinx-preview-frontmatter-menu button[data-tooltip] {\n  position: relative;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]::after,\n.sphinx-preview-table-menu button[data-tooltip]::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]::after {\n  position: absolute;\n  inset-block-start: calc(100% + 8px);\n  inset-inline-start: 50%;\n  z-index: 1300;\n  width: max-content;\n  max-width: min(240px, calc(100vw - 16px));\n  padding: 5px 8px;\n  border: 1px solid var(--vscode-editorHoverWidget-border, var(--vscode-widget-border, currentColor));\n  border-radius: 4px;\n  background: var(--vscode-editorHoverWidget-background, var(--vscode-editor-background, Canvas));\n  color: var(--vscode-editorHoverWidget-foreground, var(--vscode-editor-foreground, CanvasText));\n  content: attr(data-tooltip);\n  font-size: 11px;\n  font-weight: 400;\n  line-height: 1.3;\n  text-align: start;\n  white-space: normal;\n  visibility: hidden;\n  opacity: 0;\n  pointer-events: none;\n  transform: translate(-50%, -3px);\n  transition: opacity 100ms ease, transform 100ms ease;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]::after {\n  inset-inline-start: auto;\n  inset-inline-end: 0;\n  transform: none;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after {\n  transform: none;\n}\n\n.sphinx-preview-table-menu button[data-tooltip]::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]::after,\n.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n  position: fixed;\n  inset-block-start: var(--sphinx-preview-controls-height);\n  inset-inline-start: 8px;\n  transform: none;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after,\n.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n  visibility: visible;\n  opacity: 1;\n  transform: translate(-50%, 0);\n}\n\n/* Fixed, out of flow: showing or resizing the band never moves the content (scroll anchoring R8). */\n[data-sphinx-preview-sticky-headings] {\n  position: fixed;\n  inset-block-start: 0;\n  inset-inline: 0;\n  z-index: 999;\n  box-sizing: border-box;\n  width: 100%;\n  margin: 0;\n  padding-block: 0 4px;\n  padding-inline: max(var(--sphinx-preview-content-gutter), calc((100% - var(--sphinx-preview-content-max-width)) / 2 + var(--sphinx-preview-content-gutter)));\n  border: 0;\n  border-bottom: 1px solid var(--sphinx-preview-border);\n  border-radius: 0;\n  background: var(--vscode-editor-background, Canvas);\n  color: var(--vscode-editor-foreground, CanvasText);\n  font-family: var(--sphinx-preview-font);\n  font-size: calc(var(--sphinx-preview-font-size) + 2px);\n  font-weight: 700;\n  line-height: var(--sphinx-preview-line-height);\n  white-space: pre-wrap;\n  overflow-wrap: anywhere;\n  pointer-events: none;\n}\n\n/* The runtime owns scroll anchoring; browser scroll anchoring would fight it. */\nhtml,\nbody {\n  overflow-anchor: none;\n}\n\n[data-sphinx-preview-sticky-headings][hidden] {\n  display: none;\n}\n\nhtml[data-sphinx-preview-edit-mode="on"] [data-sphinx-source-file][data-sphinx-source-line] {\n  cursor: text;\n}\n\nhtml[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content p[data-sphinx-source-line] {\n  overflow-wrap: anywhere;\n  white-space: pre-wrap;\n}\n\nhtml[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content table p[data-sphinx-source-line] {\n  overflow-x: visible;\n  overflow-wrap: normal;\n  white-space: normal;\n}\n\n[data-sphinx-preview-editing="true"] {\n  display: none !important;\n}\n\n.sphinx-preview-block-editor {\n  position: relative;\n  z-index: 1;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  background: transparent;\n  color: inherit;\n}\n\n.sphinx-preview-block-editor::before {\n  content: "";\n  position: absolute;\n  inset-block: 0;\n  inset-inline-start: -12px;\n  width: 3px;\n  border-radius: 0;\n  background: var(--vscode-charts-blue, #3794ff);\n  pointer-events: none;\n}\n\n.sphinx-preview-block-editor textarea {\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  min-height: 1.5em;\n  max-height: none;\n  resize: none;\n  padding: 0;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background: transparent;\n  color: inherit;\n  font: inherit;\n  line-height: inherit;\n  white-space: pre-wrap;\n  overflow-wrap: anywhere;\n  overflow: hidden;\n}\n\n.sphinx-preview-block-editor [data-sphinx-preview-edit-status]:empty {\n  display: none;\n}\n\n.sphinx-preview-block-ed'... 42222 more characters,
+    expected: /\.sphinx-preview-block-editor::before/u,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at out/test/webview/previewStyles.test.js:129:22
+✖ edit mode outlines the hovered block without moving the layout (0.328625ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /html\[data-sphinx-preview-edit-mode="on"\] \[data-sphinx-preview-edit-hover="true"\]\s*\{[^}]*outline: 1px dashed var\(--vscode-focusBorder, Highlight\);[^}]*outline-offset: 3px;/u. Input:
+  
+  '\n' +
+    ':root {\n' +
+    '  --sphinx-preview-font: var(--vscode-markdown-font-family, var(--vscode-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, sans-serif));\n' +
+    '  --sphinx-preview-font-size: var(--vscode-markdown-font-size, 14px);\n' +
+    '  --sphinx-preview-line-height: var(--vscode-markdown-line-height, 1.6);\n' +
+    '  --sphinx-preview-border: var(--vscode-widget-border, var(--vscode-panel-border, rgba(128, 128, 128, 0.35)));\n' +
+    '  --sphinx-preview-content-max-width: 960px;\n' +
+    '  --sphinx-preview-controls-height: 116px;\n' +
+    '  --sphinx-preview-content-gutter: clamp(16px, 8vw, 78px);\n' +
+    '  --sphinx-preview-diff-addition: var(--vscode-charts-green, #2da44e);\n' +
+    '  --sphinx-preview-diff-deletion: var(--vscode-charts-red, #cf222e);\n' +
+    '  --sphinx-preview-scrollbar-thumb: var(--vscode-scrollbarSlider-background, rgba(128, 128, 128, 0.4));\n' +
+    '  --sphinx-preview-scrollbar-hover: var(--vscode-scrollbarSlider-hoverBackground, rgba(128, 128, 128, 0.7));\n' +
+    '}\n' +
+    '\n' +
+    '* {\n' +
+    '  scrollbar-color: var(--sphinx-preview-scrollbar-thumb) var(--vscode-editor-background, Canvas);\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar {\n' +
+    '  width: 12px;\n' +
+    '  height: 12px;\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar-track,\n' +
+    '::-webkit-scrollbar-corner {\n' +
+    '  background: var(--vscode-editor-background, Canvas);\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar-thumb {\n' +
+    '  background: var(--sphinx-preview-scrollbar-thumb);\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar-thumb:hover {\n' +
+    '  background: var(--sphinx-preview-scrollbar-hover);\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-theme-mode="dark"],\n' +
+    'html[data-sphinx-preview-theme-mode="dark"] body {\n' +
+    '  color-scheme: dark;\n' +
+    '  --sphinx-preview-scrollbar-thumb: #686868;\n' +
+    '  --sphinx-preview-scrollbar-hover: #9e9e9e;\n' +
+    '  --vscode-editor-background: #1e1e1e;\n' +
+    '  --vscode-editor-foreground: #d4d4d4;\n' +
+    '  --vscode-descriptionForeground: #9d9d9d;\n' +
+    '  --vscode-textLink-foreground: #3794ff;\n' +
+    '  --vscode-focusBorder: #007fd4;\n' +
+    '  --vscode-editor-findMatchHighlightBackground: #ea5c0055;\n' +
+    '  --vscode-list-hoverBackground: rgba(255, 255, 255, 0.1);\n' +
+    '  --vscode-widget-border: #454545;\n' +
+    '  --vscode-editorHoverWidget-background: #252526;\n' +
+    '  --vscode-editorHoverWidget-foreground: #d4d4d4;\n' +
+    '  --vscode-editorHoverWidget-border: #454545;\n' +
+    '  --vscode-panel-border: #454545;\n' +
+    '  --vscode-textBlockQuote-background: #292929;\n' +
+    '  --vscode-textCodeBlock-background: #292929;\n' +
+    '  --vscode-button-secondaryBackground: #3a3d41;\n' +
+    '  --vscode-button-secondaryForeground: #d4d4d4;\n' +
+    '  --vscode-charts-blue: #75beff;\n' +
+    '  --vscode-charts-green: #89d185;\n' +
+    '  --vscode-charts-purple: #d3a0ff;\n' +
+    '  --vscode-charts-yellow: #e2c08d;\n' +
+    '  --vscode-charts-red: #f48771;\n' +
+    '  --vscode-charts-orange: #d18616;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-theme-mode="white"],\n' +
+    'html[data-sphinx-preview-theme-mode="white"] body {\n' +
+    '  color-scheme: light;\n' +
+    '  --sphinx-preview-scrollbar-thumb: #b3b3b3;\n' +
+    '  --sphinx-preview-scrollbar-hover: #808080;\n' +
+    '  --vscode-editor-background: #ffffff;\n' +
+    '  --vscode-editor-foreground: #1f1f1f;\n' +
+    '  --vscode-descriptionForeground: #5f5f5f;\n' +
+    '  --vscode-textLink-foreground: #006ab1;\n' +
+    '  --vscode-focusBorder: #005fb8;\n' +
+    '  --vscode-editor-findMatchHighlightBackground: #ffdf5d80;\n' +
+    '  --vscode-list-hoverBackground: rgba(0, 0, 0, 0.08);\n' +
+    '  --vscode-widget-border: #c8c8c8;\n' +
+    '  --vscode-editorHoverWidget-background: #f3f3f3;\n' +
+    '  --vscode-editorHoverWidget-foreground: #1f1f1f;\n' +
+    '  --vscode-editorHoverWidget-border: #c8c8c8;\n' +
+    '  --vscode-panel-border: #e5e5e5;\n' +
+    '  --vscode-textBlockQuote-background: #f3f3f3;\n' +
+    '  --vscode-textCodeBlock-background: #f0f0f0;\n' +
+    '  --vscode-button-secondaryBackground: #ededed;\n' +
+    '  --vscode-button-secondaryForeground: #333333;\n' +
+    '  --vscode-charts-blue: #005fb8;\n' +
+    '  --vscode-charts-green: #16825d;\n' +
+    '  --vscode-charts-purple: #652d90;\n' +
+    '  --vscode-charts-yellow: #8f6100;\n' +
+    '  --vscode-charts-red: #b5200d;\n' +
+    '  --vscode-charts-orange: #a65e00;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] {\n' +
+    '  position: fixed;\n' +
+    '  inset-block-start: 12px;\n' +
+    '  inset-inline-end: 14px;\n' +
+    '  z-index: 1100;\n' +
+    '  display: flex;\n' +
+    '  align-items: center;\n' +
+    '  gap: 2px;\n' +
+    '  padding: 3px;\n' +
+    '  border: 1px solid var(--sphinx-preview-border);\n' +
+    '  border-radius: 18px;\n' +
+    '  background: var(--vscode-editorWidget-background, var(--vscode-editor-background, Canvas));\n' +
+    '  color: var(--vscode-icon-foreground, var(--vscode-editor-foreground, CanvasText));\n' +
+    '  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.2);\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button {\n' +
+    '  display: grid;\n' +
+    '  width: 30px;\n' +
+    '  height: 30px;\n' +
+    '  place-items: center;\n' +
+    '  padding: 0;\n' +
+    '  border: 0;\n' +
+    '  border-radius: 50%;\n' +
+    '  background: transparent;\n' +
+    '  color: inherit;\n' +
+    '  cursor: pointer;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button:hover {\n' +
+    '  background: var(--vscode-toolbar-hoverBackground, rgba(128, 128, 128, 0.25));\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[aria-pressed="true"] {\n' +
+    '  background: var(--vscode-button-background, #0e639c);\n' +
+    '  color: var(--vscode-button-foreground, #ffffff);\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[aria-pressed="true"]:focus-visible {\n' +
+    '  outline: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button > svg {\n' +
+    '  width: 16px;\n' +
+    '  height: 16px;\n' +
+    '  fill: none;\n' +
+    '  stroke: currentColor;\n' +
+    '  stroke-linecap: round;\n' +
+    '  stroke-linejoin: round;\n' +
+    '  stroke-width: 1.7;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button:disabled {\n' +
+    '  cursor: not-allowed;\n' +
+    '  opacity: 0.5;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip],\n' +
+    '.sphinx-preview-table-menu button[data-tooltip],\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip] {\n' +
+    '  position: relative;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]::after {\n' +
+    '  position: absolute;\n' +
+    '  inset-block-start: calc(100% + 8px);\n' +
+    '  inset-inline-start: 50%;\n' +
+    '  z-index: 1300;\n' +
+    '  width: max-content;\n' +
+    '  max-width: min(240px, calc(100vw - 16px));\n' +
+    '  padding: 5px 8px;\n' +
+    '  border: 1px solid var(--vscode-editorHoverWidget-border, var(--vscode-widget-border, currentColor));\n' +
+    '  border-radius: 4px;\n' +
+    '  background: var(--vscode-editorHoverWidget-background, var(--vscode-editor-background, Canvas));\n' +
+    '  color: var(--vscode-editorHoverWidget-foreground, var(--vscode-editor-foreground, CanvasText));\n' +
+    '  content: attr(data-tooltip);\n' +
+    '  font-size: 11px;\n' +
+    '  font-weight: 400;\n' +
+    '  line-height: 1.3;\n' +
+    '  text-align: start;\n' +
+    '  white-space: normal;\n' +
+    '  visibility: hidden;\n' +
+    '  opacity: 0;\n' +
+    '  pointer-events: none;\n' +
+    '  transform: translate(-50%, -3px);\n' +
+    '  transition: opacity 100ms ease, transform 100ms ease;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]::after {\n' +
+    '  inset-inline-start: auto;\n' +
+    '  inset-inline-end: 0;\n' +
+    '  transform: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after {\n' +
+    '  transform: none;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n' +
+    '  position: fixed;\n' +
+    '  inset-block-start: var(--sphinx-preview-controls-height);\n' +
+    '  inset-inline-start: 8px;\n' +
+    '  transform: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n' +
+    '  visibility: visible;\n' +
+    '  opacity: 1;\n' +
+    '  transform: translate(-50%, 0);\n' +
+    '}\n' +
+    '\n' +
+    '/* Fixed, out of flow: showing or resizing the band never moves the content (scroll anchoring R8). */\n' +
+    '[data-sphinx-preview-sticky-headings] {\n' +
+    '  position: fixed;\n' +
+    '  inset-block-start: 0;\n' +
+    '  inset-inline: 0;\n' +
+    '  z-index: 999;\n' +
+    '  box-sizing: border-box;\n' +
+    '  width: 100%;\n' +
+    '  margin: 0;\n' +
+    '  padding-block: 0 4px;\n' +
+    '  padding-inline: max(var(--sphinx-preview-content-gutter), calc((100% - var(--sphinx-preview-content-max-width)) / 2 + var(--sphinx-preview-content-gutter)));\n' +
+    '  border: 0;\n' +
+    '  border-bottom: 1px solid var(--sphinx-preview-border);\n' +
+    '  border-radius: 0;\n' +
+    '  background: var(--vscode-editor-background, Canvas);\n' +
+    '  color: var(--vscode-editor-foreground, CanvasText);\n' +
+    '  font-family: var(--sphinx-preview-font);\n' +
+    '  font-size: calc(var(--sphinx-preview-font-size) + 2px);\n' +
+    '  font-weight: 700;\n' +
+    '  line-height: var(--sphinx-preview-line-height);\n' +
+    '  white-space: pre-wrap;\n' +
+    '  overflow-wrap: anywhere;\n' +
+    '  pointer-events: none;\n' +
+    '}\n' +
+    '\n' +
+    '/* The runtime owns scroll anchoring; browser scroll anchoring would fight it. */\n' +
+    'html,\n' +
+    'body {\n' +
+    '  overflow-anchor: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-sticky-headings][hidden] {\n' +
+    '  display: none;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-edit-mode="on"] [data-sphinx-source-file][data-sphinx-source-line] {\n' +
+    '  cursor: text;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content p[data-sphinx-source-line] {\n' +
+    '  overflow-wrap: anywhere;\n' +
+    '  white-space: pre-wrap;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content table p[data-sphinx-source-line] {\n' +
+    '  overflow-x: visible;\n' +
+    '  overflow-wrap: normal;\n' +
+    '  white-space: normal;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-editing="true"] {\n' +
+    '  display: none !important;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor {\n' +
+    '  position: relative;\n' +
+    '  z-index: 1;\n' +
+    '  margin: 0;\n' +
+    '  padding: 0;\n' +
+    '  border: 0;\n' +
+    '  background: transparent;\n' +
+    '  color: inherit;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor::before {\n' +
+    '  content: "";\n' +
+    '  position: absolute;\n' +
+    '  inset-block: 0;\n' +
+    '  inset-inline-start: -12px;\n' +
+    '  width: 3px;\n' +
+    '  border-radius: 0;\n' +
+    '  background: var(--vscode-charts-blue, #3794ff);\n' +
+    '  pointer-events: none;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor textarea {\n' +
+    '  display: block;\n' +
+    '  box-sizing: border-box;\n' +
+    '  width: 100%;\n' +
+    '  min-height: 1.5em;\n' +
+    '  max-height: none;\n' +
+    '  resize: none;\n' +
+    '  padding: 0;\n' +
+    '  border: 0;\n' +
+    '  border-radius: 0;\n' +
+    '  outline: none;\n' +
+    '  background: transparent;\n' +
+    '  color: inherit;\n' +
+    '  font: inherit;\n' +
+    '  line-height: inherit;\n' +
+    '  white-space: pre-wrap;\n' +
+    '  overflow-wrap: anywhere;\n' +
+    '  overflow: hidden;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor [data-sphinx-preview-edit-status]:empty {\n' +
+    '  display: none;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-ed'... 42222 more characters
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/previewStyles.test.js:130:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '\n:root {\n  --sphinx-preview-font: var(--vscode-markdown-font-family, var(--vscode-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, sans-serif));\n  --sphinx-preview-font-size: var(--vscode-markdown-font-size, 14px);\n  --sphinx-preview-line-height: var(--vscode-markdown-line-height, 1.6);\n  --sphinx-preview-border: var(--vscode-widget-border, var(--vscode-panel-border, rgba(128, 128, 128, 0.35)));\n  --sphinx-preview-content-max-width: 960px;\n  --sphinx-preview-controls-height: 116px;\n  --sphinx-preview-content-gutter: clamp(16px, 8vw, 78px);\n  --sphinx-preview-diff-addition: var(--vscode-charts-green, #2da44e);\n  --sphinx-preview-diff-deletion: var(--vscode-charts-red, #cf222e);\n  --sphinx-preview-scrollbar-thumb: var(--vscode-scrollbarSlider-background, rgba(128, 128, 128, 0.4));\n  --sphinx-preview-scrollbar-hover: var(--vscode-scrollbarSlider-hoverBackground, rgba(128, 128, 128, 0.7));\n}\n\n* {\n  scrollbar-color: var(--sphinx-preview-scrollbar-thumb) var(--vscode-editor-background, Canvas);\n}\n\n::-webkit-scrollbar {\n  width: 12px;\n  height: 12px;\n}\n\n::-webkit-scrollbar-track,\n::-webkit-scrollbar-corner {\n  background: var(--vscode-editor-background, Canvas);\n}\n\n::-webkit-scrollbar-thumb {\n  background: var(--sphinx-preview-scrollbar-thumb);\n}\n\n::-webkit-scrollbar-thumb:hover {\n  background: var(--sphinx-preview-scrollbar-hover);\n}\n\nhtml[data-sphinx-preview-theme-mode="dark"],\nhtml[data-sphinx-preview-theme-mode="dark"] body {\n  color-scheme: dark;\n  --sphinx-preview-scrollbar-thumb: #686868;\n  --sphinx-preview-scrollbar-hover: #9e9e9e;\n  --vscode-editor-background: #1e1e1e;\n  --vscode-editor-foreground: #d4d4d4;\n  --vscode-descriptionForeground: #9d9d9d;\n  --vscode-textLink-foreground: #3794ff;\n  --vscode-focusBorder: #007fd4;\n  --vscode-editor-findMatchHighlightBackground: #ea5c0055;\n  --vscode-list-hoverBackground: rgba(255, 255, 255, 0.1);\n  --vscode-widget-border: #454545;\n  --vscode-editorHoverWidget-background: #252526;\n  --vscode-editorHoverWidget-foreground: #d4d4d4;\n  --vscode-editorHoverWidget-border: #454545;\n  --vscode-panel-border: #454545;\n  --vscode-textBlockQuote-background: #292929;\n  --vscode-textCodeBlock-background: #292929;\n  --vscode-button-secondaryBackground: #3a3d41;\n  --vscode-button-secondaryForeground: #d4d4d4;\n  --vscode-charts-blue: #75beff;\n  --vscode-charts-green: #89d185;\n  --vscode-charts-purple: #d3a0ff;\n  --vscode-charts-yellow: #e2c08d;\n  --vscode-charts-red: #f48771;\n  --vscode-charts-orange: #d18616;\n}\n\nhtml[data-sphinx-preview-theme-mode="white"],\nhtml[data-sphinx-preview-theme-mode="white"] body {\n  color-scheme: light;\n  --sphinx-preview-scrollbar-thumb: #b3b3b3;\n  --sphinx-preview-scrollbar-hover: #808080;\n  --vscode-editor-background: #ffffff;\n  --vscode-editor-foreground: #1f1f1f;\n  --vscode-descriptionForeground: #5f5f5f;\n  --vscode-textLink-foreground: #006ab1;\n  --vscode-focusBorder: #005fb8;\n  --vscode-editor-findMatchHighlightBackground: #ffdf5d80;\n  --vscode-list-hoverBackground: rgba(0, 0, 0, 0.08);\n  --vscode-widget-border: #c8c8c8;\n  --vscode-editorHoverWidget-background: #f3f3f3;\n  --vscode-editorHoverWidget-foreground: #1f1f1f;\n  --vscode-editorHoverWidget-border: #c8c8c8;\n  --vscode-panel-border: #e5e5e5;\n  --vscode-textBlockQuote-background: #f3f3f3;\n  --vscode-textCodeBlock-background: #f0f0f0;\n  --vscode-button-secondaryBackground: #ededed;\n  --vscode-button-secondaryForeground: #333333;\n  --vscode-charts-blue: #005fb8;\n  --vscode-charts-green: #16825d;\n  --vscode-charts-purple: #652d90;\n  --vscode-charts-yellow: #8f6100;\n  --vscode-charts-red: #b5200d;\n  --vscode-charts-orange: #a65e00;\n}\n\n[data-sphinx-preview-toolbar] {\n  position: fixed;\n  inset-block-start: 12px;\n  inset-inline-end: 14px;\n  z-index: 1100;\n  display: flex;\n  align-items: center;\n  gap: 2px;\n  padding: 3px;\n  border: 1px solid var(--sphinx-preview-border);\n  border-radius: 18px;\n  background: var(--vscode-editorWidget-background, var(--vscode-editor-background, Canvas));\n  color: var(--vscode-icon-foreground, var(--vscode-editor-foreground, CanvasText));\n  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.2);\n}\n\n[data-sphinx-preview-toolbar] button {\n  display: grid;\n  width: 30px;\n  height: 30px;\n  place-items: center;\n  padding: 0;\n  border: 0;\n  border-radius: 50%;\n  background: transparent;\n  color: inherit;\n  cursor: pointer;\n}\n\n[data-sphinx-preview-toolbar] button:hover {\n  background: var(--vscode-toolbar-hoverBackground, rgba(128, 128, 128, 0.25));\n}\n\n[data-sphinx-preview-toolbar] button[aria-pressed="true"] {\n  background: var(--vscode-button-background, #0e639c);\n  color: var(--vscode-button-foreground, #ffffff);\n}\n\n[data-sphinx-preview-toolbar] button[aria-pressed="true"]:focus-visible {\n  outline: none;\n}\n\n[data-sphinx-preview-toolbar] button > svg {\n  width: 16px;\n  height: 16px;\n  fill: none;\n  stroke: currentColor;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n  stroke-width: 1.7;\n}\n\n[data-sphinx-preview-toolbar] button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip],\n.sphinx-preview-table-menu button[data-tooltip],\n.sphinx-preview-frontmatter-menu button[data-tooltip] {\n  position: relative;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]::after,\n.sphinx-preview-table-menu button[data-tooltip]::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]::after {\n  position: absolute;\n  inset-block-start: calc(100% + 8px);\n  inset-inline-start: 50%;\n  z-index: 1300;\n  width: max-content;\n  max-width: min(240px, calc(100vw - 16px));\n  padding: 5px 8px;\n  border: 1px solid var(--vscode-editorHoverWidget-border, var(--vscode-widget-border, currentColor));\n  border-radius: 4px;\n  background: var(--vscode-editorHoverWidget-background, var(--vscode-editor-background, Canvas));\n  color: var(--vscode-editorHoverWidget-foreground, var(--vscode-editor-foreground, CanvasText));\n  content: attr(data-tooltip);\n  font-size: 11px;\n  font-weight: 400;\n  line-height: 1.3;\n  text-align: start;\n  white-space: normal;\n  visibility: hidden;\n  opacity: 0;\n  pointer-events: none;\n  transform: translate(-50%, -3px);\n  transition: opacity 100ms ease, transform 100ms ease;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]::after {\n  inset-inline-start: auto;\n  inset-inline-end: 0;\n  transform: none;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after {\n  transform: none;\n}\n\n.sphinx-preview-table-menu button[data-tooltip]::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]::after,\n.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n  position: fixed;\n  inset-block-start: var(--sphinx-preview-controls-height);\n  inset-inline-start: 8px;\n  transform: none;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after,\n.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n  visibility: visible;\n  opacity: 1;\n  transform: translate(-50%, 0);\n}\n\n/* Fixed, out of flow: showing or resizing the band never moves the content (scroll anchoring R8). */\n[data-sphinx-preview-sticky-headings] {\n  position: fixed;\n  inset-block-start: 0;\n  inset-inline: 0;\n  z-index: 999;\n  box-sizing: border-box;\n  width: 100%;\n  margin: 0;\n  padding-block: 0 4px;\n  padding-inline: max(var(--sphinx-preview-content-gutter), calc((100% - var(--sphinx-preview-content-max-width)) / 2 + var(--sphinx-preview-content-gutter)));\n  border: 0;\n  border-bottom: 1px solid var(--sphinx-preview-border);\n  border-radius: 0;\n  background: var(--vscode-editor-background, Canvas);\n  color: var(--vscode-editor-foreground, CanvasText);\n  font-family: var(--sphinx-preview-font);\n  font-size: calc(var(--sphinx-preview-font-size) + 2px);\n  font-weight: 700;\n  line-height: var(--sphinx-preview-line-height);\n  white-space: pre-wrap;\n  overflow-wrap: anywhere;\n  pointer-events: none;\n}\n\n/* The runtime owns scroll anchoring; browser scroll anchoring would fight it. */\nhtml,\nbody {\n  overflow-anchor: none;\n}\n\n[data-sphinx-preview-sticky-headings][hidden] {\n  display: none;\n}\n\nhtml[data-sphinx-preview-edit-mode="on"] [data-sphinx-source-file][data-sphinx-source-line] {\n  cursor: text;\n}\n\nhtml[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content p[data-sphinx-source-line] {\n  overflow-wrap: anywhere;\n  white-space: pre-wrap;\n}\n\nhtml[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content table p[data-sphinx-source-line] {\n  overflow-x: visible;\n  overflow-wrap: normal;\n  white-space: normal;\n}\n\n[data-sphinx-preview-editing="true"] {\n  display: none !important;\n}\n\n.sphinx-preview-block-editor {\n  position: relative;\n  z-index: 1;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  background: transparent;\n  color: inherit;\n}\n\n.sphinx-preview-block-editor::before {\n  content: "";\n  position: absolute;\n  inset-block: 0;\n  inset-inline-start: -12px;\n  width: 3px;\n  border-radius: 0;\n  background: var(--vscode-charts-blue, #3794ff);\n  pointer-events: none;\n}\n\n.sphinx-preview-block-editor textarea {\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  min-height: 1.5em;\n  max-height: none;\n  resize: none;\n  padding: 0;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background: transparent;\n  color: inherit;\n  font: inherit;\n  line-height: inherit;\n  white-space: pre-wrap;\n  overflow-wrap: anywhere;\n  overflow: hidden;\n}\n\n.sphinx-preview-block-editor [data-sphinx-preview-edit-status]:empty {\n  display: none;\n}\n\n.sphinx-preview-block-ed'... 42222 more characters,
+    expected: /html\[data-sphinx-preview-edit-mode="on"\] \[data-sphinx-preview-edit-hover="true"\]\s*\{[^}]*outline: 1px dashed var\(--vscode-focusBorder, Highlight\);[^}]*outline-offset: 3px;/u,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at out/test/webview/previewStyles.test.js:132:22
+✖ raw Markdown and YAML editors use the editor font, text fields keep the preview font (0.452542ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /\.sphinx-preview-block-editor textarea\s*\{[^}]*font-family: var\(--vscode-editor-font-family, ui-monospace, SFMono-Regular, Menlo, monospace\);[^}]*font-size: var\(--vscode-editor-font-size, 0\.95em\);[^}]*tab-size: 4;/u. Input:
+  
+  '\n' +
+    ':root {\n' +
+    '  --sphinx-preview-font: var(--vscode-markdown-font-family, var(--vscode-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, sans-serif));\n' +
+    '  --sphinx-preview-font-size: var(--vscode-markdown-font-size, 14px);\n' +
+    '  --sphinx-preview-line-height: var(--vscode-markdown-line-height, 1.6);\n' +
+    '  --sphinx-preview-border: var(--vscode-widget-border, var(--vscode-panel-border, rgba(128, 128, 128, 0.35)));\n' +
+    '  --sphinx-preview-content-max-width: 960px;\n' +
+    '  --sphinx-preview-controls-height: 116px;\n' +
+    '  --sphinx-preview-content-gutter: clamp(16px, 8vw, 78px);\n' +
+    '  --sphinx-preview-diff-addition: var(--vscode-charts-green, #2da44e);\n' +
+    '  --sphinx-preview-diff-deletion: var(--vscode-charts-red, #cf222e);\n' +
+    '  --sphinx-preview-scrollbar-thumb: var(--vscode-scrollbarSlider-background, rgba(128, 128, 128, 0.4));\n' +
+    '  --sphinx-preview-scrollbar-hover: var(--vscode-scrollbarSlider-hoverBackground, rgba(128, 128, 128, 0.7));\n' +
+    '}\n' +
+    '\n' +
+    '* {\n' +
+    '  scrollbar-color: var(--sphinx-preview-scrollbar-thumb) var(--vscode-editor-background, Canvas);\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar {\n' +
+    '  width: 12px;\n' +
+    '  height: 12px;\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar-track,\n' +
+    '::-webkit-scrollbar-corner {\n' +
+    '  background: var(--vscode-editor-background, Canvas);\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar-thumb {\n' +
+    '  background: var(--sphinx-preview-scrollbar-thumb);\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar-thumb:hover {\n' +
+    '  background: var(--sphinx-preview-scrollbar-hover);\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-theme-mode="dark"],\n' +
+    'html[data-sphinx-preview-theme-mode="dark"] body {\n' +
+    '  color-scheme: dark;\n' +
+    '  --sphinx-preview-scrollbar-thumb: #686868;\n' +
+    '  --sphinx-preview-scrollbar-hover: #9e9e9e;\n' +
+    '  --vscode-editor-background: #1e1e1e;\n' +
+    '  --vscode-editor-foreground: #d4d4d4;\n' +
+    '  --vscode-descriptionForeground: #9d9d9d;\n' +
+    '  --vscode-textLink-foreground: #3794ff;\n' +
+    '  --vscode-focusBorder: #007fd4;\n' +
+    '  --vscode-editor-findMatchHighlightBackground: #ea5c0055;\n' +
+    '  --vscode-list-hoverBackground: rgba(255, 255, 255, 0.1);\n' +
+    '  --vscode-widget-border: #454545;\n' +
+    '  --vscode-editorHoverWidget-background: #252526;\n' +
+    '  --vscode-editorHoverWidget-foreground: #d4d4d4;\n' +
+    '  --vscode-editorHoverWidget-border: #454545;\n' +
+    '  --vscode-panel-border: #454545;\n' +
+    '  --vscode-textBlockQuote-background: #292929;\n' +
+    '  --vscode-textCodeBlock-background: #292929;\n' +
+    '  --vscode-button-secondaryBackground: #3a3d41;\n' +
+    '  --vscode-button-secondaryForeground: #d4d4d4;\n' +
+    '  --vscode-charts-blue: #75beff;\n' +
+    '  --vscode-charts-green: #89d185;\n' +
+    '  --vscode-charts-purple: #d3a0ff;\n' +
+    '  --vscode-charts-yellow: #e2c08d;\n' +
+    '  --vscode-charts-red: #f48771;\n' +
+    '  --vscode-charts-orange: #d18616;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-theme-mode="white"],\n' +
+    'html[data-sphinx-preview-theme-mode="white"] body {\n' +
+    '  color-scheme: light;\n' +
+    '  --sphinx-preview-scrollbar-thumb: #b3b3b3;\n' +
+    '  --sphinx-preview-scrollbar-hover: #808080;\n' +
+    '  --vscode-editor-background: #ffffff;\n' +
+    '  --vscode-editor-foreground: #1f1f1f;\n' +
+    '  --vscode-descriptionForeground: #5f5f5f;\n' +
+    '  --vscode-textLink-foreground: #006ab1;\n' +
+    '  --vscode-focusBorder: #005fb8;\n' +
+    '  --vscode-editor-findMatchHighlightBackground: #ffdf5d80;\n' +
+    '  --vscode-list-hoverBackground: rgba(0, 0, 0, 0.08);\n' +
+    '  --vscode-widget-border: #c8c8c8;\n' +
+    '  --vscode-editorHoverWidget-background: #f3f3f3;\n' +
+    '  --vscode-editorHoverWidget-foreground: #1f1f1f;\n' +
+    '  --vscode-editorHoverWidget-border: #c8c8c8;\n' +
+    '  --vscode-panel-border: #e5e5e5;\n' +
+    '  --vscode-textBlockQuote-background: #f3f3f3;\n' +
+    '  --vscode-textCodeBlock-background: #f0f0f0;\n' +
+    '  --vscode-button-secondaryBackground: #ededed;\n' +
+    '  --vscode-button-secondaryForeground: #333333;\n' +
+    '  --vscode-charts-blue: #005fb8;\n' +
+    '  --vscode-charts-green: #16825d;\n' +
+    '  --vscode-charts-purple: #652d90;\n' +
+    '  --vscode-charts-yellow: #8f6100;\n' +
+    '  --vscode-charts-red: #b5200d;\n' +
+    '  --vscode-charts-orange: #a65e00;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] {\n' +
+    '  position: fixed;\n' +
+    '  inset-block-start: 12px;\n' +
+    '  inset-inline-end: 14px;\n' +
+    '  z-index: 1100;\n' +
+    '  display: flex;\n' +
+    '  align-items: center;\n' +
+    '  gap: 2px;\n' +
+    '  padding: 3px;\n' +
+    '  border: 1px solid var(--sphinx-preview-border);\n' +
+    '  border-radius: 18px;\n' +
+    '  background: var(--vscode-editorWidget-background, var(--vscode-editor-background, Canvas));\n' +
+    '  color: var(--vscode-icon-foreground, var(--vscode-editor-foreground, CanvasText));\n' +
+    '  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.2);\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button {\n' +
+    '  display: grid;\n' +
+    '  width: 30px;\n' +
+    '  height: 30px;\n' +
+    '  place-items: center;\n' +
+    '  padding: 0;\n' +
+    '  border: 0;\n' +
+    '  border-radius: 50%;\n' +
+    '  background: transparent;\n' +
+    '  color: inherit;\n' +
+    '  cursor: pointer;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button:hover {\n' +
+    '  background: var(--vscode-toolbar-hoverBackground, rgba(128, 128, 128, 0.25));\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[aria-pressed="true"] {\n' +
+    '  background: var(--vscode-button-background, #0e639c);\n' +
+    '  color: var(--vscode-button-foreground, #ffffff);\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[aria-pressed="true"]:focus-visible {\n' +
+    '  outline: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button > svg {\n' +
+    '  width: 16px;\n' +
+    '  height: 16px;\n' +
+    '  fill: none;\n' +
+    '  stroke: currentColor;\n' +
+    '  stroke-linecap: round;\n' +
+    '  stroke-linejoin: round;\n' +
+    '  stroke-width: 1.7;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button:disabled {\n' +
+    '  cursor: not-allowed;\n' +
+    '  opacity: 0.5;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip],\n' +
+    '.sphinx-preview-table-menu button[data-tooltip],\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip] {\n' +
+    '  position: relative;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]::after {\n' +
+    '  position: absolute;\n' +
+    '  inset-block-start: calc(100% + 8px);\n' +
+    '  inset-inline-start: 50%;\n' +
+    '  z-index: 1300;\n' +
+    '  width: max-content;\n' +
+    '  max-width: min(240px, calc(100vw - 16px));\n' +
+    '  padding: 5px 8px;\n' +
+    '  border: 1px solid var(--vscode-editorHoverWidget-border, var(--vscode-widget-border, currentColor));\n' +
+    '  border-radius: 4px;\n' +
+    '  background: var(--vscode-editorHoverWidget-background, var(--vscode-editor-background, Canvas));\n' +
+    '  color: var(--vscode-editorHoverWidget-foreground, var(--vscode-editor-foreground, CanvasText));\n' +
+    '  content: attr(data-tooltip);\n' +
+    '  font-size: 11px;\n' +
+    '  font-weight: 400;\n' +
+    '  line-height: 1.3;\n' +
+    '  text-align: start;\n' +
+    '  white-space: normal;\n' +
+    '  visibility: hidden;\n' +
+    '  opacity: 0;\n' +
+    '  pointer-events: none;\n' +
+    '  transform: translate(-50%, -3px);\n' +
+    '  transition: opacity 100ms ease, transform 100ms ease;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]::after {\n' +
+    '  inset-inline-start: auto;\n' +
+    '  inset-inline-end: 0;\n' +
+    '  transform: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after {\n' +
+    '  transform: none;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n' +
+    '  position: fixed;\n' +
+    '  inset-block-start: var(--sphinx-preview-controls-height);\n' +
+    '  inset-inline-start: 8px;\n' +
+    '  transform: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n' +
+    '  visibility: visible;\n' +
+    '  opacity: 1;\n' +
+    '  transform: translate(-50%, 0);\n' +
+    '}\n' +
+    '\n' +
+    '/* Fixed, out of flow: showing or resizing the band never moves the content (scroll anchoring R8). */\n' +
+    '[data-sphinx-preview-sticky-headings] {\n' +
+    '  position: fixed;\n' +
+    '  inset-block-start: 0;\n' +
+    '  inset-inline: 0;\n' +
+    '  z-index: 999;\n' +
+    '  box-sizing: border-box;\n' +
+    '  width: 100%;\n' +
+    '  margin: 0;\n' +
+    '  padding-block: 0 4px;\n' +
+    '  padding-inline: max(var(--sphinx-preview-content-gutter), calc((100% - var(--sphinx-preview-content-max-width)) / 2 + var(--sphinx-preview-content-gutter)));\n' +
+    '  border: 0;\n' +
+    '  border-bottom: 1px solid var(--sphinx-preview-border);\n' +
+    '  border-radius: 0;\n' +
+    '  background: var(--vscode-editor-background, Canvas);\n' +
+    '  color: var(--vscode-editor-foreground, CanvasText);\n' +
+    '  font-family: var(--sphinx-preview-font);\n' +
+    '  font-size: calc(var(--sphinx-preview-font-size) + 2px);\n' +
+    '  font-weight: 700;\n' +
+    '  line-height: var(--sphinx-preview-line-height);\n' +
+    '  white-space: pre-wrap;\n' +
+    '  overflow-wrap: anywhere;\n' +
+    '  pointer-events: none;\n' +
+    '}\n' +
+    '\n' +
+    '/* The runtime owns scroll anchoring; browser scroll anchoring would fight it. */\n' +
+    'html,\n' +
+    'body {\n' +
+    '  overflow-anchor: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-sticky-headings][hidden] {\n' +
+    '  display: none;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-edit-mode="on"] [data-sphinx-source-file][data-sphinx-source-line] {\n' +
+    '  cursor: text;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content p[data-sphinx-source-line] {\n' +
+    '  overflow-wrap: anywhere;\n' +
+    '  white-space: pre-wrap;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content table p[data-sphinx-source-line] {\n' +
+    '  overflow-x: visible;\n' +
+    '  overflow-wrap: normal;\n' +
+    '  white-space: normal;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-editing="true"] {\n' +
+    '  display: none !important;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor {\n' +
+    '  position: relative;\n' +
+    '  z-index: 1;\n' +
+    '  margin: 0;\n' +
+    '  padding: 0;\n' +
+    '  border: 0;\n' +
+    '  background: transparent;\n' +
+    '  color: inherit;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor::before {\n' +
+    '  content: "";\n' +
+    '  position: absolute;\n' +
+    '  inset-block: 0;\n' +
+    '  inset-inline-start: -12px;\n' +
+    '  width: 3px;\n' +
+    '  border-radius: 0;\n' +
+    '  background: var(--vscode-charts-blue, #3794ff);\n' +
+    '  pointer-events: none;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor textarea {\n' +
+    '  display: block;\n' +
+    '  box-sizing: border-box;\n' +
+    '  width: 100%;\n' +
+    '  min-height: 1.5em;\n' +
+    '  max-height: none;\n' +
+    '  resize: none;\n' +
+    '  padding: 0;\n' +
+    '  border: 0;\n' +
+    '  border-radius: 0;\n' +
+    '  outline: none;\n' +
+    '  background: transparent;\n' +
+    '  color: inherit;\n' +
+    '  font: inherit;\n' +
+    '  line-height: inherit;\n' +
+    '  white-space: pre-wrap;\n' +
+    '  overflow-wrap: anywhere;\n' +
+    '  overflow: hidden;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor [data-sphinx-preview-edit-status]:empty {\n' +
+    '  display: none;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-ed'... 42222 more characters
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/previewStyles.test.js:133:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '\n:root {\n  --sphinx-preview-font: var(--vscode-markdown-font-family, var(--vscode-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, sans-serif));\n  --sphinx-preview-font-size: var(--vscode-markdown-font-size, 14px);\n  --sphinx-preview-line-height: var(--vscode-markdown-line-height, 1.6);\n  --sphinx-preview-border: var(--vscode-widget-border, var(--vscode-panel-border, rgba(128, 128, 128, 0.35)));\n  --sphinx-preview-content-max-width: 960px;\n  --sphinx-preview-controls-height: 116px;\n  --sphinx-preview-content-gutter: clamp(16px, 8vw, 78px);\n  --sphinx-preview-diff-addition: var(--vscode-charts-green, #2da44e);\n  --sphinx-preview-diff-deletion: var(--vscode-charts-red, #cf222e);\n  --sphinx-preview-scrollbar-thumb: var(--vscode-scrollbarSlider-background, rgba(128, 128, 128, 0.4));\n  --sphinx-preview-scrollbar-hover: var(--vscode-scrollbarSlider-hoverBackground, rgba(128, 128, 128, 0.7));\n}\n\n* {\n  scrollbar-color: var(--sphinx-preview-scrollbar-thumb) var(--vscode-editor-background, Canvas);\n}\n\n::-webkit-scrollbar {\n  width: 12px;\n  height: 12px;\n}\n\n::-webkit-scrollbar-track,\n::-webkit-scrollbar-corner {\n  background: var(--vscode-editor-background, Canvas);\n}\n\n::-webkit-scrollbar-thumb {\n  background: var(--sphinx-preview-scrollbar-thumb);\n}\n\n::-webkit-scrollbar-thumb:hover {\n  background: var(--sphinx-preview-scrollbar-hover);\n}\n\nhtml[data-sphinx-preview-theme-mode="dark"],\nhtml[data-sphinx-preview-theme-mode="dark"] body {\n  color-scheme: dark;\n  --sphinx-preview-scrollbar-thumb: #686868;\n  --sphinx-preview-scrollbar-hover: #9e9e9e;\n  --vscode-editor-background: #1e1e1e;\n  --vscode-editor-foreground: #d4d4d4;\n  --vscode-descriptionForeground: #9d9d9d;\n  --vscode-textLink-foreground: #3794ff;\n  --vscode-focusBorder: #007fd4;\n  --vscode-editor-findMatchHighlightBackground: #ea5c0055;\n  --vscode-list-hoverBackground: rgba(255, 255, 255, 0.1);\n  --vscode-widget-border: #454545;\n  --vscode-editorHoverWidget-background: #252526;\n  --vscode-editorHoverWidget-foreground: #d4d4d4;\n  --vscode-editorHoverWidget-border: #454545;\n  --vscode-panel-border: #454545;\n  --vscode-textBlockQuote-background: #292929;\n  --vscode-textCodeBlock-background: #292929;\n  --vscode-button-secondaryBackground: #3a3d41;\n  --vscode-button-secondaryForeground: #d4d4d4;\n  --vscode-charts-blue: #75beff;\n  --vscode-charts-green: #89d185;\n  --vscode-charts-purple: #d3a0ff;\n  --vscode-charts-yellow: #e2c08d;\n  --vscode-charts-red: #f48771;\n  --vscode-charts-orange: #d18616;\n}\n\nhtml[data-sphinx-preview-theme-mode="white"],\nhtml[data-sphinx-preview-theme-mode="white"] body {\n  color-scheme: light;\n  --sphinx-preview-scrollbar-thumb: #b3b3b3;\n  --sphinx-preview-scrollbar-hover: #808080;\n  --vscode-editor-background: #ffffff;\n  --vscode-editor-foreground: #1f1f1f;\n  --vscode-descriptionForeground: #5f5f5f;\n  --vscode-textLink-foreground: #006ab1;\n  --vscode-focusBorder: #005fb8;\n  --vscode-editor-findMatchHighlightBackground: #ffdf5d80;\n  --vscode-list-hoverBackground: rgba(0, 0, 0, 0.08);\n  --vscode-widget-border: #c8c8c8;\n  --vscode-editorHoverWidget-background: #f3f3f3;\n  --vscode-editorHoverWidget-foreground: #1f1f1f;\n  --vscode-editorHoverWidget-border: #c8c8c8;\n  --vscode-panel-border: #e5e5e5;\n  --vscode-textBlockQuote-background: #f3f3f3;\n  --vscode-textCodeBlock-background: #f0f0f0;\n  --vscode-button-secondaryBackground: #ededed;\n  --vscode-button-secondaryForeground: #333333;\n  --vscode-charts-blue: #005fb8;\n  --vscode-charts-green: #16825d;\n  --vscode-charts-purple: #652d90;\n  --vscode-charts-yellow: #8f6100;\n  --vscode-charts-red: #b5200d;\n  --vscode-charts-orange: #a65e00;\n}\n\n[data-sphinx-preview-toolbar] {\n  position: fixed;\n  inset-block-start: 12px;\n  inset-inline-end: 14px;\n  z-index: 1100;\n  display: flex;\n  align-items: center;\n  gap: 2px;\n  padding: 3px;\n  border: 1px solid var(--sphinx-preview-border);\n  border-radius: 18px;\n  background: var(--vscode-editorWidget-background, var(--vscode-editor-background, Canvas));\n  color: var(--vscode-icon-foreground, var(--vscode-editor-foreground, CanvasText));\n  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.2);\n}\n\n[data-sphinx-preview-toolbar] button {\n  display: grid;\n  width: 30px;\n  height: 30px;\n  place-items: center;\n  padding: 0;\n  border: 0;\n  border-radius: 50%;\n  background: transparent;\n  color: inherit;\n  cursor: pointer;\n}\n\n[data-sphinx-preview-toolbar] button:hover {\n  background: var(--vscode-toolbar-hoverBackground, rgba(128, 128, 128, 0.25));\n}\n\n[data-sphinx-preview-toolbar] button[aria-pressed="true"] {\n  background: var(--vscode-button-background, #0e639c);\n  color: var(--vscode-button-foreground, #ffffff);\n}\n\n[data-sphinx-preview-toolbar] button[aria-pressed="true"]:focus-visible {\n  outline: none;\n}\n\n[data-sphinx-preview-toolbar] button > svg {\n  width: 16px;\n  height: 16px;\n  fill: none;\n  stroke: currentColor;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n  stroke-width: 1.7;\n}\n\n[data-sphinx-preview-toolbar] button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip],\n.sphinx-preview-table-menu button[data-tooltip],\n.sphinx-preview-frontmatter-menu button[data-tooltip] {\n  position: relative;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]::after,\n.sphinx-preview-table-menu button[data-tooltip]::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]::after {\n  position: absolute;\n  inset-block-start: calc(100% + 8px);\n  inset-inline-start: 50%;\n  z-index: 1300;\n  width: max-content;\n  max-width: min(240px, calc(100vw - 16px));\n  padding: 5px 8px;\n  border: 1px solid var(--vscode-editorHoverWidget-border, var(--vscode-widget-border, currentColor));\n  border-radius: 4px;\n  background: var(--vscode-editorHoverWidget-background, var(--vscode-editor-background, Canvas));\n  color: var(--vscode-editorHoverWidget-foreground, var(--vscode-editor-foreground, CanvasText));\n  content: attr(data-tooltip);\n  font-size: 11px;\n  font-weight: 400;\n  line-height: 1.3;\n  text-align: start;\n  white-space: normal;\n  visibility: hidden;\n  opacity: 0;\n  pointer-events: none;\n  transform: translate(-50%, -3px);\n  transition: opacity 100ms ease, transform 100ms ease;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]::after {\n  inset-inline-start: auto;\n  inset-inline-end: 0;\n  transform: none;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after {\n  transform: none;\n}\n\n.sphinx-preview-table-menu button[data-tooltip]::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]::after,\n.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n  position: fixed;\n  inset-block-start: var(--sphinx-preview-controls-height);\n  inset-inline-start: 8px;\n  transform: none;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after,\n.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n  visibility: visible;\n  opacity: 1;\n  transform: translate(-50%, 0);\n}\n\n/* Fixed, out of flow: showing or resizing the band never moves the content (scroll anchoring R8). */\n[data-sphinx-preview-sticky-headings] {\n  position: fixed;\n  inset-block-start: 0;\n  inset-inline: 0;\n  z-index: 999;\n  box-sizing: border-box;\n  width: 100%;\n  margin: 0;\n  padding-block: 0 4px;\n  padding-inline: max(var(--sphinx-preview-content-gutter), calc((100% - var(--sphinx-preview-content-max-width)) / 2 + var(--sphinx-preview-content-gutter)));\n  border: 0;\n  border-bottom: 1px solid var(--sphinx-preview-border);\n  border-radius: 0;\n  background: var(--vscode-editor-background, Canvas);\n  color: var(--vscode-editor-foreground, CanvasText);\n  font-family: var(--sphinx-preview-font);\n  font-size: calc(var(--sphinx-preview-font-size) + 2px);\n  font-weight: 700;\n  line-height: var(--sphinx-preview-line-height);\n  white-space: pre-wrap;\n  overflow-wrap: anywhere;\n  pointer-events: none;\n}\n\n/* The runtime owns scroll anchoring; browser scroll anchoring would fight it. */\nhtml,\nbody {\n  overflow-anchor: none;\n}\n\n[data-sphinx-preview-sticky-headings][hidden] {\n  display: none;\n}\n\nhtml[data-sphinx-preview-edit-mode="on"] [data-sphinx-source-file][data-sphinx-source-line] {\n  cursor: text;\n}\n\nhtml[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content p[data-sphinx-source-line] {\n  overflow-wrap: anywhere;\n  white-space: pre-wrap;\n}\n\nhtml[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content table p[data-sphinx-source-line] {\n  overflow-x: visible;\n  overflow-wrap: normal;\n  white-space: normal;\n}\n\n[data-sphinx-preview-editing="true"] {\n  display: none !important;\n}\n\n.sphinx-preview-block-editor {\n  position: relative;\n  z-index: 1;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  background: transparent;\n  color: inherit;\n}\n\n.sphinx-preview-block-editor::before {\n  content: "";\n  position: absolute;\n  inset-block: 0;\n  inset-inline-start: -12px;\n  width: 3px;\n  border-radius: 0;\n  background: var(--vscode-charts-blue, #3794ff);\n  pointer-events: none;\n}\n\n.sphinx-preview-block-editor textarea {\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  min-height: 1.5em;\n  max-height: none;\n  resize: none;\n  padding: 0;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background: transparent;\n  color: inherit;\n  font: inherit;\n  line-height: inherit;\n  white-space: pre-wrap;\n  overflow-wrap: anywhere;\n  overflow: hidden;\n}\n\n.sphinx-preview-block-editor [data-sphinx-preview-edit-status]:empty {\n  display: none;\n}\n\n.sphinx-preview-block-ed'... 42222 more characters,
+    expected: /\.sphinx-preview-block-editor textarea\s*\{[^}]*font-family: var\(--vscode-editor-font-family, ui-monospace, SFMono-Regular, Menlo, monospace\);[^}]*font-size: var\(--vscode-editor-font-size, 0\.95em\);[^}]*tab-size: 4;/u,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at out/test/webview/previewStyles.test.js:235:22
+✖ frontmatter edits stay inline while edit mode preserves source newlines (0.3375ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /\.sphinx-preview-block-editor\s*\{[^}]*border: 1px solid var\(--vscode-focusBorder, Highlight\);[^}]*padding: 6px 8px;[^}]*background: var\(--vscode-editor-background, Canvas\);/u. Input:
+  
+  '\n' +
+    ':root {\n' +
+    '  --sphinx-preview-font: var(--vscode-markdown-font-family, var(--vscode-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, sans-serif));\n' +
+    '  --sphinx-preview-font-size: var(--vscode-markdown-font-size, 14px);\n' +
+    '  --sphinx-preview-line-height: var(--vscode-markdown-line-height, 1.6);\n' +
+    '  --sphinx-preview-border: var(--vscode-widget-border, var(--vscode-panel-border, rgba(128, 128, 128, 0.35)));\n' +
+    '  --sphinx-preview-content-max-width: 960px;\n' +
+    '  --sphinx-preview-controls-height: 116px;\n' +
+    '  --sphinx-preview-content-gutter: clamp(16px, 8vw, 78px);\n' +
+    '  --sphinx-preview-diff-addition: var(--vscode-charts-green, #2da44e);\n' +
+    '  --sphinx-preview-diff-deletion: var(--vscode-charts-red, #cf222e);\n' +
+    '  --sphinx-preview-scrollbar-thumb: var(--vscode-scrollbarSlider-background, rgba(128, 128, 128, 0.4));\n' +
+    '  --sphinx-preview-scrollbar-hover: var(--vscode-scrollbarSlider-hoverBackground, rgba(128, 128, 128, 0.7));\n' +
+    '}\n' +
+    '\n' +
+    '* {\n' +
+    '  scrollbar-color: var(--sphinx-preview-scrollbar-thumb) var(--vscode-editor-background, Canvas);\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar {\n' +
+    '  width: 12px;\n' +
+    '  height: 12px;\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar-track,\n' +
+    '::-webkit-scrollbar-corner {\n' +
+    '  background: var(--vscode-editor-background, Canvas);\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar-thumb {\n' +
+    '  background: var(--sphinx-preview-scrollbar-thumb);\n' +
+    '}\n' +
+    '\n' +
+    '::-webkit-scrollbar-thumb:hover {\n' +
+    '  background: var(--sphinx-preview-scrollbar-hover);\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-theme-mode="dark"],\n' +
+    'html[data-sphinx-preview-theme-mode="dark"] body {\n' +
+    '  color-scheme: dark;\n' +
+    '  --sphinx-preview-scrollbar-thumb: #686868;\n' +
+    '  --sphinx-preview-scrollbar-hover: #9e9e9e;\n' +
+    '  --vscode-editor-background: #1e1e1e;\n' +
+    '  --vscode-editor-foreground: #d4d4d4;\n' +
+    '  --vscode-descriptionForeground: #9d9d9d;\n' +
+    '  --vscode-textLink-foreground: #3794ff;\n' +
+    '  --vscode-focusBorder: #007fd4;\n' +
+    '  --vscode-editor-findMatchHighlightBackground: #ea5c0055;\n' +
+    '  --vscode-list-hoverBackground: rgba(255, 255, 255, 0.1);\n' +
+    '  --vscode-widget-border: #454545;\n' +
+    '  --vscode-editorHoverWidget-background: #252526;\n' +
+    '  --vscode-editorHoverWidget-foreground: #d4d4d4;\n' +
+    '  --vscode-editorHoverWidget-border: #454545;\n' +
+    '  --vscode-panel-border: #454545;\n' +
+    '  --vscode-textBlockQuote-background: #292929;\n' +
+    '  --vscode-textCodeBlock-background: #292929;\n' +
+    '  --vscode-button-secondaryBackground: #3a3d41;\n' +
+    '  --vscode-button-secondaryForeground: #d4d4d4;\n' +
+    '  --vscode-charts-blue: #75beff;\n' +
+    '  --vscode-charts-green: #89d185;\n' +
+    '  --vscode-charts-purple: #d3a0ff;\n' +
+    '  --vscode-charts-yellow: #e2c08d;\n' +
+    '  --vscode-charts-red: #f48771;\n' +
+    '  --vscode-charts-orange: #d18616;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-theme-mode="white"],\n' +
+    'html[data-sphinx-preview-theme-mode="white"] body {\n' +
+    '  color-scheme: light;\n' +
+    '  --sphinx-preview-scrollbar-thumb: #b3b3b3;\n' +
+    '  --sphinx-preview-scrollbar-hover: #808080;\n' +
+    '  --vscode-editor-background: #ffffff;\n' +
+    '  --vscode-editor-foreground: #1f1f1f;\n' +
+    '  --vscode-descriptionForeground: #5f5f5f;\n' +
+    '  --vscode-textLink-foreground: #006ab1;\n' +
+    '  --vscode-focusBorder: #005fb8;\n' +
+    '  --vscode-editor-findMatchHighlightBackground: #ffdf5d80;\n' +
+    '  --vscode-list-hoverBackground: rgba(0, 0, 0, 0.08);\n' +
+    '  --vscode-widget-border: #c8c8c8;\n' +
+    '  --vscode-editorHoverWidget-background: #f3f3f3;\n' +
+    '  --vscode-editorHoverWidget-foreground: #1f1f1f;\n' +
+    '  --vscode-editorHoverWidget-border: #c8c8c8;\n' +
+    '  --vscode-panel-border: #e5e5e5;\n' +
+    '  --vscode-textBlockQuote-background: #f3f3f3;\n' +
+    '  --vscode-textCodeBlock-background: #f0f0f0;\n' +
+    '  --vscode-button-secondaryBackground: #ededed;\n' +
+    '  --vscode-button-secondaryForeground: #333333;\n' +
+    '  --vscode-charts-blue: #005fb8;\n' +
+    '  --vscode-charts-green: #16825d;\n' +
+    '  --vscode-charts-purple: #652d90;\n' +
+    '  --vscode-charts-yellow: #8f6100;\n' +
+    '  --vscode-charts-red: #b5200d;\n' +
+    '  --vscode-charts-orange: #a65e00;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] {\n' +
+    '  position: fixed;\n' +
+    '  inset-block-start: 12px;\n' +
+    '  inset-inline-end: 14px;\n' +
+    '  z-index: 1100;\n' +
+    '  display: flex;\n' +
+    '  align-items: center;\n' +
+    '  gap: 2px;\n' +
+    '  padding: 3px;\n' +
+    '  border: 1px solid var(--sphinx-preview-border);\n' +
+    '  border-radius: 18px;\n' +
+    '  background: var(--vscode-editorWidget-background, var(--vscode-editor-background, Canvas));\n' +
+    '  color: var(--vscode-icon-foreground, var(--vscode-editor-foreground, CanvasText));\n' +
+    '  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.2);\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button {\n' +
+    '  display: grid;\n' +
+    '  width: 30px;\n' +
+    '  height: 30px;\n' +
+    '  place-items: center;\n' +
+    '  padding: 0;\n' +
+    '  border: 0;\n' +
+    '  border-radius: 50%;\n' +
+    '  background: transparent;\n' +
+    '  color: inherit;\n' +
+    '  cursor: pointer;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button:hover {\n' +
+    '  background: var(--vscode-toolbar-hoverBackground, rgba(128, 128, 128, 0.25));\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[aria-pressed="true"] {\n' +
+    '  background: var(--vscode-button-background, #0e639c);\n' +
+    '  color: var(--vscode-button-foreground, #ffffff);\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[aria-pressed="true"]:focus-visible {\n' +
+    '  outline: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button > svg {\n' +
+    '  width: 16px;\n' +
+    '  height: 16px;\n' +
+    '  fill: none;\n' +
+    '  stroke: currentColor;\n' +
+    '  stroke-linecap: round;\n' +
+    '  stroke-linejoin: round;\n' +
+    '  stroke-width: 1.7;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button:disabled {\n' +
+    '  cursor: not-allowed;\n' +
+    '  opacity: 0.5;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip],\n' +
+    '.sphinx-preview-table-menu button[data-tooltip],\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip] {\n' +
+    '  position: relative;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]::after {\n' +
+    '  position: absolute;\n' +
+    '  inset-block-start: calc(100% + 8px);\n' +
+    '  inset-inline-start: 50%;\n' +
+    '  z-index: 1300;\n' +
+    '  width: max-content;\n' +
+    '  max-width: min(240px, calc(100vw - 16px));\n' +
+    '  padding: 5px 8px;\n' +
+    '  border: 1px solid var(--vscode-editorHoverWidget-border, var(--vscode-widget-border, currentColor));\n' +
+    '  border-radius: 4px;\n' +
+    '  background: var(--vscode-editorHoverWidget-background, var(--vscode-editor-background, Canvas));\n' +
+    '  color: var(--vscode-editorHoverWidget-foreground, var(--vscode-editor-foreground, CanvasText));\n' +
+    '  content: attr(data-tooltip);\n' +
+    '  font-size: 11px;\n' +
+    '  font-weight: 400;\n' +
+    '  line-height: 1.3;\n' +
+    '  text-align: start;\n' +
+    '  white-space: normal;\n' +
+    '  visibility: hidden;\n' +
+    '  opacity: 0;\n' +
+    '  pointer-events: none;\n' +
+    '  transform: translate(-50%, -3px);\n' +
+    '  transition: opacity 100ms ease, transform 100ms ease;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]::after {\n' +
+    '  inset-inline-start: auto;\n' +
+    '  inset-inline-end: 0;\n' +
+    '  transform: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after {\n' +
+    '  transform: none;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n' +
+    '  position: fixed;\n' +
+    '  inset-block-start: var(--sphinx-preview-controls-height);\n' +
+    '  inset-inline-start: 8px;\n' +
+    '  transform: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n' +
+    '[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n' +
+    '.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n' +
+    '  visibility: visible;\n' +
+    '  opacity: 1;\n' +
+    '  transform: translate(-50%, 0);\n' +
+    '}\n' +
+    '\n' +
+    '/* Fixed, out of flow: showing or resizing the band never moves the content (scroll anchoring R8). */\n' +
+    '[data-sphinx-preview-sticky-headings] {\n' +
+    '  position: fixed;\n' +
+    '  inset-block-start: 0;\n' +
+    '  inset-inline: 0;\n' +
+    '  z-index: 999;\n' +
+    '  box-sizing: border-box;\n' +
+    '  width: 100%;\n' +
+    '  margin: 0;\n' +
+    '  padding-block: 0 4px;\n' +
+    '  padding-inline: max(var(--sphinx-preview-content-gutter), calc((100% - var(--sphinx-preview-content-max-width)) / 2 + var(--sphinx-preview-content-gutter)));\n' +
+    '  border: 0;\n' +
+    '  border-bottom: 1px solid var(--sphinx-preview-border);\n' +
+    '  border-radius: 0;\n' +
+    '  background: var(--vscode-editor-background, Canvas);\n' +
+    '  color: var(--vscode-editor-foreground, CanvasText);\n' +
+    '  font-family: var(--sphinx-preview-font);\n' +
+    '  font-size: calc(var(--sphinx-preview-font-size) + 2px);\n' +
+    '  font-weight: 700;\n' +
+    '  line-height: var(--sphinx-preview-line-height);\n' +
+    '  white-space: pre-wrap;\n' +
+    '  overflow-wrap: anywhere;\n' +
+    '  pointer-events: none;\n' +
+    '}\n' +
+    '\n' +
+    '/* The runtime owns scroll anchoring; browser scroll anchoring would fight it. */\n' +
+    'html,\n' +
+    'body {\n' +
+    '  overflow-anchor: none;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-sticky-headings][hidden] {\n' +
+    '  display: none;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-edit-mode="on"] [data-sphinx-source-file][data-sphinx-source-line] {\n' +
+    '  cursor: text;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content p[data-sphinx-source-line] {\n' +
+    '  overflow-wrap: anywhere;\n' +
+    '  white-space: pre-wrap;\n' +
+    '}\n' +
+    '\n' +
+    'html[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content table p[data-sphinx-source-line] {\n' +
+    '  overflow-x: visible;\n' +
+    '  overflow-wrap: normal;\n' +
+    '  white-space: normal;\n' +
+    '}\n' +
+    '\n' +
+    '[data-sphinx-preview-editing="true"] {\n' +
+    '  display: none !important;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor {\n' +
+    '  position: relative;\n' +
+    '  z-index: 1;\n' +
+    '  margin: 0;\n' +
+    '  padding: 0;\n' +
+    '  border: 0;\n' +
+    '  background: transparent;\n' +
+    '  color: inherit;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor::before {\n' +
+    '  content: "";\n' +
+    '  position: absolute;\n' +
+    '  inset-block: 0;\n' +
+    '  inset-inline-start: -12px;\n' +
+    '  width: 3px;\n' +
+    '  border-radius: 0;\n' +
+    '  background: var(--vscode-charts-blue, #3794ff);\n' +
+    '  pointer-events: none;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor textarea {\n' +
+    '  display: block;\n' +
+    '  box-sizing: border-box;\n' +
+    '  width: 100%;\n' +
+    '  min-height: 1.5em;\n' +
+    '  max-height: none;\n' +
+    '  resize: none;\n' +
+    '  padding: 0;\n' +
+    '  border: 0;\n' +
+    '  border-radius: 0;\n' +
+    '  outline: none;\n' +
+    '  background: transparent;\n' +
+    '  color: inherit;\n' +
+    '  font: inherit;\n' +
+    '  line-height: inherit;\n' +
+    '  white-space: pre-wrap;\n' +
+    '  overflow-wrap: anywhere;\n' +
+    '  overflow: hidden;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-editor [data-sphinx-preview-edit-status]:empty {\n' +
+    '  display: none;\n' +
+    '}\n' +
+    '\n' +
+    '.sphinx-preview-block-ed'... 42222 more characters
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/previewStyles.test.js:238:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '\n:root {\n  --sphinx-preview-font: var(--vscode-markdown-font-family, var(--vscode-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", system-ui, sans-serif));\n  --sphinx-preview-font-size: var(--vscode-markdown-font-size, 14px);\n  --sphinx-preview-line-height: var(--vscode-markdown-line-height, 1.6);\n  --sphinx-preview-border: var(--vscode-widget-border, var(--vscode-panel-border, rgba(128, 128, 128, 0.35)));\n  --sphinx-preview-content-max-width: 960px;\n  --sphinx-preview-controls-height: 116px;\n  --sphinx-preview-content-gutter: clamp(16px, 8vw, 78px);\n  --sphinx-preview-diff-addition: var(--vscode-charts-green, #2da44e);\n  --sphinx-preview-diff-deletion: var(--vscode-charts-red, #cf222e);\n  --sphinx-preview-scrollbar-thumb: var(--vscode-scrollbarSlider-background, rgba(128, 128, 128, 0.4));\n  --sphinx-preview-scrollbar-hover: var(--vscode-scrollbarSlider-hoverBackground, rgba(128, 128, 128, 0.7));\n}\n\n* {\n  scrollbar-color: var(--sphinx-preview-scrollbar-thumb) var(--vscode-editor-background, Canvas);\n}\n\n::-webkit-scrollbar {\n  width: 12px;\n  height: 12px;\n}\n\n::-webkit-scrollbar-track,\n::-webkit-scrollbar-corner {\n  background: var(--vscode-editor-background, Canvas);\n}\n\n::-webkit-scrollbar-thumb {\n  background: var(--sphinx-preview-scrollbar-thumb);\n}\n\n::-webkit-scrollbar-thumb:hover {\n  background: var(--sphinx-preview-scrollbar-hover);\n}\n\nhtml[data-sphinx-preview-theme-mode="dark"],\nhtml[data-sphinx-preview-theme-mode="dark"] body {\n  color-scheme: dark;\n  --sphinx-preview-scrollbar-thumb: #686868;\n  --sphinx-preview-scrollbar-hover: #9e9e9e;\n  --vscode-editor-background: #1e1e1e;\n  --vscode-editor-foreground: #d4d4d4;\n  --vscode-descriptionForeground: #9d9d9d;\n  --vscode-textLink-foreground: #3794ff;\n  --vscode-focusBorder: #007fd4;\n  --vscode-editor-findMatchHighlightBackground: #ea5c0055;\n  --vscode-list-hoverBackground: rgba(255, 255, 255, 0.1);\n  --vscode-widget-border: #454545;\n  --vscode-editorHoverWidget-background: #252526;\n  --vscode-editorHoverWidget-foreground: #d4d4d4;\n  --vscode-editorHoverWidget-border: #454545;\n  --vscode-panel-border: #454545;\n  --vscode-textBlockQuote-background: #292929;\n  --vscode-textCodeBlock-background: #292929;\n  --vscode-button-secondaryBackground: #3a3d41;\n  --vscode-button-secondaryForeground: #d4d4d4;\n  --vscode-charts-blue: #75beff;\n  --vscode-charts-green: #89d185;\n  --vscode-charts-purple: #d3a0ff;\n  --vscode-charts-yellow: #e2c08d;\n  --vscode-charts-red: #f48771;\n  --vscode-charts-orange: #d18616;\n}\n\nhtml[data-sphinx-preview-theme-mode="white"],\nhtml[data-sphinx-preview-theme-mode="white"] body {\n  color-scheme: light;\n  --sphinx-preview-scrollbar-thumb: #b3b3b3;\n  --sphinx-preview-scrollbar-hover: #808080;\n  --vscode-editor-background: #ffffff;\n  --vscode-editor-foreground: #1f1f1f;\n  --vscode-descriptionForeground: #5f5f5f;\n  --vscode-textLink-foreground: #006ab1;\n  --vscode-focusBorder: #005fb8;\n  --vscode-editor-findMatchHighlightBackground: #ffdf5d80;\n  --vscode-list-hoverBackground: rgba(0, 0, 0, 0.08);\n  --vscode-widget-border: #c8c8c8;\n  --vscode-editorHoverWidget-background: #f3f3f3;\n  --vscode-editorHoverWidget-foreground: #1f1f1f;\n  --vscode-editorHoverWidget-border: #c8c8c8;\n  --vscode-panel-border: #e5e5e5;\n  --vscode-textBlockQuote-background: #f3f3f3;\n  --vscode-textCodeBlock-background: #f0f0f0;\n  --vscode-button-secondaryBackground: #ededed;\n  --vscode-button-secondaryForeground: #333333;\n  --vscode-charts-blue: #005fb8;\n  --vscode-charts-green: #16825d;\n  --vscode-charts-purple: #652d90;\n  --vscode-charts-yellow: #8f6100;\n  --vscode-charts-red: #b5200d;\n  --vscode-charts-orange: #a65e00;\n}\n\n[data-sphinx-preview-toolbar] {\n  position: fixed;\n  inset-block-start: 12px;\n  inset-inline-end: 14px;\n  z-index: 1100;\n  display: flex;\n  align-items: center;\n  gap: 2px;\n  padding: 3px;\n  border: 1px solid var(--sphinx-preview-border);\n  border-radius: 18px;\n  background: var(--vscode-editorWidget-background, var(--vscode-editor-background, Canvas));\n  color: var(--vscode-icon-foreground, var(--vscode-editor-foreground, CanvasText));\n  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.2);\n}\n\n[data-sphinx-preview-toolbar] button {\n  display: grid;\n  width: 30px;\n  height: 30px;\n  place-items: center;\n  padding: 0;\n  border: 0;\n  border-radius: 50%;\n  background: transparent;\n  color: inherit;\n  cursor: pointer;\n}\n\n[data-sphinx-preview-toolbar] button:hover {\n  background: var(--vscode-toolbar-hoverBackground, rgba(128, 128, 128, 0.25));\n}\n\n[data-sphinx-preview-toolbar] button[aria-pressed="true"] {\n  background: var(--vscode-button-background, #0e639c);\n  color: var(--vscode-button-foreground, #ffffff);\n}\n\n[data-sphinx-preview-toolbar] button[aria-pressed="true"]:focus-visible {\n  outline: none;\n}\n\n[data-sphinx-preview-toolbar] button > svg {\n  width: 16px;\n  height: 16px;\n  fill: none;\n  stroke: currentColor;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n  stroke-width: 1.7;\n}\n\n[data-sphinx-preview-toolbar] button:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip],\n.sphinx-preview-table-menu button[data-tooltip],\n.sphinx-preview-frontmatter-menu button[data-tooltip] {\n  position: relative;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]::after,\n.sphinx-preview-table-menu button[data-tooltip]::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]::after {\n  position: absolute;\n  inset-block-start: calc(100% + 8px);\n  inset-inline-start: 50%;\n  z-index: 1300;\n  width: max-content;\n  max-width: min(240px, calc(100vw - 16px));\n  padding: 5px 8px;\n  border: 1px solid var(--vscode-editorHoverWidget-border, var(--vscode-widget-border, currentColor));\n  border-radius: 4px;\n  background: var(--vscode-editorHoverWidget-background, var(--vscode-editor-background, Canvas));\n  color: var(--vscode-editorHoverWidget-foreground, var(--vscode-editor-foreground, CanvasText));\n  content: attr(data-tooltip);\n  font-size: 11px;\n  font-weight: 400;\n  line-height: 1.3;\n  text-align: start;\n  white-space: normal;\n  visibility: hidden;\n  opacity: 0;\n  pointer-events: none;\n  transform: translate(-50%, -3px);\n  transition: opacity 100ms ease, transform 100ms ease;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]::after {\n  inset-inline-start: auto;\n  inset-inline-end: 0;\n  transform: none;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after {\n  transform: none;\n}\n\n.sphinx-preview-table-menu button[data-tooltip]::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]::after,\n.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n  position: fixed;\n  inset-block-start: var(--sphinx-preview-controls-height);\n  inset-inline-start: 8px;\n  transform: none;\n}\n\n[data-sphinx-preview-toolbar] button[data-tooltip]:hover::after,\n[data-sphinx-preview-toolbar] button[data-tooltip]:focus-visible::after,\n.sphinx-preview-table-menu button[data-tooltip]:hover::after,\n.sphinx-preview-table-menu button[data-tooltip]:focus-visible::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:hover::after,\n.sphinx-preview-frontmatter-menu button[data-tooltip]:focus-visible::after {\n  visibility: visible;\n  opacity: 1;\n  transform: translate(-50%, 0);\n}\n\n/* Fixed, out of flow: showing or resizing the band never moves the content (scroll anchoring R8). */\n[data-sphinx-preview-sticky-headings] {\n  position: fixed;\n  inset-block-start: 0;\n  inset-inline: 0;\n  z-index: 999;\n  box-sizing: border-box;\n  width: 100%;\n  margin: 0;\n  padding-block: 0 4px;\n  padding-inline: max(var(--sphinx-preview-content-gutter), calc((100% - var(--sphinx-preview-content-max-width)) / 2 + var(--sphinx-preview-content-gutter)));\n  border: 0;\n  border-bottom: 1px solid var(--sphinx-preview-border);\n  border-radius: 0;\n  background: var(--vscode-editor-background, Canvas);\n  color: var(--vscode-editor-foreground, CanvasText);\n  font-family: var(--sphinx-preview-font);\n  font-size: calc(var(--sphinx-preview-font-size) + 2px);\n  font-weight: 700;\n  line-height: var(--sphinx-preview-line-height);\n  white-space: pre-wrap;\n  overflow-wrap: anywhere;\n  pointer-events: none;\n}\n\n/* The runtime owns scroll anchoring; browser scroll anchoring would fight it. */\nhtml,\nbody {\n  overflow-anchor: none;\n}\n\n[data-sphinx-preview-sticky-headings][hidden] {\n  display: none;\n}\n\nhtml[data-sphinx-preview-edit-mode="on"] [data-sphinx-source-file][data-sphinx-source-line] {\n  cursor: text;\n}\n\nhtml[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content p[data-sphinx-source-line] {\n  overflow-wrap: anywhere;\n  white-space: pre-wrap;\n}\n\nhtml[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content table p[data-sphinx-source-line] {\n  overflow-x: visible;\n  overflow-wrap: normal;\n  white-space: normal;\n}\n\n[data-sphinx-preview-editing="true"] {\n  display: none !important;\n}\n\n.sphinx-preview-block-editor {\n  position: relative;\n  z-index: 1;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  background: transparent;\n  color: inherit;\n}\n\n.sphinx-preview-block-editor::before {\n  content: "";\n  position: absolute;\n  inset-block: 0;\n  inset-inline-start: -12px;\n  width: 3px;\n  border-radius: 0;\n  background: var(--vscode-charts-blue, #3794ff);\n  pointer-events: none;\n}\n\n.sphinx-preview-block-editor textarea {\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  min-height: 1.5em;\n  max-height: none;\n  resize: none;\n  padding: 0;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background: transparent;\n  color: inherit;\n  font: inherit;\n  line-height: inherit;\n  white-space: pre-wrap;\n  overflow-wrap: anywhere;\n  overflow: hidden;\n}\n\n.sphinx-preview-block-editor [data-sphinx-preview-edit-status]:empty {\n  display: none;\n}\n\n.sphinx-preview-block-ed'... 42222 more characters,
+    expected: /\.sphinx-preview-block-editor\s*\{[^}]*border: 1px solid var\(--vscode-focusBorder, Highlight\);[^}]*padding: 6px 8px;[^}]*background: var\(--vscode-editor-background, Canvas\);/u,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at out/test/webview/scrollSync.test.js:1137:22
+✖ edit mode loads raw Markdown and saves changes when the block loses focus (1.255625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/scrollSync.test.js:1160:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/scrollSync.test.js:1193:22
+✖ edit mode hover marks the whole list that a click would edit (1.541875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 'true'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/scrollSync.test.js:1212:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'true',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/webview/scrollSync.test.js:1227:22
+✖ an opened block editor shows its line range, Done and a disabled Revert (1.602208ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /^Lines 50\u201352 \u00b7 Enter: new line \u00b7 Tab: indent \u00b7 Esc or /u. Input:
+  
+  ''
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/scrollSync.test.js:1234:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: /^Lines 50\u201352 \u00b7 Enter: new line \u00b7 Tab: indent \u00b7 Esc or /u,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at out/test/webview/scrollSync.test.js:1239:22
+✖ Revert enables on change and cancels only what reached the document (1.434875ms)
+  AssertionError [ERR_ASSERTION]: missing button Revert block to its original text
+      at findButton (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/scrollSync.test.js:1190:12)
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/scrollSync.test.js:1242:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at out/test/webview/scrollSync.test.js:1262:22
+✖ Done posts a final save and both buttons keep the textarea focused on press (1.471625ms)
+  AssertionError [ERR_ASSERTION]: missing button Done editing
+      at findButton (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/scrollSync.test.js:1190:12)
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/webview/scrollSync.test.js:1269:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

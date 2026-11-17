@@ -1,0 +1,420 @@
+.../src/preview/previewStyles.ts                   |  32 ----
+ .../src/webview/scrollSync.ts                      |  87 +--------
+ .../test/webview/scrollSync.test.ts                | 198 +--------------------
+ 3 files changed, 4 insertions(+), 313 deletions(-)
+
+--- Changes ---
+
+src/markdown-okf-schema-studio/src/preview/previewStyles.ts
+  @@ -1095,38 +1095,6 @@ body :where(.sy-page, .sy-container, .sy-main, .sy-body, article) {
+  -/* Checkbox markers ([ ] / [x]) render as real checkboxes that toggle the source. */
+  -#sphinx-myst-preview-content input.myst-checkbox {
+  -  width: 1em;
+  -  height: 1em;
+  -  margin: 0 0.35em 0 0;
+  -  vertical-align: -0.125em;
+  -  accent-color: var(--vscode-focusBorder, #007fd4);
+  -  cursor: pointer;
+  -}
+  -
+  -#sphinx-myst-preview-content input.myst-checkbox:disabled {
+  -  cursor: default;
+  -}
+  -
+  -#sphinx-myst-preview-content input.myst-checkbox[aria-busy="true"] {
+  -  cursor: progress;
+  -}
+  -
+  -#sphinx-myst-preview-content input.myst-checkbox:focus-visible {
+  -  outline: 1px solid var(--vscode-focusBorder, #007fd4);
+  -  outline-offset: 2px;
+  -}
+  -
+  -/* Task list items show the checkbox in the bullet gutter, as GitHub does. */
+  -#sphinx-myst-preview-content li.task-list-item {
+  -  list-style: none;
+  -}
+  -
+  -#sphinx-myst-preview-content li.task-list-item > p:first-child > input.myst-checkbox:first-child {
+  -  margin-inline-start: -1.4em;
+  -}
+  -
+   #sphinx-myst-preview-content img {
+     max-width: 100%;
+     height: auto;
+  +0 -32
+
+src/markdown-okf-schema-studio/src/webview/scrollSync.ts
+  @@ -85,10 +85,6 @@ export function createScrollSyncScript(context: PreviewRuntimeContext): string {
+  -  // The edit toggle is only rendered when the document may be edited (trusted workspace).
+  -  const checkboxEditingEnabled = Boolean(editModeButton);
+  -  const checkboxSelector = "input.myst-checkbox";
+  -  const pendingCheckboxToggles = new Map();
+     const mappingsSelector = "[data-sphinx-source-file][data-sphinx-source-line]";
+     let layout = [];
+     let anchorMap = [];
+  @@ -561,7 +557,7 @@ export function createScrollSyncScript(context: PreviewRuntimeContext): string {
+  -      (edit.renderedTarget || edit.target).removeAttribute("data-sphinx-preview-editing");
+  +      edit.target.removeAttribute("data-sphinx-preview-editing");
+       }
+       edit.element.remove?.();
+       if (!activeFrontmatterEdit) editAnchor = undefined;
+  @@ -1419,7 +1415,6 @@ export function createScrollSyncScript(context: PreviewRuntimeContext): string {
+  -    const renderedTarget = selectedCell ? target : (target.closest?.("pre") || target);
+       const editId = context.requestId + "-" + (++editSequence);
+       const element = document.createElement("div");
+       element.className = selectedCell
+  @@ -1442,17 +1437,16 @@ export function createScrollSyncScript(context: PreviewRuntimeContext): string {
+  -      renderedTarget.setAttribute("data-sphinx-preview-editing", "true");
+  +      target.setAttribute("data-sphinx-preview-editing", "true");
+       }
+       if (selectedCell) {
+         selectedCell.appendChild(element);
+       } else {
+  -      renderedTarget.insertAdjacentElement("afterend", element);
+  +      target.insertAdjacentElement("afterend", element);
+       }
+       beginEditAnchor(selectedCell ?? element);
+       activeBlockEdit = {
+         target,
+  -      renderedTarget,
+         element,
+         status,
+         editId,
+  @@ -1705,9 +1699,6 @@ export function createScrollSyncScript(context: PreviewRuntimeContext): string {
+  -    textarea.setAttribute("autocorrect", "off");
+  -    textarea.setAttribute("autocapitalize", "off");
+  -    textarea.setAttribute("autocomplete", "off");
+       const displayText = edit.trailingLineEnding
+         ? message.originalText.slice(0, -edit.trailingLineEnding.length)
+         : message.originalText;
+  @@ -1828,63 +1819,6 @@ export function createScrollSyncScript(context: PreviewRuntimeContext): string {
+  -  function initializeCheckboxes() {
+  -    document.querySelectorAll?.(checkboxSelector).forEach((checkbox) => {
+  -      if (checkboxEditingEnabled) return;
+  -      checkbox.disabled = true;
+  -      checkbox.setAttribute("title", "Editing requires a trusted workspace.");
+  -    });
+  -  }
+  -
+  -  function toggleCheckbox(checkbox, event) {
+  -    const line = Number(checkbox.getAttribute("data-myst-checkbox-line"));
+  -    const column = Number(checkbox.getAttribute("data-myst-checkbox-column"));
+  -    if (
+  -      !checkboxEditingEnabled
+  -      || !Number.isSafeInteger(line) || line < 1
+  -      || !Number.isSafeInteger(column) || column < 0
+  -      || checkbox.getAttribute("aria-busy") === "true"
+  -    ) {
+  -      event.preventDefault?.();
+  -      return;
+  -    }
+  -    const pendingEdit = activeBlockEdit || activeFrontmatterEdit;
+  -    if (pendingEdit) {
+  -      // Toggling now would race the open editor's save and be rejected as stale.
+  -      event.preventDefault?.();
+  -      pendingEdit.status.textContent = "Save or cancel this edit before toggling a checkbox.";
+  -      pendingEdit.status.setAttribute?.("data-visible", "true");
+  -      return;
+  -    }
+  -    // The browser has already flipped the box; the host confirms or the result reverts it.
+  -    const checked = checkbox.checked === true;
+  -    const editId = "checkbox-" + context.requestId + "-" + (++editSequence);
+  -    checkbox.setAttribute("aria-busy", "true");
+  -    pendingCheckboxToggles.set(editId, { checkbox, checked });
+  -    vscode.postMessage({
+  -      type: "previewCheckboxToggle",
+  -      documentId: context.documentId,
+  -      documentVersion: context.documentVersion,
+  -      requestId: context.requestId,
+  -      editId,
+  -      line,
+  -      endLine: line,
+  -      column,
+  -      checked,
+  -      ...anchorField(),
+  -    });
+  -  }
+  -
+  -  function receiveCheckboxResult(message) {
+  -    const pending = pendingCheckboxToggles.get(message.editId);
+  -    if (!pending) return;
+  -    pendingCheckboxToggles.delete(message.editId);
+  -    pending.checkbox.removeAttribute("aria-busy");
+  -    if (message.saved === true) return;
+  -    pending.checkbox.checked = !pending.checked;
+  -    if (typeof message.error === "string") pending.checkbox.setAttribute("title", message.error);
+  -  }
+  -
+     function refreshPreview() {
+       closeLinkTooltip();
+       if (activeBlockEdit || activeFrontmatterEdit) {
+  @@ -2009,7 +1943,6 @@ export function createScrollSyncScript(context: PreviewRuntimeContext): string {
+  -  initializeCheckboxes();
+     themeButton?.addEventListener?.("click", cyclePreviewThemeMode);
+     refreshButton?.addEventListener?.("click", refreshPreview);
+     anchorButton?.addEventListener?.("click", () => {
+  @@ -2113,10 +2046,6 @@ export function createScrollSyncScript(context: PreviewRuntimeContext): string {
+  -    if (sameContext(message) && message.type === "previewCheckboxResult") {
+  -      receiveCheckboxResult(message);
+  -      return;
+  -    }
+       if (!sameContext(message) || message.type !== "sourceScroll") return;
+       markSourceLine(Number(message.selectionLine ?? message.line));
+       if (!settings.scrollPreviewWithEditor) return;
+  @@ -2153,13 +2082,6 @@ export function createScrollSyncScript(context: PreviewRuntimeContext): string {
+  -  // Registered first so a checkbox click never opens a block editor or reveals the source.
+  -  document.addEventListener("click", (event) => {
+  -    const checkbox = event.target instanceof Element ? event.target.closest(checkboxSelector) : undefined;
+  -    if (!checkbox) return;
+  -    event.stopImmediatePropagation?.();
+  -    toggleCheckbox(checkbox, event);
+  -  });
+     document.addEventListener("click", (event) => {
+       const button = event.target instanceof Element
+         ? event.target.closest("[data-okf-description-toggle]") : undefined;
+  @@ -2225,9 +2147,6 @@ export function createScrollSyncScript(context: PreviewRuntimeContext): string {
+  -    if (event.target instanceof Element
+  -      && (["INPUT", "TEXTAREA", "SELECT", "BUTTON"].includes(event.target.tagName)
+  -        || event.target.isContentEditable)) return;
+       if (event.target instanceof Element
+         && event.target.closest("[data-okf-description-toggle]")) return;
+       if (event.target instanceof Element
+  +3 -84
+
+src/markdown-okf-schema-studio/test/webview/scrollSync.test.ts
+  @@ -145,10 +145,7 @@ class RuntimeElement {
+  -        || (selector === "pre" && current.tagName === "PRE")
+           || (selector === "[data-okf-properties]" && current.getAttribute("data-okf-properties") !== null)
+  -        || (selector === "input.myst-checkbox" && current.tagName === "INPUT"
+  -          && current.getAttribute("class") === "myst-checkbox")
+           || (selector.includes("data-sphinx-source-line") && current.getAttribute("data-sphinx-source-line") !== null)
+         ) {
+           return current;
+  @@ -241,7 +238,6 @@ interface RuntimeHarness {
+  -  readonly checkbox: RuntimeElement;
+     readonly descriptionButton: RuntimeElement;
+     readonly frontmatterNameCell: RuntimeElement;
+     readonly frontmatterNameDisplay: RuntimeElement;
+  @@ -276,7 +272,6 @@ function createRuntimeHarness(configuration: Partial<{
+  -  editingEnabled: boolean;
+   }> = {}, savedThemeMode?: string, sharedThemeMode?: "current" | "dark" | "white", savedAnchorMode?: boolean): RuntimeHarness {
+     const {
+       firstMappedSourceLine = 1,
+  @@ -285,7 +280,6 @@ function createRuntimeHarness(configuration: Partial<{
+  -    editingEnabled = true,
+       ...runtimeConfiguration
+     } = configuration;
+     const windowState = { scrollY: 0 };
+  @@ -349,12 +343,6 @@ function createRuntimeHarness(configuration: Partial<{
+  -  const checkbox = new RuntimeElement({
+  -    class: "myst-checkbox",
+  -    "data-myst-checkbox-line": "51",
+  -    "data-myst-checkbox-column": "2",
+  -  }, windowState, 510, 14, "input");
+  -  mappings[mappings.length - 2].appendChild(checkbox);
+     const stickyHeadings = new RuntimeElement({}, windowState, 0, 0);
+     stickyHeadings.rectProvider = () => ({ top: 116, height: stickyHeadings.height, bottom: 116 + stickyHeadings.height });
+     const descriptionButton = new RuntimeElement({ "data-okf-description-toggle": "" }, windowState, 0, 24, "button");
+  @@ -427,7 +415,6 @@ function createRuntimeHarness(configuration: Partial<{
+  -      if ((event as { immediatePropagationStopped?: boolean } | undefined)?.immediatePropagationStopped) break;
+       }
+     };
+   
+  @@ -471,7 +458,7 @@ function createRuntimeHarness(configuration: Partial<{
+  -      if (selector === "[data-sphinx-preview-edit-toggle]") return editingEnabled ? editModeButton : null;
+  +      if (selector === "[data-sphinx-preview-edit-toggle]") return editModeButton;
+         if (selector === "[data-sphinx-preview-sticky-headings]") return stickyHeadings;
+         return null;
+       },
+  @@ -485,7 +472,6 @@ function createRuntimeHarness(configuration: Partial<{
+  -        : selector === "input.myst-checkbox" ? [checkbox]
+           : selector === "[data-okf-description-toggle]" ? [descriptionButton]
+           : selector === ".okf-info-row th[colspan]" ? []
+           : selector === "[data-okf-edit-cell]" ? [frontmatterNameCell, frontmatterValueCell]
+  @@ -544,7 +530,6 @@ function createRuntimeHarness(configuration: Partial<{
+  -    checkbox,
+       frontmatterNameCell,
+       frontmatterNameDisplay,
+       frontmatterValueCell,
+  @@ -1031,79 +1016,6 @@ test("activating a centered block editor preserves scroll before and after layou
+  -test("fenced Markdown editors sit outside the rendered pre and preserve source when saving", () => {
+  -  const harness = createRuntimeHarness();
+  -  const code = harness.mappings[1];
+  -  const pre = new RuntimeElement({}, harness.windowState, 500, 200, "pre");
+  -  pre.appendChild(code);
+  -  const originalText = [
+  -    "```md",
+  -    "Implementation completed: <tasks-number> tasks",
+  -    "",
+  -    "Tasks:",
+  -    "- <task-1>: completed",
+  -    "- <task-2>: completed (1 reworks)",
+  -    "- <task-3>: completed",
+  -    "",
+  -    "```",
+  -    "",
+  -  ].join("\n");
+  -  harness.editModeButton.dispatch("click");
+  -  harness.dispatchDocument("click", { target: code, preventDefault: () => undefined });
+  -  const editor = pre.insertedElements[0];
+  -  assert.ok(editor);
+  -  assert.equal(code.insertedElements.length, 0);
+  -  assert.equal(pre.contains(editor), false);
+  -  assert.equal(pre.getAttribute("data-sphinx-preview-editing"), "true");
+  -  harness.dispatchMessage({
+  -    type: "previewEditSource",
+  -    documentId: "file:///active.md",
+  -    documentVersion: 7,
+  -    requestId: 11,
+  -    editId: harness.messages.at(-1)?.editId,
+  -    originalText,
+  -  });
+  -  const textarea = harness.createdElements.find((element) => element.tagName === "TEXTAREA");
+  -  assert.ok(textarea);
+  -  assert.equal(textarea.parentElement, editor);
+  -  assert.equal(textarea.value, originalText.slice(0, -1));
+  -  textarea.value = textarea.value.replace("(1 reworks)", "(1 rework)");
+  -  textarea.dispatch("input");
+  -  assert.equal(harness.messages.at(-1)?.editedText, originalText.replace("(1 reworks)", "(1 rework)"));
+  -  textarea.dispatch("keydown", { key: "Escape", preventDefault: () => undefined });
+  -  assert.equal(pre.getAttribute("data-sphinx-preview-editing"), null);
+  -  assert.equal(code.getAttribute("data-sphinx-preview-editing"), null);
+  -});
+  -
+  -test("active Markdown editors leave repeated spaces and Enter to native text input", () => {
+  -  const harness = createRuntimeHarness();
+  -  harness.editModeButton.dispatch("click");
+  -  harness.dispatchDocument("click", { target: harness.mappings[1], preventDefault: () => undefined });
+  -  harness.dispatchMessage({
+  -    type: "previewEditSource",
+  -    documentId: "file:///active.md",
+  -    documentVersion: 7,
+  -    requestId: 11,
+  -    editId: harness.messages.at(-1)?.editId,
+  -    originalText: "- `compendium-jira-confluence`:\n  - `jira-skill`.        \n  - `derive-jira-issue-to-change-request`\n",
+  -  });
+  -  const textarea = harness.createdElements.find((element) => element.tagName === "TEXTAREA");
+  -  assert.ok(textarea);
+  -  textarea.parentElement = harness.mappings[1];
+  -  assert.equal(textarea.getAttribute("autocorrect"), "off");
+  -  assert.equal(textarea.getAttribute("autocapitalize"), "off");
+  -  assert.equal(textarea.getAttribute("autocomplete"), "off");
+  -  const messageCount = harness.messages.length;
+  -  let prevented = 0;
+  -  for (const key of [" ", " ", " ", " ", "Enter"]) {
+  -    const event = { target: textarea, key, preventDefault: () => { prevented += 1; } };
+  -    textarea.dispatch("keydown", event);
+  -    harness.dispatchDocument("keydown", event);
+  -  }
+  -  assert.equal(prevented, 0);
+  -  assert.equal(harness.messages.length, messageCount);
+  -});
+  -
+   test("block textareas resize on input and preview layout changes", () => {
+     const harness = createRuntimeHarness();
+     harness.editModeButton.dispatch("click");
+  @@ -2496,111 +2408,3 @@ test("scrolls to host-approved anchors and ignores invalid or stale requests", (
+  -
+  -interface ClickEvent {
+  -  target: RuntimeElement;
+  -  defaultPrevented: boolean;
+  -  immediatePropagationStopped: boolean;
+  -  preventDefault(): void;
+  -  stopImmediatePropagation(): void;
+  -}
+  -
+  -function clickEvent(target: RuntimeElement): ClickEvent {
+  -  return {
+  -    target,
+  -    defaultPrevented: false,
+  -    immediatePropagationStopped: false,
+  -    preventDefault() {
+  -      this.defaultPrevented = true;
+  -    },
+  -    stopImmediatePropagation() {
+  -      this.immediatePropagationStopped = true;
+  -    },
+  -  };
+  -}
+  -
+  -test("clicking a checkbox posts a source toggle instead of revealing the block", () => {
+  -  const harness = createRuntimeHarness();
+  -  const messageCount = harness.messages.length;
+  -  harness.checkbox.checked = true; // the browser flips the box before dispatching the click
+  -  const event = clickEvent(harness.checkbox);
+  -  harness.dispatchDocument("click", event);
+  -
+  -  assert.equal(event.defaultPrevented, false);
+  -  assert.equal(event.immediatePropagationStopped, true);
+  -  const posted = harness.messages.slice(messageCount);
+  -  assert.deepEqual(posted.map((message) => message.type), ["previewCheckboxToggle"]);
+  -  assert.equal(posted[0].line, 51);
+  -  assert.equal(posted[0].endLine, 51);
+  -  assert.equal(posted[0].column, 2);
+  -  assert.equal(posted[0].checked, true);
+  -  assert.equal(posted[0].documentVersion, 7);
+  -  assert.equal(harness.checkbox.getAttribute("aria-busy"), "true");
+  -
+  -  harness.dispatchMessage({
+  -    type: "previewCheckboxResult",
+  -    documentId: "file:///active.md",
+  -    documentVersion: 7,
+  -    requestId: 11,
+  -    editId: posted[0].editId,
+  -    saved: true,
+  -  });
+  -  assert.equal(harness.checkbox.getAttribute("aria-busy"), null);
+  -  assert.equal(harness.checkbox.checked, true);
+  -});
+  -
+  -test("a rejected checkbox toggle reverts the box and explains why", () => {
+  -  const harness = createRuntimeHarness();
+  -  harness.checkbox.checked = true;
+  -  harness.dispatchDocument("click", clickEvent(harness.checkbox));
+  -  harness.dispatchMessage({
+  -    type: "previewCheckboxResult",
+  -    documentId: "file:///active.md",
+  -    documentVersion: 7,
+  -    requestId: 11,
+  -    editId: harness.messages.at(-1)?.editId,
+  -    error: "The preview is out of date. Try again once it has refreshed.",
+  -  });
+  -  assert.equal(harness.checkbox.checked, false);
+  -  assert.equal(harness.checkbox.getAttribute("aria-busy"), null);
+  -  assert.match(harness.checkbox.getAttribute("title") ?? "", /out of date/u);
+  -});
+  -
+  -test("in edit mode a checkbox click toggles the box without opening a block editor", () => {
+  -  const harness = createRuntimeHarness();
+  -  harness.editModeButton.dispatch("click");
+  -  const messageCount = harness.messages.length;
+  -  harness.checkbox.checked = true;
+  -  harness.dispatchDocument("click", clickEvent(harness.checkbox));
+  -  assert.deepEqual(harness.messages.slice(messageCount).map((message) => message.type), ["previewCheckboxToggle"]);
+  -  assert.equal(
+  -    harness.createdElements.some((element) => element.getAttribute("data-sphinx-preview-block-editor") !== null),
+  -    false,
+  -  );
+  -});
+  -
+  -test("a checkbox click is refused while a block editor is open", () => {
+  -  const harness = createRuntimeHarness();
+  -  harness.editModeButton.dispatch("click");
+  -  harness.dispatchDocument("click", { target: harness.mappings[1], preventDefault: () => undefined });
+  -  const messageCount = harness.messages.length;
+  -  harness.checkbox.checked = true;
+  -  const event = clickEvent(harness.checkbox);
+  -  harness.dispatchDocument("click", event);
+  -  assert.equal(event.defaultPrevented, true, "the browser must undo the visual toggle");
+  -  assert.equal(harness.messages.length, messageCount);
+  -  const status = harness.createdElements.find((element) =>
+  -    element.getAttribute("data-sphinx-preview-edit-status") !== null);
+  -  assert.match(status?.textContent ?? "", /before toggling a checkbox/u);
+  -});
+  -
+  -test("checkboxes are disabled when the preview cannot edit the document", () => {
+  -  const harness = createRuntimeHarness({ editingEnabled: false });
+  ... (8 lines truncated)
+  +1 -197
+[full diff: rtk git diff --no-compact]

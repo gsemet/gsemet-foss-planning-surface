@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagrams · Studio requirements</title>
+<meta name="description" content="Mermaid (themes, fallback, errors) and PlantUML (built-in engine light/dark, {uml} diagram files and local !include light/dark, unsupported standard-library include; JAR success, unconfigured, executable not found)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markdown OKF-Schema Studio">
+<meta property="og:title" content="Diagrams: use cases and behaviours">
+<meta property="og:description" content="Mermaid (themes, fallback, errors) and PlantUML (built-in engine light/dark, {uml} diagram files and local !include light/dark, unsupported standard-library include; JAR success, unconfigured, executable not found)">
+<meta property="og:url" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/area-diagrams.html">
+<meta property="og:image" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/og/area.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Area: Use cases of one product area">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body style="--c:#1d4ed8">
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Areas</a><span class="sep">/</span><span aria-current="page">Diagrams</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<p class="eyebrow"><span class="sw" style="background:#1d4ed8"></span>Area</p>
+<h1>Diagrams</h1>
+<p class="lead">Mermaid (themes, fallback, errors) and PlantUML (built-in engine light/dark, {uml} diagram files and local !include light/dark, unsupported standard-library include; JAR success, unconfigured, executable not found)</p>
+<p class="facts"><b>4</b> use cases · <b>27</b> behaviours · <b>96.3%</b> linked to code and tests</p>
+<h2>Use cases</h2>
+<p class="hint">Each stop is a use case. Open one to see how it is split into behaviours.</p>
+<ol class="line"><li><a class="stop" href="use-case-diag-001.html"><span class="id">DIAG-001</span><span class="t">A writer reads and inserts Mermaid diagrams that follow the theme</span><span class="need">I put a Mermaid diagram in my document, or insert one in a single step, and see the drawn diagram in the preview in the colours of my theme, with the source one click away.</span><span class="meta">14 behaviours</span></a></li><li><div class="stop off" title="Not part of this prototype"><span class="id">DIAG-006</span><span class="t">A writer reads PlantUML diagrams without any setup</span><span class="need">I get PlantUML pictures right after installing the extension, also in Restricted Mode, and learn why a diagram has no picture and what to change instead of seeing a blank block.</span><span class="meta">10 behaviours</span></div></li><li><div class="stop off" title="Not part of this prototype"><span class="id">DIAG-007</span><span class="t">A writer renders PlantUML with an own JAR or command, safely bounded</span><span class="need">I decide whether PlantUML runs in the safe bundled engine or in my own installation, changing the choice applies to open previews, and a blocked, failing or heavy diagram never freezes the editor or leaves processes running.</span><span class="meta">7 behaviours</span></div></li><li><div class="stop off" title="Not part of this prototype"><span class="id">DIAG-009</span><span class="t">PlantUML diagrams use local include files and PUML files</span><span class="need">I split a diagram into include files or keep it in a separate puml file, and the preview shows the assembled picture and follows my edits to those files.</span><span class="meta">9 behaviours</span></div></li></ol>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

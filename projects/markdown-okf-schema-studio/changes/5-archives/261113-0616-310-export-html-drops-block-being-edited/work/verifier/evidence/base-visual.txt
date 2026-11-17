@@ -1,0 +1,5 @@
+failed: toolbar-navigation/v44-export-html-edited-cell-light-900
+
+rendering checks failed:
+  88-export-edited-cell--light--sticky-3--default.html: toolbar-navigation/v44-export-html-edited-cell-light-900 export: the text 'Compiler pioneer' of the edited cell is hidden
+  88-export-edited-cell--light--sticky-3--default.html: toolbar-navigation/v44-export-html-edited-cell-light-900 export: an editor control or a hidden wrapper is left in the file

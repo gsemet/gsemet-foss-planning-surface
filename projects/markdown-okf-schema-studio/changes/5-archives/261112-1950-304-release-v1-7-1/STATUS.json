@@ -1,0 +1,169 @@
+{
+  "schema": 2,
+  "updated": "2026-11-12T20:41:47Z",
+  "cr": "CR-304",
+  "title": "Change Specification: release v1.7.1",
+  "batch": "batch-01",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 0,
+  "max_rounds": 3,
+  "now": "Merged: its PR/MR.",
+  "next": "Nothing.",
+  "pr": null,
+  "steps": [
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "draft: /Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-01-CR-304/docs/releases-notes/2026-11-12-v1.7.1/release-notes.md",
+      "at": "2026-11-12T17:46:13Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "draft: /Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-01-CR-304/docs/releases-notes/2026-11-12-v1.7.1/tweet.md",
+      "at": "2026-11-12T17:46:13Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "version commit 786fe7b (just version 1.7.1, changelog 1.7.1 section, notes folder with the viewer map hero from the site built from run 43262188098); preflight next",
+      "at": "2026-11-12T17:46:13Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "786fe7b0",
+      "at": "2026-11-12T17:59:05Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "preflight at 786fe7b0: ci-static and ci-visual passed; ci-integration failed fast because the screen is locked (window never active), ci-report and ci-gallery failed from it; per local-worktree guideline the proof is CI's on-demand heavy run on the branch, dispatched next",
+      "at": "2026-11-12T17:59:46Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/375",
+      "at": "2026-11-12T18:00:21Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "PR 375 at 786fe7b0: branch heavy run 43275294730 green (integration, stress), PR checks green, main still cf51f12f; PR turned ready for the owner's review of the notes and merge by rebase",
+      "at": "2026-11-12T18:21:16Z"
+    },
+    {
+      "name": "Blocked",
+      "done": true,
+      "verdict": "",
+      "note": "merge: https://github.com/gsemet/markdown-okf-schema-studio/pull/375",
+      "at": "2026-11-12T18:21:16Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-12T19:23:31Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "attempt 2 on origin/main cb968299 (version commit merged by rebase); version push CI run 43289640826 in progress, watching",
+      "at": "2026-11-12T19:24:32Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "version push run 43289640826 on cb968299 all green (integration, stress, checks, tag-release, release, pages); tag v1.7.1 at cb968299; GitHub release with VSIX and 2 images (links 200); vsce published v1.7.1 at 19:47:10Z, listing still on 1.7.0 at 19:50 (Marketplace verification); Pages deployed from cb968299",
+      "at": "2026-11-12T19:50:24Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "report.md (release part) and retro.md written; no issue closed in v1.7.0..v1.7.1, so no step 8 comment to draft; Marketplace listing still 1.7.0 at 19:50:42Z",
+      "at": "2026-11-12T19:50:48Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-12T19:50:48Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "request",
+      "path": "intake/request.md"
+    },
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "body-sections",
+      "path": "work/body-sections.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261112-184616.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/release-process.guidelines.md",
+      "name": ".agents/guidelines/release-process.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CONTRIBUTING.md",
+      "name": "CONTRIBUTING.md"
+    }
+  ],
+  "branch": "chantier/batch-01/cr-304-change-specification-release-v1-7-1",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-01-CR-304",
+  "agent": null,
+  "notes": [
+    "confirmed: v1.7.1 from v1.7.0; changelog lines written in the version commit (owner accepted the deviation); short notes centred on the site, viewer capture as hero, no docs diagram; default grant; heavy gate green on main cf51f12f (run 43262188098)",
+    "version commit 786fe7b (just version 1.7.1, changelog 1.7.1 section, notes folder with the viewer map hero from the site built from run 43262188098); preflight next",
+    "preflight at 786fe7b0: ci-static and ci-visual passed; ci-integration failed fast because the screen is locked (window never active), ci-report and ci-gallery failed from it; per local-worktree guideline the proof is CI's on-demand heavy run on the branch, dispatched next",
+    "PR 375 at 786fe7b0: branch heavy run 43275294730 green (integration, stress), PR checks green, main still cf51f12f; PR turned ready for the owner's review of the notes and merge by rebase",
+    "merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/375",
+    "attempt 2 on origin/main cb968299 (version commit merged by rebase); version push CI run 43289640826 in progress, watching",
+    "published: v1.7.1 https://github.com/gsemet/markdown-okf-schema-studio/releases/tag/v1.7.1",
+    "version push run 43289640826 on cb968299 all green (integration, stress, checks, tag-release, release, pages); tag v1.7.1 at cb968299; GitHub release with VSIX and 2 images (links 200); vsce published v1.7.1 at 19:47:10Z, listing still on 1.7.0 at 19:50 (Marketplace verification); Pages deployed from cb968299",
+    "report.md (release part) and retro.md written; no issue closed in v1.7.0..v1.7.1, so no step 8 comment to draft; Marketplace listing still 1.7.0 at 19:50:42Z"
+  ],
+  "blocked": null,
+  "cost_usd": 4.5821,
+  "final_cost": true,
+  "silent_minutes": null
+}

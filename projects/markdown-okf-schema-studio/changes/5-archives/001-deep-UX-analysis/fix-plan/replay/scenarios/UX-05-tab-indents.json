@@ -1,0 +1,23 @@
+{
+  "name": "UX-05-tab-indents",
+  "file": "fixtures-visual/04-code-and-tables.md",
+  "steps": [
+    {"waitFor": "D.querySelector('#sphinx-myst-preview-content h1')", "timeout": 20000, "label": "side preview visible"},
+    {"mark": true},
+    {"editMode": true},
+    {"clicksel": "li", "text": "Dry goods", "exact": true},
+    {"waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')", "label": "block editor open"},
+    {"key": "Meta+ArrowDown"},
+    {"key": "Meta+ArrowLeft"},
+    {"key": "Tab", "wait": 400},
+    {"check": "focus", "selector": "[data-sphinx-preview-block-editor] textarea", "label": "UX-05 textarea keeps focus after Tab"},
+    {"check": "feval", "expr": "D.querySelector('[data-sphinx-preview-block-editor] textarea').value", "equals": "      - Dry goods\n        - Refrigerated goods", "label": "UX-05 Tab indented the line by the marker width"},
+    {"key": "Shift+Tab", "wait": 400},
+    {"check": "feval", "expr": "D.querySelector('[data-sphinx-preview-block-editor] textarea').value", "equals": "      - Dry goods\n      - Refrigerated goods", "label": "UX-05 Shift+Tab outdented it back"},
+    {"key": "Tab", "wait": 400},
+    {"key": "Meta+Enter", "wait": 1500},
+    {"check": "diff", "against": "mark", "maxLines": 1, "contains": "        - Refrigerated goods", "show": true, "label": "UX-05 indentation committed"},
+    {"check": "feval", "expr": "(() => { const li = [...D.querySelectorAll('li')].find(l => l.textContent.trim() === 'Refrigerated goods'); return !!li && li.parentElement.closest('li').textContent.trim().startsWith('Dry goods'); })()", "label": "UX-05 Refrigerated goods is now a child of Dry goods"},
+    {"shot": "UX-05-after-commit", "clip": "preview"}
+  ]
+}

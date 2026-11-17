@@ -1,0 +1,1 @@
+CR 084 coder report: feat, commit 0d645ea on changes-requests/084-table-row-reorder-handle. just check green (2632 unit), ci-visual 338/338. PR body: ../pr-body.md. Assets branch changes-requests/084-table-row-reorder-handle-assets (3266975).

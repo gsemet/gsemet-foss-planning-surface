@@ -1,0 +1,251 @@
+{
+  "schema": 2,
+  "updated": "2026-11-14T17:14:19Z",
+  "cr": "CR-318",
+  "title": "Change specification: the floating toolbar becomes a 4 × 4 grid",
+  "batch": "batch-04",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 3,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/390.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/390",
+    "number": 390
+  },
+  "steps": [
+    {
+      "name": "Round 1",
+      "done": true,
+      "verdict": "",
+      "note": "Implement spec 03-change-spec.md in full (sections 3.1-3.6)",
+      "at": "2026-11-13T17:02:25Z"
+    },
+    {
+      "name": "Round 2",
+      "done": true,
+      "verdict": "",
+      "note": "fix inspector item: TOOLBAR-130 scenario heading rows 2 to 4; test/visual/scenarios.ts:124 comment",
+      "at": "2026-11-13T17:32:49Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "b9f7dc2b",
+      "at": "2026-11-13T17:48:03Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "preflight at b9f7dc2b: static+visual pass; ci-integration failed only from the locked screen (accepted: heavy run on branch is the proof); report/gallery follow from it",
+      "at": "2026-11-13T17:48:25Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/390",
+      "at": "2026-11-13T17:48:46Z"
+    },
+    {
+      "name": "Blocked",
+      "done": true,
+      "verdict": "",
+      "note": "waits: PR 390 CI and heavy run 43476490855 still running; then Verifier screenshots and TOOLBAR-001 geometry",
+      "at": "2026-11-13T17:49:11Z"
+    },
+    {
+      "name": "Round 3",
+      "done": true,
+      "verdict": "",
+      "note": "CI visual: toolbar-float first paragraph check fails on CI at 393px after the shorter toolbar",
+      "at": "2026-11-13T18:04:13Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/390",
+      "at": "2026-11-13T18:10:37Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/390",
+      "at": "2026-11-13T18:13:58Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "heavy run 43480001535: all pass except stress round 7/20 alert-dropdown timeout (editor flake, unrelated to toolbar); one re-run of the failed job started",
+      "at": "2026-11-13T18:24:24Z"
+    },
+    {
+      "name": "Blocked",
+      "done": true,
+      "verdict": "",
+      "note": "waits: heavy run 43483133215 at head 2ca565e1 still running; then gh pr ready 390",
+      "at": "2026-11-13T18:30:21Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "heavy run 43483133215 at 2ca565e1 green; PR ready",
+      "at": "2026-11-13T18:53:00Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-13T18:53:21Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/390",
+      "at": "2026-11-13T18:54:47Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "request",
+      "path": "intake/request.md"
+    },
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261113-183515.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../constitution.md",
+      "name": ".agents/constitution.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../glossary/common.md",
+      "name": ".agents/glossary/common.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../AGENTS.md",
+      "name": "AGENTS.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CHANGELOG.md",
+      "name": "CHANGELOG.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../docs/user/README.md",
+      "name": "docs/user/README.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../docs/user/toolbar.md",
+      "name": "docs/user/toolbar.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/guidelines/project.guidelines.md",
+      "name": "requirements/guidelines/project.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/guidelines/requirements.guidelines.md",
+      "name": "requirements/guidelines/requirements.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/log.md",
+      "name": "requirements/tiers/log.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/strs/layout-width/StRS-MDOKFSTUDIO-LAYOUT-003.md",
+      "name": "requirements/tiers/strs/layout-width/StRS-MDOKFSTUDIO-LAYOUT-003.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/strs/toolbar-navigation/StRS-MDOKFSTUDIO-TOOLBAR-001.md",
+      "name": "requirements/tiers/strs/toolbar-navigation/StRS-MDOKFSTUDIO-TOOLBAR-001.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-049.md",
+      "name": "requirements/tiers/swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-049.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-170.md",
+      "name": "requirements/tiers/swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-170.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-008.md",
+      "name": "requirements/tiers/swrs/review-annotations/SwRS-MDOKFSTUDIO-REVIEW-008.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/theme-zoom/SwRS-MDOKFSTUDIO-THEME-001.md",
+      "name": "requirements/tiers/swrs/theme-zoom/SwRS-MDOKFSTUDIO-THEME-001.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/toolbar-navigation/SwRS-MDOKFSTUDIO-TOOLBAR-001.md",
+      "name": "requirements/tiers/swrs/toolbar-navigation/SwRS-MDOKFSTUDIO-TOOLBAR-001.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/toolbar-navigation/SwRS-MDOKFSTUDIO-TOOLBAR-007.md",
+      "name": "requirements/tiers/swrs/toolbar-navigation/SwRS-MDOKFSTUDIO-TOOLBAR-007.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/trust-security/SwRS-MDOKFSTUDIO-TRUST-001.md",
+      "name": "requirements/tiers/swrs/trust-security/SwRS-MDOKFSTUDIO-TRUST-001.md"
+    }
+  ],
+  "branch": "chantier/batch-04/cr-318-change-specification-the-floating-toolba",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-04-CR-318",
+  "agent": null,
+  "notes": [
+    "preflight at b9f7dc2b: static+visual pass; ci-integration failed only from the locked screen (accepted: heavy run on branch is the proof); report/gallery follow from it",
+    "back to a Driver: fix: PR CI visual fails layout-width/v88-toolbar-float-first-lines-cream-393 (75-toolbar-float--light--sticky-3): first paragraph starts above the toolbar bottom edge; passes locally; round 3 is the last",
+    "heavy run 43480001535: all pass except stress round 7/20 alert-dropdown timeout (editor flake, unrelated to toolbar); one re-run of the failed job started",
+    "heavy run 43483133215 at 2ca565e1 green; PR ready",
+    "back to a Driver: close-out: heavy run green at 2ca565e1, PR ready; only handback ready is left"
+  ],
+  "blocked": null,
+  "cost_usd": 4.1414,
+  "final_cost": true,
+  "silent_minutes": null
+}

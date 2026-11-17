@@ -1,0 +1,111 @@
+{
+  "schema": 2,
+  "updated": "2026-11-13T11:49:05Z",
+  "cr": "CR-314",
+  "title": "Change spec: name the release report `04-report.md` in the release CR",
+  "batch": "batch-02",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 0,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/386.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/386",
+    "number": 386
+  },
+  "steps": [
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/386",
+      "at": "2026-11-13T10:55:28Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "pass",
+      "note": "9d6b4948",
+      "at": "2026-11-13T10:57:03Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-13T11:05:57Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/386",
+      "at": "2026-11-13T11:21:16Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "request",
+      "path": "intake/request.md"
+    },
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261113-115533.log"
+    },
+    {
+      "kind": "project",
+      "path": "../261113-0726-313-release-v1-8-0/04-report.md",
+      "name": ".agents/changes/4-archives/261113-0726-313-release-v1-8-0/04-report.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/change-requests-lifecycle.guidelines.md",
+      "name": ".agents/guidelines/change-requests-lifecycle.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/owner-review.guidelines.md",
+      "name": ".agents/guidelines/owner-review.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/release-process.guidelines.md",
+      "name": ".agents/guidelines/release-process.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../.github/PULL_REQUEST_TEMPLATE.md",
+      "name": ".github/PULL_REQUEST_TEMPLATE.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CHANGELOG.md",
+      "name": "CHANGELOG.md"
+    }
+  ],
+  "branch": "chantier/batch-02/cr-314-change-spec-name-the-release-report-04-r",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-02-CR-314",
+  "agent": null,
+  "notes": [],
+  "blocked": null,
+  "cost_usd": 0.558,
+  "final_cost": true,
+  "silent_minutes": null
+}

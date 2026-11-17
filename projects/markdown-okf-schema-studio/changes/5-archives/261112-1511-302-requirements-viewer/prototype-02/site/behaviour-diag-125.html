@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIAG-125 · Studio requirements</title>
+<meta name="description" content="When a document holds an svg fence or a raw svg element that fills a whole block, the preview SHALL draw it inline as a picture rebuilt from an allow-list of drawing elements and presentation attribut">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markdown OKF-Schema Studio">
+<meta property="og:title" content="Behaviour DIAG-125: SVG blocks are drawn inline after the sanitizer rebuilt them">
+<meta property="og:description" content="When a document holds an svg fence or a raw svg element that fills a whole block, the preview SHALL draw it inline as a picture rebuilt from an allow-list of drawing elements and presentation attribut">
+<meta property="og:url" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/behaviour-diag-125.html">
+<meta property="og:image" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/og/behaviour.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Behaviour: One rule, tested on its own, linked to its code">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body style="--c:#1d4ed8">
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Areas</a><span class="sep">/</span><a href="area-diagrams.html">Diagrams</a><span class="sep">/</span><a href="use-case-diag-001.html">DIAG-001</a><span class="sep">/</span><span aria-current="page">DIAG-125</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<p class="eyebrow"><span class="sw" style="background:#1d4ed8"></span>Behaviour DIAG-125</p>
+<h1>SVG blocks are drawn inline after the sanitizer rebuilt them</h1>
+<p class="rule">When a document holds an svg fence or a raw svg element that fills a whole block, the preview <strong>SHALL</strong> draw it inline as a picture rebuilt from an allow-list of drawing elements and presentation attributes, with every id and reference renamed per picture, and <strong>SHALL</strong> draw an svg element inside a sentence, a comment, a math block, a code block or a raw HTML table as nothing.</p>
+<div class="where"><p>Part of <a href="use-case-diag-001.html">DIAG-001</a>, outside the paths drawn on its map.</p></div>
+<h2>Scenarios <small>3</small></h2>
+<p class="hint">The situations the tests check. Open one to read it.</p>
+<details class="scn"><summary><span class="k nom">nominal</span>A fence and a raw block are pictures</summary><div class="gwt"><div><b>Given</b>a document with an svg fence and, after a blank line, a raw svg element that holds its whole block (one line or several)</div><div><b>When</b>the preview renders it</div><div><b>Then</b>each is one figure of the class myst-svg-figure that holds one svg element with its viewBox and declared width, carries the data-line of its first line and the data-end-line of its last line, and no code block is left</div></div></details><details class="scn"><summary><span class="k ref">refusal</span>Active content and shared ids</summary><div class="gwt"><div><b>Given</b>an svg with a script element, an on-handler, a foreignObject, a link to an https page, a style element, a use that points at another file, a javascript: or data: URL and a gradient whose id another picture also uses, an image-set() or src() value, and a use or url() that points at an id of another picture or of the page</div><div><b>When</b>the preview renders it</div><div><b>Then</b>none of these reaches the page, the render carries one warning that names what was removed, and each picture keeps its own ids with every url(#id) and href=&quot;#id&quot; reference renamed with them</div></div></details><details class="scn"><summary><span class="k bnd">boundary</span>Inline svg and unreadable source</summary><div class="gwt"><div><b>Given</b>an svg element inside a sentence, and an svg fence that holds no svg element</div><div><b>When</b>the preview renders them</div><div><b>Then</b>the first draws nothing and the second stays a code block with one warning</div></div></details>
+<div class="cols">
+  <section><h2>Implemented in <small>2</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/core/security/svgSanitizer.ts"><span class="dir">src/core/security/</span>svgSanitizer.ts</a></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/core/render/svgPictures.ts"><span class="dir">src/core/render/</span>svgPictures.ts</a></li></ul></section>
+  <section><h2>Tested by <small>4</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/svgBreakout.test.ts"><span class="dir">test/page/</span>svgBreakout.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/security/svgSanitizer.test.ts"><span class="dir">test/security/</span>svgSanitizer.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/visual/svgPictureScenarios.ts"><span class="dir">test/visual/</span>svgPictureScenarios.ts</a><span class="tag">visual</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/core/render/svgRendering.test.ts"><span class="dir">test/core/render/</span>svgRendering.test.ts</a><span class="tag">unit</span></li></ul></section>
+</div>
+
+<nav class="pager"><a href="behaviour-diag-124.html">← The chart runtime loads only with a chart and needs no eval</a><a class="next" href="behaviour-diag-126.html">A picture takes its colours from the preview theme →</a></nav>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+(node:53171) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-02-CR-306/test/site/e2eCampaign.test.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-02-CR-306/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ a stage does not adopt the run id of a stale sibling campaign (28.575667ms)
+✔ a stage adopts the run id of a recent sibling campaign (27.820459ms)
+✔ starting a stage again invalidates its previous manifest and records a fresh start (27.199291ms)
+✔ the report fails when the two stages started more than two hours apart (27.330458ms)
+✔ the visual-only report needs only the visual stage and lists the real VS Code stage as skipped (52.690917ms)
+✔ the visual-only report fails when the visual stage failed or did not run (56.305625ms)
+✔ the report names each failed check of a visual manifest (55.717209ms)
+✔ a stage records that its run id was pinned by the CI workflow (55.673583ms)
+✔ the report accepts stages started hours apart when both carry the same pinned CI run id (26.035792ms)
+✔ the two-hour limit still applies unless both stages carry the same pinned run id (80.717834ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 507.27025

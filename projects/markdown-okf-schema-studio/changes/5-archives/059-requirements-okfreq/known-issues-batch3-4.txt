@@ -1,0 +1,81 @@
+Ids in this file predate the reduction; see `reduction/mapping.csv`.
+
+THEME-014: when the write fails the failure is only logged; the reader sees no message and the choice is lost at the next start (the same behaviour is recorded for the view preferences in SwRS-MDOKFSTUDIO-TOOLBAR-014).
+THEME-017: no style rule reads data-sphinx-preview-theme; its only consumer is the Mermaid theme observer (see SwRS-MDOKFSTUDIO-DIAG-006), which redraws a diagram only when its drawn colours differ.
+TOOLBAR-006: no code avoids the text that scrolls under the toolbar, and no code moves the toolbar when the find widget of VS Code opens; the layout-width scope handles only the first element of the document.
+TOOLBAR-014: when the storage write fails, the host only logs "Failed to persist the Markdown preview view preferences." to the console; the reader sees no message and the choice is lost at the next start.
+TOOLBAR-020: a zero-height heading is still written as a parent line of the band, because the parent walk uses the list of all headings and only the current-heading search skips the ones without a height.
+TOOLBAR-041: the sticky band follows every h1 to h6 heading, including those inside admonitions and the properties table, so a heading can appear in the band and never in the column.
+TOOLBAR-043: the accessible name of the twisty is Fold followed by the heading in both states; only aria-expanded changes, and no test uses the keyboard on it (the native button handles Enter and Space).
+TOOLBAR-061: when the Anchor mode is off, Back or Next within the same document moves the history and stores the line, but the page ignores the sourceScroll message (the scroll is skipped when the preview does not follow the editor), so the pr
+TOOLBAR-075: the history position has already moved when the open fails, so Back and Next enable on the new position although the document did not change.
+TOOLBAR-079: a request is asked once per page (the page never forgets it), so a target file created or deleted later keeps its old tooltip until the page is replaced.
+TOOLBAR-087: a link to a missing or blocked target looks like a valid link; only the tooltip and the warning after a click tell the difference.
+TOOLBAR-093: a path that decodes to a lone percent sign is refused as undecodable, so a file whose name holds a literal % cannot be reached by a link; a doubly encoded percent (a%2541.md) is decoded twice to aA.md.
+TOOLBAR-119: the check for an escape left after four decoding rounds uses the case-insensitive pattern /%[da-f]{2}/ (the host-side check uses [0-9a-f]); a leftover such as %41 is not recognised, and the partly decoded text is looked up as an i
+TOOLBAR-131: the page picks the block whose first source line is nearest to the cursor line, not the block that contains it, so a cursor inside a long block can mark the next block when that block starts closer.
+TABLE-034: After a refused open the cell shows only the message and its rendered content stays hidden, and a click on any cell or block is ignored because the editor has no table model. The other exits of that state and the frame without a t
+TABLE-051: The rule is drawn by the style of each button of the column and table groups, because the group is an attribute of each button and there is no group element, so a rule also separates Col + from Col −.
+TABLE-054: The separator before the cell formatting group is a flex item of its own that does not shrink or stretch sideways, so when the group wraps onto a second line the separator stays at the end of the first line.
+TABLE-062: A column operation breaks the one-line-diff guarantee of the other edits: the table's own padding, indentation and outer-pipe style are lost, and nothing in the bar tells the writer.
+TABLE-063: renderTableCellEditor closes the popover, the link panel and the slash menu every time the editor is rendered: after a row or column button and after every move to another cell, so the writer has to open them again.
+TABLE-070: When a line break pasted into the cell makes the rows uneven (SwRS-MDOKFSTUDIO-TABLE-093), the table text no longer parses, the conversion finds no table and the button does nothing and shows no message.
+TABLE-072: The refusal branch cannot run today: a pipe table that the cell editor can open always converts to a list-table, so the status is never written by this button. The no-table branch runs after a pasted line break (SwRS-MDOKFSTUDIO-T
+TABLE-093: The cell text box has no paste handler and the table writer does not remove line breaks, so a pasted line break splits the row in the source and the table no longer renders as one row. Only text inserted from the bar is made cell-
+TABLE-104: The preview renderer follows the GFM table rule, which splits a row at a pipe inside a code span, while the editor keeps that pipe in one cell. For the row `| a | b |` over a body row `| `x|y` | z |`, the preview shows the cells `
+TABLE-106: With the caret in a row of an existing table, the action inserts the new table after the caret with blank lines around it, which splits the existing table in two.
+TABLE-107: With the caret in a row of an existing table, the blank lines added around the inserted table split the existing table in two; only the paragraph case is shown by the first scenario.
+TABLE-116: Only a pipe table is wrapped: with the caret inside a {list-table} or an HTML table the action does not recognise it and inserts a new captioned table at the caret position, which can land in the middle of that table.
+TABLE-119: With the caret inside a {list-table} or inside an existing HTML table, no pipe table is found and the new table is inserted at the caret, which splits that table.
+BLOCK-015: Enter or Space on a focused link inside a paragraph follows the link and also opens the paragraph editor: the keydown listener excludes only links of the properties table, and the paragraph is the mapped target (deduced from the l
+BLOCK-018: the rule tests whether the mapped block itself is inside a link. A link inside a paragraph does not qualify, so the paragraph is outlined while the pointer is over the link.
+BLOCK-024: a click on a link inside a paragraph is not excluded: the navigation handler posts previewLink and the document click handler then opens the editor of the paragraph (deduced from the handler order and the mapping of block elements
+BLOCK-039: the text "Loading Markdown source…" is set on the status line of a block editor, but that line is attached to the frame only when the source arrives, so the writer never sees it; only the table cell editor shows its loading text.
+BLOCK-041: a click on another block while the first editor holds changed text saves the first editor through its blur, but opens no second editor at that click, because the first editor stays open until the render of its save arrives; the wr
+BLOCK-047: pressing Done again, or leaving the text box, while the first final save is in flight posts a second final save: postBlockEditSave only refuses an autosave while the editor is finishing. Done, Ctrl+Enter and the text box blur have
+BLOCK-060: (deduced from the code, not run) no code converts the LF line breaks that the text box returns back to the document's line ending inside a multi-line block. If VS Code writes that LF text into a CRLF document as CRLF, the next sav
+BLOCK-094: the planner finds line ends by LF only. In a document whose lines end with a lone CR, an insertion after line 1 goes to the end of the text and an insertion after any later line is refused as stale.
+BLOCK-101: the planner finds line ends by LF only (see SwRS-MDOKFSTUDIO-BLOCK-094).
+BLOCK-123: a move request that names an older render is dropped without an answer: see SwRS-MDOKFSTUDIO-BLOCK-248.
+BLOCK-134: a move refused after a key press shows no reason: the status is attached to the bar marked pending by an arrow click, and a key press marks none (receiveBlockMoveResult ends silently without that mark). A refusal after an arrow cl
+BLOCK-138: on a keyboard layout where AltGr reports Ctrl and Alt together, AltGr with an up or down arrow in the text box is read as the move chord on Windows and Linux, because the check does not look at AltGraph.
+BLOCK-160: a selection move refused after a key press shows no reason, for the same reason as a refused move of one block (see SwRS-MDOKFSTUDIO-BLOCK-134); the arrows of the bar under the selection mark their bar pending, so a refusal after 
+BLOCK-179: the host looks at the single line it is asked to paste after. The insert point of an included block sits after the last line of the directive, which is the closing fence and does not open an include, so a request for that line pas
+BLOCK-183: a request that names an older render is dropped without an answer: see SwRS-MDOKFSTUDIO-BLOCK-248.
+BLOCK-216: the status line of a block editor is attached to the frame only when the source arrives, so after a refused open the writer sees an empty frame and not the reason (a table cell editor does show it). The frame has no Done and no Ca
+BLOCK-218: an open that names an older render is dropped without an answer: see SwRS-MDOKFSTUDIO-BLOCK-248.
+BLOCK-248: a request that names an older render than the one the host holds is dropped by the gate without any answer. No reason is shown; an arrow click stays marked pending; a keyboard move, a clipboard request and a selection move are for
+PALETTE-109: see SwRS-MDOKFSTUDIO-PALETTE-181 (the refusal that the out-of-date reason produces after the editor has saved a change).
+PALETTE-140: see SwRS-MDOKFSTUDIO-PALETTE-181 (the refusal that the out-of-date reason produces after the editor has saved a change).
+PALETTE-144: see SwRS-MDOKFSTUDIO-PALETTE-181 (the refusal that the out-of-date reason produces after the editor has saved a change).
+PALETTE-148: see SwRS-MDOKFSTUDIO-PALETTE-181 (the refusal that the out-of-date reason produces after the editor has saved a change).
+PALETTE-150: see SwRS-MDOKFSTUDIO-PALETTE-181 (the refusal that the out-of-date reason produces after the editor has saved a change).
+PALETTE-168: see SwRS-MDOKFSTUDIO-PALETTE-181 (the refusal that the out-of-date reason produces after the editor has saved a change).
+PALETTE-175: a request that names an older render than the host holds is dropped by the host without an answer (SwRS-MDOKFSTUDIO-TRUST-065), so the page waits for its own timeout: 6 seconds for a list, 10 minutes for a file dialog, during whic
+PALETTE-181: after the editor has saved any change, whether by the autosave after typing or by a palette button, Reference, Citation, Document link, Image and the Browse of the figure form answer the out-of-date reason until the editor is clos
+PALETTE-183: the truncated flag is also set when exactly 20 bibliography files exist, although nothing was cut, so the note More entries exist is shown for a complete list (bibScan.ts:search sets it when the number of files found reaches the c
+PALETTE-188: same cause as SwRS-MDOKFSTUDIO-PALETTE-181 (the autosave of the open editor makes this refusal permanent until the editor closes).
+PALETTE-195: same cause as SwRS-MDOKFSTUDIO-PALETTE-181 (the autosave of the open editor makes this refusal permanent until the editor closes).
+PALETTE-271: same cause as SwRS-MDOKFSTUDIO-PALETTE-181 (the autosave of the open editor makes this refusal permanent until the editor closes).
+REVIEW-132: the refusal text blames the workspace trust, but a preview is also read-only for a file outside every workspace folder, where trust is not the cause. The page offers no comment control in either case, so the text appears only when
+REVIEW-158: pressing the Comments button hides the gray chips only, while turning preview.showComments off hides the gray chips and the thread chips, so the button labelled Hide comments leaves inline threads visible.
+REVIEW-180: the refusal blames the workspace trust, but a preview is also read-only for a file outside every workspace folder, where trust is not the cause. The page adds no thread control in either case, so the text appears only for a reques
+LIFE-010: with a Studio Open With tab active no text editor is active, so the command from the Command Palette is refused with the message that asks for a Markdown file; the code has no check for a custom editor (deduced from the code, not 
+LIFE-030: the replaced session starts with an empty remembered-state map; see SwRS-MDOKFSTUDIO-LIFE-138.
+LIFE-045: the check splits the whole absolute path, not the path relative to the root, so a workspace stored below a folder named tmp, out, output, public or dist never refreshes on an included-file, image or sibling-file change, and Markdo
+LIFE-094: any change of the document of the active text editor counts as typing, so an edit that another tool applies to that document while it is the active editor does not glow.
+LIFE-099: a single click already reveals the same line, because the host gates only the double-click activation on this setting, so turning the setting on adds no visible effect beyond the click.
+LIFE-138: switchDocument reads the remembered state of the document, then the pending page it shows clears it (showPending sets the state to undefined) before the render builds its context, so a document the reader returns to does not get i
+LIFE-139: the remembered states are never used after a switch; see SwRS-MDOKFSTUDIO-LIFE-138.
+LIFE-140: the stored choice is read only when a session is created and not after a switch inside one session; see SwRS-MDOKFSTUDIO-LIFE-138.
+LIFE-155: session.readOnly is fixed when the session is created and nothing resets it on a trust grant, so a preview opened in Restricted Mode stays read-only after the reader trusts the workspace until a document switch creates a new sessi
+TRUST-001: with a packaged VSIX, VS Code disables the extension in Restricted Mode unless a user setting or the product configuration overrides it (SwRS-MDOKFSTUDIO-TRUST-071); the Restricted Mode case of this requirement is then reached onl
+TRUST-002: the first load of a read-only page is built in src/session/webview.ts without the read-only flag, so its properties table carries edit cells and rows that say data-okf-editable true; the host replaces the table with a non-editable
+TRUST-007: with a packaged VSIX, VS Code disables the extension in Restricted Mode unless a user setting or the product configuration overrides it (SwRS-MDOKFSTUDIO-TRUST-071); the Restricted Mode case of this requirement is then reached onl
+TRUST-011: with a packaged VSIX, VS Code disables the extension in Restricted Mode unless a user setting or the product configuration overrides it (SwRS-MDOKFSTUDIO-TRUST-071); the Restricted Mode case of this requirement is then reached onl
+TRUST-019: the webview source VS Code supplies is 'self' https://*.vscode-cdn.net, a subdomain wildcard of the webview origin, so the policy text of a real page does contain an asterisk (deduced from the VS Code 1.143.1 extension host, not r
+TRUST-045: for every stylesheet the policy accepts, the page build records the diagnostic Ignored a linked stylesheet; the preview supplies its own theme., but the link element stays in the page and the policy allows styles from the webview 
+TRUST-048: the sanitizer is a deny-list, not an allow-list. An element outside its list, such as base or a link that is not a stylesheet, passes untouched, and an unknown attribute stays; the content security policy (base-uri, form-action, f
+TRUST-060: the page does not check the origin of the window message events it receives (createVsCodeTransport in src/page/hostTransport.ts), so the page accepts a message posted by any script of its window; the content security policy (scrip
+TRUST-071: in the VS Code 1.143.1 workbench installed on the build machine, the rule that decides whether an extension runs in Restricted Mode returns false for an extension that has a main entry point and no capabilities.untrustedWorkspaces
+TRUST-088: the text of SwRS-MDOKFSTUDIO-CORE-012 says an include is expanded for a trusted document, and docs/known-limitations.md says that file includes are supported only when the workspace is trusted; the code reads includes in Restricte

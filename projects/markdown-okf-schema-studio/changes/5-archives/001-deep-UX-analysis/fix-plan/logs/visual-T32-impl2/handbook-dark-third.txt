@@ -1,0 +1,63 @@
+handbook-dark-third
+===================
+
+Fixture:  01-handbook-overview.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 900x1000
+Scroll:   selector (pre) - final y=1038; first `pre` positioned below toolbar/sticky overlays plus 24px
+Status:   failed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested selector (pre) position.
+
+Captured state
+--------------
+The preview is scrolled to 1038 pixels. Edit mode is off.
+Visible content: Ask the regional store for the current depot graph.; Run a bounded Dijkstra with a hop limit of four.; Emit the legs, oldest deadline first.; Persist the plan and acknowledge the manifest.; def plan_legs(manifest: Manifest, graph: DepotGraph) -> list[Leg]:
+    """Return the ordered legs fo; Hop limit is not a tuning knob; The hop limit of four is baked into the depot contract.
+Raising it makes the planner emit routes tha; Service
+p50
+p99
+Error budget
+Owner
+Region
+Shift
+Queue
+Replica
+Audit
+
+
+
+
+intake
+12 ms
+80 ms
+0.1%
+Plat; The error budget is measured over a rolling thirty-day window.
+Burning more than half of it in a wee; Tip; The freeze is advisory for archive and enforced for intake.
+Nobody has ever successfully argued thei
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+The first code landmark in the same document. Mid-scroll rendering of an ordered list, a fenced Python block, and a titled warning admonition.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Machine checks
+--------------
+n/a overlay-covers-text: no visible overlay
+n/a overlay-clipped: no visible overlay
+PASS identifier-split: identifier cells stay on one line
+n/a status-two-lines: no status with a strong line and message
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.
+Assertion failure: sticky heading overlaps the reserved toolbar row

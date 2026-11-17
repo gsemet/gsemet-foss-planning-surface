@@ -1,0 +1,13 @@
+{
+  "name": "UX-28-typing-navigations",
+  "file": "book/chapters/02-foundations.md",
+  "precondition": "Run UX-28-setup.json first: side preview open on the chapter, caret at the end of line 44 in the text editor, preview settled.",
+  "steps": [
+    {"mark": true},
+    {"type": " typed by the r3 UX-28 replay ok", "delay": 60, "wait": 4000},
+    {"check": "diff", "file": "${file}", "against": "mark", "maxLines": 1, "contains": "typed by the r3 UX-28 replay ok", "label": "typing landed in the source"},
+    {"check": "feval", "expr": "D.body.innerText.includes('typed by the r3 UX-28 replay ok')", "equals": true, "label": "preview shows the typed text"},
+    {"check": "navs", "max": 0, "label": "UX-28 webview navigations while typing"},
+    {"check": "errors"}
+  ]
+}

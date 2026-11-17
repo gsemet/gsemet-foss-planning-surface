@@ -1,0 +1,1144 @@
+[
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/handbook-narrow-table.png",
+    "scenario": "handbook-narrow-table",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The service-level table is shown scrolled internally to its far-right Audit column",
+        "pass": true,
+        "why": "Audit column is visible at the right edge and earlier columns are scrolled out inside the table; a scroll shadow shows at the left"
+      },
+      {
+        "id": "S2",
+        "text": "The page itself does not widen",
+        "pass": true,
+        "why": "Paragraphs, the Tip admonition and the math block wrap inside the 460px column; no whole-page horizontal overflow"
+      },
+      {
+        "id": "S3",
+        "text": "Sticky heading text does not collide with the toolbar",
+        "pass": false,
+        "why": "The toolbar sits over the end of the sticky line '# Northwind Freight Platform Handbook' and hides most of 'Handbook'"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": false,
+        "why": "The toolbar covers 'Handbook' in the sticky H1 line. The machine check says 'no visible overlay', but the harness's own assertion ('sticky heading overlaps the reserved toolbar row') matches what the image shows"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view with all four buttons whole"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Region/Shift/Queue/Replica/Audit values (North, Night, Standby, Complete...) each stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Light text on the dark background; the Tip's inline code is readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The table is visible directly under the sticky band"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/handbook-narrow-top.png",
+    "scenario": "handbook-narrow-top",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Gutters and admonition padding leave a usable text column at narrow width",
+        "pass": true,
+        "why": "Body text, Note and Terminology-drift admonitions keep a usable column; padding is moderate at 460px"
+      },
+      {
+        "id": "S2",
+        "text": "No unintended whole-page horizontal overflow",
+        "pass": true,
+        "why": "No horizontal overflow; all text wraps within the column"
+      },
+      {
+        "id": "S3",
+        "text": "The H1 does not collide with the toolbar",
+        "pass": false,
+        "why": "The toolbar overlaps the H1: it reads 'Northwind Freight Pla' and the rest of 'Platform' is hidden under the toolbar"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": false,
+        "why": "The toolbar covers the end of the first H1 line ('...tform'). The machine check says 'no visible overlay' and the status is 'passed', which disagrees with the image"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the right edge"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in view"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "All text readable on the dark theme, including admonition titles and inline code"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The top of the handbook (H1, intro, admonitions) is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/math-edit-offline-dark.png",
+    "scenario": "math-edit-offline-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The focused equation editor shows the original $$ Markdown",
+        "pass": true,
+        "why": "The editor shows the raw '$$ / H = b \\times s ... / $$' source, not the typeset equation"
+      },
+      {
+        "id": "S2",
+        "text": "The equation editor is focused and its controls are visible",
+        "pass": true,
+        "why": "Blue focus border around the editor; Done/Revert buttons and the 'Lines 80-82' hint are visible"
+      },
+      {
+        "id": "S3",
+        "text": "Sticky band text does not collide with the toolbar",
+        "pass": true,
+        "why": "The sticky band ('# Operating the fleet / ## Shift changes') ends at the left and the toolbar sits at the far right inside the band; no collision"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "No overlay on text. The harness reports 'sticky heading overlaps the reserved toolbar row', but at 900px the heading text and the toolbar are far apart, so the image disagrees with that failure"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar and editor buttons are fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Observability table cells (tracker, 90 days, high) stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Readable; Done is dark text on a muted blue, which is legible"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The math editor is visible mid-viewport"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/math-edit-offline-light-narrow.png",
+    "scenario": "math-edit-offline-light-narrow",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The narrow frame shows the original $$ Markdown in the editor",
+        "pass": true,
+        "why": "The editor shows the raw $$ source; the long line wraps inside the editor at narrow width"
+      },
+      {
+        "id": "S2",
+        "text": "Activation does not cause a visible scroll jump",
+        "pass": true,
+        "why": "The editor and its paragraph context ('Available bay-hours...' above, 'where b is bays' below) are in view, so the scroll position looks preserved"
+      },
+      {
+        "id": "S3",
+        "text": "Sticky band text does not collide with the toolbar",
+        "pass": true,
+        "why": "The heading lines are short and end well left of the toolbar; content begins just under the band border"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "No overlay on text. The harness reports 'sticky heading overlaps the reserved toolbar row', but the image shows no overlap"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar and Done/Revert are inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Table cells in view ('tracker', '90 days') stay on one line; 'leg state changes' wraps as prose, not as an identifier"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Readable on light; the Done button is dark text on light blue"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The math editor is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/mermaid-map-dark.png",
+    "scenario": "mermaid-map-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The OKF knowledge-base Mermaid map renders in the dark preview",
+        "pass": true,
+        "why": "The full OKF planning flowchart renders: nodes, decision diamonds, dashed fog edges and labels, ending at 'Experience-based okfkb guidance spec'"
+      },
+      {
+        "id": "S2",
+        "text": "No unintended whole-page horizontal overflow",
+        "pass": true,
+        "why": "The diagram fits within the content width; no page overflow"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "The toolbar sits beside the H1 'Mermaid map preview' without covering it"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in view"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Node fills keep their dark label text; edges are light gray and edge labels are light on dark chips; the faint square glyph in the edge labels is the fog emoji from the source, not a missing glyph"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The map and the 'Diagram source' disclosure are visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/mermaid-map-fallback.png",
+    "scenario": "mermaid-map-fallback",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The OKF knowledge-base Mermaid map renders in the no-host-colors preview",
+        "pass": true,
+        "why": "The full OKF planning flowchart renders: nodes, decision diamonds, dashed fog edges and labels, ending at 'Experience-based okfkb guidance spec'"
+      },
+      {
+        "id": "S2",
+        "text": "No unintended whole-page horizontal overflow",
+        "pass": true,
+        "why": "The diagram fits within the content width; no page overflow"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "The toolbar sits beside the H1 'Mermaid map preview' without covering it"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in view"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark edges and labels on the white background; node text readable; the faint square glyph in the edge labels is the fog emoji from the source, not a missing glyph"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The map and the 'Diagram source' disclosure are visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/mermaid-map-light.png",
+    "scenario": "mermaid-map-light",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The OKF knowledge-base Mermaid map renders in the light preview",
+        "pass": true,
+        "why": "The full OKF planning flowchart renders: nodes, decision diamonds, dashed fog edges and labels, ending at 'Experience-based okfkb guidance spec'"
+      },
+      {
+        "id": "S2",
+        "text": "No unintended whole-page horizontal overflow",
+        "pass": true,
+        "why": "The diagram fits within the content width; no page overflow"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "The toolbar sits beside the H1 'Mermaid map preview' without covering it"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in view"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark edges and labels on the white background; node text readable; the faint square glyph in the edge labels is the fog emoji from the source, not a missing glyph"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The map and the 'Diagram source' disclosure are visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/nested-list-typing-dark.png",
+    "scenario": "nested-list-typing-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The nested list editor shows the exact text, including the new list item",
+        "pass": true,
+        "why": "The editor holds '- `jira-skill`.', '- `derive-jira-issue-to-change-request`' and the new '- `new-skill`' line at the same nested indent; the trailing '.' after jira-skill is in the fixture source, so this is not a period substitution"
+      },
+      {
+        "id": "S2",
+        "text": "The editor is focused",
+        "pass": true,
+        "why": "Blue focus border on the editor. A caret is not distinguishable in a still frame, and autosave cannot be judged from the image"
+      },
+      {
+        "id": "S3",
+        "text": "The heading does not collide with the toolbar",
+        "pass": true,
+        "why": "The H1 wraps to two lines and stays left of the toolbar"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "No overlay on text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar and Done/Revert fully visible"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in view; the list's code identifiers stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Readable; inline code chips have adequate contrast"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The nested-list editor under compendium-jira-confluence is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/nested-list-typing-light.png",
+    "scenario": "nested-list-typing-light",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The nested list editor shows the exact text, including the new list item",
+        "pass": true,
+        "why": "The editor holds '- `jira-skill`.', '- `derive-jira-issue-to-change-request`' and the new '- `new-skill`' line at the same nested indent; the trailing '.' after jira-skill is in the fixture source, so this is not a period substitution"
+      },
+      {
+        "id": "S2",
+        "text": "The editor is focused",
+        "pass": true,
+        "why": "Blue focus border on the editor. A caret is not distinguishable in a still frame, and autosave cannot be judged from the image"
+      },
+      {
+        "id": "S3",
+        "text": "The heading does not collide with the toolbar",
+        "pass": true,
+        "why": "The H1 ends well before the toolbar"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "No overlay on text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar and Done/Revert fully visible"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in view; the list's code identifiers stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Readable; inline code chips have adequate contrast"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The nested-list editor under compendium-jira-confluence is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/okf-schema-dark.png",
+    "scenario": "okf-schema-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Lean transparent cells with grid separators",
+        "pass": true,
+        "why": "Cells are transparent with thin grid separators on the dark background"
+      },
+      {
+        "id": "S2",
+        "text": "Description text is smaller than name/value",
+        "pass": true,
+        "why": "Description column text is visibly smaller than the name/value text"
+      },
+      {
+        "id": "S3",
+        "text": "Title and type badges have readable contrast",
+        "pass": true,
+        "why": "No separate title badge is visible; the '(text)/(enum)' type badges and the title value are readable"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "The toolbar sits over the empty top-right part of the header row; it does not cover 'Description' or the collapse arrow (checked on a zoomed crop)"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Field names (annotation_exemption, exemption_reason, reviewed_on) and IDs (StRS-CORE-001...) stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Readable on Dark Modern; inline code chips are readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The frontmatter properties table is visible at the top"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/okf-schema-missing-required-dark.png",
+    "scenario": "okf-schema-missing-required-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Descriptions remain plain prose",
+        "pass": true,
+        "why": "Descriptions are plain prose in the third column"
+      },
+      {
+        "id": "S2",
+        "text": "A red summary below the table names every missing field",
+        "pass": true,
+        "why": "Red line 'Missing required fields: title, status, owner, annotation_exemption, exemption_reason' sits right below the table (after the 'must match \"then\" schema' row)"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "The toolbar overlaps only the empty top-right of the header row, not text or the collapse arrow"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Identifiers such as annotation_exemption and StRS-CORE-001 stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Red summary and error row readable on the dark background"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The properties table and the missing-field summary are visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/okf-schema-missing-required-light.png",
+    "scenario": "okf-schema-missing-required-light",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Descriptions remain plain prose",
+        "pass": true,
+        "why": "Descriptions are plain prose in the third column"
+      },
+      {
+        "id": "S2",
+        "text": "A red summary below the table names every missing field",
+        "pass": true,
+        "why": "Red line 'Missing required fields: title, status, owner, annotation_exemption, exemption_reason' sits right below the table (after the 'must match \"then\" schema' row)"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "The toolbar overlaps only the empty top-right of the header row, not text or the collapse arrow"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Identifiers such as annotation_exemption and StRS-CORE-001 stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Red summary and error row readable on the light background"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The properties table and the missing-field summary are visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/okf-schema-table.png",
+    "scenario": "okf-schema-table",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The three-column properties table shows name, value and schema description",
+        "pass": true,
+        "why": "Three columns: Name with type icon/badge, Value, and the schema Description for every field"
+      },
+      {
+        "id": "S2",
+        "text": "Forced-white preview is consistent",
+        "pass": true,
+        "why": "Forced white preview renders fully light, with no dark-theme bleed"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "The toolbar overlaps only the empty top-right of the header row"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Field names and StRS-CORE IDs stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark text on white; inline code is blue on light gray"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The properties table is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/plantuml-executable-not-found.png",
+    "scenario": "plantuml-executable-not-found",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "An actionable settings message is shown",
+        "pass": true,
+        "why": "Red message names the missing executable and tells the reader to set markdownOkfSchemaStudio.plantuml.jarPath"
+      },
+      {
+        "id": "S2",
+        "text": "The diagram source is preserved",
+        "pass": true,
+        "why": "The 'Diagram source' disclosure is present below the message"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar clear of the H1"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in view"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Red italic text on white is readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The error message is visible. The note lists the message twice in 'Visible content', but it appears only once on screen"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: this is an inline diagram error, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/plantuml-success-dark.png",
+    "scenario": "plantuml-success-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "A successful PlantUML render on the dark preview background",
+        "pass": true,
+        "why": "The Alice/Bob sequence diagram is rendered as an image on a white tile set against the dark page"
+      },
+      {
+        "id": "S2",
+        "text": "The source stays available",
+        "pass": true,
+        "why": "The 'Diagram source' disclosure is present"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar clear of the H1"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in view"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Diagram text is black on white; page text is readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The rendered diagram is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/plantuml-success-light.png",
+    "scenario": "plantuml-success-light",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "A successful PlantUML render on the light preview background",
+        "pass": true,
+        "why": "The Alice/Bob sequence diagram is rendered as an image"
+      },
+      {
+        "id": "S2",
+        "text": "The source stays available",
+        "pass": true,
+        "why": "The 'Diagram source' disclosure is present"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar clear of the H1"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in view"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Diagram text is black on white; page text is readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The rendered diagram is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/plantuml-unconfigured.png",
+    "scenario": "plantuml-unconfigured",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Unconfigured PlantUML shows JAR-path guidance, not a diagram",
+        "pass": true,
+        "why": "Red message gives the missing executable and the markdownOkfSchemaStudio.plantuml.jarPath guidance; no diagram is rendered"
+      },
+      {
+        "id": "S2",
+        "text": "The source is expandable",
+        "pass": true,
+        "why": "The 'Diagram source' disclosure is present"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar clear of the H1"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in view"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Red text on white is readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The guidance message is visible. The fixture's title and intro still describe success; that is fixture text, not a render defect"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: this is an inline diagram error, not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/preview-edit-activation-scroll-narrow.png",
+    "scenario": "preview-edit-activation-scroll-narrow",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The centered paragraph keeps its scroll position after the editor opens",
+        "pass": true,
+        "why": "The 'The tracker is the only component...' paragraph editor sits mid-viewport with its surrounding context (math above, table below) intact, so the final frame shows no jump. Transient jumps cannot be judged from one frame"
+      },
+      {
+        "id": "S2",
+        "text": "Sticky band text does not collide with the toolbar",
+        "pass": true,
+        "why": "The sticky band headings end well left of the toolbar, which sits inside the band"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "No overlay on text. The harness reports 'sticky heading overlaps the reserved toolbar row', but the image shows no overlap"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar and Done/Revert fully visible"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Table cells (tracker, 90 days, 400 days) stay on one line; 'leg state changes' wraps as prose"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Readable in Light Modern"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The paragraph editor (Lines 89-90) is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/preview-edit-activation-scroll-wide.png",
+    "scenario": "preview-edit-activation-scroll-wide",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The centered paragraph keeps its scroll position after the editor opens",
+        "pass": true,
+        "why": "The 'The tracker is the only component...' paragraph editor sits mid-viewport with its surrounding context (math above, table below) intact, so the final frame shows no jump. Transient jumps cannot be judged from one frame"
+      },
+      {
+        "id": "S2",
+        "text": "Sticky band text does not collide with the toolbar",
+        "pass": true,
+        "why": "The sticky band headings end well left of the toolbar, which sits inside the band"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "No overlay on text. The harness reports 'sticky heading overlaps the reserved toolbar row', but the image shows no overlap"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar and Done/Revert fully visible"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Table cells (tracker, 90 days, 400 days) stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Readable in Dark Modern"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The paragraph editor (Lines 89-90) is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/preview-sticky-headings-1.png",
+    "scenario": "preview-sticky-headings-1",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Depth one keeps only the current Markdown heading visible",
+        "pass": true,
+        "why": "Only '# Operating the fleet' shows in the sticky band"
+      },
+      {
+        "id": "S2",
+        "text": "The toolbar sits inside the sticky band without colliding with its border",
+        "pass": false,
+        "why": "The sticky band is only ~60px tall, while the toolbar is ~98px. The band's bottom border runs through the middle of the toolbar, the toolbar hangs below the band, and the H1's own rule shows as a second line just under it"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control covers text that belongs to another element",
+        "pass": true,
+        "why": "The toolbar does not cover any text: the heading text is far left and the Note admonition starts below the toolbar"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the view"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no table in view"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "All text readable on Dark Modern"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The sticky heading band is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page"
+      }
+    ],
+    "overall": "fail"
+  }
+]

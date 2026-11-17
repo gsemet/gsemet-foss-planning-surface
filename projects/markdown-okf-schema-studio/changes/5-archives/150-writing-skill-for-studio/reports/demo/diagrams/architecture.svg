@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-label="Export pipeline: sources, renderer, three outputs">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
+  </defs>
+  <rect width="720" height="260" rx="14" fill="#f3efe4" stroke="#b9ad92"/>
+  <g font-family="system-ui, sans-serif" font-size="15" text-anchor="middle">
+    <rect x="30" y="85" width="150" height="90" rx="10" fill="#dbe7f5" stroke="#3b6ea5" stroke-width="2"/>
+    <text x="105" y="125" fill="#1d3b5c" font-weight="700">Markdown</text>
+    <text x="105" y="147" fill="#1d3b5c">sources + schema</text>
+    <rect x="285" y="85" width="150" height="90" rx="10" fill="#f6dfc4" stroke="#b5651d" stroke-width="2"/>
+    <text x="360" y="125" fill="#5c3410" font-weight="700">Render core</text>
+    <text x="360" y="147" fill="#5c3410">one pipeline</text>
+    <rect x="540" y="25" width="150" height="50" rx="10" fill="#d9ecd5" stroke="#3f8a3a" stroke-width="2"/>
+    <text x="615" y="56" fill="#1f4a1c" font-weight="700">HTML</text>
+    <rect x="540" y="105" width="150" height="50" rx="10" fill="#d9ecd5" stroke="#3f8a3a" stroke-width="2"/>
+    <text x="615" y="136" fill="#1f4a1c" font-weight="700">PDF</text>
+    <rect x="540" y="185" width="150" height="50" rx="10" fill="#d9ecd5" stroke="#3f8a3a" stroke-width="2"/>
+    <text x="615" y="216" fill="#1f4a1c" font-weight="700">Slides</text>
+  </g>
+  <g stroke="#6b7280" stroke-width="2.5" fill="none" marker-end="url(#a)">
+    <path d="M180,130 H283"/>
+    <path d="M435,115 C490,115 490,50 538,50"/>
+    <path d="M435,130 H538"/>
+    <path d="M435,145 C490,145 490,210 538,210"/>
+  </g>
+</svg>

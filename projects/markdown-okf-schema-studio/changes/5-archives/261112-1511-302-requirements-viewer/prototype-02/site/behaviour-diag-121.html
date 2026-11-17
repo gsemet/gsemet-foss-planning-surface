@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIAG-121 · Studio requirements</title>
+<meta name="description" content="When a document contains a vega-lite or vega fenced code block, the extension SHALL render it, in every palette mode, as a figure holding the chart specification and a collapsed Chart source section, ">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markdown OKF-Schema Studio">
+<meta property="og:title" content="Behaviour DIAG-121: Vega-Lite and Vega fences become chart figures">
+<meta property="og:description" content="When a document contains a vega-lite or vega fenced code block, the extension SHALL render it, in every palette mode, as a figure holding the chart specification and a collapsed Chart source section, ">
+<meta property="og:url" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/behaviour-diag-121.html">
+<meta property="og:image" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/og/behaviour.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Behaviour: One rule, tested on its own, linked to its code">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body style="--c:#1d4ed8">
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Areas</a><span class="sep">/</span><a href="area-diagrams.html">Diagrams</a><span class="sep">/</span><a href="use-case-diag-001.html">DIAG-001</a><span class="sep">/</span><span aria-current="page">DIAG-121</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<p class="eyebrow"><span class="sw" style="background:#1d4ed8"></span>Behaviour DIAG-121</p>
+<h1>Vega-Lite and Vega fences become chart figures</h1>
+<p class="rule">When a document contains a vega-lite or vega fenced code block, the extension <strong>SHALL</strong> render it, in every palette mode, as a figure holding the chart specification and a collapsed Chart source section, without changing the document source.</p>
+<div class="where"><p>Part of <a href="use-case-diag-001.html">DIAG-001</a>, outside the paths drawn on its map.</p></div>
+<h2>Scenarios <small>3</small></h2>
+<p class="hint">The situations the tests check. Open one to read it.</p>
+<details class="scn"><summary><span class="k nom">nominal</span>A vega-lite fence</summary><div class="gwt"><div><b>Given</b>a document with a paragraph, a fenced block whose language is vega-lite holding a JSON specification, and a paragraph after it</div><div><b>When</b>the preview renders in the Strict, GFM, MyST or Full palette mode</div><div><b>Then</b>the block is one figure of the class myst-vega-figure holding a div myst-vega-diagram (aria-label Chart diagram, data-myst-chart-kind vega-lite, the specification as its text) and a collapsed details section titled Chart source with the same text, the figure carries the source line, and the document text is unchanged</div></div></details><details class="scn"><summary><span class="k nom">nominal</span>A vega fence</summary><div class="gwt"><div><b>Given</b>a fenced block whose language is vega</div><div><b>When</b>the preview renders</div><div><b>Then</b>the block is the same figure with data-myst-chart-kind vega</div></div></details><details class="scn"><summary><span class="k bnd">boundary</span>Other fences and an unreadable specification</summary><div class="gwt"><div><b>Given</b>a mermaid fence, a json fence and a vega-lite fence whose text is not a specification</div><div><b>When</b>the preview renders</div><div><b>Then</b>the mermaid fence stays a Mermaid figure, the json fence a code block, and the broken fence is a chart figure like any other (the page shows the error in place of the chart, see SwRS-MDOKFSTUDIO-DIAG-123)</div></div></details>
+<div class="cols">
+  <section><h2>Implemented in <small>2</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/core/render/mystNormalize.ts"><span class="dir">src/core/render/</span>mystNormalize.ts</a></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/core/render/chartData.ts"><span class="dir">src/core/render/</span>chartData.ts</a></li></ul></section>
+  <section><h2>Tested by <small>3</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/chartCsp.test.ts"><span class="dir">test/page/</span>chartCsp.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/core/render/chartRendering.test.ts"><span class="dir">test/core/render/</span>chartRendering.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/core/render/chartData.test.ts"><span class="dir">test/core/render/</span>chartData.test.ts</a><span class="tag">unit</span></li></ul></section>
+</div>
+<details class="known"><summary>Known limits (1)</summary><p>- Known issue: The fence is the only syntax; a MyST directive for charts does not exist.</p></details>
+<nav class="pager"><a href="behaviour-diag-017.html">← The Mermaid action inserts a starter flowchart in GFM mode</a><a class="next" href="behaviour-diag-122.html">Chart data files are read through the resource policy →</a></nav>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

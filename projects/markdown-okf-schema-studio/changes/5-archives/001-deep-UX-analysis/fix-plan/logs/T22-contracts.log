@@ -1,0 +1,14 @@
+
+> markdown-okf-schema-studio@0.1.0 test:contracts
+> node --test out/test/rendering/*.contract.js
+
+✔ real Sphinx HTML preserves the active-file MyST feature contract (606.415833ms)
+✔ missing active-file input returns a source diagnostic (360.850083ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1006.330792

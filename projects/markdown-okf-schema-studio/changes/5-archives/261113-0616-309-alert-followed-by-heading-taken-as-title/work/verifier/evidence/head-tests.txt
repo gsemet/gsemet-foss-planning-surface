@@ -1,0 +1,30 @@
+✔ Jupyter table output embeds show a project-build placeholder (0.770334ms)
+✔ block elements carry the source line the editor scrolls against (0.775792ms)
+✔ multiline blocks retain their full mapped source range (0.487417ms)
+✔ MyST admonitions retain the directive range through the closing fence (0.593792ms)
+✔ standalone hyphenated context tags render as mapped Markdown admonitions (5.581958ms)
+✔ simple and snake_case context tags preserve adjacent fences and source ranges (1.570125ms)
+✔ nested context tags preserve each wrapper range (0.704084ms)
+✔ unsupported context boundaries stay literal and fenced XML stays code (3.441708ms)
+✔ standard HTML and inline or fenced XML stay outside context grouping (2.026292ms)
+✔ block source ranges stay absolute when leading frontmatter is stripped (0.594125ms)
+✔ project-scoped roles and directives degrade to labelled placeholders (0.819459ms)
+✔ an untrusted workspace refuses to render (0.261708ms)
+✔ figures and plain images are mapped blocks with their closing source line (1.166667ms)
+✔ image directives are mapped blocks spanning the directive's source lines (0.766583ms)
+✔ tilde pairs render as struck-through text only in prose (2.88625ms)
+✔ a lone raw <img> block is a mapped block with a source line (0.843041ms)
+✔ a table inserted by the edition palette renders as a table with its header (1.345416ms)
+✔ the writing skill is a self-contained folder of the expected shape (0.993333ms)
+✔ every example of the writing skill renders without a diagnostic or an unresolved directive (390.19675ms)
+✔ the examples of the writing skill cover every syntax family it lists, each rendered as its own element (23.692792ms)
+✔ an example with an unknown directive is caught by the same check (1.127209ms)
+✔ the way the skill shows the front matter form itself renders plain code, with no value and no warning (1.706584ms)
+ℹ tests 57
+ℹ suites 0
+ℹ pass 57
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 839.205042

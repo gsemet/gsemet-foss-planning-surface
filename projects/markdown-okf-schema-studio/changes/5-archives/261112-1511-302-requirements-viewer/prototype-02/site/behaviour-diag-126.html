@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIAG-126 · Studio requirements</title>
+<meta name="description" content="When the preview draws an svg picture, it SHALL define the variables surface, background, bg, border, text, foreground, fg, muted, accent, primary, red, green, blue and orange from the theme of the pa">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markdown OKF-Schema Studio">
+<meta property="og:title" content="Behaviour DIAG-126: A picture takes its colours from the preview theme">
+<meta property="og:description" content="When the preview draws an svg picture, it SHALL define the variables surface, background, bg, border, text, foreground, fg, muted, accent, primary, red, green, blue and orange from the theme of the pa">
+<meta property="og:url" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/behaviour-diag-126.html">
+<meta property="og:image" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/og/behaviour.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Behaviour: One rule, tested on its own, linked to its code">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body style="--c:#1d4ed8">
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Areas</a><span class="sep">/</span><a href="area-diagrams.html">Diagrams</a><span class="sep">/</span><a href="use-case-diag-001.html">DIAG-001</a><span class="sep">/</span><span aria-current="page">DIAG-126</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<p class="eyebrow"><span class="sw" style="background:#1d4ed8"></span>Behaviour DIAG-126</p>
+<h1>A picture takes its colours from the preview theme</h1>
+<p class="rule">When the preview draws an svg picture, it <strong>SHALL</strong> define the variables surface, background, bg, border, text, foreground, fg, muted, accent, primary, red, green, blue and orange from the theme of the page (Cream, White, Dark or the VS Code theme), and <strong>SHALL</strong> give a variable of another name that has no fallback the text colour.</p>
+<div class="where"><p>Part of <a href="use-case-diag-001.html">DIAG-001</a>, outside the paths drawn on its map.</p></div>
+<h2>Scenarios <small>2</small></h2>
+<p class="hint">The situations the tests check. Open one to read it.</p>
+<details class="scn"><summary><span class="k nom">nominal</span>The vocabulary follows the theme</summary><div class="gwt"><div><b>Given</b>a picture that fills shapes with var(--surface), var(--border), var(--accent), var(--green) and writes text in var(--text)</div><div><b>When</b>the page is in Cream, White, Dark or the VS Code theme</div><div><b>Then</b>each variable resolves to the matching --studio token of that theme (surface, background and bg to the code block background, border to the panel border, text, foreground and fg to the editor foreground, muted to the description foreground, accent and primary to the link colour, red, green, blue and orange to the chart colours)</div></div></details><details class="scn"><summary><span class="k bnd">boundary</span>A variable of another name</summary><div class="gwt"><div><b>Given</b>a picture that writes fill=&quot;var(--nope)&quot; and fill=&quot;var(--nope, #123456)&quot;</div><div><b>When</b>the preview renders it</div><div><b>Then</b>the first fill takes the text colour and the second keeps its fallback</div></div></details>
+<div class="cols">
+  <section><h2>Implemented in <small>2</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/core/security/svgSanitizer.ts"><span class="dir">src/core/security/</span>svgSanitizer.ts</a></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/core/preview/styles/svgPictureStyles.ts"><span class="dir">src/core/preview/styles/</span>svgPictureStyles.ts</a></li></ul></section>
+  <section><h2>Tested by <small>3</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/security/svgSanitizer.test.ts"><span class="dir">test/security/</span>svgSanitizer.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/visual/svgPictureScenarios.ts"><span class="dir">test/visual/</span>svgPictureScenarios.ts</a><span class="tag">visual</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/core/render/svgRendering.test.ts"><span class="dir">test/core/render/</span>svgRendering.test.ts</a><span class="tag">unit</span></li></ul></section>
+</div>
+
+<nav class="pager"><a href="behaviour-diag-125.html">← SVG blocks are drawn inline after the sanitizer rebuilt them</a><a class="next" href="behaviour-diag-127.html">A click on a picture opens its source editor →</a></nav>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

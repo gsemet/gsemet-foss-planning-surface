@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Areas · Studio requirements</title>
+<meta name="description" content="Every feature of Studio written down as use cases, behaviours, code and tests, each linked to the next.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markdown OKF-Schema Studio">
+<meta property="og:title" content="Requirements of Markdown OKF-Schema Studio">
+<meta property="og:description" content="Every feature of Studio written down as use cases, behaviours, code and tests, each linked to the next.">
+<meta property="og:url" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/index.html">
+<meta property="og:image" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/og/areas.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Requirements: Every feature, from use case to test">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><span aria-current="page">Areas</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<h1>Requirements of Markdown OKF-Schema Studio</h1>
+<p class="lead">Every feature of Studio is written down at three levels, each one linked to the next.</p>
+<ol class="layers">
+  <li><b>Use case</b><span>What a user does and gets, from start to end. Written for a person.</span><code>StRS · 80</code></li>
+  <li><b>Behaviour</b><span>One rule the software follows, small enough to test on its own.</span><code>SwRS · 467</code></li>
+  <li><b>Code and tests</b><span>The files that implement each behaviour and the tests that check it.</span><code>99.78% linked</code></li>
+</ol>
+<h2>Areas</h2>
+<p class="hint">Requirements are grouped by product area. In this prototype only <b>Diagrams</b> can be opened.</p>
+<div class="areas"><div class="arow head"><span></span><span class="name">Area</span><span class="desc">Covers</span><span class="num">Use cases</span><span class="num">Behaviours</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#c2410c"></span><span class="name">Rendering core</span><span class="desc">CommonMark blocks, inline code, long documents, CJK/RTL text, missing images (admonition colours and layouts belong to myst)</span><span class="num">3</span><span class="num">24</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#be185d"></span><span class="name">Code blocks</span><span class="desc">Fenced code, syntax highlighting, diff fences, unknown grammar, copy button</span><span class="num">2</span><span class="num">10</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#7c3aed"></span><span class="name">GitHub Flavored Markdown</span><span class="desc">Autolinks, task lists and toggles, strikethrough, alerts, footnotes, raw HTML, colour spans</span><span class="num">2</span><span class="num">10</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#4338ca"></span><span class="name">MyST syntax</span><span class="desc">Directives, roles, admonitions, context tags, math, figures and labels, citations, conf.py checks, label rename</span><span class="num">6</span><span class="num">24</span></div><a class="arow" href="area-diagrams.html"><span class="sw" style="background:#1d4ed8"></span><span class="name">Diagrams</span><span class="desc">Mermaid (themes, fallback, errors) and PlantUML (built-in engine light/dark, {uml} diagram files and local !include light/dark, unsupported standard-library include; JAR success, unconfigured, executable not found)</span><span class="num">4</span><span class="num">27</span></a><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#0369a1"></span><span class="name">Frontmatter and OKF schema</span><span class="desc">Properties table, schema validation and errors, generic YAML, x-okf-link details</span><span class="num">5</span><span class="num">21</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#0f766e"></span><span class="name">Frontmatter editing</span><span class="desc">Editing the properties table: field values, lists, booleans, enum and key suggestions, add/remove/rename, title</span><span class="num">3</span><span class="num">13</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#047857"></span><span class="name">Layout and width</span><span class="desc">First-element gap, Margin/Auto/Full width, max content width, overflow, narrow and wide panes</span><span class="num">3</span><span class="num">11</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#4d7c0f"></span><span class="name">Theme and zoom</span><span class="desc">Host themes, forced white/cream/dark modes, high contrast, zoom 70-200 %</span><span class="num">3</span><span class="num">8</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#a16207"></span><span class="name">Toolbar and navigation</span><span class="desc">Toolbar rows and collapse, sticky headings, TOC, Back/Next, anchor, title-bar and Quick Open entries</span><span class="num">9</span><span class="num">50</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#b45309"></span><span class="name">Block editing</span><span class="desc">Edit mode, block editors, keyboard, undo, insert points, move, selection, clipboard</span><span class="num">8</span><span class="num">54</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#b91c1c"></span><span class="name">Edition palette and slash menu</span><span class="desc">Palette modes, popups, shortcuts, link panel, figure form, slash menu, image pick and paste</span><span class="num">7</span><span class="num">74</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#9333ea"></span><span class="name">Table editing</span><span class="desc">Cell editors, cell bar, Tab/Enter navigation, minimal diffs</span><span class="num">6</span><span class="num">32</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#0e7490"></span><span class="name">Review annotations</span><span class="desc">Comment and TODO chips, review threads, sidecar, orphans, incoming changes</span><span class="num">6</span><span class="num">53</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#475569"></span><span class="name">Lifecycle and sync</span><span class="desc">Open, refresh, reload and restore, Open With, scroll sync, incremental patches, status pages, coexistence</span><span class="num">7</span><span class="num">33</span></div><div class="arow off" title="Not part of this prototype"><span class="sw" style="background:#9d174d"></span><span class="name">Trust and security</span><span class="desc">Restricted Mode and standalone previews (editable, restricted reads), refused messages, CSP, resource policy</span><span class="num">6</span><span class="num">23</span></div></div>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

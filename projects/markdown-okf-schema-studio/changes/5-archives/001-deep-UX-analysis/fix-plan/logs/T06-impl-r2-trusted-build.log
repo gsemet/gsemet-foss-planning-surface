@@ -1,0 +1,17 @@
+
+> markdown-okf-schema-studio@0.1.0 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.1.0 bundle
+> node esbuild.mjs
+
+
+  out/bundle/extension.js      1.6mb ⚠️
+  out/bundle/extension.js.map  5.4mb
+
+⚡ Done in 95ms
+
+  out/bundle/mermaidPreview.js  5.0mb ⚠️
+
+⚡ Done in 267ms

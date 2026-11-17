@@ -1,0 +1,35 @@
+mermaid-map-fallback
+====================
+
+Fixture:  06-mermaid-map.md
+Theme:    No host colors
+Preview:  current
+Viewport: 900x1000 (full page capture)
+Scroll:   top - final y=0; pinned to the top of the document
+Status:   passed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested top position.
+
+Captured state
+--------------
+The preview is scrolled to 0 pixels. Edit mode is off.
+Visible content: This fixture exercises the Mermaid graph used by the OKF knowledge-base planning map.; Diagram sourceflowchart TD
+  S["🟢 Current<br>okfkb bundle"] --> F["🔍🧭 Baseline<br>+ journeys"]
+
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+The OKF knowledge-base map without host color variables.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.

@@ -1,0 +1,8 @@
+{
+  "name": "agents-probe", "displayName": "Agents window probe", "version": "0.0.1", "publisher": "spike",
+  "engines": { "vscode": "^1.95.0" },
+  "activationEvents": ["onStartupFinished"],
+  "main": "./extension.js",
+  "capabilities": { "agentsWindow": { "supported": true } },
+  "contributes": { "commands": [{ "command": "agentsProbe.run", "title": "Agents Probe: Run" }] }
+}

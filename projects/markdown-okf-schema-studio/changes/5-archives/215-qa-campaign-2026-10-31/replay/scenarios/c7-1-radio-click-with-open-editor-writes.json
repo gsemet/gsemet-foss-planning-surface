@@ -1,0 +1,46 @@
+{
+ "name": "c7-1-radio-click-with-open-editor-writes",
+ "file": "fixtures-visual/74-radio-plan.md",
+ "steps": [
+  {
+   "key": "Escape",
+   "wait": 500
+  },
+  {
+   "clicksel": "h2",
+   "text": "Tasks",
+   "wait": 800
+  },
+  {
+   "eval": "'editor before:'+!!D.querySelector('textarea,.cm-editor')+' scrollY:'+scrollY"
+  },
+  {
+   "wheel": [
+    600,
+    300,
+    -200
+   ],
+   "steps": 3
+  },
+  {
+   "eval": "'editor after wheel:'+!!D.querySelector('textarea,.cm-editor')+' scrollY:'+scrollY+' radio1:'+Math.round(D.querySelectorAll('[role=radio]')[1].getBoundingClientRect().top)"
+  },
+  {
+   "mark": true
+  },
+  {
+   "clicksel": "ul[role=radiogroup] [role=radio]",
+   "nth": 1,
+   "wait": 300
+  },
+  {
+   "eval": "'editor after scroll-click:'+!!D.querySelector('textarea,.cm-editor')+' sel:'+[...D.querySelectorAll('[role=radio]')].map(e=>e.getAttribute('aria-checked')[0]).join('')"
+  },
+  {
+   "check": "diff",
+   "against": "mark",
+   "equal": true,
+   "label": "c7-1 radio click with editor open and radio scrolled into view"
+  }
+ ]
+}

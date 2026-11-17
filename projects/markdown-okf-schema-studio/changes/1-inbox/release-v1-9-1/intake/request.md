@@ -1,0 +1,1 @@
+Release v1.9.1 (patch) after the three fixes of the v1.9.0 retro: Open VSX publish on the version push, flaky real-window integration steps, no Signed-off-by on the version commit.

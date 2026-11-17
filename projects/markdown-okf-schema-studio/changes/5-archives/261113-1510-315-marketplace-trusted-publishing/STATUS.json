@@ -1,0 +1,154 @@
+{
+  "schema": 2,
+  "updated": "2026-11-13T16:50:24Z",
+  "cr": "CR-315",
+  "title": "Change Specification: publish to the VS Code Marketplace with trusted publishing",
+  "batch": "batch-03",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 2,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/387.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/387",
+    "number": 387
+  },
+  "steps": [
+    {
+      "name": "Round 1",
+      "done": true,
+      "verdict": "",
+      "note": "Implement the change specification 03-change-spec.md sections 1-6 fully; edits only, no commit; run the evidence checks 1-4",
+      "at": "2026-11-13T13:54:45Z"
+    },
+    {
+      "name": "Round 2",
+      "done": true,
+      "verdict": "",
+      "note": "Fix CONTRIBUTING.md: restore the sentence 'Manual pushes of valid vX.Y.Z tags also run this workflow.' at the end of its original paragraph; OIDC paragraph separate and last; rewrap step 6",
+      "at": "2026-11-13T14:00:42Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Round 2 approved; committed; running just preflight",
+      "at": "2026-11-13T14:05:07Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "1a881c48",
+      "at": "2026-11-13T14:21:51Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "preflight run 1: ci-static passed; visual and real-window integration failed (Shottr took window focus; visual 'text not found'), report/gallery follow; re-running once as infrastructure",
+      "at": "2026-11-13T14:22:16Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "1a881c48",
+      "at": "2026-11-13T14:38:42Z"
+    },
+    {
+      "name": "Blocked",
+      "done": true,
+      "verdict": "",
+      "note": "infra: just preflight at 1a881c48 fails only in ci-integration (real-input step times out: real VS Code window; Shottr, the user's running app, is frontmost) twice; ci-static passed both runs, ci-visual flaked once then passed; change is CI/docs only. Committed locally, not pushed, no PR. Needs the owner to quit Shottr or allow a push for CI; log work/gates/20261113-152216.log",
+      "at": "2026-11-13T14:39:06Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/387",
+      "at": "2026-11-13T14:41:41Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "PR 387 opened as draft; heavy run 43445113627 dispatched on the branch head 1a881c4; waiting for integration and stress",
+      "at": "2026-11-13T14:41:48Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-13T15:06:33Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/387",
+      "at": "2026-11-13T15:10:12Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "request",
+      "path": "intake/request.md"
+    },
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261113-152216.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/release-process.guidelines.md",
+      "name": ".agents/guidelines/release-process.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CHANGELOG.md",
+      "name": "CHANGELOG.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CONTRIBUTING.md",
+      "name": "CONTRIBUTING.md"
+    }
+  ],
+  "branch": "chantier/batch-03/cr-315-change-specification-publish-to-the-vs-c",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-03-CR-315",
+  "agent": null,
+  "notes": [
+    "Round 2 approved; committed; running just preflight",
+    "preflight run 1: ci-static passed; visual and real-window integration failed (Shottr took window focus; visual 'text not found'), report/gallery follow; re-running once as infrastructure",
+    "back to a Driver: resume: the owner accepts the branch heavy CI run as the gate instead of the local real-window integration (Shottr frontmost). Rebase, push, open the draft PR, dispatch the heavy run on the branch, wait for integration and stress green on the exact head, then the verifier. Record the local failure in the PR body.",
+    "PR 387 opened as draft; heavy run 43445113627 dispatched on the branch head 1a881c4; waiting for integration and stress"
+  ],
+  "blocked": null,
+  "cost_usd": 1.5118,
+  "final_cost": true,
+  "silent_minutes": null
+}

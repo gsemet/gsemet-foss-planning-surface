@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIAG-009 · Studio requirements</title>
+<meta name="description" content="When the page needs a Mermaid diagram, the extension SHALL draw only the diagrams whose source or theme colours changed or that were never drawn, show an earlier drawing of the same source and theme c">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markdown OKF-Schema Studio">
+<meta property="og:title" content="Behaviour DIAG-009: Mermaid diagrams are drawn once and late results are dropped">
+<meta property="og:description" content="When the page needs a Mermaid diagram, the extension SHALL draw only the diagrams whose source or theme colours changed or that were never drawn, show an earlier drawing of the same source and theme c">
+<meta property="og:url" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/behaviour-diag-009.html">
+<meta property="og:image" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/og/behaviour.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Behaviour: One rule, tested on its own, linked to its code">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body style="--c:#1d4ed8">
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Areas</a><span class="sep">/</span><a href="area-diagrams.html">Diagrams</a><span class="sep">/</span><a href="use-case-diag-001.html">DIAG-001</a><span class="sep">/</span><span aria-current="page">DIAG-009</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<p class="eyebrow"><span class="sw" style="background:#1d4ed8"></span>Behaviour DIAG-009</p>
+<h1>Mermaid diagrams are drawn once and late results are dropped</h1>
+<p class="rule">When the page needs a Mermaid diagram, the extension <strong>SHALL</strong> draw only the diagrams whose source or theme colours changed or that were never drawn, show an earlier drawing of the same source and theme colours without running Mermaid again, run the draw passes one at a time, and drop a result that arrives for a key the node no longer has.</p>
+<div class="where" style="--pc:var(--alt)"><p>Another outcome at step 3 of path 1 in <a href="use-case-diag-001.html">DIAG-001</a>, in the state “The diagram is drawn as a picture”.</p></div>
+<h2>Scenarios <small>2</small></h2>
+<p class="hint">The situations the tests check. Open one to read it.</p>
+<details class="scn"><summary><span class="k nom">nominal</span>Unchanged diagram after a node replacement</summary><div class="gwt"><div><b>Given</b>a Mermaid diagram already drawn, then a content update that replaces its node with the same source under the same theme</div><div><b>When</b>the page draws the new node</div><div><b>Then</b>the earlier picture is shown and Mermaid is not run</div></div></details><details class="scn"><summary><span class="k bnd">boundary</span>Changed source or theme</summary><div class="gwt"><div><b>Given</b>a drawn diagram whose source or theme colours changed</div><div><b>When</b>the page draws it</div><div><b>Then</b>Mermaid runs again; a theme attribute change that leaves the colours as they were draws nothing</div></div></details>
+<div class="cols">
+  <section><h2>Implemented in <small>2</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/page/modules/mermaidCache.ts"><span class="dir">src/page/modules/</span>mermaidCache.ts</a></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/page/modules/mermaidPreview.ts"><span class="dir">src/page/modules/</span>mermaidPreview.ts</a></li></ul></section>
+  <section><h2>Tested by <small>4</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/rendererBridge.test.ts"><span class="dir">test/page/</span>rendererBridge.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/modules/mermaidCache.test.ts"><span class="dir">test/page/modules/</span>mermaidCache.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/modules/mermaidPreviewEntry.test.ts"><span class="dir">test/page/modules/</span>mermaidPreviewEntry.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/integration/realInput/markers.ts"><span class="dir">test/integration/realInput/</span>markers.ts</a><span class="tag">integration</span></li></ul></section>
+</div>
+<details class="known"><summary>Known limits (4)</summary><p>- Known issue: The plan actions keep, reuse and render are wired in mermaidPreview.ts, which has no unit test.<br>- Known issue: The listener in mermaidPreview.ts that draws after a content patch is covered only by the real VS Code scenario.<br>- Known issue: Diagrams inside one pass are started together and document order only fixes their element ids.<br>- Known issue: The race protection of the draw passes and the guards against late results (picture and error) exist only in mermaidPreview.ts and are untested.</p></details>
+<nav class="pager"><a href="behaviour-diag-005.html">← Mermaid colours follow the preview theme</a><a class="next" href="behaviour-diag-015.html">Invalid Mermaid shows one message with the parser reason →</a></nav>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

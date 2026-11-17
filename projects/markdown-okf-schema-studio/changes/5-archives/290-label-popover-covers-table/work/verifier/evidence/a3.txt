@@ -1,0 +1,14 @@
+rendered 196 pages, 465 scenarios
+  placeholder: 03-unresolved-constructs:30 Directive {animation} is not available outside a full build.
+  placeholder: 03-unresolved-constructs:36 Directive {bibliography} is not available outside a full build.
+  placeholder: 83-frontmatter-this-field:17 `= this.reviewer` shows as written: the front matter has no value for it (field "reviewer").
+  placeholder: 65-unclosed-fence-mid-document:5 Unclosed fence: the closing fence is missing, so only this line is shown as written.
+  placeholder: 65-unclosed-fence-mid-document:15 Unclosed fence: the closing fence is missing, so only this line is shown as written.
+  placeholder: 53-conf-warnings:3 Warning: `$...$` is used but this needs the MyST extension `dollarmath`, which is not enabled in your conf.py. Add "dollarmath" to `myst_enable_extensions`.
+  placeholder: 53-conf-warnings:6 Warning: `:::` is used but this needs the MyST extension `colon_fence`, which is not enabled in your conf.py. Add "colon_fence" to `myst_enable_extensions`.
+render exit 0
+passed: myst/v46-label-rename-above-table-light-290
+
+1 screenshots in /Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/v290/out/reports/e2e/screenshots
+{"status": "passed", "scenario_count": 1, "screenshot_count": 1}
+capture exit 0

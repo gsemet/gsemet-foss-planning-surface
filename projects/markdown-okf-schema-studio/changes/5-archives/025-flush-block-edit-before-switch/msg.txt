@@ -1,0 +1,12 @@
+fix(editor): save the open editor before the preview switches document
+
+Text typed in an open paragraph, table cell or property editor lived only
+in the page until its autosave (400 ms). Following a link to another file,
+going Back or Next, switching editor tab, or reloading or closing the
+window right after typing could drop it. The editor is now saved and
+closed first, and the preview switches once the edit is applied. A
+property value that is not valid YAML, does not fit the schema or is not
+a number is written as typed in that case; when nothing can be written,
+a warning names the field so the text is not lost silently.
+
+Assisted-by: Claude:Sonnet-5.5

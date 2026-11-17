@@ -1,0 +1,1923 @@
+diff --git a/scripts/generate-readme-images.py b/scripts/generate-readme-images.py
+index 3ebcbc5..18ac3b5 100644
+--- a/scripts/generate-readme-images.py
++++ b/scripts/generate-readme-images.py
+@@ -10,7 +10,7 @@ import tempfile
+ from dataclasses import dataclass
+ from pathlib import Path
+ 
+-from PIL import Image
++from PIL import Image, ImageChops
+ 
+ 
+ ROOT = Path(__file__).resolve().parents[1]
+@@ -43,6 +43,27 @@ def latest_real_input_directory() -> Path:
+     return directory
+ 
+ 
++def real_input_crops(directory: Path) -> list[Crop]:
++    """Crops of the real-window captures that carry a `readme` entry in the run manifest.
++
++    The manifest of a real-input run lists its captures (`captureList`) with the README crops of the
++    registry (`test/shared/captureRegistry.ts`); the PNG is `<run folder>/<group>/rNN-<slug>.png`.
++    """
++    manifest_path = directory / "manifest.json"
++    if not manifest_path.is_file():
++        raise RuntimeError(f"{manifest_path} is missing")
++    captures = json.loads(manifest_path.read_text(encoding="utf-8")).get("captureList")
++    if captures is None:
++        raise RuntimeError(f"{manifest_path} has no captureList: run the real-input suite with the current code")
++    crops = []
++    for capture in captures:
++        for readme in capture.get("readme", []):
++            if capture.get("file") is None:
++                raise RuntimeError(f"README source {capture['id']} wrote no picture")
++            crops.append(Crop(directory / capture["file"], readme["file"], tuple(readme["crop"]), readme["width"]))
++    return crops
++
++
+ def render(crop: Crop, output: Path = OUTPUT) -> None:
+     if not crop.source.is_file():
+         raise FileNotFoundError(f"required E2E capture is missing: {crop.source}")
+@@ -59,21 +80,43 @@ def pixels_equal(first: Path, second: Path) -> bool:
+             and left.convert("RGB").tobytes() == right.convert("RGB").tobytes()
+ 
+ 
++def pixel_difference(first: Path, second: Path) -> str:
++    """Describes how two images differ: size mismatch, or the largest channel difference and the share of pixels."""
++    with Image.open(first) as left, Image.open(second) as right:
++        a, b = left.convert("RGB"), right.convert("RGB")
++        if a.size != b.size:
++            return f"size {a.size} against {b.size}"
++        difference = ImageChops.difference(a, b)
++        highest = max(high for _, high in difference.getextrema())
++        changed = sum(1 for pixel in difference.getdata() if pixel != (0, 0, 0))
++        return f"largest channel difference {highest}, {changed} of {a.size[0] * a.size[1]} pixels differ"
++
++
+ def check(baseline: Path) -> int:
+-    """Re-render the images whose source is a visual (static page) capture into a temp directory
+-    and compare them pixel for pixel with the images of `baseline`. Real-window sources are skipped."""
++    """Re-render the README images into a temp directory and compare them pixel for pixel with the
++    images of `baseline`. Visual sources always; real-window sources when the latest real-input run
++    passed and lists its captures. images/readme is never written."""
+     crops = visual_crops()
++    real: list[Crop] = []
++    try:
++        real = real_input_crops(latest_real_input_directory())
++    except (RuntimeError, FileNotFoundError, OSError) as error:
++        print(f"real-window README sources not checked: {error}")
+     differences = 0
+     with tempfile.TemporaryDirectory() as temporary:
+-        for crop in crops:
++        for crop in crops + real:
+             render(crop, Path(temporary))
+             expected = baseline / crop.destination
+-            if not expected.is_file() or not pixels_equal(Path(temporary) / crop.destination, expected):
+-                print(f"DIFFERS: {crop.destination} (source {crop.source.name})")
++            if not expected.is_file():
++                print(f"DIFFERS: {crop.destination} (no baseline image)")
++                differences += 1
++            elif not pixels_equal(Path(temporary) / crop.destination, expected):
++                print(f"DIFFERS: {crop.destination} (source {crop.source.name}): "
++                      f"{pixel_difference(Path(temporary) / crop.destination, expected)}")
+                 differences += 1
+             else:
+                 print(f"identical: {crop.destination}")
+-    print(f"{len(crops)} visual-sourced README images checked, {differences} differences")
++    print(f"{len(crops)} visual-sourced and {len(real)} real-window README images checked, {differences} differences")
+     return 1 if differences else 0
+ 
+ 
+@@ -95,23 +138,15 @@ def visual_crops() -> list[Crop]:
+     return crops
+ 
+ 
+-def build_crops(real_input: Path | None) -> list[Crop]:
+-    """Visual crops (metadata) in README order, then the real-window ones (still listed here)."""
+-    real_input = real_input or SCREENSHOTS / "_real-input-unavailable"
+-    return visual_crops() + [
+-        Crop(real_input / "05-open-with-editor.png", "open-with-editor.png", (250, 55, 1400, 470), 760),
+-        Crop(real_input / "36-title-bar-button.png", "open-preview-to-side.png", (40, 35, 1390, 430), 760),
+-        Crop(real_input / "39-quick-open-beside-preview.png", "preview-beside-editor.png", (45, 35, 1395, 420), 760),
+-        Crop(real_input / "22-editor-frame-and-buttons.png", "inline-editing.png", (700, 40, 1390, 410), 720),
+-        Crop(real_input / "38-edit-mode-remembered.png", "myst-admonitions.png", (790, 140, 1315, 445), 720),
+-        Crop(real_input / "38-edit-mode-remembered.png", "myst-diagrams-and-figure.png", (790, 460, 1315, 860), 720),
+-    ]
++def build_crops(real_input: Path) -> list[Crop]:
++    """Visual crops (metadata) in README order, then the real-window ones (from the run manifest)."""
++    return visual_crops() + real_input_crops(real_input)
+ 
+ 
+ def main() -> int:
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument("--check", type=Path, metavar="BASELINE_DIR",
+-                        help="compare the visual-sourced images with this directory instead of writing images/readme")
++                        help="compare the images (visual and real-window sources) with this directory instead of writing images/readme")
+     arguments = parser.parse_args()
+     if arguments.check is not None:
+         return check(arguments.check)
+diff --git a/test/integration/checkboxToggle.test.ts b/test/integration/checkboxToggle.test.ts
+index 3bb0dde..1ab78ab 100644
+--- a/test/integration/checkboxToggle.test.ts
++++ b/test/integration/checkboxToggle.test.ts
+@@ -9,7 +9,8 @@ import {
+   disposeActivePreviewForTests,
+   getActivePreviewForTests,
+ } from "./extensionApi";
+-import { E2E_REPORT_ROOT, E2E_SCREENSHOT_ROOT } from "../reportPaths";
++import { E2E_REPORT_ROOT } from "../reportPaths";
++import { createRunEvidence, type Evidence } from "./evidence";
+ 
+ async function waitFor(description: string, predicate: () => boolean | Promise<boolean>, timeoutMs = 10_000): Promise<void> {
+   const deadline = Date.now() + timeoutMs;
+@@ -58,7 +59,7 @@ function checkboxAtLine(frame: Frame, line: number): Locator {
+   return frame.locator(`input.myst-checkbox[data-myst-checkbox-line="${line}"]`);
+ }
+ 
+-async function capture(page: Page, frame: Frame, artifacts: string, name: string, note: string): Promise<void> {
++async function capture(page: Page, frame: Frame, evidence: Evidence, id: string, note: string): Promise<void> {
+   await frame.evaluate(() => window.scrollTo(0, 0));
+   const frameBounds = await (await frame.frameElement()).boundingBox();
+   assert.ok(frameBounds);
+@@ -75,22 +76,22 @@ async function capture(page: Page, frame: Frame, artifacts: string, name: string
+   const states = await frame.locator("input.myst-checkbox").evaluateAll((boxes) => boxes.map((box) =>
+     `line ${box.getAttribute("data-myst-checkbox-line")}: ${(box as HTMLInputElement).checked ? "checked" : "unchecked"}`));
+   const editMode = await frame.locator("html").getAttribute("data-sphinx-preview-edit-mode");
+-  await page.screenshot({ path: path.join(artifacts, `${name}.png`) });
+-  fs.writeFileSync(path.join(artifacts, `${name}.json`), JSON.stringify({
+-    summary: note,
+-    info: { id: name, suite: "checkbox", runId: process.env.STUDIO_E2E_RUN_ID ?? null,
+-      viewport: page.viewportSize(), host: "Real VS Code window; mouse events dispatched through CDP" },
+-    capturedState: { editMode, checkboxStates: states },
+-    checks: states,
+-    visualChecks: ["Checkbox aligned with text", "Checked mark uses focus accent", "No task list bullets", "Table cell alignment preserved"],
+-  }, null, 2) + "\n");
+-  fs.writeFileSync(path.join(artifacts, `${name}.md`), `# ${name}\n\n${note}\n\n`
+-    + `Edit mode: ${editMode}. Checkbox states asserted by the test: ${states.join("; ")}.\n\n`
+-    + "Real VS Code window; the click is a real mouse event dispatched by Playwright through CDP. "
+-    + "Visual review: the checkbox is aligned with its text, the checked mark uses the focus accent, "
+-    + "task list items have no bullet, and the table cell keeps its alignment.\n");
+-  fs.appendFileSync(path.join(artifacts, "INDEX.md"), `- [${name}](${name}.md): [image](${name}.png)\n`);
+-  console.log(`PASS checkbox screenshot: ${name}`);
++  await evidence.write(page, id, {
++    frame,
++    json: {
++      summary: note,
++      info: { id, suite: "checkbox", runId: process.env.STUDIO_E2E_RUN_ID ?? null,
++        viewport: page.viewportSize(), host: "Real VS Code window; mouse events dispatched through CDP" },
++      capturedState: { editMode, checkboxStates: states },
++      checks: states,
++      visualChecks: ["Checkbox aligned with text", "Checked mark uses focus accent", "No task list bullets", "Table cell alignment preserved"],
++    },
++    markdown: `# ${id}\n\n${note}\n\n`
++      + `Edit mode: ${editMode}. Checkbox states asserted by the test: ${states.join("; ")}.\n\n`
++      + "Real VS Code window; the click is a real mouse event dispatched by Playwright through CDP. "
++      + "Visual review: the checkbox is aligned with its text, the checked mark uses the focus accent, "
++      + "task list items have no bullet, and the table cell keeps its alignment.\n",
++  });
+ }
+ 
+ export async function run(): Promise<void> {
+@@ -100,9 +101,12 @@ export async function run(): Promise<void> {
+   assert.ok(page, "the VS Code workbench is attached");
+   const extensionRoot = path.resolve(__dirname, "../../..");
+   fs.mkdirSync(E2E_REPORT_ROOT, { recursive: true });
+-  fs.mkdirSync(E2E_SCREENSHOT_ROOT, { recursive: true });
+-  const artifacts = fs.mkdtempSync(path.join(E2E_SCREENSHOT_ROOT, "checkbox-e2e-"));
+-  fs.writeFileSync(path.join(artifacts, "INDEX.md"), "# Checkbox capture order\n\nEntries follow execution order.\n\n");
++  const evidence = createRunEvidence({
++    suite: "checkbox",
++    folderPrefix: "checkbox-e2e",
++    indexHeader: "# Checkbox capture order\n\nEntries follow execution order.\n\n",
++    label: "checkbox",
++  });
+   const directory = fs.mkdtempSync(path.join(extensionRoot, "test", "integration", "fixtures", "checkbox-e2e-"));
+   const filePath = path.join(directory, "tasks.md");
+   const source = [
+@@ -137,7 +141,7 @@ export async function run(): Promise<void> {
+     assert.equal(await checkboxAtLine(frame, 3).isChecked(), false);
+     assert.equal(await checkboxAtLine(frame, 4).isChecked(), true);
+     assert.equal(await checkboxAtLine(frame, 3).isEnabled(), true);
+-    await capture(page, frame, artifacts, "01-reading-unchecked",
++    await capture(page, frame, evidence, "gfm/r01-task-reading-unchecked",
+       "Reading mode before any click: the first task and the Unit tests cell are unchecked.");
+ 
+     // Reading mode: a click checks the task and edits exactly one character of the source.
+@@ -148,7 +152,7 @@ export async function run(): Promise<void> {
+     frame = await currentPreviewFrame(page);
+     assert.equal(await checkboxAtLine(frame, 3).isChecked(), true);
+     assert.equal(await frame.locator("[data-sphinx-preview-block-editor]").count(), 0);
+-    await capture(page, frame, artifacts, "02-reading-checked",
++    await capture(page, frame, evidence, "gfm/r02-task-reading-checked",
+       "Reading mode after clicking the first task: it is checked in the preview and `- [x]` in the source.");
+ 
+     // The toggle is a single undo step in the source editor.
+@@ -170,7 +174,7 @@ export async function run(): Promise<void> {
+     await frame.locator("[data-sphinx-preview-edit-toggle]").click();
+     await waitFor("edit mode", async () =>
+       await frame.locator("html").getAttribute("data-sphinx-preview-edit-mode") === "on");
+-    await capture(page, frame, artifacts, "03-edit-mode-unchecked",
++    await capture(page, frame, evidence, "gfm/r03-task-edit-unchecked",
+       "Edit mode is on (pencil pressed); the Unit tests table cell checkbox is unchecked.");
+     await checkboxAtLine(frame, 8).click();
+     const cellSource = source.replace("| Unit tests | [ ] |", "| Unit tests | [x] |");
+@@ -181,15 +185,23 @@ export async function run(): Promise<void> {
+     assert.equal(await checkboxAtLine(frame, 8).isChecked(), true);
+     assert.equal(await frame.locator("[data-sphinx-preview-block-editor]").count(), 0,
+       "a checkbox click must not open the cell editor");
+-    await capture(page, frame, artifacts, "04-edit-mode-checked",
++    await capture(page, frame, evidence, "gfm/r04-task-edit-checked",
+       "Edit mode after clicking the Unit tests cell: it is checked, no cell editor opened, and the table row reads `| Unit tests | [x] |`.");
+ 
+     // Unchecking works the same way and leaves the rest of the table untouched.
+     await checkboxAtLine(frame, 9).click();
+     const uncheckedSource = cellSource.replace("| E2E screenshots | [x] |", "| E2E screenshots | [ ] |");
+     await waitFor("the unchecked cell to reach the source buffer", () => document.getText() === uncheckedSource);
++    evidence.assertComplete();
++    fs.writeFileSync(path.join(evidence.directory, "manifest.json"), JSON.stringify({
++      runId: process.env.STUDIO_E2E_RUN_ID ?? null,
++      campaignStartedAt: process.env.STUDIO_E2E_STARTED_AT ?? null,
++      campaignCommand: process.env.STUDIO_E2E_COMMAND ?? null,
++      status: "passed",
++      ...evidence.manifestFields(),
++    }, null, 2) + "\n");
+     fs.writeFileSync(path.join(E2E_REPORT_ROOT, "CHECKBOX-LATEST.md"),
+-      `# Latest Checkbox Evidence\n\nSuite: **passed**\n\n[Ordered captures](screenshots/${path.basename(artifacts)}/INDEX.md)\n`);
++      `# Latest Checkbox Evidence\n\nSuite: **passed**\n\n[Ordered captures](screenshots/${path.basename(evidence.directory)}/INDEX.md)\n`);
+   } finally {
+     disposeActivePreviewForTests();
+     await vscode.window.showTextDocument(document, vscode.ViewColumn.One);
+diff --git a/test/integration/previewEditing.test.ts b/test/integration/previewEditing.test.ts
+index 57e0915..89f6a2e 100644
+--- a/test/integration/previewEditing.test.ts
++++ b/test/integration/previewEditing.test.ts
+@@ -13,7 +13,13 @@ import {
+   sendPreviewMessageForTests,
+   setRenderDelayForTests,
+ } from "./extensionApi";
+-import { E2E_SCREENSHOT_ROOT } from "../reportPaths";
++import { realCaptureByLegacy } from "../shared/captureRegistry";
++import { createRunEvidence, type Evidence } from "./evidence";
++
++/** The registry id of a frontmatter capture whose pre-P9 name is composed from the test state. */
++function frontmatterId(legacy: string): string {
++  return realCaptureByLegacy("frontmatter", legacy).id;
++}
+ 
+ async function waitFor(description: string, predicate: () => boolean, timeoutMs = 5_000): Promise<void> {
+   const deadline = Date.now() + timeoutMs;
+@@ -91,7 +97,7 @@ function replaceDocument(document: vscode.TextDocument, text: string): vscode.Wo
+ async function captureDescriptionState(
+   page: Page,
+   frame: Frame,
+-  artifacts: string,
++  evidence: Evidence,
+   theme: "white" | "dark",
+   state: "expanded" | "collapsed" | "collapsed-after-refresh" | "expanded-again",
+   layout: "wide" | "narrow" = "wide",
+@@ -147,8 +153,7 @@ async function captureDescriptionState(
+     assert.equal(await frame.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true,
+       "Narrow layout must contain horizontal overflow rather than scroll the whole page");
+   }
+-  const filename = `description-${theme}-${state}${layout === "narrow" ? "-narrow" : ""}`;
+-  await page.screenshot({ path: path.join(artifacts, `${filename}.png`) });
++  const filename = frontmatterId(`description-${theme}-${state}${layout === "narrow" ? "-narrow" : ""}`);
+   const review = collapsed
+     ? "Description header and cells are hidden. Name and Value remain readable, and the expand icon stays visible."
+     : "Description header and cells are visible. Check column spacing, text contrast, and the collapse icon beside the frontmatter title.";
+@@ -159,31 +164,30 @@ async function captureDescriptionState(
+       : state === "collapsed"
+         ? "The collapse control was clicked from the expanded state; only Name and Value should remain."
+         : "Description was explicitly expanded before this capture; every field description should be visible.";
+-  fs.writeFileSync(path.join(artifacts, `${filename}.json`), JSON.stringify({
+-    summary: review,
+-    info: { id: filename, suite: "frontmatter", runId: process.env.STUDIO_E2E_RUN_ID ?? null,
+-      theme, layout, viewport: page.viewportSize(), frameWidth: width, host: "Real VS Code webview" },
+-    actions: [transition],
+-    capturedState: { collapsed, headers, fieldCount: fields.length },
+-    checks: ["Exact description text", "17 unique rows", "Visible description count", "Toggle accessibility and state",
+-      "Frame width, theme and overflow policy"],
+-    visualChecks: ["Text contrast", "No clipping within cells", "Column spacing"],
+-    limitations: "legacy_summary intentionally violates additionalProperties. Native title tooltips are not screenshot evidence.",
+-  }, null, 2) + "\n");
+-  fs.writeFileSync(path.join(artifacts, `${filename}.md`),
+-    `# Description column: ${theme}, ${state}\n\n${review}\n\n${transition}\n\n`
+-    + `Setup: finding schema with 17 unique fields; legacy_summary intentionally violates additionalProperties. `
+-    + `Target metadata is Updated target description; outside-workspace links are explicitly permitted.\n\n`
+-    + `Capture: actual frame width ${width}px, ${layout} layout, top of document; pointer moved away and toolbar blurred; tooltip disappearance awaited.\n\n`
+-    + `Actions: expand, collapse, refresh (new completed request ID), expand again, in that order per theme/layout.\n\n`
+-    + `Expected exact descriptions: Document type.; Stable finding identity.; Review lifecycle state.; Supporting source document.\n\n`
+-    + "Asserted: exact description text, 17 unique rows, visible description count, toggle accessibility/state, frame width, theme and overflow policy. Visual review only: contrast, clipping within cells and spacing. Native title tooltips are not screenshot evidence.\n",
+-    "utf8");
+-  fs.appendFileSync(path.join(artifacts, "INDEX.md"), `- [${filename}](${filename}.md): [image](${filename}.png)\n`);
+-  console.log(`PASS frontmatter screenshot: ${filename}`);
++  await evidence.write(page, filename, {
++    frame,
++    json: {
++      summary: review,
++      info: { id: filename, suite: "frontmatter", runId: process.env.STUDIO_E2E_RUN_ID ?? null,
++        theme, layout, viewport: page.viewportSize(), frameWidth: width, host: "Real VS Code webview" },
++      actions: [transition],
++      capturedState: { collapsed, headers, fieldCount: fields.length },
++      checks: ["Exact description text", "17 unique rows", "Visible description count", "Toggle accessibility and state",
++        "Frame width, theme and overflow policy"],
++      visualChecks: ["Text contrast", "No clipping within cells", "Column spacing"],
++      limitations: "legacy_summary intentionally violates additionalProperties. Native title tooltips are not screenshot evidence.",
++    },
++    markdown: `# Description column: ${theme}, ${state}\n\n${review}\n\n${transition}\n\n`
++      + `Setup: finding schema with 17 unique fields; legacy_summary intentionally violates additionalProperties. `
++      + `Target metadata is Updated target description; outside-workspace links are explicitly permitted.\n\n`
++      + `Capture: actual frame width ${width}px, ${layout} layout, top of document; pointer moved away and toolbar blurred; tooltip disappearance awaited.\n\n`
++      + `Actions: expand, collapse, refresh (new completed request ID), expand again, in that order per theme/layout.\n\n`
++      + `Expected exact descriptions: Document type.; Stable finding identity.; Review lifecycle state.; Supporting source document.\n\n`
++      + "Asserted: exact description text, 17 unique rows, visible description count, toggle accessibility/state, frame width, theme and overflow policy. Visual review only: contrast, clipping within cells and spacing. Native title tooltips are not screenshot evidence.\n",
++  });
+ }
+ 
+-async function captureLinkState(page: Page, frame: Frame, artifacts: string, name: string, expected: string, hovered = false): Promise<void> {
++async function captureLinkState(page: Page, frame: Frame, evidence: Evidence, name: string, expected: string, hovered = false): Promise<void> {
+   if (!hovered) {
+   await frame.evaluate(() => window.scrollTo(0, 0));
+   const frameBounds = await (await frame.frameElement()).boundingBox();
+@@ -205,22 +209,23 @@ async function captureLinkState(page: Page, frame: Frame, artifacts: string, nam
+     }), "Hover tooltip is contained in the captured viewport");
+   }
+   const width = await frame.evaluate(() => innerWidth);
+-  await page.screenshot({ path: path.join(artifacts, `${name}.png`) });
+-  fs.writeFileSync(path.join(artifacts, `${name}.json`), JSON.stringify({
+-    summary: expected,
+-    info: { id: name, suite: "frontmatter", runId: process.env.STUDIO_E2E_RUN_ID ?? null,
+-      viewport: page.viewportSize(), frameWidth: width, host: "Real VS Code webview" },
+-    capturedState: { hovered, outsideWorkspaceLinks: "permitted" },
+-    checks: ["Exact link text, metadata and badges asserted by the test"],
+-    visualChecks: ["Color, legibility and spacing", "Hover tooltip stays within the viewport"],
+-    limitations: "legacy_summary intentionally produces a schema validation error. Hover tooltips are production UI, not injected overlays.",
+-  }, null, 2) + "\n");
+-  fs.writeFileSync(path.join(artifacts, `${name}.md`), `# ${name}\n\n${expected}\n\n`
+-    + `Real VS Code webview, ${width}px frame; ${hovered ? "pointer on the related link, accessible tooltip visible" : "pointer away, toolbar blurred and tooltip disappearance awaited"}. `
+-    + "Outside-workspace links permitted. legacy_summary intentionally produces a red schema validation error. "
+-    + "Exact link text/metadata/badges are asserted by the test; color, legibility and spacing require visual review. "
+-    + (hovered ? "The visible tooltip is production UI, not an injected screenshot overlay.\n" : "Hover appearance is reviewed in the separate hover checkpoint.\n"));
+-  fs.appendFileSync(path.join(artifacts, "INDEX.md"), `- [${name}](${name}.md): [image](${name}.png)\n`);
++  await evidence.write(page, name, {
++    frame,
++    json: {
++      summary: expected,
++      info: { id: name, suite: "frontmatter", runId: process.env.STUDIO_E2E_RUN_ID ?? null,
++        viewport: page.viewportSize(), frameWidth: width, host: "Real VS Code webview" },
++      capturedState: { hovered, outsideWorkspaceLinks: "permitted" },
++      checks: ["Exact link text, metadata and badges asserted by the test"],
++      visualChecks: ["Color, legibility and spacing", "Hover tooltip stays within the viewport"],
++      limitations: "legacy_summary intentionally produces a schema validation error. Hover tooltips are production UI, not injected overlays.",
++    },
++    markdown: `# ${name}\n\n${expected}\n\n`
++      + `Real VS Code webview, ${width}px frame; ${hovered ? "pointer on the related link, accessible tooltip visible" : "pointer away, toolbar blurred and tooltip disappearance awaited"}. `
++      + "Outside-workspace links permitted. legacy_summary intentionally produces a red schema validation error. "
++      + "Exact link text/metadata/badges are asserted by the test; color, legibility and spacing require visual review. "
++      + (hovered ? "The visible tooltip is production UI, not an injected screenshot overlay.\n" : "Hover appearance is reviewed in the separate hover checkpoint.\n"),
++  });
+ }
+ 
+ export async function run(): Promise<void> {
+@@ -229,10 +234,12 @@ export async function run(): Promise<void> {
+   const page = browser.contexts()[0]?.pages().find((candidate) => candidate.url().includes("workbench"));
+   assert.ok(page, "the VS Code workbench is attached");
+   const extensionRoot = path.resolve(__dirname, "../../..");
+-  fs.mkdirSync(E2E_SCREENSHOT_ROOT, { recursive: true });
+-  const artifacts = fs.mkdtempSync(path.join(E2E_SCREENSHOT_ROOT, "frontmatter-e2e-"));
+-  fs.mkdirSync(artifacts, { recursive: true });
+-  fs.writeFileSync(path.join(artifacts, "INDEX.md"), "# Frontmatter capture order\n\nIsolated run; entries below follow execution order. See manifest.json for result and limitations.\n\n");
++  const evidence = createRunEvidence({
++    suite: "frontmatter",
++    folderPrefix: "frontmatter-e2e",
++    indexHeader: "# Frontmatter capture order\n\nIsolated run; entries below follow execution order. See manifest.json for result and limitations.\n\n",
++    label: "frontmatter",
++  });
+   const manifest = {
+     runId: process.env.STUDIO_E2E_RUN_ID ?? null,
+     campaignStartedAt: process.env.STUDIO_E2E_STARTED_AT ?? null,
+@@ -244,7 +251,7 @@ export async function run(): Promise<void> {
+     reload: "Separate real-window campaign: see RELOAD-LATEST.md. Refresh captures here only prove toolbar refresh.",
+     tooltip: "Custom accessible link tooltips have dedicated hover captures; native browser popups are not captured.",
+   };
+-  fs.writeFileSync(path.join(artifacts, "manifest.json"), JSON.stringify(manifest, null, 2));
++  fs.writeFileSync(path.join(evidence.directory, "manifest.json"), JSON.stringify(manifest, null, 2));
+   await page.setViewportSize({ width: 2400, height: 1100 });
+   await vscode.commands.executeCommand("workbench.action.closeSidebar");
+   await vscode.commands.executeCommand("workbench.action.closeAuxiliaryBar");
+@@ -483,10 +490,10 @@ export async function run(): Promise<void> {
+       assert.ok(Number(await frame.locator('[data-okf-badge]').getAttribute("data-okf-errors")) > 0,
+         "legacy_summary intentionally violates additionalProperties and produces a validation error");
+       assert.match(await frame.locator('.okf-info-row.okf-error').allTextContents().then((texts) => texts.join("\n")), /must NOT have additional properties$/u);
+-      await captureLinkState(page, frame, artifacts, `links-${theme}-original`,
++      await captureLinkState(page, frame, evidence, frontmatterId(`links-${theme}-original`),
+         "Setup: original target metadata. Excerpt and title contain Original target description. Both evidence links carry exactly line 2. Check muted italic excerpt and marker labels remain readable.");
+       await link.hover();
+-      await captureLinkState(page, frame, artifacts, `links-${theme}-hover`,
++      await captureLinkState(page, frame, evidence, frontmatterId(`links-${theme}-hover`),
+         "Action: hover the related link. Expected: visible target path and description: Original target description, with readable text, preserved line breaks and no viewport clipping.", true);
+     }
+     const updatedTarget = () =>
+@@ -509,7 +516,7 @@ export async function run(): Promise<void> {
+       }
+       assert.equal(await frame.locator('[data-okf-field="related"] .okf-link-excerpt').textContent(), "Updated target description");
+       assert.match(await frame.locator('[data-okf-field="related"] a').getAttribute("title") ?? "", /description: Updated target description/u);
+-      await captureLinkState(page, frame, artifacts, `links-${theme}-saved-target`,
++      await captureLinkState(page, frame, evidence, frontmatterId(`links-${theme}-saved-target`),
+         "Action: save target description on disk and await linked-file enrichment. Original target description is replaced with exactly Updated target description in excerpt and native title without a full document render.");
+     }
+     const initialStemRow = schemaPreview.html.match(/<tr\b[^>]*data-okf-field="stem_target"[^]*?<\/tr>/u)?.[0] ?? "";
+@@ -541,17 +548,17 @@ export async function run(): Promise<void> {
+       if (await frame.locator("[data-okf-description-toggle]:visible").getAttribute("aria-expanded") === "false") {
+         await frame.locator("[data-okf-description-toggle]:visible").click();
+       }
+-      await captureDescriptionState(page, frame, artifacts, theme, "expanded", layout);
++      await captureDescriptionState(page, frame, evidence, theme, "expanded", layout);
+       await frame.locator("[data-okf-description-toggle]:visible").click();
+-      await captureDescriptionState(page, frame, artifacts, theme, "collapsed", layout);
++      await captureDescriptionState(page, frame, evidence, theme, "collapsed", layout);
+       const previousRequestId = currentContext(document).requestId;
+       await frame.locator("[data-sphinx-preview-refresh]").click();
+       await waitForCurrentPreview(document, previousRequestId);
+       const refreshedFrame = await previewFrame(page);
+       await refreshedFrame.locator('html[data-okf-descriptions-collapsed="true"]').waitFor();
+-      await captureDescriptionState(page, refreshedFrame, artifacts, theme, "collapsed-after-refresh", layout);
++      await captureDescriptionState(page, refreshedFrame, evidence, theme, "collapsed-after-refresh", layout);
+       await refreshedFrame.locator("[data-okf-description-toggle]:visible").click();
+-      await captureDescriptionState(page, refreshedFrame, artifacts, theme, "expanded-again", layout);
++      await captureDescriptionState(page, refreshedFrame, evidence, theme, "expanded-again", layout);
+     }
+     }
+     await page.setViewportSize({ width: 2400, height: 1100 });
+@@ -569,7 +576,7 @@ export async function run(): Promise<void> {
+       assert.equal(await excerpt.getAttribute("title"), longDescription);
+       assert.equal(await excerpt.evaluate((element) => element.scrollWidth > element.clientWidth
+         && getComputedStyle(element).textOverflow === "ellipsis"), true, "Long excerpt actually overflows with ellipsis");
+-      await captureLinkState(page, frame, artifacts, `links-${theme}-long-ellipsis`,
++      await captureLinkState(page, frame, evidence, frontmatterId(`links-${theme}-long-ellipsis`),
+         "Action: save twelve repetitions of Saved target metadata with a deliberately long description. Assert full excerpt/title preserved and actual scrollWidth exceeds clientWidth with text-overflow: ellipsis. Visual review: truncation and contrast.");
+     }
+     const refreshedFrame = await previewFrame(page);
+@@ -594,18 +601,18 @@ export async function run(): Promise<void> {
+     await waitFor("the implementation evidence link to open at its marker", () =>
+       vscode.window.activeTextEditor?.document.uri.fsPath === implementationPath
+       && vscode.window.activeTextEditor.selection.active.line === 1);
+-    await page.screenshot({ path: path.join(artifacts, "marker-navigation-destination.png") });
+-    fs.writeFileSync(path.join(artifacts, "marker-navigation-destination.json"), JSON.stringify({
+-      summary: "Active source editor shows evidence/implementation.py at line 2, containing @implements_req finding-frontmatter-001.",
+-      info: { id: "marker-navigation-destination", suite: "frontmatter",
+-        runId: process.env.STUDIO_E2E_RUN_ID ?? null, viewport: page.viewportSize(), host: "Real VS Code workbench" },
+-      actions: ["Click implemented_in_files link"],
+-      checks: ["Exact active source path", "Selected marker line"],
+-      visualChecks: ["Destination editor and marker line visible", "Readable selection and line framing"],
+-      limitations: "The screenshot shows the destination; automation verifies navigation. Preview validation warnings are intentional fixture state.",
+-    }, null, 2) + "\n");
+-    fs.writeFileSync(path.join(artifacts, "marker-navigation-destination.md"), "# Marker navigation destination\n\nSetup: Real VS Code workbench, 2400 x 1100, schema-backed finding with implementation evidence.\nAction: Click implemented_in_files link.\nExpected state: Active source editor is evidence/implementation.py at zero-based line 1 (displayed line 2), containing @implements_req finding-frontmatter-001.\nVisual checks: Destination editor and marker line are visible, not merely link styling. Confirm line framing and readable selection.\nAsserted: Exact active source path and selected line.\nLimitations: The screenshot shows the destination; automation verifies the click and navigation. The preview may intentionally show fixture validation warnings.\n");
+-    fs.appendFileSync(path.join(artifacts, "INDEX.md"), "- [Marker navigation destination](marker-navigation-destination.md): [image](marker-navigation-destination.png)\n");
++    await evidence.write(page, "frontmatter-schema/r26-marker-navigation-destination", {
++      json: {
++        summary: "Active source editor shows evidence/implementation.py at line 2, containing @implements_req finding-frontmatter-001.",
++        info: { id: "frontmatter-schema/r26-marker-navigation-destination", suite: "frontmatter",
++          runId: process.env.STUDIO_E2E_RUN_ID ?? null, viewport: page.viewportSize(), host: "Real VS Code workbench" },
++        actions: ["Click implemented_in_files link"],
++        checks: ["Exact active source path", "Selected marker line"],
++        visualChecks: ["Destination editor and marker line visible", "Readable selection and line framing"],
++        limitations: "The screenshot shows the destination; automation verifies navigation. Preview validation warnings are intentional fixture state.",
++      },
++      markdown: "# Marker navigation destination\n\nSetup: Real VS Code workbench, 2400 x 1100, schema-backed finding with implementation evidence.\nAction: Click implemented_in_files link.\nExpected state: Active source editor is evidence/implementation.py at zero-based line 1 (displayed line 2), containing @implements_req finding-frontmatter-001.\nVisual checks: Destination editor and marker line are visible, not merely link styling. Confirm line framing and readable selection.\nAsserted: Exact active source path and selected line.\nLimitations: The screenshot shows the destination; automation verifies the click and navigation. The preview may intentionally show fixture validation warnings.\n",
++    });
+     await vscode.window.showTextDocument(document, vscode.ViewColumn.One);
+     await waitForCurrentPreview(document);
+ 
+@@ -628,7 +635,7 @@ export async function run(): Promise<void> {
+     const noMarkerFrame = await previewFrame(page);
+     assert.equal(await noMarkerFrame.locator('[data-okf-field="implemented_in_files"] .okf-link-line').count(), 0);
+     assert.equal(await noMarkerFrame.locator('[data-okf-field="tested_in_files"] .okf-link-line').textContent(), "line 2");
+-    await captureLinkState(page, noMarkerFrame, artifacts, "links-marker-removed",
++    await captureLinkState(page, noMarkerFrame, evidence, "frontmatter-schema/r21-links-marker-removed",
+       "Action: remove implementation marker on disk and await linked-file enrichment. Implementation remains a valid link with zero line badges; test evidence still has exactly line 2.");
+ 
+     for (const [index, expectedPath] of [
+@@ -1387,10 +1394,11 @@ export async function run(): Promise<void> {
+     sendPreviewMessageForTests({ type: "previewLink", ...currentContext(document), request: `wiki:${wikiName}` });
+     await waitFor("the discovered wikilink to open in VS Code", () =>
+       vscode.window.activeTextEditor?.document.uri.fsPath === wikiPath);
++    evidence.assertComplete();
+   } finally {
+     manifest.result = "incomplete";
+-    manifest.captures = fs.readdirSync(artifacts).filter((file) => file.endsWith(".png")).length;
+-    fs.writeFileSync(path.join(artifacts, "manifest.json"), JSON.stringify(manifest, null, 2));
++    Object.assign(manifest, evidence.manifestFields());
++    fs.writeFileSync(path.join(evidence.directory, "manifest.json"), JSON.stringify(manifest, null, 2));
+     disposeActivePreviewForTests();
+     await vscode.commands.executeCommand("workbench.action.closeActiveEditor");
+     await browser.close();
+@@ -1405,5 +1413,5 @@ export async function run(): Promise<void> {
+     );
+   }
+   manifest.result = "previewEditing passed including cleanup; trusted-suite result still requires parent exit";
+-  fs.writeFileSync(path.join(artifacts, "manifest.json"), JSON.stringify(manifest, null, 2));
++  fs.writeFileSync(path.join(evidence.directory, "manifest.json"), JSON.stringify(manifest, null, 2));
+ }
+diff --git a/test/integration/realInput.test.ts b/test/integration/realInput.test.ts
+index 0e7b961..2ba1984 100644
+--- a/test/integration/realInput.test.ts
++++ b/test/integration/realInput.test.ts
+@@ -15,6 +15,7 @@ import {
+   setRenderDelayForTests,
+   setRenderOverrideForTests,
+ } from "./extensionApi";
++import { realCaptureByLegacy } from "../shared/captureRegistry";
+ import { lineDelta } from "../shared/lineDelta";
+ import {
+   bufferText,
+@@ -142,6 +143,11 @@ async function withDocument(
+   }
+ }
+ 
++/** The registry id of a capture whose pre-P9 name is composed at run time (see captureRegistry.ts). */
++function legacyCaptureId(legacy: string): string {
++  return realCaptureByLegacy("real-input", legacy).id;
++}
++
+ async function captureAfter(
+   evidence: Evidence,
+   page: Page,
+@@ -176,7 +182,7 @@ async function scenarioParagraphBlurCommit(page: Page, evidence: Evidence): Prom
+         .evaluateAll((areas) => areas.map((area) => (area as HTMLTextAreaElement).value));
+       return paragraphs === 1 && !openValues.some((value) => value.includes("Second paragraph"));
+     });
+-    await captureAfter(evidence, page, "01-paragraph-blur-commit",
++    await captureAfter(evidence, page, "block-editing/r01-paragraph-blur-commit",
+       "Edit mode on; the paragraph gained ` Added.` and the heading click moved focus out. "
+       + "The buffer line reads `Second paragraph. Added.`; nothing else changed.");
+   });
+@@ -236,7 +242,7 @@ async function scenarioReviewComments(page: Page, evidence: Evidence): Promise<v
+         assert.match(await popover.textContent() ?? "", /<b>Why\?<\/b>/u);
+         assert.equal(await popover.locator("b").count(), 0, "the body is text");
+       });
+-      await captureAfter(evidence, page, "comments-01-popover", "Edit mode on; the popover shows the thread and no editor is open.");
++      await captureAfter(evidence, page, "review-annotations/r02-review-thread-popover", "Edit mode on; the popover shows the thread and no editor is open.");
+       // Plain text of the same block still edits (the click lands on the first words).
+       await withCurrentFrame(page, async (frame) => {
+         const target = frame.locator(paragraph).first();
+@@ -275,7 +281,7 @@ async function scenarioCtrlEnterCommit(page: Page, evidence: Evidence): Promise<
+     assert.equal(lines(bufferText(document))[3], "continues on line two. X");
+     await waitForRender(document);
+     await waitForNoBlockEditor(page, "the block editor to close after the re-render");
+-    await captureAfter(evidence, page, "02-ctrl-enter-commit",
++    await captureAfter(evidence, page, "block-editing/r02-mod-enter-commit",
+       "Edit mode on; the first paragraph gained ` X` and Cmd/Ctrl+Enter saved it. The editor is closed "
+       + "after the re-render, and buffer line 4 reads `continues on line two. X`.");
+   });
+@@ -306,7 +312,7 @@ async function scenarioBlockMoveKeys(page: Page, evidence: Evidence): Promise<vo
+     await expectOrder(["Beta", "Gamma", "Alpha"], "the second Alt+Down to move Alpha below Gamma");
+     await waitFor("the focus to stay on Alpha", async () => (await activeText()).includes("Alpha"));
+     // One undo step per move.
+-    await captureAfter(evidence, page, "move-keys-01-alt-down",
++    await captureAfter(evidence, page, "block-editing/r21-alt-down-moves-block",
+       "Edit mode on; Alt+Down was pressed twice on Alpha's block: the order is Beta, Gamma, Alpha.");
+ 
+     // In the text box: the chord saves, moves, and reopens on the block with the caret in place.
+@@ -337,7 +343,7 @@ async function scenarioBlockMoveKeys(page: Page, evidence: Evidence): Promise<vo
+     await press(page, "Alt+ArrowDown");
+     await new Promise<void>((resolve) => setTimeout(resolve, 300));
+     assert.equal(bufferText(document), before, "plain Alt+Arrow moved nothing");
+-    await captureAfter(evidence, page, "move-keys-02-chord",
++    await captureAfter(evidence, page, "block-editing/r22-move-chord-keeps-editor",
+       "The Cmd/Ctrl+Alt chord saved `Be!ta`, moved the block down and back up; the editor stays open on it.");
+   });
+ }
+@@ -361,7 +367,7 @@ async function scenarioBlockSelection(page: Page, evidence: Evidence): Promise<v
+     await waitFor("three blocks to be selected", async () => (await selected()).length === 3);
+     assert.equal(await announced(), "3 blocks selected");
+     await waitForNoBlockEditor(page, "Shift+click opens no block editor");
+-    await captureAfter(evidence, page, "block-selection-01-shift-click",
++    await captureAfter(evidence, page, "block-editing/r20-shift-click-selects-blocks",
+       "Shift+click on Alpha then Gamma outlines the three body blocks; no editor is open.");
+     await press(page, "Shift+ArrowUp");
+     await waitFor("Shift+Up to shrink the selection", async () => (await selected()).length === 2);
+@@ -404,7 +410,7 @@ async function scenarioBlockMoveSelection(page: Page, evidence: Evidence): Promi
+     await press(page, "Alt+ArrowUp");
+     await waitFor("the span to move back up", () =>
+       bufferText(document) === document4(["Gamma", "Alpha", "Beta", "Delta"]));
+-    await captureAfter(evidence, page, "move-selection-01-alt-arrows",
++    await captureAfter(evidence, page, "block-editing/r23-alt-arrows-move-selection",
+       "Alpha and Beta were selected, then moved down twice and up once with Alt+Arrow: the order is Gamma, "
+       + "Alpha, Beta, Delta and both stay selected.");
+   });
+@@ -428,7 +434,7 @@ async function scenarioArrowNavigation(page: Page, evidence: Evidence): Promise<
+       if (await textarea.count() !== 1) return false;
+       return (await textarea.inputValue()).startsWith("| Name | Value |");
+     });
+-    await captureAfter(evidence, page, "03-arrow-navigation",
++    await captureAfter(evidence, page, "block-editing/r03-arrow-down-into-table",
+       "Edit mode on; ArrowDown at the end of the paragraph moved the raw Markdown editor to the table, "
+       + "whose textarea starts with `| Name | Value |`.");
+   });
+@@ -457,7 +463,7 @@ async function scenarioTableCellEnter(page: Page, evidence: Evidence): Promise<v
+     });
+     const tableRows = lines(bufferText(document)).filter((line) => line.startsWith("|"));
+     assert.equal(tableRows.length, 4, "the table keeps its header, separator and two rows");
+-    await captureAfter(evidence, page, "04-table-cell-enter",
++    await captureAfter(evidence, page, "table-editing/r01-cell-enter-saves",
+       "Edit mode on; the cell `one` was edited with End, `1` and Enter. The buffer contains "
+       + "`| alpha | one1 |` and the table still has four lines.");
+   });
+@@ -487,7 +493,7 @@ async function scenarioTableCellBold(page: Page, evidence: Evidence): Promise<vo
+       if (current === undefined) return false;
+       return await current.locator("[data-sphinx-preview-table-cell-editor]").count() === 0;
+     });
+-    await captureAfter(evidence, page, "t35-table-cell-bold",
++    await captureAfter(evidence, page, "table-editing/r08-cell-bold-shortcut",
+       "Edit mode on; the cell `one` was selected, bolded with Cmd/Ctrl+B and saved with Enter. The "
+       + "buffer contains `| alpha | **one** |`.");
+   });
+@@ -519,7 +525,7 @@ async function scenarioTableMinimalDiff(page: Page, evidence: Evidence): Promise
+       if (await current.locator("[data-sphinx-preview-table-cell-editor]").count() !== 0) return false;
+       return await current.locator("td", { hasText: /^second X$/u }).count() === 1;
+     });
+-    await captureAfter(evidence, page, "06-table-padded-edit",
++    await captureAfter(evidence, page, "table-editing/r02-padded-table-minimal-diff",
+       "Edit mode on; the padded table cell `second` gained ` X` and Enter saved it. The buffer changed "
+       + "only the line `| first    | second X |`; the alignment padding is kept.");
+ 
+@@ -543,7 +549,7 @@ async function scenarioTableMinimalDiff(page: Page, evidence: Evidence): Promise
+       if (await current.locator("[data-sphinx-preview-table-cell-editor]").count() !== 0) return false;
+       return await current.locator("td", { hasText: /^Ana Lee$/u }).count() === 1;
+     });
+-    await captureAfter(evidence, page, "07-table-compact-edit",
++    await captureAfter(evidence, page, "table-editing/r03-compact-table-minimal-diff",
+       "Edit mode on; the compact table cell `Ana` gained ` Lee` and Enter saved it. The buffer changed "
+       + "only the line `| Plan | Ana Lee |`; the compact `|---|---|` delimiter is untouched.");
+   });
+@@ -572,7 +578,7 @@ async function scenarioOpenWithEditor(page: Page, evidence: Evidence): Promise<v
+       return current !== undefined
+         && await current.locator("p", { hasText: "Second paragraph. Z" }).count() === 1;
+     });
+-    await captureAfter(evidence, page, "05-open-with-editor",
++    await captureAfter(evidence, page, "lifecycle-sync/r01-open-with-editor",
+       "Opened with the Studio Open With editor (no side preview); edit mode on; Cmd/Ctrl+Enter saved "
+       + "`Second paragraph. Z` to the buffer.");
+   });
+@@ -659,7 +665,7 @@ async function scenarioFrontmatterValueMinimalPatch(page: Page, evidence: Eviden
+       return current !== undefined
+         && await current.locator("[data-okf-frontmatter-editor]").count() === 0;
+     });
+-    await captureAfter(evidence, page, "08-frontmatter-value-minimal-patch",
++    await captureAfter(evidence, page, "frontmatter-editing/r01-value-minimal-patch",
+       "Edit mode on; the status row was changed to `active` by typing `a` on the focused select "
+       + "and pressing Enter. The buffer changed only the line `status: active`; the compact sequences and the two-line summary are untouched.");
+   }, REQ_SCHEMA);
+@@ -696,7 +702,7 @@ async function scenarioFrontmatterStructuralMinimalPatch(page: Page, evidence: E
+       return current !== undefined
+         && await current.locator("[data-okf-frontmatter-editor]").count() === 0;
+     });
+-    await captureAfter(evidence, page, "09-frontmatter-rename-minimal-patch",
++    await captureAfter(evidence, page, "frontmatter-editing/r02-rename-minimal-patch",
+       "Edit mode on; the name cell `summary` was renamed to `abstract` by select-all, typing and Enter. "
+       + "The buffer changed only the line `abstract: When export ...`; the continuation line `  as CSV.` is untouched.");
+ 
+@@ -718,7 +724,7 @@ async function scenarioFrontmatterStructuralMinimalPatch(page: Page, evidence: E
+       const current = await findCurrentFrame(page);
+       return current !== undefined && await current.locator('tr[data-okf-field="tags"]').count() === 0;
+     });
+-    await captureAfter(evidence, page, "10-frontmatter-remove-minimal-patch",
++    await captureAfter(evidence, page, "frontmatter-editing/r03-remove-minimal-patch",
+       "Edit mode on; the `tags` value was opened and the Remove frontmatter field button pressed. "
+       + "The buffer lost exactly the three lines `tags:`, `- alpha` and `- beta`.");
+   }, REQ_SCHEMA);
+@@ -756,7 +762,7 @@ async function scenarioEnterCommitsTextField(page: Page, evidence: Evidence): Pr
+       return current !== undefined
+         && await current.locator("[data-okf-frontmatter-editor]").count() === 0;
+     });
+-    await captureAfter(evidence, page, "11-frontmatter-title-enter",
++    await captureAfter(evidence, page, "frontmatter-editing/r04-title-enter-saves",
+       "Edit mode on; the title was replaced and Enter saved it as a one-line scalar.");
+ 
+     await withCurrentFrame(page, (frame) =>
+@@ -776,7 +782,7 @@ async function scenarioEnterCommitsTextField(page: Page, evidence: Evidence): Pr
+       return current !== undefined
+         && await current.locator("[data-okf-frontmatter-editor]").count() === 0;
+     });
+-    await captureAfter(evidence, page, "12-frontmatter-title-multiline",
++    await captureAfter(evidence, page, "frontmatter-editing/r05-title-multiline",
+       "Edit mode on; Shift+Enter added a line and Cmd/Ctrl+Enter saved a two-line title.");
+   }, REQ_SCHEMA);
+ }
+@@ -812,7 +818,7 @@ async function scenarioEscapeCancels(page: Page, evidence: Evidence): Promise<vo
+     await waitForRender(document);
+     await waitForNoBlockEditor(page, "the block editor to close after Escape");
+     assert.equal(bufferText(document), SMOKE);
+-    await captureAfter(evidence, page, "13-escape-cancels-block",
++    await captureAfter(evidence, page, "block-editing/r05-escape-cancels-block",
+       "Edit mode on; ` DROP ME TOO.` was typed (and autosaved) in the paragraph and Escape closed "
+       + "the editor. The preview and the source buffer show the original text again.");
+ 
+@@ -857,7 +863,7 @@ async function scenarioEscapeCancels(page: Page, evidence: Evidence): Promise<vo
+         && await current.locator("[data-sphinx-preview-table-cell-editor]").count() === 0;
+     });
+     assert.equal(bufferText(document), withB);
+-    await captureAfter(evidence, page, "14-escape-cancels-table-cell",
++    await captureAfter(evidence, page, "table-editing/r04-escape-cancels-cell",
+       "Edit mode on; the cell `two` gained `2` (autosaved) and Escape closed the editor. The cell "
+       + "reads `two` again in the preview and in the buffer.");
+   });
+@@ -905,7 +911,7 @@ async function scenarioTypingUndoGrouping(page: Page, evidence: Evidence): Promi
+         throw new Error(String(error) + " Buffer paragraph line: "
+           + JSON.stringify(lines(bufferText(document))[5]) + "; changes: " + JSON.stringify(changes));
+       }
+-      await captureAfter(evidence, page, "15-typing-undo-grouping",
++      await captureAfter(evidence, page, "block-editing/r06-typing-one-undo-step",
+         "Typed 20 characters inline; " + changes.length + " content change(s) reached the source "
+         + "(" + JSON.stringify(changes) + "), and one undo restored `Second paragraph.`.");
+     } finally {
+@@ -972,7 +978,7 @@ async function scenarioUndoStaysInEditor(
+       const state = await readEditor();
+       return state.tag === "TEXTAREA" && state.value === withTyped(" abc def");
+     });
+-    await captureAfter(evidence, page, "16-undo-stays-" + mode,
++    await captureAfter(evidence, page, legacyCaptureId("16-undo-stays-" + mode),
+       "Typed ` abc` and ` def` inline (" + mode + "); Cmd/Ctrl+Z undid typing inside the textarea "
+       + "and Cmd/Ctrl+Shift+Z restored it; the inline editor stayed open and focused.");
+   });
+@@ -1017,11 +1023,12 @@ async function scenarioShortcuts(page: Page, evidence: Evidence): Promise<void>
+ 
+     await press(page, "Control+/");
+     await expectValue("Ctrl+/ to wrap the line in a TODO comment", "<!-- TODO: " + original + " -->");
++    // P9 T1: the capture shows the wrapped line; the undo that follows is asserted, not pictured.
++    await captureAfter(evidence, page, "palette-slash/r03-shortcuts-bold-todo",
++      "Edit mode on; Cmd/Ctrl+B bolded the selected word (undone by one Cmd/Ctrl+Z) and Ctrl+/ wrapped the "
++      + "line in a TODO comment, shown here before its single Cmd/Ctrl+Z undo; the focus stays in the text box.");
+     await press(page, MOD + "+z");
+     await expectValue("one undo to restore the line", original);
+-    await captureAfter(evidence, page, "t20-shortcuts",
+-      "Edit mode on; Cmd/Ctrl+B bolded the selected word and Ctrl+/ wrapped the line in a TODO "
+-      + "comment, each undone by a single Cmd/Ctrl+Z with the focus staying in the text box.");
+     await press(page, "Escape");
+     await waitForNoBlockEditor(page, "the block editor to close after Escape");
+   });
+@@ -1067,7 +1074,7 @@ async function scenarioSlashMenu(page: Page, evidence: Evidence): Promise<void>
+     await press(page, "Enter");
+     await typeText(page, "/");
+     await waitMenu(true, "the slash menu to open after a line break");
+-    await captureAfter(evidence, page, "p11-slash-open",
++    await captureAfter(evidence, page, "palette-slash/r02-slash-open",
+       "Edit mode on; typing / on a new line of the paragraph editor opened the command menu under the caret.");
+     await typeText(page, "h2");
+     await waitFor("the menu to list Heading 2 first", async () => {
+@@ -1121,7 +1128,7 @@ async function scenarioSlashMenu(page: Page, evidence: Evidence): Promise<void>
+     await typeText(page, "/zz");
+     await waitMenu(true, "the menu to open for /zz");
+     await waitFor("the No command row", async () => (await count("[data-slash-none]")) === 1);
+-    await captureAfter(evidence, page, "p11-slash-no-command",
++    await captureAfter(evidence, page, "palette-slash/r01-slash-no-command",
+       "The query /zz matches nothing: the menu shows a No command row.");
+     await press(page, "Escape");
+     await waitMenu(false, "Escape to close the menu");
+@@ -1186,12 +1193,13 @@ async function scenarioPalette(page: Page, evidence: Evidence): Promise<void> {
+     // Escape closes the open list first, and only the next Escape closes the editor.
+     await withCurrentFrame(page, (frame) => frame.locator("[data-edit-action='codeFence']").click());
+     await waitFor("the language list", async () => await count(".sphinx-preview-edit-palette-menu") === 1);
++    // P9 T1: the capture shows the open language list; the Escape that closes it is asserted below.
++    await captureAfter(evidence, page, "palette-slash/r04-palette-bold-heading",
++      "Edit mode on; Bold then typing wrote inside the markers, Heading 2 was undone by one Cmd/Ctrl+Z "
++      + "and the language list is open over the editor (Escape closes it while the editor stays open).");
+     await press(page, "Escape");
+     await waitFor("Escape to close the list", async () => await count(".sphinx-preview-edit-palette-menu") === 0);
+     assert.equal(await count("[data-sphinx-preview-block-editor] textarea"), 1, "the editor stayed open");
+-    await captureAfter(evidence, page, "t21-palette",
+-      "Edit mode on; Bold then typing wrote inside the markers, Heading 2 was undone by one Cmd/Ctrl+Z "
+-      + "and Escape closed the language list while the editor stayed open.");
+     await press(page, "Escape");
+     await waitForNoBlockEditor(page, "the block editor to close after the second Escape");
+   });
+@@ -1242,6 +1250,10 @@ async function scenarioLinkPanel(page: Page, evidence: Evidence): Promise<void>
+       "paragraph",
+       "the text is prefilled from the selection",
+     );
++    // P9 T1: the capture shows the open link panel with the prefilled text.
++    await captureAfter(evidence, page, "palette-slash/r05-link-panel",
++      "Edit mode on; Cmd/Ctrl+K opened the link panel with the selected word as its text (Escape closes it "
++      + "unchanged, and a second round with a typed URL inserts [paragraph](https://example.org), undone by one Cmd/Ctrl+Z).");
+ 
+     // Escape returns to the text box without changing anything, and the editor stays open.
+     await press(page, "Escape");
+@@ -1262,9 +1274,6 @@ async function scenarioLinkPanel(page: Page, evidence: Evidence): Promise<void>
+     assert.equal(await count("[data-sphinx-preview-block-editor] textarea"), 1, "the editor stayed open");
+     await press(page, MOD + "+z");
+     await expectValue("one undo to remove the link", original);
+-    await captureAfter(evidence, page, "t22-link-panel",
+-      "Edit mode on; Cmd/Ctrl+K opened the link panel with the selected word as its text, Escape closed it "
+-      + "unchanged, and a second round with a typed URL inserted [paragraph](https://example.org), undone by one Cmd/Ctrl+Z.");
+     await press(page, "Escape");
+     await waitForNoBlockEditor(page, "the block editor to close after Escape");
+   });
+@@ -1353,7 +1362,7 @@ async function scenarioFigureEditor(page: Page, evidence: Evidence): Promise<voi
+       const expected = FIGURE_DOCUMENT.replace(":width: 60%", ":width: 40%");
+       await waitFor("the saved figure in the source buffer", () => bufferText(document) === expected);
+       await waitForNoBlockEditor(page, "the block editor to close after Cmd/Ctrl+Enter");
+-      await captureAfter(evidence, page, "t32-figure-editor",
++      await captureAfter(evidence, page, "palette-slash/r07-figure-editor-form",
+         "Edit mode on; hovering the figure showed Edit figure, the form changed the width and the caption "
+         + "in one undoable edit, and a second round saved :width: 40% with every other line untouched.");
+     } finally {
+@@ -1430,7 +1439,7 @@ async function scenarioAlertDropdown(page: Page, evidence: Evidence): Promise<vo
+     await waitFor("Escape to close the list", async () => await count(".sphinx-preview-edit-palette-menu") === 0);
+     await expectValue("NOTE to remain after Escape", "> [!NOTE]\n> " + original);
+     assert.equal(await count("[data-sphinx-preview-block-editor] textarea"), 1, "the editor stayed open");
+-    await captureAfter(evidence, page, "t25-alert-dropdown",
++    await captureAfter(evidence, page, "palette-slash/r06-alert-dropdown",
+       "Edit mode on; the Alert button wrote > [!NOTE], its type list chose Warning, two Cmd/Ctrl+Z "
+       + "removed the alert again, and Escape on a second list kept NOTE with the focus in the text box.");
+     await press(page, "Escape");
+@@ -1469,7 +1478,7 @@ async function scenarioEnterContinuesList(page: Page, evidence: Evidence): Promi
+       throw new Error(String(error) + " Buffer: " + JSON.stringify(bufferText(document)));
+     }
+     await waitForRender(document);
+-    await captureAfter(evidence, page, "17-enter-continues-list",
++    await captureAfter(evidence, page, "block-editing/r09-enter-continues-list",
+       "Edit mode on; Enter after `Refrigerated goods` continued the list, and `Frozen goods` is a sibling "
+       + "at the same indentation while `Deduplication` kept its place.");
+   });
+@@ -1597,7 +1606,7 @@ async function scenarioSaveKeepsBlockInPlace(page: Page, evidence: Evidence): Pr
+     });
+   };
+ 
+-  await listCase("realinput-t32-list", "32-save-keeps-list-in-place");
++  await listCase("realinput-t32-list", "block-editing/r19-save-keeps-list-in-place");
+ 
+   await withDocument("realinput-t32-table", TABLE_PINNED, async (document) => {
+     await openSidePreview(document);
+@@ -1631,7 +1640,7 @@ async function scenarioSaveKeepsBlockInPlace(page: Page, evidence: Evidence): Pr
+     assert.ok(t1 >= 0 && t1 <= height, "the table is visible after Save (top " + t1 + ")");
+     assert.ok(Math.abs(t1 - tCommit) <= 3,
+       "the table moved from " + tCommit + " (at Enter) to " + t1 + " after Save");
+-    await captureAfter(evidence, page, "33-save-keeps-table-in-place",
++    await captureAfter(evidence, page, "table-editing/r07-save-keeps-table-in-place",
+       "Edit mode on; the cell `Ana` gained `-Lee` and Enter committed it in a visible table. "
+       + "Table top " + t0 + " before the click, " + tCommit + " at Enter and " + t1 + " after Save.");
+   });
+@@ -1675,7 +1684,7 @@ async function scenarioTabIndents(page: Page, evidence: Evidence): Promise<void>
+     const restored = await readFocus();
+     assert.equal(restored.tag, "TEXTAREA", "Shift+Tab keeps the focus in the editor");
+     assert.equal(restored.value, "    - Refrigerated goods", "Shift+Tab restores the line");
+-    await captureAfter(evidence, page, "18-tab-indents",
++    await captureAfter(evidence, page, "block-editing/r10-tab-indents",
+       "Edit mode on; Tab indented `Refrigerated goods` by 2 spaces and Shift+Tab restored it, "
+       + "with the focus staying in the editor.");
+     await press(page, "Escape");
+@@ -1712,7 +1721,7 @@ async function scenarioPreviewKeepsMarkdown(page: Page, evidence: Evidence): Pro
+       await withCurrentFrame(page, async (frame) => {
+         await frame.getByText("First heading T13", { exact: false }).first().waitFor({ timeout: 5000 });
+       });
+-      await captureAfter(evidence, page, "19-preview-keeps-markdown",
++      await captureAfter(evidence, page, "lifecycle-sync/r02-preview-keeps-markdown",
+         "A Python file is active in column One; the side preview still shows `First heading T13`.");
+       await vscode.window.showTextDocument(second, vscode.ViewColumn.One);
+       await waitForRender(second);
+@@ -1756,7 +1765,7 @@ async function scenarioCaretAtClick(page: Page, evidence: Evidence): Promise<voi
+     const firstLine = lines(bufferText(source)).find((line) => line.includes("X")) ?? "";
+     assert.match(firstLine, /^Alpha (?:Xbravo|bXravo|brXavo|braXvo|bravXo|bravoX) charlie$/u, "X lands in or next to bravo: " + firstLine);
+     await waitForRender(source);
+-    await captureAfter(evidence, page, "20-caret-at-click",
++    await captureAfter(evidence, page, "block-editing/r11-caret-at-click",
+       "Edit mode on; clicking the word `bravo` placed the caret there, and the typed `X` landed in line one.");
+   });
+ }
+@@ -1776,14 +1785,14 @@ async function scenarioEditAffordances(page: Page, evidence: Evidence): Promise<
+       return current !== undefined
+         && await current.locator("ul[data-sphinx-preview-edit-hover='true']").count() === 1;
+     });
+-    await captureAfter(evidence, page, "21-edit-hover",
++    await captureAfter(evidence, page, "block-editing/r12-edit-hover",
+       "Edit mode on; hovering the nested item outlines the list a click would edit.");
+ 
+     await withCurrentFrame(page, (frame) => frame.locator("p", { hasText: "Alpha paragraph." }).click());
+     await waitForEditor(page, "[data-sphinx-preview-block-editor] textarea");
+     await typeText(page, " R");
+     await new Promise((resolve) => setTimeout(resolve, 600));
+-    await captureAfter(evidence, page, "22-editor-frame-and-buttons",
++    await captureAfter(evidence, page, "block-editing/r13-editor-frame-and-buttons",
+       "A paragraph editor is open and ` R` was typed: framed editor, monospace text, status line with Done and Cancel on one row.");
+     await withCurrentFrame(page, (frame) => frame.locator(CANCEL).click());
+     await waitForNoBlockEditor(page, "the block editor to close after Cancel");
+@@ -1838,7 +1847,7 @@ async function scenarioEditModeNoReflow(page: Page, evidence: Evidence): Promise
+     await setEditMode(page, true);
+     await new Promise((resolve) => setTimeout(resolve, 300));
+     const after = await measure();
+-    await captureAfter(evidence, page, "23-edit-mode-no-reflow",
++    await captureAfter(evidence, page, "block-editing/r14-edit-mode-no-reflow",
+       "Edit mode on; hard-wrapped paragraphs (about 40 characters per source line) keep their reading flow.");
+     assert.ok(Math.abs(after.height - before.height) <= 2,
+       "scrollHeight changed from " + before.height + " to " + after.height);
+@@ -1891,7 +1900,7 @@ async function scenarioTableTab(page: Page, evidence: Evidence): Promise<void> {
+       return current !== undefined && await current.locator("[data-sphinx-preview-table-cell-editor]").count() === 0;
+     });
+     assert.match(bufferText(document), /^\|\s*betaX\s*\|\s*two\s*\|$/mu);
+-    await captureAfter(evidence, page, "24-table-tab",
++    await captureAfter(evidence, page, "table-editing/r05-tab-adds-row",
+       "Edit mode on; Tab moved from `one` to `beta` (typed `X`) and `two`, on to a new third row where `gamma` and `three` "
+       + "were typed; Enter saved. The buffer holds the new row.");
+ 
+@@ -1951,7 +1960,7 @@ async function scenarioTableToolbar(page: Page, evidence: Evidence): Promise<voi
+       const position = await frame.locator("[data-sphinx-table-menu]").evaluate((element) => getComputedStyle(element).position);
+       assert.equal(position, "static");
+     });
+-    await withCurrentFrame(page, (frame) => evidence.capture(page, frame, "25-table-toolbar",
++    await withCurrentFrame(page, (frame) => evidence.capture(page, frame, "table-editing/r06-cell-bar-in-flow",
+       "Edit mode on; the cell `one` is open. The toolbar sits in the flow above the table with text labels, "
+       + "and the selected cell is outlined.",
+       { checks: { required: ["overlay-covers-text", "overlay-clipped"] } }));
+@@ -2002,7 +2011,7 @@ async function scenarioCommentBlockEdit(page: Page, evidence: Evidence): Promise
+     await withCurrentFrame(page, async (frame) => {
+       assert.equal(await frame.locator("[data-sphinx-preview-block-editor] textarea").inputValue(), "<!--\nkeep this\n-->");
+     });
+-    await captureAfter(evidence, page, "comment-block-edit",
++    await captureAfter(evidence, page, "review-annotations/r01-comment-block-opens-editor",
+       "Edit mode on; a click on the comment block (not its chip) opened the block editor on the three raw comment lines.");
+   });
+ }
+@@ -2034,7 +2043,7 @@ async function scenarioBooleanOneClick(page: Page, evidence: Evidence): Promise<
+       return current !== undefined
+         && await current.locator("[data-okf-frontmatter-editor]").count() === 0;
+     });
+-    await captureAfter(evidence, page, "26-boolean-one-click",
++    await captureAfter(evidence, page, "frontmatter-editing/r06-boolean-one-click",
+       "Edit mode on; one click on the annotation_exemption checkbox saved `true`. No editor stays open.");
+   }, BOOLEAN_SCHEMA);
+ }
+@@ -2091,7 +2100,7 @@ async function scenarioListEditorClickAndKeys(page: Page, evidence: Evidence): P
+       await withCurrentFrame(page, (frame) => frame.locator(linkSelector).first().click());
+       await waitForEditor(page, "[data-okf-frontmatter-editor] .okf-list-editor");
+       assert.equal(getActivePreviewForTests()?.documentUri, documentUri, "a plain click must not navigate");
+-      await captureAfter(evidence, page, "27-list-click-edits",
++      await captureAfter(evidence, page, "frontmatter-editing/r07-list-click-edits",
+         "Edit mode on; a plain click on the StRS-A link opened the list editor and the preview kept the document.");
+ 
+       await withCurrentFrame(page, (frame) =>
+@@ -2114,7 +2123,7 @@ async function scenarioListEditorClickAndKeys(page: Page, evidence: Evidence): P
+         return current !== undefined
+           && await current.locator("[data-okf-frontmatter-editor]").count() === 0;
+       });
+-      await captureAfter(evidence, page, "28-list-enter-adds",
++      await captureAfter(evidence, page, "frontmatter-editing/r08-list-enter-adds",
+         "Enter added an item, `StRS-B` was typed, Enter again and Enter on the empty item saved the list.");
+ 
+       // The re-render shows the links unresolved first; the host resolves them asynchronously.
+@@ -2176,7 +2185,7 @@ async function scenarioListLinkCompletion(page: Page, evidence: Evidence): Promi
+       await typeText(page, "X");
+       await waitFor("the unknown-target warning", async () =>
+         await withCurrentFrame(page, (frame) => frame.locator(warning).count()) === 1);
+-      await captureAfter(evidence, page, "29-list-link-warning",
++      await captureAfter(evidence, page, "frontmatter-editing/r09-list-link-warning",
+         "`StRS-BX` typed in a new list item: the datalist offered the known stems and the warning is shown.");
+       await press(page, "Enter");
+       await press(page, "Enter");
+@@ -2255,7 +2264,7 @@ async function scenarioFrontmatterActionsLayout(page: Page, evidence: Evidence):
+           (element as HTMLTextAreaElement).rows);
+         assert.equal(rows, 1);
+       });
+-      await withCurrentFrame(page, (frame) => evidence.capture(page, frame, "30-frontmatter-actions-value",
++      await withCurrentFrame(page, (frame) => evidence.capture(page, frame, "frontmatter-editing/r10-row-actions-layout",
+         "Window 1100 px wide, preview frame " + Math.round(frameWidth) + " px. The `scope` value editor is open; "
+         + "Add field / Remove field sit under the one-row textarea inside the row and cover no other row.",
+         { checks: { required } }));
+@@ -2266,7 +2275,7 @@ async function scenarioFrontmatterActionsLayout(page: Page, evidence: Evidence):
+         return current !== undefined
+           && await current.locator(".sphinx-preview-frontmatter-picker:visible").count() === 1;
+       });
+-      await withCurrentFrame(page, (frame) => evidence.capture(page, frame, "31-frontmatter-actions-picker",
++      await withCurrentFrame(page, (frame) => evidence.capture(page, frame, "frontmatter-editing/r11-add-field-picker-layout",
+         "Same row after clicking Add field: the picker and its Add button wrap inside the row, not over other rows.",
+         { checks: { required } }));
+     }, SCOPE_SCHEMA);
+@@ -2321,7 +2330,7 @@ async function scenarioRequiredAndPositionedAdd(page: Page, evidence: Evidence):
+       return current !== undefined
+         && await current.locator(".sphinx-preview-frontmatter-picker:visible").count() === 1;
+     });
+-    await withCurrentFrame(page, (frame) => evidence.capture(page, frame, "32-required-remove-disabled",
++    await withCurrentFrame(page, (frame) => evidence.capture(page, frame, "frontmatter-editing/r12-required-remove-disabled",
+       "The `scope` value editor is open: Remove field is disabled (required by the schema) and the add picker is open."));
+     await withCurrentFrame(page, (frame) =>
+       frame.locator("select[aria-label='Frontmatter field to add']").selectOption("depends_on"));
+@@ -2388,7 +2397,7 @@ async function scenarioCustomKeyAndOpenNewField(page: Page, evidence: Evidence):
+         && await current.locator("tr[data-okf-field=\"reviewer\"]").count() === 1
+         && await current.locator("[data-okf-frontmatter-editor]").count() === 0;
+     });
+-    await withCurrentFrame(page, (frame) => evidence.capture(page, frame, "33-custom-key-added",
++    await withCurrentFrame(page, (frame) => evidence.capture(page, frame, "frontmatter-editing/r13-custom-key-added",
+       "A custom `reviewer` key was added after `owner` (the last table row), typed as `Ana` and saved with Enter as `reviewer: Ana`."));
+ 
+     await withCurrentFrame(page, (frame) =>
+@@ -2466,7 +2475,7 @@ async function scenarioAddFieldPositionAndEscape(page: Page, evidence: Evidence)
+         && await current.locator("[data-okf-frontmatter-editor]").count() === 0;
+     });
+     assert.equal(bufferText(document), withDependsOn);
+-    await captureAfter(evidence, page, "t41-add-field-position",
++    await captureAfter(evidence, page, "frontmatter-editing/r15-add-field-position",
+       "`depends_on` was added from the `title` row; the source line sits after `owner` and its row is shown right after `owner`.");
+ 
+     // 2. A custom key typed and saved with Enter, written as a plain scalar.
+@@ -2494,7 +2503,7 @@ async function scenarioAddFieldPositionAndEscape(page: Page, evidence: Evidence)
+       return current !== undefined
+         && await current.locator("[data-okf-frontmatter-editor]").count() === 0;
+     });
+-    await captureAfter(evidence, page, "t41-custom-key-plain",
++    await captureAfter(evidence, page, "frontmatter-editing/r16-custom-key-plain",
+       "A custom `approver` key was added from the `title` row, typed as `Ann` and saved with Enter: the line is `approver: Ann`.");
+ 
+     // 3. Escape on the field picker cancels the open edit, with a typed change that is not saved.
+@@ -2508,6 +2517,10 @@ async function scenarioAddFieldPositionAndEscape(page: Page, evidence: Evidence)
+       return current !== undefined
+         && await current.locator(".sphinx-preview-frontmatter-picker:visible").count() === 1;
+     });
++    // P9 T1: the capture shows the open picker over the edited status row, before the Escape.
++    await captureAfter(evidence, page, "frontmatter-editing/r17-escape-on-picker",
++      "The status editor holds an unsaved `x` and the field picker is open; Escape then closes both and the "
++      + "typed `x` is not written.");
+     await press(page, "Escape");
+     await waitFor("the editor and the picker to close", async () => {
+       const current = await findCurrentFrame(page);
+@@ -2517,8 +2530,6 @@ async function scenarioAddFieldPositionAndEscape(page: Page, evidence: Evidence)
+     });
+     await new Promise<void>((resolve) => setTimeout(resolve, 500));
+     assert.equal(bufferText(document), withApprover, "Escape on the picker writes nothing");
+-    await captureAfter(evidence, page, "t41-escape-on-picker",
+-      "Escape with focus on the field picker closed the status editor and the picker; the typed `x` was not written.");
+   }, schema);
+ }
+ 
+@@ -2580,7 +2591,7 @@ async function scenarioReadableLinkDiagnostics(page: Page, evidence: Evidence):
+       return current !== undefined && (await current.locator(tooltip).allInnerTexts())
+         .some((value) => value.includes("does not resolve"));
+     });
+-    await captureAfter(evidence, page, "34-link-diagnostic-tooltip",
++    await captureAfter(evidence, page, "frontmatter-editing/r14-link-diagnostic-tooltip",
+       "The invalid `missing.py` value reads `File not found` and its explanation shows on keyboard focus.");
+     await press(page, "Escape");
+     await withCurrentFrame(page, (frame) => frame.evaluate(() => globalThis.window.scrollTo(0, 1500)));
+@@ -2701,7 +2712,7 @@ async function scenarioPendingOverlayWithoutReload(page: Page, evidence: Evidenc
+       const toolbarBottom = await slowFrame.locator("[data-sphinx-preview-toolbar]")
+         .evaluate((element) => element.getBoundingClientRect().bottom);
+       assert.ok(overlayTop >= toolbarBottom - 1, "the overlay sits below the toolbar");
+-      await evidence.capture(page, slowFrame, "43-pending-overlay",
++      await evidence.capture(page, slowFrame, "lifecycle-sync/r09-pending-overlay",
+         "A slow render: the previous page stays still and a floating overlay says the preview is pending.");
+     } finally {
+       resetRenderHooksForTests();
+@@ -2811,7 +2822,7 @@ async function scenarioPropertiesTableWithoutReload(page: Page, evidence: Eviden
+       assert.equal(await settled.evaluate(() =>
+         (globalThis as unknown as { __t30Marker?: boolean }).__t30Marker), true, "the same page, not a reload");
+       assert.equal(settled.isDetached(), false);
+-      await evidence.capture(page, settled, "30-properties-in-place",
++      await evidence.capture(page, settled, "lifecycle-sync/r05-linked-file-patched-in-place",
+         "The linked file changed on disk: the excerpt updated in the open page without a reload.");
+     } finally {
+       await closeAllEditors();
+@@ -2911,7 +2922,7 @@ async function scenarioContentPatchedInPlace(page: Page, evidence: Evidence): Pr
+     await waitFor("the Mermaid diagram drawn again in the same frame", async () =>
+       await frame.locator(".myst-mermaid-diagram img.myst-mermaid-image").count() === 1);
+     assert.equal(await frame.locator(".myst-mermaid-error").count(), 0, "no diagram error");
+-    await evidence.capture(page, frame, "34-content-patched",
++    await evidence.capture(page, frame, "lifecycle-sync/r06-content-patched-in-place",
+       "Twenty characters typed in the source: the open page shows them and the diagram, without a reload.");
+ 
+     // A slow render: the pending overlay appears over the page, the result lands as a patch, and
+@@ -3084,7 +3095,7 @@ async function scenarioInsertBlocksFromPreview(page: Page, evidence: Evidence):
+     await setEditMode(page, true);
+     await withCurrentFrame(page, (frame) => frame.getByRole("button", { name: "Start writing" }).click());
+     await waitForEditor(page, "[data-sphinx-preview-block-editor] textarea");
+-    await captureAfter(evidence, page, "24-start-writing-open",
++    await captureAfter(evidence, page, "block-editing/r15-start-writing-open",
+       "Empty document, edit mode on; Start writing opened an empty editor with its placeholder.");
+     await typeText(page, "# Incident review checklist");
+     await press(page, "Enter");
+@@ -3124,7 +3135,7 @@ async function scenarioInsertBlocksFromPreview(page: Page, evidence: Evidence):
+       const current = await findCurrentFrame(page);
+       return current !== undefined && await current.locator("li", { hasText: "check logs" }).count() === 1;
+     });
+-    await captureAfter(evidence, page, "25-block-inserted",
++    await captureAfter(evidence, page, "block-editing/r16-insert-point-adds-block",
+       "Edit mode on; the list was inserted between the heading and the paragraph with the + button.");
+ 
+     // The T16 guarantee still holds with insertion points in the content.
+@@ -3164,7 +3175,7 @@ async function scenarioInsertAfterFinalFigure(page: Page, evidence: Evidence): P
+         await frame.locator("figure[data-sphinx-source-line] + .sphinx-preview-insert-point button:not([data-sphinx-move])").click();
+       });
+       await waitForEditor(page, "[data-sphinx-preview-block-editor] textarea");
+-      await captureAfter(evidence, page, "25b-insert-after-figure-" + name,
++      await captureAfter(evidence, page, legacyCaptureId("25b-insert-after-figure-" + name),
+         "Edit mode on; the + after the final figure opened an empty editor below it.");
+       await typeText(page, "After the figure.");
+       await withCurrentFrame(page, (frame) => frame.locator(DONE).click());
+@@ -3219,7 +3230,7 @@ async function scenarioImageEditing(page: Page, evidence: Evidence): Promise<voi
+     await press(page, "ArrowUp");
+     await waitFor("the raw image editor after ArrowUp", async () =>
+       (await editorValue())?.trim() === images[2][1]);
+-    await captureAfter(evidence, page, "07-image-editing",
++    await captureAfter(evidence, page, "block-editing/r04-arrow-up-into-image",
+       "Edit mode on; ArrowUp from the last paragraph reached the raw <img> block editor.");
+   });
+ }
+@@ -3273,7 +3284,7 @@ async function scenarioStatusPageTwoLines(page: Page, evidence: Evidence): Promi
+     assert.ok(!text.includes("Sphinx"), "no Sphinx in the status page: " + text);
+     assert.ok(/Preview source missing\s*\n+\s*\S/u.test(text),
+       "title and message on two lines: " + JSON.stringify(text));
+-    await evidence.capture(page, shown, "35-status-two-lines",
++    await evidence.capture(page, shown, "lifecycle-sync/r07-status-page-missing-source",
+       "Missing-source page: the title and the message sit on separate lines.",
+       { checks: { required: ["status-two-lines"] } });
+     await vscode.workspace.fs.writeFile(document.uri, Buffer.from(SMOKE, "utf8"));
+@@ -3369,7 +3380,7 @@ async function scenarioFocusChangeKeepsPreviewStill(page: Page, evidence: Eviden
+       "clicking a table cell moved it on screen from " + top0 + " to " + top1);
+     assert.ok(top2 !== undefined && Math.abs(top2 - top0) <= 4,
+       "opening the cell editor moved the cell on screen from " + top0 + " to " + top2);
+-    await captureAfter(evidence, page, "26-focus-change-still",
++    await captureAfter(evidence, page, "lifecycle-sync/r03-focus-change-keeps-scroll",
+       "The preview was scrolled, then the editor was clicked and typed in, then a table cell was "
+       + "clicked; the page scroll and the cell's position on screen stayed within 4 px.");
+   });
+@@ -3438,7 +3449,7 @@ async function scenarioHiddenPreviewCatchesUp(page: Page, evidence: Evidence): P
+     });
+     console.log("RI-T31b: editor top line " + (editorTop() + 1) + ", anchor distance " + distance);
+     assert.ok(editorTop() >= before + 150, "the editor stayed scrolled");
+-    await captureAfter(evidence, page, "27-hidden-preview-catches-up",
++    await captureAfter(evidence, page, "lifecycle-sync/r04-hidden-preview-catches-up",
+       "The preview was hidden behind another tab, the editor scrolled about 200 lines, and the "
+       + "revealed preview shows the editor's top line.");
+   });
+@@ -3453,7 +3464,7 @@ async function scenarioTitleBarButton(page: Page, evidence: Evidence): Promise<v
+     await button.click();
+     await waitForRender(document);
+     await waitFor("the side preview panel", () => getActivePreviewPanelForTests() !== undefined);
+-    await captureAfter(evidence, page, "36-title-bar-button",
++    await captureAfter(evidence, page, "toolbar-navigation/r01-title-bar-button",
+       "A Markdown file is active in the text editor; a click on the book icon in the editor title "
+       + "bar opened the Studio preview beside it.");
+   });
+@@ -3512,7 +3523,7 @@ async function scenarioToolbarState(page: Page, evidence: Evidence): Promise<voi
+     await withCurrentFrame(page, async (frame) => {
+       assert.equal(await anchorButton(frame).getAttribute("title"), "No text editor shows this file");
+     });
+-    await captureAfter(evidence, page, "38-anchor-disabled",
++    await captureAfter(evidence, page, "toolbar-navigation/r02-anchor-disabled-open-with",
+       "The Open With editor is alone: the anchor button is disabled with its tooltip.");
+ 
+     await vscode.window.showTextDocument(document, vscode.ViewColumn.Beside);
+@@ -3520,7 +3531,7 @@ async function scenarioToolbarState(page: Page, evidence: Evidence): Promise<voi
+       const current = await findCurrentFrame(page);
+       return current !== undefined && await anchorButton(current).isEnabled();
+     });
+-    await captureAfter(evidence, page, "38-anchor-enabled",
++    await captureAfter(evidence, page, "toolbar-navigation/r03-anchor-enabled-with-editor",
+       "A text editor now shows the file beside the Open With editor: the anchor button is enabled.");
+     await closeAllEditors();
+ 
+@@ -3594,7 +3605,7 @@ async function scenarioToolbarState(page: Page, evidence: Evidence): Promise<voi
+               return actual.every((color, index) => color === expected[index]);
+             }, { mode, palettes });
+           });
+-          await captureAfter(evidence, page, `38-toolbar-${host.toLowerCase()}-${mode}`,
++          await captureAfter(evidence, page, legacyCaptureId(`38-toolbar-${host.toLowerCase()}-${mode}`),
+             `${mode} preview mode updates the document and floating toolbar on the ${host} VS Code theme.`);
+         }
+       }
+@@ -3640,7 +3651,7 @@ async function scenarioToolbarState(page: Page, evidence: Evidence): Promise<voi
+       }
+     });
+     await page.mouse.move(10, 10);
+-    await captureAfter(evidence, page, "38-edit-mode-remembered",
++    await captureAfter(evidence, page, "lifecycle-sync/r08-edit-mode-remembered",
+       "A white-background preview restores edit mode and renders a nested MyST admonition, "
+       + "a Mermaid dispatch flowchart, and a local SVG fleet operating loop.");
+   });
+@@ -3751,7 +3762,7 @@ async function scenarioPreviewGroupLock(page: Page, evidence: Evidence): Promise
+       assert.ok(previewIsActiveTab(), "the preview is still the active tab of its group");
+       await waitFor("the preview to follow the opened Markdown file",
+         () => getActivePreviewForTests()?.documentUri === other.uri.toString());
+-      await captureAfter(evidence, page, "39-quick-open-beside-preview",
++      await captureAfter(evidence, page, "toolbar-navigation/r04-quick-open-beside-preview",
+         "Quick Open from the focused preview opened the file in the source group; the preview stayed visible.");
+ 
+       // Case B: the Explorer entry runs the command with a URI while the preview has focus.
+@@ -3951,6 +3962,7 @@ export async function run(): Promise<void> {
+     await scenarioPropertiesTableWithoutReload(page, evidence);
+     await scenarioContentPatchedInPlace(page, evidence);
+     await scenarioLargeDocumentPatched(page, evidence);
++    evidence.assertComplete();
+     passed = true;
+   } finally {
+     evidence.finish(passed);
+diff --git a/test/integration/realInput/harness.ts b/test/integration/realInput/harness.ts
+index a57d704..7ba60af 100644
+--- a/test/integration/realInput/harness.ts
++++ b/test/integration/realInput/harness.ts
+@@ -11,6 +11,7 @@ import {
+   getActivePreviewForTests,
+ } from "../extensionApi";
+ import { E2E_SCREENSHOT_ROOT } from "../../reportPaths";
++import { createRunEvidence, type Evidence as RunEvidence } from "../evidence";
+ 
+ export const MOD: "Meta" | "Control" = process.platform === "darwin" ? "Meta" : "Control";
+ 
+@@ -273,21 +274,28 @@ const geometryChecksSource = fs.readFileSync(path.join(extensionRoot, "test", "s
+ 
+ export interface Evidence {
+   directory: string;
+-  capture(page: Page, frame: Frame, name: string, note: string, options?: { checks?: CaptureChecks }): Promise<void>;
++  /** `id` is a registered real-window capture id (`<group>/rNN-<slug>`, test/shared/captureRegistry.ts). */
++  capture(page: Page, frame: Frame, id: string, note: string, options?: { checks?: CaptureChecks }): Promise<void>;
++  /** Throws when a registered real-input capture was not written; call it after a complete run only. */
++  assertComplete(): void;
+   finish(passed: boolean): void;
+ }
+ 
+ export function createEvidence(label: string): Evidence {
+-  fs.mkdirSync(artifactsRoot, { recursive: true });
+-  const directory = fs.mkdtempSync(path.join(artifactsRoot, `${label}-`));
++  const run: RunEvidence = createRunEvidence({
++    suite: "real-input",
++    folderPrefix: label,
++    indexHeader: `# ${label} capture order\n\nEntries follow execution order.\n\n`,
++    label,
++  });
++  const directory = run.directory;
+   const startedAt = new Date().toISOString();
+-  const indexPath = path.join(directory, "INDEX.md");
+-  fs.writeFileSync(indexPath, `# ${label} capture order\n\nEntries follow execution order.\n\n`);
+   const upper = label.toUpperCase();
+   return {
+     directory,
+     /**
+-     * Writes `<name>.png` and `<name>.md` and appends the entry to INDEX.md. Call it only after the
++     * Writes `<group>/rNN-<slug>.png` (unless the entry is `capture: false`) with its `.json` and
++     * `.md` notes and appends the entry to INDEX.md. Call it only after the
+      * scenario's last action: it scrolls the webview to the top, moves the pointer to the bottom-left
+      * corner of the frame and blurs the toolbar buttons. Mid-scenario calls would disturb the scroll
+      * anchor, hover states and anything below the first screen.
+@@ -295,10 +303,11 @@ export function createEvidence(label: string): Evidence {
+     async capture(
+       page: Page,
+       frame: Frame,
+-      name: string,
++      id: string,
+       note: string,
+       options?: { checks?: CaptureChecks },
+     ): Promise<void> {
++      run.entry(id);
+       await frame.evaluate(() => window.scrollTo(0, 0));
+       const frameBounds = await (await frame.frameElement()).boundingBox();
+       assert.ok(frameBounds);
+@@ -333,38 +342,41 @@ export function createEvidence(label: string): Evidence {
+           `- ${!check.applicable ? "n/a" : check.pass ? "PASS" : "FAIL"} \`${check.id}\`: ${check.detail}`).join("\n")
+           + "\n"
+         : `- not run: ${checkError}\n`);
+-      await page.screenshot({ path: path.join(directory, `${name}.png`) });
+-      fs.writeFileSync(path.join(directory, `${name}.json`), JSON.stringify({
+-        summary: note,
+-        info: {
+-          id: name,
+-          suite: label,
+-          runId: process.env.STUDIO_E2E_RUN_ID ?? null,
+-          capturedAt: new Date().toISOString(),
+-          viewport: page.viewportSize(),
+-          host: "Real VS Code window; mouse and keyboard events dispatched through CDP",
++      await run.write(page, id, {
++        frame,
++        json: {
++          summary: note,
++          info: {
++            id,
++            suite: label,
++            runId: process.env.STUDIO_E2E_RUN_ID ?? null,
++            capturedAt: new Date().toISOString(),
++            viewport: page.viewportSize(),
++            host: "Real VS Code window; mouse and keyboard events dispatched through CDP",
++          },
++          capturedState: { editMode, bufferExcerpt: excerpt },
++          checks: checkResult?.checks ?? [],
++          failures: checkError ? [checkError] : (checkResult?.checks ?? [])
++            .filter((check) => check.applicable && !check.pass).map((check) => check.detail),
++          limitations: "Screenshot captures the final visible state; consult the suite manifest for the overall result.",
+         },
+-        capturedState: { editMode, bufferExcerpt: excerpt },
+-        checks: checkResult?.checks ?? [],
+-        failures: checkError ? [checkError] : (checkResult?.checks ?? [])
+-          .filter((check) => check.applicable && !check.pass).map((check) => check.detail),
+-        limitations: "Screenshot captures the final visible state; consult the suite manifest for the overall result.",
+-      }, null, 2) + "\n");
+-      fs.writeFileSync(path.join(directory, `${name}.md`), `# ${name}\n\n${note}\n\n`
+-        + `Edit mode: ${editMode}.\n\n`
+-        + "Real VS Code window; every action is a real mouse or keyboard event dispatched by Playwright "
+-        + "through CDP. Buffer excerpt at capture time:\n\n```markdown\n" + excerpt + "\n```\n\n"
+-        + machineSection);
+-      fs.appendFileSync(indexPath, `- [${name}](${name}.md): [image](${name}.png)\n`);
++        markdown: `# ${id}\n\n${note}\n\n`
++          + `Edit mode: ${editMode}.\n\n`
++          + "Real VS Code window; every action is a real mouse or keyboard event dispatched by Playwright "
++          + "through CDP. Buffer excerpt at capture time:\n\n```markdown\n" + excerpt + "\n```\n\n"
++          + machineSection,
++      });
+       const failedRequired = checkResult?.checks.find((check) =>
+         check.applicable && !check.pass && (checkOptions.required ?? []).includes(check.id));
+       if (failedRequired) {
+-        throw new Error(`Required machine check ${failedRequired.id} failed in ${name}: ${failedRequired.detail}`);
++        throw new Error(`Required machine check ${failedRequired.id} failed in ${id}: ${failedRequired.detail}`);
+       }
+       if (checkError !== undefined && (checkOptions.required ?? []).length > 0) {
+-        throw new Error(`Required machine checks did not run in ${name}: ${checkError}`);
++        throw new Error(`Required machine checks did not run in ${id}: ${checkError}`);
+       }
+-      console.log(`PASS real-input screenshot: ${name}`);
++    },
++    assertComplete(): void {
++      run.assertComplete();
+     },
+     finish(passed: boolean): void {
+       fs.writeFileSync(path.join(directory, "manifest.json"), JSON.stringify({
+@@ -374,6 +386,7 @@ export function createEvidence(label: string): Evidence {
+         startedAt,
+         completedAt: new Date().toISOString(),
+         status: passed ? "passed" : "failed",
++        ...run.manifestFields(),
+       }, null, 2) + "\n");
+       fs.writeFileSync(path.join(artifactsRoot, `${upper}-LATEST.md`),
+         `# Latest ${label} Evidence\n\nSuite: **${passed ? "passed" : "failed"}**\n\n`
+diff --git a/test/integration/reload-suite.ts b/test/integration/reload-suite.ts
+index 8a21cb0..380aec8 100644
+--- a/test/integration/reload-suite.ts
++++ b/test/integration/reload-suite.ts
+@@ -4,7 +4,8 @@ import * as fs from "node:fs";
+ import * as net from "node:net";
+ import * as path from "node:path";
+ import { chromium, Frame, Page } from "playwright-core";
+-import { E2E_REPORT_ROOT, E2E_SCREENSHOT_ROOT } from "../reportPaths";
++import { E2E_REPORT_ROOT } from "../reportPaths";
++import { createRunEvidence } from "./evidence";
+ 
+ async function waitFor(label: string, predicate: () => boolean | Promise<boolean>): Promise<void> {
+   const deadline = Date.now() + 45000;
+@@ -33,8 +34,9 @@ async function command(page: Page, label: string): Promise<void> {
+ export async function runReloadCampaign(executable: string, extensionRoot: string, workspaceRoot: string): Promise<void> {
+   const temporary = fs.mkdtempSync("/tmp/studio-reload-");
+   fs.mkdirSync(E2E_REPORT_ROOT, { recursive: true });
+-  fs.mkdirSync(E2E_SCREENSHOT_ROOT, { recursive: true });
+-  const output = fs.mkdtempSync(path.join(E2E_SCREENSHOT_ROOT, "reload-e2e-"));
++  // The numbered INDEX.md is written once the whole campaign passed, so the writer adds no index line.
++  const evidence = createRunEvidence({ suite: "reload", folderPrefix: "reload-e2e", indexHeader: "", label: "reload" });
++  const output = evidence.directory;
+   const sourcePath = path.join(temporary, "reload-evidence.md");
+   const schemaDirectory = path.join(temporary, "_schema");
+   fs.mkdirSync(schemaDirectory);
+@@ -86,16 +88,20 @@ export async function runReloadCampaign(executable: string, extensionRoot: strin
+       assert.ok(bounds);
+       await page.mouse.move(bounds.x + 4, bounds.y + 4);
+       await frame.evaluate(() => { if (document.activeElement instanceof HTMLElement) document.activeElement.blur(); });
+-      await page.screenshot({ path: path.join(output, `${name}.png`) });
+-      fs.writeFileSync(path.join(output, `${name}.json`), JSON.stringify({
+-        summary: "Reload evidence document and its properties remain visible; Description is collapsed. Name and Value remain readable.",
+-        info: { id: name, suite: "reload", runId: process.env.STUDIO_E2E_RUN_ID ?? null,
+-          viewport: page.viewportSize(), host: "Real VS Code preview; default host theme" },
+-        actions: [action],
+-        checks: ["Source identity", "Visible current frame", "Collapsed toggle", "Zero visible Description cells"],
+-        visualChecks: ["No missing content or blank preview", "No clipping, unexpected tooltips or overlapping controls"],
+-        limitations: "The image shows the final state; the external browser controller verifies the lifecycle action. No application restart or injected state is claimed.",
+-      }, null, 2) + "\n");
++      await evidence.write(page, name, {
++        frame,
++        indexLine: null,
++        json: {
++          summary: "Reload evidence document and its properties remain visible; Description is collapsed. Name and Value remain readable.",
++          info: { id: name, suite: "reload", runId: process.env.STUDIO_E2E_RUN_ID ?? null,
++            viewport: page.viewportSize(), host: "Real VS Code preview; default host theme" },
++          actions: [action],
++          checks: ["Source identity", "Visible current frame", "Collapsed toggle", "Zero visible Description cells"],
++          visualChecks: ["No missing content or blank preview", "No clipping, unexpected tooltips or overlapping controls"],
++          limitations: "The image shows the final state; the external browser controller verifies the lifecycle action. No application restart or injected state is claimed.",
++        },
++        markdown: `# ${name}\n\n${action}\n`,
++      });
+     }
+     let frame = await frameForDocument();
+     if (await frame.locator("[data-okf-description-toggle]:visible").getAttribute("aria-expanded") === "true") await frame.locator("[data-okf-description-toggle]:visible").click();
+@@ -104,14 +110,14 @@ export async function runReloadCampaign(executable: string, extensionRoot: strin
+     assert.equal(await frame.locator("html").getAttribute("data-sphinx-preview-incoming"), "on");
+     await frame.locator("[data-sphinx-preview-diff-toggle]").click();
+     assert.equal(await frame.locator("html").getAttribute("data-sphinx-preview-incoming"), "off");
+-    await capture("01-before-window-reload", frame, "Collapse Description and zoom to 130 % before invoking Developer: Reload Window.");
++    await capture("lifecycle-sync/r16-before-window-reload", frame, "Collapse Description and zoom to 130 % before invoking Developer: Reload Window.");
+     const nonce = await frame.evaluate(() => document.querySelector<HTMLScriptElement>("script[nonce]")?.nonce);
+     await command(page, "Developer: Reload Window");
+     frame = await frameForDocument(nonce);
+     assert.equal(await frame.locator("html").getAttribute("data-sphinx-preview-zoom"), "130", "zoom survives the window reload");
+     assert.equal(await frame.locator("html").getAttribute("data-sphinx-preview-incoming"), "off", "the Diff off state survives the window reload");
+     assert.equal(await frame.locator("[data-sphinx-preview-diff-toggle]").getAttribute("aria-pressed"), "false");
+-    await capture("02-after-window-reload", frame, "Invoke Developer: Reload Window; wait for a restored visible preview with a new script nonce.");
++    await capture("lifecycle-sync/r17-after-window-reload", frame, "Invoke Developer: Reload Window; wait for a restored visible preview with a new script nonce.");
+     const restoredNonce = await frame.evaluate(() => document.querySelector<HTMLScriptElement>("script[nonce]")?.nonce);
+     const previewTab = page.locator('.tab[data-resource-name^="webview-markdown-okf-schema-studio.preview-"]')
+       .filter({ has: page.locator('.tab-label[aria-label="Studio · reload-evidence.md"]') });
+@@ -125,7 +131,7 @@ export async function runReloadCampaign(executable: string, extensionRoot: strin
+     assert.equal(await frame.locator("html").getAttribute("data-sphinx-preview-incoming"), "off", "the Diff off state survives closing and reopening");
+     for (let step = 0; step < 3; step += 1) await frame.locator("[data-sphinx-preview-zoom-out]").click();
+     assert.equal(await frame.locator("html").getAttribute("data-sphinx-preview-zoom"), "100");
+-    await capture("03-after-close-reopen", frame, "Close the restored preview and open a new preview for the same document.");
++    await capture("lifecycle-sync/r18-after-close-reopen", frame, "Close the restored preview and open a new preview for the same document.");
+     // The palette mode is a workspace choice: it survives a window reload and a reopened panel.
+     async function openParagraphEditor(target: Frame): Promise<void> {
+       if (await target.locator("html").getAttribute("data-sphinx-preview-edit-mode") !== "on") {
+@@ -162,11 +168,13 @@ export async function runReloadCampaign(executable: string, extensionRoot: strin
+     await openParagraphEditor(frame);
+     assert.equal(await paletteMode(frame), "strict", "a new panel starts in the stored palette mode");
+     await frame.locator("main .sphinx-preview-block-editor textarea").press("Escape");
+-    fs.writeFileSync(path.join(output, "INDEX.md"), "# Reload and Reopen Review\n\n1. [Before window reload](01-before-window-reload.png) / [notes](01-before-window-reload.json)\n2. [After actual window reload](02-after-window-reload.png) / [notes](02-after-window-reload.json)\n3. [After close and reopen](03-after-close-reopen.png) / [notes](03-after-close-reopen.json)\n");
++    evidence.assertComplete();
++    fs.writeFileSync(path.join(output, "INDEX.md"), "# Reload and Reopen Review\n\n1. [Before window reload](lifecycle-sync/r16-before-window-reload.png) / [notes](lifecycle-sync/r16-before-window-reload.json)\n2. [After actual window reload](lifecycle-sync/r17-after-window-reload.png) / [notes](lifecycle-sync/r17-after-window-reload.json)\n3. [After close and reopen](lifecycle-sync/r18-after-close-reopen.png) / [notes](lifecycle-sync/r18-after-close-reopen.json)\n");
+     passed = true;
+     fs.writeFileSync(path.join(E2E_REPORT_ROOT, "RELOAD-LATEST.md"), `# Latest Reload Evidence\n\n[Ordered captures](screenshots/${path.basename(output)}/INDEX.md)\n\n[Suite result](screenshots/${path.basename(output)}/manifest.json)\n`);
+   } finally {
+     fs.writeFileSync(path.join(output, "manifest.json"), JSON.stringify({ suiteResult: passed ? "passed" : "failed", command: process.argv.join(" "),
++      ...evidence.manifestFields(),
+       runId: process.env.STUDIO_E2E_RUN_ID ?? null,
+       campaignStartedAt: process.env.STUDIO_E2E_STARTED_AT ?? null,
+       campaignCommand: process.env.STUDIO_E2E_COMMAND ?? null,
+diff --git a/test/integration/scroll-sync-suite.ts b/test/integration/scroll-sync-suite.ts
+index 4dc4e94..1ceefd9 100644
+--- a/test/integration/scroll-sync-suite.ts
++++ b/test/integration/scroll-sync-suite.ts
+@@ -6,7 +6,8 @@ import { chromium, type Frame, type Locator, type Page } from "playwright-core";
+ import * as vscode from "vscode";
+ 
+ import { disposeActivePreviewForTests, getActivePreviewForTests, getActivePreviewPanelForTests } from "./extensionApi";
+-import { E2E_SCREENSHOT_ROOT } from "../reportPaths";
++import { captureStem, realCaptureByLegacy } from "../shared/captureRegistry";
++import { createRunEvidence } from "./evidence";
+ 
+ async function waitFor(description: string, predicate: () => boolean | Promise<boolean>): Promise<void> {
+   const deadline = Date.now() + 15_000;
+@@ -280,8 +281,9 @@ export async function run(): Promise<void> {
+     "",
+   ].join("\n"));
+   fs.writeFileSync(filePath, `# Long scroll regression\n\n${sections.join("\n")}\nFinal sentinel.\n`);
+-  const artifacts = fs.mkdtempSync(path.join(E2E_SCREENSHOT_ROOT, "scroll-e2e-"));
+-  fs.mkdirSync(artifacts, { recursive: true });
++  // The INDEX.md is rebuilt by writeReport after every checkpoint, so the writer adds no index line.
++  const evidence = createRunEvidence({ suite: "scroll", folderPrefix: "scroll-e2e", indexHeader: "", label: "scroll" });
++  const artifacts = evidence.directory;
+   let scenario = "setup";
+   const checkpoints: Array<Record<string, unknown>> = [];
+   const passedScenarios: string[] = [];
+@@ -369,7 +371,8 @@ export async function run(): Promise<void> {
+         "source checkpoint visibly contains the final sentinel line");
+       }
+     }
+-    const image = `${String(checkpoints.length + 1).padStart(2, "0")}-${name}.png`;
++    const id = realCaptureByLegacy("scroll", name).id;
++    const image = `${id}.png`;
+     const note = { summary: expected,
+       info: { id: name, suite: scenario, runId: process.env.STUDIO_E2E_RUN_ID ?? null,
+         viewport: page.viewportSize(), capturedAt: new Date().toISOString() },
+@@ -379,7 +382,24 @@ export async function run(): Promise<void> {
+       fixture: scenario === "keyboard-navigation" ? "keyboard-navigation.md" : "long-scroll.md",
+       setup: "1440x900 viewport; sidebar/chat closed; solo single group or paired source left / preview right",
+       limitations: "Screenshot proves final visible state only; ordered actions are assertion-backed." };
+-    const screenshot = await page.screenshot({ path: path.join(artifacts, image) });
++    const written = await evidence.write(page, id, {
++      frame,
++      json: note,
++      indexLine: null,
++      markdown: [
++        `# ${name}`, "", `![Checkpoint](${captureStem(id)}.png)`, "", `Expected: ${expected}`, "",
++        `Setup: ${note.setup}`, `Fixture: ${note.fixture}`, `Scenario: ${scenario}`, "",
++        `Actions: ${actions}`, "", `Mode: ${note.mode}; sync: ${note.sync}.`,
++        `Preview scroll: ${state.previewScroll}/${state.previewMax}; source first line: ${sourceScroll}.`,
++        `Source identity: ${note.sourceFixture ?? "absent"}.`,
++        `Active block: ${editorValue}; in viewport: ${editorInViewport}.`, "",
++        "Visual checklist:", "- Useful pane widths and expected content visible.",
++        "- Toolbar selections match mode and sync.", "- Sticky headings sit below the toolbar without overlap.",
++        "- Text is unobscured; offscreen editors are intentional at bottom.", "", note.limitations,
++      ].join("\n"),
++    });
++    const screenshot = written.png;
++    assert.ok(screenshot, "scroll checkpoints write a picture");
+     if (state.previewScroll > 3) {
+       const pane = await (await frame.frameElement()).boundingBox();
+       assert.ok(pane);
+@@ -416,18 +436,6 @@ export async function run(): Promise<void> {
+       }, { encoded: screenshot.toString("base64"), bounds });
+       assert.ok(colors > 8, `captured bottom sentinel must contain rendered text, observed ${colors} colors`);
+     }
+-    fs.writeFileSync(path.join(artifacts, image.replace(/\.png$/u, ".json")), JSON.stringify(note, null, 2));
+-    fs.writeFileSync(path.join(artifacts, image.replace(/\.png$/u, ".md")), [
+-      `# ${name}`, "", `![Checkpoint](${image})`, "", `Expected: ${expected}`, "",
+-      `Setup: ${note.setup}`, `Fixture: ${note.fixture}`, `Scenario: ${scenario}`, "",
+-      `Actions: ${actions}`, "", `Mode: ${note.mode}; sync: ${note.sync}.`,
+-      `Preview scroll: ${state.previewScroll}/${state.previewMax}; source first line: ${sourceScroll}.`,
+-      `Source identity: ${note.sourceFixture ?? "absent"}.`,
+-      `Active block: ${editorValue}; in viewport: ${editorInViewport}.`, "",
+-      "Visual checklist:", "- Useful pane widths and expected content visible.",
+-      "- Toolbar selections match mode and sync.", "- Sticky headings sit below the toolbar without overlap.",
+-      "- Text is unobscured; offscreen editors are intentional at bottom.", "", note.limitations,
+-    ].join("\n"));
+     checkpoints.push(note);
+     writeReport();
+   };
+@@ -677,6 +685,7 @@ export async function run(): Promise<void> {
+     scenario = "block-move-keeps-position";
+     await runBlockMove(page, directory);
+     passedScenarios.push(scenario);
++    evidence.assertComplete();
+     outcome = "pass";
+   } catch (error) {
+     outcome = "fail";
+diff --git a/test/site/curateGallery.ts b/test/site/curateGallery.ts
+index a44442c..12b2cfa 100644
+--- a/test/site/curateGallery.ts
++++ b/test/site/curateGallery.ts
+@@ -3,8 +3,13 @@ import * as path from "node:path";
+ 
+ import { E2E_REPORT_ROOT, E2E_SCREENSHOT_ROOT, EXTENSION_ROOT } from "../reportPaths";
+ 
++import { REAL_CAPTURES } from "../shared/captureRegistry";
++
+ interface GallerySelection {
++  /** Destination in `images/`. */
+   file: string;
++  /** Registry id of the real-input capture: the picture is `<run folder>/<id>.png`. */
++  id: string;
+   title: string;
+   description: string;
+ }
+@@ -19,23 +24,10 @@ const MIME_TYPES: Record<string, string> = {
+   ".webp": "image/webp",
+ };
+ 
+-const selections: GallerySelection[] = [
+-  {
+-    file: "01-paragraph-blur-commit.png",
+-    title: "Commit an edited paragraph",
+-    description: "A real preview edit is committed into the VS Code document buffer.",
+-  },
+-  {
+-    file: "21-edit-hover.png",
+-    title: "Reveal the edit affordance",
+-    description: "A real hover state shows which rendered block will be edited.",
+-  },
+-  {
+-    file: "38-edit-mode-remembered.png",
+-    title: "MyST and diagrams on white",
+-    description: "A white preview renders nested MyST admonitions, a Mermaid flowchart, and a local SVG with edit mode restored.",
+-  },
+-];
++/** The registry captures flagged `curated` (real-input suite), in registry order. */
++const selections: GallerySelection[] = REAL_CAPTURES
++  .filter((entry) => entry.curated !== undefined && entry.suite === "real-input")
++  .map((entry) => ({ file: entry.curated!.file, id: entry.id, title: entry.curated!.title, description: entry.curated!.description }));
+ 
+ function fail(message: string): never {
+   throw new Error(`Cannot curate E2E gallery: ${message}`);
+@@ -78,13 +70,13 @@ function copySelection(sourceDirectory: string, selection: GallerySelection): {
+   title: string;
+   description: string;
+ } {
+-  const source = path.join(sourceDirectory, selection.file);
+-  if (!fs.existsSync(source)) fail(`required capture ${selection.file} is missing`);
++  const source = path.join(sourceDirectory, `${selection.id}.png`);
++  if (!fs.existsSync(source)) fail(`required capture ${selection.id} is missing`);
+   const extension = path.extname(selection.file).toLowerCase();
+   const mimeType = MIME_TYPES[extension];
+   if (!mimeType) fail(`unsupported gallery media type ${selection.file}`);
+-  const note = path.join(sourceDirectory, `${path.basename(selection.file, extension)}.md`);
+-  if (!fs.existsSync(note)) fail(`sidecar note for ${selection.file} is missing`);
++  const note = path.join(sourceDirectory, `${selection.id}.md`);
++  if (!fs.existsSync(note)) fail(`sidecar note for ${selection.id} is missing`);
+   const destination = path.join(EXTENSION_ROOT, "images", selection.file);
+   fs.copyFileSync(source, destination);
+   const metadata = fs.statSync(source);
+diff --git a/test/site/poGallery.test.ts b/test/site/poGallery.test.ts
+index 7282700..53dac4f 100644
+--- a/test/site/poGallery.test.ts
++++ b/test/site/poGallery.test.ts
+@@ -188,3 +188,33 @@ test("a run made on a dirty tree, or a tree that changed since, is stale", () =>
+   // Not detectable (no status in the manifest): no reason.
+   assert.equal(assessFreshness(scenarios, manifest(), undefined, () => true, " M a.ts").stale, false);
+ });
++
++test("real-window captures are listed on the page of their group, numbered, with their picture and README mark", () => {
++  const output = build({
++    realCaptures: [
++      { id: "alpha/r02-second", group: "alpha", suite: "real-input", locks: "Second | lock.", image: true, clip: "preview",
++        href: "screenshots/real-input-x/alpha/r02-second.png" },
++      { id: "alpha/r01-first", group: "alpha", suite: "real-input", locks: "First lock.", image: true, clip: "window",
++        readme: ["first-readme.png"], href: "screenshots/real-input-x/alpha/r01-first.png" },
++      { id: "alpha/r03-note", group: "alpha", suite: "checkbox", locks: "Note only lock.", image: false, clip: "window" },
++      { id: "beta/r01-absent", group: "beta", suite: "scroll", locks: "Absent lock.", image: true, clip: "window" },
++    ],
++  });
++  const page = output.files["gallery/alpha.md"]!;
++  assert.match(page, /## Real VS Code window captures/u);
++  assert.ok(page.indexOf("### r01-first") < page.indexOf("### r02-second"));
++  assert.match(page, /### r01-first \*\*README\*\* `images\/readme\/first-readme\.png`/u);
++  assert.match(page, /<img src="\.\.\/screenshots\/real-input-x\/alpha\/r01-first\.png" width="360"/u);
++  assert.match(page, /clipped to the preview/u);
++  assert.match(page, /\| `r03-note` \| checkbox \| Note only lock\. \|/u);
++  assert.doesNotMatch(page, /### r03-note/u);
++  assert.match(output.files["gallery/beta.md"]!, /No image in the latest run of this suite\./u);
++  assert.deepEqual(output.realCounts.alpha, { captures: 3, withImage: 2, noteOnly: 1, inLatestRun: 2, readme: 1 });
++  assert.equal(output.realTotals.captures, 4);
++  assert.match(output.files["GALLERY.md"]!, /\| 1 \| \[Alpha group\]\(gallery\/alpha\.md\) \| 3 \| 2 \| 1 \| 1 \| 1 \| 0 \| 3 \|/u);
++  assert.match(output.files["GALLERY.md"]!, /\*\*Total\*\* \| \*\*4\*\* \| \*\*2\*\* \| \*\*2\*\* \| \*\*1\*\* \| \*\*1\*\* \| \*\*1\*\* \| \*\*4\*\* \|/u);
++});
++
++test("a group without real-window captures gets no such section", () => {
++  assert.doesNotMatch(build().files["gallery/alpha.md"]!, /Real VS Code window captures/u);
++});
+diff --git a/test/site/poGallery.ts b/test/site/poGallery.ts
+index ff35524..6d6cb69 100644
+--- a/test/site/poGallery.ts
++++ b/test/site/poGallery.ts
+@@ -77,6 +77,24 @@ export interface RealWindowLink {
+   readonly note?: string;
+ }
+ 
++/**
++ * A real-window capture of the registry (`test/shared/captureRegistry.ts`), as the gallery shows it.
++ * `href` is set by the CLI when the picture exists in the latest run of its suite.
++ */
++export interface GalleryRealCapture {
++  readonly id: string;
++  readonly group: string;
++  readonly suite: string;
++  readonly locks: string;
++  /** `false`: the registry writes no picture for it (assertion and note only). */
++  readonly image: boolean;
++  readonly clip: string;
++  /** `images/readme/` files cut from this capture. */
++  readonly readme?: readonly string[];
++  /** PNG of the latest run of the suite, relative to `out/reports/e2e/`. */
++  readonly href?: string;
++}
++
+ export interface GalleryInput {
+   readonly groups: readonly GalleryGroup[];
+   readonly scenarios: readonly GalleryScenario[];
+@@ -89,6 +107,8 @@ export interface GalleryInput {
+   /** Does a capture path (relative to `screenshots/`) exist on disk? Omitted: assume it does. */
+   readonly imageExists?: (capture: string) => boolean;
+   readonly realWindow?: readonly RealWindowLink[];
++  /** The real-window capture registry, listed on the page of each group. */
++  readonly realCaptures?: readonly GalleryRealCapture[];
+   readonly generatedAt: string;
+ }
+ 
+@@ -106,12 +126,23 @@ export interface GroupCounts {
+   readonly integration: number;
+ }
+ 
++export interface RealCounts {
++  readonly captures: number;
++  readonly withImage: number;
++  readonly noteOnly: number;
++  /** Pictures found in the latest runs. */
++  readonly inLatestRun: number;
++  readonly readme: number;
++}
++
+ export interface GalleryOutput {
+   /** Pages by path relative to `out/reports/e2e/`: `GALLERY.md` and `gallery/<group>.md`. */
+   readonly files: Readonly<Record<string, string>>;
+   readonly freshness: Freshness;
+   readonly counts: Readonly<Record<string, GroupCounts>>;
+   readonly totals: GroupCounts;
++  readonly realCounts: Readonly<Record<string, RealCounts>>;
++  readonly realTotals: RealCounts;
+ }
+ 
+ const THUMBNAIL_WIDTH = 360;
+@@ -269,6 +300,48 @@ function scenarioBlock(
+   return lines.join("\n");
+ }
+ 
++/** Number after the `r` of `<group>/rNN-slug`. */
++function realNumber(id: string): number {
++  const match = /\/r(\d+)-/u.exec(id);
++  return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
++}
++
++function realCountsOf(rows: readonly GalleryRealCapture[]): RealCounts {
++  return {
++    captures: rows.length,
++    withImage: rows.filter((row) => row.image).length,
++    noteOnly: rows.filter((row) => !row.image).length,
++    inLatestRun: rows.filter((row) => row.href !== undefined).length,
++    readme: rows.filter((row) => (row.readme?.length ?? 0) > 0).length,
++  };
++}
++
++function realBlock(row: GalleryRealCapture, prefix: string): string {
++  const mark = (row.readme?.length ?? 0) === 0
++    ? ""
++    : ` **README** ${row.readme!.map((file) => `\`images/readme/${file}\``).join(", ")}`;
++  const lines = [
++    `### ${shortId(row.id)}${mark}`,
++    "",
++    `\`${row.id}\` · ${row.suite} suite · ${row.clip === "window" ? "whole window" : `clipped to the ${row.clip}`}`,
++    "",
++    `**Locks:** ${row.locks}`,
++    "",
++  ];
++  lines.push(row.href === undefined
++    ? "No image in the latest run of this suite."
++    : image(`${prefix}${row.href}`, row.id, THUMBNAIL_WIDTH), "");
++  return lines.join("\n");
++}
++
++function realNoteTable(rows: readonly GalleryRealCapture[]): string {
++  return [
++    "| Capture | Suite | Locks |",
++    "| --- | --- | --- |",
++    ...rows.map((row) => `| \`${cell(shortId(row.id))}\` | ${cell(row.suite)} | ${cell(row.locks)} |`),
++  ].join("\n");
++}
++
+ function assertionTable(scenarios: readonly GalleryScenario[], results: ReadonlyMap<string, ManifestResult>): string {
+   const lines = [
+     "| Scenario | Theme | Width | State | Run | Locks |",
+@@ -298,6 +371,7 @@ export function buildPoGallery(input: GalleryInput): GalleryOutput {
+   const results = new Map<string, ManifestResult>((manifest?.results ?? []).map((result) => [result.id, result]));
+   const files: Record<string, string> = {};
+   const counts: Record<string, GroupCounts> = {};
++  const realCounts: Record<string, RealCounts> = {};
+ 
+   const groupIds = new Set(input.groups.map((group) => group.id));
+   const orphans = input.scenarios.filter((scenario) => !groupIds.has(scenario.group));
+@@ -317,6 +391,10 @@ export function buildPoGallery(input: GalleryInput): GalleryOutput {
+       integration: integration.length,
+     };
+ 
++    const realRows = (input.realCaptures ?? []).filter((row) => row.group === group.id)
++      .sort((first, second) => realNumber(first.id) - realNumber(second.id) || first.id.localeCompare(second.id));
++    realCounts[group.id] = realCountsOf(realRows);
++
+     const previous = input.groups[position - 1];
+     const next = input.groups[position + 1];
+     const page: string[] = [
+@@ -347,6 +425,27 @@ export function buildPoGallery(input: GalleryInput): GalleryOutput {
+         "",
+       );
+     }
++    if (realRows.length > 0) {
++      const own = realCounts[group.id]!;
++      page.push(
++        "## Real VS Code window captures",
++        "",
++        `${plural(own.captures, "capture")} from the real-window suites (${own.withImage} with a picture, `
++          + `${own.noteOnly} note only, ${own.inLatestRun} found in the latest runs). Real mouse and keyboard events in an actual `
++          + "extension host; the picture is the whole window unless the line says it is clipped.",
++        "",
++      );
++      for (const row of realRows.filter((entry) => entry.image)) page.push(realBlock(row, "../"));
++      const noteOnly = realRows.filter((entry) => !entry.image);
++      if (noteOnly.length > 0) {
++        page.push(
++          "Checks that write a note and no picture (the picture would repeat another capture of the group):",
++          "",
++          realNoteTable(noteOnly),
++          "",
++        );
++      }
++    }
+     if (integration.length > 0) {
+       page.push(
+         "## Integration tests without image",
+@@ -374,6 +473,7 @@ export function buildPoGallery(input: GalleryInput): GalleryOutput {
+     integration: sum((entry) => entry.integration),
+   };
+ 
++  const realTotals = realCountsOf(input.realCaptures ?? []);
+   const index: string[] = [
+     "# Product-owner gallery",
+     "",
+@@ -386,13 +486,13 @@ export function buildPoGallery(input: GalleryInput): GalleryOutput {
+       : `Visual run: ${manifest.status ?? "unknown status"}${manifest.partial === true ? " (partial)" : ""}, revision \`${(manifest.revision ?? "unknown").slice(0, 7)}\`, completed ${manifest.completedAt ?? "unknown"}.`,
+     "",
+     ...freshnessBanner(freshness),
+-    "| # | Group | Scenarios | With image | Assertion-only | Step images | README | Integration (no image) |",
+-    "| --- | --- | --- | --- | --- | --- | --- | --- |",
++    "| # | Group | Scenarios | With image | Assertion-only | Step images | README | Integration (no image) | Real window |",
++    "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+     ...input.groups.map((group, position) => {
+       const entry = counts[group.id]!;
+-      return `| ${position + 1} | [${cell(group.title)}](gallery/${group.id}.md) | ${entry.scenarios} | ${entry.withImage} | ${entry.assertionOnly} | ${entry.stepImages} | ${entry.readme} | ${entry.integration} |`;
++      return `| ${position + 1} | [${cell(group.title)}](gallery/${group.id}.md) | ${entry.scenarios} | ${entry.withImage} | ${entry.assertionOnly} | ${entry.stepImages} | ${entry.readme} | ${entry.integration} | ${realCounts[group.id]!.captures} |`;
+     }),
+-    `| | **Total** | **${totals.scenarios}** | **${totals.withImage}** | **${totals.assertionOnly}** | **${totals.stepImages}** | **${totals.readme}** | **${totals.integration}** |`,
++    `| | **Total** | **${totals.scenarios}** | **${totals.withImage}** | **${totals.assertionOnly}** | **${totals.stepImages}** | **${totals.readme}** | **${totals.integration}** | **${realTotals.captures}** |`,
+     "",
+   ];
+   if (orphans.length > 0) {
+@@ -421,7 +521,7 @@ export function buildPoGallery(input: GalleryInput): GalleryOutput {
+     index.push(
+       "## Real VS Code window evidence (latest runs)",
+       "",
+-      "Captured in a real extension host; not yet grouped like the pages above.",
++      "Run folders of the real extension host suites. Their captures are listed by group on the group pages; these links open the run indexes.",
+       "",
+       ...realWindow.map((link) => `- [${link.label}](${link.href})${link.note === undefined ? "" : `: ${link.note}`}`),
+       "",
+@@ -437,5 +537,5 @@ export function buildPoGallery(input: GalleryInput): GalleryOutput {
+   );
+   files["GALLERY.md"] = `${index.join("\n").trimEnd()}\n`;
+ 
+-  return { files, freshness, counts, totals };
++  return { files, freshness, counts, totals, realCounts, realTotals };
+ }
+diff --git a/test/site/poGalleryCli.ts b/test/site/poGalleryCli.ts
+index badff1a..04bf14e 100644
+--- a/test/site/poGalleryCli.ts
++++ b/test/site/poGalleryCli.ts
+@@ -2,18 +2,58 @@ import { execFileSync } from "node:child_process";
+ import * as fs from "node:fs";
+ import * as path from "node:path";
+ import { E2E_REPORT_ROOT, E2E_SCREENSHOT_ROOT, EXTENSION_ROOT } from "../reportPaths";
++import { REAL_CAPTURES, writesImage, type RealSuite } from "../shared/captureRegistry";
+ import { GROUPS, INTEGRATION_TESTS } from "../shared/e2eGroups";
+ import { SCENARIOS } from "../visual/scenarios";
+-import { buildPoGallery, type GalleryOutput, type RealWindowLink, type VisualManifest } from "./poGallery";
++import {
++  buildPoGallery,
++  type GalleryOutput,
++  type GalleryRealCapture,
++  type RealWindowLink,
++  type VisualManifest,
++} from "./poGallery";
+ 
+-const POINTERS: readonly { file: string; label: string }[] = [
+-  { file: "LATEST.md", label: "Scroll synchronization (real window)" },
+-  { file: "REAL-INPUT-LATEST.md", label: "Real-input editing" },
+-  { file: "../FRONTMATTER-LATEST.md", label: "Frontmatter and link interactions" },
+-  { file: "../RELOAD-LATEST.md", label: "Reload and close/reopen" },
+-  { file: "../CHECKBOX-LATEST.md", label: "Checkbox toggles" },
++const POINTERS: readonly { file: string; label: string; suite: RealSuite }[] = [
++  { file: "LATEST.md", label: "Scroll synchronization (real window)", suite: "scroll" },
++  { file: "REAL-INPUT-LATEST.md", label: "Real-input editing", suite: "real-input" },
++  { file: "../FRONTMATTER-LATEST.md", label: "Frontmatter and link interactions", suite: "frontmatter" },
++  { file: "../RELOAD-LATEST.md", label: "Reload and close/reopen", suite: "reload" },
++  { file: "../CHECKBOX-LATEST.md", label: "Checkbox toggles", suite: "checkbox" },
+ ];
+ 
++/** The run folder (absolute) a LATEST pointer of `suite` names, when it exists. */
++export function latestRunDirectory(suite: RealSuite): string | undefined {
++  const pointer = POINTERS.find((entry) => entry.suite === suite);
++  if (pointer === undefined) return undefined;
++  const file = path.join(E2E_SCREENSHOT_ROOT, pointer.file);
++  if (!fs.existsSync(file)) return undefined;
++  const match = /\]\(([^)]+INDEX\.md)\)/u.exec(fs.readFileSync(file, "utf8"));
++  if (match === null) return undefined;
++  const directory = path.dirname(path.resolve(path.dirname(file), match[1]!));
++  return fs.existsSync(directory) ? directory : undefined;
++}
++
++/** The registry rows for the gallery, each with its picture in the latest run of its suite when present. */
++export function realCaptureRows(): GalleryRealCapture[] {
++  const directories = new Map<RealSuite, string | undefined>();
++  return REAL_CAPTURES.map((entry) => {
++    if (!directories.has(entry.suite)) directories.set(entry.suite, latestRunDirectory(entry.suite));
++    const directory = directories.get(entry.suite);
++    const png = directory === undefined ? undefined : path.join(directory, `${entry.id}.png`);
++    const present = writesImage(entry) && png !== undefined && fs.existsSync(png);
++    return {
++      id: entry.id,
++      group: entry.group,
++      suite: entry.suite,
++      locks: entry.locks,
++      image: writesImage(entry),
++      clip: typeof entry.clip === "object" ? "changed element" : entry.clip === "preview" ? "preview" : "window",
++      ...(entry.readme === undefined ? {} : { readme: entry.readme.map((crop) => crop.file) }),
++      ...(present ? { href: path.relative(E2E_REPORT_ROOT, png!).split(path.sep).join("/") } : {}),
++    };
++  });
++}
++
+ /** The "ordered captures" link of each real-window LATEST pointer, relative to `out/reports/e2e/`. */
+ export function latestRunLinks(): RealWindowLink[] {
+   const links: RealWindowLink[] = [];
+@@ -81,6 +121,7 @@ export function generatePoGallery(): GalleryOutput {
+     ...(status === undefined ? {} : { worktreeStatus: status }),
+     imageExists: (capture) => fs.existsSync(path.join(E2E_SCREENSHOT_ROOT, capture)),
+     realWindow: latestRunLinks(),
++    realCaptures: realCaptureRows(),
+     generatedAt: new Date().toISOString(),
+   });
+   removeStaleGalleryPages(E2E_REPORT_ROOT, output.files);
+@@ -97,6 +138,8 @@ if (require.main === module) {
+   const { totals, freshness } = output;
+   console.log(`PO gallery: ${path.join(E2E_REPORT_ROOT, "GALLERY.md")}`);
+   console.log(`${totals.scenarios} scenarios, ${totals.withImage} with image, ${totals.assertionOnly} assertion-only, ${totals.stepImages} step images, ${totals.readme} README, ${totals.integration} integration rows, ${Object.keys(output.files).length} pages.`);
++  const real = output.realTotals;
++  console.log(`${real.captures} real-window captures (${real.withImage} with a picture, ${real.noteOnly} note only, ${real.inLatestRun} found in the latest runs).`);
+   if (freshness.stale) {
+     console.log("STALE:");
+     for (const reason of freshness.reasons) console.log(`- ${reason}`);

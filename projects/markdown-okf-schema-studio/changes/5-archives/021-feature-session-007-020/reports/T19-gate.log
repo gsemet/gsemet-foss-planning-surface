@@ -1,0 +1,1570 @@
+=== level B
+
+> markdown-okf-schema-studio@0.3.1 check-types
+> tsc --noEmit -p .
+
+
+> markdown-okf-schema-studio@0.3.1 test
+> npm run compile && npm run test:unit && npm run test:contracts && npm run test:security
+
+
+> markdown-okf-schema-studio@0.3.1 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.3.1 test:unit
+> mkdir -p out/reports/unit && node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=out/reports/unit/tests-unit.xml out/test/build/*.test.js out/test/configuration/*.test.js out/test/frontmatter/*.test.js out/test/mapping/*.test.js out/test/navigation/*.test.js out/test/rendering/*.test.js out/test/site/*.test.js out/test/state/*.test.js out/test/webview/*.test.js
+
+✔ lets an in-flight build finish and starts the newest queued edit right after (2.990375ms)
+✔ retains a successful result as stale after a failed newer build (0.764458ms)
+✔ still renders a build whose buffer already moved on, and cleans up on dispose (0.78125ms)
+✔ tracks referenced dependencies for refresh decisions (0.882584ms)
+✔ debounces pending edits and cancels them without invoking the builder (0.738667ms)
+✔ cancellation discards late results and permits a fresh build (0.530958ms)
+✔ disposal releases the last result once and rejects future requests (0.386583ms)
+✔ cleanup recipes remove only their owned artifacts and are idempotent (964.575833ms)
+✔ packaging pins Marketplace URLs to the release without editing the README (187.348042ms)
+✔ stages the dirty active buffer and only its referenced inputs (15.407ms)
+✔ reuses a stage root so doctrees and theme assets survive the next build (4.66375ms)
+✔ reports missing referenced inputs with source line diagnostics (4.383334ms)
+✔ github alerts become MyST admonitions (0.537875ms)
+✔ github alert expansion preserves line numbers (0.103ms)
+✔ every supported github alert type maps to an admonition (0.08825ms)
+✔ unknown alert markers stay untouched (0.045625ms)
+✔ alerts inside fenced code blocks are not rewritten (0.567458ms)
+✔ appends a bibliography when citations need resolving (0.234334ms)
+✔ does not touch documents without citations (0.117583ms)
+✔ respects an existing bibliography directive (0.089125ms)
+✔ checks workspace trust before staging or spawning Sphinx (2.42025ms)
+✔ invokes only the authentic isolated Sphinx HTML command (3.590667ms)
+✔ returns actionable source diagnostics for a failing Sphinx directive (3.399709ms)
+✔ terminates an active Sphinx child and removes its temporary stage on cancellation (1.728625ms)
+✔ frontmatter settings use their own section and defaults (1.221333ms)
+✔ frontmatter visibility and strict validation can be configured independently (0.127583ms)
+✔ reads and trims the configured PlantUML JAR path (0.646125ms)
+✔ uses an empty path for non-string configuration values (0.067792ms)
+✔ reads independent studio preview settings without stock configuration keys (0.735125ms)
+✔ comment chips are shown by default and can be turned off (0.074042ms)
+✔ incremental updates can be turned off and default to on (0.06575ms)
+✔ normalizes preview content width and reserves zero for unlimited (0.0705ms)
+✔ normalizes sticky heading depth to one through six levels (0.78325ms)
+✔ link annotations read target fields and exact marker lines afresh (6.190708ms)
+✔ link display options reject invalid metadata (0.152166ms)
+✔ oneOf annotations are collected only when exactly one branch matches (55.186209ms)
+✔ conditional, patternProperties, and additionalProperties schemas are traversed (2.333542ms)
+✔ document-relative links stay inside workspace roots unless explicitly allowed (9.824875ms)
+✔ auto-detected git roots outside the workspace are ignored (3.480541ms)
+✔ frontmatter fence: value ending in three dots (275.408208ms)
+✔ frontmatter fence: value ending in four dots (22.745667ms)
+✔ frontmatter fence: value ending in three dashes (19.815625ms)
+✔ frontmatter fence: dashes inside a quoted string (3.177625ms)
+✔ frontmatter fence: CRLF line endings (2.594833ms)
+✔ frontmatter fence: trailing spaces after the closing fence (1.090542ms)
+✔ frontmatter fence: dot-dot-dot closing fence (2.171625ms)
+✔ frontmatter fence: empty block stays valid (6.085458ms)
+✔ frontmatter fence: a document without a closing fence has no frontmatter (0.099375ms)
+✔ patch guard refuses patches that lose, duplicate or corrupt a key (1.185084ms)
+✔ frontmatter fence: CRLF empty block accepts an added field with CRLF endings (0.225541ms)
+✔ linked file details read the frontmatter of a BOM-prefixed file (5.428083ms)
+✔ value edit F1 title changes only the named field (9.868375ms)
+✔ value edit F1 lifecycle changes only the named field (1.591417ms)
+✔ value edit F1 annotation_exemption changes only the named field (4.084459ms)
+✔ value edit F1 exemption_reason changes only the named field (5.065791ms)
+✔ value edit F1 derives_from changes only the named field (7.5245ms)
+✔ value edit F1 derived_by changes only the named field (2.091458ms)
+✔ value edit F2 title changes only the named field (1.509542ms)
+✔ value edit F2 tags changes only the named field (0.742ms)
+✔ value edit F2 links changes only the named field (4.885333ms)
+✔ value edit F2 quoted changes only the named field (1.655917ms)
+✔ value edit F2 summary changes only the named field (3.358958ms)
+✔ value edit F2 status changes only the named field (1.610958ms)
+✔ value edit F3 title changes only the named field (2.608ms)
+✔ value edit F4 status changes only the named field (1.556042ms)
+✔ structural F2 rename title to heading keeps the trailing comment (0.7245ms)
+✔ structural F2 remove links deletes exactly that line (1.241625ms)
+✔ structural F2 remove tags deletes exactly the sequence lines (0.437667ms)
+✔ structural F1 add owner appends one line before the closing delimiter (1.649208ms)
+✔ structural F2 edits keep both comments unless their own line is removed (4.188875ms)
+✔ structural F2 add owner after title inserts one line directly after the title (0.689291ms)
+✔ structural F2 add after the last field matches the add without afterField (1.105167ms)
+✔ structural add to an empty frontmatter block writes the pair into the fence (0.181958ms)
+✔ structural F1 add of a list uses the compact sequence style (0.904917ms)
+✔ structural F2 remove of the last field keeps the blank line and the closing fence (0.435625ms)
+✔ structural F2 rename to a key that needs quoting changes only that line (0.425792ms)
+✔ structural CRLF add after a field keeps CRLF line endings (0.301666ms)
+✔ structural CRLF add at the end appends one CRLF line before the fence (0.461875ms)
+✔ structural CRLF remove deletes the field lines and keeps CRLF (0.196459ms)
+✔ structural CRLF remove of the last field drops the preceding break (0.867584ms)
+✔ add after a list keeps its commented-out item above the new field (0.587209ms)
+✔ add after a list keeps its commented-out item above the new field on CRLF (0.264417ms)
+✔ add after a nested map keeps its trailing comment above the new field (0.266583ms)
+✔ add of a multi-line value after a commented list is still positioned (0.255834ms)
+✔ add after a list keeps a column-0 comment with the next field (0.228667ms)
+✔ removing the only field leaves a valid empty mapping (0.196792ms)
+✔ removing the only field of a CRLF document leaves a valid empty mapping (0.11175ms)
+✔ extractFrontmatter detects and parses the leading YAML block (5.182292ms)
+✔ fieldIconType maps schema declarations and generic values to display types (0.407709ms)
+✔ frontmatter field patches preserve comments, fences, line endings, and body (7.863833ms)
+✔ frontmatter scalar and object edits preserve YAML node metadata (1.569625ms)
+✔ frontmatter array edits keep comments attached to reordered items (0.934833ms)
+✔ frontmatter key renames preserve comments and reject duplicate destinations (0.86225ms)
+✔ frontmatter field removal preserves comments, fences, and body (0.484ms)
+✔ extractFrontmatter rejects a document without frontmatter (0.052625ms)
+✔ extractFrontmatter reports invalid YAML with the parse error (0.554375ms)
+✔ parseYamlValue handles structured values and rejects malformed YAML (0.278791ms)
+✔ findSchemaDirectory walks ancestors and prefers _schema over _schemas (1.385083ms)
+✔ findSchemaDirectory still finds _schemas when _schema is absent (1.135375ms)
+✔ matchSchemaFile matches case-insensitively on the stem before .schema (1.09625ms)
+✔ resolveSchemaRefs inlines relative references with extension fallbacks (6.684666ms)
+✔ effectiveProperties collapses allOf branches and collects required (1.699792ms)
+✔ analyzeFrontmatter yields schema-ordered fields with docs and enums (49.4225ms)
+✔ nullable reset metadata preserves declared nullability while conditional validation stays active (7.987959ms)
+✔ frontmatter without a type skips schema discovery and validation (1.133625ms)
+✔ analyzeFrontmatter surfaces an info when the type has no schema (0.851333ms)
+✔ reduced mode explains that schema validation needs a trusted workspace (0.778625ms)
+✔ unmatched OKF-like SKILL frontmatter remains generic and skips schema validation (1.18725ms)
+✔ analyzeFrontmatter validates enums, consts, and formats against the schema (6.159125ms)
+✔ analyzeFrontmatter inspects annotated scalar and array links without AJV keyword errors (5.456583ms)
+✔ frontmatter link identity prefers the configured id and otherwise uses the basename (0.187834ms)
+✔ analyzeFrontmatter attaches nested link results to the parent field (5.09ms)
+✔ file-link union applicability honors pattern and explicit root precedence (6.312291ms)
+✔ file-link union applicability preserves boolean local references (4.761542ms)
+✔ filename-stem links recheck symlink containment after an internal target drifts (1.514666ms)
+✔ filename-stem links report W15 when matching candidates are unavailable (2.975541ms)
+✔ strict mode warns on unknown fields; lenient mode does not (5.33475ms)
+✔ missing required fields are exposed as an ordered schema summary (2.075125ms)
+✔ json5 and json schema formats parse correctly (4.737625ms)
+✔ schema declarations do not become description annotations (3.048ms)
+✔ value patch rewrites only the edited field line and keeps its inline comment (0.43825ms)
+✔ value patch for an anchored value still writes correct data (0.483042ms)
+✔ value patch for a nested map written as an object yields the same data (0.424667ms)
+✔ appending a sequence item keeps a comment line between existing items (0.47275ms)
+✔ value patch with an unchanged value leaves the document text identical (0.636792ms)
+✔ value patch fills an empty value on CRLF documents without touching the next line (1.679542ms)
+✔ appending to a sequence keeps a trailing commented-out item once (2.0525ms)
+✔ a commented last item of a block sequence keeps its comment once (0.95875ms)
+✔ editing a nested map keeps its trailing comment once (0.715667ms)
+✔ editing a block scalar keeps its header comment (1.172959ms)
+✔ replacing a commented scalar by a list keeps the comment once (0.378375ms)
+✔ a multi-line value on a plain field is written as a literal block (0.394ms)
+✔ a multi-line comment between CRLF sequence items keeps CRLF line endings (0.357375ms)
+✔ a multi-line comment inside a CRLF nested map keeps CRLF line endings (1.297084ms)
+✔ frontmatter field removal keeps the comment lines above the removed key (0.740167ms)
+✔ frontmatter add with afterField reports whether the field was placed (1.380916ms)
+✔ T22: linkSuggestions are set only for filename-stem fields and only when links are inspected (8.754459ms)
+✔ T24: analyzeFrontmatter flags schema-required fields only (2.319458ms)
+✔ T25: additionalPropertiesAllowed is false only for a schema forbidding extra keys (5.164833ms)
+✔ T41: a schema field goes between its schema neighbours, whatever row was clicked (0.128916ms)
+✔ T41: a schema field skips schema neighbours that are absent and goes before custom keys (0.046709ms)
+✔ T41: a custom key goes after the last row of the table, where non-schema keys are listed (0.050666ms)
+✔ T41: beforeField inserts above the named field with a one-line diff (1.522958ms)
+✔ T41: plain scalar safety (1.209125ms)
+✔ T41: plainScalar writes a new custom key's text unquoted only when safe (4.461292ms)
+✔ T41: without plainScalar an edited quoted value keeps its quotes (0.631875ms)
+✔ T41: plainScalar quotes a date-like value (0.586459ms)
+✔ T41: beforeField on the first key inserts after leading comment lines (0.977292ms)
+✔ inherited Object.prototype names are not treated as present or declared fields (4.550541ms)
+✔ no markup when frontmatter is absent or the table is disabled (0.639416ms)
+✔ renders a two-column Obsidian-like table with escaped values (2.510583ms)
+✔ description controls live in column headers with an adjacent collapsed restore slot (0.144417ms)
+✔ read-only tables expose values without edit targets (0.133334ms)
+✔ annotated scalar and list values render independent navigation and status markup (0.304125ms)
+✔ valid link tooltips expose workspace-relative paths (0.208583ms)
+✔ pending links show a spinner after their text (0.307917ms)
+✔ deferred replacement removes pending link spinners (5.729958ms)
+✔ nested annotated values render links and diagnostics inside object previews (0.519625ms)
+✔ renders boolean values as read-only checkboxes in preview mode (0.158459ms)
+✔ caps long list previews and reports omitted items (0.274792ms)
+✔ does not match a list link by array index without a field path (0.102125ms)
+✔ renders list items with hyphen markers (0.067667ms)
+✔ maps the injected properties section to the frontmatter source (0.605ms)
+✔ error rows carry the red underline class and hover tooltip (0.085084ms)
+✔ missing required fields are summarized after the table (0.048292ms)
+✔ exposes unused schema keys for frontmatter key editing (0.058916ms)
+✔ exposes unused schema field metadata for the frontmatter toolbar (0.04825ms)
+✔ structured values and enum choices are exposed for schema-aware editing (0.138916ms)
+✔ unknown fields are marked and info rows render (0.062375ms)
+✔ diagnostic errors span every table column and expose their severity (0.050875ms)
+✔ replacePropertiesTableMarkup swaps the table in place (0.524ms)
+✔ repeated checkbox refreshes replace source-mapped tables without duplication (4.157916ms)
+✔ replacement removes serialized duplicates and nested sections while preserving other HTML (1.358875ms)
+✔ schema-matched tables add a third description column (0.589625ms)
+✔ renders empty lists without a phantom preview item (0.18275ms)
+✔ marks schema-nullable fields in row metadata (0.222292ms)
+✔ escapes list preview items without truncating short lists (0.165583ms)
+✔ plain yaml tables stay two-column even when docs are absent (0.196333ms)
+✔ nested object values render as escaped YAML while keeping edit metadata (0.704459ms)
+✔ schema declarations do not appear as description annotations (0.327584ms)
+✔ name cells carry a size-bounded Obsidian-style type icon (0.34ms)
+✔ T22: link suggestions are rendered as an escaped row attribute only when present (0.336041ms)
+✔ T24: required fields render data-okf-required and optional ones do not (0.235666ms)
+✔ T25: the section flags a schema that forbids additional properties (0.217917ms)
+✔ linkStatusLabel maps every diagnostic family to a plain label (0.174459ms)
+✔ invalid links show an icon and a plain label instead of the error code (0.176ms)
+✔ unavailable links use the warning icon (0.139042ms)
+✔ the header badge is a button that goes to the first issue (0.128333ms)
+✔ T30: replacing with precomputed markup is identical to replacing from the result (6.192708ms)
+✔ repeated analyses reuse one compiled schema and keep the Ajv cache bounded (64.355709ms)
+✔ editing the schema is picked up and the previous compile is released (5.048709ms)
+✔ touching the schema with identical content keeps the result correct and the cache flat (3.753333ms)
+✔ deleting the schema falls back to the generic table (2.462583ms)
+✔ a replaced schema applies, and reverting it is picked up again (8.710458ms)
+✔ changing, adding or removing an inlined $ref target is picked up (13.993458ms)
+✔ setSchemaFileReaderForTests overrides content and drops cached schemas (3.142833ms)
+✔ an invalid schema reports the same compile error on every analysis (1.713833ms)
+✔ a schema with a property named $id can be edited and re-analysed (7.66725ms)
+✔ validator cache returns the same compiled function for a schema object (31.097125ms)
+✔ MarkdownStemIndex excludes generated, dependency, and hidden directories (8.006542ms)
+✔ invalidateStemIndex refreshes the cached index for a root (1.232041ms)
+✔ T22: stems returns the indexed stems sorted and limited (1.2025ms)
+✔ inserts between blocks separated by a blank line (1.466875ms)
+✔ inserts after the last line; a final line break is not a following line (0.120416ms)
+✔ separates a block from a directly following non-blank line (0.150958ms)
+✔ start of an empty document and of a body without frontmatter (0.350292ms)
+✔ start with frontmatter inserts after the closing fence and keeps the frontmatter (5.051083ms)
+✔ CRLF documents keep CRLF (0.176542ms)
+✔ whitespace-only raw text inserts nothing (0.144084ms)
+✔ trailing line breaks of the raw text are dropped (0.075958ms)
+✔ out of range lines have no plan (0.113542ms)
+✔ inserting after a colon-fence figure: middle, last block, with and without a final line break (0.223167ms)
+✔ inserting after a backtick-fence figure: middle, last block, with and without a final line break (0.090708ms)
+✔ inserting after a plain image: middle, last block, with and without a final line break (0.083791ms)
+✔ T16: identical text has no changed range (1.529875ms)
+✔ T16: added lines are reported in current line numbers (0.479959ms)
+✔ T16: a modified line is one range and two separate edits are two ranges (0.285542ms)
+✔ T16: deleted-only lines give no range (0.7335ms)
+✔ T16: line endings do not count as changes (0.17675ms)
+✔ T16: a base without a trailing newline matches one with it (0.100416ms)
+✔ T16: above the size cap the whole middle counts as changed (10.272458ms)
+✔ T16: many differences beyond the edit budget fall back to the whole middle (39.695625ms)
+✔ keeps only active-document mappings in DOM order for ties (0.73725ms)
+✔ accepts Windows separators without weakening document identity (0.199917ms)
+✔ source ranges preserve line endings and reject invalid bounds (0.301917ms)
+✔ identical input yields an empty replacement (4.213ms)
+✔ insertion, deletion and replacement in the middle (1.057875ms)
+✔ insertion at the start and at the end (0.182208ms)
+✔ repeated characters do not let prefix and suffix overlap (0.16425ms)
+✔ a CRLF pair is never split (1.193667ms)
+✔ a surrogate pair is never split (0.116375ms)
+✔ replacement reproduces the target for 200 seeded random pairs (1.002375ms)
+✔ Markdown fragments select headings and source lines, not fenced examples (1.868ms)
+✔ marker navigation selects exact marker identities (0.778458ms)
+✔ searches every workspace root and blocks cross-root wikilink ambiguity (1.803334ms)
+✔ discovers bare wikilinks before accepting an active-root sibling (0.933625ms)
+✔ classifies relative links without touching the filesystem (0.087917ms)
+▶ discovers wikilinks on demand and refuses ambiguous or escaping targets
+  ✔ allows document-relative resolved targets outside a workspace root only in that mode (1.841417ms)
+✔ discovers wikilinks on demand and refuses ambiguous or escaping targets (3.029625ms)
+✔ classifies anchors, external links, and workspace-local files (0.950709ms)
+✔ blocks unsafe anchors, schemes, and paths (0.37825ms)
+✔ bare http(s) and www URLs render as links with GFM trailing-punctuation rules (203.116041ms)
+✔ bare URLs in list items and table cells are links (2.771625ms)
+✔ code, links, autolinks, math, emails and non-URLs stay as they are (10.643292ms)
+✔ javascript-looking and other non-http text is never linkified (0.788125ms)
+✔ generated links pass through the same sanitizer and navigation routing as Markdown links (1.253542ms)
+✔ the source text sent to the editor keeps the raw URL (1.024625ms)
+✔ pathological URLs render in linear time (51.117792ms)
+✔ prose contexts are linkified while directive option text stays literal (16.216583ms)
+✔ markers are found with document line and UTF-16 column, and line breaks are preserved (2.869875ms)
+✔ placeholders contain no character Markdown could interpret (1.523459ms)
+✔ link syntax, escapes, wikilinks, images and headings are not checkboxes (0.368875ms)
+✔ a defined [x] reference label keeps [x] as a link but [ ] stays a checkbox (0.1785ms)
+✔ a colon after a marker mid-line does not prevent a checkbox (0.124042ms)
+✔ placeholders split and restore to the original marker text (0.279541ms)
+✔ toggling computes a one-character edit and validates the marker (0.104875ms)
+✔ task lists, paragraphs and table cells render interactive checkboxes mapped to the source (249.649917ms)
+✔ CRLF documents keep exact columns (1.498375ms)
+✔ markers stay literal in code, math, diagrams, links, headings and raw HTML (26.059625ms)
+✔ markers inside directives and their titles become checkboxes (5.050416ms)
+✔ the webview sanitizer keeps checkbox inputs and their source attributes (2.778167ms)
+✔ a block comment renders as a positioned gray chip with a hidden body (162.498458ms)
+✔ a multi-line block comment spans its source lines (5.336959ms)
+✔ an inline comment renders as a chip inside its paragraph (2.899ms)
+✔ a TODO comment is a green expandable chip (2.402375ms)
+✔ the word TODO in prose becomes a green chip and the rest of the sentence is unchanged (1.780334ms)
+✔ TODO in code, inline code, link text and URLs is left alone (16.791084ms)
+✔ tool comments stay hidden (1.294041ms)
+✔ context tags still produce their admonition, with and without a comment inside (2.299334ms)
+✔ a comment in a heading does not change the heading's id or attributes (9.209083ms)
+✔ data-line follows the frontmatter offset (12.922167ms)
+✔ a comment followed by markup is never rendered as HTML (0.650291ms)
+✔ comment text never reaches the DOM as HTML (0.593542ms)
+✔ chip markup survives the sanitizer without event attributes (3.172916ms)
+✔ a raw HTML table next to comments is unchanged (1.139584ms)
+✔ the nearest conf.py wins and the enabled set comes from it (2.158458ms)
+✔ no conf.py, no myst_parser or an uncertain conf.py give no set (0.911083ms)
+✔ myst_nb counts like myst_parser (1.60075ms)
+✔ a conf.py above the workspace root is not used (1.915ms)
+✔ typing does not touch the disk: results are cached until the interval or an invalidation (3.150083ms)
+✔ D29: a single conf.py in a common folder of the root is the fallback (1.536667ms)
+✔ D29: several fallback candidates mean no conf (2.886959ms)
+✔ D29: an ancestor conf.py wins over a fallback, and invalidation covers the fallback (3.107959ms)
+✔ D29: a document outside the workspace folder does not get the fallback (1.434791ms)
+✔ locate names the governing conf.py, ancestor first, then the D29 fallback (6.680458ms)
+✔ the book's conf.py lists are read in full (2.003625ms)
+✔ comments, tuples, single quotes, trailing commas and string joins are understood (0.238459ms)
+✔ +=, append, extend and later assignments are applied in order (1.212208ms)
+✔ a missing myst_enable_extensions is an empty, certain list (0.230833ms)
+✔ anything that is not a plain string list is uncertain (0.337416ms)
+✔ a conf.py without myst_parser keeps the plain lists (0.132791ms)
+✔ names in other positions and unrelated code are ignored (0.152ms)
+✔ GitHub alerts and fences render identically for LF and CRLF documents (219.963541ms)
+✔ a CRLF alert marker becomes an admonition (0.870375ms)
+✔ colours tokens for a registered grammar (20.7765ms)
+✔ resolves the fence label through aliases (9.543041ms)
+✔ renders diff and patch fences with signed-line treatments (4.100916ms)
+✔ wraps numbered lines without breaking multiline highlighted spans (0.564833ms)
+✔ leaves an unregistered grammar as plain text (0.165125ms)
+✔ decodes numeric references before highlighting and does not double-escape (0.2775ms)
+✔ include expansion output is unchanged for ordinary documents (215.95575ms)
+✔ include fan-out stops at the budget with one diagnostic (98.876916ms)
+✔ an include repeated many times is read once per render (2.112958ms)
+✔ memoised included ASTs keep the include line of each directive (4.778959ms)
+✔ the included text budget bounds large includes (65.633625ms)
+✔ a 60-chapter book with 5 snippets each renders fully within the budget (65.535041ms)
+✔ the expansion budget boundary is exactly the maximum (517.306167ms)
+✔ included blocks map to the directive lines only (168.880084ms)
+✔ nested includes keep the outer directive lines and the marker (8.06525ms)
+LaTeX-incompatible input and strict mode is set to 'warn': HTML extension is disabled on strict mode [htmlExtension]
+✔ typesets inline and display math with local assets and CSP-compatible styles (16.844875ms)
+✔ supports Sphinx math delimiters and leaves ordinary text and code alone (1.810333ms)
+✔ invalid LaTeX stays readable without breaking valid equations (0.962875ms)
+✔ math cannot inject trusted HTML commands or external links (1.52375ms)
+✔ wikilinks render as lazy note targets without changing code or existing links (189.345042ms)
+✔ the in-process renderer preserves the active-file MyST feature contract (22.381791ms)
+✔ figure references render figures whose body supplies the caption (5.121417ms)
+✔ references to captionless figures and tables stay readable (2.530667ms)
+✔ MyST code directives number and emphasize lines relative to their start (1.963917ms)
+✔ MyST code-cell directives render numbered input without claiming execution (1.577042ms)
+✔ Mermaid fences and directives preserve diagram source for webview rendering (1.406375ms)
+✔ PlantUML fences and directives preserve diagram source for external rendering (3.552875ms)
+✔ Sphinx version admonitions render generated titles and Markdown bodies (2.303333ms)
+✔ custom admonition titles preserve inline Markdown and their class (0.856083ms)
+✔ nested backtick and colon delimiters preserve their enclosing Markdown (3.597583ms)
+✔ GitHub alert syntax preserves an explicit title (0.686792ms)
+✔ GitHub alert syntax defaults the title when none is provided (3.2745ms)
+✔ GitHub bold Note, Important, and Warning markers become simple admonitions (2.636709ms)
+✔ MyST typography renders definitions, abbreviations, scripts, and footnotes (4.029459ms)
+✔ all named MyST admonitions receive their documented default title (5.477958ms)
+✔ a leading bold paragraph or heading supplies the MyST admonition title (1.3795ms)
+✔ Quarto callout classes render as semantic MyST admonitions (0.844834ms)
+✔ dropdown admonitions render as openable details with a summary (0.932042ms)
+✔ MyST GFM and directive tables preserve captions, headers, and alignment (16.907084ms)
+✔ raw HTML tables preserve complex cell spans without active content (3.134292ms)
+✔ raw HTML table cell styles are preserved as safe preview metadata (2.946833ms)
+✔ table directives render trusted workspace-local HTML includes (2.225083ms)
+✔ Jupyter table output embeds show a project-build placeholder (0.981958ms)
+✔ block elements carry the source line the editor scrolls against (0.947292ms)
+✔ multiline blocks retain their full mapped source range (0.632ms)
+✔ MyST admonitions retain the directive range through the closing fence (0.626917ms)
+✔ standalone hyphenated context tags render as mapped Markdown admonitions (2.517167ms)
+✔ simple and snake_case context tags preserve adjacent fences and source ranges (1.539334ms)
+✔ nested context tags preserve each wrapper range (0.647625ms)
+✔ unsupported context boundaries stay literal and fenced XML stays code (3.821625ms)
+✔ standard HTML and inline or fenced XML stay outside context grouping (3.757084ms)
+✔ block source ranges stay absolute when leading frontmatter is stripped (4.182542ms)
+✔ project-scoped roles and directives degrade to labelled placeholders (0.970834ms)
+✔ an untrusted workspace refuses to render (0.213833ms)
+✔ figures and plain images are mapped blocks with their closing source line (0.976334ms)
+✔ image directives are mapped blocks spanning the directive's source lines (0.677917ms)
+✔ tilde pairs render as struck-through text only in prose (3.783708ms)
+✔ a lone raw <img> block is a mapped block with a source line (0.801458ms)
+✔ detects colon_fence (161.603792ms)
+✔ detects dollarmath inline (0.875333ms)
+✔ detects dollarmath display (0.557417ms)
+✔ detects amsmath (0.47875ms)
+✔ detects deflist (0.456917ms)
+✔ detects fieldlist (0.954208ms)
+✔ detects tasklist (0.7235ms)
+✔ detects strikethrough (0.536041ms)
+✔ detects substitution (0.909333ms)
+✔ detects attrs_inline (1.312333ms)
+✔ detects html_image (1.840167ms)
+✔ detects html_admonition (1.402333ms)
+✔ the line is the line of the syntax inside a long paragraph and counts the frontmatter (6.400417ms)
+✔ only the first use per extension is reported (0.823209ms)
+✔ nothing is detected inside code fences or inline code (0.467334ms)
+✔ prices and ordinary braces are not math or substitutions (0.663917ms)
+✔ the {math} role and directive are not dollarmath, backtick directives are not colon_fence (0.763916ms)
+✔ a $$ block holding an environment is dollarmath, not amsmath (0.421667ms)
+✔ currency amounts from the white paper are not dollarmath, real math still is (1.506792ms)
+✔ renders PlantUML through the configured external JAR and injects an image (7.626292ms)
+✔ uses the PATH executable when no JAR is configured and reports missing commands (1.259042ms)
+✔ returns diagnostics for PlantUML process failures and malformed output (1.842667ms)
+✔ cancels an active PlantUML process (1.434875ms)
+✔ a child that exits before reading stdin does not raise an uncaught exception (285.11875ms)
+✔ a stdin error settles the render with a diagnostic (1.251958ms)
+✔ decodes a multibyte character split across stdout chunks (0.537083ms)
+✔ caps stderr at 64 KiB and notes the truncation (0.543667ms)
+✔ kills a hung child at the timeout with a clear diagnostic (31.210375ms)
+✔ spawns detached and kills the process group on POSIX (23.918333ms)
+✔ abort also kills the process group, falling back to child.kill on failure (1.424375ms)
+✔ settles exactly once when close, error and timeout race (35.171125ms)
+✔ does not group-kill a child that already exited (22.087208ms)
+✔ the render pipeline retains buffer identity and attaches source diagnostics (3.850958ms)
+✔ the trust gate prevents renderer invocation unless reduced mode is allowed (0.381583ms)
+✔ renderer failures preserve the stage and original failure message (0.192791ms)
+✔ cancellation while rendering rejects a late successful result (0.192333ms)
+✔ MyST syntax missing from the nearest conf.py warns once per extension, rendering unchanged (165.742708ms)
+✔ propagates a failed review:begin and skips later campaign stages (2.381458ms)
+✔ gallery includes every nested screenshot, structured summaries and complete sidecars (12.010834ms)
+✔ gallery tolerates missing artifacts without inventing passing evidence (1.094542ms)
+✔ accepts passed integration and visual artifacts from the current campaign (0.642125ms)
+✔ rejects a visually passing manifest left by an earlier campaign (0.1045ms)
+✔ rejects an artifact created with a different command even when its status passed (0.057792ms)
+✔ site branding resolves from root and nested pages (1.372042ms)
+✔ rewrites rendered Markdown documents and preserves fragments (0.313708ms)
+✔ publishes repository report paths under the copied reports tree (0.158875ms)
+✔ preserves query strings and fragments for copied assets (0.18875ms)
+✔ never relativizes absolute or protocol-relative URLs (0.140875ms)
+✔ evicts the least recently set entry once the cap is exceeded (0.682667ms)
+✔ reading an entry protects it from eviction, peek does not (0.091541ms)
+✔ overwriting a key refreshes it and never grows the map (0.054542ms)
+✔ default capacity is 200 and rejects invalid capacities (0.644459ms)
+✔ migration folds legacy keys into the map, preserves values and deletes the old keys (0.165291ms)
+✔ migration is a no-op without legacy keys and keeps newer map entries over legacy ones (0.081125ms)
+✔ migration respects the cap (0.073291ms)
+✔ loading ignores a malformed stored value (0.062208ms)
+✔ a previewReady with another requestId releases the lock (STAB-02) (0.402167ms)
+✔ previewReady without a lock releases nothing (0.323542ms)
+✔ reloads are deferred while held and flushed once on release (0.091833ms)
+✔ a ready report of another render hands back the queued work (2.344042ms)
+✔ time alone never releases the lock (0.16325ms)
+✔ a save of an unchanged open buffer needs no render (PERF-06) (0.180708ms)
+✔ a ready of the same render that reports no open editor releases the lock (0.156542ms)
+✔ a changed dependency always re-renders, whatever version the stage shows (0.164417ms)
+✔ a save of the already rendered buffer is skipped (PERF-06), any other state renders (0.076625ms)
+✔ T16: no Git extension, no repository or a failing show give undefined (0.541916ms)
+✔ T16: only file documents under 1 MB are compared, big blobs are skipped (0.094083ms)
+✔ T16: the base is cached by path and commit, a new commit fetches again (0.37325ms)
+✔ T16: a state change with the same commit id does not notify, a new commit does (0.5105ms)
+✔ T16: watch gives nothing without the extension, a repository or an active API (0.061666ms)
+✔ an empty history cannot go anywhere (0.362708ms)
+✔ push, back and forward walk the visited places (0.347292ms)
+✔ a push after going back drops the forward entries (0.077875ms)
+✔ a duplicate of the current entry is ignored (0.051416ms)
+✔ the history keeps at most 50 entries, the newest (0.523792ms)
+✔ depart updates the line of the same document and pushes another document (0.074625ms)
+✔ depart without a known line keeps the entry's line and pushes a new document at line 1 (0.059459ms)
+✔ parses bounded preview panel state and preserves supported fields (0.68725ms)
+✔ rejects invalid identity and drops malformed optional state (0.083917ms)
+✔ accepts only complete theme-mode change messages (0.531375ms)
+✔ restores a valid workspace theme mode and ignores invalid stored values (0.094ms)
+✔ restores a stored cream theme mode (0.049583ms)
+✔ defaults and the storage key (0.647333ms)
+✔ zoom is clamped to 70-200 and rounded to 10 (0.078041ms)
+✔ bad input falls back to the default per field (0.093625ms)
+✔ applyViewPreference changes one key and normalizes it (0.061166ms)
+✔ read and write go through a Memento-like store (0.5395ms)
+✔ anchors long paragraphs at the start of each source line (0.571709ms)
+✔ falls back to block bounds when paragraph lines cannot be measured (0.0885ms)
+✔ converts lines to scroll positions and back through the reading offset (0.150875ms)
+✔ ramps the reading line so the top of the page is line 1 (0.531167ms)
+✔ reports the editor top line as the floor of the anchor (0.0575ms)
+✔ ignores editor echoes across re-renders, then yields to the user (0.085459ms)
+✔ accepts one centered-reveal echo, then treats further scrolling as the user's (0.045458ms)
+✔ shifts the anchor when lines change above it only (0.28975ms)
+✔ a click on the chip opens the body and a second click closes it (1.160416ms)
+✔ Enter and Space on the chip toggle it, other keys and other targets do not (1.295584ms)
+✔ a chip without a body (a TODO word) is left alone (0.772291ms)
+✔ the expanded set is saved in the webview state next to the other entries (1.513584ms)
+✔ the expansion survives a content replacement in the same panel (0.869667ms)
+✔ two inline comments of one paragraph keep their own state (0.808542ms)
+✔ the saved state of a reloaded page is read back (0.798375ms)
+✔ the show-comments attribute follows the setting, live (1.043667ms)
+✔ hovering a code block shows the copy button inside its top right corner (1.299083ms)
+✔ the button stays while the pointer moves from the block to the button (0.368959ms)
+✔ a click posts the raw code only, without filename or line numbers, and shows a check mark (0.6505ms)
+✔ an unhighlighted block without a code element copies the pre text (0.301792ms)
+✔ mousedown on the button is prevented so an open editor keeps focus (0.285209ms)
+✔ blocks being edited, in a block editor, or holding a diagram are skipped (0.329125ms)
+✔ a block under the sticky band or visible for less than 30 px hides the button (0.302083ms)
+✔ after scrolling stops outside the block the button is hidden (0.264208ms)
+✔ hide() hides the button, resets the check mark and ignores a detached block (0.293083ms)
+✔ a click inside the block hides the button until the pointer moves again (0.928875ms)
+✔ the copied text of a plain block is the original code (7.350375ms)
+✔ the copied text of a highlighted block is the original code (7.56525ms)
+✔ the copied text of a line numbers block is the original code (6.670375ms)
+✔ the copied text of a line numbers from 7 block is the original code (0.384416ms)
+✔ the copied text of a emphasized lines block is the original code (0.758417ms)
+✔ the copied text of a diff block is the original code (2.114542ms)
+✔ the copied text of a diff with line numbers block is the original code (0.886875ms)
+✔ the copied text of a filename label block is the original code (0.801ms)
+✔ the copied text of a filename label, highlighted, numbered block is the original code (0.82375ms)
+✔ the copied text of a multi-line token block is the original code (1.395583ms)
+✔ in edit mode the button click copies and neither opens nor commits an editor (0.738625ms)
+✔ T34: extractMainContent returns the inner HTML of the content container of a real page (152.424375ms)
+✔ T34: two renders of one document type have equal shell keys despite other text, nonces and identifiers (92.004709ms)
+✔ T17: the shell key is equal whatever the incoming-changes preference, and the Diff button is in both (62.667791ms)
+✔ T34: the shell key ignores the status region and the runtime script, and nothing else (46.562375ms)
+✔ T34: shell keys differ when Mermaid appears or disappears, and when math appears (142.517792ms)
+✔ T34: canPatch refuses next content that carries a script or a nonce (95.894209ms)
+✔ T34: canPatch refuses pages without a content container (25.236625ms)
+✔ T34: injecting PlantUML diagrams into a page keeps its shell key, so the diagrams can be patched in (64.752916ms)
+✔ T34: content that mentions a container inside the content does not change the extracted content (32.354959ms)
+✔ T34: the runtime context key covers the startup settings and nothing the page follows itself (0.204167ms)
+✔ T34: status lines that the runtime would reject keep the patch from being sent (0.142375ms)
+✔ T34: a ready report with the identifiers of the last assignment is a webview that was created again (0.059167ms)
+✔ T34: the record of a patched page carries the nonce of the loaded page and keeps its shell (48.499583ms)
+✔ T34: reuseNonce swaps every occurrence, in the policy tokens and in the attributes (0.115917ms)
+✔ T08: two renders with different zoom have the same shell key and the same context key (45.632542ms)
+✔ cream is an accepted preview theme mode with its own coffee toolbar icon (0.871958ms)
+✔ cream defines a light warm palette for every variable white mode overrides (0.358917ms)
+✔ cream text and background pairs meet WCAG AA 4.5:1 (0.261709ms)
+✔ explicit themes override the same host colors, including the floating toolbar (0.777958ms)
+✔ cream mirrors the white-mode code colouring (0.138583ms)
+✔ toolbar theme icons are well-formed sibling svgs, one per mode (0.146583ms)
+✔ the clearance is 0 when the toolbar is beside the column (0.485417ms)
+✔ the clearance pushes the first block below a toolbar that overlaps the column (0.065541ms)
+✔ a toolbar that ends above the 40px gap needs no clearance (0.053125ms)
+✔ the clearance measures the content top in document coordinates (0.046667ms)
+✔ geometry checks define one function that reports the four check ids (1.608083ms)
+✔ without any DOM content every geometry check is not applicable and passes (0.353333ms)
+✔ identifier-split passes when a cell's text nodes share one line at different sizes (0.450084ms)
+✔ identifier-split ignores list items on separate lines (0.321667ms)
+✔ identifier-split reports a text node wrapped over two lines (0.399458ms)
+✔ overlay-covers-text counts a text node once when nested blocks both contain it (0.41675ms)
+✔ T16: the innermost mapped elements that meet a changed range are marked (2.495625ms)
+✔ T16: new ranges clear the old marks, empty ranges clear all (0.764333ms)
+✔ T16: apply puts the last ranges on replaced content (0.298417ms)
+✔ T16: elements in or under an open editor are skipped (0.296542ms)
+✔ T16: malformed ranges are ignored and enabled is reported (0.255792ms)
+✔ T16: included blocks are never marked, a distinct wrapper of the directive can be (0.252125ms)
+✔ inline code is a subtle tinted pill derived from the text colour (0.429083ms)
+✔ inline code scales with its context and wraps without growing the line (0.091458ms)
+✔ inline code stays compact in table cells (0.105917ms)
+✔ inline code text keeps 4.5:1 on the tinted background in every forced mode (0.385ms)
+✔ link discovery waits for the viewport and deduplicates bounded batches (2.689792ms)
+✔ local and wiki clicks are host-routed even before discovery, including middle click (0.712458ms)
+✔ discovery hints ignore stale renders and never replace the original target (0.811125ms)
+✔ T33: installing returns a rescan and the startup scan observes each link once (0.723625ms)
+✔ T33: rescan observes only the links that are not observed yet (0.586625ms)
+✔ T33: after a rescan, discovery and target hints apply to the new links (0.823084ms)
+✔ T33: a context mutated after install is honoured by posts and by the hint check (0.738667ms)
+✔ pipe tables round-trip escaped cells and CRLF line endings (4.398791ms)
+✔ inserting and deleting table rows and columns preserves the remaining cells (0.466375ms)
+✔ table tools cannot delete the header, final body row, or final column (0.135875ms)
+✔ non-table blocks and malformed separator rows cannot be edited as pipe tables (0.115333ms)
+✔ cellSegments returns the text between the delimiting pipes, offsets in the untrimmed line (0.398416ms)
+✔ inserting a row after the first body row of a padded table adds one padded line (0.502791ms)
+✔ a shrinking value in a padded table keeps the original cell width (0.172292ms)
+✔ deleting the first body row of a compact table removes exactly one line (0.166708ms)
+✔ inserting a column re-serializes the table with one more column (0.171708ms)
+✔ a row inserted into a CRLF table keeps CRLF line endings (0.312542ms)
+✔ rows without outer pipes stay parseable when an edge cell is emptied (0.309708ms)
+✔ inserting a row into a table without outer pipes adds one parseable row (0.187208ms)
+✔ rows with only one outer pipe stay parseable (0.350208ms)
+✔ filling an empty cell keeps the table's padding (0.313084ms)
+✔ lineDelta: identical input has no removed or added lines (1.605083ms)
+✔ lineDelta: one changed line is reported as one removed and one added line (0.148291ms)
+✔ lineDelta: one inserted line is reported as one added line (0.123459ms)
+✔ round trip preserves the source: compact-book (0.62025ms)
+✔ round trip preserves the source: padded (0.117ms)
+✔ round trip preserves the source: no-spaces (0.091042ms)
+✔ round trip preserves the source: alignment (0.088ms)
+✔ round trip preserves the source: no-outer-pipes (0.107709ms)
+✔ round trip preserves the source: escaped-and-code (0.116417ms)
+✔ round trip preserves the source: indented (0.202ms)
+✔ round trip preserves the source: crlf (0.128125ms)
+✔ round trip preserves the source: wider-than-padding (0.087ms)
+✔ one-cell edit changes exactly one line: compact-book (0.687834ms)
+✔ one-cell edit changes exactly one line: padded (0.21375ms)
+✔ one-cell edit changes exactly one line: no-spaces (1.420167ms)
+✔ one-cell edit changes exactly one line: alignment (0.124917ms)
+✔ one-cell edit changes exactly one line: no-outer-pipes (0.171125ms)
+✔ one-cell edit changes exactly one line: escaped-and-code (0.150958ms)
+✔ one-cell edit changes exactly one line: indented (0.06ms)
+✔ one-cell edit changes exactly one line: crlf (0.060792ms)
+✔ one-cell edit changes exactly one line: wider-than-padding (0.065875ms)
+✔ every single-cell edit reparses and changes at most one line: compact-book (0.564ms)
+✔ every single-cell edit reparses and changes at most one line: padded (0.158125ms)
+✔ every single-cell edit reparses and changes at most one line: no-spaces (0.106208ms)
+✔ every single-cell edit reparses and changes at most one line: alignment (0.192625ms)
+✔ every single-cell edit reparses and changes at most one line: no-outer-pipes (0.128291ms)
+✔ every single-cell edit reparses and changes at most one line: escaped-and-code (0.258042ms)
+✔ every single-cell edit reparses and changes at most one line: indented (0.093917ms)
+✔ every single-cell edit reparses and changes at most one line: crlf (0.168917ms)
+✔ every single-cell edit reparses and changes at most one line: wider-than-padding (0.095167ms)
+✔ accepts a valid registered message (0.935333ms)
+✔ rejects missing or non-integer ids and oversize documentId (0.27275ms)
+✔ rejects non-objects, unregistered and prototype-key types (0.134ms)
+✔ rejects a message the validator refuses (0.728375ms)
+✔ the shipped registry rejects an unregistered type (0.184959ms)
+✔ previewCopyText accepts text up to 1 MB and rejects anything else (0.1855ms)
+✔ field helpers respect their boundaries (0.133125ms)
+✔ previewViewPreferenceChanged validates the value per preference (0.231541ms)
+✔ previewHistoryGo accepts only back or forward (0.138666ms)
+✔ frontmatter link tooltips wrap text in a fixed theme-aware pointer-transparent surface (3.567291ms)
+✔ typography is driven by VS Code markdown preview variables (0.18075ms)
+✔ shared borders resolve against the body palette rather than inherited host root colors (0.316208ms)
+✔ scrollbar tracks and thumbs follow the preview theme (0.308583ms)
+✔ linked file details are muted, italic, and clipped to the available line (0.338959ms)
+✔ list insertion lines show the drop boundary without moving the rows (0.324917ms)
+✔ the top heading keeps the stock preview rule underneath it (0.172125ms)
+✔ sticky headings align with content and emphasize text in a full-width band (0.883375ms)
+✔ sticky headings start at the viewport top without filler and leave horizontal room for controls (0.205334ms)
+✔ preview controls stack above the sticky heading band (0.236583ms)
+✔ the theme neutralises Shibuya page gutters (0.324667ms)
+✔ description header controls align right and restore only when collapsed (0.39325ms)
+✔ properties tables fill the preview content column (0.175292ms)
+✔ narrow properties wrap long paths without hiding expanded descriptions (0.3985ms)
+✔ every admonition flavour gets an accent colour (0.6675ms)
+✔ block editing grows without internal scrolling and is framed (0.156334ms)
+✔ edit mode outlines the hovered block without moving the layout (0.065875ms)
+✔ raw Markdown and YAML editors use the editor font, text fields keep the preview font (0.130875ms)
+✔ the table cell editor shares the block editor textarea rule and grows with its content (6.289333ms)
+✔ the table toolbar status is not pushed up by the paragraph margin (0.064042ms)
+✔ the block editor status and its buttons share one wrapping row (0.069292ms)
+✔ the block editor status is not pushed up by the paragraph margin (0.056375ms)
+✔ the block editor status uses compact text (0.047958ms)
+✔ active paragraph editors share the rendered paragraph spacing (0.066583ms)
+✔ Sphinx version admonitions use success, warning, and danger accents (0.112708ms)
+✔ MyST simple and no-icon admonition modifiers are styled (0.091792ms)
+✔ MyST table alignment and notebook output placeholders are styled (0.143625ms)
+✔ MyST numbered and emphasized code lines are styled (0.098125ms)
+✔ diff lines use full-width theme-aware add and delete treatments (0.311209ms)
+✔ Mermaid diagrams keep SVG images contained and source inspectable (0.092666ms)
+✔ figure captions are centred and de-emphasised (0.063584ms)
+✔ images never overflow the preview column (0.047167ms)
+✔ floating preview toolbar supports forced dark and white palettes (0.163333ms)
+✔ preview toolbar provides refresh, editor anchoring, edit mode and theme controls (0.270666ms)
+✔ control tooltips retain their offset while sticky headings remain at the top (0.168083ms)
+✔ white mode keeps code backgrounds soft and code text readable blue (0.179792ms)
+✔ fenced code uses the editor foreground and one font scale (0.096084ms)
+✔ frontmatter properties label is inset, table-matched, and unboxed (0.116792ms)
+✔ frontmatter edit hover colors follow the selected preview theme (0.339959ms)
+✔ frontmatter edits stay inline while edit mode preserves source newlines (1.2145ms)
+✔ active toolbar toggles do not show a redundant focus ring (0.114125ms)
+✔ frontmatter and table editors keep the active cell surface without nested input frames (0.1815ms)
+✔ preview content width is configurable and can be unlimited (0.0605ms)
+✔ table toolbar sits in the document flow above the table with labelled buttons (0.18225ms)
+✔ overflowing content tables keep short cells whole and show scroll shadows (0.132417ms)
+✔ frontmatter field actions sit in the editing row with labels and no pseudo-tooltips (0.259625ms)
+✔ the issue badge is a plain button and a clicked badge highlights its row (0.158583ms)
+✔ T28: insertion points are zero-height, hover-revealed gutter buttons (0.167125ms)
+✔ first-element gap: 40px on the first child, clearance only on the first editor and the Start writing button (0.135209ms)
+✔ status titles and messages are block-level only on status pages and non-pending banners (0.123084ms)
+✔ T43: the pending overlay is fixed, pointer-transparent and never in flow (0.068584ms)
+✔ T08: zoom scales the content font size and the column width together (0.059125ms)
+✔ T10: full width lifts the column limit and auto lets flagged elements break out (0.084042ms)
+✔ the TOC column is hidden by default, reserves 256px when open and hides on narrow panes (0.1535ms)
+✔ T15: an open comment is an admonition-like box and showComments off hides the gray chips only (0.143125ms)
+✔ T16: a changed block gets an inset green bar without layout shift (0.103875ms)
+✔ latest saved Description visibility wins over an older enrichment snapshot (14.422709ms)
+✔ Description column toggles persist and restore both states (8.5785ms)
+✔ narrow previews default to collapsed descriptions without overriding an explicit choice (5.326209ms)
+✔ does not shift sticky headings down when the floating toolbar grows (2.768583ms)
+✔ anchors source scrolling below a top-aligned sticky band without a toolbar row (2.914584ms)
+✔ the top-aligned sticky band grows and shrinks with the active heading hierarchy (11.508166ms)
+✔ sticks to the active Markdown heading hierarchy in up to three lines (0.688541ms)
+✔ the sticky band label leaves out comment chips and their hidden bodies (0.568291ms)
+✔ caps sticky heading convergence at three passes (0.537041ms)
+✔ maps the frontmatter table for stable top and mid-table scroll round-trips (0.756ms)
+✔ preserves preview scroll when layout changes during sticky heading activation (2.944125ms)
+✔ uses the configured sticky heading depth (1.267792ms)
+✔ anchors the editor source line below the sticky heading band without reverse sync (0.448542ms)
+✔ source anchoring does not reserve a row for floating controls (0.430041ms)
+✔ runtime script cannot terminate its containing script element (0.215708ms)
+✔ observes preview content instead of the document body (0.379667ms)
+✔ cycles preview theme modes and restores the saved selection (3.41025ms)
+✔ frontmatter tooltips preserve exact safe text and restore accessible metadata on dismissal (7.606416ms)
+✔ an invalid link span shows its full message in a tooltip on keyboard focus (0.433459ms)
+✔ a pending link never opens a tooltip (0.439334ms)
+✔ the badge click scrolls to and focuses the first issue row and highlights it briefly (0.60975ms)
+✔ switching frontmatter tooltip links removes the old tooltip and absent ARIA metadata (0.445292ms)
+✔ refresh preserves viewport state while reverse synchronization stays disabled (0.522542ms)
+✔ disabling editor anchoring stops preview-to-editor scrolling (3.226125ms)
+✔ preview can revisit its last reported line after the source editor scrolls elsewhere (0.589833ms)
+✔ source scrolling remains bidirectional while a block editor is open (1.140125ms)
+✔ refreshes source anchor geometry after a block editor changes document flow (1.00425ms)
+✔ restores saved editor anchoring when the configured preference changed (4.8485ms)
+✔ activating a centered block editor preserves scroll before and after layout stabilization (0.735209ms)
+✔ fenced Markdown editors sit outside the rendered pre and preserve source when saving (0.765541ms)
+✔ without caretRangeFromPoint a click opens the editor with the caret at the end of the block (0.523417ms)
+✔ active Markdown editors leave repeated spaces and Enter to native text input (0.696292ms)
+✔ Enter in a list item continues the list, and Shift+Enter stays native (0.682417ms)
+✔ Tab and Shift+Tab indent the block editor without closing it (0.649625ms)
+✔ Enter on an empty list item empties the line and Enter in plain text stays native (0.532166ms)
+✔ block textareas resize on input and preview layout changes (0.57675ms)
+✔ edit mode loads raw Markdown and saves changes when the block loses focus (0.545875ms)
+✔ edit mode hover marks the whole list that a click would edit (1.001417ms)
+✔ an opened block editor shows its line range, Done and Cancel on one row (0.542208ms)
+✔ the status line shares one row with the Done and Cancel buttons (0.487541ms)
+✔ Cancel cancels only what reached the document (0.898666ms)
+✔ Done posts a final save and both buttons keep the textarea focused on press (0.472417ms)
+✔ raw Markdown block edits autosave on input without disabling the textarea (0.467542ms)
+✔ arrow boundaries transfer block editing in every direction (2.066084ms)
+✔ table cell editing exposes row and column operations and saves the edited table (1.285ms)
+✔ table toolbar sits in the flow above the table with text labels and a position status (0.711084ms)
+✔ a toolbar that appears above the reading offset is scrolled into view by the exact delta (1.269667ms)
+✔ a toolbar that is already visible causes no extra scroll (0.513542ms)
+✔ the toolbar is not revealed when that would push the selected cell out of the viewport (0.492875ms)
+✔ a later layout change that pushes the toolbar above the reading offset is revealed again (0.698167ms)
+✔ table editing switches cells without losing changes and finalizes before leaving the table (1.025166ms)
+✔ Tab and Shift+Tab move between table cells, wrapping across rows (0.791959ms)
+✔ Shift+Tab on the first header cell does nothing (0.532083ms)
+✔ arrow keys move the table cell editor cell to cell in every direction (0.715292ms)
+✔ table cell arrows behave natively with a selection, modifiers, IME or a caret inside a multi-line cell (0.55525ms)
+✔ table cell arrows fall back to block navigation only when no cell lies in that direction (0.730792ms)
+✔ a table cell arrow without a matching model cell is not swallowed (0.508708ms)
+✔ the table cell field is re-fitted when the preview is resized (0.502625ms)
+✔ the table cell editor has Done and Cancel but no status hint (0.599916ms)
+✔ Cancel in the table cell editor does what Escape does (2.821083ms)
+✔ Home and End move the caret inside the block textarea instead of scrolling the preview (0.638417ms)
+✔ Home and End move the caret inside the table cell input instead of scrolling the table (0.5475ms)
+✔ Tab on the last cell inserts a row and resumes in its first cell (0.596917ms)
+✔ the table cell editor commits on blur unless a pointer press is in progress (0.533959ms)
+✔ the table cell editor commits and closes when focus leaves without a click (0.503625ms)
+✔ Escape cancels a table cell even when focus is outside the cell editor (0.527209ms)
+✔ Escape in a changed Markdown block editor cancels and never saves a final text (0.469584ms)
+✔ Escape after an autosave restores the block with previewEditCancel (0.476791ms)
+✔ Escape during IME composition neither cancels nor saves a block edit (0.444541ms)
+✔ Cmd+Enter and Ctrl+Enter finish the block editor like Done (0.900833ms)
+✔ undo and redo shortcuts stop at the block textarea and keep the native undo (0.482083ms)
+✔ Escape in an unchanged Markdown block editor closes it without a message (0.436333ms)
+✔ Escape in a changed table cell cancels and never saves a final table (0.535459ms)
+✔ Escape during IME composition neither cancels nor saves a table cell (0.524541ms)
+✔ Escape in a table cell after an autosave restores the table with previewEditCancel (0.561875ms)
+✔ Enter in a changed table cell saves the table (0.532625ms)
+✔ turning edit mode off saves a changed block editor and ignores an unchanged one (0.875875ms)
+✔ table header cannot be deleted from the cell toolbar (0.509833ms)
+✔ table toolbar cannot delete the last body row (0.499208ms)
+✔ edit mode opens mapped figures and admonition titles at their source ranges (0.822125ms)
+✔ frontmatter name cells open a schema-suggesting key editor and save on blur (0.815583ms)
+✔ Escape cancels an unsaved frontmatter key edit (0.513334ms)
+✔ edit mode exposes schema enum controls and saves the selected value (0.868875ms)
+✔ boolean frontmatter values use a checkbox and save on change (0.492042ms)
+✔ one click on a boolean value cell toggles and saves it (0.487166ms)
+✔ one click on a true boolean value cell saves false (0.470167ms)
+✔ clicking a boolean name cell still opens the key editor and reading mode does nothing (0.492042ms)
+✔ frontmatter list editor supports add, reorder, remove, and direct array saves (0.713125ms)
+✔ list dragging shows the insertion boundary, reorders items, and suppresses drag blur saves (0.729042ms)
+✔ nullable list editor can set its value as null (0.490333ms)
+✔ nullable scalar editor can set its value to null (0.476875ms)
+✔ frontmatter list editor adds from empty and saves after removing every item (0.974583ms)
+✔ frontmatter list editor keeps invalid edits open and Escape cancels them (4.660875ms)
+✔ frontmatter validation errors show an explicit error state (0.834625ms)
+✔ frontmatter field actions render inside the edited row (5.742291ms)
+✔ frontmatter blur toward the field actions does not save (1.517667ms)
+✔ frontmatter text values open a one-row textarea (0.463ms)
+✔ frontmatter field toolbar adds and removes fields (0.992875ms)
+✔ empty enum values show an explicit placeholder (0.427334ms)
+✔ schema-free frontmatter values use a generic YAML editor (0.528709ms)
+✔ text frontmatter values use a wrapping textarea that grows with its content (0.473709ms)
+✔ Enter saves a one-line frontmatter text field and Shift+Enter does not (0.511708ms)
+✔ Enter in a multi-line frontmatter text value inserts a line; Cmd/Ctrl+Enter saves (0.4205ms)
+✔ saving a frontmatter text field strips trailing line breaks unless the original had one (0.801875ms)
+✔ Enter in the YAML frontmatter editor inserts a line; Cmd/Ctrl+Enter saves (0.467208ms)
+✔ Escape cancels an unsaved frontmatter value edit (0.442333ms)
+✔ frontmatter cells open their field editor with the keyboard in edit mode (0.400958ms)
+✔ executes source and preview synchronization across layout changes (3.616459ms)
+✔ marks editor selection without moving the preview when following is disabled (2.835708ms)
+▶ source scrolling rejects stale identities and invalid line numbers
+  ✔ other document (0.475875ms)
+  ✔ old document version (0.36975ms)
+  ✔ old render request (0.350791ms)
+  ✔ zero line (0.330792ms)
+  ✔ non-finite line (0.331666ms)
+✔ source scrolling rejects stale identities and invalid line numbers (2.103375ms)
+✔ scrolls to host-approved anchors and ignores invalid or stale requests (0.464917ms)
+✔ clicking a checkbox posts a source toggle instead of revealing the block (0.468125ms)
+✔ a rejected checkbox toggle reverts the box and explains why (0.387208ms)
+✔ in edit mode a checkbox click toggles the box without opening a block editor (0.411583ms)
+✔ a checkbox click is refused while a block editor is open (0.424083ms)
+✔ checkboxes are disabled when the preview cannot edit the document (0.355625ms)
+✔ typing is saved once after the autosave delay, carrying the last text (0.462125ms)
+✔ pagehide flushes a pending autosave without waiting for the timer (0.416459ms)
+✔ visibilitychange to hidden flushes a pending autosave without waiting for the timer (0.40675ms)
+✔ hide events post nothing when no edit is pending or the page stays visible (0.397ms)
+✔ blur after typing posts one final save and clears the autosave timer (0.400875ms)
+✔ switching table cells posts the pending change immediately (0.682583ms)
+✔ markWideTables marks short cells and the overflow of a wide table, never the properties table (0.521292ms)
+✔ markWideTables sets the overflow attribute only past a one pixel tolerance and is idempotent (0.49575ms)
+✔ T21: in edit mode a plain click on an okf link opens the field editor and does not navigate (0.492125ms)
+✔ T21: Cmd or Ctrl click on an okf link in edit mode still navigates (0.744042ms)
+✔ T21: in reading mode a click on an okf link navigates (0.355167ms)
+✔ T21: Enter in a list item inserts an empty item after it, focuses it, and does not save (0.604917ms)
+✔ T21: Enter in an empty last list item removes it and saves the list (0.484833ms)
+✔ T21: Backspace in an empty middle list item removes it and focuses the previous input (0.484458ms)
+✔ T21: Backspace in an empty first item focuses the next input, and in the only item the add button (0.486833ms)
+✔ T21: Backspace in a non-empty list item is left to the browser (0.427208ms)
+✔ T21: Cmd or Ctrl+Enter in a list item saves the list (1.119917ms)
+✔ T21: Enter while composing or with Shift does not touch the list (0.46ms)
+✔ T22: list inputs get the datalist of link suggestions, new items included (0.453584ms)
+✔ T22: without or with an invalid suggestions attribute the inputs have no list (1.5765ms)
+✔ T22: an unknown value warns, a known or empty value clears the warning (0.50925ms)
+✔ T22: saving a list with an unknown value still posts the save (0.419708ms)
+✔ T24: Remove field is disabled with a tooltip on a required row (0.423541ms)
+✔ T24: Remove field stays enabled on an optional row (0.402625ms)
+✔ T24: choosing a field in the picker adds it right after the open row (0.466041ms)
+✔ T24: the text-input picker adds on Enter with afterField (0.455ms)
+✔ T25: the picker offers Custom key only when additional properties are allowed (0.99975ms)
+✔ T25: choosing Custom key shows the name input and posts nothing (0.4255ms)
+✔ T25: Enter in the custom key input adds the field with an empty value (0.492166ms)
+✔ T25: an invalid custom key shows an error and posts nothing (2.390958ms)
+✔ T25: a pending frontmatter edit opens the editor of the new field and clears the state once it closes (0.440459ms)
+✔ T25: a pending frontmatter edit outside edit mode or for a missing row is dropped (0.713458ms)
+✔ T25: an error result clears the pending frontmatter edit (3.446ms)
+✔ T25: a reload of the render that posted the add keeps the pending edit for the next render (0.468417ms)
+✔ T25: saving a value from the pending edit's editor consumes the pending edit (0.457083ms)
+✔ T25: a later render does not reopen an editor that was already opened for the pending edit (3.392208ms)
+✔ T28: edit mode adds one insertion point after each top-level block, reading mode none (0.609375ms)
+✔ T28: a render that starts in edit mode builds the insertion points at init (0.447417ms)
+✔ T28: the properties section gets an insertion point after line 0 (0.438458ms)
+✔ T28: an empty body shows a single Start writing point after line 0 (0.6825ms)
+✔ T28: a frontmatter-only document gets one Start writing point (0.411834ms)
+✔ T28: a failed render offers no Start writing point (0.339334ms)
+✔ T28: clicking a point posts previewEditOpen with insertAfterLine (0.4205ms)
+✔ T28: Start writing opens at line 1 with insertAfterLine 0 (0.370209ms)
+✔ T28: document-level click and keydown on an insertion point never open a block editor (0.421416ms)
+✔ T28: an empty source reply opens an empty textarea with a placeholder; Done saves the insertion (0.482334ms)
+✔ T28: Done on an untouched empty insertion closes without saving (0.43375ms)
+✔ T28: autosave and Cancel carry insertAfterLine (0.436583ms)
+✔ T28: ordinary block edits never carry insertAfterLine (0.440584ms)
+✔ a final block save carries the edited element's pin; an autosave does not (0.507417ms)
+✔ restoreState puts the pinned block's top at the pinned viewport position (12.712375ms)
+✔ previewReady reports the pinned anchor only when the load restored a pin (0.7545ms)
+✔ T38: an unpaired preview disables the anchor button and a previewPairing message re-enables it (2.526917ms)
+✔ T38: a paired preview keeps the anchor button enabled, and a foreign previewPairing is ignored (0.398417ms)
+✔ T38: edit mode starts from the workspace choice unless the webview has saved state (3.320542ms)
+✔ T38: a read-only preview never starts in edit mode (0.354417ms)
+✔ T38: toggling edit mode posts previewEditModeChanged (0.383792ms)
+✔ T41: a new custom key opens a one-line text editor, not the YAML editor (0.483083ms)
+✔ T41: Enter saves a new custom key as plain text and Shift+Enter adds a line (0.509709ms)
+✔ T41: an existing field's save does not ask for a plain scalar (0.427208ms)
+✔ T41: Escape on the field picker cancels the open frontmatter edit (0.462333ms)
+✔ T41: Escape outside the properties section does not touch an open frontmatter edit (0.423833ms)
+✔ T43: the pending overlay message creates one overlay, outside the content (0.423916ms)
+✔ T43: a second pending overlay message updates the overlay instead of duplicating it (0.37675ms)
+✔ T43: visible false removes the pending overlay (0.361041ms)
+✔ T43: invalid or foreign pending overlay messages are ignored (0.390875ms)
+✔ T30: previewPropertiesTable replaces the properties section in place (0.45425ms)
+✔ T30: previewPropertiesTable inserts the section when it is absent and removes it on empty markup (0.409167ms)
+✔ T30: previewPropertiesTable is ignored for another request, version, document or a non-string markup (0.35225ms)
+✔ T30: previewPropertiesTable is deferred while a frontmatter editor is open, then applied on close (0.468459ms)
+✔ T30: a replaced section gets edit-cell tabindex in edit mode and none outside it (0.445542ms)
+✔ T30: a replacement closes the link tooltip, re-measures and keeps the description state (0.676667ms)
+✔ T33: the startup sequence of effects and messages is stable (3.301542ms)
+✔ T34: a content patch replaces the content, moves the identifiers and posts previewReady (0.601375ms)
+✔ STAB-02: previewReady reports that no block editor is open on a fresh page (0.364166ms)
+✔ STAB-02: a patch that closes an open block editor reports blockEditOpen false (0.514042ms)
+✔ T34: after a patch the page answers to the new identifiers only (0.525791ms)
+✔ T34: a patch with stale or malformed fields is ignored (12.366875ms)
+✔ T34: an open block editor is closed without a cancel or a save (0.591208ms)
+✔ T34: an open frontmatter editor is closed and a deferred properties update is dropped (0.587125ms)
+✔ T34: the patch removes the pending overlay and the link tooltip (0.480208ms)
+✔ T34: the patch rebuilds the status region from plain text (0.535167ms)
+✔ T34: a page loaded without a status region gets one as the first child of the body (0.403542ms)
+✔ T34: open disclosures of the old content are open again in the new content (0.544625ms)
+✔ T34: a patch with an anchor or a pin positions the page like a loaded page (4.123875ms)
+✔ T34: a patch keeps the scroll position when the host sends no anchor (0.432666ms)
+✔ T34: a pending checkbox toggle of the old content cannot revert the new content (0.476084ms)
+✔ T34: links of the new content keep known target hints and discover new targets (0.608333ms)
+✔ T34: edit mode rebuilds the insertion points for the new content (0.467042ms)
+✔ T34: pending block navigation resumes after a content patch (0.659375ms)
+✔ T34: patches sent before the page acknowledged the previous one apply in order (0.509042ms)
+✔ T34: when a patch of a chain is rejected, the later ones are ignored and nothing is acknowledged (0.360458ms)
+✔ ArrowUp/ArrowDown inside a wrapped logical line move the caret instead of leaving the block (0.500541ms)
+✔ ArrowUp/ArrowDown leave the block only on the first/last visual line (0.455666ms)
+✔ a table cell arrow inside a wrapped cell does not move to another cell (0.580125ms)
+✔ typing * or _ on a selection wraps it, keeps it selected and wraps again on a second press (1.753167ms)
+✔ marker wrapping falls back to a direct edit and autosaves when execCommand is unavailable (0.46375ms)
+✔ marker keys stay native without a selection, with modifiers or during IME composition (0.424708ms)
+✔ a table cell wraps its selection with the marker too (0.507541ms)
+✔ Enter continuation and Tab indentation use the undo-preserving execCommand path (0.495458ms)
+✔ undo and redo keys stop at the table cell editor and reach no window listener (0.516625ms)
+✔ AltGr (ctrlKey and altKey with AltGraph) still wraps the selection, plain Ctrl+Alt does not (0.455ms)
+✔ top spacing: the editor of the first block of the document carries the first-block class (0.42925ms)
+✔ top spacing: the editor of a later block does not carry the first-block class (0.419458ms)
+✔ top spacing: an insertion editor below another block is not the first-block editor (0.441917ms)
+✔ top spacing: the first body block below a properties table is not the first-block editor (0.443834ms)
+✔ top spacing: Start writing of an empty document carries the first class, below properties not (0.689333ms)
+✔ top spacing: the editor opened from Start writing carries the first-block class (0.381875ms)
+✔ empty document: Enter in edit mode opens the new-block editor like Start writing (0.389917ms)
+✔ empty document: Enter with a modifier, in a field, outside edit mode or on a filled document does nothing (3.723708ms)
+✔ empty document: Cmd/Ctrl+Enter saves the new block and Escape cancels back to Start writing (0.848958ms)
+✔ ArrowUp from the first body block under a properties table keeps the editor open (0.495625ms)
+✔ T08: zoom buttons set the zoom variable, post the preference and keep the state (0.463625ms)
+✔ T08: the zoom limits disable the buttons and post nothing more (5.706084ms)
+✔ T08: saved webview state wins over the initial context (2.989666ms)
+✔ T10: the width button cycles margin, auto, full width and posts widthMode (0.573459ms)
+✔ T10: only elements wider than the column are flagged, and only in Auto (0.492083ms)
+✔ T10: the saved width mode applies at startup and an edited element keeps the column (2.743583ms)
+✔ T11: Back and Next post previewHistoryGo and follow previewHistoryState (0.447917ms)
+✔ T15: previewShowComments sets the show-comments attribute of the page, stale ids are ignored (0.405041ms)
+✔ T16: previewIncomingChanges marks blocks and reports enabled, stale ids are ignored (0.441833ms)
+✔ T17: the Diff button flips the marks, posts the preference and keeps the state (0.456625ms)
+✔ T17: the initial preference and the saved webview state decide the pressed state (3.073709ms)
+✔ T17: the Diff button is hidden through the document attribute when the setting is off (0.540375ms)
+✔ T11: a previewHistoryState of another document version is ignored (7.749709ms)
+✔ T13: a state snapshot keeps the TOC visibility and the folded sections (6.547792ms)
+✔ continueOnEnter "- a|" (1.656708ms)
+✔ continueOnEnter "      - Dry goods|" (0.202917ms)
+✔ continueOnEnter "1. a|" (0.054542ms)
+✔ continueOnEnter "9) a|" (0.0475ms)
+✔ continueOnEnter "* a|" (0.045583ms)
+✔ continueOnEnter "+ a|" (0.035375ms)
+✔ continueOnEnter "- [x] done|" (0.035209ms)
+✔ continueOnEnter "- [ ] todo|" (0.874917ms)
+✔ continueOnEnter "> quote|" (0.115917ms)
+✔ continueOnEnter "> - item|" (0.195417ms)
+✔ continueOnEnter "- |" (0.10225ms)
+✔ continueOnEnter "a\n  - |\nb" (0.06775ms)
+✔ continueOnEnter ">  |" (0.077875ms)
+✔ continueOnEnter "|- a" (0.043709ms)
+✔ continueOnEnter "-| a" (0.04125ms)
+✔ continueOnEnter "plain|" (0.106209ms)
+✔ continueOnEnter "    code|" (0.084458ms)
+✔ continueOnEnter "```\n- a|" (0.046083ms)
+✔ continueOnEnter "```\n  x|" (0.040583ms)
+✔ continueOnEnter "```\n- a\n```\n- b|" (0.043708ms)
+✔ continueOnEnter "- a|b" (0.035459ms)
+✔ continueOnEnter leaves non-collapsed selections to the native behaviour (0.054917ms)
+✔ indentSelection indent "- a|" (0.366666ms)
+✔ indentSelection indent "|- a" (0.058917ms)
+✔ indentSelection indent "1. a|" (0.048ms)
+✔ indentSelection indent "10. a|" (0.047125ms)
+✔ indentSelection indent "[- a\n- b]" (0.047209ms)
+✔ indentSelection indent "- a\n[- b\n]" (0.054708ms)
+✔ indentSelection outdent "    - a|" (0.080333ms)
+✔ indentSelection outdent "  - a|" (0.06825ms)
+✔ indentSelection outdent "- a|" (0.037416ms)
+✔ indentSelection outdent "plain|" (0.038292ms)
+✔ indentSelection outdent "    plain|" (0.037333ms)
+✔ indentSelection outdent "\tplain|" (0.056292ms)
+✔ indentSelection indent "some| prose" (0.050416ms)
+✔ indentSelection indent "[some prose]" (0.042416ms)
+✔ indentSelection indent "> - a|" (0.04ms)
+✔ indentSelection outdent "> - a|" (0.039916ms)
+✔ indentSelection outdent ">   - a|" (0.048584ms)
+✔ indentSelection indent "a\n  - b|\nc" (0.038166ms)
+✔ mapRenderedCaret three-line paragraph (0.564416ms)
+✔ mapRenderedCaret emphasis (0.062167ms)
+✔ mapRenderedCaret link label (0.057209ms)
+✔ mapRenderedCaret list (0.06775ms)
+✔ mapRenderedCaret heading (0.065416ms)
+✔ mapRenderedCaret only the last 12 characters before the click match (0.0495ms)
+✔ mapRenderedCaret fenced code with underscore (documents the current result) (0.074208ms)
+✔ mapRenderedCaret ambiguous (0.044917ms)
+✔ mapRenderedCaret no match (0.041458ms)
+✔ mapRenderedCaret empty context (0.04225ms)
+✔ wrapSelection wraps a non-empty selection with the marker and keeps it selected (0.688459ms)
+✔ wrapSelection ignores a caret, other keys and invalid ranges (0.068833ms)
+✔ the TOC is off by default and the page is marked closed (1.070167ms)
+✔ the workspace preference opens the TOC and the saved webview state wins (0.129416ms)
+✔ the entries list h1 to h4 with their level and without the permalink glyph (0.802541ms)
+✔ headings in properties, admonitions, block editors and the sticky band are left out (0.12475ms)
+✔ an empty document shows No headings (0.106708ms)
+✔ the TOC is rebuilt after the content is replaced, once per frame (0.169334ms)
+✔ clicking an entry scrolls to its heading and does not navigate (1.613875ms)
+✔ the toggle opens the TOC, posts the preference, remembers it and builds the entries (0.241708ms)
+✔ the column starts 8 px below the toolbar (0.081375ms)
+✔ only parent entries get a twisty with aria-expanded (0.210625ms)
+✔ collapsing a parent hides its descendants, and a rebuild keeps it collapsed (0.262875ms)
+✔ collapsing a middle parent hides only its own subtree (0.115916ms)
+✔ the current entry follows the reading line and is marked aria-current (0.142917ms)
+✔ a collapsed parent carries the highlight of a hidden current section (0.120583ms)
+✔ the scroll tracking reads no layout: tops are cached until remeasure (0.175625ms)
+✔ the TOC scrolls itself, not the page, to keep the current entry visible (0.102625ms)
+✔ a click right after a content patch scrolls to the live heading (0.131292ms)
+✔ a repeated heading text is told apart by its occurrence (0.084542ms)
+✔ a heading revealed at the reading line becomes current despite a fractional top (0.108334ms)
+✔ a comment chip and its hidden body stay out of the entry label, a TODO word chip stays in (0.12225ms)
+ℹ tests 952
+ℹ suites 0
+ℹ pass 952
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1966.727333
+
+> markdown-okf-schema-studio@0.3.1 test:contracts
+> mkdir -p out/reports/contract && node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=out/reports/contract/tests-contract.xml out/test/rendering/*.contract.js
+
+✔ real Sphinx HTML preserves the active-file MyST feature contract (467.394625ms)
+✔ missing active-file input returns a source diagnostic (279.804583ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 787.983583
+
+> markdown-okf-schema-studio@0.3.1 test:security
+> mkdir -p out/reports/security && node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=out/reports/security/tests-security.xml out/test/security/*.test.js
+
+✔ rewrites local resources and removes active HTML content (5.175834ms)
+✔ reduced previews remove external scripts while retaining contained media (0.765917ms)
+✔ maps rendered source lines to the active preview document (0.439458ms)
+✔ keeps the included-block marker next to the source mapping (0.177625ms)
+✔ rewrites sanitized table styles into a nonce-bearing stylesheet (1.008292ms)
+✔ blocks hostile CSS imports, schemes, and URLs while preserving local assets (0.355042ms)
+✔ generates a restrictive nonce-bearing CSP (0.089209ms)
+✔ adds the CSP as a head meta without retaining a weaker policy (0.164709ms)
+✔ removes refresh metadata with surrounding whitespace (0.146417ms)
+✔ keeps deferred relative navigation inert and host-routable (0.217292ms)
+✔ resolves parent-relative figure images through the workspace root (0.873ms)
+✔ strips figure images that escape even the workspace root (0.528917ms)
+✔ extension icon is a 256 pixel PNG and the Sphinx favicon matches the shared logo (1.805083ms)
+✔ contributes only opt-in Markdown OKF-Schema Studio commands (1.157166ms)
+✔ pins Node 24 and keeps the lockfile on the official npm registry (2.954875ms)
+✔ every contributed setting is explained with a markdownDescription and a unique order (0.204542ms)
+✔ canonicalizes local resources and rejects hostile paths (2.89875ms)
+✔ allows only explicit navigation schemes (1.818958ms)
+✔ rewrites srcset candidates without allowing data or script URLs (0.170041ms)
+✔ resolves parent-relative figure references through an ancestor root (0.81775ms)
+✔ still blocks references escaping the workspace root (0.497833ms)
+✔ the literal scanner skips comments and finds strings in templates (0.662709ms)
+✔ no user-facing string literal mentions Sphinx (11.429833ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 58.443959
+
+> markdown-okf-schema-studio@0.3.1 test:visual
+> npm run visual:render && uv run --no-sync --group docs python test/visual/capture.py
+
+
+> markdown-okf-schema-studio@0.3.1 visual:render
+> npm run compile && npm run bundle && node out/test/visual/renderFixtures.js
+
+
+> markdown-okf-schema-studio@0.3.1 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.3.1 bundle
+> node esbuild.mjs
+
+
+  out/bundle/extension.js      1.7mb ⚠️
+  out/bundle/extension.js.map  5.7mb
+
+⚡ Done in 122ms
+
+  out/bundle/mermaidPreview.js  5.0mb ⚠️
+
+⚡ Done in 287ms
+rendered 59 pages, 154 scenarios
+  placeholder: 03-unresolved-constructs:30 Directive {animation} is not available outside a full build.
+  placeholder: 03-unresolved-constructs:36 Directive {bibliography} is not available outside a full build.
+  placeholder: 03-unresolved-constructs:39 Directive {toctree} is not available outside a full build.
+warning: `VIRTUAL_ENV=/Users/az02065/Projects/Nestor/agentic-coding-white-paper/.venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+passed: handbook-narrow-top
+passed: handbook-narrow-table
+passed: handbook-dark-top
+passed: handbook-forced-cream
+passed: handbook-light-failures
+passed: handbook-dark-third
+passed: handbook-dark-bottom
+passed: handbook-light-top
+passed: handbook-forced-white
+passed: admonitions-narrow-full
+passed: admonitions-dark-full
+passed: admonitions-forced-cream-full
+passed: admonitions-dark-titled
+passed: admonitions-dark-nested
+passed: admonitions-light-full
+passed: chapter-dark-top
+passed: chapter-figure-dark
+passed: chapter-dark-quarter
+passed: chapter-dark-half
+passed: chapter-dark-three-quarters
+passed: chapter-light-top
+passed: chapter-dark-bottom
+passed: chapter-max-width-light-full
+passed: chapter-max-width-dark-full
+passed: first-element-gap-h1-460
+passed: first-element-gap-h1-900
+passed: nested-list-typing-dark
+passed: nested-list-typing-light
+passed: bare-urls-light-wide
+passed: first-element-gap-paragraph-460
+passed: first-element-gap-empty-460
+passed: first-element-gap-empty-900
+passed: first-element-gap-h2-460
+passed: first-element-gap-h2-900
+passed: first-element-gap-paragraph-900
+passed: first-element-gap-wide-margin-1600
+passed: first-element-gap-table-460
+passed: first-element-gap-table-900
+passed: first-element-gap-h3-460
+passed: first-element-gap-h3-900
+passed: first-element-gap-admonition-460
+passed: first-element-gap-admonition-900
+passed: first-element-gap-image-460
+passed: first-element-gap-image-900
+passed: width-modes-dark-900
+passed: width-modes-dark-1600
+passed: width-modes-cream-900
+passed: width-modes-cream-1600
+passed: toc-column-light-460
+passed: width-modes-light-900
+passed: width-modes-light-1600
+passed: toc-column-dark-1600
+passed: comment-chips-light-theme
+passed: toc-column-light-900
+passed: comment-chips-dark-cream
+passed: comment-chips-dark-theme
+passed: code-tables-forced-cream
+passed: unresolved-dark-full
+passed: unresolved-light-full
+passed: code-copy-button-cream
+passed: code-dark-table
+passed: code-dark-table-narrow
+passed: code-copy-button-dark
+passed: code-dark-top
+passed: syntax-narrow-python
+passed: code-light-table-narrow
+passed: code-copy-button-light
+passed: code-light-full
+passed: diff-dark-preview
+passed: syntax-dark-markdown
+passed: syntax-dark-rust
+passed: syntax-dark-python
+passed: inline-code-cream
+passed: syntax-light-rust
+passed: syntax-light-shell (alias of diff-light-preview)
+passed: diff-light-preview
+passed: inline-code-white
+passed: inline-code-narrow
+passed: inline-code-dark
+passed: context-tags-light-wide
+passed: inline-code-light
+passed: context-tags-dark-narrow
+passed: context-tags-dark-wide
+passed: plantuml-success-dark
+passed: context-tags-light-narrow
+passed: frontmatter-forced-cream
+passed: mermaid-map-dark
+passed: mermaid-map-fallback
+passed: mermaid-map-light
+passed: first-element-gap-properties-900
+passed: plantuml-success-light
+passed: plantuml-unconfigured
+passed: plantuml-executable-not-found
+passed: preview-toolbar-dark (alias of okf-schema-dark)
+passed: frontmatter-dark
+passed: first-element-gap-properties-460
+passed: frontmatter-light
+passed: okf-schema-missing-required-light
+passed: first-element-gap-properties-1600
+passed: frontmatter-forced-white
+passed: okf-schema-narrow (alias of frontmatter-scroll-feedback)
+passed: standalone-frontmatter-dark
+passed: okf-schema-dark
+passed: okf-schema-table
+passed: okf-schema-missing-required-dark
+passed: frontmatter-links-loaded
+passed: schema-validation-error-dark
+passed: schema-validation-error-narrow
+passed: schema-validation-error-light
+passed: edit-affordances-narrow
+passed: standalone-frontmatter-light
+passed: frontmatter-link-details-dark-460
+passed: frontmatter-links-loading
+passed: frontmatter-link-details-dark-900
+passed: frontmatter-link-details-white-460
+passed: frontmatter-link-details-white-900
+passed: preview-edit-activation-scroll-wide
+passed: edit-affordances-hover-and-open
+passed: edit-table-wide-end-dark
+passed: edit-insert-point-hover
+passed: diff-dark-edit
+passed: math-edit-offline-dark
+passed: preview-edit-activation-scroll-narrow
+passed: math-edit-offline-light-narrow
+passed: diff-light-edit
+passed: edit-paragraph-forced-cream
+passed: edit-table-wrapped-dark-460
+passed: edit-mode-dark (alias of edit-paragraph-dark)
+passed: edit-paragraph-dark
+passed: frontmatter-scroll-feedback-edit
+passed: edit-admonition-dark
+passed: edit-frontmatter-key-dark
+passed: edit-table-wrapped-dark-900
+passed: edit-table-cell-dark (alias of edit-table-wrapped-dark-900)
+passed: edit-frontmatter-value-dark
+passed: edit-table-wrapped-light-900
+passed: edit-table-wrapped-light-460
+passed: edit-frontmatter-list-dark
+passed: edit-frontmatter-list-light
+passed: edit-list-narrow
+passed: editor-keyboard-wrapped-narrow
+passed: edit-frontmatter-boolean-dark
+passed: edit-first-block-top-narrow
+passed: edit-first-block-top-wide
+passed: edit-insert-after-final-figure
+passed: edit-insert-after-final-image
+passed: edit-empty-document-start-writing
+passed: edit-empty-document-enter-opens-editor
+passed: preview-sticky-headings-2
+passed: preview-sticky-headings-1
+passed: preview-sticky-headings-natural-growth
+passed: preview-sticky-headings-3-light-narrow
+passed: preview-sticky-headings-3
+passed: frontmatter-scroll-feedback
+
+149 screenshots in /Users/az02065/Projects/DevTools/markdown-okf-schema-studio/out/reports/e2e/screenshots
+{"status": "passed", "scenario_count": 154, "screenshot_count": 149}
+=== level B exit 0
+=== level F
+
+> markdown-okf-schema-studio@0.3.1 test:integration
+> npm run compile && npm run bundle && node out/test/integration/run-tests.js
+
+
+> markdown-okf-schema-studio@0.3.1 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.3.1 bundle
+> node esbuild.mjs
+
+
+  out/bundle/extension.js      1.7mb ⚠️
+  out/bundle/extension.js.map  5.7mb
+
+⚡ Done in 107ms
+
+  out/bundle/mermaidPreview.js  5.0mb ⚠️
+
+⚡ Done in 262ms
+
+DevTools listening on ws://127.0.0.1:59859/devtools/browser/bc8ca5c0-4a50-4238-b787-97a21e694f28
+Warning: 'remote-debugging-port' is not in the list of known options, but still passed to Electron/Chromium.
+Warning: 'remote-debugging-address' is not in the list of known options, but still passed to Electron/Chromium.
+[90m[main 2026-10-16T08:40:34.682Z][0m [node-compile-cache] main: packaged cache inactive (status: disabled, configured: /Applications/Visual Studio Code.app/Contents/Resources/app/node-compile-cache/main, active: none)
+[90m[main 2026-10-16T08:40:34.697Z][0m StorageMainService: creating application shared storage
+[90m[main 2026-10-16T08:40:34.802Z][0m [shared storage] Creating shared storage database at ':memory:' (wasCreated: true)
+[90m[main 2026-10-16T08:40:34.802Z][0m [shared storage] Initializing fallback application storage (path: in-memory)
+[90m[main 2026-10-16T08:40:34.913Z][0m [shared storage] Fallback application storage initialized with 3 items
+[90m[main 2026-10-16T08:40:34.914Z][0m update#setState disabled
+[90m[main 2026-10-16T08:40:34.914Z][0m update#ctor - updates are disabled by the environment
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[AgentHost:renderer] Acquiring MessagePort to agent host...
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Loading development extension at /Users/az02065/Projects/DevTools/markdown-okf-schema-studio
+Extension 'github.copilot-chat' appears in product.json but enables LESS API proposals than the extension wants.
+package.json (LOSES): agentSessionsWorkspace
+agentsWindowConfiguration
+chatDebug
+chatHooks
+envIsConnectionMetered
+extensionsAny
+newSymbolNamesProvider
+interactive
+codeActionAI
+activeComment
+commentReveal
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+documentFiltersExclusive
+embeddings
+findTextInFiles
+findTextInFiles2
+languageModelToolSupportsModel
+findFiles2
+textSearchProvider
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+chatParticipantAdditions
+defaultChatParticipant
+contribSourceControlInputBoxMenu
+authLearnMore
+authIssuers
+testObserver
+aiTextSearchProvider
+chatParticipantPrivate
+chatProvider
+contribDebugCreateConfiguration
+chatReferenceDiagnostic
+textSearchProvider2
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelPricing
+inlineCompletionsAdditions
+chatStatusItem
+chatInputNotification
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+languageModelThinkingPart
+chatSessionsProvider
+devDeviceId
+contribEditorContentMenu
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+environmentPower
+terminalTitle
+toolInvocationApproveCombination
+chatSessionCustomizationProvider
+product.json (WINS): agentSessionsWorkspace
+agentsWindowConfiguration
+interactive
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+chatParticipantAdditions
+defaultChatParticipant
+embeddings
+chatProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+codeActionAI
+findTextInFiles
+findTextInFiles2
+textSearchProvider
+textSearchProvider2
+activeComment
+commentReveal
+contribSourceControlInputBoxMenu
+contribCommentEditorActionsMenu
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+extensionAffinity
+newSymbolNamesProvider
+findFiles2
+chatReferenceDiagnostic
+extensionsAny
+authLearnMore
+testObserver
+aiTextSearchProvider
+documentFiltersExclusive
+chatParticipantPrivate
+contribDebugCreateConfiguration
+inlineCompletionsAdditions
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelThinkingPart
+languageModelToolSupportsModel
+chatStatusItem
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+chatSessionsProvider
+chatSessionCustomizationProvider
+devDeviceId
+contribEditorContentMenu
+tokenInformation
+toolInvocationApproveCombination
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+chatHooks
+chatDebug
+envIsConnectionMetered
+environmentPower
+terminalTitle
+languageModelPricing
+chatInputNotification
+DELTA: authIssuers
+Proceeding with EXTRA proposals (authIssuers) because extension is in development mode. Still, this EXTENSION WILL BE BROKEN unless product.json is updated.
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Settings Sync: Account status changed from uninitialized to unavailable
+[90m[main 2026-10-16T08:40:36.249Z][0m AgentHostProcessManager: agent host started
+[AgentHost:renderer] MessagePort acquired, creating client...
+Started local extension host with pid 3678.
+[CloudSandboxApi] No 'github' session with scopes [read:user, user:email, repo, workflow]
+[91m[main 2026-10-16T08:40:36.697Z][0m [AgentHost:stderr] (node:3677) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `Code Helper --trace-deprecation ...` to show where the warning was created)
+
+[RemoteAgentHostProtocol] Sending initialize: address=local clientId=8280ee16-ddc0-4579-a906-aecf320f9f79 requestId=1
+[RemoteAgentHostProtocol] Initialized: address=local clientId=8280ee16-ddc0-4579-a906-aecf320f9f79 durationMs=1303
+[AgentHost:renderer] Protocol connection established; clientId=8280ee16-ddc0-4579-a906-aecf320f9f79
+(node:3678) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `Code Helper (Plugin) --trace-deprecation ...` to show where the warning was created)
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjU1OTUzZjItZjMzZi00ZDg0LWIwMWItMzUzYmE4MmVmYTkw" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjU1OTUzZjItZjMzZi00ZDg0LWIwMWItMzUzYmE4MmVmYTkw" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Unknown channel: agentHostClientByokLm
+Unknown channel: agentHostClientProxy
+Unknown channel: agentHostClientProxy
+Unknown channel: agentHostClientProxy
+[AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+PASS scroll E2E: solo-reading-anchored
+PASS scroll E2E: solo-reading-independent
+PASS scroll E2E: solo-editing-anchored
+PASS scroll E2E: solo-editing-independent
+locator.inputValue: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator('[data-sphinx-preview-block-editor] textarea')
+
+    at Object.run (/Users/az02065/Projects/DevTools/markdown-okf-schema-studio/out/test/integration/scroll-sync-suite.js:486:113)
+[90m[main 2026-10-16T08:41:33.011Z][0m Extension host with pid 3678 exited with code: 0, signal: unknown.
+Exit code:   1
+TestRunFailedError: Test run failed with code 1
+    at ChildProcess.onProcessClosed (/Users/az02065/Projects/DevTools/markdown-okf-schema-studio/node_modules/@vscode/test-electron/out/runTest.js:125:24)
+    at ChildProcess.emit (node:events:514:28)
+    at ChildProcess._handle.onexit (node:internal/child_process:324:12) {
+  code: 1,
+  signal: undefined
+}
+=== level F exit 1
+GATE EXIT 1

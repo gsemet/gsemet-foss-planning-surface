@@ -1,0 +1,108 @@
+waiting for the long gate of CR-300 pid 66652 pg66657
+$ just preflight
+rm -rf out .artifacts
+rm -rf .pytest_cache .vscode-test .uv_cache .playwright-cli node_modules/.cache
+find . -type d \( -name .git -o -name node_modules -o -name .venv \) -prune -o -type d -name __pycache__ -prune -exec rm -rf {} +
+just --unstable --fmt
+just --unstable --fmt
+fnm exec -- npm --registry=https://registry.npmjs.org/ run compile
+
+> markdown-okf-schema-studio@1.7.0 compile
+> tsc -p .
+
+/bin/sh: tsc: command not found
+error: recipe `compile` failed on line 119 with exit code 127
+ci-static: FAILED
+error: recipe `ci-static` failed with exit code 1
+
+> markdown-okf-schema-studio@1.7.0 test:visual
+> npm run visual:render && uv run --no-sync --group docs python test/visual/capture.py
+
+
+> markdown-okf-schema-studio@1.7.0 visual:render
+> npm run compile && npm run bundle && node --import ./scripts/register-myst-patches.mjs out/test/visual/renderFixtures.js
+
+
+> markdown-okf-schema-studio@1.7.0 compile
+> tsc -p .
+
+/bin/sh: tsc: command not found
+ci-visual: FAILED
+error: recipe `ci-visual` failed with exit code 1
+
+> markdown-okf-schema-studio@1.7.0 test:integration
+> npm run compile && npm run bundle && node out/test/integration/run-tests.js
+
+
+> markdown-okf-schema-studio@1.7.0 compile
+> tsc -p .
+
+/bin/sh: tsc: command not found
+ci-integration: FAILED
+error: recipe `ci-integration` failed with exit code 1
+
+> markdown-okf-schema-studio@1.7.0 compile
+> tsc -p .
+
+/bin/sh: tsc: command not found
+
+> markdown-okf-schema-studio@1.7.0 review:finish
+> node out/test/integration/review-index.js
+
+node:internal/modules/cjs/loader:1568
+  throw err;
+  ^
+
+Error: Cannot find module '/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-01-CR-301/out/test/integration/review-index.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1564:15)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)
+    at Module._load (node:internal/modules/cjs/loader:1341:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v24.22.3
+FAILED visual: visual manifest is missing (ci-visual did not run or its reports were not downloaded)
+FAILED integration: integration manifest is missing (ci-integration did not run or its reports were not downloaded)
+FAILED review-index: review.json is missing (review:finish did not run)
+ci-report: FAILED
+error: recipe `ci-report` failed with exit code 1
+mkdir -p out/reports/requirements
+uv run --no-sync --group requirements okfreq generate-report requirements --output-json out/reports/requirements/requirements-report.json --output-summary-md out/reports/requirements/requirements-report.md
+warning: `VIRTUAL_ENV=/Users/az02065/.cache/uv/environments-v2/chantier-1a8c9d862a8876e7` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+Generated: out/reports/requirements/requirements-report.json, out/reports/requirements/requirements-report.schema.json, out/reports/requirements/requirements-report.md
+uv run --no-sync --group requirements okfreq status requirements
+warning: `VIRTUAL_ENV=/Users/az02065/.cache/uv/environments-v2/chantier-1a8c9d862a8876e7` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+{
+  "requirements": 1116,
+  "lifecycle": {
+    "proposed": 519,
+    "approved": 16,
+    "deprecated": 61,
+    "superseded": 508,
+    "draft": 12
+  },
+  "errors": 0
+}
+
+> markdown-okf-schema-studio@1.7.0 site:gallery
+> npm run gallery:generate
+
+
+> markdown-okf-schema-studio@1.7.0 gallery:generate
+> npm run compile && node scripts/generate-gallery.mjs
+
+
+> markdown-okf-schema-studio@1.7.0 compile
+> tsc -p .
+
+/bin/sh: tsc: command not found
+ci-gallery: FAILED
+error: recipe `ci-gallery` failed with exit code 1
+5 preflight stage(s) failed
+error: recipe `preflight` failed with exit code 1

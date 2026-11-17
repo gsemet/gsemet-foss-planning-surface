@@ -1,0 +1,7 @@
+compile: PASS (exit 0, 2s) log=/Users/az02065/Projects/Nestor/agentic-coding-white-paper/.agents/changes/requests/deep-UX-analysis/fix-plan/logs/T38-compile.log
+unit: PASS (exit 0, 1s) log=/Users/az02065/Projects/Nestor/agentic-coding-white-paper/.agents/changes/requests/deep-UX-analysis/fix-plan/logs/T38-unit.log
+types: PASS (exit 0, 1s) log=/Users/az02065/Projects/Nestor/agentic-coding-white-paper/.agents/changes/requests/deep-UX-analysis/fix-plan/logs/T38-types.log
+contracts-compile: PASS (exit 0, 2s) log=/Users/az02065/Projects/Nestor/agentic-coding-white-paper/.agents/changes/requests/deep-UX-analysis/fix-plan/logs/T38-contracts-compile.log
+contracts: PASS (exit 0, 1s) log=/Users/az02065/Projects/Nestor/agentic-coding-white-paper/.agents/changes/requests/deep-UX-analysis/fix-plan/logs/T38-contracts.log
+full: FAIL (exit 1, 188s) log=/Users/az02065/Projects/Nestor/agentic-coding-white-paper/.agents/changes/requests/deep-UX-analysis/fix-plan/logs/T38-full.log
+exit 1

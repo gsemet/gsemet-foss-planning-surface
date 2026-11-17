@@ -1,0 +1,104 @@
+{
+  "name": "UX-07-08-affordances-and-font",
+  "file": "fixtures-visual/02-admonition-gallery.md",
+  "steps": [
+    {
+      "key": "Meta+1",
+      "wait": 500
+    },
+    {
+      "palette": "File: Revert File",
+      "wait": 1200
+    },
+    {
+      "open": "fixtures-visual/02-admonition-gallery.md",
+      "wait": 3000
+    },
+    {
+      "waitFor": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent && D.querySelector('#sphinx-myst-preview-content h1').textContent.includes('Admonition')",
+      "timeout": 20000,
+      "label": "preview shows admonition gallery"
+    },
+    {
+      "mark": true
+    },
+    {
+      "editMode": true
+    },
+    {
+      "clicksel": "p",
+      "text": "Admonitions can hold structure"
+    },
+    {
+      "waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')",
+      "label": "block editor open"
+    },
+    {
+      "eval": "JSON.stringify(D.querySelector('[data-sphinx-preview-block-editor] textarea').value.slice(0,40))"
+    },
+    {
+      "check": "feval",
+      "expr": "(D.querySelector('[data-sphinx-preview-block-editor] [data-sphinx-preview-edit-status]')||{}).textContent",
+      "label": "UX-07 status line text (truthy)"
+    },
+    {
+      "eval": "(D.querySelector('[data-sphinx-preview-block-editor] [data-sphinx-preview-edit-status]')||{}).textContent"
+    },
+    {
+      "check": "feval",
+      "expr": "[...D.querySelectorAll('[data-sphinx-preview-block-editor] button')].map(b=>b.textContent.trim()).join(',')",
+      "equals": "Done,Revert",
+      "label": "UX-07 Done and Revert buttons"
+    },
+    {
+      "eval": "(()=>{const t=D.querySelector('[data-sphinx-preview-block-editor] textarea');const cs=getComputedStyle(t);const fr=getComputedStyle(t.closest('[data-sphinx-preview-block-editor]'));return JSON.stringify({font:cs.fontFamily,tab:cs.tabSize,frameBorder:fr.borderTopWidth+' '+fr.borderTopStyle,frameBg:fr.backgroundColor,bodyFont:getComputedStyle(D.body).fontFamily.slice(0,60)})})()"
+    },
+    {
+      "check": "feval",
+      "expr": "/mono|menlo|courier|consolas|sf mono/i.test(getComputedStyle(D.querySelector('[data-sphinx-preview-block-editor] textarea')).fontFamily)",
+      "label": "UX-08 textarea uses a monospace editor font"
+    },
+    {
+      "shot": "UX-07-08-editor-open",
+      "clip": "preview"
+    },
+    {
+      "key": "Meta+ArrowDown"
+    },
+    {
+      "type": " QQQ",
+      "delay": 40
+    },
+    {
+      "wait": 800
+    },
+    {
+      "check": "diff",
+      "against": "mark",
+      "maxLines": 1,
+      "contains": "QQQ",
+      "label": "UX-07 typed text autosaved"
+    },
+    {
+      "clicksel": "button",
+      "text": "Revert",
+      "exact": true,
+      "wait": 1500
+    },
+    {
+      "check": "feval",
+      "expr": "!D.querySelector('[data-sphinx-preview-block-editor] textarea')",
+      "label": "UX-07 Revert closed the editor"
+    },
+    {
+      "check": "diff",
+      "against": "mark",
+      "equal": true,
+      "label": "UX-07 Revert restored the block"
+    },
+    {
+      "check": "errors",
+      "ignore": "401"
+    }
+  ]
+}

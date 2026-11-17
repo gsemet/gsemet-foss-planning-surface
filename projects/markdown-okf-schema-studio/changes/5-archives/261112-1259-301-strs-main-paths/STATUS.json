@@ -1,0 +1,160 @@
+{
+  "schema": 2,
+  "updated": "2026-11-12T20:41:47Z",
+  "cr": "CR-301",
+  "title": "Change Specification: every use case (StRS) states its main paths",
+  "batch": "batch-01",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 2,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/372.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/372",
+    "number": 372
+  },
+  "steps": [
+    {
+      "name": "Round 1",
+      "done": true,
+      "verdict": "",
+      "note": "Round 1: check script, its test, justfile wiring, project guideline section (spec sections 1 and 3)",
+      "at": "2026-11-12T11:10:03Z"
+    },
+    {
+      "name": "Round 2",
+      "done": true,
+      "verdict": "",
+      "note": "Round 2: Main paths written in the 80 active StRS by 4 parallel coders on disjoint scopes",
+      "at": "2026-11-12T11:14:08Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "040e40a1",
+      "at": "2026-11-12T11:50:19Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "040e40a1",
+      "at": "2026-11-12T12:07:42Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "040e40a1",
+      "at": "2026-11-12T12:24:48Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Gate: ci-static and ci-visual pass; ci-integration fails twice on the same real-window step (real-input, Warning type change timeout), a docs-only diff, so environmental. PR opened as draft.",
+      "at": "2026-11-12T12:25:22Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/372",
+      "at": "2026-11-12T12:25:22Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-12T12:41:04Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/372",
+      "at": "2026-11-12T12:59:33Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261112-130807.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../constitution.md",
+      "name": ".agents/constitution.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/git-commit-message.guidelines.md",
+      "name": ".agents/guidelines/git-commit-message.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../skills/okfreq/SKILL.md",
+      "name": ".agents/skills/okfreq/SKILL.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../AGENTS.md",
+      "name": "AGENTS.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/guidelines/project.guidelines.md",
+      "name": "requirements/guidelines/project.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/guidelines/requirements.guidelines.md",
+      "name": "requirements/guidelines/requirements.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/log.md",
+      "name": "requirements/tiers/log.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/strs/diagrams/StRS-MDOKFSTUDIO-DIAG-001.md",
+      "name": "requirements/tiers/strs/diagrams/StRS-MDOKFSTUDIO-DIAG-001.md"
+    }
+  ],
+  "branch": "chantier/batch-01/cr-301-change-specification-every-use-case-strs",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-01-CR-301",
+  "agent": null,
+  "notes": [
+    "Gate: ci-static and ci-visual pass; ci-integration fails twice on the same real-window step (real-input, Warning type change timeout), a docs-only diff, so environmental. PR opened as draft.",
+    "answer: owner says rebase PR #372 on main (BEHIND since #371 merged), then it is mergeable for them; restack CR-302 on top after the rebase",
+    "back to a Driver: rebase: owner order O-2 — rebase PR #372 on main (BEHIND since #371 merged); keep it ready, push with --force-with-lease, re-check CI, hand back ready. CR-302 will be restacked on top afterwards."
+  ],
+  "blocked": null,
+  "cost_usd": 5.043,
+  "final_cost": true,
+  "silent_minutes": null
+}

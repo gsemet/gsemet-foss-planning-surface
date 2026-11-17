@@ -1,0 +1,61 @@
+preview-edit-activation-scroll-narrow
+=====================================
+
+Fixture:  05-long-chapter.md
+Theme:    Light Modern
+Preview:  current
+Viewport: 460x900
+Scroll:   fraction (0.5) - final y=2212; scrolled to 50% of the scrollable height
+Status:   failed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: True; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested fraction (0.5) position.
+
+Captured state
+--------------
+The preview is scrolled to 2212 pixels. Edit mode is on.
+The visible Raw Markdown block contains: The tracker is the only component with a complete view of leg state, which
+makes it both the most useful and the most dangerous service to query.
+Visible content: northwind depot drain nw-07 --wait-for-quiet
+northwind depot status nw-07 --watch; Available bay-hours for a depot over a shift:; where bbb is bays, sss is shift length in hours, and mmm the maintenance
+minutes booked for that shi; ; Signal
+Source
+Retention
+Cardinality
+
+
+
+
+leg state changes
+tracker
+90 days
+high
+
+
+planner decisions
+p; Caution; Planner decision logs are sampled at one percent in regions with more than
+ten depots. Any query tha
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+Opening a centered paragraph editor in a narrow preview preserves scroll throughout source loading and layout stabilization.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Machine checks
+--------------
+n/a overlay-covers-text: no visible overlay
+n/a overlay-clipped: no visible overlay
+PASS identifier-split: identifier cells stay on one line
+n/a status-two-lines: no status with a strong line and message
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.
+Assertion failure: sticky heading overlaps the reserved toolbar row

@@ -1,0 +1,26 @@
+{
+  "name": "UX-20-row-actions-layout",
+  "file": "okf/okfreq-examples/requirements/tiers/swrs/SwRS-CORE-001.md",
+  "vars": {"fe": "[data-okf-frontmatter-editor]", "menu": "[data-okf-frontmatter-menu]", "others": "tr[data-okf-field]:not([data-okf-field=\"project\"]) td"},
+  "steps": [
+    {"open": "${file}"},
+    {"waitFor": "/SwRS-CORE-001/.test((D.querySelector('tr[data-okf-field=\"id\"]')||{}).textContent||'')", "timeout": 15000, "label": "preview follows file"},
+    {"mark": "${file}"},
+    {"editMode": true},
+    {"clicksel": "tr[data-okf-field=\"project\"] [data-okf-value-cell]"},
+    {"waitFor": "D.querySelector('${fe} textarea, ${fe} input') && D.querySelector('${menu}')", "label": "project editor and menu"},
+    {"eval": "(() => { const m = D.querySelector('${menu}'); const c = D.querySelector('${fe} textarea, ${fe} input'); return JSON.stringify({previewWidth: W.innerWidth, menuInRow: m.closest('tr') && m.closest('tr').getAttribute('data-okf-field'), buttons: [...m.querySelectorAll('button')].map(b => b.textContent.trim() + (b.disabled ? ' (disabled)' : '') + ' title=' + b.title), afterContent: [...m.querySelectorAll('button')].map(b => getComputedStyle(b, '::after').content), control: c.tagName, controlHeight: Math.round(c.getBoundingClientRect().height), rowHeight: Math.round(m.closest('tr').getBoundingClientRect().height)}); })()", "max": 1200},
+    {"check": "feval", "expr": "D.querySelector('${menu}').closest('tr[data-okf-field]').getAttribute('data-okf-field')", "equals": "project", "label": "UX-20 actions inside the edited row"},
+    {"check": "noOverlap", "a": "${menu}", "b": "${others}", "label": "UX-20 menu covers no other row"},
+    {"check": "noOverlap", "a": "${fe}", "b": "${others}", "label": "UX-20 editor covers no other row"},
+    {"check": "inViewport", "selector": "${menu} button", "label": "UX-20 menu buttons fully visible"},
+    {"check": "feval", "expr": "[...D.querySelectorAll('${menu} button')].every(b => getComputedStyle(b, '::after').content === 'none')", "label": "UX-20 no clipped pseudo-tooltips"},
+    {"clicksel": "${menu} button[data-okf-frontmatter-operation=\"add\"]", "wait": 700},
+    {"check": "noOverlap", "a": ".sphinx-preview-frontmatter-picker", "b": "${others}", "label": "UX-20 add picker covers no other row"},
+    {"check": "inViewport", "selector": ".sphinx-preview-frontmatter-picker select, .sphinx-preview-frontmatter-picker input, .sphinx-preview-frontmatter-picker button", "label": "UX-20 add picker fully visible"},
+    {"shot": "UX-20-row-actions", "clip": "preview"},
+    {"key": "Escape", "wait": 800},
+    {"check": "diff", "file": "${file}", "against": "mark", "equal": true, "label": "no change"},
+    {"check": "errors"}
+  ]
+}

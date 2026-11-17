@@ -1,0 +1,1363 @@
+[
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/24-start-writing-open.png",
+    "scenario": "24-start-writing-open",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "An empty block editor is open with its placeholder",
+        "pass": true,
+        "why": "Editor shows the placeholder 'Type Markdown, for example ...' and the key hint line."
+      },
+      {
+        "id": "S2",
+        "text": "Edit mode is on",
+        "pass": true,
+        "why": "The pencil button in the toolbar is highlighted."
+      },
+      {
+        "id": "S3",
+        "text": "The empty editor is fully visible and not overlapped by the floating toolbar",
+        "pass": false,
+        "why": "The toolbar (x~1248-1380, y~104-140) sits over the editor box's right edge and typing area; a long first line would run under it."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "No text is covered yet (the hint ends at x~1186), but the toolbar overlaps the editor box; see S3."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no identifier is split."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The Start writing editor with Done / Revert is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/24-table-tab.png",
+    "scenario": "24-table-tab",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The table shows betaX / two and a new third row gamma / three",
+        "pass": true,
+        "why": "Rendered table: alpha/one, betaX/two, gamma/three."
+      },
+      {
+        "id": "S2",
+        "text": "The buffer holds the new row",
+        "pass": true,
+        "why": "Editor lines 11-12 read '| betaX | two |' and '| gamma | three |'."
+      },
+      {
+        "id": "S3",
+        "text": "No cell editor stays open after Enter",
+        "pass": true,
+        "why": "No outlined cell or open input in the table."
+      },
+      {
+        "id": "S4",
+        "text": "Edit mode is on",
+        "pass": true,
+        "why": "Pencil button highlighted."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "alpha, betaX, gamma each on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/25-block-inserted.png",
+    "scenario": "25-block-inserted",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The list 'check logs' sits between the heading and the paragraph",
+        "pass": true,
+        "why": "Order is heading, bullet 'check logs', 'First paragraph.'"
+      },
+      {
+        "id": "S2",
+        "text": "Edit mode is on",
+        "pass": true,
+        "why": "Pencil button highlighted."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no identifier is split."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/25-table-toolbar.png",
+    "scenario": "25-table-toolbar",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The table toolbar sits in the flow above the table, not over it",
+        "pass": true,
+        "why": "The Row+/Row-/Col+/Col- bar is above the table and pushes it down."
+      },
+      {
+        "id": "S2",
+        "text": "The toolbar buttons carry text labels",
+        "pass": true,
+        "why": "Labels Row +, Row -, Col +, Col - are shown."
+      },
+      {
+        "id": "S3",
+        "text": "The selected cell 'one' is outlined",
+        "pass": true,
+        "why": "Cell 'one' has a blue outline."
+      },
+      {
+        "id": "S4",
+        "text": "Edit mode is on",
+        "pass": true,
+        "why": "Pencil button highlighted."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "The position text 'Row 1 of 2 · column 2 of 2' fits, though it touches the bar's right edge and sits a few px above the button baseline."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "alpha, beta, one, two each on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/26-boolean-one-click.png",
+    "scenario": "26-boolean-one-click",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "annotation_exemption shows a checked box with 'true'",
+        "pass": true,
+        "why": "Row shows a checkmark and 'true'."
+      },
+      {
+        "id": "S2",
+        "text": "The buffer holds annotation_exemption: true",
+        "pass": true,
+        "why": "Editor line 4 reads 'annotation_exemption: true'."
+      },
+      {
+        "id": "S3",
+        "text": "No editor stays open",
+        "pass": true,
+        "why": "No input or action bar is visible in the table."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating toolbar overlaps the top-right corner of the frontmatter table header by a few px but covers no text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "annotation_exemption stays on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/26-focus-change-still.png",
+    "scenario": "26-focus-change-still",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The clicked table cell is visible in the preview at its pre-click position",
+        "pass": false,
+        "why": "No table is in view: the preview shows the top of the document (heading, note, figure caption); the clicked cell and its menu are off-screen."
+      },
+      {
+        "id": "S2",
+        "text": "The preview is still at the scroll position it had before the editor click",
+        "pass": false,
+        "why": "The note says the preview was scrolled first, but the preview scrollbar and content are at the very top, so the screenshot does not show a preserved scroll."
+      },
+      {
+        "id": "S3",
+        "text": "Edit mode is on",
+        "pass": true,
+        "why": "Pencil button highlighted."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Nothing clipped is visible. The machine check reports sphinx-preview-table-menu at y=1977, which is entirely below this ~800 px view; it is off-screen, not clipped at the edge."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no identifier is split."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text and admonitions readable. The figure image itself is missing (only the caption renders), likely a fixture asset."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": false,
+        "why": "The table cell the scenario clicks is not visible; machine checks say identifier-split PASS, but no table is in view."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/27-hidden-preview-catches-up.png",
+    "scenario": "27-hidden-preview-catches-up",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The editor is scrolled about 200 lines down",
+        "pass": false,
+        "why": "The editor shows lines 1-43 with its scrollbar at the top; it is not scrolled."
+      },
+      {
+        "id": "S2",
+        "text": "The revealed preview shows the editor's top line",
+        "pass": true,
+        "why": "Both start at Section 0, which matches but proves nothing because neither is scrolled."
+      },
+      {
+        "id": "S3",
+        "text": "Edit mode is off",
+        "pass": true,
+        "why": "Pencil button not highlighted."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no identifier is split."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": false,
+        "why": "The catch-up after a ~200-line scroll is not shown: editor and preview are both at the top."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/27-list-click-edits.png",
+    "scenario": "27-list-click-edits",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The derives_from list editor is open after a plain click",
+        "pass": true,
+        "why": "An input with StRS-A, a remove X, '+ Add item' and Add/Remove field are shown."
+      },
+      {
+        "id": "S2",
+        "text": "The preview keeps the document (no navigation away)",
+        "pass": true,
+        "why": "Frontmatter table and 'Requirement' heading still shown."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The toolbar touches the table header's top-right corner but covers no text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "derives_from and StRS-A each on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/28-list-enter-adds.png",
+    "scenario": "28-list-enter-adds",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The list shows StRS-A and StRS-B",
+        "pass": true,
+        "why": "Both items are rendered as links."
+      },
+      {
+        "id": "S2",
+        "text": "The buffer holds both items",
+        "pass": true,
+        "why": "Editor lines 5-6 read '- StRS-A' and '- StRS-B'."
+      },
+      {
+        "id": "S3",
+        "text": "The list editor is closed after Enter on the empty item",
+        "pass": true,
+        "why": "No input visible in the row."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "StRS-A and StRS-B each on one line; each shows a small loading spinner for link resolution."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/29-list-link-warning.png",
+    "scenario": "29-list-link-warning",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The new item holds StRS-BX",
+        "pass": true,
+        "why": "Second input reads StRS-BX."
+      },
+      {
+        "id": "S2",
+        "text": "The datalist with known stems is shown",
+        "pass": false,
+        "why": "No suggestion list is visible; only a dropdown arrow on the input. A native datalist popup may not be in the capture, but the image does not show it."
+      },
+      {
+        "id": "S3",
+        "text": "The 'file not found' warning is shown",
+        "pass": true,
+        "why": "Orange text: 'No Markdown file named \"StRS-BX.md\" was found. It will be saved as typed.'"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": false,
+        "why": "In the warning inside the Value cell, the identifier 'StRS-BX.md' breaks across lines as 'StRS-' / 'BX.md'. The machine check reports identifier-split PASS, which disagrees."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The list editor and warning are visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/30-frontmatter-actions-value.png",
+    "scenario": "30-frontmatter-actions-value",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The scope value editor (one-row textarea) is visibly open",
+        "pass": false,
+        "why": "'Core' shows with no border, background or focus ring; nothing marks it as an open editor."
+      },
+      {
+        "id": "S2",
+        "text": "Add field / Remove field sit under the value inside the scope row",
+        "pass": true,
+        "why": "Both buttons are in a rounded panel under 'Core', inside the row."
+      },
+      {
+        "id": "S3",
+        "text": "The action buttons cover no other row",
+        "pass": true,
+        "why": "The owner row sits below the panel, untouched."
+      },
+      {
+        "id": "S4",
+        "text": "The narrow layout (1100 px window) keeps the table readable",
+        "pass": true,
+        "why": "The Description column is collapsed (play arrow) and names/values fit."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The toolbar covers no text; it overlaps only the table header's top-right corner near the collapse arrow."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no identifier is split."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/31-frontmatter-actions-picker.png",
+    "scenario": "31-frontmatter-actions-picker",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The field picker opens inside the scope row",
+        "pass": true,
+        "why": "'Choose a field...' select appears under Remove field, inside the row."
+      },
+      {
+        "id": "S2",
+        "text": "The picker's Add button is shown with it",
+        "pass": false,
+        "why": "Only the select is visible; no Add button next to or below it."
+      },
+      {
+        "id": "S3",
+        "text": "The picker does not cover other rows",
+        "pass": true,
+        "why": "The owner row moved down below the panel."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no identifier is split."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/32-required-remove-disabled.png",
+    "scenario": "32-required-remove-disabled",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Remove field is disabled for the required scope field",
+        "pass": true,
+        "why": "Remove field is greyed out next to an enabled Add field."
+      },
+      {
+        "id": "S2",
+        "text": "The add picker is open",
+        "pass": true,
+        "why": "'Choose a field...' select with a focus ring is shown."
+      },
+      {
+        "id": "S3",
+        "text": "The scope value editor is open",
+        "pass": true,
+        "why": "'Core' is indented in the edit panel; same weak editor affordance as in 30."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no identifier is split."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/32-save-keeps-list-in-place.png",
+    "scenario": "32-save-keeps-list-in-place",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The edited list (with 'Frozen goods') is visible near the top of the preview",
+        "pass": false,
+        "why": "The preview shows the heading and filler paragraphs 1-20; no list is in view."
+      },
+      {
+        "id": "S2",
+        "text": "The list top stays ~40 px below the preview top after save",
+        "pass": false,
+        "why": "The note reports T1=T2=T3=39.6 px, but the screenshot shows the document top, which disagrees with the measurement."
+      },
+      {
+        "id": "S3",
+        "text": "Edit mode is on",
+        "pass": true,
+        "why": "Pencil button highlighted."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no identifier is split."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": false,
+        "why": "The list named by the scenario is not visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/33-custom-key-added.png",
+    "scenario": "33-custom-key-added",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "A reviewer row with value Ana is shown",
+        "pass": true,
+        "why": "Row 'reviewer (unknown)' with 'Ana'."
+      },
+      {
+        "id": "S2",
+        "text": "The buffer has reviewer: \"Ana\" right after scope",
+        "pass": true,
+        "why": "Editor line 6 reads reviewer: \"Ana\" between scope and owner."
+      },
+      {
+        "id": "S3",
+        "text": "The editor closed after save",
+        "pass": true,
+        "why": "No open input in the table."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "reviewer and Ana on one line. Note: the preview lists reviewer last, after owner, while the buffer has it after scope."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/33-save-keeps-table-in-place.png",
+    "scenario": "33-save-keeps-table-in-place",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The cell shows Ana-Lee after Enter",
+        "pass": true,
+        "why": "Table row Plan / Ana-Lee; buffer line 17 matches."
+      },
+      {
+        "id": "S2",
+        "text": "The table stays where it was at Enter (~38 px below the preview top)",
+        "pass": false,
+        "why": "The table is ~300 px below the preview top (after six filler paragraphs), matching the 'before click' 299 px, not the 38 px reported for Enter and Save."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Ana-Lee stays on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/34-link-diagnostic-tooltip.png",
+    "scenario": "34-link-diagnostic-tooltip",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "missing.py reads 'File not found'",
+        "pass": true,
+        "why": "Red-outlined 'missing.py ✖ File not found' in the value cell."
+      },
+      {
+        "id": "S2",
+        "text": "The explanation tooltip shows on keyboard focus",
+        "pass": true,
+        "why": "Tooltip: \"[E10] target 'missing.py' does not resolve to a file at 'implemented_in_files[0]'\"."
+      },
+      {
+        "id": "S3",
+        "text": "Edit mode is off",
+        "pass": true,
+        "why": "Pencil button not highlighted."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": false,
+        "why": "The tooltip opens below the value and hides the end of the 'Requirement' heading (reads 'Requiren'); this agrees with the machine check."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "The tooltip reaches x~1380 but stays inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "implemented_in_files and missing.py each on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/35-status-two-lines.png",
+    "scenario": "35-status-two-lines",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The missing-source status page is shown",
+        "pass": true,
+        "why": "'Preview source missing' / 'The active Markdown source was deleted.'"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "n/a: no floating control."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no identifier is split."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The status page is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "The bold title and the message are on separate lines."
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/36-title-bar-button.png",
+    "scenario": "36-title-bar-button",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The Studio preview opened beside the text editor",
+        "pass": true,
+        "why": "'Studio · smoke.md' tab in the right group, with the source on the left."
+      },
+      {
+        "id": "S2",
+        "text": "Edit mode is off",
+        "pass": true,
+        "why": "Pencil button not highlighted."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "alpha and beta each on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/38-anchor-disabled.png",
+    "scenario": "38-anchor-disabled",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The anchor (scroll-pairing) button is disabled",
+        "pass": true,
+        "why": "The link button is greyed out."
+      },
+      {
+        "id": "S2",
+        "text": "The disabled button's tooltip is shown",
+        "pass": false,
+        "why": "No tooltip is visible anywhere in the view."
+      },
+      {
+        "id": "S3",
+        "text": "The Open With editor is alone",
+        "pass": true,
+        "why": "The left group is empty; only the MyST + OKF Studio editor shows smoke.md."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "alpha and beta each on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": false,
+        "why": "The status banner reads 'Preview pendingWaiting for the latest edit.': title and message run together on one line with no space. It is also a stale 'pending' notice over an already rendered document."
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/38-anchor-enabled.png",
+    "scenario": "38-anchor-enabled",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "A text editor shows the file beside the Open With editor",
+        "pass": true,
+        "why": "The middle group has the Studio editor and the right group the text editor for smoke.md."
+      },
+      {
+        "id": "S2",
+        "text": "The anchor button is enabled",
+        "pass": true,
+        "why": "The link button is highlighted blue."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The toolbar stops ~8 px right of the 'Smoke document' heading; it covers no text, but at this width it nearly touches it."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "alpha and beta each on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/38-edit-mode-remembered.png",
+    "scenario": "38-edit-mode-remembered",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "The reopened side preview starts in edit mode",
+        "pass": true,
+        "why": "The pencil button is highlighted."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "alpha and beta each on one line."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/real-input-PHASE5/39-quick-open-beside-preview.png",
+    "scenario": "39-quick-open-beside-preview",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Quick Open opened other-t39.md in the source (left) group",
+        "pass": true,
+        "why": "The left group has a new other-t39.md tab next to smoke.md."
+      },
+      {
+        "id": "S2",
+        "text": "The preview stayed visible",
+        "pass": true,
+        "why": "The right group shows 'Studio · other-t39.md' rendering 'Other T39'."
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "The floating preview toolbar sits clear of all text."
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls are fully inside the view."
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a: no identifier is split."
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Dark theme; all text has good contrast."
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The scenario element is visible."
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a: not a status page."
+      }
+    ],
+    "overall": "pass"
+  }
+]

@@ -1,0 +1,6 @@
+11:✖ the report names each failed check of a visual manifest (28.990959ms)
+17:ℹ pass 9
+18:ℹ fail 1
+27:✖ the report names each failed check of a visual manifest (28.990959ms)
+30:  'FAILED visual: [object Object]; [object Object]\n' +
+44:    actual: 'FAILED visual: [object Object]; [object Object]\nok     review-index\nskipped integration: the real VS Code stage did not run (manual heavy CI job)\n',

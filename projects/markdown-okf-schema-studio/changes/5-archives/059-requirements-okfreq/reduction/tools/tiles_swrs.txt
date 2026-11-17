@@ -1,0 +1,401 @@
+# TILE KEY | flags | title | members
+# flags: X = cross-cutting (other members default replace-by-crosscutting), NEW = no survivor (okfreq new)
+# member suffix: :k keep  :s fold-as-scenario  :m merge-into  :x replace-by-crosscutting  :d drop-implementation-detail
+# default: first member keep, others fold-as-scenario (X tiles: others from other scopes x)
+
+## trust-security
+TRUST.readonly-no-edit-affordance | X | A read-only preview offers no editing affordance | TRUST-001 TRUST-002 TRUST-003 TRUST-004 TRUST-071 LIFE-155:m TOOLBAR-002 PALETTE-015 REVIEW-130 REVIEW-131 BLOCK-013
+TRUST.readonly-keeps-viewing | X | A read-only preview keeps every viewing action | TRUST-006 THEME-015 THEME-054 TOOLBAR-016 TOOLBAR-076 TOOLBAR-115 TOOLBAR-116 CODE-025 PALETTE-182
+TRUST.readonly-request-refusal | X | The host refuses every write request of a read-only preview with a reason | TRUST-005 BLOCK-121 BLOCK-181 BLOCK-224 BLOCK-210 REVIEW-132 REVIEW-180 REVIEW-122 MYST-042 PALETTE-187 PALETTE-191 PALETTE-194 PALETTE-200 GFM-026 FMEDIT-051
+TRUST.resource-roots | | A page loads local files only from its resource roots | TRUST-007 TRUST-008 TRUST-009 TRUST-010 TRUST-088 TOOLBAR-097:x LIFE-162:m
+TRUST.document-scripts | | Document scripts run only when trusted, from the roots, with the page nonce | TRUST-011 TRUST-037 TRUST-038
+TRUST.csp-policy | | Every page carries a deny-by-default content security policy | TRUST-012 TRUST-013 TRUST-014 TRUST-015 TRUST-016 TRUST-017 TRUST-018 TRUST-019 TRUST-020 TRUST-021
+TRUST.page-nonce | | Each page gets a fresh nonce that every extension script and style carries | TRUST-022 TRUST-023 TRUST-024 TRUST-089 LIFE-163:m
+TRUST.resource-reference-policy | | A resource reference resolves only to an existing file inside a root | TRUST-025 TRUST-026 TRUST-027 TRUST-028 TRUST-029 TRUST-030 TRUST-031 TRUST-032 TRUST-033 TRUST-034
+TRUST.sanitizer-active-content | | The sanitizer removes active content and keeps the rest | TRUST-036 TRUST-039 TRUST-040 TRUST-041 TRUST-048 TRUST-035
+TRUST.sanitizer-links-report | | The sanitizer rewrites links and records each removal | TRUST-042 TRUST-043 TRUST-044 TRUST-045 TRUST-049:d TRUST-079 TRUST-051
+TRUST.page-message-envelope | X | Every page message has a registered type and a valid envelope before any handler runs | TRUST-052 TRUST-053 TRUST-054 TRUST-056 TRUST-057 TRUST-058 TRUST-084 CORE-066
+TRUST.msg-previewWarningBannerClosed | | The warning banner close message has a bounded key | TRUST-086
+TRUST.page-message-gates | X | A page message is matched to the shown render or document by the gate of its type | TRUST-065 TRUST-066 TRUST-067 TRUST-068 TRUST-069 BLOCK-248 BLOCK-223 BLOCK-123 BLOCK-183 CODE-027 DIAG-051 TOOLBAR-112 FMEDIT-052 MYST-044 REVIEW-182 PALETTE-181 PALETTE-188 PALETTE-195 PALETTE-271
+TRUST.host-message-acceptance | X | The page accepts only registered host messages addressed to its render | TRUST-059 TRUST-060 BLOCK-246
+TRUST.msg-previewContentPatch | | A content patch message is applied only within its bounds | TRUST-061
+TRUST.msg-previewPropertiesTable | | A properties table message needs string markup | TRUST-062
+TRUST.msg-previewLinkTargets | | A link targets message needs an array of the current render | TRUST-063 TOOLBAR-089:m
+TRUST.msg-previewFlushEdit-EditorWatch | | Flush and editor watch messages are addressed by their own id | TRUST-064 BLOCK-247:m
+TRUST.request-answer-correlation | X NEW | Every page request is answered once by its id and result type, or ends with a readable error | PALETTE-172 PALETTE-173 PALETTE-175 PALETTE-177 PALETTE-145 PALETTE-208 PALETTE-216 REVIEW-185 REVIEW-056 DIAG-047 DIAG-052
+TRUST.no-build-tool-wording | | Visible text speaks of the product, not of its build tool | TRUST-070
+TRUST.package-identity | | The package ships its icon and its bundle | TRUST-074 TRUST-080 TRUST-078 DIAG-080
+TRUST.pinned-dependencies | | The extension is built from pinned, official dependencies | TRUST-075 TRUST-076 TRUST-077 DIAG-079:m
+
+## block-editing
+BLOCK.edit-mode-toggle | | The Edit button turns edit mode on and off and tidies up on exit | BLOCK-001 BLOCK-002 BLOCK-003 BLOCK-004 BLOCK-005 BLOCK-006 BLOCK-007
+BLOCK.open-block-editor | | A click or Enter on a mapped block opens its editor | BLOCK-014 BLOCK-015 BLOCK-016 BLOCK-020 BLOCK-022 BLOCK-024 BLOCK-025 BLOCK-028 BLOCK-215
+BLOCK.hover-outline | | The hover outline shows what a click would edit | BLOCK-017 BLOCK-018 BLOCK-019
+BLOCK.caret-at-click | | The editor opens with the caret at the clicked word | BLOCK-026 BLOCK-027
+BLOCK.editor-frame | | The block editor is a labelled one-pixel frame that hides its rendered block | BLOCK-029 BLOCK-030 BLOCK-031 BLOCK-032 BLOCK-037 BLOCK-038 BLOCK-251 BLOCK-253
+BLOCK.editor-status-buttons | | The status line shows the lines and keys, with Done and Cancel beside it | BLOCK-033 BLOCK-034 BLOCK-035 BLOCK-036 BLOCK-039 BLOCK-040
+BLOCK.edit-exclusivity | X | One edit at a time: an open editor blocks other edits, opens and refreshes | BLOCK-041 BLOCK-217 BLOCK-122 BLOCK-182 BLOCK-198 BLOCK-199 BLOCK-200 REVIEW-181 REVIEW-176 MYST-043 MYST-050 GFM-025 FMEDIT-002 FMEDIT-058 FMEDIT-059 FMEDIT-072 FMEDIT-073
+BLOCK.autosave | | Typing is autosaved as the smallest single replacement | BLOCK-042 BLOCK-043 BLOCK-044 BLOCK-045 BLOCK-046
+BLOCK.finish-edit | | Done, Cmd/Ctrl+Enter or leaving the text box commits the edit | BLOCK-047 BLOCK-048 BLOCK-049 BLOCK-050 BLOCK-051 BLOCK-052 PALETTE-176:m
+BLOCK.cancel-edit | | Cancel and Escape restore the saved text | BLOCK-053 BLOCK-054 BLOCK-055 BLOCK-056
+BLOCK.source-edit-outcome | X | Every host source edit is one undo step, renders once and reports a failed apply | BLOCK-058 BLOCK-057 BLOCK-059 BLOCK-225 BLOCK-226 BLOCK-128 BLOCK-188 REVIEW-184 REVIEW-194 GFM-022 FMEDIT-053 FMEDIT-055
+BLOCK.indent-and-continuation-keys | | Tab, Shift+Tab and Enter indent and continue lists, quotes and fences | BLOCK-061 BLOCK-062 BLOCK-063 BLOCK-064 BLOCK-065 BLOCK-066 BLOCK-067 BLOCK-068
+BLOCK.wrap-and-caret-keys | | Marker keys wrap a selection; Home, End, select-all and undo stay in the text box | BLOCK-069 BLOCK-070 BLOCK-071 BLOCK-072 BLOCK-073 BLOCK-074 BLOCK-075 BLOCK-076 BLOCK-078
+BLOCK.arrow-navigation | | Arrow keys at the edges open the previous or next block | BLOCK-079 BLOCK-080 BLOCK-081 BLOCK-082 BLOCK-083 BLOCK-084 BLOCK-085 FMEDIT-062
+BLOCK.insert-points | | Edit mode places an insert point with a plus button after every body block | BLOCK-087 BLOCK-088 BLOCK-089:d BLOCK-090 BLOCK-091 BLOCK-092 BLOCK-093
+BLOCK.insert-block-host | | The host inserts a new block with clean blank lines | BLOCK-094 BLOCK-095 BLOCK-096 BLOCK-097 BLOCK-098 BLOCK-099 BLOCK-100 BLOCK-101
+BLOCK.start-writing | | An empty body offers one Start writing button | BLOCK-102 BLOCK-103 BLOCK-104 BLOCK-105 BLOCK-106 BLOCK-107 BLOCK-108
+BLOCK.move-arrows | | The up and down arrows of an insert point move its block | BLOCK-109 BLOCK-110 BLOCK-112 BLOCK-113 BLOCK-114 BLOCK-115 BLOCK-116 FMEDIT-064
+BLOCK.move-host | | The host swaps two blocks in one edit and keeps their separators | BLOCK-117 BLOCK-118 BLOCK-119 BLOCK-120
+BLOCK.move-keyboard | | Alt+Up and Alt+Down move the focused block, also from the text box | BLOCK-130 BLOCK-131 BLOCK-132 BLOCK-133 BLOCK-134 BLOCK-135 BLOCK-136 BLOCK-137 BLOCK-138
+BLOCK.selection-gestures | | Shift+click and Shift+Arrow select a run of blocks | BLOCK-140 BLOCK-141 BLOCK-142 BLOCK-143 BLOCK-144 BLOCK-145 BLOCK-146 BLOCK-147 BLOCK-152
+BLOCK.selection-rules | | A block selection survives saves and is cleared by patches | BLOCK-148 BLOCK-151 BLOCK-153 BLOCK-154 BLOCK-155 FMEDIT-063
+BLOCK.selection-move | | A block selection moves as a whole | BLOCK-156 BLOCK-157 BLOCK-158 BLOCK-159 BLOCK-160 BLOCK-161 BLOCK-162 BLOCK-163 BLOCK-164 BLOCK-165
+BLOCK.blocks-copy | | Cmd/Ctrl+C copies the exact Markdown of the selected blocks | BLOCK-166 BLOCK-167 BLOCK-168 BLOCK-187 BLOCK-189 BLOCK-190
+BLOCK.blocks-cut | | Cut removes the selected blocks with one blank separator | BLOCK-169 BLOCK-170 BLOCK-171 BLOCK-172 BLOCK-173 BLOCK-180
+BLOCK.blocks-paste | | Paste inserts the clipboard as new blocks after the selection or insert point | BLOCK-174 BLOCK-175 BLOCK-176 BLOCK-177
+BLOCK.range-guards | | Moves and clipboard edits are refused for ranges that do not match the document | BLOCK-124 BLOCK-125 BLOCK-126 BLOCK-184 BLOCK-185
+BLOCK.include-protection | | An included block is never moved, cut, copied, selected or pasted after | BLOCK-127 BLOCK-111 BLOCK-149 BLOCK-150 BLOCK-178 BLOCK-179 BLOCK-186
+BLOCK.edit-lock | | The host holds an open block edit and ends it when the block changes | BLOCK-191 BLOCK-192 BLOCK-195 BLOCK-196 BLOCK-197 BLOCK-201 BLOCK-202 BLOCK-203
+BLOCK.page-updates-wait | | Page updates wait while an inline editor is open | BLOCK-193 BLOCK-194 BLOCK-204 BLOCK-214 FMEDIT-060 FMEDIT-061
+BLOCK.flush-before-leave | | Open editors are saved before the page hides or leaves the document | BLOCK-205 BLOCK-206 BLOCK-207 BLOCK-208 BLOCK-209 BLOCK-211 BLOCK-212 BLOCK-213 TABLE-031:m TABLE-032:m TABLE-033:m TOOLBAR-073:m TOOLBAR-114:m
+BLOCK.refused-open-save | | A refused open or save keeps the typed text and says why | BLOCK-216 BLOCK-218 BLOCK-219 BLOCK-220 BLOCK-221 BLOCK-222
+BLOCK.reading-position-on-edit | | Opening, saving and closing an editor keep the reading position | BLOCK-228 BLOCK-229 BLOCK-230 BLOCK-231 TABLE-017:m FMEDIT-057
+BLOCK.line-endings | | Preview edits keep the line endings of the document | BLOCK-234 BLOCK-060 TABLE-101:m
+BLOCK.msg-previewEditModeChanged | | previewEditModeChanged carries a boolean edit mode | BLOCK-236
+BLOCK.msg-previewEditOpen | | previewEditOpen needs an edit id and a line range | BLOCK-237
+BLOCK.msg-previewEditSave | | previewEditSave needs both texts and valid optional fields | BLOCK-238 TRUST-081:m
+BLOCK.msg-previewEditCancel | | previewEditCancel needs an edit id and a line range | BLOCK-239
+BLOCK.msg-previewBlockMove | | previewBlockMove needs both ranges and a direction | BLOCK-240
+BLOCK.msg-previewBlocksCopy | | previewBlocksCopy needs a line range | BLOCK-241
+BLOCK.msg-previewBlocksCut | | previewBlocksCut needs a line range and an optional pin | BLOCK-242
+BLOCK.msg-previewBlocksPaste | | previewBlocksPaste needs a line to paste after | BLOCK-243
+BLOCK.msg-previewEditClosed | | previewEditClosed carries the id of the closed editor | BLOCK-244
+BLOCK.msg-previewEditFlushed | | previewEditFlushed carries the flush id and a flag | BLOCK-245
+BLOCK.msg-previewBlockMoveResult | | The page applies a move result only for its own render | BLOCK-129
+
+## palette-slash
+PALETTE.mode-and-buttons | | The palette mode decides the button sets, in registry order | PALETTE-001 PALETTE-003 PALETTE-004 PALETTE-005 PALETTE-006 PALETTE-007 PALETTE-011 PALETTE-014 PALETTE-016 PALETTE-270
+PALETTE.mode-select-keys | | Cmd/Ctrl+Shift+M reaches the mode select and Escape or Enter returns to the text | PALETTE-017 PALETTE-002 PALETTE-018
+PALETTE.msg-previewPaletteModeChanged | | An unknown palette mode is refused and stores nothing | PALETTE-010
+PALETTE.placement | | The palette is a toolbar above the editor that sticks over a tall editor | PALETTE-021 PALETTE-022 PALETTE-023 PALETTE-025 PALETTE-026 PALETTE-027 PALETTE-028 PALETTE-029 PALETTE-030
+PALETTE.popover-focus-contract | X | Palette popovers open in the frame, one at a time, and Escape or typing closes them | PALETTE-031 PALETTE-032 PALETTE-033 PALETTE-034 PALETTE-035 PALETTE-037 PALETTE-062 PALETTE-076 PALETTE-082 PALETTE-100 PALETTE-107 PALETTE-156 PALETTE-169 TABLE-087 TABLE-127
+PALETTE.popover-leave-saves | X | Leaving the frame from a palette control saves once and a press keeps the text box focus | PALETTE-036 PALETTE-024 PALETTE-019 PALETTE-020 PALETTE-063 PALETTE-103 PALETTE-104 PALETTE-105 PALETTE-171
+PALETTE.edit-outcome | | A palette action edits in one undo step or leaves the text unchanged and says why | PALETTE-039 PALETTE-040 PALETTE-041 PALETTE-042 PALETTE-087 PALETTE-261
+PALETTE.heading | | The Heading list sets the heading level of the touched lines | PALETTE-043 PALETTE-044
+PALETTE.bold-italic | | Bold and Italic toggle their shared asterisk markers | PALETTE-045 PALETTE-046 PALETTE-047
+PALETTE.strikethrough | | Strikethrough toggles a double tilde pair | PALETTE-048
+PALETTE.blockquote | | Blockquote prefixes the touched lines or removes one level | PALETTE-049
+PALETTE.horizontal-rule | | Horizontal rule puts three dashes between blank lines | PALETTE-050
+PALETTE.bulleted-list | | Bulleted list toggles a dash prefix, from the slash menu only | PALETTE-052 PALETTE-051
+PALETTE.numbered-list | | Numbered list numbers the touched non-blank lines | PALETTE-053
+PALETTE.code-block | | The Code block list wraps lines in a fence of a highlighted language | PALETTE-054 PALETTE-055 PALETTE-056 PALETTE-057
+PALETTE.colour | | The Colour picker wraps the selection in a safe colour span | PALETTE-058 PALETTE-059 PALETTE-060 PALETTE-061 PALETTE-064 PALETTE-065 PALETTE-066 PALETTE-067 PALETTE-068
+PALETTE.colour-code | | The Colour code button edits a colour code at the caret | PALETTE-069 PALETTE-070 PALETTE-071
+PALETTE.emoji | | The Emoji picker filters and inserts one pictograph | PALETTE-072 PALETTE-073 PALETTE-074 PALETTE-075 PALETTE-077
+PALETTE.table-grid | | The Table grid inserts a table of the chosen size | PALETTE-078 PALETTE-079 PALETTE-080 PALETTE-081
+PALETTE.shortcuts | | Cmd/Ctrl with B, I or K runs Bold, Italic or Link | PALETTE-083 PALETTE-084 PALETTE-085 PALETTE-088
+PALETTE.link-panel | | The Link button opens a labelled link panel | PALETTE-089 PALETTE-090 PALETTE-091 PALETTE-095 PALETTE-101 PALETTE-102 PALETTE-106 PALETTE-108
+PALETTE.link-write | | The link panel writes a safe inline Markdown link | PALETTE-092 PALETTE-093 PALETTE-094 PALETTE-096 PALETTE-097 PALETTE-098 PALETTE-099
+PALETTE.image | | The Image button inserts or replaces an image reference | PALETTE-109 PALETTE-110 PALETTE-111 PALETTE-112 PALETTE-113
+PALETTE.checkbox | | Checkbox toggles a task list box on the touched lines | PALETTE-123
+PALETTE.collapsible | | Collapsible wraps the touched lines in a details element | PALETTE-124
+PALETTE.footnote | | Footnote adds a numbered reference and an empty definition | PALETTE-125
+PALETTE.key | | Key wraps the selection in kbd tags or inserts a sample | PALETTE-126
+PALETTE.thread | | Thread inserts an empty comment thread after the block | PALETTE-114
+PALETTE.alert | | Alert inserts a GitHub alert and offers its type list | PALETTE-115 PALETTE-116 PALETTE-117 PALETTE-118 PALETTE-119 PALETTE-120 PALETTE-121 PALETTE-122
+PALETTE.admonition | | Admonition wraps lines in a colon fence of a chosen type | PALETTE-127 PALETTE-128 PALETTE-129 PALETTE-131
+PALETTE.custom-admonition | | Custom writes a titled admonition with a class | PALETTE-130
+PALETTE.dropdown | | Dropdown writes a note admonition with the dropdown class | PALETTE-137
+PALETTE.math | | Math wraps the selection in an inline, display or aligned equation | PALETTE-133 PALETTE-134
+PALETTE.sub-superscript | | Subscript and Superscript wrap the selection in a role | PALETTE-135
+PALETTE.definition-list | | Definition list makes the selection a term with a definition | PALETTE-132
+PALETTE.label | | Label writes one label line above the block | PALETTE-136
+PALETTE.key-myst | | Key (MyST) wraps the selection in the kbd role | PALETTE-138
+PALETTE.reference-popover | | Reference and Citation open a filterable list filled by the host | PALETTE-140 PALETTE-141 PALETTE-142 PALETTE-143 PALETTE-144 PALETTE-146
+PALETTE.reference | | A chosen label is written as a ref role | PALETTE-147
+PALETTE.citation | | A chosen bibliography key is written as a cite role | PALETTE-149
+PALETTE.label-list | | The host lists the label targets of the document | PALETTE-178 PALETTE-179 PALETTE-180
+PALETTE.citation-scan | | The host scans nearby bibliography files for citation keys within bounds | PALETTE-183 PALETTE-184 PALETTE-185 PALETTE-186 PALETTE-189
+PALETTE.doc-picker | | Document link picks a Markdown file and writes a doc role | PALETTE-148 PALETTE-190
+PALETTE.figure-insert | | Figure writes a figure directive for a picked image | PALETTE-150 PALETTE-151 PALETTE-152 PALETTE-168
+PALETTE.figure-form | | The figure form edits the options of a figure and checks them | PALETTE-153 PALETTE-154 PALETTE-155 PALETTE-157 PALETTE-158 PALETTE-159 PALETTE-166 PALETTE-167 PALETTE-170
+PALETTE.figure-write | | Apply rewrites the figure directive in one minimal edit | PALETTE-160 PALETTE-161 PALETTE-162 PALETTE-163 PALETTE-164 PALETTE-165
+PALETTE.image-picker-host | | The host image picker answers a path relative to the document | PALETTE-192 PALETTE-193
+PALETTE.paste-image-host | | The host saves a pasted image next to the document under a name it chooses | PALETTE-196 PALETTE-197 PALETTE-198 PALETTE-199 PALETTE-201 PALETTE-272 PALETTE-273 PALETTE-274
+PALETTE.paste-image-page | | A pasted image is sent to the host and its name inserted on its own paragraph | PALETTE-203 PALETTE-204 PALETTE-205 PALETTE-206 PALETTE-207 PALETTE-209 PALETTE-210 PALETTE-211
+PALETTE.paste-html-page | | Pasted rich text is converted by the host and replaces the selection in one step | PALETTE-213 PALETTE-202 PALETTE-212 PALETTE-214 PALETTE-215 BLOCK-086:m
+PALETTE.html-to-markdown | | Pasted HTML becomes the matching Markdown | PALETTE-217 PALETTE-218 PALETTE-219 PALETTE-220 PALETTE-221 PALETTE-222 PALETTE-223 PALETTE-224 PALETTE-225 PALETTE-226 PALETTE-227 PALETTE-228
+PALETTE.paste-html-safety | | Pasted HTML never brings active content | PALETTE-229 PALETTE-230 PALETTE-231
+PALETTE.slash-trigger | | A slash opens the slash menu only where a command is meant | PALETTE-232 PALETTE-233 PALETTE-234 PALETTE-235 PALETTE-236 PALETTE-237
+PALETTE.slash-list | | The slash menu lists the palette commands of the mode and scope | PALETTE-238 PALETTE-239 PALETTE-250 PALETTE-262 PALETTE-268
+PALETTE.slash-matching | | The slash query ranks matches and leaves loose matches to the text | PALETTE-240 PALETTE-241 PALETTE-243 PALETTE-249
+PALETTE.slash-aliases | | Slash commands have short alternative names | PALETTE-263 PALETTE-264 PALETTE-265 PALETTE-266 PALETTE-267
+PALETTE.slash-keys | | Keys and clicks drive the slash menu and run the lit command | PALETTE-242 PALETTE-244 PALETTE-245 PALETTE-246 PALETTE-247 PALETTE-248 PALETTE-251 PALETTE-260
+PALETTE.slash-a11y | | The slash menu is an announced listbox of text-only rows | PALETTE-252 PALETTE-253 PALETTE-254 PALETTE-255
+PALETTE.slash-position | | The slash menu stays next to the caret inside the viewport | PALETTE-256 PALETTE-257 PALETTE-258 PALETTE-259
+
+## review-annotations
+REVIEW.sidecar-file | | The review comments file next to a document holds its threads as data | REVIEW-001 REVIEW-002 REVIEW-003 REVIEW-009 REVIEW-217
+REVIEW.sidecar-validity | | A review comments file with any problem or over its limits is ignored with one warning | REVIEW-004 REVIEW-005 REVIEW-006 REVIEW-007 REVIEW-008 REVIEW-011 REVIEW-060
+REVIEW.threads-to-page | | The host posts the threads of the review comments file and follows its changes | REVIEW-012 REVIEW-010 REVIEW-013 REVIEW-014 REVIEW-015 REVIEW-016 REVIEW-078
+REVIEW.highlight | | The quote of a thread is highlighted once in its block | REVIEW-017 REVIEW-018 REVIEW-019 REVIEW-020 REVIEW-025 DIAG-019
+REVIEW.thread-popover | | A highlight, badge or orphan entry opens the thread popover | REVIEW-021 REVIEW-022 REVIEW-023 REVIEW-024 REVIEW-026 REVIEW-027 REVIEW-035 REVIEW-036 REVIEW-037 REVIEW-093
+REVIEW.orphan-box | | Threads that cannot be placed are listed in the Orphaned comments box | REVIEW-028 REVIEW-029 REVIEW-030 REVIEW-031 REVIEW-032 REVIEW-033 REVIEW-034
+REVIEW.comment-button | | Selected body text offers a Comment button and a keyboard shortcut | REVIEW-038 REVIEW-039 REVIEW-040 REVIEW-041 REVIEW-042 REVIEW-043 DIAG-020
+REVIEW.comment-box | | The comment box sends a comment and keeps its text until the host accepts it | REVIEW-044 REVIEW-045 REVIEW-046 REVIEW-047 REVIEW-048 REVIEW-051 REVIEW-052 REVIEW-053 REVIEW-072
+REVIEW.comment-anchor | | A new comment is anchored by its lines, quote and surroundings | REVIEW-049 REVIEW-050
+REVIEW.comment-store-write | | The host writes comment changes one after another within the file limits | REVIEW-054 REVIEW-055 REVIEW-057 REVIEW-058 REVIEW-059 REVIEW-061 REVIEW-062 REVIEW-063 REVIEW-064
+REVIEW.author | | A comment carries the configured, Git or system author name | REVIEW-065 REVIEW-066 REVIEW-067 REVIEW-068
+REVIEW.thread-operations | | Reply, resolve, reopen and delete change the named thread only | REVIEW-074 REVIEW-075 REVIEW-076 REVIEW-077 REVIEW-079 REVIEW-080
+REVIEW.popover-reply | | The thread popover of a writable preview sends a reply and keeps it until accepted | REVIEW-081 REVIEW-082 REVIEW-083 REVIEW-084 REVIEW-085 REVIEW-091 REVIEW-092
+REVIEW.popover-resolve-delete | | Resolve, Reopen and a confirmed Delete wait for the host, one action at a time | REVIEW-086 REVIEW-087 REVIEW-088 REVIEW-089 REVIEW-090
+REVIEW.anchoring-lines | | Edits move the stored lines of a thread in memory | REVIEW-094 REVIEW-095 REVIEW-096 REVIEW-098 REVIEW-117
+REVIEW.anchoring-quote-search | | A thread follows its quote in the plain text, narrowed by its context | REVIEW-100 REVIEW-102 REVIEW-103 REVIEW-104 REVIEW-105 REVIEW-112 REVIEW-113 REVIEW-114 REVIEW-115
+REVIEW.anchoring-orphaning | | A thread whose quote is gone or ambiguous is orphaned and keeps its lines | REVIEW-101 REVIEW-099 REVIEW-106 REVIEW-116
+REVIEW.anchoring-fuzzy | | A slightly changed quote is followed by a bounded fuzzy search | REVIEW-107 REVIEW-108 REVIEW-109 REVIEW-110 REVIEW-111
+REVIEW.moved-lines-save | | Moved thread lines are written with the document save only | REVIEW-119 REVIEW-097 REVIEW-118 REVIEW-120 REVIEW-121 REVIEW-123 REVIEW-124 REVIEW-129
+REVIEW.rename-follow | | A renamed document takes its review comments file along | REVIEW-125 REVIEW-126 REVIEW-127 REVIEW-128
+REVIEW.comment-chips | | HTML comments show as gray chips carried as data | REVIEW-133 REVIEW-134 REVIEW-135 REVIEW-136 REVIEW-137 REVIEW-138 REVIEW-142 REVIEW-150
+REVIEW.todo-chips | | TODO words and TODO comments show as green chips | REVIEW-139 REVIEW-140 REVIEW-141
+REVIEW.chip-box-toggle | | A click or Enter on a chip toggles its comment box | REVIEW-143 REVIEW-144 REVIEW-145 REVIEW-146 REVIEW-147 REVIEW-148 REVIEW-149 REVIEW-151
+REVIEW.comments-visibility | | The showComments setting and the Comments button hide and show the chips | REVIEW-152 REVIEW-153 REVIEW-154 REVIEW-155 REVIEW-157 REVIEW-158
+REVIEW.todo-action | | The TODO action wraps or unwraps the touched lines in TODO comments | REVIEW-160 REVIEW-161 REVIEW-162 REVIEW-163 REVIEW-164 REVIEW-165 REVIEW-166
+REVIEW.inline-thread-display | | An inline THREAD comment shows as a thread chip with its messages | REVIEW-167 REVIEW-168 REVIEW-169 REVIEW-170
+REVIEW.inline-thread-page | | An open inline thread offers Reply and Delete thread | REVIEW-171 REVIEW-172 REVIEW-173 REVIEW-174 REVIEW-175 REVIEW-177
+REVIEW.inline-thread-reply | | The host appends a reply inside the thread comment under the author | REVIEW-186 REVIEW-179 REVIEW-183 REVIEW-187 REVIEW-188 REVIEW-189 REVIEW-191
+REVIEW.inline-thread-delete | | Deleting an inline thread removes whole lines | REVIEW-192 REVIEW-193
+REVIEW.incoming-changes-host | | The host posts the lines that differ from the last commit | REVIEW-195 REVIEW-196 REVIEW-197 REVIEW-198 REVIEW-199
+REVIEW.line-diff | | The line diff reports added and modified lines | REVIEW-200 REVIEW-201 REVIEW-202
+REVIEW.head-baseline | | The HEAD text comes from the built-in Git extension for small files | REVIEW-203 REVIEW-204 REVIEW-205:d REVIEW-206
+REVIEW.change-bars | | Changed blocks get a thin change bar that moves nothing | REVIEW-207 REVIEW-209 REVIEW-210 REVIEW-211 REVIEW-212 REVIEW-213
+REVIEW.diff-toggle | | The Diff button and the showIncomingChanges setting hide the change bars | REVIEW-214 REVIEW-215 REVIEW-216 TOOLBAR-017:m
+REVIEW.msg-previewCommentCreate | | A comment create message needs a valid anchor and a bounded body | REVIEW-069
+REVIEW.msg-previewCommentReply | | A comment reply message names a thread and carries a bounded body | REVIEW-070
+REVIEW.msg-previewCommentResolveDelete | | Resolve and delete messages name a thread; resolve carries a flag | REVIEW-071
+REVIEW.msg-previewThreadReplyDelete | | An inline thread change message carries valid lines and a non-blank text | REVIEW-178
+REVIEW.msg-previewShowComments | | A show-comments message of another render is ignored | REVIEW-156
+REVIEW.msg-previewIncomingChanges | | Malformed incoming-change ranges are ignored | REVIEW-208
+
+## table-editing
+TABLE.cell-open | | A click on a pipe table cell opens a cell editor in place | TABLE-001 TABLE-002 TABLE-003 TABLE-004 TABLE-005 TABLE-010 TABLE-011 TABLE-012
+TABLE.cell-textbox | | The cell text box wraps and fits its text in the block editor font | TABLE-006 TABLE-007 TABLE-008 TABLE-009
+TABLE.cell-autosave | | A cell edit saves the whole table and moves between cells without reopening | TABLE-013 TABLE-014 TABLE-015 TABLE-016
+TABLE.cell-commit | | Enter, Done, leaving the cell or a click elsewhere commits the cell | TABLE-018 TABLE-019 TABLE-020 TABLE-021 TABLE-022 TABLE-023 TABLE-024 TABLE-120
+TABLE.cell-cancel | | Escape cancels the cell edit, except during a composition | TABLE-025 TABLE-028 TABLE-029
+TABLE.cell-refusal | | A host refusal is shown in the cell and keeps the typed text | TABLE-034 TABLE-121
+TABLE.cell-navigation | | Tab and the arrow keys move through the table cells | TABLE-035 TABLE-036 TABLE-037 TABLE-038 TABLE-039 TABLE-040 TABLE-041 TABLE-042 TABLE-043 TABLE-122
+TABLE.table-bar | | A labelled table bar above the table tells the position and holds the buttons | TABLE-048 TABLE-049 TABLE-050 TABLE-051 TABLE-052 TABLE-053 TABLE-054 TABLE-123
+TABLE.row-column-ops | | Row and column buttons add and remove rows and columns | TABLE-055 TABLE-056 TABLE-057 TABLE-058 TABLE-059 TABLE-060 TABLE-061 TABLE-062 TABLE-063
+TABLE.bar-sticky | | The table bar rides down with a tall table and stays visible | TABLE-064 TABLE-065 TABLE-066 TABLE-067 TABLE-068 TABLE-069
+TABLE.list-table-button | | The List table button converts the edited table in one final save | TABLE-070 TABLE-071 TABLE-072
+TABLE.list-table-action | | List table converts the table at the caret to a list-table in one edit | TABLE-073 TABLE-075
+TABLE.pipe-table-action | | Pipe table converts the table at the caret to a pipe table in one edit | TABLE-074 TABLE-124
+TABLE.conversion-refusals | | A conversion that would lose content is refused with a reason | TABLE-076 TABLE-077 TABLE-078 TABLE-079 TABLE-125
+TABLE.conversion-format | | A conversion keeps cells, escapes and alignment across forms | TABLE-080 TABLE-081 TABLE-082 TABLE-083 TABLE-084 TABLE-126
+TABLE.cell-format-group | | The table bar's cell group formats the cell text | TABLE-085 TABLE-086 TABLE-088 TABLE-089 TABLE-090 TABLE-128 PALETTE-269:m
+TABLE.cell-pipes-linebreaks | | Pipes in cell text are escaped and line breaks become spaces | TABLE-091 TABLE-092 TABLE-093 TABLE-129
+TABLE.one-line-edit | | Editing one cell changes exactly one line of the source | TABLE-094 TABLE-095 TABLE-096 TABLE-097 TABLE-098 TABLE-099 TABLE-100 TABLE-105
+TABLE.row-parsing | | Edge pipes are optional and escaped or code pipes do not split a cell | TABLE-102 TABLE-103 TABLE-104
+TABLE.insert-table | | The Table action inserts a pipe table of the chosen size on its own lines | TABLE-106 TABLE-107 TABLE-108 TABLE-109 TABLE-110
+TABLE.column-alignment | | Column alignment sets the colons of the caret's column | TABLE-111 TABLE-112 TABLE-113 TABLE-114 PALETTE-139:m
+TABLE.captioned-table | | Table with caption wraps the table at the caret in a table directive | TABLE-115 TABLE-116
+TABLE.html-table | | HTML table converts or inserts an HTML table | TABLE-117 TABLE-118 TABLE-119
+
+## toolbar-navigation
+TOOLBAR.rows | | The toolbar has three rows of titled buttons that float over the page | TOOLBAR-001 TOOLBAR-003 TOOLBAR-004 TOOLBAR-005 TOOLBAR-006 TOOLBAR-134
+TOOLBAR.collapse | | The chevron collapses the toolbar to its first row | TOOLBAR-007 TOOLBAR-008 TOOLBAR-009
+TOOLBAR.sticky-band | | The sticky band shows the current heading path | TOOLBAR-018 TOOLBAR-019 TOOLBAR-020 TOOLBAR-021
+TOOLBAR.sticky-band-layout | | The sticky band is fixed, aligned with the column and clear of the toolbar | TOOLBAR-025 TOOLBAR-026 TOOLBAR-027 TOOLBAR-028 TOOLBAR-029 TOOLBAR-136 TOOLBAR-137
+TOOLBAR.sticky-depth | | The sticky heading depth setting decides how many levels stay pinned | TOOLBAR-022 TOOLBAR-023 TOOLBAR-024
+TOOLBAR.sticky-stability | | The reading offset below the band settles without oscillation | TOOLBAR-030 TOOLBAR-031 TOOLBAR-032
+TOOLBAR.toc-toggle | | The Table of contents button shows and hides the column | TOOLBAR-033 TOOLBAR-034 TOOLBAR-138
+TOOLBAR.toc-layout | | The column sits below the toolbar on the right and never covers the text | TOOLBAR-037 TOOLBAR-038 TOOLBAR-039 TOOLBAR-053
+TOOLBAR.toc-entries | | The column lists the h1 to h4 headings with folding | TOOLBAR-040 TOOLBAR-041 TOOLBAR-042 TOOLBAR-043 TOOLBAR-044 TOOLBAR-139 TOOLBAR-140
+TOOLBAR.toc-tracking | | The column marks the section being read and jumps on click | TOOLBAR-045 TOOLBAR-046 TOOLBAR-047 TOOLBAR-048 TOOLBAR-049 TOOLBAR-050 TOOLBAR-051:d TOOLBAR-052:d
+TOOLBAR.history-buttons | | Back and Next follow the host's history state | TOOLBAR-054 TOOLBAR-055 TOOLBAR-057 TOOLBAR-074 TOOLBAR-075
+TOOLBAR.history-recording | | Followed links and anchor jumps are recorded per panel and replayed at their line | TOOLBAR-059 TOOLBAR-060 TOOLBAR-061 TOOLBAR-062 TOOLBAR-063 TOOLBAR-064 TOOLBAR-069
+TOOLBAR.history-list | | The history keeps the last 50 places without duplicates | TOOLBAR-065 TOOLBAR-066 TOOLBAR-067 TOOLBAR-068
+TOOLBAR.link-activation | | A click or Enter on a link is routed to the host and opened or refused with a warning | TOOLBAR-077 TOOLBAR-078 TOOLBAR-108 TOOLBAR-109 TOOLBAR-110 TOOLBAR-111 TOOLBAR-146
+TOOLBAR.anchor-jump | | An in-page anchor scrolls the page to its target at the reading line | TOOLBAR-117 TOOLBAR-118 TOOLBAR-119
+TOOLBAR.link-discovery | | Links in view are looked up in bounded batches | TOOLBAR-079 TOOLBAR-080 TOOLBAR-081 TOOLBAR-082 TOOLBAR-084 TOOLBAR-141 TOOLBAR-142
+TOOLBAR.link-hints | | A link shows its target kind in a tooltip without changing its target | TOOLBAR-085 TOOLBAR-086 TOOLBAR-087 TOOLBAR-088
+TOOLBAR.link-classification | | A link is an anchor, external, local or blocked | TOOLBAR-090 TOOLBAR-091 TOOLBAR-092 TOOLBAR-093 TOOLBAR-143 TOOLBAR-144 TOOLBAR-145
+TOOLBAR.link-workspace-bounds | | A local link target must be a regular file inside the workspace | TOOLBAR-094 TOOLBAR-095 TOOLBAR-096
+TOOLBAR.wikilinks | | A wikilink is found by file name, or refused when ambiguous or empty | TOOLBAR-098 TOOLBAR-099 TOOLBAR-100 TOOLBAR-101
+TOOLBAR.fragments | | A link fragment selects a source line, block id, label, heading or field | TOOLBAR-102 TOOLBAR-103 TOOLBAR-104 TOOLBAR-105 TOOLBAR-106 TOOLBAR-107
+TOOLBAR.anchor-mode | | The Anchor button switches whether the preview follows the editor | TOOLBAR-120 TOOLBAR-121 TOOLBAR-123 TOOLBAR-148
+TOOLBAR.cursor-mark | | The block at the editor cursor is outlined when the setting is on | TOOLBAR-128 TOOLBAR-129 TOOLBAR-130 TOOLBAR-131 TOOLBAR-132 TOOLBAR-133 TOOLBAR-149
+TOOLBAR.msg-previewViewPreferenceChanged | | The host accepts only a known view preference with a valid value | TOOLBAR-013 THEME-052:m TOOLBAR-135:m
+TOOLBAR.msg-previewHistoryGo | | The host accepts only back or forward | TOOLBAR-058
+TOOLBAR.msg-previewLinkDiscover | | The host accepts discovery messages of bounded size | TOOLBAR-083
+TOOLBAR.msg-previewAnchorModeChanged | | The host accepts only a boolean anchor mode | TOOLBAR-126
+TOOLBAR.msg-previewLink | | A link message needs a request, else it is ignored or refused | TOOLBAR-113 FMSCHEMA-083
+TOOLBAR.msg-previewHistoryState | | A history state of another render is ignored | TOOLBAR-056
+TOOLBAR.msg-previewPairing | | A pairing message for another document is ignored | TOOLBAR-122
+
+## lifecycle-sync
+LIFE.activation | | The extension activates only on its own entry points | LIFE-001 LIFE-002 LIFE-148 LIFE-167
+LIFE.open-side-command | | Open Preview to Side opens or reveals a side preview | LIFE-003 LIFE-004 LIFE-005 LIFE-007 LIFE-008 LIFE-009 LIFE-014 LIFE-015 LIFE-016 LIFE-017
+LIFE.open-side-arguments | | Open Preview to Side checks the file it is given | LIFE-010 LIFE-011 LIFE-012 LIFE-013
+LIFE.open-with-editor | | The Open With editor shows its own Markdown file | LIFE-018 LIFE-019 LIFE-020 LIFE-021 LIFE-022 LIFE-023
+LIFE.panel-title | | The panel title names the document and whether it follows | LIFE-024 LIFE-025
+LIFE.follow-active-editor | | The side preview follows the active Markdown editor | LIFE-026 LIFE-027 LIFE-028 LIFE-029 LIFE-030 LIFE-031
+LIFE.refresh | | Refresh Preview renders the shown document again | LIFE-032 LIFE-033 LIFE-034 LIFE-035 LIFE-036 LIFE-037
+LIFE.multi-preview | | Each preview has its own state and only the newest follows | LIFE-038 LIFE-132
+LIFE.live-render | | Typing renders the new text after a short pause, without writing files | LIFE-039 LIFE-040 LIFE-041 LIFE-042 LIFE-043
+LIFE.dependency-watch | | Changes to files and settings the render depends on render again | LIFE-044 LIFE-045 LIFE-046 LIFE-047
+LIFE.render-status | | The status names the render state and shows pending, failed and recovered notices | LIFE-049 LIFE-006 LIFE-050 LIFE-051 LIFE-052 LIFE-053 LIFE-054 LIFE-056 LIFE-057 LIFE-058
+LIFE.status-region | | The status region is a polite live region of plain text | LIFE-059 LIFE-060 LIFE-061 LIFE-087
+LIFE.source-missing | | A preview without a source says why and recovers when it returns | LIFE-062 LIFE-063 LIFE-064 LIFE-065 LIFE-066 LIFE-067 LIFE-068
+LIFE.content-patch | | A render of the loaded document updates the page in place | LIFE-069 LIFE-070 LIFE-079 LIFE-080 LIFE-083 LIFE-084 LIFE-085 LIFE-086 LIFE-088
+LIFE.full-reload-fallback | | A render that cannot patch loads a new page document | LIFE-071 LIFE-072 LIFE-073 LIFE-075 LIFE-076 LIFE-077 LIFE-078 LIFE-092
+LIFE.outside-change-glow | | Blocks changed by another tool glow briefly | LIFE-094 LIFE-095 LIFE-096 CORE-048 CORE-049
+LIFE.scroll-settings | | Three settings decide how the panes follow each other | LIFE-097 LIFE-098 LIFE-099
+LIFE.editor-to-preview-scroll | | Scrolling the text editor scrolls the preview to the same line | LIFE-100 LIFE-101 LIFE-102 LIFE-103 LIFE-104 LIFE-105 LIFE-106 LIFE-107 LIFE-118
+LIFE.preview-to-editor-reveal | | Scrolling or clicking the preview reveals the source line | LIFE-108 LIFE-109 LIFE-110 LIFE-111 LIFE-113 LIFE-114 LIFE-115
+LIFE.reading-anchor | | Both panes share one reading anchor that survives updates | LIFE-119 LIFE-120 LIFE-121 LIFE-122 LIFE-123 LIFE-124 LIFE-164 LIFE-165
+LIFE.reading-state-save | | The reading state of recent documents is saved within bounds | LIFE-125 LIFE-126 LIFE-138 LIFE-139
+LIFE.panel-restore | | A restored panel reopens its document or explains why it cannot | LIFE-127 LIFE-128 LIFE-129 LIFE-130 LIFE-131 LIFE-133 LIFE-134 LIFE-135
+LIFE.close-cleanup | | Closing a preview or folder leaves nothing behind | LIFE-143 LIFE-144 LIFE-145 LIFE-146 LIFE-147
+LIFE.builtin-coexistence | | The Studio runs beside the built-in Markdown preview | LIFE-149 LIFE-150
+LIFE.group-lock | | A side preview locks its editor group | LIFE-151 LIFE-152 LIFE-153 LIFE-154
+LIFE.settings-registry | | The settings editor lists the Studio settings in titled groups | LIFE-156 LIFE-157 LIFE-158 LIFE-159 LIFE-160 LIFE-161 LIFE-168
+LIFE.msg-previewPendingOverlay | | The page ignores a pending notice with an oversized or malformed field | LIFE-055
+LIFE.view-choice-store | X NEW | A view choice made on the page is stored for the workspace | BLOCK-010 BLOCK-011 PALETTE-008 PALETTE-009 THEME-010 THEME-011 THEME-012 THEME-014 THEME-046 THEME-047 TOOLBAR-010 TOOLBAR-014 TOOLBAR-015 TOOLBAR-035 TOOLBAR-125 TOOLBAR-127 LAYOUT-021
+LIFE.view-choice-start | X NEW | A new page starts each view choice from the saved, stored or default value | BLOCK-008 BLOCK-009 PALETTE-012 PALETTE-013 THEME-004 THEME-005 THEME-006 THEME-007 THEME-008 THEME-048 THEME-049 THEME-050 THEME-053 TOOLBAR-011 TOOLBAR-012 TOOLBAR-036 TOOLBAR-124 TOOLBAR-147 LAYOUT-038 REVIEW-159
+
+## theme-zoom
+THEME.theme-button | | The Theme button cycles Current, Dark, White and Cream | THEME-001 THEME-002 THEME-003 THEME-009
+THEME.current-mode | | Current mode follows the VS Code theme and redraws on change | THEME-016 THEME-017 THEME-019 THEME-020 THEME-021 THEME-022
+THEME.forced-modes | | Dark, White and Cream paint the whole page the same on any VS Code theme | THEME-025 THEME-026 THEME-027 THEME-028 THEME-029 THEME-030 THEME-037 THEME-057 THEME-058
+THEME.cream-contrast | | Cream text meets a 4.5 to 1 contrast | THEME-031 THEME-032
+THEME.token-map | | Page colours go through one token map of VS Code variables | THEME-034 THEME-035 THEME-036
+THEME.zoom-buttons | | Zoom in and out change the zoom by 10 points within limits | THEME-038 THEME-039 THEME-040 THEME-041 THEME-042 THEME-045
+THEME.zoom-scaling | | Zoom scales the text and the column without a redraw | THEME-043 THEME-044 THEME-051
+THEME.msg-previewThemeModeChanged | | The host drops a theme-mode message with an unknown mode | THEME-013
+
+## rendering-core
+CORE.render-buffer | | The preview renders the unsaved buffer completely, in process | CORE-001 CORE-002 CORE-021 CORE-026 CORE-038 CORE-046 CORE-027:d
+CORE.source-mapping | | Every rendered block maps to its absolute source lines | CORE-003 CORE-004 CORE-005 CORE-006 CORE-007
+CORE.images | | Images fit the column, sit on the line and survive a missing file | CORE-008 CORE-009 CORE-065
+CORE.wikilinks | | Wikilinks render as links where they are text | CORE-010 CORE-011
+CORE.include-expansion | | An include is expanded in place and mapped to its directive | CORE-012 CORE-014 CORE-015 CORE-017 CORE-045
+CORE.include-limits | | Includes are bounded by depth, budget, size and allowed roots | CORE-013 CORE-016 CORE-018 CORE-019 CORE-067 TRUST-087:m
+CORE.unresolved-placeholders | | Build-dependent constructs show an inert placeholder with a warning | CORE-022 CORE-023 CORE-036 CORE-047 MYST-020 MYST-021 MYST-022 MYST-023
+CORE.render-failure | | A failed render keeps the previous page and lists its diagnostics | CORE-025 CORE-024
+CORE.typography | | Body text, headings, lists and inline code are typeset readably | CORE-028 CORE-029 CORE-030 CORE-031 CORE-032 CORE-033 CORE-037 THEME-033:m CODE-038
+CORE.narrow-wrapping | | Long words, URLs, identifiers and CJK text wrap in the column | CORE-034 CORE-039 CORE-040 CORE-042
+CORE.text-direction | | Right-to-left text aligns to the right and blocks get an automatic direction | CORE-041 TRUST-046:m TRUST-047:m
+CORE.find-in-preview | | Find works in the preview | CORE-043
+CORE.motion | | Soft appearance and colour transitions honour reduced motion | CORE-050 CORE-051 CORE-052 CORE-053 CORE-068 THEME-023:m PALETTE-038:m
+
+## code-blocks
+CODE.highlight | | Fenced code in a supported language is highlighted, other code stays literal | CODE-001 CODE-002 CODE-003 CODE-004 CODE-030 CODE-031 CODE-037
+CODE.line-wrapping | | Numbered, emphasized and diff blocks are wrapped into lines | CODE-005 CODE-006 CODE-011
+CODE.diff | | Diff blocks show additions and deletions | CODE-008 CODE-009 CODE-010 CODE-036
+CODE.code-styles | | Code blocks use one font scale, the theme colours and scroll long lines | CODE-007 CODE-012 CODE-013 CODE-016
+CODE.captions | | A code directive shows its file name or caption above the code | CODE-014 CODE-015 CODE-028
+CODE.copy-button | | A Copy code button appears on a hovered code block | CODE-017 CODE-018 CODE-022 CODE-023 CODE-024 CODE-029 CODE-032 CODE-033 CODE-034 CODE-035
+CODE.copy-action | | The copy button copies the raw code and confirms it | CODE-019 CODE-020 CODE-021
+CODE.msg-previewCopyText | | An invalid or oversized copy request is refused | CODE-026
+
+## gfm
+GFM.autolinks | | Bare URLs become safe links | GFM-001 GFM-002 GFM-003 GFM-004 GFM-005 GFM-006 GFM-007
+GFM.core-extensions | | Strikethrough, footnotes and pipe tables render as on GitHub | GFM-008 GFM-014 GFM-015
+GFM.alerts | | GitHub alerts render as admonitions | GFM-009 GFM-010 GFM-011 GFM-012 GFM-013 GFM-037
+GFM.checkbox-render | | Task list markers render as checkboxes with their source position | GFM-016 GFM-017 GFM-018 GFM-019 GFM-020
+GFM.checkbox-toggle | | Clicking a checkbox toggles one source character | GFM-021 GFM-023 GFM-024 GFM-028
+GFM.raw-html | | A small raw HTML subset renders and the rest is dropped | GFM-029 GFM-030 GFM-033 CORE-044 CORE-062
+GFM.raw-tables | | Raw HTML tables are rebuilt from an allow-list | GFM-031 GFM-032 GFM-038 CORE-056
+GFM.span-colours | | Colour spans keep safe colours only | GFM-034 GFM-035 GFM-036
+GFM.msg-previewCheckboxToggle | | The host validates checkbox toggle messages | GFM-027 TRUST-083:m
+
+## myst
+MYST.admonitions | | Admonitions render as coloured callouts with a title | MYST-001 MYST-002 MYST-004 MYST-005 MYST-010 MYST-011 MYST-012 MYST-087 CORE-061
+MYST.admonition-structure | | Admonitions nest, collapse and map as one block | MYST-006 MYST-007 MYST-008 MYST-009 MYST-003 MYST-052
+MYST.context-tags | | Context tags render as titled panels | MYST-013 MYST-014 MYST-015 MYST-016
+MYST.inline-typesetting | | Definition lists and inline roles are typeset | MYST-017 MYST-018 MYST-095
+MYST.reference-roles | | Reference roles link to in-page targets | MYST-019 CORE-060
+MYST.math | | Maths is typeset offline by KaTeX and bad formulas stay readable | MYST-024 MYST-025 MYST-026 MYST-027 MYST-028 MYST-029
+MYST.conf-locate | | The governing conf.py is found and read as text | MYST-066 MYST-067 MYST-068 MYST-069 MYST-070 MYST-089 MYST-071:d
+MYST.conf-warnings | | MyST syntax of a disabled extension is reported with its line | MYST-072 MYST-073 MYST-074 MYST-075 MYST-076 MYST-077 MYST-030 CORE-064
+MYST.problems-view | | Extension warnings appear in the Problems view and follow conf.py | MYST-078 MYST-079 MYST-080
+MYST.figures | | Figures render with image, caption, label, width and alignment | MYST-031 MYST-032 MYST-033 MYST-035 MYST-091 CORE-059 CORE-063 MYST-034:d
+MYST.label-anchors | | Labels show an anchor icon on the next block | MYST-036 MYST-037
+MYST.label-rename-page | | The anchor icon opens a rename field that sends valid names | MYST-038 MYST-039 MYST-040 MYST-041 MYST-047 MYST-048 MYST-049 MYST-090 MYST-094
+MYST.label-rename-host | | The host renames only the label text in one undo step | MYST-045 MYST-046
+MYST.grids | | Grids lay out cards in responsive columns | MYST-053 MYST-054 MYST-055 MYST-056
+MYST.toctree | | Toctree lists linked documents and marks missing ones | MYST-057 MYST-058 MYST-059 MYST-060 MYST-061 MYST-062 CORE-054 CORE-055
+MYST.table-directives | | Table directives render as ordinary tables | MYST-063 MYST-064 MYST-065 MYST-088 MYST-092 CORE-057 CORE-058
+MYST.warning-banner | | A closable banner announces conf.py warnings | MYST-081 MYST-082 MYST-083 MYST-084 MYST-085 MYST-086
+MYST.msg-previewLabelRename | | The label rename message is validated and answered | MYST-051
+MYST.directive-registry | | (archived) | MYST-093:d
+
+## diagrams
+DIAG.mermaid-render | | Mermaid fences become inert diagram pictures | DIAG-001 DIAG-002 DIAG-003 DIAG-004 DIAG-022
+DIAG.mermaid-theme | | Mermaid colours follow the preview theme | DIAG-005 DIAG-006 DIAG-007 DIAG-008
+DIAG.mermaid-incremental | | Mermaid diagrams are drawn once and late results are dropped | DIAG-009 DIAG-011 DIAG-012 DIAG-014 DIAG-116 DIAG-010:d DIAG-013:d
+DIAG.mermaid-errors | | Invalid Mermaid shows one message with the parser reason | DIAG-015 DIAG-016
+DIAG.mermaid-insert | | The Mermaid action inserts a starter flowchart in GFM mode | DIAG-017 DIAG-018
+DIAG.plantuml-render | | PlantUML fences become centred inert pictures drawn by the built-in engine | DIAG-023 DIAG-028 DIAG-029 DIAG-030 DIAG-081 DIAG-083 DIAG-115 DIAG-119
+DIAG.plantuml-engine-choice | | The useJar and jarPath settings choose the PlantUML engine | DIAG-024 DIAG-025 DIAG-026 DIAG-027 DIAG-031 DIAG-075 DIAG-076 DIAG-077 DIAG-078
+DIAG.builtin-refusals | | The built-in engine refuses what needs a URL, a library or more than 1 MiB | DIAG-032 DIAG-033 DIAG-034 DIAG-035 DIAG-036 DIAG-037 DIAG-038 DIAG-082 DIAG-112
+DIAG.builtin-incremental | | Built-in pictures are kept by source and drawn one at a time | DIAG-039 DIAG-041 DIAG-042 DIAG-043 DIAG-044 DIAG-040:d
+DIAG.includes-page | | PlantUML includes are read through the extension and refusals reach the diagram | DIAG-046 DIAG-048 DIAG-049 DIAG-113 DIAG-114
+DIAG.includes-host | | The host reads an include only next to the including file in allowed folders | DIAG-054 DIAG-055 DIAG-056 DIAG-057 DIAG-058 DIAG-059 DIAG-060
+DIAG.include-limits | | Includes nest at most 8 deep, 64 files and 1 MiB | DIAG-061 DIAG-062 DIAG-063 DIAG-064
+DIAG.include-watch | | Served include files are watched and redraw their diagrams | DIAG-053 DIAG-045 DIAG-065 DIAG-066 DIAG-067
+DIAG.puml-files | | A uml directive renders a PUML file as a render dependency | DIAG-068 DIAG-069 DIAG-070 DIAG-071 DIAG-072 DIAG-073 DIAG-074
+DIAG.jar-invocation | | The JAR pipeline runs java or plantuml once per diagram on stdin | DIAG-084 DIAG-085 DIAG-086 DIAG-087 DIAG-088 DIAG-104 DIAG-120
+DIAG.jar-results | | JAR results replace the diagrams of the current render in order | DIAG-105 DIAG-106 DIAG-108 DIAG-109 DIAG-110 DIAG-111 DIAG-117
+DIAG.jar-errors | | JAR failures are reported on the diagram and in the status line | DIAG-089 DIAG-090 DIAG-091 DIAG-092 DIAG-093 DIAG-094 DIAG-095 DIAG-096 DIAG-107
+DIAG.jar-limits | | A JAR render is bounded in input, output, time and process lifetime | DIAG-097 DIAG-098 DIAG-099 DIAG-100 DIAG-101 DIAG-102 DIAG-103 DIAG-118
+DIAG.msg-previewPlantUmlInclude | | The host accepts only well-formed include requests | DIAG-050
+
+## frontmatter-schema
+FMSCHEMA.block-parse | | The frontmatter block is found by its fences and parsed as a YAML mapping | FMSCHEMA-001 FMSCHEMA-002 FMSCHEMA-003 FMSCHEMA-017 FMSCHEMA-018 FMSCHEMA-076
+FMSCHEMA.table-setting | | The propertiesTable setting hides the table while the body renders | FMSCHEMA-004 FMSCHEMA-045 FMSCHEMA-075
+FMSCHEMA.generic-table | | Without a schema the table lists the keys in source order, escaped | FMSCHEMA-005 FMSCHEMA-012 FMSCHEMA-013 FMSCHEMA-088
+FMSCHEMA.value-display | | Property values read like YAML in a lean table | FMSCHEMA-006 FMSCHEMA-007 FMSCHEMA-008 FMSCHEMA-009 FMSCHEMA-010 FMSCHEMA-011
+FMSCHEMA.description-column | | The Description column collapses and the choice is kept per document | FMSCHEMA-014 FMSCHEMA-015 FMSCHEMA-016 LIFE-140:m LIFE-141:m LIFE-142:m LIFE-166:m
+FMSCHEMA.schema-lookup | | A typed document finds its schema in the nearest schema folder | FMSCHEMA-019 FMSCHEMA-020 FMSCHEMA-021 FMSCHEMA-022 FMSCHEMA-077
+FMSCHEMA.schema-formats | | Schemas in YAML, JSON or JSON5 with relative references compile or report a row | FMSCHEMA-023 FMSCHEMA-024 FMSCHEMA-025 FMSCHEMA-026
+FMSCHEMA.schema-refresh | | Schema edits are picked up on the next analysis | FMSCHEMA-027 FMSCHEMA-028 FMSCHEMA-078:d
+FMSCHEMA.field-list | | A schema table lists the declared fields with their type | FMSCHEMA-029 FMSCHEMA-030 FMSCHEMA-031 FMSCHEMA-032 FMSCHEMA-033 FMSCHEMA-034
+FMSCHEMA.validation | | Every schema violation is reported on its field or in a row of its own | FMSCHEMA-084 FMSCHEMA-089 FMSCHEMA-035 FMSCHEMA-036 FMSCHEMA-037 FMSCHEMA-041 FMSCHEMA-042 FMEDIT-086
+FMSCHEMA.issue-badge | | The title badge counts the issues and jumps to the first one | FMSCHEMA-039 FMSCHEMA-038 FMSCHEMA-040 FMSCHEMA-085 FMSCHEMA-087
+FMSCHEMA.live-refresh | | The table is refreshed in place after edits, after the field editor closes | FMSCHEMA-043 FMSCHEMA-044
+FMSCHEMA.link-annotations | | x-okf-link annotations declare link fields and their syntax | FMSCHEMA-046 FMSCHEMA-047 FMSCHEMA-048 FMSCHEMA-049
+FMSCHEMA.link-roots | | Links resolve from the document, bundle or project root and stay inside it | FMSCHEMA-050 FMSCHEMA-051 FMSCHEMA-052 FMSCHEMA-053 FMSCHEMA-054 FMSCHEMA-079 FMSCHEMA-080
+FMSCHEMA.link-root-settings | | The bundleRoot, projectRoot and allowOutsideWorkspaceLinks settings set the roots | FMSCHEMA-060 FMSCHEMA-061 FMSCHEMA-062 FMSCHEMA-081
+FMSCHEMA.link-stems | | A filename stem resolves when exactly one file matches | FMSCHEMA-055 FMSCHEMA-056 FMSCHEMA-057 FMSCHEMA-058 FMSCHEMA-059
+FMSCHEMA.link-status | | Each link value shows whether it resolves | FMSCHEMA-063 FMSCHEMA-064 FMSCHEMA-065 FMSCHEMA-066 FMSCHEMA-086
+FMSCHEMA.linked-file-details | | A link tooltip shows the fields and an excerpt of the linked file | FMSCHEMA-067 FMSCHEMA-068 FMSCHEMA-069 FMSCHEMA-070 FMSCHEMA-071 FMSCHEMA-072
+FMSCHEMA.link-follow | | A resolving frontmatter link opens its target, others are refused with a warning | FMSCHEMA-073 FMSCHEMA-074 FMSCHEMA-082
+
+## frontmatter-editing
+FMEDIT.field-editor-open | | A click on a field in edit mode opens its editor in place | FMEDIT-001 FMEDIT-013 FMEDIT-065 FMEDIT-066 FMEDIT-087
+FMEDIT.text-values | | Text values are edited as one or several lines | FMEDIT-004 FMEDIT-005 FMEDIT-006 FMEDIT-015 FMEDIT-075 FMEDIT-076
+FMEDIT.typed-controls | | Enum, number, date, boolean and nullable fields use fitting controls | FMEDIT-003 FMEDIT-007 FMEDIT-008 FMEDIT-009 FMEDIT-017 FMEDIT-050 FMEDIT-074
+FMEDIT.list-editor | | List fields and link lists are edited item by item | FMEDIT-010 FMEDIT-011 FMEDIT-012 FMEDIT-014 FMEDIT-077 FMEDIT-078
+FMEDIT.save-cancel | | A field editor saves a changed value and Escape cancels it | FMEDIT-019 FMEDIT-020 FMEDIT-021 FMEDIT-022 FMEDIT-023 FMEDIT-056 FMEDIT-082
+FMEDIT.key-rename | | A click on a field name renames the key | FMEDIT-024 FMEDIT-025 FMEDIT-026 FMEDIT-027
+FMEDIT.add-field | | The field action menu offers the missing schema fields or a custom key | FMEDIT-028 FMEDIT-033 FMEDIT-034 FMEDIT-035 FMEDIT-036 FMEDIT-084
+FMEDIT.added-field-placement | | An added field is one inserted line where its row will show, and its editor opens | FMEDIT-037 FMEDIT-038 FMEDIT-040 FMEDIT-041 FMEDIT-042
+FMEDIT.remove-field | | Remove field deletes exactly the lines of a non-required field | FMEDIT-029 FMEDIT-030 FMEDIT-031 FMEDIT-032
+FMEDIT.minimal-patch | | A frontmatter edit changes only the lines of its field | FMEDIT-043 FMEDIT-039 FMEDIT-044 FMEDIT-045 FMEDIT-046
+FMEDIT.host-validation | | The host refuses a value that breaks YAML, the field type or the schema | FMEDIT-016 FMEDIT-018 FMEDIT-047 FMEDIT-048 FMEDIT-049 FMEDIT-079 FMEDIT-083
+FMEDIT.flush | | A navigation saves the open field editor as an unchecked flush | FMEDIT-067 FMEDIT-068 FMEDIT-069 FMEDIT-070 FMEDIT-071 FMEDIT-085
+FMEDIT.msg-previewFrontmatterSave | | A frontmatter save message names its editor and field, or is ignored | FMEDIT-054 TRUST-082:m TRUST-085:m
+
+## layout-width
+LAYOUT.no-sideways-scroll | | The preview page never scrolls sideways | LAYOUT-001 LAYOUT-035
+LAYOUT.column-width-setting | | The text column width follows the maxContentWidth setting | LAYOUT-002 LAYOUT-003 LAYOUT-004 LAYOUT-005 LAYOUT-006 LAYOUT-036
+LAYOUT.first-element-gap | | The first element starts 40 px below the top | LAYOUT-007 LAYOUT-008 LAYOUT-009 LAYOUT-010
+LAYOUT.toolbar-clearance | | A control under the floating toolbar is moved or narrowed out of its way | LAYOUT-011 LAYOUT-012 LAYOUT-014 LAYOUT-015 LAYOUT-016 LAYOUT-037 LAYOUT-042
+LAYOUT.clearance-remeasure | | The clearance is measured again after layout events, in bounded bursts | LAYOUT-018 LAYOUT-013 LAYOUT-017 LAYOUT-019 LAYOUT-041
+LAYOUT.width-mode-button | | The Width button cycles Margin, Auto and Full and keeps the reading line | LAYOUT-020 LAYOUT-040
+LAYOUT.auto-width | | Auto width lets wide blocks break out of the column | LAYOUT-023 LAYOUT-024 LAYOUT-025 LAYOUT-026 LAYOUT-027 LAYOUT-031
+LAYOUT.margin-full | | Margin keeps blocks in the column and Full removes the limit | LAYOUT-022 LAYOUT-028 LAYOUT-029 LAYOUT-030 LAYOUT-039
+LAYOUT.table-scroll | | A wide table scrolls inside its own box with shaded edges | LAYOUT-032 LAYOUT-033 LAYOUT-034 CORE-035

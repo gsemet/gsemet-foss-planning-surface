@@ -1,0 +1,43 @@
+✔ a numbered grid card title maps to its directive line, never to line 1 (323.64675ms)
+✔ a numbered standalone card title maps to its directive line (3.4685ms)
+✔ a numbered card title is literal inline text: the leading number stays and no list is built (9.624ms)
+✔ a plain grid card title maps to its directive line too (3.715083ms)
+✔ a card title with a link option maps to its directive line like a plain title (2.317084ms)
+✔ a linked grid card title maps to its directive line and keeps its link (23.816625ms)
+✔ a standalone card header option maps to its own option line and keeps its leading number (2.870125ms)
+✔ header and footer options that are not the first option line map to their own lines (3.464125ms)
+✔ the header, footer and unlinked title lines are marked single-line; the body is not (5.172291ms)
+✔ a linked card title is marked single-line like any card title (5.659166ms)
+✔ a quoted grid whose body starts with a blank quoted line maps its card, title and body to their own lines (2.851584ms)
+✔ a doubly quoted grid whose body starts with a blank quoted line maps its card, title and body to their own lines (2.571792ms)
+✔ a quoted grid with the cards on the next line maps its card, title and body to their own lines (2.658708ms)
+✔ a quoted grid with a gutter option and a blank line maps its card, title and body to their own lines (2.376667ms)
+✔ an unquoted grid whose body starts with a blank line maps its card, title and body to their own lines (3.902833ms)
+✔ a quoted standalone card maps its card, title and body to their own lines (5.126917ms)
+✔ a quoted standalone card with a backtick fence and a blank first body line maps its card, title and body to their own lines (1.617625ms)
+✔ an unquoted standalone card with a backtick fence and a blank first body line maps its card, title and body to their own lines (1.662625ms)
+✔ a doubly quoted standalone card maps its card, title and body to their own lines (1.689125ms)
+✔ a quoted card with an option line maps its card, title and body to their own lines (1.714542ms)
+✔ a quoted card with the header and footer markers maps its card, title and body to their own lines (2.579417ms)
+✔ a quoted card whose body has a lazy continuation line maps its card, title and body to their own lines (8.60225ms)
+✔ a bullet grid whose body starts with a blank line maps its card, title and body to their own lines (2.820542ms)
+✔ a star bullet grid whose body starts with a blank line maps its card, title and body to their own lines (2.119625ms)
+✔ an ordered grid whose body starts with a blank line maps its card, title and body to their own lines (2.069792ms)
+✔ a two-digit ordered grid whose body starts with a blank line maps its card, title and body to their own lines (2.488208ms)
+✔ a nested bullet grid whose body starts with a blank line maps its card, title and body to their own lines (2.699834ms)
+✔ a list item inside a quote whose grid body starts with a blank line maps its card, title and body to their own lines (2.456584ms)
+✔ a quote inside a list item whose grid body starts with a blank line maps its card, title and body to their own lines (2.314834ms)
+✔ a standalone card in a list item with a blank first body line maps its card, title and body to their own lines (1.750416ms)
+✔ a bullet grid with the cards on the next line maps its card, title and body to their own lines (2.176333ms)
+✔ an ordered grid with the cards on the next line maps its card, title and body to their own lines (2.230125ms)
+✔ a bullet grid with a gutter option and a blank line maps its card, title and body to their own lines (2.491083ms)
+✔ a grid opened on its own indented line in a list item maps its card, title and body to their own lines (2.714375ms)
+✔ a tab panel of a tab set written in a list item maps to its directive line (2.791458ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 662.790125

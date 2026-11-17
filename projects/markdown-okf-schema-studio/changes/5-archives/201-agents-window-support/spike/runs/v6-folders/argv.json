@@ -1,0 +1,19 @@
+{
+  "root": "/private/tmp/ags-Xk8yop",
+  "argv": [
+    "--user-data-dir=/private/tmp/ags-Xk8yop/data",
+    "--extensions-dir=/private/tmp/ags-Xk8yop/ext",
+    "--shared-data-dir=/private/tmp/ags-Xk8yop/shared",
+    "--agent-plugins-dir=/private/tmp/ags-Xk8yop/plugins",
+    "--agents-user-data-dir=/private/tmp/ags-Xk8yop/agents-data",
+    "--agents-extensions-dir=/private/tmp/ags-Xk8yop/agents-ext",
+    "--extensionDevelopmentPath=/Users/az02065/.copilot/session-state/5398490d-6084-42f6-ac5c-0bcf9a7a2ca4/files/agents-spike/probe",
+    "--remote-debugging-port=49654",
+    "--remote-debugging-address=127.0.0.1",
+    "--skip-welcome",
+    "--skip-release-notes",
+    "--disable-telemetry",
+    "--new-window",
+    "--agents"
+  ]
+}

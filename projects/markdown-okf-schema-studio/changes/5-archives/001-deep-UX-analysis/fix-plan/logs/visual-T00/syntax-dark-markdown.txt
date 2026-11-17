@@ -1,0 +1,43 @@
+syntax-dark-markdown
+====================
+
+Fixture:  06-syntax-highlighting.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 900x1000
+Scroll:   selector (h2:nth-of-type(1)) - final y=76; first `h2:nth-of-type(1)` positioned below toolbar/sticky overlays plus 24px
+Status:   failed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested selector (h2:nth-of-type(1)) position.
+
+Captured state
+--------------
+The preview is scrolled to 76 pixels. Edit mode is off.
+Visible content: Northwind Freight publishes the depot arbiter in three languages. This page is the
+reference for how; The runbook embeds its own examples, so the outer fence uses four backticks and the
+inner ones use t; # Depot runbook
+
+> Escalate to the on-call arbiter before touching a primary.
+
+1. Drain the **night ; use std::collections::BTreeMap;
+use std::time::Duration;
+
+const ELECTION_TIMEOUT: Duration = Duratio
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+A quadruple-backtick Markdown fence on a dark theme. The inner triple fences, the table and the link must appear as literal highlighted Markdown, not as rendered content that escaped the block.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.
+Assertion failure: sticky heading overlaps the reserved toolbar row

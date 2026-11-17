@@ -1,0 +1,158 @@
+{
+  "schema": 2,
+  "updated": "2026-11-13T16:50:24Z",
+  "cr": "CR-316",
+  "title": "Change Specification: release v1.8.1",
+  "batch": "batch-03",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 0,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/388.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/388",
+    "number": 388
+  },
+  "steps": [
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "draft: /Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-03-CR-316/docs/releases-notes/2026-11-13-v1.8.1/release-notes.md",
+      "at": "2026-11-13T15:14:04Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Attempt 1: stack already on main (b1907e9f); heavy run 43450028473 of main HEAD in progress; run 43416264245 of fd8adb9e had integration and stress red (to read); notes drafted.",
+      "at": "2026-11-13T15:14:04Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Heavy run 43450028473 green on main HEAD b1907e9f (integration success, stress success); version commit next.",
+      "at": "2026-11-13T15:33:27Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "46cef13e",
+      "at": "2026-11-13T15:34:43Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Gate 1 failed on the environment (tsc not found: the main checkout has no node_modules to symlink); just dev in the worktree, gate re-run.",
+      "at": "2026-11-13T15:35:28Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "46cef13e",
+      "at": "2026-11-13T15:52:02Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/388",
+      "at": "2026-11-13T15:52:54Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Version commit 08e3c0f8 (notes token sentences fixed per steering); preflight: static and visual passed, local real-window integration lost window focus; branch heavy run 43456982844 dispatched; PR 388 opened as draft until green.",
+      "at": "2026-11-13T15:52:54Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "PR 388 green: PR CI pass; branch heavy run 43456982844 green at 08e3c0f8 (integration, stress success); marked ready; main still b1907e9f. Owner's merge approval O-3 noted; the steering session merges by rebase.",
+      "at": "2026-11-13T16:13:44Z"
+    },
+    {
+      "name": "Blocked",
+      "done": true,
+      "verdict": "",
+      "note": "merge: https://github.com/gsemet/markdown-okf-schema-studio/pull/388",
+      "at": "2026-11-13T16:13:44Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-13T16:42:33Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "request",
+      "path": "intake/request.md"
+    },
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "01-body-sections",
+      "path": "work/01-body-sections.md"
+    },
+    {
+      "kind": "02-pr-body",
+      "path": "work/02-pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261113-163528.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/release-process.guidelines.md",
+      "name": ".agents/guidelines/release-process.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CONTRIBUTING.md",
+      "name": "CONTRIBUTING.md"
+    }
+  ],
+  "branch": "chantier/batch-03/cr-316-change-specification-release-v1-8-1",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-03-CR-316",
+  "agent": "abef22cc2491f88c0",
+  "notes": [
+    "confirmed: 1.8.1, set explicitly; short notes (publishing only, no stored token, no Open VSX); no hero image; no tweet.md (owner's exception); default grant; check of record: Marketplace 1.8.1, --oidc publish, which policy shows Last used",
+    "Attempt 1: stack already on main (b1907e9f); heavy run 43450028473 of main HEAD in progress; run 43416264245 of fd8adb9e had integration and stress red (to read); notes drafted.",
+    "Heavy run 43450028473 green on main HEAD b1907e9f (integration success, stress success); version commit next.",
+    "Gate 1 failed on the environment (tsc not found: the main checkout has no node_modules to symlink); just dev in the worktree, gate re-run.",
+    "Version commit 08e3c0f8 (notes token sentences fixed per steering); preflight: static and visual passed, local real-window integration lost window focus; branch heavy run 43456982844 dispatched; PR 388 opened as draft until green.",
+    "approved: merge 388",
+    "PR 388 green: PR CI pass; branch heavy run 43456982844 green at 08e3c0f8 (integration, stress success); marked ready; main still b1907e9f. Owner's merge approval O-3 noted; the steering session merges by rebase.",
+    "back to a Driver: merged: PR 388 merged by the steering session by rebase at 2026-11-13T16:14:00Z, origin/main 0253426a (chore: version 1.8.1). Go on after the merge: the version push run on main makes the tag; then release published, the check of record (publish step with --oidc, gallery vspackage 1.8.1 HTTP 200, which Marketplace policy shows Last used), Pages, 04-report.md, retro.md. Stop the caffeinate you started when done.",
+    "published: 1.8.1 https://github.com/gsemet/markdown-okf-schema-studio/releases/tag/v1.8.1"
+  ],
+  "blocked": null,
+  "cost_usd": 5.2008,
+  "final_cost": true,
+  "silent_minutes": null
+}

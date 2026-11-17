@@ -1,0 +1,52 @@
+code-dark-table
+===============
+
+Fixture:  04-code-and-tables.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 900x1000
+Scroll:   selector (table) - final y=956; first `table` positioned below toolbar/sticky overlays plus 24px
+Status:   failed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested selector (table) position.
+
+Captured state
+--------------
+The preview is scrolled to 956 pixels. Edit mode is off.
+Visible content: Depot
+Region
+Bays
+Shifts
+Refrigerated
+Night intake
+Arbiter
+Last audit
+Capacity
+Latency
+Throughput
+Ut; Intake; Manifest validation; Postcode normalisation; Weight class assignment; Dry goods; Refrigerated goods; Deduplication; Planning; Graph fetch; Bounded search; Seed the frontier; Expand until the hop limit; Emit legs; Tracking; Scan ingestion; Leg completion
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+A sixteen-column table deliberately wider than the preview. The final capture is scrolled to its FAR-RIGHT-ACCESS column without a horizontal page scrollbar.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Machine checks
+--------------
+n/a overlay-covers-text: no visible overlay
+n/a overlay-clipped: no visible overlay
+PASS identifier-split: identifier cells stay on one line
+n/a status-two-lines: no status with a strong line and message
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.
+Assertion failure: sticky heading overlaps the reserved toolbar row

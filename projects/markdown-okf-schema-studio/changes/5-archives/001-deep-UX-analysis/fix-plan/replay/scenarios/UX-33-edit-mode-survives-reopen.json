@@ -1,0 +1,73 @@
+{
+  "name": "UX-33-edit-mode-survives-reopen",
+  "file": "synth/tables.md",
+  "precondition": "Run after UX-33-open-with-toolbar-and-edit-mode.json (edit mode turned on in a Studio view); every buffer clean; Explorer shows synth/tables.md (the click coordinates are for the r3 window layout).",
+  "steps": [
+    {
+      "palette": "View: Close All Editors",
+      "wait": 2000
+    },
+    {
+      "check": "peval",
+      "expr": "document.querySelectorAll('.editor-group-container .tab').length",
+      "equals": 0,
+      "label": "all editors closed"
+    },
+    {
+      "waitForPage": "[...document.querySelectorAll('.explorer-folders-view .monaco-list-row')].some(r => r.getAttribute('aria-label') === 'tables.md')",
+      "timeout": 3000,
+      "label": "tables.md row visible"
+    },
+    {
+      "click": [
+        113,
+        773
+      ],
+      "wait": 1500
+    },
+    {
+      "check": "editor",
+      "active": "${file}",
+      "label": "text editor opened from the Explorer"
+    },
+    {
+      "key": "Meta+1",
+      "wait": 500,
+      "label": "focus the text editor: the keybinding needs editorTextFocus"
+    },
+    {
+      "key": [
+        "Meta+k",
+        "Shift+V"
+      ],
+      "gap": 150,
+      "wait": 4000
+    },
+    {
+      "waitFor": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent.includes('Table')",
+      "timeout": 15000,
+      "label": "preview reopened by the keybinding"
+    },
+    {
+      "check": "feval",
+      "expr": "D.documentElement.getAttribute('data-sphinx-preview-edit-mode')",
+      "equals": "on",
+      "label": "UX-33 edit mode survives reopening"
+    },
+    {
+      "check": "feval",
+      "expr": "(b => b && !b.disabled && b.getAttribute('aria-pressed'))(D.querySelector('[data-anchor-mode]'))",
+      "equals": "true",
+      "label": "UX-33 anchor enabled when a text editor shows the file"
+    },
+    {
+      "check": "diff",
+      "file": "${file}",
+      "against": "disk",
+      "equal": true
+    },
+    {
+      "check": "errors"
+    }
+  ]
+}

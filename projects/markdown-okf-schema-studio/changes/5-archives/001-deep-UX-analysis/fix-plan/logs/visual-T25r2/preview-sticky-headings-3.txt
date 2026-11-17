@@ -1,0 +1,49 @@
+preview-sticky-headings-3
+=========================
+
+Fixture:  05-long-chapter.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 900x1000
+Scroll:   stickyHeading (h3[data-line="136"]) - final y=3027; positioned `h3[data-line="136"]` just inside the sticky band to show its heading ancestry
+Status:   failed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested stickyHeading (h3[data-line="136"]) position.
+
+Captured state
+--------------
+The preview is scrolled to 3027 pixels. Edit mode is off.
+Visible content: Recovery is manual and takes roughly four hours. Never restart both regional
+arbiters at once; that ; The depot graph is migrated forward while an older planner is still running.
+The older planner canno; See Also; The deployment chapter covers the one-release backward compatibility rule
+that exists specifically t; Check arbiter elections first; they are cheap and long-lived.; Compare planner estimate distributions across the suspected restart.; Replay yesterday’s manifests against today’s graph to separate graph
+problems from planner problems.; Escalate to the regional operations desk before writing to the store by hand.; Note; Manual writes to the regional store are logged and reviewed weekly.
+That review has never found a wr; The final paragraph of this chapter exists so that a bottom-of-page screenshot
+shows recognisable te
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+Depth three keeps the current heading and two parent levels visible in the preview.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Machine checks
+--------------
+n/a overlay-covers-text: no visible overlay
+n/a overlay-clipped: no visible overlay
+PASS identifier-split: identifier cells stay on one line
+n/a status-two-lines: no status with a strong line and message
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.
+Assertion failure: rightmost preview button is covered or overlaps the sticky heading text row
+Assertion failure: sticky heading top 0.0px overlaps toolbar bottom 50.0px
+Assertion failure: sticky heading overlaps the reserved toolbar row

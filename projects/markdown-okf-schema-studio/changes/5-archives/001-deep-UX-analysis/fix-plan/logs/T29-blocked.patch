@@ -1,0 +1,1247 @@
+src/markdown-okf-schema-studio/src/extension.ts    |  88 +++++++---
+ .../src/preview/webview.ts                         |   2 +-
+ .../src/webview/scrollSync.ts                      |  35 ++++
+ .../test/integration/realInput.test.ts             | 186 ++++++++++++++++++++-
+ .../test/integration/realInput/harness.ts          |   7 +
+ .../test/webview/scrollSync.test.ts                | 157 +++++++++++++++++
+ 6 files changed, 449 insertions(+), 26 deletions(-)
+
+diff --git a/src/markdown-okf-schema-studio/src/extension.ts b/src/markdown-okf-schema-studio/src/extension.ts
+index 051b080..0e03c45 100644
+--- a/src/markdown-okf-schema-studio/src/extension.ts
++++ b/src/markdown-okf-schema-studio/src/extension.ts
+@@ -51,6 +51,7 @@ import {
+   PreviewStatus,
+   PreviewWebviewResult,
+   setPreviewStatus,
++  PREVIEW_STATUS_LABELS,
+ } from "./preview/webview";
+ import {
+   PreviewDiagnostic,
+@@ -188,6 +189,10 @@ interface ActivePreview {
+   lastSourceScrollLine?: number;
+   lastRevealedSourceLine?: number;
+   linkDiscoveries?: Map<string, Promise<readonly string[]>>;
++  /** Number of webview document replacements, i.e. assignments of a changed string (test hook and render-churn budget). */
++  htmlAssignments: number;
++  /** requestId of the stage whose rendered document reported ready in the current webview document. */
++  readyRequestId?: number;
+ }
+ 
+ const activePreviews = new Set<ActivePreview>();
+@@ -490,6 +495,21 @@ function diagnosticDetails(error: unknown): PreviewDiagnostic[] {
+   return error instanceof RenderError ? error.diagnostics : [];
+ }
+ 
++/** The only place that assigns a webview document; a new document must report ready again. */
++function assignWebviewHtml(target: ActivePreview | vscode.WebviewPanel, html: string): void {
++  if ("panel" in target) {
++    // VS Code ignores an assignment of the identical string, so no new document is loaded and no
++    // new ready report will come; only a changed string replaces the document (and is counted).
++    if (target.panel.webview.html !== html) {
++      target.htmlAssignments += 1;
++      target.readyRequestId = undefined;
++    }
++    target.panel.webview.html = html;
++    return;
++  }
++  target.webview.html = html;
++}
++
+ function setPanelHtml(
+   preview: ActivePreview,
+   html: string,
+@@ -499,7 +519,7 @@ function setPanelHtml(
+     return;
+   }
+   preview.webview = { ...preview.webview, html, diagnostics };
+-  preview.panel.webview.html = html;
++  assignWebviewHtml(preview, html);
+ }
+ 
+ function setStatus(
+@@ -539,7 +559,7 @@ function showPending(
+       enableScripts: true,
+       localResourceRoots: [],
+     };
+-    preview.panel.webview.html = preview.webview.html;
++    assignWebviewHtml(preview, preview.webview.html);
+     preview.status = "pending";
+     return;
+   }
+@@ -623,7 +643,7 @@ function updatePreview(preview: ActivePreview, result: RenderResult): void {
+   preview.status = status;
+   preview.hadFailure = false;
+   preview.panel.title = `Markdown OKF-Schema Studio: ${path.basename(result.stage.activeDocumentPath)}`;
+-  preview.panel.webview.html = html;
++  assignWebviewHtml(preview, html);
+   scheduleDeferredPreviewWork(preview, result);
+ }
+ 
+@@ -794,11 +814,33 @@ function handleQueueState(
+     return;
+   }
+   if (state.phase === "debouncing" || state.phase === "building") {
+-    setStatus(
+-      preview,
+-      "pending",
+-      state.phase === "building" ? "Rendering the active buffer." : "Waiting for the latest edit.",
+-    );
++    const pendingMessage = state.phase === "building"
++      ? "Rendering the active buffer."
++      : "Waiting for the latest edit.";
++    const stage = preview.stage;
++    if (stage && preview.readyRequestId === stage.requestId) {
++      // A rendered document is loaded: update its status region in place, no reload.
++      const securityDiagnostics = preview.webview.diagnostics.filter(
++        (diagnostic) => !("file" in diagnostic),
++      );
++      preview.status = "pending";
++      preview.webview = {
++        ...preview.webview,
++        html: setPreviewStatus(preview.webview.html, "pending", pendingMessage),
++        diagnostics: securityDiagnostics,
++      };
++      void preview.panel.webview.postMessage({
++        type: "previewStatus",
++        documentId: stage.activeDocumentIdentity,
++        documentVersion: stage.activeDocumentVersion,
++        requestId: stage.requestId,
++        status: "pending",
++        label: PREVIEW_STATUS_LABELS.pending,
++        message: pendingMessage,
++      });
++      return;
++    }
++    setStatus(preview, "pending", pendingMessage);
+     return;
+   }
+   if (state.phase === "ready" && state.result) {
+@@ -1811,6 +1853,7 @@ function handlePreviewSyncMessage(preview: ActivePreview, value: unknown): Thena
+     return;
+   }
+   if (value.type === "previewReady") {
++    preview.readyRequestId = value.requestId;
+     // The webview already applied the anchor passed at render time; only refresh the
+     // selection marker so a re-render never triggers a second scroll.
+     markEditorSelectionInPreview(preview);
+@@ -1867,7 +1910,7 @@ function setMissingSource(
+     diagnostics: [],
+     nonce: "",
+   };
+-  preview.panel.webview.html = preview.webview.html;
++  assignWebviewHtml(preview, preview.webview.html);
+ }
+ 
+ function refreshPreviewDocument(
+@@ -2163,13 +2206,14 @@ function createPreview(
+     ),
+     enrichmentGeneration: 0,
+     hadFailure: false,
++    htmlAssignments: 0,
+     disposed: false,
+   };
+   panel.webview.options = {
+     enableScripts: true,
+     localResourceRoots: [],
+   };
+-  panel.webview.html = preview.webview.html;
++  assignWebviewHtml(preview, preview.webview.html);
+   panel.title = document
+     ? `Markdown OKF-Schema Studio: ${path.basename(document.uri.fsPath)}`
+     : "Markdown OKF-Schema Studio";
+@@ -2258,11 +2302,11 @@ async function resolvePreviewEditor(
+   try {
+     const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+     if (!isDocumentEligible(document)) {
+-      panel.webview.html = buildStatusWebviewHtml(
++      assignWebviewHtml(panel, buildStatusWebviewHtml(
+         "missing-source",
+         panel.webview.cspSource,
+         "Markdown OKF-Schema Studio requires a Markdown file.",
+-      );
++      ));
+       return;
+     }
+     preview = createPreview(panel, document, workspaceFolder, undefined, false);
+@@ -2277,7 +2321,7 @@ async function resolvePreviewEditor(
+     if (preview && !preview.disposed) {
+       setStatus(preview, "error", message);
+     } else {
+-      panel.webview.html = buildStatusWebviewHtml("error", panel.webview.cspSource, message);
++      assignWebviewHtml(panel, buildStatusWebviewHtml("error", panel.webview.cspSource, message));
+     }
+   }
+ }
+@@ -2288,31 +2332,31 @@ async function deserializePreviewPanel(
+ ): Promise<void> {
+   const restoredState = parsePreviewPanelState(rawState);
+   if (!restoredState) {
+-    panel.webview.html = buildStatusWebviewHtml(
++    assignWebviewHtml(panel, buildStatusWebviewHtml(
+       "missing-source",
+       panel.webview.cspSource,
+       "The previous preview identity could not be restored safely.",
+-    );
++    ));
+     return;
+   }
+   let uri: vscode.Uri;
+   try {
+     uri = vscode.Uri.parse(restoredState.documentId);
+   } catch {
+-    panel.webview.html = buildStatusWebviewHtml(
++    assignWebviewHtml(panel, buildStatusWebviewHtml(
+       "missing-source",
+       panel.webview.cspSource,
+       "The previous preview source URI is invalid.",
+-    );
++    ));
+     return;
+   }
+   const workspaceFolder = isWorkspaceUriEligible(uri) ? vscode.workspace.getWorkspaceFolder(uri) : undefined;
+   if (uri.scheme !== "file" || path.extname(uri.fsPath).toLowerCase() !== ".md") {
+-    panel.webview.html = buildStatusWebviewHtml(
++    assignWebviewHtml(panel, buildStatusWebviewHtml(
+       "missing-source",
+       panel.webview.cspSource,
+       "The previous preview source is not a Markdown file.",
+-    );
++    ));
+     return;
+   }
+   const existingSidePreview = latestPreview((preview) => preview.followsActiveEditor);
+@@ -2505,6 +2549,9 @@ export function getActivePreviewForTests():
+     findWidgetEnabled: boolean;
+     localResourceRoots: readonly vscode.Uri[];
+     readOnly: boolean;
++    htmlAssignments: number;
++    /** True once the loaded webview document reported ready for the current stage. */
++    webviewReady: boolean;
+   }
+   | undefined {
+   if (!activePreview) {
+@@ -2513,6 +2560,9 @@ export function getActivePreviewForTests():
+   const state = activePreview.queue.getState();
+   return {
+     html: activePreview.webview.html,
++    htmlAssignments: activePreview.htmlAssignments,
++    webviewReady: activePreview.stage !== undefined
++      && activePreview.readyRequestId === activePreview.stage.requestId,
+     documentUri: activePreview.documentUri,
+     diagnostics: activePreview.webview.diagnostics,
+     phase: state.phase,
+diff --git a/src/markdown-okf-schema-studio/src/preview/webview.ts b/src/markdown-okf-schema-studio/src/preview/webview.ts
+index 5473af7..f469e45 100644
+--- a/src/markdown-okf-schema-studio/src/preview/webview.ts
++++ b/src/markdown-okf-schema-studio/src/preview/webview.ts
+@@ -53,7 +53,7 @@ export interface PreviewStatusDiagnostic {
+   severity?: string;
+ }
+ 
+-const PREVIEW_STATUS_LABELS: Record<PreviewStatus, string> = {
++export const PREVIEW_STATUS_LABELS: Record<PreviewStatus, string> = {
+   pending: "Preview pending",
+   success: "Preview ready",
+   stale: "Preview is stale",
+diff --git a/src/markdown-okf-schema-studio/src/webview/scrollSync.ts b/src/markdown-okf-schema-studio/src/webview/scrollSync.ts
+index 6d5d8e7..610469d 100644
+--- a/src/markdown-okf-schema-studio/src/webview/scrollSync.ts
++++ b/src/markdown-okf-schema-studio/src/webview/scrollSync.ts
+@@ -157,6 +157,37 @@ let pendingEditOpenedIn = savedState?.pendingFrontmatterEditOpenedIn;
+     return state;
+   }
+ 
++  function applyPreviewStatus(message) {
++    const known = ["pending", "success", "stale", "error", "missing-source", "recovery"];
++    if (known.indexOf(message.status) < 0
++      || typeof message.label !== "string" || message.label.length > 500
++      || typeof message.message !== "string" || message.message.length > 500) {
++      return;
++    }
++    const region = document.querySelector("[data-sphinx-preview-status]");
++    if (!region) return;
++    const keepPosition = window.scrollY > 0 || Boolean(editAnchor?.element);
++    region.setAttribute("data-sphinx-preview-status", message.status);
++    const strong = region.querySelector("strong");
++    if (strong) strong.textContent = message.label;
++    let detail = region.querySelector("[data-sphinx-preview-status-message]");
++    if (!detail) {
++      detail = document.createElement("span");
++      detail.setAttribute("data-sphinx-preview-status-message", "");
++      region.appendChild(detail);
++    }
++    detail.textContent = message.message;
++    const diagnostics = region.querySelector("[data-sphinx-preview-diagnostics]");
++    if (diagnostics) diagnostics.remove();
++    // The banner is in flow above the content and can change its height, and no ResizeObserver
++    // watches it: keep the reading position, and keep an open editor still under its caret. At the
++    // very top with no editor the content simply moves down, as it did when the pending page was
++    // a reload.
++    measure();
++    if (keepPosition) applyAnchor();
++    updateStickyHeadings();
++  }
++
+   function sameContext(candidate) {
+     return candidate && candidate.documentId === context.documentId
+       && candidate.documentVersion === context.documentVersion
+@@ -2866,6 +2897,10 @@ let pendingEditOpenedIn = savedState?.pendingFrontmatterEditOpenedIn;
+       receiveCheckboxResult(message);
+       return;
+     }
++    if (sameContext(message) && message.type === "previewStatus") {
++      applyPreviewStatus(message);
++      return;
++    }
+     if (!sameContext(message) || message.type !== "sourceScroll") return;
+     markSourceLine(Number(message.selectionLine ?? message.line));
+     if (!settings.scrollPreviewWithEditor) return;
+diff --git a/src/markdown-okf-schema-studio/test/integration/realInput.test.ts b/src/markdown-okf-schema-studio/test/integration/realInput.test.ts
+index d5bfaac..025bf38 100644
+--- a/src/markdown-okf-schema-studio/test/integration/realInput.test.ts
++++ b/src/markdown-okf-schema-studio/test/integration/realInput.test.ts
+@@ -3,7 +3,12 @@ import type { Page } from "playwright-core";
+ import * as vscode from "vscode";
+ import { parse as parseYaml } from "yaml";
+ 
+-import { getActivePreviewForTests, getActivePreviewPanelForTests } from "./extensionApi";
++import {
++  getActivePreviewForTests,
++  getActivePreviewPanelForTests,
++  resetRenderHooksForTests,
++  setRenderDelayForTests,
++} from "./extensionApi";
+ import { lineDelta } from "../shared/lineDelta";
+ import {
+   bufferText,
+@@ -14,6 +19,7 @@ import {
+   createFixture,
+   findCurrentFrame,
+   focusedCaret,
++  htmlAssignmentCount,
+   lines,
+   MOD,
+   openSidePreview,
+@@ -911,11 +917,25 @@ async function scenarioEditModeNoReflow(page: Page, evidence: Evidence): Promise
+   await withDocument("realinput-t16", DOCUMENT, async (source) => {
+     await openSidePreview(source);
+     await waitForRender(source);
+-    const measure = (): Promise<{ height: number; top: number }> => withCurrentFrame(page, (frame) =>
+-      frame.locator("p[data-sphinx-source-line]").nth(2).evaluate((element) => ({
+-        height: document.documentElement.scrollHeight,
+-        top: element.getBoundingClientRect().top + window.scrollY,
+-      })));
++    const measure = async (): Promise<{ height: number; top: number }> => {
++      // Setup only: the in-place pending banner is 23 px tall. Read the status and the layout in
++      // one evaluation and accept the reading only when the render was settled at that moment.
++      let reading: { height: number; top: number } | undefined;
++      await waitFor("a layout reading on a settled success status", async () => {
++        if (getActivePreviewForTests()?.phase !== "ready") return false;
++        const current = await findCurrentFrame(page);
++        if (current === undefined) return false;
++        const result = await current.locator("p[data-sphinx-source-line]").nth(2).evaluate((element) => ({
++          status: document.querySelector("[data-sphinx-preview-status]")?.getAttribute("data-sphinx-preview-status"),
++          height: document.documentElement.scrollHeight,
++          top: element.getBoundingClientRect().top + window.scrollY,
++        }));
++        if (result.status !== "success") return false;
++        reading = { height: result.height, top: result.top };
++        return true;
++      }, 10_000);
++      return reading!;
++    };
+     const before = await measure();
+     await setEditMode(page, true);
+     await new Promise((resolve) => setTimeout(resolve, 300));
+@@ -1600,6 +1620,158 @@ async function scenarioInsertBlocksFromPreview(page: Page, evidence: Evidence):
+   });
+ }
+ 
++/**
++ * RI-T29: while a render is pending, the status region changes in place; the webview document is
++ * not replaced just to say "Preview pending".
++ */
++async function scenarioPendingWithoutReload(page: Page): Promise<void> {
++  await withDocument("realinput-t29", "# Pending status\n\nBody text.\n", async (source) => {
++    await openSidePreview(source);
++    await waitForRender(source);
++    // Let the ready report arrive and any follow-up assignment settle before counting.
++    await waitFor("the ready webview", async () => (await findCurrentFrame(page)) !== undefined);
++    const editor = await vscode.window.showTextDocument(source, vscode.ViewColumn.One);
++    const end = source.positionAt(source.getText().length);
++    editor.selection = new vscode.Selection(end, end);
++    await waitForRenderChurnToSettle();
++    const before = htmlAssignmentCount();
++    const frame = await withCurrentFrame(page, async (current) => current);
++    try {
++      setRenderDelayForTests(500);
++      await page.keyboard.type("x");
++      try {
++        await waitFor("the same frame to report pending", async () => {
++          const status = await frame.locator("[data-sphinx-preview-status]").getAttribute("data-sphinx-preview-status");
++          return status === "pending";
++        });
++      } catch (error) {
++        const preview = getActivePreviewForTests();
++        throw new Error(String(error) + " buffer=" + JSON.stringify(bufferText(source))
++          + " phase=" + preview?.phase + " status=" + preview?.status
++          + " assignments=" + preview?.htmlAssignments + " before=" + before);
++      }
++      const atPending = htmlAssignmentCount();
++      assert.equal(atPending, before, "pending must not assign the webview html");
++      assert.equal(
++        await frame.locator("[data-sphinx-preview-status] strong").textContent(),
++        "Preview pending",
++      );
++    } finally {
++      resetRenderHooksForTests();
++    }
++    await waitForRender(source);
++    await waitFor("the settled render", () => getActivePreviewForTests()?.status === "success");
++    const delta = htmlAssignmentCount() - before;
++    assert.ok(delta <= 2, "html assignments for one edit: " + delta);
++    console.log("RI-T29 html assignments for one edit: " + delta);
++  });
++}
++
++/** Opening a preview triggers follow-up renders; waits until the assignment counter stays put. */
++async function waitForRenderChurnToSettle(): Promise<void> {
++  let lastSeen = "";
++  let stableSince = Date.now();
++  let lastCount = htmlAssignmentCount();
++  try {
++    await waitFor("the render churn after opening to settle", () => {
++      const preview = getActivePreviewForTests();
++      lastSeen = JSON.stringify({
++        count: htmlAssignmentCount(),
++        phase: preview?.phase,
++        ready: preview?.webviewReady,
++        status: preview?.status,
++      });
++      const count = htmlAssignmentCount();
++      if (count !== lastCount) {
++        lastCount = count;
++        stableSince = Date.now();
++      }
++      return Date.now() - stableSince >= 2_500 && preview?.phase === "ready"
++        && preview.webviewReady === true;
++    }, 40_000);
++  } catch (error) {
++    throw new Error(String(error) + " last=" + lastSeen);
++  }
++}
++
++/**
++ * RI-T29b: the in-place pending banner must not move the reading position. The first block that is
++ * fully inside the viewport keeps its viewport top when a render starts.
++ */
++async function scenarioPendingKeepsReadingPosition(page: Page): Promise<void> {
++  const body = Array.from({ length: 80 }, (_, index) => "Paragraph " + index + " keeps the reader busy.")
++    .join("\n\n");
++  await withDocument("realinput-t29b", "# Reading position\n\n" + body + "\n", async (source) => {
++    await openSidePreview(source);
++    await waitForRender(source);
++    await waitFor("the ready webview", async () => (await findCurrentFrame(page)) !== undefined);
++    const editor = await vscode.window.showTextDocument(source, vscode.ViewColumn.One);
++    await waitForRenderChurnToSettle();
++    const frame = await withCurrentFrame(page, async (current) => current);
++    // Editor-to-preview sync would scroll the page on its own when the source changes; switch it
++    // off so that only the banner can move the content.
++    const anchorButton = frame.locator("[data-sphinx-preview-anchor]");
++    if (await anchorButton.getAttribute("aria-pressed") === "true") {
++      await anchorButton.click();
++      await waitFor("anchoring to be off", async () =>
++        await anchorButton.getAttribute("aria-pressed") === "false");
++    }
++    const element = await frame.frameElement();
++    const bounds = await element.boundingBox();
++    assert.ok(bounds, "the preview pane is visible");
++    await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + Math.min(200, bounds.height / 2));
++    await page.mouse.wheel(0, 600);
++    await waitFor("the preview to scroll", async () => await frame.evaluate(() => window.scrollY) > 300);
++    await new Promise<void>((resolve) => setTimeout(resolve, 600));
++    const probe = () => frame.evaluate(() => {
++      const blocks = Array.from(document.querySelectorAll("#sphinx-myst-preview-content p"));
++      const block = blocks.find((candidate) => candidate.getBoundingClientRect().top >= 0);
++      return block === undefined
++        ? undefined
++        : { text: block.textContent, top: block.getBoundingClientRect().top, scrollY: window.scrollY };
++    });
++    const visible = await probe();
++    assert.ok(visible, "a block is visible");
++    // Put the caret in a visible paragraph so that source-to-preview sync leaves the page alone.
++    const paragraph = Number(/Paragraph (\d+)/.exec(visible.text ?? "")?.[1]);
++    assert.ok(Number.isFinite(paragraph), "the visible block is a numbered paragraph");
++    const caretLine = source.lineAt(2 + paragraph * 2);
++    await vscode.window.showTextDocument(source, vscode.ViewColumn.One);
++    editor.selection = new vscode.Selection(caretLine.range.end, caretLine.range.end);
++    await new Promise<void>((resolve) => setTimeout(resolve, 800));
++    await waitForRenderChurnToSettle();
++    const first = await probe();
++    assert.ok(first, "a block is visible");
++    try {
++      setRenderDelayForTests(500);
++      await page.keyboard.type("x");
++      await waitFor("the same frame to report pending", async () =>
++        await frame.locator("[data-sphinx-preview-status]").getAttribute("data-sphinx-preview-status") === "pending");
++      await frame.evaluate(() => new Promise<void>((resolve) => {
++        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
++      }));
++      const after = await frame.evaluate((text) => {
++        const block = Array.from(document.querySelectorAll("#sphinx-myst-preview-content p"))
++          .find((candidate) => candidate.textContent === text);
++        const banner = document.querySelector("[data-sphinx-preview-status]");
++        return {
++          top: block === undefined ? undefined : block.getBoundingClientRect().top,
++          scrollY: window.scrollY,
++          banner: banner === null ? undefined : banner.getBoundingClientRect().height,
++        };
++      }, first.text);
++      assert.ok(after.top !== undefined, "the probed block is still in the same frame");
++      assert.ok(Math.abs(after.top - first.top) <= 2,
++        "block \"" + first.text + "\" moved from " + first.top + " to " + after.top
++        + " when pending appeared (scrollY " + first.scrollY + " to " + after.scrollY
++        + ", banner height " + after.banner + ")");
++    } finally {
++      resetRenderHooksForTests();
++    }
++    await waitForRender(source);
++  });
++}
++
+ export async function run(): Promise<void> {
+   const { browser, page } = await connectWorkbench();
+   const evidence = createEvidence("real-input");
+@@ -1637,6 +1809,8 @@ export async function run(): Promise<void> {
+     await scenarioCustomKeyAndOpenNewField(page, evidence);
+     await scenarioReadableLinkDiagnostics(page, evidence);
+     await scenarioInsertBlocksFromPreview(page, evidence);
++    await scenarioPendingWithoutReload(page);
++    await scenarioPendingKeepsReadingPosition(page);
+     passed = true;
+   } finally {
+     evidence.finish(passed);
+diff --git a/src/markdown-okf-schema-studio/test/integration/realInput/harness.ts b/src/markdown-okf-schema-studio/test/integration/realInput/harness.ts
+index 32728a9..ee155bd 100644
+--- a/src/markdown-okf-schema-studio/test/integration/realInput/harness.ts
++++ b/src/markdown-okf-schema-studio/test/integration/realInput/harness.ts
+@@ -89,6 +89,13 @@ export async function openStudioEditor(uri: vscode.Uri): Promise<void> {
+   await vscode.commands.executeCommand("vscode.openWith", uri, EDITOR_VIEW_TYPE);
+ }
+ 
++/** Full webview document assignments of the active preview so far (render-churn counter). */
++export function htmlAssignmentCount(): number {
++  const preview = getActivePreviewForTests();
++  assert.ok(preview, "an active preview exists");
++  return preview.htmlAssignments;
++}
++
+ export async function waitForRender(
+   document: vscode.TextDocument,
+   extra?: (html: string) => boolean,
+diff --git a/src/markdown-okf-schema-studio/test/webview/scrollSync.test.ts b/src/markdown-okf-schema-studio/test/webview/scrollSync.test.ts
+index 38079a0..7f3ead5 100644
+--- a/src/markdown-okf-schema-studio/test/webview/scrollSync.test.ts
++++ b/src/markdown-okf-schema-studio/test/webview/scrollSync.test.ts
+@@ -100,6 +100,14 @@ class RuntimeElement {
+     if (selector === "[data-okf-list-item-input]") {
+       return this.querySelectorAll(selector)[0] ?? null;
+     }
++    if (selector === "strong") {
++      return this.childElements.find((child) => child.tagName === "STRONG") ?? null;
++    }
++    if (selector === "[data-sphinx-preview-status-message]"
++      || selector === "[data-sphinx-preview-diagnostics]") {
++      const name = selector.slice(1, -1);
++      return this.childElements.find((child) => child.getAttribute(name) !== null) ?? null;
++    }
+     return null;
+   }
+ 
+@@ -267,6 +275,7 @@ interface RuntimeHarness {
+   readonly headings: RuntimeElement[];
+   readonly stickyHeadings: RuntimeElement;
+   readonly previewContent: RuntimeElement;
++  readonly statusElement: RuntimeElement | null;
+   readonly body: RuntimeElement;
+   readonly observedResizeTarget: RuntimeElement | undefined;
+   readonly themeButton: RuntimeElement;
+@@ -444,6 +453,12 @@ function createRuntimeHarness(configuration: Partial<{
+   const statusElement = previewStatus
+     ? new RuntimeElement({ "data-sphinx-preview-status": previewStatus }, windowState, 0, 0, "aside")
+     : null;
++  if (statusElement) {
++    const label = new RuntimeElement({}, windowState, 0, 0, "strong");
++    label.textContent = "Preview ready";
++    statusElement.appendChild(label);
++    statusElement.appendChild(new RuntimeElement({ "data-sphinx-preview-diagnostics": "" }, windowState, 0, 0, "ul"));
++  }
+   const createdElements: RuntimeElement[] = [];
+   const contentTables: RuntimeElement[] = [];
+   const messages: Array<Record<string, unknown>> = [];
+@@ -610,6 +625,7 @@ function createRuntimeHarness(configuration: Partial<{
+     stickyHeadings,
+     descriptionButton,
+     previewContent,
++    statusElement,
+     body,
+     observedResizeTarget,
+     themeButton,
+@@ -4516,3 +4532,144 @@ test("T28: ordinary block edits never carry insertAfterLine", () => {
+   harness.flushTimers();
+   assert.equal("insertAfterLine" in (harness.messages.at(-1) as object), false);
+ });
++
++test("T29: a previewStatus message updates the status region in place", () => {
++  const harness = createRuntimeHarness({ previewStatus: "success" });
++  const status = harness.statusElement!;
++  harness.dispatchMessage({
++    type: "previewStatus",
++    documentId: "file:///active.md",
++    documentVersion: 7,
++    requestId: 11,
++    status: "pending",
++    label: "Preview pending",
++    message: "Waiting for the latest edit.",
++  });
++  assert.equal(status.getAttribute("data-sphinx-preview-status"), "pending");
++  assert.equal(status.querySelector("strong")?.textContent, "Preview pending");
++  const detail = status.querySelector("[data-sphinx-preview-status-message]");
++  assert.equal(detail?.textContent, "Waiting for the latest edit.");
++  assert.equal(status.querySelector("[data-sphinx-preview-diagnostics]"), null);
++});
++
++test("T29: invalid or foreign previewStatus messages are ignored", () => {
++  const base = {
++    type: "previewStatus",
++    documentId: "file:///active.md",
++    documentVersion: 7,
++    requestId: 11,
++    status: "pending",
++    label: "Preview pending",
++    message: "x",
++  };
++  for (const override of [
++    { requestId: 12 },
++    { status: "bogus" },
++    { label: 5 },
++    { message: "m".repeat(501) },
++  ]) {
++    const harness = createRuntimeHarness({ previewStatus: "success" });
++    harness.dispatchMessage({ ...base, ...override });
++    const status = harness.statusElement!;
++    assert.equal(status.getAttribute("data-sphinx-preview-status"), "success");
++    assert.equal(status.querySelector("strong")?.textContent, "Preview ready");
++  }
++});
++
++test("T29: an in-place pending status keeps the anchored block's viewport top", () => {
++  const harness = createRuntimeHarness({ previewStatus: "success" });
++  const status = harness.statusElement!;
++  // The in-flow banner pushes every block down when it leaves its visually hidden state.
++  const bannerHeight = 23;
++  const setAttribute = status.setAttribute.bind(status);
++  status.setAttribute = (name: string, value: string): void => {
++    if (name === "data-sphinx-preview-status" && value === "pending"
++      && status.getAttribute(name) !== "pending") {
++      for (const mapping of harness.mappings) mapping.top += bannerHeight;
++    }
++    setAttribute(name, value);
++  };
++
++  harness.windowState.scrollY = 250;
++  harness.dispatchWindow("scroll");
++  harness.flushFrames();
++  const block = harness.mappings[1];
++  const topBefore = block.getBoundingClientRect().top;
++  const messagesBefore = harness.messages.length;
++
++  harness.dispatchMessage({
++    type: "previewStatus",
++    documentId: "file:///active.md",
++    documentVersion: 7,
++    requestId: 11,
++    status: "pending",
++    label: "Preview pending",
++    message: "Waiting for the latest edit.",
++  });
++  harness.flushFrames();
++  harness.flushTimers();
++
++  assert.equal(status.getAttribute("data-sphinx-preview-status"), "pending");
++  assert.ok(Math.abs(block.getBoundingClientRect().top - topBefore) <= 0.5,
++    "block viewport top moved from " + topBefore + " to " + block.getBoundingClientRect().top);
++  assert.deepEqual(
++    harness.messages.slice(messagesBefore).filter((entry) => entry.type === "previewScroll"),
++    [],
++  );
++});
++
++function bannerPushingHarness() {
++  const harness = createRuntimeHarness({ previewStatus: "success" });
++  const status = harness.statusElement!;
++  const bannerHeight = 23;
++  const setAttribute = status.setAttribute.bind(status);
++  status.setAttribute = (name: string, value: string): void => {
++    if (name === "data-sphinx-preview-status" && value === "pending"
++      && status.getAttribute(name) !== "pending") {
++      for (const mapping of harness.mappings) {
++        mapping.top += bannerHeight;
++        for (const inserted of mapping.insertedElements) inserted.top += bannerHeight;
++      }
++    }
++    setAttribute(name, value);
++  };
++  const pending = {
++    type: "previewStatus",
++    documentId: "file:///active.md",
++    documentVersion: 7,
++    requestId: 11,
++    status: "pending",
++    label: "Preview pending",
++    message: "Waiting for the latest edit.",
++  };
++  return { harness, status, pending };
++}
++
++test("T29: an in-place pending status keeps an open editor still at the top of the page", () => {
++  const { harness, status, pending } = bannerPushingHarness();
++  harness.editModeButton.dispatch("click");
++  harness.dispatchDocument("click", { target: harness.mappings[1], preventDefault: () => undefined });
++  sourceReply(harness, "Editable paragraph.\n");
++  assert.ok(harness.createdElements.find((element) => element.tagName === "TEXTAREA"));
++  assert.equal(harness.windowState.scrollY, 0);
++  const block = blockEditorOf(harness.mappings[1]);
++  const topBefore = block.getBoundingClientRect().top;
++
++  harness.dispatchMessage(pending);
++  harness.flushFrames();
++  harness.flushTimers();
++
++  assert.equal(status.getAttribute("data-sphinx-preview-status"), "pending");
++  assert.ok(Math.abs(block.getBoundingClientRect().top - topBefore) <= 0.5,
++    "editor block viewport top moved from " + topBefore + " to " + block.getBoundingClientRect().top);
++});
++
++test("T29: an in-place pending status at the top of the page without an editor does not scroll", () => {
++  const { harness, status, pending } = bannerPushingHarness();
++  assert.equal(harness.windowState.scrollY, 0);
++  harness.dispatchMessage(pending);
++  harness.flushFrames();
++  harness.flushTimers();
++  assert.equal(status.getAttribute("data-sphinx-preview-status"), "pending");
++  assert.equal(harness.windowState.scrollY, 0);
++});
+
+--- Changes ---
+
+src/markdown-okf-schema-studio/src/extension.ts
+  @@ -51,6 +51,7 @@ import {
+  +  PREVIEW_STATUS_LABELS,
+   } from "./preview/webview";
+   import {
+     PreviewDiagnostic,
+  @@ -188,6 +189,10 @@ interface ActivePreview {
+  +  /** Number of webview document replacements, i.e. assignments of a changed string (test hook and render-churn budget). */
+  +  htmlAssignments: number;
+  +  /** requestId of the stage whose rendered document reported ready in the current webview document. */
+  +  readyRequestId?: number;
+   }
+   
+   const activePreviews = new Set<ActivePreview>();
+  @@ -490,6 +495,21 @@ function diagnosticDetails(error: unknown): PreviewDiagnostic[] {
+  +/** The only place that assigns a webview document; a new document must report ready again. */
+  +function assignWebviewHtml(target: ActivePreview | vscode.WebviewPanel, html: string): void {
+  +  if ("panel" in target) {
+  +    // VS Code ignores an assignment of the identical string, so no new document is loaded and no
+  +    // new ready report will come; only a changed string replaces the document (and is counted).
+  +    if (target.panel.webview.html !== html) {
+  +      target.htmlAssignments += 1;
+  +      target.readyRequestId = undefined;
+  +    }
+  +    target.panel.webview.html = html;
+  +    return;
+  +  }
+  +  target.webview.html = html;
+  +}
+  +
+   function setPanelHtml(
+     preview: ActivePreview,
+     html: string,
+  @@ -499,7 +519,7 @@ function setPanelHtml(
+  -  preview.panel.webview.html = html;
+  +  assignWebviewHtml(preview, html);
+   }
+   
+   function setStatus(
+  @@ -539,7 +559,7 @@ function showPending(
+  -    preview.panel.webview.html = preview.webview.html;
+  +    assignWebviewHtml(preview, preview.webview.html);
+       preview.status = "pending";
+       return;
+     }
+  @@ -623,7 +643,7 @@ function updatePreview(preview: ActivePreview, result: RenderResult): void {
+  -  preview.panel.webview.html = html;
+  +  assignWebviewHtml(preview, html);
+     scheduleDeferredPreviewWork(preview, result);
+   }
+   
+  @@ -794,11 +814,33 @@ function handleQueueState(
+  -    setStatus(
+  -      preview,
+  -      "pending",
+  -      state.phase === "building" ? "Rendering the active buffer." : "Waiting for the latest edit.",
+  -    );
+  +    const pendingMessage = state.phase === "building"
+  +      ? "Rendering the active buffer."
+  +      : "Waiting for the latest edit.";
+  +    const stage = preview.stage;
+  +    if (stage && preview.readyRequestId === stage.requestId) {
+  +      // A rendered document is loaded: update its status region in place, no reload.
+  +      const securityDiagnostics = preview.webview.diagnostics.filter(
+  +        (diagnostic) => !("file" in diagnostic),
+  +      );
+  +      preview.status = "pending";
+  +      preview.webview = {
+  +        ...preview.webview,
+  +        html: setPreviewStatus(preview.webview.html, "pending", pendingMessage),
+  +        diagnostics: securityDiagnostics,
+  +      };
+  +      void preview.panel.webview.postMessage({
+  +        type: "previewStatus",
+  +        documentId: stage.activeDocumentIdentity,
+  +        documentVersion: stage.activeDocumentVersion,
+  +        requestId: stage.requestId,
+  +        status: "pending",
+  +        label: PREVIEW_STATUS_LABELS.pending,
+  +        message: pendingMessage,
+  +      });
+  +      return;
+  +    }
+  +    setStatus(preview, "pending", pendingMessage);
+       return;
+     }
+     if (state.phase === "ready" && state.result) {
+  @@ -1811,6 +1853,7 @@ function handlePreviewSyncMessage(preview: ActivePreview, value: unknown): Thena
+  +    preview.readyRequestId = value.requestId;
+       // The webview already applied the anchor passed at render time; only refresh the
+       // selection marker so a re-render never triggers a second scroll.
+       markEditorSelectionInPreview(preview);
+  @@ -1867,7 +1910,7 @@ function setMissingSource(
+  -  preview.panel.webview.html = preview.webview.html;
+  +  assignWebviewHtml(preview, preview.webview.html);
+   }
+   
+   function refreshPreviewDocument(
+  @@ -2163,13 +2206,14 @@ function createPreview(
+  +    htmlAssignments: 0,
+       disposed: false,
+     };
+     panel.webview.options = {
+       enableScripts: true,
+       localResourceRoots: [],
+     };
+  -  panel.webview.html = preview.webview.html;
+  +  assignWebviewHtml(preview, preview.webview.html);
+     panel.title = document
+       ? `Markdown OKF-Schema Studio: ${path.basename(document.uri.fsPath)}`
+       : "Markdown OKF-Schema Studio";
+  @@ -2258,11 +2302,11 @@ async function resolvePreviewEditor(
+  -      panel.webview.html = buildStatusWebviewHtml(
+  +      assignWebviewHtml(panel, buildStatusWebviewHtml(
+           "missing-source",
+           panel.webview.cspSource,
+           "Markdown OKF-Schema Studio requires a Markdown file.",
+  -      );
+  +      ));
+         return;
+       }
+       preview = createPreview(panel, document, workspaceFolder, undefined, false);
+  @@ -2277,7 +2321,7 @@ async function resolvePreviewEditor(
+  -      panel.webview.html = buildStatusWebviewHtml("error", panel.webview.cspSource, message);
+  +      assignWebviewHtml(panel, buildStatusWebviewHtml("error", panel.webview.cspSource, message));
+       }
+     }
+   }
+  @@ -2288,31 +2332,31 @@ async function deserializePreviewPanel(
+  -    panel.webview.html = buildStatusWebviewHtml(
+  +    assignWebviewHtml(panel, buildStatusWebviewHtml(
+         "missing-source",
+         panel.webview.cspSource,
+         "The previous preview identity could not be restored safely.",
+  -    );
+  +    ));
+       return;
+     }
+     let uri: vscode.Uri;
+     try {
+       uri = vscode.Uri.parse(restoredState.documentId);
+     } catch {
+  -    panel.webview.html = buildStatusWebviewHtml(
+  +    assignWebviewHtml(panel, buildStatusWebviewHtml(
+         "missing-source",
+         panel.webview.cspSource,
+         "The previous preview source URI is invalid.",
+  -    );
+  +    ));
+       return;
+     }
+     const workspaceFolder = isWorkspaceUriEligible(uri) ? vscode.workspace.getWorkspaceFolder(uri) : undefined;
+     if (uri.scheme !== "file" || path.extname(uri.fsPath).toLowerCase() !== ".md") {
+  -    panel.webview.html = buildStatusWebviewHtml(
+  +    assignWebviewHtml(panel, buildStatusWebviewHtml(
+         "missing-source",
+         panel.webview.cspSource,
+         "The previous preview source is not a Markdown file.",
+  -    );
+  +    ));
+       return;
+     }
+     const existingSidePreview = latestPreview((preview) => preview.followsActiveEditor);
+  @@ -2505,6 +2549,9 @@ export function getActivePreviewForTests():
+  +    htmlAssignments: number;
+  +    /** True once the loaded webview document reported ready for the current stage. */
+  +    webviewReady: boolean;
+     }
+     | undefined {
+     if (!activePreview) {
+  @@ -2513,6 +2560,9 @@ export function getActivePreviewForTests():
+  +    htmlAssignments: activePreview.htmlAssignments,
+  +    webviewReady: activePreview.stage !== undefined
+  +      && activePreview.readyRequestId === activePreview.stage.requestId,
+       documentUri: activePreview.documentUri,
+       diagnostics: activePreview.webview.diagnostics,
+       phase: state.phase,
+  +69 -19
+
+src/markdown-okf-schema-studio/src/preview/webview.ts
+  @@ -53,7 +53,7 @@ export interface PreviewStatusDiagnostic {
+  -const PREVIEW_STATUS_LABELS: Record<PreviewStatus, string> = {
+  +export const PREVIEW_STATUS_LABELS: Record<PreviewStatus, string> = {
+     pending: "Preview pending",
+     success: "Preview ready",
+     stale: "Preview is stale",
+  +1 -1
+
+src/markdown-okf-schema-studio/src/webview/scrollSync.ts
+  @@ -157,6 +157,37 @@ let pendingEditOpenedIn = savedState?.pendingFrontmatterEditOpenedIn;
+  +  function applyPreviewStatus(message) {
+  +    const known = ["pending", "success", "stale", "error", "missing-source", "recovery"];
+  +    if (known.indexOf(message.status) < 0
+  +      || typeof message.label !== "string" || message.label.length > 500
+  +      || typeof message.message !== "string" || message.message.length > 500) {
+  +      return;
+  +    }
+  +    const region = document.querySelector("[data-sphinx-preview-status]");
+  +    if (!region) return;
+  +    const keepPosition = window.scrollY > 0 || Boolean(editAnchor?.element);
+  +    region.setAttribute("data-sphinx-preview-status", message.status);
+  +    const strong = region.querySelector("strong");
+  +    if (strong) strong.textContent = message.label;
+  +    let detail = region.querySelector("[data-sphinx-preview-status-message]");
+  +    if (!detail) {
+  +      detail = document.createElement("span");
+  +      detail.setAttribute("data-sphinx-preview-status-message", "");
+  +      region.appendChild(detail);
+  +    }
+  +    detail.textContent = message.message;
+  +    const diagnostics = region.querySelector("[data-sphinx-preview-diagnostics]");
+  +    if (diagnostics) diagnostics.remove();
+  +    // The banner is in flow above the content and can change its height, and no ResizeObserver
+  +    // watches it: keep the reading position, and keep an open editor still under its caret. At the
+  +    // very top with no editor the content simply moves down, as it did when the pending page was
+  +    // a reload.
+  +    measure();
+  +    if (keepPosition) applyAnchor();
+  +    updateStickyHeadings();
+  +  }
+  +
+     function sameContext(candidate) {
+       return candidate && candidate.documentId === context.documentId
+         && candidate.documentVersion === context.documentVersion
+  @@ -2866,6 +2897,10 @@ let pendingEditOpenedIn = savedState?.pendingFrontmatterEditOpenedIn;
+  +    if (sameContext(message) && message.type === "previewStatus") {
+  +      applyPreviewStatus(message);
+  +      return;
+  +    }
+       if (!sameContext(message) || message.type !== "sourceScroll") return;
+       markSourceLine(Number(message.selectionLine ?? message.line));
+       if (!settings.scrollPreviewWithEditor) return;
+  +35 -0
+
+src/markdown-okf-schema-studio/test/integration/realInput.test.ts
+  @@ -3,7 +3,12 @@ import type { Page } from "playwright-core";
+  -import { getActivePreviewForTests, getActivePreviewPanelForTests } from "./extensionApi";
+  +import {
+  +  getActivePreviewForTests,
+  +  getActivePreviewPanelForTests,
+  +  resetRenderHooksForTests,
+  +  setRenderDelayForTests,
+  +} from "./extensionApi";
+   import { lineDelta } from "../shared/lineDelta";
+   import {
+     bufferText,
+  @@ -14,6 +19,7 @@ import {
+  +  htmlAssignmentCount,
+     lines,
+     MOD,
+     openSidePreview,
+  @@ -911,11 +917,25 @@ async function scenarioEditModeNoReflow(page: Page, evidence: Evidence): Promise
+  -    const measure = (): Promise<{ height: number; top: number }> => withCurrentFrame(page, (frame) =>
+  -      frame.locator("p[data-sphinx-source-line]").nth(2).evaluate((element) => ({
+  -        height: document.documentElement.scrollHeight,
+  -        top: element.getBoundingClientRect().top + window.scrollY,
+  -      })));
+  +    const measure = async (): Promise<{ height: number; top: number }> => {
+  +      // Setup only: the in-place pending banner is 23 px tall. Read the status and the layout in
+  +      // one evaluation and accept the reading only when the render was settled at that moment.
+  +      let reading: { height: number; top: number } | undefined;
+  +      await waitFor("a layout reading on a settled success status", async () => {
+  +        if (getActivePreviewForTests()?.phase !== "ready") return false;
+  +        const current = await findCurrentFrame(page);
+  +        if (current === undefined) return false;
+  +        const result = await current.locator("p[data-sphinx-source-line]").nth(2).evaluate((element) => ({
+  +          status: document.querySelector("[data-sphinx-preview-status]")?.getAttribute("data-sphinx-preview-status"),
+  +          height: document.documentElement.scrollHeight,
+  +          top: element.getBoundingClientRect().top + window.scrollY,
+  +        }));
+  +        if (result.status !== "success") return false;
+  +        reading = { height: result.height, top: result.top };
+  +        return true;
+  +      }, 10_000);
+  +      return reading!;
+  +    };
+       const before = await measure();
+       await setEditMode(page, true);
+       await new Promise((resolve) => setTimeout(resolve, 300));
+  @@ -1600,6 +1620,158 @@ async function scenarioInsertBlocksFromPreview(page: Page, evidence: Evidence):
+  +/**
+  + * RI-T29: while a render is pending, the status region changes in place; the webview document is
+  + * not replaced just to say "Preview pending".
+  + */
+  +async function scenarioPendingWithoutReload(page: Page): Promise<void> {
+  +  await withDocument("realinput-t29", "# Pending status\n\nBody text.\n", async (source) => {
+  +    await openSidePreview(source);
+  +    await waitForRender(source);
+  +    // Let the ready report arrive and any follow-up assignment settle before counting.
+  +    await waitFor("the ready webview", async () => (await findCurrentFrame(page)) !== undefined);
+  +    const editor = await vscode.window.showTextDocument(source, vscode.ViewColumn.One);
+  +    const end = source.positionAt(source.getText().length);
+  +    editor.selection = new vscode.Selection(end, end);
+  +    await waitForRenderChurnToSettle();
+  +    const before = htmlAssignmentCount();
+  +    const frame = await withCurrentFrame(page, async (current) => current);
+  +    try {
+  +      setRenderDelayForTests(500);
+  +      await page.keyboard.type("x");
+  +      try {
+  +        await waitFor("the same frame to report pending", async () => {
+  +          const status = await frame.locator("[data-sphinx-preview-status]").getAttribute("data-sphinx-preview-status");
+  +          return status === "pending";
+  +        });
+  +      } catch (error) {
+  +        const preview = getActivePreviewForTests();
+  +        throw new Error(String(error) + " buffer=" + JSON.stringify(bufferText(source))
+  +          + " phase=" + preview?.phase + " status=" + preview?.status
+  +          + " assignments=" + preview?.htmlAssignments + " before=" + before);
+  +      }
+  +      const atPending = htmlAssignmentCount();
+  +      assert.equal(atPending, before, "pending must not assign the webview html");
+  +      assert.equal(
+  +        await frame.locator("[data-sphinx-preview-status] strong").textContent(),
+  +        "Preview pending",
+  +      );
+  +    } finally {
+  +      resetRenderHooksForTests();
+  +    }
+  +    await waitForRender(source);
+  +    await waitFor("the settled render", () => getActivePreviewForTests()?.status === "success");
+  +    const delta = htmlAssignmentCount() - before;
+  +    assert.ok(delta <= 2, "html assignments for one edit: " + delta);
+  +    console.log("RI-T29 html assignments for one edit: " + delta);
+  +  });
+  +}
+  +
+  +/** Opening a preview triggers follow-up renders; waits until the assignment counter stays put. */
+  +async function waitForRenderChurnToSettle(): Promise<void> {
+  +  let lastSeen = "";
+  +  let stableSince = Date.now();
+  +  let lastCount = htmlAssignmentCount();
+  +  try {
+  +    await waitFor("the render churn after opening to settle", () => {
+  +      const preview = getActivePreviewForTests();
+  +      lastSeen = JSON.stringify({
+  +        count: htmlAssignmentCount(),
+  +        phase: preview?.phase,
+  +        ready: preview?.webviewReady,
+  +        status: preview?.status,
+  +      });
+  +      const count = htmlAssignmentCount();
+  +      if (count !== lastCount) {
+  +        lastCount = count;
+  +        stableSince = Date.now();
+  +      }
+  +      return Date.now() - stableSince >= 2_500 && preview?.phase === "ready"
+  +        && preview.webviewReady === true;
+  +    }, 40_000);
+  +  } catch (error) {
+  +    throw new Error(String(error) + " last=" + lastSeen);
+  +  }
+  +}
+  +
+  +/**
+  + * RI-T29b: the in-place pending banner must not move the reading position. The first block that is
+  + * fully inside the viewport keeps its viewport top when a render starts.
+  + */
+  +async function scenarioPendingKeepsReadingPosition(page: Page): Promise<void> {
+  +  const body = Array.from({ length: 80 }, (_, index) => "Paragraph " + index + " keeps the reader busy.")
+  +    .join("\n\n");
+  +  await withDocument("realinput-t29b", "# Reading position\n\n" + body + "\n", async (source) => {
+  +    await openSidePreview(source);
+  +    await waitForRender(source);
+  +    await waitFor("the ready webview", async () => (await findCurrentFrame(page)) !== undefined);
+  +    const editor = await vscode.window.showTextDocument(source, vscode.ViewColumn.One);
+  +    await waitForRenderChurnToSettle();
+  +    const frame = await withCurrentFrame(page, async (current) => current);
+  +    // Editor-to-preview sync would scroll the page on its own when the source changes; switch it
+  +    // off so that only the banner can move the content.
+  +    const anchorButton = frame.locator("[data-sphinx-preview-anchor]");
+  +    if (await anchorButton.getAttribute("aria-pressed") === "true") {
+  +      await anchorButton.click();
+  +      await waitFor("anchoring to be off", async () =>
+  +        await anchorButton.getAttribute("aria-pressed") === "false");
+  +    }
+  +    const element = await frame.frameElement();
+  +    const bounds = await element.boundingBox();
+  +    assert.ok(bounds, "the preview pane is visible");
+  +    await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + Math.min(200, bounds.height / 2));
+  ... (52 lines truncated)
+  @@ -1637,6 +1809,8 @@ export async function run(): Promise<void> {
+  +    await scenarioPendingWithoutReload(page);
+  +    await scenarioPendingKeepsReadingPosition(page);
+       passed = true;
+     } finally {
+       evidence.finish(passed);
+  +180 -6
+
+src/markdown-okf-schema-studio/test/integration/realInput/harness.ts
+  @@ -89,6 +89,13 @@ export async function openStudioEditor(uri: vscode.Uri): Promise<void> {
+  +/** Full webview document assignments of the active preview so far (render-churn counter). */
+  +export function htmlAssignmentCount(): number {
+  +  const preview = getActivePreviewForTests();
+  +  assert.ok(preview, "an active preview exists");
+  +  return preview.htmlAssignments;
+  +}
+  +
+   export async function waitForRender(
+     document: vscode.TextDocument,
+     extra?: (html: string) => boolean,
+  +7 -0
+
+src/markdown-okf-schema-studio/test/webview/scrollSync.test.ts
+  @@ -100,6 +100,14 @@ class RuntimeElement {
+  +    if (selector === "strong") {
+  +      return this.childElements.find((child) => child.tagName === "STRONG") ?? null;
+  +    }
+  +    if (selector === "[data-sphinx-preview-status-message]"
+  +      || selector === "[data-sphinx-preview-diagnostics]") {
+  +      const name = selector.slice(1, -1);
+  +      return this.childElements.find((child) => child.getAttribute(name) !== null) ?? null;
+  +    }
+       return null;
+     }
+   
+  @@ -267,6 +275,7 @@ interface RuntimeHarness {
+  +  readonly statusElement: RuntimeElement | null;
+     readonly body: RuntimeElement;
+     readonly observedResizeTarget: RuntimeElement | undefined;
+     readonly themeButton: RuntimeElement;
+  @@ -444,6 +453,12 @@ function createRuntimeHarness(configuration: Partial<{
+  +  if (statusElement) {
+  +    const label = new RuntimeElement({}, windowState, 0, 0, "strong");
+  +    label.textContent = "Preview ready";
+  +    statusElement.appendChild(label);
+  +    statusElement.appendChild(new RuntimeElement({ "data-sphinx-preview-diagnostics": "" }, windowState, 0, 0, "ul"));
+  +  }
+     const createdElements: RuntimeElement[] = [];
+     const contentTables: RuntimeElement[] = [];
+     const messages: Array<Record<string, unknown>> = [];
+  @@ -610,6 +625,7 @@ function createRuntimeHarness(configuration: Partial<{
+  +    statusElement,
+       body,
+       observedResizeTarget,
+       themeButton,
+  @@ -4516,3 +4532,144 @@ test("T28: ordinary block edits never carry insertAfterLine", () => {
+  +
+  +test("T29: a previewStatus message updates the status region in place", () => {
+  +  const harness = createRuntimeHarness({ previewStatus: "success" });
+  +  const status = harness.statusElement!;
+  +  harness.dispatchMessage({
+  +    type: "previewStatus",
+  +    documentId: "file:///active.md",
+  +    documentVersion: 7,
+  +    requestId: 11,
+  +    status: "pending",
+  +    label: "Preview pending",
+  +    message: "Waiting for the latest edit.",
+  +  });
+  +  assert.equal(status.getAttribute("data-sphinx-preview-status"), "pending");
+  +  assert.equal(status.querySelector("strong")?.textContent, "Preview pending");
+  +  const detail = status.querySelector("[data-sphinx-preview-status-message]");
+  +  assert.equal(detail?.textContent, "Waiting for the latest edit.");
+  +  assert.equal(status.querySelector("[data-sphinx-preview-diagnostics]"), null);
+  +});
+  +
+  +test("T29: invalid or foreign previewStatus messages are ignored", () => {
+  +  const base = {
+  +    type: "previewStatus",
+  +    documentId: "file:///active.md",
+  +    documentVersion: 7,
+  +    requestId: 11,
+  +    status: "pending",
+  +    label: "Preview pending",
+  +    message: "x",
+  +  };
+  +  for (const override of [
+  +    { requestId: 12 },
+  +    { status: "bogus" },
+  +    { label: 5 },
+  +    { message: "m".repeat(501) },
+  +  ]) {
+  +    const harness = createRuntimeHarness({ previewStatus: "success" });
+  +    harness.dispatchMessage({ ...base, ...override });
+  +    const status = harness.statusElement!;
+  +    assert.equal(status.getAttribute("data-sphinx-preview-status"), "success");
+  +    assert.equal(status.querySelector("strong")?.textContent, "Preview ready");
+  +  }
+  +});
+  +
+  +test("T29: an in-place pending status keeps the anchored block's viewport top", () => {
+  +  const harness = createRuntimeHarness({ previewStatus: "success" });
+  +  const status = harness.statusElement!;
+  +  // The in-flow banner pushes every block down when it leaves its visually hidden state.
+  +  const bannerHeight = 23;
+  +  const setAttribute = status.setAttribute.bind(status);
+  +  status.setAttribute = (name: string, value: string): void => {
+  +    if (name === "data-sphinx-preview-status" && value === "pending"
+  +      && status.getAttribute(name) !== "pending") {
+  +      for (const mapping of harness.mappings) mapping.top += bannerHeight;
+  +    }
+  +    setAttribute(name, value);
+  +  };
+  +
+  +  harness.windowState.scrollY = 250;
+  +  harness.dispatchWindow("scroll");
+  +  harness.flushFrames();
+  +  const block = harness.mappings[1];
+  +  const topBefore = block.getBoundingClientRect().top;
+  +  const messagesBefore = harness.messages.length;
+  +
+  +  harness.dispatchMessage({
+  +    type: "previewStatus",
+  +    documentId: "file:///active.md",
+
+... (more changes truncated)
+  +84 -0
+[full diff: rtk git diff --no-compact]

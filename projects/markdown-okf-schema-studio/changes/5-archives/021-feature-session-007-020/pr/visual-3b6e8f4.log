@@ -1,0 +1,288 @@
+
+> markdown-okf-schema-studio@0.3.1 test:visual
+> npm run visual:render && uv run --no-sync --group docs python test/visual/capture.py
+
+
+> markdown-okf-schema-studio@0.3.1 visual:render
+> npm run compile && npm run bundle && node out/test/visual/renderFixtures.js
+
+
+> markdown-okf-schema-studio@0.3.1 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.3.1 bundle
+> node esbuild.mjs
+
+
+  out/bundle/extension.js      2.0mb ⚠️
+  out/bundle/extension.js.map  6.4mb
+
+⚡ Done in 185ms
+
+  out/bundle/mermaidPreview.js  5.0mb ⚠️
+
+⚡ Done in 261ms
+rendered 79 pages, 255 scenarios
+  placeholder: 03-unresolved-constructs:30 Directive {animation} is not available outside a full build.
+  placeholder: 03-unresolved-constructs:36 Directive {bibliography} is not available outside a full build.
+  placeholder: 03-unresolved-constructs:39 Directive {toctree} is not available outside a full build.
+warning: `VIRTUAL_ENV=/Users/az02065/Projects/Nestor/agentic-coding-white-paper/.venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+passed: rendering-core/v03-handbook-bottom-dark-900
+passed: rendering-core/v02-handbook-mid-code-dark-900
+passed: rendering-core/v01-handbook-top-dark-900
+passed: rendering-core/v04-handbook-top-light-900
+passed: rendering-core/v07-chapter-top-dark-900
+passed: rendering-core/v08-chapter-quarter-dark-900
+passed: rendering-core/v05-handbook-top-dark-460
+passed: rendering-core/v06-mixed-blocks-full-light-900
+passed: rendering-core/v11-chapter-top-light-900
+passed: rendering-core/v09-chapter-three-quarters-dark-900
+passed: rendering-core/v12-inline-code-full-dark-900
+passed: rendering-core/v10-chapter-bottom-sentinel-dark-900
+passed: rendering-core/v15-inline-code-full-cream-900
+passed: rendering-core/v16-inline-code-narrow-full-dark-460
+passed: rendering-core/v13-inline-code-full-light-900
+passed: rendering-core/v14-inline-code-full-white-900
+passed: rendering-core/v19-missing-image-dark-900
+passed: rendering-core/v17-cjk-rtl-light-900
+passed: rendering-core/v18-cjk-rtl-light-460
+passed: rendering-core/v20-huge-document-bottom-dark-900
+passed: code-blocks/v03-copy-button-cream-900
+passed: code-blocks/v01-copy-button-light-900
+passed: code-blocks/v02-copy-button-dark-900
+passed: code-blocks/v04-typescript-block-dark-900
+passed: code-blocks/v07-python-dark-900
+passed: code-blocks/v05-markdown-fence-dark-900
+passed: code-blocks/v06-rust-dark-900
+passed: code-blocks/v08-rust-light-900
+passed: code-blocks/v11-diff-fence-edit-mode-dark-900
+passed: code-blocks/v09-diff-fence-dark-900
+passed: code-blocks/v10-shell-json-diff-unknown-light-900
+passed: code-blocks/v12-diff-fence-edit-mode-light-900
+passed: gfm/v02-gfm-gallery-full-dark-900
+passed: code-blocks/v13-python-overflow-dark-460
+passed: gfm/v01-bare-urls-light-900
+passed: gfm/v03-gfm-gallery-full-light-900
+passed: myst/v02-admonition-gallery-full-dark-900
+passed: gfm/v04-gfm-gallery-full-light-460
+passed: myst/v01-failure-admonitions-light-900
+passed: myst/v03-admonition-gallery-full-light-900
+passed: myst/v04-admonition-titles-dark-900
+passed: myst/v05-admonition-nested-content-dark-900
+passed: myst/v06-admonition-gallery-full-dark-460
+passed: myst/v07-citations-toctree-unresolved-full-dark-900
+passed: myst/v09-context-tags-dark-900
+passed: myst/v10-context-tags-dark-460
+passed: myst/v08-citations-toctree-unresolved-full-light-900
+passed: myst/v11-context-tags-light-900
+passed: myst/v13-figure-external-svg-dark-900
+passed: myst/v14-display-math-dark-900
+passed: myst/v12-context-tags-light-460
+passed: myst/v17-figure-width-align-anchor-full-light-900
+passed: myst/v18-figure-width-align-anchor-full-dark-900
+passed: myst/v15-math-edit-source-offline-dark-900
+passed: myst/v16-math-edit-source-offline-light-460
+passed: myst/v21-myst-gallery-full-light-900
+passed: diagrams/v01-mermaid-map-dark-900
+passed: myst/v20-myst-gallery-full-dark-900
+passed: myst/v19-figure-width-align-anchor-full-cream-900
+passed: diagrams/v04-plantuml-success-light-900
+passed: diagrams/v05-plantuml-success-dark-900
+passed: diagrams/v08-mermaid-syntax-error-light-900
+passed: diagrams/v03-mermaid-map-fallback-900
+passed: diagrams/v02-mermaid-map-light-900
+passed: diagrams/v09-mermaid-syntax-error-dark-900
+passed: frontmatter-schema/v03-links-loading-dark-900
+passed: diagrams/v07-plantuml-not-found-light-900
+passed: diagrams/v06-plantuml-unconfigured-light-900
+passed: frontmatter-schema/v04-links-loaded-dark-900
+passed: frontmatter-schema/v07-missing-required-light-900
+passed: frontmatter-schema/v02-okf-schema-narrow-hidden-description-dark-460 (alias of frontmatter-schema/v11-okf-schema-narrow-scroll-stress-dark-460)
+passed: frontmatter-schema/v01-okf-schema-table-white-900
+passed: frontmatter-schema/v08-schema-compile-error-dark-900
+passed: frontmatter-schema/v06-missing-required-dark-900
+passed: frontmatter-schema/v05-okf-schema-table-dark-900
+passed: frontmatter-schema/v12-properties-plain-dark-900
+passed: frontmatter-schema/v09-schema-compile-error-light-900
+passed: frontmatter-schema/v10-schema-compile-error-light-460
+passed: frontmatter-schema/v16-links-details-white-900
+passed: frontmatter-schema/v13-properties-plain-light-900
+passed: frontmatter-schema/v11-okf-schema-narrow-scroll-stress-dark-460
+passed: frontmatter-schema/v14-generic-yaml-skill-dark-900
+passed: frontmatter-schema/v20-invalid-yaml-dark-900
+passed: frontmatter-schema/v17-links-details-white-460
+passed: frontmatter-schema/v15-generic-yaml-skill-light-900
+passed: frontmatter-schema/v18-links-details-dark-900
+passed: frontmatter-editing/v02-edit-enum-value-dark-900
+passed: frontmatter-schema/v21-unknown-field-strict-light-900
+passed: frontmatter-schema/v19-links-details-dark-460
+passed: frontmatter-schema/v22-properties-hidden-light-900
+passed: frontmatter-editing/v04-edit-list-light-900
+passed: frontmatter-editing/v03-edit-list-dark-900
+passed: frontmatter-editing/v01-edit-key-suggestions-dark-900
+passed: layout-width/v02-wide-table-scroll-dark-900
+passed: layout-width/v01-narrow-table-scroll-dark-460
+passed: frontmatter-editing/v05-edit-boolean-white-900
+passed: frontmatter-editing/v06-okf-schema-narrow-scroll-stress-edit-dark-460
+passed: layout-width/v06-max-content-width-full-light-1600
+passed: layout-width/v03-table-identifiers-nowrap-dark-640
+passed: layout-width/v05-max-content-width-full-dark-1600
+passed: layout-width/v04-table-identifiers-nowrap-light-640
+passed: layout-width/v09-empty-start-writing-light-900
+passed: layout-width/v10-first-gap-paragraph-edit-light-900
+passed: layout-width/v07-first-block-top-light-900
+passed: layout-width/v08-first-block-top-dark-460
+passed: layout-width/v13-first-gap-h1-edit-light-900
+passed: layout-width/v14-first-gap-h1-edit-light-460
+passed: layout-width/v11-first-gap-paragraph-edit-light-460
+passed: layout-width/v12-first-gap-paragraph-edit-light-1600
+passed: layout-width/v18-first-gap-h2-edit-light-1600
+passed: layout-width/v17-first-gap-h2-edit-light-460
+passed: layout-width/v15-first-gap-h1-edit-light-1600
+passed: layout-width/v16-first-gap-h2-edit-light-900
+passed: layout-width/v21-first-gap-table-edit-light-900
+passed: layout-width/v22-first-gap-table-edit-light-460
+passed: layout-width/v19-first-gap-h3-edit-light-900
+passed: layout-width/v20-first-gap-h3-edit-light-1600
+passed: layout-width/v26-first-gap-image-edit-light-1600
+passed: layout-width/v25-first-gap-image-edit-light-460
+passed: layout-width/v23-first-gap-table-edit-light-1600
+passed: layout-width/v24-first-gap-image-edit-light-900
+passed: layout-width/v30-first-gap-properties-edit-light-900
+passed: layout-width/v29-first-gap-admonition-edit-light-1600
+passed: layout-width/v27-first-gap-admonition-edit-light-900
+passed: layout-width/v28-first-gap-admonition-edit-light-460
+passed: layout-width/v34-first-gap-properties-docs-edit-light-460
+passed: layout-width/v33-first-gap-properties-docs-edit-light-900
+passed: layout-width/v31-first-gap-properties-edit-light-460
+passed: layout-width/v32-first-gap-properties-edit-light-1600
+passed: layout-width/v38-first-gap-properties-issues-edit-light-1600
+passed: layout-width/v35-first-gap-properties-docs-edit-light-1600
+passed: layout-width/v37-first-gap-properties-issues-edit-light-460
+passed: layout-width/v36-first-gap-properties-issues-edit-light-900
+passed: layout-width/v42-first-gap-paragraph-read-light-900
+passed: layout-width/v41-first-gap-empty-edit-dark-1600
+passed: layout-width/v39-first-gap-empty-edit-dark-900
+passed: layout-width/v40-first-gap-empty-edit-dark-460
+passed: layout-width/v46-first-gap-table-read-light-900
+passed: layout-width/v45-first-gap-h3-read-light-900
+passed: layout-width/v43-first-gap-h1-read-light-900
+passed: layout-width/v44-first-gap-h2-read-light-900
+passed: layout-width/v49-first-gap-properties-docs-read-light-900
+passed: layout-width/v47-first-gap-image-read-light-900
+passed: layout-width/v50-first-gap-paragraph-edit-light-360
+passed: layout-width/v48-first-gap-admonition-read-light-900
+passed: layout-width/v53-first-gap-properties-edit-light-360
+passed: layout-width/v54-first-gap-empty-edit-dark-360
+passed: layout-width/v51-first-gap-h1-edit-light-360
+passed: layout-width/v52-first-gap-table-edit-light-360
+passed: layout-width/v58-first-gap-properties-edit-auto-light-900
+passed: layout-width/v57-first-gap-paragraph-edit-auto-light-900
+passed: layout-width/v55-first-gap-paragraph-edit-collapsed-light-360
+passed: layout-width/v56-first-gap-table-edit-collapsed-light-360
+passed: layout-width/v62-first-gap-empty-edit-full-dark-900
+passed: layout-width/v59-first-gap-empty-edit-auto-dark-900
+passed: layout-width/v61-first-gap-properties-edit-full-light-900
+passed: layout-width/v60-first-gap-paragraph-edit-full-light-900
+passed: layout-width/v65-first-gap-table-edit-dark-900
+passed: layout-width/v63-first-gap-paragraph-edit-dark-900
+passed: layout-width/v66-width-cycle-light-900
+passed: layout-width/v64-first-gap-properties-edit-dark-900
+passed: layout-width/v69-width-cycle-dark-1600
+passed: layout-width/v67-width-cycle-light-1600
+passed: layout-width/v70-width-cycle-cream-900
+passed: layout-width/v68-width-cycle-dark-900
+passed: layout-width/v73-break-auto-light-900
+passed: layout-width/v71-width-cycle-cream-1600
+passed: layout-width/v74-break-full-light-900
+passed: layout-width/v72-break-margin-light-900
+passed: layout-width/v75-break-margin-light-1600
+passed: layout-width/v77-break-full-light-1600
+passed: layout-width/v78-break-margin-light-460
+passed: layout-width/v76-break-auto-light-1600
+passed: layout-width/v79-break-auto-light-460
+passed: layout-width/v81-break-margin-dark-900
+passed: layout-width/v82-break-auto-dark-900
+passed: layout-width/v80-break-full-light-460
+passed: theme-zoom/v01-forced-white-handbook-white-900
+passed: theme-zoom/v02-forced-cream-handbook-cream-900
+passed: layout-width/v83-break-full-dark-900
+passed: layout-width/v84-break-auto-readme-cream-1200
+passed: theme-zoom/v05-forced-cream-properties-cream-900
+passed: theme-zoom/v06-forced-cream-paragraph-editor-cream-900
+passed: theme-zoom/v03-forced-cream-admonitions-full-cream-900
+passed: theme-zoom/v04-forced-cream-code-tables-full-cream-900
+passed: toolbar-navigation/v02-sticky-depth-2-dark-900
+passed: theme-zoom/v07-forced-white-properties-white-900
+passed: toolbar-navigation/v01-sticky-depth-1-dark-900
+passed: toolbar-navigation/v06-toolbar-expanded-light-900
+passed: toolbar-navigation/v04-sticky-depth-3-light-460
+passed: toolbar-navigation/v03-sticky-depth-3-oscillation-dark-900
+passed: toolbar-navigation/v05-sticky-wrapped-growth-dark-460
+passed: toolbar-navigation/v10-toolbar-expanded-dark-900
+passed: toolbar-navigation/v08-toolbar-expanded-light-360
+passed: toolbar-navigation/v07-toolbar-collapsed-light-900
+passed: toolbar-navigation/v09-toolbar-collapsed-light-360
+passed: toolbar-navigation/v14-toolbar-expanded-white-900
+passed: toolbar-navigation/v12-toolbar-expanded-dark-360
+passed: toolbar-navigation/v11-toolbar-collapsed-dark-900
+passed: toolbar-navigation/v13-toolbar-collapsed-dark-360
+passed: toolbar-navigation/v18-toolbar-expanded-cream-900
+passed: toolbar-navigation/v16-toolbar-expanded-white-360
+passed: toolbar-navigation/v17-toolbar-collapsed-white-360
+passed: toolbar-navigation/v15-toolbar-collapsed-white-900
+passed: toolbar-navigation/v20-toolbar-expanded-cream-360
+passed: toolbar-navigation/v21-toolbar-collapsed-cream-360
+passed: toolbar-navigation/v19-toolbar-collapsed-cream-900
+passed: toolbar-navigation/v22-toc-margin-light-900
+passed: toolbar-navigation/v24-toc-full-light-900
+passed: toolbar-navigation/v25-toc-margin-dark-1600
+passed: toolbar-navigation/v23-toc-auto-light-900
+passed: toolbar-navigation/v26-toc-auto-dark-1600
+passed: toolbar-navigation/v28-toc-hidden-narrow-light-460
+passed: toolbar-navigation/v29-toc-hidden-narrow-dark-460
+passed: block-editing/v01-nested-list-typing-dark-460
+passed: block-editing/v03-wrapped-paragraph-keyboard-dark-460
+passed: block-editing/v04-paragraph-editor-open-dark-900
+passed: toolbar-navigation/v27-toc-full-dark-1600
+passed: block-editing/v05-admonition-editor-open-dark-900
+passed: block-editing/v07-editor-status-wrap-dark-460
+passed: block-editing/v08-insert-point-hover-light-900
+passed: block-editing/v09-insert-after-final-figure-light-900
+passed: block-editing/v02-nested-list-typing-light-900
+passed: block-editing/v11-empty-doc-enter-opens-editor-light-900
+passed: block-editing/v12-list-item-opens-whole-list-dark-460
+passed: block-editing/v06-hover-outline-then-editor-dark-900
+passed: block-editing/v13-activation-keeps-scroll-dark-900
+passed: block-editing/v10-insert-after-final-image-light-900
+passed: palette-slash/v01-palette-popups-light-900
+passed: palette-slash/v02-palette-sticky-tall-editor-light-900
+passed: palette-slash/v05-mode-strict-light-900
+passed: palette-slash/v03-palette-sticky-tall-editor-dark-900
+passed: palette-slash/v06-mode-strict-dark-900
+passed: block-editing/v14-activation-keeps-scroll-light-460
+passed: palette-slash/v09-mode-myst-light-900
+passed: palette-slash/v07-mode-gfm-light-900
+passed: palette-slash/v10-mode-myst-dark-900
+passed: palette-slash/v04-palette-not-sticky-narrow-dark-360
+passed: palette-slash/v13-slash-myst-light-900
+passed: palette-slash/v08-mode-gfm-dark-900
+passed: palette-slash/v11-slash-strict-light-900
+passed: palette-slash/v14-slash-myst-filtered-dark-900
+passed: table-editing/v01-wide-table-end-key-dark-900
+passed: palette-slash/v12-slash-gfm-light-900
+passed: palette-slash/v17-palette-wraps-narrow-dark-360
+passed: palette-slash/v15-palette-above-editor-dark-900
+passed: table-editing/v05-cell-editor-wraps-dark-460
+passed: table-editing/v04-cell-editor-wraps-dark-900
+passed: table-editing/v02-cell-editor-wraps-light-900
+passed: palette-slash/v16-palette-above-editor-cream-900
+passed: review-annotations/v04-comment-todo-chips-cream-900
+passed: review-annotations/v01-orphan-box-end-padding-dark-900
+passed: table-editing/v03-cell-editor-wraps-light-460
+passed: review-annotations/v03-comment-todo-chips-dark-900
+passed: review-annotations/v02-comment-todo-chips-light-900
+
+150 screenshots in /Users/az02065/Projects/DevTools/markdown-okf-schema-studio/out/reports/e2e/screenshots
+{"status": "passed", "scenario_count": 255, "screenshot_count": 150}

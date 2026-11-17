@@ -1,0 +1,38 @@
+handbook-narrow-top
+===================
+
+Fixture:  01-handbook-overview.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 460x900
+Scroll:   top - final y=0; pinned to the top of the document
+Status:   passed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested top position.
+
+Captured state
+--------------
+The preview is scrolled to 0 pixels. Edit mode is off.
+Visible content: The routing platform moves parcels between twenty-two regional depots.
+This handbook describes the p; Note; Everything in this chapter assumes the staging topology.
+Production adds a second arbiter and a read; The dispatch path is the only component with a hard latency budget.
+Everything downstream of it is a; Terminology drift; Between 2019 and 2022 the same component was called router, dispatcher,
+and allocator in three diffe; Each depot exposes three services and nothing else:; an intake endpoint that accepts parcel manifests,; a planner that turns a manifest into a sequence of legs,; a tracker that reports leg completion back to the region.; The planner is the only stateful service. It keeps a rolling window of the last
+six hours of complet
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+Narrow side-panel width, the width most users actually preview at. Checks gutters and that admonition padding does not eat the usable column.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.

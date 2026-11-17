@@ -1,0 +1,12 @@
+fix(vscode): refresh saved link targets and keep Quick Open in its group
+
+Saving a linked file in the editor now refreshes its excerpt and title in
+the previews that link to it at once. Before, only the file watcher did,
+and it could miss the write on a loaded machine, leaving the old text.
+
+Closing a locked preview could focus an editor group position that no
+longer existed, which made VS Code create a new empty group: the next
+Quick Open from the user's locked group then opened the file there. The
+groups are now tracked themselves, not their column numbers.
+
+Assisted-by: Claude:Sonnet-5.5

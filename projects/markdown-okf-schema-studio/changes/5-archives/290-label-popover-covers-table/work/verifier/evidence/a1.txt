@@ -1,0 +1,28 @@
+
+> markdown-okf-schema-studio@1.6.1 compile
+> tsc -p .
+
+compile exit 0
+✔ a click on the anchor in edit mode opens a prefilled, selected field before the block handlers (0.914041ms)
+✔ outside edit mode the anchor is left alone as a link target (0.08375ms)
+✔ Enter posts one rename with the label line; Escape cancels (0.879375ms)
+✔ an invalid or unchanged name is not sent (0.146208ms)
+✔ an open block editor blocks the rename (0.344708ms)
+✔ the result shows how many {ref} uses of the old name remain (0.139542ms)
+✔ a refusal is shown and the field can be edited again (0.071708ms)
+✔ an icon in an anchor row opens the field above the icon, anchored by its bottom edge (0.639708ms)
+✔ with too little room above, the page scrolls up by the missing height, then the field opens above (0.099833ms)
+✔ the preview toolbar band counts as the top obstruction (0.111833ms)
+✔ a toolbar that floats beside the field, not over it, is no top obstruction (0.074709ms)
+✔ when the page cannot scroll up by the missing height, the field opens below the icon (0.059208ms)
+✔ an icon held by a paragraph or a heading keeps the placement under the icon (0.048541ms)
+✔ a press on an element outside the popover (a table cell) closes it; a press inside keeps it (0.100292ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 75.606375
+test exit 0

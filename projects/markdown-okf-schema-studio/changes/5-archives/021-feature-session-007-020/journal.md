@@ -1,0 +1,255 @@
+# Feature session — journal
+
+- 2026-10-15: session folder created. User: branch ok; analyse all backlog features with Haiku
+  explorers, Sonnet for complex analysis, Opus high for task breakdown; ask questions; present
+  expected changes; Sonnet implementer + Sonnet reviewer, sequential; trackable and resumable.
+- 2026-10-15: S1 launched, 5 Haiku explorers in parallel (groups A–E).
+- 2026-10-15: user: complex analysis with Sonnet, final breakdown with Opus high, resumable plan. S2 launched: 3 Sonnet analysts (D palette, B block ops, E diff/comments/autodetect/TODO) writing analysis/*-sonnet.md.
+- 2026-10-15: S1 B,C,D,E Haiku reports saved (extracted from handback). S2 done: B-block-ops-sonnet, D-palette-sonnet, E-diff-comments-autodetect-sonnet written. Key facts: strikethrough off in renderer; preflight runs clean+format+release-tests (uv run without --no-sync); keyboard suites need unlocked screen; included blocks may have wrong end-line (refuse move/cut); HTML comments invisible today (dropped or hidden, verify). Waiting on A (Haiku).
+- 2026-10-15: S1 complete (A saved). Round 1 answered (defaults ok, palette above block, mode per workspace, tiered gate) -> decisions.md. Windows screenshot is 0 bytes.
+- 2026-10-15: rounds 2-4 answered (U5-U17, incl. new glossary request U10). CHANGES.md written. S5: Opus planner launched.
+- 2026-10-15: user flagged P1 palette intent. Already in scope; sent planner addendum: D13 superseded by intent line 9 (add rendering, never hide), curated MyST list from white-paper book/, GFM proposals, full intent traceability table.
+- 2026-10-15: S5 done: PLAN.md + tasks/T01-T45 (6 phases). D13 ref fixed to intent line 8. S6: awaiting user approval (O1-O13 defaults, T26/T30 needs-approval).
+- 2026-10-15: S6 done: T26, T30 approved; O1-O13 accepted; run continuously. S7 started.
+- 2026-10-15 T01 r1 implementing: Sonnet implementer launched.
+- 2026-10-15 T01 r1 gating: report written; orchestrator gate B started.
+- 2026-10-15 T01 r1 gate B green (780 unit, 2 contract, 21 security, visual 119/114). Reviewer launched.
+- 2026-10-15 T01 r1 done: review APPROVE (nits only); committed a79b714.
+- 2026-10-15 T02 r1 implementing: Sonnet implementer launched.
+- 2026-10-15 T02 r1 gating: report written; orchestrator gate B started.
+- 2026-10-15 T02 r1 reviewing: gate B green; reviewer launched.
+- 2026-10-15 T02 r2 implementing: r1 review FIX-REQUIRED (2 major wording inaccuracies, 3 minor); round 2 sent to the same implementer.
+- 2026-10-15 T02 r2 gating: r2 report written; gate B started.
+- 2026-10-15 T02 r2 reviewing: gate B green; r2 review sent to the same reviewer.
+- 2026-10-15 T02 r2 done: r2 review APPROVE; committed 0e20a45.
+- 2026-10-15 T03 r1 implementing: Sonnet implementer launched.
+- 2026-10-15 T03 r1 gating: report written; gate B T started.
+- 2026-10-15 T03 r1 reviewing: gate B+T green (786 unit, 2 contract, 22 security, visual 119, trusted integration exit 0); reviewer launched.
+- 2026-10-15 T03 r1 done: review APPROVE (2 nits -> followups.md); committed fd5233f.
+- 2026-10-15 T04 r1 implementing: Sonnet implementer launched.
+- 2026-10-15 T04 r1 gating: report written; gate B T started.
+- 2026-10-15 T04 r1 reviewing: gate B+T green (797 unit, visual 122, trusted exit 0); reviewer launched.
+- 2026-10-15 T04 r2 implementing: r1 FIX-REQUIRED: blocker newlines lost when copying wrapped/diff/line-numbered blocks; round 2 to same implementer.
+- 2026-10-15 T04 r2 gating: r2 report written (implementer saw checkboxToggle timeout, screen locked); gate B T started.
+- 2026-10-15 T04 r2 reviewing: gate B green (808 unit, visual 122); T pending-unlock (screen locked: checkboxToggle undo timeout, the known locked-screen failure; realInput not reached). r2 review sent.
+- 2026-10-15 T04 r2 done: r2 review APPROVE; committed a726bde; gate T pending-unlock.
+- 2026-10-15 T05 r1 implementing: Sonnet implementer launched (screen locked: T gate will be pending-unlock).
+- 2026-10-15 T05 r1 gating: report written; gate B TL started (TL = trusted suite minus keyboard suites while locked).
+- 2026-10-15 T05 r1 reviewing: gate B green (810 unit, 23 security, visual 122) + TL green (trusted minus 2 keyboard suites); keyboard suites pending-unlock. Reviewer launched.
+- 2026-10-15 T05 r1 done: review APPROVE (minor: literal originalText test -> followups); committed ef1dbce; keyboard suites pending-unlock.
+- 2026-10-15 T06 r1 implementing: Sonnet implementer launched.
+- 2026-10-15 T06 r1 gating: report written; gate B started.
+- 2026-10-15 T06 r1 reviewing: gate B green (811 unit, visual 122); reviewer launched.
+- 2026-10-15 T06 r1 done: review APPROVE (nits); committed 867c21f.
+- 2026-10-15 T07 r1 implementing: Sonnet implementer launched.
+- 2026-10-16 T07 r1: implementer hit the session usage limit (429) before changing files; resumed the same agent after reset.
+- 2026-10-16: caffeinate -dims started (user request) so the display and system stay awake; stop it at session end.
+- 2026-10-16 T07 r1 gating: report written; gate B T started (screen unlocked).
+- 2026-10-16 T07 r1 reviewing: gate B+T green incl. keyboard suites (813 unit, visual 122, trusted exit 0, unlocked); reviewer launched.
+- 2026-10-16 T07 r1 done: review APPROVE (minor + 2 nits -> followups); committed b974c5e. Phase 1 tasks done; checkpoint E next.
+- 2026-10-16: pending-unlock for T04-T06 cleared: T07 gate T (unlocked) ran realInput + checkboxToggle on a tree containing T04-T06, all green.
+- 2026-10-16 phase 1 checkpoint E started.
+- 2026-10-16 phase 1 checkpoint E green (b974c5e). Landed 007-vscode-setting-rework, 008-copy-code-block, 009-edit-inline-image.
+- 2026-10-16 T08 r1 implementing: phase 2 start; Sonnet implementer launched.
+- 2026-10-16 T08 r1 gating: report written; gate B T S R started.
+- 2026-10-16 T08 r1 reviewing: gate B+T+S+R green (824 unit, visual 122); reviewer launched.
+- 2026-10-16 T08 r1 done: review APPROVE (nits -> followups); committed 201b2d6.
+- 2026-10-16 T09 r1 implementing: Sonnet implementer launched with the T08 anchoring warning.
+- 2026-10-16 T09 r1: implementer done (40 px via first-child margin; RI-T31 jump traced to a test click target, not anchoring; test fixed). Orchestrator amendment (U6 interpretation): properties table in preview gets toolbar clearance when overlapped (460 px), 40 px otherwise; sent to same implementer before review.
+- 2026-10-16 T09 r1 gating: amended report written; gate B S T started.
+- 2026-10-16 T09 r1 reviewing: gate B+S+T green (828 unit, visual 142); reviewer launched.
+- 2026-10-16 T09 r1 done: review APPROVE (minor/nits -> followups); committed 3bf2624.
+- 2026-10-16 T10 r1 implementing: Sonnet implementer launched.
+- 2026-10-16 T10 r1 gating: report written; gate B S T started.
+- 2026-10-16 T10 r1 reviewing: gate B+S+T green (832 unit, visual 148); reviewer launched.
+- 2026-10-16 T10 r1 done: review APPROVE (quirk + nits -> followups); committed 570bcee.
+- 2026-10-16 T11 r1 implementing: Sonnet implementer launched.
+- 2026-10-16 T11 r1 gating: report written; gate B T S started. Concern: a visual scenario was widened 460->520 px to pass.
+- 2026-10-16 T11 r1 reviewing: gate B+T+S green (842 unit); reviewer launched with the 460->520 concern.
+- 2026-10-16 T11 r2 implementing: review APPROVE but orchestrator asks small r2: restore scenario at 460 px with filler, fix comment, set preview.anchor on same-document history go, test block-editor refusal.
+- 2026-10-16 T11 r2 gating: r2 report written; gate B T S started.
+- 2026-10-16 T11 r2 reviewing: gate green; r2 re-review sent.
+- 2026-10-16 T11 r2 done: r2 review APPROVE; committed 254b5e4. Pre-existing unsaved-text exposure noted in followups.
+- 2026-10-16 T12 r1 implementing: Sonnet implementer launched.
+- 2026-10-16 T12 r1 gating: report written; gate B S T started.
+- 2026-10-16 T12 r1 reviewing: gate B+S+T green (852 unit, visual 151); reviewer launched.
+- 2026-10-16 T12 r1 done: review APPROVE (LOW viewToc snapshot + INFO detached heading -> folded into T13); committed ba11c89
+- 2026-10-16 T13 r1 implementing: Sonnet implementer launched (T12 LOW + INFO folded in).
+- 2026-10-16 T13 r1 gating: report written; gate B S T started.
+- 2026-10-16 T13 r1 reviewing: gate B+S+T green (862 unit, visual 151); reviewer launched.
+- 2026-10-16 T13 r2 implementing: r1 FIX-REQUIRED (F1 medium: no tolerance in track() top<=line); round 2 to same implementer.
+- 2026-10-16 T13 r2 gating: r2 report written; gate B S started.
+- 2026-10-16 T13 r2 reviewing: gate B+S green (863 unit, visual 151); r2 review sent.
+- 2026-10-16 T13 r2 done: r2 review APPROVE; committed 9afb00f. Phase 2 tasks done; checkpoint E next.
+- 2026-10-16 phase 2 checkpoint E started (9afb00f).
+- 2026-10-16 phase 2 checkpoint E green (9afb00f, 0 failures). Landed 010-bug-one-line-top-margin-missing, 011-clever-margin-break, 012-toc-in-vscode-markdown-studio.
+- 2026-10-16 T14 r1 implementing: phase 3 start; Sonnet implementer launched.
+- 2026-10-16 T14 r1 gating: report written; gate B T S started.
+- 2026-10-16 T14 r1 reviewing: gate B+T+S green (876 unit, visual 151); reviewer launched.
+- 2026-10-16 T14 r2 implementing: r1 FIX-REQUIRED (F1 medium: inline comment in heading leaks into TOC/sticky labels; F2 low test tightening); round 2 to same implementer.
+- 2026-10-16 T14 r2 gating: r2 report written; gate B T S started.
+- 2026-10-16 T14 r2 reviewing: gate B+T+S green (879 unit); r2 review sent.
+- 2026-10-16 T14 r2 done: r2 review APPROVE; committed 817e056.
+- 2026-10-16 T15 r1 implementing: Sonnet implementer launched.
+- 2026-10-16 T15 r1 gating: report written; gate B S T started.
+- 2026-10-16 T15 r1 reviewing: gate B+S+T green (890 unit, visual 154); reviewer launched.
+- 2026-10-16 T15 r1 done: review APPROVE (minors -> followups); committed 6eebd07.
+- 2026-10-16 T16 r1 implementing: Sonnet implementer launched.
+- 2026-10-16 T16 r1 gating: report written; gate B T S started.
+- 2026-10-16 T16 r1 reviewing: gate B+T+S green (910 unit, visual 154); reviewer launched.
+- 2026-10-16 T16 r2 implementing: r1 FIX-REQUIRED (MEDIUM: included blocks marked from parent diff); round 2 to same implementer.
+- 2026-10-16 T16 r2 gating: r2 report written; gate B T S started.
+- 2026-10-16 T16 r2 reviewing: gate B+T+S green (911 unit); r2 review sent.
+- 2026-10-16 T16 r2 done: r2 review APPROVE; committed 7481493.
+- 2026-10-16 T17 r1 implementing: Sonnet implementer launched.
+- 2026-10-16 T17 r1 gating: report written; gate B T R started. Concern: wider toolbar now covers h1 centre at 460 px (visual click moved).
+- 2026-10-16 T17 r1 reviewing: gate B+T+R green (915 unit, visual 154); reviewer launched with toolbar-overlap concern.
+- 2026-10-16 T17 r1 done: review APPROVE (low flash -> followups); committed 93f6a81.
+- 2026-10-16 T18 r1 implementing: Sonnet implementer launched.
+- 2026-10-16 T18 r2 implementing: orchestrator r2 before review: D29 locator fallback (white paper sphinx/conf.py not found by walk-up).
+- 2026-10-16 T18 r2 gating: r2 report written; gate B T started.
+- 2026-10-16 T18 r2 reviewing: gate B+T green (949 unit, visual 154); reviewer launched (covers r1+r2).
+- 2026-10-16 T18 r3 implementing: review FIX-REQUIRED (MEDIUM: currency $ detected as dollarmath, 2 white-paper chapters; LOW: D29 fallback outside workspace); round 3 (last).
+- 2026-10-16 T18 r3 gating: r3 report written; gate B T started.
+- 2026-10-16 T18 r3 reviewing: gate B+T green (951 unit); r3 review sent.
+- 2026-10-16 T18 r3 done: r3 review APPROVE; committed 5406410.
+- 2026-10-16 T19 r1 implementing: Sonnet implementer launched.
+- 2026-10-16 T19 r1 gating: report written; gate B F started (implementer saw a concurrent test:e2e during its first run, not ours).
+- 2026-10-16 T19 r1 reviewing: gate B green; F failed (realInput undo timeout), rerun T failed (checkboxToggle waitForRender) while user active (HID idle 0s); worktree baseline inconclusive (/private/tmp path breaks symlink test). Reviewer asked regression vs environment.
+- 2026-10-16 T19 r2 implementing: review APPROVE but integration evidence: T18 baseline scroll 2/2 pass, T19 1/2 (block editor closed during scrolling) + 3 other timeouts; round 2 to find refresh mechanism.
+- 2026-10-16 T19 r2 gating: r2 report written (no mechanism found, watcher hardened); gate B F + scroll x2 started.
+- 2026-10-16 T19 r2 reviewing: B green; gate F failed once (scroll solo-block timeout right after visual); direct full PASS; scroll 2/2; T18 baseline full PASS. r2 review sent.
+- 2026-10-16 T19 r2 done: r2 review APPROVE; committed 4c5c869. Phase 3 tasks done; checkpoint E next.
+- 2026-10-16 phase 3 checkpoint E started (4c5c869).
+- 2026-10-16 user U22: center tables/figures in every width mode, breakout up to available width, README cream screenshot -> task T10b added after phase 3 checkpoint.
+- 2026-10-16 phase 3 checkpoint E red (scroll solo-block-independent no feedback); control E on 5406410 also red (checkboxToggle undo) -> environmental (machine in use). Landed 013-todo-comments, 014-show-incoming-diff, 015-myst-autodetect with pending idle re-run.
+- 2026-10-16 T10b r1 implementing: user request U22; Sonnet implementer launched.
+- 2026-10-16 T10b r2 implementing: orchestrator r2 before review: table natural width measured after wrapping (cells wrap with free space); use max-content.
+- 2026-10-16 T10b r2 gating: r2 report written; gate B S T started.
+- 2026-10-16 T10b r2 reviewing: gate B+S+T green (958 unit, visual 155); reviewer launched.
+- 2026-10-16 T10b r2 done: review APPROVE; committed a48535a.
+- 2026-10-16 T20 r1 implementing: phase 4 start; Sonnet implementer launched.
+- 2026-10-16 T20 r1 gating: report written; gate B T started.
+- 2026-10-16 T20 r1 reviewing: gate B+T green (1004 unit, visual 155); reviewer launched (mac Ctrl+B, per-line TODO).
+- 2026-10-16 T20 r2 implementing: r1 FIX-REQUIRED (F1 platform-specific Cmd/Ctrl, key before code). README has user's own edits (Linked-File heading, TODO line): never revert; stage only T20 hunk.
+- 2026-10-16 T20 r2 gating: r2 report written; gate B T started.
+- 2026-10-16 T20 r2 reviewing: gate B+T green (1008 unit); r2 review sent.
+- 2026-10-16 T20 r2 done: r2 review APPROVE; committed 43fc386 (user README hunks left unstaged).
+- 2026-10-16 T21 r1 implementing: Sonnet implementer launched.
+- 2026-10-16 session restarted: T21 implementer stopped mid-task (partial tree kept), resumed via SendMessage; caffeinate restarted.
+- 2026-10-16 T21 r1 gating: report written; gate B S T started.
+- 2026-10-16 T21 r1 reviewing: gate B+S+T green (1073 unit, visual 159); reviewer launched.
+- 2026-10-16 T21 r2 implementing: r1 FIX-REQUIRED (HIGH: 44 px jump on cancel/close; MEDIUM: pill padding click closes editor); round 2.
+- 2026-10-16 T21 r2 gating: r2 report written; gate B S T started.
+- 2026-10-16 T21 r2 reviewing: gate B+S+T green (1075 unit); r2 review sent (8 px tolerance question).
+- 2026-10-16 T21 r2 done: r2 review APPROVE; close tolerance tightened 8->2 px by orchestrator (visual 159 green); committed b572847.
+- 2026-10-16 T22 r1 implementing: Sonnet implementer launched.
+- 2026-10-16 T22 r1 gating: report written; gate B S T started.
+- 2026-10-16 T22 r1 reviewing: gate B+S+T green (1112 unit, visual 159); reviewer launched (blur relaxation focus).
+- 2026-10-16 T22 r2 implementing: r1 FIX-REQUIRED (MEDIUM stale selection corrupts text; LOW escaping/title); round 2.
+- 2026-10-16 T22 r2 gating: r2 report written; gate B S T started.
+- 2026-10-16 T22 r2 reviewing: gate B+S+T green (1119 unit); r2 review sent.
+- 2026-10-16 T22 r2 done: r2 review APPROVE; committed 8bd2bc2.
+- 2026-10-16 T23 r1 implementing: Sonnet implementer launched (shared implementer-rules.md).
+- 2026-10-16 T23 r1 gating: report written; gate B T R started.
+- 2026-10-16 T23 r1 reviewing: gate B+T+R green (1132 unit, visual 159); reviewer launched (shared reviewer-rules.md).
+- 2026-10-16 T23 r2 implementing: r1 FIX-REQUIRED (blocker: editor stuck after dismissing select); round 2.
+- 2026-10-16 T23 r2 gating: r2 report written; gate B T R started.
+- 2026-10-16 T23 r2 reviewing: gate B+T+R green (1136 unit); r2 review sent (Cmd+Shift+M vs Problems panel question).
+- 2026-10-16 T23 r2 done: r2 review APPROVE; committed 3f87eda.
+- 2026-10-16 T24 r1 implementing: Sonnet implementer launched.
+- 2026-10-16 T24 r1 gating: report written; gate B S T started.
+- 2026-10-16 T24 r1 reviewing: gate B+S+T green (1175 unit, visual 159); reviewer launched.
+- 2026-10-20 session restarted: T24 reviewer had hit the rate limit; resumed via SendMessage; caffeinate restarted.
+- 2026-10-20 T24 r1 done: review APPROVE (3 nits); committed df1424a (user CHANGELOG/README hunks left unstaged).
+- 2026-10-20 T25 r1 implementing: Sonnet implementer launched.
+- 2026-10-20 T25 r1 reviewing: gate B green, T red only in keyboard suites with screen LOCKED; TL (keyboard suites skipped) green; keyboard suites pending-unlock; reviewer launched.
+- 2026-10-20 T25 r1 done: review APPROVE; committed 6dab226; keyboard suites pending-unlock.
+- 2026-10-20 T26 r1 implementing: approved U18; implementer launched
+- 2026-10-20 T26 r1 reviewing: B+TL green (r1b); keyboard pending-unlock; renderer normalizer for details/kbd
+- 2026-10-20 T26 r1 done: review APPROVE; committed 78cf915; keyboard pending-unlock
+- 2026-10-20 T27 r1 implementing: implementer launched
+
+- 2026-10-20 (U25): backlog reorganised by the user's request. Items not in the plan moved P2 -> P3 (okfreq-layer, parity-with-obsidian, parity-with-markdown-studio-extension, animation-markdown-studio, record-demo-video, create-dedicated-project, deep-analysis-review, rendering-difference-on-windows, editor-improvements, extension-editor-mode, okf-frontmatter-schema-validation, markdown-okf-schema-studio). block-edition-palette moved P1 -> P2; P1 is now empty and removed. Landing 016 reads from backlog/P2.
+- 2026-10-20 T27 r1 reviewing: B+TL green; keyboard pending-unlock; nav resolves #label
+- 2026-10-20 T27 r1 changes-requested: review: anchor span data-line makes it a tabbable mapped block (MEDIUM)
+- 2026-10-20 T27 r2 reviewing: r2: anchor data-line dropped; B+TL green; T realInput timeout (active-editor wait) -> keyboard pending
+- 2026-10-20 T27 r2 done: review r2 APPROVE; committed 3ca7807; realInput timeout judged environmental, keyboard re-run pending
+- 2026-10-20 T28 r1 implementing: implementer launched (footnote already in T26)
+- 2026-10-20 T28 r1 reviewing: B+T green (keyboard suites ran, unlocked)
+- 2026-10-20 T28 r1 done: review APPROVE; orchestrator fixed See also label; committed c23c8f2
+- 2026-10-20 T29 r1 implementing: implementer launched
+- 2026-10-20 T29 r1 reviewing: B+T green
+- 2026-10-20 T29 r1 done: review APPROVE; committed c82062e
+- 2026-10-20 T30 r1 implementing: implementer launched
+- 2026-10-20 T30 r1 reviewing: B+T green; hostRequests blur suspension for T31
+- 2026-10-20 T30 r1 done: review: 1 medium (cross-drive {doc}) fixed by orchestrator + test; unit green; committed f3941b3
+- 2026-10-20 T31 r1 implementing: implementer launched (reuse T30 hostRequests)
+- 2026-10-20 T31 r1 reviewing: B green; T red only on undo/keyboard suites with screen locked; re-run T needed
+- 2026-10-20 T31 r1 done: review APPROVE; orchestrator fixed backslash in alt text + test; T keyboard/undo suites pending-unlock; committed 6c35140
+- 2026-10-20 T32 r1 implementing: implementer launched
+- 2026-10-20 T32 r1 reviewing: B+T green (T4 after test fixes)
+- 2026-10-20 T32 r1 done: review APPROVE; committed 82481e1
+- 2026-10-20 T33 r1 implementing: implementer launched
+- 2026-10-20 T33 r1 reviewing: B+TL green; T red twice at 'StRS-A link has a box' (realInput); orchestrator re-run
+- 2026-10-20 T33 r1 done: review APPROVE (cond. T green); bisect: colour step not the cause; fixed list-link wait race in realInput; last T red on cell focus-loss with user active (0 s idle) -> idle re-run pending; committed 5b38a2d
+- 2026-10-20 T34 r1 implementing: implementer launched
+- 2026-10-20 T34 r1 reviewing: B+T green (T second run)
+- 2026-10-20 T34 r1 changes-requested: review: straddling span selection (MEDIUM), selection inside a tag (LOW)
+- 2026-10-20 T34 r2 done: r2 fixes verified by orchestrator (straddle + in-tag refusal, tests); B+TL green; committed 8c97d64
+- 2026-10-20 T35 r1 implementing: implementer launched
+- 2026-10-20 T35 r1 reviewing: B+T green (r2)
+- 2026-10-20 T35 r1 done: review APPROVE; committed 9d305ac
+- 2026-10-20 T35 r1 done: phase 4 checkpoint E started
+
+- 2026-10-20 23:45: Phase 4 done (T25–T35). Checkpoint E: unit/contract/security/visual green; integration red only on checkboxToggle undo (user active, then screen locked) -> pending-unlock as phase 3. Landed archives/016-block-edition-palette (report + traceability). README palette list completed (3baa483). Found user README sentence committed in 6dab226 by mistake (commit.sh -U0 split); filter fixed; question to user.
+- 2026-10-20 T36 r1 implementing: phase 5 start; implementer launched
+- 2026-10-20 T36 r1 reviewing: B+S green; TL red labelRename undo (screen locked, also on clean HEAD); move undo pending-unlock
+- 2026-10-20 T36 r1 done: review APPROVE; committed 5293923; move undo + untrusted read-only line pending-unlock
+- 2026-10-20 T37 r1 implementing: implementer launched
+- 2026-10-21 T37 r1 done: review APPROVE; TL green (undo suites skipped); keyboard scenario pending-unlock; committed a57ddf1
+- 2026-10-21 T38 r1 implementing: implementer launched
+- 2026-10-21 T38 r1 reviewing: B+FL green; keyboard suites pending-unlock
+- 2026-10-21 T38 r1 done: review APPROVE; B+FL green; committed ae5bac0
+- 2026-10-21 T39 r1 implementing: implementer launched
+- 2026-10-21 T39 r1 reviewing: B+TL green; realInput scenario pending-unlock
+- 2026-10-21 T39 r1 changes-requested: review: HIGH pending selection by stale line; MEDIUM stale pending; 3 LOW
+- 2026-10-21 T39 r2 reviewing: r2 fixes; B+TL green
+- 2026-10-21 T39 r2 done: r2 review APPROVE; B+TL green; realInput scenarioBlockSelection pending-unlock; committed c36c9e7
+- 2026-10-21 T40 r1 implementing: implementer launched
+- 2026-10-21 T40 r1 reviewing: B green; T green after realInput selector fix (unlocked)
+- 2026-10-21 T40 r1 done: review APPROVE; B+T green (unlocked); committed b022ec4
+- 2026-10-21 T41 r1 implementing: implementer launched
+- 2026-10-21 T41 r1 reviewing: B+T green (unlocked)
+- 2026-10-21 T41 r1 changes-requested: review: stale pendingMoveSelection in saved state (MEDIUM)
+- 2026-10-21 T41 r2 reviewing: r2 fixes; B+T green
+- 2026-10-21 T41 r2 done: r2 review APPROVE; B+T green; committed 5eae169; phase 5 checkpoint next
+
+- 2026-10-21: Phase 5 done (T36–T41). Checkpoint E green in full on 5eae169 (unlocked idle machine) — first fully green checkpoint; clears phase 3/4 pending e2e (addenda in 013–016). Landed 017 move-block-up-down, 018 paste-image-in-edit-mode, 019 multibloc-selection. PlantUML JS analysis written to backlog/P3/plantuml-js-renderer (questions to user).
+- 2026-10-21 T42 r1 implementing: phase 6 start; implementer launched
+- 2026-10-21 T42 r1 reviewing: B+T+S green
+- 2026-10-21 T42 r1 changes-requested: review: included blocks, realInput evidence, test strength, popover closing on renders, text node, Escape
+- 2026-10-21 T42 r2 reviewing: r2 fixes; B+T+S green incl. realInput comments scenario
+- 2026-10-21 T42 r2 done: r2 review APPROVE; B+T+S green; committed dade957
+- 2026-10-21 T43 r1 implementing: implementer launched
+- 2026-10-21 T43 r1 reviewing: B+F green (unlocked)
+- 2026-10-21 T43 r1 changes-requested: review: HIGH silent loss of typed comment (version drop), MEDIUM no ack on refusals
+- 2026-10-21 T43 r2 reviewing: r2 fixes; B+F green
+- 2026-10-21 T43 r2 done: r2 review APPROVE; B+F green; committed 89d6513
+- 2026-10-21 T44 r1 implementing: implementer launched
+- 2026-10-21 T44 r1 reviewing: impl r1 B T S green; reviewer launched
+- 2026-10-21 T44 r2 implementing: r1 review CHANGES (1 med, 3 low); round 2
+- 2026-10-21 T44 r2 reviewing: impl r2 B T green; reviewer r2 launched
+- 2026-10-21 T44 r2 done: r2 review APPROVE; B T green; committed fea8ce5
+- 2026-10-21 T45 r1 implementing: implementer launched
+- 2026-10-21 T45 r1 reviewing: impl r1 B T green (realInput t2 expectation changed, D30); reviewer launched
+- 2026-10-21 T45 r2 implementing: r1 review FIX-REQUIRED (1 high, 2 med, 3 low); round 2
+- 2026-10-21 T45 r2 reviewing: impl r2 B T green; reviewer r2 launched
+- 2026-10-21 T45 r2 done: r2 review APPROVE; B T green; committed f44d970
+
+## 2026-10-21 post-plan progress (track.py has no P rows; this is the record)
+- P5+P6 44d7f79, P4 09fe504, P3 1a2c9dd, P1 c35f34a, P2+P7 6de3bd4, P8 6f7a893, P11 355bf50 — all reviewed and committed.
+- Phase 6 E green on 44d7f79; archive 020 landed.
+- Refactoring study written: backlog/P3/refactoring-study/01-analysis.md + 02-multi-host.md (user answers folded in).
+- P9: Opus analysis done (p9-e2e/), Sonnet plan review running; then batches B1..F per p9-e2e/STATE.md.
+- Then: preflight, push + PR (U33), P10 (p10-requirements/STATE.md), final report.

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIAG-122 · Studio requirements</title>
+<meta name="description" content="When a Vega-Lite or Vega chart names a relative data url, the extension SHALL read that file under the rules of the include directive (inside the document folder or workspace, no symlink escape, at mo">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markdown OKF-Schema Studio">
+<meta property="og:title" content="Behaviour DIAG-122: Chart data files are read through the resource policy">
+<meta property="og:description" content="When a Vega-Lite or Vega chart names a relative data url, the extension SHALL read that file under the rules of the include directive (inside the document folder or workspace, no symlink escape, at mo">
+<meta property="og:url" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/behaviour-diag-122.html">
+<meta property="og:image" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/og/behaviour.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Behaviour: One rule, tested on its own, linked to its code">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body style="--c:#1d4ed8">
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Areas</a><span class="sep">/</span><a href="area-diagrams.html">Diagrams</a><span class="sep">/</span><a href="use-case-diag-001.html">DIAG-001</a><span class="sep">/</span><span aria-current="page">DIAG-122</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<p class="eyebrow"><span class="sw" style="background:#1d4ed8"></span>Behaviour DIAG-122</p>
+<h1>Chart data files are read through the resource policy</h1>
+<p class="rule">When a Vega-Lite or Vega chart names a relative data url, the extension <strong>SHALL</strong> read that file under the rules of the include directive (inside the document folder or workspace, no symlink escape, at most 5 MiB), hand its text to the page with the chart, and refuse every remote url with a message.</p>
+<div class="where"><p>Part of <a href="use-case-diag-001.html">DIAG-001</a>, outside the paths drawn on its map.</p></div>
+<h2>Scenarios <small>3</small></h2>
+<p class="hint">The situations the tests check. Open one to read it.</p>
+<details class="scn"><summary><span class="k nom">nominal</span>A relative data file</summary><div class="gwt"><div><b>Given</b>a document in a workspace folder and a vega-lite chart with data.url data/rows.csv, a file next to the document</div><div><b>When</b>the preview renders</div><div><b>Then</b>the chart element carries the text of the file in data-myst-chart-files under the url as written, the file is a dependency of the render (the preview renders again when it changes), and the page draws the rows of the file; a CSV or TSV file is parsed by the extension without evaluating code, a JSON file as JSON</div></div></details><details class="scn"><summary><span class="k ref">refusal</span>A remote url</summary><div class="gwt"><div><b>Given</b>a chart whose data url starts with https:, http:, file: or //</div><div><b>When</b>the preview renders and the page draws the chart</div><div><b>Then</b>nothing is read and no request is made (connect-src stays none), and the chart shows the message Remote chart data is not loaded followed by the url</div></div></details><details class="scn"><summary><span class="k ref">refusal</span>A file outside the folders, missing, too large or of another format</summary><div class="gwt"><div><b>Given</b>a data url that leaves the workspace (or the document folder in Restricted Mode), names a missing file, an absolute path or a file larger than 5 MiB, or names a format other than csv, tsv or json</div><div><b>When</b>the preview renders</div><div><b>Then</b>no file text is handed to the page, a warning diagnostic names the refusal, and the chart shows the same message in place of the chart</div></div></details>
+<div class="cols">
+  <section><h2>Implemented in <small>4</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/page/modules/vegaChart.ts"><span class="dir">src/page/modules/</span>vegaChart.ts</a></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/core/render/mystNormalize.ts"><span class="dir">src/core/render/</span>mystNormalize.ts</a></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/core/render/chartInline.ts"><span class="dir">src/core/render/</span>chartInline.ts</a></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/core/render/mystRenderer.ts"><span class="dir">src/core/render/</span>mystRenderer.ts</a></li></ul></section>
+  <section><h2>Tested by <small>4</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/chartCsp.test.ts"><span class="dir">test/page/</span>chartCsp.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/modules/vegaChart.test.ts"><span class="dir">test/page/modules/</span>vegaChart.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/core/render/chartRendering.test.ts"><span class="dir">test/core/render/</span>chartRendering.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/core/render/chartData.test.ts"><span class="dir">test/core/render/</span>chartData.test.ts</a><span class="tag">unit</span></li></ul></section>
+</div>
+
+<nav class="pager"><a href="behaviour-diag-121.html">← Vega-Lite and Vega fences become chart figures</a><a class="next" href="behaviour-diag-123.html">Charts are drawn as themed SVG pictures with errors in place →</a></nav>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

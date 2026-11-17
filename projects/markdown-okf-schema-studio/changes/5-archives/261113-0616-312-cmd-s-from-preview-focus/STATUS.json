@@ -1,0 +1,215 @@
+{
+  "schema": 2,
+  "updated": "2026-11-13T11:49:05Z",
+  "cr": "CR-312",
+  "title": "Change Specification: Cmd+S saves the document from the preview",
+  "batch": "batch-02",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 4,
+  "max_rounds": 4,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/383.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/383",
+    "number": 383
+  },
+  "steps": [
+    {
+      "name": "Round 1",
+      "done": true,
+      "verdict": "",
+      "note": "Implement the whole specification: protocol, host command, session handler, page handlers, requirement, docs, changelog, unit/session/page tests, integration test file",
+      "at": "2026-11-12T22:54:18Z"
+    },
+    {
+      "name": "Round 2",
+      "done": true,
+      "verdict": "",
+      "note": "Inspector: add bounded host fallback when the page posts OK but never sends previewSaveRequest (timer FLUSH_WAIT_MS, cleared on request, never double save) + test that fails on current code",
+      "at": "2026-11-12T23:09:25Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "9abd4bc6",
+      "at": "2026-11-13T00:10:19Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/383",
+      "at": "2026-11-13T00:10:59Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Local preflight: static and visual passed; ci-integration failed in the existing palette real-input scenario (no focus, locked screen); heavy run 43334982738 dispatched as proof",
+      "at": "2026-11-13T00:10:59Z"
+    },
+    {
+      "name": "Round 3",
+      "done": true,
+      "verdict": "",
+      "note": "Heavy run: save-key frontmatter step times out waiting for [data-okf-frontmatter-editor] textarea; fix the real-window test (block and cell steps passed)",
+      "at": "2026-11-13T00:46:17Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Heavy run 43340259932 at 7570feb: block, cell, frontmatter save-key steps pass; custom-editor step (decision 5) times out waiting for the saved text; stress, visual, static green; needs round 4 to add activeCustomEditorId clause or fix the test",
+      "at": "2026-11-13T01:14:36Z"
+    },
+    {
+      "name": "Blocked",
+      "done": true,
+      "verdict": "",
+      "note": "rounds: save-key custom-editor step fails on heavy run 43340259932 (head 7570feb), decision 5 not settled; draft PR 383; needs a 4th round",
+      "at": "2026-11-13T01:14:36Z"
+    },
+    {
+      "name": "Round 4",
+      "done": true,
+      "verdict": "",
+      "note": "round 4: save-key binding gains the activeCustomEditorId clause (done by the Driver, small); heavy run 43344012200 green at aed1a0a",
+      "at": "2026-11-13T01:40:05Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/383",
+      "at": "2026-11-13T01:40:05Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "round 4: Inspector FIX-REQUIRED (SwRS-173 custom editor scenario, test comment, PR body native-check result) fixed by the Driver in 92137829 (docs/comments only, no new round); Verifier VERIFIED at aed1a0a; heavy run 43347118035 green at 92137829. No local long gate: ci-integration cannot run on the locked-screen machine; CI heavy run is the proof",
+      "at": "2026-11-13T02:05:48Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/383",
+      "at": "2026-11-13T02:05:48Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-13T02:05:48Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/383",
+      "at": "2026-11-13T02:34:49Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Restacked 305..312 in order, linked as gh stack #384; just check green at fb7b57f; no per-CR preflight at new heads (owner order: just check at top + heavy run 43353161466 on top + PR CI).",
+      "at": "2026-11-13T02:35:02Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "PR CI green on all eight restacked heads (checks/report/static/static-windows/visual); heavy run 43353161466 on top pending.",
+      "at": "2026-11-13T02:50:54Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Heavy run 43353161466 green at fb7b57f: static, static-windows, visual, integration, stress, report, checks success.",
+      "at": "2026-11-13T03:00:07Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/383",
+      "at": "2026-11-13T06:16:11Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "conflicts",
+      "path": "work/conflicts.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261113-001446.log"
+    },
+    {
+      "kind": "evidence",
+      "path": "evidence"
+    },
+    {
+      "kind": "project",
+      "path": "../../../constitution.md",
+      "name": ".agents/constitution.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CHANGELOG.md",
+      "name": "CHANGELOG.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../docs/user/editing.md",
+      "name": "docs/user/editing.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/log.md",
+      "name": "requirements/tiers/log.md"
+    }
+  ],
+  "branch": "chantier/batch-02/cr-312-change-specification-cmd-s-saves-the-doc",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-02-CR-312",
+  "agent": null,
+  "notes": [
+    "Local preflight: static and visual passed; ci-integration failed in the existing palette real-input scenario (no focus, locked screen); heavy run 43334982738 dispatched as proof",
+    "Heavy run 43340259932 at 7570feb: block, cell, frontmatter save-key steps pass; custom-editor step (decision 5) times out waiting for the saved text; stress, visual, static green; needs round 4 to add activeCustomEditorId clause or fix the test",
+    "back to a Driver: round 4 granted (O-2). Add the activeCustomEditorId == 'markdown-okf-schema-studio.editor' clause to the binding in package.json and test/security/package-contract.test.ts; check runSaveCommand finds the custom editor's session; push; re-dispatch the heavy run on the exact new head; integration and stress must be green there. Fill the PR body (RESULT_PLACEHOLDER, preflight line, boxes), then gh pr ready. Log keep-or-drop of the clause in 02-answers.md for the owner's morning review.",
+    "round 4: Inspector FIX-REQUIRED (SwRS-173 custom editor scenario, test comment, PR body native-check result) fixed by the Driver in 92137829 (docs/comments only, no new round); Verifier VERIFIED at aed1a0a; heavy run 43347118035 green at 92137829. No local long gate: ci-integration cannot run on the locked-screen machine; CI heavy run is the proof",
+    "Restacked 305..312 in order, linked as gh stack #384; just check green at fb7b57f; no per-CR preflight at new heads (owner order: just check at top + heavy run 43353161466 on top + PR CI).",
+    "PR CI green on all eight restacked heads (checks/report/static/static-windows/visual); heavy run 43353161466 on top pending.",
+    "Heavy run 43353161466 green at fb7b57f: static, static-windows, visual, integration, stress, report, checks success."
+  ],
+  "blocked": null,
+  "cost_usd": 5.4345,
+  "final_cost": true,
+  "silent_minutes": null
+}

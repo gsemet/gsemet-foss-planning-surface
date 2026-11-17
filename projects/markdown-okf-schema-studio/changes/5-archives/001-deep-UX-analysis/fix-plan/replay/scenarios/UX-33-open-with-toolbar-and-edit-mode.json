@@ -1,0 +1,19 @@
+{
+  "name": "UX-33-open-with-toolbar-and-edit-mode",
+  "file": "synth/tables.md",
+  "precondition": "Side preview open on ${file}, text editor for ${file} active in group 1, edit mode off.",
+  "steps": [
+    {"key": "Escape", "wait": 400},
+    {"editMode": true, "wait": 800},
+    {"check": "feval", "expr": "D.documentElement.getAttribute('data-sphinx-preview-edit-mode')", "equals": "on", "label": "side preview edit mode on"},
+    {"key": "Meta+1", "wait": 500},
+    {"palette": "View: Reopen Editor With...", "wait": 1200},
+    {"pick": "MyST + OKF Studio", "wait": 6000},
+    {"eval": "JSON.stringify({h1: (D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent, edit: D.documentElement.getAttribute('data-sphinx-preview-edit-mode'), anchor: (b => b && {disabled: b.disabled, title: b.getAttribute('title'), pressed: b.getAttribute('aria-pressed')})(D.querySelector('[data-anchor-mode]'))})", "which": 0},
+    {"eval": "JSON.stringify({h1: (D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent, edit: D.documentElement.getAttribute('data-sphinx-preview-edit-mode'), anchor: (b => b && {disabled: b.disabled, title: b.getAttribute('title'), pressed: b.getAttribute('aria-pressed')})(D.querySelector('[data-anchor-mode]'))})", "which": 1},
+    {"eval": "[...D.querySelectorAll('.sphinx-preview-toolbar button, [data-sphinx-preview-toolbar] button')].map(b => (b.getAttribute('aria-label') || b.getAttribute('title')) + ' / ' + (b.querySelector('.codicon') ? b.querySelector('.codicon').className : b.textContent.trim())).join(' | ')", "which": 0, "max": 800},
+    {"check": "peval", "expr": "JSON.stringify([...document.querySelectorAll('.editor-group-container .tab')].filter(t => t.classList.contains('active')).map(t => [t.getAttribute('aria-label'), Math.round(t.getBoundingClientRect().width)]))", "label": "UX-32 active tab labels and widths"},
+    {"shot": "UX-33-open-with", "wait": 300},
+    {"check": "errors"}
+  ]
+}

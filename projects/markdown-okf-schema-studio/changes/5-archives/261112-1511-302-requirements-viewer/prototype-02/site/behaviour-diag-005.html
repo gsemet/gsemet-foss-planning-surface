@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIAG-005 · Studio requirements</title>
+<meta name="description" content="When the page draws a Mermaid diagram, the extension SHALL take its colours from the preview theme variables, use a built-in fallback for any variable that is missing, empty or a CSS system colour key">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markdown OKF-Schema Studio">
+<meta property="og:title" content="Behaviour DIAG-005: Mermaid colours follow the preview theme">
+<meta property="og:description" content="When the page draws a Mermaid diagram, the extension SHALL take its colours from the preview theme variables, use a built-in fallback for any variable that is missing, empty or a CSS system colour key">
+<meta property="og:url" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/behaviour-diag-005.html">
+<meta property="og:image" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/og/behaviour.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Behaviour: One rule, tested on its own, linked to its code">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body style="--c:#1d4ed8">
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Areas</a><span class="sep">/</span><a href="area-diagrams.html">Diagrams</a><span class="sep">/</span><a href="use-case-diag-001.html">DIAG-001</a><span class="sep">/</span><span aria-current="page">DIAG-005</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<p class="eyebrow"><span class="sw" style="background:#1d4ed8"></span>Behaviour DIAG-005</p>
+<h1>Mermaid colours follow the preview theme</h1>
+<p class="rule">When the page draws a Mermaid diagram, the extension <strong>SHALL</strong> take its colours from the preview theme variables, use a built-in fallback for any variable that is missing, empty or a CSS system colour keyword, and draw it again when the theme colours change.</p>
+<div class="where" style="--pc:var(--p2)"><div class="track"><span class="cur"><i></i><b></b></span><span class=""><i></i></span></div><p>Step 1 of path 2 in <a href="use-case-diag-001.html">DIAG-001</a>: from “The diagram is drawn as a picture” to “The diagram is redrawn in the new theme, labels kept”.</p></div>
+<h2>Scenarios <small>2</small></h2>
+<p class="hint">The situations the tests check. Open one to read it.</p>
+<details class="scn"><summary><span class="k nom">nominal</span>The theme changes</summary><div class="gwt"><div><b>Given</b>a drawn Mermaid diagram on a dark preview</div><div><b>When</b>the data-sphinx-preview-theme-mode, data-sphinx-preview-theme, class or style attribute of the html element, or the class or style attribute of the body element, changes and the theme mode becomes white</div><div><b>Then</b>the page checks every Mermaid diagram, draws again each one whose theme colours differ from those it was drawn with, and keeps its node labels</div></div></details><details class="scn"><summary><span class="k bnd">boundary</span>The theme colours stay the same</summary><div class="gwt"><div><b>Given</b>a drawn Mermaid diagram</div><div><b>When</b>an observed attribute changes and leaves the theme colours as they were</div><div><b>Then</b>the diagram is not drawn again and keeps its picture</div></div></details>
+<div class="cols">
+  <section><h2>Implemented in <small>1</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/page/modules/mermaidPreview.ts"><span class="dir">src/page/modules/</span>mermaidPreview.ts</a></li></ul></section>
+  <section><h2>Tested by <small>2</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/visual/scenarioDefinitions1.ts"><span class="dir">test/visual/</span>scenarioDefinitions1.ts</a><span class="tag">visual</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/core/preview/themeTokens.test.ts"><span class="dir">test/core/preview/</span>themeTokens.test.ts</a><span class="tag">unit</span></li></ul></section>
+</div>
+<details class="known"><summary>Known limits (5)</summary><p>- Known issue: The visual check covers dark, white and cream and only node fills; border and secondary colours have no check.<br>- Known issue: The redraw evidence covers dark, white and cream; the light mode relies on the same observer.<br>- Known issue: The fallback colours are fixed colours of a light palette.<br>- Known issue: No unit test covers the fallback logic.<br>- Known issue: Edge label readability is checked by the visual campaign only; no unit test.</p></details>
+<nav class="pager"><a href="behaviour-diag-001.html">← Mermaid fences become inert diagram pictures</a><a class="next" href="behaviour-diag-009.html">Mermaid diagrams are drawn once and late results are dropped →</a></nav>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

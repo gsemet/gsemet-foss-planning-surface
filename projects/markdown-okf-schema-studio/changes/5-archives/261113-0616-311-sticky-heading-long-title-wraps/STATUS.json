@@ -1,0 +1,161 @@
+{
+  "schema": 2,
+  "updated": "2026-11-13T11:49:05Z",
+  "cr": "CR-311",
+  "title": "Change Specification: a long heading in the sticky band stays on one line",
+  "batch": "batch-02",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 1,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/382.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/382",
+    "number": 382
+  },
+  "steps": [
+    {
+      "name": "Round 1",
+      "done": true,
+      "verdict": "",
+      "note": "Implement the whole specification",
+      "at": "2026-11-12T22:53:32Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "3a3aacf7",
+      "at": "2026-11-12T23:53:46Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/382",
+      "at": "2026-11-12T23:54:19Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Local preflight: static+visual passed; integration real-input flaked (focus under load) and pytest tmp PermissionError; heavy run dispatched as proof",
+      "at": "2026-11-12T23:54:19Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/382",
+      "at": "2026-11-13T00:48:44Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Fixed overlap check clamp; CI green on 352077d (pr + heavy run 43337013395 integration/stress green); first run's v30 failure not reproduced locally (full visual 474 passed)",
+      "at": "2026-11-13T00:48:44Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-13T00:57:03Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/382",
+      "at": "2026-11-13T02:34:49Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Restack: scenario id renumbered v44->v45 (CR-310 took v44); PR body alt text updated.",
+      "at": "2026-11-13T02:35:02Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/382",
+      "at": "2026-11-13T06:16:11Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "conflicts",
+      "path": "work/conflicts.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261113-002252.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/git-commit-allowed-scopes.md",
+      "name": ".agents/guidelines/git-commit-allowed-scopes.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../AGENTS.md",
+      "name": "AGENTS.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CHANGELOG.md",
+      "name": "CHANGELOG.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/log.md",
+      "name": "requirements/tiers/log.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/strs/toolbar-navigation/StRS-MDOKFSTUDIO-TOOLBAR-004.md",
+      "name": "requirements/tiers/strs/toolbar-navigation/StRS-MDOKFSTUDIO-TOOLBAR-004.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/toolbar-navigation/SwRS-MDOKFSTUDIO-TOOLBAR-025.md",
+      "name": "requirements/tiers/swrs/toolbar-navigation/SwRS-MDOKFSTUDIO-TOOLBAR-025.md"
+    }
+  ],
+  "branch": "chantier/batch-02/cr-311-change-specification-a-long-heading-in-t",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-02-CR-311",
+  "agent": null,
+  "notes": [
+    "Local preflight: static+visual passed; integration real-input flaked (focus under load) and pytest tmp PermissionError; heavy run dispatched as proof",
+    "Fixed overlap check clamp; CI green on 352077d (pr + heavy run 43337013395 integration/stress green); first run's v30 failure not reproduced locally (full visual 474 passed)",
+    "Restack: scenario id renumbered v44->v45 (CR-310 took v44); PR body alt text updated."
+  ],
+  "blocked": null,
+  "cost_usd": 3.0508,
+  "final_cost": true,
+  "silent_minutes": null
+}

@@ -1,0 +1,63 @@
+  #-admonition-gallery--dark--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+  #-code-and-tables--dark--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+  #-handbook-overview--dark--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+  #-handbook-overview--light--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+  #-long-chapter--dark--sticky-#--default.html: rightmost preview button is covered or overlaps the sticky heading text row
+  #-long-chapter--dark--sticky-#--default.html: rightmost preview button is covered or overlaps the sticky heading text row
+  #-long-chapter--dark--sticky-#--default.html: rightmost preview button is covered or overlaps the sticky heading text row
+  #-long-chapter--dark--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+  #-long-chapter--dark--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+  #-long-chapter--dark--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+  #-long-chapter--dark--sticky-#--default.html: sticky heading top #px overlaps toolbar bottom #px
+  #-long-chapter--dark--sticky-#--default.html: sticky heading top #px overlaps toolbar bottom #px
+  #-long-chapter--dark--sticky-#--default.html: sticky heading top #px overlaps toolbar bottom #px
+  #-long-chapter--light--sticky-#--default.html: rightmost preview button is covered or overlaps the sticky heading text row
+  #-long-chapter--light--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+  #-long-chapter--light--sticky-#--default.html: sticky heading top #px overlaps toolbar bottom #px
+  #-okf-schema--dark--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+  #-okf-schema--dark--sticky-#--default.html: table action bar is not aligned with its active cell: {'placement': 'above', 'barLeft': #, 'barTop': #, 'barBottom': #, 'cellLeft': #, 'cellTop': #, 'cellBottom': #, 'controlsBottom': #, 'hitTarget': True}
+  #-okf-schema--dark--sticky-#--default.html: table action bar is not aligned with its active cell: {'placement': 'above', 'barLeft': #, 'barTop': #, 'barBottom': #, 'cellLeft': #, 'cellTop': #, 'cellBottom': #, 'controlsBottom': #, 'hitTarget': True}
+  #-okf-schema--light--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+  #-okf-schema--light--sticky-#--default.html: table action bar is not aligned with its active cell: {'placement': 'above', 'barLeft': #, 'barTop': #, 'barBottom': #, 'cellLeft': #, 'cellTop': #, 'cellBottom': #, 'controlsBottom': #, 'hitTarget': True}
+  #-okf-schema--light--sticky-#--default.html: table action bar is not aligned with its active cell: {'placement': 'above', 'barLeft': #, 'barTop': #, 'barBottom': #, 'cellLeft': #, 'cellTop': #, 'cellBottom': #, 'controlsBottom': #, 'hitTarget': True}
+  #-sticky-heading-wrap--dark--sticky-#--default.html: rightmost preview button is covered or overlaps the sticky heading text row
+  #-sticky-heading-wrap--dark--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+  #-sticky-heading-wrap--dark--sticky-#--default.html: sticky heading top #px overlaps toolbar bottom #px
+  #-syntax-highlighting--dark--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+  #-syntax-highlighting--light--sticky-#--default.html: sticky heading overlaps the reserved toolbar row
+failed: admonitions-dark-nested
+failed: admonitions-dark-titled
+failed: chapter-dark-bottom
+failed: chapter-dark-half
+failed: chapter-dark-quarter
+failed: chapter-dark-three-quarters
+failed: chapter-figure-dark
+failed: code-dark-table
+failed: diff-dark-edit
+failed: diff-dark-preview
+failed: diff-light-edit
+failed: diff-light-preview
+failed: edit-table-cell-dark (alias of edit-table-wrapped-dark-#)
+failed: edit-table-wrapped-dark-#
+failed: edit-table-wrapped-dark-#
+failed: edit-table-wrapped-light-#
+failed: edit-table-wrapped-light-#
+failed: handbook-dark-bottom
+failed: handbook-dark-third
+failed: handbook-light-failures
+failed: handbook-narrow-table
+failed: math-edit-offline-dark
+failed: math-edit-offline-light-narrow
+failed: preview-edit-activation-scroll-narrow
+failed: preview-edit-activation-scroll-wide
+failed: preview-sticky-headings-#
+failed: preview-sticky-headings-#
+failed: preview-sticky-headings-#
+failed: preview-sticky-headings-#-light-narrow
+failed: preview-sticky-headings-natural-growth
+failed: syntax-dark-markdown
+failed: syntax-dark-python
+failed: syntax-dark-rust
+failed: syntax-light-rust
+failed: syntax-light-shell (alias of diff-light-preview)
+failed: syntax-narrow-python

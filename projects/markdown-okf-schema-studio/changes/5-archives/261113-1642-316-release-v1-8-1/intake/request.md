@@ -1,0 +1,1 @@
+Release v1.8.1: a maintenance release whose only change is how the extension is published (VS Code Marketplace trusted publishing with OIDC, CR marketplace-trusted-publishing). It proves the OIDC publish. Owner, 2026-11-13: « on peut faire un 1.8.1 fake si tu veux », then « Oui, lance ».

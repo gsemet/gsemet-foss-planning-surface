@@ -1,0 +1,8 @@
+test(visual): explain a toolbar overlap failure with a layout dump
+
+When a control sits under the toolbar, the failure now carries the rects
+of the toolbar, content, properties section and controls, the clearance
+variables, the load and font state and the viewport, so a CI-only failure
+can be diagnosed from its log.
+
+Assisted-by: Claude:Sonnet-5.5

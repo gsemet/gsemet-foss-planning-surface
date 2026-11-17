@@ -1,0 +1,27 @@
+{
+  "name": "UX-17-multiline-cmd-enter",
+  "file": "synth/frontmatter-edge.md",
+  "vars": {"fe": "[data-okf-frontmatter-editor]"},
+  "steps": [
+    {"open": "${file}"},
+    {"palette": "File: Revert File", "wait": 2000},
+    {"waitFor": "D.querySelector('tr[data-okf-field=\"custom_key\"]')", "timeout": 15000, "label": "preview follows file"},
+    {"check": "diff", "file": "${file}", "against": "disk", "equal": true, "label": "reverted to disk"},
+    {"mark": "${file}"},
+    {"editMode": true},
+    {"clicksel": "tr[data-okf-field=\"notes\"] [data-okf-value-cell]"},
+    {"waitFor": "D.querySelector('${fe} textarea')", "label": "notes editor"},
+    {"eval": "(() => { const t = D.querySelector('${fe} textarea'); return JSON.stringify({value: t.value, caret: t.selectionStart, len: t.value.length}); })()"},
+    {"key": "Meta+ArrowDown"},
+    {"eval": "(() => { const t = D.querySelector('${fe} textarea'); return JSON.stringify({caret: t.selectionStart, len: t.value.length}); })()"},
+    {"type": "Line three."},
+    {"key": "Enter", "wait": 600},
+    {"check": "feval", "expr": "!!D.querySelector('${fe} textarea')", "label": "UX-17 Enter in multi-line value keeps the editor open"},
+    {"eval": "JSON.stringify(D.querySelector('${fe} textarea').value)"},
+    {"key": "Meta+Enter", "wait": 1500},
+    {"check": "feval", "expr": "!D.querySelector('${fe}')", "label": "UX-17 Cmd+Enter saves multi-line value"},
+    {"check": "diff", "file": "${file}", "against": "mark", "maxLines": 1, "contains": "  Line three.", "show": true, "label": "UX-17 multi-line value: one added line"},
+    {"check": "errors"},
+    {"shot": "UX-17-fail", "clip": "preview", "onFail": true}
+  ]
+}

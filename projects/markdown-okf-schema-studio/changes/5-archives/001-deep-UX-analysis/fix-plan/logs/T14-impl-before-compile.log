@@ -1,0 +1,5 @@
+
+> markdown-okf-schema-studio@0.1.0 compile
+> tsc -p .
+
+test/webview/textEditing.test.ts(125,44): error TS2339: Property 'mapRenderedCaret' does not exist on type '{ continueOnEnter: (value: string, selectionStart: number, selectionEnd: number) => TextEdit | undefined; indentSelection: (value: string, selectionStart: number, selectionEnd: number, outdent: boolean) => TextEdit | undefined; }'.

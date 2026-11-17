@@ -1,0 +1,1168 @@
+[
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/context-tags-dark-wide.png",
+    "scenario": "context-tags-dark-wide",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Literal tag titles <fullcycle-model-allocation>, <context>, <model_allocation> are visible",
+        "pass": true,
+        "why": "All three literal tag titles render as panel titles"
+      },
+      {
+        "id": "S2",
+        "text": "The YAML code (models/planner/reviewer) is visible inside the first wrapper",
+        "pass": true,
+        "why": "YAML block with three lines is shown inside the first panel"
+      },
+      {
+        "id": "S3",
+        "text": "The Markdown body (bold Markdown, documentation link, bullet list) renders inside the panels",
+        "pass": true,
+        "why": "Bold, link and two bullets render inside <context>/<model_allocation>"
+      },
+      {
+        "id": "S4",
+        "text": "The trailing paragraph sits outside the panels",
+        "pass": true,
+        "why": "Final paragraph is below and outside both panels"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits right of the H1; it covers no heading or body text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the viewport"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a - no table"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Tag titles, body and YAML tokens are legible on the dark panel backgrounds"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Context-tag panels are visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/context-tags-light-narrow.png",
+    "scenario": "context-tags-light-narrow",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Literal tag titles <fullcycle-model-allocation>, <context>, <model_allocation> are visible",
+        "pass": true,
+        "why": "All three literal tag titles render as panel titles"
+      },
+      {
+        "id": "S2",
+        "text": "The YAML code (models/planner/reviewer) is visible inside the first wrapper",
+        "pass": true,
+        "why": "YAML block with three lines is shown inside the first panel"
+      },
+      {
+        "id": "S3",
+        "text": "The Markdown body (bold Markdown, documentation link, bullet list) renders inside the panels",
+        "pass": true,
+        "why": "Bold, link and two bullets render inside <context>/<model_allocation>"
+      },
+      {
+        "id": "S4",
+        "text": "The trailing paragraph sits outside the panels",
+        "pass": true,
+        "why": "Final paragraph is below and outside both panels"
+      },
+      {
+        "id": "S5",
+        "text": "Panels wrap at 460px without widening the page or hiding YAML",
+        "pass": true,
+        "why": "Panels and text wrap within the column; no horizontal overflow; YAML fully visible"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits right of the H1; it covers no heading or body text (close to the H1 at narrow width, but no overlap)"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the viewport"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a - no table"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Tag titles, body and YAML tokens are legible on the light panel backgrounds"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Context-tag panels are visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/context-tags-light-wide.png",
+    "scenario": "context-tags-light-wide",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Literal tag titles <fullcycle-model-allocation>, <context>, <model_allocation> are visible",
+        "pass": true,
+        "why": "All three literal tag titles render as panel titles"
+      },
+      {
+        "id": "S2",
+        "text": "The YAML code (models/planner/reviewer) is visible inside the first wrapper",
+        "pass": true,
+        "why": "YAML block with three lines is shown inside the first panel"
+      },
+      {
+        "id": "S3",
+        "text": "The Markdown body (bold Markdown, documentation link, bullet list) renders inside the panels",
+        "pass": true,
+        "why": "Bold, link and two bullets render inside <context>/<model_allocation>"
+      },
+      {
+        "id": "S4",
+        "text": "The trailing paragraph sits outside the panels",
+        "pass": true,
+        "why": "Final paragraph is below and outside both panels"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar sits right of the H1; it covers no heading or body text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the viewport"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a - no table"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Tag titles, body and YAML tokens are legible on the light panel backgrounds"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Context-tag panels are visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/diff-dark-edit.png",
+    "scenario": "diff-dark-edit",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Removed and added lines use distinct full-width red and green treatments",
+        "pass": true,
+        "why": "Red -line and green +line bands span the full content width"
+      },
+      {
+        "id": "S2",
+        "text": "Patch markers (- and +) remain visible",
+        "pass": true,
+        "why": "Both markers visible at line start next to the coloured edge bar"
+      },
+      {
+        "id": "S3",
+        "text": "Diff text stays legible against the line treatments",
+        "pass": true,
+        "why": "Red/green text readable on the dark tinted bands"
+      },
+      {
+        "id": "S4",
+        "text": "Page-wide edit mode is on and rendered line styling is retained",
+        "pass": true,
+        "why": "Edit (pencil) toggle is active; diff colours unchanged from the readonly capture"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Sticky band (# Syntax.../## Python) shares the toolbar row but its text ends far left of the toolbar; no text covered. Disagrees with the harness 'sticky heading overlaps the reserved toolbar row' failure, which is not visible as a collision"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the viewport; band text not clipped at the top edge"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a - no table"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Code tokens and prose readable in the dark theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The diff block under 'Shell, JSON and diff' is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/diff-dark-preview.png",
+    "scenario": "diff-dark-preview",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Removed and added lines use distinct full-width red and green treatments",
+        "pass": true,
+        "why": "Red -line and green +line bands span the full content width"
+      },
+      {
+        "id": "S2",
+        "text": "Patch markers (- and +) remain visible",
+        "pass": true,
+        "why": "Both markers visible at line start next to the coloured edge bar"
+      },
+      {
+        "id": "S3",
+        "text": "Diff text stays legible against the line treatments",
+        "pass": true,
+        "why": "Red/green text readable on the dark tinted bands"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Sticky band (# Syntax.../## Python) shares the toolbar row but its text ends far left of the toolbar; no text covered. Disagrees with the harness 'sticky heading overlaps the reserved toolbar row' failure, which is not visible as a collision"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the viewport; band text not clipped at the top edge"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a - no table"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Code tokens and prose readable in the dark theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The diff block under 'Shell, JSON and diff' is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/diff-light-edit.png",
+    "scenario": "diff-light-edit",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Removed and added lines use distinct full-width red and green treatments",
+        "pass": true,
+        "why": "Red -line and green +line bands span the full content width"
+      },
+      {
+        "id": "S2",
+        "text": "Patch markers (- and +) remain visible",
+        "pass": true,
+        "why": "Both markers visible at line start next to the coloured edge bar"
+      },
+      {
+        "id": "S3",
+        "text": "Diff text stays legible against the line treatments",
+        "pass": true,
+        "why": "Red/green text readable on the light tinted bands"
+      },
+      {
+        "id": "S4",
+        "text": "Page-wide edit mode is on and rendered line styling is retained",
+        "pass": true,
+        "why": "Edit (pencil) toggle is active; diff colours unchanged from the readonly capture"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Sticky band (# Syntax.../## Python) shares the toolbar row but its text ends far left of the toolbar; no text covered. Disagrees with the harness 'sticky heading overlaps the reserved toolbar row' failure, which is not visible as a collision"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the viewport; band text not clipped at the top edge"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a - no table"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Code tokens and prose readable in the light theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The diff block under 'Shell, JSON and diff' is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/diff-light-preview.png",
+    "scenario": "diff-light-preview",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Removed and added lines use distinct full-width red and green treatments",
+        "pass": true,
+        "why": "Red -line and green +line bands span the full content width"
+      },
+      {
+        "id": "S2",
+        "text": "Patch markers (- and +) remain visible",
+        "pass": true,
+        "why": "Both markers visible at line start next to the coloured edge bar"
+      },
+      {
+        "id": "S3",
+        "text": "Diff text stays legible against the line treatments",
+        "pass": true,
+        "why": "Red/green text readable on the light tinted bands"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Sticky band (# Syntax.../## Python) shares the toolbar row but its text ends far left of the toolbar; no text covered. Disagrees with the harness 'sticky heading overlaps the reserved toolbar row' failure, which is not visible as a collision"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar fully inside the viewport; band text not clipped at the top edge"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "n/a - no table"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Code tokens and prose readable in the light theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "The diff block under 'Shell, JSON and diff' is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-admonition-dark.png",
+    "scenario": "edit-admonition-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Clicking the admonition opens the complete mapped directive source",
+        "pass": true,
+        "why": "Editor shows ```{warning} Calibration gate, both body lines and the closing fence"
+      },
+      {
+        "id": "S2",
+        "text": "The editor shows its line-range hint and Done/Revert buttons",
+        "pass": true,
+        "why": "'Lines 26-29 ...' hint plus Done and Revert visible"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar overlaps the properties table's top-right border only; Description header and the collapse arrow remain uncovered (arrow sits just below the toolbar)"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar and editor fully inside the viewport"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Property names such as annotation_exemption and reviewed_on stay on one line; agrees with machine check"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "All text legible on dark backgrounds"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Admonition source editor is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-affordances-hover-and-open-hover.png",
+    "scenario": "edit-affordances-hover-and-open",
+    "assertions": [
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "No note - generic assertions only. Dashed hover outline and gutter + button cover no text; toolbar is clear of the H2 text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar and + button inside the viewport; the wide table's cut-off right edge is intentional internal scroll (shadow visible)"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Depot ids (nw-01...) and dates stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text legible in dark theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Hovered nested list shows a dashed outline; the + insertion button appears in the left gutter after the enclosing list"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-affordances-hover-and-open.png",
+    "scenario": "edit-affordances-hover-and-open",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Edit mode is on",
+        "pass": true,
+        "why": "Pencil toggle active"
+      },
+      {
+        "id": "S2",
+        "text": "Final frame shows a paragraph editor with frame, line-range hint, Done and Revert",
+        "pass": true,
+        "why": "Framed editor with 'Lines 47-49' hint and Done/Revert buttons"
+      },
+      {
+        "id": "S3",
+        "text": "Hovered list is outlined with a dashed line (companion -hover PNG)",
+        "pass": true,
+        "why": "Verified in the -hover companion image"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar floats over the code block's right side where there is no code text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar inside the viewport; wide table cut-off is intentional internal scroll"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Table ids and dates stay on one line; agrees with machine check"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Code and editor text legible in dark theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Paragraph editor is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-frontmatter-boolean-dark.png",
+    "scenario": "edit-frontmatter-boolean-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "annotation_exemption checkbox is captured unchecked showing false",
+        "pass": true,
+        "why": "Unchecked box with 'false'"
+      },
+      {
+        "id": "S2",
+        "text": "Forced white preview is applied",
+        "pass": true,
+        "why": "Page renders with the light palette as requested"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Add/Remove field pill sits inside the value cell below the checkbox, covering no text; toolbar clear of the Description header"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Pill and toolbar fully inside the viewport; agrees with machine check"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Property names stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text legible on the forced white background"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Boolean frontmatter control is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-frontmatter-key-dark.png",
+    "scenario": "edit-frontmatter-key-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Expanded key suggestions show an unused schema property",
+        "pass": true,
+        "why": "Typing 's' shows the suggestion 'summary' highlighted in a dropdown"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Suggestion dropdown stays within the name cell; no other text covered; agrees with machine check"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Dropdown and toolbar inside the viewport"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Property names stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Highlighted suggestion readable (white on blue)"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Key editor with suggestions is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-frontmatter-list-dark.png",
+    "scenario": "edit-frontmatter-list-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "List reorder/add/remove result is shown (StRS-CORE-001 updated, -003, -004)",
+        "pass": true,
+        "why": "Three item inputs with drag handles and remove buttons show the expected values"
+      },
+      {
+        "id": "S2",
+        "text": "The pending set-as-null save is visible, with the editor disabled",
+        "pass": false,
+        "why": "Item inputs are dimmed, but '+ Add item', 'Set to null' and 'Add/Remove field' still look fully active and no 'Saving frontmatter...' text is visible, although the note lists it; the pending state is not perceptible"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Add/Remove field pill sits inside the value cell, covering no text; agrees with machine check"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls inside the viewport"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "StRS-CORE ids stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text legible in the dark theme; dimmed inputs still readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "List editor for derives_from is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-frontmatter-list-light.png",
+    "scenario": "edit-frontmatter-list-light",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "List reorder/add/remove result is shown (StRS-CORE-001 updated, -003, -004)",
+        "pass": true,
+        "why": "Three item inputs with drag handles and remove buttons show the expected values"
+      },
+      {
+        "id": "S2",
+        "text": "The pending set-as-null save is visible, with the editor disabled",
+        "pass": false,
+        "why": "Item inputs are dimmed, but '+ Add item', 'Set to null' and 'Add/Remove field' still look fully active and no 'Saving frontmatter...' text is visible, although the note lists it; the pending state is not perceptible"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Add/Remove field pill sits inside the value cell, covering no text; agrees with machine check"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls inside the viewport"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "StRS-CORE ids stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text legible in the light theme; dimmed inputs still readable"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "List editor for derives_from is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "fail"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-frontmatter-value-dark.png",
+    "scenario": "edit-frontmatter-value-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Final frame shows only the active status enum control",
+        "pass": true,
+        "why": "status cell shows an 'active' select; no other value editor open"
+      },
+      {
+        "id": "S2",
+        "text": "The Add-field picker is closed",
+        "pass": true,
+        "why": "Only the Add/Remove field action pill is shown, no picker list"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Action pill sits inside the status value cell; no text covered"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls inside the viewport"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Property names stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text legible in dark theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Status enum control is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-insert-point-hover-hover.png",
+    "scenario": "edit-insert-point-hover",
+    "assertions": [
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "No note - generic assertions only. + button sits in the left gutter and covers no text"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "+ button and toolbar inside the viewport; wide table cut-off is intentional internal scroll"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Table ids and dates stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text legible in light theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Round + insertion button visible in the left gutter below the list; the hovered nested list is outlined, the + follows the enclosing top-level list"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-insert-point-hover.png",
+    "scenario": "edit-insert-point-hover",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Edit mode on, light theme",
+        "pass": true,
+        "why": "Pencil toggle active on a light page"
+      },
+      {
+        "id": "S2",
+        "text": "Hovering a list reveals the round + insertion button in the left gutter (in the -hover PNG)",
+        "pass": true,
+        "why": "Verified in the -hover companion image"
+      },
+      {
+        "id": "S3",
+        "text": "Insertion points add no height to the page",
+        "pass": true,
+        "why": "No gaps visible between blocks in either frame"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar floats over the code block's empty right side"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar inside the viewport"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Table ids and dates stay on one line; agrees with machine check"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text legible in light theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Final frame shows the paragraph editor; the + button is shown in the companion -hover PNG"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-list-narrow.png",
+    "scenario": "edit-list-narrow",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Clicking one item opens the complete list, including the wrapped continuation line",
+        "pass": true,
+        "why": "Editor shows both items and the indented 'fixture content intact.' continuation"
+      },
+      {
+        "id": "S2",
+        "text": "Editor shows line-range hint and Done/Revert",
+        "pass": true,
+        "why": "'Lines 7-9' hint and both buttons visible"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar overlaps the right part of the properties header row, but 'Values' and other text are not covered"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar and editor inside the 460px viewport"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "'type' and 'finding' stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text legible in dark theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "List source editor is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-paragraph-dark.png",
+    "scenario": "edit-paragraph-dark",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Clicking a body paragraph opens its source editor",
+        "pass": true,
+        "why": "Paragraph replaced by a framed source editor"
+      },
+      {
+        "id": "S2",
+        "text": "Hard source lines are retained",
+        "pass": true,
+        "why": "Three source lines shown as in the note, with backtick code spans"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Toolbar clear of the Description header and collapse arrow"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "All controls inside the viewport"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": true,
+        "why": "Property names stay on one line"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text legible in dark theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Paragraph editor with Lines 20-22 hint is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "pass"
+  },
+  {
+    "image": ".agents/changes/requests/deep-UX-analysis/fix-plan/logs/visual-PHASE5/edit-table-wrapped-dark-460.png",
+    "scenario": "edit-table-wrapped-dark-460",
+    "assertions": [
+      {
+        "id": "S1",
+        "text": "Long table-cell source wraps without overlapping rendered text",
+        "pass": true,
+        "why": "Cell source wraps inside the blue-framed cell; no overlap with neighbours"
+      },
+      {
+        "id": "S2",
+        "text": "Cell dimensions are unchanged",
+        "pass": true,
+        "why": "Row height looks driven by the original content"
+      },
+      {
+        "id": "S3",
+        "text": "The complete edited cell content is visible",
+        "pass": false,
+        "why": "Note says the cell contains '... and style. updated', but the image ends at 'and style.'; the appended word appears clipped by the fixed cell height"
+      },
+      {
+        "id": "G1",
+        "text": "No floating control (toolbar, menu, tooltip) covers text that belongs to another element",
+        "pass": true,
+        "why": "Sticky band '# Brake pedal release detection' ends left of the toolbar; no text collision. Disagrees with the harness 'sticky heading overlaps the reserved toolbar row' failure"
+      },
+      {
+        "id": "G2",
+        "text": "No control or tooltip is clipped by the edge of the view",
+        "pass": true,
+        "why": "Toolbar and table toolbar inside the viewport; cut-off Evidence column is intentional internal scroll (shadow visible)"
+      },
+      {
+        "id": "G3",
+        "text": "Short identifiers in tables are not split across lines",
+        "pass": false,
+        "why": "Inline identifier 'pedal_position' in the Expected behavior cell splits as 'pedal_positio' / 'n'; disagrees with the machine PASS for identifier-split"
+      },
+      {
+        "id": "G4",
+        "text": "Text is readable against its background in the captured theme",
+        "pass": true,
+        "why": "Text legible in dark theme"
+      },
+      {
+        "id": "G5",
+        "text": "The element named by the scenario is visible",
+        "pass": true,
+        "why": "Edited table cell with Row/Col toolbar and 'Saving Markdown...' is visible"
+      },
+      {
+        "id": "G6",
+        "text": "Status pages show the title and the message on separate lines",
+        "pass": true,
+        "why": "n/a - not a status page"
+      }
+    ],
+    "overall": "fail"
+  }
+]

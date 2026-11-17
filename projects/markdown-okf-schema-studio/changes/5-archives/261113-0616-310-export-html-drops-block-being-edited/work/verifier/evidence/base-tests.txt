@@ -1,0 +1,100 @@
+✔ the file is one document with no script, no linked file and no import, and no vscode- name (8.501834ms)
+✔ the resolved theme tokens replace the host mapping and the theme kind class goes on the body (3.418667ms)
+✔ a local image becomes a data URI and an unreadable one is counted and loses its source (3.318125ms)
+✔ links keep external and anchor targets and unwrap the others, reporting them once (3.214833ms)
+✔ folded sections are shown and the fold attributes are gone (2.395875ms)
+✔ review comments, controls and editing chrome are left out, find marks keep their text (2.222959ms)
+✔ a task list checkbox stays, disabled and without its edit attributes (1.546125ms)
+✔ a tab set works without script: radios, labels, and the shown tab is the one the page showed (2.329792ms)
+✔ the properties table becomes a closed details with a summary and no editing data (2.1305ms)
+✔ the title falls back to the first heading, then to the file name (3.194209ms)
+✔ the KaTeX sheet and its fonts are inline, and only for a page with math (3.59ms)
+✔ a style value cannot close the style element and a script URL is dropped (2.058292ms)
+✔ the snapshot guard accepts the page shape and refuses a malformed one (0.138667ms)
+✔ a mailto link is kept and a file: link, an invalid anchor and a query-only link are unwrapped and reported (1.495833ms)
+✔ every candidate of a srcset is embedded and an unreadable one is dropped (1.670625ms)
+✔ the width mode, the width rule and the theme mode go on the file, the zoom and clearance do not (1.365167ms)
+✔ the token rule follows the preview sheet and names every resolved token (1.701209ms)
+✔ nested tab sets get their own radio names and a dropdown keeps its open state (1.877791ms)
+✔ a THREAD chip with its popover, a TODO chip, source-mapping attributes and the tabindex of mapped blocks are left out (1.687208ms)
+✔ the Description column stays and the editing data goes, whatever the toggle state of the page (1.820125ms)
+✔ a properties table without a schema keeps its two columns inside the closed details (3.044209ms)
+✔ a paragraph under the block editor is exported, and its editor stays open (268.068042ms)
+✔ a block editor opened inside a card exports the block of the card (4.285833ms)
+✖ a table cell under the cell editor is exported shown, and its editor stays open (4.824458ms)
+✔ a {list-table} edited as raw Markdown is exported with its table (3.91325ms)
+✖ a front matter value under the value editor is exported shown, and its editor stays open (4.850916ms)
+✖ a front matter key under the key editor is exported shown, and its editor stays open (4.792417ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 24
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 515.365458
+
+✖ failing tests:
+
+test at out/test/page/exportWhileEditing.test.js:166:22
+✖ a table cell under the cell editor is exported shown, and its editor stays open (4.824458ms)
+  AssertionError [ERR_ASSERTION]: <span> is aria-hidden in the file
+      at assertShown (/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/verify-310-base/out/test/page/exportWhileEditing.test.js:104:16)
+      at TestContext.<anonymous> (/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/verify-310-base/out/test/page/exportWhileEditing.test.js:173:5)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1095:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:777:18)
+      at Test.postRun (node:internal/test_runner/test:1224:19)
+      at Test.run (node:internal/test_runner/test:1152:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:777:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'true',
+    expected: 'true',
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/page/exportWhileEditing.test.js:195:22
+✖ a front matter value under the value editor is exported shown, and its editor stays open (4.850916ms)
+  AssertionError [ERR_ASSERTION]: <span> is hidden in the file
+  
+  '' !== undefined
+  
+      at assertShown (/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/verify-310-base/out/test/page/exportWhileEditing.test.js:103:16)
+      at TestContext.<anonymous> (/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/verify-310-base/out/test/page/exportWhileEditing.test.js:203:5)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1095:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:777:18)
+      at Test.postRun (node:internal/test_runner/test:1224:19)
+      at Test.run (node:internal/test_runner/test:1152:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:777:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/page/exportWhileEditing.test.js:208:22
+✖ a front matter key under the key editor is exported shown, and its editor stays open (4.792417ms)
+  AssertionError [ERR_ASSERTION]: <span> is hidden in the file
+  
+  '' !== undefined
+  
+      at assertShown (/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/verify-310-base/out/test/page/exportWhileEditing.test.js:103:16)
+      at TestContext.<anonymous> (/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/verify-310-base/out/test/page/exportWhileEditing.test.js:216:5)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1095:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:777:18)
+      at Test.postRun (node:internal/test_runner/test:1224:19)
+      at Test.run (node:internal/test_runner/test:1152:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:777:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

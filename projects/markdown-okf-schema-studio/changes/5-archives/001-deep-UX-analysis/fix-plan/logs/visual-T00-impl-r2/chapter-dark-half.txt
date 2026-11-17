@@ -1,0 +1,55 @@
+chapter-dark-half
+=================
+
+Fixture:  05-long-chapter.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 900x1000
+Scroll:   selector (.math-display) - final y=1753; first `.math-display` positioned below toolbar/sticky overlays plus 24px
+Status:   failed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested selector (.math-display) position.
+
+Captured state
+--------------
+The preview is scrolled to 1753 pixels. Edit mode is off.
+Visible content: northwind depot drain nw-07 --wait-for-quiet
+northwind depot status nw-07 --watch; Available bay-hours for a depot over a shift:; where bbb is bays, sss is shift length in hours, and mmm the maintenance
+minutes booked for that shi; The tracker is the only component with a complete view of leg state, which
+makes it both the most us; Signal
+Source
+Retention
+Cardinality
+
+
+
+
+leg state changes
+tracker
+90 days
+high
+
+
+planner decisions
+p; Caution; Planner decision logs are sampled at one percent in regions with more than
+ten depots. Any query tha; Tip; Arbiter election logs are tiny and kept for over a year. They are almost always
+the right place to s; Three patterns account for most of the pages.; A planner restarts, loses six hours of history, and starts emitting optimistic
+transit estimates. No
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+The typeset display-equation landmark with surrounding shift-change content.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.
+Assertion failure: sticky heading overlaps the reserved toolbar row

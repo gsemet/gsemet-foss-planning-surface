@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inline SVG in Markdown OKF-Schema Studio: planned rendering</title>
+<style>
+  /* Studio theme colours (Cream, White, Dark), as in the extension's page styles. */
+  .page {
+    --page-bg: #f5f1e8; --page-fg: #2b2a27; --page-muted: #5e5850; --page-link: #a14e32;
+    --page-border: #e2dacb; --page-block: #ede6da;
+    --page-blue: #2f6690; --page-green: #34703f; --page-red: #ae3a2a; --page-orange: #94500c;
+  }
+  .page:has(#theme-white:checked) {
+    --page-bg: #ffffff; --page-fg: #1f1f1f; --page-muted: #5f5f5f; --page-link: #006ab1;
+    --page-border: #e5e5e5; --page-block: #f0f0f0;
+    --page-blue: #005fb8; --page-green: #16825d; --page-red: #b5200d; --page-orange: #a65e00;
+  }
+  .page:has(#theme-dark:checked) {
+    --page-bg: #1e1e1e; --page-fg: #d4d4d4; --page-muted: #a8a8a8; --page-link: #3794ff;
+    --page-border: #454545; --page-block: #292929;
+    --page-blue: #75beff; --page-green: #89d185; --page-red: #f48771; --page-orange: #d18616;
+  }
+
+  /* The planned vocabulary: the names agents write, mapped to the theme. */
+  .svg-scope {
+    --surface: var(--page-block); --background: var(--page-block); --bg: var(--page-block);
+    --border: var(--page-border);
+    --text: var(--page-fg); --foreground: var(--page-fg); --fg: var(--page-fg);
+    --muted: var(--page-muted);
+    --accent: var(--page-link); --primary: var(--page-link);
+    --red: var(--page-red); --green: var(--page-green); --blue: var(--page-blue); --orange: var(--page-orange);
+    color: var(--page-fg);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  .page {
+    min-height: 100vh; padding: 32px 24px 48px;
+    background: var(--page-bg); color: var(--page-fg);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    transition: background-color .2s, color .2s;
+  }
+  main { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 28px; line-height: 1.25; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 36px 0 8px; }
+  p { margin: 0 0 12px; }
+  .lead { color: var(--page-muted); }
+  .note {
+    border-left: 4px solid var(--page-link); background: var(--page-block);
+    padding: 10px 14px; border-radius: 4px; margin: 16px 0;
+  }
+  code { font: 14px ui-monospace, SFMono-Regular, Menlo, monospace; }
+  :not(pre) > code { background: var(--page-block); padding: 1px 5px; border-radius: 4px; }
+  pre {
+    background: var(--page-block); border: 1px solid var(--page-border); border-radius: 6px;
+    padding: 12px 14px; overflow-x: auto; margin: 8px 0 0;
+  }
+  .switch { display: flex; gap: 4px; margin: 20px 0 8px; flex-wrap: wrap; }
+  .switch input { position: absolute; opacity: 0; pointer-events: none; }
+  .switch label {
+    border: 1px solid var(--page-border); border-radius: 999px; padding: 4px 14px;
+    cursor: pointer; font-size: 14px; color: var(--page-fg);
+  }
+  .switch input:checked + label { background: var(--page-fg); color: var(--page-bg); border-color: var(--page-fg); }
+  .switch input:focus-visible + label { outline: 2px solid var(--page-link); outline-offset: 2px; }
+  figure { margin: 12px 0 0; }
+  figure svg { display: block; width: 100%; height: auto; }
+  figcaption { font-size: 14px; color: var(--page-muted); margin-top: 6px; }
+  details { margin-top: 8px; }
+  summary { cursor: pointer; font-size: 14px; color: var(--page-link); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px; }
+  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--page-border); vertical-align: top; }
+  th { font-weight: 600; }
+  .swatch {
+    display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px;
+    border: 1px solid var(--page-border); margin-right: 6px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+<main>
+  <h1>Inline SVG: planned rendering</h1>
+  <p class="lead">A preview of how Markdown OKF-Schema Studio plans to show SVG written straight into
+  Markdown (issue #336). This page imitates the result; it is not the shipped feature.</p>
+
+  <div class="note">Both forms will render: a fenced block with the <code>svg</code> language, and a
+  raw <code>&lt;svg&gt;</code> that fills a whole block. The picture follows the page theme.</div>
+
+  <div class="switch" role="radiogroup" aria-label="Theme">
+    <input type="radio" name="theme" id="theme-cream" checked><label for="theme-cream">Cream</label>
+    <input type="radio" name="theme" id="theme-white"><label for="theme-white">White</label>
+    <input type="radio" name="theme" id="theme-dark"><label for="theme-dark">Dark</label>
+  </div>
+  <p class="lead">Switch the theme: the SVGs below change with it, because they use theme variables
+  instead of fixed colours.</p>
+
+  <h2>1. The example from the issue</h2>
+  <p>A rectangle filled with <code>var(--surface)</code> and outlined with <code>var(--border)</code>.
+  In a plain image these variables would not resolve and the shape would turn black.</p>
+  <figure class="svg-scope">
+    <svg viewBox="0 0 960 320" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif" font-size="13" role="img" aria-label="A rounded rectangle in the theme surface colour">
+      <rect x="15" y="15" width="450" height="290" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5"/>
+    </svg>
+    <figcaption>The issue's SVG, unchanged.</figcaption>
+  </figure>
+  <details>
+    <summary>Markdown source</summary>
+<pre><code>```svg
+&lt;svg viewBox="0 0 960 320" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif" font-size="13"&gt;
+  &lt;rect x="15" y="15" width="450" height="290" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5"/&gt;
+&lt;/svg&gt;
+```</code></pre>
+  </details>
+
+  <h2>2. A diagram an agent would write</h2>
+  <p>Three layers of an extension, with text, a muted note, an accent and the named colours.</p>
+  <figure class="svg-scope">
+    <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif" role="img" aria-label="Three layers: page, session and core, each importing only the one below">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/>
+        </marker>
+      </defs>
+      <g font-size="17">
+        <rect x="20" y="40" width="200" height="110" rx="10" fill="var(--surface)" stroke="var(--blue)" stroke-width="2"/>
+        <text x="120" y="88" text-anchor="middle" fill="var(--text)" font-weight="600">Page</text>
+        <text x="120" y="114" text-anchor="middle" fill="var(--muted)" font-size="14">what the reader sees</text>
+
+        <rect x="280" y="40" width="200" height="110" rx="10" fill="var(--surface)" stroke="var(--green)" stroke-width="2"/>
+        <text x="380" y="88" text-anchor="middle" fill="var(--text)" font-weight="600">Session</text>
+        <text x="380" y="114" text-anchor="middle" fill="var(--muted)" font-size="14">edits and saves</text>
+
+        <rect x="540" y="40" width="200" height="110" rx="10" fill="var(--surface)" stroke="var(--orange)" stroke-width="2"/>
+        <text x="640" y="88" text-anchor="middle" fill="var(--text)" font-weight="600">Core</text>
+        <text x="640" y="114" text-anchor="middle" fill="var(--muted)" font-size="14">parse and render</text>
+      </g>
+      <line x1="222" y1="95" x2="276" y2="95" stroke="var(--muted)" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="482" y1="95" x2="536" y2="95" stroke="var(--muted)" stroke-width="2" marker-end="url(#arrow)"/>
+      <rect x="20" y="195" width="720" height="70" rx="10" fill="none" stroke="var(--border)" stroke-dasharray="6 5" stroke-width="1.5"/>
+      <circle cx="54" cy="230" r="9" fill="var(--accent)"/>
+      <text x="74" y="236" fill="var(--text)" font-size="15">Each layer imports only the one below.</text>
+      <circle cx="430" cy="230" r="9" fill="var(--red)"/>
+      <text x="450" y="236" fill="var(--text)" font-size="15">No import goes up.</text>
+    </svg>
+    <figcaption>Every colour is a theme variable; none is fixed.</figcaption>
+  </figure>
+
+  <h2>3. A variable Studio does not know</h2>
+  <p>An unknown name uses the fallback written in <code>var()</code>, else the text colour.</p>
+  <figure class="svg-scope">
+    <svg viewBox="0 0 760 90" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif" font-size="15" role="img" aria-label="Two swatches: one using a fallback colour, one using the text colour">
+      <rect x="20" y="20" width="50" height="50" rx="8" fill="var(--brand-teal, #2a9d8f)"/>
+      <text x="86" y="50" fill="var(--text)"><tspan font-family="monospace">var(--brand-teal, #2a9d8f)</tspan>: the fallback</text>
+      <rect x="420" y="20" width="50" height="50" rx="8" fill="var(--brand-teal, currentColor)"/>
+      <text x="486" y="50" fill="var(--text)"><tspan font-family="monospace">var(--brand-teal)</tspan>: text colour</text>
+    </svg>
+    <figcaption>In the extension, a <code>var()</code> with no fallback gets the text colour.</figcaption>
+  </figure>
+
+  <h2>Variables an SVG can use</h2>
+  <table class="svg-scope">
+    <thead><tr><th>Variable</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><span class="swatch" style="background: var(--surface)"></span><code>--surface</code>, <code>--background</code>, <code>--bg</code></td><td>Block background</td></tr>
+      <tr><td><span class="swatch" style="background: var(--border)"></span><code>--border</code></td><td>Borders and separators</td></tr>
+      <tr><td><span class="swatch" style="background: var(--text)"></span><code>--text</code>, <code>--foreground</code>, <code>--fg</code></td><td>Text</td></tr>
+      <tr><td><span class="swatch" style="background: var(--muted)"></span><code>--muted</code></td><td>Secondary text</td></tr>
+      <tr><td><span class="swatch" style="background: var(--accent)"></span><code>--accent</code>, <code>--primary</code></td><td>Accent</td></tr>
+      <tr><td><span class="swatch" style="background: var(--red)"></span><span class="swatch" style="background: var(--green)"></span><span class="swatch" style="background: var(--blue)"></span><span class="swatch" style="background: var(--orange)"></span><code>--red</code>, <code>--green</code>, <code>--blue</code>, <code>--orange</code></td><td>Named colours, adjusted for light and dark</td></tr>
+    </tbody>
+  </table>
+
+  <h2>What is removed before display</h2>
+  <p>The SVG is placed in the page after cleaning: scripts, <code>foreignObject</code>, event handlers
+  (<code>onclick</code> and the like), links to other sites and <code>&lt;style&gt;</code> elements are
+  removed, and <code>id</code>s are renamed so that two SVGs on one page cannot clash. A
+  <code>&lt;svg&gt;</code> inside a sentence stays dropped.</p>
+</main>
+</div>
+</body>
+</html>

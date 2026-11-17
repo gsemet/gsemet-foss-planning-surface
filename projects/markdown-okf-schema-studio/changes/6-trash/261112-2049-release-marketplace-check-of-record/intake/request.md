@@ -1,0 +1,1 @@
+In step 6 of the release procedure, name the Marketplace check of record (the gallery vspackage URL of the version) and the delay before the listing page updates. From the v1.7.1 retro: the listing still showed 1.7.0 minutes after vsce publish reported 1.7.1 as published, while the gallery API already served the 1.7.1 VSIX.

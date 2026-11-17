@@ -1,0 +1,4 @@
+--- "> [!NOTE]\n> # h\n> b\n"
+<aside class="admonition note simple" data-okf-github-alert="true" data-line="1" data-end-line="3"><p class="admonition-title">Note</p><h1 data-line="2" data-end-line="2">h</h1><p data-line="3" data-end-line="3">b</p></aside>
+--- ":::{note}\n# h\nb\n:::\n"
+<aside class="admonition note" data-line="1" data-end-line="4"><p class="admonition-title">h</p><p data-line="3" data-end-line="3">b</p></aside>

@@ -1,0 +1,57 @@
+{
+  "name": "UX-09-edit-mode-no-reflow",
+  "file": "book/chapters/02-foundations.md",
+  "steps": [
+    {
+      "key": "Meta+1",
+      "wait": 500
+    },
+    {
+      "open": "book/chapters/02-foundations.md",
+      "wait": 3000
+    },
+    {
+      "waitFor": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent.includes('Foundations')",
+      "timeout": 20000,
+      "label": "preview shows 02-foundations"
+    },
+    {
+      "editMode": false,
+      "wait": 1000
+    },
+    {
+      "eval": "(()=>{const ps=[...D.querySelectorAll('p[data-sphinx-source-line]')];const p=ps.find(x=>x.textContent.includes('Training and deploying an LLM'));const r=p.getBoundingClientRect();return JSON.stringify({mode:D.documentElement.getAttribute('data-sphinx-preview-edit-mode'),docH:D.documentElement.scrollHeight,scrollY:Math.round(W.scrollY),ws:getComputedStyle(p).whiteSpace,pH:Math.round(r.height),pTop:Math.round(r.top),preWrapPs:ps.filter(x=>getComputedStyle(x).whiteSpace==='pre-wrap').length,ps:ps.length})})()"
+    },
+    {
+      "editMode": true,
+      "wait": 1000
+    },
+    {
+      "eval": "(()=>{const ps=[...D.querySelectorAll('p[data-sphinx-source-line]')];const p=ps.find(x=>x.textContent.includes('Training and deploying an LLM'));const r=p.getBoundingClientRect();return JSON.stringify({mode:D.documentElement.getAttribute('data-sphinx-preview-edit-mode'),docH:D.documentElement.scrollHeight,scrollY:Math.round(W.scrollY),ws:getComputedStyle(p).whiteSpace,pH:Math.round(r.height),pTop:Math.round(r.top),preWrapPs:ps.filter(x=>getComputedStyle(x).whiteSpace==='pre-wrap').length,ps:ps.length})})()"
+    },
+    {
+      "check": "feval",
+      "expr": "[...D.querySelectorAll('p[data-sphinx-source-line]')].every(p=>getComputedStyle(p).whiteSpace!=='pre-wrap')",
+      "label": "UX-09 no paragraph switches to pre-wrap in edit mode"
+    },
+    {
+      "editMode": false,
+      "wait": 1000
+    },
+    {
+      "eval": "(()=>{const ps=[...D.querySelectorAll('p[data-sphinx-source-line]')];const p=ps.find(x=>x.textContent.includes('Training and deploying an LLM'));const r=p.getBoundingClientRect();return JSON.stringify({mode:D.documentElement.getAttribute('data-sphinx-preview-edit-mode'),docH:D.documentElement.scrollHeight,scrollY:Math.round(W.scrollY),ws:getComputedStyle(p).whiteSpace,pH:Math.round(r.height),pTop:Math.round(r.top),preWrapPs:ps.filter(x=>getComputedStyle(x).whiteSpace==='pre-wrap').length,ps:ps.length})})()"
+    },
+    {
+      "editMode": true,
+      "wait": 1000
+    },
+    {
+      "shot": "UX-09-edit-mode-on",
+      "clip": "preview"
+    },
+    {
+      "check": "errors",
+      "ignore": "401"
+    }
+  ]
+}

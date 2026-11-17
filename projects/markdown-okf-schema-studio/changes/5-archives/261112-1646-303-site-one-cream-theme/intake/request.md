@@ -1,0 +1,1 @@
+One look for the whole GitHub Pages site: the main pages (home, Contributing, How we ship, Gallery, Reports; test/site/buildSite.ts and siteTheme.ts) and the requirements viewer (test/site/requirementsViewer/viewer.css) have two different styles. Owner, 2026-11-12: 'Oui, même thème crème' (yes, the same cream theme everywhere).

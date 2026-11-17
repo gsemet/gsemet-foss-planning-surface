@@ -1,0 +1,126 @@
+{
+  "schema": 2,
+  "updated": "2026-11-14T17:14:19Z",
+  "cr": "CR-317",
+  "title": "Change Specification: run `just dev` first in a new worktree or a clean checkout",
+  "batch": "batch-04",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 1,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/389.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/389",
+    "number": 389
+  },
+  "steps": [
+    {
+      "name": "Round 1",
+      "done": true,
+      "verdict": "",
+      "note": "apply the spec's two doc edits",
+      "at": "2026-11-13T17:02:32Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "a6ad990d",
+      "at": "2026-11-13T17:17:02Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/389",
+      "at": "2026-11-13T17:17:46Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "heavy CI run 43471357402 green (integration, stress, visual, static, static-windows); local integration stage failed from environment",
+      "at": "2026-11-13T17:40:40Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-13T17:40:42Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/389",
+      "at": "2026-11-13T18:13:02Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "request",
+      "path": "intake/request.md"
+    },
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261113-180341.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/git-commit-allowed-scopes.md",
+      "name": ".agents/guidelines/git-commit-allowed-scopes.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/local-worktree.guidelines.md",
+      "name": ".agents/guidelines/local-worktree.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../AGENTS.md",
+      "name": "AGENTS.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CONTRIBUTING.md",
+      "name": "CONTRIBUTING.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/log.md",
+      "name": "requirements/tiers/log.md"
+    }
+  ],
+  "branch": "chantier/batch-04/cr-317-change-specification-run-just-dev-first-",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-04-CR-317",
+  "agent": null,
+  "notes": [
+    "heavy CI run 43471357402 green (integration, stress, visual, static, static-windows); local integration stage failed from environment"
+  ],
+  "blocked": null,
+  "cost_usd": 0.9104,
+  "final_cost": true,
+  "silent_minutes": null
+}

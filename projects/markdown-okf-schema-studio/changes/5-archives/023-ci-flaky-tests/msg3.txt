@@ -1,0 +1,9 @@
+fix(render): keep a leading properties table clear of the toolbar
+
+On a slow load the Description toggle of a leading properties table could
+stay under the floating toolbar: the table's own size changes and a late
+page or font load were not watched, and updates skipped during a busy
+second were never replayed. The table now re-measures when it resizes,
+when the page and fonts finish loading, and once after a skipped burst.
+
+Assisted-by: Claude:Sonnet-5.5

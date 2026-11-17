@@ -1,0 +1,60 @@
+{
+  "name": "UX-08-directive-monospace",
+  "file": "fixtures-visual/02-admonition-gallery.md",
+  "steps": [
+    {
+      "waitFor": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent.includes('Admonition')",
+      "timeout": 20000,
+      "label": "preview shows admonition gallery"
+    },
+    {
+      "mark": true
+    },
+    {
+      "editMode": true
+    },
+    {
+      "clicksel": ".admonition-title",
+      "text": "Important",
+      "nth": 1
+    },
+    {
+      "waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')",
+      "label": "block editor open"
+    },
+    {
+      "eval": "JSON.stringify(D.querySelector('[data-sphinx-preview-block-editor] textarea').value)"
+    },
+    {
+      "eval": "(D.querySelector('[data-sphinx-preview-block-editor] [data-sphinx-preview-edit-status]')||{}).textContent"
+    },
+    {
+      "check": "feval",
+      "expr": "/mono|menlo|courier|consolas/i.test(getComputedStyle(D.querySelector('[data-sphinx-preview-block-editor] textarea')).fontFamily) && getComputedStyle(D.querySelector('[data-sphinx-preview-block-editor] textarea')).tabSize === '4'",
+      "label": "UX-08 monospace font and tab-size 4"
+    },
+    {
+      "check": "noClip",
+      "selector": "[data-sphinx-preview-block-editor] textarea",
+      "label": "UX-08 textarea shows all lines"
+    },
+    {
+      "shot": "UX-08-directive-open",
+      "clip": "preview"
+    },
+    {
+      "key": "Escape",
+      "wait": 1500
+    },
+    {
+      "check": "diff",
+      "against": "mark",
+      "equal": true,
+      "label": "UX-08 no change after Escape on an untouched block"
+    },
+    {
+      "check": "errors",
+      "ignore": "401"
+    }
+  ]
+}

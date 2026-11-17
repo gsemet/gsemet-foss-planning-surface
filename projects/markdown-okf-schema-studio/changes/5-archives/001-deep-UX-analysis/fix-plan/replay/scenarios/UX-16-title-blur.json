@@ -1,0 +1,23 @@
+{
+  "name": "UX-16-title-blur",
+  "file": "okf/okfreq-examples/requirements/tiers/swrs/SwRS-CORE-001.md",
+  "vars": {"fe": "[data-okf-frontmatter-editor]"},
+  "steps": [
+    {"open": "${file}"},
+    {"waitFor": "D.querySelector('tr[data-okf-field=\"id\"]') && /SwRS-CORE-001/.test(D.querySelector('tr[data-okf-field=\"id\"]').textContent)", "timeout": 15000, "label": "preview follows file"},
+    {"mark": "${file}"},
+    {"editMode": true},
+    {"clicksel": "tr[data-okf-field=\"title\"] [data-okf-value-cell]"},
+    {"waitFor": "D.querySelector('${fe} textarea, ${fe} input')", "label": "title editor"},
+    {"eval": "(() => { const c = D.querySelector('${fe} textarea, ${fe} input'); return c.tagName + ' ' + JSON.stringify(c.value); })()"},
+    {"key": "Meta+a"},
+    {"type": "Write CSV output: with quotes \"and\" colons", "delay": 20},
+    {"clicksel": "h2", "text": "EARS Expression", "exact": true, "wait": 1500},
+    {"check": "feval", "expr": "!D.querySelector('${fe}')", "label": "frontmatter editor closed on blur"},
+    {"check": "diff", "file": "${file}", "against": "mark", "maxLines": 1, "contains": "colons", "show": true, "label": "UX-16 only the title line changes"},
+    {"key": "Escape", "wait": 800},
+    {"check": "diff", "file": "${file}", "against": "disk", "maxLines": 1, "show": true, "label": "UX-16 vs disk"},
+    {"check": "errors"},
+    {"shot": "UX-16-fail", "clip": "preview", "onFail": true}
+  ]
+}

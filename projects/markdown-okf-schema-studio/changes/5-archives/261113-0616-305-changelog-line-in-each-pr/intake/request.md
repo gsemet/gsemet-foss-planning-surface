@@ -1,0 +1,1 @@
+Have each CR Driver of a batch add its '## Unreleased' changelog line in its own PR, as step 2 of the release procedure asks. From the v1.7.1 retro: the changelog lines were written in the version commit instead (the owner accepted this once), so the notes and the changelog were written together, late.

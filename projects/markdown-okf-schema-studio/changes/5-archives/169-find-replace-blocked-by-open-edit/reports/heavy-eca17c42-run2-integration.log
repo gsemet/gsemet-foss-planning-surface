@@ -1,0 +1,1391 @@
+﻿2026-10-28T18:21:57.7308034Z Current runner version: '2.338.0'
+2026-10-28T18:21:57.7327864Z ##[group]Runner Image Provisioner
+2026-10-28T18:21:57.7328590Z Hosted Compute Agent
+2026-10-28T18:21:57.7329154Z Version: 20261021.618
+2026-10-28T18:21:57.7329920Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-28T18:21:57.7330531Z Build Date: 2026-10-21T00:45:21Z
+2026-10-28T18:21:57.7331138Z Worker ID: {4b8225cb-9f10-4bc8-879f-23bb640113bb}
+2026-10-28T18:21:57.7331721Z Region: centralus
+2026-10-28T18:21:57.7332181Z Cloud: Azure
+2026-10-28T18:21:57.7332660Z ##[endgroup]
+2026-10-28T18:21:57.7333778Z ##[group]Operating System
+2026-10-28T18:21:57.7334316Z Ubuntu
+2026-10-28T18:21:57.7334823Z 26.04.1
+2026-10-28T18:21:57.7335287Z LTS
+2026-10-28T18:21:57.7335719Z ##[endgroup]
+2026-10-28T18:21:57.7336175Z ##[group]Runner Image
+2026-10-28T18:21:57.7336684Z Image: ubuntu-26.04
+2026-10-28T18:21:57.7337148Z Version: 20261012.163.1
+2026-10-28T18:21:57.7338224Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261012.163/images/ubuntu/Ubuntu2604-Readme.md
+2026-10-28T18:21:57.7339447Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261012.163
+2026-10-28T18:21:57.7340384Z ##[endgroup]
+2026-10-28T18:21:57.7341292Z ##[group]GITHUB_TOKEN Permissions
+2026-10-28T18:21:57.7343862Z Contents: read
+2026-10-28T18:21:57.7344516Z Metadata: read
+2026-10-28T18:21:57.7345180Z ##[endgroup]
+2026-10-28T18:21:57.7347429Z Secret source: Actions
+2026-10-28T18:21:57.7348608Z Cache mode: write
+2026-10-28T18:21:57.7349633Z Prepare workflow directory
+2026-10-28T18:21:57.7784548Z Prepare all required actions
+2026-10-28T18:21:57.7836395Z Getting action download info
+2026-10-28T18:21:58.0466433Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-28T18:21:58.1338968Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-28T18:21:58.2223966Z Download action repository 'astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86' (SHA:d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86)
+2026-10-28T18:21:58.6563386Z Download action repository 'extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6' (SHA:dd310ad5a97d8e7b41793f8ef055398d51ad4de6)
+2026-10-28T18:21:58.9166094Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-28T18:21:59.1463052Z Complete job name: integration
+2026-10-28T18:21:59.2221165Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+2026-10-28T18:21:59.2222748Z with:
+2026-10-28T18:21:59.2223487Z   lfs: true
+2026-10-28T18:21:59.2224377Z   repository: gsemet/markdown-okf-schema-studio
+2026-10-28T18:21:59.2231819Z   token: ***
+2026-10-28T18:21:59.2232592Z   ssh-strict: true
+2026-10-28T18:21:59.2233425Z   ssh-user: git
+2026-10-28T18:21:59.2234232Z   persist-credentials: true
+2026-10-28T18:21:59.2235126Z   clean: true
+2026-10-28T18:21:59.2236013Z   sparse-checkout-cone-mode: true
+2026-10-28T18:21:59.2236956Z   fetch-depth: 1
+2026-10-28T18:21:59.2237745Z   fetch-tags: false
+2026-10-28T18:21:59.2238579Z   show-progress: true
+2026-10-28T18:21:59.2239444Z   submodules: false
+2026-10-28T18:21:59.2240479Z   set-safe-directory: true
+2026-10-28T18:21:59.2241412Z   allow-unsafe-pr-checkout: false
+2026-10-28T18:21:59.2242532Z env:
+2026-10-28T18:21:59.2243472Z   STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+2026-10-28T18:21:59.2244779Z   STUDIO_E2E_RUN_ID: 40744401718
+2026-10-28T18:21:59.2245662Z ##[endgroup]
+2026-10-28T18:21:59.6015092Z Syncing repository: gsemet/markdown-okf-schema-studio
+2026-10-28T18:21:59.6018918Z ##[group]Getting Git version info
+2026-10-28T18:21:59.6021552Z Working directory is '/home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio'
+2026-10-28T18:21:59.6024182Z [command]/usr/bin/git version
+2026-10-28T18:21:59.6025209Z git version 2.55.0
+2026-10-28T18:21:59.6027553Z [command]/usr/bin/git lfs version
+2026-10-28T18:22:00.2911928Z git-lfs/3.8.0 (GitHub; linux amd64; go 1.27.0)
+2026-10-28T18:22:00.2928479Z ##[endgroup]
+2026-10-28T18:22:00.2945480Z Temporarily overriding HOME='/home/runner/work/_temp/86ef7814-a082-4958-a201-c149e6d18c7c' before making global git config changes
+2026-10-28T18:22:00.2948448Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-28T18:22:00.2951720Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio
+2026-10-28T18:22:00.3087162Z Deleting the contents of '/home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio'
+2026-10-28T18:22:00.3090254Z ##[group]Initializing the repository
+2026-10-28T18:22:00.3094006Z [command]/usr/bin/git init /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio
+2026-10-28T18:22:00.3303861Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-28T18:22:00.3306087Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-28T18:22:00.3308156Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-28T18:22:00.3309766Z hint: call:
+2026-10-28T18:22:00.3310945Z hint:
+2026-10-28T18:22:00.3312182Z hint: 	git config --global init.defaultBranch <name>
+2026-10-28T18:22:00.3313294Z hint:
+2026-10-28T18:22:00.3314339Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-28T18:22:00.3316225Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-28T18:22:00.3317540Z hint:
+2026-10-28T18:22:00.3318284Z hint: 	git branch -m <name>
+2026-10-28T18:22:00.3319117Z hint:
+2026-10-28T18:22:00.3320391Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-28T18:22:00.3322958Z Initialized empty Git repository in /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/.git/
+2026-10-28T18:22:00.3326409Z [command]/usr/bin/git remote add origin https://github.com/gsemet/markdown-okf-schema-studio
+2026-10-28T18:22:00.3396304Z ##[endgroup]
+2026-10-28T18:22:00.3398340Z ##[group]Disabling automatic garbage collection
+2026-10-28T18:22:00.3399978Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-28T18:22:00.3483701Z ##[endgroup]
+2026-10-28T18:22:00.3485999Z ##[group]Setting up auth
+2026-10-28T18:22:00.3490641Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-28T18:22:00.3515706Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-28T18:22:00.3764621Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-28T18:22:00.3792257Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-28T18:22:00.3982281Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-28T18:22:00.4006837Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-28T18:22:00.4195934Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-28T18:22:00.4371507Z ##[endgroup]
+2026-10-28T18:22:00.4376233Z [command]/usr/bin/git lfs install --local
+2026-10-28T18:22:00.5252234Z Updated Git hooks.
+2026-10-28T18:22:00.5253246Z Git LFS initialized.
+2026-10-28T18:22:00.5262507Z ##[group]Fetching the repository
+2026-10-28T18:22:00.5270728Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +eca17c42ceda0db1f8222adc490a674907c9f830:refs/remotes/origin/main
+2026-10-28T18:22:01.5803928Z From https://github.com/gsemet/markdown-okf-schema-studio
+2026-10-28T18:22:01.5805113Z  * [new ref]         eca17c42ceda0db1f8222adc490a674907c9f830 -> origin/main
+2026-10-28T18:22:01.5809141Z ##[endgroup]
+2026-10-28T18:22:01.5809854Z ##[group]Determining the checkout info
+2026-10-28T18:22:01.5811205Z ##[endgroup]
+2026-10-28T18:22:01.5811671Z ##[group]Fetching LFS objects
+2026-10-28T18:22:01.5816016Z [command]/usr/bin/git lfs fetch origin refs/remotes/origin/main
+2026-10-28T18:22:01.6047606Z Fetching reference refs/remotes/origin/main
+2026-10-28T18:22:02.8145164Z ##[endgroup]
+2026-10-28T18:22:02.8145762Z [command]/usr/bin/git sparse-checkout disable
+2026-10-28T18:22:02.8202521Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-28T18:22:02.8229405Z ##[group]Checking out the ref
+2026-10-28T18:22:02.8233387Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-28T18:22:02.9390400Z Switched to a new branch 'main'
+2026-10-28T18:22:02.9391214Z branch 'main' set up to track 'origin/main'.
+2026-10-28T18:22:02.9684724Z ##[endgroup]
+2026-10-28T18:22:02.9722927Z [command]/usr/bin/git log -1 --format=%H
+2026-10-28T18:22:02.9741984Z eca17c42ceda0db1f8222adc490a674907c9f830
+2026-10-28T18:22:02.9916610Z ##[group]Run git lfs pull
+2026-10-28T18:22:02.9916915Z git lfs pull
+2026-10-28T18:22:03.0037699Z shell: /usr/bin/bash -e {0}
+2026-10-28T18:22:03.0037960Z env:
+2026-10-28T18:22:03.0038237Z   STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+2026-10-28T18:22:03.0038543Z   STUDIO_E2E_RUN_ID: 40744401718
+2026-10-28T18:22:03.0038772Z ##[endgroup]
+2026-10-28T18:22:03.0389274Z ##[group]Run git lfs fsck
+2026-10-28T18:22:03.0389523Z git lfs fsck
+2026-10-28T18:22:03.0418777Z shell: /usr/bin/bash -e {0}
+2026-10-28T18:22:03.0419021Z env:
+2026-10-28T18:22:03.0419320Z   STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+2026-10-28T18:22:03.0420039Z   STUDIO_E2E_RUN_ID: 40744401718
+2026-10-28T18:22:03.0420401Z ##[endgroup]
+2026-10-28T18:22:03.3462575Z Git LFS fsck OK
+2026-10-28T18:22:03.3556409Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-10-28T18:22:03.3556764Z with:
+2026-10-28T18:22:03.3556958Z   node-version-file: .nvmrc
+2026-10-28T18:22:03.3557170Z   cache: npm
+2026-10-28T18:22:03.3557347Z   always-auth: false
+2026-10-28T18:22:03.3557538Z   check-latest: false
+2026-10-28T18:22:03.3559511Z   token: ***
+2026-10-28T18:22:03.3559876Z env:
+2026-10-28T18:22:03.3560272Z   STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+2026-10-28T18:22:03.3560556Z   STUDIO_E2E_RUN_ID: 40744401718
+2026-10-28T18:22:03.3560766Z ##[endgroup]
+2026-10-28T18:22:03.4775195Z Resolved .nvmrc as 24
+2026-10-28T18:22:03.4818685Z Found in cache @ /opt/hostedtoolcache/node/24.21.0/x64
+2026-10-28T18:22:03.4822047Z (node:2378) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-28T18:22:03.4822600Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-28T18:22:03.4824214Z ##[group]Environment details
+2026-10-28T18:22:03.8595507Z node: v24.21.0
+2026-10-28T18:22:03.8595888Z npm: 11.19.0
+2026-10-28T18:22:03.8596170Z yarn: 1.22.22
+2026-10-28T18:22:03.8596817Z ##[endgroup]
+2026-10-28T18:22:03.8613754Z [command]/opt/hostedtoolcache/node/24.21.0/x64/bin/npm config get cache
+2026-10-28T18:22:03.9580059Z /home/runner/.npm
+2026-10-28T18:22:04.1189888Z Cache hit for: node-cache-Linux-x64-npm-29d8469f74f745858a19835c581d4d26c8bc8ea2cbebd5c4fa151aa20d323f2d
+2026-10-28T18:22:04.1277271Z (node:2378) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-28T18:22:05.2607921Z Received 95175935 of 95175935 (100.0%), 95.1 MBs/sec
+2026-10-28T18:22:05.2608268Z Cache Size: ~91 MB (95175935 B)
+2026-10-28T18:22:05.2715172Z [command]/usr/bin/tar -xf /home/runner/work/_temp/eb56c9ae-d94b-4b64-a86c-b62709975751/cache.tzst -P -C /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio --use-compress-program unzstd
+2026-10-28T18:22:05.3864047Z Cache restored successfully
+2026-10-28T18:22:05.3900960Z Cache restored from key: node-cache-Linux-x64-npm-29d8469f74f745858a19835c581d4d26c8bc8ea2cbebd5c4fa151aa20d323f2d
+2026-10-28T18:22:05.4073704Z ##[group]Run astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86
+2026-10-28T18:22:05.4074015Z with:
+2026-10-28T18:22:05.4074203Z   enable-cache: true
+2026-10-28T18:22:05.4076132Z   github-token: ***
+2026-10-28T18:22:05.4076373Z   cache-dependency-glob: **/uv.lock
+**/requirements*.txt
+
+2026-10-28T18:22:05.4076657Z   prune-cache: true
+2026-10-28T18:22:05.4076863Z   ignore-nothing-to-cache: false
+2026-10-28T18:22:05.4077094Z   ignore-empty-workdir: false
+2026-10-28T18:22:05.4077304Z env:
+2026-10-28T18:22:05.4077542Z   STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+2026-10-28T18:22:05.4077821Z   STUDIO_E2E_RUN_ID: 40744401718
+2026-10-28T18:22:05.4078026Z ##[endgroup]
+2026-10-28T18:22:05.5508447Z (node:2425) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-28T18:22:05.5509384Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-28T18:22:05.8820143Z Downloading uv from "https://github.com/astral-sh/uv/releases/download/0.13.6/uv-x86_64-unknown-linux-gnu.tar.gz" ...
+2026-10-28T18:22:06.2519311Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/76d98b66-8bca-47f7-a927-f90afc30fc52 -f /home/runner/work/_temp/4d5d778d-1d08-4ba5-993b-348b6da867ce
+2026-10-28T18:22:06.5663377Z Added /home/runner/.local/bin to the path
+2026-10-28T18:22:06.5665873Z Added /opt/hostedtoolcache/uv/0.13.6/x86_64 to the path
+2026-10-28T18:22:06.5671288Z Set UV_CACHE_DIR to /home/runner/work/_temp/setup-uv-cache
+2026-10-28T18:22:06.5671654Z Successfully installed uv version 0.13.6
+2026-10-28T18:22:06.5672063Z Searching files using cache dependency glob: **/uv.lock,**/requirements*.txt
+2026-10-28T18:22:06.7179799Z /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/uv.lock
+2026-10-28T18:22:06.7196366Z Found 1 files to hash.
+2026-10-28T18:22:06.7743786Z Trying to restore uv cache from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-3.14.4-aadfc2cfc4922fe13034644acb9f0ec63840eb53f8617b739f6ff545666eada1
+2026-10-28T18:22:06.8994184Z Cache hit for: setup-uv-1-x86_64-unknown-linux-gnu-3.14.4-aadfc2cfc4922fe13034644acb9f0ec63840eb53f8617b739f6ff545666eada1
+2026-10-28T18:22:06.9077860Z (node:2425) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-28T18:22:07.1070208Z Received 1443 of 1443 (100.0%), 0.0 MBs/sec
+2026-10-28T18:22:07.1070601Z Cache Size: ~0 MB (1443 B)
+2026-10-28T18:22:07.1089496Z [command]/usr/bin/tar -xf /home/runner/work/_temp/d663cee0-a4e9-4238-9bd5-142ee630bc64/cache.tzst -P -C /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio --use-compress-program unzstd
+2026-10-28T18:22:07.1132522Z Cache restored successfully
+2026-10-28T18:22:07.1137294Z uv cache restored from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-3.14.4-aadfc2cfc4922fe13034644acb9f0ec63840eb53f8617b739f6ff545666eada1
+2026-10-28T18:22:07.1237069Z ##[group]Run extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6
+2026-10-28T18:22:07.1237405Z with:
+2026-10-28T18:22:07.1237599Z   just-version: 1.58.0
+2026-10-28T18:22:07.1239402Z   github-token: ***
+2026-10-28T18:22:07.1239600Z env:
+2026-10-28T18:22:07.1239992Z   STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+2026-10-28T18:22:07.1240291Z   STUDIO_E2E_RUN_ID: 40744401718
+2026-10-28T18:22:07.1240562Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-28T18:22:07.1240826Z ##[endgroup]
+2026-10-28T18:22:07.2092445Z (node:2457) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-28T18:22:07.2093600Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-28T18:22:08.0933860Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/5e19bd2a-747a-4748-87c5-351feedd003a -f /home/runner/work/_temp/5a5c0909-79fd-4398-b719-3b6a6acbe5f6
+2026-10-28T18:22:08.1326578Z Successfully setup just v1.58.0
+2026-10-28T18:22:08.1569395Z ##[group]Run just dev-ci
+2026-10-28T18:22:08.1569973Z just dev-ci
+2026-10-28T18:22:08.1610186Z shell: /usr/bin/bash -e {0}
+2026-10-28T18:22:08.1610448Z env:
+2026-10-28T18:22:08.1610713Z   STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+2026-10-28T18:22:08.1611015Z   STUDIO_E2E_RUN_ID: 40744401718
+2026-10-28T18:22:08.1611290Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-28T18:22:08.1611551Z ##[endgroup]
+2026-10-28T18:22:10.6705785Z npm warn deprecated hast@1.0.0: Renamed to rehype
+2026-10-28T18:22:10.6903511Z npm warn deprecated mdast@3.0.0: `mdast` was renamed to `remark`
+2026-10-28T18:22:14.3279078Z 
+2026-10-28T18:22:14.3280129Z added 526 packages, and audited 527 packages in 6s
+2026-10-28T18:22:14.3280489Z 
+2026-10-28T18:22:14.3280653Z 160 packages are looking for funding
+2026-10-28T18:22:14.3280968Z   run `npm fund` for details
+2026-10-28T18:22:14.3289513Z 
+2026-10-28T18:22:14.3289821Z found 0 vulnerabilities
+2026-10-28T18:22:14.3299036Z npm warn install-scripts 2 packages have install scripts not yet covered by allowScripts:
+2026-10-28T18:22:14.3300490Z npm warn install-scripts   @vscode/vsce-sign@2.1.0 (postinstall: node ./src/postinstall.js)
+2026-10-28T18:22:14.3301775Z npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+2026-10-28T18:22:14.3302496Z npm warn install-scripts
+2026-10-28T18:22:14.3303483Z npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+2026-10-28T18:22:14.4042342Z Using CPython 3.14.4 interpreter at: /usr/bin/python3
+2026-10-28T18:22:14.4042973Z Creating virtual environment at: .venv
+2026-10-28T18:22:14.4066518Z Resolved 59 packages in 0.84ms
+2026-10-28T18:22:14.4947057Z Downloading pillow (6.8MiB)
+2026-10-28T18:22:14.4947773Z Downloading pygments (1.2MiB)
+2026-10-28T18:22:14.4948229Z Downloading sphinx (3.7MiB)
+2026-10-28T18:22:14.4952921Z Downloading playwright (46.2MiB)
+2026-10-28T18:22:14.4967757Z Downloading babel (9.7MiB)
+2026-10-28T18:22:14.9340611Z  Downloaded pygments
+2026-10-28T18:22:15.0461156Z  Downloaded sphinx
+2026-10-28T18:22:15.0814968Z  Downloaded pillow
+2026-10-28T18:22:15.1110435Z  Downloaded babel
+2026-10-28T18:22:15.4293393Z  Downloaded playwright
+2026-10-28T18:22:15.4294542Z Prepared 55 packages in 1.02s
+2026-10-28T18:22:15.7049123Z Installed 55 packages in 275ms
+2026-10-28T18:22:15.7049622Z  + alabaster==1.0.0
+2026-10-28T18:22:15.7050288Z  + argcomplete==3.7.2
+2026-10-28T18:22:15.7050673Z  + attrs==26.1.0
+2026-10-28T18:22:15.7051009Z  + babel==2.18.0
+2026-10-28T18:22:15.7051364Z  + certifi==2026.10.23
+2026-10-28T18:22:15.7051757Z  + charset-normalizer==3.5.2
+2026-10-28T18:22:15.7052166Z  + click==8.5.0
+2026-10-28T18:22:15.7052530Z  + colorama==0.4.6
+2026-10-28T18:22:15.7052851Z  + commitizen==4.19.3
+2026-10-28T18:22:15.7053141Z  + decli==0.6.3
+2026-10-28T18:22:15.7053416Z  + deprecated==1.3.1
+2026-10-28T18:22:15.7053709Z  + docutils==0.22.4
+2026-10-28T18:22:15.7054001Z  + greenlet==3.5.6
+2026-10-28T18:22:15.7054287Z  + idna==3.20
+2026-10-28T18:22:15.7054631Z  + imagesize==2.0.1
+2026-10-28T18:22:15.7054909Z  + iniconfig==2.3.1
+2026-10-28T18:22:15.7055192Z  + jinja2==3.1.6
+2026-10-28T18:22:15.7055604Z  + jsonschema==4.26.0
+2026-10-28T18:22:15.7056063Z  + jsonschema-specifications==2025.9.1
+2026-10-28T18:22:15.7056870Z  + markdown-it-py==4.2.0
+2026-10-28T18:22:15.7057199Z  + markupsafe==3.0.4
+2026-10-28T18:22:15.7057472Z  + mdit-py-plugins==0.6.1
+2026-10-28T18:22:15.7057741Z  + mdurl==0.1.2
+2026-10-28T18:22:15.7058011Z  + myst-parser==5.1.0
+2026-10-28T18:22:15.7058415Z  + okf-schema==0.16.0
+2026-10-28T18:22:15.7058911Z  + packaging==26.3
+2026-10-28T18:22:15.7059283Z  + pillow==13.0.0
+2026-10-28T18:22:15.7059992Z  + playwright==1.64.1
+2026-10-28T18:22:15.7060285Z  + pluggy==1.7.0
+2026-10-28T18:22:15.7060573Z  + prompt-toolkit==3.0.53
+2026-10-28T18:22:15.7060865Z  + pyee==14.0.0
+2026-10-28T18:22:15.7061135Z  + pygments==2.21.0
+2026-10-28T18:22:15.7061407Z  + pyjson5==2.0.1
+2026-10-28T18:22:15.7061681Z  + pytest==9.2.0
+2026-10-28T18:22:15.7062248Z  + pyyaml==6.0.3
+2026-10-28T18:22:15.7062507Z  + questionary==2.1.1
+2026-10-28T18:22:15.7062736Z  + referencing==0.37.0
+2026-10-28T18:22:15.7063007Z  + requests==2.34.2
+2026-10-28T18:22:15.7063291Z  + roman-numerals==4.1.0
+2026-10-28T18:22:15.7063629Z  + rpds-py==2026.9.1
+2026-10-28T18:22:15.7063928Z  + ruamel-yaml==0.19.1
+2026-10-28T18:22:15.7064212Z  + snowballstemmer==3.1.1
+2026-10-28T18:22:15.7064549Z  + sphinx==9.2.0
+2026-10-28T18:22:15.7064965Z  + sphinxcontrib-applehelp==2.0.0
+2026-10-28T18:22:15.7065380Z  + sphinxcontrib-devhelp==2.0.0
+2026-10-28T18:22:15.7065875Z  + sphinxcontrib-htmlhelp==2.1.0
+2026-10-28T18:22:15.7066548Z  + sphinxcontrib-jsmath==2.0.0
+2026-10-28T18:22:15.7066967Z  + sphinxcontrib-qthelp==2.0.0
+2026-10-28T18:22:15.7067343Z  + sphinxcontrib-serializinghtml==2.0.0
+2026-10-28T18:22:15.7067782Z  + termcolor==3.3.0
+2026-10-28T18:22:15.7068237Z  + tomlkit==0.15.2
+2026-10-28T18:22:15.7068533Z  + typing-extensions==4.16.0
+2026-10-28T18:22:15.7068822Z  + urllib3==2.8.0
+2026-10-28T18:22:15.7069087Z  + wcwidth==0.9.4
+2026-10-28T18:22:15.7069326Z  + wrapt==2.5.1
+2026-10-28T18:22:15.7157585Z ##[group]Run xvfb-run --auto-servernum just ci-integration
+2026-10-28T18:22:15.7158163Z xvfb-run --auto-servernum just ci-integration
+2026-10-28T18:22:15.7207086Z shell: /usr/bin/bash -e {0}
+2026-10-28T18:22:15.7207442Z env:
+2026-10-28T18:22:15.7207816Z   STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+2026-10-28T18:22:15.7208262Z   STUDIO_E2E_RUN_ID: 40744401718
+2026-10-28T18:22:15.7208672Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-28T18:22:15.7209073Z ##[endgroup]
+2026-10-28T18:22:17.1080738Z 
+2026-10-28T18:22:17.1081779Z > markdown-okf-schema-studio@0.3.1 test:integration
+2026-10-28T18:22:17.1082535Z > npm run compile && npm run bundle && node out/test/integration/run-tests.js
+2026-10-28T18:22:17.1083245Z 
+2026-10-28T18:22:17.1962353Z 
+2026-10-28T18:22:17.1963196Z > markdown-okf-schema-studio@0.3.1 compile
+2026-10-28T18:22:17.1963789Z > tsc -p .
+2026-10-28T18:22:17.1964015Z 
+2026-10-28T18:22:18.9500246Z 
+2026-10-28T18:22:18.9501158Z > markdown-okf-schema-studio@0.3.1 bundle
+2026-10-28T18:22:18.9501690Z > node esbuild.mjs
+2026-10-28T18:22:18.9501897Z 
+2026-10-28T18:22:19.2509030Z 
+2026-10-28T18:22:19.2510082Z   out/bundle/extension.js      1.4mb ⚠️
+2026-10-28T18:22:19.2510621Z   out/bundle/extension.js.map  5.0mb
+2026-10-28T18:22:19.2510879Z 
+2026-10-28T18:22:19.2511066Z ⚡ Done in 232ms
+2026-10-28T18:22:19.4120397Z 
+2026-10-28T18:22:19.4126576Z   out/test/bundle/mystRenderer.js  4.6mb ⚠️
+2026-10-28T18:22:19.4150468Z 
+2026-10-28T18:22:19.4151423Z ⚡ Done in 157ms
+2026-10-28T18:22:19.5770549Z 
+2026-10-28T18:22:19.5790807Z   out/bundle/renderWorker.js      1011.3kb
+2026-10-28T18:22:19.5820636Z   out/bundle/renderWorker.js.map     3.6mb
+2026-10-28T18:22:19.5821199Z 
+2026-10-28T18:22:19.5821874Z ⚡ Done in 163ms
+2026-10-28T18:22:19.6546017Z 
+2026-10-28T18:22:19.6546788Z   out/bundle/lazy/highlight.js        2.4mb ⚠️
+2026-10-28T18:22:19.6547351Z   out/bundle/lazy/katex.js          262.1kb
+2026-10-28T18:22:19.6547874Z   out/bundle/lazy/highlight.js.map    3.7mb
+2026-10-28T18:22:19.6548365Z   out/bundle/lazy/katex.js.map      979.8kb
+2026-10-28T18:22:19.6548685Z 
+2026-10-28T18:22:19.6549289Z ⚡ Done in 71ms
+2026-10-28T18:22:20.2435501Z 
+2026-10-28T18:22:20.2436674Z   out/bundle/mermaid-chunks/elk-QONTBCTQ-M4NHPKDL.js                   1.4mb ⚠️
+2026-10-28T18:22:20.2437439Z   out/bundle/mermaid-chunks/chunk-GZMU6YTR.js                        619.2kb
+2026-10-28T18:22:20.2438074Z   out/bundle/mermaid-chunks/chunk-HXTS3G4B.js                        433.4kb
+2026-10-28T18:22:20.2438684Z   out/bundle/mermaid-chunks/katex-BFZFNELX.js                        261.8kb
+2026-10-28T18:22:20.2439345Z   out/bundle/mermaid-chunks/chunk-K34RBSU4.js                        238.5kb
+2026-10-28T18:22:20.2440100Z   out/bundle/mermaid-chunks/usecaseDiagram-WPOLBNNX-MIKA7GPU.js      184.7kb
+2026-10-28T18:22:20.2440740Z   ...bundle/mermaid-chunks/architectureDiagram-ZHVYKT53-VKOWJMOF.js  149.4kb
+2026-10-28T18:22:20.2441409Z   out/bundle/mermaid-chunks/sequenceDiagram-BLEHNHQU-XUTSWT4P.js     116.1kb
+2026-10-28T18:22:20.2442066Z   out/bundle/mermaid-chunks/chunk-3276WZQ2.js                        113.5kb
+2026-10-28T18:22:20.2442707Z   out/bundle/mermaid-chunks/swimlanes-B3ENRKFQ-Z4PILPQR.js           106.3kb
+2026-10-28T18:22:20.2443315Z   out/bundle/mermaid-chunks/chunk-SKEBRI6Z.js                        106.2kb
+2026-10-28T18:22:20.2443939Z   out/bundle/mermaid-chunks/cose-bilkent-JH36ORCC-3OCAWF5O.js         80.5kb
+2026-10-28T18:22:20.2444566Z   out/bundle/mermaid-chunks/diagram-TYUNFSNR-NU6BFF5V.js              79.6kb
+2026-10-28T18:22:20.2445207Z   out/bundle/mermaid-chunks/c4Diagram-XDPPPE54-NMRNSPOQ.js            64.6kb
+2026-10-28T18:22:20.2445876Z   out/bundle/mermaid-chunks/chunk-NEH7PAIG.js                         62.1kb
+2026-10-28T18:22:20.2446529Z   out/bundle/mermaid-chunks/chunk-PEKIN7MZ.js                         51.3kb
+2026-10-28T18:22:20.2447154Z   out/bundle/mermaid-chunks/ganttDiagram-R7GPNTJY-A4M2CBCA.js         49.9kb
+2026-10-28T18:22:20.2448054Z   out/bundle/mermaid-chunks/classDiagram-v2-4MYWR3UA-TGXLLIZD.js      49.1kb
+2026-10-28T18:22:20.2448702Z   out/bundle/mermaid-chunks/chunk-ARZCLBB6.js                         46.0kb
+2026-10-28T18:22:20.2449357Z   out/bundle/mermaid-chunks/xychartDiagram-4URNHDU4-B3G5UJ6H.js       42.7kb
+2026-10-28T18:22:20.2450035Z   ...and 87 more output files...
+2026-10-28T18:22:20.2450278Z 
+2026-10-28T18:22:20.2450561Z ⚡ Done in 588ms
+2026-10-28T18:22:20.4282305Z 
+2026-10-28T18:22:20.4283041Z   out/bundle/vegaPreview.js  867.1kb
+2026-10-28T18:22:20.4283347Z 
+2026-10-28T18:22:20.4283685Z ⚡ Done in 184ms
+2026-10-28T18:22:20.9591351Z 
+2026-10-28T18:22:20.9592322Z   out/bundle/plantumlPreview.js  3.3mb ⚠️
+2026-10-28T18:22:20.9592666Z 
+2026-10-28T18:22:20.9592953Z ⚡ Done in 530ms
+2026-10-28T18:22:21.3898226Z 
+2026-10-28T18:22:21.3911054Z   out/bundle/preview.js  353.3kb
+2026-10-28T18:22:21.3911289Z 
+2026-10-28T18:22:21.3911640Z ⚡ Done in 34ms
+2026-10-28T18:22:21.8687567Z - Resolving version...
+2026-10-28T18:22:21.9347576Z ✔ Validated version: 1.144.0
+2026-10-28T18:22:21.9356216Z - Found at https://update.code.visualstudio.com/1.144.0/linux-x64/stable?released=true
+2026-10-28T18:22:22.0850845Z ✔ Found at https://update.code.visualstudio.com/1.144.0/linux-x64/stable?released=true
+2026-10-28T18:22:22.0852004Z - Downloading (355.94 MB)
+2026-10-28T18:22:27.8156761Z ✔ Downloaded VS Code (b224f6bf5a4fcad5fa4c640ed10f179c3b613e48) into /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/.vscode-test/vscode-linux-x64-1.144.0
+2026-10-28T18:22:30.5742080Z [2755:1028/182230.573175:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:22:30.5792762Z 
+2026-10-28T18:22:30.5793814Z DevTools listening on ws://127.0.0.1:45383/devtools/browser/7e83f253-a9d3-4f5b-9e71-a7f2cffe5bd9
+2026-10-28T18:22:30.5851838Z [2755:1028/182230.583118:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:22:30.5881366Z [2755:1028/182230.583191:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:22:30.5926330Z [2755:1028/182230.585326:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:22:30.6032667Z Warning: 'remote-debugging-port' is not in the list of known options, but still passed to Electron/Chromium.
+2026-10-28T18:22:30.6039877Z Warning: 'remote-debugging-address' is not in the list of known options, but still passed to Electron/Chromium.
+2026-10-28T18:22:30.6281318Z [main 2026-10-28T18:22:30.627Z] [node-compile-cache] main: packaged cache enabled (status: enabled, configured: /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/.vscode-test/vscode-linux-x64-1.144.0/resources/app/node-compile-cache/main, active: /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/.vscode-test/vscode-linux-x64-1.144.0/resources/app/node-compile-cache/main/v24.22.1-x64-60e4fe36)
+2026-10-28T18:22:30.6591076Z [main 2026-10-28T18:22:30.658Z] StorageMainService: creating application shared storage
+2026-10-28T18:22:30.7242241Z [2755:1028/182230.722258:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:22:30.7244981Z [main 2026-10-28T18:22:30.722Z] [shared storage] Creating shared storage database at ':memory:' (wasCreated: true)
+2026-10-28T18:22:30.7246407Z [main 2026-10-28T18:22:30.722Z] [shared storage] Initializing fallback application storage (path: in-memory)
+2026-10-28T18:22:30.8092886Z [main 2026-10-28T18:22:30.808Z] [shared storage] Fallback application storage initialized with 3 items
+2026-10-28T18:22:30.8152390Z [main 2026-10-28T18:22:30.809Z] update#setState disabled
+2026-10-28T18:22:30.8154678Z [main 2026-10-28T18:22:30.809Z] update#ctor - updates are disabled by the environment
+2026-10-28T18:22:30.8252137Z [2755:1028/182230.820785:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:22:44.8263650Z workbench#open()
+2026-10-28T18:22:44.8662320Z Via 'product.json#extensionEnabledApiProposals' extension 'github.vscode-pull-request-github' wants API proposal 'agentsWindowActivation' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-10-28T18:22:44.9185535Z [RemoteAgentHost] Reconciling: desired=[], current=[]
+2026-10-28T18:22:44.9370472Z [AgentHost:renderer] Acquiring MessagePort to agent host...
+2026-10-28T18:22:44.9443085Z [main 2026-10-28T18:22:44.943Z] AgentHostProcessManager: agent host started
+2026-10-28T18:22:45.1104752Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:22:45.3856024Z [AgentHost:renderer] MessagePort acquired, creating client...
+2026-10-28T18:22:45.5219478Z Started local extension host with pid 3034.
+2026-10-28T18:22:45.5239284Z [main 2026-10-28T18:22:45.521Z] [AgentHost:stderr] (node:2979) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-28T18:22:45.5272617Z (Use `exe --trace-deprecation ...` to show where the warning was created)
+2026-10-28T18:22:45.5273575Z IExtensionHostStarter.start() took 53 ms.
+2026-10-28T18:22:45.5310541Z 
+2026-10-28T18:22:45.5505573Z [RemoteAgentHostProtocol] Sending initialize: address=local clientId=8d507261-af58-4db0-97f4-6a6ea0d4ac7c requestId=1
+2026-10-28T18:22:45.6061295Z [RemoteAgentHostProtocol] Initialized: address=local clientId=8d507261-af58-4db0-97f4-6a6ea0d4ac7c durationMs=645
+2026-10-28T18:22:45.6411455Z [AgentHost:renderer] Protocol connection established; clientId=8d507261-af58-4db0-97f4-6a6ea0d4ac7c
+2026-10-28T18:22:45.6527507Z Started initializing default profile extensions in extensions installation folder. file:///tmp/studio-add44ffd-x-7rmfBG
+2026-10-28T18:22:46.0483814Z Completed initializing default profile extensions in extensions installation folder. file:///tmp/studio-add44ffd-x-7rmfBG
+2026-10-28T18:22:46.1147092Z [AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+2026-10-28T18:22:46.2052187Z Loading development extension at /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio
+2026-10-28T18:22:46.2166410Z NativeExtensionHostFactory._createLocalProcessExtensionHostDataProvider.scannedExtensions: TypeScriptTeam.jsts-chat-features,vscode.bat,vscode.clojure,vscode.coffeescript,vscode.configuration-editing,GitHub.copilot-chat,vscode.cpp,vscode.csharp,vscode.css,vscode.css-language-features,vscode.dart,vscode.debug-auto-launch,vscode.debug-server-ready,vscode.diff,vscode.docker,vscode.dotenv,vscode.emmet,vscode.extension-editing,vscode.fsharp,vscode.git,vscode.git-base,vscode.github,vscode.github-authentication,vscode.go,vscode.groovy,vscode.grunt,vscode.gulp,vscode.handlebars,vscode.hlsl,vscode.html,vscode.html-language-features,vscode.ini,vscode.ipynb,vscode.jake,vscode.java,vscode.javascript,vscode.json,vscode.json-language-features,vscode.julia,vscode.latex,vscode.less,vscode.log,vscode.lua,vscode.make,vscode.markdown,vscode.markdown-language-features,vscode.markdown-math,vscode.merge-conflict,vscode.mermaid-markdown-features,vscode.microsoft-authentication,ms-vscode.js-debug,ms-vscode.js-debug-companion,ms-vscode.vscode-js-profile-table,vscode.builtin-notebook-renderers,vscode.npm,vscode.objective-c,vscode.perl,vscode.php,vscode.php-language-features,vscode.powershell,vscode.prompt,vscode.pug,vscode.python,vscode.r,vscode.razor,vscode.references-view,vscode.restructuredtext,vscode.ruby,vscode.rust,vscode.scss,vscode.search-result,vscode.shaderlab,vscode.shellscript,vscode.simple-browser,vscode.sql,vscode.swift,vscode.terminal-suggest,vscode.theme-abyss,vscode.theme-defaults,vscode.theme-kimbie-dark,vscode.vscode-modern-icons,vscode.theme-monokai,vscode.theme-monokai-dimmed,vscode.theme-quietlight,vscode.theme-red,vscode.vscode-theme-seti,vscode.theme-solarized-dark,vscode.theme-solarized-light,vscode.theme-tomorrow-night-blue,vscode.tunnel-forwarding,vscode.typescript,vscode.typescript-language-features,vscode.vb,vscode.xml,vscode.yaml,GaetanSemet.markdown-okf-schema-studio
+2026-10-28T18:22:46.2216645Z filterEnabledExtensions: extension 'GitHub.copilot-chat' is disabled
+2026-10-28T18:22:46.2265536Z NativeExtensionHostFactory._createLocalProcessExtensionHostDataProvider.localExtensions: GaetanSemet.markdown-okf-schema-studio,TypeScriptTeam.jsts-chat-features,vscode.bat,vscode.clojure,vscode.coffeescript,vscode.configuration-editing,vscode.cpp,vscode.csharp,vscode.css,vscode.css-language-features,vscode.dart,vscode.debug-auto-launch,vscode.debug-server-ready,vscode.diff,vscode.docker,vscode.dotenv,vscode.emmet,vscode.extension-editing,vscode.fsharp,vscode.git,vscode.git-base,vscode.github,vscode.github-authentication,vscode.go,vscode.groovy,vscode.grunt,vscode.gulp,vscode.handlebars,vscode.hlsl,vscode.html,vscode.html-language-features,vscode.ini,vscode.ipynb,vscode.jake,vscode.java,vscode.javascript,vscode.json,vscode.json-language-features,vscode.julia,vscode.latex,vscode.less,vscode.log,vscode.lua,vscode.make,vscode.markdown,vscode.markdown-language-features,vscode.markdown-math,vscode.merge-conflict,vscode.mermaid-markdown-features,vscode.microsoft-authentication,ms-vscode.js-debug,ms-vscode.js-debug-companion,ms-vscode.vscode-js-profile-table,vscode.builtin-notebook-renderers,vscode.npm,vscode.objective-c,vscode.perl,vscode.php,vscode.php-language-features,vscode.powershell,vscode.prompt,vscode.pug,vscode.python,vscode.r,vscode.razor,vscode.references-view,vscode.restructuredtext,vscode.ruby,vscode.rust,vscode.scss,vscode.search-result,vscode.shaderlab,vscode.shellscript,vscode.simple-browser,vscode.sql,vscode.swift,vscode.terminal-suggest,vscode.theme-abyss,vscode.theme-defaults,vscode.theme-kimbie-dark,vscode.vscode-modern-icons,vscode.theme-monokai,vscode.theme-monokai-dimmed,vscode.theme-quietlight,vscode.theme-red,vscode.vscode-theme-seti,vscode.theme-solarized-dark,vscode.theme-solarized-light,vscode.theme-tomorrow-night-blue,vscode.tunnel-forwarding,vscode.typescript,vscode.typescript-language-features,vscode.vb,vscode.xml,vscode.yaml
+2026-10-28T18:22:46.2337687Z NativeExtensionHostFactory._createLocalProcessExtensionHostDataProvider.myExtensions: GaetanSemet.markdown-okf-schema-studio,TypeScriptTeam.jsts-chat-features,vscode.bat,vscode.clojure,vscode.coffeescript,vscode.configuration-editing,vscode.cpp,vscode.csharp,vscode.css,vscode.css-language-features,vscode.dart,vscode.debug-auto-launch,vscode.debug-server-ready,vscode.diff,vscode.docker,vscode.dotenv,vscode.emmet,vscode.extension-editing,vscode.fsharp,vscode.git,vscode.git-base,vscode.github,vscode.github-authentication,vscode.go,vscode.groovy,vscode.grunt,vscode.gulp,vscode.handlebars,vscode.hlsl,vscode.html,vscode.html-language-features,vscode.ini,vscode.ipynb,vscode.jake,vscode.java,vscode.javascript,vscode.json,vscode.json-language-features,vscode.julia,vscode.latex,vscode.less,vscode.log,vscode.lua,vscode.make,vscode.markdown,vscode.markdown-language-features,vscode.markdown-math,vscode.merge-conflict,vscode.mermaid-markdown-features,vscode.microsoft-authentication,ms-vscode.js-debug,ms-vscode.js-debug-companion,ms-vscode.vscode-js-profile-table,vscode.builtin-notebook-renderers,vscode.npm,vscode.objective-c,vscode.perl,vscode.php,vscode.php-language-features,vscode.powershell,vscode.prompt,vscode.pug,vscode.python,vscode.r,vscode.razor,vscode.references-view,vscode.restructuredtext,vscode.ruby,vscode.rust,vscode.scss,vscode.search-result,vscode.shaderlab,vscode.shellscript,vscode.simple-browser,vscode.sql,vscode.swift,vscode.terminal-suggest,vscode.theme-abyss,vscode.theme-defaults,vscode.theme-kimbie-dark,vscode.vscode-modern-icons,vscode.theme-monokai,vscode.theme-monokai-dimmed,vscode.theme-quietlight,vscode.theme-red,vscode.vscode-theme-seti,vscode.theme-solarized-dark,vscode.theme-solarized-light,vscode.theme-tomorrow-night-blue,vscode.tunnel-forwarding,vscode.typescript,vscode.typescript-language-features,vscode.vb,vscode.xml,vscode.yaml
+2026-10-28T18:22:46.2369863Z filterEnabledExtensions: extension 'GitHub.copilot-chat' is disabled
+2026-10-28T18:22:46.5162780Z Unknown channel: agentHostClientByokLm
+2026-10-28T18:22:46.5295459Z Unknown channel: agentHostClientProxy
+2026-10-28T18:22:46.6391136Z Unknown channel: agentHostClientProxy
+2026-10-28T18:22:46.7933770Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MGRjMzA1YTMtM2I1MC00ZTIzLWFlOGYtMzQyODA1MGQ3MDgx" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:22:46.9061015Z [RemoteAgentHost] Reconciling: desired=[], current=[]
+2026-10-28T18:22:46.9492629Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MGRjMzA1YTMtM2I1MC00ZTIzLWFlOGYtMzQyODA1MGQ3MDgx" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:22:46.9660652Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MGRjMzA1YTMtM2I1MC00ZTIzLWFlOGYtMzQyODA1MGQ3MDgx" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:22:47.0527468Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MGRjMzA1YTMtM2I1MC00ZTIzLWFlOGYtMzQyODA1MGQ3MDgx" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:22:47.1429912Z Settings Sync: Account status changed from uninitialized to unavailable
+2026-10-28T18:22:47.2258866Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MGRjMzA1YTMtM2I1MC00ZTIzLWFlOGYtMzQyODA1MGQ3MDgx" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:22:47.2554047Z (node:3034) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-28T18:22:47.2561759Z (Use `exe --trace-deprecation ...` to show where the warning was created)
+2026-10-28T18:22:47.2861810Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.2913195Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.2967529Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3013446Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3111726Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3121818Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3122684Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3123770Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3124664Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3125629Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3126510Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3127798Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3138646Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3139643Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3141212Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3142507Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3143667Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3144755Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3145871Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3146940Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3148047Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3149098Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3150300Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3152453Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3153553Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3154587Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3155584Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3156591Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3157506Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3158486Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3159472Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3160699Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3161658Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.3162673Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4409648Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4450814Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4457072Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4471053Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4472335Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4473443Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4474439Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4475549Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4476589Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4477667Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4478669Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4479899Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4481001Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4483789Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4485289Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4486592Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4487974Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4489237Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4490629Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4491813Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4493068Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4494092Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4495138Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4496367Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4525796Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4528645Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4549192Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4550927Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4551993Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4553349Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4554457Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4562691Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4564225Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4565616Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.4669224Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4677844Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4690665Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4691429Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4874681Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4918629Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4931233Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4932297Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4956774Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4958438Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4959502Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4960878Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4972658Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4975412Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4976421Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4977373Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4978415Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4979779Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4980853Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4981853Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4982908Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4983889Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4984939Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4985911Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4986688Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4987274Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4987911Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4988496Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4989116Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4989949Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4990939Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4991882Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4992671Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.4993304Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:22:47.5140793Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5158016Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5159222Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5160457Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5161161Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5161842Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5167135Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5177605Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5191752Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5195066Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5196151Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5197065Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5199392Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5292168Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5315685Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5316822Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5317884Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5326364Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5327590Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5328868Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5330052Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5334722Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5335901Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5336851Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5338935Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5340499Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5341593Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5342483Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5343427Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5344291Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5345146Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5350232Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5351309Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:47.5352603Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:22:48.1992376Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MGRjMzA1YTMtM2I1MC00ZTIzLWFlOGYtMzQyODA1MGQ3MDgx" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:22:48.5292903Z Unknown channel: agentHostClientProxy
+2026-10-28T18:22:51.1122864Z [AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+2026-10-28T18:22:54.5077068Z PASS scroll E2E: solo-reading-anchored
+2026-10-28T18:22:59.8395317Z PASS scroll E2E: solo-reading-independent
+2026-10-28T18:23:05.3605517Z PASS scroll E2E: solo-editing-anchored
+2026-10-28T18:23:10.9290275Z PASS scroll E2E: solo-editing-independent
+2026-10-28T18:23:14.4524119Z [2755:1028/182314.452087:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:23:14.4525373Z [2755:1028/182314.452130:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:23:14.4526789Z [2755:1028/182314.452150:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:23:14.4527829Z [2755:1028/182314.452160:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:23:15.4227565Z [2755:1028/182315.422332:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:23:15.4228808Z [2755:1028/182315.422357:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:23:15.4230168Z [2755:1028/182315.422386:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:23:15.4231282Z [2755:1028/182315.422397:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:23:17.2031858Z PASS scroll E2E: solo-block-anchored
+2026-10-28T18:23:23.1531599Z PASS scroll E2E: solo-block-independent
+2026-10-28T18:23:23.2660520Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MGRjMzA1YTMtM2I1MC00ZTIzLWFlOGYtMzQyODA1MGQ3MDgx" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:23:36.5283158Z PASS scroll E2E: paired-reading-anchored
+2026-10-28T18:23:48.0858021Z PASS scroll E2E: paired-reading-independent
+2026-10-28T18:24:00.0570960Z PASS scroll E2E: paired-editing-anchored
+2026-10-28T18:24:11.7677377Z PASS scroll E2E: paired-editing-independent
+2026-10-28T18:24:15.4866578Z [2755:1028/182415.486269:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:15.4868075Z [2755:1028/182415.486377:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:15.4869302Z [2755:1028/182415.486445:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:15.4870889Z [2755:1028/182415.486481:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:24.7304299Z PASS scroll E2E: paired-block-anchored
+2026-10-28T18:24:28.7678535Z [2755:1028/182428.767446:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:28.7680941Z [2755:1028/182428.767494:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:28.7683090Z [2755:1028/182428.767528:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:28.7685066Z [2755:1028/182428.767547:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:31.3248402Z [2755:1028/182431.324296:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:31.3250691Z [2755:1028/182431.324592:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:31.3252631Z [2755:1028/182431.324642:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:31.3254219Z [2755:1028/182431.324681:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:37.8032150Z PASS scroll E2E: paired-block-independent
+2026-10-28T18:24:41.3558181Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MGRjMzA1YTMtM2I1MC00ZTIzLWFlOGYtMzQyODA1MGQ3MDgx" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:42.0975327Z [2755:1028/182442.097176:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:42.0976572Z [2755:1028/182442.097212:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:42.0978122Z [2755:1028/182442.097234:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:42.0979153Z [2755:1028/182442.097249:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:42.1615494Z PASS block keyboard navigation E2E
+2026-10-28T18:24:42.2740063Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MGRjMzA1YTMtM2I1MC00ZTIzLWFlOGYtMzQyODA1MGQ3MDgx" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:44.8850315Z Extension host test runner exit code: 0
+2026-10-28T18:24:44.8991677Z Asking native host service to exit with code 0.
+2026-10-28T18:24:44.9047682Z [main 2026-10-28T18:24:44.904Z] Extension host with pid 3034 exited with code: 0, signal: unknown.
+2026-10-28T18:24:44.9701064Z Exit code:   0
+2026-10-28T18:24:44.9731000Z - Resolving version...
+2026-10-28T18:24:44.9732197Z ✔ Validated version: 1.144.0
+2026-10-28T18:24:44.9733646Z ✔ Found existing install in /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/.vscode-test/vscode-linux-x64-1.144.0
+2026-10-28T18:24:45.1265210Z [3431:1028/182445.126184:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:45.1343763Z 
+2026-10-28T18:24:45.1361465Z DevTools listening on ws://127.0.0.1:36887/devtools/browser/be5cb652-6924-40f6-95c6-2665852710a0
+2026-10-28T18:24:45.1392123Z [3431:1028/182445.138979:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:45.1421768Z [3431:1028/182445.139154:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:45.1432093Z [3431:1028/182445.141758:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:45.1690834Z Warning: 'remote-debugging-port' is not in the list of known options, but still passed to Electron/Chromium.
+2026-10-28T18:24:45.1701175Z Warning: 'remote-debugging-address' is not in the list of known options, but still passed to Electron/Chromium.
+2026-10-28T18:24:45.1937264Z [main 2026-10-28T18:24:45.193Z] [node-compile-cache] main: packaged cache enabled (status: enabled, configured: /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/.vscode-test/vscode-linux-x64-1.144.0/resources/app/node-compile-cache/main, active: /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/.vscode-test/vscode-linux-x64-1.144.0/resources/app/node-compile-cache/main/v24.22.1-x64-60e4fe36)
+2026-10-28T18:24:45.2335770Z [main 2026-10-28T18:24:45.233Z] StorageMainService: creating application shared storage
+2026-10-28T18:24:45.2971208Z [3431:1028/182445.296388:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:45.2972980Z [main 2026-10-28T18:24:45.296Z] [shared storage] Creating shared storage database at ':memory:' (wasCreated: true)
+2026-10-28T18:24:45.3001136Z [main 2026-10-28T18:24:45.296Z] [shared storage] Initializing fallback application storage (path: in-memory)
+2026-10-28T18:24:45.3282030Z [main 2026-10-28T18:24:45.327Z] [shared storage] Fallback application storage initialized with 3 items
+2026-10-28T18:24:45.3311435Z [main 2026-10-28T18:24:45.327Z] update#setState disabled
+2026-10-28T18:24:45.3321291Z [main 2026-10-28T18:24:45.327Z] update#ctor - updates are disabled by the environment
+2026-10-28T18:24:45.3441452Z [3431:1028/182445.342176:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:46.3121282Z workbench#open()
+2026-10-28T18:24:46.3396340Z Via 'product.json#extensionEnabledApiProposals' extension 'github.vscode-pull-request-github' wants API proposal 'agentsWindowActivation' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-10-28T18:24:46.3903074Z [RemoteAgentHost] Reconciling: desired=[], current=[]
+2026-10-28T18:24:46.4078059Z [AgentHost:renderer] Acquiring MessagePort to agent host...
+2026-10-28T18:24:46.4148892Z [main 2026-10-28T18:24:46.414Z] AgentHostProcessManager: agent host started
+2026-10-28T18:24:46.6036750Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:46.8812994Z [AgentHost:renderer] MessagePort acquired, creating client...
+2026-10-28T18:24:46.9223925Z [main 2026-10-28T18:24:46.921Z] [AgentHost:stderr] (node:3644) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-28T18:24:46.9274960Z (Use `exe --trace-deprecation ...` to show where the warning was created)
+2026-10-28T18:24:46.9298067Z 
+2026-10-28T18:24:46.9960960Z Started local extension host with pid 3709.
+2026-10-28T18:24:46.9984261Z IExtensionHostStarter.start() took 27 ms.
+2026-10-28T18:24:47.0121589Z [RemoteAgentHostProtocol] Sending initialize: address=local clientId=3c7d29d8-01e4-4a9a-ba4e-8a14ae4e8786 requestId=1
+2026-10-28T18:24:47.0202544Z [RemoteAgentHostProtocol] Initialized: address=local clientId=3c7d29d8-01e4-4a9a-ba4e-8a14ae4e8786 durationMs=595
+2026-10-28T18:24:47.0261471Z [AgentHost:renderer] Protocol connection established; clientId=3c7d29d8-01e4-4a9a-ba4e-8a14ae4e8786
+2026-10-28T18:24:47.1450401Z Started initializing default profile extensions in extensions installation folder. file:///tmp/studio-add44ffd-x-m8oFv4
+2026-10-28T18:24:47.5102392Z Completed initializing default profile extensions in extensions installation folder. file:///tmp/studio-add44ffd-x-m8oFv4
+2026-10-28T18:24:47.5507213Z Loading development extension at /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio
+2026-10-28T18:24:47.5577383Z NativeExtensionHostFactory._createLocalProcessExtensionHostDataProvider.scannedExtensions: TypeScriptTeam.jsts-chat-features,vscode.bat,vscode.clojure,vscode.coffeescript,vscode.configuration-editing,GitHub.copilot-chat,vscode.cpp,vscode.csharp,vscode.css,vscode.css-language-features,vscode.dart,vscode.debug-auto-launch,vscode.debug-server-ready,vscode.diff,vscode.docker,vscode.dotenv,vscode.emmet,vscode.extension-editing,vscode.fsharp,vscode.git,vscode.git-base,vscode.github,vscode.github-authentication,vscode.go,vscode.groovy,vscode.grunt,vscode.gulp,vscode.handlebars,vscode.hlsl,vscode.html,vscode.html-language-features,vscode.ini,vscode.ipynb,vscode.jake,vscode.java,vscode.javascript,vscode.json,vscode.json-language-features,vscode.julia,vscode.latex,vscode.less,vscode.log,vscode.lua,vscode.make,vscode.markdown,vscode.markdown-language-features,vscode.markdown-math,vscode.merge-conflict,vscode.mermaid-markdown-features,vscode.microsoft-authentication,ms-vscode.js-debug,ms-vscode.js-debug-companion,ms-vscode.vscode-js-profile-table,vscode.builtin-notebook-renderers,vscode.npm,vscode.objective-c,vscode.perl,vscode.php,vscode.php-language-features,vscode.powershell,vscode.prompt,vscode.pug,vscode.python,vscode.r,vscode.razor,vscode.references-view,vscode.restructuredtext,vscode.ruby,vscode.rust,vscode.scss,vscode.search-result,vscode.shaderlab,vscode.shellscript,vscode.simple-browser,vscode.sql,vscode.swift,vscode.terminal-suggest,vscode.theme-abyss,vscode.theme-defaults,vscode.theme-kimbie-dark,vscode.vscode-modern-icons,vscode.theme-monokai,vscode.theme-monokai-dimmed,vscode.theme-quietlight,vscode.theme-red,vscode.vscode-theme-seti,vscode.theme-solarized-dark,vscode.theme-solarized-light,vscode.theme-tomorrow-night-blue,vscode.tunnel-forwarding,vscode.typescript,vscode.typescript-language-features,vscode.vb,vscode.xml,vscode.yaml,GaetanSemet.markdown-okf-schema-studio
+2026-10-28T18:24:47.5652855Z filterEnabledExtensions: extension 'GitHub.copilot-chat' is disabled
+2026-10-28T18:24:47.5700646Z NativeExtensionHostFactory._createLocalProcessExtensionHostDataProvider.localExtensions: GaetanSemet.markdown-okf-schema-studio,TypeScriptTeam.jsts-chat-features,vscode.bat,vscode.clojure,vscode.coffeescript,vscode.configuration-editing,vscode.cpp,vscode.csharp,vscode.css,vscode.css-language-features,vscode.dart,vscode.debug-auto-launch,vscode.debug-server-ready,vscode.diff,vscode.docker,vscode.dotenv,vscode.emmet,vscode.extension-editing,vscode.fsharp,vscode.git,vscode.git-base,vscode.github,vscode.github-authentication,vscode.go,vscode.groovy,vscode.grunt,vscode.gulp,vscode.handlebars,vscode.hlsl,vscode.html,vscode.html-language-features,vscode.ini,vscode.ipynb,vscode.jake,vscode.java,vscode.javascript,vscode.json,vscode.json-language-features,vscode.julia,vscode.latex,vscode.less,vscode.log,vscode.lua,vscode.make,vscode.markdown,vscode.markdown-language-features,vscode.markdown-math,vscode.merge-conflict,vscode.mermaid-markdown-features,vscode.microsoft-authentication,ms-vscode.js-debug,ms-vscode.js-debug-companion,ms-vscode.vscode-js-profile-table,vscode.builtin-notebook-renderers,vscode.npm,vscode.objective-c,vscode.perl,vscode.php,vscode.php-language-features,vscode.powershell,vscode.prompt,vscode.pug,vscode.python,vscode.r,vscode.razor,vscode.references-view,vscode.restructuredtext,vscode.ruby,vscode.rust,vscode.scss,vscode.search-result,vscode.shaderlab,vscode.shellscript,vscode.simple-browser,vscode.sql,vscode.swift,vscode.terminal-suggest,vscode.theme-abyss,vscode.theme-defaults,vscode.theme-kimbie-dark,vscode.vscode-modern-icons,vscode.theme-monokai,vscode.theme-monokai-dimmed,vscode.theme-quietlight,vscode.theme-red,vscode.vscode-theme-seti,vscode.theme-solarized-dark,vscode.theme-solarized-light,vscode.theme-tomorrow-night-blue,vscode.tunnel-forwarding,vscode.typescript,vscode.typescript-language-features,vscode.vb,vscode.xml,vscode.yaml
+2026-10-28T18:24:47.5793686Z NativeExtensionHostFactory._createLocalProcessExtensionHostDataProvider.myExtensions: GaetanSemet.markdown-okf-schema-studio,TypeScriptTeam.jsts-chat-features,vscode.bat,vscode.clojure,vscode.coffeescript,vscode.configuration-editing,vscode.cpp,vscode.csharp,vscode.css,vscode.css-language-features,vscode.dart,vscode.debug-auto-launch,vscode.debug-server-ready,vscode.diff,vscode.docker,vscode.dotenv,vscode.emmet,vscode.extension-editing,vscode.fsharp,vscode.git,vscode.git-base,vscode.github,vscode.github-authentication,vscode.go,vscode.groovy,vscode.grunt,vscode.gulp,vscode.handlebars,vscode.hlsl,vscode.html,vscode.html-language-features,vscode.ini,vscode.ipynb,vscode.jake,vscode.java,vscode.javascript,vscode.json,vscode.json-language-features,vscode.julia,vscode.latex,vscode.less,vscode.log,vscode.lua,vscode.make,vscode.markdown,vscode.markdown-language-features,vscode.markdown-math,vscode.merge-conflict,vscode.mermaid-markdown-features,vscode.microsoft-authentication,ms-vscode.js-debug,ms-vscode.js-debug-companion,ms-vscode.vscode-js-profile-table,vscode.builtin-notebook-renderers,vscode.npm,vscode.objective-c,vscode.perl,vscode.php,vscode.php-language-features,vscode.powershell,vscode.prompt,vscode.pug,vscode.python,vscode.r,vscode.razor,vscode.references-view,vscode.restructuredtext,vscode.ruby,vscode.rust,vscode.scss,vscode.search-result,vscode.shaderlab,vscode.shellscript,vscode.simple-browser,vscode.sql,vscode.swift,vscode.terminal-suggest,vscode.theme-abyss,vscode.theme-defaults,vscode.theme-kimbie-dark,vscode.vscode-modern-icons,vscode.theme-monokai,vscode.theme-monokai-dimmed,vscode.theme-quietlight,vscode.theme-red,vscode.vscode-theme-seti,vscode.theme-solarized-dark,vscode.theme-solarized-light,vscode.theme-tomorrow-night-blue,vscode.tunnel-forwarding,vscode.typescript,vscode.typescript-language-features,vscode.vb,vscode.xml,vscode.yaml
+2026-10-28T18:24:47.5841818Z filterEnabledExtensions: extension 'TypeScriptTeam.jsts-chat-features' is disabled
+2026-10-28T18:24:47.5842710Z filterEnabledExtensions: extension 'vscode.bat' is disabled
+2026-10-28T18:24:47.5843430Z filterEnabledExtensions: extension 'vscode.clojure' is disabled
+2026-10-28T18:24:47.5844284Z filterEnabledExtensions: extension 'vscode.coffeescript' is disabled
+2026-10-28T18:24:47.5845213Z filterEnabledExtensions: extension 'vscode.configuration-editing' is disabled
+2026-10-28T18:24:47.5846148Z filterEnabledExtensions: extension 'GitHub.copilot-chat' is disabled
+2026-10-28T18:24:47.5846861Z filterEnabledExtensions: extension 'vscode.cpp' is disabled
+2026-10-28T18:24:47.5847619Z filterEnabledExtensions: extension 'vscode.csharp' is disabled
+2026-10-28T18:24:47.5848320Z filterEnabledExtensions: extension 'vscode.css' is disabled
+2026-10-28T18:24:47.5849129Z filterEnabledExtensions: extension 'vscode.css-language-features' is disabled
+2026-10-28T18:24:47.5850117Z filterEnabledExtensions: extension 'vscode.dart' is disabled
+2026-10-28T18:24:47.5850875Z filterEnabledExtensions: extension 'vscode.debug-auto-launch' is disabled
+2026-10-28T18:24:47.5851746Z filterEnabledExtensions: extension 'vscode.debug-server-ready' is disabled
+2026-10-28T18:24:47.5852511Z filterEnabledExtensions: extension 'vscode.diff' is disabled
+2026-10-28T18:24:47.5853247Z filterEnabledExtensions: extension 'vscode.docker' is disabled
+2026-10-28T18:24:47.5853971Z filterEnabledExtensions: extension 'vscode.dotenv' is disabled
+2026-10-28T18:24:47.5854631Z filterEnabledExtensions: extension 'vscode.emmet' is disabled
+2026-10-28T18:24:47.5855380Z filterEnabledExtensions: extension 'vscode.extension-editing' is disabled
+2026-10-28T18:24:47.5856106Z filterEnabledExtensions: extension 'vscode.fsharp' is disabled
+2026-10-28T18:24:47.5856806Z filterEnabledExtensions: extension 'vscode.git' is disabled
+2026-10-28T18:24:47.5857449Z filterEnabledExtensions: extension 'vscode.git-base' is disabled
+2026-10-28T18:24:47.5858156Z filterEnabledExtensions: extension 'vscode.github' is disabled
+2026-10-28T18:24:47.5858906Z filterEnabledExtensions: extension 'vscode.github-authentication' is disabled
+2026-10-28T18:24:47.5859921Z filterEnabledExtensions: extension 'vscode.go' is disabled
+2026-10-28T18:24:47.5860567Z filterEnabledExtensions: extension 'vscode.groovy' is disabled
+2026-10-28T18:24:47.5861417Z filterEnabledExtensions: extension 'vscode.grunt' is disabled
+2026-10-28T18:24:47.5862132Z filterEnabledExtensions: extension 'vscode.gulp' is disabled
+2026-10-28T18:24:47.5862872Z filterEnabledExtensions: extension 'vscode.handlebars' is disabled
+2026-10-28T18:24:47.5863639Z filterEnabledExtensions: extension 'vscode.hlsl' is disabled
+2026-10-28T18:24:47.5864327Z filterEnabledExtensions: extension 'vscode.html' is disabled
+2026-10-28T18:24:47.5865184Z filterEnabledExtensions: extension 'vscode.html-language-features' is disabled
+2026-10-28T18:24:47.5865996Z filterEnabledExtensions: extension 'vscode.ini' is disabled
+2026-10-28T18:24:47.5866735Z filterEnabledExtensions: extension 'vscode.ipynb' is disabled
+2026-10-28T18:24:47.5867458Z filterEnabledExtensions: extension 'vscode.jake' is disabled
+2026-10-28T18:24:47.5868176Z filterEnabledExtensions: extension 'vscode.java' is disabled
+2026-10-28T18:24:47.5868965Z filterEnabledExtensions: extension 'vscode.javascript' is disabled
+2026-10-28T18:24:47.5869929Z filterEnabledExtensions: extension 'vscode.json' is disabled
+2026-10-28T18:24:47.5870801Z filterEnabledExtensions: extension 'vscode.json-language-features' is disabled
+2026-10-28T18:24:47.5871665Z filterEnabledExtensions: extension 'vscode.julia' is disabled
+2026-10-28T18:24:47.5872420Z filterEnabledExtensions: extension 'vscode.latex' is disabled
+2026-10-28T18:24:47.5873370Z filterEnabledExtensions: extension 'vscode.less' is disabled
+2026-10-28T18:24:47.5874081Z filterEnabledExtensions: extension 'vscode.log' is disabled
+2026-10-28T18:24:47.5874871Z filterEnabledExtensions: extension 'vscode.lua' is disabled
+2026-10-28T18:24:47.5875587Z filterEnabledExtensions: extension 'vscode.make' is disabled
+2026-10-28T18:24:47.5876439Z filterEnabledExtensions: extension 'vscode.markdown' is disabled
+2026-10-28T18:24:47.5877334Z filterEnabledExtensions: extension 'vscode.markdown-language-features' is disabled
+2026-10-28T18:24:47.5878303Z filterEnabledExtensions: extension 'vscode.markdown-math' is disabled
+2026-10-28T18:24:47.5879140Z filterEnabledExtensions: extension 'vscode.merge-conflict' is disabled
+2026-10-28T18:24:47.5880147Z filterEnabledExtensions: extension 'vscode.mermaid-markdown-features' is disabled
+2026-10-28T18:24:47.5881125Z filterEnabledExtensions: extension 'vscode.microsoft-authentication' is disabled
+2026-10-28T18:24:47.5882003Z filterEnabledExtensions: extension 'ms-vscode.js-debug' is disabled
+2026-10-28T18:24:47.5882926Z filterEnabledExtensions: extension 'ms-vscode.js-debug-companion' is disabled
+2026-10-28T18:24:47.5883899Z filterEnabledExtensions: extension 'ms-vscode.vscode-js-profile-table' is disabled
+2026-10-28T18:24:47.5884936Z filterEnabledExtensions: extension 'vscode.builtin-notebook-renderers' is disabled
+2026-10-28T18:24:47.5885786Z filterEnabledExtensions: extension 'vscode.npm' is disabled
+2026-10-28T18:24:47.5886630Z filterEnabledExtensions: extension 'vscode.objective-c' is disabled
+2026-10-28T18:24:47.5887414Z filterEnabledExtensions: extension 'vscode.perl' is disabled
+2026-10-28T18:24:47.5888195Z filterEnabledExtensions: extension 'vscode.php' is disabled
+2026-10-28T18:24:47.5889118Z filterEnabledExtensions: extension 'vscode.php-language-features' is disabled
+2026-10-28T18:24:47.5890301Z filterEnabledExtensions: extension 'vscode.powershell' is disabled
+2026-10-28T18:24:47.5891119Z filterEnabledExtensions: extension 'vscode.prompt' is disabled
+2026-10-28T18:24:47.5891940Z filterEnabledExtensions: extension 'vscode.pug' is disabled
+2026-10-28T18:24:47.5892741Z filterEnabledExtensions: extension 'vscode.python' is disabled
+2026-10-28T18:24:47.5893550Z filterEnabledExtensions: extension 'vscode.r' is disabled
+2026-10-28T18:24:47.5894264Z filterEnabledExtensions: extension 'vscode.razor' is disabled
+2026-10-28T18:24:47.5895161Z filterEnabledExtensions: extension 'vscode.references-view' is disabled
+2026-10-28T18:24:47.5896067Z filterEnabledExtensions: extension 'vscode.restructuredtext' is disabled
+2026-10-28T18:24:47.5896952Z filterEnabledExtensions: extension 'vscode.ruby' is disabled
+2026-10-28T18:24:47.5897907Z filterEnabledExtensions: extension 'vscode.rust' is disabled
+2026-10-28T18:24:47.5898721Z filterEnabledExtensions: extension 'vscode.scss' is disabled
+2026-10-28T18:24:47.5899528Z filterEnabledExtensions: extension 'vscode.search-result' is disabled
+2026-10-28T18:24:47.5900689Z filterEnabledExtensions: extension 'vscode.shaderlab' is disabled
+2026-10-28T18:24:47.5901510Z filterEnabledExtensions: extension 'vscode.shellscript' is disabled
+2026-10-28T18:24:47.5902377Z filterEnabledExtensions: extension 'vscode.simple-browser' is disabled
+2026-10-28T18:24:47.5903238Z filterEnabledExtensions: extension 'vscode.sql' is disabled
+2026-10-28T18:24:47.5904069Z filterEnabledExtensions: extension 'vscode.swift' is disabled
+2026-10-28T18:24:47.5904948Z filterEnabledExtensions: extension 'vscode.terminal-suggest' is disabled
+2026-10-28T18:24:47.5905831Z filterEnabledExtensions: extension 'vscode.theme-abyss' is disabled
+2026-10-28T18:24:47.5906674Z filterEnabledExtensions: extension 'vscode.theme-defaults' is disabled
+2026-10-28T18:24:47.5907623Z filterEnabledExtensions: extension 'vscode.theme-kimbie-dark' is disabled
+2026-10-28T18:24:47.5908589Z filterEnabledExtensions: extension 'vscode.vscode-modern-icons' is disabled
+2026-10-28T18:24:47.5909567Z filterEnabledExtensions: extension 'vscode.theme-monokai' is disabled
+2026-10-28T18:24:47.5910760Z filterEnabledExtensions: extension 'vscode.theme-monokai-dimmed' is disabled
+2026-10-28T18:24:47.5911762Z filterEnabledExtensions: extension 'vscode.theme-quietlight' is disabled
+2026-10-28T18:24:47.5912841Z filterEnabledExtensions: extension 'vscode.theme-red' is disabled
+2026-10-28T18:24:47.5913817Z filterEnabledExtensions: extension 'vscode.vscode-theme-seti' is disabled
+2026-10-28T18:24:47.5914718Z filterEnabledExtensions: extension 'vscode.theme-solarized-dark' is disabled
+2026-10-28T18:24:47.5915635Z filterEnabledExtensions: extension 'vscode.theme-solarized-light' is disabled
+2026-10-28T18:24:47.5916707Z filterEnabledExtensions: extension 'vscode.theme-tomorrow-night-blue' is disabled
+2026-10-28T18:24:47.5917660Z filterEnabledExtensions: extension 'vscode.tunnel-forwarding' is disabled
+2026-10-28T18:24:47.5918599Z filterEnabledExtensions: extension 'vscode.typescript' is disabled
+2026-10-28T18:24:47.5919534Z filterEnabledExtensions: extension 'vscode.typescript-language-features' is disabled
+2026-10-28T18:24:47.5920989Z filterEnabledExtensions: extension 'vscode.vb' is disabled
+2026-10-28T18:24:47.5921760Z filterEnabledExtensions: extension 'vscode.xml' is disabled
+2026-10-28T18:24:47.5922598Z filterEnabledExtensions: extension 'vscode.yaml' is disabled
+2026-10-28T18:24:47.6533429Z [DefaultAccount] Authentication provider is not available. { id: 'github', name: 'GitHub', enterprise: false }
+2026-10-28T18:24:47.8835054Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWY1NDAyYWUtZDE1MS00Y2ZiLTljOGEtMjE5MzUyNmQ4MGMz" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:47.9053852Z Unknown channel: agentHostClientByokLm
+2026-10-28T18:24:47.9095557Z Unknown channel: agentHostClientProxy
+2026-10-28T18:24:47.9108803Z [AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+2026-10-28T18:24:47.9494261Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:47.9811484Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:47.9833752Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:47.9854086Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0313264Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0336707Z Unknown channel: agentHostClientProxy
+2026-10-28T18:24:48.0337639Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0353998Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0402045Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0403151Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0436322Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0442808Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0473336Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0479906Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0481204Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0482204Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0483270Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0490092Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0491402Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0492449Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0493764Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0494831Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0495680Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0496587Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0497494Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0498365Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0499371Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0500399Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0501382Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0502213Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0503311Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0504121Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0505015Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0505895Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0506760Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0507825Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0508806Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0509809Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0510721Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0511554Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0512732Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0513566Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0514517Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0521145Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0522815Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0523867Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0524789Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0525826Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0526843Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0527715Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0528779Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0529931Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0530623Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0531329Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0532052Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0532932Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0534907Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0536282Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0537241Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0538201Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0539136Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0540157Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0541117Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0542262Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0543184Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0543986Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0545173Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0546004Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0546983Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0547895Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0548748Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0549834Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0550768Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0551588Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0552541Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0553371Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0554397Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0556274Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0557577Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0558500Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0559921Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0561098Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0562311Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0565202Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0567919Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0600720Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0619119Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0621270Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0630874Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0632035Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0633059Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0634158Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0650190Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0655634Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0658585Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0659882Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0661782Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0941818Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0942983Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0945506Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0957985Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0961139Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0963650Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0966493Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0974121Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0974932Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0975608Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0976198Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0976865Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0977697Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0978734Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0979881Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0980790Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0981420Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0982002Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0982575Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0983175Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0987343Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0989218Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0992842Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0995374Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0996407Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.0997684Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.0998518Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.1118866Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.1123857Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.1132661Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.1133921Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.1135111Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.1136273Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.1137505Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.1139521Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.1140798Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.1141956Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.1143025Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.1143814Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.1144511Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.3872758Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWY1NDAyYWUtZDE1MS00Y2ZiLTljOGEtMjE5MzUyNmQ4MGMz" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:48.5680642Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWY1NDAyYWUtZDE1MS00Y2ZiLTljOGEtMjE5MzUyNmQ4MGMz" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:48.6017483Z [RemoteAgentHost] Reconciling: desired=[], current=[]
+2026-10-28T18:24:48.6483920Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWY1NDAyYWUtZDE1MS00Y2ZiLTljOGEtMjE5MzUyNmQ4MGMz" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:48.6593999Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWY1NDAyYWUtZDE1MS00Y2ZiLTljOGEtMjE5MzUyNmQ4MGMz" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:48.7359098Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.7362032Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.7363932Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:48.7365508Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:48.7471430Z Settings Sync: Account status changed from uninitialized to unavailable
+2026-10-28T18:24:48.7562279Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWY1NDAyYWUtZDE1MS00Y2ZiLTljOGEtMjE5MzUyNmQ4MGMz" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:48.9557958Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWY1NDAyYWUtZDE1MS00Y2ZiLTljOGEtMjE5MzUyNmQ4MGMz" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:49.0995159Z [main 2026-10-28T18:24:49.099Z] CodeWindow: failed to load (reason: <unknown>, code: -3)
+2026-10-28T18:24:49.1530187Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWY1NDAyYWUtZDE1MS00Y2ZiLTljOGEtMjE5MzUyNmQ4MGMz" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:49.7093040Z (node:3709) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-28T18:24:49.7112354Z (Use `exe --trace-deprecation ...` to show where the warning was created)
+2026-10-28T18:24:49.7656968Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWY1NDAyYWUtZDE1MS00Y2ZiLTljOGEtMjE5MzUyNmQ4MGMz" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:49.8772825Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWY1NDAyYWUtZDE1MS00Y2ZiLTljOGEtMjE5MzUyNmQ4MGMz" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:49.9356518Z Unknown channel: agentHostClientProxy
+2026-10-28T18:24:50.9740614Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWY1NDAyYWUtZDE1MS00Y2ZiLTljOGEtMjE5MzUyNmQ4MGMz" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:51.3402839Z [3431:1028/182451.340064:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:51.3404072Z [3431:1028/182451.340118:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:51.3405138Z [3431:1028/182451.340160:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:51.3406216Z [3431:1028/182451.340170:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:51.4260038Z PASS untrusted screenshot: trust-security/r01-untrusted-read-only
+2026-10-28T18:24:51.5357086Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/OWY1NDAyYWUtZDE1MS00Y2ZiLTljOGEtMjE5MzUyNmQ4MGMz" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:52.6523984Z Extension host test runner exit code: 0
+2026-10-28T18:24:52.6534052Z [main 2026-10-28T18:24:52.653Z] Extension host with pid 3709 exited with code: 0, signal: unknown.
+2026-10-28T18:24:52.6552824Z Asking native host service to exit with code 0.
+2026-10-28T18:24:52.7306845Z - Resolving version...
+2026-10-28T18:24:52.7319574Z ✔ Validated version: 1.144.0
+2026-10-28T18:24:52.7321895Z ✔ Found existing install in /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/.vscode-test/vscode-linux-x64-1.144.0
+2026-10-28T18:24:52.8771815Z [3934:1028/182452.876260:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:52.8816046Z 
+2026-10-28T18:24:52.8817666Z DevTools listening on ws://127.0.0.1:36299/devtools/browser/49e0a849-3415-4604-8645-84fb8377ee6a
+2026-10-28T18:24:52.8851842Z [3934:1028/182452.884073:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:52.8853940Z [3934:1028/182452.885004:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:52.8883391Z [3934:1028/182452.887057:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:24:52.9121597Z Warning: 'remote-debugging-port' is not in the list of known options, but still passed to Electron/Chromium.
+2026-10-28T18:24:52.9123754Z Warning: 'remote-debugging-address' is not in the list of known options, but still passed to Electron/Chromium.
+2026-10-28T18:24:52.9375457Z [main 2026-10-28T18:24:52.935Z] [node-compile-cache] main: packaged cache enabled (status: enabled, configured: /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/.vscode-test/vscode-linux-x64-1.144.0/resources/app/node-compile-cache/main, active: /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/.vscode-test/vscode-linux-x64-1.144.0/resources/app/node-compile-cache/main/v24.22.1-x64-60e4fe36)
+2026-10-28T18:24:52.9678988Z [main 2026-10-28T18:24:52.967Z] StorageMainService: creating application shared storage
+2026-10-28T18:24:53.0486705Z [3934:1028/182453.048335:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:53.0489066Z [main 2026-10-28T18:24:53.048Z] [shared storage] Creating shared storage database at ':memory:' (wasCreated: true)
+2026-10-28T18:24:53.0493023Z [main 2026-10-28T18:24:53.048Z] [shared storage] Initializing fallback application storage (path: in-memory)
+2026-10-28T18:24:53.0656658Z [4006:1028/182453.065330:ERROR:gpu/ipc/client/command_buffer_proxy_impl.cc:285] ContextResult::kTransientFailure: Failed to send GpuControl.CreateCommandBuffer.
+2026-10-28T18:24:53.0866009Z [main 2026-10-28T18:24:53.086Z] [shared storage] Fallback application storage initialized with 3 items
+2026-10-28T18:24:53.0882638Z [main 2026-10-28T18:24:53.086Z] update#setState disabled
+2026-10-28T18:24:53.0883865Z [main 2026-10-28T18:24:53.086Z] update#ctor - updates are disabled by the environment
+2026-10-28T18:24:53.1004119Z [3934:1028/182453.098523:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:24:53.8900124Z workbench#open()
+2026-10-28T18:24:53.9280553Z Via 'product.json#extensionEnabledApiProposals' extension 'github.vscode-pull-request-github' wants API proposal 'agentsWindowActivation' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.
+2026-10-28T18:24:53.9781792Z [RemoteAgentHost] Reconciling: desired=[], current=[]
+2026-10-28T18:24:53.9948541Z [AgentHost:renderer] Acquiring MessagePort to agent host...
+2026-10-28T18:24:54.0020594Z [main 2026-10-28T18:24:54.001Z] AgentHostProcessManager: agent host started
+2026-10-28T18:24:54.1866303Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:54.4722962Z [AgentHost:renderer] MessagePort acquired, creating client...
+2026-10-28T18:24:54.4806620Z [main 2026-10-28T18:24:54.480Z] [AgentHost:stderr] (node:4147) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-28T18:24:54.4828618Z (Use `exe --trace-deprecation ...` to show where the warning was created)
+2026-10-28T18:24:54.4829173Z 
+2026-10-28T18:24:54.6736437Z Started local extension host with pid 4217.
+2026-10-28T18:24:54.6850698Z IExtensionHostStarter.start() took 84 ms.
+2026-10-28T18:24:54.7014557Z [RemoteAgentHostProtocol] Sending initialize: address=local clientId=e8d1abe5-741f-4bf9-be64-772d25bba1ab requestId=1
+2026-10-28T18:24:54.7531104Z [RemoteAgentHostProtocol] Initialized: address=local clientId=e8d1abe5-741f-4bf9-be64-772d25bba1ab durationMs=751
+2026-10-28T18:24:54.8066656Z [AgentHost:renderer] Protocol connection established; clientId=e8d1abe5-741f-4bf9-be64-772d25bba1ab
+2026-10-28T18:24:54.8823381Z Started initializing default profile extensions in extensions installation folder. file:///tmp/studio-add44ffd-x-j4HYlQ
+2026-10-28T18:24:54.9989351Z Failed to create default profile extensions manifest in extensions installation folder. file:///tmp/studio-add44ffd-x-j4HYlQ Unable to create file 'vscode-userdata:/tmp/studio-add44ffd-x-j4HYlQ/extensions.json' that already exists when overwrite flag is not set
+2026-10-28T18:24:54.9992637Z Completed initializing default profile extensions in extensions installation folder. file:///tmp/studio-add44ffd-x-j4HYlQ
+2026-10-28T18:24:55.0852893Z Loading development extension at /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio
+2026-10-28T18:24:55.0924632Z NativeExtensionHostFactory._createLocalProcessExtensionHostDataProvider.scannedExtensions: TypeScriptTeam.jsts-chat-features,vscode.bat,vscode.clojure,vscode.coffeescript,vscode.configuration-editing,GitHub.copilot-chat,vscode.cpp,vscode.csharp,vscode.css,vscode.css-language-features,vscode.dart,vscode.debug-auto-launch,vscode.debug-server-ready,vscode.diff,vscode.docker,vscode.dotenv,vscode.emmet,vscode.extension-editing,vscode.fsharp,vscode.git,vscode.git-base,vscode.github,vscode.github-authentication,vscode.go,vscode.groovy,vscode.grunt,vscode.gulp,vscode.handlebars,vscode.hlsl,vscode.html,vscode.html-language-features,vscode.ini,vscode.ipynb,vscode.jake,vscode.java,vscode.javascript,vscode.json,vscode.json-language-features,vscode.julia,vscode.latex,vscode.less,vscode.log,vscode.lua,vscode.make,vscode.markdown,vscode.markdown-language-features,vscode.markdown-math,vscode.merge-conflict,vscode.mermaid-markdown-features,vscode.microsoft-authentication,ms-vscode.js-debug,ms-vscode.js-debug-companion,ms-vscode.vscode-js-profile-table,vscode.builtin-notebook-renderers,vscode.npm,vscode.objective-c,vscode.perl,vscode.php,vscode.php-language-features,vscode.powershell,vscode.prompt,vscode.pug,vscode.python,vscode.r,vscode.razor,vscode.references-view,vscode.restructuredtext,vscode.ruby,vscode.rust,vscode.scss,vscode.search-result,vscode.shaderlab,vscode.shellscript,vscode.simple-browser,vscode.sql,vscode.swift,vscode.terminal-suggest,vscode.theme-abyss,vscode.theme-defaults,vscode.theme-kimbie-dark,vscode.vscode-modern-icons,vscode.theme-monokai,vscode.theme-monokai-dimmed,vscode.theme-quietlight,vscode.theme-red,vscode.vscode-theme-seti,vscode.theme-solarized-dark,vscode.theme-solarized-light,vscode.theme-tomorrow-night-blue,vscode.tunnel-forwarding,vscode.typescript,vscode.typescript-language-features,vscode.vb,vscode.xml,vscode.yaml,GaetanSemet.markdown-okf-schema-studio
+2026-10-28T18:24:55.1013453Z filterEnabledExtensions: extension 'GitHub.copilot-chat' is disabled
+2026-10-28T18:24:55.1051341Z NativeExtensionHostFactory._createLocalProcessExtensionHostDataProvider.localExtensions: GaetanSemet.markdown-okf-schema-studio,TypeScriptTeam.jsts-chat-features,vscode.bat,vscode.clojure,vscode.coffeescript,vscode.configuration-editing,vscode.cpp,vscode.csharp,vscode.css,vscode.css-language-features,vscode.dart,vscode.debug-auto-launch,vscode.debug-server-ready,vscode.diff,vscode.docker,vscode.dotenv,vscode.emmet,vscode.extension-editing,vscode.fsharp,vscode.git,vscode.git-base,vscode.github,vscode.github-authentication,vscode.go,vscode.groovy,vscode.grunt,vscode.gulp,vscode.handlebars,vscode.hlsl,vscode.html,vscode.html-language-features,vscode.ini,vscode.ipynb,vscode.jake,vscode.java,vscode.javascript,vscode.json,vscode.json-language-features,vscode.julia,vscode.latex,vscode.less,vscode.log,vscode.lua,vscode.make,vscode.markdown,vscode.markdown-language-features,vscode.markdown-math,vscode.merge-conflict,vscode.mermaid-markdown-features,vscode.microsoft-authentication,ms-vscode.js-debug,ms-vscode.js-debug-companion,ms-vscode.vscode-js-profile-table,vscode.builtin-notebook-renderers,vscode.npm,vscode.objective-c,vscode.perl,vscode.php,vscode.php-language-features,vscode.powershell,vscode.prompt,vscode.pug,vscode.python,vscode.r,vscode.razor,vscode.references-view,vscode.restructuredtext,vscode.ruby,vscode.rust,vscode.scss,vscode.search-result,vscode.shaderlab,vscode.shellscript,vscode.simple-browser,vscode.sql,vscode.swift,vscode.terminal-suggest,vscode.theme-abyss,vscode.theme-defaults,vscode.theme-kimbie-dark,vscode.vscode-modern-icons,vscode.theme-monokai,vscode.theme-monokai-dimmed,vscode.theme-quietlight,vscode.theme-red,vscode.vscode-theme-seti,vscode.theme-solarized-dark,vscode.theme-solarized-light,vscode.theme-tomorrow-night-blue,vscode.tunnel-forwarding,vscode.typescript,vscode.typescript-language-features,vscode.vb,vscode.xml,vscode.yaml
+2026-10-28T18:24:55.1144097Z NativeExtensionHostFactory._createLocalProcessExtensionHostDataProvider.myExtensions: GaetanSemet.markdown-okf-schema-studio,TypeScriptTeam.jsts-chat-features,vscode.bat,vscode.clojure,vscode.coffeescript,vscode.configuration-editing,vscode.cpp,vscode.csharp,vscode.css,vscode.css-language-features,vscode.dart,vscode.debug-auto-launch,vscode.debug-server-ready,vscode.diff,vscode.docker,vscode.dotenv,vscode.emmet,vscode.extension-editing,vscode.fsharp,vscode.git,vscode.git-base,vscode.github,vscode.github-authentication,vscode.go,vscode.groovy,vscode.grunt,vscode.gulp,vscode.handlebars,vscode.hlsl,vscode.html,vscode.html-language-features,vscode.ini,vscode.ipynb,vscode.jake,vscode.java,vscode.javascript,vscode.json,vscode.json-language-features,vscode.julia,vscode.latex,vscode.less,vscode.log,vscode.lua,vscode.make,vscode.markdown,vscode.markdown-language-features,vscode.markdown-math,vscode.merge-conflict,vscode.mermaid-markdown-features,vscode.microsoft-authentication,ms-vscode.js-debug,ms-vscode.js-debug-companion,ms-vscode.vscode-js-profile-table,vscode.builtin-notebook-renderers,vscode.npm,vscode.objective-c,vscode.perl,vscode.php,vscode.php-language-features,vscode.powershell,vscode.prompt,vscode.pug,vscode.python,vscode.r,vscode.razor,vscode.references-view,vscode.restructuredtext,vscode.ruby,vscode.rust,vscode.scss,vscode.search-result,vscode.shaderlab,vscode.shellscript,vscode.simple-browser,vscode.sql,vscode.swift,vscode.terminal-suggest,vscode.theme-abyss,vscode.theme-defaults,vscode.theme-kimbie-dark,vscode.vscode-modern-icons,vscode.theme-monokai,vscode.theme-monokai-dimmed,vscode.theme-quietlight,vscode.theme-red,vscode.vscode-theme-seti,vscode.theme-solarized-dark,vscode.theme-solarized-light,vscode.theme-tomorrow-night-blue,vscode.tunnel-forwarding,vscode.typescript,vscode.typescript-language-features,vscode.vb,vscode.xml,vscode.yaml
+2026-10-28T18:24:55.1191507Z filterEnabledExtensions: extension 'GitHub.copilot-chat' is disabled
+2026-10-28T18:24:55.4648362Z Unknown channel: agentHostClientByokLm
+2026-10-28T18:24:55.4696589Z Unknown channel: agentHostClientProxy
+2026-10-28T18:24:55.6335606Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:55.7014729Z [AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+2026-10-28T18:24:55.8164627Z Unknown channel: agentHostClientProxy
+2026-10-28T18:24:55.9407263Z [RemoteAgentHost] Reconciling: desired=[], current=[]
+2026-10-28T18:24:55.9567825Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:55.9978777Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:56.0439192Z Settings Sync: Account status changed from uninitialized to unavailable
+2026-10-28T18:24:56.0646461Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:56.3302081Z (node:4217) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-28T18:24:56.3331529Z (Use `exe --trace-deprecation ...` to show where the warning was created)
+2026-10-28T18:24:56.3334121Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3362091Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3384973Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3422004Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3434572Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3447024Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3448458Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3449415Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3450740Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3451809Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3453010Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3454074Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3454977Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3455932Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3456845Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3457812Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3458731Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3459785Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3460807Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3461638Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3462564Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3463396Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3464424Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3465479Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3476545Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3477598Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3478658Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3479643Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3480933Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3482352Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3483363Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3484293Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.3485704Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.4642042Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4674534Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4675741Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4677087Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4677923Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4678975Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4680025Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4681039Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4681897Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4682843Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4683746Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4684748Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4685662Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4686566Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4687485Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4688356Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4689185Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4692923Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4694048Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4695031Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4695891Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4705466Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4711133Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4796987Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4800030Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4853131Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4860903Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4892173Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4893455Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4895409Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4896728Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4897825Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.4898946Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.5930873Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5951010Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5977294Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5982247Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5985603Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5986707Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5987722Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5988975Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5990193Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5991225Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5992230Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5993537Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5994605Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5995653Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5996666Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5997660Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5998600Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.5999617Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6000784Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6001806Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6002971Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6004027Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6005056Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6422810Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6466189Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6467541Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6469055Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6471103Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6472232Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6473413Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6474792Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6475899Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6477315Z [AgentHost] No signed-in session resolved for resource: https://api.github.com
+2026-10-28T18:24:56.6691720Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6726106Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6727577Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6739307Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6740685Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6742060Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6743240Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6744321Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6745380Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6746491Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6747339Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6748582Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6749530Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6750628Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6751407Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6752151Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6752995Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6753784Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6754891Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6755958Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6757213Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6758282Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6759382Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.6762032Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:56.7155366Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.7163924Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.7186809Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.7221127Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.7251276Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.7260273Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.7286570Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.7306412Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.7307410Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:56.7308810Z [AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+2026-10-28T18:24:57.0053091Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:57.4971532Z Unknown channel: agentHostClientProxy
+2026-10-28T18:24:57.5987478Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:57.8110162Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:58.5592597Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:59.7814110Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:24:59.9306404Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:00.0782555Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:00.2902409Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:00.4623931Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:00.6122382Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:00.7001853Z [AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+2026-10-28T18:25:02.4672853Z {"stockPreview":"pass","stockSettingsUnchanged":"pass","stockCommands":"pass","nativeTextDiff":"pass","stockRenderedDiffRegistration":"pass","coexistence":"pass"}
+2026-10-28T18:25:02.6583054Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:02.9332451Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:03.2750229Z [3934:1028/182503.274632:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:03.2751388Z [3934:1028/182503.274661:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:03.2752438Z [3934:1028/182503.274682:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:03.2753513Z [3934:1028/182503.274691:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:03.3437106Z PASS checkbox screenshot: gfm/r01-task-reading-unchecked
+2026-10-28T18:25:03.5140239Z [3934:1028/182503.513665:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:03.5141399Z [3934:1028/182503.513703:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:03.5142877Z [3934:1028/182503.513735:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:03.5143924Z [3934:1028/182503.513760:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:03.5748672Z PASS checkbox screenshot: gfm/r02-task-reading-checked
+2026-10-28T18:25:03.6859076Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:03.8316388Z [3934:1028/182503.831310:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:03.8317559Z [3934:1028/182503.831343:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:03.8318755Z [3934:1028/182503.831371:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:03.8319944Z [3934:1028/182503.831398:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:03.8974208Z PASS checkbox screenshot: gfm/r03-task-edit-unchecked
+2026-10-28T18:25:04.0312933Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:04.0801616Z [3934:1028/182504.079787:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:04.0802727Z [3934:1028/182504.079816:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:04.0803887Z [3934:1028/182504.079914:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:04.0804953Z [3934:1028/182504.079945:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:04.1404013Z PASS checkbox screenshot: gfm/r04-task-edit-checked
+2026-10-28T18:25:04.3188611Z [3934:1028/182504.317430:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:04.3193805Z [3934:1028/182504.318398:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:04.3198561Z [3934:1028/182504.319047:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:04.3200697Z [3934:1028/182504.319085:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:04.3580431Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:04.6960632Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:05.4072394Z empty-column measure: {"header":323.375,"headerCell":323.375,"bodyCells":[323.375,323.375,323.375,323.375,323.375,323.375],"fontSize":14,"editor":{"left":458.984375,"right":758.984375},"cell":{"left":447.296875,"right":770.671875},"overflow":"visible"}
+2026-10-28T18:25:05.4911415Z [3934:1028/182505.490787:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:05.4912639Z [3934:1028/182505.490829:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:05.4913722Z [3934:1028/182505.490857:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:05.4914772Z [3934:1028/182505.490875:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:05.6903238Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:05.7534238Z [3934:1028/182505.753044:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:05.7536488Z [3934:1028/182505.753074:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:05.7542539Z [3934:1028/182505.753265:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:05.7544445Z [3934:1028/182505.753746:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:06.0996890Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:07.4754112Z toolbar-cover text area (block at 60): {"palette":{"top":190,"bottom":356,"height":166},"frame":{"top":359.453125,"bottom":649.828125},"textarea":{"top":366.453125},"dialog":null,"toolbar":{"top":12,"bottom":178,"left":290},"scrollY":750,"viewport":{"width":421,"height":799}}
+2026-10-28T18:25:09.0075601Z [3934:1028/182509.007164:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:09.0076730Z [3934:1028/182509.007222:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:09.0077928Z [3934:1028/182509.007264:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:09.0079041Z [3934:1028/182509.007275:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:09.1196766Z toolbar-cover figure form (block at 60): {"palette":{"top":190,"bottom":356,"height":166},"frame":{"top":359.5625,"bottom":1075.78125},"textarea":{"top":529.84375},"dialog":{"top":366.5625},"toolbar":{"top":12,"bottom":178,"left":290},"scrollY":541,"viewport":{"width":421,"height":799}}
+2026-10-28T18:25:11.0114517Z toolbar-cover text area (block at 140): {"palette":{"top":190,"bottom":356,"height":166},"frame":{"top":359.453125,"bottom":649.828125},"textarea":{"top":366.453125},"dialog":null,"toolbar":{"top":12,"bottom":178,"left":290},"scrollY":750,"viewport":{"width":421,"height":799}}
+2026-10-28T18:25:12.5211470Z toolbar-cover figure form (block at 140): {"palette":{"top":190,"bottom":356,"height":166},"frame":{"top":359.5625,"bottom":1075.78125},"textarea":{"top":529.84375},"dialog":{"top":366.5625},"toolbar":{"top":12,"bottom":178,"left":290},"scrollY":541,"viewport":{"width":421,"height":799}}
+2026-10-28T18:25:13.5032313Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:13.6757480Z [3934:1028/182513.675181:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:13.6766328Z [3934:1028/182513.676012:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:13.6774222Z [3934:1028/182513.676807:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:13.6776524Z [3934:1028/182513.676897:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:14.0827833Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:15.4951289Z tall-block-scroll opened: {"scrollY":537,"paletteTop":190,"paletteBottom":292,"stuckAt":190,"readingTop":30.59375,"controlsBottomOverButtons":178,"buttonsTop":194,"frameTop":-112.46875,"frameBottom":3303.53125,"viewportHeight":699}
+2026-10-28T18:25:19.2259990Z tall-block-scroll layout width: 1960
+2026-10-28T18:25:20.1146310Z tall-block-scroll tall block step 1: {"scrollY":853,"paletteTop":35,"paletteBottom":105,"stuckAt":35,"readingTop":30.59375,"controlsBottomOverButtons":null,"buttonsTop":39,"frameTop":-460.46875,"frameBottom":1291.53125,"viewportHeight":699}
+2026-10-28T18:25:20.3772436Z tall-block-scroll tall block step 2: {"scrollY":973,"paletteTop":35,"paletteBottom":105,"stuckAt":35,"readingTop":30.59375,"controlsBottomOverButtons":null,"buttonsTop":39,"frameTop":-580.46875,"frameBottom":1171.53125,"viewportHeight":699}
+2026-10-28T18:25:20.6397605Z tall-block-scroll tall block step 3: {"scrollY":1093,"paletteTop":35,"paletteBottom":105,"stuckAt":35,"readingTop":30.59375,"controlsBottomOverButtons":null,"buttonsTop":39,"frameTop":-700.46875,"frameBottom":1051.53125,"viewportHeight":699}
+2026-10-28T18:25:20.9016323Z tall-block-scroll tall block step 4: {"scrollY":1213,"paletteTop":35,"paletteBottom":105,"stuckAt":35,"readingTop":30.59375,"controlsBottomOverButtons":null,"buttonsTop":39,"frameTop":-820.46875,"frameBottom":931.53125,"viewportHeight":699}
+2026-10-28T18:25:21.1652878Z tall-block-scroll tall block step 5: {"scrollY":1333,"paletteTop":35,"paletteBottom":105,"stuckAt":35,"readingTop":30.59375,"controlsBottomOverButtons":null,"buttonsTop":39,"frameTop":-940.46875,"frameBottom":811.53125,"viewportHeight":699}
+2026-10-28T18:25:21.4284036Z tall-block-scroll tall block step 6: {"scrollY":1453,"paletteTop":35,"paletteBottom":105,"stuckAt":35,"readingTop":30.59375,"controlsBottomOverButtons":null,"buttonsTop":39,"frameTop":-1060.46875,"frameBottom":691.53125,"viewportHeight":699}
+2026-10-28T18:25:21.6898621Z tall-block-scroll tall block step 7: {"scrollY":1573,"paletteTop":35,"paletteBottom":105,"stuckAt":35,"readingTop":30.59375,"controlsBottomOverButtons":null,"buttonsTop":39,"frameTop":-1180.46875,"frameBottom":571.53125,"viewportHeight":699}
+2026-10-28T18:25:21.9534290Z tall-block-scroll tall block step 8: {"scrollY":1693,"paletteTop":35,"paletteBottom":105,"stuckAt":35,"readingTop":30.59375,"controlsBottomOverButtons":null,"buttonsTop":39,"frameTop":-1300.46875,"frameBottom":451.53125,"viewportHeight":699}
+2026-10-28T18:25:22.2311967Z tall-block-scroll tall block step 9: {"scrollY":1813,"paletteTop":35,"paletteBottom":105,"stuckAt":35,"readingTop":30.59375,"controlsBottomOverButtons":null,"buttonsTop":39,"frameTop":-1420.46875,"frameBottom":331.53125,"viewportHeight":699}
+2026-10-28T18:25:22.4937260Z tall-block-scroll tall block step 10: {"scrollY":1933,"paletteTop":35,"paletteBottom":105,"stuckAt":35,"readingTop":30.59375,"controlsBottomOverButtons":null,"buttonsTop":39,"frameTop":-1540.46875,"frameBottom":211.53125,"viewportHeight":699}
+2026-10-28T18:25:22.7568809Z tall-block-scroll tall block step 11: {"scrollY":2053,"paletteTop":18.53125,"paletteBottom":88.53125,"stuckAt":35,"readingTop":30.59375,"controlsBottomOverButtons":null,"buttonsTop":22.53125,"frameTop":-1660.46875,"frameBottom":91.53125,"viewportHeight":699}
+2026-10-28T18:25:23.0305255Z tall-block-scroll tall block step 12: {"scrollY":2173,"paletteTop":-101.46875,"paletteBottom":-31.46875,"stuckAt":35,"readingTop":30.59375,"controlsBottomOverButtons":null,"buttonsTop":-97.46875,"frameTop":-1780.46875,"frameBottom":-28.46875,"viewportHeight":699}
+2026-10-28T18:25:23.6183423Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:24.2831251Z tall-block-scroll after paste: {"scrollY":5052,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-4907,"frameBottom":734,"caret":{"top":673.559375,"bottom":694.359375},"viewportHeight":699}
+2026-10-28T18:25:26.2984407Z [3934:1028/182526.298073:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:26.2985545Z [3934:1028/182526.298115:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:26.2986951Z [3934:1028/182526.298145:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:26.2988069Z [3934:1028/182526.298170:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:27.5402066Z tall-block-scroll pasted text step 1: {"scrollY":120,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":25,"frameBottom":5666,"viewportHeight":699}
+2026-10-28T18:25:27.8030259Z tall-block-scroll pasted text step 2: {"scrollY":240,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-95,"frameBottom":5546,"viewportHeight":699}
+2026-10-28T18:25:28.0658816Z tall-block-scroll pasted text step 3: {"scrollY":360,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-215,"frameBottom":5426,"viewportHeight":699}
+2026-10-28T18:25:28.3290809Z tall-block-scroll pasted text step 4: {"scrollY":480,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-335,"frameBottom":5306,"viewportHeight":699}
+2026-10-28T18:25:28.5935899Z tall-block-scroll pasted text step 5: {"scrollY":600,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-455,"frameBottom":5186,"viewportHeight":699}
+2026-10-28T18:25:28.8574677Z tall-block-scroll pasted text step 6: {"scrollY":720,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-575,"frameBottom":5066,"viewportHeight":699}
+2026-10-28T18:25:29.1364007Z tall-block-scroll pasted text step 7: {"scrollY":840,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-695,"frameBottom":4946,"viewportHeight":699}
+2026-10-28T18:25:29.3988010Z tall-block-scroll pasted text step 8: {"scrollY":960,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-815,"frameBottom":4826,"viewportHeight":699}
+2026-10-28T18:25:29.6631963Z tall-block-scroll pasted text step 9: {"scrollY":1080,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-935,"frameBottom":4706,"viewportHeight":699}
+2026-10-28T18:25:29.9260789Z tall-block-scroll pasted text step 10: {"scrollY":1200,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1055,"frameBottom":4586,"viewportHeight":699}
+2026-10-28T18:25:30.1893087Z tall-block-scroll pasted text step 11: {"scrollY":1320,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1175,"frameBottom":4466,"viewportHeight":699}
+2026-10-28T18:25:30.4519343Z tall-block-scroll pasted text step 12: {"scrollY":1440,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1295,"frameBottom":4346,"viewportHeight":699}
+2026-10-28T18:25:30.7143251Z tall-block-scroll pasted text step 13: {"scrollY":1560,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1415,"frameBottom":4226,"viewportHeight":699}
+2026-10-28T18:25:30.9770820Z tall-block-scroll pasted text step 14: {"scrollY":1680,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1535,"frameBottom":4106,"viewportHeight":699}
+2026-10-28T18:25:31.2419134Z tall-block-scroll pasted text step 15: {"scrollY":1800,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1655,"frameBottom":3986,"viewportHeight":699}
+2026-10-28T18:25:31.5057386Z tall-block-scroll pasted text step 16: {"scrollY":1920,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1775,"frameBottom":3866,"viewportHeight":699}
+2026-10-28T18:25:32.0948539Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:32.1492411Z [main 2026-10-28T18:25:32.146Z] CodeWindow: failed to load (reason: <unknown>, code: -3)
+2026-10-28T18:25:33.5949566Z tall-block-scroll opened: {"scrollY":537,"paletteTop":190,"paletteBottom":292,"stuckAt":190,"readingTop":30.59375,"controlsBottomOverButtons":178,"buttonsTop":194,"frameTop":-112.46875,"frameBottom":3303.53125,"viewportHeight":699}
+2026-10-28T18:25:35.9743857Z [3934:1028/182535.973962:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:35.9745469Z [3934:1028/182535.974039:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:35.9746537Z [3934:1028/182535.974070:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:35.9747697Z [3934:1028/182535.974095:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:36.7049452Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:37.3676211Z tall-block-scroll after paste: {"scrollY":5052,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-4907,"frameBottom":734,"caret":{"top":673.559375,"bottom":694.359375},"viewportHeight":699}
+2026-10-28T18:25:39.3825106Z [3934:1028/182539.382137:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:39.3826335Z [3934:1028/182539.382168:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:39.3827492Z [3934:1028/182539.382189:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:39.3828675Z [3934:1028/182539.382197:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:40.6234773Z tall-block-scroll pasted text step 1: {"scrollY":120,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":25,"frameBottom":5666,"viewportHeight":699}
+2026-10-28T18:25:40.8854916Z tall-block-scroll pasted text step 2: {"scrollY":240,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-95,"frameBottom":5546,"viewportHeight":699}
+2026-10-28T18:25:41.1483915Z tall-block-scroll pasted text step 3: {"scrollY":360,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-215,"frameBottom":5426,"viewportHeight":699}
+2026-10-28T18:25:41.4097126Z tall-block-scroll pasted text step 4: {"scrollY":480,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-335,"frameBottom":5306,"viewportHeight":699}
+2026-10-28T18:25:41.6729146Z tall-block-scroll pasted text step 5: {"scrollY":600,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-455,"frameBottom":5186,"viewportHeight":699}
+2026-10-28T18:25:41.9361818Z tall-block-scroll pasted text step 6: {"scrollY":720,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-575,"frameBottom":5066,"viewportHeight":699}
+2026-10-28T18:25:42.2184430Z tall-block-scroll pasted text step 7: {"scrollY":840,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-695,"frameBottom":4946,"viewportHeight":699}
+2026-10-28T18:25:42.4855100Z tall-block-scroll pasted text step 8: {"scrollY":960,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-815,"frameBottom":4826,"viewportHeight":699}
+2026-10-28T18:25:42.7704513Z tall-block-scroll pasted text step 9: {"scrollY":1080,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-935,"frameBottom":4706,"viewportHeight":699}
+2026-10-28T18:25:43.0332310Z tall-block-scroll pasted text step 10: {"scrollY":1200,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1055,"frameBottom":4586,"viewportHeight":699}
+2026-10-28T18:25:43.2996978Z tall-block-scroll pasted text step 11: {"scrollY":1320,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1175,"frameBottom":4466,"viewportHeight":699}
+2026-10-28T18:25:43.5626853Z tall-block-scroll pasted text step 12: {"scrollY":1440,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1295,"frameBottom":4346,"viewportHeight":699}
+2026-10-28T18:25:43.8254314Z tall-block-scroll pasted text step 13: {"scrollY":1560,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1415,"frameBottom":4226,"viewportHeight":699}
+2026-10-28T18:25:44.0881245Z tall-block-scroll pasted text step 14: {"scrollY":1680,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1535,"frameBottom":4106,"viewportHeight":699}
+2026-10-28T18:25:44.3509196Z tall-block-scroll pasted text step 15: {"scrollY":1800,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1655,"frameBottom":3986,"viewportHeight":699}
+2026-10-28T18:25:44.6146595Z tall-block-scroll pasted text step 16: {"scrollY":1920,"paletteTop":4,"paletteBottom":106,"stuckAt":4,"readingTop":0,"controlsBottomOverButtons":null,"buttonsTop":8,"frameTop":-1775,"frameBottom":3866,"viewportHeight":699}
+2026-10-28T18:25:45.1863153Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:45.2528152Z [main 2026-10-28T18:25:45.249Z] CodeWindow: failed to load (reason: <unknown>, code: -3)
+2026-10-28T18:25:46.6656116Z tall-block-scroll opened: {"scrollY":537,"paletteTop":190,"paletteBottom":292,"stuckAt":190,"readingTop":30.59375,"controlsBottomOverButtons":178,"buttonsTop":194,"frameTop":-112.46875,"frameBottom":3303.53125,"viewportHeight":699}
+2026-10-28T18:25:49.0165377Z [3934:1028/182549.016177:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:49.0167471Z [3934:1028/182549.016238:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:49.0168763Z [3934:1028/182549.016271:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:49.0170239Z [3934:1028/182549.016281:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:49.7197065Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:50.1066717Z [3934:1028/182550.106021:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:50.1068615Z [3934:1028/182550.106123:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:50.1071182Z [3934:1028/182550.106207:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:50.1073039Z [3934:1028/182550.106222:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:50.4749605Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:51.1350445Z [3934:1028/182551.134660:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:51.1352499Z [3934:1028/182551.134727:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:51.1354469Z [3934:1028/182551.134755:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:51.1356131Z [3934:1028/182551.134765:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:51.1952590Z block-actions cream: {"afterKeys":{"selectedBar":1,"hoveredBar":0,"ring":true},"afterMouse":{"selectedBar":0,"hoveredBar":1,"ring":false}} keys: owner=keyboard hover=P:Deuxieme paragraphe.; mouse: owner=pointer hover=P:Deuxieme paragraphe.; after shot: owner=pointer hover=none
+2026-10-28T18:25:51.3530253Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:51.4154541Z [main 2026-10-28T18:25:51.414Z] CodeWindow: failed to load (reason: <unknown>, code: -3)
+2026-10-28T18:25:51.8884692Z [3934:1028/182551.888128:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:51.8886321Z [3934:1028/182551.888312:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:51.8888333Z [3934:1028/182551.888619:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:51.8890278Z [3934:1028/182551.888876:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:52.0007664Z [3934:1028/182552.000305:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:52.0009622Z [3934:1028/182552.000406:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:52.0011540Z [3934:1028/182552.000431:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:52.0013297Z [3934:1028/182552.000463:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:52.0782761Z block-actions dark: {"afterKeys":{"selectedBar":1,"hoveredBar":0,"ring":true},"afterMouse":{"selectedBar":0,"hoveredBar":1,"ring":false}} keys: owner=keyboard hover=P:Deuxieme paragraphe.; mouse: owner=pointer hover=P:Deuxieme paragraphe.; after shot: owner=pointer hover=none
+2026-10-28T18:25:52.2141143Z [3934:1028/182552.213711:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:52.2144326Z [3934:1028/182552.213839:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:52.2152853Z [3934:1028/182552.213908:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:52.2154770Z [3934:1028/182552.214103:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:52.2515811Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:52.5577935Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:53.5231435Z [3934:1028/182553.522724:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:53.5232742Z [3934:1028/182553.522773:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:53.5233876Z [3934:1028/182553.522796:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-10-28T18:25:53.5234947Z [3934:1028/182553.522809:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-10-28T18:25:53.8446044Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:25:54.0109106Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:26:24.4755696Z [ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YjBmZWE0MWEtMWUzMC00YzhiLWJiNTktMDdkNmY4MjAxOTQ4" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+2026-10-28T18:26:24.4765903Z locator.click: Timeout 30000ms exceeded.
+2026-10-28T18:26:24.4766731Z Call log:
+2026-10-28T18:26:24.4767504Z   - waiting for locator('[data-find-toggle-replace]')
+2026-10-28T18:26:24.4769334Z     - locator resolved to <button type="button" aria-disabled="true" aria-expanded="false" data-find-toggle-replace="" aria-label="Toggle replace" title="Save or cancel the open edit before replacing.">…</button>
+2026-10-28T18:26:24.4771989Z   - attempting click action
+2026-10-28T18:26:24.4772943Z     2 × waiting for element to be visible, enabled and stable
+2026-10-28T18:26:24.4773649Z       - element is not enabled
+2026-10-28T18:26:24.4774269Z     - retrying click action
+2026-10-28T18:26:24.4774767Z     - waiting 20ms
+2026-10-28T18:26:24.4778897Z     2 × waiting for element to be visible, enabled and stable
+2026-10-28T18:26:24.4779402Z       - element is not enabled
+2026-10-28T18:26:24.4780085Z     - retrying click action
+2026-10-28T18:26:24.4815769Z       - waiting 100ms
+2026-10-28T18:26:24.4816812Z     58 × waiting for element to be visible, enabled and stable
+2026-10-28T18:26:24.4840744Z        - element is not enabled
+2026-10-28T18:26:24.4841528Z      - retrying click action
+2026-10-28T18:26:24.4842229Z        - waiting 500ms
+2026-10-28T18:26:24.4860916Z 
+2026-10-28T18:26:24.4891213Z     at run (/home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/out/test/integration/findInPreview.test.js:228:77)
+2026-10-28T18:26:24.4901248Z     at async Object.run (/home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/out/test/integration/trusted-suite.js:188:9)
+2026-10-28T18:26:24.4932389Z Extension host test runner error locator.click: Timeout 30000ms exceeded.
+2026-10-28T18:26:24.4933652Z Call log:
+2026-10-28T18:26:24.4939575Z Asking native host service to exit with code 1.
+2026-10-28T18:26:24.4964002Z   - waiting for locator('[data-find-toggle-replace]')
+2026-10-28T18:26:24.4978299Z     - locator resolved to <button type="button" aria-disabled="true" aria-expanded="false" data-find-toggle-replace="" aria-label="Toggle replace" title="Save or cancel the open edit before replacing.">…</button>
+2026-10-28T18:26:24.4993524Z [main 2026-10-28T18:26:24.499Z] Extension host with pid 4217 exited with code: 0, signal: unknown.
+2026-10-28T18:26:24.5006214Z   - attempting click action
+2026-10-28T18:26:24.5006962Z     2 × waiting for element to be visible, enabled and stable
+2026-10-28T18:26:24.5007568Z       - element is not enabled
+2026-10-28T18:26:24.5008005Z     - retrying click action
+2026-10-28T18:26:24.5008358Z     - waiting 20ms
+2026-10-28T18:26:24.5008846Z     2 × waiting for element to be visible, enabled and stable
+2026-10-28T18:26:24.5009256Z       - element is not enabled
+2026-10-28T18:26:24.5009882Z     - retrying click action
+2026-10-28T18:26:24.5010221Z       - waiting 100ms
+2026-10-28T18:26:24.5010753Z     58 × waiting for element to be visible, enabled and stable
+2026-10-28T18:26:24.5011289Z        - element is not enabled
+2026-10-28T18:26:24.5011717Z      - retrying click action
+2026-10-28T18:26:24.5012081Z        - waiting 500ms
+2026-10-28T18:26:24.5012295Z 
+2026-10-28T18:26:24.5012805Z     at run (/home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/out/test/integration/findInPreview.test.js:228:77)
+2026-10-28T18:26:24.5013693Z     at async Object.run (/home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/out/test/integration/trusted-suite.js:188:9)
+2026-10-28T18:26:24.5720762Z Exit code:   1
+2026-10-28T18:26:24.5742475Z TestRunFailedError: Test run failed with code 1
+2026-10-28T18:26:24.5743360Z     at ChildProcess.onProcessClosed (/home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio/node_modules/@vscode/test-electron/out/runTest.js:125:24)
+2026-10-28T18:26:24.5744276Z     at ChildProcess.emit (node:events:514:28)
+2026-10-28T18:26:24.5744722Z     at ChildProcess._handle.onexit (node:internal/child_process:295:12) {
+2026-10-28T18:26:24.5745185Z   code: 1,
+2026-10-28T18:26:24.5745455Z   signal: undefined
+2026-10-28T18:26:24.5745784Z }
+2026-10-28T18:26:24.5926749Z ci-integration: FAILED
+2026-10-28T18:26:24.5931425Z error: recipe `ci-integration` failed with exit code 1
+2026-10-28T18:26:24.5964600Z ##[error]Process completed with exit code 1.
+2026-10-28T18:26:24.6026216Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-28T18:26:24.6026671Z with:
+2026-10-28T18:26:24.6026948Z   name: e2e-integration
+2026-10-28T18:26:24.6027269Z   path: out/reports/
+2026-10-28T18:26:24.6027579Z   if-no-files-found: warn
+2026-10-28T18:26:24.6027865Z   compression-level: 6
+2026-10-28T18:26:24.6028181Z   overwrite: false
+2026-10-28T18:26:24.6028476Z   include-hidden-files: false
+2026-10-28T18:26:24.6028799Z env:
+2026-10-28T18:26:24.6029129Z   STUDIO_NPM: npm --registry=https://registry.npmjs.org/
+2026-10-28T18:26:24.6029498Z   STUDIO_E2E_RUN_ID: 40744401718
+2026-10-28T18:26:24.6030189Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-28T18:26:24.6030551Z ##[endgroup]
+2026-10-28T18:26:24.7437862Z (node:4820) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-28T18:26:24.7438653Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-28T18:26:24.7601214Z With the provided path, there will be 59 files uploaded
+2026-10-28T18:26:24.7605721Z Artifact name is valid!
+2026-10-28T18:26:24.7606410Z Root directory input is valid!
+2026-10-28T18:26:25.0474287Z Beginning upload of artifact content to blob storage
+2026-10-28T18:26:25.2123500Z (node:4820) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-28T18:26:25.6582392Z Uploaded bytes 3532608
+2026-10-28T18:26:25.7006858Z Finished uploading artifact content to blob storage!
+2026-10-28T18:26:25.7008237Z SHA256 digest of uploaded artifact zip is 9a272c794bee149a453531894f0301c0791a6a443fde10c33d848dfbc51a15cc
+2026-10-28T18:26:25.7009150Z Finalizing artifact upload
+2026-10-28T18:26:26.1751220Z Artifact e2e-integration.zip successfully finalized. Artifact ID 12841970342
+2026-10-28T18:26:26.1752557Z Artifact e2e-integration has been successfully uploaded! Final size is 3532608 bytes. Artifact ID is 12841970342
+2026-10-28T18:26:26.1754059Z Artifact download URL: https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/40744401718/artifacts/12841970342
+2026-10-28T18:26:26.1951395Z Post job cleanup.
+2026-10-28T18:26:26.2663299Z [command]/usr/bin/git version
+2026-10-28T18:26:26.2703365Z git version 2.55.0
+2026-10-28T18:26:26.2738721Z Temporarily overriding HOME='/home/runner/work/_temp/7350a1dc-13ec-4215-b2e8-af784a578dbc' before making global git config changes
+2026-10-28T18:26:26.2740062Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-28T18:26:26.2744267Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/markdown-okf-schema-studio/markdown-okf-schema-studio
+2026-10-28T18:26:26.2778920Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-28T18:26:26.2808113Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-28T18:26:26.3050457Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-28T18:26:26.3071650Z http.https://github.com/.extraheader
+2026-10-28T18:26:26.3079023Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-28T18:26:26.3107375Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-28T18:26:26.3321653Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-28T18:26:26.3349450Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-28T18:26:26.3663500Z Cleaning up orphan processes
+2026-10-28T18:26:26.3932516Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02, astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86, extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -1,0 +1,1 @@
+In step 8 of the release procedure, say that an empty list of closed issues ends the step with one line in report.md and needs no owner approval. From the v1.7.1 retro: a release that closes no issue still read as if it needed a step 8 approval.

@@ -1,0 +1,90 @@
+{
+  "name": "UX-11-edited-block-stays-put",
+  "file": "fixtures-visual/04-code-and-tables.md",
+  "steps": [
+    {
+      "mark": true
+    },
+    {
+      "eval": "(()=>{const li=[...D.querySelectorAll('li')].find(l=>l.textContent.trim()==='Dry goods');const ed=D.querySelector('[data-sphinx-preview-block-editor]');const ded=[...D.querySelectorAll('li')].find(l=>l.textContent.trim()==='Deduplication');return JSON.stringify({scrollY:Math.round(W.scrollY),dryTop:li?Math.round(li.getBoundingClientRect().top):null,editorTop:ed?Math.round(ed.getBoundingClientRect().top):null,dedupTop:ded?Math.round(ded.getBoundingClientRect().top):null})})()"
+    },
+    {
+      "click": [
+        939,
+        612
+      ]
+    },
+    {
+      "waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')",
+      "label": "block editor open"
+    },
+    {
+      "eval": "(()=>{const li=[...D.querySelectorAll('li')].find(l=>l.textContent.trim()==='Dry goods');const ed=D.querySelector('[data-sphinx-preview-block-editor]');const ded=[...D.querySelectorAll('li')].find(l=>l.textContent.trim()==='Deduplication');return JSON.stringify({scrollY:Math.round(W.scrollY),dryTop:li?Math.round(li.getBoundingClientRect().top):null,editorTop:ed?Math.round(ed.getBoundingClientRect().top):null,dedupTop:ded?Math.round(ded.getBoundingClientRect().top):null})})()"
+    },
+    {
+      "key": "Meta+ArrowDown"
+    },
+    {
+      "key": "Enter"
+    },
+    {
+      "type": "Frozen goods",
+      "delay": 40
+    },
+    {
+      "wait": 800
+    },
+    {
+      "eval": "(()=>{const li=[...D.querySelectorAll('li')].find(l=>l.textContent.trim()==='Dry goods');const ed=D.querySelector('[data-sphinx-preview-block-editor]');const ded=[...D.querySelectorAll('li')].find(l=>l.textContent.trim()==='Deduplication');return JSON.stringify({scrollY:Math.round(W.scrollY),dryTop:li?Math.round(li.getBoundingClientRect().top):null,editorTop:ed?Math.round(ed.getBoundingClientRect().top):null,dedupTop:ded?Math.round(ded.getBoundingClientRect().top):null})})()"
+    },
+    {
+      "key": "Meta+Enter",
+      "wait": 2500
+    },
+    {
+      "eval": "(()=>{const li=[...D.querySelectorAll('li')].find(l=>l.textContent.trim()==='Dry goods');const ed=D.querySelector('[data-sphinx-preview-block-editor]');const ded=[...D.querySelectorAll('li')].find(l=>l.textContent.trim()==='Deduplication');return JSON.stringify({scrollY:Math.round(W.scrollY),dryTop:li?Math.round(li.getBoundingClientRect().top):null,editorTop:ed?Math.round(ed.getBoundingClientRect().top):null,dedupTop:ded?Math.round(ded.getBoundingClientRect().top):null})})()"
+    },
+    {
+      "check": "diff",
+      "against": "mark",
+      "maxLines": 1,
+      "contains": "      - Frozen goods",
+      "label": "UX-11 commit applied"
+    },
+    {
+      "click": [
+        939,
+        612
+      ]
+    },
+    {
+      "waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')",
+      "label": "block editor reopened"
+    },
+    {
+      "eval": "(()=>{const li=[...D.querySelectorAll('li')].find(l=>l.textContent.trim()==='Dry goods');const ed=D.querySelector('[data-sphinx-preview-block-editor]');const ded=[...D.querySelectorAll('li')].find(l=>l.textContent.trim()==='Deduplication');return JSON.stringify({scrollY:Math.round(W.scrollY),dryTop:li?Math.round(li.getBoundingClientRect().top):null,editorTop:ed?Math.round(ed.getBoundingClientRect().top):null,dedupTop:ded?Math.round(ded.getBoundingClientRect().top):null})})()"
+    },
+    {
+      "key": "Escape",
+      "wait": 2500
+    },
+    {
+      "eval": "(()=>{const li=[...D.querySelectorAll('li')].find(l=>l.textContent.trim()==='Dry goods');const ed=D.querySelector('[data-sphinx-preview-block-editor]');const ded=[...D.querySelectorAll('li')].find(l=>l.textContent.trim()==='Deduplication');return JSON.stringify({scrollY:Math.round(W.scrollY),dryTop:li?Math.round(li.getBoundingClientRect().top):null,editorTop:ed?Math.round(ed.getBoundingClientRect().top):null,dedupTop:ded?Math.round(ded.getBoundingClientRect().top):null})})()"
+    },
+    {
+      "check": "diff",
+      "against": "mark",
+      "maxLines": 1,
+      "contains": "      - Frozen goods",
+      "label": "UX-11 Escape on an unchanged block leaves the buffer as committed"
+    },
+    {
+      "check": "errors",
+      "ignore": "401"
+    },
+    {
+      "shot": "UX-11-after-escape",
+      "clip": "preview"
+    }
+  ]
+}

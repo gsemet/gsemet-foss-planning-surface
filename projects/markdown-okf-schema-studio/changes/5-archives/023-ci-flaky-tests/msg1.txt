@@ -1,0 +1,9 @@
+test(visual): measure the toolbar clearance only after a rendered frame
+
+The first-gap check compared two layout readings taken 100 ms apart with
+no frame rendered in between. The clearance is updated by a resize
+observer that runs during a frame, so on a busy CI runner two stale equal
+readings ended the wait early and a properties control was reported
+under the toolbar. Each reading now waits for fonts and two frames.
+
+Assisted-by: Claude:Sonnet-5.5

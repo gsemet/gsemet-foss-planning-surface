@@ -1,0 +1,65 @@
+{
+  "name": "UX-30-entry-points",
+  "file": "synth/tables.md",
+  "precondition": "Side preview open (it is closed in the first steps); buffers clean.",
+  "steps": [
+    {
+      "clicksel": "#sphinx-myst-preview-content p",
+      "wait": 600
+    },
+    {
+      "key": "Meta+w",
+      "wait": 1500
+    },
+    {
+      "check": "peval",
+      "expr": "document.querySelectorAll('.editor-group-container').length",
+      "equals": 1,
+      "label": "preview closed"
+    },
+    {
+      "open": "${file}",
+      "wait": 1500
+    },
+    {
+      "check": "peval",
+      "expr": "JSON.stringify([...document.querySelectorAll('.editor-group-container.active .editor-actions .action-label')].map(a => a.getAttribute('aria-label')).filter(l => /Studio/.test(l || '')))",
+      "equals": "[\"Markdown OKF-Schema Studio: Open Preview to Side (⌘K ⇧V)\"]",
+      "label": "UX-30 editor title button"
+    },
+    {
+      "key": [
+        "Meta+k",
+        "Shift+V"
+      ],
+      "gap": 150,
+      "wait": 4000
+    },
+    {
+      "waitFor": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent.includes('Table')",
+      "timeout": 15000,
+      "label": "UX-30 keybinding opened the preview"
+    },
+    {
+      "clicksel": "#sphinx-myst-preview-content p",
+      "wait": 600
+    },
+    {
+      "key": "Meta+w",
+      "wait": 1500
+    },
+    {
+      "check": "peval",
+      "expr": "document.querySelectorAll('.editor-group-container').length",
+      "equals": 1,
+      "label": "preview closed again"
+    },
+    {
+      "key": "Meta+1",
+      "wait": 500
+    },
+    {
+      "check": "errors"
+    }
+  ]
+}

@@ -1,0 +1,2315 @@
+=== level B
+
+> markdown-okf-schema-studio@0.3.1 check-types
+> tsc --noEmit -p .
+
+
+> markdown-okf-schema-studio@0.3.1 test
+> npm run compile && npm run test:unit && npm run test:contracts && npm run test:security
+
+
+> markdown-okf-schema-studio@0.3.1 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.3.1 test:unit
+> mkdir -p out/reports/unit && node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=out/reports/unit/tests-unit.xml out/test/build/*.test.js out/test/configuration/*.test.js out/test/frontmatter/*.test.js out/test/mapping/*.test.js out/test/navigation/*.test.js out/test/rendering/*.test.js out/test/site/*.test.js out/test/state/*.test.js out/test/webview/*.test.js
+
+✔ lets an in-flight build finish and starts the newest queued edit right after (3.290292ms)
+✔ retains a successful result as stale after a failed newer build (0.34575ms)
+✔ still renders a build whose buffer already moved on, and cleans up on dispose (0.2545ms)
+✔ tracks referenced dependencies for refresh decisions (0.268209ms)
+✔ debounces pending edits and cancels them without invoking the builder (0.195833ms)
+✔ cancellation discards late results and permits a fresh build (1.317334ms)
+✔ disposal releases the last result once and rejects future requests (0.4695ms)
+✔ cleanup recipes remove only their owned artifacts and are idempotent (403.189208ms)
+✔ packaging pins Marketplace URLs to the release without editing the README (171.966ms)
+✔ stages the dirty active buffer and only its referenced inputs (10.709083ms)
+✔ reuses a stage root so doctrees and theme assets survive the next build (4.716ms)
+✔ reports missing referenced inputs with source line diagnostics (3.564375ms)
+✔ github alerts become MyST admonitions (0.766333ms)
+✔ github alert expansion preserves line numbers (0.227083ms)
+✔ every supported github alert type maps to an admonition (0.125709ms)
+✔ unknown alert markers stay untouched (0.061167ms)
+✔ alerts inside fenced code blocks are not rewritten (0.532709ms)
+✔ appends a bibliography when citations need resolving (0.084833ms)
+✔ does not touch documents without citations (0.040708ms)
+✔ respects an existing bibliography directive (0.037959ms)
+✔ checks workspace trust before staging or spawning Sphinx (1.512625ms)
+✔ invokes only the authentic isolated Sphinx HTML command (7.636959ms)
+✔ returns actionable source diagnostics for a failing Sphinx directive (3.006083ms)
+✔ terminates an active Sphinx child and removes its temporary stage on cancellation (4.397917ms)
+✔ frontmatter settings use their own section and defaults (0.630458ms)
+✔ frontmatter visibility and strict validation can be configured independently (0.093708ms)
+✔ reads and trims the configured PlantUML JAR path (0.683375ms)
+✔ uses an empty path for non-string configuration values (0.071042ms)
+✔ reads independent studio preview settings without stock configuration keys (1.648708ms)
+✔ comment chips are shown by default and can be turned off (0.236166ms)
+✔ incremental updates can be turned off and default to on (0.150666ms)
+✔ normalizes preview content width and reserves zero for unlimited (0.371792ms)
+✔ normalizes sticky heading depth to one through six levels (0.919542ms)
+✔ link annotations read target fields and exact marker lines afresh (15.555291ms)
+✔ link display options reject invalid metadata (0.158791ms)
+✔ oneOf annotations are collected only when exactly one branch matches (58.407125ms)
+✔ conditional, patternProperties, and additionalProperties schemas are traversed (1.716542ms)
+✔ document-relative links stay inside workspace roots unless explicitly allowed (7.20975ms)
+✔ auto-detected git roots outside the workspace are ignored (1.154333ms)
+✔ frontmatter fence: value ending in three dots (286.163459ms)
+✔ frontmatter fence: value ending in four dots (4.089417ms)
+✔ frontmatter fence: value ending in three dashes (1.371958ms)
+✔ frontmatter fence: dashes inside a quoted string (1.23275ms)
+✔ frontmatter fence: CRLF line endings (1.168125ms)
+✔ frontmatter fence: trailing spaces after the closing fence (1.138375ms)
+✔ frontmatter fence: dot-dot-dot closing fence (3.667917ms)
+✔ frontmatter fence: empty block stays valid (1.099583ms)
+✔ frontmatter fence: a document without a closing fence has no frontmatter (0.220583ms)
+✔ patch guard refuses patches that lose, duplicate or corrupt a key (2.558333ms)
+✔ frontmatter fence: CRLF empty block accepts an added field with CRLF endings (0.634916ms)
+✔ linked file details read the frontmatter of a BOM-prefixed file (4.591ms)
+✔ value edit F1 title changes only the named field (12.441667ms)
+✔ value edit F1 lifecycle changes only the named field (2.500625ms)
+✔ value edit F1 annotation_exemption changes only the named field (6.841583ms)
+✔ value edit F1 exemption_reason changes only the named field (7.919042ms)
+✔ value edit F1 derives_from changes only the named field (2.266ms)
+✔ value edit F1 derived_by changes only the named field (8.281167ms)
+✔ value edit F2 title changes only the named field (13.180167ms)
+✔ value edit F2 tags changes only the named field (9.655084ms)
+✔ value edit F2 links changes only the named field (2.235959ms)
+✔ value edit F2 quoted changes only the named field (3.170917ms)
+✔ value edit F2 summary changes only the named field (1.856583ms)
+✔ value edit F2 status changes only the named field (2.016459ms)
+✔ value edit F3 title changes only the named field (6.51625ms)
+✔ value edit F4 status changes only the named field (0.529041ms)
+✔ structural F2 rename title to heading keeps the trailing comment (1.961958ms)
+✔ structural F2 remove links deletes exactly that line (3.826708ms)
+✔ structural F2 remove tags deletes exactly the sequence lines (1.543ms)
+✔ structural F1 add owner appends one line before the closing delimiter (2.464958ms)
+✔ structural F2 edits keep both comments unless their own line is removed (22.182708ms)
+✔ structural F2 add owner after title inserts one line directly after the title (2.644833ms)
+✔ structural F2 add after the last field matches the add without afterField (5.555791ms)
+✔ structural add to an empty frontmatter block writes the pair into the fence (0.560459ms)
+✔ structural F1 add of a list uses the compact sequence style (9.08925ms)
+✔ structural F2 remove of the last field keeps the blank line and the closing fence (4.706708ms)
+✔ structural F2 rename to a key that needs quoting changes only that line (2.212792ms)
+✔ structural CRLF add after a field keeps CRLF line endings (0.668208ms)
+✔ structural CRLF add at the end appends one CRLF line before the fence (0.366625ms)
+✔ structural CRLF remove deletes the field lines and keeps CRLF (0.195916ms)
+✔ structural CRLF remove of the last field drops the preceding break (1.110375ms)
+✔ add after a list keeps its commented-out item above the new field (0.40425ms)
+✔ add after a list keeps its commented-out item above the new field on CRLF (0.249042ms)
+✔ add after a nested map keeps its trailing comment above the new field (3.279916ms)
+✔ add of a multi-line value after a commented list is still positioned (1.69ms)
+✔ add after a list keeps a column-0 comment with the next field (0.855333ms)
+✔ removing the only field leaves a valid empty mapping (0.279625ms)
+✔ removing the only field of a CRLF document leaves a valid empty mapping (0.134416ms)
+✔ extractFrontmatter detects and parses the leading YAML block (6.445792ms)
+✔ fieldIconType maps schema declarations and generic values to display types (1.758667ms)
+✔ frontmatter field patches preserve comments, fences, line endings, and body (14.588ms)
+✔ frontmatter scalar and object edits preserve YAML node metadata (1.701541ms)
+✔ frontmatter array edits keep comments attached to reordered items (0.955375ms)
+✔ frontmatter key renames preserve comments and reject duplicate destinations (0.851333ms)
+✔ frontmatter field removal preserves comments, fences, and body (0.498042ms)
+✔ extractFrontmatter rejects a document without frontmatter (0.049791ms)
+✔ extractFrontmatter reports invalid YAML with the parse error (0.545291ms)
+✔ parseYamlValue handles structured values and rejects malformed YAML (0.273042ms)
+✔ findSchemaDirectory walks ancestors and prefers _schema over _schemas (1.546417ms)
+✔ findSchemaDirectory still finds _schemas when _schema is absent (1.208833ms)
+✔ matchSchemaFile matches case-insensitively on the stem before .schema (2.128042ms)
+✔ resolveSchemaRefs inlines relative references with extension fallbacks (1.585083ms)
+✔ effectiveProperties collapses allOf branches and collects required (0.464834ms)
+✔ analyzeFrontmatter yields schema-ordered fields with docs and enums (82.848ms)
+✔ nullable reset metadata preserves declared nullability while conditional validation stays active (4.420625ms)
+✔ frontmatter without a type skips schema discovery and validation (1.304708ms)
+✔ analyzeFrontmatter surfaces an info when the type has no schema (1.125125ms)
+✔ reduced mode explains that schema validation needs a trusted workspace (0.994625ms)
+✔ unmatched OKF-like SKILL frontmatter remains generic and skips schema validation (1.357708ms)
+✔ analyzeFrontmatter validates enums, consts, and formats against the schema (2.859542ms)
+✔ analyzeFrontmatter inspects annotated scalar and array links without AJV keyword errors (10.016125ms)
+✔ frontmatter link identity prefers the configured id and otherwise uses the basename (0.192667ms)
+✔ analyzeFrontmatter attaches nested link results to the parent field (2.347042ms)
+✔ file-link union applicability honors pattern and explicit root precedence (4.017666ms)
+✔ file-link union applicability preserves boolean local references (1.462959ms)
+✔ filename-stem links recheck symlink containment after an internal target drifts (1.428625ms)
+✔ filename-stem links report W15 when matching candidates are unavailable (0.979625ms)
+✔ strict mode warns on unknown fields; lenient mode does not (2.993333ms)
+✔ missing required fields are exposed as an ordered schema summary (3.808667ms)
+✔ json5 and json schema formats parse correctly (3.115709ms)
+✔ schema declarations do not become description annotations (5.466959ms)
+✔ value patch rewrites only the edited field line and keeps its inline comment (1.317ms)
+✔ value patch for an anchored value still writes correct data (1.321792ms)
+✔ value patch for a nested map written as an object yields the same data (1.268625ms)
+✔ appending a sequence item keeps a comment line between existing items (1.555833ms)
+✔ value patch with an unchanged value leaves the document text identical (3.226333ms)
+✔ value patch fills an empty value on CRLF documents without touching the next line (3.601917ms)
+✔ appending to a sequence keeps a trailing commented-out item once (4.702875ms)
+✔ a commented last item of a block sequence keeps its comment once (0.987583ms)
+✔ editing a nested map keeps its trailing comment once (0.435542ms)
+✔ editing a block scalar keeps its header comment (1.901167ms)
+✔ replacing a commented scalar by a list keeps the comment once (4.706458ms)
+✔ a multi-line value on a plain field is written as a literal block (0.687292ms)
+✔ a multi-line comment between CRLF sequence items keeps CRLF line endings (1.454ms)
+✔ a multi-line comment inside a CRLF nested map keeps CRLF line endings (1.132084ms)
+✔ frontmatter field removal keeps the comment lines above the removed key (1.030333ms)
+✔ frontmatter add with afterField reports whether the field was placed (9.994ms)
+✔ T22: linkSuggestions are set only for filename-stem fields and only when links are inspected (20.945917ms)
+✔ T24: analyzeFrontmatter flags schema-required fields only (5.219625ms)
+✔ T25: additionalPropertiesAllowed is false only for a schema forbidding extra keys (8.031666ms)
+✔ T41: a schema field goes between its schema neighbours, whatever row was clicked (0.1175ms)
+✔ T41: a schema field skips schema neighbours that are absent and goes before custom keys (0.046792ms)
+✔ T41: a custom key goes after the last row of the table, where non-schema keys are listed (0.051458ms)
+✔ T41: beforeField inserts above the named field with a one-line diff (0.572084ms)
+✔ T41: plain scalar safety (0.986875ms)
+✔ T41: plainScalar writes a new custom key's text unquoted only when safe (5.929708ms)
+✔ T41: without plainScalar an edited quoted value keeps its quotes (0.210375ms)
+✔ T41: plainScalar quotes a date-like value (0.18275ms)
+✔ T41: beforeField on the first key inserts after leading comment lines (1.537958ms)
+✔ inherited Object.prototype names are not treated as present or declared fields (3.902625ms)
+✔ no markup when frontmatter is absent or the table is disabled (0.957791ms)
+✔ renders a two-column Obsidian-like table with escaped values (2.115875ms)
+✔ description controls live in column headers with an adjacent collapsed restore slot (0.118125ms)
+✔ read-only tables expose values without edit targets (0.123208ms)
+✔ annotated scalar and list values render independent navigation and status markup (2.5065ms)
+✔ valid link tooltips expose workspace-relative paths (0.404291ms)
+✔ pending links show a spinner after their text (0.118959ms)
+✔ deferred replacement removes pending link spinners (4.475125ms)
+✔ nested annotated values render links and diagnostics inside object previews (2.853667ms)
+✔ renders boolean values as read-only checkboxes in preview mode (0.59325ms)
+✔ caps long list previews and reports omitted items (1.089208ms)
+✔ does not match a list link by array index without a field path (0.359792ms)
+✔ renders list items with hyphen markers (0.16525ms)
+✔ maps the injected properties section to the frontmatter source (2.366ms)
+✔ error rows carry the red underline class and hover tooltip (0.592667ms)
+✔ missing required fields are summarized after the table (0.378541ms)
+✔ exposes unused schema keys for frontmatter key editing (0.155375ms)
+✔ exposes unused schema field metadata for the frontmatter toolbar (0.249584ms)
+✔ structured values and enum choices are exposed for schema-aware editing (0.258708ms)
+✔ unknown fields are marked and info rows render (0.224375ms)
+✔ diagnostic errors span every table column and expose their severity (0.076709ms)
+✔ replacePropertiesTableMarkup swaps the table in place (1.368417ms)
+✔ repeated checkbox refreshes replace source-mapped tables without duplication (1.859625ms)
+✔ replacement removes serialized duplicates and nested sections while preserving other HTML (4.419125ms)
+✔ schema-matched tables add a third description column (0.215625ms)
+✔ renders empty lists without a phantom preview item (0.067833ms)
+✔ marks schema-nullable fields in row metadata (0.079208ms)
+✔ escapes list preview items without truncating short lists (0.062917ms)
+✔ plain yaml tables stay two-column even when docs are absent (0.044875ms)
+✔ nested object values render as escaped YAML while keeping edit metadata (0.269375ms)
+✔ schema declarations do not appear as description annotations (0.088625ms)
+✔ name cells carry a size-bounded Obsidian-style type icon (0.16ms)
+✔ T22: link suggestions are rendered as an escaped row attribute only when present (0.108583ms)
+✔ T24: required fields render data-okf-required and optional ones do not (0.07525ms)
+✔ T25: the section flags a schema that forbids additional properties (0.093166ms)
+✔ linkStatusLabel maps every diagnostic family to a plain label (0.076167ms)
+✔ invalid links show an icon and a plain label instead of the error code (0.070083ms)
+✔ unavailable links use the warning icon (0.048875ms)
+✔ the header badge is a button that goes to the first issue (0.04225ms)
+✔ T30: replacing with precomputed markup is identical to replacing from the result (1.051583ms)
+✔ repeated analyses reuse one compiled schema and keep the Ajv cache bounded (42.142833ms)
+✔ editing the schema is picked up and the previous compile is released (6.589125ms)
+✔ touching the schema with identical content keeps the result correct and the cache flat (2.489625ms)
+✔ deleting the schema falls back to the generic table (3.171791ms)
+✔ a replaced schema applies, and reverting it is picked up again (5.07925ms)
+✔ changing, adding or removing an inlined $ref target is picked up (13.395875ms)
+✔ setSchemaFileReaderForTests overrides content and drops cached schemas (8.685625ms)
+✔ an invalid schema reports the same compile error on every analysis (1.756375ms)
+✔ a schema with a property named $id can be edited and re-analysed (2.987167ms)
+✔ validator cache returns the same compiled function for a schema object (62.249666ms)
+✔ MarkdownStemIndex excludes generated, dependency, and hidden directories (5.025708ms)
+✔ invalidateStemIndex refreshes the cached index for a root (1.389542ms)
+✔ T22: stems returns the indexed stems sorted and limited (1.024667ms)
+✔ inserts between blocks separated by a blank line (3.274959ms)
+✔ inserts after the last line; a final line break is not a following line (0.134458ms)
+✔ separates a block from a directly following non-blank line (0.05275ms)
+✔ start of an empty document and of a body without frontmatter (0.140375ms)
+✔ start with frontmatter inserts after the closing fence and keeps the frontmatter (5.676792ms)
+✔ CRLF documents keep CRLF (0.082333ms)
+✔ whitespace-only raw text inserts nothing (0.082583ms)
+✔ trailing line breaks of the raw text are dropped (0.042833ms)
+✔ out of range lines have no plan (0.062625ms)
+✔ inserting after a colon-fence figure: middle, last block, with and without a final line break (0.459917ms)
+✔ inserting after a backtick-fence figure: middle, last block, with and without a final line break (0.0775ms)
+✔ inserting after a plain image: middle, last block, with and without a final line break (0.0435ms)
+✔ T16: identical text has no changed range (1.4635ms)
+✔ T16: added lines are reported in current line numbers (0.369792ms)
+✔ T16: a modified line is one range and two separate edits are two ranges (0.22175ms)
+✔ T16: deleted-only lines give no range (0.861125ms)
+✔ T16: line endings do not count as changes (0.862334ms)
+✔ T16: a base without a trailing newline matches one with it (0.08525ms)
+✔ T16: above the size cap the whole middle counts as changed (8.853708ms)
+✔ T16: many differences beyond the edit budget fall back to the whole middle (32.198666ms)
+✔ keeps only active-document mappings in DOM order for ties (0.778625ms)
+✔ accepts Windows separators without weakening document identity (0.081416ms)
+✔ source ranges preserve line endings and reject invalid bounds (0.148083ms)
+✔ identical input yields an empty replacement (0.813458ms)
+✔ insertion, deletion and replacement in the middle (0.755791ms)
+✔ insertion at the start and at the end (0.174291ms)
+✔ repeated characters do not let prefix and suffix overlap (0.104667ms)
+✔ a CRLF pair is never split (0.933833ms)
+✔ a surrogate pair is never split (0.20625ms)
+✔ replacement reproduces the target for 200 seeded random pairs (0.869209ms)
+✔ Markdown fragments select headings and source lines, not fenced examples (1.963292ms)
+✔ marker navigation selects exact marker identities (1.269917ms)
+✔ searches every workspace root and blocks cross-root wikilink ambiguity (2.366792ms)
+✔ discovers bare wikilinks before accepting an active-root sibling (1.751167ms)
+✔ classifies relative links without touching the filesystem (0.090208ms)
+▶ discovers wikilinks on demand and refuses ambiguous or escaping targets
+  ✔ allows document-relative resolved targets outside a workspace root only in that mode (2.138625ms)
+✔ discovers wikilinks on demand and refuses ambiguous or escaping targets (6.191ms)
+✔ classifies anchors, external links, and workspace-local files (13.939458ms)
+✔ blocks unsafe anchors, schemes, and paths (0.913167ms)
+✔ bare http(s) and www URLs render as links with GFM trailing-punctuation rules (211.726042ms)
+✔ bare URLs in list items and table cells are links (2.994542ms)
+✔ code, links, autolinks, math, emails and non-URLs stay as they are (13.442459ms)
+✔ javascript-looking and other non-http text is never linkified (0.86475ms)
+✔ generated links pass through the same sanitizer and navigation routing as Markdown links (12.470333ms)
+✔ the source text sent to the editor keeps the raw URL (25.445833ms)
+✔ pathological URLs render in linear time (66.207ms)
+✔ prose contexts are linkified while directive option text stays literal (14.893542ms)
+✔ markers are found with document line and UTF-16 column, and line breaks are preserved (1.718417ms)
+✔ placeholders contain no character Markdown could interpret (0.713417ms)
+✔ link syntax, escapes, wikilinks, images and headings are not checkboxes (0.175084ms)
+✔ a defined [x] reference label keeps [x] as a link but [ ] stays a checkbox (0.075625ms)
+✔ a colon after a marker mid-line does not prevent a checkbox (0.05975ms)
+✔ placeholders split and restore to the original marker text (0.161916ms)
+✔ toggling computes a one-character edit and validates the marker (0.093792ms)
+✔ task lists, paragraphs and table cells render interactive checkboxes mapped to the source (255.143708ms)
+✔ CRLF documents keep exact columns (1.552416ms)
+✔ markers stay literal in code, math, diagrams, links, headings and raw HTML (20.886458ms)
+✔ markers inside directives and their titles become checkboxes (2.828708ms)
+✔ the webview sanitizer keeps checkbox inputs and their source attributes (1.108333ms)
+✔ a block comment renders as a positioned gray chip with a hidden body (217.968875ms)
+✔ a multi-line block comment spans its source lines (4.791ms)
+✔ an inline comment renders as a chip inside its paragraph (13.079041ms)
+✔ a TODO comment is a green expandable chip (13.0265ms)
+✔ the word TODO in prose becomes a green chip and the rest of the sentence is unchanged (7.377167ms)
+✔ TODO in code, inline code, link text and URLs is left alone (14.996917ms)
+✔ tool comments stay hidden (8.656875ms)
+✔ context tags still produce their admonition, with and without a comment inside (8.093959ms)
+✔ a comment in a heading does not change the heading's id or attributes (2.897042ms)
+✔ data-line follows the frontmatter offset (11.424833ms)
+✔ a comment followed by markup is never rendered as HTML (1.719333ms)
+✔ comment text never reaches the DOM as HTML (2.377083ms)
+✔ chip markup survives the sanitizer without event attributes (9.05225ms)
+✔ a raw HTML table next to comments is unchanged (1.603542ms)
+✔ the nearest conf.py wins and the enabled set comes from it (2.495584ms)
+✔ no conf.py, no myst_parser or an uncertain conf.py give no set (1.0855ms)
+✔ myst_nb counts like myst_parser (0.673916ms)
+✔ a conf.py above the workspace root is not used (4.863292ms)
+✔ typing does not touch the disk: results are cached until the interval or an invalidation (2.316416ms)
+✔ D29: a single conf.py in a common folder of the root is the fallback (3.759791ms)
+✔ D29: several fallback candidates mean no conf (1.31775ms)
+✔ D29: an ancestor conf.py wins over a fallback, and invalidation covers the fallback (1.89525ms)
+✔ D29: a document outside the workspace folder does not get the fallback (1.281167ms)
+✔ locate names the governing conf.py, ancestor first, then the D29 fallback (1.538166ms)
+✔ the book's conf.py lists are read in full (1.177166ms)
+✔ comments, tuples, single quotes, trailing commas and string joins are understood (0.108208ms)
+✔ +=, append, extend and later assignments are applied in order (0.811542ms)
+✔ a missing myst_enable_extensions is an empty, certain list (0.238041ms)
+✔ anything that is not a plain string list is uncertain (0.312458ms)
+✔ a conf.py without myst_parser keeps the plain lists (0.132375ms)
+✔ names in other positions and unrelated code are ignored (0.162ms)
+✔ GitHub alerts and fences render identically for LF and CRLF documents (248.222916ms)
+✔ a CRLF alert marker becomes an admonition (0.774958ms)
+✔ colours tokens for a registered grammar (16.9445ms)
+✔ resolves the fence label through aliases (5.266334ms)
+✔ renders diff and patch fences with signed-line treatments (3.041916ms)
+✔ wraps numbered lines without breaking multiline highlighted spans (0.222417ms)
+✔ leaves an unregistered grammar as plain text (0.059958ms)
+✔ decodes numeric references before highlighting and does not double-escape (0.12475ms)
+✔ include expansion output is unchanged for ordinary documents (250.301166ms)
+✔ include fan-out stops at the budget with one diagnostic (84.34025ms)
+✔ an include repeated many times is read once per render (6.153916ms)
+✔ memoised included ASTs keep the include line of each directive (0.992875ms)
+✔ the included text budget bounds large includes (77.903583ms)
+✔ a 60-chapter book with 5 snippets each renders fully within the budget (41.492958ms)
+✔ the expansion budget boundary is exactly the maximum (546.074709ms)
+✔ included blocks map to the directive lines only (205.499042ms)
+✔ nested includes keep the outer directive lines and the marker (5.592166ms)
+LaTeX-incompatible input and strict mode is set to 'warn': HTML extension is disabled on strict mode [htmlExtension]
+✔ typesets inline and display math with local assets and CSP-compatible styles (15.382625ms)
+✔ supports Sphinx math delimiters and leaves ordinary text and code alone (4.830875ms)
+✔ invalid LaTeX stays readable without breaking valid equations (1.153291ms)
+✔ math cannot inject trusted HTML commands or external links (6.597333ms)
+✔ wikilinks render as lazy note targets without changing code or existing links (240.47525ms)
+✔ the in-process renderer preserves the active-file MyST feature contract (12.587375ms)
+✔ figure references render figures whose body supplies the caption (4.728ms)
+✔ references to captionless figures and tables stay readable (5.979709ms)
+✔ MyST code directives number and emphasize lines relative to their start (2.093417ms)
+✔ MyST code-cell directives render numbered input without claiming execution (1.570042ms)
+✔ Mermaid fences and directives preserve diagram source for webview rendering (3.09975ms)
+✔ PlantUML fences and directives preserve diagram source for external rendering (2.155041ms)
+✔ Sphinx version admonitions render generated titles and Markdown bodies (2.294791ms)
+✔ custom admonition titles preserve inline Markdown and their class (0.831583ms)
+✔ nested backtick and colon delimiters preserve their enclosing Markdown (15.40525ms)
+✔ GitHub alert syntax preserves an explicit title (6.157583ms)
+✔ GitHub alert syntax defaults the title when none is provided (0.887208ms)
+✔ GitHub bold Note, Important, and Warning markers become simple admonitions (4.139083ms)
+✔ MyST typography renders definitions, abbreviations, scripts, and footnotes (3.653958ms)
+✔ all named MyST admonitions receive their documented default title (2.0765ms)
+✔ a leading bold paragraph or heading supplies the MyST admonition title (0.948416ms)
+✔ Quarto callout classes render as semantic MyST admonitions (1.153458ms)
+✔ dropdown admonitions render as openable details with a summary (1.996083ms)
+✔ MyST GFM and directive tables preserve captions, headers, and alignment (8.739417ms)
+✔ raw HTML tables preserve complex cell spans without active content (1.82725ms)
+✔ raw HTML table cell styles are preserved as safe preview metadata (3.663167ms)
+✔ table directives render trusted workspace-local HTML includes (2.945375ms)
+✔ Jupyter table output embeds show a project-build placeholder (1.726417ms)
+✔ block elements carry the source line the editor scrolls against (0.939875ms)
+✔ multiline blocks retain their full mapped source range (0.525583ms)
+✔ MyST admonitions retain the directive range through the closing fence (0.957041ms)
+✔ standalone hyphenated context tags render as mapped Markdown admonitions (2.99875ms)
+✔ simple and snake_case context tags preserve adjacent fences and source ranges (1.67475ms)
+✔ nested context tags preserve each wrapper range (0.681708ms)
+✔ unsupported context boundaries stay literal and fenced XML stays code (4.757291ms)
+✔ standard HTML and inline or fenced XML stay outside context grouping (5.524958ms)
+✔ block source ranges stay absolute when leading frontmatter is stripped (13.195792ms)
+✔ project-scoped roles and directives degrade to labelled placeholders (1.007625ms)
+✔ an untrusted workspace refuses to render (0.223125ms)
+✔ figures and plain images are mapped blocks with their closing source line (1.02725ms)
+✔ image directives are mapped blocks spanning the directive's source lines (0.686375ms)
+✔ tilde pairs render as struck-through text only in prose (2.142292ms)
+✔ a lone raw <img> block is a mapped block with a source line (0.641292ms)
+✔ detects colon_fence (178.42675ms)
+✔ detects dollarmath inline (1.872916ms)
+✔ detects dollarmath display (5.652541ms)
+✔ detects amsmath (0.554042ms)
+✔ detects deflist (0.499875ms)
+✔ detects fieldlist (0.988375ms)
+✔ detects tasklist (2.19075ms)
+✔ detects strikethrough (1.37375ms)
+✔ detects substitution (1.268459ms)
+✔ detects attrs_inline (1.21875ms)
+✔ detects html_image (1.653583ms)
+✔ detects html_admonition (1.587458ms)
+✔ the line is the line of the syntax inside a long paragraph and counts the frontmatter (3.724875ms)
+✔ only the first use per extension is reported (0.791917ms)
+✔ nothing is detected inside code fences or inline code (0.460125ms)
+✔ prices and ordinary braces are not math or substitutions (0.682166ms)
+✔ the {math} role and directive are not dollarmath, backtick directives are not colon_fence (0.691625ms)
+✔ a $$ block holding an environment is dollarmath, not amsmath (0.392333ms)
+✔ currency amounts from the white paper are not dollarmath, real math still is (5.228917ms)
+✔ renders PlantUML through the configured external JAR and injects an image (4.355125ms)
+✔ uses the PATH executable when no JAR is configured and reports missing commands (1.541ms)
+✔ returns diagnostics for PlantUML process failures and malformed output (2.223417ms)
+✔ cancels an active PlantUML process (1.362416ms)
+✔ a child that exits before reading stdin does not raise an uncaught exception (275.467708ms)
+✔ a stdin error settles the render with a diagnostic (1.434333ms)
+✔ decodes a multibyte character split across stdout chunks (0.549125ms)
+✔ caps stderr at 64 KiB and notes the truncation (0.562125ms)
+✔ kills a hung child at the timeout with a clear diagnostic (34.387792ms)
+✔ spawns detached and kills the process group on POSIX (24.3535ms)
+✔ abort also kills the process group, falling back to child.kill on failure (4.575708ms)
+✔ settles exactly once when close, error and timeout race (32.329459ms)
+✔ does not group-kill a child that already exited (23.506208ms)
+✔ the render pipeline retains buffer identity and attaches source diagnostics (1.122584ms)
+✔ the trust gate prevents renderer invocation unless reduced mode is allowed (0.32275ms)
+✔ renderer failures preserve the stage and original failure message (0.196542ms)
+✔ cancellation while rendering rejects a late successful result (0.19375ms)
+✔ MyST syntax missing from the nearest conf.py warns once per extension, rendering unchanged (176.341042ms)
+✔ propagates a failed review:begin and skips later campaign stages (3.87675ms)
+✔ gallery includes every nested screenshot, structured summaries and complete sidecars (8.335333ms)
+✔ gallery tolerates missing artifacts without inventing passing evidence (0.670833ms)
+✔ accepts passed integration and visual artifacts from the current campaign (1.312792ms)
+✔ rejects a visually passing manifest left by an earlier campaign (0.273417ms)
+✔ rejects an artifact created with a different command even when its status passed (0.261333ms)
+✔ site branding resolves from root and nested pages (0.622709ms)
+✔ rewrites rendered Markdown documents and preserves fragments (0.144958ms)
+✔ publishes repository report paths under the copied reports tree (0.07525ms)
+✔ preserves query strings and fragments for copied assets (0.060417ms)
+✔ never relativizes absolute or protocol-relative URLs (0.055792ms)
+✔ evicts the least recently set entry once the cap is exceeded (0.708083ms)
+✔ reading an entry protects it from eviction, peek does not (0.091708ms)
+✔ overwriting a key refreshes it and never grows the map (0.056375ms)
+✔ default capacity is 200 and rejects invalid capacities (1.20475ms)
+✔ migration folds legacy keys into the map, preserves values and deletes the old keys (0.195791ms)
+✔ migration is a no-op without legacy keys and keeps newer map entries over legacy ones (0.0915ms)
+✔ migration respects the cap (0.078166ms)
+✔ loading ignores a malformed stored value (0.070541ms)
+✔ a previewReady with another requestId releases the lock (STAB-02) (0.935167ms)
+✔ previewReady without a lock releases nothing (1.177042ms)
+✔ reloads are deferred while held and flushed once on release (0.297209ms)
+✔ a ready report of another render hands back the queued work (0.894208ms)
+✔ time alone never releases the lock (0.204125ms)
+✔ a save of an unchanged open buffer needs no render (PERF-06) (0.153792ms)
+✔ a ready of the same render that reports no open editor releases the lock (0.21575ms)
+✔ a changed dependency always re-renders, whatever version the stage shows (0.177667ms)
+✔ a save of the already rendered buffer is skipped (PERF-06), any other state renders (0.144625ms)
+✔ T16: no Git extension, no repository or a failing show give undefined (1.99425ms)
+✔ T16: only file documents under 1 MB are compared, big blobs are skipped (0.419083ms)
+✔ T16: the base is cached by path and commit, a new commit fetches again (1.036667ms)
+✔ T16: a state change with the same commit id does not notify, a new commit does (1.1125ms)
+✔ T16: watch gives nothing without the extension, a repository or an active API (0.165ms)
+✔ an empty history cannot go anywhere (0.37225ms)
+✔ push, back and forward walk the visited places (0.393958ms)
+✔ a push after going back drops the forward entries (0.086958ms)
+✔ a duplicate of the current entry is ignored (0.058083ms)
+✔ the history keeps at most 50 entries, the newest (0.47575ms)
+✔ depart updates the line of the same document and pushes another document (0.075ms)
+✔ depart without a known line keeps the entry's line and pushes a new document at line 1 (0.060166ms)
+✔ parses bounded preview panel state and preserves supported fields (0.738875ms)
+✔ rejects invalid identity and drops malformed optional state (0.094083ms)
+✔ accepts only complete theme-mode change messages (0.387625ms)
+✔ restores a valid workspace theme mode and ignores invalid stored values (0.099375ms)
+✔ restores a stored cream theme mode (0.051834ms)
+✔ defaults and the storage key (0.659584ms)
+✔ zoom is clamped to 70-200 and rounded to 10 (0.080542ms)
+✔ bad input falls back to the default per field (0.092791ms)
+✔ applyViewPreference changes one key and normalizes it (0.0635ms)
+✔ read and write go through a Memento-like store (0.733792ms)
+✔ anchors long paragraphs at the start of each source line (1.641708ms)
+✔ falls back to block bounds when paragraph lines cannot be measured (0.141208ms)
+✔ converts lines to scroll positions and back through the reading offset (0.175792ms)
+✔ ramps the reading line so the top of the page is line 1 (2.030459ms)
+✔ reports the editor top line as the floor of the anchor (0.175209ms)
+✔ ignores editor echoes across re-renders, then yields to the user (0.207208ms)
+✔ accepts one centered-reveal echo, then treats further scrolling as the user's (0.110583ms)
+✔ shifts the anchor when lines change above it only (0.1535ms)
+✔ a click on the chip opens the body and a second click closes it (1.101209ms)
+✔ Enter and Space on the chip toggle it, other keys and other targets do not (0.780458ms)
+✔ a chip without a body (a TODO word) is left alone (0.267875ms)
+✔ the expanded set is saved in the webview state next to the other entries (0.585708ms)
+✔ the expansion survives a content replacement in the same panel (0.3045ms)
+✔ two inline comments of one paragraph keep their own state (0.260791ms)
+✔ the saved state of a reloaded page is read back (0.262083ms)
+✔ the show-comments attribute follows the setting, live (0.408792ms)
+✔ hovering a code block shows the copy button inside its top right corner (5.383834ms)
+✔ the button stays while the pointer moves from the block to the button (1.186084ms)
+✔ a click posts the raw code only, without filename or line numbers, and shows a check mark (4.791375ms)
+✔ an unhighlighted block without a code element copies the pre text (1.198708ms)
+✔ mousedown on the button is prevented so an open editor keeps focus (0.99525ms)
+✔ blocks being edited, in a block editor, or holding a diagram are skipped (1.129917ms)
+✔ a block under the sticky band or visible for less than 30 px hides the button (1.066834ms)
+✔ after scrolling stops outside the block the button is hidden (0.886625ms)
+✔ hide() hides the button, resets the check mark and ignores a detached block (1.073208ms)
+✔ a click inside the block hides the button until the pointer moves again (0.55875ms)
+✔ the copied text of a plain block is the original code (4.870375ms)
+✔ the copied text of a highlighted block is the original code (10.154875ms)
+✔ the copied text of a line numbers block is the original code (4.36175ms)
+✔ the copied text of a line numbers from 7 block is the original code (0.33225ms)
+✔ the copied text of a emphasized lines block is the original code (0.3765ms)
+✔ the copied text of a diff block is the original code (0.824959ms)
+✔ the copied text of a diff with line numbers block is the original code (0.267334ms)
+✔ the copied text of a filename label block is the original code (0.247291ms)
+✔ the copied text of a filename label, highlighted, numbered block is the original code (0.27275ms)
+✔ the copied text of a multi-line token block is the original code (0.560166ms)
+✔ in edit mode the button click copies and neither opens nor commits an editor (0.276083ms)
+✔ T34: extractMainContent returns the inner HTML of the content container of a real page (145.6685ms)
+✔ T34: two renders of one document type have equal shell keys despite other text, nonces and identifiers (137.1005ms)
+✔ T17: the shell key is equal whatever the incoming-changes preference, and the Diff button is in both (103.543584ms)
+✔ T34: the shell key ignores the status region and the runtime script, and nothing else (67.688666ms)
+✔ T34: shell keys differ when Mermaid appears or disappears, and when math appears (179.479666ms)
+✔ T34: canPatch refuses next content that carries a script or a nonce (136.549875ms)
+✔ T34: canPatch refuses pages without a content container (33.744375ms)
+✔ T34: injecting PlantUML diagrams into a page keeps its shell key, so the diagrams can be patched in (92.57125ms)
+✔ T34: content that mentions a container inside the content does not change the extracted content (52.792584ms)
+✔ T34: the runtime context key covers the startup settings and nothing the page follows itself (0.283041ms)
+✔ T34: status lines that the runtime would reject keep the patch from being sent (0.311125ms)
+✔ T34: a ready report with the identifiers of the last assignment is a webview that was created again (0.089291ms)
+✔ T34: the record of a patched page carries the nonce of the loaded page and keeps its shell (73.928458ms)
+✔ T34: reuseNonce swaps every occurrence, in the policy tokens and in the attributes (0.101ms)
+✔ T08: two renders with different zoom have the same shell key and the same context key (65.038417ms)
+✔ the page script is injected verbatim even when it contains replacement patterns (7.409375ms)
+✔ cream is an accepted preview theme mode with its own coffee toolbar icon (0.437417ms)
+✔ cream defines a light warm palette for every variable white mode overrides (0.317416ms)
+✔ cream text and background pairs meet WCAG AA 4.5:1 (0.394208ms)
+✔ explicit themes override the same host colors, including the floating toolbar (1.675167ms)
+✔ cream mirrors the white-mode code colouring (0.339542ms)
+✔ toolbar theme icons are well-formed sibling svgs, one per mode (0.366542ms)
+✔ editActions bold "say [foo] now" (1.494542ms)
+✔ editActions italic "say [foo] now" (0.101541ms)
+✔ editActions bold "say | now" (0.359292ms)
+✔ editActions italic "say foo| now" (0.048291ms)
+✔ editActions bold "|" (0.048791ms)
+✔ editActions bold "a[ foo ]b" (0.038416ms)
+✔ editActions bold "say **[foo]** now" (0.036166ms)
+✔ editActions italic "say *[foo]* now" (0.036417ms)
+✔ editActions bold "say [**foo**] now" (0.047417ms)
+✔ editActions italic "say [*foo*] now" (0.079709ms)
+✔ editActions bold "say **fo|o** now" (0.048334ms)
+✔ editActions italic "say *fo|o* now" (0.033125ms)
+✔ editActions bold "**foo|**" (0.028542ms)
+✔ editActions bold "x **|** y" (0.025666ms)
+✔ editActions italic "x *|* y" (0.037208ms)
+✔ editActions bold "*[foo]*" (0.028417ms)
+✔ editActions italic "**[foo]**" (0.023542ms)
+✔ editActions italic "***[foo]***" (0.021292ms)
+✔ editActions bold "***[foo]***" (0.026833ms)
+✔ editActions bold "***fo|o***" (0.024833ms)
+✔ editActions italic "***fo|o***" (0.022291ms)
+✔ editActions bold "**a**[ b ]**c**" (0.025291ms)
+✔ editActions bold "[a\nb]" (0.02025ms)
+✔ editActions bold "[_foo_]" (0.020334ms)
+✔ bold then italic then unwrapping both restores the text (0.367708ms)
+✔ editActions todo "a|bc" (0.189791ms)
+✔ editActions todo "[abc]" (0.034208ms)
+✔ editActions todo "<!-- TODO: a|bc -->" (0.034667ms)
+✔ editActions todo "[<!-- TODO: abc -->]" (0.027833ms)
+✔ editActions todo "|" (0.028791ms)
+✔ editActions todo "  |" (0.02775ms)
+✔ editActions todo "<!-- TODO: | -->" (0.029ms)
+✔ editActions todo "  [item]" (0.026ms)
+✔ editActions todo "x\n[a\nb]\ny" (0.024917ms)
+✔ editActions todo "x\n[<!-- TODO: a -->\n<!-- TODO: b -->]\ny" (0.02725ms)
+✔ editActions todo "[a\n\nb]" (0.031208ms)
+✔ editActions todo "[a\n<!-- TODO: b -->]" (0.026708ms)
+✔ editActions todo "[a\n]b" (0.272583ms)
+✔ editActions todo "ab[c\nd]ef" (0.04475ms)
+✔ the todo toggle is its own inverse (0.057625ms)
+✔ the registry lists the actions with metadata and indexes them by id (0.072666ms)
+✔ shortcutFor uses Cmd on macOS and Ctrl elsewhere for B and I (0.156916ms)
+✔ shortcutFor reads the typed key first and the physical code only for non-Latin keys (0.086542ms)
+✔ shortcutFor accepts Ctrl+/ and Cmd+/ on every platform (0.074042ms)
+✔ shortcutFor ignores plain keys, other modifiers, composition and AltGr (0.04525ms)
+✔ a selection cutting into a marker run on one side produces no edit (0.037875ms)
+✔ a line containing --> is never wrapped in a TODO comment (0.050959ms)
+✔ editActions heading 2 "a|bc" (0.185875ms)
+✔ editActions heading 1 "## a|bc" (0.059958ms)
+✔ editActions heading 0 "### a|bc" (0.038709ms)
+✔ editActions heading 0 "plain|" (0.022292ms)
+✔ editActions heading 3 "#nospace|" (0.023833ms)
+✔ editActions heading 5 "####### seven|" (0.025667ms)
+✔ editActions heading 1 "|" (0.024041ms)
+✔ editActions heading 0 "# |" (0.024542ms)
+✔ editActions heading 2 "x\n# a|bc\ny" (0.037833ms)
+✔ editActions heading 2 "[a\nb]" (0.0405ms)
+✔ editActions heading 0 "[# a\n## b]" (0.02775ms)
+✔ editActions heading 2 "[a\n\nb]" (0.0225ms)
+✔ heading without a change or with an unknown level returns no edit (0.036542ms)
+✔ editActions strikethrough "say [foo] now" (0.069291ms)
+✔ editActions strikethrough "say ~~[foo]~~ now" (0.9795ms)
+✔ editActions strikethrough "say [~~foo~~] now" (0.024083ms)
+✔ editActions strikethrough "say ~~fo|o~~ now" (0.035083ms)
+✔ editActions strikethrough "say | now" (0.01825ms)
+✔ editActions strikethrough "x ~~|~~ y" (0.017083ms)
+✔ editActions strikethrough "a[ foo ]b" (0.018291ms)
+✔ editActions strikethrough "[a\nb]" (0.017875ms)
+✔ editActions quote "a|bc" (0.077125ms)
+✔ editActions quote "> a|bc" (0.033083ms)
+✔ editActions quote "[- a\n- b]" (0.02325ms)
+✔ editActions quote "[> - a\n> - b]" (0.038417ms)
+✔ editActions quote "[1. a\n   2. b]" (0.020875ms)
+✔ editActions quote "x\n[a\nb]\ny" (0.02025ms)
+✔ editActions quote "[a\n\nb]" (0.019ms)
+✔ editActions quote "[a\n> b]" (0.018459ms)
+✔ editActions quote "|" (0.022208ms)
+✔ editActions quote "> |" (0.0225ms)
+✔ editActions quote ">> a|" (0.017708ms)
+✔ editActions quote "[a\n]b" (0.019417ms)
+✔ editActions codeFence python "[x = 1]" (0.086625ms)
+✔ editActions codeFence text "[a\nb]" (0.032083ms)
+✔ editActions codeFence python "ab[c\nd]ef" (0.019625ms)
+✔ editActions codeFence json "|" (0.018ms)
+✔ editActions codeFence json "para|" (0.016583ms)
+✔ editActions codeFence json "  |" (0.019459ms)
+✔ editActions codeFence bash "[echo ```x```]" (0.02375ms)
+✔ editActions codeFence text "x\n[a]\ny" (0.017959ms)
+✔ codeFence without a language writes a bare fence (0.024625ms)
+✔ editActions rule "para|" (0.045583ms)
+✔ editActions rule "pa|ra" (0.019167ms)
+✔ editActions rule "a|\nb" (0.017ms)
+✔ editActions rule "|" (0.015709ms)
+✔ editActions rule "a\n|" (0.017333ms)
+✔ editActions rule "a\n\n|" (0.019084ms)
+✔ editActions rule "[a\nb]" (0.016292ms)
+✔ the palette actions declare their popovers, options and tooltips (0.0605ms)
+✔ the code languages are the highlighter's registrations and aliases, plus text (0.0795ms)
+✔ shortcutLabel shows Cmd on macOS and Ctrl elsewhere (0.040959ms)
+✔ link is a strict action for blocks and cells that opens the link panel (0.036292ms)
+✔ Cmd+K on macOS and Ctrl+K elsewhere find the link action, matched on key before code (0.057292ms)
+✔ linkDraft prefills the text from the selection and the URL when the selection is one (0.405625ms)
+✔ linkDraft takes the existing link around the selection or the caret (0.079542ms)
+✔ linkEdit ["say [foo] now","foo","https://x.org"] (0.093542ms)
+✔ linkEdit ["say [foo] now","bar","u"] (0.027625ms)
+✔ linkEdit ["see |here","docs","https://x.org"] (0.026666ms)
+✔ linkEdit ["go [https://x.org] now","site","https://x.org"] (0.029042ms)
+✔ linkEdit ["a [lab|el](old) b","new","https://n.org"] (0.327292ms)
+✔ linkEdit ["say [foo] now","foo",""] (0.121916ms)
+✔ linkEdit ["x |y","","https://x.org"] (0.056209ms)
+✔ linkEdit ["x |y","",""] (0.076666ms)
+✔ linkEdit ["[a]","a","my file.md"] (0.046667ms)
+✔ linkEdit ["[a]"," a "," u "] (0.048625ms)
+✔ the link action applies the argument as the target of the selected text (0.18075ms)
+✔ linkEdit escapes brackets in the text and reads escaped text back (0.086292ms)
+✔ linkEdit never breaks the target: < and > are encoded, spaces get angle brackets (0.060666ms)
+✔ replacing an existing link keeps its title (0.082834ms)
+✔ the clearance is 0 when the toolbar is beside the column (0.474166ms)
+✔ the clearance pushes the first block below a toolbar that overlaps the column (0.068375ms)
+✔ a toolbar that ends above the 40px gap needs no clearance (0.05475ms)
+✔ the clearance measures the content top in document coordinates (0.050458ms)
+✔ geometry checks define one function that reports the four check ids (4.291042ms)
+✔ without any DOM content every geometry check is not applicable and passes (0.41725ms)
+✔ identifier-split passes when a cell's text nodes share one line at different sizes (0.439708ms)
+✔ identifier-split ignores list items on separate lines (0.365ms)
+✔ identifier-split reports a text node wrapped over two lines (0.305542ms)
+✔ overlay-covers-text counts a text node once when nested blocks both contain it (0.34175ms)
+✔ T16: the innermost mapped elements that meet a changed range are marked (3.222333ms)
+✔ T16: new ranges clear the old marks, empty ranges clear all (3.350959ms)
+✔ T16: apply puts the last ranges on replaced content (0.856041ms)
+✔ T16: elements in or under an open editor are skipped (0.734709ms)
+✔ T16: malformed ranges are ignored and enabled is reported (0.652083ms)
+✔ T16: included blocks are never marked, a distinct wrapper of the directive can be (0.742375ms)
+✔ inline code is a subtle tinted pill derived from the text colour (1.048041ms)
+✔ inline code scales with its context and wraps without growing the line (0.215875ms)
+✔ inline code stays compact in table cells (0.234041ms)
+✔ inline code text keeps 4.5:1 on the tinted background in every forced mode (0.961041ms)
+✔ link discovery waits for the viewport and deduplicates bounded batches (5.341916ms)
+✔ local and wiki clicks are host-routed even before discovery, including middle click (0.994625ms)
+✔ discovery hints ignore stale renders and never replace the original target (0.904792ms)
+✔ T33: installing returns a rescan and the startup scan observes each link once (0.880459ms)
+✔ T33: rescan observes only the links that are not observed yet (1.021125ms)
+✔ T33: after a rescan, discovery and target hints apply to the new links (0.386833ms)
+✔ T33: a context mutated after install is honoured by posts and by the hint check (0.291791ms)
+✔ pipe tables round-trip escaped cells and CRLF line endings (4.254375ms)
+✔ inserting and deleting table rows and columns preserves the remaining cells (0.458542ms)
+✔ table tools cannot delete the header, final body row, or final column (0.153625ms)
+✔ non-table blocks and malformed separator rows cannot be edited as pipe tables (0.134833ms)
+✔ cellSegments returns the text between the delimiting pipes, offsets in the untrimmed line (0.317333ms)
+✔ inserting a row after the first body row of a padded table adds one padded line (0.678042ms)
+✔ a shrinking value in a padded table keeps the original cell width (0.186417ms)
+✔ deleting the first body row of a compact table removes exactly one line (0.18375ms)
+✔ inserting a column re-serializes the table with one more column (0.185875ms)
+✔ a row inserted into a CRLF table keeps CRLF line endings (0.229292ms)
+✔ rows without outer pipes stay parseable when an edge cell is emptied (0.256625ms)
+✔ inserting a row into a table without outer pipes adds one parseable row (0.166042ms)
+✔ rows with only one outer pipe stay parseable (0.286959ms)
+✔ filling an empty cell keeps the table's padding (0.275375ms)
+✔ lineDelta: identical input has no removed or added lines (0.806583ms)
+✔ lineDelta: one changed line is reported as one removed and one added line (0.074375ms)
+✔ lineDelta: one inserted line is reported as one added line (0.068584ms)
+✔ round trip preserves the source: compact-book (0.320625ms)
+✔ round trip preserves the source: padded (0.056ms)
+✔ round trip preserves the source: no-spaces (0.044334ms)
+✔ round trip preserves the source: alignment (0.042875ms)
+✔ round trip preserves the source: no-outer-pipes (0.051834ms)
+✔ round trip preserves the source: escaped-and-code (0.063375ms)
+✔ round trip preserves the source: indented (0.093209ms)
+✔ round trip preserves the source: crlf (0.062709ms)
+✔ round trip preserves the source: wider-than-padding (0.052667ms)
+✔ one-cell edit changes exactly one line: compact-book (0.202125ms)
+✔ one-cell edit changes exactly one line: padded (0.615042ms)
+✔ one-cell edit changes exactly one line: no-spaces (0.043458ms)
+✔ one-cell edit changes exactly one line: alignment (0.057792ms)
+✔ one-cell edit changes exactly one line: no-outer-pipes (0.043042ms)
+✔ one-cell edit changes exactly one line: escaped-and-code (0.036667ms)
+✔ one-cell edit changes exactly one line: indented (0.030375ms)
+✔ one-cell edit changes exactly one line: crlf (0.035541ms)
+✔ one-cell edit changes exactly one line: wider-than-padding (0.038333ms)
+✔ every single-cell edit reparses and changes at most one line: compact-book (2.297583ms)
+✔ every single-cell edit reparses and changes at most one line: padded (0.395625ms)
+✔ every single-cell edit reparses and changes at most one line: no-spaces (0.366375ms)
+✔ every single-cell edit reparses and changes at most one line: alignment (0.169292ms)
+✔ every single-cell edit reparses and changes at most one line: no-outer-pipes (0.1245ms)
+✔ every single-cell edit reparses and changes at most one line: escaped-and-code (0.264459ms)
+✔ every single-cell edit reparses and changes at most one line: indented (0.093666ms)
+✔ every single-cell edit reparses and changes at most one line: crlf (0.163917ms)
+✔ every single-cell edit reparses and changes at most one line: wider-than-padding (0.099292ms)
+✔ accepts a valid registered message (0.40375ms)
+✔ rejects missing or non-integer ids and oversize documentId (0.088ms)
+✔ rejects non-objects, unregistered and prototype-key types (0.05375ms)
+✔ rejects a message the validator refuses (0.454208ms)
+✔ the shipped registry rejects an unregistered type (0.043625ms)
+✔ previewCopyText accepts text up to 1 MB and rejects anything else (0.058125ms)
+✔ field helpers respect their boundaries (0.057667ms)
+✔ previewViewPreferenceChanged validates the value per preference (0.097959ms)
+✔ previewHistoryGo accepts only back or forward (0.064459ms)
+✔ frontmatter link tooltips wrap text in a fixed theme-aware pointer-transparent surface (2.67525ms)
+✔ typography is driven by VS Code markdown preview variables (0.204042ms)
+✔ shared borders resolve against the body palette rather than inherited host root colors (0.477834ms)
+✔ scrollbar tracks and thumbs follow the preview theme (0.204958ms)
+✔ linked file details are muted, italic, and clipped to the available line (0.178833ms)
+✔ list insertion lines show the drop boundary without moving the rows (0.189875ms)
+✔ the top heading keeps the stock preview rule underneath it (0.075667ms)
+✔ sticky headings align with content and emphasize text in a full-width band (0.471041ms)
+✔ sticky headings start at the viewport top without filler and leave horizontal room for controls (0.113ms)
+✔ preview controls stack above the sticky heading band (0.120417ms)
+✔ the theme neutralises Shibuya page gutters (0.170125ms)
+✔ description header controls align right and restore only when collapsed (0.217125ms)
+✔ properties tables fill the preview content column (0.076667ms)
+✔ narrow properties wrap long paths without hiding expanded descriptions (0.153167ms)
+✔ every admonition flavour gets an accent colour (0.412ms)
+✔ block editing grows without internal scrolling and is framed (0.116583ms)
+✔ edit mode outlines the hovered block without moving the layout (0.053416ms)
+✔ raw Markdown and YAML editors use the editor font, text fields keep the preview font (0.123917ms)
+✔ the table cell editor shares the block editor textarea rule and grows with its content (6.129709ms)
+✔ the table toolbar status is not pushed up by the paragraph margin (0.075875ms)
+✔ the block editor status and its buttons share one wrapping row (0.081833ms)
+✔ the block editor status is not pushed up by the paragraph margin (0.066333ms)
+✔ the block editor status uses compact text (0.05375ms)
+✔ active paragraph editors share the rendered paragraph spacing (0.064917ms)
+✔ Sphinx version admonitions use success, warning, and danger accents (0.12475ms)
+✔ MyST simple and no-icon admonition modifiers are styled (0.091166ms)
+✔ MyST table alignment and notebook output placeholders are styled (0.143917ms)
+✔ MyST numbered and emphasized code lines are styled (0.112125ms)
+✔ diff lines use full-width theme-aware add and delete treatments (0.316291ms)
+✔ Mermaid diagrams keep SVG images contained and source inspectable (0.10725ms)
+✔ figure captions are centred and de-emphasised (0.066958ms)
+✔ images never overflow the preview column (0.058083ms)
+✔ floating preview toolbar supports forced dark and white palettes (0.154833ms)
+✔ preview toolbar provides refresh, editor anchoring, edit mode and theme controls (0.273ms)
+✔ control tooltips retain their offset while sticky headings remain at the top (0.17525ms)
+✔ white mode keeps code backgrounds soft and code text readable blue (0.189125ms)
+✔ fenced code uses the editor foreground and one font scale (0.104625ms)
+✔ frontmatter properties label is inset, table-matched, and unboxed (0.115375ms)
+✔ frontmatter edit hover colors follow the selected preview theme (0.072958ms)
+✔ frontmatter edits stay inline while edit mode preserves source newlines (0.571458ms)
+✔ active toolbar toggles do not show a redundant focus ring (0.036291ms)
+✔ frontmatter and table editors keep the active cell surface without nested input frames (0.180416ms)
+✔ preview content width is configurable and can be unlimited (0.048917ms)
+✔ table toolbar sits in the document flow above the table with labelled buttons (0.189333ms)
+✔ overflowing content tables keep short cells whole and show scroll shadows (0.136625ms)
+✔ frontmatter field actions sit in the editing row with labels and no pseudo-tooltips (0.284375ms)
+✔ the issue badge is a plain button and a clicked badge highlights its row (0.148875ms)
+✔ T28: insertion points are zero-height, hover-revealed gutter buttons (0.164458ms)
+✔ first-element gap: 40px on the first child, clearance only on the first editor and the Start writing button (0.145042ms)
+✔ status titles and messages are block-level only on status pages and non-pending banners (0.113125ms)
+✔ T43: the pending overlay is fixed, pointer-transparent and never in flow (0.064792ms)
+✔ T08: zoom scales the content font size and the column width together (0.063083ms)
+✔ T10: full width lifts the column limit and auto lets flagged elements break out (0.084125ms)
+✔ the TOC column is hidden by default, reserves 256px when open and hides on narrow panes (0.161834ms)
+✔ T15: an open comment is an admonition-like box and showComments off hides the gray chips only (0.169875ms)
+✔ T16: a changed block gets an inset green bar without layout shift (0.108541ms)
+✔ T21: the edition palette is a wrapping pill bar with an in-frame popover and no inline style (0.089834ms)
+✔ latest saved Description visibility wins over an older enrichment snapshot (9.875625ms)
+✔ Description column toggles persist and restore both states (10.783458ms)
+✔ narrow previews default to collapsed descriptions without overriding an explicit choice (6.619916ms)
+✔ does not shift sticky headings down when the floating toolbar grows (5.103334ms)
+✔ anchors source scrolling below a top-aligned sticky band without a toolbar row (3.864625ms)
+✔ the top-aligned sticky band grows and shrinks with the active heading hierarchy (11.085375ms)
+✔ sticks to the active Markdown heading hierarchy in up to three lines (0.81325ms)
+✔ the sticky band label leaves out comment chips and their hidden bodies (0.612208ms)
+✔ caps sticky heading convergence at three passes (0.589709ms)
+✔ maps the frontmatter table for stable top and mid-table scroll round-trips (0.839667ms)
+✔ preserves preview scroll when layout changes during sticky heading activation (3.60025ms)
+✔ uses the configured sticky heading depth (1.653542ms)
+✔ anchors the editor source line below the sticky heading band without reverse sync (0.636833ms)
+✔ source anchoring does not reserve a row for floating controls (0.496709ms)
+✔ runtime script cannot terminate its containing script element (1.273334ms)
+✔ observes preview content instead of the document body (0.492667ms)
+✔ cycles preview theme modes and restores the saved selection (4.512958ms)
+✔ frontmatter tooltips preserve exact safe text and restore accessible metadata on dismissal (7.54ms)
+✔ an invalid link span shows its full message in a tooltip on keyboard focus (0.487417ms)
+✔ a pending link never opens a tooltip (2.136542ms)
+✔ the badge click scrolls to and focuses the first issue row and highlights it briefly (0.70575ms)
+✔ switching frontmatter tooltip links removes the old tooltip and absent ARIA metadata (0.533833ms)
+✔ refresh preserves viewport state while reverse synchronization stays disabled (0.578166ms)
+✔ disabling editor anchoring stops preview-to-editor scrolling (3.725834ms)
+✔ preview can revisit its last reported line after the source editor scrolls elsewhere (0.641209ms)
+✔ source scrolling remains bidirectional while a block editor is open (1.437584ms)
+✔ refreshes source anchor geometry after a block editor changes document flow (1.254125ms)
+✔ restores saved editor anchoring when the configured preference changed (3.312292ms)
+✔ activating a centered block editor preserves scroll before and after layout stabilization (0.717875ms)
+✔ fenced Markdown editors sit outside the rendered pre and preserve source when saving (0.92575ms)
+✔ without caretRangeFromPoint a click opens the editor with the caret at the end of the block (0.563584ms)
+✔ active Markdown editors leave repeated spaces and Enter to native text input (0.770709ms)
+✔ Enter in a list item continues the list, and Shift+Enter stays native (0.734834ms)
+✔ Tab and Shift+Tab indent the block editor without closing it (0.727709ms)
+✔ Enter on an empty list item empties the line and Enter in plain text stays native (0.574125ms)
+✔ block textareas resize on input and preview layout changes (1.313959ms)
+✔ edit mode loads raw Markdown and saves changes when the block loses focus (0.818292ms)
+✔ edit mode hover marks the whole list that a click would edit (1.234792ms)
+✔ an opened block editor shows its line range, Done and Cancel on one row (0.671459ms)
+✔ the status line shares one row with the Done and Cancel buttons (0.674542ms)
+✔ Cancel cancels only what reached the document (1.613166ms)
+✔ Done posts a final save and both buttons keep the textarea focused on press (0.69325ms)
+✔ raw Markdown block edits autosave on input without disabling the textarea (0.6135ms)
+✔ arrow boundaries transfer block editing in every direction (2.655417ms)
+✔ table cell editing exposes row and column operations and saves the edited table (3.425958ms)
+✔ table toolbar sits in the flow above the table with text labels and a position status (0.952833ms)
+✔ a toolbar that appears above the reading offset is scrolled into view by the exact delta (1.418791ms)
+✔ a toolbar that is already visible causes no extra scroll (0.613125ms)
+✔ the toolbar is not revealed when that would push the selected cell out of the viewport (0.582959ms)
+✔ a later layout change that pushes the toolbar above the reading offset is revealed again (0.729542ms)
+✔ table editing switches cells without losing changes and finalizes before leaving the table (1.18325ms)
+✔ Tab and Shift+Tab move between table cells, wrapping across rows (2.327292ms)
+✔ Shift+Tab on the first header cell does nothing (1.235459ms)
+✔ arrow keys move the table cell editor cell to cell in every direction (0.949958ms)
+✔ table cell arrows behave natively with a selection, modifiers, IME or a caret inside a multi-line cell (0.697792ms)
+✔ table cell arrows fall back to block navigation only when no cell lies in that direction (0.829666ms)
+✔ a table cell arrow without a matching model cell is not swallowed (0.623583ms)
+✔ the table cell field is re-fitted when the preview is resized (0.600417ms)
+✔ the table cell editor has Done and Cancel but no status hint (0.688375ms)
+✔ Cancel in the table cell editor does what Escape does (0.670542ms)
+✔ Home and End move the caret inside the block textarea instead of scrolling the preview (0.778625ms)
+✔ Home and End move the caret inside the table cell input instead of scrolling the table (0.59575ms)
+✔ Tab on the last cell inserts a row and resumes in its first cell (0.707541ms)
+✔ the table cell editor commits on blur unless a pointer press is in progress (0.697375ms)
+✔ the table cell editor commits and closes when focus leaves without a click (0.576708ms)
+✔ Escape cancels a table cell even when focus is outside the cell editor (0.573125ms)
+✔ Escape in a changed Markdown block editor cancels and never saves a final text (0.599083ms)
+✔ Escape after an autosave restores the block with previewEditCancel (0.618666ms)
+✔ Escape during IME composition neither cancels nor saves a block edit (0.684208ms)
+✔ Cmd+Enter and Ctrl+Enter finish the block editor like Done (1.077583ms)
+✔ undo and redo shortcuts stop at the block textarea and keep the native undo (0.63475ms)
+✔ Escape in an unchanged Markdown block editor closes it without a message (0.544208ms)
+✔ Escape in a changed table cell cancels and never saves a final table (0.636666ms)
+✔ Escape during IME composition neither cancels nor saves a table cell (5.525375ms)
+✔ Escape in a table cell after an autosave restores the table with previewEditCancel (3.545084ms)
+✔ Enter in a changed table cell saves the table (0.803917ms)
+✔ turning edit mode off saves a changed block editor and ignores an unchanged one (1.269ms)
+✔ table header cannot be deleted from the cell toolbar (0.607917ms)
+✔ table toolbar cannot delete the last body row (0.540375ms)
+✔ edit mode opens mapped figures and admonition titles at their source ranges (0.922042ms)
+✔ frontmatter name cells open a schema-suggesting key editor and save on blur (0.882917ms)
+✔ Escape cancels an unsaved frontmatter key edit (0.551792ms)
+✔ edit mode exposes schema enum controls and saves the selected value (0.947916ms)
+✔ boolean frontmatter values use a checkbox and save on change (0.545416ms)
+✔ one click on a boolean value cell toggles and saves it (0.525584ms)
+✔ one click on a true boolean value cell saves false (0.483625ms)
+✔ clicking a boolean name cell still opens the key editor and reading mode does nothing (0.693459ms)
+✔ frontmatter list editor supports add, reorder, remove, and direct array saves (0.877542ms)
+✔ list dragging shows the insertion boundary, reorders items, and suppresses drag blur saves (0.875916ms)
+✔ nullable list editor can set its value as null (0.577125ms)
+✔ nullable scalar editor can set its value to null (0.5135ms)
+✔ frontmatter list editor adds from empty and saves after removing every item (1.094042ms)
+✔ frontmatter list editor keeps invalid edits open and Escape cancels them (0.574334ms)
+✔ frontmatter validation errors show an explicit error state (0.51775ms)
+✔ frontmatter field actions render inside the edited row (4.731ms)
+✔ frontmatter blur toward the field actions does not save (1.854167ms)
+✔ frontmatter text values open a one-row textarea (0.62375ms)
+✔ frontmatter field toolbar adds and removes fields (1.314875ms)
+✔ empty enum values show an explicit placeholder (0.567083ms)
+✔ schema-free frontmatter values use a generic YAML editor (0.61525ms)
+✔ text frontmatter values use a wrapping textarea that grows with its content (0.562958ms)
+✔ Enter saves a one-line frontmatter text field and Shift+Enter does not (0.566708ms)
+✔ Enter in a multi-line frontmatter text value inserts a line; Cmd/Ctrl+Enter saves (0.610833ms)
+✔ saving a frontmatter text field strips trailing line breaks unless the original had one (0.948208ms)
+✔ Enter in the YAML frontmatter editor inserts a line; Cmd/Ctrl+Enter saves (0.524375ms)
+✔ Escape cancels an unsaved frontmatter value edit (0.554833ms)
+✔ frontmatter cells open their field editor with the keyboard in edit mode (0.473458ms)
+✔ executes source and preview synchronization across layout changes (4.1795ms)
+✔ marks editor selection without moving the preview when following is disabled (3.261542ms)
+▶ source scrolling rejects stale identities and invalid line numbers
+  ✔ other document (0.480292ms)
+  ✔ old document version (0.406167ms)
+  ✔ old render request (0.431834ms)
+  ✔ zero line (0.386375ms)
+  ✔ non-finite line (0.379708ms)
+✔ source scrolling rejects stale identities and invalid line numbers (2.296ms)
+✔ scrolls to host-approved anchors and ignores invalid or stale requests (0.498833ms)
+✔ clicking a checkbox posts a source toggle instead of revealing the block (0.5025ms)
+✔ a rejected checkbox toggle reverts the box and explains why (0.448417ms)
+✔ in edit mode a checkbox click toggles the box without opening a block editor (0.434083ms)
+✔ a checkbox click is refused while a block editor is open (0.48675ms)
+✔ checkboxes are disabled when the preview cannot edit the document (0.420083ms)
+✔ typing is saved once after the autosave delay, carrying the last text (0.559541ms)
+✔ pagehide flushes a pending autosave without waiting for the timer (0.531875ms)
+✔ visibilitychange to hidden flushes a pending autosave without waiting for the timer (0.781875ms)
+✔ hide events post nothing when no edit is pending or the page stays visible (0.614375ms)
+✔ blur after typing posts one final save and clears the autosave timer (0.560958ms)
+✔ switching table cells posts the pending change immediately (0.723792ms)
+✔ markWideTables marks short cells and the overflow of a wide table, never the properties table (0.558333ms)
+✔ markWideTables sets the overflow attribute only past a one pixel tolerance and is idempotent (4.112625ms)
+✔ T21: in edit mode a plain click on an okf link opens the field editor and does not navigate (0.587167ms)
+✔ T21: Cmd or Ctrl click on an okf link in edit mode still navigates (0.879458ms)
+✔ T21: in reading mode a click on an okf link navigates (0.410416ms)
+✔ T21: Enter in a list item inserts an empty item after it, focuses it, and does not save (0.707625ms)
+✔ T21: Enter in an empty last list item removes it and saves the list (0.562458ms)
+✔ T21: Backspace in an empty middle list item removes it and focuses the previous input (0.57425ms)
+✔ T21: Backspace in an empty first item focuses the next input, and in the only item the add button (0.511458ms)
+✔ T21: Backspace in a non-empty list item is left to the browser (0.481ms)
+✔ T21: Cmd or Ctrl+Enter in a list item saves the list (1.2765ms)
+✔ T21: Enter while composing or with Shift does not touch the list (0.598875ms)
+✔ T22: list inputs get the datalist of link suggestions, new items included (0.529625ms)
+✔ T22: without or with an invalid suggestions attribute the inputs have no list (1.844208ms)
+✔ T22: an unknown value warns, a known or empty value clears the warning (0.663917ms)
+✔ T22: saving a list with an unknown value still posts the save (0.867042ms)
+✔ T24: Remove field is disabled with a tooltip on a required row (0.629583ms)
+✔ T24: Remove field stays enabled on an optional row (0.503708ms)
+✔ T24: choosing a field in the picker adds it right after the open row (0.529ms)
+✔ T24: the text-input picker adds on Enter with afterField (0.530917ms)
+✔ T25: the picker offers Custom key only when additional properties are allowed (0.997167ms)
+✔ T25: choosing Custom key shows the name input and posts nothing (0.498958ms)
+✔ T25: Enter in the custom key input adds the field with an empty value (0.549042ms)
+✔ T25: an invalid custom key shows an error and posts nothing (2.718667ms)
+✔ T25: a pending frontmatter edit opens the editor of the new field and clears the state once it closes (0.496125ms)
+✔ T25: a pending frontmatter edit outside edit mode or for a missing row is dropped (0.820584ms)
+✔ T25: an error result clears the pending frontmatter edit (0.500209ms)
+✔ T25: a reload of the render that posted the add keeps the pending edit for the next render (0.438834ms)
+✔ T25: saving a value from the pending edit's editor consumes the pending edit (0.47475ms)
+✔ T25: a later render does not reopen an editor that was already opened for the pending edit (10.270583ms)
+✔ T28: edit mode adds one insertion point after each top-level block, reading mode none (0.736833ms)
+✔ T28: a render that starts in edit mode builds the insertion points at init (0.510958ms)
+✔ T28: the properties section gets an insertion point after line 0 (0.61ms)
+✔ T28: an empty body shows a single Start writing point after line 0 (0.54ms)
+✔ T28: a frontmatter-only document gets one Start writing point (0.462333ms)
+✔ T28: a failed render offers no Start writing point (0.394ms)
+✔ T28: clicking a point posts previewEditOpen with insertAfterLine (0.568542ms)
+✔ T28: Start writing opens at line 1 with insertAfterLine 0 (0.612583ms)
+✔ T28: document-level click and keydown on an insertion point never open a block editor (0.496459ms)
+✔ T28: an empty source reply opens an empty textarea with a placeholder; Done saves the insertion (0.65175ms)
+✔ T28: Done on an untouched empty insertion closes without saving (0.552125ms)
+✔ T28: autosave and Cancel carry insertAfterLine (0.549125ms)
+✔ T28: ordinary block edits never carry insertAfterLine (0.56725ms)
+✔ a final block save carries the edited element's pin; an autosave does not (0.83025ms)
+✔ restoreState puts the pinned block's top at the pinned viewport position (16.983959ms)
+✔ previewReady reports the pinned anchor only when the load restored a pin (9.720833ms)
+✔ T38: an unpaired preview disables the anchor button and a previewPairing message re-enables it (3.522541ms)
+✔ T38: a paired preview keeps the anchor button enabled, and a foreign previewPairing is ignored (0.547625ms)
+✔ T38: edit mode starts from the workspace choice unless the webview has saved state (4.192792ms)
+✔ T38: a read-only preview never starts in edit mode (0.45575ms)
+✔ T38: toggling edit mode posts previewEditModeChanged (0.457125ms)
+✔ T41: a new custom key opens a one-line text editor, not the YAML editor (0.552375ms)
+✔ T41: Enter saves a new custom key as plain text and Shift+Enter adds a line (0.589875ms)
+✔ T41: an existing field's save does not ask for a plain scalar (0.504667ms)
+✔ T41: Escape on the field picker cancels the open frontmatter edit (0.5185ms)
+✔ T41: Escape outside the properties section does not touch an open frontmatter edit (0.506959ms)
+✔ T43: the pending overlay message creates one overlay, outside the content (0.499375ms)
+✔ T43: a second pending overlay message updates the overlay instead of duplicating it (0.455667ms)
+✔ T43: visible false removes the pending overlay (0.424291ms)
+✔ T43: invalid or foreign pending overlay messages are ignored (0.445167ms)
+✔ T30: previewPropertiesTable replaces the properties section in place (0.555042ms)
+✔ T30: previewPropertiesTable inserts the section when it is absent and removes it on empty markup (0.496333ms)
+✔ T30: previewPropertiesTable is ignored for another request, version, document or a non-string markup (0.419583ms)
+✔ T30: previewPropertiesTable is deferred while a frontmatter editor is open, then applied on close (0.596625ms)
+✔ T30: a replaced section gets edit-cell tabindex in edit mode and none outside it (0.54475ms)
+✔ T30: a replacement closes the link tooltip, re-measures and keeps the description state (0.820458ms)
+✔ T33: the startup sequence of effects and messages is stable (5.015834ms)
+✔ T34: a content patch replaces the content, moves the identifiers and posts previewReady (0.711833ms)
+✔ STAB-02: previewReady reports that no block editor is open on a fresh page (0.499958ms)
+✔ STAB-02: a patch that closes an open block editor reports blockEditOpen false (0.704958ms)
+✔ T34: after a patch the page answers to the new identifiers only (0.652875ms)
+✔ T34: a patch with stale or malformed fields is ignored (10.740792ms)
+✔ T34: an open block editor is closed without a cancel or a save (0.776041ms)
+✔ T34: an open frontmatter editor is closed and a deferred properties update is dropped (0.63775ms)
+✔ T34: the patch removes the pending overlay and the link tooltip (0.558791ms)
+✔ T34: the patch rebuilds the status region from plain text (0.658416ms)
+✔ T34: a page loaded without a status region gets one as the first child of the body (12.094625ms)
+✔ T34: open disclosures of the old content are open again in the new content (1.092834ms)
+✔ T34: a patch with an anchor or a pin positions the page like a loaded page (4.910791ms)
+✔ T34: a patch keeps the scroll position when the host sends no anchor (0.503333ms)
+✔ T34: a pending checkbox toggle of the old content cannot revert the new content (0.493208ms)
+✔ T34: links of the new content keep known target hints and discover new targets (0.692ms)
+✔ T34: edit mode rebuilds the insertion points for the new content (0.504083ms)
+✔ T34: pending block navigation resumes after a content patch (0.826166ms)
+✔ T34: patches sent before the page acknowledged the previous one apply in order (0.561458ms)
+✔ T34: when a patch of a chain is rejected, the later ones are ignored and nothing is acknowledged (0.675166ms)
+✔ ArrowUp/ArrowDown inside a wrapped logical line move the caret instead of leaving the block (0.827958ms)
+✔ ArrowUp/ArrowDown leave the block only on the first/last visual line (0.617708ms)
+✔ a table cell arrow inside a wrapped cell does not move to another cell (1.138417ms)
+✔ typing * or _ on a selection wraps it, keeps it selected and wraps again on a second press (3.242541ms)
+✔ marker wrapping falls back to a direct edit and autosaves when execCommand is unavailable (0.725417ms)
+✔ marker keys stay native without a selection, with modifiers or during IME composition (1.515667ms)
+✔ a table cell wraps its selection with the marker too (1.598ms)
+✔ Cmd/Ctrl+B, Cmd/Ctrl+I and Ctrl+/ edit the block text box in one native step without saving (5.292916ms)
+✔ editing shortcuts are ignored while composing, with AltGr or with Shift (1.13025ms)
+✔ the editing shortcuts do not touch the table cell editor (0.738917ms)
+✔ Enter continuation and Tab indentation use the undo-preserving execCommand path (0.732583ms)
+✔ undo and redo keys stop at the table cell editor and reach no window listener (0.702667ms)
+✔ AltGr (ctrlKey and altKey with AltGraph) still wraps the selection, plain Ctrl+Alt does not (0.59475ms)
+✔ top spacing: the editor of the first block of the document carries the first-block class (1.2625ms)
+✔ top spacing: the editor of a later block does not carry the first-block class (0.628708ms)
+✔ top spacing: an insertion editor below another block is not the first-block editor (0.579875ms)
+✔ top spacing: the first body block below a properties table is not the first-block editor (0.6265ms)
+✔ top spacing: Start writing of an empty document carries the first class, below properties not (0.841625ms)
+✔ top spacing: the editor opened from Start writing carries the first-block class (0.492208ms)
+✔ empty document: Enter in edit mode opens the new-block editor like Start writing (0.455458ms)
+✔ empty document: Enter with a modifier, in a field, outside edit mode or on a filled document does nothing (5.418459ms)
+✔ empty document: Cmd/Ctrl+Enter saves the new block and Escape cancels back to Start writing (1.204292ms)
+✔ ArrowUp from the first body block under a properties table keeps the editor open (0.637625ms)
+✔ T08: zoom buttons set the zoom variable, post the preference and keep the state (0.5215ms)
+✔ T08: the zoom limits disable the buttons and post nothing more (7.301125ms)
+✔ T08: saved webview state wins over the initial context (4.374708ms)
+✔ T10: the width button cycles margin, auto, full width and posts widthMode (0.956625ms)
+✔ T10: only elements wider than the column are flagged, and only in Auto (0.639125ms)
+✔ T10b: a wide element is centred on the available area, not on the column (0.591958ms)
+✔ T10b: with the TOC open the available area, its centre and the cap exclude the TOC column (4.690625ms)
+✔ T10b: a narrow element is not flagged and the shift is cleared outside Auto (0.769333ms)
+✔ T10b: a paragraph holding only an image is marked as a figure in every width mode (0.596709ms)
+✔ T10b: a wide table gets its fractional max-content width rounded up, so no cell wraps (0.476125ms)
+✔ T10: the saved width mode applies at startup and an edited element keeps the column (3.619708ms)
+✔ T11: Back and Next post previewHistoryGo and follow previewHistoryState (0.574084ms)
+✔ T15: previewShowComments sets the show-comments attribute of the page, stale ids are ignored (0.516083ms)
+✔ T16: previewIncomingChanges marks blocks and reports enabled, stale ids are ignored (0.517417ms)
+✔ T17: the Diff button flips the marks, posts the preference and keeps the state (0.653667ms)
+✔ T17: the initial preference and the saved webview state decide the pressed state (3.923292ms)
+✔ T17: the Diff button is hidden through the document attribute when the setting is off (0.669666ms)
+✔ T11: a previewHistoryState of another document version is ignored (0.483416ms)
+✔ T13: a state snapshot keeps the TOC visibility and the folded sections (3.797416ms)
+✔ T21: the palette is the first child of the block editor frame, above the text box (0.819292ms)
+✔ T21: no palette before the source arrives and none after the editor closes (0.726ms)
+✔ T21: the palette buttons show the real shortcut in their tooltip (1.393291ms)
+✔ T21: every palette control keeps the focus in the text box on mousedown (1.5775ms)
+✔ T21: clicking Bold edits the text in one native step and keeps the editor open (0.883375ms)
+✔ T21: the heading list opens as a menu and choosing a level replaces the prefix (0.929333ms)
+✔ T21: Escape closes an open popover first and only then cancels the editor (0.659041ms)
+✔ T21: opening one popover closes the other and a second click closes it (0.701417ms)
+✔ T21: the code language list is text plus the highlighter languages and aliases (0.796292ms)
+✔ T21: the palette appears in the insertion editor (0.6205ms)
+✔ T21: the table cell editor and the frontmatter editors get no palette (1.998375ms)
+✔ T21: the palette stays reachable by a content patch because it lives in the frame (0.753875ms)
+✔ T21: the palette root cancels mousedown so a press on its padding keeps the focus (1.506709ms)
+✔ T21: opening scrolls down by the bar height and every close path scrolls back (4.480584ms)
+✔ T22: Ctrl+K opens the link panel under the palette with the selection as the text (1.310292ms)
+✔ T22: Cmd+K on macOS opens the panel and Ctrl+K there does not (1.440792ms)
+✔ T22: a selected URL fills the URL field and focus goes to the empty text (1.063541ms)
+✔ T22: with no selection both fields are empty and the text takes the focus (0.679667ms)
+✔ T22: the Link button opens the same panel and keeps the focus rule (0.648334ms)
+✔ T22: the panel has labelled fields, Insert and Cancel in the tab order (0.665333ms)
+✔ T22: Enter in the URL field inserts [text](url) as one undo step and returns to the text box (0.796166ms)
+✔ T22: Enter in the Text field and the Insert button also insert (1.277167ms)
+✔ T22: an empty URL inserts [text]() with the caret inside the parentheses (0.644375ms)
+✔ T22: an IME composition Enter does not insert (0.662666ms)
+✔ T22: a selection inside an existing link prefills both fields and replaces that link (0.68925ms)
+✔ T22: Escape in the panel returns to the text box without any change and keeps the editor (0.658625ms)
+✔ T22: Cancel behaves like Escape (0.608875ms)
+✔ T22: Tab cycles Text, URL, Insert, Cancel and back, and Shift+Tab goes the other way (0.602083ms)
+✔ T22: a press on the panel's padding or buttons keeps the focus, a press on a field focuses it (0.65075ms)
+✔ T22: moving the focus from the text box into the panel does not save (0.583208ms)
+✔ T22: the text box blur with no target or a target outside the frame still saves (1.616083ms)
+✔ T22: focus leaving the panel for outside the frame runs the final save once (0.612958ms)
+✔ T22: focus moving between the panel fields or back to the text box does not save (0.629166ms)
+✔ T22: closing the panel never produces a blur save, whatever blur the browser fires (0.615666ms)
+✔ T22: the panel is removed with the editor (0.596292ms)
+✔ T22: opening and closing the panel keep the edited text in place (7.73325ms)
+✔ T22: typing in the text box closes the panel and a later Insert cannot corrupt the text (0.823792ms)
+✔ T22: a mousedown in the text box closes the panel without touching the selection (0.727916ms)
+✔ T22: Insert on a text that changed without an input event aborts without editing (0.616708ms)
+✔ T22: Cmd/Ctrl+K inside a panel field is consumed and moves to the URL field (0.595708ms)
+✔ continueOnEnter "- a|" (1.632125ms)
+✔ continueOnEnter "      - Dry goods|" (0.341375ms)
+✔ continueOnEnter "1. a|" (0.116417ms)
+✔ continueOnEnter "9) a|" (0.099375ms)
+✔ continueOnEnter "* a|" (0.134333ms)
+✔ continueOnEnter "+ a|" (0.06175ms)
+✔ continueOnEnter "- [x] done|" (0.599916ms)
+✔ continueOnEnter "- [ ] todo|" (0.070583ms)
+✔ continueOnEnter "> quote|" (0.15975ms)
+✔ continueOnEnter "> - item|" (0.281583ms)
+✔ continueOnEnter "- |" (0.117333ms)
+✔ continueOnEnter "a\n  - |\nb" (0.066125ms)
+✔ continueOnEnter ">  |" (0.044458ms)
+✔ continueOnEnter "|- a" (0.035708ms)
+✔ continueOnEnter "-| a" (0.033458ms)
+✔ continueOnEnter "plain|" (0.079375ms)
+✔ continueOnEnter "    code|" (0.084458ms)
+✔ continueOnEnter "```\n- a|" (0.045333ms)
+✔ continueOnEnter "```\n  x|" (0.044875ms)
+✔ continueOnEnter "```\n- a\n```\n- b|" (0.043792ms)
+✔ continueOnEnter "- a|b" (0.034083ms)
+✔ continueOnEnter leaves non-collapsed selections to the native behaviour (0.084334ms)
+✔ indentSelection indent "- a|" (0.402125ms)
+✔ indentSelection indent "|- a" (0.058291ms)
+✔ indentSelection indent "1. a|" (0.047917ms)
+✔ indentSelection indent "10. a|" (0.048375ms)
+✔ indentSelection indent "[- a\n- b]" (0.052375ms)
+✔ indentSelection indent "- a\n[- b\n]" (0.055833ms)
+✔ indentSelection outdent "    - a|" (0.091792ms)
+✔ indentSelection outdent "  - a|" (0.11825ms)
+✔ indentSelection outdent "- a|" (0.074333ms)
+✔ indentSelection outdent "plain|" (0.330458ms)
+✔ indentSelection outdent "    plain|" (0.072916ms)
+✔ indentSelection outdent "\tplain|" (0.068791ms)
+✔ indentSelection indent "some| prose" (0.08625ms)
+✔ indentSelection indent "[some prose]" (0.04825ms)
+✔ indentSelection indent "> - a|" (0.047625ms)
+✔ indentSelection outdent "> - a|" (0.037833ms)
+✔ indentSelection outdent ">   - a|" (0.03625ms)
+✔ indentSelection indent "a\n  - b|\nc" (0.037375ms)
+✔ mapRenderedCaret three-line paragraph (0.622542ms)
+✔ mapRenderedCaret emphasis (0.075875ms)
+✔ mapRenderedCaret link label (0.05475ms)
+✔ mapRenderedCaret list (0.069875ms)
+✔ mapRenderedCaret heading (0.064375ms)
+✔ mapRenderedCaret only the last 12 characters before the click match (0.051042ms)
+✔ mapRenderedCaret fenced code with underscore (documents the current result) (0.08175ms)
+✔ mapRenderedCaret ambiguous (0.061ms)
+✔ mapRenderedCaret no match (0.048958ms)
+✔ mapRenderedCaret empty context (0.059667ms)
+✔ wrapSelection wraps a non-empty selection with the marker and keeps it selected (0.831291ms)
+✔ wrapSelection ignores a caret, other keys and invalid ranges (0.175458ms)
+✔ the TOC is off by default and the page is marked closed (2.355583ms)
+✔ the workspace preference opens the TOC and the saved webview state wins (0.152792ms)
+✔ the entries list h1 to h4 with their level and without the permalink glyph (0.79975ms)
+✔ headings in properties, admonitions, block editors and the sticky band are left out (0.129292ms)
+✔ an empty document shows No headings (0.107541ms)
+✔ the TOC is rebuilt after the content is replaced, once per frame (0.164458ms)
+✔ clicking an entry scrolls to its heading and does not navigate (0.160542ms)
+✔ the toggle opens the TOC, posts the preference, remembers it and builds the entries (1.280208ms)
+✔ the column starts 8 px below the toolbar (0.073041ms)
+✔ only parent entries get a twisty with aria-expanded (0.176125ms)
+✔ collapsing a parent hides its descendants, and a rebuild keeps it collapsed (0.219959ms)
+✔ collapsing a middle parent hides only its own subtree (0.095708ms)
+✔ the current entry follows the reading line and is marked aria-current (0.105542ms)
+✔ a collapsed parent carries the highlight of a hidden current section (0.087208ms)
+✔ the scroll tracking reads no layout: tops are cached until remeasure (0.131875ms)
+✔ the TOC scrolls itself, not the page, to keep the current entry visible (0.080333ms)
+✔ a click right after a content patch scrolls to the live heading (0.09975ms)
+✔ a repeated heading text is told apart by its occurrence (0.067791ms)
+✔ a heading revealed at the reading line becomes current despite a fractional top (0.089875ms)
+✔ a comment chip and its hidden body stay out of the entry label, a TODO word chip stays in (0.097ms)
+ℹ tests 1119
+ℹ suites 0
+ℹ pass 1119
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2322.473166
+
+> markdown-okf-schema-studio@0.3.1 test:contracts
+> mkdir -p out/reports/contract && node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=out/reports/contract/tests-contract.xml out/test/rendering/*.contract.js
+
+✔ real Sphinx HTML preserves the active-file MyST feature contract (518.78775ms)
+✔ missing active-file input returns a source diagnostic (291.686375ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 851.809208
+
+> markdown-okf-schema-studio@0.3.1 test:security
+> mkdir -p out/reports/security && node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=out/reports/security/tests-security.xml out/test/security/*.test.js
+
+✔ rewrites local resources and removes active HTML content (4.846667ms)
+✔ reduced previews remove external scripts while retaining contained media (0.830875ms)
+✔ maps rendered source lines to the active preview document (0.659583ms)
+✔ keeps the included-block marker next to the source mapping (0.175292ms)
+✔ rewrites sanitized table styles into a nonce-bearing stylesheet (1.162125ms)
+✔ blocks hostile CSS imports, schemes, and URLs while preserving local assets (0.426459ms)
+✔ generates a restrictive nonce-bearing CSP (0.0925ms)
+✔ adds the CSP as a head meta without retaining a weaker policy (0.191125ms)
+✔ removes refresh metadata with surrounding whitespace (0.137125ms)
+✔ keeps deferred relative navigation inert and host-routable (0.229541ms)
+✔ resolves parent-relative figure images through the workspace root (0.978167ms)
+✔ strips figure images that escape even the workspace root (0.5335ms)
+✔ extension icon is a 256 pixel PNG and the Sphinx favicon matches the shared logo (1.208542ms)
+✔ contributes only opt-in Markdown OKF-Schema Studio commands (1.54875ms)
+✔ pins Node 24 and keeps the lockfile on the official npm registry (3.063666ms)
+✔ every contributed setting is explained with a markdownDescription and a unique order (0.188208ms)
+✔ canonicalizes local resources and rejects hostile paths (2.47575ms)
+✔ allows only explicit navigation schemes (1.457125ms)
+✔ rewrites srcset candidates without allowing data or script URLs (0.168375ms)
+✔ resolves parent-relative figure references through an ancestor root (0.897959ms)
+✔ still blocks references escaping the workspace root (0.74625ms)
+✔ the literal scanner skips comments and finds strings in templates (0.644167ms)
+✔ no user-facing string literal mentions Sphinx (10.60675ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 58.810708
+
+> markdown-okf-schema-studio@0.3.1 test:visual
+> npm run visual:render && uv run --no-sync --group docs python test/visual/capture.py
+
+
+> markdown-okf-schema-studio@0.3.1 visual:render
+> npm run compile && npm run bundle && node out/test/visual/renderFixtures.js
+
+
+> markdown-okf-schema-studio@0.3.1 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.3.1 bundle
+> node esbuild.mjs
+
+
+  out/bundle/extension.js      1.8mb ⚠️
+  out/bundle/extension.js.map  5.8mb
+
+⚡ Done in 118ms
+
+  out/bundle/mermaidPreview.js  5.0mb ⚠️
+
+⚡ Done in 225ms
+rendered 60 pages, 159 scenarios
+  placeholder: 03-unresolved-constructs:30 Directive {animation} is not available outside a full build.
+  placeholder: 03-unresolved-constructs:36 Directive {bibliography} is not available outside a full build.
+  placeholder: 03-unresolved-constructs:39 Directive {toctree} is not available outside a full build.
+warning: `VIRTUAL_ENV=/Users/az02065/Projects/Nestor/agentic-coding-white-paper/.venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead
+passed: handbook-narrow-top
+passed: handbook-narrow-table
+passed: handbook-forced-cream
+passed: handbook-dark-top
+passed: handbook-dark-bottom
+passed: handbook-light-top
+passed: handbook-light-failures
+passed: handbook-dark-third
+passed: handbook-forced-white
+passed: admonitions-narrow-full
+passed: admonitions-dark-full
+passed: admonitions-forced-cream-full
+passed: admonitions-dark-nested
+passed: admonitions-dark-titled
+passed: chapter-dark-top
+passed: admonitions-light-full
+passed: chapter-figure-dark
+passed: chapter-dark-three-quarters
+passed: chapter-dark-half
+passed: chapter-dark-quarter
+passed: chapter-light-top
+passed: chapter-dark-bottom
+passed: chapter-max-width-light-full
+passed: chapter-max-width-dark-full
+passed: first-element-gap-h1-460
+passed: first-element-gap-h1-900
+passed: nested-list-typing-dark
+passed: nested-list-typing-light
+passed: bare-urls-light-wide
+passed: first-element-gap-paragraph-460
+passed: first-element-gap-empty-460
+passed: first-element-gap-empty-900
+passed: first-element-gap-h2-460
+passed: first-element-gap-h2-900
+passed: first-element-gap-paragraph-900
+passed: first-element-gap-wide-margin-1600
+passed: first-element-gap-table-460
+passed: first-element-gap-table-900
+passed: first-element-gap-h3-460
+passed: first-element-gap-h3-900
+passed: first-element-gap-admonition-460
+passed: first-element-gap-admonition-900
+passed: first-element-gap-image-460
+passed: first-element-gap-image-900
+passed: width-modes-dark-900
+passed: width-modes-dark-1600
+passed: width-modes-cream-900
+passed: width-modes-cream-1600
+passed: toc-column-light-460
+passed: width-modes-light-900
+passed: width-modes-light-1600
+passed: toc-column-dark-1600
+passed: comment-chips-light-theme
+passed: toc-column-light-900
+passed: comment-chips-dark-cream
+passed: comment-chips-dark-theme
+passed: code-copy-button-cream
+passed: readme-margin-break-cream
+passed: unresolved-dark-full
+passed: code-dark-top
+passed: unresolved-light-full
+passed: code-tables-forced-cream
+passed: code-dark-table-narrow
+passed: code-light-full
+passed: code-copy-button-dark
+passed: code-dark-table
+passed: code-light-table-narrow
+passed: syntax-dark-python
+passed: syntax-narrow-python
+passed: code-copy-button-light
+passed: syntax-dark-markdown
+passed: diff-light-preview
+passed: diff-dark-preview
+passed: syntax-dark-rust
+passed: syntax-light-rust
+passed: inline-code-light
+passed: syntax-light-shell (alias of diff-light-preview)
+passed: inline-code-cream
+passed: inline-code-narrow
+passed: context-tags-light-narrow
+passed: inline-code-dark
+passed: inline-code-white
+passed: context-tags-dark-narrow
+passed: context-tags-dark-wide
+passed: context-tags-light-wide
+passed: mermaid-map-light
+passed: plantuml-success-dark
+passed: mermaid-map-dark
+passed: plantuml-executable-not-found
+passed: mermaid-map-fallback
+passed: frontmatter-forced-cream
+passed: plantuml-success-light
+passed: frontmatter-light
+passed: plantuml-unconfigured
+passed: first-element-gap-properties-900
+passed: frontmatter-dark
+passed: okf-schema-narrow (alias of frontmatter-scroll-feedback)
+passed: first-element-gap-properties-460
+passed: preview-toolbar-dark (alias of okf-schema-dark)
+passed: first-element-gap-properties-1600
+passed: okf-schema-missing-required-dark
+passed: frontmatter-forced-white
+passed: okf-schema-missing-required-light
+passed: okf-schema-dark
+passed: schema-validation-error-light
+passed: okf-schema-table
+passed: standalone-frontmatter-dark
+passed: schema-validation-error-dark
+passed: frontmatter-links-loading
+passed: schema-validation-error-narrow
+passed: frontmatter-links-loaded
+passed: standalone-frontmatter-light
+passed: frontmatter-link-details-white-900
+passed: frontmatter-link-details-dark-460
+passed: edit-affordances-narrow
+passed: frontmatter-link-details-dark-900
+passed: edit-insert-point-hover
+passed: frontmatter-link-details-white-460
+passed: edit-affordances-hover-and-open
+passed: edit-table-wide-end-dark
+passed: edit-palette-cream
+passed: preview-edit-activation-scroll-wide
+passed: edit-palette-narrow-360
+passed: edit-palette-dark
+passed: math-edit-offline-dark
+passed: edit-palette-light
+passed: diff-dark-edit
+passed: preview-edit-activation-scroll-narrow
+passed: math-edit-offline-light-narrow
+passed: edit-table-wrapped-dark-460
+passed: diff-light-edit
+passed: edit-paragraph-forced-cream
+passed: edit-admonition-dark
+passed: edit-mode-dark (alias of edit-paragraph-dark)
+passed: edit-paragraph-dark
+passed: edit-frontmatter-value-dark
+passed: edit-table-wrapped-dark-900
+passed: frontmatter-scroll-feedback-edit
+passed: edit-frontmatter-key-dark
+passed: edit-frontmatter-list-light
+passed: edit-table-wrapped-light-460
+passed: edit-table-cell-dark (alias of edit-table-wrapped-dark-900)
+passed: edit-first-block-top-narrow
+passed: edit-table-wrapped-light-900
+passed: edit-list-narrow
+passed: edit-empty-document-start-writing
+passed: edit-frontmatter-list-dark
+passed: editor-keyboard-wrapped-narrow
+passed: edit-insert-after-final-figure
+passed: edit-frontmatter-boolean-dark
+passed: edit-insert-after-final-image
+passed: preview-sticky-headings-1
+passed: edit-first-block-top-wide
+passed: preview-sticky-headings-2
+passed: preview-sticky-headings-3
+passed: edit-empty-document-enter-opens-editor
+passed: preview-sticky-headings-natural-growth
+passed: preview-sticky-headings-3-light-narrow
+passed: frontmatter-scroll-feedback
+
+154 screenshots in /Users/az02065/Projects/DevTools/markdown-okf-schema-studio/out/reports/e2e/screenshots
+{"status": "passed", "scenario_count": 159, "screenshot_count": 154}
+=== level B exit 0
+=== level S
+
+> markdown-okf-schema-studio@0.3.1 test:scroll
+> npm run compile && npm run bundle && node out/test/integration/run-tests.js --scroll-only
+
+
+> markdown-okf-schema-studio@0.3.1 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.3.1 bundle
+> node esbuild.mjs
+
+
+  out/bundle/extension.js      1.8mb ⚠️
+  out/bundle/extension.js.map  5.8mb
+
+⚡ Done in 152ms
+
+  out/bundle/mermaidPreview.js  5.0mb ⚠️
+
+⚡ Done in 255ms
+
+DevTools listening on ws://127.0.0.1:54737/devtools/browser/e5d62c76-c531-4bb6-85fe-da2b7c6cb16e
+Warning: 'remote-debugging-port' is not in the list of known options, but still passed to Electron/Chromium.
+Warning: 'remote-debugging-address' is not in the list of known options, but still passed to Electron/Chromium.
+[90m[main 2026-10-16T13:45:07.155Z][0m [node-compile-cache] main: packaged cache inactive (status: disabled, configured: /Applications/Visual Studio Code.app/Contents/Resources/app/node-compile-cache/main, active: none)
+[90m[main 2026-10-16T13:45:07.175Z][0m StorageMainService: creating application shared storage
+[90m[main 2026-10-16T13:45:07.273Z][0m [shared storage] Creating shared storage database at ':memory:' (wasCreated: true)
+[90m[main 2026-10-16T13:45:07.273Z][0m [shared storage] Initializing fallback application storage (path: in-memory)
+[90m[main 2026-10-16T13:45:07.352Z][0m [shared storage] Fallback application storage initialized with 3 items
+[90m[main 2026-10-16T13:45:07.353Z][0m update#setState disabled
+[90m[main 2026-10-16T13:45:07.353Z][0m update#ctor - updates are disabled by the environment
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[AgentHost:renderer] Acquiring MessagePort to agent host...
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Loading development extension at /Users/az02065/Projects/DevTools/markdown-okf-schema-studio
+Extension 'github.copilot-chat' appears in product.json but enables LESS API proposals than the extension wants.
+package.json (LOSES): agentSessionsWorkspace
+agentsWindowConfiguration
+chatDebug
+chatHooks
+envIsConnectionMetered
+extensionsAny
+newSymbolNamesProvider
+interactive
+codeActionAI
+activeComment
+commentReveal
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+documentFiltersExclusive
+embeddings
+findTextInFiles
+findTextInFiles2
+languageModelToolSupportsModel
+findFiles2
+textSearchProvider
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+chatParticipantAdditions
+defaultChatParticipant
+contribSourceControlInputBoxMenu
+authLearnMore
+authIssuers
+testObserver
+aiTextSearchProvider
+chatParticipantPrivate
+chatProvider
+contribDebugCreateConfiguration
+chatReferenceDiagnostic
+textSearchProvider2
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelPricing
+inlineCompletionsAdditions
+chatStatusItem
+chatInputNotification
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+languageModelThinkingPart
+chatSessionsProvider
+devDeviceId
+contribEditorContentMenu
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+environmentPower
+terminalTitle
+toolInvocationApproveCombination
+chatSessionCustomizationProvider
+product.json (WINS): agentSessionsWorkspace
+agentsWindowConfiguration
+interactive
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+chatParticipantAdditions
+defaultChatParticipant
+embeddings
+chatProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+codeActionAI
+findTextInFiles
+findTextInFiles2
+textSearchProvider
+textSearchProvider2
+activeComment
+commentReveal
+contribSourceControlInputBoxMenu
+contribCommentEditorActionsMenu
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+extensionAffinity
+newSymbolNamesProvider
+findFiles2
+chatReferenceDiagnostic
+extensionsAny
+authLearnMore
+testObserver
+aiTextSearchProvider
+documentFiltersExclusive
+chatParticipantPrivate
+contribDebugCreateConfiguration
+inlineCompletionsAdditions
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelThinkingPart
+languageModelToolSupportsModel
+chatStatusItem
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+chatSessionsProvider
+chatSessionCustomizationProvider
+devDeviceId
+contribEditorContentMenu
+tokenInformation
+toolInvocationApproveCombination
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+chatHooks
+chatDebug
+envIsConnectionMetered
+environmentPower
+terminalTitle
+languageModelPricing
+chatInputNotification
+DELTA: authIssuers
+Proceeding with EXTRA proposals (authIssuers) because extension is in development mode. Still, this EXTENSION WILL BE BROKEN unless product.json is updated.
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Settings Sync: Account status changed from uninitialized to unavailable
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[90m[main 2026-10-16T13:45:08.576Z][0m AgentHostProcessManager: agent host started
+[AgentHost:renderer] MessagePort acquired, creating client...
+Started local extension host with pid 58814.
+[91m[main 2026-10-16T13:45:08.892Z][0m [AgentHost:stderr] (node:58813) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `Code Helper --trace-deprecation ...` to show where the warning was created)
+
+[RemoteAgentHostProtocol] Sending initialize: address=local clientId=d696285b-48f8-43f0-8e7f-2ec3033d6ab2 requestId=1
+[RemoteAgentHostProtocol] Initialized: address=local clientId=d696285b-48f8-43f0-8e7f-2ec3033d6ab2 durationMs=1061
+[AgentHost:renderer] Protocol connection established; clientId=d696285b-48f8-43f0-8e7f-2ec3033d6ab2
+[CloudSandboxApi] No 'github' session with scopes [read:user, user:email, repo, workflow]
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YzVhYzIxYjItYzZhZS00OTc3LTkwMjQtNmI0MTgxNGUzYjA3" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+(node:58814) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `Code Helper (Plugin) --trace-deprecation ...` to show where the warning was created)
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YzVhYzIxYjItYzZhZS00OTc3LTkwMjQtNmI0MTgxNGUzYjA3" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Unknown channel: agentHostClientByokLm
+Unknown channel: agentHostClientProxy
+Unknown channel: agentHostClientProxy
+Unknown channel: agentHostClientProxy
+[AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+PASS scroll E2E: solo-reading-anchored
+PASS scroll E2E: solo-reading-independent
+PASS scroll E2E: solo-editing-anchored
+PASS scroll E2E: solo-editing-independent
+PASS scroll E2E: solo-block-anchored
+PASS scroll E2E: solo-block-independent
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YzVhYzIxYjItYzZhZS00OTc3LTkwMjQtNmI0MTgxNGUzYjA3" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS scroll E2E: paired-reading-anchored
+PASS scroll E2E: paired-reading-independent
+PASS scroll E2E: paired-editing-anchored
+PASS scroll E2E: paired-editing-independent
+PASS scroll E2E: paired-block-anchored
+PASS scroll E2E: paired-block-independent
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/YzVhYzIxYjItYzZhZS00OTc3LTkwMjQtNmI0MTgxNGUzYjA3" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS block keyboard navigation E2E
+[90m[main 2026-10-16T13:46:58.530Z][0m Extension host with pid 58814 exited with code: 0, signal: unknown.
+Exit code:   0
+=== level S exit 0
+=== level T
+
+> markdown-okf-schema-studio@0.3.1 test:integration
+> npm run compile && npm run bundle && node out/test/integration/run-tests.js --trusted-only
+
+
+> markdown-okf-schema-studio@0.3.1 compile
+> tsc -p .
+
+
+> markdown-okf-schema-studio@0.3.1 bundle
+> node esbuild.mjs
+
+
+  out/bundle/extension.js      1.8mb ⚠️
+  out/bundle/extension.js.map  5.8mb
+
+⚡ Done in 107ms
+
+  out/bundle/mermaidPreview.js  5.0mb ⚠️
+
+⚡ Done in 296ms
+
+DevTools listening on ws://127.0.0.1:54812/devtools/browser/aef7d8c1-b23d-4c64-afed-f344c1f381c0
+Warning: 'remote-debugging-port' is not in the list of known options, but still passed to Electron/Chromium.
+Warning: 'remote-debugging-address' is not in the list of known options, but still passed to Electron/Chromium.
+[90m[main 2026-10-16T13:47:00.506Z][0m [node-compile-cache] main: packaged cache inactive (status: disabled, configured: /Applications/Visual Studio Code.app/Contents/Resources/app/node-compile-cache/main, active: none)
+[90m[main 2026-10-16T13:47:00.526Z][0m StorageMainService: creating application shared storage
+[90m[main 2026-10-16T13:47:00.621Z][0m [shared storage] Creating shared storage database at ':memory:' (wasCreated: true)
+[90m[main 2026-10-16T13:47:00.621Z][0m [shared storage] Initializing fallback application storage (path: in-memory)
+[90m[main 2026-10-16T13:47:00.695Z][0m [shared storage] Fallback application storage initialized with 3 items
+[90m[main 2026-10-16T13:47:00.695Z][0m update#setState disabled
+[90m[main 2026-10-16T13:47:00.695Z][0m update#ctor - updates are disabled by the environment
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+[AgentHost:renderer] Acquiring MessagePort to agent host...
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Loading development extension at /Users/az02065/Projects/DevTools/markdown-okf-schema-studio
+Extension 'github.copilot-chat' appears in product.json but enables LESS API proposals than the extension wants.
+package.json (LOSES): agentSessionsWorkspace
+agentsWindowConfiguration
+chatDebug
+chatHooks
+envIsConnectionMetered
+extensionsAny
+newSymbolNamesProvider
+interactive
+codeActionAI
+activeComment
+commentReveal
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+documentFiltersExclusive
+embeddings
+findTextInFiles
+findTextInFiles2
+languageModelToolSupportsModel
+findFiles2
+textSearchProvider
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+chatParticipantAdditions
+defaultChatParticipant
+contribSourceControlInputBoxMenu
+authLearnMore
+authIssuers
+testObserver
+aiTextSearchProvider
+chatParticipantPrivate
+chatProvider
+contribDebugCreateConfiguration
+chatReferenceDiagnostic
+textSearchProvider2
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelPricing
+inlineCompletionsAdditions
+chatStatusItem
+chatInputNotification
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+languageModelThinkingPart
+chatSessionsProvider
+devDeviceId
+contribEditorContentMenu
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+environmentPower
+terminalTitle
+toolInvocationApproveCombination
+chatSessionCustomizationProvider
+product.json (WINS): agentSessionsWorkspace
+agentsWindowConfiguration
+interactive
+terminalDataWriteEvent
+terminalExecuteCommandEvent
+terminalSelection
+terminalQuickFixProvider
+chatParticipantAdditions
+defaultChatParticipant
+embeddings
+chatProvider
+mappedEditsProvider
+aiRelatedInformation
+aiSettingsSearch
+codeActionAI
+findTextInFiles
+findTextInFiles2
+textSearchProvider
+textSearchProvider2
+activeComment
+commentReveal
+contribSourceControlInputBoxMenu
+contribCommentEditorActionsMenu
+contribCommentThreadAdditionalMenu
+contribCommentsViewThreadMenus
+contribChatEditorInlineGutterMenu
+extensionAffinity
+newSymbolNamesProvider
+findFiles2
+chatReferenceDiagnostic
+extensionsAny
+authLearnMore
+testObserver
+aiTextSearchProvider
+documentFiltersExclusive
+chatParticipantPrivate
+contribDebugCreateConfiguration
+inlineCompletionsAdditions
+chatReferenceBinaryData
+languageModelSystem
+languageModelCapabilities
+languageModelThinkingPart
+languageModelToolSupportsModel
+chatStatusItem
+taskProblemMatcherStatus
+contribLanguageModelToolSets
+textDocumentChangeReason
+resolvers
+taskExecutionTerminal
+dataChannels
+chatSessionsProvider
+chatSessionCustomizationProvider
+devDeviceId
+contribEditorContentMenu
+tokenInformation
+toolInvocationApproveCombination
+chatPromptFiles
+mcpServerDefinitions
+tabInputMultiDiff
+workspaceTrust
+chatHooks
+chatDebug
+envIsConnectionMetered
+environmentPower
+terminalTitle
+languageModelPricing
+chatInputNotification
+DELTA: authIssuers
+Proceeding with EXTRA proposals (authIssuers) because extension is in development mode. Still, this EXTENSION WILL BE BROKEN unless product.json is updated.
+[AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey=undefined conversationKey=undefined modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[RemoteAgentHost] Reconciling: desired=[], current=[]
+Settings Sync: Account status changed from uninitialized to unavailable
+[90m[main 2026-10-16T13:47:02.068Z][0m AgentHostProcessManager: agent host started
+[AgentHost:renderer] MessagePort acquired, creating client...
+Started local extension host with pid 60658.
+[91m[main 2026-10-16T13:47:02.350Z][0m [AgentHost:stderr] (node:60657) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `Code Helper --trace-deprecation ...` to show where the warning was created)
+
+[RemoteAgentHostProtocol] Sending initialize: address=local clientId=a94395fb-be41-421c-b348-ed5befac8ece requestId=1
+[RemoteAgentHostProtocol] Initialized: address=local clientId=a94395fb-be41-421c-b348-ed5befac8ece durationMs=1147
+[AgentHost:renderer] Protocol connection established; clientId=a94395fb-be41-421c-b348-ed5befac8ece
+[CloudSandboxApi] No 'github' session with scopes [read:user, user:email, repo, workflow]
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[AgentHost] No signed-in session resolved for resource: https://api.github.com/repos
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Unknown channel: agentHostClientByokLm
+Unknown channel: agentHostClientProxy
+Unknown channel: agentHostClientProxy
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Cannot read properties of undefined (reading 'selection'): TypeError: Cannot read properties of undefined (reading 'selection')
+    at np.applyOptions (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:715:93592)
+    at PF.applyNavigationOptions (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:715:70669)
+    at PF.setOptions (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:715:70558)
+    at D$e.doSetInput (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1021:36202)
+    at D$e.doOpenEditor (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1021:34214)
+    at D$e.openEditor (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1021:33162)
+    at vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1134:77139
+    at iI.doShowEditor (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1134:77387)
+    at iI.doOpenEditor (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1134:76885)
+    at iI.openEditor (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1134:75722)
+    at o (vscode-file://vscode-app/Applications/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.js:1015:9039)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+Unknown channel: agentHostClientProxy
+{"stockPreview":"pass","stockSettingsUnchanged":"pass","stockCommands":"pass","nativeTextDiff":"pass","stockRenderedDiffRegistration":"pass","coexistence":"pass"}
+(node:60658) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `Code Helper (Plugin) --trace-deprecation ...` to show where the warning was created)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS checkbox screenshot: 01-reading-unchecked
+PASS checkbox screenshot: 02-reading-checked
+[AccountPolicyGate] apply: state=inactive, reason=undefined, isRestricted=false
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS checkbox screenshot: 03-edit-mode-unchecked
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS checkbox screenshot: 04-edit-mode-checked
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 01-paragraph-blur-commit
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: comment-block-edit
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T13:47:09.457Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+PASS real-input screenshot: 02-ctrl-enter-commit
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 03-arrow-navigation
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 04-table-cell-enter
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 06-table-padded-edit
+PASS real-input screenshot: 07-table-compact-edit
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 05-open-with-editor
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 08-frontmatter-value-minimal-patch
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 09-frontmatter-rename-minimal-patch
+PASS real-input screenshot: 10-frontmatter-remove-minimal-patch
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 11-frontmatter-title-enter
+PASS real-input screenshot: 12-frontmatter-title-multiline
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 13-escape-cancels-block
+PASS real-input screenshot: 14-escape-cancels-table-cell
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 15-typing-undo-grouping
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 16-undo-stays-side
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 16-undo-stays-open-with
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 17-enter-continues-list
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 18-tab-indents
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T13:47:34.107Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+PASS real-input screenshot: t20-shortcuts
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: t21-palette
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: t22-link-panel
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 19-preview-keeps-markdown
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 20-caret-at-click
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 21-edit-hover
+PASS real-input screenshot: 22-editor-frame-and-buttons
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 23-edit-mode-no-reflow
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 24-table-tab
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 25-table-toolbar
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 26-boolean-one-click
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 27-list-click-edits
+PASS real-input screenshot: 28-list-enter-adds
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 29-list-link-warning
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 30-frontmatter-actions-value
+PASS real-input screenshot: 31-frontmatter-actions-picker
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 32-required-remove-disabled
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 33-custom-key-added
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: t41-add-field-position
+PASS real-input screenshot: t41-custom-key-plain
+PASS real-input screenshot: t41-escape-on-picker
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 34-link-diagnostic-tooltip
+[91m[main 2026-10-16T13:47:54.561Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 24-start-writing-open
+PASS real-input screenshot: 25-block-inserted
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 25b-insert-after-figure-with-newline
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 25b-insert-after-figure-without-newline
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 07-image-editing
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T31 case A: Y0=1200 Y1=1200 Y2=1200
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T31 case B cell top: before=438.375 after100ms=438.375 editorOpen=438.375
+PASS real-input screenshot: 26-focus-change-still
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T31b: editor top line 196, anchor distance 1
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 27-hidden-preview-catches-up
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T32 list (realinput-t32-list): reading=81.80000000000001 T0=39.8125 T1=39.8125 drift=0
+RI-T32 list second render: T2=39.8125 drift=0
+PASS real-input screenshot: 32-save-keeps-list-in-place
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T32 table: T0=322.328125 Tcommit=322.328125 T1=322.328125 drift=0
+PASS real-input screenshot: 33-save-keeps-table-in-place
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 35-status-two-lines
+[91m[main 2026-10-16T13:48:16.188Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 36-title-bar-button
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 38-anchor-disabled
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 38-anchor-enabled
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 38-toolbar-dark-current
+PASS real-input screenshot: 38-toolbar-dark-dark
+PASS real-input screenshot: 38-toolbar-dark-white
+PASS real-input screenshot: 38-toolbar-dark-cream
+PASS real-input screenshot: 38-toolbar-light-current
+PASS real-input screenshot: 38-toolbar-light-dark
+PASS real-input screenshot: 38-toolbar-light-white
+PASS real-input screenshot: 38-toolbar-light-cream
+PASS real-input screenshot: 38-edit-mode-remembered
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T13:48:23.268Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS real-input screenshot: 39-quick-open-beside-preview
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T13:48:25.110Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T13:48:27.377Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T43 fast edit html assignments: 1
+RI-T43 slow edit: assignments 0, paragraph shift 0 px
+PASS real-input screenshot: 43-pending-overlay
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T30 typing: 0 html assignments, 10 ready renders
+PASS real-input screenshot: 30-properties-in-place
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T34 typing: 0 html assignments, 20 content patches
+PASS real-input screenshot: 34-content-patched
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+RI-T34 large document typing: 0 html assignments, 32 content patches
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+PASS frontmatter screenshot: description-white-expanded
+PASS frontmatter screenshot: description-white-collapsed
+PASS frontmatter screenshot: description-white-collapsed-after-refresh
+PASS frontmatter screenshot: description-white-expanded-again
+PASS frontmatter screenshot: description-dark-expanded
+PASS frontmatter screenshot: description-dark-collapsed
+PASS frontmatter screenshot: description-dark-collapsed-after-refresh
+PASS frontmatter screenshot: description-dark-expanded-again
+PASS frontmatter screenshot: description-white-expanded-narrow
+PASS frontmatter screenshot: description-white-collapsed-narrow
+PASS frontmatter screenshot: description-white-collapsed-after-refresh-narrow
+PASS frontmatter screenshot: description-white-expanded-again-narrow
+PASS frontmatter screenshot: description-dark-expanded-narrow
+PASS frontmatter screenshot: description-dark-collapsed-narrow
+PASS frontmatter screenshot: description-dark-collapsed-after-refresh-narrow
+PASS frontmatter screenshot: description-dark-expanded-again-narrow
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T13:49:39.067Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[Task 02] measured initial command-to-render=87ms; normal edit-to-render=65ms; delayed obsolete build=500ms
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[91m[main 2026-10-16T13:49:45.602Z][0m CodeWindow: failed to load (reason: <unknown>, code: -3)
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[ChatModelSelection] event=no-model-at-toolbar-build surface="workbench" sessionKey="local" conversationKey="vscode-chat-session://local/MDUxNTRmMWMtNWFjYi00OGMyLTgzZjAtNDNhMThhNDZlMjBk" modelTarget=undefined storageKey="chat.currentLanguageModel.panel" widgetViewKind="view"
+[90m[main 2026-10-16T13:49:52.815Z][0m Extension host with pid 60658 exited with code: 0, signal: unknown.
+Exit code:   0
+=== level T exit 0
+GATE EXIT 0

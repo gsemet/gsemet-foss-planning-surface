@@ -1,0 +1,23 @@
+{
+  "name": "UX-14-table-toolbar",
+  "file": "synth/tables.md",
+  "vars": {"menu": "[data-sphinx-table-menu]", "sel": "[data-sphinx-preview-table-cell-selected]"},
+  "steps": [
+    {"open": "${file}"},
+    {"waitFor": "/Table formatting variants/.test((D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent||'')", "timeout": 15000, "label": "preview follows file"},
+    {"mark": "${file}"},
+    {"editMode": true},
+    {"clicksel": "td", "text": "text", "exact": true, "nth": 0},
+    {"waitFor": "D.querySelector('[data-sphinx-preview-table-cell-editor] textarea')", "label": "cell editor"},
+    {"eval": "(() => { const m = D.querySelector('${menu}'); const t = m.nextElementSibling; return JSON.stringify({labels: [...m.querySelectorAll('button')].map(b => b.textContent.trim()), status: m.querySelector('[data-sphinx-preview-edit-status]').textContent, menuBottom: Math.round(m.getBoundingClientRect().bottom), nextTag: t && t.tagName, nextTop: t && Math.round(t.getBoundingClientRect().top)}); })()", "max": 600},
+    {"check": "noOverlap", "a": "${menu}", "b": "td, th", "label": "UX-14 toolbar covers no cell"},
+    {"check": "feval", "expr": "(D.querySelector('${menu} [data-sphinx-preview-edit-status]')||{}).textContent", "equals": "Row 2 of 2 · column 2 of 4", "label": "UX-14 position text"},
+    {"check": "feval", "expr": "(() => { const s = getComputedStyle(D.querySelector('${sel}')); return s.outlineStyle !== 'none' || (s.boxShadow && s.boxShadow !== 'none'); })()", "label": "UX-14 selected cell outlined"},
+    {"check": "inViewport", "selector": "td", "text": "leftX", "label": "UX-14 previous row visible"},
+    {"shot": "UX-14-table-toolbar", "clip": "preview"},
+    {"key": "Escape", "wait": 1000},
+    {"check": "feval", "expr": "!D.querySelector('${menu}')", "label": "toolbar removed after Escape"},
+    {"check": "diff", "file": "${file}", "against": "mark", "equal": true, "label": "no change without typing"},
+    {"check": "errors"}
+  ]
+}

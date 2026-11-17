@@ -1,0 +1,1 @@
+Release v1.9.0: the floating toolbar in four rows of four, the grid fixes (list item, tab list marker, GitHub alert), and the first Open VSX publish with trusted publishing. Owner, 2026-11-14: « Oui, avec la release ».

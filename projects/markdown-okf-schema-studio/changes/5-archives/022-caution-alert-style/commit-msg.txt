@@ -1,0 +1,8 @@
+fix(render): show Caution alerts in red with a stop-sign icon
+
+GitHub `[!CAUTION]` alerts and MyST `caution` callouts looked exactly
+like Warning (amber, triangle), so readers could not tell a caution from
+a warning. They now use the danger red with an octagon icon, as GitHub
+renders them, in every preview theme.
+
+Assisted-by: Claude:Sonnet-5.5

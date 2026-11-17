@@ -1,0 +1,263 @@
+diff --git a/test/build/editorBlurInterruption.test.ts b/test/build/editorBlurInterruption.test.ts
+index 44e41b69..b2f64898 100644
+--- a/test/build/editorBlurInterruption.test.ts
++++ b/test/build/editorBlurInterruption.test.ts
+@@ -5,6 +5,7 @@ import {
+   BLOCK_EDITOR_BLUR,
+   COMMIT_TO_PAGE_BLUR_MS,
+   editorBlurBeforePress,
++  FRAME_FOCUS_LOSS,
+   PAGE_FOCUS,
+   PAGE_MOUSEDOWN,
+   WINDOW_BLUR_TO_PAGE_BLUR_MS,
+@@ -50,14 +51,56 @@ test("a window blur that committed the editor before the press reached the page:
+   assert.equal(redo([commit, { ...pageBlur, at: 600 + COMMIT_TO_PAGE_BLUR_MS }]), true, "a page blur at the bound");
+ });
+ 
+-test("a commit in a page that kept the focus, then a later window blur: fail", () => {
++// CI run 41145454738 (stress job, alert-dropdown): the webview frame lost the focus inside a VS Code
++// window that kept it. The step started at 579 ms on the page's clock; the earlier alert press (502 ms)
++// is before it; no WARNING press reached the page; the text box committed with `pageFocus=true` (the
++// element blur comes before the window blur in the same task) and the page blur followed 1 ms later.
++// The host recorded no window focus change during the step but one `focused: true` at the very end.
++test("the CI trace: a frame focus loss inside a focused window, no press reached the page: redo once", () => {
++  const ciBefore: PageWitness = { startedAt: 9_500, clock: 579, requestId: "4", pageFocus: true };
++  const ciAfter: PageWitness = { ...ciBefore, clock: 900, pageFocus: false };
++  const ciHost: HostWitness = {
++    pageLoadsBefore: 3,
++    pageLoadsNow: 3,
++    stepStartedAt: 10_000,
++    windowStates: [{ at: 10_927, focused: true }],
++  };
++  const ciTrace: TraceEntry[] = [
++    { at: 218, event: PAGE_MOUSEDOWN, detail: "svg prevented=false active=body pageFocus=false" },
++    { at: 218, event: PAGE_FOCUS, detail: "active=body pageFocus=true" },
++    { at: 340, event: PAGE_MOUSEDOWN, detail: "p prevented=false active=body pageFocus=true" },
++    { at: 342, event: "block editor opened" },
++    { at: 368, event: "block editor focused" },
++    { at: 502, event: PAGE_MOUSEDOWN, detail: "action=alert prevented=true active=textarea pageFocus=true" },
++    { at: 722, event: BLOCK_EDITOR_BLUR, detail: "related=none commit active=body pageFocus=true" },
++    { at: 723, event: PAGE_BLUR, detail: "active=body pageFocus=false" },
++    { at: 811, event: "content patch" },
++    { at: 812, event: "block editor closed" },
++  ];
++  const verdict = editorBlurBeforePress(ciBefore, ciAfter, ciTrace, ciHost);
++  assert.equal(verdict.redo, true);
++  assert.match(verdict.reason, new RegExp(`^${FRAME_FOCUS_LOSS} with no window loss: page blur at 723 ms `
++    + "\\(active=body pageFocus=false\\), 1 ms after the block editor commit at 722 ms "
++    + "\\(related=none commit active=body pageFocus=true\\); the VS Code window kept the focus ", "u"));
++  assert.match(verdict.reason, /and no press reached the page$/u);
++  // The same frame loss, but a press reached the page, or the page blur came late or after a focus: fail.
++  const press = { at: 700, event: PAGE_MOUSEDOWN, detail: "option=WARNING prevented=true active=textarea pageFocus=true" };
++  assert.equal(editorBlurBeforePress(ciBefore, ciAfter, [...ciTrace, press], ciHost).redo, false);
++  const late = ciTrace.map((entry) => entry.event === PAGE_BLUR ? { ...entry, at: 722 + COMMIT_TO_PAGE_BLUR_MS + 1 } : entry);
++  assert.equal(editorBlurBeforePress(ciBefore, ciAfter, late, ciHost).redo, false);
++  assert.equal(editorBlurBeforePress(ciBefore, { ...ciAfter, startedAt: 9_600 }, ciTrace, ciHost).redo, false,
++    "page replaced");
++});
++
++test("a commit with the focus gone to an element, or no commit to nowhere: fail", () => {
+   const inFocusedPage = { ...commit, detail: "related=none commit active=body pageFocus=true" };
+-  const verdict = editorBlurBeforePress(before, samePage, [inFocusedPage, pageBlur], windowBlurred);
+-  assert.equal(verdict.redo, false);
+-  assert.match(verdict.reason, new RegExp("^no block editor commit on a window blur since the step started at 500 ms: "
+-    + "commit at 600 ms .*pageFocus=true\\): not a blur to nowhere", "u"));
++  assert.equal(redo([inFocusedPage, pageBlur]), true, "pageFocus=true is the element blur ahead of the window's");
+   const toElement = { ...commit, detail: "related=button commit active=button pageFocus=false" };
+-  assert.equal(redo([toElement, pageBlur]), false, "a commit with the focus gone to an element");
++  const verdict = editorBlurBeforePress(before, samePage, [toElement, pageBlur], windowBlurred);
++  assert.equal(verdict.redo, false);
++  assert.match(verdict.reason, new RegExp("^no block editor commit on a page focus loss since the step started at "
++    + "500 ms: commit at 600 ms .*related=button.*\\): not a blur to nowhere", "u"));
++  assert.equal(redo([toElement, pageBlur], quiet), false, "a commit with the focus gone to an element, no window loss");
+ });
+ 
+ test("a page blur long after the commit, or after a page focus: fail", () => {
+@@ -108,7 +151,7 @@ test("a window loss seconds away from the page blur: fail", () => {
+   const later: HostWitness = { ...quiet, windowStates: [{ at: pageBlurWall + 5_000, focused: false }] };
+   const verdict = editorBlurBeforePress(before, samePage, [commit, pageBlur], later);
+   assert.equal(verdict.redo, false);
+-  assert.match(verdict.reason, new RegExp("^no block editor commit on a window blur since the step started at 500 ms: "
++  assert.match(verdict.reason, new RegExp("^no block editor commit on a page focus loss since the step started at 500 ms: "
+     + "commit at 600 ms .*: its page blur at 601 ms \\(10101 wall clock\\) is 5000 ms from the nearest VS Code "
+     + "window focus loss \\(at 15101\\), more than 1000 ms: a focus move inside the workbench$", "u"));
+   const justPast: HostWitness = {
+@@ -116,18 +159,21 @@ test("a window loss seconds away from the page blur: fail", () => {
+     windowStates: [{ at: pageBlurWall + WINDOW_BLUR_TO_PAGE_BLUR_MS + 1, focused: false }],
+   };
+   assert.equal(redo([commit, pageBlur], justPast), false, "just past the bound, after");
+-  // A window loss within the bound before the page blur but before the step started is not the step's.
++  // A window loss before the step started is not the step's: the window kept the focus during it, so
++  // this is the frame focus loss, named as such.
+   const beforeStep: HostWitness = { ...quiet, windowStates: [{ at: 9_990, focused: false }] };
+-  assert.equal(redo([commit, pageBlur], beforeStep), false, "before the step's start");
++  assert.match(editorBlurBeforePress(before, samePage, [commit, pageBlur], beforeStep).reason,
++    new RegExp(`^${FRAME_FOCUS_LOSS} with no window loss`, "u"), "before the step's start");
+ });
+ 
+-test("no window blur: fail", () => {
+-  assert.match(editorBlurBeforePress(before, samePage, [commit, pageBlur], quiet).reason,
+-    /the VS Code window kept the focus/u, "a page blur inside a focused window");
++test("no window loss: a frame focus loss, named so; no page blur or an earlier window loss: see the verdict", () => {
++  const frame = editorBlurBeforePress(before, samePage, [commit, pageBlur], quiet);
++  assert.equal(frame.redo, true, "a page blur inside a focused window right after the commit");
++  assert.match(frame.reason, new RegExp(`^${FRAME_FOCUS_LOSS} with no window loss: `, "u"));
+   assert.match(editorBlurBeforePress(before, samePage, [commit], windowBlurred).reason,
+     /: no page blur after it$/u, "a window focus loss the page never saw");
+   const earlier = { ...quiet, windowStates: [{ at: 9_900, focused: false }, { at: 10_100, focused: true }] };
+-  assert.equal(redo([commit, pageBlur], earlier), false, "a window focus loss before the step");
++  assert.equal(redo([commit, pageBlur], earlier), true, "a window focus loss before the step is no window loss of it");
+ });
+ 
+ test("no block editor commit on blur: fail", () => {
+diff --git a/test/integration/realInput/editorWidgets.ts b/test/integration/realInput/editorWidgets.ts
+index 23fa8db9..119802c1 100644
+--- a/test/integration/realInput/editorWidgets.ts
++++ b/test/integration/realInput/editorWidgets.ts
+@@ -297,18 +297,19 @@ export async function scenarioAlertDropdown(page: Page, evidence: Evidence): Pro
+       };
+ 
+       await openTypeList();
+-      // The pick is redone once, from a reset document, only when the page and the host prove that the
+-      // VS Code window lost the focus during it and the editor committed and closed on that very blur
+-      // (SwRS-MDOKFSTUDIO-BLOCK-047: a commit to nowhere in an unfocused page, followed within a few
+-      // ms by the page blur) before the press reached the page. Any other failure, and a failure of
+-      // the redo, carries the full dump.
++      // The pick is redone once, from a reset document, only when the press never reached the page and
++      // the editor committed and closed on a focus loss of the page (SwRS-MDOKFSTUDIO-BLOCK-047: a commit
++      // to nowhere followed within a few ms by the page blur): either the VS Code window lost the focus
++      // (proved by the host), or the webview frame lost it inside a window that kept it (the verdict
++      // says "frame focus loss"). The redo needs no window activation then. Any other failure, and a
++      // failure of the redo, carries the full dump.
+       const first = await witnessPress(page, windowStates);
+       try {
+         await pickWarning();
+       } catch (error) {
+         const verdict = await first.verdict();
+         if (!verdict.redo) throw await explain(error, verdict);
+-        step("window blur: the Warning pick is redone once");
++        step("focus loss: the Warning pick is redone once");
+         console.log("alert-dropdown: Warning to change the type: " + verdict.reason
+           + "; the step is redone once. " + (await explain(error, verdict)).message);
+         try {
+diff --git a/test/shared/editorBlurInterruption.ts b/test/shared/editorBlurInterruption.ts
+index 4d4b5d0e..d8d22a12 100644
+--- a/test/shared/editorBlurInterruption.ts
++++ b/test/shared/editorBlurInterruption.ts
+@@ -27,12 +27,14 @@ export const PAGE_FOCUS = "page focus";
+ export const BLOCK_EDITOR_BLUR = "block editor blur";
+ 
+ /**
+- * The detail of a block editor blur that committed with the focus going nowhere while the page had
+- * already lost the focus: `related=none commit active=<tag> pageFocus=false` (`blockSourceEditor.ts`
+- * with `traceFocus` of `pageDiagnostics.ts`). A window focus loss blurs the focused element first,
+- * with `document.hasFocus()` already false, then the window, in the same task.
++ * The detail of a block editor blur that committed with the focus going nowhere:
++ * `related=none commit active=<tag> pageFocus=<true|false>` (`blockSourceEditor.ts` with
++ * `traceFocus` of `pageDiagnostics.ts`). A focus loss of the page blurs the focused element first,
++ * then the window, in the same Chromium task: `document.hasFocus()` is already false at the element
++ * blur when the window lost the focus, still true when only the webview frame lost it inside the
++ * window (CI run 41145454738).
+  */
+-const COMMIT_ON_WINDOW_BLUR = /^related=none commit active=\S+ pageFocus=false$/u;
++const COMMIT_TO_NOWHERE = /^related=none commit active=\S+ pageFocus=(true|false)$/u;
+ 
+ /**
+  * Most milliseconds from that commit to the `page blur` that follows it. Both are recorded in the
+@@ -40,6 +42,12 @@ const COMMIT_ON_WINDOW_BLUR = /^related=none commit active=\S+ pageFocus=false$/
+  */
+ export const COMMIT_TO_PAGE_BLUR_MS = 50;
+ 
++/**
++ * The reason's mark of a redo proved on a frame focus loss with no window loss: the CI log shows
++ * which kind of interruption it was.
++ */
++export const FRAME_FOCUS_LOSS = "frame focus loss";
++
+ /**
+  * Most milliseconds between that page blur and the host's record of the VS Code window losing the
+  * focus (`onDidChangeWindowState` with `focused: false`), either way. Both are wall-clock
+@@ -56,15 +64,17 @@ export const WINDOW_BLUR_TO_PAGE_BLUR_MS = 1_000;
+  * - the same page document (a window blur is proved only on the page that ran the step);
+  * - no press (`mousedown`, whatever its target) recorded by the page since the start: a press
+  *   that reached the page is the page's to handle, so its failure is not an interruption;
+- * - a `block editor blur` since the start that committed with the focus going nowhere in a page
+- *   that had already lost the focus (`related=none commit … pageFocus=false`);
++ * - a `block editor blur` since the start that committed with the focus going nowhere
++ *   (`related=none commit … pageFocus=true|false`);
+  * - the next `page blur` after that commit in the trace, with no `page focus` between them, at most
+  *   `COMMIT_TO_PAGE_BLUR_MS` after it: the window blur that made the editor commit;
+- * - a host record of the VS Code window losing the focus within `WINDOW_BLUR_TO_PAGE_BLUR_MS` of
+- *   that page blur (its wall-clock time is `before.startedAt` plus its `at`): the window loss that
+- *   made the page blur, not one at another time of the step;
+- * - the window blur proof of `interruptionSince` on that page blur and that window loss: the VS
+- *   Code window lost the focus during the step.
++ * - either the host recorded no loss of the VS Code window focus during the step: the webview frame
++ *   lost the focus inside a window that kept it (a "frame focus loss", the page blur 1 ms behind
++ *   the commit is its window-less twin), no press reached the page, so the press was lost to it;
++ *   or a host record of the window losing the focus within `WINDOW_BLUR_TO_PAGE_BLUR_MS` of that
++ *   page blur (its wall-clock time is `before.startedAt` plus its `at`) and the window blur proof
++ *   of `interruptionSince` on that page blur and that window loss. A window loss seconds away from
++ *   the page blur is another event: no redo.
+  *
+  * The page trace keeps its last 40 entries: a press pushed out of it is not seen here.
+  */
+@@ -91,8 +101,8 @@ export function editorBlurBeforePress(
+   const rejected: string[] = [];
+   for (const commit of commits) {
+     const described = `commit at ${commit.at} ms (${commit.detail ?? "no detail"})`;
+-    if (!COMMIT_ON_WINDOW_BLUR.test(commit.detail ?? "")) {
+-      rejected.push(`${described}: not a blur to nowhere in a page that had lost the focus`);
++    if (!COMMIT_TO_NOWHERE.test(commit.detail ?? "")) {
++      rejected.push(`${described}: not a blur to nowhere`);
+       continue;
+     }
+     const following = since.slice(since.indexOf(commit) + 1);
+@@ -110,20 +120,27 @@ export function editorBlurBeforePress(
+     let bound = "";
+     // The window losses of the step (one before it is no proof, see `interruptionSince`).
+     const losses = host.windowStates.filter((state) => !state.focused && state.at >= host.stepStartedAt);
+-    if (losses.length > 0) {
+-      const blurAt = before.startedAt + next.at;
+-      const offset = (state: { at: number }): number => state.at - blurAt;
+-      const nearest = losses.reduce((best, state) =>
+-        Math.abs(offset(state)) < Math.abs(offset(best)) ? state : best);
+-      if (Math.abs(offset(nearest)) > WINDOW_BLUR_TO_PAGE_BLUR_MS) {
+-        rejected.push(`${described}: its page blur at ${next.at} ms (${blurAt} wall clock) is `
+-          + `${offset(nearest)} ms from the nearest VS Code window focus loss (at ${nearest.at}), `
+-          + `more than ${WINDOW_BLUR_TO_PAGE_BLUR_MS} ms: a focus move inside the workbench`);
+-        continue;
+-      }
+-      proofHost = { ...host, windowStates: [nearest] };
+-      bound = `, ${offset(nearest)} ms from the page blur`;
++    if (losses.length === 0) {
++      return {
++        redo: true,
++        reason: `${FRAME_FOCUS_LOSS} with no window loss: page blur at ${next.at} ms (${next.detail ?? "no detail"}), `
++          + `${next.at - commit.at} ms after the block editor commit at ${commit.at} ms (${commit.detail}); `
++          + "the VS Code window kept the focus (no host window focus loss since the step started at "
++          + `${host.stepStartedAt}) and no press reached the page`,
++      };
++    }
++    const blurAt = before.startedAt + next.at;
++    const offset = (state: { at: number }): number => state.at - blurAt;
++    const nearest = losses.reduce((best, state) =>
++      Math.abs(offset(state)) < Math.abs(offset(best)) ? state : best);
++    if (Math.abs(offset(nearest)) > WINDOW_BLUR_TO_PAGE_BLUR_MS) {
++      rejected.push(`${described}: its page blur at ${next.at} ms (${blurAt} wall clock) is `
++        + `${offset(nearest)} ms from the nearest VS Code window focus loss (at ${nearest.at}), `
++        + `more than ${WINDOW_BLUR_TO_PAGE_BLUR_MS} ms: a focus move inside the workbench`);
++      continue;
+     }
++    proofHost = { ...host, windowStates: [nearest] };
++    bound = `, ${offset(nearest)} ms from the page blur`;
+     // The window proof on this page blur and this window loss only: the trace from it on.
+     const verdict = interruptionSince(before, after, following.slice(following.indexOf(next)), proofHost);
+     if (!verdict.redo) return verdict;
+@@ -133,5 +150,5 @@ export function editorBlurBeforePress(
+         + "and no press reached the page",
+     };
+   }
+-  return no(`no block editor commit on a window blur since the step started at ${start} ms: ${rejected.join("; ")}`);
++  return no(`no block editor commit on a page focus loss since the step started at ${start} ms: ${rejected.join("; ")}`);
+ }

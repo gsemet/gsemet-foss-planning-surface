@@ -1,0 +1,176 @@
+{
+  "schema": 2,
+  "updated": "2026-11-14T17:14:19Z",
+  "cr": "CR-323",
+  "title": "Change Specification: release v1.9.0",
+  "batch": "batch-04",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 0,
+  "max_rounds": 3,
+  "now": "Merged: its PR/MR.",
+  "next": "Nothing.",
+  "pr": null,
+  "steps": [
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "draft: /Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-04-CR-323/docs/releases-notes/2026-11-14-v1.9.0/release-notes.md",
+      "at": "2026-11-14T00:16:29Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "draft: /Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-04-CR-323/docs/releases-notes/2026-11-14-v1.9.0/tweet.md",
+      "at": "2026-11-14T00:16:29Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Attempt 1: notes, thread and hero (CR-318 Verifier cream capture, cropped 4:3) drafted in docs/releases-notes/2026-11-14-v1.9.0; waiting for the heavy run of main 1191fb6c (run 43532691444).",
+      "at": "2026-11-14T00:16:29Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Heavy run 43532691444 on main 1191fb6c: integration red at one step (toc: Edit toggle click never reached the page, 3 tries), looks like a real-window flake; re-run of the failed jobs once when stress ends, per the procedure.",
+      "at": "2026-11-14T00:29:51Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Re-run attempt 2 of 43532691444 green on main 1191fb6c (integration, stress success): toc step was a flake. Making the version commit.",
+      "at": "2026-11-14T00:51:13Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "f12ba53b",
+      "at": "2026-11-14T01:07:19Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Branch heavy run 43536948441 at f12ba53b: integration red at real-input (Heading 2 prefix timeout), a different step from main's flake; re-run of the failed jobs once. Local preflight: static ok, visual 1 scenario red (v31, passes in CI), integration red at tall-block-scroll (local window).",
+      "at": "2026-11-14T01:15:18Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Local ci-visual re-run: v31-mark-editor-selection-light-900 red again; intermittent local failure already seen in CR-315 and CR-322 gates (passes in CR-317..321 and in CI visual), not caused by the release commit (versions and docs only).",
+      "at": "2026-11-14T01:17:47Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/395",
+      "at": "2026-11-14T01:28:58Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "PR 395 CI green at f12ba53b (static, static-windows, visual, report, checks pass); branch heavy run 43536948441 attempt 2 green at the same head. Ready for the Foreman to merge by rebase.",
+      "at": "2026-11-14T01:41:24Z"
+    },
+    {
+      "name": "Blocked",
+      "done": true,
+      "verdict": "",
+      "note": "merge: https://github.com/gsemet/markdown-okf-schema-studio/pull/395",
+      "at": "2026-11-14T01:41:29Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-14T06:42:32Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-14T07:09:49Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "request",
+      "path": "intake/request.md"
+    },
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "body-sections",
+      "path": "work/body-sections.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/ci-visual-rerun.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../guidelines/release-process.guidelines.md",
+      "name": ".agents/guidelines/release-process.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CONTRIBUTING.md",
+      "name": "CONTRIBUTING.md"
+    }
+  ],
+  "branch": "chantier/batch-04/cr-323-change-specification-release-v1-9-0",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-04-CR-323",
+  "agent": "a1541be76e92e542d",
+  "notes": [
+    "grant: releases=2 fixes=on budget=45",
+    "confirmed: v1.9.0 (minor): CR-317..CR-322 merged since v1.8.1 (origin/main 1191fb6c); two install links; fresh 4x4 toolbar hero if it can be captured, else none; no docs diagram; thread drafted, not posted; Open VSX recover once by dispatch of release.yml with the tag; watch both registries 10-15 min. Owner's overnight grant O-11.",
+    "Attempt 1: notes, thread and hero (CR-318 Verifier cream capture, cropped 4:3) drafted in docs/releases-notes/2026-11-14-v1.9.0; waiting for the heavy run of main 1191fb6c (run 43532691444).",
+    "Heavy run 43532691444 on main 1191fb6c: integration red at one step (toc: Edit toggle click never reached the page, 3 tries), looks like a real-window flake; re-run of the failed jobs once when stress ends, per the procedure.",
+    "Re-run attempt 2 of 43532691444 green on main 1191fb6c (integration, stress success): toc step was a flake. Making the version commit.",
+    "Branch heavy run 43536948441 at f12ba53b: integration red at real-input (Heading 2 prefix timeout), a different step from main's flake; re-run of the failed jobs once. Local preflight: static ok, visual 1 scenario red (v31, passes in CI), integration red at tall-block-scroll (local window).",
+    "Local ci-visual re-run: v31-mark-editor-selection-light-900 red again; intermittent local failure already seen in CR-315 and CR-322 gates (passes in CR-317..321 and in CI visual), not caused by the release commit (versions and docs only).",
+    "PR 395 CI green at f12ba53b (static, static-windows, visual, report, checks pass); branch heavy run 43536948441 attempt 2 green at the same head. Ready for the Foreman to merge by rebase.",
+    "merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/395",
+    "merged: None",
+    "published: v1.9.0 https://github.com/gsemet/markdown-okf-schema-studio/releases/tag/v1.9.0",
+    "Owner, 2026-11-14: « fait tout ça dans le batch en cours et fait un release 1.9.1 ». Second release of grant O-11 (releases=2): v1.9.1 (patch) after CR-324, CR-325 and CR-326 are merged. Settled: same procedure as v1.9.0; the owner merges the version PR; success = the version push's Release VSIX run (dispatched, branch main) publishes to Open VSX with no recovery dispatch, else one recovery dispatch and report it as a failure of CR-324; watch both registries 10-15 min; no hero image; thread drafted, never posted. Decisions in .agents/changes/1-inbox/release-v1-9-1/02-answers.md (the CLI allows one release CR per batch).",
+    "fix: CR-327 must merge first; then the procedure starts again from its first step",
+    "Owner, 2026-11-14, on the palette stress failure of main's heavy run 43582068953: « Oui si ça arrive tu fais une CR de fix ». If attempt 2 is red, the Chief of Staff files a fix CR for the palette focus bounce (B/B2), fix for CR-323, merged before the v1.9.1 version PR; no further ask to the owner.",
+    "Owner, 2026-11-14, on A-12: « Ok pour après la release »: the toc-after-readme-html bug (inbox toc-edit-toggle-clicks-lost-after-readme-html) does not block v1.9.1; it is taken after the release.",
+    "published: v1.9.1 https://github.com/gsemet/markdown-okf-schema-studio/releases/tag/v1.9.1"
+  ],
+  "blocked": null,
+  "cost_usd": 7.0377,
+  "final_cost": true,
+  "silent_minutes": null
+}

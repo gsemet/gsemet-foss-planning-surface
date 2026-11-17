@@ -1,0 +1,55 @@
+edit-table-wrapped-dark-460
+===========================
+
+Fixture:  08-okf-schema.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 460x900
+Scroll:   selector (main table:not(.okf-properties) tbody td:nth-child(3)) - final y=830; first `main table:not(.okf-properties) tbody td:nth-child(3)` positioned below toolbar/sticky overlays plus 72px
+Status:   failed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: True; target: table-cell.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested selector (main table:not(.okf-properties) tbody td:nth-child(3)) position.
+Activate editing for table-cell.
+
+Captured state
+--------------
+The preview is scrolled to 830 pixels. Edit mode is on.
+The visible Markdown table cell contains: Sequences steps the controller must perform individually, in the platform's specific order and style. updated
+Visible content: This warning must be acknowledged before
+calibration.; Saving Markdown…; Review item
+State
+Expected behavior
+Evidence
+Verification
+
+
+
+
+Brake release
+approved
+Sequences steps;
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+Long table-cell source wraps without overlapping rendered text or changing cell dimensions.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Machine checks
+--------------
+PASS overlay-covers-text: no overlay covers preview text
+PASS overlay-clipped: every overlay is inside the viewport
+PASS identifier-split: identifier cells stay on one line
+n/a status-two-lines: no status with a strong line and message
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.
+Assertion failure: sticky heading overlaps the reserved toolbar row

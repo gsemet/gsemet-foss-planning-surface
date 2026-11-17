@@ -1,0 +1,119 @@
+{
+  "name": "UX-03-open-with-undo",
+  "file": "fixtures-visual/01-handbook-overview.md",
+  "steps": [
+    {
+      "key": "Escape",
+      "wait": 800
+    },
+    {
+      "palette": "File: Revert File",
+      "wait": 1500
+    },
+    {
+      "key": "Meta+1",
+      "wait": 500
+    },
+    {
+      "palette": "View: Close All Editors",
+      "wait": 1500
+    },
+    {
+      "open": "${file}"
+    },
+    {
+      "palette": "View: Reopen Editor With...",
+      "wait": 1000
+    },
+    {
+      "pick": "MyST + OKF Studio",
+      "wait": 5000
+    },
+    {
+      "waitFor": "D.querySelector('#sphinx-myst-preview-content h1')",
+      "timeout": 20000,
+      "label": "Studio editor rendered"
+    },
+    {
+      "check": "peval",
+      "expr": "document.querySelectorAll('.tab.active').length >= 1"
+    },
+    {
+      "mark": true
+    },
+    {
+      "editMode": true
+    },
+    {
+      "clicksel": "p",
+      "text": "The dispatch path is the only"
+    },
+    {
+      "waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')",
+      "label": "block editor open"
+    },
+    {
+      "key": "Meta+ArrowDown"
+    },
+    {
+      "type": " Second sentence.",
+      "delay": 40
+    },
+    {
+      "wait": 900
+    },
+    {
+      "check": "diff",
+      "against": "mark",
+      "contains": "from this one. Second sentence.",
+      "maxLines": 1,
+      "label": "UX-03 autosaved before undo"
+    },
+    {
+      "key": "Meta+z",
+      "wait": 1500
+    },
+    {
+      "check": "focus",
+      "selector": "[data-sphinx-preview-block-editor] textarea",
+      "label": "UX-03 textarea keeps focus after Cmd+Z"
+    },
+    {
+      "eval": "(() => { const t = D.querySelector('[data-sphinx-preview-block-editor] textarea'); return t ? JSON.stringify({value: t.value.slice(-80), caret: t.selectionStart, len: t.value.length}) : 'NO TEXTAREA'; })()"
+    },
+    {
+      "check": "feval",
+      "expr": "!!D.querySelector('[data-sphinx-preview-block-editor] textarea') && !D.querySelector('[data-sphinx-preview-block-editor] textarea').value.includes('Second sentence')",
+      "label": "UX-03 textarea undid the typing chunk"
+    },
+    {
+      "check": "diff",
+      "against": "mark",
+      "equal": true,
+      "label": "UX-03 buffer follows the textarea undo"
+    },
+    {
+      "key": "Meta+Shift+z",
+      "wait": 1500
+    },
+    {
+      "check": "focus",
+      "selector": "[data-sphinx-preview-block-editor] textarea",
+      "label": "UX-03 textarea keeps focus after redo"
+    },
+    {
+      "check": "diff",
+      "against": "mark",
+      "contains": "from this one. Second sentence.",
+      "maxLines": 1,
+      "label": "UX-03 redo restores text"
+    },
+    {
+      "check": "errors"
+    },
+    {
+      "shot": "UX-03-after-undo-redo",
+      "clip": "preview"
+    }
+  ]
+}

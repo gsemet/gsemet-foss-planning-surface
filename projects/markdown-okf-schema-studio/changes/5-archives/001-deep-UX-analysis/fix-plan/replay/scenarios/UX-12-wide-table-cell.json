@@ -1,0 +1,19 @@
+{
+  "name": "UX-12-wide-table-cell",
+  "file": "fixtures-visual/04-code-and-tables.md",
+  "steps": [
+    {"open": "${file}"},
+    {"palette": "Markdown OKF-Schema Studio: Open Preview to Side", "wait": 4000},
+    {"waitFor": "D.querySelector('#sphinx-myst-preview-content h1')", "timeout": 15000, "label": "rendered preview"},
+    {"mark": "${file}"},
+    {"editMode": true},
+    {"clicksel": "td", "text": "North", "exact": true, "nth": 1},
+    {"waitFor": "D.querySelector('[data-sphinx-preview-table-cell-editor] textarea')", "label": "cell editor"},
+    {"key": "End"},
+    {"type": " Pole"},
+    {"key": "Enter", "wait": 1200},
+    {"check": "diff", "file": "${file}", "against": "mark", "maxLines": 1, "contains": "| nw-02 | North Pole | 9 |", "show": true, "label": "UX-12 wide table"},
+    {"check": "errors"},
+    {"shot": "UX-12-wide-table", "clip": "preview"}
+  ]
+}

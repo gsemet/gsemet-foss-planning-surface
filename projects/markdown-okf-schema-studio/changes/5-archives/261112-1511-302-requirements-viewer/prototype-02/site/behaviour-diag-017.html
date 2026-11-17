@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIAG-017 · Studio requirements</title>
+<meta name="description" content="When a writer picks the Mermaid action of the edition palette or the Mermaid slash entry, which the extension offers in GFM mode only, the extension SHALL insert a fenced mermaid block with a top-down">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markdown OKF-Schema Studio">
+<meta property="og:title" content="Behaviour DIAG-017: The Mermaid action inserts a starter flowchart in GFM mode">
+<meta property="og:description" content="When a writer picks the Mermaid action of the edition palette or the Mermaid slash entry, which the extension offers in GFM mode only, the extension SHALL insert a fenced mermaid block with a top-down">
+<meta property="og:url" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/behaviour-diag-017.html">
+<meta property="og:image" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/og/behaviour.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Behaviour: One rule, tested on its own, linked to its code">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body style="--c:#1d4ed8">
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Areas</a><span class="sep">/</span><a href="area-diagrams.html">Diagrams</a><span class="sep">/</span><a href="use-case-diag-001.html">DIAG-001</a><span class="sep">/</span><span aria-current="page">DIAG-017</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<p class="eyebrow"><span class="sw" style="background:#1d4ed8"></span>Behaviour DIAG-017</p>
+<h1>The Mermaid action inserts a starter flowchart in GFM mode</h1>
+<p class="rule">When a writer picks the Mermaid action of the edition palette or the Mermaid slash entry, which the extension offers in GFM mode only, the extension <strong>SHALL</strong> insert a fenced mermaid block with a top-down flowchart from a node labelled Start to a node labelled End, set apart from the text around it and placed after the selection, with the label Start selected.</p>
+<div class="where" style="--pc:var(--p1)"><div class="track"><span class="cur"><i></i><b></b></span><span class=""><i></i><b></b></span><span class=""><i></i><b></b></span><span class=""><i></i><b></b></span><span class=""><i></i><b></b></span><span class=""><i></i></span></div><p>Step 1 of path 1 in <a href="use-case-diag-001.html">DIAG-001</a>: from “Edit mode is on with the GFM palette” to “A starter fence is in the document”.</p></div>
+<h2>Scenarios <small>4</small></h2>
+<p class="hint">The situations the tests check. Open one to read it.</p>
+<details class="scn"><summary><span class="k nom">nominal</span>Insert after text</summary><div class="gwt"><div><b>Given</b>the caret at the end of a paragraph</div><div><b>When</b>the writer picks Mermaid</div><div><b>Then</b>a blank line and the fenced mermaid flowchart are inserted after the selection and the word Start is selected</div></div></details><details class="scn"><summary><span class="k bnd">boundary</span>Empty document</summary><div class="gwt"><div><b>Given</b>an empty document</div><div><b>When</b>the writer picks Mermaid</div><div><b>Then</b>the fence is inserted with no leading blank line and the word Start is selected</div></div></details><details class="scn"><summary><span class="k nom">nominal</span>GFM mode offers Mermaid</summary><div class="gwt"><div><b>Given</b>the edition palette in GFM mode on a block selection</div><div><b>When</b>the palette is shown and the writer types /diagram in the slash menu</div><div><b>Then</b>a one-click Mermaid button with the tooltip &quot;Mermaid diagram&quot; is in the GitHub group and the slash menu finds Mermaid first; the slash aliases are diagram, chart, graph and flowchart</div></div></details><details class="scn"><summary><span class="k ref">refusal</span>Other palette modes do not offer Mermaid</summary><div class="gwt"><div><b>Given</b>the palette in Strict or MyST mode</div><div><b>When</b>the palette is shown</div><div><b>Then</b>no Mermaid action is offered and no button inserts a {mermaid} directive</div></div></details>
+<div class="cols">
+  <section><h2>Implemented in <small>2</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/page/modules/blockEditActions.ts"><span class="dir">src/page/modules/</span>blockEditActions.ts</a></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/core/palette/paletteActions.ts"><span class="dir">src/core/palette/</span>paletteActions.ts</a></li></ul></section>
+  <section><h2>Tested by <small>5</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/modules/slashMenu.test.ts"><span class="dir">test/page/modules/</span>slashMenu.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/modules/editActions.test.ts"><span class="dir">test/page/modules/</span>editActions.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/modules/editPalette.test.ts"><span class="dir">test/page/modules/</span>editPalette.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/core/render/mystPaletteRendering.test.ts"><span class="dir">test/core/render/</span>mystPaletteRendering.test.ts</a><span class="tag">unit</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/core/palette/paletteActions.test.ts"><span class="dir">test/core/palette/</span>paletteActions.test.ts</a><span class="tag">unit</span></li></ul></section>
+</div>
+<details class="known"><summary>Known limits (2)</summary><p>- Known issue: The palette and slash registry rows belong to palette-slash; this requirement owns the inserted content.<br>- Known issue: No button exists for the {mermaid} directive in the MyST palette mode.</p></details>
+<nav class="pager"><a href="behaviour-diag-015.html">← Invalid Mermaid shows one message with the parser reason</a><a class="next" href="behaviour-diag-121.html">Vega-Lite and Vega fences become chart figures →</a></nav>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

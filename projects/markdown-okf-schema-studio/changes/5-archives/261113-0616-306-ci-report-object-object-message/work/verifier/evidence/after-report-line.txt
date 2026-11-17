@@ -1,0 +1,3 @@
+FAILED visual: home: blank; toc: overflow
+ok     review-index
+skipped integration: the real VS Code stage did not run (manual heavy CI job)

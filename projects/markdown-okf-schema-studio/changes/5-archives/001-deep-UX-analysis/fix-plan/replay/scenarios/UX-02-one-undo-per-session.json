@@ -1,0 +1,22 @@
+{
+  "name": "UX-02-one-undo-per-session",
+  "file": "book/chapters/02-foundations.md",
+  "vars": {"typed": " twenty chars typed."},
+  "steps": [
+    {"key": "Meta+1", "wait": 600},
+    {"key": "Meta+z", "wait": 1200},
+    {"check": "diff", "against": "disk", "equal": true, "label": "UX-02 one Cmd+Z undid the UX-01 inline session"},
+    {"mark": true},
+    {"clicksel": "p", "text": "Famous LLM includes"},
+    {"waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')", "label": "block editor open"},
+    {"key": "Meta+ArrowDown"},
+    {"type": "${typed}", "delay": 40},
+    {"key": "Meta+Enter", "wait": 1500},
+    {"check": "diff", "against": "mark", "contains": "repositories.${typed}", "maxLines": 1, "label": "UX-02 typed text committed"},
+    {"key": "Meta+1", "wait": 600},
+    {"key": "Meta+z", "wait": 1200},
+    {"check": "diff", "against": "mark", "equal": true, "label": "UX-02 one Cmd+Z in source restores the block"},
+    {"check": "errors"},
+    {"shot": "UX-02-fail", "clip": "preview", "onFail": true}
+  ]
+}

@@ -1,0 +1,1 @@
+Release v1.8.0 after the batch of the v1.7.1 retro fixes and the six small user fixes; the version PR is the top of the stack.

@@ -1,0 +1,97 @@
+{
+  "name": "UX-10-insert-section",
+  "file": "fixtures-visual/01-handbook-overview.md",
+  "steps": [
+    {
+      "key": "Meta+1",
+      "wait": 500
+    },
+    {
+      "palette": "File: Revert File",
+      "wait": 1200
+    },
+    {
+      "key": "Meta+2",
+      "wait": 500
+    },
+    {
+      "key": "Meta+w",
+      "wait": 1200
+    },
+    {
+      "key": "Meta+1",
+      "wait": 500
+    },
+    {
+      "open": "fixtures-visual/01-handbook-overview.md",
+      "wait": 2000
+    },
+    {
+      "palette": "View: Reopen Editor With...",
+      "wait": 1000
+    },
+    {
+      "pick": "MyST + OKF Studio",
+      "wait": 5000
+    },
+    {
+      "waitFor": "(D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent.includes('Northwind')",
+      "timeout": 20000,
+      "label": "Studio editor shows handbook"
+    },
+    {
+      "mark": true
+    },
+    {
+      "editMode": true,
+      "wait": 800
+    },
+    {
+      "eval": "JSON.stringify([...D.querySelectorAll('.sphinx-preview-insert-point')].slice(0,6).map(p=>p.getAttribute('data-sphinx-insert-after-line')+':'+(p.nextElementSibling?p.nextElementSibling.textContent.trim().slice(0,20):'END')))"
+    },
+    {
+      "clicksel": ".sphinx-preview-insert-point[data-sphinx-insert-after-line=\"23\"] button"
+    },
+    {
+      "waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')",
+      "label": "empty insertion editor open"
+    },
+    {
+      "check": "feval",
+      "expr": "D.querySelector('[data-sphinx-preview-block-editor] textarea').value",
+      "equals": "",
+      "label": "UX-10 insertion editor starts empty"
+    },
+    {
+      "eval": "(D.querySelector('[data-sphinx-preview-block-editor] [data-sphinx-preview-edit-status]')||{}).textContent"
+    },
+    {
+      "type": "## Incident review checklist\n\nCheck the dispatcher logs first.",
+      "delay": 30
+    },
+    {
+      "key": "Meta+Enter",
+      "wait": 2000
+    },
+    {
+      "check": "diff",
+      "against": "mark",
+      "show": true,
+      "contains": "## Incident review checklist",
+      "label": "UX-10 new section inserted in the source"
+    },
+    {
+      "check": "feval",
+      "expr": "(()=>{const hs=[...D.querySelectorAll('h2')].map(h=>h.textContent.replace(/[#\u00b6]/g,'').trim());const a=hs.indexOf('Incident review checklist');const b=hs.indexOf('Depot topology');return a>=0&&b===a+1})()",
+      "label": "UX-10 new heading rendered just before Depot topology"
+    },
+    {
+      "check": "errors",
+      "ignore": "401"
+    },
+    {
+      "shot": "UX-10-section-inserted",
+      "clip": "preview"
+    }
+  ]
+}

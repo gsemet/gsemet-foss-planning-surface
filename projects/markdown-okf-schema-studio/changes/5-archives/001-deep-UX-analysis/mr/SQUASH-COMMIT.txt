@@ -1,0 +1,50 @@
+feat(vscode): make editing in the Studio preview safe and predictable
+
+A deep UX review of Markdown OKF-Schema Studio found that reading in the
+preview worked well, but writing in it could lose text, rewrite parts of
+the file nobody touched, and behave differently in every control. Its
+tests missed this because they never typed. This change fixes the 34
+approved findings and adds the tests that would have caught them.
+
+What changes for users:
+
+- Text is no longer lost. Escape keeps what was typed, undo stays in
+  the editor, and Enter in a list adds a sibling item instead of moving
+  the items below it.
+- Diffs stay small. Editing a table cell changes one line, and aligned
+  or compact tables keep their layout. Editing a frontmatter field
+  changes that field only; folded text, flow lists and comments are
+  kept. Typing produces a few undo steps, not one per character.
+- Keys work the same everywhere. Enter saves one-line fields and
+  Cmd+Enter saves multi-line ones. Tab indents text and moves between
+  table cells. The caret lands where you click. Each editor shows what
+  it edits, Done and Revert buttons, and its shortcuts.
+- Frontmatter is easier to edit. A boolean toggles in one click. List
+  items suggest Markdown targets. Fields are added where the table shows
+  them, and required fields are protected. Broken links say "File not
+  found" instead of "[E10]".
+- The preview stays put. It keeps its document when another editor gets
+  focus, keeps the edited block in place after a save, and no longer
+  gets covered by files opened from Quick Open. While you type, it
+  updates its content in place instead of reloading the whole page.
+  The setting markdownOkfSchemaStudio.preview.incrementalUpdates turns
+  this off.
+- It is easier to find. The preview opens from the editor title bar,
+  the Explorer, or Cmd+K Shift+V. Tabs read "Studio · file.md", and
+  messages no longer mention Sphinx.
+
+Three behaviours were reviewed and deliberately kept: links resolve from
+the Git root (UX-22), values keep their YAML style (UX-24), and the
+sticky heading band shows "#" markers (UX-34).
+
+Tests:
+
+- A real-input E2E suite drives VS Code with real mouse and keyboard
+  input: 40 scenarios, each failing before its fix.
+- Formatting-preservation corpora for tables and frontmatter, written
+  in the styles people actually use.
+- Geometry checks on the screenshot campaigns, so overlaps and clipping
+  fail the build.
+- Unit tests went from 315 to 655.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

@@ -1,0 +1,1 @@
+In edit mode, when i paste an image, create a image.png (handling potential filename conflicts) and add an image ref using `![image.png](image.png)`. after paste, highlight the first `image.png` to allow user to set Alternative text.

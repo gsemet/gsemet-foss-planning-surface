@@ -1,0 +1,20 @@
+{
+  "name": "UX-23-readable-link-diagnostics",
+  "file": "okf/okfreq-examples/requirements/tiers/swrs/SwRS-CORE-001.md",
+  "steps": [
+    {"key": "Meta+1", "wait": 500},
+    {"open": "${file}", "wait": 2000},
+    {"palette": "Markdown OKF-Schema Studio: Open Preview to Side", "wait": 4000},
+    {"waitFor": "D.querySelector('tr[data-okf-field=\"implemented_in_files\"] .okf-link-invalid, tr[data-okf-field=\"implemented_in_files\"] .okf-link-valid')", "timeout": 20000, "label": "links resolved"},
+    {"eval": "JSON.stringify({badge: (b => b && {tag: b.tagName, text: b.textContent, aria: b.getAttribute('aria-label')})(D.querySelector('[data-okf-badge]')), header: (D.querySelector('[data-okf-properties] caption, [data-okf-properties] summary, [data-okf-properties] .okf-header')||{}).textContent})", "max": 600},
+    {"eval": "JSON.stringify(['implemented_in_files','tested_in_files','derives_from','derived_by','exemption_reason','annotation_exemption'].map(f => { const r = D.querySelector('tr[data-okf-field=\"' + f + '\"]'); if (!r) return [f, 'MISSING']; const l = r.querySelector('.okf-frontmatter-link'); return [f, r.querySelector('th').innerText.replace(/\\s+/g,' '), r.querySelector('td').innerText.replace(/\\s+/g,' '), l && l.getAttribute('title'), l && l.getAttribute('tabindex')]; }))", "max": 1600},
+    {"clicksel": "[data-okf-badge]", "wait": 900},
+    {"check": "feval", "expr": "(D.activeElement && D.activeElement.closest('tr') || {}).getAttribute ? D.activeElement.closest('tr').getAttribute('data-okf-field') : String(D.activeElement && D.activeElement.tagName)", "equals": "implemented_in_files", "label": "UX-23 badge focuses first issue row"},
+    {"key": "Tab", "wait": 600},
+    {"eval": "JSON.stringify({active: D.activeElement && (D.activeElement.className + ' | ' + D.activeElement.textContent), tooltip: (D.querySelector('.sphinx-preview-link-tooltip')||{}).textContent || null})", "max": 600},
+    {"check": "feval", "expr": "!!D.querySelector('.sphinx-preview-link-tooltip')", "equals": true, "label": "UX-23 custom tooltip on keyboard focus"},
+    {"shot": "UX-23-diagnostics", "clip": "preview"},
+    {"check": "diff", "file": "${file}", "against": "disk", "equal": true},
+    {"check": "errors"}
+  ]
+}

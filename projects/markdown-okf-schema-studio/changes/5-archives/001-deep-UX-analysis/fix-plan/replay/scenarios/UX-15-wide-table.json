@@ -1,0 +1,18 @@
+{
+  "name": "UX-15-wide-table",
+  "file": "fixtures-visual/04-code-and-tables.md",
+  "vars": {"tbl": "[...D.querySelectorAll('#sphinx-myst-preview-content table')].find(t => /Night intake/.test(t.textContent))", "lines": "(c => { const r = D.createRange(); r.selectNodeContents(c); const ys = new Set([...r.getClientRects()].filter(x => x.width > 0).map(x => Math.round(x.top))); return ys.size; })"},
+  "steps": [
+    {"open": "${file}"},
+    {"waitFor": "/Code, tables/.test((D.querySelector('#sphinx-myst-preview-content h1')||{}).textContent||'')", "timeout": 15000, "label": "preview follows file"},
+    {"editMode": false},
+    {"clicksel": "td", "text": "nw-01", "exact": true},
+    {"wait": 800},
+    {"eval": "(() => { const t = ${tbl}; const L = ${lines}; const cells = [...t.querySelectorAll('th, td')]; const shortCells = cells.filter(c => { const s = c.textContent.trim(); return s && s.length <= 24 && !/\\s/.test(s); }); const wrapped = shortCells.filter(c => L(c) > 1).map(c => c.textContent.trim()); const longWrapped = cells.filter(c => /\\s/.test(c.textContent.trim()) && L(c) > 1).map(c => c.textContent.trim()); return JSON.stringify({previewWidth: W.innerWidth, tableClient: t.clientWidth, tableScroll: t.scrollWidth, overflowAttr: t.getAttribute('data-sphinx-table-overflow'), shortCells: shortCells.length, shortMarked: t.querySelectorAll('[data-sphinx-short-cell=\"true\"]').length, shortWrapped: wrapped, multiWordWrapped: longWrapped, bg: getComputedStyle(t).backgroundImage.slice(0, 80)}); })()", "max": 1200},
+    {"check": "feval", "expr": "(${tbl}).getAttribute('data-sphinx-table-overflow')", "equals": "true", "label": "UX-15 overflow flagged"},
+    {"check": "feval", "expr": "(() => { const t = ${tbl}; const L = ${lines}; return [...t.querySelectorAll('th, td')].filter(c => { const s = c.textContent.trim(); return s && s.length <= 24 && !/\\s/.test(s) && L(c) > 1; }).length; })()", "equals": 0, "label": "UX-15 no short identifier wraps"},
+    {"check": "feval", "expr": "/radial-gradient/.test(getComputedStyle(${tbl}).backgroundImage)", "label": "UX-15 overflow shadow present"},
+    {"shot": "UX-15-wide-table", "clip": "preview"},
+    {"check": "errors"}
+  ]
+}

@@ -1,0 +1,1 @@
+A ::::{grid} inside a > [!NOTE] GitHub alert is cut: the alert is rewritten as a three-colon :::{note} and the grid's inner ::: closes it. Found by the grill advisor of batch-02 on 2026-11-12, not for that batch.

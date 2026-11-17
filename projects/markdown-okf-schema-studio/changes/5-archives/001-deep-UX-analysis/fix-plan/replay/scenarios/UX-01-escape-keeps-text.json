@@ -1,0 +1,23 @@
+{
+  "name": "UX-01-escape-keeps-text",
+  "file": "book/chapters/02-foundations.md",
+  "steps": [
+    {"open": "${file}"},
+    {"palette": "Markdown OKF-Schema Studio: Open Preview to Side", "wait": 5000},
+    {"waitFor": "D.querySelector('#sphinx-myst-preview-content h1')", "timeout": 20000, "label": "rendered preview"},
+    {"mark": true},
+    {"editMode": true},
+    {"clicksel": "p", "text": "Training and deploying an LLM"},
+    {"waitFor": "D.querySelector('[data-sphinx-preview-block-editor] textarea')", "label": "block editor open"},
+    {"key": "Meta+ArrowDown"},
+    {"type": " KEEP ME PLEASE.", "delay": 40},
+    {"wait": 800},
+    {"check": "diff", "against": "mark", "contains": "KEEP ME PLEASE.", "label": "UX-01 autosaved before Escape"},
+    {"key": "Escape", "wait": 1500},
+    {"check": "feval", "expr": "!D.querySelector('[data-sphinx-preview-block-editor] textarea')", "label": "UX-01 editor closed"},
+    {"check": "diff", "against": "mark", "contains": "KEEP ME PLEASE.", "maxLines": 1, "label": "UX-01 text kept after Escape"},
+    {"check": "feval", "expr": "[...D.querySelectorAll('p')].some(p => p.textContent.includes('KEEP ME PLEASE.'))", "label": "UX-01 preview shows text"},
+    {"check": "errors"},
+    {"shot": "UX-01-after-escape", "clip": "preview"}
+  ]
+}

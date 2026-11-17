@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIAG-015 · Studio requirements</title>
+<meta name="description" content="When Mermaid cannot draw a diagram, the page SHALL show at the top of the diagram element exactly one message &quot;Unable to render Mermaid diagram. Its source remains available below.&quot; followed by one co">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markdown OKF-Schema Studio">
+<meta property="og:title" content="Behaviour DIAG-015: Invalid Mermaid shows one message with the parser reason">
+<meta property="og:description" content="When Mermaid cannot draw a diagram, the page SHALL show at the top of the diagram element exactly one message &quot;Unable to render Mermaid diagram. Its source remains available below.&quot; followed by one co">
+<meta property="og:url" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/behaviour-diag-015.html">
+<meta property="og:image" content="https://gsemet.github.io/markdown-okf-schema-studio/requirements/og/behaviour.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Behaviour: One rule, tested on its own, linked to its code">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body style="--c:#1d4ed8">
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Areas</a><span class="sep">/</span><a href="area-diagrams.html">Diagrams</a><span class="sep">/</span><a href="use-case-diag-001.html">DIAG-001</a><span class="sep">/</span><span aria-current="page">DIAG-015</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<p class="eyebrow"><span class="sw" style="background:#1d4ed8"></span>Behaviour DIAG-015</p>
+<h1>Invalid Mermaid shows one message with the parser reason</h1>
+<p class="rule">When Mermaid cannot draw a diagram, the page <strong>SHALL</strong> show at the top of the diagram element exactly one message &quot;Unable to render Mermaid diagram. Its source remains available below.&quot; followed by one collapsed &quot;Show the parser error&quot; section holding the parser&#x27;s reason as plain text, and set data-render-state to error.</p>
+<div class="where" style="--pc:var(--p1)"><div class="track"><span class=""><i></i><b></b></span><span class=""><i></i><b></b></span><span class=""><i></i><b></b></span><span class="cur"><i></i><b></b></span><span class=""><i></i><b></b></span><span class=""><i></i></span></div><p>Step 4 of path 1 in <a href="use-case-diag-001.html">DIAG-001</a>: from “The source editor is open” to “A parser message shows, the source stays”.</p></div>
+<h2>Scenarios <small>4</small></h2>
+<p class="hint">The situations the tests check. Open one to read it.</p>
+<details class="scn"><summary><span class="k nom">nominal</span>Syntax error</summary><div class="gwt"><div><b>Given</b>a Mermaid diagram with invalid syntax</div><div><b>When</b>the page draws it</div><div><b>Then</b>the diagram element starts with the message &quot;Unable to render Mermaid diagram. Its source remains available below.&quot;, then a closed details element titled &quot;Show the parser error&quot; holding the reason, and data-render-state is error; the &quot;Diagram source&quot; disclosure still holds the source</div></div></details><details class="scn"><summary><span class="k bnd">boundary</span>Reason with markup</summary><div class="gwt"><div><b>Given</b>a parser reason that contains HTML text such as an image tag with an onerror handler</div><div><b>When</b>the page shows the error</div><div><b>Then</b>the reason is displayed as text, no element is created from it and the details element stays closed</div></div></details><details class="scn"><summary><span class="k bnd">boundary</span>Theme switches redraw the error</summary><div class="gwt"><div><b>Given</b>an invalid Mermaid diagram</div><div><b>When</b>the theme changes through dark, white, cream and the original mode</div><div><b>Then</b>after each change the diagram holds one error message and one details section</div></div></details><details class="scn"><summary><span class="k bnd">boundary</span>Changing reason</summary><div class="gwt"><div><b>Given</b>an error shown for line 2 and a new error for line 3</div><div><b>When</b>the page shows the second error</div><div><b>Then</b>the earlier error is replaced and the details section holds only the line 3 reason</div></div></details>
+<div class="cols">
+  <section><h2>Implemented in <small>1</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/src/page/modules/mermaidError.ts"><span class="dir">src/page/modules/</span>mermaidError.ts</a></li></ul></section>
+  <section><h2>Tested by <small>2</small></h2><ul class="files"><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/visual/scenarioDefinitions2.ts"><span class="dir">test/visual/</span>scenarioDefinitions2.ts</a><span class="tag">visual</span></li><li><a href="https://github.com/gsemet/markdown-okf-schema-studio/blob/0e79699d630494d617c459441623a95a55c8233b/test/page/modules/mermaidError.test.ts"><span class="dir">test/page/modules/</span>mermaidError.test.ts</a><span class="tag">unit</span></li></ul></section>
+</div>
+<details class="known"><summary>Known limits (4)</summary><p>- Known issue: The diagram text also stays inside the diagram element under the message, so the source shows once there and once in the disclosure.<br>- Known issue: A failed Mermaid diagram posts no diagnostic to the status line or the Problems list because the drawing happens in the page.<br>- Known issue: The message uses the theme error colour --studio-errorForeground with the fallback #f14c4c.<br>- Known issue: The visual check sets the render state to pending before each theme change to force a redraw.</p></details>
+<nav class="pager"><a href="behaviour-diag-009.html">← Mermaid diagrams are drawn once and late results are dropped</a><a class="next" href="behaviour-diag-017.html">The Mermaid action inserts a starter flowchart in GFM mode →</a></nav>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script src="search-index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

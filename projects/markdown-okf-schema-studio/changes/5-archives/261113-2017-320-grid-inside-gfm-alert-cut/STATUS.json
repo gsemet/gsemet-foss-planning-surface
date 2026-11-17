@@ -1,0 +1,126 @@
+{
+  "schema": 2,
+  "updated": "2026-11-14T17:14:19Z",
+  "cr": "CR-320",
+  "title": "Change specification: a grid inside a GitHub alert stays inside it",
+  "batch": "batch-04",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 1,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/391.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/391",
+    "number": 391
+  },
+  "steps": [
+    {
+      "name": "Round 1",
+      "done": true,
+      "verdict": "",
+      "note": "implement spec sections 3-6",
+      "at": "2026-11-13T19:17:10Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "695e4815",
+      "at": "2026-11-13T19:46:53Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/391",
+      "at": "2026-11-13T19:47:21Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "verified at 695e4815; CI and heavy run green; local integration timed out on a timing test, heavy CI integration passed",
+      "at": "2026-11-13T20:13:35Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-13T20:13:35Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/391",
+      "at": "2026-11-13T20:17:05Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "request",
+      "path": "intake/request.md"
+    },
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261113-202924.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../constitution.md",
+      "name": ".agents/constitution.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../AGENTS.md",
+      "name": "AGENTS.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/guidelines/project.guidelines.md",
+      "name": "requirements/guidelines/project.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/guidelines/requirements.guidelines.md",
+      "name": "requirements/guidelines/requirements.guidelines.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/log.md",
+      "name": "requirements/tiers/log.md"
+    }
+  ],
+  "branch": "chantier/batch-04/cr-320-change-specification-a-grid-inside-a-git",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-04-CR-320",
+  "agent": null,
+  "notes": [
+    "verified at 695e4815; CI and heavy run green; local integration timed out on a timing test, heavy CI integration passed"
+  ],
+  "blocked": null,
+  "cost_usd": 1.3057,
+  "final_cost": true,
+  "silent_minutes": null
+}

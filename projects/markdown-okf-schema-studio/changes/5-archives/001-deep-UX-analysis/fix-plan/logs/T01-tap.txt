@@ -1,0 +1,2104 @@
+TAP version 13
+# Subtest: value edit F1 title changes only the named field
+not ok 1 - value edit F1 title changes only the named field
+  ---
+  duration_ms: 4.706333
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        'type: SwRS\n' +
+        'id: SwRS-CORE-001\n' +
+        'uuid: 00000000-0000-4000-8000-000000000002\n' +
+        'title: Write CSV output v2\n' +
+    +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+    -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+    -   '  output.\n' +
+        'project: OKFREQXMP\n' +
+        'scope: Core\n' +
+        'lifecycle: draft\n' +
+        'origin: native\n' +
+        'tier: SwRS\n' +
+        'derives_from:\n' +
+    +   '  - StRS-CORE-001\n' +
+    -   '- StRS-CORE-001\n' +
+        'annotation_exemption: false\n' +
+        'exemption_reason:\n' +
+        'derived_by: []\n' +
+        'implemented_in_files:\n' +
+    +   '  - src/export.py\n' +
+    -   '- src/export.py\n' +
+        'tested_in_files:\n' +
+    +   '  - tests/test_export.py\n' +
+    -   '- tests/test_export.py\n' +
+        '---\n' +
+        '\n' +
+        '## EARS Expression\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output v2
+    description: When export is requested, the service SHALL write the report as CSV
+      output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+    - StRS-CORE-001
+    annotation_exemption: false
+    exemption_reason:
+    derived_by: []
+    implemented_in_files:
+    - src/export.py
+    tested_in_files:
+    - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  actual: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output v2
+    description: When export is requested, the service SHALL write the report as CSV output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+      - StRS-CORE-001
+    annotation_exemption: false
+    exemption_reason:
+    derived_by: []
+    implemented_in_files:
+      - src/export.py
+    tested_in_files:
+      - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.start (node:internal/test_runner/test:1262:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+  ...
+# Subtest: value edit F1 lifecycle changes only the named field
+not ok 2 - value edit F1 lifecycle changes only the named field
+  ---
+  duration_ms: 1.084625
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        'type: SwRS\n' +
+        'id: SwRS-CORE-001\n' +
+        'uuid: 00000000-0000-4000-8000-000000000002\n' +
+        'title: Write CSV output\n' +
+    +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+    -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+    -   '  output.\n' +
+        'project: OKFREQXMP\n' +
+        'scope: Core\n' +
+        'lifecycle: approved\n' +
+        'origin: native\n' +
+        'tier: SwRS\n' +
+        'derives_from:\n' +
+    +   '  - StRS-CORE-001\n' +
+    -   '- StRS-CORE-001\n' +
+        'annotation_exemption: false\n' +
+        'exemption_reason:\n' +
+        'derived_by: []\n' +
+        'implemented_in_files:\n' +
+    +   '  - src/export.py\n' +
+    -   '- src/export.py\n' +
+        'tested_in_files:\n' +
+    +   '  - tests/test_export.py\n' +
+    -   '- tests/test_export.py\n' +
+        '---\n' +
+        '\n' +
+        '## EARS Expression\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output
+    description: When export is requested, the service SHALL write the report as CSV
+      output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: approved
+    origin: native
+    tier: SwRS
+    derives_from:
+    - StRS-CORE-001
+    annotation_exemption: false
+    exemption_reason:
+    derived_by: []
+    implemented_in_files:
+    - src/export.py
+    tested_in_files:
+    - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  actual: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output
+    description: When export is requested, the service SHALL write the report as CSV output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: approved
+    origin: native
+    tier: SwRS
+    derives_from:
+      - StRS-CORE-001
+    annotation_exemption: false
+    exemption_reason:
+    derived_by: []
+    implemented_in_files:
+      - src/export.py
+    tested_in_files:
+      - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+  ...
+# Subtest: value edit F1 annotation_exemption changes only the named field
+not ok 3 - value edit F1 annotation_exemption changes only the named field
+  ---
+  duration_ms: 0.475708
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        'type: SwRS\n' +
+        'id: SwRS-CORE-001\n' +
+        'uuid: 00000000-0000-4000-8000-000000000002\n' +
+        'title: Write CSV output\n' +
+    +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+    -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+    -   '  output.\n' +
+        'project: OKFREQXMP\n' +
+        'scope: Core\n' +
+        'lifecycle: draft\n' +
+        'origin: native\n' +
+        'tier: SwRS\n' +
+        'derives_from:\n' +
+    +   '  - StRS-CORE-001\n' +
+    -   '- StRS-CORE-001\n' +
+        'annotation_exemption: true\n' +
+        'exemption_reason:\n' +
+        'derived_by: []\n' +
+        'implemented_in_files:\n' +
+    +   '  - src/export.py\n' +
+    -   '- src/export.py\n' +
+        'tested_in_files:\n' +
+    +   '  - tests/test_export.py\n' +
+    -   '- tests/test_export.py\n' +
+        '---\n' +
+        '\n' +
+        '## EARS Expression\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output
+    description: When export is requested, the service SHALL write the report as CSV
+      output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+    - StRS-CORE-001
+    annotation_exemption: true
+    exemption_reason:
+    derived_by: []
+    implemented_in_files:
+    - src/export.py
+    tested_in_files:
+    - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  actual: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output
+    description: When export is requested, the service SHALL write the report as CSV output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+      - StRS-CORE-001
+    annotation_exemption: true
+    exemption_reason:
+    derived_by: []
+    implemented_in_files:
+      - src/export.py
+    tested_in_files:
+      - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: value edit F1 exemption_reason changes only the named field
+not ok 4 - value edit F1 exemption_reason changes only the named field
+  ---
+  duration_ms: 0.411667
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        'type: SwRS\n' +
+        'id: SwRS-CORE-001\n' +
+        'uuid: 00000000-0000-4000-8000-000000000002\n' +
+        'title: Write CSV output\n' +
+    +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+    -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+    -   '  output.\n' +
+        'project: OKFREQXMP\n' +
+        'scope: Core\n' +
+        'lifecycle: draft\n' +
+        'origin: native\n' +
+        'tier: SwRS\n' +
+        'derives_from:\n' +
+    +   '  - StRS-CORE-001\n' +
+    -   '- StRS-CORE-001\n' +
+        'annotation_exemption: false\n' +
+        'exemption_reason: n/a\n' +
+        'derived_by: []\n' +
+        'implemented_in_files:\n' +
+    +   '  - src/export.py\n' +
+    -   '- src/export.py\n' +
+        'tested_in_files:\n' +
+    +   '  - tests/test_export.py\n' +
+    -   '- tests/test_export.py\n' +
+        '---\n' +
+        '\n' +
+        '## EARS Expression\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output
+    description: When export is requested, the service SHALL write the report as CSV
+      output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+    - StRS-CORE-001
+    annotation_exemption: false
+    exemption_reason: n/a
+    derived_by: []
+    implemented_in_files:
+    - src/export.py
+    tested_in_files:
+    - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  actual: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output
+    description: When export is requested, the service SHALL write the report as CSV output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+      - StRS-CORE-001
+    annotation_exemption: false
+    exemption_reason: n/a
+    derived_by: []
+    implemented_in_files:
+      - src/export.py
+    tested_in_files:
+      - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: value edit F1 derives_from changes only the named field
+not ok 5 - value edit F1 derives_from changes only the named field
+  ---
+  duration_ms: 0.513666
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        'type: SwRS\n' +
+        'id: SwRS-CORE-001\n' +
+        'uuid: 00000000-0000-4000-8000-000000000002\n' +
+        'title: Write CSV output\n' +
+    +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+    -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+    -   '  output.\n' +
+        'project: OKFREQXMP\n' +
+        'scope: Core\n' +
+        'lifecycle: draft\n' +
+        'origin: native\n' +
+        'tier: SwRS\n' +
+        'derives_from:\n' +
+    +   '  - StRS-CORE-001\n' +
+    +   '  - StRS-CORE-002\n' +
+    -   '- StRS-CORE-001\n' +
+    -   '- StRS-CORE-002\n' +
+        'annotation_exemption: false\n' +
+        'exemption_reason:\n' +
+        'derived_by: []\n' +
+        'implemented_in_files:\n' +
+    +   '  - src/export.py\n' +
+    -   '- src/export.py\n' +
+        'tested_in_files:\n' +
+    +   '  - tests/test_export.py\n' +
+    -   '- tests/test_export.py\n' +
+        '---\n' +
+        '\n' +
+        '## EARS Expression\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output
+    description: When export is requested, the service SHALL write the report as CSV
+      output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+    - StRS-CORE-001
+    - StRS-CORE-002
+    annotation_exemption: false
+    exemption_reason:
+    derived_by: []
+    implemented_in_files:
+    - src/export.py
+    tested_in_files:
+    - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  actual: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output
+    description: When export is requested, the service SHALL write the report as CSV output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+      - StRS-CORE-001
+      - StRS-CORE-002
+    annotation_exemption: false
+    exemption_reason:
+    derived_by: []
+    implemented_in_files:
+      - src/export.py
+    tested_in_files:
+      - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: value edit F1 derived_by changes only the named field
+not ok 6 - value edit F1 derived_by changes only the named field
+  ---
+  duration_ms: 0.439292
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        'type: SwRS\n' +
+        'id: SwRS-CORE-001\n' +
+        'uuid: 00000000-0000-4000-8000-000000000002\n' +
+        'title: Write CSV output\n' +
+    +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+    -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+    -   '  output.\n' +
+        'project: OKFREQXMP\n' +
+        'scope: Core\n' +
+        'lifecycle: draft\n' +
+        'origin: native\n' +
+        'tier: SwRS\n' +
+        'derives_from:\n' +
+    +   '  - StRS-CORE-001\n' +
+    -   '- StRS-CORE-001\n' +
+        'annotation_exemption: false\n' +
+        'exemption_reason:\n' +
+    +   'derived_by: [ X-1 ]\n' +
+    -   'derived_by: [X-1]\n' +
+        'implemented_in_files:\n' +
+    +   '  - src/export.py\n' +
+    -   '- src/export.py\n' +
+        'tested_in_files:\n' +
+    +   '  - tests/test_export.py\n' +
+    -   '- tests/test_export.py\n' +
+        '---\n' +
+        '\n' +
+        '## EARS Expression\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output
+    description: When export is requested, the service SHALL write the report as CSV
+      output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+    - StRS-CORE-001
+    annotation_exemption: false
+    exemption_reason:
+    derived_by: [X-1]
+    implemented_in_files:
+    - src/export.py
+    tested_in_files:
+    - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  actual: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output
+    description: When export is requested, the service SHALL write the report as CSV output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+      - StRS-CORE-001
+    annotation_exemption: false
+    exemption_reason:
+    derived_by: [ X-1 ]
+    implemented_in_files:
+      - src/export.py
+    tested_in_files:
+      - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: value edit F2 title changes only the named field
+not ok 7 - value edit F2 title changes only the named field
+  ---
+  duration_ms: 0.894166
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        '# leading comment\n' +
+    +   'title: Beta # trailing comment\n' +
+    -   'title: Beta  # trailing comment\n' +
+        'tags:\n' +
+        '  - one\n' +
+        '  - two\n' +
+        'summary: >-\n' +
+    +   '  Folded text that spans lines.\n' +
+    +   'links: [ a.md, b.md ]\n' +
+    -   '  Folded text that\n' +
+    -   '  spans lines.\n' +
+    -   'links: [a.md, b.md]\n' +
+        'quoted: "keep: me"\n' +
+        '\n' +
+        'status: draft\n' +
+        '---\n' +
+        'Body\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    # leading comment
+    title: Beta  # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that
+      spans lines.
+    links: [a.md, b.md]
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  actual: |-
+    ---
+    # leading comment
+    title: Beta # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that spans lines.
+    links: [ a.md, b.md ]
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: value edit F2 tags changes only the named field
+not ok 8 - value edit F2 tags changes only the named field
+  ---
+  duration_ms: 0.371708
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        '# leading comment\n' +
+    +   'title: Alpha # trailing comment\n' +
+    -   'title: Alpha  # trailing comment\n' +
+        'tags:\n' +
+        '  - one\n' +
+        '  - two\n' +
+        '  - three\n' +
+        'summary: >-\n' +
+    +   '  Folded text that spans lines.\n' +
+    +   'links: [ a.md, b.md ]\n' +
+    -   '  Folded text that\n' +
+    -   '  spans lines.\n' +
+    -   'links: [a.md, b.md]\n' +
+        'quoted: "keep: me"\n' +
+        '\n' +
+        'status: draft\n' +
+        '---\n' +
+        'Body\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    # leading comment
+    title: Alpha  # trailing comment
+    tags:
+      - one
+      - two
+      - three
+    summary: >-
+      Folded text that
+      spans lines.
+    links: [a.md, b.md]
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  actual: |-
+    ---
+    # leading comment
+    title: Alpha # trailing comment
+    tags:
+      - one
+      - two
+      - three
+    summary: >-
+      Folded text that spans lines.
+    links: [ a.md, b.md ]
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: value edit F2 links changes only the named field
+not ok 9 - value edit F2 links changes only the named field
+  ---
+  duration_ms: 0.317167
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        '# leading comment\n' +
+    +   'title: Alpha # trailing comment\n' +
+    -   'title: Alpha  # trailing comment\n' +
+        'tags:\n' +
+        '  - one\n' +
+        '  - two\n' +
+        'summary: >-\n' +
+    +   '  Folded text that spans lines.\n' +
+    +   'links: [ a.md, c.md ]\n' +
+    -   '  Folded text that\n' +
+    -   '  spans lines.\n' +
+    -   'links: [a.md, c.md]\n' +
+        'quoted: "keep: me"\n' +
+        '\n' +
+        'status: draft\n' +
+        '---\n' +
+        'Body\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    # leading comment
+    title: Alpha  # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that
+      spans lines.
+    links: [a.md, c.md]
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  actual: |-
+    ---
+    # leading comment
+    title: Alpha # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that spans lines.
+    links: [ a.md, c.md ]
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: value edit F2 quoted changes only the named field
+not ok 10 - value edit F2 quoted changes only the named field
+  ---
+  duration_ms: 0.429417
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        '# leading comment\n' +
+    +   'title: Alpha # trailing comment\n' +
+    -   'title: Alpha  # trailing comment\n' +
+        'tags:\n' +
+        '  - one\n' +
+        '  - two\n' +
+        'summary: >-\n' +
+    +   '  Folded text that spans lines.\n' +
+    +   'links: [ a.md, b.md ]\n' +
+    -   '  Folded text that\n' +
+    -   '  spans lines.\n' +
+    -   'links: [a.md, b.md]\n' +
+        'quoted: "still: quoted"\n' +
+        '\n' +
+        'status: draft\n' +
+        '---\n' +
+        'Body\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    # leading comment
+    title: Alpha  # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that
+      spans lines.
+    links: [a.md, b.md]
+    quoted: "still: quoted"
+    
+    status: draft
+    ---
+    Body
+    
+  actual: |-
+    ---
+    # leading comment
+    title: Alpha # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that spans lines.
+    links: [ a.md, b.md ]
+    quoted: "still: quoted"
+    
+    status: draft
+    ---
+    Body
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: value edit F2 summary changes only the named field
+not ok 11 - value edit F2 summary changes only the named field
+  ---
+  duration_ms: 0.450208
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        '# leading comment\n' +
+    +   'title: Alpha # trailing comment\n' +
+    -   'title: Alpha  # trailing comment\n' +
+        'tags:\n' +
+        '  - one\n' +
+        '  - two\n' +
+    +   'summary: New summary\n' +
+    +   'links: [ a.md, b.md ]\n' +
+    -   'summary: >-\n' +
+    -   '  New summary\n' +
+    -   'links: [a.md, b.md]\n' +
+        'quoted: "keep: me"\n' +
+        '\n' +
+        'status: draft\n' +
+        '---\n' +
+        'Body\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    # leading comment
+    title: Alpha  # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      New summary
+    links: [a.md, b.md]
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  actual: |-
+    ---
+    # leading comment
+    title: Alpha # trailing comment
+    tags:
+      - one
+      - two
+    summary: New summary
+    links: [ a.md, b.md ]
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: value edit F2 status changes only the named field
+not ok 12 - value edit F2 status changes only the named field
+  ---
+  duration_ms: 0.340084
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        '# leading comment\n' +
+    +   'title: Alpha # trailing comment\n' +
+    -   'title: Alpha  # trailing comment\n' +
+        'tags:\n' +
+        '  - one\n' +
+        '  - two\n' +
+        'summary: >-\n' +
+    +   '  Folded text that spans lines.\n' +
+    +   'links: [ a.md, b.md ]\n' +
+    -   '  Folded text that\n' +
+    -   '  spans lines.\n' +
+    -   'links: [a.md, b.md]\n' +
+        'quoted: "keep: me"\n' +
+        '\n' +
+        'status: active\n' +
+        '---\n' +
+        'Body\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    # leading comment
+    title: Alpha  # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that
+      spans lines.
+    links: [a.md, b.md]
+    quoted: "keep: me"
+    
+    status: active
+    ---
+    Body
+    
+  actual: |-
+    ---
+    # leading comment
+    title: Alpha # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that spans lines.
+    links: [ a.md, b.md ]
+    quoted: "keep: me"
+    
+    status: active
+    ---
+    Body
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: value edit F3 title changes only the named field
+not ok 13 - value edit F3 title changes only the named field
+  ---
+  duration_ms: 0.407083
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\r\n' +
+        'type: SwRS\r\n' +
+        'id: SwRS-CORE-001\r\n' +
+        'uuid: 00000000-0000-4000-8000-000000000002\r\n' +
+        'title: Write CSV output v2\r\n' +
+    +   'description: When export is requested, the service SHALL write the report as CSV output.\r\n' +
+    -   'description: When export is requested, the service SHALL write the report as CSV\r\n' +
+    -   '  output.\r\n' +
+        'project: OKFREQXMP\r\n' +
+        'scope: Core\r\n' +
+        'lifecycle: draft\r\n' +
+        'origin: native\r\n' +
+        'tier: SwRS\r\n' +
+        'derives_from:\r\n' +
+    +   '  - StRS-CORE-001\r\n' +
+    -   '- StRS-CORE-001\r\n' +
+        'annotation_exemption: false\r\n' +
+        'exemption_reason:\r\n' +
+        'derived_by: []\r\n' +
+        'implemented_in_files:\r\n' +
+    +   '  - src/export.py\r\n' +
+    -   '- src/export.py\r\n' +
+        'tested_in_files:\r\n' +
+    +   '  - tests/test_export.py\r\n' +
+    -   '- tests/test_export.py\r\n' +
+        '---\r\n' +
+        '\r\n' +
+        '## EARS Expression\r\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output v2
+    description: When export is requested, the service SHALL write the report as CSV
+      output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+    - StRS-CORE-001
+    annotation_exemption: false
+    exemption_reason:
+    derived_by: []
+    implemented_in_files:
+    - src/export.py
+    tested_in_files:
+    - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  actual: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output v2
+    description: When export is requested, the service SHALL write the report as CSV output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+      - StRS-CORE-001
+    annotation_exemption: false
+    exemption_reason:
+    derived_by: []
+    implemented_in_files:
+      - src/export.py
+    tested_in_files:
+      - tests/test_export.py
+    ---
+    
+    ## EARS Expression
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: value edit F4 status changes only the named field
+not ok 14 - value edit F4 status changes only the named field
+  ---
+  duration_ms: 0.249167
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:168:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        '# leading comment\n' +
+    +   'title: Alpha # trailing comment\n' +
+    -   'title: Alpha  # trailing comment\n' +
+        'tags:\n' +
+        '  - one\n' +
+        '  - two\n' +
+        'summary: >-\n' +
+    +   '  Folded text that spans lines.\n' +
+    +   'links: [ a.md, b.md ]\n' +
+    -   '  Folded text that\n' +
+    -   '  spans lines.\n' +
+    -   'links: [a.md, b.md]\n' +
+        'quoted: "keep: me"\n' +
+        '\n' +
+        'status: active\n' +
+        '...\n' +
+        'Body\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    # leading comment
+    title: Alpha  # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that
+      spans lines.
+    links: [a.md, b.md]
+    quoted: "keep: me"
+    
+    status: active
+    ...
+    Body
+    
+  actual: |-
+    ---
+    # leading comment
+    title: Alpha # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that spans lines.
+    links: [ a.md, b.md ]
+    quoted: "keep: me"
+    
+    status: active
+    ...
+    Body
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:173:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: structural F2 rename title to heading keeps the trailing comment
+not ok 15 - structural F2 rename title to heading keeps the trailing comment
+  ---
+  duration_ms: 0.309583
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:177:22'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        '# leading comment\n' +
+    +   'heading: Alpha # trailing comment\n' +
+    -   'heading: Alpha  # trailing comment\n' +
+        'tags:\n' +
+        '  - one\n' +
+        '  - two\n' +
+        'summary: >-\n' +
+    +   '  Folded text that spans lines.\n' +
+    +   'links: [ a.md, b.md ]\n' +
+    -   '  Folded text that\n' +
+    -   '  spans lines.\n' +
+    -   'links: [a.md, b.md]\n' +
+        'quoted: "keep: me"\n' +
+        '\n' +
+        'status: draft\n' +
+        '---\n' +
+        'Body\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    # leading comment
+    heading: Alpha  # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that
+      spans lines.
+    links: [a.md, b.md]
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  actual: |-
+    ---
+    # leading comment
+    heading: Alpha # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that spans lines.
+    links: [ a.md, b.md ]
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:180:12)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: structural F2 remove links deletes exactly that line
+not ok 16 - structural F2 remove links deletes exactly that line
+  ---
+  duration_ms: 0.453916
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:182:22'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        '# leading comment\n' +
+    +   'title: Alpha # trailing comment\n' +
+    -   'title: Alpha  # trailing comment\n' +
+        'tags:\n' +
+        '  - one\n' +
+        '  - two\n' +
+        'summary: >-\n' +
+    +   '  Folded text that spans lines.\n' +
+    -   '  Folded text that\n' +
+    -   '  spans lines.\n' +
+        'quoted: "keep: me"\n' +
+        '\n' +
+        'status: draft\n' +
+        '---\n' +
+        'Body\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    # leading comment
+    title: Alpha  # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that
+      spans lines.
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  actual: |-
+    ---
+    # leading comment
+    title: Alpha # trailing comment
+    tags:
+      - one
+      - two
+    summary: >-
+      Folded text that spans lines.
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:185:12)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: structural F2 remove tags deletes exactly the sequence lines
+not ok 17 - structural F2 remove tags deletes exactly the sequence lines
+  ---
+  duration_ms: 0.223958
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:187:22'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        '# leading comment\n' +
+    +   'title: Alpha # trailing comment\n' +
+    -   'title: Alpha  # trailing comment\n' +
+        'summary: >-\n' +
+    +   '  Folded text that spans lines.\n' +
+    +   'links: [ a.md, b.md ]\n' +
+    -   '  Folded text that\n' +
+    -   '  spans lines.\n' +
+    -   'links: [a.md, b.md]\n' +
+        'quoted: "keep: me"\n' +
+        '\n' +
+        'status: draft\n' +
+        '---\n' +
+        'Body\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    # leading comment
+    title: Alpha  # trailing comment
+    summary: >-
+      Folded text that
+      spans lines.
+    links: [a.md, b.md]
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  actual: |-
+    ---
+    # leading comment
+    title: Alpha # trailing comment
+    summary: >-
+      Folded text that spans lines.
+    links: [ a.md, b.md ]
+    quoted: "keep: me"
+    
+    status: draft
+    ---
+    Body
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:190:12)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: structural F1 add owner appends one line before the closing delimiter
+not ok 18 - structural F1 add owner appends one line before the closing delimiter
+  ---
+  duration_ms: 0.413167
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:192:22'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+      '---\n' +
+        'type: SwRS\n' +
+        'id: SwRS-CORE-001\n' +
+        'uuid: 00000000-0000-4000-8000-000000000002\n' +
+        'title: Write CSV output\n' +
+    +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+    -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+    -   '  output.\n' +
+        'project: OKFREQXMP\n' +
+        'scope: Core\n' +
+        'lifecycle: draft\n' +
+        'origin: native\n' +
+        'tier: SwRS\n' +
+        'derives_from:\n' +
+    +   '  - StRS-CORE-001\n' +
+    -   '- StRS-CORE-001\n' +
+        'annotation_exemption: false\n' +
+        'exemption_reason:\n' +
+        'derived_by: []\n' +
+        'implemented_in_files:\n' +
+    +   '  - src/export.py\n' +
+    -   '- src/export.py\n' +
+        'tested_in_files:\n' +
+    +   '  - tests/test_export.py\n' +
+    -   '- tests/test_export.py\n' +
+        'owner: Ana\n' +
+        '---\n' +
+        '\n' +
+        '## EARS Expression\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output
+    description: When export is requested, the service SHALL write the report as CSV
+      output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+    - StRS-CORE-001
+    annotation_exemption: false
+    exemption_reason:
+    derived_by: []
+    implemented_in_files:
+    - src/export.py
+    tested_in_files:
+    - tests/test_export.py
+    owner: Ana
+    ---
+    
+    ## EARS Expression
+    
+  actual: |-
+    ---
+    type: SwRS
+    id: SwRS-CORE-001
+    uuid: 00000000-0000-4000-8000-000000000002
+    title: Write CSV output
+    description: When export is requested, the service SHALL write the report as CSV output.
+    project: OKFREQXMP
+    scope: Core
+    lifecycle: draft
+    origin: native
+    tier: SwRS
+    derives_from:
+      - StRS-CORE-001
+    annotation_exemption: false
+    exemption_reason:
+    derived_by: []
+    implemented_in_files:
+      - src/export.py
+    tested_in_files:
+      - tests/test_export.py
+    owner: Ana
+    ---
+    
+    ## EARS Expression
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/frontmatter/frontmatterPreservation.test.js:195:12)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: structural F2 edits keep both comments unless their own line is removed
+ok 19 - structural F2 edits keep both comments unless their own line is removed
+  ---
+  duration_ms: 0.901542
+  type: 'test'
+  ...
+# Subtest: lineDelta: identical input has no removed or added lines
+ok 20 - lineDelta: identical input has no removed or added lines
+  ---
+  duration_ms: 0.955
+  type: 'test'
+  ...
+# Subtest: lineDelta: one changed line is reported as one removed and one added line
+ok 21 - lineDelta: one changed line is reported as one removed and one added line
+  ---
+  duration_ms: 0.055292
+  type: 'test'
+  ...
+# Subtest: lineDelta: one inserted line is reported as one added line
+ok 22 - lineDelta: one inserted line is reported as one added line
+  ---
+  duration_ms: 0.055875
+  type: 'test'
+  ...
+# Subtest: round trip preserves the source: compact-book
+not ok 23 - round trip preserves the source: compact-book
+  ---
+  duration_ms: 0.643333
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:126:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '| Step | Owner |\n| --- | --- |\n| Plan | Ana |\n| Ship | Bo |'
+    - '| Step | Owner |\n|---|---|\n| Plan | Ana |\n| Ship | Bo |'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    | Step | Owner |
+    |---|---|
+    | Plan | Ana |
+    | Ship | Bo |
+  actual: |-
+    | Step | Owner |
+    | --- | --- |
+    | Plan | Ana |
+    | Ship | Bo |
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:130:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: round trip preserves the source: padded
+not ok 24 - round trip preserves the source: padded
+  ---
+  duration_ms: 0.113917
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:126:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '| Column A | Column B |\n| ---------- | ---------- |\n| first | second |'
+    - '| Column A | Column B |\n|----------|----------|\n| first    | second   |'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    | Column A | Column B |
+    |----------|----------|
+    | first    | second   |
+  actual: |-
+    | Column A | Column B |
+    | ---------- | ---------- |
+    | first | second |
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:130:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: round trip preserves the source: no-spaces
+not ok 25 - round trip preserves the source: no-spaces
+  ---
+  duration_ms: 0.077708
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:126:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '| a | b |\n| --- | --- |\n| c | d |'
+    - '|a|b|\n|---|---|\n|c|d|'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    |a|b|
+    |---|---|
+    |c|d|
+  actual: |-
+    | a | b |
+    | --- | --- |
+    | c | d |
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:130:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: round trip preserves the source: alignment
+ok 26 - round trip preserves the source: alignment
+  ---
+  duration_ms: 0.064625
+  type: 'test'
+  ...
+# Subtest: round trip preserves the source: no-outer-pipes
+not ok 27 - round trip preserves the source: no-outer-pipes
+  ---
+  duration_ms: 0.062292
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:126:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '| a | b |\n| --- | --- |\n| c | d |'
+    - 'a | b\n--- | ---\nc | d'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    a | b
+    --- | ---
+    c | d
+  actual: |-
+    | a | b |
+    | --- | --- |
+    | c | d |
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:130:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: round trip preserves the source: escaped-and-code
+not ok 28 - round trip preserves the source: escaped-and-code
+  ---
+  duration_ms: 0.211458
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:126:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '| Key | Value | Code |\n' +
+    +   '| --- | --- | --- |\n' +
+    +   '| a \\| b | x | `y|z` |\n' +
+    +   '| k | v | z |'
+    - '| Key | Value | Code |\n|---|---|---|\n| a \\| b | x | `y|z` |\n| k | v | z |'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    | Key | Value | Code |
+    |---|---|---|
+    | a \| b | x | `y|z` |
+    | k | v | z |
+  actual: |-
+    | Key | Value | Code |
+    | --- | --- | --- |
+    | a \| b | x | `y|z` |
+    | k | v | z |
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:130:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: round trip preserves the source: indented
+not ok 29 - round trip preserves the source: indented
+  ---
+  duration_ms: 0.1005
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:126:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '| a | b |\n| --- | --- |\n| c | d |'
+    - '  | a | b |\n  |---|---|\n  | c | d |'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+      | a | b |
+      |---|---|
+      | c | d |
+  actual: |-
+    | a | b |
+    | --- | --- |
+    | c | d |
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:130:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: round trip preserves the source: crlf
+not ok 30 - round trip preserves the source: crlf
+  ---
+  duration_ms: 0.068291
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:126:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '| Step | Owner |\r\n| --- | --- |\r\n| Plan | Ana |\r\n| Ship | Bo |\r\n'
+    - '| Step | Owner |\r\n|---|---|\r\n| Plan | Ana |\r\n| Ship | Bo |\r\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    | Step | Owner |
+    |---|---|
+    | Plan | Ana |
+    | Ship | Bo |
+    
+  actual: |-
+    | Step | Owner |
+    | --- | --- |
+    | Plan | Ana |
+    | Ship | Bo |
+    
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:130:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: round trip preserves the source: wider-than-padding
+not ok 31 - round trip preserves the source: wider-than-padding
+  ---
+  duration_ms: 0.059583
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:126:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '| Column A | Column B |\n| ---------- | ---------- |\n| first | second |'
+    - '| Column A | Column B |\n|----------|----------|\n| first    | second   |'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: |-
+    | Column A | Column B |
+    |----------|----------|
+    | first    | second   |
+  actual: |-
+    | Column A | Column B |
+    | ---------- | ---------- |
+    | first | second |
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:130:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: one-cell edit changes exactly one line: compact-book
+not ok 32 - one-cell edit changes exactly one line: compact-book
+  ---
+  duration_ms: 0.095625
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:134:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    2 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 2
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:141:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: one-cell edit changes exactly one line: padded
+not ok 33 - one-cell edit changes exactly one line: padded
+  ---
+  duration_ms: 0.075959
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:134:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    2 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 2
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:141:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: one-cell edit changes exactly one line: no-spaces
+not ok 34 - one-cell edit changes exactly one line: no-spaces
+  ---
+  duration_ms: 0.054125
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:134:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    3 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 3
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:141:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: one-cell edit changes exactly one line: alignment
+ok 35 - one-cell edit changes exactly one line: alignment
+  ---
+  duration_ms: 0.037875
+  type: 'test'
+  ...
+# Subtest: one-cell edit changes exactly one line: no-outer-pipes
+not ok 36 - one-cell edit changes exactly one line: no-outer-pipes
+  ---
+  duration_ms: 0.051666
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:134:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    3 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 3
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:141:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: one-cell edit changes exactly one line: escaped-and-code
+not ok 37 - one-cell edit changes exactly one line: escaped-and-code
+  ---
+  duration_ms: 0.340625
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:134:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    3 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 3
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:141:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: one-cell edit changes exactly one line: indented
+not ok 38 - one-cell edit changes exactly one line: indented
+  ---
+  duration_ms: 0.045708
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:134:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    3 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 3
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:141:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: one-cell edit changes exactly one line: crlf
+not ok 39 - one-cell edit changes exactly one line: crlf
+  ---
+  duration_ms: 0.043875
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:134:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    3 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 3
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:141:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+# Subtest: one-cell edit changes exactly one line: wider-than-padding
+not ok 40 - one-cell edit changes exactly one line: wider-than-padding
+  ---
+  duration_ms: 0.047666
+  type: 'test'
+  location: '/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:134:26'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    2 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 2
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/out/test/webview/markdownTablePreservation.test.js:141:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+1..40
+# tests 40
+# suites 0
+# pass 6
+# fail 34
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 71.166

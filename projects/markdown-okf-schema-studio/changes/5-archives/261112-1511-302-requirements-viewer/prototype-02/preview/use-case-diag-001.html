@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIAG-001 · Studio requirements</title>
+<meta name="description" content="A writer reads and inserts Mermaid diagrams that follow the theme">
+<style>/* Studio requirements, prototype 02. Three families: serif for what is read, sans for labels,
+   mono for identifiers. Colour means the area; path 1, path 2 and the scenario kinds are the only
+   other colours. */
+:root{--serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--max:1080px;--c:#1d4ed8}
+[data-theme=cream]{--bg:#f6f1e7;--paper:#fffdf8;--ink:#2b2620;--soft:#6c6357;--faint:#cdc3b2;--line:#e5ddce;--p1:#b5532a;--p2:#7a4fa0;--alt:#a39883;--nom:#2f8f6f;--bnd:#2d6fb0;--ref:#c0392b}
+[data-theme=dark]{--bg:#16150f;--paper:#1f1d17;--ink:#ece5d7;--soft:#a69c8a;--faint:#4b453a;--line:#322e25;--p1:#ec875a;--p2:#b495da;--alt:#6d6455;--nom:#5fcca5;--bnd:#7fb0ee;--ref:#ff7a6b}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans)}
+a{color:inherit}
+.in,main{max-width:var(--max);margin:0 auto;padding:0 24px}
+main{padding-top:36px;padding-bottom:64px}
+/* header */
+.top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.top .in{display:flex;align-items:center;gap:14px;height:54px}
+.home{font:600 14px var(--sans);text-decoration:none;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.home::before{content:"";width:12px;height:12px;border-radius:50%;border:3px solid var(--c)}
+.crumbs{flex:1;min-width:0;display:flex;gap:8px;align-items:center;font:13px var(--sans);color:var(--soft);overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.crumbs::-webkit-scrollbar{display:none}
+.crumbs a{text-decoration:none}.crumbs a:hover{color:var(--ink);text-decoration:underline}
+.crumbs .sep{color:var(--faint)}
+.crumbs [aria-current]{color:var(--ink)}
+.btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;padding:6px 11px;font:13px var(--sans);cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--soft)}
+kbd{font:11px var(--mono);color:var(--soft);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:4px}
+footer{border-top:1px solid var(--line);color:var(--soft);font-size:12.5px;padding:18px 0 28px}
+/* text */
+h1{font:400 clamp(28px,4vw,40px)/1.15 var(--serif);margin:6px 0 12px;max-width:860px}
+h2{font:600 13px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin:40px 0 8px}
+h2 small{font:inherit;color:var(--faint);margin-left:6px}
+.lead{font:18px/1.55 var(--serif);max-width:760px;margin:0 0 8px}
+.hint{color:var(--soft);font-size:14.5px;max-width:760px;margin:0 0 14px}
+.facts{font-size:14.5px;color:var(--soft);margin:14px 0 0}
+.facts b{color:var(--ink)}
+.eyebrow{font:600 12.5px var(--sans);color:var(--soft);margin:0;display:flex;align-items:center;gap:8px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;flex:none}
+.tag{font:600 10.5px var(--sans);letter-spacing:.04em;text-transform:uppercase;color:var(--soft);border:1px solid var(--line);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:1px;white-space:nowrap}
+.dots{display:inline-flex;gap:3px;vertical-align:middle}
+.dots i{width:8px;height:8px;border-radius:50%}
+.nom{background:var(--nom);fill:var(--nom)}.bnd{background:var(--bnd);fill:var(--bnd)}.ref{background:var(--ref);fill:var(--ref)}
+/* index: the three layers */
+.layers{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:12px;background:var(--paper);overflow:hidden;counter-reset:l}
+.layers li{padding:16px 18px 16px 18px;border-right:1px solid var(--line);position:relative;display:flex;flex-direction:column;gap:4px}
+.layers li:last-child{border-right:0}
+.layers li::after{content:"→";position:absolute;right:-9px;top:16px;background:var(--paper);color:var(--soft);font-size:14px;z-index:1}
+.layers li:last-child::after{content:none}
+.layers b{font:400 20px var(--serif)}
+.layers span{font-size:14px;color:var(--soft)}
+.layers code{font:12px var(--mono);color:var(--soft);margin-top:4px}
+/* index: areas */
+.areas{border-top:1px solid var(--line)}
+.arow{display:grid;grid-template-columns:14px 220px 1fr 90px 90px;gap:16px;align-items:baseline;padding:11px 4px;border-bottom:1px solid var(--line);text-decoration:none}
+a.arow:hover{background:var(--paper)}
+a.arow .name{text-decoration:underline;text-decoration-color:var(--faint);text-underline-offset:3px}
+.arow .sw{align-self:center}
+.arow .name{font:17px var(--serif)}
+.arow .desc{font-size:13.5px;color:var(--soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.arow .num{font:13px var(--mono);text-align:right;color:var(--soft)}
+.arow.head{font:600 11.5px var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--soft);padding-top:0}
+.arow.head .name{font:inherit}
+.arow.off{opacity:.45}
+/* area: the line of use cases */
+.line{list-style:none;margin:0;padding:0 0 0 34px;position:relative}
+.line::before{content:"";position:absolute;left:10px;top:22px;bottom:22px;width:6px;border-radius:3px;background:var(--c)}
+.line li{margin-bottom:10px}
+.stop{display:grid;grid-template-columns:auto 1fr auto;gap:2px 14px;padding:12px 16px;background:var(--paper);border:1px solid var(--line);border-radius:10px;position:relative;text-decoration:none}
+.stop::before{content:"";position:absolute;left:-31px;top:15px;width:18px;height:18px;border-radius:50%;background:var(--paper);border:4px solid var(--c);box-sizing:border-box}
+a.stop:hover{border-color:var(--soft)}
+a.stop .t{text-decoration:underline;text-decoration-color:var(--faint);text-underline-offset:3px}
+.stop .id{font:12px var(--mono);color:var(--soft);padding-top:3px}
+.stop .t{font:18px/1.3 var(--serif)}
+.stop .meta{font-size:13px;color:var(--soft);white-space:nowrap;padding-top:3px}
+.stop .need{grid-column:2/4;font:italic 14.5px/1.5 var(--serif);color:var(--soft);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.stop.off{opacity:.5}
+/* use case */
+.need{font:italic 17px/1.55 var(--serif);color:var(--soft);border-left:3px solid var(--c);margin:0;padding:2px 0 2px 14px;max-width:780px}
+.map{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px 6px 4px}
+.maptools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:6px 10px}
+.legend{margin-left:auto;font-size:12.5px;color:var(--soft);display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.legend i{display:inline-block;width:18px;height:4px;border-radius:2px;margin-right:-4px}
+.legend .lp1{background:var(--p1)}.legend .lp2{background:var(--p2)}.legend .lalt{height:0;border-top:2px dashed var(--alt)}
+svg.metro{display:block;width:100%;height:auto}
+.metro .st circle{fill:var(--paper);stroke:var(--ink);stroke-width:3.5}
+.metro .st.goal circle{stroke:var(--p1);stroke-width:5}
+.metro .st.alt circle{stroke:var(--alt);stroke-width:2.5}
+.metro .st text{font:500 13px var(--sans);fill:var(--ink)}
+.metro .st.alt text{font:italic 12.5px var(--serif);fill:var(--soft)}
+.metro .tr{cursor:pointer}
+.metro .tr .hit{stroke:transparent;stroke-width:24;fill:none}
+.metro .tr:hover .ln,.metro .tr:focus .ln{stroke-width:10}
+.metro .tr:hover .pill,.metro .tr:focus .pill{stroke-width:2.6}
+.metro .pill{fill:var(--paper);stroke-width:1.6}
+.metro .pt{font:700 11px var(--mono);fill:var(--ink)}
+.metro .verb{font:italic 12.5px var(--serif);fill:var(--soft)}
+.metro.playing .tr:not(.on),.metro.playing .st:not(.on){opacity:.22;transition:opacity .3s}
+.metro .tok{fill:var(--p1)}
+.metro-list{display:none}
+.pname{font:600 12.5px var(--sans);color:var(--pc);margin:10px 8px}
+.vline{list-style:none;margin:0 0 16px;padding:0 8px 0 36px;position:relative}
+.vline::before{content:"";position:absolute;left:16px;top:14px;bottom:14px;width:6px;border-radius:3px;background:var(--pc)}
+.vline li{position:relative;padding:6px 0 10px}
+.vline li::before{content:"";position:absolute;left:-28px;top:7px;width:18px;height:18px;border-radius:50%;background:var(--paper);border:4px solid var(--ink);box-sizing:border-box}
+.vline li.goal::before{border-color:var(--p1);border-width:5px}
+.vstate{display:block;font-weight:500}
+.vvia{display:block;margin-top:8px;padding:8px 10px;border:1.5px solid var(--pc);border-radius:10px;font:12px var(--mono);text-decoration:none}
+.vvia span{display:block;font:italic 14px var(--serif);color:var(--soft);margin-top:2px}
+.vopt{display:block;margin-top:6px;padding:6px 10px;border:1px dashed var(--alt);border-radius:10px;font:italic 13.5px var(--serif);color:var(--soft);text-decoration:none}
+.vopt b{font:700 11.5px var(--mono);font-style:normal;color:var(--ink)}
+.blist{border-top:1px solid var(--line)}
+.brow{display:grid;grid-template-columns:110px 1fr auto 70px;gap:14px;align-items:baseline;padding:10px 4px;border-bottom:1px solid var(--line);text-decoration:none}
+.brow:hover{background:var(--paper)}
+.brow .id{font:12px var(--mono);color:var(--soft)}
+.brow .t{font:16px/1.35 var(--serif)}
+.brow .m{font:12.5px var(--mono);color:var(--soft);text-align:right}
+/* behaviour */
+.rule{font:19px/1.6 var(--serif);max-width:820px;margin:0}
+.rule strong{color:var(--p1);font-weight:600}
+.where{margin-top:18px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--paper);max-width:820px}
+.where p{margin:0;font-size:14.5px;color:var(--soft)}
+.where .track{display:flex;align-items:center;margin-bottom:10px}
+.where .track span{display:flex;align-items:center;flex:1}
+.where .track span:last-child{flex:none}
+.where .track i{width:14px;height:14px;border-radius:50%;border:3.5px solid var(--ink);background:var(--paper);box-sizing:border-box;flex:none}
+.where .track b{flex:1;height:5px;background:var(--pc);opacity:.35}
+.where .track .cur i{border-color:var(--pc)}
+.where .track .cur b{opacity:1}
+.scn{border:1px solid var(--line);border-radius:10px;background:var(--paper);margin-bottom:8px;max-width:900px}
+.scn summary{cursor:pointer;list-style:none;padding:10px 14px;display:flex;gap:10px;align-items:center;font:16px var(--serif)}
+.scn summary::-webkit-details-marker{display:none}
+.scn summary::after{content:"+";margin-left:auto;color:var(--soft)}
+.scn[open] summary::after{content:"−"}
+.k{font:600 10.5px var(--sans);text-transform:uppercase;letter-spacing:.05em;color:#fff;border-radius:4px;padding:2px 7px;flex:none}
+.gwt{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.gwt div{padding:10px 14px;font-size:14px;border-right:1px solid var(--line)}
+.gwt div:last-child{border-right:0}
+.gwt b{display:block;font:600 11px var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--soft);margin-bottom:2px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.files{list-style:none;margin:0;padding:0}
+.files li{display:flex;align-items:baseline;gap:6px;padding:7px 0;border-bottom:1px solid var(--line);font:13px var(--mono);word-break:break-all}
+.files a{text-decoration:none}.files a:hover{text-decoration:underline}
+.files .dir{color:var(--soft)}
+.files .tag{margin-left:auto}
+.known{margin-top:28px;max-width:900px;font-size:14px;color:var(--soft)}
+.known summary{cursor:pointer;font:600 13px var(--sans);color:var(--soft)}
+.pager{display:flex;justify-content:space-between;gap:16px;margin-top:40px;font:15px var(--serif)}
+.pager a{text-decoration:none;color:var(--soft)}.pager a:hover{color:var(--ink)}
+.pager .next{text-align:right}
+/* search */
+.search{position:fixed;inset:0;z-index:20;background:color-mix(in srgb,var(--bg) 80%,transparent);display:flex;justify-content:center;align-items:flex-start;padding:12vh 16px 16px}
+.search[hidden]{display:none}
+.search .box{width:min(640px,100%);background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.12);display:flex;flex-direction:column;max-height:72vh}
+.search .bar{display:flex;align-items:center;gap:8px;padding:8px 10px 8px 4px;border-bottom:1px solid var(--line)}
+.search input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font:17px var(--serif);padding:8px 12px}
+.results{overflow:auto;padding:6px 0}
+.results h3{font:600 11px var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--soft);margin:10px 16px 4px}
+.results a{display:block;padding:7px 16px;text-decoration:none;font:15px/1.35 var(--serif)}
+.results a small{display:block;font:11.5px var(--mono);color:var(--soft)}
+.results a.sel,.results a:hover{background:var(--bg)}
+.results p{padding:10px 16px;margin:0;color:var(--soft);font-size:14px}
+:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* narrow screens */
+@media (max-width:760px){
+  svg.metro,.maptools .btn{display:none}
+  .metro-list{display:block}
+  .layers{grid-template-columns:1fr}
+  .layers li{border-right:0;border-bottom:1px solid var(--line)}
+  .layers li:last-child{border-bottom:0}
+  .layers li::after{content:"↓";right:auto;left:18px;top:auto;bottom:-11px}
+  .arow{grid-template-columns:12px 1fr 44px 44px;gap:10px}
+  .arow .desc{display:none}
+  .brow{grid-template-columns:1fr auto;gap:2px 10px}
+  .brow .id{grid-column:1/3}.brow .m:last-child{display:none}
+  .stop{grid-template-columns:1fr}
+  .stop .need{grid-column:1}
+  .gwt{grid-template-columns:1fr}.gwt div{border-right:0;border-bottom:1px solid var(--line)}
+  .cols{grid-template-columns:1fr;gap:0}
+  .home{display:none}
+  .pager{flex-direction:column}
+  .search{padding:0}.search .box{max-height:100vh;height:100%;border-radius:0}
+}
+</style>
+<script>document.documentElement.dataset.theme = localStorage.getItem("req-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "cream");</script>
+</head>
+<body style="--c:#1d4ed8">
+<header class="top"><div class="in">
+  <a class="home" href="index.html">Studio requirements</a>
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Areas</a><span class="sep">/</span><a href="area-diagrams.html">Diagrams</a><span class="sep">/</span><span aria-current="page">DIAG-001</span></nav>
+  <button class="btn" id="search-open" type="button" aria-label="Search">Search <kbd>/</kbd></button>
+  <button class="btn" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+<main>
+
+<p class="eyebrow"><span class="sw" style="background:#1d4ed8"></span>Use case DIAG-001</p>
+<h1>A writer reads and inserts Mermaid diagrams that follow the theme</h1>
+<blockquote class="need">As a writer, I put a Mermaid diagram in my document, or insert one in a single step, and see the drawn diagram in the preview in the colours of my theme, with the source one click away.</blockquote>
+<h2>How it is split</h2>
+<p class="hint">Circles are the states a user goes through. Each label between two states is a <b>behaviour</b>: one rule, tested on its own. The thick lines are the paths this use case describes; dashed lines are other outcomes at a state, tested too.</p>
+<div class="map">
+  <div class="maptools"><button class="btn play" type="button" data-play="0">Play path 1</button><button class="btn play" type="button" data-play="1">Play path 2</button><span class="legend"><i class="lp1"></i>path 1 <i class="lp2"></i>path 2 <i class="lalt"></i>other outcome <span class="dots"><i class="nom"></i></span>nominal <span class="dots"><i class="bnd"></i></span>boundary <span class="dots"><i class="ref"></i></span>refusal scenario</span></div>
+  <svg class="metro" viewBox="0 0 1280 632" role="img" aria-label="Map of the use case: states joined by behaviours"><a class="tr" href="behaviour-diag-017.html" data-option=""><title>SwRS-MDOKFSTUDIO-DIAG-017: The Mermaid action inserts a starter flowchart in GFM mode</title><path class="ln" d="M90,367 C150,367 140,202 200,202" stroke="var(--alt)" stroke-width="2.5" stroke-linecap="round" fill="none" stroke-dasharray="6 6"/><path class="hit" d="M90,367 C150,367 140,202 200,202"/><g transform="translate(163,234)"><rect class="pill" x="-72" y="-12" width="144" height="24" rx="12" stroke="var(--alt)"/><text class="pt" y="4" text-anchor="middle">DIAG-017 · 5 tests</text><circle cx="0" cy="20" r="4.2" class="ref"/></g></a><a class="tr" href="behaviour-diag-017.html" data-path="0" data-step="0"><title>SwRS-MDOKFSTUDIO-DIAG-017: The Mermaid action inserts a starter flowchart in GFM mode</title><path class="ln" d="M90,367 L310,367" stroke="var(--p1)" stroke-width="7" stroke-linecap="round" fill="none"/><path class="hit" d="M90,367 L310,367"/><g transform="translate(200,367)"><rect class="pill" x="-72" y="-12" width="144" height="24" rx="12" stroke="var(--p1)"/><text class="pt" y="4" text-anchor="middle">DIAG-017 · 5 tests</text><circle cx="-18" cy="20" r="4.2" class="nom"/><circle cx="-6" cy="20" r="4.2" class="bnd"/><circle cx="6" cy="20" r="4.2" class="nom"/><circle cx="18" cy="20" r="4.2" class="ref"/></g><text class="verb" text-anchor="middle"><tspan x="200" y="328">the writer clicks Mermaid in</tspan><tspan x="200" y="343">the palette</tspan></text></a><a class="tr" href="behaviour-diag-001.html" data-option=""><title>SwRS-MDOKFSTUDIO-DIAG-001: Mermaid fences become inert diagram pictures</title><path class="ln" d="M310,367 C370,367 360,202 420,202" stroke="var(--alt)" stroke-width="2.5" stroke-linecap="round" fill="none" stroke-dasharray="6 6"/><path class="hit" d="M310,367 C370,367 360,202 420,202"/><g transform="translate(383,234)"><rect class="pill" x="-76" y="-12" width="151" height="24" rx="12" stroke="var(--alt)"/><text class="pt" y="4" text-anchor="middle">DIAG-001 · 10 tests</text><circle cx="-6" cy="20" r="4.2" class="bnd"/><circle cx="6" cy="20" r="4.2" class="bnd"/></g></a><a class="tr" href="behaviour-diag-001.html" data-path="0" data-step="1"><title>SwRS-MDOKFSTUDIO-DIAG-001: Mermaid fences become inert diagram pictures</title><path class="ln" d="M310,367 L530,367" stroke="var(--p1)" stroke-width="7" stroke-linecap="round" fill="none"/><path class="hit" d="M310,367 L530,367"/><g transform="translate(420,367)"><rect class="pill" x="-76" y="-12" width="151" height="24" rx="12" stroke="var(--p1)"/><text class="pt" y="4" text-anchor="middle">DIAG-001 · 10 tests</text><circle cx="-24" cy="20" r="4.2" class="nom"/><circle cx="-12" cy="20" r="4.2" class="bnd"/><circle cx="0" cy="20" r="4.2" class="nom"/><circle cx="12" cy="20" r="4.2" class="nom"/><circle cx="24" cy="20" r="4.2" class="bnd"/></g><text class="verb" text-anchor="middle"><tspan x="420" y="343">the page renders the fence</tspan></text></a><a class="tr" href="behaviour-diag-009.html" data-option=""><title>SwRS-MDOKFSTUDIO-DIAG-009: Mermaid diagrams are drawn once and late results are dropped</title><path class="ln" d="M530,367 C590,367 580,202 640,202" stroke="var(--alt)" stroke-width="2.5" stroke-linecap="round" fill="none" stroke-dasharray="6 6"/><path class="hit" d="M530,367 C590,367 580,202 640,202"/><g transform="translate(603,234)"><rect class="pill" x="-72" y="-12" width="144" height="24" rx="12" stroke="var(--alt)"/><text class="pt" y="4" text-anchor="middle">DIAG-009 · 4 tests</text><circle cx="-6" cy="20" r="4.2" class="nom"/><circle cx="6" cy="20" r="4.2" class="bnd"/></g></a><a class="tr" href="behaviour-diag-127.html" data-path="0" data-step="2"><title>SwRS-MDOKFSTUDIO-DIAG-127: A click on a picture opens its source editor</title><path class="ln" d="M530,367 L750,367" stroke="var(--p1)" stroke-width="7" stroke-linecap="round" fill="none"/><path class="hit" d="M530,367 L750,367"/><g transform="translate(640,367)"><rect class="pill" x="-68" y="-12" width="137" height="24" rx="12" stroke="var(--p1)"/><text class="pt" y="4" text-anchor="middle">DIAG-127 · 1 test</text><circle cx="-6" cy="20" r="4.2" class="nom"/><circle cx="6" cy="20" r="4.2" class="bnd"/></g><text class="verb" text-anchor="middle"><tspan x="640" y="328">a click on the picture opens</tspan><tspan x="640" y="343">its source</tspan></text></a><a class="tr" href="behaviour-diag-015.html" data-path="0" data-step="3"><title>SwRS-MDOKFSTUDIO-DIAG-015: Invalid Mermaid shows one message with the parser reason</title><path class="ln" d="M750,367 L970,367" stroke="var(--p1)" stroke-width="7" stroke-linecap="round" fill="none"/><path class="hit" d="M750,367 L970,367"/><g transform="translate(860,367)"><rect class="pill" x="-72" y="-12" width="144" height="24" rx="12" stroke="var(--p1)"/><text class="pt" y="4" text-anchor="middle">DIAG-015 · 2 tests</text><circle cx="-18" cy="20" r="4.2" class="nom"/><circle cx="-6" cy="20" r="4.2" class="bnd"/><circle cx="6" cy="20" r="4.2" class="bnd"/><circle cx="18" cy="20" r="4.2" class="bnd"/></g><text class="verb" text-anchor="middle"><tspan x="860" y="343">an invalid line is saved</tspan></text></a><a class="tr" href="behaviour-diag-001.html" data-path="0" data-step="4"><title>SwRS-MDOKFSTUDIO-DIAG-001: Mermaid fences become inert diagram pictures</title><path class="ln" d="M970,367 L1190,367" stroke="var(--p1)" stroke-width="7" stroke-linecap="round" fill="none"/><path class="hit" d="M970,367 L1190,367"/><g transform="translate(1080,367)"><rect class="pill" x="-76" y="-12" width="151" height="24" rx="12" stroke="var(--p1)"/><text class="pt" y="4" text-anchor="middle">DIAG-001 · 10 tests</text><circle cx="-24" cy="20" r="4.2" class="nom"/><circle cx="-12" cy="20" r="4.2" class="bnd"/><circle cx="0" cy="20" r="4.2" class="nom"/><circle cx="12" cy="20" r="4.2" class="nom"/><circle cx="24" cy="20" r="4.2" class="bnd"/></g><text class="verb" text-anchor="middle"><tspan x="1080" y="343">the writer fixes the source</tspan></text></a><a class="tr" href="behaviour-diag-005.html" data-option=""><title>SwRS-MDOKFSTUDIO-DIAG-005: Mermaid colours follow the preview theme</title><path class="ln" d="M530,367 C590,367 580,70 640,70" stroke="var(--alt)" stroke-width="2.5" stroke-linecap="round" fill="none" stroke-dasharray="6 6"/><path class="hit" d="M530,367 C590,367 580,70 640,70"/><g transform="translate(603,127)"><rect class="pill" x="-72" y="-12" width="144" height="24" rx="12" stroke="var(--alt)"/><text class="pt" y="4" text-anchor="middle">DIAG-005 · 2 tests</text><circle cx="0" cy="20" r="4.2" class="bnd"/></g></a><a class="tr" href="behaviour-diag-005.html" data-path="1" data-step="0"><title>SwRS-MDOKFSTUDIO-DIAG-005: Mermaid colours follow the preview theme</title><path class="ln" d="M530,367 C651,367 629,532 750,532" stroke="var(--p2)" stroke-width="7" stroke-linecap="round" fill="none"/><path class="hit" d="M530,367 C651,367 629,532 750,532"/><g transform="translate(640,450)"><rect class="pill" x="-72" y="-12" width="144" height="24" rx="12" stroke="var(--p2)"/><text class="pt" y="4" text-anchor="middle">DIAG-005 · 2 tests</text><circle cx="-6" cy="20" r="4.2" class="nom"/><circle cx="6" cy="20" r="4.2" class="bnd"/></g><text class="verb"><tspan x="722" y="454">the reader changes the</tspan><tspan x="722" y="468">theme</tspan></text></a><g class="st" data-state="Edit mode is on with the GFM palette"><circle cx="90" cy="367.0" r="12"/><text text-anchor="middle"><tspan x="90" y="401">Edit mode is on with the</tspan><tspan x="90" y="416">GFM palette</tspan></text></g><g class="st" data-state="A starter fence is in the document"><circle cx="310" cy="367.0" r="12"/><text text-anchor="middle"><tspan x="310" y="401">A starter fence is in</tspan><tspan x="310" y="416">the document</tspan></text></g><g class="st" data-state="The diagram is drawn as a picture"><circle cx="530" cy="367.0" r="12"/><text text-anchor="middle"><tspan x="530" y="401">The diagram is drawn as</tspan><tspan x="530" y="416">a picture</tspan></text></g><g class="st" data-state="The source editor is open"><circle cx="750" cy="367.0" r="12"/><text text-anchor="middle"><tspan x="750" y="401">The source editor is</tspan><tspan x="750" y="416">open</tspan></text></g><g class="st" data-state="A parser message shows, the source stays"><circle cx="970" cy="367.0" r="12"/><text text-anchor="middle"><tspan x="970" y="401">A parser message shows,</tspan><tspan x="970" y="416">the source stays</tspan></text></g><g class="st goal" data-state="The diagram is drawn again in the theme colours"><circle cx="1190" cy="367.0" r="15"/><text text-anchor="middle"><tspan x="1190" y="401">The diagram is drawn</tspan><tspan x="1190" y="416">again in the theme</tspan><tspan x="1190" y="431">colours</tspan></text></g><g class="st goal" data-state="The diagram is redrawn in the new theme, labels kept"><circle cx="750" cy="532.0" r="15"/><text text-anchor="middle"><tspan x="750" y="566">The diagram is redrawn</tspan><tspan x="750" y="581">in the new theme, labels</tspan><tspan x="750" y="596">kept</tspan></text></g><g class="st alt" data-state="opt0"><circle cx="200.0" cy="202.0" r="7"/><text text-anchor="middle"><tspan x="200" y="171">the Strict or MyST palette</tspan><tspan x="200" y="186">offers no Mermaid</tspan></text></g><g class="st alt" data-state="opt1"><circle cx="420.0" cy="202.0" r="7"/><text text-anchor="middle"><tspan x="420" y="186">an empty fence is left blank</tspan></text></g><g class="st alt" data-state="opt2"><circle cx="640.0" cy="202.0" r="7"/><text text-anchor="middle"><tspan x="640" y="171">text typed elsewhere keeps the</tspan><tspan x="640" y="186">drawing</tspan></text></g><g class="st alt" data-state="opt3"><circle cx="640.0" cy="70.0" r="7"/><text text-anchor="middle"><tspan x="640" y="39">the colours stay the same,</tspan><tspan x="640" y="54">nothing is redrawn</tspan></text></g></svg>
+  <div class="metro-list"><h3 class="pname" style="--pc:var(--p1)">Path 1: Insert a diagram, break it, fix it</h3><ol class="vline" style="--pc:var(--p1)"><li class=""><span class="vstate">Edit mode is on with the GFM palette</span><a class="vopt" href="behaviour-diag-017.html"><b>DIAG-017</b> the Strict or MyST palette offers no Mermaid</a><a class="vvia" href="behaviour-diag-017.html"><b>DIAG-017</b> · 5 tests <span class="dots"><i class="nom" title="nominal: Insert after text"></i><i class="bnd" title="boundary: Empty document"></i><i class="nom" title="nominal: GFM mode offers Mermaid"></i><i class="ref" title="refusal: Other palette modes do not offer Mermaid"></i></span><span>the writer clicks Mermaid in the palette</span></a></li><li class=""><span class="vstate">A starter fence is in the document</span><a class="vopt" href="behaviour-diag-001.html"><b>DIAG-001</b> an empty fence is left blank</a><a class="vvia" href="behaviour-diag-001.html"><b>DIAG-001</b> · 10 tests <span class="dots"><i class="nom" title="nominal: Fence and directive"></i><i class="bnd" title="boundary: Empty diagram"></i><i class="nom" title="nominal: Valid flowchart is drawn as a picture"></i><i class="nom" title="nominal: Labels fit their boxes in the picture"></i><i class="bnd" title="boundary: Line-break tags in the SVG"></i></span><span>the page renders the fence</span></a></li><li class=""><span class="vstate">The diagram is drawn as a picture</span><a class="vopt" href="behaviour-diag-009.html"><b>DIAG-009</b> text typed elsewhere keeps the drawing</a><a class="vvia" href="behaviour-diag-127.html"><b>DIAG-127</b> · 1 test <span class="dots"><i class="nom" title="nominal: A click opens the editor"></i><i class="bnd" title="boundary: The picture is a mapped block"></i></span><span>a click on the picture opens its source</span></a></li><li class=""><span class="vstate">The source editor is open</span><a class="vvia" href="behaviour-diag-015.html"><b>DIAG-015</b> · 2 tests <span class="dots"><i class="nom" title="nominal: Syntax error"></i><i class="bnd" title="boundary: Reason with markup"></i><i class="bnd" title="boundary: Theme switches redraw the error"></i><i class="bnd" title="boundary: Changing reason"></i></span><span>an invalid line is saved</span></a></li><li class=""><span class="vstate">A parser message shows, the source stays</span><a class="vvia" href="behaviour-diag-001.html"><b>DIAG-001</b> · 10 tests <span class="dots"><i class="nom" title="nominal: Fence and directive"></i><i class="bnd" title="boundary: Empty diagram"></i><i class="nom" title="nominal: Valid flowchart is drawn as a picture"></i><i class="nom" title="nominal: Labels fit their boxes in the picture"></i><i class="bnd" title="boundary: Line-break tags in the SVG"></i></span><span>the writer fixes the source</span></a></li><li class="goal"><span class="vstate">The diagram is drawn again in the theme colours</span></li></ol><h3 class="pname" style="--pc:var(--p2)">Path 2: Switch the theme</h3><ol class="vline" style="--pc:var(--p2)"><li class=""><span class="vstate">The diagram is drawn as a picture</span><a class="vopt" href="behaviour-diag-005.html"><b>DIAG-005</b> the colours stay the same, nothing is redrawn</a><a class="vvia" href="behaviour-diag-005.html"><b>DIAG-005</b> · 2 tests <span class="dots"><i class="nom" title="nominal: The theme changes"></i><i class="bnd" title="boundary: The theme colours stay the same"></i></span><span>the reader changes the theme</span></a></li><li class="goal"><span class="vstate">The diagram is redrawn in the new theme, labels kept</span></li></ol></div>
+</div>
+<p class="facts">This map has 1,133 different ways through it in 8 steps or fewer. Instead of testing each one end to end, the <b>6</b> behaviours on the map are tested one by one, with <b>19</b> scenarios.</p>
+<h2>Behaviours of this use case</h2>
+<div class="blist"><a class="brow" href="behaviour-diag-001.html"><span class="id">DIAG-001</span><span class="t">Mermaid fences become inert diagram pictures </span><span class="m"><span class="dots"><i class="nom" title="nominal: Fence and directive"></i><i class="bnd" title="boundary: Empty diagram"></i><i class="nom" title="nominal: Valid flowchart is drawn as a picture"></i><i class="nom" title="nominal: Labels fit their boxes in the picture"></i><i class="bnd" title="boundary: Line-break tags in the SVG"></i></span></span><span class="m">10 tests</span></a><a class="brow" href="behaviour-diag-005.html"><span class="id">DIAG-005</span><span class="t">Mermaid colours follow the preview theme </span><span class="m"><span class="dots"><i class="nom" title="nominal: The theme changes"></i><i class="bnd" title="boundary: The theme colours stay the same"></i></span></span><span class="m">2 tests</span></a><a class="brow" href="behaviour-diag-009.html"><span class="id">DIAG-009</span><span class="t">Mermaid diagrams are drawn once and late results are dropped </span><span class="m"><span class="dots"><i class="nom" title="nominal: Unchanged diagram after a node replacement"></i><i class="bnd" title="boundary: Changed source or theme"></i></span></span><span class="m">4 tests</span></a><a class="brow" href="behaviour-diag-015.html"><span class="id">DIAG-015</span><span class="t">Invalid Mermaid shows one message with the parser reason </span><span class="m"><span class="dots"><i class="nom" title="nominal: Syntax error"></i><i class="bnd" title="boundary: Reason with markup"></i><i class="bnd" title="boundary: Theme switches redraw the error"></i><i class="bnd" title="boundary: Changing reason"></i></span></span><span class="m">2 tests</span></a><a class="brow" href="behaviour-diag-017.html"><span class="id">DIAG-017</span><span class="t">The Mermaid action inserts a starter flowchart in GFM mode </span><span class="m"><span class="dots"><i class="nom" title="nominal: Insert after text"></i><i class="bnd" title="boundary: Empty document"></i><i class="nom" title="nominal: GFM mode offers Mermaid"></i><i class="ref" title="refusal: Other palette modes do not offer Mermaid"></i></span></span><span class="m">5 tests</span></a><a class="brow" href="behaviour-diag-121.html"><span class="id">DIAG-121</span><span class="t">Vega-Lite and Vega fences become chart figures <span class="tag">not on the map</span></span><span class="m"><span class="dots"><i class="nom" title="nominal: A vega-lite fence"></i><i class="nom" title="nominal: A vega fence"></i><i class="bnd" title="boundary: Other fences and an unreadable specification"></i></span></span><span class="m">3 tests</span></a><a class="brow" href="behaviour-diag-122.html"><span class="id">DIAG-122</span><span class="t">Chart data files are read through the resource policy <span class="tag">not on the map</span></span><span class="m"><span class="dots"><i class="nom" title="nominal: A relative data file"></i><i class="ref" title="refusal: A remote url"></i><i class="ref" title="refusal: A file outside the folders, missing, too large or of another format"></i></span></span><span class="m">4 tests</span></a><a class="brow" href="behaviour-diag-123.html"><span class="id">DIAG-123</span><span class="t">Charts are drawn as themed SVG pictures with errors in place <span class="tag">not on the map</span></span><span class="m"><span class="dots"><i class="nom" title="nominal: A chart is drawn as a themed picture"></i><i class="nom" title="nominal: A theme change draws again"></i><i class="ref" title="refusal: An invalid specification"></i></span></span><span class="m">3 tests</span></a><a class="brow" href="behaviour-diag-124.html"><span class="id">DIAG-124</span><span class="t">The chart runtime loads only with a chart and needs no eval <span class="tag">not on the map</span></span><span class="m"><span class="dots"><i class="nom" title="nominal: The runtime is added only with a chart"></i><i class="nom" title="nominal: No eval and no network"></i><i class="ref" title="refusal: The policy is unchanged"></i></span></span><span class="m">5 tests</span></a><a class="brow" href="behaviour-diag-125.html"><span class="id">DIAG-125</span><span class="t">SVG blocks are drawn inline after the sanitizer rebuilt them <span class="tag">not on the map</span></span><span class="m"><span class="dots"><i class="nom" title="nominal: A fence and a raw block are pictures"></i><i class="ref" title="refusal: Active content and shared ids"></i><i class="bnd" title="boundary: Inline svg and unreadable source"></i></span></span><span class="m">4 tests</span></a><a class="brow" href="behaviour-diag-126.html"><span class="id">DIAG-126</span><span class="t">A picture takes its colours from the preview theme <span class="tag">not on the map</span></span><span class="m"><span class="dots"><i class="nom" title="nominal: The vocabulary follows the theme"></i><i class="bnd" title="boundary: A variable of another name"></i></span></span><span class="m">3 tests</span></a><a class="brow" href="behaviour-diag-127.html"><span class="id">DIAG-127</span><span class="t">A click on a picture opens its source editor </span><span class="m"><span class="dots"><i class="nom" title="nominal: A click opens the editor"></i><i class="bnd" title="boundary: The picture is a mapped block"></i></span></span><span class="m">1 test</span></a><a class="brow" href="behaviour-review-017.html"><span class="id">REVIEW-017</span><span class="t">The quote of a thread is highlighted once in its block <span class="tag">not on the map</span></span><span class="m"><span class="dots"></span></span><span class="m">1 test</span></a><a class="brow" href="behaviour-review-038.html"><span class="id">REVIEW-038</span><span class="t">Selected body text offers a Comment button and a keyboard shortcut <span class="tag">not on the map</span></span><span class="m"><span class="dots"></span></span><span class="m">2 tests</span></a></div>
+
+</main>
+<footer><div class="in">Prototype 02 · one vertical slice of the real requirements (area Diagrams, use case DIAG-001) · okfreq report at commit <a href="https://github.com/gsemet/markdown-okf-schema-studio/tree/0e79699d630494d617c459441623a95a55c8233b">0e79699d</a></div></footer>
+<div class="search" id="search" hidden><div class="box"><div class="bar"><input id="q" type="search" placeholder="Search use cases, behaviours, files" autocomplete="off"><button class="btn" id="search-close" type="button">Close</button></div><div id="results" class="results"></div></div></div>
+<script>window.SEARCH=[{"k":"Area","t":"Diagrams","s":"Mermaid (themes, fallback, errors) and PlantUML (built-in engine light/dark, {uml} diagram files and local !include light/dark, unsupported standard-library include; JAR success, unconfigured, executable not found)","h":"area-diagrams.html"},{"k":"Use case","t":"A writer reads and inserts Mermaid diagrams that follow the theme","s":"StRS-MDOKFSTUDIO-DIAG-001","h":"use-case-diag-001.html"},{"k":"Behaviour","t":"Mermaid fences become inert diagram pictures","s":"SwRS-MDOKFSTUDIO-DIAG-001 When a document contains a mermaid fence or a {mermaid} directive, the extension SHALL render a figure whose diagram element is labelled \"Mermaid diagram\" and holds the diagram text, with the same text in a collapsed \"Diagram source\" disclosure, and have the page draw it as one inert picture that fits the content column.","h":"behaviour-diag-001.html"},{"k":"Behaviour","t":"Mermaid colours follow the preview theme","s":"SwRS-MDOKFSTUDIO-DIAG-005 When the page draws a Mermaid diagram, the extension SHALL take its colours from the preview theme variables, use a built-in fallback for any variable that is missing, empty or a CSS system colour keyword, and draw it again when the theme colours change.","h":"behaviour-diag-005.html"},{"k":"Behaviour","t":"Mermaid diagrams are drawn once and late results are dropped","s":"SwRS-MDOKFSTUDIO-DIAG-009 When the page needs a Mermaid diagram, the extension SHALL draw only the diagrams whose source or theme colours changed or that were never drawn, show an earlier drawing of the same source and theme colours without running Mermaid again, run the draw passes one at a time, and drop a result that arrives for a key the node no longer has.","h":"behaviour-diag-009.html"},{"k":"Behaviour","t":"Invalid Mermaid shows one message with the parser reason","s":"SwRS-MDOKFSTUDIO-DIAG-015 When Mermaid cannot draw a diagram, the page SHALL show at the top of the diagram element exactly one message \"Unable to render Mermaid diagram. Its source remains available below.\" followed by one collapsed \"Show the parser error\" section holding the parser's reason as plain text, and set data-render-state to error.","h":"behaviour-diag-015.html"},{"k":"Behaviour","t":"The Mermaid action inserts a starter flowchart in GFM mode","s":"SwRS-MDOKFSTUDIO-DIAG-017 When a writer picks the Mermaid action of the edition palette or the Mermaid slash entry, which the extension offers in GFM mode only, the extension SHALL insert a fenced mermaid block with a top-down flowchart from a node labelled Start to a node labelled End, set apart from the text around it and placed after the selection, with the label Start selected.","h":"behaviour-diag-017.html"},{"k":"Behaviour","t":"Vega-Lite and Vega fences become chart figures","s":"SwRS-MDOKFSTUDIO-DIAG-121 When a document contains a vega-lite or vega fenced code block, the extension SHALL render it, in every palette mode, as a figure holding the chart specification and a collapsed Chart source section, without changing the document source.","h":"behaviour-diag-121.html"},{"k":"Behaviour","t":"Chart data files are read through the resource policy","s":"SwRS-MDOKFSTUDIO-DIAG-122 When a Vega-Lite or Vega chart names a relative data url, the extension SHALL read that file under the rules of the include directive (inside the document folder or workspace, no symlink escape, at most 5 MiB), hand its text to the page with the chart, and refuse every remote url with a message.","h":"behaviour-diag-122.html"},{"k":"Behaviour","t":"Charts are drawn as themed SVG pictures with errors in place","s":"SwRS-MDOKFSTUDIO-DIAG-123 When the page draws a Vega-Lite or Vega chart, it SHALL replace the specification text with one SVG image whose background, text, axis and mark colours follow the preview theme, draw an unchanged chart again only when its source, data or theme changed, and show the error message in place of the chart when the specification is invalid.","h":"behaviour-diag-123.html"},{"k":"Behaviour","t":"The chart runtime loads only with a chart and needs no eval","s":"SwRS-MDOKFSTUDIO-DIAG-124 When the rendered content contains a chart figure, the extension SHALL add the chart runtime script to the page, and the runtime SHALL evaluate chart expressions with the Vega interpreter so that the page content security policy keeps no unsafe-eval and no network access.","h":"behaviour-diag-124.html"},{"k":"Behaviour","t":"SVG blocks are drawn inline after the sanitizer rebuilt them","s":"SwRS-MDOKFSTUDIO-DIAG-125 When a document holds an svg fence or a raw svg element that fills a whole block, the preview SHALL draw it inline as a picture rebuilt from an allow-list of drawing elements and presentation attributes, with every id and reference renamed per picture, and SHALL draw an svg element inside a sentence, a comment, a math block, a code block or a raw HTML table as nothing.","h":"behaviour-diag-125.html"},{"k":"Behaviour","t":"A picture takes its colours from the preview theme","s":"SwRS-MDOKFSTUDIO-DIAG-126 When the preview draws an svg picture, it SHALL define the variables surface, background, bg, border, text, foreground, fg, muted, accent, primary, red, green, blue and orange from the theme of the page (Cream, White, Dark or the VS Code theme), and SHALL give a variable of another name that has no fallback the text colour.","h":"behaviour-diag-126.html"},{"k":"Behaviour","t":"A click on a picture opens its source editor","s":"SwRS-MDOKFSTUDIO-DIAG-127 When the writer clicks an svg picture in edit mode, the preview SHALL open the source editor of the block that holds it, as it does for a Mermaid diagram.","h":"behaviour-diag-127.html"},{"k":"Behaviour","t":"The quote of a thread is highlighted once in its block","s":"SwRS-MDOKFSTUDIO-REVIEW-017 When review threads are applied to the page, the extension SHALL wrap the first occurrence of each thread quote, found inside one text node of the innermost mapped block that covers the anchor line, in one highlight, or add a badge to that block when the quote is not found inside one text node, and never mark code, math, diagrams, the properties table, open editors or included content.","h":"behaviour-review-017.html"},{"k":"Behaviour","t":"Selected body text offers a Comment button and a keyboard shortcut","s":"SwRS-MDOKFSTUDIO-REVIEW-038 When a reader selects text inside mapped body blocks of a preview, the page SHALL show a Comment button near the selection, and open the comment box for that selection on Cmd+Alt+M (macOS) or Ctrl+Alt+M (elsewhere).","h":"behaviour-review-038.html"},{"k":"File","t":"paletteActions.ts","s":"src/core/palette/paletteActions.ts","h":"behaviour-diag-017.html","n":1},{"k":"File","t":"contentBlockStyles.ts","s":"src/core/preview/styles/contentBlockStyles.ts","h":"behaviour-diag-001.html","n":1},{"k":"File","t":"editModeStyles.ts","s":"src/core/preview/styles/editModeStyles.ts","h":"behaviour-diag-001.html","n":1},{"k":"File","t":"svgPictureStyles.ts","s":"src/core/preview/styles/svgPictureStyles.ts","h":"behaviour-diag-126.html","n":1},{"k":"File","t":"chartData.ts","s":"src/core/render/chartData.ts","h":"behaviour-diag-121.html","n":1},{"k":"File","t":"chartInline.ts","s":"src/core/render/chartInline.ts","h":"behaviour-diag-122.html","n":1},{"k":"File","t":"mermaidFont.ts","s":"src/core/render/mermaidFont.ts","h":"behaviour-diag-001.html","n":1},{"k":"File","t":"mystNormalize.ts","s":"src/core/render/mystNormalize.ts","h":"behaviour-diag-001.html","n":3},{"k":"File","t":"mystRenderer.ts","s":"src/core/render/mystRenderer.ts","h":"behaviour-diag-122.html","n":1},{"k":"File","t":"svgPictures.ts","s":"src/core/render/svgPictures.ts","h":"behaviour-diag-125.html","n":2},{"k":"File","t":"svgSanitizer.ts","s":"src/core/security/svgSanitizer.ts","h":"behaviour-diag-125.html","n":2},{"k":"File","t":"blockEditActions.ts","s":"src/page/modules/blockEditActions.ts","h":"behaviour-diag-017.html","n":1},{"k":"File","t":"chartError.ts","s":"src/page/modules/chartError.ts","h":"behaviour-diag-123.html","n":1},{"k":"File","t":"commentCompose.ts","s":"src/page/modules/commentCompose.ts","h":"behaviour-review-038.html","n":1},{"k":"File","t":"commentThreads.ts","s":"src/page/modules/commentThreads.ts","h":"behaviour-review-017.html","n":1},{"k":"File","t":"mermaidCache.ts","s":"src/page/modules/mermaidCache.ts","h":"behaviour-diag-009.html","n":1},{"k":"File","t":"mermaidError.ts","s":"src/page/modules/mermaidError.ts","h":"behaviour-diag-015.html","n":1},{"k":"File","t":"mermaidPreview.ts","s":"src/page/modules/mermaidPreview.ts","h":"behaviour-diag-001.html","n":3},{"k":"File","t":"vegaChart.ts","s":"src/page/modules/vegaChart.ts","h":"behaviour-diag-122.html","n":3},{"k":"File","t":"vegaPreview.ts","s":"src/page/modules/vegaPreview.ts","h":"behaviour-diag-123.html","n":1},{"k":"File","t":"webview.ts","s":"src/session/webview.ts","h":"behaviour-diag-001.html","n":2},{"k":"File","t":"bundleSplit.test.ts","s":"test/build/bundleSplit.test.ts","h":"behaviour-diag-001.html","n":1},{"k":"File","t":"paletteActions.test.ts","s":"test/core/palette/paletteActions.test.ts","h":"behaviour-diag-017.html","n":1},{"k":"File","t":"contentPatch.test.ts","s":"test/core/preview/contentPatch.test.ts","h":"behaviour-diag-001.html","n":2},{"k":"File","t":"previewStyles.test.ts","s":"test/core/preview/previewStyles.test.ts","h":"behaviour-diag-001.html","n":1},{"k":"File","t":"themeTokens.test.ts","s":"test/core/preview/themeTokens.test.ts","h":"behaviour-diag-005.html","n":1},{"k":"File","t":"chartData.test.ts","s":"test/core/render/chartData.test.ts","h":"behaviour-diag-121.html","n":2},{"k":"File","t":"chartRendering.test.ts","s":"test/core/render/chartRendering.test.ts","h":"behaviour-diag-121.html","n":2},{"k":"File","t":"mystFeatures.test.ts","s":"test/core/render/mystFeatures.test.ts","h":"behaviour-diag-001.html","n":1},{"k":"File","t":"mystPaletteRendering.test.ts","s":"test/core/render/mystPaletteRendering.test.ts","h":"behaviour-diag-017.html","n":1},{"k":"File","t":"svgRendering.test.ts","s":"test/core/render/svgRendering.test.ts","h":"behaviour-diag-125.html","n":2},{"k":"File","t":"projectFeatures.test.ts","s":"test/integration/projectFeatures.test.ts","h":"behaviour-diag-001.html","n":1},{"k":"File","t":"markers.ts","s":"test/integration/realInput/markers.ts","h":"behaviour-diag-009.html","n":1},{"k":"File","t":"chartCsp.test.ts","s":"test/page/chartCsp.test.ts","h":"behaviour-diag-121.html","n":4},{"k":"File","t":"diagReq.diagramEdit.requirements.test.ts","s":"test/page/diagReq.diagramEdit.requirements.test.ts","h":"behaviour-diag-001.html","n":1},{"k":"File","t":"mermaidLabelFit.test.ts","s":"test/page/mermaidLabelFit.test.ts","h":"behaviour-diag-001.html","n":1},{"k":"File","t":"chartError.test.ts","s":"test/page/modules/chartError.test.ts","h":"behaviour-diag-123.html","n":1},{"k":"File","t":"commentCompose.test.ts","s":"test/page/modules/commentCompose.test.ts","h":"behaviour-review-038.html","n":1},{"k":"File","t":"commentThreads.test.ts","s":"test/page/modules/commentThreads.test.ts","h":"behaviour-review-017.html","n":1},{"k":"File","t":"diagReq.diagrams.requirements.test.ts","s":"test/page/modules/diagReq.diagrams.requirements.test.ts","h":"behaviour-review-038.html","n":1},{"k":"File","t":"editActions.test.ts","s":"test/page/modules/editActions.test.ts","h":"behaviour-diag-017.html","n":1},{"k":"File","t":"editPalette.test.ts","s":"test/page/modules/editPalette.test.ts","h":"behaviour-diag-017.html","n":1},{"k":"File","t":"mermaidCache.test.ts","s":"test/page/modules/mermaidCache.test.ts","h":"behaviour-diag-009.html","n":1},{"k":"File","t":"mermaidError.test.ts","s":"test/page/modules/mermaidError.test.ts","h":"behaviour-diag-015.html","n":1},{"k":"File","t":"mermaidPreviewEntry.test.ts","s":"test/page/modules/mermaidPreviewEntry.test.ts","h":"behaviour-diag-001.html","n":2},{"k":"File","t":"slashMenu.test.ts","s":"test/page/modules/slashMenu.test.ts","h":"behaviour-diag-017.html","n":1},{"k":"File","t":"vegaChart.test.ts","s":"test/page/modules/vegaChart.test.ts","h":"behaviour-diag-122.html","n":3},{"k":"File","t":"rendererBridge.test.ts","s":"test/page/rendererBridge.test.ts","h":"behaviour-diag-009.html","n":1},{"k":"File","t":"svgBreakout.test.ts","s":"test/page/svgBreakout.test.ts","h":"behaviour-diag-125.html","n":1},{"k":"File","t":"package-contract.test.ts","s":"test/security/package-contract.test.ts","h":"behaviour-diag-124.html","n":1},{"k":"File","t":"svgSanitizer.test.ts","s":"test/security/svgSanitizer.test.ts","h":"behaviour-diag-125.html","n":2},{"k":"File","t":"diagReq.chart.requirements.test.ts","s":"test/session/diagReq.chart.requirements.test.ts","h":"behaviour-diag-124.html","n":1},{"k":"File","t":"scenarioDefinitions1.ts","s":"test/visual/scenarioDefinitions1.ts","h":"behaviour-diag-001.html","n":2},{"k":"File","t":"scenarioDefinitions2.ts","s":"test/visual/scenarioDefinitions2.ts","h":"behaviour-diag-001.html","n":2},{"k":"File","t":"svgPictureScenarios.ts","s":"test/visual/svgPictureScenarios.ts","h":"behaviour-diag-125.html","n":3}];</script>
+<script>// Studio requirements, prototype 02: theme switch, search, and Play on the use case map.
+// Every page reads without this file.
+"use strict";
+(() => {
+  const root = document.documentElement;
+  document.getElementById("theme").onclick = () => {
+    root.dataset.theme = root.dataset.theme === "dark" ? "cream" : "dark";
+    localStorage.setItem("req-theme", root.dataset.theme);
+  };
+
+  // ---- search
+  const box = document.getElementById("search"), q = document.getElementById("q"), res = document.getElementById("results");
+  let hits = [], sel = 0;
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+  const open = () => { box.hidden = false; q.value = ""; draw(); q.focus(); };
+  const close = () => { box.hidden = true; };
+  document.getElementById("search-open").onclick = open;
+  document.getElementById("search-close").onclick = close;
+  box.onclick = e => { if (e.target === box) close(); };
+  function draw() {
+    const t = q.value.trim().toLowerCase();
+    if (t.length < 2) { res.innerHTML = "<p>Type a word, an id such as DIAG-015, or a file name.</p>"; hits = []; return; }
+    hits = window.SEARCH.filter(x => (x.t + " " + x.s).toLowerCase().includes(t)).slice(0, 30);
+    let html = "", last = "";
+    hits.forEach((x, i) => {
+      if (x.k !== last) { html += `<h3>${x.k === "File" ? "Files" : x.k + "s"}</h3>`; last = x.k; }
+      const sub = x.k === "File" ? `${x.s} · ${x.n} behaviour${x.n > 1 ? "s" : ""}` : x.k === "Behaviour" ? x.s.split(" ")[0] : x.k === "Use case" ? x.s : "";
+      html += `<a href="${x.h}" data-i="${i}"><small>${esc(sub)}</small>${esc(x.t)}</a>`;
+    });
+    res.innerHTML = html || `<p>Nothing matches “${esc(q.value)}” in this slice.</p>`;
+    sel = 0; mark();
+  }
+  const mark = () => res.querySelectorAll("a").forEach(a => a.classList.toggle("sel", +a.dataset.i === sel));
+  q.oninput = draw;
+  q.onkeydown = e => {
+    if (e.key === "ArrowDown") sel = Math.min(hits.length - 1, sel + 1);
+    else if (e.key === "ArrowUp") sel = Math.max(0, sel - 1);
+    else if (e.key === "Enter" && hits[sel]) { location.href = hits[sel].h; return; }
+    else if (e.key === "Escape") { close(); return; }
+    else return;
+    e.preventDefault(); mark();
+  };
+  addEventListener("keydown", e => {
+    if (!box.hidden || /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    if (e.key === "/") { e.preventDefault(); open(); }
+  });
+
+  // ---- Play a path on the map: a dot walks the path, step by step
+  const svg = document.querySelector("svg.metro");
+  if (!svg) return;
+  const NS = "http://www.w3.org/2000/svg";
+  const tok = document.createElementNS(NS, "circle");
+  tok.setAttribute("r", "8"); tok.setAttribute("class", "tok"); tok.style.opacity = 0; svg.appendChild(tok);
+  let run = 0;
+  async function play(pi) {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const me = ++run;
+    const steps = [...svg.querySelectorAll(`.tr[data-path="${pi}"]`)].sort((a, b) => a.dataset.step - b.dataset.step);
+    svg.classList.add("playing"); svg.querySelectorAll(".on").forEach(x => x.classList.remove("on"));
+    tok.style.fill = pi ? "var(--p2)" : "var(--p1)"; tok.style.opacity = 1;
+    for (const tr of steps) {
+      if (me !== run) return;
+      tr.classList.add("on");
+      const p = tr.querySelector(".hit"), L = p.getTotalLength(), t0 = performance.now();
+      const ends = [p.getPointAtLength(0), p.getPointAtLength(L)];
+      svg.querySelectorAll(".st").forEach(st => { const c = st.querySelector("circle"); if (ends.some(pt => Math.abs(pt.x - c.cx.baseVal.value) < 1 && Math.abs(pt.y - c.cy.baseVal.value) < 1)) st.classList.add("on"); });
+      await new Promise(done => {
+        const f = now => {
+          if (me !== run) return done();
+          const k = Math.min(1, (now - t0) / 900), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2, pt = p.getPointAtLength(L * e);
+          tok.setAttribute("cx", pt.x); tok.setAttribute("cy", pt.y);
+          k < 1 ? requestAnimationFrame(f) : setTimeout(done, 350);
+        };
+        requestAnimationFrame(f);
+      });
+    }
+    setTimeout(() => { if (me === run) { svg.classList.remove("playing"); tok.style.opacity = 0; } }, 1200);
+  }
+  document.querySelectorAll("[data-play]").forEach(b => b.onclick = () => play(+b.dataset.play));
+})();
+</script>
+</body>
+</html>

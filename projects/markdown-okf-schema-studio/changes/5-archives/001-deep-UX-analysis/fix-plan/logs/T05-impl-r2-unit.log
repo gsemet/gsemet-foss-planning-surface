@@ -1,0 +1,571 @@
+
+> markdown-okf-schema-studio@0.1.0 test:unit
+> node --test out/test/security/*.test.js out/test/build/*.test.js out/test/configuration/*.test.js out/test/frontmatter/*.test.js out/test/mapping/*.test.js out/test/navigation/*.test.js out/test/rendering/*.test.js out/test/state/*.test.js out/test/webview/*.test.js
+
+✔ lets an in-flight build finish and starts the newest queued edit right after (3.532208ms)
+✔ retains a successful result as stale after a failed newer build (0.66575ms)
+✔ still renders a build whose buffer already moved on, and cleans up on dispose (0.477458ms)
+✔ tracks referenced dependencies for refresh decisions (0.518792ms)
+✔ debounces pending edits and cancels them without invoking the builder (0.51875ms)
+✔ cancellation discards late results and permits a fresh build (0.575791ms)
+✔ disposal releases the last result once and rejects future requests (0.475125ms)
+✔ stages the dirty active buffer and only its referenced inputs (12.094042ms)
+✔ reuses a stage root so doctrees and theme assets survive the next build (4.974666ms)
+✔ reports missing referenced inputs with source line diagnostics (1.381584ms)
+✔ github alerts become MyST admonitions (1.179917ms)
+✔ github alert expansion preserves line numbers (0.152791ms)
+✔ every supported github alert type maps to an admonition (0.101375ms)
+✔ unknown alert markers stay untouched (0.048208ms)
+✔ alerts inside fenced code blocks are not rewritten (0.047708ms)
+✔ appends a bibliography when citations need resolving (0.535875ms)
+✔ does not touch documents without citations (0.041375ms)
+✔ respects an existing bibliography directive (0.03625ms)
+✔ checks workspace trust before staging or spawning Sphinx (2.06225ms)
+✔ invokes only the authentic isolated Sphinx HTML command (4.122208ms)
+✔ returns actionable source diagnostics for a failing Sphinx directive (4.478167ms)
+✔ terminates an active Sphinx child and removes its temporary stage on cancellation (1.782583ms)
+✔ frontmatter settings use their own section and defaults (0.592167ms)
+✔ frontmatter visibility and strict validation can be configured independently (0.093333ms)
+✔ reads and trims the configured PlantUML JAR path (0.639834ms)
+✔ uses an empty path for non-string configuration values (0.066459ms)
+✔ reads independent studio preview settings without stock configuration keys (0.7115ms)
+✔ normalizes preview content width and reserves zero for unlimited (0.084291ms)
+✔ normalizes sticky heading depth to one through six levels (0.068583ms)
+✔ link annotations read target fields and exact marker lines afresh (5.579083ms)
+✔ link display options reject invalid metadata (0.147458ms)
+✔ oneOf annotations are collected only when exactly one branch matches (33.537208ms)
+✔ conditional, patternProperties, and additionalProperties schemas are traversed (0.524ms)
+✔ document-relative links stay inside workspace roots unless explicitly allowed (2.3815ms)
+✔ auto-detected git roots outside the workspace are ignored (1.105833ms)
+✔ value edit F1 title changes only the named field (14.183125ms)
+✔ value edit F1 lifecycle changes only the named field (6.204958ms)
+✔ value edit F1 annotation_exemption changes only the named field (1.093083ms)
+✔ value edit F1 exemption_reason changes only the named field (1.18875ms)
+✔ value edit F1 derives_from changes only the named field (2.806375ms)
+✔ value edit F1 derived_by changes only the named field (2.06525ms)
+✔ value edit F2 title changes only the named field (1.923833ms)
+✔ value edit F2 tags changes only the named field (0.522625ms)
+✔ value edit F2 links changes only the named field (0.493125ms)
+✔ value edit F2 quoted changes only the named field (1.556042ms)
+✔ value edit F2 summary changes only the named field (1.723833ms)
+✔ value edit F2 status changes only the named field (1.108958ms)
+✔ value edit F3 title changes only the named field (1.563834ms)
+✔ value edit F4 status changes only the named field (1.207625ms)
+⚠ structural F2 rename title to heading keeps the trailing comment (2.490375ms) # UX-16 (T06)
+⚠ structural F2 remove links deletes exactly that line (1.162416ms) # UX-16 (T06)
+⚠ structural F2 remove tags deletes exactly the sequence lines (0.718625ms) # UX-16 (T06)
+⚠ structural F1 add owner appends one line before the closing delimiter (1.474125ms) # UX-16 (T06)
+✔ structural F2 edits keep both comments unless their own line is removed (4.630958ms)
+✔ extractFrontmatter detects and parses the leading YAML block (7.091875ms)
+✔ fieldIconType maps schema declarations and generic values to display types (3.121333ms)
+✔ frontmatter field patches preserve comments, fences, line endings, and body (25.914583ms)
+✔ frontmatter scalar and object edits preserve YAML node metadata (1.2925ms)
+✔ frontmatter array edits keep comments attached to reordered items (1.615ms)
+✔ frontmatter key renames preserve comments and reject duplicate destinations (0.598042ms)
+✔ frontmatter field removal preserves comments, fences, and body (0.259917ms)
+✔ extractFrontmatter rejects a document without frontmatter (0.054958ms)
+✔ extractFrontmatter reports invalid YAML with the parse error (0.638417ms)
+✔ parseYamlValue handles structured values and rejects malformed YAML (0.860542ms)
+✔ findSchemaDirectory walks ancestors and prefers _schema over _schemas (2.853291ms)
+✔ findSchemaDirectory still finds _schemas when _schema is absent (0.853041ms)
+✔ matchSchemaFile matches case-insensitively on the stem before .schema (1.326833ms)
+✔ resolveSchemaRefs inlines relative references with extension fallbacks (2.558792ms)
+✔ effectiveProperties collapses allOf branches and collects required (0.194958ms)
+✔ analyzeFrontmatter yields schema-ordered fields with docs and enums (79.09075ms)
+✔ nullable reset metadata preserves declared nullability while conditional validation stays active (17.473958ms)
+✔ frontmatter without a type skips schema discovery and validation (0.784042ms)
+✔ analyzeFrontmatter surfaces an info when the type has no schema (1.330833ms)
+✔ reduced mode explains that schema validation needs a trusted workspace (1.747209ms)
+✔ unmatched OKF-like SKILL frontmatter remains generic and skips schema validation (3.189292ms)
+✔ analyzeFrontmatter validates enums, consts, and formats against the schema (3.243625ms)
+✔ analyzeFrontmatter inspects annotated scalar and array links without AJV keyword errors (7.234291ms)
+✔ frontmatter link identity prefers the configured id and otherwise uses the basename (0.254041ms)
+✔ analyzeFrontmatter attaches nested link results to the parent field (5.001875ms)
+✔ file-link union applicability honors pattern and explicit root precedence (10.208917ms)
+✔ file-link union applicability preserves boolean local references (1.17675ms)
+✔ filename-stem links recheck symlink containment after an internal target drifts (3.123209ms)
+✔ filename-stem links report W15 when matching candidates are unavailable (1.680625ms)
+✔ strict mode warns on unknown fields; lenient mode does not (9.309584ms)
+✔ missing required fields are exposed as an ordered schema summary (3.756708ms)
+✔ json5 and json schema formats parse correctly (5.332375ms)
+✔ schema declarations do not become description annotations (5.062666ms)
+✔ value patch rewrites only the edited field line and keeps its inline comment (0.722292ms)
+✔ value patch for an anchored value still writes correct data (1.114ms)
+✔ value patch for a nested map written as an object yields the same data (1.729166ms)
+✔ appending a sequence item keeps a comment line between existing items (0.758ms)
+✔ value patch with an unchanged value leaves the document text identical (0.529458ms)
+✔ value patch fills an empty value on CRLF documents without touching the next line (0.2475ms)
+✔ appending to a sequence keeps a trailing commented-out item once (0.337958ms)
+✔ a commented last item of a block sequence keeps its comment once (0.243208ms)
+✔ editing a nested map keeps its trailing comment once (0.19625ms)
+✔ editing a block scalar keeps its header comment (1.846667ms)
+✔ replacing a commented scalar by a list keeps the comment once (0.884083ms)
+✔ a multi-line value on a plain field is written as a literal block (1.232125ms)
+✔ no markup when frontmatter is absent or the table is disabled (1.281875ms)
+✔ renders a two-column Obsidian-like table with escaped values (3.673333ms)
+✔ description controls live in column headers with an adjacent collapsed restore slot (0.278083ms)
+✔ read-only tables expose values without edit targets (0.288875ms)
+✔ annotated scalar and list values render independent navigation and status markup (0.645458ms)
+✔ valid link tooltips expose workspace-relative paths (0.516375ms)
+✔ pending links show a spinner after their text (7.611959ms)
+✔ deferred replacement removes pending link spinners (5.127208ms)
+✔ nested annotated values render links and diagnostics inside object previews (3.414625ms)
+✔ renders boolean values as read-only checkboxes in preview mode (0.172292ms)
+✔ caps long list previews and reports omitted items (0.289667ms)
+✔ does not match a list link by array index without a field path (0.11325ms)
+✔ renders list items with hyphen markers (0.069041ms)
+✔ maps the injected properties section to the frontmatter source (0.641209ms)
+✔ error rows carry the red underline class and hover tooltip (0.077875ms)
+✔ missing required fields are summarized after the table (0.044333ms)
+✔ exposes unused schema keys for frontmatter key editing (0.060917ms)
+✔ exposes unused schema field metadata for the frontmatter toolbar (0.037875ms)
+✔ structured values and enum choices are exposed for schema-aware editing (0.143208ms)
+✔ unknown fields are marked and info rows render (0.063458ms)
+✔ diagnostic errors span every table column and expose their severity (0.049291ms)
+✔ replacePropertiesTableMarkup swaps the table in place (0.556708ms)
+✔ repeated checkbox refreshes replace source-mapped tables without duplication (7.903208ms)
+✔ replacement removes serialized duplicates and nested sections while preserving other HTML (1.942958ms)
+✔ schema-matched tables add a third description column (1.351292ms)
+✔ renders empty lists without a phantom preview item (0.255333ms)
+✔ marks schema-nullable fields in row metadata (0.09975ms)
+✔ escapes list preview items without truncating short lists (0.0695ms)
+✔ plain yaml tables stay two-column even when docs are absent (0.049542ms)
+✔ nested object values render as escaped YAML while keeping edit metadata (0.281333ms)
+✔ schema declarations do not appear as description annotations (0.093875ms)
+✔ name cells carry a size-bounded Obsidian-style type icon (0.134917ms)
+✔ validator cache returns the same compiled function for a schema object (26.160709ms)
+✔ MarkdownStemIndex excludes generated, dependency, and hidden directories (5.682792ms)
+✔ invalidateStemIndex refreshes the cached index for a root (1.250333ms)
+✔ keeps only active-document mappings in DOM order for ties (0.678542ms)
+✔ accepts Windows separators without weakening document identity (0.073166ms)
+✔ source ranges preserve line endings and reject invalid bounds (0.134167ms)
+✔ Markdown fragments select headings and source lines, not fenced examples (3.44825ms)
+✔ marker navigation selects exact marker identities (0.77225ms)
+✔ searches every workspace root and blocks cross-root wikilink ambiguity (3.1015ms)
+✔ discovers bare wikilinks before accepting an active-root sibling (1.008667ms)
+✔ classifies relative links without touching the filesystem (0.088042ms)
+▶ discovers wikilinks on demand and refuses ambiguous or escaping targets
+  ✔ allows document-relative resolved targets outside a workspace root only in that mode (2.015167ms)
+✔ discovers wikilinks on demand and refuses ambiguous or escaping targets (2.656833ms)
+✔ classifies anchors, external links, and workspace-local files (0.745625ms)
+✔ blocks unsafe anchors, schemes, and paths (0.792625ms)
+✔ markers are found with document line and UTF-16 column, and line breaks are preserved (1.425875ms)
+✔ placeholders contain no character Markdown could interpret (0.700334ms)
+✔ link syntax, escapes, wikilinks, images and headings are not checkboxes (0.145667ms)
+✔ a defined [x] reference label keeps [x] as a link but [ ] stays a checkbox (0.071666ms)
+✔ a colon after a marker mid-line does not prevent a checkbox (0.058958ms)
+✔ placeholders split and restore to the original marker text (0.142292ms)
+✔ toggling computes a one-character edit and validates the marker (0.097917ms)
+✔ task lists, paragraphs and table cells render interactive checkboxes mapped to the source (231.97375ms)
+✔ CRLF documents keep exact columns (1.495958ms)
+✔ markers stay literal in code, math, diagrams, links, headings and raw HTML (10.367292ms)
+✔ markers inside directives and their titles become checkboxes (1.75525ms)
+✔ the webview sanitizer keeps checkbox inputs and their source attributes (3.935667ms)
+✔ colours tokens for a registered grammar (11.062167ms)
+✔ resolves the fence label through aliases (11.545667ms)
+✔ renders diff and patch fences with signed-line treatments (1.075083ms)
+✔ wraps numbered lines without breaking multiline highlighted spans (0.209375ms)
+✔ leaves an unregistered grammar as plain text (0.06375ms)
+✔ decodes numeric references before highlighting and does not double-escape (1.3715ms)
+LaTeX-incompatible input and strict mode is set to 'warn': HTML extension is disabled on strict mode [htmlExtension]
+✔ typesets inline and display math with local assets and CSP-compatible styles (12.242667ms)
+✔ supports Sphinx math delimiters and leaves ordinary text and code alone (3.274291ms)
+✔ invalid LaTeX stays readable without breaking valid equations (0.702917ms)
+✔ math cannot inject trusted HTML commands or external links (3.506542ms)
+✔ wikilinks render as lazy note targets without changing code or existing links (203.697166ms)
+✔ the in-process renderer preserves the active-file MyST feature contract (9.946916ms)
+✔ figure references render figures whose body supplies the caption (1.751166ms)
+✔ references to captionless figures and tables stay readable (2.379041ms)
+✔ MyST code directives number and emphasize lines relative to their start (1.784917ms)
+✔ MyST code-cell directives render numbered input without claiming execution (1.504708ms)
+✔ Mermaid fences and directives preserve diagram source for webview rendering (1.256125ms)
+✔ PlantUML fences and directives preserve diagram source for external rendering (1.870625ms)
+✔ Sphinx version admonitions render generated titles and Markdown bodies (1.863625ms)
+✔ custom admonition titles preserve inline Markdown and their class (1.068375ms)
+✔ nested backtick and colon delimiters preserve their enclosing Markdown (3.104459ms)
+✔ GitHub alert syntax preserves an explicit title (0.62925ms)
+✔ GitHub alert syntax defaults the title when none is provided (0.477666ms)
+✔ GitHub bold Note, Important, and Warning markers become simple admonitions (0.727917ms)
+✔ MyST typography renders definitions, abbreviations, scripts, and footnotes (1.328458ms)
+✔ all named MyST admonitions receive their documented default title (2.397667ms)
+✔ a leading bold paragraph or heading supplies the MyST admonition title (0.682917ms)
+✔ Quarto callout classes render as semantic MyST admonitions (0.566458ms)
+✔ dropdown admonitions render as openable details with a summary (0.753167ms)
+✔ MyST GFM and directive tables preserve captions, headers, and alignment (5.377625ms)
+✔ raw HTML tables preserve complex cell spans without active content (1.355875ms)
+✔ raw HTML table cell styles are preserved as safe preview metadata (1.808875ms)
+✔ table directives render trusted workspace-local HTML includes (2.786458ms)
+✔ Jupyter table output embeds show a project-build placeholder (0.668166ms)
+✔ block elements carry the source line the editor scrolls against (0.6645ms)
+✔ multiline blocks retain their full mapped source range (0.391083ms)
+✔ MyST admonitions retain the directive range through the closing fence (0.449833ms)
+✔ standalone hyphenated context tags render as mapped Markdown admonitions (2.119375ms)
+✔ simple and snake_case context tags preserve adjacent fences and source ranges (1.084ms)
+✔ nested context tags preserve each wrapper range (0.498542ms)
+✔ unsupported context boundaries stay literal and fenced XML stays code (3.535959ms)
+✔ standard HTML and inline or fenced XML stay outside context grouping (0.876875ms)
+✔ block source ranges stay absolute when leading frontmatter is stripped (2.382333ms)
+✔ project-scoped roles and directives degrade to labelled placeholders (0.65175ms)
+✔ an untrusted workspace refuses to render (0.198333ms)
+✔ renders PlantUML through the configured external JAR and injects an image (10.0205ms)
+✔ uses the PATH executable when no JAR is configured and reports missing commands (3.976834ms)
+✔ returns diagnostics for PlantUML process failures and malformed output (2.101583ms)
+✔ cancels an active PlantUML process (0.652208ms)
+✔ the render pipeline retains buffer identity and attaches source diagnostics (5.459709ms)
+✔ the trust gate prevents renderer invocation unless reduced mode is allowed (15.900583ms)
+✔ renderer failures preserve the stage and original failure message (0.906ms)
+✔ cancellation while rendering rejects a late successful result (7.375167ms)
+✔ rewrites local resources and removes active HTML content (8.339916ms)
+✔ reduced previews remove external scripts while retaining contained media (3.557166ms)
+✔ maps rendered source lines to the active preview document (1.144708ms)
+✔ rewrites sanitized table styles into a nonce-bearing stylesheet (2.469209ms)
+✔ blocks hostile CSS imports, schemes, and URLs while preserving local assets (0.839167ms)
+✔ generates a restrictive nonce-bearing CSP (0.272792ms)
+✔ adds the CSP as a head meta without retaining a weaker policy (0.533292ms)
+✔ removes refresh metadata with surrounding whitespace (0.365083ms)
+✔ keeps deferred relative navigation inert and host-routable (0.529791ms)
+✔ resolves parent-relative figure images through the workspace root (1.541542ms)
+✔ strips figure images that escape even the workspace root (0.633834ms)
+✔ contributes only opt-in Markdown OKF-Schema Studio commands (0.823167ms)
+✔ pins Node 24 and keeps the lockfile on Artifactory (1.152709ms)
+✔ canonicalizes local resources and rejects hostile paths (5.179959ms)
+✔ allows only explicit navigation schemes (3.729958ms)
+✔ rewrites srcset candidates without allowing data or script URLs (0.259625ms)
+✔ resolves parent-relative figure references through an ancestor root (1.524542ms)
+✔ still blocks references escaping the workspace root (0.556458ms)
+✔ parses bounded preview panel state and preserves supported fields (2.06975ms)
+✔ rejects invalid identity and drops malformed optional state (0.242375ms)
+✔ accepts only complete theme-mode change messages (0.351459ms)
+✔ restores a valid workspace theme mode and ignores invalid stored values (0.095917ms)
+✔ anchors long paragraphs at the start of each source line (2.042625ms)
+✔ falls back to block bounds when paragraph lines cannot be measured (4.164958ms)
+✔ converts lines to scroll positions and back through the reading offset (3.582042ms)
+✔ ramps the reading line so the top of the page is line 1 (0.195625ms)
+✔ reports the editor top line as the floor of the anchor (1.918083ms)
+✔ ignores editor echoes across re-renders, then yields to the user (1.160209ms)
+✔ accepts one centered-reveal echo, then treats further scrolling as the user's (0.077125ms)
+✔ shifts the anchor when lines change above it only (0.33825ms)
+✔ geometry checks define one function that reports the four check ids (1.819084ms)
+✔ without any DOM content every geometry check is not applicable and passes (1.742917ms)
+✔ identifier-split passes when a cell's text nodes share one line at different sizes (1.180542ms)
+✔ identifier-split ignores list items on separate lines (0.836417ms)
+✔ identifier-split reports a text node wrapped over two lines (0.815625ms)
+✔ overlay-covers-text counts a text node once when nested blocks both contain it (0.645542ms)
+✔ link discovery waits for the viewport and deduplicates bounded batches (3.295584ms)
+✔ local and wiki clicks are host-routed even before discovery, including middle click (0.856667ms)
+✔ discovery hints ignore stale renders and never replace the original target (0.655459ms)
+✔ pipe tables round-trip escaped cells and CRLF line endings (1.559083ms)
+✔ inserting and deleting table rows and columns preserves the remaining cells (1.230416ms)
+✔ table tools cannot delete the header, final body row, or final column (0.215334ms)
+✔ non-table blocks and malformed separator rows cannot be edited as pipe tables (0.075333ms)
+✔ cellSegments returns the text between the delimiting pipes, offsets in the untrimmed line (0.289875ms)
+✔ inserting a row after the first body row of a padded table adds one padded line (0.74175ms)
+✔ a shrinking value in a padded table keeps the original cell width (0.992875ms)
+✔ deleting the first body row of a compact table removes exactly one line (0.217875ms)
+✔ inserting a column re-serializes the table with one more column (0.188333ms)
+✔ a row inserted into a CRLF table keeps CRLF line endings (0.394917ms)
+✔ rows without outer pipes stay parseable when an edge cell is emptied (0.246709ms)
+✔ inserting a row into a table without outer pipes adds one parseable row (0.223084ms)
+✔ rows with only one outer pipe stay parseable (0.1625ms)
+✔ filling an empty cell keeps the table's padding (0.17125ms)
+✔ lineDelta: identical input has no removed or added lines (2.059083ms)
+✔ lineDelta: one changed line is reported as one removed and one added line (0.208125ms)
+✔ lineDelta: one inserted line is reported as one added line (0.16475ms)
+✔ round trip preserves the source: compact-book (0.487833ms)
+✔ round trip preserves the source: padded (0.16425ms)
+✔ round trip preserves the source: no-spaces (0.166542ms)
+✔ round trip preserves the source: alignment (0.121292ms)
+✔ round trip preserves the source: no-outer-pipes (0.111458ms)
+✔ round trip preserves the source: escaped-and-code (0.083334ms)
+✔ round trip preserves the source: indented (0.089667ms)
+✔ round trip preserves the source: crlf (0.2215ms)
+✔ round trip preserves the source: wider-than-padding (0.059791ms)
+✔ one-cell edit changes exactly one line: compact-book (0.30475ms)
+✔ one-cell edit changes exactly one line: padded (0.373584ms)
+✔ one-cell edit changes exactly one line: no-spaces (0.108417ms)
+✔ one-cell edit changes exactly one line: alignment (0.846667ms)
+✔ one-cell edit changes exactly one line: no-outer-pipes (0.120083ms)
+✔ one-cell edit changes exactly one line: escaped-and-code (0.049333ms)
+✔ one-cell edit changes exactly one line: indented (0.094958ms)
+✔ one-cell edit changes exactly one line: crlf (0.12725ms)
+✔ one-cell edit changes exactly one line: wider-than-padding (0.091791ms)
+✔ every single-cell edit reparses and changes at most one line: compact-book (0.865875ms)
+✔ every single-cell edit reparses and changes at most one line: padded (0.266291ms)
+✔ every single-cell edit reparses and changes at most one line: no-spaces (0.246375ms)
+✔ every single-cell edit reparses and changes at most one line: alignment (0.404333ms)
+✔ every single-cell edit reparses and changes at most one line: no-outer-pipes (0.203708ms)
+✔ every single-cell edit reparses and changes at most one line: escaped-and-code (0.749ms)
+✔ every single-cell edit reparses and changes at most one line: indented (0.107625ms)
+✔ every single-cell edit reparses and changes at most one line: crlf (0.374625ms)
+✔ every single-cell edit reparses and changes at most one line: wider-than-padding (0.138583ms)
+✔ frontmatter link tooltips wrap text in a fixed theme-aware pointer-transparent surface (0.642458ms)
+✔ typography is driven by VS Code markdown preview variables (0.138042ms)
+✔ scrollbar tracks and thumbs follow the preview theme (0.198ms)
+✔ linked file details are muted, italic, and clipped to the available line (0.161042ms)
+✔ list insertion lines show the drop boundary without moving the rows (0.184584ms)
+✔ the top heading keeps the stock preview rule underneath it (0.070666ms)
+✔ sticky headings align with content and emphasize text in a full-width band (0.75725ms)
+✔ preview controls stack above the sticky heading band (1.001333ms)
+✔ the theme neutralises Shibuya page gutters (0.531167ms)
+✔ description header controls align right and restore only when collapsed (0.610917ms)
+✔ properties tables fill the preview content column (0.1825ms)
+✔ narrow properties wrap long paths without hiding expanded descriptions (0.198ms)
+✔ every admonition flavour gets an accent colour (0.506083ms)
+✔ block editing grows without internal scrolling and uses a square theme-aware margin marker (0.122917ms)
+✔ active paragraph editors share the rendered paragraph spacing (0.078583ms)
+✔ Sphinx version admonitions use success, warning, and danger accents (0.123416ms)
+✔ MyST simple and no-icon admonition modifiers are styled (0.088958ms)
+✔ MyST table alignment and notebook output placeholders are styled (0.117125ms)
+✔ MyST numbered and emphasized code lines are styled (0.08475ms)
+✔ diff lines use full-width theme-aware add and delete treatments (0.249166ms)
+✔ Mermaid diagrams keep SVG images contained and source inspectable (0.083375ms)
+✔ figure captions are centred and de-emphasised (0.054167ms)
+✔ images never overflow the preview column (0.048333ms)
+✔ floating preview toolbar supports forced dark and white palettes (0.133125ms)
+✔ preview toolbar provides refresh, editor anchoring, edit mode and theme controls (0.331375ms)
+✔ control tooltips retain their offset while sticky headings remain at the top (0.182459ms)
+✔ white mode keeps code backgrounds soft and code text readable blue (0.152917ms)
+✔ fenced code uses the editor foreground and one font scale (0.081542ms)
+✔ frontmatter properties label is inset, table-matched, and unboxed (0.09925ms)
+✔ frontmatter edit hover colors follow the selected preview theme (0.072667ms)
+✔ frontmatter edits stay inline while edit mode preserves source newlines (0.510458ms)
+✔ active toolbar toggles do not show a redundant focus ring (0.035333ms)
+✔ frontmatter and table editors keep the active cell surface without nested input frames (0.153584ms)
+✔ preview content width is configurable and can be unlimited (0.11475ms)
+✔ latest saved Description visibility wins over an older enrichment snapshot (5.465375ms)
+✔ Description column toggles persist and restore both states (5.378292ms)
+✔ narrow previews default to collapsed descriptions without overriding an explicit choice (3.145708ms)
+✔ sticks to the active Markdown heading hierarchy in up to three lines (1.844917ms)
+✔ caps sticky heading convergence at three passes (0.563541ms)
+✔ maps the frontmatter table for stable top and mid-table scroll round-trips (0.767916ms)
+✔ preserves preview scroll when layout changes during sticky heading activation (2.22425ms)
+✔ uses the configured sticky heading depth (5.762084ms)
+✔ anchors the editor source line below the sticky heading band without reverse sync (1.770459ms)
+✔ source anchoring does not reserve a row for floating controls (0.47ms)
+✔ runtime script cannot terminate its containing script element (0.181333ms)
+✔ observes preview content instead of the document body (0.374375ms)
+✔ cycles preview theme modes and restores the saved selection (2.356583ms)
+✔ frontmatter tooltips preserve exact safe text and restore accessible metadata on dismissal (4.903625ms)
+✔ switching frontmatter tooltip links removes the old tooltip and absent ARIA metadata (0.869417ms)
+✔ refresh preserves viewport state while reverse synchronization stays disabled (0.461291ms)
+✔ disabling editor anchoring stops preview-to-editor scrolling (2.792708ms)
+✔ preview can revisit its last reported line after the source editor scrolls elsewhere (0.5235ms)
+✔ source scrolling remains bidirectional while a block editor is open (0.789208ms)
+✔ restores saved editor anchoring when the configured preference changed (1.70475ms)
+✔ activating a centered block editor preserves scroll before and after layout stabilization (0.497208ms)
+✔ fenced Markdown editors sit outside the rendered pre and preserve source when saving (0.531ms)
+✔ active Markdown editors leave repeated spaces and Enter to native text input (0.414709ms)
+✔ block textareas resize on input and preview layout changes (0.496375ms)
+✔ edit mode loads raw Markdown and saves changes when the block loses focus (0.463916ms)
+✔ raw Markdown block edits autosave on input without disabling the textarea (0.378792ms)
+✔ arrow boundaries transfer block editing in every direction (1.578417ms)
+✔ table cell editing exposes row and column operations and saves the edited table (1.627792ms)
+✔ table editing switches cells without losing changes and finalizes before leaving the table (0.954916ms)
+✔ table header cannot be deleted from the cell toolbar (1.894208ms)
+✔ table toolbar cannot delete the last body row (0.486917ms)
+✔ edit mode opens mapped figures and admonition titles at their source ranges (0.693083ms)
+✔ frontmatter name cells open a schema-suggesting key editor and save on blur (0.767542ms)
+✔ Escape cancels an unsaved frontmatter key edit (0.405917ms)
+✔ edit mode exposes schema enum controls and saves the selected value (0.680125ms)
+✔ boolean frontmatter values use a checkbox and save on change (0.3785ms)
+✔ frontmatter list editor supports add, reorder, remove, and direct array saves (3.72325ms)
+✔ list dragging shows the insertion boundary, reorders items, and suppresses drag blur saves (0.759125ms)
+✔ nullable list editor can set its value as null (0.430708ms)
+✔ nullable scalar editor can set its value to null (0.390583ms)
+✔ frontmatter list editor adds from empty and saves after removing every item (0.845208ms)
+✔ frontmatter list editor keeps invalid edits open and Escape cancels them (0.445708ms)
+✔ frontmatter validation errors show an explicit error state (0.386125ms)
+✔ frontmatter floating bar follows the active field and stays within the viewport (2.525042ms)
+✔ frontmatter field toolbar adds and removes fields (1.285583ms)
+✔ empty enum values show an explicit placeholder (0.561791ms)
+✔ schema-free frontmatter values use a generic YAML editor (0.506917ms)
+✔ text frontmatter values use a wrapping textarea that grows with its content (0.454083ms)
+✔ Escape cancels an unsaved frontmatter value edit (0.38875ms)
+✔ frontmatter cells open their field editor with the keyboard in edit mode (0.346542ms)
+✔ executes source and preview synchronization across layout changes (2.383458ms)
+✔ marks editor selection without moving the preview when following is disabled (1.641083ms)
+▶ source scrolling rejects stale identities and invalid line numbers
+  ✔ other document (0.338458ms)
+  ✔ old document version (0.319541ms)
+  ✔ old render request (0.302958ms)
+  ✔ zero line (0.304375ms)
+  ✔ non-finite line (0.2975ms)
+✔ source scrolling rejects stale identities and invalid line numbers (1.802167ms)
+✔ scrolls to host-approved anchors and ignores invalid or stale requests (0.399458ms)
+✔ clicking a checkbox posts a source toggle instead of revealing the block (0.43ms)
+✔ a rejected checkbox toggle reverts the box and explains why (0.361209ms)
+✔ in edit mode a checkbox click toggles the box without opening a block editor (0.330875ms)
+✔ a checkbox click is refused while a block editor is open (1.849709ms)
+✔ checkboxes are disabled when the preview cannot edit the document (0.427208ms)
+ℹ tests 392
+ℹ suites 0
+ℹ pass 388
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 4
+ℹ duration_ms 558.60425
+
+✖ failing tests:
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:177:22
+⚠ structural F2 rename title to heading keeps the trailing comment (2.490375ms) # UX-16 (T06)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'heading: Alpha # trailing comment\n' +
+  -   'heading: Alpha  # trailing comment\n' +
+      'tags:\n' +
+      '  - one\n' +
+      '  - two\n' +
+      'summary: >-\n' +
+  +   '  Folded text that spans lines.\n' +
+  +   'links: [ a.md, b.md ]\n' +
+  -   '  Folded text that\n' +
+  -   '  spans lines.\n' +
+  -   'links: [a.md, b.md]\n' +
+      'quoted: "keep: me"\n' +
+      '\n' +
+      'status: draft\n' +
+      '---\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:180:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\nheading: Alpha # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that spans lines.\nlinks: [ a.md, b.md ]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    expected: '---\n# leading comment\nheading: Alpha  # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that\n  spans lines.\nlinks: [a.md, b.md]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:182:22
+⚠ structural F2 remove links deletes exactly that line (1.162416ms) # UX-16 (T06)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'title: Alpha # trailing comment\n' +
+  -   'title: Alpha  # trailing comment\n' +
+      'tags:\n' +
+      '  - one\n' +
+      '  - two\n' +
+      'summary: >-\n' +
+  +   '  Folded text that spans lines.\n' +
+  -   '  Folded text that\n' +
+  -   '  spans lines.\n' +
+      'quoted: "keep: me"\n' +
+      '\n' +
+      'status: draft\n' +
+      '---\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:185:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\ntitle: Alpha # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that spans lines.\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    expected: '---\n# leading comment\ntitle: Alpha  # trailing comment\ntags:\n  - one\n  - two\nsummary: >-\n  Folded text that\n  spans lines.\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:187:22
+⚠ structural F2 remove tags deletes exactly the sequence lines (0.718625ms) # UX-16 (T06)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      '# leading comment\n' +
+  +   'title: Alpha # trailing comment\n' +
+  -   'title: Alpha  # trailing comment\n' +
+      'summary: >-\n' +
+  +   '  Folded text that spans lines.\n' +
+  +   'links: [ a.md, b.md ]\n' +
+  -   '  Folded text that\n' +
+  -   '  spans lines.\n' +
+  -   'links: [a.md, b.md]\n' +
+      'quoted: "keep: me"\n' +
+      '\n' +
+      'status: draft\n' +
+      '---\n' +
+      'Body\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:190:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\n# leading comment\ntitle: Alpha # trailing comment\nsummary: >-\n  Folded text that spans lines.\nlinks: [ a.md, b.md ]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    expected: '---\n# leading comment\ntitle: Alpha  # trailing comment\nsummary: >-\n  Folded text that\n  spans lines.\nlinks: [a.md, b.md]\nquoted: "keep: me"\n\nstatus: draft\n---\nBody\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at out/test/frontmatter/frontmatterPreservation.test.js:192:22
+⚠ structural F1 add owner appends one line before the closing delimiter (1.474125ms) # UX-16 (T06)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+    '---\n' +
+      'type: SwRS\n' +
+      'id: SwRS-CORE-001\n' +
+      'uuid: 00000000-0000-4000-8000-000000000002\n' +
+      'title: Write CSV output\n' +
+  +   'description: When export is requested, the service SHALL write the report as CSV output.\n' +
+  -   'description: When export is requested, the service SHALL write the report as CSV\n' +
+  -   '  output.\n' +
+      'project: OKFREQXMP\n' +
+      'scope: Core\n' +
+      'lifecycle: draft\n' +
+      'origin: native\n' +
+      'tier: SwRS\n' +
+      'derives_from:\n' +
+  +   '  - StRS-CORE-001\n' +
+  -   '- StRS-CORE-001\n' +
+      'annotation_exemption: false\n' +
+      'exemption_reason:\n' +
+      'derived_by: []\n' +
+      'implemented_in_files:\n' +
+  +   '  - src/export.py\n' +
+  -   '- src/export.py\n' +
+      'tested_in_files:\n' +
+  +   '  - tests/test_export.py\n' +
+  -   '- tests/test_export.py\n' +
+      'owner: Ana\n' +
+      '---\n' +
+      '\n' +
+      '## EARS Expression\n'
+  
+      at TestContext.<anonymous> (/Users/az02065/Projects/Nestor/agentic-coding-white-paper/src/markdown-okf-schema-studio/out/test/frontmatter/frontmatterPreservation.test.js:195:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n  - StRS-CORE-001\nannotation_exemption: false\nexemption_reason:\nderived_by: []\nimplemented_in_files:\n  - src/export.py\ntested_in_files:\n  - tests/test_export.py\nowner: Ana\n---\n\n## EARS Expression\n',
+    expected: '---\ntype: SwRS\nid: SwRS-CORE-001\nuuid: 00000000-0000-4000-8000-000000000002\ntitle: Write CSV output\ndescription: When export is requested, the service SHALL write the report as CSV\n  output.\nproject: OKFREQXMP\nscope: Core\nlifecycle: draft\norigin: native\ntier: SwRS\nderives_from:\n- StRS-CORE-001\nannotation_exemption: false\nexemption_reason:\nderived_by: []\nimplemented_in_files:\n- src/export.py\ntested_in_files:\n- tests/test_export.py\nowner: Ana\n---\n\n## EARS Expression\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

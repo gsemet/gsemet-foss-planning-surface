@@ -1,0 +1,38 @@
+✔ the file is one document with no script, no linked file and no import, and no vscode- name (4.580833ms)
+✔ the resolved theme tokens replace the host mapping and the theme kind class goes on the body (1.480833ms)
+✔ a local image becomes a data URI and an unreadable one is counted and loses its source (1.853292ms)
+✔ links keep external and anchor targets and unwrap the others, reporting them once (2.626083ms)
+✔ folded sections are shown and the fold attributes are gone (1.42375ms)
+✔ review comments, controls and editing chrome are left out, find marks keep their text (1.893791ms)
+✔ a table cell under the cell editor is exported with its content shown and without the editor (1.596292ms)
+✔ a paragraph under the block editor is exported, its editor is not (1.477ms)
+✔ a front matter value and a key under their editors are exported shown, without the editor (2.006875ms)
+✔ a task list checkbox stays, disabled and without its edit attributes (1.647542ms)
+✔ a tab set works without script: radios, labels, and the shown tab is the one the page showed (2.243583ms)
+✔ the properties table becomes a closed details with a summary and no editing data (1.739ms)
+✔ the title falls back to the first heading, then to the file name (2.477625ms)
+✔ the KaTeX sheet and its fonts are inline, and only for a page with math (3.02025ms)
+✔ a style value cannot close the style element and a script URL is dropped (2.013625ms)
+✔ the snapshot guard accepts the page shape and refuses a malformed one (0.114583ms)
+✔ a mailto link is kept and a file: link, an invalid anchor and a query-only link are unwrapped and reported (1.376292ms)
+✔ every candidate of a srcset is embedded and an unreadable one is dropped (1.522667ms)
+✔ the width mode, the width rule and the theme mode go on the file, the zoom and clearance do not (1.8405ms)
+✔ the token rule follows the preview sheet and names every resolved token (1.594417ms)
+✔ nested tab sets get their own radio names and a dropdown keeps its open state (1.804208ms)
+✔ a THREAD chip with its popover, a TODO chip, source-mapping attributes and the tabindex of mapped blocks are left out (1.326584ms)
+✔ the Description column stays and the editing data goes, whatever the toggle state of the page (1.568291ms)
+✔ a properties table without a schema keeps its two columns inside the closed details (1.21875ms)
+✔ a paragraph under the block editor is exported, and its editor stays open (300.21075ms)
+✔ a block editor opened inside a card exports the block of the card (3.278458ms)
+✔ a table cell under the cell editor is exported shown, and its editor stays open (3.754666ms)
+✔ a {list-table} edited as raw Markdown is exported with its table (4.337208ms)
+✔ a front matter value under the value editor is exported shown, and its editor stays open (8.523417ms)
+✔ a front matter key under the key editor is exported shown, and its editor stays open (3.354875ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 470.174833

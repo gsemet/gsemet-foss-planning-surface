@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cream">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Use case map · StRS → SwRS · Markdown OKF-Schema Studio</title>
+<style>
+:root{--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,monospace;--ease:cubic-bezier(.2,.8,.2,1)}
+[data-theme=cream]{--bg:#f6f1e7;--paper:#fffdf8;--ink:#2b2620;--soft:#6f665a;--faint:#c9bfae;--line:#e4dccd;--p1:#d4582a;--p2:#7a4fa0;--nom:#2f8f6f;--bnd:#2d6fb0;--ref:#c0392b;--alt:#a89c88}
+[data-theme=dark]{--bg:#14130f;--paper:#1f1c16;--ink:#efe8da;--soft:#a99f8d;--faint:#4d463b;--line:#343027;--p1:#f08a5d;--p2:#b896de;--nom:#5fd0a8;--bnd:#7fb0ee;--ref:#ff7a6b;--alt:#6d6455}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);transition:background .4s,color .4s}
+.wrap{max-width:1440px;margin:0 auto;padding:34px 44px 40px}
+.top{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:start}
+.kicker{font:600 12px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--p1)}
+h1{font:400 38px/1.1 var(--serif);margin:10px 0 8px;max-width:900px}
+h1 em{color:var(--p1)}
+.need{font:italic 16px/1.55 var(--serif);color:var(--soft);max-width:900px;border-left:3px solid var(--p1);padding-left:14px;margin:10px 0 0}
+.story{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px;align-items:center;font:14px var(--serif)}
+.story span.s{padding:5px 11px;border-radius:999px;background:var(--paper);border:1px solid var(--line);transition:.3s}
+.story span.s.on{background:var(--p1);color:#fff;border-color:var(--p1);transform:translateY(-2px)}
+.story i{font-style:normal;color:var(--faint)}
+.tools{display:flex;gap:8px;flex-direction:column;align-items:flex-end}
+.btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:9px 16px;font:13px var(--sans);cursor:pointer;transition:.2s;white-space:nowrap}
+.btn:hover{border-color:var(--p1)}
+.btn.primary{background:var(--p1);color:#fff;border-color:var(--p1);font-weight:600}
+.btn[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font:12px var(--sans);color:var(--soft);margin:22px 0 4px}
+.legend b{display:inline-block;width:22px;height:4px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.legend b.dot{width:9px;height:9px;border-radius:50%}
+.map{background:var(--paper);border:1px solid var(--line);border-radius:18px;margin-top:10px;position:relative;overflow:hidden}
+svg{display:block;width:100%;height:auto}
+.st circle.o{fill:var(--paper);stroke:var(--ink);stroke-width:3}
+.st.goal circle.o{stroke:var(--p1);stroke-width:5}
+.st.alt circle.o{stroke:var(--alt);stroke-width:2.5}
+.st text{font:600 13.5px var(--sans);fill:var(--ink)}
+.st text.sub{font:12px var(--serif);font-style:italic;fill:var(--soft)}
+.st text.k{font:700 11px var(--mono);fill:var(--soft)}
+.tr{cursor:pointer}
+.tr path.hit{stroke:transparent;stroke-width:22;fill:none}
+.tr path.v{fill:none;transition:stroke-width .2s,opacity .3s}
+.tr:hover path.v{stroke-width:9}
+.tr text{font:700 11px var(--mono);pointer-events:none}
+.tr .glyph{transition:transform .2s}
+.dimmed .tr:not(.on),.dimmed .st:not(.on){opacity:.18}
+.token{filter:drop-shadow(0 0 8px var(--p1))}
+.cards{display:grid;grid-template-columns:1.25fr 1fr;gap:18px;margin-top:18px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px 22px;min-height:220px}
+.card h3{font:600 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin:0 0 12px}
+.card .id{font:12px var(--mono);color:var(--soft)}
+.card h2{font:400 23px/1.25 var(--serif);margin:4px 0 8px}
+.card p{font:14.5px/1.6 var(--serif);margin:0 0 12px;color:var(--ink)}
+.sc{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:start;font:13px/1.45 var(--sans);padding:8px 0;border-top:1px solid var(--line)}
+.sc .k{font:700 10px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:5px;color:#fff;margin-top:1px}
+.sc .k.nominal{background:var(--nom)}.sc .k.boundary{background:var(--bnd)}.sc .k.refusal{background:var(--ref)}
+.sc small{color:var(--soft)}
+.tests{font:11.5px var(--mono);color:var(--soft);margin-top:10px;line-height:1.7}
+.combo{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.combo div{border-radius:12px;padding:12px 14px;background:var(--bg)}
+.combo .n{font:400 36px/1 var(--serif)}
+.combo .l{font:12px/1.4 var(--sans);color:var(--soft);margin-top:6px}
+.combo .p1 .n{color:var(--p1)} .combo .sw .n{color:var(--nom)}
+.bars{display:flex;align-items:flex-end;gap:3px;height:90px;margin-top:6px}
+.bars i{flex:1;background:var(--faint);border-radius:3px 3px 0 0;position:relative;transition:height 1s var(--ease)}
+.bars i.cov{background:var(--p1)}
+.bars i span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font:10px var(--mono);color:var(--soft)}
+.note{margin-top:18px;font:13.5px/1.6 var(--serif);color:var(--soft);border:1px dashed var(--faint);border-radius:12px;padding:12px 16px}
+.note b{color:var(--ink)}
+code{font:12px var(--mono)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="kicker">Use case map · StRS-MDOKFSTUDIO-DIAG-001</div>
+      <h1>One <em>use case</em>, cut into behaviours that are tested one by one.</h1>
+      <p class="need" id="need"></p>
+      <div class="story" id="story"></div>
+    </div>
+    <div class="tools">
+      <button class="btn primary" id="play">▶ Play the main path</button>
+      <button class="btn" id="play2">▶ Play path 2</button>
+      <button class="btn" id="all" aria-pressed="false">Show every path</button>
+      <button class="btn" id="theme">Dark</button>
+    </div>
+  </div>
+  <div class="legend">
+    <span><b style="background:var(--p1)"></b>Main path told by the StRS</span>
+    <span><b style="background:var(--p2)"></b>Second path told by the StRS</span>
+    <span><b style="background:var(--alt)"></b>Other option at a state</span>
+    <span><b class="dot" style="background:var(--nom)"></b>nominal scenario</span>
+    <span><b class="dot" style="background:var(--bnd)"></b>boundary</span>
+    <span><b class="dot" style="background:var(--ref)"></b>refusal</span>
+    <span>✓ n = test files of the SwRS</span>
+  </div>
+  <div class="map"><svg id="svg" viewBox="0 0 1400 560"></svg></div>
+  <div class="cards">
+    <div class="card" id="detail"><h3>Behaviour</h3><p style="color:var(--soft);font-style:italic">Hover or click a transition: each one is a SwRS, a behaviour tested on its own.</p></div>
+    <div class="card"><h3>Why the StRS tells a path and the SwRS cover the options</h3>
+      <div class="combo" id="combo"></div>
+      <div style="font:12px var(--sans);color:var(--soft)">Distinct walks through the map by length, all scenario variants counted, and the share the StRS paths take:</div>
+      <div class="bars" id="bars"></div>
+    </div>
+  </div>
+  <div class="note"><b>Illustrative mapping.</b> The states and the order of the steps are written by hand for this prototype. Today a StRS file holds no ordered steps and a SwRS says only <i>which</i> StRS it derives from, not <i>at which step</i>; the behaviours, scenarios and test counts shown are the real ones from the okfreq report at commit <code id="sha"></code>. The StRS has no validation test yet: its paths are drawn as the use case the SwRS together make possible.</div>
+</div>
+<script>window.UC_DATA={"sha":"20ccb380b2e05512f7aee9e1492b830973d63414","reqs":[{"id":"StRS-MDOKFSTUDIO-DIAG-001","t":"StRS","s":"diagrams","lc":"approved","ti":"A writer reads and inserts Mermaid diagrams that follow the theme","de":"When a writer previews a document with a Mermaid fence or directive, or picks Mermaid in the edition palette or the slash menu, the Studio SHALL draw the diagram as a picture sized to the content width in the colours of the preview theme, keep its source available, show a message with the parser reason on demand when the syntax is invalid, and insert a starter flowchart fence that renders at once.","un":"As a writer, I put a Mermaid diagram in my document, or insert one in a single step, and see the drawn diagram in the preview in the colours of my theme, with the source one click away.","df":[],"sb":[],"im":[],"te":["test/visual/scenarioDefinitions2.ts","test/visual/scenarioDefinitions1.ts","test/integration/realInput/markers.ts"],"sc":[],"ki":"","ra":"- Reading: a `mermaid` fence and a `{mermaid}` directive both produce the diagram; the source is kept in a collapsed \"Diagram source\" disclosure and the picture is labelled \"Mermaid diagram\". - The picture is drawn at its natural size, never enlarged, and scaled down to the content width with no minimum scale and no zoom. Known issue: a wide diagram can end up with small labels. In the auto width mode a wide diagram may use the wider column; that rule is owned by the width mode. Known issue: a PlantUML figure qualifies through the generic figure selector of the width mode, not through an entry of its own. - While a diagram is edited in the preview it is hidden until the editor closes. Known issue: there is no live preview of the diagram being edited. - The renderer is loaded only when the document holds a Mermaid diagram, from the extension bundle and under the page's Content Security Policy; appearing or disappearing Mermaid reloads the whole page instead of patching it in place. - The picture is inert: scripts and links inside the diagram do nothing. Page tools leave diagrams alone: no code copy button is added and no review quote is wrapped inside a diagram. - Known issue: a diagram with empty text is skipped and left blank, with no message. - Theme: node, text, border, line and background colours come from the preview theme variables; the diagrams are drawn again when the theme mode changes (dark, white, cream, light), labels kept. - When a theme variable is missing or is a CSS system colour keyword such as `Canvas`, built-in fallback colours are used and the diagram stays readable. Edge labels keep a contrast of at least 4.5:1 in the dark, light and fallback themes. - A theme change that leaves the colours as they were draws nothing again. Evidence for the redraw is limited to dark, white and cream in the visual check; light and custom VS Code themes rely on the same observer. - Typing: unchanged diagrams stay drawn after a content patch and new or changed ones are drawn after it. A diagram whose node was replaced but whose source and theme colours are the same reuses the earlier drawing; the 64 most recent drawings are kept. - Diagrams are drawn one pass at a time in document order, and a late result for a theme that was replaced meanwhile is dropped. - Failure: the message reads \"Unable to render Mermaid diagram. Its source remains available below.\" and sits above the diagram; a collapsed \"Show the parser error\" section holds the parser's reason as plain text, never HTML; the message uses the theme error colour. - However many times the theme changes, the invalid diagram keeps exactly one message and one details section; the earlier one is replaced. - Known issue: a failed Mermaid diagram posts no diagnostic to the status line or the Problems list, because the drawing happens in the page. - Insert: the \"Mermaid\" button (GitHub group of the edition palette, tooltip \"Mermaid diagram\") and the \"/Mermaid\" slash entry (aliases diagram, chart, graph, flowchart) insert a fenced `mermaid` flowchart set apart after the selection, with its first label \"Start\" selected. - Only the GFM palette mode offers it: not Strict, not MyST, and no `{mermaid}` directive button exists.","vn":""},{"id":"SwRS-MDOKFSTUDIO-DIAG-001","t":"SwRS","s":"diagrams","lc":"proposed","ti":"Mermaid fences become inert diagram pictures","de":"When a document contains a mermaid fence or a {mermaid} directive, the extension SHALL render a figure whose diagram element is labelled \"Mermaid diagram\" and holds the diagram text, with the same text in a collapsed \"Diagram source\" disclosure, and have the page draw it as one inert picture that fits the content column.","un":"","df":["StRS-MDOKFSTUDIO-DIAG-001","StRS-MDOKFSTUDIO-DIAG-006"],"sb":[],"im":["src/session/webview.ts","src/page/modules/mermaidPreview.ts","src/core/render/mystNormalize.ts","src/core/render/mermaidFont.ts","src/core/preview/styles/editModeStyles.ts","src/core/preview/styles/contentBlockStyles.ts"],"te":["test/page/diagReq.diagramEdit.requirements.test.ts","test/page/mermaidLabelFit.test.ts","test/integration/projectFeatures.test.ts","test/visual/scenarioDefinitions2.ts","test/visual/scenarioDefinitions1.ts","test/build/bundleSplit.test.ts","test/page/modules/mermaidPreviewEntry.test.ts","test/core/render/mystFeatures.test.ts","test/core/preview/contentPatch.test.ts","test/core/preview/previewStyles.test.ts"],"sc":[["nominal","Fence and directive",["GIVEN a document with a mermaid fence and a {mermaid} directive, each holding a flowchart","WHEN the preview is rendered","THEN two Mermaid figures appear, each with a diagram element labelled \"Mermaid diagram\" holding the flowchart text and a collapsed details element whose summary reads \"Diagram source\" and whose code block holds the same text"]],["boundary","Empty diagram",["GIVEN a mermaid fence with no text","WHEN the preview is rendered","THEN a figure with an empty diagram element is still produced, the page draws nothing in it and shows no message"]],["nominal","Valid flowchart is drawn as a picture",["GIVEN a valid Mermaid flowchart","WHEN the page draws the diagram","THEN the diagram element holds one image of class myst-mermaid-image with alt text \"Mermaid diagram\" and a src starting with data:image/svg+xml;charset=utf-8 (an SVG drawn at the strict security level), the diagram text is replaced, and data-render-state is rendered"]],["nominal","Labels fit their boxes in the picture",["GIVEN a flowchart with node labels (\"Review telemetry\", \"Hold and inspect\") and edge labels (\"Yes\", \"No\"), drawn with Mermaid's HTML labels","WHEN the page draws the diagram and shows it as an SVG image","THEN Mermaid measures the labels inside an element of class myst-mermaid-measure that the page style sheet gives a pinned system font stack and a 16px size, with no inherited page style, and that is removed once the diagram is drawn","AND the Mermaid configuration and theme variables carry the same font family and size, so the image draws each label with the metrics it was measured with","AND in the image, the text of every label fits its label box and, for a node, its shape: no label loses its last characters"]],["boundary","Line-break tags in the SVG",["GIVEN Mermaid output whose SVG contains HTML line-break tags written without a closing slash","WHEN the page builds the image source","THEN the data URI holds the self-closing form of each line-break tag so the SVG loads as an image"]]],"ki":"- Known issue: The page skips a Mermaid diagram whose text is empty and leaves it blank, with no diagnostic (no test covers it).\n- Known issue: Appearing or disappearing Mermaid changes the shell key, so the whole page reloads instead of being patched in place.\n- Known issue: No test asserts that the Content Security Policy lets the Mermaid bundle run; only a real VS Code run would show such a regression.\n- Known issue: Scripts and links inside the SVG are inert because the picture is an image with a data URI and Mermaid runs at the strict security level; this is not documented.\n- Known issue: mermaidPreview.ts has no unit test.\n- Known issue: There is no minimum scale and no zoom: a very wide diagram is scaled until its labels become small. The unit test locks the containment, not a minimum label size.\n- Known issue: There is no live preview of the diagram while it is edited (absent from docs/known-limitations.md).\n- Known issue: A theme change still redraws a hidden Mermaid diagram because the theme observer draws every diagram.","ra":"","vn":"- Method: test/core/render/mystFeatures.test.ts (fence and directive, empty diagram: rendered HTML structure) - Method: test/visual/scenarioDefinitions1.ts (visual scenarios diagrams v01 to v03: fence and directive, loaded picture, picture not enlarged) - Method: test/core/preview/contentPatch.test.ts (renderer script loads only with a Mermaid figure, shell key) - Method: test/integration/projectFeatures.test.ts (script tag and bundle folder resource root exist) - Method: test/core/preview/previewStyles.test.ts (picture width against the content column) - Method: test/page/diagReq.diagramEdit."},{"id":"SwRS-MDOKFSTUDIO-DIAG-005","t":"SwRS","s":"diagrams","lc":"proposed","ti":"Mermaid colours follow the preview theme","de":"When the page draws a Mermaid diagram, the extension SHALL take its colours from the preview theme variables, use a built-in fallback for any variable that is missing, empty or a CSS system colour keyword, and draw it again when the theme colours change.","un":"","df":["StRS-MDOKFSTUDIO-DIAG-001"],"sb":[],"im":["src/page/modules/mermaidPreview.ts"],"te":["test/visual/scenarioDefinitions1.ts","test/core/preview/themeTokens.test.ts"],"sc":[["nominal","The theme changes",["GIVEN a drawn Mermaid diagram on a dark preview","WHEN the data-sphinx-preview-theme-mode, data-sphinx-preview-theme, class or style attribute of the html element, or the class or style attribute of the body element, changes and the theme mode becomes white","THEN the page checks every Mermaid diagram, draws again each one whose theme colours differ from those it was drawn with, and keeps its node labels"]],["boundary","The theme colours stay the same",["GIVEN a drawn Mermaid diagram","WHEN an observed attribute changes and leaves the theme colours as they were","THEN the diagram is not drawn again and keeps its picture"]]],"ki":"- Known issue: The visual check covers dark, white and cream and only node fills; border and secondary colours have no check.\n- Known issue: The redraw evidence covers dark, white and cream; the light mode relies on the same observer.\n- Known issue: The fallback colours are fixed colours of a light palette.\n- Known issue: No unit test covers the fallback logic.\n- Known issue: Edge label readability is checked by the visual campaign only; no unit test.","ra":"","vn":"- Method: test/core/preview/themeTokens.test.ts (colours come from the theme variables: every token the Mermaid theme reads is in the token map) - Method: test/visual/scenarioDefinitions1.ts (diagrams v01: node fills equal the code block background in dark, white, cream and the original mode, and the theme switch check keeps the label count; v03: theme fallback draws a loaded picture; v01 to v03: edge label count against the source and contrast ratio) - Criteria: Node fills follow --studio-textCodeBlock-background in every checked theme mode; node fills follow the theme after each switch and t"},{"id":"SwRS-MDOKFSTUDIO-DIAG-009","t":"SwRS","s":"diagrams","lc":"proposed","ti":"Mermaid diagrams are drawn once and late results are dropped","de":"When the page needs a Mermaid diagram, the extension SHALL draw only the diagrams whose source or theme colours changed or that were never drawn, show an earlier drawing of the same source and theme colours without running Mermaid again, run the draw passes one at a time, and drop a result that arrives for a key the node no longer has.","un":"","df":["StRS-MDOKFSTUDIO-DIAG-001"],"sb":[],"im":["src/page/modules/mermaidCache.ts","src/page/modules/mermaidPreview.ts"],"te":["test/page/rendererBridge.test.ts","test/page/modules/mermaidCache.test.ts","test/page/modules/mermaidPreviewEntry.test.ts","test/integration/realInput/markers.ts"],"sc":[["nominal","Unchanged diagram after a node replacement",["GIVEN a Mermaid diagram already drawn, then a content update that replaces its node with the same source under the same theme","WHEN the page draws the new node","THEN the earlier picture is shown and Mermaid is not run"]],["boundary","Changed source or theme",["GIVEN a drawn diagram whose source or theme colours changed","WHEN the page draws it","THEN Mermaid runs again; a theme attribute change that leaves the colours as they were draws nothing"]]],"ki":"- Known issue: The plan actions keep, reuse and render are wired in mermaidPreview.ts, which has no unit test.\n- Known issue: The listener in mermaidPreview.ts that draws after a content patch is covered only by the real VS Code scenario.\n- Known issue: Diagrams inside one pass are started together and document order only fixes their element ids.\n- Known issue: The race protection of the draw passes and the guards against late results (picture and error) exist only in mermaidPreview.ts and are untested.","ra":"","vn":"- Method: test/page/modules/mermaidCache.test.ts (unchanged diagram after a node replacement, changed source or theme: same source and theme give no second run, a different source or theme gives a new run) - Method: test/page/rendererBridge.test.ts (page events reach the diagram renderers: a content patch draws only new diagrams) - Method: test/integration/realInput/markers.ts (real VS Code scenario RI-T34 in test/integration/realInput/renderPatching.ts: a Mermaid diagram is drawn again in the same frame) - Method: draw passes one at a time, late picture and late error have no test (browser en"},{"id":"SwRS-MDOKFSTUDIO-DIAG-015","t":"SwRS","s":"diagrams","lc":"proposed","ti":"Invalid Mermaid shows one message with the parser reason","de":"When Mermaid cannot draw a diagram, the page SHALL show at the top of the diagram element exactly one message \"Unable to render Mermaid diagram. Its source remains available below.\" followed by one collapsed \"Show the parser error\" section holding the parser's reason as plain text, and set data-render-state to error.","un":"","df":["StRS-MDOKFSTUDIO-DIAG-001"],"sb":[],"im":["src/page/modules/mermaidError.ts"],"te":["test/visual/scenarioDefinitions2.ts","test/page/modules/mermaidError.test.ts"],"sc":[["nominal","Syntax error",["GIVEN a Mermaid diagram with invalid syntax","WHEN the page draws it","THEN the diagram element starts with the message \"Unable to render Mermaid diagram. Its source remains available below.\", then a closed details element titled \"Show the parser error\" holding the reason, and data-render-state is error; the \"Diagram source\" disclosure still holds the source"]],["boundary","Reason with markup",["GIVEN a parser reason that contains HTML text such as an image tag with an onerror handler","WHEN the page shows the error","THEN the reason is displayed as text, no element is created from it and the details element stays closed"]],["boundary","Theme switches redraw the error",["GIVEN an invalid Mermaid diagram","WHEN the theme changes through dark, white, cream and the original mode","THEN after each change the diagram holds one error message and one details section"]],["boundary","Changing reason",["GIVEN an error shown for line 2 and a new error for line 3","WHEN the page shows the second error","THEN the earlier error is replaced and the details section holds only the line 3 reason"]]],"ki":"- Known issue: The diagram text also stays inside the diagram element under the message, so the source shows once there and once in the disclosure.\n- Known issue: A failed Mermaid diagram posts no diagnostic to the status line or the Problems list because the drawing happens in the page.\n- Known issue: The message uses the theme error colour --studio-errorForeground with the fallback #f14c4c.\n- Known issue: The visual check sets the render state to pending before each theme change to force a redraw.","ra":"","vn":"- Method: test/page/modules/mermaidError.test.ts (syntax error, reason with markup, changing reason: error element, closed details, plain-text reason, one error element and one details section) - Method: test/visual/scenarioDefinitions2.ts (visual scenarios diagrams v08 and v09: error assertions and the theme switch check) - Criteria: Message, closed details and plain-text reason are present; no markup is created from the reason; never more than one error element and one details section per diagram."},{"id":"SwRS-MDOKFSTUDIO-DIAG-017","t":"SwRS","s":"diagrams","lc":"proposed","ti":"The Mermaid action inserts a starter flowchart in GFM mode","de":"When a writer picks the Mermaid action of the edition palette or the Mermaid slash entry, which the extension offers in GFM mode only, the extension SHALL insert a fenced mermaid block with a top-down flowchart from a node labelled Start to a node labelled End, set apart from the text around it and placed after the selection, with the label Start selected.","un":"","df":["StRS-MDOKFSTUDIO-DIAG-001"],"sb":[],"im":["src/page/modules/blockEditActions.ts","src/core/palette/paletteActions.ts"],"te":["test/page/modules/slashMenu.test.ts","test/page/modules/editActions.test.ts","test/page/modules/editPalette.test.ts","test/core/render/mystPaletteRendering.test.ts","test/core/palette/paletteActions.test.ts"],"sc":[["nominal","Insert after text",["GIVEN the caret at the end of a paragraph","WHEN the writer picks Mermaid","THEN a blank line and the fenced mermaid flowchart are inserted after the selection and the word Start is selected"]],["boundary","Empty document",["GIVEN an empty document","WHEN the writer picks Mermaid","THEN the fence is inserted with no leading blank line and the word Start is selected"]],["nominal","GFM mode offers Mermaid",["GIVEN the edition palette in GFM mode on a block selection","WHEN the palette is shown and the writer types /diagram in the slash menu","THEN a one-click Mermaid button with the tooltip \"Mermaid diagram\" is in the GitHub group and the slash menu finds Mermaid first; the slash aliases are diagram, chart, graph and flowchart"]],["refusal","Other palette modes do not offer Mermaid",["GIVEN the palette in Strict or MyST mode","WHEN the palette is shown","THEN no Mermaid action is offered and no button inserts a {mermaid} directive"]]],"ki":"- Known issue: The palette and slash registry rows belong to palette-slash; this requirement owns the inserted content.\n- Known issue: No button exists for the {mermaid} directive in the MyST palette mode.","ra":"","vn":"- Method: test/core/render/mystPaletteRendering.test.ts (insert after text, empty document: the inserted text renders as a Mermaid diagram figure) - Method: test/page/modules/editActions.test.ts (insert after text, empty document: the edit action) - Method: test/core/palette/paletteActions.test.ts (GFM mode offers Mermaid, other modes: the registry entry lists mode gfm only) - Method: test/page/modules/editPalette.test.ts (GFM mode offers Mermaid, other modes do not: the palette) - Method: test/page/modules/slashMenu.test.ts (the aliases diagram, chart, graph and flowchart resolve to Mermaid) "},{"id":"SwRS-MDOKFSTUDIO-DIAG-127","t":"SwRS","s":"diagrams","lc":"proposed","ti":"A click on a picture opens its source editor","de":"When the writer clicks an svg picture in edit mode, the preview SHALL open the source editor of the block that holds it, as it does for a Mermaid diagram.","un":"","df":["StRS-MDOKFSTUDIO-DIAG-001"],"sb":[],"im":["src/core/render/svgPictures.ts"],"te":["test/visual/svgPictureScenarios.ts"],"sc":[["nominal","A click opens the editor",["GIVEN edit mode on and a page with an svg picture","WHEN the writer clicks the picture","THEN the source editor of the block that holds it opens over the figure, with the lines of the fence or of the raw svg"]],["boundary","The picture is a mapped block",["GIVEN an svg fence or a raw svg block","WHEN the preview renders it","THEN its figure carries data-line and data-end-line, which is what the click uses"]]],"ki":"","ra":"","vn":"- Method: test/core/render/svgRendering.test.ts (the lines of the figure) - Method: the visual scenario diagrams/v22 (a click opens the source editor) - Criteria: A picture is edited like any other mapped block."}]};</script>
+<script>
+const U = window.UC_DATA, R = new Map(U.reqs.map(r => [r.id, r])), REPO = "https://github.com/gsemet/markdown-okf-schema-studio/blob/" + U.sha + "/";
+const id = s => "SwRS-MDOKFSTUDIO-" + s;
+const strs = R.get("StRS-MDOKFSTUDIO-DIAG-001");
+document.getElementById("need").textContent = "“" + strs.un + "”";
+document.getElementById("sha").textContent = U.sha.slice(0, 8);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+// ---------- the hand-written use case: states and transitions ----------
+const S = {
+  A: {x: 90, y: 260, k: "A", t: "Edit mode on", s: "GFM palette open"},
+  B: {x: 330, y: 260, k: "B", t: "Starter fence", s: "in the document"},
+  C: {x: 570, y: 260, k: "C", t: "Diagram drawn", s: "as an inert picture"},
+  E: {x: 810, y: 260, k: "D", t: "Source editor open", s: "the writer edits it"},
+  F: {x: 1050, y: 260, k: "E", t: "Parser message", s: "source still there"},
+  G: {x: 1300, y: 260, k: "★", t: "Diagram drawn again", s: "in theme colours", goal: true},
+  T: {x: 380, y: 470, k: "★", t: "Redrawn in the new theme", s: "labels kept", goal: true},
+  Z: {x: 330, y: 70, k: "×", t: "No Mermaid button", s: "other palette modes", alt: true},
+  Y: {x: 570, y: 70, k: "∅", t: "Empty diagram", s: "left blank", alt: true},
+  K: {x: 840, y: 470, k: "≡", t: "Typing elsewhere", s: "diagram kept, not redrawn", alt: true},
+};
+const TR = [
+  {f: "A", t: "B", r: "DIAG-017", p: [1, 2], v: "the writer clicks Mermaid"},
+  {f: "B", t: "C", r: "DIAG-001", p: [1, 2], v: "the page renders the fence"},
+  {f: "C", t: "E", r: "DIAG-127", p: [1], v: "a click on the picture"},
+  {f: "E", t: "F", r: "DIAG-015", p: [1], v: "an invalid line is saved"},
+  {f: "F", t: "G", r: "DIAG-001", p: [1], v: "the source is fixed", bend: 0},
+  {f: "C", t: "T", r: "DIAG-005", p: [2], v: "the theme changes"},
+  {f: "A", t: "Z", r: "DIAG-017", p: [], v: "Strict or MyST palette", only: "refusal"},
+  {f: "B", t: "Y", r: "DIAG-001", p: [], v: "the fence is empty", only: "boundary"},
+  {f: "C", t: "K", r: "DIAG-009", p: [], v: "text typed in another block"},
+  {f: "K", t: "C", r: "DIAG-009", p: [], v: "source or theme changed", only: "boundary", bend: -1, at: .22},
+  {f: "T", t: "C", r: "DIAG-005", p: [], v: "colours unchanged: no redraw", only: "boundary", bend: 1, at: .22},
+];
+const PATHS = {1: ["A", "B", "C", "E", "F", "G"], 2: ["A", "B", "C", "T"]};
+document.getElementById("story").innerHTML = PATHS[1].map((k, i) => `<span class="s" data-k="${k}">${S[k].t}</span>${i < PATHS[1].length - 1 ? "<i>→</i>" : ""}`).join("");
+// ---------- draw ----------
+const svg = document.getElementById("svg"), NS = "http://www.w3.org/2000/svg";
+const el = (t, a, p = svg) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; };
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const KIND = {nominal: "--nom", boundary: "--bnd", refusal: "--ref"};
+function geom(tr) {
+  const a = S[tr.f], b = S[tr.t];
+  if (a.y === b.y) { const lift = tr.bend ? 0 : 0; return {d: `M${a.x},${a.y} L${b.x},${b.y}`, mx: (a.x + b.x) / 2, my: a.y + lift}; }
+  const dx = (b.x - a.x), off = tr.bend ? tr.bend * 70 : 0;
+  const c1x = a.x + dx * .1 + off, c1y = (a.y + b.y) / 2, c2x = b.x - dx * .1 + off, c2y = (a.y + b.y) / 2;
+  const d = `M${a.x},${a.y} C${c1x},${c1y} ${c2x},${c2y} ${b.x},${b.y}`;
+  return {d, mx: (a.x + b.x) / 2 + off * .75, my: (a.y + b.y) / 2};
+}
+function draw() {
+  svg.innerHTML = "";
+  const defs = el("defs", {});
+  const glow = el("filter", {id: "glow", x: "-50%", y: "-50%", width: "200%", height: "200%"}, defs); el("feGaussianBlur", {stdDeviation: 4, result: "b"}, glow); const m = el("feMerge", {}, glow); el("feMergeNode", {in: "b"}, m); el("feMergeNode", {in: "SourceGraphic"}, m);
+  // faint grid of "every path" fan
+  const fan = el("g", {id: "fan", opacity: 0});
+  for (let i = 0; i < 160; i++) { const x0 = 90 + Math.random() * 1150, y0 = 60 + Math.random() * 420; const x1 = x0 + 60 + Math.random() * 160, y1 = 40 + Math.random() * 460; el("path", {d: `M${x0},${y0} C${x0 + 60},${y0} ${x1 - 60},${y1} ${x1},${y1}`, stroke: css("--alt"), "stroke-width": .7, fill: "none", opacity: .5}, fan); }
+  const trG = el("g", {});
+  TR.forEach((tr, i) => {
+    const g = el("g", {class: "tr", "data-i": i}, trG); tr.g = g; const {d, mx, my} = geom(tr);
+    const main = tr.p.length, col = tr.p.includes(1) ? css("--p1") : tr.p.includes(2) ? css("--p2") : css("--alt");
+    if (tr.p.includes(1) && tr.p.includes(2)) { el("path", {class: "v", d, stroke: css("--p2"), "stroke-width": 12, "stroke-linecap": "round", opacity: .5}, g); }
+    el("path", {class: "v", d, stroke: col, "stroke-width": main ? 7 : 2.5, "stroke-linecap": "round", "stroke-dasharray": main ? "" : "6 6"}, g);
+    const hit = el("path", {class: "hit", d}, g);
+    let lx = mx, ly = my; if (tr.at) { const pt = hit.getPointAtLength(hit.getTotalLength() * tr.at); lx = pt.x; ly = pt.y; }
+    // label: SwRS id + test count
+    const r = R.get(id(tr.r)); const sc = r.sc.filter(s => !tr.only || s[0] === tr.only);
+    const up = S[tr.f].y === S[tr.t].y ? -18 : 0;
+    const lbl = el("g", {transform: `translate(${lx},${ly + up})`}, g);
+    const w = 108; el("rect", {x: -w / 2, y: -13, width: w, height: 22, rx: 11, fill: css("--paper"), stroke: col, "stroke-width": 1.5}, lbl);
+    const t = el("text", {x: 0, y: 2, "text-anchor": "middle", fill: css("--ink")}, lbl); t.textContent = `${tr.r}  ✓${r.te.length}`;
+    const gl = el("g", {class: "glyph", transform: `translate(${-((sc.length - 1) * 7)},${20})`}, lbl);
+    sc.forEach((s, j) => el("circle", {cx: j * 14, cy: 0, r: 5, fill: css(KIND[s[0]] || "--nom"), stroke: css("--paper"), "stroke-width": 1.5}, gl));
+    const v = el("text", {x: 0, y: 44, "text-anchor": "middle", style: `font:italic 12px var(--serif);fill:${css("--soft")}`}, lbl); v.textContent = tr.v;
+    g.onmouseenter = () => show(tr); g.onclick = () => { pinned = pinned === tr ? null : tr; show(tr); };
+  });
+  for (const k in S) { const s = S[k]; const g = el("g", {class: "st" + (s.goal ? " goal" : "") + (s.alt ? " alt" : ""), "data-k": k, transform: `translate(${s.x},${s.y})`}); s.g = g;
+    el("circle", {class: "o", r: s.goal ? 22 : 18}, g); const kk = el("text", {class: "k", y: 4, "text-anchor": "middle"}, g); kk.textContent = s.k;
+    const below = s.y < 200 ? -1 : 1; const t = el("text", {y: below > 0 ? (s.y > 400 ? 44 : -34) : -46, "text-anchor": "middle"}, g); t.textContent = s.t;
+    const t2 = el("text", {class: "sub", y: below > 0 ? (s.y > 400 ? 62 : -18) : -30, "text-anchor": "middle"}, g); t2.textContent = s.s;
+    if (s.goal) { const h = el("circle", {r: 22, fill: "none", stroke: css("--p1"), "stroke-width": 2}, g); h.innerHTML = `<animate attributeName="r" from="22" to="40" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" from=".7" to="0" dur="2.4s" repeatCount="indefinite"/>`; } }
+  token = el("circle", {class: "token", r: 9, fill: css("--p1"), opacity: 0, filter: "url(#glow)"});
+}
+let pinned = null, token;
+function show(tr) {
+  const r = R.get(id(tr.r)), sc = r.sc;
+  document.getElementById("detail").innerHTML = `<h3>Behaviour · from “${S[tr.f].t}” to “${S[tr.t].t}”</h3><div class="id">${r.id} · ${r.te.length} test files · ${r.im.length} source files</div><h2>${esc(r.ti)}</h2><p>${esc(r.de)}</p>` +
+    sc.map(s => `<div class="sc" style="${tr.only && s[0] !== tr.only ? "opacity:.35" : ""}"><span class="k ${s[0]}">${s[0]}</span><div><b>${esc(s[1])}</b><br><small>${s[2].map(esc).join(" · ")}</small></div></div>`).join("") +
+    `<div class="tests">${r.te.map(f => `<a href="${REPO + f}" target="_blank" rel="noopener" style="color:inherit">✓ ${esc(f)}</a>`).join("<br>")}</div>`;
+}
+// ---------- combinatorics ----------
+function combo() {
+  // edges = every scenario variant of every transition
+  const out = {}; for (const k in S) out[k] = [];
+  for (const tr of TR) { const r = R.get(id(tr.r)); const n = r.sc.filter(s => !tr.only || s[0] === tr.only).length || 1; for (let i = 0; i < n; i++) out[tr.f].push(tr.t); }
+  const byLen = []; let cur = {A: 1};
+  for (let L = 1; L <= 8; L++) { const nx = {}; let tot = 0; for (const k in cur) for (const t of out[k]) { nx[t] = (nx[t] || 0) + cur[k]; tot += cur[k]; } byLen.push(tot); cur = nx; }
+  const total = byLen.reduce((a, b) => a + b, 0);
+  const swrs = new Set(TR.map(t => t.r)), scen = [...swrs].reduce((a, s) => a + R.get(id(s)).sc.length, 0);
+  document.getElementById("combo").innerHTML = `<div class="p1"><div class="n">2</div><div class="l">paths told by the StRS, end to end</div></div><div><div class="n">${total.toLocaleString("en")}</div><div class="l">distinct walks of up to 8 steps from “Edit mode on”</div></div><div class="sw"><div class="n">${swrs.size} · ${scen}</div><div class="l">SwRS, and their scenarios, each tested on its own</div></div>`;
+  const mx = Math.max(...byLen); document.getElementById("bars").innerHTML = byLen.map((v, i) => `<i class="${i === 3 || i === 5 ? "cov" : ""}" style="height:${8 + 82 * Math.log1p(v) / Math.log1p(mx)}%" title="${v} walks of ${i + 1} steps"><span>${i + 1}</span></i>`).join("");
+}
+// ---------- play ----------
+async function play(n) {
+  const path = PATHS[n]; svg.classList.add("dimmed"); svg.querySelectorAll(".on").forEach(e => e.classList.remove("on"));
+  token.setAttribute("fill", css(n === 1 ? "--p1" : "--p2")); token.setAttribute("opacity", 1);
+  document.querySelectorAll(".story .s").forEach(s => s.classList.remove("on"));
+  for (let i = 0; i < path.length; i++) {
+    const s = S[path[i]]; s.g.classList.add("on"); const st = document.querySelector(`.story .s[data-k="${path[i]}"]`); if (st) st.classList.add("on");
+    if (i === path.length - 1) break;
+    const tr = TR.find(t => t.f === path[i] && t.t === path[i + 1] && t.p.includes(n)); tr.g.classList.add("on"); show(tr);
+    const p = tr.g.querySelector("path.hit"), L = p.getTotalLength(), t0 = performance.now();
+    await new Promise(res => { const f = now => { const k = Math.min(1, (now - t0) / 1100), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; const pt = p.getPointAtLength(L * e); token.setAttribute("cx", pt.x); token.setAttribute("cy", pt.y); k < 1 ? requestAnimationFrame(f) : setTimeout(res, 650); }; requestAnimationFrame(f); });
+  }
+  setTimeout(() => { svg.classList.remove("dimmed"); token.setAttribute("opacity", 0); }, 1800);
+}
+document.getElementById("play").onclick = () => play(1);
+document.getElementById("play2").onclick = () => play(2);
+document.getElementById("all").onclick = e => { const on = e.target.getAttribute("aria-pressed") !== "true"; e.target.setAttribute("aria-pressed", on); document.getElementById("fan").animate([{opacity: on ? 0 : 1}, {opacity: on ? 1 : 0}], {duration: 600, fill: "forwards"}); };
+document.getElementById("theme").onclick = e => { const d = document.documentElement, dark = d.dataset.theme !== "dark"; d.dataset.theme = dark ? "dark" : "cream"; e.target.textContent = dark ? "Cream" : "Dark"; draw(); };
+draw(); combo(); show(TR[0]); setTimeout(() => play(1), 900);
+</script>
+</body>
+</html>

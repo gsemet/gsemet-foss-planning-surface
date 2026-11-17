@@ -1,0 +1,176 @@
+{
+  "schema": 2,
+  "updated": "2026-11-13T11:49:05Z",
+  "cr": "CR-308",
+  "title": "Change Specification: a grid inside a quote maps its cards one line too early",
+  "batch": "batch-02",
+  "in_batch": false,
+  "state": "merged",
+  "severity": "green",
+  "step": "Merged",
+  "label": "✅ merged",
+  "waits": [],
+  "round": 2,
+  "max_rounds": 3,
+  "now": "Merged: https://github.com/gsemet/markdown-okf-schema-studio/pull/378.",
+  "next": "Nothing.",
+  "pr": {
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/pull/378",
+    "number": 378
+  },
+  "steps": [
+    {
+      "name": "Round 1",
+      "done": true,
+      "verdict": "",
+      "note": "Implement the specification: failing test first, directiveBody prefix stripping, BLOCK-258 scenario, requirements-update, log, CHANGELOG",
+      "at": "2026-11-12T21:20:35Z"
+    },
+    {
+      "name": "Round 2",
+      "done": true,
+      "verdict": "",
+      "note": "Add regression rows: quoted card with options, quoted card with ^^^/+++ markers, lazy continuation line in a quote, list-item grid where the fix covers it; add // @tests_req SwRS-MDOKFSTUDIO-BLOCK-258 on the new test block; drop 'CR 308' from the test comment",
+      "at": "2026-11-12T21:37:48Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Foreman O-1 order read: full autonomy; decisions recorded in 02-answers.md",
+      "at": "2026-11-12T21:57:36Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "pass",
+      "note": "8512191a",
+      "at": "2026-11-12T22:09:13Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/378",
+      "at": "2026-11-12T22:09:34Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/378",
+      "at": "2026-11-12T22:09:44Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/378",
+      "at": "2026-11-12T22:10:06Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/378",
+      "at": "2026-11-12T22:10:19Z"
+    },
+    {
+      "name": "Long gate",
+      "done": true,
+      "verdict": "fail",
+      "note": "8512191a",
+      "at": "2026-11-12T22:43:06Z"
+    },
+    {
+      "name": "Note",
+      "done": true,
+      "verdict": "",
+      "note": "Verifier VERIFIED; CI and heavy run green at 8512191; local preflight only red on locked-screen integration",
+      "at": "2026-11-12T22:44:41Z"
+    },
+    {
+      "name": "Handed back",
+      "done": true,
+      "verdict": "",
+      "note": "",
+      "at": "2026-11-12T22:44:41Z"
+    },
+    {
+      "name": "Shipped",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/378",
+      "at": "2026-11-13T02:34:49Z"
+    },
+    {
+      "name": "Merged",
+      "done": true,
+      "verdict": "",
+      "note": "https://github.com/gsemet/markdown-okf-schema-studio/pull/378",
+      "at": "2026-11-13T06:16:11Z"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "intent",
+      "path": "01-intent.md"
+    },
+    {
+      "kind": "answers",
+      "path": "02-answers.md"
+    },
+    {
+      "kind": "specification",
+      "path": "03-change-spec.md"
+    },
+    {
+      "kind": "conflicts",
+      "path": "work/conflicts.md"
+    },
+    {
+      "kind": "pr-body",
+      "path": "work/pr-body.md"
+    },
+    {
+      "kind": "long gate log",
+      "path": "work/gates/20261112-231143.log"
+    },
+    {
+      "kind": "project",
+      "path": "../../../constitution.md",
+      "name": ".agents/constitution.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../AGENTS.md",
+      "name": "AGENTS.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../CHANGELOG.md",
+      "name": "CHANGELOG.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/log.md",
+      "name": "requirements/tiers/log.md"
+    },
+    {
+      "kind": "project",
+      "path": "../../../../requirements/tiers/swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-258.md",
+      "name": "requirements/tiers/swrs/block-editing/SwRS-MDOKFSTUDIO-BLOCK-258.md"
+    }
+  ],
+  "branch": "chantier/batch-02/cr-308-change-specification-a-grid-inside-a-quo",
+  "worktree": "/Users/az02065/Projects/DevTools/markdown-okf-schema-studio.worktrees/batch-02-CR-308",
+  "agent": null,
+  "notes": [
+    "Foreman O-1 order read: full autonomy; decisions recorded in 02-answers.md",
+    "Verifier VERIFIED; CI and heavy run green at 8512191; local preflight only red on locked-screen integration"
+  ],
+  "blocked": null,
+  "cost_usd": 2.1163,
+  "final_cost": true,
+  "silent_minutes": null
+}

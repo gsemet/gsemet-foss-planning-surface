@@ -1,0 +1,38 @@
+admonitions-dark-titled
+=======================
+
+Fixture:  02-admonition-gallery.md
+Theme:    Dark Modern
+Preview:  current
+Viewport: 900x1000
+Scroll:   selector (h2) - final y=498; first `h2` positioned below toolbar/sticky overlays plus 24px
+Status:   failed
+
+Setup
+-----
+Static renderer output with fixture source mappings and mock VS Code message host.
+Edit mode requested: False; target: none.
+
+Actions before capture
+----------------------
+Open the named fixture at the specified viewport and select the current preview theme.
+Scroll to the requested selector (h2) position.
+
+Captured state
+--------------
+The preview is scrolled to 498 pixels. Edit mode is off.
+Visible content: Paragraph immediately after a danger block. Must match the baseline colour.; Vehicles are not fungible; A refrigerated vehicle can serve a dry leg, but never the reverse.
+The planner does not know this an; Written by the on-call rotation; This block carries an explicit title. Exactly one title line must appear;
+two title lines mean the d; Fully custom heading; A generic admonition with an author-supplied class.
+It should pick up the tip accent rather than the; Generic with no class; A generic admonition with no class at all.
+It falls back to the neutral accent.; Added in version 1.2.3:; A new capability is available.; Changed in version 2.0.0:; The behavior changed in this release.; Deprecated since version 3.1.0:; This capability is deprecated.
+
+Expected content and stakeholder visual checks
+---------------------------------------------
+Titled admonitions close up. Exactly one title line per block; two means the default heading is being printed above the author's title.
+Check the named landmark/editor is visible, text does not collide with the toolbar or sticky band, and foreground text remains readable. Reject clipped controls or unintended whole-page horizontal overflow; internal horizontal scrolling is intentional in wide-table and diagram cases.
+
+Limitations
+-----------
+Static generated HTML, not an installed extension: mock saves are recorded but do not rerender. Native browser popups are not captured.
+Assertion failure: sticky heading overlaps the reserved toolbar row
