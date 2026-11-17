@@ -12,7 +12,11 @@ the argument `reload`, before anything else, e.g. "after a compaction: load the 
 chantier:chief-of-staff with the argument reload now, before any other step". A hook cannot run a
 slash command or call a tool itself; the message is the strongest means it has.
 
-To settle in the grill: the exact wording; which skill when several roles were loaded (the last
+The wording, the user's (2026-11-17): plain and short, of the form "You are the <ROLE> in a
+chantier session; after this compaction, call the skill <skill> now." (the role and the skill filled
+from what the session loaded).
+
+To settle in the grill: which skill when several roles were loaded (the last
 one, or each); what the `reload` argument does in `chief-of-staff` and `griller` (today only the
 router names it); that a reload still makes no batch change and asks no role.
 
