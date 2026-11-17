@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Evals that start away from the desk",
+  "summary": "Specified: one eval root the user trusts once at the desk; every run's workspace goes inside it so the operator can start from the phone; chantier never edits trust. Ordered with evals-rework. Open: setup's enforcement, Foreman campaigns, phone session's checkout.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "81becc1a797775222a317ccad576d8e20f761af7e6c05f95e9960759627424e3",
+    "03-change-spec.md": "ea6df7b385003bb00e3926f9072044973b7a392734a968c84e029f9ae6d419d1",
+    "intake/request.md": "8b5c0c6c2d80894ea4db865e17b50582843b23c8dabe4bf7dc62aefc93939aed"
+  },
+  "summarized": "2026-11-17T08:29:37Z"
+}

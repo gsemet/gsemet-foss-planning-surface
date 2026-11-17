@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The web board's Costs page shows the batch's cost as a supermarket receipt",
+  "summary": "Grilled and specified: a modern ticket left of the Costs cards (on top on a phone), per-role lines, total, per-CR detail; close records the figures as data. Four questions open: default batch, thank-you line, recording, order after board-visual-refresh.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "aa6405bb1b34c8f07e2cc278a30b91d0c56ff64498298583667c544ee26017e4",
+    "03-change-spec.md": "83b0911d103c042ae8aed534f6d0431c20fe544e302c48325e5d65e4993e6353",
+    "intake/request.md": "8fc5ebe31da11d12223d1008b37375e145ca2f1d6221982845b198848627aaf4"
+  },
+  "summarized": "2026-11-17T08:33:40Z"
+}

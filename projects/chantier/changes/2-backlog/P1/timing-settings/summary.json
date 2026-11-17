@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Timing and retry settings in the configuration, per host and model family",
+  "summary": "Specified: steering and Driver wakes, prompt cache TTL and CI infrastructure re-runs in hosts.<host>.timing, printed as timing: lines, shown on a Timing tab; seven open questions for the user, the Driver wake first.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "a3603c9fccdb23ab25350c8c118e474c9246034f4b934a911b817d23316d519a",
+    "03-change-spec.md": "7f0e0121f4d8c0e362d778c2eacb4a5c3c073f610cfe859fc49f2f68db12cbe6",
+    "intake/request.md": "0234460339b1a5bea28257ea2ee8a9173b0742ee6998cc586c5623c9d5c9651c"
+  },
+  "summarized": "2026-11-17T08:33:50Z"
+}

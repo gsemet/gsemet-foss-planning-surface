@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "just check format-checks scripts",
+  "summary": "Specified: the lint recipe's format check covers scripts (ruff 0.17.5 format --check skills scripts), and mod.py, release_notes.py and version.py are formatted; ruff check over scripts stays out of scope.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "2d7614df2e1732f94a481fc8dbe9bb7a1140b32b8456a5336916c8e6e0c50df0",
+    "03-change-spec.md": "db1a46e37a1e198080c69aaadcc889a6c00cf29529d969e4c2f8b598820e7b17",
+    "intake/request.md": "7a41097b07adc29c4909b2fc52cbfa7d9b7a39afdc3cb9c3683b1182cec9a0d1"
+  },
+  "summarized": "2026-11-17T08:25:43Z"
+}

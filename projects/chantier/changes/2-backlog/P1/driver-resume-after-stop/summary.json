@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A stopped Driver resumes without the user's word",
+  "summary": "Specified, two open questions: a Driver the host stops is restarted by take --note resume on the batch's go, said in the report, and status flags a recorded Driver the host marked stopped.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "8ff16c00b2d5e4cbc8b2842ef5c9ce58a1e18ddfb0cebf60e0c5bb09be271ab6",
+    "03-change-spec.md": "378b04d5dbec3add46c8438cc1d01dd02aef380a3c4f0e595161d13936f83ea8",
+    "intake/request.md": "bba6a288c1e3bf2c0ee8010535494d1dacd9c1c9b626650d8d982e2dbf585d1e"
+  },
+  "summarized": "2026-11-17T08:32:38Z"
+}

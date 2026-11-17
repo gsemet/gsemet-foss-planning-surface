@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The release Driver's end steps as a checklist",
+  "summary": "Specified: the release Driver's card section ends with a checklist (release published, checks, work/retro.md, handback ready) it runs once the release is out, without being told; card-only change read by both hosts.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "c8f8ad47b3d05fe1869d780fda6352243195c428f608790e0cb0eb9e90e3e1fb",
+    "03-change-spec.md": "c2f12c913404eb46f703a0d0d2f01dac727cfb636cff3531283a1711a9f7f080",
+    "intake/request.md": "046e5d6c8e38fa381be901c921749c8287dfc2449bc745713ddee6460c9c0543"
+  },
+  "summarized": "2026-11-17T08:28:22Z"
+}

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "just test back within its budget",
+  "summary": "Specified: profile and speed up the slow tests (git calls per test, surface and cost-world fixtures, STATUS rewrites, held-port wait) until just test is within 48.5 s on the user's Windows machine, keeping coverage; budget line unchanged; two open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "ee1ea828ed8e3d08ff783b55f10aaaeab7ad7a91083239163f8acce62848e259",
+    "03-change-spec.md": "3ab653162cb5db15c10113bbc7d57ed253d60f547f007e117598cc7387c31584",
+    "intake/request.md": "f74bb25391bca63bc5b007f9d6f3a6e16fa1cbd73879a1a12eec79996dbfeaa4"
+  },
+  "summarized": "2026-11-17T08:31:07Z"
+}

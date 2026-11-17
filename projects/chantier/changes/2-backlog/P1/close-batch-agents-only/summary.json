@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "close judges only the batch's own agents",
+  "summary": "Specified: close refuses only on agents the batch holds (agents set, not cleared); the session's other subagents are listed apart, never a block. Three open questions: the Foreman's transcript, a held agent's children, a held agent with no transcript.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "a1fcceb4b4a6712beca52a358f7dd27dfb2eaa01660239acc82f1be09da845c4",
+    "03-change-spec.md": "dd7f1645c6489be4ee5806300e68e90388e6b4c2c6832a8e8db2e2b25cc1ba11",
+    "intake/request.md": "4f09b57972f40b6e1b2b89bbb3516fc389b13cc956d0380711f63b7a22b64795"
+  },
+  "summarized": "2026-11-17T08:30:45Z"
+}

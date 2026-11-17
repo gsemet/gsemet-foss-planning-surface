@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The batch pauses when its last CR merges, and the close is offered",
+  "summary": "Specified: the last order merged cleans the merged CRs' worktrees and branches and pauses the batch; the steering session writes the retro and offers the close at once. Five open questions for the user, AGENTS.md amendment among them.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "a6ffb07e1b20eaeb9006f7907a6141c4695cf98d835da4a4998e76a5bda8682d",
+    "03-change-spec.md": "843111265be0e270749d9c205d3cfcc3b82e15bd16a4f6149fc4620611ab2025",
+    "intake/request.md": "a09b09e8c7de7f82bb532ac912632eece1d24233bd466ca7fd0896594c45ff43"
+  },
+  "summarized": "2026-11-17T08:32:09Z"
+}
