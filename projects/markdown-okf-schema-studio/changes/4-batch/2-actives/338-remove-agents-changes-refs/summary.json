@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Remove the Studio repo's references to .agents/changes/",
+  "summary": "Remove the Studio repo's remaining .agents/changes references, pointing them to the planning surface; owner said remove the just orchestrator recipe and scripts/generate_orchestrator.py (2026-11-17).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "9d4033dc73a5d7cd801cf519b5bcf5f5d8dcbcd78ff88edb283ebf7e61f1bb78",
+    "intake/request.md": "2b58bb9ac04b6bcf7e3e5dd84f9a221f339bb57c450203945cb92bc1638df7b8"
+  },
+  "summarized": "2026-11-17T10:21:07Z"
+}
