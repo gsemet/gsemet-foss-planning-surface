@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Requirements gardening: audit and decisions",
+  "summary": "Read-only audit of the Studio requirements (7 reports, synthesis) and the owner's decisions: published requirements are kept; the work is split into nine CRs (marker gate, use-case diagrams, Main paths depends_on, six req-garden CRs). Record only.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "ffedf224fa2df3a0df24d607a2dd4edfc2dfbe1fb041bbaeafe27f5ae3b6ece3",
+    "intake/request.md": "dfc8e76d3415f18a1a51d10da858d07ee74b2fab2efbc3fa50a05b5fab12a07b"
+  },
+  "summarized": "2026-11-17T18:26:43Z"
+}
