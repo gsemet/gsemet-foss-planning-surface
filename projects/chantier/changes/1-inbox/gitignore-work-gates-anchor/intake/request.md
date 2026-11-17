@@ -1,0 +1,1 @@
+The planning folder's .gitignore entry work/gates/ never matches: git anchors a pattern with a slash in the middle to the .gitignore's folder, so <CR>/work/gates/ is not ignored. CR-328 (PR 287) found it and used **/work/scratch/ for the new entry; the scenario asserts the literal work/gates/ text. Fix the entry to **/work/gates/ and the scenario's check with it.
