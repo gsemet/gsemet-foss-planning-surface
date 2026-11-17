@@ -35,3 +35,9 @@ Short name: `xstate6-inline-block`
    side panel "State details" (name, state type, initial state toggle, timeout, parent state,
    layout) to edit the selected state, writing back the block's JSON. xstate-viz (MIT) and elkjs
    remain the starting point for code and layout.
+8. xstate6-inline-block-Q8: **Why the block, and is xstate-viz worth reusing?** Owner: « xstate-viz
+   n'est plus maintenu je vois pas ce que ça apporterait à Studio. le but c'est de fournir une
+   syntaxe de communication entre l'agent et l'humain efficace, en gros, faire ce que l'on ne peut
+   pas en mermaid ou plantuml ». xstate-viz is dropped as a base. The block's purpose is an
+   efficient agent-to-human channel for behaviour that Mermaid and PlantUML cannot carry; the
+   Stately look is no longer the goal in itself.
