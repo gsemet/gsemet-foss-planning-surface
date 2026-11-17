@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Remove the Studio repo's references to .agents/changes/",
+  "summary": "Point the guidelines, the QA skill and docs at the planning surface's folder; decide whether the orchestrator generator (just orchestrator) still has a use. Mission order from the OKF Studio Chief of Staff, 2026-11-17; not triaged.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "2b58bb9ac04b6bcf7e3e5dd84f9a221f339bb57c450203945cb92bc1638df7b8"
+  },
+  "summarized": "2026-11-17T10:14:30Z"
+}

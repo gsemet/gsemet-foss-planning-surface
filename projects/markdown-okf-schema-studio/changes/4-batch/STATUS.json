@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "updated": "2026-11-17T10:12:43Z",
+  "updated": "2026-11-17T10:14:31Z",
   "batch": "batch-05",
   "folder": "4-batch",
   "state": "running",
@@ -14,7 +14,7 @@
   "asks_unread": 2,
   "orders_pending": 0,
   "heartbeat": "2026-11-17T10:00:39Z",
-  "heartbeat_stopped": null,
+  "heartbeat_stopped": "2026-11-17T10:14:31Z",
   "paused": null,
   "summary": [],
   "crs": [
