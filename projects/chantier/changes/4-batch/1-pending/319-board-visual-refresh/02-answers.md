@@ -42,3 +42,8 @@ Spec critic: yes, it changes what the user sees on every view of the board.
 - visual-refresh-Q9 (board-batch-view, the user's inbox item): this CR follows it on three points: no Merged PR section, no grouping by state (each CR keeps one position; its state shows by its colour plus a badge in the top right corner), no ": after level 0". The rest of board-batch-view (history navigation, arrowheads, mode tooltip) stays in that item.
 - visual-refresh-Q10 (split): no, one CR; the approved mock-up covers the restyle and the Batch view's content.
 - visual-refresh-Q11 (sticky header): this CR takes it: the breadcrumb bar stays sticky with its hairline and a light shadow when the page scrolls; the point is removed from board-triage-polish.
+
+## 2026-11-17, during batch-23
+
+- The user, with a screenshot of the board's picker: a long project name (gentic-planning-surface) runs into the chevron, and the chevron sits low. Fix it in this CR: the name ends in an ellipsis with a gap before the chevron, the chevron centred. Folded into 03-change-spec.md (Picker, and Evidence).
+

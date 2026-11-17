@@ -122,7 +122,11 @@ those of the `final-*` mock-ups; a Driver may round a value but not change the l
 - Picker (`ui/picker.js`, `trigger`): no border at rest, a light hover; the project's sub-line is
   the batch and its state only (`batch-12 running`, or the no-batch words), never the inbox count
   that made it too long to fit (critique 4). The open menu's rows keep `lineOf` as today. The
-  project's mark stays a small coloured square (radius 8px).
+  project's mark stays a small coloured square (radius 8px). A long project name
+  (`agentic-planning-surface` at the sidebar's width) never runs into the chevron: the name
+  shrinks and ends in an ellipsis, with a fixed gap before the chevron, which stays centred on
+  the button's height (the user's screenshot, 2026-11-17: the name touched the chevron, and the
+  chevron sat below the name's line).
 - Header (`index.html` `.head`, `ui/header.js`, `main.js` `drawFrame`): a breadcrumb bar on top
   of the main area, under a hairline: grey parents, the current page in ink, "/" separators in a
   lighter grey, and **+ New** at its right as today. Its crumbs: the project, then the view; on
@@ -323,6 +327,9 @@ as today unless this list says otherwise.
   and at 390px, scrolling keeps the breadcrumb bar (or its phone row) at the top with its
   hairline, the shadow shows once scrolled and goes back at the top; the picker's menu and the
   **+ New** dialog open above it.
+- The picker with a long project name: over a project named `agentic-planning-surface`, at
+  desktop and at 390px, the name ends in an ellipsis before the chevron with a visible gap, and
+  the chevron is centred on the button's height; one screenshot of each.
 - `just docs-screenshots` run; the new `docs/web-board/*.png` committed. The PR's Deliverables
   carry, side by side, the Batch, Costs (desktop and phone) and Configuration screenshots with
   `prototypes/01-mockups/final-batch.html`, `final-costs.html`, `final-costs-phone.html` and
