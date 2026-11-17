@@ -121,7 +121,11 @@ those of the `final-*` mock-ups; a Driver may round a value but not change the l
   the data's age and the language button, without its top border.
 - Picker (`ui/picker.js`, `trigger`): no border at rest, a light hover; the project's sub-line is
   the batch and its state only (`batch-12 running`, or the no-batch words), never the inbox count
-  that made it too long to fit (critique 4). The open menu's rows keep `lineOf` as today. The
+  that made it too long to fit (critique 4). The open menu is lighter (the user's word,
+  2026-11-17): each row shows the project's mark, its name and, only while a batch runs, the
+  batch and its completion in percent (`batch-23 · 40 %`, the CRs done over the batch's CRs, as
+  Home's batch meter counts them); no inbox count, no folder, no repo line (`pathsOf` leaves the
+  menu; those go to the project's Home). The surface's own row shows its name only. The
   project's mark stays a small coloured square (radius 8px). A long project name
   (`agentic-planning-surface` at the sidebar's width) never runs into the chevron: the name
   shrinks and ends in an ellipsis, with a fixed gap before the chevron, which stays centred on
@@ -242,7 +246,12 @@ as today unless this list says otherwise.
   `css/views/overview.css`): the tiles as figure cards; the blocks as white sections with a
   hairline and radius 16px, their headings 13.5px medium; the batch meter in the accent's shades;
   the pipeline legend's dots in grey and the accent shades; the surface table with hairline rows,
-  the project marks as today.
+  the project marks as today. The project's Home gets a "Project" section (the user's word,
+  2026-11-17): its folder in the planning surface, its repository's path, and its upstream URL
+  (the repository's `origin` remote, as a link to the forge's page when it is an HTTPS or a
+  `git@host:owner/repo` remote; the raw text otherwise; "none" with no remote). These lines leave
+  the picker's menu (Picker, above). The surface's Home shows the surface's own path and upstream
+  URL the same way.
 - **PRs** (`views/prs*.js`, `css/views/prs.css`): hairline rows, the forge state and the checks
   as state icons with their word; the warning lines in red text, no red fill.
 - **Costs** (`views/costs*.js`, `css/views/costs.css`): a restyle only, the page's content
@@ -330,6 +339,10 @@ as today unless this list says otherwise.
 - The picker with a long project name: over a project named `agentic-planning-surface`, at
   desktop and at 390px, the name ends in an ellipsis before the chevron with a visible gap, and
   the chevron is centred on the button's height; one screenshot of each.
+- The picker's open menu over the demo: each row is the mark, the name and, for a project with
+  a running batch only, `batch-<n> · <p> %`; no inbox count, folder or repo line. The project's
+  Home shows its folder, repository path and upstream URL (a link for a GitHub remote); one
+  screenshot of each.
 - `just docs-screenshots` run; the new `docs/web-board/*.png` committed. The PR's Deliverables
   carry, side by side, the Batch, Costs (desktop and phone) and Configuration screenshots with
   `prototypes/01-mockups/final-batch.html`, `final-costs.html`, `final-costs-phone.html` and

@@ -46,4 +46,8 @@ Spec critic: yes, it changes what the user sees on every view of the board.
 ## 2026-11-17, during batch-23
 
 - The user, with a screenshot of the board's picker: a long project name (`agentic-planning-surface`) runs into the chevron, and the chevron sits low. Fix it in this CR: the name ends in an ellipsis with a gap before the chevron, the chevron centred. Folded into 03-change-spec.md (Picker, and Evidence).
+- The user, with a screenshot of the open picker menu: the menu is too rich. Keep only each
+  project's name and, while a batch runs, the batch and its completion in percent. The paths
+  (folder, repository) and the upstream URL go to each project's Home page. Folded into
+  03-change-spec.md (Picker, Home, and Evidence).
 
