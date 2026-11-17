@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Type-check against the minimum VS Code API (1.95)",
+  "summary": "Nothing protects the engines.vscode ^1.95.0 minimum: add a check that type-checks src/ against @types/vscode 1.95. Triaged automatable on 2026-11-17, ready for a direct batch.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "63a2d87ae2d7b594d11c2b3d9208bd3faac8d6597cda18d59ceaf19cebf0e645",
+    "intake/request.md": "587ea17da0ffba6803031898b011a212e79559ce12fbb8e94ef22c0ba076f480"
+  },
+  "summarized": "2026-11-17T09:57:27Z"
+}
