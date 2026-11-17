@@ -25,3 +25,13 @@ Short name: `xstate6-inline-block`
    Stately's own diagrams (stately.ai, the Stately Editor VS Code extension), and the diagram can
    be edited, writing back the block's JSON. A follow-up study checks which MIT pieces give that
    look and editing.
+7. xstate6-inline-block-Q7: **Is xstate-viz's older look acceptable as "the same rendering"?**
+   Owner, with a screenshot of today's Stately editor (`intake/target-look.png`): « je veux ».
+   Target: that look and interaction, reimplemented in Studio (no Stately code, assets or
+   branding): a light grid canvas; rounded state boxes, the initial state marked by a dot and an
+   arrow, final states by a ringed dot; event labels as pills on orthogonal edges routed by ELK;
+   guarded transitions as a card (diamond, name, `IF` condition, context assignments); dashed
+   edges for re-entry; timeout labels with a clock icon; zoom level and fit-to-view control; a
+   side panel "State details" (name, state type, initial state toggle, timeout, parent state,
+   layout) to edit the selected state, writing back the block's JSON. xstate-viz (MIT) and elkjs
+   remain the starting point for code and layout.
