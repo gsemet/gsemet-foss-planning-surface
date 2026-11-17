@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Gate requirement markers: a source marker on every SwRS, at most 3 IDs per marker block, named companion lines",
+  "summary": "Specified, no open question: check-markers fails an in-force SwRS with no @implements_req (DIAG-128 fixed), a marker block over 3 IDs, unnamed companion lines; ratchet baseline for both; lands before req-use-case-diagrams.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "56abe0f3ea26a9ac65a08642366875360c76937697f3ed497d662a757d590664",
+    "03-change-spec.md": "e22ddfac65ebbd9b66e118b9acb11b368257f69fd23e4103b87be5ba2965d390",
+    "intake/request.md": "08e238c077c902a5e683f6fc87b87254be33f72a5b21fa036603c709882cd484"
+  },
+  "summarized": "2026-11-17T18:25:45Z"
+}

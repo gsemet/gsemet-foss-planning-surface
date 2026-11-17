@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Garden the requirements of palette-slash, theme-zoom and layout-width",
+  "summary": "Specified from its audit report. Owner answers garden-Q1..Q5: approved StRS corrections agreed, reviewed on the PR; shared rules via depends_on; drafts to proposed; other points follow the spec. Waits for the marker gate, diagrams and Main-paths CRs.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "f6a589c1cc1ad15f60fc984453a9bdaddbf94d937485a17ff6f79d233ea72739",
+    "03-change-spec.md": "86f2209a84fdb123b3cce6fc44c8577caa6435eb4dc468519bd21baeeb2b5823",
+    "intake/request.md": "f32c526b858163f88257ad1d79ff5034fcfa5d08450bd6ad8ac95dbd65d595cd"
+  },
+  "summarized": "2026-11-17T18:26:28Z"
+}

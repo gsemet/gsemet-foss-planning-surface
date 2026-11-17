@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Garden the requirements of myst, code-blocks, gfm",
+  "summary": "Specified from its audit report. Owner answers garden-Q1..Q5: approved StRS corrections agreed, reviewed on the PR; shared rules via depends_on; drafts to proposed; other points follow the spec. Waits for the marker gate, diagrams and Main-paths CRs.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "f6a589c1cc1ad15f60fc984453a9bdaddbf94d937485a17ff6f79d233ea72739",
+    "03-change-spec.md": "3a2dd5edf769772b24b61ef180f95e3e93bd9102635b994327ceb8a06f230b5f",
+    "intake/request.md": "cbae2d4f42d5b0e9159f8c7af7fe998e6ba01182bce6b1abfa3745ca3631bb2e"
+  },
+  "summarized": "2026-11-17T18:26:30Z"
+}
