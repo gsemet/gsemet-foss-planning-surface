@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "title": "The CLI wakes the Chief of Staff on board and forge events",
-  "summary": "A chantier watch, run with Monitor for the whole session, prints one line per board event and per merge seen on the forge, grouped over about 30 s; the Chief of Staff records merges alone and reports the rest. Where nothing can wake the session, events are read at the next turn.",
+  "summary": "A per-project board-events.jsonl replaces board-seen.jsonl; chantier watch, run by the Chief of Staff with Monitor, wakes it on board writes and forge merges and records merges alone; status names a missing watch; Copilot keeps the pull path until a trial.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "a43cae6d3d21303de22b937e82f7183178272f2611a1632568483269419394e8",
-    "02-answers.md": "55531351ca9f400fa36fd27b3bb520c1a7aa093cd93cb6364c3f90e0ddf563dc",
+    "02-answers.md": "20a9820352f5cf2368e9eceb5993dad5f702c5c3a5ddc5ee94df2d173dd238c3",
+    "03-change-spec.md": "c21950375da0b432c7303fc4e9e5446cc5685855805684c06726865f3c0f8167",
     "intake/request.md": "ca04946805739d42473ea3cf775bea190b85d19a2f906f56c2c458651d6281c2"
   },
-  "summarized": "2026-11-17T10:45:50Z"
+  "summarized": "2026-11-17T11:10:21Z"
 }

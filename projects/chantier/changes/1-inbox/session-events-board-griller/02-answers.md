@@ -67,3 +67,32 @@ the wake-up, the forge, the fallback). The Griller started from the board is its
 After the restatement, the user: grilled enough. The specification is written after batch-23.
 Left for the spec-writer to check: whether a `Monitor` expires and must be started again, and
 which tool wakes a Copilot session.
+
+## Several projects on one surface (2026-11-17)
+
+The user: take into account that one planning-surface checkout can hold n projects
+(`projects/<name>/`), each with its own Chief of Staff session, and one board serving them all
+(its picker). Each event names its project; a Chief of Staff's watch wakes it only for its own
+project's events and reads the forge only for its own project's repository; two Chiefs of Staff
+on the same surface never record each other's merges. The user asked for the specification to be
+written now and checked by the spec critic.
+
+## Spec questions (2026-11-17, after the spec critic)
+
+- events-Q9 (a board of another chantier version): the user chose the recommended answer. The
+  watch and `status` read the board's version in `board.json` (CR-323's record) and say once:
+  "the board is chantier <v>: its writes do not reach me; restart it". The forge stays read by
+  the watch, so merges are still seen.
+- events-Q10 (the `Monitor` permission): the user chose the recommended answer. A `Monitor` rule
+  for `chantier watch` joins P10's "Every batch" row (added on the user's yes, as P10's rules
+  are), marked unproved until a trial. If the host still refuses it (auto mode's classifier),
+  the session runs the pull path and says so once.
+- events-Q11 (a watch that stopped): the user chose the recommended answer. `status` prints
+  `no watch runs for project <name>` whenever no watch of that project is alive (its PID in
+  `watch.json`), and the Chief of Staff starts it again. This also covers a `Monitor` that
+  expires (the spec-writer's open question 1).
+- events-Q12 (Copilot): the user chose the recommended answer. The CR names a trial to find the
+  Copilot tool that wakes a session; until it is proved, Copilot runs the pull path
+  (`watch --once` at each user message), said once at the session's start.
+- Label, group, ungroup and next-batch (the spec-writer's open question 3): settled by events-Q2,
+  which lists what wakes; these ride along with the next wake-up.
