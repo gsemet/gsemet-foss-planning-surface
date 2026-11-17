@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Assess the XState v6 beta on chantier",
+  "summary": "Assessment, not a change: XState v6 beta tried on the board's PRs feed in a draft PR, graded on API nuance, type safety, testability, complexity, docs and deployment; recommendation: do not adopt now.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "14c72e7f5f74164c700b95fc7cc53f6d4da642180bc3332b0c2be4f3b113be69",
+    "intake/request.md": "7830adef57e912b8aad809aa4c728c450cc57f7c46bd5b71997866879faa17d9"
+  },
+  "summarized": "2026-11-17T12:47:40Z"
+}
