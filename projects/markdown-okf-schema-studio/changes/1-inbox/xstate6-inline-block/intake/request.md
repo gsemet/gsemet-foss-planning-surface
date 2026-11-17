@@ -1,0 +1,7 @@
+Study support for XState v6 state machines as an inline block in Studio: a fenced block (for example ```xstate) rendered as a state-machine diagram in the preview, next to the existing Mermaid and Vega blocks.
+
+Owner, 2026-11-17: « est ce que l'on pourrait étudier le support de xstate6 en inline block ? », with https://stately.ai/blog/2026-11-05-xstate-v6-beta
+
+What the post says (read 2026-11-17): v6 is in beta (`xstate@beta`, MIT, zero dependencies). Machines are still written in code (`setup(...).createMachine(...)`, transitions may be functions), but `machineToJSON` / `machineFromJSON` turn a machine into JSON and back, and the `xstate` CLI (inspect, validate, simulate, test, diff) works on that JSON without running application code. Diagrams come from Stately's visual editor, Editor Sync (Stately Editor VS Code extension) and an announced "Stately Sketch"; the post names no library that renders a diagram from JSON in a page.
+
+To study: the block's content (machine JSON, which never runs code, vs JS/TS source, which would mean executing code in the webview); the renderer (an existing open-source statechart renderer, a conversion to Mermaid stateDiagram-v2 reusing Studio's Mermaid path, or Stately's own); the v6 beta's stability and the JSON format's stability; bundle size and the webview's CSP; errors shown like the Mermaid block's; the writing skill and an SwRS per the project's rules if it ships.
