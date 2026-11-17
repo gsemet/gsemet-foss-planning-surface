@@ -196,6 +196,12 @@ as today unless this list says otherwise.
     current one a grey pill.
   - The graph sits on a light dotted grid (a 1px dot every 16px on `#fcfcfd`, a hairline border,
     radius 16px). The arrows a light grey as today.
+  - Each arrow ends on its card (the user's screenshot, 2026-11-17: on CR-321's card the head
+    floated left of the card, pointing right, apart from its line, which came up from below):
+    the head sits at the end of its line, on the card's edge, and points along the line's last
+    segment, whatever the line's route (straight, bent, coming from above or below). This CR
+    takes this one point of `board-batch-view`'s arrowheads; the heads when a CR waits for
+    several others stay there.
   - Levels, no state groups (Q9): each level is one column with its head in grey and its CRs
     under it, with no state group head. `batch-graph.js`'s `group` and the `groupByState` call
     go; `groupByState` goes from `model/semantics.js` when nothing else uses it (today only
@@ -329,7 +335,9 @@ as today unless this list says otherwise.
 - The Batch view over the demo: no state group heads; level heads "No dependency", "Level 1",
   "Level 2" (French "Niveau 1"...); each node carries its state badge at its top right in the
   state's colour, the node white; a merged CR sits in its level with its "merged ... ago" band;
-  the PR column ends with the drafts, with no Merged section. Then, on a copy of the demo with
+  the PR column ends with the drafts, with no Merged section. Every arrow's head touches its
+  card at the end of its line and points along it, for a wait between two levels and for one
+  whose line bends (a screenshot showing CR-321's wait on CR-319, as in batch-23). Then, on a copy of the demo with
   one CR's state changed in the record (e.g. working to ready, and draft to merged), the board
   redraws those CRs at the same place in their level, only their badge changed.
 - The sticky bar: on a view longer than the window (Triage, Batch, Costs over the demo) at desktop

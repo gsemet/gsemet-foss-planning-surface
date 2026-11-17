@@ -50,4 +50,7 @@ Spec critic: yes, it changes what the user sees on every view of the board.
   project's name and, while a batch runs, the batch and its completion in percent. The paths
   (folder, repository) and the upstream URL go to each project's Home page. Folded into
   03-change-spec.md (Picker, Home, and Evidence).
+- The user, with a screenshot of the Batch page: the arrowhead into CR-321's card is wrong (it
+  floats left of the card, apart from its line). Fix it in the running batch: folded into this
+  CR (Batch, and Evidence); the heads for several waits stay in `board-batch-view`.
 
