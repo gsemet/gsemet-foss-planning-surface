@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cost receipt, classic till</title>
+<style>
+  :root {
+    --bg: #eef0f3; --ink: #16181d; --ink2: #454a58; --ink3: #666b78; --line: #e6e7ea;
+    --paper: #fdfcf8; --paper-ink: #24262b; --blue: #3b6fe0;
+    --mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); }
+  .caption { max-width: 760px; margin: 24px auto 0; padding: 14px 18px; border: 1px solid var(--line);
+    border-radius: 10px; background: #fff; font-size: 13px; line-height: 1.5; color: var(--ink2); }
+  .caption b { color: var(--ink); }
+  .caption ul { margin: 6px 0 0; padding-left: 18px; }
+  .stage { padding: 36px 16px 64px; display: flex; justify-content: center; }
+
+  /* the paper: a narrow column with a zig-zag torn edge top and bottom */
+  .receipt { --tooth: 10px; position: relative; width: 380px; max-width: 100%;
+    background: var(--paper); color: var(--paper-ink); font: 13px/1.45 var(--mono);
+    padding: 26px 24px 30px; filter: drop-shadow(0 6px 14px rgba(22,24,29,.12)); }
+  .receipt::before, .receipt::after { content: ""; position: absolute; left: 0; right: 0; height: var(--tooth);
+    background-size: calc(var(--tooth) * 2) var(--tooth); background-repeat: repeat-x; }
+  .receipt::before { top: calc(var(--tooth) * -1);
+    background-image: linear-gradient(135deg, transparent 50%, var(--paper) 50%),
+                      linear-gradient(225deg, transparent 50%, var(--paper) 50%);
+    background-position: left bottom; }
+  .receipt::after { bottom: calc(var(--tooth) * -1);
+    background-image: linear-gradient(45deg, transparent 50%, var(--paper) 50%),
+                      linear-gradient(315deg, transparent 50%, var(--paper) 50%);
+    background-position: left top; }
+
+  .center { text-align: center; }
+  .store { font-size: 20px; font-weight: 700; letter-spacing: .32em; margin: 4px 0 2px; }
+  .muted { color: #6b6e76; }
+  .rule { border: 0; border-top: 1px dashed #9a9ca3; margin: 12px 0; }
+  .rule.double { border-top: 3px double #5a5c63; }
+  .group { margin: 10px 0 4px; font-weight: 700; letter-spacing: .08em; }
+  .row { display: flex; align-items: baseline; gap: 6px; }
+  .row .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 62%; }
+  .row .dots { flex: 1; border-bottom: 2px dotted #b4b6bc; transform: translateY(-4px); min-width: 12px; }
+  .row .price { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .qty { color: #6b6e76; padding-left: 2ch; font-size: 12px; }
+  .sub { font-weight: 700; }
+  .sub .name { padding-left: 0; }
+  .indent .name { padding-left: 2ch; color: #55585f; }
+  .total { font-size: 18px; font-weight: 800; margin: 6px 0; }
+  .total .dots { border-bottom-width: 3px; }
+  .barcode { height: 54px; margin: 14px auto 4px; width: 250px;
+    background: linear-gradient(90deg,
+      #222 0 2px, transparent 2px 4px, #222 4px 5px, transparent 5px 8px, #222 8px 11px, transparent 11px 12px,
+      #222 12px 13px, transparent 13px 16px, #222 16px 18px, transparent 18px 19px, #222 19px 22px, transparent 22px 25px,
+      #222 25px 26px, transparent 26px 27px, #222 27px 29px, transparent 29px 32px, #222 32px 33px, transparent 33px 34px,
+      #222 34px 37px, transparent 37px 39px, #222 39px 40px, transparent 40px 43px, #222 43px 45px, transparent 45px 46px,
+      #222 46px 47px, transparent 47px 50px);
+    background-size: 50px 100%; }
+  .stamp { display: inline-block; margin-top: 8px; padding: 2px 10px; border: 2px solid #2f8a5a; color: #2f8a5a;
+    border-radius: 4px; transform: rotate(-4deg); font-weight: 700; letter-spacing: .15em; }
+
+  @media (max-width: 480px) {
+    .stage { padding: 28px 10px 48px; }
+    .receipt { padding: 22px 14px 26px; font-size: 12px; }
+    .row .name { max-width: 58%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="caption">
+  <b>Direction 1: classic till receipt.</b> A faithful thermal-paper receipt for the closed batch-22, centred on the board's background.
+  <ul>
+    <li>Instantly reads as a receipt: one column, dotted leaders, subtotals, a bold TOTAL; the joke is obvious and friendly.</li>
+    <li>Monospace and a 380px column hold short labels only: CR titles must be cut, and long figures (calls, tokens) become secondary lines.</li>
+    <li>Leaves out the board's chrome and the interactive tables; it suits a print/share view better than the daily page.</li>
+  </ul>
+</div>
+
+<div class="stage">
+  <article class="receipt" aria-label="Cost receipt for batch-22">
+    <div class="center">
+      <div class="store">CHANTIER</div>
+      <div class="muted">change-request team &middot; project chantier</div>
+      <div class="muted">surface: planning / projects/chantier</div>
+    </div>
+    <hr class="rule">
+    <div class="row"><span class="name">BATCH</span><span class="dots"></span><span class="price">batch-22</span></div>
+    <div class="row"><span class="name">MODE</span><span class="dots"></span><span class="price">stack, direct</span></div>
+    <div class="row"><span class="name">OPENED</span><span class="dots"></span><span class="price">2026-11-16 19:45</span></div>
+    <div class="row"><span class="name">CLOSED</span><span class="dots"></span><span class="price">2026-11-17 06:42</span></div>
+    <div class="row"><span class="name">CASHIER</span><span class="dots"></span><span class="price">Chief of Staff</span></div>
+    <hr class="rule">
+
+    <div class="group">STEERING</div>
+    <div class="row"><span class="name">Chief of Staff</span><span class="dots"></span><span class="price">15.99</span></div>
+    <div class="qty">61 wakes &middot; ctx avg 180,750 tok</div>
+    <div class="row sub"><span class="name">SUBTOTAL</span><span class="dots"></span><span class="price">$15.99</span></div>
+
+    <div class="group">DRIVERS + WORKERS</div>
+    <div class="row"><span class="name">cr-driver</span><span class="dots"></span><span class="price">41.99</span></div>
+    <div class="qty">1843 calls @ 0.023</div>
+    <div class="row"><span class="name">stack-driver</span><span class="dots"></span><span class="price">2.36</span></div>
+    <div class="qty">134 calls @ 0.018</div>
+    <div class="row"><span class="name">release-driver</span><span class="dots"></span><span class="price">1.44</span></div>
+    <div class="qty">55 calls @ 0.026</div>
+    <div class="row indent"><span class="name">of which Drivers</span><span class="dots"></span><span class="price">15.33</span></div>
+    <div class="row indent"><span class="name">of which workers</span><span class="dots"></span><span class="price">30.46</span></div>
+    <div class="row sub"><span class="name">SUBTOTAL</span><span class="dots"></span><span class="price">$45.79</span></div>
+
+    <hr class="rule double">
+    <div class="row total"><span class="name">TOTAL</span><span class="dots"></span><span class="price">$61.78</span></div>
+    <div class="center muted">steering 26% &middot; Drivers 25% &middot; workers 49%</div>
+    <hr class="rule double">
+
+    <div class="row"><span class="name">BUDGET</span><span class="dots"></span><span class="price">none</span></div>
+    <div class="row"><span class="name">CHANGE</span><span class="dots"></span><span class="price">&mdash;</span></div>
+    <div class="row muted"><span class="name">not charged: grill + specs</span><span class="dots"></span><span class="price">5.10</span></div>
+    <div class="qty">93 calls &middot; 2 spec-writers &middot; 1 critic</div>
+
+    <hr class="rule">
+    <div class="group">ITEMS BY CR &nbsp;<span class="muted" style="font-weight:400">rounds</span></div>
+    <div class="row"><span class="name">CR-301 config page</span><span class="dots"></span><span class="price">4 &nbsp; 7.81</span></div>
+    <div class="row"><span class="name">CR-302 PR monitor</span><span class="dots"></span><span class="price">2 &nbsp; 6.91</span></div>
+    <div class="row"><span class="name">CR-299 config layers</span><span class="dots"></span><span class="price">2 &nbsp; 6.70</span></div>
+    <div class="row"><span class="name">CR-300 model per host</span><span class="dots"></span><span class="price">2 &nbsp; 5.34</span></div>
+    <div class="row"><span class="name">CR-304 large screen</span><span class="dots"></span><span class="price">3 &nbsp; 4.79</span></div>
+    <div class="row"><span class="name">CR-305 surface selector</span><span class="dots"></span><span class="price">3 &nbsp; 3.99</span></div>
+    <div class="row"><span class="name">CR-298 model catalog</span><span class="dots"></span><span class="price">1 &nbsp; 2.38</span></div>
+    <div class="row"><span class="name">CR-303 merge signal</span><span class="dots"></span><span class="price">1 &nbsp; 2.37</span></div>
+    <div class="row"><span class="name">CR-297 Copilot defaults</span><span class="dots"></span><span class="price">2 &nbsp; 1.59</span></div>
+    <div class="row"><span class="name">CR-307 release 0.11.0</span><span class="dots"></span><span class="price">0 &nbsp; 1.44</span></div>
+    <div class="row"><span class="name">CR-306 config LF</span><span class="dots"></span><span class="price">1 &nbsp; 1.07</span></div>
+    <div class="row sub"><span class="name">SUM OF CRS (11)</span><span class="dots"></span><span class="price">$44.39</span></div>
+    <div class="qty">the rest, $17.39: steering</div>
+
+    <hr class="rule">
+    <div class="center muted">11 CRs merged &middot; 21 rounds &middot; 0 blocked</div>
+    <div class="center"><span class="stamp">PAID</span></div>
+    <div class="barcode" aria-hidden="true"></div>
+    <div class="center muted">0022 6178 1117 0642</div>
+    <div class="center" style="margin-top:8px">THANK YOU, COME AGAIN</div>
+  </article>
+</div>
+
+</body>
+</html>

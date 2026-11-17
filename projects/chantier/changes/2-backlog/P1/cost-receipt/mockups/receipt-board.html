@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cost receipt, inside the board</title>
+<style>
+  /* the board's own tokens (tokens.css), plus two for the paper */
+  :root {
+    --bg: #eef0f3; --panel: #fff; --side: #f7f7f8; --line: #e6e7ea; --line2: #eeeff1;
+    --ink: #16181d; --ink2: #454a58; --ink3: #666b78; --blue: #3b6fe0; --green: #2fa86b;
+    --violet: #8b5cf6; --chip: #f3f4f6; --hover: #eceef1; --link: #2a62c9;
+    --tag-ready-fill: #e3f6ec; --tag-ready-ink: #1f7a4b; --tag-queued-fill: #f0f0f2; --tag-queued-ink: #6a6f7c;
+    --mark-0: #c8401f; --mark-3: #7a4aa8;
+    --paper: #fffdf7; --paper-ink: #24262b;
+    --mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.45 var(--sans); color: var(--ink); background: var(--panel); }
+  .caption { margin: 0; padding: 10px 18px; background: #fffbea; border-bottom: 1px solid #f1dcb8; font-size: 13px; color: var(--ink2); }
+  .caption b { color: var(--ink); }
+
+  .app { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100vh - 42px); }
+  /* sidebar, as on the board */
+  .side { background: var(--side); border-right: 1px solid var(--line); padding: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .picker { display: flex; gap: 10px; align-items: center; padding: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+  .picker .mk { width: 34px; height: 34px; border-radius: 8px; background: var(--mark-3); color: #fff; display: grid; place-items: center; font-weight: 700; }
+  .picker b { display: block; font-size: 14px; }
+  .picker small { color: var(--ink3); font-size: 12px; }
+  .views { margin: 18px 6px 4px; font-size: 12px; color: var(--ink2); }
+  .nav { display: flex; justify-content: space-between; padding: 8px 12px; border-radius: 8px; color: var(--ink2); }
+  .nav span:last-child { color: var(--ink3); font-size: 12px; }
+  .nav.on { background: var(--panel); border: 1px solid var(--line); color: var(--ink); }
+  .side .foot { margin-top: auto; font-size: 12px; color: var(--ink3); }
+
+  .main { padding: 28px 32px 48px; background: var(--panel); min-width: 0; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  .counts { color: var(--ink2); }
+  .counts b { color: var(--ink); }
+  .age { display: flex; gap: 10px; align-items: center; margin: 14px 0 18px; color: var(--ink2); flex-wrap: wrap; }
+  .btn { border: 0; border-radius: 8px; padding: 7px 12px; background: var(--ink); color: #fff; font: inherit; }
+  .note { font-size: 12px; color: var(--ink3); }
+
+  /* the layout: receipt on the left, detail tables on the right */
+  .split { display: grid; grid-template-columns: minmax(320px, 400px) 1fr; gap: 28px; align-items: start; }
+  .well { background: var(--bg); border-radius: 14px; padding: 26px 22px 30px; display: flex; justify-content: center; }
+
+  .receipt { --tooth: 8px; position: relative; width: 100%; max-width: 340px; background: var(--paper); color: var(--paper-ink);
+    font: 12.5px/1.5 var(--mono); padding: 20px 18px 24px; filter: drop-shadow(0 4px 10px rgba(22,24,29,.10)); }
+  .receipt::before, .receipt::after { content: ""; position: absolute; left: 0; right: 0; height: var(--tooth);
+    background-size: calc(var(--tooth) * 2) var(--tooth); background-repeat: repeat-x; }
+  .receipt::before { top: calc(var(--tooth) * -1); background-position: left bottom;
+    background-image: linear-gradient(135deg, transparent 50%, var(--paper) 50%), linear-gradient(225deg, transparent 50%, var(--paper) 50%); }
+  .receipt::after { bottom: calc(var(--tooth) * -1); background-position: left top;
+    background-image: linear-gradient(45deg, transparent 50%, var(--paper) 50%), linear-gradient(315deg, transparent 50%, var(--paper) 50%); }
+  .c { text-align: center; }
+  .store { font-weight: 700; letter-spacing: .28em; font-size: 16px; }
+  .mut { color: #6b6e76; }
+  hr { border: 0; border-top: 1px dashed #a3a5ab; margin: 10px 0; }
+  hr.dbl { border-top: 3px double #55575e; }
+  .g { font-weight: 700; margin-top: 8px; }
+  .r { display: flex; gap: 6px; align-items: baseline; }
+  .r .d { flex: 1; border-bottom: 2px dotted #bcbec4; transform: translateY(-4px); min-width: 10px; }
+  .r .p { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .r.i span:first-child { padding-left: 2ch; color: #5b5e66; }
+  .r.s { font-weight: 700; }
+  .r.t { font-size: 17px; font-weight: 800; }
+  .q { color: #6b6e76; padding-left: 2ch; font-size: 11.5px; }
+  a.jump { color: var(--link); text-decoration: none; border-bottom: 1px dotted var(--link); }
+  .bars { height: 6px; display: flex; border-radius: 3px; overflow: hidden; margin: 6px 0 2px; }
+  .bars i { display: block; }
+  .barcode { height: 40px; width: 200px; margin: 12px auto 2px;
+    background: linear-gradient(90deg, #222 0 2px, transparent 2px 4px, #222 4px 5px, transparent 5px 8px, #222 8px 11px,
+      transparent 11px 12px, #222 12px 13px, transparent 13px 16px, #222 16px 18px, transparent 18px 19px, #222 19px 22px,
+      transparent 22px 25px, #222 25px 26px, transparent 26px 29px, #222 29px 30px, transparent 30px 32px);
+    background-size: 32px 100%; }
+
+  /* detail tables, as on the board */
+  h2 { font-size: 16px; margin: 0 0 10px; }
+  h2 + .tbl { margin-bottom: 26px; }
+  .tbl { border: 1px solid var(--line); border-radius: 12px; padding: 4px 12px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; font-weight: 500; color: var(--ink2); font-size: 13px; padding: 9px 6px; border-bottom: 1px solid var(--line); }
+  td { padding: 8px 6px; border-bottom: 1px solid var(--line2); white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.ttl { white-space: normal; color: var(--ink); min-width: 220px; }
+  .tag { font-size: 12px; padding: 1px 7px; border-radius: 5px; background: var(--tag-ready-fill); color: var(--tag-ready-ink); }
+  .bar { height: 7px; border-radius: 4px; background: var(--blue); min-width: 2px; }
+  .barcell { width: 22%; }
+  .seg-legend { display: flex; gap: 12px; font-size: 11px; color: #6b6e76; flex-wrap: wrap; }
+  .seg-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 4px; }
+
+  @media (max-width: 1100px) {
+    .split { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .app { grid-template-columns: 1fr; }
+    .side { display: none; }
+    .main { padding: 18px 14px 36px; }
+    .hide-phone { display: none; }
+    .well { padding: 20px 8px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<p class="caption"><b>Direction 2: the receipt inside the board.</b>
+  Trade-offs: keeps the sidebar, the Recompute line and the real tables, so nothing is lost and the receipt replaces only the four KPI cards;
+  the page gets longer and two styles (paper and board) sit side by side; on a laptop width the tables drop under the receipt.</p>
+
+<div class="app">
+  <aside class="side">
+    <div class="picker"><div class="mk">C</div><div><b>chantier</b><small>batch-22 &middot; closed</small></div></div>
+    <div class="views">Views</div>
+    <div class="nav"><span>Home</span><span></span></div>
+    <div class="nav"><span>Triage</span><span>14</span></div>
+    <div class="nav"><span>Kanban</span><span>11</span></div>
+    <div class="nav"><span>Batch</span><span>batch-22</span></div>
+    <div class="nav on"><span>Costs</span><span>$61.78</span></div>
+    <div class="nav"><span>Configuration</span><span></span></div>
+    <div class="foot">Data: 0 s ago</div>
+  </aside>
+
+  <main class="main">
+    <h1>Costs</h1>
+    <div class="counts"><b>0</b> in progress &nbsp; <b>11</b> merged &nbsp; <b>0</b> blocked</div>
+    <div class="age"><span>Computed 2 min ago</span><button class="btn" type="button">&#8635; Recompute</button><span class="note">the server reads the transcripts again: no agent turn</span></div>
+
+    <div class="split">
+      <div class="well">
+        <article class="receipt" aria-label="Cost receipt for batch-22">
+          <div class="c"><div class="store">CHANTIER</div><div class="mut">batch-22 &middot; stack &middot; direct</div><div class="mut">2026-11-16 19:45 &rarr; 11-17 06:42</div></div>
+          <hr>
+          <div class="g">STEERING</div>
+          <div class="r"><span>Chief of Staff</span><span class="d"></span><span class="p">15.99</span></div>
+          <div class="q">61 wakes</div>
+          <div class="g">DRIVERS + WORKERS</div>
+          <div class="r"><span>cr-driver</span><span class="d"></span><span class="p">41.99</span></div>
+          <div class="q">1843 calls</div>
+          <div class="r"><span>stack-driver</span><span class="d"></span><span class="p">2.36</span></div>
+          <div class="q">134 calls</div>
+          <div class="r"><span>release-driver</span><span class="d"></span><span class="p">1.44</span></div>
+          <div class="q">55 calls</div>
+          <hr>
+          <div class="r s"><span>Steering</span><span class="d"></span><span class="p">15.99</span></div>
+          <div class="r s"><span>Drivers</span><span class="d"></span><span class="p">15.33</span></div>
+          <div class="r s"><span>Workers</span><span class="d"></span><span class="p">30.46</span></div>
+          <div class="bars" aria-hidden="true"><i style="width:26%;background:var(--violet)"></i><i style="width:25%;background:var(--green)"></i><i style="width:49%;background:var(--blue)"></i></div>
+          <div class="seg-legend"><span><i style="background:var(--violet)"></i>26%</span><span><i style="background:var(--green)"></i>25%</span><span><i style="background:var(--blue)"></i>49%</span></div>
+          <hr class="dbl">
+          <div class="r t"><span>TOTAL</span><span class="d"></span><span class="p">$61.78</span></div>
+          <hr class="dbl">
+          <div class="r"><span>Budget</span><span class="d"></span><span class="p">none</span></div>
+          <div class="r mut"><span>Not charged: grill, specs</span><span class="d"></span><span class="p">5.10</span></div>
+          <hr>
+          <div class="r"><span>11 CRs, 21 rounds</span><span class="d"></span><span class="p"><a class="jump" href="#per-cr">44.39 &darr;</a></span></div>
+          <div class="r"><span>Most: CR-301</span><span class="d"></span><span class="p">7.81</span></div>
+          <div class="barcode" aria-hidden="true"></div>
+          <div class="c mut">batch-22 &middot; closed</div>
+        </article>
+      </div>
+
+      <div>
+        <h2 id="per-cr">Per CR, batch-22</h2>
+        <div class="tbl"><table>
+          <thead><tr><th>CR</th><th class="hide-phone">Title</th><th>State</th><th class="num">Cost</th><th class="barcell hide-phone"></th></tr></thead>
+          <tbody>
+            <tr><td><b>CR-301</b></td><td class="ttl hide-phone">The web board's Configuration page</td><td><span class="tag">merged</span> r4</td><td class="num">$7.81</td><td class="hide-phone"><div class="bar" style="width:100%"></div></td></tr>
+            <tr><td><b>CR-302</b></td><td class="ttl hide-phone">A live, read-only view of the batch's PRs on the web board</td><td><span class="tag">merged</span> r2</td><td class="num">$6.91</td><td class="hide-phone"><div class="bar" style="width:88%"></div></td></tr>
+            <tr><td><b>CR-299</b></td><td class="ttl hide-phone">Chantier's configuration in layers, and the shipped defaults</td><td><span class="tag">merged</span> r2</td><td class="num">$6.70</td><td class="hide-phone"><div class="bar" style="width:86%"></div></td></tr>
+            <tr><td><b>CR-300</b></td><td class="ttl hide-phone">A model per role on each host</td><td><span class="tag">merged</span> r2</td><td class="num">$5.34</td><td class="hide-phone"><div class="bar" style="width:68%"></div></td></tr>
+            <tr><td><b>CR-304</b></td><td class="ttl hide-phone">The web board on a large screen</td><td><span class="tag">merged</span> r3</td><td class="num">$4.79</td><td class="hide-phone"><div class="bar" style="width:61%"></div></td></tr>
+            <tr><td><b>CR-305</b></td><td class="ttl hide-phone">The web board's selector shows the surface, and each project its paths</td><td><span class="tag">merged</span> r3</td><td class="num">$3.99</td><td class="hide-phone"><div class="bar" style="width:51%"></div></td></tr>
+            <tr><td><b>CR-298</b></td><td class="ttl hide-phone">Copilot model catalog from GitHub's own tables</td><td><span class="tag">merged</span> r1</td><td class="num">$2.38</td><td class="hide-phone"><div class="bar" style="width:30%"></div></td></tr>
+            <tr><td><b>CR-303</b></td><td class="ttl hide-phone">The board signals a merge it sees</td><td><span class="tag">merged</span> r1</td><td class="num">$2.37</td><td class="hide-phone"><div class="bar" style="width:30%"></div></td></tr>
+            <tr><td><b>CR-297</b></td><td class="ttl hide-phone">Copilot role model defaults</td><td><span class="tag">merged</span> r2</td><td class="num">$1.59</td><td class="hide-phone"><div class="bar" style="width:20%"></div></td></tr>
+            <tr><td><b>CR-307</b></td><td class="ttl hide-phone">Version PR for chantier v0.11.0</td><td><span class="tag">merged</span> r0</td><td class="num">$1.44</td><td class="hide-phone"><div class="bar" style="width:18%"></div></td></tr>
+            <tr><td><b>CR-306</b></td><td class="ttl hide-phone">The board's Configuration page writes the project file with LF</td><td><span class="tag">merged</span> r1</td><td class="num">$1.07</td><td class="hide-phone"><div class="bar" style="width:14%"></div></td></tr>
+          </tbody>
+        </table></div>
+
+        <h2>Per Driver, with its workers</h2>
+        <div class="tbl"><table>
+          <thead><tr><th>Driver</th><th class="num">Calls</th><th class="num">Per call</th><th class="num">Cost</th><th class="barcell hide-phone"></th></tr></thead>
+          <tbody>
+            <tr><td>chantier:cr-driver</td><td class="num">1843</td><td class="num">$0.023</td><td class="num">$41.99</td><td class="hide-phone"><div class="bar" style="width:100%;background:var(--green)"></div></td></tr>
+            <tr><td>chantier:stack-driver</td><td class="num">134</td><td class="num">$0.018</td><td class="num">$2.36</td><td class="hide-phone"><div class="bar" style="width:6%;background:var(--green)"></div></td></tr>
+            <tr><td>chantier:release-driver</td><td class="num">55</td><td class="num">$0.026</td><td class="num">$1.44</td><td class="hide-phone"><div class="bar" style="width:4%;background:var(--green)"></div></td></tr>
+          </tbody>
+        </table></div>
+
+        <h2>Earlier batches</h2>
+        <div class="tbl"><table>
+          <thead><tr><th>Batch</th><th>Closed</th><th class="hide-phone">Mode</th><th class="num">CRs</th><th class="num">Spend</th></tr></thead>
+          <tbody>
+            <tr><td><b>batch-22</b></td><td>2026-11-17</td><td class="hide-phone">stack</td><td class="num">11/11</td><td class="num">$61.78</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">A per-model table is not drawn: the board's cost data (costs.py) groups by CR and by Driver, not by model.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

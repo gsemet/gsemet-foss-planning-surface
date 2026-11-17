@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cost receipt, modern ticket</title>
+<style>
+  :root {
+    --bg: #eef0f3; --ink: #16181d; --ink2: #454a58; --ink3: #666b78; --line: #e6e7ea; --line2: #eeeff1;
+    --blue: #3b6fe0; --green: #2fa86b; --violet: #8b5cf6; --amber: #d98a1c;
+    --card: #fffefb; --notch: 14px;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 var(--sans); }
+  .caption { max-width: 900px; margin: 24px auto 0; padding: 0 18px; font-size: 13px; color: var(--ink2); }
+  .caption b { color: var(--ink); }
+  .caption ul { margin: 4px 0 0; padding-left: 18px; }
+
+  .stage { display: flex; justify-content: center; padding: 30px 16px 64px; }
+  .ticket { display: flex; align-items: stretch; border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(22,24,29,.06), 0 12px 28px rgba(22,24,29,.10); }
+
+  /* the paper: warm white with a faint fibre texture */
+  .paper { background-color: var(--card);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(120,110,90,.025) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgba(120,110,90,.02) 0 1px, transparent 1px 4px); }
+
+  .main { width: 420px; border-radius: 16px 0 0 16px; padding: 28px 30px 26px; position: relative; }
+  .stub { width: 300px; border-radius: 0 16px 16px 0; padding: 28px 24px 24px; position: relative; }
+  /* the perforation between them */
+  .perf { width: 2px; position: relative; background-color: var(--card);
+    background-image: linear-gradient(#cfd2d8 50%, transparent 50%); background-size: 2px 8px; background-repeat: repeat-y;
+    background-origin: content-box; background-clip: content-box; padding: 20px 0; }
+  /* the round bites where the stub tears off: page-coloured discs with a soft inner shade */
+  .perf::before, .perf::after { content: ""; position: absolute; left: 50%; width: calc(var(--notch) * 2); height: calc(var(--notch) * 2);
+    margin-left: calc(var(--notch) * -1); border-radius: 50%; background: var(--bg); box-shadow: inset 0 2px 3px rgba(22,24,29,.10); }
+  .perf::before { top: calc(var(--notch) * -1); }
+  .perf::after { bottom: calc(var(--notch) * -1); box-shadow: inset 0 -1px 2px rgba(22,24,29,.06); }
+
+  .eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink3); }
+  .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .brand { font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+  .meta { font-size: 12px; color: var(--ink3); text-align: right; line-height: 1.4; }
+  .pill { display: inline-block; font-size: 11px; padding: 1px 8px; border-radius: 99px; background: #e3f6ec; color: #1f7a4b; font-weight: 600; }
+
+  .grp { margin-top: 20px; }
+  .grp h3 { margin: 0 0 6px; font-size: 12px; font-weight: 600; color: var(--ink2); display: flex; align-items: center; gap: 8px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .line { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--line2); }
+  .line:last-child { border-bottom: 0; }
+  .line small { display: block; color: var(--ink3); font-size: 12px; }
+  .amt { font-variant-numeric: tabular-nums; font-weight: 500; }
+
+  .split { margin-top: 18px; }
+  .bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; }
+  .bar i { display: block; }
+  .legend { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink2); margin-top: 6px; flex-wrap: wrap; gap: 6px; }
+  .legend b { font-variant-numeric: tabular-nums; }
+
+  /* the scalloped cut line before the total */
+  .cut { position: relative; height: 22px; margin: 22px -30px 16px; }
+  .cut::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 10px; transform: translateY(-50%);
+    background: radial-gradient(circle at 5px 5px, #dfe2e7 3.2px, transparent 3.8px) 0 0 / 14px 10px repeat-x; }
+  .cut::after { content: "\2702"; position: absolute; left: 10px; top: 50%; transform: translateY(-52%); font-size: 13px; color: #b0b3ba; background: var(--card); padding: 0 4px; }
+
+  .total { display: flex; justify-content: space-between; align-items: baseline; }
+  .total .label { font-size: 13px; color: var(--ink2); }
+  .total .big { font-size: 40px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .foot { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; margin-top: 8px; font-size: 12px; color: var(--ink3); }
+  .foot b { color: var(--ink2); font-weight: 500; }
+
+  .stub h2 { margin: 2px 0 14px; font-size: 15px; }
+  .cr { display: grid; grid-template-columns: 58px 1fr auto; gap: 8px; align-items: center; padding: 6px 0; font-size: 13px; }
+  .cr b { font-weight: 600; font-size: 12px; color: var(--ink2); }
+  .cr .t { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
+  .cr .t span { display: block; height: 3px; margin-top: 4px; border-radius: 2px; background: var(--blue); opacity: .55; }
+  .cr .amt { font-size: 13px; }
+  .stub .sum { display: flex; justify-content: space-between; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 13px; }
+  .stub .sum + p { margin: 4px 0 0; font-size: 12px; color: var(--ink3); }
+  .code { margin-top: 18px; height: 26px; border-radius: 3px; opacity: .8;
+    background: linear-gradient(90deg, #2a2c31 0 2px, transparent 2px 5px, #2a2c31 5px 6px, transparent 6px 8px,
+      #2a2c31 8px 11px, transparent 11px 13px, #2a2c31 13px 14px, transparent 14px 18px, #2a2c31 18px 20px, transparent 20px 22px) 0 0 / 22px 100%; }
+
+  @media (max-width: 800px) {
+    .ticket { flex-direction: column; width: 100%; max-width: 440px; }
+    .main, .stub { width: auto; }
+    .main { border-radius: 16px 16px 0 0; }
+    .stub { border-radius: 0 0 16px 16px; }
+    .perf { width: auto; height: 2px; padding: 0 20px; background-image: linear-gradient(90deg, #cfd2d8 50%, transparent 50%);
+      background-size: 8px 2px; background-repeat: repeat-x; }
+    .perf::before, .perf::after { top: 50%; left: auto; bottom: auto; margin: calc(var(--notch) * -1) 0 0; }
+    .perf::before { left: calc(var(--notch) * -1); }
+    .perf::after { right: calc(var(--notch) * -1); }
+    .main { padding: 22px 20px; }
+    .cut { margin-left: -20px; margin-right: -20px; }
+    .total .big { font-size: 34px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="caption">
+  <b>Direction 3: modern ticket.</b> A sans-serif receipt card with a scalloped cut before the total and a tear-off stub for the CRs.
+  <ul>
+    <li>Reads as a receipt through shape (notches, perforation, cut line) rather than pastiche, so it sits well next to the board's other views.</li>
+    <li>The stub keeps the per-CR list in view without a second table; with many CRs (20+) it grows taller than the main card and needs a "show all".</li>
+    <li>More designed, so more CSS to keep (notches, perforations, texture); the paper effect is subtle and may be lost on low-contrast screens.</li>
+  </ul>
+</div>
+
+<div class="stage">
+  <div class="ticket">
+    <section class="main paper" aria-label="Cost receipt for batch-22">
+      <div class="head">
+        <div>
+          <div class="eyebrow">Receipt &middot; chantier</div>
+          <div class="brand">batch-22</div>
+          <span class="pill">closed &middot; 11/11 merged</span>
+        </div>
+        <div class="meta">stack, direct<br>Nov 16, 19:45 &rarr; Nov 17, 06:42<br>10 h 56 min</div>
+      </div>
+
+      <div class="grp">
+        <h3><span class="dot" style="background:var(--violet)"></span>Steering</h3>
+        <div class="line"><div>Chief of Staff<small>61 wakes &middot; context 180,750 tokens on average</small></div><div class="amt">$15.99</div></div>
+      </div>
+
+      <div class="grp">
+        <h3><span class="dot" style="background:var(--green)"></span>Drivers, with their workers</h3>
+        <div class="line"><div>cr-driver<small>1,843 calls</small></div><div class="amt">$41.99</div></div>
+        <div class="line"><div>stack-driver<small>134 calls</small></div><div class="amt">$2.36</div></div>
+        <div class="line"><div>release-driver<small>55 calls</small></div><div class="amt">$1.44</div></div>
+      </div>
+
+      <div class="split">
+        <div class="bar" aria-hidden="true"><i style="flex:15.99;background:var(--violet)"></i><i style="flex:15.33;background:var(--green)"></i><i style="flex:30.46;background:var(--blue)"></i></div>
+        <div class="legend"><span>Steering <b>$15.99</b></span><span>Drivers <b>$15.33</b></span><span>Workers <b>$30.46</b></span></div>
+      </div>
+
+      <div class="cut" aria-hidden="true"></div>
+
+      <div class="total"><span class="label">Total</span><span class="big">$61.78</span></div>
+      <div class="foot">
+        <span>Budget <b>none</b></span>
+        <span>Average per CR <b>$4.04</b></span>
+        <span>Outside the budget <b>$5.10</b></span>
+        <span>grill and specs, 93 calls</span>
+      </div>
+    </section>
+
+    <div class="perf" aria-hidden="true"></div>
+
+    <aside class="stub paper" aria-label="Per CR">
+      <div class="eyebrow">Stub</div>
+      <h2>Per CR</h2>
+      <div class="cr"><b>CR-301</b><div class="t">Configuration page<span style="width:100%"></span></div><div class="amt">$7.81</div></div>
+      <div class="cr"><b>CR-302</b><div class="t">PR monitor<span style="width:88%"></span></div><div class="amt">$6.91</div></div>
+      <div class="cr"><b>CR-299</b><div class="t">Configuration in layers<span style="width:86%"></span></div><div class="amt">$6.70</div></div>
+      <div class="cr"><b>CR-300</b><div class="t">A model per role, per host<span style="width:68%"></span></div><div class="amt">$5.34</div></div>
+      <div class="cr"><b>CR-304</b><div class="t">Board on a large screen<span style="width:61%"></span></div><div class="amt">$4.79</div></div>
+      <div class="cr"><b>CR-305</b><div class="t">Surface selector<span style="width:51%"></span></div><div class="amt">$3.99</div></div>
+      <div class="cr"><b>CR-298</b><div class="t">Copilot model catalog<span style="width:30%"></span></div><div class="amt">$2.38</div></div>
+      <div class="cr"><b>CR-303</b><div class="t">Merge signal<span style="width:30%"></span></div><div class="amt">$2.37</div></div>
+      <div class="cr"><b>CR-297</b><div class="t">Copilot role defaults<span style="width:20%"></span></div><div class="amt">$1.59</div></div>
+      <div class="cr"><b>CR-307</b><div class="t">Release v0.11.0<span style="width:18%"></span></div><div class="amt">$1.44</div></div>
+      <div class="cr"><b>CR-306</b><div class="t">Config file with LF<span style="width:14%"></span></div><div class="amt">$1.07</div></div>
+      <div class="sum"><span>Sum of the CRs</span><b>$44.39</b></div>
+      <p>the rest, $17.39, is steering</p>
+      <div class="code" aria-hidden="true"></div>
+    </aside>
+  </div>
+</div>
+
+</body>
+</html>
