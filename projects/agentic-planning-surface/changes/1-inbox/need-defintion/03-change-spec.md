@@ -1,11 +1,11 @@
 # Change spec — agentic planning surface (v1)
 
 Status: rewritten 2026-10-23 on the user's target organisation (round 25) and its gaps (round 26),
-updated 2026-10-25 (rounds 31–32), in [02-user-answers.md](02-user-answers.md); decisions are
+updated 2026-10-25 (rounds 31–32), in [02-user-answers.md](02-answers.md); decisions are
 referenced as `Gnn`. This file wins over [01-intent.md](01-intent.md) and over earlier versions of
 itself. Journey:
-[research/user-journey.md](research/user-journey.md). Prior art:
-[research/prior-art.md](research/prior-art.md).
+[research/user-journey.md](work/research/user-journey.md). Prior art:
+[research/prior-art.md](work/research/prior-art.md).
 
 
 ## 1. What it is
@@ -146,10 +146,10 @@ next: <next action> · question: <question for the user, or —>
 
 - Round limit 3 by default; after it without green CI, `status: blocked` with a question.
 - `STATE.md` is separate from `idea.yml`: it changes often, `idea.yml` stays stable (G101).
-- Captured from the Studio: [research/cr-states.md](research/cr-states.md).
+- Captured from the Studio: [research/cr-states.md](work/research/cr-states.md).
 - The workflow around these steps (roles, round limit, rebase rule, parallel mode, sub-agent
   rules, `report.md`) follows the Studio PRD workflow:
-  [research/cr-workflow.md](research/cr-workflow.md).
+  [research/cr-workflow.md](work/research/cr-workflow.md).
 - **Who drives**: for a single CR, the builder's session in the checkout does steps 2–10 and
   starts coder and reviewer itself (G105). Parallel mode runs **per project**: one orchestrator
   and one open-PR cap per target project (G106); its CR table

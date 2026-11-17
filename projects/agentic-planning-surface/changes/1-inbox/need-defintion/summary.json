@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Need definition of the agentic planning surface",
+  "summary": "The founding need of the planning surface: a shared, reviewable blackboard of what will change in one or several projects, between a person and their agents. Grilled and specified.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "5eb5888e6b770f9a23dd125de4b5d109dfe3068833c3d86131822466bf88a4af",
+    "02-answers.md": "d063796d84daba06fe4a3869346a3f8bd3c57efe868c3b5b0f2af728f3963c8f",
+    "03-change-spec.md": "cf33b67927fd4d1bc16996317ea88fbab0c3d36a0902a1dbb5cc4ed5bc78cddd"
+  },
+  "summarized": "2026-11-17T09:18:54Z"
+}

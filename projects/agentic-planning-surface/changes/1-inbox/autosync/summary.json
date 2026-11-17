@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Git autosync for a planning surface",
+  "summary": "Automatic commit, fetch, rebase and push of a planning surface every few seconds, without data loss, like Obsidian Git. Grilled and specified; the surface's ai-autosync-git.py implements it.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "81ccf6620b52b3909df4a35da2bc2d4acb92d6c7d3502fd8e7fe74ac63d5b7f8",
+    "02-answers.md": "e47ce508a95e7b77a299a9018716250d9baf7335c22aee03287cfdc0d2a217b2",
+    "03-change-spec.md": "05d6733caa8329c69a0ad4c55910247941b742b9c8ceb684b40ab1d6835b9eb3"
+  },
+  "summarized": "2026-11-17T09:18:52Z"
+}
