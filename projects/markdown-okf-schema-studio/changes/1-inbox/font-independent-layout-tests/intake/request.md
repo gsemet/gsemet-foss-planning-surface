@@ -1,0 +1,1 @@
+Retro batch-05: test/page/tableBreakout.test.ts:398 asserted a layout that depends on the page font's natural table width (705 px with Segoe UI vs 727 px allowed by a 760 px pane), so it was red on Windows on main and failed just preflight for every change until CR-339. Long-term fix: tests do not assert font-dependent layout, or pin the font. Owner kept this point, 2026-11-17.

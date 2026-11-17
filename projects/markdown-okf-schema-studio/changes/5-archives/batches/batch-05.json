@@ -2,15 +2,56 @@
   "schema": 1,
   "batch": "batch-05",
   "number": 5,
-  "state": "running",
+  "state": "closed",
   "opened": "2026-11-17T09:59:18Z",
-  "closed": null,
+  "closed": "2026-11-17T12:38:01Z",
   "mode": "parallel",
-  "steering": "direct",
+  "steering": "foreman",
   "host": "claude",
   "budget_usd": null,
-  "cost_usd": null,
+  "cost_usd": 11.9714,
   "cost_unpriced": {},
-  "crs": [],
-  "report": null
+  "crs": [
+    {
+      "cr": "CR-336",
+      "title": "Nothing protects the engines.vscode ^1.95.0 minimum: the lock file resolves @types/vscode to 1.140.0, so a change could use a newer API without any check failing. Add a just check step that type-checks src/ against @types/vscode 1.95. Found by the cursor-compatibility spec-writer, 2026-11-14.",
+      "result": "merged",
+      "archive": "5-archives/261117-1038-336-check-against-minimum-vscode-types",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/406",
+      "rounds": 2,
+      "cost_usd": 1.9004,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-337",
+      "title": "Stress flake: the incoming-changes scenario timed out once in frame.waitForFunction (30 s) in round 2 of a scoped stress run on CR-328's branch (PR #402). The step was not touched by that CR. Seen once; find the run, the condition it waited for, and whether it repeats.",
+      "result": "dropped",
+      "archive": "6-trash/261117-1018-337-stress-incoming-changes-wait-timeout",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": 0.6141,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-338",
+      "title": "Remove the Studio repository's remaining references to `.agents/changes/`, now that its change requests live in the planning surface. One PR, draft until CI is green; the owner merges by rebase.",
+      "result": "merged",
+      "archive": "5-archives/261117-1222-338-remove-agents-changes-refs",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/408",
+      "rounds": 2,
+      "cost_usd": 2.5885,
+      "cost_unpriced": {}
+    },
+    {
+      "cr": "CR-339",
+      "title": "On Windows, the unit test \"Auto measures a table again on a real resize while a cell is edited\" (test/page/tableBreakout.test.ts:398) fails, also on origin/main 16105e0f (3 of 3 runs on a fresh install), so `just preflight`'s Windows static stage is red for every change. Found by CR-336's debugger in batch-05 (diagnosis in the planning folder: 4-batch/2-actives/336-check-against-minimum-vscode-types/work/diagnosis.md). Cause undetermined; looks like a Playwright/Chromium layout difference on Windows. Find the cause and fix it so the test passes on Windows and Linux. The owner asked for the fix on 2026-11-17 (« 1. oui fix »); it is the follow-up that runs the long gate after CR-336's waiver.",
+      "result": "merged",
+      "archive": "5-archives/261117-1057-339-windows-table-breakout-resize-test",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/407",
+      "rounds": 1,
+      "cost_usd": 1.8651,
+      "cost_unpriced": {}
+    }
+  ],
+  "report": "batch-05.md"
 }
