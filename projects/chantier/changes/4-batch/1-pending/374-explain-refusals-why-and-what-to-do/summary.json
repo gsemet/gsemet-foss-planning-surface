@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Explain refusals before they are met: what, why and what to do now",
+  "summary": "Specified, no open question: a Chief of Staff rule and a table of eight known refusals (direct batch, release, file names, close, confirm, missing spec, rounds, no price), the subagent prefix rule, docs and SVG brought to queued order add.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a63dce6c9acd514c181d5352ebe7b360c1c8c0ca8d02b4bf22f6655438d9f4ad",
+    "02-answers.md": "58fc89a1b86bdd3f6cdfff5948f9eecf9a1e819764587d251c43b3acff65fd48",
+    "03-change-spec.md": "014a3a17d266864c3f62ae32f1d284b66b309ea78980eaf9cd7e30448ff632e7",
+    "intake/request.md": "65dc3bec1c3b6dc582692d6c3e71d7603c70c106a16301bde1b0465d46830bb4"
+  },
+  "summarized": "2026-11-18T18:37:56Z"
+}

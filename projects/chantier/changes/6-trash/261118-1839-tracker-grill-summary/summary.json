@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Post the grill summary, plan and demo on the source ticket",
+  "summary": "Specified 2026-11-18: already delivered by CR-220 (ticket summary posted on the user's yes per ticket, PR follow-up, Issues References); only the eval proof is missing; open question: abandon, run the eval, or add a text test.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "afd88d50a0b6dc254f0cde4a8497be59b4e33ac9a0f75f49dd62776c0f68b48f",
+    "02-answers.md": "72d6e2eaf690e2df37c8ac0663687a60b71caa75cdb0960a1b0ff34bf7033851",
+    "03-change-spec.md": "895ee8a135ac45f445943b82e1dd15855d47ffc588253e9e131bb8d37372f5f0"
+  },
+  "summarized": "2026-11-18T18:38:48Z"
+}

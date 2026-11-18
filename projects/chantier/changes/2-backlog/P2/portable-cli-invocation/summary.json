@@ -1,12 +1,15 @@
 {
   "schema": 1,
   "title": "Use a portable shell invocation for the CLI",
-  "summary": "Imported raw request to avoid storing a whole CLI command in a shell variable; no local interview or specification accompanies it.",
+  "summary": "Specified, still needed at main: a whole CLI command held in a shell variable breaks in zsh, PowerShell and, with quoted paths, bash. One rule in startup-core.md, budget-neutral: write the CLI out in full in each shell call, never in a shell variable; no CLI change.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
+    "01-intent.md": "787b0ce5491bbaabbd3d6e497ebd365a1fe446a2a518f5152fbf8415b895d0af",
+    "02-answers.md": "60bebe10f4f9163ce8926f9d7c11ecfb516b06464298f53e7866e71b7beab79f",
+    "03-change-spec.md": "1dd5b6cef2f16aee5a7db53a04dffbdfcfeb2b82ea841b2b9411ddf5ee12c058",
     "intake/request.md": "f6497c6406cd0a90785ce6039557c28337ac2ea980675a698529698feebaffcf"
   },
-  "summarized": "2026-11-16T10:57:06Z"
+  "summarized": "2026-11-18T18:35:09Z"
 }

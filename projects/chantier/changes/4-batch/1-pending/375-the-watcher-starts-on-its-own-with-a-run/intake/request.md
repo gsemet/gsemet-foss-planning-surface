@@ -1,0 +1,1 @@
+the watcher starts on its own with a running batch

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The watcher starts on its own with a running batch",
+  "summary": "When no watcher of this session runs on a running batch, open, a resuming take or order qa, the switch to direct mode and status end with one line naming the exact watch command; the watcher's end names its restart; startup core and Starting a batch carry the step; limit stays 12544.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "de237e0dda0b6099e14d3168c1fb817f8bd4e42e0ea528ad43628a94bebd7320",
+    "02-answers.md": "55effb164efca9949c249802831fb003abf3188b3e94a175eed32f5850efb262",
+    "03-change-spec.md": "ba5d8c7a509719003a17876fedd5dafe36104baf547e0aa261814ee3e657c28b",
+    "intake/request.md": "903eecee0eb2aa44a7acae798e821ade73d5ff9f175ec7c3f5b2c20d4d161d71"
+  },
+  "summarized": "2026-11-18T18:38:18Z"
+}

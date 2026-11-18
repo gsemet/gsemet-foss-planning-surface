@@ -1,12 +1,15 @@
 {
   "schema": 1,
-  "title": "The planning surface launches chantier's board and sync with no agent",
-  "summary": "Filed, not grilled: the surface's just board and just sync run chantier at one pinned version, replacing its autosync script, with an optional autostart; the change lands in the surface's repository.",
+  "title": "A board started by hand serves a planning surface with no agent",
+  "summary": "Specified: a board started with no --seat keeps serving when sessions register a seat on it and leave; docs say how to run the board and the autosync with no agent. The surface's just recipes, pinned version and autostart are a follow-up there.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
+    "01-intent.md": "cf00b246b62d99670aada921f6186e0cca36759d34fd969d2a1602aaf7577595",
+    "02-answers.md": "29abd42f41dc6b72707a72053bed6daa50cc6e62849474136cc0bfd66eee5f06",
+    "03-change-spec.md": "bcbe54fdbbda4797e82a146a2b11e43e84fde92b6e7a0444f09b98e9d4e123d9",
     "intake/request.md": "0e910fcdd121167bdadb1a70347e782ed1613804d6b94c584924f1ddeca52644"
   },
-  "summarized": "2026-11-17T09:45:10Z"
+  "summarized": "2026-11-18T18:39:35Z"
 }

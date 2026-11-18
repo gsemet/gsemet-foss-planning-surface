@@ -44,6 +44,13 @@
   while a release CR is in the batch and not ended: both refused, with the reason (a release ends
   the factory) and the way out (open without `--factory`, or `factory on` after the release).
 
+3. Q: The shape of a factory batch? User, 2026-11-18: "L'idée c'est d'avoir un batch ouvert en
+   attente avec 4 slots, sortie en stack grandissante automatiquement, dès qu'une CR est spécifiée
+   et mise en ready elle part". So the cards make the Chief of Staff open a factory batch as
+   `--mode stack --slots 4` unless the user says otherwise; the stack grows as today (made at two
+   PRs handed back ready, each later CR joining on top). The README's "Factory mode" section shows
+   that command. No CLI default changes: `open` keeps `parallel` when no mode is given.
+
 ## Settled by the Chief of Staff (2026-11-18, the user asks no questions)
 - The mode: a batch opened with no CR records that it takes ready CRs on its own ("auto-join").
   A batch opened with CRs does not; today's path is unchanged for it.

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Eval audit J1 accepts the QA driver's first line",
+  "summary": "Specified 2026-11-18: the audit recognises the QA driver's first line and audits it as a Driver in Foreman and direct batches (detached worktree, QA folder writes); dry-run case audit-qa-prompt proves it; no open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9cb9ea9945a89bd4dd843f6b939c0cb473fc90325706235919ace85e6f73c6da",
+    "02-answers.md": "1fa176965304a9cb6f837f4c625ffe62684338176c0d6f5ef8a1e2040a6bc6a5",
+    "03-change-spec.md": "909261100b67be2b426169943cf42194b8b277e9b5ec937c01d4d2e94d91ee17",
+    "intake/request.md": "ef2e04a5f8c01b89071f3f3132999e4f9d13e05d81570c5c73879c08e4ee5c9b"
+  },
+  "summarized": "2026-11-18T18:36:39Z"
+}

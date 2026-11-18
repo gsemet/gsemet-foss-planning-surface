@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "just check runs ruff's lint rules on scripts/",
+  "summary": "Specified: the lint recipe's ruff check covers scripts (ruff 0.17.5 check skills scripts), and the nine findings there today are fixed in the code with no new noqa and no change in what a script does; mypy over scripts stays out of scope.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "ea83d75ead2b7c6356729954d7e15fdcd43bb4aa2cc71d32cd4594bf8110a9d0",
+    "02-answers.md": "0aced12ed03ba7ca0ac48cd4c58f67165a1741b8170d8cebff6616203e1a2787",
+    "03-change-spec.md": "adec8ebc401af4f2120caf63f8e32a05a346b777551b903edcebbd7bd5ae6a45",
+    "intake/request.md": "9a28cd977bbbf657234b34986deb7478d31e488de9e88f9cb89e8d866b2e7635"
+  },
+  "summarized": "2026-11-18T18:34:16Z"
+}

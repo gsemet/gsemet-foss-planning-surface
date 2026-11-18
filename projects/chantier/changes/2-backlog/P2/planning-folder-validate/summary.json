@@ -1,12 +1,15 @@
 {
   "schema": 1,
   "title": "chantier validate: check a whole planning folder",
-  "summary": "Filed, not grilled: a validate command that checks the stages, each CR folder's shape, summary.json's format and broken links, with exit codes a surface's just validate can use.",
+  "summary": "Specified, two open questions: a read-only chantier validate checks placement, CR folder shape, summary.json format, missing or late summaries and broken Markdown links; exit 2 gaps, 3 errors, 1 cannot run.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
+    "01-intent.md": "b4a57ccc743069907b9b81796ee79588443f189c92989fe362a66d7ec9349cf6",
+    "02-answers.md": "86acecd45f42ea86d8aa6ad21d7ffe9894980357d14a4dbf6738b842afea767a",
+    "03-change-spec.md": "8add8a79f65f4b8405685626857540d83e7ad8a0e5510cb4dc31738c4376dfbb",
     "intake/request.md": "55202dd7c9e33aae0757c8e5b110dfa43bdbe3b08d09145b4dbc2c0c944f4ae6"
   },
-  "summarized": "2026-11-17T09:45:07Z"
+  "summarized": "2026-11-18T18:39:18Z"
 }
