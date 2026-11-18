@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Open an empty batch, paused, waiting for its first CR",
+  "summary": "Specified, critic's fixes applied: open with no CR opens the batch born paused, spend none yet; order add joins CRs, the claim and first take run it; status, board, pane say no CR yet; close of an empty batch accepted. No open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9216c5a99b69fc6e058c46857e4277e31e94c791c42f03483bcdb7d92f702752",
+    "02-answers.md": "e50f04be5f0de81ce9db2c16258991cd676a1ac4cea31608cc112ba5e678a910",
+    "03-change-spec.md": "367a54a8cfade724fd9318c790f8a46ab42aad2aff74008220be63c624fd3c31",
+    "intake/request.md": "64ef024f829244e6a80c29bc9d5af8226b993f3497ed1f75353a81616a9e25c2"
+  },
+  "summarized": "2026-11-18T18:08:20Z"
+}

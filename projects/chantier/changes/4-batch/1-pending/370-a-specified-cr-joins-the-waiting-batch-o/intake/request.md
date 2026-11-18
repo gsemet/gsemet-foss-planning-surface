@@ -1,0 +1,1 @@
+a specified CR joins the waiting batch on its own

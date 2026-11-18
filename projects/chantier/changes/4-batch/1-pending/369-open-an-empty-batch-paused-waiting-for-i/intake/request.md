@@ -1,0 +1,1 @@
+open an empty batch, paused, waiting for its first CR

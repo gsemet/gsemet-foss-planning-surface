@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Factory mode: a CR made ready joins the open batch on its own",
+  "summary": "Specified, no open question. A factory batch takes each CR made ready on its own and stays open until the user closes it; order factory on|off switches it. A release ends the factory; a release at open --factory, or factory on with one unended, is refused. Stacks on open-empty-batch.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "11d4ebda718af4d8679b23739bddad146ef64e6329f6f40b1417c97c2282a655",
+    "02-answers.md": "377da39bb77cfda731ec2a5b634fc4d0bf5a57f525a77ba24f231a043c35f641",
+    "03-change-spec.md": "1809d6d55f6c0cbf174a5484bce5031d0348322513f791d2ec583c62c12e5eb3",
+    "intake/request.md": "787a267cde5a7c63724fd22a684fd540a3ce16972656661102a437d703107aba"
+  },
+  "summarized": "2026-11-18T18:12:31Z"
+}
