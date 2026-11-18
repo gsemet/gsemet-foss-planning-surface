@@ -31,7 +31,8 @@ Grade: 1
 ## Known gaps
 
 - No screenshot of the pane from a real session.
-- The scenario's new empty-batch leg was run in no local gate yet; it is proven by the pipeline's scenario job.
+- The scenario's new empty-batch leg is proven by the pipeline's scenario job at `020fd86`; no local scenario run at this head.
+- The close of a batch whose Foreman wrote no transcript is checked by an in-process test only, not run live.
 
 <details>
 <summary>Details</summary>
@@ -59,15 +60,15 @@ A batch can be opened before its first CR exists; the pane, status and the board
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`:
+- [x] New or changed tests (they fail on the previous code): `tests/test_open_empty_batch.py`, the pane's `hooks/register.test.tsx`, scenario leg `empty_batch`
+- [x] Local gates at `020fd86` (carried from `1908533`): `just check` pass; `just eval-dry-run` pass (17 of 17); `just mod` pass (85)
 - [ ] Evidence: none, no visual capture of the pane yet (see Known gaps)
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Review: approved at `487447a`/`1908533` (carried, clean rebase onto main)
+- [x] Verified at `1908533`, carried to `020fd86`
+- [x] CI green at `020fd86`: all 5 checks pass, the scenario job (ubuntu) included
 
 ## Internal references
 
-- CR-369 open-empty-batch (batch-28); the `ready-joins-waiting-batch` CR is stacked on it.
+- CR-369 open-empty-batch (batch-28); stacked on CR-374 (change-specification refusal text).
 
 </details>

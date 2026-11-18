@@ -18,6 +18,8 @@ What the audit does with a QA driver, before and after:
 
 A new dry-run case, `audit-qa-prompt`, reads the first line from `agents/qa-driver.md` and runs seven variants (`own`, `form`, `role`, `card`, `branch`, `outside`, `direct`).
 
+Evidence at `1b58d39`: `just eval-dry-run` ends `dry run: 18 of 18 cases as expected`, `audit-qa-prompt` ok. With the QA first-line recognition disabled the case fails on J1; with J3's worktree allowance restored to the verifier alone it fails on J3 (0 of 1 each time).
+
 ## Blast radius
 
 Grade: 1. The change is confined to the eval kit (audit and its dry run); `git revert` restores the previous behaviour.
@@ -49,12 +51,12 @@ No visual change. Eval audits stop failing a QA driver started with its card's f
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `audit-qa-prompt` in `evals/kit/dry_run.py`
-- [ ] Local gates at `<sha7>`: <!-- filled at the pushed head -->
-- [ ] Evidence: `just eval-dry-run` output at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (judged at `1b58d39`; with the QA recognition or the J3 relaxation removed, the case fails) (they fail on the previous code): `audit-qa-prompt` in `evals/kit/dry_run.py`
+- [x] Local gates at `1b58d39`: `just check` pass (635 tests); `just eval-dry-run` pass (18 of 18 cases as expected)
+- [x] Evidence: `just eval-dry-run` output at `1b58d39`, `audit-qa-prompt` and its `direct` variant included
+- [x] Review: approved at `1b58d39`
+- [x] Verified at `1b58d39`
+- [x] CI green at `1b58d39` (5 of 5 jobs)
 
 ## Internal references
 
