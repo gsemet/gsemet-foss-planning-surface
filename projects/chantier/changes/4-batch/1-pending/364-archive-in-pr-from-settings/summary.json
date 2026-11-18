@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Archive in the PR: off unless the project asks for it",
+  "summary": "Specified: with a planning surface, a CR's archive goes in its PR only when project.md says 'Archive in the PR: yes'; take and ship stop expecting it otherwise, cards and docs follow, and the default change is named in the commit and PR for the release notes.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "4802d2b4eb3d8b418af56ef7e23984389ca9bf8ed8003115012a935b9944799a",
+    "03-change-spec.md": "f059adef54b0ec1519d6af7eca9df5fc8fd6d5552946a4112e23691114e2767b",
+    "intake/request.md": "feedcfcc28eea5caaddd13123ede818963b8fd143a8267250e8eb2bda57c21e0"
+  },
+  "summarized": "2026-11-18T14:39:25Z"
+}

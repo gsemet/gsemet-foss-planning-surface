@@ -9,3 +9,8 @@
 - **What the ask says.** As in partial-stack-ask-windows-gate: the ready line states the local gate at that head (passed, failed, not run); the Foreman sends the last CR's ready ask only with a pass, except at a `deliver by` time.
 - **Shared cards.** It touches the same cards as partial-stack-ask-windows-gate (driver.md, foreman.md, chief-of-staff.md): the two CRs run one after the other (`order after`), never side by side.
 - Spec critic: yes, it changes the Driver's and the Foreman's contracts.
+- Settled by the Chief of Staff (2026-11-18, the spec-writer's three open questions):
+  - **Series batches:** yes, the definition applies to a series too (no stack on the forge).
+  - **Release CR:** the local run falls on the last open CR other than a release CR (the Release driver keeps its own procedure); a fix CR counts like any CR.
+  - **Waiver:** an `order waive ... --follow-up` does not waive the local run unless its text names that gate.
+- Settled by the Chief of Staff (2026-11-18, spec critic finding 3, "plus de question"): (a). When the last open CRs are all ready together, the last one in the batch's order among them counts as the top as soon as no other CR is working or queued: it runs the local gate before its ask, and the Chief of Staff offers the others as mergeable only together with it or before it.

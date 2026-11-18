@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The batch's top runs the local gate in a batch with no stack",
+  "summary": "Specified: in a batch with no stack, the last open non-release CR (or the last ready one in order) runs the local long gate before its ready ask, which states the result; a waiver skips it only if it names that gate; no open questions",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "c2d149778f288912d39092463271a206aa0eac805fa604101b2af5685615aec4",
+    "03-change-spec.md": "ada5b7f6c5ba9d43ef3c6f57254cb311238c327dde57db9369c79c117fdd0870",
+    "intake/request.md": "ee66d9721a93ab3875a4fcef22e4d3e6e516d69a7faee247daf3de05f4592cdb"
+  },
+  "summarized": "2026-11-18T14:45:20Z"
+}

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A session whose chantier CLI cannot run stops at once",
+  "summary": "Specified: one rule in startup-core.md stops every role when the CLI cannot launch, in either mode, at any call; refusals keep their handling; work-without-it lines exclude the CLI; one test reads the shipped cards; startup limit may rise by at most 256 bytes.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "1b257a200d77c02a2f868a8268b6ad022ef8543c4232a76997ff668e9137e2d4",
+    "03-change-spec.md": "64d8f613a7c387f911a3ec4c8c53e36639bea6b0e71840fc3851c0581223ab7a",
+    "intake/request.md": "56d1d533be5771987b5fdd2b9b1b20723b64aff3f1dd298ad88b083e98b8eabc"
+  },
+  "summarized": "2026-11-18T14:38:58Z"
+}

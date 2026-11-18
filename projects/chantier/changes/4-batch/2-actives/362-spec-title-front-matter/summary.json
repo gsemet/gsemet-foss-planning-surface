@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A front matter is never a CR's title, and the board's panel hides it",
+  "summary": "Specified: titles already come from the first heading after a front matter on main (c9e645c1); the CR hides the front matter in the board panel's Markdown and confirms markdown_title is the only title reader.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "b5cc853b21b79ac19c6153ccdf8ecad47697bd4b968617463dbab26ba8695c26",
+    "03-change-spec.md": "84c2eecb9b17e5617ec7c09d9f975ed2b88b34cce990074e4549306d7284f56f",
+    "intake/request.md": "eaf0834bfccaf9a833f5b673670aa442bb2064c1694f1e22aa2d94239585d810"
+  },
+  "summarized": "2026-11-18T14:34:59Z"
+}

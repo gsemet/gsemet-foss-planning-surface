@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Ignore every CR's work/gates/ in the planning folder",
+  "summary": "Specified: the .gitignore entry work/gates/ becomes **/work/gates/ (sweep found no other anchoring bug), existing folders get the new line, scenario and tests check git ignores a CR's work/gates/.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "3aa38bb9b29fa62e105e76ac838f02bae2dac5a4300448e2634b013e246f540a",
+    "03-change-spec.md": "1e50b59fa67a514a42156bfaba845f8caae24fdb19f572ef20fa2a03ce1707d2",
+    "intake/request.md": "10e0a66307f2f4d5bfa2e10872836392dc82cfdad46ad0e8eff487dbbd482901"
+  },
+  "summarized": "2026-11-18T14:34:05Z"
+}
