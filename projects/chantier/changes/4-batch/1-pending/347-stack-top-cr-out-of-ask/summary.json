@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A CR taken on top of a ready stack stays out of its ask",
+  "summary": "A working CR whose PR the stack driver has not placed yet is listed under forge-stack's to come:, never as a row, so check 2 and the partial-stack ask no longer wait on it; take's base rule (nearest earlier CR with a PR) stays as the user set it.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "b704370464492d3ccd2c6c22fafafa8a90a157b27a0c196d7a6b6d43b7b8ef32",
+    "03-change-spec.md": "faef38027f4b8e31372cde0dba8a124d0d55e7f9ba765adb8fb4012b80f87168",
+    "intake/request.md": "e3e5e968d0c4a5f5b0fc7993691abdb5ec1456676a05681aa7912c981a5e3519"
+  },
+  "summarized": "2026-11-18T06:48:42Z"
+}

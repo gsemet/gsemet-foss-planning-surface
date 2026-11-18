@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A restack re-checks PR bodies' SHAs and evidence image links",
+  "summary": "ship names PR-body SHAs that left the head after a restack, exempting only the SHA right after 'carried from', and images linked into such commits on every line; the Driver attaches those images with the forge's CLI; cards and scenario step widened.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "b72cf387a2b80903b5e3cbc17d2c6f41650328ee1416570e142923ac6617d881",
+    "03-change-spec.md": "3ef7f0377849db741d5ab2e31d1da37cefb1953730dabf6d28402b96a707694a",
+    "intake/request.md": "f10d6f76069f530b65e606e6bb04e1c5eb4da618173f28239326de1c66b93da2"
+  },
+  "summarized": "2026-11-18T06:45:44Z"
+}

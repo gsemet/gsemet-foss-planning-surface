@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A spec's guard checks run on the shipped files",
+  "summary": "Cards only: the spec-writer's evidence says guard checks read shipped files, the spec critic's kind 1 asks for it, and the Inspector checks from round 1 that each named test reads the shipped files.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "3f29ecde96e0ad3a3d0b2d6b57c3bf2d12a2cc67228e6134192929418401edf0",
+    "03-change-spec.md": "57d4272850b129ea87e5f10d717df4a3bbc7a79988bff544312b83fc89a83c80",
+    "intake/request.md": "5955c32ebb10e92d31af19951f82a79bf0af768aa43efdf9fa98fe00d753bcfc"
+  },
+  "summarized": "2026-11-18T06:44:43Z"
+}

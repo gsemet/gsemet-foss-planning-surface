@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Release chantier v0.12.0, with no eval campaign",
+  "summary": "The version PR for v0.12.0: release notes, claims file and the release commit, run last in batch-24 after the retro CRs; no eval ran, on the user's word.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "b7c147d7bf7b4f48b588920fbd151c616e1a87ae187db0a509abf822f4fc9789",
+    "03-change-spec.md": "b15260b889a372bea54c0181be10c15ba5de70485d8665cf9dfd931afb7d8145",
+    "intake/request.md": "16d81c71872dbb0f009a9fa82d44243ba0a6c66480baa13043709e737445178a"
+  },
+  "summarized": "2026-11-18T06:46:51Z"
+}

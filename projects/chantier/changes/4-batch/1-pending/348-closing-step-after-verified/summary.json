@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A fresh closing step after VERIFIED",
+  "summary": "A CR Driver that gets VERIFIED at the pushed head records a closing note and hands back context: closing; the Foreman restarts a fresh Driver with resume: closing, which reads only the CR's notes, finishes the PR body, ships and hands back ready. No loop, no round, not counted as out of context.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "24f81b45c2491993ce5c1d16c5fa84c1b8743f010f67eba0f052f5921f8cfd2f",
+    "03-change-spec.md": "411c8f9e62564fd6a776045ee5de62c3e38ca413fc97d958f69e11d8420c1fce",
+    "intake/request.md": "ffc3a5d377ea5465471701cb461be7646bd6c2127b338ee382d885b1436fb5cb"
+  },
+  "summarized": "2026-11-18T06:47:30Z"
+}

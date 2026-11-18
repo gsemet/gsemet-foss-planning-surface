@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Timing-bound checks hold on a loaded machine",
+  "summary": "Specified, no grill: the scenario's reused-pid lock dates from before a 600 s sleeper, the autosync tests' condition waits go to 60 s, and CI fetches the check tools first, retried once.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "2c36705ffa568a105fcdd32a7ea27509d5df08ed905ec7e6254c2bd905878f29",
+    "03-change-spec.md": "e4081ed092ef8ff353130d119e9f7c3e37e071205051c81d2504e30251da3df8",
+    "intake/request.md": "346dd27848ea75935ad9ebc7666058820c87bd6ae7503a5af283db0948ca8114"
+  },
+  "summarized": "2026-11-18T06:46:11Z"
+}

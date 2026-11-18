@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "ship refuses a main-based PR that carries another CR's commits",
+  "summary": "ship refuses, recording nothing, a PR out of draft on the default branch whose head carries another unmerged CR's head, and says to draft it and ship first; the stack ask names the one PR to merge, told to the user first.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "9aec47ac064c0dab72645d4c91ec43f5d90c4661e2be3cbe625297fbb91965a7",
+    "03-change-spec.md": "fffafe8ac3c4f188d8df433e929998be3d78c8756c34d765f11e719359c20dbc",
+    "intake/request.md": "c68e5443508eafddee036ed6d51d4b147b891545b98fe2427955a0f84453fdc5"
+  },
+  "summarized": "2026-11-18T06:48:27Z"
+}
