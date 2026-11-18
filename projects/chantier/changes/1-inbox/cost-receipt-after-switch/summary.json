@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Cost receipt after a steering switch",
+  "summary": "Filed, not grilled: the board's receipt should keep the Chief of Staff's steering outside its claim window after a switch, as the cost text does.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "6b9ab16594b30404e3d707443875ddc60ed612b669a6748eb650c00157e6905c"
+  },
+  "summarized": "2026-11-18T10:00:47Z"
+}

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "One forge hub per surface, watchers per session",
+  "summary": "Filed with the user's pick (option 2): an elected hub per surface and machine reads the forge, a local JSONL journal, and a watcher per session that wakes the Chief of Staff on merges; to grill.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "151474eff4f05e544661af8ee0291e57922cd9273664906a3e90a7406fe2a75b"
+  },
+  "summarized": "2026-11-18T10:00:48Z"
+}
