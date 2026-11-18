@@ -2,16 +2,451 @@
   "schema": 1,
   "batch": "batch-24",
   "number": 24,
-  "state": "running",
+  "state": "closed",
   "opened": "2026-11-17T17:42:16Z",
-  "closed": null,
+  "closed": "2026-11-18T08:15:25Z",
   "mode": "stack",
   "steering": "foreman",
   "host": "claude",
   "budget_usd": 200.0,
-  "cost_usd": null,
+  "cost_usd": 117.1054,
   "cost_unpriced": {},
-  "crs": [],
-  "cost_receipt": null,
-  "report": null
+  "crs": [
+    {
+      "cr": "CR-324",
+      "title": "Change Specification: the picker's planning-surface item",
+      "result": "merged",
+      "archive": "5-archives/261117-1858-324-board-picker-surface-item",
+      "pr": "https://github.com/gsemet/chantier/pull/282",
+      "rounds": 1,
+      "cost_usd": 1.4504,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-335",
+      "title": "Change specification: round-one-host-default-matrix",
+      "result": "merged",
+      "archive": "5-archives/261118-0221-335-round-one-host-default-matrix",
+      "pr": "https://github.com/gsemet/chantier/pull/295",
+      "rounds": 1,
+      "cost_usd": 1.2869,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-338",
+      "title": "Change Specification: the board's drawer, Kanban priority chips and CR titles render correctly",
+      "result": "merged",
+      "archive": "5-archives/261118-0621-338-board-design-bugs",
+      "pr": "https://github.com/gsemet/chantier/pull/300",
+      "rounds": 3,
+      "cost_usd": 5.0897,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-346",
+      "title": "Change Specification: ship refuses a main-based PR that carries another CR's commits",
+      "result": "merged",
+      "archive": "5-archives/261118-0802-346-ship-refuses-foreign-commits",
+      "pr": "https://github.com/gsemet/chantier/pull/312",
+      "rounds": 2,
+      "cost_usd": 4.9228,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-325",
+      "title": "Change Specification: role descriptions on the board's Configuration page",
+      "result": "merged",
+      "archive": "5-archives/261117-1756-325-board-config-role-descriptions",
+      "pr": "https://github.com/gsemet/chantier/pull/283",
+      "rounds": 1,
+      "cost_usd": 1.1912,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-326",
+      "title": "Change Specification: board-kanban-priority-colours",
+      "result": "merged",
+      "archive": "5-archives/261117-1858-326-board-kanban-priority-colours",
+      "pr": "https://github.com/gsemet/chantier/pull/284",
+      "rounds": 1,
+      "cost_usd": 2.3657,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-336",
+      "title": "Change Specification: the board sees a stacked PR that landed with its base",
+      "result": "merged",
+      "archive": "5-archives/261117-2249-336-record-sees-forge-merged-pr",
+      "pr": "https://github.com/gsemet/chantier/pull/296",
+      "rounds": 2,
+      "cost_usd": 1.5865,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-339",
+      "title": "Change Specification: the Costs receipt of a batch that is not closed carries a red \"NOT FINISHED\" stamp",
+      "result": "merged",
+      "archive": "5-archives/261118-0621-339-costs-receipt-not-finished-stamp",
+      "pr": "https://github.com/gsemet/chantier/pull/298",
+      "rounds": 2,
+      "cost_usd": 1.9542,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-347",
+      "title": "A CR taken on top of a ready stack stays out of its ask",
+      "result": "merged",
+      "archive": "5-archives/261118-0802-347-stack-top-cr-out-of-ask",
+      "pr": "https://github.com/gsemet/chantier/pull/314",
+      "rounds": 1,
+      "cost_usd": 2.5265,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-327",
+      "title": "Change Specification: a batch navigator on the Costs and Batch pages, and the receipt copied as an image",
+      "result": "merged",
+      "archive": "5-archives/261117-1858-327-board-batch-navigator",
+      "pr": "https://github.com/gsemet/chantier/pull/285",
+      "rounds": 4,
+      "cost_usd": 6.7999,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": []
+    },
+    {
+      "cr": "CR-337",
+      "title": "Change Specification: `status` prints a trigger line when the first stack is due",
+      "result": "merged",
+      "archive": "5-archives/261117-2249-337-status-take-stack-trigger",
+      "pr": "https://github.com/gsemet/chantier/pull/297",
+      "rounds": 1,
+      "cost_usd": 1.5881,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": []
+    },
+    {
+      "cr": "CR-340",
+      "title": "Change Specification: the board's Costs page shows where the money went, by model",
+      "result": "merged",
+      "archive": "5-archives/261118-0621-340-board-cost-by-model",
+      "pr": "https://github.com/gsemet/chantier/pull/301",
+      "rounds": 1,
+      "cost_usd": 4.3114,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": []
+    },
+    {
+      "cr": "CR-348",
+      "title": "Change Specification: a fresh closing step after VERIFIED",
+      "result": "merged",
+      "archive": "5-archives/261118-0802-348-closing-step-after-verified",
+      "pr": "https://github.com/gsemet/chantier/pull/313",
+      "rounds": 1,
+      "cost_usd": 1.4853,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": []
+    },
+    {
+      "cr": "CR-328",
+      "title": "Change Specification: workers get a bare `writes:` line to copy, and Verifiers a scratch folder inside `work/`",
+      "result": "merged",
+      "archive": "5-archives/261117-1858-328-prompt-writes-bare-path",
+      "pr": "https://github.com/gsemet/chantier/pull/287",
+      "rounds": 1,
+      "cost_usd": 1.8217,
+      "cost_unpriced": {},
+      "order": 4,
+      "after": []
+    },
+    {
+      "cr": "CR-341",
+      "title": "Change Specification: a PR, an MR, an issue or a link on the board opens on its site",
+      "result": "merged",
+      "archive": "5-archives/261118-0621-341-board-forge-links",
+      "pr": "https://github.com/gsemet/chantier/pull/302",
+      "rounds": 2,
+      "cost_usd": 2.8261,
+      "cost_unpriced": {},
+      "order": 4,
+      "after": []
+    },
+    {
+      "cr": "CR-349",
+      "title": "Change Specification: a spec's guard checks run on the shipped files",
+      "result": "merged",
+      "archive": "5-archives/261118-0802-349-spec-checks-on-shipped-files",
+      "pr": "https://github.com/gsemet/chantier/pull/310",
+      "rounds": 1,
+      "cost_usd": 0.911,
+      "cost_unpriced": {},
+      "order": 4,
+      "after": []
+    },
+    {
+      "cr": "CR-329",
+      "title": "A Driver force-pushes only its own branch; batch-23's refusal with the rule set recorded",
+      "result": "merged",
+      "archive": "5-archives/261117-1858-329-driver-force-push-own-branch",
+      "pr": "https://github.com/gsemet/chantier/pull/286",
+      "rounds": 1,
+      "cost_usd": 1.0251,
+      "cost_unpriced": {},
+      "order": 5,
+      "after": []
+    },
+    {
+      "cr": "CR-342",
+      "title": "Change Specification: the CR board pane shows the session's own project on a planning surface",
+      "result": "merged",
+      "archive": "5-archives/261118-0621-342-pane-follows-seat",
+      "pr": "https://github.com/gsemet/chantier/pull/304",
+      "rounds": 3,
+      "cost_usd": 1.8447,
+      "cost_unpriced": {},
+      "order": 5,
+      "after": []
+    },
+    {
+      "cr": "CR-350",
+      "title": "Change Specification: timing-bound checks hold on a loaded machine",
+      "result": "merged",
+      "archive": "5-archives/261118-0802-350-timing-checks-margin",
+      "pr": "https://github.com/gsemet/chantier/pull/311",
+      "rounds": 1,
+      "cost_usd": 1.3284,
+      "cost_unpriced": {},
+      "order": 5,
+      "after": []
+    },
+    {
+      "cr": "CR-330",
+      "title": "Change Specification: the fast gate again, and the rules' pre-push checks, before a Driver's first push; the specification's file edits as the Coder's checklist",
+      "result": "merged",
+      "archive": "5-archives/261117-2125-330-driver-checks-before-first-push",
+      "pr": "https://github.com/gsemet/chantier/pull/288",
+      "rounds": 1,
+      "cost_usd": 1.4696,
+      "cost_unpriced": {},
+      "order": 6,
+      "after": []
+    },
+    {
+      "cr": "CR-343",
+      "title": "Change Specification: the PRs page filters by batch and state, sorts, and says MR on GitLab",
+      "result": "merged",
+      "archive": "5-archives/261118-0621-343-board-prs-filter-sort",
+      "pr": "https://github.com/gsemet/chantier/pull/305",
+      "rounds": 3,
+      "cost_usd": 6.7639,
+      "cost_unpriced": {},
+      "order": 6,
+      "after": [
+        "CR-341"
+      ]
+    },
+    {
+      "cr": "CR-351",
+      "title": "A restack re-checks PR bodies' SHAs and evidence links",
+      "result": "merged",
+      "archive": "5-archives/261118-0802-351-restack-rechecks-pr-bodies",
+      "pr": "https://github.com/gsemet/chantier/pull/315",
+      "rounds": 1,
+      "cost_usd": 1.5565,
+      "cost_unpriced": {},
+      "order": 6,
+      "after": []
+    },
+    {
+      "cr": "CR-331",
+      "title": "Change specification: escalation-gaps",
+      "result": "merged",
+      "archive": "5-archives/261117-2134-331-escalation-gaps",
+      "pr": "https://github.com/gsemet/chantier/pull/289",
+      "rounds": 6,
+      "cost_usd": 8.9956,
+      "cost_unpriced": {},
+      "order": 7,
+      "after": []
+    },
+    {
+      "cr": "CR-344",
+      "title": "Change Specification: the board's design rules are written once, in DESIGN.md, and every page follows them",
+      "result": "merged",
+      "archive": "5-archives/261118-0621-344-board-design-system",
+      "pr": "https://github.com/gsemet/chantier/pull/306",
+      "rounds": 6,
+      "cost_usd": 13.2453,
+      "cost_unpriced": {},
+      "order": 7,
+      "after": []
+    },
+    {
+      "cr": "CR-352",
+      "title": "Version PR for chantier v0.12.0",
+      "result": "merged",
+      "archive": "5-archives/261118-0810-352-release-0-12",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": 0.7095,
+      "cost_unpriced": {},
+      "order": 7,
+      "after": [
+        "CR-346",
+        "CR-347",
+        "CR-348",
+        "CR-349",
+        "CR-350",
+        "CR-351"
+      ]
+    },
+    {
+      "cr": "CR-332",
+      "title": "Change Specification: the carry compares patch-ids and is recorded at the restack",
+      "result": "merged",
+      "archive": "5-archives/261117-2134-332-carry-by-patch-id",
+      "pr": "https://github.com/gsemet/chantier/pull/290",
+      "rounds": 2,
+      "cost_usd": 5.6058,
+      "cost_unpriced": {},
+      "order": 8,
+      "after": []
+    },
+    {
+      "cr": "CR-345",
+      "title": "Change Specification: the Batch page's central view gets tabs (graph, Gantt, time cards)",
+      "result": "merged",
+      "archive": "5-archives/261118-0621-345-board-batch-view-tabs",
+      "pr": "https://github.com/gsemet/chantier/pull/307",
+      "rounds": 2,
+      "cost_usd": 7.4387,
+      "cost_unpriced": {},
+      "order": 8,
+      "after": [
+        "CR-344"
+      ]
+    },
+    {
+      "cr": "CR-333",
+      "title": "Change Specification: `take` bases a stack CR on the nearest earlier CR with a PR",
+      "result": "merged",
+      "archive": "5-archives/261117-2134-333-take-base-nearest-pr",
+      "pr": "https://github.com/gsemet/chantier/pull/291",
+      "rounds": 1,
+      "cost_usd": 2.3316,
+      "cost_unpriced": {},
+      "order": 9,
+      "after": []
+    },
+    {
+      "cr": "CR-334",
+      "title": "Change Specification: the automatic reload after a compaction loads the role's skill again",
+      "result": "merged",
+      "archive": "5-archives/261117-2134-334-compaction-reload-loads-skill",
+      "pr": "https://github.com/gsemet/chantier/pull/293",
+      "rounds": 2,
+      "cost_usd": 2.4789,
+      "cost_unpriced": {},
+      "order": 10,
+      "after": []
+    }
+  ],
+  "cost_receipt": {
+    "steering": {
+      "label": "Foreman",
+      "usd": 15.77,
+      "calls": 479,
+      "unpriced": {},
+      "wakes": 167,
+      "context_avg": 178467
+    },
+    "drivers": [
+      {
+        "type": "chantier:cr-driver",
+        "usd": 91.9231,
+        "calls": 4240,
+        "unpriced": {}
+      },
+      {
+        "type": "chantier:stack-driver",
+        "usd": 8.7029,
+        "calls": 309,
+        "unpriced": {}
+      },
+      {
+        "type": "chantier:release-driver",
+        "usd": 0.7095,
+        "calls": 29,
+        "unpriced": {}
+      }
+    ],
+    "split": [
+      {
+        "part": "steering",
+        "usd": 15.77,
+        "calls": 479,
+        "unpriced": {}
+      },
+      {
+        "part": "drivers",
+        "usd": 48.31,
+        "calls": 1924,
+        "unpriced": {}
+      },
+      {
+        "part": "workers",
+        "usd": 53.03,
+        "calls": 2654,
+        "unpriced": {}
+      }
+    ],
+    "models": [
+      {
+        "model": "claude-sonnet-5-5",
+        "calls": 4624,
+        "usd": 99.92,
+        "unpriced": 0
+      },
+      {
+        "model": "claude-opus-5-5",
+        "calls": 433,
+        "usd": 17.19,
+        "unpriced": 0
+      }
+    ],
+    "outside": {
+      "grill": {
+        "usd": 64.7913,
+        "calls": 1239,
+        "unpriced": {}
+      },
+      "steering": {
+        "usd": 30.2114,
+        "calls": 486,
+        "unpriced": {}
+      }
+    }
+  },
+  "report": "batch-24.md"
 }
