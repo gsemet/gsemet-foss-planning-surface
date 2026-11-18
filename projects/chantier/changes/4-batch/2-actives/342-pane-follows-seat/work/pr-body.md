@@ -24,7 +24,7 @@ Grade: 1
 
 ## Autonomous decisions
 
-None
+- The session id is stored in the site atom (shape tag `site-4`, one step past the specified `site-3`), because a plugin reload resets module variables while the atoms persist, which would have made a seated pane flip to every project.
 
 ## Known gaps
 
@@ -36,7 +36,7 @@ None
 ## Changes
 
 - `hooks/register.tsx`: reads `$.session.id()`, matches it against the seat and current batch records of each project of a surface, keeps the matched projects (all when none), re-chooses at opening, each periodic check and Refresh; the site atom gains `unseated` and the session id `sid` (shape tag `site-4`), so a plugin reload keeps the id; header comment updated.
-- `types/index.d.ts`: `PluginState.chantier.site` gains `unseated: string | null`.
+- `types/index.d.ts`: `PluginState.chantier.site` gains `unseated: string | null` and `sid`, the session id read (or its error).
 - `hooks/register.test.tsx`: parametrized tests for each matching field, two projects matched, no match, an unreadable id, the single-view screen, a seat written after opening, no re-read without an mtime change, and the unchanged in-project case.
 - `docs/boards.md`: "What it is" and "How to read it".
 
@@ -46,12 +46,12 @@ The pane of a seated session shows only its own project. No change for a session
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just mod`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `8ae64cb`: `just check` pass (506 tests), `just mod` pass (plugin validate accepts `$.session.id`; 78 plugin tests pass)
 - [ ] Evidence: no screenshot yet (see Known gaps)
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Review: approved at `8ae64cb` (reviewed before the rebase onto the updated base; same patch)
+- [x] Verified at `8ae64cb`
+- [x] CI green at `8ae64cb` (gh pr checks 304: all five jobs pass)
 
 ## Internal references
 
@@ -59,3 +59,5 @@ The pane of a seated session shows only its own project. No change for a session
 - Stacked on CR-341's branch.
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)

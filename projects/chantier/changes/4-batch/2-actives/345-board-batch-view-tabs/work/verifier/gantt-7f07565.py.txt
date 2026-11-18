@@ -1,0 +1,45 @@
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["playwright>=1.49"]
+# ///
+import importlib.util, json, shutil, sys
+from pathlib import Path
+WT = Path(sys.argv[1]); SC = Path(sys.argv[2]); EV = Path(sys.argv[3])
+spec = importlib.util.spec_from_file_location("ds", WT / "scripts" / "docs_screenshots.py")
+ds = importlib.util.module_from_spec(spec); sys.modules["ds"] = ds; spec.loader.exec_module(ds)
+from playwright.sync_api import sync_playwright
+ds.CLOCK = "2026-06-18T10:30:00Z"
+work = SC / "run-7f07565"
+if work.exists(): shutil.rmtree(work, ignore_errors=True)
+work.mkdir(parents=True)
+surface = ds.make_surface(work); home = work / "home"; home.mkdir()
+proc, url = ds.start_board(surface, home)
+out = {}
+PROBE = """()=>{const s=document.querySelector('.gscroll');const r=s.getBoundingClientRect();
+const q=x=>{const e=document.querySelector(x);if(!e)return null;const b=e.getBoundingClientRect();return {left:Math.round(b.left),right:Math.round(b.right)}};
+const crosses=[...document.querySelectorAll('.gt-svg g.cross')].map(g=>{const b=g.getBoundingClientRect();return Math.round(b.right)});
+const lab=document.querySelector('.glabel').getBoundingClientRect();
+return {scrollLeft:s.scrollLeft,sw:s.scrollWidth,cw:s.clientWidth,box:[Math.round(r.left),Math.round(r.right)],now:q('.gt-now'),nowT:q('.gt-now-t'),crosses,label:[Math.round(lab.left),Math.round(lab.right)]}}"""
+try:
+    with sync_playwright() as pw:
+        br = pw.chromium.launch()
+        for name, vp in (("1400x860", ds.SIZES["pc"]), ("1400x1300", {"width": 1400, "height": 1300}), ("390", {"width": 390, "height": 844})):
+            ctx = br.new_context(viewport=vp, locale="en-US", timezone_id="UTC", color_scheme="light", reduced_motion="reduce")
+            ctx.clock.set_fixed_time(ds.CLOCK)
+            ctx.route("**/api/board*", ds.fix_surface_path)
+            page = ctx.new_page()
+            base = url.split("#")[0]; sep = "&" if "?" in base else "?"
+            page.goto(f"{base}{sep}p=shop-api&v=batch&t=gantt&lang=en")
+            page.wait_for_selector(".gt-svg *", state="attached"); page.wait_for_timeout(600)
+            out[name] = page.evaluate(PROBE)
+            page.screenshot(path=str(EV / f"7f07565-gantt-{name}.png"), animations="disabled", caret="hide")
+            if name == "390":
+                page.evaluate("document.querySelector('.gscroll').scrollLeft=9999"); page.wait_for_timeout(200)
+                out["390_scrolled"] = page.evaluate(PROBE)
+                out["390_sticky_label"] = page.evaluate("()=>getComputedStyle(document.querySelector('.glabel')).position")
+                page.screenshot(path=str(EV / "7f07565-gantt-390-scrolled.png"), animations="disabled", caret="hide")
+            ctx.close()
+        br.close()
+finally:
+    ds.stop(proc); shutil.rmtree(work, ignore_errors=True)
+print(json.dumps(out, indent=1))

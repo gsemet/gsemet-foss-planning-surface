@@ -56,7 +56,7 @@ Click behaviour on Home's open PRs and links in the side panel change; nothing e
 - [x] Evidence at `ade7512`: real-browser run, 36 checks pass (Home rows for GitHub and GitLab in English and French, CR number opens the panel, box row, panel links, facts row)
 - [x] Review: approved carried from `ade7512`
 - [x] Verified carried from `ade7512`: browser proof; description pass pending
-- [x] CI green at `ade7512`: all five jobs pass
+- [x] CI green at `1690ec4`: all five jobs pass
 
 ## Internal references
 

@@ -57,7 +57,7 @@ The receipt of a running or paused batch shows the red stamp; a closed batch's r
 - [x] Evidence: the stamped receipt, the closed receipt and the copied image at `a45b214`, in a real Chromium on the demo, English and French, desktop and phone width
 - [x] Review: approved carried from `a45b214`
 - [x] Verified carried from `a45b214`
-- [x] CI green at `a45b214`: all five jobs pass
+- [x] CI green at `7d1b5f4`: all five jobs pass
 
 ## Internal references
 

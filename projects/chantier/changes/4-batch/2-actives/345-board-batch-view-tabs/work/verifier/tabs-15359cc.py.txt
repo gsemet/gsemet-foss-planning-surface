@@ -1,0 +1,72 @@
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["playwright>=1.49"]
+# ///
+import importlib.util, json, shutil, sys
+from pathlib import Path
+WT = Path(sys.argv[1]); SC = Path(sys.argv[2])
+spec = importlib.util.spec_from_file_location("ds", WT / "scripts" / "docs_screenshots.py")
+ds = importlib.util.module_from_spec(spec); sys.modules["ds"] = ds; spec.loader.exec_module(ds)
+from playwright.sync_api import sync_playwright
+ds.CLOCK = "2026-06-18T10:30:00Z"
+work = SC / "run-15359cc"
+if work.exists(): shutil.rmtree(work, ignore_errors=True)
+work.mkdir(parents=True)
+surface = ds.make_surface(work); home = work / "home"; home.mkdir()
+proc, url = ds.start_board(surface, home)
+base = url.split("#")[0]; sep = "&" if "?" in base else "?"
+out = {}
+q = lambda p: p.url.split("?")[1]
+def wait(p, sel="[data-key]"):
+    p.wait_for_selector(sel, state="attached"); p.wait_for_timeout(600)
+try:
+    with sync_playwright() as pw:
+        br = pw.chromium.launch()
+        ctx = br.new_context(viewport=ds.SIZES["pc"], locale="en-US", timezone_id="UTC", reduced_motion="reduce")
+        ctx.clock.set_fixed_time(ds.CLOCK)
+        ctx.route("**/api/board*", ds.fix_surface_path)
+        p = ctx.new_page()
+        p.goto(f"{base}{sep}p=shop-api&v=batch&lang=en"); wait(p)
+        out["default"] = q(p)
+        out["tabs"] = p.locator("[role=tab]").all_inner_texts()
+        for tab in ("gantt", "cards", "graph"):
+            p.locator(f"[data-tab={tab}]").click(); p.wait_for_timeout(700)
+            out["click_" + tab] = {"url": q(p), "selected": p.eval_on_selector_all("[role=tab][aria-selected=true]", "e=>e.map(x=>x.dataset.tab)")}
+        p.locator("[data-tab=cards]").click(); p.wait_for_timeout(700)
+        p.reload(); wait(p, "[role=tab]"); p.wait_for_timeout(500)
+        out["reload_cards"] = {"url": q(p), "selected": p.eval_on_selector_all("[role=tab][aria-selected=true]", "e=>e.map(x=>x.dataset.tab)"), "tcards": p.locator(".tcards").count()}
+        link = p.url
+        p2 = ctx.new_page(); p2.goto(link); wait(p2, "[role=tab]"); p2.wait_for_timeout(500)
+        out["copied_link"] = {"url": q(p2), "selected": p2.eval_on_selector_all("[role=tab][aria-selected=true]", "e=>e.map(x=>x.dataset.tab)")}
+        p2.close()
+        # All projects
+        p.locator("[data-menu=toggle]").first.click(); p.wait_for_timeout(300)
+        p.locator("[data-project='*']").first.click(); p.wait_for_timeout(700)
+        out["all_projects"] = q(p)
+        # back to a project: tab must be default
+        p.goto(f"{base}{sep}p=shop-api&v=batch&lang=en"); wait(p)
+        out["after_all_fresh"] = q(p)
+        # PRs page
+        p.goto(f"{base}{sep}p=mobile-app&v=prs&lang=en"); wait(p, ".pvfilters")
+        out["prs_default"] = q(p)
+        out["prs_rows0"] = p.locator(".pvrow, .pvrows > *").count()
+        states = p.eval_on_selector_all("[data-pvf]", "e=>e.map(x=>x.dataset.pvf)")
+        sorts = p.eval_on_selector_all("[data-pvs]", "e=>e.map(x=>x.dataset.pvs)")
+        out["state_chips"] = states; out["sort_chips"] = sorts
+        st = [s for s in states if s != "all"][0]
+        p.locator(f"[data-pvf={st}]").click(); p.wait_for_timeout(400)
+        out["after_state"] = q(p)
+        p.locator("[data-pvs=activity]").click(); p.wait_for_timeout(400)
+        out["after_sort"] = q(p)
+        p.reload(); wait(p, ".pvfilters"); p.wait_for_timeout(400)
+        out["prs_reload"] = {"url": q(p), "pressed": p.eval_on_selector_all(".lbtn.on", "e=>e.map(x=>x.dataset.key)")}
+        p.locator("[data-pvf=all]").click(); p.wait_for_timeout(400)
+        out["after_state_all"] = q(p)
+        # tab does not leak onto prs, st does not leak onto batch
+        p.locator("[data-menu=toggle]").first.click(); p.wait_for_timeout(300)
+        p.locator("[data-project='*']").first.click(); p.wait_for_timeout(700)
+        out["prs_to_all"] = q(p)
+        br.close()
+finally:
+    ds.stop(proc); shutil.rmtree(work, ignore_errors=True)
+print(json.dumps(out, indent=1))

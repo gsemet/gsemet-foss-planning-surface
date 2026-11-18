@@ -1,0 +1,169 @@
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["playwright>=1.49"]
+# ///
+import importlib.util
+import json
+import shutil
+import sys
+from pathlib import Path
+
+WT = Path(sys.argv[1])
+SC = Path(sys.argv[2])
+EV = Path(sys.argv[3])
+CLOCK = sys.argv[4]
+TAG = sys.argv[5]
+FULL = sys.argv[6] == "full"
+spec = importlib.util.spec_from_file_location("ds", WT / "scripts" / "docs_screenshots.py")
+ds = importlib.util.module_from_spec(spec)
+sys.modules["ds"] = ds
+spec.loader.exec_module(ds)
+from playwright.sync_api import sync_playwright
+
+ds.CLOCK = CLOCK
+work = SC / ("run-" + TAG)
+if work.exists():
+    shutil.rmtree(work, ignore_errors=True)
+work.mkdir(parents=True)
+surface = ds.make_surface(work)
+home = work / "home"
+home.mkdir()
+proc, url = ds.start_board(surface, home)
+out = {}
+TAGS = "els=>els.map(e=>[e.dataset.id||e.innerText.split('\\n')[0], [...e.querySelectorAll('.tag')].map(t=>t.className.replace('tag ','')+':'+t.innerText).join('|')])"
+
+
+def shot(page, name):
+    EV.mkdir(parents=True, exist_ok=True)
+    page.screenshot(path=str(EV / name), animations="disabled", caret="hide")
+
+
+def to(page, view, project, lang="en"):
+    base = url.split("#")[0]
+    sep = "&" if "?" in base else "?"
+    page.goto(f"{base}{sep}p={project}&v={view}&lang={lang}")
+    page.wait_for_selector("[data-key]", state="attached")
+    page.wait_for_timeout(600)
+
+
+try:
+    with sync_playwright() as pw:
+        br = pw.chromium.launch()
+        ctx = br.new_context(
+            viewport=ds.SIZES["pc"],
+            locale="en-US",
+            timezone_id="UTC",
+            color_scheme="light",
+            reduced_motion="reduce",
+        )
+        ctx.clock.set_fixed_time(CLOCK)
+        ctx.route("**/api/board*", ds.fix_surface_path)
+        page = ctx.new_page()
+        reqs = []
+        page.on(
+            "request",
+            lambda r: reqs.append(r.url.split("/js/")[-1]) if "/js/views/batch-" in r.url else None,
+        )
+        to(page, "batch", "shop-api")
+        out["url_default"] = page.url.split("?")[1]
+        out["tabs"] = page.locator("[role=tab]").all_inner_texts()
+        out["reqs_graph"] = list(reqs)
+        out["sparks"] = page.eval_on_selector_all(
+            ".spark",
+            "els=>els.map(e=>[e.closest('[data-id]')?.dataset.id, e.title])",
+        )
+        out["graph_edges"] = sorted(
+            page.eval_on_selector_all(
+                "svg.edges path[data-from]", "ps=>ps.map(p=>p.dataset.from+'>'+p.dataset.to)"
+            )
+        )
+        out["graph_chips"] = page.eval_on_selector_all(".graph .card", TAGS)
+        out["pr_cards"] = page.eval_on_selector_all(".bwrap > :not(.gcol) .card", TAGS)
+        if FULL:
+            shot(page, "after-graph-" + TAG + ".png")
+        page.reload()
+        page.wait_for_selector("[data-key]", state="attached")
+        page.wait_for_timeout(600)
+        out["sparks_after_reload"] = page.locator(".spark").count()
+        if FULL:
+            page.locator("[data-tab=gantt]").click()
+            page.wait_for_selector(".gt-svg *", state="attached")
+            page.wait_for_timeout(600)
+            out["url_gantt"] = page.url.split("?")[1]
+            out["reqs_gantt"] = list(reqs)
+            out["spark_in_gantt"] = page.locator(".gt .spark").count()
+            out["gantt_labels"] = page.eval_on_selector_all(".glabel", TAGS)
+            out["gantt_segments"] = page.eval_on_selector_all(
+                ".gt-svg rect.seg",
+                "rs=>rs.map(r=>({c:r.getAttribute('class'),x:r.getAttribute('x'),w:r.getAttribute('width'),y:r.getAttribute('y'),fill:r.getAttribute('fill'),t:r.querySelector('title').textContent}))",
+            )
+            out["gantt_cross"] = page.locator(".gt-svg g.cross").count()
+            out["gantt_cross_y"] = page.eval_on_selector_all(
+                ".gt-svg g.cross", "gs=>gs.map(g=>g.querySelector('line').getAttribute('y1')+' x1='+g.querySelector('line').getAttribute('x1'))"
+            )
+            out["gantt_marks"] = page.eval_on_selector_all(
+                ".gt-svg circle.mark", "cs=>cs.map(c=>c.getAttribute('class')+' '+c.getAttribute('cx'))"
+            )
+            out["gantt_arrows"] = sorted(
+                page.eval_on_selector_all(
+                    ".gt-svg path[data-from]",
+                    "ps=>ps.map(p=>p.dataset.from+'>'+p.dataset.to+' '+p.getAttribute('d'))",
+                )
+            )
+            out["gantt_now"] = page.locator(".gt-now").count()
+            out["gantt_ticks"] = page.eval_on_selector_all(
+                ".gt-svg text.gt-t", "ts=>ts.map(t=>t.textContent)"
+            )
+            out["gantt_border"] = page.eval_on_selector_all(
+                ".glabel",
+                "els=>[...new Set(els.map(e=>getComputedStyle(e).borderLeftWidth+' '+getComputedStyle(e).borderRightWidth))]",
+            )
+            shot(page, "after-gantt-" + TAG + ".png")
+            page.go_back()
+            page.wait_for_selector(".graph", state="attached")
+            out["url_back"] = page.url.split("?")[1]
+            out["graph_back"] = page.locator(".graph").count()
+            page.locator("[data-tab=graph]").focus()
+            page.keyboard.press("ArrowRight")
+            page.wait_for_timeout(600)
+            out["after_arrow"] = page.url.split("?")[1]
+            to(page, "batch&t=cards", "shop-api")
+            page.wait_for_selector(".tcards .card", state="attached")
+            out["url_cards"] = page.url.split("?")[1]
+            out["cards_selected"] = page.eval_on_selector_all(
+                "[role=tab][aria-selected=true]", "e=>e.map(x=>x.textContent)"
+            )
+            out["cards"] = page.eval_on_selector_all(
+                ".tcards .card",
+                "els=>els.map(e=>({id:e.dataset.id,text:e.innerText.replace(/\\n+/g,' / '),stamps:[...e.querySelectorAll('.card-stamp')].map(s=>s.className.replace('card-stamp ','')+':'+s.innerText),tags:[...e.querySelectorAll('.tag')].map(t=>t.className.replace('tag ','')+':'+t.innerText).join('|'),bl:getComputedStyle(e).borderLeftWidth}))",
+            )
+            out["spark_in_cards"] = page.locator(".tcards .spark").count()
+            shot(page, "after-cards-" + TAG + ".png")
+            to(page, "batch&t=cards", "shop-api", "fr")
+            page.wait_for_selector(".tcards .card", state="attached")
+            out["fr_cards"] = page.locator(".tcards").inner_text()[:800]
+            out["fr_tabs"] = page.locator("[role=tab]").all_inner_texts()
+            out["fr_legend"] = page.locator(".lghint").inner_text()
+            to(page, "batch&t=gantt", "shop-api", "fr")
+            page.wait_for_selector(".gt-svg *", state="attached")
+            out["fr_gantt"] = page.eval_on_selector_all(
+                ".gt-svg title, .gt-now-t", "ts=>ts.slice(0,6).map(t=>t.textContent)"
+            )
+            shot(page, "after-gantt-fr.png")
+            to(page, "batch", "mobile-app")
+            out["closed_url"] = page.url.split("?")[1]
+            out["closed_chips"] = page.locator(".graph .tag[class*=pri-]").count()
+            for tab in ("gantt", "cards"):
+                page.locator(f"[data-tab={tab}]").click()
+                page.wait_for_timeout(700)
+                out["closed_" + tab] = page.locator("[role=tabpanel]").inner_text()
+                out["closed_" + tab + "_svg"] = page.locator(".gt-svg, .tcards").count()
+                shot(page, f"after-closed-{tab}.png")
+            out["closed_reqs"] = list(reqs)
+            to(page, "costs", "mobile-app")
+            shot(page, "after-costs.png")
+        br.close()
+finally:
+    ds.stop(proc)
+    shutil.rmtree(work, ignore_errors=True)
+print(json.dumps(out, indent=1, ensure_ascii=False))

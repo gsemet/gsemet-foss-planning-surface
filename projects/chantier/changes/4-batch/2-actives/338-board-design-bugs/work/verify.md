@@ -1,52 +1,33 @@
-Head: 7b8b87c46a286cbfa17c969e78a1a0a8fcc07173
+Head: c34c04de27b9ffa5a8742fd5a8ccbdd11945bdf4
 
-# CR-338 verification (first pass), judged at 7b8b87c
+# CR-338 verification (second pass, after the restack 7b8b87c -> c34c04d, base cr-335 -> main 6f1e4f76)
 
-1. Title rule (`markdown_title`, `_title`, `prepared_cr`, `shown_title`), judged at 7b8b87c.
-   `uv run --no-sync --project . pytest skills/chantier/scripts/cli/tests/test_titles.py -q` -> `12 passed in 1.95s`
-   (8 markdown_title cases incl. BOM, CRLF, unclosed fence, only-frontmatter; open/_title/shown_title; idea_slug).
-   Direct probe `python -I -c "from chantier.core.files import markdown_title ..."` gave: front matter+`# T` -> 'T'; BOM -> 'T'; CRLF -> 'T'; front matter+plain -> 'plain'; `para\n## H` -> 'H'; only front matter -> ''; unclosed `---\na: b\n# H` -> 'H'.
-   `git diff 5b86c93f HEAD` shows `shown_title` in status/views.py (cr_view, _row, _past, _done_rows), board/crs.py `_row`, commands/close_archive.py (history record), facts.py, driver.py; `prepared_cr` uses `markdown_title(text) or directory.name`. history.py untouched, as the PR says. VERIFIED.
+Move: `git diff --stat 6f1e4f76 HEAD` -> 14 files changed, 164 insertions, 29 deletions (same 14-file patch). The base change brought other files (docs, stacks.py, prs.py, ...), none that the title tests, the front matter probe or the drawer proof run, except as exercised below; all re-run at c34c04d.
 
-2. Class renames, no leftover selectors, judged at 7b8b87c.
-   `grep -rn "tree .nm\|tree .ind\|class=\"nm\"\|\"ind\"" .../web/js/panel .../web/css/panel.css` -> no output. Diff shows `.nm`->`.fname`, `.ind`->`.nested` in tree.js and panel.css; cards.css and triage.css untouched (not in the diff list). VERIFIED.
-
-3. Priority toggles, judged at 7b8b87c.
-   postit.css diff: `.lbtn { border: 0; font: inherit; }` and `.lbtn[data-pf]::before { content: none; }`; priority.js buttons carry `data-pf`, filter.js label buttons do not, so label squares stay. VERIFIED.
-
-4. Front matter in the drawer, judged at 7b8b87c.
-   `node --input-type=module -e` importing markdown.js `renderMarkdown`:
+1. Title rule, judged at c34c04d. `uv run --no-sync --project . pytest skills/chantier/scripts/cli/tests/test_titles.py -q` -> `12 passed in 6.72s`. VERIFIED.
+2. Front matter probe, judged at c34c04d. `node --input-type=module` importing markdown.js `renderMarkdown`:
    - `---\ntype: cr-answers\ndescription: a <b> x\n  more\n---\n# Hi\n\ntext` -> `<dl class="fm"><dt>type</dt><dd>cr-answers</dd><dt>description</dt><dd>a &lt;b&gt; x more</dd></dl><h3 class="md-h1">Hi</h3><p>text</p>`
-   - BOM + `---  ` -> dl then `<p>body</p>`; CRLF -> dl then `<p>b</p>`
-   - unclosed `---\na: 1\n# H` -> `<p>--- a: 1</p><h3 ...>H</h3>` (as today)
-   - empty front matter -> no dl, `<p>x</p>`.
-   CSS `.panel .doc .fm` grid `auto 1fr`, `--text-small`, dt `--ink3`, dd `--ink2`, `overflow-wrap: anywhere`, no border/fill. `wc -l markdown.js` -> 120 (< 300); reader is its own function `readFrontMatter`. Editor untouched (no editor file in the diff). VERIFIED.
+   - BOM + `---  ` -> `<dl class="fm"><dt>k</dt><dd>v</dd></dl><p>body</p>`
+   - unclosed `---\na: 1\n# H` -> `<p>--- a: 1</p><h3 class="md-h1">H</h3>`
+   - empty front matter -> `<p>x</p>`. VERIFIED.
+3. Drawer and Kanban in a real browser at c34c04d (Playwright/Chromium, `shoot.py` copy, demo data, 1440x900, my own outdir, removed at the end). Opened as images: the drawer shows plain file rows (icon, name, sizes right-aligned on one x), a muted type/description/status list above "Answers"; the Kanban shows borderless Priorities chips (Inbox, P1..P4) with no grey square and Labels with their coloured dots. VERIFIED.
+4. Claims carried from 7b8b87c (title mechanism in views/stages/crs, class renames and no leftover selectors, postit.css, no hooks/ or types/ change): the CR's patch is the same 14 files (above) and the tests and probes above re-run green; carried.
+5. Evidence images vs the head (the PR's after-* captured at 7b8b87c): my recapture at c34c04d, sha256 prefix: after-kanban `c6d347ff0a8ab681` and after-batch `83e47c1a70ae2038` are byte-identical to evidence/after-*.png; after-drawer differs only in the "Data: 1 s ago" vs "2 s ago" clock text (viewed side by side, same rendering). So the images still match the head. before-* were not recaptured (base 5b86c93 is not in this history; unchanged by the move). Privacy: the images show shop-api / batch-03 made-up data only; no username or home folder.
+6. PR 300 description (gh pr view 300, head c34c04de..., base main): renders, sections and fold fine; Summary/Deliverables/Changes match the 14-file diff; images are the evidence files above; Known gaps lists the title screenshot, pane screenshot and opening.py limits. SHAs: Evidence line names before 5b86c93 and after 7b8b87c: after is proven to still match at c34c04d (item 5); Review, Verified and gates are written "carried from 7b8b87c": the Review is proven by log note `r3 inspector approved ... committed as 7b8b87c4`; "Verified carried from 7b8b87c" holds only with this pass (VERIFIED at c34c04d) - the Driver may say "Verified at c34c04d". CI at c34c04d: `gh pr checks 300` five jobs pass (check x3, eval-dry-run, scenario ubuntu). VERIFIED.
 
-5. No change under hooks/ or types/: `git diff --name-only 5b86c93f HEAD | grep -E "^(hooks|types)/"` -> empty. VERIFIED.
-
-6. Screenshots (evidence/before-*.png at 5b86c93, after-*.png at head), opened as images:
-   - drawer: before shows grey boxed names offset from icons, unaligned sizes, `--- type: cr-answers description: ... ---` as one line; after shows plain rows, sizes right-aligned on one x, key/value list (type, description, status) in muted grey. Matches the claims.
-   - kanban: before shows outset bordered priority and label chips with grey squares on priorities; after shows borderless chips, no square on priorities, labels keep their coloured dots.
-   - batch (after only is in the PR? not in the description): shows real CR titles; demo data had real titles already, so no before/after contrast (the PR's Known gaps says so).
-   - Privacy: all four viewed images show only `shop-api` / `batch-03` made-up data, no username or home folder path. VERIFIED.
-   Note: `verifier/evidence/before-after.md` was not written by me and the images sit in the CR's `evidence/` folder (captured by the Driver's side); the pairs were not re-captured by me, they were opened and judged as above.
-
-7. PR description (gh pr view 300, head 7b8b87c): sections, Known gaps and details render; Summary, Deliverables and Changes match the diff (14 files; each listed; lifecycle/backlog.py, close_archive.py, facts.py, driver.py named). Known gaps names the pane screenshot ("No screenshot of the pane from a real session"), the missing "---" title screenshot and opening.py's unchanged lists. No role names as doers. Images are the demo-data captures above. Test plan checkboxes still hold `<sha7>` placeholders (Driver to fill with Verified at 7b8b87c once the verdict is in). Review box: log shows `r3 inspector approved at 5b86c93f..., committed as 7b8b87c4`, which proves the review for 7b8b87c. VERIFIED.
-
-8. Gates: Driver note `just check: pass (484 tests); just eval-dry-run: pass` at 7b8b87c; CI note 5 jobs green incl. scenario (not re-run by me; not claimed as my proof). No local long gate pass at this head (ship's `off` line): owed by the stack-top rule if this CR is on top.
-
-Pane screenshot from a real session: not captured, named Known gap, not a failure.
+Not proved: the CR board pane (no real session screenshot, a named Known gap); the "---" titles in a browser (demo data records real titles, named Known gap, proven by tests only); no long gate (`chantier gate`) at c34c04d (ship's `off` line), the pipeline's scenario job is green at this head and is not my proof; before-* images not recaptured.
 
 VERIFIED
 
-## Description pass (posted description of PR 300), judged at 7b8b87c46a286cbfa17c969e78a1a0a8fcc07173
+## Description pass (judged at c34c04de27b9ffa5a8742fd5a8ccbdd11945bdf4)
 
-Head: 7b8b87c46a286cbfa17c969e78a1a0a8fcc07173
+PR 300 body re-read with `gh pr view 300 --json body,headRefOid` (headRefOid c34c04de27b9ffa5a8742fd5a8ccbdd11945bdf4). Test plan, line by line:
+- Tests `tests/test_titles.py`: passed, item 1 above at c34c04d.
+- Local gates at 7b8b87c (patch unchanged): `$CHANTIER log CR-338` note 22:55:35Z "before first push at 7b8b87c: just check: pass (484 tests); just eval-dry-run: pass (17 of 17)". Proven; the restack kept the same 14-file patch (item 4 above).
+- Evidence before 5b86c93 / after 7b8b87c: after images still match the head (item 5 above).
+- Review approved carried from 7b8b87c: log note "r3 inspector approved ... committed as 7b8b87c4" names that SHA. Proven.
+- Verified at c34c04d: this file, items 1-6 above, VERIFIED at that head.
+- CI green at c34c04d: `gh pr checks 300` -> check x3 pass, eval-dry-run pass, scenario (ubuntu-latest) pass.
+Renders (sections, fold, image links to evidence files), Summary/Deliverables/Changes match the diff, Known gaps lists the three gaps, no username or home folder in the images, no stale mark, no role name outside Internal references. No new verdict recorded; the code verdict VERIFIED at c34c04d stands.
 
-- Consistency: `git diff --stat 5b86c93f HEAD` lists 14 files, all named in the Changes section (tree.js, panel.css, markdown.js, postit.css, files.py, views.py, stages.py, lifecycle/backlog.py, board/crs.py, close_archive.py, facts.py, driver.py, tests/test_titles.py; board/backlog.py carries the FRONTMATTER move, stated). No unmentioned change. PR base is cr-335; the cards in `base...HEAD` are the base's, not this CR's.
-- Renders: sections, tables, fold, code block fine; four images fetched with curl (200 image/png), sha256 equal to evidence/before-*.png and after-*.png (drawer, kanban) captured at 5b86c93 and 7b8b87c.
-- Image look: after-drawer opened, made-up paths (shop-api, 4-batch/2-actives/145-...), no username or home folder. Other three carried from the first pass's look (same sha256).
-- Known gaps lists the title screenshot, pane screenshot and opening.py limits; no UNVERIFIED bullet missing. No STALE mark.
-- Review box: `$CHANTIER log` has "r3 inspector approved ... committed as 7b8b87c4".
-- CI: `gh pr checks 300`: five jobs pass (check x3, eval-dry-run, scenario ubuntu).
-Description pass: VERIFIED
+VERIFIED (description)

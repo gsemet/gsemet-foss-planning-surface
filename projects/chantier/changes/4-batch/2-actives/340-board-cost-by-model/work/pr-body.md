@@ -81,7 +81,7 @@ The Costs page gains the card; the receipt ticket and the other cards are unchan
 - [x] Evidence: before at `a45b214`, after at `e323364`
 - [x] Review: approved carried from `d4d4d67`
 - [x] Verified carried from `e323364`
-- [x] CI green at `e323364`
+- [x] CI green at `abcc959`
 
 ## Internal references
 

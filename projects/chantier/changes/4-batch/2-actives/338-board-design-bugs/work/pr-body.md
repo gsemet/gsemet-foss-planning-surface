@@ -64,11 +64,11 @@ The drawer, the Kanban priority row and every CR title read correctly; no new st
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): `tests/test_titles.py`
-- [x] Local gates carried from `7b8b87c`: `just check` (484 passed), `just eval-dry-run` (17 of 17)
+- [x] Local gates at `7b8b87c`, before the restack (patch unchanged): `just check` (484 passed), `just eval-dry-run` (17 of 17)
 - [x] Evidence: before at `5b86c93`, after at `7b8b87c`
 - [x] Review: approved carried from `7b8b87c`
-- [x] Verified carried from `7b8b87c`
-- [x] CI green at `7b8b87c`: all five jobs pass, `just scenario (ubuntu-latest)` included
+- [x] Verified at `c34c04d`
+- [x] CI green at `c34c04d`: all five jobs pass, `just scenario (ubuntu-latest)` included
 
 ## Internal references
 

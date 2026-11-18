@@ -12,3 +12,8 @@
 
 - [chantier] The local Windows gate at CR-336 (2a514cb) failed once under heavy machine load: `order merged does not signal a reused pid: no stopped line, the process lives on` (CR-336 `work/gates/20261117-233432.log`); a possibly flaky scenario check.
 - [chantier] The user merged PR 297 (CR-337) right after its force push, whose head carried CR-336 under it, so CR-336 landed through CR-337's PR and the partial stack (#299, PR 295 + 296) dissolved with CR-335 still unmerged: the stack's state on the forge did not tell the user which PR to merge.
+- [chantier] CR-337's force push was refused by the host and routed Driver → Foreman → Chief of Staff, who ran it on the user's yes: the route works, but costs a user round trip each time.
+- [chantier] The partial stack CR-338..341 could not be asked for while CR-342's draft PR sat on CR-341: `forge-stack show` read "missing #304" until the Foreman reordered the record; a CR taken on top of a ready stack should not block that stack's ask.
+- [chantier] A verdict was not carried over a restack when no base had been recorded for the CR, so a clean rebase still cost a new Verifier.
+- [chantier] CR-344 (board design system) needed 6 rounds on Opus: the Inspector found from round 3 that the design tests ran on prepared texts, not the real sheets and js files; the spec named the checks but not that they run on the shipped files.
+- [chantier] The usage limit stopped every agent at once (2026-11-18 ~01:00); each was resumed by hand after the reset: nothing recorded which agents to resume.
