@@ -1,0 +1,1 @@
+Define the top of the stack for a batch with no stack (the batch's last CR to be merged), so the Driver runs the local Windows just scenario gate before its first hand-back; batch-25 retro: CR-353 handed back --no-gate and was sent back for the gate after the ask.
