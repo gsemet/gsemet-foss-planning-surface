@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The CR board pane shows the batch's shape",
+  "summary": "Grilled and specified: the pane's slots line ends with the batch's shape (series, parallel or stack), read from a mode field added to the index STATUS.json; the slot count is unchanged.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "a5dc06ead6b567516582f0f19798b2d902447f735552f2360276f5656b005a0e",
+    "03-change-spec.md": "a6a36420fc377690891aaf836f3c8562458e2d7c47756a4c5ef3040047bfc8e4",
+    "intake/request.md": "c20225e9d44dcf8aa309d0eba44dc19b11d57e02b4c4a0cb257043cfa53d36f6"
+  },
+  "summarized": "2026-11-18T12:11:39Z"
+}

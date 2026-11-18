@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "T3 Code project icon via t3.json",
+  "summary": "Specified: t3.json at the root ($schema and iconPath only) points to a new hand-drawn square building-site logo, docs/logo.svg; T3 scripts proposed in the PR only; gate: just check.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "e2eb3f9f631c28f80ac35eb2bdba7457292c6146d599f15651ab62906ac490dc",
+    "03-change-spec.md": "a5472022a29f109c331798cab55c22bcfc3d9938395c4aae2f1a709bf01ce953",
+    "intake/request.md": "8c2450bf4a3e4a058f47495b15b40e89dd22576a2ed360bbac7bd626f0982c69"
+  },
+  "summarized": "2026-11-18T12:10:54Z"
+}

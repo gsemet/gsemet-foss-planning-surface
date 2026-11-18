@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Cost receipt after a steering switch",
+  "summary": "Specified: the board's receipt and the cost text draw the Chief of Staff's steering outside its claim window from one rule, so a switched batch shows the same figure in both; tested on a switched batch.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "af95cbfbc9b464863e26bf70424fe4ccea5e4c1e288b6b4a24353b2ce5144b2e",
+    "03-change-spec.md": "064842c49895fe8e538accb0bf1109197e1fa4a7b41388c6ba1ff98ee89f81e0",
+    "intake/request.md": "6b9ab16594b30404e3d707443875ddc60ed612b669a6748eb650c00157e6905c"
+  },
+  "summarized": "2026-11-18T12:12:37Z"
+}
