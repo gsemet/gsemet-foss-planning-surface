@@ -25,7 +25,7 @@ Real run from the planning surface, one per project, read-only (first line, exit
 | Project | First line | Exit |
 |---|---|---|
 | `agentic-planning-surface` | `7 gap(s) in 3 CRs` | 0 |
-| `chantier` | `13 gap(s) in 361 CRs` | 0 |
+| `chantier` | `14 gap(s) in 364 CRs` | 0 |
 | `markdown-okf-schema-studio` | `22 gap(s) in 407 CRs` | 0 |
 | `okf-schema` | `1 gap(s) in 1 CRs` | 0 |
 
@@ -39,7 +39,6 @@ None.
 
 ## Known gaps
 
-- The two scenario additions (summary and external-surface units) are not yet run by the long gate.
 - The measured `just test` time on Windows grew from 37.4 s to 46.1 s (about 9 s).
 
 <details>
@@ -58,12 +57,12 @@ No visual change. A surface can call `chantier validate` instead of its own scri
 
 ## Test plan
 
-- [ ] New or changed tests (`test_validate.py`)
-- [ ] Local gates at `<sha7>`: `just check` pass, `just eval-dry-run` pass
-- [ ] Evidence: real run on the chantier project, `13 gap(s) in 361 CRs`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (`test_validate.py`)
+- [x] Local gates at `224d067`: `just check` pass, `just eval-dry-run` pass
+- [x] Evidence: real run on the chantier project, `14 gap(s) in 364 CRs`
+- [x] Review: approved at `224d067`
+- [x] Verified at `224d067`
+- [x] CI green at `224d067`: 3x `just check`, `just eval-dry-run`, `just scenario`
 
 ## Internal references
 

@@ -123,9 +123,9 @@ No visual change; every session reads about 4,000 fewer bytes at boot and reload
 - [x] Local gates at `a1d165d`: `just check` passed (ruff, mypy, uv lock, biome, 688 tests, release notes); `pytest -s -k measures` tightest 8,664 bytes
 - [x] Shells, the literal command `<cli> --version` at `a1d165d`: PowerShell 5.1 runs (`chantier 0.13.0`); bash runs; a quoted path kept in a bash variable fails ("Project directory ... does not exist", the quotes stay characters); sh/dash at hand, not run; zsh not at hand
 - [ ] Evidence: real Claude Code boot, reload and Driver start at the head (not captured)
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Review: approved at `a1d165d`
+- [x] Verified at `a1d165d`
+- [x] CI green at `a1d165d`
 
 ## Internal references
 

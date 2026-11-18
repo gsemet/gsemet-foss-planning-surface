@@ -1,0 +1,1 @@
+docs: planning-folder.md says the archive in the PR defaults to yes; the CLI defaults to no
