@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "CR board pane and web board show the spend's age, the carried verdict and the draft wording",
+  "summary": "Specified, not taken: the pane's batch title line and the web board's home card and Batch page show the spend's age; a PR in draft's now line takes the ready line's wording and its next line drops the draft once out; a carried verdict adds a Verdict carried from <sha7> step.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "b40b589053ad952953a56ec0d2e223eb507607736b88c3b534369c2bce86bf39",
+    "02-answers.md": "8ac4b8dedb12267952a7d0dd3c26b5ec922837c5285d3685775b55322b1a31ec",
+    "03-change-spec.md": "f1181c0aa8af23a5d578dca62ea74e7f420216e09f6e4b197f91ca80b661aae4",
+    "intake/request.md": "033271942f40b0ecadfa8c43374ddfd9d9c1c822e9dacd29fe55fbe1f938d1ab"
+  },
+  "summarized": "2026-11-18T18:48:35Z"
+}

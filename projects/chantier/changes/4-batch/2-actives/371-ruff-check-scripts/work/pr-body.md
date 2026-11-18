@@ -54,12 +54,12 @@ No visual change. A contributor's `just check` now fails on a ruff finding in `s
 
 ## Test plan
 
-- [ ] No behaviour change in the scripts
-- [ ] Local gates at `c0bb193`: `just check` pass (635 tests, release notes ok); `uvx ruff@0.17.5 check skills scripts` and `format --check` pass
-- [ ] Evidence: none beyond the gates above
-- [ ] Review: approved at `c0bb193`
-- [ ] Verified at `c0bb193`
-- [ ] CI green at `c0bb193`
+- [x] No behaviour change in the scripts (Verified at `c0bb193`)
+- [x] Local gates at `c0bb193`: `just check` pass (635 tests, release notes ok); `uvx ruff@0.17.5 check skills scripts` and `format --check` pass
+- [x] Evidence: none beyond the gates above
+- [x] Review: approved at `c0bb193`
+- [x] Verified at `c0bb193`
+- [x] CI green at `c0bb193`
 
 ## Internal references
 

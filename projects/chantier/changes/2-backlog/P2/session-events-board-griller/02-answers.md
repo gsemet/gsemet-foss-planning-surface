@@ -104,3 +104,54 @@ written now and checked by the spec critic.
   `board-seen.jsonl`). This item keeps only the board events (moves, notes, Configuration) and its
   specification is to be written again on top of the hub, with the same journal and the same
   `watch`, once surface-forge-hub is merged. Its current 03-change-spec.md is superseded.
+
+## Settled by the spec-writer (2026-11-18)
+
+Checked against main at `3a9afc2c`: the hub (CR-358, `a7f32370`, `5717626d`) delivered the forge
+and merge part; no board event is delivered (the board writes `board-journal.jsonl` only, the
+watcher reads `forge-journal.jsonl` only). The specification is written again on the hub. Points
+with no user-visible behaviour of their own:
+
+- The board's writes go into `forge-journal.jsonl` as a third kind, `board` (`by: board`), with
+  the board journal's kind as `action`, its slugs and words, and `wakes`; the file keeps its name
+  (hub-Q8: the same journal). A `board` line is never deduplicated.
+- events-Q1's `Monitor` and its own `board-events.jsonl` and `watch.json` are replaced by the hub's
+  watcher (a background command whose end wakes the session) and journal (hub-Q8).
+- events-Q2's grouping of about 30 s is the hub watcher's 20 s quiet (hub-Q3, the same watch); a
+  line that does not wake neither starts nor extends that wait and rides along with the next end.
+- events-Q6 on the hub's watcher: `watch` no longer refuses or ends on no running batch; it takes
+  `--seat <session>` and ends when the project's seat names another session (checked about every
+  10 s, as the board), so a watcher left behind by an ended session stops. The hub's forge reads
+  are unchanged (running batches only).
+- events-Q10: no `Monitor`, so no `Monitor` rule; the watcher is a shell command that P10's
+  `chantier *` rules already cover. Nothing changes in `permissions.py`.
+- events-Q12 and events-Q3's pull path: `watch --once --after <n>` prints the lines past the
+  cursor and the cursor line, takes no lock, reads no forge, needs no seat and no batch.
+- events-Q9: the watcher's start line and `status` read the board's running record
+  (`board.json`, `board/running.py`) and name a live board of another version.
+- `status` prints no board event (it is the Foreman's heartbeat too); its `watch:` line prints for
+  a paused batch as well.
+
+## Settled by the Chief of Staff (spec-writer's questions, 2026-11-18)
+- events-Q6 as the user answered it: the watcher runs for the whole session, with or without a
+  batch; this replaces the hub CR's settlement (watcher only while a batch runs).
+- Q1 (A): drop the `no watch runs for project <name>` line; `status`'s `forge hub:` and `watch:`
+  lines cover it.
+- Q2 (A): after a no to the watcher, the pull path `watch --once` at each user message.
+- With `config-spec-writers-slots` (1-inbox/spec-writers-and-slots-set-from-the-boar): that CR
+  adds a `config` line to `forge-journal.jsonl` for two keys. This CR stacks after it
+  (`depends.json`) and its Configuration-change line is that `config` line, extended to every
+  key; one kind of line for a configuration change, never two.
+
+## Settled by the Chief of Staff (spec-critic's findings, 2026-11-18)
+- One `config` line, the config CR's (key, old, new), for every key (A). The Chief of Staff acts
+  alone only where the config CR says so (batch slots: `order slots`; the spec-writer limit); an
+  agent, model or escalation change is told to the user in one line and not printed by `status`
+  ("applies at the next batch"). This widens events-Q5 by those two keys only.
+- Written again on top of CR-375 (A): no `--seat` flag; the watcher's session is CR-375's key from
+  the environment, and the seat end compares it with `seat.json`; CR-375's `watch: not running`
+  and `still running` lines print whatever the batch's status (events-Q6); the `no running batch`
+  end is removed; the command is always taken from the printed line. depends.json names CR-375.
+- An ended session's watcher may run until another session takes the seat (A), until the Claude
+  Code trial says whether the host ends it; the PR's Known gaps names it and the host row records
+  the trial.

@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "title": "The CLI wakes the Chief of Staff on board and forge events",
-  "summary": "A per-project board-events.jsonl replaces board-seen.jsonl; chantier watch, run by the Chief of Staff with Monitor, wakes it on board writes and forge merges and records merges alone; status names a missing watch; Copilot keeps the pull path until a trial.",
+  "title": "The watcher wakes the Chief of Staff on what the user does in the board",
+  "summary": "On top of the forge hub: each board write (inbox, moves, notes, Configuration) appends a line to forge-journal.jsonl; chantier watch runs the whole session, wakes on them, ends when the seat moves; watch --once is the pull path where nothing wakes.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "a43cae6d3d21303de22b937e82f7183178272f2611a1632568483269419394e8",
-    "02-answers.md": "20a9820352f5cf2368e9eceb5993dad5f702c5c3a5ddc5ee94df2d173dd238c3",
-    "03-change-spec.md": "c21950375da0b432c7303fc4e9e5446cc5685855805684c06726865f3c0f8167",
+    "02-answers.md": "b88c18ea05279447a7c200a77a87b98cf65c9538e0e6a0396d06e6262208469e",
+    "03-change-spec.md": "b2a3f02ab28bf901bd175bd792da680a31ee50b982f4c5720b7a1b4123f9b487",
     "intake/request.md": "ca04946805739d42473ea3cf775bea190b85d19a2f906f56c2c458651d6281c2"
   },
-  "summarized": "2026-11-17T11:10:21Z"
+  "summarized": "2026-11-18T18:44:58Z"
 }

@@ -1,0 +1,1 @@
+Spec-writers and slots set from the board's configuration

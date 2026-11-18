@@ -1,446 +1,294 @@
-# The CLI wakes the Chief of Staff on board and forge events
+# Change Specification: the watcher wakes the Chief of Staff on what the user does in the board
+
+No tracker issue: the CR is verbal (the user, 2026-11-17, during batch-23).
+
+**Written again on top of the forge hub** (hub-Q8): CR-358 `surface-forge-hub`, merged on main as
+`a7f32370` (feat(watch): one forge hub per surface and machine, and watchers that wake each
+session) and `5717626d` (fix(status): print the forge hub and watch lines after the last closed
+batch), delivered this item's forge and merge part: `chantier watch`, the hub's forge reads, the
+merges recorded by the Chief of Staff with no word from the user, the fold of `board-seen.jsonl`
+into `forge-journal.jsonl`. None of the board events is delivered on main: `board/write_api.py`
+and `board/config_api.py` write `board-journal.jsonl` only, and the watcher reads
+`forge-journal.jsonl` only. This specification replaces the one of 2026-11-17 (its own
+`board-events.jsonl`, its `Monitor`-run watch, its `watch.json`): it keeps only the board's events
+and puts them in the hub's journal, read by the hub's watcher.
 
 ## Goal
 
-The user, 2026-11-17: a running Chief of Staff session hears nothing until its next `status`. A
-priority changed in the board, an idea added, a note saved on a CR, a model changed on the
-Configuration page, a PR merged on the forge: the session should be told when it happens, on
-Claude Code by a line that wakes it, and on a host where nothing can wake a session, at the user's
-next message or the next `status`, as today. One planning-surface checkout holds several projects,
-each with its own Chief of Staff and one board for all: each Chief of Staff hears only its own
-project, and two Chiefs of Staff never record each other's merges.
+The user, 2026-11-17: a running Chief of Staff session hears nothing of what the user does in the
+web board until the user says "rescan". An idea added to the inbox, a priority or a stage changed
+(Triage, Kanban), a note saved on a CR from the board's editor, an agent or a model changed on the
+Configuration page: the Chief of Staff should be told within about 20 s, with no word from the
+user, with or without a batch, on the same wake as the forge's merges. On a host where nothing can
+wake the session, the events wait in the journal and the Chief of Staff reads them at the user's
+next message. One planning surface holds several projects, each with its own Chief of Staff and
+one board for all: each Chief of Staff hears only its own project's board writes.
 
-The Griller started from the board is the separate CR `1-inbox/board-griller`, which waits for
-this one (events-Q8). This CR only keeps that CR possible (see "What this leaves open for
-`board-griller`").
+The measured cost it removes: one round trip with the user per board session ("rescan", "I
+updated the priorities", the `chief-of-staff.md` entry row for it), and a Chief of Staff that
+plans on a stale backlog when the user forgets it.
 
 ## Decisions carried (from `02-answers.md`)
 
 | Answer | Decision | Where below |
 |---|---|---|
-| events-Q1 | The Chief of Staff runs `chantier watch` with Claude Code's `Monitor`; one printed line wakes the session. The board writes its events to `board-events.jsonl`, which the watch reads; the watch also reads the forge (about every 60 s) and reports a merge it sees | A, B, C |
-| events-Q2 | Wake on: a priority or stage changed (Triage, Kanban), an item added to the inbox, a comment or note on a CR, a merge seen on the forge, a Configuration change (agent or model). Grouped over about 30 s into one wake-up. No wake for opening a page or for text being typed. What it does not list (labels, groups, ungroup, next batch) does not wake and rides along with the next wake-up (settled after the spec critic) | A, B |
-| events-Q3 | Where nothing can wake the session, events wait in the file, the Chief of Staff reads and summarises them at the user's next message or the next `status`, and says at the session's start that this host does not wake it. This is today's pull path, not a look-alike tool | C, D, E |
-| events-Q5 | Woken, the Chief of Staff acts alone on merges only: checks the merge on the forge, records it (`order merged`), tells the Foreman, without waiting for the user's "merged". Any other event: one line to the user, no action | D |
-| events-Q6 | The watch runs for the whole session, with or without a batch: started at the session's start, started again at the next turn if it stopped or expired, ended with the session. The forge is read only while a PR of the batch is open. This widens AGENTS.md's forge rule | B, F |
-| events-Q8 | Two CRs: this one (watch, events file, wake-up, forge, fallback); `board-griller` holds the Griller | Out of scope |
-| events-Q9 | A board of another chantier version: the watch and `status` read the board's version in `board.json` (CR-323's record) and say once "the board is chantier <v>: its writes do not reach me; restart it". The watch keeps reading the forge, so merges are still seen | B, C, D |
-| events-Q10 | A `Monitor` rule for `chantier watch` joins P10's "Every batch" row, added on the user's yes like P10's other rules, unproved until a trial. A start the host still refuses (auto mode's classifier): the session runs the pull path and says so once | D, E |
-| events-Q11 | `status` prints `no watch runs for project <name>` whenever no watch of that project is alive (its PID in `watch.json`); the Chief of Staff then starts it again. This covers a `Monitor` that expires | C, D |
-| events-Q12 | Copilot: the CR names a trial to find the tool that wakes a Copilot session; until it is proved, Copilot runs the pull path (`watch --once` at each user message), said once at the session's start | D, E |
-| Grilled enough | The spec checks whether a `Monitor` expires and which tool wakes a Copilot session: settled by events-Q11 and events-Q12, with the trials of E | E |
-| Several projects on one surface | Each event names its project; a Chief of Staff's watch wakes it only for its own project's events and reads the forge only for its own project's repository; two Chiefs of Staff on one surface never record each other's merges | A, B, D |
+| events-Q1, as re-scoped by hub-Q8 | The board's writes go into the hub's journal and wake the session through the hub's watcher (its background end), not a `Monitor` | 1, 2 |
+| events-Q2 | Wake on: a priority or stage changed (Triage, Kanban), an item added to the inbox, a note on a CR (a file saved from the board's editor), a Configuration change (agent or model). Grouped into one wake. No wake for opening a page or text being typed. Labels, groups, ungroup and next batch do not wake and ride along with the next wake (settled after the spec critic) | 1, 2 |
+| events-Q3 | Where nothing wakes the session: the events wait in the journal; the Chief of Staff reads and summarises them at the user's next message, and says once at the session's start that this host does not wake it; today's pull path, no look-alike tool | 2 (`--once`), 4 |
+| events-Q5 | Woken, the Chief of Staff acts alone on merges only (the hub's rule, unchanged); a board event: one line to the user, no action | 4 |
+| events-Q6 | The watcher runs for the whole session, with or without a batch; the forge is read only while a PR of a running batch is open (the hub's rule, unchanged) | 2, 4, 5 |
+| events-Q8 | Two CRs: this one holds the events; the Griller started from the board is `2-backlog/P3/board-griller` | Out of scope |
+| events-Q9 | A board of another chantier version is named, once, by the watcher and by `status`, with "restart it"; the forge is still read, merges still seen | 2, 3, 4 |
+| events-Q10, as re-scoped by hub-Q8 | No `Monitor`, so no `Monitor` rule: the watcher is a shell command already covered by P10's `chantier *` rules | Settled in `02-answers.md` |
+| events-Q11, as re-scoped by hub-Q8 | A `Monitor` that expires no longer exists; the hub's `watch:` line of `status` and the start again after each end stay | Open question 1 |
+| events-Q12 | Copilot: a watcher's wake is unproved there; until it is, the Chief of Staff also runs the pull path (`watch --once`) at each user message, said once at the session's start | 4, 5 |
+| Several projects on one surface | Each board write lands in its own project's journal only; a watcher reads only its project's journal | 1, Evidence |
+| hub-Q8 | Same journal (`forge-journal.jsonl`), same `watch` | 1, 2 |
+| hub-Q9 | The user's yes once per session before the watcher starts; now asked at every Chief of Staff session's start (events-Q6), the question naming the board's writes too | 4 |
 
 ## What changes
 
 All paths are in chantier's repository; `cli/` is `skills/chantier/scripts/cli/`, and
-`chantier/` is `cli/src/chantier/`.
+`chantier/` is `cli/src/chantier/`. Keep every card edit outside the cards' "Startup core"
+sections (the startup manifest's limit).
 
-**On top of CR-323** (`4-batch/1-pending/323-two-sessions-one-machine`, in batch-23), which edits
-some of the same places: rebase on it and keep both texts. The shared places are named where they
-come: `AGENTS.md` (first bullet), `skills/chantier/references/session-start.md` ("The board"),
-`skills/chantier/references/chief-of-staff.md`, `docs/web-board.md` ("The link"),
-`docs/planning-modes.md` ("Two sessions on one surface"), `chantier/commands/batch_status.py`
-(`status()`, CR-323's "other batches" line), and the scenario's `external_surface` unit. This CR
-also reads CR-323's `running` record in `board.json` (events-Q9).
+### 1. The journal: board lines in `forge-journal.jsonl`
 
-### A. The events file: `board-events.jsonl`, per project, local
+`chantier/hub/journal.py` (the journal's one module) gains a third kind, `board`, next to `merged`
+and `checks-red`. Its docstring and the package docstring of `chantier/hub/__init__.py` say the
+board's writes are its third writer's lines.
 
-**Where.** At the root of the project's planning folder (`repo.changes`):
-`<surface>/projects/<name>/changes/board-events.jsonl` on a planning surface,
-`.agents/changes/board-events.jsonl` in-project. One file per project, so a project's events are
-never in another's file, whichever session or board wrote them. Local, never published: added to
-`IGNORED` in `chantier/core/files.py` (the planning folder's own `.gitignore`, which
-`ensure_gitignore` completes), like `board-journal.jsonl`.
+- **Shape.** `{"seq", "t", "by": "board", "kind": "board", "action", "items", "text", "wakes"}`:
+  `action` is the board journal's kind (`new`, `move`, `edit`, `config`, `label`, `group`,
+  `ungroup`, `next-batch`), `items` and `text` the same slugs and words as the
+  `board-journal.jsonl` line written in the same call, `wakes` a boolean from the table below.
+- **Never deduplicated.** `_key` gives no key for a `board` line: `append` writes each one (two
+  identical moves are two writes). Today `_key` treats every kind other than `checks-red` as a
+  merge: a `board` line must not fall into that branch.
+- **Which actions wake** (events-Q2):
 
-**It replaces `board-seen.jsonl`.** The merge signal of CR-303 becomes one kind of event in
-`board-events.jsonl`; `board-seen.jsonl` is no longer written or read. `chantier/board/seen.py`
-is removed; its read and its once-per-(batch, CR) merge signal move to a new module
-`chantier/events/store.py`, which the board, the watch and `status` share. `board-seen.jsonl`
-stays in `IGNORED` so a file left by an older version is never published; a merge noted only
-there is not lost, as the forge still shows it merged and the record does not: the next forge
-read (the board's PRs page or the watch) writes it again as an event. `chantier/board/fingerprint.py`,
-`SINGLE`: `board-seen.jsonl` becomes `board-events.jsonl`.
+  | `action` | Board write | `wakes` |
+  |---|---|---|
+  | `new` | an idea added to the inbox | true |
+  | `move` | a priority or a stage changed, one item or a group | true |
+  | `edit` | a CR's file saved from the board's editor (the board's way to leave a note) | true |
+  | `config` | a role's agent, model or escalation changed on the Configuration page, not a dry run | true |
+  | `label`, `group`, `ungroup`, `next-batch` | not in events-Q2's list | false |
 
-`board-journal.jsonl` stays as it is (the board's journal dialog and its "rescan"): the events
-file is written in the same call that writes a journal line, not instead of it.
+- **Its text** (`event_text`, the one function the watcher's output uses): `board wrote
+  (<action>): <text>; for the Chief of Staff: tell the user, act on nothing`. A `merged` or
+  `checks-red` line keeps its text. `lines()` (the `status` lines) still lists `merged` lines only:
+  a board line is never printed by `status`.
+- **The writers.** `chantier/board/write_api.py`, `_answer`: when it writes a
+  `board-journal.jsonl` line, it also appends one `board` line through `hub.journal.append(repo,
+  [...], "board")`, same kind, slugs and words. `chantier/board/config_api.py`, `_put`: the same
+  when it writes its `config` journal line (never for a dry run). A refused write writes none (it
+  writes no journal line today); `rescan` writes none; reading or opening a page writes nothing.
+  The project is the route's own (`project.repo`), so a write on project `other` lands in
+  `projects/other/changes/forge-journal.jsonl` only.
+- `board-journal.jsonl`, its dialog and its `rescan` are unchanged: the journal line is written in
+  addition, not instead.
 
-**One line per event**, a JSON object, UTF-8, appended whole under the lifecycle lock
-(`changes_lock`, as `journal._append` does):
+### 2. `chantier watch`
 
-```json
-{"t":"2026-11-17T10:00:00Z","project":"chantier","source":"board","kind":"move","wakes":true,"items":["foo"],"text":"foo: priority P2 → P1"}
-{"t":"2026-11-17T10:01:00Z","project":"chantier","source":"watch","kind":"merged","wakes":true,"batch":"batch-24","cr":"CR-330","pr":"https://github.com/gsemet/chantier/pull/412","into":"main","into_cr":null,"merged_at":"2026-11-17T10:00:40Z","text":"..."}
-```
-
-- `project` is the project's id as the board names it (`board/projects.py`, `project_name`):
-  the folder's name under `projects/`, else the repository folder's.
-- `source`: who wrote the line, `board` or `watch` in this CR. `events/store.py` is the one
-  writer's entry; a later CR may add a writer and a `source` value through it.
-- `text`: the words the watch prints for this event (for a board write, the journal's words).
-- `wakes`: whether the event wakes the session alone. The watch prints the `text` of any kind
-  and any source, and wakes on `wakes`, so a new kind or a new source needs no change to the
-  watch.
-
-**The board's writes** (`chantier/board/write_api.py`, `_answer`; `chantier/board/config_api.py`,
-`_put`): each journal line written there also appends one event, same kind, items and words. The
-kinds and whether each wakes (events-Q2):
-
-| Kind | Board action | Wakes |
-|---|---|---|
-| `new` | an idea added to the inbox | yes |
-| `move` | a priority or a stage changed (Triage, Kanban), one item or a group | yes |
-| `edit` | a CR's file saved from the board's editor: the board's only way today to leave a comment or a note on a CR; nothing is written while the text is being typed | yes |
-| `config` | a role's agent or model changed on the Configuration page (not a dry run) | yes |
-| `label`, `group`, `ungroup`, `next-batch` | not in events-Q2's list | no: written, and carried in the next wake-up's line and in `watch --once` |
-
-A refused write writes no event (it writes no journal line today). The journal's `rescan` is not
-an event. Opening or reading a page writes nothing.
-
-**The board's PRs page** (`chantier/board/prs.py`, `answer`): a fresh forge read that finds a PR
-merged that the record does not hold appends a `merged` event (`source: board`) through
-`events/store.py`, once per batch and CR across both sources: a merge the watch already wrote is
-not written again, and the reverse. The fields are those of `board-seen.jsonl` today (`batch`,
-`cr`, `pr`, `into`, `into_cr`, `merged_at`). Its `text`:
-
-- into the default branch: `merged on the forge: <cr> <pr> into <branch> at <time>; for the Chief of Staff: check it, then order merged <cr>`;
-- into another CR's branch: `merged on the forge: <cr> <pr> into <other cr>'s branch at <time>; not landed: tell the user, record nothing until <other cr> lands`.
-
-The page's own row text (`MERGED_NOT_RECORDED`) is unchanged.
-
-### B. `chantier watch`
-
-A new command, declared in `chantier/declare/watch.py` (registered in `cli.py`'s list, `NO_BATCH`:
-it reads the project's open batch itself when there is one), run by
-`chantier/events/watch.py`. It takes the root `--project` like every command, so on a surface it
-serves the one project `$CHANTIER` names.
+`chantier/declare/watch.py` and `chantier/hub/watch.py`.
 
 ```
-chantier watch [--seat SESSION] [--once] [--group SECONDS] [--forge-every SECONDS]
+chantier watch --seat SESSION [--after SEQ]
+chantier watch --once --after SEQ
 ```
 
-- `--seat SESSION`: the Chief of Staff session it is for. The watch starts only when the
-  project's `seat.json` names that session (else `error: watch not started: the seat names
-  <other>, not <SESSION>`, exit 2, `EXIT_PRECONDITION`), and it stops when the seat no longer
-  names it, checked every 10 s (as the board's `SEAT_CHECK_S`), with one last line `chantier
-  watch, project <name>: stopped, the seat names <other> now`, exit 0. So a watch the host leaves
-  running after its session ended still stops once another session takes the seat.
-- `--group` (default 30) and `--forge-every` (default 60): the grouping window and the forge
-  read's interval, in seconds; the scenario shortens them. Values below 1 are refused (exit 1,
-  `EXIT_USAGE`).
-- `--once`: the pull path (C).
+- **`--seat SESSION`** (new, required without `--once`): the Chief of Staff session it is for.
+  Refused, writing nothing, when the project's `seat.json` (`core/seat.py`, `read_seat`) does not
+  name it: `watch: the seat of <project> names <other or no session>, not <SESSION>`, exit 2
+  (`EXIT_PRECONDITION`).
+- **No batch needed** (events-Q6). The refusal `watch: no running batch in <project>: nothing to
+  watch` and the end `watch: no running batch in <project>; ended` are removed: the watcher runs
+  with a running, paused or no batch. The hub's cycle is unchanged (`hub/cycle.py`: running
+  batches with a PR the record does not hold merged or cancelled; nothing else is read), so a
+  watcher with no running batch reads the forge for no project of its own.
+- **Its end.**
+  - From the first new line with a waking kind (`merged`, `checks-red`, or `board` with `wakes:
+    true`), it ends once `quiet_s()` (20 s) has passed with no newer waking line, as today. A
+    `board` line with `wakes: false` neither starts nor extends that wait; it is carried and
+    printed at the next end.
+  - It also ends when the project's `seat.json` no longer names its session, checked about every
+    10 s (the board's `SEAT_CHECK_S`): its new lines, then `watch: the seat of <project> names
+    <other or no session> now; ended`, exit 0. This is what stops a watcher left behind by a
+    session that ended, once another session takes the seat.
+  - The last line otherwise stays `watch: cursor <seq>; next: chantier watch --after <seq>`; the
+    next start passes `--seat` too.
+- **Start line** (events-Q9): `watch: <project> from cursor <n>` with `, the hub` or `; hub is
+  chantier <v>` as today, then `; board is chantier <v>: its writes do not reach this watcher,
+  restart it` when the board's running record (`board/running.py`, `live(key_path(repo))`) is live
+  and its `version` is not this CLI's `__version__`. No live record: nothing said. The watcher
+  goes on either way.
+- **`--once`** (the pull path, events-Q3 and events-Q12): prints, for every journal line whose
+  `seq` is above `--after` (waking or not), its `event_text`, then `watch: cursor <seq>; next:
+  chantier watch --after <seq>` (the cursor unchanged when nothing is new), and exits 0. It takes
+  no lock, is never the hub, reads no forge, needs no seat and no batch, and starts no process.
+  `--once` without `--after`, or with `--seat`: exit 1 (`EXIT_USAGE`). `--after` past the
+  journal's end: today's refusal, in both forms.
+- The help text names the board's writes next to the forge events.
 
-The watch never reads its standard input: a `Monitor` or a background shell may give it a null
-one, and its end is not a stop.
+### 3. `status`
 
-**What the running watch does.**
+`chantier/commands/batch_status.py`:
 
-1. **One watch per project.** It keeps its process and its place in `watch.json` at the planning
-   folder's root (local, added to `IGNORED`): `{"schema": 1, "read": <whole lines of
-   board-events.jsonl already printed>, "forge_read_at": <UTC> | null, "running": {"pid",
-   "started", "session"} | null}`, written whole (`write_json`). A record counts as running only
-   when its process lives and is the one recorded (`procs.alive_since(pid, started,
-   unreadable=True)`, as CR-323 does for the board).
-   - A live watch for the same session: the new one prints `chantier watch, project <name>:
-     already running (PID <pid>)` and exits 0.
-   - A live watch for another session: the new one waits up to 15 s for it to stop by the seat
-     rule; if it still runs, `error: watch not started: a watch for project <name> (PID <pid>,
-     session <id>) still runs: stop it (<stop command>), then run watch again`, exit 4
-     (`EXIT_EXTERNAL`). The stop command is the platform's (`taskkill /PID <pid> /T /F` on
-     Windows, `kill <pid>` elsewhere); the CLI only prints it and never stops a process.
-   - It stops on the seat rule, on Ctrl-C, or by the host's stop of its background command (a
-     process ended hard leaves its `running` record, which the liveness check above treats as
-     none). On a stop it handles, it clears `running` when it still names its own PID.
-2. **The events.** It polls the size of `board-events.jsonl` every 2 s (no file-notification
-   library). New whole lines after `read` whose `project` is its own are taken; a line of another
-   project (none is expected in a project's own file) or an unreadable line is skipped and
-   counted, never printed as an event. On the first new line with `wakes: true` it waits
-   `--group` seconds, then prints **one line** for everything new (waking or not), then advances
-   `read`. Lines that do not wake wait for the next waking one. A file cut shorter than `read`
-   (the user removed it) resets `read` to its current end, with no line.
-   At its start, lines already waiting after `read` are taken the same way: what came while no
-   watch ran is said at once.
-3. **The forge.** Only while the project's open batch (running or paused) has a CR with a PR that
-   the record does not hold merged or cancelled and the last read did not show merged or closed:
-   at most once every `--forge-every` seconds (`forge_read_at`), one call through the board's own
-   reader (`chantier/board/forge_read.py`, `read`: one `gh api graphql` or `glab api graphql`
-   query, read-only, the user's own login), for that project's PRs only, so for that project's
-   repository only. A merge the record does not hold is appended as a `merged` event
-   (`source: watch`) through `events/store.py`, then printed by step 2. With no open batch or no
-   open PR, nothing is read. A failed read prints `chantier watch, project <name>: forge not read:
-   <the forge's one line>` once per distinct error, then retries at the same interval with no
-   line until it succeeds or the error changes.
-4. **The board's version (events-Q9).** At its start and at each seat check, it reads the board's
-   `running` record in `board.json` (`<git common dir>/chantier/board.json`, `board/key.py`,
-   `key_path`; the record is CR-323's: `pid`, `started`, `version`). When that record is live
-   (`procs.alive_since`) and its `version` is not this CLI's `__version__`, it prints once per
-   board (per recorded PID): `chantier watch, project <name>: the board is chantier <v>: its
-   writes do not reach me; restart it`. The forge read of step 3 goes on, so merges are still
-   seen. No live record: nothing is said (a board too old to write the record, or no board).
-5. **The printed line**, one per wake-up, flushed at once, UTF-8:
-   `chantier events, project <name>: <text>; <text>; ...` in the order written. A `merged`
-   event's text is never cut; any other kind's text is cut to 160 characters. The line holds all
-   the events of the group, so `Monitor` gets one line per group whatever it does with several
-   lines printed together.
+- `_watch_lines`: the `watch: chantier watch --after <highest seq>` line prints for a paused batch
+  too (the watcher runs whatever the batch); the `forge hub:` line stays for a running batch only.
+- events-Q9: a new line, whatever the batch's status, when the board's running record is live and
+  of another version: `board: chantier <v> serves this surface, this is chantier <w>: its writes do
+  not reach the watcher; for the Chief of Staff: tell the user once to restart it`.
+- No board event is printed by `status` (it is the Foreman's heartbeat too, and the Chief of
+  Staff's cursor is its own). `STATUS.md`, `STATUS.json` and the CR board pane do not change.
 
-It writes nothing else: no batch record, no STATUS file, no git, no forge write, no message.
+### 4. The cards
 
-### C. The pull path: `watch --once` and `status`
+- **`skills/chantier/references/session-start.md`, "The watcher"** (line 97): a Chief of Staff
+  asks at its session's start, whatever the batch, after `seat take` (no longer "whose project has
+  a running batch"); the question also says the watcher tells it, within about 20 s, what the user
+  does in the board. The command becomes `$CHANTIER watch --seat <own session id> --after <n>`
+  (`<n>` from `status`'s `watch:` line, or the journal's end when `status` has no batch: omit
+  `--after`). On a host whose reference says a watcher's end does not wake the session, or is not
+  proved to (Copilot today, events-Q12), say once, in the user's language: "This host may not wake
+  me: what you do in the board reaches me at your next message." A no: unchanged for the forge;
+  see open question 2 for the board's writes.
+- **`skills/chantier/references/chief-of-staff.md`**
+  - "The watcher" (line 1220): it prints the forge events and the board's writes; it ends 20 s
+    after the last waking one, or when the seat moves. *When it starts*: with the session's yes, at
+    the session's start or a reload when no watcher of this session runs, and after each end with
+    the `--after <seq>` of its last line; with or without a batch (events-Q6). "A watcher that ends
+    with `no running batch` is not started again" becomes "A watcher that ends with `the seat …
+    names <other> now` is not started again: the seat moved". *A watcher's end*: a `board wrote`
+    line: one line to the user that says it (a few words per event), no tool call, no action
+    (events-Q5); the merge and `checks red` rules unchanged. The `board:` version line of `status`
+    and the start line's `board is chantier <v>`: say it once to the user with the restart; never
+    stop or restart the board yourself.
+  - The pull path (events-Q3, events-Q12): when no watcher can wake this session (its host's
+    reference), run `$CHANTIER watch --once --after <n>` at the start of each turn the user's
+    message opens, say its `board wrote` lines as above and act on its merge lines as at a
+    watcher's end, and keep its last line's cursor. A line whose `seq` was already told is not
+    told again.
+  - Entry row "rescan" (line 46): add "with a watcher running, the board's writes already came at
+    its end; read the backlog again only when the user asks".
+  - Handing the seat over (line 1683): the old watcher also ends by itself once the seat moves.
+- **`skills/chantier/references/foreman.md`** (line 772): the `board:` version line of `status` is
+  the Chief of Staff's too: do nothing with it, send nothing.
+- **`skills/chantier/references/concepts.md`**, rule 8 (line 685): "and stops itself" becomes
+  "and stops itself (at its end, or when the seat moves)".
+- **`skills/chantier/references/hosts/claude-code.md`**: "Run the watcher" row: the command with
+  `--seat <id>`, and its trial also a board move with no batch running and the session's turn
+  that follows (unproved until then). "The watcher when the session ends": "An orphaned watcher
+  ends once its project has no running batch" becomes "… ends once the project's seat names
+  another session".
+- **`skills/chantier/references/hosts/copilot.md`**, "Run the watcher": the command with `--seat
+  <id>`; until the trial is recorded, the Chief of Staff also runs the pull path at each user
+  message (events-Q12).
+- The agent files (`agents/`, `com.github.copilot/agents/`) do not change.
 
-**`chantier watch --once`** reads the forge once under the same conditions and interval as step 3
-(so at most once per `--forge-every` seconds across calls, through `forge_read_at`), checks the
-board's version as step 4 (the line printed each time it holds), then prints the one line of step
-5 for every line waiting after `read` (waking or not), advances `read`, and exits 0. Nothing
-waiting: it prints nothing more. While a live watch runs for the project: `chantier watch,
-project <name>: a watch runs (PID <pid>); its lines come by themselves`, exit 0, and nothing
-advances. `--once` takes no `--seat` and starts no process.
+### 5. `AGENTS.md`, `CONTRIBUTING.md`, docs
 
-**`chantier status`** (`chantier/commands/batch_status.py`, `status()`; on top of CR-323's "other
-batches" line, which stays where CR-323 puts it; these lines come after it):
-
-- `_seen_lines` reads the `merged` events of `board-events.jsonl` instead of `board-seen.jsonl`,
-  with the same rule (this batch, a CR not merged or cancelled in the record, once per CR, an
-  unreadable line named), whatever their source, and whatever `read` says: a merge prints until
-  it is recorded. The line's head becomes `forge shows merged:` (was `board saw merged:`), the rest
-  unchanged: `forge shows merged: <cr> <pr> into <branch> at <time>; for the Chief of Staff: order
-  merged <cr>`, and the `into <other cr>'s branch` form as today.
-- events-Q11: whenever no watch of the project is alive (no live `running` in `watch.json`):
-  `no watch runs for project <name>`, followed, when lines wait after `read`, by `; board events
-  waiting: <n> since <time of the first>`, and always by `; for the Chief of Staff: start it, or
-  watch --once on a host that does not wake you`.
-- events-Q9: when the board's `running` record is live and of another version: `the board is
-  chantier <v>, this is chantier <w>: its writes do not reach the watch; for the Chief of Staff:
-  tell the user once to restart it`.
-- `status` never advances `read`: the Foreman's heartbeat (`status --refresh`) prints the same
-  lines and must not take the Chief of Staff's events.
-- These lines are printed only; `STATUS.md`, `STATUS.json` and the CR board pane do not change
-  (no pane screenshot is due).
-
-### D. The cards: what the Chief of Staff does
-
-- `skills/chantier/references/session-start.md` (on top of CR-323's edit of "The board"), a
-  paragraph "**The watch**" right after "The board": the Chief of Staff (never a Griller, a
-  Foreman, a Driver or the router) starts `$CHANTIER watch --seat <own session id>` at its first
-  turn, with or without a batch, by the host's means (the host's reference, "Run the watch"); it
-  does not ask first (it opens no port and only reads the forge). On a surface it keeps the
-  `--project` that `$CHANTIER` holds. A start that prints `already running` is fine. On a host
-  whose reference records no way for a background line to wake the session (Copilot today,
-  events-Q12), or when the host refuses the start (its exact text, rule 7; events-Q10), it starts
-  nothing and says once, in the user's language: "This host does not wake me: what you do in the
-  board and the merges on the forge reach me at your next message or at the next `status`." A
-  reload starts nothing (unchanged), but see "Woken by the watch" for a watch that stopped.
-- `skills/chantier/references/chief-of-staff.md` (on top of CR-323's edits of the same card):
-  - The routes table, row of line 30: `a board saw merged line in status` becomes `a forge
-    shows merged line in status or in a chantier events line`.
-  - The merge paragraph (around line 1025): `A board saw merged: <cr> … line in status` becomes
-    `A merged on the forge: <cr> … text (a chantier events line, or a forge shows merged line in
-    status)`; same rule: a merge the user made, recorded like any merge.
-  - A new section "**Woken by the watch**" (events-Q5, events-Q6, events-Q9, events-Q11, several
-    projects):
-    - A `chantier events, project <name>:` line whose project is not this session's: nothing
-      (never expected; never act on another project's line).
-    - A `merged on the forge` text into the default branch: check it on the forge (`gh pr view
-      <pr> --json state,mergedAt,baseRefName`, or `glab mr view <iid>`); when the forge confirms,
-      `$CHANTIER order merged <cr>` and, in Foreman mode, send its line to the Foreman, as for the
-      user's "merged"; in direct mode, what follows a merge as today. Then one line to the user.
-      No wait for the user's word. When the forge does not confirm, record nothing and say so in
-      one line. The `into <other cr>'s branch` form: record nothing, tell the user where it went
-      (unchanged rule).
-    - Every other event: one line to the user that says it (a few words per event), and no
-      action, no tool call.
-    - `forge not read: …`: one line to the user, no action.
-    - `the board is chantier <v>: …` (from the watch or `status`): say it once to the user, with
-      the restart; never stop or restart the board yourself (CR-323's rule).
-    - `stopped, the seat names …`: this session no longer holds the seat; the line of
-      `session-start.md` for a moved seat applies.
-    - `no watch runs for project <name>` in `status`, or the host saying the background command
-      ended: on a host that wakes the session, start the watch again at this turn as at the
-      session's start (events-Q6, events-Q11); on one that does not, run `watch --once`.
-    - The cost: each wake-up is a turn the user pays; grouping keeps one per ~30 s at most.
-  - On a host that does not wake the session (events-Q3, events-Q12): at each turn the user's
-    message starts, run `$CHANTIER watch --once` first and say what it prints, in one line per
-    event as above (merges handled as above).
-  - "The project" (P10's question): the `Monitor` rule of the watch is among the rules P10 may
-    name and the Chief of Staff adds on the user's yes (events-Q10); say that auto mode drops it,
-    so there the classifier still decides.
-- `skills/chantier/references/foreman.md`, line 619: `A board saw merged line` becomes `A forge
-  shows merged line`, and the `no watch runs` and `the board is chantier` lines are the Chief of
-  Staff's too: do nothing with them, send nothing.
-- Keep these edits outside the cards' "Startup core" sections (the startup manifest's 12288 limit).
-
-### E. The hosts and P10
-
-- **P10, the `Monitor` rule (events-Q10).** `chantier/commands/permissions.py`: the "Every batch"
-  capability gains the watch's start, as a `Monitor` tool use whose command is the watch, in each
-  mode: dev `uv run --no-sync --project /checkout chantier watch --seat <id>`, rule
-  `Monitor(uv run --no-sync --project * chantier * watch *)`; plugin `uvx --from /plugin chantier
-  --skill /plugin/skills/chantier watch --seat <id>`, rule `Monitor(uvx --from * chantier *
-  watch *)`. It is checked like the `SendMessage` bare tool, outside the Bash/PowerShell pair.
-  `_counts_as_allow` today ignores every `Monitor` rule (auto mode drops it): a matching
-  `Monitor(...)` rule now counts for this sample, and P10's line for it says that auto mode drops
-  it and the classifier decides there. `RECOMMENDED_ALLOW` and the pasteable block follow, and
-  the test that compares them.
-- `skills/chantier/references/hosts/claude-code.md`:
-  - "Allow rules" table and the pasteable block: the two `Monitor(...)` rules, chantier's use
-    (the Chief of Staff's watch), the risk (any monitor whose command matches), mark
-    **unproved**: the rule form for `Monitor` is not documented here. Trial: set the rule outside
-    auto mode, start the watch, see no prompt; then in auto mode, see what the classifier does.
-  - "Capabilities and their commands", row "Every batch": the watch's command and its rule.
-  - "What not to add": it says auto mode drops every `Monitor` rule; add that the watch's rule is
-    recommended all the same (it helps outside auto mode), and a refusal is reported (rule 7) and
-    leaves the session on the pull path (D).
-  - Tools table, two rows after "The board when the session ends":
-    - "Run the watch (the Chief of Staff)": the `Monitor` tool with the command `$CHANTIER watch
-      --seat <id>`; each line it prints arrives in the session and starts a turn; stopped with
-      the host's stop of a monitor. Mark: **unproved**. Trial: a Chief of Staff starts it, the
-      user moves an item in the board, and within about 40 s the session starts a turn with the
-      `chantier events` line; record whether a timeout or a persistent mode is set, and the date.
-    - "The watch when it expires or the session ends": whether a `Monitor` ends after a time,
-      whether the host tells the session, and whether it ends with the session: **unproved**.
-      What does not depend on it: `status` says `no watch runs` and the Chief of Staff starts it
-      again (events-Q11); the seat stops a watch left behind. Trial: start it, leave the session
-      idle past the tool's limit (if any), see whether a notice arrives and whether `status`
-      then prints `no watch runs`; end the session, take the seat from another, and see the old
-      watch's `running` gone within 15 s.
-- `skills/chantier/references/hosts/copilot.md`, Tools table, one row "Run the watch (the Chief
-  of Staff)" (events-Q12): no tool is recorded whose output wakes a Copilot session (the
-  background shell of "Run the board" is not known to start a turn): the Chief of Staff does not
-  start the watch and takes the pull path (D), and says so at the session's start. Mark:
-  **unproved**. Trial: a Copilot Chief of Staff starts `$CHANTIER watch --seat <id>` in the
-  host's background shell, the user moves an item in the board, and the session either starts a
-  turn with the line (record the tool and the date; the row then says to start the watch, as on
-  Claude Code) or does not (record that, and the pull path stays).
-
-### F. AGENTS.md, CONTRIBUTING.md, docs, scenario
-
-**AGENTS.md** (chantier's own), on top of CR-323, which edits the same first bullet (the board's
-`board.json` wording): rebase and keep both.
-
-1. First bullet, the network clause: "the CLI needs no network once uv's cache holds its packages,
-   except the board's PRs page (below)" becomes "the CLI needs no network once uv's cache holds
-   its packages, except the board's PRs page and `chantier watch` (below)".
-2. The CLI's scope bullet, from "and a second, from the same page:" to "messages no agent;"
-   becomes:
-
-   > and a second: each write it makes (the backlog, the configuration), and each PR its forge
-   > read finds merged that the record does not hold, appends one line to the project's
-   > `board-events.jsonl` (planning folder, never published), which `chantier watch` and `status`
-   > read for the Chief of Staff; the board itself records nothing and messages no agent;
-
-3. A new bullet right after it:
-
-   > - A second named exception: `chantier watch`, which the Chief of Staff runs for its whole
-   >   session (on Claude Code with the `Monitor` tool), for one project. It prints one line per
-   >   group of new lines of that project's `board-events.jsonl`, gathered over about 30 s, and
-   >   reads the forge, read-only, with the user's own `gh` or `glab`, at most once every 60 s by
-   >   default and only while a PR of the project's open batch is open, needing the network for
-   >   that; a merge it finds that the record does not hold it appends to `board-events.jsonl`,
-   >   and it keeps its place and its process in `watch.json` (planning folder, never published).
-   >   It records nothing in a batch, commits nothing, messages no agent and knows no role; it
-   >   stops when the project's seat no longer names the session it was started for.
-
-**CONTRIBUTING.md**, the CLI paragraph (around line 103) that mirrors the same rule: the same
-changes, in its wording.
-
-**docs/web-board.md** (on top of CR-323's edit of "The link"), PRs section: "The signal" and "The
-signal is read only when a `status` runs" are rewritten for `board-events.jsonl`, the `forge shows
-merged` line and the watch. A new short section "Events" after "The link": every board write and
-every merge seen is one line of the project's `board-events.jsonl`, local; a running Chief of
-Staff on Claude Code hears it within about 30 s; on another host at the next message or `status`;
-a board of another version than the session's CLI is named, and its writes do not reach the
-watch.
-
-**docs/planning-modes.md**: a paragraph "The watch, one per project" next to CR-323's "Two
-sessions on one surface": each Chief of Staff's watch hears only its own project's events and
-forge; what wakes the session; the pull path on a host that does not wake it.
-
-## What this leaves open for `board-griller`
-
-`board-griller`'s direction (its `01-intent.md`, "Direction", the user, 2026-11-17) is a Griller
-started headless (`claude -p`, `copilot -p`) or a Griller session in a remote worktree, which
-may message the Chief of Staff and carry files. Such a Griller is neither the board nor the
-watch. The events file and the watch do not prevent it: a later CR may add a writer and a
-`source` value through `events/store.py` (a kind, its `text`, its `wakes`), and the watch prints
-its lines unchanged (B, step 5). Nothing here starts a Griller or carries its files.
+- **`AGENTS.md`**, the CLI's scope bullet:
+  - The board's exception, after "which `status` prints for the Chief of Staff to record at its
+    next `status`;": add "and each write it makes to the backlog or the configuration (not a dry
+    run) also appends one line to that project's `forge-journal.jsonl`, which the Chief of Staff's
+    watcher reads;".
+  - The third exception: "each session's watcher reads only its project's journal, never the
+    forge, and ends 20 s after the last new event, which wakes its session;" becomes "each
+    session's watcher, run for the Chief of Staff's whole session, reads only its project's
+    journal (the hub's lines and the board's writes), never the forge, and ends 20 s after the
+    last new event that wakes, which wakes its session, or when the project's seat names another
+    session;"; "one round trip with the user per merge." becomes "one round trip with the user per
+    merge and per board session ("rescan").".
+- **`CONTRIBUTING.md`** (lines 96-120): the same two edits, in its own words.
+- **`docs/web-board.md`**: line 84 ("The board does not talk to the Chief of Staff: tell it
+  'rescan'…") and line 162: a Chief of Staff whose watcher runs hears each write within about 20 s;
+  "rescan" stays for one that runs none. The board's page and its texts do not change (nothing
+  under `board/web/`).
+- **`docs/planning-folder.md`** (line 49): `forge-journal.jsonl` also holds the board's writes.
 
 ## Out of scope
 
-- The Griller started from the board, how it is started, and what it may say to the Chief of
-  Staff (CR `board-griller`).
-- A comment or discussion feature in the board: today a note is a file saved from its editor.
-- A prompt hook, an MCP channel server, or the plugin's mod (`hooks/register.tsx`) as a wake path:
-  not chosen (events-Q1). No `hooks/` or `types/` change.
-- The Foreman, the Griller and the Drivers: they never run the watch.
-- A machine-wide event bus or any message between the sessions of two projects.
-- Folding `board-journal.jsonl` into `board-events.jsonl`.
-- Stopping or restarting a board of another version: the user's (CR-323).
-- `STATUS.md`, `STATUS.json` and the CR board pane.
+- The Griller started from the board, how it starts and what it says to the Chief of Staff
+  (`2-backlog/P3/board-griller`). A later writer may add a `by` value and a kind through
+  `hub/journal.py`; nothing here starts a Griller.
+- Anything the hub delivered (forge reads, merges, `checks red`, the lock, its cadence).
+- A comment feature in the board: a note is a file saved from its editor.
+- A prompt hook, an MCP channel, a `Monitor`, or the plugin's mod as a wake path; no `hooks/` or
+  `types/` change.
+- Folding `board-journal.jsonl` into `forge-journal.jsonl`; any change to the board's page.
+- A watcher for a Griller, a Foreman or a Driver; any message between two projects' sessions.
+- Stopping or restarting a board of another version (the user's).
+- `STATUS.md`, `STATUS.json`, the CR board pane; a version bump.
 
 ## Evidence
 
-**Tests** (`cli/tests/`, in-process, few and parametrized; `just test` within its budget):
+**Gates.** A change under the CLI's `src/` and the cards: before the first push, `just check` and
+`just eval-dry-run` in the worktree at the rebased head; before the PR is ready, the pipeline's
+`just scenario (ubuntu-latest)` job green at the PR's head, and the local `just scenario`
+(`chantier gate`) when this CR is the top of its batch. No `just mod`, no pane screenshot, no
+`DESIGN.md` (nothing under `board/web/`).
 
-- `test_board_prs.py`: the existing `board-seen.jsonl` checks move to `board-events.jsonl` (one
-  `merged` event, once; the folder unchanged but that file), and one more case: a merge already
-  written by the watch is not written again by the page.
-- One parametrized test of the board's write routes and `config` put: each kind writes one event
-  with `project`, `source: board` and the `wakes` of the table; a refused write and a dry run write
+**Unit tests** (`cli/tests/`, in-process, few, parametrized, no sleep):
+
+- `test_board.py`: one parametrized test over the write routes (`new`, `move`, `edit`, `label`,
+  `group`, `ungroup`, `next-batch`): each success appends one `board` line to the project's
+  `forge-journal.jsonl` with `by: board`, its `action`, `items`, `text` equal to the
+  `board-journal.jsonl` line's, and the `wakes` of the table; a refused write and `rescan` append
+  none; on a two-project surface the line lands in the written project's journal only.
+- `test_board_config.py`: a saved change appends one `config` line with `wakes: true`; a dry run
   none.
-- One parametrized test of `events/store.py` and `watch --once` (the forge read replaced by the
-  seam `forge_read.read`): nothing waiting prints nothing; one move prints one `chantier events,
-  project <name>:` line and a second `--once` prints nothing; a non-waking line is carried with
-  the next; a line of another project and an unreadable line are skipped; a file cut short resets
-  `read`; a long `merged` text is printed whole and a long `move` text is cut to 160 characters;
-  no open PR asks the forge nothing; two calls within `--forge-every` ask it once; a live
-  `running` record makes `--once` print `a watch runs` and advance nothing; a live board record
-  of another version prints the `the board is chantier <v>` line.
-- `status`: the `forge shows merged` line from a `merged` event of either source; `no watch runs
-  for project <name>` with no live watch (with and without waiting events) and not with one; the
-  other-version board line; `read` unchanged after `status`.
-- The watch's start decision (seat names another session; live watch same session; live watch
-  of another session that does not stop, with `alive_since` monkeypatched and no process
-  signalled).
-- P10 (the existing permissions tests): the watch's `Monitor` sample is reported missing with no
-  rule and covered by the recommended `Monitor(...)` rule; `RECOMMENDED_ALLOW` equals the block
-  of `hosts/claude-code.md`.
+- `test_forge_hub.py`:
+  - `test_a_watcher_ends_twenty_seconds_after_the_last_event` gains cases (injected clock): a
+    waking board line at 0 s ends at 20 s; a non-waking one alone never ends, and is printed at
+    the end a later waking one causes; the batch paused or closed does not end it.
+  - `test_watch_refusals`: no `--seat`; a seat that names another session or none; `--once`
+    without `--after` or with `--seat`; nothing written. The no-running-batch refusal is gone.
+  - New: the seat moved ends the watcher with its line; `--once` prints the lines above
+    `--after` and the cursor line, with no `hub.json` written and the `forge_read.read` seam not
+    called; the start line and `status` name a live board of another version, and not one of this
+    version or a dead record.
+  - `test_the_board_and_the_hub_share_the_journal_once` still holds with `board` lines between
+    (they shift `seq`, never block a `merged` line).
+- `status`: the `watch:` line for a paused batch, the `board:` version line, no `board wrote` line.
 
-**Scenario** (`scenario/run_scenario.py`, `scenario/README.md`; `test_scenario_coverage.py`
-checks each bullet names a unit):
+**Scenario** (`scenario/run_scenario.py`, unit `surface-board`, `scenario/README.md` bullets with
+their unit; `test_scenario_coverage.py` passes):
 
-- unit surface-board (the PRs page block): `kept()`, `untouched()` and `seen_entries()` read
-  `board-events.jsonl`; the merge the board saw is one `merged` event, once, ignored by git
-  (`git check-ignore`); `status` and the Foreman's heartbeat form print the `forge shows merged`
-  line, the orders unchanged; after `order merged` it no longer prints.
-- The same unit: a board move through the API, then `status` prints `no watch runs for project
-  <name>; board events waiting: 1 ...`, then `watch --once` prints one line naming the project
-  and the move, then `status` prints `no watch runs` with no waiting count.
-- `external_surface` (on top of CR-323's checks there; two projects `demo` and `other`): a board
-  write on `other` is in `projects/other/changes/board-events.jsonl` only, and `watch --once
-  --project demo` prints nothing for it; a merge of `demo`'s PR on the fake forge is not read by
-  `watch --once --project other` (other's batch has no such PR).
-- The running watch: `watch --seat <the seat's session> --group 1 --forge-every 1` started as a
-  child process with a null standard input; a board move prints one line within 5 s; while it
-  runs, `status` prints no `no watch runs` line; the fake forge marks a PR merged and one line
-  with `merged on the forge` and `order merged <cr>` comes within 5 s, written once in the file;
-  a second `watch --seat <same>` prints `already running` and exits 0; the seat moved with `seat`
-  to another session makes the watch print its `stopped` line and exit 0 within 15 s;
-  `watch.json`'s `running` is then empty.
-- Windows: the child process starts, prints UTF-8 lines and stops on the seat with no signal
-  sent by the scenario.
+- `board_writes`: a move through the API leaves one `board` line in `forge-journal.jsonl`
+  (`git check-ignore` holds), and a refused move none.
+- `forge_hub`: watchers start with `--seat`; the check that ends `watch: no running batch in demo;
+  ended` (line 1903) becomes: demo's batch paused, demo's watcher keeps running; a board move on
+  demo then ends it with its `board wrote (move)` line within the quiet; a board write on project
+  `other` does not end demo's watcher; `seat take` by another session ends a running watcher with
+  its seat line; `watch --once --after <n>` prints the same lines and the cursor.
+- Windows: the same unit on the user's machine at the local gate.
 
-**Gates**: `just check` on Linux, macOS and Windows; this CR changes the CLI and the cards, so
-the pipeline's `just scenario (ubuntu-latest)` job is green at the PR's head, and `just scenario`
-passes locally (`chantier gate`) at its head when it is the top of its batch's stack. No `hooks/`
-or `types/` change: no `just mod`. No change to what the pane draws: no screenshot. On top of
-CR-323: rebase on it and keep both texts in `AGENTS.md`, `session-start.md` ("The board"),
-`chief-of-staff.md`, `docs/web-board.md` ("The link"), `docs/planning-modes.md`,
-`commands/batch_status.py` (`status()`) and the scenario's `external_surface` unit.
+**Host matrix** (the wake depends on the host; the times are constants, nothing configured):
 
-**After merge, on the hosts** (not a gate of the PR): the trials of E (the `Monitor` rule, the
-watch's start and wake-up, its lifetime on Claude Code, the Copilot wake-up), recorded in the host
-references with their dates.
+| Cell | Result it must show | Proof |
+|---|---|---|
+| Claude Code, the user's yes, a board move with the session idle, no batch running | the session takes a turn within about 20 s and says the move in one line | the "Run the watcher" row's trial; until then the PR's Known gaps names "the main session's wake by a background watcher's end is unproved" |
+| Claude Code, the session ended, another session takes the seat | the old watcher ends with the seat line | scenario (`seat take`), and the host row's trial |
+| Copilot | `watch --once` at each user message says the board's writes; the watcher's own wake unproved | the Copilot row's trial |
+| The user's no | as open question 2 decides | the same first session after the merge |
+
+**After merge, on the hosts** (not a gate): the trials of the two host rows, recorded with dates.
 
 ## Open questions
 
-None: the user answered events-Q9 to events-Q12 after the spec critic. The trials of E stay
-trials, run after merge.
+1. **events-Q11's `no watch runs for project <name>` line.** It answered a `Monitor` that expires;
+   the hub's watcher is a background command whose end always comes back to the session, which
+   starts it again, and `status` already prints `forge hub:` and `watch:`. Options: (A) drop the
+   line: no per-watcher record, nothing new in `status`; (B) each watcher records its PID per
+   project in the git folder and `status` prints `no watcher runs for project <name>` when none is
+   alive. Recommendation: A (the hub's design has no case where the watcher stops unseen; B adds a
+   record for it). This specification is written on A.
+2. **The board's writes after the user's no to the watcher.** hub-Q9's no starts nothing, and
+   merges go back to the user's word. Options: (A) the pull path anyway: `watch --once` at each
+   user message (no background process, no forge read, one short call per message); (B) nothing:
+   the user's "rescan" as today. Recommendation: A (events-Q3's fallback; the no was to a process
+   that runs on and reads the forge, and `--once` does neither). This specification is written on
+   A in its cards (section 4, "The pull path": "when no watcher can wake this session" includes a
+   session whose user said no).

@@ -1,13 +1,14 @@
 {
   "schema": 1,
   "title": "Documentation rewritten as a Sphinx site on Read the Docs",
-  "summary": "Grilled in part, then set aside by the user: Furo theme, Diataxis sections replacing docs/, a style guide with an agent review against AI slop, the README keeping its images; no spec yet.",
+  "summary": "Specified: docs/ becomes a Furo Sphinx site in Diataxis sections with every image, built by just check; README keeps its images and links the site; a style guide against AI slop with an agent review; the user creates the Read the Docs project; five open questions.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "411e218a87b953025841e614951553708932155ffe77898b78a9a001998be332",
+    "02-answers.md": "94846ad99222c425626e39f17c93e21dfbe52f09becd91f4246b5167c6c65214",
+    "03-change-spec.md": "fdf02c12b83dbff052c6f5b55f6e53a9655457fa308713832729d039e7f093a5",
     "intake/request.md": "314df3d5d585282f30f1fc2e03106f2d551275dc75828877461305ba38613341"
   },
-  "summarized": "2026-11-17T09:45:10Z"
+  "summarized": "2026-11-18T18:43:58Z"
 }

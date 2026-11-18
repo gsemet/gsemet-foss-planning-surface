@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "A release is finished after the user publishes it by hand",
+  "summary": "Specified, cards and scenario only: the user's word that a refused publication is done is relayed as an order note 'publication done:'; the Foreman takes the blocked release back; the Driver checks the forge, then runs the end checklist.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "710f19f0aceda24b4fad5040072345a7ee79afccd218be81f2a4f9c43a6b9475",
+    "02-answers.md": "38ecda46087ff736b415d419fa3e363dcfe64178bc5dd793a8c795a9991c29b5",
+    "03-change-spec.md": "f80fa789d281438665c840bb6be286445079088dd0aa298a7613fb2e4867e4be",
+    "intake/request.md": "edfa3f8e2bdf6686dd6a7503f9da4ba93616853c2f97a5d6e80432a428766600"
+  },
+  "summarized": "2026-11-18T18:39:56Z"
+}
