@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Ask the release's post-merge word with the merge go",
+  "summary": "The version PR's ready line asks the user's word for tag and forge release; yeses go in as order approve before the merge, so one Release driver runs them. A wait goes in 02-answers.md, then a wait: note after the merge. Under auto, release go spends no approval on the merge.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "669eac678fb773dffd1089fcd61228c1bbaa047805bafe77c337acd089b1a95b",
+    "02-answers.md": "8ef2f453b22ceb8546b0bbcebf9466083dc99582bd13dd4f8e9a398a6bd15ecd",
+    "03-change-spec.md": "63874046fefd9d557a28d1387da533b9a157bca2f354eb6ded76c45be4b66f90",
+    "intake/request.md": "4b9ce82dab95c6b64d003d29fa4c8ab5bfa1cfbc8dfdccfe79ccbb5cb504771c"
+  },
+  "summarized": "2026-11-18T16:52:30Z"
+}

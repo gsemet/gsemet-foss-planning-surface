@@ -2,16 +2,202 @@
   "schema": 1,
   "batch": "batch-27",
   "number": 27,
-  "state": "running",
+  "state": "closed",
   "opened": "2026-11-18T14:33:05Z",
-  "closed": null,
+  "closed": "2026-11-18T17:47:48Z",
   "mode": "parallel",
   "steering": "foreman",
   "host": "claude",
   "budget_usd": 60.0,
-  "cost_usd": null,
+  "cost_usd": 26.3985,
   "cost_unpriced": {},
-  "crs": [],
-  "cost_receipt": null,
-  "report": null
+  "crs": [
+    {
+      "cr": "CR-359",
+      "title": "Change Specification: the partial-stack ask says whether the local gate ran at its top",
+      "result": "merged",
+      "archive": "5-archives/261118-1452-359-partial-stack-ask-windows-gate",
+      "pr": "https://github.com/gsemet/chantier/pull/324",
+      "rounds": 1,
+      "cost_usd": 1.3695,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-360",
+      "title": "Change Specification: the planning folder ignores every CR's work/gates/",
+      "result": "merged",
+      "archive": "5-archives/261118-1459-360-gitignore-work-gates-anchor",
+      "pr": "https://github.com/gsemet/chantier/pull/325",
+      "rounds": 1,
+      "cost_usd": 1.4232,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-361",
+      "title": "The summary lint hint gives a path summary set can read",
+      "result": "merged",
+      "archive": "5-archives/261118-1518-361-summary-lint-hint-path",
+      "pr": "https://github.com/gsemet/chantier/pull/327",
+      "rounds": 1,
+      "cost_usd": 1.3444,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": []
+    },
+    {
+      "cr": "CR-362",
+      "title": "A front matter is never a CR's title, and the board's panel hides it",
+      "result": "merged",
+      "archive": "5-archives/261118-1518-362-spec-title-front-matter",
+      "pr": "https://github.com/gsemet/chantier/pull/326",
+      "rounds": 1,
+      "cost_usd": 1.3995,
+      "cost_unpriced": {},
+      "order": 4,
+      "after": []
+    },
+    {
+      "cr": "CR-363",
+      "title": "Change Specification: a session whose chantier CLI cannot run stops at once",
+      "result": "merged",
+      "archive": "5-archives/261118-1518-363-cli-unavailable-stops-session",
+      "pr": "https://github.com/gsemet/chantier/pull/328",
+      "rounds": 1,
+      "cost_usd": 1.7281,
+      "cost_unpriced": {},
+      "order": 5,
+      "after": []
+    },
+    {
+      "cr": "CR-364",
+      "title": "Archive in the PR: off unless the project asks for it",
+      "result": "merged",
+      "archive": "5-archives/261118-1529-364-archive-in-pr-from-settings",
+      "pr": "https://github.com/gsemet/chantier/pull/330",
+      "rounds": 1,
+      "cost_usd": 2.2448,
+      "cost_unpriced": {},
+      "order": 6,
+      "after": []
+    },
+    {
+      "cr": "CR-365",
+      "title": "Change Specification: the batch's top runs the local gate in a batch with no stack",
+      "result": "merged",
+      "archive": "5-archives/261118-1518-365-one-cr-batch-top-gate",
+      "pr": "https://github.com/gsemet/chantier/pull/329",
+      "rounds": 1,
+      "cost_usd": 1.5813,
+      "cost_unpriced": {},
+      "order": 7,
+      "after": [
+        "CR-359"
+      ]
+    },
+    {
+      "cr": "CR-366",
+      "title": "Version PR for chantier v0.13.0",
+      "result": "merged",
+      "archive": "5-archives/261118-1610-366-release-v0-13-0",
+      "pr": "https://github.com/gsemet/chantier/pull/331",
+      "rounds": 0,
+      "cost_usd": null,
+      "cost_unpriced": {},
+      "order": 8,
+      "after": []
+    },
+    {
+      "cr": "CR-367",
+      "title": "Change Specification: a release CR's merged PR stays in its record",
+      "result": "merged",
+      "archive": "5-archives/261118-1731-367-bug-handoff-and-the-record-show-pr-none",
+      "pr": "https://github.com/gsemet/chantier/pull/332",
+      "rounds": 1,
+      "cost_usd": 1.3631,
+      "cost_unpriced": {},
+      "order": 9,
+      "after": []
+    },
+    {
+      "cr": "CR-368",
+      "title": "Ask the release's post-merge word with the merge go",
+      "result": "merged",
+      "archive": "5-archives/261118-1745-368-ask-the-release-s-post-merge-word-with-t",
+      "pr": "https://github.com/gsemet/chantier/pull/333",
+      "rounds": 1,
+      "cost_usd": 1.1905,
+      "cost_unpriced": {},
+      "order": 10,
+      "after": []
+    }
+  ],
+  "cost_receipt": {
+    "steering": {
+      "label": "Foreman",
+      "usd": 12.67,
+      "calls": 412,
+      "unpriced": {},
+      "wakes": 52,
+      "context_avg": 172831
+    },
+    "drivers": [
+      {
+        "type": "chantier:cr-driver",
+        "usd": 11.0908,
+        "calls": 608,
+        "unpriced": {}
+      }
+    ],
+    "split": [
+      {
+        "part": "steering",
+        "usd": 12.67,
+        "calls": 412,
+        "unpriced": {}
+      },
+      {
+        "part": "drivers",
+        "usd": 6.48,
+        "calls": 321,
+        "unpriced": {}
+      },
+      {
+        "part": "workers",
+        "usd": 7.25,
+        "calls": 447,
+        "unpriced": {}
+      }
+    ],
+    "models": [
+      {
+        "model": "claude-sonnet-5-5",
+        "calls": 1043,
+        "usd": 21.21,
+        "unpriced": 0
+      },
+      {
+        "model": "claude-opus-5-5",
+        "calls": 137,
+        "usd": 5.19,
+        "unpriced": 0
+      }
+    ],
+    "outside": {
+      "grill": {
+        "usd": 21.9769,
+        "calls": 513,
+        "unpriced": {}
+      },
+      "steering": {
+        "usd": 6.9498,
+        "calls": 134,
+        "unpriced": {}
+      }
+    }
+  },
+  "report": "batch-27.md"
 }

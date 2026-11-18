@@ -53,12 +53,12 @@ No visual change. Every role's boot reading grows by a few hundred bytes.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`
-- [ ] Evidence: none, text-only change
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): `test_cli_stop.py`, 16 cases, all fail on the base
+- [x] Local gates at `4fa7952`: `just check` passes
+- [x] Evidence: none, text-only change
+- [x] Review: approved at `5717626d`, committed as `4fa7952`
+- [x] Verified at `4fa7952`
+- [x] CI green at `4fa7952`: all checks pass, including `just scenario (ubuntu-latest)`
 
 ## Internal references
 

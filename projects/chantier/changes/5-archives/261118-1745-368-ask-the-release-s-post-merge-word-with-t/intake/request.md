@@ -1,0 +1,1 @@
+Ask the release's post-merge word with the merge go, so one Release driver runs to the end

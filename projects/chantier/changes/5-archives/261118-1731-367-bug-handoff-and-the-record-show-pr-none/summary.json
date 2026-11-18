@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "A release CR's merged PR stays in its record",
+  "summary": "Specified, with the spec critic's fixes: order merged moves a release PR from pr to merged_pr; every reader that shows a PR shows pr or merged_pr (handoff and stack mark it merged), the board leaves it out of its open-PR lists, and the pane needs a screenshot.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9bcfd58a904509ba6a3b5df9a918a84b4737f0331e5efd4f8772d0f2119905bd",
+    "02-answers.md": "66e5e9f478c7dfed8fdd0720e334d1569f56d944773f9d143d74550a2f4ba088",
+    "03-change-spec.md": "0b3ead3d7b13ef28eeb7b298f7cd760132b5e5d67495aab0fb2b258f5a8dbb19",
+    "intake/request.md": "384b6d6eb19d7bb2373b51d1256b0d51f131a4d69f06c9c9f321138032d2b09a"
+  },
+  "summarized": "2026-11-18T16:45:49Z"
+}

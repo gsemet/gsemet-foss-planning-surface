@@ -1,0 +1,66 @@
+## Summary
+
+With an external planning surface, a CR's cleaned archive went into its PR unless the project's `project.md` said `- Archive in the PR: no`. A project that keeps its changes on the surface and ignores `.agents/changes/` in git had to be told by hand, on every CR, not to add one, and `ship` reported the archive as missing each time. The setting now defaults to off: only an explicit `yes` puts the archive in the PR, and the cards stop asking for it otherwise.
+
+Default change: with an external planning surface, a CR's cleaned archive no longer goes in its PR unless the project's `project.md` holds `- Archive in the PR: yes`; add that line to keep the old behaviour.
+
+## Deliverables
+
+The setting is read once and every consumer follows it:
+
+| `project.md` of the surface | Before | After |
+| --- | --- | --- |
+| no file, or no `Archive in the PR` line | archive in the PR | `archive: not in the PR` |
+| `- Archive in the PR: no` | not in the PR | not in the PR |
+| `- Archive in the PR: yes` | in the PR | in the PR |
+
+When the setting is off, `take` prints `archive: not in the PR`, the Driver's `writes:` line holds only the CR folder, and `ship` reports no missing archive. In-project mode is unchanged (never an archive in the PR).
+
+## Blast radius
+
+Grade: 2
+
+The default flips for every external surface that never stated the setting; a project that wants the archive adds the one `yes` line. Revert restores the old default.
+
+## Autonomous decisions
+
+- The `Repo.archive_in_pr` field default is now `False`, so the field reads the same in both modes (the specification allowed either; in-project ignores it).
+- The external-surface test moved from `test_cli_runs.py` to a new `test_external_archive.py`, because the file-size test would otherwise fail.
+
+## Known gaps
+
+None
+
+<details>
+<summary>Details</summary>
+
+## Changes
+
+- `Repo._external` sets `archive_in_pr` only when the line says `yes`; `archive_path` docstring updated.
+- Cards and docs state the new default: `concepts.md`, `driver.md`, `pr-template.md`, `docs/planning-modes.md`, `scenario/README.md`.
+- Tests: a parametrized test over the `project.md` content, and the external-surface test parametrized over no file / `yes`, each running one `ship`. The scenario's second project drops its line and proves the default in `take`.
+
+## Human decisions
+
+- The existing `project.md` line stays the one setting; no new configuration key.
+- The default becomes off for every external surface, and the change is named as a default change.
+- No surface's `project.md` is edited by this change.
+
+## Impacts
+
+No visual change. Projects with an external surface that relied on the old default must add `- Archive in the PR: yes`.
+
+## Test plan
+
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `7a6f279`: `just check` pass, `just eval-dry-run` pass, `just scenario` pass (Windows)
+- [x] Evidence: No visual change
+- [x] Review: approved at `7a6f279` (reviewed at `ee80f03`, committed as `7a6f279`)
+- [x] Verified at `7a6f279`
+- [x] CI green at `7a6f279`
+
+## Internal references
+
+- CR-364 archive-in-pr-from-settings
+
+</details>

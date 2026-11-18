@@ -1,0 +1,24 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Woken by a merge</title>
+<style>
+body{margin:0;background:#fff;color:#1f2328;font:17px/1.55 -apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+.w{padding:26px 34px 24px}
+.t{font-size:14px;color:#656d76;margin:0 0 12px}
+.m{border-radius:10px;padding:12px 16px;margin:12px 0;max-width:1060px}
+.u{background:#ddf4ff;margin-left:120px;max-width:940px}
+.c{background:#f6f8fa;border:1px solid #d0d7de}
+.who{font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:#57606a;margin-bottom:4px}
+code{background:#eff1f3;padding:1px 5px;border-radius:4px;font-size:15px}
+.term{background:#0d1117;color:#e6edf3;border-radius:10px;padding:14px 18px;margin:18px 0 6px;font:14px/1.6 Consolas,"SFMono-Regular",Menlo,monospace;white-space:pre-wrap;max-width:1060px}
+.p{color:#7ee787}
+.d{color:#8b949e}
+</style></head><body><div class="w">
+<p class="t">Excerpt of a conversation with the Chief of Staff, translated from French, then the watcher's own output.</p>
+<div class="m u"><div class="who">You</div>I merged, but the watcher did not work.</div>
+<div class="m c"><div class="who">Chief of Staff</div>The hub did see the four merges (15:17:33 and 15:17:53), and the watcher ended at about 15:18:13 with its four <code>forge saw merged</code> lines. Your message arrived about ten seconds earlier: the watcher waits 20 s with no new event, so several merges wake the session once. I verified the four merges on the forge, recorded <code>order merged</code> for each, relayed them to the Foreman, and restarted the watcher.</div>
+<div class="m c"><div class="who">Chief of Staff, woken by the watcher, nobody typing</div>CR-364 is merged (15:28:38Z). The watcher saw it, ended on its own and woke me at about 15:29:05, some 27 s later. Verified on the forge, <code>order merged CR-364</code> recorded: batch-27 is complete, 7 merged, $14.48 of $60.</div>
+<div class="term"><span class="p">$</span> chantier watch --after 6
+watch: chantier from cursor 6
+forge saw merged: CR-364 https://github.com/gsemet/chantier/pull/330 into main at 2026-11-18T15:28:38Z; for the Chief of Staff: order merged CR-364
+watch: cursor 7; next: chantier watch --after 7</div>
+</div></body></html>

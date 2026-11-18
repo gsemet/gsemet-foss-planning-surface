@@ -1,0 +1,1 @@
+Bug: handoff and the record show PR none for a merged release PR
