@@ -96,3 +96,11 @@ written now and checked by the spec critic.
   (`watch --once` at each user message), said once at the session's start.
 - Label, group, ungroup and next-batch (the spec-writer's open question 3): settled by events-Q2,
   which lists what wakes; these ride along with the next wake-up.
+
+## Re-scoped by surface-forge-hub (2026-11-18)
+
+- hub-Q8 (the user, answer A, in the grill of surface-forge-hub): surface-forge-hub takes over this
+  item's forge and merge part (its `chantier watch`, its forge reads, its replacement of
+  `board-seen.jsonl`). This item keeps only the board events (moves, notes, Configuration) and its
+  specification is to be written again on top of the hub, with the same journal and the same
+  `watch`, once surface-forge-hub is merged. Its current 03-change-spec.md is superseded.

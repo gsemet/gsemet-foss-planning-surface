@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "One forge hub per surface, watchers per session",
+  "summary": "On the user's yes, each session runs chantier watch; one watcher per surface and machine is the hub, reads the forge every 20 s and writes merges and red CI to a local journal. A watcher ends 20 s after its last event, waking its session to check and record. Rebases on CR-354.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "1de9aac2a405690d5af5efe048d4da26598f1b08627779436f998986c4c6f104",
+    "03-change-spec.md": "c10f9e61f0eff455c3df1e76656afcffcb407b46791b9d4d8958be6cc6160a4c",
+    "intake/request.md": "151474eff4f05e544661af8ee0291e57922cd9273664906a3e90a7406fe2a75b"
+  },
+  "summarized": "2026-11-18T12:25:34Z"
+}
