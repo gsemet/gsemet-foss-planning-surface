@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Documentation rewritten as a Sphinx site on Read the Docs",
+  "summary": "Specified, after 370/374/376: docs/ becomes a Furo Sphinx site in Diataxis sections showing every image; README keeps images and a short paragraph plus link per section; release-note doc links pinned to /en/vX.Y.Z/; style guide split out; one open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "5002da8b6cf81bce5dd8e6d536638130ccd1e39f5e0d958c3daea696a21086ab",
+    "03-change-spec.md": "ebb19e14a77f63d5b560689e4b7c512d3c1cf74ed62cef213ebf73404d1a7e08",
+    "intake/request.md": "314df3d5d585282f30f1fc2e03106f2d551275dc75828877461305ba38613341"
+  },
+  "summarized": "2026-11-18T18:52:27Z"
+}

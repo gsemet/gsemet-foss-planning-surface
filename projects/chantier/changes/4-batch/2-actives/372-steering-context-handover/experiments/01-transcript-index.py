@@ -10,9 +10,10 @@ is a subagent's, the first and last record time, the priced calls, the wakes (as
 its shell commands name. It prints no message text.
 """
 import csv, glob, json, os, re, sys
+_P = "C--" + os.path.expanduser("~")[3:].replace("\\", "-").replace("/", "-") + "-Projets-"  # the host's folder tag, derived from the home folder
 
 BASE = os.path.expanduser("~/.claude/projects")
-DIRS = ["C--Users-gaeta-Projets-chantier", "C--Users-gaeta-Projets-gsemet-foss-planning-surface"]
+DIRS = [_P + "chantier", _P + "gsemet-foss-planning-surface"]
 CLAIM = re.compile(r"foreman set \S+ --epoch (\d+)")
 BATCH = re.compile(r"--batch (batch-\d+)")
 
@@ -68,7 +69,7 @@ for d in DIRS:
     files = sorted(glob.glob(f"{BASE}/{d}/*.jsonl")) + sorted(glob.glob(f"{BASE}/{d}/*/subagents/*.jsonl"))
     for p in files:
         first, last, calls, nw, peak, ncomp, claims, batches = scan(p)
-        w.writerow([d.replace("C--Users-gaeta-Projets-", ""), os.path.basename(p)[:-6],
+        w.writerow([d.replace(_P, ""), os.path.basename(p)[:-6],
                     "subagents" in p.replace("\\", "/"), first, last, calls, nw, peak, ncomp,
                     ";".join(sorted({e for _, e in claims})),
                     ";".join(f"{b}:{n}" for b, n in sorted(batches.items()))])

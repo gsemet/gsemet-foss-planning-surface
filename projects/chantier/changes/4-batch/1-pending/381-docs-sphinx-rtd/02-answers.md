@@ -63,3 +63,6 @@ Points with no user-visible behaviour, decided while writing `03-change-spec.md`
   link, so `chantier rules` does not make every role read it (that CR's concern, recorded here).
 - This CR starts once batch-28's docs CRs (370, 374, 376) have merged: it joins batch-28 stacked
   after them.
+- Pinned release links (A): after the tag, the Release Driver checks that
+  `https://chantier.readthedocs.io/en/vX.Y.Z/` serves before publishing the notes and the thread,
+  and waits for it; `docs/how-to/release-process.md` adds the step.

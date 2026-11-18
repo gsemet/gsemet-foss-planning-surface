@@ -20,12 +20,13 @@ cost code's own windows).
 import csv
 import json
 import os
+_P = "C--" + os.path.expanduser("~")[3:].replace("\\", "-").replace("/", "-") + "-Projets-"  # the host's folder tag, derived from the home folder
 import re
 import sys
 from datetime import datetime
 
 B = os.path.expanduser("~/.claude/projects")
-CH, PS = "C--Users-gaeta-Projets-chantier", "C--Users-gaeta-Projets-gsemet-foss-planning-surface"
+CH, PS = _P + "chantier", _P + "gsemet-foss-planning-surface"
 PRICE = {  # $/MTok: input, 5-min write, 1-h write, cache read, output (transcripts.py, v0.13.0)
     "claude-opus-5-5": (4, 5, 8, 0.20, 20), "claude-sonnet-5-5": (2, 2.5, 4, 0.10, 10),
     "claude-fable-5-2": (8, 10, 16, 0.20, 40), "claude-haiku-5-5": (0.10, 0.125, 0.20, 0.01, 0.50)}

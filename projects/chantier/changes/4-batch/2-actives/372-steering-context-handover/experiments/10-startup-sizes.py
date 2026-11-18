@@ -1,7 +1,7 @@
 """Bytes of what a fresh Foreman or Chief of Staff must read at startup, from the startup manifest.
 
 Command: python 10-startup-sizes.py [<chantier checkout>] > 10-startup-sizes.csv
-(default checkout: C:/Users/gaeta/Projets/chantier). Read-only. Figures only: file, section heading,
+(default checkout: ~/Projets/chantier). Read-only. Figures only: file, section heading,
 bytes, and bytes / 4 as a rough token count (a ratio, not a measured tokenisation).
 """
 import csv
@@ -9,7 +9,7 @@ import json
 import os
 import sys
 
-root = sys.argv[1] if len(sys.argv) > 1 else "C:/Users/gaeta/Projets/chantier"
+root = sys.argv[1] if len(sys.argv) > 1 else os.path.expanduser("~/Projets/chantier")
 man = json.load(open(os.path.join(root, "skills/chantier/references/startup-manifest.json"), encoding="utf-8"))
 
 

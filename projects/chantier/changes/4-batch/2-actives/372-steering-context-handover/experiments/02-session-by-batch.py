@@ -8,6 +8,7 @@ A session that steered a batch shows many calls in its window and a peak equal t
 "at its peak" figure. The windows are the records' `opened` and `closed` (5-archives/batches).
 """
 import csv, glob, json, os, sys
+_P = "C--" + os.path.expanduser("~")[3:].replace("\\", "-").replace("/", "-") + "-Projets-"  # the host's folder tag, derived from the home folder
 
 B = os.path.expanduser("~/.claude/projects")
 W = {17: ("2026-11-13T17:33:25", "2026-11-14T17:38:29"), 18: ("2026-11-14T18:41:48", "2026-11-15T16:18:18"),
@@ -16,7 +17,7 @@ W = {17: ("2026-11-13T17:33:25", "2026-11-14T17:38:29"), 18: ("2026-11-14T18:41:
      24: ("2026-11-17T17:42:16", "2026-11-18T08:15:25"), 25: ("2026-11-18T10:09:33", "2026-11-18T11:56:53"),
      26: ("2026-11-18T12:16:06", "2026-11-18T14:29:30"), 27: ("2026-11-18T14:33:05", "2026-11-18T17:47:48")}
 res = {}
-for d in ["C--Users-gaeta-Projets-chantier", "C--Users-gaeta-Projets-gsemet-foss-planning-surface"]:
+for d in [_P + "chantier", _P + "gsemet-foss-planning-surface"]:
     for p in glob.glob(f"{B}/{d}/*.jsonl"):
         seen = set()
         for l in open(p, encoding="utf-8"):
@@ -38,7 +39,7 @@ for d in ["C--Users-gaeta-Projets-chantier", "C--Users-gaeta-Projets-gsemet-foss
             ts = x["timestamp"][:19]
             for b, (a, z) in W.items():
                 if a <= ts <= z:
-                    r = res.setdefault((b, d.replace("C--Users-gaeta-Projets-", ""), os.path.basename(p)[:-6]), [0, 0])
+                    r = res.setdefault((b, d.replace(_P, ""), os.path.basename(p)[:-6]), [0, 0])
                     r[0] += 1
                     r[1] = max(r[1], c)
 w = csv.writer(sys.stdout, lineterminator="\n")

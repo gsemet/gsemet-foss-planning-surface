@@ -48,3 +48,25 @@
 - Q2 (A): a configured `batch.slots: 0` makes `open` with no `--slots` refuse (exit 2), naming the
   file and the key, as `--slots 0` is refused today.
 - Q3 (A): a paused batch gets the `order slots <n>` too, so it resumes with the new value.
+
+## Settled by the Chief of Staff (spec-critic's findings, 2026-11-18)
+- What counts (A): the `work/specifying` markers; the cards remove a CR's marker at its
+  spec-writer's hand-back, before any critic starts. The `limits:` line lists the slugs, so a
+  stale marker shows.
+- `status` (replaces Q1 above): `status` prints a `config` line for the slots only, until an
+  `order slots --note <n>` is recorded after it; it prints none for the spec-writer limit (no file
+  records the waiting spec-writers). The watcher's end line and `playbook`'s `limits:` line say
+  the limit change.
+- Acting alone (A): a board save of these two keys is the user's word for them; the card names it
+  as the one exception to events-Q5. Any other configuration change gets one line and no action.
+- Role-free name (B): the key is `specifying.parallel` ("CRs being specified at once"), the
+  `limits:` line counts markers; the CLI names no role and AGENTS.md needs no new exception. The
+  cards say the spec-writer reads it.
+- The wake on a configuration change is unproved (A): the PR's Known gaps names it; the host rows'
+  trial adds a board save with an idle session; `status` stays the fallback.
+- Kept whole (B): the user asked for both together.
+- Factory batch (A): the cards open it with `--mode stack` and no `--slots` unless the user names
+  a number, so it takes `batch.slots`.
+- No plugin root and no user layer (spec Q1): A. `open` with no `--slots` refuses ("give --slots
+  <n>"); the cards start no spec-writer until the user sets `specifying.parallel` (no value of the
+  CLI's own, no fallback).

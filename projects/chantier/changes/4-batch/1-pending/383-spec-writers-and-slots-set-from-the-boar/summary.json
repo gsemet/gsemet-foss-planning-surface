@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Spec-writers and slots set from the board's configuration",
+  "summary": "Specified: specifying.parallel and batch.slots keys (default 4), open's default, a board Limits tab, and a waking config line in forge-journal.jsonl; status shows only the slots line until order slots; one open question on a missing plugin root.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "80753e511d31b9f9e4f7f724621cff624cd3084296243381ff839a374c1cfca5",
+    "02-answers.md": "390218d3d6c49cd82151102991896ea4033134d373244f6dec092041d15e8047",
+    "03-change-spec.md": "01809eb54d63d16fd53ccbb4e4c74c6e536528f634ffd51ff18aac387db12497",
+    "intake/request.md": "79e891f9c651862788855cd251f3a51cf53bdc91ae6de170fdcbcd7a9654da42"
+  },
+  "summarized": "2026-11-18T18:55:04Z"
+}

@@ -155,3 +155,6 @@ with no user-visible behaviour of their own:
 - An ended session's watcher may run until another session takes the seat (A), until the Claude
   Code trial says whether the host ends it; the PR's Known gaps names it and the host row records
   the trial.
+- The spec-writer's two means points (2026-11-18), accepted: with no batch, `seat take` and `seat`
+  end with the `watch: not running` line for this session's seat; that line and `status`'s line
+  for this session's own watcher print the pull path's `watch --once --after <n>` command.

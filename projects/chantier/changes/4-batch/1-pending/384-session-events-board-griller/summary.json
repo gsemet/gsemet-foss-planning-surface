@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The watcher wakes the Chief of Staff on what the user does in the board",
+  "summary": "On CR-375 and the config CR: board backlog writes append board lines and every Configuration save a config line to forge-journal.jsonl; the watcher runs with or without a batch, ends when the seat is another session's; printed watch --once is the pull path.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a43cae6d3d21303de22b937e82f7183178272f2611a1632568483269419394e8",
+    "02-answers.md": "85ae432b9dd0e00b2063745d0e810b4d2fa8bbf5d41f50a11a030a3d2aed0a8c",
+    "03-change-spec.md": "224fbbb72279ab25d02b9546c6106d4c14ab4d9f3c1adfa86599f59bfab1d29c",
+    "intake/request.md": "ca04946805739d42473ea3cf775bea190b85d19a2f906f56c2c458651d6281c2"
+  },
+  "summarized": "2026-11-18T18:53:22Z"
+}

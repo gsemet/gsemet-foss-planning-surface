@@ -1,6 +1,6 @@
 """Replay of the hand-over options on the recorded steering sessions (figures only).
 
-Command: python 09-replay.py        (reads 03-steering-calls.csv, 05-compactions.csv, 06-drivers.csv,
+Command: python 09-replay.py [--no-driver-cost]  (the flag: no Driver lost at a hand-over; files get the suffix -no-driver)        (reads 03-steering-calls.csv, 05-compactions.csv, 06-drivers.csv,
 08-fresh-start-figures.csv; writes 09-replay.csv, 09-replay-by-kind.csv and 09-calibration.csv)
 
 Method (the study, part 4, states it in words):
@@ -62,7 +62,10 @@ drivers = rd("06-drivers.csv")
 fresh = {r["label"]: r for r in rd("08-fresh-start-figures.csv")}
 F = {"foreman": float(fresh["median-foreman"]["ready_context"]), "direct": float(fresh["median-chief"]["ready_context"])}
 C_START = {"foreman": float(fresh["median-foreman"]["ready_cum_usd"]), "direct": float(fresh["median-chief"]["ready_cum_usd"])}
-C_DRIVER = st.median(float(r["cum_usd_at_call_15"]) for r in drivers if r["cum_usd_at_call_15"])
+import sys
+NO_DRIVER = "--no-driver-cost" in sys.argv  # bound: no Driver is lost at a hand-over
+SUF = "-no-driver" if NO_DRIVER else ""
+C_DRIVER = 0.0 if NO_DRIVER else st.median(float(r["cum_usd_at_call_15"]) for r in drivers if r["cum_usd_at_call_15"])
 by = {}
 for r in calls:
     by.setdefault(r["batch"], []).append(r)
@@ -175,10 +178,10 @@ DELAYS = [("0", 0), ("30min", 1800), ("2h", 7200), ("8h", 28800)]
 OPTIONS = ([("ctx", x, False) for x in (180_000, 200_000, 230_000, 250_000)]
            + [("wakes", n, False) for n in (30, 60, 100)] + [("wakes", n, True) for n in (30, 60, 100)])
 
-calf = open(os.path.join(here, "09-calibration.csv"), "w", newline="", encoding="utf-8")
+calf = open(os.path.join(here, "09-calibration" + SUF + ".csv"), "w", newline="", encoding="utf-8")
 cal = csv.writer(calf, lineterminator="\n")
 cal.writerow(["batch", "kind", "recorded_steering_usd", "replayed_none_usd", "error_pct", "recorded_compactions", "replayed_compactions", "start_context_F", "start_cost", "driver_restart_cost", "chief_usd_per_wake"])
-outf = open(os.path.join(here, "09-replay.csv"), "w", newline="", encoding="utf-8")
+outf = open(os.path.join(here, "09-replay" + SUF + ".csv"), "w", newline="", encoding="utf-8")
 out = csv.writer(outf, lineterminator="\n")
 out.writerow(["batch", "kind", "option", "value", "wakes_exclude_leftover", "yes_delay", "recorded_usd", "none_usd", "option_usd", "saving_usd", "saving_pct_of_steering", "handovers", "compactions", "ctx_avg_at_wake", "ctx_peak", "extra_usd"])
 rec = {}
@@ -197,8 +200,8 @@ for b, J in jobs.items():
 calf.close()
 outf.close()
 # sums by kind
-rows = list(csv.DictReader(open(os.path.join(here, "09-replay.csv"), encoding="utf-8")))
-agg = csv.writer(open(os.path.join(here, "09-replay-by-kind.csv"), "w", newline="", encoding="utf-8"), lineterminator="\n")
+rows = list(csv.DictReader(open(os.path.join(here, "09-replay" + SUF + ".csv"), encoding="utf-8")))
+agg = csv.writer(open(os.path.join(here, "09-replay-by-kind" + SUF + ".csv"), "w", newline="", encoding="utf-8"), lineterminator="\n")
 agg.writerow(["kind", "option", "value", "wakes_exclude_leftover", "yes_delay", "batches", "none_usd", "option_usd", "saving_usd", "saving_pct", "mean_saving_usd_per_batch", "batches_that_save", "handovers"])
 keys = sorted({(r["kind"], r["option"], r["value"], r["wakes_exclude_leftover"], r["yes_delay"]) for r in rows if r["option"] != "none"})
 for k in keys:
