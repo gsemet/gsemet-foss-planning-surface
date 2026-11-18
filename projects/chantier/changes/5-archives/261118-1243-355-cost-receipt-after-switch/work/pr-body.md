@@ -50,12 +50,12 @@ No visual change; one more line of figures in the receipt for switched or direct
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: grep that `docs/web-board.md` no longer says "the steering in a Foreman batch"
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `21a2367`: `just check` pass (584 tests), `just eval-dry-run` pass (17 of 17)
+- [x] Evidence: grep that `docs/web-board.md` no longer says "the steering in a Foreman batch"
+- [x] Review: approved at `21a2367`
+- [x] Verified at `21a2367`
+- [x] CI green at `21a2367`
 
 ## Internal references
 

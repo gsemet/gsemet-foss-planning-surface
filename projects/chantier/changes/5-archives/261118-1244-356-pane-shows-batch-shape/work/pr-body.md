@@ -53,12 +53,12 @@ The batch's line shows its shape; nothing else is visible.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates: `just check`, `just mod`
-- [ ] Evidence: no screenshot yet (see Known gaps)
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `2ad1d97`: `just check`, `just eval-dry-run` (17/17) and `just mod` (79 pass) pass
+- [x] Evidence: no screenshot yet (see Known gaps)
+- [x] Review: approved at `2ad1d97`
+- [x] Verified at `2ad1d97`
+- [x] CI green at `2ad1d97`
 
 ## Internal references
 

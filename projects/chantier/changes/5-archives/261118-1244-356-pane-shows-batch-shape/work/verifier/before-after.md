@@ -1,0 +1,1 @@
+Screenshot of the pane from a real Claude Code session: not captured (no real session available to the Verifier); it is a Known gap of the PR. Textual evidence is in ../verify.md. After SHA 2ad1d97b694744b6f18a73f494afe7c813733500; before (base) not captured.

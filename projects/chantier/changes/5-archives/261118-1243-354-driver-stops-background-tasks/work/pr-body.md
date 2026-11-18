@@ -21,12 +21,12 @@ Grade: **2**. The mod's start folder is shared by every guarded spawn, and the c
 
 ## Autonomous decisions
 
-None
+None. Some details were settled (for example `TaskStop` on the Driver agents) before the work; they are in the specification.
 
 ## Known gaps
 
 - No run in a real batch yet: the new host rows stay unproved (the start folder of a CR Driver on Claude Code and on Copilot, `TaskStop` by a Driver, and whether stopping an ended Driver also ends its leftover tasks). Each row names its trial.
-- The long gate (`just scenario`) is not yet shown green at the head in this description.
+- Three lines reported as long (`CONTRIBUTING.md:124`, `docs/boards.md:64`, `concepts.md:491`) stay as they are: neither the specification nor the project's rules ask a rewrap.
 
 <details>
 <summary>Details</summary>
@@ -50,11 +50,11 @@ No visual change. A CR Driver on Claude Code starts in its worktree.
 ## Test plan
 
 - [x] New or changed tests (four hook tests in `hooks/register.test.tsx`)
-- [ ] Local gates at `<sha7>`: `just check`, `just mod`
-- [ ] Evidence: none (no visible change)
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Local gates at `db4ba03`: `just check` 578 passed, `just mod` 82 pass 0 fail
+- [x] Evidence: none (no visible change)
+- [x] Review: approved at `bdd27e0` (round diff), committed as `db4ba03`
+- [x] Verified at `db4ba03`
+- [x] CI green at `db4ba03`
 
 ## Internal references
 

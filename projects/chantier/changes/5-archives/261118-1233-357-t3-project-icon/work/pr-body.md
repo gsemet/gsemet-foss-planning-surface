@@ -76,12 +76,12 @@ T3 Code shows the new icon for this repository. No other visible change.
 
 ## Test plan
 
-- [ ] New or changed tests: none; a one-off check instead: `t3.json` parses with exactly the keys `$schema` and `iconPath`; `docs/logo.svg` parses as XML, root `{http://www.w3.org/2000/svg}svg`, `viewBox` `0 0 64 64`, no `text`, `image`, `script` or `foreignObject` element, no `font-family`, `href` or `data:`
-- [ ] Local gates at `1ed0389`: `just check` passes (578 passed)
-- [ ] Evidence: logo render and source in Deliverables
-- [ ] Review: approved at `1ed0389`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests: none; a one-off check instead: `t3.json` parses with exactly the keys `$schema` and `iconPath`; `docs/logo.svg` parses as XML, root `{http://www.w3.org/2000/svg}svg`, `viewBox` `0 0 64 64`, no `text`, `image`, `script` or `foreignObject` element, no `font-family`, `href` or `data:`
+- [x] Local gates at `1ed0389`: `just check` passes (578 passed)
+- [x] Evidence: logo render and source in Deliverables
+- [x] Review: approved at `1ed0389`
+- [x] Verified at `1ed0389`
+- [x] CI green at `1ed0389`
 
 ## Internal references
 

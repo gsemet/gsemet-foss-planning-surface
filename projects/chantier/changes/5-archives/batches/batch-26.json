@@ -2,16 +2,142 @@
   "schema": 1,
   "batch": "batch-26",
   "number": 26,
-  "state": "running",
+  "state": "closed",
   "opened": "2026-11-18T12:16:06Z",
-  "closed": null,
+  "closed": "2026-11-18T14:29:30Z",
   "mode": "parallel",
   "steering": "foreman",
   "host": "claude",
   "budget_usd": 60.0,
-  "cost_usd": null,
+  "cost_usd": 17.2988,
   "cost_unpriced": {},
-  "crs": [],
-  "cost_receipt": null,
-  "report": null
+  "crs": [
+    {
+      "cr": "CR-354",
+      "title": "Change Specification: a CR Driver starts in its worktree, background tasks stop when done",
+      "result": "merged",
+      "archive": "5-archives/261118-1243-354-driver-stops-background-tasks",
+      "pr": "https://github.com/gsemet/chantier/pull/320",
+      "rounds": 1,
+      "cost_usd": 2.0821,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-355",
+      "title": "Change Specification: the cost receipt after a steering switch",
+      "result": "merged",
+      "archive": "5-archives/261118-1243-355-cost-receipt-after-switch",
+      "pr": "https://github.com/gsemet/chantier/pull/322",
+      "rounds": 1,
+      "cost_usd": 1.6394,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-356",
+      "title": "Change Specification: the CR board pane shows the batch's shape (`shape`)",
+      "result": "merged",
+      "archive": "5-archives/261118-1244-356-pane-shows-batch-shape",
+      "pr": "https://github.com/gsemet/chantier/pull/321",
+      "rounds": 1,
+      "cost_usd": 1.406,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": []
+    },
+    {
+      "cr": "CR-357",
+      "title": "Change Specification: a project icon for T3 Code through `t3.json`",
+      "result": "merged",
+      "archive": "5-archives/261118-1233-357-t3-project-icon",
+      "pr": "https://github.com/gsemet/chantier/pull/319",
+      "rounds": 1,
+      "cost_usd": 1.2002,
+      "cost_unpriced": {},
+      "order": 4,
+      "after": []
+    },
+    {
+      "cr": "CR-358",
+      "title": "Change Specification: one forge hub per surface and machine, and watchers that wake each session",
+      "result": "merged",
+      "archive": "5-archives/261118-1425-358-surface-forge-hub",
+      "pr": "https://github.com/gsemet/chantier/pull/323",
+      "rounds": 3,
+      "cost_usd": 7.0446,
+      "cost_unpriced": {},
+      "order": 5,
+      "after": [
+        "CR-354"
+      ]
+    }
+  ],
+  "cost_receipt": {
+    "steering": {
+      "label": "Foreman",
+      "usd": 3.93,
+      "calls": 113,
+      "unpriced": {},
+      "wakes": 28,
+      "context_avg": 212653
+    },
+    "drivers": [
+      {
+        "type": "chantier:cr-driver",
+        "usd": 13.3723,
+        "calls": 647,
+        "unpriced": {}
+      }
+    ],
+    "split": [
+      {
+        "part": "steering",
+        "usd": 3.93,
+        "calls": 113,
+        "unpriced": {}
+      },
+      {
+        "part": "drivers",
+        "usd": 5.48,
+        "calls": 261,
+        "unpriced": {}
+      },
+      {
+        "part": "workers",
+        "usd": 7.89,
+        "calls": 386,
+        "unpriced": {}
+      }
+    ],
+    "models": [
+      {
+        "model": "claude-sonnet-5-5",
+        "calls": 749,
+        "usd": 16.86,
+        "unpriced": 0
+      },
+      {
+        "model": "claude-opus-5-5",
+        "calls": 11,
+        "usd": 0.44,
+        "unpriced": 0
+      }
+    ],
+    "outside": {
+      "grill": {
+        "usd": 4.6356,
+        "calls": 65,
+        "unpriced": {}
+      },
+      "steering": {
+        "usd": 5.2013,
+        "calls": 94,
+        "unpriced": {}
+      }
+    }
+  },
+  "report": "batch-26.md"
 }
