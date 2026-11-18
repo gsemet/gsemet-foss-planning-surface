@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Batch page tabs: graph, Gantt with state-coloured segments, time cards",
+  "summary": "Final spec: the Batch page gets tabs: graph with a 10-minute burst, a real-time Gantt of state-coloured segments (open one hatched to now), paper time cards with MERGED and REWORKED stamps. Priority chip from the add event's origin; no CLI record change; on board-design-system.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "a99e042c6fcadfcc555487d1cf8ce9b2f5444220c09a842b64a1472b2c37798e",
+    "03-change-spec.md": "9cccb175bc1a6ee65656f0d5458dd95a116eaa2e3da4bd09490b9c6e99152862",
+    "intake/request.md": "6618bf35d255a65141655a9db2a232e90cf1b4b9e18097c9d6753d1e494acd7e",
+    "intake/visualizations-request.md": "5adf2cb9a80839c2c5764b52648095062c88b2b09f15a5491d8e9fe107b8ab59"
+  },
+  "summarized": "2026-11-18T02:29:57Z"
+}

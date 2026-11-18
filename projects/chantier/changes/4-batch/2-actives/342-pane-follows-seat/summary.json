@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The CR board pane shows the session's own project on a planning surface",
+  "summary": "Specified: on a surface the pane keeps every project whose seat.json (session, transcript) or current batch.json (foreman and chief ids, single and list) names this session, both when two match, else every project under a no-seat line.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "2365206eb772e4f6492da93960a463cc954926b3800ee85ab5be9bfc31c2e39e",
+    "03-change-spec.md": "e765a5f18da116ffb1425ed1815b86516f33ae510767796a237a69f533365958",
+    "intake/request.md": "71348951752a66603534d7e3fe0ecf789588ffd6535fc40e4918950199fdb81e"
+  },
+  "summarized": "2026-11-18T02:23:51Z"
+}

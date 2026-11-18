@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A PR, an MR, an issue or a link on the board opens on its site",
+  "summary": "Grilled and specified: Home Open PRs rows open the PR or MR (CR number opens the panel), the side panel's web links and facts (PR/MR, item issue) open in a new tab, an MR shows as !n; rebases on CR-338.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "1e62530777444a66fc34ccb852cd3d9b5a20c4d9a813302423094955b28f72a1",
+    "03-change-spec.md": "cabb9464a6fc9f5687790855b9a85b33c31956b2f3962a41cf23bc61f91dcc41",
+    "intake/request.md": "66c175bf4cffc0f376b9b706ac9269b1b13773b200e29efd527c93a38e154812"
+  },
+  "summarized": "2026-11-17T22:55:23Z"
+}

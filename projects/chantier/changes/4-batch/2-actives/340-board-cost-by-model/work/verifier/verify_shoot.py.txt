@@ -1,0 +1,136 @@
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["playwright>=1.49"]
+# ///
+"""Verifier probe: serve a scratch copy of a checkout's docs/demo, shoot and probe the Costs page.
+usage: verify_shoot.py <code root> <scratch dir> <out dir> <tag> [edge]"""
+
+import json, os, re, shutil, subprocess, sys, time
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+
+code, scratch, out, tag = Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[3]), sys.argv[4]
+edge = len(sys.argv) > 5
+surface = scratch / f"surf-{tag}"
+if surface.exists():
+    shutil.rmtree(surface)
+shutil.copytree(code / "docs" / "demo", surface)
+if edge:
+    p = surface / "projects/mobile-app/changes/5-archives/batches/batch-02.json"
+    d = json.loads(p.read_text(encoding="utf-8"))
+    d["cost_receipt"]["models"] = [
+        {"model": "claude-opus-5-5", "calls": 200, "usd": 8.0, "unpriced": 0},
+        {"model": "mistral-large-2", "calls": 12, "usd": 4.0, "unpriced": 0},
+        {"model": "gpt-6.1-sol", "calls": 30, "usd": 3.0, "unpriced": 0},
+        {"model": "?", "calls": 3, "usd": 1.25, "unpriced": 0},
+    ]
+    p.write_text(json.dumps(d, indent=2), encoding="utf-8")
+git = ("git", "-c", "user.name=v", "-c", "user.email=v@example.com", "-c", "core.autocrlf=false")
+subprocess.run((*git, "init", "-q", "-b", "main"), cwd=surface, check=True)
+subprocess.run((*git, "add", "-A"), cwd=surface, check=True)
+subprocess.run((*git, "commit", "-q", "-m", "demo"), cwd=surface, check=True)
+home = scratch / "home"
+(home / "no-transcripts").mkdir(parents=True, exist_ok=True)
+env = {**{k: v for k, v in os.environ.items() if k not in ("VIRTUAL_ENV", "CHANTIER_ROOT")},
+       "CHANTIER_CLAUDE_PROJECTS": str(home / "no-transcripts"), "PYTHONUTF8": "1"}
+cmd = ["uv", "run", "--no-sync", "--project", str(code), "chantier",
+       "board", "--host", "127.0.0.1", "--port", "0", "--clock", "2026-06-18T10:30:00Z"]
+proc = subprocess.Popen(cmd, cwd=surface, env=env, stdout=subprocess.PIPE, text=True, encoding="utf-8")
+url = None
+t0 = time.monotonic()
+while time.monotonic() - t0 < 90:
+    line = proc.stdout.readline()
+    if not line:
+        break
+    m = re.match(r"board on (\S+) over", line)
+    if m:
+        url = m[1]
+        break
+print("pid", proc.pid, "url ok", bool(url))
+out.mkdir(parents=True, exist_ok=True)
+
+
+def fix(route):
+    r = route.fetch()
+    b = r.json()
+    b["served"] = "/home/demo/planning-surface"
+    b["served_origin"] = "https://github.com/demo/planning-surface"
+    for pr in b.get("projects", []):
+        pr["repo_path"] = f"/home/demo/{pr['id']}"
+        pr["origin"] = f"https://github.com/demo/{pr['id']}"
+    route.fulfill(response=r, json=b)
+
+
+def goto(page, extra=""):
+    base = url.split("#")[0]
+    sep = "&" if "?" in base else "?"
+    page.goto(f"{base}{sep}p=mobile-app&v=costs&lang=en{extra}")
+    page.wait_for_selector("[data-key]", state="attached")
+    page.wait_for_load_state("networkidle")
+    page.wait_for_timeout(400)
+
+
+try:
+    with sync_playwright() as pw:
+        br = pw.chromium.launch()
+        for size, vp in (("pc", {"width": 1400, "height": 860}), ("phone", {"width": 375, "height": 812})):
+            ctx = br.new_context(viewport=vp, locale="en-US", timezone_id="UTC", color_scheme="light",
+                                 reduced_motion="reduce", is_mobile=size == "phone", has_touch=size == "phone")
+            ctx.route("**/api/board*", fix)
+            page = ctx.new_page()
+            errs = []
+            page.on("console", lambda m: errs.append(m.text) if m.type == "error" else None)
+            goto(page)
+            card = page.locator("section.spend")
+            if card.count():
+                card.scroll_into_view_if_needed()
+                card.screenshot(path=str(out / f"{tag}-card-{size}.png"), animations="disabled")
+                print(size, "card text:", " | ".join(card.inner_text().split("\n")))
+                # swatch vs segment colours
+                print(size, "colors", page.evaluate("""() => {
+                  const c = document.querySelector('section.spend');
+                  const seg = [...c.querySelectorAll('.sp-bar > i:not(.hatch)')].map(i => getComputedStyle(i).backgroundColor);
+                  const sw = [...c.querySelectorAll('.sp-row .sw')].map(i => getComputedStyle(i).backgroundColor);
+                  const logos = [...c.querySelectorAll('.sp-row')].map(r => r.querySelector('.sp-logo svg') ? 'svg' : 'none');
+                  const rows = [...c.querySelectorAll('.sp-row')].map(r => { const n = r.querySelector('.sp-n').getBoundingClientRect(); const u = r.querySelector('.sp-usd').getBoundingClientRect(); return [Math.round(n.top), Math.round(u.top), Math.round(n.height), Math.round(u.height)]; });
+                  const titles = [...c.querySelectorAll('.sp-row')].map(r => r.getAttribute('title'));
+                  return JSON.stringify({seg, sw, logos, rows, titles, hatch: !!c.querySelector('.hatch')});
+                }"""))
+                if size == "pc" and not edge:
+                    page.locator('[data-spend-by="role"]').click()
+                    page.wait_for_timeout(300)
+                    print("role card:", " | ".join(card.inner_text().split("\n")))
+                    print("pressed", page.locator('[data-spend-by="role"]').get_attribute("aria-pressed"),
+                          page.locator('[data-spend-by="model"]').get_attribute("aria-pressed"))
+                    card.screenshot(path=str(out / f"{tag}-card-role-{size}.png"), animations="disabled")
+                    page.locator('[data-spend-by="model"]').click()
+                    page.wait_for_timeout(300)
+                    print("back:", page.locator('[data-spend-by="model"]').get_attribute("aria-pressed"))
+                    page.locator('.bn-arrow[aria-label]').first.click()
+                    page.wait_for_timeout(500)
+                    print("older:", page.locator(".bn-id").inner_text(), "|", " | ".join(page.locator("section.spend").inner_text().split("\n")))
+                    page.locator("section.spend").screenshot(path=str(out / f"{tag}-card-older-{size}.png"))
+                    # models.js cases from the page's own console
+                    res = page.evaluate("""async () => {
+                      const m = await import(new URL('js/model/models.js', document.baseURI).href);
+                      const cases = [['claude-opus-5-5','anthropic','Claude','Opus 5.5'],['claude-sonnet-5-5-20261001','anthropic','Claude','Sonnet 5.5'],
+                      ['claude-sonnet-5.5','anthropic','Claude','Sonnet 5.5'],['claude-opus-5','anthropic','Claude','Opus 5'],
+                      ['claude-sonnet-5','anthropic','Claude','Sonnet 5'],['claude-fable-5','anthropic','Claude','Fable 5'],
+                      ['claude-opus-4.8-(fast-mode)','anthropic','Claude','Opus 4.8 (fast mode)'],['gpt-6.1-sol','openai','GPT','6.1 Sol'],
+                      ['gpt-6-astra','openai','GPT','6 Astra'],['gemini-4-argon','google','Gemini','4 Argon'],['gemini-3.8-flash','google','Gemini','3.8 Flash'],
+                      ['grok-4.7','xai','Grok','4.7'],['mistral-large-2',null,'mistral-large-2',''],['?',null,'model not recorded','']];
+                      return cases.map(([id,p,n,v]) => { const g = m.parseModel(id); return [id, JSON.stringify(g), g.provider===p && g.name===n && g.version===v ? 'ok' : 'FAIL']; });
+                    }""")
+                    for r in res:
+                        print("case", *r)
+            else:
+                print(size, "NO CARD")
+            print(size, "console errors:", errs)
+            if size == "phone" and not edge:
+                page.screenshot(path=str(out / f"{tag}-page-phone.png"), animations="disabled")
+            ctx.close()
+        br.close()
+finally:
+    subprocess.run(["taskkill", "/T", "/F", "/PID", str(proc.pid)], check=False, capture_output=True)
+    proc.wait(timeout=30)
+    print("stopped", proc.pid)

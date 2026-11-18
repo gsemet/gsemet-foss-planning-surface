@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Board design rules in DESIGN.md: one card, one column, one chip, no side accent border",
+  "summary": "Spec final after the critic's 15 fixes: DESIGN.md, tokens only, one card builder (Batch cards included), one Triage/Kanban column with new Triage sub-line keys and shared dot colours, Triage's priority chip on cards and as Kanban filters, a blocking test.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "5817eb48961fa51d7d4480269b7a564faf5f1750993201349dac361c80353628",
+    "03-change-spec.md": "dd3bb66e822beee90d045de468b4a4d2e2d66973dc8bb23007da1e2e6873d29e",
+    "intake/request.md": "20fe367dfc78469e4b98aa521092178fb078d7100a02fb6a3a622d6e3f428581",
+    "intake/ux-qa.md": "95cd9268b05721bff64c1968f86741967d210176c4c32c7f4495894407f9e258"
+  },
+  "summarized": "2026-11-18T02:28:59Z"
+}

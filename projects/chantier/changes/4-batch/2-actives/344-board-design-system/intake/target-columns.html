@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><title>Target: one column, one card, one chip</title>
+<style>
+:root{--bg:#fff;--line:#ececef;--card-line:#ebecef;--ink:#1a1c21;--ink2:#545862;--ink3:#868a94;
+--accent:#1d5c63;--accent-tint:#e9f1f1;--pri-1:#1d5c63;--pri-2:#4a7e83;--pri-3:#88acb0;--pri-4:#cfe2e3;--area:#f7f8f9}
+*{box-sizing:border-box}body{margin:0;font:13px/1.35 Inter,Segoe UI,system-ui,sans-serif;color:var(--ink);background:#fff;padding:22px 28px}
+h1{font-size:22px;margin:0 0 4px}.sub{color:var(--ink3);margin:0 0 14px}
+.page{margin-bottom:26px}.ptitle{font-weight:600;font-size:15px;margin:0 0 10px;display:flex;gap:10px;align-items:center}
+.ptitle small{font-weight:400;color:var(--ink3)}
+/* the one chip: Triage's P1 chip */
+.chip{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:5px;font-size:11px;font-weight:600;
+ background:var(--c,var(--accent));color:#fff;border:1px solid var(--c,var(--accent))}
+.chip.l{color:var(--ink)}.chip.off{background:#fff;color:var(--ink2);border-color:var(--line)}
+.chip.inbox{--c:#eef0f2;color:var(--ink2)}
+.filters{display:flex;gap:6px;align-items:center;margin-bottom:12px;color:var(--ink3)}
+/* the one column */
+.cols{display:flex;gap:14px;align-items:flex-start}
+.col{width:250px;background:var(--area);border:1px solid var(--line);border-radius:12px;padding:10px}
+.colh{display:flex;align-items:center;gap:7px;margin:0 2px 2px;font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--c)}.n{color:var(--ink3);font-weight:400}
+.what{color:var(--ink3);font-size:11px;margin:0 2px 9px}
+/* the one card: no side accent */
+.card{background:#fff;border:1px solid var(--card-line);border-radius:9px;padding:9px 10px;margin-bottom:8px}
+.card .top{display:flex;gap:6px;align-items:center;margin-bottom:5px}.slug{font:11px ui-monospace,Consolas,monospace;color:var(--ink2);background:#f2f3f5;padding:1px 5px;border-radius:4px}
+.card b{display:block;font-size:13px;margin-bottom:4px}.card p{margin:0 0 7px;color:var(--ink2);font-size:12px}
+.card .foot{display:flex;justify-content:space-between;color:var(--ink3);font-size:11px;border-top:1px solid var(--line);padding-top:6px}
+.lane{margin-bottom:8px}.lane .colh{font-size:12px}
+</style></head><body>
+<h1>Cible : une colonne, une carte, une puce</h1>
+<p class="sub">Maquette, pas le board actuel. Aucune bordure d'accent latérale. Les mêmes trois briques sur Triage et Kanban.</p>
+
+<div class="page"><div class="ptitle">Triage</div>
+<div class="cols">
+ <div class="col"><div class="colh"><span class="dot" style="--c:#b8bcc4"></span>Inbox <span class="n">30</span></div><div class="what">déposé, pas encore grillé</div>
+  <div class="card"><div class="top"><span class="chip inbox">Inbox</span><span class="slug">batch-takeover</span></div><b>Reprendre un batch ouvert sur une autre machine</b><p>Rouvrir le batch là où il s'est arrêté…</p><div class="foot"><span>4 fichiers</span><span>spécifié</span></div></div>
+  <div class="card"><div class="top"><span class="chip inbox">Inbox</span><span class="slug">board-batch-view</span></div><b>Vue Batch : cartes de dépendance</b><p>Le P1 CR board…</p><div class="foot"><span>3 fichiers</span><span>en grill</span></div></div>
+ </div>
+ <div class="col"><div class="colh"><span class="dot" style="--c:var(--accent)"></span>Backlog <span class="n">↑ plus urgent</span></div><div class="what">priorisé, pas encore grillé</div>
+  <div class="lane"><div class="colh"><span class="chip" style="--c:var(--pri-1)">P1</span><span class="n">1</span></div></div>
+  <div class="card"><div class="top"><span class="chip" style="--c:var(--pri-1)">P1</span><span class="slug">steering-context-handover</span></div><b>Passer le pilotage d'un long batch à une session neuve</b><p>Pas d'issue (origine : verbale)…</p><div class="foot"><span>4 fichiers</span><span>spécifié</span></div></div>
+  <div class="lane"><div class="colh"><span class="chip" style="--c:var(--pri-2)">P2</span><span class="n">3</span></div></div>
+  <div class="card"><div class="top"><span class="chip" style="--c:var(--pri-2)">P2</span><span class="slug">docs-sphinx-rtd</span></div><b>Documentation réécrite en site Sphinx</b><p>Le thème…</p><div class="foot"><span>3 fichiers</span><span>en grill</span></div></div>
+ </div>
+ <div class="col"><div class="colh"><span class="dot" style="--c:#3c8a5a"></span>3-ready <span class="n">0</span></div><div class="what">attend le prochain batch</div></div>
+</div></div>
+
+<div class="page"><div class="ptitle">Kanban <small>les filtres sont les mêmes puces</small></div>
+<div class="filters">Priorités <span class="chip inbox">Inbox</span><span class="chip" style="--c:var(--pri-1)">P1</span><span class="chip" style="--c:var(--pri-2)">P2</span><span class="chip off">P3</span><span class="chip off">P4</span> <small>(gris = filtre désactivé)</small></div>
+<div class="cols">
+ <div class="col"><div class="colh"><span class="dot" style="--c:#b8bcc4"></span>Inbox <span class="n">18</span></div><div class="what">déposé, pas encore grillé</div>
+  <div class="card"><div class="top"><span class="chip inbox">Inbox</span><span class="slug">board-griller</span></div><b>Un Griller lancé depuis le board</b><p>Discuter un CR…</p><div class="foot"><span>3 fichiers</span><span>brut</span></div></div>
+ </div>
+ <div class="col"><div class="colh"><span class="dot" style="--c:var(--accent)"></span>Backlog <span class="n">11</span></div><div class="what">priorisé, pas encore grillé</div>
+  <div class="card"><div class="top"><span class="chip" style="--c:var(--pri-2)">P2</span><span class="slug">surface-agentless-launch</span></div><b>La surface lance le board sans agent</b><p>The planning surface…</p><div class="foot"><span>2 fichiers</span><span>brut</span></div></div>
+  <div class="card"><div class="top"><span class="chip l" style="--c:var(--pri-3)">P3</span><span class="slug">board-history</span></div><b>Page Historique : CR, PR et releases</b><p>Par jour, semaine…</p><div class="foot"><span>2 fichiers</span><span>brut</span></div></div>
+ </div>
+ <div class="col"><div class="colh"><span class="dot" style="--c:#c98a2b"></span>Grill <span class="n">45</span></div><div class="what">en grill ou en spec</div>
+  <div class="card"><div class="top"><span class="chip inbox">Inbox</span><span class="slug">board-design-system</span></div><b>Les règles de design du board, dans DESIGN.md</b><p>…</p><div class="foot"><span>9 fichiers</span><span>spécifié</span></div></div>
+ </div>
+</div></div>
+</body></html>

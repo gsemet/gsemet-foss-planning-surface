@@ -21,3 +21,4 @@ work/gates/
 .long-gate.*.stop
 board-journal.jsonl
 board-seen.jsonl
+**/work/scratch/

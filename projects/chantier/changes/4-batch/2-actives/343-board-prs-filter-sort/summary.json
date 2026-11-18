@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The PRs page filters by batch and state, sorts, and says MR on GitLab",
+  "summary": "Spec final after critic: after CR-341; batch navigator on the PRs page (last closed batch when none runs, read once; forge read at once on batch change, AGENTS.md widened), state and sort chips in the URL, MR and !n on GitLab board-wide; one CR, risk named.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "ad566b70ac84d0ce6064a1dd342246bfc9d83632c2ddd2286a3c9563683e3d31",
+    "03-change-spec.md": "d2658a0367934744c4775549afcb5d647443c6b4d45171c94cc6ad8ca36c76ed",
+    "intake/request.md": "b4909603cf1f5f04c4d666e56b6bfba5feeb1af6ce2d95f3870cafb737f8f935"
+  },
+  "summarized": "2026-11-18T02:28:38Z"
+}

@@ -1,0 +1,1 @@
+After (a45b214): shots in `after/` from `uv run --script <scratch>/proof.py <dir>`; copied.png is the Copy as image PNG. Before (base): not captured, since the claim is the stamp's presence and base has none by construction.

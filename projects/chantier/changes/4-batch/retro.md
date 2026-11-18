@@ -7,3 +7,8 @@
 - [chantier] CR-331 took 6 rounds and the batch's top cost ($9.00), needing two user grants of rounds (O-6, O-15), because the Copilot shipped-default path was found by the Verifier only at round 4 and still failed at round 5: the Coder and Inspector briefs name the host and shipped-default matrix from round 1, and the Verifier's probe of it runs before round 1's ship.
 
 (critic: kept 5, dropped 5)
+
+## 2026-11-17, during batch-24 (noted by the Chief of Staff, to judge at the batch's end)
+
+- [chantier] The local Windows gate at CR-336 (2a514cb) failed once under heavy machine load: `order merged does not signal a reused pid: no stopped line, the process lives on` (CR-336 `work/gates/20261117-233432.log`); a possibly flaky scenario check.
+- [chantier] The user merged PR 297 (CR-337) right after its force push, whose head carried CR-336 under it, so CR-336 landed through CR-337's PR and the partial stack (#299, PR 295 + 296) dissolved with CR-335 still unmerged: the stack's state on the forge did not tell the user which PR to merge.
