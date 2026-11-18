@@ -43,12 +43,12 @@ No visual change. A partial ask under the rule now carries the local gate's resu
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): no behaviour change in the CLI
+- [x] New or changed tests: none, no behaviour change in the CLI (cards only)
 - [x] Local gates at `79c3fe0`: `just check` passes
-- [ ] Evidence: none, cards only
+- [x] Evidence: none, cards only
 - [x] Review: approved at `79c3fe0`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Verified at `79c3fe0`
+- [x] CI green at `79c3fe0`: all 5 jobs pass, including `just scenario (ubuntu-latest)`
 
 ## Internal references
 

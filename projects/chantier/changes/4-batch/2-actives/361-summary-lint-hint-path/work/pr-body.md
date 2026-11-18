@@ -1,0 +1,53 @@
+## Summary
+
+Each gap line `summary lint` prints ends with the `summary set` command that closes it, but the path in that command could not be read back: `summary lint` printed the CR folder relative to the session's root, while `summary set` reads a relative folder from the planning folder. Copying the command as printed failed with `not a CR folder`. The line now prints the folder relative to the planning folder, so the command works as is.
+
+## Deliverables
+
+The printed line before and after, in an external planning surface:
+
+| | Gap line |
+|---|---|
+| Before | `projects/chantier/changes/2-backlog/P1/some-cr: no summary → summary set projects/chantier/changes/2-backlog/P1/some-cr --title "<title>" --summary "<the CR's state now>"` |
+| After | `2-backlog/P1/some-cr: no summary → summary set 2-backlog/P1/some-cr --title "<title>" --summary "<the CR's state now>"` |
+
+In-project mode: `.agents/changes/<stage>/<slug>` becomes `<stage>/<slug>`. The wording of the three gap kinds is unchanged; only the path changes.
+
+## Blast radius
+
+Grade: **1**. The text of one hint changes; `summary set` and every other command are untouched. A plain `git revert` restores the previous output.
+
+## Autonomous decisions
+
+- The new test lives in its own file, `tests/test_summary_lint.py`, because adding it to `test_cli_runs.py` would pass the 400-line limit checked by the structure tests.
+
+## Known gaps
+
+None.
+
+<details>
+<summary>Details</summary>
+
+## Changes
+
+- `commands/summary.py`, `_gap_line`: the path is built with `repo.rel(gap.folder)` in place of `shown(repo, gap.folder)`.
+- `tests/test_summary_lint.py`: one test, two cases (in-project and external surface), that files a CR, takes the path from the `summary lint` line, runs `summary set` with it, and checks `summary lint` then reports no gap.
+
+## Impacts
+
+No visual change. The printed hint can be copied as is into `summary set`.
+
+## Test plan
+
+- [x] New or changed tests (they fail on the previous code): both cases fail on the previous code and pass now
+- [x] Local gates at `ea3de29`: `just check` pass (603 passed), `just eval-dry-run` pass (17 of 17)
+- [x] Evidence: none, the new test is the proof
+- [x] Review: approved at `ea3de29`
+- [x] Verified at `ea3de29`
+- [x] CI green at `ea3de29` (all 5 jobs, `just scenario (ubuntu-latest)` included)
+
+## Internal references
+
+- CR-361 summary-lint-hint-path
+
+</details>

@@ -16,6 +16,15 @@ function readFrontMatter(lines) {
 }
 ```
 
+Panel output for a document that starts with a `type: cr-spec` front matter (rendered by `renderMarkdown`, Node 24.19.0):
+
+| Input | Before, at `5717626` | After, at `f1792cd` |
+| --- | --- | --- |
+| front matter, heading, paragraph (plain, BOM or CRLF) | `<dl class="fm">` key/value list, then the heading and paragraph | heading and paragraph only |
+| empty front matter | heading only | heading only |
+| unclosed `---` | text as is | text as is |
+| no front matter | heading and paragraph | heading and paragraph |
+
 Shipped-file checks (Node 24.19.0, `renderMarkdown` imported from the file): plain, BOM and `\r\n` front matter render only the heading and the paragraph; an empty front matter renders only the heading; an unclosed one and a text without any render as on main.
 
 ## Blast radius
@@ -45,15 +54,16 @@ The panel's body starts at the document's first heading. No other visual change.
 
 ## Test plan
 
-- [ ] No behaviour change in Python; existing title tests unchanged
-- [ ] Local gates at `<sha7>`: `just check`
-- [ ] Evidence: after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] No behaviour change in Python; existing title tests unchanged (19 title and description tests pass at `f1792cd`)
+- [x] Local gates at `f1792cd`: `just check` (601 passed), `just eval-dry-run` (17 of 17)
+- [x] Evidence: before at `5717626`, after at `f1792cd` (renderMarkdown output table in Deliverables; no panel screenshot, see Known gaps)
+- [x] Review: approved at `f1792cd`
+- [x] Verified at `f1792cd`
+- [x] CI green at `f1792cd`: `gh pr checks 326`, all 5 jobs pass
 
 ## Internal references
 
 - CR-362 spec-title-front-matter
+- Evidence files (not uploadable): `work/verifier/evidence/node-before.log`, `node-after.log`, `before-after.md`
 
 </details>

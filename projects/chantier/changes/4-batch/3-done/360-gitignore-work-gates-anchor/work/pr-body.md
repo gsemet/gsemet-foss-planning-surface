@@ -40,12 +40,12 @@ No visual change. Logs under any CR's `work/gates/` are no longer published with
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: No visual change
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): `test_driver_prompt.py` at 34588bf, 11 passed
+- [x] Local gates at `34588bf`: `just check` pass, `just eval-dry-run` pass (17 of 17)
+- [x] Evidence: No visual change; the `git check-ignore` before/after table above was run at 34588bf (after) and on the base entry (before)
+- [x] Review: approved at `34588bf`
+- [x] Verified at `34588bf`
+- [x] CI green at `34588bf`: all 5 jobs pass, including `just scenario (ubuntu-latest)`
 
 ## Internal references
 
