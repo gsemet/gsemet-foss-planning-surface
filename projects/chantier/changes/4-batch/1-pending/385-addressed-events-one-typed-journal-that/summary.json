@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Addressed events: one typed journal that says whom to wake",
+  "summary": "Specified, foundation only: forge-journal.jsonl keeps its name, its lines become versioned with a source and an audience (all for the project today); watch --for filters wakes, events.wake_every rate-limits them; no role name anywhere. Stacks after CR-383 and CR-384.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "eb690958d5806d12caba9b9e74bf0abc7976a57940036ee8338c4e459c1886ce",
+    "02-answers.md": "47a2555add5f546df67194d0240cc62bbbf5068b5f4fcc4cec7238d22fa3bdb6",
+    "03-change-spec.md": "f84b49bf555b6cdf3b5f3312fd36ba85972ebf0a8545f7d1a374d9e333969f53",
+    "intake/request.md": "46a92b726de478b3a72410db51b9c0bbb7a6374bde42ed89dfe02ff302318dc4"
+  },
+  "summarized": "2026-11-18T22:38:46Z"
+}

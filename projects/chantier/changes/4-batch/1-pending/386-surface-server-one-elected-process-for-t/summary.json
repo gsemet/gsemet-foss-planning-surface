@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Surface server: one elected process for the board, the forge hub and event writes",
+  "summary": "Specified, revised to the critic: chantier board becomes the one process holding hub.lock (pages, hub loop, event writes), server.json replaces board.json and hub.json with the running record carried over; the read interface moved to its own CR.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2a130441b665646cf9dc5fb21e1f68ecfcc869a2acf21f9e6ea82bcec393e1a1",
+    "02-answers.md": "07ff147a4de01bf372305d6e6a65b1f95f4f75c1081650aff8c6ecc9903eb9b7",
+    "03-change-spec.md": "877e0b2a9176cd18ad8ca08d7dc8681211ced20b2cefd2c8ed8fc576a4ebac3b",
+    "intake/request.md": "008d854a8866c0d3ccb386cbf510e9dc4a3956905fa8db52c7d8f42039f54d93"
+  },
+  "summarized": "2026-11-18T22:41:13Z"
+}

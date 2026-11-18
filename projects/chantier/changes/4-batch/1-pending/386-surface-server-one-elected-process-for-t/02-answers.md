@@ -30,3 +30,34 @@ Settled by the Chief of Staff, 2026-11-18, under the user's standing word "plus 
 9. **Proof.** A real run on the user's machine: the server up, a second `chantier board` refused
    or attached, a watcher woken by a forge merge through the server, the server killed and a
    watcher taking the hub back.
+
+## The spec-writer's open questions, settled by the Chief of Staff, 2026-11-18
+
+10. **Who writes the journal: the spec's reading is right.** Inside the server process the hub's
+    and the board's lines go through the one append function; CLI commands keep appending through
+    the same function in their own process. A server-only writer would need an API (excluded) and
+    a second path when no server runs (a fallback, refused by AGENTS.md).
+11. **One ask for both.** The board's ask in `session-start.md` names the forge reads; a yes
+    starts the server with its hub loop. No option to run the board without the hub: no answer
+    asks for it, and a user who wants no forge reads does not start the board.
+
+## The spec critic's points, settled by the Chief of Staff, 2026-11-18
+
+12. **The upgrade never runs two boards.** The move to `server.json` carries `board.json`'s
+    `running` record over with the key, so a second board is still refused with the stop
+    command; CR-384's readers of the board's version read the `server` entry.
+13. **The read module leaves this CR.** The one-process election and the `store` refactor ship
+    apart: `store` becomes its own CR (`one-read-interface-over-the-planning-fol`, P2 in the
+    backlog, not in batch-28), whose reach is every planning-folder read the board, the hub and
+    `status` reach, directly or through `commands/cost`, `autosync/reading`,
+    `core/surface_batches`, `status/` and `Repo`, its structure test following those modules.
+    This CR keeps the one process, the election and `server.json`; answer 5 moves to that CR.
+14. **CR-375's watcher locks stay named.** The scenario's git-folder check and the AGENTS.md and
+    CONTRIBUTING.md texts name `chantier/watch-<project>/<session>.lock` too.
+15. **The start line as the stacked CRs leave it** (the addressed events CR and CR-384); the
+    readers table adds CR-384's two readers of the board's version.
+16. **A yielded watcher elects again.** It stops electing while `server.json` names a live
+    server, and elects again once none is named.
+17. **A failed `server.json` write.** At the server's start: a `board not started:` refusal; a
+    hub entry not written: retried at the next cycle.
+18. **No open question left:** answers 10 and 11 go into the spec's decisions.

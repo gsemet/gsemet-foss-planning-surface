@@ -30,3 +30,21 @@ Settled by the Chief of Staff, 2026-11-18, under the user's standing word "plus 
    on this one.
 8. **Docs.** `docs/` gets the event line's reference; AGENTS.md's forge hub paragraph names the
    journal by its new name. The PR names any AGENTS.md change.
+
+## The spec critic's points, settled by the Chief of Staff, 2026-11-18
+
+9. **Today's lines are for the project.** Every line written today carries `["project"]`; a
+   watcher subscribes to `project` plus its own session, and `--for` adds audiences. No
+   `events.watch` or `events.audience` key and no role name in the code or the defaults: the
+   audience is room for the later CRs (Foreman, Driver, user), which add their routing with
+   their watchers. The rate limit (answer 5) stays the one configurable key.
+10. **A configuration problem stops nothing.** The watcher refuses only when the problem is in
+    its own `events` block; any other problem it names in its start line and runs.
+11. **The file keeps its name, `forge-journal.jsonl`.** No move, no both-files line, no upgrade
+    gap: only the line's format changes (an old line reads as version 0). The docs say the name
+    is historical.
+12. **The texts say the new end rule.** The Chief of Staff's card (the watcher line, outside its
+    Startup core), AGENTS.md and CONTRIBUTING.md say: the watcher ends 20 s after the last new
+    event for it, and no sooner than `events.wake_every` after its start.
+13. **No name collision.** The configuration reader does not take the name `read_events`
+    (`core/records.py` has it); the spec picks another.

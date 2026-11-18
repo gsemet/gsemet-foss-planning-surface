@@ -132,3 +132,5 @@ No visual change; every session reads about 4,000 fewer bytes at boot and reload
 - CR-379 startup-core-optimise; folds in portable-cli-invocation.
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
