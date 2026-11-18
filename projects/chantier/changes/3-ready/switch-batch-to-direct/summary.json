@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Switch a Foreman batch to direct mode",
+  "summary": "On the user's word, the Chief of Staff claims the next Foreman number of a Foreman batch, live Foreman or not; its own transcript's claim makes the batch direct, and the CRs in flight restart by the restart path.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9adedfc041ecfc0732132c003f18fb9ce3991408a64e4d8ed5d32366e8386672",
+    "02-answers.md": "14429609d634ab3db99e1fdb97e5e5b7b18b56ef6a852c73648da4d859e55a8a",
+    "03-change-spec.md": "ed228a29c36096c1c29fa4ebc92b5445f3165efb4ad9cf71a69a5cc8646a1637",
+    "intake/request.md": "187829040a05f5e7a2852470d10efc08f725627ac211d1edf4ebbb3c1b741856"
+  },
+  "summarized": "2026-11-18T10:00:10Z"
+}

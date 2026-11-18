@@ -1,0 +1,1 @@
+The board's cost receipt (chief_outside) leaves out what the Chief of Staff spent steering outside its claim window after a batch switched from Foreman to direct mode (or back), while the cost command's text keeps it: the receipt should show the same figure. Found while specifying switch-batch-to-direct (direct-switch-Q8, 2026-11-18).
