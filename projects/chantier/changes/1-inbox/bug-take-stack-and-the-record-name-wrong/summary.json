@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Bug: take stack and the record name wrong bases in a stack batch",
+  "summary": "Specified: an unplaced stack CR's planned base is the base its take gave it, else the nearest taken CR below it in the stack's order, so the 'stacked on' note and the record never name a wrong or missing branch; two open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "6d4ddb639c1cc8ab4860fdbd51cb981c92a36169fe05b5cf22852a90e1d7f612",
+    "02-answers.md": "0ee1510bfcb412755479f4c381d3cd52ef8c724e379d16ce481c1c9f0d7e8826",
+    "03-change-spec.md": "3e13c3c58ad58f5a443f4670b9ca3ef1469c8bb633e840571cfff94f2e9db0fc",
+    "intake/request.md": "d280b126c3cea977e9d3ee65b7d75d41f37b93a9a901435a464a4cabf740a248"
+  },
+  "summarized": "2026-11-19T23:34:23Z"
+}

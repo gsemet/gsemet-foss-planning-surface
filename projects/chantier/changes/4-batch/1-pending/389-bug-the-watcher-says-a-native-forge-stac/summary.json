@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "bug: the watcher says a native forge stack's merges did not land",
+  "summary": "Specified: a stacked PR merged into the branch below it is told landed with the stack's bottom CR when GitHub shows its merge commit on the default branch (one query, last 100 commits), so the Chief of Staff records order merged; GitLab unchanged.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "521bd9d3ed05bb5cb71a128b453010ba402b8db6052c1d6e29aca2894bc21830",
+    "02-answers.md": "0ee1510bfcb412755479f4c381d3cd52ef8c724e379d16ce481c1c9f0d7e8826",
+    "03-change-spec.md": "1328849340d1773e97e384bf8e44e7210f1bcaadbbfb155ebcdaf5c653601b59",
+    "intake/request.md": "36cdf51e5f6a76a3bd20a9c81583c2b952fe6f62385ec75a30c3a8e63539c6e2"
+  },
+  "summarized": "2026-11-19T23:34:16Z"
+}
