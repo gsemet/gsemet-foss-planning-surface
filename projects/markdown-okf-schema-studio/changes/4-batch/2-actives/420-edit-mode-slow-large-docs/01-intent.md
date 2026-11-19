@@ -2,7 +2,7 @@
 type: cr-intent
 id: 420-edit-mode-slow-large-docs
 description: "Bug: edit mode lags on large documents (hover on the floating toolbar, opening a block editor); fix the layout thrash the issue measures."
-generated: {by: "agent:claude-opus", at: "2026-11-19T10:00:00Z"}
+generated: {by: "agent:claude-opus-5-5", at: "2026-11-19T10:00:00Z"}
 sources: [{id: issue, resource: "https://github.com/gsemet/markdown-okf-schema-studio/issues/420", title: "Edit mode very slow on large documents: hover on floating menu/toolbar and opening a block editor lag", author: "github:gsemet", last_modified: "2026-11-19"}]
 ---
 
