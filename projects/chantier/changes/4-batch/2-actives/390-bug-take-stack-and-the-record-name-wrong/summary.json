@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Bug: take stack and the record name wrong bases in a stack batch",
+  "summary": "Specified, questions settled: in a stack batch take and the record share one base function (start_on, else the nearest CR below with a PR or a higher open dependency, else the nearest dependency or main), so no wrong or missing branch.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "6d4ddb639c1cc8ab4860fdbd51cb981c92a36169fe05b5cf22852a90e1d7f612",
+    "02-answers.md": "0e3ff5f7630b1cca8a1de6588d37d33a3f7426d3e9e6c6065dbfdb4f3f678d43",
+    "03-change-spec.md": "da1e732d334d8b1691b6dba013c500c3bc21d88edfb8373e2307c80d5f6d22ef",
+    "intake/request.md": "d280b126c3cea977e9d3ee65b7d75d41f37b93a9a901435a464a4cabf740a248"
+  },
+  "summarized": "2026-11-19T23:36:30Z"
+}

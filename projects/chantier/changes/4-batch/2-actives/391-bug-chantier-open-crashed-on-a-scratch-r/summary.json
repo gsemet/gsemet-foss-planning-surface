@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "chantier open crashes in a surface whose project has no clone",
+  "summary": "Specified: open refuses a missing clone with preflight's P8 words, and git() turns a missing working folder into a clean error instead of a traceback.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2ebdf9fab15c31cf340fbf1519b34d1c5ae8f3dbb4a301fc32de8d4268e87891",
+    "02-answers.md": "0ee1510bfcb412755479f4c381d3cd52ef8c724e379d16ce481c1c9f0d7e8826",
+    "03-change-spec.md": "91e19d0027f5da19565a6ef49edc400f20ed90dda1c7ace9ca254ca20062e1e0",
+    "intake/request.md": "5965b9ba89036a464bbbf0a5b31f71eb6f2679c5d87e4d7126cf6afe41e018fe"
+  },
+  "summarized": "2026-11-19T23:36:37Z"
+}
