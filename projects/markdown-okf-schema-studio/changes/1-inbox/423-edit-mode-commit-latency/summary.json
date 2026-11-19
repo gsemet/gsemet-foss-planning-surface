@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Edit mode: commit round trip and editor open still slow",
+  "summary": "Render a commit from the preview without debounce, take the table handles off the patch path, read the layout once after the patch and on editor open, and parse the rendered HTML once on the host.",
+  "origin": {
+    "kind": "github",
+    "ref": "#423",
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/issues/423"
+  },
+  "sources": {
+    "01-intent.md": "d3aceb9cdc5eafc53d8c8eadc966df8533163206d2553bbc059d4213b4642d54"
+  },
+  "summarized": "2026-11-19T16:05:00Z"
+}
