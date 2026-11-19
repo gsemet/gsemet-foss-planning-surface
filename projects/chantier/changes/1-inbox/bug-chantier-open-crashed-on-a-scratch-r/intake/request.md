@@ -1,0 +1,1 @@
+bug: chantier open crashed on a scratch repo during the v0.14.0 release demo
