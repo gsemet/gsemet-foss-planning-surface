@@ -94,6 +94,35 @@ What it means for this CR:
   (`grants explain`); self-scheduled follow-ups to check CI.
 - **Upstream risk:** experimental and new; the same reason that keeps Beads out applies.
 
+## 6. Vercel Board, from its docs (2026-11-20)
+
+Read by a Griller on 2026-11-20: the announcement and `vercel.com/docs/board` (overview,
+`cli-reference`, `sdk` for `@vercel/board` 0.50.0, `access`). The npm page answered 403; no source
+repository is linked. It corrects section 5 where they differ (GitHub sync is one-way into the board; Linear, the local
+SQLite mode and the licence were missing). A sibling Griller's fuller study, with the source code
+read: [vercel-board-study.md](vercel-board-study.md).
+
+| chantier's constraint | What Board offers | Verdict |
+|---|---|---|
+| The plan is Markdown browsable on GitHub or GitLab | A hosted store (United States only); messages hold Markdown text, but there is no export to files or git; only attachments download | Fails |
+| No setup beyond `uv` | A Vercel account and team, `vercel login` or a `BOARD_TOKEN`; the Vercel CLI from npm; the SDK needs Node.js 22.18+ | Fails |
+| Offline once cached | Hosted by default; a local mode (`vb serve`, one process, one SQLite file per board in `.board/` at the git root, kept out of git); custom backends through a `Backend` interface checked by `vb conformance` | Possible, but still a database, not files |
+| Windows, macOS, Linux | Not stated | Untested |
+| Claude Code and Copilot hosts | Claude Code, Codex, Cursor, Pi and others named; Copilot never; JavaScript SDK only, no documented REST API, no MCP server | Copilot missing; a Python CLI would shell out to Node |
+| GitHub and GitLab | GitHub sync, one way into a channel per the SDK docs (the post says two-way); GitLab never mentioned; Slack and Linear both ways | GitLab missing |
+| One writer per project | Any principal with a grant writes; grants per user, project, environment, app (`read`, `post`, `react`, `label`, `sync`, `manage`, `all`), `grants explain` | Wider than needed; grants are a good idea |
+| Budgets, rounds, slots | None; rate limits per login, unnumbered | Stays chantier's |
+| Ready work, leases | `tasks claim --ready --wait`, leases up to 5 minutes renewed, `tasks needs` for dependencies, `block`, `fail`, `reopen` | Close to the CR's leases (point 7) |
+| Waking agents | Watchers (up to 32 per deployment) run code on events; `schedule --in/--at/--every`, 1 minute at the shortest; turn-end hooks for Claude Code | chantier 0.14.0 already has its watcher and addressed journal |
+| Typed data | Versioned JSON Schemas `name@N`, never changed once published | Worth borrowing for the journal's lines |
+| Stability, price, licence | "Experimental. Behavior, APIs, and limits may change"; SDK 0.53.0 after ten releases in a week; free while experimental, may be charged later; Public Beta Agreement; Apache-2.0 for the client, CLI and local backend, the hosted backend closed | Same churn risk as Beads, worse for the hosted mode |
+
+Since section 5, chantier 0.14.0 shipped what this CR first meant by "a server": one elected
+surface server per planning surface (the board and the forge hub, `chantier/server.json`) and an
+addressed, typed event journal (`forge-journal.jsonl`) read by each session's watcher. What
+remains of this CR is the single writer that commits, rebases and pushes the surface, leases, and
+gates.
+
 ## Sources
 
 - https://github.com/gastownhall/beads
@@ -107,3 +136,7 @@ What it means for this CR:
 - https://newreleases.io/project/github/gastownhall/beads/release/v1.3.0-rc.1
 - https://codex.danielvaughan.com/2026/04/08/gas-town-multi-agent-factory/
 - https://vercel.com/blog/introducing-vercel-board
+- https://vercel.com/docs/board
+- https://vercel.com/docs/board/cli-reference
+- https://vercel.com/docs/board/sdk
+- https://vercel.com/docs/board/access

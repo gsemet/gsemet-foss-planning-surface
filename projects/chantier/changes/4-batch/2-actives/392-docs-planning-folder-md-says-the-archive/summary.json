@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "docs: planning-folder.md says the archive in the PR defaults to yes; the CLI defaults to no",
+  "summary": "Specified: one line of docs/planning-folder.md on main, '(default yes)' becomes '(default no)', matching the CLI and planning-modes.md. Docs only, lands on main now; PR #347 rebases over it. No open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "68d49daa9f688e98c94d27aff35995e6b39943f75ae9bcac6929632ff088ca82",
+    "02-answers.md": "9fa2956816e3feb8b1d6eab615bd60ad1ca5517e157747675fa4b5b81db679d5",
+    "03-change-spec.md": "4036c8adc7d0589b76fb2172d0083f73a6650050621f573b6a899aef919919fe",
+    "intake/request.md": "bdc67a409276ff500c33366b5d443dde88f287c79da6461747ac473d9a66bd0d"
+  },
+  "summarized": "2026-11-19T23:38:21Z"
+}
