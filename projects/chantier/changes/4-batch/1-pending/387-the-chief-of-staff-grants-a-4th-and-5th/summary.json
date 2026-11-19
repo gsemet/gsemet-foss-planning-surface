@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The Chief of Staff grants a 4th and 5th round when the batch caused the red",
+  "summary": "Specified: when a CR's rounds ran out on a red the batch caused, the Chief of Staff grants up to two more rounds itself (batch max_rounds + 2, one at a time) with a rounds exception note; the Foreman takes it with no escalation; cards and scorecard only.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "f212d9c3528d1a14337e797d3e2b7f1310d0be3b399217816ed3f6d31de929e2",
+    "02-answers.md": "497eb03b5f3703bcf5227168a1d4c2854d7cd08d066591df2cd4a81c88e74c20",
+    "03-change-spec.md": "cdc8b053e03473b1fdaba58c3d12f763d444434fe77d0b89f141aafc15d2da51",
+    "intake/request.md": "952d32d124b7e4044454d4cc307522b00f64da851b72f7782edaa7570371f69b"
+  },
+  "summarized": "2026-11-19T06:23:05Z"
+}

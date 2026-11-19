@@ -25,6 +25,7 @@ Grade: 2. Touches configuration checks, `open`, the board's config page, the for
 ## Autonomous decisions
 
 - The two keys are checked in a checked-only list, not frozen into the batch record with the other playbook keys, so a running batch never reads a live change.
+- `status` hides the slots line only for an order strictly after the save.
 - The journal's dedup key gets its own branch for `config` lines so two saves with the same values stay two lines.
 
 ## Known gaps
@@ -32,7 +33,7 @@ Grade: 2. Touches configuration checks, `open`, the board's config page, the for
 - That the watcher's end wakes an idle Claude Code session on a board save is unproved; `status` is the fallback for the slots and `playbook`'s `limits:` line for the specifying limit.
 - A paused batch has no watcher (`chantier watch` refuses one), so the slots event for a paused batch reaches the Chief of Staff through `status` only.
 - No screenshot of the Limits tab from a real session.
-- The scenario has no separate leg for `specifying.parallel` at its limit with a marker, nor for `open` after a save; unit tests cover both.
+- The journal and `status` text says a batch `keeps <old effective value>`; when the batch's recorded slots differ from that value the text is off (the board's own response line uses the recorded slots).
 
 <details>
 <summary>Details</summary>
@@ -46,18 +47,25 @@ Grade: 2. Touches configuration checks, `open`, the board's config page, the for
 - Journal: the `config` kind, its text, and `status` printing the un-acted `batch.slots` line.
 - Cards, `AGENTS.md`, `CONTRIBUTING.md`, `docs/web-board.md`, `scenario/README.md` follow.
 
+## Human decisions
+
+- The two keys have role-free names (`specifying.parallel`, `batch.slots`); the limit counts specifying markers only and is shared by everyone who starts one on the project.
+- A board save of either key is the user's word: the Chief of Staff acts on it without asking.
+- A configured `batch.slots: 0` makes `open` with no `--slots` refuse.
+- Both keys ship in one change; the board writes one `config` journal line per changed key.
+
 ## Impacts
 
 A new tab on the board; `open` takes its default slots from configuration. No other visual change.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: just check, just eval-dry-run, scenario surface-board
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `bb2eb0f`: just check, just eval-dry-run, scenario surface-board
 - [ ] Evidence: none, see Known gaps
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Review: approved at `bb2eb0f`
+- [ ] Verified at `bb2eb0f`
+- [ ] CI green at `bb2eb0f`
 
 ## Internal references
 

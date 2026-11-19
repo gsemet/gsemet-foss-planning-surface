@@ -12,7 +12,7 @@ Startup bytes, tightest role and host, boot and reload (the test's own LF count,
 | Chief of Staff, Copilot, boot | 11,742 | 7,870 |
 | Foreman, Claude Code, boot | 10,282 | 5,807 |
 
-Every role and host: a drop of roughly 3,800 to 4,500 bytes at boot and reload; the full table is in Changes. No rule is dropped; the moved and merged rules are listed under Changes. Judged at a1d165d.
+Every role and host: a drop of roughly 3,800 to 4,500 bytes at boot and reload; the full table is in Changes. No rule is dropped; the moved and merged rules are listed under Changes. Judged at dd6f84d (verdict carried from a1d165d).
 
 Choices: the manifest is compact (version 2, paths relative to its folder, `file#heading` readings, one startup section per role that has one); the key rules (stop on a CLI failure, no fallback, the seat, the watcher's start) come first in their file; `$CHANTIER` is written in full in each shell call, never in a shell variable.
 
@@ -46,7 +46,7 @@ Every role reads these files at boot, so a wrong reading would be noticed at the
 - The twelve cards lose their boilerplate startup line (emptied sections go); the four `SKILL.md` files put the key rule first under `## Startup core`; both hosts' agent files get one shorter reading sentence, bodies identical.
 - Tests: manifest test adapted to version 2, a moved-rules test, the one-launch test extended with the shell-variable rule.
 
-### Startup bytes at a1d165d, every role and host (LF bytes, `pytest -s -k measures`)
+### Startup bytes at dd6f84d, every role and host (LF bytes, `pytest -s -k measures`)
 
 | role | host | boot before | boot after | reload before | reload after |
 | --- | --- | --- | --- | --- | --- |
@@ -119,13 +119,13 @@ No visual change; every session reads about 4,000 fewer bytes at boot and reload
 
 ## Test plan
 
-- [x] New or changed tests (the manifest test now reads version 2, the moved-rules test and the shell-variable rule fail on the previous files), at `a1d165d`
-- [x] Local gates at `a1d165d`: `just check` passed (ruff, mypy, uv lock, biome, 688 tests, release notes); `pytest -s -k measures` tightest 8,664 bytes
-- [x] Shells, the literal command `<cli> --version` at `a1d165d`: PowerShell 5.1 runs (`chantier 0.13.0`); bash runs; a quoted path kept in a bash variable fails ("Project directory ... does not exist", the quotes stay characters); sh/dash at hand, not run; zsh not at hand
+- [x] New or changed tests (the manifest test now reads version 2, the moved-rules test and the shell-variable rule fail on the previous files), at `dd6f84d` (carried from a1d165d)
+- [x] Local gates at `dd6f84d` (carried from a1d165d): `just check` passed (ruff, mypy, uv lock, biome, 688 tests, release notes); `pytest -s -k measures` tightest 8,664 bytes
+- [x] Shells, the literal command `<cli> --version` at `dd6f84d` (carried from a1d165d): PowerShell 5.1 runs (`chantier 0.13.0`); bash runs; a quoted path kept in a bash variable fails ("Project directory ... does not exist", the quotes stay characters); sh/dash at hand, not run; zsh not at hand
 - [ ] Evidence: real Claude Code boot, reload and Driver start at the head (not captured)
-- [x] Review: approved at `a1d165d`
-- [x] Verified at `a1d165d`
-- [x] CI green at `a1d165d`
+- [x] Review: approved, carried from a1d165d by a clean rebase to `dd6f84d`
+- [x] Verified, carried from a1d165d by a clean rebase to `dd6f84d`
+- [x] CI green at `dd6f84d` (5 jobs)
 
 ## Internal references
 

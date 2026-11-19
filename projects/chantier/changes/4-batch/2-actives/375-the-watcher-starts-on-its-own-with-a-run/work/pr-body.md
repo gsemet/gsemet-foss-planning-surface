@@ -29,7 +29,7 @@ Grade: 2. A new lock file in the git folder and a changed last line of several o
 
 ## Known gaps
 
-- The "open with no CR prints no line" case is untested: the change that makes an empty batch paused is not below this one.
+- The "open with no CR prints no line" case holds by hand at `fe2c215` (the empty-batch change is below this PR), but no test asserts it.
 - Only the `surface-board` and `direct` scenario units were run on GitHub by the coder; the full scenario and the Windows run come with the long gate.
 
 <details>
@@ -56,11 +56,11 @@ The Chief of Staff sees a start line at each moment a watcher is due. No visual 
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
-- [x] Local gates at `4b111a1`: `just check` pass, `just eval-dry-run` pass
+- [x] Local gates at `4b111a1`: `just check` pass, `just eval-dry-run` pass; at `fe2c215` the same two jobs are green in CI
 - [x] Evidence: none, no visible change
-- [x] Review: approved at `4b111a1` (carried from `4e0de99`: clean rebase, same patch)
-- [x] Verified at `4b111a1`
-- [x] CI green at `4b111a1`
+- [x] Review: approved at `4e0de99`, carried to `fe2c215` (clean rebase, no conflict: the commit's hunks only follow the base's own edits to the same files)
+- [x] Verified at `fe2c215`
+- [x] CI green at `fe2c215`
 
 ## Internal references
 
