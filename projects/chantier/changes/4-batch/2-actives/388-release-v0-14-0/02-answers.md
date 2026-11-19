@@ -35,3 +35,9 @@
   waits for the user's approval, asked with the merge go.
 - Batch close: after the release is published, batch-28 closes; its retro is already done
   (2026-11-19, three points in the inbox).
+
+4. Q: The host refused the release Driver's push and PR (ask A-43). User, 2026-11-19: "Oui tu peux
+   pousser", then "Je ne suis pas à la maison débrouille toi pour que ce soit poussé". The Chief of
+   Staff pushed the branch and opened PR #356; any later push of this version PR that the host
+   refuses the Driver, the Chief of Staff runs itself. The merge, `just tag` and `gh release create`
+   still each need the user's own word.
