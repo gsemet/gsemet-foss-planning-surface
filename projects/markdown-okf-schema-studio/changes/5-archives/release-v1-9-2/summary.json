@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Release 1.9.2",
+  "summary": "Release 1.9.2: edit mode responsive on long documents with many tables (#420), install docs line. Published on the Marketplace and Open VSX.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "ebe005b0b2649b591185e0fa45a60dcdf28bfe732b8a7434b0d54b3e89a2bb3f",
+    "delivery.md": "0d6d9b5c29b9cf5642cc5f50c8d04867e70f158a5e7f4f38e23ddeb8a74d4e48"
+  },
+  "summarized": "2026-11-19T13:00:20Z"
+}
