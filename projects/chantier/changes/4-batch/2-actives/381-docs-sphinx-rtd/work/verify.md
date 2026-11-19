@@ -57,3 +57,37 @@ Judged at 2251916 on `gh pr view 346 --json body` alone, against pr-template "Th
 - Known gaps: the UNVERIFIED claim (README on GitHub, first RTD build) has its bullets (no README screenshot, no RTD build); asdf lines and Factory mode gap also listed. Pass.
 
 VERIFIED
+
+## Second verification
+
+Head: 105ad6680f5a867b2c58204ead5bdd65be93373f
+
+Move 2251916..105ad66: restack onto the new base 0129b911 (CR-380) plus round-2 commit 105ad66. Raw logs: work/verifier/*2.log, startup2-*.log.
+
+1. Docs build at 105ad66: `just docs` exit 0, "build succeeded.", 0 WARNING lines (docs2.log).
+2. `just check` at 105ad66 (worktree clean): exit 0, ends "build succeeded." (check2.log).
+3. Links: `git grep`/grep of docs/how-to/use-cases*.md: three Factory mode links, all https://github.com/gsemet/chantier#factory-mode; README.md:65 has `## Factory mode`. `pytest skills/chantier/scripts/cli/tests/test_docs_site.py test_plugin_files.py` -> 47 passed (the link test now lives in test_docs_site.py, `test_docs_site.py` + plugin files pass).
+4. Startup sizes vs the new base 0129b911 (detached worktree, removed): `pytest -s test_startup_manifest.py` 30 passed; the 38 startup-bytes lines are IDENTICAL base vs head (diff), max reload within the limit (test passes).
+5. Rebase: `git range-diff 5aca8256~1 5aca8256 5aca8256` shows the docs commit unchanged by itself; the base content changed under it (agents/cards/hooks path updates in the diff vs the old base), judged by 1-4.
+6. Carried from 2251916: screenshots, empty-cache `just tools`, RTD recipe venv build, rules/CONTRIBUTING paths: the move touched no docs layout, conf.py or RTD config beyond the link edits.
+7. PR description (`gh pr view 346`, head oid 105ad66) is STALE: its Test plan, evidence and Review lines name 2251916 (lines 74-78), and its Known gaps (line 43) still says the README "Factory mode" section and the use-cases link to it are "not carried over", which is false at 105ad66 (README:65 has the section, links added). Fails the description rule: NOT VERIFIED until the Driver updates the description to 105ad66 and drops/changes that gap.
+
+NOT VERIFIED
+
+## Description pass at 105ad66 (re-check)
+
+Head: 105ad6680f5a867b2c58204ead5bdd65be93373f
+
+8. PR description re-read (`gh pr view 346 --repo gsemet/chantier --json body,headRefOid`, oid 105ad6680f5a867b2c58204ead5bdd65be93373f):
+   SHAs are 105ad66 or "carried from 2251916"; the Factory mode gap is gone (the section and its links exist:
+   `grep -rn "factory-mode" docs` shows use-cases*.md link to https://github.com/gsemet/chantier#factory-mode);
+   Summary, Deliverables and Changes match the diff (`git diff --stat 0129b911 HEAD`: docs/ moves, conf.py,
+   .readthedocs.yaml, pyproject/uv.lock, justfile, cards, CONTRIBUTING, evals/README, release_notes.py, tests under
+   skills/chantier/scripts/cli/tests/{docs_site,test_docs_site,test_plugin_files}.py; all named files exist).
+   Known gaps cover the UNVERIFIED claim and the untested asdf lines. No STALE mark. No role name outside Internal references.
+9. Images: all three URLs return 200 image/png (curl); opened each: home page (4 sections in Furo sidebar), gates
+   page, web board "On a phone" section; each shows its claim; paths on screen are made up, no username or home folder.
+10. Review box: `chantier log 381`: "r2 approved at 5aca825, committed as 105ad66" matches "approved at 105ad66".
+11. CI: `gh pr checks 346`: check x3, eval-dry-run, scenario (ubuntu) pass. The "Verified at" box is left unchecked as instructed.
+
+VERIFIED

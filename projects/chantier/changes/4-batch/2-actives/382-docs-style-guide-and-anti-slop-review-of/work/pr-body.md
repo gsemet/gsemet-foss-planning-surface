@@ -11,7 +11,7 @@ The guide has sixteen numbered rules (S1 to S16), each prose rule with a bad exa
 | no style guide; `CONTRIBUTING.md`: "short sentences, exact terms" | `docs/STYLE.md`, named by backticked path in `AGENTS.md` and `CONTRIBUTING.md` (no link, so `chantier rules` does not make every role read it) |
 | 21 pages unreviewed | 21 pages reviewed against S1 to S16 (the review table is under Changes) |
 
-The page changed most, "Your gates": before at `2251916` (left), after at `787400e` (right). The restated subtitle and the 50-word bullets became a one-line opening and short sections.
+The page changed most, "Your gates": before at `2251916` (left), after at `0bed437` (right, carried from `787400e`). The restated subtitle and the 50-word bullets became a one-line opening and short sections.
 
 | Before | After |
 | --- | --- |
@@ -73,11 +73,11 @@ Docs readers see clearer pages; later docs changes are reviewed against the guid
 ## Test plan
 
 - [x] New or changed tests: `test_the_docs_style_guide_is_wired_in_and_stays_out_of_the_rules`
-- [x] Local gates at `787400e`: `just check` passes (docs built with `-W`)
-- [x] Evidence: before at `2251916`, after at `787400e`
-- [x] Review: approved at `787400e`
-- [x] Verified at `787400e`
-- [x] CI green at `787400e`: 5 checks pass
+- [x] Local gates at `0bed437`: `just check` passes (docs built with `-W`)
+- [x] Evidence: before at `2251916`, after at `0bed437` (carried from `787400e`)
+- [x] Review: approved at `0bed437` (the rebase onto the new base inspected; round 1 approved at `22519166`)
+- [x] Verified at `0bed437`
+- [x] CI green at `0bed437`: 5 checks pass
 
 ## Internal references
 

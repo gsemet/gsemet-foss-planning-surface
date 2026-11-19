@@ -1,0 +1,11 @@
+before (4ca2f825, base source on PYTHONPATH): watch --help, then a hub append
+usage: chantier watch [-h] [--after SEQ] [--once]
+
+options:
+  -h, --help   show this help message and exit
+  --after SEQ  count the events whose seq is greater than this, including
+               those written while no watcher ran (default: the journal's
+               highest seq now)
+  --once       the pull path: print the journal's lines past --after and the
+               next command, take no lock, read no forge, start nothing
+[{"seq": 8, "t": "2026-11-19T08:02:06Z", "by": "hub", "kind": "merged", "batch": "b", "cr": "CR-9", "pr": "#9"}]

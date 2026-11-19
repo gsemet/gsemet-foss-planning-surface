@@ -1,4 +1,4 @@
-Head: 787400ea5f95752e6383e7e54878cc23b3fffba7
+Head: 0bed4377a23de41a51ff350a915237a98908d881
 
 # CR-382 verification at 787400e
 
@@ -24,3 +24,16 @@ VERIFIED
 
 ## Description pass at 787400ea5f95752e6383e7e54878cc23b3fffba7
 PR 347 description checked: matches diff (27 files, STYLE.md 69 lines, 16 rules S1-S16, conf.py exclude, AGENTS/CONTRIBUTING wiring, test), images on user-attachments, Verified box ticked at 787400e, 5 checks SUCCESS, internal refs only under Internal references. VERIFIED.
+
+## Pass 3 at 0bed4377a23de41a51ff350a915237a98908d881 (move 787400ea..0bed4377, conflict rebase onto 105ad668)
+
+1. `UV_PYTHON=3.13 just check` in the worktree at 0bed4377 (clean tree): exit 0, "All checks passed!", "762 passed, 1 skipped in 34.61s", docs build succeeded with -W. Log: verifier/check-0bed4377.log. `gh pr checks 347`: 5 checks pass (3x just check, eval-dry-run, scenario). PASS.
+2. Use-cases pages: `grep factory-mode docs/how-to/use-cases*.md` gives the https://github.com/gsemet/chantier#factory-mode link in use-cases.md:44, use-cases-direct.md:85, use-cases-foreman.md:124; `git range-diff` shows the only change against the old patch is that link. PASS.
+3. `pytest test_docs_site.py` at head: "3 passed" (includes test_skill_and_references_links_resolve and the style-guide wiring test). PASS.
+4. Carried from 787400e: claims 2, 4-8 (STYLE.md S1-S16, wiring in AGENTS.md/CONTRIBUTING.md, page list and review table, A-only diff, before/after screenshots, Review box): the move touched only the Factory link in the use-cases pages, the test file merge and the base; screenshots show gates pages, not touched, not recaptured. Review box note carried from 787400e.
+5. PR description: SHAs are for the Driver to update after this verdict, not judged.
+
+VERIFIED
+
+## Description pass at 0bed4377a23de41a51ff350a915237a98908d881
+`gh pr view 347 --json body,headRefOid`: headRefOid is 0bed4377a23de41a51ff350a915237a98908d881. Body matches `git diff --stat base..HEAD` (27 files: STYLE.md 69 lines, AGENTS.md +4, CONTRIBUTING.md, conf.py, 21 pages, test + helper; no add/delete of pages or images). Checkbox SHAs: 0bed437 is the head; 2251916 is the base-side before; "787400e carried" matches the log note "r1 approved at 22519166, committed as 787400ea" and the "inspector approved at 0bed4377" note of 07:01:04Z; CI "5 checks pass" confirmed by `gh pr checks 347` (all pass). Images: `curl -sL` on both user-attachments URLs gives 200 image/png, 156637 and 166942 bytes, equal to gates-before.png and gates-after.png (checked in pass 2 for no username/home path). Known gaps lists the planning-modes/planning-folder contradiction and the missing RTD preview; no UNVERIFIED claim. Role names (Inspector) appear only as a product term of the AGENTS.md rule; CR id and work/ path only under Internal references. VERIFIED.

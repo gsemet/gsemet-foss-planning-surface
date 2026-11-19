@@ -1,0 +1,1 @@
+bug: the watcher says a native forge stack's merges did not land

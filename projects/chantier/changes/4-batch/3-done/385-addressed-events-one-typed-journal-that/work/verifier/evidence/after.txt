@@ -1,0 +1,17 @@
+after (f9fb169): watch --help --for / playbook events:
+usage: chantier watch [-h] [--after SEQ] [--for AUDIENCE] [--once]
+
+options:
+  -h, --help      show this help message and exit
+  --after SEQ     count the events whose seq is greater than this, including
+                  those written while no watcher ran (default: the journal's
+                  highest seq now)
+  --for AUDIENCE  also read the lines for this audience (repeatable): project,
+                  role:<name>, cr:<id>, session:<key> or user; none is the
+                  default, the project and this session
+  --once          the pull path: print the journal's lines past --after and
+                  the next command, take no lock, read no forge, start nothing
+events: wake every 20s
+{"v":1,"seq":5,"t":"2026-11-19T07:51:18Z","kind":"board","source":"board","audience":["user"],"action":"edit","items":["d"],"text":"userline","wakes":true}
+{"v":2,"seq":6,"t":"2026-11-19T00:00:00Z","kind":"merged","source":"hub","audience":["project"],"future":1}
+{"v":1,"seq":7,"t":"2026-11-19T07:58:09Z","kind":"board","source":"board","audience":["project"],"action":"new","items":["z"],"text":"wake","wakes":true}
