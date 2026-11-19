@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Release 1.9.3",
+  "summary": "Release 1.9.3: committing a block edit renders at once on long documents (#423).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "879b50f8daf4cb801b67aa3669555e18c5f6572d3ea2cbbbeedc442c23902353"
+  },
+  "summarized": "2026-11-19T16:48:06Z"
+}
