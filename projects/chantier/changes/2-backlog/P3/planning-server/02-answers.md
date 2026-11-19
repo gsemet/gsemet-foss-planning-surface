@@ -132,3 +132,39 @@ asked whether the CR was grilled enough.
 
 - Not grilled enough: everything must be specified. The grill goes on, idea by idea, before any
   specification.
+
+Question 4: who syncs the surface with the forge (chantier takes the sync over; the surface's own
+autosync tool stays; or both, chantier stepping aside where the surface has an autosync)?
+
+> 1
+
+- **Chantier takes the sync over.** The surface server, elected and guaranteed by the Chief of
+  Staff, becomes the one writer: it commits, rebases and pushes within 5 minutes, and raises
+  conflicts to the Chief of Staff. The surface's own autosync tool is no longer needed.
+
+Question 5: what happens when no server runs (the Chief of Staff's session closed, the machine
+restarted, a Griller alone): writes refused; written locally and pushed at the next start; or any
+chantier session may start the server?
+
+> 1
+
+- **Writes are refused** until a Chief of Staff starts the server again: no fallback. A Griller
+  alone records nothing.
+
+Question 6: on how many machines at once (one machine in this CR; several, one per project;
+several, even on one project)?
+
+> il faut qu un seul watcher-autosync a un moment donne. mais cest inherent au fait d etre sur un
+> projet git distribue. n accorde pas trop d importance et rentre dans les details de la spec de
+> chaque etat, chaque message. fait un document de specification complet
+
+- One watcher-autosync at a time, for the surface. Several machines is inherent to a distributed
+  git project: do not weigh it much; two writers on two machines meet as any two git clones do.
+- Go into the specification's details: every state and every message, specified.
+- Write a complete specification document.
+
+- The user's word to write the specification counts as "grilled enough" for this pass; the
+  specification states every state and message, and its open questions come back to the user.
+- Spec critic: yes, it changes who writes and pushes the surface (a shared, irreversible step),
+  the CLI's refusals (writes refused with no server), the roles' contracts (leases, waits) and
+  several areas at once.
