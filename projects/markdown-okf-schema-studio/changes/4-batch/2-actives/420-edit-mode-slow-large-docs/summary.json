@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Edit mode slow on large documents",
+  "summary": "Batch the layout reads of the table handles, the wide-table flags and the caret reveal, and skip the width re-measure when a non-breakout block is edited.",
+  "origin": {
+    "kind": "github",
+    "ref": "#420",
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/issues/420"
+  },
+  "sources": {
+    "01-intent.md": "9037769e4fb1141dbba9b7da007a7845e2a79b395aa179f5da6a75fb2ab1db31",
+    "03-change-spec.md": "e8a4321b9fc2a56530c618dee445928d003117df275f7f29adcf86135eb063aa"
+  },
+  "summarized": "2026-11-19T11:32:06Z"
+}
