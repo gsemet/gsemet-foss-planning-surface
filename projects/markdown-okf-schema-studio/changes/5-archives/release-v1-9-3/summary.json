@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Release 1.9.3",
+  "summary": "Release 1.9.3: committing a block edit renders at once on long documents (#423). Published on the Marketplace and Open VSX after two integration re-runs; a stale-message race on the edit-mode choice is a known follow-up.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "879b50f8daf4cb801b67aa3669555e18c5f6572d3ea2cbbbeedc442c23902353",
+    "delivery.md": "9998fc17d3da8385f2c20445cf06cc522799b752a0a46ee897821c92a4e0708e"
+  },
+  "summarized": "2026-11-19T20:00:51Z"
+}
