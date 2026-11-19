@@ -44,10 +44,10 @@ No visual change. A refused `open` leaves the planning folder untouched.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `6cd45c2`: `just check` pass (879 passed), `just eval-dry-run` pass (18 of 18)
+- [ ] Evidence: pending the verification at `6cd45c2`
+- [x] Review: approved at `6cd45c2`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 

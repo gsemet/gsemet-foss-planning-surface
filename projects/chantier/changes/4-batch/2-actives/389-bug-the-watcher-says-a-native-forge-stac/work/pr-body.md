@@ -23,7 +23,7 @@ Grade: **1**. The read stays one GraphQL call per batch; a merge older than the 
 
 ## Autonomous decisions
 
-- The "merged on default" row `False` base-earlier case is not added to the `LANDING` table: `test_board_prs.py` is at the size-test limit, and the existing "base merged before it" row covers the absent case.
+- The `LANDING` table of `test_board_prs.py` gets no row for an explicit `merged_on_default` False with the base merged earlier: the file is at the size-test limit, and the existing "base merged before it" row (no flag set) covers the same result.
 
 ## Known gaps
 
@@ -49,7 +49,7 @@ No visual change. The hub, `status` and the watcher tell a natively stacked merg
 - [ ] New or changed tests (they fail on the previous code)
 - [x] Local gates at `db5c3af`: `just check` pass (884 passed, 1 skipped); `just eval-dry-run` pass
 - [x] Evidence at `db5c3af`: read-only `gh` check on `gsemet/chantier`: the new query returns `merged_on_default` True for #335, #342 and #354, and `prs.rows_of` gives #342 `landed_with` #335's CR at 2026-11-19T09:29:53Z
-- [ ] Review: approved at `<sha7>`
+- [x] Review: approved at `db5c3af`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 

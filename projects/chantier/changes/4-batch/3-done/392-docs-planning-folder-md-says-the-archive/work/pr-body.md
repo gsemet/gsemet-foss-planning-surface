@@ -31,12 +31,12 @@ No visual change; the page now matches `docs/planning-modes.md` and the CLI.
 
 ## Test plan
 
-- [ ] New or changed tests: No behaviour change (docs only)
-- [ ] Local gates at `<sha7>`: `just check`
-- [ ] Evidence: `git grep -n -i "default yes" -- docs ':!docs/release-notes'` prints nothing at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests: No behaviour change (docs only)
+- [x] Local gates at `d64a996`: `just check`
+- [x] Evidence: `git grep -n -i "default yes" -- docs ':!docs/release-notes'` prints nothing at `d64a996`
+- [x] Review: approved at `4fdf6fc`
+- [x] Verified at `d64a996`
+- [x] CI green at `d64a996`
 
 ## Internal references
 
