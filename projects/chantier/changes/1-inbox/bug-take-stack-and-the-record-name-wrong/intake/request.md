@@ -1,0 +1,1 @@
+bug: take stack and the record name wrong bases in a stack batch
