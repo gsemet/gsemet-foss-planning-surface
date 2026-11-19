@@ -66,3 +66,5 @@ Points with no user-visible behaviour, decided while writing `03-change-spec.md`
 - Pinned release links (A): after the tag, the Release Driver checks that
   `https://chantier.readthedocs.io/en/vX.Y.Z/` serves before publishing the notes and the thread,
   and waits for it; `docs/how-to/release-process.md` adds the step.
+
+- Back from the trash (2026-11-20): dropped from batch-28 on the user's word so v0.14.0 could ship; user, 2026-11-20: "En backlog P2". Its draft PR #346, worktree and branch are kept: the next Driver resumes them.

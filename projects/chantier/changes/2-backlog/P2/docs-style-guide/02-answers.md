@@ -20,3 +20,5 @@ Points with no user-visible behaviour, decided while writing `03-change-spec.md`
 - No mechanical lint of the guide's rules (the user chose guide, review and examples).
 - One test reads the shipped `AGENTS.md`, `CONTRIBUTING.md` and `docs/STYLE.md`: the guide is named
   in backticks in both, and `chantier rules`' link walk does not reach it.
+
+- Back from the trash (2026-11-20): dropped from batch-28 on the user's word so v0.14.0 could ship; user, 2026-11-20: "En backlog P2". Its draft PR #347, worktree and branch are kept: the next Driver resumes them.
