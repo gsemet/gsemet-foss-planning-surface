@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Hold a ready CR out of the stack",
+  "summary": "Specified: order hold/unhold keeps a ready CR of a stack batch in the batch but out of the stack (its PR a draft on the default branch, its base the default branch) until the user puts it back; a held CR blocks the release, the Chief of Staff offers unhold or a drop.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "23aa699b41a67f0fd7cd75f1dcaa9ae971bc3ac05ff5fafebc08f71f407fc801",
+    "02-answers.md": "83854b4e37fa4d1fe7df3a7b04150559976cda93bd1c4c94af301b2c7b015e98",
+    "03-change-spec.md": "fa4f32b05cf2143bacdd1574829a0f247a3c7a9de55fcdd49fd7939898df71a8",
+    "intake/request.md": "3362e1c8d003083d7bc3c70f56e9ed8648061929be062d1eb6de5756e7b2f7e3"
+  },
+  "summarized": "2026-11-19T23:43:50Z"
+}

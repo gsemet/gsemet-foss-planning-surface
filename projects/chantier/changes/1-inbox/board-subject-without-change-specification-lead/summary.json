@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "A CR's title is its plain subject, without the Change Specification: lead",
+  "summary": "Specified: the CLI records a CR's title without the Change Specification: lead (any case); STATUS, the pane and every board view show the plain subject through one shared strip; old records are not rewritten.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2a929f202823528bb49523bbc521fb529b91eac1e789707786e935c4dcb393df",
+    "02-answers.md": "9489e817d8b1cbe7d69a9c5d51f1672094e8df560b8fae2e58ea06d58032d752",
+    "03-change-spec.md": "ab1c808450fa801810af5525b3aa7b0d22ebe99f97e3209cde2f88453142fe6e",
+    "intake/request.md": "a28ec76d76b79319bdcc02084a66576ebfadf71b8a3738c008de19d6b0e6447e"
+  },
+  "summarized": "2026-11-19T23:44:28Z"
+}

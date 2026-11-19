@@ -30,7 +30,7 @@ Grade: **2**. The base function is shared by `take`, the stack rows, the board, 
 
 ## Autonomous decisions
 
-- The board's `why` word is `dependency` when the returned base is one of the CR's open dependencies' branches, `stack` when the stack driver placed the CR, `planned` otherwise (as the specification says); it is computed from the returned branch rather than from the presence of an `after`.
+- The board's `why` word is `dependency` when the returned base is one of the CR's open dependencies' branches, `stack` when `stack` placed the CR, `planned` otherwise (as the specification says); it is computed from the returned branch rather than from the presence of an `after`.
 
 ## Known gaps
 
