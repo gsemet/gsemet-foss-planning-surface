@@ -47,8 +47,8 @@ No visual change. The hub, `status` and the watcher tell a natively stacked merg
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`:
-- [ ] Evidence: none beyond the tests
+- [x] Local gates at `db5c3af`: `just check` pass (884 passed, 1 skipped); `just eval-dry-run` pass
+- [x] Evidence at `db5c3af`: read-only `gh` check on `gsemet/chantier`: the new query returns `merged_on_default` True for #335, #342 and #354, and `prs.rows_of` gives #342 `landed_with` #335's CR at 2026-11-19T09:29:53Z
 - [ ] Review: approved at `<sha7>`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`

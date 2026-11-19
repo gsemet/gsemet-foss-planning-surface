@@ -108,3 +108,27 @@ optional Board bridge, or Board as the main channel). The user asked first:
 - **Keep chantier's own messaging and borrow Board's ideas.** No Board dependency, hosted or
   local, for messages or for plans: chantier's journal, surface server and watchers stay the
   channel between sessions.
+
+Question 3: which of Board's ideas this CR takes (leases on tasks; typed waits, or gates; typed
+events with a versioned schema; an "explain access" command; the storage behind a minimal
+interface with a conformance test).
+
+> tout
+
+- All five go into this CR's scope:
+  1. Leases: a session claims a ready CR and renews a short lease; an expired lease frees the CR.
+     It replaces the "session file written in the last 5 minutes" heuristic.
+  2. Typed waits (gates): a blocked CR records what it waits for (a human answer, an approval, a
+     green pipeline), generic across GitHub and GitLab, Claude Code and Copilot.
+  3. Typed journal events, `name@N`, a published version never changing.
+  4. An "explain access" command: why a session may or may not write, claim or push.
+  5. The plan's storage behind a minimal interface with one conformance test that every backend
+     (the planning folder, a dedicated branch, a server) passes.
+
+The Griller restated the decision (build, borrow Board's five ideas, no Board dependency) and
+asked whether the CR was grilled enough.
+
+> ce n est pas du tout assez etudier il va faloir tout specifier
+
+- Not grilled enough: everything must be specified. The grill goes on, idea by idea, before any
+  specification.

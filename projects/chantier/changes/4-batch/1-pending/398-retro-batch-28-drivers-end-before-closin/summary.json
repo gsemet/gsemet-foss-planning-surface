@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "One CR Driver per CR in the common case, with a closing step that resumes from the record",
+  "summary": "Specified: Drivers read driver.md by step (common path at most 45,000 bytes, prompt names the card instead of Read whole), no images or branch lists; the closing runs in place below 100,000 tokens, with one note per closing step so a fresh Driver resumes.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "568becc45becab394246f76350b706a2dc4835f0e1a091ae2a24dc66f5193aa3",
+    "02-answers.md": "6531113855932aea1d5443fdc51d68c31e50c156d28435a0e1147cc1eeaf05bd",
+    "03-change-spec.md": "e7724cc83211cc53b7e6cf6721602024987bcb4c775acdb0d181dae1e1b82300",
+    "intake/request.md": "35337c181f64a92075fe60a0a57a3d0e13157b874a4cd46925a0b5a0b2b19da6"
+  },
+  "summarized": "2026-11-19T23:52:53Z"
+}

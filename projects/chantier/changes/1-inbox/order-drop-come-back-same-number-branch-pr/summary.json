@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "title": "A CR taken out of a batch comes back under its number, with its branch and PR",
-  "summary": "Filed and settled from the order-drop split: reads formerly.json at add_cr for the same number, branch and PR; not yet specified.",
+  "summary": "Specified: add_cr reads formerly.json for the same number, reopens the entry in the batch it left, keeps branch and PR while the branch exists; Driver reopens a closed PR.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "59ae35192bd4910e136ec734e9bfcfc3ec78dea674c88408662429fc5c71678a",
     "02-answers.md": "e9cc600467813a7557b9bc893e0621f0c203fc6ba74e075d02be785e2086fd0c",
+    "03-change-spec.md": "ce0ec7e5f882426062649cf9b0101635a225c9613770cb153e46a5fb9e1afbdb",
     "intake/request.md": "cdee402af387088c854e09cc7fd444bbb68a48bf36d2d0ddc5ec948690434bcd"
   },
-  "summarized": "2026-11-19T23:49:07Z"
+  "summarized": "2026-11-19T23:52:42Z"
 }
