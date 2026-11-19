@@ -80,3 +80,15 @@ The user rewrote the "chantier, studied" column of the storage table, now in
   are about three checkouts of the surface.
 - A running batch's state stays local to the steering machine (answer 4).
 - No OKF for now (answer 5).
+## 2026-11-20, the user: build or reuse Vercel Board (Griller session)
+
+Question 1: does "the plan is Markdown browsable on the forge" stay absolute, now that Board
+breaks it as Beads did?
+
+> je differentie la board pour les messages et le stockage des plans. on met tout dans vercel
+> board ?
+
+- The user separates two things: a board for messages (coordination between sessions) and the
+  storage of the plans.
+- The user asked whether everything should go into Vercel Board; the Griller's answer is in the
+  next question.

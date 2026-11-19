@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Retro batch-28: ship calls a clean rebase a changed patch",
+  "summary": "Specified, no open question: the base a head sits on becomes the nearest of every batch CR's branch (local or remote) and the default branch, so a clean restack carries the gate and verdict; git failures and real changes are named with counts.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2c2fd0da6bd607e78329d7ac99ba0d6a341aa2b980692edd5538e96f8dab69c3",
+    "02-answers.md": "0ee1510bfcb412755479f4c381d3cd52ef8c724e379d16ce481c1c9f0d7e8826",
+    "03-change-spec.md": "a0e35188c2c703c5467cd3a71950d23431942e65b4e5e160c51d450e1b6d9589",
+    "intake/request.md": "23ba4fced3cc26299a11eb4db548b0c9dcc1b105622b665d1bb6228941608f36"
+  },
+  "summarized": "2026-11-19T23:42:03Z"
+}
