@@ -60,6 +60,40 @@ A dedicated branch is acceptable; a separate planning project is better. A hidde
   keeps Beads as his ledger, on a shared Dolt server.
 - Gas City (Gas Town rebuilt as an SDK by Chris Sells and Julian Knutsen) carries on, with Beads.
 
+## 5. Vercel Board (added 2026-11-19)
+
+Vercel announced Board on 2026-11-18 as an experimental primitive: a message store for agents,
+used through a CLI (`vercel board`) and a JavaScript SDK (`@vercel/board`). This section rests on
+the announcement only; its docs were not read.
+
+| | Vercel Board | 🚧 chantier, studied |
+|---|---|---|
+| What it is | A message store: boards, channels nested by path, threads; tasks with labels | Change requests as Markdown and JSON folders |
+| Where the plan lives | A hosted store; the post does not say which backend. Not in git | A planning repository, or a dedicated branch, in Markdown |
+| Browsable on the forge | No; a local viewer (`npx @vercel/board inspect`) | Yes |
+| Structured data | Messages validated against a registered schema (for example `security-finding@1`) | JSON state written by the CLI |
+| Sync | Two-way with Slack and GitHub issues and pulls, through Vercel connectors | The CLI commits, rebases and pushes |
+| Who writes | Any agent or person with a grant, through the CLI or the SDK | One writer per project: the Chief of Staff |
+| Ready work | `tasks claim --ready`, with a lease renewed by `tasks renew --lease` | A CR starts once what it depends on is ready; leases judged worth taking |
+| Dependencies | Between tasks; a review task opens once its fix is done | `depends.json` |
+| Waking agents | Watchers run agent code on a new event or a label change; agents schedule their own follow-ups (`vercel board schedule … --in 5m`) | The Foreman and the Drivers poll or are told by the CLI |
+| Access | Grants per user, project and environment (read, post, all), audited per event | The rights of the repository |
+| Guardrails | Leases and grants; no budget, round or concurrency limit mentioned | Dollar budget, review rounds and slots |
+| Merging | Humans review in the thread; Vercel says its v0 factory merges over half its PRs | A human merges; PRs can be stacked |
+| Hosts | Claude Code, Codex, Pi, OpenCode and others named; GitHub only; no MCP mentioned | Claude Code and Copilot today; generic GitHub/GitLab wanted |
+
+What it means for this CR:
+
+- **The same direction, from a large vendor:** a shared, multi-agent backlog outside the code,
+  with claims, leases and dependencies. It confirms the need behind `planning-server`.
+- **The storage is the opposite choice:** a hosted store with no git and no forge view, tied to
+  Vercel. It fails the user's rule that the plan is Markdown browsable on the forge, as Beads' Dolt
+  store does.
+- **Worth noting:** typed messages with a versioned schema; watchers that wake an agent on an event
+  instead of polling; per-project grants with an explanation of the effective access
+  (`grants explain`); self-scheduled follow-ups to check CI.
+- **Upstream risk:** experimental and new; the same reason that keeps Beads out applies.
+
 ## Sources
 
 - https://github.com/gastownhall/beads
@@ -72,3 +106,4 @@ A dedicated branch is acceptable; a separate planning project is better. A hidde
 - https://www.developersdigest.tech/blog/yegge-continuous-thunderdome
 - https://newreleases.io/project/github/gastownhall/beads/release/v1.3.0-rc.1
 - https://codex.danielvaughan.com/2026/04/08/gas-town-multi-agent-factory/
+- https://vercel.com/blog/introducing-vercel-board
