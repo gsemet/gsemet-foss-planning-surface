@@ -1,0 +1,1 @@
+A CR moved out of a batch to the inbox or the backlog comes back under its number, with its branch and PR, when it joins a later batch (split from order-drop-asks-where-the-cr-goes-trash-, spec-critic finding 10, 2026-11-20).

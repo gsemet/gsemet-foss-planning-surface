@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "just tag fast-forwards the main checkout before it tags",
+  "summary": "Specified: version.py ff-main (fetch, ff-only, refuses off main, dirty or diverged, never forced) runs first in the tag recipe; the Release driver hands just tag to the steering session, which runs it in the main checkout; CONTRIBUTING step 4 updated. No open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "13bb8eb7899aba337cd88ca6ec66f6d0298e7b6e430cda8ee4ec963b9d6a2087",
+    "02-answers.md": "14adf054a31ff23175ac55917a41bf1dd0d5f907544bd50fa356b7ef86234bc6",
+    "03-change-spec.md": "75346df2cd1c817113ffb6549660ec57a873db9c90a4dd05f5978c684601ed38",
+    "intake/request.md": "3b06d122c39597be242e3d4be4b3012b41142af9bdefda7a5892b62af1839212"
+  },
+  "summarized": "2026-11-19T23:49:13Z"
+}

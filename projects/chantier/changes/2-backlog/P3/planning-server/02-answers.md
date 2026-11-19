@@ -92,3 +92,19 @@ breaks it as Beads did?
   storage of the plans.
 - The user asked whether everything should go into Vercel Board; the Griller's answer is in the
   next question.
+
+Question 2 (for messages between sessions: keep chantier's journal and borrow Board's ideas, an
+optional Board bridge, or Board as the main channel). The user asked first:
+
+> il ne supporte pas gitlab ou jira ?
+
+- The Griller's answer, from the docs and the sibling study: Board syncs with GitHub (pull
+  requests and issues into a channel, one way by default), Slack and Linear (both ways), all
+  through Vercel Connect. Neither GitLab nor Jira is supported or mentioned; labels and task
+  state never sync.
+
+> 1
+
+- **Keep chantier's own messaging and borrow Board's ideas.** No Board dependency, hosted or
+  local, for messages or for plans: chantier's journal, surface server and watchers stay the
+  channel between sessions.

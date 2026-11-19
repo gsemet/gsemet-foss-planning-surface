@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "order drop names where the CR goes: trash, inbox or backlog",
+  "summary": "Specified: order drop takes a required destination (trash, inbox, P1..P4); a CR moved out keeps its work and its number, its PR to draft on the default branch; closed only for the trash. Come-back split out.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "ac62f43b52f9844734cdd617dc7a719e11fe5fb3955415eadf8ad2e38a91861f",
+    "02-answers.md": "759701798032e485dbd35d012d1074dc0e956417844f3323ab94b03b1cc9320f",
+    "03-change-spec.md": "cfd4f1be2cbed1e7a88b8ccd7fcc1713ac5595a36b9c83dd6d2f575a35d1ca61",
+    "intake/request.md": "833374a33f4d61597138da2879d5f36ccfed4f03761a8292da8378195f7988f5"
+  },
+  "summarized": "2026-11-19T23:49:07Z"
+}
