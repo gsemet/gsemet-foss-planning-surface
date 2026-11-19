@@ -1,0 +1,1 @@
+- [chantier] `just tag` refuses in the main checkout when it is still on the previous version (check-tag reads the local version): run it from the release worktree, or make check-tag read origin/main.
