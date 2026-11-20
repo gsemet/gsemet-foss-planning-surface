@@ -1,0 +1,1 @@
+Bug: SwRS MYST-019's {numref} scenario contradicts the code: a numref to a figure with no caption keeps an inert placeholder instead of what the SwRS says; no test covers it. Decide which is right, fix the other, add a test. Found by batch-06 CR-348 (PR 419).

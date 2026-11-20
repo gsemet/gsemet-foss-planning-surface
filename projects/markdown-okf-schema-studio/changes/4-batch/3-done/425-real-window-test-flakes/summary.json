@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Fix three real-window integration flakes at their cause",
+  "summary": "Specified: paste-url drops an obsolete stored edit-mode wait, checkbox-toggle gets a bounded frame lookup then its hang cause, the badge test reads the 1.5 s highlight through an observer; unfound causes become Known issues, no retry.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "b99342d9627d6374cf2dda34b9f6048bf5d5a981136685fccb4f6a0b7af66911",
+    "03-change-spec.md": "f30d136f8700b591e394d3e4f97fa3c4d85db740277062582d5e1843bc9f2a99",
+    "intake/request.md": "2d6c8f3d65d95f6220def962982c5898d2acf26116f1fd5174dc59afe3a52bc8"
+  },
+  "summarized": "2026-11-20T08:58:09Z"
+}

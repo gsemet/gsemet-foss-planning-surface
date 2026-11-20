@@ -1,0 +1,9 @@
+ci: build the gallery and site on every heavy dispatch
+
+A hand-started heavy run on a branch now builds the gallery and the site
+and uploads them as an artifact, so a branch's site can be checked
+without editing the workflow. Before, the gallery job was skipped on
+every such run, even when asked for. It still stays off when the
+integration or report job did not succeed, and gallery=false skips it.
+
+Assisted-by: Claude:Opus-5.5

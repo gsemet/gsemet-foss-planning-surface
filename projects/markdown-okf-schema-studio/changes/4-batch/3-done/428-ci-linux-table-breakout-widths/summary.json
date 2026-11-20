@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Run the table breakout width tests on Linux in the visual CI job",
+  "summary": "Specified, no open question: the Linux visual job runs the tableBreakout tests with Chromium required (fail, not skip), prints the widths on every run, and the PR records Linux against Windows; over 1 px or a changed verdict stops for the owner.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "2bf9ae8ba40f2a5c0037af2ce323b204f1db3c7db7258bc8e353d0f8c7a26b74",
+    "03-change-spec.md": "195920bfd1cf090abe2b7998f3496c01f29884fa4e176fe2dde9a8ad641d9d80",
+    "intake/request.md": "d7955747677220a055afa9a8e8940e28cfd792602b5ecf91649c7a77a3f081f0"
+  },
+  "summarized": "2026-11-20T08:56:37Z"
+}

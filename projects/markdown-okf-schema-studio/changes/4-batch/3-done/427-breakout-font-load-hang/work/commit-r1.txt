@@ -1,0 +1,7 @@
+test: end the browser tests when a test page fails to open
+
+A pinned test font that fails to load, or any other failure while a
+test page opens, now fails the test run with its own message and the run
+ends, instead of leaving Chromium open and the run hanging.
+
+Assisted-by: Claude:Opus-5.5

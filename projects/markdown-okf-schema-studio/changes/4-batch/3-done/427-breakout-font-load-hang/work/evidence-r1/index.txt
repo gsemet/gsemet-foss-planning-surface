@@ -1,0 +1,33 @@
+CR-427 round 1 evidence (Windows 11, local; worktree batch-06-CR-427)
+All runs from the worktree, through work/investigator/timed-run.mjs (ends a hung run by its own PID).
+"Base" = 82c11a47 with no change. "Fix" = 82c11a47 plus the round-1 working-tree changes
+(test/page/{tableBreakout.test.ts,pinnedFont.ts,chartPage.ts,chartCsp.test.ts}, not committed).
+Temporary FONTS edits pointed at C:/does-not-exist/fonts (missing folder) or at
+work/coder/bad-fonts/ (three files named as the KaTeX faces, content "not a font"); every
+temporary edit was reverted (git status: only the four intended files).
+
+Item 2, before the fix (taken first, base 82c11a47):
+  2a-base-82c11a47-missing-folder.log  node timed-run.mjs 120 --import ./scripts/register-myst-patches.mjs --test out/test/page/tableBreakout.test.js
+      7 breakout tests reported failed, no summary printed; "[timed-run] HUNG: ended by timed-run after 120.7 s"
+  2a-base-82c11a47-bad-bytes.log       same command, FONTS = bad-fonts
+      7 failed, "[timed-run] HUNG: ended by timed-run after 120.1 s"
+
+Item 1, fails on the previous code (fix, with only the catch's browser.close() line removed):
+  1a-breakout-red-without-close.log    --test-name-pattern="pinned font" tableBreakout.test.js
+      red: "openPage closed the browser when the font did not load / true !== false"; exited by itself after 1.5 s, code 1
+  1b-breakout-green-restored.log       restored: pass 1, exited by itself after 1.5 s, code 0
+  1c-chart-red-without-close.log       --test-name-pattern="closes the browser" chartCsp.test.js
+      red: "openPreviewPage closed the browser when its setup failed / true !== false"; exited by itself after 1.4 s, code 1
+  1d-chart-green-restored.log          restored: pass 1, exited by itself after 1.4 s, code 0
+
+Item 2, with the fix:
+  2b-fix-missing-folder.log  7 breakout tests fail on "ENOENT: no such file or directory, open 'C:\does-not-exist\fonts\KaTeX_SansSerif-Regular.woff2'",
+      the new regression test passes; "exited by itself after 3.1 s, code 1"
+  2b-fix-bad-bytes.log       7 fail on "the pinned test font did not load: KaTeX_SansSerif-Regular.woff2 (error), ... from <bad-fonts>",
+      the new regression test passes; "exited by itself after 3.2 s, code 1"
+
+Item 3, just check (fix, real fonts):
+  3-just-check.log  `just check` exit 0. Unit stage: tests 4076, pass 4061, fail 0, skipped 15 (symlink and ps-watchdog skips only).
+      Both new tests ran (✔, not skipped): "A pinned font that does not load fails the test and closes the browser",
+      "Opening a chart page closes the browser when its setup fails". The 7 breakout tests, the 2 existing chartCsp tests
+      and "every Mermaid label fits its box..." (mermaidLabelFit) pass.

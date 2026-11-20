@@ -1,0 +1,7 @@
+test: check the unparsable schema warning with a broken JSON5 schema
+
+The end-to-end check of the "Schema could not be parsed" row now breaks
+a JSON5 schema, the case the requirement describes. A YAML syntax error
+in a schema is a known issue that is not reported yet.
+
+Assisted-by: Claude:Opus-5.5

@@ -1,0 +1,21 @@
+markers on non-in-force or unknown IDs: []
+in-force SwRS BLOCK/TABLE: 69 exempt: []
+no implementation marker: []
+no test marker: []
+in-force StRS BLOCK/TABLE: 16
+  StRS-MDOKFSTUDIO-BLOCK-001 proposed diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-BLOCK-003 approved diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-BLOCK-006 proposed diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-BLOCK-008 proposed diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-BLOCK-011 proposed diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-BLOCK-014 proposed diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-BLOCK-016 proposed diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-BLOCK-025 approved diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-TABLE-001 approved diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-TABLE-002 proposed diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-TABLE-006 proposed diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-TABLE-008 proposed diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-TABLE-013 proposed diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-TABLE-014 proposed diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-TABLE-015 proposed diagram_section=True mermaid_in_section=1 validation_test=True
+  StRS-MDOKFSTUDIO-TABLE-016 proposed diagram_section=True mermaid_in_section=1 validation_test=True

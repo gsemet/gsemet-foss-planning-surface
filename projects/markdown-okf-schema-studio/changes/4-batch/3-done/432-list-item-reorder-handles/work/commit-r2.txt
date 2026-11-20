@@ -1,0 +1,7 @@
+test: show the held list item drag in its visual captures
+
+The list item drag captures now show the dimmed item and the drop line
+while the drag is held, instead of the same page as the handle
+captures.
+
+Assisted-by: Claude:Opus-5.5

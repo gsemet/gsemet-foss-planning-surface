@@ -1,0 +1,1 @@
+Code/requirement mismatches found by batch-06 CR-347 (PR 418, listed as Known issue lines in its body): SwRS CORE-010, CORE-025, DIAG-005, DIAG-009, TRUST-042 say something the code does not do. For each, decide whether the code or the SwRS is right and fix the other. Details in PR 418 body and CR-347's work folder.

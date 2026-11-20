@@ -1,0 +1,1 @@
+List items get reorder handles on the left, like table rows, to reorder the items of a list in edit mode. Owner's words (2026-11-20): 'il faut mettre des ancre de reordonnement de la liste sur la gauche comme les ligne d une table. tu feras ca dans une autre CR'. Follows CR-424 (PR 404, item-level list editing).

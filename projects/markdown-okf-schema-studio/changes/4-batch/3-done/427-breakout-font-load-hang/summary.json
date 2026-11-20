@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Browser tests fail instead of hanging when a test page fails to open",
+  "summary": "Specified: openPage (tableBreakout.test.ts) and openPreviewPage/openChartPage (chartPage.ts) close Chromium when setup fails after launch, so the run fails instead of hanging; each has a regression test checking the browser is closed. Stacked on CR-351 (PR 429).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "7daf6767cbb82db771d2c5a693394e0958ba18a07925ff632ef442f0ddeb012b",
+    "03-change-spec.md": "ae4bb9761d007bb4b851830cb88797430c77b19b82e6dd81e5530b83a0ae8154",
+    "intake/request.md": "f1a586ba08f4d9002d58a289b99b1486e8f5e3fd7f0714c90a497c300acf701f"
+  },
+  "summarized": "2026-11-20T08:57:14Z"
+}

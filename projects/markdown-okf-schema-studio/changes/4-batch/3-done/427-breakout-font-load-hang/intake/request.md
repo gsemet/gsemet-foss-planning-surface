@@ -1,0 +1,1 @@
+tableBreakout tests: a pinned font that fails to load hangs the test run, because openPage never closes Chromium, instead of failing it. Close the browser on that error path (found in CR-351, PR 429).

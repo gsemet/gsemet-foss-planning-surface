@@ -1,0 +1,10 @@
+feat(editor): reorder list items with a handle, like table rows
+
+In edit mode, each list item has a handle on its left, as table rows
+do. Drag it among the item's sibling items, or focus it and press
+Alt+Up or Alt+Down, to move the item with its sub-items and blocks in
+one edit that one undo reverts. Ordered lists keep their numbers in
+order. Lists inside quotes, GitHub alerts and MyST admonitions get
+handles too, placed left of the outermost box.
+
+Assisted-by: Claude:Opus-5.5

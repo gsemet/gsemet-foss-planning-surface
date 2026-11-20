@@ -1,0 +1,10 @@
+test: draw the table breakout tests in one bundled font
+
+The table breakout tests measured tables in the machine's own font, so
+their verdicts changed between Windows, Linux and macOS and a layout
+check could fail on one platform only. They now draw every table in the
+KaTeX sans and typewriter fonts already installed with the extension, so
+the same widths and verdicts hold on every machine, and a font that does
+not load stops the test instead of falling back silently.
+
+Assisted-by: Claude:Opus-5.5

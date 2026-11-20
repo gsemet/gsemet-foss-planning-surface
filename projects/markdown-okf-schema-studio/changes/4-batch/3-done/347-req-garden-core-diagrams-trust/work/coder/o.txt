@@ -1,0 +1,127 @@
+===== swrs\trust-security\SwRS-MDOKFSTUDIO-TRUST-059.md | ['req_lifecycle: proposed', 'annotation_exemption: false']
+derives_from ['StRS-TRUST-009', 'StRS-BLOCK-025'] depends_on [] relates_to []
+## The page accepts only registered host messages addressed to its render
+### Normative behavior
+When the page receives a window message event, it SHALL hand its value to the host message filter only if the event comes from the frame that hosts the page, from another frame with the page's own origin that is not the window that opened it, from the page's own window with its own origin, or is dispatched inside the page without a sender; a message posted by any other window or frame SHALL be dropped. When the page receives a value from the host, it SHALL treat it as a host message only if it is an object whose type is an own key of the table of host message rules and it is addressed to the page by that rule, which names the document, revision and request of the render the page shows, or the document alone, or no render identity but an identifier of its own.
+### Scenario (nominal): Registered type, current render
+- GIVEN a page that shows revision 2, request 5 of a document and a themeChanged message that names them
+- WHEN the message arrives
+- THEN it is accepted and reaches its handler
+### Scenario (refusal): A message from another window or frame
+- GIVEN a page in a webview whose parent frame hosts it, a message event sent by the parent frame, one sent by another frame of the webview host with the page's origin, one sent by another window, one sent by a window with a foreign origin, and one sent by the opener
+- WHEN each event arrives
+- THEN only the ones from the parent frame and from the same-origin host frame (and one dispatched in the page without a sender) reach the host message filter; the others are dropped
+### Scenario (refusal): Values that are not host messages
+- GIVEN a string, null, an unknown type and the types __proto__ and constructor
+- WHEN each is checked
+- THEN none is accepted
+### Scenario (refusal): A render that is not the shown one
+- GIVEN the same page and a message that names revision 1 and request 4, and a page whose render identity moved to revision 3 by a content patch
+- WHEN the messages arrive
+- THEN the older ones go to unhandled and a message for revision 3 reaches its handler
+### Scenario (boundary): Addressing by the rule of the type
+| Addressing | Message must name | Types |
+| --- | --- | --- |
+| render | the document id, revision and request id of the render the page shows | previewEditSource, previewBlockMoveResult and previewBlocksResult (another requestId, or another document or revision: the page ignores it; an answer for the page's render: the page handles it), themeChanged, previewPropertiesTable, previewContentPatch, previewLinkTargets and the other render-addressed types |
+| document | the document id only; the render may differ | previewPlantUmlIncludesChanged |
+| own-id | no render identity; matched by an identifier of its own (editId, flushId), because the host may already follow the next document or render | the results of the host round trips, previewFlushEdit and previewEditorWatch |
+The bounds of the payload of each type are in the SwRS of that type (see SwRS-MDOKFSTUDIO-TRUST-061, SwRS-MDOKFSTUDIO-TRUST-062, SwRS-MDOKFSTUDIO-TRUST-063 and SwRS-MDOKFSTUDIO-TRUST-064).
+### Related requirements
+- SwRS-MDOKFSTUDIO-TRUST-061: a content patch message is applied only within its bounds
+- SwRS-MDOKFSTUDIO-TRUST-062: a properties table message needs string markup
+- SwRS-MDOKFSTUDIO-TRUST-063: a link targets message needs an array of the current render
+- SwRS-MDOKFSTUDIO-TRUST-064: flush and editor watch messages are addressed by their own id
+### Verification notes
+- Method: test/core/protocol/hostToPage.test.ts (every host message type has a rule, and a well-formed message for the page passes it; values that are not host messages are refused; each rule matches the identity it names, and only that: all scenarios and the addressing table).
+- Method: test/page/hostMessages.test.ts (a window message event reaches the listener only from the parent frame, a same-origin host frame, the page itself or an event without a sender; a host message addressed to the page reaches its handler, any other goes to unhandled; the page is read at each message, so a moved render identity applies at once: nominal and render scenarios).
+- Method: test/page/runtimeBlockMoves.test.ts (`T36: a refused move says why next to the bar; a result of another context is ignored`: previewBlockMoveResult row of the render addressing).
+- Criteria: A value the filter refuses is not given to the handler of any type. The page identity is read at every message. Answers of host round trips are matched by their own edit identifier and are not checked against the render.
+===== swrs\trust-security\SwRS-MDOKFSTUDIO-TRUST-061.md | ['req_lifecycle: proposed', 'annotation_exemption: false']
+derives_from ['StRS-TRUST-009'] depends_on ['SwRS-TRUST-059'] relates_to []
+## A content patch message is applied only within its bounds
+### Normative behavior
+When the page receives previewContentPatch, it SHALL accept it only if next holds integer revision and requestId, a finite initialAnchor if present, an initialPin with finite line and viewportTop if present, contentHtml is a string of at most 20 MiB, status is a known one, label is a string of at most 500 characters, an optional message is a string of at most 20 000 characters, and diagnostics are at most 500 entries, each with a severity of at most 50 characters, a text of at most 20 000 characters and, when present, a code of at most 100 characters.
+### Scenario (nominal): Valid patch
+- GIVEN a patch with a small content, status success and two status lines that carry codes
+- WHEN it is checked and applied
+- THEN it is accepted and each status line keeps its code attribute
+### Scenario (refusal): Out of bounds
+| Input | Outcome |
+| --- | --- |
+| 501 diagnostics | refused |
+| a content longer than 20 MiB | refused |
+| an unknown status | refused |
+| a non-finite anchor | refused |
+| a diagnostic code of 101 characters | refused |
+A refused patch is not applied (see SwRS-MDOKFSTUDIO-TRUST-059).
+### Scenario (boundary): Known statuses
+| Input | Outcome |
+| --- | --- |
+| status pending, success, stale, error, missing-source or recovery | accepted as a known status |
+### Related requirements
+- SwRS-MDOKFSTUDIO-LIFE-071: a render that cannot patch loads a new page document
+### Verification notes
+- Method: Unit test test/core/protocol/hostToPage.test.ts (the payload checks refuse what the page used to refuse) covers the out of bounds cases.
+- Method: Unit test test/page/runtimeContentPatch.test.ts (CR 050: a patch keeps the code of each status line and refuses a malformed one) covers the valid patch and a malformed one.
+- Criteria: Known statuses: pending, success, stale, error, missing-source, recovery.
+===== swrs\trust-security\SwRS-MDOKFSTUDIO-TRUST-062.md | ['req_lifecycle: proposed', 'annotation_exemption: false']
+derives_from ['StRS-TRUST-009'] depends_on ['SwRS-TRUST-059'] relates_to []
+## A properties table message needs string markup
+### Normative behavior
+When the page receives previewPropertiesTable, it SHALL accept it only if its markup is a string.
+### Scenario (nominal): String markup
+- GIVEN a previewPropertiesTable message for the current render with a string markup
+- WHEN it arrives
+- THEN it reaches its handler
+### Scenario (refusal): Other markup
+- GIVEN the same message with markup null
+- WHEN it arrives
+- THEN it goes to unhandled
+### Verification notes
+- Method: Unit test test/core/protocol/hostToPage.test.ts (the payload checks refuse what the page used to refuse) covers both scenarios.
+- Criteria: The markup is built by the host, not taken from the document.
+===== swrs\trust-security\SwRS-MDOKFSTUDIO-TRUST-063.md | ['req_lifecycle: proposed', 'annotation_exemption: false']
+derives_from ['StRS-TRUST-009', 'StRS-TOOLBAR-011'] depends_on ['SwRS-TRUST-059'] relates_to []
+## A link targets message needs an array of the current render
+### Normative behavior
+When the page receives previewLinkTargets, it SHALL accept it only if its targets are an array and it names the render of the page.
+### Scenario (nominal): Array for the current render
+- GIVEN a previewLinkTargets message for the current render with two targets
+- WHEN it arrives
+- THEN it reaches its handler and the links are marked
+### Scenario (refusal): Not an array
+- GIVEN the same message with targets set to an object
+- WHEN it arrives
+- THEN it goes to unhandled
+### Scenario (refusal): Stale render
+- GIVEN an answer for the previous request id, which names another render than the page
+- WHEN the page receives it
+- THEN it is not applied and no link changes
+### Related requirements
+- SwRS-MDOKFSTUDIO-TOOLBAR-085: the page marks each link with its target kind
+### Verification notes
+- Method: Unit test test/core/protocol/hostToPage.test.ts (the payload checks refuse what the page used to refuse) covers the array and the object.
+- Method: Unit test test/page/runtimeContentPatch.test.ts (link target hints of a stale render are ignored) covers the stale render and the current render.
+- Criteria: The items of the array are read by the handler of the link hints. The host-message filter drops answers whose identifiers differ.
+===== swrs\trust-security\SwRS-MDOKFSTUDIO-TRUST-064.md | ['req_lifecycle: proposed', 'annotation_exemption: false']
+derives_from ['StRS-TRUST-009', 'StRS-BLOCK-025', 'StRS-BLOCK-006'] depends_on ['SwRS-TRUST-059'] relates_to []
+## Flush and editor watch messages are addressed by their own id
+### Normative behavior
+When the page receives previewFlushEdit or previewEditorWatch, it SHALL accept it only if its flushId or its editId respectively is a string, whatever the document the message names.
+### Scenario (nominal): String identifier
+- GIVEN a previewFlushEdit message with flushId f1
+- WHEN it arrives
+- THEN it reaches its handler whatever the render it names
+### Scenario (nominal): Watch naming the next document
+- GIVEN a previewEditorWatch naming the next document, while the host already follows another document
+- WHEN it arrives
+- THEN the page answers it
+### Scenario (refusal): Missing identifier
+| Input | Outcome |
+| --- | --- |
+| a previewEditorWatch without editId | goes to unhandled; the page ignores it |
+| a previewFlushEdit without a flushId | goes to unhandled; the page ignores it |
+### Verification notes
+- Method: Unit test test/core/protocol/hostToPage.test.ts (the payload checks refuse what the page used to refuse; each rule matches the identity it names, and only that) covers the string identifier and the missing identifier.
+- Method: Unit test test/page/runtimeBlockEditor.test.ts (STAB-03: a watch sent while the host already follows another document is still answered) covers the watch naming the next document.
+- Criteria: These two messages are matched by their own identifier (own-id addressing) because the host may already follow the next document.

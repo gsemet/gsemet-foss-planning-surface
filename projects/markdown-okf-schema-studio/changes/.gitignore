@@ -21,3 +21,7 @@ board-seen.jsonl
 work/gates/
 *.log
 *.tmp
+**/work/scratch/
+forge-journal.jsonl
+**/work/gates/
+.lease-hold.*.run

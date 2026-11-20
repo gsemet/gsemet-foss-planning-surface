@@ -1,0 +1,4759 @@
+{
+  "implemented": {
+    "SwRS-MDOKFSTUDIO-LIFE-001": [
+      "src/extension.ts",
+      "src/host-vscode/activation.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-002": [
+      "src/host-api/logger.ts",
+      "src/host-vscode/vscodeHost.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-003": [
+      "src/host-vscode/activation.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-018": [
+      "src/host-vscode/activation.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-032": [
+      "src/host-vscode/activation.ts",
+      "src/session/previewManager.ts",
+      "src/page/features/pageInput.ts",
+      "src/session/features/viewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-003": [
+      "src/host-vscode/activation.ts",
+      "src/host-vscode/vscodeHost.ts",
+      "src/session/previewManager.ts",
+      "src/core/protocol/hostToPage.ts",
+      "src/page/features/hostHandlers.ts",
+      "src/page/features/textControls.ts",
+      "src/page/modules/editCommandKey.ts",
+      "src/page/modules/textEditing.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-003": [
+      "src/host-vscode/activation.ts",
+      "src/session/previewManager.ts",
+      "src/core/preview/previewToolbar.ts",
+      "src/core/protocol/hostToPage.ts",
+      "src/core/state/headingFold.ts",
+      "src/core/preview/styles/contentLayoutStyles.ts",
+      "src/page/features/hostHandlers.ts",
+      "src/page/modules/headingFold.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-009": [
+      "src/host-vscode/activation.ts",
+      "src/page/runtime.ts",
+      "src/session/previewManager.ts",
+      "src/core/protocol/hostToPage.ts",
+      "src/page/features/hostHandlers.ts",
+      "src/page/modules/findBar.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-173": [
+      "src/host-vscode/activation.ts",
+      "src/session/previewManager.ts",
+      "src/core/protocol/hostToPage.ts",
+      "src/core/protocol/pageToHost.ts",
+      "src/core/protocol/pageToHostMessages.ts",
+      "src/page/features/blockEditor.ts",
+      "src/page/features/hostHandlers.ts",
+      "src/session/features/blockEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-134": [
+      "src/host-vscode/activation.ts",
+      "src/host-vscode/vscodeHost.ts",
+      "src/page/runtime.ts",
+      "src/session/previewManager.ts",
+      "src/core/preview/previewToolbar.ts",
+      "src/core/protocol/hostToPage.ts",
+      "src/core/protocol/pageToHost.ts",
+      "src/page/features/hostHandlers.ts",
+      "src/page/modules/exportSnapshot.ts",
+      "src/session/features/htmlExport.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-094": [
+      "src/host-vscode/activation.ts",
+      "src/host-vscode/keystrokes.ts",
+      "src/session/hostEvents.ts",
+      "src/core/preview/updatedRanges.ts",
+      "src/page/modules/motion.ts",
+      "src/session/features/pageDocument.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-143": [
+      "src/host-vscode/activation.ts",
+      "src/session/hostEvents.ts",
+      "src/session/previewManager.ts",
+      "src/session/sharedWatchers.ts",
+      "src/session/features/diagnostics.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-043": [
+      "src/host-vscode/activation.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-149": [
+      "src/host-vscode/activation.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-007": [
+      "src/host-vscode/activation.ts",
+      "src/host-vscode/previewPanel.ts",
+      "src/session/sessionFactory.ts",
+      "src/session/webview.ts",
+      "src/core/render/renderPipeline.ts",
+      "src/session/features/links.ts",
+      "src/session/features/pageDocument.ts",
+      "src/session/features/rendering.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-127": [
+      "src/host-vscode/activation.ts",
+      "src/core/state/previewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-038": [
+      "src/host-vscode/activation.ts",
+      "src/session/sessionFactory.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-151": [
+      "src/host-vscode/groupFocus.ts",
+      "src/host-vscode/groupLock.ts",
+      "src/session/previewManager.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-203": [
+      "src/host-vscode/headBaseline.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-065": [
+      "src/host-vscode/headBaseline.ts",
+      "src/core/comments/author.ts",
+      "src/core/configuration/commentsConfiguration.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-054": [
+      "src/host-vscode/vscodeHost.ts",
+      "src/core/comments/commentModel.ts",
+      "src/core/comments/commentStore.ts",
+      "src/session/features/comments.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-135": [
+      "src/host-vscode/vscodeHost.ts",
+      "src/session/pageMessages.ts",
+      "src/core/export/exportContent.ts",
+      "src/session/features/htmlExport.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-090": [
+      "src/host-vscode/vscodeHost.ts",
+      "src/core/navigation/previewNavigation.ts",
+      "src/core/security/resource-policy.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-004": [
+      "src/host-vscode/vscodeHost.ts",
+      "src/node-services/renderWorker.ts",
+      "src/session/sessionFactory.ts",
+      "src/core/render/renderPipeline.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-067": [
+      "src/node-services/linkedTargetWatch.ts",
+      "src/core/frontmatter/fileLinks.ts",
+      "src/core/frontmatter/propertiesTable.ts",
+      "src/core/navigation/previewNavigation.ts",
+      "src/page/features/linkTooltip.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-019": [
+      "src/node-services/schemaFiles.ts",
+      "src/core/frontmatter/okfFrontmatter.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-156": [
+      "src/page/bootContext.ts",
+      "src/core/configuration/previewConfiguration.ts",
+      "src/core/configuration/settingsRegistry.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-059": [
+      "src/page/hostTransport.ts",
+      "src/core/protocol/hostToPage.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-125": [
+      "src/page/pageHost.ts",
+      "src/session/previewManager.ts",
+      "src/core/state/boundedState.ts",
+      "src/session/features/viewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-128": [
+      "src/page/pageSettings.ts",
+      "src/core/configuration/settingsRegistry.ts",
+      "src/core/preview/previewStyles.ts",
+      "src/page/features/scrollCore.ts",
+      "src/session/features/scrollSync.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-039": [
+      "src/page/pageSettings.ts",
+      "src/core/configuration/settingsRegistry.ts",
+      "src/core/render/highlight.ts",
+      "src/core/preview/styles/codeBlockStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-040": [
+      "src/page/pageSettings.ts",
+      "src/core/configuration/settingsRegistry.ts",
+      "src/core/preview/styles/codeBlockStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-018": [
+      "src/page/pageSettings.ts",
+      "src/core/configuration/settingsRegistry.ts",
+      "src/core/preview/contentPatch.ts",
+      "src/page/features/stickyHeadings.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-001": [
+      "src/page/runtime.ts",
+      "src/session/hostEvents.ts",
+      "src/session/previewManager.ts",
+      "src/session/sessionDocuments.ts",
+      "src/session/sessionFactory.ts",
+      "src/core/configuration/settingsRegistry.ts",
+      "src/core/edits/readOnlyReasons.ts",
+      "src/core/frontmatter/propertiesTable.ts",
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/features/editMode.ts",
+      "src/page/features/pageInput.ts",
+      "src/page/modules/commentThreads.ts",
+      "src/session/features/viewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-018": [
+      "src/page/runtime.ts",
+      "src/page/modules/firstClearance.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-020": [
+      "src/page/runtime.ts",
+      "src/page/modules/widthMode.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-014": [
+      "src/page/runtime.ts",
+      "src/session/workspaceChoices.ts",
+      "src/core/frontmatter/propertiesTable.ts",
+      "src/core/state/boundedState.ts",
+      "src/page/features/pageInput.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-170": [
+      "src/page/runtime.ts",
+      "src/session/workspaceChoices.ts",
+      "src/core/configuration/editingConfiguration.ts",
+      "src/core/state/previewTheme.ts",
+      "src/core/state/previewViewPreferences.ts",
+      "src/page/features/anchorMode.ts",
+      "src/page/features/themeMode.ts",
+      "src/page/modules/commentsToggle.ts",
+      "src/page/modules/tocColumn.ts",
+      "src/page/modules/toolbarCollapse.ts",
+      "src/page/modules/viewControls.ts",
+      "src/page/modules/widthMode.ts",
+      "src/session/features/rendering.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-172": [
+      "src/page/runtime.ts",
+      "src/page/features/editMode.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-183": [
+      "src/session/bibScan.ts",
+      "src/core/mapping/mystTargets.ts",
+      "src/session/features/hostRequests.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-044": [
+      "src/session/hostEvents.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-053": [
+      "src/session/hostEvents.ts",
+      "src/session/previewManager.ts",
+      "src/core/render/plantUmlIncludes.ts",
+      "src/page/modules/plantumlPreview.ts",
+      "src/session/features/plantUml.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-062": [
+      "src/session/hostEvents.ts",
+      "src/session/previewManager.ts",
+      "src/session/features/rendering.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-078": [
+      "src/session/hostEvents.ts",
+      "src/session/features/diagnostics.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-055": [
+      "src/session/hostEvents.ts",
+      "src/core/frontmatter/fileLinks.ts",
+      "src/core/frontmatter/stemIndex.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-039": [
+      "src/session/hostEvents.ts",
+      "src/session/previewManager.ts",
+      "src/session/sessionFactory.ts",
+      "src/session/sharedRenders.ts",
+      "src/core/render/buildQueue.ts",
+      "src/core/render/renderPipeline.ts",
+      "src/session/features/rendering.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-119": [
+      "src/session/hostEvents.ts",
+      "src/core/state/editLock.ts",
+      "src/page/features/blockEditor.ts",
+      "src/page/features/contentPatch.ts",
+      "src/session/features/blockEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-193": [
+      "src/session/hostEvents.ts",
+      "src/core/state/editLock.ts",
+      "src/page/features/contentPatch.ts",
+      "src/page/features/hostHandlers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-024": [
+      "src/session/hostEvents.ts",
+      "src/core/configuration/plantUmlConfiguration.ts",
+      "src/core/configuration/settingsRegistry.ts",
+      "src/core/render/renderPipeline.ts",
+      "src/page/modules/plantumlPreview.ts",
+      "src/session/features/plantUml.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-004": [
+      "src/session/hostEvents.ts",
+      "src/core/configuration/settingsRegistry.ts",
+      "src/core/frontmatter/propertiesTable.ts",
+      "src/session/features/frontmatter.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-002": [
+      "src/session/hostEvents.ts",
+      "src/session/webview.ts",
+      "src/core/configuration/settingsRegistry.ts",
+      "src/core/preview/previewStyles.ts",
+      "src/core/preview/styles/pageChromeStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-026": [
+      "src/session/hostEvents.ts",
+      "src/session/previewManager.ts",
+      "src/session/features/scrollSync.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-100": [
+      "src/session/hostEvents.ts",
+      "src/core/scroll/anchorPolicy.ts",
+      "src/page/features/scrollCore.ts",
+      "src/session/features/scrollSync.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-016": [
+      "src/session/hostEvents.ts",
+      "src/core/preview/pageLiveState.ts",
+      "src/core/preview/themeTokens.ts",
+      "src/page/features/themeMode.ts",
+      "src/session/features/scrollSync.ts",
+      "src/session/features/viewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-065": [
+      "src/session/pageMessages.ts",
+      "src/session/previewManager.ts",
+      "src/session/sessionDocuments.ts",
+      "src/session/features/hostRequests.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-027": [
+      "src/session/pageMessages.ts",
+      "src/core/protocol/pageToHost.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-038": [
+      "src/session/pageMessages.ts",
+      "src/core/mapping/labelRename.ts",
+      "src/page/modules/labelRename.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-005": [
+      "src/session/pageMessages.ts",
+      "src/session/features/blockEdits.ts",
+      "src/session/features/comments.ts",
+      "src/session/features/hostRequests.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-006": [
+      "src/session/pageMessages.ts",
+      "src/session/features/history.ts",
+      "src/session/features/hostRequests.ts",
+      "src/session/features/links.ts",
+      "src/session/features/viewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-071": [
+      "src/session/pageMessages.ts",
+      "src/core/preview/contentPatch.ts",
+      "src/session/features/pageDocument.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-024": [
+      "src/session/previewManager.ts",
+      "src/session/features/rendering.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-098": [
+      "src/session/previewNavigator.ts",
+      "src/session/features/links.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-094": [
+      "src/session/previewNavigator.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-059": [
+      "src/session/webview.ts",
+      "src/core/preview/previewStatus.ts",
+      "src/page/features/statusRegion.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-012": [
+      "src/session/webview.ts",
+      "src/core/security/csp.ts",
+      "src/core/security/html-sanitizer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-001": [
+      "src/session/webview.ts",
+      "src/core/render/mermaidFont.ts",
+      "src/core/render/mystNormalize.ts",
+      "src/core/preview/styles/contentBlockStyles.ts",
+      "src/core/preview/styles/editModeStyles.ts",
+      "src/page/modules/mermaidPreview.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-023": [
+      "src/session/webview.ts",
+      "src/core/render/mystNormalize.ts",
+      "src/core/preview/styles/contentBlockStyles.ts",
+      "src/page/modules/plantumlDiagram.ts",
+      "src/page/modules/plantumlPreview.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-022": [
+      "src/session/webview.ts",
+      "src/core/preview/contentPatch.ts",
+      "src/core/protocol/bootContext.ts",
+      "src/core/security/csp.ts",
+      "src/session/features/pageDocument.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-002": [
+      "src/session/webview.ts",
+      "src/core/security/resource-policy.ts",
+      "src/session/features/rendering.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-042": [
+      "src/session/webview.ts",
+      "src/core/security/html-sanitizer.ts",
+      "src/session/features/rendering.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-124": [
+      "src/session/webview.ts",
+      "src/page/modules/vegaChart.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-081": [
+      "src/session/workspaceChoices.ts",
+      "src/core/preview/styles/pageChromeStyles.ts",
+      "src/page/modules/warningBanner.ts",
+      "src/session/features/diagnostics.ts",
+      "src/session/features/viewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-169": [
+      "src/session/workspaceChoices.ts",
+      "src/core/protocol/pageToHost.ts",
+      "src/core/state/previewViewPreferences.ts",
+      "src/page/features/anchorMode.ts",
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/features/editMode.ts",
+      "src/page/features/themeMode.ts",
+      "src/page/modules/editPalette.ts",
+      "src/page/modules/tocColumn.ts",
+      "src/page/modules/toolbarCollapse.ts",
+      "src/page/modules/viewControls.ts",
+      "src/page/modules/widthMode.ts",
+      "src/session/features/scrollSync.ts",
+      "src/session/features/viewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-094": [
+      "src/core/comments/anchoring.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-107": [
+      "src/core/comments/anchoring.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-100": [
+      "src/core/comments/anchoring.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-101": [
+      "src/core/comments/anchoring.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-001": [
+      "src/core/comments/commentModel.ts",
+      "src/page/modules/commentThreadData.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-004": [
+      "src/core/comments/commentModel.ts",
+      "src/core/comments/commentStore.ts",
+      "src/session/features/comments.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-074": [
+      "src/core/comments/commentModel.ts",
+      "src/session/features/comments.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-167": [
+      "src/core/comments/inlineThread.ts",
+      "src/core/render/commentMarkers.ts",
+      "src/core/render/mystGridToctree.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-186": [
+      "src/core/comments/inlineThread.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-192": [
+      "src/core/comments/inlineThread.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-084": [
+      "src/core/configuration/plantUmlConfiguration.ts",
+      "src/core/render/plantUmlIncludes.ts",
+      "src/core/render/plantUmlRenderer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-152": [
+      "src/core/configuration/settingsRegistry.ts",
+      "src/core/preview/styles/commentStyles.ts",
+      "src/page/features/hostHandlers.ts",
+      "src/page/modules/chipToggle.ts",
+      "src/page/modules/commentsToggle.ts",
+      "src/page/modules/commentThreads.ts",
+      "src/session/features/viewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-214": [
+      "src/core/configuration/settingsRegistry.ts",
+      "src/page/modules/incomingToggle.ts",
+      "src/session/features/viewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-001": [
+      "src/core/configuration/settingsRegistry.ts",
+      "src/core/palette/paletteActions.ts",
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/features/tableCellEditor.ts",
+      "src/page/modules/editPalette.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-060": [
+      "src/core/configuration/settingsRegistry.ts",
+      "src/core/frontmatter/fileLinks.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-001": [
+      "src/core/directives/admonition.ts",
+      "src/core/render/mystBlockTransforms.ts",
+      "src/core/render/mystNormalize.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-006": [
+      "src/core/directives/admonition.ts",
+      "src/core/render/mystNormalize.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-009": [
+      "src/core/directives/admonition.ts",
+      "src/core/render/mystGithubAlerts.ts",
+      "src/core/render/mystNormalize.ts",
+      "src/core/syntax/blockQuoteRange.ts",
+      "src/page/features/mappedBlocks.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-031": [
+      "src/core/directives/figure.ts",
+      "src/core/render/mystBlockTransforms.ts",
+      "src/core/render/mystNormalize.ts",
+      "src/core/security/resource-policy.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-063": [
+      "src/core/directives/tables.ts",
+      "src/core/render/mystTables.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-012": [
+      "src/core/edits/findReplace.ts",
+      "src/core/find/findMatches.ts",
+      "src/core/protocol/pageToHost.ts",
+      "src/page/modules/findBar.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-016": [
+      "src/core/edits/frontmatterEdit.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-024": [
+      "src/core/edits/frontmatterEdit.ts",
+      "src/core/frontmatter/frontmatterSerialize.ts",
+      "src/page/features/frontmatterEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-037": [
+      "src/core/edits/frontmatterEdit.ts",
+      "src/core/frontmatter/frontmatterSerialize.ts",
+      "src/page/features/frontmatterEditor.ts",
+      "src/page/features/frontmatterValueEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-067": [
+      "src/core/edits/frontmatterEdit.ts",
+      "src/page/features/blockEditor.ts",
+      "src/page/features/frontmatterEditor.ts",
+      "src/page/features/frontmatterValueEditor.ts",
+      "src/session/features/frontmatter.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-029": [
+      "src/core/edits/frontmatterEdit.ts",
+      "src/core/frontmatter/frontmatterSerialize.ts",
+      "src/page/features/frontmatterMenu.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-021": [
+      "src/core/edits/sourceEdits.ts",
+      "src/page/features/checkboxes.ts",
+      "src/page/features/contentPatch.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-039": [
+      "src/core/edits/sourceEdits.ts",
+      "src/core/protocol/pageToHost.ts",
+      "src/core/render/checkboxMarkers.ts",
+      "src/core/render/radioGroups.ts",
+      "src/core/render/radioMarkers.ts",
+      "src/core/security/html-sanitizer.ts",
+      "src/page/features/checkboxes.ts",
+      "src/page/features/contentPatch.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-045": [
+      "src/core/edits/sourceEdits.ts",
+      "src/core/mapping/labelRename.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-117": [
+      "src/core/edits/sourceEdits.ts",
+      "src/core/mapping/blockMove.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-127": [
+      "src/core/edits/sourceEdits.ts",
+      "src/core/mapping/blockMove.ts",
+      "src/page/features/blockMoves.ts",
+      "src/page/features/blockSelectionView.ts",
+      "src/page/modules/blockSelection.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-234": [
+      "src/core/edits/sourceEdits.ts",
+      "src/core/edits/textEdit.ts",
+      "src/page/features/blockEditor.ts",
+      "src/page/modules/markdownTable.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-042": [
+      "src/core/edits/sourceEdits.ts",
+      "src/core/mapping/textDiff.ts",
+      "src/page/features/blockEditor.ts",
+      "src/session/features/blockEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-137": [
+      "src/core/export/exportContent.ts",
+      "src/core/export/exportTabs.ts",
+      "src/core/export/htmlExport.ts",
+      "src/page/modules/exportSnapshot.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-091": [
+      "src/core/export/exportContent.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-136": [
+      "src/core/export/exportContent.ts",
+      "src/core/export/htmlExport.ts",
+      "src/session/features/htmlExport.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-128": [
+      "src/core/export/exportContent.ts",
+      "src/page/modules/exportSnapshot.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-010": [
+      "src/core/find/findMatches.ts",
+      "src/page/features/contentPatch.ts",
+      "src/page/modules/findBar.ts",
+      "src/page/modules/revealInline.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-046": [
+      "src/core/frontmatter/fileLinkAnnotations.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-010": [
+      "src/core/frontmatter/fileLinks.ts",
+      "src/core/frontmatter/propertiesTable.ts",
+      "src/core/frontmatter/stemIndex.ts",
+      "src/page/features/frontmatterListEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-050": [
+      "src/core/frontmatter/fileLinks.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-063": [
+      "src/core/frontmatter/fileLinks.ts",
+      "src/core/frontmatter/propertiesTable.ts",
+      "src/session/features/frontmatter.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-215": [
+      "src/core/frontmatter/frontmatterChanges.ts",
+      "src/core/frontmatter/propertiesTable.ts",
+      "src/page/modules/incomingChanges.ts",
+      "src/session/features/incomingChanges.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-043": [
+      "src/core/frontmatter/frontmatterParse.ts",
+      "src/core/frontmatter/frontmatterSerialize.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-001": [
+      "src/core/frontmatter/frontmatterParse.ts",
+      "src/core/frontmatter/okfFrontmatter.ts",
+      "src/core/render/mystRenderer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-023": [
+      "src/core/frontmatter/frontmatterParse.ts",
+      "src/core/frontmatter/okfFrontmatter.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-004": [
+      "src/core/frontmatter/frontmatterSerialize.ts",
+      "src/page/features/frontmatterValueEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-029": [
+      "src/core/frontmatter/frontmatterValidate.ts",
+      "src/core/frontmatter/propertiesTable.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-084": [
+      "src/core/frontmatter/frontmatterValidate.ts",
+      "src/core/frontmatter/okfFrontmatter.ts",
+      "src/core/frontmatter/propertiesTable.ts",
+      "src/core/frontmatter/schemaValidator.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-039": [
+      "src/core/frontmatter/frontmatterValidate.ts",
+      "src/core/frontmatter/okfFrontmatter.ts",
+      "src/core/frontmatter/propertiesTable.ts",
+      "src/page/features/pageInput.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-005": [
+      "src/core/frontmatter/okfFrontmatter.ts",
+      "src/core/frontmatter/propertiesTable.ts",
+      "src/core/preview/styles/propertiesStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-006": [
+      "src/core/frontmatter/propertiesTable.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-090": [
+      "src/core/frontmatter/propertiesTable.ts",
+      "src/page/features/pageInput.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-027": [
+      "src/core/frontmatter/schemaRegistry.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-124": [
+      "src/core/mapping/blockMove.ts",
+      "src/core/mapping/blockRange.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-156": [
+      "src/core/mapping/blockMove.ts",
+      "src/page/features/blockMoves.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-256": [
+      "src/core/mapping/blockRange.ts",
+      "src/session/features/blockEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-166": [
+      "src/core/mapping/blockRange.ts",
+      "src/page/features/blockSelectionView.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-169": [
+      "src/core/mapping/blockRange.ts",
+      "src/page/features/blockSelectionView.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-174": [
+      "src/core/mapping/blockRange.ts",
+      "src/page/features/blockSelectionView.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-004": [
+      "src/core/mapping/dropReferences.ts",
+      "src/core/protocol/pageToHost.ts",
+      "src/page/features/fileDrop.ts",
+      "src/page/modules/dropFiles.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-094": [
+      "src/core/mapping/insertion.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-200": [
+      "src/core/mapping/lineDiff.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-010": [
+      "src/core/mapping/lineDiff.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-178": [
+      "src/core/mapping/mystTargets.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-196": [
+      "src/core/mapping/pastedImage.ts",
+      "src/session/features/hostRequests.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-005": [
+      "src/core/mapping/wordDiff.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-009": [
+      "src/core/mapping/wordDiff.ts",
+      "src/page/features/hostHandlers.ts",
+      "src/page/modules/sideBySide.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-066": [
+      "src/core/myst/confLocator.ts",
+      "src/core/myst/confParser.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-102": [
+      "src/core/navigation/previewNavigation.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-238": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/editPalette.ts",
+      "src/page/modules/slashMenu.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-268": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-263": [
+      "src/core/palette/paletteActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-275": [
+      "src/core/palette/paletteActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-043": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-052": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-003": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-106": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/tableEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-266": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/editActions.ts",
+      "src/page/modules/inlineEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-017": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-111": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/tableEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-127": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-133": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-270": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/features/editorChrome.ts",
+      "src/page/modules/cardGridDirectives.ts",
+      "src/page/modules/directivePanel.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-271": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/features/editorChrome.ts",
+      "src/page/modules/cardGridDirectives.ts",
+      "src/page/modules/directivePanel.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-273": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-272": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/features/editorChrome.ts",
+      "src/page/modules/codeBlockDirective.ts",
+      "src/page/modules/codeBlockPanel.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-265": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-274": [
+      "src/core/palette/paletteActions.ts",
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-002": [
+      "src/core/palette/paletteIcons.ts",
+      "src/core/preview/styles/pageChromeStyles.ts",
+      "src/page/modules/editPalette.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-229": [
+      "src/core/paste/htmlToMarkdown.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-217": [
+      "src/core/paste/htmlToMarkdown.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-269": [
+      "src/core/preview/calloutIcons.ts",
+      "src/page/modules/blockEditActions.ts",
+      "src/page/modules/editActions.ts",
+      "src/page/modules/editPalette.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-043": [
+      "src/core/preview/contentPatch.ts",
+      "src/core/preview/styles/pageChromeStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-069": [
+      "src/core/preview/contentPatch.ts",
+      "src/page/features/contentPatch.ts",
+      "src/page/features/insertPoints.ts",
+      "src/page/features/scrollCore.ts",
+      "src/page/features/tableCellEditor.ts",
+      "src/page/modules/contentMorph.ts",
+      "src/session/features/rendering.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-205": [
+      "src/core/preview/flushWait.ts",
+      "src/page/features/blockEditor.ts",
+      "src/page/features/editMode.ts",
+      "src/page/features/hostHandlers.ts",
+      "src/page/modules/historyControls.ts",
+      "src/session/features/blockEdits.ts",
+      "src/session/features/history.ts",
+      "src/session/features/links.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-049": [
+      "src/core/preview/previewStatus.ts",
+      "src/page/features/statusRegion.ts",
+      "src/session/features/pageDocument.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-025": [
+      "src/core/preview/previewStatus.ts",
+      "src/session/features/rendering.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-072": [
+      "src/core/preview/previewStatus.ts",
+      "src/core/render/mystRenderer.ts",
+      "src/core/render/mystSyntaxDetect.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-001": [
+      "src/core/preview/previewToolbar.ts",
+      "src/core/preview/styles/pageChromeStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-034": [
+      "src/core/preview/themeTokens.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-052": [
+      "src/core/protocol/envelope.ts",
+      "src/core/protocol/pageToHost.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-054": [
+      "src/core/protocol/hostToPage.ts",
+      "src/core/protocol/pageToHost.ts",
+      "src/page/modules/historyControls.ts",
+      "src/session/features/history.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-120": [
+      "src/core/protocol/hostToPage.ts",
+      "src/core/protocol/pageToHost.ts",
+      "src/page/features/anchorMode.ts",
+      "src/session/features/scrollSync.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-061": [
+      "src/core/protocol/hostToPage.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-007": [
+      "src/core/protocol/hostToPage.ts",
+      "src/core/protocol/pageToHost.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-062": [
+      "src/core/protocol/hostToPage.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-109": [
+      "src/core/protocol/hostToPage.ts",
+      "src/core/preview/styles/editModeStyles.ts",
+      "src/page/features/blockMoves.ts",
+      "src/page/features/blockSelectionView.ts",
+      "src/page/features/editMode.ts",
+      "src/page/features/insertPoints.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-063": [
+      "src/core/protocol/hostToPage.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-064": [
+      "src/core/protocol/hostToPage.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-090": [
+      "src/core/protocol/pageToHost.ts",
+      "src/page/features/hostHandlers.ts",
+      "src/page/modules/editPalettePopovers.ts",
+      "src/page/modules/hostRequests.ts",
+      "src/page/modules/pasteHtml.ts",
+      "src/page/modules/pasteImage.ts",
+      "src/session/features/comments.ts",
+      "src/session/features/hostRequests.ts",
+      "src/session/features/plantUml.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-079": [
+      "src/core/protocol/pageToHost.ts",
+      "src/page/modules/linkNavigation.ts",
+      "src/session/features/links.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-013": [
+      "src/core/protocol/pageToHost.ts",
+      "src/session/features/viewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-259": [
+      "src/core/protocol/pageToHost.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-054": [
+      "src/core/protocol/pageToHost.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-026": [
+      "src/core/protocol/pageToHost.ts",
+      "src/session/features/hostRequests.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-010": [
+      "src/core/protocol/pageToHost.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-051": [
+      "src/core/protocol/pageToHost.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-178": [
+      "src/core/protocol/pageToHost.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-069": [
+      "src/core/protocol/pageToHost.ts",
+      "src/session/features/comments.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-070": [
+      "src/core/protocol/pageToHost.ts",
+      "src/session/features/comments.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-071": [
+      "src/core/protocol/pageToHost.ts",
+      "src/session/features/comments.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-050": [
+      "src/core/protocol/pageToHost.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-086": [
+      "src/core/protocol/pageToHost.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-121": [
+      "src/core/render/chartData.ts",
+      "src/core/render/mystNormalize.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-122": [
+      "src/core/render/chartInline.ts",
+      "src/core/render/mystNormalize.ts",
+      "src/core/render/mystRenderer.ts",
+      "src/page/modules/vegaChart.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-016": [
+      "src/core/render/checkboxMarkers.ts",
+      "src/core/render/mystInlineTransforms.ts",
+      "src/core/security/html-sanitizer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-133": [
+      "src/core/render/commentMarkers.ts",
+      "src/core/render/mystGridToctree.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-003": [
+      "src/core/render/commentMarkers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-139": [
+      "src/core/render/commentMarkers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-057": [
+      "src/core/render/documentGlob.ts",
+      "src/core/render/mystGridToctree.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-079": [
+      "src/core/render/frontmatterValues.ts",
+      "src/core/preview/styles/frontmatterValueStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-008": [
+      "src/core/render/highlight.ts",
+      "src/core/preview/styles/contentBlockStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-005": [
+      "src/core/render/highlight.ts",
+      "src/core/render/mystNormalize.ts",
+      "src/core/preview/styles/codeBlockStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-001": [
+      "src/core/render/highlight.ts",
+      "src/core/render/mystRenderer.ts",
+      "src/core/preview/styles/codeBlockStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-014": [
+      "src/core/render/highlight.ts",
+      "src/core/render/mystNormalize.ts",
+      "src/core/preview/styles/contentBlockStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-024": [
+      "src/core/render/mathRenderer.ts",
+      "src/core/render/mystInlineTransforms.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-019": [
+      "src/core/render/mystBlockTransforms.ts",
+      "src/core/render/mystInlineTransforms.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-017": [
+      "src/core/render/mystBlockTransforms.ts",
+      "src/core/render/mystRenderer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-029": [
+      "src/core/render/mystBlockTransforms.ts",
+      "src/core/render/mystRenderer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-003": [
+      "src/core/render/mystBlockTransforms.ts",
+      "src/core/render/mystNode.ts",
+      "src/core/render/mystNormalize.ts",
+      "src/core/render/mystRenderer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-008": [
+      "src/core/render/mystBlockTransforms.ts",
+      "src/core/security/html-sanitizer.ts",
+      "src/core/preview/styles/commentStyles.ts",
+      "src/core/preview/styles/contentBlockStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-013": [
+      "src/core/render/mystContextTags.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-012": [
+      "src/core/render/mystContextTags.ts",
+      "src/core/render/mystNormalize.ts",
+      "src/core/render/mystRenderer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-096": [
+      "src/core/render/mystDirectiveErrors.ts",
+      "src/core/render/mystUnclosedFences.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-008": [
+      "src/core/render/mystEngine.ts",
+      "src/core/render/mystRenderer.ts",
+      "src/core/render/mystTables.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-001": [
+      "src/core/render/mystEngine.ts",
+      "src/core/render/mystRenderer.ts",
+      "src/core/render/renderPipeline.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-260": [
+      "src/core/render/mystGridToctree.ts",
+      "src/core/security/html-sanitizer.ts",
+      "src/core/preview/styles/editModeStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-053": [
+      "src/core/render/mystGridToctree.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-100": [
+      "src/core/render/mystGridToctree.ts",
+      "src/core/preview/styles/contentBlockStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-098": [
+      "src/core/render/mystGridToctree.ts",
+      "src/core/render/mystNode.ts",
+      "src/core/render/mystNormalize.ts",
+      "src/core/preview/styles/contentBlockStyles.ts",
+      "src/page/features/editMode.ts",
+      "src/page/features/pageInput.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-257": [
+      "src/core/render/mystGridToctree.ts",
+      "src/core/preview/styles/gridCardEditStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-036": [
+      "src/core/render/mystInlineTransforms.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-010": [
+      "src/core/render/mystInlineTransforms.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-001": [
+      "src/core/render/mystInlineTransforms.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-101": [
+      "src/core/render/mystNestedBlockBreaks.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-068": [
+      "src/core/render/mystNormalize.ts",
+      "src/core/render/mystRenderer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-022": [
+      "src/core/render/mystNormalize.ts",
+      "src/core/preview/styles/contentBlockStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-071": [
+      "src/core/render/mystRawHtml.ts",
+      "src/core/preview/styles/htmlBlockStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-014": [
+      "src/core/render/mystRenderer.ts",
+      "src/core/preview/styles/contentBlockStyles.ts",
+      "src/core/preview/styles/editModeStyles.ts",
+      "src/page/features/blockEditor.ts",
+      "src/page/features/editMode.ts",
+      "src/page/features/linkEditing.ts",
+      "src/page/features/mappedBlocks.ts",
+      "src/page/features/pageInput.ts",
+      "src/page/modules/linkNavigation.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-013": [
+      "src/core/render/mystRenderer.ts",
+      "src/core/render/renderPipeline.ts",
+      "src/core/security/resource-policy.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-031": [
+      "src/core/render/mystTables.ts",
+      "src/core/security/html-sanitizer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-070": [
+      "src/core/render/mystTightness.markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-072": [
+      "src/core/render/mystToc.ts",
+      "src/core/preview/styles/tocStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-054": [
+      "src/core/render/plantUmlIncludes.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-097": [
+      "src/core/render/plantUmlRenderer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-089": [
+      "src/core/render/plantUmlRenderer.ts",
+      "src/session/features/plantUml.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-105": [
+      "src/core/render/plantUmlRenderer.ts",
+      "src/session/features/plantUml.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-069": [
+      "src/core/render/requirementsViewer.markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-080": [
+      "src/core/render/requirementsViewer.markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-081": [
+      "src/core/render/requirementsViewer.markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-082": [
+      "src/core/render/requirementsViewer.markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-083": [
+      "src/core/render/requirementsViewer.markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-084": [
+      "src/core/render/requirementsViewer.markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-085": [
+      "src/core/render/requirementsViewer.markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-087": [
+      "src/core/render/requirementsViewer.markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-086": [
+      "src/core/render/siteTheme.markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-125": [
+      "src/core/render/svgPictures.ts",
+      "src/core/security/svgSanitizer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-127": [
+      "src/core/render/svgPictures.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-119": [
+      "src/core/scroll/anchorPolicy.ts",
+      "src/core/security/html-sanitizer.ts",
+      "src/page/features/scrollCore.ts",
+      "src/session/features/scrollSync.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-041": [
+      "src/core/security/html-sanitizer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-034": [
+      "src/core/security/html-sanitizer.ts",
+      "src/core/security/spanColors.ts",
+      "src/page/modules/spanColors.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-011": [
+      "src/core/security/html-sanitizer.ts",
+      "src/session/features/rendering.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-025": [
+      "src/core/security/html-sanitizer.ts",
+      "src/core/security/resource-policy.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-036": [
+      "src/core/security/html-sanitizer.ts",
+      "src/core/security/svgSanitizer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-126": [
+      "src/core/security/svgSanitizer.ts",
+      "src/core/preview/styles/svgPictureStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-191": [
+      "src/core/state/blockRange.ts",
+      "src/core/state/editLock.ts",
+      "src/page/features/hostHandlers.ts",
+      "src/session/features/blockEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-004": [
+      "src/core/state/headingFold.ts",
+      "src/page/features/contentPatch.ts",
+      "src/page/modules/headingFold.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-059": [
+      "src/core/state/navigationHistory.ts",
+      "src/session/features/history.ts",
+      "src/session/features/links.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-115": [
+      "src/core/syntax/blockQuoteRange.ts",
+      "src/page/modules/blockEditActions.ts",
+      "src/page/modules/editPalette.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-097": [
+      "src/core/syntax/markdownSyntax.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-028": [
+      "src/core/preview/styles/commentStyles.ts",
+      "src/page/modules/commentThreads.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-143": [
+      "src/core/preview/styles/commentStyles.ts",
+      "src/page/modules/chipToggle.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-002": [
+      "src/core/preview/styles/commentStyles.ts",
+      "src/core/preview/styles/pageChromeStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-007": [
+      "src/core/preview/styles/contentBlockStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-028": [
+      "src/core/preview/styles/contentBlockStyles.ts",
+      "src/core/preview/styles/contentLayoutStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-034": [
+      "src/core/preview/styles/contentBlockStyles.ts",
+      "src/core/preview/styles/contentLayoutStyles.ts",
+      "src/core/preview/styles/tableStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-032": [
+      "src/core/preview/styles/contentBlockStyles.ts",
+      "src/page/modules/plantumlDiagram.ts",
+      "src/page/modules/plantumlPreview.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-043": [
+      "src/core/preview/styles/contentBlockStyles.ts",
+      "src/core/preview/styles/contentLayoutStyles.ts",
+      "src/page/modules/firstClearance.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-007": [
+      "src/core/preview/styles/contentLayoutStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-037": [
+      "src/core/preview/styles/contentLayoutStyles.ts",
+      "src/page/modules/tocColumn.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-045": [
+      "src/core/preview/styles/contentLayoutStyles.ts",
+      "src/page/modules/tocColumn.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-025": [
+      "src/core/preview/styles/contentLayoutStyles.ts",
+      "src/core/preview/styles/pageChromeStyles.ts",
+      "src/page/features/stickyHeadings.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-001": [
+      "src/core/preview/styles/contentLayoutStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-022": [
+      "src/core/preview/styles/contentLayoutStyles.ts",
+      "src/page/modules/widthMode.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-021": [
+      "src/core/preview/styles/contentLayoutStyles.ts",
+      "src/core/preview/styles/editPaletteStyles.ts",
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/features/editorChrome.ts",
+      "src/page/features/scrollCore.ts",
+      "src/page/modules/caretRect.ts",
+      "src/session/features/blockEdits.ts",
+      "src/session/features/scrollSync.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-001": [
+      "src/core/preview/styles/contentLayoutStyles.ts",
+      "src/page/features/themeMode.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-017": [
+      "src/core/preview/styles/editModeStyles.ts",
+      "src/page/features/editMode.ts",
+      "src/page/features/linkEditing.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-140": [
+      "src/core/preview/styles/editModeStyles.ts",
+      "src/page/features/blockSelectionView.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-254": [
+      "src/core/preview/styles/editModeStyles.ts",
+      "src/page/features/blockSelectionView.ts",
+      "src/page/features/mappedBlocks.ts",
+      "src/page/features/structuralNavigationView.ts",
+      "src/page/modules/structuralCursor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-087": [
+      "src/core/preview/styles/editModeStyles.ts",
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/features/insertPoints.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-033": [
+      "src/core/preview/styles/editModeStyles.ts",
+      "src/page/features/blockEditor.ts",
+      "src/page/features/blockSourceEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-006": [
+      "src/core/preview/styles/editModeStyles.ts",
+      "src/page/features/tableCellEditor.ts",
+      "src/page/modules/cellEditorRoom.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-048": [
+      "src/core/preview/styles/editModeStyles.ts",
+      "src/page/features/tableCellEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-064": [
+      "src/core/preview/styles/editModeStyles.ts",
+      "src/page/features/blockEditor.ts",
+      "src/page/features/editorChrome.ts",
+      "src/page/features/tableCellEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-252": [
+      "src/core/preview/styles/editPaletteStyles.ts",
+      "src/page/modules/slashMenu.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-025": [
+      "src/core/preview/styles/pageChromeStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-130": [
+      "src/core/preview/styles/pageChromeStyles.ts",
+      "src/core/preview/styles/propertiesStyles.ts",
+      "src/page/features/scrollCore.ts",
+      "src/page/modules/toolbarCollapse.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-129": [
+      "src/core/preview/styles/pageChromeStyles.ts",
+      "src/core/preview/styles/propertiesStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-031": [
+      "src/core/preview/styles/pageChromeStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-050": [
+      "src/core/preview/styles/propertiesStyles.ts",
+      "src/page/features/themeMode.ts",
+      "src/page/modules/motion.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-077": [
+      "src/core/preview/styles/tableStyles.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-032": [
+      "src/core/preview/styles/tableStyles.ts",
+      "src/page/features/scrollCore.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-228": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/editorChrome.ts",
+      "src/page/features/scrollCore.ts",
+      "src/session/features/scrollSync.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-089": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/editorChrome.ts",
+      "src/page/modules/linkEditActions.ts",
+      "src/page/modules/linkPanel.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-148": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/blockSelectionView.ts",
+      "src/page/features/mappedBlocks.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-085": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/tableCellEditor.ts",
+      "src/page/features/textControls.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-079": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/textControls.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-130": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/blockMoves.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-041": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/blockMoves.ts",
+      "src/page/features/blockSelectionView.ts",
+      "src/page/features/checkboxes.ts",
+      "src/page/features/editMode.ts",
+      "src/page/features/editorChrome.ts",
+      "src/page/features/frontmatterEditor.ts",
+      "src/page/features/frontmatterValueEditor.ts",
+      "src/page/features/insertPoints.ts",
+      "src/page/features/pageInput.ts",
+      "src/page/modules/inlineThread.ts",
+      "src/page/modules/labelRename.ts",
+      "src/session/features/blockEdits.ts",
+      "src/session/features/sourceEdits.ts",
+      "src/session/features/viewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-102": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/insertPoints.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-001": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/features/editMode.ts",
+      "src/page/features/tableCellEditor.ts",
+      "src/page/modules/markdownTable.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-261": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/blockSourceEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-255": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/features/tableCellEditor.ts",
+      "src/page/features/textControls.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-047": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/modules/hostRequests.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-018": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/editMode.ts",
+      "src/page/features/pageInput.ts",
+      "src/page/features/tableCellEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-053": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/blockSourceEditor.ts",
+      "src/session/features/blockEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-025": [
+      "src/page/features/blockEditor.ts",
+      "src/page/features/editMode.ts",
+      "src/page/features/tableCellEditor.ts",
+      "src/page/modules/tableTabRow.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-004": [
+      "src/page/features/blockSelectionView.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-121": [
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/features/editMode.ts",
+      "src/page/features/tableCellEditor.ts",
+      "src/page/features/tableRowMove.ts",
+      "src/page/modules/tableInContainer.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-216": [
+      "src/page/features/blockSourceEditor.ts",
+      "src/session/features/blockEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-034": [
+      "src/page/features/blockSourceEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-213": [
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/modules/pasteHtml.ts",
+      "src/session/features/hostRequests.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-264": [
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/modules/pasteUrl.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-232": [
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/modules/slashMenu.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-031": [
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/modules/editPalette.ts",
+      "src/page/modules/editPalettePopovers.ts",
+      "src/page/modules/figurePanel.ts",
+      "src/page/modules/linkPanel.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-069": [
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/features/textControls.ts",
+      "src/page/modules/editorKeys.ts",
+      "src/page/modules/linkEditActions.ts",
+      "src/page/modules/selectAllKey.ts",
+      "src/page/modules/textEditing.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-017": [
+      "src/page/features/blockSourceEditor.ts",
+      "src/page/modules/editPalette.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-017": [
+      "src/page/features/contentPatch.ts",
+      "src/page/modules/codeCopy.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-001": [
+      "src/page/features/editMode.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-019": [
+      "src/page/features/editMode.ts",
+      "src/page/features/frontmatterEditor.ts",
+      "src/page/features/frontmatterValueEditor.ts",
+      "src/page/features/pageInput.ts",
+      "src/page/features/textControls.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-008": [
+      "src/page/features/editMode.ts",
+      "src/page/modules/sideBySide.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-026": [
+      "src/page/features/editMode.ts",
+      "src/page/features/textControls.ts",
+      "src/page/modules/textEditing.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-036": [
+      "src/page/features/editorChrome.ts",
+      "src/page/modules/editPalette.ts",
+      "src/page/modules/editPalettePopovers.ts",
+      "src/page/modules/figurePanel.ts",
+      "src/page/modules/linkPanel.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-160": [
+      "src/page/features/editorChrome.ts",
+      "src/page/modules/figureDirective.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-150": [
+      "src/page/features/editorChrome.ts",
+      "src/page/modules/blockEditActions.ts",
+      "src/page/modules/editPalette.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-153": [
+      "src/page/features/editorChrome.ts",
+      "src/page/modules/figureDirective.ts",
+      "src/page/modules/figurePanel.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-001": [
+      "src/page/features/frontmatterEditor.ts",
+      "src/page/features/frontmatterValueEditor.ts",
+      "src/page/features/pageInput.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-028": [
+      "src/page/features/frontmatterMenu.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-003": [
+      "src/page/features/frontmatterValueEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-043": [
+      "src/page/features/hostHandlers.ts",
+      "src/session/features/frontmatter.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-156": [
+      "src/page/features/hostHandlers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-253": [
+      "src/page/features/insertPoints.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-077": [
+      "src/page/features/linkEditing.ts",
+      "src/page/modules/linkNavigation.ts",
+      "src/session/features/links.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-008": [
+      "src/page/features/mappedBlocks.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-108": [
+      "src/page/features/pageInput.ts",
+      "src/page/features/scrollCore.ts",
+      "src/session/features/scrollSync.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-023": [
+      "src/page/features/scrollCore.ts",
+      "src/page/modules/widthMode.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-006": [
+      "src/page/features/scrollCore.ts",
+      "src/page/modules/headingFold.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-117": [
+      "src/page/features/scrollCore.ts",
+      "src/session/features/links.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-030": [
+      "src/page/features/stickyHeadings.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-126": [
+      "src/page/features/tableCellEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-125": [
+      "src/page/features/tableCellEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-123": [
+      "src/page/features/tableCellEditor.ts",
+      "src/page/features/textControls.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-124": [
+      "src/page/features/tableCellEditor.ts",
+      "src/page/modules/tableTabRow.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-013": [
+      "src/page/features/tableCellEditor.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-120": [
+      "src/page/features/tableCellEditor.ts",
+      "src/page/modules/tableGridPaste.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-055": [
+      "src/page/features/tableCellEditor.ts",
+      "src/page/modules/markdownTable.ts",
+      "src/page/modules/tableStructure.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-122": [
+      "src/page/features/tableCellEditor.ts",
+      "src/page/modules/tableConversion.ts",
+      "src/page/modules/tableEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-002": [
+      "src/page/features/tableRowMove.ts",
+      "src/page/modules/listTableMove.ts",
+      "src/page/modules/markdownTable.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-007": [
+      "src/page/features/tableRowMove.ts",
+      "src/page/modules/listTableMove.ts",
+      "src/page/modules/markdownTable.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-039": [
+      "src/page/features/textControls.ts",
+      "src/page/modules/editActionHelpers.ts",
+      "src/page/modules/editPalette.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-049": [
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-053": [
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-054": [
+      "src/page/modules/blockEditActions.ts",
+      "src/page/modules/editActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-050": [
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-123": [
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-267": [
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-124": [
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-125": [
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-130": [
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-132": [
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-109": [
+      "src/page/modules/blockEditActions.ts",
+      "src/page/modules/editPalette.ts",
+      "src/page/modules/linkEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-137": [
+      "src/page/modules/blockEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-123": [
+      "src/page/modules/chartError.ts",
+      "src/page/modules/vegaChart.ts",
+      "src/page/modules/vegaPreview.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-019": [
+      "src/page/modules/codeCopy.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-058": [
+      "src/page/modules/colourEditActions.ts",
+      "src/page/modules/editPalettePopovers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-069": [
+      "src/page/modules/colourEditActions.ts",
+      "src/page/modules/editPalette.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-049": [
+      "src/page/modules/commentCompose.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-217": [
+      "src/page/modules/commentCompose.ts",
+      "src/page/modules/commentEditorBehaviour.ts",
+      "src/page/modules/commentThreads.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-038": [
+      "src/page/modules/commentCompose.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-218": [
+      "src/page/modules/commentCompose.ts",
+      "src/page/modules/commentEditorBehaviour.ts",
+      "src/page/modules/commentThreads.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-044": [
+      "src/page/modules/commentCompose.ts",
+      "src/session/features/comments.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-216": [
+      "src/page/modules/commentThreadData.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-086": [
+      "src/page/modules/commentThreads.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-017": [
+      "src/page/modules/commentThreads.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-081": [
+      "src/page/modules/commentThreads.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-021": [
+      "src/page/modules/commentThreads.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-160": [
+      "src/page/modules/editActions.ts",
+      "src/page/modules/inlineEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-149": [
+      "src/page/modules/editActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-083": [
+      "src/page/modules/editActions.ts",
+      "src/page/modules/editPalette.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-078": [
+      "src/page/modules/editPalette.ts",
+      "src/page/modules/editPalettePopovers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-148": [
+      "src/page/modules/editPalette.ts",
+      "src/page/modules/inlineEditActions.ts",
+      "src/session/features/hostRequests.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-242": [
+      "src/page/modules/editPalette.ts",
+      "src/page/modules/slashMenu.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-072": [
+      "src/page/modules/editPalettePopovers.ts",
+      "src/page/modules/inlineEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-140": [
+      "src/page/modules/editPalettePopovers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-011": [
+      "src/page/modules/firstClearance.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-046": [
+      "src/page/modules/hostRequests.ts",
+      "src/page/modules/plantumlDiagram.ts",
+      "src/page/modules/plantumlFileRequests.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-207": [
+      "src/page/modules/incomingChanges.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-208": [
+      "src/page/modules/incomingChanges.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-045": [
+      "src/page/modules/inlineEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-114": [
+      "src/page/modules/inlineEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-048": [
+      "src/page/modules/inlineEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-135": [
+      "src/page/modules/inlineEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-136": [
+      "src/page/modules/inlineEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-147": [
+      "src/page/modules/inlineEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-138": [
+      "src/page/modules/inlineEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-126": [
+      "src/page/modules/inlineEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-171": [
+      "src/page/modules/inlineThread.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-092": [
+      "src/page/modules/linkEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-085": [
+      "src/page/modules/linkNavigation.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-094": [
+      "src/page/modules/markdownTable.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-091": [
+      "src/page/modules/markdownTable.ts",
+      "src/page/modules/textEditing.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-117": [
+      "src/page/modules/markdownTable.ts",
+      "src/page/modules/tableEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-009": [
+      "src/page/modules/mermaidCache.ts",
+      "src/page/modules/mermaidPreview.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-015": [
+      "src/page/modules/mermaidError.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-005": [
+      "src/page/modules/mermaidPreview.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-203": [
+      "src/page/modules/pasteImage.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-074": [
+      "src/page/modules/plantumlBundle.markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-061": [
+      "src/page/modules/plantumlDiagram.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-039": [
+      "src/page/modules/plantumlDiagram.ts",
+      "src/page/modules/plantumlPreview.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-240": [
+      "src/page/modules/slashMenu.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-256": [
+      "src/page/modules/slashMenu.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-115": [
+      "src/page/modules/tableEditActions.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-099": [
+      "src/page/modules/tabs.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-061": [
+      "src/page/modules/textEditing.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-040": [
+      "src/page/modules/tocColumn.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-033": [
+      "src/page/modules/tocColumn.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-007": [
+      "src/page/modules/toolbarCollapse.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-038": [
+      "src/page/modules/viewControls.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-044": [
+      "src/page/modules/widthMode.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-006": [
+      "src/session/features/baselineDiff.ts",
+      "src/session/features/incomingChanges.ts",
+      "src/session/features/viewState.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-058": [
+      "src/session/features/blockEdits.ts",
+      "src/session/features/frontmatter.ts",
+      "src/session/features/sourceEdits.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-012": [
+      "src/session/features/comments.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-219": [
+      "src/session/features/comments.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-119": [
+      "src/session/features/comments.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-125": [
+      "src/session/features/comments.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-192": [
+      "src/session/features/hostRequests.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-195": [
+      "src/session/features/incomingChanges.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-073": [
+      "src/session/features/links.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-073": [
+      "skills/writing-for-markdown-okf-schema-studio/SKILL.md"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-074": [
+      "skills/writing-for-markdown-okf-schema-studio/SKILL.md"
+    ]
+  },
+  "tested": {
+    "SwRS-MDOKFSTUDIO-CODE-001": [
+      "test/build/bundleSplit.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/codeBlockStyles.test.ts",
+      "test/core/render/codeBlockComfort.requirements.test.ts",
+      "test/core/render/contentCaches.test.ts",
+      "test/core/render/highlight.test.ts",
+      "test/core/render/renderReq.codeBlocks.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-024": [
+      "test/build/bundleSplit.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/render/contentCaches.test.ts",
+      "test/core/render/mathRenderer.test.ts",
+      "test/core/render/mystPaletteRendering.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-001": [
+      "test/build/bundleSplit.test.ts",
+      "test/integration/projectFeatures.test.ts",
+      "test/page/diagReq.diagramEdit.requirements.test.ts",
+      "test/page/mermaidLabelFit.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/contentPatch.test.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/render/mystFeatures.test.ts",
+      "test/page/modules/mermaidPreviewEntry.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-004": [
+      "test/build/integrationEditModeRestore.test.ts",
+      "test/integration/windowSwitchKeys.test.ts",
+      "test/page/runtimeBlockSelection.test.ts",
+      "test/visual/scenarioDefinitions1.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-264": [
+      "test/build/integrationEditModeRestore.test.ts",
+      "test/integration/pasteUrl.test.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/page/modules/pasteUrl.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-070": [
+      "test/build/mystSourcePatches.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-074": [
+      "test/build/test_plugin_manifests.py"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-075": [
+      "test/build/test_plugin_manifests.py",
+      "test/build/test_release.py"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-078": [
+      "test/build/test_release.py",
+      "test/build/test_workflows.py"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-076": [
+      "test/build/test_release.py",
+      "test/build/test_select_e2e_run.py",
+      "test/build/test_workflows.py",
+      "test/site/e2eCampaign.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-064": [
+      "test/build/test_table_bar_flow.py",
+      "test/integration/tableStructureReal.ts",
+      "test/page/fmtableReqTable.requirements.test.ts",
+      "test/page/runtimeTableCellEditor.test.ts",
+      "test/visual/capture_support.py",
+      "test/visual/capture_table_menu.py",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-005": [
+      "test/host/fmtableReq.requirements.test.ts",
+      "test/integration/blockClipboard.test.ts",
+      "test/integration/blockMove.test.ts",
+      "test/integration/commentWrite.test.ts",
+      "test/integration/imagePaste.test.ts",
+      "test/integration/standalone-suite.ts",
+      "test/integration/untrusted-suite.ts",
+      "test/session/blockReq.requirements.test.ts",
+      "test/session/checkboxRefusal.test.ts",
+      "test/session/dropFiles.requirements.test.ts",
+      "test/session/paletteReq.requirements.test.ts",
+      "test/session/renderReq.labelRename.requirements.test.ts",
+      "test/session/reviewReqComments.requirements.test.ts",
+      "test/session/reviewReqThreads.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-001": [
+      "test/host/fmtableReq.requirements.test.ts",
+      "test/host/lifeReq.requirements.test.ts",
+      "test/integration/commentWrite.test.ts",
+      "test/integration/standalone-suite.ts",
+      "test/integration/untrusted-suite.ts",
+      "test/security/trustReq.requirements.test.ts",
+      "test/session/blockReq.requirements.test.ts",
+      "test/session/dropFiles.requirements.test.ts",
+      "test/session/readOnlyFirstLoad.test.ts",
+      "test/session/readOnlyImagesSession.test.ts",
+      "test/session/renderReq.labelRename.requirements.test.ts",
+      "test/session/reviewReqThreads.requirements.test.ts",
+      "test/visual/capture_layout_checks.py",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/page/modules/commentThreads.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-065": [
+      "test/host/fmtableReq.requirements.test.ts",
+      "test/integration/blockClipboard.test.ts",
+      "test/integration/blockMove.test.ts",
+      "test/integration/commentWrite.test.ts",
+      "test/integration/labelRename.test.ts",
+      "test/session/blockReq.requirements.test.ts",
+      "test/session/diagReq.plantuml.requirements.test.ts",
+      "test/session/paletteReq.requirements.test.ts",
+      "test/session/renderReq.codeCopy.requirements.test.ts",
+      "test/session/reviewReqThreads.requirements.test.ts",
+      "test/session/toolbarReq.requirements.test.ts",
+      "test/session/trustReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-058": [
+      "test/host/fmtableReq.requirements.test.ts",
+      "test/host-vscode/documents.test.ts",
+      "test/integration/blockClipboard.test.ts",
+      "test/integration/blockMove.test.ts",
+      "test/integration/checkboxToggle.test.ts",
+      "test/integration/inlineThread.test.ts",
+      "test/integration/previewEditing.test.ts",
+      "test/session/blockReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-062": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/host-memory/memoryHostSession.test.ts",
+      "test/integration/serializer.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-044": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/integration/dirtySnapshots.test.ts",
+      "test/session/eventFanOut.test.ts",
+      "test/core/configuration/previewConfiguration.test.ts",
+      "test/node-services/build/buildQueue.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-049": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/host/previewTiming.test.ts",
+      "test/integration/dirtySnapshots.test.ts",
+      "test/integration/lifecycle.test.ts",
+      "test/integration/stockCoexistence.test.ts",
+      "test/page/lifeReq.requirements.test.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/node-services/build/buildQueue.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-032": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/host/previewTiming.test.ts",
+      "test/integration/lifecycle.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/security/package-contract.test.ts",
+      "test/session/previewManager.test.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-003": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/integration/lifecycle.test.ts",
+      "test/security/package-contract.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-143": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/host/previewTiming.test.ts",
+      "test/integration/lifecycle.test.ts",
+      "test/integration/workspaceDisposal.test.ts",
+      "test/session/eventFanOut.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-026": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/integration/lifecycle.test.ts",
+      "test/core/preview/flushWait.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-151": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/host-vscode/groupFocus.test.ts",
+      "test/integration/realInput/previewWindow.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-127": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/integration/serializer.test.ts",
+      "test/core/state/previewState.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-018": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/integration/stockCoexistence.test.ts",
+      "test/security/package-contract.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-100": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/integration/scroll-sync-suite.ts",
+      "test/integration/sourceMapping.test.ts",
+      "test/page/pageSettings.test.ts",
+      "test/page/runtimeBundle.test.ts",
+      "test/page/runtimeContentPatch.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/session/lifeReq.requirements.test.ts",
+      "test/core/scroll/anchorPolicy.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-014": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/integration/previewEditing.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/frontmatter/propertiesTable.test.ts",
+      "test/core/state/boundedState.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-125": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/integration/lifecycle.test.ts",
+      "test/page/pageTimers.test.ts",
+      "test/core/state/boundedState.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-038": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/integration/serializer.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-024": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/integration/lifecycle.test.ts",
+      "test/integration/serializer.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-039": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/host/previewTiming.test.ts",
+      "test/host-memory/memoryHostSession.test.ts",
+      "test/integration/dirtySnapshots.test.ts",
+      "test/session/eventFanOut.test.ts",
+      "test/session/previewManager.test.ts",
+      "test/session/sharedRenders.test.ts",
+      "test/core/state/editLock.test.ts",
+      "test/node-services/build/buildQueue.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-069": [
+      "test/host/lifeReq.requirements.test.ts",
+      "test/page/runtimeContentPatch.test.ts",
+      "test/page/runtimeTableCellStale.test.ts",
+      "test/core/configuration/previewConfiguration.test.ts",
+      "test/core/preview/contentPatch.test.ts",
+      "test/integration/realInput/tableStaleRender.ts",
+      "test/page/modules/contentMorph.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-071": [
+      "test/host/previewTiming.test.ts",
+      "test/core/preview/contentPatch.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-193": [
+      "test/host/previewTiming.test.ts",
+      "test/page/fmtableReqFrontmatter.requirements.test.ts",
+      "test/page/runtimeBlockSelection.test.ts",
+      "test/page/runtimeFrontmatterFields.test.ts",
+      "test/core/state/editLock.test.ts",
+      "test/integration/realInput/tableStaleRender.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-191": [
+      "test/host/previewTiming.test.ts",
+      "test/integration/previewEditing.test.ts",
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/core/state/blockRange.test.ts",
+      "test/core/state/editLock.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-041": [
+      "test/host/previewTiming.test.ts",
+      "test/integration/radioChoice.test.ts",
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/fmtableReqFrontmatter.requirements.test.ts",
+      "test/page/linkEditModeClick.test.ts",
+      "test/page/runtimeBlockSelection.test.ts",
+      "test/page/runtimeContentPatch.test.ts",
+      "test/page/runtimeFrontmatterEditor.test.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/page/runtimeRadioGroups.test.ts",
+      "test/session/blockReq.requirements.test.ts",
+      "test/session/renderReq.labelRename.requirements.test.ts",
+      "test/session/reviewReqThreads.requirements.test.ts",
+      "test/page/modules/inlineThread.test.ts",
+      "test/page/modules/labelRename.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-119": [
+      "test/host/previewTiming.test.ts",
+      "test/page/runtimeTableCellStale.test.ts",
+      "test/core/protocol/pageStateMessages.test.ts",
+      "test/core/state/editLock.test.ts",
+      "test/integration/realInput/tableStaleRender.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-042": [
+      "test/host/trustReq.requirements.test.ts",
+      "test/security/html-policy.test.ts",
+      "test/security/trustReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-002": [
+      "test/host-memory/memoryHost.test.ts",
+      "test/session/diagReq.viewState.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-067": [
+      "test/host-memory/memoryHostSession.test.ts",
+      "test/integration/previewEditing.test.ts",
+      "test/node-services/linkedTargetWatch.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/session/eventFanOut.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/frontmatter/fileLinks.test.ts",
+      "test/core/frontmatter/frontmatterFence.test.ts",
+      "test/core/frontmatter/propertiesTable.test.ts",
+      "test/core/navigation/previewNavigation.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-054": [
+      "test/host-vscode/fileRename.test.ts",
+      "test/integration/commentWrite.test.ts",
+      "test/node-services/nodeServices.test.ts",
+      "test/session/reviewReqComments.requirements.test.ts",
+      "test/core/comments/commentEditing.test.ts",
+      "test/core/comments/reviewReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-203": [
+      "test/host-vscode/headBaseline.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-065": [
+      "test/host-vscode/headBaselineUserName.test.ts",
+      "test/integration/commentWrite.test.ts",
+      "test/security/package-contract.test.ts",
+      "test/session/commentAuthorResource.test.ts",
+      "test/core/comments/commentEditing.test.ts",
+      "test/core/configuration/commentsConfiguration.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-090": [
+      "test/host-vscode/openExternal.test.ts",
+      "test/session/previewNavigator.test.ts",
+      "test/core/navigation/previewNavigation.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-109": [
+      "test/integration/blockActionsFollowSelection.test.ts",
+      "test/page/runtimeBlockMoves.test.ts",
+      "test/core/preview/blockReq.requirements.test.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-166": [
+      "test/integration/blockClipboard.test.ts",
+      "test/page/runtimeBlockSelection.test.ts",
+      "test/core/edits/sourceEdits.test.ts",
+      "test/core/mapping/blockRange.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-174": [
+      "test/integration/blockClipboard.test.ts",
+      "test/page/runtimeBlockSelection.test.ts",
+      "test/session/blockReq.requirements.test.ts",
+      "test/core/mapping/blockRange.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-127": [
+      "test/integration/blockClipboard.test.ts",
+      "test/integration/blockMove.test.ts",
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/runtimeBlockMoves.test.ts",
+      "test/page/runtimeBlockSelection.test.ts",
+      "test/core/edits/sourceEdits.test.ts",
+      "test/core/mapping/blockMove.test.ts",
+      "test/page/modules/blockSelection.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-124": [
+      "test/integration/blockClipboard.test.ts",
+      "test/integration/blockMove.test.ts",
+      "test/core/mapping/blockMove.test.ts",
+      "test/core/mapping/blockRange.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-117": [
+      "test/integration/blockMove.test.ts",
+      "test/core/edits/sourceEdits.test.ts",
+      "test/core/mapping/blockMove.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-156": [
+      "test/integration/blockMove.test.ts",
+      "test/page/runtimeBlockSelection.test.ts",
+      "test/core/mapping/blockMove.test.ts",
+      "test/integration/realInput/blockKeys.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-012": [
+      "test/integration/commentAnchors.test.ts",
+      "test/integration/commentWrite.test.ts",
+      "test/integration/reviewComments.test.ts",
+      "test/session/reviewReqComments.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-094": [
+      "test/integration/commentAnchors.test.ts",
+      "test/core/comments/anchoring.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-119": [
+      "test/integration/commentAnchors.test.ts",
+      "test/session/reviewReqComments.requirements.test.ts",
+      "test/integration/realInput/tableCommentUndo.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-125": [
+      "test/integration/commentAnchors.test.ts",
+      "test/session/reviewReqComments.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-219": [
+      "test/integration/commentAnchors.test.ts",
+      "test/session/reviewReqComments.requirements.test.ts",
+      "test/integration/realInput/tableCommentUndo.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-002": [
+      "test/integration/commentContrastWindow.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/commentContrast.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-003": [
+      "test/integration/commentTitleWindow.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/render/blockTagTitle.test.ts",
+      "test/core/render/commentMarkers.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-090": [
+      "test/integration/commentWrite.test.ts",
+      "test/integration/imagePaste.test.ts",
+      "test/integration/imagePicker.test.ts",
+      "test/integration/inlineThread.test.ts",
+      "test/integration/mystPickers.test.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/session/diagReq.plantuml.requirements.test.ts",
+      "test/core/protocol/pageToHost.test.ts",
+      "test/page/modules/editPalette.test.ts",
+      "test/page/modules/hostRequests.test.ts",
+      "test/page/modules/paletteReq.requirements.test.ts",
+      "test/page/modules/plantumlFileRequests.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-004": [
+      "test/integration/commentWrite.test.ts",
+      "test/integration/reviewComments.test.ts",
+      "test/core/comments/commentEditing.test.ts",
+      "test/core/comments/commentModel.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-069": [
+      "test/integration/commentWrite.test.ts",
+      "test/core/comments/commentEditing.test.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-074": [
+      "test/integration/commentWrite.test.ts",
+      "test/core/comments/commentEditing.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-004": [
+      "test/integration/dropFiles.test.ts",
+      "test/page/runtimeFileDrop.test.ts",
+      "test/session/dropFiles.requirements.test.ts",
+      "test/core/mapping/dropReferences.test.ts",
+      "test/page/modules/dropFiles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-003": [
+      "test/integration/editKeys.test.ts",
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/security/package-contract.test.ts",
+      "test/session/editCommands.test.ts",
+      "test/core/protocol/hostToPage.test.ts",
+      "test/page/modules/editCommandKey.test.ts",
+      "test/page/modules/selectAllKey.test.ts",
+      "test/page/modules/textEditing.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-021": [
+      "test/integration/editToolbarCover.test.ts",
+      "test/integration/tallBlockScroll.test.ts",
+      "test/page/escapeClose.test.ts",
+      "test/page/figureEditButtonClearance.test.ts",
+      "test/page/runtimeEditPalette.test.ts",
+      "test/session/toolbarReq.requirements.test.ts",
+      "test/visual/capture_edit_checks.py",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/page/modules/caretReveal.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-134": [
+      "test/integration/exportHtml.test.ts",
+      "test/session/htmlExport.test.ts",
+      "test/session/previewManager.test.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/protocol/pageToHost.test.ts",
+      "test/page/modules/exportSnapshot.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-135": [
+      "test/integration/exportHtml.test.ts",
+      "test/session/htmlExport.test.ts",
+      "test/visual/capture_export_html.py",
+      "test/visual/exportHtmlScenarios.ts",
+      "test/core/export/htmlExport.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-128": [
+      "test/integration/exportHtml.test.ts",
+      "test/page/modules/exportSnapshot.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-009": [
+      "test/integration/findInPreview.test.ts",
+      "test/page/runtimeFindFromBlockEditor.test.ts",
+      "test/security/package-contract.test.ts",
+      "test/session/editCommands.test.ts",
+      "test/visual/capture_find_checks.py",
+      "test/page/modules/findBar.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-010": [
+      "test/integration/findInPreview.test.ts",
+      "test/visual/capture_find_checks.py",
+      "test/visual/capture_find_wide_table.py",
+      "test/visual/findWideTableScenarios.ts",
+      "test/core/find/findMatches.test.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/integration/realInput/findWideTable.ts",
+      "test/page/modules/findBar.test.ts",
+      "test/page/modules/findIndex.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-012": [
+      "test/integration/findInPreview.test.ts",
+      "test/session/findReplace.test.ts",
+      "test/visual/capture_find_checks.py",
+      "test/core/edits/findReplace.test.ts",
+      "test/core/find/findMatches.test.ts",
+      "test/core/protocol/pageToHost.test.ts",
+      "test/integration/realInput/qa210Replays.ts",
+      "test/page/modules/findBar.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-005": [
+      "test/integration/genericMarkdown.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts",
+      "test/core/frontmatter/propertiesTable.test.ts",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-047": [
+      "test/integration/gridCardEditorBlur.test.ts",
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/page/runtimeBlockMoves.test.ts",
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/runtimeFindFromBlockEditor.test.ts",
+      "test/page/runtimeGridCardEditorBlur.test.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/integration/realInput/blockKeys.ts",
+      "test/page/modules/hostRequests.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-196": [
+      "test/integration/imagePaste.test.ts",
+      "test/session/paletteReq.requirements.test.ts",
+      "test/session/pasteImageWrite.test.ts",
+      "test/core/mapping/pastedImage.test.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-217": [
+      "test/integration/imagePaste.test.ts",
+      "test/core/paste/htmlToMarkdown.test.ts",
+      "test/core/paste/paletteReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-192": [
+      "test/integration/imagePicker.test.ts",
+      "test/session/paletteReq.requirements.test.ts",
+      "test/core/mapping/imageReference.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-195": [
+      "test/integration/incomingChanges.test.ts",
+      "test/session/reviewReqIncoming.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-186": [
+      "test/integration/inlineThread.test.ts",
+      "test/session/reviewReqThreads.requirements.test.ts",
+      "test/core/comments/inlineThread.test.ts",
+      "test/core/edits/sourceEdits.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-192": [
+      "test/integration/inlineThread.test.ts",
+      "test/core/comments/inlineThread.test.ts",
+      "test/core/edits/sourceEdits.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-171": [
+      "test/integration/inlineThread.test.ts",
+      "test/page/modules/inlineThread.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-045": [
+      "test/integration/labelRename.test.ts",
+      "test/core/edits/sourceEdits.test.ts",
+      "test/core/mapping/labelRename.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-051": [
+      "test/integration/labelRename.test.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-170": [
+      "test/integration/lifecycle.test.ts",
+      "test/integration/paletteMode.test.ts",
+      "test/integration/reload-suite.ts",
+      "test/page/diagReq.themeZoom.requirements.test.ts",
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/session/diagReq.viewState.requirements.test.ts",
+      "test/visual/capture_layout_checks.py",
+      "test/core/configuration/editingConfiguration.test.ts",
+      "test/core/state/previewTheme.test.ts",
+      "test/core/state/previewViewPreferences.test.ts",
+      "test/page/modules/commentsToggle.test.ts",
+      "test/page/modules/tocColumn.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-169": [
+      "test/integration/lifecycle.test.ts",
+      "test/integration/paletteMode.test.ts",
+      "test/integration/previewEditing.test.ts",
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/session/blockReq.requirements.test.ts",
+      "test/session/diagReq.viewState.requirements.test.ts",
+      "test/core/protocol/pageToHost.test.ts",
+      "test/core/state/previewTheme.test.ts",
+      "test/core/state/previewViewPreferences.test.ts",
+      "test/page/modules/editPalette.test.ts",
+      "test/page/modules/tocColumn.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-016": [
+      "test/integration/lifecycle.test.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/core/state/editLock.test.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-001": [
+      "test/integration/mystBlocksWindow.ts",
+      "test/visual/cardsTabsScenarios.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/directives/registry.test.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/render/alertTitle.test.ts",
+      "test/core/render/cardsTabs.test.ts",
+      "test/core/render/mystFeatures.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-100": [
+      "test/integration/mystBlocksWindow.ts",
+      "test/visual/cardsTabsScenarios.ts",
+      "test/core/render/cardsTabs.test.ts",
+      "test/core/render/gridCardTitleSourceLine.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-098": [
+      "test/integration/mystBlocksWindow.ts",
+      "test/visual/cardsTabsScenarios.ts",
+      "test/core/render/cardsTabs.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-099": [
+      "test/integration/mystBlocksWindow.ts",
+      "test/visual/cardsTabsScenarios.ts",
+      "test/page/modules/tabs.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-081": [
+      "test/integration/mystDiagnostics.test.ts",
+      "test/session/commentAuthorResource.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/page/modules/warningBanner.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-078": [
+      "test/integration/mystDiagnostics.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-178": [
+      "test/integration/mystPickers.test.ts",
+      "test/core/mapping/mystTargets.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-183": [
+      "test/integration/mystPickers.test.ts",
+      "test/session/paletteReq.requirements.test.ts",
+      "test/core/mapping/mystTargets.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-010": [
+      "test/integration/paletteMode.test.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-016": [
+      "test/integration/previewEditing.test.ts",
+      "test/core/edits/frontmatterEdit.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-084": [
+      "test/integration/previewEditing.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts",
+      "test/core/frontmatter/propertiesTable.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-063": [
+      "test/integration/previewEditing.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/frontmatter/propertiesTable.test.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-073": [
+      "test/integration/previewEditing.test.ts",
+      "test/session/links.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-120": [
+      "test/integration/previewEditing.test.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/page/toolbarReq.runtime.requirements.test.ts",
+      "test/session/toolbarReq.requirements.test.ts",
+      "test/core/preview/toolbarReq.requirements.test.ts",
+      "test/core/protocol/pageStateMessages.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-014": [
+      "test/integration/previewEditing.test.ts",
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/linkEditModeClick.test.ts",
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/session/alertBlockEditOpen.test.ts",
+      "test/visual/alertEditingScenarios.ts",
+      "test/visual/linkEditModeScenarios.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/render/includeMapping.test.ts",
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-216": [
+      "test/integration/previewEditing.test.ts",
+      "test/page/blockReq.requirements.test.ts",
+      "test/session/blockReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-094": [
+      "test/integration/previewEditing.test.ts",
+      "test/core/mapping/insertion.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-053": [
+      "test/integration/previewEditing.test.ts",
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/runtimeBlockEditor.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-054": [
+      "test/integration/previewHistory.test.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/page/toolbarReq.runtime.requirements.test.ts",
+      "test/session/toolbarReq.requirements.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-059": [
+      "test/integration/previewHistory.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/session/toolbarReq.requirements.test.ts",
+      "test/core/state/navigationHistory.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-205": [
+      "test/integration/previewHistory.test.ts",
+      "test/page/fmtableReqTable.requirements.test.ts",
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/page/runtimeEditorFlush.test.ts",
+      "test/session/toolbarReq.requirements.test.ts",
+      "test/core/preview/flushWait.test.ts",
+      "test/integration/realInput/flushBeforeNavigate.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-077": [
+      "test/integration/previewHistory.test.ts",
+      "test/page/linkEditModeClick.test.ts",
+      "test/session/diagReq.links.requirements.test.ts",
+      "test/session/toolbarReq.requirements.test.ts",
+      "test/integration/realInput/linkEditMode.ts",
+      "test/page/modules/linkNavigation.test.ts",
+      "test/page/modules/toolbarReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-117": [
+      "test/integration/previewHistory.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-013": [
+      "test/integration/projectFeatures.test.ts",
+      "test/security/resource-policy.test.ts",
+      "test/security/trustReq.requirements.test.ts",
+      "test/core/render/contentCaches.test.ts",
+      "test/core/render/includeBudget.test.ts",
+      "test/core/render/renderReq.renderingCore.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-022": [
+      "test/integration/projectFeatures.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/render/gridToctree.test.ts",
+      "test/core/render/mystFeatures.test.ts",
+      "test/core/render/mystPaletteRendering.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-043": [
+      "test/integration/projectFeatures.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-039": [
+      "test/integration/radioChoice.test.ts",
+      "test/page/runtimeRadioGroups.test.ts",
+      "test/security/html-policy.test.ts",
+      "test/session/radioChoice.test.ts",
+      "test/visual/radioPlanScenarios.ts",
+      "test/core/edits/radioSelect.test.ts",
+      "test/core/render/radioGroups.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-071": [
+      "test/integration/readmeHtmlWindow.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/render/mystRawHtml.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-006": [
+      "test/integration/realWindowGaps.ts",
+      "test/session/baselineDiff.test.ts",
+      "test/session/reviewReqIncoming.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-008": [
+      "test/integration/realWindowGaps.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/page/sideBySideCards.test.ts",
+      "test/visual/capture_sbs_checks.py",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-009": [
+      "test/integration/realWindowGaps.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/page/sideBySideCards.test.ts",
+      "test/visual/capture_sbs_checks.py",
+      "test/core/mapping/wordDiff.test.ts",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-150": [
+      "test/integration/realWindowGaps.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-153": [
+      "test/integration/realWindowGaps.ts",
+      "test/page/figureEditButtonClearance.test.ts",
+      "test/page/paletteReq.requirements.test.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/visual/capture_figure_button.py",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/integration/realInput/markers.ts",
+      "test/page/modules/figureDirective.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-001": [
+      "test/integration/reviewComments.test.ts",
+      "test/core/comments/commentModel.test.ts",
+      "test/page/modules/commentThreads.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-173": [
+      "test/integration/saveKey.test.ts",
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/page/runtimeSaveKey.test.ts",
+      "test/security/package-contract.test.ts",
+      "test/session/saveCommand.test.ts",
+      "test/core/protocol/hostToPage.test.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-108": [
+      "test/integration/scroll-sync-suite.ts",
+      "test/integration/sourceMapping.test.ts",
+      "test/page/pageSettings.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/session/lifeReq.requirements.test.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-119": [
+      "test/integration/scroll-sync-suite.ts",
+      "test/integration/sourceMapping.test.ts",
+      "test/page/lifeReq.requirements.test.ts",
+      "test/page/runtimeContentPatch.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/session/lifeReq.requirements.test.ts",
+      "test/core/scroll/anchorPolicy.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-007": [
+      "test/integration/standalone-suite.ts",
+      "test/security/trustReq.requirements.test.ts",
+      "test/session/previewRuntimeFile.test.ts",
+      "test/session/readOnlyLocalRoots.test.ts",
+      "test/session/toolbarReq.requirements.test.ts",
+      "test/session/trustReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-059": [
+      "test/integration/stockCoexistence.test.ts",
+      "test/page/runtimeContentPatch.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-001": [
+      "test/integration/stockCoexistence.test.ts",
+      "test/security/lifeReq.requirements.test.ts",
+      "test/security/package-contract.test.ts",
+      "test/security/trustReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-149": [
+      "test/integration/stockCoexistence.test.ts",
+      "test/core/configuration/settingsRegistry.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-006": [
+      "test/integration/tableEmptyColumn.test.ts",
+      "test/page/runtimeTableCellEditor.test.ts",
+      "test/page/runtimeTableCellRoom.test.ts",
+      "test/visual/capture_edit_checks.py",
+      "test/visual/capture_table_cell_room.py",
+      "test/visual/tableCellRoomScenarios.ts",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-001": [
+      "test/integration/tableMoves.ts",
+      "test/page/fmtableReqTable.requirements.test.ts",
+      "test/page/runtimeTableCellEditor.test.ts",
+      "test/page/runtimeTableRowTail.test.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/integration/realInput/tableRowTokens.ts",
+      "test/integration/realInput/tableShortDelimiter.ts",
+      "test/page/modules/markdownTable.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-122": [
+      "test/integration/tableMoves.ts",
+      "test/page/fmtableReqTable.requirements.test.ts",
+      "test/page/runtimeTableCellEditor.test.ts",
+      "test/page/runtimeTableRowTail.test.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editPalette.test.ts",
+      "test/page/modules/fmtableReqTable.requirements.test.ts",
+      "test/page/modules/listTable.test.ts",
+      "test/page/modules/markdownTable.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-002": [
+      "test/integration/tableMoves.ts",
+      "test/page/runtimeTableRowMove.test.ts",
+      "test/visual/breakoutHandleScenarios.ts",
+      "test/visual/capture_table_move.py",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/page/modules/listTableRowMove.test.ts",
+      "test/page/modules/markdownTable.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-007": [
+      "test/integration/tableMoves.ts",
+      "test/page/runtimeTableRowMove.test.ts",
+      "test/visual/breakoutHandleScenarios.ts",
+      "test/visual/capture_table_move.py",
+      "test/integration/realInput/tableRowTokens.ts",
+      "test/page/modules/tableColumnMove.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-072": [
+      "test/integration/tocWindow.ts",
+      "test/core/render/blockTagTitle.test.ts",
+      "test/core/render/mystToc.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-012": [
+      "test/integration/trusted-suite.ts",
+      "test/security/cspInjection.test.ts",
+      "test/security/html-policy.test.ts",
+      "test/security/trustReq.requirements.test.ts",
+      "test/session/previewRuntimeFile.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-006": [
+      "test/integration/untrusted-suite.ts",
+      "test/session/diagReq.viewState.requirements.test.ts",
+      "test/session/paletteReq.requirements.test.ts",
+      "test/session/renderReq.codeCopy.requirements.test.ts",
+      "test/session/toolbarReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-094": [
+      "test/integration/updateGlow.test.ts",
+      "test/visual/capture_layout_checks.py",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/updatedRanges.test.ts",
+      "test/page/modules/motion.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-004": [
+      "test/node-services/renderWorker.test.ts",
+      "test/core/render/renderPipeline.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-019": [
+      "test/node-services/schemaFiles.test.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-001": [
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/runtimeBlockSelection.test.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-017": [
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/linkEditModeClick.test.ts",
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/core/preview/blockReq.requirements.test.ts",
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-033": [
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/page/runtimeBlockMoves.test.ts",
+      "test/page/runtimeCardOptionEnter.test.ts",
+      "test/visual/scenarioDefinitions1.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-228": [
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/fmtableReqFrontmatter.requirements.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/session/blockReq.requirements.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-069": [
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/integration/realInput/textEditing.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editorKeys.test.ts",
+      "test/page/modules/selectAllKey.test.ts",
+      "test/page/modules/textEditing.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-079": [
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/fmtableReqFrontmatter.requirements.test.ts",
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/integration/realInput/blockKeys.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-130": [
+      "test/page/blockReq.requirements.test.ts",
+      "test/page/runtimeBlockMoves.test.ts",
+      "test/integration/realInput/blockKeys.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-156": [
+      "test/page/bootContext.test.ts",
+      "test/page/pageSettings.test.ts",
+      "test/security/package-contract.test.ts",
+      "test/core/configuration/settingsRegistry.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-125": [
+      "test/page/cellInlineMarkdown.test.ts",
+      "test/page/runtimeTableCellEditor.test.ts",
+      "test/page/runtimeTableCellStale.test.ts",
+      "test/integration/realInput/tableStaleRender.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-121": [
+      "test/page/chartCsp.test.ts",
+      "test/core/render/chartData.test.ts",
+      "test/core/render/chartRendering.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-122": [
+      "test/page/chartCsp.test.ts",
+      "test/core/render/chartData.test.ts",
+      "test/core/render/chartRendering.test.ts",
+      "test/page/modules/vegaChart.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-123": [
+      "test/page/chartCsp.test.ts",
+      "test/page/modules/chartError.test.ts",
+      "test/page/modules/vegaChart.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-124": [
+      "test/page/chartCsp.test.ts",
+      "test/security/package-contract.test.ts",
+      "test/session/diagReq.chart.requirements.test.ts",
+      "test/core/preview/contentPatch.test.ts",
+      "test/page/modules/vegaChart.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-023": [
+      "test/page/diagReq.layout.requirements.test.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/page/tableBreakout.test.ts",
+      "test/visual/capture_layout_checks.py",
+      "test/visual/capture_width_scroll.py",
+      "test/visual/widthScrollScenarios.ts",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-020": [
+      "test/page/diagReq.layout.requirements.test.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/visual/capture_layout_checks.py"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-018": [
+      "test/page/diagReq.layout.requirements.test.ts",
+      "test/visual/capture_comment_checks.py",
+      "test/visual/scenarioAssertions.ts",
+      "test/page/modules/firstClearance.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-001": [
+      "test/page/diagReq.themeZoom.requirements.test.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/creamTheme.test.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-050": [
+      "test/page/diagReq.themeZoom.requirements.test.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/page/modules/motion.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-038": [
+      "test/page/diagReq.themeZoom.requirements.test.ts",
+      "test/page/runtimePageControls.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-137": [
+      "test/page/exportWhileEditing.test.ts",
+      "test/visual/capture_export_html.py",
+      "test/visual/exportHtmlScenarios.ts",
+      "test/core/export/htmlExport.test.ts",
+      "test/page/modules/exportSnapshot.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-003": [
+      "test/page/fmtableReqFrontmatter.requirements.test.ts",
+      "test/page/runtimeEditorFlush.test.ts",
+      "test/page/runtimeFrontmatterEditor.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/integration/realInput/qa210Replays.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-019": [
+      "test/page/fmtableReqFrontmatter.requirements.test.ts",
+      "test/page/runtimeEditorFlush.test.ts",
+      "test/page/runtimeFrontmatterEditor.test.ts",
+      "test/visual/capture_frontmatter_click.py",
+      "test/visual/frontmatterClickScenarios.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-001": [
+      "test/page/fmtableReqFrontmatter.requirements.test.ts",
+      "test/page/linkEditModeClick.test.ts",
+      "test/page/runtimeFrontmatterEditor.test.ts",
+      "test/page/runtimeFrontmatterFields.test.ts",
+      "test/visual/capture_page_checks.py",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-018": [
+      "test/page/fmtableReqTable.requirements.test.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/page/runtimeTableCellBlur.test.ts",
+      "test/page/runtimeTableCellEditor.test.ts",
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-034": [
+      "test/page/fmtableReqTable.requirements.test.ts",
+      "test/page/runtimeTableCellEditor.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-055": [
+      "test/page/fmtableReqTable.requirements.test.ts",
+      "test/page/runtimeTableCellEditor.test.ts",
+      "test/page/modules/markdownTable.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-091": [
+      "test/page/fmtableReqTable.requirements.test.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/page/runtimeTableCellPaste.test.ts",
+      "test/page/modules/markdownTablePreservation.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-001": [
+      "test/page/geometryChecks.test.ts",
+      "test/visual/capture_layout_checks.py",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-059": [
+      "test/page/hostMessages.test.ts",
+      "test/page/runtimeBlockMoves.test.ts",
+      "test/core/protocol/hostToPage.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-260": [
+      "test/page/linkEditModeClick.test.ts",
+      "test/security/html-policy.test.ts",
+      "test/visual/gridCardEditingScenarios.ts",
+      "test/core/render/gridCardTitleSourceLine.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-008": [
+      "test/page/mappedBlocks.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-053": [
+      "test/page/pageMessages.test.ts",
+      "test/session/diagReq.plantuml.requirements.test.ts",
+      "test/core/render/plantUmlIncludes.test.ts",
+      "test/page/modules/plantumlDiagram.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-128": [
+      "test/page/pageSettings.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/session/toolbarReq.requirements.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/configuration/settingsRegistry.test.ts",
+      "test/core/preview/toolbarReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-018": [
+      "test/page/pageSettings.test.ts",
+      "test/page/runtimeScroll.test.ts",
+      "test/visual/capture_final_checks.py",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/configuration/previewConfiguration.test.ts",
+      "test/core/preview/contentPatch.test.ts",
+      "test/page/modules/toolbarReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-039": [
+      "test/page/pageSettings.test.ts",
+      "test/security/package-contract.test.ts",
+      "test/visual/codeBlockComfortScenarios.ts",
+      "test/core/preview/codeBlockStyles.test.ts",
+      "test/core/render/codeBlockComfort.requirements.test.ts",
+      "test/page/modules/codeCopy.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-040": [
+      "test/page/pageSettings.test.ts",
+      "test/security/package-contract.test.ts",
+      "test/visual/codeBlockComfortScenarios.ts",
+      "test/core/preview/codeBlockStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-213": [
+      "test/page/paletteReq.requirements.test.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-009": [
+      "test/page/rendererBridge.test.ts",
+      "test/integration/realInput/markers.ts",
+      "test/page/modules/mermaidCache.test.ts",
+      "test/page/modules/mermaidPreviewEntry.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-039": [
+      "test/page/rendererBridge.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/page/modules/plantumlDiagram.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-026": [
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/integration/realInput/editorWidgets.ts",
+      "test/page/modules/textEditing.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-061": [
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/visual/optionListScenarios.ts",
+      "test/integration/realInput/editorWidgets.ts",
+      "test/page/modules/textEditing.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-064": [
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/core/protocol/hostToPage.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-042": [
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/session/blockReq.requirements.test.ts",
+      "test/core/edits/sourceEdits.test.ts",
+      "test/core/mapping/textDiff.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-123": [
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/page/runtimeTableCellEditor.test.ts",
+      "test/visual/capture_edit_checks.py",
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-266": [
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/page/modules/commentToggle.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-102": [
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/page/runtimeBlockMoves.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-255": [
+      "test/page/runtimeBlockEditor.test.ts",
+      "test/page/runtimeTableCellEditor.test.ts",
+      "test/session/heldEditSource.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-087": [
+      "test/page/runtimeBlockMoves.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/blockReq.requirements.test.ts",
+      "test/integration/realInput/renderPatching.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-140": [
+      "test/page/runtimeBlockSelection.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/page/modules/blockSelection.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-148": [
+      "test/page/runtimeBlockSelection.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-169": [
+      "test/page/runtimeBlockSelection.test.ts",
+      "test/session/blockReq.requirements.test.ts",
+      "test/core/mapping/blockRange.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-261": [
+      "test/page/runtimeCardOptionEnter.test.ts",
+      "test/visual/cardsTabsScenarios.ts",
+      "test/integration/realInput/qa210Replays.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-272": [
+      "test/page/runtimeCodeBlockPanel.test.ts",
+      "test/page/modules/codeBlockDirective.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-152": [
+      "test/page/runtimeCommentsHidden.test.ts",
+      "test/session/reviewReqIncoming.requirements.test.ts",
+      "test/visual/reviewMarksHiddenScenarios.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/integration/realInput/blockKeys.ts",
+      "test/page/modules/chipToggle.test.ts",
+      "test/page/modules/commentsToggle.test.ts",
+      "test/page/modules/commentThreads.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-021": [
+      "test/page/runtimeCommentsHidden.test.ts",
+      "test/page/modules/commentThreads.test.ts",
+      "test/page/modules/reviewReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-061": [
+      "test/page/runtimeContentPatch.test.ts",
+      "test/core/protocol/hostToPage.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-025": [
+      "test/page/runtimeContentPatch.test.ts",
+      "test/core/render/renderPipeline.test.ts",
+      "test/node-services/build/buildQueue.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-021": [
+      "test/page/runtimeContentPatch.test.ts",
+      "test/page/runtimePageControls.test.ts",
+      "test/session/radioChoice.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/edits/sourceEdits.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-085": [
+      "test/page/runtimeContentPatch.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/page/modules/linkNavigation.test.ts",
+      "test/page/modules/toolbarReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-063": [
+      "test/page/runtimeContentPatch.test.ts",
+      "test/core/protocol/hostToPage.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-067": [
+      "test/page/runtimeEditorFlush.test.ts",
+      "test/core/edits/frontmatterEdit.test.ts",
+      "test/core/preview/flushWait.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-024": [
+      "test/page/runtimeEditorFlush.test.ts",
+      "test/page/runtimeFrontmatterEditor.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/edits/frontmatterEdit.test.ts",
+      "test/core/frontmatter/frontmatterPreservation.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-001": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/security/package-contract.test.ts",
+      "test/core/configuration/editingConfiguration.test.ts",
+      "test/core/palette/paletteActions.test.ts",
+      "test/page/modules/editPalette.test.ts",
+      "test/page/modules/paletteReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-002": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-036": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/page/modules/editPalette.test.ts",
+      "test/page/modules/paletteReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-039": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editPalette.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-043": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-031": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/visual/capture_edit_checks.py",
+      "test/integration/realInput/markers.ts",
+      "test/page/modules/editPalette.test.ts",
+      "test/page/modules/paletteReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-054": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-083": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-089": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/runtimePaletteActions.test.ts",
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-092": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-265": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/core/palette/paletteActions.test.ts",
+      "test/core/render/mystPaletteRendering.test.ts",
+      "test/page/modules/chartActions.test.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editPalette.test.ts",
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-017": [
+      "test/page/runtimeEditPalette.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-078": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/modules/editPalette.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-072": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editPalette.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-115": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/page/modules/alertLazyEditAction.test.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editPalette.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-267": [
+      "test/page/runtimeEditPalette.test.ts",
+      "test/visual/optionListScenarios.ts",
+      "test/page/modules/optionAction.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-253": [
+      "test/page/runtimeEmptyDocumentStart.test.ts",
+      "test/visual/capture_start_hint.py",
+      "test/visual/scenarioDefinitions1.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-010": [
+      "test/page/runtimeFrontmatterEditor.test.ts",
+      "test/page/runtimeFrontmatterFields.test.ts",
+      "test/visual/linkHintScenarios.ts",
+      "test/core/frontmatter/linkSuggestions.test.ts",
+      "test/core/frontmatter/propertiesTable.test.ts",
+      "test/integration/realInput/qa210Replays.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-028": [
+      "test/page/runtimeFrontmatterEditor.test.ts",
+      "test/page/runtimeFrontmatterFields.test.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-029": [
+      "test/page/runtimeFrontmatterEditor.test.ts",
+      "test/page/runtimeFrontmatterFields.test.ts",
+      "test/core/edits/frontmatterEdit.test.ts",
+      "test/core/frontmatter/frontmatterPreservation.test.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-004": [
+      "test/page/runtimeFrontmatterEditor.test.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-037": [
+      "test/page/runtimeFrontmatterEditor.test.ts",
+      "test/page/runtimeFrontmatterFields.test.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-043": [
+      "test/page/runtimeFrontmatterFields.test.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-090": [
+      "test/page/runtimeFrontmatterFields.test.ts",
+      "test/visual/frontmatterCollapseScenarios.ts",
+      "test/core/frontmatter/propertiesTable.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LIFE-172": [
+      "test/page/runtimeOpenInPreview.test.ts",
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-022": [
+      "test/page/runtimePageControls.test.ts",
+      "test/visual/capture_layout_checks.py",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-156": [
+      "test/page/runtimePageControls.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-207": [
+      "test/page/runtimePageControls.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/page/modules/incomingChanges.test.ts",
+      "test/page/modules/reviewReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-214": [
+      "test/page/runtimePageControls.test.ts",
+      "test/session/toolbarReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-007": [
+      "test/page/runtimePageControls.test.ts",
+      "test/visual/capture_layout_checks.py"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-040": [
+      "test/page/runtimePageControls.test.ts",
+      "test/visual/capture_toc_checks.py",
+      "test/page/modules/tocColumn.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-148": [
+      "test/page/runtimePaletteActions.test.ts",
+      "test/session/paletteReq.requirements.test.ts",
+      "test/core/mapping/mystTargets.test.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editPalette.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-109": [
+      "test/page/runtimePaletteActions.test.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editPalette.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-160": [
+      "test/page/runtimePaletteActions.test.ts",
+      "test/page/modules/figureDirective.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-069": [
+      "test/page/runtimePaletteActions.test.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editPalette.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-058": [
+      "test/page/runtimePaletteActions.test.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editPalette.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-085": [
+      "test/page/runtimePaletteActions.test.ts",
+      "test/visual/capture_edit_checks.py",
+      "test/integration/realInput/blockKeys.ts",
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-203": [
+      "test/page/runtimePaletteActions.test.ts",
+      "test/page/modules/paletteReq.requirements.test.ts",
+      "test/page/modules/pasteImage.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-270": [
+      "test/page/runtimePaletteActions.test.ts",
+      "test/visual/cardGridFormScenarios.ts",
+      "test/page/modules/cardGridDirectives.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-271": [
+      "test/page/runtimePaletteActions.test.ts",
+      "test/visual/cardGridFormScenarios.ts",
+      "test/page/modules/cardGridDirectives.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-025": [
+      "test/page/runtimeScroll.test.ts",
+      "test/visual/capture_final_checks.py",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/visual/stickyLongTitleScenarios.ts",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-030": [
+      "test/page/runtimeScroll.test.ts",
+      "test/visual/capture_page_checks.py",
+      "test/visual/capture_toolbar_checks.py",
+      "test/page/modules/toolbarReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-022": [
+      "test/page/runtimeScroll.test.ts",
+      "test/security/html-policy.test.ts",
+      "test/security/trustReq.requirements.test.ts",
+      "test/session/previewRuntimeFile.test.ts",
+      "test/core/preview/contentPatch.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-039": [
+      "test/page/runtimeScroll.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/frontmatter/diagReq.frontmatter.requirements.test.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts",
+      "test/core/frontmatter/propertiesTable.test.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-032": [
+      "test/page/runtimeScroll.test.ts",
+      "test/visual/scenarioAssertions.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-254": [
+      "test/page/runtimeStructuralNavigation.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/integration/realInput/blockKeys.ts",
+      "test/page/modules/structuralCursor.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-048": [
+      "test/page/runtimeTableCellEditor.test.ts",
+      "test/visual/capture_edit_checks.py",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/fmtableReq.requirements.test.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-013": [
+      "test/page/runtimeTableCellEditor.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-126": [
+      "test/page/runtimeTableCellEditor.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-025": [
+      "test/page/runtimeTableCellEditor.test.ts",
+      "test/page/runtimeTableCellEscape.test.ts",
+      "test/page/runtimeTableCellTabRow.test.ts",
+      "test/visual/capture_table_escape.py",
+      "test/integration/realInput/tableEscape.ts",
+      "test/integration/realInput/tableTabRow.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-120": [
+      "test/page/runtimeTableCellPaste.test.ts",
+      "test/visual/capture_table_grid_paste.py",
+      "test/visual/tableGridPasteScenarios.ts",
+      "test/integration/realInput/tableGridPaste.ts",
+      "test/page/modules/tableGridPaste.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-124": [
+      "test/page/runtimeTableCellTabRow.test.ts",
+      "test/visual/capture_table_tab_hint.py",
+      "test/visual/tableTabHintScenarios.ts",
+      "test/integration/realInput/tableTabRow.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-121": [
+      "test/page/runtimeTableInContainer.test.ts",
+      "test/page/runtimeTableRowMove.test.ts",
+      "test/visual/capture_table_in_container.py",
+      "test/visual/tableInContainerScenarios.ts",
+      "test/integration/realInput/tableInContainer.ts",
+      "test/page/modules/tableInContainer.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-130": [
+      "test/page/runtimeToolbarHint.test.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/page/modules/toolbarCollapse.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-005": [
+      "test/page/sideBySideCards.test.ts",
+      "test/core/mapping/wordDiff.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-125": [
+      "test/page/svgBreakout.test.ts",
+      "test/security/svgSanitizer.test.ts",
+      "test/visual/svgPictureScenarios.ts",
+      "test/core/render/svgRendering.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-044": [
+      "test/page/tableBreakout.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-025": [
+      "test/security/html-policy.test.ts",
+      "test/security/resource-policy.test.ts",
+      "test/security/trustReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-036": [
+      "test/security/html-policy.test.ts",
+      "test/security/svgSanitizer.test.ts",
+      "test/security/trustReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-011": [
+      "test/security/html-policy.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-031": [
+      "test/security/html-policy.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/directives/registry.test.ts",
+      "test/core/render/mystFeatures.test.ts",
+      "test/core/render/mystPaletteRendering.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-008": [
+      "test/security/html-policy.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-031": [
+      "test/security/html-policy.test.ts",
+      "test/core/render/mystFeatures.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-034": [
+      "test/security/html-policy.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/render/mystFeatures.test.ts",
+      "test/core/render/mystPaletteRendering.test.ts",
+      "test/core/security/spanColors.test.ts",
+      "test/page/modules/spanColors.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-041": [
+      "test/security/html-policy.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-074": [
+      "test/security/package-contract.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-024": [
+      "test/security/package-contract.test.ts",
+      "test/session/diagReq.settings.requirements.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/configuration/plantUmlConfiguration.test.ts",
+      "test/core/configuration/settingsRegistry.test.ts",
+      "test/core/render/diagReq.pipeline.requirements.test.ts",
+      "test/core/render/plantUmlEngine.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-075": [
+      "test/security/package-contract.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-003": [
+      "test/security/package-contract.test.ts",
+      "test/session/editCommands.test.ts",
+      "test/visual/capture_layout_checks.py",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/state/headingFold.test.ts",
+      "test/page/modules/headingFold.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-002": [
+      "test/security/readOnlyRoot.requirements.test.ts",
+      "test/session/baselineDiff.test.ts",
+      "test/session/readOnlyImages.test.ts",
+      "test/session/readOnlyImagesSession.test.ts",
+      "test/session/readOnlyLocalRoots.test.ts",
+      "test/visual/readOnlyImagesScenarios.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-126": [
+      "test/security/svgSanitizer.test.ts",
+      "test/visual/svgPictureScenarios.ts",
+      "test/core/render/svgRendering.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-070": [
+      "test/security/userFacingText.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-009": [
+      "test/session/alertBlockEditOpen.test.ts",
+      "test/visual/alertEditingScenarios.ts",
+      "test/core/render/alertInsideColonContainer.test.ts",
+      "test/core/render/alertLazyContinuation.test.ts",
+      "test/core/render/alertSourceLines.test.ts",
+      "test/core/render/alertTitle.test.ts",
+      "test/core/render/crlfAlerts.test.ts",
+      "test/core/render/mystFeatures.test.ts",
+      "test/core/render/mystPaletteRendering.test.ts",
+      "test/integration/realInput/qa210Replays.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-013": [
+      "test/session/alertBlockEditOpen.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/render/mystFeatures.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-256": [
+      "test/session/blockRangeGuard.test.ts",
+      "test/core/mapping/blockRange.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-234": [
+      "test/session/blockReq.requirements.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/edits/sourceEdits.test.ts",
+      "test/core/edits/textEdit.test.ts",
+      "test/integration/realInput/qa210Replays.ts",
+      "test/page/modules/markdownTable.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-027": [
+      "test/session/checkboxRefusal.test.ts",
+      "test/session/radioChoice.test.ts",
+      "test/core/protocol/pageStateMessages.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-089": [
+      "test/session/diagReq.plantuml.requirements.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/render/diagReq.jar.requirements.test.ts",
+      "test/core/render/plantUmlEngine.test.ts",
+      "test/core/render/plantUmlRenderer.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-105": [
+      "test/session/diagReq.plantuml.requirements.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/contentPatch.test.ts",
+      "test/core/render/diagReq.jar.requirements.test.ts",
+      "test/core/render/plantUmlRenderer.test.ts",
+      "test/core/state/editLock.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-004": [
+      "test/session/diagReq.settings.requirements.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/frontmatter/propertiesTable.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-002": [
+      "test/session/diagReq.settings.requirements.test.ts",
+      "test/session/previewRuntimeFile.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/configuration/previewConfiguration.test.ts",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-027": [
+      "test/session/diagReq.settings.requirements.test.ts",
+      "test/core/frontmatter/schemaRegistry.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-023": [
+      "test/session/diagReq.webview.requirements.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/diagReq.styles.requirements.test.ts",
+      "test/core/render/mystFeatures.test.ts",
+      "test/page/modules/plantumlDiagram.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-055": [
+      "test/session/eventFanOut.test.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts",
+      "test/core/frontmatter/stemIndex.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-079": [
+      "test/session/eventFanOut.test.ts",
+      "test/session/toolbarReq.requirements.test.ts",
+      "test/core/protocol/pageStateMessages.test.ts",
+      "test/page/modules/linkNavigation.test.ts",
+      "test/page/modules/toolbarReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-136": [
+      "test/session/htmlExport.test.ts",
+      "test/visual/capture_export_html.py",
+      "test/visual/exportHtmlScenarios.ts",
+      "test/core/export/htmlExport.test.ts",
+      "test/page/modules/exportSnapshot.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-102": [
+      "test/session/links.test.ts",
+      "test/core/navigation/previewNavigation.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-094": [
+      "test/session/previewNavigator.test.ts",
+      "test/session/toolbarReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-098": [
+      "test/session/previewNavigator.test.ts",
+      "test/session/toolbarReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-026": [
+      "test/session/renderReq.codeCopy.requirements.test.ts",
+      "test/core/protocol/pageToHost.test.ts",
+      "test/page/modules/codeCopy.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-038": [
+      "test/session/trustReq.requirements.test.ts",
+      "test/visual/capture_label_rename.py",
+      "test/visual/labelRenameScenarios.ts",
+      "test/core/mapping/labelRename.test.ts",
+      "test/core/protocol/pageToHost.test.ts",
+      "test/integration/realInput/labelRenameAboveTable.ts",
+      "test/page/modules/labelRename.test.ts",
+      "test/page/modules/renderReq.labelRename.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-086": [
+      "test/site/siteLinks.test.ts",
+      "test/site/siteTheme.test.ts",
+      "test/site/requirementsViewer/pages.test.ts",
+      "test/site/requirementsViewer/write.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-269": [
+      "test/visual/admonitionTypePickerScenarios.ts",
+      "test/visual/releaseShowcaseScenarios.ts",
+      "test/page/modules/editPalette.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-007": [
+      "test/visual/capture_comment_checks.py",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-011": [
+      "test/visual/capture_comment_checks.py",
+      "test/page/modules/firstClearance.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-091": [
+      "test/visual/capture_export_html.py",
+      "test/visual/exportHtmlScenarios.ts",
+      "test/core/export/htmlExport.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-001": [
+      "test/visual/capture_final_checks.py",
+      "test/visual/capture_layout_checks.py",
+      "test/visual/capture_toolbar_checks.py",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/preview/toolbarReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-025": [
+      "test/visual/capture_page_checks.py",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/creamTheme.test.ts",
+      "test/core/preview/diagReq.styles.requirements.test.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/preview/themeTokens.test.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-031": [
+      "test/visual/capture_page_checks.py",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/creamTheme.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-028": [
+      "test/visual/capture_page_checks.py",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/creamTheme.test.ts",
+      "test/core/preview/inlineCode.test.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/render/renderReq.renderingCore.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-077": [
+      "test/visual/capture_table_row_colours.py",
+      "test/visual/tableRowColourScenarios.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-037": [
+      "test/visual/capture_toc_checks.py",
+      "test/visual/capture_toc_rail.py",
+      "test/core/preview/previewStyles.test.ts",
+      "test/page/modules/tocColumn.test.ts",
+      "test/page/modules/toolbarCollapse.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-033": [
+      "test/visual/capture_toc_checks.py",
+      "test/page/modules/tocColumn.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-045": [
+      "test/visual/capture_toc_checks.py",
+      "test/core/preview/previewStyles.test.ts",
+      "test/page/modules/tocColumn.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-006": [
+      "test/visual/capture_toolbar_checks.py",
+      "test/page/modules/headingFold.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-215": [
+      "test/visual/frontmatterChangeBarScenarios.ts",
+      "test/core/frontmatter/frontmatterChanges.test.ts",
+      "test/core/frontmatter/propertiesTable.test.ts",
+      "test/page/modules/incomingChanges.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-079": [
+      "test/visual/frontmatterValueScenarios.ts",
+      "test/core/render/frontmatterValue.test.ts",
+      "test/core/render/writingSkill.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-257": [
+      "test/visual/gridCardEditingScenarios.ts",
+      "test/core/preview/gridCardEditStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-006": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/render/mystFeatures.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-005": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/themeTokens.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-017": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/page/modules/codeCopy.test.ts",
+      "test/page/modules/renderReq.codeCopy.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-008": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/render/highlight.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-007": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/preview/creamTheme.test.ts",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-006": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/frontmatter/propertiesTable.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-029": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts",
+      "test/core/frontmatter/propertiesTable.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-096": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/core/render/alertSourceLines.test.ts",
+      "test/core/render/renderReq.syntaxErrors.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-023": [
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/frontmatter/diagReq.frontmatter.requirements.test.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts",
+      "test/core/frontmatter/schemaRegistry.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-036": [
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/render/mystPaletteRendering.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-001": [
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/render/mystFeatures.test.ts",
+      "test/core/render/renderPipeline.test.ts",
+      "test/core/render/renderReq.renderingCore.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-053": [
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/render/gridToctree.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-063": [
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/directives/registry.test.ts",
+      "test/core/render/mystFeatures.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-015": [
+      "test/visual/scenarioDefinitions2.ts",
+      "test/page/modules/mermaidError.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-032": [
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/diagReq.styles.requirements.test.ts",
+      "test/page/modules/plantumlDiagram.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-068": [
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/render/diagReq.pipeline.requirements.test.ts",
+      "test/core/render/plantUmlFile.test.ts",
+      "test/page/modules/plantumlDiagram.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-046": [
+      "test/visual/scenarioDefinitions2.ts",
+      "test/page/modules/plantumlDiagram.test.ts",
+      "test/page/modules/plantumlFileRequests.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-001": [
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/frontmatter/diagReq.frontmatter.requirements.test.ts",
+      "test/core/frontmatter/frontmatterFence.test.ts",
+      "test/core/frontmatter/frontmatterParseOnce.test.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-043": [
+      "test/visual/scenarioDefinitions2.ts",
+      "test/core/preview/contentPatch.test.ts",
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-268": [
+      "test/visual/slashAdmonitionScenarios.ts",
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-127": [
+      "test/visual/svgPictureScenarios.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-LAYOUT-043": [
+      "test/visual/toolbarFloatScenarios.ts",
+      "test/integration/realInput/qa210Replays.ts",
+      "test/page/modules/firstClearance.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-100": [
+      "test/core/comments/anchoring.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-101": [
+      "test/core/comments/anchoring.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-107": [
+      "test/core/comments/anchoring.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-044": [
+      "test/core/comments/commentEditing.test.ts",
+      "test/page/modules/commentCompose.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-167": [
+      "test/core/comments/inlineThread.test.ts",
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/render/cardsTabs.test.ts",
+      "test/core/render/commentMarkers.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-060": [
+      "test/core/configuration/frontmatterConfiguration.test.ts",
+      "test/core/frontmatter/fileLinks.test.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-084": [
+      "test/core/configuration/plantUmlConfiguration.test.ts",
+      "test/core/render/diagReq.jar.requirements.test.ts",
+      "test/core/render/plantUmlJarIncludes.test.ts",
+      "test/core/render/plantUmlRenderer.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-050": [
+      "test/core/frontmatter/diagReq.frontmatter.requirements.test.ts",
+      "test/core/frontmatter/fileLinks.test.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMSCHEMA-046": [
+      "test/core/frontmatter/fileLinks.test.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-043": [
+      "test/core/frontmatter/frontmatterFence.test.ts",
+      "test/core/frontmatter/frontmatterPreservation.test.ts",
+      "test/core/frontmatter/okfFrontmatter.test.ts",
+      "test/integration/realInput/qa210Replays.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-200": [
+      "test/core/mapping/lineDiff.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-010": [
+      "test/core/mapping/lineHunks.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-066": [
+      "test/core/myst/confLocator.test.ts",
+      "test/core/myst/confParser.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-017": [
+      "test/core/palette/paletteActions.test.ts",
+      "test/core/render/mystPaletteRendering.test.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editPalette.test.ts",
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-229": [
+      "test/core/paste/htmlToMarkdown.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-252": [
+      "test/core/paste/paletteReq.requirements.test.ts",
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-014": [
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/render/mystFeatures.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-143": [
+      "test/core/preview/previewStyles.test.ts",
+      "test/page/modules/chipToggle.test.ts",
+      "test/page/modules/reviewReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-028": [
+      "test/core/preview/previewStyles.test.ts",
+      "test/page/modules/commentThreads.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-034": [
+      "test/core/preview/previewStyles.test.ts",
+      "test/core/render/renderReq.renderingCore.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-129": [
+      "test/core/preview/previewStyles.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-034": [
+      "test/core/preview/themeTokens.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-062": [
+      "test/core/protocol/hostToPage.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-007": [
+      "test/core/protocol/hostToPage.test.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-BLOCK-259": [
+      "test/core/protocol/pageStateMessages.test.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-FMEDIT-054": [
+      "test/core/protocol/pageStateMessages.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-THEME-013": [
+      "test/core/protocol/pageStateMessages.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-052": [
+      "test/core/protocol/pageStateMessages.test.ts",
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-070": [
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-071": [
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-178": [
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-050": [
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TRUST-086": [
+      "test/core/protocol/pageToHost.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-003": [
+      "test/core/render/alertSourceLines.test.ts",
+      "test/core/render/mystFeatures.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-001": [
+      "test/core/render/bareUrlAutolink.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-101": [
+      "test/core/render/blockBreakInContainer.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-133": [
+      "test/core/render/cardsTabs.test.ts",
+      "test/core/render/commentMarkers.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-016": [
+      "test/core/render/checkboxMarkers.test.ts",
+      "test/core/render/checkboxRendering.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-139": [
+      "test/core/render/commentMarkers.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-057": [
+      "test/core/render/contentCaches.test.ts",
+      "test/core/render/gridToctree.test.ts",
+      "test/core/render/renderReq.myst.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-097": [
+      "test/core/render/diagReq.jar.requirements.test.ts",
+      "test/core/render/plantUmlCache.test.ts",
+      "test/core/render/plantUmlRenderer.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-005": [
+      "test/core/render/highlight.test.ts",
+      "test/core/render/mystFeatures.test.ts",
+      "test/core/render/renderReq.codeBlocks.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-012": [
+      "test/core/render/includeBudget.test.ts",
+      "test/core/render/includeMapping.test.ts",
+      "test/core/render/renderReq.renderingCore.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-010": [
+      "test/core/render/mystFeatures.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-019": [
+      "test/core/render/mystFeatures.test.ts",
+      "test/core/render/mystPaletteRendering.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-017": [
+      "test/core/render/mystFeatures.test.ts",
+      "test/core/render/mystPaletteRendering.test.ts",
+      "test/core/render/renderReq.myst.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-008": [
+      "test/core/render/mystFeatures.test.ts",
+      "test/core/render/mystPaletteRendering.test.ts",
+      "test/core/render/mystTablesTree.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-GFM-029": [
+      "test/core/render/mystPaletteRendering.test.ts",
+      "test/core/render/renderReq.gfm.requirements.test.ts",
+      "test/core/render/renderReq.renderingCore.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-072": [
+      "test/core/render/mystSyntaxDetect.test.ts",
+      "test/core/render/renderPipeline.test.ts",
+      "test/core/render/renderReq.myst.requirements.test.ts",
+      "test/page/modules/warningBanner.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-054": [
+      "test/core/render/plantUmlIncludes.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-073": [
+      "test/core/render/writingSkill.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TOOLBAR-004": [
+      "test/core/state/headingFold.test.ts",
+      "test/page/modules/headingFold.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-MYST-097": [
+      "test/core/syntax/markdownSyntax.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-094": [
+      "test/integration/realInput/blockKeys.ts",
+      "test/page/modules/listTable.test.ts",
+      "test/page/modules/markdownTable.test.ts",
+      "test/page/modules/markdownTablePreservation.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-232": [
+      "test/integration/realInput/markers.ts",
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-242": [
+      "test/integration/realInput/markers.ts",
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-238": [
+      "test/integration/realInput/markers.ts",
+      "test/page/modules/editPalette.test.ts",
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-106": [
+      "test/integration/realInput/tableInsertSlash.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/tableInsertAfterTable.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-111": [
+      "test/integration/realInput/tableInsertSlash.ts",
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editPalette.test.ts",
+      "test/page/modules/markdownTable.test.ts",
+      "test/page/modules/tableRowTailActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CODE-019": [
+      "test/page/modules/codeCopy.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-038": [
+      "test/page/modules/commentCompose.test.ts",
+      "test/page/modules/diagReq.diagrams.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-049": [
+      "test/page/modules/commentCompose.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-218": [
+      "test/page/modules/commentCompose.test.ts",
+      "test/page/modules/commentEditorBehaviour.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-217": [
+      "test/page/modules/commentEditorBehaviour.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-017": [
+      "test/page/modules/commentThreads.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-081": [
+      "test/page/modules/commentThreads.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-086": [
+      "test/page/modules/commentThreads.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-216": [
+      "test/page/modules/commentThreadsLongDocument.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-045": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-048": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-049": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-050": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-052": [
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-053": [
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-114": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-123": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-124": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-125": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-126": [
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/editPalette.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-127": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-130": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-132": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-133": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-135": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-136": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-137": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-138": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-147": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-149": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-160": [
+      "test/page/modules/editActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-117": [
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/markdownTable.test.ts",
+      "test/page/modules/tableInsertAfterTable.test.ts",
+      "test/page/modules/tableRowTailActions.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-TABLE-115": [
+      "test/page/modules/editActions.test.ts",
+      "test/page/modules/tableInsertAfterTable.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-140": [
+      "test/page/modules/editPalette.test.ts",
+      "test/page/modules/paletteReq.requirements.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-263": [
+      "test/page/modules/editPalette.test.ts",
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-REVIEW-208": [
+      "test/page/modules/incomingChanges.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-DIAG-061": [
+      "test/page/modules/plantumlDiagram.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-240": [
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-256": [
+      "test/page/modules/slashMenu.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-275": [
+      "test/page/modules/slashSyntaxCoverage.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-273": [
+      "test/page/modules/slashSyntaxCoverage.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-274": [
+      "test/page/modules/slashSyntaxCoverage.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-PALETTE-003": [
+      "test/page/modules/tocAction.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-085": [
+      "test/site/requirementsViewer/cards.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-069": [
+      "test/site/requirementsViewer/home.test.ts",
+      "test/site/requirementsViewer/model.test.ts",
+      "test/site/requirementsViewer/write.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-080": [
+      "test/site/requirementsViewer/home.test.ts",
+      "test/site/requirementsViewer/pages.test.ts",
+      "test/site/requirementsViewer/write.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-081": [
+      "test/site/requirementsViewer/mainPaths.test.ts",
+      "test/site/requirementsViewer/pages.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-083": [
+      "test/site/requirementsViewer/model.test.ts",
+      "test/site/requirementsViewer/pages.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-082": [
+      "test/site/requirementsViewer/model.test.ts",
+      "test/site/requirementsViewer/pages.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-087": [
+      "test/site/requirementsViewer/model.test.ts",
+      "test/site/requirementsViewer/pages.test.ts",
+      "test/site/requirementsViewer/useCaseDiagram.test.ts"
+    ],
+    "SwRS-MDOKFSTUDIO-CORE-084": [
+      "test/site/requirementsViewer/pages.test.ts",
+      "test/site/requirementsViewer/search.test.ts",
+      "test/site/requirementsViewer/write.test.ts"
+    ]
+  },
+  "validation_tests": {
+    "StRS-MDOKFSTUDIO-BLOCK-025": [
+      "test/integration/blockClipboard.test.ts",
+      "test/integration/blockMove.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-BLOCK-016": [
+      "test/integration/blockClipboard.test.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/integration/realInput/blockKeys.ts"
+    ],
+    "StRS-MDOKFSTUDIO-BLOCK-014": [
+      "test/integration/blockMove.test.ts",
+      "test/integration/realInput/blockKeys.ts"
+    ],
+    "StRS-MDOKFSTUDIO-GFM-003": [
+      "test/integration/checkboxToggle.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-REVIEW-008": [
+      "test/integration/commentAnchors.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-REVIEW-001": [
+      "test/integration/commentAnchors.test.ts",
+      "test/integration/commentWrite.test.ts",
+      "test/integration/reviewComments.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-REVIEW-003": [
+      "test/integration/commentWrite.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TRUST-001": [
+      "test/integration/commentWrite.test.ts",
+      "test/integration/realWindowGaps.ts",
+      "test/integration/standalone-suite.ts",
+      "test/integration/untrusted-suite.ts"
+    ],
+    "StRS-MDOKFSTUDIO-LIFE-005": [
+      "test/integration/dirtySnapshots.test.ts",
+      "test/integration/updateGlow.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-BLOCK-008": [
+      "test/integration/editKeys.test.ts",
+      "test/integration/realInput/blockKeys.ts",
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TOOLBAR-014": [
+      "test/integration/exportHtml.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TOOLBAR-003": [
+      "test/integration/findInPreview.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-PALETTE-018": [
+      "test/integration/imagePaste.test.ts",
+      "test/integration/realWindowGaps.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-PALETTE-007": [
+      "test/integration/imagePicker.test.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "StRS-MDOKFSTUDIO-REVIEW-015": [
+      "test/integration/inlineThread.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-MYST-009": [
+      "test/integration/labelRename.test.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-LIFE-001": [
+      "test/integration/lifecycle.test.ts",
+      "test/integration/serializer.test.ts",
+      "test/integration/stockCoexistence.test.ts",
+      "test/integration/realInput/previewWindow.ts"
+    ],
+    "StRS-MDOKFSTUDIO-LIFE-003": [
+      "test/integration/lifecycle.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-LIFE-007": [
+      "test/integration/lifecycle.test.ts",
+      "test/integration/serializer.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-MYST-007": [
+      "test/integration/mystDiagnostics.test.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-PALETTE-013": [
+      "test/integration/mystPickers.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-PALETTE-002": [
+      "test/integration/paletteMode.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-FMSCHEMA-001": [
+      "test/integration/previewEditing.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "StRS-MDOKFSTUDIO-FMSCHEMA-014": [
+      "test/integration/previewEditing.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "StRS-MDOKFSTUDIO-BLOCK-003": [
+      "test/integration/previewEditing.test.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TOOLBAR-009": [
+      "test/integration/previewHistory.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TOOLBAR-011": [
+      "test/integration/previewHistory.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-REVIEW-017": [
+      "test/integration/realWindowGaps.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-BLOCK-001": [
+      "test/integration/realWindowGaps.ts",
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "StRS-MDOKFSTUDIO-LIFE-014": [
+      "test/integration/reload-suite.ts",
+      "test/integration/serializer.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-LIFE-010": [
+      "test/integration/scroll-sync-suite.ts",
+      "test/integration/sourceMapping.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TOOLBAR-013": [
+      "test/integration/scroll-sync-suite.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/integration/realInput/previewWindow.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TRUST-004": [
+      "test/integration/standalone-suite.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TABLE-013": [
+      "test/integration/tableMoves.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TABLE-002": [
+      "test/integration/tableMoves.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-LIFE-022": [
+      "test/integration/workspaceDisposal.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-LIFE-021": [
+      "test/security/package-contract.test.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TOOLBAR-002": [
+      "test/visual/capture_layout_checks.py"
+    ],
+    "StRS-MDOKFSTUDIO-CORE-001": [
+      "test/visual/releaseShowcaseScenarios.ts",
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-LAYOUT-004": [
+      "test/visual/scenarioAssertions.ts",
+      "test/visual/scenarioDefinitions1.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TOOLBAR-001": [
+      "test/visual/scenarioAssertions.ts"
+    ],
+    "StRS-MDOKFSTUDIO-THEME-002": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "StRS-MDOKFSTUDIO-LAYOUT-001": [
+      "test/visual/scenarioDefinitions1.ts"
+    ],
+    "StRS-MDOKFSTUDIO-MYST-001": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-CORE-003": [
+      "test/visual/scenarioDefinitions1.ts"
+    ],
+    "StRS-MDOKFSTUDIO-MYST-005": [
+      "test/visual/scenarioDefinitions1.ts"
+    ],
+    "StRS-MDOKFSTUDIO-DIAG-001": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "StRS-MDOKFSTUDIO-DIAG-007": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-CODE-004": [
+      "test/visual/scenarioDefinitions1.ts"
+    ],
+    "StRS-MDOKFSTUDIO-LAYOUT-003": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-CODE-001": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-FMSCHEMA-006": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TABLE-008": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "StRS-MDOKFSTUDIO-BLOCK-011": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/integration/realInput/renderPatching.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TOOLBAR-004": [
+      "test/visual/scenarioDefinitions1.ts",
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-FMSCHEMA-010": [
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TOOLBAR-006": [
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-REVIEW-012": [
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-GFM-002": [
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-MYST-012": [
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-DIAG-006": [
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-DIAG-009": [
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-FMSCHEMA-002": [
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-THEME-011": [
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-THEME-004": [
+      "test/visual/scenarioDefinitions2.ts"
+    ],
+    "StRS-MDOKFSTUDIO-PALETTE-015": [
+      "test/visual/scenarioDefinitions2.ts",
+      "test/integration/realInput/markers.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TABLE-015": [
+      "test/integration/realInput/blockKeys.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TABLE-014": [
+      "test/integration/realInput/blockKeys.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TABLE-001": [
+      "test/integration/realInput/editorWidgets.ts",
+      "test/integration/realInput/flushBeforeNavigate.ts",
+      "test/integration/realInput/tableEscape.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TABLE-006": [
+      "test/integration/realInput/editorWidgets.ts"
+    ],
+    "StRS-MDOKFSTUDIO-BLOCK-006": [
+      "test/integration/realInput/flushBeforeNavigate.ts"
+    ],
+    "StRS-MDOKFSTUDIO-FMEDIT-001": [
+      "test/integration/realInput/markers.ts"
+    ],
+    "StRS-MDOKFSTUDIO-FMEDIT-005": [
+      "test/integration/realInput/markers.ts"
+    ],
+    "StRS-MDOKFSTUDIO-FMEDIT-008": [
+      "test/integration/realInput/markers.ts"
+    ],
+    "StRS-MDOKFSTUDIO-PALETTE-001": [
+      "test/integration/realInput/markers.ts"
+    ],
+    "StRS-MDOKFSTUDIO-PALETTE-005": [
+      "test/integration/realInput/markers.ts"
+    ],
+    "StRS-MDOKFSTUDIO-TABLE-016": [
+      "test/integration/realInput/tableInsertSlash.ts"
+    ]
+  },
+  "duplicates": [],
+  "non_leaf": [],
+  "missing_ids": [],
+  "warnings": []
+}

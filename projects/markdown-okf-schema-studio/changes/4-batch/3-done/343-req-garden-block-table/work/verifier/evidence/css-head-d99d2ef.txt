@@ -1,0 +1,1667 @@
+
+/* The runtime owns scroll anchoring; browser scroll anchoring would fight it. */
+html,
+body {
+  overflow-anchor: none;
+}
+
+[data-sphinx-preview-sticky-headings][hidden] {
+  display: none;
+}
+
+/* A plain click on a link edits its block too (CR 217): the link shows the text cursor of the block.
+   The page marks only those links (linkEditing.ts); every other link keeps its pointer. */
+html[data-sphinx-preview-edit-mode="on"] [data-sphinx-source-file][data-sphinx-source-line],
+html[data-sphinx-preview-edit-mode="on"] a[data-sphinx-preview-link-edits="true"] {
+  cursor: text;
+}
+
+/* Edit mode: the stretched overlay of a linked card no longer catches the pointer, so the part of
+   the card under it (title, header, body, footer) decides what opens (CR 217). */
+html[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content .myst-grid-card-link::after {
+  pointer-events: none;
+}
+
+[data-sphinx-preview-editing="true"] {
+  display: none !important;
+}
+
+html[data-sphinx-preview-edit-mode="on"] [data-sphinx-preview-edit-hover="true"] {
+  outline: 1px dashed var(--studio-focusBorder, Highlight);
+  outline-offset: 3px;
+}
+
+html[data-sphinx-preview-edit-mode="on"] [data-sphinx-preview-block-selected="true"] {
+  outline: 2px solid var(--studio-focusBorder, Highlight);
+  outline-offset: 3px;
+}
+
+/* The table cell the keyboard selected: the same ring, drawn inside the cell so neighbours keep theirs. */
+html[data-sphinx-preview-edit-mode="on"] [data-sphinx-preview-cell-focus="true"] {
+  outline: 2px solid var(--studio-focusBorder, Highlight);
+  outline-offset: -2px;
+}
+
+/* Whichever moved last owns the block actions: after a pointer move the selection ring goes away. */
+html[data-sphinx-preview-edit-mode="on"][data-sphinx-preview-actions-owner="pointer"] [data-sphinx-preview-block-selected="true"] {
+  outline: none;
+}
+
+.sphinx-preview-selection-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.sphinx-preview-insert-point {
+  position: relative;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+html:not([data-sphinx-preview-edit-mode="on"]) .sphinx-preview-insert-point {
+  display: none;
+}
+
+/* Files dragged from the Explorer: a line across the page where the links will land. */
+.sphinx-preview-insert-point--drop::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--studio-focusBorder, Highlight);
+  pointer-events: none;
+}
+
+.sphinx-preview-insert-point--drop button {
+  opacity: 1;
+}
+
+.sphinx-preview-insert-point button {
+  position: absolute;
+  left: -1.6em;
+  top: -0.8em;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 1.4em;
+  height: 1.4em;
+  padding: 0;
+  border: 1px solid var(--studio-focusBorder, Highlight);
+  border-radius: 50%;
+  background: var(--studio-button-background, Highlight);
+  color: var(--studio-button-foreground, HighlightText);
+  font: inherit;
+  font-size: 0.9em;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+}
+
+[data-sphinx-source-line]:hover + .sphinx-preview-insert-point button,
+.sphinx-preview-insert-point button:hover,
+.sphinx-preview-insert-point button:focus-visible {
+  opacity: 1;
+}
+
+/* The block actions follow what moved last: while the keyboard selection owns them, the hovered
+   block does not show them and the bar of the selection does. */
+html[data-sphinx-preview-actions-owner="keyboard"] [data-sphinx-source-line]:hover
+  + .sphinx-preview-insert-point:not([data-sphinx-actions-shown="true"]) button:not(:hover):not(:focus-visible) {
+  opacity: 0;
+}
+
+html[data-sphinx-preview-actions-owner="keyboard"] .sphinx-preview-insert-point[data-sphinx-actions-shown="true"] button {
+  opacity: 1;
+}
+
+html[data-sphinx-preview-actions-owner="keyboard"] .sphinx-preview-insert-point[data-sphinx-actions-shown="true"] button.sphinx-preview-move:disabled {
+  opacity: 0.5;
+}
+
+/* The move buttons sit right of the "+", touching it so the pointer never loses the bar. */
+.sphinx-preview-insert-point button.sphinx-preview-move--up {
+  left: -0.2em;
+}
+
+.sphinx-preview-insert-point button.sphinx-preview-move--down {
+  left: 1.2em;
+}
+
+.sphinx-preview-insert-point button.sphinx-preview-move:disabled {
+  cursor: default;
+  background: var(--studio-button-secondaryBackground, GrayText);
+  color: var(--studio-button-secondaryForeground, Canvas);
+}
+
+[data-sphinx-source-line]:hover + .sphinx-preview-insert-point button.sphinx-preview-move:disabled,
+.sphinx-preview-insert-point button.sphinx-preview-move:disabled:hover {
+  opacity: 0.5;
+}
+
+html[data-sphinx-preview-block-editing="true"] .sphinx-preview-insert-point .sphinx-preview-move {
+  display: none;
+}
+
+.sphinx-preview-move-status {
+  position: absolute;
+  left: 2.8em;
+  top: -0.9em;
+  z-index: 2;
+  max-width: 24em;
+  padding: 2px 8px;
+  border: 1px solid var(--studio-focusBorder, Highlight);
+  border-radius: 3px;
+  background: var(--studio-editorWidget-background, Canvas);
+  color: var(--studio-editorWidget-foreground, CanvasText);
+  font-size: 0.85em;
+}
+
+.sphinx-preview-insert-point--start {
+  height: auto;
+  margin: 0 0 1em;
+}
+
+.sphinx-preview-insert-point--start button {
+  position: static;
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  padding: 4px 12px;
+  border-radius: 3px;
+  font-size: 1em;
+  opacity: 1;
+}
+
+#sphinx-myst-preview-content .sphinx-preview-insert-point--start [data-sphinx-preview-start-hint] {
+  margin-block-start: 10px;
+  line-height: 1.4;
+}
+
+/* The keyboard selection of an empty document: the ring of a selected block. */
+html[data-sphinx-preview-edit-mode="on"] .sphinx-preview-insert-point--start button[data-sphinx-preview-start-selected="true"] {
+  outline: 2px solid var(--studio-focusBorder, Highlight);
+  outline-offset: 3px;
+}
+
+.sphinx-preview-block-editor {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  border: 1px solid var(--studio-focusBorder, Highlight);
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--studio-editor-background, Canvas);
+  color: inherit;
+}
+
+.sphinx-preview-table-cell-editor textarea,
+.sphinx-preview-block-editor textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 1.5em;
+  max-height: none;
+  resize: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font-family: var(--studio-editor-font-family, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: calc(var(--studio-editor-font-size, 0.95em) - 1px);
+  tab-size: 4;
+  line-height: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+}
+
+.sphinx-preview-block-editor [data-sphinx-preview-edit-status]:empty {
+  display: none;
+}
+
+.sphinx-preview-block-editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  margin-block-start: 8px;
+}
+
+.sphinx-preview-block-editor-buttons {
+  display: flex;
+  flex: none;
+  gap: 6px;
+  margin-inline-start: auto;
+}
+
+/* The id selector beats the "#sphinx-myst-preview-content p" rule, whose bottom margin pushed the text up. */
+#sphinx-myst-preview-content .sphinx-preview-block-editor .sphinx-preview-block-editor-actions [data-sphinx-preview-edit-status] {
+  flex: 1 1 14em;
+  align-self: center;
+  min-width: 0;
+  margin: 0;
+  font-size: 0.75em;
+  line-height: 1.4;
+}
+
+.sphinx-preview-block-editor-buttons button {
+  min-width: 64px;
+  padding: 4px 10px;
+  border: 1px solid var(--sphinx-preview-border);
+  border-radius: 3px;
+  background: var(--studio-button-secondaryBackground, ButtonFace);
+  color: var(--studio-button-secondaryForeground, ButtonText);
+  cursor: pointer;
+}
+
+.sphinx-preview-block-editor-buttons button:first-child {
+  border-color: transparent;
+  background: var(--studio-button-background, Highlight);
+  color: var(--studio-button-foreground, HighlightText);
+}
+
+.sphinx-preview-block-editor [data-sphinx-preview-edit-status],
+#sphinx-myst-preview-content .sphinx-preview-insert-point--start [data-sphinx-preview-start-hint] {
+  margin: 6px 0 0;
+  color: var(--studio-descriptionForeground, GrayText);
+  font-size: 0.75em;
+}
+
+[data-sphinx-preview-table-cell-selected="true"] {
+  position: relative;
+  z-index: 2;
+}
+
+/* In edit mode every table cell keeps a usable width (an empty new column stays clickable) and the
+   cell being edited is wide enough to type in: 300 px, or the room of the table's box when the pane
+   is narrower (the runtime writes it on the cell, see modules/cellEditorRoom.ts), never under 8em.
+   Without the property the edited cell keeps 300 px. The rendered (read) view is unchanged. */
+html[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content table :where(th, td) {
+  min-width: 8em;
+}
+
+html[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content table :where(th, td)[data-sphinx-preview-table-cell-selected="true"] {
+  min-width: max(8em, min(300px, var(--sphinx-preview-cell-editor-room, 300px)));
+}
+
+/* The rendered cell content keeps its width (so columns do not move) but no height: the editor
+   below is in the flow and the cell grows with the field and its buttons. */
+[data-sphinx-table-cell-content="true"] {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+/* contain: inline-size keeps the editor out of the column width calculation. */
+.sphinx-preview-table-cell-editor {
+  position: relative;
+  z-index: 3;
+  display: block;
+  contain: inline-size;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--studio-editor-foreground, CanvasText);
+}
+
+/* Font family, size and line-height come from the block editor rule above. */
+.sphinx-preview-table-cell-editor textarea {
+  height: auto;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--studio-editor-foreground, CanvasText);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+  resize: none;
+}
+
+.sphinx-preview-table-cell-editor .sphinx-preview-block-editor-actions {
+  justify-content: flex-start;
+  margin-block-start: 4px;
+  gap: 4px;
+}
+
+.sphinx-preview-table-cell-editor [data-sphinx-preview-table-cell-hint] {
+  flex: 0 1 auto;
+  min-width: 0;
+  color: var(--studio-descriptionForeground, GrayText);
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.sphinx-preview-table-cell-editor .sphinx-preview-block-editor-buttons {
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+  max-width: 100%;
+  margin-inline-start: 0;
+}
+
+.sphinx-preview-table-cell-editor .sphinx-preview-block-editor-buttons button {
+  min-width: 0;
+  max-width: 100%;
+  padding: 1px 6px;
+  overflow: hidden;
+  font-size: 0.8em;
+  line-height: 1.4;
+}
+
+/* CR 168: positioned (no offset, so still in the flow) with a z-index above the row and column handle
+   layer (2): a handle that lands on a button, because it was placed before the bar grew or wrapped or
+   because the table sits right of the bar, never takes the press. */
+.sphinx-preview-table-menu {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  margin: 0 0 6px;
+  padding: 3px;
+  width: max-content;
+  /* The runtime sets the inset when the bar opens under the floating preview controls at the top of
+     the page: the bar then wraps left of them. */
+  max-width: calc(100% - var(--sphinx-preview-table-menu-inset, 0px));
+  border: 1px solid var(--studio-widget-border, var(--sphinx-preview-border));
+  border-radius: 18px;
+  background: var(--studio-editorWidget-background, var(--studio-editor-background, Canvas));
+  color: var(--studio-icon-foreground, var(--studio-editor-foreground, CanvasText));
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.2);
+}
+
+/* CR 034: while its table scrolls, the runtime translates the bar down to just under the sticky band
+   or the preview controls (never past the table's bottom); nothing is laid out again, so the text
+   stays where it is. The menu is not translated otherwise. */
+.sphinx-preview-table-menu[data-sphinx-table-menu-stuck="true"] {
+  position: relative;
+  z-index: 3;
+  transform: translateY(var(--sphinx-preview-table-menu-shift, 0px));
+}
+
+.sphinx-preview-table-menu button {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  height: 30px;
+  min-height: 30px;
+  gap: 4px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.85em;
+  cursor: pointer;
+}
+
+.sphinx-preview-table-menu button:hover {
+  background: var(--studio-toolbar-hoverBackground, rgba(128, 128, 128, 0.25));
+}
+
+.sphinx-preview-table-menu button:focus-visible {
+  outline: 1px solid var(--studio-focusBorder, Highlight);
+  outline-offset: -2px;
+}
+
+.sphinx-preview-table-menu button > svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+/* One rule per group: before the first button of the column group and before the table group, never
+   between two buttons of the same group (Col + and Col −). */
+.sphinx-preview-table-menu :is([data-sphinx-table-group="row"] + [data-sphinx-table-group="column"],
+  [data-sphinx-table-group="column"] + [data-sphinx-table-group="table"]) {
+  position: relative;
+  margin-inline-start: 4px;
+}
+
+.sphinx-preview-table-menu :is([data-sphinx-table-group="row"] + [data-sphinx-table-group="column"],
+  [data-sphinx-table-group="column"] + [data-sphinx-table-group="table"])::before {
+  position: absolute;
+  inset-block: 6px;
+  inset-inline-start: -4px;
+  width: 1px;
+  background: var(--sphinx-preview-border);
+  content: "";
+}
+
+/* The id selector beats the paragraph margin, which would push the text above the buttons' centre. */
+#sphinx-myst-preview-content .sphinx-preview-table-menu [data-sphinx-preview-edit-status] {
+  align-self: center;
+  margin: 0 4px;
+  line-height: 1.2;
+  color: var(--studio-descriptionForeground, GrayText);
+  font-size: 0.85em;
+}
+
+.sphinx-preview-table-menu [data-sphinx-preview-edit-status]:empty {
+  display: none;
+}
+
+.sphinx-preview-table-menu button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+/* Row handles of a pipe table or a list-table (the column handles follow below): the mark of the list editor sits just left of the
+   table, outside it and centred on its row. A table scrolls sideways (overflow), so the handles live
+   in a layer of their own at the page origin; the runtime sets each handle's left and top. A table
+   with no room on its left is pushed right by the width of a handle. */
+[data-okf-row-handle-layer] {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 0;
+  height: 0;
+  z-index: 2;
+}
+
+[data-okf-row-handle-layer] .okf-table-row-handle {
+  position: absolute;
+  margin: 0;
+  transform: translate(-100%, -50%);
+}
+
+/* The dots of the mark hang down and right from their centre: lift them so they centre on the row. */
+[data-okf-row-handle-layer] .okf-table-row-handle::before {
+  transform: translate(-2.5px, -5px);
+}
+
+/* Column handles: the same mark, turned, just above the table and centred on its column. The runtime
+   sets each handle's left (the middle of the header cell) and top (the top of the table). */
+[data-okf-row-handle-layer] .okf-table-col-handle {
+  position: absolute;
+  width: 1.5em;
+  height: 1em;
+  margin: 0;
+  transform: translate(-50%, -100%);
+}
+
+/* Two rows of three dots hang down and right from their centre: lift them to centre on the handle. */
+[data-okf-row-handle-layer] .okf-table-col-handle::before {
+  box-shadow: 5px 0 currentColor, 10px 0 currentColor, 0 5px currentColor, 5px 5px currentColor,
+    10px 5px currentColor;
+  transform: translate(-5px, -2.5px);
+}
+
+/* The bar of a cell editor sits right above its table: leave the handles room between them. */
+html[data-sphinx-preview-edit-mode="on"] .sphinx-preview-table-menu:has(+ [data-okf-col-handles], + * [data-okf-col-handles]) {
+  margin-bottom: 22px;
+}
+
+#sphinx-myst-preview-content table[data-okf-row-shift="true"] {
+  width: max-content !important;
+  max-width: calc(100% - 2.2em) !important;
+  margin-inline-start: 2.2em !important;
+  margin-inline-end: 0 !important;
+}
+
+/* Whole words: a narrow column breaks at spaces, the table scrolls sideways instead. */
+#sphinx-myst-preview-content table[data-okf-row-handles="true"] :where(th, td) {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+#sphinx-myst-preview-content tr[data-okf-row-dragging="true"] {
+  opacity: 0.45;
+}
+
+#sphinx-myst-preview-content tr[data-okf-row-drop="before"] > :is(td, th) {
+  box-shadow: inset 0 2px 0 var(--studio-focusBorder, Highlight);
+}
+
+#sphinx-myst-preview-content tr[data-okf-row-drop="after"] > :is(td, th) {
+  box-shadow: inset 0 -2px 0 var(--studio-focusBorder, Highlight);
+}
+
+#sphinx-myst-preview-content :is(td, th)[data-okf-col-dragging="true"] {
+  opacity: 0.45;
+}
+
+#sphinx-myst-preview-content :is(td, th)[data-okf-col-drop="before"] {
+  box-shadow: inset 2px 0 0 var(--studio-focusBorder, Highlight);
+}
+
+#sphinx-myst-preview-content :is(td, th)[data-okf-col-drop="after"] {
+  box-shadow: inset -2px 0 0 var(--studio-focusBorder, Highlight);
+}
+
+=====SPLIT=====
+
+/* CR 050: an image written inside a paragraph is part of its line of text: the line runs through
+   its middle, so a tall image does not read as a picture above the text. A paragraph holding only
+   an image is a figure (centred block, data-sphinx-preview-figure) and keeps the default. */
+#sphinx-myst-preview-content p:not([data-sphinx-preview-figure]) img {
+  vertical-align: middle;
+}
+
+#sphinx-myst-preview-content figure {
+  margin: 1.4em 0;
+  text-align: center;
+}
+
+/* Figure and image alignment (MyST :align:) and size (:width:, applied by the page script from
+   data-okf-width). A figure floats beside the text; a lone image is centred or floats too. A
+   floating figure gets the width itself and its image fills it, so percentages stay relative to the
+   column. */
+#sphinx-myst-preview-content img.align-center {
+  display: block;
+  margin-inline: auto;
+}
+
+#sphinx-myst-preview-content :is(img, figure).align-left {
+  float: left;
+  max-width: 100%;
+  margin: 0.3em 1.4em 0.8em 0;
+}
+
+#sphinx-myst-preview-content :is(img, figure).align-right {
+  float: right;
+  max-width: 100%;
+  margin: 0.3em 0 0.8em 1.4em;
+}
+
+#sphinx-myst-preview-content figure > img.align-left,
+#sphinx-myst-preview-content figure > img.align-right {
+  float: none;
+  margin: 0;
+}
+
+#sphinx-myst-preview-content figure:is(.align-left, .align-right) > img[data-okf-width] {
+  width: 100%;
+}
+
+/* Top-level headings clear images, figures and tables aligned left or right (MyST :align:, HTML
+   align), never the toolbar float (CONTENT_LAYOUT_CSS): such a page has none. One test on the
+   column, not a scan of each heading's earlier siblings (too slow in a long document). */
+#sphinx-myst-preview-content:has(:is(img, figure, table):is(.align-left, .align-right, [align="left" i], [align="right" i])) > :is(h1, h2, h3, h4, h5, h6) {
+  clear: both;
+}
+
+/* The anchor icon of a (label)= target: it hangs in the left margin of the labelled block, so the
+   text does not move, and stays faint until hovered. Without a paragraph or heading to hold it, it
+   sits in a zero-height row before the block. */
+#sphinx-myst-preview-content .okf-anchor {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 1.1em;
+  margin-inline: -1.5em 0.4em;
+  color: var(--studio-descriptionForeground, #717171);
+  font-size: 0.8em;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  vertical-align: baseline;
+  opacity: 0.55;
+  user-select: none;
+}
+
+#sphinx-myst-preview-content .okf-anchor::before {
+  content: "\2693\FE0E";
+}
+
+#sphinx-myst-preview-content .okf-anchor:hover {
+  opacity: 1;
+}
+
+/* In edit mode the icon renames its label. */
+:root[data-sphinx-preview-edit-mode="on"] #sphinx-myst-preview-content .okf-anchor {
+  cursor: pointer;
+}
+
+[data-okf-label-rename] {
+  position: fixed;
+  z-index: 1060;
+  display: grid;
+  gap: 4px;
+  box-sizing: border-box;
+  width: min(22em, calc(100vw - 16px));
+  padding: 6px;
+  border: 1px solid var(--studio-editorWidget-border, rgba(128, 128, 128, 0.45));
+  border-radius: 4px;
+  background: var(--studio-editorWidget-background, #252526);
+  color: var(--studio-editorWidget-foreground, var(--studio-editor-foreground, inherit));
+  box-shadow: 0 2px 8px var(--studio-widget-shadow, rgba(0, 0, 0, 0.36));
+}
+
+[data-okf-label-rename] > input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3px 6px;
+  border: 1px solid var(--studio-input-border, rgba(128, 128, 128, 0.45));
+  background: var(--studio-input-background, transparent);
+  color: var(--studio-input-foreground, inherit);
+  font: inherit;
+}
+
+[data-okf-label-rename] > input:focus {
+  outline: 1px solid var(--studio-focusBorder, #007fd4);
+  outline-offset: -1px;
+}
+
+[data-okf-label-rename-status][data-visible="false"] {
+  display: none;
+}
+
+[data-okf-label-rename-status] {
+  font-size: 0.9em;
+  color: var(--studio-descriptionForeground, inherit);
+}
+
+#sphinx-myst-preview-content .okf-anchor-row {
+  position: relative;
+  height: 0;
+  margin: 0;
+}
+
+#sphinx-myst-preview-content .okf-anchor-row > .okf-anchor {
+  position: absolute;
+  top: 0.7em;
+  inset-inline-start: -1.5em;
+  margin: 0;
+}
+
+/* The MyST writer emits figure captions as a trailing paragraph, not a figcaption. */
+#sphinx-myst-preview-content figcaption,
+#sphinx-myst-preview-content figure > p:last-child {
+  margin-top: 0.6em;
+  margin-bottom: 0;
+  color: var(--studio-descriptionForeground, inherit);
+  font-size: 0.9em;
+  font-style: italic;
+  text-align: center;
+}
+
+/* A captioned MyST code-block is a figure around the code: the code stays left-aligned like a
+   plain fence and the caption becomes a title bar joined to the top of the block (same width and
+   border, square joint). The caption follows the code in the markup; order draws it first. */
+#sphinx-myst-preview-content figure:has(> pre) {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 0;
+  text-align: left;
+}
+
+#sphinx-myst-preview-content figure:has(> pre) > figcaption {
+  order: -1;
+  margin: 0;
+  padding: 0.35em 1em;
+  border: 1px solid var(--sphinx-preview-border);
+  border-bottom: 0;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(rgba(128, 128, 128, 0.12), rgba(128, 128, 128, 0.12)), var(--studio-textCodeBlock-background, rgba(128, 128, 128, 0.15));
+  color: var(--studio-editor-foreground, inherit);
+  font-family: var(--studio-editor-font-family, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.85em;
+  font-style: normal;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+#sphinx-myst-preview-content figure:has(> pre) > figcaption > p {
+  margin: 0;
+  font: inherit;
+}
+
+#sphinx-myst-preview-content figure:has(> pre) > pre {
+  margin: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Admonitions: tinted panel with a thick accent bar, matching VS Code alert styling. */
+#sphinx-myst-preview-content :where(.admonition, div[class*="admonition-"], .attention, .caution, .danger, .error, .hint, .important, .note, .seealso, .tip, .tips, .warning) {
+  --sphinx-preview-accent: var(--studio-textLink-foreground, #4488dd);
+  --sphinx-preview-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' fill-rule='evenodd' d='M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1Zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11ZM7.25 6.9h1.5v4.6h-1.5V6.9ZM8 4a.95.95 0 1 1 0 1.9A.95.95 0 0 1 8 4Z'/%3E%3C/svg%3E");
+  display: block;
+  margin: 1.2em 0;
+  padding: 0.85em 1em;
+  border: 1px solid var(--sphinx-preview-border);
+  border-inline-start: 4px solid var(--sphinx-preview-accent);
+  /* Fallback first: themes without color-mix still get a panel distinct from the page. */
+  background: var(--studio-textBlockQuote-background, rgba(128, 128, 128, 0.08));
+  background: color-mix(in srgb, var(--sphinx-preview-accent) 14%, var(--studio-editor-background, Canvas));
+  color: var(--studio-editor-foreground, CanvasText);
+  overflow: auto;
+}
+
+#sphinx-myst-preview-content :where(.admonition, .attention, .caution, .danger, .error, .hint, .important, .note, .seealso, .tip, .tips, .warning) > :where(.admonition-title, p.admonition-title) {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  margin: 0 0 0.5em;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--sphinx-preview-accent);
+  font-weight: 600;
+  font-size: 1em;
+  line-height: var(--sphinx-preview-line-height);
+}
+
+/* The badge is a mask, not an image, so it takes the accent colour of its callout. */
+#sphinx-myst-preview-content :where(.admonition-title, p.admonition-title)::before {
+  content: "";
+  flex: none;
+  width: 1.05em;
+  height: 1.05em;
+  background-color: currentColor;
+  -webkit-mask: var(--sphinx-preview-icon) no-repeat center / contain;
+  mask: var(--sphinx-preview-icon) no-repeat center / contain;
+}
+
+#sphinx-myst-preview-content :where(.admonition, .attention, .caution, .danger, .error, .hint, .important, .note, .seealso, .tip, .tips, .warning) > :last-child {
+  margin-bottom: 0;
+}
+
+#sphinx-myst-preview-content .admonition.simple {
+  padding: 0.45em 0 0.45em 1em;
+  border: 0;
+  border-inline-start: 3px solid var(--sphinx-preview-accent);
+  background: none;
+  overflow: visible;
+}
+
+#sphinx-myst-preview-content .admonition.no-icon > :where(.admonition-title, p.admonition-title)::before {
+  display: none;
+}
+
+/* A dropdown shows its state at the right of the title: a chevron pointing right when closed, down when open. */
+#sphinx-myst-preview-content details.admonition > summary.admonition-title {
+  cursor: pointer;
+  list-style: none;
+}
+
+#sphinx-myst-preview-content details.admonition > summary.admonition-title::-webkit-details-marker {
+  display: none;
+}
+
+#sphinx-myst-preview-content details.admonition > summary.admonition-title::after {
+  content: "";
+  flex: none;
+  box-sizing: border-box;
+  width: 0.5em;
+  height: 0.5em;
+  margin-inline: auto 0.3em;
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+}
+
+#sphinx-myst-preview-content details.admonition[open] > summary.admonition-title::after {
+  transform: rotate(45deg);
+}
+
+#sphinx-myst-preview-content .note {
+  --sphinx-preview-accent: var(--studio-charts-blue, #3794ff);
+}
+
+#sphinx-myst-preview-content .seealso {
+  --sphinx-preview-accent: var(--studio-charts-blue, #3794ff);
+  --sphinx-preview-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' fill-rule='evenodd' d='M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1Zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11ZM7.4 4.9 6.34 5.96 8.38 8l-2.04 2.04L7.4 11.1 10.5 8 7.4 4.9Z'/%3E%3C/svg%3E");
+}
+
+#sphinx-myst-preview-content :where(.tip, .tips, .hint, .versionadded) {
+  --sphinx-preview-accent: var(--studio-charts-green, #89d185);
+  --sphinx-preview-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' fill-rule='evenodd' d='M8 1a4.4 4.4 0 0 0-2.65 7.92c.35.27.55.63.55 1v.58h4.2v-.58c0-.37.2-.73.55-1A4.4 4.4 0 0 0 8 1ZM5.9 11.9h4.2v1.2H5.9v-1.2Zm.5 2.3h3.2a1.6 1.6 0 0 1-3.2 0Z'/%3E%3C/svg%3E");
+}
+
+#sphinx-myst-preview-content .important {
+  --sphinx-preview-accent: var(--studio-charts-purple, #b180d7);
+  --sphinx-preview-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' fill-rule='evenodd' d='M8 1.2 10.06 5.6 14.8 6.32l-3.44 3.42.82 4.86L8 12.3l-4.18 2.28.82-4.86L1.2 6.32 5.94 5.6 8 1.2Z'/%3E%3C/svg%3E");
+}
+
+#sphinx-myst-preview-content :where(.warning, .attention, .versionchanged) {
+  --sphinx-preview-accent: var(--studio-charts-yellow, #cca700);
+  --sphinx-preview-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' fill-rule='evenodd' d='M8 1.1 15.5 14.6H.5L8 1.1Zm0 3.1L3.1 13.1h9.8L8 4.2ZM7.3 6.8h1.4v3.4H7.3V6.8Zm0 4.2h1.4v1.4H7.3V11Z'/%3E%3C/svg%3E");
+}
+
+#sphinx-myst-preview-content .caution {
+  --sphinx-preview-accent: var(--studio-charts-red, #f14c4c);
+  --sphinx-preview-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' fill-rule='evenodd' d='M5 1h6l4 4v6l-4 4H5l-4-4V5l4-4Zm.62 1.5L2.5 5.62v4.76l3.12 3.12h4.76l3.12-3.12V5.62L10.38 2.5H5.62ZM7.3 4.6h1.4v4.2H7.3V4.6Zm0 5.2h1.4v1.4H7.3V9.8Z'/%3E%3C/svg%3E");
+}
+
+#sphinx-myst-preview-content :where(.danger, .error, .deprecated) {
+  --sphinx-preview-accent: var(--studio-charts-red, #f14c4c);
+  --sphinx-preview-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23fff' fill-rule='evenodd' d='M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1Zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11Zm2.6 1.84L8 6.94 5.4 4.34 4.34 5.4 6.94 8 4.34 10.6 5.4 11.66 8 9.06l2.6 2.6 1.06-1.06L9.06 8l2.6-2.6-1.06-1.06Z'/%3E%3C/svg%3E");
+}
+
+#sphinx-myst-preview-content blockquote {
+  margin: 1em 0;
+  padding: 0.25em 1em;
+  border-inline-start: 4px solid var(--sphinx-preview-border);
+  border-radius: 0 4px 4px 0;
+  background: var(--studio-textBlockQuote-background, rgba(128, 128, 128, 0.08));
+  color: var(--studio-descriptionForeground, inherit);
+}
+
+/*
+ * Structural styling for code, tables and rules.
+ *
+ * These used to come from the Sphinx theme stylesheet. The preview renders the buffer
+ * on its own now, so the only stylesheet in the page is this one.
+ */
+#sphinx-myst-preview-content :where(code, pre, samp, kbd) {
+  font-family: var(--studio-editor-font-family, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.92em;
+}
+
+/* A keyboard key (kbd element): a hairline cap derived from the text colour. */
+#sphinx-myst-preview-content kbd {
+  padding: 0.05em 0.4em;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-bottom-width: 2px;
+  border-radius: 0.3em;
+}
+
+/*
+ * Inline code is a quiet pill: a tint and a hairline derived from the text colour, so it sits on
+ * any page colour (current theme, dark, white, cream) without a hard-coded box. Sizes are in em
+ * so the span scales inside headings, and vertical padding never grows the line box.
+ */
+#sphinx-myst-preview-content :not(pre) > code {
+  padding: 0.1em 0.35em;
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+  border-radius: 4px;
+  background: rgba(128, 128, 128, 0.14);
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  font-size: 0.875em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  overflow-wrap: break-word;
+}
+
+#sphinx-myst-preview-content :is(td, th) > code {
+  padding: 0.05em 0.3em;
+}
+
+html[data-sphinx-preview-theme-mode="cream"] #sphinx-myst-preview-content :not(pre) > code,
+html[data-sphinx-preview-theme-mode="white"] #sphinx-myst-preview-content :not(pre) > code {
+  color: var(--studio-textLink-foreground, #006ab1);
+}
+
+#sphinx-myst-preview-content pre {
+  margin: 1em 0;
+  padding: 0.9em 1em;
+  border: 1px solid var(--sphinx-preview-border);
+  border-radius: 4px;
+  background: var(--studio-textCodeBlock-background, rgba(128, 128, 128, 0.15));
+  color: var(--studio-editor-foreground, inherit);
+  overflow-x: auto;
+  line-height: 1.45;
+}
+
+#sphinx-myst-preview-content pre > code {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 1em;
+  color: inherit;
+  white-space: pre;
+}
+
+#sphinx-myst-preview-content pre.myst-code-block-diff {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+#sphinx-myst-preview-content .myst-code-filename {
+  display: block;
+  margin-bottom: 0.65em;
+  color: var(--studio-descriptionForeground, inherit);
+  font-size: 0.85em;
+  white-space: normal;
+}
+
+#sphinx-myst-preview-content .myst-code-line {
+  position: relative;
+  display: block;
+  min-height: 1.45em;
+}
+
+#sphinx-myst-preview-content .myst-code-line-emphasized {
+  background: color-mix(in srgb, var(--studio-editor-findMatchHighlightBackground, #ea5c0055) 35%, transparent);
+}
+
+#sphinx-myst-preview-content :where(.myst-diff-line-addition, .myst-diff-line-deletion) {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#sphinx-myst-preview-content .myst-diff-line-addition {
+  border-inline-start: 3px solid var(--sphinx-preview-diff-addition);
+  background: color-mix(in srgb, var(--sphinx-preview-diff-addition) 18%, transparent);
+}
+
+#sphinx-myst-preview-content .myst-diff-line-deletion {
+  border-inline-start: 3px solid var(--sphinx-preview-diff-deletion);
+  background: color-mix(in srgb, var(--sphinx-preview-diff-deletion) 18%, transparent);
+}
+
+#sphinx-myst-preview-content .myst-code-cell-output {
+  margin: 0 0 1em;
+  padding: 0.55em 0.8em;
+  border-inline-start: 3px solid var(--studio-descriptionForeground, #808080);
+  background: var(--studio-textBlockQuote-background, rgba(128, 128, 128, 0.08));
+  color: var(--studio-descriptionForeground, inherit);
+  font-style: italic;
+}
+
+#sphinx-myst-preview-content .myst-mermaid-diagram {
+  min-height: 1.5em;
+  overflow-x: auto;
+  font-family: var(--studio-editor-font-family, monospace);
+  text-align: start;
+  white-space: pre-wrap;
+}
+
+#sphinx-myst-preview-content .myst-mermaid-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+/*
+ * Where Mermaid measures a diagram before the page shows it as an image (see mermaidFont.ts). The
+ * policy blocks Mermaid's own style sheet here, so this rule gives the labels the font and size
+ * the image draws them with, and nothing of the page (inherited size, line height, spacing).
+ * Hidden, out of the flow and off screen: it only lives while Mermaid draws.
+ */
+.myst-mermaid-measure {
+  all: initial;
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: -100000px;
+  visibility: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+}
+
+#sphinx-myst-preview-content details.myst-mermaid-source {
+  margin-top: 0.75em;
+  text-align: start;
+}
+
+#sphinx-myst-preview-content .myst-mermaid-source summary {
+  color: var(--studio-descriptionForeground, inherit);
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+#sphinx-myst-preview-content .myst-mermaid-error {
+  color: var(--studio-errorForeground, #f14c4c);
+  text-align: start;
+}
+
+#sphinx-myst-preview-content .myst-mermaid-error > p {
+  margin: 0 0 0.25em;
+  font-style: italic;
+}
+
+#sphinx-myst-preview-content .myst-mermaid-error-details {
+  margin-bottom: 0.5em;
+  font-size: 0.9em;
+}
+
+#sphinx-myst-preview-content .myst-mermaid-error-details summary {
+  color: var(--studio-descriptionForeground, inherit);
+  cursor: pointer;
+}
+
+#sphinx-myst-preview-content .myst-mermaid-error-details pre {
+  margin: 0.4em 0 0;
+  padding: 0.5em 0.75em;
+  overflow-x: auto;
+  border: 1px solid var(--sphinx-preview-border);
+  border-radius: 4px;
+  background: var(--studio-textCodeBlock-background);
+  color: var(--studio-editor-foreground);
+  font-family: var(--studio-editor-font-family, monospace);
+  font-style: normal;
+  white-space: pre-wrap;
+}
+
+/* Charts (Vega-Lite, Vega) are drawn like Mermaid diagrams: one contained picture, the source and
+   the error in place. */
+#sphinx-myst-preview-content .myst-vega-diagram {
+  min-height: 1.5em;
+  overflow-x: auto;
+  font-family: var(--studio-editor-font-family, monospace);
+  text-align: start;
+  white-space: pre-wrap;
+}
+
+#sphinx-myst-preview-content .myst-vega-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+#sphinx-myst-preview-content details.myst-vega-source {
+  margin-top: 0.75em;
+  text-align: start;
+}
+
+#sphinx-myst-preview-content .myst-vega-source summary {
+  color: var(--studio-descriptionForeground, inherit);
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+#sphinx-myst-preview-content .myst-vega-error {
+  color: var(--studio-errorForeground, #f14c4c);
+  text-align: start;
+}
+
+#sphinx-myst-preview-content .myst-vega-error > p {
+  margin: 0 0 0.25em;
+  font-style: italic;
+}
+
+#sphinx-myst-preview-content .myst-vega-error-details {
+  margin-bottom: 0.5em;
+  font-size: 0.9em;
+}
+
+#sphinx-myst-preview-content .myst-vega-error-details summary {
+  color: var(--studio-descriptionForeground, inherit);
+  cursor: pointer;
+}
+
+#sphinx-myst-preview-content .myst-vega-error-details pre {
+  margin: 0.4em 0 0;
+  padding: 0.5em 0.75em;
+  overflow-x: auto;
+  border: 1px solid var(--sphinx-preview-border);
+  border-radius: 4px;
+  background: var(--studio-textCodeBlock-background);
+  color: var(--studio-editor-foreground);
+  font-family: var(--studio-editor-font-family, monospace);
+  font-style: normal;
+  white-space: pre-wrap;
+}
+
+#sphinx-myst-preview-content .myst-plantuml-diagram {
+  min-height: 1.5em;
+  overflow-x: auto;
+  font-family: var(--studio-editor-font-family, monospace);
+  text-align: start;
+  white-space: pre-wrap;
+}
+
+#sphinx-myst-preview-content .myst-plantuml-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+#sphinx-myst-preview-content details.myst-plantuml-source {
+  margin-top: 0.75em;
+  text-align: start;
+}
+
+#sphinx-myst-preview-content .myst-plantuml-source summary {
+  color: var(--studio-descriptionForeground, inherit);
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+#sphinx-myst-preview-content .myst-plantuml-error {
+  color: var(--studio-errorForeground, #f14c4c);
+  font-style: italic;
+}
+
+@media (forced-colors: active) {
+  #sphinx-myst-preview-content .myst-diff-line-addition {
+    border-inline-start-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  #sphinx-myst-preview-content .myst-diff-line-deletion {
+    border-inline-start-color: Mark;
+    background: Mark;
+    color: MarkText;
+  }
+
+  #sphinx-myst-preview-content :where(.myst-diff-line-addition, .myst-diff-line-deletion) :where(*) {
+    color: inherit;
+  }
+}
+
+
+/* A wide table scrolls inside its own box instead of widening the whole preview. */
+#sphinx-myst-preview-content :where(table, .table-wrapper) {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin: 1.2em 0;
+  border-collapse: collapse;
+  overflow-x: auto;
+}
+
+/* A table that scrolls sideways keeps short identifiers whole and shades the overflow edges. */
+#sphinx-myst-preview-content table[data-sphinx-table-overflow="true"] :where(th, td)[data-sphinx-short-cell="true"] {
+  white-space: nowrap;
+}
+
+#sphinx-myst-preview-content table[data-sphinx-table-overflow="true"] {
+  background:
+    linear-gradient(to right, var(--studio-editor-background, Canvas) 30%, transparent) left center / 2rem 100% no-repeat local,
+    linear-gradient(to left, var(--studio-editor-background, Canvas) 30%, transparent) right center / 2rem 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, color-mix(in srgb, var(--studio-editor-foreground, var(--studio-foreground, CanvasText)) 35%, transparent), transparent) left center / 1rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, color-mix(in srgb, var(--studio-editor-foreground, var(--studio-foreground, CanvasText)) 35%, transparent), transparent) right center / 1rem 100% no-repeat scroll;
+}
+
+#sphinx-myst-preview-content :where(th, td) {
+  padding: 0.4em 0.8em;
+  border: 1px solid var(--sphinx-preview-border);
+  text-align: start;
+  vertical-align: top;
+}
+
+/* A column never narrows below 5em of text, so a table with many columns keeps whole words in its
+   cells ("document", "parse") instead of breaking them letter by letter. A table that then no
+   longer fits the column uses the wide-table behaviour (breakout in Auto, scroll otherwise). The
+   frontmatter properties table sizes its own columns. In edit mode the larger cell minimum below
+   (8em) wins. */
+#sphinx-myst-preview-content table:not(.okf-properties) :where(th, td) {
+  min-width: 5em;
+}
+
+/* A short identifier (one word, up to 24 characters) never splits inside a cell, wide table or not:
+   the global overflow-wrap: anywhere would otherwise break "Coverage" or "OPS-1042" letter by letter
+   when the columns are squeezed. The cell keeps the word whole, so the table grows and then breaks
+   out in Auto or scrolls. */
+#sphinx-myst-preview-content table :where(th, td)[data-sphinx-short-cell="true"] {
+  white-space: nowrap;
+}
+
+#sphinx-myst-preview-content th {
+  font-weight: 600;
+}
+
+/* The heading, the even rows and the hovered row are translucent tints of theme tokens: a VS Code
+   theme is followed, and the overflow shading of a table that scrolls sideways shows through them.
+   The tints sit on the row, under the cells, so the handles, the cell ring and the change bars stay
+   above them. The frontmatter properties table keeps no background. */
+#sphinx-myst-preview-content table:not(.okf-properties) th {
+  background: color-mix(in srgb, var(--studio-focusBorder, Highlight) 24%, transparent);
+}
+
+#sphinx-myst-preview-content table:not(.okf-properties) tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--studio-editor-foreground, CanvasText) 3%, transparent);
+}
+
+#sphinx-myst-preview-content table:not(.okf-properties) tbody tr:hover {
+  background: color-mix(in srgb, var(--studio-focusBorder, Highlight) 12%, transparent);
+}
+
+#sphinx-myst-preview-content :where(th, td)[align="left"] { text-align: left; }
+#sphinx-myst-preview-content :where(th, td)[align="center"] { text-align: center; }
+#sphinx-myst-preview-content :where(th, td)[align="right"] { text-align: right; }
+#sphinx-myst-preview-content table[align="center"] { margin-inline: auto; }
+#sphinx-myst-preview-content table[align="right"] {
+  margin-inline-start: auto;
+  margin-inline-end: 0;
+}
+
+/* A {list-table} cell holds a paragraph: it adds no space of its own, so the rows are as tall as a pipe table's. */
+#sphinx-myst-preview-content :where(th, td) > p:first-child { margin-top: 0; }
+#sphinx-myst-preview-content :where(th, td) > p:last-child { margin-bottom: 0; }
+
+/* A table with :widths: (a colgroup) fills the column and splits it by those widths. */
+#sphinx-myst-preview-content table:has(> colgroup) {
+  display: table;
+  width: 100%;
+}
+
+/* The line is 1px, but the box is 25px tall (12px of padding on each side, painted transparent), so a
+   click near the line lands on the rule and opens its editor. The margin gives the padding back. */
+#sphinx-myst-preview-content hr {
+  box-sizing: content-box;
+  height: 1px;
+  margin: calc(2em - 12px) 0;
+  padding: 12px 0;
+  border: 0;
+  background: var(--sphinx-preview-border);
+  background-clip: content-box;
+}
+
+#sphinx-myst-preview-content dt {
+  margin-top: 1em;
+  font-weight: 600;
+}
+
+#sphinx-myst-preview-content dd {
+  margin: 0.3em 0 0 1.5em;
+}
+
+#sphinx-myst-preview-content :where(cite, .citation-reference, a.reference.internal) {
+  font-style: normal;
+}
+
+/* Constructs that only a project-wide build can resolve, shown as inert placeholders. */
+#sphinx-myst-preview-content .myst-unresolved {
+  color: var(--studio-descriptionForeground, inherit);
+}
+
+#sphinx-myst-preview-content .myst-notebook-output {
+  display: inline-block;
+  max-width: 100%;
+  padding: 0.1em 0.3em;
+  border: 1px dashed var(--sphinx-preview-border);
+  overflow-wrap: anywhere;
+  font-size: 0.9em;
+}
+
+#sphinx-myst-preview-content .myst-cite {
+  padding: 0 0.15em;
+  border-bottom: 1px dotted currentColor;
+  cursor: help;
+}
+
+/* MyST {grid}: the column count follows the pane width (container queries), one column when narrow. */
+#sphinx-myst-preview-content .myst-grid {
+  container-type: inline-size;
+  margin: 1.2em 0;
+}
+
+#sphinx-myst-preview-content .myst-grid-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1em;
+}
+
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-1 {
+  grid-template-columns: repeat(1, minmax(var(--myst-grid-track-min, 0px), 1fr));
+}
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-2 {
+  grid-template-columns: repeat(2, minmax(var(--myst-grid-track-min, 0px), 1fr));
+}
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-3 {
+  grid-template-columns: repeat(3, minmax(var(--myst-grid-track-min, 0px), 1fr));
+}
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-4 {
+  grid-template-columns: repeat(4, minmax(var(--myst-grid-track-min, 0px), 1fr));
+}
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-5 {
+  grid-template-columns: repeat(5, minmax(var(--myst-grid-track-min, 0px), 1fr));
+}
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-6 {
+  grid-template-columns: repeat(6, minmax(var(--myst-grid-track-min, 0px), 1fr));
+}
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-7 {
+  grid-template-columns: repeat(7, minmax(var(--myst-grid-track-min, 0px), 1fr));
+}
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-8 {
+  grid-template-columns: repeat(8, minmax(var(--myst-grid-track-min, 0px), 1fr));
+}
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-9 {
+  grid-template-columns: repeat(9, minmax(var(--myst-grid-track-min, 0px), 1fr));
+}
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-10 {
+  grid-template-columns: repeat(10, minmax(var(--myst-grid-track-min, 0px), 1fr));
+}
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-11 {
+  grid-template-columns: repeat(11, minmax(var(--myst-grid-track-min, 0px), 1fr));
+}
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-12 {
+  grid-template-columns: repeat(12, minmax(var(--myst-grid-track-min, 0px), 1fr));
+}
+#sphinx-myst-preview-content .myst-grid-row.myst-grid-xs-auto {
+  grid-template-columns: repeat(auto-fit, minmax(14em, 1fr));
+}
+@container (min-width: 480px) {
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-1 {
+    grid-template-columns: repeat(1, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-2 {
+    grid-template-columns: repeat(2, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-3 {
+    grid-template-columns: repeat(3, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-4 {
+    grid-template-columns: repeat(4, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-5 {
+    grid-template-columns: repeat(5, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-6 {
+    grid-template-columns: repeat(6, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-7 {
+    grid-template-columns: repeat(7, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-8 {
+    grid-template-columns: repeat(8, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-9 {
+    grid-template-columns: repeat(9, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-10 {
+    grid-template-columns: repeat(10, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-11 {
+    grid-template-columns: repeat(11, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-12 {
+    grid-template-columns: repeat(12, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-sm-auto {
+    grid-template-columns: repeat(auto-fit, minmax(14em, 1fr));
+  }
+}
+@container (min-width: 640px) {
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-1 {
+    grid-template-columns: repeat(1, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-2 {
+    grid-template-columns: repeat(2, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-3 {
+    grid-template-columns: repeat(3, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-4 {
+    grid-template-columns: repeat(4, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-5 {
+    grid-template-columns: repeat(5, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-6 {
+    grid-template-columns: repeat(6, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-7 {
+    grid-template-columns: repeat(7, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-8 {
+    grid-template-columns: repeat(8, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-9 {
+    grid-template-columns: repeat(9, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-10 {
+    grid-template-columns: repeat(10, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-11 {
+    grid-template-columns: repeat(11, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-12 {
+    grid-template-columns: repeat(12, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-md-auto {
+    grid-template-columns: repeat(auto-fit, minmax(14em, 1fr));
+  }
+}
+@container (min-width: 800px) {
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-1 {
+    grid-template-columns: repeat(1, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-2 {
+    grid-template-columns: repeat(2, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-3 {
+    grid-template-columns: repeat(3, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-4 {
+    grid-template-columns: repeat(4, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-5 {
+    grid-template-columns: repeat(5, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-6 {
+    grid-template-columns: repeat(6, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-7 {
+    grid-template-columns: repeat(7, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-8 {
+    grid-template-columns: repeat(8, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-9 {
+    grid-template-columns: repeat(9, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-10 {
+    grid-template-columns: repeat(10, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-11 {
+    grid-template-columns: repeat(11, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-12 {
+    grid-template-columns: repeat(12, minmax(var(--myst-grid-track-min, 0px), 1fr));
+  }
+  #sphinx-myst-preview-content .myst-grid-row.myst-grid-lg-auto {
+    grid-template-columns: repeat(auto-fit, minmax(14em, 1fr));
+  }
+}
+
+#sphinx-myst-preview-content .myst-grid-item {
+  min-width: 0;
+}
+
+#sphinx-myst-preview-content .myst-grid-item > :first-child {
+  margin-top: 0;
+}
+
+#sphinx-myst-preview-content .myst-grid-item > :last-child {
+  margin-bottom: 0;
+}
+
+#sphinx-myst-preview-content .myst-grid-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--sphinx-preview-border);
+  border-radius: 6px;
+  background: var(--studio-textBlockQuote-background, rgba(128, 128, 128, 0.08));
+  color: var(--studio-editor-foreground, inherit);
+}
+
+#sphinx-myst-preview-content .myst-grid-card-title {
+  padding: 0.7em 1em 0;
+  font-weight: 600;
+}
+
+#sphinx-myst-preview-content .myst-grid-card-header,
+#sphinx-myst-preview-content .myst-grid-card-footer {
+  padding: 0.5em 1em;
+  border-color: var(--sphinx-preview-border);
+  border-style: solid;
+  border-width: 0;
+  color: var(--studio-descriptionForeground, inherit);
+  font-size: 0.9em;
+}
+
+#sphinx-myst-preview-content .myst-grid-card-header {
+  border-bottom-width: 1px;
+}
+
+#sphinx-myst-preview-content .myst-grid-card-footer {
+  border-top-width: 1px;
+}
+
+#sphinx-myst-preview-content .myst-grid-card-body {
+  flex: 1 1 auto;
+  padding: 0.7em 1em;
+}
+
+#sphinx-myst-preview-content .myst-grid-card-body > :first-child,
+#sphinx-myst-preview-content .myst-grid-card-header > :first-child,
+#sphinx-myst-preview-content .myst-grid-card-footer > :first-child {
+  margin-top: 0;
+}
+
+#sphinx-myst-preview-content .myst-grid-card-body > :last-child,
+#sphinx-myst-preview-content .myst-grid-card-header > :last-child,
+#sphinx-myst-preview-content .myst-grid-card-footer > :last-child {
+  margin-bottom: 0;
+}
+
+/* The whole card is the click target of its link. */
+#sphinx-myst-preview-content .myst-grid-card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* MyST standalone {card}: the grid card look, in the flow of the page. */
+#sphinx-myst-preview-content .myst-card {
+  margin: 1.2em 0;
+}
+
+/* MyST {tab-set}: a tab bar, one panel shown at a time. */
+#sphinx-myst-preview-content .myst-tab-set {
+  margin: 1.2em 0;
+}
+
+#sphinx-myst-preview-content .myst-tab-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em;
+  border-bottom: 1px solid var(--sphinx-preview-border);
+}
+
+#sphinx-myst-preview-content .myst-tab {
+  margin: 0 0 -1px;
+  padding: 0.45em 0.9em;
+  border: 1px solid transparent;
+  border-radius: 6px 6px 0 0;
+  background: transparent;
+  color: var(--studio-descriptionForeground, inherit);
+  font: inherit;
+  font-size: 0.95em;
+  cursor: pointer;
+}
+
+#sphinx-myst-preview-content .myst-tab:hover {
+  color: var(--studio-editor-foreground, inherit);
+}
+
+#sphinx-myst-preview-content .myst-tab[aria-selected="true"] {
+  border-color: var(--sphinx-preview-border);
+  border-bottom-color: var(--studio-editor-background, Canvas);
+  color: var(--studio-editor-foreground, inherit);
+  font-weight: 600;
+}
+
+#sphinx-myst-preview-content .myst-tab:focus-visible {
+  outline: 2px solid var(--studio-focusBorder, currentColor);
+  outline-offset: -2px;
+}
+
+#sphinx-myst-preview-content .myst-tab-panel {
+  padding: 0.8em 1em;
+  border: 1px solid var(--sphinx-preview-border);
+  border-top: 0;
+  border-radius: 0 0 6px 6px;
+}
+
+#sphinx-myst-preview-content .myst-tab-panel[hidden] {
+  display: none;
+}
+
+#sphinx-myst-preview-content .myst-tab-panel > :first-child {
+  margin-top: 0;
+}
+
+#sphinx-myst-preview-content .myst-tab-panel > :last-child {
+  margin-bottom: 0;
+}
+
+/* MyST {toctree}: a list of links to the referenced documents. */
+#sphinx-myst-preview-content .myst-toctree {
+  margin: 1.2em 0;
+}
+
+#sphinx-myst-preview-content .myst-toctree-hidden {
+  display: none;
+}
+
+#sphinx-myst-preview-content .myst-toctree-caption {
+  margin: 0 0 0.4em;
+  font-size: 0.85em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--studio-descriptionForeground, inherit);
+}
+
+#sphinx-myst-preview-content .myst-toctree-list {
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+#sphinx-myst-preview-content .myst-toctree-missing {
+  border-bottom: 1px dashed var(--studio-charts-orange, #d18616);
+  color: var(--studio-charts-orange, #d18616);
+  cursor: help;
+}
+
+#sphinx-myst-preview-content .myst-toctree-missing::before {
+  content: "\26A0\FE0E\00A0";
+}
+
+#sphinx-myst-preview-content .myst-directive {
+  margin: 1.2em 0;
+  padding: 0.6em 0.9em;
+  border: 1px dashed var(--sphinx-preview-border);
+  background: var(--studio-textBlockQuote-background, rgba(128, 128, 128, 0.08));
+}
+
+#sphinx-myst-preview-content .myst-directive-name {
+  margin: 0;
+  font-family: var(--studio-editor-font-family, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.9em;
+}
+
+#sphinx-myst-preview-content .myst-directive pre {
+  margin: 0.5em 0 0;
+  white-space: pre-wrap;
+}
+
+#sphinx-myst-preview-content :where(.math-inline, .math-display) {
+  font-family: var(--studio-editor-font-family, ui-monospace, SFMono-Regular, Menlo, monospace);
+}
+
+#sphinx-myst-preview-content .math-display {
+  margin: 1em 0;
+  text-align: center;
+}

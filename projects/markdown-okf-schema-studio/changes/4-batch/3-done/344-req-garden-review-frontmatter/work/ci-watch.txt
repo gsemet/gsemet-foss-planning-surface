@@ -1,0 +1,707 @@
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+report	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436371093	
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pass	12m36s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+report	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436371093	
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pass	12m36s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+report	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436371093	
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pass	12m36s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+Refreshing checks status every 10 seconds. Press Ctrl+C to quit.
+
+checks	pending	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436646423	
+gallery	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436648752	
+report	pass	29s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436371093	
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+visual	pass	12m36s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+checks	pass	2s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436646423	
+report	pass	29s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436371093	
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+gallery	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436648752	
+release	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436684715	
+tag-release	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436685042	
+visual	pass	12m36s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+pages	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436684617	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	
+gallery	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436648752	
+integration	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564794	
+pages	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436684617	
+static	pass	3m28s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561333	
+static-windows	pass	6m4s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561709	
+release	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436684715	
+tag-release	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436685042	
+checks	pass	2s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436646423	
+report	pass	29s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134436371093	
+visual	pass	12m36s	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429561738	
+release-check	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429562918	
+stress	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429564340	
+toc-loop	skipping	0	https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44193733185/job/134429563758	

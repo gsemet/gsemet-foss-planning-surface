@@ -1,0 +1,12 @@
+fix(render): show the fallback text when a render fails silently
+
+When a render failed without a message, the preview showed "undefined"
+or an empty message. It now shows "The render failed." on the first
+render, or "The latest render failed." over the kept page.
+
+Four requirements now state the behaviour users get: wikilinks between
+inline HTML tags are converted, the Mermaid picture check covers node
+fills and the background, Mermaid drawing passes run one at a time, and
+SVG links in raw HTML go through the host's link check like HTML links.
+
+Assisted-by: Claude:Opus-5.5

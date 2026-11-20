@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Flaky build queue test: mock the clock the queue reads",
+  "summary": "Specified: the flake is in the test, not the product. Two buildQueue tests mock setTimeout but not Date, so a build slower than 10 ms of real time lengthens the debounce; the fix mocks Date and adds a busy-host stub that proves it.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "9ae0859099ea009bb1d55d031b11d5e256a7c3ca5654a3379305f75bc12a0a97",
+    "03-change-spec.md": "c4b25fc3a6b529df254535cb936310c6968c58f2ee38163140195b809fbe16d6",
+    "intake/request.md": "60d1b46d8c0bacaa529957c9030081cf32b4a0d658b801ccdc0eef9ddc32ef3f"
+  },
+  "summarized": "2026-11-20T08:55:39Z"
+}

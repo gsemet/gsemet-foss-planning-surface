@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Parse every StRS use case diagram at the requirements lint",
+  "summary": "Specified: just requirements-lint runs a new Node script that parses every StRS use case diagram with the project's Mermaid (DOMPurify shim, no Chromium) and fails with path, line, StRS id and Mermaid's message; the guideline lists reserved ids; new CORE SwRS.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "f82ae9c5b295912ec5ddec3bed42b3d9f4ef60e128c22819050169c34ebe7fda",
+    "03-change-spec.md": "6139f727c3e2567743c4a981a6ce50a829f40cdaca2fa97688f83d952582329c",
+    "intake/request.md": "0a467b6a82ba351c00cbfdaa9c2c56280769f59775f3e26903b0a113897c6bee"
+  },
+  "summarized": "2026-11-20T09:00:17Z"
+}

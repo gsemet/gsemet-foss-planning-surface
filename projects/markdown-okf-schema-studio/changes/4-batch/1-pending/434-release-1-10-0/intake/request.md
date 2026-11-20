@@ -1,0 +1,3 @@
+# Release 1.10.0
+
+Release 1.10.0 of Studio, last CR of batch-06: after CR-432 and CR-433 are merged and the CI is green on main (the heavy push jobs included), run the project's release procedure (.agents/guidelines/release-process.guidelines.md). Minor version: new feature (edit one list item, reorder handles) and a new setting (preview.listItemsInToc). The notes follow the new 'Release notes' rules of CR-433. Owner's words: 'apres la livraison de CR432, tu vas t'assurer que la pipeline passe sur main et lancer une release' / 'fait une CR de release que tu met a la fin'.

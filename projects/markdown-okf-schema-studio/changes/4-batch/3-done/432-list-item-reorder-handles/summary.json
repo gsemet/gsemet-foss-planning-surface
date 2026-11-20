@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Reorder handles on list items in edit mode",
+  "summary": "Specified: list item handles behave like table row handles (always shown in edit mode, drag, Alt+Up/Down), move an item with its children among its siblings in one edit, renumber ordered lists, and cover lists in alerts and admonitions with handles outside the box; builds on CR-424.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "a930b7af98ee9202738c717fee40029b7828174584bd5692643b9f8a9ebca473",
+    "03-change-spec.md": "d50d83f333bc960fa54cc2f8906f218c76e40b01a0d0bef7b6ac95d70fc265fa",
+    "intake/request.md": "649dd787a2b354fe977c4a3f0e41ffcd73865134acb93e831284c23d94c38498"
+  },
+  "summarized": "2026-11-20T09:12:55Z"
+}

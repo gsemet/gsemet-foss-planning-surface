@@ -1,0 +1,8 @@
+docs: make release notes short and demo-first
+
+Release notes now show what a release brings the user through pictures,
+with at most two sentences per highlight and the detail folded. The
+release guideline carries the writing rules, the banned forms and the
+joined before and after image rule on its own.
+
+Assisted-by: Claude:Opus-5.5

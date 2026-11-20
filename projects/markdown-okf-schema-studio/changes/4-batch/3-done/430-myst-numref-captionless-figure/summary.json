@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A numref to a captionless figure or table shows its number",
+  "summary": "Specified: SwRS MYST-019 kept; the code already numbers a captionless figure or table, so the change adds the missing numref test, updates the verification notes and the log, and fixes the code only if the test fails.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "19c93fcdbd7cdae5e2aff0f451f3050a2666e37a86e97fb592a9f4a33bbcc821",
+    "03-change-spec.md": "d5aed536fa6cee757d595a66879e20a9d4cf5f9ff380103ecf97b7da39905969",
+    "intake/request.md": "b0ef193c662c58de5b25f086c5d968386432fe4fd49421e8fb6a8a9829e84b9b"
+  },
+  "summarized": "2026-11-20T08:58:58Z"
+}

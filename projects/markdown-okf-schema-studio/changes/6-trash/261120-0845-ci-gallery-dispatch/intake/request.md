@@ -1,0 +1,1 @@
+CI: the gallery job of .github/workflows/ci.yml is skipped even when dispatched with gallery=true (runs 44196972191 and 44325795176 on CR-345's branch), so the requirements site's diagram rendering is never checked on a branch. Make a dispatch with gallery=true run the gallery job. Found by batch-06 CR-345 (Foreman A-16).

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Settle the five code/requirement mismatches left by CR-347",
+  "summary": "Specified: for SwRS CORE-010, CORE-025, DIAG-005, DIAG-009 and TRUST-042, the Driver decides with evidence whether code or SwRS is right and fixes the other, removing each CR-347 known issue; owner asked only for an approved StRS or a real behaviour choice.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "491330df136b1de15c474aca79cb3e3d5c00145c559cc798665840af1ee960c4",
+    "03-change-spec.md": "1b1bf5ac3983757dea1017ed565c9413e15a29d060af598ad9e7f93446ca7d9e",
+    "intake/request.md": "289b506c8b7b7aef3fe770abc6125ee53fd85f91703d14d84b82f7fe071962f7"
+  },
+  "summarized": "2026-11-20T09:00:59Z"
+}

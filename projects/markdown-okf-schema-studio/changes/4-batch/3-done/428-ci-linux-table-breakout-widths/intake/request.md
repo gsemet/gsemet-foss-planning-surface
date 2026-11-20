@@ -1,0 +1,1 @@
+Run the tableBreakout width tests on Linux in CI. The static jobs skip them (no Chromium), so CR-351's pinned-font widths and the 12 owner verdicts are verified on Windows only; its spec asks Linux widths within 1 px of Windows. Run them in the visual job (Chromium present), or under xvfb, and record the Linux widths.

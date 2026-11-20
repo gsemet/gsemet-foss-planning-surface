@@ -1,0 +1,9 @@
+ci: run the table breakout width tests on Linux in the visual job
+
+The table preview's breakout widths and verdicts are now checked on Linux
+on every pull request and push to main, not only on a developer's Windows
+machine. The visual job requires Chromium for these tests, so a browser
+that cannot start fails the job instead of skipping them, and each run
+prints the measured widths in its log and JUnit report.
+
+Assisted-by: Claude:Opus-5.5

@@ -1,0 +1,7 @@
+test: prove a numref to a captionless figure shows its number
+
+A {numref} to a figure or table without a caption renders "Figure 1" or
+"Table 1", as the requirement says; this case is now covered by a test,
+and the requirement's notes no longer call it untested or contradicted.
+
+Assisted-by: Claude:Opus-5.5
