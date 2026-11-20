@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "A live activity terminal client, proof of the server API",
+  "summary": "Filed 2026-11-20, not grilled: a Python terminal client (rich or better) that tracks activity live, as a proof of the planning server's API, inspired by Vercel's board.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "b9def14075d075d3ed261b57c169c5e21671a55f69ace266826d4b31f5b1c393",
+    "intake/request.md": "99b4363dec4ea31774602a5e0482b46288e46734ec664b65bda530bc89767b69"
+  },
+  "summarized": "2026-11-20T13:19:41Z"
+}

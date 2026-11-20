@@ -1,0 +1,10 @@
+         ok  surface-board (github): 269/269 checks, 397.1 s
+
+| unit | forge | checks | commands | seconds | budget | status |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| surface-board | github | 269/269 | 436 | 397.1 | 500 | ok |
+
+wall time: 397.2 s
+sum of the units' seconds: 397.1 s
+transcript C:\Users\gaeta\Projets\chantier.worktrees\batch-29-CR-409\scenario\results\scenario-20261120-141150-25620.md
+unit files C:\Users\gaeta\Projets\chantier.worktrees\batch-29-CR-409\scenario\results\20261120-141150-25620

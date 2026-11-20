@@ -1,3 +1,5 @@
+# Assess the XState v6 beta on chantier
+
 Assess the XState v6 beta (https://stately.ai/blog/2026-11-05-xstate-v6-beta) for chantier.
 
 The user's request (2026-11-17, Griller session):

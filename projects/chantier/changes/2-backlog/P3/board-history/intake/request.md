@@ -1,3 +1,5 @@
+# Web board History page: CRs, PRs and releases per day, week or month
+
 A dedicated History page on the board: what was done, per day, with every CR merged or dropped, every PR opened, made ready and merged, and every release.
 
 The user (2026-11-13): "le bilan du jour oui dans une page dédiée, genre historique, avec une vue par jour et tous les CR / PR et release faites. un peu comme la page energie de home assistant, avec possibilité de faire avant/apres, selectionner semaine etc."

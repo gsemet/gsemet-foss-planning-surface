@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "title": "Web board Triage view: a collapse per priority and an explained rescan counter",
+  "title": "Board Triage view: a collapse per priority, an explained rescan count",
   "summary": "Filed, not grilled: a collapse per priority and an in-board explanation of the writes-since-rescan count; the card width went to ui-feedback-large-screen, the sticky header to board-visual-refresh.",
   "origin": {
     "kind": "verbal"

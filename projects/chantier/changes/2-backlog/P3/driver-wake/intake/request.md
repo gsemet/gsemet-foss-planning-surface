@@ -1,1 +1,3 @@
+# A periodic wake for each Driver, set per host in chantier.yaml
+
 Driver wake: a periodic wake for each Driver (a heartbeat of its own, per host column, in chantier.yaml), split off from timing-settings on 2026-11-17 (timing-Q6). It is a new mechanism: how a Driver is woken, what it checks, and what it costs, to be specified on its own. timing-settings keeps the steering wake, CI re-runs, the cache TTL and the read-only Timing tab.

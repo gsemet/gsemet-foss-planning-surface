@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "One read interface over the planning folder, the base for a later index",
+  "summary": "Filed, not grilled: one read interface (a store) over the planning folder, which a later index can sit behind.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3b8e7c114930c83aa030cf99ea486a43d6d5676bb2125786e1aa373dec148b4e",
+    "02-answers.md": "f458c295169a0c92afb6cab8a4e3b105b9c907eaf7774bede64a747de72240a4",
+    "intake/request.md": "f837fc86f581c2ac69a2dfaa7cf2ce1eeec58388f1092345be02410d68dcc493"
+  },
+  "summarized": "2026-11-20T13:19:40Z"
+}

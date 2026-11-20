@@ -1,0 +1,10 @@
+         ok  gitlab (gitlab): 35/35 checks, 44.7 s
+
+| unit | forge | checks | commands | seconds | budget | status |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| gitlab | gitlab | 35/35 | 104 | 44.7 | 95 | ok |
+
+wall time: 44.7 s
+sum of the units' seconds: 44.7 s
+transcript C:\Users\gaeta\Projets\chantier.worktrees\batch-29-CR-409\scenario\results\scenario-20261120-141836-30244.md
+unit files C:\Users\gaeta\Projets\chantier.worktrees\batch-29-CR-409\scenario\results\20261120-141836-30244

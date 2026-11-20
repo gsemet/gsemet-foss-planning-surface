@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "title": "A sandbox rule variant lets a real eval run exercise the pipeline long gate",
+  "title": "A sandbox rule variant lets a real eval exercise the pipeline long gate",
   "summary": "Filed, not grilled, low priority: a sandbox rule variant chosen at setup would let a campaign exercise J27; until then such claims stay listed as not exercised by an eval.",
   "origin": {
     "kind": "verbal"
