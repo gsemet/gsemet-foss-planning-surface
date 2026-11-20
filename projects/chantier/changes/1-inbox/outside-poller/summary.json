@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "An outside poller writes issue events into the journal",
+  "summary": "Specified, questions settled: chantier interests lists what the CRs wait for; journal add issue@1 lets the user's own poller append an issue event for a CR's issue: line (folders named, extra keys refused); the watcher wakes on it unless wakes is false. After typed-journal-events, forge-connectors.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "32f26404a5c705da8697026d7cb00321e9436843a263218a1d8b777b03254688",
+    "03-change-spec.md": "374cd57e95eccbb6d645ca65c7feb517b4e70312a639e0b626c1f1ac906bc23f",
+    "intake/request.md": "8a527a02cb9dba648198ead439be5e485989df3e9a020c223ed6284159659a18"
+  },
+  "summarized": "2026-11-20T09:37:21Z"
+}

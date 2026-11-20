@@ -5,7 +5,8 @@ séparés"). It starts from that CR's `experiments/03-change-spec-all-parts.md`,
 waits" (E.1 to E.8, here "the reference"), and its `02-answers.md` (Q1 to Q30). It builds on two
 specified CRs, `1-inbox/typed-journal-events` (Part A) and `1-inbox/forge-connectors`: where their
 specifications or `02-answers.md` differ from the reference, they rank over it, and this text
-follows them (named in §2).
+follows them (named in §2). The questions of this specification's first version are settled in
+this CR's own `02-answers.md` (2026-11-20, by the Chief of Staff), carried below as decisions.
 
 No `issue:` line: the CR has no tracker issue.
 
@@ -24,12 +25,13 @@ The word is **wait** everywhere, never "gate": the fast gate and the long gate k
 
 ## 2. Dependencies, order, and decisions carried
 
-`depends.json` today: `{"after": ["typed-journal-events", "forge-connectors"]}`. Planning-server-Q7
-orders the parts "A and B first, then C, then D to G", and this CR writes a backlog CR's
-`waits.json` through `repo.store` (Part B, `1-inbox/plan-store-interface`, whose §2 names this
-use) and refuses it with no writer in external mode (Part C, `2-backlog/P3/planning-server`, its
-C.8 text). This CR does not edit `depends.json` (the spec-writer writes nothing else): open
-question 2 asks the Chief of Staff to add both.
+`depends.json`: `{"after": ["typed-journal-events", "forge-connectors", "plan-store-interface"]}`
+(`02-answers.md`, answer 2). This CR writes a backlog CR's `waits.json` through `repo.store`
+(Part B, `1-inbox/plan-store-interface`, whose §2 names this use). Part C
+(`2-backlog/P3/planning-server`) is **not** a dependency: its refusal with no writer in external
+mode (its C.8 text) applies through Part B's `check_publish` whenever it lands, with nothing to
+change here. Before Part C lands, `check_publish` refuses nothing and the backlog write goes
+through.
 
 Part D (`1-inbox/driver-leases`) may land before or after this CR: **whichever lands second**
 adds `--lease <n>` to `wait <cr> add` (by the Driver) and keeps it on `handback` with `--wait`,
@@ -49,7 +51,11 @@ AGENTS.md exception sentences (§8) into one.
 | forge-connectors §3.3: one `connectors.read` per project and cycle; a link no connector claims is left out with `UNCLAIMED`; a second repository makes the read refuse (`NOT_ONE_REPOSITORY`) | §5.2 |
 | forge-connectors §7: "Part E's `wait add` decides whether to refuse such a `ref`" (another repository) | §4.2, §5.2 |
 | forge-connectors §6.1 edit 1: Part E adds its interests to the budget sentence's "today" list | §8 |
-| E.7: the hub reading backlog CRs' waits stays Part E's question | §13, question 1 |
+| E.7, settled (`02-answers.md`, answer 1): the hub reads no forge for a backlog CR's waits; they are cleared by hand; AGENTS.md's budget does not change | §5.2, §12.2 |
+| `02-answers.md`, answer 2: `plan-store-interface` joins `depends.json`; `planning-server` does not (its refusal applies through `check_publish` when it lands) | §2, §3.2 |
+| `02-answers.md`, answer 3: `order drop` to the inbox or backlog writes the CR's open waits to the folder's `waits.json` | §3.2 |
+| `02-answers.md`, answer 4: the free-text `blocked waits: <what>` reason stays; `--wait` adds typed waits beside any reason | §4.1 |
+| `02-answers.md`: the writer's choices accepted (`link` beside `ref`; a link in another repository recorded, not read, cleared by hand; `open_waits` on the board; no pane change) | §3.1, §4.2, §5.2, §7 |
 | Reference E.2: a wait changes no rule (`take`, `close`, `open`, the slots) | §4.5 |
 | Reference E.2: no pane change, so no screenshot owed | §7.3 |
 | driver-leases spec answer 2: the CR driver's common path stays capped at 45,000 bytes (`CR_DRIVER_COMMON_PATH_LIMIT`) | §9 |
@@ -94,8 +100,9 @@ A wait is one JSON object:
 - **In the backlog** (`1-inbox/`, `2-backlog/P1..P4/`, `3-ready/`): `waits.json` in the CR's
   folder, `{"schema": 1, "waits": [...]}`. Published, browsable on the forge, it moves with the
   folder (a move of the folder is a move of the file). Written only through `repo.store`
-  (`check_publish([<the CR folder>/waits.json])` before any change), so in external mode with no
-  writer the write is refused with Part C's C.8 text and nothing is written:
+  (`check_publish([<the CR folder>/waits.json])` before any change), so once Part C has landed,
+  in external mode with no writer, the write is refused with Part C's C.8 text and nothing is
+  written:
   `error: wait: the surface's writer is not running: nothing written; for the Chief of Staff:
   start the surface server ($CHANTIER board --seat <session id>)`.
 - **Into a batch:** `commands/joining.py`'s `join_cr`, the one join path of both `open` and
@@ -107,8 +114,8 @@ A wait is one JSON object:
   nothing.
 - **Out of a batch** (`order drop` to the inbox or the backlog, `lifecycle/moveout.leave_batch`,
   where `formerly.json` is written): the CR's open waits are written to the folder's `waits.json`
-  in the same move. This is open question 3 (recommended yes); with a no, a dropped CR's waits
-  are lost with its `CrEntry`.
+  in the same move (`02-answers.md`, answer 3), through `repo.store` like the move itself; a CR
+  with no open wait gets no file.
 
 ## 4. Commands
 
@@ -128,8 +135,9 @@ A wait is one JSON object:
 - A link (given or defaulted) is checked as `wait add` checks it (§4.2).
 - `--wait` on a `ready` hand-back: exit 2, `--wait is for a blocked hand-back`, nothing written.
 - The reason stays free text with today's prefixes (`question:`, `approval:`, `merge:`, ...,
-  `waits:`): `--wait` adds typed facts beside it and changes no prefix's meaning (open question
-  4 on the `waits:` prefix).
+  `waits:`): `--wait` adds typed waits beside any reason and changes no prefix's meaning; the
+  free-text `blocked waits: <what>` (a thing already on its way that no one decides: the stack
+  driver, another CR, a push) stays as today (`02-answers.md`, answer 4).
 - `driver_checks.handback_args`' usage text names `--wait`.
 - The printed hand-back line gains, when waits were added, `; waits: <type>[, <type>...]`.
 
@@ -240,7 +248,8 @@ repository: cleared by hand" (§4.4) and never makes the project's read refuse w
 `NOT_ONE_REPOSITORY`. With no recorded PR in the batch, a wait's link has nothing to compare to:
 the provider uses the first wait link's `Place`, and leaves out the waits of any other.
 
-Backlog CRs' waits are **not** read by the hub (E.7, open question 1): they are cleared by hand.
+Backlog CRs' waits are **not** read by the hub (E.7, `02-answers.md`, answer 1): they are cleared
+by hand, and AGENTS.md's query budget does not change.
 
 ### 5.3 GitLab approval, unproved until read on a real MR (Q23)
 
@@ -273,7 +282,7 @@ needs (it does not ship the GitLab half on a guess).
 
 | Field | Value |
 | --- | --- |
-| model | `batch` (string, `^batch-[0-9]+$`; the reference allows null for a backlog CR, which no writer emits while question 1 stays no: the model keeps `batch` nullable so a yes needs no new version), `cr` (`^CR-[0-9]+$`), `wait` (`^w[0-9]+$`), `wait_type` (`approval`, `pipeline` or `merge`), `ref` (string), `seen_at` (UTC time) |
+| model | `batch` (string, `^batch-[0-9]+$`; the reference allows null for a backlog CR, which no writer emits since the hub reads no backlog wait (`02-answers.md`, answer 1): the model keeps `batch` nullable as the reference gives it), `cr` (`^CR-[0-9]+$`), `wait` (`^w[0-9]+$`), `wait_type` (`approval`, `pipeline` or `merge`), `ref` (string), `seen_at` (UTC time) |
 | writer | the hub (`hub/waits.py`, through `journal.append(repo, events, "hub")`) |
 | wakes a watcher | yes |
 | text (`event_text`) | `forge saw <wait_type> met: <cr> <wait> (<ref, a sha cut to 7>); for the steering session: wait <cr> clear <wait> --epoch <n>, then take it back` (`<n>` printed as is: the steering session fills its own epoch) |
@@ -411,9 +420,11 @@ sentence there these cards make false, then both together, bodies identical).
   - on a backlog CR: `wait add answer` writes `waits.json`, `wait clear` clears it, `--ref`
     missing exits 2; `open` (and `order add`) carries the open wait into `batch.json`, drops the
     cleared one and removes the file; a malformed `waits.json` refuses the join and leaves it;
-  - in external mode with no writer, the backlog `wait add` and `wait clear` are refused with the
-    C.8 text and write nothing (through `repo.store`'s check, Part B's seam);
-  - `order drop` to the backlog writes the open waits to `waits.json` (if question 3 is yes);
+  - a refusing `repo.store.check_publish` (Part B's seam, made to refuse in the test) refuses the
+    backlog `wait add` and `wait clear` and nothing is written; once Part C has landed at the
+    Driver's base, the same case runs in external mode with no writer and checks the C.8 text;
+  - `order drop` to the inbox and to the backlog writes the open waits to `waits.json`, and a CR
+    with none gets no file;
   - `status` shows `| waits: <types>` and a still-open `wait-cleared@1` line, not a cleared one;
     `handoff` prints the wait line; `take` of a CR with an open wait behaves as today (a wait
     changes no rule).
@@ -478,8 +489,8 @@ sentence there these cards make false, then both together, bodies identical).
 
 ### 12.1 Rollout
 
-- One PR, after `typed-journal-events` and `forge-connectors` are merged (and Parts B and C, per
-  question 2). `batch.json` gains a field with a default (an older record reads as no waits);
+- One PR, after `typed-journal-events`, `forge-connectors` and `plan-store-interface` are merged
+  (`depends.json`); Part C may land before or after. `batch.json` gains a field with a default (an older record reads as no waits);
   `waits.json` is new (an older chantier reading a backlog CR ignores it, and `validate` of an
   older chantier reports it as an unknown file: the Driver checks and names it in the PR).
 - An older watcher reading `wait-cleared@1` counts it and wakes no one (Part A's unknown types).
@@ -488,7 +499,7 @@ sentence there these cards make false, then both together, bodies identical).
 
 ### 12.2 Out of scope
 
-- The hub reading backlog CRs' waits (question 1, recommended no).
+- The hub reading backlog CRs' waits (`02-answers.md`, answer 1).
 - A wait clearing itself: the hub only signals (`wait-cleared@1`); the steering session clears.
 - A wait changing a rule (`take`, `close`, `open`, slots, dependencies).
 - Waits for an issue, a comment, a person on the forge, or anything other than the four types;
@@ -502,21 +513,4 @@ sentence there these cards make false, then both together, bodies identical).
 
 ## 13. Open questions for the user
 
-1. **The hub and backlog waits (E.7).** Should the hub also read the forge for a backlog CR's
-   `approval`, `pipeline` and `merge` waits? That is beyond AGENTS.md's budget ("one query per
-   project of the surface whose running batch has a PR ..."), and a backlog CR's links may sit in
-   any repository. **Recommended: no.** Backlog waits stay cleared by hand (`wait <folder> clear`),
-   the budget is kept, and `wait-cleared@1` keeps a nullable `batch` so a later yes needs no new
-   version.
-2. **The order (Q7).** Add `plan-store-interface` (Part B) and `planning-server` (Part C) to this
-   CR's `depends.json`, since the backlog write goes through `repo.store` and the C.8 refusal?
-   **Recommended: yes** (the Chief of Staff edits it: `{"after": ["typed-journal-events",
-   "forge-connectors", "plan-store-interface", "planning-server"]}`).
-3. **A CR dropped back to the backlog.** On `order drop` to the inbox or the backlog, write its open
-   waits to the folder's `waits.json`? **Recommended: yes**: a wait is a fact of the CR (the
-   reference keeps them across `batch-takeover` for that reason), and it would otherwise be lost
-   with the `CrEntry`.
-4. **The free-text `blocked waits: <what>` reason.** It stays as today (a thing already on its way
-   that no one decides: the stack driver, another CR, a push), and `--wait` adds typed facts
-   beside any reason? **Recommended: yes, both stay**: the four types do not cover the stack
-   driver's or another CR's work, and the cards keep `waits:` for those.
+None: the first version's four are settled in this CR's `02-answers.md` (§2).

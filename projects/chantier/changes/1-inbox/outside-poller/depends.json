@@ -1,1 +1,1 @@
-{"after": ["typed-journal-events"]}
+{"after": ["typed-journal-events", "forge-connectors"]}

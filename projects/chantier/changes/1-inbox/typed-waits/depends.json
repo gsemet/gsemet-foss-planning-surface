@@ -1,1 +1,1 @@
-{"after": ["typed-journal-events", "forge-connectors"]}
+{"after": ["typed-journal-events", "forge-connectors", "plan-store-interface"]}
