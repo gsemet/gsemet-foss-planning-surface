@@ -57,7 +57,16 @@ then always draws the three columns, empty when there are no steps.
     marker.
   - Any other non-blank line is prose: consecutive prose lines form one note, ended by a blank
     line, a step, a table line or a bullet.
-- `parseScenarios`'s doc comment says it reads steps, tables and notes.
+- HTML entities (answers, Q7): the parser decodes `&lt;`, `&gt;`, `&amp;` and `&quot;` in every
+  step line, note text, header and cell, so the stored text is what GitHub shows. One pass with one
+  regular expression (`/&(lt|gt|amp|quot);/gu`), so `&amp;lt;` becomes `&lt;`, not `<`. Other
+  entities stay as written. The page escapes the decoded text as it does today, so nothing the
+  source writes becomes markup. The answers count 7 step lines of the bundle whose display changes
+  (for example `&lt;b&gt;` now shows `<b>`, as on GitHub); `steps` carries the decoded lines too,
+  so the home page example shows the same text as the card.
+- `parseScenarios`'s doc comment says it reads steps, tables and notes and decodes the basic
+  entities. It carries `// @implements_req SwRS-MDOKFSTUDIO-CORE-082`, since it produces the new
+  reading (it has no marker today).
 
 ### 2. The page: `test/site/requirementsViewer/pages.ts`
 
@@ -67,8 +76,8 @@ then always draws the three columns, empty when there are no steps.
     `scenarioColumns`, with the same markup as today (a list-only scenario's HTML does not change);
   - a `table` block renders
     `<div class="scn-table"><table><thead><tr><th>..</th></tr></thead><tbody><tr><td>..</td></tr></tbody></table></div>`,
-    headers and cells escaped with `escapeHtml`; a `<br>`, `<br/>` or `<br />` in a cell becomes a
-    line break (one cell of the bundle has one), everything else stays text;
+    headers and cells escaped with `escapeHtml`, every cell plain text (answers, Q6: no `<br>` rule;
+    the only `<br>` of the bundle is an element name in code, in CORE-071);
   - a `note` block renders `<p class="scn-note">..</p>`, escaped.
 - A scenario with no block at all (a heading with nothing under it; the bundle has none today)
   renders `<p class="hint">No text under this scenario in the source.</p>` in the card, so no card
@@ -95,25 +104,37 @@ then always draws the three columns, empty when there are no steps.
   with two scenarios:
   - `### Scenario (nominal): Table only`, a table with the headers `Input | Outcome`, its
     separator line, two rows, one cell holding `` `a \| b` `` (escaped pipe in inline code) and
-    one cell holding `x<br>y`;
+    one cell holding `&lt;b&gt; &amp;lt;` (entities);
   - `### Scenario (boundary): Steps, note and table`: a GIVEN / WHEN / THEN list, then a prose
     note line, then a non-step bullet, then a table with three headers (`Given | When | Then`,
     shown as a table, not converted).
 - `test/site/requirementsViewer/model.test.ts`, a new test "the model reads table scenarios, notes
   and mixed scenarios in source order": blocks and their order for both scenarios of `SwRS-X-014`;
   header and rows; the escaped pipe read as `|`; the separator line skipped; the note and the
-  bullet text; `steps` of the mixed scenario equal to its three step lines; the existing
+  bullet text; `steps` of the mixed scenario equal to its three step lines; the entity cell read as
+  `<b> &lt;` (decoded once); a step line and a note with `&quot;x&quot;` read as `"x"`; the existing
   `SwRS-X-011` scenario has exactly one `steps` block with the same lines as `steps`.
 - `test/site/requirementsViewer/pages.test.ts`, a new test "a table scenario shows its table and a
   mixed scenario shows steps, note and table in order": the page of `SwRS-X-014` holds a `<table>`
-  with `<th>Input</th><th>Outcome</th>` and one `<tr>` per row; the `|` and the line break of the
-  cells; in the mixed card the `gwt` block comes before the note, which comes before the table;
+  with `<th>Input</th><th>Outcome</th>` and one `<tr>` per row; the `|` of the escaped pipe; the
+  entity cell rendered as `&lt;b&gt; &amp;lt;` in the HTML (decoded, then escaped: the reader sees
+  `<b> &lt;` and no `<b>` element is written); in the mixed card the `gwt` block comes before the note, which comes before the table;
   the `Given | When | Then` table is a `<table>` (its headers are `<th>`), not a `gwt` grid; the
   table-only card holds no `class="gwt"`. A third check in the same test: the page of `SwRS-X-011`
   (list scenarios) still holds `<div class="gwt">` with `Given`, `When`, `Then` and no `<table>`.
 - Each new test carries `// @tests_req SwRS-MDOKFSTUDIO-CORE-082`. The existing assertions keep
   their intent; none changes.
-- Both new tests fail on the current code (no `blocks`, no table in the page).
+- Both new tests fail on the current code (no `blocks`, no table in the page, no decoding).
+
+### 4b. The home page hint: `test/site/requirementsViewer/home.ts`
+
+- The hint "What the requirements are" (line 155) says a SwRS is "written with its scenarios
+  (given, when, then, or a table)" instead of "(given, when, then)". The rest of the line stays.
+- This is CORE-069's home (its `@implements_req SwRS-MDOKFSTUDIO-CORE-069` sits above it, line
+  147). `test/site/requirementsViewer/home.test.ts`, test "home: layers, areas, sections and
+  figures", gains one assertion that the body holds "given, when, then, or a table"; no existing
+  assertion changes. CORE-069's text ("explains what the requirements are") still holds, so its
+  file does not change.
 
 ### 5. The bundle guard (answers, Q4)
 
@@ -149,7 +170,15 @@ then always draws the three columns, empty when there are no steps.
   `requirements/tiers/log.md`.
 - No other requirement file changes (answers, Q3).
 
-### 7. Commit
+### 7. Sibling change requests
+
+Three CRs of the inbox also edit these files: `requirements-path-graph-design`,
+`requirements-viewer-ids` and `requirements-share-cards` (they touch
+`test/site/requirementsViewer/pages.ts`, `viewer.css`, `pages.test.ts` and
+`requirements/tiers/log.md`). Whichever lands second rebases on the first and resolves the
+conflicts; on the same day, the `log.md` entries go under the same date heading.
+
+### 8. Commit
 
 One commit, `fix: show table scenarios on the requirements site instead of empty columns`
 (no scope: the allowed scopes cover the extension, and the viewer is site tooling under `test/`).
@@ -164,6 +193,10 @@ One commit, `fix: show table scenarios on the requirements site instead of empty
    converted or moved; only the viewer's own SwRS, CORE-082, gains scenarios (see below).
 4. table-scen-Q4, guard over the real bundle: section 5.
 5. Spec critic on Fable: for the Chief of Staff to run on this spec; nothing in the change itself.
+6. table-scen-Q6, no `<br>` rule: every cell is escaped text; the `x<br>y` fixture cell is gone
+   (sections 2 and 4).
+7. table-scen-Q7, decode the basic entities before escaping, in cells, notes and steps, with a
+   test (sections 1 and 4).
 
 ## Decided in the spec
 
@@ -177,7 +210,9 @@ One commit, `fix: show table scenarios on the requirements site instead of empty
   without its marker, a wrapped line joins the line it continues.
 - **Cells are text.** Table cells, like step lines today, are escaped text; inline code keeps its
   backticks as written. Rendering inline Markdown in scenarios (code, links, emphasis) is out of
-  scope. The one exception is `<br>`, which GFM tables use for a line break.
+  scope.
+- **Entities decode once.** One pass decodes the four entities of Q7, so `&amp;lt;` shows `&lt;`;
+  other entities (`&nbsp;`, numeric ones) stay as written.
 - **`\|` is a pipe, rows are kept as written.** An escaped pipe splits no cell; a row with more or
   fewer cells than the header is shown as it is.
 - **The steps markup does not change.** A list-only scenario renders the same HTML as today, so
@@ -186,8 +221,8 @@ One commit, `fix: show table scenarios on the requirements site instead of empty
   than a blank card (none in the bundle today).
 - **The fixture's table scenarios sit on SwRS-X-014.** It is on no map, so the walk and scenario
   counts of the existing tests do not move.
-- **The home page example is not touched.** It reads `steps` of the first scenario of
-  SwRS-MDOKFSTUDIO-GFM-021, a list scenario.
+- **The home page example's code is not touched.** It reads `steps` of the first scenario of
+  SwRS-MDOKFSTUDIO-GFM-021, a list scenario; it shows decoded text like the cards.
 - **The writing skill is not touched.** The viewer is site tooling, not a rendered syntax of the
   extension.
 
@@ -197,14 +232,15 @@ One commit, `fix: show table scenarios on the requirements site instead of empty
   files.
 - Inline Markdown rendering in scenario text (code spans, links, emphasis).
 - Column alignment from the separator line (`:---:`).
-- The home page example, the use case maps, the scenario dots and counts, the search index.
+- Entities other than `&lt;`, `&gt;`, `&amp;` and `&quot;`; entities in titles and statements.
+- The home page example's layout (it only gets the decoded step text), the use case maps, the scenario dots and counts, the search index.
 - The okfreq tool and its validation of scenario forms.
 
 ## Evidence
 
 - `just check` passes: the two new unit tests and the bundle guard pass; every existing viewer
   test passes with its assertions unchanged.
-- The three new tests fail on `main` at the commit the branch starts from (run once before the
+- The three new tests and the new home assertion fail on `main` at the commit the branch starts from (run once before the
   fix, result noted in the PR body).
 - `just requirements-update` run, `requirements/tiers/log.md` entry, `okfreq validate
   --check-links --project-root .` clean (as the project guidelines ask before the PR).
@@ -224,7 +260,7 @@ One commit, `fix: show table scenarios on the requirements site instead of empty
      not scroll sideways.
 - The PR body carries a screenshot of steps 2 and 3, and its Tests section lists
   SwRS-MDOKFSTUDIO-CORE-082 with `test/site/requirementsViewer/pages.ts`, `model.ts` and the
-  three test files.
+  three test files, and SwRS-MDOKFSTUDIO-CORE-069 with `home.ts` and `home.test.ts`.
 
 No host or default matrix: the change does not depend on the host or on a setting. No CI job is
 added or changed.

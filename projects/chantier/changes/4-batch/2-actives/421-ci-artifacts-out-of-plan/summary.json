@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Downloaded CI artifacts stay out of the published plan",
+  "summary": "Specified, no open question: cards send CI downloads to work/scratch/artifacts-<run id>/, the managed .gitignore also ignores **/work/**/artifacts-*/, and a too-long path blocks the writer with reason path-too-long, naming the file and the way out.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "5b4f189f6933ad237fab162945acfbd4cbf21e01b66391332f55cb15821682e1",
+    "03-change-spec.md": "6282b3382009dd5392c6fd2011874c13338ba614ebe281231dfdb0b3c8f16558",
+    "intake/request.md": "1da0b9d238f4c3dc3ac442ce227b5e5fa800a1476f9fd8c489c1ff34cc48dd7f"
+  },
+  "summarized": "2026-11-20T22:52:41Z"
+}
