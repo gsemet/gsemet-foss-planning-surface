@@ -26,12 +26,12 @@ their conflict follows the conflict path below (C.7).
 
 ## 2. Dependencies and neighbours
 
-This CR needs two of the split-off CRs merged first (their slugs are given when they are filed):
+This CR needs two of the split-off CRs merged first:
 
 | Part | Split-off CR | What this CR needs from it |
 | --- | --- | --- |
-| A | **Typed events** | the journal's version 2 line, `type: "name@N"`, `hub/schemas.py`'s `PUBLISHED` and the shipped `hub/schemas.json` checked by `test_event_types.py`; `journal.append` validating each payload. This CR adds the source `writer` and publishes four types there (C.10). |
-| B | **Store interface** | the package `store/` (`PlanStore`, `FolderStore`, `SurfaceStore`, `Repo.store`), every published write of the CLI and the board going through `repo.store` and calling `check_publish` with its published paths before it changes anything, and `test_store_conformance.py`. This CR gives `SurfaceStore` its gate (C.8). |
+| A | **Typed events**, `1-inbox/typed-journal-events` | the journal's version 2 line, `type: "name@N"`, `hub/schemas.py`'s `PUBLISHED` and the shipped `hub/schemas.json` checked by `test_event_types.py`; `journal.append` validating each payload. This CR adds the source `writer` and publishes four types there (C.10). |
+| B | **Store interface**, `1-inbox/plan-store-interface` | the package `store/` (`PlanStore`, `FolderStore`, `SurfaceStore`, `Repo.store`), every published write of the CLI and the board going through `repo.store` and calling `check_publish` with its published paths before it changes anything, and `test_store_conformance.py`. This CR gives `SurfaceStore` its gate (C.8). |
 
 Parts D (leases), E (typed waits), F (`access`) and G (outside contributions) come after; F and G
 need this CR. Nothing here depends on them.
@@ -113,8 +113,8 @@ rebases and pushes.
   test seam), `lines.py` (C.10's texts).
 - The writer needs nothing beyond what the surface has: `git`, the surface's clone on its default
   branch with an upstream, and the network for fetch and push. Git LFS is needed only when the
-  surface's `.gitattributes` names LFS files that change; git's own error then blocks the writer
-  (C.6, `git-error`).
+  surface's `.gitattributes` names LFS files that change: LFS's transport failure offline is a
+  network failure (C.5), any other LFS error blocks the writer (C.6, `git-error`).
 
 ## C.2 Election and lifetime
 
@@ -152,12 +152,19 @@ the `hub/state.py` docstring names it. Fields:
 - `reason`: empty, or C.6's reason word; `text`: one line, at most 200 characters (git's message,
   cut, or the nested repository's path).
 - `since`: when the state began.
+- `last_cycle`: when the last cycle ended, written at the end of every cycle, one that did nothing
+  included (`sync now` waits on it, C.9).
 - `pending`: the count of published paths changed and not committed; `pending_since`: the time
   the oldest of them was first seen, or null.
 - `ahead`: the count of local commits not pushed; `unpushed_since`: the time of the oldest, or
   null.
 - `last_commit`: `{sha, at}` or null; `last_push`: `{sha, at}` or null; `last_fetch`: time or null.
 - `conflict`: while `state` is `conflict`, `{upstream, local, files}`, else null.
+
+`syncing` is set when a cycle reaches its first git write or network call (step 4's commit, or
+step 5's fetch when there is nothing to commit) and kept through step 7; step 8's state, or the
+state of the step that fails, replaces it. A cycle with nothing to commit, fetch or push never
+shows it; a writer that dies in `syncing` leaves no live entry (`off`).
 
 Readers derive one more state, `off`, when there is no live `writer` entry. `state.py` gets
 `WRITER = "writer"` and `write_writer(git_dir, record)`; `remove_entry` removes it at the end.
@@ -217,10 +224,12 @@ One cycle, in order; each step's failure goes to the state named, and ends the c
 6. **Integrate**, when the upstream has commits `HEAD` lacks. Under the projects' lifecycle locks,
    first everything pending in the writer's paths is committed (step 4, whatever `quiet` says), so
    the plan holds no uncommitted change when it integrates and any conflict is a rebase conflict
-   (Q12). Then, with `ahead` = 0, `git merge --ff-only <upstream>`; else `git rebase --autostash
-   <upstream>`. The `--autostash` only ever holds the surface's other files edited by hand and not
-   yet committed (the plan is committed); a stash git cannot reapply is a `git-error` block, git
-   keeping the stash. A rebase that stops on a conflict: C.7.
+   (Q12). Then, with `ahead` = 0, `git merge --ff-only --autostash <upstream>`; else `git rebase
+   --autostash <upstream>`. On both paths the `--autostash` holds what the working tree has that
+   the commit does not: the surface's other files edited by hand and not yet committed, and any
+   plan file written between the commit and the integrate by a writer the CLI's locks do not hold
+   back (an agent writing a plan file with its own tool); a stash git cannot reapply is a
+   `git-error` block, git keeping the stash. A rebase that stops on a conflict: C.7.
 7. **Push**, when `ahead` > 0: `git push <remote> HEAD:<branch>`, never forced. Refused as not a
    fast-forward: back to step 5, at most 3 times in the cycle, then the commits stay to push and
    the next cycle tries again. A network failure: state `offline`. Done: `last_push`, `ahead` 0.
@@ -228,22 +237,41 @@ One cycle, in order; each step's failure goes to the state named, and ends the c
    change not pushed (`pending_since` or `unpushed_since`) is older than `late`: `sync-late@1`
    once per episode (it ends when everything is pushed).
 
+The lifecycle locks of steps 4 and 6 are held from step 4's `git add` (or step 6's commit) to the
+end of the commit, or of the integrate (its `merge`, `rebase` or `rebase --abort`), and released
+before any journal append: `hub/journal.py`'s `append` takes the project's lifecycle lock itself,
+through `changes_lock`, which opens a new handle that the same process cannot lock while it holds
+one (msvcrt and flock both refuse it). So C.7 step 3's `sync-conflict@1`, and a `sync-blocked@1`
+from a hook's refusal, are appended once the locks are let go. The time a hook takes (the user's
+`pre-commit`, `commit-msg`, `post-rewrite`) runs under the locks and counts against the 30 s a
+CLI write waits on the lifecycle lock (`changes_lock` gives up after 30 s with its message): a
+hook slower than that makes the waiting CLI write fail as any lock timeout does today.
+
 `offline`: every later cycle retries steps 5 to 7; the first success appends `sync-resumed@1`
 (`after: offline`). Commits go on while offline. No line is appended for `offline` itself; only
 `sync-late@1` once its 5 minutes pass.
 
 A network failure is a fetch or push whose git message holds one of git's transport failures
 (`Could not resolve host`, `unable to access`, `Connection timed out`, `Connection refused`,
-`Could not read from remote repository`, `Network is unreachable`); any other failing git command
-is `blocked` with `git-error`.
+`Could not read from remote repository`, `Network is unreachable`), or, for a push whose LFS
+pre-push hook (`git lfs pre-push`) cannot reach the LFS server, one of git-lfs's transport
+failures (`dial tcp`, `no such host`, as git-lfs prints them in its `batch response: ...` line);
+any other failing git command is `blocked` with `git-error`. A `batch response` with any other
+cause (authentication, an object not found) stays `git-error`. The LFS texts are unproved until
+`test_writer_cycle.py`'s offline LFS case (§6) shows them; the Driver sets the list to the texts
+that case prints.
 
 These messages are git's English texts: every git call of the writer (`writer/git_ops.py`) runs
 with `LC_ALL=C` and `LANGUAGE=C` in its environment, so a translated git (a French `LANG`, a
 localized Git for Windows) still prints them. `core/git.py`'s `git` sets no locale today: it gains
-an optional keyword `env: dict[str, str] | None`, merged over its own environment, and an optional
-`input: bytes | None` for the commit's pathspec list, which the writer passes; the other callers do
-not change. Paths stay byte-exact (`-z`, UTF-8 decoding) and the commit message is passed as
-given, so the C locale changes nothing but git's messages.
+an optional keyword `env: dict[str, str] | None`, merged over its own environment, an optional
+`input: str | None` for the commit's pathspec list (passed as text, as `git` runs with `text=True`
+and UTF-8: the NUL-separated paths as one string), and an optional `raw: bool = False` that returns
+standard output as git printed it, unstripped. The writer passes `raw=True` on every call whose
+output it parses (`status --porcelain=v1 -z`, whose first entry starts with a space when the index
+is clean for it, which `strip()` would eat); the other callers do not change. Paths stay exact
+(`-z`, UTF-8 decoding) and the commit message is passed as given, so the C locale changes nothing
+but git's messages.
 
 ## C.6 Preconditions and blocked reasons
 
@@ -313,7 +341,7 @@ machine the same way; the first push wins and the other integrates at its next f
   prints the writer's state line (C.10) and, when `conflict`, one line per conflicted file. In
   project mode: `sync: in-project planning folder: chantier commits nothing`. Exit 0. Reads only.
 - `chantier sync now`: touches `chantier/writer.wake` and waits up to 10 s for the next cycle's end
-  (the `writer` entry's `since` or `last_push` moving), then prints the state line. With no writer:
+  (the `writer` entry's `last_cycle` later than the touch), then prints the state line. With no writer:
   C.8's text, exit 2. In-project: as above, exit 0.
 - `status` (`commands/batch_status.py`): in external mode, one `writer:` line right after the
   batch's first line, with a batch or none (it replaces `_autosync_lines`). Also on the Foreman's
@@ -404,9 +432,11 @@ Project rules: `AGENTS.md` of chantier changes (the user's merge of the PR is th
   writer commits, rebases and pushes the planning surface's published paths (`projects/` and the
   root `chantier.yaml`, never the surface's other files), and keeps `chantier/writer.lock` and
   `chantier/writer.wake` in the git folder.
+- The no-setup sentence "the CLI needs no network once uv's cache holds its packages, except the
+  board's PRs page and the forge hub" adds the surface server's writer (its fetch and push).
 - "The CLI's scope": a third named exception: the surface server's writer (C.1 to C.7).
 - "The CLI has two named git exceptions": becomes three: the writer's `git add`, `commit`,
-  `fetch`, `merge --ff-only`, `rebase --autostash`, `rebase --abort` and `push` (never forced,
+  `fetch`, `merge --ff-only --autostash`, `rebase --autostash`, `rebase --abort` and `push` (never forced,
   never `--no-verify`), in the surface's checkout only; the board's autosync join goes.
 - The server's description: "the server runs no git either, but its autosync join" becomes "the
   server runs no git but its writer's".
@@ -490,6 +520,13 @@ origin, the writer's `poll(now)` driven with no sleep):
     `LANGUAGE=fr` (and `LC_ALL` unset), and also asserts that every git call of `git_ops.py`
     receives `LC_ALL=C` and `LANGUAGE=C` (a runner with no French locale installed prints English
     anyway, so the environment check is what proves it there);
+  - offline with an LFS file: the surface's `.gitattributes` puts `*.png` in LFS (as the user's
+    surface does), `git lfs install --local` sets its pre-push hook, `lfs.url` points at an
+    unresolvable host (`https://lfs.invalid/`) while the bare origin stays reachable, and a `.png`
+    under `projects/a/changes/1-inbox/x/` is committed: the push fails in the pre-push hook, state
+    `offline` (not `blocked`); the case records git-lfs's message, which sets C.5's LFS texts; it
+    needs `git lfs` (GitHub's ubuntu runner and Git for Windows ship it) and is skipped, with that
+    reason, where `git lfs version` fails;
   - the final cycle commits and pushes a pending change on stop;
   - a second `WriterLoop` on the same git folder does not get `writer.lock`;
   - a board started with no seat starts the writer as a seated one does.

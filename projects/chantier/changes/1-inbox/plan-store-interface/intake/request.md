@@ -1,1 +1,3 @@
+# The plan's storage behind a minimal interface
+
 The plan's storage behind a minimal interface (the write half of the store module of one-read-interface-over-the-planning-fol), with one conformance test every backend passes; the dedicated branch backend is a later CR. Split off from 2-backlog/P3/planning-server on 2026-11-20 (the user's answer planning-server-Q7: seven CRs). Its specification starts from that CR's experiments/03-change-spec-all-parts.md, Part B. Needed by planning-server (the writer).

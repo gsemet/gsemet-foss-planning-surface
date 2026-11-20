@@ -1,1 +1,3 @@
+# Driver leases on what take gave them
+
 Leases: a Driver, the stack driver and the QA driver hold a 10-minute lease on what take gave them, renewed every 3 minutes and kept live while a background task recorded for the CR runs; close on Copilot reads it until copilot-close-end-event lands. Split off from 2-backlog/P3/planning-server on 2026-11-20 (the user's answer planning-server-Q7: seven CRs). Its specification starts from that CR's experiments/03-change-spec-all-parts.md, Part D. Needs typed journal events.

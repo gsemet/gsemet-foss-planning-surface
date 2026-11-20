@@ -8,6 +8,11 @@ answer of `../02-answers.md` (up to planning-server-Q23, 2026-11-20) folded in. 
 writer, is specified in this CR's `../03-change-spec.md`**, which ranks above Part C's text here
 when the two differ.
 
+The parts were filed under these slugs: A `1-inbox/typed-journal-events`, B
+`1-inbox/plan-store-interface`, D `1-inbox/driver-leases`, E `1-inbox/typed-waits` (which also
+depends on `1-inbox/forge-connectors`, planning-server-Q24, 2026-11-20), F `1-inbox/explain-access`,
+G `1-inbox/outside-contributions-archive`.
+
 ## 1. Goal, in the user's terms
 
 The plan lives outside the project, in a planning surface, as Markdown and JSON that anyone can
@@ -270,7 +275,8 @@ order's lease is local; a backlog CR's `waits.json` is published) through the sa
     lifecycle lock's message;
   - `published` agrees with `IGNORED` for `seat.json`, `4-batch/batch.json`, `work/gates/x.log`
     (local) and `3-ready/x/01-intent.md`, `5-archives/batches/batch-01.json` (published);
-  - `refuses-without-publisher` (from Part C on): see C.14.
+  - `refuses-without-publisher` (from Part C on): see `../03-change-spec.md`, §6
+    (`test_store_conformance.py`).
 - A test over the command table of B.1 on a prepared external surface: each command calls
   `check_publish` with its published paths before any change (a spy store records the call order).
   Part C turns the same table into the refusal test (`test_surface_writes.py`).

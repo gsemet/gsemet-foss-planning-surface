@@ -1,1 +1,3 @@
+# Typed waits: a CR records what it waits for
+
 Typed waits (gates): a CR, in a batch or in the backlog, records what it waits for (answer, approval, pipeline, merge), generic across GitHub and GitLab, Claude Code and Copilot; the hub signals when the forge shows it done; GitLab approval proved on a real MR first. Split off from 2-backlog/P3/planning-server on 2026-11-20 (the user's answer planning-server-Q7: seven CRs). Its specification starts from that CR's experiments/03-change-spec-all-parts.md, Part E. Needs typed journal events.
