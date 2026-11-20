@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Typed journal events with stable schemas (name@N)",
+  "summary": "Specified, open questions settled: journal v2 lines typed name@N (4 types), checked by pydantic models; CR ids and head formats fixed; schemas.json written by just journal-schemas, tested in normalized form; AGENTS.md, cards and web-board.md say config@1, board@1, source:.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "134324ed00a2fe3cd2f647fdb0d1374f9d43a6340e4b42f482951538dd88576c",
+    "03-change-spec.md": "62557438cbe2ccdfd4e4c69643643f4aa8b453cef44345f16d7d9690654b61f0",
+    "intake/request.md": "e86cc8ce1fd9ff0c1d22cabc1427eeeac2ac73959bdbce6a82228f7b51f72537"
+  },
+  "summarized": "2026-11-20T09:15:05Z"
+}

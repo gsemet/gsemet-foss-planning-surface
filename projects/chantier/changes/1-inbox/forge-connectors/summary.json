@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Forge connectors as plugins; the hub polls only what an interest registry says is awaited",
+  "summary": "Specified, decisions settled (02-answers FC-1..9): GitHub and GitLab reads behind a connector table, a derived interest registry the hub reads (same budget), interests and journal add issue@1 for an outside issue poller, review fact for typed waits. After typed-journal-events.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "db7dfbc766656ee1525a02a203c6da3c3791b9408f6b219954c513686c2f4f0f",
+    "03-change-spec.md": "d6353622643ef3f447152f6c12e80b60805c9ef70ed10c663ac0c9a23a9c803a",
+    "intake/request.md": "671673ad2790c6b353dce09e7c279cc2730e1f12e376f774a9dd5049f7cdc579"
+  },
+  "summarized": "2026-11-20T09:14:55Z"
+}

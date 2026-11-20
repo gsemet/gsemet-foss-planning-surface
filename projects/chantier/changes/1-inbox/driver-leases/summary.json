@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Driver leases on what take gave them",
+  "summary": "Specified from planning-server's Part D, the user's six answers folded: a 10-minute UTC lease renewed every 3 for a CR's Driver, the stack driver and a QA order, kept live by a long gate or lease hold; Copilot close reads it until copilot-close-end-event. No open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "0ff6120b861794ac9a31655d4c011b8f7514f5bd76d3c3091ecde50bcc63653f",
+    "03-change-spec.md": "c8262998ea4234582f0b108ec8b21be0b3f9c25e9c506282a62d7d095729bacc",
+    "intake/request.md": "2279fba52a7e3e019e5c7092be3d5ab24a775621b0aa5e83b01ee861706e05e7"
+  },
+  "summarized": "2026-11-20T09:15:42Z"
+}
