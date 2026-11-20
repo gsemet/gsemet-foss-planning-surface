@@ -1,0 +1,22 @@
+# Verify CR-442
+
+Head: 590b2c529e9e7b0ee4c9b8ef1ecefc7bc2390909
+
+All claims judged at 590b2c529e9e7b0ee4c9b8ef1ecefc7bc2390909 (`git rev-parse HEAD` in the worktree; `gh pr view 447 --json headRefOid` returns the same SHA; `git status --short` clean).
+
+1. Diff scope (spec Evidence 2). Command: `git diff --stat origin/main`. Output:
+   `.agents/guidelines/release-process.guidelines.md | 25 ++++++++++++++++--------` and `1 file changed, 17 insertions(+), 8 deletions(-)`. Only that file. PASS.
+2. Guideline text (spec Evidence 1). Command: `git diff origin/main -- .agents/guidelines/release-process.guidelines.md`. All hunks sit under `## Release notes` (lines 178 to 250), none elsewhere. Read:
+   - intro: "in a few highlights, each with its picture", no "in pictures first". PASS.
+   - Writing: highlight = heading, at most two sentences, then picture; nothing under the picture except the Markdown example of a new syntax. PASS.
+   - Writing: picture cropped to where the change happens (no toolbar, margin, unrelated content, list example); joined before | after crops both halves to the same region at the same scale; gesture capture keeps element and what it acts on. PASS.
+   - Writing: unchanged bullets kept (before | after side by side, setting rule, "Never use" list); whole-change rule now "the highlight has no sentence: its heading, then the picture". PASS.
+   - Structure item 3: at most two sentences, then one cropped picture, optional Markdown example under the picture. PASS.
+   - Images: sentence added that captures are cropped as "Writing" says before they are joined (points to Writing, no restatement). PASS.
+3. Reading check on the owner's example (spec Evidence 5): heading `## ✏️ Edit one list item, not the whole list`, one sentence, then the image. Matches the new Writing bullet and Structure item 3 in order. PASS.
+4. Gates (spec Evidence 3 and 4), cited not re-run. Gate log `work/gates/20261121-001800.log`, first line: `gate CR-442 branch chantier/batch-07/cr-442-release-notes-highlights-text-first-pict head 590b2c529e9e7b0ee4c9b8ef1ecefc7bc2390909`; command `just preflight`; last line `result: pass at 590b2c529e9e7b0ee4c9b8ef1ecefc7bc2390909` (static stage on Windows, `ci-static: passed`). PASS. CI green at this head reported by the Driver, not re-checked here.
+5. PR description draft (`work/pr-body.md`, read at the head): judged earlier, superseded by claim 7 on the posted text.
+6. Evidence pairs: none (text-only guideline change, no screenshots, per the specification).
+7. Posted PR description pass at 590b2c529e9e7b0ee4c9b8ef1ecefc7bc2390909. Commands: `gh pr view 447 --repo gsemet/markdown-okf-schema-studio --json body,headRefOid` (headRefOid is the head) and `git diff origin/main...HEAD`. The posted Changes bullet says "three bullets of Writing (reworded order, whole-change rule, two new crop bullets)". The diff has two reworded Writing bullets (order, whole-change) and three added crop bullets (each picture cropped; joined before | after same region and scale; gesture capture), so five bullets, not "three" with "two new crop bullets". The Deliverables table says six places and its Crop row covers all three crop bullets, which is right; only the Changes bullet miscounts. No stale SHA, no internal reference outside "Internal references", Known gaps "None" is right. FAIL: the description does not match the diff.
+
+NOT VERIFIED

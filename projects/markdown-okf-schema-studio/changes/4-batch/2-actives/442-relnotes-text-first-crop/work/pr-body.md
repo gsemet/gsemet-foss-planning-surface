@@ -42,7 +42,8 @@ None.
 - [x] Changelog: No user-facing change
 - [x] Local gates: `just check` and `just preflight` (static stage on Windows): pass at `590b2c5`
 - [x] Review: approved at `590b2c5`
-- [ ] CI green
+- [x] Verified at `590b2c5`
+- [x] CI green at `590b2c5` (`gh pr checks 447`: checks, report, static, static-windows, visual pass; heavy jobs skipped on a pull request by design)
 
 ## Internal references
 
