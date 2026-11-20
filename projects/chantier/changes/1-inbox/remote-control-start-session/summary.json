@@ -1,12 +1,14 @@
 {
   "schema": 1,
   "title": "Sessions start from Remote Control when no other folder is named",
-  "summary": "Filed from the user's word via Studio's trial: start_session works from Remote Control with no cwd. Not grilled.",
+  "summary": "Grilled 2026-11-20 (4 answers). Remote Control refuses a start with cwd or preset, not a start; start with no cwd, then change_directory. Open: the operator's isolation, settled by the Driver's trials.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
+    "01-intent.md": "69af8f47ff7b5c6c610f07812047ec62c8d40126cf437a74f4dc6813f8884cf8",
+    "02-answers.md": "ca0ae045aaadf04d6794f5861a5e5034ba99d6e97411e12a2825c31504131d72",
     "intake/request.md": "413e2a7d1522c40f2b0f1bacd9b065a26277fbaf85bd1120082170e89cf18848"
   },
-  "summarized": "2026-11-20T19:44:20Z"
+  "summarized": "2026-11-20T20:01:32Z"
 }
