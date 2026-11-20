@@ -20,3 +20,16 @@ section 2; decided by the Chief of Staff under the owner's autonomy rule (2026-1
    cut of one alone does nothing.
 7. blank-runs-Q7: **Line endings** kept (BLOCK-234).
 8. Spec critic: yes, on Fable (owner's rule): it changes what the writer sees and does in edit mode.
+
+Spec critic (Fable), 2026-11-21 ~00:40: 9 points, 5 fixes, 4 questions decided by the Chief of Staff
+under the owner's autonomy rule:
+9. blank-runs-Q9: **`isBlank` scope** (narrows Q4). This CR adds one exported CommonMark blank test
+   (spaces and tabs only) in `blockRange.ts`, used by `blankRuns` and the run checks only; existing
+   callers keep `trim()` until backlog `blank-line-check-unicode-spaces` moves them to it (that item
+   now names this function). Not a restated regex: one function, two callers groups for one night.
+10. blank-runs-Q10: **Keys on a focused block.** As empty-block-Q10: Delete and Backspace act only on a
+    selected blank-lines block (arrows); a focused one (Tab) takes Enter and its Delete block button.
+11. blank-runs-Q11: **Runs inside lists and containers** stay out of scope (named in Out of scope and in
+    the first SwRS); an inbox item is filed for runs between list items.
+12. blank-runs-Q12: **Ctrl/Cmd+V on a selected blank-lines block** pastes in place of the run, like typing
+    in it (one separator on each side).

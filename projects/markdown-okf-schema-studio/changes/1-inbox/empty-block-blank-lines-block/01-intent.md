@@ -6,4 +6,9 @@ and remove, so blank lines already in a file (hand edits, older Studio versions)
 Done when: every run of two or more blank lines in the body shows in edit mode as a blank-lines block,
 reachable with the arrows, clickable (an insertion editor in its place), removable with Delete,
 Backspace or the Delete block button of `empty-block-reachable`, keeping one separator; reading mode
-and the export are unchanged; the file's line endings are kept.
+and the export are unchanged; the file's line endings are kept. Runs between the items of a list or
+inside a container are out of scope (blank-runs-Q11, `1-inbox/blank-runs-inside-lists`).
+
+Stack: lands after CR-439 (`4-batch/2-actives/439-empty-block-reachable`, branch
+`chantier/batch-07/cr-439-empty-blocks-leave-no-blank-lines-and-a-`), which provides
+`createDeleteBlockButton` and `deleteSelection()`.

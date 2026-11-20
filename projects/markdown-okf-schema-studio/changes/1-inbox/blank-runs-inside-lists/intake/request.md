@@ -1,0 +1,3 @@
+# Blank-line runs between list items are unreachable in edit mode
+
+Found by the spec critic of empty-block-blank-lines-block (2026-11-21): a run of two or more blank lines between two items of the same list (or inside a quote, an admonition or a list item) is inside the list's preview range, so no blank-lines block shows for it and the writer cannot reach or remove it from Studio. Owner's goal (2026-11-20): blank lines beyond the one separator are always reachable in edit mode.
