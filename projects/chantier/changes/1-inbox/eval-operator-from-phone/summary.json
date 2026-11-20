@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Start an eval's operator, and its Foreman campaigns, from the phone",
+  "summary": "Split from remote-control-start-session, grilled. Bootstrap start, move, isolation trials; needs a phone trial. Not specified.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "849194ff2887a7ac2b94a1e8f1186a14678f06a835d919f3cdad15b35bddc012"
+  },
+  "summarized": "2026-11-20T20:11:27Z"
+}
