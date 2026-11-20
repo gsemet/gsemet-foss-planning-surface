@@ -13,3 +13,7 @@ Short name: `stuck-saving`
    Chantier en LF et tu mettras les settings dans gitattributes pour que ca n'arrive plus quelque
    soit la configuration de git et l'OS". Not part of this Studio CR: sent to the chantier Chief of
    Staff (convert chantier's Markdown files to LF, add an `eol=lf` rule in its `.gitattributes`).
+3. stuck-saving-Q3: **Chantier's LF change on hold (owner, via the chantier Chief of Staff,
+   2026-11-20).** "Markdown studio doit respecter le format original c'est dans son ADN." Chantier
+   keeps its CRLF checkouts; its CR markdown-lf-everywhere waits in its inbox. This CR must handle
+   CRLF files fully and leave their line endings unchanged; the e2e tests above are the proof.

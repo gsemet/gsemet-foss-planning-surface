@@ -30,3 +30,10 @@ Studio 1.10.0 gets stuck on "Saving Markdown..." when a block of a CRLF file is 
   (`git ls-files --eol` shows `w/lf`).
 - Starts after CR-411 is merged (both edit `.gitattributes`).
 - When merged, tell the Studio Chief of Staff in one line.
+
+## On hold: the user doubts it (2026-11-20)
+
+The user, after filing: "je ne suis pas sur que ce soit une bonne idee. Markdown studio doit
+respecter le format original c'est dans son ADN." Studio must keep a file's line endings as they
+are, CRLF included; that is Studio's own fix (editor-stuck-saving), not chantier's. This CR stays
+in the inbox, not run, until the user decides.
