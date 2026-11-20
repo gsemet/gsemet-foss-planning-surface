@@ -200,9 +200,10 @@ Read `requirements/guidelines/requirements.guidelines.md` and
   the new tests.
 - **Full IDs on links:** update the SwRS that describe the other links of section 2, in
   substance "a link to a requirement shows its full ID": `SwRS-MDOKFSTUDIO-CORE-080` (area page,
-  use case list) and `SwRS-MDOKFSTUDIO-CORE-082` (behaviour page: behaviour rows, "where"
-  captions), and `SwRS-MDOKFSTUDIO-CORE-083` for the "superseded by" links if its text names that
-  link. Each gets a `@tests_req` at the test that checks the full ID.
+  use case list), `SwRS-MDOKFSTUDIO-CORE-082` (behaviour page: "where" captions), the SwRS whose
+  text names the behaviour rows of a use case page (CORE-081 or CORE-082), and
+  `SwRS-MDOKFSTUDIO-CORE-083` (retired requirements) for the "superseded by" links if its text
+  names that link. Each gets a `@tests_req` at the test that checks the full ID.
 - **New SwRS for Play**, created with `uv run --no-sync --group requirements okfreq new` in scope
   `rendering-core` (its ID is the one okfreq gives; never hand-allocated), deriving from
   `StRS-MDOKFSTUDIO-CORE-008`. Title, in substance: "The site requirements viewer plays a path of a

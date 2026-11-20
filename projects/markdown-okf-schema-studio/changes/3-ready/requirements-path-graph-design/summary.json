@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Path graph: joined map, smaller and readable",
+  "summary": "Redraw the use case path graph as a joined metro map at its natural size: shared states drawn once, full IDs on every requirement link and pill, no overlaps checked in pinned fonts on every real use case in ci-visual, guideline allows one to three paths.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "b1e72f3fc87c632b6acfa54857780226919a1d8a7c9fd020797294e791fb8d93",
+    "02-answers.md": "e57e36bf5617c6cc3b9400dd547a284e03fb9f16c8c53178524d5cf1377e85ac",
+    "03-change-spec.md": "c5a69faa9321e068e29f06f0d0cb141b91a260bc242e8b02899e4d12deef52a3",
+    "intake/request.md": "df98bcdfb9235c69ab768c7c84154a60475f48ad0b317d0207910b055884e38b"
+  },
+  "summarized": "2026-11-20T23:00:46Z"
+}

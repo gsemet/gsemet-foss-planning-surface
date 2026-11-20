@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Empty blocks leave no blank lines, and a Delete block button",
+  "summary": "Specified (after the critic): Done on an empty top-level block or list item deletes it, new blocks drop leading blank lines, an insertion after a list writes one separator; a Delete block button and Delete/Backspace on a block selection. The blank-lines block is split off.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "035e688d1c9bc15166caad0c0dceef5fbaeb6ea2e49546fbff5b6954bc4a12e4",
+    "02-answers.md": "0a49a793a1863092c10ec0a673bf8e5c90e6ea43f889d94d30201dd72d64a70c",
+    "03-change-spec.md": "e240ce1b5c8eb8c28151cb2e63781385868f10546efab15617b53be10b9dad16",
+    "intake/request.md": "20d3587b6e2456e42bd0b3face43928b54a38e3873f1d90267255518c09662de"
+  },
+  "summarized": "2026-11-20T23:00:37Z"
+}
