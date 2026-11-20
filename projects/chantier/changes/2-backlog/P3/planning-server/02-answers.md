@@ -1,5 +1,7 @@
 # Answers
 
+Short name: `planning-server`
+
 ## 2026-11-10, the user, during the Beads study
 
 > la regle 'aucune configuration' est pour le projet cible, mais en mode externe on pourrait

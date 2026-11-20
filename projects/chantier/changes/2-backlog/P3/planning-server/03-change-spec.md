@@ -38,6 +38,19 @@ own and may be its own CR (open question 1):
 
 The rest of this document specifies all seven, part by part.
 
+Pending items this CR composes with (named so the two align; neither is edited by this CR):
+
+- `2-backlog/P2/one-read-interface-over-the-planning-fol`: one module `store`, the only way the
+  board, the hub and `status` read the planning folder; it waits for this CR. Part B builds the
+  write half of that same `store` module (B.1); that item adds the read half to it.
+- `2-backlog/P3/batch-takeover`: it publishes `batch.json` as `resume.batch` in the batch's record
+  (its §1), and names the record's way to the surface as "the surface's autosync or the Chief of
+  Staff's own commit" (its §1) and the pull before a takeover as "the surface's autosync `sync`,
+  or a plain pull" (its §3). With Part C, both become the surface's writer: the record is a
+  published path the writer commits and pushes, and the writer's fetch and integrate (or `sync
+  now`) bring the other machine's record. Its strip list gains this CR's leases (D.1); waits are
+  kept (E.1). Whichever of the two lands second carries the alignment.
+
 ## 3. Decisions carried from `02-answers.md`
 
 | Decision (date) | Where it lands |
@@ -160,7 +173,14 @@ The first four are the version 1 kinds frozen as they are today; their payloads 
 
 ### B.1 What changes
 
-New package `skills/chantier/scripts/cli/src/chantier/store/`:
+New package `skills/chantier/scripts/cli/src/chantier/store/`. It is the module `store` that the
+pending P2 item `2-backlog/P2/one-read-interface-over-the-planning-fol` names (the only way the
+board, the hub and `status` read the planning folder; it waits for this CR): this part builds its
+**write half** and the low-level reads the conformance test needs (`read_text`, `exists`,
+`listdir`); that item adds the read half (records, backlog, configuration, journal) to the same
+protocol and backends and moves the readers onto it. One package, one `PlanStore`, one
+`Repo.store`, one conformance test that both halves extend; no second store module. An index that
+item allows later sits behind the same protocol.
 
 - `base.py`: the protocol `PlanStore`, and `Features` (a frozen set of the words below).
   - `root: Path` (the planning folder), `features: frozenset[str]`.
@@ -347,6 +367,13 @@ A network failure is a fetch or push whose git message holds one of git's transp
 `Could not read from remote repository`, `Network is unreachable`); any other failing git command
 is `blocked` with `git-error`.
 
+These messages are git's English texts: every git call of the writer (`writer/git_ops.py`) runs
+with `LC_ALL=C` and `LANGUAGE=C` in its environment, so a translated git (a French `LANG`, a
+localized Git for Windows) still prints them. `core/git.py`'s `git` sets no locale today: it gains
+an optional keyword `env: dict[str, str] | None`, merged over its own environment, which the
+writer passes; the other callers do not change. Paths stay byte-exact (`-z`, UTF-8 decoding) and
+the commit message is passed as given, so the C locale changes nothing but git's messages.
+
 ### C.6 Preconditions and blocked reasons
 
 Checked at each cycle's step 2, in this order:
@@ -496,6 +523,15 @@ Project rules: `AGENTS.md` of chantier changes (the user's merge of the PR is th
   in the surface's checkout only; the board's autosync join goes.
 - The server's description: "the server runs no git either, but its autosync join" becomes "the
   server runs no git but its writer's".
+- The hub's sentence "it appends to that project's `forge-journal.jsonl` ... one line per merge
+  the record does not hold and per CI turning red on a PR ready to merge, and nothing else" adds
+  one line per lease of a running batch that expires (`lease-expired@1`, D.6) and per wait the
+  forge shows met (`wait-cleared@1`, E.3), and its forge read adds, within the same query budget,
+  the review decision and the checks of the open `approval` and `pipeline` waits' refs.
+- The watcher's sentence "reads only its project's journal (the hub's lines and the board's)"
+  becomes "(the hub's lines, the board's and the writer's)".
+- "the board itself records nothing and messages no agent" adds: but its writer's commits of the
+  planning surface's published paths (C.5) and its journal lines (`sync-*@1`, C.10).
 
 ### C.12 The surface's setup, and what goes
 
@@ -545,7 +581,10 @@ origin, the writer's `poll(now)` driven with no sleep):
     its state, reason and one `sync-blocked@1` line;
   - offline (the origin's path renamed away, so the push fails with `Could not read from remote
     repository`): state `offline`, commits go on; past `late`, one `sync-late@1`; the origin back:
-    pushed and `sync-resumed@1`;
+    pushed and `sync-resumed@1`; this case runs with the test process's `LANG=fr_FR.UTF-8` and
+    `LANGUAGE=fr` (and `LC_ALL` unset), and also asserts that every git call of `git_ops.py`
+    receives `LC_ALL=C` and `LANGUAGE=C` (a runner with no French locale installed prints English
+    anyway, so the environment check is what proves it there);
   - the final cycle commits and pushes a pending change on stop;
   - a second `WriterLoop` on the same git folder does not get `writer.lock`.
 - `test_writer_lines.py`: every C.10 line, from a prepared `writer` entry per state (a case the
@@ -575,6 +614,10 @@ autosync cases and `fake_autosync.py` are gone. `scenario/README.md`'s Coverage 
 - The lease is in `batch.json` (local, never published): `CrEntry.lease` and `BatchRecord.stack_lease`,
   each `{n, taken, renewed, expires, ended}` or null (`core/records.py`). A batch opened before
   this version has none; its CRs work as today, with no `--lease`.
+- A lease means something only on the machine that runs the batch: `batch-takeover`'s published
+  `resume.batch` (§2, pending items) strips each CR's `lease` and the record's `stack_lease`, as it
+  strips worktree paths and session ids; a takeover restores them as null, and the next `take` on
+  the new machine starts lease 1 of that unit (no last number is kept).
 - A lease is **live** while `ended` is null and (`expires` is in the future, or a long gate of the
   unit runs: its `.long-gate*.run` record names the CR and its process is alive). Else it is
   **expired** (not ended) or **ended**.
@@ -638,6 +681,18 @@ word; `chief-of-staff.md`, "Closing" and the refusal table's row D) say the leas
   means, then take the CR again with `--note "resume: lease expired"`.
 - `chief-of-staff.md` (direct mode): the same as the Foreman's.
 
+`driver.md`'s common path is capped: `4-batch/1-pending/398-retro-batch-28-drivers-end-before-closin`
+(§2) limits what a CR Driver reads on its common path (the opening, the sections
+`startup-manifest.json` lists under `actions["cr-driver"]`, and `## CR driver`) to 45,000 bytes,
+with a test in `test_startup_manifest.py` summing them. This part's and E.4's (and F.2's) text
+fits it: on the common path only the lease line of the facts, `--lease <n>` on the named
+commands, and "`claim lost`: stop at once, record nothing more, tell the Foreman", at most 600
+bytes together; the renewal while waiting longer than 3 minutes, the `--wait` block (E.4, a
+blocked hand-back is off the common path) and "run `access` on a refusal you do not understand"
+(F.2) go in trigger-read level-2 sections the card's links name, not listed in the manifest.
+`test_startup_manifest.py` stays green; when 398 has not landed yet, the same placement holds and
+whichever lands second keeps the total within the cap.
+
 ### D.6 Messages
 
 - `lease-expired@1` (the hub, once per batch, unit and lease number, for running batches only):
@@ -677,7 +732,8 @@ A blocked CR records what it waits for, typed by the fact, never by the forge or
 | `pipeline` | a green pipeline on a head (every required check passed) | the head's sha (and the PR or MR link) |
 
 Recorded in `batch.json` (local): `CrEntry.waits`, a list of `{id, type, ref, since, note,
-cleared_at, cleared_by}`; `id` is `w1`, `w2`, ... per CR.
+cleared_at, cleared_by}`; `id` is `w1`, `w2`, ... per CR. Unlike leases, waits are facts of the
+CR, not of the machine: `batch-takeover`'s `resume.batch` keeps them (§2, pending items).
 
 ### E.2 Commands
 
@@ -706,7 +762,8 @@ appends `wait-cleared@1` once per batch, CR and wait id. It records nothing in t
 
 ### E.4 Cards
 
-`driver.md`: block with `--wait` when the block is a wait of one of the three types. `foreman.md`
+`driver.md`: block with `--wait` when the block is a wait of one of the three types, in a
+trigger-read section off the common path (D.5's cap). `foreman.md`
 and `chief-of-staff.md`: clear a wait on the user's answer or on a `wait-cleared@1` line, then take
 the CR back as today (`take --note`). `concepts.md`: the word "wait".
 
