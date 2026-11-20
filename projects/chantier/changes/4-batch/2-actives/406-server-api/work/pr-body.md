@@ -75,8 +75,8 @@ No visual change.
 - [ ] New or changed tests (they fail on the previous code): `test_server_api.py`, `test_server_api_calls.py` (a good call for each of the 20 ops), `test_server_api_ws.py` (real server), `test_server_protocol.py` (schema and JS structure); old-route tests moved to ops
 - [x] Local gates at `fea5a03`: `just check` pass (1394 passed, 13 skipped), `just eval-dry-run` pass (18 of 18); `just scenario --unit surface-board` pass (281/281) at the pre-rebase tree
 - [ ] Evidence: none yet (no picture retaken)
-- [x] Review: approved at `fea5a03` (the reviewed tree of `9841318`, committed and rebased clean)
-- [ ] Verified: not yet
+- [x] Review: approved at `fea5a03` (the reviewed tree of `9841318`, committed and rebased clean); `daed507` adds only two lines of `docs/server-api.md` (17th socket before `hello`: HTTP 503 at the upgrade)
+- [x] Verified: VERIFIED at `daed507` (work/verify.md)
 - [ ] CI green: pending
 
 ## Internal references
