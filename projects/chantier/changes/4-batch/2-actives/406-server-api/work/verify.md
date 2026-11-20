@@ -39,3 +39,7 @@ Code: `ws.py:149-150` (welcomed >= MAX_CLIENTS -> TRY_AGAIN 1013), `ws.py:304-30
 
 ## UNVERIFIED (not provable here)
 A real browser run of the page, a phone on the LAN, a UI from another origin, the pictures (docs_screenshots not run), `just test` time at base vs head, 1001 on a real process. The first four are in Known gaps already; add 1001-on-a-real-process only if wanted (it is covered by the in-process real-server test).
+
+## 8. Description pass at daed507 (posted body, `gh pr view 383 --json body`) NOT VERIFIED
+- Checked and fine: CI `gh pr checks 383` 5 of 5 pass at daed507; `1394 passed, 13 skipped` and `18 of 18` are in work/gates-check.log and gates-evaldry.log (stated at fea5a03); local gate pass at daed507 in the gate log; Review note `r4 approved at 9841318..., committed as fea5a03b`; Known gaps hold the 1001-on-stop gap and `work/coder/release-notes-draft.md` (file exists).
+- Failed: the Test plan item "New or changed tests (they fail on the previous code)" is unchecked, names no SHA and no result, and "fail on the previous code" has no proof in verify.md (the 39 passed run is at head, no run at the base).
