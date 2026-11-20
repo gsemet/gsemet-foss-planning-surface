@@ -27,8 +27,9 @@ Grade: 2. A new command and a new dependency, plus additive fields in the board'
 
 ## Autonomous decisions
 
-- The `text` field added on an `events` line replaces a payload's own `text` key for the types that have one (`board@1`, `issue@1`, `sync-*@1`), as the specification names the field `text`; each type's sentence quotes the payload's text, so the screen loses nothing.
+- The `text` field added on an `events` line replaces a payload's own `text` key for the types that have one (`board@1`, `issue@1`, `sync-*@1`), because the field is named `text`; each type's sentence quotes the payload's text, so the screen loses nothing.
 - The Projects panel's ready count reads the project state's `3-ready` backlog count, since the board's project line carries none.
+- The client closes its socket when the iterator closes, and the working CR's second Tasks row puts the lease time first so a narrow panel never cuts it off.
 - A test that asserted `clients/` holds no Python file is narrowed to `clients/web/`.
 
 ## Known gaps
@@ -46,6 +47,15 @@ Grade: 2. A new command and a new dependency, plus additive fields in the board'
 - `clients/tui/` (`link.py`, `model.py`, `screen.py`), `declare/live.py`, `commands/live.py`, `cli.py`: the command.
 - `AGENTS.md`, `docs/boards.md`, `README.md`, `CONTRIBUTING.md`: the named exception, the user documentation, the tree.
 - Tests: `test_live_model.py`, `test_live_link.py`, additions to the lease, board and API tests; scenario unit `surface-board` runs `live --once` on both transports.
+
+## Human decisions
+
+- Rich alone, no Textual; shipped in the package and started by `chantier live` (not a flag of `watch`, not `top`).
+- The client uses the published API only, and a test proves its imports.
+- It follows the board recorded as running, or the one named by `--url`; it never starts a board.
+- WebSocket first, then HTTP long-poll; `--transport` forces one; a refused key is not retried on the other transport; a lost link is retried every 5 s.
+- All projects by default, `--only` to narrow, 15 at most; one board per run.
+- Read-only: it sends `hello`, `sub`, `unsub` and the poll only; quit is Ctrl-C; no card changes.
 
 ## Impacts
 
