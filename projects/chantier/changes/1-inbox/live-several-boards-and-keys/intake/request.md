@@ -1,0 +1,3 @@
+# live: several boards in one screen, and keys to scroll and filter
+
+Split out of live-activity-tui (2026-11-20, settled by the Chief of Staff while the user asked no questions). chantier live watches one board per run and reads no key. Left for later: several boards or surfaces in one screen (one key and one connection each), and keyboard input: scroll back in the Flow, filter by project or CR, open a CR's files. Keys would need Textual or a key reader; the first CR chose Rich alone because it only watches. Depends: live-activity-tui.

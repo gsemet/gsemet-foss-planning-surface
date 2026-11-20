@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "chantier live: a live terminal view, second client of the API",
+  "summary": "Grilled and specified 2026-11-20 (settled without the user): chantier live, a read-only Rich terminal client in clients/tui, over the WebSocket or the HTTP long-poll; the server's state gains lease, stack_lease and the events lines' text.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "30741b1aea31a6ba42abe77fcc4adf8c2fbfa72b277b4932a45c8708accb8514",
+    "03-change-spec.md": "189917568333e13dc57933bc537b8da88e5f2097f5435a0395f6e086440b9d60",
+    "intake/request.md": "99b4363dec4ea31774602a5e0482b46288e46734ec664b65bda530bc89767b69"
+  },
+  "summarized": "2026-11-20T22:47:06Z"
+}

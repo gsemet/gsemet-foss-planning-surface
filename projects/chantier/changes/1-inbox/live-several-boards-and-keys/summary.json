@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "live: several boards in one screen, and keys to scroll and filter",
+  "summary": "Filed 2026-11-20, not grilled: split out of live-activity-tui; several boards or surfaces in one chantier live screen, and keyboard input (scroll the flow, filter, open a CR).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "a96de538dddf85c6680863726b40d9be553f1527b7c7955450ee7f8f26516305"
+  },
+  "summarized": "2026-11-20T22:47:06Z"
+}

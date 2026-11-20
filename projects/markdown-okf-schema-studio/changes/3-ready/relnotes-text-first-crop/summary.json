@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Release notes highlights: text first, picture cropped on the change",
+  "summary": "The release guideline puts each highlight's sentences before its picture and asks each picture to be cropped to where the change happens, both halves of a before|after image at the same region and scale.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "74417d5acd937b9cdd9f1aee24482c4386762213bf3ead16b74444271a45424f",
+    "02-answers.md": "3c5162eb3d1af76b5323c1b474a69fd605d28f1c67cde1f559d06b62e098804c",
+    "03-change-spec.md": "522504fa91ee6131a140f147a035dd475385654d6fc912b90483009108ccb302",
+    "intake/request.md": "d8b640a7413e79cd92bbd61d16909be6a8168dd83c1ac44e6d225acff9d68254"
+  },
+  "summarized": "2026-11-20T22:46:40Z"
+}
