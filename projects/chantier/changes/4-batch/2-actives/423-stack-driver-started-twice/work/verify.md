@@ -9,3 +9,9 @@ Claims, each judged at 47ac697 from `git diff origin/main` in the worktree:
 6. PR description: renders, Summary/Deliverables/Changes match the 3-file diff, Known gaps names the two unproved items. Test-plan `<sha7>` placeholders are the Driver's to fill at ship; not a failure of the content.
 
 VERIFIED
+
+Description pass at 47ac69759897d83bde917de9209bcf0a1b1b4bf0 (posted body, `gh pr view 388 --json body`, against `git diff origin/main..HEAD`):
+- Renders, Summary/Deliverables/Changes match the 3-file diff, Known gaps present, no images. OK.
+- Review box: "Review: approved at `47ac697`". `$CHANTIER log 423 --batch batch-29` holds only `r1 inspector approved at 4ed0d56cc1a0ad51d1a4aa5f277cebc9ccaa8296` (the base; round 1 `wt_head=4ed0d56`, no `committed as` note). No approved-pass note names 47ac697. FAILS per the card.
+
+NOT VERIFIED
