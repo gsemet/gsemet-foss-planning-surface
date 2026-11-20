@@ -290,3 +290,10 @@ planning-server-Q30, hand edits left in `git stash list` when git cannot put the
 integration: "Oui, au 1er cycle". An exception to Q25's two-cycle rule: one `sync-blocked@1` at
 once, `git-error`, the stash's name in `text`; the Chief of Staff tells the user where the edits
 are.
+
+Approval of the writer's specification, asked by the Griller:
+
+> voit avec le CoS qui est en train de specifier et planifier tout cq
+
+- Not approved here: the user hands the specification over to the Chief of Staff, who is
+  specifying and planning all of it. The Griller tells the Chief of Staff where it stands.
