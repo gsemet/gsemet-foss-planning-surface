@@ -28,3 +28,19 @@ plus de question. tu grilles tout seul avec un fable"):
    table get no button (same refusals as move, BLOCK-127).
 5. empty-block-Q5: **Line endings.** Every edit keeps the file's line endings (BLOCK-234).
 6. Spec critic: yes, on Fable (owner's rule): it changes what the writer sees and does in edit mode.
+
+Spec critic (Fable), 2026-11-21 ~00:00: 12 points, 6 fixes, 6 questions decided by the Chief of Staff
+under the owner's autonomy rule:
+7. empty-block-Q7: **List followed by blank lines.** Delete drops the trailing blank lines of the span
+   before planning, as a move does. Cut and copy stay as they are; a backlog item is filed for them.
+8. empty-block-Q8: **Insertion after a list.** Fixed here: an insertion anchored on a blank line writes
+   one separator (BLOCK-094).
+9. empty-block-Q9: **Which emptied editors delete on Done.** Top-level blocks and list items; trailing
+   blank lines of the range are dropped before planning; blocks inside an item or a container keep
+   today's behaviour.
+10. empty-block-Q10: **Keys.** Delete and Backspace, only on an explicit block selection or a selected
+    blank-lines block (never on a merely focused block or a focused control).
+11. empty-block-Q11: **Selection one level down** (cell, list item, inner block): Delete does nothing.
+12. empty-block-Q12: **Split in two.** This CR keeps A (Done on an empty block, the insertion fix) and C
+    (the Delete block button and keys). B (the blank-lines block in edit mode) is split off as
+    `1-inbox/empty-block-blank-lines-block`, built on this CR's button; it follows this CR in the stack.

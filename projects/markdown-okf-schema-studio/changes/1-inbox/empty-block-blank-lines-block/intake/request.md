@@ -1,0 +1,3 @@
+# Show blank-line runs as a reachable blank-lines block in edit mode
+
+Split from empty-block-reachable (owner's chosen solution, 2026-11-20: 'en mode edition il faudrait que les ligne vide au dela que 1 (qui sert de delimiter en md) soit representé par un petit block vide, selectable par le clavier et clicable'). This part: in edit mode, a run of two or more blank lines shows as a small blank-lines block, reachable with the arrows, clickable (an insertion editor in its place), removable with Delete/Backspace or the Delete block button of empty-block-reachable, keeping one separator. See empty-block-reachable/03-change-spec.md section 2 and the critic's points 8 and 9 (shared isBlank; nothing shown inside folded sections).

@@ -1,15 +1,16 @@
 {
   "schema": 1,
   "title": "Open Studio at a searched line and mark it with an arrow",
-  "summary": "P3, grilled (Griller decided Q9+ under the owner's autonomy rule): jump and Markdown settings, arrow marker, notices; to specify.",
+  "summary": "P3, specified: two opening settings (search results on, Markdown files off), arrow and band line marker, one-time feature introductions with reset, *.md association migration, diffs never replaced; real VS Code trials T1-T10 pending.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "9ce9d7ce4259c6a699a2e8bfdf2ca164ea53e9c9e2af1cdc55b3222932ebb2bd",
     "02-answers.md": "47c585d19d3d05417476136b8fa4cbbc2fe3028028cc57903a6d3a9f3b7d6a5e",
+    "03-change-spec.md": "cbcfd8228f195c4979de7fb5ad7ccec39fbeece825fd556ee852f302f6dd10f3",
     "intake/request-diff-view.md": "91fd0dd3e71a3b6cfc33a363d1660b16c4d3138f9a6ebf8668ee9dfdfa6e955d",
     "intake/request.md": "43d2d3ea478e3ea5939d13d6da18bee65d99136cf8703962e89cb8178b41d6ea"
   },
-  "summarized": "2026-11-20T22:45:16Z"
+  "summarized": "2026-11-20T22:59:23Z"
 }

@@ -1,13 +1,15 @@
 {
   "schema": 1,
   "title": "Share cards on X for requirement pages: images and per-page text",
-  "summary": "Live tags are valid; X cache likely. To do: one image per category, feature-category wording, per-page text, tags on the /requirements stub, build tests.",
+  "summary": "Specified: one share picture per feature category (area-<id>.png) plus the index's, feature-category titles, full-ID titles, plain-text descriptions cut at a word, index tags on the /requirements stub, CORE-085 updated, build tests.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "dda77f2d75042a74eb9efcc2b8df7b2909ab4af2bfbe3c8736fc10c908d7b5b1",
+    "02-answers.md": "88484955b18e9657886de6d38b23f7ccafedcb58f2ae52c0c4270af89887c850",
+    "03-change-spec.md": "5e4f968ffd7b7a203eeeb5745a8177b13d6fced1fe32d5fcadad011c84b933dc",
     "intake/request.md": "dfe4586c24ac63970baa1c5eb0a797e00e96dd4050e8567add213a02c528b661"
   },
-  "summarized": "2026-11-20T21:47:43Z"
+  "summarized": "2026-11-20T22:58:43Z"
 }

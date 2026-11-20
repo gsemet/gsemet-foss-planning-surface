@@ -1,0 +1,3 @@
+# Cut and copy of a list followed by blank lines is refused
+
+Found by the spec critic of empty-block-reachable (2026-11-21): a list's preview range ends on the blank lines after it (blockRange.ts:47), and planCut refuses a span that ends on a blank line, so cutting or copying a list followed by blank lines is refused with 'The preview is out of date'. Delete block drops the trailing blank lines before planning (as a move does); cut and copy should do the same.
