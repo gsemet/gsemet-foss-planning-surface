@@ -53,7 +53,7 @@ No visual change beyond the planning-modes figure's Remote panel text. Documenta
 ## Test plan
 
 - [x] No behaviour change; no new test (the existing check that keeps host tools out of the cards covers the cards).
-- [ ] Local gates at `<sha7>`: `just check` in the worktree, pass; stale-wording search below.
+- [x] Local gates at `dc4beb2`: `just check` pass (1405 passed, 14 skipped); `just scenario` pass on Windows; stale-wording search below.
 - [x] Evidence: stale wording search at base `d7b5a01` and head, below.
 - [ ] Review: approved at `<sha7>`
 - [ ] Verified at `<sha7>`
