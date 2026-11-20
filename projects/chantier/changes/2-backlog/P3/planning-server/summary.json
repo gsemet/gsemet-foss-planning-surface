@@ -1,14 +1,15 @@
 {
   "schema": 1,
-  "title": "A planning server owned by the Chief of Staff, one writer per project",
-  "summary": "Grilled in part with the Beads study: files readable on the forge, writes through the Chief of Staff, sync within 5 minutes, conflicts raised to it, Dolt set aside; the surface setup is open; no spec.",
+  "title": "The surface server commits and pushes the planning surface; leases, typed waits, typed events, access, store interface",
+  "summary": "The surface server becomes the one writer of the planning surface: commits, rebases, pushes within 5 min, raises conflicts to the Chief of Staff, replaces autosync; writes refused with no writer. Adds leases, typed waits, name@N events, access, and a store interface.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "20982850231116dee8140a75d22e9eeae8ec76b31c141ea10cf01a486690d114",
-    "02-answers.md": "5050ccc603c3ab57eb796c4ce02520f7997b03f0f76a5eb032a4ce621f185927",
+    "02-answers.md": "73174cc1d22d0f428a5c0371b1f62d36922069fbf3ab0f4c197005407e3d7a81",
+    "03-change-spec.md": "93adcc405abce7dff836d9860111bdbc66ed3fac19cd4c08e4adf499ad61b7c1",
     "intake/request.md": "e2f7b66c139995aedb51ed86cd3260fec44c7cb6327697e3426e020804f4d989"
   },
-  "summarized": "2026-11-19T23:41:52Z"
+  "summarized": "2026-11-20T00:08:53Z"
 }
