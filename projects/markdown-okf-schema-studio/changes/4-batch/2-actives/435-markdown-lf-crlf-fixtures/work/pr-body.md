@@ -21,18 +21,6 @@ Real fixtures stored with their own endings, in `test/fixtures/markdown-line-end
 **/*.mixed.md -text
 ```
 
-## Changes
-
-- `.gitattributes`: `-text` rules for `*.crlf.md` and `*.mixed.md`.
-- `test/build/lineEndingFixtures.test.ts`: fails when a `*.crlf.md` holds a bare LF (or none exists), when a `*.mixed.md` does not hold both kinds, when git does not leave the files unconverted, or when any other tracked Markdown file is stored with a CR.
-- `test/core/edits/lineEndingPreservation.test.ts` and `test/session/lineEndingSave.test.ts` (real preview manager): on each fixture, edit one block and leave the rest alone; the edited block changes, every byte before and after is identical, no LF is added to a CRLF file and no CR to an LF file, including the last block with and without a final newline.
-- `test/shared/lineEndingFixtures.ts`: shared loader for these tests; `test/session/blockFixture.ts`: the fixture helper of `blockReq.requirements.test.ts` moved out unchanged to keep that file under the size limit.
-- Requirements: a scenario added to the block-editing requirement on line endings (wording of the normative sentence unchanged), requirements log entry.
-
-## Impacts
-
-No visual change and no runtime change; tests, fixtures and git attributes only.
-
 ## Blast radius
 
 Grade: **1**. Test and repository configuration only; a `git revert` restores the previous state.
@@ -46,18 +34,31 @@ Grade: **1**. Test and repository configuration only; a `git revert` restores th
 ## Known gaps
 
 - The exploratory QA scenario `ux-35` was not re-run; its source file stays LF in git and the QA setup script converts it to CRLF when it prepares the workspace. Follow-up: make `ux-35` use a real CRLF fixture (needs a `-text` rule in the QA skill and a change to `setup-workspace.sh`).
+- The mixed-fixture guard and the "other Markdown stored with CR" test were not shown failing on a planted fault.
 - The save-ends (no stuck "Saving Markdown...") tests on CRLF are not part of this PR: they need the fix for that bug.
 
 <details><summary>Details</summary>
 
+## Changes
+
+- `.gitattributes`: `-text` rules for `*.crlf.md` and `*.mixed.md`.
+- `test/build/lineEndingFixtures.test.ts`: fails when a `*.crlf.md` holds a bare LF (or none exists), when a `*.mixed.md` does not hold both kinds, when git does not leave the files unconverted, or when any other tracked Markdown file is stored with a CR.
+- `test/core/edits/lineEndingPreservation.test.ts` and `test/session/lineEndingSave.test.ts` (real preview manager): on each fixture, edit one block and leave the rest alone; the edited block changes, every byte before and after is identical, no LF is added to a CRLF file and no CR to an LF file, including the last block with and without a final newline.
+- `test/shared/lineEndingFixtures.ts`: shared loader for these tests; `test/session/blockFixture.ts`: the fixture helper of `blockReq.requirements.test.ts` moved out unchanged to keep that file under the size limit.
+- Requirements: a scenario added to the block-editing requirement on line endings (wording of the normative sentence unchanged), requirements log entry.
+
+## Impacts
+
+No visual change and no runtime change; tests, fixtures and git attributes only.
+
 ## Test plan
 
-- [x] New or changed tests: these tests guard fixtures, not a behaviour fix, so none fails on the previous code. Shown red on a planted fault instead: 4 tests fail with LF-planted CRLF fixtures, and the attribute test fails without the `-text` rules (log `work/evidence-red.log`). The mixed-fixture guard and the "other Markdown stored with CR" test were not shown red (at cd2f90c)
+- [x] New or changed tests: these tests guard fixtures, not a behaviour fix, so none fails on the previous code. Shown red on a planted fault instead: 4 tests fail with LF-planted CRLF fixtures, and the attribute test fails without the `-text` rules. The mixed-fixture guard and the "other Markdown stored with CR" test were not shown red (at cd2f90c)
 - [x] Requirements: SwRS updated, markers in tests, `just requirements-update`
 - [x] Changelog: No user-facing change
 - [x] Local gates: `just check` and `just preflight` (static stage on Windows) at cd2f90c
-- [ ] Review
-- [ ] CI green
+- [x] Review: inspector approved at cd2f90c; verifier VERIFIED at cd2f90c
+- [x] CI green: `gh pr checks 445` at cd2f90c (static, static-windows, visual pass)
 
 ## Internal references
 
