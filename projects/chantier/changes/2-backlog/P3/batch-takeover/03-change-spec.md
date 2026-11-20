@@ -213,7 +213,8 @@ What the Chief of Staff does after `takeover` (`chief-of-staff.md`, a new "Takin
 section, and the entry points table: "take over batch-NN here", "reprends le batch ici"):
 
 1. Preflight as at a batch's start (direct or Foreman, by the batch's steering, which never
-   changes; under Remote Control a Foreman batch needs a Foreman to reuse, as today).
+   changes; under Remote Control a Foreman batch starts a new Foreman with no `cwd`, or reuses
+   one: CR-414, merged 2026-11-20).
 2. Claim the next epoch (direct: `foreman set`, `foreman transcript`, then `$CHANTIER rules`;
    Foreman: start a new Foreman with the next epoch and "Resume: taken over from <publisher>").
 3. For each CR not merged: read its branch on the remote (`git -C <clone> fetch <remote>
