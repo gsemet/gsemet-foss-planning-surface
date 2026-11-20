@@ -81,9 +81,9 @@ No visual change. A session that meets a refusal it does not understand can run 
 ## Test plan
 
 - [ ] New or changed tests: `tests/test_access.py` (37 cases: session, write, claim, push, usage, nothing written, `take` text parity for each claim refusal)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
+- [ ] Local gates at `cd99f0a`: `just check`, `just eval-dry-run`
 - [ ] Evidence: none beyond the tests (see Known gaps)
-- [ ] Review: approved at `<sha7>`
+- [ ] Review: approved at `cd99f0a`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
