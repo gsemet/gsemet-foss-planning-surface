@@ -1,16 +1,15 @@
 # Agent instructions
 
-## Git autosync
+## Publishing the surface
 
-Agent sessions do **not** run the surface's autosync (2026-11-17): do not join its group, start
-it, stop it or approve its incidents, even when the user says `start autosync`; say so and point
-to the board. The goal is that chantier's web board (`chantier board`) owns the autosync: it joins
-the group itself and shows Start, Stop and Approve, on the user's click only, as chantier's
-`docs/planning-modes.md` ("The surface's autosync") describes. The tool and its rules stay in
-[autosync guidelines](.agents/guidelines/autosync.guidelines.md), for the board and for the user.
-
-Until then, commit by hand: stage only your own paths, commit, `git pull --rebase`, `git push`.
-Never force-push, never stage what another session changed.
+The surface server (`chantier board`, from chantier 0.12 on, 2026-11-20) runs the surface's writer:
+it commits the plan's files, rebases on the upstream and pushes, for every project and session of
+this checkout. Agent sessions never stage, commit, pull or push here, and never run
+`scripts/ai-autosync-git.py`: they write the working tree, and the writer publishes it. Its state is
+the `writer:` line of `chantier status` (`synced`, `pending`, `syncing`, `offline`, `conflict` or
+`blocked`); `chantier sync now` asks for a cycle at once. With no server running, chantier refuses
+to write in the surface and names the command that starts the board. A `conflict` goes to the Chief
+of Staff, who resolves the rebase; the writer pushes once it is done. Never force-push.
 
 ## Validation
 

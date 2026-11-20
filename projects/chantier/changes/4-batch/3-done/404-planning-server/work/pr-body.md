@@ -65,11 +65,11 @@ The board shows a writer pill and panel; `status` and `seat` print a `writer:` l
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): `tests/` writer cases and the `surface-board` scenario unit
-- [x] Local gates at `e855fe9`: `just check` pass, `just eval-dry-run` pass (18 of 18)
+- [x] Local gates at `b629a67`: `just check` pass, `just eval-dry-run` pass (18 of 18)
 - [ ] Evidence: none captured (see Known gaps)
-- [x] Review: approved at `e855fe9`
-- [ ] Verified at `e855fe9`
-- [x] CI green at `e855fe9`: `gh pr checks 379`: check (macos, ubuntu, windows), eval-dry-run and scenario pass
+- [x] Review: approved at `b629a67`
+- [x] Verified at `b629a67`
+- [x] CI green at `b629a67`: `gh pr checks 379`: check (macos, ubuntu, windows), eval-dry-run and scenario pass
 
 ## Internal references
 
