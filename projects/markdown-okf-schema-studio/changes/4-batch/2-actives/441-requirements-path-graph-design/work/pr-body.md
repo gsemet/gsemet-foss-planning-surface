@@ -47,7 +47,7 @@ on the real site at the pushed head.
   reading help and the legend.
 - `viewer.css`, `siteTheme.ts` (`--p3` from the extension's yellow token), `viewer.js` (Play colour
   and marker).
-- Requirements: SwRS CORE-080, -081, -082, -083 updated, new CORE-091 (Play), StRS CORE-008 note, the
+- Requirements: SwRS CORE-080, -081, -082, -083 updated, new CORE-091 (Play), the StRS CORE-008 links, the
   project guideline (one to three paths per use case), a dated entry in the requirements log.
 - Tests: `metroMap.test.ts`, `metroMap.browser.test.ts`, `metroShapes.ts`, updated `pages.test.ts`
   and fixture, pinned KaTeX fonts for the layout checks; `npm run test:viewer-graph`, run by
