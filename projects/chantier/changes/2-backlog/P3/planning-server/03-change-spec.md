@@ -80,6 +80,7 @@ Pending items this CR composes with (named so they align; neither is edited by t
 | Q17: the surface's other files (`AGENTS.md`, `scripts/`, `justfile`) stay committed by hand, like code; the writer touches only the plan (`projects/` and the root `chantier.yaml`) (11-20) | §4 words, §C.5 steps 3-4 |
 | Q18: files staged by hand for two cycles: the writer blocks (`staged`) and tells the Chief of Staff to commit or unstage them (11-20) | §C.6 `staged` |
 | Q25: a failed git step (a refusing hook, an IDE's `index.lock`, a stash) is retried at every cycle; `sync-blocked@1` only when the same failure comes back on two cycles in a row, as `staged`; the episode ends at the first cycle that completes its git steps (11-20) | §C.4 `failure`, §C.5 "Failed git steps", §C.6 `git-error`, §6 |
+| Q30: a stash git cannot put back after an integration is an exception to Q25's two-cycle rule: one `sync-blocked@1` at once, reason `git-error`, the stash's name in `text`; the Chief of Staff tells the user where the edits are (11-20) | §C.5 step 6 and "Failed git steps", §C.6 `git-error`, §C.11 `chief-of-staff.md`, §6 |
 | Q26, option A: the writer pushes every local commit of the branch, hand commits of the surface's other files included; nobody pulls or pushes the surface by hand while a writer runs; the cards and docs say so; P13 warns on a surface rule that names a hand push, as for the autosync mention (11-20) | §1, §4 words, §C.5 steps 5-7, §C.7, §C.10 P13, §C.11, §6, §8 |
 | Q27: an older board with no writer still serving: the refusal and the `writer: not running` line name its version, PID and stop command; the Chief of Staff asks the user to stop it (11-20) | §C.8, §C.10 `off`, §C.11 `chief-of-staff.md`, §6, §8 |
 | Q28: the writer off during a batch: the Foreman sends one `writer off` ask per episode and holds its takes until the `writer:` line comes back (11-20) | §C.11 `foreman.md` |
@@ -254,8 +255,8 @@ One cycle, in order; each step's failure goes to the state named, and ends the c
    --autostash <upstream>`. On both paths the `--autostash` holds what the working tree has that
    the commit does not: the surface's other files edited by hand and not yet committed, and any
    plan file written between the commit and the integrate by a writer the CLI's locks do not hold
-   back (an agent writing a plan file with its own tool); a stash git cannot reapply is a failed
-   git step (below, Q25), git keeping the stash. A rebase that stops on a conflict: C.7.
+   back (an agent writing a plan file with its own tool); a stash git cannot reapply is told at
+   once (below, "Failed git steps", Q30), git keeping the stash. A rebase that stops on a conflict: C.7.
 7. **Push**, when `ahead` > 0: `git push <remote> HEAD:<branch>`, never forced. It pushes every
    local commit of the branch, the hand commits of the surface's other files included, rebased with
    the writer's at step 6 (Q26). Refused as not a fast-forward: back to step 5, at most 3 times in
@@ -289,8 +290,15 @@ later cycle, from step 1, as any cycle runs:
   failure): `failure` null; when the state was `blocked`, `sync-resumed@1` (`after: blocked`).
 
 So a passing IDE's `index.lock` or a hook that fails once is told to no one; a hook that keeps
-refusing, or a lock file a crash left, is told at the second cycle. (A stash git cannot reapply:
-§10, question 1.)
+refusing, or a lock file a crash left, is told at the second cycle.
+
+One exception, a stash git cannot put back (Q30): step 6's `merge --ff-only --autostash` or
+`rebase --autostash` completes but git cannot reapply its autostash and keeps it in `git stash
+list`. That failure does not come back at the next cycle, so it is told at once, at the cycle
+that meets it: state `blocked`, reason `git-error`, `text` naming the stash (its name as `git
+stash list` gives it, `stash@{0}`, with git's message cut), one `sync-blocked@1`. The writer never
+pops, applies or drops the stash. The episode then ends as any `git-error` (the next cycle that
+completes its git steps, `sync-resumed@1`); the stash stays where it is until the user acts.
 
 `offline`: every later cycle retries steps 5 to 7; the first success appends `sync-resumed@1`
 (`after: offline`). Commits go on while offline. No line is appended for `offline` itself; only
@@ -331,7 +339,7 @@ Checked at each cycle's step 2, in this order, but `git-error`, which steps 3 to
 | `nested-repo` | a nested repository under the writer's paths that no project's `checkout.yml` names (Q11); `text` gives its path | move it out of the surface, or, when it is the project's code clone or worktrees folder, name it in the project's `checkout.yml` |
 | `staged` | the index holds changes the writer did not stage, seen at two cycles in a row (Q18) | commit or unstage them by hand |
 | `foreign-autosync` | the surface's autosync tool still runs: `<git dir>/ai-autosync/control.json` enabled and a live leader in `watcher.json` (read by the existing `autosync/records.py` and `autosync/reading.py`, which stay for this check only) | stop the tool (`uv run scripts/ai-autosync-git.py stop .`) |
-| `git-error` | the same git command of a cycle failed at two cycles in a row (Q25: a hook, LFS, an `index.lock` held or left by a crash, a stash git cannot reapply); the writer retries it at every cycle | read `text`, repair; the next cycle that completes its git steps ends it (`sync now` runs one at once) |
+| `git-error` | the same git command of a cycle failed at two cycles in a row (Q25: a hook, LFS, an `index.lock` held or left by a crash); or, at once, a stash git cannot reapply after step 6 (Q30), `text` naming it; the writer retries it at every cycle | read `text`, repair (a stash: tell the user where the edits are, `git stash list`, Q30); the next cycle that completes its git steps ends it (`sync now` runs one at once) |
 
 The `staged` rule waits one cycle so that a person staging and committing by hand within seconds
 (the surface's other files, Q17) is not blocked.
@@ -469,7 +477,8 @@ Cards (`skills/chantier/references/`), each statement replaced where it is today
   stay yours to commit, by hand); never pull or push the surface by hand while a writer runs, the
   writer pushes your hand commits too (Q26), but C.7's resolution; on a `writer:` line or a
   writer's journal line, act as C.10 says (conflict: C.7's resolution; blocked: the way out, else
-  tell the user; offline or late: tell the user once per episode; not running: start the surface
+  tell the user; blocked by a stash git cannot reapply: tell the user where the edits are, the
+  stash's name the line gives (Q30); offline or late: tell the user once per episode; not running: start the surface
   server, or, when the line names an older board, ask the user to stop it with the stop command it
   gives, then start the server (Q27)); on a Foreman's `writer off` ask, the same; `sync now` when a
   step must reach the forge at once. The table's
@@ -597,6 +606,11 @@ origin, the writer's `poll(now)` driven with no sleep):
     `failure` null, one `sync-resumed@1` (`after: blocked`); a `.git/index.lock` present at one
     cycle and gone at the next: no line, the change committed at the second cycle; two different
     failures in a row: no line;
+  - a stash git cannot reapply (Q30): the surface's `AGENTS.md` edited by hand in the writer's
+    clone and not committed, the origin moved with a commit that changes the same lines of
+    `AGENTS.md`: the cycle integrates (the origin's commit on `HEAD`), git keeps the stash; at that
+    first cycle, state `blocked`, reason `git-error`, the stash's name (`stash@{0}`) in `text`, one
+    `sync-blocked@1`; `git stash list` still holds it, and the next cycle neither pops nor drops it;
   - hand commits (Q26): a commit of the surface's `AGENTS.md` made in the test's clone, with no
     plan change: the next cycle fetches and pushes it (the origin's `main` holds it, `ahead` 0); a
     hand commit H, then a plan change committed by the writer W, the origin moved meanwhile: H and
@@ -711,15 +725,7 @@ The project's gates:
 ## 10. Open questions for the user
 
 Every question of the earlier draft (§10, 1 to 11) and of the spec critic's two passes is
-answered in `02-answers.md` (planning-server-Q7 to Q29). Open:
-
-1. Q25 and a stash git cannot reapply. Q25 names "a stash" among the failed git steps retried and
-   told at the second cycle in a row. But that failure does not come back: the rebase or
-   fast-forward has completed and git keeps the stash, so the next cycle completes its git steps,
-   the episode ends, and no one is told that the user's hand edits of the surface's other files
-   now sit in `git stash list`. As written (C.5), that case is told to no one. Should it be told at
-   once (one `sync-blocked@1`, reason `git-error`, the stash's name in `text`, at the first
-   cycle), unlike the failures that recur?
+answered in `02-answers.md` (planning-server-Q7 to Q30). None is open here.
 
 The point left open in Part E's CR stays there (`experiments/03-change-spec-all-parts.md`, E.7:
 does the hub read the forge for backlog CRs' waits?).

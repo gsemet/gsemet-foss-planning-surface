@@ -285,3 +285,8 @@ planning-server-Q29, where the API/UI split goes: "Un CR à part". A new inbox i
 the server exposes an API over a WebSocket, with HTTP as the degraded case behind a proxy; the web
 UI becomes one client among others (other UIs, native Android or iOS apps). It comes after
 `planning-server`; until then the writer keeps the board's current HTTP API.
+
+planning-server-Q30, hand edits left in `git stash list` when git cannot put them back after an
+integration: "Oui, au 1er cycle". An exception to Q25's two-cycle rule: one `sync-blocked@1` at
+once, `git-error`, the stash's name in `text`; the Chief of Staff tells the user where the edits
+are.
