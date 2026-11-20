@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Line marker: table row, hidden tab-set item, front matter row",
+  "summary": "Inbox, not grilled: split off from open-at-line-marker (decision 31).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "1c98f042cb72b92fe83b1278338ed8af0fc42f347613e06f4c6d5c2eeafa016d"
+  },
+  "summarized": "2026-11-20T23:08:31Z"
+}

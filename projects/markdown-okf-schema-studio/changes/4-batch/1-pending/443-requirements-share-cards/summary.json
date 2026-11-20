@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Share cards on X for requirement pages: images and per-page text",
+  "summary": "Specified after the critic: new picture URLs (area-<id>.png per category, areas-card.png index), separate share titles '<title> (<full ID>)', descriptions without code backticks or link syntax, index tags on the /requirements stub, CORE-085/086 updated.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "dda77f2d75042a74eb9efcc2b8df7b2909ab4af2bfbe3c8736fc10c908d7b5b1",
+    "02-answers.md": "27dd0959b2f81cff74ed2fbaa2f277e4da888dfdcc3307185fe883b79f7796f6",
+    "03-change-spec.md": "0953b06bd1730127e80f10eb636b613680b52aea69f416332d09fc30ca4314b2",
+    "intake/request.md": "dfe4586c24ac63970baa1c5eb0a797e00e96dd4050e8567add213a02c528b661"
+  },
+  "summarized": "2026-11-20T23:06:46Z"
+}
