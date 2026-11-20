@@ -49,7 +49,8 @@ Grade: 3. The board's whole wire changes: every page of the web board, the ident
 
 ## Known gaps
 
-- No release-notes entry: they are written at the version PR, a draft is kept in the CR's work folder.
+- No release-notes entry: they are written at the version PR; the draft is kept at `work/coder/release-notes-draft.md` in the CR's folder.
+- Close 1001 on stop: unverified with a real process, covered only by the in-process test.
 - Pictures: `scripts/docs_screenshots.py` now routes the new API, but it was not run and no picture was retaken; no screenshot of the board from a real browser was taken (UNVERIFIED in a real browser: live updates, the `?transport=http` footer, a UI served from another origin, a phone on the LAN).
 - A long-poll holds one worker thread for up to 20 s; the cap is 16 at once (the 17th gets a 429 result).
 - `just test` time at base and head is not measured here.
