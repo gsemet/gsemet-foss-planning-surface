@@ -15,3 +15,10 @@ Description pass at 47ac69759897d83bde917de9209bcf0a1b1b4bf0 (posted body, `gh p
 - Review box: "Review: approved at `47ac697`". `$CHANTIER log 423 --batch batch-29` holds only `r1 inspector approved at 4ed0d56cc1a0ad51d1a4aa5f277cebc9ccaa8296` (the base; round 1 `wt_head=4ed0d56`, no `committed as` note). No approved-pass note names 47ac697. FAILS per the card.
 
 NOT VERIFIED
+
+Description pass 2 at 47ac69759897d83bde917de9209bcf0a1b1b4bf0 (posted body vs `git diff origin/main..HEAD`):
+- Renders; Summary/Deliverables/Changes match the 3-file diff (row, six-point section, foreman.md pointer, driver.md sentence); Known gaps names both unproved items; no images; Autonomous decisions matches the log's round note. OK.
+- Review box "approved at 47ac697": `$CHANTIER log CR-423` holds "r1 approved at 4ed0d56cc1a0ad51d1a4aa5f277cebc9ccaa8296, committed as 47ac697". Matches the round's `committed as`. OK.
+- Test-plan: `just check` 1405 passed in work/coder/r1.md line 8; `gh pr checks 388`: five checks pass. OK.
+
+VERIFIED
