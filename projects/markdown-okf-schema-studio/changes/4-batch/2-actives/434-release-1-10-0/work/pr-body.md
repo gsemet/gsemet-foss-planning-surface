@@ -43,11 +43,13 @@ publishing a fix version; the tag and the published versions are not taken back.
 - [x] Changelog: the `## Unreleased` lines moved under the version heading; every `feat` and `fix`
       commit since `v1.9.3` has its line (the two fixes repair the unreleased item editing and
       share its line)
-- [ ] Local gates: `just release-notes-check` ok; `just preflight` (Windows: static stage)
+- [x] Local gates: `just release-notes-check` ok; `just preflight` passed at `b59ef32` (Windows:
+      static stage)
 - [x] Heavy run of `main` HEAD `049b543` green before the version commit (run 44764608171:
       integration, stress, checks, visual, static, static-windows)
 - [ ] Review
-- [ ] CI green
+- [x] CI green at `b59ef32`: static, static-windows, visual, report, checks (the heavy jobs run on
+      the version push, the final gate)
 
 ## Autonomous decisions
 
