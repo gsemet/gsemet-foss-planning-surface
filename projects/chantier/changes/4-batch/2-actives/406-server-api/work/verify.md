@@ -1,10 +1,10 @@
 # Verify, CR-406 (the server's API over a WebSocket)
 
-Head: fea5a03bd671c27f60d1b14fae37a40b22c8d1a6
+Head: daed507b4ff2ec749b016fb6a87db3519a77eb09
 
-All claims judged at fea5a03 (fea5a03bd671c27f60d1b14fae37a40b22c8d1a6). Raw logs of the real-process runs: `work/verifier/real-process-1.log`, `real-process-2.log`, script `probe.py.log` (a throwaway board over a scratch project, `--host 127.0.0.1 --port 0`, removed at the end).
+Claim 7 judged again at daed507. The other claims are `carried from fea5a03: only docs changed` (`git diff fea5a03b daed507b --stat`: docs/server-api.md only, 5 insertions, 4 deletions). Raw logs of the real-process runs: `work/verifier/real-process-1.log`, `real-process-2.log`, script `probe.py.log` (a throwaway board over a scratch project, `--host 127.0.0.1 --port 0`, removed at the end).
 
-Verdict: NOT VERIFIED (one defect in docs/server-api.md, claim 7; everything else VERIFIED).
+Verdict: VERIFIED at daed507 (claim 7 fixed). Gap, not a failure: 1001 on stop with a real process.
 
 ## 1. The 20 ops over HTTP (fea5a03) VERIFIED
 - `uv run --locked --group dev pytest -q -n auto skills/chantier/scripts/cli/tests/test_server_api.py .../test_server_api_calls.py .../test_server_api_ws.py .../test_server_protocol.py` -> `39 passed in 5.77s` (17+6+13+3 tests; the names include `test_a_good_call_of_every_op_answers_the_data_its_route_gave_or_the_store_holds`, `test_every_op_refuses_what_its_arguments_do_not_allow`).
@@ -29,11 +29,13 @@ Real process (real-process-1.log): GET and POST of `/api/projects`, `/api/state`
 ## 6. The web client uses only published ops and topics (fea5a03) VERIFIED
 `test_server_protocol.py` (3 passed, in the 39), incl. `test_the_web_client_names_only_published_ops_and_topics_and_opens_no_socket_but_its_link`. `board/web/DESIGN.md` line 42, "One transport", says the page uses `core/transport.js` only and a view names a published op or topic.
 
-## 7. docs/server-api.md matches the behaviour (fea5a03) NOT VERIFIED
-The spec (section 5.6, line 228) and the code, and the real process (claim 2), answer the 17th socket waiting for `hello` with HTTP 503 `too many clients` at the upgrade. `docs/server-api.md` line 61 ("1013 the server is busy (64 welcomed sockets, or 16 waiting for `hello`)") and line 167 (table: "WebSockets before `hello` | 16 | close 1013") say close 1013 for it. Only the 65th welcomed socket is 1013 (`test_the_65th_welcomed_client_is_told_busy_and_closed_with_1013`). A client author following the page would wait for a close that never comes. Fix the two lines to HTTP 503.
+## 7. docs/server-api.md matches the behaviour (daed507) VERIFIED
+`sed -n 55,66p docs/server-api.md` and `sed -n 165,169p` at daed507: line 61 "1013 the server is busy (a 65th welcomed socket)"; lines 63-64 "A 17th socket still waiting for `hello` gets no close code: the upgrade itself is refused, HTTP 503 `too many clients`"; line 168 "| WebSockets before `hello` | 16 | HTTP 503 at the upgrade |"; line 167 "WebSockets past `welcome` | 64 | close 1013".
+Code: `ws.py:149-150` (welcomed >= MAX_CLIENTS -> TRY_AGAIN 1013), `ws.py:304-305` (not welcomed >= MAX_WAITING -> `send_denial_response(... 503)`).
+`uv run --no-sync --project . pytest -q -k "waiting_sockets_to_16 or 65th"` -> `2 passed, 1405 deselected in 2.40s`. The real-process 503 for the 17th socket (claim 2) is carried from fea5a03: ws.py is untouched.
 
-## 8. PR description (as posted, fea5a03) VERIFIED, with the note of claim 7
-`gh pr view 383` body equals work/pr-body.md (one trailing blank line). Sections render (Summary, Deliverables with mermaid and text sketch, Blast radius, Details fold); no image attached. Summary, Deliverables and Changes match the diff (65 files, `git diff --stat origin/main...HEAD`). Known gaps lists the pictures, the browser/phone/other-origin UNVERIFIED items and the `just test` time. Its wire sketch ("503 over 16 unwelcomed sockets") is right; only the docs page is wrong. The test plan's "Verified" and "CI green" boxes are still open for the Driver to tick. Review box: `$CHANTIER log` has `r4 approved at 9841318..., committed as fea5a03b (rebased clean on origin/main daec1986)`, which covers `Review: approved at fea5a03`.
+## 8. PR description (as posted, carried from fea5a03: only docs changed) VERIFIED
+`gh pr view 383` body equals work/pr-body.md (one trailing blank line). Sections render (Summary, Deliverables with mermaid and text sketch, Blast radius, Details fold); no image attached. Summary, Deliverables and Changes match the diff (65 files, `git diff --stat origin/main...HEAD`). Known gaps lists the pictures, the browser/phone/other-origin UNVERIFIED items and the `just test` time. Its wire sketch ("503 over 16 unwelcomed sockets") is right; the docs page is now fixed. The test plan's "Verified" and "CI green" boxes are still open for the Driver to tick. Review box (cites fea5a03; the docs commit daed507 moved the head): `$CHANTIER log` has `r4 approved at 9841318..., committed as fea5a03b (rebased clean on origin/main daec1986)`, which covers `Review: approved at fea5a03`.
 
 ## UNVERIFIED (not provable here)
 A real browser run of the page, a phone on the LAN, a UI from another origin, the pictures (docs_screenshots not run), `just test` time at base vs head, 1001 on a real process. The first four are in Known gaps already; add 1001-on-a-real-process only if wanted (it is covered by the in-process real-server test).
