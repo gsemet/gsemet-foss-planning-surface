@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Dashboard pages: productivity and spending charts per day",
+  "summary": "Owner idea, not grilled: chantier dashboard pages with Productivity, Spending and Scorers tabs (per-day charts of PR cycle times, agent runs, cost per PR, spend by source). Depends on the studio project (markdown-okf-schema-studio): not before its batch-06 is closed.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "cfdd5e87f5514771b8e5ca0701ff0fba380b082221c0b7e42cc5f78502748671"
+  },
+  "summarized": "2026-11-20T13:16:08Z"
+}
