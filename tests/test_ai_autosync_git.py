@@ -49,7 +49,7 @@ class AutosyncTests(unittest.TestCase):
             check=check,
         )
 
-    def sync_without_scanner_or_lfs(self):
+    def sync_without_lfs(self):
         original_command = autosync.command
 
         def fake_command(args, cwd, **kwargs):
@@ -57,7 +57,7 @@ class AutosyncTests(unittest.TestCase):
                 return subprocess.CompletedProcess(args, 0, "", "")
             return original_command(args, cwd, **kwargs)
 
-        with mock.patch.object(autosync, "scan_pending", return_value=None), mock.patch.object(
+        with mock.patch.object(
             autosync, "command", side_effect=fake_command
         ):
             autosync.synchronize(self.root, self.state)
@@ -65,7 +65,7 @@ class AutosyncTests(unittest.TestCase):
     def test_commits_and_pushes_tracked_and_new_files(self):
         (self.root / "notes.txt").write_text("changed\n", encoding="utf-8")
         (self.root / "new.txt").write_text("new\n", encoding="utf-8")
-        self.sync_without_scanner_or_lfs()
+        self.sync_without_lfs()
         local = self.run_git(self.root, "rev-parse", "HEAD").stdout.strip()
         remote = self.run_git(self.root, "--git-dir", str(self.remote), "rev-parse", "refs/heads/main").stdout.strip()
         self.assertEqual(local, remote)
@@ -86,7 +86,7 @@ class AutosyncTests(unittest.TestCase):
         self.assertEqual(self.run_git(self.root, "diff", "--cached").stdout, before)
         current = autosync.read_json(self.state / "status.json")
         autosync.approve(self.state, current["incident"])
-        self.sync_without_scanner_or_lfs()
+        self.sync_without_lfs()
         self.assertEqual(self.run_git(self.root, "show", "HEAD:notes.txt").stdout, "staged\n")
         self.assertEqual((self.root / "notes.txt").read_text(), "unstaged\n")
 
@@ -107,35 +107,17 @@ class AutosyncTests(unittest.TestCase):
         self.run_git(other, "push")
         (self.root / "notes.txt").write_text("local\n", encoding="utf-8")
         with self.assertRaisesRegex(autosync.SyncError, "agent integration"):
-            self.sync_without_scanner_or_lfs()
+            self.sync_without_lfs()
         self.assertEqual((self.root / "notes.txt").read_text(), "local\n")
         self.assertEqual(self.run_git(self.root, "show", "HEAD:notes.txt").stdout, "local\n")
 
     def test_attributes_renormalize_crlf_to_lf_in_git(self):
         (self.root / ".gitattributes").write_text("*.txt text eol=lf\n", encoding="utf-8")
         (self.root / "notes.txt").write_bytes(b"first\r\nsecond\r\n")
-        self.sync_without_scanner_or_lfs()
+        self.sync_without_lfs()
         blob = subprocess.check_output(["git", "show", "HEAD:notes.txt"], cwd=self.root)
         self.assertEqual(blob, b"first\nsecond\n")
         self.assertEqual((self.root / "notes.txt").read_bytes(), b"first\r\nsecond\r\n")
-
-    def test_missing_scanner_blocks_push_after_local_commit(self):
-        (self.root / "notes.txt").write_text("pending\n", encoding="utf-8")
-        previous = self.run_git(self.root, "--git-dir", str(self.remote), "rev-parse", "refs/heads/main").stdout.strip()
-        original_command = autosync.command
-
-        def no_scanner(args, cwd, **kwargs):
-            if args[0] == "gitleaks":
-                raise autosync.SyncError("Required executable is unavailable: gitleaks")
-            return original_command(args, cwd, **kwargs)
-
-        with mock.patch.object(autosync, "command", side_effect=no_scanner):
-            self.assertEqual(autosync.run_once(self.root, self.state), 1)
-        self.assertEqual(
-            self.run_git(self.root, "--git-dir", str(self.remote), "rev-parse", "refs/heads/main").stdout.strip(),
-            previous,
-        )
-        self.assertEqual(self.run_git(self.root, "show", "HEAD:notes.txt").stdout, "pending\n")
 
     def test_lfs_failure_prevents_git_push(self):
         (self.root / "notes.txt").write_text("pending\n", encoding="utf-8")
@@ -147,7 +129,7 @@ class AutosyncTests(unittest.TestCase):
                 return subprocess.CompletedProcess(args, 1, "", "upload failed")
             return original_command(args, cwd, **kwargs)
 
-        with mock.patch.object(autosync, "scan_pending", return_value=None), mock.patch.object(
+        with mock.patch.object(
             autosync, "command", side_effect=fail_lfs
         ):
             self.assertEqual(autosync.run_once(self.root, self.state), 2)
@@ -175,7 +157,7 @@ class AutosyncTests(unittest.TestCase):
                 return subprocess.CompletedProcess(args, 0, "", "")
             return original_command(args, cwd, **kwargs)
 
-        with mock.patch.object(autosync, "scan_pending", return_value=None), mock.patch.object(
+        with mock.patch.object(
             autosync, "command", side_effect=fake_command
         ):
             autosync.synchronize(self.root, self.state)
@@ -185,8 +167,7 @@ class AutosyncTests(unittest.TestCase):
     def test_local_only_never_fetches_or_pushes(self):
         (self.root / "notes.txt").write_text("local\n", encoding="utf-8")
         previous = self.run_git(self.root, "--git-dir", str(self.remote), "rev-parse", "refs/heads/main").stdout.strip()
-        with mock.patch.object(autosync, "scan_pending", side_effect=AssertionError("unexpected scan")):
-            autosync.synchronize(self.root, self.state, local_only=True)
+        autosync.synchronize(self.root, self.state, local_only=True)
         self.assertEqual(autosync.read_json(self.state / "status.json")["state"], "local_only")
         current = self.run_git(self.root, "--git-dir", str(self.remote), "rev-parse", "refs/heads/main").stdout.strip()
         self.assertEqual(current, previous)
@@ -209,42 +190,10 @@ class AutosyncTests(unittest.TestCase):
         self.assertEqual(autosync.run_once(self.root, self.state), 1)
         current = autosync.read_json(self.state / "status.json")
         autosync.approve(self.state, current["incident"])
-        self.sync_without_scanner_or_lfs()
-        self.sync_without_scanner_or_lfs()
+        self.sync_without_lfs()
+        self.sync_without_lfs()
         blob = subprocess.check_output(["git", "show", "HEAD:notes.txt"], cwd=self.root)
         self.assertEqual(blob, b"first\nsecond\n")
-
-    @unittest.skipUnless(shutil.which("gitleaks"), "gitleaks is required")
-    def test_real_scanner_blocks_secret_in_pending_history(self):
-        key = "AK" + "IA" + "234567ABCDEFGHJK"
-        (self.root / "secret.txt").write_text("aws_access_key_id = " + key + "\n", encoding="utf-8")
-        previous = self.run_git(self.root, "--git-dir", str(self.remote), "rev-parse", "refs/heads/main").stdout.strip()
-        result = autosync.run_once(self.root, self.state)
-        self.assertEqual(result, 1)
-        state = autosync.read_json(self.state / "status.json")
-        self.assertEqual(state["state"], "approval_required")
-        self.assertTrue(state["incident"].startswith("secrets-"))
-        self.assertNotIn(key, json.dumps(state))
-        self.assertEqual(
-            self.run_git(self.root, "--git-dir", str(self.remote), "rev-parse", "refs/heads/main").stdout.strip(),
-            previous,
-        )
-
-    @unittest.skipUnless(shutil.which("gitleaks") and shutil.which("git-lfs"), "gitleaks and git-lfs are required")
-    def test_real_scanner_blocks_secret_in_lfs_object(self):
-        self.run_git(self.root, "lfs", "install", "--local")
-        (self.root / ".gitattributes").write_text(
-            "*.secret filter=lfs diff=lfs merge=lfs -text\n", encoding="utf-8"
-        )
-        key = "AK" + "IA" + "234567ABCDEFGHJK"
-        (self.root / "payload.secret").write_text("aws_access_key_id = " + key + "\n", encoding="utf-8")
-        previous = self.run_git(self.root, "--git-dir", str(self.remote), "rev-parse", "refs/heads/main").stdout.strip()
-        self.assertEqual(autosync.run_once(self.root, self.state), 1)
-        state = autosync.read_json(self.state / "status.json")
-        self.assertEqual(state["state"], "approval_required")
-        self.assertNotIn(key, json.dumps(state))
-        current = self.run_git(self.root, "--git-dir", str(self.remote), "rev-parse", "refs/heads/main").stdout.strip()
-        self.assertEqual(current, previous)
 
     @unittest.skipUnless(shutil.which("git-lfs"), "git-lfs is required")
     def test_existing_file_is_renormalized_into_lfs_and_uploaded(self):
@@ -256,8 +205,7 @@ class AutosyncTests(unittest.TestCase):
         (self.root / ".gitattributes").write_text(
             "*.bin filter=lfs diff=lfs merge=lfs -text\n", encoding="utf-8"
         )
-        with mock.patch.object(autosync, "scan_pending", return_value=None):
-            autosync.synchronize(self.root, self.state)
+        autosync.synchronize(self.root, self.state)
         pointer = self.run_git(self.root, "show", "HEAD:asset.bin").stdout
         self.assertTrue(pointer.startswith("version https://git-lfs.github.com/spec/v1\n"))
         oid = next(line.split(":", 1)[1] for line in pointer.splitlines() if line.startswith("oid sha256:"))

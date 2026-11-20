@@ -118,7 +118,7 @@ uv run scripts/ai-autosync-git.py sync .
 If a leader is running, this requests a new cycle from it rather than starting a competing Git
 operation; a local-only request is refused by a leader that can publish.
 
-Existing staged changes and detected secrets require explicit human approval. Show the user the
+Existing staged changes require explicit human approval. Show the user the
 reported incident; never approve it on the user's behalf. An approval applies only to the exact
 index or pending push identified in the incident:
 
@@ -139,8 +139,8 @@ Git LFS must be installed and its filters configured (`git lfs install`) before 
 used; otherwise synchronization stops instead of committing raw content. Do not set
 `core.autocrlf` to override the attributes.
 
-Git, Git LFS, and Gitleaks must be available. The tool preserves Git hooks and does not push when
-secret scanning or the LFS upload fails. Its status, control, and approvals are local to the
+Git and Git LFS must be available. The tool preserves Git hooks and does not push when the LFS
+upload fails. It runs no secret scan. Its status, control, and approvals are local to the
 checkout.
 """
 
@@ -477,51 +477,6 @@ def upstream(root: Path) -> tuple[str, str, str]:
     return name, remote.stdout.strip(), destination
 
 
-def scan_pending(root: Path, state_dir: Path, base: str, head: str) -> str | None:
-    common = [
-        "--no-banner", "--redact=100", "--exit-code=23", "--report-format=json", "--report-path=-",
-    ]
-    scans = [
-        ["gitleaks", "git", *common, f"--log-opts={base}..{head}", str(root)],
-    ]
-    lfs_env = command(["git", "lfs", "env"], root)
-    if lfs_env.returncode:
-        raise SyncError(f"Cannot locate Git LFS objects; push blocked: {lfs_env.stderr.strip()}")
-    media = next(
-        (line.partition("=")[2] for line in lfs_env.stdout.splitlines()
-         if line.startswith("LocalMediaDir=")),
-        "",
-    )
-    if not media:
-        raise SyncError("Git LFS did not report its local object directory; push blocked")
-    if Path(media).is_dir():
-        scans.append(["gitleaks", "dir", *common, media])
-    files: set[str] = set()
-    found = False
-    for args in scans:
-        result = command(args, root)
-        if result.returncode == 0:
-            continue
-        if result.returncode != 23:
-            raise SyncError(f"Gitleaks scan failed; push blocked: {result.stderr.strip()}")
-        try:
-            findings = json.loads(result.stdout)
-        except json.JSONDecodeError as exc:
-            raise SyncError("Gitleaks returned findings in an unreadable format; push blocked") from exc
-        if not isinstance(findings, list):
-            raise SyncError("Gitleaks returned an invalid findings report; push blocked")
-        found = True
-        files.update(str(item.get("File", "?")) for item in findings if isinstance(item, dict))
-    if not found:
-        return None
-    identifier = incident("secrets", base, head)
-    require_approval(
-        state_dir, identifier,
-        f"Gitleaks detected possible secrets in {', '.join(sorted(files)) or 'the pending history'}.",
-    )
-    return identifier
-
-
 def synchronize(root: Path, state_dir: Path, *, local_only: bool = False) -> None:
     operation = busy_operation(root)
     if operation:
@@ -551,15 +506,12 @@ def synchronize(root: Path, state_dir: Path, *, local_only: bool = False) -> Non
         lfs_version = command(["git", "lfs", "version"], root)
         if lfs_version.returncode:
             raise SyncError("Git LFS is unavailable; push blocked")
-        secret_incident = scan_pending(root, state_dir, upstream_hash, head)
         lfs = command(["git", "lfs", "push", remote, head], root)
         if lfs.returncode:
             raise RetryableError(f"Git LFS upload failed; Git push withheld: {lfs.stderr.strip()}")
         pushed = git(root, "push", "--", remote, f"{head}:{destination}", check=False)
         if pushed.returncode:
             raise RetryableError(f"Push failed; local commits are preserved: {pushed.stderr.strip()}")
-        if secret_incident is not None:
-            consume_approval(state_dir, secret_incident)
     current_head = git(root, "rev-parse", "HEAD").stdout.strip()
     pending = git(root, "status", "--porcelain", "--untracked-files=normal").stdout.strip()
     if current_head != head or pending:

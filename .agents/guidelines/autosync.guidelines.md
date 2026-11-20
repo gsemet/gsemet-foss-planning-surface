@@ -68,7 +68,7 @@ uv run scripts/ai-autosync-git.py sync .
 If a leader is running, this requests a new cycle from it rather than starting a competing Git
 operation; a local-only request is refused by a leader that can publish.
 
-Existing staged changes and detected secrets require explicit human approval. Show the user the
+Existing staged changes require explicit human approval. Show the user the
 reported incident; never approve it on the user's behalf. An approval applies only to the exact
 index or pending push identified in the incident:
 
@@ -89,6 +89,6 @@ Git LFS must be installed and its filters configured (`git lfs install`) before 
 used; otherwise synchronization stops instead of committing raw content. Do not set
 `core.autocrlf` to override the attributes.
 
-Git, Git LFS, and Gitleaks must be available. The tool preserves Git hooks and does not push when
-secret scanning or the LFS upload fails. Its status, control, and approvals are local to the
+Git and Git LFS must be available. The tool preserves Git hooks and does not push when the LFS
+upload fails. It runs no secret scan. Its status, control, and approvals are local to the
 checkout.
