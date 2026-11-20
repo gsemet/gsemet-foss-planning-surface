@@ -28,7 +28,7 @@ flowchart LR
 
 ## Blast radius
 
-Grade: 1. New commands and one new journal type, no change to existing texts or readers; a `git revert` restores the previous behaviour.
+Grade: 1. New commands and one new journal type; the watcher's and the journal's readers learn the new type and no existing line changes; a `git revert` restores the previous behaviour.
 
 ## Autonomous decisions
 
@@ -37,6 +37,7 @@ Grade: 1. New commands and one new journal type, no change to existing texts or 
 
 ## Known gaps
 
+- The `just test` time budget of this change (2 s above the base) is not measured: no baseline was taken on an idle machine; the suite ran in 70 s at this head on a loaded Windows machine.
 - Not yet gated or verified at this head (see Test plan).
 
 <details>
@@ -57,9 +58,9 @@ No visual change. Users who run an outside poller get a documented contract in `
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): `test_outside_poller.py`, additions to `test_watch_events.py` and `test_forge_hub.py`
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
+- [x] Local gates at `2d07ac0`: `just check`, `just eval-dry-run`
 - [ ] Evidence: none beyond the tests and the scenario case
-- [ ] Review: approved at `<sha7>`
+- [x] Review: approved at `2d07ac0`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
