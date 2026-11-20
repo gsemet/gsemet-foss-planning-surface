@@ -1,0 +1,3 @@
+# Show the target-line arrow in the side preview on a jump
+
+Split off from CR open-at-line-marker (2-backlog/P3), decision 17 (open-at-line-Q12, decided by the Griller under the owner's autonomy rule, 2026-11-20). When a text editor of a .md file is opened at a line by a jump (search, Quick Open :line, Problems, links, Ctrl+click), the side preview that follows it should show the same target-line marker as the Studio tab (arrow in the left margin and a light band on the exact line), not on every cursor move. Reuse the marker of open-at-line-marker once it is merged.

@@ -1,0 +1,3 @@
+# Side preview next to a diff: scroll, replace preview, title button
+
+Split off from CR open-at-line-marker (2-backlog/P3), decision 17 (diff-view-Q2 to Q4, decided by the Griller under the owner's autonomy rule, 2026-11-20). Findings in open-at-line-marker/work/diff-view-findings.md. Comfort gaps of the side preview next to a VS Code diff: (1) the side preview does not follow the scroll of a diff editor of its file (it does for a text editor); (2) 'Open Preview to Side' from the search-and-replace preview refuses with 'Open a Markdown file to use Markdown OKF-Schema Studio.' because the active side is a virtual document; it should open the preview of the real file; (3) Studio's editor title button is hidden on diff editors (activeEditor == textFileEditor only).

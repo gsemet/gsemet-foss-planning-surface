@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Show the target-line arrow in the side preview on a jump",
+  "summary": "Inbox, not grilled: split off from open-at-line-marker (Q12).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "fc5dd7a3f597a80a64da7e559dbbbd62cf7b2fbd3bd60fe4a633d47b3f9bbd22"
+  },
+  "summarized": "2026-11-20T22:45:15Z"
+}
