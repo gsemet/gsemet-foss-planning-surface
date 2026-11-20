@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "title": "Path graph: joined map, smaller and readable",
-  "summary": "Proposal 2 after owner feedback: shared states drawn once, paths join and split in their colours, natural size; 30-65% shorter, no overlaps, 3 Fable rounds. Patch and shots in work/; awaits owner approval, then a CR with CORE-081 and tests.",
+  "summary": "Proposal 2: shared states drawn once, paths join and split in their colours, natural size, one plain line saying what a path and a step are; 25-65% shorter, no overlaps, 4 Fable rounds. Patch and shots in work/; awaits owner approval, then a CR with CORE-081 and tests.",
   "origin": {
     "kind": "verbal"
   },
@@ -10,5 +10,5 @@
     "02-answers.md": "501a828c6c407914194f7bb7efb0d2f1bd8df44b05a627bf982b1a2250841c4b",
     "intake/request.md": "df98bcdfb9235c69ab768c7c84154a60475f48ad0b317d0207910b055884e38b"
   },
-  "summarized": "2026-11-20T22:22:09Z"
+  "summarized": "2026-11-20T22:26:45Z"
 }

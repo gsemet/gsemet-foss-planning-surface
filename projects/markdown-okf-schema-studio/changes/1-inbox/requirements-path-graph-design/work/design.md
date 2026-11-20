@@ -22,7 +22,12 @@ Kept from the current look: cream background, rust path 1, pills "ID · N tests"
   behaviour is a dashed pill with its dots under it. An outcome of a behaviour already on the map shows its id and
   test count in grey text, then its dots.
 - **Text.** Captions wrap at 34 characters (24 before a state whose path goes down); backticks become monospace.
-- **Legend.** Path keys with their titles, "other outcome", and dot swatches drawn as dots.
+- **What a path is, in one line.** Above the graph, one short line for a non-specialist: "This use case (StRS) is
+  reached by 3 paths, one per coloured line. A path goes from one situation (circle) to the next; each step (pill)
+  is a behaviour (SwRS) with its own tests. Where paths meet, they share the circle or the step." The acronyms are
+  grey; the last sentence only when paths share something. It replaces the old hint paragraph above the map.
+- **Legend.** Path keys with their titles, a "shared step" key (two colours, only when two paths share a step),
+  "other outcome", and "one dot = one scenario checked" with dot swatches.
 - **Play.** `viewer.js` lights the steps whose `data-paths` contain the path, in the order of `data-step-N`, so
   Play path 2 runs through the joined states.
 
@@ -30,12 +35,14 @@ Kept from the current look: cream background, rust path 1, pills "ID · N tests"
 
 | StRS | Shape | Before | After |
 | --- | --- | --- | --- |
-| BLOCK-003 | 1 path, 3 outcomes | 1041 / 770 | 482 / 509 |
-| FMSCHEMA-014 | path 2 splits early | 791 / 616 | 602 / 621 |
-| BLOCK-014 | 3 paths, 2 join, 1 alone | 1183 / 901 | 811 / 790 |
-| MYST-006 | short | 910 / 675 | 323 / 323 |
-| REVIEW-012 | long captions | 1582 / 1190 | 723 / 735 |
-| MYST-009 | path 2 splits mid-way | 949 / 731 | 653 / 653 |
+| BLOCK-003 | 1 path, 3 outcomes | 1041 / 770 | 533 / 560 |
+| FMSCHEMA-014 | path 2 splits early | 791 / 616 | 653 / 694 |
+| BLOCK-014 | 3 paths, 2 join, 1 alone | 1183 / 901 | 861 / 864 |
+| MYST-006 | short | 910 / 675 | 374 / 401 |
+| REVIEW-012 | long captions | 1582 / 1190 | 774 / 786 |
+| MYST-009 | path 2 splits mid-way | 949 / 731 | 704 / 726 |
+
+The after heights include the new explanation line and the legend (about 50 px).
 
 Overlapping text or pills: before 1 to 8 per map in four maps; after 0 in all twelve shots. Shots in
 [before/](before/) and [after/](after/), counts in their `metrics.txt` (made by [shoot.cjs](shoot.cjs)).
@@ -51,7 +58,12 @@ Overlapping text or pills: before 1 to 8 per map in four maps; after 0 in all tw
   path 2 (now one free column apart), outcome ids and test counts shown everywhere, shared pills bordered in the
   first path's colour.
 
-Notes: [rounds/joined/](rounds/joined/) (`critic-j1.md` to `critic-j3.md`, shots of each round).
+- **j4 (extra round, owner's wish that a non-specialist understands what a path is and that steps are shared):**
+  "path" and "step = behaviour with tests" understood; asked to name the circles, to soften the acronyms, and to
+  say "one dot = one scenario checked" (4 tests above 10 dots read as a contradiction). Done after, with its wording.
+  Left: numbered badges at every path's start, a two-colour border on shared pills.
+
+Notes: [rounds/joined/](rounds/joined/) (`critic-j1.md` to `critic-j4.md`, shots of each round).
 
 ## Open points for the owner
 
@@ -59,6 +71,8 @@ Notes: [rounds/joined/](rounds/joined/) (`critic-j1.md` to `critic-j3.md`, shots
   shrink; the critic asked for a scroll hint stronger than the edge shadow.
 - **BLOCK-014 is wider than the page** (five columns): it is drawn about 8 % smaller at 1280 px, to save 300 px of
   height.
+- **Path numbers on the graph.** Only a path that starts on another path's state shows its number (the disc); the
+  critic asked for a number at the start of every path, and a two-colour border on a shared step's pill.
 - **Outcome stem beside a climb.** At a shared state, the dotted outcome list hangs 26 px from the coloured climb
   (BLOCK-014, MYST-009); readable, but close.
 

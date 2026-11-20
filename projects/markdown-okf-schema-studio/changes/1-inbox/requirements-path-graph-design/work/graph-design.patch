@@ -357,26 +357,33 @@ index 2f0f3357..837422ec 100644
        const last = index === path.steps.length - 1;
        const option = (item: PathTransition): string => {
 diff --git a/test/site/requirementsViewer/pages.ts b/test/site/requirementsViewer/pages.ts
-index 9c7cf483..1f0af7b6 100644
+index 9c7cf483..44ec48d2 100644
 --- a/test/site/requirementsViewer/pages.ts
 +++ b/test/site/requirementsViewer/pages.ts
-@@ -67,11 +67,12 @@ function behaviourRow(model: ViewerModel, fromDir: string, behaviour: Requiremen
+@@ -67,11 +67,18 @@ function behaviourRow(model: ViewerModel, fromDir: string, behaviour: Requiremen
  function mapSection(model: ViewerModel, dir: string, paths: readonly MainPath[]): string {
    const summary = mapSummary(model, paths);
    const plays = paths.map((_, index) => `<button class="btn play" type="button" data-play="${index}">Play path ${index + 1}</button>`).join("");
 -  const keys = paths.map((_, index) => `<i class="lp${index + 1}"></i>path ${index + 1}`).join(" ");
 +  const startsShared = (index: number): boolean => paths.slice(0, index).some((earlier) => earlier.steps.some((step) => step.state === paths[index]?.steps[0]?.state));
 +  const keys = paths.map((path, index) => `<span><i class="lp${index + 1}"></i>path ${index + 1}: ${e(path.title)}${startsShared(index) ? `, starts at <b class="pnum" style="background:var(--p${Math.min(index, 2) + 1})">${index + 1}</b>` : ""}</span>`).join(" ");
++  const shares = paths.some((path, index) => paths.slice(0, index).some((earlier) => earlier.steps.some((step) => path.steps.some((other) => other.state === step.state))));
++  const ways = paths.length === 1 ? "one <b>path</b> (the coloured line)" : `<b>${paths.length} paths</b>, one per coloured line`;
++  const read = `This use case <span class="soft">(StRS)</span> is reached by ${ways}. A path goes from one <b>situation</b> (circle) to the next; each <b>step</b> (pill) is a behaviour <span class="soft">(SwRS)</span> with its own tests.${shares ? " Where paths meet, they share the circle or the step." : ""}`;
++  const stepKeys = paths.map((path) => new Set(path.steps.map((step, at) => `${step.state}>${step.via?.id ?? ""}>${path.steps[at + 1]?.state ?? ""}`).filter((key) => !key.endsWith(">>"))));
++  const sharesStep = stepKeys.some((keys, index) => stepKeys.slice(0, index).some((earlier) => [...keys].some((key) => earlier.has(key))));
++  const sharedKey = sharesStep ?` <span><i class="lshared"></i>shared step</span>` : "";
    return `<h2>How it is split</h2>
- <p class="hint">Circles are the states a user goes through; each label between two states is a <b>behaviour</b>, one rule tested on its own, on a thick line for a path and on a dashed line for another outcome at a state.</p>
+-<p class="hint">Circles are the states a user goes through; each label between two states is a <b>behaviour</b>, one rule tested on its own, on a thick line for a path and on a dashed line for another outcome at a state.</p>
  <div class="map">
 -  <div class="maptools">${plays}<span class="legend">${keys} <i class="lalt"></i>other outcome <span class="dots"><i class="nom"></i></span>nominal <span class="dots"><i class="bnd"></i></span>boundary <span class="dots"><i class="ref"></i></span>refusal scenario</span></div>
-+  <div class="maptools">${plays}<span class="legend"><span>${keys} <span><i class="lalt"></i>other outcome</span></span><span class="legend-dots">one dot per scenario: <span class="dots"><i class="nom"></i></span>nominal <span class="dots"><i class="bnd"></i></span>boundary <span class="dots"><i class="ref"></i></span>refusal</span></span></div>
++  <p class="mapread">${read}</p>
++  <div class="maptools">${plays}<span class="legend"><span>${keys}${sharedKey} <span><i class="lalt"></i>other outcome</span></span><span class="legend-dots">one dot = one scenario checked: <span class="dots"><i class="nom"></i></span>nominal <span class="dots"><i class="bnd"></i></span>boundary <span class="dots"><i class="ref"></i></span>refusal</span></span></div>
    ${metroSvg(model, paths, dir)}
    ${metroList(model, paths, dir)}
  </div>
 diff --git a/test/site/requirementsViewer/viewer.css b/test/site/requirementsViewer/viewer.css
-index 6d8d74c9..6c3f14cc 100644
+index 6d8d74c9..2584c56a 100644
 --- a/test/site/requirementsViewer/viewer.css
 +++ b/test/site/requirementsViewer/viewer.css
 @@ -1,6 +1,6 @@
@@ -387,7 +394,7 @@ index 6d8d74c9..6c3f14cc 100644
  a{color:inherit}
  .in,main{max-width:var(--max);margin:0 auto;padding:0 24px}
  main{padding-top:36px;padding-bottom:64px}
-@@ -62,26 +62,36 @@ a.stop .t{text-decoration:underline;text-decoration-color:var(--faint);text-unde
+@@ -62,26 +62,39 @@ a.stop .t{text-decoration:underline;text-decoration-color:var(--faint);text-unde
  .stop .need{grid-column:2/4;font:italic 14.5px/1.5 var(--serif);color:var(--soft);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
  /* use case */
  .need{font:italic 17px/1.55 var(--serif);color:var(--soft);border-left:3px solid var(--c);margin:0;padding:2px 0 2px 14px;max-width:780px}
@@ -411,6 +418,9 @@ index 6d8d74c9..6c3f14cc 100644
 +.metro .badge text{font:700 10.5px var(--sans);fill:var(--paper)}
 +.metro .badge circle{stroke:none}
 +.metro .oid{font:600 11px var(--mono);fill:var(--soft)}
++.map .mapread{margin:4px 10px 2px;max-width:880px;font-size:14.5px;color:var(--ink)}
++.map .mapread .soft{color:var(--soft)}
++.legend .lshared{height:8px;background:linear-gradient(var(--p1) 50%,var(--p2) 50%)}
 +.legend .dots i{width:9px;height:9px;border-radius:50%;margin-right:0}
 +.legend .pnum{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;color:var(--paper);font:700 10.5px var(--sans);margin-left:4px}
 +.legend>span>*{white-space:nowrap}
