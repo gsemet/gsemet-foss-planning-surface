@@ -72,14 +72,16 @@ No visual change.
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): `test_server_api.py`, `test_server_api_calls.py` (a good call for each of the 20 ops), `test_server_api_ws.py` (real server), `test_server_protocol.py` (schema and JS structure); old-route tests moved to ops
-- [ ] Local gates at the uncommitted round-4 tree over 9841318: `just check` pass (1348 passed, 13 skipped), `just eval-dry-run` pass (18 of 18), `just scenario --unit surface-board` pass (281/281)
+- [x] Local gates at `fea5a03`: `just check` pass (1394 passed, 13 skipped), `just eval-dry-run` pass (18 of 18); `just scenario --unit surface-board` pass (281/281) at the pre-rebase tree
 - [ ] Evidence: none yet (no picture retaken)
-- [ ] Review: not yet approved
+- [x] Review: approved at `fea5a03` (the reviewed tree of `9841318`, committed and rebased clean)
 - [ ] Verified: not yet
-- [ ] CI green: not yet pushed
+- [ ] CI green: pending
 
 ## Internal references
 
 CR-406 server-api.
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
