@@ -170,3 +170,70 @@ several, even on one project)?
 - Spec critic: yes, it changes who writes and pushes the surface (a shared, irreversible step),
   the CLI's refusals (writes refused with no server), the roles' contracts (leases, waits) and
   several areas at once.
+
+## 2026-11-20, the user: the specification's questions (spec critic: 12 points, 5 fixed without the user, 7 questions)
+
+1. planning-server-Q7, delivery of the seven parts: "7 CR séparés". One CR per part (A typed
+   events, B store, C writer, D leases, E waits, F access, G outside contributions), with their
+   dependencies (A and B first, then C, then D to G).
+2. planning-server-Q8, what keeps a Driver's lease alive during a long CI or worker wait: "Tâche
+   de fond vivante". The lease stays live while a background task recorded for the CR runs (the
+   CI watch), as the long gate today.
+3. planning-server-Q9, AGENTS.md's measured-cost rule for new CLI tools: "Exception nommée".
+   `access`, `wait` and `lease` are built and named as exceptions in AGENTS.md by this work,
+   citing the user's 2026-11-20 answer ("tout").
+4. planning-server-Q10, thin client: "Oui, ça remplace". Sessions write the surface's files under
+   the CLI's locks; only the writer commits, rebases and pushes. The older "the other sessions
+   talk to the Chief of Staff's session" and "thin client" are superseded.
+5. planning-server-Q11, the code's clone and worktrees under `projects/<name>/`: "Ne jamais les
+   ajouter". The writer excludes the paths `checkout.yml` names and blocks on any other nested
+   repository.
+6. planning-server-Q12, the remote moved while files are not yet committed: "Tout commiter
+   d'abord". The writer commits everything pending before it integrates, so any conflict is a
+   rebase conflict, raised to the Chief of Staff.
+7. planning-server-Q13, the autosync tool's secret scan is lost: "Hooks git seulement". The writer
+   runs the user's git hooks (never `--no-verify`); a secret scan goes in a pre-commit hook if the
+   user wants one. Nothing more in chantier.
+8. planning-server-Q14, Copilot's 5-minute `close` rule: "Baux en attendant". Leases serve until
+   `copilot-close-end-event` (P2) lands; then Copilot reads the agent's end and the lease is only
+   shown, as on Claude Code.
+9. planning-server-Q15, a board the user starts by hand (no seat): "Oui, tu le garantis". It runs
+   the writer too; the user guarantees it.
+10. planning-server-Q16, a Driver's lease length: "10 min, constante". 10 minutes, renewed every
+    3, a constant in the code.
+11. planning-server-Q17, the surface's other files (`AGENTS.md`, `scripts/`, `justfile`): "Commit
+    à la main". They stay committed by hand, like code; the writer touches only the plan
+    (`projects/` and the root `chantier.yaml`).
+12. planning-server-Q18, files staged by hand for two cycles: "Se bloquer". The writer blocks
+    (`staged`) and tells the Chief of Staff to commit or unstage them.
+13. planning-server-Q19, the conformance test runs on one real storage only: "Oui, plus tard".
+    The interface stays; the test proves it the day a second backend is built. The dedicated
+    branch becomes a CR of its own, later.
+14. planning-server-Q20, a live lease on Claude Code: "Non, affiché seulement". The transcripts
+    stay the exact source for `close`; the lease is shown beside them.
+15. planning-server-Q21, QA orders: "Oui, dans ce travail". The QA driver takes and renews a lease
+    as a CR's Driver does.
+16. planning-server-Q22, more wait types: "Ajouter `merge`, Sur le backlog aussi". A fourth type,
+    `merge` (a review request merged), and a backlog CR may carry a wait too (e.g. the user's
+    answer between two grills).
+17. planning-server-Q23, GitLab approvals unproved: "À prouver d'abord". GitLab's approval read
+    is marked unproved; one read on a real GitLab MR (Free and Premium) before the GitLab half of
+    `approval` ships.
+
+Split (Q7): Part C, the writer, stays in this CR (`planning-server`). Parts A, B, D, E, F and G
+are filed as inbox items of their own, each naming this CR; the full seven-part specification,
+with every answer folded, is kept as `experiments/03-change-spec-all-parts.md` for their
+specifications to start from.
+
+## 2026-11-20, the user: forge monitoring and connectors
+
+> Pour le monitoring sur les forge il faudra nécessairement faire du polling mais il faut une
+> système pour savoir qui est intéressé. Pour les d'événements sur les issues je penses que je
+> ferais un polling extérieur. Il faudra un système de plugin pour facilement rajouter des
+> connecteurs
+
+- Monitoring the forge needs polling, necessarily; it needs a way to know who is interested
+  (subscriptions), so the poll reads only what someone waits for.
+- Events on issues: polled from outside (an external poller), not by chantier's hub.
+- A plugin system, to add connectors easily.
+- Where it lands (typed waits, the hub, or a CR of its own) is the next question.

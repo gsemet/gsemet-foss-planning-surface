@@ -1,0 +1,1 @@
+A PR or MR merged without chantier ends as a report in the archives (cards and a validate rule). Split off from 2-backlog/P3/planning-server on 2026-11-20 (the user's answer planning-server-Q7: seven CRs). Its specification starts from that CR's experiments/03-change-spec-all-parts.md, Part G. Needs planning-server (the writer).

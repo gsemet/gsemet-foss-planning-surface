@@ -46,12 +46,12 @@ No visual change. The hub, `status` and the watcher tell a natively stacked merg
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [x] Local gates at `db5c3af`: `just check` pass (884 passed, 1 skipped); `just eval-dry-run` pass
-- [x] Evidence at `db5c3af`: read-only `gh` check on `gsemet/chantier`: the new query returns `merged_on_default` True for #335, #342 and #354, and `prs.rows_of` gives #342 `landed_with` #335's CR at 2026-11-19T09:29:53Z
-- [x] Review: approved at `db5c3af`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): 24 of 77 fail on the base, all pass at the head
+- [x] Local gates at `b87b254` (carried from `db5c3af`; `just check` rerun at `b87b254`): `just check` pass (884 passed, 1 skipped); `just eval-dry-run` pass
+- [x] Evidence at `b87b254` (carried from `db5c3af`): read-only `gh` check on `gsemet/chantier`: the new query returns `merged_on_default` True for #335, #342 and #354, and `prs.rows_of` gives #342 `landed_with` #335's CR at 2026-11-19T09:29:53Z
+- [x] Review: approved at `b87b254` (carried from `db5c3af`)
+- [x] Verified at `b87b254`
+- [x] CI green at `b87b254`: `check`, `eval-dry-run` and `scenario` (the long gate) pass
 
 ## Internal references
 

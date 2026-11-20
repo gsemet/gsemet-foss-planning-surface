@@ -45,11 +45,11 @@ No visual change. A refused `open` leaves the planning folder untouched.
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
-- [x] Local gates at `6cd45c2`: `just check` pass (879 passed), `just eval-dry-run` pass (18 of 18)
-- [ ] Evidence: pending the verification at `6cd45c2`
-- [x] Review: approved at `6cd45c2`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Local gates at `6985ac6` (carried from `dc671de`, a clean rebase): `just check` pass (879 passed), `just eval-dry-run` pass (18 of 18)
+- [x] Evidence: before at `b76d037`, after at `6985ac6` (text only: the table in Deliverables)
+- [x] Review: approved at `6985ac6` (carried from `dc671de`, a clean rebase)
+- [x] Verified at `6985ac6` (carried from `dc671de`, a clean rebase)
+- [x] CI green at `6985ac6`: all 5 jobs pass, `just scenario (ubuntu-latest)` included
 
 ## Internal references
 

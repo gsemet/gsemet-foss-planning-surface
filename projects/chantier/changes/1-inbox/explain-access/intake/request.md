@@ -1,0 +1,1 @@
+chantier access: explains why a session may or may not write, claim or push; named as an AGENTS.md exception with lease and wait. Split off from 2-backlog/P3/planning-server on 2026-11-20 (the user's answer planning-server-Q7: seven CRs). Its specification starts from that CR's experiments/03-change-spec-all-parts.md, Part F. Needs planning-server (the writer) and driver leases.
