@@ -1,0 +1,10 @@
+fix(editor): never get stuck on Saving Markdown in CRLF files
+
+A block editor opened on a multi-line block of a CRLF file now closes
+when you leave it without a change, instead of staying on Saving
+Markdown until the preview is reloaded.
+
+CRLF files stay CRLF and LF files stay LF on every edit, and the lines
+you did not edit keep their own line endings.
+
+Assisted-by: Claude:Sonnet-5.5

@@ -1,0 +1,3 @@
+# Requirements viewer: redesign the use case path graph for readability
+
+Owner, 2026-11-20, on the use case path graph of the requirements viewer (screenshot of the BLOCK-003 page graph, reduced to 50%): "Ensuite le diagramme est bcp trop gros (la je l ai reduit de 50%). revois le design. j'aime beaucoup mais je pense que lon peut ameliorer la lisibilité. il faudrait tu fasses une boucle sur plusieurs StRS et que tu generes puis critic avec un fable au max 3 fois. fait faire ca par un sous session". Seen in the screenshot: side-branch labels, test counts and captions overlap each other and the dashed lines.
