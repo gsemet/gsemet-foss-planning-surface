@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Requirements viewer: smaller, readable use case path graph",
+  "summary": "Design proven by 3 Fable critic rounds on 6 StRS: natural size (no upscaling), one straight row per path, other outcomes listed under their state, no label overlap; BLOCK-003 map 1041 to 442 px. Patch and before/after shots in work/; open points: test count vs scenario dots, lost merge picture.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "57f940a105442dc7ac0784e43124b04271082b8903ff5f9691a93c0808b003f1",
+    "intake/request.md": "df98bcdfb9235c69ab768c7c84154a60475f48ad0b317d0207910b055884e38b"
+  },
+  "summarized": "2026-11-20T22:06:21Z"
+}
