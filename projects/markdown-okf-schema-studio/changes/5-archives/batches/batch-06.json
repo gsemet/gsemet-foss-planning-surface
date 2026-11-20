@@ -2,16 +2,406 @@
   "schema": 1,
   "batch": "batch-06",
   "number": 6,
-  "state": "running",
+  "state": "closed",
   "opened": "2026-11-17T18:29:08Z",
-  "closed": null,
+  "closed": "2026-11-20T18:26:47Z",
   "mode": "stack",
   "steering": "foreman",
   "host": "claude",
   "budget_usd": null,
-  "cost_usd": null,
+  "cost_usd": 368.2857,
   "cost_unpriced": {},
-  "crs": [],
-  "cost_receipt": null,
-  "report": null
+  "crs": [
+    {
+      "cr": "CR-340",
+      "title": "gate requirement markers",
+      "result": "merged",
+      "archive": "5-archives/261117-2011-340-req-marker-gate",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/410",
+      "rounds": 1,
+      "cost_usd": 2.6138,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-347",
+      "title": "garden the requirements of rendering-core, diagrams and trust-security",
+      "result": "merged",
+      "archive": "5-archives/261120-0644-347-req-garden-core-diagrams-trust",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/418",
+      "rounds": 6,
+      "cost_usd": 34.59,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": [
+        "CR-342",
+        "CR-340",
+        "CR-341"
+      ]
+    },
+    {
+      "cr": "CR-424",
+      "title": "Take ownership of external PR 404: list item edit scope, list items in the TOC (opt-in)",
+      "result": "merged",
+      "archive": "5-archives/261120-1146-424-external-pr-404-list-item-edit",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/431",
+      "rounds": 2,
+      "cost_usd": 26.4594,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-426",
+      "title": "Flaky test: test/node-services/buildQueue.test.ts ('still renders a build whose buffer already moved on, and cleans up on dispose', compiled line 116, false !== true) failed once in a just check run during CR-349 and passed before and after. Not touched by CR-349.",
+      "result": "merged",
+      "archive": "5-archives/261120-1048-426-flaky-buildqueue-test",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/432",
+      "rounds": 1,
+      "cost_usd": 4.2042,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-341",
+      "title": "a Main path may cite an SwRS the StRS depends on",
+      "result": "merged",
+      "archive": "5-archives/261117-2011-341-req-main-paths-depends-on",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/409",
+      "rounds": 1,
+      "cost_usd": 1.7176,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-348",
+      "title": "garden the requirements of myst, code-blocks, gfm",
+      "result": "merged",
+      "archive": "5-archives/261120-0647-348-req-garden-myst-code-gfm",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/419",
+      "rounds": 2,
+      "cost_usd": 30.6309,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": [
+        "CR-342",
+        "CR-340",
+        "CR-341"
+      ]
+    },
+    {
+      "cr": "CR-425",
+      "title": "Real-window integration test flakes. paste-url is a race in the test (diagnosis: CR-350 work/diagnosis.md); proposed test-only fix: drop the obsolete stored-mode wait at test/integration pasteUrl.test.ts:155 and the same wait in dropFiles.test.ts and findInPreview.test.ts. checkbox-toggle also flaked on main 24c9eef (CI run 44651927198).",
+      "result": "merged",
+      "archive": "5-archives/261120-1146-425-real-window-test-flakes",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/435",
+      "rounds": 1,
+      "cost_usd": 11.4306,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-342",
+      "title": "a use-case diagram on each StRS, on GitHub and on the requirements site",
+      "result": "merged",
+      "archive": "5-archives/261117-2121-342-req-use-case-diagrams",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/412",
+      "rounds": 2,
+      "cost_usd": 4.7104,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": [
+        "CR-340"
+      ]
+    },
+    {
+      "cr": "CR-349",
+      "title": "Name the stuck tooltip when the capture helper's tooltip wait times out",
+      "result": "merged",
+      "archive": "5-archives/261120-0835-349-capturenow-tooltip-wait-diagnostic",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/426",
+      "rounds": 1,
+      "cost_usd": 6.9695,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": []
+    },
+    {
+      "cr": "CR-428",
+      "title": "Run the tableBreakout width tests on Linux in CI. The static jobs skip them (no Chromium), so CR-351's pinned-font widths and the 12 owner verdicts are verified on Windows only; its spec asks Linux widths within 1 px of Windows. Run them in the visual job (Chromium present), or under xvfb, and record the Linux widths.",
+      "result": "merged",
+      "archive": "5-archives/261120-1305-428-ci-linux-table-breakout-widths",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/436",
+      "rounds": 2,
+      "cost_usd": 7.9872,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": [
+        "CR-427"
+      ]
+    },
+    {
+      "cr": "CR-346",
+      "title": "garden the requirements of toolbar-navigation and lifecycle-sync",
+      "result": "merged",
+      "archive": "5-archives/261118-1059-346-req-garden-toolbar-lifecycle",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/414",
+      "rounds": 4,
+      "cost_usd": 20.9612,
+      "cost_unpriced": {},
+      "order": 4,
+      "after": [
+        "CR-342",
+        "CR-340",
+        "CR-341"
+      ]
+    },
+    {
+      "cr": "CR-350",
+      "title": "Build the gallery and site on a heavy CI dispatch",
+      "result": "merged",
+      "archive": "5-archives/261120-0859-350-ci-gallery-on-dispatch",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/428",
+      "rounds": 1,
+      "cost_usd": 11.761,
+      "cost_unpriced": {},
+      "order": 4,
+      "after": []
+    },
+    {
+      "cr": "CR-430",
+      "title": "Bug: SwRS MYST-019's {numref} scenario contradicts the code: a numref to a figure with no caption keeps an inert placeholder instead of what the SwRS says; no test covers it. Decide which is right, fix the other, add a test. Found by batch-06 CR-348 (PR 419).",
+      "result": "merged",
+      "archive": "5-archives/261120-1305-430-myst-numref-captionless-figure",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/437",
+      "rounds": 2,
+      "cost_usd": 7.6943,
+      "cost_unpriced": {},
+      "order": 4,
+      "after": []
+    },
+    {
+      "cr": "CR-343",
+      "title": "garden the requirements of block-editing and table-editing",
+      "result": "merged",
+      "archive": "5-archives/261118-1234-343-req-garden-block-table",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/417",
+      "rounds": 7,
+      "cost_usd": 30.7637,
+      "cost_unpriced": {},
+      "order": 5,
+      "after": [
+        "CR-342",
+        "CR-340",
+        "CR-341"
+      ]
+    },
+    {
+      "cr": "CR-351",
+      "title": "layout tests that do not depend on the page font",
+      "result": "merged",
+      "archive": "5-archives/261120-0916-351-font-independent-layout-tests",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/429",
+      "rounds": 2,
+      "cost_usd": 11.2665,
+      "cost_unpriced": {},
+      "order": 5,
+      "after": []
+    },
+    {
+      "cr": "CR-431",
+      "title": "Code/requirement mismatches found by batch-06 CR-347 (PR 418, listed as Known issue lines in its body): SwRS CORE-010, CORE-025, DIAG-005, DIAG-009, TRUST-042 say something the code does not do. For each, decide whether the code or the SwRS is right and fix the other. Details in PR 418 body and CR-347's work folder.",
+      "result": "merged",
+      "archive": "5-archives/261120-1305-431-req-code-mismatches-cr347",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/439",
+      "rounds": 2,
+      "cost_usd": 9.7151,
+      "cost_unpriced": {},
+      "order": 5,
+      "after": [
+        "CR-430"
+      ]
+    },
+    {
+      "cr": "CR-344",
+      "title": "garden the requirements of review-annotations, frontmatter-editing, frontmatter-schema",
+      "result": "merged",
+      "archive": "5-archives/261118-1425-344-req-garden-review-frontmatter",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/416",
+      "rounds": 6,
+      "cost_usd": 32.4343,
+      "cost_unpriced": {},
+      "order": 6,
+      "after": [
+        "CR-342",
+        "CR-340",
+        "CR-341"
+      ]
+    },
+    {
+      "cr": "CR-432",
+      "title": "List items get reorder handles on the left, like table rows, to reorder the items of a list in edit mode. Owner's words (2026-11-20): 'il faut mettre des ancre de reordonnement de la liste sur la gauche comme les ligne d une table. tu feras ca dans une autre CR'. Follows CR-424 (PR 404, item-level list editing).",
+      "result": "merged",
+      "archive": "5-archives/261120-1535-432-list-item-reorder-handles",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/443",
+      "rounds": 2,
+      "cost_usd": 24.2895,
+      "cost_unpriced": {},
+      "order": 6,
+      "after": [
+        "CR-424",
+        "CR-431"
+      ]
+    },
+    {
+      "cr": "CR-345",
+      "title": "garden the requirements of palette-slash, theme-zoom and layout-width",
+      "result": "merged",
+      "archive": "5-archives/261119-2323-345-req-garden-palette-theme-layout",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/415",
+      "rounds": 7,
+      "cost_usd": 26.4643,
+      "cost_unpriced": {},
+      "order": 7,
+      "after": [
+        "CR-342",
+        "CR-340",
+        "CR-341"
+      ]
+    },
+    {
+      "cr": "CR-427",
+      "title": "tableBreakout tests: a pinned font that fails to load hangs the test run, because openPage never closes Chromium, instead of failing it. Close the browser on that error path (found in CR-351, PR 429).",
+      "result": "merged",
+      "archive": "5-archives/261120-1020-427-breakout-font-load-hang",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/433",
+      "rounds": 1,
+      "cost_usd": 7.9315,
+      "cost_unpriced": {},
+      "order": 11,
+      "after": [
+        "CR-351"
+      ]
+    },
+    {
+      "cr": "CR-429",
+      "title": "The use-case diagram check added by CR-342 (test/site/requirementsViewer/useCaseDiagram.ts, the site build and the guideline \"Use case diagram of a StRS\") lets through a Mermaid diagram whose participant id is a reserved word: in batch-06, six PALETTE StRS sequence diagrams used `Box` as an id and failed to parse; renaming it to `Field` fixed them (CR-345). Make the failure early and clear: `just requirements-lint` or `just check` should parse every StRS diagram (or at least reject Mermaid's reserved ids) and name the StRS and the word, and the guideline should list the words to avoid. Found by the batch-06 Foreman, 2026-11-17.",
+      "result": "merged",
+      "archive": "5-archives/261120-1019-429-mermaid-reserved-ids-check",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/434",
+      "rounds": 1,
+      "cost_usd": 7.419,
+      "cost_unpriced": {},
+      "order": 13,
+      "after": []
+    },
+    {
+      "cr": "CR-433",
+      "title": "release notes, short and demo-first",
+      "result": "merged",
+      "archive": "5-archives/261120-1421-433-release-notes-style",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/442",
+      "rounds": 1,
+      "cost_usd": 3.6092,
+      "cost_unpriced": {},
+      "order": 14,
+      "after": []
+    },
+    {
+      "cr": "CR-434",
+      "title": "Release 1.10.0",
+      "result": "merged",
+      "archive": "5-archives/261120-1714-434-release-1-10-0",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/444",
+      "rounds": 0,
+      "cost_usd": 3.9627,
+      "cost_unpriced": {},
+      "order": 15,
+      "after": [
+        "CR-432",
+        "CR-433"
+      ]
+    }
+  ],
+  "cost_receipt": {
+    "steering": {
+      "label": "Foreman",
+      "usd": 25.71,
+      "calls": 727,
+      "unpriced": {},
+      "wakes": 238,
+      "context_avg": 181895
+    },
+    "drivers": [
+      {
+        "type": "chantier:cr-driver",
+        "usd": 322.1258,
+        "calls": 8334,
+        "unpriced": {}
+      },
+      {
+        "type": "chantier:stack-driver",
+        "usd": 16.3745,
+        "calls": 387,
+        "unpriced": {}
+      },
+      {
+        "type": "chantier:release-driver",
+        "usd": 3.9627,
+        "calls": 79,
+        "unpriced": {}
+      }
+    ],
+    "split": [
+      {
+        "part": "steering",
+        "usd": 25.71,
+        "calls": 727,
+        "unpriced": {}
+      },
+      {
+        "part": "drivers",
+        "usd": 165.68,
+        "calls": 3020,
+        "unpriced": {}
+      },
+      {
+        "part": "workers",
+        "usd": 176.9,
+        "calls": 5786,
+        "unpriced": {}
+      }
+    ],
+    "models": [
+      {
+        "model": "claude-opus-5-5",
+        "calls": 5538,
+        "usd": 268.09,
+        "unpriced": 0
+      },
+      {
+        "model": "claude-sonnet-5-5",
+        "calls": 3995,
+        "usd": 100.2,
+        "unpriced": 0
+      }
+    ],
+    "outside": {
+      "grill": {
+        "usd": 16.4693,
+        "calls": 407,
+        "unpriced": {}
+      },
+      "steering": {
+        "usd": 30.897,
+        "calls": 634,
+        "unpriced": {}
+      }
+    }
+  },
+  "report": "batch-06.md"
 }
