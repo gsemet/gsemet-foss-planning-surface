@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "take's base on a working CR's draft PR: keep, or start on main?",
+  "summary": "Inbox, not grilled: a decision for the user on whether a new CR of a stack may start on a working CR's open draft PR, as Studio's CR-429 did. Split out of take-base-from-forge.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "c9def636f6aedf0d4ea628e755de6cab750ed741f7fa3b0fe5d577be7cc46ba5"
+  },
+  "summarized": "2026-11-20T22:55:30Z"
+}

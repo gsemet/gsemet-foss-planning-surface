@@ -49,8 +49,8 @@ order gives, and that `order merged` is still owed.
 Q4. With no hub and no watcher running, the journal has no line. What then?
 
 The base is the record's, as today; nothing is refused and nothing is read. Settled by the Chief
-of Staff (2026-11-20, the user asks no questions). Reason: no fallback read in the CLI; the
-Foreman's card keeps the forge check a Driver already does before it creates its worktree.
+of Staff (2026-11-20, the user asks no questions). Reason: no fallback read in the CLI; a hub (the
+surface server, else a watcher) reads a running batch's PRs every 20 s, so the gap is short.
 
 Q5. CR-429's case: is the branch of a working CR with an open draft PR still a base?
 

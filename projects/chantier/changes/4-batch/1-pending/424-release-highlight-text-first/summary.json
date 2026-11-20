@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Release highlights: text first, cropped picture, one set of rules",
+  "summary": "Specified, not yet in a batch: a highlight is heading, text, then a picture cropped to the change, and docs/release-process.md points to the template for the writing rules. Bundles release-process-notes-align.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "9999a55d646c995922bf4d13f6a32ea1da6e9387d7d89e069849960e0269d5ec",
+    "03-change-spec.md": "d2687c946d71b8c6f5f0a6368b3fa9afe5330384bd13dfbf5c789c451b17b737",
+    "intake/request.md": "6f00f0e7d853e103eccb910c93ba9d129d5c0bf8589db9e20d621956323311c4"
+  },
+  "summarized": "2026-11-20T22:55:40Z"
+}

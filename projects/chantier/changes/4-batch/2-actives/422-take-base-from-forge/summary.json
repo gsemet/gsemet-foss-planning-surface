@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "take's base and the ready word follow the forge",
+  "summary": "Specified, grilled by the Chief of Staff alone: take leaves out a CR the journal shows merged when it picks a base, and a ready CR not placed by the stack driver reads ready to merge or PR in draft from its PR's recorded base, not from the order. No new forge read.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "e1791d1523eb759bda92aa4335824f93656eb6e134dc2af45abbedc687c039d1",
+    "03-change-spec.md": "e0bd240e3fe40553e1ee47f84c38c1c82cb8d1d093290a634e11d86b4cdc8757",
+    "intake/request.md": "018de54961f6009372835b5ed2419614678eddcd35eb61bf4472b4d5ac694525"
+  },
+  "summarized": "2026-11-20T22:55:29Z"
+}

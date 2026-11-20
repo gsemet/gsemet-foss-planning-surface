@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A Driver's only send to a Desktop Foreman is its final report",
+  "summary": "Specified, not yet in a batch: the Claude Code host card says a subagent Driver reaches a Desktop Foreman only by its final report, the Steering line says so, and silence or a missing pong no longer reads as a lost Driver. Cards only.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "2d4c9a52818addda71b623062087ac4e774fd42a382c887dadfb0d5e46c1231d",
+    "03-change-spec.md": "03ddcbe76448f7d4d7ac24080df189bd0fa96f557f9cb4412ae5a6304a26e185",
+    "intake/request.md": "92c5098d9d80fef8447d5e5aacee56b65022c6e13c9d2deeacbc21b3979324f4"
+  },
+  "summarized": "2026-11-20T22:55:40Z"
+}

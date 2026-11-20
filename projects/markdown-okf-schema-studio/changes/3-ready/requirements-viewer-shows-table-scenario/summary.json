@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Requirements viewer shows table scenarios, not empty columns",
+  "summary": "The requirements site shows a scenario written as a table as its table, keeps GIVEN/WHEN/THEN cards as today, decodes basic HTML entities, and a test over the real bundle checks no scenario card is empty (421 SwRS were affected).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "416141948b41fc9d077b07c6cb54ed4b5d3e21d6aec2d2d90e20217b5be5f877",
+    "02-answers.md": "06f7b9d96070425abaaabae385a2ea1a55d01d3393498b9cced8a5f289d4adf3",
+    "03-change-spec.md": "9c3e237d8be9a39ebeba6d062e31bc98b581856a58f2c918fddf71bb9d09d90e",
+    "intake/request.md": "529a37af842f1f87e8d9f6e50174392421dab1c337956d34901736d16116464f"
+  },
+  "summarized": "2026-11-20T22:54:34Z"
+}

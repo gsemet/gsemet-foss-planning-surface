@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "AGENTS.md: name the forge reads ship, take and forge-stack make",
+  "summary": "Inbox, not grilled: AGENTS.md's network sentence does not name the forge reads the CLI already makes in ship, take, handoff and forge-stack. Split out of take-base-from-forge.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "53d4d0e73816a7b4e7726ef227634142af8a9592fd99fb2a624a6a32a46413b5"
+  },
+  "summarized": "2026-11-20T22:55:30Z"
+}
