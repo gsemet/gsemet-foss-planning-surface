@@ -1,0 +1,314 @@
+diff --git a/test/site/requirementsViewer/layout.ts b/test/site/requirementsViewer/layout.ts
+index 2f0f3357..07466350 100644
+--- a/test/site/requirementsViewer/layout.ts
++++ b/test/site/requirementsViewer/layout.ts
+@@ -141,86 +141,174 @@ function tspans(x: number, y: number, value: string, width: number, up = false,
+   return lines.map((line, index) => `<tspan x="${x.toFixed(0)}" y="${(first + index * lineHeight).toFixed(0)}">${escapeHtml(line)}</tspan>`).join("");
+ }
+ 
+-const pathColour = (index: number): string => (index === 0 ? "var(--p1)" : "var(--p2)");
+-
+ function describe(requirement: Requirement | undefined, via: PathTransition): string {
+   return requirement ? `${requirement.id}: ${requirement.title}` : `${via.id}: ${via.label}`;
+ }
+ 
+-/** The map as an SVG: states are circles, behaviours the lines between them, every line a link. */
++/** One state of a lane: a copy per path, so every path is one straight line. */
++interface LaneState {
++  readonly key: string;
++  readonly col: number;
++  readonly goal: boolean;
++  /** The index of the earlier path that already holds this state, if any. */
++  readonly from?: number;
++  readonly options: readonly PathTransition[];
++}
++
++interface Lane {
++  readonly states: LaneState[];
++  readonly vias: (PathTransition | undefined)[];
++  /** The way to the next state is also a way of an earlier path. */
++  readonly sharedVia: boolean[];
++}
++
++const COLUMN = 230, PAD_LEFT = 100, NAME_WRAP = 24, CAPTION_WRAP = 33, LINE = 17, CHAR = 6.4, INLINE_ROOM = 420;
++const MAX_PATH_COLOURS = 3;
++
++/** One lane per path; a state met again keeps the column of its first lane when it can. */
++export function buildLanes(paths: readonly MainPath[]): Lane[] {
++  const first = new Map<string, { col: number; lane: number }>();
++  const seenVia = new Set<string>();
++  return paths.map((path, laneIndex) => {
++    const states: LaneState[] = [];
++    const vias: (PathTransition | undefined)[] = [];
++    path.steps.forEach((step, index) => {
++      const known = first.get(step.state);
++      const after = index === 0 ? 0 : (states[index - 1]?.col ?? 0) + 1;
++      const col = known !== undefined && known.col >= after ? known.col : after;
++      states.push({ key: step.state, col, goal: index === path.steps.length - 1, ...(known ? { from: known.lane } : {}), options: step.options });
++      vias.push(step.via);
++    });
++    const viaKey = (index: number): string => `${states[index]?.key ?? ""}>${states[index + 1]?.key ?? ""}>${vias[index]?.id ?? ""}`;
++    const sharedVia = states.map((_, index) => Boolean(vias[index] && states[index + 1] && seenVia.has(viaKey(index))));
++    states.forEach((state, index) => {
++      if (!first.has(state.key)) first.set(state.key, { col: state.col, lane: laneIndex });
++      if (states[index + 1]) seenVia.add(viaKey(index));
++    });
++    return { states, vias, sharedVia };
++  });
++}
++
++/** One line of text; `code` spans in monospace, without their backticks. */
++function rich(line: string): string {
++  return line.split("`").map((part, index) => (index % 2 === 1 ? `<tspan class="code">${escapeHtml(part)}</tspan>` : escapeHtml(part))).join("");
++}
++
++function lines(x: number, y: number, value: string, width: number, up = false): string {
++  const wrapped = wrap(value, width);
++  const firstY = up ? y - (wrapped.length - 1) * LINE : y;
++  return wrapped.map((line, index) => `<tspan x="${x.toFixed(0)}" y="${(firstY + index * LINE).toFixed(0)}">${rich(line)}</tspan>`).join("");
++}
++
++const laneColour = (index: number): string => `var(--p${Math.min(index, MAX_PATH_COLOURS - 1) + 1})`;
++
++function pill(left: number, cy: number, label: string, stroke: string, dashed = false): { svg: string; width: number } {
++  const width = label.length * 6.8 + 20;
++  return {
++    width,
++    svg: `<rect class="pill" x="${left.toFixed(0)}" y="${cy - 11}" width="${width.toFixed(0)}" height="22" rx="11" stroke="${stroke}"${dashed ? ' stroke-dasharray="4 3"' : ""}/><text class="pt" x="${(left + width / 2).toFixed(0)}" y="${cy + 4}" text-anchor="middle">${escapeHtml(label)}</text>`,
++  };
++}
++
++function dots(scenarios: readonly Scenario[], x: number, cy: number, centred: boolean): string {
++  return scenarios.map((scenario, index) => {
++    const cx = centred ? x + (index - (scenarios.length - 1) / 2) * 11 : x + index * 11;
++    return `<circle cx="${cx.toFixed(0)}" cy="${cy}" r="4.2" class="${kindClass(scenario.kind)}"/>`;
++  }).join("");
++}
++
++/** The map as an SVG: one straight lane per path, behaviours on the line, other outcomes listed under their state; every behaviour a link. */
+ // @implements_req SwRS-MDOKFSTUDIO-CORE-081
+ export function metroSvg(model: ViewerModel, paths: readonly MainPath[], fromDir: string): string {
+-  const { states, edges } = buildGraph(paths);
+-  const nodes = [...states.values(), ...edges.filter((edge) => edge.option).map((edge) => edge.b)];
+-  const columns = Math.max(...nodes.map((node) => node.col)) + 1;
+-  const columnWidth = 220, padX = 90, trackHeight = 165;
+-  const minTrack = Math.min(...nodes.map((node) => node.track));
+-  const maxTrack = Math.max(...nodes.map((node) => node.track));
+-  const top = 70 - minTrack * trackHeight;
+-  const width = padX * 2 + (columns - 1) * columnWidth;
+-  const height = top + maxTrack * trackHeight + 100;
+-  const point = (node: StateNode): [number, number] => [padX + node.col * columnWidth, top + node.track * trackHeight];
+-  const out = [`<svg class="metro" viewBox="0 0 ${width.toFixed(0)} ${height.toFixed(0)}" role="group" aria-label="Map of the use case: states joined by behaviours; each behaviour is a link">`];
+-  for (const edge of edges) {
+-    const [x1, y1] = point(edge.a);
+-    const [x2, y2] = point(edge.b);
+-    const d = y1 === y2
+-      ? `M${x1.toFixed(0)},${y1.toFixed(0)} L${x2.toFixed(0)},${y2.toFixed(0)}`
+-      : `M${x1.toFixed(0)},${y1.toFixed(0)} C${(x1 + (x2 - x1) * 0.55).toFixed(0)},${y1.toFixed(0)} ${(x2 - (x2 - x1) * 0.55).toFixed(0)},${y2.toFixed(0)} ${x2.toFixed(0)},${y2.toFixed(0)}`;
+-    const requirement = model.byId.get(edge.via.id);
+-    const scenarios = scenariosOf(model, edge.via);
+-    let mx: number, my: number;
+-    if (y1 === y2) {
+-      mx = (x1 + x2) / 2;
+-      my = y1;
+-    } else {
+-      const u = edge.option ? 0.72 : 0.5;
+-      const c1x = x1 + (x2 - x1) * 0.55, c2x = x2 - (x2 - x1) * 0.55;
+-      mx = (1 - u) ** 3 * x1 + 3 * (1 - u) ** 2 * u * c1x + 3 * (1 - u) * u * u * c2x + u ** 3 * x2;
+-      my = (1 - u) ** 3 * y1 + 3 * (1 - u) ** 2 * u * y1 + 3 * (1 - u) * u * u * y2 + u ** 3 * y2;
+-    }
+-    const label = `${shortId(edge.via.id)} · ${testCount(requirement?.testedIn.length ?? 0)}`;
+-    const pillWidth = label.length * 7 + 18;
+-    const stroke = edge.option ? "var(--alt)" : pathColour(edge.path);
+-    const attributes = edge.option ? 'data-option=""' : `data-path="${edge.path}" data-step="${edge.step}"`;
+-    const shared = !edge.option && edge.a.paths.size > 1 && edge.b.paths.size > 1;
+-    const href = pageLink(model, fromDir, edge.via.id);
+-    const tag = href ? "a" : "g";
+-    const group = [`<${tag} class="tr"${href ? ` href="${href}"` : ""} ${attributes}><title>${escapeHtml(describe(requirement, edge.via))}</title>`];
+-    if (shared) group.push(`<path d="${d}" stroke="var(--p2)" stroke-width="13" stroke-linecap="round" fill="none" opacity=".4"/>`);
+-    group.push(`<path class="ln" d="${d}" stroke="${stroke}" stroke-width="${edge.option ? 2.5 : 7}" stroke-linecap="round" fill="none"${edge.option ? ' stroke-dasharray="6 6"' : ""}/>`);
+-    group.push(`<path class="hit" d="${d}"/>`);
+-    group.push(`<g transform="translate(${mx.toFixed(0)},${my.toFixed(0)})"><rect class="pill" x="${(-pillWidth / 2).toFixed(0)}" y="-12" width="${pillWidth}" height="24" rx="12" stroke="${stroke}"/><text class="pt" y="4" text-anchor="middle">${escapeHtml(label)}</text>`);
+-    scenarios.forEach((scenario, index) => {
+-      group.push(`<circle cx="${((index - (scenarios.length - 1) / 2) * 12).toFixed(0)}" cy="20" r="4.2" class="${kindClass(scenario.kind)}"/>`);
++  const lanes = buildLanes(paths);
++  const mainIds = new Set(lanes.flatMap((lane) => lane.vias.map((via) => via?.id ?? "")));
++  const columns = Math.max(...lanes.flatMap((lane) => lane.states.map((state) => state.col))) + 1;
++  const width = PAD_LEFT + (columns - 1) * COLUMN + PAD_LEFT;
++  const out: string[] = [];
++  let right = 0;
++  let top = 18;
++  lanes.forEach((lane, pathIndex) => {
++    const colour = laneColour(pathIndex);
++    const nameOf = (state: LaneState): string => (state.from !== undefined ? `↑ path ${state.from + 1}: ${state.key}` : state.key);
++    const nameLines = Math.max(1, ...lane.states.map((state) => wrap(nameOf(state), NAME_WRAP).length));
++    const captionLines = Math.max(0, ...lane.vias.map((via, index) => (via && !lane.sharedVia[index] ? wrap(via.label, CAPTION_WRAP).length : 0)));
++    const labelRow = paths.length > 1 ? 24 : 0;
++    const y = top + labelRow + nameLines * LINE + 22;
++    const x = (state: LaneState): number => PAD_LEFT + state.col * COLUMN;
++    const captionTop = y + 44;
++    const optionsTop = (captionLines > 0 ? captionTop + captionLines * LINE : y + 30) + 16;
++    let bottom = captionLines > 0 ? captionTop + captionLines * LINE - 10 : y + 26;
++    if (paths.length > 1) out.push(`<text class="lane" x="8" y="${top + 6}" fill="${colour}">Path ${pathIndex + 1}: ${escapeHtml(paths[pathIndex]?.title ?? "")}</text>`);
++    lane.states.forEach((state, index) => {
++      const next = lane.states[index + 1];
++      const via = lane.vias[index];
++      if (!next || !via) return;
++      const x1 = x(state), x2 = x(next), mx = (x1 + x2) / 2;
++      const requirement = model.byId.get(via.id);
++      const shared = lane.sharedVia[index] ?? false;
++      const href = pageLink(model, fromDir, via.id);
++      const tag = href ? "a" : "g";
++      const d = `M${x1},${y} L${x2},${y}`;
++      const label = `${shortId(via.id)} · ${testCount(requirement?.testedIn.length ?? 0)}`;
++      const group = [`<${tag} class="tr${shared ? " again" : ""}"${href ? ` href="${href}"` : ""} data-path="${pathIndex}" data-step="${index}"><title>${escapeHtml(describe(requirement, via))}${shared ? " (the same step as on an earlier path)" : ""}</title>`];
++      group.push(`<path class="ln" d="${d}" stroke="${colour}" stroke-width="7" stroke-linecap="round" fill="none"/><path class="hit" d="${d}"/>`);
++      group.push(pill(mx - (label.length * 6.8 + 20) / 2, y, label, colour).svg);
++      if (!shared) {
++        group.push(dots(scenariosOf(model, via), mx, y + 21, true));
++        group.push(`<text class="verb" text-anchor="middle">${lines(mx, captionTop + 4, via.label, CAPTION_WRAP)}</text>`);
++      }
++      group.push(`</${tag}>`);
++      out.push(group.join(""));
+     });
+-    group.push("</g>");
+-    if (!edge.option) {
+-      group.push(y1 === y2
+-        ? `<text class="verb" text-anchor="middle">${tspans(mx, my - 24, edge.via.label, 30, true)}</text>`
+-        : `<text class="verb">${tspans(mx + pillWidth / 2 + 10, my + 4, edge.via.label, 26)}</text>`);
+-    }
+-    group.push(`</${tag}>`);
+-    out.push(group.join(""));
+-  }
+-  for (const node of nodes) {
+-    const [x, y] = point(node);
+-    const cls = `st${node.goal ? " goal" : ""}${node.alt ? " alt" : ""}`;
+-    const radius = node.alt ? 7 : node.goal ? 15 : 12;
+-    const value = node.alt ? node.label ?? "" : node.key;
+-    const label = node.alt && node.track < 0
+-      ? `<text text-anchor="middle">${tspans(x, y - 16, value, 30, true)}</text>`
+-      : `<text text-anchor="middle">${tspans(x, y + (node.alt ? 24 : 34), value, node.alt ? 30 : 24)}</text>`;
+-    out.push(`<g class="${cls}" data-state="${escapeHtml(node.key)}"><circle cx="${x}" cy="${y}" r="${radius}"/>${label}</g>`);
+-  }
+-  out.push("</svg>");
+-  return out.join("");
++    lane.states.forEach((state) => {
++      if (state.options.length === 0) return;
++      const sx = x(state);
++      const nextWithOptions = lane.states.filter((other) => other.col > state.col && other.options.length > 0).map((other) => other.col);
++      const room = nextWithOptions.length > 0 ? (Math.min(...nextWithOptions) - state.col) * COLUMN - 16 : INLINE_ROOM;
++      let rowY = optionsTop;
++      let lastRow = rowY;
++      const rows: string[] = [];
++      for (const option of state.options) {
++        const requirement = model.byId.get(option.id);
++        const scenarios = scenariosOf(model, option);
++        const href = pageLink(model, fromDir, option.id);
++        const tag = href ? "a" : "g";
++        // An outcome of a behaviour already on the line needs no second pill: the dots say which of its scenarios.
++        const same = mainIds.has(option.id);
++        const drawn = same ? { svg: "", width: 0 } : pill(sx + 24, rowY, `${shortId(option.id)} · ${testCount(requirement?.testedIn.length ?? 0)}`, "var(--alt)", true);
++        const dotsLeft = sx + 24 + (same ? 4 : drawn.width + 10);
++        const wrapAt = Math.floor((room - 24) / CHAR);
++        const caption = wrap(option.label, wrapAt);
++        right = Math.max(right, sx + 24 + Math.max(...caption.map((line) => line.length * CHAR)), dotsLeft + scenarios.length * 11);
++        rows.push(`<${tag} class="tr opt"${href ? ` href="${href}"` : ""} data-option=""><title>${escapeHtml(describe(requirement, option))}</title>`
++          + `<path class="ln" d="M${sx},${rowY} L${sx + 12},${rowY}" stroke="var(--alt)" stroke-width="2" stroke-dasharray="3 3" fill="none"/>`
++          + `<circle class="end" cx="${sx + 16}" cy="${rowY}" r="4"/>`
++          + drawn.svg + dots(scenarios, dotsLeft, rowY, false)
++          + `<text class="verb">${lines(sx + 24, rowY + 26, option.label, wrapAt)}</text></${tag}>`);
++        lastRow = rowY;
++        rowY += 22 + caption.length * LINE + 16;
++      }
++      out.push(`<path d="M${sx},${y + 14} L${sx},${lastRow}" stroke="var(--alt)" stroke-width="2" stroke-dasharray="3 3" fill="none"/>`);
++      out.push(rows.join(""));
++      bottom = Math.max(bottom, rowY - 26);
++    });
++    lane.states.forEach((state) => {
++      const sx = x(state);
++      const cls = `st${state.goal ? " goal" : ""}${state.from !== undefined ? " again" : ""}`;
++      const ring = state.goal ? ` style="stroke:${colour}"` : "";
++      out.push(`<g class="${cls}" data-state="${escapeHtml(state.key)}"><title>${escapeHtml(state.key)}</title><circle cx="${sx}" cy="${y}" r="${state.goal ? 13 : 10}"${ring}/><text text-anchor="middle">${lines(sx, y - 22, nameOf(state), NAME_WRAP, true)}</text></g>`);
++    });
++    top = bottom + 28;
++  });
++  const height = top - 18;
++  const fullWidth = Math.ceil(Math.max(width, right + 16));
++  return `<svg class="metro" width="${fullWidth}" viewBox="0 0 ${fullWidth} ${height}" style="min-width:${Math.round(fullWidth * 0.85)}px" role="group" aria-label="Map of the use case: states joined by behaviours; each behaviour is a link">${out.join("")}</svg>`;
+ }
+ 
+ /** The same map for narrow screens: one vertical line per path. */
+ export function metroList(model: ViewerModel, paths: readonly MainPath[], fromDir: string): string {
+   const parts = paths.map((path, pathIndex) => {
+-    const colour = `style="--pc:var(--${pathIndex === 0 ? "p1" : "p2"})"`;
++    const colour = `style="--pc:var(--p${Math.min(pathIndex, 2) + 1})"`;
+     const rows = path.steps.map((step, index) => {
+       const last = index === path.steps.length - 1;
+       const option = (item: PathTransition): string => {
+diff --git a/test/site/requirementsViewer/pages.ts b/test/site/requirementsViewer/pages.ts
+index 9c7cf483..a08ec84f 100644
+--- a/test/site/requirementsViewer/pages.ts
++++ b/test/site/requirementsViewer/pages.ts
+@@ -71,7 +71,7 @@ function mapSection(model: ViewerModel, dir: string, paths: readonly MainPath[])
+   return `<h2>How it is split</h2>
+ <p class="hint">Circles are the states a user goes through; each label between two states is a <b>behaviour</b>, one rule tested on its own, on a thick line for a path and on a dashed line for another outcome at a state.</p>
+ <div class="map">
+-  <div class="maptools">${plays}<span class="legend">${keys} <i class="lalt"></i>other outcome <span class="dots"><i class="nom"></i></span>nominal <span class="dots"><i class="bnd"></i></span>boundary <span class="dots"><i class="ref"></i></span>refusal scenario</span></div>
++  <div class="maptools">${plays}<span class="legend"><span>${keys} <i class="lalt"></i>other outcome</span><span class="legend-dots">one dot per scenario: <span class="dots"><i class="nom"></i></span>nominal <span class="dots"><i class="bnd"></i></span>boundary <span class="dots"><i class="ref"></i></span>refusal</span></span></div>
+   ${metroSvg(model, paths, dir)}
+   ${metroList(model, paths, dir)}
+ </div>
+diff --git a/test/site/requirementsViewer/viewer.css b/test/site/requirementsViewer/viewer.css
+index 6d8d74c9..37b9158e 100644
+--- a/test/site/requirementsViewer/viewer.css
++++ b/test/site/requirementsViewer/viewer.css
+@@ -1,6 +1,6 @@
+ /* Studio requirements viewer, after the shared site stylesheet (tokens, fonts, base rules, header). Serif for what is read, sans for labels, mono for identifiers. Colour means
+    the area; path 1, path 2 and the scenario kinds are the only other colours. */
+-:root{--max:1080px;--c:#1d4ed8}
++:root{--max:1080px;--c:#1d4ed8;--p3:#8a5f0f}
+ a{color:inherit}
+ .in,main{max-width:var(--max);margin:0 auto;padding:0 24px}
+ main{padding-top:36px;padding-bottom:64px}
+@@ -62,26 +62,32 @@ a.stop .t{text-decoration:underline;text-decoration-color:var(--faint);text-unde
+ .stop .need{grid-column:2/4;font:italic 14.5px/1.5 var(--serif);color:var(--soft);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+ /* use case */
+ .need{font:italic 17px/1.55 var(--serif);color:var(--soft);border-left:3px solid var(--c);margin:0;padding:2px 0 2px 14px;max-width:780px}
+-.map{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px 6px 4px}
+-.ucd{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px 6px 4px;overflow-x:auto}
++.map{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px 6px 4px;overflow-x:auto;background:linear-gradient(to left,var(--paper) 30%,transparent) right/40px 100% local no-repeat,linear-gradient(to left,rgba(0,0,0,.10),transparent) right/14px 100% scroll no-repeat,var(--paper)}
++.ucd{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px 6px 4px;overflow-x:auto;background:linear-gradient(to left,var(--paper) 30%,transparent) right/40px 100% local no-repeat,linear-gradient(to left,rgba(0,0,0,.10),transparent) right/14px 100% scroll no-repeat,var(--paper)}
+ .ucd svg{max-width:100%;height:auto}
+ .maptools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:6px 10px}
+ .legend{margin-left:auto;font-size:12.5px;color:var(--soft);display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
++.legend>span{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+ .legend i{display:inline-block;width:18px;height:4px;border-radius:2px;margin-right:-4px}
+-.legend .lp1{background:var(--p1)}.legend .lp2{background:var(--p2)}.legend .lalt{height:0;border-top:2px dashed var(--alt)}
+-svg.metro{display:block;width:100%;height:auto}
++.legend .lp1{background:var(--p1)}.legend .lp2{background:var(--p2)}.legend .lp3{background:var(--p3)}.legend .lalt{height:0;border-top:2px dotted var(--alt);border-radius:0}
++svg.metro{display:block;max-width:100%;height:auto}
+ .metro .st circle{fill:var(--paper);stroke:var(--ink);stroke-width:3.5}
++.metro .st.again circle{stroke:var(--soft);stroke-width:2.5}
++.metro .st.again text{fill:var(--soft);font-weight:400}
++.metro .tr.again .ln{opacity:.35}
++.metro .tr.again .pill{opacity:.6}
++.metro .lane{font:600 13px var(--sans)}
+ .metro .st.goal circle{stroke:var(--p1);stroke-width:5}
+-.metro .st.alt circle{stroke:var(--alt);stroke-width:2.5}
+-.metro .st text{font:500 13px var(--sans);fill:var(--ink)}
+-.metro .st.alt text{font:italic 12.5px var(--serif);fill:var(--soft)}
++.metro .st text{font:500 14px var(--sans);fill:var(--ink)}
+ .metro .tr{cursor:pointer}
+ .metro .tr .hit{stroke:transparent;stroke-width:24;fill:none}
+-.metro .tr:hover .ln,.metro .tr:focus .ln{stroke-width:10}
++.metro .tr:not(.opt):hover .ln,.metro .tr:not(.opt):focus .ln{stroke-width:10}
+ .metro .tr:hover .pill,.metro .tr:focus .pill{stroke-width:2.6}
+ .metro .pill{fill:var(--paper);stroke-width:1.6}
+ .metro .pt{font:700 11px var(--mono);fill:var(--ink)}
+-.metro .verb{font:italic 12.5px var(--serif);fill:var(--soft)}
++.metro .verb{font:italic 13.5px var(--serif);fill:color-mix(in srgb,var(--soft) 55%,var(--ink))}
++.metro .end{fill:var(--paper);stroke:var(--alt);stroke-width:2}
++.metro .code{font:12px var(--mono);font-style:normal}
+ .metro.playing .tr:not(.on),.metro.playing .st:not(.on){opacity:.22;transition:opacity .3s}
+ .metro .tok{fill:var(--p1)}
+ .metro-list{display:none}
