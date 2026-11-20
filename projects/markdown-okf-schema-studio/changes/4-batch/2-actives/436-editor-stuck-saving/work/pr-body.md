@@ -49,12 +49,12 @@ Grade: **1**. Local to the block editor's save path and one optional message fie
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): page, unit and host tests for CRLF, LF and mixed sources, plus a real VS Code window scenario that leaves CRLF and LF files unchanged in five ways and checks the bytes on disk
-- [ ] Requirements: SwRS-MDOKFSTUDIO-BLOCK-263 added, markers in code and tests, `just requirements-update`
-- [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates:
-- [ ] Review
-- [ ] CI green
+- [x] New or changed tests (they fail on the previous code) at `9091f92`: page, unit and host tests for CRLF, LF and mixed sources, plus a real VS Code window scenario that leaves CRLF and LF files unchanged in five ways and checks the bytes on disk
+- [x] Requirements at `9091f92`: SwRS-MDOKFSTUDIO-BLOCK-263 added, markers in code and tests, `just requirements-update`
+- [x] Changelog at `9091f92`: one user-facing line under `## Unreleased` in `CHANGELOG.md`
+- [x] Local gates at `9091f92`: `just check` pass; `just preflight` pass (on Windows its static stage, the visual, integration, report and gallery stages are left to CI)
+- [x] Review: approved at `9091f92`
+- [x] CI green at `9091f92`: checks, report, static, static-windows and visual pass; the heavy real VS Code jobs do not run on a pull request
 
 ## Autonomous decisions
 

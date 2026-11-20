@@ -1,0 +1,12 @@
+desktop BLOCK-003: map 1032x450 overlaps=0
+desktop FMSCHEMA-014: map 1032x631 overlaps=0
+desktop BLOCK-014: map 1032x1077 overlaps=0
+desktop MYST-006: map 1032x323 overlaps=0
+desktop REVIEW-012: map 1032x740 overlaps=0
+desktop MYST-009: map 1032x654 overlaps=0
+narrow BLOCK-003: map 752x477 overlaps=0
+narrow FMSCHEMA-014: map 752x650 overlaps=0
+narrow BLOCK-014: map 752x958 overlaps=0
+narrow MYST-006: map 752x350 overlaps=0
+narrow REVIEW-012: map 752x752 overlaps=0
+narrow MYST-009: map 752x654 overlaps=0
