@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Block editor stuck on 'Saving Markdown...' after repeated edit/exit",
+  "summary": "Bug on 1.10.0: after several edit/exit cycles, mostly on lists, the editor stays on 'Saving Markdown...'. Reproduction running.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9d7e519fcec8856cf78e72ed91efc45e217d2a683e01d23b70c16d3d629420ee",
+    "intake/request.md": "92fd6b595f5539e98e5646c643de540025277567c411c484bb1c5979500d093e"
+  },
+  "summarized": "2026-11-20T18:37:03Z"
+}

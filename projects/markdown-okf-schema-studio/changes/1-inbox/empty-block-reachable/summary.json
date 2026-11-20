@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Reach and delete an empty block added in the editor",
+  "summary": "An empty new block disappears from the page (blank lines not shown) and cannot be reached or deleted. Investigation running; solution to choose.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "035e688d1c9bc15166caad0c0dceef5fbaeb6ea2e49546fbff5b6954bc4a12e4",
+    "intake/request.md": "20d3587b6e2456e42bd0b3face43928b54a38e3873f1d90267255518c09662de"
+  },
+  "summarized": "2026-11-20T18:37:05Z"
+}
