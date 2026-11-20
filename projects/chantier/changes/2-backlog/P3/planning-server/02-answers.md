@@ -309,3 +309,16 @@ Approval of the writer's specification, asked by the Griller:
   autosync); A, B, F named none; D gave a search, not a list; E's "gates" collides with the fast
   and long gates; the parts table missed `forge-connectors` and `server-api`. A spec-writer run
   fixes them, with a docs map (file → parts).
+
+## 2026-11-20, the user: the writer's specification approved
+
+The Chief of Staff asked whether the writer pushes everything and nobody pushes the surface by
+hand any more (the autosync tool, the hand-commit procedure and its secret scan go; the surface's
+other files stay committed by hand, the writer pushing those commits; with no surface server, the
+CLI refuses every write to the surface).
+
+> Oui, j'approuve
+
+- `03-change-spec.md` (Part C) is approved. It stays in the backlog until Parts A
+  (`typed-journal-events`) and B (`plan-store-interface`) are specified; the three go to
+  `3-ready` on the user's word.
