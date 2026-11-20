@@ -6,7 +6,8 @@ waits" (E.1 to E.8, here "the reference"), and its `02-answers.md` (Q1 to Q30). 
 specified CRs, `1-inbox/typed-journal-events` (Part A) and `1-inbox/forge-connectors`: where their
 specifications or `02-answers.md` differ from the reference, they rank over it, and this text
 follows them (named in §2). The questions of this specification's first version are settled in
-this CR's own `02-answers.md` (2026-11-20, by the Chief of Staff), carried below as decisions.
+this CR's own `02-answers.md` (2026-11-20, by the Chief of Staff), and so are the spec critic's
+ten points (same file, "the spec critic's first pass"); all are carried below as decisions.
 
 No `issue:` line: the CR has no tracker issue.
 
@@ -35,15 +36,15 @@ through.
 
 Part D (`1-inbox/driver-leases`) may land before or after this CR: **whichever lands second**
 adds `--lease <n>` to `wait <cr> add` (by the Driver) and keeps it on `handback` with `--wait`,
-by Part D's rules (required on a Driver's commands, refused when not live), and joins the two
-AGENTS.md exception sentences (§8) into one.
+by Part D's rules (required on a Driver's commands, refused when not live). AGENTS.md's
+exception sentence is composed by §8's rule, whatever the order.
 
 | Decision (source) | Where |
 | --- | --- |
 | Q7: seven separate CRs; A and B first, then C, then D to G | §2 |
 | Q9: `wait` built and named in AGENTS.md as an exception to the measured-cost rule, citing the user's answer of 2026-11-20 ("tout") | §8 |
 | Q22: a fourth type `merge`; a backlog CR may carry a wait (the user's answer between two grills) | §3.1, §3.2, §4 |
-| Q23: GitLab approvals unproved; one read on a real GitLab MR on Free and on Premium before the GitLab half of `approval` ships | §5.3, §10.3 |
+| Q23: GitLab approvals unproved; one read on a real GitLab MR on Free and on Premium before the GitLab half of `approval` ships | §5.3, §11.4 |
 | Q24: forge monitoring through `forge-connectors`' interest registry and connectors; typed waits depend on it | §5 |
 | Part A: a published type is one `PUBLISHED` entry of `hub/schemas.py` (model, wake rule, text, duplicate key, example payload) plus `just journal-schemas`; unknown types are counted and wake no one; a refused event is skipped | §6 |
 | Part A §2 table: Part E publishes `wait-cleared@1`, written by the hub, wakes a watcher | §6 |
@@ -55,6 +56,16 @@ AGENTS.md exception sentences (§8) into one.
 | `02-answers.md`, answer 2: `plan-store-interface` joins `depends.json`; `planning-server` does not (its refusal applies through `check_publish` when it lands) | §2, §3.2 |
 | `02-answers.md`, answer 3: `order drop` to the inbox or backlog writes the CR's open waits to the folder's `waits.json` | §3.2 |
 | `02-answers.md`, answer 4: the free-text `blocked waits: <what>` reason stays; `--wait` adds typed waits beside any reason | §4.1 |
+| Critic 1: a GitLab approval is met only when at least one approval was given and none is left (`approvalsLeft == 0` with an approver); the proof states the expected answer per plan, a project with no approval rule included, so it can fail | §5.3, §11.3 |
+| Critic 2: a wait the forge can no longer see met (review null, a pipeline wait whose head moved past its sha, a merge wait whose PR closed): `wait` and `status` add "(the forge cannot tell: cleared by hand)" once a read answers so; no journal line | §4.4, §4.5, §5.4 |
+| Critic 3: at `order drop` the record's open waits stop counting; on a return to the held entry the record's list is kept, the file adds only the ids it lacks, the next id continues from the list | §3.2, §4.5, §5.1 |
+| Critic 4: AGENTS.md's exception sentence follows `explain-access` §6.3's rule (one item, recounted) | §8 |
+| Critic 5: `wait-cleared@1`'s model: `batch`, `wait_type`, `ref`, `seen_at` plain strings; only the `cr` and `wait` patterns (Part A, answer 1) | §6.1 |
+| Critic 6: `docs/forge-connectors.md` and `concepts.md`'s word **Interest** name the waits | §9, §10.1 |
+| Critic 7: the scenario's files are at the repository root (`scenario/`) | §10.1, §11.2 |
+| Critic 8: the backlog answer-wait rule goes once in `chief-of-staff.md`'s "Backlog and grill"; `griller.md` unchanged | §9 |
+| Critic 9: the `--wait` pointer on the Driver's common path is never dropped; the section's text is tightened under the 45,000-byte cap, with Part D's text | §9 |
+| Critic 10: with no GitLab Free and Premium account (the user's answer), the Driver ships with the Known gap and the steering session files an inbox item for the GitLab approval half, naming this CR | §5.3, §12.1 |
 | `02-answers.md`: the writer's choices accepted (`link` beside `ref`; a link in another repository recorded, not read, cleared by hand; `open_waits` on the board; no pane change) | §3.1, §4.2, §5.2, §7 |
 | Reference E.2: a wait changes no rule (`take`, `close`, `open`, the slots) | §4.5 |
 | Reference E.2: no pane change, so no screenshot owed | §7.3 |
@@ -112,10 +123,18 @@ A wait is one JSON object:
   record saves, kept when the join is refused. A malformed `waits.json` refuses the join (exit 2,
   `<cr>: waits.json is not valid: <what>; fix it or remove it, then open again`) and writes
   nothing.
+- **Back to its held entry** (critic 3): a CR that comes back into the batch under its number
+  (`commands/joining.py`'s `join_cr` on a held entry, `commands/came_back.py`'s reopen) keeps the
+  record's `waits` list as it is; the folder's `waits.json`, if any, adds only the waits whose ids
+  the list lacks, and is consumed as above; the next id continues from the list (the highest id
+  of the list and the file, plus one).
 - **Out of a batch** (`order drop` to the inbox or the backlog, `lifecycle/moveout.leave_batch`,
   where `formerly.json` is written): the CR's open waits are written to the folder's `waits.json`
   in the same move (`02-answers.md`, answer 3), through `repo.store` like the move itself; a CR
-  with no open wait gets no file.
+  with no open wait gets no file. The record's entry keeps its list, but its open waits **stop
+  counting** (critic 3): `wait`, `status` and the hub skip the waits of a CR the record holds
+  dropped or cancelled; the folder's `waits.json` is the one that counts while it is in the
+  backlog.
 
 ## 4. Commands
 
@@ -190,7 +209,8 @@ Read-only (no epoch, no lease):
   and `merge`: `w3 approval on <link> since HH:MM`), only open waits; an `approval` wait on a
   GitLab link while §5.3's proof is not recorded ends with ` (GitLab approval: cleared by hand
   until proved)`; a wait of another repository (§4.2) ends with ` (not in the batch's repository:
-  cleared by hand)`. `HH:MM` in UTC, as the record. `<sha7>` is the sha cut to `SHA_SHOWN` (7).
+  cleared by hand)`; a wait the forge can no longer see met (§5.4) ends with ` (the forge cannot
+  tell: cleared by hand)`. Waits of a CR the record holds dropped or cancelled are not shown. `HH:MM` in UTC, as the record. `<sha7>` is the sha cut to `SHA_SHOWN` (7).
 - `<cr> waits for nothing` when it has none open.
 - With no `<cr>`: one line per CR of the batch with an open wait (in the batch's CR order), then
   one per backlog CR with an open wait (folder path, in the stage order inbox, P1..P4, 3-ready);
@@ -200,15 +220,17 @@ Read-only (no epoch, no lease):
 
 - `status` (`commands/batch_status.py`, `_cr_row`): a CR row with open waits gains
   ` | waits: <type>[, <type>...]` (the rows' existing separator; the queued CRs' `| waits for
-  <deps>` is another thing and stays).
+  <deps>` is another thing and stays); a wait of §5.4 shows ` (the forge cannot tell: cleared by
+  hand)` after its type.
 - `status` prints each `wait-cleared@1` line of the batch whose wait is still open, as it prints
   the `merged` lines (§6.2).
 - `handoff` (`commands/facts.py`, `cr_facts`) prints, for a CR with open waits, the `wait <cr>`
   line of §4.4.
 - A wait changes no rule: `take` (with or without `--note`), `close`, `open`, the slots, the
   dependencies and `order` read the CR's status as today. `take` clears no wait; a CR taken back
-  with an open wait keeps showing it until it is cleared. A CR the record holds merged or
-  cancelled keeps its waits in the record and the hub no longer reads them (§5.2).
+  with an open wait keeps showing it until it is cleared. A CR the record holds merged, dropped
+  or cancelled keeps its waits in the record; they no longer count (§3.2) and the hub no longer
+  reads them (§5.1).
 
 ## 5. The hub's part
 
@@ -220,8 +242,8 @@ New module `skills/chantier/scripts/cli/src/chantier/hub/waits.py`, provider `wa
 
 - `collect(repo)`: when the batch in `4-batch/` is running (the `batch` provider's
   `running_batch` reading, an unreadable or absent record gives no interest): one `pr` interest
-  per open `approval`, `pipeline` or `merge` wait of a CR the record does not hold merged or
-  cancelled, whose `link` is claimed by a connector and is in the batch's repository (§5.2).
+  per open `approval`, `pipeline` or `merge` wait of a CR the record does not hold merged,
+  dropped or cancelled, whose `link` is claimed by a connector and is in the batch's repository (§5.2).
   `facts`: `{state, checks}`, plus `review` for `approval`. `by`: `<batch> <cr> <wait id>`. An
   `approval` wait on a GitLab link while §5.3's proof is not recorded gives no interest.
 - `judge(repo, interests, facts)`: for each interest whose link was read, met when:
@@ -258,23 +280,55 @@ answering `review: unproved` (forge-connectors §3.2), `collect` gives no intere
 `approval` wait, and `wait` shows it `(GitLab approval: cleared by hand until proved)`. GitLab
 `pipeline` and `merge` waits are read as on GitHub (their facts are those the hub already reads).
 
-The proof (before the GitLab half of `approval` ships): one real `glab api graphql` read of a
-merge request's approvals (`approved` of the MR, and `approvalsRequired`/`approvalsLeft` when the
-plan has them) on a **Free** project and on a **Premium** project, each recorded in the CR's
-evidence with the command, the project's plan, the MR's approval rule, and the answer's relevant
-fields. When both answer as expected, the Driver:
+**When a GitLab approval is met** (critic 1): at least one approval was given (the MR's
+`approvedBy` holds one user or more) **and** none is left (`approvalsLeft == 0`). Mapping, read
+only when `review` is asked: approvals given and `approvalsLeft == 0` → `approved`;
+`approvalsLeft > 0` → `required`; no approval given and none left (a project with no approval
+rule), or a field absent or null → `unknown`, never met.
 
-- adds the field to `gitlab_query` only when `review` is asked (with none asked, the query text
-  stays byte for byte today's), mapping `approved: true` → `approved`, `false` → `required`,
-  absent or null → `unknown`;
+The proof (before the GitLab half of `approval` ships): real `glab api graphql` reads of a merge
+request's `approvedBy`, `approvalsRequired` and `approvalsLeft`, each recorded in the CR's evidence
+with the command, the project's plan, its approval rule, the **expected** answer written before
+the read, and the answer's relevant fields. The cases and their expected answers:
+
+| Plan | Approval rule | MR state | Expected | Mapped |
+| --- | --- | --- | --- | --- |
+| Free | none | no approval given | `approvedBy` empty, `approvalsLeft` 0 | `unknown` |
+| Free | none | one approval given | `approvedBy` one user, `approvalsLeft` 0 | `approved` |
+| Premium | one approval required | none given | `approvedBy` empty, `approvalsLeft` 1 | `required` |
+| Premium | one approval required | one given | `approvedBy` one user, `approvalsLeft` 0 | `approved` |
+
+A read that answers otherwise fails the proof. When all answer as expected, the Driver:
+
+- adds the fields to `gitlab_query` only when `review` is asked (with none asked, the query text
+  stays byte for byte today's), with the mapping above;
 - removes the `unproved` gate in `collect` and the `(GitLab approval: ...)` suffix;
-- extends `scenario/fake_glab.py` and `tests/forge_world.py`'s GitLab answer with the field.
+- extends `scenario/fake_glab.py` and `tests/forge_world.py`'s GitLab answer with the fields.
 
 An answer other than expected on either plan: the GitLab half does not ship; the PR's Known gaps
 names it ("GitLab approval read not proved on <plan>: <what it answered>") and the unproved
 behaviour above stays. No fake forge stands for this proof. The proof needs a real GitLab
-account on both plans: if the Driver has none, it hands back `blocked question:` naming what it
-needs (it does not ship the GitLab half on a guess).
+account on both plans; the user has none (critic 10): the Driver ships the PR with the unproved
+behaviour and the Known gap ("GitLab approval read not proved: no GitLab Free and Premium
+account"), and the steering session files an inbox item for the GitLab approval half (the proof,
+then the read), naming this CR. It never ships the GitLab half on a guess.
+
+### 5.4 A wait the forge can no longer see met (critic 2)
+
+A read of a wait's link that answers one of these makes the wait **unseen**:
+
+- `approval`: `review` is `unknown` (GitHub `reviewDecision` null; GitLab's `unknown` of §5.3);
+- `pipeline`: the PR's `head` is no longer the wait's sha (the head moved past it);
+- `merge`: `state` is `closed` (the PR or MR closed without a merge).
+
+No journal line is written for it. The waits provider gives, beside its events, the keys of its
+unseen waits (`<cr> <wait id>`): `hub/waits.py` exposes `unseen(interests, facts) -> list[str]`,
+and the cycle (`hub/cycle.py`), after a successful read, stores them in the project's `hub` entry
+(`chantier/server.json`, beside `read_at`, `error` and `error_at`) as `waits_unseen`, replaced at
+each successful read (a wait seen again, or cleared, leaves it). This is part of the hub's "last
+reads" AGENTS.md already names. `wait` and `status` read that entry, as `status`'s `forge hub:`
+line does (`hub/lines.py`), and add ` (the forge cannot tell: cleared by hand)` to those waits
+while they are open. With no hub running, nothing is added.
 
 ## 6. The journal type `wait-cleared@1`
 
@@ -282,7 +336,7 @@ needs (it does not ship the GitLab half on a guess).
 
 | Field | Value |
 | --- | --- |
-| model | `batch` (string, `^batch-[0-9]+$`; the reference allows null for a backlog CR, which no writer emits since the hub reads no backlog wait (`02-answers.md`, answer 1): the model keeps `batch` nullable as the reference gives it), `cr` (`^CR-[0-9]+$`), `wait` (`^w[0-9]+$`), `wait_type` (`approval`, `pipeline` or `merge`), `ref` (string), `seen_at` (UTC time) |
+| model | `batch` (string), `cr` (`^CR-[0-9]+$`), `wait` (`^w[0-9]+$`), `wait_type` (string: `approval`, `pipeline` or `merge` by the writer), `ref` (string), `seen_at` (string, a UTC time by the writer): plain strings but the `cr` and `wait` patterns (Part A, answer 1). `batch` is never null: the hub reads no backlog wait (`02-answers.md`, answer 1) |
 | writer | the hub (`hub/waits.py`, through `journal.append(repo, events, "hub")`) |
 | wakes a watcher | yes |
 | text (`event_text`) | `forge saw <wait_type> met: <cr> <wait> (<ref, a sha cut to 7>); for the steering session: wait <cr> clear <wait> --epoch <n>, then take it back` (`<n>` printed as is: the steering session fills its own epoch) |
@@ -326,11 +380,20 @@ stays "waits for the user" for a blocked CR): no pane change, so no screenshot o
 
 ## 8. AGENTS.md (chantier's own)
 
-1. "The CLI's scope": after "a new CLI tool comes from measured token-costly behaviour, never
-   from speculation", name `wait` as an exception: built on the user's answer of 2026-11-20
-   ("tout", planning-server-Q9), a CR's typed waits (answer, approval, pipeline, merge). When
-   Part D has landed with its `lease` sentence, `wait` joins that sentence (one list of the named
-   exceptions, each citing the same answer).
+1. "The CLI's scope", the named exceptions to "a new CLI tool comes from measured token-costly
+   behaviour, never from speculation", by `explain-access` §6.3's rule (critic 4), which composes
+   with `planning-server`, `driver-leases`, `explain-access` and `outside-poller`, whatever their
+   order:
+   - this CR adds **one item**, `wait`, in the same form and place as the other named items stand
+     at this CR's rebased head: "`wait`: a CR's typed waits (answer, approval, pipeline, merge),
+     recorded, cleared and shown, the hub signalling a wait met; built on the user's answer of
+     2026-11-20 ("tout", planning-server-Q9), with no measured cost";
+   - when the sentence states a count ("Two named exceptions.", "Three ...") or orders its items
+     ("First", "Second", ...), the count becomes the number of items the text names once `wait`
+     is in, counted again at the rebased head, never incremented from a remembered number; `wait`
+     takes the next ordinal. Today "Two named exceptions." follows "never from speculation"
+     directly: the Driver keeps the sentence whole and reads where the item list really sits
+     before it counts.
 2. The hub's sentence: "it appends to that project's `forge-journal.jsonl` (...) one line per
    merge the record does not hold and per CI turning red on a PR ready to merge" adds "and per
    wait of a running batch's CR that the forge shows met (`wait-cleared@1`)", "and nothing else"
@@ -356,18 +419,20 @@ sentence there these cards make false, then both together, bodies identical).
     "a wait of a known type: `--wait`, see Means: hand-backs out of the ordinary". The 45,000-byte
     cap (`CR_DRIVER_COMMON_PATH_LIMIT` in `test_startup_manifest.py`) does not rise (driver-leases
     spec answer 2): the bytes are paid by tightening that section's existing text, dropping no
-    rule. If Part D landed first and the room is gone, the pointer is dropped and the whole text
-    stays off the common path.
+    rule, with Part D's text counted too if it landed first. The pointer is never dropped
+    (critic 9): the section is tightened until it fits.
 - `skills/chantier/references/foreman.md` and `skills/chantier/references/chief-of-staff.md`:
   clear a wait (`wait <cr> clear <id> --epoch <n>`) on the user's answer or on a `wait-cleared@1`
   line, then take the CR back as today (`take <cr> --note "..."`). `status`'s `| waits:` and the
   `wait` command are how they see what a blocked CR waits for.
-- `skills/chantier/references/chief-of-staff.md` and `skills/chantier/references/griller.md`: a
+- `skills/chantier/references/chief-of-staff.md`, "Backlog and grill", once (critic 8): a
   backlog CR left waiting for the user's answer between two grills gets `wait <folder> add answer
   --ref "<the question>" --note "<why>"`, cleared (`wait <folder> clear <id>`) when the answer is
-  recorded in `02-answers.md`.
+  recorded in `02-answers.md`. `griller.md` does not change.
 - `skills/chantier/references/concepts.md`, "Words": the word **wait** (the four types, where a
-  wait lives, that it changes no rule, never "gate").
+  wait lives, that it changes no rule, never "gate"); the word **Interest** (forge-connectors'
+  entry) adds that a running batch's open approval, pipeline and merge waits are interests too
+  (critic 6).
 
 ## 10. Docs, diagrams and other text made false
 
@@ -384,7 +449,11 @@ sentence there these cards make false, then both together, bodies identical).
   - the `validate` paragraph adds the shape of a backlog CR's `waits.json`;
   - "The event journal": the `wait-cleared@1` row of Part A's types table (writer the hub, wakes a
     watcher).
-- `skills/chantier/scripts/cli/scenario/README.md`: the new case's coverage bullet (§11.2).
+- `docs/forge-connectors.md` (forge-connectors' new page) (critic 6): the interest registry and
+  the hub's budget now include the running batch's open approval, pipeline and merge waits, in the
+  same query; the `waits` provider beside `batch`.
+- `scenario/README.md` (at the repository root) (critic 7): the new case's coverage bullet
+  (§11.2).
 - `docs/hosts.md`: if forge-connectors has put the `review` fact in its connector rows, the GitLab
   cell changes when §5.3's proof ships (and only then).
 
@@ -424,7 +493,11 @@ sentence there these cards make false, then both together, bodies identical).
     backlog `wait add` and `wait clear` and nothing is written; once Part C has landed at the
     Driver's base, the same case runs in external mode with no writer and checks the C.8 text;
   - `order drop` to the inbox and to the backlog writes the open waits to `waits.json`, and a CR
-    with none gets no file;
+    with none gets no file; the dropped CR's waits no longer show in `wait` and `status`; a
+    return to the held entry keeps the record's list, adds only the file's missing ids, and the
+    next `wait add` continues the numbering;
+  - a `waits_unseen` key in the hub's entry adds `(the forge cannot tell: cleared by hand)` in
+    `wait` and `status`;
   - `status` shows `| waits: <types>` and a still-open `wait-cleared@1` line, not a cleared one;
     `handoff` prints the wait line; `take` of a CR with an open wait behaves as today (a wait
     changes no rule).
@@ -436,7 +509,9 @@ sentence there these cards make false, then both together, bodies identical).
   head, and `review` `unknown` give none; on GitLab a green pipeline and a merge each give one
   line, an approval gives none and no `review` is asked (unproved); a wait link of another
   repository is not read and the project's read does not refuse; the waits add no query (one
-  `connectors.read` per project and cycle, counted).
+  `connectors.read` per project and cycle, counted); `review` `unknown`, a moved head and a
+  closed PR put the wait in the entry's `waits_unseen` with no journal line, and a wait seen
+  again leaves it; a dropped CR's wait gives no interest.
 - Part A's `test_event_types.py` covers `wait-cleared@1` from `PUBLISHED` (no change to the test).
 - `tests/test_board*.py`: `open_waits` on a batch row and a backlog item; the existing `waits`
   field unchanged.
@@ -445,7 +520,7 @@ sentence there these cards make false, then both together, bodies identical).
 - Budget: `just test` stays within AGENTS.md's limit (at most 30 s above 18.5 s); this CR's tests
   add about 2 s on the user's Windows machine, measured and stated in the PR.
 
-### 11.2 Scenario (`skills/chantier/scripts/cli/scenario/run_scenario.py`)
+### 11.2 Scenario (`scenario/run_scenario.py`, at the repository root)
 
 - A case `typed_waits` in a GitHub unit other than `gates` (the long gate's unit). The reference
   lets the Driver pick the closest; recommended: `surface-board` (500 s), beside `forge_hub`, whose
@@ -474,15 +549,18 @@ sentence there these cards make false, then both together, bodies identical).
 | any | GitHub | `pipeline` wait, its head green | one line |
 | any | GitHub | `merge` wait, merged | one line |
 | any | GitLab | `approval` wait, proof not recorded | not read; `(GitLab approval: cleared by hand until proved)` |
-| any | GitLab | `approval` wait, proof recorded on Free and Premium | read; one line on `approved: true` |
+| any | GitLab | `approval` wait, proof recorded on Free and Premium | read; one line when an approval was given and `approvalsLeft == 0` |
+| any | GitLab | `approval` wait, proof recorded, no approval rule and no approval given | `unknown`, never met; "(the forge cannot tell: cleared by hand)" |
+| any | any | `pipeline` wait whose head moved, `merge` wait whose PR closed, review null | no line; "(the forge cannot tell: cleared by hand)" |
 | any | GitLab | `pipeline` and `merge` waits | as on GitHub |
 | any | another repository's link | any forge type | recorded, not read, "cleared by hand" |
 | any | no connector claims the link | `wait add` | exit 2, `UNCLAIMED` |
 
 ### 11.4 Real reads
 
-- The GitLab approval proof of §5.3 (Free and Premium), in the CR's evidence before the GitLab
-  half ships.
+- The GitLab approval proof of §5.3 (its four cases, expected answers written first), in the CR's
+  evidence before the GitLab half ships; with no account (the user's case), the Known gap and the
+  inbox item of §5.3.
 - No other real read: GitHub's `reviewDecision` proof is forge-connectors' (its §3.2).
 
 ## 12. Rollout and out of scope
@@ -495,7 +573,8 @@ sentence there these cards make false, then both together, bodies identical).
   older chantier reports it as an unknown file: the Driver checks and names it in the PR).
 - An older watcher reading `wait-cleared@1` counts it and wakes no one (Part A's unknown types).
 - The GitLab half of `approval` ships in the same PR only when its proof is recorded; else it
-  stays a Known gap, and a later PR turns it on.
+  stays a Known gap, and the steering session files the inbox item that turns it on later
+  (§5.3).
 
 ### 12.2 Out of scope
 
