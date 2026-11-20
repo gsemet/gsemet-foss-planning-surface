@@ -237,3 +237,8 @@ specifications to start from.
 - Events on issues: polled from outside (an external poller), not by chantier's hub.
 - A plugin system, to add connectors easily.
 - Where it lands (typed waits, the hub, or a CR of its own) is the next question.
+
+planning-server-Q24, where forge monitoring goes (polling with a registry of who is interested,
+issues read by an outside poller, a plugin system for connectors): "Un CR à part". A new inbox
+item, `forge-connectors`: a connector interface as plugins, the interest registry, and an entry
+for an outside poller that writes into the journal. Typed waits depend on it.
