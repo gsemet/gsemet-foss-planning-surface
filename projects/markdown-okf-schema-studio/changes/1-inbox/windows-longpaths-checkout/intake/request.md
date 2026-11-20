@@ -1,0 +1,3 @@
+# Windows long paths block base checkouts: set core.longpaths in setup
+
+From the batch-06 retro (2026-11-20): 'Filename too long' blocked a base checkout or worktree five times (CR-348, CR-350, CR-427, CR-431, CR-432), so fail-before claims went into PR bodies as UNVERIFIED. Set core.longpaths (or a shorter worktree root) in the project's AGENTS.md setup and local-worktree guideline, so a Verifier can always check out the base on Windows.

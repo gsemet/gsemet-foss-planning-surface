@@ -1,0 +1,3 @@
+# Flaky real-window paste-url and drop-files tests
+
+From the batch-06 retro (2026-11-20): the paste-url real-window test went red twice (CR-350 dispatch 44647675614, CR-424 heavy run) and has no open item; the drop-files case is in the same family. File them as flakes, find the cause, and add both to the default stress scenarios (just ci-stress). Already filed separately: flaky-realinput-t45, flaky-previewmanager-162, the checkbox-toggle timeout.
