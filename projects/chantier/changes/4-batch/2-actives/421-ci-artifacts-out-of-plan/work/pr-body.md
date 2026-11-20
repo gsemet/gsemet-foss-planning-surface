@@ -41,10 +41,10 @@ No visual change. Planning folders ignore downloaded artifacts; a too-long path 
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: 
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `b4d7117`: `just check` pass (1428 passed, 14 skipped), `just eval-dry-run` 18 of 18 cases as expected
 - [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
+- [x] Review: approved at `4ed0d56` base round (round 1, commit `bfb5aec`); one comma fix after, `b4d7117`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
