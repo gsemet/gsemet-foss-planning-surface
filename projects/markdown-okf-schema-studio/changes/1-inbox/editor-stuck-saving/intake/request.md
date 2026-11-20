@@ -1,0 +1,3 @@
+# Block editor stuck on 'Saving Markdown...' after repeated edit/exit
+
+Owner, 2026-11-20, testing 1.10.0: "parfois apres plusieurs edition sortie edition sortie, surtout sur des listes, ca se bloque sur cet etat. il faut que tu tests aggressivement pour reproduire." The screenshot shows a block editor (paragraph in the 'Batch modes' section) stuck with 'Saving Markdown...' under the source text, Done and Cancel buttons still shown.
