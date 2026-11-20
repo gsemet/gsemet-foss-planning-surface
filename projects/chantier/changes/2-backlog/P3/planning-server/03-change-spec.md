@@ -13,11 +13,16 @@ The plan lives outside the project, in a planning surface, as Markdown and JSON 
 browse on the forge (GitHub or GitLab). Putting the plan in the project "hits its limits very
 fast"; the external surface is the answer, even if heavier. This CR gives it:
 
-- **One writer.** One process commits, rebases and pushes the surface: the surface server that a
-  Chief of Staff starts and guarantees, or that the user starts by hand and guarantees. Every
-  change reaches the forge within 5 minutes. The surface's own autosync tool is no longer needed.
-  A conflict between two clones that did not sync is raised to the Chief of Staff, who resolves it
-  to its best guess or asks the user.
+- **One writer per surface, chantier's equivalent of Vercel Board.** The writer is the one that
+  keeps the surface's state and exposes the server (the user, 2026-11-20): the surface server
+  (`chantier board`), which a Chief of Staff starts and guarantees, or that the user starts by hand
+  and guarantees. It commits, rebases and pushes the surface: every change reaches the forge within
+  5 minutes. The surface's own autosync tool is no longer needed. A conflict between two clones
+  that did not sync is raised to the Chief of Staff, who resolves it to its best guess or asks the
+  user.
+- **The writer pushes everything.** It pushes every local commit of the surface's branch, the
+  hand commits of the surface's other files included; nobody pulls or pushes the surface by hand
+  while a writer runs (Q26).
 - **No writer, no write.** While no surface server runs, the CLI refuses every write to the
   surface, with no fallback. A Griller alone records nothing.
 
@@ -46,6 +51,9 @@ Pending items this CR composes with (named so they align; neither is edited by t
   alignment.
 - `2-backlog/P2/one-read-interface-over-the-planning-fol`: the read half of Part B's `store`; it
   reads the `writer` entry through whatever it adds, if it lands after this CR.
+- `1-inbox/server-api` (Q29): the server's API over a WebSocket, HTTP as the degraded case, the web
+  UI one client among others. It comes after this CR; until then the writer keeps the board's
+  current HTTP API (C.13).
 
 ## 3. Decisions carried from `02-answers.md`
 
@@ -71,6 +79,12 @@ Pending items this CR composes with (named so they align; neither is edited by t
 | Q15: a board the user starts by hand (no seat) runs the writer too; the user guarantees it (11-20) | §C.1 |
 | Q17: the surface's other files (`AGENTS.md`, `scripts/`, `justfile`) stay committed by hand, like code; the writer touches only the plan (`projects/` and the root `chantier.yaml`) (11-20) | §4 words, §C.5 steps 3-4 |
 | Q18: files staged by hand for two cycles: the writer blocks (`staged`) and tells the Chief of Staff to commit or unstage them (11-20) | §C.6 `staged` |
+| Q25: a failed git step (a refusing hook, an IDE's `index.lock`, a stash) is retried at every cycle; `sync-blocked@1` only when the same failure comes back on two cycles in a row, as `staged`; the episode ends at the first cycle that completes its git steps (11-20) | §C.4 `failure`, §C.5 "Failed git steps", §C.6 `git-error`, §6 |
+| Q26, option A: the writer pushes every local commit of the branch, hand commits of the surface's other files included; nobody pulls or pushes the surface by hand while a writer runs; the cards and docs say so; P13 warns on a surface rule that names a hand push, as for the autosync mention (11-20) | §1, §4 words, §C.5 steps 5-7, §C.7, §C.10 P13, §C.11, §6, §8 |
+| Q27: an older board with no writer still serving: the refusal and the `writer: not running` line name its version, PID and stop command; the Chief of Staff asks the user to stop it (11-20) | §C.8, §C.10 `off`, §C.11 `chief-of-staff.md`, §6, §8 |
+| Q28: the writer off during a batch: the Foreman sends one `writer off` ask per episode and holds its takes until the `writer:` line comes back (11-20) | §C.11 `foreman.md` |
+| One writer for the surface; the writer keeps the state and exposes the server: chantier's equivalent of Vercel Board (11-20) | §1, §4 words |
+| Q29: the API/UI split (a WebSocket API, HTTP degraded behind a proxy, the web UI one client among others, native apps) is a CR of its own, `1-inbox/server-api`, after this one; until then the writer keeps the board's current HTTP API (11-20) | §2, §C.13, §9 |
 | Spec critic: yes (11-20) | run by the Chief of Staff |
 
 The other decisions (Beads, hash IDs, heartbeat and leases, gates, outside contributions, the five
@@ -84,15 +98,20 @@ rebases and pushes.
 
 ## 4. Words
 
-- **Writer:** the thread of the surface server (`chantier board`) that commits, rebases and pushes
-  the planning surface. It exists only in external mode.
+- **Writer:** the surface's one writer: the surface server (`chantier board`), which keeps the
+  surface's state and exposes the server, and whose thread commits, rebases and pushes the planning
+  surface. Chantier's equivalent of Vercel Board. It exists only in external mode.
 - **Published path:** a path of the surface's working tree that git does not ignore, under
   `projects/` or the surface root's `chantier.yaml` / `chantier.yml`, and not under a path a
   project's `checkout.yml` names (C.5 step 3). A path the planning folder's `.gitignore` lists
   (`core/files.py`, `IGNORED`) is local, never published.
 - **The surface's other files:** every other path of the surface (its `AGENTS.md`, `scripts/`,
   `justfile`, `.agents/`, ...). The writer never stages, commits or reverts them; they are
-  committed by hand, like code (Q17).
+  committed by hand, like code (Q17), and the writer pushes those hand commits with its own: it
+  pushes every local commit of the branch (Q26).
+- **Hand pull or push:** a `git pull`, a `git fetch` followed by an integrate, or a `git push` run
+  on the surface's checkout by a person or a session. None while a writer runs (Q26), but the Chief
+  of Staff's resolution of a conflict (C.7), while the writer runs no git write.
 - **Published write:** a CLI write that creates, changes, moves or deletes a published path.
 - **Nested repository:** a folder under the writer's paths that holds a `.git` (folder or file),
   or a gitlink (mode 160000) in the index.
@@ -160,6 +179,9 @@ the `hub/state.py` docstring names it. Fields:
   null.
 - `last_commit`: `{sha, at}` or null; `last_push`: `{sha, at}` or null; `last_fetch`: time or null.
 - `conflict`: while `state` is `conflict`, `{upstream, local, files}`, else null.
+- `failure`: the last failed git step not yet followed by a cycle that completed its git steps,
+  `{step, text, cycles}` (the cycle's step number, git's message cut as `text`, the count of cycles
+  in a row it came back), else null (Q25, C.5 "Failed git steps").
 
 `syncing` is set when a cycle reaches its first git write or network call (step 4's commit, or
 step 5's fetch when there is nothing to commit) and kept through step 7; step 8's state, or the
@@ -216,11 +238,15 @@ One cycle, in order; each step's failure goes to the state named, and ends the c
    input, so the commit holds only the writer's paths even when someone else staged another file
    (the `staged` rule, C.6, blocks only at the second cycle). It runs with the user's own git
    identity and hooks, never `--no-verify` (Q13): a hook that refuses (a secret scan the user put
-   in `pre-commit`) is a `git-error` block whose `text` is the hook's message. The message: first
+   in `pre-commit`) is a failed git step (below, Q25) whose `text` is the hook's message. The
+   message: first
    line `chantier: <projects, comma-separated>: <n> files`, then a blank line and the paths, at
    most 20, then `and <k> more`.
 5. **Fetch**, when `ahead` > 0, or `fetch_every` has passed since `last_fetch`: `git fetch <remote>
    <branch>` (the branch's upstream). A network failure (the rule below): state `offline`.
+   `ahead` counts every local commit of the branch not on its upstream, whoever made it: a hand
+   commit of the surface's other files with no plan change still makes the cycle fetch, integrate
+   and push (Q26).
 6. **Integrate**, when the upstream has commits `HEAD` lacks. Under the projects' lifecycle locks,
    first everything pending in the writer's paths is committed (step 4, whatever `quiet` says), so
    the plan holds no uncommitted change when it integrates and any conflict is a rebase conflict
@@ -228,11 +254,13 @@ One cycle, in order; each step's failure goes to the state named, and ends the c
    --autostash <upstream>`. On both paths the `--autostash` holds what the working tree has that
    the commit does not: the surface's other files edited by hand and not yet committed, and any
    plan file written between the commit and the integrate by a writer the CLI's locks do not hold
-   back (an agent writing a plan file with its own tool); a stash git cannot reapply is a
-   `git-error` block, git keeping the stash. A rebase that stops on a conflict: C.7.
-7. **Push**, when `ahead` > 0: `git push <remote> HEAD:<branch>`, never forced. Refused as not a
-   fast-forward: back to step 5, at most 3 times in the cycle, then the commits stay to push and
-   the next cycle tries again. A network failure: state `offline`. Done: `last_push`, `ahead` 0.
+   back (an agent writing a plan file with its own tool); a stash git cannot reapply is a failed
+   git step (below, Q25), git keeping the stash. A rebase that stops on a conflict: C.7.
+7. **Push**, when `ahead` > 0: `git push <remote> HEAD:<branch>`, never forced. It pushes every
+   local commit of the branch, the hand commits of the surface's other files included, rebased with
+   the writer's at step 6 (Q26). Refused as not a fast-forward: back to step 5, at most 3 times in
+   the cycle, then the commits stay to push and the next cycle tries again. A network failure:
+   state `offline`. Done: `last_push`, `ahead` 0.
 8. **State.** `synced` when nothing is pending and `ahead` is 0, else `pending`. When the oldest
    change not pushed (`pending_since` or `unpushed_since`) is older than `late`: `sync-late@1`
    once per episode (it ends when everything is pushed).
@@ -246,6 +274,23 @@ from a hook's refusal, are appended once the locks are let go. The time a hook t
 `pre-commit`, `commit-msg`, `post-rewrite`) runs under the locks and counts against the 30 s a
 CLI write waits on the lifecycle lock (`changes_lock` gives up after 30 s with its message): a
 hook slower than that makes the waiting CLI write fail as any lock timeout does today.
+
+**Failed git steps** (Q25). A git command of steps 3 to 7 that fails, other than a network
+failure (`offline`, below) and a rebase conflict (C.7), ends the cycle and is retried at every
+later cycle, from step 1, as any cycle runs:
+
+- The first time: `failure` gets `{step, text, cycles: 1}`; the state is step 8's (`pending`, the
+  changes or commits waiting); no journal line.
+- The same failure (same `step`, same `text`) at the next cycle: `cycles` 2, state `blocked`,
+  reason `git-error`, `text` git's message, one `sync-blocked@1`, as `staged` blocks at its second
+  cycle. Later cycles keep retrying and append nothing more.
+- A different failure at the next cycle starts over at `cycles: 1` (no line).
+- The episode ends at the first cycle that completes its git steps (reaches step 8 with no
+  failure): `failure` null; when the state was `blocked`, `sync-resumed@1` (`after: blocked`).
+
+So a passing IDE's `index.lock` or a hook that fails once is told to no one; a hook that keeps
+refusing, or a lock file a crash left, is told at the second cycle. (A stash git cannot reapply:
+§10, question 1.)
 
 `offline`: every later cycle retries steps 5 to 7; the first success appends `sync-resumed@1`
 (`after: offline`). Commits go on while offline. No line is appended for `offline` itself; only
@@ -275,7 +320,8 @@ but git's messages.
 
 ## C.6 Preconditions and blocked reasons
 
-Checked at each cycle's step 2, in this order:
+Checked at each cycle's step 2, in this order, but `git-error`, which steps 3 to 7 set (C.5,
+"Failed git steps"):
 
 | Reason | When | Way out (C.10) |
 | --- | --- | --- |
@@ -285,7 +331,7 @@ Checked at each cycle's step 2, in this order:
 | `nested-repo` | a nested repository under the writer's paths that no project's `checkout.yml` names (Q11); `text` gives its path | move it out of the surface, or, when it is the project's code clone or worktrees folder, name it in the project's `checkout.yml` |
 | `staged` | the index holds changes the writer did not stage, seen at two cycles in a row (Q18) | commit or unstage them by hand |
 | `foreign-autosync` | the surface's autosync tool still runs: `<git dir>/ai-autosync/control.json` enabled and a live leader in `watcher.json` (read by the existing `autosync/records.py` and `autosync/reading.py`, which stay for this check only) | stop the tool (`uv run scripts/ai-autosync-git.py stop .`) |
-| `git-error` | any other git command of a cycle failed (a hook, LFS, a lock file left by a crash, a stash git cannot reapply) | read `text`, repair, then `sync now` |
+| `git-error` | the same git command of a cycle failed at two cycles in a row (Q25: a hook, LFS, an `index.lock` held or left by a crash, a stash git cannot reapply); the writer retries it at every cycle | read `text`, repair; the next cycle that completes its git steps ends it (`sync now` runs one at once) |
 
 The `staged` rule waits one cycle so that a person staging and committing by hand within seconds
 (the surface's other files, Q17) is not blocked.
@@ -310,7 +356,9 @@ for Markdown, both sides' added text, in time order; for a `summary.json`, the s
 `summarized`; for the board's `next-batch.json` or a `chantier.yaml`, the user's) or, when it
 cannot tell, the user asked; `git add` each, `git rebase --continue`. It never skips a commit that
 holds a change, never force-pushes, never pushes by hand: the writer sees the integration (step 1)
-and pushes at its next cycle.
+and pushes at its next cycle, the hand commits the rebase carried included (Q26). This fetch and
+rebase is the one hand integrate while a writer runs, and only while it is in `conflict` (it runs
+no git write then).
 
 A Chief of Staff on another machine whose writer meets the same conflict resolves on its own
 machine the same way; the first push wins and the other integrates at its next fetch.
@@ -321,6 +369,12 @@ machine the same way; the first push wins and the other integrates at its next f
   `check_publish` refuses a published write while there is no live `writer` entry (state `off`).
   Exit 2 (precondition). Text, one line:
   `error: <command>: the surface's writer is not running: nothing written; for the Chief of Staff: start the surface server ($CHANTIER board --seat <session id>)`
+
+  When `server.json` holds a live `server` entry of another version than the reader's and no live
+  `writer` entry (an older board, from before this CR, still serving the surface), the text names
+  it (Q27), with the PID and stop command as `board/command.py`'s `_another_version` gives them
+  (`running.stop_command(pid)`):
+  `error: <command>: the surface's writer is not running: chantier board <version> (PID <pid>) serves this surface with no writer: nothing written; for the Chief of Staff: ask the user to stop it (<stop command>), then start the surface server ($CHANTIER board --seat <session id>)`
 - A writer in `pending`, `offline`, `blocked` or `conflict` is running: the write is done and the
   command's output adds one line: `writer: <state>: not pushed yet (<reason or ahead count>)`.
 - Local writes (Part B's list: `batch.json`, `events.jsonl`, STATUS files, locks, the journals,
@@ -365,12 +419,17 @@ The `writer:` line, by state (times `HH:MM` local, as `status` prints them):
 | `conflict` | `writer: conflict with the remote on <files, at most 3, then "and <k> more">: for the Chief of Staff: integrate by rebase in the surface's checkout, resolve each file to your best guess or ask the user; the writer pushes once integrated` |
 | `blocked` | `writer: blocked (<reason>): <text>; for the Chief of Staff: <way out of C.6>` |
 | `off` | `writer: not running: writes to the surface are refused; for the Chief of Staff: start the surface server ($CHANTIER board --seat <session id>)` |
+| `off`, an older board serving (C.8, Q27) | `writer: not running: chantier board <version> (PID <pid>) serves this surface with no writer; writes to the surface are refused; for the Chief of Staff: ask the user to stop it (<stop command>), then start the surface server ($CHANTIER board --seat <session id>)` |
 
 P13: `P13 ok   the surface's writer runs: <state line without "writer: ">` for `synced`, `pending`,
 `syncing`; `P13 warn <the writer: line>` for the others. When the surface's rules still name
 `.agents/guidelines/autosync.guidelines.md`, a second warn line: `P13 warn the surface's rules
 name its autosync tool: chantier's writer replaces it; remove the mention from the surface's
-AGENTS.md`.
+AGENTS.md`. When the surface's rules (its root `AGENTS.md`, as `$CHANTIER rules` reads it) name a
+hand pull or push, the text `git pull` or `git push` (the user's surface says today "commit, `git
+pull --rebase`, `git push`"), one more warn line (Q26): `P13 warn the surface's rules name a hand
+pull or push: chantier's writer pushes every commit of the surface while it runs, nobody pulls or
+pushes it by hand; remove it from the surface's AGENTS.md`.
 
 Journal types this CR publishes in Part A's `hub/schemas.py` and `hub/schemas.json`, each `@1`,
 source `writer` (a new source value of the version 2 line):
@@ -399,38 +458,52 @@ still in that state), so a resolved conflict leaves no line.
 Cards (`skills/chantier/references/`), each statement replaced where it is today:
 
 - `concepts.md`, "Planning surface": the autosync paragraph becomes the writer: the surface server
-  commits, rebases and pushes the surface's plan within 5 minutes; no session commits or pushes the
-  plan by hand; the surface's other files are committed by hand; writes refused with no writer; a
-  conflict goes to the Chief of Staff. "Planning folder": published versus local paths.
+  commits, rebases and pushes the surface's plan within 5 minutes; it is the surface's one writer,
+  the one that keeps its state and exposes the server; no session commits the plan by hand; the
+  surface's other files are committed by hand and pushed by the writer, which pushes every local
+  commit of the branch; nobody pulls or pushes the surface by hand while a writer runs (Q26);
+  writes refused with no writer; a conflict goes to the Chief of Staff. "Planning folder":
+  published versus local paths.
 - `chief-of-staff.md`, "With a planning surface": the hand-commit rule for the plan and the
-  autosync bullets go; in their place: never commit or push the plan by hand (the surface's other
-  files stay yours to commit, by hand); on a `writer:` line or a writer's journal line, act as C.10
-  says (conflict: C.7's resolution; blocked: the way out, else tell the user; offline or late: tell
-  the user once per episode); `sync now` when a step must reach the forge at once. The table's
+  autosync bullets go; in their place: never commit the plan by hand (the surface's other files
+  stay yours to commit, by hand); never pull or push the surface by hand while a writer runs, the
+  writer pushes your hand commits too (Q26), but C.7's resolution; on a `writer:` line or a
+  writer's journal line, act as C.10 says (conflict: C.7's resolution; blocked: the way out, else
+  tell the user; offline or late: tell the user once per episode; not running: start the surface
+  server, or, when the line names an older board, ask the user to stop it with the stop command it
+  gives, then start the server (Q27)); on a Foreman's `writer off` ask, the same; `sync now` when a
+  step must reach the forge at once. The table's
   "start autosync"/"stop autosync" row goes; "rescan" loses "without autosync, commit the planning
   folder by hand".
 - `session-start.md`: "The board" explains that the server is also the surface's writer, and that
   a no starts no server, so the session's writes to the surface are refused; "The surface's
   autosync" paragraph goes.
-- `griller.md`, "In a planning surface": no join, no commit, no push; read the `writer:` line of
+- `griller.md`, "In a planning surface": no join, no commit, no pull, no push; read the `writer:`
+  line of
   `$CHANTIER seat` at start; with `writer: not running`, record nothing (no file, no answer, no CLI
   write), say so to the user in one line, and wait for a Chief of Staff to start the server. "In a
   worktree": "you join no autosync" goes.
-- `foreman.md`: the autosync join bullet becomes: never commit or push the surface; on a `writer:`
-  line in `conflict` or `blocked`, `$CHANTIER asks "writer <state>: <reason>"` once per episode.
+- `foreman.md`: the autosync join bullet becomes: never commit, pull or push the surface; on a
+  `writer:` line in `conflict` or `blocked`, `$CHANTIER asks "writer <state>: <reason>"` once per
+  episode; on `writer: not running`, `$CHANTIER asks "writer off"` once per episode, and no `take`
+  until a `writer:` line in another state comes back (Q28), which ends the episode.
 - `routing.md` and `startup-manifest.json` only if a text they hold changes (the Driver checks).
 
 Docs: `docs/planning-modes.md` ("The planning surface", "What runs where", "Grillers", "The
-surface's autosync" becomes "The surface's writer", "With no agent" (a board started by hand runs
-the writer, the user guarantees it), "Two sessions on one surface", "Setting one up" (the code's
-clone and worktrees outside `projects/`, or named in `checkout.yml`)), `docs/web-board.md` (the
-pill), `docs/boards.md` if it names the autosync, `README.md` where it names the surface's sync.
+surface's autosync" becomes "The surface's writer" (one writer per surface, the one that keeps the
+state and exposes the server, chantier's equivalent of Vercel Board; it pushes every local commit
+of the branch, hand commits of the surface's other files included; nobody pulls or pushes the
+surface by hand while it runs), "With no agent" (a board started by hand runs the writer, the user
+guarantees it), "Two sessions on one surface", "Setting one up" (the code's clone and worktrees
+outside `projects/`, or named in `checkout.yml`)), `docs/web-board.md` (the pill),
+`docs/boards.md` if it names the autosync, `README.md` where it names the surface's sync.
 
 Project rules: `AGENTS.md` of chantier changes (the user's merge of the PR is their approval):
 
 - The write list ("chantier writes only in the planning folder ...") adds: the surface server's
   writer commits, rebases and pushes the planning surface's published paths (`projects/` and the
-  root `chantier.yaml`, never the surface's other files), and keeps `chantier/writer.lock` and
+  root `chantier.yaml`, never the surface's other files), rebases and pushes with them the local
+  commits of the surface's branch made by hand (Q26), and keeps `chantier/writer.lock` and
   `chantier/writer.wake` in the git folder.
 - The no-setup sentence "the CLI needs no network once uv's cache holds its packages, except the
   board's PRs page and the forge hub" adds the surface server's writer (its fetch and push).
@@ -457,8 +530,9 @@ Project rules: `AGENTS.md` of chantier changes (the user's merge of the PR is th
   `autosync/site.py`, `records.py`, `reading.py` for C.6's `foreign-autosync` only.
 - Removed from the scenario: `scenario/fake_autosync.py` and its cases.
 - The surface's own `AGENTS.md` and `.agents/guidelines/autosync.guidelines.md` belong to the
-  user's surface, not to chantier: the release notes say to remove the autosync rules and the
-  "commit by hand" rule for the plan there once the release runs, and P13 warns until then.
+  user's surface, not to chantier: the release notes say to remove the autosync rules, the
+  "commit by hand" rule for the plan and its hand `git pull --rebase` / `git push` there once the
+  release runs, and P13 warns until then (C.10).
 
 ## C.13 The board
 
@@ -472,6 +546,8 @@ Project rules: `AGENTS.md` of chantier changes (the user's merge of the PR is th
   /api/writer/sync` (behind the key, as the other write routes), which touches `writer.wake`; no
   Start, Stop or Approve.
 - `GET /api/board` carries `writer`: the `writer` entry as read, or `{"state": "off"}`.
+- These are routes of the board's current HTTP API (`board/routes.py`), which the writer keeps: the
+  API over a WebSocket and the UI out of the server are `1-inbox/server-api` (Q29).
 
 ## 5. Host and default matrix
 
@@ -512,8 +588,19 @@ origin, the writer's `poll(now)` driven with no sleep):
     cycle appends `sync-resumed@1` and pushes;
   - each blocked reason of C.6 (detached HEAD, no upstream, a `MERGE_HEAD`, a nested repository, a
     staged file seen twice, a fake `ai-autosync` group enabled with a live leader pid, a failing
-    `pre-commit` hook whose message lands in `text`): its state, reason and one `sync-blocked@1`
-    line;
+    `pre-commit` hook whose message lands in `text`, at its second cycle): its state, reason and
+    one `sync-blocked@1` line;
+  - failed git steps (Q25): a `pre-commit` hook that refuses: after the first cycle, state
+    `pending`, `failure.cycles` 1, no journal line, nothing committed; after the second, state
+    `blocked`, reason `git-error`, the hook's message in `text`, one `sync-blocked@1`; a third
+    cycle retries and appends nothing; the hook fixed, the next cycle commits and pushes,
+    `failure` null, one `sync-resumed@1` (`after: blocked`); a `.git/index.lock` present at one
+    cycle and gone at the next: no line, the change committed at the second cycle; two different
+    failures in a row: no line;
+  - hand commits (Q26): a commit of the surface's `AGENTS.md` made in the test's clone, with no
+    plan change: the next cycle fetches and pushes it (the origin's `main` holds it, `ahead` 0); a
+    hand commit H, then a plan change committed by the writer W, the origin moved meanwhile: H and
+    W both rebased and pushed, in that order;
   - offline (the origin's path renamed away, so the push fails with `Could not read from remote
     repository`): state `offline`, commits go on; past `late`, one `sync-late@1`; the origin back:
     pushed and `sync-resumed@1`; this case runs with the test process's `LANG=fr_FR.UTF-8` and
@@ -531,7 +618,12 @@ origin, the writer's `poll(now)` driven with no sleep):
   - a second `WriterLoop` on the same git folder does not get `writer.lock`;
   - a board started with no seat starts the writer as a seated one does.
 - `test_writer_lines.py`: every C.10 line, from a prepared `writer` entry per state (a case the
-  shipped files cannot hold), and the absence of any `writer:` line in project mode.
+  shipped files cannot hold), and the absence of any `writer:` line in project mode; the `off` line
+  with a prepared live `server` entry of another version (the test process's PID, version `0.0.1`)
+  and no `writer` entry names that version, PID and `running.stop_command`'s text (Q27).
+- P13's test (where `commands/preflight.py`'s P13 is tested today): the hand pull or push warn line
+  from a prepared surface `AGENTS.md` that names `git push` (a prepared text: the surface's rules
+  are the user's, not a file chantier ships), and no such line when it names neither (Q26).
 - `test_event_types.py` (Part A's): the four `sync-*@1` models and their entries in the shipped
   `hub/schemas.json`, read from the repository at the head under test.
 - `test_store_conformance.py` (Part B's): its `refuses-without-publisher` case now runs on
@@ -541,7 +633,8 @@ origin, the writer's `poll(now)` driven with no sleep):
 - `test_surface_writes.py` (new), parametrized over Part B's command table on a prepared external
   surface with no writer: each command exits 2 with C.8's refusal, and the planning folder's tree
   fingerprint (every path and its bytes) and `batch.json` are unchanged. The same table with a live
-  writer entry: each command succeeds. In-project, no command is refused.
+  writer entry: each command succeeds. In-project, no command is refused. One case with a live
+  `server` entry of another version and no writer: the refusal is C.8's older-board text (Q27).
 
 Scenario, unit `surface-board` (`scenario/run_scenario.py`, with `CHANTIER_WRITER_TEST_TIMES`
 shortened): the board started with `--seat` on the two-project surface prints its `writer:` line;
@@ -589,13 +682,17 @@ The project's gates:
 - The release notes say: the surface server now commits, rebases and pushes the surface's plan;
   stop the surface's autosync tool and remove its rules and the "commit by hand" rule for the plan
   from the surface's `AGENTS.md`; with no surface server running, chantier writes nothing to the
-  surface; the surface's other files stay committed by hand; the autosync tool's secret scan goes
+  surface; the surface's other files stay committed by hand, and the writer pushes those commits:
+  nobody pulls or pushes the surface by hand while a writer runs (Q26); the autosync tool's secret
+  scan goes
   with it: put a secret scan in the surface's pre-commit hook if wanted, the writer runs the
   user's hooks (Q13); keep the project's code clone and worktrees outside `projects/`, or name
   them in `checkout.yml` (Q11).
 - Mixed versions: a chantier of an earlier version reading the writer's version 2 journal lines
   counts them and wakes no one; a board of another version is already refused (the server's
-  election).
+  election). An older board still serving after the upgrade runs no writer: the CLI's refusal and
+  the `writer: not running` line name its version, PID and stop command, and the Chief of Staff
+  asks the user to stop it (C.8, Q27).
 
 ## 9. Out of scope
 
@@ -606,10 +703,23 @@ The project's gates:
   by hand (Q17).
 - A secret scanner in chantier: the user's pre-commit hook does it, if wanted (Q13).
 - Authentication beyond the board's key, and a team-wide guarantor role on several machines.
+- The API/UI split (Q29): the server's API over a WebSocket, HTTP as the degraded case behind a
+  proxy, the web UI taken out of the server as one client among others (other UIs, native Android
+  or iOS apps). Filed as `1-inbox/server-api`, after this CR; until then the writer keeps the
+  board's current HTTP API.
 
 ## 10. Open questions for the user
 
-None for this CR: every question of the earlier draft (§10, 1 to 11) and of the spec critic is
-answered in `02-answers.md` (planning-server-Q7 to Q23). The one point left open belongs to Part
-E's CR (`experiments/03-change-spec-all-parts.md`, E.7: does the hub read the forge for backlog
-CRs' waits?).
+Every question of the earlier draft (§10, 1 to 11) and of the spec critic's two passes is
+answered in `02-answers.md` (planning-server-Q7 to Q29). Open:
+
+1. Q25 and a stash git cannot reapply. Q25 names "a stash" among the failed git steps retried and
+   told at the second cycle in a row. But that failure does not come back: the rebase or
+   fast-forward has completed and git keeps the stash, so the next cycle completes its git steps,
+   the episode ends, and no one is told that the user's hand edits of the surface's other files
+   now sit in `git stash list`. As written (C.5), that case is told to no one. Should it be told at
+   once (one `sync-blocked@1`, reason `git-error`, the stash's name in `text`, at the first
+   cycle), unlike the failures that recur?
+
+The point left open in Part E's CR stays there (`experiments/03-change-spec-all-parts.md`, E.7:
+does the hub read the forge for backlog CRs' waits?).

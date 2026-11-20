@@ -242,3 +242,46 @@ planning-server-Q24, where forge monitoring goes (polling with a registry of who
 issues read by an outside poller, a plugin system for connectors): "Un CR à part". A new inbox
 item, `forge-connectors`: a connector interface as plugins, the interest registry, and an entry
 for an outside poller that writes into the journal. Typed waits depend on it.
+
+## 2026-11-20, the user: the spec critic's second pass (12 points, 8 fixed without the user, 4 questions)
+
+1. planning-server-Q25, a failed git step of the writer (a refusing hook, an IDE's `index.lock`,
+   a stash): "Réessayer, dire au 2e". It retries at every cycle and appends `sync-blocked@1` only
+   when the same failure comes back on two cycles in a row, as `staged`; the episode ends at the
+   first cycle that completes its git steps.
+2. planning-server-Q26, who pushes hand commits of the surface's other files: "il faut que tu me
+   donnes un exemple plus precis et illustre". Not answered yet: asked again with an illustrated
+   example.
+3. planning-server-Q27, an older board with no writer still serving after the upgrade: "Nommer le
+   vieux board". The refusal and the `writer: not running` line name the running board's version,
+   PID and stop command; the Chief of Staff asks the user to stop it.
+4. planning-server-Q28, the writer off during a batch: "Un ask, puis attendre". The Foreman sends
+   one `writer off` ask per episode and holds its takes until the `writer:` line comes back.
+5. planning-server-Q26, asked again with an illustrated example (a hand commit H of the surface's
+   `AGENTS.md`, then the writer's commit W on top, both pushed at once): "redefini moi tout. c est
+   quoi l ecrivain ?". Not answered yet: the Griller redefines the writer and its terms from the
+   start, then asks again.
+
+## 2026-11-20, the user: the writer is chantier's Board; the UI goes out of the server
+
+> oui il y a qu un seul ecrivain pour la surface. Et cette ecrivain est celui qui maintient l'etat
+> et expose le server. C'est donc bien l'equivalent de Vercel Board. Neamoins chantier board
+> expose aussi la UI et je pense que il faut le sortir pour que tout passe en websocket ou HTTP
+> (cas degradé derriere un proxy par exemple). Ca me permettra de faire plusieurs UI ou app
+> android ou ios native par exemple
+
+- One writer for the surface. The writer is the one that keeps the state and exposes the server:
+  chantier's equivalent of Vercel Board.
+- `chantier board` also serves the UI today; the UI should go out of it, so that everything goes
+  through a WebSocket, or HTTP as the degraded case (behind a proxy, for instance).
+- Goal: several UIs, or native Android or iOS apps.
+- Q26 (who pushes hand commits) is read as "one writer pushes everything" (option A), to confirm.
+
+planning-server-Q26, confirmed: "Oui, A". The writer pushes every local commit of the branch, hand
+commits of the surface's other files included; nobody pulls or pushes the surface by hand while a
+writer runs; the cards and docs say so; P13 warns on a surface rule that names a hand push.
+
+planning-server-Q29, where the API/UI split goes: "Un CR à part". A new inbox item, `server-api`:
+the server exposes an API over a WebSocket, with HTTP as the degraded case behind a proxy; the web
+UI becomes one client among others (other UIs, native Android or iOS apps). It comes after
+`planning-server`; until then the writer keeps the board's current HTTP API.

@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "The surface server's writer commits, rebases and pushes the planning surface (Part C of seven)",
-  "summary": "Part C of a seven-CR split: the surface server becomes the planning surface's one writer (commits the plan within 5 min, integrates by rebase, raises conflicts to the Chief of Staff, replaces autosync); writes refused with no writer. Needs parts A (typed events) and B (store interface).",
+  "summary": "Part C of seven: the surface server becomes the planning surface's one writer, chantier's Board: commits the plan within 5 min, rebases, pushes every local commit (hand ones too), retries failed git steps, raises conflicts; writes refused with no writer. Needs A and B.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "20982850231116dee8140a75d22e9eeae8ec76b31c141ea10cf01a486690d114",
-    "02-answers.md": "656d16c49d04abbbea69bfd3f59f4a9b4301fbc7d3c32a31432885a385160c76",
-    "03-change-spec.md": "9ef25ca5cb621b22b23d35e0910094de5038394612afd154ad7dfb429a4f0bd7",
+    "02-answers.md": "5a82a4636f73f7321cfc3769c93c78bf40d1f73793dce7c186976136b234db4b",
+    "03-change-spec.md": "ad764566a6b7bca6b1fb72ed325b12f7e3fc75438fafad24ce716d9fa791d1b2",
     "intake/request.md": "e2f7b66c139995aedb51ed86cd3260fec44c7cb6327697e3426e020804f4d989"
   },
-  "summarized": "2026-11-20T07:58:41Z"
+  "summarized": "2026-11-20T08:38:42Z"
 }
