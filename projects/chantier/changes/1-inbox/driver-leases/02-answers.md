@@ -53,3 +53,28 @@ Answers to the first specification's open questions:
    watch does not end with an expired lease.
 5. **Times in lease messages.** UTC, like the record.
 6. **`cancel` and `order drop`.** Both end a live lease.
+
+## 2026-11-20, the spec critic's first pass (9 points), settled by the Chief of Staff
+
+Two text fixes (8, 9) go to the writer without a question. The seven that touch behaviour:
+
+1. **A Driver waiting for its worker** runs no command and has no periodic wake, so it cannot
+   renew. An expired lease means "not confirmed", not "gone": the hub writes no
+   `lease-expired@1` for it; the steering session checks with the host before acting; a `take`
+   on an expired lease still needs `--reclaim`, which the steering session gives after that
+   check. The Driver renews at each wake (`--lease` on its next command). When
+   `2-backlog/P3/driver-wake` lands, the renewal moves to its wake.
+2. **The CI watch on the common path:** the common path's CI watch line gives the
+   `lease <cr> hold --lease <n> -- …` form, counted in the bytes the card frees.
+3. **A gate waiting in the queue:** a CR's gate waiting in `.long-gate.queue/`, its process
+   alive, keeps that CR's lease live; a gate run by the stack driver keeps the stack lease live.
+4. **`forge-stack` and `stack`:** `--lease` is required only on the stack driver's writing forms
+   (`stack <crs…>`, `--out-of-draft`/`--draft`, `forge-stack create|rebuild|unstack`); `show`
+   and the bare `stack` need none, so the steering session's reads are never refused.
+5. **The Release driver:** `--lease` is required on `release start|go|published`, as on
+   `round`.
+6. **A restart after a reported end:** `agents set <cr>|<O-k> -` ends the unit's live lease, as
+   `agents set stack -` does, so the Foreman's restart paths do not wait.
+7. **Copilot's `close`:** accepted (Q3, Q14: leases replace the 5-minute rule). `docs/hosts.md`
+   and row D of `chief-of-staff.md` say what is no longer seen (a Driver's leftover background
+   work after its hand-back) until `copilot-close-end-event` lands.

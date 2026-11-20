@@ -20,3 +20,18 @@ answers below settle the open questions of this CR's first specification.
 5. **A later part's `schemas.json` entry.** This CR adds a `just` recipe that writes the missing
    entries from `model_json_schema()` and never changes an existing one; the test checks the
    file.
+
+## 2026-11-20, the spec critic's first pass (7 points), settled by the Chief of Staff
+
+Five text fixes (3, 4, 5, 6, 7) go to the writer without a question. The two that touch
+behaviour:
+
+- **Critic 1, an event built from forge data that fails its schema:** the models accept what a
+  forge can return (null `merged_at` and `landed_at`; `head` of 40 or 64 hex characters, so a
+  sha256 repository works). A refused event from a hub or board read is skipped and named in the
+  hub entry's error or the page's error, and the other events are still written; the hub, the
+  watcher and the PRs page never die on it, and a backlog write keeps its file. A refused event
+  from a CLI command stays a code fault (`ValueError`).
+- **Critic 2, a line of a type this chantier does not know:** `status` says
+  `forge-journal.jsonl: line <n> is of type <t>, unknown to this chantier: update it`; a refused
+  payload stays `unreadable`.

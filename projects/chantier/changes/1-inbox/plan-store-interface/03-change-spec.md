@@ -7,8 +7,8 @@ This CR is Part B of the seven-part work the user split into seven CRs (planning
 user's decisions, Q1 to Q30), and its reference text is that CR's
 `experiments/03-change-spec-all-parts.md`, "Part B", §1 to §4 and §5 to §9 where they name Part B,
 with the storage study `experiments/plan-storage-comparison.md`. The two points that reference left
-open are settled in this CR's own `02-answers.md` (2026-11-20, by the Chief of Staff): the
-interface's byte and folder writes, and the project's configuration file. This file carries all of
+open, and the spec critic's nine points, are settled in this CR's own `02-answers.md`
+(2026-11-20, by the Chief of Staff). This file carries all of
 it; a Driver needs nothing else.
 
 ## 1. Goal, in the user's terms
@@ -70,6 +70,7 @@ Pending items this CR composes with (named so they align; none is edited by this
 | Q19: the conformance test runs on one real storage only for now; the interface stays; the test proves it the day a second backend is built; the dedicated branch becomes a CR of its own, later (11-20) | §5.3, §7 |
 | This CR's answer 1: the interface adds `write_bytes(rel, data)` and `make_folder(rel, exist_ok)`; a copy and an append are a read then a write; every published write goes through the store, so Part C can refuse it; no write stays outside (11-20) | §5.1, §5.4, §7 |
 | This CR's answer 2: the board's Configuration save goes through a named method, `write_config(data)`, published and checked by `check_publish`; the store's root stays the planning folder, and no path argument can leave it (11-20) | §5.1, §5.2, §5.4, §7 |
+| This CR's answers, the spec critic's first pass (critic 1 to 9): the `.gitignore` written through the store and never refused; the command table completed; plain paths for `SurfaceStore` and no import of `core.repo`; the spy's fingerprint at `check_publish`; `check_publish`'s `command`; the append and `restored.json` keep their bytes; `changes_lock` delegates, no call site moves; the store exposes `config_path`; rows from a cached template and the time measured (11-20) | §5.1, §5.2, §5.3, §5.4, §7 |
 | A coherent split: each part changes the docs and SVGs (with their `-texts.md`) its change makes false, in the same CR (11-20) | §8 |
 
 ## 4. Words
@@ -105,9 +106,10 @@ New package `skills/chantier/scripts/cli/src/chantier/store/`, with `__init__.py
 
 - `root: Path`: the planning folder (`repo.changes`). Every `rel` argument of every method is a
   path relative to it, and none can leave it: an absolute path, a drive, a NUL, or a path that
-  resolves outside `root` (`..`, a symlink out) is refused before anything is read or written, with
-  the text `core/repo.project_path` gives today (`path must be inside the planning folder: <rel>`,
-  exit 1). This is a guard against a code fault: the commands already check their paths.
+  resolves outside `root` (`..`, a symlink out) is refused before anything is read or written, exit
+  1, with the text `core/repo.project_path` gives today (`path must be inside the planning folder:
+  <rel>`). That text moves into `core/files.py` (or the store), and `project_path` reuses it, so
+  there is one text. This is a guard against a code fault: the commands already check their paths.
 - `features: frozenset[str]`: among `publishes`, `local-files`, `refuses-without-publisher`.
 - `read_text(rel) -> str`: as `core/files.read_text` (UTF-8, a byte-order mark read through).
 - `exists(rel) -> bool`.
@@ -124,16 +126,19 @@ New package `skills/chantier/scripts/cli/src/chantier/store/`, with `__init__.py
   false, refused when the folder exists, changing nothing (`new_request`'s exclusive
   `folder.mkdir()` today; its caller keeps its own refusal text, `CR folder already exists: ...`,
   exit 2, by catching the store's `FileExistsError` as it catches `mkdir`'s today).
-- A copy and an append are a read then a write (answer 1): the caller reads the source (a direct
-  read is allowed; the read half is the P2 item's) and writes through `write_bytes` or `write_text`.
-  A copy keeps the source's bytes exactly (read as bytes, written with `write_bytes`), as
-  `shutil.copyfile` does today.
-- `write_config(data: bytes)` (answer 2): writes the project's configuration file, atomically, the
+- A copy and an append are a read then a write (answer 1): the caller reads the source as bytes (a
+  direct read is allowed; the read half is the P2 item's) and writes through `write_bytes`. A copy
+  keeps the source's bytes exactly, as `shutil.copyfile` does today; an append keeps the file's
+  bytes and adds its line in the file's own line endings (critic 6).
+- `config_path: Path | None` and `write_config(data: bytes)` (answer 2; critic 8): `config_path`
+  is the project's configuration file the store writes, `write_config` writes it, atomically, the
   bytes as given. In external mode that file is `projects/<name>/chantier.yaml`, or
   `projects/<name>/chantier.yml` when that one exists and the `.yaml` does not, as
   `playbook/edit._target` picks it today: the two file names become a constant of the store, which
-  `playbook/config.FILES` reuses (playbook may import core; core may not import playbook). It takes
-  no path argument. The file is published. `FolderStore` has no project configuration file (in
+  `playbook/config.FILES` reuses (playbook may import core; core may not import playbook).
+  `playbook/edit._target` takes the path from `repo.store.config_path`, so the file is chosen once,
+  in the store; its "both present" refusal stays in `playbook/edit.py`. `write_config` takes no path
+  argument. The file is published. `FolderStore` has no project configuration file (in
   in-project mode the board's Configuration page is read-only): its `write_config` raises the
   board's read-only refusal, the text `playbook/edit.READ_ONLY` holds today, exit 2; the text moves
   into the store and `playbook/edit.py` imports it, unchanged. The board never reaches it: it refuses
@@ -145,23 +150,28 @@ New package `skills/chantier/scripts/cli/src/chantier/store/`, with `__init__.py
 - `lock()`: the context manager of the planning folder's lifecycle lock, today
   `lifecycle/stages.changes_lock`: the same file (`.lifecycle.lock`), the same OS lock
   (`core/files.try_lock`), the same 30 s wait, the same refusal (`CR lifecycle is locked for over
-  30 s`). `changes_lock(repo)` stays as a name its callers use and delegates to
-  `repo.store.lock()`, or its callers move to `repo.store.lock()`: the Driver judges which reads
-  better; there is one lock implementation.
+  30 s`). `lifecycle/stages.changes_lock(repo)` stays the name every caller uses and delegates to
+  `repo.store.lock()`; no call site moves (critic 7, which keeps Part A's and this CR's edits
+  apart). There is one lock implementation, in the store.
 - `published(rel) -> bool`: false when `rel` is matched by the `IGNORED` patterns (with the
   `.gitignore` meaning of each: a leading `/` anchors at the planning folder, a trailing `/` is a
   folder and everything under it, `**/` any depth, `*` within one name), true otherwise.
-- `check_publish(rels, *, config=False)`: raises a refusal (a `ChantierError`) when one of `rels`
-  is published, or `config` is true (the project's configuration file, always published), and the
-  store cannot publish now; returns otherwise. Part C's calls with a list only
-  (`check_publish(["3-ready/x/01-intent.md"])`) stay valid. In this CR no backend refuses: both return.
+- `check_publish(rels, *, config=False, command=None)`: raises a refusal (a `ChantierError`) when
+  one of `rels` is published, or `config` is true (the project's configuration file, always
+  published), and the store cannot publish now; returns otherwise. `command` is the name the
+  refusal will give (Part C's C.8 text starts `error: <command>: ...`): the CLI's dispatch passes
+  the command's name (as `file`, `order merged`) and each board route passes its own (critic 5);
+  the Driver picks the seam (the store set once per CLI call or route, or the keyword on each
+  call), as long as every refusal can name its command. Calls with a list only
+  (`check_publish(["3-ready/x/01-intent.md"])`, Part C's) stay valid. In this CR no backend refuses: both return.
   Part C gives `SurfaceStore` its refusal (exit 2, its C.8 text, which names the command).
 
 Shape constraints the code already enforces (`tests/test_code_targets.py`, CONTRIBUTING.md):
 
-- No import cycle, imports inside functions included. `Repo.store` lives in `core/repo.py`, so
-  `store/` sits in the `core/` layer: it imports only `core/` modules (`core/files.py`,
-  `core/errors.py`) and the standard library, never `lifecycle/`. This is why the lock's body moves
+- No import cycle, imports inside functions included (`test_code_targets.py` counts every
+  import). `Repo.store` lives in `core/repo.py`, so `store/` sits in the `core/` layer: it imports
+  only `core/files.py`, `core/errors.py` and the standard library, never `core/repo.py` (critic 3)
+  and never `lifecycle/` or `playbook/`. This is why the lock's body moves
   from `lifecycle/stages.py` into the store (or a `core/` module the store uses), and not the other
   way round.
 - The start-up imports only the standard library and chantier (`test_the_start_up_imports_only_the_standard_library_and_chantier`):
@@ -171,8 +181,11 @@ Shape constraints the code already enforces (`tests/test_code_targets.py`, CONTR
 ### 5.2 The backends
 
 - `folder.py`: `FolderStore(changes: Path)`: the in-project planning folder. Features:
-  `local-files`. Publishes nothing, never refuses. In-project mode is unchanged.
-- `surface.py`: `SurfaceStore(repo)`: the external planning folder (`projects/<name>/changes/`),
+  `local-files`. Publishes nothing, never refuses. Its `config_path` is None. In-project mode is
+  unchanged.
+- `surface.py`: `SurfaceStore(changes: Path, project: Path)` (plain paths, critic 3: the planning
+  folder and the project's folder `projects/<name>/`, never a `Repo`): the external planning folder
+  (`projects/<name>/changes/`),
   the same files on disk, and the project's configuration file beside it (`write_config`). Features: `publishes`, `local-files`. This is the "server" backend of the
   user's list (planning-server-Q3): Part C's writer publishes what it writes. In this CR its
   `check_publish` returns, as `FolderStore`'s does.
@@ -184,11 +197,20 @@ functions); the protocol is what the CLI sees.
 ### 5.3 `Repo.store`
 
 `Repo.store` (in `core/repo.py`): the store of the repository, chosen by `repo.external`:
-`SurfaceStore(repo)` when external, `FolderStore(repo.changes)` otherwise. One store per `Repo`
+`SurfaceStore(repo.changes, repo.project_folder)` when external, `FolderStore(repo.changes)`
+otherwise. One store per `Repo`
 (built once, kept on the object). `Repo.find(readonly=True)` (the board, `validate`) returns a
 `Repo` whose store writes nothing by itself: building the store creates no file and no folder.
 
 ### 5.4 Every published write goes through `repo.store`, checked first
+
+The planning folder's own `.gitignore` (critic 1, settled in this CR's `02-answers.md`): written
+through the store (`core/files.ensure_gitignore`'s write goes through `repo.store`, from each of its
+callers: `Repo.find` (`core/repo.py:125`), `changes_lock`, `Batch.__enter__` (`core/batch.py:101`)
+and `init`), and never refused, like a local file: it is never passed to `check_publish`. It is a
+published path all the same; Part C's writer commits it with the next change. Refusing every
+command after an upgrade would be a larger change, and a stale `.gitignore` could let the writer
+publish a local file.
 
 Every published write of the CLI goes through `repo.store`, and each command calls
 `repo.store.check_publish(<every published path it will touch>)` **before it changes anything**,
@@ -201,16 +223,18 @@ The commands and code sites, as the code is today (the reference's list, with wh
 | --- | --- | --- |
 | `file` | `commands/intake.file_cr` → `lifecycle/backlog.file_idea` → `lifecycle/filing.new_request` | the new `1-inbox/<slug>/` (`make_folder`, `exist_ok` false) and its `intake/request.md`, kept as received (`write_bytes`) |
 | `triage` | `lifecycle/backlog.move_item` → `lifecycle/stages.move_backlog_item` → `core/batch.move_directory` | the CR folder, source and target |
-| `abandon`, `restore` | `commands/intake.py` (`move_directory` to and from `6-trash/`; `restore`'s `_remember` → `lifecycle/moveout.remember_cr`) | the CR folder, source and target; `restored.json`; the line `formerly <CR> of <batch>` appended to the folder's `01-intent.md` (or `notes.md`): read, then `write_text` with the line added |
+| `abandon`, `restore` | `commands/intake.py` (`move_directory` to and from `6-trash/`; `restore`'s `_remember` → `lifecycle/moveout.remember_cr`) | the CR folder, source and target; `restored.json` (its bytes as `core/records.write_restored_number` makes them, written with `write_bytes`); the line `formerly <CR> of <batch>` appended to the folder's `01-intent.md` (or `notes.md`): the file's bytes read, the line added in the file's own line endings (CRLF when the file is mostly CRLF, as `lifecycle/backlog._with_endings` judges), written back with `write_bytes`; a missing file is created with the line alone |
 | `init` | `commands/intake.py` (the stage folders) | the stage folders it creates (`make_folder`, `exist_ok` true) |
 | `open` | `core/batch.py` (`Batch.move`), `core/batch_records.reserve_record` | the CRs' folders moved into `4-batch/1-pending/`; `5-archives/batches/batch-NN.json` |
-| `take`, `handback` | `core/batch.py` (`Batch.move`, `consume`), `lifecycle/stages.start_cr`, `done_cr` | the CR folder's moves; a consumed published file |
+| `take`, `handback` | `core/batch.py` (`Batch.move`, `consume`), `lifecycle/stages.start_cr`, `done_cr`; `take` creates the CR's `work/` (`commands/driver.py:146`, `make_folder`, `exist_ok` true) | the CR folder's moves; a consumed published file; `work/` |
+| `round` | `commands/driver.py:183` (the CR's `work/`, `make_folder`, `exist_ok` true) | `work/` |
+| any command that moves a CR and is then refused | `core/batch.Batch._rollback_moves` (`core/batch.py:206-215`): each move undone, through `move` | the moved folders, back to their source |
+| `order qa` | `commands/orders._qa_folder` (`commands/orders.py:97-111`) → `lifecycle/filing.new_request` | the new `1-inbox/qa-<stamp>/` (`make_folder`, `exist_ok` false) and its `intake/request.md` (`write_bytes`) |
 | `order` (each kind that moves or writes a CR's folder: `add`, `merged`, `drop`) | `commands/orders*.py`, `lifecycle/stages.done_cr` (`delivery.md` in external mode), `trash_cr`, `lifecycle/moveout.py` (`formerly.json`), `commands/crs.filed_fix` (a fix's `03-change-spec.md` copied into a new inbox folder) | the CR folders moved; `delivery.md`; `formerly.json`; the fix's new inbox folder and its `03-change-spec.md` (a copy: the source's bytes, `write_bytes`) |
 | `cancel` | `commands/release.py` and what it calls | the CR folders it moves |
 | `close` | `commands/close_archive.archive_and_delete`, `core/batch_records.write_close` and `undo_close` | each `3-done` CR renamed into `5-archives/`; `batch-NN.md` and `batch-NN.json`; the final pages written where the CRs are now; on a failure, the record's old bytes put back (`write_bytes`) or the record removed (`remove`) |
 | `summary set`, `summary label`, `summary group` | `summaries/store.write` (the CR's `summary.json`), through `commands/summary.py` and `summaries/edit.py` | each `summary.json` written |
-| `verdict` | when it writes in a CR's folder | what it writes there |
-| the release commands that write the archive | `commands/release.py` and what it calls | what they write in the planning folder |
+| `release` | `commands/release.release` (`commands/release.py:22`) → `rails_release.merge_done` → `lifecycle/stages.done_cr` | the CR folder moved to `4-batch/3-done/`; `delivery.md` (external mode) |
 | the board's backlog writes | `board/write_api.py` through `lifecycle/backlog.py` (`file_idea`, `move_item`, `edit_markdown`, `declare_next_batch`) and `summaries/edit.py` (labels, groups) | the inbox folder; the moves; the edited Markdown file, in its own line endings (`write_bytes`); `next-batch.json`; `summary.json` |
 | the board's Configuration save | `board/config_api._put` → `playbook/edit.edit_surface_file` | the project's configuration file, through `write_config`, after `check_publish([], config=True)` |
 
@@ -263,8 +287,10 @@ proves it.
     wait through the lock's named constant (monkeypatched), so `just test` stays in its budget;
   - `published` agrees with `IGNORED` for `seat.json`, `4-batch/batch.json`, `work/gates/x.log`
     (local) and `3-ready/x/01-intent.md`, `5-archives/batches/batch-01.json` (published);
-  - `check_publish` returns for published and local paths alike, and with `config=True` (no
-    backend refuses in this CR);
+  - `check_publish` returns for published and local paths alike, with `config=True` and with a
+    `command` (no backend refuses in this CR);
+  - `config_path`: on `surface`, the file `write_config` writes (`chantier.yaml`, or `chantier.yml`
+    when only that one exists); on `folder`, None;
   - `refuses-without-publisher`: declared by no backend here, so skipped on both; Part C runs it on
     `surface` (its §6: with no live writer `check_publish(["3-ready/x/01-intent.md"])` raises exit 2
     with its C.8 text, `check_publish(["4-batch/batch.json"])` returns; with a live writer, both
@@ -275,11 +301,16 @@ proves it.
   the tests call the CLI today) with a spy store on `repo.store` that records every call in order:
   `check_publish` is called with every published path the command then touches (and
   `config=True` for the Configuration save), before the first `write_text`, `write_json`,
-  `write_bytes`, `make_folder`, `write_config`, `move` or `remove`; and the command makes no
-  published write outside the store (every published path changed in the surface's tree, by its
-  fingerprint before and after, is one the spy recorded). Part C turns the same table into its refusal test,
-  `test_surface_writes.py`. The board's two rows are driven through their routes, as
-  `test_board.py` and `test_board_config.py` drive them today.
+  `write_bytes`, `make_folder`, `write_config`, `move` or `remove`. The spy takes a fingerprint of
+  the whole planning folder (every path and its bytes, local files included) when `check_publish`
+  is called, and the test compares it with the one taken before the command: equal, so nothing was
+  written before the check (critic 4). The command makes no published write outside the store
+  (every published path changed between before and after the command is one the spy recorded).
+  The `.gitignore` and the rollback row follow their own rules (§5.4). Part C turns the same table
+  into its refusal test, `test_surface_writes.py`. The board's rows are driven through their routes,
+  as `test_board.py` and `test_board_config.py` drive them today, each passing its `command`.
+  Each row builds its state from a cached template, as `tests/conftest.py`'s `surface_template`
+  does (built once per session, copied per test), never from a fresh `open` per row (critic 9).
 - The existing suite passes unchanged: no output, file or refusal moves (`tests/test_triage_moves.py`,
   `test_external_archive.py`, `test_opening_and_restore.py`, `test_board.py`, `test_board_config.py`,
   `test_batch_end.py`, `test_summary_lint.py`, ...). A test that patched `changes_lock` or
@@ -287,7 +318,8 @@ proves it.
 - No shipped file is guarded by a new check (the conformance test reads `IGNORED` from the code
   under test, not a copy).
 - The project's gates, AGENTS.md: `just check` (Linux, macOS, Windows); `just test` within its
-  budget (at most 30 s above 18.5 s); `just eval-dry-run` (a change under the CLI's `src/`); `just
+  budget (at most 30 s above 18.5 s), the PR stating the time `just test` adds, measured on the
+  same machine before and after the change (critic 9); `just eval-dry-run` (a change under the CLI's `src/`); `just
   scenario`, green on the pipeline's `just scenario (ubuntu-latest)` job before the PR (a change to
   the CLI), and locally on Windows (`chantier gate`) when this CR is the top of its batch's stack.
   No scenario step is added: the behaviour does not change. No CI job is added or changed.
