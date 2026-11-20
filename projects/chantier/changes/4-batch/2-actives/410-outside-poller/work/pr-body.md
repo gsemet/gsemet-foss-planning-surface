@@ -37,8 +37,7 @@ Grade: 1. New commands and one new journal type; the watcher's and the journal's
 
 ## Known gaps
 
-- The `just test` time budget of this change (2 s above the base) is not measured: no baseline was taken on an idle machine; the suite ran in 70 s at this head on a loaded Windows machine.
-- Not yet gated or verified at this head (see Test plan).
+- The `just test` time budget of this change (2 s above the base) is not measured: no baseline was taken on an idle machine.
 
 <details>
 <summary>Details</summary>
@@ -57,12 +56,12 @@ No visual change. Users who run an outside poller get a documented contract in `
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test_outside_poller.py`, additions to `test_watch_events.py` and `test_forge_hub.py`
+- [x] New or changed tests (they fail on the previous code): `test_outside_poller.py`, additions to `test_watch_events.py` and `test_forge_hub.py`
 - [x] Local gates at `2d07ac0`: `just check`, `just eval-dry-run`
-- [ ] Evidence: none beyond the tests and the scenario case
+- [x] Evidence: none beyond the tests and the scenario case
 - [x] Review: approved at `2d07ac0`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Verified at `2d07ac0`
+- [x] CI green at `2d07ac0`: `just check` (three systems), `just scenario`, `just eval-dry-run`
 
 ## Internal references
 

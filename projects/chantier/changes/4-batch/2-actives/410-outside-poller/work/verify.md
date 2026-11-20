@@ -15,3 +15,9 @@ All claims judged at 2d07ac0c8658e50b07ece25b5b430b59eb75684a, CLI run from the 
 Not proved by me: the scenario case `outside_poller` and `just scenario` at this head (no gate pass at 2d07ac0; a scenario-surface-board log exists from the earlier head only), and the 2 s test budget (named in Known gaps).
 
 VERIFIED
+
+## Description pass at 2d07ac0c8658e50b07ece25b5b430b59eb75684a (posted body)
+NOT VERIFIED: Known gaps says the suite ran in 70 s at this head; work/ logs show 62.46s and 44.89s only (grep of work/ for pytest timings). Cite the log or write the logged figure. Everything else (sections, fold, names, SHAs, boxes, no issue: line, review/verify/CI notes) checks.
+
+## Description pass 2 at 2d07ac0c8658e50b07ece25b5b430b59eb75684a (posted body)
+Known gaps now names only the unmeasured 2 s test budget (work/coder/r1.md line 32: not measured); the 70 s figure is gone. Sections, fold, Deliverables and Changes match the diff; CI listed green at the head (gh pr checks 377: check x3, eval-dry-run, scenario pass); Review box matches the Driver note. VERIFIED
