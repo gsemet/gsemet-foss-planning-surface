@@ -45,14 +45,14 @@ Grade: **1**. Test and repository configuration only; a `git revert` restores th
 
 ## Known gaps
 
-- The exploratory QA scenario `ux-35` was not re-run; its source file stays LF in git and the QA setup script converts it to CRLF when it prepares the workspace.
+- The exploratory QA scenario `ux-35` was not re-run; its source file stays LF in git and the QA setup script converts it to CRLF when it prepares the workspace. Follow-up: make `ux-35` use a real CRLF fixture (needs a `-text` rule in the QA skill and a change to `setup-workspace.sh`).
 - The save-ends (no stuck "Saving Markdown...") tests on CRLF are not part of this PR: they need the fix for that bug.
 
 <details><summary>Details</summary>
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): the guard and byte-preservation tests fail on an LF-planted CRLF fixture and without the `-text` rules (at <sha7>)
+- [ ] New or changed tests: these tests guard fixtures, not a behaviour fix, so none fails on the previous code. Shown red on a planted fault instead: 4 tests fail with LF-planted CRLF fixtures, and the attribute test fails without the `-text` rules (log `work/evidence-red.log`). The mixed-fixture guard and the "other Markdown stored with CR" test were not shown red (at <sha7>)
 - [x] Requirements: SwRS updated, markers in tests, `just requirements-update`
 - [x] Changelog: No user-facing change
 - [ ] Local gates: `just check` at <sha7>
