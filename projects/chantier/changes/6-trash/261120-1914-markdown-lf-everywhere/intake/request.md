@@ -37,3 +37,9 @@ The user, after filing: "je ne suis pas sur que ce soit une bonne idee. Markdown
 respecter le format original c'est dans son ADN." Studio must keep a file's line endings as they
 are, CRLF included; that is Studio's own fix (editor-stuck-saving), not chantier's. This CR stays
 in the inbox, not run, until the user decides.
+
+## Moved to Studio (2026-11-20)
+
+The user: "change markdown-lf-everywhere en juste une md qui passe les md du projet Studio en LF +
+gitattributes, mais assure toi que les test soient bien fait". Refiled as Studio's
+`markdown-lf-crlf-fixtures`; nothing to do in chantier.

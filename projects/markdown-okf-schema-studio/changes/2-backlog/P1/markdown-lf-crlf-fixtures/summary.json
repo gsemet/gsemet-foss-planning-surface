@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Keep CRLF test fixtures CRLF and test saves on CRLF, LF, mixed files",
+  "summary": "The CRLF QA fixture is stored and checked out as LF, so its test proves nothing. Keep fixtures CRLF via .gitattributes, guard test, save tests on CRLF/LF/mixed. Pairs with editor-stuck-saving.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "207cb78a77fd4da88e124f3be69d63a05b340242498678e9fe9ff8cc574a7df7",
+    "intake/request.md": "25d0f4237cd703a085b30f907c0ea01687c54c7697c096ea76f3aa68dc099e89"
+  },
+  "summarized": "2026-11-20T19:14:17Z"
+}
