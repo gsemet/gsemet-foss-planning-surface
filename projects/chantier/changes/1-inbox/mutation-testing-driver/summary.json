@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Mutation Testing Driver: one-shot campaign for redundant tests and holes",
+  "summary": "A QA-Driver-like role that runs the project's mutation tool once on the head: redundant tests to remove or merge, surviving mutants calling for tests; requirement coverage kept. After Studio's batch-07 case.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "c158646bbe1d8812ec7571dec263c615171dc9557e62c37925a0d8439e67e0ef"
+  },
+  "summarized": "2026-11-20T15:51:39Z"
+}

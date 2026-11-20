@@ -1,34 +1,66 @@
-# Efficient mutation testing in Studio (P1, next batch)
+# One-shot mutation testing campaign on Studio's tests (P1, next batch)
 
-Priority: P1, for the next batch (batch-07). Owner's request, 2026-11-20: "comment faire du mutation testing efficace dans Studio ?"
+Priority: P1, for the next batch (batch-07). Owner's request, 2026-11-20: "comment faire du
+mutation testing efficace dans Studio ?", then: "le but est un peu double: ameliorer les tests
+de Studio; donner les instructions pour que Chantier fasse un Mutation Testing Driver", "ce que
+tu proipose on dirait que c est pas du one shot, cest sur une PR on a un job ou un tache de
+mutation testing et pas on va faire du mutation testing pour reduire le nombre de test actuels",
+then: "je te demande qqu chose de one-shot et tu me dis que c'est PR par PR".
 
-Goal: know whether the unit tests really catch regressions, not only that they run the code. A
-mutant is a small change to the code (a `<` into `<=`, a `true` into `false`, a deleted call);
-a test suite that stays green on a mutant has a hole.
+## Intent
 
-What exists today (main 049b543):
-- about 70k lines of TypeScript in `src/`, of which `core` (156 files) and `page` (126 files)
-  hold most of the logic and are pure (no VS Code);
-- unit tests run on `node:test` over the compiled `out/` (`npm run test:unit`), in a few
-  minutes in the CI static job; contract tests in `out/test/core/render/*.contract.js`;
-- `@implements_req` / `@tests_req` markers tie code and tests to SwRS requirements (okfreq);
-- no mutation tool yet.
+**A one-shot campaign, not a job on every PR.** Studio runs mutation testing once over its
+existing code and tests, acts on the result, and is done. A mutant is a small change to the
+code (a `<` into `<=`, a `true` into `false`, a deleted call). A test that never kills a mutant
+proves little, and a mutant that no test kills shows a hole.
 
-"Efficace" means, to be settled in the grill:
-1. Scope: the changed lines of a PR (incremental), not the whole repository on each run; a
-   full run at most nightly or on demand. First layers: `core` and `page`; never `host-vscode`
-   or the real-window tests.
-2. Tool: StrykerJS (mutant schemata: one compile for all mutants; `--incremental`; TypeScript
-   checker to drop mutants that do not compile). The open point is the runner for `node:test`
-   (command runner = whole suite per mutant, slow; tap runner; or a per-file runner with
-   coverage to run only the tests that reach the mutant).
-3. Signal, not noise: exclude logs, message strings, and equivalent mutants; a score per
-   layer and per SwRS requirement (a survived mutant in code marked `@implements_req X` = a
-   test missing for X), rather than one global percentage.
-4. Where it acts: a CI job on the PR (report, not blocking at first, then a floor on new
-   code); and in the chantier cycle, the Verifier or Inspector reads the survived mutants of
-   the round's diff and asks for the missing test.
-5. Budget: target time per PR (for example under 10 minutes) and per nightly run.
+Two goals:
 
-Out of scope here: the e2e / real-window tests; fixing all survivors of the existing code at
-once (it becomes a backlog of gaps, by requirement).
+1. **Improve Studio's tests, and reduce their number.**
+   - Find the redundant tests: tests that kill no mutant that other tests do not already kill.
+     Remove them, or merge them into fewer tests.
+   - Find the holes: surviving mutants in code that matters. Add the few tests they call for.
+   - The result is a smaller suite that catches as much or more.
+2. **Give chantier the instructions for a Mutation Testing Driver.** Studio's campaign is the
+   first case. It ends with a note on how such a campaign was run, which chantier uses to write
+   that role (filed in chantier's inbox as `mutation-testing-driver`). The note covers:
+   - the command;
+   - the scope;
+   - the report and how it was read;
+   - the rules for removing a test;
+   - the time it took.
+
+## Limits
+
+- **Every requirement stays covered.** A test that carries a `@tests_req` marker is removed only
+  when another test that stays covers the same SwRS, and its marker moves to that test. The
+  coverage must stay intact (`just requirements-update`).
+- **No published requirement is removed.**
+- **Scope.**
+  - Unit and contract tests over `core` and `page` first: pure code, about 280 files.
+  - Not the real-window e2e tests.
+
+## What exists today (main 049b543)
+
+- About 70k lines of TypeScript in `src/`. Unit tests run on `node:test` over the compiled
+  `out/` and take a few minutes. There is no mutation tool yet.
+
+## Points for the grill
+
+0. **To confirm with the owner first.** The second quote ("et pas on va faire du mutation
+   testing pour reduire le nombre de test actuels") was read here as the owner's aim: a one-shot
+   campaign that also reduces the test count. Confirm the removal side before the spec.
+1. **Tool.**
+   - StrykerJS with a TypeScript checker, run locally or as a one-off CI dispatch.
+   - Open point: how to run `node:test` so that each mutant runs only the tests that reach it.
+2. **Reading the result.**
+   - A score per layer and per SwRS requirement.
+   - The list of redundant tests, by killed mutants.
+   - Logs and message strings left out.
+3. **Shape of the change.**
+   - Removals and merges in one PR or by layer.
+   - The new tests for the holes that matter.
+   - The few holes judged not worth a test, listed rather than tested.
+4. **Budget.**
+   - Time of the full run.
+   - How much of the suite to run per mutant.
