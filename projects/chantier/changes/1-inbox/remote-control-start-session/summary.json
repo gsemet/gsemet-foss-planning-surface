@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Sessions start from Remote Control when no other folder is named",
+  "summary": "Filed from the user's word via Studio's trial: start_session works from Remote Control with no cwd. Not grilled.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "413e2a7d1522c40f2b0f1bacd9b065a26277fbaf85bd1120082170e89cf18848"
+  },
+  "summarized": "2026-11-20T19:44:20Z"
+}
