@@ -62,12 +62,12 @@ exit 3 (none exists on the known surfaces).
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test_an_outside_archive_is_named_in_its_form`
-- [ ] Local gates at `68c5a68`: `just check` pass (1316 passed, 13 skipped); `just eval-dry-run` pass (18 of 18); `just test` takes about 87 s here (no before measure kept: UNVERIFIED against the +30 s budget)
-- [ ] Evidence: `gh pr view 380 --json number,title,url,author,state,mergedAt,files,body` returns every field the card names (keys: author, body, files, mergedAt, number, state, title, url), read at `68c5a68`
-- [ ] Review: approved at `68c5a68`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): `test_an_outside_archive_is_named_in_its_form`
+- [x] Local gates at `68c5a68`: `just check` pass (1316 passed, 13 skipped); `just eval-dry-run` pass (18 of 18); `just test` takes about 87 s here (no before measure kept: UNVERIFIED against the +30 s budget)
+- [x] Evidence: `gh pr view 380 --json number,title,url,author,state,mergedAt,files,body` returns every field the card names (keys: author, body, files, mergedAt, number, state, title, url), read at `68c5a68`
+- [x] Review: approved at `68c5a68`
+- [x] Verified at `68c5a68`
+- [x] CI green at `68c5a68`
 
 ## Internal references
 
