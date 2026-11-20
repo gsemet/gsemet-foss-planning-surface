@@ -16,7 +16,7 @@ Also changed to match: the section intro (no more "in pictures first"), the high
 
 ## Changes
 
-- `.agents/guidelines/release-process.guidelines.md`, section `## Release notes` only: intro, three bullets of "Writing" (reworded order, whole-change rule, two new crop bullets), item 3 of "Structure", one sentence in "Images".
+- `.agents/guidelines/release-process.guidelines.md`, section `## Release notes` only: intro, five bullets of "Writing" (two reworded: highlight order and whole-change rule; three new crop bullets), item 3 of "Structure", one sentence in "Images".
 - No change to past release notes, `scripts/release_notes.py`, tests, the justfile or CI.
 
 ## Impacts
