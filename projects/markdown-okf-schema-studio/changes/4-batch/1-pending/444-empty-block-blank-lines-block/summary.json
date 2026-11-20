@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Show blank-line runs as a reachable blank-lines block in edit mode",
+  "summary": "Specified (after the critic): in edit mode each top-level run of 2+ blank lines shows as a blank-lines block; arrows select it, a click or paste writes in its place, Delete/Backspace (selected) or its button removes it keeping one separator. After CR-439; runs in lists out of scope.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "4455511a76af3c5007a3f11bd62d98f8e0599aed21e31f987504aada314d78b3",
+    "02-answers.md": "ce971bc9ee35b00df1799823a875828d8798016beb77d3eb9a87120501d5b8f9",
+    "03-change-spec.md": "c1dc0ad61da0a53b795fa1b6cf7d7d6dea292ff763a1650e88437705923933a0",
+    "intake/request.md": "8efe5856f5bb77567d990c582d7cff3a6ad3ca8111875d34a6d10b76a2210aae"
+  },
+  "summarized": "2026-11-20T23:16:43Z"
+}

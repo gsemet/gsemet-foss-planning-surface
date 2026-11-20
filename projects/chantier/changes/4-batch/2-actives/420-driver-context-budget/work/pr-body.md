@@ -15,6 +15,7 @@ The CR Driver's readings are now three manifest lines, each read when its step c
 - `driver.md`: opening cut to at most 2,500 bytes; new section "Means: a Driver started again"; "Means: worktree, rebase and push" split in two; "CR driver" split in "CR driver", "CR driver: ship and proof" and "CR driver: the closing".
 - `concepts.md`: "Starting an agent" gets level-3 headings, its text unchanged.
 - Closing hand-off threshold: 115,000 tokens, in four places.
+- Measured bytes of the shipped card (opening plus sections), before the first Coder 16,630 (limit 18,000), whole common path 35,992 (44,974 at the base; limit 36,000), `resume: closing` restart 7,961 (limit 13,000), opening 2,413 (limit 2,500).
 - **UNVERIFIED:** the effect on real Drivers (see Known gaps).
 
 ## Blast radius
