@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A PR merged without chantier ends in the archives (Part G of seven)",
+  "summary": "Part G: on 'archive <link>' the Chief of Staff writes 5-archives/<merge stamp>-outside-<n>-<slug>/ (request, delivery.md), summary set; nothing with no writer; validate errors on a bad outside name. No CLI tool. After C. Specified, no open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "3cd7b1666a20b8d9b48f921e37a6ebebc4ede781c88022a292fa90cc785e2a4c",
+    "03-change-spec.md": "811a1dd7607dbc54eca3b1f5f95daaaa4982aee8d6aa47d68a27b3df8b40e11e",
+    "intake/request.md": "b460d8ce50d8471ea20c21af07815970781c138d4bb2094bcfb25cee3886ee20"
+  },
+  "summarized": "2026-11-20T09:30:20Z"
+}

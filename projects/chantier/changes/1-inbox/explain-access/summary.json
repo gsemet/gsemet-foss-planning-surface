@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "chantier access explains why a session may or may not write, claim or push",
+  "summary": "Specified, no open question (02-answers.md settled 1-5): a read-only chantier access [write|claim|push] [<cr>] says from the writer, take's one shared check function and the CR's lease what this session may do now, and why; changes nothing; named in AGENTS.md; cards point to it.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "e42b742ce7c237607f82452e3ee451ab1bef2e55e88797644df506912be37173",
+    "03-change-spec.md": "f69355533eb485e68379965303effde35c419d8a257ccb22409fb56603714fc2",
+    "intake/request.md": "c3de0895af7388fa8079bf44d3467b4cdc75f917f33f914a37507a88f1d6fb4f"
+  },
+  "summarized": "2026-11-20T09:31:07Z"
+}

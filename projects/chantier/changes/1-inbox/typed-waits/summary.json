@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Typed waits: a CR records what it waits for",
+  "summary": "Specified: four wait types (answer, approval, pipeline, merge) in batch.json or a backlog waits.json; handback --wait and a wait command; the hub's waits provider emits wait-cleared@1 in its one query; GitLab approval proved first. 4 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "03-change-spec.md": "c0f73107dbbc0d31eb82270c57300ad65dcc52c0bd842f2ff7b810970bbdb1a5",
+    "intake/request.md": "1063b66a7f10abfca64582ef2142be1687701106357184ebf81453fe08df4bac"
+  },
+  "summarized": "2026-11-20T09:31:13Z"
+}
