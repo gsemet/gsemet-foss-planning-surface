@@ -66,6 +66,14 @@ Grade: **1**. A new read-only command; `take` keeps its checks and texts, now in
 - `hub/autostart.py`, `commands/seat.py`: one `holds_seat` comparison for the seat line.
 - Cards: `concepts.md` (the `access` word), `driver.md` (one line, off the common path), `foreman.md`, `griller.md`, `chief-of-staff.md`; `AGENTS.md` names `access` among the CLI's exceptions.
 
+## Human decisions
+
+- A push on a lease that ran out, with nobody having taken the change request again, is allowed, with "renew it first".
+- A claim on a working, ready or blocked change request is not refused; the line says `take` needs `--note`.
+- `claim` and `push` take a change request only, not a stack or a QA order.
+- The Chief of Staff's card gets the "run `access` before asking" line.
+- No scenario case: the prepared-state tests cover it.
+
 ## Impacts
 
 No visual change. A session that meets a refusal it does not understand can run `access` before asking.
