@@ -52,10 +52,10 @@ Grade: **1**. Test and repository configuration only; a `git revert` restores th
 
 ## Test plan
 
-- [ ] New or changed tests: these tests guard fixtures, not a behaviour fix, so none fails on the previous code. Shown red on a planted fault instead: 4 tests fail with LF-planted CRLF fixtures, and the attribute test fails without the `-text` rules (log `work/evidence-red.log`). The mixed-fixture guard and the "other Markdown stored with CR" test were not shown red (at <sha7>)
+- [x] New or changed tests: these tests guard fixtures, not a behaviour fix, so none fails on the previous code. Shown red on a planted fault instead: 4 tests fail with LF-planted CRLF fixtures, and the attribute test fails without the `-text` rules (log `work/evidence-red.log`). The mixed-fixture guard and the "other Markdown stored with CR" test were not shown red (at cd2f90c)
 - [x] Requirements: SwRS updated, markers in tests, `just requirements-update`
 - [x] Changelog: No user-facing change
-- [ ] Local gates: `just check` at <sha7>
+- [x] Local gates: `just check` and `just preflight` (static stage on Windows) at cd2f90c
 - [ ] Review
 - [ ] CI green
 
