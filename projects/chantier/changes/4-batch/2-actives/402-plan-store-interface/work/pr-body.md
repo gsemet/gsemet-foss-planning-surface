@@ -76,12 +76,12 @@ No visible change for users; for developers, a single place to write the plan an
 
 ## Test plan
 
-- [ ] New tests: conformance across backends; command-table spy test (the check-before-write mutation fails it)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: no visual change; test output only
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New tests: conformance across backends; command-table spy test (the check-before-write mutation fails it)
+- [x] Local gates at `f5e1365`: `just check` (1036 passed), `just eval-dry-run` (18 of 18)
+- [x] Evidence: no visual change; test output only
+- [x] Review: approved at `f5e1365` (reviewed state committed as `f5e1365`)
+- [x] Verified at `f5e1365`
+- [x] CI green at `f5e1365`: check on three systems, eval-dry-run and scenario pass
 
 ## Internal references
 

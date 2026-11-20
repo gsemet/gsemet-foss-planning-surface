@@ -45,8 +45,7 @@ Grade: 2. The journal line format changes (version 2) and every writer and reade
 
 ## Known gaps
 
-- `scenario/run_scenario.py` still says "one `config` line" in a check label and a comment (about line 8907): wording only, no behaviour; left for a later pass.
-- No screenshot is owed: nothing the CR board pane draws changes.
+None. No screenshot is owed: nothing the CR board pane draws changes.
 
 <details>
 <summary>Details</summary>
@@ -57,6 +56,7 @@ Grade: 2. The journal line format changes (version 2) and every writer and reade
 - `hub/journal.py`: version 2, `append` validation, duplicate key from `PUBLISHED`, `read` with effective types and a fourth result, readers by type.
 - `hub/cycle.py`, `board/prs.py`, `board/write_api.py`, `board/config_api.py`: refused events set aside; `commands/batch_status.py` names unknown-type lines.
 - Tests (`test_event_types.py` new, others follow `type`), scenario checks, docs (`planning-folder.md`, `web-board.md`), `AGENTS.md`, `CONTRIBUTING.md`, `scenario/README.md` and the cards: the names `config@1`, `board@1`, `source:`.
+- `scenario/run_scenario.py`: the scenario's journal checks read `type` (`config@1`, `board@1`, `merged@1`) and version 2, with the check labels and comments renamed.
 
 ## Human decisions
 
@@ -71,12 +71,12 @@ No visual change. Developers add a type by one `PUBLISHED` entry and `just journ
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`:
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `d3ff96d`: `just check` and `just scenario` pass; `just eval-dry-run` (18 of 18) at `7977684`, carried to `d3ff96d` (that commit changes only `scenario/run_scenario.py`; CI's eval-dry-run job passes at `d3ff96d`)
+- [x] Evidence: none captured (no UI: behaviour proved by the tests at `d3ff96d`)
+- [x] Review: approved at `7977684` and `d3ff96d`
+- [x] Verified at `d3ff96d`
+- [x] CI green at `d3ff96d`
 
 ## Internal references
 
