@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "batch": "batch-07",
+  "number": 7,
+  "state": "running",
+  "opened": "2026-11-20T19:31:36Z",
+  "closed": null,
+  "mode": "series",
+  "steering": "foreman",
+  "host": "claude",
+  "budget_usd": 80.0,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [],
+  "cost_receipt": null,
+  "report": null
+}

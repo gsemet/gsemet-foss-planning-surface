@@ -17,3 +17,13 @@ Retained mockup for the marker: `prototypes/01-arrow-marker/`, option A.
 6. open-at-line-Q6: **The marker's look.** A, an arrow in the left margin at the exact height of the line, plus a light band on that line.
 7. open-at-line-Q7: **When the marker goes away.** A, it stays until the user clicks in the page, starts an edit, or another line is requested; scrolling does not remove it.
 8. open-at-line-Q8: **A line inside a block.** A, as precise as possible: the exact line in a paragraph or a code block, the targeted table row, a folded section or admonition is unfolded to show the line; otherwise the top of the block.
+
+## Series 3, 2026-11-20 (not answered: the item was set aside)
+
+Questions asked, not answered: open-at-line-Q9 (remove the user's own `workbench.editorAssociations` entry that names Studio; recommended A, Studio removes it and the notice says so), open-at-line-Q10 (how to reset the feature-introduction notices; recommended A, a palette command), open-at-line-Q11 (edit mode; recommended A, same marker, no block editor opened on its own), open-at-line-Q12 (side preview; recommended A, same marker on a jump, not on every cursor move).
+
+Owner's clarifying question before answering: "attent tu veux dire que je peux pas avoir les deux, l'association md automatique avec studio comme maintenant ET l'ouverture a la ligne lors d'une recherche ?" Answer given: yes, both, but the automatic opening must be done by Studio itself (its own setting) instead of the VS Code association, which loses the line; the text editor may show for a short moment before Studio replaces it (to be measured by trials).
+
+9. **Decision: set aside in P3**, 2026-11-20. Owner's words: "met la de coté en P3 avec le drawback que l'ouverture du text brute risque de tjs boucler sur studio". The drawback to keep in mind when the item is taken up again: with Studio taking over every `.md` opened in a text editor, opening the raw text on purpose risks always looping back to Studio (open-at-line-Q4 asked that a text editor opened on purpose stays, but how to tell it apart reliably is unproved). The grill resumes at open-at-line-Q9.
+
+10. **A setting "open searches in Studio", on by default**, 2026-11-20 (given after the item was set aside). Owner's words: "il faudra un settings \"ouvrir les recherche dans studio\", on par defaut." Open at the resumption: whether this setting replaces the general "open Markdown files in Studio" setting of open-at-line-Q1/Q5 (only an opening at a line, from a search or another jump, goes to Studio, which would avoid the raw-text loop) or comes in addition to it.
