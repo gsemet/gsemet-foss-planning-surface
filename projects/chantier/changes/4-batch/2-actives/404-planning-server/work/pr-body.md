@@ -1,6 +1,6 @@
 ## Summary
 
-With an external planning surface, nothing kept the plan in sync with the forge except a separate autosync tool the user had to install, run and keep alive. This PR makes the surface server (`chantier board`) the surface's one writer: a thread of the server commits, rebases and pushes the plan, so every change is meant to reach the forge within 5 minutes (**UNVERIFIED:** the bound and the no-autosync-tool claim have no full long-gate run yet). The separate autosync tool is meant to be no longer needed. With no surface server running, every write to the surface is refused (no fallback); a conflict between two clones is raised to the Chief of Staff (the user's steering agent), who resolves it or asks the user.
+With an external planning surface, nothing kept the plan in sync with the forge except a separate autosync tool the user had to install, run and keep alive. This PR makes the surface server (`chantier board`) the surface's one writer: a thread of the server commits, rebases and pushes the plan, so every change is meant to reach the forge within 5 minutes (**UNVERIFIED:** the bound is not measured on a real forge). The separate autosync tool is meant to be no longer needed. With no surface server running, every write to the surface is refused (no fallback); a conflict between two clones is raised to the Chief of Staff (the user's steering agent), who resolves it or asks the user.
 
 ## Deliverables
 
@@ -37,10 +37,8 @@ Grade: 3 - it changes who writes and pushes the planning surface, the board and 
 ## Known gaps
 
 - No release-notes folder: this PR bumps no version; the release writes them (the surface's own AGENTS.md cleanup is part of that note).
-- The full `just scenario` has not run locally yet; only the `surface-board` unit (251 of 251 checks) did.
-- The 5-minute bound and the removal of the autosync tool are **UNVERIFIED** until the long gate and CI run at the pushed head.
+- The 5-minute bound and the removal of the autosync tool are **UNVERIFIED**: the scenario job passes at the pushed head, but no run measured the bound on a real forge.
 - No before/after evidence was captured for this change beyond the two new board pictures in `docs/web-board/`.
-- Linux and macOS runs of the second-loop lock tests are left to CI.
 
 <details>
 <summary>Details</summary>
@@ -71,7 +69,7 @@ The board shows a writer pill and panel; `status` and `seat` print a `writer:` l
 - [ ] Evidence: none captured (see Known gaps)
 - [x] Review: approved at `e855fe9`
 - [ ] Verified at `e855fe9`
-- [ ] CI green at `e855fe9`
+- [x] CI green at `e855fe9`: `gh pr checks 379`: check (macos, ubuntu, windows), eval-dry-run and scenario pass
 
 ## Internal references
 
