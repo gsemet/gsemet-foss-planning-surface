@@ -1,0 +1,11 @@
+CASE studio-open-replace-all
+  replace all buttons: 1
+  dialog: Replace
+Cancel
+Replace 2 occurrences across 1 file with 'Omega'?
+  screenshot p4-assoc-01-replace-all-dialog.png
+after replace all: {"tabs":["doc.md [active]"],"diffEditors":0,"textEditors":0,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  screenshot p4-assoc-02-studio-after-replace-all.png
+  studio shows Omega: 1, Alpha: 0
+  file on disk has Omega: true
+  tabs dirty: [false]

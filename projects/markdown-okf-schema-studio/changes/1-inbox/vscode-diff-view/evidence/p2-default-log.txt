@@ -1,0 +1,51 @@
+CASE studio-editor-title-open-changes
+  rows for "View: Reopen Editor With...": ["View: Reopen Editor With...","View: Reopen Editor with Text Editor, similar commands","View: Reopen Closed Editor, Control+Shift+T","File: Compare Active File with Clipboard, Control+K C","File: Compare Active File with Saved, Control+K D"] -> index 0
+  rows for "Markdown OKF-Schema Studio": ["Markdown OKF-Schema Studio, Markdown OKF-Schema Studio"] -> index 0
+  title actions: ["Open Changes","Split Editor Right (Ctrl+|)\n[Alt] Split Editor Down","More Actions..."]
+after title Open Changes: {"tabs":["doc.md","doc.md (Working Tree) (doc.md), preview [active]"],"diffEditors":1,"textEditors":3,"visibleWebviews":0,"sideBySideDivider":0,"notifications":[]}
+  screenshot p2-default-01-studio-title-open-changes.png
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W","View: Close All Editors in Group, Control+K W","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE scm-click
+  rows for "View: Show Source Control": ["Source Control: Focus on Changes View, similar commands","Source Control: Focus on Graph View","Source Control: Focus on Repositories View","Toggle Source Code in Disassembly View","View: Toggle Control Characters"] -> index -1
+  scm rows with doc.md: 0
+after SCM click: {"tabs":[],"diffEditors":0,"textEditors":0,"visibleWebviews":0,"sideBySideDivider":0,"notifications":[]}
+  screenshot p2-default-02-scm-click.png
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W, recently used","View: Close All Editors in Group, Control+K W, other commands","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE studio-dirty-compare-saved
+  rows for "View: Reopen Editor With...": ["View: Reopen Editor With..., recently used","View: Reopen Editor with Text Editor, similar commands","View: Reopen Closed Editor, Control+Shift+T","File: Compare Active File with Clipboard, Control+K C","File: Compare Active File with Saved, Control+K D"] -> index 0
+  rows for "Markdown OKF-Schema Studio": ["Markdown OKF-Schema Studio, Markdown OKF-Schema Studio"] -> index 0
+  studio frame: yes
+studio after edit: {"tabs":["doc.md [active]"],"diffEditors":0,"textEditors":0,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  screenshot p2-default-03-studio-dirty.png
+  rows for "File: Compare Active File with Saved": ["File: Compare Active File with Saved, Control+K D","File: Compare Active File with Clipboard, Control+K C, similar commands","File: Compare Active File With..."] -> index 0
+studio dirty -> compare with saved: {"tabs":["doc.md","doc.md (in file) ↔ doc.md (doc.md) [active]"],"diffEditors":1,"textEditors":3,"visibleWebviews":0,"sideBySideDivider":0,"notifications":[]}
+  screenshot p2-default-04-studio-dirty-compare-saved.png
+  rows for "File: Revert File": ["File: Revert File","File: Compare Active File with Clipboard, Control+K C, similar commands","File: Compare Active File with Saved, Control+K D","File: Compare Active File With...","File: Reveal Active File in Explorer View"] -> index 0
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W, recently used","View: Close All Editors in Group, Control+K W, other commands","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE open-preview-from-git-diff
+  rows for "Git: Open Changes": ["Git: Open All Changes","Git: Open Changes","Git: Open Changes","Git: Open Staged Changes","Cloud Changes: Resume Latest Changes from Cloud, similar commands","Cloud Changes: Show Cloud Changes"] -> index 1
+  rows for "Markdown OKF-Schema Studio: Open Preview to Side": ["Markdown OKF-Schema Studio: Open Preview to Side, Control+K Shift+V","Markdown OKF-Schema Studio: Refresh Preview, similar commands","Markdown OKF-Schema Studio: Export to HTML"] -> index 0
+open preview from git diff: {"tabs":["doc.md","doc.md (Working Tree) (doc.md), preview [active]","Studio · doc.md, Editor Group 2 [active]"],"diffEditors":1,"textEditors":3,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  screenshot p2-default-05-open-preview-from-git-diff.png
+git diff scrolled to end: {"tabs":["doc.md","doc.md (Working Tree) (doc.md), preview [active]","Studio · doc.md, Editor Group 2 [active]"],"diffEditors":1,"textEditors":3,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  screenshot p2-default-06-git-diff-scrolled-end.png
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W, recently used","View: Close All Editors in Group, Control+K W, other commands","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE open-preview-from-replace-preview
+  rows for "Markdown OKF-Schema Studio: Open Preview to Side": ["Markdown OKF-Schema Studio: Open Preview to Side, Control+K Shift+V, recently used","Markdown OKF-Schema Studio: Refresh Preview, similar commands","Markdown OKF-Schema Studio: Export to HTML"] -> index 0
+open preview from replace preview: {"tabs":["doc.md ↔ doc.md (Replace Preview) (doc.md), preview [active]"],"diffEditors":1,"textEditors":2,"visibleWebviews":0,"sideBySideDivider":0,"notifications":["Open a Markdown file to use Markdown OKF-Schema Studio."]}
+  screenshot p2-default-07-open-preview-from-replace-preview.png
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W, recently used","View: Close All Editors in Group, Control+K W, other commands","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE studio-open-replace-all
+  rows for "View: Reopen Editor With...": ["View: Reopen Editor With..., recently used","View: Reopen Editor with Text Editor, similar commands","View: Reopen Closed Editor, Control+Shift+T","File: Compare Active File with Clipboard, Control+K C","File: Compare Active File with Saved, Control+K D"] -> index 0
+  rows for "Markdown OKF-Schema Studio": ["Markdown OKF-Schema Studio, Markdown OKF-Schema Studio"] -> index 0
+after replace all: {"tabs":["doc.md [active]"],"diffEditors":0,"textEditors":0,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  screenshot p2-default-08-studio-after-replace-all.png
+  studio text has Omega: 0
+  rows for "File: Revert File": ["File: Revert File, recently used","File: Compare Active File with Clipboard, Control+K C, similar commands","File: Compare Active File with Saved, Control+K D","File: Compare Active File With...","File: Reveal Active File in Explorer View"] -> index 0
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W, recently used","View: Close All Editors in Group, Control+K W, other commands","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE timeline
+  rows for "Explorer: Focus on Timeline View": ["Explorer: Focus on Timeline View"] -> index 0
+  timeline rows: 1
+after timeline click: {"tabs":["doc.md","doc.md (4b825dc6) ↔ doc.md (3ca875a4) (doc.md), preview [active]"],"diffEditors":1,"textEditors":2,"visibleWebviews":0,"sideBySideDivider":0,"notifications":[]}
+  screenshot p2-default-09-timeline.png
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W, recently used","View: Close All Editors in Group, Control+K W, other commands","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0

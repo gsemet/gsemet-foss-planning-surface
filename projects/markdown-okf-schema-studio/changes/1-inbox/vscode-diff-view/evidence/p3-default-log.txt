@@ -1,0 +1,24 @@
+CASE scroll-sync-git-diff
+  rows for "Markdown OKF-Schema Studio: Open Preview to Side": ["Markdown OKF-Schema Studio: Open Preview to Side, Control+K Shift+V","Markdown OKF-Schema Studio: Refresh Preview, similar commands","Markdown OKF-Schema Studio: Export to HTML"] -> index 0
+  text editor at end -> preview scrollTop 1512
+  screenshot p3-default-01-text-editor-end-preview.png
+  text editor at top -> preview scrollTop 0
+  rows for "Git: Open Changes": ["Git: Open All Changes","Git: Open Changes","Git: Open Changes","Git: Open Staged Changes","Cloud Changes: Resume Latest Changes from Cloud, similar commands","Cloud Changes: Show Cloud Changes"] -> index 1
+  git diff at end -> preview scrollTop 0
+git diff at end: {"tabs":["doc.md, Editor Group 1","doc.md (Working Tree) (doc.md), preview, Editor Group 1 [active]","Studio · doc.md, Editor Group 2 [active]"],"diffEditors":1,"textEditors":3,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  screenshot p3-default-02-git-diff-end-preview.png
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W","View: Close All Editors in Group, Control+K W","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE scm-click
+  rows with doc.md: 1
+after SCM click: {"tabs":["doc.md (Working Tree) (doc.md), preview [active]"],"diffEditors":1,"textEditors":3,"visibleWebviews":0,"sideBySideDivider":0,"notifications":[]}
+  screenshot p3-default-03-scm-click.png
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W, recently used","View: Close All Editors in Group, Control+K W, other commands","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE studio-open-replace-all
+  rows for "View: Reopen Editor With...": ["View: Reopen Editor With...","View: Reopen Editor with Text Editor, similar commands","View: Reopen Closed Editor, Control+Shift+T","File: Compare Active File with Clipboard, Control+K C","File: Compare Active File with Saved, Control+K D"] -> index 0
+  rows for "Markdown OKF-Schema Studio": ["Markdown OKF-Schema Studio, Markdown OKF-Schema Studio"] -> index 0
+  replace all buttons: 1
+after replace all: {"tabs":["doc.md [active]"],"diffEditors":0,"textEditors":0,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  screenshot p3-default-04-studio-after-replace-all.png
+  studio shows Omega: 0, Alpha: 1
+  file on disk has Omega: false
+  tabs dirty: [false]
