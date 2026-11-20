@@ -297,3 +297,15 @@ Approval of the writer's specification, asked by the Griller:
 
 - Not approved here: the user hands the specification over to the Chief of Staff, who is
   specifying and planning all of it. The Griller tells the Chief of Staff where it stands.
+
+## 2026-11-20, the user: a coherent split, docs and SVGs included
+
+> normalement tout est en inbox, il faut juste que tu verifies bien que le spec writer ait bien
+> compris pour livrer a la fin un redecoupage coherent, incluant la doc et les svg
+
+- The split must end coherent: each part carries the docs and the SVG diagrams (with their
+  `-texts.md` sources) its change makes false, in the same CR as the behaviour.
+- The Griller's review found: Part C named three docs and no SVG (`planning-modes.svg` shows the
+  autosync); A, B, F named none; D gave a search, not a list; E's "gates" collides with the fast
+  and long gates; the parts table missed `forge-connectors` and `server-api`. A spec-writer run
+  fixes them, with a docs map (file → parts).

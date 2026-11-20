@@ -36,10 +36,10 @@ This CR needs two of the split-off CRs merged first:
 | Part | Split-off CR | What this CR needs from it |
 | --- | --- | --- |
 | A | **Typed events**, `1-inbox/typed-journal-events` | the journal's version 2 line, `type: "name@N"`, `hub/schemas.py`'s `PUBLISHED` and the shipped `hub/schemas.json` checked by `test_event_types.py`; `journal.append` validating each payload. This CR adds the source `writer` and publishes four types there (C.10). |
-| B | **Store interface**, `1-inbox/plan-store-interface` | the package `store/` (`PlanStore`, `FolderStore`, `SurfaceStore`, `Repo.store`), every published write of the CLI and the board going through `repo.store` and calling `check_publish` with its published paths before it changes anything, and `test_store_conformance.py`. This CR gives `SurfaceStore` its gate (C.8). |
+| B | **Store interface**, `1-inbox/plan-store-interface` | the package `store/` (`PlanStore`, `FolderStore`, `SurfaceStore`, `Repo.store`), every published write of the CLI and the board going through `repo.store` and calling `check_publish` with its published paths before it changes anything, and `test_store_conformance.py`. This CR gives `SurfaceStore` its refusal (C.8). |
 
 Parts D (leases), E (typed waits), F (`access`) and G (outside contributions) come after; F and G
-need this CR. Nothing here depends on them.
+need this CR; E needs A and `1-inbox/forge-connectors` (Q24). Nothing here depends on them.
 
 Pending items this CR composes with (named so they align; neither is edited by this CR):
 
@@ -73,7 +73,7 @@ Pending items this CR composes with (named so they align; neither is edited by t
 | One watcher-autosync at a time for the surface; several machines not weighed; specify every state and message (11-20, Q6) | §C.2 (one writer per surface and machine, by an OS lock), §C.7 (two machines meet as clones), every state and message of C.4 to C.10 |
 | Q7: seven separate CRs; A and B first, then C (11-20) | §2; `experiments/03-change-spec-all-parts.md` |
 | Q10: sessions write the surface's files under the CLI's locks; only the writer commits, rebases and pushes; "the other sessions talk to the Chief of Staff's session" and "thin client" superseded (11-20) | §C.8; the note below |
-| Q11: never add the code's clone and worktrees under `projects/<name>/`: the writer excludes the paths `checkout.yml` names and blocks on any other nested repository (11-20) | §C.5 step 3, §C.6 `nested-repo` |
+| Q11: never add the code's clone and worktrees under `projects/<name>/`: the writer excludes the paths `checkout.yml` names (or, when it names none, `core/repo.py`'s defaults `.repo` and `.worktrees`) and blocks on any other nested repository (11-20) | §C.5 step 3, §C.6 `nested-repo` |
 | Q12: the remote moved while files are not committed: commit everything pending first, so any conflict is a rebase conflict raised to the Chief of Staff (11-20) | §C.5 step 6 |
 | Q13: secrets: git hooks only; the writer runs the user's hooks, never `--no-verify`; a secret scan goes in a pre-commit hook if the user wants one; nothing more in chantier (11-20) | §C.5 step 4, §C.6 `git-error`, §8, §9 |
 | Q15: a board the user starts by hand (no seat) runs the writer too; the user guarantees it (11-20) | §C.1 |
@@ -87,8 +87,9 @@ Pending items this CR composes with (named so they align; neither is edited by t
 | One writer for the surface; the writer keeps the state and exposes the server: chantier's equivalent of Vercel Board (11-20) | §1, §4 words |
 | Q29: the API/UI split (a WebSocket API, HTTP degraded behind a proxy, the web UI one client among others, native apps) is a CR of its own, `1-inbox/server-api`, after this one; until then the writer keeps the board's current HTTP API (11-20) | §2, §C.13, §9 |
 | Spec critic: yes (11-20) | run by the Chief of Staff |
+| A coherent split, docs and SVGs included: this CR changes every doc, diagram (with its `-texts.md`) and picture its change makes false, in the same CR (11-20) | §C.14, §6; the docs map of `experiments/03-change-spec-all-parts.md`, §2 |
 
-The other decisions (Beads, hash IDs, heartbeat and leases, gates, outside contributions, the five
+The other decisions (Beads, hash IDs, heartbeat and leases, typed waits, outside contributions, the five
 Board ideas, Q8, Q9, Q14, Q16, Q19 to Q23) land in parts A, B, D, E, F and G:
 `experiments/03-change-spec-all-parts.md`, §3, maps each.
 
@@ -103,8 +104,9 @@ rebases and pushes.
   surface's state and exposes the server, and whose thread commits, rebases and pushes the planning
   surface. Chantier's equivalent of Vercel Board. It exists only in external mode.
 - **Published path:** a path of the surface's working tree that git does not ignore, under
-  `projects/` or the surface root's `chantier.yaml` / `chantier.yml`, and not under a path a
-  project's `checkout.yml` names (C.5 step 3). A path the planning folder's `.gitignore` lists
+  `projects/` or the surface root's `chantier.yaml` / `chantier.yml`, and not under a project's
+  code clone or worktrees folder (the paths its `checkout.yml` names, or `core/repo.py`'s defaults
+  when it names none: C.5 step 3). A path the planning folder's `.gitignore` lists
   (`core/files.py`, `IGNORED`) is local, never published.
 - **The surface's other files:** every other path of the surface (its `AGENTS.md`, `scripts/`,
   `justfile`, `.agents/`, ...). The writer never stages, commits or reverts them; they are
@@ -222,9 +224,12 @@ One cycle, in order; each step's failure goes to the state named, and ends the c
    per episode (an episode ends when the cycle passes the preconditions again, which appends
    `sync-resumed@1`, `after: blocked`).
 3. **Changes.** The writer's pathspec (`writer/paths.py`): `projects`, `chantier.yaml`,
-   `chantier.yml`, and one `:(exclude)<path>` per path a project's `checkout.yml` names (`repo:`,
-   `worktrees:`, read by `core/repo.py`'s `read_keyed`, resolved from the project's folder) that
-   falls inside the surface's working tree (Q11); a path outside it needs no exclusion. `git status
+   `chantier.yml`, and one `:(exclude)<path>` per checkout path of each project: the `repo:` and
+   `worktrees:` its `checkout.yml` names (read by `core/repo.py`'s `read_keyed`, resolved from the
+   project's folder), and for a key it does not name (or with no `checkout.yml`), `core/repo.py`'s
+   default, `.repo` and `.worktrees` under the project's folder (`core/repo.py` lines 152-153: the
+   writer takes the same resolution, never a copy of the defaults), when it falls inside the
+   surface's working tree (Q11); a path outside it needs no exclusion. `git status
    --porcelain=v1 -z --untracked-files=all -- <pathspec>` (ignored files are never listed). An
    untracked entry that ends with `/` (git lists a nested repository as its folder and does not go
    in), or a changed gitlink, is a nested repository: C.6's `nested-repo`, checked at step 2 from
@@ -336,7 +341,7 @@ Checked at each cycle's step 2, in this order, but `git-error`, which steps 3 to
 | `not-a-branch` | `HEAD` is detached, or not on the surface's default branch (`origin/HEAD`, `core/git.py`'s `default_branch`) | check out the default branch |
 | `no-upstream` | the branch has no upstream | set it (`git branch -u <remote>/<branch>`) |
 | `git-busy` | a rebase, merge, cherry-pick or revert is in progress that is not the writer's own conflict | finish or abort it |
-| `nested-repo` | a nested repository under the writer's paths that no project's `checkout.yml` names (Q11); `text` gives its path | move it out of the surface, or, when it is the project's code clone or worktrees folder, name it in the project's `checkout.yml` |
+| `nested-repo` | a nested repository under the writer's paths that is not a project's checkout path (named in its `checkout.yml`, or `core/repo.py`'s default `.repo` / `.worktrees`, C.5 step 3) (Q11); `text` gives its path | move it out of the surface, or, when it is the project's code clone or worktrees folder, name it in the project's `checkout.yml` |
 | `staged` | the index holds changes the writer did not stage, seen at two cycles in a row (Q18) | commit or unstage them by hand |
 | `foreign-autosync` | the surface's autosync tool still runs: `<git dir>/ai-autosync/control.json` enabled and a live leader in `watcher.json` (read by the existing `autosync/records.py` and `autosync/reading.py`, which stay for this check only) | stop the tool (`uv run scripts/ai-autosync-git.py stop .`) |
 | `git-error` | the same git command of a cycle failed at two cycles in a row (Q25: a hook, LFS, an `index.lock` held or left by a crash); or, at once, a stash git cannot reapply after step 6 (Q30), `text` naming it; the writer retries it at every cycle | read `text`, repair (a stash: tell the user where the edits are, `git stash list`, Q30); the next cycle that completes its git steps ends it (`sync now` runs one at once) |
@@ -498,14 +503,7 @@ Cards (`skills/chantier/references/`), each statement replaced where it is today
   until a `writer:` line in another state comes back (Q28), which ends the episode.
 - `routing.md` and `startup-manifest.json` only if a text they hold changes (the Driver checks).
 
-Docs: `docs/planning-modes.md` ("The planning surface", "What runs where", "Grillers", "The
-surface's autosync" becomes "The surface's writer" (one writer per surface, the one that keeps the
-state and exposes the server, chantier's equivalent of Vercel Board; it pushes every local commit
-of the branch, hand commits of the surface's other files included; nobody pulls or pushes the
-surface by hand while it runs), "With no agent" (a board started by hand runs the writer, the user
-guarantees it), "Two sessions on one surface", "Setting one up" (the code's clone and worktrees
-outside `projects/`, or named in `checkout.yml`)), `docs/web-board.md` (the pill),
-`docs/boards.md` if it names the autosync, `README.md` where it names the surface's sync.
+Docs: C.14.
 
 Project rules: `AGENTS.md` of chantier changes (the user's merge of the PR is their approval):
 
@@ -532,7 +530,7 @@ Project rules: `AGENTS.md` of chantier changes (the user's merge of the PR is th
 - Setup: unchanged (`projects/<name>/project.md`, `checkout.yml`, `changes/`), plus the surface's
   clone on its default branch with an upstream. No new configuration key. The project's code clone
   and worktrees live outside `projects/<name>/`, or under it only at the paths its `checkout.yml`
-  names (Q11).
+  names, or at `core/repo.py`'s defaults (`.repo`, `.worktrees`) when it names none (Q11).
 - Removed from the CLI: `board/autosync_api.py`, `board/autosync_tool.py`, the routes `GET
   /api/autosync` and its actions, the `autosync` key of `GET /api/board` (replaced by `writer`),
   `autosync/lines.py`, `autosync/view.py`'s naming of participants and the board's join; kept:
@@ -557,6 +555,101 @@ Project rules: `AGENTS.md` of chantier changes (the user's merge of the PR is th
 - `GET /api/board` carries `writer`: the `writer` entry as read, or `{"state": "off"}`.
 - These are routes of the board's current HTTP API (`board/routes.py`), which the writer keeps: the
   API over a WebSocket and the UI out of the server are `1-inbox/server-api` (Q29).
+
+## C.14 Docs
+
+Every file of chantier's `docs/` and `README.md` whose text this CR makes false changes in this
+CR. A `docs/<name>.svg` changes together with its hand-kept text source `docs/<name>-texts.md`:
+the texts first, then the SVG's strings, and the SVG's `<desc>` takes the texts' first paragraph
+word for word; new text fits its box (the Driver opens the SVG to check). Where a section is also
+touched by another part (A, D, E, G), this CR changes only the sentences or rows named here: the
+docs map of `experiments/03-change-spec-all-parts.md`, §2, lists them.
+
+`docs/planning-modes.md`:
+
+- "The planning surface": the tree's comment on the surface's `AGENTS.md` ("its sync, among
+  others") becomes "the surface's own rules"; the paragraph on how the surface syncs says: the
+  surface server's writer commits, rebases and pushes the plan, within 5 minutes of a change.
+- "What runs where" and "What stays local, what is pushed": the writer runs in the surface server
+  on one machine per surface; what it pushes (the plan's published files, and every local commit
+  of the branch) and what it never commits (C.5's ignored paths, the surface's other files).
+- "Grillers": a Griller's writes are published by the writer, as every session's.
+- "The surface's autosync" becomes "The surface's writer": one writer per surface, the one that
+  keeps the state and exposes the server, chantier's equivalent of Vercel Board; its states (C.4);
+  it pushes every local commit of the branch, hand commits of the surface's other files included;
+  nobody pulls or pushes the surface by hand while it runs (Q26); with no surface server running,
+  chantier writes nothing to the surface (C.8). Its "stopped (grey, commit by hand)" text goes.
+- "With no agent": a board started by hand runs the writer; the user guarantees it.
+- "Two sessions on one surface": no hand stage, pull or push; one writer, the other sessions write
+  the working tree under the CLI's locks (C.3).
+- "Setting one up": no autosync tool to install; start the board; the code's clone and worktrees
+  outside `projects/`, or named in the project's `checkout.yml`, or at the defaults `.repo` and
+  `.worktrees` (C.5's step 3).
+
+`docs/planning-modes.svg` with `docs/planning-modes-texts.md`:
+
+- The intro (and so the `<desc>`) gains one sentence: in a planning surface, the surface server
+  commits and pushes the plan.
+- The External panel: "AGENTS.md the surface's own rules (its sync)" becomes "AGENTS.md the
+  surface's own rules"; "every change pushed to the default branch, like an Obsidian vault"
+  becomes "the surface server pushes every change within 5 minutes".
+- The bottom band: "In a worktree" drops "joins no autosync"; the "Sync:" line is rewritten for
+  the writer (the surface server pushes the plan; nobody pushes it by hand while it runs).
+
+`docs/how-chantier-works-texts.md` with `docs/how-chantier-works.svg`: the intro's sentence "It
+writes only in the planning folder ..." gains "; in a planning surface, the surface server
+commits and pushes it", and the SVG's `<desc>` takes the texts' intro (today it differs: it still
+says "writes only in .agents/changes"). The diagram's boxes do not change.
+
+`docs/planning-folder.md` (only these sentences and rows; Parts A, D, E and G change others):
+
+- "External layout": the tree's comment on the surface's sync names the writer.
+- "What is published and what stays local": the published files are pushed by the surface
+  server's writer within 5 minutes; with no writer running, a write to the surface is refused
+  (C.8).
+- The sentence on `forge-journal.jsonl` ("which also holds the board's writes") adds the writer's
+  lines.
+- "The event journal": its first paragraph names the writer among the journal's writers; the
+  `source` row gains `writer`; Part A's types table gains the four rows `sync-conflict@1`,
+  `sync-blocked@1`, `sync-late@1` and `sync-resumed@1` (C.10), written by the writer.
+
+`docs/web-board.md`:
+
+- "Autosync" becomes "The surface's writer": the pill by state, its panel and **Sync now** (C.13);
+  no Start, Stop or Approve.
+- "On a phone": the pill's dot, the table's column and its picture.
+- "Starting the board": a bullet on the writer (the board runs it, one per surface, C.2); "When it
+  stops": the final cycle, up to 30 s; the `board: writer not started` line and an older board
+  with no writer (Q27). Part A renames the `board` line in this section's first paragraph; this CR
+  does not touch that sentence.
+- "Retaking the pictures": the new picture names.
+
+Pictures: `docs/web-board/autosync-pc.png` and `docs/web-board/autosync-phone.png` are removed;
+`docs/web-board/writer-pc.png` and `writer-phone.png` take their place. Every other picture of
+`docs/web-board/` is retaken in the same `just docs-screenshots` run, since the left bar's pill
+shows in each. `scripts/docs_screenshots.py`: its `autosync` capture becomes `writer`, on a fixed
+writer state the Driver chooses (a bare origin, for instance, so that the pill shows `synced`).
+
+`docs/demo/` (the surface the pictures are taken from): its `AGENTS.md` and `README.md` drop the
+autosync rules and say the surface server pushes; `docs/demo/.agents/guidelines/autosync.guidelines.md`
+and `docs/demo/scripts/ai-autosync-git.py` are removed.
+
+`docs/use-cases.md`: "Start on a new project" ("autosync is an independent opt-in" becomes: the
+surface server publishes the plan); "When chantier says no" gains: no surface server running, so
+nothing is written to the surface (C.8's text).
+
+`README.md`: the "Respect the project's rules" bullet on what chantier writes adds: in a planning
+surface, the surface server commits and pushes the plan.
+
+`skills/chantier/scripts/cli/src/chantier/board/web/DESIGN.md` (not under `docs/`): the
+`--autosync-*` tokens become the writer's states (C.13).
+
+Searched and unaffected (for autosync, sync, push, pull, commit by hand, surface server, writer):
+`docs/boards.md` (the pane names no autosync), `docs/use-cases-foreman.md`,
+`docs/use-cases-direct.md`, `docs/tutorial-claude-code.md`, `docs/hosts.md`, `docs/gates.md`,
+`docs/costs.md`, `docs/agents-and-models.md`, `docs/release-process.md`, and the other diagrams
+and their texts. `docs/release-notes/` is history and never edited; this CR's notes are a new file
+(§8).
 
 ## 5. Host and default matrix
 
@@ -586,6 +679,10 @@ origin, the writer's `poll(now)` driven with no sleep):
     holding a git repository: no `nested-repo`, neither staged; a git repository at
     `projects/a/changes/1-inbox/x/clone/` not named: state `blocked`, reason `nested-repo`, its path
     in `text`, one `sync-blocked@1`, nothing committed;
+  - project `b` with no `checkout.yml`, and project `c` whose `checkout.yml` names only `repo:
+    code`: a git repository at `projects/b/.repo/`, `projects/b/.worktrees/x/` and
+    `projects/c/.worktrees/y/` (the defaults of `core/repo.py`, read through its resolution): no
+    `nested-repo`, none staged, a change beside them in `projects/b/changes/` committed and pushed;
   - the origin moved (a second clone pushed a change to another project): the writer rebases and
     pushes, no conflict, both changes on `main`;
   - the origin moved while a local change is pending and still moving (inside `quiet`): it is
@@ -674,6 +771,12 @@ The project's gates:
   (`test_board_design.py`). The prepared texts named above (a `writer` entry per state) are only
   for cases the shipped files cannot hold.
 - No CI job is added or changed.
+- Docs (C.14), checked by the Driver before the push: each changed `docs/<name>.svg` changed with
+  its `docs/<name>-texts.md` in the same commit, its `<desc>` equal to the texts' first paragraph;
+  `just docs-screenshots` ran at the head and every picture of `docs/web-board/` is from that run;
+  a search of `README.md`, `docs/` (outside `docs/release-notes/`) and the cards for `autosync`
+  finds only the `foreign-autosync` reason and P13's warning, nothing that describes it as
+  chantier's sync.
 
 ## 7. Self-containment notes for the Driver
 
@@ -682,7 +785,8 @@ The project's gates:
   seam), `hub/journal.py` (`append`, the one writer path), `core/git.py` (`git`), `core/repo.py`
   (`read_keyed` for `checkout.yml`), `lifecycle/stages.py` (`changes_lock`),
   `commands/batch_status.py` (`_autosync_lines` replaced), `commands/preflight.py` (P13),
-  `board/routes.py` (the routes table), `board/command.py` (where `HubThread` starts).
+  `board/routes.py` (the routes table), `board/command.py` (where `HubThread` starts),
+  `scripts/docs_screenshots.py` (the `autosync` capture, C.14).
 - AGENTS.md's portability: every git call through `core/git.py` (UTF-8, no shell); the commit's
   paths on standard input, never on the command line (Windows' length limit); paths with forward
   slashes in messages; Windows file locks (a rebase touching a file open in another process fails:
@@ -701,7 +805,7 @@ The project's gates:
   scan goes
   with it: put a secret scan in the surface's pre-commit hook if wanted, the writer runs the
   user's hooks (Q13); keep the project's code clone and worktrees outside `projects/`, or name
-  them in `checkout.yml` (Q11).
+  them in `checkout.yml`, or leave them at the defaults `.repo` and `.worktrees` (Q11).
 - Mixed versions: a chantier of an earlier version reading the writer's version 2 journal lines
   counts them and wakes no one; a board of another version is already refused (the server's
   election). An older board still serving after the upgrade runs no writer: the CLI's refusal and

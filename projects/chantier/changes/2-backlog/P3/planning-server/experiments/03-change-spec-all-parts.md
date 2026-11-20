@@ -27,7 +27,7 @@ fast"; the external surface is the answer, even if heavier. In it:
 - **No writer, no write.** While no surface server runs, the CLI refuses every write to the
   surface, with no fallback. A Griller alone records nothing.
 - **Five ideas from Vercel Board, built in chantier, with no Board dependency:** leases on the
-  work a Driver holds, typed waits (gates), typed journal events `name@N`, an "explain access"
+  work a Driver holds, typed waits, typed journal events `name@N`, an "explain access"
   command, and the plan's storage behind a minimal interface checked by one conformance test.
 
 Several machines are not weighed: two writers on two machines meet as any two git clones do, and
@@ -38,15 +38,24 @@ their conflict follows the conflict path of Part C.
 The user's answer (planning-server-Q7, "7 CR séparés"): one CR per part, in this order of
 dependency. Part C stays in `planning-server`; the six others are inbox items of their own.
 
-| Part | CR | What | Needs |
+| Part | CR (filed slug) | What | Needs |
 | --- | --- | --- | --- |
-| A. Typed events | inbox item | the journal's lines become `name@N`, a published schema never changing | none |
-| B. Store interface | inbox item | the plan's published writes go through one interface, with a conformance test | none |
-| C. The writer | `planning-server` | the surface server commits, rebases and pushes; writes refused with no writer; the surface's autosync support replaced | A, B |
-| D. Leases | inbox item | a Driver's lease on its CR, on the stack, on a QA order; `close` on Copilot reads it until `copilot-close-end-event` lands | A |
-| E. Typed waits | inbox item | a blocked CR, in a batch or in the backlog, records what it waits for; the hub signals when the forge shows it done | A |
-| F. `access` | inbox item | why a session may or may not write, claim or push | C, D |
-| G. Outside contributions | inbox item | a PR merged without chantier ends as a report in the archives | C |
+| A. Typed events | `1-inbox/typed-journal-events` | the journal's lines become `name@N`, a published schema never changing | none |
+| B. Store interface | `1-inbox/plan-store-interface` | the plan's published writes go through one interface, with a conformance test | none |
+| C. The writer | `2-backlog/P3/planning-server` (this CR) | the surface server commits, rebases and pushes; writes refused with no writer; the surface's autosync support replaced | A, B |
+| D. Leases | `1-inbox/driver-leases` | a Driver's lease on its CR, on the stack, on a QA order; `close` on Copilot reads it until `copilot-close-end-event` lands | A |
+| E. Typed waits | `1-inbox/typed-waits` | a blocked CR, in a batch or in the backlog, records what it waits for; the hub signals when the forge shows it done | A; `1-inbox/forge-connectors` (planning-server-Q24) |
+| F. `access` | `1-inbox/explain-access` | why a session may or may not write, claim or push | C, D |
+| G. Outside contributions | `1-inbox/outside-contributions-archive` | a PR merged without chantier ends as a report in the archives | C |
+
+Two more inbox items came out of the same grill; neither is one of the seven parts:
+
+- `1-inbox/forge-connectors` (planning-server-Q24): a connector interface as plugins, the
+  registry of who is interested, and an entry for an outside poller that writes into the journal.
+  Part E needs it merged first (E.3's forge reads go through it).
+- `1-inbox/server-api` (planning-server-Q29): the server's API over a WebSocket, HTTP as the
+  degraded case, the web UI one client among others. It needs Part C and comes after it; until
+  then Part C's writer keeps the board's current HTTP API (`../03-change-spec.md`, C.13).
 
 Each part publishes its own event types in Part A's schema file (A.2): Part A the four existing
 kinds, Part C the `sync-*@1` types, Part D `lease-expired@1`, Part E `wait-cleared@1`.
@@ -69,6 +78,39 @@ Pending items the parts compose with (named so they align; none is edited by the
 - `4-batch/1-pending/398-retro-batch-28-drivers-end-before-closin`: the 45,000-byte cap on a CR
   Driver's common path (D.5).
 
+### The docs map
+
+Every file of chantier's `docs/` and `README.md` that a part makes false, and the section each
+part changes, so that two parts touching one file are visible. Each part changes its sections in
+the same CR as its behaviour; a `docs/<name>.svg` and its hand-kept text source
+`docs/<name>-texts.md` change together, the SVG's `<desc>` equal to the texts' first paragraph.
+Where two parts touch one section, they touch different sentences or rows (named); whichever
+lands second rebases onto the first and keeps both.
+
+| File | Part: section (what) |
+| --- | --- |
+| `README.md` | C: "Respect the project's rules" (the bullet "Everything chantier writes ...": the surface server commits and pushes the plan) |
+| `docs/planning-modes.md` | C: "The planning surface" (the tree's `AGENTS.md` comment, the sync paragraph), "What runs where", "What stays local, what is pushed", "Grillers", "The surface's autosync" (becomes "The surface's writer"), "With no agent", "Two sessions on one surface", "Setting one up"; G: "Outside contributors" (one paragraph added after the surface's PR text) |
+| `docs/planning-modes.svg` + `docs/planning-modes-texts.md` | C: the intro / `<desc>`, the External panel (`AGENTS.md` line, the "team of 2 to 4" line), the bottom band ("In a worktree", "Sync") |
+| `docs/how-chantier-works.svg` + `docs/how-chantier-works-texts.md` | C: the intro / `<desc>` (the sentence "It writes only in the planning folder ...") |
+| `docs/planning-folder.md` | A: "The event journal" (the example line, the field table, the older-lines paragraph, and the types table it creates with its four rows); C: the external layout's tree comment, "What is published and what stays local" (the sentence on what is pushed), "The event journal" (the first paragraph, the `source` row, the four `sync-*@1` rows); D: "What is published and what stays local" (the ignored list gains `.lease-hold.*.run`), the close paragraph ("whose transcript shows it still runs"), "The event journal" (the `lease-expired@1` row); E: the CR folder paragraph (`waits.json`), the `validate` paragraph (`waits.json`'s shape), "The event journal" (the `wait-cleared@1` row); G: the tree (the outside archive's line) |
+| `docs/web-board.md` | A: "PRs" ("The signal": a `merged@1` line), "Configuration" (Limits: a `config@1` line), "Starting the board" (its first paragraph: a `board@1` line); C: "Autosync" (becomes "The surface's writer"), "On a phone" (the pill's dot, the table's column and picture), "Starting the board" (a new bullet on the writer, and "When it stops": the final cycle), "Retaking the pictures"; E: "Kanban" (a blocked card's text) |
+| `docs/web-board/autosync-pc.png`, `docs/web-board/autosync-phone.png` | C: replaced by `writer-pc.png`, `writer-phone.png`; every other picture retaken in the same `just docs-screenshots` run (the left bar's pill is in each) |
+| `docs/demo/` (`AGENTS.md`, `README.md`, `.agents/guidelines/autosync.guidelines.md`, `scripts/ai-autosync-git.py`) and `scripts/docs_screenshots.py` | C: the demo surface's sync and the capture of the pill |
+| `docs/use-cases.md` | C: "Start on a new project" ("autosync is an independent opt-in"), "When chantier says no" (no surface server: nothing written) |
+| `docs/use-cases-direct.md` | D: "When the batch is paused, and when you close it" ("your Drivers' session files"), "Switch to Foreman mode" (a live lease delays the restart) |
+| `docs/use-cases-foreman.md` | D: "Recover after a restart", "Switch to direct mode" (a live lease delays the restart) |
+| `docs/hosts.md` | D: the Copilot paragraph (how `close` tells a held agent runs, per host) |
+| `skills/chantier/scripts/cli/src/chantier/board/web/DESIGN.md` (not under `docs/`) | C: the `--autosync-*` tokens become the writer's states (C.13) |
+
+Searched and unaffected by every part (each part's Docs section says why for its own topic):
+`docs/boards.md`, `docs/gates.md`, `docs/costs.md`, `docs/agents-and-models.md`,
+`docs/release-process.md`, `docs/tutorial-claude-code.md`, and the diagrams `batch-lifecycle`,
+`batch-modes`, `batch-pace` (no `-texts.md`), `cr-folder-lifecycle`, `cr-lifecycle`,
+`cr-lifecycle-line`, `cr-lifecycle-simple`, `how-chantier-works-simple-direct`,
+`how-chantier-works-simple-foreman`, `release-driver`, `logo`. `docs/release-notes/` is history
+and never edited; each part's release notes are new files.
+
 ## 3. Decisions carried from `02-answers.md`
 
 | Decision (date) | Where it lands |
@@ -78,7 +120,7 @@ Pending items the parts compose with (named so they align; none is edited by the
 | Upstream churn rules out Beads as the store; installing a binary is not the problem (11-10) | §9 out of scope |
 | Hash IDs rejected: "ce serait pas trié et j'ai déjà un slug" (11-10) | §9; leases and waits use the CR's id and small numbers |
 | Heartbeat/reclaim "ça vaudrait le coup" (11-10); leases replace the "session file written in the last 5 minutes" heuristic (11-20) | Part D |
-| Gates stay generic: GitHub PR and GitLab MR; Claude Code, Codex, GitLab Duo, Copilot (11-10) | Part E: types named by the fact, never by the forge |
+| Typed waits stay generic: GitHub PR and GitLab MR; Claude Code, Codex, GitLab Duo, Copilot (11-10) | Part E: types named by the fact, never by the forge; called waits, never gates (§4) |
 | The external surface is the most important point (11-10) | Part C |
 | The only writer is the Chief of Staff, who guarantees the server (11-10) | §C.2 |
 | One Chief of Staff per project, several projects in one surface repository (11-10) | §C.3 |
@@ -110,6 +152,9 @@ Pending items the parts compose with (named so they align; none is edited by the
 | Q21: QA orders get leases in this work: the QA driver takes and renews a lease as a CR's Driver does (11-20) | §D.3 |
 | Q22: a fourth wait type, `merge` (a review request merged); a backlog CR may carry a wait too (e.g. the user's answer between two grills) (11-20) | §E.1, §E.2 |
 | Q23: GitLab approvals unproved: the GitLab approval read is marked unproved; one read on a real GitLab MR (Free and Premium) before the GitLab half of `approval` ships (11-20) | §E.3, §E.6 |
+| Q24: forge monitoring is a CR of its own, `1-inbox/forge-connectors`; typed waits depend on it (11-20) | §2 |
+| Q29: the API/UI split is a CR of its own, `1-inbox/server-api`, after Part C (11-20) | §2; `../03-change-spec.md` C.13 |
+| A coherent split, docs and SVGs included: each part changes the docs and diagrams (with their `-texts.md`) its change makes false, in the same CR as the behaviour (11-20) | §2 "The docs map"; each part's Docs section (A.5, B.3, C.14 of `../03-change-spec.md`, D.6, E.8, F.3, G) |
 
 Superseded, as Q10 confirms: the 11-10 table's "the other sessions talk to the Chief of Staff's
 session" and the intent's "thin client, the write sent to the server". Sessions on the machine
@@ -130,7 +175,10 @@ rebases and pushes.
 - **Lease:** a numbered, time-limited hold of a Driver on its unit (a CR, the stack, or a QA
   order), renewed by the Driver's commands, ended by its hand-back or the order's end.
 - **Wait:** what a blocked CR waits for, typed by the fact: `answer`, `approval`, `pipeline`,
-  `merge`.
+  `merge`. Never called a gate: chantier's gates are the fast gate and the long gate
+  (`docs/gates.md`, `chantier gate`, `work/gates/`). The 11-10 answers' "gates" are waits: Part E
+  says "wait" in its title, words, commands, fields, cards, messages, docs and test names, and
+  never "gate" for one.
 - **Event type:** `name@N`, the name and the published version of a journal line's payload.
 
 ---
@@ -209,6 +257,25 @@ The first four are the version 1 kinds frozen as they are today; their payloads 
 - Each later part that publishes a type adds its model and its `schemas.json` entry; the same test
   covers it.
 
+### A.5 Docs
+
+- `docs/planning-folder.md`, "The event journal": the example line becomes a version 2 line
+  (`"v": 2, ..., "type": "merged@1", "source": "hub", ...`); the field table: `v` (2; 0 and 1 still
+  read), `type` (`name@N`, in place of `kind`), `source` and `audience` as today; one sentence: a
+  published `name@N` never changes, a change is a new `name@N+1`, and every type's JSON Schema
+  ships in `hub/schemas.json`; the older-lines paragraph: a version 0 or 1 line's `kind` is read as
+  `<kind>@1` and never rewritten, a version 2 line of an unknown type or a refused payload counts
+  for `seq`, wakes no one and `status` names it by number. The sentence "Every line written today
+  is for `["project"]`: `merged` and `checks-red` ..." names the types (`merged@1`, ...). A new
+  table, "Type | Written by | Wakes a watcher", holds the four types of this part; Parts C, D and E
+  each add their rows to it (§2, the docs map).
+- `docs/web-board.md`: "PRs" ("The signal": the line it appends is a `merged@1` line),
+  "Configuration" (Limits: "one `config` line" becomes "one `config@1` line"), "Starting the
+  board" (its first paragraph: "one `board` line" becomes "one `board@1` line"). The behaviour these
+  describe does not change; only the names follow the published types.
+- Searched and unaffected: no diagram names the journal (every `docs/*-texts.md` and SVG searched
+  for journal, hub, watch, `kind`); `README.md` names no journal.
+
 ---
 
 ## Part B. The plan's storage behind a minimal interface
@@ -234,7 +301,7 @@ protocol and backends and moves the readers onto it. One package, one `PlanStore
     `.gitignore` patterns, `IGNORED`).
   - `check_publish(rels)`: raises a refusal when one of `rels` is published and the store cannot
     publish now; returns otherwise. In Part B no backend refuses; Part C gives `SurfaceStore` its
-    gate (C.8).
+    refusal (C.8).
   - Features: `publishes` (published paths reach a remote), `local-files` (ignored files kept beside
     the published ones), `refuses-without-publisher` (a published write is refused while the
     publisher is down; declared by `SurfaceStore` from Part C on).
@@ -281,6 +348,16 @@ order's lease is local; a backlog CR's `waits.json` is published) through the sa
   `check_publish` with its published paths before any change (a spy store records the call order).
   Part C turns the same table into the refusal test (`test_surface_writes.py`).
 
+### B.3 Docs
+
+None. Searched `README.md` and `docs/` for who writes the planning folder:
+`docs/planning-folder.md` (the CLI rewrites the STATUS files, an agent writes `summary.json`
+through `summary set`, `validate` writes nothing, the folder moves and is never copied),
+`docs/planning-modes.md` and `docs/web-board.md` (the board's backlog writes). Part B changes no
+behaviour they describe: the same files, the same commands, and no refusal (no backend refuses in
+Part B); the store is internal and no doc names the write path. The refusal with no writer is
+Part C's, documented in its C.14.
+
 ---
 
 ## Part C. The writer
@@ -304,6 +381,9 @@ that need it:
   integrates by hand in the surface's checkout; the writer pushes once integrated.
 - Commands `sync` and `sync now`; a `writer:` line in `status`, `seat`, `board`, preflight P13;
   the board's pill.
+- Docs: `../03-change-spec.md`, C.14: every doc, diagram and its `-texts.md`, the demo surface
+  and the board's pictures it makes false; §2 above, "The docs map", shows where they meet the
+  other parts' sections.
 
 ---
 
@@ -445,8 +525,32 @@ a running batch that expires (`lease-expired@1`, D.7). The write list adds the
 
 ### D.6 Docs
 
-`docs/` where the 5-minute heuristic or `close` on Copilot is described (the Driver checks with a
-search for `5 minutes` and `COPILOT_QUIET`).
+- `docs/planning-folder.md`: the close paragraph ("an agent of the batch ... whose transcript shows
+  it still runs") adds: on Copilot, until `copilot-close-end-event` lands, a held agent runs while
+  its lease is live, and the current Foreman while its heartbeat is under 10 minutes old (D.4);
+  "What is published and what stays local": the ignored list gains `.lease-hold.*.run`; "The event
+  journal": the `lease-expired@1` row of Part A's types table.
+- `docs/use-cases-direct.md`, "When the batch is paused, and when you close it": "the check counts
+  only your Drivers' session files as something that runs" becomes: on Claude Code, your Drivers'
+  transcripts; on Copilot, until `copilot-close-end-event` lands, their live leases; never your own
+  session. "Switch to Foreman mode": the Foreman restarts a CR once its old Driver's lease expired
+  (at most 10 minutes), or at once with `--reclaim` on your word.
+- `docs/use-cases-foreman.md`, "Recover after a restart" and "Switch to direct mode": the same: a CR
+  whose old Driver's lease is still live is taken again once it expires (at most 10 minutes), or at
+  once with `take --reclaim` on your word; an expired lease counts as the old Driver's end.
+- `docs/hosts.md`, after the paragraph "On Copilot, chantier runs in ...": one sentence: on Copilot,
+  until `copilot-close-end-event` lands, `close` tells that a Driver, the stack driver or a QA
+  driver still runs by its live lease (10 minutes, renewed every 3), and the Foreman by a heartbeat
+  younger than 10 minutes; on Claude Code, by the transcripts, the lease only shown. The page names
+  no `close` rule today; this is the host difference the part adds.
+- Diagrams: none. Every `docs/*-texts.md` and SVG searched for `5 min`, `heartbeat`, `still runs`,
+  `session file` and `close`: no diagram draws a Driver's liveness or the 5-minute rule;
+  `batch-lifecycle`'s "refused, naming the cause, while anything runs" and `cr-lifecycle`'s Foreman
+  box (`⏱ /loop · chantier status --refresh --epoch <n>`) stay true.
+- Searched and unaffected: `docs/tutorial-claude-code.md` ("The app restarted during a batch": a
+  new Foreman "picks up every CR where it was" stays true, at most 10 minutes later; its `close`
+  text is Claude Code's, the transcripts, unchanged); `docs/gates.md` (a running long gate keeps the
+  lease live; its text holds); `docs/costs.md` (its "expired" is the prompt cache's).
 
 ### D.7 Messages
 
@@ -478,7 +582,7 @@ search for `5 minutes` and `COPILOT_QUIET`).
 
 ---
 
-## Part E. Typed waits (gates)
+## Part E. Typed waits
 
 ### E.1 What a wait is
 
@@ -582,15 +686,36 @@ of the planning folder (already covered by "chantier writes only in the planning
   none; on GitLab a green pipeline and a merge each give one line, an approval gives none (unproved).
 - The GitLab approval proof (E.3): the two real reads, recorded in Part E's CR, before the GitLab
   approval read is enabled; no fake forge stands for it.
-- Scenario, unit `gates` (GitHub) and unit `gitlab`: a Driver blocks with `--wait pipeline`, the
-  fake forge turns green, the journal holds `wait-cleared@1`, the scripted Foreman clears and takes
-  back.
+- Scenario, a case named `typed_waits` in a GitHub unit other than `gates` (that unit is the long
+  gate's; the Driver picks the closest, as `qa-driver` or `series-deps`), and one in unit `gitlab`:
+  a Driver blocks with `--wait pipeline`, the fake forge turns green, the journal holds
+  `wait-cleared@1`, the scripted Foreman clears and takes back.
 
 ### E.7 Open for Part E's CR
 
 1. Should the hub also read the forge for a backlog CR's `approval`, `pipeline` and `merge` waits
    (a larger query budget than AGENTS.md's "one query per project of the surface whose running
    batch has a PR ..."), or do backlog waits stay cleared by hand (this text)?
+
+### E.8 Docs
+
+- `docs/web-board.md`, "Kanban": "a blocked one 'waits for the user'" becomes: a blocked one shows
+  its open waits (`waits: answer`, `waits: pipeline`, ...), "waits for the user" staying for a
+  block with no typed wait; a backlog card with an open wait shows it too (E.2). When the Driver
+  puts the `waits` field on another view's card, that view's section says it too.
+- `docs/planning-folder.md`: the CR folder paragraph ("A CR's folder may also hold
+  `prototypes/NN-<idea>/` and `experiments/`") adds a backlog CR's `waits.json` (published, moves
+  with the folder, carried into the batch's record at `open`); the `validate` paragraph adds the
+  shape of a backlog CR's `waits.json`; "The event journal": the `wait-cleared@1` row of Part A's
+  types table.
+- Words: "wait" everywhere, never "gate" (§4). `docs/gates.md` keeps "gate" for the fast and long
+  gates and does not change.
+- Searched and unaffected: `docs/boards.md` (the pane's `STATUS.json` fields do not change, E.2,
+  so its "waits for the user" on a blocked CR stays the pane's text); `docs/cr-lifecycle.svg` and
+  its texts ("⛔ blocked: question, approval, budget…" stays true: a block carries typed waits or
+  none); `docs/use-cases-foreman.md`, `docs/use-cases-direct.md` and `README.md` (a blocked CR
+  "parked as blocked with its question", "comes back as a question": still how the user hears it,
+  through the Chief of Staff); `docs/batch-pace.svg` (its "CRs wait" are queued CRs).
 
 ---
 
@@ -640,6 +765,13 @@ answers name the seat, the epoch, the lease and the writer, never a role. With n
   external with and without a writer entry; a CR with a live, expired and stale lease; no slot; a
   dependency not ready), and `access` writing nothing (the tree fingerprint unchanged).
 
+### F.3 Docs
+
+None. Searched `README.md` and `docs/` for refusals and a list of commands: no doc lists the CLI's
+commands (each page names those it uses); `docs/use-cases.md`, "When chantier says no", and
+`docs/tutorial-claude-code.md`, "If something goes wrong", stay true (`access` explains a refusal
+and changes none). The cards carry the command (F.2).
+
 ---
 
 ## Part G. Outside contributions
@@ -655,9 +787,22 @@ archives. No CLI tool (no measured cost yet):
   writer publishes it like any write; with no writer, nothing is written.
 - `lifecycle/layout_check.py` (`validate`) accepts an archive named
   `<YYMMDD-HHMM>-outside-<number>-<slug>`.
-- `docs/planning-modes.md`, "Outside contributors": the archive path.
 - Evidence: `tests/test_validate.py` gains an outside archive (valid) and a malformed name (an
   error).
+
+Docs:
+
+- `docs/planning-folder.md`, the tree: under the `5-archives/<YYMMDD-HHMM>-<number>-<slug>/` line,
+  one line `5-archives/<YYMMDD-HHMM>-outside-<number>-<slug>/   a PR merged without chantier,
+  archived on your word`.
+- `docs/planning-modes.md`, "Outside contributors": one paragraph after the surface's PR text: a PR
+  or MR merged on the project without chantier is archived on your word ("archive <link>") as
+  `5-archives/<YYMMDD-HHMM>-outside-<number>-<slug>/`, with `intake/request.md` and `delivery.md`;
+  in a planning surface the writer publishes it, and with no writer nothing is written.
+- Searched and unaffected: `docs/planning-modes.svg` and its texts ("Outside contributors: submit
+  a CR ... by a pull request on the surface" is the surface's contributor, whom Part G does not
+  change); `docs/cr-folder-lifecycle.svg` and its texts (an outside archive goes through no stage;
+  a CR's archive name there stays true); `README.md`'s pointer to "outside contributors".
 
 ---
 
