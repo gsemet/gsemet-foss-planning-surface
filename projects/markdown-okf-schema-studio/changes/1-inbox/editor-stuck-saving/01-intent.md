@@ -8,3 +8,7 @@ outside, click another block, a re-render during the save) ends with the editor 
 an error, never stuck.
 
 Reproduction is running (Chief of Staff, 2026-11-20); its report goes into this folder's `work/`.
+
+Owner, 2026-11-20, later: "attention, ca arrive aussi sur une liste, un texte, sauf que je n'arrive
+pas reproduire". It happens on lists and on plain text, and it is intermittent: the owner cannot
+reproduce it on demand. Look for a timing race, not a list-only path.
