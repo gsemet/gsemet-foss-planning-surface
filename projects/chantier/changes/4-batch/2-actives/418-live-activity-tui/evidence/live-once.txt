@@ -1,45 +1,10 @@
-chantier live  C:/Users/gaeta/Projets/gsemet-foss-planning-surface  v0.14.0  ws  live  23:39:12 UTC
-working 6  ready 2  held 0  done 26
+chantier live  /tmp/live-demo/demo/.agents/changes  v0.14.0  ws  live  23:54:56 U…
+working 1  ready 0  held 0  done 0
 ┌─ Projects ───────────────┐┌─ Flow ───────────────────────────────────────┐┌─ Tasks ──────────────────────────────────┐
-│ chantier  batch-29 runn… ││ 23:05:03 driver     note CR-424 r1 approved… ││ CR-417    just test back under its ceil… │
-│   inbox 9 backlog 23 re… ││ 23:07:49 driver     note CR-423 r1 inspecto… ││           round 2/3  coder r2            │
-│                          ││ 23:10:11 driver     note CR-424 before firs… ││ CR-420    A CR Driver reaches ready wit… │
-│ Agents                   ││ 23:12:23 driver     ship CR-424 https://git… ││           round 3/3  coder r3            │
-│ Driver CR-417 coder r2   ││ 23:14:01 driver     note CR-423 before firs… ││ CR-421    Downloaded CI artifacts stay … │
-│ Driver CR-420 coder r3   ││ 23:14:33 driver     round CR-420 r1 r1: car… ││           round 1/3                      │
-│ Driver CR-421            ││ 23:14:34 driver     ship CR-423 https://git… ││ CR-422    take's base and the ready wor… │
-│ Driver CR-422 coder r1   ││ 23:17:37 driver     verdict CR-424 VERIFIED  ││           round 1/3  coder r1            │
-│ Driver CR-418 coder r1   ││ 23:17:50 driver     note CR-424 closing: VE… ││ CR-418    `chantier live`: a live termi… │
-│ Driver CR-415 PR         ││ 23:18:03 driver     note CR-424 closing: bo… ││           round 1/3  coder r1            │
-│                          ││ 23:19:00 driver     verdict CR-424 VERIFIED  ││ CR-415    Start an eval's operator, and… │
-│                          ││ 23:19:19 driver     note CR-424 closing: de… ││           round 1/3  PR                  │
-│                          ││ 23:19:25 driver     note CR-424 closing: PR… ││ to review                                │
-│                          ││ 23:19:39 driver     ship CR-424 https://git… ││ CR-423    12m  A Driver's only send to … │
-│                          ││ 23:19:41 driver     handback CR-424 ready h… ││ CR-424    19m  Release highlights: text… │
-│                          ││ 23:19:59 driver     note CR-421 r1 inspecto… ││                                          │
-│                          ││ 23:20:00 driver     note CR-423 CI: gh pr c… ││                                          │
-│                          ││ 23:20:17 driver     note CR-421 r1 approved… ││                                          │
-│                          ││ 23:20:22 driver     handback CR-421 blocked… ││                                          │
-│                          ││ 23:20:58 foreman    take CR-421 fresh Drive… ││                                          │
-│                          ││ 23:22:57 driver     verdict CR-423 VERIFIED  ││                                          │
-│                          ││ 23:23:17 driver     note CR-423 closing: VE… ││                                          │
-│                          ││ 23:23:29 driver     note CR-423 closing: bo… ││                                          │
-│                          ││ 23:23:46 driver     note CR-420 r1 inspecto… ││                                          │
-│                          ││ 23:23:53 driver     round CR-420 r2 r3: tes… ││                                          │
-│                          ││ 23:24:31 driver     verdict CR-423 NOT VERI… ││                                          │
-│                          ││ 23:24:44 driver     note CR-423 r1 approved… ││                                          │
-│                          ││ 23:25:42 driver     verdict CR-423 VERIFIED  ││                                          │
-│                          ││ 23:25:55 driver     note CR-423 closing: de… ││                                          │
-│                          ││ 23:26:00 driver     note CR-423 closing: PR… ││                                          │
-│                          ││ 23:26:30 driver     ship CR-423 https://git… ││                                          │
-│                          ││ 23:26:33 driver     handback CR-423 ready h… ││                                          │
-│                          ││ 23:28:06 driver     note CR-417 r1 coder do… ││                                          │
-│                          ││ 23:28:16 driver     round CR-417 r2 r2: sta… ││                                          │
-│                          ││ 23:28:42 driver     note CR-420 r3 inspecto… ││                                          │
-│                          ││ 23:28:45 driver     round CR-420 r3 r4: add… ││                                          │
-│                          ││ 23:30:45 driver     note CR-420 r4 inspecto… ││                                          │
-│                          ││ 23:30:55 driver     note CR-420 r4 approved… ││                                          │
-│                          ││ 23:38:41 driver     note CR-421 before firs… ││                                          │
-│                          ││ 23:39:04 driver     ship CR-421 https://git… ││                                          │
+│ demo  batch-01 running … ││ 23:54:48 chief-of-… add CR-101               ││ CR-101    Export the report as CSV       │
+│   inbox 0 backlog 0 rea… ││ 23:54:48 chief-of-… add CR-102               ││           lease 09:55  round 0/3         │
+│                          ││ 23:54:48 chief-of-… open                     ││                                          │
+│ Agents                   ││ 23:54:52 foreman    take CR-101              ││                                          │
+│ Driver CR-101            ││                                              ││                                          │
 └──────────────────────────┘└──────────────────────────────────────────────┘└──────────────────────────────────────────┘
 Ctrl-C to quit

@@ -1,0 +1,10 @@
+chantier live  /tmp/live-demo/demo/.agents/changes  v0.14.0  http  live  23:54:58…
+working 1  ready 0  held 0  done 0
+┌─ Projects ───────────────┐┌─ Flow ───────────────────────────────────────┐┌─ Tasks ──────────────────────────────────┐
+│ demo  batch-01 running … ││ 23:54:48 chief-of-… add CR-101               ││ CR-101    Export the report as CSV       │
+│   inbox 0 backlog 0 rea… ││ 23:54:48 chief-of-… add CR-102               ││           lease 09:53  round 0/3         │
+│                          ││ 23:54:48 chief-of-… open                     ││                                          │
+│ Agents                   ││ 23:54:52 foreman    take CR-101              ││                                          │
+│ Driver CR-101            ││                                              ││                                          │
+└──────────────────────────┘└──────────────────────────────────────────────┘└──────────────────────────────────────────┘
+Ctrl-C to quit
