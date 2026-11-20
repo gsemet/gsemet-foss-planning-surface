@@ -78,3 +78,12 @@ Two text fixes (8, 9) go to the writer without a question. The seven that touch 
 7. **Copilot's `close`:** accepted (Q3, Q14: leases replace the 5-minute rule). `docs/hosts.md`
    and row D of `chief-of-staff.md` say what is no longer seen (a Driver's leftover background
    work after its hand-back) until `copilot-close-end-event` lands.
+
+## 2026-11-20, after the critic's fixes, settled by the Chief of Staff
+
+- The stack driver's gates keep the stack lease live by running under `lease stack hold`; no new
+  flag. Accepted.
+- `agents set <unit> -` ends only a live lease; a not-confirmed one still needs `--reclaim`.
+  Accepted.
+- With `lease-expired@1` gone, this CR adds no journal type: its dependency on
+  `typed-journal-events` is dropped (`depends.json` removed); the two CRs can run in parallel.

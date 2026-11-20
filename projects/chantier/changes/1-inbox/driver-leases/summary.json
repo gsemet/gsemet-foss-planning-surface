@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Driver leases on what take gave them",
-  "summary": "Specified from planning-server's Part D, the user's six answers folded: a 10-minute UTC lease renewed every 3 for a CR's Driver, the stack driver and a QA order, kept live by a long gate or lease hold; Copilot close reads it until copilot-close-end-event. No open question.",
+  "summary": "Drivers, the stack driver and the QA driver hold a 10-minute lease renewed by their commands; a live lease refuses a second take, an expired one is not confirmed and needs --reclaim after a host check; lease hold and gates keep it live; Copilot close reads leases.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "0ff6120b861794ac9a31655d4c011b8f7514f5bd76d3c3091ecde50bcc63653f",
-    "03-change-spec.md": "c8262998ea4234582f0b108ec8b21be0b3f9c25e9c506282a62d7d095729bacc",
+    "02-answers.md": "22fa14c9e1ad04761ce7961d87ac935ceac5f7c8bc38e1ce8d4e66906c671ba5",
+    "03-change-spec.md": "962e70c214e054cf7d221a5d615b52055b4501dd922bd0d32454071f6c7abd7e",
     "intake/request.md": "2279fba52a7e3e019e5c7092be3d5ab24a775621b0aa5e83b01ee861706e05e7"
   },
-  "summarized": "2026-11-20T09:15:42Z"
+  "summarized": "2026-11-20T09:24:56Z"
 }
