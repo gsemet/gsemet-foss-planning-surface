@@ -38,7 +38,7 @@ branches are untouched.
 
 ## Known gaps
 
-- The page's JavaScript stripping (`title()` and the views that call it) is not covered by a test and has had no hand check on a running board; a Verifier look is due.
+- The page's JavaScript stripping (`title()` and the views that call it) is not covered by a test and was not rendered in a browser; its function was run under node on the lead, case, BOM and `#` cases, and the board's `/state` was checked for an old record.
 - **UNVERIFIED:** no screenshot of the pane from a real session (the pane's title values change).
 
 <details>

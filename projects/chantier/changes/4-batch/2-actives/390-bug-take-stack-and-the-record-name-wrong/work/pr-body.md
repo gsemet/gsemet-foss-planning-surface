@@ -32,6 +32,8 @@ Grade: **2**. The base function is shared by `take`, the stack rows, the board, 
 
 - The board's `why` word is `dependency` when the returned base is one of the CR's open dependencies' branches, `stack` when `stack` placed the CR, `planned` otherwise (as the specification says); it is computed from the returned branch rather than from the presence of an `after`.
 
+- `start_base` returns `stack_start` for a CR the stack driver placed only when that CR has a recorded `start_on`; a placed CR with none keeps the dependency rule. The specification says `not c.stacked` alone; the scenario's stack unit has a placed CR whose recorded start base must still print.
+
 ## Known gaps
 
 None.
@@ -42,6 +44,7 @@ None.
 ## Changes
 
 - `stacks.py`: new `stack_start` (with two small helpers); `start_base` and `stack_base` return it for an unplaced CR of a stack batch (both values of `planned`); `start_on_for` uses the same "nearest CR below with a PR" rule; docstrings rewritten.
+- `scenario/run_scenario.py`: the stack unit's four stale expectations follow the one base function (the take prints the nearest dependency in the stack's order).
 - `board/crs.py`: `base_of` reads `stack_base` and sets `why` as above.
 - `tests/test_stack_base.py` (new): one parametrized check of the cases below, and one in-process `take` check.
 
@@ -56,12 +59,12 @@ No visual change. `take stack` rows and the `(note rebase: stacked on <cr>)` tai
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test_stack_base.py`, cases for both reported anomalies, nearest dependency, a CR without a PR skipped, a placed CR unchanged, and `take` agreeing with the `take stack` row
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: none beyond the tests
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): `test_stack_base.py`, cases for both reported anomalies, nearest dependency, a CR without a PR skipped, a placed CR unchanged, and `take` agreeing with the `take stack` row
+- [x] Local gates at `d25289b`: `just check`, `just eval-dry-run`
+- [x] Evidence: none beyond the tests
+- [x] Review: approved, committed in `d25289b` (rebased onto CR-391)
+- [x] Verified at `d25289b`
+- [x] CI green at `d25289b`
 
 ## Internal references
 

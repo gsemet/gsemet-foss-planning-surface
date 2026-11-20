@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Gate queue ticket unlink races on Windows",
+  "summary": "Specified: the long gate queue's ticket and mark I/O survives Windows sharing violations (readers treat a ticket being removed as gone; owner's replace/unlink retry about 300 ms, a failed unlink is retried at release, never crashes); one portable simulated test.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "03-change-spec.md": "d044fa029e134b02c99f91fdd4860979451968110fd01bf54da73a7ad7b83f36",
+    "intake/request.md": "2cd40a754937d79216d63906e848c242794dcc5cce9cb4ac00c4de84036522a0"
+  },
+  "summarized": "2026-11-20T02:18:12Z"
+}

@@ -1,267 +1,122 @@
-# Change Specification: the surface's writer, and five ideas borrowed from Vercel Board
+# Change Specification: the surface's writer (Part C of seven)
 
 Origin: verbal (2026-11-10, Beads study; grilled 2026-11-20). No tracker issue.
+
+This CR is Part C, the writer, of the seven-part work the user split into seven CRs
+(planning-server-Q7, 2026-11-20). The whole specification, every answer folded, is
+`experiments/03-change-spec-all-parts.md`: the reference for parts A, B, D, E, F and G, filed as
+inbox items of their own. Where the two differ on Part C, this file ranks.
 
 ## 1. Goal, in the user's terms
 
 The plan lives outside the project, in a planning surface, as Markdown and JSON that anyone can
 browse on the forge (GitHub or GitLab). Putting the plan in the project "hits its limits very
-fast"; the external surface is the answer, even if heavier. In it:
+fast"; the external surface is the answer, even if heavier. This CR gives it:
 
 - **One writer.** One process commits, rebases and pushes the surface: the surface server that a
-  Chief of Staff starts and guarantees. Every change reaches the forge within 5 minutes. The
-  surface's own autosync tool is no longer needed. A conflict between two clones that did not sync
-  is raised to the Chief of Staff, who resolves it to its best guess or asks the user.
+  Chief of Staff starts and guarantees, or that the user starts by hand and guarantees. Every
+  change reaches the forge within 5 minutes. The surface's own autosync tool is no longer needed.
+  A conflict between two clones that did not sync is raised to the Chief of Staff, who resolves it
+  to its best guess or asks the user.
 - **No writer, no write.** While no surface server runs, the CLI refuses every write to the
   surface, with no fallback. A Griller alone records nothing.
-- **Five ideas from Vercel Board, built in chantier, with no Board dependency:** leases on the
-  work a Driver holds, typed waits (gates), typed journal events `name@N`, an "explain access"
-  command, and the plan's storage behind a minimal interface checked by one conformance test.
 
 Several machines are not weighed: two writers on two machines meet as any two git clones do, and
-their conflict follows the conflict path below.
+their conflict follows the conflict path below (C.7).
 
-## 2. Natural parts
+## 2. Dependencies and neighbours
 
-The CR is large. It splits along its seams, in this order of dependency; each part is a PR of its
-own and may be its own CR (open question 1):
+This CR needs two of the split-off CRs merged first (their slugs are given when they are filed):
 
-| Part | What | Needs |
+| Part | Split-off CR | What this CR needs from it |
 | --- | --- | --- |
-| A. Typed events | the journal's lines become `name@N`, a published schema never changing | none |
-| B. Store interface | the plan's published writes go through one interface, with a conformance test | none |
-| C. The writer | the surface server commits, rebases and pushes; writes refused with no writer; the surface's autosync support replaced | A, B |
-| D. Leases | the Driver's lease on its CR and on the stack; `close` on Copilot reads it | A |
-| E. Typed waits | a blocked CR records what it waits for; the hub signals when the forge shows it done | A |
-| F. `access` | why a session may or may not write, claim or push | C, D |
-| G. Outside contributions | a PR merged without chantier ends as a report in the archives | C |
+| A | **Typed events** | the journal's version 2 line, `type: "name@N"`, `hub/schemas.py`'s `PUBLISHED` and the shipped `hub/schemas.json` checked by `test_event_types.py`; `journal.append` validating each payload. This CR adds the source `writer` and publishes four types there (C.10). |
+| B | **Store interface** | the package `store/` (`PlanStore`, `FolderStore`, `SurfaceStore`, `Repo.store`), every published write of the CLI and the board going through `repo.store` and calling `check_publish` with its published paths before it changes anything, and `test_store_conformance.py`. This CR gives `SurfaceStore` its gate (C.8). |
 
-The rest of this document specifies all seven, part by part.
+Parts D (leases), E (typed waits), F (`access`) and G (outside contributions) come after; F and G
+need this CR. Nothing here depends on them.
 
-Pending items this CR composes with (named so the two align; neither is edited by this CR):
+Pending items this CR composes with (named so they align; neither is edited by this CR):
 
-- `2-backlog/P2/one-read-interface-over-the-planning-fol`: one module `store`, the only way the
-  board, the hub and `status` read the planning folder; it waits for this CR. Part B builds the
-  write half of that same `store` module (B.1); that item adds the read half to it.
-- `2-backlog/P3/batch-takeover`: it publishes `batch.json` as `resume.batch` in the batch's record
-  (its §1), and names the record's way to the surface as "the surface's autosync or the Chief of
-  Staff's own commit" (its §1) and the pull before a takeover as "the surface's autosync `sync`,
-  or a plain pull" (its §3). With Part C, both become the surface's writer: the record is a
-  published path the writer commits and pushes, and the writer's fetch and integrate (or `sync
-  now`) bring the other machine's record. Its strip list gains this CR's leases (D.1); waits are
-  kept (E.1). Whichever of the two lands second carries the alignment.
+- `2-backlog/P3/batch-takeover`: it names the record's way to the surface as "the surface's
+  autosync or the Chief of Staff's own commit" (its §1) and the pull before a takeover as "the
+  surface's autosync `sync`, or a plain pull" (its §3). With this CR, both become the surface's
+  writer: the published record is a path the writer commits and pushes, and the writer's fetch and
+  integrate (or `sync now`) bring the other machine's record. Whichever lands second carries the
+  alignment.
+- `2-backlog/P2/one-read-interface-over-the-planning-fol`: the read half of Part B's `store`; it
+  reads the `writer` entry through whatever it adds, if it lands after this CR.
 
 ## 3. Decisions carried from `02-answers.md`
 
 | Decision (date) | Where it lands |
 | --- | --- |
 | "No setup" is for the target project; the surface may take a YAML/JSON configuration; coding rules stay in the project's `AGENTS.md` (11-10) | §C.1: the writer needs nothing but the surface's clone with an upstream; no new key in the project's repository; §C.12 the surface's setup |
-| Minor outside contributions without chantier; ideally a report in the archives (11-10) | Part G |
-| Upstream churn rules out Beads as the store; installing a binary is not the problem (11-10) | §9 out of scope |
-| Hash IDs rejected: "ce serait pas trié et j'ai déjà un slug" (11-10) | §9 out of scope; leases and waits use the CR's id and small numbers |
-| Heartbeat/reclaim "ça vaudrait le coup" (11-10); leases replace the "session file written in the last 5 minutes" heuristic (11-20) | Part D |
-| Gates stay generic: GitHub PR and GitLab MR; Claude Code, Codex, GitLab Duo, Copilot (11-10) | Part E: types named by the fact, never by the forge |
-| The external surface is the most important point (11-10) | Part C |
-| The only writer is the Chief of Staff, who guarantees the server (11-10) | §C.2: the writer runs in the surface server a Chief of Staff starts |
+| The external surface is the most important point (11-10) | this CR |
+| The only writer is the Chief of Staff, who guarantees the server (11-10) | §C.2 |
 | One Chief of Staff per project, several projects in one surface repository (11-10) | §C.3: one writer per surface and machine serves every project of the surface; seats unchanged |
-| Everything in Markdown, browsable on the forge; a separate planning project is better than a dedicated branch; a hidden ref and a database are ruled out (11-10) | §C: the writer pushes the surface's default branch; Part B names the dedicated branch as a backend not built here |
+| Everything in Markdown, browsable on the forge; a separate planning project is better than a dedicated branch; a hidden ref and a database are ruled out (11-10) | the writer pushes the surface's default branch, plain files |
 | The storage table (11-10): events as additional Markdown and JSON files; files read directly on the forge; sync within 5 minutes; conflicts raised to the Chief of Staff, best guess or ask the user; setup to be defined; Dolt set aside | §C.5 (the 5-minute bound), §C.7 (conflicts), §C.12 (setup); Dolt in §9 |
 | Chantier takes the sync over; n Chiefs of Staff on n projects of one surface synchronise their pushes; about three checkouts at worst (11-10, from planning-repo) | §C.3, §C.7 |
-| A running batch's state stays local to the steering machine (11-10, planning-repo answer 4) | §C.4: the writer never stages an ignored file; leases and waits live in `batch.json` |
-| No OKF for now (11-10) | §9 |
-| Messages and plan storage are two things; no Board dependency, hosted or local; chantier's journal, surface server and watchers stay the channel (11-20, Q1-Q2) | §9; Part A extends the existing journal |
-| All five Board ideas go in this CR (11-20, Q3) | Parts A, B, D, E, F |
-| Chantier takes the sync over: the surface server, elected and guaranteed by the Chief of Staff, is the one writer; commits, rebases and pushes within 5 minutes; raises conflicts to the Chief of Staff; the surface's own autosync tool is no longer needed (11-20, Q4) | Part C |
+| A running batch's state stays local to the steering machine (11-10, planning-repo answer 4) | §C.4 words: the writer never stages an ignored file |
+| Messages and plan storage are two things; no Board dependency; chantier's journal, surface server and watchers stay the channel (11-20, Q1-Q2) | §9; the writer's lines go through the existing journal |
+| Chantier takes the sync over: the surface server is the one writer; commits, rebases and pushes within 5 minutes; raises conflicts to the Chief of Staff; the autosync tool no longer needed (11-20, Q4) | this CR |
 | With no server, writes are refused until a Chief of Staff starts it again; no fallback; a Griller alone records nothing (11-20, Q5) | §C.8, §C.11 (cards) |
-| One watcher-autosync at a time for the surface; several machines inherent to distributed git, not weighed; specify every state and message (11-20, Q6) | §C.3 (one writer per surface and machine, by an OS lock), §C.7 (two machines meet as clones), every part's states and messages |
-| Spec critic: yes (11-20) | not this document's; the Chief of Staff runs it |
+| One watcher-autosync at a time for the surface; several machines not weighed; specify every state and message (11-20, Q6) | §C.2 (one writer per surface and machine, by an OS lock), §C.7 (two machines meet as clones), every state and message of C.4 to C.10 |
+| Q7: seven separate CRs; A and B first, then C (11-20) | §2; `experiments/03-change-spec-all-parts.md` |
+| Q10: sessions write the surface's files under the CLI's locks; only the writer commits, rebases and pushes; "the other sessions talk to the Chief of Staff's session" and "thin client" superseded (11-20) | §C.8; the note below |
+| Q11: never add the code's clone and worktrees under `projects/<name>/`: the writer excludes the paths `checkout.yml` names and blocks on any other nested repository (11-20) | §C.5 step 3, §C.6 `nested-repo` |
+| Q12: the remote moved while files are not committed: commit everything pending first, so any conflict is a rebase conflict raised to the Chief of Staff (11-20) | §C.5 step 6 |
+| Q13: secrets: git hooks only; the writer runs the user's hooks, never `--no-verify`; a secret scan goes in a pre-commit hook if the user wants one; nothing more in chantier (11-20) | §C.5 step 4, §C.6 `git-error`, §8, §9 |
+| Q15: a board the user starts by hand (no seat) runs the writer too; the user guarantees it (11-20) | §C.1 |
+| Q17: the surface's other files (`AGENTS.md`, `scripts/`, `justfile`) stay committed by hand, like code; the writer touches only the plan (`projects/` and the root `chantier.yaml`) (11-20) | §4 words, §C.5 steps 3-4 |
+| Q18: files staged by hand for two cycles: the writer blocks (`staged`) and tells the Chief of Staff to commit or unstage them (11-20) | §C.6 `staged` |
+| Spec critic: yes (11-20) | run by the Chief of Staff |
 
-Read as superseded: the 11-10 table's "the other sessions talk to the Chief of Staff's session"
-and the intent's "thin client, the write sent to the server". The 11-20 grill makes the surface
-server the one writer: sessions on the machine write the surface's working tree as today, under
-the CLI's locks, and only the writer commits and pushes. Open question 2 asks the user to confirm.
+The other decisions (Beads, hash IDs, heartbeat and leases, gates, outside contributions, the five
+Board ideas, Q8, Q9, Q14, Q16, Q19 to Q23) land in parts A, B, D, E, F and G:
+`experiments/03-change-spec-all-parts.md`, §3, maps each.
+
+Superseded, as Q10 confirms: the 11-10 table's "the other sessions talk to the Chief of Staff's
+session" and the intent's "thin client, the write sent to the server". Sessions on the machine
+write the surface's working tree as today, under the CLI's locks; only the writer commits,
+rebases and pushes.
 
 ## 4. Words
 
 - **Writer:** the thread of the surface server (`chantier board`) that commits, rebases and pushes
   the planning surface. It exists only in external mode.
 - **Published path:** a path of the surface's working tree that git does not ignore, under
-  `projects/` or the surface root's `chantier.yaml` / `chantier.yml`. A path the planning
-  folder's `.gitignore` lists (`core/files.py`, `IGNORED`) is local, never published.
+  `projects/` or the surface root's `chantier.yaml` / `chantier.yml`, and not under a path a
+  project's `checkout.yml` names (C.5 step 3). A path the planning folder's `.gitignore` lists
+  (`core/files.py`, `IGNORED`) is local, never published.
+- **The surface's other files:** every other path of the surface (its `AGENTS.md`, `scripts/`,
+  `justfile`, `.agents/`, ...). The writer never stages, commits or reverts them; they are
+  committed by hand, like code (Q17).
 - **Published write:** a CLI write that creates, changes, moves or deletes a published path.
-- **Lease:** a numbered, time-limited hold of a Driver on the unit `take` gave it (a CR, or the
-  stack), renewed by the Driver's commands, ended by its hand-back.
-- **Wait:** what a blocked CR waits for, typed by the fact: `answer`, `approval`, `pipeline`.
-- **Event type:** `name@N`, the name and the published version of a journal line's payload.
+- **Nested repository:** a folder under the writer's paths that holds a `.git` (folder or file),
+  or a gitlink (mode 160000) in the index.
 
----
-
-## Part A. Typed events
-
-### A.1 What changes
-
-The project's journal, `forge-journal.jsonl` (`hub/journal.py`), gets a version 2 line in which
-the payload's kind and version are one field, `type`, of the form `name@N`. A published
-`name@N` never changes; a change is a new `name@N+1`.
-
-- New module `skills/chantier/scripts/cli/src/chantier/hub/schemas.py`: one pydantic model per
-  published type (`model_config = ConfigDict(extra="forbid", frozen=True)`), a `PUBLISHED`
-  mapping `"name@N" -> model`, and `validate(type, payload)`.
-- New file `skills/chantier/scripts/cli/src/chantier/hub/schemas.json`, shipped: the JSON Schema
-  (`model_json_schema()`) of every published type, keyed by `name@N`, sorted, UTF-8, LF. It is the
-  published record: a test (A.4) fails when a model's schema differs from its entry.
-
-### A.2 The line, version 2
-
-In this order: `v` (2), `seq`, `t`, `type`, `source`, `audience`, then the payload of its type.
-`source` is one of `hub`, `board`, `cli`, `writer` (new). `audience` is as in version 1.
-
-Published types, each `@1`:
-
-| Type | Payload | Written by | Wakes a watcher |
-| --- | --- | --- | --- |
-| `merged@1` | `batch`, `cr`, `pr`, `into`, `into_cr`, `merged_at`, optional `landed_with`, `landed_at` | hub, board | yes |
-| `checks-red@1` | `batch`, `cr`, `pr`, `head` | hub | yes |
-| `config@1` | `key`, `old`, `new`, `batch` | board | yes |
-| `board@1` | `action`, `items`, `text`, `wakes` | board | when `wakes` |
-| `sync-conflict@1` | `upstream` (sha), `local` (sha), `files` (paths relative to the surface root), `projects` | writer | yes |
-| `sync-blocked@1` | `reason` (one of C.6's reasons), `text` | writer | yes |
-| `sync-late@1` | `since` (time of the oldest change not pushed), `paths` (count), `ahead` (commits) | writer | yes |
-| `sync-resumed@1` | `after` (`conflict`, `blocked`, `offline`) | writer | no |
-| `lease-expired@1` | `batch`, `cr` (a CR id or `stack`), `lease` (its number), `expired_at` | hub | yes |
-| `wait-cleared@1` | `batch`, `cr`, `wait` (its id), `wait_type` (`approval` or `pipeline`), `ref`, `seen_at` | hub | yes |
-
-The first four are the version 1 kinds frozen as they are today; their payloads do not change.
-
-### A.3 Reading and writing
-
-- `journal.append(repo, events, source)` takes events as `{"type": "name@N", "audience"?, ...}`,
-  validates each payload against its model, and raises `ValueError` (a code fault) on an unknown
-  type, a payload its model refuses, a wrong source or audience. It keeps its lock, its `seq` and
-  its duplicate rule; `_key` dispatches on the type's name. Every writer (hub, board, CLI,
-  writer) still goes through this one function.
-- `journal.read` gives every line an effective `type`: a version 0 or 1 line's `kind` becomes
-  `<kind>@1`, its `source` from `source` or `by`, its audience `project` when it has none. A
-  version 0 or 1 line is never rewritten.
-- A version 2 line whose `type` is not in `PUBLISHED` (a newer chantier wrote it), or whose
-  payload its model refuses, counts for `seq`, is listed with the unreadable lines by number, and
-  wakes no one. A line with `v` above 2 is as today's newer line.
-- `event_text` dispatches on the type's name; the texts of the four existing kinds do not change.
-  The texts of the new types are in C.10, D.6 and E.5.
-- The module docstring of `hub/journal.py` is rewritten to describe version 2 and the types.
-
-### A.4 Evidence
-
-- `tests/test_event_types.py` (new, in `skills/chantier/scripts/cli/tests/`):
-  - reads the shipped `hub/schemas.json` from the repository at the head under test and compares
-    it with `model_json_schema()` of every model in `PUBLISHED`: an entry changed or removed fails
-    with `published schema <name@N> changed: publish <name@N+1> instead`; a model with no entry
-    fails with `schema <name@N> not published in schemas.json`;
-  - parametrized over every published type: a valid payload appends one version 2 line with the
-    fields in order; a payload with an extra or a missing field raises `ValueError` and writes
-    nothing;
-  - a prepared journal (a case the shipped file cannot hold) with a version 0 line, a version 1
-    line of each kind, a version 2 line of an unknown type and one with a refused payload: `read`
-    gives the effective types, the unknown and refused lines are listed by number, and `watch
-    --once --after 0` prints only the known lines.
-- `tests/test_event_audience.py` and `tests/test_watch_events.py` keep passing with the `type`
-  field (their prepared lines updated where they write new lines).
-
----
-
-## Part B. The plan's storage behind a minimal interface
-
-### B.1 What changes
-
-New package `skills/chantier/scripts/cli/src/chantier/store/`. It is the module `store` that the
-pending P2 item `2-backlog/P2/one-read-interface-over-the-planning-fol` names (the only way the
-board, the hub and `status` read the planning folder; it waits for this CR): this part builds its
-**write half** and the low-level reads the conformance test needs (`read_text`, `exists`,
-`listdir`); that item adds the read half (records, backlog, configuration, journal) to the same
-protocol and backends and moves the readers onto it. One package, one `PlanStore`, one
-`Repo.store`, one conformance test that both halves extend; no second store module. An index that
-item allows later sits behind the same protocol.
-
-- `base.py`: the protocol `PlanStore`, and `Features` (a frozen set of the words below).
-  - `root: Path` (the planning folder), `features: frozenset[str]`.
-  - `read_text(rel) -> str`, `exists(rel) -> bool`, `listdir(rel) -> list[str]`.
-  - `write_text(rel, text)`, `write_json(rel, data)`: atomic, UTF-8 without BOM, LF kept.
-  - `move(rel_src, rel_dst)`: a file or a CR folder, across stages; refused when the target exists.
-  - `remove(rel)`: a file or an empty folder.
-  - `lock()`: the context manager of the planning folder's lifecycle lock (today
-    `lifecycle/stages.py`, `changes_lock`).
-  - `published(rel) -> bool`: whether the path is published (not matched by the planning folder's
-    `.gitignore` patterns, `IGNORED`).
-  - `check_publish(rels)`: raises the refusal of C.8 when one of `rels` is published and the store
-    cannot publish now; returns otherwise.
-  - Features: `publishes` (published paths reach a remote), `local-files` (ignored files kept beside
-    the published ones), `refuses-without-publisher` (a published write is refused while the
-    publisher is down).
-- `folder.py`: `FolderStore(changes)`: the in-project planning folder. Features: `local-files`.
-  Publishes nothing, never refuses (in-project mode is unchanged).
-- `surface.py`: `SurfaceStore(repo)`: the external planning folder, the same files plus the
-  writer's gate. Features: `publishes`, `local-files`, `refuses-without-publisher`.
-  `check_publish` reads the live `writer` entry of `server.json` (C.4); with none it refuses.
-  This is the "server" backend of the user's list.
-- `Repo.store` (in `core/repo.py`): the store of the repository, chosen by `repo.external`.
-
-The dedicated-branch backend (the plan on a branch of the project's repository) is not built in
-this CR: the conformance test declares it, and it is skipped with the reason
-`dedicated-branch backend not built (planning-server open question 3)`.
-
-Every published write of the CLI goes through `repo.store`: `file`, `triage`, `abandon`,
-`restore`, `init`, `open`, `take`, `handback`, `order` (each kind that moves or writes a CR's
-folder: `add`, `merged`, `drop`), `cancel`, `close`, `summary set`, `summary label`, `summary
-group`, `verdict` when it writes in a CR's folder, the release commands that write the archive,
-and the board's backlog writes (`board/write_api.py`, through `lifecycle/backlog.py`) and its
-Configuration page's save (`board/config_api.py`, `projects/<name>/chantier.yaml`). Each command
-calls `check_publish` with every published path it will touch **before** it changes anything, so a
-refused command leaves the folder and the batch's record as they were. Local files (`batch.json`,
-`events.jsonl`, STATUS files, locks, the journals, `seat.json`) may keep `core/files.py`'s
-functions directly; they are never refused.
-
-### B.2 Evidence
-
-- `tests/test_store_conformance.py` (new): one test body parametrized over the backends
-  `folder`, `surface` (with a writer entry live, then with none) and `dedicated-branch` (skipped,
-  B.1). A case whose feature the backend declares absent is skipped by feature, never failed:
-  - UTF-8 round trip of a text with non-ASCII letters, no BOM written, LF kept;
-  - `write_json` then `read_text` gives the same JSON;
-  - `move` of a CR folder from `2-backlog/P3/` to `3-ready/` keeps every file's bytes; a move onto
-    an existing folder is refused and changes nothing;
-  - `lock` is exclusive: a second `lock()` from another thread waits, and times out with the
-    lifecycle lock's message;
-  - `published` agrees with `IGNORED` for `seat.json`, `4-batch/batch.json`, `work/gates/x.log`
-    (local) and `3-ready/x/01-intent.md`, `5-archives/batches/batch-01.json` (published);
-  - `refuses-without-publisher`: with no live writer, `check_publish(["3-ready/x/01-intent.md"])`
-    raises exit 2 with C.8's text, and `check_publish(["4-batch/batch.json"])` returns.
-- `tests/test_surface_writes.py` (new), parametrized over the command table of B.1 on a prepared
-  external surface with no writer: each command exits 2 with C.8's refusal, and the planning
-  folder's tree fingerprint (every path and its bytes) and `batch.json` are unchanged. The same
-  table with a live writer entry: each command succeeds. In-project, no command is refused.
-
----
-
-## Part C. The writer
-
-### C.1 Where it runs
+## C.1 Where it runs
 
 - In the surface server (`chantier board`), as a daemon thread beside the hub's
   (`board/command.py` starts it as it starts `HubThread`), only when the folder served is an
   external planning surface. An in-project board starts no writer, and the in-project mode runs no
   git write, as today.
 - A board started by a Chief of Staff (`board --seat <id>`) and a board started by hand (no
-  `--seat`, the "With no agent" path) both run the writer (open question 4).
+  `--seat`, the "With no agent" path of `docs/planning-modes.md`) both run the writer; the one who
+  started it guarantees it, the user for a board started by hand (Q15).
 - New package `skills/chantier/scripts/cli/src/chantier/writer/`: `loop.py` (`WriterLoop.poll(now)`
   and `WriterThread`, the shape of `hub/loop.py`), `cycle.py` (one cycle, C.5), `git_ops.py` (the
-  git commands, through `core/git.py`'s `git`), `record.py` (the `writer` entry, C.4), `times.py`
-  (C.5's times and the test seam), `lines.py` (C.10's texts).
+  git commands, through `core/git.py`'s `git`), `paths.py` (the writer's pathspec and the nested
+  repositories, C.5 step 3), `record.py` (the `writer` entry, C.4), `times.py` (C.5's times and the
+  test seam), `lines.py` (C.10's texts).
 - The writer needs nothing beyond what the surface has: `git`, the surface's clone on its default
   branch with an upstream, and the network for fetch and push. Git LFS is needed only when the
   surface's `.gitattributes` names LFS files that change; git's own error then blocks the writer
   (C.6, `git-error`).
 
-### C.2 Election and lifetime
+## C.2 Election and lifetime
 
 - The writer holds an OS lock, `chantier/writer.lock` in the surface's git common folder, taken
   with `core.files.try_lock`, never waited on, released by the OS when the process ends (as
@@ -275,7 +130,7 @@ functions directly; they are never refused.
   restart or the app's close ends it; the next Chief of Staff session starts the server again
   (session start, as today) and the new writer picks up every change left in the working tree.
 
-### C.3 Several projects, several Chiefs of Staff, several machines
+## C.3 Several projects, several Chiefs of Staff, several machines
 
 - One writer serves every project of the surface on its machine. Each Chief of Staff of a project
   of the surface guarantees it through its seat on the server; the writer stops only with the
@@ -286,7 +141,7 @@ functions directly; they are never refused.
   pushed first is integrated by rebase (C.5), and a rebase conflict goes to the Chief of Staff
   (C.7). Nothing else coordinates them.
 
-### C.4 The record: the `writer` entry of `server.json`
+## C.4 The record: the `writer` entry of `server.json`
 
 Written by the writer only, through `hub/state.py`'s `modify` (its lock and its atomic replace);
 the `hub/state.py` docstring names it. Fields:
@@ -295,7 +150,7 @@ the `hub/state.py` docstring names it. Fields:
   since `started` is no entry, `live_entry`).
 - `state`: one of `syncing`, `synced`, `pending`, `offline`, `conflict`, `blocked`.
 - `reason`: empty, or C.6's reason word; `text`: one line, at most 200 characters (git's message,
-  cut).
+  cut, or the nested repository's path).
 - `since`: when the state began.
 - `pending`: the count of published paths changed and not committed; `pending_since`: the time
   the oldest of them was first seen, or null.
@@ -307,7 +162,7 @@ the `hub/state.py` docstring names it. Fields:
 Readers derive one more state, `off`, when there is no live `writer` entry. `state.py` gets
 `WRITER = "writer"` and `write_writer(git_dir, record)`; `remove_entry` removes it at the end.
 
-### C.5 The cycle
+## C.5 The cycle
 
 Times (constants in `writer/times.py`; the test seam `CHANTIER_WRITER_TEST_TIMES`, read only there,
 as `<every>:<quiet>:<max_wait>:<fetch_every>:<late>` in seconds, as `CHANTIER_HUB_TEST_TIMES`):
@@ -336,24 +191,39 @@ One cycle, in order; each step's failure goes to the state named, and ends the c
 2. **Preconditions** (C.6). A failing one: state `blocked` with its reason; `sync-blocked@1` once
    per episode (an episode ends when the cycle passes the preconditions again, which appends
    `sync-resumed@1`, `after: blocked`).
-3. **Changes.** `git status --porcelain=v1 -z --untracked-files=all -- projects chantier.yaml
-   chantier.yml` (ignored files are never listed). A fingerprint of the list and each path's size
-   and mtime tells whether the changes moved since the last cycle. With changes: state `pending`,
-   `pending` counted, `pending_since` kept from the first sighting.
+3. **Changes.** The writer's pathspec (`writer/paths.py`): `projects`, `chantier.yaml`,
+   `chantier.yml`, and one `:(exclude)<path>` per path a project's `checkout.yml` names (`repo:`,
+   `worktrees:`, read by `core/repo.py`'s `read_keyed`, resolved from the project's folder) that
+   falls inside the surface's working tree (Q11); a path outside it needs no exclusion. `git status
+   --porcelain=v1 -z --untracked-files=all -- <pathspec>` (ignored files are never listed). An
+   untracked entry that ends with `/` (git lists a nested repository as its folder and does not go
+   in), or a changed gitlink, is a nested repository: C.6's `nested-repo`, checked at step 2 from
+   the same listing. A fingerprint of the list and each path's size and mtime tells whether the
+   changes moved since the last cycle. With changes: state `pending`, `pending` counted,
+   `pending_since` kept from the first sighting.
 4. **Commit**, when there are changes and (`quiet` has passed since they last moved, or
-   `pending_since` is older than `max_wait`, or this is the final cycle, or a `sync now` asked):
-   under every project's lifecycle lock (`changes_lock`, taken in the projects' sorted order), `git
-   add -A -- projects chantier.yaml chantier.yml`, then `git commit -m <message>` with the user's
-   own git identity and hooks (never `--no-verify`). The message: first line `chantier: <projects,
-   comma-separated>: <n> files`, then a blank line and the paths, at most 20, then `and <k> more`.
+   `pending_since` is older than `max_wait`, or this is the final cycle, or a `sync now` asked, or
+   step 6 needs it): under every project's lifecycle lock (`changes_lock`, taken in the projects'
+   sorted order), `git add -A -- <pathspec>`, then `git commit -m <message>
+   --pathspec-from-file=- --pathspec-file-nul` with the paths listed at step 3 on its standard
+   input, so the commit holds only the writer's paths even when someone else staged another file
+   (the `staged` rule, C.6, blocks only at the second cycle). It runs with the user's own git
+   identity and hooks, never `--no-verify` (Q13): a hook that refuses (a secret scan the user put
+   in `pre-commit`) is a `git-error` block whose `text` is the hook's message. The message: first
+   line `chantier: <projects, comma-separated>: <n> files`, then a blank line and the paths, at
+   most 20, then `and <k> more`.
 5. **Fetch**, when `ahead` > 0, or `fetch_every` has passed since `last_fetch`: `git fetch <remote>
-   <branch>` (the branch's upstream). A network failure (C.6's rule): state `offline`.
-6. **Integrate**, when the upstream has commits `HEAD` lacks: with `ahead` = 0, `git merge
-   --ff-only <upstream>`; else, under the projects' lifecycle locks, `git rebase --autostash
-   <upstream>`. A rebase that stops on a conflict: C.7.
+   <branch>` (the branch's upstream). A network failure (the rule below): state `offline`.
+6. **Integrate**, when the upstream has commits `HEAD` lacks. Under the projects' lifecycle locks,
+   first everything pending in the writer's paths is committed (step 4, whatever `quiet` says), so
+   the plan holds no uncommitted change when it integrates and any conflict is a rebase conflict
+   (Q12). Then, with `ahead` = 0, `git merge --ff-only <upstream>`; else `git rebase --autostash
+   <upstream>`. The `--autostash` only ever holds the surface's other files edited by hand and not
+   yet committed (the plan is committed); a stash git cannot reapply is a `git-error` block, git
+   keeping the stash. A rebase that stops on a conflict: C.7.
 7. **Push**, when `ahead` > 0: `git push <remote> HEAD:<branch>`, never forced. Refused as not a
-   fast-forward: back to step 5, at most 3 times in the cycle, then `pending` stays and the next
-   cycle tries again. A network failure: state `offline`. Done: `last_push`, `ahead` 0.
+   fast-forward: back to step 5, at most 3 times in the cycle, then the commits stay to push and
+   the next cycle tries again. A network failure: state `offline`. Done: `last_push`, `ahead` 0.
 8. **State.** `synced` when nothing is pending and `ahead` is 0, else `pending`. When the oldest
    change not pushed (`pending_since` or `unpushed_since`) is older than `late`: `sync-late@1`
    once per episode (it ends when everything is pushed).
@@ -370,11 +240,12 @@ is `blocked` with `git-error`.
 These messages are git's English texts: every git call of the writer (`writer/git_ops.py`) runs
 with `LC_ALL=C` and `LANGUAGE=C` in its environment, so a translated git (a French `LANG`, a
 localized Git for Windows) still prints them. `core/git.py`'s `git` sets no locale today: it gains
-an optional keyword `env: dict[str, str] | None`, merged over its own environment, which the
-writer passes; the other callers do not change. Paths stay byte-exact (`-z`, UTF-8 decoding) and
-the commit message is passed as given, so the C locale changes nothing but git's messages.
+an optional keyword `env: dict[str, str] | None`, merged over its own environment, and an optional
+`input: bytes | None` for the commit's pathspec list, which the writer passes; the other callers do
+not change. Paths stay byte-exact (`-z`, UTF-8 decoding) and the commit message is passed as
+given, so the C locale changes nothing but git's messages.
 
-### C.6 Preconditions and blocked reasons
+## C.6 Preconditions and blocked reasons
 
 Checked at each cycle's step 2, in this order:
 
@@ -383,14 +254,15 @@ Checked at each cycle's step 2, in this order:
 | `not-a-branch` | `HEAD` is detached, or not on the surface's default branch (`origin/HEAD`, `core/git.py`'s `default_branch`) | check out the default branch |
 | `no-upstream` | the branch has no upstream | set it (`git branch -u <remote>/<branch>`) |
 | `git-busy` | a rebase, merge, cherry-pick or revert is in progress that is not the writer's own conflict | finish or abort it |
-| `staged` | the index holds changes the writer did not stage, seen at two cycles in a row | commit or unstage them by hand |
+| `nested-repo` | a nested repository under the writer's paths that no project's `checkout.yml` names (Q11); `text` gives its path | move it out of the surface, or, when it is the project's code clone or worktrees folder, name it in the project's `checkout.yml` |
+| `staged` | the index holds changes the writer did not stage, seen at two cycles in a row (Q18) | commit or unstage them by hand |
 | `foreign-autosync` | the surface's autosync tool still runs: `<git dir>/ai-autosync/control.json` enabled and a live leader in `watcher.json` (read by the existing `autosync/records.py` and `autosync/reading.py`, which stay for this check only) | stop the tool (`uv run scripts/ai-autosync-git.py stop .`) |
-| `git-error` | any other git command of a cycle failed (a hook, LFS, a lock file left by a crash) | read `text`, repair, then `sync now` |
+| `git-error` | any other git command of a cycle failed (a hook, LFS, a lock file left by a crash, a stash git cannot reapply) | read `text`, repair, then `sync now` |
 
 The `staged` rule waits one cycle so that a person staging and committing by hand within seconds
-is not blocked.
+(the surface's other files, Q17) is not blocked.
 
-### C.7 Conflicts
+## C.7 Conflicts
 
 When the rebase of step 6 stops on a conflict:
 
@@ -415,16 +287,18 @@ and pushes at its next cycle.
 A Chief of Staff on another machine whose writer meets the same conflict resolves on its own
 machine the same way; the first push wins and the other integrates at its next fetch.
 
-### C.8 Writes with no writer
+## C.8 Writes with no writer
 
-- In external mode, `SurfaceStore.check_publish` refuses a published write while there is no live
-  `writer` entry (state `off`). Exit 2 (precondition). Text, one line:
+- In external mode, `SurfaceStore` (Part B) gains the feature `refuses-without-publisher`, and its
+  `check_publish` refuses a published write while there is no live `writer` entry (state `off`).
+  Exit 2 (precondition). Text, one line:
   `error: <command>: the surface's writer is not running: nothing written; for the Chief of Staff: start the surface server ($CHANTIER board --seat <session id>)`
 - A writer in `pending`, `offline`, `blocked` or `conflict` is running: the write is done and the
   command's output adds one line: `writer: <state>: not pushed yet (<reason or ahead count>)`.
-- Local writes (B.1) are never refused: a running batch keeps its record, its rounds, its notes
-  and its asks with no writer; what moves a CR's folder (`open`, `take`, `handback`, `order
-  merged`, `close`) is refused.
+- Local writes (Part B's list: `batch.json`, `events.jsonl`, STATUS files, locks, the journals,
+  `seat.json`) are never refused: a running batch keeps its record, its rounds, its notes and its
+  asks with no writer; what moves a CR's folder (`open`, `take`, `handback`, `order merged`,
+  `close`) is refused.
 - Writes made outside the CLI (an agent writing `02-answers.md` with its own tool) cannot be
   refused by the CLI; the cards say that a session records nothing with no writer (C.11). Such
   files left in the working tree are committed by the next writer.
@@ -433,7 +307,7 @@ machine the same way; the first push wins and the other integrates at its next f
   the machine) leaves the board serving with the line `board: writer not started: <reason>`, and
   the board's write routes answer 409 with C.8's text.
 
-### C.9 Commands
+## C.9 Commands
 
 - `chantier sync` (new, declared in `declare/sync.py`, handler `commands/sync.py`, scope no-batch):
   prints the writer's state line (C.10) and, when `conflict`, one line per conflicted file. In
@@ -450,7 +324,7 @@ machine the same way; the first push wins and the other integrates at its next f
 - `board`: one more start line in external mode, `writer: <state line>` or `board: writer not
   started: <reason>`.
 
-### C.10 Messages
+## C.10 Messages
 
 The `writer:` line, by state (times `HH:MM` local, as `status` prints them):
 
@@ -470,6 +344,16 @@ P13: `P13 ok   the surface's writer runs: <state line without "writer: ">` for `
 name its autosync tool: chantier's writer replaces it; remove the mention from the surface's
 AGENTS.md`.
 
+Journal types this CR publishes in Part A's `hub/schemas.py` and `hub/schemas.json`, each `@1`,
+source `writer` (a new source value of the version 2 line):
+
+| Type | Payload | Wakes a watcher |
+| --- | --- | --- |
+| `sync-conflict@1` | `upstream` (sha), `local` (sha), `files` (paths relative to the surface root), `projects` | yes |
+| `sync-blocked@1` | `reason` (one of C.6's reasons), `text` | yes |
+| `sync-late@1` | `since` (time of the oldest change not pushed), `paths` (count), `ahead` (commits) | yes |
+| `sync-resumed@1` | `after` (`conflict`, `blocked`, `offline`) | no |
+
 Journal texts (`event_text`), for `status` and a watcher's end:
 
 - `sync-conflict@1`: `writer saw a conflict with the remote on <files>; for the Chief of Staff:
@@ -482,20 +366,21 @@ Journal texts (`event_text`), for `status` and a watcher's end:
 `status` prints the journal's writer lines only while their episode lasts (the `writer` entry
 still in that state), so a resolved conflict leaves no line.
 
-### C.11 Cards, docs and project rules
+## C.11 Cards, docs and project rules
 
 Cards (`skills/chantier/references/`), each statement replaced where it is today:
 
 - `concepts.md`, "Planning surface": the autosync paragraph becomes the writer: the surface server
-  commits, rebases and pushes the surface within 5 minutes; no session commits or pushes the
-  surface by hand; writes refused with no writer; a conflict goes to the Chief of Staff. "Planning
-  folder": published versus local paths. New words: lease, wait, event type.
-- `chief-of-staff.md`, "With a planning surface": the hand-commit rule and the autosync bullets go;
-  in their place: never commit or push the surface by hand; on a `writer:` line or a writer's
-  journal line, act as C.10 says (conflict: C.7's resolution; blocked: the way out, else tell the
-  user; offline or late: tell the user once per episode); `sync now` when a step must reach the
-  forge at once. The table's "start autosync"/"stop autosync" row goes; "rescan" loses "without
-  autosync, commit the planning folder by hand".
+  commits, rebases and pushes the surface's plan within 5 minutes; no session commits or pushes the
+  plan by hand; the surface's other files are committed by hand; writes refused with no writer; a
+  conflict goes to the Chief of Staff. "Planning folder": published versus local paths.
+- `chief-of-staff.md`, "With a planning surface": the hand-commit rule for the plan and the
+  autosync bullets go; in their place: never commit or push the plan by hand (the surface's other
+  files stay yours to commit, by hand); on a `writer:` line or a writer's journal line, act as C.10
+  says (conflict: C.7's resolution; blocked: the way out, else tell the user; offline or late: tell
+  the user once per episode); `sync now` when a step must reach the forge at once. The table's
+  "start autosync"/"stop autosync" row goes; "rescan" loses "without autosync, commit the planning
+  folder by hand".
 - `session-start.md`: "The board" explains that the server is also the surface's writer, and that
   a no starts no server, so the session's writes to the surface are refused; "The surface's
   autosync" paragraph goes.
@@ -508,35 +393,34 @@ Cards (`skills/chantier/references/`), each statement replaced where it is today
 - `routing.md` and `startup-manifest.json` only if a text they hold changes (the Driver checks).
 
 Docs: `docs/planning-modes.md` ("The planning surface", "What runs where", "Grillers", "The
-surface's autosync" becomes "The surface's writer", "With no agent", "Two sessions on one surface",
-"Setting one up"), `docs/web-board.md` (the pill), `docs/boards.md` if it names the autosync,
-`README.md` where it names the surface's sync.
+surface's autosync" becomes "The surface's writer", "With no agent" (a board started by hand runs
+the writer, the user guarantees it), "Two sessions on one surface", "Setting one up" (the code's
+clone and worktrees outside `projects/`, or named in `checkout.yml`)), `docs/web-board.md` (the
+pill), `docs/boards.md` if it names the autosync, `README.md` where it names the surface's sync.
 
 Project rules: `AGENTS.md` of chantier changes (the user's merge of the PR is their approval):
 
 - The write list ("chantier writes only in the planning folder ...") adds: the surface server's
-  writer commits, rebases and pushes the planning surface's published paths, and keeps
-  `chantier/writer.lock` and `chantier/writer.wake` in the git folder.
+  writer commits, rebases and pushes the planning surface's published paths (`projects/` and the
+  root `chantier.yaml`, never the surface's other files), and keeps `chantier/writer.lock` and
+  `chantier/writer.wake` in the git folder.
 - "The CLI's scope": a third named exception: the surface server's writer (C.1 to C.7).
 - "The CLI has two named git exceptions": becomes three: the writer's `git add`, `commit`,
-  `fetch`, `merge --ff-only`, `rebase --autostash`, `rebase --abort` and `push` (never forced),
-  in the surface's checkout only; the board's autosync join goes.
+  `fetch`, `merge --ff-only`, `rebase --autostash`, `rebase --abort` and `push` (never forced,
+  never `--no-verify`), in the surface's checkout only; the board's autosync join goes.
 - The server's description: "the server runs no git either, but its autosync join" becomes "the
   server runs no git but its writer's".
-- The hub's sentence "it appends to that project's `forge-journal.jsonl` ... one line per merge
-  the record does not hold and per CI turning red on a PR ready to merge, and nothing else" adds
-  one line per lease of a running batch that expires (`lease-expired@1`, D.6) and per wait the
-  forge shows met (`wait-cleared@1`, E.3), and its forge read adds, within the same query budget,
-  the review decision and the checks of the open `approval` and `pipeline` waits' refs.
 - The watcher's sentence "reads only its project's journal (the hub's lines and the board's)"
   becomes "(the hub's lines, the board's and the writer's)".
 - "the board itself records nothing and messages no agent" adds: but its writer's commits of the
   planning surface's published paths (C.5) and its journal lines (`sync-*@1`, C.10).
 
-### C.12 The surface's setup, and what goes
+## C.12 The surface's setup, and what goes
 
 - Setup: unchanged (`projects/<name>/project.md`, `checkout.yml`, `changes/`), plus the surface's
-  clone on its default branch with an upstream. No new configuration key.
+  clone on its default branch with an upstream. No new configuration key. The project's code clone
+  and worktrees live outside `projects/<name>/`, or under it only at the paths its `checkout.yml`
+  names (Q11).
 - Removed from the CLI: `board/autosync_api.py`, `board/autosync_tool.py`, the routes `GET
   /api/autosync` and its actions, the `autosync` key of `GET /api/board` (replaced by `writer`),
   `autosync/lines.py`, `autosync/view.py`'s naming of participants and the board's join; kept:
@@ -544,9 +428,9 @@ Project rules: `AGENTS.md` of chantier changes (the user's merge of the PR is th
 - Removed from the scenario: `scenario/fake_autosync.py` and its cases.
 - The surface's own `AGENTS.md` and `.agents/guidelines/autosync.guidelines.md` belong to the
   user's surface, not to chantier: the release notes say to remove the autosync rules and the
-  "commit by hand" rule there once the release runs, and P13 warns until then.
+  "commit by hand" rule for the plan there once the release runs, and P13 warns until then.
 
-### C.13 The board
+## C.13 The board
 
 `skills/chantier/scripts/cli/src/chantier/board/web/`: read `DESIGN.md` first and keep it true.
 
@@ -559,7 +443,19 @@ Project rules: `AGENTS.md` of chantier changes (the user's merge of the PR is th
   Start, Stop or Approve.
 - `GET /api/board` carries `writer`: the `writer` entry as read, or `{"state": "off"}`.
 
-### C.14 Evidence
+## 5. Host and default matrix
+
+This CR depends on the host only through how a writer's journal line reaches the Chief of Staff,
+and on no configured value (every time is a constant, with a test seam).
+
+| Host | Cell | Expected |
+| --- | --- | --- |
+| Claude Code | a writer's `sync-conflict@1` with the watcher running | the watcher ends and wakes the Chief of Staff |
+| Copilot | a writer's journal line | reaches the Chief of Staff at the user's next message (the pull path); the watcher's wake is unproved there, as today |
+| both | no writer, `file` in external mode | exit 2, C.8's text |
+| both | in-project mode, any command | no writer, no refusal, no `writer:` line |
+
+## 6. Evidence
 
 pytest (`skills/chantier/scripts/cli/tests/`, in-process, on a temporary surface with a bare
 origin, the writer's `poll(now)` driven with no sleep):
@@ -568,17 +464,26 @@ origin, the writer's `poll(now)` driven with no sleep):
   - a new file under `projects/a/changes/1-inbox/x/` is committed after `quiet` and pushed: the
     bare origin's `main` holds it, the message's first line is `chantier: a: 1 files`;
   - a file that keeps changing is committed once `max_wait` passes;
-  - an ignored file (`seat.json`, `4-batch/batch.json`, `forge-journal.jsonl`) and a file outside
-    `projects/` (`scripts/x.py`) are never committed;
+  - an ignored file (`seat.json`, `4-batch/batch.json`, `forge-journal.jsonl`) and a surface's
+    other file (`scripts/x.py`, `AGENTS.md`) are never committed; a file staged by hand outside the
+    writer's paths at the first cycle stays staged and out of the writer's commit;
+  - `checkout.yml` naming `repo: code` and `worktrees: code.worktrees` under `projects/a/`, both
+    holding a git repository: no `nested-repo`, neither staged; a git repository at
+    `projects/a/changes/1-inbox/x/clone/` not named: state `blocked`, reason `nested-repo`, its path
+    in `text`, one `sync-blocked@1`, nothing committed;
   - the origin moved (a second clone pushed a change to another project): the writer rebases and
     pushes, no conflict, both changes on `main`;
-  - the same file changed on both sides: `git rebase --abort` ran (no rebase in progress, local
-    commits intact), state `conflict` with the file, one `sync-conflict@1` line in that project's
-    journal; no commit while in conflict; after a resolution done in the test (rebase, resolve,
-    continue), the next cycle appends `sync-resumed@1` and pushes;
-  - each blocked reason of C.6 (detached HEAD, no upstream, a `MERGE_HEAD`, a staged file seen
-    twice, a fake `ai-autosync` group enabled with a live leader pid, a failing `pre-commit` hook):
-    its state, reason and one `sync-blocked@1` line;
+  - the origin moved while a local change is pending and still moving (inside `quiet`): it is
+    committed before the rebase, then rebased and pushed;
+  - the same file changed on both sides, the local side not yet committed: it is committed first,
+    the rebase stops, `git rebase --abort` ran (no rebase in progress, local commits intact),
+    state `conflict` with the file, one `sync-conflict@1` line in that project's journal; no commit
+    while in conflict; after a resolution done in the test (rebase, resolve, continue), the next
+    cycle appends `sync-resumed@1` and pushes;
+  - each blocked reason of C.6 (detached HEAD, no upstream, a `MERGE_HEAD`, a nested repository, a
+    staged file seen twice, a fake `ai-autosync` group enabled with a live leader pid, a failing
+    `pre-commit` hook whose message lands in `text`): its state, reason and one `sync-blocked@1`
+    line;
   - offline (the origin's path renamed away, so the push fails with `Could not read from remote
     repository`): state `offline`, commits go on; past `late`, one `sync-late@1`; the origin back:
     pushed and `sync-resumed@1`; this case runs with the test process's `LANG=fr_FR.UTF-8` and
@@ -586,10 +491,20 @@ origin, the writer's `poll(now)` driven with no sleep):
     receives `LC_ALL=C` and `LANGUAGE=C` (a runner with no French locale installed prints English
     anyway, so the environment check is what proves it there);
   - the final cycle commits and pushes a pending change on stop;
-  - a second `WriterLoop` on the same git folder does not get `writer.lock`.
+  - a second `WriterLoop` on the same git folder does not get `writer.lock`;
+  - a board started with no seat starts the writer as a seated one does.
 - `test_writer_lines.py`: every C.10 line, from a prepared `writer` entry per state (a case the
   shipped files cannot hold), and the absence of any `writer:` line in project mode.
-- `test_surface_writes.py` (B.2): the refusal of every command with no writer.
+- `test_event_types.py` (Part A's): the four `sync-*@1` models and their entries in the shipped
+  `hub/schemas.json`, read from the repository at the head under test.
+- `test_store_conformance.py` (Part B's): its `refuses-without-publisher` case now runs on
+  `surface`: with no live writer, `check_publish(["3-ready/x/01-intent.md"])` raises exit 2 with
+  C.8's text, and `check_publish(["4-batch/batch.json"])` returns; with a live writer entry, both
+  return.
+- `test_surface_writes.py` (new), parametrized over Part B's command table on a prepared external
+  surface with no writer: each command exits 2 with C.8's refusal, and the planning folder's tree
+  fingerprint (every path and its bytes) and `batch.json` are unchanged. The same table with a live
+  writer entry: each command succeeds. In-project, no command is refused.
 
 Scenario, unit `surface-board` (`scenario/run_scenario.py`, with `CHANTIER_WRITER_TEST_TIMES`
 shortened): the board started with `--seat` on the two-project surface prints its `writer:` line;
@@ -601,351 +516,63 @@ the writer; the board stopped, `file` is refused with C.8's text and the folder 
 autosync cases and `fake_autosync.py` are gone. `scenario/README.md`'s Coverage list is updated
 (with each case's test name, as `test_scenario_coverage.py` checks).
 
----
+The project's gates:
 
-## Part D. Leases
-
-### D.1 What a lease is
-
-- Every `take` (of a CR, or of the stack) starts a lease for that unit: number `n` (1 at the first
-  take of the unit, then the last number plus one), `taken` and `expires` = now + `TTL`.
-- `TTL` is 10 minutes (a constant in `core/leases.py`, new; open question 5). The Driver renews at
-  a third of it.
-- The lease is in `batch.json` (local, never published): `CrEntry.lease` and `BatchRecord.stack_lease`,
-  each `{n, taken, renewed, expires, ended}` or null (`core/records.py`). A batch opened before
-  this version has none; its CRs work as today, with no `--lease`.
-- A lease means something only on the machine that runs the batch: `batch-takeover`'s published
-  `resume.batch` (§2, pending items) strips each CR's `lease` and the record's `stack_lease`, as it
-  strips worktree paths and session ids; a takeover restores them as null, and the next `take` on
-  the new machine starts lease 1 of that unit (no last number is kept).
-- A lease is **live** while `ended` is null and (`expires` is in the future, or a long gate of the
-  unit runs: its `.long-gate*.run` record names the CR and its process is alive). Else it is
-  **expired** (not ended) or **ended**.
-
-### D.2 Commands
-
-- `take <cr|stack> --epoch <n>`: refuses a unit whose lease is live: exit 3, `<cr> is held: lease
-  <n> live until HH:MM:SS; take it again once it expires, or with --reclaim on the user's word`.
-  `--reclaim` (new flag) takes it anyway and logs `reclaim` with the old lease's number. The
-  existing rules stay (a `--note` for a working, ready or blocked CR; `agents set <cr> -` first
-  while an agent is recorded). An expired lease counts as the agent's end for that clearance (the
-  Foreman's card). On success, the output's first line gains `, lease <n> until HH:MM:SS`, and the
-  Driver's facts (`driver_prompt.py`) carry the line `lease: <n> (pass --lease <n> on round, ship,
-  gate, note, phase, handback; renew within 3 min: lease <cr> renew --lease <n>)`.
-- `--lease <n>` (new option) on `round`, `ship`, `handback` (required when the unit has a lease)
-  and on `gate`, `note`, `phase` (optional). A valid one renews the lease (`renewed`, `expires`).
-  - missing on a required command: exit 2, `<command> <cr> needs --lease <n> (the number take
-    printed)`; nothing recorded.
-  - a number that is not the unit's current one, or the current one ended: exit 3, `claim lost:
-    <cr> was taken again (lease <m>) at HH:MM; stop now: nothing recorded`; nothing recorded.
-  - the current one, expired and not taken again: accepted and renewed (the Driver was only
-    late); the log records `lease-late` with the minutes.
-  - a command run by the steering session (`--epoch`) needs no lease.
-- `handback <cr> ready|blocked --lease <n>` ends the lease (`ended`).
-- `lease <cr|stack>` (new, `declare/driver.py`): `lease <n> of <cr>: live until HH:MM:SS (renewed
-  HH:MM:SS)`, `lease <n> of <cr>: expired at HH:MM (<k> min ago)`, `lease <n> of <cr>: ended at
-  HH:MM`, or `<cr>: no lease`. `lease <cr> renew --lease <n>`: renews, prints the first form; a
-  stale number: the `claim lost` refusal.
-- `status`: a working CR whose lease expired gets `, lease expired HH:MM (<k> min ago)` on its
-  line. `handoff` prints the lease line.
-
-### D.3 The stack's lease
-
-`take stack` starts `stack_lease`; the stack driver passes `--lease <n>` on its commands that
-name `stack` (`forge-stack`, `stack`, `handback stack`), with the same rules.
-
-### D.4 `close` on Copilot
-
-`rails.running` (`rails.py`) on a Copilot batch no longer reads the session files' age:
-`COPILOT_QUIET_SECONDS` and the `idle_seconds` call go. Instead:
-
-- each held agent of a CR or of the stack is a cause while that unit's lease is live: `<agent>
-  (<cr>) holds lease <n> until HH:MM:SS`; an expired or ended lease is no cause;
-- a held agent of a unit with no lease (a batch opened before this version): `<agent> (<cr>): not
-  measured (no lease)`, a cause, as `not measured` is today;
-- the current Foreman is a cause while its last heartbeat (`status --refresh --epoch`) is younger
-  than `TTL`: `Foreman n°<k>: heartbeat <m> min ago (under 10 min)`.
-
-On Claude Code, `close` keeps reading the transcripts' ends (exact); the lease is shown, never a
-cause (open question 6). The cards' texts on the 5-minute heuristic (`concepts.md`, the "Batch"
-word; `chief-of-staff.md`, "Closing" and the refusal table's row D) say the lease instead.
-
-### D.5 Cards
-
-- `driver.md`: the lease line of its facts; `--lease <n>` on the named commands; while it waits
-  (CI, a review, a worker) longer than 3 minutes, `lease <cr> renew --lease <n>` at least every 3
-  minutes; `claim lost` means stop at once, record nothing more, tell the Foreman.
-- `foreman.md`: `take` refused for a live lease: wait for its expiry, or `--reclaim` on the user's
-  word through the Chief of Staff; an expired lease counts as the Driver's end for `agents set <cr>
-  -`; the `lease expired` mark of `status` is a Driver presumed gone: check its end by the host's
-  means, then take the CR again with `--note "resume: lease expired"`.
-- `chief-of-staff.md` (direct mode): the same as the Foreman's.
-
-`driver.md`'s common path is capped: `4-batch/1-pending/398-retro-batch-28-drivers-end-before-closin`
-(§2) limits what a CR Driver reads on its common path (the opening, the sections
-`startup-manifest.json` lists under `actions["cr-driver"]`, and `## CR driver`) to 45,000 bytes,
-with a test in `test_startup_manifest.py` summing them. This part's and E.4's (and F.2's) text
-fits it: on the common path only the lease line of the facts, `--lease <n>` on the named
-commands, and "`claim lost`: stop at once, record nothing more, tell the Foreman", at most 600
-bytes together; the renewal while waiting longer than 3 minutes, the `--wait` block (E.4, a
-blocked hand-back is off the common path) and "run `access` on a refusal you do not understand"
-(F.2) go in trigger-read level-2 sections the card's links name, not listed in the manifest.
-`test_startup_manifest.py` stays green; when 398 has not landed yet, the same placement holds and
-whichever lands second keeps the total within the cap.
-
-### D.6 Messages
-
-- `lease-expired@1` (the hub, once per batch, unit and lease number, for running batches only):
-  `lease expired: <cr> lease <n> at HH:MM; for the Chief of Staff: tell the steering session (the
-  Foreman sees it in status), record nothing`.
-
-### D.7 Evidence
-
-- `tests/test_leases.py`, parametrized, on a prepared batch (the clock frozen through
-  `core/clock.py`'s seam): `take` starts lease 1; a second `take` with the lease live is refused
-  (exit 3, the text), with `--reclaim` it starts lease 2 and logs `reclaim`; `round`, `ship`,
-  `handback` without `--lease` exit 2; with lease 1 after lease 2 started, exit 3 `claim lost` and
-  `batch.json` unchanged; an expired current lease is accepted and logs `lease-late`; `handback`
-  ends it; `lease <cr>` prints each of its four forms; a live long gate keeps an expired lease live;
-  a batch with no lease needs no `--lease`.
-- `tests/test_rail_refusals.py`: the Copilot `close` causes of D.4 (a live lease, an expired one,
-  no lease, the Foreman's heartbeat) replace the session-file cases.
-- `tests/test_forge_hub.py`: one `lease-expired@1` line per expired lease of a running batch,
-  never twice.
-- Scenario: in unit `parallel`, the scripted Drivers pass `--lease`; one case runs a stale lease
-  (`claim lost`); in unit `direct` (or the unit the Driver judges closest), a Copilot-host batch's
-  `close` refused while a lease is live and passing once it expired (with the shortened TTL seam
-  `CHANTIER_LEASE_TEST_TTL`, read only by `core/leases.py`).
-
----
-
-## Part E. Typed waits (gates)
-
-### E.1 What a wait is
-
-A blocked CR records what it waits for, typed by the fact, never by the forge or the host:
-
-| Type | Waits for | `ref` |
-| --- | --- | --- |
-| `answer` | a person's answer (the user, through the Chief of Staff) | the question, one line |
-| `approval` | the review request's approval (a GitHub PR's review decision `APPROVED`; a GitLab MR's approvals met) | the PR or MR link |
-| `pipeline` | a green pipeline on a head (every required check passed) | the head's sha (and the PR or MR link) |
-
-Recorded in `batch.json` (local): `CrEntry.waits`, a list of `{id, type, ref, since, note,
-cleared_at, cleared_by}`; `id` is `w1`, `w2`, ... per CR. Unlike leases, waits are facts of the
-CR, not of the machine: `batch-takeover`'s `resume.batch` keeps them (§2, pending items).
-
-### E.2 Commands
-
-- `handback <cr> blocked --lease <n> --wait <type>[=<ref>] <reason>` (new repeatable option): the
-  hand-back adds each wait. `--wait` on a `ready` hand-back: exit 2.
-- `wait <cr> add <type> [--ref <ref>] --note "<text>"` (new command, `declare/driver.py`), by the
-  Driver (`--lease`) or the steering session (`--epoch`): records a wait without ending the
-  Driver. An `approval` or `pipeline` wait with no `--ref`: the CR's recorded PR, and for
-  `pipeline` its recorded head; none recorded: exit 2.
-- `wait <cr> clear <id> --epoch <n>`: the steering session clears it (on the user's answer, or
-  after a `wait-cleared@1` line); prints `<cr> <id> cleared`.
-- `wait [<cr>]`: `<cr> waits for: w1 answer since HH:MM: "<ref>"; w2 pipeline on <sha7> since
-  HH:MM` or `<cr> waits for nothing`; with no CR, one line per CR of the batch with an open wait.
-- `status`: a CR line with open waits gains `, waits: <types>`; `handoff` prints the `wait` line.
-- The board's CR card shows the open waits (`board/state.py`, a `waits` field). `STATUS.json`'s
-  fields that the CR board pane shows do not change (no pane change, so no screenshot owed).
-- A wait changes no rule: `take`, `close` and the slots read the CR's status as today.
-
-### E.3 The hub's part
-
-For each running batch, each open `approval` or `pipeline` wait of a CR with a PR: the hub's cycle
-(`hub/cycle.py`, through `board/forge_read.py`) reads, within its existing query budget (one query
-per project and cycle), the review decision (GitHub GraphQL `reviewDecision`; GitLab `approved`
-of the MR's approvals) and the checks of the `ref` head. When the forge shows the wait met, it
-appends `wait-cleared@1` once per batch, CR and wait id. It records nothing in the batch.
-
-### E.4 Cards
-
-`driver.md`: block with `--wait` when the block is a wait of one of the three types, in a
-trigger-read section off the common path (D.5's cap). `foreman.md`
-and `chief-of-staff.md`: clear a wait on the user's answer or on a `wait-cleared@1` line, then take
-the CR back as today (`take --note`). `concepts.md`: the word "wait".
-
-### E.5 Messages
-
-- `wait-cleared@1`: `forge saw <wait_type> met: <cr> <wait> (<ref, sha cut to 7>); for the
-  steering session: wait <cr> clear <wait> --epoch <n>, then take it back`.
-- `status` shows the `wait-cleared@1` lines of the batch while the wait is open, as it shows the
-  `merged` lines.
-
-### E.6 Evidence
-
-- `tests/test_waits.py`, parametrized over the three types: `handback blocked --wait` records them;
-  `wait add` with and without `--ref`; `wait clear` by the steering session; a clear without
-  `--epoch` exits 2; `wait` prints both forms; a `--wait` on `ready` exits 2.
-- `tests/test_forge_hub.py`, with the fake forge world (`forge_world.py`) on GitHub and on GitLab:
-  an approval and a green pipeline each give one `wait-cleared@1` line, never twice; a red
-  pipeline gives none.
-- Scenario, unit `gates` (GitHub) and unit `gitlab`: a Driver blocks with `--wait pipeline`, the
-  fake forge turns green, the journal holds `wait-cleared@1`, the scripted Foreman clears and takes
-  back.
-
----
-
-## Part F. `access`: why a session may or may not write, claim or push
-
-### F.1 The command
-
-`chantier access [write|claim|push] [<cr>] [--lease <n>] [--epoch <n>]` (new, `declare/access.py`,
-handler `commands/access.py`), read-only, exit 0 whatever the answers. The CLI knows no role: the
-answers name the seat, the epoch, the lease and the writer, never a role. With no action, all three
-(`claim` and `push` only when a CR is named). First line, the session:
-
-- `session <key>: holds the seat of <project>` / `session <key>: the seat is <other key> (<link>)`
-  / `session <key>: no seat recorded` (the key from `hub/autostart.py`'s `session_key`).
-
-`write`:
-
-- in-project: `write: allowed: in-project planning folder, under the lifecycle lock; chantier
-  commits nothing`
-- external, writer running: `write: allowed: the surface's writer runs (pid <p>, <state>); it
-  commits and pushes within 5 min`, and when not `synced`: `; not pushed yet: <reason>`
-- external, no writer: `write: refused: the surface's writer is not running; start the surface
-  server ($CHANTIER board --seat <session id>)`
-
-`claim <cr>` (the checks of `take`, run read-only, in `take`'s order):
-
-- `claim: allowed: <cr> is <status>; <k> of <s> slots held; dependencies ready; budget left <x>`
-- `claim: refused: <the refusal take would print>` (a live lease, no slot, a dependency, the
-  budget, an agent recorded, the CR's status), and with no `--epoch` or a stale one: `claim: needs
-  the steering session's --epoch (Foreman n°<k>)`.
-
-`push <cr>`:
-
-- the CR's branch: `push: allowed: lease <n> of <cr> is live; push <branch> without force; a
-  rewrite uses --force-with-lease (driver.md)` / `push: refused: claim lost (lease <m> is current)`
-  / `push: refused: no --lease given (lease <n> is current)` / `push: refused: <cr> is <status>`.
-- the surface, external mode: `push surface: only the writer pushes the surface; never by hand`.
-
-### F.2 Cards and evidence
-
-- `concepts.md` names the command; `driver.md`, `griller.md`, `foreman.md`: on a refusal they do
-  not understand, run `access` before asking.
-- `tests/test_access.py`, parametrized: each line above from a prepared state (in-project;
-  external with and without a writer entry; a CR with a live, expired and stale lease; no slot; a
-  dependency not ready), and `access` writing nothing (the tree fingerprint unchanged).
-
----
-
-## Part G. Outside contributions
-
-A PR or MR merged on the project without chantier ends, on the user's word, as a report in the
-archives. No CLI tool (no measured cost yet):
-
-- `chief-of-staff.md`: on "archive <link>" (a PR or MR merged outside chantier), read it with the
-  forge's CLI (`gh pr view`, `glab mr view`: title, link, author, merged at, the files changed and
-  its description), and write `5-archives/<YYMMDD-HHMM>-outside-<forge number>-<slug>/` with
-  `intake/request.md` (the description, as received) and `delivery.md` (the PR, its author, the
-  merge time, what changed in a few lines, `Archive in the PR: no`), then `summary set` on it. The
-  writer publishes it like any write; with no writer, nothing is written.
-- `lifecycle/layout_check.py` (`validate`) accepts an archive named
-  `<YYMMDD-HHMM>-outside-<number>-<slug>`.
-- `docs/planning-modes.md`, "Outside contributors": the archive path.
-- Evidence: `tests/test_validate.py` gains an outside archive (valid) and a malformed name (an
-  error).
-
----
-
-## 5. Host and default matrix
-
-The CR depends on the host (how `close` tells a held agent runs; whether a watcher's end wakes the
-session) and on no configured value (every time is a constant, with a test seam).
-
-| Host | Cell | Expected |
-| --- | --- | --- |
-| Claude Code | `close` with a held Driver whose lease is live and whose transcript ended | passes: the transcript decides; the lease is shown |
-| Claude Code | a Driver's `round` with a stale lease | exit 3, `claim lost` |
-| Claude Code | a writer's `sync-conflict@1` with the watcher running | the watcher ends and wakes the Chief of Staff |
-| Copilot | `close` with a held Driver whose lease is live | refused: `<agent> (<cr>) holds lease <n> until ...` |
-| Copilot | `close` with every lease expired or ended, the Foreman's heartbeat older than 10 min | passes |
-| Copilot | `close` on a batch opened before this version | refused: `not measured (no lease)` |
-| Copilot | a writer's journal line | reaches the Chief of Staff at the user's next message (the pull path); the watcher's wake is unproved there, as today |
-| both | no writer, `file` in external mode | exit 2, C.8's text |
-| both | in-project mode, any command | no writer, no refusal, no `writer:` line |
-
-## 6. Evidence, all parts together
-
-- `just check` (the project's rule), `just test` within its time budget (AGENTS.md: at most 30 s
-  above 18.5 s): the writer's tests use one bare origin per test module and the `poll(now)` seam;
-  they are few and parametrized.
+- `just check`, and `just test` within its time budget (AGENTS.md: at most 30 s above 18.5 s): the
+  writer's tests use one bare origin per test module and the `poll(now)` seam; they are few and
+  parametrized.
 - `just eval-dry-run` (the change is under the CLI's `src/`).
 - `just scenario`, green on the pipeline's `just scenario (ubuntu-latest)` job; the top CR of the
   batch also passes it locally on Windows (`chantier gate`), as AGENTS.md says.
 - Every check that guards a shipped file reads it from the repository at the head under test:
-  `hub/schemas.json` (A.4), the cards' texts named in C.11, D.5, E.4 (the existing
-  `test_plugin_files.py` and `test_startup_manifest.py` structure tests), `board/web/` and its
-  `DESIGN.md` (`test_board_design.py`). The prepared texts named above (a journal with unknown
-  lines, a `writer` entry per state) are only for cases the shipped files cannot hold.
+  `hub/schemas.json`, the cards' texts named in C.11 (the existing `test_plugin_files.py` and
+  `test_startup_manifest.py` structure tests), `board/web/` and its `DESIGN.md`
+  (`test_board_design.py`). The prepared texts named above (a `writer` entry per state) are only
+  for cases the shipped files cannot hold.
 - No CI job is added or changed.
 
 ## 7. Self-containment notes for the Driver
 
 - Existing seams to follow: `hub/loop.py` (a server thread with `poll(now)`), `hub/lock.py` (an
   OS lock never waited on), `hub/state.py` (`server.json` entries), `hub/times.py` (the test-times
-  seam), `hub/journal.py` (`append`, the one writer path), `core/git.py` (`git`), `rails.py`
-  (`running`, `check_take`), `commands/driver.py` (`take`, `round`, `handback`),
+  seam), `hub/journal.py` (`append`, the one writer path), `core/git.py` (`git`), `core/repo.py`
+  (`read_keyed` for `checkout.yml`), `lifecycle/stages.py` (`changes_lock`),
   `commands/batch_status.py` (`_autosync_lines` replaced), `commands/preflight.py` (P13),
-  `board/routes.py` (the routes table).
-- AGENTS.md's portability: every git call through `core/git.py` (UTF-8, no shell); paths with
-  forward slashes in messages; Windows file locks (a rebase touching a file open in another
-  process fails: `git-error`, never a retry loop).
-- The writer never stages an ignored path, never runs `git add -A` without its pathspec, never
-  forces a push, never skips hooks, never deletes a branch or a file.
+  `board/routes.py` (the routes table), `board/command.py` (where `HubThread` starts).
+- AGENTS.md's portability: every git call through `core/git.py` (UTF-8, no shell); the commit's
+  paths on standard input, never on the command line (Windows' length limit); paths with forward
+  slashes in messages; Windows file locks (a rebase touching a file open in another process fails:
+  `git-error`, never a retry loop).
+- The writer never stages an ignored path or a surface's other file, never runs `git add -A`
+  without its pathspec, never commits without the path list, never forces a push, never skips
+  hooks, never deletes a branch or a file.
 
 ## 8. Rollout
 
-- The release notes say: the surface server now commits, rebases and pushes the surface; stop the
-  surface's autosync tool and remove its rules and the "commit by hand" rule from the surface's
-  `AGENTS.md`; with no surface server running, chantier writes nothing to the surface.
-- Mixed versions: a chantier of an earlier version reading version 2 journal lines counts them
-  and wakes no one; a board of another version is already refused (the server's election).
+- The release notes say: the surface server now commits, rebases and pushes the surface's plan;
+  stop the surface's autosync tool and remove its rules and the "commit by hand" rule for the plan
+  from the surface's `AGENTS.md`; with no surface server running, chantier writes nothing to the
+  surface; the surface's other files stay committed by hand; the autosync tool's secret scan goes
+  with it: put a secret scan in the surface's pre-commit hook if wanted, the writer runs the
+  user's hooks (Q13); keep the project's code clone and worktrees outside `projects/`, or name
+  them in `checkout.yml` (Q11).
+- Mixed versions: a chantier of an earlier version reading the writer's version 2 journal lines
+  counts them and wakes no one; a board of another version is already refused (the server's
+  election).
 
 ## 9. Out of scope
 
-- Beads as the store, a bridge, or an export (`bd ready --json`): only on a measured need.
-- Vercel Board, hosted or local, for messages or plans; Board's `tasks run -- <cmd>`, conditional
-  writes, schedules and per-principal grants (only `access`, an explanation, is taken).
-- Hash IDs; Dolt; OKF; a database or a hidden ref as the store.
-- The dedicated-branch backend (declared in the conformance test, not built).
+- Parts A, B, D, E, F and G: their own CRs (`experiments/03-change-spec-all-parts.md`).
+- Beads as the store; Vercel Board, hosted or local; Dolt; a database or a hidden ref as the store.
+- The dedicated-branch backend: a CR of its own, later (Q19).
+- The writer committing the surface's other files (`AGENTS.md`, `scripts/`, `justfile`): committed
+  by hand (Q17).
+- A secret scanner in chantier: the user's pre-commit hook does it, if wanted (Q13).
 - Authentication beyond the board's key, and a team-wide guarantor role on several machines.
-- Typed versions for the batch's own `events.jsonl` (the record's log).
-- Waits on CRs outside a batch (in the backlog).
-- Secret scanning of what the writer commits (the autosync tool ran Gitleaks; chantier ships no
-  scanner).
 
 ## 10. Open questions for the user
 
-1. **Parts.** Split this CR into its seven parts (A to G, §2), each a CR of its own in that order,
-   or keep one CR delivered as a stack of seven PRs?
-2. **Who writes the files.** Sessions keep writing the surface's working tree themselves (under
-   the CLI's locks) and only the writer commits and pushes (this specification); or every write
-   goes through the server, the CLI becoming a thin client (the intent's point 2, and the 11-10
-   "the other sessions talk to the Chief of Staff's session")?
-3. **Dedicated branch.** Build the dedicated-branch backend (the plan on a branch of the project's
-   repository, for projects with no separate surface) in a later CR, or never?
-4. **A board started by hand.** Does it run the writer too (this specification: yes, the user
-   guarantees it), or only a board a Chief of Staff starts?
-5. **Lease length.** 10 minutes, renewed every 3 (this specification, to spare a Driver waiting
-   on CI too many calls), or Board's 5 minutes, renewed every 100 s? Configurable in
-   `chantier.yaml` or a constant?
-6. **Leases on Claude Code.** `close` keeps reading the transcripts there (exact) and shows the
-   lease; should a live lease also be a cause on Claude Code?
-7. **QA orders.** A QA driver's agent (an order's `agents set`) gets no lease here, so on Copilot
-   it stays `not measured`. Give QA orders a lease too, in this CR?
-8. **Waits.** The intent named "a merged review request" as a wait; the 11-20 answer names an
-   approval. Add a fourth type, `merge` (a review request merged), or is `approval` enough? And do
-   waits belong on backlog CRs too (a CR waiting for the user's answer between grills)?
-9. **The surface's other files.** The writer commits only `projects/` and the root `chantier.yaml`
-   (this specification); edits to the surface's `AGENTS.md`, `scripts/` or `justfile` stay
-   committed by hand. Should the writer commit every path the surface does not ignore, as an
-   Obsidian-like vault would?
-10. **Secrets.** The autosync tool refused to push a detected secret. Is the loss acceptable, or
-    should the writer refuse a commit on some rule (and which, with no new tool to install)?
-11. **Pre-staged changes.** A file staged by hand for two cycles blocks the writer (`staged`).
-    Block, or commit the staged files with the rest?
+None for this CR: every question of the earlier draft (§10, 1 to 11) and of the spec critic is
+answered in `02-answers.md` (planning-server-Q7 to Q23). The one point left open belongs to Part
+E's CR (`experiments/03-change-spec-all-parts.md`, E.7: does the hub read the forge for backlog
+CRs' waits?).

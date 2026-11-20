@@ -48,11 +48,11 @@ No visual change. Maintainers run `just tag` from a main checkout that is behind
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): `test_release_tag.py`
-- [x] Local gates at `8311949`: `just check` pass (894 passed, 1 skipped)
-- [ ] Evidence: none, no visible change
-- [x] Review: approved at `8311949`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Local gates at `9ff16d5`: `just check` pass (911 passed, 1 skipped), carried over the clean restack (patch unchanged)
+- [x] Evidence: none, no visible change
+- [x] Review: approved at `9ff16d5` (carried over the clean restack, patch unchanged; before that from `8311949`: rebase onto a new base, the second commit approved in round 3)
+- [x] Verified at `9ff16d5` (carried over the clean restack)
+- [x] CI green at `9ff16d5`
 
 ## Internal references
 

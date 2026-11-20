@@ -1,0 +1,1 @@
+No before/after pair captured: the change is a title string with no screen; the proof is the runs in ../../verify.md (claims 3 to 5) at after = fb41759dd7b54c5e242bd2af9aa5a9c87f56085a. No screenshot or video.

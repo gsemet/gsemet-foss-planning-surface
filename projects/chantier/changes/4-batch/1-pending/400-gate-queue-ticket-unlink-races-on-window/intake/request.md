@@ -1,0 +1,5 @@
+# Gate queue ticket unlink races on Windows
+
+From batch-29 (Foreman ask A-8, 2026-11-20). The stack's local gate (`chantier gate`, `just scenario`) failed at CR-396 9ff16d5 on Windows, in scenario E2 (parallel gates): `LongGateLock.__enter__` in `skills/chantier/scripts/cli/src/chantier/commands/gate_lock.py` (~line 92) unlinks its queue ticket in its `finally` while another gate is reading that ticket (`ordered`/`ticket_cr`), and Windows refuses: `PermissionError: [WinError 32]`. Ubuntu CI is green at the same head. The race is older than batch-29 and blocks the stack's Windows gate.
+
+Wanted: two gates running at once on Windows never fail on a queue ticket (its write, replace, read or unlink) because the other one holds it open for a moment. A reader that meets a ticket being removed treats it as gone; a writer's unlink and replace retry briefly on a sharing violation and never leave a stale ticket. No change to the queue's order or meaning. A test reproduces the sharing violation (simulated, portable) and proves both sides survive it; `just scenario` E2 passes on Windows.

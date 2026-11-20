@@ -46,12 +46,12 @@ No visual change. A clean restack in a stack carries the gate and the verdict; a
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: pending
-- [ ] Evidence: none, no visible change
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): 8 of the 29 tests in `test_carry_ship.py` and `test_gate_carry.py` fail on the previous code and pass at `960cdb8`
+- [x] Local gates at `960cdb8`: `just check` pass, `just eval-dry-run` pass (18 of 18)
+- [x] Evidence: none, no visible change
+- [x] Review: approved at `960cdb8` (carried from `d64a996`: same patch, clean rebase)
+- [x] Verified at `960cdb8`
+- [x] CI green at `960cdb8`: check, eval-dry-run and scenario pass (`scenario` is the long gate)
 
 ## Internal references
 
