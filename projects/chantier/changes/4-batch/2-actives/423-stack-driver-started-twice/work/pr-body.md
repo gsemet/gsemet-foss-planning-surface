@@ -50,12 +50,12 @@ No visual change. A steering session no longer starts a second Driver on silence
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code) No behaviour change: card text only; existing structure tests read the shipped cards
-- [ ] Local gates at `<sha7>`: `just check`
-- [ ] Evidence: no before/after visual: card text only
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): No behaviour change: card text only; existing structure tests read the shipped cards
+- [x] Local gates at `47ac697`: `just check` (1405 passed, 14 skipped)
+- [x] Evidence: no before/after visual: card text only
+- [x] Review: approved at `47ac697` (the round's diff reviewed uncommitted at the same content, base 4ed0d56)
+- [x] Verified at `47ac697`
+- [x] CI green at `47ac697`: `gh pr checks 388`, all five checks pass (including `just scenario (ubuntu-latest)`)
 
 ## Internal references
 
