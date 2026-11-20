@@ -1,10 +1,10 @@
 ## Summary
 
-The surface server's board speaks through ad-hoc HTTP routes that only its own web page knows, so no other program can read or drive a planning surface, and the page depends on a polling loop. This adds one published API, protocol 1, with one message shape on two transports: a WebSocket (`/api/v1/ws`, with server push) and, as the degraded case behind a proxy that cuts upgrades, plain HTTP (`POST /api/v1/call/<op>` and a long-poll `POST /api/v1/poll`). The existing routes stay for now, so the current page keeps working while the API lands.
+The surface server's board speaks through ad-hoc HTTP routes that only its own web page knows, so no other program can read or drive a planning surface, and the page depends on a polling loop. This adds one published API, protocol 1, with one message shape on two transports: a WebSocket (`/api/v1/ws`, with server push) and, as the degraded case behind a proxy that cuts upgrades, plain HTTP (`POST /api/v1/call/<op>` and a long-poll `POST /api/v1/poll`). The web board is now one client of that API (WebSocket by default, `?transport=http` for the degraded mode), and the old ad-hoc routes are gone: `GET /api/board` remains only as the identity probe.
 
 ## Deliverables
 
-Where the API sits in the server (new package `board/api/`; the old routes stay beside it):
+Where the API sits in the server (new package `board/api/`; the old routes are removed):
 
 ```mermaid
 flowchart LR
@@ -18,6 +18,8 @@ flowchart LR
   WS --> P[api/push.py: PushLoop]
   H --> P
   P --> T[api/topics.py: 6 topics]
+  UI[web board: core/transport.js] --> WS
+  UI --> H
   P --> Z[1001 close at shutdown, 4401 on key rotation]
   PR[api/protocol.py -> protocol.json] -.-> WS
   PR -.-> H
@@ -36,7 +38,7 @@ Choices made: one `call` shape for all 20 ops, with schemas published as `protoc
 
 ## Blast radius
 
-Grade: 2. The server gains a package and a dependency (`websockets`) and the shared `Context`, `routes` and `app` change; the old routes and the page are untouched, so a `git revert` restores the previous behaviour.
+Grade: 3. The board's whole wire changes: every page of the web board, the identity probe (`/api/board`, now only its identity fields) and the scenario move to the new API in one PR, and `websockets` becomes a dependency. Rollback is a revert of this PR, with no data migration; programs that read the removed routes break.
 
 ## Autonomous decisions
 
@@ -47,20 +49,20 @@ Grade: 2. The server gains a package and a dependency (`websockets`) and the sha
 
 ## Known gaps
 
-- The web page still uses the old routes, which stay registered; the page's move to the API, the removal of those routes and the cut of `/api/board` to the identity probe are not in this PR yet.
-- The scenario and `just eval-dry-run` have not run at this head.
-- The API reference (`docs/server-api.md`), the `AGENTS.md`/`CONTRIBUTING.md` updates and the `just test` time at base and head are not in this PR yet.
-- A UI served from another origin is UNVERIFIED in a real browser.
-- A long-poll holds one worker thread for up to 20 s.
+- No release-notes entry: they are written at the version PR, a draft is kept in the CR's work folder.
+- Pictures: `scripts/docs_screenshots.py` now routes the new API, but it was not run and no picture was retaken; no screenshot of the board from a real browser was taken (UNVERIFIED in a real browser: live updates, the `?transport=http` footer, a UI served from another origin, a phone on the LAN).
+- A long-poll holds one worker thread for up to 20 s; the cap is 16 at once (the 17th gets a 429 result).
+- `just test` time at base and head is not measured here.
 
 <details>
 <summary>Details</summary>
 
 ## Changes
 
-- `board/api/`: `protocol.py` (frames, 20 op argument models, 6 topics) and generated `protocol.json`; `ops.py`; `topics.py`; `push.py` (loop, thread, subscriptions, key-rotation close); `auth.py`; `http.py`; `ws.py`; `times.py`.
-- `app.py`: `/api/v1/ws` route, `make_server` with `ws="websockets-sansio"`, 1001 close of every socket at shutdown, a 413 cap on request bodies.
-- `guard.py`, `address.py`, `routes.py`, `context.py`, `prs.py`: relative `Location`, seat registration on v1, the shared context's new fields.
+- `board/api/`: `protocol.py` (frames, 20 op argument models, 6 topics) and generated `protocol.json`; `ops.py`; `topics.py`; `push.py` (loop, thread, subscriptions, key-rotation close, long-poll cap); `auth.py`; `http.py`; `ws.py`; `times.py`.
+- `app.py`: `/api/v1/ws` route, `make_server` with `ws="websockets-sansio"`, 1001 close at shutdown, 413 cap on bodies. `routes.py`, `write_api.py`, `config_api.py`, `writer_api.py`: the old route tables removed; `/api/board` is the probe.
+- Web client: `core/transport.js`, `ws-link.js`, `http-link.js`, and `api.js`, `refresh.js`, `prs-feed.js`, `costs-action.js`, `writer-events.js`, `sidebar.js`, `router.js`, `main.js`, i18n en/fr; `board/web/DESIGN.md` has the "One transport" rule.
+- Scenario: `remote_board` and the cases that used old routes now call ops; `board_api` checks the API on a real process. `docs/server-api.md` is new; `AGENTS.md`, `CONTRIBUTING.md` and the board docs are updated.
 - `websockets` added to `pyproject.toml` and `uv.lock`; `just protocol-schema` regenerates `protocol.json`.
 
 ## Impacts
@@ -69,9 +71,9 @@ No visual change.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test_server_api.py`, `test_server_api_calls.py` (a good call for each of the 20 ops), `test_server_api_ws.py` (real server, 11 cases), `test_server_protocol.py`
-- [ ] Local gates at the uncommitted round-2 tree over 9841318: `just check` pass (1341 passed, 13 skipped)
-- [ ] Evidence: none yet (server-side change, no picture)
+- [ ] New or changed tests (they fail on the previous code): `test_server_api.py`, `test_server_api_calls.py` (a good call for each of the 20 ops), `test_server_api_ws.py` (real server), `test_server_protocol.py` (schema and JS structure); old-route tests moved to ops
+- [ ] Local gates at the uncommitted round-4 tree over 9841318: `just check` pass (1348 passed, 13 skipped), `just eval-dry-run` pass (18 of 18), `just scenario --unit surface-board` pass (281/281)
+- [ ] Evidence: none yet (no picture retaken)
 - [ ] Review: not yet approved
 - [ ] Verified: not yet
 - [ ] CI green: not yet pushed
