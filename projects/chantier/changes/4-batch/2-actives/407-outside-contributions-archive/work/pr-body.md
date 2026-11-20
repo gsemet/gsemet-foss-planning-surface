@@ -40,6 +40,7 @@ and docs text; `git revert` restores the previous behaviour.
 
 - **UNVERIFIED:** the GitLab read (`glab mr view`) is unproved: no real merged MR was at hand.
 - The text of the Chief of Staff's card is agent judgement; no test guards it.
+- **UNVERIFIED:** the time `just test` adds was not measured before and after the change.
 
 <details>
 <summary>Details</summary>
@@ -62,9 +63,9 @@ exit 3 (none exists on the known surfaces).
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): `test_an_outside_archive_is_named_in_its_form`
-- [ ] Local gates at `<sha7>`:
-- [ ] Evidence: `gh pr view 380 --json number,title,url,author,state,mergedAt,files,body` returns every field the card names (keys: author, body, files, mergedAt, number, state, title, url), read at `<sha7>`
-- [ ] Review: approved at `<sha7>`
+- [ ] Local gates at `68c5a68`: `just check` pass (1316 passed, 13 skipped); `just eval-dry-run` pass (18 of 18); `just test` takes about 87 s here (no before measure kept: UNVERIFIED against the +30 s budget)
+- [ ] Evidence: `gh pr view 380 --json number,title,url,author,state,mergedAt,files,body` returns every field the card names (keys: author, body, files, mergedAt, number, state, title, url), read at `68c5a68`
+- [ ] Review: approved at `68c5a68`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 

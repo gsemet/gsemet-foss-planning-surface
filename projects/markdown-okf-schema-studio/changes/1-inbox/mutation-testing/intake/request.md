@@ -45,6 +45,28 @@ Two goals:
 - About 70k lines of TypeScript in `src/`. Unit tests run on `node:test` over the compiled
   `out/` and take a few minutes. There is no mutation tool yet.
 
+## Feasibility (measured 2026-11-20, main 049b543)
+
+- **Size.** `core` + `page` hold about 57k lines, which gives an estimated 15–25k mutants. The unit
+  suite has 4,138 tests and runs in 63 s.
+- **Run time.**
+  - A naive run (the whole suite for each mutant) takes about two weeks: not workable.
+  - With per-test coverage (only the tests that reach the mutant), it takes about 1–3 s per
+    mutant: roughly 10–15 h on one process, 2–3 h on 8 workers. Workable.
+- **The crux.** StrykerJS has no `node:test` runner with per-test coverage. A small adapter, or
+  another runner, is the first risk of the CR.
+- **Reading the result.** Stryker's JSON report gives, for each mutant, the tests that reach it
+  (`coveredBy`) and the tests that kill it (`killedBy`). From that report:
+  - a test that reaches code but never kills a mutant checks nothing useful;
+  - a test whose every kill is also made by other tests is redundant;
+  - a mutant that no test kills is a hole.
+- **Cheap first pass.** Before the mutation run, an agent reads the tests (about an hour) for:
+  - tests with no assertion;
+  - tests that only check "does not throw";
+  - near-duplicate tests.
+- **Order.** Run `core` first (30k lines), to validate the adapter and measure the real run time,
+  then `page`.
+
 ## Points for the grill
 
 0. **To confirm with the owner first.** The second quote ("et pas on va faire du mutation
