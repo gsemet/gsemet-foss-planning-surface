@@ -1,6 +1,13 @@
-# One-shot mutation testing campaign on Studio's tests (P1, next batch)
+# Mutation testing campaign, part 1: `core` (P1, after the 1.10.0 release)
 
-Priority: P1, for the next batch (batch-07). Owner's request, 2026-11-20: "comment faire du
+Priority: P1, after the 1.10.0 release (CR-434), for the next batch.
+
+**Split (owner, 2026-11-20: "fait 2 CR, P1 apres la release sur Core et un second sur tout le reste").**
+This CR runs the campaign on `src/core` and its tests only. It builds the tool (StrykerJS and the
+`node:test` adapter), measures the real run time, and writes the note for chantier. The second CR,
+`mutation-testing-rest`, runs the same campaign on everything else and starts after this one lands.
+
+Owner's request, 2026-11-20: "comment faire du
 mutation testing efficace dans Studio ?", then: "le but est un peu double: ameliorer les tests
 de Studio; donner les instructions pour que Chantier fasse un Mutation Testing Driver", "ce que
 tu proipose on dirait que c est pas du one shot, cest sur une PR on a un job ou un tache de
@@ -36,9 +43,8 @@ Two goals:
   when another test that stays covers the same SwRS, and its marker moves to that test. The
   coverage must stay intact (`just requirements-update`).
 - **No published requirement is removed.**
-- **Scope.**
-  - Unit and contract tests over `core` and `page` first: pure code, about 280 files.
-  - Not the real-window e2e tests.
+- **Scope.** `src/core` (about 30k lines, 156 files) and the unit and contract tests that reach it.
+  Not the real-window e2e tests.
 
 ## What exists today (main 049b543)
 
@@ -65,13 +71,13 @@ Two goals:
   - tests that only check "does not throw";
   - near-duplicate tests.
 - **Order.** Run `core` first (30k lines), to validate the adapter and measure the real run time,
-  then `page`.
+  then everything else in the second CR (`mutation-testing-rest`).
 
 ## Points for the grill
 
-0. **To confirm with the owner first.** The second quote ("et pas on va faire du mutation
-   testing pour reduire le nombre de test actuels") was read here as the owner's aim: a one-shot
-   campaign that also reduces the test count. Confirm the removal side before the spec.
+0. **Settled by the owner (2026-11-20, "je suis d accord").** A one-shot campaign that removes
+   or merges redundant tests and fills the holes; first an agent reads the tests, then the
+   mutation run.
 1. **Tool.**
    - StrykerJS with a TypeScript checker, run locally or as a one-off CI dispatch.
    - Open point: how to run `node:test` so that each mutant runs only the tests that reach it.
