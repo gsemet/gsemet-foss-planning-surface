@@ -33,7 +33,7 @@ Grade: **1**. Test and repository configuration only; a `git revert` restores th
 
 ## Known gaps
 
-- The exploratory QA scenario `ux-35` was not re-run; its source file stays LF in git and the QA setup script converts it to CRLF when it prepares the workspace. Follow-up: make `ux-35` use a real CRLF fixture (needs a `-text` rule in the QA skill and a change to `setup-workspace.sh`).
+- The exploratory QA scenario on CRLF files was not re-run; its source file stays LF in git and the QA setup script converts it to CRLF when it prepares the workspace. Follow-up: make that scenario use a real CRLF fixture (needs a `-text` rule in the QA skill and a change to `setup-workspace.sh`).
 - The mixed-fixture guard and the "other Markdown stored with CR" test were not shown failing on a planted fault.
 - The save-ends (no stuck "Saving Markdown...") tests on CRLF are not part of this PR: they need the fix for that bug.
 
@@ -57,11 +57,11 @@ No visual change and no runtime change; tests, fixtures and git attributes only.
 - [x] Requirements: SwRS updated, markers in tests, `just requirements-update`
 - [x] Changelog: No user-facing change
 - [x] Local gates: `just check` and `just preflight` (static stage on Windows) at cd2f90c
-- [x] Review: inspector approved at cd2f90c; verifier VERIFIED at cd2f90c
+- [x] Review: approved at cd2f90c; verified at cd2f90c
 - [x] CI green: `gh pr checks 445` at cd2f90c (static, static-windows, visual pass)
 
 ## Internal references
 
-CR-435 (batch-07), investigation and round notes under the CR's `work/` folder; red-proof log `work/evidence-red.log`.
+CR-435 (batch-07), QA scenario ux-35, investigation and round notes under the CR's `work/` folder; red-proof log `work/evidence-red.log`.
 
 </details>
