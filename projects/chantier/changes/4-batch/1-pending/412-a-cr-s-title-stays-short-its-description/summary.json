@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A CR's title stays short",
+  "summary": "Specified: a 72-character title limit; validate errors on not-yet-batched CRs, summary lint gaps, file --title, filed_fix checked; cards say it; board titles on one line. Joins batch-29.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "2ff046295994dad8efce29ec59cfd04c86f92b94558ec66847c0e35324a6b230",
+    "03-change-spec.md": "9399d18b985ec84c885d4b65cd8e0182ba4e8438e84a5c9766276e2cbe5c9f57",
+    "intake/request.md": "14707a44c2dafdc721b079f719ca28f76739d14fdb7c8ba6b76219cd3eaaff82"
+  },
+  "summarized": "2026-11-20T11:26:24Z"
+}
