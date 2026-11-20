@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "title": "Open Studio at a searched line and mark it with an arrow",
-  "summary": "Set aside in P3, half grilled (Q1-Q8 + an 'open searches in Studio' setting, on by default); risk: raw text may loop back to Studio; resume at Q9.",
+  "summary": "P3, half grilled (Q1-Q8, open searches in Studio on by default); diff-view item merged in: diffs fine today, must stay text diffs; resume at Q9.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "01-intent.md": "26fcd72368d526c728e52955468ae0bc2ce1d42a20f939377c30620cc5dcf97c",
-    "02-answers.md": "bc8c27ba2f94e76f6e6897ad77e73f64001a27b56d43da260dcc710b13cffb4b",
+    "01-intent.md": "9ce9d7ce4259c6a699a2e8bfdf2ca164ea53e9c9e2af1cdc55b3222932ebb2bd",
+    "02-answers.md": "09631a343467cc4e091fc775f0de3087894795d720df75f27594839e8ab6994c",
+    "intake/request-diff-view.md": "91fd0dd3e71a3b6cfc33a363d1660b16c4d3138f9a6ebf8668ee9dfdfa6e955d",
     "intake/request.md": "43d2d3ea478e3ea5939d13d6da18bee65d99136cf8703962e89cb8178b41d6ea"
   },
-  "summarized": "2026-11-20T19:31:42Z"
+  "summarized": "2026-11-20T19:46:36Z"
 }

@@ -1,0 +1,44 @@
+CASE git-open-changes
+opened doc.md: {"tabs":["doc.md [active]"],"diffEditors":0,"textEditors":0,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  rows for "Git: Open Changes": ["Git: Open All Changes","Git: Open Changes","Git: Open Changes","Git: Open Staged Changes","Cloud Changes: Resume Latest Changes from Cloud, similar commands","Cloud Changes: Show Cloud Changes"] -> index 1
+git diff: {"tabs":["doc.md [active]"],"diffEditors":0,"textEditors":0,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  screenshot assoc-01-git-open-changes.png
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W","View: Close All Editors in Group, Control+K W","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE compare-with-saved
+  rows for "View: Reopen Editor With...": ["View: Reopen Editor With...","View: Reopen Editor with Text Editor, similar commands","View: Reopen Closed Editor, Control+Shift+T","File: Compare Active File with Clipboard, Control+K C","File: Compare Active File with Saved, Control+K D"] -> index 0
+  rows for "Text Editor": ["Text Editor, Built-in"] -> index 0
+  rows for "File: Compare Active File with Saved": ["File: Compare Active File with Saved, Control+K D","File: Compare Active File with Clipboard, Control+K C, similar commands","File: Compare Active File With..."] -> index 0
+compare with saved: {"tabs":["doc.md","doc.md (in file) ↔ doc.md (doc.md) [active]"],"diffEditors":1,"textEditors":3,"visibleWebviews":0,"sideBySideDivider":0,"notifications":[]}
+  screenshot assoc-02-compare-with-saved.png
+  rows for "File: Revert File": ["File: Revert File","File: Compare Active File with Clipboard, Control+K C, similar commands","File: Compare Active File with Saved, Control+K D","File: Compare Active File With...","File: Reveal Active File in Explorer View"] -> index 0
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W, recently used","View: Close All Editors in Group, Control+K W, other commands","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE replace-preview
+  search rows: 3
+replace preview: {"tabs":["doc.md ↔ doc.md (Replace Preview) (doc.md), preview [active]"],"diffEditors":1,"textEditors":2,"visibleWebviews":0,"sideBySideDivider":0,"notifications":[]}
+  screenshot assoc-03-replace-preview.png
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W, recently used","View: Close All Editors in Group, Control+K W, other commands","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE side-preview-then-diff
+  rows for "View: Reopen Editor With...": ["View: Reopen Editor With..., recently used","View: Reopen Editor with Text Editor, similar commands","View: Reopen Closed Editor, Control+Shift+T","File: Compare Active File with Clipboard, Control+K C","File: Compare Active File with Saved, Control+K D"] -> index 0
+  rows for "Text Editor": ["Text Editor, Active, Built-in"] -> index 0
+  rows for "Markdown OKF-Schema Studio: Open Preview to Side": ["Markdown OKF-Schema Studio: Open Preview to Side, Control+K Shift+V","Markdown OKF-Schema Studio: Refresh Preview, similar commands","Markdown OKF-Schema Studio: Export to HTML"] -> index 0
+side preview: {"tabs":["doc.md [active]","Studio · doc.md, Editor Group 2 [active]"],"diffEditors":0,"textEditors":1,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  screenshot assoc-04-side-preview.png
+  rows for "Git: Open Changes": ["Git: Open Changes, recently used","Git: Open All Changes, other commands","Git: Open Changes","Git: Open Staged Changes","Cloud Changes: Resume Latest Changes from Cloud, similar commands","Cloud Changes: Show Cloud Changes"] -> index 0
+side preview + git diff: {"tabs":["doc.md, Editor Group 1","doc.md (Working Tree) (doc.md), preview, Editor Group 1 [active]","Studio · doc.md, Editor Group 2 [active]"],"diffEditors":1,"textEditors":3,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  screenshot assoc-05-side-preview-git-diff.png
+side preview + replace preview: {"tabs":["doc.md, Editor Group 1","doc.md ↔ doc.md (Replace Preview) (doc.md), preview, Editor Group 1 [active]","Studio · doc.md, Editor Group 2 [active]"],"diffEditors":1,"textEditors":2,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  screenshot assoc-06-side-preview-replace-preview.png
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W, recently used","View: Close All Editors in Group, Control+K W, other commands","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE studio-editor-then-git-diff
+studio editor: {"tabs":["doc.md [active]"],"diffEditors":0,"textEditors":1,"visibleWebviews":0,"sideBySideDivider":0,"notifications":[]}
+  screenshot assoc-07-studio-editor.png
+  rows for "Git: Open Changes": ["Git: Open Changes, recently used","Git: Open All Changes, other commands","Git: Open Changes","Git: Open Staged Changes","Cloud Changes: Resume Latest Changes from Cloud, similar commands","Cloud Changes: Show Cloud Changes"] -> index 0
+studio editor -> git diff: {"tabs":["doc.md","doc.md (Working Tree) (doc.md), preview [active]"],"diffEditors":1,"textEditors":3,"visibleWebviews":0,"sideBySideDivider":0,"notifications":[]}
+  screenshot assoc-08-studio-editor-git-diff.png
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W, recently used","View: Close All Editors in Group, Control+K W, other commands","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0
+CASE compare-two-files
+  rows for "File: Compare Active File With...": ["File: Compare Active File With...","File: Compare Active File with Clipboard, Control+K C, similar commands","File: Compare Active File with Saved, Control+K D","File: Reveal Active File in Explorer View"] -> index 0
+  rows for "other.md": ["other.md, file results"] -> index 0
+compare doc.md with other.md: {"tabs":["doc.md","doc.md ↔ other.md [active]"],"diffEditors":1,"textEditors":3,"visibleWebviews":0,"sideBySideDivider":0,"notifications":[]}
+  screenshot assoc-09-compare-two-files.png
+  rows for "View: Close All Editors": ["View: Close All Editors, Control+K Control+W, recently used","View: Close All Editors in Group, Control+K W, other commands","Explorer: Focus on Open Editors View, Control+K E, similar commands","Git: Close All Diff Editors","Git: Close All Unmodified Editors"] -> index 0

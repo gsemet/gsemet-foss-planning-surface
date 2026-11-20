@@ -27,3 +27,19 @@ Owner's clarifying question before answering: "attent tu veux dire que je peux p
 9. **Decision: set aside in P3**, 2026-11-20. Owner's words: "met la de coté en P3 avec le drawback que l'ouverture du text brute risque de tjs boucler sur studio". The drawback to keep in mind when the item is taken up again: with Studio taking over every `.md` opened in a text editor, opening the raw text on purpose risks always looping back to Studio (open-at-line-Q4 asked that a text editor opened on purpose stays, but how to tell it apart reliably is unproved). The grill resumes at open-at-line-Q9.
 
 10. **A setting "open searches in Studio", on by default**, 2026-11-20 (given after the item was set aside). Owner's words: "il faudra un settings \"ouvrir les recherche dans studio\", on par defaut." Open at the resumption: whether this setting replaces the general "open Markdown files in Studio" setting of open-at-line-Q1/Q5 (only an opening at a line, from a search or another jump, goes to Studio, which would avoid the raw-text loop) or comes in addition to it.
+
+## Merge of `vscode-diff-view`, 2026-11-20
+
+11. **The diff-view item merged into this CR, P3, with a big caveat**, 2026-11-20 (recorded by
+    the Griller of `vscode-diff-view`). Owner's words: "ok on laisse tomber en P3 avec un gros
+    caveat, que ca implique de remplacer l'editeur de text pour les md et ca risque de poser des
+    pbl. a tester en meme temps que la CR sur l'ouverture a la ligne. merge d'ailleur les 2
+    demandes dans le meme CR. met aussi tous tes resultat d'analyse dans le dossier". So: the
+    behaviour of Studio in VS Code's diff views (search-and-replace preview, Git diff, Source
+    Control, timeline, Compare with Saved, two-file compare) is part of this CR and tested with
+    it; the risk is that Studio taking over the text editor for `.md` breaks those diffs, which
+    are all plain text diffs today. The diff-view questions asked and not answered (diff-view-Q1
+    to Q4: keep the text diff and fix the side preview's gaps, scroll sync from a diff, "Open
+    Preview to Side" from the replace preview, Studio's button on a diff; all recommended A) are
+    open for the resumption. Findings: `work/diff-view-findings.md`; evidence:
+    `evidence/diff-view/`; scripts: `experiments/0N-diff-view-*`.

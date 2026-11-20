@@ -44,3 +44,22 @@ Entry points covered; the switch from the VS Code association to Studio's own ch
 (shape, place, when it goes away); edit mode and view mode; a line inside a block (paragraph,
 code block, table, folded section); the side preview; accessibility; the tests (unit, visual
 captures, real VS Code integration).
+
+## Merged: Studio in VS Code's diff views (2026-11-20)
+
+The inbox item `vscode-diff-view` was merged into this CR on the owner's word (`02-answers.md`,
+decision 11); its request is `intake/request-diff-view.md`. The owner asked to test Studio in the
+diff views VS Code opens (search-and-replace preview, Git diff, Source Control, timeline, Compare
+with Saved, two-file compare).
+
+The exploration at 1.10.0 (`work/diff-view-findings.md`, scripts `experiments/0N-diff-view-*`,
+screenshots `evidence/diff-view/`, real VS Code 1.147.0) found nothing broken: every diff stays
+VS Code's own text diff, even with the owner's `*.md` association to Studio, and the replace
+preview and Replace All work with Studio open. Small gaps of the side preview next to a diff: it
+does not follow the diff's scroll; "Open Preview to Side" from the replace preview refuses ("Open
+a Markdown file to use Markdown OKF-Schema Studio."); Studio's title button is hidden on diffs.
+
+**The caveat** (owner's): this CR's design makes Studio replace the text editor for `.md` files,
+which may break that good behaviour in the diff views (a diff's sides are text editors). The diff
+views are to be tested with this CR, so that opening at a line does not pull diffs, the replace
+preview or Compare with Saved into Studio.

@@ -1,0 +1,13 @@
+CASE studio-open-replace-all
+  rows for "View: Reopen Editor With...": ["View: Reopen Editor With...","View: Reopen Editor with Text Editor, similar commands","View: Reopen Closed Editor, Control+Shift+T","File: Compare Active File with Clipboard, Control+K C","File: Compare Active File with Saved, Control+K D"] -> index 0
+  rows for "Markdown OKF-Schema Studio": ["Markdown OKF-Schema Studio, Markdown OKF-Schema Studio"] -> index 0
+  replace all buttons: 1
+  dialog: Replace
+Cancel
+Replace 2 occurrences across 1 file with 'Omega'?
+  screenshot p4-default-01-replace-all-dialog.png
+after replace all: {"tabs":["doc.md [active]"],"diffEditors":0,"textEditors":0,"visibleWebviews":1,"sideBySideDivider":0,"notifications":[]}
+  screenshot p4-default-02-studio-after-replace-all.png
+  studio shows Omega: 1, Alpha: 0
+  file on disk has Omega: true
+  tabs dirty: [false]
