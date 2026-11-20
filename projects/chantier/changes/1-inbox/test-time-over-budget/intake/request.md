@@ -7,3 +7,5 @@ Priority P2. Measured by CR-409's Driver (batch-29), 2026-11-20, on the user's W
 The scenario's units also warn over budget: `direct` 143.7 s against 135 s, `qa-driver` 136.3 s against 115 s (with `parallel` already tight, 248-261 s against 260 s, from an earlier batch).
 
 Measure main's baseline on an idle machine, bring `just test` back under the ceiling (speed up or merge the slowest tests; they check the structure and the refusals, the workflow belongs to the scenario), and re-measure the scenario units' budgets.
+
+Also (from CR-409): the gitlab scenario unit's budget was set to its measured time +25%, but the README's measured columns are stale; refresh them with the re-measure.

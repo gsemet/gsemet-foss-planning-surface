@@ -45,11 +45,11 @@ Release notes written from now on follow the new form. No visual change in the p
 ## Test plan
 
 - [x] No behaviour change (a card text change; no test applies)
-- [x] Local gates at `a86aca2`: `just check` passed (1188 passed, 14 skipped; release-notes check ok)
+- [x] Local gates at `e7f05db`: `just check` passed (1188 passed, 14 skipped; release-notes check ok)
 - [x] Evidence: none, a text-only change
-- [x] Review: approved at `a86aca2` (committed from the reviewed state)
-- [x] Verified at `a86aca2`
-- [x] CI green at `a86aca2` (five checks, `just scenario (ubuntu-latest)` included)
+- [x] Review: approved at `e7f05db` (carried from `a86aca2`, clean rebase, same patch)
+- [x] Verified at `e7f05db` (carried from `a86aca2`)
+- [x] CI green at `e7f05db` (five checks, `just scenario (ubuntu-latest)` included)
 
 ## Internal references
 

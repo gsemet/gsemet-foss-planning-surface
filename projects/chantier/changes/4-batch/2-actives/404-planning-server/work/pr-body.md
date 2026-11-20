@@ -29,7 +29,7 @@ Grade: 3 - it changes who writes and pushes the planning surface, the board and 
 
 - An unset `origin/HEAD` keeps the strict reading: the writer blocks as `not-a-branch` and the message names `git remote set-head origin -a`; no default branch is guessed (settled by the Chief of Staff).
 - If the writer's thread dies, the server keeps serving reads and refuses writes with a clear error; the `writer:` line says `stopped: <why>`, never `synced` (settled by the Chief of Staff).
-- `AGENTS.md` says the CLI has two named git exceptions (the writer and the batch-end cleanup), since the autosync join goes, and "three named exceptions" in the scope bullet; the specification said the git count "becomes three".
+- `AGENTS.md` carries no count of the CLI's named exceptions (the Chief of Staff's rule): its git bullet names the writer and the batch-end cleanup, and the scope bullet names its exceptions without a number.
 - `autosync/view.py` and `reading.py` were deleted (no caller left); `autosync/records.py` is kept for the foreign-autosync check.
 - `clock.real_now()` was added: the writer's `started` is real time so a fixed test clock cannot make a live writer look dead.
 - The secret scan is left to the user's own pre-commit hook (the writer runs hooks).
@@ -39,6 +39,7 @@ Grade: 3 - it changes who writes and pushes the planning surface, the board and 
 - No release-notes folder: this PR bumps no version; the release writes them (the surface's own AGENTS.md cleanup is part of that note).
 - The full `just scenario` has not run locally yet; only the `surface-board` unit (251 of 251 checks) did.
 - The 5-minute bound and the removal of the autosync tool are **UNVERIFIED** until the long gate and CI run at the pushed head.
+- No before/after evidence was captured for this change beyond the two new board pictures in `docs/web-board/`.
 - Linux and macOS runs of the second-loop lock tests are left to CI.
 
 <details>
@@ -66,11 +67,11 @@ The board shows a writer pill and panel; `status` and `seat` print a `writer:` l
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): `tests/` writer cases and the `surface-board` scenario unit
-- [x] Local gates at `4486b82`: `just check` pass, `just eval-dry-run` pass (18 of 18)
-- [ ] Evidence: before at `c51aea6`, after at `4486b82`
-- [x] Review: approved at `4486b82`
-- [ ] Verified at `4486b82`
-- [ ] CI green at `4486b82`
+- [x] Local gates at `e855fe9`: `just check` pass, `just eval-dry-run` pass (18 of 18)
+- [ ] Evidence: none captured (see Known gaps)
+- [x] Review: approved at `e855fe9`
+- [ ] Verified at `e855fe9`
+- [ ] CI green at `e855fe9`
 
 ## Internal references
 
