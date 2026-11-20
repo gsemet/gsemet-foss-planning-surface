@@ -1,0 +1,59 @@
+head: cd99f0a7ed1ff0d66e917a29429c7c3936e1bb47; CLI = this worktree's code (uv run --no-sync --project <worktree>); live planning folder, read-only command
+$ chantier access  --batch batch-29
+before: f09498f70bb7 1eb4b6dc6dd2 
+session bc951dfe-c99b-4cdd-880f-1a1453b19350: the seat is 91f1382a-eacd-437e-b5a8-f9e545753a8c (unknown)
+write: allowed: the surface's writer runs (pid 10516, pending); it commits and pushes within 5 min; not pushed yet: 1 paths
+exit=0
+after:  f09498f70bb7 1eb4b6dc6dd2 
+
+$ chantier access write --batch batch-29
+before: f09498f70bb7 1eb4b6dc6dd2 
+session bc951dfe-c99b-4cdd-880f-1a1453b19350: the seat is 91f1382a-eacd-437e-b5a8-f9e545753a8c (unknown)
+write: allowed: the surface's writer runs (pid 10516, pending); it commits and pushes within 5 min; not pushed yet: 1 paths
+exit=0
+after:  f09498f70bb7 1eb4b6dc6dd2 
+
+$ chantier access claim CR-408 --epoch 1 --batch batch-29
+before: f09498f70bb7 1eb4b6dc6dd2 
+session bc951dfe-c99b-4cdd-880f-1a1453b19350: the seat is 91f1382a-eacd-437e-b5a8-f9e545753a8c (unknown)
+claim: refused: CR-408 still has an agent recorded (a6278dd2abc956f6f): `agents set CR-408 - --epoch <n>` first, once it ended
+exit=0
+after:  f09498f70bb7 1eb4b6dc6dd2 
+
+$ chantier access push CR-408 --batch batch-29
+before: f09498f70bb7 1eb4b6dc6dd2 
+session bc951dfe-c99b-4cdd-880f-1a1453b19350: the seat is 91f1382a-eacd-437e-b5a8-f9e545753a8c (unknown)
+push: refused: no --lease given (lease 1 is current)
+push surface: only the writer pushes the surface; never by hand
+exit=0
+after:  f09498f70bb7 1eb4b6dc6dd2 
+
+$ chantier access claim --batch batch-29
+before: f09498f70bb7 1eb4b6dc6dd2 
+error: access claim <cr>: name the CR
+exit=1
+after:  f09498f70bb7 1eb4b6dc6dd2 
+
+$ chantier access push --batch batch-29
+before: f09498f70bb7 1eb4b6dc6dd2 
+error: access push <cr>: name the CR
+exit=1
+after:  f09498f70bb7 1eb4b6dc6dd2 
+
+$ chantier access CR-408 --lease 1 --epoch 1 --batch batch-29
+before: f09498f70bb7 1eb4b6dc6dd2 
+session bc951dfe-c99b-4cdd-880f-1a1453b19350: the seat is 91f1382a-eacd-437e-b5a8-f9e545753a8c (unknown)
+write: allowed: the surface's writer runs (pid 10516, pending); it commits and pushes within 5 min; not pushed yet: 1 paths
+claim: refused: CR-408 still has an agent recorded (a6278dd2abc956f6f): `agents set CR-408 - --epoch <n>` first, once it ended
+push: allowed: lease 1 of CR-408 is live; push chantier/batch-29/cr-408-chantier-access-explains-why-a-session-m without force; a rewrite uses --force-with-lease (driver.md)
+push surface: only the writer pushes the surface; never by hand
+exit=0
+after:  f09498f70bb7 1eb4b6dc6dd2 
+
+$ chantier access claim CR-999 --batch batch-29
+before: f09498f70bb7 1eb4b6dc6dd2 
+session bc951dfe-c99b-4cdd-880f-1a1453b19350: the seat is 91f1382a-eacd-437e-b5a8-f9e545753a8c (unknown)
+claim: refused: unknown CR CR-999 in batch batch-29
+exit=0
+after:  f09498f70bb7 1eb4b6dc6dd2 
+

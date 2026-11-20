@@ -1,0 +1,17 @@
+# Verify CR-408
+
+Head: cd99f0a7ed1ff0d66e917a29429c7c3936e1bb47
+
+All claims judged at cd99f0a (the pushed head, `git rev-parse HEAD` in the worktree; PR 382 headRefOid is the same).
+
+1. Tests per spec line, at cd99f0a. Command (from skills/chantier/scripts/cli):
+   `uv run --no-sync --project ../../../.. pytest tests/test_access.py tests/test_startup_manifest.py tests/test_plugin_files.py tests/test_code_targets.py tests/test_leases.py tests/test_rail_refusals.py -q`
+   Output: `176 passed in 39.23s`. test_access.py has 38 collected cases (the PR body says 37; trivia): session (6 forms, bare terminal gives `session none`), write (in-project, six writer states with suffixes, no writer, older board), claim (allowed x6 forms, refused x7, epoch line, dead hold record stays), push (7 forms), unknown CR, usage exit 1. Every case runs through `_asker`, which asserts exit 0 and that the planning folder and the git folder's `chantier/` (bytes and mtime) are unchanged. Each claim refusal is compared with `take`'s `error:` text (one check function).
+2. take_checks keeps take's texts: diff at cd99f0a shows `take` now calls `check_take_all` (refuse_held, check_take, check_free, release branch, check_publish), the same order as the base's take; test_rail_refusals and test_leases pass (item 1). Note: the spec's step list puts the lease check before `check_take`; the base's `take` does it after, and the shared function keeps the base's order, as the spec's "at this CR's base" demands.
+3. Common-path size: `tests/test_startup_manifest.py` passed (item 1, includes the 45,000-byte `CR_DRIVER_COMMON_PATH_LIMIT` test); the driver.md line sits in the lease section ("## Means" area after the reclaim bullet), off the common path.
+4. Live runs, at cd99f0a, with this worktree's CLI against the live batch-29: `evidence/access-live.txt` (same folder as the CR's evidence). Results: write: `allowed ... writer runs (pid 10516, pending) ... not pushed yet: 1 paths`; claim CR-408: `refused: ... still has an agent recorded` (a Driver is running, as expected); push without lease: `refused: no --lease given (lease 1 is current)` + `push surface` line; push with `--lease 1`: `allowed: lease 1 ... is live`; `access claim` and `access push` with no CR: exit 1 `access claim <cr>: name the CR`; answers exit 0. sha256 prefixes of batch.json and events.jsonl are identical before and after every call (f09498f70bb7, 1eb4b6dc6dd2).
+5. AGENTS.md: one `access` item added in the CLI scope list, no ordinal or count changed (diff checked). Cards: concepts, driver, foreman, griller, chief-of-staff changed; no agent file changed (diffstat).
+6. PR description: the posted body (`gh pr view 382`) equals work/pr-body.md except a trailing newline. Summary, Deliverables, Changes match the 16-file diff (take_checks, leases drop mode, writer/lines public functions, holds_seat, cards, AGENTS.md). Known gaps are declared (timing, no release-branch case); its "no output from a real batch" gap is now stale since evidence/access-live.txt exists (does not fail the claim: it understates). No images, no role names as doers. The description's Test plan still has `<sha7>` placeholders for Verified and CI, to fill by the Driver.
+7. Not measured: before/after test timing, release-branch claim case (both declared Known gaps). No gate log of `chantier gate` exists; CI at this head is green per the brief (incl. just scenario ubuntu).
+
+VERIFIED

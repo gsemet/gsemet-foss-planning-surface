@@ -27,8 +27,8 @@ The wire shape, in one sketch (frames of `protocol.json`):
 
 ```text
 client: {"t":"hello","protocol":1,"key":"..."}        server: {"t":"welcome", ...}
-client: {"t":"call","id":7,"op":"backlog.move","args":{...}}   server: {"t":"result","id":7,"ok":true,"data":{...}}
-client: {"t":"sub","id":8,"topic":"board","args":{...}}        server: {"t":"result",...} then {"t":"event","sub":8,"rev":"...","data":{...}}
+client: {"t":"call","id":"7","op":"backlog.move","args":{...}}   server: {"t":"result","id":"7","ok":true,"data":{...}}
+client: {"t":"sub","id":"8","topic":"board","args":{...}}        server: {"t":"result",...} then {"t":"event","sub":"8","rev":"...","data":{...}}
 close codes: 4401 key, 4408 no hello in time, 4426 protocol, 1001 server stopping; 429 over 32 subscriptions, 503 over 16 unwelcomed sockets
 ```
 
@@ -49,6 +49,8 @@ Grade: 2. The server gains a package and a dependency (`websockets`) and the sha
 
 - The web page still uses the old routes, which stay registered; the page's move to the API, the removal of those routes and the cut of `/api/board` to the identity probe are not in this PR yet.
 - The scenario and `just eval-dry-run` have not run at this head.
+- The API reference (`docs/server-api.md`), the `AGENTS.md`/`CONTRIBUTING.md` updates and the `just test` time at base and head are not in this PR yet.
+- A UI served from another origin is UNVERIFIED in a real browser.
 - A long-poll holds one worker thread for up to 20 s.
 
 <details>

@@ -51,7 +51,6 @@ Grade: **1**. A new read-only command; `take` keeps its checks and texts, now in
 ## Known gaps
 
 - `test_access.py` takes about 10.6 s serial (3.8 s of it shared session fixtures), above the 1.5 s the specification estimated; the full `just test` run measured 72 s with `-n auto`. No "before" figure was taken.
-- No output captured from a real batch (no `evidence/access-live.txt`); the answers are proven on prepared states.
 - No test case for a release's branch check in `claim`.
 
 <details>
@@ -80,12 +79,12 @@ No visual change. A session that meets a refusal it does not understand can run 
 
 ## Test plan
 
-- [ ] New or changed tests: `tests/test_access.py` (37 cases: session, write, claim, push, usage, nothing written, `take` text parity for each claim refusal)
-- [ ] Local gates at `cd99f0a`: `just check`, `just eval-dry-run`
-- [ ] Evidence: none beyond the tests (see Known gaps)
-- [ ] Review: approved at `cd99f0a`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests: `tests/test_access.py` (38 cases: session, write, claim, push, usage, nothing written, `take` text parity for each claim refusal)
+- [x] Local gates at `cd99f0a`: `just check`, `just eval-dry-run`
+- [x] Evidence: real runs of the command against a batch's state at `cd99f0a` (live run saved with the verification)
+- [x] Review: approved at `cd99f0a`
+- [x] Verified at `cd99f0a`
+- [x] CI green at `cd99f0a`
 
 ## Internal references
 
