@@ -40,8 +40,8 @@ None.
 - [x] New or changed tests: none, a guideline wording change
 - [x] Requirements: No behaviour change
 - [x] Changelog: No user-facing change
-- [ ] Local gates: `just check` at the round's state: pass; `just preflight` pending
-- [ ] Review
+- [x] Local gates: `just check` and `just preflight` (static stage on Windows): pass at `590b2c5`
+- [x] Review: approved at `590b2c5`
 - [ ] CI green
 
 ## Internal references

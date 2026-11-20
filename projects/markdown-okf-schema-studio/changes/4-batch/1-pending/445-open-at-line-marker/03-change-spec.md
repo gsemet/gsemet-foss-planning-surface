@@ -9,7 +9,7 @@ text-editor-plus-side-preview workflow into Studio.
 
 Origin: verbal (owner, 2026-11-20). No tracker issue. Code base: `origin/main` at `a18bcac1`
 (release 1.10.0 plus the CRLF fix). Every decision below comes from `02-answers.md`; decisions 12
-to 32 were **decided by the Griller under the owner's autonomy rule**, not by the owner, and the
+to 33 were **decided by the Griller under the owner's autonomy rule**, not by the owner, and the
 owner may change any of them at review. The PR body says so (8).
 
 ## 1. Goal, in the user's terms
@@ -48,7 +48,7 @@ owner may change any of them at review. The PR body says so (8).
 | --- | --- | --- |
 | 1 | Studio decides itself to open `.md` files; the text editor opens for a moment at the line, then Studio takes its place at that line with the marker | 4.1, 4.2 |
 | 2 | Every entry point that opens a text editor at a line, no closed list | 4.1 |
-| 3 | File already open in Studio: the same Studio tab scrolls, the marker moves, no new tab | 4.2 |
+| 3 | File already open in Studio: the same Studio tab scrolls, the marker moves, no new tab | 4.2 (a jump only; a plain opening in another group, decision 33) |
 | 4 | A text editor asked for on purpose ("Reopen Editor With > Text Editor", a Studio action) stays | 4.1 (rules 4, 5), 4.3 ("Open as Text") |
 | 5 | "On by default"; a feature introduction notice shown for a few seconds, once, never again even in later sessions; a reusable introduction system with a reset | 4.4, 4.5. **Reading of "on by default"** (decisions 13 and 32): it applies to "Open search results in Studio" (on by default), the setting decision 10 named after Q5; "Open Markdown files in Studio" is off by default and turned on by the migration. The PR says so for the owner's review |
 | 6 | Marker: option A of `prototypes/01-arrow-marker/`: an arrow in the left margin at the exact height of the line plus a light band on that line | 4.6 |
@@ -78,6 +78,7 @@ owner may change any of them at review. The PR body says so (8).
 | 30 | One CR, narrowed by decision 31 | the whole spec; 5 |
 | 31 | Marker on the exact line of a paragraph or code block, unfold a folded heading section or a closed dropdown (`details`), otherwise the top of the enclosing block (table, hidden tab of a tab-set and front matter included); the table row, the hidden `{tab-item}` selection and the front matter property row go to inbox item `line-marker-precision` | 4.6, 5 |
 | 32 | "Open Markdown files in Studio" off by default, on after the migration; the PR says how Q5's "on by default" is read | 4.4, 8 |
+| 33 | With "Open Markdown files in Studio" on, a plain opening (no line) in another group of a file shown in a Studio tab elsewhere opens a Studio tab in that group, as the association does today; only a jump reuses the existing Studio tab (decision 3); a trial covers it | 4.2, 6.2, 6.3 (T13) |
 
 ## 4. What changes
 
@@ -168,9 +169,21 @@ New code in `src/host-vscode/openInStudio.ts`, on `studio-at-line` or `studio`:
   `vscode.commands.executeCommand("vscode.openWith", uri, EDITOR_VIEW_TYPE, { viewColumn, preview,
   preserveFocus })` in the text tab's group, keeping the text tab's preview state (`tab.isPreview`)
   and focus, then close the text tab with `vscode.window.tabGroups.close(tab, true)`.
-- **A Studio tab for that file is open** (decision 3): prefer the one in the text tab's group, else
-  any group. Reveal it (`vscode.openWith` with its `viewColumn`), close the text tab, and send the
-  line to its live session. No new tab.
+- **A Studio tab for that file is open in the text tab's group:** reveal it (`vscode.openWith`
+  with its `viewColumn`), close the text tab, and, on `studio-at-line`, send the line to its live
+  session. No new tab.
+- **A Studio tab for that file is open only in other groups:**
+  - on `studio-at-line` (a jump, decision 3): reveal that Studio tab (the most recently active one
+    when there are several), close the text tab, send the line to its live session. No new tab.
+  - on `studio` (a plain opening, no line, decision 33): open a new Studio tab in the text tab's
+    group, as in the first case (no pending line), and close the text tab; the Studio tab of the
+    other group stays as it is. This is what the VS Code association does today when a file shown
+    in Studio in group 1 is opened in group 2.
+- The choice of the target (reveal which tab, or open a new one in which group) is a pure function
+  next to the policy, `studioTargetFor(action, textTabGroup, studioTabs)` in
+  `src/core/navigation/openingPolicy.ts` (input: `studio` or `studio-at-line`, the text tab's group,
+  the groups holding a Studio tab of the same URI with their last-active order; output: `reveal`
+  with a group, or `open` in the text tab's group), unit-tested (6.2).
 - `resolvePreviewEditor` (`activation.ts`) passes the pending line to the new session; the session
   posts it once the page is ready. The page-ready handler is in `src/session/features/rendering.ts`
   (where `manager.scroll.markEditorSelectionInPreview` is called); the new
@@ -187,7 +200,9 @@ reveals the Studio tab and loses the line again (T4: if it loses the line, decis
 states it as "Known issue: …", `docs/known-limitations.md` names it, the Driver files a backlog item
 in the planning surface, and the rest ships); closing a text tab whose document is dirty while
 Studio holds the same document asks nothing and loses nothing (T8); a second search result opened
-in the reused preview tab (T9).
+in the reused preview tab (T9); a plain opening in group 2 of a file shown in Studio in group 1
+gives a second Studio tab in group 2, and a jump in a group without a Studio tab of that file reuses
+the one of group 1 (T13, decision 33).
 
 ### 4.3 Studio's own navigation and "Open as Text"
 
@@ -228,8 +243,12 @@ as Text", category "Markdown OKF-Schema Studio":
 - It acts on the active Studio tab: records its URI in rule 4's registry, opens the text editor in
   the same group (`vscode.window.showTextDocument(document, { viewColumn, preview: false,
   selection })`) at the source line shown at the top of the Studio page when the session knows it,
-  else at the top, then closes the Studio tab (`vscode.window.tabGroups.close`). The document and
-  its unsaved changes are the same `TextDocument`, so nothing is lost.
+  else at the top, then closes the Studio tab (`vscode.window.tabGroups.close`).
+- **Unproved (trial T3):** the Studio tab and the text editor share one `TextDocument`, so closing
+  the Studio tab of a dirty document after the text editor of the same document is open should ask
+  nothing and lose nothing: no save prompt, the unsaved text shown by the text editor. If T3 shows
+  a prompt or a loss, the SwRS states it as "Known issue: …", `docs/known-limitations.md` names it,
+  the Driver files its fix in the backlog (7), and the rest ships.
 - The text editor it opens stays text under both settings (rule 4).
 
 ### 4.4 The two settings and the migration
@@ -403,8 +422,10 @@ once.
 
 Old rules this changes (constitution, section 3: each said why):
 
-- `test/security/lifeReq.requirements.test.ts`, "the extension activates only on its commands, its
-  Open With editor and panel restore": the sorted list gains `onLanguage:markdown`, and the check
+- `test/security/lifeReq.requirements.test.ts` (line 14), "the extension activates only on its
+  commands, its Open With editor and panel restore", renamed "the extension activates only on its
+  commands, its Open With editor, panel restore and Markdown files": the sorted list gains
+  `onLanguage:markdown`, and the check
   `!event.startsWith("onLanguage")` becomes "the only `onLanguage` event is `onLanguage:markdown`"
   (still no `workspaceContains`). Why: the feature must see a Markdown text editor open before any
   Studio entry point is used; the intent kept is that the built-in Markdown support is neither
@@ -423,6 +444,15 @@ Old rules this changes (constitution, section 3: each said why):
   patterns other than `*.md` are left alone, decision 23; an association added again later is
   respected and opens Studio at the top, decision 27), "Open as Text" for the raw text, the reset
   command.
+- `docs/user/settings.md`: line 3 "in five categories: Preview, Editing, Frontmatter, Comments and
+  PlantUML" becomes "in six categories: Preview, Editing, Frontmatter, Comments, PlantUML and
+  Opening Files"; a new `**Opening Files**` block after `**PlantUML**`, in the same bullet form:
+  `open.searchResultsInStudio` (default on, or off in decision 22's case: a `.md` opened at a line
+  by a search or another jump opens in Studio at that line, with the marker; a plain opening stays
+  a text editor; a jump stays text while the side preview is open) and `open.markdownFilesInStudio`
+  (default off, turned on by the migration of a `*.md` association to Studio: every `.md` opened
+  in a new text editor opens in Studio, at the line when there is one; "Open as Text" gives the raw
+  text), each linking to `open-studio.md`'s "Open at a line".
 - `docs/known-limitations.md`: the activation sentence (4.8); the brief text editor flash; the
   Explorer's "Open With... > Text Editor" with "Open Markdown files in Studio" on (7); whatever T3,
   T4, T8 or T11 prove to be a limit.
@@ -486,10 +516,30 @@ Changed (all `proposed`, no approval needed; listed for the reviewer, each with 
     changes none of the built-in Markdown preview's settings; outside its own settings, the only
     VS Code setting it writes is the user's `workbench.editorAssociations` entry for `*.md` that
     names Studio, removed once per scope by the migration." Why: decision 12.
-- SwRS-MDOKFSTUDIO-LIFE-001: activation events now include `onLanguage:markdown`; the boundary
-  scenario "A Markdown file alone: the extension stays inactive" becomes "the extension activates
-  and starts only the opening watcher and the migration; it opens nothing with both opening
-  settings off"; the criterion "exactly four entries" becomes five. Why: 4.8.
+- SwRS-MDOKFSTUDIO-LIFE-001 (`requirements/tiers/swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-001.md`).
+  Why for each item: 4.8.
+  - title "The extension activates only on its own entry points" becomes "The extension activates
+    only on its own entry points and on Markdown files" (the `##` heading of the body follows; the
+    generated links of StRS-MDOKFSTUDIO-LIFE-001 and the scope index follow through
+    `just requirements-update`);
+  - the `description` and the normative sentence: "as its only activation events the two Studio
+    commands, the Studio Open With editor and the Studio preview panel serializer" becomes "as its
+    only activation events the two Studio commands, the Studio Open With editor, the Studio preview
+    panel serializer and the Markdown language (`onLanguage:markdown`, on which it starts only its
+    opening watcher and the editor association migration)"; the rest of the sentence (no
+    `markdown.` command, no language, no grammar, the built-in Markdown support neither activated
+    nor replaced, the Agents window) is unchanged;
+  - the boundary scenario "A Markdown file alone": its THEN "the extension stays inactive:
+    package.json lists the four activation events and no onLanguage or workspaceContains event"
+    becomes "the extension activates and starts only the opening watcher and the migration; it
+    opens nothing with both opening settings off; package.json lists the five activation events,
+    `onLanguage:markdown` as its only onLanguage event and no workspaceContains event";
+  - the verification note quoting the test: "unit test 'the extension activates only on its
+    commands, its Open With editor and panel restore' (… reads package.json activationEvents,
+    onCommand for the two commands, onCustomEditor, onWebviewPanel)" becomes the new title (4.8)
+    and "… onCommand for the two commands, onCustomEditor, onWebviewPanel, onLanguage:markdown";
+    a method line names the host test of 6.2 (an activation with no preview starts no service);
+  - the criterion "package.json activationEvents holds exactly four entries" becomes five.
 - SwRS-MDOKFSTUDIO-LIFE-018: the scenario line "a .md file opened with a double click opens in the
   text editor, never in the Studio" gains "unless `open.markdownFilesInStudio` is on".
 - SwRS-MDOKFSTUDIO-LIFE-149:
@@ -507,6 +557,14 @@ Changed (all `proposed`, no approval needed; listed for the reviewer, each with 
     `workbench.editorAssociations` and the `markdownOkfSchemaStudio.*` settings". Why: decision 12.
 - SwRS-MDOKFSTUDIO-LIFE-156: the groups are Preview 1, Editing 2, Frontmatter 3, Comments 4,
   PlantUML 5, Opening Files 6.
+- SwRS-MDOKFSTUDIO-LIFE-004 (verification notes, the "Design" line, about line 63): "one warm thread
+  starts when the extension activates and loads the MyST engine before the first render" becomes
+  "one warm thread starts when the first Studio preview starts and loads the MyST engine before the
+  first render". Why: 4.8 (decision 29), the warm-up moves to `ensureServicesStarted()`.
+- SwRS-MDOKFSTUDIO-CORE-001 (verification notes, "Not behaviours of this requirement", about line
+  69): "the warm-up of the MyST engine at activation is an optimisation" becomes "the warm-up of
+  the MyST engine when the first Studio preview starts is an optimisation"; the rest of the line is
+  unchanged. Why: 4.8 (decision 29).
 
 The PR body's Tests section lists every requirement ID added or changed with its source and test
 files; `okfreq validate --check-links --project-root .` and coverage run as CI runs them before the
@@ -523,7 +581,8 @@ PR opens.
 - Migrating folder settings of a multi-root workspace, or patterns other than the exact `*.md` key
   (decision 23).
 - A rendered diff inside Studio. Any change to VS Code's diff editors.
-- Release notes (written at release time).
+- The release notes of `docs/releases-notes/` (written at release time). The `CHANGELOG.md` line
+  is in scope (8).
 
 ## 6. Evidence
 
@@ -540,6 +599,7 @@ by the policy's truth table (6.2) and labelled so in the PR.
 | Search off | search off, files off | everything stays a text editor (today's behaviour without association) | T12 |
 | Files on, set by the user | search on, files on | jump: Studio at the line; plain opening: Studio at the top or its restored place | T3, T10, T12 |
 | Files on, search off | search off, files on | jump: Studio at the line (rule 7); plain opening: Studio | T12 |
+| Files on, file shown in Studio in another group | files on, `doc.md` in a Studio tab of group 1 | plain opening in group 2: a new Studio tab in group 2, the group 1 tab untouched; jump in group 2: the group 1 Studio tab scrolls to the line, no new tab (decisions 3, 33) | T13 |
 | Side preview open | defaults, side preview open on `doc.md` | jump: text editor at the line, side preview scrolled as today | T12 |
 | Window restored with `.md` text tabs | files on | restored tabs stay text | T11 |
 | Cold window, first jump activates the extension | defaults, extension inactive | Studio at the line if T11 proves the signal, else text (known limit) | T11 |
@@ -553,7 +613,10 @@ by the policy's truth table (6.2) and labelled so in the PR.
 
 - `test/core/navigation/openingPolicy.test.ts`: the truth table of 4.1 (each rule in order, each
   tab kind, each setting pair, reopened as text, opened by Studio, tab not new, present at start,
-  activation opening, side preview open with and without a line, no line).
+  activation opening, side preview open with and without a line, no line), and `studioTargetFor`
+  (4.2): a Studio tab in the text tab's group is revealed for both actions; a Studio tab only in
+  another group is revealed for `studio-at-line` (the most recently active of several) and gives
+  `open` in the text tab's group for `studio` (decision 33); no Studio tab gives `open`.
 - `test/core/configuration/editorAssociationMigration.test.ts`: object form with `*.md` → Studio
   (removed, other keys kept, empty becomes `undefined`), `*.md` → another editor (unchanged), no
   `*.md` (unchanged), `**/*.md` → Studio (unchanged), legacy array form, non-object garbage
@@ -609,7 +672,8 @@ Two new places, both driving a real window with Playwright over CDP, the same wa
 
 - `test/integration/openAtLine.test.ts`, run in the trusted suite
   (`test/integration/trusted-suite.ts`, which gets `STUDIO_CDP_PORT`), through
-  `test/integration/realInput/harness.ts` (`connectWorkbench`, `waitFor`): T1 to T5, T7 to T10, T12.
+  `test/integration/realInput/harness.ts` (`connectWorkbench`, `waitFor`): T1 to T5, T7 to T10, T12,
+  T13.
   Settings are set in the test with `vscode.workspace.getConfiguration(...).update(...)` and
   restored after each case.
 - `test/integration/openAtLineCampaign.ts`, a campaign that launches its own windows from outside
@@ -633,7 +697,7 @@ in the PR's evidence, with screenshots.
 | --- | --- | --- | --- |
 | T1 | The brief text editor flash before Studio replaces it | Defaults; Search view: search a word of `doc.md` line 30, click the result. Poll the workbench DOM every frame for a visible `.monaco-editor` versus the Studio webview in that group | The time the text editor is visible, recorded in the PR's evidence with no threshold (decision 24); the Studio tab sits where the text tab was, no empty group, the marker on line 30 |
 | T2 | Telling a jump from a plain opening | Close `doc.md` with the cursor on line 30; reopen it from the Explorer (restored view state); then Quick Open `doc.md:30`; then `vscode.open` with a selection (the path of Problems and links) | Which signal of 4.1 separates them: the plain reopening stays text, the two jumps go to Studio. No signal: decision 22 (search setting off by default, PR deviation), the Driver goes on |
-| T3 | The raw text on purpose | Files on; a Studio tab of `doc.md`: run "Open as Text"; then a Studio tab of `doc.md`: Reopen Editor With > Text Editor; then the Explorer's "Open With... > Text Editor" on `other.md` | "Open as Text": the text editor stays text, at the page's top line, the Studio tab closed (required). Reopen Editor With: stays text if a signal exists, else a known limit (decision 28). Explorer case: same |
+| T3 | The raw text on purpose | Files on; a Studio tab of `doc.md`: run "Open as Text"; then a Studio tab of `doc.md` made dirty by an edit in the page (block editor commit, not saved): run "Open as Text"; then a Studio tab of `doc.md`: Reopen Editor With > Text Editor; then the Explorer's "Open With... > Text Editor" on `other.md` | "Open as Text": the text editor stays text, at the page's top line, the Studio tab closed (required). Dirty document: no save prompt (no `.monaco-dialog-box` or modal dialog), the text editor shows the unsaved text and the document is still dirty; else a known issue (4.3, 7). Reopen Editor With: stays text if a signal exists, else a known limit (decision 28). Explorer case: same |
 | T4 | An already open Studio tab in the group | A Studio tab of `doc.md` active; Search view click on a match at line 40; Quick Open `doc.md:40` | VS Code opens a text tab (then: the same Studio tab scrolls to line 40, marker moved, no new tab) or reveals the Studio tab without the line (then: decision 21, known issue, backlog item, the rest ships) |
 | T5 | A notification without buttons hides after a few seconds | Fresh global state; first takeover; watch `.notification-toast` | The introduction appears once, hides on its own (seconds recorded), never again after a window reload; "Show Feature Introductions Again" makes it show once more |
 | T6 | The migration at a real activation (campaign) | Launch 1: user `settings.json` and workspace `.vscode/settings.json` each hold `{"*.md": "markdown-okf-schema-studio.editor", "*.txt": "default"}` in `workbench.editorAssociations`; the extension inactive (`isActive` false, read over CDP from the extension host or by the absence of its output channel); open `doc.md` from the Explorer (the real `onLanguage:markdown` activation). Then add the `*.md` association again in user settings, reload the window. Launch 2: user settings hold `*.md` → the built-in Markdown preview's custom editor (view type read from the built-in extension's `package.json`); open `doc.md` | Launch 1: in each file only `*.md` removed, `*.txt` kept, `open.markdownFilesInStudio` true in the same file, migration notice shown, no prompt; after the reload the re-added entry is still there, no notice, `doc.md` opens in Studio at the top. Launch 2: the entry unchanged, no Studio setting written, no notice, the built-in preview opens and no Studio tab |
@@ -643,6 +707,7 @@ in the PR's evidence, with screenshots.
 | T10 | Studio's own openings and navigation | Files on: from a Studio tab follow a link to `other.md#heading`; Back/Next to another document; from the side preview follow the same link; Explorer "Open Preview to Side" on a non-active `.md`. Files off: from a Studio tab follow the same link | Files on, Studio tab: Studio opens `other.md` at the heading and no `TabInputText` of `other.md` ever appears (decision 20); Back/Next lands in Studio. Side preview link and "Open Preview to Side": the text editor Studio opened stays text. Files off: the link opens a text editor that stays text |
 | T11 | Window start and the first activation (campaign) | Launch 3: files on in user settings; open `doc.md` in a text editor at line 30 with Reopen Editor With > Text Editor (or "Open as Text"); reload the window. Launch 4: defaults, no tab open, extension inactive; Search view click on a match in `doc.md` line 30 | After the reload the restored `doc.md` tab stays text (required). Launch 4: Studio at line 30 if a signal of rule 3 tells the activating opening from a restored tab, else it stays text and the known limit is written (decision 26) |
 | T12 | The other matrix cells | Search off, files off: Search view click and Explorer open on `doc.md`. Search off, files on: the same two. Defaults with the side preview open on `doc.md` (from "Open Preview to Side"): Search view click on line 30 of `doc.md` and of `other.md` | Search off, files off: both stay text, no Studio tab. Search off, files on: the click lands in Studio at line 30, the Explorer opening in Studio. Side preview open: each jump stays a text editor at the line and the side preview scrolls to it, as at 1.10.0 (decision 25) |
+| T13 | A file shown in Studio in another group (decision 33) | Files on; `doc.md` in a Studio tab of group 1; focus group 2 (empty or holding `other.md`); open `doc.md` from the Explorer (plain opening, no line); then, with group 2 focused and its Studio tab of `doc.md` closed, Search view click on a match at line 40 of `doc.md` | Plain opening: a new Studio tab of `doc.md` in group 2, the group 1 tab still open and unmoved, no text tab left in group 2. Jump: the group 1 Studio tab is revealed and scrolls to line 40 with the marker, no new Studio tab, no text tab left |
 
 Merge editor, staged changes and multi-file "Open All Changes": covered by rule 1 of the policy
 and its unit test, not run in a window ("unit only", labelled so in the PR).
@@ -684,8 +749,8 @@ draft.
   editor (decision 26).
 - If T4 shows the line is lost: "Known issue: a jump to a file already open in a Studio tab
   reveals the tab without moving to the line", with its backlog item (decision 21).
-- Whatever T8 proves VS Code does not allow, written as "Known issue: …" in the SwRS, its fix to
-  the backlog.
+- Whatever T8 (replacing a dirty text tab) or T3 ("Open as Text" on a dirty document) proves VS
+  Code does not allow, written as "Known issue: …" in the SwRS, its fix to the backlog.
 
 ## 8. Delivery notes for the Driver
 
@@ -694,13 +759,22 @@ draft.
   `.agents/guidelines/git-commit-message.guidelines.md`.
 - Only `src/host-vscode/` imports `vscode`; no dependency-cruiser exception.
 - New worktree: `just dev` first (`.agents/guidelines/local-worktree.guidelines.md`).
-- The PR body says, for the owner's review: decisions 12 to 32 were decided by the Griller under
+- `CHANGELOG.md`: one user-facing line under `## Unreleased`, appended at the end of the list, in
+  this PR (`.agents/guidelines/release-process.guidelines.md`, lines 46-47); a rebase conflict on
+  that block keeps both lines. Content (wording may be tightened): a `.md` file opened from a
+  search, Quick Open `file.md:42`, a problem or a link now opens in Studio at that line, marked by
+  an arrow and a light band (setting `open.searchResultsInStudio`, on by default, or off in
+  decision 22's case); a `*.md` editor association to Studio is replaced by the new setting
+  `open.markdownFilesInStudio`; "Open as Text" opens the raw text.
+- The PR body says, for the owner's review: decisions 12 to 33 were decided by the Griller under
   the owner's autonomy rule; open-at-line-Q5's "on by default" is read as the search setting's
   default (decisions 13, 32); in decision 22's case, the search setting ships off as a deviation
-  from decision 10; the flash duration measured by T1 (decision 24); every known limit or known
-  issue the trials found, with its backlog item.
+  from decision 10; open-at-line-Q8's table row, hidden tab and front matter row are deferred to
+  the inbox item `line-marker-precision` (decision 31); the flash duration measured by T1
+  (decision 24); every known limit or known issue the trials found, with its backlog item.
 
 ## 9. Open questions for the Chief of Staff
 
-None. The six open questions of the first version were decided in series 5 (decisions 19 to 24)
-and the spec critic's questions in series 6 (decisions 25 to 32).
+None. The six open questions of the first version were decided in series 5 (decisions 19 to 24),
+the spec critic's questions in series 6 (decisions 25 to 32) and its second pass in series 7
+(decision 33).

@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "title": "Open Studio at a searched line and mark it with an arrow",
+  "summary": "P3, specified (3rd pass, Griller-decided 12-33): opening settings, side preview and restored tabs keep text, plain opening in another group gets its own Studio tab, Open as Text (dirty case trialled), migration once per scope, marker; critic fixes of pass 2 folded.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9ce9d7ce4259c6a699a2e8bfdf2ca164ea53e9c9e2af1cdc55b3222932ebb2bd",
+    "02-answers.md": "6e77e4dedf6067b0a4d144f04688df9117c171f0130870e497907f080b88b5c3",
+    "03-change-spec.md": "1ea21d1d6b0db3f61e0b9cd6fc251e5a229366eb73e9a34021a30874ac02c6df",
+    "intake/request-diff-view.md": "91fd0dd3e71a3b6cfc33a363d1660b16c4d3138f9a6ebf8668ee9dfdfa6e955d",
+    "intake/request.md": "43d2d3ea478e3ea5939d13d6da18bee65d99136cf8703962e89cb8178b41d6ea"
+  },
+  "summarized": "2026-11-20T23:30:36Z"
+}
