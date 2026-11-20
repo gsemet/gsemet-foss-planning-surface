@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "title": "Path graph: joined map, smaller and readable",
-  "summary": "Proposal 2: shared states drawn once, paths join and split in their colours, natural size, one plain line saying what a path and a step are; 25-65% shorter, no overlaps, 4 Fable rounds. Patch and shots in work/; awaits owner approval, then a CR with CORE-081 and tests.",
+  "summary": "Specified: ships the proven joined map (shared states drawn once, paths join and split in their colours, natural size, one plain line on paths and steps), CORE-081 updated, a new Play SwRS, unit and Chromium no-overlap and Play tests in ci-visual.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "b1e72f3fc87c632b6acfa54857780226919a1d8a7c9fd020797294e791fb8d93",
-    "02-answers.md": "501a828c6c407914194f7bb7efb0d2f1bd8df44b05a627bf982b1a2250841c4b",
+    "02-answers.md": "fd10f702225d376432b03d0b07831f9d0c4e464d4b9da063103a15030cc007f2",
+    "03-change-spec.md": "ec717e699b56313fa9eb5490f012a1ad96aed951f24abd33df545bf087d230be",
     "intake/request.md": "df98bcdfb9235c69ab768c7c84154a60475f48ad0b317d0207910b055884e38b"
   },
-  "summarized": "2026-11-20T22:26:45Z"
+  "summarized": "2026-11-20T22:50:44Z"
 }

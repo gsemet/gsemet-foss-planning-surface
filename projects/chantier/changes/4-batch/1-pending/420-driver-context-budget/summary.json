@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A CR Driver reaches ready without a context hand-back",
+  "summary": "Specified, grill settled without the user: the CR Driver reads its card by step under three byte limits, a restarted Driver reads only the steps left, and the closing hand-off moves from 100,000 to 115,000 tokens. Cards, manifest, one test and one scenario check; no CLI change.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "27f8247e4cf0e2094ecd1ff4f5b2c63a40183e55ecb7755482fe1f4a70ae7b20",
+    "03-change-spec.md": "bb2c1407523235d63b5d70facfd228a87fc92256e72a094a97970fadf3cbaaa5",
+    "intake/request.md": "ec6bab151faac16215f28cb70ec251747103e80160aa3251073a057e52d8f4c3"
+  },
+  "summarized": "2026-11-20T22:50:32Z"
+}

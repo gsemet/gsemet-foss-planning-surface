@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The plan's store reads the planning folder",
+  "summary": "Specified: the store gains file-level reads, and the board, the hub, status and the record readers they call read only through it; no index, no output change; the other readers are split out to store-reads-rest.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3b8e7c114930c83aa030cf99ea486a43d6d5676bb2125786e1aa373dec148b4e",
+    "02-answers.md": "4a514aab94fd3fd448180486bb13f39fb7fdb7558876dcedb03f2fb1a7d4229d",
+    "03-change-spec.md": "c6b2d29be416300e20df51bdd5758cf1c4bd109f4d650121d26e2503bcc9f339",
+    "intake/request.md": "f837fc86f581c2ac69a2dfaa7cf2ce1eeec58388f1092345be02410d68dcc493"
+  },
+  "summarized": "2026-11-20T22:49:27Z"
+}

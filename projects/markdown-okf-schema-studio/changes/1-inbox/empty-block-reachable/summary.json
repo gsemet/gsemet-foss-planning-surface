@@ -1,14 +1,15 @@
 {
   "schema": 1,
-  "title": "Show extra blank lines as an empty block, and add Delete block",
-  "summary": "Owner's direction: in edit mode, blank lines beyond the one separator show as a small empty block, clickable and reachable from the keyboard; a Delete block button on the left of every block. To grill and specify.",
+  "title": "Reach and delete extra blank lines, and a Delete block button",
+  "summary": "Specified: Done on an empty block writes or leaves nothing; extra blank lines show in edit mode as a selectable blank-lines block (type in it or delete it); every body block gets a Delete block button, with Delete/Backspace. Ready for the spec critic.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "035e688d1c9bc15166caad0c0dceef5fbaeb6ea2e49546fbff5b6954bc4a12e4",
-    "02-answers.md": "17242e3fc99ff8cdb2291c5a1be4a3a10e61de7590808030976bf4d61790ee3e",
+    "02-answers.md": "edbd1b6f00848fbb6409f384becb10938413e4b4d586a4d66d39a4bd2f6a3e41",
+    "03-change-spec.md": "25822b793e23dcae716e01389555996af47be01e5a69a3e8a7527771a5f2a476",
     "intake/request.md": "20d3587b6e2456e42bd0b3face43928b54a38e3873f1d90267255518c09662de"
   },
-  "summarized": "2026-11-20T18:50:26Z"
+  "summarized": "2026-11-20T22:49:56Z"
 }

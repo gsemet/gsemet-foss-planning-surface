@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Driver context, second cut: the spec, the prompts, the CLI's outputs",
+  "summary": "Inbox, not grilled: split out of driver-context-budget. Measure a CR Driver's context again once that CR is merged, then cut what still weighs: the specification, the workers' prompts, pr-template.md, the manifest and what take and handoff print.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "50201abfa7233557a6821144ac2ec3630c8cd1793eaa7b5e9b4b64a81a441665"
+  },
+  "summarized": "2026-11-20T22:50:50Z"
+}

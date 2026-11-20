@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "The rest of the CLI's readers onto the plan's store",
+  "summary": "Filed, not grilled: split from one-read-interface; the remaining readers (lifecycle, core/batch, commands), a run-time proof and the configuration's reads go through the store.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "6d7467924fb68ce6663e642c6db49355fc3d88a5721068db052a0f6f50e7aa07"
+  },
+  "summarized": "2026-11-20T22:49:34Z"
+}
