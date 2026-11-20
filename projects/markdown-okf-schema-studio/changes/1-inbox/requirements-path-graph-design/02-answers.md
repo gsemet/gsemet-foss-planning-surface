@@ -10,3 +10,9 @@ Short name: `path-graph`
   to a non-specialist in a few words (legend or one short line, no paragraph): a use case (StRS)
   is reached by one or more paths; each step is a behaviour (SwRS) with its tests; paths can
   share steps.
+
+Decided by the Chief of Staff under the owner's autonomy rule (2026-11-20): the CR ships the proven
+design of `work/design.md` and `graph-design.patch` (joined nodes, smaller graph, the one-paragraph
+explanation of "path"). Links in the graph and its caption use full IDs, as the viewer-ids CR asks;
+if that CR lands first this one follows it, else the viewer-ids CR changes them.
+Spec critic: yes, on Fable (owner's rule): it changes what readers of the published site see.
