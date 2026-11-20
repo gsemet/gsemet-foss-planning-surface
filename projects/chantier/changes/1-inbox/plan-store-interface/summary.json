@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "The plan's published writes go through one store interface, with a conformance test (Part B of seven)",
-  "summary": "Part B of seven: new package store/ (PlanStore, FolderStore, SurfaceStore, Repo.store) with text, JSON, byte, folder and config writes; every published write of the CLI and the board goes through it, check_publish first; no behaviour change, no refusal yet (Part C's). Needs nothing.",
+  "summary": "Part B of seven: new package store/ (PlanStore, FolderStore, SurfaceStore, Repo.store); every published write of the CLI and the board goes through it, check_publish first, the .gitignore never refused; no behaviour change, no refusal yet (Part C's). Needs nothing.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "c994be3b88ec50fabbdf5fdc74c39c9263d682d3aa129525df8830d7f882e64e",
-    "03-change-spec.md": "878156801464029e08e72c04c57820ecb2bf0f0d9737bbcb1fc9740fac594c1b",
+    "02-answers.md": "ae0a4185c0d76a71048759091101042c6fd9f3ce8dc4a67ba1ac27d94283f8fa",
+    "03-change-spec.md": "05ef0b8a5ec92a85b3a499afc25e3ceb05c29714299d78b76ec667093ea47886",
     "intake/request.md": "b0b63d06f16f9dc92acf79b5e7f9b97edf872b6eb5703940d8961bcee407fe95"
   },
-  "summarized": "2026-11-20T09:14:24Z"
+  "summarized": "2026-11-20T09:22:26Z"
 }

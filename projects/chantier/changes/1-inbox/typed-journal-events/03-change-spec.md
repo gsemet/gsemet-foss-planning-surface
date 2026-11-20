@@ -8,7 +8,7 @@ This CR is Part A, typed events, of the seven-part work the user split into seve
 Typed events", the docs map of §2, §5 to §9), with every answer of
 `../../2-backlog/P3/planning-server/02-answers.md` folded in, and the five answers of this CR's own
 `./02-answers.md` (2026-11-20, settled by the Chief of Staff: the open questions of this
-specification's first pass). Part C, the writer, is specified and
+specification's first pass, then the spec critic's seven points). Part C, the writer, is specified and
 approved in `../../2-backlog/P3/planning-server/03-change-spec.md`; its §2 table names what it needs
 from this CR (§2 below). This file is self-contained: a Driver needs nothing else.
 
@@ -37,10 +37,11 @@ Three CRs need it, and build on it as follows:
 | `1-inbox/driver-leases` (Part D) | publishes `lease-expired@1` (written by the hub, wakes a watcher). |
 | `1-inbox/typed-waits` (Part E) | publishes `wait-cleared@1` (written by the hub, wakes a watcher). |
 
-So that each of them adds a type with no change to this CR's design, a published type is, in one
-place (`hub/schemas.py`): its model, its `PUBLISHED` entry, whether it wakes a watcher (yes, no, or
-by a field of its payload, as `board@1`'s `wakes`), and its text (`event_text`); plus its entry in
-the shipped `hub/schemas.json`. A new source is one more value of `SOURCES`. The test of §6 covers
+So that each of them adds a type with no change to this CR's design, a published type is one
+entry of `PUBLISHED` in `hub/schemas.py` (critic point 3): its model, whether it wakes a watcher
+(yes, no, or by a field of its payload, as `board@1`'s `wakes`), its text (what `event_text` gives),
+its duplicate key (or none), and one valid example payload; plus its entry in the shipped
+`hub/schemas.json`, written by `just journal-schemas`. A new source is one more value of `SOURCES`. The test of §6 covers
 every type in `PUBLISHED` with no change when a later part adds one.
 
 Not a neighbour: `board-journal.jsonl` (`board/journal.py`, the board's own toast journal, with its
@@ -57,11 +58,16 @@ own `kind` field: `new`, `move`, ..., `rescan`) is another file and does not cha
 | A coherent split, docs and SVGs included: each part changes the docs and diagrams (with their `-texts.md`) its change makes false, in the same CR as the behaviour (11-20) | §7 (docs; no diagram is made false, searched) |
 | Part C approved, staying in the backlog until Parts A and B are specified; the three go to `3-ready` on the user's word (11-20) | §2; this specification is one of the two Part C waits for |
 | Mixed versions: an earlier chantier reading version 2 lines counts them and wakes no one (the reference's §8, carried into Part C's §8) | §5.4, §9 |
-| This CR's answer 1: each model fixes each field's JSON type and only the formats that cannot change (`cr` is `CR-<n>`, `head` a 40-character hex SHA); the open sets (`board@1.action`, `config@1.key`) stay plain strings, so a new board action or configuration key forces no new published version (11-20) | §5.1, §6 |
+| This CR's answer 1: each model fixes each field's JSON type and only the formats that cannot change (`cr` is `CR-<n>`, `head` a hex SHA); the open sets (`board@1.action`, `config@1.key`) stay plain strings, so a new board action or configuration key forces no new published version (11-20), widened by critic point 1 below | §5.1, §6 |
 | This CR's answer 2: "`config` line" and "`board` line" become `config@1` / `board@1`, and AGENTS.md's `by: board` becomes `source: board`, in AGENTS.md, `chief-of-staff.md`, `hosts/claude-code.md` and `hosts/copilot.md`, so that no text names the old words (11-20) | §8, §6 |
 | This CR's answer 3: `docs/web-board.md`, "The signal": its wording fixed too (`config@1`, `source:`) (11-20) | §7 |
 | This CR's answer 4: `test_event_types.py` compares a normalized form of each schema (the properties, their JSON types, `required`, the patterns), not pydantic's raw output; a generator-only change regenerates nothing and publishes nothing (11-20) | §5.2, §6 |
 | This CR's answer 5: a `just` recipe writes the missing entries of `schemas.json` from `model_json_schema()` and never changes an existing one; the test checks the file (11-20) | §5.2, §6, §9 |
+| Critic point 1: the models accept what a forge can return (null `merged_at` and `landed_at`; `head` of 40 or 64 hex characters, so a sha256 repository works); a refused event from a hub or board read is skipped and named in the hub entry's or the page's error, the other events still written; the hub, the watcher and the PRs page never die on it; a backlog write keeps its file; from a CLI command a refused event stays a `ValueError` (11-20) | §5.1, §5.4, §6 |
+| Critic point 2: `status` says `forge-journal.jsonl: line <n> is of type <t>, unknown to this chantier: update it` for a version 2 line of an unknown type; a refused payload stays `unreadable` (11-20) | §5.5, §6, §7 |
+| Critic point 3: each type's entry in `hub/schemas.py` also holds its duplicate key (or none) and one valid example payload; `_key` and the parametrized test read them (11-20) | §2, §5.1, §5.4, §6 |
+| Critic point 4: `lines` and `_slots_line` skip lines of no published type or with a refused payload, as they skip newer ones (11-20) | §5.5, §6 |
+| Critic points 5, 6, 7: `test_limits.py` among the tests to update; the `forge_hub` scenario checks named; `CONTRIBUTING.md` and `scenario/README.md` renamed and searched, `board/config_api.py`'s module docstring rewritten (11-20) | §5.7, §6, §8 |
 
 ## 4. Words
 
@@ -83,34 +89,44 @@ own `kind` field: `new`, `move`, ..., `rescan`) is another file and does not cha
 
 - One pydantic model per published type, each with `model_config = ConfigDict(extra="forbid",
   frozen=True)` (pydantic 2.14.3 is already the CLI's dependency, `pyproject.toml`).
-- `PUBLISHED`: a mapping `"name@N" -> model`.
+- `PUBLISHED`: a mapping `"name@N" -> entry`, an entry holding, for its type (critic point 3):
+  its model; its wake rule (yes, no, or a field of the payload); its text (the function
+  `event_text` calls); its duplicate key, a function of a line giving the key two lines of the
+  same event share, or none when each line is its own event; and one valid example payload. A later
+  part adds a type by adding one entry here (and running `just journal-schemas`), and touches no
+  reader, writer or test.
 - `validate(type, payload)`: checks the payload (the line's fields after the header) against its
   model; raises `ValueError` on a type not in `PUBLISHED` or a payload its model refuses (an extra
   field, a missing required field, a field of a wrong JSON type).
-- Each type's wake rule and text, as §2 says (one place per type).
+- The four entries' duplicate keys are today's `_key`: `merged@1` by batch, CR and
+  landed-or-not; `checks-red@1` by batch, CR and head; `config@1` and `board@1` none.
 
 The four types this CR publishes are the version 1 kinds frozen as they are today; their payloads
 do not change (the fields as `hub/journal.py`'s docstring and its writers give them today):
 
 | Type | Payload | Written by (today's writer) | Wakes a watcher |
 | --- | --- | --- | --- |
-| `merged@1` | `batch`, `cr`, `pr`, `into`, `into_cr`, `merged_at`, optional `landed_with`, `landed_at` (both present once the base landed, else both absent) | hub (`hub/cycle.py`), board (its PRs page, `board/prs.py`), through `journal.merged_events` | yes |
-| `checks-red@1` | `batch`, `cr`, `pr`, `head` (the PR head's full SHA) | hub, through `journal.red_event` | yes |
+| `merged@1` | `batch`, `cr`, `pr`, `into`, `into_cr`, `merged_at` (null when the forge gives no time), optional `landed_with`, `landed_at` (both present once the base landed, else both absent; `landed_at` null when the forge gives no time) | hub (`hub/cycle.py`), board (its PRs page, `board/prs.py`), through `journal.merged_events` | yes |
+| `checks-red@1` | `batch`, `cr`, `pr`, `head` (the PR head's full SHA, SHA-1 or SHA-256) | hub, through `journal.red_event` | yes |
 | `config@1` | `key` (a dotted path: `batch.slots`, `specifying.parallel`, `hosts.<host>.roles.<role>.<agent\|model\|escalation>`), `old`, `new` (effective values, null for inherited), `batch` (the batch running or paused at the save, or null) | board (its Configuration page, `board/config_api.py`'s `_event`) | yes |
 | `board@1` | `action` (the board journal's kind: `new`, `move`, `edit`, `label`, `group`, `ungroup`, `next-batch`), `items` (slugs), `text`, `wakes` (true for `new`, `move` and `edit`) | board (its backlog writes, `board/write_api.py`, through `journal.board_event`) | when `wakes` is true |
 
 How strict a model is (this CR's answer 1). Each field's JSON type is what today's writers put in
-it, null included where a writer may write null (`into_cr` of a merge into a branch that is no
-CR's, `into` when the read gives no branch, `old`, `new` and `batch` of `config@1`). Beyond the
-type, a model fixes only the formats that cannot change:
+it, null included where a writer may write null or the forge may give none (`into_cr` of a
+merge into a branch that is no CR's, `into` when the read gives no branch, `merged_at` and
+`landed_at` when the forge gives no time, `old`, `new` and `batch` of `config@1`). Beyond the
+type, a model fixes only the formats that cannot change, as wide as a forge can return them
+(critic point 1):
 
 - a CR id matches `^CR-[0-9]+$`: `cr` of `merged@1` and `checks-red@1`, and, being CR ids too,
   `into_cr` and `landed_with` of `merged@1` when they are not null;
-- `head` of `checks-red@1` matches `^[0-9a-f]{40}$` (the full SHA the hub writes today).
+- `head` of `checks-red@1` matches `^([0-9a-f]{40}|[0-9a-f]{64})$`: the full SHA, 40 hex
+  characters, or 64 in a sha256 repository.
 
 Every other field is a plain string (or its JSON type), with no enum and no pattern:
 `board@1.action` and `config@1.key` above all (open sets: a new board action or configuration key
-needs no new published version), and `batch`, `pr`, `into`, the times, `text`, `items`' slugs.
+needs no new published version), and `batch`, `pr`, `into`, the times (no date format),
+`text`, `items`' slugs.
 
 ### 5.2 New: `hub/schemas.json`, shipped
 
@@ -167,11 +183,31 @@ every writer of today writes `["project"]`). `seq`, `t`, the lock and the encodi
   `journal type ...`, `journal payload <type>: <pydantic's first error>`, `journal audience ...`).
   The table's "Written by" column describes today's writers: `append` does not refuse a published
   type from another valid source (as today, where any source may write any kind).
+- A refused event from a forge read or a board write (critic point 1). `append` itself stays
+  strict, as above. The callers that build events from what a forge returned or from a board write
+  first set the refused events aside, through a function of `hub/journal.py` that checks the
+  events against their models as `append` does and gives the accepted ones and one message per
+  refused one (`journal payload <type>: <pydantic's first error>`); they pass the accepted ones to
+  `append`, so the others are still written, and name the refused ones:
+  - the hub's cycle (`hub/cycle.py`, for its project): the cycle goes on; the project's `hub`
+    entry keeps its `read_at` (the read succeeded) and its `error` is `skipped: <message>` (the
+    messages joined by `; `), with `error_at`, as a forge error is today. So the hub never dies on
+    it, and neither does a watcher that is the hub (`hub/watch.py`'s `poll`, which runs the cycle);
+  - the PRs page (`board/prs.py`, where it appends `merged_events`): the page's answer keeps its
+    rows and its `error` is `skipped: <message>`; the page never fails on it;
+  - a backlog write (`board/write_api.py`'s `_answer`) and a save of the Configuration page
+    (`board/config_api.py`): the file is written and kept, the reply keeps its `ok` and its
+    status, and its `error` names the line skipped (`skipped: <message>`), shown by the page as it
+    shows a reply's error. The board's own journal line (`board-journal.jsonl`) is written as
+    today.
+  From a CLI command (source `cli`), and for any caller a source or an audience of a wrong form,
+  a refused event stays a code fault: `append` raises `ValueError` and writes nothing.
 - It keeps its lifecycle lock (`changes_lock`), its `seq` (the highest readable `seq` plus one), its
   duplicate rule and its single write per call.
-- The duplicate rule (`_key`) dispatches on the effective type's name, with today's keys: `merged`
-  by batch, CR and landed-or-not; `checks-red` by batch, CR and head; `config` and `board` never
-  duplicates (each line its own event). So a version 1 `merged` line written by an older board or
+- The duplicate rule (`_key`) reads the duplicate key of the line's effective type's entry in
+  `PUBLISHED` (§5.1; critic point 3), so a version 0 or 1 line is keyed by its `<kind>@1` entry:
+  today's keys, `merged` by batch, CR and landed-or-not; `checks-red` by batch, CR and head;
+  `config` and `board` never duplicates (each line its own event). So a version 1 `merged` line written by an older board or
   hub and a version 2 `merged@1` line of the same batch, CR and landed-or-not are one event: the
   second is skipped. A line of a newer version, of an unknown type or with a refused payload
   (§5.5) is never a duplicate of anything.
@@ -181,20 +217,25 @@ every writer of today writes `["project"]`). `seq`, `t`, the lock and the encodi
 
 ### 5.5 Reading: `journal.read(changes)`
 
-`read` keeps its signature and its three results (the lines that are JSON objects, the numbers of
-the lines listed as unreadable, the `(number, version)` of the newer lines). Every line it returns
-carries an effective `type`:
+`read` keeps its argument and its three results (the lines that are JSON objects, the numbers of
+the lines listed as unreadable, the `(number, version)` of the newer lines), and gains a fourth:
+the `(number, type)` of the version 2 lines of a type not in `PUBLISHED` (critic point 2). The
+callers that take its first result are unchanged; `status` (`commands/batch_status.py`'s
+`_seen_lines`) takes the four. Every line it returns carries an effective `type`:
 
 - **Version 0** (no `v`): `type` is `<kind>@1`, `source` its `by`, audience `["project"]` (as today
   for source and audience). Never rewritten.
 - **Version 1**: `type` is `<kind>@1`; source and audience as today (`project` when it has none).
   Never rewritten. A version 0 or 1 line is not checked against the models: it is read as today.
 - **Version 2, published type, payload its model accepts**: as written.
-- **Version 2, type not in `PUBLISHED`** (a newer chantier wrote it) **or payload its model
-  refuses**: it is returned with an empty audience (so it is for no one and wakes no one, as a
-  newer line is today), it counts for `seq` (`last_seq` reads it), and its number is in the second
-  result, with the lines that are not JSON objects. `status` names it as it names them today:
-  `forge-journal.jsonl: line <n> unreadable`.
+- **Version 2, type not in `PUBLISHED`** (a newer chantier wrote it): it is returned with an
+  empty audience (so it is for no one and wakes no one, as a newer line is today), it counts for
+  `seq` (`last_seq` reads it), and its number and type are in the fourth result. `status` prints,
+  after its newer-version lines: `forge-journal.jsonl: line <n> is of type <t>, unknown to this
+  chantier: update it`.
+- **Version 2, published type, payload its model refuses**: returned with an empty audience,
+  counts for `seq`, and its number is in the second result, with the lines that are not JSON
+  objects. `status` names it as it names them today: `forge-journal.jsonl: line <n> unreadable`.
 - **`v` above 2**: as today's newer line: counts for `seq`, empty audience, in the third result;
   `status` prints `forge-journal.jsonl: line <n> is version <v>, newer than this chantier: update
   it`.
@@ -204,7 +245,10 @@ The readers dispatch on the effective type, never on `kind`:
 - `waking(e)`: by the type's wake rule (§5.1): `merged@1`, `checks-red@1`, `config@1` wake;
   `board@1` wakes when `wakes` is true; a line of no published type wakes no one.
 - `lines(...)` (the `status` lines): the `merged@1` lines of the batch's open CRs (the landed one
-  wins), then the newest `batch.slots` `config@1` line, by today's rules (`_slots_line`).
+  wins), then the newest `batch.slots` `config@1` line, by today's rules (`_slots_line`). Both
+  skip a line of no published type and a line with a refused payload, as they skip a newer line
+  today (critic point 4): such a line never becomes a `status` line, and never hides one (a refused
+  `batch.slots` line is not the newest).
 - `watch` (`hub/watch.py`) and `watch --once --after <seq>` print the lines for them through
   `event_text`, as today; the cursor passes every line, those of an unknown type and the refused
   ones included.
@@ -222,9 +266,12 @@ The module docstring of `hub/journal.py` is rewritten for version 2: the line's 
 `type` as `name@N`, the four published types and their payloads (or a pointer to `hub/schemas.py`
 for them), the rule "a published `name@N` never changes, a change is a new `name@N+1`, its schema
 in `hub/schemas.json`", the reading of versions 0 and 1 (`<kind>@1`, never rewritten), and of a
-version 2 line of an unknown type or a refused payload (counts for `seq`, wakes no one, listed by
-number). The docstrings that say `kind` of a forge-journal line (`hub/journal.py`'s functions,
-`board/config_api.py`'s `_event`: "The forge journal's `config` line") say the type.
+version 2 line of an unknown type (counts for `seq`, wakes no one, named with its type) or a
+refused payload (counts for `seq`, wakes no one, listed as unreadable). The docstrings that say `kind` of a forge-journal line (`hub/journal.py`'s functions,
+`board/config_api.py`'s `_event`: "The forge journal's `config` line") say the type, and so
+does `board/config_api.py`'s module docstring ("one `config` line in the forge journal" becomes
+"one `config@1` line", critic point 7). The docstrings of the callers that set refused events
+aside (§5.4) say so.
 
 ### 5.8 What does not change
 
@@ -256,22 +303,43 @@ parametrized, fast).
     missing entry from its model, keeps the differing one and every other one byte for byte, names
     the differing one, and writes the canonical form; on the shipped file it adds nothing and
     changes nothing;
-  - the formats of answer 1, on the shipped models: `merged@1` and `checks-red@1` with `cr`
-    `CR-1` accepted, with `cr` `x` refused; `merged@1` with `into_cr` `x` refused; `checks-red@1`
-    with a 40-character hex `head` accepted and a 7-character one refused; `board@1` with an
-    `action` no board writes today (`archive`) and `config@1` with a `key` no configuration holds
-    today (`x.y`) accepted;
-  - parametrized over every published type (from `PUBLISHED`, so the later parts' types join with
-    no change to the test): a valid payload appends one version 2 line with `v`, `seq`, `t`,
-    `type`, `source`, `audience` first and in that order; a payload with an extra field, and one
-    with a required field missing, each raise `ValueError` and write nothing (the journal file
-    absent or unchanged);
+  - the formats of answer 1 and critic point 1, on the shipped models: `merged@1` and
+    `checks-red@1` with `cr` `CR-1` accepted, with `cr` `x` refused; `merged@1` with `into_cr` `x`
+    refused, with `merged_at` null and with `landed_with` set and `landed_at` null accepted;
+    `checks-red@1` with a 40- and a 64-character hex `head` accepted, a 7-character one refused;
+    `board@1` with an `action` no board writes today (`archive`) and `config@1` with a `key` no
+    configuration holds today (`x.y`) accepted;
+  - parametrized over every entry of `PUBLISHED` (so the later parts' types join with no change to
+    the test), from the entry's example payload (critic point 3): the example appends one version 2 line with `v`, `seq`, `t`,
+    `type`, `source`, `audience` first and in that order; the example with an extra field, and
+    with a required field removed, each raise `ValueError` from `append` and write nothing (the
+    journal file absent or unchanged); appended twice, it writes a second line exactly when the
+    entry's duplicate key is none;
   - a prepared journal (a case the shipped file cannot hold, named as such): a version 0 line, a
     version 1 line of each of the four kinds, a version 2 line of an unknown type
     (`nothing-known@1`) and a version 2 `merged@1` line with a refused payload. `read` gives the
-    effective types (`<kind>@1`), the unknown and refused lines are listed by number in the second
-    result, `last_seq` counts them, and `watch --once --after 0` prints only the known lines;
-    `status` names the two lines by number;
+    effective types (`<kind>@1`), the refused line is listed by number in the second result and
+    the unknown one by number and type in the fourth, `last_seq` counts them, and `watch --once
+    --after 0` prints only the known lines; `status` prints `forge-journal.jsonl: line <n> is of
+    type nothing-known@1, unknown to this chantier: update it` and `forge-journal.jsonl: line <m>
+    unreadable`;
+  - `lines` skips them (critic point 4): a prepared journal whose unknown-type line and refused
+    `merged@1` line name an open CR of the batch, and whose newest `config@1` `batch.slots` line has
+    a refused payload over an older valid one, gives no merge line for that CR and the older
+    slots line;
+  - a refused event set aside, never fatal (critic point 1), each with a prepared refusal (a case
+    the shipped writers cannot produce, named as such: a forge read giving a 7-character head, or
+    an event builder patched to add a field):
+    - the hub's cycle, with one PR merged and one red with a short head: the `merged@1` line is
+      written, no `checks-red@1` line, the project's `hub` entry has `read_at` and `error`
+      `skipped: journal payload checks-red@1: ...`, and the cycle returns (the next project is
+      read) (`test_forge_hub.py`);
+    - the PRs page, with a refused `merged@1` event beside an accepted one: the accepted line is
+      written, the answer has its rows and `error` `skipped: ...` (`test_board_prs.py`);
+    - a backlog write with a refused `board@1` event: the file is written, the reply is `ok` with
+      its usual status and `error` `skipped: ...`, the forge journal unchanged
+      (`test_board_journal.py`); a Configuration save likewise (`test_board_config.py`);
+    - `append` with source `cli` and a refused event raises `ValueError` and writes nothing;
   - the duplicate rule across versions: on a prepared version 1 `merged` line, an `append` of the
     same merge as `merged@1` writes nothing; `checks-red@1` likewise by head.
 - `test_event_audience.py`: its version 1 expectations become version 2 (`HEAD` with `type` in
@@ -281,22 +349,31 @@ parametrized, fast).
 - The other tests that build events or read the journal's `kind` switch to `type` (event dicts)
   or the effective type (read lines): `forge_world.py`, `test_board_config.py`,
   `test_board_journal.py`, `test_board_prs.py`, `test_forge_hub.py`, `test_surface_server.py`,
-  `test_watcher_autostart.py` (it builds events with `red_event`). Their behaviour is unchanged; a
+  `test_watcher_autostart.py` (it builds events with `red_event`), `test_limits.py` (today lines
+  233-234, which read a line's `kind` `config`, and 360-363, which append `{"kind": "config", ...}`
+  twice; critic point 5). Their behaviour is unchanged; a
   prepared value the formats of answer 1 now refuse (a `cr` that is not `CR-<n>`, a `head` that is
   not 40 hex characters) becomes a valid one.
   Their docstrings that name a line by its kind word (`test_board_journal.py`'s "one `board`
   line", `test_watch_events.py`'s "`config` lines") say the type (`board@1`, `config@1`).
-- The renames of §8, checked by the Driver before the push: a search of `AGENTS.md` and
-  `skills/chantier/references/` for `` `config` line``, `` `board` line``, `` role `config` ``,
-  `` two-key `config` `` and `by: board` finds nothing. The tests that read the shipped cards
+- The renames of §8, checked by the Driver before the push: a search of `AGENTS.md`,
+  `CONTRIBUTING.md`, `scenario/README.md`, `docs/web-board.md` and `skills/chantier/references/`
+  for `` `config` line``, `` `board` line``, `` role `config` ``,
+  `` two-key `config` ``, `by: board` and `by: hub` finds nothing. The tests that read the shipped cards
   (`test_plugin_files.py`, `test_startup_manifest.py`, and any other that holds one of the renamed
   texts: the Driver searches `tests/` for them) are updated where they hold them, and stay green.
 - `just journal-schemas` run at the PR's head prints nothing and leaves `git status` clean.
-- Scenario (`scenario/run_scenario.py`): the `surface-board` checks that read
-  `forge-journal.jsonl` by hand (today `(e["v"], e["source"], e["audience"], e["kind"], ...) ==
-  (1, "board", ["project"], "board", ...)` and `e["kind"] == "merged"`) read version 2 lines:
-  `v` 2 and `type` `board@1` / `merged@1`. `scenario/README.md` changes only if a text it holds
-  names the line's `kind` or version (the Driver checks).
+- Scenario (`scenario/run_scenario.py`), every check that reads `forge-journal.jsonl` by hand
+  reads version 2 lines, `v` 2 and `type` `board@1` / `merged@1` (line numbers of today; the
+  Driver finds them by text):
+  - `surface-board`: 1521-1526 (`(e["v"], e["source"], e["audience"], e["kind"], ...) == (1,
+    "board", ["project"], "board", ...)`) and 1642 (`e["kind"] == "merged"`);
+  - `forge_hub` (critic point 6): 1885-1886 (`(1, 1, "hub", ["project"], "merged", ...)`), 2002 and
+    2024 (`[e["kind"] ...] == ["board"]`); and, found with them, 2026-2041, the version 0 journal:
+    the version 0 line it prepares keeps `kind` `board` (taken from the version 2 line's type, not
+    its absent `kind`), and the board's line that follows it is checked as version 2 (the check's
+    words "in version 1" say "in version 2"); and 2164 (`(e["source"], e["kind"], e["cr"])`).
+  `scenario/README.md` follows (§8).
 - Host and default matrix: none. What this CR changes depends neither on the host nor on a
   configured value (the reference's §5 has no Part A row).
 - No CI job is added or changed.
@@ -320,8 +397,12 @@ sentences later, the reference's docs map):
   JSON Schema ships in `hub/schemas.json`.
 - The older-lines paragraph: a version 0 or 1 line's `kind` is read as `<kind>@1` and never
   rewritten (version 0's `by` is its source and it is for the project, as today); a version 2 line
-  of an unknown type or a refused payload counts for `seq`, wakes no one and `status` names it by
-  number; a line of a newer version, as today.
+  of an unknown type or a refused payload counts for `seq` and wakes no one, and `status` names it
+  (`line <n> is of type <t>, unknown to this chantier: update it`; `line <n> unreadable`); a line
+  of a newer version, as today.
+- One sentence: an event the hub or the board builds from a forge read or a backlog or
+  Configuration write that its type's model refuses is not written, the others are, and the hub's
+  entry or the page's reply names it (`skipped: journal payload <type>: ...`).
 - The sentence "Every line written today is for `["project"]`: `merged` and `checks-red` ..." names
   the types: `merged@1` and `checks-red@1` by the hub or the board's PRs page, `config@1` by the
   Configuration page, `board@1` by the backlog writes.
@@ -365,12 +446,25 @@ words (this CR's answer 2). Each text, where it is today:
 - `skills/chantier/references/hosts/claude-code.md` and `hosts/copilot.md`, the "Run the watcher"
   row: "A `config` line the board writes (a limit saved on its Configuration page) wakes the
   watcher" becomes "A `config@1` line the board writes ...". Both host files change together.
+- `CONTRIBUTING.md` (critic point 7), the surface server's paragraph: "a save on its
+  Configuration page also appends one `config` line to that journal" becomes "... one `config@1`
+  line ..."; "also appends one `board` line to the project's journal" becomes "... one `board@1`
+  line ...".
+- `scenario/README.md` (critic point 7): "the merge written once (`by: hub`)" becomes "(`source:
+  hub`)"; "the page writes the line (`by: board`)" becomes "(`source: board`)"; "each save writes
+  one `config` line per changed key" becomes "one `config@1` line"; "every line of
+  `forge-journal.jsonl` the hub and the board write is version 1, `v`, `seq`, `t`, `kind`,
+  `source` and `audience: ["project"]` first" becomes "version 2, `v`, `seq`, `t`, `type`, `source`
+  and `audience: ["project"]` first", and its following words "a board write appends its version 1
+  line after them" become "its version 2 line"; "appends one `board` line to the project's
+  `forge-journal.jsonl`" becomes "one `board@1` line".
 - No agent file changes (`agents/`, `com.github.copilot/agents/`: they name no journal line).
   `startup-manifest.json` and `routing.md` change only if they hold one of these texts (the Driver
   checks).
 
 The line numbers today: AGENTS.md 62 and 65, `chief-of-staff.md` 1385-1386, `hosts/claude-code.md`
-52, `hosts/copilot.md` 45 (the Driver finds them by text, not number).
+52, `hosts/copilot.md` 45, `CONTRIBUTING.md` 108 and 111, `scenario/README.md` 327, 338, 378,
+389-390 and 402 (the Driver finds them by text, not number).
 
 ## 9. Rollout
 
@@ -403,5 +497,5 @@ The line numbers today: AGENTS.md 62 and 65, `chief-of-staff.md` 1385-1386, `hos
 
 ## 11. Open questions for the user
 
-None. The five questions of this specification's first pass are settled in `./02-answers.md`
-(2026-11-20).
+None. The five questions of this specification's first pass and the spec critic's seven points
+are settled in `./02-answers.md` (2026-11-20).
