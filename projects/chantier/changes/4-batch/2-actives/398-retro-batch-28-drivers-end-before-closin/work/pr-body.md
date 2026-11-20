@@ -4,7 +4,7 @@ A CR Driver (chantier's role that takes one change from its specification to a g
 
 ## Deliverables
 
-Card read on the common path (bytes, `driver.md`; before at `10b371f`, after at `995a6b0`):
+Card read on the common path (bytes, `driver.md`; before at `a872a66`, after at `77089e3`):
 
 | | Before | After |
 | --- | ---: | ---: |
@@ -60,11 +60,11 @@ No visual change. Drivers read less and usually finish their own closing.
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
-- [x] Local gates at `995a6b0`: `just check` pass, `just eval-dry-run` pass (18 of 18 cases)
+- [x] Local gates: `just check` pass at `77089e3`; `just eval-dry-run` pass (18 of 18 cases) at `995a6b0`, same patch before the rebase
 - [x] Evidence: none (cards and prompt text; no visible change)
 - [x] Review: approved at `8311949`
-- [x] Verified at `995a6b0`
-- [x] CI green at `995a6b0` (5 jobs, `just scenario (ubuntu-latest)` included)
+- [x] Verified at `995a6b0`, carried to `77089e3` (clean rebase, same patch)
+- [x] CI green at `77089e3` (5 jobs, `just scenario (ubuntu-latest)` included)
 
 ## Internal references
 
