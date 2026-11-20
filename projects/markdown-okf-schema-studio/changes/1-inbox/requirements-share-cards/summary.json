@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Share cards on X for requirement pages: images and per-page text",
+  "summary": "Live tags are valid; X cache likely. To do: one image per category, feature-category wording, per-page text, tags on the /requirements stub, build tests.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "dda77f2d75042a74eb9efcc2b8df7b2909ab4af2bfbe3c8736fc10c908d7b5b1",
+    "intake/request.md": "dfe4586c24ac63970baa1c5eb0a797e00e96dd4050e8567add213a02c528b661"
+  },
+  "summarized": "2026-11-20T21:47:43Z"
+}

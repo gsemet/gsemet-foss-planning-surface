@@ -34,7 +34,7 @@ Choice: the host's `done` reply is a safety net for every path where a final sav
 
 ## Changes
 
-- `src/core/edits/lineEndings.ts` (new): `matchLineEndings`, the single rule for putting text in the source's line endings (mixed blocks keep the endings of the lines the edit left alone).
+- `src/core/edits/lineEndings.ts` (new): `matchLineEndings`, the single rule (it replaces `withLineEndingOf`) for putting text in the source's line endings (mixed blocks keep the endings of the lines the edit left alone).
 - `src/page/features/blockEditor.ts`: the text box text goes through it before the unchanged check, the autosave and the final save.
 - `src/session/features/blockEdits.ts`: a final save that ends with nothing written posts `previewEditSource` with `done: true`; `blockSourceEditor.ts` closes the editor on it and resumes a pending move to another block.
 - New SwRS-MDOKFSTUDIO-BLOCK-263; markers on BLOCK-042, 130 and 234; BLOCK-234's mixed-endings row refined (see Autonomous decisions).
@@ -58,12 +58,12 @@ Grade: **1**. Local to the block editor's save path and one optional message fie
 
 ## Autonomous decisions
 
-- The host's reply to a final save that writes nothing reuses `previewEditSource` with a new optional `done` flag, rather than a new message type.
-- BLOCK-234's row for blocks with mixed line endings now says the lines the edit left alone keep their endings (it said "written as it is"); the intent is unchanged.
+- The host's reply to a final save that writes nothing reuses `previewEditSource` with a new optional `done` flag, rather than a new message type; it is sent whenever a final save ends with nothing to render.
+- Behaviour change for a block whose lines have mixed line endings: the lines the edit left alone keep their endings (the requirement said "written as it is"). Needs the owner's confirmation.
 
 ## Known gaps
 
-- The `done` reply when the source is unavailable is covered by the code path only, not by a test.
+None.
 
 ## Internal references
 
