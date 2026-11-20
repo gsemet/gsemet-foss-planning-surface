@@ -48,9 +48,9 @@ No visual change. Drivers read fewer card bytes per step and hand off at the clo
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`
+- [x] Local gates at `ca5a4a4`: `just check`, `just eval-dry-run`
 - [ ] Evidence: none beyond the tests, the scenario check and the Verifier's proof
-- [ ] Review: approved at `<sha7>`
+- [x] Review: approved at `ca5a4a4`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
@@ -59,3 +59,5 @@ No visual change. Drivers read fewer card bytes per step and hand off at the clo
 - CR-420 driver-context-budget (batch-29)
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
