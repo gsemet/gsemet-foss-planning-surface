@@ -45,7 +45,9 @@ Grade: 2. New record field with a default (older records read as no waits), a ne
 
 - GitLab approval read not proved: no GitLab Free and Premium account. A GitLab approval wait stays "cleared by hand until proved"; GitLab pipeline and merge waits are read as on GitHub. A follow-up item for the proof and the read is needed.
 - The GitLab fakes (`scenario/fake_glab.py`, `tests/forge_world.py`) have no approval answer, since that half is not shipped.
-- The scenario unit budgets and the timing table of `scenario/README.md` are not re-measured.
+- `just test` at the head, measured: 58 to 68 s for 1199 tests (`pytest -n auto`, Windows), against AGENTS.md's ceiling of 48.5 s (18.5 s + 30 s) from 2026-11-14; main's own total today was not re-measured, so the growth is not isolated. This CR's 37 new tests (`test_waits.py`, `test_board_waits.py`, `test_forge_hub_waits.py`) take 13.3 s serial together (none above 0.6 s: the slowest are `test_waits.py`'s record round-trips and `test_forge_hub_waits.py`'s hub cycle), so about 3 s spread over the workers; the rest of the growth is not from this CR (slowest tests: `test_carry_ship.py`, `test_release_tag.py`, 2 to 5 s each). The Chief of Staff judges it at the ready.
+- GitLab approval half: inbox item `gitlab-approval-proof` names CR-409.
+- Scenario: the `gitlab` unit gained `typed_waits` (40/40, 60.3 s loaded, 61.5 s alone); its budget went from 95 s to 75 s in `UNITS` and the README table (measured + 25%); the README's measured columns (92.0, 67.5) still show the older runs. In the full run, `direct` (143.7 s > 135) and `qa-driver` (136.3 s > 115) warned over budget; not touched.
 - No part of the CR board pane changed, so no screenshot is owed.
 
 <details>
@@ -74,14 +76,16 @@ Developers and the steering session see `| waits: ...` in `status` and the wait 
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): `tests/test_waits.py`, `test_validate`, `test_forge_hub`, `test_store_command_table`
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`, scenario units surface-board and gitlab
-- [ ] Evidence: after at `<sha7>`: tests and scenario output (no visual change)
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [ ] Local gates at `edce7ce`: `just check`, `just eval-dry-run`, scenario units surface-board and gitlab (before the rebase; the long gate runs at the head)
+- [ ] Evidence: after at `edce7ce`: tests and scenario output (no visual change)
+- [ ] Review: approved at `edce7ce` (whole branch, rebase resolutions in `work/conflicts.md`)
+- [ ] Verified at `edce7ce`
+- [ ] CI green at `edce7ce`
 
 ## Internal references
 
-CR-409 typed-waits, batch-29. Based on the forge-connectors branch (CR-405).
+CR-409 typed-waits, batch-29. Based on main (CR-405 merged).
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)

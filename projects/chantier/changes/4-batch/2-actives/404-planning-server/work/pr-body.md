@@ -1,6 +1,6 @@
 ## Summary
 
-With an external planning surface, nothing kept the plan in sync with the forge except a separate autosync tool the user had to install, run and keep alive. This PR makes the surface server (`chantier board`) the surface's one writer: a thread of the server commits, rebases and pushes the plan, so every change reaches the forge within 5 minutes. The separate autosync tool is no longer needed. With no surface server running, every write to the surface is refused (no fallback); a conflict between two clones is raised to the Chief of Staff (the user's steering agent), who resolves it or asks the user.
+With an external planning surface, nothing kept the plan in sync with the forge except a separate autosync tool the user had to install, run and keep alive. This PR makes the surface server (`chantier board`) the surface's one writer: a thread of the server commits, rebases and pushes the plan, so every change is meant to reach the forge within 5 minutes (**UNVERIFIED:** the bound and the no-autosync-tool claim have no full long-gate run yet). The separate autosync tool is meant to be no longer needed. With no surface server running, every write to the surface is refused (no fallback); a conflict between two clones is raised to the Chief of Staff (the user's steering agent), who resolves it or asks the user.
 
 ## Deliverables
 
@@ -38,6 +38,7 @@ Grade: 3 - it changes who writes and pushes the planning surface, the board and 
 
 - No release-notes folder: this PR bumps no version; the release writes them (the surface's own AGENTS.md cleanup is part of that note).
 - The full `just scenario` has not run locally yet; only the `surface-board` unit (251 of 251 checks) did.
+- The 5-minute bound and the removal of the autosync tool are **UNVERIFIED** until the long gate and CI run at the pushed head.
 - Linux and macOS runs of the second-loop lock tests are left to CI.
 
 <details>
@@ -49,18 +50,27 @@ Grade: 3 - it changes who writes and pushes the planning surface, the board and 
 - `store/surface.py`: the refusal of a published write with no writer.
 - `commands/sync.py`, `writer_line.py`, `status`, `seat`, `preflight` (P13), `board/writer_api.py`, board web, cards, `AGENTS.md`, docs, scenario `surface-board`.
 
+## Human decisions
+
+- The checkout paths of the project's code (`checkout.yml`, else `.repo` and `.worktrees`) are excluded from the plan; any other nested repository blocks the writer.
+- Secrets: only git hooks; the writer runs the user's hooks and never skips them.
+- A failed git step is retried each cycle and reported only when it fails twice in a row; a stash git cannot restore is reported at once.
+- The writer pushes every local commit of the branch, hand commits included; nobody pulls or pushes the surface by hand while it runs.
+- A board still serving from an older version (no writer) is named with its version, PID and stop command, and the user is asked to stop it.
+- The surface's other files (`AGENTS.md`, scripts) stay committed by hand; the writer touches only the plan.
+
 ## Impacts
 
 The board shows a writer pill and panel; `status` and `seat` print a `writer:` line; docs describe the writer instead of autosync.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): `tests/` writer cases and the `surface-board` scenario unit
+- [x] Local gates at `4486b82`: `just check` pass, `just eval-dry-run` pass (18 of 18)
+- [ ] Evidence: before at `c51aea6`, after at `4486b82`
+- [x] Review: approved at `4486b82`
+- [ ] Verified at `4486b82`
+- [ ] CI green at `4486b82`
 
 ## Internal references
 
