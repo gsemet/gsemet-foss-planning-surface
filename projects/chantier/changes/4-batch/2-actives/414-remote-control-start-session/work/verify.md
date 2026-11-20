@@ -13,3 +13,14 @@ All claims judged at dc4beb2 (git rev-parse HEAD in the worktree; tree clean).
 7. PR description: posted body equals work/pr-body.md (only a trailing blank line differs); sections render, Summary/Deliverables/Changes match the diff (11 files), Known gaps names the unproved items, no images, no role-name misuse. The Review/Verified/CI boxes still hold `<sha7>` placeholders: the Driver fills them at hand-back (Review note exists: "r1 approved at d7b5a019, committed as dc4beb21").
 
 VERIFIED
+
+## Description pass at dc4beb21c3024cb15783ec5f1f87c6d0df4fd6f4
+
+Head: dc4beb21c3024cb15783ec5f1f87c6d0df4fd6f4
+
+- Posted body (`gh pr view 385 --json body`, headRefOid dc4beb21...) judged at dc4beb2: Summary, Deliverables, Changes list match `git diff --stat d7b5a019 HEAD` (11 files, all named); consistent with 03-change-spec.md (rule, forced foreman, steering folder, part B left out).
+- Test plan boxes name dc4beb2; `$CHANTIER log CR-414`: gate pass head=dc4beb21..., CI 5/5 note, verdict VERIFIED, `r1 approved at d7b5a019, committed as dc4beb21`, `just check` pass note.
+- Stale-wording table re-run at head and base (git grep d7b5a019): head 0 for all nine; base 1,2,1,2,1,5,1,1,1 as stated.
+- Known gaps names the unproved remote-client New session case; no images; no username/home path.
+
+VERIFIED
