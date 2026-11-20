@@ -44,12 +44,12 @@ Release notes written from now on follow the new form. No visual change in the p
 
 ## Test plan
 
-- [ ] No behaviour change (a card text change; no test applies)
-- [ ] Local gates at `<sha7>`: `just check` (pending the commit; passed on the worktree before it)
-- [ ] Evidence: none, a text-only change
-- [ ] Review: approved at `<sha7>` (pending)
-- [ ] Verified at `<sha7>` (pending)
-- [ ] CI green at `<sha7>` (pending)
+- [x] No behaviour change (a card text change; no test applies)
+- [x] Local gates at `a86aca2`: `just check` passed (1188 passed, 14 skipped; release-notes check ok)
+- [x] Evidence: none, a text-only change
+- [x] Review: approved at `a86aca2` (committed from the reviewed state)
+- [x] Verified at `a86aca2`
+- [x] CI green at `a86aca2` (five checks, `just scenario (ubuntu-latest)` included)
 
 ## Internal references
 
