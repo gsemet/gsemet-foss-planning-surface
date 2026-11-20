@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The web client moves out of the server's package; board --ui <folder>|none",
+  "summary": "Specified and settled (03-change-spec.md, 02-answers.md's five answers): the web UI moves to chantier/clients/web/ in the one wheel; board --ui <folder>|none, a folder needs an index.html, --ui not applied on a running board; the server names nothing of it.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "628dff5fa6937c969108742d695013bf1b83536af26a53c08baa2c54019e9619",
+    "03-change-spec.md": "a3dce13ebacb56fefa5e993f9100fda11f5b695b86798a8d85d28930d75eb58b",
+    "intake/request.md": "fca0e277d7898a9126e0f42a67e4f2a481c08338808e189b36a4495ea377375a"
+  },
+  "summarized": "2026-11-20T09:53:56Z"
+}
