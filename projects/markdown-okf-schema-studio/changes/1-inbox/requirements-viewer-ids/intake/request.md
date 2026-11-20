@@ -1,0 +1,3 @@
+# Requirements viewer: search by full ID, full IDs in title and breadcrumb
+
+Owner, 2026-11-20, on the published requirements viewer: "autre pbl dns le site. je peux pas rechercher directement par ID" (screenshot: the search box with StRS-MDOKFSTUDIO-BLOCK-014 says 'Nothing matches'). "Dans https://gsemet.github.io/markdown-okf-schema-studio/requirements/block-editing/StRS-MDOKFSTUDIO-BLOCK-003/ je vois 'Use case BLOCK-003' => 'StRS -Use case BLOCK-003'. le breadcomb: 'Areas / Block editing / BLOCK-003' => 'Areas / Block editing / StRS-MDOKFSTUDIO-BLOCK-003'. => deuxieme CR, lance un griller dedié pour l'etudier". A second screenshot shows a use case path graph (BLOCK-014 / 017 / 026 / 033) whose side-branch labels and test counts overlap each other and the dashed lines.
