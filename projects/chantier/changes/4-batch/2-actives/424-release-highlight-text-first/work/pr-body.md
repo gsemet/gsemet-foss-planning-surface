@@ -56,11 +56,11 @@ No visual change. Future release notes follow the new order and crop rule.
 ## Test plan
 
 - [ ] New or changed tests: No behaviour change
-- [ ] Local gates at `<sha7>`: `just check`
+- [ ] Local gates at `867cabc`: `just check`
 - [ ] Evidence: no visual change
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [ ] Review: approved at `867cabc`
+- [ ] Verified at `867cabc`
+- [ ] CI green at `867cabc`
 
 ## Internal references
 
