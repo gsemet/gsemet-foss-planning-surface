@@ -43,3 +43,8 @@ A real browser run of the page, a phone on the LAN, a UI from another origin, th
 ## 8. Description pass at daed507 (posted body, `gh pr view 383 --json body`) NOT VERIFIED
 - Checked and fine: CI `gh pr checks 383` 5 of 5 pass at daed507; `1394 passed, 13 skipped` and `18 of 18` are in work/gates-check.log and gates-evaldry.log (stated at fea5a03); local gate pass at daed507 in the gate log; Review note `r4 approved at 9841318..., committed as fea5a03b`; Known gaps hold the 1001-on-stop gap and `work/coder/release-notes-draft.md` (file exists).
 - Failed: the Test plan item "New or changed tests (they fail on the previous code)" is unchecked, names no SHA and no result, and "fail on the previous code" has no proof in verify.md (the 39 passed run is at head, no run at the base).
+
+## 9. Description pass 2 at daed507 (posted body, `gh pr view 383 --json body`) VERIFIED
+Head re-checked: `git rev-parse HEAD` -> daed507b4ff2ec749b016fb6a87db3519a77eb09; `git diff --stat fea5a03 daed507` -> docs/server-api.md only.
+Test plan "New or changed tests": `uv run --no-sync python -m pytest skills/chantier/scripts/cli/tests/test_server_api.py test_server_api_calls.py test_server_api_ws.py test_server_protocol.py -q` -> `39 passed in 10.75s`, as the body states; the body now says the tests were not run against the base code, with its reason, instead of claiming they fail there.
+Rest unchanged from claim 8: CI 5 of 5 at daed507, gates, Review note (`r4 approved at 9841318..., committed as fea5a03b`), Known gaps (1001 on stop, pictures, release-notes draft), no image, no role name outside product terms.
