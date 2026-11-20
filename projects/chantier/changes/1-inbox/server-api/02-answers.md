@@ -29,3 +29,22 @@ All sixteen take the specification's recommended answer, on which it is written:
 14. Old routes removed at once; `/api/board` kept as the probe with its identity fields only.
 15. The footer adds " (HTTP)" only in degraded mode.
 16. The AGENTS.md edits of §11.2 are approved as written.
+
+## 2026-11-20, the spec critic's first pass (15 points), settled by the Chief of Staff
+
+Ten text fixes (5 to 10, 12 to 15) go to the writer without a question; for 13, the Part 2 text
+is marked "not in this CR: web-client-out" and copied into that CR's own specification by its
+spec-writer. The five that touch behaviour, each the critic's recommended answer:
+
+1. **The cookie's same-origin rule** applies only to `/api/v1/` and the WebSocket upgrade;
+   opening `/` and the static files keep today's cookie check (a bookmark or a link from a chat
+   app still opens the page).
+2. **A path prefix behind a proxy** is supported only on a host or origin of its own;
+   `docs/server-api.md` says so.
+3. **A web UI from another origin:** CORS stays; "UI from another origin: unproved in a real
+   browser" goes in the PR's Known gaps unless one Chromium check from another origin proves it.
+4. **Sockets with no key yet:** only sockets past `welcome` count toward the 64; sockets still
+   waiting for `hello` have a small separate cap and a short wait.
+11. **The page's CSP:** §8 names `HTML_POLICY`; the Chromium check and the phone check confirm
+    the socket opens under it; a phone the Driver cannot reach goes to Known gaps.
+- The writer's numbers for point 4 (at most 16 sockets waiting for `hello`, `HELLO_S` 5 s) are accepted.

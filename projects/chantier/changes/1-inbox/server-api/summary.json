@@ -1,13 +1,14 @@
 {
   "schema": 1,
   "title": "The server's API over a WebSocket, HTTP as the degraded case; the web UI one client among others",
-  "summary": "Specified, not grilled: protocol 1 (calls and pushed topics) on a WebSocket and on HTTP with a long-poll, the key on both, the web client ported; 16 open questions with recommended answers await the user, the cut first.",
+  "summary": "Specified and settled (02-answers.md, 16 answers and 15 critic points): protocol 1 on a WebSocket and on HTTP with a long-poll, the key on both, the web client ported; the folder move goes to web-client-out.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "03-change-spec.md": "c77878477f8b5968f79d94cd3f7ebeba7b0faa38dcdeed9fdf6ca5dd0b5105b3",
+    "02-answers.md": "6de56531673dbe48b358ee572a09d9d480a9e8ea0a11f77250e576b2dbf9faa7",
+    "03-change-spec.md": "b9c0b7b768842786279a50a429077e26268a25bf524dd50011803f30eeac5fec",
     "intake/request.md": "693be39c2dbc025d1a6c5a503773fdd267aa506fec3574f0c231d9884f65242b"
   },
-  "summarized": "2026-11-20T09:36:19Z"
+  "summarized": "2026-11-20T09:45:24Z"
 }

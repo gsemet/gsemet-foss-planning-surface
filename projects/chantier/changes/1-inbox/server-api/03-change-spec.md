@@ -2,11 +2,14 @@
 
 Origin: verbal (2026-11-20, planning-server's grill, answer planning-server-Q29). No tracker issue.
 
-This CR had no grill of its own. Its decisions come from the user's words in `intake/request.md`
-and in `2-backlog/P3/planning-server/02-answers.md` (Q29, and the server, its key, its network and
-its election as Q1 to Q30 leave them). Every choice those words leave open is written below as the
-recommended answer and listed in section 16, for the user to confirm or change before this CR goes
-to `3-ready`. Where a choice in the body is marked "(Q*n*)", it is section 16's question *n*.
+Its decisions come from the user's words in `intake/request.md` and in
+`2-backlog/P3/planning-server/02-answers.md` (Q29, and the server, its key, its network and its
+election as Q1 to Q30 leave them), and from this CR's own `02-answers.md`: the sixteen questions of
+this specification's first draft and the spec critic's fifteen points, settled by the Chief of
+Staff on 2026-11-20 (the user asked no questions). Where a choice in the body is marked "(Q*n*)", it
+is that file's answer *n* of its first section, listed again in section 16. The edits of
+`AGENTS.md` (Q16) and the removal of the old routes (Q14) stand on the user's merge of this CR's
+PR, as every project rule's change does.
 
 ## 1. Goal, in the user's terms
 
@@ -25,7 +28,8 @@ This CR gives:
 - **The key on both**, for the web client and for any other client (another web UI, a script, a
   native app), on the machine and on the local network, behind a proxy too.
 - **The web UI as one client among others**: it uses only the published API, and moves out of the
-  server's code into a client folder the server serves as plain files (Part 2, §8).
+  server's code into a client folder the server serves as plain files (that move is Part 2, §8.3,
+  not in this CR: web-client-out).
 
 ## 2. Dependencies and neighbours
 
@@ -68,6 +72,12 @@ This CR gives:
 | Writes with no writer are refused (planning-server Q5, C.8) | §5.4: a write op answers the refusal C.8 gives today, status 409 |
 | `uv` is the only tool to install; a dependency ships wheels for Linux, macOS and Windows and replaces hand-written code (AGENTS.md, CONTRIBUTING.md) | §9.1: one dependency, `websockets` |
 | The board's page has no build step and no framework (CONTRIBUTING.md) | §8: none added |
+| The sixteen questions of the first draft, each the recommended answer (this CR's `02-answers.md`, first section) | the sections their "(Q*n*)" marks name; §16 |
+| The cookie's same-origin rule only on `/api/v1/` and the WebSocket upgrade; `/` and the static files keep today's cookie check (critic 1) | §7.2 |
+| A path prefix behind a proxy only on a host or origin of its own (critic 2) | §7.5, `docs/server-api.md` |
+| CORS stays; a UI from another origin is a Known gap unless one Chromium check proves it (critic 3) | §7.4, §10.4 |
+| Only sockets past `welcome` count toward the 64; sockets waiting for `hello` have a small cap of their own and a short wait (critic 4) | §5.6 |
+| The page's CSP named; the browser and phone checks confirm the socket opens under it (critic 11) | §8.1, §10.4 |
 
 ## 4. Words
 
@@ -96,7 +106,7 @@ From the client:
 
 | `t` | Fields | Meaning |
 | --- | --- | --- |
-| `hello` | `protocol` (integer), `client` (text, at most 100 characters, for the server's own lines, e.g. `chantier-web/0.15.0`), optional `key` | first frame on a WebSocket, within `HELLO_S` (10 s) |
+| `hello` | `protocol` (integer), `client` (text, at most 100 characters, for the server's own lines, e.g. `chantier-web/0.15.0`), optional `key` | first frame on a WebSocket, within `HELLO_S` (5 s) |
 | `call` | `id` (text, at most 64 characters, the client's), `op`, `args` (object, `{}` when none) | one op; answered by one `result` with the same `id` |
 | `sub` | `id`, `topic`, `args` | watch a topic; answered by one `result` (`ok`, or the refusal), then `event` frames |
 | `unsub` | `id` (the `sub`'s) | stop watching; answered by one `result` |
@@ -153,7 +163,7 @@ rule of §7.3 applies to them.
 | `board` | none | `board.get`'s data | a hash of the projects' lines, the seats and the `writer` entry |
 | `project` | `project` | `project.state`'s data | the project's fingerprint (`board/fingerprint.py`, the same as today's ETag) |
 | `costs` | `project` | `costs.get`'s data | the live figure's mark (`Live.mark()`) and the record's fingerprint |
-| `prs` | `project`, optional `batch` | `prs.get`'s data | a hash of the answer |
+| `prs` | `project`, optional `batch` | `prs.get`'s data | a hash of the answer without its `now` field (`prs.answer` sets `now` from `clock.now()`, `board/prs.py` line 313), so the rev moves only when the PRs or the read do |
 | `journal` | `project` | `journal.get`'s data | the size and mtime of `board-journal.jsonl` |
 | `events` | `project`, optional `after` (a `seq`, default: the last line's, so only new lines come) | `{"lines": [...]}`: the project's `forge-journal.jsonl` lines with `seq` above the cursor, as Part A's `journal.read` gives them (effective `type`, `seq`, `t`, `source`, `audience`, payload), at most 200 per event, oldest first | the last `seq` sent |
 
@@ -171,13 +181,16 @@ How a change is seen (`board/api/push.py`, a thread beside the hub's, `PushLoop.
 - `project` and `costs`: while a client watches one, the loop calls the live figure's 5-minute
   rule (`Live.ask(running)`) at each check, as a page's read does today (`routes._state_of`).
 - `prs`: the forge read follows today's rule, carried from "when the page asks" to "while a client
-  watches": one read when the subscription starts, then at most once every 10 s per project and
-  batch (`ForgeReads`, `prs.TTL_S`) while a PR of that batch is not done; none once every PR is
+  watches": one read when the subscription starts, which falls within the same 10 s per project
+  and batch (`ForgeReads.get`'s cache: a subscription that starts within 10 s of a read gets that
+  read's answer, no new one), then at most once every 10 s per project and batch (`ForgeReads`,
+  `prs.TTL_S`) while a PR of that batch is not done; none once every PR is
   merged or closed, until a PR joins the batch. However many clients watch, one read per project
   and batch per 10 s. The `merged` and landed lines the read appends to `forge-journal.jsonl`
   (`prs.answer`) are unchanged.
-- A seat check (`Seats.gone()`, today at each request) also runs at each loop pass, so a board
-  started with `--seat` stops as today when every seat has gone, whatever its clients do.
+- Seats: the push loop does not check them. `Seats`' own watch (`board/seats.py`, `_start` and
+  `_loop`, lines 38-56: every `SEAT_CHECK_S`, `gone()`, then the board's stop) keeps stopping a
+  board started with `--seat` when every seat has gone, whatever its clients do; unchanged.
 
 ### 5.4 Writes with no writer
 
@@ -210,10 +223,16 @@ the routes do once that CR lands. Nothing else changes in the writer's rules.
 - A `call` or `sub` with an unknown `op` or `topic`: a `result` 404, the connection stays.
 - Limits (constants in `board/api/times.py`): a frame from a client at most 4 MiB (more: close
   1009); at most 32 subscriptions per connection (the 33rd: `result` 429); at most 64 WebSockets
-  at once per server (the 65th upgrade: HTTP 503 `too many clients`). The server pings each socket
+  past `welcome` at once per server (a `hello` that would make the 65th: `error` `busy`, text `too
+  many clients`, close 1013). Sockets still waiting for their `hello` count apart, at most 16 at
+  once (the 17th upgrade: HTTP 503 `too many clients`), and each waits at most `HELLO_S` (5 s)
+  before its close 4408, so sockets with no key cannot hold the 64 places. The server pings each socket
   every 20 s and closes one that does not answer within 20 s (the WebSocket library's own ping).
-- The server stopping (Ctrl-C, its seats gone, the writer's final cycle): each socket is closed
-  with 1001 after the final cycle; a client reconnects (§8.2).
+- The server stopping (Ctrl-C, its seats gone, the writer's final cycle): the server closes each
+  open socket itself with 1001 (`going away`), before it tells uvicorn to stop
+  (`board/command.py`'s `_run`, before `should_exit`), so a client sees a clean close and not a
+  dropped connection or uvicorn's own shutdown code; a client reconnects (§8.2). Proved in
+  `test_server_api_ws.py` (§10.1).
 
 ### 5.7 The published schema
 
@@ -297,14 +316,17 @@ it with 4401 at the push loop's next pass).
 
 A browser sends the cookie with a request from any page of the same site, another port of the
 same host included (`SameSite=Strict` is per site, not per origin), and a WebSocket upgrade is not
-held back by CORS. So the cookie authorises a request or an upgrade only when it comes from the
-server's own page:
+held back by CORS. So, on `/api/v1/` and on the WebSocket upgrade (`/api/v1/ws`) only, the cookie
+authorises a request or an upgrade only when it comes from the server's own page:
 
 - `Sec-Fetch-Site` absent or `same-origin`, and `Origin` absent or equal to `http://<host>` or
   `https://<host>`, where `<host>` is the request's `Host`, or its `X-Forwarded-Host` when it has
   one (a proxy that rewrites `Host`, §7.5).
 - Otherwise the cookie is ignored: with no header key and no `hello.key`, the request answers 401
   (the upgrade: 401, no socket).
+- `GET /`, the web client's static files and the probe `GET /api/board` keep today's cookie check
+  (`guard.authorised`, no origin rule): a bookmark, or a link opened from a chat app or a mail,
+  still opens the page; what the page then reads goes through `/api/v1/` and its origin rule.
 
 ### 7.3 The rule for writes
 
@@ -321,6 +343,9 @@ server's own page:
   X-Chantier-Board-Key`, `Access-Control-Max-Age: 600`; every answer of `/api/v1/` carries
   `Access-Control-Allow-Origin: *`. `Access-Control-Allow-Credentials` is never sent, so a page of
   another origin never gets the cookie's answers: it needs the key (Q7).
+- Proof: `test_server_api.py` checks the headers (§10.1). A web UI served from another origin is
+  proved in a real browser only by §10.4's one Chromium check from another origin; when the Driver
+  does not run it, the PR's Known gaps say "UI from another origin: unproved in a real browser".
 - `guard.ALLOWED` gains `OPTIONS` for `/api/v1/` only; elsewhere `OPTIONS` stays 405.
 - A page served over HTTPS cannot call a plain-HTTP server (the browser's mixed-content rule): such
   a client goes through a TLS proxy (§7.5). The server itself stays plain HTTP (Q8).
@@ -333,10 +358,13 @@ What the server supports, said in `docs/server-api.md`:
   `board.host: 127.0.0.1`); the WebSocket passes when the proxy forwards the `Upgrade` and
   `Connection` headers; when it does not, the web client works over the HTTP binding (§8.2).
 - `Host` kept, or `X-Forwarded-Host` set (§7.2).
-- A path prefix (the server at `https://example/chantier/`): the web client's addresses are all
-  relative (today's rule), and the `?k=` exchange's `303` gets a relative `Location` (the request
-  path's last segment and its query, `./` for the root), so the prefix is kept. Today's absolute
-  `Location` (`guard.exchange`) changes for that.
+- A path prefix (the server at `https://example/chantier/`) is supported only when that host or
+  origin is the server's own (no other application under it): the cookie (`Path=/`) and the origin
+  check of §7.2 are per origin, so another application on the same origin would share them.
+  `docs/server-api.md` says so. Within that, the web client's addresses are all relative (today's
+  rule), and the `?k=` exchange's `303` gets a relative `Location` (`./` and the rest of the
+  request's query without `k`), so the prefix is kept. Today's absolute `Location`
+  (`guard.exchange`) changes for that.
 - The key travels in clear over plain HTTP on the local network, as today (`BEYOND`'s start line
   says so); over a proxy, TLS protects it from the client to the proxy.
 
@@ -347,8 +375,10 @@ What the server supports, said in `docs/server-api.md`:
 The page keeps its views, its model, its store, its words and its look; only how it reaches the
 server changes.
 
-- `js/core/transport.js` (new): the only module that opens a `WebSocket` or calls `fetch` (today
-  `js/core/api.js` is the only one that calls `fetch`; the rule moves). It exports `call(op, args)`,
+- `js/core/transport.js` (new): the only module that opens a `WebSocket` or fetches an `api/`
+  address (today `js/core/api.js` is the only one that calls the API; the rule moves).
+  `js/views/costs-image.js` keeps its `fetch` of the page's own CSS and fonts (line 29), which is
+  not an API call. It exports `call(op, args)`,
   `subscribe(topic, args, onEvent)` (returning the unsubscribe), `fileUrl(project, path)`, and the
   connection's state for the footer (`mode`: `live` or `http`, `heard`, `fails`, `denied`).
 - `js/core/api.js`: the same exported functions as today (`board`, `projectState`, `costs`, `prs`,
@@ -364,6 +394,10 @@ server changes.
   last frame, a `tick` included, so it reads "0 s" to "5 s"); in HTTP mode the same line gains
   " (HTTP)" (new i18n keys in every language file; `en` and `fr`); "Board unreachable" as today
   after two failures (Q15).
+- The page's Content Security Policy is unchanged: `reply.HTML_POLICY` (`board/reply.py`, line
+  14), whose `connect-src 'self'` covers the page's own `ws:` and `wss:` origin in current
+  browsers (CSP Level 3); §10.4's Chromium and phone checks confirm the socket opens under it. A
+  browser that refused it would fall to the HTTP binding (§8.2), still under the same policy.
 - `?transport=http` in the address forces the HTTP binding (kept by `js/core/router.js` as `lang`
   is), for a test and for a user behind a proxy that holds sockets open and silent.
 
@@ -382,21 +416,22 @@ server changes.
 - HTTP mode: one `POST api/v1/poll` at a time, with the subscriptions and their revs; at once again
   after each answer; after a failure, again after 5 s.
 
-### 8.3 Out of the server (Part 2)
+### 8.3 Out of the server (Part 2: not in this CR: web-client-out)
 
-The web client stops being part of the server's code (Q9):
+Not in this CR: `1-inbox/web-client-out` does it, and its own spec-writer copies this text into
+its specification. Kept here so this CR leaves nothing in its way. What that CR is to give (Q9):
 
-- Its files move from `skills/chantier/scripts/cli/src/chantier/board/web/` to
+- The web client's files would move from `skills/chantier/scripts/cli/src/chantier/board/web/` to
   `skills/chantier/scripts/cli/src/chantier/clients/web/` (still package data of the one wheel, so
   `uvx --from <plugin>` and `uv run --project <checkout>` both have it, editable install included;
-  `DESIGN.md` moves with it). `board/static.py` takes the folder it serves as a parameter
-  (`Context.ui`), and knows nothing of the client but its files.
-- `chantier board --ui <folder>` serves another client's files at `/` (any folder of static files:
-  the user's own UI); `--ui none` serves the API only (`GET /` answers 404 `this server serves no
+  `DESIGN.md` moves with it). `board/static.py` would take the folder it serves as a parameter
+  (`Context.ui`), knowing nothing of the client but its files.
+- `chantier board --ui <folder>` would serve another client's files at `/` (any folder of static files:
+  the user's own UI); `--ui none` the API only (`GET /` answers 404 `this server serves no
   UI: see docs/server-api.md`). Default: the shipped web client. The `?k=` exchange, the cookie and
   the page's security headers (`reply.HTML_POLICY`, `SECURITY`) apply to whatever folder is served.
-- The server's code imports nothing from `clients/`; the web client calls nothing that is not in
-  `protocol.json` (both checked, §10).
+- The server's code would import nothing from `clients/` (checked there); the web client calls
+  nothing that is not in `protocol.json` (checked in this CR, §10.1).
 - No build step and no framework are added (Q10): the client stays hand-written HTML, CSS and ES
   modules, under the same targets (CONTRIBUTING.md, "The board's page").
 
@@ -437,7 +472,7 @@ New package `skills/chantier/scripts/cli/src/chantier/board/api/`:
   `app.endpoint`), events posted from `PushThread` to the event loop.
 - `http.py`: `/api/v1/call/<op>`, `/api/v1/poll`, `/api/v1/projects/<id>/file`, `OPTIONS`, the
   probe.
-- `times.py`: `PUSH_EVERY_S` 2, `HOLD_S` 20, `TICK_S` 5, `HELLO_S` 10, the limits of §5.6; test
+- `times.py`: `PUSH_EVERY_S` 2, `HOLD_S` 20, `TICK_S` 5, `HELLO_S` 5, the limits of §5.6; test
   seam `CHANTIER_API_TEST_TIMES` (`<push_every>:<hold>:<tick>:<hello>`, read only there, as
   `CHANTIER_HUB_TEST_TIMES`).
 
@@ -482,21 +517,23 @@ so `session-start.md`'s list of them holds. No new CLI message.
   `welcome` (its `ops` and `topics` equal `OPS` and `TOPICS`); `hello.key` with no header; a
   `project` subscription, a file written, its event within 3 s; protocol 2: close 4426 with the
   text; a bad key: 4401; no `hello`: 4408 (the seam's `HELLO_S`); an upgrade with the cookie and a
-  foreign `Origin`: 401; the 33rd subscription: 429; `GET /api/board` answers exactly the probe's
-  fields.
+  foreign `Origin`: 401; the 33rd subscription: 429; 17 sockets with no `hello`: the 17th upgrade
+  answers 503; `GET /api/board` answers exactly the probe's fields; the server stopped through
+  `_run`'s stop path: an open socket receives close 1001 (not 1006, not 1012).
 - `test_server_protocol.py` (new): the shipped `board/api/protocol.json`, read from the repository
   at the head under test, equals the models' schemas; every op and topic name the web client's JS
   uses (the string literals passed to `call` and `subscribe` in the shipped `js/`, read from the
   repository) is in `OPS` or `TOPICS`, and no shipped JS file but `js/core/transport.js` contains
-  `fetch(` or `WebSocket(`, nor a path under `api/` other than `api/v1/ws`, `api/v1/call/`,
-  `api/v1/poll` and `api/v1/projects/` (the client uses only the published API).
-- Part 2 adds to `test_server_protocol.py`: no module of `chantier/board/` imports or names
-  `clients/`; `board --ui none` answers 404 at `/` and serves the API; `--ui <a temporary folder
-  with an index.html>` serves it with the security headers.
+  `WebSocket(` or a string naming an `api/` address, and no `api/` address in it but `api/v1/ws`,
+  `api/v1/call/`, `api/v1/poll` and `api/v1/projects/` (the client uses only the published API).
+  The check targets `api/` addresses only: a `fetch` of the page's own files, as
+  `js/views/costs-image.js` line 29 does for its CSS and fonts, passes.
+- Not in this CR (web-client-out): the checks that no module of `chantier/board/` names
+  `clients/`, and of `--ui none` and `--ui <folder>`.
 - The existing structure tests that read the web client's files (`test_board_design.py`,
   `tests/test_code_targets.py`, the i18n keys test, `test_board.py`'s lazy-import test with
-  `websockets` added to the banned list) keep reading the shipped files from the repository; Part
-  2 changes only their path.
+  `websockets` added to the banned list) keep reading the shipped files from the repository at their
+  path of today.
 - `just test` stays within its budget (AGENTS.md: at most 30 s above its 18.5 s of 2026-11-14):
   the new tests add at most 3 s; the Driver reports `just test`'s time at the base and at the head
   on the same machine in the PR.
@@ -518,8 +555,27 @@ paths), with these steps added, through `websockets.sync.client` and `urllib` ag
 - `GET /api/board`: the probe's fields only; an old route (`GET /api/projects/<id>/state`): 404;
 - the board stopped: the open WebSocket is closed with 1001.
 
-Case `surface_server`: a second `board --seat` on the running board registers its seat through
-`seats.register` (unchanged result). `scenario/README.md`'s Coverage list names each new check
+Every other case that calls an old route moves to protocol 1 with its checks kept, each named:
+
+- `forge_hub`: step 6 reads the PRs (`run_scenario.py` line 1952, `GET /api/projects/demo/prs`)
+  through `prs.get` over HTTP, and still checks that the read writes the `board` line with seq 5,
+  that the watcher wakes on it, and that the hub writes no second line; step 7's board write (line
+  1979, `POST .../backlog/new`) goes through `backlog.new`, and still checks that the paused
+  batch's watcher ends on the board's line with its restart.
+- `external_surface` (lines 9204-9214): the second session's `board --seat` still prints `board
+  already running at` and the probe still answers its PID; "two projects, `surface: true`" reads
+  `board.get`; the project's state reads `project.state`; the other project's tree reads
+  `project.tree`; the refused paths (`../../other/...`, the code clone) read `project.tree` or
+  `project.file` and stay refused.
+- `surface_config_page` (lines 8890-8916): `GET /config` becomes `config.get` (the view: writable,
+  no file yet, the batch open), `PUT /config` becomes `config.put` (written, `applies at the next
+  batch`, one `config` line by the board), and its `save` helper and the limits' steps after it the
+  same.
+- `surface_server`: a second `board --seat` on the running board registers its seat through
+  `seats.register` (unchanged result).
+- `remote_board`, above.
+
+The Driver greps `run_scenario.py` for `/api/` at the head: no old route is left but `/api/board`. `scenario/README.md`'s Coverage list names each new check
 with its test, as `test_scenario_coverage.py` checks. The unit's budget (500 s) holds: the steps
 add at most 20 s; the Driver reports the unit's time at the base and at the head.
 
@@ -545,16 +601,22 @@ changes where it listens, not the API). One line per cell, each proved by the te
 - `just check`; `just eval-dry-run` (a change under the CLI's `src/`); `just scenario` green on the
   pipeline's `just scenario (ubuntu-latest)` job, and, as the batch's top CR, locally on Windows
   (`chantier gate`), as AGENTS.md says. No CI job is added or changed.
-- `just docs-screenshots` at the head: the script talks to the board over the WebSocket (it rewrites
-  the `board` topic's `served` with Playwright's WebSocket routing, `page.route_web_socket`, as it
-  rewrites `GET /api/board` today, `fix_surface_path`); every picture of `docs/web-board/`, run at
+- `just docs-screenshots` at the head: the page talks to the board over the WebSocket, and the
+  script rewrites, as `fix_surface_path` does today for `GET /api/board` (lines 165-173), `served`,
+  `served_origin`, each project's `repo_path` and `origin` in every frame that carries board data:
+  each `board.get` result and each `board` topic event (Playwright's WebSocket routing,
+  `page.route_web_socket`), and the same fields of a `board.get` over HTTP; every picture of `docs/web-board/`, run at
   the base and at the head on the same machine, comes out the same file (the page looks the same
   in live mode), or the PR names each that differs and why.
 - The web client opened in Chromium on the machine (live mode, `Data` line moving, a Triage move
   shown in a second tab within 3 s), with `?transport=http` (the " (HTTP)" line, the same move
   within `HOLD_S`), and on the user's phone over the local network (Safari or Chrome): the page
-  loads and updates. A phone check the Driver cannot run is named in the PR's Known gaps ("no check
-  on a phone"), and the Chief of Staff asks the user for it.
+  loads and updates, and the browser's console shows the socket opened under `HTML_POLICY` (no CSP
+  refusal). A phone the Driver cannot reach is named in the PR's Known gaps ("no check on a
+  phone"), and the Chief of Staff asks the user for it.
+- One Chromium check from another origin (a page served by `python -m http.server` on another
+  port, calling `board.get` with the header key and opening a WebSocket with `hello.key`), or, when
+  not run, "UI from another origin: unproved in a real browser" in the PR's Known gaps.
 - Not proved by this CR, said in its Known gaps: a real proxy (nginx or Caddy) in front of the
   server; `docs/server-api.md` gives the proxy's needs, and the HTTP binding's test is the
   evidence for a proxy that refuses the upgrade.
@@ -586,15 +648,14 @@ As the text stands once planning-server has landed:
   and batch shown, while a PR of the batch shown is not done, plus one read when the page opens
   and one at once on each change of the batch shown, it reads the forge" becomes "one named
   exception, a batch's PRs: while a client asks for them (one read, or a subscription), at most
-  once every 10 s per project and batch, while a PR of that batch is not done, plus one read when
-  a subscription starts, it reads the forge".
+  once every 10 s per project and batch, while a PR of that batch is not done, a subscription's
+  first read included (within the same 10 s), it reads the forge".
 - "and a second, from the same page:" becomes "and a second, from the same read:".
 - "a third, from its Configuration page: a save appends" becomes "a third, from a configuration
   save (the web client's Configuration page, or any client's `config.put`): a save appends".
 - The no-setup sentence's "except the board's PRs page and the forge hub" becomes "except the
   server's read of a batch's PRs and the forge hub".
-- Part 2: "A change under `skills/chantier/scripts/cli/src/chantier/board/web/` reads its
-  `DESIGN.md` first and keeps it true." names `.../chantier/clients/web/`.
+- Not in this CR (web-client-out): the `DESIGN.md` path sentence.
 
 ### 11.3 `CONTRIBUTING.md`
 
@@ -602,9 +663,9 @@ As the text stands once planning-server has landed:
 - "the web board reads the server's API, which the views of `status.py` feed: change them
   together" adds "(protocol 1, `docs/server-api.md`: an addition only; a change is protocol 2)".
 - "The board's page" section: "`js/core/` (`api`, ...)" adds `transport`; the rule that only
-  `js/core/api.js` calls `fetch` becomes: only `js/core/transport.js` calls `fetch` or opens a
-  `WebSocket`; Part 2 changes the folder's path there, in the repository tree drawing (`its web
-  board in board/web/`), and in the `just lint` Biome path (`justfile`'s `lint` recipe).
+  `js/core/api.js` calls `fetch` becomes: only `js/core/transport.js` opens a `WebSocket` or
+  fetches an `api/` address (a fetch of the page's own files stays allowed); the folder's path there, in the tree drawing and in the `justfile`'s Biome path is not in
+  this CR (web-client-out).
 - The dependency paragraph needs no change (`websockets` meets it).
 
 ### 11.4 Docs (chantier's `docs/` and `README.md`)
@@ -620,7 +681,7 @@ As the text stands once planning-server has landed:
   line" becomes "the read writes"); Configuration (unchanged but where it names the page's save);
   "Starting the board" (a bullet: other clients and the key in a header; a bullet: behind a
   proxy, pointing to `docs/server-api.md`); "Retaking the pictures" (the script and the
-  WebSocket); Part 2: "Starting the board" names `--ui`.
+  WebSocket); `--ui` is not in this CR (web-client-out).
 - `docs/boards.md`, "The web board": one sentence: the server's API serves the web board and any
   other client (`docs/server-api.md`).
 - `README.md`, "The CR board": "serves the CR board as a web page" adds "and an API for other
@@ -635,8 +696,7 @@ As the text stands once planning-server has landed:
   `board`, `server`, `HTTP`, `web`, `browser`, `phone`). The diagrams `how-chantier-works`,
   `planning-modes` and the others stay as planning-server leaves them.
 - Pictures: `docs/web-board/*.png` unchanged when §10.4's run gives the same files.
-- `board/web/DESIGN.md` (Part 2: `clients/web/DESIGN.md`): its first paragraph names its folder;
-  its rules and tokens do not change (no new colour: the "(HTTP)" text uses the footer's ink).
+- `board/web/DESIGN.md`: its rules and tokens do not change (no new colour: the "(HTTP)" text uses the footer's ink).
 - `docs/release-notes/`: a new file for the release (§12), never an old one edited.
 
 ## 12. Rollout
@@ -645,18 +705,20 @@ As the text stands once planning-server has landed:
   WebSocket, and over HTTP behind a proxy that refuses the upgrade; the web board uses it and
   updates live; the old `/api/...` routes are gone (a script of the user's that calls them moves
   to `/api/v1/call/<op>`), `GET /api/board` stays for the probe with fewer fields; a web page
-  served elsewhere uses the key in a header; Part 2: `--ui`.
+  served elsewhere uses the key in a header; board pages left open across this upgrade must be
+  reloaded (a page of an older version has no reload message: it shows "Board unreachable").
 - Mixed versions: a board of another version is refused before any API call (the probe, kept for
-  every version); a page left open across an upgrade gets close 4426 or a 404 and says to reload.
+  every version); from this version on, a page left open across a later upgrade gets close 4426 or a 404 and says
+  to reload; the pages of the versions before this one do not.
 
 ## 13. The cut (Q1)
 
-Recommended: two CRs, in order.
+Settled: two CRs, in order (Q1).
 
 | CR | What | Size |
 | --- | --- | --- |
-| `server-api` (this one) | §5 to §7, §8.1, §8.2, §8.4, §9, the docs and rules of §11 but Part 2's | the protocol, both bindings, the push, the key, the web client ported; most of the evidence |
-| `web-client-out` (new inbox item, after `server-api`, filed by the Chief of Staff on the user's word) | §8.3: the folder move, `--ui`, Part 2's checks of §10.1, the paths in AGENTS.md, CONTRIBUTING.md, the justfile, `DESIGN.md`, `docs/web-board.md` | a move and one option; small |
+| `server-api` (this one) | §5 to §7, §8.1, §8.2, §8.4, §9, the docs and rules of §11 | the protocol, both bindings, the push, the key, the web client ported; most of the evidence |
+| `1-inbox/web-client-out` (filed, after `server-api`) | §8.3: the folder move, `--ui`, their checks, the paths in AGENTS.md, CONTRIBUTING.md, the justfile, `DESIGN.md`, `docs/web-board.md` | a move and one option; small |
 
 Each half is coherent alone: after the first, the web client already uses only the published API
 (checked by `test_server_protocol.py`), in its old folder; the second only moves it and lets the
@@ -693,66 +755,68 @@ an intermediate web client to write twice; not recommended.
 - Portability: no shell, UTF-8 frames, the WebSocket library's own framing; Windows' sockets
   (`board/command.py`'s `_bind` rules) unchanged.
 
-## 16. Open questions for the user
+## 16. Settled questions
 
-Each has the answer this specification is written with; a different answer changes the sections
-named.
+Open questions for the user: none. The sixteen below were this specification's first open
+questions; the Chief of Staff settled each on its recommended answer (`02-answers.md`, first
+section), and the spec critic's fifteen points after it (its second section), all applied above.
+They are kept for the "(Q*n*)" marks of the body.
 
 1. **The cut.** Two CRs: this one (the protocol, both bindings, the push, the key, the web client
-   ported), then `web-client-out` (the move and `--ui`)? *Recommended: yes, two (§13).*
+   ported), then `web-client-out` (the move and `--ui`)? *Settled: yes, two (§13).*
    Alternatives: one CR; three (HTTP binding, then the WebSocket, then the move).
 2. **The message shape.** One JSON envelope (`hello`, `call`, `sub`, `result`, `event`, `tick`) on
-   both transports, with today's route answers unchanged as each op's `data`? *Recommended: yes
+   both transports, with today's route answers unchanged as each op's `data`? *Settled: yes
    (§5).* Alternative: redesign the payloads as resources now (every view rewritten).
 3. **What a push carries.** The topic's whole value at each change (no diff), and a new `events`
-   topic for the journal's typed lines with a `seq` cursor? *Recommended: yes (§5.3, §5.5).*
+   topic for the journal's typed lines with a `seq` cursor? *Settled: yes (§5.3, §5.5).*
    Alternatives: diffs (smaller frames, a client wrong after a lost one); a bare "changed" notice
    the client rereads (one more round trip per change).
 4. **Versions.** Protocol 1 changes only by addition; a breaking change is protocol 2 under
    `/api/v2/`, and the server of this CR speaks protocol 1 only, a client of another getting a
-   clear refusal? *Recommended: yes; whether a later server keeps protocol 1 beside 2 is that
+   clear refusal? *Settled: yes; whether a later server keeps protocol 1 beside 2 is that
    CR's question (§6.1).* Alternative: commit now to serving the previous protocol for one
    release (a native app would survive one upgrade).
 5. **Schemas.** `protocol.json` gives the frames and every op's and topic's arguments; the results
-   are documented by fields and example in `docs/server-api.md`, not by schema? *Recommended: yes
+   are documented by fields and example in `docs/server-api.md`, not by schema? *Settled: yes
    (§5.7).* Alternative: a schema for every result now (every payload of the board frozen as a
    model, a much larger CR).
 6. **The degraded HTTP mode.** The same ops at `POST /api/v1/call/<op>`, and a stateless long-poll
-   (`POST /api/v1/poll`, held up to 20 s) for the push? *Recommended: yes (§6.2).*
+   (`POST /api/v1/poll`, held up to 20 s) for the push? *Settled: yes (§6.2).*
    Alternatives: Server-Sent Events (one-way push, but some proxies buffer them); plain polling
    every 5 s as today (simple, slower, more reads).
 7. **The key on both bindings, and other origins.** Cookie only from the server's own origin;
    the `X-Chantier-Board-Key` header or `hello.key` from anywhere; CORS open for header-key
-   requests (no credentials), so a UI hosted elsewhere works? *Recommended: yes (§7).*
+   requests (no credentials), so a UI hosted elsewhere works? *Settled: yes (§7).*
    Alternative: no CORS (other UIs only as native apps, scripts, or served by this server with
    `--ui`).
 8. **Behind a proxy.** The server stays plain HTTP (TLS at the proxy), accepts `X-Forwarded-Host`
    and an `https` origin for the cookie's origin check, and makes the key exchange's redirect
-   relative so a path prefix works? *Recommended: yes (§7.5).* Alternative: TLS in the server
+   relative so a path prefix works? *Settled: yes (§7.5).* Alternative: TLS in the server
    (a certificate to make and keep: a setup step the plugin avoids).
 9. **Where the web UI goes.** `chantier/clients/web/`, still in the one wheel, served by the
-   server by default, with `board --ui <folder>|none`? *Recommended: yes (§8.3).* Alternatives:
+   server by default, with `board --ui <folder>|none`? *Settled: yes (§8.3).* Alternatives:
    a top-level `clients/web/` folder of the repository (outside the Python package: an editable
    install would not ship it without more packaging); a separate repository or package that the
    user hosts (a setup step, against "no setup").
 10. **A build step.** None: the web client stays hand-written ES modules with no framework?
-    *Recommended: yes (CONTRIBUTING.md's rule; §8.3).* Alternative: a bundler and a framework (a
+    *Settled: yes (CONTRIBUTING.md's rule; §8.3).* Alternative: a bundler and a framework (a
     Node toolchain to install, against "uv is the only tool").
 11. **Clients shipped and tested.** The web client and the CLI's own probe and seat call; no SDK;
-    the doc's two short examples? *Recommended: yes (§8.4).* Alternative: a Python client module
+    the doc's two short examples? *Settled: yes (§8.4).* Alternative: a Python client module
     (`chantier.client`) shipped and tested, for scripts.
 12. **The WebSocket library.** `websockets` (uvicorn's WebSocket protocol, and the sync client the
-    tests and scenario use)? *Recommended: yes (§9.1).* Alternative: `wsproto` (pure Python, no
+    tests and scenario use)? *Settled: yes (§9.1).* Alternative: `wsproto` (pure Python, no
     client: the tests would need a hand-written one, against the dependency rule).
-13. **The command's name.** Keep `chantier board` (the cards, docs and hosts name it)? *Recommended:
+13. **The command's name.** Keep `chantier board` (the cards, docs and hosts name it)? *Settled:
     yes.* Alternative: `chantier server`, in a CR of its own (every card and doc that names it).
 14. **The old routes.** Removed in this CR (only the web client and the same-version CLI call them),
-    `GET /api/board` kept forever as the probe with its identity fields only? *Recommended: yes
+    `GET /api/board` kept forever as the probe with its identity fields only? *Settled: yes
     (§6.4).* Alternative: keep the old routes for one release (a user's script survives one
     upgrade; two APIs to test meanwhile).
 15. **The degraded mode on screen.** The web client's footer adds " (HTTP)" in HTTP mode and
-    nothing in live mode, so the pictures do not change? *Recommended: yes (§8.1).* Alternative:
+    nothing in live mode, so the pictures do not change? *Settled: yes (§8.1).* Alternative:
     a visible marker in both modes (every picture retaken).
 16. **AGENTS.md.** The edits of §11.2 (the server's API and its key; the PRs read "while a client
-    asks"; the configuration save from any client; the no-setup sentence; Part 2's path)?
-    *Recommended: yes, approved by the PR's merge as usual.*
+    asks"; the configuration save from any client; the no-setup sentence; Part 2's path, in web-client-out)?
+    *Settled: yes, standing on the PR's merge.*
