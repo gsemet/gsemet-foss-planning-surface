@@ -43,7 +43,7 @@ Grade: 2. The change touches the shared render pipeline, the page-to-host protoc
 - No screenshots: three captures of the blank-lines block (edit, selected, reading) were made but are not attached; the push of the images to a side branch was refused by a safety check, left to the owner. They are kept with the change's evidence files.
 - No before image: the blank run is invisible before this change, so there is nothing to compare.
 - The kept-editor path (a blank-lines block hosting an open editor survives a content patch, in `contentPatch.ts`) is covered only by the page-level test in `runtimeBlankLines`; **UNVERIFIED:** it was not run in a real VS Code window at this head.
-- HEAVY_PLACEHOLDER
+- The heavy CI run (real VS Code integration and stress jobs) passed at `e293b92`, but none of its tests is known to target the kept-editor path above across a content patch.
 - The long gate (`just preflight`) ran on Windows, so its static stage only; the other stages are covered by CI.
 
 <details>
@@ -71,7 +71,7 @@ Edit mode only; reading mode and the HTML export are unchanged. No screenshots a
 - [ ] Evidence: none attached, see Known gaps
 - [x] Review: approved at `ccf9ff7` (the last code change; `e293b92` only changes the visual harness)
 - [ ] Verified at `e293b92`
-- [x] CI green at `e293b92`: static, static-windows, visual, report pass; integration and stress run in the heavy run (see Known gaps)
+- [x] CI green at `e293b92`: static, static-windows, visual, report pass; the heavy run (integration, stress, gallery) also passes at `e293b92`
 
 ## Internal references
 
