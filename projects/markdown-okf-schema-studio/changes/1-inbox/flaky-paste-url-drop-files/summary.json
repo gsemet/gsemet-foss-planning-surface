@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Flaky real-window paste-url and drop-files tests: prove the cause, add both to the default stress run",
+  "summary": "Spec written: the paste-url reds were the stored edit-mode wait removed by e05f0b51; both scenarios join the default ci-stress plan with failure traces in the CI log; open: stress round budget, time-based waits, product trace, red-proof policy.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "e788d9b91a669cee5e2974805d57733830f39a57eb843b049477436f81ce726e",
+    "02-answers.md": "924097e6a2a447e305b05e722da929fae406cdb3d18d822c78c1fe57f601121a",
+    "03-change-spec.md": "369a1825e930768356628fee89bdb8fa9c4a7dfd68ca20f464e9fa3dc21f9be7",
+    "intake/request.md": "b64d1d2a51d155cdb4ee080a50eb7bdc7232db13593eceb0180beaeca62a3870"
+  },
+  "summarized": "2026-11-21T10:09:37Z"
+}

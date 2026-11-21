@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The board stays on this machine unless asked, with a key you can rotate",
+  "summary": "The board listens on 127.0.0.1 by default and on the local network only through board.host or --host, saying so; the key stays stable, board --new-key rotates it at once (one rotation now), the cookie lasts 30 days; the full URL is still printed.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a40f1c0e3dad7ac8e9e4502dfc863f23aa520f64a1d971908fcad5b1849747e1",
+    "02-answers.md": "a14f82ae5f1a6cfbe4fad4a10e79c3a2819b9ee9729bad3dd3754eab22fa1d45",
+    "03-change-spec.md": "d67b574a7afafe6179553e4ae22e0547fc55ac2422e7a365f42690622caf849f",
+    "intake/request.md": "790334253444e3465fe042ff25dc37047ffb72739e2cb50e07059a45fc736e8a"
+  },
+  "summarized": "2026-11-21T10:10:21Z"
+}
