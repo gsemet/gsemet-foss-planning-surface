@@ -1,0 +1,16 @@
+activation: extension before = "missing"
+activation: extension after = "missing"
+T1: search click on doc.md line 30
+  flash transitions (ms, performance.now; click at 15677): [{"t":15676,"s":"-/-"},{"t":16101,"s":"text/-"},{"t":16168,"s":"-/-"},{"t":16539,"s":"-/webview"}]
+T1 after click: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":"Line 29 of doc: filler text for the paragraph number 29.\nLin","attrs":"data-line=29 data-end-line=31 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\ta-default","scrollTop":493}
+  screenshot ta-defaults-01-t1-studio-at-line-30.png
+  last tab events: {"t":13128,"ev":"tabs","opened":[{"g":1,"label":"doc.md","kind":"text","uri":"file:///c%3A/Users/gaeta/Projets/markdown-okf-schema-studio.worktrees/batch-07-CR-445/out/trials/ta-defaults/ws/doc.md","active":false,"dirty":false,"preview":true}],"closed":[],"changed":[]} | {"t":13130,"ev":"tabs","opened":[],"closed":[],"changed":[{"g":1,"label":"doc.md","kind":"text","uri":"file:///c%3A/Users/gaeta/Projets/markdown-okf-schema-studio.worktrees/batch-07-CR-445/out/trials/ta-defaults/ws/doc.md","active":true,"dirty":false,"preview":true}]} | {"t":13591,"ev":"tabs","opened":[],"closed":[{"g":1,"label":"doc.md","kind":"text","uri":"file:///c%3A/Users/gaeta/Projets/markdown-okf-schema-studio.worktrees/batch-07-CR-445/out/trials/ta-defaults/ws/doc.md","active":false,"dirty":false,"preview":true}],"changed":[]} | {"t":13591,"ev":"tabs","opened":[{"g":1,"label":"doc.md","kind":"custom:markdown-okf-schema-studio.editor","uri":"file:///c%3A/Users/gaeta/Projets/markdown-okf-schema-studio.worktrees/batch-07-CR-445/out/trials/ta-defaults/ws/doc.md","active":false,"dirty":false,"preview":true}],"closed":[],"changed":[]} | {"t":13592,"ev":"tabs","opened":[],"closed":[],"changed":[{"g":1,"label":"doc.md","kind":"custom:markdown-okf-schema-studio.editor","uri":"file:///c%3A/Users/gaeta/Projets/markdown-okf-schema-studio.worktrees/batch-07-CR-445/out/trials/ta-defaults/ws/doc.md","active":true,"dirty":false,"preview":true}]}
+T4: Studio tab active, search click line 40
+T4 after search click line 40: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":"Line 29 of doc: filler text for the paragraph number 29.\nLin","attrs":"data-line=29 data-end-line=31 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\ta-default","scrollTop":493}
+  screenshot ta-defaults-02-t4-search-click-line-40.png
+T4b: Quick Open doc.md:40 with the Studio tab active
+T4b after quick open doc.md:55: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":"Line 29 of doc: filler text for the paragraph number 29.\nLin","attrs":"data-line=29 data-end-line=31 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\ta-default","scrollTop":493}
+  screenshot ta-defaults-03-t4b-quickopen-line-55.png

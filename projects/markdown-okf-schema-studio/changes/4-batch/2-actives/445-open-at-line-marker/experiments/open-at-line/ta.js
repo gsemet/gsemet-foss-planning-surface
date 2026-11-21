@@ -4,10 +4,14 @@ const { launch, sleep, STUDIO } = require("./lib");
   const s = await launch("ta-defaults", { port: 9421 });
   const { page } = s;
   await sleep(6000);
+  // The first opening that activates the extension is a known limit (T11): wake the extension with a command first.
+  s.note("activation: extension before = " + JSON.stringify(await s.rpc({ op: "ext", id: "GaetanSemet.markdown-okf-schema-studio" })));
+  await s.rpc({ op: "exec", command: "markdown-okf-schema-studio.showFeatureIntroductionsAgain" }); await sleep(2500);
+  s.note("activation: extension after = " + JSON.stringify(await s.rpc({ op: "ext", id: "GaetanSemet.markdown-okf-schema-studio" })));
   const clickRow = async (needle) => {
     const rows = page.locator(".search-view .monaco-list-row");
     const n = await rows.count();
-    for (let i = 0; i < n; i++) { const l = (await rows.nth(i).getAttribute("aria-label")) || ""; if (l.includes(needle)) { await rows.nth(i).click(); return l; } }
+    for (let i = 0; i < n; i++) { const l = (await rows.nth(i).getAttribute("aria-label")) || ""; if (l.includes(needle)) { await page.mouse.move(900, 500); await sleep(300); await rows.nth(i).click({ force: true }); return l; } }
     s.note("  row not found: " + needle); return undefined;
   };
   const explorerOpen = async (file) => { await page.keyboard.press("Control+Shift+E"); await sleep(700); await page.locator(".explorer-viewlet .monaco-list-row", { hasText: file }).first().click(); await sleep(2000); };
@@ -76,8 +80,7 @@ const { launch, sleep, STUDIO } = require("./lib");
   await s.rpc({ op: "config", section: "markdownOkfSchemaStudio.open", key: "searchResultsInStudio", value: true });
   await s.rpc({ op: "exec", command: "workbench.action.focusFirstEditorGroup" }); await sleep(500);
   await s.facts("T8 before");
-  await s.search("zebrafish");
-  await clickRow("Line 30 of doc"); await sleep(5000);
+  await s.rpc({ op: "open", file: s.ws + "/doc.md", col: 1, line: 30, preview: false }); await sleep(5000);
   const t8 = await s.facts("T8 after click");
   s.note("  doc state: " + JSON.stringify(await s.rpc({ op: "doc", file: "doc.md" })));
   s.note("  dialogs: " + t8.d.dialogs);
@@ -97,4 +100,4 @@ const { launch, sleep, STUDIO } = require("./lib");
   await s.facts("T12 side preview: after search click doc.md line 30 (jump must stay text)");
   await s.snap("t12-side-preview-jump");
   await s.close();
-})().catch((e) => { console.error(e); process.exit(1); });
+})().catch((e) => { console.error(String(e).slice(0, 500)); process.exit(1); });

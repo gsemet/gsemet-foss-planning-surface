@@ -72,10 +72,10 @@ No visual change; developers read the planning folder through `Repo.store`.
 
 ## Test plan
 
-- [ ] New or changed tests (conformance and structure tests fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just test`, `just eval-dry-run`
-- [ ] Evidence: speed and golden-output comparison, before at `a391c1e`
-- [ ] Review: approved at `<sha7>`
+- [x] New or changed tests (conformance and structure tests fail on the previous code)
+- [x] Local gates at `eb5dbd6`: `just check`, `just test`, `just eval-dry-run`
+- [x] Evidence: speed and golden-output comparison, before at `a391c1e`
+- [x] Review: approved at `eb5dbd6`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
