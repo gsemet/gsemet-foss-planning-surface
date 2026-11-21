@@ -26,7 +26,7 @@ Search: `StRS-MDOKFSTUDIO-BLOCK-014`, `BLOCK-014`, `block-014` and `block-14` fi
 
 ## Impacts
 
-User-visible on the published requirements viewer (text of headings, titles, links and search). The share title of a use case or behaviour changes from `<title> (<full ID>)` to `Use case <full ID>: <title>`, as asked by the owner; the two assertions that pinned the old form changed for that reason. No screenshots yet: see Known gaps.
+User-visible on the published requirements viewer (text of headings, titles, links and search). The share title of a use case or behaviour changes from `<title> (<full ID>)` to `Use case <full ID>: <title>`, as asked by the owner; the two assertions that pinned the old form changed for that reason. Before and after captures of the scenario steps are in the verification evidence (see Known gaps for what they cover).
 
 ## Blast radius
 
@@ -48,6 +48,6 @@ Grade: 1. The change is confined to the requirements viewer and its tests; a pla
 
 ## Known gaps
 
-- Scenario captures are pending the verification run.
+- The scenario captures were taken on a site built from made-up requirement titles over the frozen use cases (`BLOCK-003`, `BLOCK-014`), not from the real report, at 4ddd1de (before: `9c70477a`). Step 3 differs from the specification's wording: `StRS-MDOKFSTUDIO-BLOCK-014` lists the use case only (see Autonomous decisions), and Enter opens it. Real report titles and the published site are not checked.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
