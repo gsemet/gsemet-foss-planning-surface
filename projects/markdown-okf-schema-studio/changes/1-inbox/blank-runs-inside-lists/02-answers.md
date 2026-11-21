@@ -11,3 +11,5 @@ Decided by the Chief of Staff under the owner's autonomy rule (owner, 2026-11-20
 ## Owner's answers, 2026-11-21
 
 - br-Q1 confirmed by the owner: "Lists, then others if free" (quotes and admonitions only if the same mechanism covers them, otherwise a separate inbox item).
+- br-Q5 (a block typed in place of a blank-lines block inside a list item). Owner, 2026-11-21: "Indent to the item": the host indents the typed lines to the item's content column, so "More" stays inside the item; a line typed at the item's own level ("- c") still adds an item.
+- Quotes and admonitions split into 1-inbox/blank-runs-inside-quotes-admonitions (filed 2026-11-21).

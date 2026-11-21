@@ -36,17 +36,23 @@ sentences, plain English, no CR numbers, no batch names):
    on `origin/main`, pushes the branch and opens the draft pull request as the **Pull request**
    bullet says, then dispatches the heavy run in its own command:
    `gh workflow run ci.yml --ref <branch> -f heavy=true`.
-3. Reason, in one sentence: on Windows `just preflight` runs only the static stage, so visual
+3. Stack mode (hc-Q4): for a change request in a stack, the stack driver does this step after
+   round 1. It pushes that change request's branch, opens its draft pull request against the
+   branch below, and dispatches the heavy run on that branch. The bullet says that this is the one
+   exception to "coder and review stop at the commit" of "Parallel Change Requests Orchestration",
+   which stays unchanged. Later restacks push with `--force-with-lease` as today and do not dispatch
+   the heavy run again (hc-Q3).
+4. Reason, in one sentence: on Windows `just preflight` runs only the static stage, so visual
    and real VS Code window failures appear only in CI.
-4. Reading (hc-Q2): round 2 starts by reading that run (`gh run list --workflow ci.yml --branch
+5. Reading (hc-Q2): round 2 starts by reading that run (`gh run list --workflow ci.yml --branch
    <branch> --event workflow_dispatch`, then `gh run view <id> --log-failed` for a red job).
    A failure goes into round 2 as the **CI** bullet says (a product or test failure becomes part
    of the round with the log excerpt; an infra failure is re-run once; a flake is named and filed).
    A red `stress` job is advisory (ci.guidelines.md, rule 12) but counts as a flake to fix.
-5. Cost (hc-Q3): one early heavy run per such change request. Later rounds do not dispatch the
+6. Cost (hc-Q3): one early heavy run per such change request. Later rounds do not dispatch the
    heavy run again. Each push to the draft pull request still runs the pull request CI (static
    and visual jobs, `report` with the real VS Code stage skipped), as it does today.
-6. Nothing else changes: the round limit (3, all causes together) still applies, and the early
+7. Nothing else changes: the round limit (3, all causes together) still applies, and the early
    push does not mark the pull request ready; **Verify** still comes before ready. Rule 13 of
    [ci.guidelines.md](ci.guidelines.md) still holds: a change to the extension host, the webview or
    the real-window tests still gets a heavy run before merging.
@@ -75,13 +81,15 @@ branch dispatch:
 
 ## Decisions carried
 
-- hc-Q1: the rule goes in Studio's process guideline
+- hc-Q1 (confirmed by the owner, "Studio's CR guideline"): the rule goes in Studio's process guideline
   `.agents/guidelines/change-requests-lifecycle.guidelines.md`, not in `chantier.yaml`: it is
   specific to Studio (Windows preflight skips visual, integration and report).
 - hc-Q2: a CR that adds or changes visual, integration or stress scenarios pushes its branch
   (draft PR) after round 1 and dispatches `gh workflow run ci.yml --ref <branch> -f heavy=true`;
   the next round reads that run. Other CRs keep the current steps.
 - hc-Q3: one early heavy run per such CR; no extra run on every round.
+- hc-Q4 (owner, "Push, draft PR and heavy run"): in a stack, the stack driver pushes that CR's
+  branch after round 1, opens its draft PR against the branch below, and dispatches the heavy run.
 
 ## Out of scope
 
@@ -116,8 +124,10 @@ The check reads the shipped guideline from the repository at the head under test
 3. In the same file at the head, the bullet contains the exact command
    `gh workflow run ci.yml --ref <branch> -f heavy=true`, the three paths `test/visual/`,
    `test/integration/` and `test/shared/stressPlan.ts`, the words "draft", "round 1" and
-   "round 2", and says that later rounds do not dispatch the heavy run again.
-4. Each decision hc-Q1..hc-Q3 maps to a sentence of the bullet (the Verifier quotes it).
+   "round 2", and says that later rounds do not dispatch the heavy run again. It also has the
+   stack sentence: the stack driver pushes the branch after round 1, opens the draft pull request
+   against the branch below, and dispatches the heavy run.
+4. Each decision hc-Q1..hc-Q4 maps to a sentence of the bullet (the Verifier quotes it).
 5. `uv run --group docs --group release --group requirements pytest test/build/test_guideline_isolation.py`
    passes (no project guideline gained a role name or a link to the process guideline).
 6. `just preflight` passes (on Windows, the static stage: `just ci-static`).
@@ -126,14 +136,3 @@ The check reads the shipped guideline from the repository at the head under test
    (boolean). No dispatch is needed to prove this CR, which changes no workflow and no test.
 
 No host or default matrix: the change is process text and does not depend on a host or a setting.
-
-## Open questions
-
-1. Stack mode. In a batch the guideline says that "a change request's coder and review stop at
-   the commit; one stack driver restacks, pushes with `--force-with-lease`, opens each pull request
-   against the branch below". Under hc-Q2 the CR pushes and opens a draft pull request after round
-   1. For a CR in a stack, should (a) the stack driver push that CR's branch and dispatch the
-   heavy run on it after round 1 (draft pull request against the branch below), (b) the CR push
-   only its branch, with no pull request, and dispatch on it, or (c) the early heavy run apply
-   only to a CR outside a stack? The spec above covers a CR outside a stack; the bullet will carry
-   the chosen stack case in one sentence.

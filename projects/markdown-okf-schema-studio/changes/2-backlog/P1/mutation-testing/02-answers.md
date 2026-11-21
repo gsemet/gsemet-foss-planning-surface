@@ -14,3 +14,4 @@ Decided by the Chief of Staff under the owner's autonomy rule (owner, 2026-11-20
 
 - mt-Q2 confirmed by the owner: "Local `just` target" (no CI job).
 - mt-Q4 CHANGED by the owner: redundant tests are "List only, remove nothing". The PR adds the tool, the report, the list of redundant tests (by killed mutants) and the tests for the holes that matter; no test is removed or merged in this CR. Removals wait for the owner's review of the list.
+- mt-Q7 (TypeScript 7 vs Stryker's checker, which needs the TS 5 compiler API). Owner, 2026-11-21: "Find another solution to stay on TS7. No compromise". So: no TypeScript 5 anywhere (no npm override, no second compiler), and no run that silently skips the type check. The spec finds a TS 7 path: for example a small custom Stryker checker plugin that type-checks mutants with TS 7's own compiler (its CLI or its new API), or another mutation tool that works with TS 7. Round 1 proves it on a few core files.

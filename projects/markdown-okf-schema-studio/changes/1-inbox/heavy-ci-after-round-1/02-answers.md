@@ -10,3 +10,4 @@ Decided by the Chief of Staff under the owner's autonomy rule (owner, 2026-11-20
 ## Owner's answers, 2026-11-21
 
 - hc-Q1 confirmed by the owner: "Studio's CR guideline".
+- hc-Q4 (a CR inside a stack). Owner, 2026-11-21: "Push, draft PR and heavy run": in a stack, the stack driver pushes that CR's branch after round 1, opens its draft PR against the branch below, and dispatches the heavy run.
