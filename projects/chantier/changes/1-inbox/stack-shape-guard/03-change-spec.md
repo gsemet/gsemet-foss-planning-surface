@@ -5,7 +5,7 @@ but systematic mechanism that the CLI enforces (Studio's owner: "pas trop lourd 
 systématique"). Two parts carry it: a shape line at each heartbeat, and `asks` refusing a per-CR
 ready ask in a stack batch while that ask would leave another PR of the batch behind main. Two
 lighter parts back them up: a stack card the Foreman rereads at the reload, and the Chief of Staff
-checking each ask against the shape. Specification v3.
+checking each ask against the shape. Specification v4.
 
 ## Goal
 
@@ -26,7 +26,8 @@ but not as a procedure. After this CR:
 - the Foreman's heartbeat shows the stack's state in one line, every time;
 - the CLI refuses a per-CR ready ask while another CR of the stack's chain has an open PR or a
   stacked CR is still open, so a forgotten procedure stops at the CLI and does not reach the user;
-  a CR truly alone may still ask alone, and so may a fix or held CR, which sit outside the stack;
+  a CR truly alone may still ask alone, and so may a CR outside the stack's chain (a fix or held
+  CR);
 - the stack rules live in one card that a stack batch's Foreman reads at the batch's start and
   rereads after each compaction;
 - the Chief of Staff relays no readiness ask that does not fit the batch's shape: it sends it back
@@ -35,7 +36,8 @@ but not as a procedure. After this CR:
 ## Decisions carried (02-answers.md)
 
 - **Q1 (D, refuse unless forced):** `asks` refuses a per-CR `ready-to-merge` ask in a stack batch.
-  A fix CR is excepted (and a held CR, Q12). An explicit flag lets the ask through:
+  A fix CR is excepted (and a held CR, Q12; critic run 2's fix 6 makes the exception "the CR is
+  not in `chain(b_data)`"). An explicit flag lets the ask through:
   `--outside-stack "<reason>"` (the name is this spec's choice; the brief left it to the spec).
 - **Q2 (A):** at each `status --refresh`, in stack batches only, one line with a fixed format,
   `shape stack: next …; stack driver: …; native stack: …`. Q11 and the critic's fix 4 complete it
@@ -49,7 +51,7 @@ but not as a procedure. After this CR:
 - **Q6:** grilled enough; spec-writer, then critic; destination the next batch (`3-ready`).
 - **Q7:** replaced by Q10 ("once the first stack is made" no longer holds).
 - **Q8 (A):** `--outside-stack` is used only on a Chief of Staff order carrying the user's word; its
-  reason is `O-<k>: …`.
+  reason is `O-<k>: …`. Q14 says which order.
 - **Q9 (A):** a mismatched ask at the Chief of Staff is sent back to the Foreman
   (`shape: through the stack`) and the user is told in one line ("CR-12 asked alone in a stack
   batch: sent back through the stack").
@@ -66,6 +68,20 @@ but not as a procedure. After this CR:
 - **Q13 (Fable advisor, rule 12):** while a stack waits for its merge, the shape line's `next`
   reads `take stack at the next ready CR or merge` (`foreman.md`, "Each later take", names a
   recorded merge as a trigger).
+- **Q14 (A, Fable advisor, rule 12):** `--outside-stack` names an open order (`done` unset) whose
+  `cr` is the asking CR and whose note does not start with `shape:`. The Foreman asks with the flag
+  first, then marks the order done; the Chief of Staff checks that the named order is its own on
+  that CR (it may be done by then). See 1, 3 and 4.
+- **Q15 (A, Fable advisor, rule 12):** a ready CR refused behind a working or blocked CR's draft PR
+  waits: Q11 and the guard stay. The refusal names the shape line's `next` (one helper shared with
+  `shape_line`) instead of `take stack`. The Foreman's ask about the blocked CR names the ready CR
+  waiting behind it, and the Chief of Staff offers the user `order hold <blocked cr>` or an order on
+  the ready CR (the flag). See 1, 2, 3 and 4.
+- **Critic run 2, fixes 3-7:** the "ordinary `ready-to-merge` ask" sentence is rewritten to the Q10
+  limit in the move (3); `chief-of-staff.md`'s "merge each PR ready to merge as it comes" is
+  qualified (4); drop-to-next-batch joins 5 (5); the guard's exception is "the CR is not in
+  `chain(b_data)`" (6); the `session-start.md` reload sentence is for a Chief of Staff steering in
+  direct mode only (7).
 - **Rule 12:** no more questions to the user on this CR; this version leaves none open.
 
 ## The criterion (one function, three readers)
@@ -107,10 +123,12 @@ Files: `skills/chantier/scripts/cli/src/chantier/rails_release.py` (the refusal,
   - the batch's `mode` is `stack`;
   - the text's first word is `ready-to-merge`, and its second word names a CR of the batch (the
     same match as `readiness_key`, through `normalize_cr`);
-  - that CR's `kind` is not `fix` and it is not held (`not is_held(cr)`): a fix CR sits outside
-    every shape, as Q1 says, and a held CR is out of the stack on its hold order, which already
-    carries the user's word (Q12); a release CR is not excepted: in a stack it is the top, and its
-    readiness is the complete `stack-ready-to-merge`;
+  - that CR is in `chain(b_data)` (critic run 2, fix 6). A CR not in the chain asks alone: a fix
+    CR sits outside every shape, as Q1 says; a held CR is out of the stack on its hold order, which
+    already carries the user's word (Q12); and any CR that another change keeps out of the chain
+    (park-live-cr's parked CR, hold-live-cr's out-of-order CRs) is excepted the same way, with no
+    change here. A release CR is in the chain and is not excepted: in a stack it is the top, and
+    its readiness is the complete `stack-ready-to-merge`;
   - `shape_blockers(b_data, <cr>)` is not empty (Q10).
 
   In Studio's second wave, CR-447's ask at 11:48 and any other ask made while another second-wave
@@ -120,30 +138,35 @@ Files: `skills/chantier/scripts/cli/src/chantier/rails_release.py` (the refusal,
   `pr-in-draft` and `ready-locally` are never refused, because neither invites a merge. Neither is
   `stack-ready-to-merge`, nor any other kind of ask.
 
-- **The refusal's text**, one line on stderr, exit 2, exactly (`<batch>`, `<cr>`, `<n>` and the
-  list filled in; `<blockers>` is the blockers' ids joined by `, `, each followed by ` (stacked)`
-  when it is stacked):
+- **The refusal's text**, one line on stderr, exit 2, exactly (`<batch>`, `<cr>`, `<next>` and
+  the list filled in; `<blockers>` is the blockers' ids joined by `, `, each followed by
+  ` (stacked)` when it is stacked):
 
   ```text
-  refused: <batch> is a stack and <cr> is not alone (open: <blockers>): its readiness goes up with the stack's (`take stack --epoch <n>`, the stack driver's hand-back, then `asks "stack-ready-to-merge …"`); a fix or held CR is outside the stack; `--outside-stack "O-<k>: <why>"` records this ask on an order carrying the user's word
+  refused: <batch> is a stack and <cr> is not alone (open: <blockers>): its readiness goes up with the stack's (next: <next>; then the stack driver's hand-back and `asks "stack-ready-to-merge …"`); a CR not in the stack's chain asks alone; `--outside-stack "O-<k>: <why>"` records this ask on an open order on <cr> that carries the user's word
   ```
 
-  `<n>` is the batch's current epoch as `take stack` takes it.
+  `<next>` is the shape line's `next` for the batch, from the same helper (`next_step`, see 2), so
+  the refusal and the heartbeat never disagree (Q15). With a ready CR behind a working or blocked
+  CR's draft PR, it reads `next: parallel until 2 ready with a PR`: the ready CR waits.
 
 - **The flag `--outside-stack "<reason>"`** (Q8).
   - With the flag, an ask the guard would refuse is recorded. Its recorded text is the ask's text
     followed by ` outside the stack: <reason>`, so the Chief of Staff sees the reason in the line
     the CLI prints (`[foreman→chief-of-staff] ask A-n: ready-to-merge <cr> <link> … outside the
     stack: <reason>`). The `ask` event carries `outside_stack: <reason>`.
-  - The reason must start with `O-<k>: ` followed by words, where `O-<k>` is an order recorded in
-    the batch (`orders`). Otherwise the flag is refused with exit 1 (`EXIT_USAGE`):
+  - The reason must start with `O-<k>: ` followed by words, where `O-<k>` is an order of the
+    batch (`orders`, `OrderRecord` in `core/records.py`) that is open (`done` unset), whose `cr` is
+    the asking CR, and whose `note` does not start with `shape:` (Q14). So the mode order (`cr`
+    `-`), another CR's order, a done order and the Chief of Staff's own `shape: through the stack`
+    note never let an ask through. Otherwise the flag is refused with exit 1 (`EXIT_USAGE`):
 
     ```text
-    --outside-stack needs a reason "O-<k>: <why>" naming an order of <batch> that carries the user's word
+    --outside-stack needs a reason "O-<k>: <why>" naming an open order on <cr> that carries the user's word
     ```
 
   - The flag is also refused with exit 1 when the ask is one the guard would not refuse (another
-    word, a fix or held CR, a batch that is not a stack, or a CR with no blocker):
+    word, a CR not in the stack's chain, a batch that is not a stack, or a CR with no blocker):
 
     ```text
     --outside-stack is only for a per-CR ready-to-merge ask that the stack guard refuses
@@ -154,16 +177,17 @@ Files: `skills/chantier/scripts/cli/src/chantier/rails_release.py` (the refusal,
     any other.
 - **The help text** (`declare/batch_status.py`, `asks`): one clause added. In a stack batch, a
   per-CR `ready-to-merge` is refused while another CR of the stack has an open PR or a stacked CR
-  is open; a fix or held CR is outside the stack; `--outside-stack "O-<k>: <why>"` records it on
-  an order carrying the user's word.
+  is open; a CR not in the stack's chain asks alone; `--outside-stack "O-<k>: <why>"` records it
+  on an open order on that CR that carries the user's word.
 - **Steering.** The guard does not depend on the actor: a Chief of Staff steering in direct mode
   meets the same refusal.
 
 ### 2. The shape line at each heartbeat (CLI)
 
 Files: `skills/chantier/scripts/cli/src/chantier/stacks.py` (a new `shape_line(b_data)`, beside
-`stack_line`, and a small helper `forming(b_data)` that `stack_due` and `shape_line` share) and
-`commands/batch_status.py` (`status`).
+`stack_line`; a small helper `forming(b_data)` that `stack_due` and `shape_line` share; and a
+helper `next_step(b_data) -> str` that computes `<next>` below, shared by `shape_line` and the
+guard's refusal, Q15) and `commands/batch_status.py` (`status`).
 
 - With `--refresh`, with or without `--epoch`, and only when the batch's `mode` is `stack`,
   `status` prints one line right after the batch line (the `<batch> running steering … shape
@@ -171,7 +195,7 @@ Files: `skills/chantier/scripts/cli/src/chantier/stacks.py` (a new `shape_line(b
 
   `shape stack: next <next>; stack driver: <driver>; native stack: <native>; alone asks: <alone>`
 
-  - `<next>` (Q11):
+  - `<next>` (Q11), from `next_step(b_data)`:
     - `note to the stack driver` when a stack driver is recorded (`stack_agent` set): events then
       go to it as `[foreman→stack] note …`, as the card says;
     - else `take stack` when a take is due: `forming(b_data)` holds at least `FORMING` (2) CRs, or
@@ -230,9 +254,18 @@ Files: `skills/chantier/references/foreman-stack.md` (new), `foreman.md`,
   - the **Stack** branch of the `order merged` bullet (a restack, a folded CR, rebase notes before
     the first stack, nothing left open), plus the "say which one you chose" line that goes with it.
 
-  The moved span's opening sentence ("until the first stack is made it runs like a parallel
-  batch") gains, right after it, the Q10 limit: a CR handed back ready asks alone only while no
-  other CR of the batch has an open PR and no stacked CR is open (the shape line's `alone asks`).
+  The moved span's opening sentence (`foreman.md`, around lines 379-383: "until the first stack is
+  made it runs like a parallel batch with chains: each CR handed back `ready` on the default branch
+  is an ordinary `ready-to-merge` ask (…, even with CRs before it in the order still working)") is
+  rewritten to the Q10 limit in the move (critic run 2, fix 3). Suggested text: "until the first
+  stack is made it runs like a parallel batch with chains, with one limit: a CR handed back `ready`
+  on the default branch asks `ready-to-merge` alone only while no other CR of the stack's chain has
+  an open PR and no stacked CR is open (the shape line's `alone asks`); otherwise it waits for the
+  stack (see "The stack's asks"). The CLI reads such a CR `ready to merge`, with no remark on the
+  record." The status word (`ready to merge`) stays; the clause "even with CRs before it in the
+  order still working" goes, since the guard now refuses that case. The rest of the sentence (a
+  merge handled by the rebase notes, a CR based on another CR's branch handing back `PR in draft`)
+  is kept.
 
   Suggested level-2 sections, so that later readings can name them: `## The stack's asks`,
   `## The stack grows`, `## The stack driver`, `## After a merge`, `## The five checks`. The Driver
@@ -245,12 +278,23 @@ Files: `skills/chantier/references/foreman-stack.md` (new), `foreman.md`,
     (the CLI refuses it), but the next `take stack` and, at the stack driver's hand-back, the
     `stack-ready-to-merge` ask; a CR truly alone may still ask alone, and a fix or held CR asks
     alone with no `--outside-stack` (a held CR's hold order already carries the user's word);
-  - `--outside-stack "<reason>"` is used only on an order of the Chief of Staff that carries the
-    user's word for that CR alone. The reason starts with that order's id (`O-<k>: <words>`). It
-    is never used to get past a refusal on the Foreman's own judgement;
-  - an order note `shape: through the stack` on a CR (the Chief of Staff's, see 4) is taken like
-    any later take: `take stack --epoch <n>` (or `[foreman→stack] note shape: <cr>` to a running
-    stack driver), then `order done`;
+  - `--outside-stack "<reason>"` is used only on an open order of the Chief of Staff on that CR
+    that carries the user's word for that CR alone (not a `shape:` note). The reason starts with
+    that order's id (`O-<k>: <words>`). The Foreman asks with the flag first, then marks the order
+    done (`order done O-<k>`): the CLI accepts only an open order (Q14). It is never used to get
+    past a refusal on the Foreman's own judgement;
+  - a ready CR refused behind a working or blocked CR's draft PR waits (`next: parallel until 2
+    ready with a PR`). When the CR in front is blocked, the Foreman's ask about it also names the
+    ready CR waiting behind it (`…; <ready cr> waits behind it`), so the Chief of Staff can offer
+    the user a way out (see 4). The final-order take ends the wait at the latest: once no CR of the
+    stack is working or able to start, `take stack --note "final order"` stacks what is ready, and
+    `take stack` asks for no count of ready CRs (`_take_stack`, `commands/driver.py`, checks only
+    the mode, the stack driver, the budget and the lease) (Q15);
+  - an order note `shape: through the stack` on a CR (the Chief of Staff's, see 4) follows the
+    shape line's `next`: with `take stack` or `take stack at the next ready CR or merge`, it is
+    taken like any later take, `take stack --epoch <n>` (or `[foreman→stack] note shape: <cr>` to
+    a running stack driver), then `order done`; with `parallel until 2 ready with a PR`, `order
+    done` and wait (Q15);
   - the heartbeat's `shape stack: …` line is the stack's reminder: its `next` is the step for any
     stack event read at that wake.
 - **`foreman.md`** keeps:
@@ -275,17 +319,21 @@ Files: `skills/chantier/references/foreman-stack.md` (new), `foreman.md`,
   16 KB) does not fit the 12,544-byte startup and reload limit that `test_startup_manifest.py`
   measures for every role. The reload's own readings stay within that limit, and the card is read
   as an action right after the reload's `status`. The `version` stays 2: no new key kind is added.
-- **`session-start.md`, "5. Reload"**: one sentence after "this role's startup sections only". A
-  Foreman, or a Chief of Staff steering in direct mode, whose `$CHANTIER status` shows
-  `shape stack` then reads the manifest's `batch:stack` readings before its next act. The reload's
-  "Read only" rule is unchanged. Keep the sentence short: this section counts in every role's
-  reload bytes.
+- **`session-start.md`, "5. Reload"**: one sentence after "this role's startup sections only",
+  limited to a Chief of Staff steering in direct mode (critic run 2, fix 7): one whose
+  `$CHANTIER status` shows `shape stack` then reads the manifest's `batch:stack` readings before
+  its next act. A Foreman rereads the card through `foreman.md`'s opening paragraph (above), not
+  through this sentence. The reload's "Read only" rule is unchanged. Keep the sentence short: this
+  section counts in every role's reload bytes.
 - **`chief-of-staff.md`**:
   - the direct-mode steering section ("Steering a batch yourself", which reads `foreman.md`) adds
     `foreman-stack.md` for a stack batch;
   - the links that point at the moved rules are repointed to `foreman-stack.md`: the "Deliver by a
     time" bullet (around line 1060), "The five checks" in "A stack batch" (around lines 1231 and
-    1756), and any other link the Driver finds by searching for `foreman.md` near "stack".
+    1756), and any other link the Driver finds by searching for `foreman.md` near "stack";
+  - the go's stack advice (around line 831: "the user may also merge each PR ready to merge as it
+    comes, before the stack is made") is qualified "while that CR is the only open PR of the stack"
+    (critic run 2, fix 4), so the advice matches the guard.
 - **Host specifics** stay out of `foreman-stack.md` and `foreman.md`. If any of the moved text
   names a host's tool or path, it goes to `hosts/claude-code.md` (or `hosts/copilot.md`), and the
   shared card links to it. As read today the moved span names forges (GitHub, GitLab), not hosts,
@@ -298,14 +346,20 @@ File: `skills/chantier/references/chief-of-staff.md`, the "A stack batch" bullet
 
 Added (Q4, Q9), with the one criterion: each Foreman ask is checked against the batch's shape, not
 only for being rebased and green. In a stack batch, read `status --refresh`'s shape line. A per-CR
-`ready-to-merge` for a CR that is neither a fix nor held, while that line's `alone asks` is
-`refused` or `allowed for <another cr> only` (another CR of the stack has an open PR, or a stacked
-CR is open),
-is mismatched unless it carries `outside the stack: O-<k>: …` naming an order of the user's word.
-A mismatched ask is not offered. The Chief of Staff:
+`ready-to-merge` for a CR of the stack's chain (`stack` lists it; not a fix or held CR), while that
+line's `alone asks` is `refused` or `allowed for <another cr> only` (another CR of the stack has an
+open PR, or a stacked CR is open), is mismatched unless it carries `outside the stack: O-<k>: …`
+where `O-<k>` is the Chief of Staff's own order on that CR, carrying the user's word (Q14: the
+Foreman may have marked it done by then, so the check is that the order is yours and on that CR,
+not that it is open). A mismatched ask is not offered. The Chief of Staff:
 
 - sends it back: `$CHANTIER order note <cr> --note "shape: through the stack"`;
 - tells the user in one line: `<cr> asked alone in a stack batch: sent back through the stack`.
+
+When a Foreman ask about a blocked CR names a ready CR waiting behind it (Q15), the Chief of Staff
+offers the user two ways out with the blocked CR's question: `order hold <blocked cr>` (the held CR
+leaves the chain, and the ready CR may then ask alone), or an order on the ready CR that carries
+the user's word, for the Foreman's `--outside-stack "O-<k>: …"`.
 
 A stack's readiness is offered as a `stack-ready-to-merge`, after the native stack is read on the
 forge (`forge-stack show`, the five checks). In direct mode the steering session checks its own
@@ -314,7 +368,7 @@ CR or forced without a fitting order.)
 
 ### 5. Cards that other ready CRs edit (critic fix 5)
 
-Two CRs in `3-ready` edit text that this CR moves out of `foreman.md`:
+Three CRs in `3-ready` edit text that this CR moves out of `foreman.md`:
 
 - **hold-live-cr**: its §8 moves "A held CR" (`foreman.md`, today inside the stack batch bullet)
   into a bullet for every mode. If hold-live-cr lands first, "A held CR" is no longer in the moved
@@ -322,6 +376,9 @@ Two CRs in `3-ready` edit text that this CR moves out of `foreman.md`:
   takes "A held CR" from `foreman-stack.md` and places its every-mode bullet in `foreman.md`.
 - **park-live-cr**: it edits inside the moved span, and its tests read `foreman.md` for
   `rebase: <cr> dropped`.
+- **drop-to-next-batch** (critic run 2, fix 5): it edits "A drop in the stack" (`foreman.md`,
+  around line 469, inside the moved span) to list `3-ready` among the drop destinations; its card
+  test reads both cards joined.
 
 Rule: whichever of the CRs lands second re-applies its edit in the card that holds the text at its
 rebase, and a test that reads moved text reads both cards (`foreman.md` and `foreman-stack.md`
@@ -330,9 +387,9 @@ joined), so it holds whatever the landing order.
 ### 6. The scenario (`scenario/run_scenario.py`, `scenario/README.md`)
 
 - **The scripted Foreman** (`Foreman.turn`, around line 767, where a ready CR gets
-  `ready-to-merge`/`pr-in-draft`) follows the new card: in a stack batch, a ready CR that is
-  neither a fix nor held gets a per-CR `ready-to-merge` ask only when `shape_blockers` is empty for it; otherwise it
-  waits for the stack. Without this change, step 13 (`stack_batch`) would hit the refusal.
+  `ready-to-merge`/`pr-in-draft`) follows the new card: in a stack batch, a ready CR of the
+  stack's chain gets a per-CR `ready-to-merge` ask only when `shape_blockers` is empty for it;
+  otherwise it waits for the stack. Without this change, step 13 (`stack_batch`) would hit the refusal.
 - **New checks in `stack_batch`** (step 13):
   - before any CR has a PR: `status --refresh --epoch 1` prints, as its second line,
     `shape stack: next parallel until 2 ready with a PR; stack driver: none; native stack: absent; alone asks: allowed`;
@@ -343,9 +400,10 @@ joined), so it holds whatever the landing order.
   - with `agents set stack agent-stack`: the line reads `next note to the stack driver; stack
     driver: agent-stack`;
   - after `stack one two three`: the line reads `native stack: present (<one>, <two>, <three>)`;
-  - `asks ready-to-merge <two> <pr> --outside-stack "O-1: the user's word"` (O-1 an order of the
-    batch) is recorded, and its printed line ends `outside the stack: O-1: the user's word`;
-    `--outside-stack "the user's word"` exits 1;
+  - `asks ready-to-merge <two> <pr> --outside-stack "O-1: the user's word"`, where `O-1` is an open
+    `order note <two>` (not a `shape:` note, Q14), is recorded, and its printed line ends
+    `outside the stack: O-1: the user's word`; then `order done O-1`; `--outside-stack "the user's
+    word"` exits 1;
   - `asks pr-in-draft <two> …` is still accepted;
   - a plain `status` prints no `shape stack:` line.
 
@@ -367,15 +425,20 @@ joined), so it holds whatever the landing order.
     after the morning stack merged: the merged stacked CRs do not count, the second wave's open PRs
     do); ignores a fix CR's and a held CR's open PR, and a held CR with `stacked` still set (Q12);
   - the guard, parametrized: in a stack batch with a blocker, refuses `ready-to-merge` for a change
-    CR and for a release CR; accepts it for a fix CR and for a held CR, with no flag (Q12);
-    accepts `pr-in-draft`, `ready-locally` and
+    CR and for a release CR (both in the chain); accepts it, with no flag, for a CR not in the
+    chain: a fix CR and a held CR (Q12, fix 6); accepts `pr-in-draft`, `ready-locally` and
     `stack-ready-to-merge`; accepts `ready-to-merge` for a CR alone, and in a parallel or series
-    batch with other open PRs. The refusal's text is compared whole with the fenced text above;
+    batch with other open PRs. The refusal's text is compared whole with the fenced text above.
+    Q15's rows: a ready CR's ask refused behind a working CR's draft PR and behind a blocked CR's
+    draft PR, each refusal showing `next: parallel until 2 ready with a PR`; and the same ready CR
+    accepted alone once the blocked CR is held;
   - the flag, parametrized: accepted where the guard refuses with a reason `O-<k>: …` naming an
-    order of the batch (the recorded text ends `outside the stack: <reason>`, the event carries
-    `outside_stack`); refused (exit 1) with an empty reason, a reason without `O-<k>: `, an
-    unknown order, or on an ask the guard would let through. Use one in-process `asks` call on a
-    prepared stack batch for the recorded text and the exit codes;
+    open order on the asking CR whose note does not start with `shape:` (the recorded text ends
+    `outside the stack: <reason>`, the event carries `outside_stack`); refused (exit 1, the Q14
+    text) with an empty reason, a reason without `O-<k>: `, an unknown order, the mode order,
+    another CR's order, a done order on the CR, and a `shape:` note on the CR; refused (exit 1) on
+    an ask the guard would let through. Use one in-process `asks` call on a prepared stack batch
+    for the recorded text and the exit codes;
   - `shape_line`, parametrized: the exact line with nothing recorded (above); `next take stack`
     with two CRs ready with a PR; `next take stack` after a merged stack when two new CRs are
     ready (no CR ever stacked is not required); `next take stack at the next ready CR or merge`
@@ -390,9 +453,11 @@ joined), so it holds whatever the landing order.
     `--outside-stack` rule and `shape: through the stack`; `foreman.md` no longer holds "A folded
     CR" and does hold the link `[foreman-stack](foreman-stack.md)`; "The final-order take" is in
     `foreman-stack.md` and not in `foreman.md`; `session-start.md`'s "5. Reload" names
-    `batch:stack`; `chief-of-staff.md` holds `shape: through the stack` and `sent back through the
-    stack`. A check on a span that hold-live-cr or park-live-cr also moves reads both cards joined
-    (see 5).
+    `batch:stack`; `chief-of-staff.md` holds `shape: through the stack`, `sent back through the
+    stack` and `while that CR is the only open PR of the stack`; `foreman.md` and
+    `foreman-stack.md` joined no longer hold "even with CRs before it in the order still working".
+    A check on a span that hold-live-cr, park-live-cr or drop-to-next-batch also moves reads both
+    cards joined (see 5).
 
   `test_startup_manifest.py` (377 lines) gets no new rows: its existing measurement covers the new
   action (every action reading must resolve) and the reload limit, which the `session-start.md`
@@ -414,20 +479,30 @@ joined), so it holds whatever the landing order.
 - No refusal for `pr-in-draft` or `ready-locally`, and no refusal in parallel or series batches.
 - No change to `take`, `take stack`, `stack`, `stack_due`'s behaviour or `forge-stack`, nor to the
   stack driver's card (`driver.md`, "Stack driver").
-- No rewording of the moved stack rules beyond links, the Q10 limit after the span's opening
-  sentence and the four `## The stack's asks` points.
+- No rewording of the moved stack rules beyond links, the span's opening sentence rewritten to the
+  Q10 limit (critic run 2, fix 3) and the `## The stack's asks` points; in `chief-of-staff.md`, no
+  rewording beyond the links, the qualified go advice (fix 4) and the check of 4.
 - The docs (`docs/use-cases-foreman.md`) are not required. If the Driver judges they name the moved
   rules, one line pointing at the card is enough.
 
 ## Open questions
 
-None. The spec v2's two questions are settled by Q12 and Q13 (Fable advisor, rule 12).
+None. The spec v2's two questions are settled by Q12 and Q13, and the critic run 2's two findings
+by Q14 and Q15 (Fable advisor, rule 12).
 
-Small points settled by the spec-writer in v3 (rule 12):
+Small points settled by the spec-writer (rule 12):
 
 - The criterion uses `stacks.chain` as it stands (open, neither fix nor held, release last) rather
   than repeating its filter, so the guard, the shape line and the Chief of Staff's check cannot
   drift from what the stack itself holds.
 - `--outside-stack` on a held CR's ask is refused with the "only for … that the stack guard
   refuses" text, like a fix CR's: the guard never refuses that ask, so the flag would only
-  decorate it.
+  decorate it. v4: the same for any CR not in the chain.
+- v4: the refusal no longer names `take stack --epoch <n>`; it names `next: <next>` (Q15), so
+  `<n>` leaves its text.
+- v4: `take stack` takes a single ready CR (`_take_stack`, `commands/driver.py`, counts no ready
+  CRs), so the final-order take does end Q15's wait. The shape line's `next` is not changed for
+  the final-order moment (it may still read `parallel until 2 ready with a PR` then): Q15 keeps
+  Q11, and the card's final-order rule, read with the line, names the step.
+- v4: the order check reads `OrderRecord`'s `cr`, `done` and `note` as they stand; the `shape:`
+  test is on the note's start after leading spaces are stripped.

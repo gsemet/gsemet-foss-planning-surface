@@ -19,7 +19,7 @@ flowchart LR
 
 Real-file rule (`src/host-vscode/diffRealFile.ts`): both sides `.md` files, the active side; one side only, that side; no `file:` side (staged, timeline), the working-tree file at that path, no scroll sync.
 
-**UNVERIFIED:** screenshots and the real-window tests are still to run (a heavy CI run is in progress).
+Real-window proof: heavy CI `integration` green at 61737fd (run 44925814982) with the `diff-preview` step (T1 scroll of the real original side, replace-like diff side by side; T2 command from the real side opens no text editor; T3 original virtual side; T5 preview switches to the diff that comes to the front; T4 manifest clause).
 
 ## Blast radius
 
@@ -31,9 +31,12 @@ Grade: 2. It touches the open-preview command, the active-editor following and t
 
 ## Known gaps
 
-- **UNVERIFIED:** the diff-to-preview scroll in a real window (cause of the former 0 px gap unproven); if it proves impossible it becomes a documented limitation.
+- The staged-like diff (no `file:` side) is covered by host unit tests only (`test/host/diffPreview.requirements.test.ts`): its real-window step was dropped (it never ran green in a real window; the first CI failures hid it behind other test bugs, cause unproven).
+- The diff-to-preview scroll is asserted in a real window for a real file on the original side, side by side only; the inline layout (no editor of its own for the real side) is not asserted.
+- The title button itself is checked by its manifest clause, not by clicking the real menu; the palette command is exercised, not `Ctrl+K Shift+V`.
+- `onDidChangeTabs` also fires on dirty or label changes of the active diff tab; the follow is idempotent.
 - Multi-file diff and merge editors are out of scope (no API input class).
-- Screenshots not yet captured.
+- No screenshots or capture-registry entry for this change.
 
 <details>
 <summary>Details</summary>
@@ -60,12 +63,12 @@ The button, command, following and scroll work next to text diffs of Markdown fi
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`
+- [x] New or changed tests: `test/host/diffPreview.requirements.test.ts`, `test/integration/diffPreview.test.ts`, package contract test, at 61737fd
+- [x] Local gates at 61737fd: `just preflight` pass (Windows static stage; CI runs the rest)
 - [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
+- [x] Review: approved at 61737fd (rounds 1 to 4; r4 inspector approvals recorded)
 - [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] CI green at 61737fd: PR run 44925818134 and heavy run 44925814982 (visual, stress, integration, static, viewer-graph)
 
 ## Internal references
 
