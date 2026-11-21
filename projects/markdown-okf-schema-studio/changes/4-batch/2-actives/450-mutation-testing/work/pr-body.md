@@ -27,10 +27,13 @@ Grade: 1. Development tooling only: new files under `scripts/`, one `justfile` t
 ## Autonomous decisions
 
 - The full `src/core` run projects to about 23 h, over the 6 h rule, so the campaign runs on a recorded sample of files (each sub-folder represented).
+- Decided without the owner: StrykerJS with a small `node:test` adapter for per-test coverage; the score per sub-folder and per requirement, with log calls and user-facing message strings excluded from mutation; every requirement stays covered; the note for the campaign's process is written for later reuse.
+- Accepted additions: the bail off in the `core` phase, a rule that keeps regression and boundary tests, the ignorer's rule list, unit tests of the tool, the just target with its docs lines, and no requirement change.
 
 ## Known gaps
 
 - No test is removed or merged; the list of redundant tests is for the owner's later review.
+- Pending in this draft: the sampled full run, the redundant-tests list, the tests for the holes that matter, and the written campaign note.
 
 <details>
 <summary>Details</summary>
@@ -44,10 +47,11 @@ Grade: 1. Development tooling only: new files under `scripts/`, one `justfile` t
 
 ## Human decisions
 
-- Stay on TypeScript 7, no compromise; whole-program type check of every mutant.
+- The campaign runs locally through `just mutation-core`, with no CI job (confirmed).
+- Redundant tests are listed only: nothing is removed or merged until the owner reviews the list (changed from removing them).
+- Stay on TypeScript 7, no compromise; whole-program type check of every mutant, with a self-test at the start of the target.
 - Load-time coverage counts per file; only `test/core` decides redundancy, the other layers only label holes.
 - Tests that reach only excluded, timeout or type-error mutants get a "not judged" mark.
-- Redundant tests are listed, not removed.
 
 ## Impacts
 
@@ -58,7 +62,7 @@ No visual change and no product behaviour change; `just mutation-core` is a loca
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: No behaviour change
 - [ ] Changelog: No user-facing change
-- [ ] Local gates: `just compile`, `just check` (4400 unit tests) at the round's head
+- [ ] Local gates: `just compile`, `just check` (4400 unit tests) at the round's committed head (SHA added once committed)
 - [ ] Review
 - [ ] CI green
 
