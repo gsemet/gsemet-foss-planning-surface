@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "title": "Windows long paths in just dev, no sign-off in CONTRIBUTING release",
+  "summary": "Specified, no open question: on Windows just dev sets git core.longpaths in the repository (skipped outside a work tree), proven in a base worktree past 260 characters; AGENTS.md, local-worktree guideline and CONTRIBUTING say so; CONTRIBUTING's release amend drops -s.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "66a85e762bcf1716e232dd71f7ac403e1d70ec577c92ea6f10f78270779e2485",
+    "02-answers.md": "c9b734c39d887172a50164bae93507fdfeffd60b45f40a38188a80c23e33bcd9",
+    "03-change-spec.md": "269424b7686f958d460978693206993b958ccfd76cd1e04cb6645059ce753a82",
+    "intake/request-contributing-release-signoff.md": "cb73287ceaa1a29d4acc0fa8794d8adda92357f414de072b5751631c338941a4",
+    "intake/request.md": "8afbf97882bdc86f905dc73135e4ac9a0bbd99edc31820ab636be8200ff1418c"
+  },
+  "summarized": "2026-11-21T10:08:28Z"
+}

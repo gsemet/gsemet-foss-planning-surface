@@ -1,0 +1,3 @@
+# Board backlog: last column split into running batch and next batch
+
+Split from CR factory-redefine (factory-Q9, 2026-11-21): the board's backlog (Triage) page splits its last column horizontally, as Jira does, into "running batch" (over) and "next batch" (under, `3-ready` as today), always shown, in every mode. A drop on "running batch" uses factory-redefine's running-batch mark. The user's words (park-live-Q8): "dans la page backlog, il faut une division horizontale de la dernière colonne (comme Jira) pour pouvoir dire soit dans le batch en cours ou dans le prochain (met ça tout le temps, même en mode séries ou parallel)". Section 5 of factory-redefine's first specification (03-change-spec.md) is this CR's starting point, with its open questions 1 to 3.

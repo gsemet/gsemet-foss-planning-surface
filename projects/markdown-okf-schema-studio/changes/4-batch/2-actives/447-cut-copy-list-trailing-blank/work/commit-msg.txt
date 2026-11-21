@@ -1,0 +1,9 @@
+fix(editor): copy, cut and paste work on a list followed by blank lines
+
+Writers can copy, cut and paste after a list that has blank lines
+after it in edit mode, instead of meeting "The preview is out of date".
+A copy or cut leaves out the blank lines after the list, a cut keeps
+one blank line between the blocks around it, and a paste after the list
+gets one blank line on each side.
+
+Assisted-by: Claude:Sonnet-5.5

@@ -13,3 +13,9 @@ owner merged the two small fixes into this CR (2026-11-21).
   matches release-process.guidelines.md: the version commit carries no Signed-off-by (today line
   629 runs `git commit --amend --no-edit -s CHANGELOG.md`).
 - Owner, 2026-11-21: "Et tout ça partira dans le batch en cours": once final and ready, added to the running batch-07.
+
+## Owner's answers, 2026-11-21 (Fable spec critic's questions)
+
+- lp-Q3 (what the CR proves). Owner: "Aussi just dev + un test": the Evidence also runs `just dev` and one unit test inside a base worktree past 260 characters (e.g. the CR's work/scratch/base); if that fails, the CR comes back with the result.
+- lp-Q4 (guard test against `-s` in CONTRIBUTING). Owner: "Non, la doc suffit": text fix only, no new test.
+- Settled by the Chief of Staff from the critic (not behaviour): no `git clone -c` advice (all failures were worktree adds); no SwRS and no tiers/log entry (constitution section 1, contributor tooling, check-markers does not scan the justfile); the `git config` step is skipped outside a Git work tree; one sentence in CONTRIBUTING "Windows" section.

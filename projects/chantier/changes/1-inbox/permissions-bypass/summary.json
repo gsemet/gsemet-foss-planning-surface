@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Close the allow-rule bypass through gate and lease hold",
+  "summary": "Specified: gate runs only commands named in chantier.yaml, lease hold runs nothing and holds while a PID lives, P10 names the plugin's real path and push deny rules, P9 names main's protection; 9 open questions for the user.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "b62109ff757affa55006746c68ff1f156f33bbba8fb9315e1699f184464b47a8",
+    "02-answers.md": "c02e3d7b8f34487dbac68be5f1471e18f66d2bc2bc2850d24c50385d3ab59dd4",
+    "03-change-spec.md": "cc65f22eaae23faefc1f5c160e439a4f6711effea722be8fe1c2bab315e081c5",
+    "intake/request.md": "67b9f4180faca9c272d5cb6e14319c96de6131e4f9ebaf6cd3bb2d36250fb9f4"
+  },
+  "summarized": "2026-11-21T10:07:30Z"
+}
