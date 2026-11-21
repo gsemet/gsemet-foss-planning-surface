@@ -58,3 +58,11 @@ Move: clean restack onto CR-427 head 160e292. Own patch: `git diff --name-only 1
 - Description pass at 0641023: the posted body (headRefOid = the full SHA above) names `1559e15` in its Test plan for local gates, evidence, Verified and CI (lines 70-75), and its Review box carries from `c132602` without naming the restack. No `carried from 1559e15: clean restack` reason; the boxes are stale at this head.
 
 NOT VERIFIED (description only: the Test plan SHAs are the old head; code and cards judged the same as at 1559e15)
+
+## Description pass 2 at 0641023
+
+Head: 06410234fcdd3afb2b4452cdf0b503b816d69471
+
+Posted body re-read (`gh pr view 402`, headRefOid = the full SHA above). Test plan lines 71-76 name 0641023 or carry from 1559e15/c132602 with the clean-restack reason; no STALE mark; the Review box matches the Driver's note "move 1559e15..0641023 (restack) inspector approved at 0641023" (`chantier log CR-432`). Code, cards and tests judged above (just check re-run at 0641023, the rest carried).
+
+VERIFIED
