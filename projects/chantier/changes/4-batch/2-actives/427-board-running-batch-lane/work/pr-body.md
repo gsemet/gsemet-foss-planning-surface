@@ -19,7 +19,7 @@ None.
 ## Known gaps
 
 - No screenshots of the split column yet.
-- The scenario's new check was not run locally.
+- None else.
 
 <details><summary>Details</summary>
 
@@ -41,8 +41,9 @@ Users see the split column on the backlog page.
 
 ## Test plan
 
-- `just check`: pass (not yet at the pushed head).
-- `just eval-dry-run`: pass (not yet at the pushed head).
+- `just check`: pass at fdc1d28.
+- `just eval-dry-run`: pass at fdc1d28.
+- `just scenario` (local long gate, includes the new running-lane step): pass at fdc1d28.
 
 ## Internal references
 

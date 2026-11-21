@@ -1,13 +1,15 @@
 {
   "schema": 1,
   "title": "Web board Batch view: working dependency cards and a mode tooltip",
-  "summary": "Filed, not grilled: dependency cards with correct arrowheads and a tooltip on the batch mode; batch navigation went to board-batch-navigator, the merged column, state grouping and level label to board-visual-refresh.",
+  "summary": "Specified: on the Batch graph, all arrows into a CR share one point and one arrowhead; on hover the lit arrows are drawn above the cards; each Stack/Series/Parallel word gets a tooltip saying how to ask the Chief of Staff to switch (none on a closed batch). Web client only, after CR-435.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "6195cd3bf7c35f4484b794b486136a1813ea1cba4d5317124950de338c27243e",
+    "01-intent.md": "49cc17f0faeb1dfb840757adb4e640242b2a6ec25ff5af12c4c2d61ca4e69d3e",
+    "02-answers.md": "d7db0862d82905a337acc343cb255b4b9d290d53367f35325f169ab8c80e94bf",
+    "03-change-spec.md": "3c00e4b9f1dbcf91bbbc498cffa21163297dcdf6e112b322cbaefc454a1f3b33",
     "intake/request.md": "1bb22915647f50999482cd6f8b035c44b923b9ff36fee208ccc5cc31215af8de"
   },
-  "summarized": "2026-11-17T17:41:11Z"
+  "summarized": "2026-11-21T18:55:13Z"
 }
