@@ -19,3 +19,30 @@ Note: `just site-assemble` fails at its `site:gallery` step on this machine ("Ca
 VERIFIED for the product behaviour; the description fails, so:
 
 NOT VERIFIED
+
+
+## Description-only pass (at 78ad518d4b705b7d07b90d7859d49c15a5f38c64)
+
+Head: 78ad518d4b705b7d07b90d7859d49c15a5f38c64
+
+Checked only the posted description (`gh pr view 451` body, 78ad518d head confirmed by `gh pr view 451 --json headRefOid`).
+
+- Images resolve: `curl` of the three raw URLs (assets commit 02bff151) gives 200 image/png each; `git ls-tree 02bff151` lists the three files. Opened each: index card, MyST syntax (violet), Edition palette and slash menu (red); legible, match the captions, no username, path or home folder. PASS.
+- Deliverables: no "to come" line; matches the diff against the base (20 files, `git diff --stat <cr-442 branch>...HEAD`). PASS.
+- Test plan: boxes filled with SHAs; Review "approved at 590b2c52" matches the Driver note "r1 inspector approved at 590b2c52"; CI green at head (`gh pr checks 451`: static, static-windows, visual, report, checks pass). PASS.
+- Internal references only in the last section (CR-443). PASS.
+- Known gaps: has the Windows site-assemble gap and the flake, but `verifier/evidence/before-after.md` says the before pair was NOT captured, and Known gaps has no bullet for it. FAIL (card rule: each evidence pair not captured has its bullet). Fix: add a bullet such as "No before picture was captured; the old per-level pictures are removed by the diff, the three after pictures are at this head."
+
+NOT VERIFIED
+
+
+## Description-only pass 2 (at 78ad518d4b705b7d07b90d7859d49c15a5f38c64)
+
+Head: 78ad518d4b705b7d07b90d7859d49c15a5f38c64
+
+Command: `gh pr view 451 --repo gsemet/markdown-okf-schema-studio --json headRefOid,body`; headRefOid is 78ad518d4b705b7d07b90d7859d49c15a5f38c64; the body differs from work/pr-body.md only by a trailing newline (diff output: `72d71 <` blank line).
+
+- Known gaps now has the bullet "No before picture was captured; ..." matching before-after.md (before not captured), plus the Windows site-assemble gap and the flake. PASS.
+- Everything else carried from the first description pass at the same head (body text unchanged apart from the added bullet): images resolve and pass the look, Deliverables match the diff, Test plan SHAs and Review box match the Driver note, role names only in Internal references. PASS.
+
+VERIFIED

@@ -15,7 +15,7 @@ Requirement pages of the published site were shared on X with a generic picture,
 | Behaviour | `<title> (<full ID>)` | the rule, backticks and link syntax removed, cut at a word with `…` at 200 characters at most |
 
 - New helpers in `test/site/socialCard.ts`: `plainText(text)` and `shareDescription(text, max = 200)`.
-- Screenshots of `areas-card.png`, `area-myst.png` and `area-palette-slash.png`: to come at closing.
+- Screenshots of the new pictures are in Impacts.
 
 ## Blast radius
 
@@ -27,7 +27,9 @@ Grade: 1. The change is confined to the site build (`test/site/`), the requireme
 
 ## Known gaps
 
-None.
+- No before picture was captured; the old per-level pictures are removed by the diff, and the three after pictures are at this head.
+- `just site-assemble` stops at its gallery step on Windows (no end-to-end reports there, CI only); the site was built with `npm run site`, which does not involve the gallery.
+- The unit test "a page refresh inside the join window renders again instead of joining the shared render" failed once in a full run and passed on re-run: a timing flake unrelated to this change.
 
 <details>
 <summary>Details</summary>
@@ -45,14 +47,22 @@ None.
 
 Social previews of every requirement page show the page's own title and text and its category's picture. After deploy, links must be reshared with `?v=2` so X fetches the new cards. No change to the visible pages.
 
+The index picture, the "MyST syntax" category picture and the "Edition palette and slash menu" category picture, as built at this head:
+
+![Index share card](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/02bff1514d62b0d27cc3f9462aef2a86d18006a7/after-areas-card.png)
+
+![MyST syntax category card](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/02bff1514d62b0d27cc3f9462aef2a86d18006a7/after-area-myst.png)
+
+![Edition palette and slash menu category card](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/02bff1514d62b0d27cc3f9462aef2a86d18006a7/after-area-palette-slash.png)
+
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: SwRS updated, markers in code and tests, `just requirements-update`
-- [ ] Changelog: No user-facing change (published site only)
-- [ ] Local gates: to fill
-- [ ] Review
-- [ ] CI green
+- [x] New or changed tests (they fail on the previous code)
+- [x] Requirements: SwRS updated, markers in code and tests, `just requirements-update`
+- [x] Changelog: No user-facing change (published site only)
+- [x] Local gates: `just check` pass, `just preflight` pass (second run, see Known gaps), `just requirements-lint` pass, all at 78ad518d
+- [x] Review: approved at 590b2c52 (round 1)
+- [x] CI green at 78ad518d
 
 ## Internal references
 
