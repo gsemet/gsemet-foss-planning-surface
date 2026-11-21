@@ -33,7 +33,7 @@ export function buildMetroMap(paths: readonly MainPath[]): MetroMap; // joined n
 export function metroSvg(model: MetroMap, paths: readonly MainPath[], fromDir: string): string;
 ```
 
-Map height in px on six real use case pages, before (base `8d99cd1e`) and after (head `5abb7af1`), measured by the verifier on the generated report; overlaps are 0 on all twelve captures and the page never scrolls sideways at 800 px.
+Map height in px on six real use case pages, before (base `8d99cd1e`) and after (head `d94b5ec`), measured by the verifier on the generated report; overlaps are 0 on all twelve captures and the page never scrolls sideways at 800 px.
 
 | Use case | 1280 px before | 1280 px after | 800 px before | 800 px after | Captures |
 | --- | --- | --- | --- | --- | --- |
@@ -93,10 +93,10 @@ Grade: **1**. Only the generated requirements site's viewer and its tests change
       `metroMap.browser.test.ts`
 - [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [x] Local gates at `5abb7af`: `just check` pass, `just preflight` pass, `npm run test:viewer-graph`
+- [x] Local gates at `d94b5ec`: `just check` pass, `just preflight` pass, `npm run test:viewer-graph`
       4 of 4 pass on the real report
-- [x] Review: approved at `5abb7af` (round 3)
-- [x] CI green at `5abb7af`: static, static-windows, visual, report pass
+- [x] Review: approved at `d94b5ec` (round 3 approved at 5abb7af; move 5abb7af..d94b5ec approved)
+- [x] CI green at `d94b5ec`: static, static-windows, visual, report pass
 
 ## Internal references
 

@@ -58,3 +58,13 @@ Head: 4f982640cc8a7609c0e7e43c2bbf2db11bdd3460
 17. FAILED: the four images are written as relative paths in the posted body (`gh pr view 448 --json body`: `./verifier/evidence/before-block130-first-card.png`, etc.; no `http` in the body). On the forge they resolve against the code repository, not the planning folder: `curl -L https://github.com/gsemet/markdown-okf-schema-studio/pull/verifier/evidence/after-block130-first-card.png` -> `200 text/html`, not an image. The pictures do not render. Post absolute URLs that return image/png.
 
 NOT VERIFIED
+
+## Description pass 3 (head 4f982640cc8a7609c0e7e43c2bbf2db11bdd3460)
+
+Head: 4f982640cc8a7609c0e7e43c2bbf2db11bdd3460
+
+- Images, judged at 4f98264: `curl -sL` on each of the four github.com/user-attachments/assets URLs returned 200 image/png (5600, 22802, 6009, 19511 bytes). Opened each: before cards show empty Given/When/Then; after cards show the Input/Outcome table, and the note above a table for the mixed one. No username or home path shown.
+- SHA marks: body names `a18bcac`, `8d99cd1` (carried) and `4f98264`; `chantier log` has the approved note at a18bcac (committed as 8d99cd1) and the restack inspector approval at 4f98264; gate pass at 4f98264; `gh pr checks 448` static, static-windows, visual, report pass.
+- Known gaps None, Autonomous decisions None: consistent; no STALE mark; internal references only in the Internal references section.
+
+NOT-VERIFIED earlier cause (relative image paths) is fixed. VERIFIED

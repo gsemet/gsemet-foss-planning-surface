@@ -1,7 +1,7 @@
 # Before and after (CR-441)
 
 Before: base 8d99cd1e393fac6a7e978f442c1af80b1e5831e9 (detached worktree, `npm run compile`, okfreq report).
-After: head 5abb7af1a61d1cd6eee1115148adbe8ac7f470de.
+After: head d94b5ecde9793e742e51c2596bdc4714577694bf (refreshed after the move; heights unchanged from 5abb7af).
 
 Pairs: `before/<ID>-<desktop|narrow>.png` and `after/<ID>-<desktop|narrow>.png` for BLOCK-003,
 FMSCHEMA-014, BLOCK-014, MYST-006, REVIEW-012, MYST-009 (map box only, made-up paths: none shown),

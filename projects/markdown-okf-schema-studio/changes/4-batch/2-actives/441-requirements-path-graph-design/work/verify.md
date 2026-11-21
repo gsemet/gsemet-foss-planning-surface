@@ -1,6 +1,38 @@
 # Verification of CR-441
 
-Head: 5abb7af1a61d1cd6eee1115148adbe8ac7f470de
+Head: d94b5ecde9793e742e51c2596bdc4714577694bf
+
+Re-verification after the move 5abb7af..d94b5ec (rebase onto CR-440, caption room fix). Section below judges the touched claims at d94b5ec; the rest is carried.
+
+---
+
+# Re-verification at d94b5ec
+
+HEAD = PR headRefOid = d94b5ecde9793e742e51c2596bdc4714577694bf (`git rev-parse HEAD`, `gh pr view 450 --json headRefOid`). Gate pass: `work/gates/20261121-060708.log`, first line `gate CR-441 ... head d94b5ecde9793e742e51c2596bdc4714577694bf`, last line `result: pass at d94b5ecde9793e742e51c2596bdc4714577694bf`.
+
+R1. Map heights, six pages, at d94b5ec (`npm run compile`; okfreq report; `node out/graphlab/shoot.cjs after`). VERIFIED. Output (identical to 5abb7af, the move changed no height):
+
+| page | 1280 before | 1280 after | 800 before | 800 after |
+|---|---|---|---|---|
+| BLOCK-003 | 1041 | 589 | 770 | 616 |
+| FMSCHEMA-014 | 791 | 699 | 616 | 747 |
+| BLOCK-014 | 1183 | 861 | 901 | 909 |
+| MYST-006 | 910 | 402 | 675 | 429 |
+| REVIEW-012 | 1582 | 858 | 1190 | 819 |
+| MYST-009 | 949 | 770 | 731 | 812 |
+
+R2. Overlaps: `overlaps=0` on all 12 (same shoot.cjs output). VERIFIED at d94b5ec.
+R3. No horizontal overflow: `node out/graphlab/probe.cjs` prints `docW` equal `winW` (1280 and 800) on all 12 lines; joins BLOCK-014 3, FMSCHEMA-014 1, MYST-009 1, dupLabels 0; svgW/attrW at 1280: FMSCHEMA-014 1119/1317, BLOCK-014 1071/1260, MYST-009 1018/1187 (85 %), others 100 %. VERIFIED at d94b5ec.
+R4. Caption room (d94b5ec): the commit adds `metroSvg keeps a 66-character caption inside the map...` to metroMap.test.ts and widens layout.ts; the test is part of the gate pass and of `just check` in it. The map capture `after/BLOCK-014-narrow.png` opened: captions inside the map, legible, no username or home path. VERIFIED.
+R5. `STUDIO_REQUIRE_CHROMIUM=1 STUDIO_REQUIRE_REQUIREMENTS_REPORT=1 npm run test:viewer-graph` at d94b5ec: `tests 4 / pass 4 / fail 0 / cancelled 0 / skipped 0`, last test `Play path 2 on the frozen BLOCK-014 map lights its three steps and four states, and nothing with reduced motion`. VERIFIED.
+R6. No `src/` change: `git merge-base HEAD chantier/batch-07/cr-440-requirements-viewer-shows-table-scenario` = 4f982640; `git diff --name-only 4f982640 HEAD | grep -c '^src/'` -> 0. VERIFIED at d94b5ec.
+R7. Carried from 5abb7af: claims 8 (Play, covered again by R5), 9 (full IDs in pills; seen again in the opened capture), 10 CHANGELOG line (the move changed no CHANGELOG logic: diff vs base lists CHANGELOG.md), 11 and the description pass (the body numbers are unchanged since the heights are unchanged; the closing body check is the Driver's). Captures refreshed in work/after and work/verifier/evidence/after; before kept.
+
+VERIFIED at d94b5ec.
+
+---
+
+# Previous verification (5abb7af, kept for the record)
 
 All claims judged at 5abb7af1 (head = PR head, `git rev-parse HEAD` in the worktree and `gh pr view 450 --json headRefOid`). Base 8d99cd1e.
 
