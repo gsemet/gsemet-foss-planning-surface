@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Tell a dev session when the surface server runs a foreign build",
+  "summary": "Spec v1, no grill (Fable advisor): server.json records each process's build source; a dev chantier session gets one line on status, the watch start line and board when the board or hub runs another build at the same version; never a kill. Five open questions; after CR-436 and CR-429.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a0279ba81285b806bab75f341a2bba29673a996f7a30d5124b2de13d6e22cfad",
+    "03-change-spec.md": "101dbfde28a3a712685869d7bcf0f9fdcb796d58927308025420dfddad1ee9f0",
+    "intake/request.md": "432283e9a5ca24d6c892710a89c05558347d2c095b7dabd4a861f79af0b1b319"
+  },
+  "summarized": "2026-11-21T21:42:42Z"
+}

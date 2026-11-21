@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A held CR folder: wait it out on Windows, then refuse with the cause",
+  "summary": "Spec v1, not grilled: on Windows every CR folder move waits up to 10 s for a held folder, then refuses with nothing moved and names what holds it; agents keep their shell out of CR folders; open questions board-lock-Q1 to Q4.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "0d9f198ad24d72953736665d1938d59d4f03e3a9969206b415a5c73f93289190",
+    "03-change-spec.md": "231c219d67856beb078c6c717506e23f2a799a93dbef96b1f76f8943c8e61166",
+    "intake/request.md": "17625b0dcb6186cd60c00c0895a99baabf4bc69de59596b1ecdce23fee8daf70"
+  },
+  "summarized": "2026-11-21T21:43:32Z"
+}

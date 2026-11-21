@@ -1,12 +1,14 @@
 {
   "schema": 1,
-  "title": "take's base on a working CR's draft PR: keep, or start on main?",
-  "summary": "Inbox, not grilled: a decision for the user on whether a new CR of a stack may start on a working CR's open draft PR, as Studio's CR-429 did. Split out of take-base-from-forge.",
+  "title": "A stack CR starts on another CR's branch only once that CR is ready",
+  "summary": "Spec v1, provisional, not grilled: open choice take-draft-Q1 (B recommended: base on the nearest earlier CR with a PR only when it is handed back ready, else the default branch; A keep; C Foreman names it), plus Q2 (base fixed at the take) and Q3 (no skip).",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
+    "01-intent.md": "057765cd798f4d72e60497c8af3ecac028f03f04d5785927b7ced8d511971eae",
+    "03-change-spec.md": "a3501ffd45083832bb7bf853238cc933b1ff58c36a2b3463a3b5e70125d719a5",
     "intake/request.md": "c9def636f6aedf0d4ea628e755de6cab750ed741f7fa3b0fe5d577be7cc46ba5"
   },
-  "summarized": "2026-11-20T22:55:30Z"
+  "summarized": "2026-11-21T21:43:43Z"
 }
