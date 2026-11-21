@@ -81,11 +81,11 @@ previous behaviour.
 - [x] Requirements: SwRS BLOCK-266 to BLOCK-269 updated, markers in code and tests,
       `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [x] Local gates at `ea5c383`: `just check` pass; long gate `just preflight` pass at `ea5c383` (carried from `8ecec6b`)
+- [x] Local gates: `just check` pass at `ea5c383`; long gate `just preflight` pass at `8ecec6b` (carried: patch unchanged by `git range-diff`)
 - [x] Evidence: before at `e0c7836`, after at `ea5c383` (carried from `8ecec6b`)
-- [x] Review: approved before the commit (patch unchanged at `ea5c383`, carried from `8ecec6b`)
+- [x] Review: approved at `15a0ef0` (carried: patch unchanged at `ea5c383`)
 - [x] Verified at `ea5c383` (carried from `8ecec6b`)
-- [ ] CI green at `ea5c383`: pending (heavy run included; the earlier heavy run passed at `8ecec6b`, carried over clean rebases: patch unchanged by `git range-diff`)
+- [x] CI green at `ea5c383`: all PR checks pass, and heavy run 44909893956 (integration, stress) pass
 
 ## Known gaps
 

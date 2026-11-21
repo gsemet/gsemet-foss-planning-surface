@@ -1,286 +1,181 @@
-# Close the allow-rule bypass through gate and lease hold
+# chantier's allow rules name real paths, not a wildcard
 
-From the audit of 2026-11-21 (high, confirmed in the code). The allow rules that preflight's P10
-recommends, `uv run --no-sync --project * chantier *` and `uvx --from * chantier *`, cover every
-chantier subcommand, and two of them run any command: `chantier gate <cr> "<command>"` runs its
-arguments through a shell, and `chantier lease <unit> hold -- <command>` runs the executable it is
-given. So any agent with Bash, even a read-only role misled by the text of an issue or a PR, runs
-any command with no prompt. `uvx --from *` also accepts any package source. A second gap (audit,
-medium): `git push -u origin chantier/*` lets a second refspec through
-(`git push -u origin chantier/x +HEAD:main`).
+Step 1 of the audit finding of 2026-11-21 (high). The allow rules that preflight's P10 recommends
+for chantier's own CLI carry a `*` where a path belongs: `uvx --from * chantier *` lets `uvx` run
+any package from any source as long as the text holds ` chantier `, and
+`uv run --no-sync --project * chantier *` matches, by its middle `*`, commands such as
+`uv run --no-sync --project . python -c ... chantier x` (the CLI's own matcher,
+`commands/permissions.py`, `rule_matches`, lines 205-220, says so; Claude Code's matching of it was
+not tried). Older broad rules of this form are still in the user's settings.
 
 ## Goal
 
-In the user's terms: close that bypass without adding a prompt to a night batch. No chantier
-subcommand covered by the recommended allow rules runs an arbitrary command; the plugin rule names
-the plugin itself, not any source; and the push rules cannot be turned into a push to `main`
-without a deny rule or `main`'s own protection stopping it.
+In the user's terms: the rules chantier offers let through chantier itself, at its real folder, and
+nothing else that happens to say `chantier`; the broad rules already in the user's settings are
+named so the user can remove them. No new prompt in a night batch.
 
 ## Decisions carried from the grill
 
-1. perm-bypass-Q1: `gate` runs only a command the project names in its configuration
-   (`chantier.yaml`, through the configuration's layers), called by its name
-   (`gate CR-430 scenario`); a free command is refused.
-2. perm-bypass-Q2: `lease hold` runs nothing. It keeps the lease live while a given process lives
-   (`--pid`); the Driver starts its wait itself.
-3. perm-bypass-Q3: P10 writes the plugin's real path in place of `--from *`.
-4. perm-bypass-Q4: in this CR, P10 also recommends deny rules on `git push * +*` and
-   `git push * *:main`, and `main`'s protection becomes a named prerequisite of P9.
-5. perm-bypass-Q5: grilled enough; specified now.
+- perm-bypass-Q3: P10 writes the plugin's real path in place of the `*` of `--from *`.
+- perm-bypass-Q6: P10 names each broad chantier rule it finds in the user's settings as letting
+  any command through, for the user to remove; nothing removes them for the user.
+- perm-bypass-Q7: P10 writes the checkout's real path into both dev-mode rules
+  (`uv run --no-sync --project <checkout> chantier *`, `uv sync --locked --project <checkout>`).
+- perm-bypass-Q17: this CR is step 1 only; `gate` and `lease hold` are the CR
+  `gate-hold-narrowing`; the push part is dropped.
+- perm-bypass-Q18: a real test of the quoted-path rule in Claude Code comes first.
+
+Q1, Q2, Q4, Q5 and Q8 to Q15 no longer apply to this CR.
 
 ## What changes
 
 Paths: `CLI/` is `skills/chantier/scripts/cli/src/chantier/`, `REF/` is
 `skills/chantier/references/`, `TESTS/` is `skills/chantier/scripts/cli/tests/`.
 
-### 1. `gate` runs named commands only (Q1)
+### 0. The trial first (before any code)
 
-Today `CLI/commands/gate.py` takes each positional argument as a command line (`_commands`,
-`:213-223`) and runs it with `subprocess.Popen(cmd, shell=True, ...)` (`_spawn`, `:113-114`).
+The Driver proves, in a real Claude Code session, which rule text matches the command the agents
+type, before writing P10's rules. Setup: a scratch workspace outside the repository with only a
+`.claude/settings.local.json` holding the trial rules; a non-interactive session
+(`claude -p`) in a permission mode where a command no rule allows is refused, not asked
+(`dontAsk` if the host has it, else `default`, where `-p` refuses what it cannot ask). Each case
+asks the session to run one command exactly, and reads whether it ran or was refused:
 
-- **Configuration.** The `long_gate` key of `chantier.yaml` gains a `commands` map, name to command
-  line, beside `parallel`:
+| Case | Rule set | Command run | Expected |
+| --- | --- | --- | --- |
+| a | `Bash(uvx --from "<plugin root>" chantier *)` | `uvx --from "<plugin root>" chantier --skill "<skill folder>" status` | runs |
+| b | the same | `uvx --from "/elsewhere" chantier status` | refused |
+| c | `Bash(uv run --no-sync --project "<checkout>" chantier *)` | `uv run --no-sync --project "<checkout>" chantier status` | runs |
+| d | the same | `uv run --no-sync --project "<checkout>" python -c "print(1)"` | refused |
+| e | `Bash(uv sync --locked --project "<checkout>")` | `uv sync --locked --project "<checkout>"` | runs |
+| f | rule a | the same command with the path unquoted | recorded, no expectation |
 
-  ```yaml
-  long_gate:
-    parallel: 2
-    commands:
-      scenario: just scenario
-      e2e: npm run e2e
-  ```
+On Windows, each case also with the `PowerShell(…)` form. Paths are absolute, forward slashes, as
+`CLI/plugin_files.py` writes them.
 
-  A name is a short slug (letters, digits, `-`, `_`). A command line is one command, never a `;`
-  or `&&` chain (the rule the cards already give for a gate's commands). It is read through the
-  same layers as every key (`CLI/playbook/layers.py`, `read_key`; shipped defaults, then the
-  surface's root, the project's folder in the surface, the project's root), and checked by
-  `CLI/playbook/config.py`'s `_long_gate` (`:298-325`), which today accepts only `parallel`: an
-  unknown key, a bad name, an empty or chained command line is a configuration problem, as
-  `parallel`'s are. `load_long_gate` (`layers.py:386-389`) returns the commands with `parallel`.
-  `chantier validate` reports the same problems. The shipped defaults
-  (`config/chantier.defaults.yml`) name no command (open question 3).
-- **The command.** `gate <cr> <name> [<name>...]`: each argument is a name of `long_gate.commands`,
-  run in order in the CR's worktree, stopping at the first failure, as today. A name that the
-  configuration does not hold, or any argument that is not a bare name (a space, a quote, a path),
-  is refused (exit 1, usage) before anything runs or is logged, with one line that lists the
-  names the configuration holds, or says that it holds none and points to `docs/gates.md`. With
-  no `long_gate.commands` at all, `gate` runs nothing and says so. `--stop` and `--first` are
-  unchanged.
-- **What is recorded.** The log's `$ ` line and each `gate` event's `command` field carry the name
-  and the command line it resolved to at the run (for instance `scenario: just scenario`), so a
-  later change of the configuration does not rewrite what ran. `gate_passed` and the carry over a
-  clean rebase are unchanged.
-- **How it runs.** The resolved command line runs as today (`_spawn`, own process group, output to
-  the log). Its text is the project's, not the caller's.
-- **Texts that show the old form.** The usage refusal (`gate.py:219`), the parser's help
-  (`CLI/declare/gate.py:22-26`), `handoff`'s checklist line (`CLI/commands/facts.py:238-240`) and
-  `handback`'s refusal (`CLI/commands/driver_checks.py:190`) say `gate <cr> <name> [<name>...]`.
-- **Board.** The board's configuration writes (`config.put`, `CLI/board/config_api.py`) keep
-  their present keys only: they never write `long_gate.commands`.
+- When a, c and e run and b and d are refused: the quoted form ships as below.
+- When the quoted rule does not match but the unquoted rule matches the quoted command (the host
+  strips quotes before matching): the rule text ships unquoted; the rest is unchanged.
+- When neither form matches: the Driver stops and reports to the Chief of Staff, with the host's
+  exact text. No other rule form is tried (no fallback).
 
-Cards and docs (both hosts' agent files are untouched: no role's body changes):
+The results (date, host version, OS, each case's outcome) go in the PR's body and in the Mark
+column of the three rows of `REF/hosts/claude-code.md` (section 3).
 
-- `REF/concepts.md` (`:433-449`, the long gate; `:748-749`): the long gate is
-  `gate <cr> <name> [<name>...]`, names from `long_gate.commands`; a free command is refused.
-- `REF/driver.md` (`:209-214`, `:560`, `:621`, `:1101`, `:1315-1316`), `REF/verifier.md` (`:76`),
-  `REF/foreman.md` and `REF/chief-of-staff.md` where they show `gate <cr> "<command>"`: the named
-  form. The stack driver's local gate (`driver.md:1315`) no longer goes under `lease stack hold`:
-  a running or queued gate already keeps a lease live (`driver.md:758`); see section 2.
-- `REF/init.md` step 5.1 (`:76-90`) and `REF/chief-of-staff.md` ("our long gate is `<command>`",
-  `:96-102`, and the example block `:160-172`): when a long gate is declared or proposed, propose
-  its `long_gate.commands` entry in `chantier.yaml` together with the `AGENTS.md` line, written
-  only on the user's yes; "not asked when `chantier.yaml` already has `long_gate`" becomes "has
-  `long_gate.commands`".
-- `docs/gates.md`: how to declare the long gate's commands by name, and that `chantier gate`
-  refuses anything else.
-- `docs/agents-and-models.md` (`:51`, `:103`): the `long_gate` key's new part.
+### 1. One source for the launch text (`CLI/plugin_files.py`)
 
-Projects that ship with chantier:
+`cli_command` (lines 70-83) and `sync_command` (lines 86-91) build the launch from the plugin root.
+Two small functions give each form's text from the plugin root whatever the mode:
+the plugin form `uvx --from "<root>" chantier --skill "<skill>"` and the dev form
+`uv run --no-sync --project "<root>" chantier`, and the sync line. `cli_command` and `sync_command`
+compose them as today (same output, same mode test); P10 calls them for its samples and rules, so
+the rule and what the agents type cannot drift. The plugin-form sample is built whatever the mode
+(the sample names the plugin-mode rule), which `sync-blocked-by-others`, ordered after this CR,
+relies on when it changes `_forges`.
 
-- chantier's own repository gets a root `chantier.yaml` naming its long gate
-  (`scenario: just scenario`), since `AGENTS.md` asks the CR on top of a batch to pass
-  `just scenario` locally through `chantier gate` (open question 4 on where it lives).
-- `evals/kit/fixture/` and `evals/kit/sandbox/` get a `chantier.yaml` naming the long gate their
-  `AGENTS.md` declares (`uv run pytest -q`, `uv run --locked pytest -q`).
-- `scenario/run_scenario.py`: the workspace's `chantier.yaml` names `GATE` (`:59`) and the slow
-  gate (`:4799`); every `chantier("gate", cr, GATE)` call (`:427`, `:887`, `:1078`, `:1151`,
-  `:4769`, `:4816`) passes the name.
+### 2. P10 (`CLI/commands/permissions.py`, `CLI/commands/preflight.py`)
 
-### 2. `lease hold` runs nothing (Q2)
+- **Samples and rules with real paths.** The three chantier rows of `SAMPLES` (lines 64-81) keep
+  placeholders, `<checkout>` and `<plugin root>`, in their rule and command:
+  `uv run --no-sync --project "<checkout>" chantier *`, `uv sync --locked --project "<checkout>"`,
+  `uvx --from "<plugin root>" chantier *` (or unquoted, per the trial). `commands_not_allowed`
+  fills them at run time from section 1's functions: the sample commands become the exact launch
+  plus ` status` (dev and plugin) and the exact sync line; the rules P10 names after `add` carry
+  the real path. `RECOMMENDED_ALLOW` keeps the placeholders (it is the host card's block); one
+  function returns it filled for this install, used by the scenario and the tests.
+- **Broad rules named.** `_settings_rules` (lines 233-253) also keeps, for each allow rule, the
+  file it came from. P10 tries each allow rule that counts (`_counts_as_allow`; rules auto mode
+  drops are not chantier's) against four probe commands, each in Bash and, on Windows, PowerShell:
+  `uvx --from "/elsewhere" chantier status`, `uv run --no-sync --project "/elsewhere" chantier status`,
+  `uv run --no-sync --project . python -c x chantier y`, `uv sync --locked --project "/elsewhere"`.
+  A rule that lets a probe through is a broad chantier rule (for instance `uvx --from * chantier *`,
+  `uv run --no-sync --project * chantier *`, `uv sync --locked --project *`, `uv sync *`).
+  P10 judges by matching, not by the rule's text, as it does for the samples.
+- **The P10 line.** On the "every batch" line (the report stays within ten lines,
+  `MAX_OUTPUT_LINES`): when a broad rule is found, the line is a warn even when every command is
+  allowed, and ends with
+  `; broad rules let any command through, remove them by hand: <rule> (<file>); ...`. P10 stays
+  warn-only and never blocks the go. A broad rule still counts as letting its sample through (it
+  does), so the count of missing commands is unchanged by it.
+- Nothing in the CLI writes or removes a settings rule.
 
-Today `CLI/commands/leases.py` `_hold` (`:84-107`) resolves `command[0]` with `shutil.which` and
-runs it with `subprocess.run([exe, *command[1:]])` (`:95`); the record
-`.lease-hold.<unit>.<k>.run` (`CLI/core/leases.py`, `write_hold`, `:321-338`) holds the CLI's own
-PID and the command.
+### 3. Cards and docs
 
-- **The command.** `lease <unit> hold --lease <n> --pid <pid> [--batch <b>]`. It renews the lease
-  first (a stale number stops there, as today), then writes the hold record with the given PID in
-  `pid` and no `command` field. The lease stays live while that process lives: `hold_records`
-  (`core/leases.py:121-145`) already counts a record whose process runs and was created before the
-  record was written (`procs.alive_since`), and drops it once the process is gone. Whether `hold`
-  returns at once or waits for the process to end and renews once then, as today: open
-  question 2.
-- **Refusals** (before any renewal or record): `--` followed by a command, the old form, is
-  refused (exit 1, usage) with a line that names the new form; no `--pid`, a `--pid` that is not
-  a whole number, or a PID with no running process, is refused. Nothing ever runs.
-- `USAGE` (`leases.py:17`) and the parser options (`_OPTIONS`, `_parse`) follow.
-- The `lease <unit>` line keeps saying "held by N background task(s)".
+- `REF/hosts/claude-code.md`:
+  - "Allow rules", the three rows (lines 267-269): the rule shows `"<checkout>"` or
+    `"<plugin root>"`, filled with the path P10 prints; "Risk accepted" becomes "every chantier
+    subcommand of the checkout at that path" / "of the plugin at that path", and says that `gate`
+    and `lease hold` still run the command they are given, until `gate-hold-narrowing`; the Mark
+    carries the trial of section 0.
+  - The pasteable block (lines 311-316) and "Capabilities and their commands" (line 381, and the
+    rule column): the same placeholders. Lines 448 and 472 name the new forms.
+  - One paragraph after the table: a broad chantier rule (examples above) lets any command
+    through; P10 names each with its file; the user removes it by hand; chantier never removes it.
+  - One line: the plugin's real path changes when the host moves the plugin's folder (an update,
+    if the host's folder holds the version: unproved); the old rule then stops matching, P10 names
+    the new one, and the Chief of Staff asks again (see open question 1).
+  - "Allow rules to add" (lines 834-858): the rules carry the real path, complete, no placeholder,
+    as for the remote name; a path holding a `'` breaks the two command lines' quoting, and the
+    Chief of Staff says so instead of giving them.
+- `REF/chief-of-staff.md`, "The allow rules (P10, Claude Code)" (lines 104-142): the question
+  lists the rules with their real path, as P10 printed them. A new bullet, **Broad rules**: when
+  P10 names one, say it in the strong warning, once per session, with its file and that it lets
+  any command through; the user removes it by hand; never remove or edit it yourself (the last
+  bullet, "nothing else is written", stands). `AGENTS.md` is unchanged: the Chief of Staff still
+  adds only the rules P10 named.
+- `skills/chantier/SKILL.md` (line 15) and `REF/concepts.md` (line 417, `$CHANTIER`): `<plugin
+  root>` is written absolute, with forward slashes, quoted, exactly as P10's rule holds it (the
+  form of the trial); `$CHANTIER` is carried verbatim into every brief and command, since another
+  form of the path does not match the rule and meets the host's prompt.
 
-Cards and docs:
-
-- `REF/driver.md`, "Means: CI" (`:226`), "Means: the lease" (`:753-757`), the stack driver's lease
-  (`:1315-1317`), the QA driver (`:1328`): start the wait (the forge's watch, a worker's run, a
-  long test) yourself in the background, then `lease <unit> hold --lease <n> --pid <its pid>`;
-  `hold` runs nothing. How the Driver gets that PID on each host: open question 1. The sentence
-  "`hold` keeps no shell, runs only what you give it, exits with the child's code" goes.
-- `REF/concepts.md` (`:64`, Lease): "by a `lease <unit> hold` child that runs" becomes "while the
-  process a `lease <unit> hold` names runs".
-- `docs/planning-folder.md` (`:54`) and `docs/server-api.md` (`:78`, `holds`): the record names a
-  PID; wording only.
-- `scenario/run_scenario.py` section 3a (`:914-952`): the CI watch is started by the scenario as
-  its own process, then held with `--pid`; the checks keep their meaning (the lease is live past
-  the shortened TTL while it runs, and the record goes when it ends).
-
-### 3. P10 names the plugin's real path (Q3)
-
-Today `CLI/commands/permissions.py` holds the sample
-`uvx --from /plugin chantier --skill /plugin/skills/chantier status` with the rule
-`uvx --from * chantier *` (`:76-81`), static.
-
-- In plugin mode, P10's sample and recommended rule are built from the plugin's real root, as
-  `CLI/plugin_files.py`'s `cli_command` writes it (`uvx --from "<plugin root>" chantier --skill
-  "<skill folder>"`, `:70-83`): the rule is `uvx --from "<plugin root>" chantier *`, both `Bash(…)`
-  and `PowerShell(…)`, matching the quoted form the cards' `$CHANTIER` uses. `RECOMMENDED_ALLOW`
-  and P10's "add" text carry the real path.
-- `REF/hosts/claude-code.md`, "Allow rules" (`:267-269`, the table; `:311-316`, the pasteable
-  block) and "Capabilities and their commands" (`:381`): the rule shows `<plugin root>`, filled by
-  the Chief of Staff with the path P10 printed, as the remote's name is today; the "Risk accepted"
-  cell becomes "the chantier plugin at that path". The test that compares the block with the CLI's
-  list compares it with the placeholder in place of the path.
-- An upgrade that moves the plugin's folder makes the old rule stop matching: P10 warns and names
-  the new rule, and the Chief of Staff asks again; the old rule stays (nothing is ever removed).
-  The host card says so in one line.
-- The dev-mode rules (`uv run --no-sync --project * chantier *`, `uv sync --locked --project *`)
-  are unchanged by this CR (open question 5).
-
-### 4. Push deny rules and `main`'s protection (Q4)
-
-- **P10 recommends two deny rules**, each in `Bash(…)` and `PowerShell(…)` forms:
-  `git push * +*` and `git push * *:main` (with the project's default branch's name in place of
-  `main` when it is not `main`, open question 6). `CLI/commands/permissions.py` gains a
-  `RECOMMENDED_DENY` list; P10 reads the user's `permissions.deny` (already read by
-  `_settings_rules`) and, when one of them is missing, says so on its P10 line (a warn, never a
-  block), naming the rule. A test proves with `rule_matches` that no sample command of `SAMPLES`
-  is caught by them (the steering session's route
-  `git push --force-with-lease=<branch>:<sha> <remote> <sha>:refs/heads/<branch>` included), and
-  that `git push -u origin chantier/x +HEAD:main` and `git push -u origin chantier/x HEAD:main` are.
-- `REF/hosts/claude-code.md`, "Allow rules": one paragraph says that `*` also matches spaces, so
-  `git push -u origin chantier/*` lets a second refspec through; that the deny rules stop
-  `+<ref>` and `<ref>:main`; and that `main`'s protection on the forge is what remains when a form
-  slips past them. A pasteable `permissions.deny` block follows the allow block. "Allow rules to
-  add" gets the same merge for `permissions.deny` if open question 7 says the Chief of Staff
-  writes them.
-- **P9 names `main`'s protection as a prerequisite.** `REF/chief-of-staff.md`, "Forge permissions
-  (P9)" (`:659-712`): at every first turn and at step 1 of every batch (not only for a merge
-  capability, as probe 5 is today), P9 reads the default branch's rules (GitHub:
-  `gh api repos/<owner>/<repo>/rules/branches/<default branch>`, a `non_fast_forward` rule and a
-  `pull_request` or `update` rule; GitLab: `protected_branches/<default branch>`, unproved) and
-  names, in the user's block, a default branch that does not refuse a force push or a direct push
-  as a missing prerequisite. The legacy protection stays readable only for an `ADMIN` account;
-  for others P9 says "not readable with your rights". Whether a missing prerequisite blocks the
-  batch's start or only warns: open question 8. `REF/init.md` step 5.1's list of checks
-  (`:90`) says the same.
+Both hosts' agent files are untouched. Copilot has no P10.
 
 ## Out of scope
 
-- The audit's other findings (board on `0.0.0.0`, the writer's secret check, performance,
-  tokens). They are other CRs.
-- Running the gate's command line without a shell (`shlex`, the audit's low finding on
-  `cmd.exe` versus `/bin/sh`): the command line is now the project's own text.
-- Allow rules for other tools, the classifier's behaviour, and Copilot (which has no P10).
-- Any change to which roles have Bash.
-
-## Residual risks, said in the host card
-
-- An agent that can edit a `chantier.yaml` the gate reads (the CR's worktree holds the project
-  root's copy) can name a new command. The roles misled by text that the audit names (Inspector,
-  spec critic) do not write the project's files; a Coder already runs the project's code.
-- `lease hold --pid` cannot tell whose process it names: a Driver that names a long-lived process
-  keeps its lease live as long as it runs. `lease <unit>` shows the hold.
+- `gate` and `lease hold`, which still run any command given: the CR `gate-hold-narrowing`.
+- The push rules, their second refspec, deny rules and `main`'s protection: dropped by the user
+  (Q17).
+- Removing or editing any rule in the user's settings.
+- Which mode's rules apply to a project (dev or plugin): `sync-blocked-by-others`.
+- The audit's other findings; Copilot.
 
 ## Host and default matrix
 
 | Cell | Expected |
 | --- | --- |
-| Claude Code, plugin mode, settings with the old `uvx --from * chantier *` | P10 counts the sample as allowed (the old rule still matches) and names the missing deny rules |
-| Claude Code, plugin mode, no chantier rule | P10 names `uvx --from "<real root>" chantier *` |
-| Claude Code, dev mode | P10's chantier rules unchanged; the deny rules named when missing |
-| Copilot | no P10; `gate` and `lease hold` refusals the same |
-| `long_gate.commands` absent (shipped defaults) | `gate <cr> <anything>` runs nothing, refused with the line that points to `docs/gates.md` |
-| `long_gate.commands` set in the project's root `chantier.yaml` | the named commands run |
-| set in the surface's project folder only | the named commands run (same layers as `parallel`) |
+| Claude Code, plugin mode, no chantier rule | P10 names `uvx --from "<real plugin root>" chantier *` |
+| Claude Code, plugin mode, the real-path rule set | P10 ok for that row |
+| Claude Code, plugin mode, `uvx --from * chantier *` set | sample allowed; P10 warns, naming the rule and its file as broad |
+| Claude Code, dev mode, no chantier rule | P10 names both dev rules with the real checkout path |
+| Claude Code, dev mode, `uv run --no-sync --project * chantier *` and `uv sync --locked --project *` set | P10 warns, naming both as broad |
+| Claude Code on Windows | the same, each rule and probe in Bash and PowerShell forms |
+| Copilot | no P10; nothing changes |
 
 ## Evidence
 
-Tests (`TESTS/`, in-process, parametrized, within the time budget of `AGENTS.md`):
-
-- `test_gate_refusals.py`: a free command (`"echo x"`, `"just scenario"`, a name with a space, a
-  name not configured, no `long_gate.commands`) is refused with exit 1, nothing logged, no slot
-  taken; a configured name runs and the event's `command` carries `name: line`; two names run in
-  order and stop at the first failure.
-- the configuration checks: `long_gate.commands` with a bad name, an empty line, a chained line,
-  an unknown key under `long_gate`, each a problem from `validate` and from `gate`.
-- `test_leases.py` (`:186`, the hold cases): `hold -- <cmd>` refused; no `--pid`, a bad or dead PID
-  refused, nothing written; a live PID (a child the test starts) keeps the lease live past its
-  TTL, and the record is dropped once the child ends; no subprocess is started by `hold`.
-- the permissions tests: in plugin mode the sample and rule carry the plugin root that
-  `cli_command` writes; the deny rules catch the two second-refspec pushes and no sample; P10
-  names a missing deny rule.
-- the host card checks read `REF/hosts/claude-code.md` as it ships at the head under test (the
-  allow block with `<plugin root>`, the new deny block) against `RECOMMENDED_ALLOW` and
-  `RECOMMENDED_DENY`, not a prepared text.
-
-Scenario (`just scenario`): the gate steps use names from the workspace's `chantier.yaml`; one
-step proves a free command refused with nothing recorded; section 3a holds a CI watch with
-`--pid`.
-
-Gates owed (`AGENTS.md`): `just check`, `just eval-dry-run` (the CLI's `src/` and the eval kit
-change), and the pipeline's `just scenario (ubuntu-latest)` job at the PR's head (the CLI and the
-cards change). No `hooks/` or `types/` change, so no `just mod`.
-
-Unproved until a real session: whether Claude Code matches the quoted
-`uvx --from "<root>" chantier *` rule against the cards' `$CHANTIER` (trial: set the rule, run
-`$CHANTIER status` in auto mode); whether the deny rules stop the two pushes in Claude Code as
-they do in the CLI's matcher (trial: a `--dry-run` push of each form with the rules set).
+- Section 0's trial, results in the PR's body (the first evidence; nothing ships before it).
+- Tests (`TESTS/test_cli_runs.py`, in-process, parametrized, within `AGENTS.md`'s time budget):
+  - the host card test (`test_the_allow_rules_json_block_lists_exactly_what_preflight_checks`,
+    line 198) keeps reading `REF/hosts/claude-code.md` as it ships at the head under test and
+    compares its block and table with `RECOMMENDED_ALLOW` and `SAMPLES`, placeholders included;
+    each sample, filled with one path, is matched by its rule filled with the same path.
+  - in plugin mode (a skill folder whose plugin root holds no `.git`) P10 names the plugin rule
+    with that root; in dev mode, the two dev rules with the checkout's root.
+  - each of `uvx --from * chantier *`, `uv run --no-sync --project * chantier *`,
+    `uv sync --locked --project *` in a settings file makes P10 warn, naming the rule and the
+    file; the filled recommended rules alone give `P10 ok`; no probe matches a filled rule.
+- Scenario (`scenario/run_scenario.py`, lines 975-1020): the settings it writes use the filled
+  rules (P10 ok as today); one new check sets `uvx --from * chantier *` and
+  `uv run --no-sync --project * chantier *` in the home settings and sees P10 warn naming both,
+  preflight exiting 0.
+- Gates owed (`AGENTS.md`): `just check`, `just eval-dry-run` (the CLI's `src/` changes), and the
+  pipeline's `just scenario (ubuntu-latest)` job at the PR's head. No `hooks/` or `types/` change.
 
 ## Open questions for the user
 
-1. **How a Driver gets its wait's PID.** Claude Code's background Bash does not print one. Getting
-   it takes a compound command (`gh pr checks 12 --watch & echo $!`) or PowerShell's
-   `Start-Process -PassThru`, which no recommended allow rule covers and the auto-mode classifier
-   may question: that would add the prompt the intent wants to avoid. Should P10 recommend a rule
-   for that form, should the cards name another way, or is a trial needed first?
-2. **Does `lease hold --pid` return at once, or wait for the process to end** (and renew the lease
-   once then, as today's hold does)? Waiting means a second background task per wait.
-3. **The shipped defaults and gate commands.** The brief says the commands come from
-   `chantier.yaml` "and the shipped defaults". The spec ships no command in
-   `config/chantier.defaults.yml`, since a project's commands are its own. Should it ship any?
-4. **Where chantier's own gate is named:** the repository's root `chantier.yaml` (in this CR's
-   PR), or `projects/chantier/chantier.yaml` in the planning surface?
-5. **The dev-mode rules** `uv run --no-sync --project * chantier *` and
-   `uv sync --locked --project *` accept any project path, as `--from *` accepted any source.
-   Should P10 also write the checkout's real path there, in this CR?
-6. **The deny rule's branch name.** `git push * *:main` misses `HEAD:refs/heads/main`, the `-C`
-   forms (`git -C * push …`, which the recommended allow rules also cover), and a project whose
-   default branch is not `main`. Exactly the two rules of the answer, or also
-   `git push * *:refs/heads/main`, the `git -C * push …` forms, and the project's default branch
-   in place of `main`?
-7. **Who writes the deny rules.** `AGENTS.md` and `chief-of-staff.md` ("The allow rules") say the
-   Chief of Staff adds the allow rules P10 named "and nothing else there", "no deny, ask or other
-   key". Does the Chief of Staff now add the two deny rules on the user's yes (which changes that
-   project rule and the card), or does P10 only name them for the user to add?
-8. **`main`'s protection as a prerequisite:** does a default branch that does not refuse a force
-   push or a direct push block a batch's start, or does P9 warn, as everything in P9 does today?
-9. **The `AGENTS.md` long gate line.** It keeps the rule (when a long gate is owed, its
-   exemptions, what `--no-gate` quotes) and `chantier.yaml` holds the runnable command. Should the
-   `AGENTS.md` line name the gate by its name (`Long gate: scenario`) instead of repeating the
-   command line, so the two cannot drift?
+1. **The plugin's path after an update.** If the host's plugin folder holds the version (likely,
+   unproved), each chantier update moves the path: P10 then names a new rule and the Chief of
+   Staff asks again (one question per update), and the old rule stays in the settings, pointing
+   at an old copy. Is one question per update accepted, and should P10 also name such a stale
+   chantier rule (another folder of the same plugin) for the user to remove, as it does a broad
+   one?

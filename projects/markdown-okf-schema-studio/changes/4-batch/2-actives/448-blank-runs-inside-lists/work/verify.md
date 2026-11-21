@@ -1,10 +1,17 @@
 # Verify CR-448 (blank-line runs inside lists)
 
-Head: 8ecec6bb8d1d497ecb23c191a71313bae00919cf
+Head: ea5c383fb534a683d42a5caa9dbd72a9c5390ccf
 
-Gate pass cited: `work/gates/20261121-140123.log`, first line `gate CR-448 branch chantier/batch-07/cr-448-show-blank-line-runs-inside-lists-as-bla head 8ecec6bb8d1d497ecb23c191a71313bae00919cf`, command `just preflight`.
+Pass 2 at ea5c383 (rebased twice onto main, base now 9c70477a). Claims 1-5 below were judged at 8ecec6bb8d1d497ecb23c191a71313bae00919cf and are carried from 8ecec6b: `git range-diff 8ecec6b...ea5c383` shows `1: 8ecec6bb = 4: ea5c383f feat(editor): show blank-line runs inside lists as blank-lines blocks` (the other three commits are main's, new in the range), and `git diff --stat 8ecec6b ea5c383 -- src` prints nothing: the CR's patch and src are unchanged; the gate pass `work/gates/20261121-140123.log` (first line `gate CR-448 ... head 8ecec6bb...`, `result: pass`) is carried the same way. CI at ea5c383: `gh run view 44909893956 --json headSha,conclusion,jobs` gives `headSha ea5c383fb534a683d42a5caa9dbd72a9c5390ccf`, `success`, jobs static, static-windows, visual, integration, stress, report, gallery, checks all `success` (heavy run, at the pushed head). `gh pr view 463 --json headRefOid` gives `ea5c383f...`.
 
-## Claims (all judged at 8ecec6bb8d1d497ecb23c191a71313bae00919cf)
+## Description pass at ea5c383: NOT VERIFIED
+
+Command: `gh pr view 463 --json body --jq .body`, diffed against `work/pr-body.md`.
+Output: the posted body differs from `work/pr-body.md` on lines 33 and 84-88. The forge still says `after at 1aa7966`, `Local gates at 1aa7966`, `Evidence: ... after at 1aa7966`, `Review: approved at 15a0ef0`, `Verified at 1aa7966`, `CI green at 1aa7966: pending`. `1aa7966` is not in ea5c383's history (an earlier rebase's head), so those proofs name a SHA that is neither the head nor a carried one. The edited `work/pr-body.md` was not posted.
+Also in `work/pr-body.md` (fix before posting): "Review: approved before the commit" names no SHA (the Driver's notes: `r2 inspector approved at 15a0ef09e3763f7ed52ce60130da8ccfaba1ed5b`; write `approved at 15a0ef0`, carried to ea5c383 by the range-diff above); "long gate `just preflight` pass at `ea5c383` (carried from `8ecec6b`)" reads as run at ea5c383: say `pass at 8ecec6b, carried`.
+Sections, Deliverables, Changes and Known gaps match the diff and the known gap (no undo after save for "More", "- c" between items and "- c" in an item). Images: the five attached are the ones of the evidence pairs at 8ecec6b (carried from 8ecec6b, same patch); not re-downloaded in this pass.
+
+## Claims 1-6 (judged at 8ecec6bb8d1d497ecb23c191a71313bae00919cf, carried from 8ecec6b: patch unchanged by range-diff)
 
 1. Core, protocol, render, page and session tests of the spec pass at the head.
    Command: `npm run compile`, then `node scripts/node-test.mjs unit out/test/core/mapping/blankRunInList.test.js out/test/core/mapping/listItemIndent.test.js out/test/core/protocol/pageToHost.test.js out/test/core/render/blankRunsInLists.test.js out/test/page/runtimeBlankLines.test.js out/test/session/blankRunInListHost.test.js out/test/session/previewManager.test.js out/test/site/e2eGroups.test.js`
@@ -31,4 +38,4 @@ Gate pass cited: `work/gates/20261121-140123.log`, first line `gate CR-448 branc
 - The integration steps for "More" in an item, "- c" between items and "- c" in an item do not press undo after the save (spec Integration point 2 asks that one undo brings the run back); only the delete steps do. The session tests cover the single-edit write.
 - In the capture, the blocks of the first item are narrower than the second item's (right edge ~1487 vs ~1655 px): the floating toolbar at the top right narrows blocks beside it; the visual check on width passed.
 
-VERIFIED
+NOT VERIFIED
