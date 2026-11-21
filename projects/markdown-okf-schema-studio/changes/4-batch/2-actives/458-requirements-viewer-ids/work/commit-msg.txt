@@ -1,0 +1,12 @@
+feat: find a requirement by its full ID on the requirements site
+
+Requirement pages now name each requirement by its full ID in the
+heading, the tab, the shared link title, the breadcrumb and the
+previous and next links.
+
+The search finds a requirement from its full ID, its short ID or a bare
+number, in any case and with or without leading zeros, and lists the
+exact ID matches first. The share title of a use case or behaviour now
+reads "Use case <ID>: <title>", as the owner asked.
+
+Assisted-by: Claude:Sonnet-5.5
