@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Board backlog: last column split into running batch and next batch",
-  "summary": "Specified (rev. 2): running batch over next batch, always shown; a drop marks a grilled CR, a 3-ready drop is a journal line (AGENTS.md clause), none open goes to 3-ready; three state words; CoS writes the destination, order add when final. 1 open question.",
+  "summary": "Specified (rev. 3): running batch over next batch, always shown; a drop marks a grilled CR, a 3-ready drop is a journal line (AGENTS.md clause), none open goes to 3-ready; three state words; CoS writes the destination (back to the backlog too), order add when final. No open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "c0dcea7096094f77f09d662255461905527b2e72fd646612a96e4501b09ff6d0",
-    "02-answers.md": "cc0baa29d2cdf345bdfedcb9807b343412d3d77140ca9b7850fe29901d70de0f",
-    "03-change-spec.md": "adeb259a494d36ff47a4c8c600bb24ed480a9ec4db01fc42ddc2195aa6668517",
+    "02-answers.md": "978b76d7435e78b536c8e83658dbcede763d5b9de052afd0f818325d0ed6e360",
+    "03-change-spec.md": "0feceb05fe0b89bd425353d3a30d08c92ef0eb8dd25b0804b093253b340c85e2",
     "intake/request.md": "bbec19ef4acdf5d4f77905328de6900caa583d74c56ae5c4e95e6e7e4271991c"
   },
-  "summarized": "2026-11-21T13:03:32Z"
+  "summarized": "2026-11-21T13:15:34Z"
 }

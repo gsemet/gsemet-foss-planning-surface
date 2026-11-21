@@ -14,3 +14,4 @@ Short name: `foreman-idle`
 Status (2026-11-21): the grill is paused on the user's word; the CR is reworked later, after a structural study.
 
 Check of foreman-idle-Q6 (2026-11-21, the Chief of Staff): the Foreman transcripts of batch-28 (872ef130) and batch-29 (bc951dfe) carry only `claude-opus-5-5` (1578 and 2455 records), while batch-26 and batch-27's (993a179a, 62abbcd1) carry `claude-sonnet-5-5`. hosts/claude-code.md asks for `model: "claude-sonnet-5-5"` at the Foreman's start, so the last two Foremans ran Opus against the rule. Told to the user.
+9. (2026-11-21, the user's words on the retro's point 1, orchestration cost): "Mesure bien mais on décide après". Measure carefully first; decide afterwards. The CR stays paused.
