@@ -30,6 +30,7 @@ try:
             page = ctx.new_page()
             r = {}
             ds.goto(page, url, "batch", "shop-api")
+            page.wait_for_selector(".bhead .kpi, .bhead > *", state="attached"); ds.settle(page)
             r["tabs"] = page.evaluate(JS_BOX, ".tabs")
             r["bhead"] = page.evaluate(JS_BOX, ".bhead")
             r["titlerow"] = page.evaluate(JS_BOX, ".titlerow")
@@ -67,6 +68,7 @@ try:
             res[size] = r
             if size == "pc":
                 ds.goto(page, url, "batch&b=batch-01", "mobile-app")
+                page.wait_for_selector(".bhead", state="attached"); ds.settle(page)
                 shot(page, "closed-pc")
                 res["closed_slot"] = page.evaluate("document.querySelector('#batch-mode')?.innerText")
                 res["closed_hidden"] = page.evaluate("document.querySelector('#batch-mode')?.hidden")
