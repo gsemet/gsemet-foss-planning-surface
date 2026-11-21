@@ -4,7 +4,7 @@ Extra blank lines between blocks (hand edits, merges, older Studio versions) wer
 
 ## Deliverables
 
-The host finds the runs and appends one hidden list to the rendered content; the page, which has no source text, builds the blocks from that list only.
+The host finds the runs and appends one hidden list to the rendered content; the page, which has no source text, builds the blank-lines blocks from that list only.
 
 ```mermaid
 flowchart LR
@@ -25,6 +25,30 @@ flowchart LR
 replaceBlankRun?: { line: number; endLine: number }
 ```
 
+Choices made: the blank-lines block exists in edit mode only (reading mode and the HTML export are unchanged); Delete and Backspace act only on a selected blank-lines block; removing a run keeps one separator and is one undo step.
+
+## Blast radius
+
+Grade: 2. The change touches the shared render pipeline, the page-to-host protocol and the block selection keys; a revert is possible but the new requirements and tests go with it.
+
+## Autonomous decisions
+
+- The runs are found by the host and placed by the page through one hidden element; the page trusts only that element.
+- A run next to a folded section, and runs inside lists or containers, show nothing (runs inside lists are a follow-up).
+- Delete and Backspace act only on a selected blank-lines block; a block only focused takes Enter and its button.
+- A blank-lines block hosting an open editor stays in place until the editor closes.
+
+## Known gaps
+
+- No screenshots: three captures of the blank-lines block (edit, selected, reading) were made but are not attached; the push of the images to a side branch was refused by a safety check, left to the owner. They are kept with the change's evidence files.
+- No before image: the blank run is invisible before this change, so there is nothing to compare.
+- The kept-editor path (a blank-lines block hosting an open editor survives a content patch, in `contentPatch.ts`) is covered only by the page-level test in `runtimeBlankLines`; **UNVERIFIED:** it was not run in a real VS Code window at this head.
+- HEAVY_PLACEHOLDER
+- The long gate (`just preflight`) ran on Windows, so its static stage only; the other stages are covered by CI.
+
+<details>
+<summary>Details</summary>
+
 ## Changes
 
 - `blankRuns` and `isCommonMarkBlank` find runs of spaces-and-tabs-only lines; a line holding a non-breaking space is a paragraph, not blank.
@@ -36,24 +60,21 @@ replaceBlankRun?: { line: number; endLine: number }
 
 ## Impacts
 
-Edit mode only; reading mode and the HTML export are unchanged. Screenshots are added below once verified.
-
-## Blast radius
-
-Grade: 2. The change touches the shared render pipeline, the page-to-host protocol and the block selection keys; a revert is possible but the new requirements and tests go with it.
+Edit mode only; reading mode and the HTML export are unchanged. No screenshots are attached (see Known gaps).
 
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
 - [x] Requirements: SwRS added and updated, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `just preflight` (static stage on Windows)
-- [ ] Review
-- [ ] CI green
+- [x] Local gates at `e293b92`: `just preflight` passed (static stage on Windows)
+- [ ] Evidence: none attached, see Known gaps
+- [x] Review: approved at `ccf9ff7` (the last code change; `e293b92` only changes the visual harness)
+- [ ] Verified at `e293b92`
+- [x] CI green at `e293b92`: static, static-windows, visual, report pass; integration and stress run in the heavy run (see Known gaps)
 
-## Autonomous decisions
+## Internal references
 
-- The runs are found by the host and placed by the page through one hidden element; the page trusts only that element.
-- A run next to a folded section, and runs inside lists or containers, show nothing (runs inside lists are a follow-up).
-- Delete and Backspace act only on a selected blank-lines block; a block only focused takes Enter and its button.
-- A blank-lines block hosting an open editor stays in place until the editor closes.
+CR-444 "Show blank-line runs as a reachable blank-lines block in edit mode".
+
+</details>
