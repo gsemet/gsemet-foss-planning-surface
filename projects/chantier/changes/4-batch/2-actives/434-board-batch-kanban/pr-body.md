@@ -1,6 +1,6 @@
 ## Summary
 
-The board's batch page showed a batch only as a graph, a Gantt and time cards, so there was no plain view of which CRs have not started, which are being worked on and which are merged. This adds a **Kanban** view to the page's view switch: three read-only columns, `1-pending`, `2-actives` and `3-done`, each holding the batch's CRs whose folder is there. It is the first view and the default, and the view you pick is kept on the device.
+The board's batch page showed a batch only as a graph, a Gantt and time cards, so there was no plain view of which CRs have not started, which are being worked on and which are merged. This adds a **Kanban** view to the page's view switch: three read-only columns, `1-pending`, `2-actives` and `3-done`, each holding the batch's CRs whose folder is there. It is the first view and the default, and the view you pick is meant to be kept on the device (**UNVERIFIED:** read in the code and checked on fixtures, not run in a browser).
 
 ## Deliverables
 
@@ -29,6 +29,7 @@ None.
 ## Known gaps
 
 - No screenshots from a board running this head yet (wide, phone width, kept tab, closed batch).
+- **UNVERIFIED:** the CSS layout (column flex, phone snapping, page scroll), the tab kept on the device and the closed-batch note were checked by static tests, a fixture probe and reading the diff only, never in a browser.
 - The rows' `stage` field comes from #406 (a draft on another open PR's branch), not in this branch; until it merges, the Kanban columns stay empty on a live board. This PR is based on the default branch and waits on #406 and the PR under it for the stack.
 
 <details>
@@ -39,7 +40,7 @@ None.
 - `js/core/router.js`, `js/core/store.js`: `TABS` starts with `kanban`; the tab kept on the device (`batchTab`) is read and written by the router and the store; `t=` is written for every Batch tab.
 - `js/views/batch-kanban.js` (new), `js/views/batch.js`: the panel and the closed-batch note.
 - `js/i18n/en-batch.js`, `js/i18n/fr-batch.js`: eight new keys.
-- `css/views/batch.css`, `css/shell.css`: column layout on the batch page; the project Kanban's no-scroll rule narrowed to the project Kanban so the batch page still scrolls.
+- `css/views/batch.css`, `css/shell.css`: column layout on the batch page; the project Kanban's no-scroll rule narrowed to the project Kanban meant to keep the batch page scrolling (**UNVERIFIED:** not rendered).
 - `docs/web-board.md`, `clients/web/DESIGN.md`, `tests/test_board_design.py`: doc and static checks.
 
 ## Human decisions
@@ -55,12 +56,12 @@ The batch page opens on the Kanban instead of the Graph, and remembers the last 
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): static checks in `test_board_design.py`
-- [ ] Local gates at `<sha7>`: <!-- filled at the commit -->
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): static checks in `test_board_design.py`
+- [x] Local gates at `0aec452` (carried from `140c12a`, a clean rebase of the same patch): `just check` pass, `just eval-dry-run` pass, `just scenario` pass
+- [ ] Evidence: none yet, no board running this head carries the `stage` field (see Known gaps); a fixture probe of the panel and the router passed at `0aec452`
+- [x] Review: approved at `0aec452` (carried from `140c12a`)
+- [x] Verified at `0aec452`
+- [x] CI green at `0aec452`: `gh pr checks 407`, all five checks pass
 
 ## Internal references
 
