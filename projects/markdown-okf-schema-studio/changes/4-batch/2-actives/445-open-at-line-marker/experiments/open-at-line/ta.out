@@ -14,3 +14,20 @@ T4b: Quick Open doc.md:40 with the Studio tab active
 T4b after quick open doc.md:55: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
   marker: {"marker":"Line 29 of doc: filler text for the paragraph number 29.\nLin","attrs":"data-line=29 data-end-line=31 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\ta-default","scrollTop":493}
   screenshot ta-defaults-03-t4b-quickopen-line-55.png
+T9: single click on doc.md result then other.md result
+T9 after doc.md click: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":"Line 29 of doc: filler text for the paragraph number 29.\nLin","attrs":"data-line=29 data-end-line=31 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\ta-default","scrollTop":493}
+T9 after other.md click: tabs=["1:custom:markdown-okf-schema-studio.editor:other.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":"Line 29 of other: filler.\nLine 30 of other: the needle zebra","attrs":"data-line=29 data-end-line=31 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\ta-default","scrollTop":493}
+  screenshot ta-defaults-04-t9-after-other.png
+T8: doc.md dirty as text in group 2; search click in group 1
+T8 before: tabs=["2:text:doc.md*!"] visibleText=["doc.md@0,7"] dom={webviews:0,monaco:1,diff:0,dialogs:0,toasts:[]}
+T8 after click: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*!","2:text:doc.md*!"] visibleText=["doc.md@0,7"] dom={webviews:1,monaco:1,diff:0,dialogs:0,toasts:[]}
+  doc state: {"dirty":true,"text":"EDITED # Open at line probe\n\nLine 3 of doc: filler text for the paragraph number 3.\n\nLine 5 of doc: filler text for the paragraph number 5.\n\nLine 7 of doc: filler text for the paragraph number 7.\n\nLine 9 of doc: filler text for the paragraph number 9.\n\nLine 11 of doc: filler text for the paragraph n"}
+  dialogs: 0
+  marker: {"marker":"Line 29 of doc: filler text for the paragraph number 29.\nLin","attrs":"data-line=29 data-end-line=31 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\ta-default","scrollTop":469}
+  screenshot ta-defaults-05-t8-dirty-doc.png
+T12 side preview: open doc.md as text, Open Preview to Side, then search click
+T12 side preview open: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md","1:text:other.md*","2:text:doc.md","2:webview:Studio · other.md*"] visibleText=["other.md@29,29"] dom={webviews:1,monaco:1,diff:0,dialogs:0,toasts:[]}
+T12 side preview: after search click doc.md line 30 (jump must stay text): tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md","1:text:other.md","1:text:doc.md*","2:text:doc.md","2:webview:Studio · doc.md*"] visibleText=["doc.md@29,27"] dom={webviews:1,monaco:1,diff:0,dialogs:0,toasts:[]}
+  screenshot ta-defaults-06-t12-side-preview-jump.png

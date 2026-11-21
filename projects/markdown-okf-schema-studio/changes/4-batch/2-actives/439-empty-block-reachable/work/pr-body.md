@@ -50,8 +50,8 @@ behaviour; no file format changes.
 
 ## Known gaps
 
-- The real VS Code scenario (`test/integration/emptyBlocks.test.ts`) is written but not run locally; it
-  runs in the heavy CI run on the branch.
+- The real VS Code scenario (`test/integration/emptyBlocks.test.ts`) was not run locally; it
+  passed in the heavy CI run on the branch at `6154eb1`.
 - The lone-CR assertion on the frontmatter refusal of Delete block is skipped: a lone-CR document is
   not detected as having frontmatter, a limitation that predates this change.
 
@@ -73,16 +73,24 @@ behaviour; no file format changes.
 
 ## Impacts
 
-Visible: a "×" button in each body block's bar. The captures show the bar and the move status next to it.
+Visible: a "×" button in each body block's bar. The button is new, so there is no before image: the
+captures, taken at `6154eb1`, show the bar in the light theme with the pointer over the button, and
+in the dark theme with the move status to its right.
+
+![Delete block bar, light theme, hover](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/a14d53dbf867318d6bfec905d20950abb4000d2c/v42-delete-block-bar-light-hover.png)
+
+![Delete block bar with a move status, dark theme](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/a14d53dbf867318d6bfec905d20950abb4000d2c/v43-delete-block-bar-status-dark.png)
 
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): core, session, page, visual and integration tests
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: <!-- filled at the closing -->
-- [ ] Review
-- [ ] CI green
+- [x] Local gates at `6154eb1`: `just check` pass, `just preflight` pass
+- [x] Evidence: no before (the button is new), after at `6154eb1` (the two captures in Impacts)
+- [x] Review: approved at `6154eb1`
+- [x] Verified at `6154eb1`
+- [x] CI green at `6154eb1` (pull request run and the heavy run, integration and stress included)
 
 ## Internal references
 

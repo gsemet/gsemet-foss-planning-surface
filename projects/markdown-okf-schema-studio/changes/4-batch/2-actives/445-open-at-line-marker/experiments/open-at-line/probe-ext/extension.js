@@ -27,6 +27,8 @@ async function run(c) {
     case "exec": return (await vscode.commands.executeCommand(c.command, ...(c.args || []))) ?? "ok";
     case "ext": { const e = vscode.extensions.getExtension(c.id); return e ? { active: e.isActive } : "missing"; }
     case "doc": { const d = vscode.workspace.textDocuments.find((x) => x.uri.fsPath.toLowerCase().endsWith(c.file.toLowerCase())); return d ? { dirty: d.isDirty, text: d.getText().slice(0, 300) } : "none"; }
+    case "wedit": { const d = await vscode.workspace.openTextDocument(vscode.Uri.file(c.file)); const we = new vscode.WorkspaceEdit(); we.insert(d.uri, new vscode.Position(0, 0), "PAGEEDIT "); await vscode.workspace.applyEdit(we); return { dirty: d.isDirty }; }
+    case "openWith": await vscode.commands.executeCommand("vscode.openWith", vscode.Uri.file(c.file), c.viewType, { viewColumn: c.col, preview: false }); return "ok";
     case "edit": { const e = vscode.window.visibleTextEditors.find((x) => x.document.uri.fsPath.toLowerCase().endsWith(c.file.toLowerCase())); await e.edit((b) => b.insert(new vscode.Position(0, 0), "EDITED ")); return "ok"; }
   }
   return "unknown op";

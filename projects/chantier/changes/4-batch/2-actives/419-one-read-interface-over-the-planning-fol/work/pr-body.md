@@ -73,7 +73,7 @@ No visual change; developers read the planning folder through `Repo.store`.
 ## Test plan
 
 - [x] New or changed tests (conformance and structure tests fail on the previous code)
-- [x] Local gates at `eb5dbd6`: `just check`, `just test`, `just eval-dry-run`
+- [x] Local gates at `eb5dbd6`: `just check` (its suite, 1447 passed), `just eval-dry-run`; `just test` adds no measurable time: 72.5 s at the base `a391c1e`, 72.6 s at the head, same machine, back to back (24 more tests)
 - [x] Evidence: speed and golden-output comparison, before at `a391c1e`
 - [x] Review: approved at `eb5dbd6`
 - [ ] Verified at `<sha7>`
