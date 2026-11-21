@@ -43,3 +43,10 @@ T3b after Open as Text on a dirty document: tabs=["1:custom:markdown-okf-schema-
   doc state: {"dirty":true,"text":"PAGEEDIT # Open at line probe\n\nLine 3 of doc: filler text for the paragraph number 3.\n\nLine 5  dialogs=1
   screenshot tb-matrix-05-t3b-open-as-text-dirty.png
 T3c Reopen Editor With > Text Editor from a Studio tab
+TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.explorer-viewlet .monaco-list-row').filter({ hasText: 'other.md' }).first()[22m
+[2m    - locator resolved to <div data-index="2" aria-level="1" role="treeitem" aria-setsize="4" id="list_id_1_2" draggable="true" aria-posinset="3" data-parity="even" aria-selected="false" aria-label="other.md" class="monaco-list-row" data-last-element="false">…</div>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled 

@@ -1,0 +1,54 @@
+EVENTS setup
+    
+T3c files on
+T3c Studio tab of other.md (preview tab): tabs=["1:custom:markdown-okf-schema-studio.editor:other.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:["Markdown OKF-Schema Studio will show its feature introductions again."]}
+EVENTS T3c open
+    10903 tabs opened=[["text","other.md",1,"preview"]] closed=[]
+    11157 tabs opened=[] closed=[["text","other.md",1,"preview"]]
+    11158 tabs opened=[["custom:m","other.md",1,"preview"]] closed=[]
+T3c after Reopen Editor With > Text Editor: tabs=["1:text:other.md*"] visibleText=["other.md@0,0"] dom={webviews:0,monaco:1,diff:0,dialogs:0,toasts:[]}
+EVENTS T3c reopen as text
+    19102 tabs opened=[] closed=[["custom:m","other.md",1,"preview"]]
+    19104 tabs opened=[["text","other.md",1,"preview"]] closed=[]
+T3d files on: vscode.openWith default
+T3d after openWith default: tabs=["1:custom:markdown-okf-schema-studio.editor:other.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+EVENTS T3d openWith default
+    25013 tabs opened=[] closed=[["text","other.md",1,"preview"]]
+    25990 tabs opened=[["text","other.md",1,"pinned"]] closed=[]
+    26206 tabs opened=[["custom:m","other.md",1,"pinned"]] closed=[]
+    26226 tabs opened=[] closed=[["text","other.md",1,"pinned"]]
+T3c2 files off, Reopen Editor With
+T3c2 files off after Reopen as Text: tabs=["1:text:other.md*"] visibleText=["other.md@0,0"] dom={webviews:0,monaco:1,diff:0,dialogs:0,toasts:[]}
+EVENTS T3c2
+    30730 tabs opened=[] closed=[["custom:m","other.md",1,"pinned"]]
+    32359 tabs opened=[["custom:m","other.md",1,"pinned"]] closed=[]
+    40444 tabs opened=[["text","other.md",1,"pinned"]] closed=[]
+    40448 tabs opened=[] closed=[["custom:m","other.md",1,"pinned"]]
+T4 variants, files off, search on
+EVENTS T4 pinned Studio tab opened by openWith
+    45402 tabs opened=[] closed=[["text","other.md",1,"pinned"]]
+    47031 tabs opened=[["custom:m","doc.md",1,"pinned"]] closed=[]
+T4 pinned Studio tab of doc.md: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+T4 pinned: search click line 40: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":"Line 39 of doc: filler text for the paragraph number 39.\nLin","attrs":"data-line=39 data-end-line=41 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\tc-reopen\\","scrollTop":661}
+EVENTS T4 pinned search click
+    55227 tabs opened=[["text","doc.md",1,"preview"]] closed=[]
+    55238 selection kind=3 [[39,34,39,43]]
+    55284 tabs opened=[] closed=[["text","doc.md",1,"preview"]]
+T4 pinned: Quick Open doc.md:55: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":"Line 39 of doc: filler text for the paragraph number 39.\nLin","attrs":"data-line=39 data-end-line=41 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\tc-reopen\\","scrollTop":661}
+EVENTS T4 pinned quick open
+    
+T4 preview Studio tab: created by a jump
+T4 preview Studio tab of doc.md (search click at 30): tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+EVENTS T4 preview search 30
+    68746 tabs opened=[] closed=[["custom:m","doc.md",1,"pinned"]]
+    73609 tabs opened=[["text","doc.md",1,"preview"]] closed=[]
+    73628 selection kind=3 [[29,27,29,36]]
+    73668 tabs opened=[] closed=[["text","doc.md",1,"preview"]]
+    73669 tabs opened=[["custom:m","doc.md",1,"preview"]] closed=[]
+T4 preview: second search click line 40: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":"Line 29 of doc: filler text for the paragraph number 29.\nLin","attrs":"data-line=29 data-end-line=31 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\tc-reopen\\","scrollTop":493}
+EVENTS T4 preview search 40
+    
+  screenshot tc-reopen-01-t4-preview-second-click.png
