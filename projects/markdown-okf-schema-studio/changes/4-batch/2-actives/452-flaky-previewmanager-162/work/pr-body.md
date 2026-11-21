@@ -27,7 +27,7 @@ Grade: 1. Only a test file changes; `git revert` restores the previous test.
 
 ## Known gaps
 
-- **UNVERIFIED:** the local mutation checks (double render on a shown hidden panel, `deferWhileHidden` returning false, `invalidate()` at the start of `requestDocument`) are not run; the edits to `src/` were refused in the coder's environment.
+- **UNVERIFIED:** the three local mutation checks (a double render after the first refresh of a shown hidden panel, `deferWhileHidden` returning false, and `invalidate()` at the start of `requestDocument`) did not run: the automated permission check refused the edits to `src/`. The proof that the tests catch a real regression is test-side: the old test fails with `2 !== 1` under a 260 ms stall, the new one passes, and 20 parallel runs gave 0 failures.
 
 <details>
 <summary>Details</summary>
