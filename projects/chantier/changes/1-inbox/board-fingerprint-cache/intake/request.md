@@ -1,0 +1,3 @@
+# Board: one fingerprint walk per project per pass
+
+From the Fable code audit of 2026-11-21 (priority 3, high, measured): the board's server recomputes a project's fingerprint (`board/reads.py:32`, `board/fingerprint.py:56-67`: one `stat` per file of 1-inbox, 2-backlog, 3-ready, 4-batch) at every call. Measured on the real surface: 194 ms for chantier, 192 ms for markdown-okf-schema-studio, 65 ms, 4 ms. Every 2 s, while one page is open, the `board` topic computes it for the 4 projects (455 ms), `project` once more (194 ms), `costs` and `prs` once each: 0.65 to 1 s of work under the GIL per pass. Proposal: keep the fingerprint per project for the pass (one value valid 1 to 2 s in `Context`), one walk per project per pass; then, if needed, skip `4-batch/**/work/`.
