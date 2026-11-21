@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A blocked uv sync names chantier's holders, waits, never kills",
+  "summary": "Split from sync-blocked-by-others: a sync blocked by chantier's own gate, watcher or board names them, waits, never kills, and tells the user. Not grilled yet; five questions carried from the first spec and its critic.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "7d52a38d555f69f62ed4d64625093bda6caceca3c4cc519842c1f25f8dc0724d",
+    "02-answers.md": "1018c9eab4869ee39dc892ee9a5140f83fc2dd355bd33ea6bc46f2a40b0c3afe",
+    "intake/request.md": "a006f8a2e35b8920b4498b357c849466f160095aea72985505363d24fd63df7f"
+  },
+  "summarized": "2026-11-21T10:34:39Z"
+}

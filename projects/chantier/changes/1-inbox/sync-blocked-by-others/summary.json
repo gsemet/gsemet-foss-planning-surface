@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Dev mode for chantier only; a blocked sync names, waits, never kills",
-  "summary": "Specified, 6 open questions: other projects run chantier in plugin mode (uvx) even from its checkout; a dev-mode sync blocked by chantier processes names them, waits, never kills, tells the user after a few minutes.",
+  "summary": "Dev mode only when the session's project is chantier (from its context); other projects run in plugin mode, and P10 offers the rules of the mode. Split: the blocked-sync wait went to sync-lock-wait. After permissions-bypass. Spec to revise.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "9f6cfadd6993e95da4814ab6caf9191eb970c819491ee047c70fcba15203aca9",
-    "02-answers.md": "ede1f4e2782bdf5a308f7399d3f14e341804b9d2e6e905258b836303f8f76064",
+    "02-answers.md": "9b88d25e8ec1ebbcd4a48c733f86b6976f44691e4795716087f224b5147b5304",
     "03-change-spec.md": "4f599966f8dad31f2c88fb770e200cf6a7394d119d22e580b71840c45909bc75",
     "intake/request.md": "498d6f90189d381a90840a55279a36c6a9b3d4a746e38912aa8535807b23b851"
   },
-  "summarized": "2026-11-21T10:03:06Z"
+  "summarized": "2026-11-21T10:34:51Z"
 }
