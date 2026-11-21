@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Web board History page: CRs, PRs and releases per day, week or month",
+  "summary": "Spec v2: read-only History page after PRs: day, week or month, prev/next/Today, five totals, events by local day (CR merged or dropped, PR opened, release); history.get op and topic (rev without now), tz on the server (tzdata, Q26); close records kind, ended, shipped, version. Open: 1, 2, 4, 5 as A.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3d6b22d9170fb27137f3781c5fdbd5fbbfa9583d5c03c36d96ac45c5ad5bb4f4",
+    "02-answers.md": "8af41086d2e6c49eaa8d4312620ea3caae618b9c68b4804ed3a33e1594abc323",
+    "03-change-spec.md": "7aa3e3ad854ee39a0bb792fe27c6cd80d5856d466cfc735b0a8425883df73cce",
+    "intake/request.md": "1598c41fbace9fccaa0f30f2be45d0203754216252855a98f80cae07570fb52d"
+  },
+  "summarized": "2026-11-21T19:23:37Z"
+}

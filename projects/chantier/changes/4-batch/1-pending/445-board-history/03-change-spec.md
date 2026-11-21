@@ -6,6 +6,13 @@ release of that period, under five plain totals. It reads the records and the ar
 never the forge or git, and writes nothing; from now on a batch's close adds to its record the
 times and the release mark the page needs. Joins batch-30.
 
+Spec v2 (2026-11-21): v1 with history-Q26 (the local day on the server, `zoneinfo` and `tzdata`,
+tested in pytest; v1's open question 3 decided) and the spec critic's fixes 2 to 10 on v1: the
+topic's rev leaves out `now`; `HistoryArgs` checks its fields; the `history.to_ready` word; CR-428
+and CR-429 in Overlaps; "no recorded end" in the foot; the scenario's check for a release CR with
+no PR; a pinned clock in the tests; the counts recounted on disk; the batch index keyed on the
+`5-archives/batches/` listing.
+
 All paths below are relative to `skills/chantier/scripts/cli/src/chantier/` unless they start with
 `docs/`, `scenario/`, `tests/` (which is `skills/chantier/scripts/cli/tests/`) or the repository
 root. Read `clients/web/DESIGN.md` first and keep it true (AGENTS.md).
@@ -49,6 +56,7 @@ navigator, Home's last batches).
 | Q23 | data read on demand, not added to every page's state; served to any API client (an addition to protocol 1); a month of a hundred CRs shows without a visible wait; unreadable files skipped and counted | 2 |
 | Q24 | screenshots of a day, a week, a month and an empty period on the real surface; tests of the local day, the week's limits, the totals | Evidence |
 | Q25 | out: charts and comparisons, year, PR ready time, forge tags, CRs that never entered a batch, export, any edit | Out of scope |
+| Q26 | the local day is computed on the server with `zoneinfo` and the `tzdata` wheel, tested in pytest; no Node-run test | 2, Evidence |
 
 ## What changes
 
@@ -86,8 +94,11 @@ only; it never reads the forge, never runs git, writes nothing.
 
 **The index.** One list of dated events per project, built from:
 
-1. The closed records: the state's `history` list (`board/state.py:_history`, already read by
-   `reads.state_of`), the records whose `state` is `closed`, each CR of `crs`:
+1. The closed records, keyed on the listing of `5-archives/batches/` (`batch-*.json`, the listing
+   `board/state.py:_history` already makes): the state's `history` list (already read by
+   `reads.state_of`), the records whose `state` is `closed`. A record whose `state` is not `closed`
+   is left out (today `batch-20.json`, a stale `running` record with no CR, and `batch-30.json`, the
+   running batch, which item 2 reads from `4-batch/`). For each CR of `crs`:
    - with the new keys (section 1): `shipped` gives an `opened` event; `ended` gives a `release` event
      when `kind` is `release` and the result is `merged`, a `merged` event for another merged CR, a
      `dropped` event for a dropped one;
@@ -115,12 +126,17 @@ the running CR's `left_to` or `6-trash`; `null` when an older record has none); 
 Two counts come with the index:
 
 - `undated`: the CRs of the records (closed and running) that ended (merged or dropped) with no
-  recorded end time. An archived folder with no `STATUS.json` counts here (no time recorded), as do
-  most of batch-01 to batch-20 today.
+  recorded end time. An archived folder with no `STATUS.json` counts here (no time recorded, open
+  question 5). Counted on disk on 2026-11-21 (the planning surface, project `chantier`): the closed
+  records hold 321 CRs (309 merged, 12 dropped); `5-archives/` holds 310 archived CR folders, 124 of
+  them with a `STATUS.json` (all of batch-21 to batch-29's but three; batch-01 to batch-19's, 192
+  CRs, have none); no record has the new keys yet; so 197 CRs are undated today (185 merged with no
+  dated `Merged` step, and the 12 dropped).
 - `unreadable`: the records (`batch-*.json`) and the archived `STATUS.json` files present but not
-  readable (an `OSError` or invalid JSON); each is skipped (Q23). `_history` today skips an
-  unreadable record silently: count it there too (return the count beside the list, or recount in
-  this module; the state's shape does not change).
+  readable (an `OSError` or invalid JSON); each is skipped (Q23). `_history` skips an unreadable
+  record silently and its shape does not change: this module counts the unreadable records as the
+  names of the `5-archives/batches/` listing (`store.glob`, the same listing `_history` reads) that
+  the state's `history` list does not hold.
 
 The index is kept in `board/context.py:Context` (a new field, like `prs_done`), per project, with the
 state's print it was built from (`reads.state_of(ctx, project, ask=False)` gives `(state, print)`;
@@ -133,10 +149,13 @@ means today), `tz` (an IANA time zone name, the browser's
 `Intl.DateTimeFormat().resolvedOptions().timeZone`). The server works in that zone with
 `zoneinfo.ZoneInfo(tz)`: the period's local limits (a day; a week from the Monday of `date`'s week to
 its Sunday; the calendar month of `date`), as UTC bounds `[from, to)`; each event placed in its local
-day; today read in that zone. An unknown zone or a bad date is a 400 naming the argument (the
-checked-arguments path of `board/api/ops.py:call`), never a guessed zone. `zoneinfo` needs the time
-zone data on Windows: add `tzdata` to `pyproject.toml`'s dependencies (pinned like the others, a
-pure wheel for every system) and lock it (`uv lock`), see open question 3.
+day; today read in that zone from the CLI's clock (`core/clock`: `clock.parse(clock.now())`, never
+`datetime.now`), so a test that pins the clock (`clock.fix`) pins today. An unknown zone or a bad
+date is a 400 naming the argument (`HistoryArgs`'s validators, below, through the checked-arguments
+path of `board/api/ops.py:call`), never a guessed zone. `zoneinfo` needs the time zone data on
+Windows: add `tzdata` to `pyproject.toml`'s dependencies (pinned like the others, a pure wheel for
+the three systems, as AGENTS.md's dependency rule allows) and lock it (`uv lock`); history-Q26. No
+Node-run test of the client is added (that new test rule is left to the user; Q26).
 
 **The answer** (`board/history_page.py:answer(...)`, the same for the op and the topic):
 
@@ -164,13 +183,26 @@ pure wheel for every system) and lock it (`uv lock`), see open question 3.
 
 - `board/api/protocol.py`: a `HistoryArgs(_Model)` with `project: str`, `period: Literal["day",
   "week", "month"]`, `date: str | None = None`, `tz: str`; `"history.get": HistoryArgs` in `OP_ARGS`
-  and `"history": HistoryArgs` in `TOPIC_ARGS`. Regenerate `board/api/protocol.json` with
-  `just protocol-schema` and commit it.
+  and `"history": HistoryArgs` in `TOPIC_ARGS`. Its checks, on the model (a `ValueError` that
+  `ops.problem` turns into the 400's text, `'<field>': Value error, <text>`):
+  - `period`: the `Literal` refuses any other value (pydantic's own message names `'period'` and the
+    three allowed values);
+  - `date`, a `field_validator`: `YYYY-MM-DD` exactly (`re.fullmatch(r"\d{4}-\d{2}-\d{2}", v)`), a
+    real calendar date (`datetime.date.fromisoformat`), from 2000-01-01 to 2100-12-31 inclusive;
+    refused with "a date YYYY-MM-DD between 2000-01-01 and 2100-12-31";
+  - `tz`, a `field_validator`: at most 64 characters and a name `zoneinfo.ZoneInfo` loads (it raises
+    `ZoneInfoNotFoundError` for an unknown name, `ValueError` for a path-like one); refused with "an
+    IANA time zone name, such as Europe/Paris".
+  The JSON Schema keeps the field types only (the validators are not in it). Regenerate
+  `board/api/protocol.json` with `just protocol-schema` and commit it.
 - `board/api/ops.py`: `"history.get": _on_project(_history)`, which returns 200 with the answer.
-- `board/api/topics.py`: the `history` topic, read like `_costs`: `rev` is a hash of the state's
-  print, the arguments and today's date in `tz` (so the value is computed only when one of them
-  changes, and a client watching today gets the new day after midnight); a past period's value does
-  not change while no record or step of it changes (Q20).
+- `board/api/topics.py`: the `history` topic, a read on `_on_project` that builds the answer (from
+  the kept index: no file is read while the print is unchanged) and takes as `rev` the `_hash` of
+  the answer without `now`, the way `_prs` builds its rev (`_hash({k: v for k, v in found.items() if
+  k != "now"})`), then `_unchanged(rev, last, ...)`. An unchanged history gives an unchanged rev, so
+  nothing is pushed; today's date is in the answer (`today`, `holds_today`, `next`), so a client
+  watching today gets the new day after midnight; a past period's value does not change while no
+  record or step of it changes (Q20).
 - The project state (`project.state`, the `project` topic) gains nothing (Q23).
 - `docs/server-api.md`: a row `history.get` | `project`, `period`, `date`?, `tz` | the period's
   events by local day, its totals, `undated`, `unreadable` (the answer's keys) in "The ops", and a row
@@ -220,12 +252,15 @@ this reads them and publishes them through the same API.
     dropped, draft or working for opened, ready for release, no new colour), the CR's number, its
     title on one line with an ellipsis and its full text in `title` (DESIGN.md "One-line titles"),
     the batch's name, and for an ended CR its rounds and cost; a dropped CR says where it went
-    (`history.to_trash`, `history.to_inbox`, `history.to_backlog` with the priority) when `to` is
-    known; a release shows its version when known;
+    when `to` is known: `history.to_trash`; `history.to_ready` for `3-ready` (the next batch, CR-428's
+    destination: "to ready (next batch)" / "vers prêt (prochain batch)"); `history.to_inbox` for a
+    `1-inbox` recorded before CR-428; `history.to_backlog` with the priority. A release shows its
+    version when known; a merged CR with no `pr` (a release CR merged with no PR) shows no PR link;
   - an empty period: the totals at zero and, in place of the list, the board's usual empty line with
     `history.empty` ("Nothing done in this period" / "Rien de fait sur cette période") (Q16);
   - the foot: when `undated` > 0, one quiet line (`history.undated`, plural through `tn`: "{n} CRs
-    have no recorded date" / "{n} CR sans date enregistrée") with a link to Costs (Q12); when
+    have no recorded end" / "{n} CR sans fin enregistrée": they ended with no time recorded) with a
+    link to Costs (Q12); when
     `unreadable` > 0, one line `history.unreadable` ("{n} files could not be read and were skipped").
   - while the first answer is not there: the existing `stats.loading` empty line.
 - **What a row opens (Q17)**, through `ui/open.js`'s `opener` and `bindOpen` on the view's root: a
@@ -238,7 +273,8 @@ this reads them and publishes them through the same API.
   panel. The batch's name is a button that goes to the Batch view on that batch
   (`go({ view: 'batch', batch })`).
 - **Words**: new files `clients/web/js/i18n/en-history.js` and `fr-history.js`, merged into
-  `en.js` and `fr.js` like the other parts, with every `history.*` key above, plus `nav.history`
+  `en.js` and `fr.js` like the other parts, with every `history.*` key above (`history.to_ready`
+  included, in both languages), plus `nav.history`
   ("History" / "Historique") in `en.js` / `fr.js` beside the other `nav.*` keys. French uses "tu" as
   the other files do. Data (titles, ids, versions) is shown as it is.
 - **The sheet**: `clients/web/css/views/history.css`, linked in `clients/web/index.html` after
@@ -278,9 +314,9 @@ Dashboard page, and from it (open question 1); no change to the CR board pane (`
 
 - A PR made ready (out of draft) is not shown: no record keeps that time once its batch is closed
   (the batch's events are not archived). Nothing is guessed in its place (Q8).
-- A CR of an older record whose end has no recorded time (most of batch-01 to batch-20, and the
-  dropped CRs of every record written before this change) is in no period; the foot line counts
-  them (Q12). Its first ship still shows as an `opened` line when its steps date it.
+- A CR of an older record whose end has no recorded time (every CR of batch-01 to batch-19, which
+  have no archived `STATUS.json`, three of batch-28 and batch-29, and the dropped CRs of every
+  record written before this change: 197 today) is in no period; the foot line counts them (Q12). Its first ship still shows as an `opened` line when its steps date it.
 - A CR dropped back to the inbox or the backlog has no folder in the record: its row opens nothing.
 
 ## Overlaps in batch-30 and the UI night
@@ -303,6 +339,15 @@ Dashboard page, and from it (open question 1); no change to the CR board pane (`
   either side of CR-429.
 - **`board/times.py`**: `_ended` moves (section 1); CR-433, CR-434 and CR-435 (the Batch page) read
   `cr_times`, whose output does not change.
+- **CR-428 (drop-to-next-batch, batch-30)**: adds the drop destination `3-ready` (the next batch)
+  and removes the inbox as a destination; `core/records.py:moved_to` returns any non-trash
+  `left_to`, so a record's `to` may read `3-ready`. This CR shows it with `history.to_ready`, and
+  keeps `history.to_inbox` for the `1-inbox` of records written before CR-428. No shared code beyond
+  reading `to`; no dependency.
+- **CR-429 (board-fingerprint-cache, batch-30)**: adds the `watchfiles` dependency to
+  `pyproject.toml` and `uv.lock`. This CR adds `tzdata` the same way; whichever lands second rebases
+  on the other, keeps both lines in `dependencies` and re-runs `uv lock` (never a hand merge of
+  `uv.lock`), then `uv sync --locked` before `just check`.
 - **CR-440 (Triage polish)**, **board-griller**: no shared file expected.
 
 ## Evidence
@@ -313,10 +358,13 @@ Tests (`tests/test_board_history.py`, in-process, prepared planning folders, par
    day `2026-11-21`; on the DST change, an event at `2026-10-25T22:30:00Z` is in `2026-10-25` and one
    at `2026-10-25T23:30:00Z` in `2026-10-26`; the day `2026-10-25` has bounds
    `2026-10-24T22:00:00Z` to `2026-10-25T23:00:00Z` (25 hours). One case in `America/New_York`.
-2. **Week and month limits** (Q5, Q4): `period=week, date=2026-11-21` (a Saturday) gives `date`
-   `2026-11-16`, `end` `2026-11-22`, `prev` `2026-11-09`, `next` `2026-11-23`; a week holding today
-   gives `next` `null`; `period=month, date=2026-11-21` gives `2026-11-01` to `2026-11-30`, `prev`
-   `2026-10-01`; `period=day` with no `date` is today in the zone.
+2. **Week and month limits** (Q5, Q4), with the CLI's clock pinned (`monkeypatch.setattr(clock,
+   "_fixed", [])` then `clock.fix("2026-12-15T12:00:00Z")`, as `tests/test_access.py` does; never the
+   wall clock): `period=week, date=2026-11-21` (a Saturday) gives `date` `2026-11-16`, `end`
+   `2026-11-22`, `prev` `2026-11-09`, `next` `2026-11-23`; `period=week, date=2026-12-15` (holding
+   the pinned today) gives `next` `null`; `period=month, date=2026-11-21` gives `2026-11-01` to
+   `2026-11-30`, `prev` `2026-10-01`; `period=day` with no `date` is `2026-12-15`; with the clock
+   pinned at `2026-12-15T23:30:00Z`, `period=day` with no `date` in `Europe/Paris` is `2026-12-16`.
 3. **Totals and cost** (Q13, Q14): a prepared closed record with the new keys (a merged CR, a dropped
    CR with `to: 2-backlog/P2`, a release CR with `version`, one CR with `cost_usd: null`) gives the
    expected counts, the release under `releases` only, `cost_usd` the sum of the ended CRs, an
@@ -326,13 +374,16 @@ Tests (`tests/test_board_history.py`, in-process, prepared planning folders, par
    and no release even for a CR titled "release"; a dropped CR and a merged CR with no `STATUS.json`
    count in `undated` and are in no period; a `STATUS.json` with invalid JSON and an invalid
    `batch-*.json` count in `unreadable`.
-5. **Running batch** (Q10, Q20): a CR merged in `4-batch/` (an `order merged` event) and a first
-   `ship` show today; after a new event is written, the topic's `rev` changes; for a past period it
-   does not.
+5. **Running batch** (Q10, Q20), clock pinned: a CR merged in `4-batch/` (an `order merged` event)
+   and a first `ship` show today; two reads of the topic with nothing changed, the clock moved a
+   minute between them, give the same `rev` and the second sends no value (`now` is not in the rev);
+   after a new event is written, today's `rev` changes; a past period's does not.
 6. **The index is reused** (Q23): a second `history.get` with the same print reads no `STATUS.json`
    (count the reads with a monkeypatched store read); a change of the planning folder rebuilds it.
-7. **The protocol**: `history.get` with `period: "year"`, a bad `date` or an unknown `tz` is 400
-   naming the argument; the existing test that checks `protocol.json` against the models passes on
+7. **The protocol**: `history.get` with `period: "year"`, a `date` of `2026-13-01`, `2026-2-1` or
+   `1999-12-31`, or a `tz` of `Mars/Olympus` or `../etc` is 400 whose text names the field
+   (`'period'`, `'date'`, `'tz'`) and, for `date` and `tz`, the refusal text above; the same arguments
+   on a `history` subscription are refused the same way; the existing test that checks `protocol.json` against the models passes on
    the regenerated file; `project.state`'s keys are unchanged.
 8. **The close** (section 1): `cr_entry` with events gives `kind`, `ended`, `shipped`, `version`;
    `tests/test_order_drop_to.py` still passes with its call without events.
@@ -343,8 +394,12 @@ Tests (`tests/test_board_history.py`, in-process, prepared planning folders, par
    biome check of `just check` passes on the new JS.
 
 The scenario (`scenario/run_scenario.py`, the close check "its CRs carry the result, an archive that
-exists, the PR, the rounds and the cost"): add that every CR of the record has a `kind`, every
-merged CR an `ended` and a `shipped` instant, and a dropped CR an `ended` instant. The CR changes the
+exists, the PR, the rounds and the cost", near line 4612): add that every CR of the record has the
+four new keys with a `kind`, every merged CR an `ended` instant and, when it has a `pr`, a `shipped`
+instant, and a dropped CR an `ended` instant. A release CR merged with no PR (`pr` empty, `shipped`
+`null`) passes: it is counted without a PR link. Where the scenario's closed batch holds such a
+release CR, the existing clause that asks every merged CR for a `pr` is relaxed the same way (a
+merged CR of kind `release` may have no `pr`). The CR changes the
 CLI, so the pipeline's `just scenario (ubuntu-latest)` job is green at the PR's head before the PR
 (AGENTS.md); `just check` and `just eval-dry-run` before the first push.
 
@@ -359,7 +414,7 @@ Measures and screenshots in the PR's Deliverables (Q23, Q24), on the real planni
 
 Host and default matrix: none (the page does not depend on the host or on a configured value).
 
-## Open questions (built as A)
+## Open questions (built as A; 3 decided)
 
 1. **History and Dashboard links.** History's grill (Q2) says Dashboard links to History; the
    Dashboard pages CR's grill (dashboard-Q14) says neither links to or depends on the other.
@@ -368,14 +423,12 @@ Host and default matrix: none (the page does not depend on the host or on a conf
 2. **Sidebar order.** History's grill (Q21) puts History after PRs and before Costs; Dashboard's
    (dashboard-Q2) says "Costs, History, Dashboard". A (recommended, built): History after PRs,
    before Costs, as its own grill says; Dashboard stays after Costs. B: Costs, History, Dashboard.
-3. **Where the local day is computed.** A (recommended, built): on the server, in the browser's
-   IANA zone (`tz`), with `zoneinfo` and the `tzdata` dependency added and locked (needed on
-   Windows), so the tests of Q24 run in pytest. B: in the browser, with no new dependency, but the
-   client has no test runner, so Q24's tests of the local day and the week's limits cannot be
-   written. C: the browser sends a fixed UTC offset: wrong across a DST change.
+3. **Where the local day is computed.** Decided by history-Q26 (A): on the server, in the
+   browser's IANA zone (`tz`), with `zoneinfo` and the `tzdata` wheel, tested in pytest; no Node-run
+   test.
 4. **A release in the totals.** A (recommended, built): a release CR's merge counts under
    `releases` only, not under CRs merged; its cost is in the period's cost. B: it counts under both.
 5. **A missing archived STATUS.json.** A (recommended, built): an archived folder with no
-   `STATUS.json` counts as "no recorded date" (most old batches); only a file present but unreadable
-   counts as unreadable. B: a missing file counts as unreadable too (about two hundred today, a
-   loud line on every page).
+   `STATUS.json` counts as "no recorded end" (batch-01 to batch-19); only a file present but
+   unreadable counts as unreadable. B: a missing file counts as unreadable too (186 archived folders
+   today, a loud line on every page).
