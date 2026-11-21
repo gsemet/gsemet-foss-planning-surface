@@ -50,7 +50,7 @@ No visual change; users learn from the docs that these two editors are not follo
 - [x] Changelog: No user-facing change in behaviour (documentation of an existing limit).
 - [x] Local gates: `just preflight` (static stage on Windows) passes at 5ac0e15.
 - [x] Review: Inspector approved the change at its first head (7aa1e9b4, since rebased); Verifier VERIFIED at 5ac0e15.
-- [ ] CI green at 5ac0e15 (static, static-windows, viewer-graph, visual): visual running
+- [x] CI green at 5ac0e15 (static, static-windows, viewer-graph, visual).
 
 ### Internal references
 
