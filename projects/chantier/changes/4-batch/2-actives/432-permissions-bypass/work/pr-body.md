@@ -68,7 +68,7 @@ No visual change. Users see real-path rules in preflight's question and a warnin
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
+- [ ] Local gates at `1559e15`: `just check` (1586 passed), `just eval-dry-run` (18 of 18)
 - [ ] Evidence: the trial of rule matching, results in Deliverables
 - [ ] Review: approved at `<sha7>`
 - [ ] Verified at `<sha7>`

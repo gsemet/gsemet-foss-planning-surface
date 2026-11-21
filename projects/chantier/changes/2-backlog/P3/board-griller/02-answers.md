@@ -33,3 +33,7 @@ description: The grill of this CR.
 
 Restatement (2026-11-21, Fable advisor): from the web board, on an inbox, backlog or ready CR, the user opens a discussion with a Griller; the surface server runs the user's own headless CLI (Claude Code proven, Copilot only if proven the same), one run per message, one turn at a time per project, under tight limits (option A of board-griller-Q4, the user's to confirm: this machine only, writes in that CR's folder only, role-free `chantier` commands only, no subagent); the Griller grills and records as its card says, starts no spec-writer and places nothing; each turn that wrote appends one journal line that the Chief of Staff's watcher carries; failures say one line and try nothing else; the remote worktree Griller and the hand-over that carries files go to a follow-up item; AGENTS.md gains the named exception.
 Grilled enough (Fable advisor): yes, but board-griller-Q4, the user's; destination batch-30.
+
+## Specification
+
+- Spec v1 (2026-11-21, spec-writer): `03-change-spec.md` written from Q1 to Q17, built on board-griller-Q4's option A (still the user's, open question 1); its own open questions 2 (the run's model and agent: A, a `board-griller` agent file and default model) and 3 (no line in `board-journal.jsonl`: A), each built on A.
