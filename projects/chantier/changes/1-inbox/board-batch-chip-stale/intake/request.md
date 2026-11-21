@@ -1,0 +1,3 @@
+# The batch graph shows a batch CR's old 3-ready chip
+
+The board's batch graph (views/batch-graph.js:68, priority: c.priority, drawn by ui/card.js's priority chip) shows the chip 3-ready on batch-30's CRs (CR-425, CR-426, CR-430...), which are in 4-batch/2-actives and 4-batch/1-pending on disk. The user read it as the CRs not having moved into the batch. Expected: a CR in 4-batch shows no 3-ready chip (no chip, or its batch state). Seen 2026-11-21 from the phone.
