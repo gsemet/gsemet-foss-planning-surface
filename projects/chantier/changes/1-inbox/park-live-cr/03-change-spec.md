@@ -8,9 +8,10 @@ outside pipeline or merge) stops holding a slot and the stack. The Foreman parks
 the board. Once its wait is cleared, the Foreman takes it back, on top, before any queued CR.
 `close`, the batch's end and the release wait for it: the user resumes it or sends it out.
 
-Spec v3 (run 3). The user split the first CR in three (park-live-Q12): this CR is part (1). `order
+Spec v4 (run 4). The user split the first CR in three (park-live-Q12): this CR is part (1). `order
 hold` of a live CR is `hold-live-cr`; the `ready` drop destination and the destinations of a
-started CR are `drop-to-next-batch` (both in `1-inbox/`).
+started CR are `drop-to-next-batch` (both in `1-inbox/`). v4 takes in entry 18 (where a parked CR
+may be dropped) and nothing else.
 
 ## Goal, in the user's terms
 
@@ -44,6 +45,8 @@ as possible.
 | Q13 (B) | P3 and P4 allowed for a started CR too. | Out of scope: `drop-to-next-batch`. |
 | Q14 (A) | No board drag of a CR out of the running batch now; an idea for later, no CR. | Out of scope |
 | Q15 (A) | A series successor already started on the parked CR waits with it, as a dependent: out of the order, its Driver goes on, it is not merged before the parked CR comes back. | Words; "Shared with hold-live-cr"; 2, 3 |
+| Entry 17 | (Superseded by entry 18: the inbox for a started CR.) | - |
+| Entry 18 | `order drop` never sends a CR out of a batch to the inbox, started or not: P1-P4, `3-ready`, the trash; a parked CR is no exception. | 6, 7, Out of scope: wherever a parked CR's drop is named, the destinations `order drop` takes (drop-to-next-batch: never the inbox; P1-P4, `3-ready`, the trash). |
 | Fable 1 | Reuse the existing `blocked` state (it holds no slot); the Foreman sets it on a live CR. | 1 |
 | Fable 2 | `order hold` accepted on a live CR. | Out of scope: `hold-live-cr`. |
 | Fable 3 | A CR taken out keeps its branch and PR (draft) for P1, P2 or the next batch; the trash closes its PR. | Out of scope: `drop-to-next-batch`. While parked, in the batch, its branch, worktree and PR stay (1, 4). |
@@ -102,8 +105,8 @@ Run 2 (v2):
 
 ## Shared with hold-live-cr
 
-hold-live-cr (`1-inbox/hold-live-cr`) defines the same notions for held CRs; its next run copies
-this paragraph. Whichever of the two CRs lands first adds the helpers below to `rails.py` and moves
+hold-live-cr (`1-inbox/hold-live-cr`) defines the same notions for held CRs; its specification
+v2 holds a copy of this paragraph (v3's, unchanged in v4). Whichever of the two CRs lands first adds the helpers below to `rails.py` and moves
 the readers of `is_held` onto them; the second one widens its tests and adds no reader. Both edit
 the same functions (`stacks.py`, `rails.series_predecessor`, `rails.check_take`,
 `status/words.step`, `status/words.phase_text`, `status/views._now_next`,
@@ -374,8 +377,8 @@ server's protocol. No drag out of the running batch (Q14).
   as for any blocked CR" for a parked CR.
 - **The batch's end, `close` and the release** with a parked or blocked CR (section 7): name the CR
   and what it waits for, give its way back as the CLI's line names it, and offer the user to wait
-  for it or to send it out (`order drop <cr> --note <destination>`, the destinations `order drop`
-  takes). Act on the user's answer only.
+  for it or to send it out (`order drop <cr> --note <destination>`, the destinations `order drop` takes (drop-to-next-batch: never the inbox; P1-P4, `3-ready`, the trash)). Act on the
+  user's answer only.
 - **Batch reports** (critic run 2, fix 11): in "Holding a CR out of a stack", next to "Name each
   held CR in the batch reports", the same for a parked CR, with what it waits for; and next to
   "No release starts while a CR is held", the same for a parked CR, its way back being its wait
@@ -410,6 +413,8 @@ nothing deleted:
 cannot close <batch>: <way back of each CR left, joined by "; ">; or send it out (`order drop
 <cr> --note <destination>`). Nothing was deleted.
 ```
+
+`<destination>`, here and in `left_open`'s line: the destinations `order drop` takes (drop-to-next-batch: never the inbox; P1-P4, `3-ready`, the trash).
 
 **The batch's end** (`commands/endpause.py`). The ending commands (`handback` in
 `commands/driver.py`, `order merged` and `order drop` in `commands/orders.py`, `cancel` in
@@ -454,8 +459,8 @@ ready (section 6); `check_take` already refuses that take-back while the CR is u
   changing what a hold does; the way-back text of a held CR (section 7) is the only held line it
   writes.
 - **Where a CR taken out of the batch goes**: the `ready` drop destination (`3-ready`, the next
-  batch), the destinations of a started CR (any backlog row, the next batch or the trash, never
-  the inbox: Q1, Q13), its PR turned to draft (Fable 3), and the `3-ready` destinations in
+  batch), the destinations of a started CR, a parked one included (the destinations `order drop` takes (drop-to-next-batch: never the inbox; P1-P4, `3-ready`, the trash); Q1, Q13,
+  entry 18), its PR turned to draft (Fable 3), and the `3-ready` destinations in
   `driver.md` and `foreman.md`: `drop-to-next-batch` (park-live-Q12). Here the cards and lines
   name `order drop <cr> --note <destination>` as it stands.
 - The two ready folders and the factory mode's redefinition (Q5, Q8): `factory-redefine`.
@@ -562,4 +567,4 @@ value.
 
 None. (v1's question 1 is answered at park-live-Q13 and goes to `drop-to-next-batch`; question 2
 is dropped with the hold; question 3 is answered at park-live-Q14; critic run 2's finding 5 at
-park-live-Q15.)
+park-live-Q15; entry 17 is superseded by entry 18, carried.)
