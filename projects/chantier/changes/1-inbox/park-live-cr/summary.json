@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Park a live CR that waits on an outside step",
+  "summary": "Grilled (Q1-Q10): the Foreman marks a CR blocked, which frees its slot and lets the stack go on; the user takes CRs out; close refused while one is blocked. To specify after factory-redefine. Critic: yes.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2b281752fd8f48f3549eaad6e2fdebca244ae90086ffb0b0ea22641d7b899ede",
+    "02-answers.md": "3c672ad465838260ef3ccdd32862368a1d0a824958105ff5bfb5558fdd13f523",
+    "intake/request.md": "bfc11074b952527c00c9443eb6e190eef128ddd8caf68fb5d312dbce15b27b11"
+  },
+  "summarized": "2026-11-21T09:46:45Z"
+}

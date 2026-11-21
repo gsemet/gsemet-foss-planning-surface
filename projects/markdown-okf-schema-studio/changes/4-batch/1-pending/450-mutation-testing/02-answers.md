@@ -23,3 +23,4 @@ Decided by the Chief of Staff under the owner's autonomy rule (owner, 2026-11-20
 - mt-Q10 (who decides redundancy). Owner: "Core tests, others label holes": only test/core decides redundancy (bail off); the other layers' tests then run (bail on) only on mutants core's tests did not kill, to label those holes "killed only by another layer".
 - mt-Q11 (tests that look useless because of excluded, timeout or compile-error mutants). Owner: "A 'not judged' mark": never a removal candidate on mutation data alone; the reason is shown.
 - mt-Q12 (where the real TS 7 check of the checker runs). Owner: "At the start of just mutation-core": a self-test that fails the target if it breaks; test/build keeps the pure parts only.
+- Owner, 2026-11-21: "Ready + run with Foreman": moved to 3-ready and run in a stack with the existing Foreman.

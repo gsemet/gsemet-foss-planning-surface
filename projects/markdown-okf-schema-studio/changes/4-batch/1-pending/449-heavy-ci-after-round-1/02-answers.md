@@ -18,3 +18,4 @@ Decided by the Chief of Staff under the owner's autonomy rule (owner, 2026-11-20
 - hc-Q4 REVISED (who pushes in a stack). Owner: "The CR's own Driver": as outside a stack, it pushes and opens the draft against the base `take` gave; the stack driver only restacks later. No exception to the stack driver's role.
 - hc-Q3 REVISED (re-dispatch). Owner: "Only after such a fix": once after round 1, then once after each round that fixes a red integration or stress job of the early heavy run; never when the last heavy run is green. Rule 13's pre-merge run is that last green run if the head is unchanged.
 - hc-Q6 (open-PR cap). Owner: "Yes; at cap, no PR yet": the early draft counts; at the cap the Driver pushes the branch and dispatches the heavy run without opening the PR.
+- Owner, 2026-11-21: "Ready + run with Foreman": moved to 3-ready and run in a stack with the existing Foreman.

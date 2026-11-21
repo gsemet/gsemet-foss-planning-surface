@@ -12,3 +12,5 @@ Decided by the Chief of Staff under the owner's autonomy rule (owner, 2026-11-20
 
 - cc-Q5 (paste on or after a list followed by a blank line, refused for the same reason). Owner: "Add paste to this CR": the host accepts a blank anchor line that ends a list; BLOCK-124 and BLOCK-174 updated.
 - cc-Q6 (a selection ending on a paragraph holding only a no-break space). Owner: "Only real blank lines": cut and copy drop only CommonMark blank lines (spaces and tabs); such a selection stays refused, nothing is left out silently.
+- cc-Q7 (paste anchor). Owner, 2026-11-21: "Yes, any block": a paste anchored on any CommonMark-blank line under a block is accepted (one blank line each side, none gained); still refused at the top, in the frontmatter, or on a no-break-space line.
+- Owner, 2026-11-21: "Ready + run with Foreman": moved to 3-ready and run in a stack with the existing Foreman.

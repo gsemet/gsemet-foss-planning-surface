@@ -18,3 +18,4 @@ Decided by the Chief of Staff under the owner's autonomy rule (owner, 2026-11-20
 
 - br-Q6 (marker followed by a tab, or two markers on a line). Owner: "Compute as CommonMark": a tab runs to the next stop of 4; for `- - a` the innermost item's column; the block stays in the item; tests for both.
 - br-Q7 (`- c` typed in a run inside an item, with more content of the item after). Owner: "Nested list in the item": written at the content indent, nothing after it changes item; a sibling item is added only from a run between items.
+- Owner, 2026-11-21: "Ready + run with Foreman": moved to 3-ready and run in a stack with the existing Foreman.
