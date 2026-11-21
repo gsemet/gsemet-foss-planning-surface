@@ -226,6 +226,19 @@ Per `requirements/guidelines/project.guidelines.md` ("During a change"), scope `
   Code's Git, not Studio.
 - The target-line marker on a jump into a diff: side-preview-jump-marker (section 7).
 
+### Known gaps (delivered, after round 4)
+
+- Real-window step T6 (staged-like diff, no `file:` side) was dropped (fallback B). It never ran in
+  a real window: the CI failures first blamed on it came from the openDiff tab-count wait of the T5
+  step (fixed). The reason it was removed rather than fixed is the round budget, not an established
+  defect. The staged-like rule is covered by `test/host/diffPreview.requirements.test.ts` only.
+  (The commit message of that fallback says T6 "timed out opening its own diff in CI": that reason
+  is not established.)
+- Scroll is asserted in a real window side by side only; the inline layout is untested.
+- The title button is checked by its manifest clause, not by a click; the palette command is
+  exercised, not Ctrl+K Shift+V.
+- `onDidChangeTabs` also fires on dirty or label changes (the follow is idempotent, untested).
+
 ## 6. Tests and acceptance
 
 - **Unit / host tests** (`test/host/`):
