@@ -18,6 +18,20 @@ them. The writer can select it, remove it, or type or paste in it.
 - Blank lines inside a fence, directive, HTML block or table in an item, and inside quotes and
   admonitions, are unchanged (not shown).
 
+How a block typed in a run inside a list is written:
+
+```mermaid
+sequenceDiagram
+    participant Page
+    participant Host
+    Page->>Host: previewEditSave { replaceBlankRun: { line, endLine, itemLine }, text }
+    Host->>Host: listItemIndent(document, itemLine), refuse as stale if undefined
+    Host->>Host: item indent (sibling "- c") or content indent (everything else)
+    Host-->>Page: one text edit, one blank line on each side
+```
+
+Screenshots are attached to this description by the verification step.
+
 ## Changes
 
 - `src/page/features/blankLines.ts`: placement of a run inside a top-level list in its host item,
@@ -27,12 +41,12 @@ them. The writer can select it, remove it, or type or paste in it.
   and content indent of a block written in place of a run.
 - `pageToHost` protocol: optional `itemLine` on `replaceBlankRun`; the host checks it and refuses a
   stale one.
-- Requirements BLOCK-266 to BLOCK-269, glossary, tests (core, page, session, visual, integration).
+- Requirements BLOCK-266 to BLOCK-269, glossary, changelog, tests (core, page, session, visual,
+  integration).
 
 ## Impacts
 
-Visible in edit mode only. Reading mode is unchanged. Captures: see the Deliverables section once
-the verification has attached them.
+Visible in edit mode only: the new blank-lines blocks inside lists. Reading mode is unchanged.
 
 ## Blast radius
 
@@ -42,14 +56,16 @@ previous behaviour.
 
 ## Test plan
 
-- [x] New or changed tests (they fail on the previous code)
+- [x] New or changed tests (they fail on the previous code, except the render test, which guards an
+      existing contract)
 - [x] Requirements: SwRS BLOCK-266 to BLOCK-269 updated, markers in code and tests,
       `just requirements-update`
-- [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
+- [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [ ] Local gates: `just check` passes; long gate pending
 - [ ] Review
 - [ ] CI green
 
 ## Known gaps
 
-None.
+- The real VS Code integration steps (LF and CR LF) are written and compile, but were not run
+  locally; they run in CI on a heavy run.
