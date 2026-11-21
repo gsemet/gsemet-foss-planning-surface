@@ -44,3 +44,5 @@ Restatement (2026-11-21, Fable advisor): a read-only History page on the web boa
 Grilled enough (Fable advisor): yes; destination batch-30.
 
 Spec v1 (2026-11-21, Spec-writer): `03-change-spec.md` written from Q1 to Q25. Open questions, each built as its option A: (1) no link between History and Dashboard either way; (2) History after PRs, before Costs, Dashboard after Costs; (3) the local day computed on the server in the browser's time zone (`zoneinfo`, `tzdata` added); (4) a release counted under releases only; (5) an archived CR with no `STATUS.json` counted as having no recorded date, not as unreadable.
+
+history-Q26 (2026-11-21, the Chief of Staff, from user-inbox-Q19's reason): the local day is computed on the server with `zoneinfo` and the `tzdata` wheel, tested in pytest (open question 3, A). A Node-run test path in `just check` (B) would be the new test rule user-inbox-Q19 left to the user; `tzdata` is a pure wheel for the three systems, which AGENTS.md's dependency rule allows.

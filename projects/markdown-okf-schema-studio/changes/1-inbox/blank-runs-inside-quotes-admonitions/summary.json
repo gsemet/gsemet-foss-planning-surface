@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Show blank-line runs inside quotes, alerts, admonitions, definitions and footnotes",
-  "summary": "Specified: runs inside quotes and alerts (empty > lines), Markdown directives, definitions and footnotes show as blank-lines blocks in their container; delete keeps one line, typed blocks take the container prefix and indent. Five open questions.",
+  "summary": "Specified with all answers applied: runs in quotes, alerts, directives, context-tag panels, definitions and footnotes show in their container; delete keeps one line, typed blocks take the container prefix and indent. No open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "86597fc0d875cfa93518d1ffef581887a34243111cdf80add08041586fd3f54a",
-    "03-change-spec.md": "22550e32cbdd19510fd76990f19b9fdd8e3b174375442597255999d621b19fc9",
+    "02-answers.md": "3203e6684bc0de522b25a9cc285874737b7838e06a9053ee3f7f38b12150cf9b",
+    "03-change-spec.md": "b260d1d7056b24430b522b624362e0a28a5276d1621ca308e0dab0acac6fa56e",
     "intake/request.md": "d11c5aee783fa545e79d216d8c395f833e98c007590a39bb6c57b4d12f913698"
   },
-  "summarized": "2026-11-21T18:55:18Z"
+  "summarized": "2026-11-21T19:15:34Z"
 }

@@ -61,7 +61,7 @@ The CR board pane shows `Held` and `Unheld` for a held live CR.
 - [ ] Evidence: none beyond the tests and the scenario case
 - [x] Review: approved at `9783ec5` (same tree as the inspected head)
 - [x] Verified at `9783ec5`
-- [x] CI green at `db75bff`: all 5 checks pass, `just scenario` (ubuntu-latest) included
+- [x] CI green at `9783ec5`: all 5 checks pass, `just scenario` (ubuntu-latest) included
 
 ## Internal references
 
