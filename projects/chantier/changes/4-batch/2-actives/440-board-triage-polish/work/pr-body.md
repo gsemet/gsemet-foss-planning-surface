@@ -27,6 +27,7 @@ Grade: 1
 
 ## Known gaps
 
+- No screenshot yet of the folded row, the panel (English and French) and the phone width, nor the retaken docs pictures: to be attached before the hand-back.
 - **UNVERIFIED:** the behaviour in a browser (fold, reload, drag onto a folded head, phone width) is not yet proven; the project has no JavaScript test runner.
 
 <details>
@@ -42,6 +43,15 @@ Grade: 1
 - `css/components/column.css`: the folded row, the chevron button, the phone-width head.
 - `DESIGN.md`, `docs/web-board.md`: the new section and bullets.
 - `tests/test_board_design.py`: a guard on the shipped words and markup.
+
+## Human decisions
+
+- Only the four priority rows of the Backlog column fold, each on its own; no "fold all", no other column.
+- A folded row keeps its head (chip, counts, chevron); all rows are open by default.
+- The choice is kept on the device, one per row, the same for every project; nothing on the server.
+- A folded head is still a drop target, and the row stays folded after a drop.
+- Folding a row removes from the selection only the post-its drawn in it.
+- The explanation says what the count is, why the Chief of Staff may not know of the writes (the board never messages it), and to type "rescan"; it replaces the old bottom note, in both languages.
 
 ## Impacts
 
