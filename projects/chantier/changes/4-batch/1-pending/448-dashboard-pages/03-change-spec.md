@@ -12,6 +12,13 @@ client itself (a new chart component: lines, and stacked bars for the stacked ti
 Spec v2 (2026-11-21): carries dashboard-Q20 to Q27 (v1's five open questions, all decided; Q23
 moves the figures to the server, tested in pytest) and the spec critic's fixes 5 to 8 on v1.
 
+Spec v3 (2026-11-21): the second critic's five fixes on v2, none of them a behaviour change: the
+records' real shapes (`split` and `models` are lists) and a case on a copy of batch-29's record;
+durations in whole minutes as `model/receipt.js:minutesOf`; the feed's key and how it refreshes;
+the overlaps updated (CR-445, CR-446, CR-447; CR-427 merged); a point's day written only when it
+holds one; the module named `board/dashboard_page.py` (beside CR-445's `board/history_page.py`,
+apart from `status/views.py:dashboard_view`).
+
 All paths below are relative to `skills/chantier/scripts/cli/src/chantier/` unless they start with
 `clients/web/` (written out in full where it matters, shortened to `js/` and `css/` in the client's
 sections, which are relative to `clients/web/`), `tests/` (which is
@@ -39,7 +46,7 @@ records already hold; what they do not hold is out of scope.
 | Q3 | one project at a time; on "All projects" it opens on the last real project (no `overview`); no chart across projects | 3 |
 | Q4 | two tabs, Productivity (first, default) and Spending; no Scorers tab | 4 |
 | Q5, Q23 | source: only the closed batch records, the ones `board/state.py:_history` already reads; no archived CR folder, journal, transcript or forge; one read-only op computed from the records the server already reads; no new file read, nothing recorded, nothing added to the project state; AGENTS.md unchanged | 1, 2 |
-| Q6 | one point per closed batch, oldest to newest, labelled with its number; its closing day shown with its value | 1, 5 |
+| Q6 | one point per closed batch, oldest to newest, labelled with its number; its closing day shown with its value when the record holds one | 1, 4, 5 |
 | Q7 | range: last 10 closed batches (default), last 20, all; no date picker, period selector or arrows; headlines follow the range | 1, 4 |
 | Q8 | Productivity: (a) CRs held and merged, totals; (b) rounds per merged CR, mean; (c) batch duration, median; (d) model calls by part, stacked, total | 1, 4 |
 | Q9 | Spending: (a) cost per merged CR with total, merged CRs, ratio; (b) spend per batch stacked by part or by model (the Costs card's switch), "not split" segment, total, outside-the-batches line not added; (c) top 10 CRs by cost, PR opened in a new tab | 1, 4 |
@@ -77,13 +84,38 @@ A record whose shape changes later (a key missing, a value of the wrong type) gi
 the value is needed, never a raised error or a zero (Q18 risk 4): every read checks the type
 (a number is an `int` or `float` and not a `bool`; a list is a list; a dict is a dict).
 
+The name `dashboard_page.py` follows CR-445's `board/history_page.py` and keeps it apart from
+`status/views.py:dashboard_view` (the STATUS files' dashboard), which this CR does not touch.
+
+**The shapes it reads**, as the records hold them (batch-29's, the newest closed record, read on
+2026-11-21; batch-24 to batch-28 have the same shapes, batch-23 the same without `calls` in its
+split and without `models`):
+
+- the record: `batch` (str, `"batch-29"`), `number` (int), `state` (str), `opened` and `closed`
+  (str, ISO instants with seconds, `"2026-11-19T23:29:36Z"`; batch-01 to batch-16 hold
+  `closed: null` and no `opened`), `cost_usd` (float; `null` on batch-01 to batch-16),
+  `cost_unpriced` (dict, `{}` when all is priced), `crs` (list), `cost_receipt` (dict, from
+  batch-23 on; absent before);
+- a CR of `crs`: `cr` (str), `title` (str), `result` (str: `"merged"`, `"dropped"`, ...), `pr`
+  (str, when recorded), `rounds` (int), `cost_usd` (float or `null`), `cost_unpriced` (dict);
+- `cost_receipt.split`: a **list** of `{part, usd, calls, unpriced}`: `part` a str (`steering`,
+  `drivers`, `workers` or `agents`), `usd` a float, `calls` an int (absent on batch-23),
+  `unpriced` a dict;
+- `cost_receipt.models`: a **list** of `{model, calls, usd, unpriced}`: `model` a str, `calls` an
+  int, `usd` a float, `unpriced` an **int** (the count of unpriced calls, 0 when all are priced);
+- `cost_receipt.outside`: a **dict** `{grill?, steering?}`, each present part `{usd, calls,
+  unpriced}` (`usd` a float, `calls` an int, `unpriced` a dict).
+
+No other key of the record or of its receipt is read.
+
 **The records.** `closed` = the records that are dicts with `state == "closed"` (the running or
 paused batch's own record is out, and so is a stale record that never closed, such as today's
 `batch-20.json`: `state: "running"`, a `number`, `closed: null`; Q11). Sorted by `number` when it
 is an `int`, else the digits of `batch`, ascending. The range (`"10"`, `"20"` or `"all"`) keeps the
 last 10, the last 20 or all of them: these are the range's records, and each is one point of every
-chart, `{batch, n, closed, unpriced}`: `closed` the record's own `closed` string (the client writes
-its day with `clients/web/js/model/history.js:dayOf`), `unpriced` true when the record's
+chart, `{batch, n, closed, unpriced}`: `closed` the record's own `closed` string, or `null` when
+the record holds none (batch-01 to batch-16: the client then writes no day for that point; else it
+writes the day with `clients/web/js/model/history.js:dayOf`), `unpriced` true when the record's
 `cost_unpriced` is a non-empty dict (the rule of `history.js:hasUnpriced`).
 
 Every tile carries `values` aligned with `points` (`null` where the record lacks the figure),
@@ -101,11 +133,17 @@ is `len(points)` once, at the top.
   over the range (the sum of those rounds over their count), rounded to one decimal by the client.
   A `rounds` that is not a number (missing, `null`, a string) is a missing figure, left out of both
   means. Back-filled records cover it when their CRs hold `rounds`.
-- **Batch duration** (Q8c): per record, the minutes from `opened` to `closed` when both parse as
-  ISO instants; `null` otherwise (batch-01 to batch-16 today). Headline `median`: the median of the
-  covered values (the mean of the two middle ones for an even count).
-- **Model calls by part** (Q8d): per record, `cost_receipt.split`'s `calls` per part, only when
-  every part of the split holds a number `calls` (batch-23's split has none: `null`). The parts are
+- **Batch duration** (Q8c): per record, the whole minutes from `opened` to `closed` when both are
+  strings that parse as ISO instants, computed as the Costs receipt computes them
+  (`clients/web/js/model/receipt.js:minutesOf`: `Math.max(0, Math.round(span / 60000))`): in
+  Python `max(0, math.floor(seconds / 60 + 0.5))`, rounding a half minute up as `Math.round` does
+  (not Python's `round`, which rounds a half to even), with a comment naming the JS original;
+  `null` otherwise (batch-01 to batch-16 today). Headline `median`: the median of the covered
+  values, the mean of the two middle ones for an even count, rounded to a whole minute the same way
+  (half up). Each value and the median are ints.
+- **Model calls by part** (Q8d): per record whose `cost_receipt.split` is a non-empty list of
+  dicts, each entry's `calls` under its `part`, only when every entry kept by the `agents` rule
+  holds a str `part` and a number `calls` (batch-23's split has no `calls`: `null`). The parts are
   `steering`, `drivers`, `workers`, or `agents` standing in place of `drivers` and `workers` when
   the split has an `agents` part: the rule of `clients/web/js/model/spend-by.js:parts`, written in
   Python with a comment naming the JS original (the Costs files do not change). Each value is a dict
@@ -122,10 +160,12 @@ is `len(points)` once, at the top.
   `{series, values}`, plus `total` (the range's summed number `cost_usd`), `covered` (records with a
   number `cost_usd`) and `unpriced` (true when one covered record is). Per record with a number
   `cost_usd`, a dict of segments `{series_key: usd}`:
-  - `role`: the split's parts' `usd` (same `agents` rule), when `cost_receipt.split` is a dict;
+  - `role`: each kept entry's `usd` under its `part` (same `agents` rule), when
+    `cost_receipt.split` is a non-empty list whose kept entries all hold a number `usd`;
   - `model`: one segment per series key (below), summing `cost_receipt.models[].usd` of the models
-    in that series (a model whose `usd` is not a number gives nothing), when `cost_receipt.models` is
-    a non-empty list;
+    in that series (an entry that is not a dict, or whose `usd` is not a number, gives nothing; its
+    `unpriced` count is not read: the point's mark comes from the record's `cost_unpriced`), when
+    `cost_receipt.models` is a non-empty list;
   - a record without that split (today batch-17 to batch-22 by part, batch-17 to batch-23 by model)
     is one segment `unsplit` of its `cost_usd`;
   - when the segments sum to less than `cost_usd` by at least half a cent, the rest is an `unsplit`
@@ -163,7 +203,7 @@ is `len(points)` once, at the top.
   "productivity": {
     "crs":      {"values": [{"held", "merged"} | null], "covered", "held", "merged"},
     "rounds":   {"values": [number | null], "covered", "mean"},
-    "duration": {"values": [minutes | null], "covered", "median"},
+    "duration": {"values": [int minutes | null], "covered", "median": int minutes | null},
     "calls":    {"parts": [...], "values": [{part: calls} | null], "covered", "total"}
   },
   "spending": {
@@ -233,14 +273,23 @@ stays `[1]`):
 
 ### 4. The page: `js/views/dashboard.js`, `dashboard-tiles.js`, `dashboard-feed.js` (new) (Q4, Q7 to Q12, Q15, Q16, Q23)
 
-**The feed**, `js/views/dashboard-feed.js` (like `prs-feed.js`): `startFeed()` calls
-`api.dashboard(project, state.dashRange)` and writes the answer to the store's `dashboard` with the
-project it was asked for; it calls again when the project, `dashRange`, or the closed batches change
-(a key of `history.js:closedBatches(state.data)`'s `batch` and `closed` values, so a batch closing
-asks again and an unrelated push does not), through the store's `subscribe`, as `prs.js`'s `mount`
-watches its batch. A failed read keeps the last answer on screen with the error beside it (as
-`prs-feed.js:failed`); an answer for another project or range than the current ones is not drawn (the
-view shows the board's loading line, `stats.loading`, as `prs.js` does). It returns the function that
+**The feed**, `js/views/dashboard-feed.js`: `startFeed()` calls `api.dashboard(project,
+state.dashRange)` (a one-shot read, `core/api.js`'s `read`) and writes the answer to the store's
+`dashboard` with the project and range it was asked for. `prs-feed.js` is a subscription to the
+`prs` topic, which this feed is not (there is no `dashboard` topic): only its `failed` helper's
+pattern (keep the last good answer, set the error beside it) and its project guard (`here()`: drop
+an answer that comes back after the project changed or the feed stopped) carry over. The feed
+calls again, through the store's `subscribe` (as `prs.js`'s `mount` watches its batch), when the
+project, `dashRange`, or its key changes: the key is built from each record of
+`history.js:closedBatches(state.data)`, its `batch`, `closed` and `cost_usd`, so a batch closing,
+and a closed record corrected afterwards (a re-priced `cost_usd`), ask again, and an unrelated push
+does not. The new state reaches the client because writing a record in `5-archives/batches/`
+changes the project's fingerprint (`board/fingerprint.py` reads that folder, `SHALLOW`), so the
+server rebuilds `project.state` and pushes it; CR-429 (in batch-30) keeps this, the push coming
+from its kept fingerprint instead of a walk per read, and the feed needs nothing else on either
+side. A failed read keeps the last answer on screen with the error beside it; an answer for another
+project or range than the current ones is not drawn (the view shows the board's loading line,
+`stats.loading`, as `prs.js` does). It returns the function that
 stops it; `dashboard.js:mount` starts it and stops it in its cleanup. The views compute no figure:
 they draw the answer (Q23).
 
@@ -290,7 +339,8 @@ feed, binds the controls and the charts (`bindCharts`, section 5) and returns th
     rel="noopener">` to `core/format.js:safeUrl(pr)`, and a click anywhere on the row opens the same
     address in a new tab; a row with no PR is plain. With no row: `dashboard.top_none`.
 - Money is written by `money` / `core/format.js:usd`, counts by `toLocaleString('en-US')`, as the
-  Costs page writes them (Q12); a duration by `lasted`; a point's day by `history.js:dayOf(closed)`.
+  Costs page writes them (Q12); a duration by `lasted`; a point's day by `history.js:dayOf(closed)`,
+  only when the point's `closed` is a string (a back-filled point shows its batch and no day).
 - **Words**: new `js/i18n/en-dashboard.js` and `fr-dashboard.js` (head comment like
   `en-costs.js`), every `dashboard.*` key above plus `dashboard.tab_productivity`
   ("Productivity" / "Productivité"), `dashboard.tab_spending` ("Spending" / "Dépenses"),
@@ -340,7 +390,8 @@ through `data-vars`, `core/dom.js:vars`, as `views/costs-models.js` and `ui/part
   `dashboard.axis` ("batch"), each point's batch number when the range shows at most 12 points, else
   the first, the last and every fifth (Q18 risk 1); the top value and 0 on the left.
 - **Reading a value** (Q12): each point has a transparent hit area over its whole column, focusable,
-  with an `aria-label` that says the batch, its closing day and each series' value (`format`, and
+  with an `aria-label` that says the batch, its closing day when the point holds one (none for
+  batch-01 to batch-16: no empty slot, no placeholder) and each series' value (`format`, and
   "not all priced" when `unpriced`; "no figure" for a `null` value). Hover, keyboard focus and a tap
   (a tap focuses it) light the column (`var(--accent-tint)`) and write the same text in the chart's
   readout line above the plot (`aria-live="polite"`); with nothing pointed, the readout shows
@@ -421,36 +472,44 @@ No `depends.json` (Q14); the stack settles each shared edit, whichever lands sec
 - **`js/views/registry.js`, `js/i18n/en.js` / `fr.js` (`nav.*`, one import and spread),
   `js/ui/icons.js`, `index.html` (two sheets: `css/components/chart.css` after
   `css/components/column.css`, `css/views/dashboard.css` after the Costs sheets)**: also edited by
-  CR-439 (Help, after Home and the Inbox), `board-user-inbox` (Inbox, right after Home) and
-  `board-history` (History, after PRs, before Costs). Each adds its own line. The order once all
+  CR-439 (Help, after Home and the Inbox), CR-444 `board-user-inbox` (Inbox, right after Home)
+  and CR-445 `board-history` (`4-batch/1-pending/445-board-history`: History, after PRs, before
+  Costs). Each adds its own line. The order once all
   have landed: Home, Inbox, Help, Triage, Kanban, Batch, PRs, History, Costs, Dashboard,
   Configuration (Q20).
 - **`js/core/router.js`, `js/core/store.js`, `js/core/api.js`**: CR-434 (`TABS`, `tabOf`, `settle`,
   the store's `batchTab`), CR-439 (`topicOf`, `helpTopic`), CR-440 (`triageFolded`),
-  `board-user-inbox` (`inboxMarks`), `board-history` (`historyOf`, `hp=` / `hd=`, `historyPeriod` /
+  CR-444 (`inboxMarks`), CR-445 (`historyOf`, `hp=` / `hd=`, `historyPeriod` /
   `historyDate`, and its own read in `api.js`). This CR adds `dashOf`, `dt=` / `dr=`, three store
   fields and one read in `api.js`; the address keys do not clash (`t` is the Batch view's, `h`
   Help's, `hp` / `hd` History's).
 - **`board/api/protocol.py`, `board/api/protocol.json`, `board/api/ops.py`, `docs/server-api.md`**:
-  `board-history` (`2-backlog/P3/board-history`) adds its `history.get` op and `history` topic;
-  CR-427 (`4-batch/`) edits `docs/server-api.md` (`backlog.move`); CR-429 (`4-batch/`) its "The
-  topics" paragraph and how the server watches. This CR adds one args model, one op, one handler and
-  one ops-table row. Whoever lands second regenerates `protocol.json` with `just protocol-schema`.
-- **`tests/test_server_api_calls.py`**: its every-op test asserts `good.seen == set(protocol.OPS)`,
-  so each CR adding an op adds its call there (`board-history` its `history.get`, this CR its
-  `dashboard.get`); whoever lands second keeps both.
-- **`DESIGN.md`**: CR-427, CR-433, CR-434, CR-440 edit the "One card, one column, one chip" rule;
-  CR-435 and CR-441 the Batch title row; CR-439, CR-440, `board-user-inbox` and `board-history` add
+  CR-445 adds its `history.get` op and `history` topic (and its own module `board/history_page.py`);
+  CR-429 (`4-batch/2-actives/`) edits `docs/server-api.md`'s "The topics" paragraph and how the
+  server watches; CR-446 (`4-batch/1-pending/446-live-several-boards-and-keys`) changes one
+  sentence of `docs/server-api.md`'s "A terminal client" (no server or protocol change). This CR
+  adds one args model, one op, one handler and one ops-table row: different lines from each.
+  Whoever lands after another op's CR regenerates `protocol.json` with `just protocol-schema`.
+- **`tests/test_server_api_calls.py`**: each CR that adds an op must call it in
+  `tests/test_server_api_calls.py` (the assert forces it: its every-op test asserts `good.seen ==
+  set(protocol.OPS)`); whoever lands second keeps both (CR-445's `history.get`, this CR's
+  `dashboard.get`).
+- **`DESIGN.md`**: CR-433, CR-434, CR-440 edit the "One card, one column, one chip" rule (CR-427's
+  edit there has merged and is in the base);
+  CR-435 and CR-441 the Batch title row; CR-439, CR-440, CR-444 and CR-445 add
   sections. This CR adds one Components row, one token row and its own section; it touches no rule
   another CR edits. **`css/tokens.css`**: no other batch-30 spec adds a token, as their specs stand.
-- **`tests/test_board_design.py`**: CR-439, `board-user-inbox` and `board-history` add tests there
+- **`tests/test_board_design.py`**: CR-439, CR-444 and CR-445 add tests there
   that assert their own entries' places; this CR's (Evidence 3) asserts only Dashboard's neighbours.
 - **CR-429** (the server's watch and cache): changes how the project state is pushed and cached, not
   what it holds; `history` stays in it and `reads.state_of` stays the way to read it, so the op works
   on either side (if CR-429 renames `state_of`, the second lander follows the rename).
-- **CR-441, CR-433, CR-435, board-griller**: no shared file expected.
-- **docs-gardening** (`2-backlog/P1`, last in batch-30): adds the page to `docs/web-board.md` with
-  its picture (Q19); this PR's screenshots are its input.
+- **CR-441, CR-433, CR-435, board-griller**: no shared file expected. CR-427 has merged: it is
+  in the base, not an overlap.
+- **CR-447 docs-gardening** (`4-batch/1-pending/447-docs-gardening`, last in batch-30): runs after
+  this CR (its `depends.json` lists the batch-30 CRs; adding this CR's slug there when this CR
+  joins the batch is the Chief of Staff's, not this CR's edit); it adds the page to
+  `docs/web-board.md` with its picture (Q19); this PR's screenshots are its input.
 
 ## Evidence
 
@@ -459,7 +518,11 @@ No `depends.json` (Q14); the stack settles each shared edit, whichever lands sec
 1. **The figures** (Q18 risk 2, Q23), new `tests/test_board_dashboard.py`, in-process, calling the
    shipped `board/dashboard_page.py:answer` on prepared records (a prepared input: the real records change
    and cannot hold every edge case; the shipped module is what runs), parametrized and fast, no Node.
-   The records cover:
+   The prepared records copy batch-29's keys and types exactly (section 1, "The shapes it reads":
+   `split` a list of `{part, usd, calls, unpriced: {}}`, `models` a list of `{model, calls, usd,
+   unpriced: 0}`, `outside` a dict of `{grill, steering}` each `{usd, calls, unpriced: {}}`,
+   instants with seconds and a `Z`), built by a small helper beside the test (for instance
+   `tests/dashboard_world.py`, as `tests/cost_world.py` is). The records cover:
    - a back-filled record (CRs with `rounds` and per-CR `cost_usd`, no `opened`, `closed` time,
      batch `cost_usd` or `cost_receipt`): a point in CRs and rounds, none in duration, calls, cost
      per merged CR or spend; its CRs in the ranking (Q25); the coverage counts say so;
@@ -487,9 +550,27 @@ No `depends.json` (Q14); the stack settles each shared edit, whichever lands sec
      oldest first;
    - a record with a wrong-typed value (a string `cost_usd`, a `crs` that is not a list): no value
      where it is needed, no exception;
+   - durations with seconds: a record opened `2026-11-18T10:00:00Z` and closed
+     `2026-11-18T10:02:30Z` is 3 minutes (a half minute rounds up, as `minutesOf`), and a range of
+     exactly two dated records, batch-27's and batch-29's instants (`2026-11-18T14:33:05Z` to
+     `2026-11-18T17:47:48Z`, 194.72 min, value 195; `2026-11-19T23:29:36Z` to
+     `2026-11-21T03:43:34Z`, 1693.97 min, value 1694), has the median 945 (944.5 rounded half up;
+     an even count); a record whose `closed` precedes its `opened` is 0;
+   - **a copy of batch-29's own record** (`5-archives/batches/batch-29.json` of the planning
+     surface, copied verbatim into the helper; its `report` string may be shortened, nothing else
+     changed), alone under `"all"`: `closed_total` 1; CRs held 36, merged 34 (two dropped);
+     rounds mean 70 / 34 = 2.0588...; duration 1694; calls total 9318, by part steering 983,
+     drivers 3088, workers 5247; cost per merged CR 243.5351 / 34 = 7.1628... ($7.16); spend total
+     243.5351 (the Costs figure $243.54); by part steering 59.71, drivers 64.23, workers 119.60 and
+     no `unsplit` segment (the parts sum to 243.54, above `cost_usd` by less than half a cent); by
+     model two series, `m1` `claude-sonnet-5-5` 175.29 and `m2` `claude-opus-5-5` 68.25, no
+     `unsplit`; outside 101.4204 + 38.5735 = 139.9939, covered 1; `unpriced` false everywhere; top
+     ten led by CR-404 (18.4933), CR-406 (13.5891), CR-418 (11.3713) and ending with CR-420
+     (5.8077), `top.covered` 1;
    - expected numbers: held and merged totals, the pooled rounds mean, the duration median (odd and
-     even counts), the call total, the cost-per-merged-CR ratio, the spend total, the outside sum and
-     its coverage, the top ten's order (ties by batch then CR) and its coverage.
+     even counts, above), the call total, the cost-per-merged-CR ratio, the spend total, the outside
+     sum and its coverage, the top ten's order (ties by batch then CR) and its coverage; a
+     back-filled point's `closed` is `null`.
    And through the op (`board/api/ops.py:call` on a prepared board, as `tests/test_server_api_calls.py`
    does): `dashboard.get` with `range: "15"` is 400 naming `range`, and with an unknown project 404.
 2. **The protocol**: `tests/test_server_api_calls.py`'s every-op test gains

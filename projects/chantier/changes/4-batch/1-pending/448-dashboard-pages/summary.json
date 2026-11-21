@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Web board Dashboard page: productivity and spending by closed batch",
+  "summary": "A read-only Dashboard view (after Costs) with Productivity and Spending tabs, one point per closed batch, range 10/20/all, gaps never zeroed. Figures computed on the server (board/dashboard_page.py, op dashboard.get, pytest); client-drawn SVG chart component; top 10 CRs by cost. EN and FR. batch-30.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "0c57e1104d6ac7457a25765525f6dcdd6b6a35ecea37d3d32fb1ae5e35eea703",
+    "02-answers.md": "0e1c1fc1b90598612d56603a7c0b299ee8162da715363158526f507a3aaf6908",
+    "03-change-spec.md": "6465e27ea4204871630978ff27d89180a2737e25484a6de4954eadbde8ad8174",
+    "intake/request.md": "cfdd5e87f5514771b8e5ca0701ff0fba380b082221c0b7e42cc5f78502748671"
+  },
+  "summarized": "2026-11-21T21:12:14Z"
+}
