@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "A stack batch keeps its shape after the Foreman's compactions",
-  "summary": "Specified: asks refuses a per-CR ready-to-merge once a stack batch has made a stack (fix CR excepted, --outside-stack forces it); status --refresh prints a shape line; stack rules move to foreman-stack.md, reread at reload; CoS checks asks against the shape.",
+  "summary": "Spec v2: asks refuses a per-CR ready-to-merge in a stack batch while another CR has an open PR or a stacked CR is open (fix CR excepted; --outside-stack \"O-k: ...\" on the user's word); status --refresh shape line; stack rules move to foreman-stack.md; CoS sends mismatched asks back.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "d51c8b02e29b102e092033a13e9147481ec5527ab6e68b2a5b8e69f73681565b",
-    "02-answers.md": "b3db4e1b02fa0530102170fc7dcdaea5c80cd98648f742b39cc63064f842c9d5",
-    "03-change-spec.md": "3994adb471285d98accb26daa3ac47362cc60f16b6aeeb9a4fda761a40764e1c",
+    "02-answers.md": "166ee65597154c03dd706a89d6b3832bf4223246b588ff8fe48c2c736701c890",
+    "03-change-spec.md": "e38b9573263fdd89636571a44bfeeaa0d7872ed07251f61cd33a24aae06bd831",
     "intake/request.md": "5eb6420bbff217ff4944b5f3a9ad503fa80423ddde509ce7eab1670a2a036b10"
   },
-  "summarized": "2026-11-21T16:26:44Z"
+  "summarized": "2026-11-21T16:42:37Z"
 }
