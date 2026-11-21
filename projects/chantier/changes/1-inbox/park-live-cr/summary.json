@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "The Foreman parks a CR stuck on an outside wait",
-  "summary": "Spec v4: the Foreman parks a CR waiting outside (blocked, slot freed, out of the stack and series with its dependents), back on top once its wait clears; close, the batch's end and the release wait for it. Dropped only to P1-P4, 3-ready or trash, never the inbox. No open question.",
+  "summary": "Spec v5: the Foreman parks a CR waiting outside (blocked, slot freed, out of the stack and series with its dependents, a series successor only if it started on it), back on top once its wait clears; close, the batch's end and the release wait for it. No open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "2b281752fd8f48f3549eaad6e2fdebca244ae90086ffb0b0ea22641d7b899ede",
-    "02-answers.md": "867718de876e9671628550b5bf77870dc57bf6609c8ab90c537cbc6b7de256c7",
-    "03-change-spec.md": "275d0d2edd94ce71338936fd7c9a9cfb0083e53bc4bc3caf67dd2fedc26f6c59",
+    "02-answers.md": "400fc3d3d5fbe9b0ac25fd881c1c26672e8cdbbfe573d775c6abd82c1139b4d9",
+    "03-change-spec.md": "2db9912cefafebf60971674231379ae1a63191fd7775fcc1ed603227e750ae02",
     "intake/request.md": "bfc11074b952527c00c9443eb6e190eef128ddd8caf68fb5d312dbce15b27b11"
   },
-  "summarized": "2026-11-21T15:09:25Z"
+  "summarized": "2026-11-21T15:16:29Z"
 }

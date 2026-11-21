@@ -8,10 +8,10 @@ outside pipeline or merge) stops holding a slot and the stack. The Foreman parks
 the board. Once its wait is cleared, the Foreman takes it back, on top, before any queued CR.
 `close`, the batch's end and the release wait for it: the user resumes it or sends it out.
 
-Spec v4 (run 4). The user split the first CR in three (park-live-Q12): this CR is part (1). `order
+Spec v5 (run 5). The user split the first CR in three (park-live-Q12): this CR is part (1). `order
 hold` of a live CR is `hold-live-cr`; the `ready` drop destination and the destinations of a
-started CR are `drop-to-next-batch` (both in `1-inbox/`). v4 takes in entry 18 (where a parked CR
-may be dropped) and nothing else.
+started CR are `drop-to-next-batch` (both in `1-inbox/`). v5 takes in the spec critic's run 3
+fixes (on v4) and nothing else.
 
 ## Goal, in the user's terms
 
@@ -89,6 +89,21 @@ Run 2 (v2):
 11. The batch reports point to `chief-of-staff.md`'s held-CR line; the release refusal is quoted by
     mode: sections 6, 7.
 
+Run 3 (v4):
+
+1. The series clause of `out_of_order` holds only for a successor that started on the apart CR or
+   on a dependent of it, read from `start_on`, now recorded at the first take in a series batch
+   too: "Shared with hold-live-cr"; the Series test checks the third after its take.
+2. In a series, the returned CR, its dependents above it, is placed above every CR that has left
+   `queued` and below the queued ones: section 3, in the "Coming back" test.
+3. `order drop` of an apart CR says "no stack driver needed" only with no dependent; otherwise it
+   names the dependents and the stack driver's removal: "Shared with hold-live-cr", both cases
+   tested.
+4. A queued release whose unmet waits are only parked, blocked or held CRs counts as left with
+   them in `close` and `left_open`: section 7, release cases in both tests.
+5. `apart_owner` follows the base rule's candidate (the last out-of-order one, then recursively):
+   "Shared with hold-live-cr", in the shared-definition test.
+
 ## Words
 
 - **Parked:** a CR in `blocked` whose record has `parked` set (section 1). Every parked CR is
@@ -105,48 +120,64 @@ Run 2 (v2):
 
 ## Shared with hold-live-cr
 
-hold-live-cr (`1-inbox/hold-live-cr`) defines the same notions for held CRs; its specification
-v2 holds a copy of this paragraph (v3's, unchanged in v4). Whichever of the two CRs lands first adds the helpers below to `rails.py` and moves
-the readers of `is_held` onto them; the second one widens its tests and adds no reader. Both edit
-the same functions (`stacks.py`, `rails.series_predecessor`, `rails.check_take`,
-`status/words.step`, `status/words.phase_text`, `status/views._now_next`,
-`commands/forge_stack_apart.py`): the one that lands second rebases onto the other; neither
-depends on the other.
+park-live-cr and hold-live-cr (both in `1-inbox/`) share this paragraph word for word, as
+park-live-cr's specification v5 writes it; neither changes it alone. Whichever of the two CRs
+lands first records the series `start_on`, adds the helpers below to `rails.py` and moves the
+readers of `is_held` onto them; the second one widens its tests and adds no reader. Both edit the
+same functions (`stacks.py`, `rails.series_predecessor`, `rails.check_take`, `status/words.step`,
+`status/words.phase_text`, `status/views._now_next`, `commands/forge_stack_apart.py`,
+`commands/orders_drop.drop`): the one that lands second rebases onto the other; neither depends on
+the other.
+
+**The fact recorded at the take.** `start_on` (`core/records.py`), today recorded at a CR's first
+take in a stack batch only (`stacks.start_on_for`, called by `take` in `commands/driver.py`), is
+recorded in a series batch too: the branch that `start_base`'s series rule gives at that take, the
+branch of `series_predecessor` when that CR is open, else none (the default branch). It is the
+branch the CR started on; the series clause below reads it, never the present order. A series
+batch's `start_base` does not read it (its series rule is unchanged); after a change of mode to a
+stack, `stack_start`'s rule 1 reads it with the same meaning.
 
 **The definition** (in `rails.py`, which `stacks.py` imports, never the reverse; `is_held` moves
 there and `stacks.py` re-exports it for its importers):
 
 - `is_held(c)`: today's (held and open). `is_parked(c)`: `parked` set and open. `apart(c)`:
   `is_held(c) or is_parked(c)`.
-- `series_before(crs, c)`: today's `series_predecessor` body, unchanged (the nearest CR before
-  `c` in the order that is neither a release nor a fix and not cancelled; a merged one counts).
 - `out_of_order(crs, c, mode)`: false for a CR that is not open; true when `apart(c)`; true when
   one of `c`'s open `after` CRs is `out_of_order` (so: "an open CR whose `after` names an apart CR,
   directly or through other open CRs"); and, in a series batch only, true when `c` has left
-  `queued` (it is `working`, `ready` or `blocked`) and `series_before(crs, c)` is open and
-  `out_of_order` (Q15: the series successor already started on an apart CR, and in turn one
-  started on that successor). A queued successor is not a dependent: it is not started, and
-  `series_predecessor` gives it the CR before the out-of-order ones. The recursion ends: `after`
-  is acyclic and `series_before` goes down the order.
-- `series_predecessor(crs, c)`: the nearest CR before `c` that `series_before` would count and
-  that is not `out_of_order(crs, x, "series")`.
-- `apart_owner(crs, c, mode)`: for an apart CR, itself; for a dependent, the apart CR it waits
-  with: the first found walking its open `after` CRs in their order, then (series) its
-  `series_before`, recursively. Every message about a dependent names it with its kind: `parked
-  <p>` or `held <p> (order <O-n>)`.
+  `queued` (it is `working`, `ready` or `blocked`), its `start_on` names the branch of an open CR
+  `x`, and `x` is `out_of_order` (Q15: a successor that started on an apart CR or on a dependent of
+  it). A series CR that started on a CR still in the order is not a dependent, even when the CR
+  before it in the present order is out of order; nor is a queued successor: it has no `start_on`
+  yet, and `series_predecessor` gives it the CR before the out-of-order ones. The recursion ends:
+  `after` is acyclic, and the CR a `start_on` names was taken before the CR that names it.
+- `series_predecessor(crs, c)`: today's rule (the nearest CR before `c` in the order that is
+  neither a release nor a fix and not cancelled; a merged one counts), also skipping every CR `x`
+  with `out_of_order(crs, x, "series")`.
+- A dependent's **candidates**, in this order: in a series batch, the open CR whose branch its
+  `start_on` names; then its open `after` CRs, in the order of `after`.
+- `apart_owner(crs, c, mode)`: for an apart CR, itself; for a dependent, the `apart_owner` of the
+  last out-of-order CR among its candidates (the base rule's candidate), recursively. Every
+  message about a dependent names it with its kind: `parked <p>` or `held <p> (order <O-n>)`.
 
 **The base rule** for a dependent, one rule whatever its number of open dependencies, before the
 series and stack rules of `stacks.start_base` and `stacks.stack_base`: its base is the branch of
-the **last out-of-order CR among its candidates**, the candidates being, in this order, its
-`series_before` (series batch only, when that CR is open) and then its open `after` CRs in the
-order of `after`. There is always one (that is what makes it a dependent). Why not the dependency
-highest in the stack (`_nearest_open`): a dependency still in the stack merges or is placed below,
-and the apart CR comes back on top of every open CR (section 3), so the apart CR's branch, or a
-dependent's above it, ends up holding the others' work; a base in the stack would leave the apart
-CR's commits out of the dependent's branch. An apart CR's own base is the default branch, as a held
-CR's is today.
+the **last out-of-order CR among its candidates**. There is always one (that is what makes it a
+dependent). Why not the dependency highest in the stack (`_nearest_open`): a dependency still in
+the stack merges or is placed below, and the apart CR comes back on top of every open CR, so the
+apart CR's branch, or a dependent's above it, ends up holding the others' work; a base in the
+stack would leave the apart CR's commits out of the dependent's branch. An apart CR's own base is
+the default branch, as a held CR's is today.
 
-**forge-stack's `waiting`** covers the dependents of any apart CR, held or parked (section 2).
+**forge-stack's `waiting`** covers the dependents of any apart CR, held or parked: their PRs are
+left out of the native stack, not retargeted, and named apart, never as foreign PRs.
+
+**`order drop` of an apart CR** (`commands/orders_drop.drop`) unsets `held` or `parked`, so a
+dropped CR never reads held or parked. With no dependent, it prints today's line, `<cr> was
+held|parked: no stack driver needed`. With dependents, it names them instead, and in a stack batch
+the stack driver's removal of the dropped commits from their branches: `<cr> was held|parked;
+waiting with it: <cr>, ...[: the stack driver takes it out of their branches (\`take stack --note
+"drop: <cr> to <destination>"\`)]`, the bracketed part in a stack batch only.
 
 ## What changes
 
@@ -223,6 +254,7 @@ and `mode` the batch's mode, as `waits_for` takes them.
 | Where | Today | Now |
 | --- | --- | --- |
 | `stacks.chain`, `top_cr`, `next_merge` | leave out `is_held` | leave out `out_of_order`. `stack_due` and `held_lines` follow `chain`. A ready dependent in a series is not the next merge (Q15). |
+| `stacks.start_on_for` | `None` in a parallel or series batch | in a series batch, the branch of an open `series_predecessor` ("Shared with hold-live-cr", the fact recorded at the take) |
 | `stacks._live_start` | owner not held | owner not `out_of_order` |
 | `stacks.start_base`, `stack_base` (the CR's own test) | a held CR: the default branch | an `apart` CR: the default branch; a dependent: the shared base rule, before the series and stack rules |
 | `stacks.start_base` (`held_owner`) | owner held | owner `out_of_order` |
@@ -234,7 +266,7 @@ and `mode` the batch's mode, as `waits_for` takes them.
 | `commands/delivery.py`, `stack <crs>` and `_check_out_of_draft` | refuse a held CR | also refuse a parked CR (`<cr> is parked out of the stack (since <time>): it comes back with \`take\``) and a dependent (`<cr> waits with parked <p>\|held <p> (order <O-n>): it stays out of the stack until <p> is back`) |
 | `commands/forge_stack_apart.held` | held PRs to the default branch, `(held out of the stack)` | `apart` PRs; a parked one's reason reads `(parked out of the stack)` |
 | `commands/forge_stack_apart` (new `waiting`, critic run 2, fix 3) | - | the PR of a dependent of any apart CR, held or parked: left out of the native stack, not retargeted (it stays on its base by the shared rule), and named apart in the rebuild's lines and in check 2 as `#n of <cr> waits with parked <p>\|held <p>: left out of the stack`, never as a foreign PR |
-| `commands/orders_drop.drop` | unsets `held` | also unsets `parked`, with the line `<cr> was parked: no stack driver needed`, so a dropped CR never reads parked |
+| `commands/orders_drop.drop` | unsets `held`, `was held: no stack driver needed` | "Shared with hold-live-cr", `order drop` of an apart CR: also unsets `parked`; the "no stack driver needed" line only with no dependent, else the dependents named and, in a stack batch, the stack driver's removal |
 | `commands/orders_reorder.py` | `release_holds` reads `held` | no change: a parked CR stays parked when the batch leaves a stack; `reorder` keeps its chains; `series_predecessor` skips it |
 
 **The CRs that wait with it** (Fable 6, Q15) keep their status. A queued one waits without a slot,
@@ -257,14 +289,17 @@ is not merged before the parked CR comes back. `status` names them on the parked
   too. While a wait is open (Q7), exit precondition:
   `<cr> is parked, waiting for <w-ids and what>: \`wait <cr> clear <id> --epoch <n>\` first`.
 - **The write,** in `take` (`commands/driver.py`), after `check_take_all` and before `b.touch`,
-  once no wait is open: it clears `parked` and sets `order` to one above every CR of the batch but
-  the release (Q3). Then each open dependent takes the places above it, in the order of
-  `chains_kept` (`commands/orders_reorder.py`) over their present orders, so that no CR stands
-  below one of its `after` and a series successor stands right above it again (critic run 1, fix
-  4; Q15). Then it goes on as the take-back of any blocked CR: `working`, a new lease, no round
-  counted (Fable 7), a free slot needed (`check_slot`). Its line ends `; back on top of the stack`
-  in a stack batch, `; back at the end of the series` in a series, with `; its dependents above
-  it: <cr>, ...` when it has any.
+  once no wait is open: it clears `parked` and gives it its new `order` (Q3): in a stack or
+  parallel batch, one above every CR of the batch but the release; in a series batch (critic run
+  3, fix 2), above every CR that has left `queued` (the release aside) and below the queued ones,
+  which move up by as many places, their order kept. Then each open dependent takes the places
+  right above it, in the order of `chains_kept` (`commands/orders_reorder.py`) over their present
+  orders, so that no CR stands below one of its `after` and a series successor stands right above
+  it again (critic run 1, fix 4; Q15); in a series, still below the queued CRs. Then it goes on as
+  the take-back of any blocked CR: `working`, a new lease, no round counted (Fable 7), a free slot
+  needed (`check_slot`). Its line ends `; back on top of the stack` in a stack batch, `; back in
+  the series after its started CRs` in a series, with `; its dependents above it: <cr>, ...` when
+  it has any.
 
 **Before the queued CRs** (Fable 7): a card rule for the Foreman, as for a `context:` hand-back
 today ("a blocked CR holds no slot, so it takes the next free one"). `status` helps by printing a
@@ -401,12 +436,15 @@ prints, passed as it came).
 - a held CR (ready today, or blocked once hold-live-cr lands): `<cr> is held (order <O-n>): the
   user's \`order unhold <cr>\``;
 - any other blocked CR: `<cr> is blocked (<reason>): take it back (\`take <cr> --note "<why>"
-  --epoch <n>\`)`.
+  --epoch <n>\`)`;
+- a queued release whose unmet waits are only parked, blocked or held CRs (critic run 3, fix 4):
+  `<release> is queued, waiting for <cr> parked|held|blocked, ...: it starts once each is back`.
 
 **`close`** (Q4, `commands/closing.py`, `_close_target`). Today a batch with a blocked CR never
 pauses, so `close` refuses it with "`pause` first", and `pause` then names it among "not merged".
 Now, after `check_idle` and before the "not paused" refusal: when every CR of the batch is merged,
-cancelled, blocked or held, and at least one is not ended, `close` refuses, exit precondition,
+cancelled, blocked or held, or is a queued release whose unmet waits are only such blocked or held
+CRs (critic run 3, fix 4), and at least one is not ended, `close` refuses, exit precondition,
 nothing deleted:
 
 ```
@@ -420,7 +458,7 @@ cannot close <batch>: <way back of each CR left, joined by "; ">; or send it out
 `commands/driver.py`, `order merged` and `order drop` in `commands/orders.py`, `cancel` in
 `commands/release.py`) call `end_of_batch` only when every CR has ended. New in `endpause.py`:
 `left_open(d)`, called by the same commands when a CR ended in this command and every CR not ended
-is blocked or held (at least one). It pauses nothing and cleans nothing, and prints one line for
+is blocked or held (at least one), or is a queued release whose unmet waits are only such CRs. It pauses nothing and cleans nothing, and prints one line for
 the Chief of Staff:
 `<batch>: every other CR is merged or cancelled; <way back of each CR left, joined by "; ">: the
 batch stays open until it comes back or the user sends it out (\`order drop <cr> --note
@@ -498,8 +536,10 @@ within its limit). A new `test_park.py`; extend `test_stack_hold.py`, `test_stac
   CR `after` a parked CR, one `after` that one (through another open CR), and a CR `after` both an
   in-stack CR and a parked one: all three out of order, `apart_owner` the parked CR; the third's
   base is the parked CR's branch whatever the order of its `after` (the in-stack CR is never a
-  base), and with two out-of-order dependencies, the last one in the order of `after`; a held CR in
-  place of the parked one gives the same results, its messages reading `held <p> (order <O-n>)`.
+  base), and with two out-of-order dependencies, the last one in the order of `after`; with those
+  two waiting with two different apart CRs, `apart_owner` is the last one's apart owner, the CR
+  the base rule picks (critic run 3, fix 5); a held CR in place of the parked one gives the same
+  results, its messages reading `held <p> (order <O-n>)`.
 - **The stack** (a stack of three, the middle one parked, one CR `after`-depending on it, one that
   only started on its branch): the parked CR and its dependent are out of `chain`, `top_cr` and
   `next_merge`; the other's `start_on` is unset; `stack_base` gives the parked CR the default
@@ -508,26 +548,37 @@ within its limit). A new `test_park.py`; extend `test_stack_hold.py`, `test_stac
   draft`; `status` prints the `parked:` line with `waiting with it`; `forge_stack_apart` lists the
   dependent's PR in `waiting`, not retargeted, and check 2 does not read it as foreign.
 - **Series** (critic run 1, fix 5; Q15): a series of four, the second parked. A queued third is
-  given the first as predecessor and its `take` is accepted once the first is ready. In a second
-  case the third was taken while the second was ready, then the second was taken back and parked:
-  the third is a dependent (`out_of_order`, `apart_owner` the second), its base stays the second's
-  branch, it is not `next_merge` once ready (`PR in draft`), and the fourth's predecessor skips
-  both.
+  given the first as predecessor and its `take` is accepted once the first is ready; after its
+  take (critic run 3, fix 1) its `start_on` is the first's branch, it is not out of order, its base
+  is the first's branch, and it is `next_merge` once the first merges and it is ready. In a second
+  case the third was taken while the second was ready (its `start_on` the second's branch), then
+  the second was taken back and parked: the third is a dependent (`out_of_order`, `apart_owner`
+  the second), its base stays the second's branch, it is not `next_merge` once ready (`PR in
+  draft`), and the fourth's predecessor skips both.
 - **Coming back:** `take` of a parked CR with an open wait is refused (names `wait … clear`), and
   `access <cr>` on the same state names the same refusal (fix 8); after `wait clear`, `take --note`
   is accepted, the CR's `order` is above every other CR's but the release's and its dependents'
   orders are above it with their chains kept, the series successor right above it (critic run 1,
   fix 4; Q15), `parked` is unset and `round` unchanged; with no free slot `check_slot` refuses it;
-  `status` prints the `wait cleared: take it back before any queued CR` line first.
-- **`order drop` of a parked CR** to the trash: `parked` unset, the line `was parked` printed.
+  `status` prints the `wait cleared: take it back before any queued CR` line first. In a series
+  batch (critic run 3, fix 2): the returned CR's order is above every CR that has left `queued`
+  and below the queued ones, its started successor right above it and the queued CRs above both,
+  their order kept.
+- **`order drop` of a parked CR** to the trash (critic run 3, fix 3): with no dependent, `parked`
+  unset and the line `was parked: no stack driver needed`; with a dependent in a stack batch,
+  `parked` unset and the line naming the dependent and `take stack --note "drop: <cr> to
+  <destination>"`, with no "no stack driver needed".
 - **The pane's words:** `step` reads `Parked`; `phase_text` gives `parked: waits for …` and
   `parked: wait cleared` (fix 9); `_now_next` gives the two parked pairs (open wait, cleared).
 - **`close`** (parametrized over the way back, fix 6): every other CR merged and one CR left
   parked with an open wait, parked with its wait cleared, held, or blocked on another reason (say
   `infra:`): refused, each text naming that CR's own way back, nothing deleted; after `order drop
-  … --note P2` of that CR, the batch pauses and `close` is accepted.
+  … --note P2` of that CR, the batch pauses and `close` is accepted. A release case (critic run 3,
+  fix 4): the same batch with a queued release waiting only for the parked CR: refused, naming the
+  parked CR's way back and the release's line.
 - **The batch's end:** the `order merged` of the last other CR prints the "stays open" line naming
-  the parked CR and its way back, and the batch is not paused.
+  the parked CR and its way back, and the batch is not paused; with a queued release waiting only
+  for the parked CR, the same line, the release's line included (critic run 3, fix 4).
 - **The release:** `take <release>` with a parked CR is refused, the message naming it `parked`,
   in a stack batch (`handed back ready or merged`) and in a parallel one (`merged or cancelled`).
 - **The cards** (read from the repository at the head under test): `foreman.md` names `park` and
