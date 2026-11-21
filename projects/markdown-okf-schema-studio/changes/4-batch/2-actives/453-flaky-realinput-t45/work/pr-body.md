@@ -80,15 +80,15 @@ No visual change; no change to the product.
 
 ## Test plan
 
-- [x] New or changed tests: the stress plan unit test (9 pass at `8071d21`)
-- [x] Local gates: `just check` passes at `8071d21`; `just preflight` (static stage on Windows)
+- [x] New or changed tests: the stress plan unit test (9 pass at `8071d21` (carried to `e286869`, clean rebase))
+- [x] Local gates: `just check` passes at `8071d21` (carried to `e286869`, clean rebase); `just preflight` (static stage on Windows)
   passed at `1d2c9a3`, carried over clean rebases (patch unchanged)
 - [x] Evidence at `8071d21`: forced failure in the real VS Code window on Windows, message holds
   every expected part; 300 stress rounds of `table-insert-slash` green (3 heavy runs of 100
   rounds: 44912543237, 44912545451, 44912547780) plus the heavy integration job; the same 300
   rounds green at the previous head `1d2c9a3` (44909129414, 44909131656, 44909133730)
-- [x] Review: approved at `845997b` (carried to `8071d21`, patch unchanged)
-- [x] Verified at `8071d21`
+- [x] Review: approved at `845997b` (carried to `e286869`, patch unchanged)
+- [x] Verified at `8071d21` (carried to `e286869`, clean rebase, patch unchanged by range-diff)
 - [x] CI green at `8071d21`: static, static-windows, visual, viewer-graph, report, checks
 
 ## Internal references
