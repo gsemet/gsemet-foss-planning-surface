@@ -32,7 +32,8 @@ The default address changes for every user of `chantier board`: a phone that rea
 
 - The cookie's `Secure` flag and TLS are out of scope: the board stays plain HTTP, since a `Secure` cookie would not reach a phone on a local network address.
 - The board does not follow an address change or the network's return while it runs; a restart does.
-- **UNVERIFIED:** the pipeline's scenario run (board steps 10 and 11, new checks) has not run at this head yet.
+- The before side of the proof is the source line (`DEFAULT_HOST` was `0.0.0.0` at the base), not a run of the base.
+- No Windows local run of the scenario: the CI's `just check (windows-latest)` is green, the scenario ran on ubuntu only.
 
 <details>
 <summary>Details</summary>
@@ -61,12 +62,12 @@ Users who read the board from the phone must open it to the network. No visual c
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `7c1d890`: `just check` (1508 passed), `just eval-dry-run` (18 of 18 cases)
+- [x] Evidence: before at `18f2ac2` (source line), after at `7c1d890`
+- [x] Review: approved at `7c1d890`
+- [x] Verified at `7c1d890`
+- [x] CI green at `7c1d890`: 3x `just check`, `just eval-dry-run`, `just scenario (ubuntu-latest)`
 
 ## Internal references
 
