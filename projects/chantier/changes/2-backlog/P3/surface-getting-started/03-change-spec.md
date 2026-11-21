@@ -30,8 +30,7 @@ skipped step produces (quoted from the CLI as it ships at this CR's head):
    `git remote add` does not), then the stated branch in the root `chantier.yaml`, then the
    checked-out branch's upstream of the same name on `origin` (set by step 2's `push -u`; a local
    branch tracking a branch of another name, or another remote, is no source). The page says
-   that with none of them the
-   writer blocks as `not-a-branch` and quotes its text.
+   that with none of them the writer blocks as `not-a-branch` and quotes its text.
 4. **The project's folder:** `projects/<name>/` with `project.md` (prose, the one fixed line
    `- Archive in the PR: yes|no`), `checkout.yml` (`repo:`, `worktrees:`, defaults `.repo/` and
    `.worktrees/`), then `$CHANTIER init` (with `--project projects/<name>`) for the stage folders
@@ -170,8 +169,7 @@ outside the repository, with a local bare repository as the remote (`git init --
 `origin/HEAD` is unset as on a hand-made remote: the board's `writer:` line shows
 `blocked: not-a-branch` with the three fixes before step 3, and `synced` after each of the three
 fixes taken alone (three runs, the third with `git push -u origin <name>`); `open` refuses with
-no server and passes its surface checks after
-step 8. Recorded in `evidence/` with the commands and outputs.
+no server and passes its surface checks after step 8. Recorded in `evidence/` with the commands and outputs.
 
 `just check`, `just eval-dry-run` (the change is under the CLI's `src/`), and the pipeline's
 `just scenario (ubuntu-latest)` job at the PR's head (a CLI change). No `hooks/` or `types/`

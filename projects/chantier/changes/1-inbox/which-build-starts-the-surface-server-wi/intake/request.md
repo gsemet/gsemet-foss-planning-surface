@@ -1,0 +1,3 @@
+# Which build starts the surface server with several seated watchers
+
+Follow-up of surface-server-foreign-build (foreign-build-Q6 C, Fable advisor, 2026-11-21). Since CR-429 every project's watcher that holds its seat starts the board at once when server.json names no live server. On a surface shared by several projects (chantier in dev mode, Studio in plugin mode), the board may run Studio's cached build rather than this checkout's, and stopping it does not help: another seated watcher restarts it from its own build. Decide which build starts the surface server, and how a user gets their own checkout's build serving.

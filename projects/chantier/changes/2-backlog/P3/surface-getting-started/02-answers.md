@@ -9,3 +9,5 @@ getting-started-Q4 (2026-11-21, Fable advisor): **When sources disagree: the fir
 getting-started-Q5 (2026-11-21, Fable advisor): **The tracked branch: only when the checked-out branch's upstream is on `origin` and has the same name as the local branch (B).** Under A a local `plan` tracking `origin/main` leaves two candidate names, a guess CR-404 forbids; the guide's `git push -u origin <branch>` gives exactly the accepted case.
 getting-started-Q6 (2026-11-21, Fable advisor): **Preflight's P11 follows the same resolution and names its source (A).** One function: P11 and the writer cannot disagree about the surface's branch.
 Destination (2026-11-21, Fable advisor): waits; specified and filed in `2-backlog/P3` for a batch after batch-30. The page quotes behaviour batch-30 has not merged (CR-436's plugin-mode rule), part 2 changes how the writer picks the branch while that writer publishes batch-30's surface from live code, and the user marked it "later".
+
+Spec final (2026-11-21, the Chief of Staff): v2, getting-started-Q1..Q6 applied (Fable advisor); destination 2-backlog/P3, for a batch after batch-30.

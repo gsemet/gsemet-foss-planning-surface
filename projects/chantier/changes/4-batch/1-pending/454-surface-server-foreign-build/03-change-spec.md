@@ -63,8 +63,8 @@ are found by text on that merged head, not by line number.
   folder of the loaded `chantier` package; the `hub` entry's is for the record only".
 - A new `other_build(record, version, source) -> str | None`: None when the record is None, when
   its `version` differs (that case stays `other_version`'s, unchanged) or when its `source` equals
-  `source`; else the record's `source`, or None-distinct marker `UNKNOWN` (a module constant) when
-  the entry holds no `source` (an entry written by a build of the same version from before this
+  `source`; else the record's `source`, or the module constant `UNKNOWN` when the entry holds no
+  `source` (an entry written by a build of the same version from before this
   CR, foreign-build-Q4). `other_version` is unchanged.
 - No content hash, no git commit, no launch command is recorded.
 
