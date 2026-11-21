@@ -55,3 +55,5 @@ Grade: 2. The renderer gives new attributes to tab item content and table rows (
 - [ ] Local gates: to be filled at ship
 - [ ] Review
 - [ ] CI green
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
