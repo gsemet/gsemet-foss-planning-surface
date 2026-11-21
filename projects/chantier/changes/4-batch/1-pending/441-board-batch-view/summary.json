@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Web board Batch view: working dependency cards and a mode tooltip",
+  "summary": "Specified (v2): on the Batch graph, all arrows into a CR share one point and one arrowhead; on hover the lit arrows are drawn again above the cards; each Stack/Series/Parallel word gets a tooltip saying how to ask the Chief of Staff to switch (none on a closed batch). Web client only, after CR-435.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "49cc17f0faeb1dfb840757adb4e640242b2a6ec25ff5af12c4c2d61ca4e69d3e",
+    "02-answers.md": "8bc6da559032ef121de7badae1fc15a9292de1b78805a82227121f7d945339fb",
+    "03-change-spec.md": "979c1c8fc034b43cc6290b41df68fe3fd3118d8b47283d698b49ea090af77155",
+    "intake/request.md": "1bb22915647f50999482cd6f8b035c44b923b9ff36fee208ccc5cc31215af8de"
+  },
+  "summarized": "2026-11-21T19:05:48Z"
+}

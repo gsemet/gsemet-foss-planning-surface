@@ -51,3 +51,9 @@ Grilled enough (Fable advisor): yes; destination batch-30.
 ## Spec v1 (2026-11-21, spec-writer)
 
 - Spec v1 written (`03-change-spec.md`): one arrowhead per waiting CR (no marker per arrow on the graph), the lit arrows copied into a layer above the cards (`svg.edges.top`), a tooltip on each word of the mode switch (`mode.switch_to`, `mode.current`, none on a closed batch), the demo's CR-148 made to wait for CR-141, CR-145 and CR-146. Two open questions, A built: the French wording (A: « passe le batch en {mode} », "tu", French mode word) and a shipped graph picture (A: `batch-graph-pc.png` added to `docs_screenshots.py`).
+
+## Spec v2 (2026-11-21, spec-writer)
+
+- Spec v2 written (`03-change-spec.md`), on the spec critic's five non-behavioural findings: the lit head declares `stroke: none` (`path.hl`'s stroke outranks `.head`); the copies and the class loops take the base layer only (`svg.edges:not(.top)`), and the measure selects `path[data-from][data-to="CR-148"]` there; the before and after pictures are taken unlit and with CR-148 hovered; the closed batch's arrows rest on the live graph and the shared `graphBlock` / `drawEdges` / `light` path (mobile-app's closed records hold no `after`), batch-01 serves only the switch's check; overlaps name CR-439, CR-440 and docs-gardening, and section 6 says the demo loses its next CR to start (CR-148's "next" tag and the "queued, next CR-148" line). No behaviour changed.
+
+Spec final (2026-11-21, the Chief of Staff): v2 applies the critic's five non-behavioural findings; destination batch-30 after CR-435.

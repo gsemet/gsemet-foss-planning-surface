@@ -84,8 +84,11 @@ with CR-433, CR-434 and CR-435.
   - with a light on, every other head is `dim`;
   - with no light, a head is neither.
 - Style, in `css/views/batch-graph.css` (tokens only):
-  - `.batch svg.edges .head` keeps `fill: var(--edge-arrow)`;
-  - `.batch svg.edges .head.hl { fill: var(--accent); }`;
+  - `.batch svg.edges .head` keeps `fill: var(--edge-arrow)` and `stroke: none`;
+  - `.batch svg.edges .head.hl { fill: var(--accent); stroke: none; }`. The `stroke: none` is
+    needed here: a lit head is a `path.hl`, and `.batch svg.edges path.hl` (stroke `--accent`,
+    width 2) outranks `.batch svg.edges .head`, so without it the lit head would get a 2 px
+    outline and grow past the card's edge;
   - `.batch svg.edges .head.dim { opacity: 0.15; }`, the same opacity as `path.dim`;
   - the head gets the paths' `transition` on `fill` and `opacity`.
 
@@ -98,7 +101,9 @@ with CR-433, CR-434 and CR-435.
   empty. It then calls `light` (as today) when a light is in force.
 - `light(root, rows, id)`, when the root holds a `svg.edges.top`:
   - it fills that layer with copies (`cloneNode`) of the lit arrows (`path.hl[data-from]`) and of
-    the lit heads (`path.head.hl`) of the base layer;
+    the lit heads (`path.head.hl`), taken from the base layer only (`svg.edges:not(.top)`);
+  - its class loops (arrows and heads) run on `svg.edges:not(.top)` too, so they never match the
+    top layer's copies; the copies carry the `hl` class they were cloned with;
   - with `id` null it empties the layer.
 
   The base layer keeps every arrow, lit or not: the copy only draws the lit ones a second time, on
@@ -222,6 +227,11 @@ The French uses the familiar "tu" form, as `notice.key` and `writer.box.conflict
   `batch-gantt-pc.png`, `kanban-pc.png`, `kanban-phone.png`, `panel-pc.png` and
   `panel-phone.png`. The PR names each picture that changed.
 
+  The demo also loses its next CR to start: CR-148 is today the one ready to start, so its "next"
+  tag and the "queued, next CR-148" line go away once it waits for CR-145 and CR-146 (both
+  active). Any picture that shows that tag or that line changes too, beyond the list above; the
+  PR names those as well.
+
 ## Overlaps
 
 batch-30, this CR after CR-435, built on the following as landed:
@@ -244,10 +254,14 @@ batch-30, this CR after CR-435, built on the following as landed:
 - **CR-427** (Triage's last column) and **CR-429** (the server's watch): no shared file except the
   screenshot run and other sections of `docs/web-board.md` and DESIGN.md.
 - **CR-425** (factory-redefine): nothing beyond what CR-435 already takes in.
-- **Specs coming that edit the same shared files** (text only, no shared behaviour):
-  - board-help-page: `en.js` / `fr.js` keys, a test in `tests/test_board_design.py`, and a
-    DESIGN.md section;
-  - board-triage-polish: Triage screenshots and a test in `tests/test_board_design.py`.
+- **CR-439** (board-help-page, `4-batch/1-pending/439-board-help-page`): `en.js` / `fr.js` keys,
+  a test in `tests/test_board_design.py`, and a DESIGN.md section. Text only, no shared behaviour.
+- **CR-440** (board-triage-polish, `4-batch/1-pending/440-board-triage-polish`): Triage
+  screenshots and a test in `tests/test_board_design.py`. Text only, no shared behaviour.
+- **docs-gardening** (`2-backlog/P1/docs-gardening`, last in batch-30): it owns the end
+  correction of `docs/web-board.md` and retakes the batch screenshots that the batch-30 CRs left
+  stale. This CR still writes its own sentences and commits the pictures its run changes (section
+  6); docs-gardening keeps the ones that still match and corrects the rest after it.
 
   board-history, board-griller, board-user-inbox and dashboard-pages: none touches the Batch
   graph or the switch. Whichever lands last rebases its text.
@@ -278,7 +292,7 @@ natural; `just test` within its limit). It reads the shipped files:
 - `js/views/batch-gantt.js` still has `marker-end="url(#ar)"` (the Gantt is unchanged);
 - `css/views/batch-graph.css`:
   - `.batch svg.edges.top` declares a `z-index` greater than the one of `.batch .lvl`;
-  - `.batch svg.edges .head.hl` fills with `var(--accent)`;
+  - `.batch svg.edges .head.hl` fills with `var(--accent)` and declares `stroke: none`;
   - `.batch svg.edges .head.dim` has the opacity of `.batch svg.edges path.dim`;
 - `js/views/batch-head.js` builds `aria-describedby="mstip-`, `id="mstip-`, `role="tooltip"`, and
   uses `mode.switch_to` and `mode.current`;
@@ -296,18 +310,24 @@ no component restyled.
 SHA; on the demo, `just docs-screenshots`, plus a one-off Playwright run, not shipped):
 
 - The graph tab of shop-api's batch at 1400 × 860, **before** (the base of the stack) and
-  **after**, with the demo change in both: CR-148 in level 3 with three arrows.
+  **after**, with the demo change in both: CR-148 in level 3 with three arrows. Each of the two
+  is taken twice: unlit, and with CR-148 hovered. The defect shows mainly with a light on (the
+  stacked dimmed heads, the grey head on a lit arrow, the lit arrows behind the cards), so the
+  hovered pair is the one that proves the change.
 - After, measured and stated in the PR:
   - exactly one `svg.edges:not(.top) path.head[data-to="CR-148"]`;
   - its tip within 1 px of the middle of CR-148's card's left edge;
-  - each of the three `path[data-to="CR-148"]` ends at that same point (the last `L` of its `d`).
+  - each of the three `svg.edges:not(.top) path[data-from][data-to="CR-148"]` ends at that same
+    point (the last `L` of its `d`).
 - After, with CR-148 hovered:
   - the top layer holds its three arrows and one head, in `--accent`;
   - a picture shows the arrows from CR-141 and CR-146 drawn over the cards of levels 1 and 2;
   - a second picture with CR-146 focused by the keyboard (Tab) shows the same.
-- After, on a closed batch (`?p=mobile-app&v=batch&b=batch-01&t=graph`): the graph draws with one
-  head per waiting CR, and a hover lights it the same way. If that record holds no dependency, the
-  PR says so and this check rests on the live graph.
+- A closed batch's arrows: the demo's closed records (mobile-app's) hold no `after`, so they draw
+  no arrow. The arrows and the light of a closed batch therefore rest on the live graph's checks
+  above and on the code path both share (`graphBlock`, `drawEdges`, `light`, which the test reads);
+  the PR says so. The closed batch below (`?p=mobile-app&v=batch&b=batch-01&t=graph`) serves only
+  the switch's check (no tooltip, no `tabindex`).
 - The switch at 1400 × 860, on the running batch (mode `stack` in the demo):
   - one picture with the tooltip of "Series" open: `To switch, ask the Chief of Staff to "change
     the batch to series"`;
