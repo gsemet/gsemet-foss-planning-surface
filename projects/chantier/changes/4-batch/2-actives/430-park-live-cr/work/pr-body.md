@@ -53,6 +53,15 @@ Grade: 2. The shared predicates and the readers of `is_held` (stack, series, del
 - `commands/leftover.py`, `endpause.py`, `closing.py`, `orders.py`, `release.py`: way back, `close` and batch end.
 - Cards `foreman.md`, `chief-of-staff.md`, `routing.md`, `driver.md`; `README.md`, use-case docs, batch lifecycle docs, `scenario/`.
 
+## Human decisions
+
+- The Foreman parks a CR that waits on something outside, without asking, and tells the user in one line.
+- The rest of the stack goes on without the parked CR; it comes back on top, before queued CRs, once its wait is cleared, with no round counted.
+- `close` is refused while a CR is blocked: the user resumes it or sends it out; the release waits too.
+- A series successor already started on a parked CR waits with it as a dependent: its Driver goes on, it is not merged before the parked CR is back.
+- Dropping an apart CR that has dependents: in a series or parallel batch their Drivers rebase to remove its commits; in a stack the stack driver removes it.
+- A CR taken out never goes to the inbox (P1-P4, ready or trash).
+
 ## Impacts
 
 The pane shows `Parked` for a parked CR; a CR waiting outside the batch no longer holds a slot. No other visual change.
