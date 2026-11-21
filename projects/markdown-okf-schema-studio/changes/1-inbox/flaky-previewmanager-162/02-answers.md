@@ -8,3 +8,4 @@ it is shown, then renders once" (SwRS-MDOKFSTUDIO-LIFE-039) waits fixed times (1
 - pm-Q1 (if the cause is a real double render in the product). Owner: "Corriger aussi le
   produit": find the race; if the product renders twice when a hidden panel is shown, fix the
   product; the test waits on an event (or a render count), not on fixed times.
+- Owner, 2026-11-21: "Et tout ça partira dans le batch en cours": once final and ready, added to the running batch-07.

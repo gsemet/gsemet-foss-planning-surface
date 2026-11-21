@@ -12,3 +12,4 @@ owner merged the two small fixes into this CR (2026-11-21).
 - lp-Q2 (CONTRIBUTING sign-off). Owner: "Avec longpaths": same CR. CONTRIBUTING "How to Release"
   matches release-process.guidelines.md: the version commit carries no Signed-off-by (today line
   629 runs `git commit --amend --no-edit -s CHANGELOG.md`).
+- Owner, 2026-11-21: "Et tout ça partira dans le batch en cours": once final and ready, added to the running batch-07.

@@ -7,3 +7,4 @@ See intake/request.md: failed once in the heavy CI of batch-06 stack #440 at 2be
 
 - t45-Q1 (if the cause is not found). Owner: "Ajouter des traces": the CR ships what it proved,
   plus traces in the CI log to catch the next failure; no automatic retry, no quarantine.
+- Owner, 2026-11-21: "Et tout ça partira dans le batch en cours": once final and ready, added to the running batch-07.

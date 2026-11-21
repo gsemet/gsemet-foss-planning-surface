@@ -5,3 +5,4 @@ See intake/request.md.
 ## Grill, 2026-11-21 (owner's answers, asked by the Chief of Staff)
 
 - pu-Q1 (if the cause is not found). Owner: "Même règle que t45": ship what is proved plus traces in the CI log; no automatic retry, no quarantine. Both scenarios join the default `just ci-stress` scenarios (as the request says).
+- Owner, 2026-11-21: "Et tout ça partira dans le batch en cours": once final and ready, added to the running batch-07.
