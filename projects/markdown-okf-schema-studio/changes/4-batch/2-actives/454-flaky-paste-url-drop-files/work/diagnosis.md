@@ -39,7 +39,7 @@ the same place. Narrow, cheaper repro to dispatch (needs the stress `scenarios` 
 4. Ruled out: leftover editor tab or dirty document (both closed: after cleanup `active editor tab:
    none`, tabs read `smoke.md` only), edit mode left on (mode is `off`, as wanted), focus (the
    focus dump shows the webview focused and the window focused; the host frame `hasFocus=false` is
-   the normal state of the host frame in earlier passes of this dump), side bar (hidden).
+   not compared with a passing run, the logs hold no dump of one), side bar (hidden).
    The `CodeWindow: failed to load (code -3)` lines are noise (they occur in every round, before
    passing scenarios too).
 
