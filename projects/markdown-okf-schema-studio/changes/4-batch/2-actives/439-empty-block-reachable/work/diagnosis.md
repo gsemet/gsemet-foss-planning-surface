@@ -51,3 +51,43 @@ Caveat: an unproven flake. To settle it, re-run the heavy job on the branch afte
 `gh workflow run ci.yml --ref chantier/batch-07/cr-439-empty-blocks-leave-no-blank-lines-and-a- -f heavy=true`.
 If checkbox-toggle fails again at the same call, escalate. Note: a later heavy step may also fail on the
 `button:not([data-sphinx-move])` matches (section 1), which the cut-off run could not reach.
+
+## 3. Integration emptyBlocks (run 44847413533): the test sends messages the host validator rejects (test bug, deterministic)
+
+Failure: `AssertionError: lf: the autosave wrote the placeholder line` (emptyBlocks.test.ts:102), in the second fixture
+(`empty-blocks-emptied-lf`); the first fixture (Delete block, LF, plus its undo) passed. The step lasted 5813 ms: the
+20 x 250 ms retries of `untilApplied` ran out, so every send was silently dropped (no "stale" or error log line).
+Not a flake, not the CI environment, not timing, not the autosave flush.
+
+Cause: `sender()` (test/integration/emptyBlocks.test.ts:38-46) adds `pinViewportTop: 200` to every message. For a
+`previewEditSave` the validator `hasValidStateFields` (src/core/protocol/pageToHost.ts:150-155) accepts `pinViewportTop`
+only together with a valid `pinLine` AND only on a final save (`pinOwner`). So:
+
+- the autosave (`final: false`) with `pinViewportTop` is malformed: `isPageToHostMessage` is false, `PageMessageDispatcher.handle`
+  (pageMessages.ts:110-113) returns undefined, the document never changes;
+- the two final saves (`final: true, deleteWhenEmpty: true`) carry `pinViewportTop` without `pinLine`: also malformed, so they
+  would fail next (`direct` fixture, and the second half of `emptied`).
+- `previewBlocksDelete` is validated by its own function (pageToHost.ts:292-320) where `pinViewportTop` alone is valid, which is why
+  the Delete fixture passed.
+
+Proof (probe `work/debugger/probe_pin.cjs`, runs the compiled validator; `node <probe> <worktree>`):
+
+    autosave + pinViewportTop (test as written)      false
+    autosave without pin                             true
+    final+deleteWhenEmpty + pinViewportTop only      false
+    final+deleteWhenEmpty + pinLine+pinViewportTop   true
+    final+deleteWhenEmpty, no pin                    true
+    previewBlocksDelete + pinViewportTop             true
+
+Product code is fine: protocol allows `deleteWhenEmpty` only with `final: true` (pageToHost.ts:163-164), the handler
+(blockEdits.ts:421-509, 336-409) and `planEmptiedBlockRemoval` were read and nothing drops this message once valid. Not run
+end to end: the integration suite needs VS Code under a screen (CI; Windows runs only the static stage), so the claim
+rests on the validator probe plus the code reading; the heavy job re-run is the end-to-end check.
+
+Fix (test only, test/integration/emptyBlocks.test.ts):
+1. In `sender`, drop `pinViewportTop: 200` from the base fields (the Delete block message does not need it either).
+2. For the two final saves add `pinLine: 3, pinViewportTop: 200` (final saves are the pin owners); leave the autosave and
+   `previewBlocksDelete` without pin fields (or keep it on Delete only).
+No product change. Then re-run: `gh workflow run ci.yml --ref chantier/batch-07/cr-439-empty-blocks-leave-no-blank-lines-and-a- -f heavy=true`.
+Residual risk: after this, the next assertions of this test (expected text, one or two undos, CRLF) have never run, so they may
+show a separate failure; they are unverified by this diagnosis.
