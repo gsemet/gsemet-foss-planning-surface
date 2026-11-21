@@ -28,12 +28,27 @@ Base: eb3b6eccac951660001fedc1094fd0737c40a9a1 (origin/main; merge-base equals i
    same new assertions, as expected. Also run at the head, the CR's own scenarios v08, v17, v18, v20: `passed` x4.
    No path or username shows in any image. PASSED.
 
+## Description pass (PR #471 body as posted)
+
+4. PR description, judged at 3778f00a996a2f0c753492c368bef3e447c44973 (`gh pr view 471 --json headRefOid,body`: head equals it).
+   - Renders: sections, tables, mermaid block, ts block and the `<details>` fold are well formed; Known gaps is `None`, and
+     no `**UNVERIFIED:**` claim, uncaptured pair or accepted failure exists (claims 1-3 passed, before-after.md lists 10 pairs).
+   - Images: the 20 image URLs in Deliverables were fetched (`curl -sL`, HTTP 200 each) and their md5 equals the matching
+     file of `work/verifier/evidence/` (20 of 20; the two hidden-tab before pairs share one image, as in the evidence).
+     Opened after-hidden-tab-paragraph-light, after-frontmatter-row-dark, after-table-row-quote-light,
+     before-hidden-tab-code-dark: each shows its claim (arrow on the third line, on `owner`, on `second`; before on the
+     top of the tab set) and no path, window title or username.
+   - Consistent with the diff (`git diff --stat eb3b6ec HEAD`, 44 files): renderer attributes (mystNode, mystTables,
+     mystGridToctree, propertiesTable, export strip), page placement (lineMarker, lineMarkerPlacement, lineTops, tabs),
+     requirements LIFE-192/193/194 and boundary rows, user doc, CHANGELOG, tests: all present and all mentioned.
+   - Review box `approved at 3778f00 (carried from ca81d11)`: `chantier log CR-457` has `r2 approved at 7517dfd, committed as
+     ca81d11f+52cca97f` and the rebase note `head 3778f00, patch unchanged (range-diff: log.md only)`. Proves it.
+   - Test plan SHAs are the head or carried; gates and CI lines match the log (gate pass at head, CI note at 3778f00).
+   - Internal references: only the CR id, in the fold. No STALE mark.
+   Description: PASSED.
+
 ## Not judged here
 
-- The PR description (draft, `pr-body.md`): its Impacts section still reads "To be filled with before (1.11.0) and after
-  captures" and the Test plan boxes (new tests, local gates, review, CI) are unchecked; there is no Known gaps section.
-  The Driver fills Impacts from `work/verifier/evidence/` (note: the before is eb3b6ecc, the base, not the 1.11.0 tag) and
-  the description needs its own pass after that. The posted body equals `pr-body.md` apart from a trailing blank line.
 - CI (runs 44946649759, 44946809805) is the Driver's report, not re-proved here.
 
 VERIFIED
