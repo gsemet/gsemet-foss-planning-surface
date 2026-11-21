@@ -1,13 +1,15 @@
 {
   "schema": 1,
-  "title": "Board Triage view: a collapse per priority, an explained rescan count",
-  "summary": "Filed, not grilled: a collapse per priority and an in-board explanation of the writes-since-rescan count; the card width went to ui-feedback-large-screen, the sticky header to board-visual-refresh.",
+  "title": "Board Triage: fold each priority row, explain the rescan count",
+  "summary": "Specified for batch-30: each Triage row P1-P4 folds on a click on its head (counts stay, still a drop target, kept on the device, open by default); the writes-count panel opens on what it counts, why the Chief of Staff may not know, and to type 'rescan'. Web client only.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "5686e831691bb012948d9b419980786db51f1caff15c3a8496699296d27970e0",
+    "01-intent.md": "2ba057306cc573c4da1109168f93c36b3eb1c37708a1f716c0a3c5134dbe1ac5",
+    "02-answers.md": "66433d0f5ab28c531650971c9f150105b29504c40da3673f343607a8331c82b1",
+    "03-change-spec.md": "71c9e63f7859b060682085d1f1616dce90998e21956754d75ffd4b454327b667",
     "intake/request.md": "616dc288c3d26c62c13bb1ddc4ce2093b8b74742388cf6cd7503a91a21d74e32"
   },
-  "summarized": "2026-11-17T09:45:04Z"
+  "summarized": "2026-11-21T18:51:42Z"
 }
