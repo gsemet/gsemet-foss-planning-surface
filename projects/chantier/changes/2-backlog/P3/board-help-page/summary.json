@@ -1,12 +1,15 @@
 {
   "schema": 1,
-  "title": "Web board Help page explaining chantier's concepts and roles",
-  "summary": "Filed, not grilled: a Help page under Home with clickable cards on the concepts and roles, drawn from the README, in English and French.",
+  "title": "Web board Help page: chantier's concepts and roles as cards",
+  "summary": "Specified (v1): a Help view after Home and the Inbox, same on every project; 12 concept and 11 role cards from the README, a click opens a short detail kept in the address with a Read more link; text in EN and FR files, no server op. Four open questions, built as A.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
+    "01-intent.md": "e5a6a2fc21044a51041eb77c783c5a6b0b735062c32d87552bbb0a4b253b0c4a",
+    "02-answers.md": "ad61d1575f775d5647d6acb6e0c6365a7bb422ac80c3a19c7505adddbe379794",
+    "03-change-spec.md": "ae186290473fbda9fe26b4a7a46f55ee87a577ae8207cb271cdf466762480dfa",
     "intake/request.md": "bc6550d90f5b705ea7c846d9f8d71829a32c8d7ec4b8cedd9e08a8d1e0ba7099"
   },
-  "summarized": "2026-11-17T09:45:04Z"
+  "summarized": "2026-11-21T18:50:09Z"
 }
