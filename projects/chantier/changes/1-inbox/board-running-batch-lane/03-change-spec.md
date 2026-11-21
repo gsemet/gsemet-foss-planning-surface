@@ -49,6 +49,12 @@ in series and parallel mode too.
 | Spec critic run, fix 5 | The top half's sub-line has its own i18n key ("{batch} · {state}", both languages). The spec says whether `triage.running` and `triage.idle` are removed. | 1 |
 | Spec critic run, fix 6 | `docs/web-board.md` line 163 ("writes in the backlog only ... never in a batch") names the mark among the backlog's writes. | 5 |
 | Spec critic run, fix 7 | The scenario's no-open-batch step is dropped. The in-process test is named as its cover. | Evidence |
+| Spec critic run 2, fix 1 | A drop of a marked CR on its folder's own column clears the mark, writes `<slug> → <column>; running-batch mark cleared`, and is tested. | 1, 2, Evidence |
+| Spec critic run 2, fix 2 | The `3-ready` drop on "running batch" keeps the CR's group (it writes no file in the CR's folder). The AGENTS.md clause says it writes no file in the CR's folder and appends only its journal lines. | 1, 2, 3, Evidence |
+| Spec critic run 2, fix 3 | `board_text` of a `move` line with `→ 3-ready` also ends "for the Chief of Staff: write its destination, act on nothing else"; the `running-batch` text adds "(at once for a CR in `3-ready`)"; a plain `→ 3-ready` line is tested. | 2, Evidence |
+| Spec critic run 2, fix 4 | Section 4 also edits `griller.md` and chief-of-staff.md's final-spec paragraph: the destination acted on is the last `Destination:` line; a Griller whose CR carries a mark for the open batch sends `<slug> specified` and runs no `triage`. | 4 |
+| Spec critic run 2, fix 5 | The mark's clearing lives in `lifecycle/backlog.py:move_item`, moved there if factory-redefine shipped it in the command. | 2 |
+| Spec critic run 2, fix 6 | DESIGN.md's "One card, one column, one chip" rule gains a lane sentence; the comment at `js/ui/column.js` line 9 follows. | 1 |
 
 ## Words used here
 
@@ -141,16 +147,20 @@ Read `skills/chantier/scripts/cli/src/chantier/clients/web/DESIGN.md` first and 
   post-it or a group's handle on it calls `backlog.move` with `to: "running-batch"` (section 2).
   - A single post-it of a group dropped there leaves its group, as a move out of the group's column
     does today (running-lane-Q12). The server does it, as for a lone post-it today (section 2).
+    One exception: a `3-ready` post-it dropped there keeps its group, since that drop writes no
+    file in the CR's folder (critic run 2, fix 2).
   - A group dragged by its handle stays a group, as today's whole-group moves do.
 - Dropping a marked post-it on the bottom half, on the inbox or on a priority row calls
   `backlog.move` with that column, as today. The server's move clears the mark (factory-redefine:
-  every other `triage` of the folder clears it).
+  every other `triage` of the folder clears it). This includes the row its folder is in (its own
+  column): the drop clears the mark and moves no folder (critic run 2, fix 1; section 2).
 - A pending CR's card is not draggable and not selectable. Taking a CR out of the batch belongs to
   park-live-cr.
 - The selection bar offers one more target, "→ Running batch" (`data-to="running-batch"`), next to
   the inbox, P1 to P4 and `3-ready`.
 - `columnOf` treats a marked CR as being in `running-batch`, so `moveTo` sends nothing for a CR
-  already marked for the open batch. That is the same rule as a drop on an item's own column today.
+  already marked for the open batch, and does send a move to the row its folder is in (which
+  clears the mark). That is the same rule as a drop on an item's own column today.
 - **Refusals** show as today's move refusals do (`js/triage/actions.js`, the toast with the
   server's `error`), and the post-it stays where it was. A grilled CR whose spec-writer has not
   started gets the server's message (section 2): `<slug>: the grill is not finished: finish it,
@@ -187,8 +197,15 @@ The server's lines and refusals are shown as they come, as today.
   - a marked CR is drawn there only;
   - pending CRs are plain cards there, neither draggable nor selectable;
   - the three state words are words only, with no new colour, size or icon.
-- In the rule "**One card, one column, one chip.**", extend the lane sentence: "A lane has no dot
-  and no name", except Triage's two named halves.
+- In the rule "**One card, one column, one chip.**", add one lane sentence after the column's
+  (critic run 2, fix 6): "A lane, built by the same module (`lane(parts)`), sits in a column's body
+  and has no dot: a Backlog lane's head is its priority chip, its count and its grill counts;
+  Triage's last column holds two named lanes, "Running batch" over "Next batch", each with its
+  name, count, grill counts and own grey sub-line."
+- The comment at the top of `js/ui/column.js` (line 9, "A lane has no dot and no name: its head is
+  `chip` ..., `count` and `states`.") follows: a lane has no dot; a Backlog lane's head is `chip`,
+  `count` and `states`; a named lane (Triage's last column) has `name`, `count`, `states` and its
+  own `sub`.
 - Keep the Components table true if a class prefix or a builder changes (it should not: still
   `column`, `column-*`, `js/ui/column.js`).
 
@@ -227,12 +244,28 @@ The server's lines and refusals are shown as they come, as today.
     - a folder already in `3-ready` writes nothing.
 - **Groups** (running-lane-Q12). With `alone` (a single post-it, not a group's drag), a written
   `running-batch` write takes the item out of its group with `change_group(repo, [target], None)`,
-  as `_move_one` does today after a move. This holds for the mark, the `3-ready` journal-only case
-  and the no-batch move. A group dragged whole keeps its group.
+  as `_move_one` does today after a move. This holds for the mark and the no-batch move. The
+  `3-ready` journal-only case keeps the group: it writes no file in the CR's folder, so not its
+  `summary.json` either (critic run 2, fix 2). A group dragged whole keeps its group.
+- **A marked CR dropped on its own column** (critic run 2, fix 1). Today `_move_one` returns at
+  once when `before == to` (`write_api.py` line 137, "a drop on the item's own column writes
+  nothing"). That early return now holds only for a folder with no mark naming the open batch. A
+  marked CR dropped on the column its folder is in (the inbox or its priority row) goes to
+  `backlog.move_item`, which clears the mark and moves no folder; the words are
+  `<slug> → <column>; running-batch mark cleared`, and the `board@1` line is a `move` line. A
+  stale mark (another batch's id) counts as no mark here, as everywhere: that drop writes nothing.
+- **Where the clearing lives** (critic run 2, fix 5). The mark's clearing lives in
+  `lifecycle/backlog.py:move_item`, so the CLI's `triage` and the board share one rule. If
+  factory-redefine shipped it in the `triage` command instead, this CR moves it into `move_item`,
+  with its behaviour unchanged. `move_item` removes `work/running-batch` from the folder on every
+  move. For a folder already in `to` that carries a mark, it removes the mark and moves no folder
+  (`move_backlog_item` would refuse with `already holds`, so `move_item` does not call it then);
+  for a folder already in `to` with no mark, it keeps today's refusal. The CLI follows: `triage
+  <folder> --priority P2` on a marked CR already in `P2` clears the mark and moves nothing.
 - **The words of a move that clears a mark.** A move of a marked CR to `3-ready`, the inbox or a
-  priority row says so in its words: today's words, then `; running-batch mark cleared`. Example:
-  `<slug> → 3-ready (specified); running-batch mark cleared`. The Chief of Staff reads it (section
-  4).
+  priority row, its own column included, says so in its words: today's words, then
+  `; running-batch mark cleared`. Example: `<slug> → 3-ready (specified); running-batch mark
+  cleared`. The Chief of Staff reads it (section 4).
 - **The journal action.**
   - A write in one of the two open-batch cases that writes (the mark, or the `3-ready` line)
     appends its `board@1` line with the action `running-batch`, not `move`.
@@ -244,7 +277,8 @@ The server's lines and refusals are shown as they come, as today.
 - **No batch file is touched.** The board writes only:
   - the backlog folder's `work/running-batch`, which is a file in a backlog CR's folder, inside
     AGENTS.md's "edits the backlog (... files and folder moves)";
-  - the group change, in the CR's `summary.json` as today;
+  - the group change, in the CR's `summary.json` as today (never for the `3-ready` journal-only
+    case);
   - its own journal line and the `board@1` line.
 
   AGENTS.md's "it never edits a batch" holds. The one AGENTS.md change is section 3's clause.
@@ -255,9 +289,10 @@ The server's lines and refusals are shown as they come, as today.
 - `board_text` keeps its sentence for every action except `running-batch`. For `running-batch` it
   says `board wrote (running-batch): <text>; for the Chief of Staff: the user's go for the running
   batch: write its destination, then \`order add --note <folder>\` once its specification is
-  final`.
-- `board_text` of a `move` line whose text says `running-batch mark cleared` ends instead with
-  `for the Chief of Staff: write its destination, act on nothing else`.
+  final (at once for a CR in \`3-ready\`)`.
+- `board_text` of a `move` line whose text says `running-batch mark cleared`, or whose text has
+  `→ 3-ready` (a plain move to `3-ready`, the no-open-batch drop included), ends instead with
+  `for the Chief of Staff: write its destination, act on nothing else` (critic run 2, fix 3).
 - `board@1`'s model does not change: `action` is an open string (the module docstring says so).
   `schemas.json` and `just journal-schemas` are not touched. If `tests/test_event_types.py` fails
   at the head, the model changed, and that is a defect, not a new entry.
@@ -296,8 +331,9 @@ carries (`batch.crs`, state `queued`).
 backlog also appends one `board@1` line to that project's `forge-journal.jsonl`, which the Chief of
 Staff's watcher reads" gains one clause:
 
-- "; a drop of a `3-ready` CR on the running batch writes no file and appends only its `board@1`
-  line (action `running-batch`), which the Chief of Staff turns into `order add`".
+- "; a drop of a `3-ready` CR on the running batch writes no file in the CR's folder and appends
+  only its journal lines (its `board@1` line, action `running-batch`, which the Chief of Staff
+  turns into `order add`)".
 
 Nothing else in AGENTS.md changes. The `work/running-batch` mark is a backlog file, so it is
 already inside "edits the backlog (... files and folder moves)".
@@ -349,6 +385,26 @@ already inside "edits the backlog (... files and folder moves)".
   - **`order add` refused**: factory-redefine's rules (factory-Q13) apply unchanged.
 - The other `board wrote` lines keep "one line, no tool call, no action", except the destination
   write above.
+
+**The final-spec paragraph of `chief-of-staff.md`** (critic run 2, fix 4): factory-redefine's
+paragraph "That answer is the user's word for the move ... Then: Next batch ... Running batch ...".
+It gains one sentence: the destination acted on is the last `Destination:` line of the CR's
+`02-answers.md`, whether the grill wrote it or a board line did (running-lane-Q10, Q14). So:
+
+- `Destination: next batch ...`: `triage <folder> --ready`, as factory-redefine says;
+- `Destination: running batch <batch> ...`: `order add --note <folder>`, as factory-redefine says;
+- `Destination: back to the backlog (board)`: no `triage` and no `order`; the CR stays in its
+  inbox or priority row (the user's move put it there).
+
+**`skills/chantier/references/griller.md`**, section "Telling the Chief of Staff" (critic run 2,
+fix 4), on top of factory-redefine's version of it:
+
+- The destination the Griller acts on is the last `Destination:` line of `02-answers.md`, as for
+  the Chief of Staff above.
+- A Griller whose CR carries a mark for the open batch (`work/running-batch` naming it, written by
+  the grill's `triage --running-batch` or by a board drop) sends `[griller→chief-of-staff] <slug>
+  specified` once the specification is final and runs no `triage`, even when its grill recorded
+  the next batch.
 
 **The "rescan" row** (line 48) adds: "a `running-batch` write, a move to `3-ready`, or a move that
 clears a running-batch mark: act as at a watcher's end". This covers a Chief of Staff whose watcher and pull path both did not run.
@@ -425,16 +481,28 @@ within its limit). Extend `test_triage_moves.py` or `test_board.py` (the write r
     the cover for the no-open-batch drop (critic fix 7);
   - a paused batch counts as open: the mark is written;
   - a single grouped CR dropped (`items` of one): marked and out of its group. A `group` move keeps
-    the group on every member.
+    the group on every member;
+  - a single grouped `3-ready` CR dropped (`items` of one): journal line only, and it keeps its
+    group (critic run 2, fix 2).
 - A marked CR moved by `backlog.move` to `3-ready`, to the inbox or to `P2`:
   - no `work/running-batch` is left;
   - the words end with `running-batch mark cleared`.
+- A marked CR in `P2` moved by `backlog.move` to `P2` (its own column; critic run 2, fix 1):
+  - no `work/running-batch` is left and the folder stays in `P2`;
+  - the words are `<slug> → P2; running-batch mark cleared`, and one `board@1` `move` line is
+    appended;
+  - the same with a stale mark: nothing written, no journal line.
+- `triage <folder> --priority P2` on a marked CR already in `P2` clears the mark and moves nothing
+  (the clearing lives in `move_item`; fix 5).
 - `'to'` with an unknown value: 400, and the message lists `running-batch`.
 - `board/backlog.py`: an item's `running_batch` is the open batch's id when marked, and `null`
   when not marked, when the mark is stale, and with no open batch.
 - `board_text`:
   - a `running-batch` line names `order add --note` and the destination;
+  - a `running-batch` line says `at once for a CR in \`3-ready\``;
   - a `move` line with `running-batch mark cleared` names the destination;
+  - a plain `move` line with `→ 3-ready` (for example `<slug> → 3-ready (specified)`) ends with
+    `write its destination, act on nothing else` (critic run 2, fix 3);
   - any other line keeps "act on nothing".
 - The shipped files, read from the repository:
   - `js/triage/columns.js` builds a drop target `running-batch` and no longer calls
@@ -442,7 +510,9 @@ within its limit). Extend `test_triage_moves.py` or `test_board.py` (the write r
   - `js/triage/selection.js` offers `data-to="running-batch"`;
   - `en-write.js` and `fr-write.js` both have `triage.running_lane`, `triage.no_running` and the
     three state words, and neither has `triage.running` nor `triage.idle`;
-  - `AGENTS.md` names the `board@1` line with the action `running-batch`.
+  - `AGENTS.md` names the `board@1` line with the action `running-batch` and says the drop
+    writes no file in the CR's folder;
+  - `griller.md` and `chief-of-staff.md` name the last `Destination:` line.
 - `tests/test_board_design.py` passes: DESIGN.md's token table and `tokens.css` agree, and the
   component rules hold for the new column variant.
 - `tests/test_event_types.py` passes unchanged (no `board@1` model change).
