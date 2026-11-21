@@ -21,8 +21,6 @@ None (test-only change).
 - The Center press uses `clickListOption` (hover first), like the other list options of the suite.
 - `table-insert-slash` is registered as an on-demand stress scenario (not in the default plan) and
   a unit test covers that.
-- Base: this branch builds on the branch of the paste-url/drop-files flake change (shared stress plan
-  and real-input files); it rebases onto main once that change merges.
 
 ## Impacts
 
@@ -37,6 +35,11 @@ Grade: 1. Tests and the stress plan only; a plain `git revert` restores the prev
 - [x] New or changed tests (stress plan unit test)
 - [x] Requirements: No behaviour change
 - [x] Changelog: No user-facing change
-- [x] Local gates: `just check`
+- [x] Local gates: `just check` and `just preflight` (static stage on Windows), both pass
 - [ ] Review
 - [ ] CI green
+
+## Internal references
+
+- Stacked on the paste-url/drop-files flake change (PR #460: shared stress plan and real-input
+  files). It rebases onto main once that PR merges.
