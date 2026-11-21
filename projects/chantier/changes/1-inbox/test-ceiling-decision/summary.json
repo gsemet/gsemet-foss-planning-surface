@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Measure just test at rest, for the user's ceiling decision",
+  "summary": "Spec v1: five idle runs of just test at main's head on the user's Windows machine (load read before each), the slowest tests, the real-git tests' share and the suite without them; ends with the ceiling decision for the user. Changes no ceiling, cuts no test. Q2-Q4 open.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "aece99a6ed3d85730f88ec719aadf0ef24636d2f1a69036fedac2526bffa5415",
+    "02-answers.md": "899162e562fc7b4a49c18b2d02ff17dc0798288cd048eba5b4348318b22db303",
+    "03-change-spec.md": "a0ee7ee59c5963f8ea710f3f6943ab805d9f37ef240a8438661efe762dd43394",
+    "intake/request.md": "abea5c9d5d3da5a4e5866d141ca5939caa517e88e655fee6ffca2e135ba1f0e3"
+  },
+  "summarized": "2026-11-21T21:53:22Z"
+}
