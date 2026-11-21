@@ -1,0 +1,10 @@
+FAIL just scenario (exit 1) at 140c12a
+log C:\Users\gaeta\Projets\gsemet-foss-planning-surface\projects\chantier\changes\4-batch\2-actives\434-board-batch-kanban\work\gates\20261121-205856.log
+WARN parallel (github) over its budget: 369.9 s > 350 s
+WARN series-deps (github) over its budget: 383.7 s > 380 s
+FAIL surface-board (github): a conflicting change on both sides yields the conflict line in `seat` and the journal
+FAIL surface-board (github): surface_writer ran to the end
+transcript C:\Users\gaeta\Projets\chantier.worktrees\batch-30-CR-434\scenario\results\scenario-20261121-210751-30412.md
+unit files C:\Users\gaeta\Projets\chantier.worktrees\batch-30-CR-434\scenario\results\20261121-210751-30412
+error: recipe `scenario` failed on line 33 with exit code 1
+result: FAIL just scenario (exit 1) at 140c12a

@@ -46,9 +46,9 @@ No visual change; users learn from the docs that these two editors are not follo
 ### Test plan
 
 - [x] Tests: none needed (documentation and requirements only, no behaviour change).
-- [ ] SwRS: LIFE-026 updated; `just requirements-update` and `just requirements-lint` run at the head (SHA pending).
+- [x] SwRS: LIFE-026 updated; `just requirements-update` and `just requirements-lint` pass, as part of the preflight run at afc0013.
 - [x] Changelog: No user-facing change in behaviour (documentation of an existing limit).
-- [ ] Local gates (`just preflight` static stage): pending, SHA to be named.
+- [x] Local gates: `just preflight` (static stage on Windows) passes at afc0013.
 - [ ] Review: Inspector pass pending.
 - [ ] CI green: pending.
 
