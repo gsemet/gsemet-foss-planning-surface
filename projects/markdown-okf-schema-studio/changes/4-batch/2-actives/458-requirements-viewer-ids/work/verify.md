@@ -25,3 +25,15 @@ R4. Steps 1 and 3 captured again (4e05f1ee), made-up titles, no username or home
 Carried from 4ddd1de: patch unchanged by the rebase: claims 1 to 7 above (the facts of R4 also re-prove them), 9 (the PR description, whose lines naming 4ddd1de are left to the Driver and must be updated to 4e05f1e), 10. Gate pass (claim 8) is at 4ddd1de only; the Driver's preflight at 4e05f1ee runs now and is not judged here.
 
 VERIFIED at 4e05f1eebf0752cef8b9fdb3639212a27a9b9247.
+
+## Description pass at 4e05f1eebf0752cef8b9fdb3639212a27a9b9247
+
+Head: 4e05f1eebf0752cef8b9fdb3639212a27a9b9247
+
+D1. Posted body (`gh pr view 464 --json body`) read against `git diff origin/main...HEAD --stat` (19 files): Changes names pages.ts, searchIndex.ts, viewer.js, tests, SwRS 092/093/084/085, glossary; CHANGELOG is ticked in the Test plan. Not named (generated or wiring only, judged minor): the `test:viewer-graph` script line in package.json, the StRS-CORE-008 link lines, the urls.ts comment. VERIFIED.
+D2. Eight images downloaded (HTTP 200, image/png) from the user-attachments links to a new folder, all opened: use case before/after (eyebrow and crumb BLOCK-003 vs StRS-MDOKFSTUDIO-BLOCK-003), behaviour before/after, search before ("Nothing matches") and after (Use cases hit), 390 px before/after (full-ID crumb wrapping, pager `SwRS-...-017: ...`). Each shows its caption; footer commits 9c70477a (before) and 4e05f1e (after); made-up titles, no username, no home path. VERIFIED. Folder removed.
+D3. SHAs: 9c70477a is the base (in history); 4e05f1e is the head; 4ddd1de is only named as "carried from" (checks and review). `chantier log`: gate pass at 4e05f1e (just preflight), review note r2 approved at 8abaedc4, committed as 4ddd1ded. VERIFIED.
+D4. Known gaps and Autonomous decisions match the body of this file (step 3 full ID lists the use case only; 800 px not captured; real titles and site unchecked). VERIFIED.
+D5. No change request number, batch, role or planning path in the body. VERIFIED.
+
+VERIFIED at 4e05f1eebf0752cef8b9fdb3639212a27a9b9247 (description).
