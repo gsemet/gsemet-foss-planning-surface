@@ -12,4 +12,6 @@ Claims at 58df3be:
 
 Re-check at 58df3be after the body update: Verified/CI/Local gates boxes now name 58df3be and all 5 CI checks are SUCCESS (gh pr view 392). FAILED: the box `Review: approved at 58df3be` has no matching note in `chantier log CR-418` (last approved notes: `r2 approved at 4ed0d56, committed as 800bd85`; no approved or carried note at 58df3be).
 
-NOT VERIFIED
+Final re-check at 58df3be: log has `r3 inspector approved at d1986bcb ..., committed as 58df3be33df1...`, matching the Review box; boxes name 58df3be; CI 5 of 5 SUCCESS. Earlier failure cleared.
+
+VERIFIED
