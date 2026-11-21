@@ -29,4 +29,4 @@ Release: the merge starts the tag and the publication. Nothing is published befo
 - [x] Changelog: the lines of the stack moved under 1.11.0
 - [x] Local gates: `just release-notes-check` ok; `just preflight` (static stage on Windows) run through the project's gate
 - [ ] Review
-- [ ] CI green: the heavy run (`integration`, `stress`) is dispatched on this branch
+- [x] CI green: `gh pr checks 456` at 18d6770 (static, static-windows, viewer-graph, visual, report, checks pass; heavy jobs skipped on a PR). Push-to-main run 44880074434 at b14c59f (integration, stress, visual, static pass)
