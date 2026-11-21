@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Line marker on the table row, the hidden tab and the front matter row",
+  "summary": "Spec final, no open question: marks the pipe-table row (also in quotes, admonitions, lists, tabs), selects hidden tabs then marks the exact line, marks the front matter row; new renderer marker lines (risk covered by render tests); last in batch-07.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "97b5685d1ca4deb8bd0661b6c0b12a098329264c4ad521c76cec4cce1620e64d",
+    "02-answers.md": "c2f31ce90a3d1d37c3dc1b85e2b72e0d08ee113447a37c83d096b8a444a5e6a0",
+    "03-change-spec.md": "6e4fd75b23a0fc2128eea88a5431cda6f0251cd1d942c5e773c596d2dd16c171",
+    "intake/request.md": "1c98f042cb72b92fe83b1278338ed8af0fc42f347613e06f4c6d5c2eeafa016d"
+  },
+  "summarized": "2026-11-21T10:37:50Z"
+}
