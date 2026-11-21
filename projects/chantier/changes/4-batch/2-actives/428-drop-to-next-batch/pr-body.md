@@ -26,7 +26,7 @@ Grade: 2. The order command, its move helper, the cards and the docs change toge
 
 ## Known gaps
 
-- `waits.json` of a drop to `ready` is not asserted by a test: it shares the backlog's code path, which is unchanged.
+None.
 
 <details>
 <summary>Details</summary>
