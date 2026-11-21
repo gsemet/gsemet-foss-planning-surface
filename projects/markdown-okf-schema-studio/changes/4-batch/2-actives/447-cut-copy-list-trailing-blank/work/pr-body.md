@@ -22,6 +22,7 @@ Grade: 2. Copy, cut, paste and file drop share these host paths, so every block 
 ## Autonomous decisions
 
 - File drop and paste share the same planner, so a drop on a blank line under a block is now accepted by design, as any paste there. The existing test of that refusal moved to a line that is still refused (past the end), and was renamed.
+- Two capture entries for the new scenario blocks are registered in `test/shared/captureRegistry.ts` and `test/site/captureRegistry.test.ts` (counts 128, 113 and 88), as every new capture requires.
 
 ## Known gaps
 
@@ -51,7 +52,7 @@ Edit-mode copy, cut and paste on a list followed by blank lines now work. No vis
 - [x] New or changed tests (they fail on the previous code): unit tests for copy and cut (LF, CR LF, lone CR), unit tests for paste, and two new real-input blocks in the block-selection scenario. One existing assertion changes on purpose: pasting after a blank line under a block used to be refused and now equals pasting after the block's last line.
 - [x] Requirements: SwRS updated, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased`
-- [x] Local gates: `just check`, `just requirements-lint`, `just requirements-update` (no diff left)
+- [x] Local gates: `just check`, `just requirements-lint`, `just requirements-update` (no diff left), `just preflight` (static stage on Windows), all passing at 150ee65
 - [ ] Review
 - [ ] CI green
 
