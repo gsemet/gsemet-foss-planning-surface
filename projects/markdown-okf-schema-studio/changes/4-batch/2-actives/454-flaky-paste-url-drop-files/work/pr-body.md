@@ -31,7 +31,7 @@ Grade: 1. Test and CI configuration only; a plain `git revert` restores the prev
 - [x] New or changed tests: `test/build/realWindowTrace.test.ts`, `test/build/stressPlan.test.ts`, `test/build/hangWatchdog.test.ts`, `test/build/test_workflows.py`
 - [x] Requirements: no behaviour change; `just requirements-update` reports no change
 - [x] Changelog: no user-facing change
-- [ ] Local gates: `just check` (pass), `test_workflows.py` (81 passed)
+- [x] Local gates: `just check` (pass), `test_workflows.py` (81 passed), `just preflight` on Windows (static stage, pass)
 - [ ] Review
 - [ ] CI green
 - [ ] Heavy dispatch on the branch (integration and stress at 11 rounds, duration against the 24-minute deadline), focused loop of 100 rounds of both scenarios, and the forced-failure trace proof: results to be added.

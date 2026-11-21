@@ -62,8 +62,8 @@ No visual change and no product behaviour change; `just mutation-core` is a loca
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: No behaviour change
 - [ ] Changelog: No user-facing change
-- [ ] Local gates: `just compile`, `just check` (4400 unit tests) at the round's committed head (SHA added once committed)
-- [ ] Review
+- [ ] Local gates: `just compile`, `just check` (4400 unit tests) at 2f25a63: pass
+- [x] Review: approved at 2f25a63 (carried from 5a84db8)
 - [ ] CI green
 
 ## Internal references
