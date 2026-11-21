@@ -33,10 +33,18 @@ export function buildMetroMap(paths: readonly MainPath[]): MetroMap; // joined n
 export function metroSvg(model: MetroMap, paths: readonly MainPath[], fromDir: string): string;
 ```
 
-Measured heights, before and after, and the before/after captures: **UNVERIFIED:** not yet measured
-on the real site at the pushed head.
+Map height in px on six real use case pages, before (base `8d99cd1e`) and after (head `5abb7af1`), measured by the verifier on the generated report; overlaps are 0 on all twelve captures and the page never scrolls sideways at 800 px.
 
-<!-- screenshots go here at the closing -->
+| Use case | 1280 px before | 1280 px after | 800 px before | 800 px after | Captures |
+| --- | --- | --- | --- | --- | --- |
+| StRS-MDOKFSTUDIO-BLOCK-003 | 1041 | 589 | 770 | 616 | [before 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-BLOCK-003-desktop.png), [after 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-BLOCK-003-desktop.png), [before 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-BLOCK-003-narrow.png), [after 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-BLOCK-003-narrow.png) |
+| StRS-MDOKFSTUDIO-FMSCHEMA-014 | 791 | 699 | 616 | 747 | [before 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-FMSCHEMA-014-desktop.png), [after 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-FMSCHEMA-014-desktop.png), [before 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-FMSCHEMA-014-narrow.png), [after 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-FMSCHEMA-014-narrow.png) |
+| StRS-MDOKFSTUDIO-BLOCK-014 | 1183 | 861 | 901 | 909 | [before 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-BLOCK-014-desktop.png), [after 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-BLOCK-014-desktop.png), [before 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-BLOCK-014-narrow.png), [after 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-BLOCK-014-narrow.png) |
+| StRS-MDOKFSTUDIO-MYST-006 | 910 | 402 | 675 | 429 | [before 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-MYST-006-desktop.png), [after 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-MYST-006-desktop.png), [before 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-MYST-006-narrow.png), [after 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-MYST-006-narrow.png) |
+| StRS-MDOKFSTUDIO-REVIEW-012 | 1582 | 858 | 1190 | 819 | [before 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-REVIEW-012-desktop.png), [after 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-REVIEW-012-desktop.png), [before 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-REVIEW-012-narrow.png), [after 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-REVIEW-012-narrow.png) |
+| StRS-MDOKFSTUDIO-MYST-009 | 949 | 770 | 731 | 812 | [before 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-MYST-009-desktop.png), [after 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-MYST-009-desktop.png), [before 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-MYST-009-narrow.png), [after 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-MYST-009-narrow.png) |
+
+At 1280 px all six maps are shorter. At 800 px three maps are taller than before (FMSCHEMA-014 616 to 747, BLOCK-014 901 to 909, MYST-009 731 to 812): the map is drawn at its own size and scrolls inside its box instead of being squeezed, and the size bound of this change is the 1280 px one.
 
 ## Changes
 
@@ -56,7 +64,7 @@ on the real site at the pushed head.
 ## Impacts
 
 Visible on every use case page of the requirements site: a smaller, joined map and full IDs in
-link texts. The before/after captures are in Deliverables once taken.
+link texts. Heights and captures are in Deliverables: six maps are 12 to 56 % shorter at 1280 px; three are taller at 800 px.
 
 ## Blast radius
 
@@ -77,18 +85,18 @@ Grade: **1**. Only the generated requirements site's viewer and its tests change
 
 - Numbered badges at every path start, a two-colour border on shared pills and a stronger scroll hint
   are not part of this change.
-- **UNVERIFIED:** the heights and captures on the real site, and the first CI run of the browser test.
+- At 800 px three of the six measured maps are taller than before (listed under Deliverables); the bound is the 1280 px one.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `metroMap.test.ts`, `pages.test.ts`,
+- [x] New or changed tests (they fail on the previous code): `metroMap.test.ts`, `pages.test.ts`,
       `metroMap.browser.test.ts`
-- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
-- [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `just check`, `npm run test:viewer-graph` on the real report: pass before the
-      commit; the head's gates to come
-- [ ] Review
-- [ ] CI green
+- [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
+- [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
+- [x] Local gates at `5abb7af`: `just check` pass, `just preflight` pass, `npm run test:viewer-graph`
+      4 of 4 pass on the real report
+- [x] Review: approved at `5abb7af` (round 3)
+- [x] CI green at `5abb7af`: static, static-windows, visual, report pass
 
 ## Internal references
 

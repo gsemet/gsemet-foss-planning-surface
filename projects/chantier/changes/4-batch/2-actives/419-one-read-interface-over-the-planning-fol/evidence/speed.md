@@ -14,37 +14,40 @@ the running batch-29 (batch.json, events, 20 active CR folders) and 56 archived 
   `Repo.find(<folder>, readonly=True)` then `project_state("p", repo, False, None)`
   (`uv run --no-sync --project <worktree> python ps.py <folder> 5 <out.json>`).
 
-## Figures (median of 5, seconds)
+## Figures (round 2, median of 5 runs, seconds)
 
-| | before | head, first cut | head, fixed |
-|---|---|---|---|
-| `chantier status` | 0.568 | 0.570 | 0.563 (-1 %) |
-| `project_state` | 0.80 (first call 2.27) | 2.28 (every call) | 0.887 (first call 1.08) |
+| | before (CR-418) | head, round 2 |
+|---|---|---|
+| `chantier status` | 0.577 | 0.585 (+1 %) |
+| `project_state` (5 calls, 2 sessions) | 0.851 / 0.876 | 0.895 / 0.902 (+5 %) |
 
-The first cut of the head was 2.8x slower on `project_state`: the guard resolved the root and the
-path (two `Path.resolve`, 2 to 3 `GetFinalPathNameByHandle` each) on each of 5706 reads. Fixed variants,
-measured one by one: root resolved once per store (2.28 s to 1.7 s); reads trust a folder checked within
-the last second (1.05 s); the walk builds its rels from the text, no `relative_to` (0.92 s); a folder not yet
-checked is vouched for by a checked ancestor plus one `lstat` per plain name below it (0.89 s vs 0.83 to 0.86 s
-before in the same session: within noise, under 10 %). Timings of this machine are noisy (single runs 0.78 to 1.2 s).
+Round 1 shortcut (a folder trusted for one second, across calls) is gone: it let a leaf symlink to a folder
+outside the root through. Round 2 keeps no cache across calls. Measured on this machine: `os.lstat` is 21 us
+on Windows; a state makes 5706 reads of about 3.9 components, so one `lstat` per component on every read
+cost 1.55 s (+78 %). Fix: `FolderStore.reading()`, a per-thread scope that `project_state` opens, in which a
+component already checked for a link is not checked again; it ends with the call (nested scopes share it).
+`status` opens no scope and pays no measurable cost.
 
 ## The fix (worktree, uncommitted)
 
-- `store/base.py`: `inside_path` and `guard` take an optional `resolved_root`.
-- `store/folder.py`: `FolderStore` keeps `root.resolve()` once; a read-only `_r` (reads, `exists`, `is_file`,
-  `is_dir`, `listdir`, `glob`, `stat`, `walk`) skips the resolve for a plain `rel` whose folder, or an
-  ancestor, was checked in the last second and has no symlink below it; a symlinked leaf read for its content
-  gets the full guard. Writes, moves and removals keep the full guard on every call. `walk` builds each rel
-  from the text.
-- Known trade-off: a symlink or junction swapped into a checked folder within one second is not seen by a read
-  (a Windows junction under a checked folder, `os.path.islink` not seeing it); writes are unaffected. Worth
-  stating in the PR's Known gaps.
+- `store/base.py`: `inside_path` and `guard` take an optional `resolved_root`; `PlanStore.reading()`.
+- `store/folder.py`: root resolved once per store. A read (`_r`: reads, `exists`, `is_file`, `is_dir`,
+  `listdir`, `glob`, `stat`, `walk`) checks the `rel` lexically (as the guard does: no `..`, absolute, drive,
+  NUL), then `os.lstat` on each component under the root, the leaf included, a symlink or a Windows
+  junction (reparse point) sending it to the full guard (`resolve`) with the same refusal and text. An absent
+  component stops the walk of components. Writes, moves and removals keep the full guard on every call.
+  `walk` guards its top `rel` once and builds the rels from the text.
+- Conformance tests: a symlinked leaf folder (a symlink, or a junction where the OS refuses symlinks)
+  pointing outside is refused by `exists`, `is_dir`, `is_file`, `listdir`, `stat`, `read_text`, `glob`, `walk`;
+  a link made after a `reading()` pass is seen by the next pass.
+- Known trade-off: inside one `reading()` pass (a board state), a link swapped into an already checked folder
+  is not seen until the pass ends.
 
 ## Golden diff
 
-- `chantier status` text, before vs after: identical, but the `watch: not running` line, which prints the
+- `chantier status` text, before vs after: identical (round 2 not re-run; code path unchanged), but the `watch: not running` line, which prints the
   `--project <worktree>` path of each tree (41st line); with the two worktree paths normalised, no difference.
-- `project_state` JSON (`json.dumps(sort_keys)` of the whole dict, 5 calls each): byte-identical, with no
+- `project_state` JSON (`json.dumps(sort_keys)` of the whole dict, 5 calls each): byte-identical (round 2: `cmp` of both JSON files, identical), with no
   timestamp differing (the prepared folder is unchanged between the runs).
 - pytest on the touched modules: `test_store_reads`, `test_store_conformance`, `test_board`, `test_factory`,
-  `test_leases`: 99 passed, 16 skipped (symlink-dependent). `ruff check` and `ruff format` on `store/`: clean.
+  `test_leases`: round 2: 103 passed, 18 skipped (dedicated-branch backend). `ruff check` and `ruff format` on `store/`: clean.

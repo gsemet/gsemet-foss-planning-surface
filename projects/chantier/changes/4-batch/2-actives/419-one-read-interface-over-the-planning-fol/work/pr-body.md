@@ -32,7 +32,7 @@ flowchart LR
 | | before (`a391c1eb`) | after (head) |
 | --- | --- | --- |
 | `chantier status`, median of 5 | 0.568 s | 0.563 s |
-| one board state, median of 5 | 0.80 s | 0.89 s (within the run-to-run noise, 0.78 to 1.2 s) |
+| one board state, median of 5 | 0.80 s | 0.90 s (+5 %) |
 | `status` text and board state JSON | - | identical |
 
 Measured on a prepared planning folder with 240 backlog items, same machine, back to back.
@@ -44,12 +44,12 @@ Grade: **2**. Many modules of `board/`, `hub/`, `status/` and `core/` change how
 ## Autonomous decisions
 
 - The record readers take the store first and keep their path argument (`read_batch_json(store, path)`), computing the store-relative name with a new `rel_in` helper: callers and printed paths stay as they are.
-- A read's guard checks the folder once and trusts it for one second, and the store resolves its root once: resolving root and path on each of about 5,700 reads of a board state made it three times slower on Windows. Writes keep the full guard.
+- A read resolves the store's root once and checks each component below it with `lstat` (a symlink or junction goes to the full guard); a board state opens a scope (`PlanStore.reading()`) in which an already-checked component is not checked again, because resolving root and path on each of about 5,700 reads made a board state three times slower on Windows. The scope ends with the call; nothing is kept between calls. Writes keep the full guard.
 - `tests/test_code_targets.py` ignores `if TYPE_CHECKING:` imports, as the type-only import of the store in `core/` would otherwise count as a cycle.
 
 ## Known gaps
 
-- A symlink or junction swapped into an already-checked folder within one second is not seen by a read (writes are unaffected).
+- A link swapped into an already-checked folder during one board-state pass is not seen until the pass ends (writes are unaffected).
 - `status`'s file count of a CR folder no longer enters a symlinked folder on Python before 3.13 (it did, through `rglob`).
 - Work-note order in `status` is by name with a plain sort: notes that differ only by case may order differently on Windows.
 - The modules outside the list (`lifecycle/`, `core/batch.py`, `gate_queue.py`, the rest of `summaries/`, `commands/`, configuration files) still read directly; the run-time proof that the board, `status` and the hub open nothing outside the store is left for a follow-up.
