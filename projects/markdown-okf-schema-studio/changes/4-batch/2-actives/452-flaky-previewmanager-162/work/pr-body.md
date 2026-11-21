@@ -1,0 +1,58 @@
+## Summary
+
+Two tests of the preview manager depended on wall-clock time: a join-window test that sometimes failed with `2 !== 1` on a loaded machine, and a hidden-panel test that waited fixed times. A render can be joined during the 250 ms window after it ends, so a stall of about 210 ms between two requests closed the window and the second preview rendered again. That is the product working as specified; the fault was in the test.
+
+The tests now control time with node:test fake timers instead of waiting, so a loaded machine gives the same result as an idle one. The product does not change.
+
+## Deliverables
+
+Test-only change in `test/session/previewManager.test.ts`.
+
+| Test | Before | After |
+| --- | --- | --- |
+| a page refresh inside the join window renders again instead of joining the shared render | real timers, `requestDocument` awaited, `wait(100)` | fake timers, `advance(40)` steps, asserts `renders.length` and `sharedRenders.started` |
+| a hidden panel does not render until it is shown, then renders once | `wait(150)`, `wait(200)` | no tick while hidden, then ticks past the 1000 ms max debounce and the 250 ms window, counts renders, `started` and results |
+| a stalled machine between two requests does not close the join window (new) | none | the same scenario with `sourceExists` busy-waiting 260 ms of real time once |
+
+The fixture's `wait(ms)` helper is gone; `advance(ms)` moves the fake clock and lets promise chains settle with event-loop turns, never a timed sleep.
+
+## Blast radius
+
+Grade: 1. Only a test file changes; `git revert` restores the previous test.
+
+## Autonomous decisions
+
+- Fake timers (`mock.timers`) rather than an injectable window: no `src/` change was needed.
+- Added a permanent stall test, so the file proves on its own that a stall cannot change the outcome.
+
+## Known gaps
+
+- **UNVERIFIED:** the local mutation checks (double render on a shown hidden panel, `deferWhileHidden` returning false, `invalidate()` at the start of `requestDocument`) are not run; the edits to `src/` were refused in the coder's environment.
+
+<details>
+<summary>Details</summary>
+
+## Changes
+
+- `renderFixture` enables fake `setTimeout` and `Date`, resets them in `cleanup()`, and exposes `settle` and `advance`.
+- The join-window scenario is shared by the original test and the stall test; it also asserts `manager.sharedRenders.started`, which counts only this manager's renders.
+- The hidden-panel test asserts no render before and after ticking past every timer while hidden, then exactly one render, one result and a clean `renderDirty` once shown.
+
+## Impacts
+
+No visual change; no product change. The tests no longer flake under load.
+
+## Test plan
+
+- [ ] New or changed tests (the join-window test fails at the base under a 260 ms stall, passes now)
+- [ ] Local gates: `just check`, the compiled test file, 20 parallel runs
+- [ ] Evidence: before at `6774cd71`, after at the head
+- [ ] Review: approved at `<sha7>`
+- [ ] Verified at `<sha7>`
+- [ ] CI green at `<sha7>`
+
+## Internal references
+
+CR-452 the join-window and hidden-panel tests control time instead of waiting.
+
+</details>
