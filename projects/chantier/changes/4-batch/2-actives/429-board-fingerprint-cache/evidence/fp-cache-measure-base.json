@@ -1,0 +1,59 @@
+{
+  "src": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/429-board-fingerprint-cache/work/scratch/base-src/skills/chantier/scripts/cli/src",
+  "version": "0.14.0",
+  "projects": [
+    "agentic-planning-surface",
+    "chantier",
+    "markdown-okf-schema-studio",
+    "okf-schema"
+  ],
+  "file_watch": "none (the base: a fingerprint per topic read, every 2 s pass)",
+  "seconds": 60.0,
+  "startup_fingerprints": 7,
+  "startup_fingerprint_s": 3.375,
+  "idle_fingerprints": 70,
+  "idle_fingerprint_s": 37.743,
+  "per_fingerprint_ms": 539.2,
+  "idle_cpu_s": 38.312,
+  "idle_cpu_percent_of_one_core": 63.84,
+  "events_after_first": 5,
+  "cpu_by_thread_since_start": [
+    [
+      "api-push",
+      38.31
+    ],
+    [
+      "MainThread",
+      5.22
+    ],
+    [
+      "native-26376",
+      0.0
+    ],
+    [
+      "native-29428",
+      0.0
+    ]
+  ],
+  "topic_reads": {
+    "board": [
+      11,
+      26.7
+    ],
+    "costs": [
+      11,
+      5.89
+    ],
+    "project": [
+      11,
+      5.75
+    ],
+    "prs": [
+      11,
+      5.99
+    ]
+  },
+  "settles": [],
+  "changed_paths": 0,
+  "changed_sample": []
+}

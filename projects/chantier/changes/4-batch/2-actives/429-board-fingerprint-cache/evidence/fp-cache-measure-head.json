@@ -1,0 +1,113 @@
+{
+  "src": "C:/Users/gaeta/Projets/chantier.worktrees/batch-30-CR-429/skills/chantier/scripts/cli/src",
+  "version": "0.14.0",
+  "projects": [
+    "agentic-planning-surface",
+    "chantier",
+    "markdown-okf-schema-studio",
+    "okf-schema"
+  ],
+  "file_watch": "notify",
+  "seconds": 60.0,
+  "startup_fingerprints": 4,
+  "startup_fingerprint_s": 6.366,
+  "idle_fingerprints": 4,
+  "idle_fingerprint_s": 2.139,
+  "per_fingerprint_ms": 534.6,
+  "idle_cpu_s": 4.75,
+  "idle_cpu_percent_of_one_core": 7.91,
+  "events_after_first": 8,
+  "cpu_by_thread_since_start": [
+    [
+      "MainThread",
+      6.83
+    ],
+    [
+      "api-push",
+      2.55
+    ],
+    [
+      "file-watch",
+      2.19
+    ],
+    [
+      "native-38180",
+      0.02
+    ],
+    [
+      "native-26572",
+      0.0
+    ],
+    [
+      "native-38484",
+      0.0
+    ]
+  ],
+  "topic_reads": {
+    "board": [
+      33,
+      4.41
+    ],
+    "costs": [
+      33,
+      2.24
+    ],
+    "project": [
+      33,
+      1.49
+    ],
+    "prs": [
+      33,
+      0.03
+    ]
+  },
+  "settles": [
+    "chantier",
+    "chantier",
+    "chantier",
+    "chantier"
+  ],
+  "changed_paths": 864,
+  "changed_sample": [
+    ".lease-hold.CR-433.1.run",
+    ".lease-hold.CR-433.1.run.41076.tmp",
+    ".long-gate.queue",
+    ".long-gate.queue/.01795294014905633300-8036.tmp",
+    ".long-gate.queue/01795294014905633300-8036",
+    "4-batch",
+    "4-batch/1-pending/435-board-batch-compact",
+    "4-batch/1-pending/435-board-batch-compact/STATUS.json",
+    "4-batch/1-pending/435-board-batch-compact/STATUS.json.25808.tmp",
+    "4-batch/1-pending/435-board-batch-compact/STATUS.json.40248.tmp",
+    "4-batch/1-pending/435-board-batch-compact/STATUS.json.41076.tmp",
+    "4-batch/1-pending/435-board-batch-compact/STATUS.json.8036.tmp",
+    "4-batch/1-pending/435-board-batch-compact/STATUS.md",
+    "4-batch/1-pending/435-board-batch-compact/STATUS.md.25808.tmp",
+    "4-batch/1-pending/435-board-batch-compact/STATUS.md.40248.tmp",
+    "4-batch/1-pending/435-board-batch-compact/STATUS.md.41076.tmp",
+    "4-batch/1-pending/435-board-batch-compact/STATUS.md.8036.tmp",
+    "4-batch/1-pending/437-sync-lock-wait",
+    "4-batch/1-pending/437-sync-lock-wait/STATUS.json",
+    "4-batch/1-pending/437-sync-lock-wait/STATUS.json.25808.tmp",
+    "4-batch/1-pending/437-sync-lock-wait/STATUS.json.40248.tmp",
+    "4-batch/1-pending/437-sync-lock-wait/STATUS.json.41076.tmp",
+    "4-batch/1-pending/437-sync-lock-wait/STATUS.json.8036.tmp",
+    "4-batch/1-pending/437-sync-lock-wait/STATUS.md",
+    "4-batch/1-pending/437-sync-lock-wait/STATUS.md.25808.tmp",
+    "4-batch/1-pending/437-sync-lock-wait/STATUS.md.40248.tmp",
+    "4-batch/1-pending/437-sync-lock-wait/STATUS.md.41076.tmp",
+    "4-batch/1-pending/437-sync-lock-wait/STATUS.md.8036.tmp",
+    "4-batch/1-pending/438-stack-shape-guard",
+    "4-batch/1-pending/438-stack-shape-guard/STATUS.json",
+    "4-batch/1-pending/438-stack-shape-guard/STATUS.json.25808.tmp",
+    "4-batch/1-pending/438-stack-shape-guard/STATUS.json.40248.tmp",
+    "4-batch/1-pending/438-stack-shape-guard/STATUS.json.41076.tmp",
+    "4-batch/1-pending/438-stack-shape-guard/STATUS.json.8036.tmp",
+    "4-batch/1-pending/438-stack-shape-guard/STATUS.md",
+    "4-batch/1-pending/438-stack-shape-guard/STATUS.md.25808.tmp",
+    "4-batch/1-pending/438-stack-shape-guard/STATUS.md.40248.tmp",
+    "4-batch/1-pending/438-stack-shape-guard/STATUS.md.41076.tmp",
+    "4-batch/1-pending/438-stack-shape-guard/STATUS.md.8036.tmp",
+    "4-batch/1-pending/439-board-help-page"
+  ]
+}
