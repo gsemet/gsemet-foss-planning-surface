@@ -1,18 +1,11 @@
 # Verify CR-418
 
-Head: 800bd85b12db153af645530d9c1b11dad9652933
+Head: a391c1ebe7bb8bc21b4cbc2d2ba729a2d5354963
 
-Claims (all judged at 800bd85):
-- New and touched tests pass: `pytest tests/test_live_model.py tests/test_live_link.py tests/test_leases.py tests/test_server_api_calls.py tests/test_server_protocol.py tests/test_scenario_coverage.py -q` -> `57 passed in 16.96s` (real server, ws and http, --once, wrong key, import check; protocol.json not in `git diff --stat main...HEAD`).
-- Gate: work/gates/check.log ends `1423 passed, 14 skipped`; just check (ubuntu) SUCCESS on the PR.
-- `rich==15.0.0` pinned, and in banned-module-level-imports (pyproject.toml lines 13, 60); tui modules import from chantier only `__version__`, `core.errors` and the package itself (grep of link.py/model.py/screen.py).
-- `--url` without `k`: `chantier live --url http://127.0.0.1:1/ --once` -> `error: --url: the link holds no key (?k=...): give the link the board printed`, exit=1. Other refusal lines present in commands/live.py.
-- Read-only: link.py sends hello/sub/unsub/poll only (covered by test_live_link.py).
-- Docs: docs/server-api.md "terminal client" section, docs/boards.md section, AGENTS.md, README, CONTRIBUTING in the diff.
-- Review box: log has `r2 approved at 4ed0d56, committed as 800bd85`.
+Claims at a391c1e:
+- Move since 800bd85 is one test regex (`git diff 800bd85 a391c1eb --stat`: test_live_link.py, 1 line, `lease 0\d:\d\d` -> `lease \d\d:\d\d`). Other claims carried from 800bd85 (see the previous judgment: refusals, pins, imports, docs, 1423 passed gate): no source file touched.
+- Live tests at the head, after `uv sync --locked --project .`: `pytest test_live_link.py test_live_model.py -q` -> `17 passed in 5.49s` (ws and http, --once, lease).
+- PR description as posted: Summary, Deliverables (capture at 800bd85, SHAs named), Changes, Test plan filled and consistent with the diff; capture shows made-up paths (/tmp/live-demo), `grep -ci gaeta evidence/live-once.txt` -> 0; Known gaps names the one gap (live screen not seen in a real terminal). Review box: log has `r2 approved at 4ed0d56, committed as 800bd85`, matching the box's 800bd85.
+- CI at a391c1e as seen: all 5 checks pending (`gh pr checks 392`); not a proof. Remaining boxes "Verified" and "CI green" are the Driver's to tick.
 
-Failed:
-- PR description (as posted): not final. Its Deliverables hold no `live --once` capture (the spec requires it there; Known gaps names the absence, honestly), Test plan keeps `<sha7>` placeholders and unticked boxes, and the Review box has no `approved at` line. Pipeline: macOS, Windows, scenario and eval-dry-run checks had no result at the time of the check, so the spec's scenario-green-at-head gate is not shown.
-- Not run by me: live screen in a real terminal (stated in Known gaps); evidence/live-once.txt exists and shows the CR, `working 1` and lease 09:55.
-
-NOT VERIFIED
+VERIFIED
