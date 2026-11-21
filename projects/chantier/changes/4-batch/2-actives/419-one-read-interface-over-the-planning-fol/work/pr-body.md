@@ -29,7 +29,7 @@ flowchart LR
   store --> files[(planning folder)]
 ```
 
-| | before (`a391c1eb`) | after (head) |
+| | before (the base without the store) | after (head) |
 | --- | --- | --- |
 | `chantier status`, median of 5 | 0.568 s | 0.563 s |
 | one board state, median of 5 | 0.80 s | 0.90 s (+5 %) |
@@ -72,11 +72,11 @@ No visual change; developers read the planning folder through `Repo.store`.
 ## Test plan
 
 - [x] New or changed tests (conformance and structure tests fail on the previous code)
-- [x] Local gates at `eb5dbd6`: `just check` (its suite, 1447 passed), `just eval-dry-run`; `just test` adds no measurable time: 72.5 s at the base `a391c1e`, 72.6 s at the head, same machine, back to back (24 more tests)
-- [x] Evidence: speed and golden-output comparison, before at `a391c1e`
-- [x] Review: approved at `eb5dbd6`
-- [x] Verified at `eb5dbd6`
-- [x] CI green at `eb5dbd6` (check on three systems, eval-dry-run, scenario)
+- [x] Local gates at `b3fbfa3`: `just check` (its suite, 1493 passed), `just eval-dry-run` (18 of 18); `just test` added no measurable time when measured before the restack: 72.5 s at the base, 72.6 s at the head, same machine, back to back (24 more tests)
+- [x] Evidence: speed and golden-output comparison, before at the base without the store
+- [x] Review: approved on the same code before the restack; the restack's caller fixes approved at `b3fbfa3`
+- [ ] Verified at `b3fbfa3`
+- [ ] CI green at `b3fbfa3` (check on three systems, eval-dry-run, scenario)
 
 ## Internal references
 
