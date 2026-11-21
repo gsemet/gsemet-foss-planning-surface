@@ -34,3 +34,18 @@ Gate pass cited: `work/gates/20261121-021340.log`, first line `gate CR-441 branc
 ## Verdict
 
 VERIFIED at 5abb7af1 (the body update above is for the closing).
+
+## Description pass (closing step 2)
+
+Head: 5abb7af1a61d1cd6eee1115148adbe8ac7f470de
+
+Judged: the posted body (`gh pr view 450 --json body`) at head 5abb7af1 (`gh pr view` headRefOid and `git rev-parse HEAD` both 5abb7af1a61d1cd6eee1115148adbe8ac7f470de).
+
+- Heights: all 12 heights in the Deliverables table equal `work/verifier/evidence/{before,after}/metrics.txt` (for example BLOCK-014 1183/861/901/909; MYST-009 949/770/731/812). The three taller maps at 800 px are named in Deliverables and Known gaps. Overlaps 0 on twelve captures matches metrics.
+- Images: 24 raw URLs (commit bf652330 of branch change-requests/441-path-graph-assets) all return 200 image/png via curl. Opened before-BLOCK-003-desktop, after-MYST-009-narrow: map only, match the table (before BLOCK-003 1032x1041 drawn; after MYST-009 narrow shows joined map, join disc 2), no username or home path.
+- Review box: `$CHANTIER log CR-441`: "r3 approved at 13cb386b, committed as 5abb7af1" proves "approved at 5abb7af (round 3)".
+- CI box: `gh pr checks 450`: static, static-windows, visual, report, checks pass; others skipping.
+- Local gates: gate log pass at the head (preflight, includes `just check`), `test:viewer-graph` 4 of 4 (claim 7).
+- Known gaps holds no UNVERIFIED claim; the 800 px bullet matches claim 2. No STALE mark. Internal references holds only the CR id. Sections match the PR template; renders (fold none, table and code block well formed).
+
+VERIFIED (description) at 5abb7af1.

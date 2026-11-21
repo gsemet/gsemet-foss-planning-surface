@@ -44,7 +44,7 @@ Grade: **2**. Many modules of `board/`, `hub/`, `status/` and `core/` change how
 ## Autonomous decisions
 
 - The record readers take the store first and keep their path argument (`read_batch_json(store, path)`), computing the store-relative name with a new `rel_in` helper: callers and printed paths stay as they are.
-- A read resolves the store's root once and checks each component below it with `lstat` (a symlink or junction goes to the full guard); a board state opens a scope (`PlanStore.reading()`) in which an already-checked component is not checked again, because resolving root and path on each of about 5,700 reads made a board state three times slower on Windows. The scope ends with the call; nothing is kept between calls. Writes keep the full guard.
+- A read resolves the store's root once and checks each component below it with `lstat` (a symlink or junction goes to the full guard); a board state opens a scope (`PlanStore.reading()`) in which an already-checked component is not checked again, because resolving root and path on each of about 5,700 reads made a board state three times slower on Windows. The scope ends with the call; no file content or listing is kept, only the link check of a folder, for one pass. Writes keep the full guard.
 - `tests/test_code_targets.py` ignores `if TYPE_CHECKING:` imports, as the type-only import of the store in `core/` would otherwise count as a cycle.
 
 ## Known gaps
