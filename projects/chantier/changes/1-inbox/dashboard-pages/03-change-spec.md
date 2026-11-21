@@ -4,7 +4,7 @@ A read-only Dashboard view on the web board, for one project, with two tabs. Pro
 closed batch, the CRs held and merged, the mean rounds per merged CR, the batch's duration and the
 model calls by part. Spending: the cost per merged CR, the spend per batch stacked by part or by
 model, the cost outside the batches as one line, and the ten most expensive CRs. One point per
-closed batch. The figures are computed on the server by a new `board/dashboard.py` from the closed
+closed batch. The figures are computed on the server by a new `board/dashboard_page.py` from the closed
 batch records the server already reads, and served by one read-only op, `dashboard.get` (an
 addition to protocol 1): nothing new is recorded, no new file is read. Charts are drawn by the web
 client itself (a new chart component: lines, and stacked bars for the stacked tiles; no library). One CR, both tabs. Joins batch-30.
@@ -55,7 +55,7 @@ records already hold; what they do not hold is out of scope.
 | Q19 | proof: sidebar place, real records, controls, keyboard, narrow layout, missing figures, both languages, DESIGN.md, a screenshot of each tab in each language; `docs/web-board.md` is docs-gardening's | Evidence |
 | Q21 | models ranked by their summed cost over all the closed records of the project, not the range: up to eight models get `--m1` to `--m8`; with more than eight, the first seven keep theirs and the rest fold into "other models" in `--m8`; Known gap: may differ from one batch's Costs card | 1, 5, Known gaps |
 | Q22 | the switch is the store's existing `spendBy`, one choice for Costs and Dashboard, default by model, not in the address | 3, 4 |
-| Q23 | figures on the server: `board/dashboard.py`, op `dashboard.get {project, range}`, both splits in the answer, points carry `closed`, the client writes the day with `history.js:dayOf`; no `js/model/dashboard.js`; a `js/views/dashboard-feed.js`; views compute no figure; `tests/test_board_dashboard.py` in-process, plus a bad `range` refused; no Node-run test | 1, 2, 4, Evidence |
+| Q23 | figures on the server: `board/dashboard_page.py`, op `dashboard.get {project, range}`, both splits in the answer, points carry `closed`, the client writes the day with `history.js:dayOf`; no `js/model/dashboard.js`; a `js/views/dashboard-feed.js`; views compute no figure; `tests/test_board_dashboard.py` in-process, plus a bad `range` refused; no Node-run test | 1, 2, 4, Evidence |
 | Q24 | the stacked tiles (model calls by part, spend per batch) are stacked bars, one per closed batch, an empty slot where a record lacks the figure; no stacked area; the line tiles of Q8 and Q9 stay lines | 5 |
 | Q25 | the ranking takes every CR of the range's closed records whose own `cost_usd` is a number, back-filled included; its coverage counts the records with at least one costed CR | 1 |
 | Q26 | a numeric `rounds`, 0 included, counts in the batch's mean and the pooled mean; only a non-number is missing; Known gap named | 1, Known gaps |
@@ -63,7 +63,7 @@ records already hold; what they do not hold is out of scope.
 
 ## What changes
 
-### 1. The figures: `board/dashboard.py` (new, pure) (Q5, Q6, Q8 to Q11, Q18, Q21, Q23, Q25, Q26)
+### 1. The figures: `board/dashboard_page.py` (new, pure) (Q5, Q6, Q8 to Q11, Q18, Q21, Q23, Q25, Q26)
 
 A new module of pure functions over a list of batch records (the list `board/state.py:_history`
 returns, newest first, as the project state's `history` holds it). It reads no file, no forge, no
@@ -364,7 +364,7 @@ through `data-vars`, `core/dom.js:vars`, as `views/costs-models.js` and `ui/part
   (`test_token_table`). No colour token is added.
 - **A section after "Waits on a card"** (or after the batch-30 sections already there, at the end),
   **"Dashboard"**: a read-only view whose figures come from the server's `dashboard.get` op
-  (`board/dashboard.py`), computed from the closed batch records, apart from the drawing; the views
+  (`board/dashboard_page.py`), computed from the closed batch records, apart from the drawing; the views
   compute no figure; one point per closed batch, never per day; a figure a record lacks is no
   point (a cut line, an empty bar slot), never a zero, and each tile says how many batches it covers;
   charts drawn by the `chart` component as inline SVG (lines, and stacked bars for the stacked
@@ -389,7 +389,7 @@ and one op (sections 1 and 2) and nothing else.
 
 ## Rounds (Q27)
 
-One CR, both tabs. The Driver orders the rounds: (1) `board/dashboard.py`, the op and
+One CR, both tabs. The Driver orders the rounds: (1) `board/dashboard_page.py`, the op and
 `tests/test_board_dashboard.py`; (2) the page, its address, the feed, the chart component and the
 Productivity tab; (3) the Spending tab. The PR's screenshots cover both tabs.
 
@@ -457,7 +457,7 @@ No `depends.json` (Q14); the stack settles each shared edit, whichever lands sec
 **Checks in `just check`**, each reading the shipped files at the head under test, never a copy:
 
 1. **The figures** (Q18 risk 2, Q23), new `tests/test_board_dashboard.py`, in-process, calling the
-   shipped `board/dashboard.py:answer` on prepared records (a prepared input: the real records change
+   shipped `board/dashboard_page.py:answer` on prepared records (a prepared input: the real records change
    and cannot hold every edge case; the shipped module is what runs), parametrized and fast, no Node.
    The records cover:
    - a back-filled record (CRs with `rounds` and per-CR `cost_usd`, no `opened`, `closed` time,
@@ -504,7 +504,7 @@ No `depends.json` (Q14); the stack settles each shared edit, whichever lands sec
    `tests/test_code_targets.py`, keeps covering the new files (no other origin, the style rules).
 4. Existing checks that now cover the new files: `test_the_web_frame_has_small_scripts_and_both_word_files_share_their_keys`
    (`en-dashboard.js` / `fr-dashboard.js`, the 300-line limit),
-   `test_files_and_functions_are_small_and_the_imports_have_no_cycle` (`board/dashboard.py`),
+   `test_files_and_functions_are_small_and_the_imports_have_no_cycle` (`board/dashboard_page.py`),
    `test_board_design.py`'s `test_token_table` (`--chart-height`), `test_sheets` and
    `test_components` (`chart.css`, `dashboard.css`, the new Components row), `test_one_card`,
    `test_a_card_title_is_one_line_with_its_full_text_on_hover`; Biome and Ruff (`just lint`).
