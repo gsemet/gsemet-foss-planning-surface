@@ -1,11 +1,13 @@
 # Verify CR-418
 
-Head: a391c1ebe7bb8bc21b4cbc2d2ba729a2d5354963
+Head: 58df3be33df15c12c78f272e8d846d61d52c8d19
 
-Claims at a391c1e:
-- Move since 800bd85 is one test regex (`git diff 800bd85 a391c1eb --stat`: test_live_link.py, 1 line, `lease 0\d:\d\d` -> `lease \d\d:\d\d`). Other claims carried from 800bd85 (see the previous judgment: refusals, pins, imports, docs, 1423 passed gate): no source file touched.
-- Live tests at the head, after `uv sync --locked --project .`: `pytest test_live_link.py test_live_model.py -q` -> `17 passed in 5.49s` (ws and http, --once, lease).
-- PR description as posted: Summary, Deliverables (capture at 800bd85, SHAs named), Changes, Test plan filled and consistent with the diff; capture shows made-up paths (/tmp/live-demo), `grep -ci gaeta evidence/live-once.txt` -> 0; Known gaps names the one gap (live screen not seen in a real terminal). Review box: log has `r2 approved at 4ed0d56, committed as 800bd85`, matching the box's 800bd85.
-- CI at a391c1e as seen: all 5 checks pending (`gh pr checks 392`); not a proof. Remaining boxes "Verified" and "CI green" are the Driver's to tick.
+Claims at 58df3be:
+- The move since a391c1e is a rebase onto CR-422. `git range-diff a391c1eb~3...a391c1eb HEAD~3...HEAD`: the live commit shows `!` with only context hunks adapted (crs.py import of `stack_words`, test_leases.py imports `stack_world`); the new top commit `58df3be test(leases): fold two lines` is a test-only trim. Live source files (clients/tui/*, commands/live.py, declare/live.py, docs) are unchanged in substance. Judged again: the tests below.
+- Live and lease tests at the head (`cd skills/chantier/scripts/cli; uv run --no-sync --project ../../../.. pytest tests/test_live_link.py tests/test_live_model.py tests/test_leases.py -q`): `47 passed in 22.01s` (ws, http, --once, lease time left).
+- evidence/live-once.txt: carried from a391c1e (captured at 800bd85; no live source file changed by the rebase, per range-diff above); contains no user name (`grep -ci gaeta` -> 0 in the PR body and the capture).
+- Review box: log has `r2 approved at 4ed0d56, committed as 800bd85b...`, matching `Review: approved at 800bd85`.
+- PR description as posted (`gh pr view 392 --json body`): sections present, consistent with the diff (28 files, live client, three API fields, docs), Known gaps names the one gap. FAILED: its boxes `Verified at a391c1e` and `CI green at a391c1e` name the pre-rebase SHA, not the head 58df3be and with no `carried from` reason.
+- CI at 58df3be (`gh pr view 392 --json statusCheckRollup`): ubuntu `just check` SUCCESS, `eval-dry-run` SUCCESS; macos, windows, scenario not yet complete. Not a proof.
 
-VERIFIED
+NOT VERIFIED
