@@ -1,0 +1,12 @@
+Head: fd527872f9c1cec4cc903cf26f8fab01b184b3e9
+
+Verdict: VERIFIED
+
+Claims (all judged at fd527872f9c1cec4cc903cf26f8fab01b184b3e9):
+
+1. In-process tests. Command: `uv run --locked pytest skills/chantier/scripts/cli/tests/test_board_running_lane.py skills/chantier/scripts/cli/tests/test_board_design.py skills/chantier/scripts/cli/tests/test_event_types.py -q`. Output: `82 passed in 13.33s` (new running-lane tests, design tokens/components, no board@1 model change).
+2. Long gate at the head. `work/gates/20261121-200337.log` first line: `gate CR-427 branch chantier/batch-30/cr-427-board-backlog-last-column-split-into-run head fd527872f9c1cec4cc903cf26f8fab01b184b3e9`; last line `result: pass at fd527872f9c1cec4cc903cf26f8fab01b184b3e9`. The diff fdc1d28..HEAD touches only `tests/test_board_running_lane.py`.
+3. Shipped files (read by grep at the head): `js/model/triage.js` `RUNNING = 'running-batch'`, used by `js/triage/columns.js`/`selection.js` (selection bar builds `data-to="${c}"` over the columns including it); no `triage.running` / `triage.idle` use left in `js/` (grep empty); en-write.js and fr-write.js each hold the 5 new keys/words (grep count 5 and 5); AGENTS.md line 77 names the `board@1` line, action `running-batch`; griller.md line 80 and chief-of-staff.md line 398 name the last `Destination:` line; rescan row (chief-of-staff.md line 48) carries the new clause.
+4. Docs: `git diff main...HEAD` shows docs/web-board.md (first bullet, new bullet, writes paragraph, line 163), docs/planning-folder.md line 142, docs/server-api.md lines 86/100-104, README.md sentence, scenario/README.md and scenario/run_scenario.py steps, as the specification asks.
+5. PR description (pr-body.md, as posted: head on the forge is fd527872...). Summary, Deliverables, Changes match the 35-file diff; renders; no image attached; no username shown. Known gaps names the missing screenshots, matching the UNVERIFIED Deliverables bullet. The Test plan cites fdc1d28, not the head: acceptable, the delta is a test-only change and the gate at the head is claim 2.
+6. Screenshots (open batch; greyed): NOT captured, no browser available to this Verifier session; see verifier/evidence/before-after.md. Not alone a failure; the description discloses it. The existing docs/web-board/triage-*.png were not retaken either (no png in the diff); the Known gaps line covers the split column only.

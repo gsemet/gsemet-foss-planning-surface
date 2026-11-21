@@ -6,6 +6,10 @@ text, a help of the keys, and quit, with the terminal always given back. `--url`
 repeatable: up to 4 boards in one screen, one key and one connection each. No server change, no
 protocol change, still read-only.
 
+Spec v2 (2026-11-21): live-Q22 to Q25 decided (the former open questions, each as built); the
+spec critic's findings applied (overlaps with CR-429 and CR-443, the refusal's suffix, a test of
+the loop's exits, one rule for the 2000 lines, Windows key decoding, `just test`'s time).
+
 ## Goal
 
 The user wants a working terminal UI (2026-11-21, ui-night). Today `chantier live` watches one
@@ -25,16 +29,18 @@ Windows.
   `--only` repeatable, `--transport auto|ws|http`, `--once`).
 - `skills/chantier/scripts/cli/src/chantier/commands/live.py`: `from_link`, `recorded`,
   `_check_only`, `height_for`, `once` (one link read in the calling thread, 10 s deadline),
-  `_read`, `watch` (one reader thread, `screen.run`, Ctrl-C caught as `KeyboardInterrupt`),
-  `live` (refuses a stdout that is not a terminal without `--once`: `NO_TERMINAL`).
+  `_read` (feeds the model and calls `_check_only` under the lock), `watch` (one reader thread,
+  any `ChantierError` of the reader kept in `failed` and raised after `screen.run`, Ctrl-C caught
+  as `KeyboardInterrupt`), `live` (refuses a stdout that is not a terminal without `--once`:
+  `NO_TERMINAL`).
 - `skills/chantier/scripts/cli/src/chantier/clients/tui/model.py`: `Model` (one board), `Line`
   (`t`, `project`, `who`, `text`), `FLOW = 200`, `WATCHED = 15`.
 - `skills/chantier/scripts/cli/src/chantier/clients/tui/screen.py`: `header`, `left`, `flow`
   (the last `rows` lines), `tasks`, `footer` (`Ctrl-C to quit` and the not-watched projects),
-  `render`, `plain` (for `--once`), `run` (`rich.live.Live(screen=True)`, redrawn every
-  `REDRAW_S = 1.0` with `time.sleep`).
+  `render`, `plain` (for `--once`), `run(m, lock, alive)` (`rich.live.Live(screen=True)`,
+  redrawn every `REDRAW_S = 1.0` with `time.sleep`).
 - `skills/chantier/scripts/cli/src/chantier/clients/tui/link.py`: `Link` (one board), `refused`
-  (`live: <the server's sentence>`, exit 4).
+  (`live: <the server's sentence>`, a plain `ChantierError`, exit 4).
 - `skills/chantier/scripts/cli/tests/test_live_model.py` (prepared events, no network) and
   `test_live_link.py` (one real server in a thread, module fixture `live`; the import check of
   `clients/tui/`); `tests/test_board.py`'s `LAZY` tuple with the `banned-module-level-imports`
@@ -61,6 +67,10 @@ replaces hand-written code"; CONTRIBUTING.md: `no-build = true`):
   that decodes the escape sequences into named keys (`KEY_UP`, `KEY_DOWN`, `KEY_PGUP`,
   `KEY_PGDOWN`, `KEY_HOME`, `KEY_END`, `KEY_ESCAPE`, `KEY_ENTER`, `KEY_BACKSPACE`), on POSIX and
   on the Windows console.
+- Windows key decoding (the console's key events into these names, through `jinxed` and
+  `ansicon`) is **documented by `blessed`, unproved here**: no test of this CR opens a Windows
+  console. Evidence item 8 proves it on Windows in a real terminal; when it was not tried there,
+  the PR's Known gaps names it (live-Q20).
 - The read with a timeout runs in the screen's own loop (the main thread), in place of today's
   `time.sleep(REDRAW_S)`: no reader thread is left blocked in a raw terminal at exit.
 
@@ -85,17 +95,19 @@ server).
   others only by giving its link too (no implicit addition).
 - A fifth `--url` is refused at start, before any connection: `--url: at most 4 boards in one
   screen` (exit 2, `EXIT_USAGE`) (live-Q11).
-- The same board twice (two links whose base address, as `from_link` returns it, is the same) is
-  refused at start: `--url <base>: given twice` (exit 2). (Open question 2, built as A.)
+- The same board twice is refused at start: `--url <base>: given twice` (exit 2) (live-Q23). The
+  comparison is on the base address as `from_link` returns it, with no name resolution: two
+  spellings of one host (`localhost`, `127.0.0.1`) are not detected, and that is accepted.
 - `--transport` applies to every board (live-Q13). Each `--url` link keeps `proxies=True`, the
   recorded board `proxies=False`, as today.
 - `--only <project>` (live-Q13): each board's `Model` keeps the ids it serves; an id is refused,
   with `--only <id>: no board serves it; served: <a/x, b/y, ...>` (exit 2), once every board's
   `board` value is known and none serves it. With one board the sentence stays today's
   (`--only <id>: the board serves <ids>`). `_check_only` becomes this check over all the
-  boards' models.
+  boards' models. These `--only` sentences are usage errors, not a board's refusal: they carry
+  no board address (section 2).
 - `live` builds one `Link` and one `Model` per board, in `--url` order, each board with a label
-  `a`, `b`, `c`, `d` (Open question 1, built as A).
+  `a`, `b`, `c`, `d` (live-Q22), mapped to its base address on its header line.
 
 ### 2. Several boards (`commands/live.py`, `clients/tui/screen.py`)
 
@@ -104,12 +116,17 @@ server).
   (`WATCHED`, per `Model`) (live-Q13).
 - A board not reachable at start, or lost later, is retried every 5 s by its own `Link`, as
   today, while the others go on (live-Q14): nothing changes in `link.py` for that.
-- A refused key or protocol on any board ends the run (live-Q14): the reader's `ChantierError` is
-  raised again by `watch` (or `once`) as `<the server's sentence> (board <base address>)`, with
-  its exit code (4). The base address is the one `from_link` returns, with no query: the key is
-  never printed. This holds with one board too (one rule). The suffix is added in
-  `commands/live.py` where the reader's error is caught, so `link.py` is not changed (see
-  "Overlaps").
+- A refused key or protocol on any board ends the run (live-Q14): `watch` (or `once`) raises it
+  as `<the server's sentence> (board <base address>)`, with its exit code (4). The base address
+  is the one `from_link` returns, with no query: the key is never printed. This holds with one
+  board too (one rule).
+- The suffix goes on the link's key or protocol refusal only, never on `_check_only`'s `--only`
+  errors (exit 2), which the same reader thread raises. It is added in `commands/live.py` where
+  the link's refusal is caught, around the reading of `link.items()` only, not around
+  `_check_only`: with CR-429 merged, `except Refusal` (its `Refusal(ChantierError)` in
+  `clients/tui/link.py`, with `.sentence` and `.kind`); until then, around the `ChantierError`
+  that `link.py:refused()` builds, caught where `link.items()` raises it. This CR does not
+  change `link.py` (see "Overlaps").
 - The screen with one board is today's, plus the keys (live-Q12): same header, same columns, no
   label.
 - With several boards (live-Q12):
@@ -155,7 +172,7 @@ The keys (live-Q4, live-Q17), outside the filter's typing:
 |---|---|
 | Up / Down | the Flow one line older / newer |
 | PgUp / PgDn | the Flow one page (the Flow's visible rows) older / newer |
-| Home | the oldest line kept |
+| Home | the oldest kept line of the merged Flow (section 5) |
 | End | back to the live end (follows again) |
 | `/` | starts typing a filter |
 | `?` | shows the keys over the screen |
@@ -174,17 +191,20 @@ except Ctrl-C, which quits (live-Q17).
 
 ### 5. Scrolling the Flow (`model.py`, `view.py`, `screen.py`)
 
-- Only the Flow scrolls (live-Q5). `model.FLOW` becomes 2000 (live-Q6): the Flow keeps the last
-  2000 lines of every project shown, in memory; nothing older is asked of the server (no replay
-  of the journal's history). The module docstring's "the last 200 lines" says 2000.
+- Only the Flow scrolls (live-Q5). One rule for how far back (live-Q6): `model.FLOW` becomes
+  2000, the cap of each board's `Model` (its last 2000 lines, in memory, as `FLOW = 200` caps it
+  today); the Flow on screen is the merged view over the boards' models (section 2), so with `n`
+  boards it holds up to `n × 2000` lines. Home goes to the oldest kept line of that merged view.
+  Nothing older is asked of the server (no replay of the journal's history). The module
+  docstring's "the last 200 lines" says 2000 per board.
 - At the live end the Flow shows the newest lines that fit, as today. Scrolled back, it does not
   move when lines arrive: the lines on screen stay on screen, and the Flow's panel title reads
   `Flow  paused, <n> new`, `<n>` the lines arrived since it left the live end (those the filter
   keeps). End, or Down or PgDn reaching the newest line, follows live again and the title is
-  `Flow` (live-Q5). A line that falls out of the 2000 kept while scrolled back moves the view
-  to the oldest kept line, no further.
-- `screen.flow(m, rows)` draws the window the view gives (an offset from the newest line of the
-  filtered Flow), not always `m.flow[-rows:]`.
+  `Flow` (live-Q5). A line that falls out of its board's 2000 while scrolled back moves the view
+  to the oldest kept line of the merged view, no further.
+- `screen.flow(...)` draws the window the view gives (an offset from the newest line of the
+  filtered merged Flow), not always `m.flow[-rows:]`.
 
 ### 6. The filter (`model.py`, `view.py`, `screen.py`)
 
@@ -213,50 +233,56 @@ except Ctrl-C, which quits (live-Q17).
 
 ### 8. The loop and leaving (`screen.py:run`, `commands/live.py:watch`)
 
-- `run` takes the models, the view, the lock and an `alive` callable (false as soon as any
-  reader thread ended). With keys it is, in this order, `with term.cbreak():` around `with
-  Live(..., screen=True):`; inside, `term.inkey(timeout=...)` waits at most until the next
-  second's redraw; a key is given to the view and the screen is redrawn at once; without a key,
-  the redraw comes once a second as today (the lease times count down).
+- `run` takes the models, the view, the lock, an `alive` callable (false as soon as any reader
+  thread ended), and the terminal (a `blessed.Terminal` by default; a test passes a stand-in with
+  the same `cbreak()` and `inkey(timeout)`), and the Rich console as today. With keys it is, in
+  this order, `with term.cbreak():` around `with Live(..., screen=True):`; inside,
+  `term.inkey(timeout=...)` waits at most until the next second's redraw; a key is given to the
+  view and the screen is redrawn at once; without a key, the redraw comes once a second as today
+  (the lease times count down). `watch` passes the terminal through to `run` (a parameter with
+  the same default), so a test can drive `watch` with no terminal.
 - Leaving (live-Q18): `q` and Ctrl-C exit 0. Ctrl-C quits whether it comes as an interrupt
   (`KeyboardInterrupt`, caught by `watch` as today) or as the key `\x03`. On every way out (`q`,
   Ctrl-C, a refused key or protocol on any board, an exception in the drawing, the end of the
   input) both context managers unwind: Rich leaves the alternate screen and shows the cursor,
   `blessed` gives back echo and line mode; then the error, if any, is printed by the CLI as
-  today. On POSIX, SIGTERM takes the same way out as Ctrl-C (a handler, set in `watch` for the
-  run's length and put back after, raising `KeyboardInterrupt` in the main thread), exit 0 (Open
-  question 3, built as A). A killed process (SIGKILL, a closed terminal window) cannot give the
-  terminal back: named in the docs as such.
+  today.
+- SIGTERM on POSIX (live-Q24): the same way out as Ctrl-C, terminal given back, exit 0: a
+  handler, set in `watch` for the run's length and put back after, raises `KeyboardInterrupt` in
+  the main thread. Nothing is added on Windows. A killed process (SIGKILL, a closed terminal
+  window) cannot give the terminal back: named in the docs as such.
 - The three systems: the restore is `blessed`'s and Rich's on Linux, macOS and Windows; the PR
   says where it was tried (see Evidence).
 
-### 9. Read-only and the server (live-Q19)
+### 9. Read-only and the server (live-Q19, live-Q25)
 
 No server change, protocol 1 unchanged. The client still sends `hello`, `sub`, `unsub` and the
 poll, and nothing else; `clients/tui/` still imports nothing of chantier but itself,
-`chantier.__version__` and `chantier.core.errors`. `link.py` is not changed.
+`chantier.__version__` and `chantier.core.errors`. This CR does not change `link.py`.
 
 AGENTS.md's `live` sentence, checked word by word: "a read-only terminal client of the surface
 server's published API, shipped in `clients/tui/`; it reads the server only (never the planning
 folder, the forge or git), writes nothing and messages no agent". With up to 4 boards each is a
 surface server read through the same published API; `live` still reads only servers (and, with
 no `--url`, `server.json` as today), writes nothing and messages no agent. The sentence stays
-true; AGENTS.md is not changed (Open question 4, built as A).
+true and AGENTS.md is not changed (live-Q25); the count, "one to four boards", is said in
+`docs/boards.md` and `docs/server-api.md`.
 
 ### 10. Docs
 
 - `docs/boards.md`, "The live terminal view":
-  - "How to start it": `--url <link>` repeatable, up to 4 boards, one key and one connection
-    each; a fifth or the same board twice refused (exit 2); the recorded board joins others
-    only by its link; `--only` and `--transport` apply to every board; a lost board is retried
-    every 5 s while the others go on; a refused key on any board exits 4 with the server's
-    sentence and that board's address (never its key).
-  - "What it shows": the Flow keeps the last 2000 lines; several boards: the labels `a`..`d`,
-    the header's line per board, `<label>/<project>`.
+  - "How to start it": `--url <link>` repeatable, one to four boards, one key and one connection
+    each; a fifth or the same board twice refused (exit 2; two spellings of one host are not
+    detected); the recorded board joins others only by its link; `--only` and `--transport`
+    apply to every board; a lost board is retried every 5 s while the others go on; a refused
+    key on any board exits 4 with the server's sentence and that board's address (never its
+    key).
+  - "What it shows": the Flow keeps the last 2000 lines of each board, merged by time; several
+    boards: the labels `a`..`d`, the header's line per board, `<label>/<project>`.
   - A new list "Keys": the table of section 4, the filter's typing, the help, the pause
     (`paused, <n> new`), the filter's scope (the Flow and the Tasks, counts unchanged, local);
     with no keyboard (input not a terminal), no keys and `Ctrl-C to quit`; the terminal given
-    back on every way out but a killed process.
+    back on every way out (SIGTERM on POSIX included) but a killed process.
   - "Ctrl-C leaves the screen." becomes "`q` or Ctrl-C leaves the screen."; the `--once`
     capture's last line stays `Ctrl-C to quit` (`--once` reads no key and its footer says so):
     `screen.plain` draws the footer of no keys.
@@ -274,14 +300,14 @@ true; AGENTS.md is not changed (Open question 4, built as A).
 - live-Q3: one pinned dependency, `blessed==1.53.0`, no second way: "The key reader".
 - live-Q4: the keys: section 4.
 - live-Q5: only the Flow scrolls, paused with `paused, <n> new`, End follows: section 5.
-- live-Q6: 2000 lines, nothing fetched: section 5.
+- live-Q6: 2000 lines (per board's `Model`), nothing fetched: section 5.
 - live-Q7: one text, case-free, Flow and Tasks, counts unchanged, `filter: <text>`: section 6.
 - live-Q8: local filter, `--only` unchanged: section 6.
 - live-Q9: no opening of a CR's files, no cursor: Out of scope.
 - live-Q10: no mouse: Out of scope.
 - live-Q11: repeatable `--url`, recorded board by default, at most 4: section 1.
 - live-Q12: one board as today; several: labels, header per board: section 2.
-- live-Q13: 15 per board, `--only` across boards, `--transport` for all: section 1, 2.
+- live-Q13: 15 per board, `--only` across boards, `--transport` for all: sections 1, 2.
 - live-Q14: a lost board retried, a refused key ends the run with the address: section 2.
 - live-Q15: `--once` unchanged in form, waits for every board: section 3.
 - live-Q16: no keyboard, no refusal: section 7.
@@ -291,6 +317,11 @@ true; AGENTS.md is not changed (Open question 4, built as A).
 - live-Q20: tests with no terminal, scenario not extended, the PR names the real terminals:
   Evidence.
 - live-Q21: `docs/boards.md`, no card change, independent in batch-30: section 10, Overlaps.
+- live-Q22: labels `a`..`d` in `--url` order, each mapped to its base address: sections 1, 2.
+- live-Q23: the same board twice refused (exit 2), compared on `from_link`'s base, no name
+  resolution: section 1.
+- live-Q24: SIGTERM on POSIX leaves as Ctrl-C, exit 0, nothing on Windows: section 8.
+- live-Q25: AGENTS.md unchanged, "one to four boards" in the docs: sections 9, 10.
 
 ## Out of scope
 
@@ -299,29 +330,51 @@ true; AGENTS.md is not changed (Open question 4, built as A).
   subscriptions give (live-Q6).
 - A filter sent to the server, or one per board; a filter of the left column.
 - Textual or any other application framework; any key reader but `blessed`.
-- More than 4 boards; a board started by `live`.
+- More than 4 boards; a board started by `live`; detecting two spellings of one host (live-Q23).
+- A SIGTERM handler on Windows (live-Q24).
 - The `just scenario` workflow (not extended, live-Q20).
-- Cards, agents, hooks, the web client, AGENTS.md.
+- Cards, agents, hooks, the web client, AGENTS.md (live-Q25).
 
 ## Overlaps in batch-30 (read 2026-11-21)
 
-Independent of the other batch-30 CRs (live-Q21); textual overlaps only:
+Independent of the other batch-30 CRs (live-Q21): no `depends.json`; textual overlaps only,
+and whichever lands second rebases.
 
+- CR-429 board-fingerprint-cache (in `4-batch/2-actives/`; its round 2, `work/coder/r2.md`,
+  commit c9c0852b on its branch) touches the same files:
+  - `skills/chantier/scripts/cli/src/chantier/clients/tui/link.py`: adds `Refusal(ChantierError)`
+    with `.sentence` and `.kind` (`key` or `protocol`; message and exit code unchanged for
+    `live`), and `Link.client` (the name sent in `hello` and the User-Agent). This CR does not
+    edit `link.py`.
+  - `skills/chantier/scripts/cli/src/chantier/commands/live.py`: routes `recorded` through
+    `hub/state.py:live_server(git_dir)`. This CR edits `commands/live.py` throughout (the
+    repeatable `--url`, the boards, `once`, `watch`, the suffix).
+  - `skills/chantier/scripts/cli/src/chantier/hub/state.py`: new `live_server`. This CR does not
+    edit it.
+  - `skills/chantier/scripts/cli/tests/test_live_link.py`: adds a real `Board().link` case
+    against the module's server. This CR adds a second server to the module fixture and tests
+    over two boards (Evidence 4).
+  - the root `pyproject.toml`: adds `watchfiles==1.3.0` to `dependencies` and `"watchfiles"` to
+    the same `banned-module-level-imports` line this CR extends with `"blessed"`; and `uv.lock`.
+  Whichever lands second: re-runs `uv lock` from the root (never a hand-merged `uv.lock`), keeps
+  both dependencies and both banned names, and rebases `recorded` onto `live_server`. The
+  board-address suffix (section 2) is added where the link's refusal is caught: CR-429's
+  `except Refusal` once it is on `main`, `refused()`'s `ChantierError` caught at
+  `link.items()` until then.
 - CR-443 gate-hold-narrowing edits `clients/tui/model.py`'s `lease_left` (drops the `held`
-  branch and its docstring words). This CR does not touch `lease_left`; its `model.py` edits
-  (`FLOW`, the module docstring's count, `Line.cr`, the filter's match) are elsewhere in the file.
+  branch and its docstring words), `tests/test_live_model.py` and `docs/server-api.md`. This CR
+  does not touch `lease_left`; its `model.py` edits (`FLOW`, the module docstring's count,
+  `Line.cr`, the filter's match) are elsewhere in the file; it adds tests to
+  `test_live_model.py` and changes one sentence of `docs/server-api.md`'s "A terminal client".
   Whichever lands second rebases.
-- CR-429 board-fingerprint-cache may move or share `clients/tui/link.py:Link` for the session
-  watcher. This CR leaves `link.py` unchanged (the board's address is added to a refusal in
-  `commands/live.py`), so a move of `Link` does not conflict; if it lands first, imports follow
-  where `Link` lives.
 - CR-439 board-help-page names `chantier live` in the web board's Help and links
   `docs/boards.md`; it does not edit the live section.
 
 ## Evidence
 
-Within `just test`'s budget (AGENTS.md: at most 30 s above 18.5 s), few tests, parametrized, no
-terminal (live-Q20); the scenario is not extended.
+Within `just test`'s budget (AGENTS.md: at most 30 s above its 18.5 s of 2026-11-14), few
+tests, parametrized, no terminal and no network beyond the module's own servers (live-Q20); the
+scenario is not extended.
 
 1. `tests/test_live_model.py` (prepared events, no network), one parametrized test of key
    sequences fed to `view.py` over a model with more lines than a page, each case checking the
@@ -333,47 +386,71 @@ terminal (live-Q20); the scenario is not extended.
      hold `cr-2` without case, the counts line is unchanged, the footer reads `filter: CR-2`;
      Backspace while typing; Esc clears it; the model's `wanted()` is the same before and after;
    - `?` draws each key of the table; the next key closes it and does nothing else;
-   - `q` and `ctrl-c` say quit; an unbound key (`x`) changes nothing;
-   - a model with 2100 lines fed keeps 2000.
-2. The same file: the keystroke mapping of `screen.py`, parametrized over
+   - `q` and `ctrl-c` say quit; an unbound key (`x`) changes nothing.
+2. The same file, the cap (section 5): two models each fed 2100 lines keep 2000 each, the merged
+   view holds 4000 in time order, and Home shows the oldest kept line of the merged view (the
+   oldest of the two boards' kept lines); one more line on a board while scrolled to Home moves
+   the view to the new oldest kept line, no further.
+3. The same file: the keystroke mapping of `screen.py`, parametrized over
    `blessed.keyboard.Keystroke` objects built by hand (`KEY_UP`, `KEY_PGDOWN`, `KEY_HOME`,
    `KEY_ESCAPE`, `KEY_ENTER`, `KEY_BACKSPACE`, `/`, `q`, `\x03`), no terminal opened.
-3. The same file: the footer with no keys reads `Ctrl-C to quit` only; with keys, `? keys  /
+4. The same file: the footer with no keys reads `Ctrl-C to quit` only; with keys, `? keys  /
    filter  q quit`.
-4. `tests/test_live_link.py`: the module fixture starts a second server (port 0, same repository,
-   no second `server.json`); `chantier live --once --url <a> --url <b>` prints both boards' header
-   lines (their base addresses, `live`), `a/proj` and `b/proj`, the working CR as `a CR-...` and
-   `b CR-...`, and no key in the output. One parametrized refusal test: five `--url` (exit 2, `at
-   most 4`), the same link twice (exit 2, `given twice`), `--only nope` over two boards (exit 2,
-   `no board serves it`), and a wrong key on the second board (exit 4, the server's sentence and
+5. The same file (or `test_live_link.py`, the Driver's choice), one parametrized test driving
+   `watch` (and through it `screen.run`) with a stand-in terminal and stand-in links, no terminal
+   and no network: the stand-in's `cbreak()` is a context manager recording its entry and exit;
+   its `inkey(timeout)` returns scripted keystrokes or raises; the Rich console writes to an
+   `io.StringIO`. Five exits:
+   - `q`: `watch` returns normally (the command's exit 0);
+   - `\x03` as a key: returns normally;
+   - `inkey` raising `KeyboardInterrupt`: returns normally;
+   - a reader refusal (a stand-in link whose `items()` raises the link's refusal, so `alive`
+     turns false): `watch` raises it, with `(board <base>)` at its end;
+   - an exception in `render` (patched to raise): `watch` raises it.
+   Each case asserts that cbreak's exit ran (entry and exit recorded, in that order).
+6. `tests/test_live_link.py`: the module fixture starts a second server (port 0, same
+   repository, no second `server.json`); `chantier live --once --url <a> --url <b>` prints both
+   boards' header lines (their base addresses, `live`), `a/proj` and `b/proj`, the working CR as
+   `a CR-...` and `b CR-...`, and no key in the output. One parametrized refusal test: five
+   `--url` (exit 2, `at most 4`), the same link twice (exit 2, `given twice`), `--only nope` over
+   two boards (exit 2, the exact sentence `--only nope: no board serves it; served: a/<x>,
+   b/<y>`, asserted whole, so it carries no board address), `--only nope` over one board (exit
+   2, the exact sentence `--only nope: the board serves <ids>`, asserted whole, no board
+   address), and a wrong key on the second board (exit 4, the server's sentence and
    `(board http://127.0.0.1:<port>/)`, and the wrong key not in stderr).
-5. The existing tests stay green unchanged in intent: the one-board `--once` capture,
+7. The existing tests stay green unchanged in intent: the one-board `--once` capture,
    `test_a_wrong_key_exits_4_with_the_servers_sentence` (its sentence still in stderr, now with
    the board's address), the command line's refusals, and the import check of `clients/tui/`
    (which reads the shipped modules from the repository at the head under test, `view.py`
    included).
-6. `tests/test_board.py`: `LAZY` holds `blessed`, and the lazy-import check (it reads the shipped
-   `src/` and the shipped `pyproject.toml`) finds no module-level import of it.
-7. `just check` (lint refuses a stale `uv.lock`) and `just eval-dry-run` in the worktree before
+8. `tests/test_board.py`: `LAZY` holds `blessed`, and the lazy-import check (it reads the shipped
+   `src/` and the shipped `pyproject.toml` at the head under test) finds no module-level import
+   of it.
+9. `just check` (lint refuses a stale `uv.lock`) and `just eval-dry-run` in the worktree before
    the first push (a change under the CLI's `src/`); the pipeline's `just scenario
    (ubuntu-latest)` green at the PR's head (a CLI change).
-8. In a real terminal, by the Driver: the keys, the pause, the filter, the help, `q`, Ctrl-C, a
-   refused key on a second board, each leaving a usable terminal (echo, cursor, line mode). The
-   PR's Deliverables name the systems tried, Windows among them; a system not tried is named in
-   the Known gaps as "keys not tried in a real terminal on <system>" (live-Q20).
+10. In a real terminal, by the Driver: the keys, the pause, the filter, the help, `q`, Ctrl-C, a
+   refused key on a second board, each leaving a usable terminal (echo, cursor, line mode). On
+   Windows this is also the proof of `blessed`'s key decoding ("The key reader"). The PR's
+   Deliverables name the systems tried, Windows among them; a system not tried is named in the
+   Known gaps as "keys not tried in a real terminal on <system>" (live-Q20), and Windows not
+   tried leaves Windows key decoding unproved, named there too.
+
+The PR's Deliverables give `just test`'s measured time at the PR's head (the system it ran on)
+beside the AGENTS.md budget (at most 30 s above 18.5 s, measured on the user's Windows machine).
 
 Host and default matrix: none; the CR depends on no host and no configured value. The system
-matters only for the real-terminal check of item 8, which names each system.
+matters only for the real-terminal check of item 10, which names each system.
 
-## Open questions (built as A tonight; the user asks none)
+## Decided questions (v1's open questions)
 
-1. **The board's label with several boards.** A (built): a letter `a`..`d` in `--url` order,
-   each mapped to its base address on its header line; short enough for the Flow's project column.
-   B: the board's host (and port when two share a host), cut with `…`. C: the order number
-   `1`..`4`.
-2. **The same board given twice.** A (built): refused at start, `--url <base>: given twice`
-   (exit 2). B: kept once, silently. C: allowed, two connections to one board.
-3. **SIGTERM on POSIX.** A (built): the same way out as Ctrl-C, terminal given back, exit 0. B:
-   Python's default (the process ends at once, the terminal may stay in cbreak mode).
-4. **AGENTS.md's `live` sentence.** A (built): unchanged, it stays true word by word (section
-   9). B: "it reads surface servers only (one to four)", to say several in so many words.
+1. **The board's label with several boards** (live-Q22): a letter `a`..`d` in `--url` order, each
+   mapped to its base address on its header line.
+2. **The same board given twice** (live-Q23): refused at start, `--url <base>: given twice`
+   (exit 2), compared on `from_link`'s base with no name resolution.
+3. **SIGTERM on POSIX** (live-Q24): the same way out as Ctrl-C, terminal given back, exit 0;
+   nothing added on Windows.
+4. **AGENTS.md's `live` sentence** (live-Q25): unchanged; `docs/boards.md` and
+   `docs/server-api.md` say "one to four boards".
+
+No question is left open.

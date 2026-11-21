@@ -19,7 +19,7 @@ None.
 ## Known gaps
 
 - No screenshots of the split column yet.
-- None else.
+- The existing Triage screenshots in `docs/web-board/` (`triage-pc.png` and the phone ones) were not retaken with `just docs-screenshots` (no browser in the session that built this PR).
 
 <details><summary>Details</summary>
 

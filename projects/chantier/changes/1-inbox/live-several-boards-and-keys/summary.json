@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "live: keys to scroll and filter, and up to 4 boards in one screen",
-  "summary": "Specified (Spec v1, 2026-11-21, batch-30): chantier live keeps its Rich screen and reads keys via pinned blessed: scroll the Flow (2000 lines, paused with new count), a local filter, help, q/Ctrl-C with the terminal restored; --url repeatable up to 4 boards. No server change.",
+  "summary": "Specified (Spec v2, 2026-11-21, batch-30): chantier live keeps its Rich screen and reads keys via pinned blessed: scroll the Flow (2000 lines per board, paused with new count), a local filter, help, q/Ctrl-C with the terminal restored; --url repeatable up to 4 boards. No server change.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "0c2a23196483c074811ac71e01c01c666c5733dec62ae301ef2bd3a43508e827",
-    "02-answers.md": "8021eab6550c4fe9b627b406418c59808f53cd054ae8b862841fb981df481afd",
-    "03-change-spec.md": "8f49a3b4f14184d1d76b24c015733aeba15be984369903d0305f0afcc044951a",
+    "02-answers.md": "509a96760e7377a35066c7592e1d2e46ca6cd98f79c9ebb0bd2ea0998bf10af0",
+    "03-change-spec.md": "1fd8f4e913035eee8e9564972785ad83432e16524b56fb7d0b5eb640b5064b9d",
     "intake/request.md": "a96de538dddf85c6680863726b40d9be553f1527b7c7955450ee7f8f26516305"
   },
-  "summarized": "2026-11-21T19:18:32Z"
+  "summarized": "2026-11-21T19:26:50Z"
 }
