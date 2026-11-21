@@ -7,3 +7,8 @@ Decided by the Chief of Staff under the owner's autonomy rule (owner, 2026-11-20
 - cc-Q2 Same for any block whose range ends on blank lines (not only lists), if the code path is shared.
 - cc-Q3 Cut leaves the blank lines as they are rules after the empty-block CR (CR-439): no extra blank lines; the document keeps one separator.
 - cc-Q4 Evidence: unit tests on the plan, and the existing real-input cut/copy scenario extended to a list followed by two blank lines.
+
+## Owner's answers, 2026-11-21 (Fable spec critic's questions)
+
+- cc-Q5 (paste on or after a list followed by a blank line, refused for the same reason). Owner: "Add paste to this CR": the host accepts a blank anchor line that ends a list; BLOCK-124 and BLOCK-174 updated.
+- cc-Q6 (a selection ending on a paragraph holding only a no-break space). Owner: "Only real blank lines": cut and copy drop only CommonMark blank lines (spaces and tabs); such a selection stays refused, nothing is left out silently.
