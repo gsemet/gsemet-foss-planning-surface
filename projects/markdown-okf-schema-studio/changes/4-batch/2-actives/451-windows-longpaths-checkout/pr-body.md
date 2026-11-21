@@ -32,8 +32,12 @@ Grade: 1. Contributor tooling and docs only; a plain `git revert` restores the p
 - [x] Requirements: No behaviour change (contributor tooling, outside the product contract)
 - [x] Changelog: No user-facing change
 - [x] Local gates: `just check` pass; `just preflight` pass (Windows static stage); `pytest test/build/test_workflows.py` 81 passed at the rebased head
-- [ ] Review
-- [ ] CI green
+- [x] Review: approved at e962787 (rebased to bec8d0d, patch unchanged)
+- [x] CI green at bec8d0d (checks, report, static, static-windows, viewer-graph, visual)
+
+## Known gaps
+
+None.
 
 ## Internal references
 

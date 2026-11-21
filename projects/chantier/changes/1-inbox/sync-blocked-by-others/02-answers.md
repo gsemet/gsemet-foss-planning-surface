@@ -12,3 +12,5 @@ Spec critic: yes, it changes how every session launches the CLI (the role cards 
 7. sync-lock-Q7 (2026-11-21, the spec's open question 1): **A stale build for other projects.** A. Accepted: another project's code changes at each chantier version bump; the spec names the risk.
 8. sync-lock-Q8 (2026-11-21): **Grilled enough.** A. Yes: the spec-writer revises the spec (narrowed to the launch part, Q4 to Q7, the critic's findings 1, 2 and 7 for this part); destination the next batch (`3-ready`), no batch being open.
 Spec critic: yes, it changes how every session launches the CLI; a second critic run after this revision.
+9. sync-lock-Q9 (2026-11-21, the v2 spec's open question 1): **The CLI's test in a surface.** A. The project folder's name (`projects/chantier`) is enough; the manifest in the project's clone is only a possible confirmation, never required.
+10. sync-lock-Q10 (2026-11-21, permissions-bypass being set aside): **The order with permissions-bypass.** C. Set this CR aside too: no critic run now; it is taken up with permissions-bypass.

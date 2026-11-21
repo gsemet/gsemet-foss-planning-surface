@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Dev mode only for chantier itself; other projects in plugin mode",
-  "summary": "Specified: dev mode only when the session's project is chantier (from its context, the manifest confirming), other projects in plugin mode; the CLI and P10's rules follow the same test. Wait part moved to sync-lock-wait. After permissions-bypass. 1 open question.",
+  "summary": "Set aside with permissions-bypass (sync-lock-Q10). Spec v2: dev mode only when the session's project is chantier (from its context; in a surface the folder projects/chantier); other projects in plugin mode; P10 follows the launch. The wait part is sync-lock-wait. Critic to rerun when resumed.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "9f6cfadd6993e95da4814ab6caf9191eb970c819491ee047c70fcba15203aca9",
-    "02-answers.md": "e24d3593a0cb165f981cbe10d754f715b43ef4820afdbef02c580499b7d621fa",
+    "02-answers.md": "f8f3c4a9fc9ae40465f70d8004d1aabc76043365d37c7f8ece7e64314e46669d",
     "03-change-spec.md": "6f4d29983e4b7b66ebab4f1dd45d9bfe27581a6d3f50050298be28d4fee43cfc",
     "intake/request.md": "498d6f90189d381a90840a55279a36c6a9b3d4a746e38912aa8535807b23b851"
   },
-  "summarized": "2026-11-21T10:38:54Z"
+  "summarized": "2026-11-21T11:16:05Z"
 }

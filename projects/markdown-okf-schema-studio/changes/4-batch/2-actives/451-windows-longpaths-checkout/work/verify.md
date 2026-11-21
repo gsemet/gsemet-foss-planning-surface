@@ -11,3 +11,14 @@ All claims judged at bec8d0d30c5d0a7fa91299d023801ce75b9abc3f (Windows host).
 7. Real long-path run: judged from the Driver's logs (work/dev*.log, compile-long.log), not repeated, as instructed.
 
 VERIFIED
+
+## Description pass (posted body, judged at bec8d0d30c5d0a7fa91299d023801ce75b9abc3f)
+
+Command: `gh pr view 459 -R gsemet/markdown-okf-schema-studio --json body,headRefOid`; `git diff --stat be10fe81 HEAD` (5 files, 78+/6-); `gh pr checks 459`.
+- Summary, Deliverables, Changes match the diff (justfile twins, docs, CONTRIBUTING no -s, 3 tests): true.
+- Impacts filled; Blast radius, Test plan filled; Known gaps "None" consistent (no UNVERIFIED claim, no accepted failure).
+- Review box: e962787 matches the log note "committed as e962787" (patch unchanged by rebase, carry event).
+- CI at bec8d0d: checks, report, static, static-windows, viewer-graph, visual pass (gh pr checks).
+- No stale SHA, no STALE mark, no images, no role names outside "Internal references" (CR-451, batch-07).
+
+VERIFIED
