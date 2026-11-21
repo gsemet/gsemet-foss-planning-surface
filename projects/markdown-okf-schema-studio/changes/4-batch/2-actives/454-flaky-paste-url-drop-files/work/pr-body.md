@@ -33,8 +33,9 @@ Grade: 1. Test and CI configuration only; a plain `git revert` restores the prev
 - [x] Requirements: no behaviour change; `just requirements-update` reports no change
 - [x] Changelog: no user-facing change
 - [x] Local gates: `just check` (pass), `test_workflows.py` (81 passed), `just preflight` on Windows (static stage, pass)
-- [ ] Review
-- [ ] CI green
+- [x] Review: approved at 845997b (carried from 7eeeb33 and the viewport round: the rebase onto main changed only the requirements log context)
+- [x] Verified at 845997b (the default-plan heavy proof carried from the head before the rebase, same patch)
+- [x] CI green at 845997b (static, static-windows, visual, viewer-graph, checks, report; `report` and `checks` re-run once after an infrastructure error in a setup step)
 - [x] Viewport fix proof, at the head before the rebase onto main (the rebase changed only the requirements log): default stress run https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44903251073 green (integration green, `stress` job 16 min against the 24-minute deadline, 21 scenarios at 11 rounds); narrow plan `paste-url,frontmatter-rename,frontmatter-title` at 20 rounds https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44903254624 green (`stress` job under 4 min). Before the fix the default stress failed twice at round 2 `frontmatter-title`.
 - [x] Forced-failure trace proof: a throwaway branch (deleted) forcing one failure after the first phase of each scenario; the `stress` job logs print `paste-url failed: ...` and `paste-url failure trace: {...}` (https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44905091608), then the same for `drop-files` (https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44905104654).
 - [x] Focused loop of 100 rounds of both scenarios at the pushed head: https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/44904977842 green (`stress` job 7 min).
@@ -47,3 +48,9 @@ paste-url failure trace: {"preview":{"phase":"ready","requestId":1,"documentVers
 drop-files failed: Error: forced failure for the trace proof
 drop-files failure trace: {"preview":{"phase":"ready","requestId":1,"documentVersion":1,"webviewReady":true,"deferredWorkPending":false,"blockEditOpen":false,"pageEditorOpen":false,"contentPatches":0,"htmlAssignments":4,"panelActive":true},"source":{"version":1,"text":"First paragraph of the page.\n\nSecond paragraph of the page.\n"},"frame":{"found":true,"editMode":"on"},"tabs":[[{"label":"preview.md","inputType":"Hc"},{"label":"page.md","inputType":"Hc"}],[{"label":"Studio · page.md","inputType":"Lf"}]],"failures":[],"lastProgress":"drop-files: first drop (Markdown file)"}
 ```
+
+## Known gaps
+
+- `run.ts` carries the 1400x900 viewport as a literal beside `RUN_VIEWPORT`; left because it is a duplicated constant with no behaviour risk.
+- The comment on the viewport states the Chromium behaviour as fact while it is a diagnosis proven only by the stress runs passing.
+- In `dropFiles.test.ts` an empty `try/catch` around the drop-marker wait drops that wait's own timeout message (the scenario's failure trace still names the last progress marker).
