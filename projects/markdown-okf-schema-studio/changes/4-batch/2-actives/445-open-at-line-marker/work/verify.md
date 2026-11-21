@@ -65,3 +65,18 @@ E2. Known gaps line 49: VERIFIED. It now says the test ran at `f61ac3a`, before 
 E3. Nothing else changed or stale: VERIFIED. Test plan and line 24 SHAs (207a550 for gate, review, verify, CI; f61ac3a for evidence and heavy run) match `chantier log CR-445` (gate pass at 207a550, "inspector approved at 207a550a...", driver note CI at 207a550) and `gh pr checks 452` (static, static-windows, visual, report, checks pass). Images carried from f61ac3a9 (claim 6, 10); visual job green at 207a550a.
 
 Verdict: VERIFIED at 207a550a.
+
+---
+
+# Move re-judgment at 711a4dd5 (rebase onto CR-444 head 5e42c5f6, scenario headings, glossary line)
+
+Head: 711a4dd5ae9902368cf57ff408f0b03624191355
+
+N1. Long gate pass at the head: VERIFIED at 711a4dd5. `work/gates/20261121-062021.log` first line `gate CR-445 ... head 711a4dd5ae9902368cf57ff408f0b03624191355`, last line `result: pass at 711a4dd5ae9902368cf57ff408f0b03624191355` (`just preflight`; visual, integration, report, gallery skipped on Windows, run by CI).
+N2. Delta since 207a550a: `git log 207a550a..711a4dd5` shows the base's CR-444 and site commits plus the CR's commits replayed; the CR-only changes after the last verdict are `467dd197` (8 files, LIFE-178..185 scenario headings, 16 lines) and `711a4dd5` (`.agents/glossary/common.md`, 1 line), per `git show --stat`. Product code unchanged; the gate (N1) re-runs unit, contract and security tests at this head.
+N3. CI at the head: VERIFIED. `gh pr checks 452` (run 44870407656): checks, report, static, static-windows, visual pass; others skipping on a PR. `gh pr view 452` headRefOid 711a4dd5ae9902368cf57ff408f0b03624191355.
+N4. Review: `chantier log CR-445`: "round 6 inspector APPROVE at 711a4dd5 (glossary Line marker); just check pass"; box says "approved at 711a4dd": matches.
+N5. Claims 3, 5, 7, 8 and the evidence images: carried from f61ac3a9/207a550a: the move touched only requirements headings and a glossary line and replayed commits (gate green); the integration test last ran at f61ac3a (heavy run 44860936230), stated as such in Known gaps.
+N6. PR description, as posted (`gh pr view 452 --json body,headRefOid,isDraft`), at 711a4dd5: VERIFIED. SHAs: 711a4dd for gate, review, verify, CI; f61ac3a only for evidence and the heavy run, both labelled historical and matching claim 4/5 and N3. Known gaps carries the UNVERIFIED diffs bullet, the narrow-pane bullet and the not-re-run-at-711a4dd integration note. No placeholder, no STALE mark; Mermaid block and fold well formed; internal references only in the folded section. Images: three uploads fetched with `gh auth token` (HTTP 200 image/png), sha256 equal to work/verifier/evidence v04, v10, v11 (opened earlier at claim 6: made-up fixture text, no username or home folder). Summary, Deliverables and Changes match the diff (claims 7, 8).
+
+Verdict: VERIFIED at 711a4dd5.
