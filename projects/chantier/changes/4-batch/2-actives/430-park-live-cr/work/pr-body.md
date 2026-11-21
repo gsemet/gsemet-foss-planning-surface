@@ -69,11 +69,11 @@ The pane shows `Parked` for a parked CR; a CR waiting outside the batch no longe
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): `test_park*.py`, `test_came_back.py`
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`, `just scenario --unit stack` (`park_live`)
+- [ ] Local gates at `6fb2b35`: `just check`, `just eval-dry-run`, `just scenario --unit stack` (`park_live`)
 - [ ] Evidence: none beyond the tests and the scenario
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [ ] Review: approved at `6fb2b35`
+- [ ] Verified at `6fb2b35`
+- [ ] CI green at `6fb2b35`
 
 ## Internal references
 
