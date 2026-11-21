@@ -52,6 +52,7 @@ Tests, one pytest option and the scenario's budget numbers only; nothing the CLI
 ## Known gaps
 
 - `just test` at 63.0, 106.8 and 80.1 s on a loaded machine (not idle), ceiling 48.5 s, 1405 passed and 14 skipped; main at 77.6, 93.5 and 73.1 s. No idle measure: other chantier sessions (this machine and another project's batch) shared the CPU. The profile's sum by file is in Deliverables; what is left is the writer, carry-ship and release-tag tests that run real git, which stays real. The ceiling's change, if wanted, is the user's decision in a CR of its own.
+- No local run was made with the new budgets: both measuring runs ran with the old literals (their `over budget` lines are against 260, 640 and so on), and the PR's own CI run of `just scenario (ubuntu-latest)` is the first with the new ones.
 - The nine scenario budgets rest on two non-idle runs (25% and 54% load), one with a load flake in surface-board; a quiet-machine run may justify lowering them.
 
 <details>
@@ -70,11 +71,11 @@ No visual change. Developers see a faster `just test`; real git stays where git 
 ## Test plan
 
 - [ ] New or changed tests: no behaviour change, no test id changed or removed (1419 collected before and after)
-- [ ] Local gates at `<sha7>`: `just test`, `just check`
+- [ ] Local gates at `d60b8b1`: `just test`, `just check`
 - [ ] Evidence: idle runs before and after
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [ ] Review: approved at `d60b8b1`
+- [ ] Verified at `d60b8b1`
+- [ ] CI green at `d60b8b1`
 
 ## Internal references
 
