@@ -1,28 +1,18 @@
 # Verify CR-419
 
-Head: eb5dbd66a823fca7335769e175b954d420cc98d0
+Head: b3fbfa3cf1501478046e4d86a6abe41f45f8ca91
 
 Verdict: NOT VERIFIED
 
+Move judged: rebase onto CR-418 (58df3be3) plus journal.read caller fixes (868761b, b3fbfa3). Earlier VERIFIED at eb5dbd6 does not carry.
+
 ## Claims
 
-1. Store conformance, structure test and code-targets pass (eb5dbd6): `pytest test_store_conformance.py test_store_reads.py test_code_targets.py -q` -> `50 passed, 18 skipped in 2.41s`. PASS.
-2. Whole suite (eb5dbd6): `just test` -> `1447 passed, 20 skipped in 72.62s`. No expected output changed (existing tests only call-updated per diff stat). PASS.
-3. Docs (eb5dbd6): `git diff <base>..HEAD -- CONTRIBUTING.md` adds the one sentence naming `tests/test_store_reads.py` and `Repo.store`. PASS.
-4. Speed (spec 6, answer 13): evidence/speed.md and PR table: status 0.568 -> 0.563 s, board state 0.80 -> 0.90 s (+5 %, under 10 %). Not re-measured by me (carried from the Driver's evidence, not proof). PASS as stated, unproved by me.
-5. `just test` time added: spec section 6 requires the PR to state the time `just test` adds. PR description does not state it; my run took 72.6 s here (budget 18.5 s + 30 s). FAIL.
-6. Review box `Review: approved at eb5dbd6`: `chantier log 419` holds only `driver note note=round 2 inspector APPROVE (head a391c1eb + working tree)`, no note naming eb5dbd6 or "committed as eb5dbd66". The SHA the box cites has no approved-pass note. FAIL.
-7. PR description: renders, Summary/Deliverables/Changes match the diff (78 files; store reads, readers, structure test, CONTRIBUTING). The `reading()` per-pass link-check scope is disclosed under Autonomous decisions and Known gaps. Test-plan line says `just test` ran at eb5dbd6, but the log's note at that head names only `just check` and `eval-dry-run`. Bound by claim 5 and 6.
-8. Gates: no long-gate pass at eb5dbd6 (ship `off=` says so); CI (incl. `just scenario (ubuntu-latest)`) was pending at my check. Not a pass yet.
+1. Whole suite at b3fbfa3: `uv run --no-sync python -m pytest skills/chantier/scripts/cli/tests -q -x -n0` -> `1493 passed, 20 skipped in 312.13s` (serial, so not comparable to `just test`). Tree clean (`git status --short` empty). PASS.
+2. CI at b3fbfa3: `gh pr checks 394` -> check macos/ubuntu/windows pass, eval-dry-run pass, `just scenario (ubuntu-latest)` pass. PASS.
+3. Review box (`Review: approved at b3fbfa3`/restack fixes approved): `chantier log 419` holds no note of an approved pass naming b3fbfa3 (or 868761b); the only approval note names eb5dbd6 (line 17). The foreman take note asks for "inspector" on the caller fixes, none logged. FAIL.
+4. PR description speed table: PR says board state `0.80 s -> 0.90 s (+5 %)`; 0.90/0.80 is +12.5 %, over the spec's 10 % limit. `evidence/speed.md` figures are 0.851/0.876 -> 0.895/0.902 (+5 %), measured at the old base a391c1e, not 0.80. The PR figure matches no evidence and contradicts its own percentage; also not re-measured at the new base/head. FAIL.
+5. Other description claims (Deliverables, Changes, Known gaps) match the diff stat (134 files, store, readers, structure test, CONTRIBUTING). Not separately failed. Carried from eb5dbd6 for the speed-neutral parts of claims 1-3 of the prior note (store conformance, structure test) now covered by claim 1's full run.
+6. Long gate: CI scenario (ubuntu) green at head (claim 2); local Windows scenario is the stack top's, not this CR's.
 
-## Not done
-Evidence before/after pairs not re-captured; the Driver's speed.md is the only measure.
-
-## Re-verification at eb5dbd66a823fca7335769e175b954d420cc98d0 (same head)
-
-Verdict: VERIFIED
-
-- Claim 6 fixed: `chantier log 419` note "review approved at eb5dbd6 ... committed as 23734dbb ... docstring only" names eb5dbd6. PASS.
-- Claim 5 fixed: PR body line 76 states `just test` 72.5 s at base a391c1e vs 72.6 s at head (my own run: 72.62 s). PASS.
-- Claim 7 fixed: test-plan line now cites `just check` (its suite) and `eval-dry-run`, matching the log. PASS.
-- CI at head: `gh pr checks 394`: check macos/ubuntu/windows pass, eval-dry-run pass; scenario (ubuntu) pending, listed in the PR's Known gaps as UNVERIFIED. Claims 1-4 carried unchanged (head did not move).
+Not done: speed not re-measured by me; before/after evidence not re-captured.
