@@ -29,7 +29,7 @@ None.
 ## Known gaps
 
 - No screenshots from a board running this head yet (wide, phone width, kept tab, closed batch).
-- The rows' `stage` field comes from a sibling change not yet in this branch's base; until it is, the Kanban columns stay empty on a live board.
+- The rows' `stage` field comes from #406 (a draft on another open PR's branch), not in this branch; until it merges, the Kanban columns stay empty on a live board. This PR is based on the default branch and waits on #406 and the PR under it for the stack.
 
 <details>
 <summary>Details</summary>

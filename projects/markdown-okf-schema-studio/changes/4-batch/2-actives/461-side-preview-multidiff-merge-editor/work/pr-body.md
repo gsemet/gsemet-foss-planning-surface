@@ -46,11 +46,11 @@ No visual change; users learn from the docs that these two editors are not follo
 ### Test plan
 
 - [x] Tests: none needed (documentation and requirements only, no behaviour change).
-- [x] SwRS: LIFE-026 updated; `just requirements-update` and `just requirements-lint` pass, as part of the preflight run at afc0013.
+- [x] SwRS: LIFE-026 updated; `just requirements-update` and `just requirements-lint` pass, as part of the preflight run at 5ac0e15.
 - [x] Changelog: No user-facing change in behaviour (documentation of an existing limit).
-- [x] Local gates: `just preflight` (static stage on Windows) passes at afc0013.
-- [x] Review: Inspector approved at 7aa1e9b4 (rebased as afc00137); Verifier VERIFIED at afc00137.
-- [x] CI green at afc00137 (static, static-windows, viewer-graph, visual).
+- [x] Local gates: `just preflight` (static stage on Windows) passes at 5ac0e15.
+- [x] Review: Inspector approved the change at its first head (7aa1e9b4, since rebased); Verifier VERIFIED at 5ac0e15.
+- [ ] CI green at 5ac0e15 (static, static-windows, viewer-graph, visual): visual running
 
 ### Internal references
 

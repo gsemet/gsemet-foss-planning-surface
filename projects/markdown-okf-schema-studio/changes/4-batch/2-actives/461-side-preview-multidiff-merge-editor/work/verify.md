@@ -1,21 +1,15 @@
 # Verify CR-461
 
-Head: afc00137a4b83eaef1c3d7d9372e6bb296dc3922
+Head: 5ac0e15fc152aa0252598b065fb380b24721468b
 
-Verdict: VERIFIED (content claims). The posted PR body still shows "Review pending" and "CI green pending" boxes: the description pass is the Driver's later step.
+Verdict: VERIFIED. Re-verification after the rebase rewrite (all claims judged at 5ac0e15f unless stated).
 
-## Claims (all judged at afc00137)
-
-1. 02-answers.md (mm-Q1): no code, limit in docs/known-limitations.md and in the SwRS of the side preview that follows the active editor, with the reason (no tab input class in the VS Code API).
-   - Command: `git diff origin/main...HEAD` (worktree, head afc00137). Output: 4 files only: docs/known-limitations.md (bullet now names the multi-file diff editor and the merge editor (3-way merge), the reason, the workaround), docs/user/open-studio.md (one sentence), requirements/tiers/swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-026.md (boundary scenario "Editors the side preview does not follow" with two rows, the reason, and a Known issues line), requirements/tiers/log.md (dated entry). No file under src/ or test/. PROVED.
-2. LIFE-026 is the SwRS of the side preview that follows the active editor (text diff following).
-   - Diff context shows its scenarios "a text diff whose real file ... switches" in the same file. PROVED.
-3. The limit is real: the side preview does not render the multi-file diff nor the merge editor.
-   - Command: `grep -n "class TabInput" node_modules/@types/vscode/index.d.ts` (typings 1.140.0). Output: only TabInputText, TabInputTextDiff, TabInputCustom, TabInputWebview, TabInputNotebook, TabInputNotebookDiff, TabInputTerminal. `grep -c "MultiDiff\|TextMerge"` on the same file: 0.
-   - Command: `grep -rn "TabInputTextDiff" src`. Output: the only diff-following hook is src/host-vscode/activation.ts:201, `tab.input instanceof vscode.TabInputTextDiff`, and src/host-vscode/diffRealFile.ts; `grep -rniE "multi-file|multidiff|merge editor" src` finds only src/host-vscode/openingWatcher.ts:49 ("the merge editor has no input class in the API: it is `other`"). No code recognises either editor. PROVED.
-4. Docs wording matches the code (button/command/following do not apply; workaround: text editor or single-file diff).
-   - open-studio.md says the button, command and following do not apply; the following is driven by activation.ts:198-204 (active text editor and TabInputTextDiff only). Consistent. PROVED.
-5. Requirements and gate: `just preflight` passed at this head. Command: first line of work/gates/20261121-211414.log is `gate CR-461 branch chantier/batch-07/cr-461-side-preview-multi-file-diff-and-merge-e head afc00137a4b83eaef1c3d7d9372e6bb296dc3922`, last lines `ci-static: passed` and `result: pass at afc00137a4b83eaef1c3d7d9372e6bb296dc3922`. `$CHANTIER log` shows `gate result=pass head=afc00137...`. Worktree clean (`git status --short` empty). PROVED.
-6. PR body (read with `gh pr view 470`): Summary, Deliverables, Changes match the diff (4 files, no code; the Known gaps entry about the untested limit is consistent). It still holds the unchecked "Review" and "CI green" boxes: to be completed by the Driver before the description pass. Not a content failure.
-
-No before/after evidence: documentation only, no UI change (nothing to capture).
+1. Spec (02-answers.md, mm-Q1: document the limit, no code; in docs/known-limitations.md and the SwRS, with the reason).
+   - Command: `git diff origin/main --stat` and full diff (worktree, 5ac0e15f). Output: 4 files: docs/known-limitations.md, docs/user/open-studio.md, requirements/tiers/log.md, requirements/tiers/swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-026.md; 20 insertions, 2 deletions; nothing under src/ or test/. Wording names the multi-file diff editor and the merge editor, the reason (no tab input class in the VS Code API) and the workaround; nothing else is claimed. PROVED.
+2. requirements/tiers/log.md keeps both 2026-11-21 entries.
+   - Command: `grep -n "^## 2026-11-21\|CR-457\|CR-461" requirements/tiers/log.md`. Output: line 3 `## 2026-11-21`, line 5 `### Line marker precision (CR-457)`, line 11 `### Side preview: multi-file diff and merge editor not followed (CR-461)`. The diff adds only the CR-461 block. PROVED.
+3. Line endings.
+   - Command: `git ls-files --eol` on the 4 files. Output: all `i/lf w/lf attr/text=auto eol=lf`; none is CRLF in index or worktree, so no CRLF file was converted. PROVED.
+4. The limit is real: carried from afc00137: the code and typings are untouched by the rebase (docs-only diff), typings grep (no MultiDiff/TextMerge class) and src grep (activation.ts follows only TabInputTextDiff) still hold.
+5. Gate: first line of work/gates/20261121-221214.log: `gate CR-461 branch chantier/batch-07/cr-461-side-preview-multi-file-diff-and-merge-e head 5ac0e15fc152aa0252598b065fb380b24721468b`; last lines `ci-static: passed`, `result: pass at 5ac0e15fc152aa0252598b065fb380b24721468b`. PROVED.
+6. PR description: not judged in this pass (Driver's description pass); CI at the new head is running and not judged here.
