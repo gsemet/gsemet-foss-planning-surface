@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "chantier's allow rules name real paths, not a wildcard",
+  "summary": "Step 1 respecified (run 4, critic run 3 fixes): P10 writes real paths in chantier's allow rules after a real trial, one rule source; unquoted outcome keeps launch quoted, reruns cases a-e. Names broad and stale rules by mode. No open question. Next: spec critic.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "b62109ff757affa55006746c68ff1f156f33bbba8fb9315e1699f184464b47a8",
+    "02-answers.md": "092867a194a990992e8ae0edd7b848c99c5d249fe5370b38ba7dfd30a377a00e",
+    "03-change-spec.md": "5a2d4ae768fdae5fa62742515ba1f9415345618e20ddaa995e8dfb161fbce8d1",
+    "intake/request.md": "67b9f4180faca9c272d5cb6e14319c96de6131e4f9ebaf6cd3bb2d36250fb9f4"
+  },
+  "summarized": "2026-11-21T14:42:03Z"
+}

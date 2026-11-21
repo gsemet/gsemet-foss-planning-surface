@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "The server watches the planning files; boards and watchers subscribe",
-  "summary": "Spec v2, no open question: the server reads the planning files on OS notifications (5 s check where none work); watchers subscribe and start the board detached on one session yes; forge (PRs and MRs only) read only while a client subscribes; WSL /mnt and network shares a known limit.",
+  "summary": "Spec v3, no open question: the server reads the planning files on OS notifications (5 s check where none work); watchers subscribe and start the board detached for their own seat; it stops 30 min after its last client; forge PRs and MRs read only while a client subscribes.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "30412f2917875d7361863e279243c189638a09d28122eb69d4e69f7cf9941f83",
-    "02-answers.md": "ed50471d12ac8edf9c6692eb1c4bc8b488e0dbf9dd8de761e97965492bf6d6a9",
-    "03-change-spec.md": "590297fa7dc545b6f55b2e05d2c5149f18b657a779c173c95095dd3aca1d7e1f",
+    "02-answers.md": "19f880e610b9cfdd0b965b78cd42806ed34256cfe1dcb66ada9764b4c911b258",
+    "03-change-spec.md": "0d0855fc2593d9e715609c5fe4e3decd92acf963808e30e960451b7d54331a94",
     "intake/request.md": "561edc1ffc9f9bb6ad0ae8bb7aa4e66ba5b1c8dad7a48195cf83abbe950ce108"
   },
-  "summarized": "2026-11-21T14:25:30Z"
+  "summarized": "2026-11-21T14:41:04Z"
 }

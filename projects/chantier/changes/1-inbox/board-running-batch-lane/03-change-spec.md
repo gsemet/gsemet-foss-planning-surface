@@ -155,7 +155,7 @@ Read `skills/chantier/scripts/cli/src/chantier/clients/web/DESIGN.md` first and 
   every other `triage` of the folder clears it). This includes the row its folder is in (its own
   column): the drop clears the mark and moves no folder (critic run 2, fix 1; section 2).
 - A pending CR's card is not draggable and not selectable. Taking a CR out of the batch belongs to
-  park-live-cr.
+  drop-to-next-batch and hold-live-cr, by order only: no board drag (park-live-Q14).
 - The selection bar offers one more target, "→ Running batch" (`data-to="running-batch"`), next to
   the inbox, P1 to P4 and `3-ready`.
 - `columnOf` treats a marked CR as being in `running-batch`, so `moveTo` sends nothing for a CR
@@ -446,8 +446,9 @@ No agent file changes (the cards hold the contract; AGENTS.md).
   - `status`'s `running batch:` line;
   - the grill's four options and the destination at each spec-writer start;
   - the factory mode's removal.
-- park-live-cr: taking a CR out of the running batch, dragging a CR out of `1-pending`, the
-  `blocked` state.
+- drop-to-next-batch and hold-live-cr: taking a CR out of the running batch; park-live-cr: the
+  parked `blocked` state; dragging a CR out of `1-pending`: not now, an idea with no CR
+  (park-live-Q14).
 - The Kanban view, the Home page's backlog block and the terminal client (`clients/tui/`): they
   keep reading `3-ready` as the next batch (factory-redefine's Out of scope).
 - The CR board pane (`hooks/register.tsx`) and `STATUS.json`: not touched, so no pane screenshot

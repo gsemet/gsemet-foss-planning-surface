@@ -342,9 +342,11 @@ the items' `running_batch` key are the board's (`board-running-batch-lane`, Out 
   "Factory mode" section and the `#factory-mode` anchor (its lines 60, 71, 130, 143-145, 165). It
   must follow the renamed section "Running batch or next batch" (critic fix 7); that CR's own
   specification is updated before it runs, not by this CR.
-- park-live-cr (`1-inbox/park-live-cr`), which depends on this CR: taking a CR out of the running
-  batch, the `blocked` state, `close` refused with a blocked CR, and dragging a CR out of
-  `1-pending` on the board.
+- drop-to-next-batch (`1-inbox/drop-to-next-batch`) and hold-live-cr (`1-inbox/hold-live-cr`),
+  which depend on this CR: taking a CR out of the running batch (to `3-ready`, or held). park-live-cr
+  (`1-inbox/park-live-cr`, no dependency): the parked `blocked` state and `close` refused with a
+  blocked CR. Dragging a CR out of `1-pending` on the board: not now, an idea with no CR
+  (park-live-Q14).
 - The Kanban view, the home page's backlog block and the terminal client (`clients/tui/`): they
   keep reading `3-ready` as the next batch. The board's `grill_of` (`board/backlog.py`) keeps its
   words.

@@ -44,13 +44,13 @@ Q1, Q2, Q4, Q5 and Q8 to Q15 no longer apply to this CR.
 Paths: `CLI/` is `skills/chantier/scripts/cli/src/chantier/`, `REF/` is
 `skills/chantier/references/`, `TESTS/` is `skills/chantier/scripts/cli/tests/`.
 
-### 0. The trial first (before any code)
+### 0. The trial first (before P10 and the cards)
 
 The Driver proves, in a real Claude Code session, which rule text matches the command the agents
 type, before P10's rules ship. Order: the Driver writes section 1's functions first (they give the
-rule text P10 prints and the launch text), runs the trial with their output, and only then writes
-section 2 and the cards; when the trial picks the unquoted form, section 1's functions change and
-case a runs again with their new output. Setup: a scratch workspace outside the repository with only a
+filled rule text P10 prints and the launch text), runs the trial with their output, and only then
+writes section 2 and the cards; when the trial picks the unquoted form, section 1's rule functions
+change (the launch functions do not) and cases a to e run again with the unquoted rules (below). Setup: a scratch workspace outside the repository with only a
 `.claude/settings.local.json` holding the trial rules; a non-interactive session
 (`claude -p`) that loads no user-level settings (`--setting-sources local`, or the flag the host's
 `claude --help` names for it; when the host has none, the Driver stops and reports, since the
@@ -75,8 +75,9 @@ On Windows, each case also with the `PowerShell(…)` form. Paths are absolute, 
 `CLI/plugin_files.py` writes them.
 
 - Before case a: when the rule text P10 prints and the `$CHANTIER` text built from SKILL.md
-  write the path differently (quoting, slashes, the drive letter's case, a trailing slash), the
-  Driver stops and reports both texts to the Chief of Staff; nothing is run to make them agree.
+  write the path differently (slashes, the drive letter's case, a trailing slash; the quoting is
+  not compared, since the unquoted outcome below leaves `$CHANTIER` quoted), the Driver stops and
+  reports both texts to the Chief of Staff; nothing is run to make them agree.
 - When the user's `~/.claude/settings.json` holds no broad chantier rule, case i has nothing to
   control: the Driver stops and reports (the only write `AGENTS.md` allows there is the Chief of
   Staff's, of the rules P10 named, on the user's yes); it adds no rule for the case.
@@ -86,8 +87,11 @@ On Windows, each case also with the `PowerShell(…)` form. Paths are absolute, 
   text (a real-path rule that lets another path or another command through closes nothing).
 - When a, c and e run and b and d are refused: the quoted form ships as below.
 - When the quoted rule does not match but the unquoted rule matches the quoted command (case g
-  runs: the host strips quotes before matching): the rule text ships unquoted; the rest is
-  unchanged.
+  runs: the host strips quotes before matching): only the rule text ships unquoted (the three
+  rules, as section 1's rule functions give them); `$CHANTIER`, section 1's launch forms and the
+  sync line the agents type stay quoted. Cases a to e then run again with the unquoted rules in
+  place of the quoted ones, the commands unchanged, with the same expectations and the same stop
+  when b or d runs; the unquoted form ships only when a, c and e run and b and d are refused.
 - When neither form matches: the Driver stops and reports to the Chief of Staff, with the host's
   exact text. No other rule form is tried (no fallback).
 
@@ -96,14 +100,19 @@ The trial proves rule matching only, in the main session, in the mode it ran in.
 the three rows of `REF/hosts/claude-code.md` (section 3), as "rule matching proved (main session,
 `<mode>`)"; the host card's auto-mode and Driver (subagent) Marks stay unproved.
 
-### 1. One source for the launch text (`CLI/plugin_files.py`)
+### 1. One source for the launch text and the rule text (`CLI/plugin_files.py`)
 
 `cli_command` (lines 70-83) and `sync_command` (lines 86-91) build the launch from the plugin root.
 Two small functions give each form's text from the plugin root whatever the mode:
 the plugin form `uvx --from "<root>" chantier --skill "<skill>"` and the dev form
 `uv run --no-sync --project "<root>" chantier`, and the sync line. `cli_command` and `sync_command`
-compose them as today (same output, same mode test); P10 calls them for its samples and rules, so
-the rule and what the agents type cannot drift. The plugin-form sample is built whatever the mode
+compose them as today (same output, same mode test). Section 1 also gives the filled rule text,
+the trial's one source and the one P10 prints unchanged: the plugin rule
+`uvx --from "<root>" chantier *`, the dev rule `uv run --no-sync --project "<root>" chantier *`
+(each the form's text plus ` *`, the plugin rule without `--skill`) and the sync rule
+`uv sync --locked --project "<root>"`, quoted, or with the path unquoted when the trial picks the
+unquoted form (the launch text stays quoted either way). P10 calls these functions for its samples
+and rules, so the rule and what the agents type cannot drift. The plugin-form sample is built whatever the mode
 (the sample names the plugin-mode rule), which `sync-blocked-by-others`, ordered after this CR,
 relies on when it changes `_forges`.
 
@@ -114,8 +123,8 @@ relies on when it changes `_forges`.
   `uv run --no-sync --project "<checkout>" chantier *`, `uv sync --locked --project "<checkout>"`,
   `uvx --from "<plugin root>" chantier *` (or unquoted, per the trial). `commands_not_allowed`
   fills them at run time from section 1's functions: the sample commands become the exact launch
-  plus ` status` (dev and plugin) and the exact sync line; the rules P10 names after `add` carry
-  the real path. `RECOMMENDED_ALLOW` keeps the placeholders (it is the host card's block); one
+  plus ` status` (dev and plugin) and the exact sync line, always quoted; the rules P10 names
+  after `add` are section 1's filled rule text, unchanged. `RECOMMENDED_ALLOW` keeps the placeholders (it is the host card's block); one
   function returns it filled for this install, used by the scenario and the tests.
 - **Broad rules named.** `_settings_rules` (lines 233-253) also keeps, for each allow rule, the
   file it came from. P10 tries each allow rule that counts (`_counts_as_allow`; rules auto mode
@@ -200,10 +209,11 @@ relies on when it changes `_forges`.
 - The four SKILL.md files that define `$CHANTIER` (`skills/chantier/SKILL.md` line 15,
   `skills/chief-of-staff/SKILL.md` line 18, `skills/griller/SKILL.md` line 16,
   `skills/status/SKILL.md` line 15) and `REF/concepts.md` (line 417, `$CHANTIER`) get the same
-  added sentence, word for word: `<plugin root>` is written absolute, with forward slashes, quoted
-  (or unquoted, per the trial), exactly as P10's rule holds it; `$CHANTIER` is carried verbatim
-  into every brief and command, since another form of the path does not match the rule and meets
-  the host's prompt.
+  added sentence, word for word: `<plugin root>` is written absolute, with forward slashes, quoted,
+  the same path as P10's rule holds (the same slashes, drive letter's case and trailing slash;
+  the rule's quoting may differ, per the trial); `$CHANTIER` is carried verbatim into every brief
+  and command, since another form of the path does not match the rule and meets the host's
+  prompt.
 
 Both hosts' agent files are untouched. Copilot has no P10.
 
