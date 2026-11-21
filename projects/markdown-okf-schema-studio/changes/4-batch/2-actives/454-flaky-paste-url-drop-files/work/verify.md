@@ -28,3 +28,13 @@ Checked `gh pr view 460 --json body`: sections present, no internal ids, SHA mar
 Failed claim: Test plan "Requirements: no behaviour change; `just requirements-update` reports no change" has no command or output in verify.md or the gate log (the gate runs `okfreq validate`, not `requirements-update`; the diff touches only requirements/tiers/log.md).
 
 NOT VERIFIED
+
+## Description pass (posted body of PR 460), Head: 845997bb757b19f14b92a269672776160dde9455
+
+- Requirements box, judged at 845997b: `just requirements-update` run in the worktree printed "0 indexes updated / 0 requirement OKF projections updated" (plus pre-existing W2 cross-link warnings on PALETTE-264), `git status --short` empty. Matches the box.
+- Sections, SHA marks (845997b, 7eeeb33), no internal ids: judged at 845997b, pass.
+- Changes vs diff: `gh pr view 460 --json files` lists 15 files, all named in Changes/Deliverables; none missing.
+- Known gaps vs diff: run.ts line 210 literal 1400x900; dropFiles.test.ts empty catch at lines 121-123; match the two code bullets; the viewport bullet is a stated diagnosis.
+- Review box: log shows "r2 approved at 7eeeb33" and the box carries from 7eeeb33; pass.
+
+VERIFIED
