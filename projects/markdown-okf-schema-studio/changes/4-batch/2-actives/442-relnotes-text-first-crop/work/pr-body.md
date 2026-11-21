@@ -40,10 +40,10 @@ None.
 - [x] New or changed tests: none, a guideline wording change
 - [x] Requirements: No behaviour change
 - [x] Changelog: No user-facing change
-- [x] Local gates: `just check` and `just preflight` (static stage on Windows): pass at `590b2c5`
-- [x] Review: approved at `590b2c5`
-- [x] Verified at `590b2c5`
-- [x] CI green at `590b2c5` (`gh pr checks 447`: checks, report, static, static-windows, visual pass; heavy jobs skipped on a pull request by design)
+- [x] Local gates: `just check` and `just preflight` (static stage on Windows): pass at `8501c44` (carried from `590b2c5`, clean restack)
+- [x] Review: approved at `8501c44` (carried from `590b2c5`)
+- [x] Verified at `8501c44` (carried from `590b2c5`)
+- [x] CI green at `8501c44` (`gh pr checks 447`: checks, report, static, static-windows, visual pass; heavy jobs skipped on a pull request by design)
 
 ## Internal references
 

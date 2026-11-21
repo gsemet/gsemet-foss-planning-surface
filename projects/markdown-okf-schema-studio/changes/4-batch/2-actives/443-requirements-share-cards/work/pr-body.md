@@ -49,20 +49,20 @@ Social previews of every requirement page show the page's own title and text and
 
 The index picture, the "MyST syntax" category picture and the "Edition palette and slash menu" category picture, as built at this head:
 
-![Index share card](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/02bff1514d62b0d27cc3f9462aef2a86d18006a7/after-areas-card.png)
+![Index share card](https://github.com/user-attachments/assets/831dc61c-e43d-4854-beac-81e676747600)
 
-![MyST syntax category card](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/02bff1514d62b0d27cc3f9462aef2a86d18006a7/after-area-myst.png)
+![MyST syntax category card](https://github.com/user-attachments/assets/d7300907-6d9a-48e3-b39d-3557fddaec75)
 
-![Edition palette and slash menu category card](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/02bff1514d62b0d27cc3f9462aef2a86d18006a7/after-area-palette-slash.png)
+![Edition palette and slash menu category card](https://github.com/user-attachments/assets/f30063aa-a93e-4ea3-9052-e6513e68f961)
 
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
 - [x] Requirements: SwRS updated, markers in code and tests, `just requirements-update`
 - [x] Changelog: No user-facing change (published site only)
-- [x] Local gates: `just check` pass, `just preflight` pass (second run, see Known gaps), `just requirements-lint` pass, all at 726b41d
-- [x] Review: approved at 726b41d (round 1, move 78ad518..726b41d)
-- [x] CI green at 726b41d
+- [x] Local gates: `just check` pass, `just preflight` pass (second run, see Known gaps), `just requirements-lint` pass, all at 35be831 (carried from 726b41d, clean restack)
+- [x] Review: approved at 35be831 (carried from 726b41d; round 1, move 78ad518..726b41d)
+- [x] CI green at 35be831
 
 ## Internal references
 

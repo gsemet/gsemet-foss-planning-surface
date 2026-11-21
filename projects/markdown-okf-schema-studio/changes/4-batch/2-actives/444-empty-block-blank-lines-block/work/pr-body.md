@@ -43,7 +43,7 @@ Grade: 2. The change touches the shared render pipeline, the page-to-host protoc
 - No screenshots: three captures of the blank-lines block (edit, selected, reading) were made but are not attached; the push of the images to a side branch was refused by a safety check, left to the owner. They are kept with the change's evidence files.
 - No before image: the blank run is invisible before this change, so there is nothing to compare.
 - The kept-editor path (a blank-lines block hosting an open editor survives a content patch, in `contentPatch.ts`) is covered only by the page-level test in `runtimeBlankLines`; **UNVERIFIED:** it was not run in a real VS Code window at this head.
-- The heavy CI run (real VS Code integration and stress jobs) did not run at `5e42c5f` (after the restack onto the CR-443 branch); it passed at `e293b92` (carried, before the restack), and none of its tests is known to target the kept-editor path above across a content patch.
+- The heavy CI run (real VS Code integration and stress jobs) did not run at `7635816` (after the restack onto the CR-443 branch; last restack carried from `5e42c5f`); it passed at `e293b92` (carried, before the restack), and none of its tests is known to target the kept-editor path above across a content patch.
 - The long gate (`just preflight`) ran on Windows, so its static stage only; the other stages are covered by CI.
 
 <details>
@@ -67,11 +67,11 @@ Edit mode only; reading mode and the HTML export are unchanged. No screenshots a
 - [x] New or changed tests (they fail on the previous code)
 - [x] Requirements: SwRS added and updated, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [x] Local gates at `5e42c5f`: `just preflight` passed (static stage on Windows)
+- [x] Local gates at `7635816` (carried from `5e42c5f`, clean restack): `just preflight` passed (static stage on Windows)
 - [ ] Evidence: none attached, see Known gaps
-- [x] Review: approved at `5e42c5f` (restack onto the CR-443 branch, conflict in `requirements/tiers/log.md` only; code and tests unchanged from the round reviews)
-- [x] Verified at `5e42c5f`
-- [x] CI green at `5e42c5f`: static, static-windows, visual, report pass; the heavy run (integration, stress, gallery) was not run at this head (it passed at `e293b92`, before the restack)
+- [x] Review: approved at `7635816` (carried from `5e42c5f`; clean restack onto the CR-443 branch, code and tests unchanged from the round reviews)
+- [x] Verified at `7635816` (carried from `5e42c5f`)
+- [x] CI green at `7635816`: static, static-windows, viewer-graph, visual, report pass; the heavy run (integration, stress, gallery) was not run at this head (it passed at `e293b92`, before the restacks)
 
 ## Internal references
 
