@@ -89,7 +89,7 @@ No visual change; no change to the product.
   rounds green at the previous head `1d2c9a3` (44909129414, 44909131656, 44909133730)
 - [x] Review: approved at `845997b` (carried to `e286869`, patch unchanged)
 - [x] Verified at `8071d21` (carried to `e286869`, clean rebase, patch unchanged by range-diff)
-- [x] CI green at `8071d21`: static, static-windows, visual, viewer-graph, report, checks
+- [x] CI green at `e286869`: `gh pr checks 465`: static, static-windows, visual, viewer-graph, report, checks pass; heavy run 44916341480 (workflow dispatch, heavy=true) green at `e286869`: integration, stress
 
 ## Internal references
 

@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "A CR taken out of a batch goes to the backlog, ready or the trash",
-  "summary": "Specified: order drop gains ready (3-ready, the next batch) and loses the inbox for every CR (refused, no started test); P1-P4, ready, trash; later moves by triage or the board stay free. PR kept as draft (turn-to-draft clause outside a stack), trash closes it. No open question.",
+  "summary": "Specified: order drop gains ready (3-ready, the next batch) and loses the inbox for every CR (refused, no started test); P1-P4, ready, trash; later moves by triage or the board stay free. PR kept as draft (turn-to-draft clause outside a stack), trash closes it. Critic run 2 in. No open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "20939b82e70e6fa43288f809fb5ea71eac95ff248b97646e97fe43d0dbf89057",
-    "02-answers.md": "b97f239de4983887a9afa0b6f313e6e0ca3e092754679f18020007805bc6722c",
-    "03-change-spec.md": "4fc9b936e2f4269a81523b4a800fa8207dc93f665aa49752e28d0c14f2dc0742",
+    "02-answers.md": "605cc297c014a01d0de5251c8465eeae566d6bee737bbcc605b03d29cabe8960",
+    "03-change-spec.md": "7418829d85971c91cf37467d9da7d780baaddd9c25f49d16c5b60575577eae42",
     "intake/request.md": "8fa49cbcdd4f8fa908c95e16ca47ab19a406cfa4f9e5865061bb94fd1b5d6833"
   },
-  "summarized": "2026-11-21T15:08:08Z"
+  "summarized": "2026-11-21T15:12:05Z"
 }

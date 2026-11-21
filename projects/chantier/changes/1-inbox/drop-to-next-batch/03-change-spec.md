@@ -158,7 +158,8 @@ Where a docstring names the drop's destinations as "the inbox or the backlog" (o
 backlog"), it names "the backlog or the next batch (`3-ready`)" instead: `commands/came_back.py:1`,
 `commands/closing.py:176`, `commands/forge_stack.py:54`, `commands/forge_stack_apart.py:35`,
 `history.py:35`, `status/write.py:53` (the comment), `commands/release.py:117` (`cancel`),
-`commands/orders_drop.py:1` and `:15`; and `declare/orders.py:29` (section 1).
+`commands/orders_drop.py:1` and `:15`, `commands/forge_stack_gh.py:92` (`held_outside`: "those of
+CRs moved to the backlog or the next batch (`3-ready`)"); and `declare/orders.py:29` (section 1).
 
 ### 6. Docs
 
@@ -170,6 +171,8 @@ Where they list the drop's destinations (`6-trash/, 1-inbox/ or 2-backlog/Pn/`),
 - `docs/cr-lifecycle-simple-texts.md` and `docs/cr-lifecycle-simple.svg`;
 - `docs/cr-lifecycle-texts.md` and `docs/cr-lifecycle.svg`;
 - `docs/planning-folder.md` (the `order drop` paragraph);
+- `evals/SCORECARD.md`, row C16: its parenthesis reads "to `2-backlog/Pn/` or `3-ready/` with
+  `P1`..`P4`, `ready`" (no `1-inbox/`, no `inbox`);
 - `scenario/README.md` (the new checks, Evidence).
 
 ## Out of scope
@@ -197,7 +200,11 @@ the head under test.
 limit), changing `test_order_drop_to.py` and extending `test_came_back.py`. The existing inbox
 cases change to the new rule:
 
+- The module docstring (line 1) reads `order drop <cr> --note trash|ready|P1..P4`.
 - `FOLDERS` (line ~21): `"inbox": "1-inbox"` is replaced by `"ready": "3-ready"`.
+- `test_a_drop_with_no_known_destination_is_refused_and_records_nothing` (lines 31-43): `"ready"`
+  leaves its refused words (they stay `None`, `P5`, `3-ready`), and it asserts
+  `"trash|ready|P1..P4" in err`.
 - `test_a_release_or_fix_cr_leaves_the_batch_only_to_the_trash` (line ~47): the case
   `("fix", "inbox", 2)` becomes `("fix", "ready", 2)`, so it still meets the fix refusal.
 - `test_a_dropped_cr_goes_where_the_order_names_with_its_work` (line ~70): `dest` over `trash`,

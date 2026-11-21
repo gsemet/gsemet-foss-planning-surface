@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "The server watches the planning files; boards and watchers subscribe",
-  "summary": "Spec v4, no open question: the server reads the planning files on OS notifications (5 s check where none work); watchers subscribe, start the board for their seat, end after 2 h with no event; that board stops 30 min after its last client; forge read only while observed (always with no watcher).",
+  "summary": "Spec v5, no open question: the server reads the planning files on OS notifications (5 s check where none work); watchers subscribe, start the board for their seat, end after 2 h with no event; that board stops 30 min after its last client; forge read only while observed (always with no watcher).",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "30412f2917875d7361863e279243c189638a09d28122eb69d4e69f7cf9941f83",
-    "02-answers.md": "bec2829a1bad2564b518bdcbf4fcfdb878216fe7b11b190530eade5d8b73d297",
-    "03-change-spec.md": "397b788f1120c78b94c0dac5b4d0e31102b13aa613d7f3c5dade416ae9026d6f",
+    "02-answers.md": "a6b208ac089d422da2c132921270c47c493f7959c4be2d8ab7b04d3d4a669d6e",
+    "03-change-spec.md": "c687481b0ab789516b537ec1e2eb14d052bf21e44a33d9843b98b4d17ad88072",
     "intake/request.md": "561edc1ffc9f9bb6ad0ae8bb7aa4e66ba5b1c8dad7a48195cf83abbe950ce108"
   },
-  "summarized": "2026-11-21T15:10:33Z"
+  "summarized": "2026-11-21T15:13:59Z"
 }

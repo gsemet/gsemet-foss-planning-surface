@@ -207,7 +207,7 @@ No visual change and no product behaviour change; `just mutation-core` is a loca
 - [x] Local gates at 1a6abb6 (carried from 1bc7734, clean rebase, patch unchanged by range-diff): `just check` pass (unit tests: 4,536 run, 4,519 pass, 0 fail, 17 skipped; contract tests: 102 run, 100 pass, 2 skipped; the rest of `just check`: pass)
 - [x] Review: approved at 1bc7734 (carried to 1a6abb6, clean rebase, patch unchanged by range-diff)
 - [x] Verified at 1bc7734 (carried to 1a6abb6, clean rebase, patch unchanged)
-- [x] CI green at 1bc7734: `gh pr checks 461`: static, static-windows, viewer-graph, visual, report pass; the real VS Code jobs do not run on a pull request
+- [x] CI green at 1a6abb6: `gh pr checks 461`: static, static-windows, viewer-graph, visual, report, checks pass; the real VS Code jobs do not run on a pull request
 
 ## Internal references
 

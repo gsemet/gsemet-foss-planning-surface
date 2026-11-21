@@ -1,5 +1,6 @@
 # The server watches the planning files; boards and watchers subscribe
 
+Spec v5 (2026-11-21): v4 plus the spec critic's third run's no-user fixes 1 to 5 (decision 23).
 Spec v4 (2026-11-21): v3 plus the spec critic's second run's no-user fixes 3 to 6 and the
 user's answers fp-cache-Q17 (the no-client delay: 30 minutes, decision 18), Q18 (no idle stop for
 a board started by hand or by a session, decision 19), Q19 (a board started by hand on a host
@@ -114,6 +115,13 @@ change, not several per 2 s.
     header, decision 16's last sentence reworded: above; (5) a seat with no transcript, or a
     watcher keyed `none`, starts nothing and ends with its own line: section 4 and the Evidence;
     (6) session-start's `chief-of-staff` row: section 6.
+23. **The spec critic's third run's no-user fixes 1 to 5 (02-answers, "Spec critic run 3
+    (2026-11-21, v4)").** (1) chief-of-staff.md's watcher-end row and both hosts' "Run the
+    watcher" rows name the `no event for <name> in 2 h` line's restart command: section 6;
+    (2) the 2 h sentence in web-board.md's new **Starting the board** sentence: section 8;
+    (3) claude-code.md's "The watcher when the session ends" row's wording: section 6; (4) the
+    keyed-`none` line's board command with `--forge-always`: section 4; (5) the yes on a host that
+    cannot run the watcher, and the hand-over sentence: section 6.
 
 ## What exists today (read, not rebuilt)
 
@@ -326,7 +334,9 @@ change, not several per 2 s.
     session id; fix 5): it cannot hold a seat, so it starts nothing and ends (exit 1) with
     `watch: this run has no session key (the host gave no session id), so it cannot hold the seat
     of <project>; no board started; ended: for the Chief of Staff, start the watcher from the
-    session's own background command, or the board by hand (<cli> board --seat <session id>)`.
+    session's own background command, or the board by hand (<cli> board --seat <session id>
+    --forge-always)` (fix 4 of the third critic run: a host with no session key cannot run the
+    watcher, so its board reads the forge always, decision 20).
   The order of the checks: keyed `none` (the seat is not read), no seat, a seat with no
   transcript, the seat this session's, another session's. With a live server recorded, the
   watcher subscribes whatever the seat and whatever its key (registering the seat only when it is
@@ -449,7 +459,10 @@ or says `forge hub: none running`; only the `a watcher` branch of `hub/lines.py:
     reference, "Run the board"), with `--forge-always` and no `--stop-idle`: that board stops
     when the seat moves, as today (decision 19), and reads the forge every 20 s with or without a
     client, as today (decision 20), so the pull path, run at each user message, still prints its
-    `forge saw merged` lines. Its "already running" line `FORGE_WHEN_OBSERVED` (a board another
+    `forge saw merged` lines. The yes holds for the session there too and covers starting `$CHANTIER
+    board --seat <own session id> --forge-always` again, by the host's means, when the board
+    stopped (a refused write to the surface naming no running writer) (fix 5 of the third critic
+    run). Its "already running" line `FORGE_WHEN_OBSERVED` (a board another
     session's watcher started): tell the user once, in one line, that merges come only while a
     client is subscribed. A host with no background command at all: one line with the reason, as
     today.
@@ -493,14 +506,19 @@ or says `forge hub: none running`; only the `a watcher` branch of `hub/lines.py:
     it reads them from the board, which it starts when none runs and the seat is this session's;
     the end rule (line ~1391) gains "or 2 h after its start with no event for it that wakes (the
     `no event for <name> in 2 h` line: start it again at once, nothing to tell the user)"; the
-    `board:` line paragraph names the new restart wording. Row line ~35 (`watch: not
-    running`): unchanged command, the yes now covering the board's start (decision 14).
+    `board:` line paragraph names the new restart wording. Row line ~34 (a watcher's end): its
+    last line may also be `watch: no event for <name> in 2 h; ended ...`, which names the restart:
+    run the printed command as is, no flag added, nothing told to the user (fix 1 of the third
+    critic run). Row line ~35 (`watch: not running`): unchanged command, the yes now covering the
+    board's start (decision 14).
   - **The pull path** paragraph (line ~1429, fix 9): add "after the user's no, merges go back to
     the user's word: no board reads the forge".
   - **The hand-over** (line ~1922, fix 10): "Its board stops by itself when the seat moves; the new
     one starts its own at its `seat take`" becomes "Its board stops by itself when the seat moves
     (or 30 minutes after its last client); the new one's watcher, started from the line of its
-    `seat take` on its yes, registers its seat on a board still running, or starts one".
+    `seat take` on its yes, registers its seat on a board still running, or starts one (on a host
+    that cannot run the watcher, its own `board --seat <id> --forge-always`)" (fix 5 of the third
+    critic run).
 - `skills/chantier/references/concepts.md` line ~15: "the forge hub reads only the PRs and MRs (a
   running ...)" gains "while a client is subscribed". Lines ~744-747 (the background tasks' stop
   rule, fix 10): "stops itself (at its end, or when the seat is another session's)" becomes
@@ -519,13 +537,16 @@ or says `forge hub: none running`; only the `a watcher` branch of `hub/lines.py:
     `started the board (PID <n>)` line; stop the watcher's background task, then ask `GET
     /api/board` with the key: it answers, and the host lists no board task; end the session, ask
     again: it answers (until the seat leaves or 30 minutes with no client); the trial, when run,
-    records its date and result in this row."
+    records its date and result in this row." Both rows also name the `no event for <name> in 2 h`
+    line: like the `still running` line, it names the restart command, run as is, nothing told to
+    the user (fix 1 of the third critic run).
   - Row "The board when the session ends" (claude-code.md line ~55, copilot.md line ~46): add "A
     board a watcher started is no background task: it stops when the seat moves or 30 minutes
     after its last client (the CLI), which does not depend on the host."
-  - Row "The watcher when the session ends" (claude-code.md line ~54): add "if the host leaves it
-    running, it ends by itself 2 h after its start with no event (the CLI), and the board it
-    observed stops 30 minutes later".
+  - Row "The watcher when the session ends" (claude-code.md line ~54): "one may run until then
+    (accepted)" reads "one may run until then, or at most 2 h with no event (the CLI) (accepted)"
+    (fix 3 of the third critic run); add "and the board it observed stops 30 minutes after it
+    ends".
   - Row "Run the board" (claude-code.md line ~48, copilot.md line ~42): the command becomes
     "`$CHANTIER board --seat <id>`, with `--forge-always` on a host that cannot run the watcher
     (`session-start.md`)".
@@ -583,11 +604,12 @@ dependency is covered by the `pyproject.toml` bullet (wheels for the three syste
   (keep the planning folder on a local disk). Add, to **Starting the board**, that a session's
   watcher starts the board, detached, when none runs, on the session's one yes, and that such a
   board stops by itself when the seat leaves or 30 minutes after its last client (the stop
-  command stops it sooner). Line ~62 "The forge hub of `chantier watch` writes the same lines"
+  command stops it sooner), and that a watcher ends by itself 2 h after its start with no event,
+  so a watcher an ended session left behind does not keep such a board running (fix 2 of the
+  third critic run). Line ~62 "The forge hub of `chantier watch` writes the same lines"
   becomes "The forge hub (the board itself) writes the same lines". Lines ~86 and ~167: unchanged.
   The forge sentence above also says that a board started with `--forge-always` (a host that
-  cannot run the watcher) reads every 20 s with or without a client, and the watcher's paragraph
-  that a watcher ends by itself 2 h after its start with no event.
+  cannot run the watcher) reads every 20 s with or without a client.
 - `docs/planning-folder.md` line ~126 `source`: `hub` "(the forge hub: the surface server)"; lines
   ~158-162 "`chantier watch` reads the lines for it" becomes "`chantier watch` receives, from the
   surface server's `events` topic, the lines for it" (the rest unchanged).
