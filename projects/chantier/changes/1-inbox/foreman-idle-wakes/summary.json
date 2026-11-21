@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "The Foreman's idle wakes: measure a turn's cost, then cut them",
+  "summary": "From the batch-29 retro: the Foreman cost as much as all Drivers. Shape chosen: measure a Foreman turn by kind of wake, then cut the idle wakes. Grill not finished.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "91c9772a2cc5836a7ec6a681f5129271df94c48655be374a4d49f719816318c2",
+    "02-answers.md": "679c0ac8557f932e2077353db69cc52ed77af7c3118cf9627977b85790af7183",
+    "intake/request.md": "67c278cce4a86b9cb4c5a2194041802a421b2c9b63646b8654b0f73050ceac7b"
+  },
+  "summarized": "2026-11-21T07:55:00Z"
+}
