@@ -206,8 +206,8 @@ No visual change and no product behaviour change; `just mutation-core` is a loca
 - [x] Changelog: no user-facing change
 - [x] Local gates at 1bc7734: `just check` pass (unit tests: 4,536 run, 4,519 pass, 0 fail, 17 skipped; contract tests: 102 run, 100 pass, 2 skipped; the rest of `just check`: pass)
 - [x] Review: approved at 1bc7734 (carried from 2f25a63; the rebase changed only `requirements/tiers/log.md`)
-- [ ] Verified at 1bc7734
-- [ ] CI green at 1bc7734
+- [x] Verified at 1bc7734
+- [x] CI green at 1bc7734: `gh pr checks 461`: static, static-windows, viewer-graph, visual, report pass; the real VS Code jobs do not run on a pull request
 
 ## Internal references
 
