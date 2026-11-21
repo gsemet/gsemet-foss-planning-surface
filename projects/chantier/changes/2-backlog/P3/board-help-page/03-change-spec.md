@@ -10,8 +10,9 @@ Both board languages. The batch's goal (ui-night, 2026-11-21): a working UI, sho
 
 The board gets a **Help** view in the sidebar: two groups of the board's own cards, **Concepts** and
 **Roles**, each a name and one sentence; a click (or Enter) opens a short detail on the same page,
-kept in the address, closed by Escape, its close control or Back, ending where it applies with one
-"Read more" link to chantier's documentation on GitHub. All its text ships in the English and
+kept in the address, closed by Escape, its close control, a second click or Back (a close adds no
+history entry, so Back never reopens a closed detail), ending where it applies with one "Read more"
+link to chantier's documentation on GitHub. All its text ships in the English and
 French language files; the page calls no server operation and shows no project data.
 
 Every path below is under `skills/chantier/scripts/cli/src/chantier/clients/web/` unless it starts
@@ -26,7 +27,7 @@ with `skills/`, `docs/` or `tests/` (`tests/` is `skills/chantier/scripts/cli/te
 | ui-night act | not this CR's matter (the Inbox's); Help writes nothing, so AGENTS.md's rule holds |
 | help-Q1 | registry order: `home`, `inbox` (when `board-user-inbox` has landed), `help`, then `triage`... (section 1) |
 | help-Q2 | one module for a project and for "All projects", no `count` (section 1) |
-| help-Q3 | 12 concept cards and 11 role cards, fixed below against the README (section 3) |
+| help-Q3 | 12 concept cards and 13 role cards, fixed below against the README (section 3) |
 | help-Q4 | a card is a name and one sentence; one detail open at a time, on the same page, closed by Escape or its close control; detail at most about 150 words (sections 2, 4) |
 | help-Q5 | cards and detail built by `js/ui/card.js`, a plain grid under two headings, tokens and the existing icon set only, no picture, no diagram (section 4) |
 | help-Q6 | text in `js/i18n/en-help.js` and `fr-help.js`; no op, no topic, no data read (sections 1, 3) |
@@ -37,6 +38,8 @@ with `skills/`, `docs/` or `tests/` (`tests/` is `skills/chantier/scripts/cli/te
 | help-Q11 | text written against chantier as batch-30 leaves it; `docs-gardening` owns `docs/web-board.md` and the batch-end correction (below) |
 | help-Q12 | no `depends.json`; shared files listed (below) |
 | help-Q13 | the evidence (below) |
+| help-Q14 | a close (Escape, close button, second click) adds no history entry: Back after a close leaves Help for the address before the open; Back still closes an open detail; a detail reached by reload or shared link closes in place and stays on Help (section 2) |
+| help-Q15 | 13 role cards: `investigator` before `coder`, `debugger` after `verifier`; their bodies only from the README's diagram texts and `docs/agents-and-models.md`, short (section 3) |
 
 ## What changes
 
@@ -76,16 +79,29 @@ with `skills/`, `docs/` or `tests/` (`tests/` is `skills/chantier/scripts/cli/te
 - A new `topicOf(place, now, view)`, beside `tabOf`: `null` on any other view; `place.topic` when
   it is given (`null` closes; an id not in `rules.topics` is `null`); else `now.helpTopic` (a
   change of project keeps the open topic, Help being the same everywhere).
-- `go()` passes `topic: topicOf(...)`; `apply()` sets `helpTopic: topic ?? null`. Every move
-  pushes a history entry as today, so opening a topic is one entry and Back closes it; `listen()`'s
-  `popstate` already re-resolves the address.
+- `go()` passes `topic: topicOf(...)`; `apply()` sets `helpTopic: topic ?? null`.
+- **History (help-Q9, help-Q14).** A move that opens a topic on the Help view while none is open
+  (`now.view === 'help'`, `!now.helpTopic`, `next.topic` set, no `replace`) pushes its entry with
+  the state `{ helpOpen: true }`; every other push keeps today's `null`. `go(place, { replace:
+  true })` replaces with the current state (`history.replaceState(history.state, '', ...)`)
+  instead of `null`, so the boot's replace after a reload keeps the mark. A click on another card
+  while one is open switches the topic with `go({ topic: id }, { replace: true })`: one entry per
+  open detail, however many cards were read.
+- A new export `closeTopic()`, the only way a close happens (Escape, the close button, a second
+  click on the open card): when `history.state?.helpOpen` (the detail was opened in this tab from
+  Help with no detail), `history.back()`: the address returns to the Help entry before the open,
+  with no new entry, and `listen()`'s `popstate` re-resolves it (topic `null`); else (a detail
+  reached by a shared link or by a first load of an address with `h=`) `go({ topic: null }, {
+  replace: true })`: the detail closes, the page stays on Help, and no entry is added. So Back
+  after a close never reopens it: it leaves Help for the address before it, as if the detail was
+  never opened. Back on an open detail still closes it (its pushed entry is popped).
 - `js/core/store.js`: `helpTopic: null, // Help: the open topic's id (the address's h=), or null`.
 - `js/main.js`: `configure(ids(), overviewIds(), topicIds())` with `topicIds` from
-  `js/views/help-topics.js`; `closeInnermost()` gains, after the panel's branch,
-  `else if (helpTopic) go({ topic: null })` (Escape closes the detail; the existing guard
-  `!$('dialog[open]')` stays).
+  `js/views/help-topics.js`; `closeInnermost()` reads `helpTopic` from the snapshot and gains,
+  after the panel's branch, `else if (helpTopic) closeTopic()` (Escape closes the detail; the
+  existing guard `!$('dialog[open]')` stays).
 
-### 3. The content (help-Q3, Q6, Q7, Q8, Q11)
+### 3. The content (help-Q3, Q6, Q7, Q8, Q11, Q15)
 
 - **`js/views/help-topics.js`** (data only, no words): `TOPICS`, in display order, each
   `{ id, group, doc }`: `group` is `'concepts'` or `'roles'`, `doc` a full URL or `null`; and
@@ -101,12 +117,16 @@ with `skills/`, `docs/` or `tests/` (`tests/` is `skills/chantier/scripts/cli/te
   longer). Each file stays under 300 lines.
 - **French** (help-Q7): plain French around chantier's own names as the board writes them: Chief
   of Staff, Foreman, Driver, Griller, batch, slot, CR, PR, Coder, Inspector, Verifier, stack driver,
-  Release driver, spec-writer, spec critic. `nav.help` is "Aide".
-- **Source** (help-Q3, Q11): the README as batch-30 leaves it; where the README only names a role
-  or concept, the documentation page the README links for it (see open question 2). Nothing from
-  the cards, the code or the CLI's help; no command reference.
+  Release driver, spec-writer, spec critic, Investigator, Debugger. `nav.help` is "Aide".
+- **Source** (help-Q3, Q11, Q15): the README as batch-30 leaves it, its diagrams' texts included;
+  where the README only names a role or concept, the documentation page the README links for it
+  (see open question 2). The `investigator` and `debugger` bodies come only from the diagrams'
+  texts (`docs/how-chantier-works-simple-direct-texts.md`,
+  `docs/how-chantier-works-simple-foreman-texts.md`, `docs/how-chantier-works-texts.md`,
+  `docs/cr-lifecycle-texts.md`) and `docs/agents-and-models.md`, and stay short where those say
+  little. Nothing from the cards, the code or the CLI's help; no command reference.
 
-The 23 topics, in order. "Facts" are what the detail must say (from the README section named);
+The 25 topics, in order. "Facts" are what the detail must say (from the README section named);
 "Read more" is the topic's `doc` (repository `https://github.com/gsemet/chantier`, `R` =
 `https://github.com/gsemet/chantier`, `D` = `https://github.com/gsemet/chantier/blob/main/docs/`).
 
@@ -124,7 +144,7 @@ The 23 topics, in order. "Facts" are what the detail must say (from the README s
 | `batch_modes` | Batch modes | parallel (default), series, stack: how the PRs relate and who merges what, when; you merge, never chantier; `depends.json` waits in every mode; a running batch can switch mode ("Batch modes") | `R#batch-modes` |
 | `project_rules` | Your project's rules | your changes must land without chantier; `AGENTS.md` and an optional `chantier.yaml` are the only configuration (agent and model per role) (intro "Respect the project's rules") | `D` + `agents-and-models.md` |
 | `gates` | Gates | the fast gate and the long gate you declare in `AGENTS.md`; init checks the long gate and writes the lines on your yes ("Install", "Use", "More") | `D` + `gates.md` |
-| `costs` | Costs and limits | a batch has a budget; steering and Drivers are most of it; the Chief of Staff's session is priced apart, never in the budget; ask "what did it cost?" or `chantier cost`; the slots and the specifying limit are set on the Configuration page ("What a batch costs") | `D` + `costs.md` |
+| `costs` | Costs and limits | a batch has a budget; steering and Drivers are most of it; the Chief of Staff's session is priced apart, never in the budget; ask "what did it cost?" or `chantier cost` ("What a batch costs"); the slots of a new batch (`batch.slots`) and the CRs specified at once (`specifying.parallel`) are set on the board's Configuration page, Limits tab (`docs/web-board.md`, "Configuration": a docs page, open question 2's A) | `D` + `costs.md` |
 | `boards` | Boards | this web board (live, triage from the phone, one client of the server's API), the read-only pane in Claude Code, `chantier live` in a terminal ("The CR board", "More") | `D` + `boards.md` |
 
 **Roles**
@@ -136,9 +156,11 @@ The 23 topics, in order. "Facts" are what the detail must say (from the README s
 | `foreman` | Foreman | a nested session that steers a batch in Foreman mode, so the Chief of Staff stays free to grill ("Direct or Foreman") | `D` + `use-cases-foreman.md` |
 | `driver` | Driver | runs one CR in its worktree, delegates to workers and reviews, up to a PR handed back ready ("Detailed lifecycle", "Planning modes" worktrees) | `D` + `agents-and-models.md` |
 | `spec_writer` | Spec-writer and spec critic | writes the Change Specification in the background once a CR is grilled enough; the critic checks it on an impactful CR ("Use") | `D` + `use-cases.md#turn-ideas-into-ready-work` |
+| `investigator` | Investigator | optional: when the code is unfamiliar, maps it before round 1; a short worker the CR driver runs, which can be your own agent (diagram texts: `how-chantier-works-*-texts.md` intro and "Workers", `cr-lifecycle-texts.md` intro and "Investigator (optional)"; `agents-and-models.md` "Models") | `D` + `agents-and-models.md` |
 | `coder` | Coder | writes the code of a round; runs the fast gate; can be your own agent ("Use", gates page) | `D` + `agents-and-models.md` |
 | `inspector` | Inspector | reviews each round; your extra review steps run after it ("Use") | `D` + `agents-and-models.md` |
 | `verifier` | Verifier | verifies a CR's head before it is handed back (the long gate's `VERIFIED`) ("What a batch costs", gates page) | `D` + `gates.md` |
+| `debugger` | Debugger | a short worker the CR driver runs, which can be your own agent; one of the three roles that carry an `escalation` model (diagram texts intro and "Workers"; `agents-and-models.md` "The layers", "Models") | `D` + `agents-and-models.md` |
 | `conflict_resolver` | Conflict resolver | a worker that settles a rebase's conflicts ("What a batch costs") | `null` |
 | `stack_driver` | Stack driver | in stack mode, makes the native stack on the forge and restacks it ("Batch modes") | `R#batch-modes` |
 | `release_driver` | Release driver | runs a release CR by your project's own procedure; you approve each irreversible action, or say "auto" ("Releases") | `R#releases` |
@@ -153,18 +175,23 @@ A body that a batch-30 CR makes false at the batch's end is `docs-gardening`'s t
   `help.concepts` / `help.roles`), a `<div class="help-grid">` of cards, and, when the open topic
   is in that group, its detail right after that group's grid.
 - **A topic's card**: `card({ classes: 'help-card', heading: 'h3', title: t('help.<id>.name'),
-  desc: t('help.<id>.line'), variants: [open && 'sel'], attrs })` with `attrs` =
-  `data-help="<id>" data-key="help-<id>" tabindex="0" role="button" aria-expanded="<open>"
-  aria-controls="help-detail"`. No priority chip, no band.
+  desc: t('help.<id>.line'), variants: [open && 'sel'], attrs })` with `attrs` built by the `html`
+  tag (`card.js` interpolates `attrs` into its own `html`, and `dom.js` escapes a plain string, so a
+  string literal would print `&quot;` into the page):
+  `` html`data-help="${id}" data-key="help-${id}" tabindex="0" role="button" aria-expanded="${open ? 'true' : 'false'}" aria-controls="help-detail"` ``.
+  No priority chip, no band.
 - **The detail**: one more `card({ as: 'section', classes: 'help-detail', heading: 'h3', title:
-  name, body, meta, end, attrs: 'id="help-detail" tabindex="-1"' })`; `body` is the paragraphs
+  name, body, meta, end, attrs })` with `` attrs = html`id="help-detail" tabindex="-1"` `` (the
+  `html` tag, as for the cards; never a plain string); `body` is the paragraphs
   (`<p>`) and lists (`<ul><li>`) of `help.<id>.body`, built with `html` (escaped text, never
   `raw`); `meta` the "Read more" link when `doc` is set (`<a href target="_blank" rel="noopener">`,
   `help.read_more` and the `ext` icon); `end` a `<button type="button" data-help-close
   data-key="help-close">` with `help.close`. One detail at a time.
-- `mount(root)`: `delegate` click on `[data-help]` → `go({ topic: id })`, or `go({ topic: null })`
-  when that card is the open one (a second click closes); keydown Enter or Space on `[data-help]`
-  does the same (`preventDefault` on Space); click on `[data-help-close]` → `go({ topic: null })`.
+- `mount(root)`: `delegate` click on `[data-help]` → `go({ topic: id })` when no topic is open,
+  `go({ topic: id }, { replace: true })` when another one is, `closeTopic()` when that card is the
+  open one (a second click closes); keydown Enter or Space on `[data-help]` does the same
+  (`preventDefault` on Space); click on `[data-help-close]` → `closeTopic()`. `help.js` never
+  calls `go({ topic: null })` itself: every close goes through `closeTopic()` (section 2).
   Returns the cleanup like `costs.js`.
 - `after(root, state)`: when the open topic changed since the last call, move the focus to the
   detail (`#help-detail`, `preventScroll: false`, so the phone scrolls to it) on open, back to the
@@ -189,7 +216,8 @@ the Inbox), the same on every project and on "All projects", no count; it needs 
 `fr-help.js`, the topics' list (ids, group, link) in `js/views/help-topics.js`; topic cards and the
 detail are the one card (`help-card`, `help-detail`, the `sel` variant for the open one), in
 `css/views/help.css`'s grid; the open topic is the address's `h=`, closed by Escape, its close
-button or Back; no picture or diagram. The token table does not change.
+button, a second click or Back; a close adds no history entry (the router's `closeTopic()`), so
+Back never reopens a closed detail; no picture or diagram. The token table does not change.
 
 ## Out of scope (help-Q10)
 
@@ -225,8 +253,13 @@ No `depends.json`. Shared files, found by text; the stack settles each:
   reading from the repository:
   - `js/views/registry.js`: an entry `id: 'help'` with `overview` and no `count`, placed right
     after `home` or right after `inbox` when that entry exists;
-  - each id of `js/views/help-topics.js` matches `[a-z_]+`, the 12 `concepts` and 11 `roles` ids
-    of section 3 in order, and `en-help.js` holds its `.name`, `.line` and `.body` keys;
+  - each id of `js/views/help-topics.js` matches `[a-z_]+`, the 12 `concepts` and 13 `roles` ids
+    of section 3 in order (25 in all; `investigator` right before `coder`, `debugger` right after
+    `verifier`), and `en-help.js` holds its `.name`, `.line` and `.body` keys;
+  - `js/views/help.js` passes `attrs` only as an `html` template (no `attrs: '` or `attrs: "`
+    string literal in the file) and closes only through `closeTopic` (no `topic: null` in it);
+    `js/core/router.js` exports `closeTopic`, which calls `history.back()`, and its
+    `replaceState` passes `history.state`;
   - each body's word count (string read with a regex that takes `'...'` or `"..."` with escapes):
     English at most 150, French at most 175;
   - each `doc` starts with `https://github.com/gsemet/chantier`, and the file it names exists in
@@ -254,7 +287,13 @@ green at the PR's head before the PR.
 4. The narrow layout (360 px wide): one column of cards, a detail open, the bottom bar.
 
 And a short written check in the PR: every card opens and closes by mouse, by Enter, by Escape, by
-the close button and by Back; a reload with `&h=` opens the same detail; the language button
+the close button, by a second click and by Back; the history (help-Q14), each from Home then Help:
+(a) open a card, close it by Escape, press Back: the board shows Home, not the detail; the same
+with the close button and with a second click; (b) open a card, press Back: the detail closes and
+the page stays on Help; Back again: Home; (c) open a card, then another, press Back: the detail
+closes, on Help; (d) a shared link with `&h=` opened in a new tab: the detail opens, a close leaves
+the page on Help without `h=`, and Back never shows the detail again; (e) open a card, reload,
+close: Help with no detail, then Back shows Home; a reload with `&h=` opens the same detail; the language button
 switches the open page at once; a "Read more" link opens GitHub in a new tab; with the board
 stopped after the page loaded, Help still shows its text.
 
@@ -266,7 +305,9 @@ stopped after the page loaded, Help still shows its text.
    a non-folder branch in `panel/panel.js`. C: the clicked card widens in place across its row,
    leaving a gap at the row's end.
 2. **How strictly "only what the README says".** A (built): the README, and for a topic the README
-   only names (the workers mostly), the documentation page the README links for it. B: the README
+   only names (the workers mostly), the documentation page the README links for it (help-Q15
+   holds the Investigator and Debugger bodies to the diagrams' texts and `docs/agents-and-models.md`;
+   the `costs` card's Limits sentence cites `docs/web-board.md`, and B drops it). B: the README
    alone; the worker cards then say little, or fold into one "Workers" card.
 3. **Help before the board's first answer.** A (built): as every view, the page shows "Loading…"
    until the first `board.get` answers (the address is resolved only then); afterwards Help shows

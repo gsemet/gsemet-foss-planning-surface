@@ -53,3 +53,5 @@ Restatement (2026-11-21, Fable advisor): on Triage, each of the four priority ro
 Grilled enough (Fable advisor): yes; destination batch-30.
 
 Spec v1 (2026-11-21): written (`03-change-spec.md`); four open questions, each built as its option A: `docs/web-board.md` updated, the button label kept, the explanation names the kinds "for example", `selectedNow` also drops post-its in a folded row.
+
+Q17 (2026-11-21, the Chief of Staff, from Q7's reason): folding a row removes from the selection only the post-its drawn in that row, never a marked CR drawn in CR-427's 'Running batch' half (the selection loses only what the user no longer sees).

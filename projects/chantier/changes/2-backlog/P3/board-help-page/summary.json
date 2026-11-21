@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Web board Help page: chantier's concepts and roles as cards",
-  "summary": "Specified (v1): a Help view after Home and the Inbox, same on every project; 12 concept and 11 role cards from the README, a click opens a short detail kept in the address with a Read more link; text in EN and FR files, no server op. Four open questions, built as A.",
+  "summary": "Specified (v2): a Help view after Home and the Inbox, same on every project; 12 concept and 13 role cards from the README and its diagrams; a click opens a short detail kept in the address, a close adds no history entry; text in EN and FR files, no server op. Four open questions, built as A.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "e5a6a2fc21044a51041eb77c783c5a6b0b735062c32d87552bbb0a4b253b0c4a",
-    "02-answers.md": "ad61d1575f775d5647d6acb6e0c6365a7bb422ac80c3a19c7505adddbe379794",
-    "03-change-spec.md": "ae186290473fbda9fe26b4a7a46f55ee87a577ae8207cb271cdf466762480dfa",
+    "02-answers.md": "7fae0715dbcbd3268f098de9ee183765f13e870264763e4703a279a63d7bcd1c",
+    "03-change-spec.md": "3b377001fd75af8fd84cab168e5c6d52d22f74990ff21ed96d72f9411b72484b",
     "intake/request.md": "bc6550d90f5b705ea7c846d9f8d71829a32c8d7ec4b8cedd9e08a8d1e0ba7099"
   },
-  "summarized": "2026-11-21T18:50:09Z"
+  "summarized": "2026-11-21T18:58:13Z"
 }
