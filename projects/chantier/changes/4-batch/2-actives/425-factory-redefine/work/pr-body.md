@@ -61,8 +61,8 @@ Users see a four-option "grilled enough?" question and no factory wording on the
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `66d9b1c`: `just check` (1489 passed, 20 skipped), `just eval-dry-run` (18 of 18 cases)
 - [ ] Evidence: none yet
 
 ## Internal references
