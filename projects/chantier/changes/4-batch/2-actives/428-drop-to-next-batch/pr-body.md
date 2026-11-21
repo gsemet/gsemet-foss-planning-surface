@@ -45,12 +45,12 @@ No visual change. Users who drop a change choose among trash, `ready` and `P1`..
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): `test_order_drop_to.py`, `test_came_back.py`, card-content check
+- [x] Local gates at `d91edcf`: `just check` (1557 passed), `just scenario` pass; `just eval-dry-run` pass in CI at `d91edcf`
+- [x] Evidence: no visual change; the tests run the real commands on prepared states, after at `d91edcf`
+- [x] Review: approved at `d91edcf`
+- [x] Verified at `d91edcf`
+- [x] CI green at `d91edcf`
 
 ## Internal references
 
