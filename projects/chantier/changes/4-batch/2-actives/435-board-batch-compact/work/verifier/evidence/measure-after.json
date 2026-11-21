@@ -1,0 +1,312 @@
+{
+ "pc": {
+  "tabs": {
+   "l": 280,
+   "t": 263,
+   "r": 968,
+   "b": 282,
+   "w": 688,
+   "h": 19,
+   "disp": "flex",
+   "cur": "auto"
+  },
+  "bhead": {
+   "l": 280,
+   "t": 143,
+   "r": 1368,
+   "b": 247,
+   "w": 1088,
+   "h": 104,
+   "disp": "grid",
+   "cur": "auto"
+  },
+  "titlerow": {
+   "l": 248,
+   "t": 58,
+   "r": 1400,
+   "b": 111,
+   "w": 1152,
+   "h": 53,
+   "disp": "flex",
+   "cur": "auto"
+  },
+  "scroll": {
+   "sw": 1400,
+   "iw": 1400
+  },
+  "#batch-mode": {
+   "l": 510.125,
+   "t": 90,
+   "r": 1368,
+   "b": 111,
+   "w": 857.875,
+   "h": 21,
+   "disp": "flex",
+   "cur": "auto"
+  },
+  ".mpill": {
+   "l": 510.125,
+   "t": 90,
+   "r": 622.59375,
+   "b": 111,
+   "w": 112.46875,
+   "h": 21,
+   "disp": "block",
+   "cur": "help"
+  },
+  ".lgpill": {
+   "l": 632.59375,
+   "t": 90,
+   "r": 756.171875,
+   "b": 111,
+   "w": 123.578125,
+   "h": 21,
+   "disp": "block",
+   "cur": "help"
+  },
+  ".lghint": {
+   "l": 766.171875,
+   "t": 93,
+   "r": 880.4375,
+   "b": 108,
+   "w": 114.265625,
+   "h": 15,
+   "disp": "block",
+   "cur": "auto"
+  },
+  ".ms": {
+   "l": 1190.703125,
+   "t": 91,
+   "r": 1368,
+   "b": 110,
+   "w": 177.296875,
+   "h": 19,
+   "disp": "flex",
+   "cur": "auto"
+  },
+  "tip.mpill": {
+   "tip": {
+    "l": 510.125,
+    "t": 117,
+    "r": 810.125,
+    "b": 184,
+    "w": 300,
+    "h": 67,
+    "disp": "flex",
+    "cur": "help"
+   },
+   "inViewport": true,
+   "hit": {
+    "centre": {
+     "x": 660,
+     "y": 151,
+     "el": "tip",
+     "inTip": true
+    },
+    "overBhead": {
+     "x": 660,
+     "y": 164,
+     "el": "tip",
+     "inTip": true
+    },
+    "tilesUnderTip": 2,
+    "overTile": {
+     "x": 527,
+     "y": 164,
+     "el": "tip",
+     "inTip": true
+    }
+   }
+  },
+  "tip.lgpill": {
+   "tip": {
+    "l": 632.59375,
+    "t": 117,
+    "r": 932.59375,
+    "b": 344,
+    "w": 300,
+    "h": 227,
+    "disp": "flex",
+    "cur": "help"
+   },
+   "inViewport": true,
+   "hit": {
+    "centre": {
+     "x": 783,
+     "y": 231,
+     "el": "tip",
+     "inTip": true
+    },
+    "overBhead": {
+     "x": 783,
+     "y": 195,
+     "el": "k",
+     "inTip": true
+    },
+    "tilesUnderTip": 2,
+    "overTile": {
+     "x": 725,
+     "y": 195,
+     "el": "k",
+     "inTip": true
+    }
+   }
+  }
+ },
+ "closed_slot": "Stack \u00b7 Foreman\nStates and arrows\nhover for the legend\nStack\nSeries\nParallel",
+ "closed_hidden": false,
+ "phone": {
+  "tabs": {
+   "l": 12,
+   "t": 1035.75,
+   "r": 397.34375,
+   "b": 1054.75,
+   "w": 385.34375,
+   "h": 19,
+   "disp": "flex",
+   "cur": "auto"
+  },
+  "bhead": {
+   "l": 12,
+   "t": 176,
+   "r": 363,
+   "b": 416,
+   "w": 351,
+   "h": 240,
+   "disp": "grid",
+   "cur": "auto"
+  },
+  "titlerow": {
+   "l": 0,
+   "t": 50,
+   "r": 375,
+   "b": 148,
+   "w": 375,
+   "h": 98,
+   "disp": "flex",
+   "cur": "auto"
+  },
+  "scroll": {
+   "sw": 375,
+   "iw": 375
+  },
+  "#batch-mode": {
+   "l": 28,
+   "t": 127,
+   "r": 363,
+   "b": 148,
+   "w": 335,
+   "h": 21,
+   "disp": "flex",
+   "cur": "auto"
+  },
+  ".mpill": {
+   "l": 28,
+   "t": 127,
+   "r": 140.46875,
+   "b": 148,
+   "w": 112.46875,
+   "h": 21,
+   "disp": "block",
+   "cur": "help"
+  },
+  ".lgpill": {
+   "l": 150.46875,
+   "t": 127,
+   "r": 274.046875,
+   "b": 148,
+   "w": 123.578125,
+   "h": 21,
+   "disp": "block",
+   "cur": "help"
+  },
+  ".lghint": {
+   "l": 0,
+   "t": 0,
+   "r": 0,
+   "b": 0,
+   "w": 0,
+   "h": 0,
+   "disp": "none",
+   "cur": "auto"
+  },
+  ".ms": {
+   "l": 0,
+   "t": 0,
+   "r": 0,
+   "b": 0,
+   "w": 0,
+   "h": 0,
+   "disp": "none",
+   "cur": "auto"
+  },
+  "tip.mpill": {
+   "tip": {
+    "l": 28,
+    "t": 154,
+    "r": 363,
+    "b": 221,
+    "w": 335,
+    "h": 67,
+    "disp": "flex",
+    "cur": "help"
+   },
+   "inViewport": true,
+   "hit": {
+    "centre": {
+     "x": 196,
+     "y": 188,
+     "el": "tip",
+     "inTip": true
+    },
+    "overBhead": {
+     "x": 196,
+     "y": 199,
+     "el": "tip",
+     "inTip": true
+    },
+    "tilesUnderTip": 2,
+    "overTile": {
+     "x": 105,
+     "y": 199,
+     "el": "tip",
+     "inTip": true
+    }
+   }
+  },
+  "tip.lgpill": {
+   "tip": {
+    "l": 28,
+    "t": 154,
+    "r": 340.875,
+    "b": 366,
+    "w": 312.875,
+    "h": 212,
+    "disp": "flex",
+    "cur": "help"
+   },
+   "inViewport": true,
+   "hit": {
+    "centre": {
+     "x": 184,
+     "y": 260,
+     "el": "k",
+     "inTip": true
+    },
+    "overBhead": {
+     "x": 184,
+     "y": 271,
+     "el": "k",
+     "inTip": true
+    },
+    "tilesUnderTip": 4,
+    "overTile": {
+     "x": 105,
+     "y": 231,
+     "el": "k",
+     "inTip": true
+    }
+   }
+  }
+ }
+}
