@@ -8,6 +8,7 @@ sc = [s for s in m["scenarios"] if s["id"] == sys.argv[1]][0]
 pd = pathlib.Path(m["pageDirectory"])
 INIT = """
 window.__log = [];
+let _acq; Object.defineProperty(window, 'acquireVsCodeApi', { configurable: true, get() { return _acq; }, set(f) { _acq = () => { const api = f(); const pm = api.postMessage; api.postMessage = (m) => { if (m.type === 'previewFindReplace') window.__log.push('POST previewFindReplace dryRun=' + m.dryRun + ' marker=' + document.querySelectorAll('.sphinx-preview-line-marker').length); return pm(m); }; return api; }; } });
 const _rm = Element.prototype.remove;
 Element.prototype.remove = function() { if (this.classList && this.classList.contains('sphinx-preview-line-marker')) window.__log.push('remove() stack ' + new Error().stack.split(String.fromCharCode(10)).slice(1,7).join(' | ')); return _rm.apply(this, arguments); };
 const t0 = performance.now();
