@@ -25,9 +25,10 @@ asks for a working UI; the grill was answered by a Fable advisor in the user's p
 | Q5 | All rows open by default. The choice is kept on the device (the browser's storage, as CR-434 keeps the Batch tab), one choice per row, the same for every project, across reloads. Nothing on the server or in the planning folder. | 1 |
 | Q6 | A folded head is a drop target: a post-it or a group dropped on it goes to that priority; the row stays folded and its count changes. The selection bar's "→ P<n>" works the same. | 1 |
 | Q7 | Selected post-its of a row being folded leave the selection. | 1 |
+| Q17 | Folding a row removes from the selection only the post-its drawn in that row, never a marked CR drawn in CR-427's "Running batch" half (the selection loses only what the user no longer sees). | 1 |
 | Q8 | The label filter and the counts are unchanged: a folded row's counts are those of the open row under the same filter. An empty row folds like any other; no row folds or opens by itself. | 1 |
 | Q9 | The explanation is the journal panel's first lines, above the list (today's bottom note is replaced), and the button's one-sentence tooltip. The button keeps its place, count and two tones. No new page, dialog or Help link. | 2 |
-| Q10 | The explanation says, in order: what (the board's changes since the user last pressed the panel's button, each already saved, nothing lost or pending); why (the board never messages the Chief of Staff; a session whose watcher runs learns of them by itself, one without a watcher or that planned before them does not); what to do (type "rescan" in the Chief of Staff's chat, it reads the backlog again and says what moved; then press the button to count from zero). | 2 |
+| Q10 | The explanation says, in order: what (the board's changes since the user last pressed the panel's button, each already saved; the words say "already saved in the planning folder on this machine", which is what is true of every write); why (the board never messages the Chief of Staff; a session whose watcher or pull path runs learns of them by itself, one running neither does not; Q10's "one that planned before the changes" is not said, since its watcher or pull path brings those writes too, as `docs/web-board.md` says); what to do (type "rescan" in the Chief of Staff's chat, it reads the backlog again and says what moved; then press the button to count from zero). | 2 |
 | Q11 | The count, the list, the "I said 'rescan' to the CoS" button, the post-its' "modified" mark and Home's "Written by the board" tile behave as today; only words change. The board does not show whether a watcher runs. | 2 |
 | Q12 | English and French for every new or changed text, the same keys in both; French says "tu". | 1, 2 |
 | Q13 | Nothing outside the web client: no server, protocol, CLI, card or AGENTS.md change. DESIGN.md read first and kept true; Triage's screenshots retaken; the pane screenshot rule does not apply. | 3, Evidence |
@@ -43,7 +44,7 @@ All paths below are under `skills/chantier/scripts/cli/src/chantier/clients/web/
 ### 1. Fold a priority row
 
 **The stored choice: a new module `js/triage/fold.js`** (small, under the 300-line limit of
-`tests/test_code_targets.py`).
+`skills/chantier/scripts/cli/tests/test_code_targets.py`).
 
 - The kept value is the store preference `triageFolded` (`localStorage` key
   `chantier.triageFolded`), read with `pref('triageFolded')` and written with
@@ -62,8 +63,11 @@ All paths below are under `skills/chantier/scripts/cli/src/chantier/clients/web/
 - `toggleFold(row)`:
   - computes the new list;
   - writes it with `setPref`;
-  - on a fold, removes from `state.selection` the slugs of every item of that row, whatever the
-    label filter (`itemsIn(backlog, row)`) (Q7);
+  - on a fold, removes from `state.selection` only the slugs drawn in that row: those whose
+    `columnOf(state.data?.backlog, slug)` (`js/model/triage.js`) is `row`. On CR-427's lanes
+    `columnOf` returns `running-batch` for a CR marked for the open batch, so a marked CR, drawn
+    in the "Running batch" half, stays selected even when its folder is that priority (Q7, Q17).
+    It is the same test `selectedNow` uses below;
   - makes one `update({ triageFolded, selection })`.
 - `bindFold(root)`: one delegated `click` on `[data-fold]` (the lane's head) that calls
   `toggleFold(el.dataset.fold)`. The chevron button sits inside the head and has no handler of its
@@ -72,10 +76,13 @@ All paths below are under `skills/chantier/scripts/cli/src/chantier/clients/web/
 
 **The lane: `js/ui/column.js`.**
 
-- `lane(parts)` gains two optional parts:
+- On CR-427's branch (`origin/chantier/batch-30/cr-427-board-backlog-last-column-split-into-run`,
+  PR 401), `lane(parts)` already takes `drop`, `label`, `chip`, `count`, `states`, `body`, `empty`
+  and the named-lane parts `name`, `sub`, `idle` and `foot`. This CR adds three optional parts:
   - `fold`: the row's name, for a foldable lane;
-  - `folded`: a boolean.
-- With no `fold` (CR-427's named halves, any other lane), the markup is today's.
+  - `folded`: a boolean;
+  - `foldLabel`: the chevron's label (below).
+- With no `fold` (CR-427's named halves, any other lane), the markup is CR-427's.
 - With `fold`, the head `div.column-head` gets `data-fold="<row>"`. The head starts with a
   `<button type="button" class="column-fold" data-key="fold-<row>" aria-expanded="<true|false>"
   aria-label="<label>">`. The button holds `icon('chev')` (`js/ui/icons.js`, the chevron the picker
@@ -87,7 +94,8 @@ All paths below are under `skills/chantier/scripts/cli/src/chantier/clients/web/
   `data-col="<row>"` and `aria-label`, so it stays a drop target (Q6).
 - `data-key="fold-<row>"` lets `js/core/paint.js` give the focus back to the same button after the
   redraw.
-- The comment at the top of `column.js` names the two new parts.
+- The comment at the top of `column.js` names the three new parts (`fold`, `folded`,
+  `foldLabel`) beside CR-427's `name`, `sub`, `idle` and `foot`.
 
 **The row: `js/triage/columns.js`.** `laneOf` passes `fold: key`, `folded` (from
 `foldedOf(state)`, carried into the context by `contextOf` in `js/views/triage.js` as
@@ -118,9 +126,9 @@ row except the user's click: no rule ties `folded` to `empty` or to a write.
 since only `toggleFold` changes `triageFolded`. The selection bar's "→ P<n>" is unchanged (Q6).
 
 **The selection never acts on hidden post-its** (Q7). `selectedNow(state)` in
-`js/triage/selection.js` also drops the slugs whose column (`columnOf`) is a folded row. This
-covers a selected post-it that another write moves into a folded row. Open question 4 names this
-choice.
+`js/triage/selection.js` also drops the slugs whose `columnOf(state.data?.backlog, slug)` is a
+folded row (a marked CR gives `running-batch`, never a folded row, Q17). This covers a selected
+post-it that another write moves into a folded row. Open question 4 names this choice.
 
 **Words** (`js/i18n/en-write.js`, `js/i18n/fr-write.js`, beside the other `triage.*` keys):
 
@@ -153,8 +161,8 @@ already write them):
 
 | Key | English | French |
 | --- | --- | --- |
-| `journal.what` | `What it counts: the changes made from this board (for example moves, new ideas, labels, groups) since you last pressed the button below. Each one is already saved in the planning folder: nothing is lost or waiting.` | `Ce que ça compte : les changements faits depuis ce board (par exemple déplacements, nouvelles idées, labels, groupes) depuis la dernière fois que tu as appuyé sur le bouton ci-dessous. Chacun est déjà enregistré dans le dossier de planification : rien n’est perdu ni en attente.` |
-| `journal.why` | `Why tell the Chief of Staff: the board never sends it a message. A Chief of Staff session whose watcher runs learns of these changes by itself; one without a watcher, or one that planned before them, does not.` | `Pourquoi le dire au Chief of Staff : le board ne lui envoie jamais de message. Une session Chief of Staff dont le watcher tourne apprend ces changements toute seule ; une session sans watcher, ou qui a planifié avant eux, ne les connaît pas.` |
+| `journal.what` | `What it counts: the changes made from this board (for example moves, new ideas, labels, groups) since you last pressed the button below. Each one is already saved in the planning folder on this machine.` | `Ce que ça compte : les changements faits depuis ce board (par exemple déplacements, nouvelles idées, labels, groupes) depuis la dernière fois que tu as appuyé sur le bouton ci-dessous. Chacun est déjà enregistré dans le dossier de planification sur cette machine.` |
+| `journal.why` | `Why tell the Chief of Staff: the board never sends it a message. A Chief of Staff session whose watcher (or pull path) runs learns of these changes by itself; one running neither does not.` | `Pourquoi le dire au Chief of Staff : le board ne lui envoie jamais de message. Une session Chief of Staff dont le watcher (ou le chemin de lecture) tourne apprend ces changements toute seule ; une session qui ne fait tourner ni l’un ni l’autre ne les connaît pas.` |
 | `journal.todo` | `What to do: type ‘rescan’ in the Chief of Staff’s chat; it reads the backlog again and says what moved. Then press the button below to count again from zero.` | `Quoi faire : tape « rescan » dans le chat du Chief of Staff ; il relit le backlog et dit ce qui a bougé. Puis appuie sur le bouton ci-dessous pour recompter à partir de zéro.` |
 | `journal.tip` | `Changes saved by this board since your last ‘rescan’: open to see them and what to tell the Chief of Staff.` | `Changements enregistrés par ce board depuis ton dernier « rescan » : ouvre pour les voir et savoir quoi dire au Chief of Staff.` |
 
@@ -164,7 +172,10 @@ kinds are examples, not the whole list (open question 3).
 
 These words match the Chief of Staff card's "rescan" line: it reads the backlog again and says
 what moved, and with a watcher the writes already came. They also match `docs/web-board.md`'s
-Triage bullet. The board shows nothing about whether a watcher runs (Q11).
+Triage bullet ("a Chief of Staff whose watcher (or pull path) runs hears each write within about
+20 s, and 'rescan' stays for one that runs neither"). `journal.why` says nothing of a session
+"that planned before them": its watcher or pull path brings those writes too.
+The board shows nothing about whether a watcher runs (Q11).
 
 ### 3. DESIGN.md and the docs
 
@@ -181,9 +192,13 @@ Triage bullet. The board shows nothing about whether a watcher runs (Q11).
     know, what to type), and the button carries a one-sentence tooltip;
   - no new colour, size or token.
 
-  The Components table is unchanged (still `column`, `column-*`, `js/ui/column.js`). This is a
-  section of its own, apart from the "One card, one column, one chip" rule that CR-427 edits, so
-  the two CRs touch different lines.
+  The Components table is unchanged (still `column`, `column-*`, `js/ui/column.js`).
+- **`DESIGN.md`, the "One card, one column, one chip" rule**: CR-427 writes there the lane
+  sentence "a Backlog lane's head is its priority chip, its count and its grill counts". This CR
+  makes it "a Backlog lane's head is its priority chip, its count, its grill counts and its fold
+  chevron". It is the one line both CRs touch in DESIGN.md; this CR edits it as CR-427 leaves it
+  (on `main` today the sentence is not there yet), and whichever lands second takes the rebase on
+  that line.
 - **`docs/web-board.md`**, Triage section (open question 1):
   - add one bullet: "Click a priority's head (or its chevron) to fold it: its post-its hide, its
     counts stay, and it still takes drops; the board remembers it on this device.";
@@ -208,18 +223,26 @@ Triage bullet. The board shows nothing about whether a watcher runs (Q11).
 
 ## Overlaps in batch-30
 
-- **CR-427 (board-running-batch-lane)** shares `js/ui/column.js`, `js/triage/columns.js`,
-  `css/components/column.css`, `css/views/triage.css` (this CR does not change the last one) and
-  DESIGN.md.
-  - CR-427 adds a named-lane variant (`name`, `sub`) to `lane(parts)` and removes
-    `triage.running` / `triage.idle`.
+- **CR-427 (board-running-batch-lane, PR 401)** shares `js/ui/column.js`, `js/triage/columns.js`,
+  `js/triage/selection.js`, `css/components/column.css`, `css/views/triage.css` (this CR does not
+  change the last one), DESIGN.md, `docs/web-board.md` and the three Triage screenshots.
+  - CR-427 adds the named-lane parts `name`, `sub`, `idle` and `foot` to `lane(parts)` and
+    removes `triage.running` / `triage.idle`.
   - This CR adds `fold`, `folded` and `foldLabel` to the same function, used only by `laneOf` for
-    P1 to P4. Its new DESIGN.md section does not touch CR-427's lines.
-  - Whichever lands second rebases onto the other's `lane()`. No `depends.json`: a shared file is
-    not a dependency (Q15).
-- **CR-433, CR-434, CR-435** (the Batch page) and **CR-429** (the server's watching) share no file
-  or behaviour with this CR. CR-434 adds the store preference `batchTab` through the same
-  `pref`/`setPref`; `triageFolded` is a different key.
+    P1 to P4.
+  - DESIGN.md: both CRs touch the lane sentence of the "One card, one column, one chip" rule
+    (section 3); this CR's new section is on other lines.
+  - `docs/web-board.md`: both CRs change the Triage section's bullets (CR-427 the drag bullet and
+    a new "last column" bullet; this CR a new fold bullet and the button's bullet).
+  - `docs/web-board/triage-pc.png`, `triage-phone.png`, `triage-selection-phone.png`: whichever
+    CR lands second reruns `just docs-screenshots` at its rebased head and commits the three
+    pictures, so they show both changes.
+  - Whichever lands second rebases onto the other's `lane()`, the DESIGN.md line and the docs
+    bullets. No `depends.json`: a shared file is not a dependency (Q15).
+- **CR-434** (the Batch page's tab) also edits DESIGN.md, on other lines, and adds the store
+  preference `batchTab` through the same `pref`/`setPref`; `triageFolded` is a different key.
+- **CR-433, CR-435** (the Batch page) and **CR-429** (the server's watching) share no file or
+  behaviour with this CR.
 - **board-help-page, board-batch-view, board-history, board-griller, board-user-inbox,
   dashboard-pages**: none touches Triage's lanes or the journal panel, as their answers stand
   today. board-help-page may explain the count at more length. That needs no change here.
@@ -232,14 +255,16 @@ the kept choice is the browser's own `localStorage`, the same on every OS.
 **Checks in `just check`** (all read the shipped files at the head under test, from the
 repository):
 
-- `tests/test_code_targets.py`, `test_the_web_frame_has_small_scripts_and_both_word_files_share_their_keys`:
+- `skills/chantier/scripts/cli/tests/test_code_targets.py`,
+  `test_the_web_frame_has_small_scripts_and_both_word_files_share_their_keys`:
   `en*.js` and `fr*.js` have the same keys, and every script stays under 300 lines. It passes
   unchanged.
-- `tests/test_board_design.py`: the token table, the sheets' rules (no literal, no side accent, a
-  component styled in its own sheet only, `column-*` classes written by `js/ui/column.js` only)
-  pass with the new `column-folded` and `column-fold` classes and the `journal.css` margin.
-- One new test in `tests/test_board_design.py`, parametrized over `en` and `fr`, reading the
-  shipped `js/i18n/<lang>-write.js`, `js/ui/column.js`, `js/journal/journal.js` and DESIGN.md from
+- `skills/chantier/scripts/cli/tests/test_board_design.py`: the token table, the sheets' rules
+  (no literal, no side accent, a component styled in its own sheet only, `column-*` classes
+  written by `js/ui/column.js` only) pass with the new `column-folded` and `column-fold` classes and the `journal.css` margin.
+- One new test in `skills/chantier/scripts/cli/tests/test_board_design.py`, parametrized over
+  `en` and `fr`, reading the shipped `js/i18n/<lang>-write.js`, `js/ui/column.js`,
+  `js/journal/journal.js` and DESIGN.md from
   the repository as they ship:
   - each word file defines `triage.fold`, `triage.unfold`, `journal.what`, `journal.why`,
     `journal.todo` and `journal.tip`;
@@ -247,7 +272,8 @@ repository):
   - `js/ui/column.js` writes `data-fold`, `aria-expanded` and `column-folded`;
   - in `js/journal/journal.js`, `journal.what` comes before `<ul` in `journalPanel`, and the
     button writes `journal.tip` in a `title`;
-  - DESIGN.md has the heading "Triage: folded rows and the writes count".
+  - DESIGN.md has the heading "Triage: folded rows and the writes count", and its lane sentence
+    ends "its grill counts and its fold chevron".
 
   This test is a guard on shipped text. The behaviour itself is proved in the browser (below),
   since the project has no JavaScript test runner.
@@ -265,7 +291,9 @@ below, captioned with the head's SHA (seven characters):
 4. Tab to P2's chevron and press Enter, then Space: it opens and folds again. The focus stays on
    the button.
 5. Select two post-its of P2 (open), then fold P2: the selection bar disappears (both left the
-   selection). Open P2: they are not selected.
+   selection). Open P2: they are not selected. With a batch open, select a P2 post-it and a P2 CR
+   marked for the running batch (drawn in "Running batch"), then fold P2: only the first leaves
+   the selection; the bar stays, with the marked CR (Q17).
 6. Drag a post-it from P1 onto folded P2's head: the head lights while over it, the post-it moves
    to P2, P2 stays folded and its count goes up by one. Drag a group by its handle onto it: same.
 7. Select a post-it of P4 and press "→ P2" in the selection bar: it moves, and P2 stays folded.

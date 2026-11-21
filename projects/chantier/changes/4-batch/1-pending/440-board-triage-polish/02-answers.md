@@ -55,3 +55,7 @@ Grilled enough (Fable advisor): yes; destination batch-30.
 Spec v1 (2026-11-21): written (`03-change-spec.md`); four open questions, each built as its option A: `docs/web-board.md` updated, the button label kept, the explanation names the kinds "for example", `selectedNow` also drops post-its in a folded row.
 
 Q17 (2026-11-21, the Chief of Staff, from Q7's reason): folding a row removes from the selection only the post-its drawn in that row, never a marked CR drawn in CR-427's 'Running batch' half (the selection loses only what the user no longer sees).
+
+Spec v2 (2026-11-21): `03-change-spec.md` revised on the spec critic's seven findings: `toggleFold` deselects only what is drawn in the folded row (`columnOf`, Q17); `journal.why` says "watcher (or pull path)" and drops "or one that planned before them"; `journal.what` says "already saved in the planning folder on this machine"; DESIGN.md's lane sentence gains "and its fold chevron" (rebase on that line); overlaps name `docs/web-board.md`, the three Triage screenshots (whichever lands second reruns `just docs-screenshots`) and CR-434's DESIGN.md lines; `lane()` names CR-427's `name`, `sub`, `idle`, `foot` and the three new parts; test paths in full. The four open questions stand.
+
+Spec final (2026-11-21, the Chief of Staff): v2 applies the critic's findings 1 to 7 (Q17 from Q7's reason; Q10's wording corrected to match docs/web-board.md); destination batch-30.
