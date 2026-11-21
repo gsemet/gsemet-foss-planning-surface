@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "title": "order hold parks a live CR in every mode",
-  "summary": "Specified: order hold takes a working CR in every mode; blocked and held, slot freed, out of the stack and series order with its dependents; only the user's order unhold releases it, then taken back on top. Critic fixes 2, 5-8 applied; pane screenshot owed. One open question.",
+  "title": "order hold takes a live CR in every mode",
+  "summary": "Spec v2: order hold takes a working CR in any mode; blocked, slot freed, out of the order with its dependents (a started series successor included); only order unhold releases it, dependents back above it. Shares out_of_order and the base rule with park-live-cr. No open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "ada3eb20a4d90f50998fe59e5d6484e5eed4e15f0cdbe08be036173872b9e40f",
-    "02-answers.md": "39f1baa604ec2bdc7da51afed22bd8b0fa4c17cf2f6d6fdea07f5c836f8fd7c1",
-    "03-change-spec.md": "57955c352ec02235899c49b48b30751476f4ef343ea05eb1ce27e24c603ff33e",
+    "02-answers.md": "050ade1d6aa46bf69745c94de5a266f678bf81cd26bca82cd7d6e1ce3be7b7f1",
+    "03-change-spec.md": "8722f67e6b68d9589e427ed90697de780b395a97cbbde18b7978deb028c60c3d",
     "intake/request.md": "e66b86adfa9de56f167ac67bdc33ed395998d225136d96f3c2d1f0b94735603e"
   },
-  "summarized": "2026-11-21T14:35:07Z"
+  "summarized": "2026-11-21T15:07:11Z"
 }
