@@ -20,6 +20,8 @@ dev: _git-long-paths      # runs first; Windows: git config core.longpaths true 
 
 No visual change. Contributors on Windows no longer hit "Filename too long" once `just dev` has run in the main checkout; other hosts are unaffected.
 
+The setting lives in the repository's shared config, so it applies to every worktree once `just dev` has run in the main checkout; it is already `true` in the author's main checkout.
+
 ## Blast radius
 
 Grade: 1. Contributor tooling and docs only; a plain `git revert` restores the previous behaviour.

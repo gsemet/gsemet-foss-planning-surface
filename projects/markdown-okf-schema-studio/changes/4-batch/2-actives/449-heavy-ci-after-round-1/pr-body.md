@@ -37,9 +37,15 @@ Grade: 1. A text-only change to a process guideline; a plain `git revert` restor
 - [ ] Requirements: No behaviour change
 - [ ] Changelog: No user-facing change
 - [ ] Local gates: `just check` and `test/build/test_guideline_isolation.py` (9 passed)
-- [ ] Review
-- [ ] CI green
+- [x] Review (approved at 6774cd7)
+- [x] CI green (gh pr checks 457 at 6774cd7)
 
 ## Autonomous decisions
 
 - The fast gate named in the bullet is `just check`, as the project instructions name it.
+
+## Known gaps
+
+None.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
