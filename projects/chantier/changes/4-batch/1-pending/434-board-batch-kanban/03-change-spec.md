@@ -24,6 +24,7 @@ states a CR can be in inside the batch.
 | kanban-Q3 | Destination: batch-30 at once, with board-batch-chip-stale (same page). | Overlaps |
 | Restatement | The column is the CR's real folder in the batch, not a state derived from the record. | 3 |
 | Restatement | Read-only: no drag between columns. | 4 |
+| kanban-Q5 (Fable advisor, in the user's place) | A closed batch's Kanban tab shows a one-line note, as Gantt and Time cards do: no columns, no cards, no automatic tab switch. Key `batch.kanban_closed`; the static test counts eight keys; one doc sentence. | 2, 5, 6 |
 
 **Read-only kept, and why the code agrees.** The Chief of Staff added "read-only" to the
 restatement. The code gives a reason to keep it, and none to drop it. AGENTS.md says the surface
@@ -47,17 +48,27 @@ would be the board editing a batch. Those moves belong to `take` (`lifecycle/sta
   click, a key, a link or back/forward: the tab last shown on the Batch page is the one kept.
 - Where the tab comes from, in this order:
   1. the address's `t=`, when it is one of `TABS`;
-  2. else, when moving within the Batch view of the same project (the batch navigator), the tab
-     shown now (`tabOf`, as today);
-  3. else the kept tab, when it is one of `TABS`;
+  2. else, only when the page is on the Batch view now and stays on it in the same project
+     (`now.view === 'batch'`, `view === 'batch'`, `project === now.project`: the batch navigator),
+     the tab shown now, `now.batchTab`;
+  3. else the kept tab, `pref('batchTab')`, when it is one of `TABS`;
   4. else `kanban`.
 
-  `resolve()` and `tabOf()` both follow this order. Every other view still gets `TABS[0]`, which
-  writes nothing.
+  Step 2 needs the `now.view === 'batch'` test, which `tabOf()` (`router.js:134-137`) lacks today:
+  on any other view `apply()` (`router.js:94`) sets `batchTab` to `TABS[0]`, so without it a move
+  from Home to Batch would take `kanban` at step 2 and never reach the kept tab. `resolve()`
+  follows steps 1, 3 and 4 (a first load has no tab shown now); `tabOf()` follows all four. One
+  helper (for example `keptTab()`: the kept tab when one of `TABS`, else `kanban`) gives steps 3
+  and 4 to `resolve()`, `tabOf()` and `settle()`. Every other view still gets `TABS[0]`, and
+  `apply()` writes the preference only when the view is `batch`.
 - `href()` writes `t=` for every tab of the Batch view, `kanban` included, and for no other view.
-  A copied address therefore reopens the same tab on any device. An address with no `t=` (the
+  A copied address therefore reopens the same tab on any device. The module's head comment
+  ("&t=<tab> (the Batch view's tab, when not the graph)") and `tabOf()`'s comment say so. An address with no `t=` (the
   sidebar, a link from Home or Costs, an old link) opens the device's kept tab.
-- `settle()` on "All projects" keeps resetting the tab to `TABS[0]`.
+- `settle()` (`router.js:47-56`): on "All projects" it keeps resetting the tab to `TABS[0]` for
+  a view that stays on "All projects". When it moves the place back to a real project
+  (`lastOf(ids)`, for a view "All projects" does not show) and that view is `batch`, the tab is
+  the kept one, steps 3 and 4 (`keptTab()`), not `TABS[0]`.
 
 `js/core/store.js`: the initial `batchTab` becomes `'kanban'`, and its comment names the four tabs.
 
@@ -87,6 +98,7 @@ Every string goes through `t()`, in both language files, `js/i18n/en-batch.js` a
 | `batch.kanban_pending_sub` | `joined, not taken yet` | `entrés, pas encore pris` |
 | `batch.kanban_actives_sub` | `taken: working, blocked or handed back` | `pris : en cours, bloqués ou rendus` |
 | `batch.kanban_done_sub` | `merged, last merged first` | `fusionnés, le dernier en premier` |
+| `batch.kanban_closed` | `This batch is closed: its CRs are in 5-archives. The Graph tab shows them.` | `Ce batch est clos : ses CR sont dans 5-archives. L'onglet Graph les montre.` |
 
 The column names are the folder names, the same in both languages, as the project Kanban's
 `kanban.ready` is `3-ready`. An empty column reuses `kanban.empty`.
@@ -109,12 +121,10 @@ chip"):
   card for a batch CR. That gives the CR number, the next-to-start tag, the slug, the round bars,
   the step, the round, the files, the dependencies, the open waits, the state icon and the cost. A
   click opens the CR's folder (`opener(crKey(c))`), and the open CR carries `sel`.
-  - The card shows **no folder chip**: the column already says the folder, and a chip would
-    repeat it.
-  - If board-batch-chip-stale, as landed, gives `crCard` the `stage` chip, `crCard` gains one
-    option (for example `crCard(state, c, { stage: false })`) that the batch Kanban passes. The
-    project Kanban keeps whatever chip-stale gave it.
-  - This CR adds no field to the card.
+  - `crCard` is used **unchanged**, with no new option. Its card shows no folder chip: CR-433
+    board-batch-chip-stale (its chip-Q3) leaves the Kanban page's batch CR card unchanged, so
+    `crCard` gets no `stage` chip, and the column already says the folder.
+  - This CR adds no field and no option to the card, and does not edit `kanban-cards.js`.
 - **Which column.** The column is the CR's real folder, read from the row's `stage` field.
   board-batch-chip-stale lands before this CR and adds that field in `board/crs.py:_row`, in
   place of `priority`: `1-pending`, `2-actives` or `3-done`, read from the CR's folder on disk.
@@ -128,8 +138,9 @@ chip"):
 - **Order** (kanban-Q2):
   - In `1-pending` and `2-actives`, the CR number ascending: the number part of `c.cr` (`CR-425`
     gives 425), compared as a number.
-  - In `3-done`, `mergedAt(c)` (`js/model/semantics.js`) descending, then the CR number ascending
-    on a tie or a missing time.
+  - In `3-done`, the row's `c.merged_at` descending, then the CR number ascending on a tie or a
+    missing `merged_at`. Not `mergedAt(c)` (`js/model/semantics.js:52`): it falls back to
+    `updated`, which moves with any write to the CR and would make cards jump.
   - The order reads nothing else (not `state`, `phase`, `updated` or `next_to_start`). A card
     therefore keeps its place while its CR works, blocks or hands back. A new card appears in its
     place by number, and a new merge enters `3-done` on top.
@@ -150,16 +161,32 @@ chip"):
   These are a page sheet's placement and size only (DESIGN.md, "Components"). They use no literal
   in a margin, padding, gap, radius or font size, and they restyle no component.
 
+- **The page keeps scrolling.** `css/shell.css:83-91` holds the project Kanban's rule
+  `.main:has(.kanban) { overflow-y: hidden; }`. The batch Kanban's `kanban` class would match it
+  and stop the batch page scrolling (the PR column below the fold would become unreachable). The
+  rule narrows to the project Kanban, a direct child of `.view`: `.main:has(.view > .kanban)`,
+  its comment kept. The next rule, `.view:has(> .kanban)`, already matches the direct child only
+  and stays as is. The batch Kanban's columns grow with their cards and the page scrolls as today.
+
 ### 4. Read-only
 
-`batch-kanban.js` writes no `draggable`, binds no drag, drop or pointer-move event and calls no
-write op: no `call` of a backlog or config op, no `data-col`. A card's one action is to open its
-folder.
+`batch-kanban.js` writes no `draggable`, binds no drag, drop or pointer-move event, passes no
+`drop` option to `column()` and calls no write op: no `call` of a backlog or config op, no
+`data-col`. A card's one action is to open its folder. The word "drop" itself may appear (for
+example a comment saying an `order drop` CR is in no column).
 
 ### 5. A closed batch's record
 
-On a closed batch (`shownRecord`), the Kanban tab shows what open question 1 settles. Until it is
-answered, the Driver implements its option A, the Chief of Staff's to confirm.
+A closed batch's CRs are in `5-archives`, no longer in `4-batch/` (`close` refuses while
+`1-pending` or `2-actives` holds a CR, and moves `3-done` to `5-archives`). On a closed batch
+(`shownRecord`, the batch navigator's past batches), the Kanban tab shows a one-line note
+(kanban-Q5), as Gantt and Time cards already do: no columns, no cards, and no automatic switch to
+another tab.
+
+`recorded()` in `js/views/batch.js` (line 111) draws, by tab: on `kanban`, `<p class="note">` with
+`t('batch.kanban_closed')`; on `graph`, the graph as today; on `gantt` and `cards`,
+`batch.times_none` as today. The legend and the tab bar stay as they are. `tabModule()` already
+returns no module on a recorded batch.
 
 ### 6. Docs: `docs/web-board.md`, section "Batch" (line 36)
 
@@ -167,12 +194,17 @@ answered, the Driver implements its option A, the Chief of Staff's to confirm.
   cards**" becomes four views. **Kanban** comes first and is the default: three columns,
   `1-pending`, `2-actives`, `3-done`, each holding the CRs whose folder is there. A card is the
   project Kanban's CR card, with no folder chip (the column says it), and opens its folder;
-  nothing is dragged. In `1-pending` and
-  `2-actives` cards are in CR-number order, and in `3-done` the last merged is on top. A CR
-  cancelled or dropped is in no column but stays on the Graph.
-- The address sentence becomes: the tab is in the address for every tab (`&t=kanban`, `&t=graph`,
-  `&t=gantt`, `&t=cards`), so a link opens the same tab. With no `t=`, the page opens the tab last
-  shown on this device, and the Kanban the first time.
+  nothing is dragged. In `1-pending` and `2-actives` cards are in CR-number order, and in `3-done`
+  the last merged is on top. A CR cancelled or dropped is in no column but stays on the Graph.
+- One sentence for a closed batch: on a past batch the Kanban tab shows a one-line note, its CRs
+  being in `5-archives`, and the Graph tab shows them.
+- The address sentence, "The tab is in the address (`&t=gantt`, `&t=cards`; the graph is the
+  default and writes nothing), so a link opens the same tab; it is kept while you stay on the
+  Batch page of the project and dropped by any other view or project.", is replaced whole, its
+  "kept while you stay … dropped by any other view or project" clause included, by the device
+  rule: the tab is in the address for every tab (`&t=kanban`, `&t=graph`, `&t=gantt`, `&t=cards`),
+  so a link opens the same tab. With no `t=`, the page opens the tab last shown on this device
+  (kept across views, projects and reloads), and the Kanban the first time.
 - "The legend pill stays above the tabs" stays.
 
 ### 7. DESIGN.md
@@ -200,11 +232,14 @@ class laid out in `css/views/batch.css`.
   in `just check`). They read the files from the repository as they ship, at the head under test,
   not prepared texts. One parametrized test adds:
   - `js/core/router.js`'s `TABS` begins with `'kanban'`;
-  - `js/i18n/en-batch.js` and `js/i18n/fr-batch.js` each define the seven keys of section 2;
+  - `js/i18n/en-batch.js` and `js/i18n/fr-batch.js` each define the eight keys of section 2;
+  - `js/views/batch.js` uses `batch.kanban_closed`;
+  - `css/shell.css` holds `.main:has(.view > .kanban)` and no bare `.main:has(.kanban)`;
   - `js/views/batch-kanban.js` imports `column` from `../ui/column.js` and `crCard` from
     `./kanban-cards.js`;
-  - `js/views/batch-kanban.js` contains none of `draggable`, `dragstart`, `drop`, `data-col` or
-    `call(`.
+  - `js/views/batch-kanban.js` contains none of `draggable`, `dragstart`, `'drop'`, `"drop"`,
+    `ondrop`, `drop:`, `data-col` or `call(`: the drop event and `column()`'s `drop` option, not
+    the bare word "drop", which a comment may use.
   - `js/views/batch-kanban.js` reads `.stage` and never `.folder`.
 
   The existing tests keep passing on the new files:
@@ -220,7 +255,14 @@ class laid out in `css/views/batch.css`.
   - the same page on a phone width (at most 760px), one column snapped;
   - the Graph tab after a reload, showing the kept choice;
   - an address with `&t=kanban` opened in a private window (no kept tab) and one with no `t=`
-    there, both opening on the Kanban.
+    there, both opening on the Kanban;
+  - the Kanban tab at 1400x860 on a batch whose PR column is taller than the window, scrolled to
+    the end of the PR column (the page still scrolls);
+  - pick Graph, go Home, open Batch from the sidebar: the page opens on Graph;
+  - with Graph kept, choose "All projects" while on Batch: the page goes back to a real project on
+    Graph;
+  - a closed batch (a past batch in the batch navigator) on the Kanban tab, showing the one-line
+    note.
 - **Gates** (AGENTS.md). The change is under the CLI's `src/` (the web client ships in the CLI's
   package):
   - the Driver runs `just check` and `just eval-dry-run` in the worktree at the pushed head;
@@ -234,9 +276,9 @@ class laid out in `css/views/batch.css`.
 - **board-batch-chip-stale** (lands before this CR in batch-30; same page, same card):
   - It replaces the batch rows' `priority` with `stage`, read from the CR's folder on disk in
     `board/crs.py:_row`. This CR's columns read that field and nothing else.
-  - It changes the chip of a batch CR's card. The batch Kanban's card shows no folder chip: if
-    chip-stale put the `stage` chip on `crCard`, this CR adds the one option that leaves it out
-    on the batch Kanban (section 3).
+  - It changes the chip of a batch CR's card on the Batch page's graph only: its chip-Q3 leaves
+    the Kanban page's `crCard` unchanged. This CR uses `crCard` unchanged too, with no folder chip
+    and no new option (section 3).
   - Both edit `docs/web-board.md` line 36: chip-stale changes the priority-chip sentence, this CR
     the tabs and address sentences.
   - Both may edit DESIGN.md's "One card, one column, one chip" paragraph: chip-stale the chip,
@@ -258,17 +300,6 @@ class laid out in `css/views/batch.css`.
   and does not move the mode band or the legend. Compact rebases on this CR. Its doc change to
   line 36's "The legend pill stays above the tabs" follows this CR's rewrite of the same paragraph.
 
-## Open questions (for the Chief of Staff, to the user)
+## Open questions
 
-1. **A closed batch's Kanban.** A closed batch's CRs are in `5-archives`, no longer in `4-batch/`.
-   `close` refuses while `1-pending` or `2-actives` holds a CR, and moves `3-done` to
-   `5-archives`. What does the Kanban tab show on a closed batch (the batch navigator's past
-   batches)?
-   - A (proposed): the record's merged CRs in `3-done`, where they were at the close, and empty
-     `1-pending` and `2-actives`. The order is the record's archive name descending (it begins
-     with the merge time, `yyMMdd-HHmm`), so the last merged is on top. The record's rows have no
-     `stage`: this is the one place the column is not read from `stage`, and it is set to
-     `3-done` by the close's rule. The cards are the Graph's recorded node (no opener), since the
-     record has no live row.
-   - B: a one-line note, like the Gantt and the Time cards on a closed batch: "This batch is
-     closed: its CRs are in 5-archives."
+None. kanban-Q5 settled v1's one question (a closed batch's Kanban tab, section 5).

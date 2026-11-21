@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Batch page: a Kanban of the batch's three folders",
+  "summary": "Specified (v2): Kanban first and default in the batch page's view switch, tab kept on the device; columns 1-pending, 2-actives, 3-done from chip-stale's stage; crCard unchanged; CR order, 3-done by merged_at; read-only; a closed batch shows a note. No open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "d5eab1a328956045d1d54bf7156945b6a6be15ae1717bbf5eab6602fcfb1cd32",
+    "02-answers.md": "964fb077dd61a33724a7c6d1bcfaa7652c3cc6eff8ac675370308963b33cdd3e",
+    "03-change-spec.md": "a52be9774368d04add1878d77633bb6f87d368669f2e38d2116a59208e08f03b",
+    "intake/request.md": "9d21b4c4a3dc819dd6c065cd2263b8bb34d2188c4e9c47d1e21dbf0d507dd1e7"
+  },
+  "summarized": "2026-11-21T17:46:54Z"
+}
