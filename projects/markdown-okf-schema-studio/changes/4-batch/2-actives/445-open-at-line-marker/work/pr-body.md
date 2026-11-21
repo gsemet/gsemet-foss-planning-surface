@@ -21,7 +21,7 @@ flowchart LR
 - Marker: an arrow pointing right in the left margin and a band across the line, drawn with the theme colours; exact line for a paragraph or a code block, a folded section or a closed dropdown is unfolded, otherwise the top of the enclosing block. It stays on scroll and goes on a click, an edit or another requested line.
 - Commands: "Open as Text" (Studio tab to text editor) and "Show Feature Introductions Again". Activation is on `onLanguage:markdown`; the engine, watchers and diagnostics start only with the first Studio preview.
 - Host API: `Navigation.showDocumentInStudio(documentId, line?)`; page message `previewRevealLine { line }`.
-- Evidence at `f61ac3a`: before is "no marker" (the base has no `previewRevealLine`, so there is nothing to capture); after, from the visual job on Linux CI (made-up fixture text):
+- Evidence captured at `f61ac3a`, carried to `207a550` (rebase; the visual job is green at `207a550`): before is "no marker" (the base has no `previewRevealLine`, so there is nothing to capture); after, from the visual job on Linux CI (made-up fixture text):
 
 ![Arrow and band on one code line, light](https://github.com/user-attachments/assets/105bc7da-4e8c-4e19-ae31-122413a96478)
 ![A closed dropdown unfolded, arrow and band on the inner line, dark](https://github.com/user-attachments/assets/f790620d-ad1f-4e81-93d0-25aeb29feb69)
@@ -46,7 +46,7 @@ Grade: 2. The opening path of every Markdown file changes (activation event, a t
 - The text editor shows for a brief moment before Studio takes its place.
 - The opening that triggered activation is never replaced.
 - Not run in real VS Code: the migration with real settings files, the diff views staying text, the activation-time opening, the keyboard timing of the flash, and Back/Next navigation; the unattended campaign automation was cut.
-- Small review leftovers: `docs/user/open-studio.md` does not mention the pinned-tab exception next to the "revealed at the line" sentence; an integration test waits a fixed 1.5 s to prove nothing opens; a map of recent jumps in the watcher is only pruned lazily. `test/integration/openAtLine.test.ts` ran in the real VS Code integration job on Linux CI at the head (heavy run 44860936230, step open-at-line, success); its three cases cover only a jump, the search setting off and a plain opening, not the other trials. **UNVERIFIED:** diffs are never replaced in real VS Code (covered by unit tests of the policy only).
+- Small review leftovers: `docs/user/open-studio.md` does not mention the pinned-tab exception next to the "revealed at the line" sentence; an integration test waits a fixed 1.5 s to prove nothing opens; a map of recent jumps in the watcher is only pruned lazily. `test/integration/openAtLine.test.ts` ran in the real VS Code integration job on Linux CI at `f61ac3a`, before the rebase onto the CR-444 branch (heavy run 44860936230, step open-at-line, success); it was not re-run at `207a550`; its three cases cover only a jump, the search setting off and a plain opening, not the other trials. **UNVERIFIED:** diffs are never replaced in real VS Code (covered by unit tests of the policy only).
 - In a very narrow pane in edit mode, the arrow can still overlap a list item handle; no visual scenario covers that width.
 - Visual scenarios, the integration stage and the real VS Code jobs run on Linux CI only.
 
@@ -76,11 +76,11 @@ Users see Studio open at the searched line with the marker; Markdown opening set
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): policy, watcher, migration, introductions, protocol, page marker, session navigation, host placement
-- [x] Local gates at `f61ac3a`: `just check`, `just ci-static`, `just requirements-update`, `just requirements-lint`
-- [x] Evidence: before none (no marker at the base), after at `f61ac3a` (trial logs under the work folder)
-- [x] Review: approved at `f61ac3a`
-- [x] Verified at `f61ac3a`
-- [x] CI green at `f61ac3a` (pull request checks and the heavy run with integration and stress)
+- [x] Local gates at `207a550`: `just check`, `just ci-static`, `just requirements-update`, `just requirements-lint`
+- [x] Evidence: before none (no marker at the base), after captured at `f61ac3a`, carried to `207a550` (trial logs under the work folder)
+- [x] Review: approved at `207a550` (move re-inspected)
+- [x] Verified at `207a550`
+- [x] CI green at `207a550` (pull request checks); the heavy run with integration and stress was green at `f61ac3a`, before the rebase
 
 ## Internal references
 
