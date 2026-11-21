@@ -5,7 +5,7 @@ but systematic mechanism that the CLI enforces (Studio's owner: "pas trop lourd 
 systématique"). Two parts carry it: a shape line at each heartbeat, and `asks` refusing a per-CR
 ready ask in a stack batch while that ask would leave another PR of the batch behind main. Two
 lighter parts back them up: a stack card the Foreman rereads at the reload, and the Chief of Staff
-checking each ask against the shape. Specification v2.
+checking each ask against the shape. Specification v3.
 
 ## Goal
 
@@ -24,9 +24,9 @@ deep in `foreman.md` ("The user's boundaries" and "Your means"), so the shape su
 but not as a procedure. After this CR:
 
 - the Foreman's heartbeat shows the stack's state in one line, every time;
-- the CLI refuses a per-CR ready ask while another CR of the batch has an open PR or a stacked CR
-  is still open, so a forgotten procedure stops at the CLI and does not reach the user; a CR truly
-  alone may still ask alone;
+- the CLI refuses a per-CR ready ask while another CR of the stack's chain has an open PR or a
+  stacked CR is still open, so a forgotten procedure stops at the CLI and does not reach the user;
+  a CR truly alone may still ask alone, and so may a fix or held CR, which sit outside the stack;
 - the stack rules live in one card that a stack batch's Foreman reads at the batch's start and
   rereads after each compaction;
 - the Chief of Staff relays no readiness ask that does not fit the batch's shape: it sends it back
@@ -35,8 +35,8 @@ but not as a procedure. After this CR:
 ## Decisions carried (02-answers.md)
 
 - **Q1 (D, refuse unless forced):** `asks` refuses a per-CR `ready-to-merge` ask in a stack batch.
-  A fix CR is excepted. An explicit flag lets the ask through: `--outside-stack "<reason>"` (the
-  name is this spec's choice; the brief left it to the spec).
+  A fix CR is excepted (and a held CR, Q12). An explicit flag lets the ask through:
+  `--outside-stack "<reason>"` (the name is this spec's choice; the brief left it to the spec).
 - **Q2 (A):** at each `status --refresh`, in stack batches only, one line with a fixed format,
   `shape stack: next …; stack driver: …; native stack: …`. Q11 and the critic's fix 4 complete it
   (see 2).
@@ -59,6 +59,14 @@ but not as a procedure. After this CR:
   form, then `take stack` once that threshold is met (the same as `stack_due`'s).
 - **Critic run 1, fix 4:** one criterion, Q10's, used by the CLI guard, the shape line and the
   Chief of Staff's check (below, "The criterion").
+- **Q12 (Fable advisor, rule 12):** only the CRs of `stacks.chain(b_data)` count. A fix CR's or a
+  held CR's open PR never blocks. A held CR, like a fix CR, asks alone with no `--outside-stack`
+  (its hold order already carries the user's word), and never counts, even with `stacked` still
+  set. The release CR stays in the count and its per-CR ask stays refused.
+- **Q13 (Fable advisor, rule 12):** while a stack waits for its merge, the shape line's `next`
+  reads `take stack at the next ready CR or merge` (`foreman.md`, "Each later take", names a
+  recorded merge as a trigger).
+- **Rule 12:** no more questions to the user on this CR; this version leaves none open.
 
 ## The criterion (one function, three readers)
 
@@ -68,10 +76,13 @@ File: `skills/chantier/scripts/cli/src/chantier/stacks.py`, a new function besid
 
 It returns, in `chain` order, the CRs that make a per-CR ready ask for `cr` a stack matter:
 
-- every CR of the batch other than `cr` that is open (status not in `ENDED`, i.e. not `merged` or
-  `cancelled`) and has a PR recorded (`pr` set);
-- every open CR with `stacked` set, `cr` itself included (a CR already in the native stack never
-  asks alone).
+- every CR of `chain(b_data)` other than `cr` that has a PR recorded (`pr` set);
+- every CR of `chain(b_data)` with `stacked` set, `cr` itself included (a CR already in the native
+  stack never asks alone).
+
+`chain` (in `stacks.py` today) already holds only the open CRs (not `merged` or `cancelled`) that
+are neither a fix CR nor held (`is_held`), the release CR last. So a fix CR and a held CR never
+appear in the list, a held CR not even with `stacked` still set, and the release CR does.
 
 With `cr=None` it answers for the batch as a whole (no CR left out), which the shape line uses.
 The guard refuses when the list is not empty for the asking CR; the shape line shows it; the Chief
@@ -79,8 +90,8 @@ of Staff's check reads the shape line. No other definition of "the batch has mad
 the spec, the CLI or the cards: v1's "at least one CR, merged ones included, has `stacked`" is
 dropped.
 
-Every kind counts in the list as Q10 words it ("another CR of the batch has an open PR"): a fix
-CR's or a held CR's open PR counts too. See open question 1.
+Q12 bounds Q10's "another CR of the batch" to the stack's chain: a fix CR's or a held CR's open
+PR sits on main, outside the stack, and never blocks.
 
 ## What changes
 
@@ -96,9 +107,10 @@ Files: `skills/chantier/scripts/cli/src/chantier/rails_release.py` (the refusal,
   - the batch's `mode` is `stack`;
   - the text's first word is `ready-to-merge`, and its second word names a CR of the batch (the
     same match as `readiness_key`, through `normalize_cr`);
-  - that CR's `kind` is not `fix` (a fix CR sits outside every shape, as Q1 says; a release CR is
-    not excepted: in a stack it is the top, and its readiness is the complete
-    `stack-ready-to-merge`);
+  - that CR's `kind` is not `fix` and it is not held (`not is_held(cr)`): a fix CR sits outside
+    every shape, as Q1 says, and a held CR is out of the stack on its hold order, which already
+    carries the user's word (Q12); a release CR is not excepted: in a stack it is the top, and its
+    readiness is the complete `stack-ready-to-merge`;
   - `shape_blockers(b_data, <cr>)` is not empty (Q10).
 
   In Studio's second wave, CR-447's ask at 11:48 and any other ask made while another second-wave
@@ -113,7 +125,7 @@ Files: `skills/chantier/scripts/cli/src/chantier/rails_release.py` (the refusal,
   when it is stacked):
 
   ```text
-  refused: <batch> is a stack and <cr> is not alone (open: <blockers>): its readiness goes up with the stack's (`take stack --epoch <n>`, the stack driver's hand-back, then `asks "stack-ready-to-merge …"`); a fix CR is outside the stack; `--outside-stack "O-<k>: <why>"` records this ask on an order carrying the user's word
+  refused: <batch> is a stack and <cr> is not alone (open: <blockers>): its readiness goes up with the stack's (`take stack --epoch <n>`, the stack driver's hand-back, then `asks "stack-ready-to-merge …"`); a fix or held CR is outside the stack; `--outside-stack "O-<k>: <why>"` records this ask on an order carrying the user's word
   ```
 
   `<n>` is the batch's current epoch as `take stack` takes it.
@@ -131,7 +143,7 @@ Files: `skills/chantier/scripts/cli/src/chantier/rails_release.py` (the refusal,
     ```
 
   - The flag is also refused with exit 1 when the ask is one the guard would not refuse (another
-    word, a fix CR, a batch that is not a stack, or a CR with no blocker):
+    word, a fix or held CR, a batch that is not a stack, or a CR with no blocker):
 
     ```text
     --outside-stack is only for a per-CR ready-to-merge ask that the stack guard refuses
@@ -141,9 +153,9 @@ Files: `skills/chantier/scripts/cli/src/chantier/rails_release.py` (the refusal,
   - Superseding (`record_ask`) is unchanged: a forced ask is a `("cr", <cr>)` readiness ask like
     any other.
 - **The help text** (`declare/batch_status.py`, `asks`): one clause added. In a stack batch, a
-  per-CR `ready-to-merge` is refused while another CR of the batch has an open PR or a stacked CR
-  is open, except for a fix CR; `--outside-stack "O-<k>: <why>"` records it on an order carrying
-  the user's word.
+  per-CR `ready-to-merge` is refused while another CR of the stack has an open PR or a stacked CR
+  is open; a fix or held CR is outside the stack; `--outside-stack "O-<k>: <why>"` records it on
+  an order carrying the user's word.
 - **Steering.** The guard does not depend on the actor: a Chief of Staff steering in direct mode
   meets the same refusal.
 
@@ -163,10 +175,11 @@ Files: `skills/chantier/scripts/cli/src/chantier/stacks.py` (a new `shape_line(b
     - `note to the stack driver` when a stack driver is recorded (`stack_agent` set): events then
       go to it as `[foreman→stack] note …`, as the card says;
     - else `take stack` when a take is due: `forming(b_data)` holds at least `FORMING` (2) CRs, or
-      an open stacked CR exists and an open CR that is not stacked (release and fix aside) is
+      a stacked CR of `chain` exists and a CR of `chain` that is not stacked (release aside) is
       `ready` with a PR (a later take);
-    - else, when an open stacked CR exists (the stack waits for its merge, nothing to add):
-      `take stack at the next ready CR` (see open question 2);
+    - else, when a stacked CR of `chain` exists (the stack waits for its merge, nothing to add):
+      `take stack at the next ready CR or merge` (Q13: a recorded merge is also a trigger, as
+      `foreman.md`'s "Each later take" says);
     - else `parallel until 2 ready with a PR`.
 
     `forming(b_data)` is `stack_due`'s per-CR test without its batch conditions: the CRs of the
@@ -176,12 +189,13 @@ Files: `skills/chantier/scripts/cli/src/chantier/stacks.py` (a new `shape_line(b
     does not use "no CR ever stacked": in Studio's second wave, after the morning stack merged, it
     reads `take stack` as soon as two second-wave CRs are ready with a PR.
   - `<driver>`: the recorded `stack_agent`, else `none`.
-  - `<native>`: `present (<cr>, <cr>…)` listing the open CRs of `chain` that have `stacked` set,
+  - `<native>`: `present (<cr>, <cr>…)` listing the CRs of `chain` that have `stacked` set,
     bottom first, else `absent`.
-  - `<alone>`, from `shape_blockers(b_data)` (the criterion, batch-wide):
-    - `refused` when an open stacked CR exists or at least two open CRs have a PR;
-    - `allowed for <cr> only` when exactly one open CR has a PR and none is stacked;
-    - `allowed` when no open CR has a PR.
+  - `<alone>`, from `shape_blockers(b_data)` (the criterion, batch-wide), counting the CRs of
+    `chain` only (Q12: a fix or held CR's PR does not count):
+    - `refused` when a stacked CR of `chain` exists or at least two CRs of `chain` have a PR;
+    - `allowed for <cr> only` when exactly one CR of `chain` has a PR and none is stacked;
+    - `allowed` when no CR of `chain` has a PR.
 
   With nothing recorded, the line reads exactly:
   `shape stack: next parallel until 2 ready with a PR; stack driver: none; native stack: absent; alone asks: allowed`.
@@ -225,11 +239,12 @@ Files: `skills/chantier/references/foreman-stack.md` (new), `foreman.md`,
   may rename them; the manifest names the whole file.
 
   **New text in `## The stack's asks`**, the only rules this CR adds to the card:
-  - while another CR of the batch has an open PR, or a stacked CR is open (`alone asks: refused`
+  - while another CR of the stack has an open PR, or a stacked CR is open (`alone asks: refused`
     or `allowed for <other cr> only` on the shape line), a CR's readiness reaches the Chief of
-    Staff only through the stack: no per-CR `ready-to-merge` for a CR that is not a fix (the CLI
-    refuses it), but the next `take stack` and, at the stack driver's hand-back, the
-    `stack-ready-to-merge` ask; a CR truly alone may still ask alone;
+    Staff only through the stack: no per-CR `ready-to-merge` for a CR that is not a fix or held
+    (the CLI refuses it), but the next `take stack` and, at the stack driver's hand-back, the
+    `stack-ready-to-merge` ask; a CR truly alone may still ask alone, and a fix or held CR asks
+    alone with no `--outside-stack` (a held CR's hold order already carries the user's word);
   - `--outside-stack "<reason>"` is used only on an order of the Chief of Staff that carries the
     user's word for that CR alone. The reason starts with that order's id (`O-<k>: <words>`). It
     is never used to get past a refusal on the Foreman's own judgement;
@@ -283,8 +298,9 @@ File: `skills/chantier/references/chief-of-staff.md`, the "A stack batch" bullet
 
 Added (Q4, Q9), with the one criterion: each Foreman ask is checked against the batch's shape, not
 only for being rebased and green. In a stack batch, read `status --refresh`'s shape line. A per-CR
-`ready-to-merge` for a CR that is not a fix, while that line's `alone asks` is `refused` or
-`allowed for <another cr> only` (another CR of the batch has an open PR, or a stacked CR is open),
+`ready-to-merge` for a CR that is neither a fix nor held, while that line's `alone asks` is
+`refused` or `allowed for <another cr> only` (another CR of the stack has an open PR, or a stacked
+CR is open),
 is mismatched unless it carries `outside the stack: O-<k>: …` naming an order of the user's word.
 A mismatched ask is not offered. The Chief of Staff:
 
@@ -314,8 +330,8 @@ joined), so it holds whatever the landing order.
 ### 6. The scenario (`scenario/run_scenario.py`, `scenario/README.md`)
 
 - **The scripted Foreman** (`Foreman.turn`, around line 767, where a ready CR gets
-  `ready-to-merge`/`pr-in-draft`) follows the new card: in a stack batch, a ready CR that is not a
-  fix gets a per-CR `ready-to-merge` ask only when `shape_blockers` is empty for it; otherwise it
+  `ready-to-merge`/`pr-in-draft`) follows the new card: in a stack batch, a ready CR that is
+  neither a fix nor held gets a per-CR `ready-to-merge` ask only when `shape_blockers` is empty for it; otherwise it
   waits for the stack. Without this change, step 13 (`stack_batch`) would hit the refusal.
 - **New checks in `stack_batch`** (step 13):
   - before any CR has a PR: `status --refresh --epoch 1` prints, as its second line,
@@ -346,11 +362,13 @@ joined), so it holds whatever the landing order.
   well under the 400-line limit (`test_code_targets.py`, `MAX_FILE_LINES`), few and parametrized,
   on `BatchRecord`/`CrEntry` built in memory as `test_stack_due.py` does:
   - `shape_blockers`, parametrized: empty for a CR alone (no other open PR, nothing stacked open);
-    names another open CR with a PR; names an open stacked CR, the asking CR included; ignores
-    merged and cancelled CRs, stacked or not (Studio's second wave after the morning stack merged:
-    the merged stacked CRs do not count, the second wave's open PRs do);
+    names another open CR with a PR; names an open stacked CR, the asking CR included; names the
+    release CR's open PR; ignores merged and cancelled CRs, stacked or not (Studio's second wave
+    after the morning stack merged: the merged stacked CRs do not count, the second wave's open PRs
+    do); ignores a fix CR's and a held CR's open PR, and a held CR with `stacked` still set (Q12);
   - the guard, parametrized: in a stack batch with a blocker, refuses `ready-to-merge` for a change
-    CR and for a release CR; accepts it for a fix CR; accepts `pr-in-draft`, `ready-locally` and
+    CR and for a release CR; accepts it for a fix CR and for a held CR, with no flag (Q12);
+    accepts `pr-in-draft`, `ready-locally` and
     `stack-ready-to-merge`; accepts `ready-to-merge` for a CR alone, and in a parallel or series
     batch with other open PRs. The refusal's text is compared whole with the fenced text above;
   - the flag, parametrized: accepted where the guard refuses with a reason `O-<k>: …` naming an
@@ -360,10 +378,11 @@ joined), so it holds whatever the landing order.
     prepared stack batch for the recorded text and the exit codes;
   - `shape_line`, parametrized: the exact line with nothing recorded (above); `next take stack`
     with two CRs ready with a PR; `next take stack` after a merged stack when two new CRs are
-    ready (no CR ever stacked is not required); `next take stack at the next ready CR` with an open
-    stack and nothing to add; `note to the stack driver` with a recorded driver; `native stack:
-    present (…)` with merged stacked CRs left out; each `alone asks` value; `[]` for a parallel or
-    series batch;
+    ready (no CR ever stacked is not required); `next take stack at the next ready CR or merge`
+    with an open stack and nothing to add (Q13); `alone asks: allowed for <cr> only` when the only
+    other open PRs are a fix CR's and a held CR's (Q12); `note to the stack driver` with a
+    recorded driver; `native stack: present (…)` with merged stacked CRs left out; each
+    `alone asks` value; `[]` for a parallel or series batch;
   - `stack_due` unchanged: `test_stack_due.py` passes as is;
   - **the shipped cards**, read from the repository at the head under test, not from a copy:
     `startup-manifest.json`'s `actions["batch:stack"] == ["foreman-stack.md"]`, and the file
@@ -402,11 +421,13 @@ joined), so it holds whatever the landing order.
 
 ## Open questions
 
-1. **Which open PRs block.** As specified, Q10's "another CR of the batch has an open PR" counts
-   every kind: a fix CR's open PR and a held CR's open PR (held out of the stack, on main) block a
-   change CR's ask too, and a held CR's own ask is refused while others are open, so it goes through
-   `--outside-stack "O-<hold order>: …"`. Confirm, or leave fix and held CRs' PRs out of the count
-   (and let a held CR ask alone).
-2. **The shape line's `next` while a stack waits for its merge.** Q11 names two values. With an
-   open stack, no stack driver and no new CR ready with a PR, neither fits; this spec prints
-   `take stack at the next ready CR`. Confirm the wording, or name another.
+None. The spec v2's two questions are settled by Q12 and Q13 (Fable advisor, rule 12).
+
+Small points settled by the spec-writer in v3 (rule 12):
+
+- The criterion uses `stacks.chain` as it stands (open, neither fix nor held, release last) rather
+  than repeating its filter, so the guard, the shape line and the Chief of Staff's check cannot
+  drift from what the stack itself holds.
+- `--outside-stack` on a held CR's ask is refused with the "only for … that the stack guard
+  refuses" text, like a fix CR's: the guard never refuses that ask, so the flag would only
+  decorate it.
