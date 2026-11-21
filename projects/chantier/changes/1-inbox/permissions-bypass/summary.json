@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "title": "Close the allow-rule bypass through gate and lease hold",
-  "summary": "Set aside after its grill (Q1-Q15 answered): gate runs only named commands, lease hold runs nothing, P10 writes real paths, flags old broad rules, offers push deny rules, P9 checks main's protection and bypass. Spec to revise, then critic.",
+  "title": "chantier's allow rules name real paths, not a wildcard",
+  "summary": "Cut down on the user's word (Q17): real paths instead of * in the P10 allow rules, older rules flagged; to re-grill-close and re-specify. The gate and hold step is gate-hold-narrowing; the push part is dropped.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "b62109ff757affa55006746c68ff1f156f33bbba8fb9315e1699f184464b47a8",
-    "02-answers.md": "26843062a1145770653e208fff96eba9aa11cd4318a3eb913443a44837f0eb06",
+    "02-answers.md": "9fc3c1e6e429cc8fc6963184c7ee3a90c3063b84054d094d1e620b3b882e8e2b",
     "03-change-spec.md": "cc65f22eaae23faefc1f5c160e439a4f6711effea722be8fe1c2bab315e081c5",
     "intake/request.md": "67b9f4180faca9c272d5cb6e14319c96de6131e4f9ebaf6cd3bb2d36250fb9f4"
   },
-  "summarized": "2026-11-21T11:10:47Z"
+  "summarized": "2026-11-21T13:27:31Z"
 }

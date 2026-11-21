@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "gate runs only named commands; lease hold runs nothing",
+  "summary": "Second step split from permissions-bypass (Q17): gate by names from chantier.yaml, lease hold for a bounded time. After permissions-bypass. Not grilled.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3b36985e22b3ac520044ea5335d58d26dbeb1b54e2775650116cbb3ada5c4625",
+    "02-answers.md": "f73ef4a9e4a251abdc7690bfdfea57a700ff0bc596be9257d54be3545c24e180",
+    "intake/request.md": "ba24bc665a9f54d860da43af2a47659f780db4b97e0055cf329380c3c219ea6c"
+  },
+  "summarized": "2026-11-21T13:27:31Z"
+}
