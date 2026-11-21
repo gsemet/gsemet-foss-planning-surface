@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Flaky previewManager test: a hidden panel shown renders twice (2 !== 1)",
+  "summary": "Spec written: find the second render on show (product race or test counter), fix the product if it renders twice, make the hidden-panel test wait on a ready event and a per-manager render count, no fixed waits. Three open questions for the owner.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "bfcacbc8027ac7e2cc0668e2ed0277c018054619e543fc4605a17576132f0e7e",
+    "02-answers.md": "7f8f901050b7a6fc2cc42ffa56caaa18925b79dbe93675605708981f1f327259",
+    "03-change-spec.md": "9f828ac7e438dea57af0078d121828324fb288a2c8126c3aca8552b956e2e82e",
+    "intake/request.md": "893f17d7a9f015ac2983c0d1e826ae70145fa25bc6e91f614a9e72b881b55bf7"
+  },
+  "summarized": "2026-11-21T10:04:36Z"
+}
