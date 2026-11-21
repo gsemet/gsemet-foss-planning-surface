@@ -1,0 +1,15 @@
+T13 files on
+T13 setup Studio tab doc.md group 1: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+T13 jump to 40 with group 2 focused (expect group 1 Studio revealed, no new tab, no text tab): tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":"Line 39 of doc: filler text for the paragraph number 39.\nLin","attrs":"data-line=39 data-end-line=41 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\td-rerun\\w","scrollTop":684}
+T4 preview tab, files off
+T4 preview Studio tab at 30: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+T4 second click line 40 on the preview Studio tab: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":"Line 29 of doc: filler text for the paragraph number 29.\nLin","attrs":"data-line=29 data-end-line=31 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\td-rerun\\w","scrollTop":493}
+T10 files on: link
+T10 Studio tab links.md: tabs=["1:custom:markdown-okf-schema-studio.editor:links.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  anchors: ["#","#"]
+  clicked
+T10 after link with files on (expect Studio of other.md, no text tab): tabs=["1:custom:markdown-okf-schema-studio.editor:links.md","1:custom:markdown-okf-schema-studio.editor:other.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":"Other file","attrs":"data-line=1 data-end-line=1 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\td-rerun\\ws\\","scrollTop":20}
+  screenshot td-rerun-01-t10-link-files-on.png

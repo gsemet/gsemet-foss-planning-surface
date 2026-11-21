@@ -42,11 +42,11 @@ No visual change. Planning folders ignore downloaded artifacts; a too-long path 
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
-- [x] Local gates at `b4d7117`: `just check` pass (1428 passed, 14 skipped), `just eval-dry-run` 18 of 18 cases as expected
-- [x] Evidence: the Verifier's checks at `b4d7117` (check 5, a real too-long path on Windows, blocks with the named line); no files attached
-- [x] Review: approved at `4ed0d56` base round (round 1, commit `bfb5aec`); one comma fix after, `b4d7117`
-- [x] Verified at `b4d7117`
-- [x] CI green at `b4d7117`: `gh pr checks 389`, all five jobs pass, `just scenario (ubuntu-latest)` included
+- [x] Local gates at `af840b1`: `just check` pass; `just eval-dry-run` pending at `af840b1`
+- [x] Evidence: the Verifier's checks at `af840b1` (check 5, a real too-long path on Windows, blocks with the named line); no files attached
+- [x] Review: approved at `af840b1` (Inspector APPROVE)
+- [x] Verified at `af840b1`
+- [ ] CI green at `af840b1`: pending at `af840b1`
 
 ## Internal references
 

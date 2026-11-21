@@ -56,11 +56,11 @@ No visual change. Future release notes follow the new order and crop rule.
 ## Test plan
 
 - [x] New or changed tests: No behaviour change
-- [x] Local gates at `867cabc`: `just check` pass; `just check` pass on three systems and `just scenario (ubuntu-latest)` pass in CI
-- [x] Evidence: no visual change (grep and read checks of the shipped files, at `867cabc`)
-- [x] Review: approved at `4ed0d56` (committed as `867cabc`)
-- [x] Verified at `867cabc`
-- [x] CI green at `867cabc`
+- [x] Local gates at `13f7751`: `just check` pass; `just check` on three systems and `just scenario (ubuntu-latest)` pending in CI at `13f7751`
+- [x] Evidence: no visual change (grep and read checks of the shipped files, carried through a clean restack to `13f7751`)
+- [x] Review: approved at `4ed0d56` (carried through a clean restack to `13f7751`)
+- [x] Verified at `13f7751`
+- [ ] CI green at `13f7751`: pending at `13f7751`
 
 ## Internal references
 

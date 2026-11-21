@@ -71,11 +71,11 @@ No visual change. Developers see a faster `just test`; real git stays where git 
 ## Test plan
 
 - [ ] New or changed tests: no behaviour change, no test id changed or removed (1419 collected before and after)
-- [ ] Local gates at `d60b8b1`: `just test`, `just check`
+- [ ] Local gates at `77ed511`: `just test`, `just check` (`just check` passed locally at `77ed511`)
 - [ ] Evidence: idle runs before and after
-- [ ] Review: approved at `d60b8b1`
-- [ ] Verified at `d60b8b1`
-- [ ] CI green at `d60b8b1`
+- [ ] Review: approved at `77ed511`
+- [ ] Verified at `77ed511`
+- [ ] CI green at `77ed511`: pending at `77ed511`
 
 ## Internal references
 
