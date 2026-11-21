@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "title": "Cut and copy drop a block's trailing blank lines, as Delete block",
-  "summary": "Specified: planBlocksCopyCut trims the range's trailing blank lines (withoutTrailingBlankLines) before spanText and planCut, so a list followed by blank lines is copied and cut instead of refused; a cut equals Delete block. SwRS BLOCK-166/169/124, unit tests, scenarioBlockSelection extended.",
+  "title": "Cut, copy and paste work on a list followed by blank lines",
+  "summary": "Specified: copy/cut drop the range's trailing CommonMark blank lines (new trim, Delete block unchanged; no-break-space stays refused); planPaste accepts the blank line ending a list, reusing it as separator. SwRS 166/169/174/124, unit tests, real-input scenario extended.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "919bd7ceabc348784be2fc5b83c6026a7b459e8624ca64aa918222146f8a5619",
-    "02-answers.md": "3076898b4f9cbfc1dac666b942d6f3b656fb7dace8fe683802aee3bf29ff8d1b",
-    "03-change-spec.md": "bcf4380f534b05473a81e9c513fd2045e1cf17b6357fe6ef8dfb73e57e4015c4",
+    "02-answers.md": "5a1c001c25654a6ccd30439fce3bff5de3779867b8caf9e5802599c5b41ab5a1",
+    "03-change-spec.md": "77a71f518d9b1ea03772a0dd12cbf0883c5fb746d74e5b3d5811a404badc9502",
     "intake/request.md": "62c05de9e601879ea88c494175ce39a5623ea05c4c5b48f7ce141f828008f79c"
   },
-  "summarized": "2026-11-21T09:19:04Z"
+  "summarized": "2026-11-21T09:44:46Z"
 }

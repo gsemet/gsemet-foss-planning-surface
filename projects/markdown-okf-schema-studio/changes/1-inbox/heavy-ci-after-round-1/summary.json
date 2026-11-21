@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Heavy CI after round 1 of a CR adding visual or real-window tests",
-  "summary": "Specified, no open question: Studio's process guideline gains an Early heavy CI rule. A CR adding or changing visual, integration or stress scenarios opens its draft PR after round 1 (in a stack, by the stack driver) and dispatches the heavy CI once; round 2 reads it.",
+  "summary": "Specified, no open question: an Early heavy CI rule in Studio's process guideline. After round 1, a CR with visual, integration or stress scenarios pushes without the long gate, opens a provisional draft PR (cap permitting) and dispatches the heavy CI; again only after fixing a red heavy job.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "6fe92d2246c64ad416d97fdb3342b3b5c9876a5c3ce13a87eee2edd0bf23b642",
-    "02-answers.md": "2c983a26ebe5f18a4ec15cf48719b04ae0eb1a3c23bd85935767e15b1db6b36f",
-    "03-change-spec.md": "59fa0c48d6f7baf6487700571b1fa7971083284c9a73814ee30810666be5b552",
+    "02-answers.md": "89109adf929c61065387edb38ce172158e3d08c854a1c041b811ffe2c3c4b148",
+    "03-change-spec.md": "8e3d39b30156e38fe3600eff79e5de9e2733e87984f5e74cfa7e545005958b85",
     "intake/request.md": "6078f6a78f60da458c09c7c72ac95777d8e512fe21d379c36b91b9ccce9cc8ed"
   },
-  "summarized": "2026-11-21T09:23:50Z"
+  "summarized": "2026-11-21T09:43:09Z"
 }

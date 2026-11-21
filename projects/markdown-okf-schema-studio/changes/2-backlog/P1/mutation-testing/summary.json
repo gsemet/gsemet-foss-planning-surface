@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Mutation testing campaign on src/core: redundant tests and holes",
-  "summary": "Specified: one-shot StrykerJS run on src/core (just mutation-core) with a node:test per-test adapter and a custom TypeScript 7 checker; lists redundant core tests for the owner's review (nothing removed), adds tests for holes, writes the campaign note for chantier.",
+  "summary": "Specified: one-shot StrykerJS 10.1.1 run on src/core (just mutation-core) with a node:test per-test adapter and a whole-program TypeScript 7 checker; test/core decides redundancy, other layers label holes; lists redundant tests for the owner (nothing removed), adds tests for holes, writes the note.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "0f440b445622f7dbee5501d3d178e80df408cf7be263f90e1722e5b1fd5c9ad6",
-    "02-answers.md": "ede13b575d3ef72412cdc085f561d759dfddcf7fc2a08c0a49615d3db62cc1f1",
-    "03-change-spec.md": "fc72b495084a0ceab824bee1119103f2b3548a2e2e2e76b7d28d010f236dac37",
+    "02-answers.md": "00c5ff62e450566560fc6fe8bc8cecac0308d6979294a6e86abec06d28cb2950",
+    "03-change-spec.md": "0a8ee76170c3172041622beaa544390049591848b58d727610bf5d5d105d6ec4",
     "intake/request.md": "53ca5c70e52a7b526d2abd9545d764c18c7b230e84491d021730a32d0430b21d"
   },
-  "summarized": "2026-11-21T09:26:17Z"
+  "summarized": "2026-11-21T09:43:56Z"
 }

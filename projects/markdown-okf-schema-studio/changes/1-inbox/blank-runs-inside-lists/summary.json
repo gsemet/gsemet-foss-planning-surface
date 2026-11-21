@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Show blank-line runs inside lists as blank-lines blocks",
-  "summary": "Specified: in edit mode a run of 2+ blank lines between list items or inside a list item shows as CR-444's blank-lines block inside its item; same keys; removal keeps one blank line and one list; a typed or pasted block is indented to the item (br-Q5). Quotes/admonitions split out.",
+  "summary": "Runs between list items or inside an item show as blank-lines blocks in their item. Typed text gets the item's CommonMark content indent; a marker line adds a sibling item only between items, else a nested list. Refresh tests containment after the list morph.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "ffb91714500a966afcd60480c51fcd89b20f62758d2c4ba35a22a50a9654ff0e",
-    "02-answers.md": "56eecb23431ab1e9d1569aaae1287412fe2bef355d393a48ebe5cea5ec14779a",
-    "03-change-spec.md": "e634911b9e8b1e25384b59261a45aa1f8ce753b49d072b11bdec7ad6808d9305",
+    "02-answers.md": "5bb8315e70381e5bb67cb52b2a5fec398e2332974d7e2e4a4ef28fb52884b1e9",
+    "03-change-spec.md": "896164da612adec1dc91ca458fff37d33b10f1031adbcbe2b4aeb1f1b9095479",
     "intake/request.md": "b0073316634615e286be4ae6e0919f0ad62fcfcf8ee9c29222a9093471ab6c18"
   },
-  "summarized": "2026-11-21T09:25:37Z"
+  "summarized": "2026-11-21T09:44:41Z"
 }

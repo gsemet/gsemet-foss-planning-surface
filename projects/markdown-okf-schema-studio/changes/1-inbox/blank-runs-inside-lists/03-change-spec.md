@@ -46,12 +46,24 @@ there. This specification restates none of them.
 - **Host item** of a run inside a list: the list item (`li`) the blank-lines block goes into (rule
   below). Its **item line** is its first source line (its `data-sphinx-source-line`): the line that
   holds its list marker.
-- **Item indent**: the leading spaces and tabs of the item line, copied as they are.
-- **Content indent**: the item indent, followed by one space for each character of the marker and
-  of the spaces after it. The marker is `-`, `+`, `*`, or 1 to 9 digits followed by `.` or `)`.
-  When five or more spaces follow the marker, or nothing follows it, only one space counts after it
-  (CommonMark's rule for an item's content column). A tab after the marker counts as one space.
-  Examples: `- a` gives 2 spaces, `  10. a` gives 6, `-     code` gives 2.
+- **Columns** are counted as CommonMark counts them (br-Q6): from the start of the line, and a tab
+  runs to the next tab stop of 4.
+- **List marker**: `-`, `+`, `*`, or 1 to 9 digits followed by `.` or `)`, followed by a space, a
+  tab or the end of the line.
+- **Innermost item of a line**: an item line may open several items (`- - a` opens two). The
+  innermost is the last marker of the line: after a marker and its spaces, another list marker opens
+  an item inside it. The host item of the page is the deepest `li`, which is that innermost item.
+- **Item column**: the column of the innermost marker of the item line.
+- **Content column**: CommonMark's content column of the innermost item. It is the column after its
+  marker plus the columns of the spaces and tabs after it, when they are 1 to 4 columns. When they
+  are 5 columns or more, or nothing follows the marker, it is the column after the marker plus 1.
+- **Item indent**: the text that brings a line to the item column: the item line's own leading
+  spaces and tabs, copied as they are, followed by spaces up to the item column when the innermost
+  marker is not the first one (`- - a`).
+- **Content indent**: the item indent followed by spaces up to the content column.
+- Examples: `- a` gives an item indent of `""` and a content indent of 2 spaces; `  10. a` gives 2
+  and 6 spaces; `-     code` (five spaces) gives a content indent of 2; `-\ta` gives 4 spaces (the
+  tab runs from column 1 to column 4); `1.\ta` gives 4; `- - a` gives 2 and 4 spaces.
 
 ## What CR-444 already gives, unchanged
 
@@ -105,13 +117,15 @@ the host's list:
    - in an empty body it goes before "Start writing";
    - a run that starts on the blank separator ending a list shows (BLOCK-256).
 2. **Held by a top-level block that is not a `ul` or `ol`**: nothing, as today. Such blocks are a
-   fence, an HTML block, a directive, an admonition, a quote, a table or a list-table.
+   fence, an HTML block, a directive, an admonition, a quote, a table, a list-table, a definition
+   list (`dl`) and a footnote definition. Definition lists and footnote definitions join the split
+   item `blank-runs-inside-quotes-admonitions`.
 3. **Held by a top-level `ul` or `ol`.** Collect every holder of the run among the mapped elements
    inside that list (`rt.blocks.mappedChildren`, recursively, or the mapped elements under it). Take
    only the same file and document, and never an included block (`isIncludedBlock`). If any holder
    is not a `ul`, `ol` or `li` element, the run shows nothing. Blank lines inside a fence, a
-   directive, an HTML block or a table in a list item therefore stay out of reach: they are that
-   block's content.
+   directive, an HTML block, a table, a definition list or a footnote definition in a list item
+   therefore stay out of reach: they are that block's content, or belong to the split item.
 4. **Folded:** a run whose top-level list carries `data-okf-folded` shows nothing, and unfolding
    shows it again, as CR-444's folded rule does for its neighbours.
 5. **Host item.** It is the deepest holder that is an `li`. When the deepest holder is a `ul` or
@@ -128,10 +142,17 @@ the host's list:
    top-level run has no `itemLine`.
 8. **Refresh.**
    - A kept run keeps its element (the `existing` map, same line and end line), as for top-level
-     runs.
-   - The block of the open editor (`editing`) stays where it is across a refresh.
-   - When a content swap dropped that block, `place` puts it back inside its host item by the rule
-     of point 6. For a run inside a list, today's `aboveOf` fallback becomes that placement.
+     runs, but only while that element is still in the document.
+   - The block of the open editor (`editing`) stays where it is across a refresh while it is in the
+     document.
+   - **No longer in the document.** On each autosave, the content morph replaces the whole
+     top-level list that holds the run. The old `li` is detached from the page, but the blank-lines
+     block inside it still has a `parentNode` (the old `li`). So `refresh()` tests document
+     containment (the content container `contains` the block), never `parentNode`. This applies to
+     the `existing` map and to the open editor's block (today's `!editing.parentNode` test).
+   - When the editor's block is no longer in the document, `place` puts it back inside its host item
+     of the new list by the rule of point 6, with the editor frame after it, as today. For a run
+     inside a list, today's `aboveOf` fallback becomes that placement.
 
 `place(block, above)` gains a branch for a run inside a list (for example
 `placeInItem(block, item, run)`), or the Driver splits the placement into a small helper of the same
@@ -217,19 +238,24 @@ by the page for a run inside a list only (section 2, point 7). It is carried on 
   - the line is a thematic break (`- - -`, `***`);
   - the line is in the frontmatter, or it is not before the run.
 
-**Which indent a typed block takes.**
-- The block takes the **item indent** (a sibling item) when its first non-blank typed line, after
-  its own leading spaces and tabs, starts with a list marker followed by a space, a tab or the end of
-  the line, and is not a thematic break. Example: "- c" typed in a run between `- a` and `- b`, or
-  at the end of item `a`, adds the item `- c`.
-- Otherwise it takes the **content indent**. Example: "More" becomes a paragraph of the item.
+**Which indent a typed block takes (br-Q5, br-Q7).**
+- **Run between items**: the first line after the run starts, after spaces and tabs only, with a
+  list marker at the item column (the next sibling item of the host item). The host decides it from
+  the text of the document, not from the page.
+- The block takes the **item indent** (a sibling item) only when the run is between items and its
+  first non-blank typed line, after its own leading spaces and tabs, starts with a list marker and is
+  not a thematic break. Example: "- c" typed in a run between `- a` and `- b` adds the item `- c`.
+- Otherwise it takes the **content indent**:
+  - "More" becomes a paragraph of the item;
+  - in a run inside an item (more content of the item follows), a typed "- c" becomes a nested list
+    in the item, at the content indent, and nothing after it changes item (br-Q7).
 - The chosen indent goes before every line of the block that is not blank, after the writer's own
   indentation is kept (`insertionText` already keeps the first line's indentation as typed). Blank
   lines of the block get nothing added.
 - The separators before and after the block stay plain empty lines, as CR-444 writes them.
 - The block's line endings are the document's (BLOCK-094, BLOCK-234).
 - Nothing else in the file changes (br-Q4).
-- In an ordered list, a typed "- c" at the item level starts another list there. That is how
+- In an ordered list, a typed "- c" in a run between items starts another list there. That is how
   Markdown reads it, and it is written as typed.
 
 **Where it goes in the plan.** `InsertionPlan` gains an optional `indent?: string`.
@@ -237,16 +263,22 @@ by the page for a run inside a list only (section 2, point 7). It is carried on 
 - `insertionText(plan, raw)` applies it: it picks the item or content indent from the first typed
   line, as above. The plan therefore carries both indents, for example
   `listIndent?: { item: string; content: string }`. The Driver names the shape.
+- The plan also records whether the run is between items, so the choice is made once, at the plan,
+  against the document of that moment.
 - `planBlankRunPaste(text, line, endLine, raw, itemLine?)` passes it the same way, so a paste
-  follows the same rule.
+  follows the same rule. Its caller `planBlocksPaste` (`src/core/edits/sourceEdits.ts`, which today
+  calls `planBlankRunPaste(text, blankRun.line, blankRun.endLine, clipboard)`) passes
+  `blankRun.itemLine` on. The inbox item `cut-copy-list-trailing-blank` touches the same file:
+  whichever lands second rebases on the other.
 - An autosave and each later save reuse the held edit's `insertion` plan
   (`src/session/features/blockEdits.ts`, the held `ActiveBlockEdit`). So every save of that editor
   writes with the same indent.
 
 **The host's checks.** The host never trusts `itemLine` without checking it.
 - `handleEditOpen` (the `replaceBlankRun` branch beside `checkBlankRun`, around line 188), the
-  re-created save of `handleEditSave` (around line 442) and the paste handler in `sourceEdits.ts`
-  each call `listItemIndent` when `itemLine` is present.
+  re-created save of `handleEditSave` (around line 442) and the paste path (the session handler in
+  `src/session/features/sourceEdits.ts`, through `planBlocksPaste` in
+  `src/core/edits/sourceEdits.ts`) each call `listItemIndent` when `itemLine` is present.
 - An `undefined` result is refused with that path's existing stale message: "The preview is stale.
   Refresh it before editing this block." on open, "The preview is stale. Reopen the block before
   saving." on a re-created save, and the out-of-date reason on a paste.
@@ -291,19 +323,20 @@ inside lists show nothing.
   - Shift+Up/Down from one starts the block selection on the list or on the block after it.
   - A click on one opens its insertion editor, not the list item editor.
 - **SwRS-MDOKFSTUDIO-BLOCK-268** (typing or pasting):
-  - The normative text adds that a block written in place of a run inside a list item takes the
-    item's content indent, or the item's own indent when its first line starts with a list marker.
-    The host checks the item line, and refuses it stale when it is not a list item line.
-  - Add a scenario "A block typed inside a list item stays in the item", covering "More" and
-    "- c".
+  - The normative text adds that a block written in place of a run inside a list takes the item's
+    content indent (CommonMark's content column), or the item's own indent when the run is between
+    items and the block's first line starts with a list marker. The host checks the item line, and
+    refuses it stale when it is not a list item line.
+  - Add a scenario "A block typed inside a list item stays in the item", covering "More", "- c"
+    between items (a sibling item) and "- c" inside an item (a nested list).
 - **SwRS-MDOKFSTUDIO-BLOCK-269** (removal): add a scenario. Removing a run between two items, or
   inside an item, keeps line `line` and leaves one list. The selection goes to the list that held
   the run.
 - No new StRS. `derives_from` stays StRS BLOCK-011 and BLOCK-025, whose text is unchanged.
 - New tests carry `@tests_req` for the SwRS they check. The changed code in `blankLines.ts`,
   `blockSelectionView.ts`, `insertion.ts` (or `listItemIndent.ts`), `blockRange.ts`,
-  `pageToHost.ts` and `blockEdits.ts` keeps or gains its `@implements_req` markers, with at most 3
-  IDs per marker block.
+  `src/core/edits/sourceEdits.ts` (`planBlocksPaste`), `pageToHost.ts` and `blockEdits.ts` keeps
+  or gains its `@implements_req` markers, with at most 3 IDs per marker block.
 
 ### 8. Shared vocabulary and docs
 
@@ -319,8 +352,8 @@ inside lists show nothing.
 
 ## Out of scope
 
-- Runs inside a quote, a GitHub alert or a MyST admonition, and in a list they hold:
-  `1-inbox/blank-runs-inside-quotes-admonitions`.
+- Runs inside a quote, a GitHub alert, a MyST admonition, a definition list or a footnote
+  definition, and in a list they hold: `1-inbox/blank-runs-inside-quotes-admonitions`.
 - Blank lines inside a fence, a directive, an HTML block or a table, including when it sits in a
   list item: they are the block's content (CR-444, BLOCK-256 unchanged).
 - Any change to `blankRuns`, to the hidden run list, to `checkBlankRun` or to the removal plan.
@@ -348,6 +381,8 @@ says so.
   - `- a` gives item `""` and content of 2 spaces;
   - `  * a` gives 2 and 4 spaces;
   - `10. a` gives 4 spaces of content; `3) a` gives 3;
+  - `-\ta` gives a content indent of 4 spaces, and `1.\ta` gives 4 (br-Q6);
+  - `- - a` gives an item indent of 2 spaces and a content indent of 4 (br-Q6);
   - a tab before the marker is kept as is in both indents;
   - `-      code` (six spaces) gives 2 spaces of content; a bare `-` gives 2;
   - `undefined` for a paragraph line, a thematic break (`- - -`, `***`), a frontmatter line, and a
@@ -356,12 +391,20 @@ says so.
   - "More" between `- a` and `- b` gives `- a`, blank, `  More`, blank, `- b`;
   - "More" between two paragraphs of an item indented 2 gives `  More`;
   - a two-line "More\nText" with a blank line between gives `  More`, an empty line, `  Text`;
-  - "- c" gives `- c` at the item level; "- c" in a nested item (`  - a1`) gives `  - c`;
-  - "  - sub" (a marker after two typed spaces) takes the item indent and keeps the writer's own
-    two spaces after it: `  - sub` under `- a`, a sub-item of `a`;
+  - "- c" in a run between `- a` and `- b` gives `- c` at the item level; between the nested items
+    `  - a1` and `  - a2` it gives `  - c`;
+  - "- c" in a run inside an item (`- a`, the run, `  more`) gives `  - c`, a nested list (br-Q7);
+  - "More" in a run after `-\ta`, and after `- - a`, gives four spaces before it (br-Q6);
+  - "  - sub" (a marker after two typed spaces) in a run between `- a` and `- b` takes the item
+    indent and keeps the writer's own two spaces after it: `  - sub`, a sub-item of `a`;
   - without `itemLine`, the output is identical to today;
   - no bare LF in CR LF, and no CR in LF.
-- `planBlankRunPaste` with `itemLine`: the same rule for pasted "More" and "- c".
+- `planBlankRunPaste` with `itemLine`, and `planBlocksPaste` with `blankRun.itemLine`
+  (`test/core/edits/`): the same rule for pasted "More" and "- c".
+- **Rendered result (fix 3).** Each insertion and paste case above with `itemLine` applies its plan
+  to the text and renders the result with `renderPreviewSource`. It asserts one top-level list, and
+  the new block in the expected `li` (the host item, or a nested list in it), or as a sibling `li`
+  for "- c" between items.
 - `planBlankRunRemoval` on the list texts: one blank line kept byte for byte, and re-rendering the
   result gives one top-level `ul`.
 
@@ -389,7 +432,10 @@ shape to the harness: a `ul` with mapped `li` children and mapped blocks inside 
 - a run inside a fence in an item, and a run inside a list held by an admonition, make none;
 - a run inside a folded list makes none, and unfolding makes it;
 - a content patch keeps the element of an unchanged run inside a list;
-- an editor opened from one inside a list stays in its element across a patch without that run;
+- an editor opened from one inside a list stays open across a patch that replaces the whole list,
+  as the content morph does (new `ul` and `li` elements, the old ones detached, the run gone): the
+  block is back inside the new host item, with the editor frame after it, and Cancel posts
+  `previewEditCancel` with the same `replaceBlankRun` (fix 4);
 - Down from the selected list stops on each blank-lines block inside it, in line order, then on the
   block after the list; Up walks back through them to the list;
 - Shift+Up and Shift+Down from one start the block selection on the list and on the block after it;
@@ -410,7 +456,11 @@ shape to the harness: a `ul` with mapped `li` children and mapped blocks inside 
   - a save of "More" with `itemLine` writes `  More` with one separator on each side;
   - a later autosave of "More text" replaces it with `  More text`;
   - Cancel after the autosave restores the run byte for byte.
-- A save of "- c" writes `- c` at the item level.
+- A save of "- c" in the run between the items writes `- c` at the item level; in a run inside an
+  item it writes `  - c` (br-Q7).
+- Each save and paste with `itemLine` above also renders the written text with
+  `renderPreviewSource` and asserts one top-level list with the new block in the expected `li`
+  (fix 3).
 - A re-created save (no held edit) with `itemLine` writes the same indent.
 - A stale `itemLine` (a paragraph line, or a line that changed into one) is refused, with the stale
   message of open, of the re-created save and of the paste. The document does not change.
@@ -425,7 +475,10 @@ item, and a fence with blank lines in an item. Add scenarios in
   content, and none in the fence;
 - one selected with the arrows: its Delete block button shows at its left edge, and its box does
   not overlap any list item handle;
-- reading mode: none.
+- reading mode: none;
+- typing (fix 4): click the blank-lines block of the run inside an item, type "More" and wait past
+  an autosave. The capture shows the editor still open in its item of the re-rendered list, and the
+  check asserts that the editor frame is inside an `li` of the page's current list.
 
 The captures are attached to the PR, as the pull-request guideline asks.
 
@@ -440,6 +493,8 @@ blank lines between two items and three inside an item.
    one blank line on each side, and the line endings are kept. One undo brings the run back.
 3. Send the same save for the run between the items, with the text `- c`. A new item `- c` sits at
    the item level, with one blank line on each side.
+4. Send the same save for the run inside the item, with the text `- c`. It is written at the
+   content indent, a nested list in the item (br-Q7).
 
 **Requirements:** `just requirements-lint` and `just requirements-update` pass. The updated SwRS
 carry their markers at the code and the tests above.
