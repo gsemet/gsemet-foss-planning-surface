@@ -1,9 +1,8 @@
 # Getting started on a new, empty planning surface
 
-Spec v1 (2026-11-21), from `intake/request.md` and `01-intent.md`. No grill was held (the user
-delegated tonight's questions); every open choice is a numbered question at the end, and the text
-below is written on each question's recommended option, marked "(provisional, Qn)". The Chief of
-Staff takes the questions to the user or to the advisor the user named.
+Spec v2 (2026-11-21), from `intake/request.md`, `01-intent.md` and `02-answers.md`. No grill was
+held: the user delegated the questions to a Fable advisor, whose answers getting-started-Q1 to Q6
+are carried below and listed in section 7, "Decisions".
 
 ## 1. Goal
 
@@ -14,7 +13,7 @@ stays, but it has three explicit ways out, and both the refusal and the page nam
 
 ## 2. What changes
 
-### 2.1 The guide (provisional, Q1)
+### 2.1 The guide (Q1)
 
 A new page, `docs/getting-started-surface.md`, titled "Getting started: a new planning surface".
 It is a numbered walk, each step with the exact command(s), what to expect, and the refusal a
@@ -29,7 +28,9 @@ skipped step produces (quoted from the CLI as it ships at this CR's head):
 3. **The surface's branch:** the three explicit sources of section 2.2, in their order, with
    `git remote set-head origin -a` first (what a `git clone` does on its own and a
    `git remote add` does not), then the stated branch in the root `chantier.yaml`, then the
-   checkout's upstream (set by step 2's `push -u`). The page says that with none of them the
+   checked-out branch's upstream of the same name on `origin` (set by step 2's `push -u`; a local
+   branch tracking a branch of another name, or another remote, is no source). The page says
+   that with none of them the
    writer blocks as `not-a-branch` and quotes its text.
 4. **The project's folder:** `projects/<name>/` with `project.md` (prose, the one fixed line
    `- Archive in the PR: yes|no`), `checkout.yml` (`repo:`, `worktrees:`, defaults `.repo/` and
@@ -44,7 +45,7 @@ skipped step produces (quoted from the CLI as it ships at this CR's head):
    session started in the code repository is sent to the surface.
 7. **How `$CHANTIER` runs** for the project: plugin mode, `uvx --from <the plugin's folder>
    chantier --project projects/<name>`, from the surface's checkout (the page takes its wording
-   from the `cli:` line and from CR-436's plugin-mode rule once merged, section 6).
+   from the `cli:` line and from CR-436's plugin-mode rule, merged by batch-30).
 8. **Start the surface server:** `$CHANTIER board --seat <session id>` (the Chief of Staff starts
    it on the user's yes; by hand, with no `--seat`, it serves until stopped), it listens on
    127.0.0.1 unless `board.host: network` or `--host` (CR-426), and the link carries the key.
@@ -71,7 +72,7 @@ Links to the page:
 No card changes: `init.md` keeps its tour; the Chief of Staff, asked to set up a surface, may send
 the user to the page (it is a doc, no contract).
 
-### 2.2 The surface's branch: three explicit sources (provisional, Q2 to Q6)
+### 2.2 The surface's branch: three explicit sources (Q2 to Q6)
 
 Today the writer (`writer/cycle.py`: `_preconditions`, step 2, and `_conflict_over`, step 1) and
 preflight's P11 (`commands/preflight.py`, `_check_surface`, through `core/git.py`'s
@@ -79,21 +80,25 @@ preflight's P11 (`commands/preflight.py`, `_check_surface`, through `core/git.py
 
 After this CR, one function, `surface_branch(root) -> (branch, source)` (in `writer/git_ops.py`
 or a small module beside it; the name is the Driver's), resolves it from these sources, in this
-order, the first one set wins (provisional, Q4):
+order, the first one set wins (Q4):
 
 1. **Stated:** the surface root's `chantier.yaml` (or `chantier.yml`), key `surface:` with one key
-   `branch: <name>` (provisional, Q3). Read from the surface root's file only.
+   `branch: <name>` (Q3). Read from the surface root's file only.
 2. **`origin/HEAD`:** as today (`symbolic-ref refs/remotes/origin/HEAD`).
-3. **Upstream:** the upstream of the branch the checkout is on (`branch.<b>.remote` and
-   `branch.<b>.merge`), when it has one: the branch is `<b>` (provisional, Q5).
+3. **Upstream:** the branch `<b>` the checkout is on, only when its upstream is the branch of the
+   same name on `origin`: `branch.<b>.remote` is `origin` and `branch.<b>.merge` is
+   `refs/heads/<b>` (Q5). Any other upstream (a local `plan` tracking `origin/main`, or a branch
+   tracking another remote) is no source: two candidate names would be a guess, which CR-404
+   forbids.
 
-With none set (no statement, `origin/HEAD` unset, HEAD detached or on a branch with no upstream),
+With none set (no statement, `origin/HEAD` unset, HEAD detached or on a branch with no upstream
+or an upstream that is not its same-name branch on `origin`),
 the writer blocks as `not-a-branch`, its text naming the three ways out, in the same order:
 
 ```text
 the surface's branch cannot be read: run `git remote set-head origin -a` in the surface's
-checkout, or state it in the surface's chantier.yaml (surface: branch: <name>), or set the
-checked-out branch's upstream (git branch -u origin/<name>)
+checkout, or state it in the surface's chantier.yaml (surface: branch: <name>), or push the
+checked-out branch with its upstream of the same name (git push -u origin <name>)
 ```
 
 (one line in the code; the wording is the Driver's within these three named fixes). When a
@@ -101,7 +106,7 @@ source gives a branch and HEAD is elsewhere, the existing text stays ("HEAD is o
 default branch Y") and names the source: "(from chantier.yaml)", "(from origin/HEAD)",
 "(from the upstream)".
 
-Who uses the resolution (provisional, Q6): the writer's step 1 (`_conflict_over`) and step 2
+Who uses the resolution (Q6): the writer's step 1 (`_conflict_over`) and step 2
 (`_preconditions` / `blocking.blocking`, whose `default` argument becomes the resolved branch and
 its source), and preflight's P11 (`_check_surface`, run on `repo.surface_root`). `core/git.py`'s
 `default_branch` stays for its other callers, which read the code repository
@@ -113,7 +118,7 @@ The configuration check (`playbook/config.py`, `_KEYED` and the top-level keys' 
   with no whitespace; `default` resets it, as for every key).
 - In a project folder's `chantier.yaml` or the code repository's, `surface:` is refused by the
   check (P12, `validate`, the board's save) with "surface: the surface's branch is stated in the
-  surface root's chantier.yaml only" (provisional, Q3): one writer per surface, one branch.
+  surface root's chantier.yaml only" (Q3): one writer per surface, one branch.
 - The board's Configuration page does not show or edit it (the server's `config.put` keys are the
   two limits and the roles: unchanged).
 
@@ -126,7 +131,7 @@ cycle, with no restart), like its other reads of step 2.
 
 - A guessed branch (`main`, `master`, the branch HEAD is on with no upstream): never.
 - The code repository's default branch (`batch.json`'s `default_branch`, `open --default-branch`).
-- A surface `AGENTS.md` line as a source (provisional, Q3: the CLI does not read `AGENTS.md`
+- A surface `AGENTS.md` line as a source (Q3: the CLI does not read `AGENTS.md`
   lines; the `planning:` line is the Chief of Staff's).
 - Creating the forge repository, running `git init`, `set-head` or any push for the user: the CLI
   gains no git write; the page shows the commands.
@@ -144,7 +149,9 @@ Tests (`skills/chantier/scripts/cli/tests/`, in-process, few and parametrized, w
   source "chantier.yaml"; (b) `origin/HEAD` set: resolved from it; (c) only the upstream of the
   checked-out branch: resolved from it; (d) stated and `origin/HEAD` disagree: the stated one wins
   (Q4); (e) none: `not-a-branch`, the text holds `git remote set-head origin -a`,
-  `chantier.yaml` and `git branch -u`. The existing
+  `chantier.yaml` and `git push -u origin`; (f) `origin/HEAD` unset, no statement, the
+  checked-out branch `plan` tracking `origin/main` (and, as a second parameter, `plan` tracking
+  `plan` on a remote other than `origin`): no source, `not-a-branch` as in (e). The existing
   `test_an_unknown_default_branch_names_the_command_that_reads_it` is folded into (e).
 - A config-check test (beside the `board` key's): `surface: {branch: plan}` accepted in the
   surface root's file; refused in a project folder's file with the text above; a value with
@@ -162,7 +169,8 @@ Walk-through (the Verifier, before the PR): follow the page from step 1 on a scr
 outside the repository, with a local bare repository as the remote (`git init --bare`), so
 `origin/HEAD` is unset as on a hand-made remote: the board's `writer:` line shows
 `blocked: not-a-branch` with the three fixes before step 3, and `synced` after each of the three
-fixes taken alone (three runs); `open` refuses with no server and passes its surface checks after
+fixes taken alone (three runs, the third with `git push -u origin <name>`); `open` refuses with
+no server and passes its surface checks after
 step 8. Recorded in `evidence/` with the commands and outputs.
 
 `just check`, `just eval-dry-run` (the change is under the CLI's `src/`), and the pipeline's
@@ -175,7 +183,8 @@ branch), not on the host:
 | Cell | Expected |
 | --- | --- |
 | no `surface:` key, `origin/HEAD` set | as today: branch from `origin/HEAD` |
-| no `surface:` key, `origin/HEAD` unset, upstream set | branch from the upstream |
+| no `surface:` key, `origin/HEAD` unset, upstream `origin/<b>` of the checked-out `<b>` | branch `<b>` from the upstream |
+| no `surface:` key, `origin/HEAD` unset, upstream of another name or remote | no source: `not-a-branch`, three fixes named |
 | no `surface:` key, nothing set | `not-a-branch`, three fixes named |
 | `surface: branch:` stated in the root file | branch from it, whatever the others say |
 | `surface:` in a project folder's file | refused by the check (P12, `validate`) |
@@ -189,56 +198,25 @@ branch), not on the host:
   `playbook/layers.py` (reading the root layer's `surface` key).
 - Tests as section 4.
 
-## 6. Overlaps with batch-30 (running)
+## 6. Destination
 
-- **CR-447 `docs-gardening`** (pending, last of the batch, `depends.json` after every other CR):
-  it inventories `docs/`, the README and `docs/planning-modes.md`. If this CR joins batch-30, it
-  should land before CR-447 so the gardening reads the new page: add `surface-getting-started` to
-  CR-447's `after` list (the Chief of Staff's `order add`), and this CR's `depends.json` names none
-  of it. If it does not join, CR-447 does not need it.
-- **CR-436 `sync-blocked-by-others`** (active): sets the rule that a project other than chantier
-  runs in plugin mode (`uvx --from`); step 7 takes its wording from it, so this CR comes after
-  CR-436. Both touch `commands/preflight.py`, in different functions (P5 versus P11): textual
-  only.
-- **CR-426 `board-exposure`** (done): the board's 127.0.0.1 default, `board.host: network`,
-  `--host` and the key; step 8 describes the merged behaviour.
-- **CR-443 `gate-hold-narrowing`** and **CR-449 `board-griller`** (pending): both edit
-  `playbook/config.py` (CR-443 the `long_gate.commands` key and the top-level keys' message;
-  CR-449 `start_refusal`). The new `surface` key edits the same `_KEYED` table and message:
-  a textual conflict, resolved at rebase; no behaviour overlap.
-- **CR-439 `board-help-page`** (active): Help cards link README and docs pages; it may later link
-  the new page. No dependency.
-- **CR-446 `live-several-boards-and-keys`** (pending): edits `docs/boards.md` and
-  `docs/server-api.md` only: no overlap.
-- **CR-437 `sync-lock-wait`**, **CR-450 `push-refusal-ladder`**: preflight's P5 and the allow
-  rules' texts, not P11 or the writer's branch: no overlap found.
-- The request's priority is P3 ("later"); joining batch-30 is the Chief of Staff's call.
+`2-backlog/P3`, for a batch after batch-30 (no batch now): it quotes CR-436's plugin-mode rule and
+changes the writer that publishes batch-30's surface.
 
-## 7. Open questions
+## 7. Decisions
 
-- **getting-started-Q1. Where the guide lives.** (A, recommended) A new page
-  `docs/getting-started-surface.md`, linked from `docs/planning-modes.md` (whose "Setting one up"
-  becomes a link) and the README's "Planning modes". (B) Grow "Setting one up" in
-  `docs/planning-modes.md` in place, no new page. (C) A section of `docs/tutorial-claude-code.md`
-  (host-specific; overlaps CR-443's edits there).
-- **getting-started-Q2. Part 2 in this CR or apart.** (A, recommended) In this CR: the guide
-  shows the three sources, so they ship together and the page is proved against them. (B) This
-  CR is the guide only (docs-only, no long gate), showing `git remote set-head origin -a`; part 2
-  becomes an inbox CR of its own.
-- **getting-started-Q3. Where the branch is stated.** (A, recommended) The surface root's
-  `chantier.yaml`, key `surface: branch: <name>`, refused in any other `chantier.yaml`: the CLI
-  already reads and checks that file, the CLI reads no `AGENTS.md` line. (B) A line in the
-  surface's `AGENTS.md` (`- branch: <name>`), read by the CLI: a first `AGENTS.md` line the CLI
-  reads. (C) Both, the file winning.
-- **getting-started-Q4. When sources disagree.** (A, recommended) The first set wins, in the order
-  stated, `origin/HEAD`, upstream: a statement is the user's own word, `origin/HEAD` the forge's
-  default. (B) Stated and `origin/HEAD` both set and different: the writer blocks
-  (`not-a-branch`, "the sources disagree") until one is changed.
-- **getting-started-Q5. What "the checkout's tracked branch" means.** (A, recommended) The branch
-  the checkout is on, when it has an upstream, used only when the two sources above are unset;
-  this accepts any branch with an upstream on a surface with neither (the page says so). (B) Only
-  when that upstream's name equals the local branch's name (`main` tracking `origin/main`), else
-  no source. (C) Drop this source: two sources only (against the request's wording).
-- **getting-started-Q6. Does preflight's P11 follow the same resolution?** (A, recommended) Yes:
-  P11 and the writer read one branch, P11 naming its source. (B) No: P11 keeps `origin/HEAD` only
-  (and stays silent when it is unset, as today).
+From `02-answers.md` (2026-11-21, Fable advisor; the user delegated the questions):
+
+- **getting-started-Q1 (A):** the guide is a new page, `docs/getting-started-surface.md`;
+  `docs/planning-modes.md`'s "Setting one up" becomes a link; not tied to one host.
+- **getting-started-Q2 (A):** part 2 (the branch's three sources) ships with the guide, in this
+  CR.
+- **getting-started-Q3 (A):** the branch is stated in the surface root's `chantier.yaml`,
+  `surface: branch: <name>`, refused in any other `chantier.yaml`; no `AGENTS.md` line is read.
+- **getting-started-Q4 (A):** when sources disagree, the first set wins, in the order stated,
+  `origin/HEAD`, upstream; messages name the source used.
+- **getting-started-Q5 (B):** the upstream counts only when it is the checked-out branch's
+  same-name branch on `origin` (`branch.<b>.remote` = `origin`, `branch.<b>.merge` =
+  `refs/heads/<b>`).
+- **getting-started-Q6 (A):** preflight's P11 uses the same resolution and names its source.
+- **Destination:** `2-backlog/P3`, after batch-30.

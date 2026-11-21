@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "AGENTS.md names the CLI's forge calls",
+  "summary": "Spec v2, answers applied (Q1-Q5 all A, batch-30 late): AGENTS.md, CONTRIBUTING, README, concepts and driver cards and three docstrings name the forge calls of ship, take, round, handoff and forge-stack (its writes too); text only; no open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "f08004ba18d808a8061aea6d6e839ea451dbc8f4bdee0c3ea404a7fee55ffb9d",
+    "02-answers.md": "c9641aef483d32b1cec8b13b25903cbd4f88d5efca3788bea84e9ad2ac6cb651",
+    "03-change-spec.md": "3043fe307f75de18c42ceec6cf74c056f81cf891a1c7b3f47ebd5805c650a371",
+    "intake/request.md": "53d4d0e73816a7b4e7726ef227634142af8a9592fd99fb2a624a6a32a46413b5"
+  },
+  "summarized": "2026-11-21T22:32:42Z"
+}

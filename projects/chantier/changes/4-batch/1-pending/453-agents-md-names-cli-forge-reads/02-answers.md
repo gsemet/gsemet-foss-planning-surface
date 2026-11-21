@@ -8,3 +8,5 @@ forge-reads-Q3 (2026-11-21, Fable advisor): **Basis cited by the exception: A, t
 forge-reads-Q4 (2026-11-21, Fable advisor): **Reach of the correction: A, AGENTS.md, CONTRIBUTING.md, README.md, `concepts.md` and the three docstrings.** The card is what the agents read; the cost is one `just eval-dry-run` and the pipeline's scenario, with no behaviour risk.
 forge-reads-Q5 (2026-11-21, Fable advisor): **Test keeping rule and code in step: A, none.** The Driver's one-time inventory check is enough; a wording or module-list test is brittle with no measured recurrence.
 Destination (2026-11-21, Fable advisor): batch-30, taken late, after CR-443, CR-449 and CR-429; no `depends.json`, the overlaps are shared text only.
+
+Spec final (2026-11-21, the Chief of Staff): v2, forge-reads-Q1..Q5 applied with the critic's fixes; text only, no new behaviour, no further critic; destination batch-30, no depends.json and no wait (the overlaps are shared text; the word check catches a miss).

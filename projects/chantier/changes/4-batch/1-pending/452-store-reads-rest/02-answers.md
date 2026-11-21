@@ -8,3 +8,5 @@ store-reads-Q3 (2026-11-21, Fable advisor): **The configuration stays read by `p
 store-reads-Q4 (2026-11-21, Fable advisor): **The gate's held lock files: the holder's text stays a direct read, exempt by name in both tests (a).** It is an OS lock, not the plan's content; the listing and the `stat` go through the store.
 store-reads-Q5 (2026-11-21, Fable advisor): **The run-time proof: a pytest module in `just test`, in-process, on a prepared surface (a).** AGENTS.md puts structure checks on a prepared state in `tests/`; the proof observes three calls, not a batch.
 Destination (2026-11-21, Fable advisor): joins batch-30 tonight, at most 3 rounds, no `depends.json` (shared files only); CR-447 waits for it.
+
+Spec final (2026-11-21, the Chief of Staff): v2, store-reads-Q1..Q5 applied (Fable advisor), no further critic (the v2 adds no behaviour over the critic-read v1); destination batch-30, no depends.json; CR-447 waits for it.

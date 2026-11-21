@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The last readers onto the plan's store, proved at run time",
+  "summary": "Specified v2, answers applied: lifecycle, core/batch, leases, the gate's files, rails, history, summaries and commands/crs read through the store (107 calls); a pytest audit proves board, status and hub read only through it; 20 commands/ modules left, unfiled. Batch-30.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "c1fc539545e849f81b38a43a709a2dbf17d782b093b3e313750f999a729932b3",
+    "02-answers.md": "6c24d9161101feb3491ef355f0e5e78b8b1807b0a50b13cddf44a0c1c3a66fbf",
+    "03-change-spec.md": "598e24268f5b84f195f1fdf6c4a0581ee9be4bd2c47f100a108a882ec5a4dae9",
+    "intake/request.md": "6d7467924fb68ce6663e642c6db49355fc3d88a5721068db052a0f6f50e7aa07"
+  },
+  "summarized": "2026-11-21T22:32:23Z"
+}

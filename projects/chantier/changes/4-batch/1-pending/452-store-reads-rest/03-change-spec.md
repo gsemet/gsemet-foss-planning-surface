@@ -1,13 +1,14 @@
 # Change Specification: the last readers onto the store, run-time proof
 
+v2 (2026-11-21): `02-answers.md` applied.
+
 Origin: verbal (2026-11-20, split from `one-read-interface-over-the-planning-fol`, CR-419, merged
 2026-11-21 in PR 394). No tracker issue. Not grilled: the user delegated the night's
-specification questions on 2026-11-21 ("plus de question"). Every open choice is a numbered
-question in §11 (`store-reads-Q1`...), recommendation first; the text below is written on each
-recommendation and is **provisional** where it cites one.
+specification questions to a Fable advisor on 2026-11-21 ("plus de question"), whose answers
+(`02-answers.md`, store-reads-Q1 to Q5 and the destination) this v2 carries (§4).
 
-This file carries the intent (`01-intent.md`) and the answers of CR-419 that bind this item; a
-Driver needs nothing else. There is no `02-answers.md`.
+This file carries the intent (`01-intent.md`), this CR's answers and the answers of CR-419 that
+bind this item; a Driver needs nothing else.
 
 ## 1. Goal, in the user's terms
 
@@ -58,7 +59,7 @@ The request's `lifecycle/filing.py` and `lifecycle/session.py` make no direct re
 All paths below are under `skills/chantier/scripts/cli/src/chantier/` unless they start with
 `tests/` (`skills/chantier/scripts/cli/tests/`) or name a root file.
 
-## 3. What this CR takes (provisional, store-reads-Q1)
+## 3. What this CR takes (store-reads-Q1 (a))
 
 What fits one batch CR of 3 rounds (CR-419 moved about 100 calls in 3 rounds): everything the
 board, `status` and the hub reach, and the run-time proof that needs it. So:
@@ -68,12 +69,26 @@ board, `status` and the hub reach, and the run-time proof that needs it. So:
   `gate_queue.py`, `gate_slots.py`, `rails.py`, `summaries/sources.py`, `gaps.py`, `origin.py`,
   `title.py`, `commands/crs.py`, and `history.py` (1 call, named by the request): 107 calls;
 - the run-time proof (§6);
-- the configuration's answer (§5.5, store-reads-Q3), which moves nothing on its recommendation.
+- the configuration's answer (§5.5, store-reads-Q3 (a)), which moves nothing.
 
-Left, not built and not filed by this CR: the other 20 modules of `commands/` (60 calls).
-Whether they become an inbox item is store-reads-Q2.
+Left: the other 20 modules of `commands/` (60 calls). Nothing is filed for them, by this CR or
+after it (store-reads-Q2 (b)): the surface server reaches none of them and moving them has no
+measured need. The PR's Known gaps names the 20 modules and their 60 calls (the list of §2).
 
-## 4. Decisions carried from CR-419's answers
+## 4. Decisions carried
+
+### 4.1 This CR's answers (`02-answers.md`, 2026-11-21, Fable advisor)
+
+| Answer | Here |
+| --- | --- |
+| store-reads-Q1 (a). Everything the board, `status` and the hub reach, plus the run-time proof: 107 calls, CR-419's size, 3 rounds | §3, §5.2, §6 |
+| store-reads-Q2 (b). The 20 `commands/` modules left: nothing is filed; the PR's Known gaps names the 20 modules and their 60 calls | §3, §10 |
+| store-reads-Q3 (a). The configuration stays read by `playbook/`, directly; the store keeps only the project file's write | §5.5 |
+| store-reads-Q4 (a). The gate's held lock files: the holder's text stays a direct read, exempt by name in both tests; the listing and the `stat` go through the store | §5.3, §6.2 |
+| store-reads-Q5 (a). The run-time proof: a pytest module in `just test`, in-process, on a prepared surface | §6 |
+| Destination. Batch-30 tonight, at most 3 rounds, no `depends.json` (shared files only); CR-447 waits for it | §9 |
+
+### 4.2 CR-419's answers
 
 CR-419's answers (2026-11-20, settled by the Chief of Staff, the user asking no questions) that
 bind the readers it split out:
@@ -82,7 +97,7 @@ bind the readers it split out:
 | --- | --- |
 | 2. File-level reads on the same `PlanStore` and the same two backends; no typed query; the parsers stay where they are and take their bytes from the store | §5.1 |
 | 3. No cache, no index: each call reads the files | §5.1, §10 |
-| 6. The configuration was not read through the store; carried here as a point to judge | §5.5, Q3 |
+| 6. The configuration was not read through the store; carried here as a point to judge (judged: store-reads-Q3) | §5.5 |
 | 7. Reads of other places in a moved module stay direct, each named in the structure test with its reason | §5.4 |
 | 8. Local files are read through the store like the published ones; their writes and appends stay | §5.2 |
 | 9. A read refuses a path outside the planning folder as a write does | §5.1 |
@@ -101,7 +116,7 @@ guard, the refusal's text and exit code, and "no cache" stay as they are. The st
 rules stay (it imports only `core/files.py`, `core/errors.py`, `writer/lines.py` and the standard
 library; files at most 400 lines, functions at most 50; no import cycle). A Driver who finds a
 read the protocol cannot give stops and says so in the CR's notes, rather than reading around the
-store; the gate's lock files are the one known case (§5.3, store-reads-Q4).
+store; the gate's lock files are the one known case, settled (§5.3, store-reads-Q4 (a)).
 
 ### 5.2 The modules moved
 
@@ -135,11 +150,11 @@ caller built it). A caller outside the list changes only how it calls a moved fu
   `errors="replace"` kept.
 - `commands/crs.py`: the inbox CR's request look and its heading read through the store.
 
-### 5.3 The gate's lock files (provisional, store-reads-Q4)
+### 5.3 The gate's lock files (store-reads-Q4 (a))
 
 `gate_slots.lock_text` opens a held `.long-gate*.lock` and reads from byte 1 ("byte 0 is the lock:
-Windows refuses to read it"). The store has no read at an offset. On the recommendation, this one
-read stays direct: the lock files are the OS's locks, not the plan's content, and no index would
+Windows refuses to read it"). The store has no read at an offset, and gains none: this one read
+stays direct: the lock files are the OS's locks, not the plan's content, and no index would
 hold them. It is an entry of the structure test's exemption table (`("gate_slots.py",
 "lock_text")`, "a held OS lock file, read past its locked byte") and of the run-time proof's
 (§6.2). The listing and the `stat` of the same files go through the store.
@@ -156,7 +171,7 @@ Not touched: `playbook/`, `plugin_files.py`, `costs/`, `autosync/records.py`, `w
 `core/git.py`, `core/files.py`'s helpers (other modules outside the list still call them), and
 the 20 modules of `commands/` named in §3.
 
-### 5.5 The configuration (provisional, store-reads-Q3)
+### 5.5 The configuration (store-reads-Q3 (a))
 
 The configuration's files stay read by `playbook/layers.py` and `playbook/edit.py`, directly: the
 project's root `chantier.yaml`, the surface's root one, the project's folder's one
@@ -172,7 +187,7 @@ No message is added or changed; no command's output moves. No card changes. No C
 changed. No host and default matrix: nothing here depends on the host or on a configured value
 (the run-time proof runs on every system the suite runs on).
 
-## 6. The run-time proof (provisional, store-reads-Q5)
+## 6. The run-time proof (store-reads-Q5 (a))
 
 ### 6.1 Where
 
@@ -234,13 +249,16 @@ Rules:
   `test_store_reads.py`, `test_store_command_table.py`, `test_surface_writes.py`. A test that calls
   a moved function with a path is updated to the new call only; `tests/store_spy.py`'s `Spy`
   passes the reads through as it does today.
-- Speed (CR-419's answer 13), stated in the PR with both figures, same machine, before and after:
-  one `board/state.project_state` and one `chantier status` on a prepared planning folder of at
-  least 200 CR folders in the backlog (built in a temporary folder, outside the suite). More than
-  10 % slower is fixed in this CR (a `store.reading()` pass around a scan, a `rel` built without
-  resolving), not accepted.
-- `just test` within its budget (at most 30 s above 18.5 s); the PR states the time the new module
-  adds.
+- Speed (CR-419's answer 13): one `board/state.project_state` and one `chantier status` on a
+  prepared planning folder of at least 200 CR folders in the backlog (built in a temporary folder,
+  outside the suite), timed before (the base) and after (the head), back to back in the same
+  session on the same machine, alternating before and after, at least five runs each; the PR
+  states every run's time, the two medians and the CPU load during the runs. The 10 % rule applies
+  to the medians: an after median more than 10 % above the before median is fixed in this CR (a
+  `store.reading()` pass around a scan, a `rel` built without resolving), not accepted.
+- `just test`: the PR states the time `tests/test_store_runtime.py` adds, its tests' summed
+  duration as pytest's `--durations` reports it. The module prepares one surface, shared by its
+  three cases (a module-scoped fixture), not one per case.
 - The project's gates (AGENTS.md): `just check` on Linux, macOS and Windows; `just eval-dry-run`
   (a change under the CLI's `src/`); `just scenario`, green on the pipeline's
   `just scenario (ubuntu-latest)` job before the PR, and locally on Windows (`chantier gate`) when
@@ -262,7 +280,13 @@ Rules:
 
 Nothing to set up or migrate: the files on disk are the same and are read the same.
 
-Destination batch-30 (running, stack mode). Its CRs that edit this CR's files, checked in their
+Destination batch-30 (running, stack mode), tonight, at most 3 rounds, with no `depends.json`:
+the CRs below share files with it, which is no dependency (destination answer).
+
+CR-447 `docs-gardening` (pending) waits for this CR: its `depends.json` `after` list, which names
+every other batch-30 CR so that it runs last on top of the stack, gains `store-reads-rest` when
+this CR joins (the Chief of Staff's edit of CR-447's folder, not this CR's). CR-447 reads this
+CR's `CONTRIBUTING.md` sentence (§8) as delivered. Its CRs that edit this CR's files, checked in their
 specifications on 2026-11-21:
 
 | CR | State | Shared files |
@@ -270,7 +294,7 @@ specifications on 2026-11-21:
 | 433 `board-batch-chip-stale` | active | `lifecycle/stages.py` |
 | 434 `board-batch-kanban` | active | `lifecycle/stages.py` |
 | 428 `drop-to-next-batch` | active | `lifecycle/moveout.py`, `history.py` |
-| 429 `board-fingerprint-cache` | active | new `board/watch_files.py`, a board module under the structure test that watches the planning folder through `watchfiles`: it needs a store read or an `EXEMPT` entry by its own CR; this CR's run-time proof does not run it |
+| 429 `board-fingerprint-cache` | active (blocked) | new `board/watch_files.py`, a board module under the structure test that watches the planning folder through `watchfiles`; this CR's run-time proof does not run it (rule below) |
 | 443 `gate-hold-narrowing` | pending | `core/leases.py` |
 | 442 `stack-git-chain` | pending | `rails.py` |
 | 445 `board-history` | pending | `history.py` (and new board modules, `board/history_page.py`, `board/reads.py`, under the existing test) |
@@ -282,6 +306,11 @@ specifications on 2026-11-21:
 existing structure test already holds them. None of the CRs above edits `tests/test_store_reads.py`
 or `store/`.
 
+Rule for the Driver on CR-429: if CR-429's `board/watch_files.py` is in this CR's base (or comes
+in at a rebase), that module's store read or its `EXEMPT` entry in `tests/test_store_reads.py` is
+CR-429's, and this CR adds none for it. If the structure test fails on it in this CR's tree, the
+Driver says so in the CR's notes and leaves the module to CR-429.
+
 No dependency is declared for a shared file: in the stack, this CR rebases on those below it, or
 they on it, and its Driver re-runs the finder of §2 over the moved modules after each rebase (a new
 direct read from a CR below fails the structure test and is moved, not exempted).
@@ -290,8 +319,11 @@ direct read from a CR below fails the structure test and is moved, not exempted)
 
 - An index or a cache behind the store (SQLite, Dolt), and any typed query on the store.
 - The 20 modules of `commands/` named in §2 (60 calls), not reached by the board, `status` or the
-  hub (store-reads-Q2).
-- The configuration's reads (store-reads-Q3, on its recommendation).
+  hub: not filed as an item (store-reads-Q2 (b)); the PR's Known gaps names them and their calls.
+- The configuration's reads (store-reads-Q3 (a)).
+- An offset read on the store (store-reads-Q4 (a)).
+- A run-time proof in `just scenario` (store-reads-Q5 (a)).
+- `board/watch_files.py`'s reads (CR-429's, §9).
 - Observing the board's push loop, its file watch, the watcher or any command other than
   `status` at run time.
 - The writes: CR-402's; none moves here.
@@ -300,29 +332,4 @@ direct read from a CR below fails the structure test and is moved, not exempted)
 
 ## 11. Open questions for the user
 
-Each is written into the text above on its recommendation (option a).
-
-- **store-reads-Q1. Which part this CR takes.**
-  (a) Recommended: everything the board, `status` and the hub reach (`lifecycle/`, `core/batch.py`,
-  `core/leases.py`, the gate's two files, `rails.py`, `history.py`, four `summaries/` modules,
-  `commands/crs.py`: 107 calls) and the run-time proof, which needs exactly that; about CR-419's
-  size, so 3 rounds. (b) `commands/` first (60 calls), the proof later: the proof stays out of
-  reach. (c) All of it (167 calls and the proof): breaks the 3-round rule.
-- **store-reads-Q2. What becomes of the 20 `commands/` modules left.**
-  (a) Recommended: the Chief of Staff files one inbox item for them when this specification is
-  accepted (this CR files nothing). (b) Nothing: the structure test's list says which modules are
-  store-only, and the rest stay direct until an index needs them.
-- **store-reads-Q3. The configuration.**
-  (a) Recommended: it stays read by `playbook/`, directly; the store keeps only the project's
-  file's write. Its four files are outside the planning folder and small; an index gains nothing.
-  (b) The store also reads the project's folder's file (a `read_config()` beside `write_config`),
-  the three others staying with `playbook/`. (c) The store reads all four, its root widened: goes
-  against CR-402's answer 2.
-- **store-reads-Q4. The gate's held lock files.**
-  (a) Recommended: the holder's text, read from byte 1 of a held lock, stays a direct read,
-  exempt by name in both tests; the listing and the time go through the store. (b) The store gains
-  an offset read (`read_bytes(rel, offset=1)`), with its conformance case on both backends.
-- **store-reads-Q5. Where the run-time proof runs.**
-  (a) Recommended: a pytest module in `just test`, in-process, on a prepared surface, within the
-  suite's time budget. (b) A step of `just scenario`, on a real batch's surface: slower, and only
-  in the long gate. (c) Both.
+None: `02-answers.md` settles store-reads-Q1 to Q5 and the destination.
