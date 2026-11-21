@@ -30,7 +30,27 @@ sequenceDiagram
     Host-->>Page: one text edit, one blank line on each side
 ```
 
-Screenshots are attached to this description by the verification step.
+Before at `e0c7836`, after at `1aa7966` (carried from `8ecec6b`: the rebase left the patch unchanged).
+
+Before: nothing shows for the runs (base `e0c7836`).
+
+![Before: no blank-lines blocks in the list](https://github.com/user-attachments/assets/700a0a04-c504-4607-b462-2148570ae9fd)
+
+After: one block at the end of item 1, one between the paragraphs of item 2, none in the fence.
+
+![After: blank-lines blocks between items and inside an item](https://github.com/user-attachments/assets/d335e5c1-01e7-4635-a67b-281f2e78e3a4)
+
+A block selected by the arrows, with its Delete block button (dark theme).
+
+![After: selected block with its delete button](https://github.com/user-attachments/assets/1d25a923-7b9d-4ad9-b75f-7e529b94c9a4)
+
+Typing in a block keeps the editor open inside the item.
+
+![After: typing in a block inside an item](https://github.com/user-attachments/assets/3305f41b-7939-4e20-9af1-b562d24398a5)
+
+Reading mode is unchanged.
+
+![After: reading mode shows no block](https://github.com/user-attachments/assets/ed0517fd-5bd3-4c99-8114-c5a81e76ef92)
 
 ## Changes
 
@@ -61,11 +81,15 @@ previous behaviour.
 - [x] Requirements: SwRS BLOCK-266 to BLOCK-269 updated, markers in code and tests,
       `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `just check` passes; long gate pending
-- [ ] Review
-- [ ] CI green
+- [x] Local gates at `1aa7966`: `just check` pass; long gate `just preflight` pass at `8ecec6b` (carried across a clean rebase)
+- [x] Evidence: before at `e0c7836`, after at `1aa7966` (carried from `8ecec6b`)
+- [x] Review: approved at `15a0ef0`
+- [x] Verified at `1aa7966` (carried from `8ecec6b`)
+- [ ] CI green at `1aa7966`: pending (heavy run included)
 
 ## Known gaps
 
-- The real VS Code integration steps (LF and CR LF) are written and compile, but were not run
-  locally; they run in CI on a heavy run.
+- The integration steps for "More", "- c" between items and "- c" in an item press no undo after the
+  save; the specification asks that one undo brings the run back, and only the delete steps press
+  undo. Session tests cover the single-edit write.
+
