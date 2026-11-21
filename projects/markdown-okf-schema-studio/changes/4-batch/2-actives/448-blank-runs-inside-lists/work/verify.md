@@ -48,3 +48,19 @@ CI: PR checks static, static-windows, visual, viewer-graph, report, checks SUCCE
 Local gate: `just check` run by me at ea5c383, exit 0 (`work/verifier/check-ea5c383.log`, ends `use case diagrams: 94 StRS checked, all parse`). Long gate `just preflight` pass at 8ecec6b carried (range-diff, patch unchanged).
 Review: approved at 15a0ef0 per Driver note `r2 inspector approved at 15a0ef09...`, carried by range-diff.
 Images: five attached are those of evidence pairs at 8ecec6b (carried, patch unchanged); evidence files in `work/verifier/evidence/` were looked at in the earlier pass (no username). Attached URLs not re-downloaded.
+
+## Pass 3 at c01f2cade9b97f86b02443d16a7c8f907b99c855 (move ea5c383..c01f2ca: rebase with conflict, old base 9c70477, new base a106fa7): VERIFIED
+
+Head: c01f2cade9b97f86b02443d16a7c8f907b99c855
+
+Claims 1-6 above stay carried from 8ecec6b (src, tests, visual and integration proofs), reason: the move did not touch them.
+- `git range-diff ea5c383~1..ea5c383 a106fa7..c01f2ca` shows `1: ea5c383f ! 1: c01f2cad` and its inner diff-of-diff lists only `## CHANGELOG.md ##` and `## requirements/tiers/log.md ##` hunks (plus context of `.agents/glossary/common.md`, a context-line change from the base's new "Full ID" entry).
+- `git diff <c>~1 <c> -- . ':!CHANGELOG.md' ':!requirements/tiers/log.md' ':!.agents/glossary/common.md' | git patch-id --stable` at ea5c383 and at c01f2ca both give `a9f4821cc2f365014d0034ed9f3f5f560944b001`: the patch outside the three files is identical.
+- Base delta `git diff --name-only 9c70477 a106fa7`: glossary, CHANGELOG, package.json, requirements log and CORE-084/085/092/093 files, `test/site/requirementsViewer/*`. No `src/` file (`grep '^src/'` prints nothing); nothing the CR's proofs (blank-lines unit, visual v44-v50, integration blank-lines) run.
+- Long gate: `work/gates/` last log first line `gate CR-448 branch chantier/batch-07/cr-448-... head c01f2cade9b97f86b02443d16a7c8f907b99c855`; Driver log `gate result=pass head=c01f2cad... command=just preflight` (run at the head, not carried).
+- CI at c01f2ca: `gh run view 44913090486 --json headSha,conclusion` gives `c01f2cade9b97f86b02443d16a7c8f907b99c855 success` (heavy); `gh pr view 463 --json statusCheckRollup`: static, static-windows, visual, viewer-graph, report, checks SUCCESS, rest SKIPPED; headRefOid `c01f2cade9...`.
+- Review box: `$CHANTIER log CR-448` has `driver note move ea5c383..c01f2ca (conflict) inspector approved at c01f2cade9b97f86b02443d16a7c8f907b99c855`; box says `approved at c01f2ca` with the earlier `15a0ef0`: matches.
+
+Description pass at c01f2ca: `gh pr view 463 --json body`. SHAs named: e0c7836, c01f2ca, 15a0ef0 (all in history or carried with reason; no ea5c383/1aa7966, no STALE, no pending). Sections, mermaid fence, five images (carried from the 8ecec6b captures, patch outside the changelog files identical, stated in the body) render; no username shown in the earlier look. Summary, Deliverables, Changes match the diff (blankLines.ts, blockSelectionView.ts, listItemIndent.ts, insertion.ts, sourceEdits.ts, itemLine protocol, BLOCK-266..269, glossary, changelog, tests); Known gaps carries the undo gap, matching the gaps above. Role names: none.
+
+VERIFIED
