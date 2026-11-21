@@ -1,6 +1,6 @@
 ## Summary
 
-Release 1.11.0: the version commit (bump, changelog heading, release notes folder with its three cropped pictures). It is a minor release because the stack under it ships features: the Delete block button, the blank-lines block, and Studio opening at a searched line. It is based on the top branch of the stack, so it stays a draft until the stack merges.
+Release 1.11.0: the version commit (bump, changelog heading, release notes folder with its three cropped pictures). It is a minor release because the stack under it ships features: the Delete block button, the blank-lines block, and Studio opening at a searched line. The stack is merged: this branch sits on `main` and targets it. It stays a draft until the owner's word.
 
 ## Deliverables
 

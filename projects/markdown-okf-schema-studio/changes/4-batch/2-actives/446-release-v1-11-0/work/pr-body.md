@@ -1,6 +1,6 @@
 ## Summary
 
-Release 1.11.0: the version commit (bump, changelog heading, release notes folder with its three cropped pictures). It is a minor release because the stack under it ships features: the Delete block button, the blank-lines block, and Studio opening at a searched line. It is based on the top branch of the stack, so it stays a draft until the stack merges.
+Release 1.11.0: the version commit (bump, changelog heading, release notes folder with its three cropped pictures). It is a minor release because the stack under it ships features: the Delete block button, the blank-lines block, and Studio opening at a searched line. The stack is merged: this branch sits on `main` and targets it. It stays a draft until the owner's word.
 
 ## Deliverables
 
@@ -58,19 +58,19 @@ The block editor of a file with CR LF line endings no longer stays stuck on "Sav
 
 ## 🗑️ Delete a block
 
-![A block in edit mode with its bar below it: insert, move up, move down and a delete button](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/81f62b6fec41c79eea133094bd6fc0196f3c6a95/docs/releases-notes/2026-11-21-v1.11.0/delete-block-button.png)
+![A block in edit mode with its bar below it: insert, move up, move down and a delete button](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/18d6770bf168aae510a8600147b3e18a7893cc6d/docs/releases-notes/2026-11-21-v1.11.0/delete-block-button.png)
 
 Each block's bar has a Delete block button (x), and <kbd>Delete</kbd> or <kbd>Backspace</kbd> on a selected block deletes it. Emptying a block and pressing Done removes the block instead of leaving blank lines.
 
 ## ⬜ Reach and remove blank lines
 
-![A run of three blank lines shown as a dashed blank-lines block between two paragraphs](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/81f62b6fec41c79eea133094bd6fc0196f3c6a95/docs/releases-notes/2026-11-21-v1.11.0/blank-lines-block.png)
+![A run of three blank lines shown as a dashed blank-lines block between two paragraphs](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/18d6770bf168aae510a8600147b3e18a7893cc6d/docs/releases-notes/2026-11-21-v1.11.0/blank-lines-block.png)
 
 In edit mode, two or more blank lines between blocks, at the start or at the end of a document show as a blank-lines block. Reach it with the arrow keys, click or press <kbd>Enter</kbd> on it to write a block in its place, or remove it with <kbd>Delete</kbd>.
 
 ## 🔎 Open Studio at the line you searched
 
-![A code block with a blue arrow in the margin at line 15](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/81f62b6fec41c79eea133094bd6fc0196f3c6a95/docs/releases-notes/2026-11-21-v1.11.0/line-marker-arrow.png)
+![A code block with a blue arrow in the margin at line 15](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/18d6770bf168aae510a8600147b3e18a7893cc6d/docs/releases-notes/2026-11-21-v1.11.0/line-marker-arrow.png)
 
 A search result, a Quick Open `file.md:40` or a link to a line opens Studio at that line, with an arrow in the margin. The setting `markdownOkfSchemaStudio.open.searchResultsInStudio` is on by default; the new setting `markdownOkfSchemaStudio.open.markdownFilesInStudio` opens every Markdown file in Studio, and **Open as Text** reads the raw text of one file.
 
@@ -107,7 +107,7 @@ A search result, a Quick Open `file.md:40` or a link to a line opens Studio at t
 
 I opened a Markdown file written on Windows in the Studio editor, left a block without changing anything, and the page stayed on "Saving Markdown..." for good. In 1.11 that is fixed and your file keeps its own line endings. You can also delete a block with one button, reach and remove blank lines between blocks, and open Studio right at the line a search result points to.
 
-Image: ![line-marker-arrow.png](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/81f62b6fec41c79eea133094bd6fc0196f3c6a95/docs/releases-notes/2026-11-21-v1.11.0/line-marker-arrow.png)
+Image: ![line-marker-arrow.png](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/18d6770bf168aae510a8600147b3e18a7893cc6d/docs/releases-notes/2026-11-21-v1.11.0/line-marker-arrow.png)
 
 ## 2/
 
