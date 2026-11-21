@@ -13,7 +13,7 @@ watcher no longer reads the journal or acts as the forge hub: it subscribes to t
 ## Deliverables
 
 One page open on the live surface (four projects), 60 s, measured at the base and at the head
-(base `7c1d890`, head `c9c0852` plus the last round's tree, committed in `f90c6a3`):
+(base `7c1d890`, head `f90c6a3`):
 
 | | base | head |
 |---|---|---|
@@ -72,13 +72,12 @@ reads no forge.
 ### Test plan
 
 - [x] `just check` at f90c6a3
-- [x] `just eval-dry-run` at the pre-rebase head (rerun before the push)
+- [x] `just eval-dry-run` at f90c6a3
 - [x] new tests at f90c6a3: settle rule, zero walks per pass, real notification backend, check
   mode, idle stop, forge only while observed, watcher seat/server matrix, idle end
-- [x] local scenario (surface board) passes at the pre-rebase head
-- [ ] Review: inspector approved, to record at the PR's head
-- [ ] Verified: the verifier's verdict at the PR's head
-- [ ] CI green at the PR's head (`just scenario (ubuntu-latest)` included)
+- [ ] Review: approved at f90c6a3 (to record)
+- [ ] Verified at the PR's head (to record)
+- [ ] CI green at the PR's head, `just scenario (ubuntu-latest)` included (to record)
 - [ ] `chantier gate` on Windows
 
 ### Internal references

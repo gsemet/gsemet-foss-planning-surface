@@ -61,3 +61,7 @@ Command: gh pr view 471 --json body; curl -s -o /dev/null -w '%{http_code}' on e
 - Deliverables holds five image tables with relative paths (./verifier/evidence/...): they do not resolve on GitHub (broken images). A second table follows with working raw URLs: the section is duplicated.
 - Known gaps (top level) says "None" while the Details Known gaps names a gap (collapsed properties table expand and sync group follow have no screenshot): contradiction.
 - Impacts, Autonomous decisions and Known gaps appear twice (top level and inside the fold); Impacts and Human decisions sit inside the fold.
+
+## PR description pass (3778f00a996a2f0c753492c368bef3e447c44973)
+
+Command: gh pr view 471 --json body; curl of the 24 raw image URLs (all 200 image/png, md5 equal to the local evidence files); opened after-hidden-tab-nested-light.png and after-frontmatter-list-value-dark.png (made-up content, no path or username). Layout follows the template (Summary, Deliverables, Blast radius, Autonomous decisions, Known gaps visible; fold holds Changes, Human decisions, Impacts, Test plan, Internal references), no duplicate section, Known gaps lists the uncaptured pairs, CR number only in Internal references. Description: VERIFIED.

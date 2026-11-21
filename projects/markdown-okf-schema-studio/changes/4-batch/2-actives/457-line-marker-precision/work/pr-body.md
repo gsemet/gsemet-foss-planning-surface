@@ -14,41 +14,6 @@ Also fixed: a line near the closing front matter fence no longer jumps to the fi
 
 Before at `eb3b6ec` (the base), after at `3778f00`; same fixture, same pane, same reveal request. Before, the band sits on the top of the block, the tab stays hidden, or the title row of the properties table is marked.
 
-**Table row, top level (line 15, `beta`)**
-
-| | Before `eb3b6ec` | After `3778f00` |
-| --- | --- | --- |
-| light | ![before table-row light](./verifier/evidence/before-table-row-light.png) | ![after table-row light](./verifier/evidence/after-table-row-light.png) |
-| dark | ![before table-row dark](./verifier/evidence/before-table-row-dark.png) | ![after table-row dark](./verifier/evidence/after-table-row-dark.png) |
-
-**Table row inside a quote (line 20, `second`)**
-
-| | Before `eb3b6ec` | After `3778f00` |
-| --- | --- | --- |
-| light | ![before table-row-quote light](./verifier/evidence/before-table-row-quote-light.png) | ![after table-row-quote light](./verifier/evidence/after-table-row-quote-light.png) |
-| dark | ![before table-row-quote dark](./verifier/evidence/before-table-row-quote-dark.png) | ![after table-row-quote dark](./verifier/evidence/after-table-row-quote-dark.png) |
-
-**Hidden tab, wrapped paragraph (line 36): the tab is selected, the arrow on the third source line**
-
-| | Before `eb3b6ec` | After `3778f00` |
-| --- | --- | --- |
-| light | ![before hidden-tab-paragraph light](./verifier/evidence/before-hidden-tab-paragraph-light.png) | ![after hidden-tab-paragraph light](./verifier/evidence/after-hidden-tab-paragraph-light.png) |
-| dark | ![before hidden-tab-paragraph dark](./verifier/evidence/before-hidden-tab-paragraph-dark.png) | ![after hidden-tab-paragraph dark](./verifier/evidence/after-hidden-tab-paragraph-dark.png) |
-
-**Hidden tab, code line (line 39)**
-
-| | Before `eb3b6ec` | After `3778f00` |
-| --- | --- | --- |
-| light | ![before hidden-tab-code light](./verifier/evidence/before-hidden-tab-code-light.png) | ![after hidden-tab-code light](./verifier/evidence/after-hidden-tab-code-light.png) |
-| dark | ![before hidden-tab-code dark](./verifier/evidence/before-hidden-tab-code-dark.png) | ![after hidden-tab-code dark](./verifier/evidence/after-hidden-tab-code-dark.png) |
-
-**Front matter row (line 4, `owner`)**
-
-| | Before `eb3b6ec` | After `3778f00` |
-| --- | --- | --- |
-| light | ![before frontmatter-row light](./verifier/evidence/before-frontmatter-row-light.png) | ![after frontmatter-row light](./verifier/evidence/after-frontmatter-row-light.png) |
-| dark | ![before frontmatter-row dark](./verifier/evidence/before-frontmatter-row-dark.png) | ![after frontmatter-row dark](./verifier/evidence/after-frontmatter-row-dark.png) |
-
 ```mermaid
 flowchart LR
   R[renderer: mystNode, mystTables, mystGridToctree] -->|data-okf-marker-line| P[page]
@@ -97,7 +62,7 @@ Grade: 2. The renderer gives new attributes to tab item content and table rows (
 
 ## Known gaps
 
-None.
+- A collapsed properties table that expands on a row line, and a sync group following a revealed tab, have no screenshot (no fixture or visual scenario covers them); the page and tab tests cover them.
 
 <details>
 <summary>Details</summary>
@@ -119,15 +84,6 @@ None.
 ## Impacts
 
 Before and after captures, light and dark (in Deliverables), show the arrow landing on the table row, on the line inside the newly selected tab, and on the front matter property row instead of the top of the block. The before is the base `eb3b6ec` (1.11.0 plus later fixes).
-
-## Autonomous decisions
-
-- A front matter line that is no property (a fence, a comment) marks the top of the properties table rather than hiding the arrow, so a jump never leaves no marker.
-- The marker opens a collapsed properties table and selects hidden tabs only when the jump asks for it, never on a plain scroll.
-
-## Known gaps
-
-- A collapsed properties table that expands on a row line, and a sync group following a revealed tab, have no screenshot (no fixture or visual scenario covers them); the page and tab tests cover them.
 
 ## Test plan
 
