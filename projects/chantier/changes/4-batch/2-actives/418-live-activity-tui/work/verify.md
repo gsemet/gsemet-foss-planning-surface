@@ -10,4 +10,6 @@ Claims at 58df3be:
 - PR description as posted (`gh pr view 392 --json body`): sections present, consistent with the diff (28 files, live client, three API fields, docs), Known gaps names the one gap. FAILED: its boxes `Verified at a391c1e` and `CI green at a391c1e` name the pre-rebase SHA, not the head 58df3be and with no `carried from` reason.
 - CI at 58df3be (`gh pr view 392 --json statusCheckRollup`): ubuntu `just check` SUCCESS, `eval-dry-run` SUCCESS; macos, windows, scenario not yet complete. Not a proof.
 
+Re-check at 58df3be after the body update: Verified/CI/Local gates boxes now name 58df3be and all 5 CI checks are SUCCESS (gh pr view 392). FAILED: the box `Review: approved at 58df3be` has no matching note in `chantier log CR-418` (last approved notes: `r2 approved at 4ed0d56, committed as 800bd85`; no approved or carried note at 58df3be).
+
 NOT VERIFIED
