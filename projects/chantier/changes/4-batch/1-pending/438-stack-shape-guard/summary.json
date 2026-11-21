@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "A stack batch keeps its shape after the Foreman's compactions",
+  "summary": "Spec v6, batch-30 on top of CR-428/430/431: asks refuses a per-CR ready-to-merge in a stack batch while another chain CR has an open PR or a stacked CR is open; --outside-stack needs an open order on the CR; shape line points to foreman-stack.md; CoS sends mismatched asks back.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "d51c8b02e29b102e092033a13e9147481ec5527ab6e68b2a5b8e69f73681565b",
+    "02-answers.md": "8c3520951364925df77ca3102609e670b113010b129778781d68873a8e8a1ac2",
+    "03-change-spec.md": "afda9de6b58463d1992c00de2c186626c234e58c1f58c335c17ee2c0a3d0a422",
+    "intake/request.md": "5eb6420bbff217ff4944b5f3a9ad503fa80423ddde509ce7eab1670a2a036b10"
+  },
+  "summarized": "2026-11-21T18:48:22Z"
+}

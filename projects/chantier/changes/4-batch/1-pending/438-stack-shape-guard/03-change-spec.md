@@ -5,7 +5,7 @@ but systematic mechanism that the CLI enforces (Studio's owner: "pas trop lourd 
 systématique"). Two parts carry it: a shape line at each heartbeat, and `asks` refusing a per-CR
 ready ask in a stack batch while that ask would leave another PR of the batch behind main. Two
 lighter parts back them up: a stack card the Foreman rereads at the reload, and the Chief of Staff
-checking each ask against the shape. Specification v5.
+checking each ask against the shape. Specification v6.
 
 ## Goal
 
@@ -49,7 +49,8 @@ but not as a procedure. After this CR:
 - **Q5 (B):** a separate card, `foreman-stack.md`, read at the reload of a stack batch. Its stack
   rules move out of `foreman.md`, which keeps a pointer to it. The manifest
   (`startup-manifest.json`) names it.
-- **Q6:** grilled enough; spec-writer, then critic; destination the next batch (`3-ready`).
+- **Q6:** grilled enough; spec-writer, then critic; destination the next batch (`3-ready`),
+  replaced by Q17: batch-30, on top of CR-428, CR-430 and CR-431.
 - **Q7:** replaced by Q10 ("once the first stack is made" no longer holds).
 - **Q8 (A):** `--outside-stack` is used only on a Chief of Staff order carrying the user's word; its
   reason is `O-<k>: …`. Q14 says which order.
@@ -96,6 +97,16 @@ but not as a procedure. After this CR:
   `(driver.md)`). No startup section changes. Known limit: the line makes the card reachable after
   a compaction; it cannot force the read. The guard of 1 stays the hard stop. See 2, 3, 6 and the
   evidence.
+- **Q17 (A, the user, 2026-11-21):** the destination is batch-30, on top of CR-428, CR-430 and
+  CR-431 (the user: "et tous les inbox en cours de spécification pareil tu mets dans le batch …
+  il faut traiter ces P1 et inbox cette nuit"), not Q6's next batch. At this CR's merge the guard
+  applies at once to batch-30's remaining CRs (the CLI and cards run live from the main checkout),
+  and the Chief of Staff tells the Foreman to read `foreman-stack.md`. See 5.
+- **Critic run 4, fixes 2-5:** `chief-of-staff.md`'s "A stack batch" sentence on the CRs handed
+  back `ready` before the stack is made is qualified with the shape line's `alone asks` (2, see 4);
+  `foreman-stack.md` says how the next stack forms once nothing of a stack remains open (3, see
+  3); `foreman-stack` joins the host-tool card list of `test_plugin_files.py` (4, see the
+  evidence); the scenario's `early_conflict` stack case is named by its check's text (5, see 6).
 - **Rule 12:** no more questions to the user on this CR; this version leaves none open.
 
 ## The criterion (one function, three readers)
@@ -324,7 +335,13 @@ Files: `skills/chantier/references/foreman-stack.md` (new), `foreman.md`,
     "this rule stays the reference; the line only reminds it") (critic run 3, fix 3);
   - the shape line's `rules:` part names this card's path (Q16): when this card is not in context
     (after a compaction, or a session that has not read it in this batch), read it whole before the
-    next act on the stack.
+    next act on the stack;
+  - one sentence on a batch with no stack open (critic run 4, fix 3). Suggested text: "Once
+    nothing of a stack remains open (each of its CRs merged or cancelled), the batch is again as
+    before its first stack: the next stack forms by "The first take" (two CRs ready with a PR),
+    which the shape line's `next take stack` reminds; the `stack: take stack now` line does not
+    (it is printed only while no CR of the batch was ever stacked)." It may sit in the rewritten
+    opening instead; the card check below reads it in either place.
 - **`foreman.md`** keeps:
   - **a pointer in place of the moved span**, one bullet: "A stack batch (`--mode stack`, or a
     batch switched to a stack by `order mode`): its rules are in
@@ -361,7 +378,7 @@ Files: `skills/chantier/references/foreman-stack.md` (new), `foreman.md`,
   - the links that point at the moved rules are repointed to `foreman-stack.md`: the "Deliver by a
     time" bullet (around line 1060), "The five checks" in "A stack batch" (around lines 1231 and
     1756), and any other link the Driver finds by searching for `foreman.md` near "stack";
-  - the go's stack advice (around line 831: "the user may also merge each PR ready to merge as it
+  - the go's stack advice (around line 842: "the user may also merge each PR ready to merge as it
     comes, before the stack is made") is qualified "while that CR is the only open PR of the stack"
     (critic run 2, fix 4), so the advice matches the guard.
 - **Host specifics** stay out of `foreman-stack.md` and `foreman.md`. If any of the moved text
@@ -391,15 +408,21 @@ offers the user two ways out with the blocked CR's question: `order hold <blocke
 leaves the chain, and the ready CR may then ask alone), or an order on the ready CR that carries
 the user's word, for the Foreman's `--outside-stack "O-<k>: …"`.
 
+The same bullet's sentence "Before the stack is made on the forge, each CR handed back `ready` on
+the default branch is an ordinary `ready-to-merge` ask, offered as mergeable now" is qualified
+(critic run 4, fix 2): "…, offered as mergeable now, while that CR is the only open PR of the
+stack's chain (the shape line's `alone asks`)". The rest of the sentence (a CR above it, a draft on
+another CR's branch, waits) is kept.
+
 A stack's readiness is offered as a `stack-ready-to-merge`, after the native stack is read on the
 forge (`forge-stack show`, the five checks). In direct mode the steering session checks its own
 asks the same way. (The CLI already refuses such an ask; the check catches one recorded before this
 CR or forced without a fitting order.)
 
-### 5. Cards that other CRs edit, landed first (critic run 1, fix 5; critic run 3, fix 5)
+### 5. Batch-30, and the cards other CRs edit there (critic run 1, fix 5; critic run 3, fix 5; Q17)
 
-Three CRs edit text that this CR moves out of `foreman.md`. All three are in batch-30 and land
-before this CR, so the order is known:
+This CR goes into batch-30, on top of CR-428, CR-430 and CR-431 (Q17). Those three edit text that
+this CR moves out of `foreman.md`; being below it, they land before it, so the order is known:
 
 - **CR-431 hold-live-cr**: its §8 moves "A held CR" out of the stack batch bullet into a bullet for
   every mode. Once it has landed, "A held CR" is no longer in the moved span: it stays in
@@ -417,14 +440,18 @@ their text. Each of their card checks that reads text this CR moves (park-live-c
 finds by searching the tests for the moved phrases) is changed by this CR to read `foreman.md` and
 `foreman-stack.md` joined.
 
+At this CR's merge (Q17), the guard applies at once to batch-30's remaining CRs (the CLI and cards
+run live from the main checkout), and the Chief of Staff tells the Foreman to read
+`foreman-stack.md`.
+
 ### 6. The scenario (`scenario/run_scenario.py`, `scenario/README.md`)
 
 - **The scripted Foreman** (`Foreman.turn`, around line 767, where a ready CR gets
   `ready-to-merge`/`pr-in-draft`) follows the new card: in a stack batch, a ready CR of the
   stack's chain gets a per-CR `ready-to-merge` ask only when `shape_blockers` is empty for it;
   otherwise it waits for the stack. Without this change, step 13 (`stack_batch`) would hit the refusal.
-- **`early_conflict`'s stack case** (`run_scenario.py`, around lines 7700-7706: "a stack batch: no
-  merge-tree runs and no `conflict` ask is sent", which today checks that the last ask starts with
+- **`early_conflict`'s stack case** (`run_scenario.py`, the check "a stack batch: no merge-tree
+  runs and no `conflict` ask is sent", which today also requires that the last ask starts with
   `ready-to-merge <second> `) changes its check with the scripted Foreman (critic run 3, fix 4): no
   merge-tree runs, no `conflict` ask, no per-CR ask for `second`, and the stack is due (`status`
   prints the `stack: take stack now` line, or the shape line reads `next take stack`).
@@ -500,12 +527,21 @@ finds by searching the tests for the moved phrases) is changed by this CR to rea
     `--outside-stack` rule and `shape: through the stack`; `foreman.md` no longer holds "A folded
     CR" and does hold the link `[foreman-stack](foreman-stack.md)`; "The final-order take" is in
     `foreman-stack.md` and not in `foreman.md`; `session-start.md`'s "5. Reload" names
-    `batch:stack`; `chief-of-staff.md` holds `shape: through the stack`, `sent back through the
-    stack` and `while that CR is the only open PR of the stack`; `foreman.md` and
+    `batch:stack`; `chief-of-staff.md` holds `shape: through the stack` and `sent back through the
+    stack`, its go advice ("as it comes, before the stack is made") carries `while that CR is the
+    only open PR of the stack`, and its "A stack batch" sentence ("Before the stack is made on the
+    forge, each CR handed back `ready` …") carries ``while that CR is the only open PR of the stack's
+    chain (the shape line's `alone asks`)`` (critic run 4, fix 2): the check finds each sentence and
+    its qualifier within it; `foreman-stack.md` holds `again as before its first stack` and
+    `"The first take"` in the same sentence (critic run 4, fix 3); `foreman.md` and
     `foreman-stack.md` joined no longer hold "even with CRs before it in the order still working".
-    "A held CR" stays in `foreman.md` (hold-live-cr, landed first). A check on text that
+    "A held CR" stays in `foreman.md` (hold-live-cr, below this CR in batch-30). A check on text that
     park-live-cr or drop-to-next-batch edited inside the moved span, theirs or this CR's, reads
     both cards joined (see 5).
+
+  `test_plugin_files.py`'s `test_each_host_has_its_reference_and_the_cards_hold_no_host_tool`
+  gets `"foreman-stack"` in its card list (critic run 4, fix 4), so the new card is held to the
+  same no-host-tool rule as `foreman`.
 
   `test_startup_manifest.py` (377 lines) gets no new rows: its existing measurement covers the new
   action (every action reading must resolve) and the reload limit, which the `session-start.md`
@@ -517,7 +553,7 @@ finds by searching the tests for the moved phrases) is changed by this CR to rea
   cards are shared, and `foreman-stack.md` is read through the manifest on both hosts.
 - **Gates** (`AGENTS.md`): `just check`; `just eval-dry-run`, because the change touches the CLI's
   `src/`; `just scenario` (ubuntu-latest) green at the PR's head, because the change touches the
-  CLI, the cards and the scenario; and the local `chantier gate` if this CR is the batch's top.
+  CLI, the cards and the scenario; and the local `chantier gate` while this CR is batch-30's top.
   `just test` stays within its time budget.
 
 ## Out of scope
@@ -528,15 +564,18 @@ finds by searching the tests for the moved phrases) is changed by this CR to rea
 - No change to `take`, `take stack`, `stack`, `stack_due`'s behaviour or `forge-stack`, nor to the
   stack driver's card (`driver.md`, "Stack driver").
 - No rewording of the moved stack rules beyond links, the span's opening sentence rewritten to the
-  Q10 limit (critic run 2, fix 3) and the `## The stack's asks` points; in `chief-of-staff.md`, no
-  rewording beyond the links, the qualified go advice (fix 4) and the check of 4.
+  Q10 limit (critic run 2, fix 3) and the `## The stack's asks` points (the sentence on a batch
+  with no stack open included, critic run 4, fix 3); in `chief-of-staff.md`, no rewording beyond
+  the links, the qualified go advice (fix 4), the qualified "A stack batch" sentence (critic run 4,
+  fix 2) and the check of 4.
 - The docs (`docs/use-cases-foreman.md`) are not required. If the Driver judges they name the moved
   rules, one line pointing at the card is enough.
 
 ## Open questions
 
 None. The spec v2's two questions are settled by Q12 and Q13, the critic run 2's two findings
-by Q14 and Q15, and the critic run 3's finding 1 by Q16 (Fable advisor, rule 12).
+by Q14 and Q15, and the critic run 3's finding 1 by Q16 (Fable advisor, rule 12); the destination
+by the user's Q17.
 
 Small points settled by the spec-writer (rule 12):
 
