@@ -57,3 +57,11 @@ Head: 0f3dd8ceaf489ae95070e3f7dc63e6e263ea01ca
 6. PR description (posted, `gh pr view 403 --json body`) FAILS: its Test plan names `d91edcf` for "Local gates", "Evidence", "Review: approved", "Verified" and "CI green", with no `carried from` reason, while the PR head is 0f3dd8c. Each proof must name the head or be carried with its reason. Fix: update those five lines to 0f3dd8c (or `carried from d91edcf: <reason>`).
 
 NOT VERIFIED
+
+## Description pass again (PR #403 body as posted)
+
+Head: 0f3dd8ceaf489ae95070e3f7dc63e6e263ea01ca
+
+Judged at 0f3dd8ceaf489ae95070e3f7dc63e6e263ea01ca. `gh pr view 403 --json headRefOid,body`: headRefOid 0f3dd8ce...; the Test plan now names `0f3dd8c` on all six lines (gates, evidence, review, verified, CI); no `d91edcf` left. Renders (sections, table, fold, no images). Summary, Deliverables and Changes match the diff (checked in the pass above, kinds of files unchanged). Review box `approved at 0f3dd8c` matches `chantier log CR-428`: "inspector approved at 0f3dd8ceaf489ae95070e3f7dc63e6e263ea01ca". Known gaps "None": no UNVERIFIED claim or accepted failure. No STALE mark; no role names outside Internal references. Gate and CI proofs at this head are items 2 and 3 above.
+
+VERIFIED

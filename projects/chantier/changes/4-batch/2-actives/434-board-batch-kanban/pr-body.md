@@ -52,7 +52,7 @@ None.
 
 ## Impacts
 
-The batch page opens on the Kanban instead of the Graph, and remembers the last tab on the device.
+The batch page opens on the Kanban instead of the Graph, and is meant to remember the last tab on the device (**UNVERIFIED:** read in the code, not run in a browser).
 
 ## Test plan
 

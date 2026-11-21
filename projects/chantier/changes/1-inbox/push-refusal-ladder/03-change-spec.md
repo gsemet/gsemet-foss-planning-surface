@@ -1,7 +1,8 @@
 # A refused push climbs: Foreman, then Chief of Staff, then the user
 
-Spec v2 (2026-11-21), over v1: carries push-ladder-Q3 to Q10 (Q8 revises Q5, Q10 revises Q4) and
-the spec critic's findings 4 to 8. Short name: `push-ladder`. Destination: batch-30, running
+Spec v3 (2026-11-21), over v2: carries push-ladder-Q11 (narrows Q10) and Q12, which close v2's two
+open questions. v2 carried push-ladder-Q3 to Q10 (Q8 revises Q5, Q10 revises Q4) and the spec
+critic's findings 4 to 8. Short name: `push-ladder`. Destination: batch-30, running
 (push-ladder-Q2), after CR-438, CR-442 and CR-443 where they overlap textually ("Overlaps in
 batch-30").
 
@@ -56,7 +57,16 @@ the user, with one judgement (the Chief of Staff's).
 - **push-ladder-Q10, who judges:** whoever pushes judges first; on the Foreman's `push` line the
   Chief of Staff runs the full check and judgement again, records its own `push judged legitimate`
   note, then pushes; one it judges not legitimate is not pushed and goes to the user naming both
-  judgements (section 3). `01-intent.md`'s done line now says it.
+  judgements (section 3). `01-intent.md`'s done line now says it. Narrowed by Q11.
+- **push-ladder-Q11, the Chief of Staff's failed hard check:** the two checks (the branch is this
+  batch's; a long gate passed at the local head, outside the skips) are facts, not judgements: when
+  either fails at the Chief of Staff, it pushes nothing, records a note, and answers `push refused
+  <branch>: <reason>` to the Foreman as today, with no user question; only a push it judges not
+  legitimate goes to the user, naming both judgements (section 3).
+- **push-ladder-Q12, the Foreman on Copilot:** P10 does not run there and no allow rule is recorded
+  for Copilot, so the Foreman skips the route-rule read and tries, as a Driver already does there;
+  whether Copilot stops the Foreman's unwatched session on a prompt instead of refusing is unproved,
+  and the first Copilot batch that meets a refused push records it (sections 2 and 7).
 
 The route command (from Q8 and the cards as they stand): every steering-side push of a Driver's
 refused force push (the Foreman's, the Chief of Staff's, both modes) is
@@ -114,7 +124,8 @@ It holds, in this order:
    at the local head (outside the skips): push nothing; you take the CR back with `take <cr>
    --note "push: push refused <branch>: <the reason>"` by the restart path's steps, as for any
    answer, with no hop to the Chief of Staff (in direct mode the Chief of Staff does the same).
-3. **Legitimate: the route rule first** (Claude Code; push-ladder-Q9). Run `$CHANTIER preflight`
+3. **Legitimate: the route rule first** (Claude Code; push-ladder-Q9; on Copilot, where P10 does
+   not run, skip this step and go to step 4: push-ladder-Q12). Run `$CHANTIER preflight`
    and read its P10 line for "every batch". The route rule of the form you will run (`git -C *
    push --force-with-lease=chantier/* origin *chantier/*` for the `git -C` form, `git push
    --force-with-lease=chantier/* origin *chantier/*` for the plain form) is present when that line
@@ -194,11 +205,16 @@ matching sentence goes where it now lives, and the new section links there.
     the Foreman's note says, at the shas of the line.
     - Legitimate: `$CHANTIER note <cr> "push judged legitimate at <local sha7> for <branch>: <one
       line>"` (your own note), then the route form, at once, no ask.
-    - Not legitimate, or a check that fails (not this batch's branch, no long gate passed outside
-      the skips): push nothing; tell the user at once, in the report's shape (the **For you:**
-      line, no tip), naming both judgements: the Foreman's (its note) and yours (what you found);
-      the CR (number and slug), the branch, the expected and local shas. On the user's go, push
-      in the route form; on their no, answer `push refused <branch>: <the user's reason>`.
+    - A hard check that fails (not this batch's branch, or no long gate passed at the local head
+      outside the skips; push-ladder-Q11): push nothing; record `$CHANTIER note <cr> "push refused
+      <branch>: <the reason>"`; answer `push refused <branch>: <the reason>` to the Foreman, as
+      today; no user question (the user's yes must not push such a branch, and the Driver already
+      knows what to do with each answer).
+    - Not legitimate (the checks pass, your judgement disagrees with the Foreman's): push nothing;
+      tell the user at once, in the report's shape (the **For you:** line, no tip), naming both
+      judgements: the Foreman's (its note) and yours (what you found); the CR (number and slug),
+      the branch, the expected and local shas. On the user's go, push in the route form; on their
+      no, answer `push refused <branch>: <the user's reason>`.
   - **In direct mode** (the Driver's `push` line): you are the steering session; run the check and
     judgement, record `push judged legitimate at <sha7> for <branch>: …`, then push, no ask (the
     route rule's P10 read of `foreman.md` is not a step for you: you push and, refused, ask).
@@ -319,9 +335,11 @@ failed, stays.
 ### 7. `skills/chantier/references/hosts/copilot.md`, Configuration (~line 80)
 
 One sentence after "A refusal of a force push on Copilot is reported like any refusal (rule 7)":
-the ladder of `foreman.md`, "A Driver's refused force push", holds; P10 does not run on Copilot, so
-the Foreman's route-rule read (step 3) has no line to read there (open question 2); whether Copilot
-refuses such a push at all, and to which session, is **unproved** until a Copilot batch meets one.
+the ladder of `foreman.md`, "A Driver's refused force push", holds. P10 does not run on Copilot and
+no allow rule is recorded for it, so the Foreman skips the route-rule read (step 3) and tries the
+push, as a Driver already does there (push-ladder-Q12). The risk, **unproved**: Copilot may stop the
+Foreman's unwatched session on a prompt instead of refusing the push, which would halt the batch;
+the first Copilot batch that meets a refused push records what Copilot did, with the date, here.
 
 ### 8. The CLI: `skills/chantier/scripts/cli/src/chantier/commands/allow_samples.py` and its test
 
@@ -462,20 +480,13 @@ reading, not a startup one). CR-438 adds the action `batch:stack` to the same fi
     of Staff → user; the Chief of Staff's push without the rule: as batch-09, proved by use once.
   - Claude Code, direct mode: Driver → Chief of Staff (proved by use, batch-09) → user; the yes's
     effect unproved (section 6 trial).
-  - Copilot, both modes: the ladder as written, the Foreman's P10 read pending open question 2,
-    unproved (section 7).
+  - Copilot, Foreman mode: Driver → Foreman (no P10 read, it tries; a prompt instead of a refusal
+    unproved, section 7) → Chief of Staff → user.
+  - Copilot, direct mode: Driver → Chief of Staff → user; unproved (section 7).
 
-## Open questions (for the Chief of Staff)
+## Open questions
 
-1. **The Chief of Staff's own check fails on a push the Foreman judged legitimate** (not this
-   batch's branch, or no long gate passed outside the skips). A (written above): it goes to the
-   user naming both judgements, as push-ladder-Q10 says for any push the Chief of Staff judges not
-   legitimate. B: these two mechanical refusals keep today's direct answer (`push refused <branch>:
-   <reason>` to the Foreman, no user question), only a judgement that disagrees going to the user.
-2. **The Foreman on Copilot, where P10 does not run.** A: the Foreman tries with no rule read (no
-   allow rule is recorded for Copilot) and a refusal goes up as on Claude Code. B: the Foreman does
-   not try on Copilot (`push not tried: no allow rule on this host`) and sends the `push` line at
-   once.
+None: push-ladder-Q11 and Q12 closed v2's two.
 
 ## Note for the Chief of Staff
 

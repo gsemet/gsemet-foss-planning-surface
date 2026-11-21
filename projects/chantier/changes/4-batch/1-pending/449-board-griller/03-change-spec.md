@@ -1,12 +1,13 @@
 # A Griller started from the web board
 
-Spec v3 (2026-11-21). Short name: `board-griller`. Destination: batch-30 (ui-night, running),
+Spec v4 (2026-11-21). Short name: `board-griller`. Destination: batch-30 (ui-night, running),
 joined on top of the batch-30 CRs it overlaps (see Overlaps). Built on the user's directions of
 2026-11-17 and of the UI night (2026-11-21, "Tout"), on board-griller-Q4 and Q20 (the user's: B,
 any holder of the board's key, with a plain-HTTP warning), and on Q1 to Q3, Q5 to Q19 and Q21 to
-Q27, answered by a Fable advisor in the user's place. Every question is decided. v2 applied the
-spec critic's findings on v1, judged against Q4 B; v3 carries Q25 to Q27 and applies the second
-critic's findings on v2.
+Q28, answered by a Fable advisor in the user's place. Every question is decided. v2 applied the
+spec critic's findings on v1, judged against Q4 B; v3 carried Q25 to Q27 and applied the second
+critic's findings on v2; v4 carries Q28 (every board write on the item refused during its turn)
+and applies the third critic's findings on v3.
 
 ## Goal
 
@@ -52,10 +53,11 @@ Chief of Staff's watcher with one line, and nothing else talks to any session.
 | Q25 | the run may also read the plugin's skill folder, read-only, and nothing else outside the project and the planning folder; the trial shows a read there allowed and a read outside the three refused; `hosts/claude-code.md` records it; AGENTS.md's exception and section 3's read rule gain it | 1e, 2, 3, Evidence |
 | Q26 | while a turn runs on an item, the board's own move, trash and running-batch ops on it answer 409 naming the running turn; a turn whose CR's folder another session moved ends `failed` naming where it went; a test shows no stray folder at the old path | 3, 4, Evidence |
 | Q27 | only the plugin's `board-griller` agent; any other agent set for that role refuses the Grill action with one line naming the setting; the model stays configurable; the role's skills and tools never widen the allow list | 1e, 2, 3, Evidence |
+| Q28 | while a turn runs on an item, every board write on it (`backlog.file`, `backlog.labels`, `backlog.group` and `backlog.ungroup`, a member that stays put included, besides Q26's moves) answers 409 with Q26's line worded for the op; the other items of the same call pass; another session's writes are not refused (a known limit) | 1e, 3, 4, Evidence |
 
 ## What changes
 
-### 1. AGENTS.md: the new named exception (Q2, Q4 B, Q17, Q18, Q22, Q23, Q25 to Q27, ui-night act)
+### 1. AGENTS.md: the new named exception (Q2, Q4 B, Q17, Q18, Q22, Q23, Q25 to Q28, ui-night act)
 
 Six edits, found by their text.
 
@@ -110,8 +112,11 @@ of the CLI and knows no role." with the text below, written out exactly:
 > network tool (no web fetch or search, no shell beyond those four commands; the host CLI's own
 > calls to its model aside), no MCP tool, no subagent; a host whose flags cannot give all of these
 > limits gets no run; it grills as that card says, messages no session and runs no git command of
-> its own; while a run works on an item, the board's own moves of that item (the trash and the
-> running batch included) are refused; this is not the board messaging an agent: the server sends a run nothing of its own
+> its own; while a run works on an item, the board's own writes on that item (its moves, the trash
+> and the running batch included, its file edits, labels and groups) are refused, and when another
+> session moves the item during a run, the server stops the run and removes, at the old path, only
+> the files that appeared there after the move; this is not the board messaging an agent: the
+> server sends a run nothing of its own
 > but that fixed brief, only the words a holder of the key typed, to a run it started for the key's
 > holder, and it sends nothing to any session (no Chief of Staff, Foreman, Driver or Griller
 > session) and records nothing in a batch; when a run has written in that CR's folder, the server
@@ -234,7 +239,7 @@ on the user's word, as for any grill. Its destination rule (a `board wrote (...)
 CR's destination is written into `02-answers.md`) does not fire: the `grill` line's text says the
 Griller already recorded the destination and nothing is to be written (section 4).
 
-### 3. The run (Q2, Q3, Q4 B, Q9, Q12, Q22 to Q27)
+### 3. The run (Q2, Q3, Q4 B, Q9, Q12, Q22 to Q28)
 
 A new module `skills/chantier/scripts/cli/src/chantier/board/griller.py` holds the conversations and
 the runs; `board/context.py`'s `Context` gains one field, `griller`, the registry, made at start.
@@ -329,17 +334,20 @@ the runs; `board/context.py`'s `Context` gains one field, `griller`, the registr
 - **What it wrote.** Before and after the run the server lists the CR's folder (each file's
   relative path, size and modification time): the files added, changed or removed are the turn's
   `wrote`.
-- **A folder that moves during a turn (Q26).** The board's own moves of the item are refused while
-  its turn runs (section 4). Another session may still move it (a Chief of Staff's `triage`, `order
+- **A folder that moves during a turn (Q26).** The board's own writes on the item, its moves
+  included, are refused while its turn runs (section 4, Q28). Another session may still move it (a Chief of Staff's `triage`, `order
   add`, `abandon`): while the turn runs, the server checks the CR's path at each file notification
   of the project and at least once a second; when the folder is no longer at the turn's path, it
   stops the turn at once (as Stop does) and ends it `failed` with one line naming where the folder
   went, found by its slug (`lifecycle/backlog.py`'s `backlog_folder`, or the batch, archive or
   trash folder that holds it): "the CR's folder moved during the turn: <slug> is now in <stage>"
-  ("... is gone" when none holds it). At the turn's end, if the old path exists again holding only
-  files the turn wrote after the move, the server removes them and the empty folder, so the writer
-  publishes no stray folder; a file there it did not see the turn write, it leaves and names in the
-  line. `wrote` is listed at the new path.
+  ("... is gone" when none holds it). At the turn's end, if the old path exists again, the server
+  removes the files that appeared at the old path between the move and the turn's stop, and the
+  folder when it is then empty, so the writer publishes no stray folder; any other file there it
+  leaves and names in the line. The server cannot tell who wrote a file (the turn, or another
+  session at the same moment): it goes by when the file appeared, from the old path's listing when
+  it saw the move (normally nothing there) and the listing at the turn's stop. `wrote` is listed
+  at the new path.
 - **The push.** The conversation lives in memory, so no file notification reports its changes:
   the `griller` topic is pushed by the push loop's regular pass (every `push_every_s()`, 2 s, which
   CR-429 keeps), and at each change (a turn started, ended, stopped, timed out or failed; a
@@ -351,7 +359,7 @@ the runs; `board/context.py`'s `Context` gains one field, `griller`, the registr
   list[str]` (and its environment), which a test replaces by another command; the rest (the child
   process, standard input, the JSON parsing, the exit code, the tree kill) runs for real.
 
-### 4. The server's API and its documentation (Q5, Q7, Q9, Q10, Q12, Q14, Q16, Q19 to Q22, Q26, Q27)
+### 4. The server's API and its documentation (Q5, Q7, Q9, Q10, Q12, Q14, Q16, Q19 to Q22, Q26 to Q28)
 
 **Who may call.** Any client holding the board's key, as for every op (`board/api/auth.py`
 unchanged); no address or proxy-header check.
@@ -378,13 +386,34 @@ proved or not told, the role's start refused, or an agent other than the plugin'
 turn already running on the server (409, "a Griller turn runs on <project>/<slug>: wait for it or
 stop it"); a text empty or too long, or a `from` too long (400).
 
-**The board's own moves during a turn (Q26).** While a turn runs on an item, the board's ops that
-move its folder refuse that item: the check sits in `board/write_api.py`'s `_move_one`, which
-`backlog.move` (to any destination, `6-trash` and `running-batch` included) and `backlog.group`'s
-moves go through, and asks the registry (through the `Context`) which item's turn runs; the item's
-result is refused with "a Griller turn runs on <project>/<slug>: stop it before moving the item",
-and a call on that item alone answers 409. The other items of the same call move as today. The
-other backlog writes (labels, a new file) are unchanged.
+**The board's own writes on the item during a turn (Q26, Q28).** While a turn runs on an item,
+every write of `board/write_api.py` that targets that item's folder refuses that item, with one
+line on Q26's pattern, worded for the op: "a Griller turn runs on <project>/<slug>: stop it before
+moving the item" for a move, "... stop it before changing the item" for every other write. The
+check is one function of `write_api.py` (the running turn's project and item come from the
+registry, through the `Context`, as `execute`'s caller passes them), called in each op before it
+writes, not in `_move_one` alone:
+
+- `backlog.move` (to any destination, `6-trash` and `running-batch` included): in `_move_one`
+  (which `backlog.group`'s moves also go through);
+- `backlog.file`: in `_file`, before `backlog.edit_markdown` (so a file edit cannot overwrite the
+  Griller's `02-answers.md`);
+- `backlog.labels`: in `_labels`, the busy item taken out of the folders that `change_labels`
+  writes and listed as refused;
+- `backlog.group`: in `_group`, for each member, a member that stays put included (it is not
+  stamped with the group either), before any move or `change_group`;
+- `backlog.ungroup`: in `_ungroup`, the busy member taken out of the members that `change_group`
+  clears and listed as refused.
+
+A call on that item alone (or a group or ungroup whose only member is that item) answers 409; the
+other items of the same call are written as today, the busy one listed in `results` as refused,
+and the `board@1` line (`_answer`) names only what was written. `backlog.new` (a new item),
+`backlog.next_batch` and `journal.rescan` write in no existing item's folder and are unchanged.
+
+**Known limit (Q28).** Only the board's own writes are refused. Another session's writes in the
+item's folder during a turn (the Chief of Staff's, or the user's by hand) are not, and such a file
+may land in the turn's `wrote` listing (and so in its `board@1` line), since the server lists the
+folder before and after the run and cannot tell who wrote a file.
 
 **The conversation.** One per (project, item), shared by every holder, in the server's memory only:
 kept across a page reload and between turns, gone at the server's stop (the next conversation starts
@@ -415,7 +444,8 @@ spend the tokens of the account signed in there.
 **`docs/web-board.md`**: a new section `## The board's Griller` (after "A CR's files"): the Grill
 button and what it runs (the board's machine's `claude`, its model, its account's tokens; the
 plugin's agent only, the model yours to set), the shared conversation and the one turn at a time
-per surface, that the item cannot be moved from the board while its turn runs, what it writes and
+per surface, that the item cannot be moved, edited, labelled or grouped from the board while its
+turn runs, what it writes and
 the Chief of Staff's line, and the warning of Q20, word for word as the panel's (section 5): "The board speaks plain
 HTTP: on the network, the key (the link and its 30-day cookie) and every turn's text travel in
 clear. `chantier board --new-key` revokes the key."
@@ -478,6 +508,8 @@ Read `clients/web/DESIGN.md` first and keep it true.
 - `live` and any client but the web board's UI (Q16; the API is open to any client with the key).
 - A server-side check that no file outside the CR's folder changed: the host's limits and the trial
   prove the boundary.
+- Refusing another session's writes in the item's folder during a turn (Q28's known limit,
+  section 4).
 - The cost code: unchanged; the board's Griller runs are host sessions no batch reads, so their cost
   is in no batch.
 - The Chief of Staff's card (its generic `board wrote` rule holds).
@@ -486,8 +518,10 @@ Read `clients/web/DESIGN.md` first and keep it true.
 
 batch-30 runs in stack mode. This CR joins it on top of every batch-30 CR it overlaps, so each of
 them lands (merged, or handed back ready below it) before this one: CR-428, 429, 433 to 446 and 448,
-which all edit AGENTS.md at least (CR-437, 438 and 442 that file alone, or with `concepts.md`,
-`hosts/claude-code.md` or `startup-manifest.json`; entries side by side). CR-425 to 427 and 430 to
+which share at least one file with this CR (AGENTS.md for most, not CR-433, which shares the web
+board's docs, `DESIGN.md`, the i18n files and `index.html`, below; CR-437, 438 and 442 share
+AGENTS.md alone, or with `concepts.md`, `hosts/claude-code.md` or `startup-manifest.json`; entries
+side by side). CR-425 to 427 and 430 to
 432 are in `3-done`; CR-426 (board-exposure) gives `board.host: network`, which this CR names.
 `depends.json` holds only the real need, `{"after": ["board-fingerprint-cache"]}` (the push wake);
 the rest is the stack's order, not a dependency. Only CR-447 goes above this CR (below).
@@ -536,7 +570,8 @@ the rest is the stack's order, not a dependency. Only CR-447 goes above this CR 
 Checks, in `just check` (in-process, few and parametrized, in a new
 `skills/chantier/scripts/cli/tests/test_board_griller.py`). Budget: every refusal is tested
 in-process with no child process (the refusals come before any start); at most about six tests
-start a child (the stand-in); the time limit is about 0.3 s in tests, and no test sleeps longer.
+start a child (the stand-in); the time limit is set to about 0.3 s in child run 5 only (the other
+runs keep a limit far above their length, through the same seam), and no test sleeps longer.
 The PR quotes `just test`'s time before and after the change on the user's Windows machine
 (AGENTS.md's budget: at most 30 s above its 18.5 s).
 
@@ -544,8 +579,9 @@ The PR quotes `just test`'s time before and after the change on the user's Windo
   replaces the host CLI through the seam (`command()` returns `[sys.executable, <stand-in>, ...]`)
   and runs as a real child: it reads its prompt from standard input, writes a file in the CR's
   folder (named in its arguments), prints a JSON result like Claude Code's (`result`, `is_error`,
-  `session_id`), and on request (a word in the prompt) sleeps, starts a child of its own that
-  sleeps, exits non-zero with an error text and no JSON, or writes after a pause (for the move).
+  `session_id`, and its working directory), and on request (a word in the prompt) sleeps, starts a
+  child of its own that sleeps, exits non-zero with an error text and no JSON, or, for the move,
+  moves the CR's folder and writes at the old path (run 6).
 - In-process, no child: `griller.send` refused, each with its status and line: an item of
   `4-batch/`, of `5-archives/`, of `6-trash/`; the writer stopped in a surface; a second turn on the
   server while one runs (a registry holding a running turn), in the same project and in another
@@ -554,16 +590,30 @@ The PR quotes `just test`'s time before and after the change on the user's Windo
   `chantier.yaml` that sets `agent` for `board-griller` (the line names the setting and its layer;
   Q27). `backlog.move` of the item to a column, to `6-trash` and to `running-batch`, and
   `backlog.group` with it, while its turn runs: 409 (alone) with the line, another item of the same
-  call moved (Q26). The parsing of a result with no JSON: `failed` with the output's last lines.
-- Child runs (about six): (1, 2) a first and a second turn: the prompt read on standard input is
+  call moved (Q26). `backlog.file` on one of the item's files, `backlog.labels`, `backlog.group`
+  with the item as a member that stays put and as one that would move, and `backlog.ungroup` of a
+  group holding it, while its turn runs: 409 (alone) with "... stop it before changing the item",
+  no file of the item's folder changed (its `summary.json` and the edited file byte for byte); the
+  same calls with another item too: the other item written, the busy one refused in `results`, and
+  the `board@1` line naming only the other (Q28). The parsing of a result with no JSON: `failed` with the output's last lines.
+- Child runs (six). Runs 1 to 3 use a planning surface layout (the server's root a surface's
+  checkout, the project's clone added); runs 4 to 6 the in-project layout (`.agents/changes/` of a
+  main checkout), so the matrix row "In-project planning folder" is covered: run 4 checks the
+  stand-in's working directory is the main checkout and its file is written under
+  `.agents/changes/<stage>/<slug>/`, as run 1 checks the surface's checkout. (1, 2) a first and a
+  second turn: the prompt read on standard input is
   the brief then the text, then the text alone (the same conversation id, resumed); the JSON result
   read as the answer; the file written in `wrote`; the second answer ends with `[griller→board]
   grilled enough: next batch`. (3) A non-zero exit with no JSON: `failed` with the stand-in's own
   words. (4) Stop on a turn that wrote and then sleeps: `stopped`, the stand-in and its own child
-  gone (`psutil.pid_exists` false). (5) The time limit: `timed-out`, the tree gone. (6) The folder
-  moved as another session would (the CLI's backlog functions, not the board's op) while the
-  stand-in pauses, then the stand-in writes at the old path: the turn ends `failed` naming the new
-  stage, and no folder is left at the old path (Q26).
+  gone (`psutil.pid_exists` false). (5) The time limit (about 0.3 s, this run only): `timed-out`,
+  the tree gone. (6) The folder moved as another session would (the CLI's backlog functions, not
+  the board's op): the stand-in moves the CR's folder to another column through
+  `lifecycle/backlog.py`'s `move_item` in its own process, writes a file at the old path at once,
+  then writes a confirmation file in the test's temporary folder (outside the planning folder) and
+  sleeps; the turn ends `failed` naming the new stage, the test asserts the confirmation file
+  exists (the old path was re-created before the cleanup, so the test cannot pass on a path never
+  re-created), and no folder is left at the old path (Q26).
 - The journal, read back by `hub/journal.py`'s `read` from those runs: turns 1 and 2 each append
   one `board@1` line, action `grill`, waking, the second's text naming "grilled enough, destination
   next batch, already recorded ... nothing to write"; run 3 (wrote nothing) appends none; run 4
@@ -597,13 +647,17 @@ The real trial (Q17, Q23, Q25), on Claude Code, on the user's machine with the r
 - The model: a project's `chantier.yaml` sets another model for `board-griller`; the model the JSON
   result reports (its per-model usage) is that one, not the agent file's (`--model` with `--agent`
   under `-p`).
+- The reads of Q25, run from a backlog item of a project other than chantier on the surface:
+  okf-schema's inbox item `okfreq-gardening-skill-audit-checks` (for chantier, the plugin's skill
+  folder sits inside its readable clone, so a read there proves nothing): one read allowed in the
+  plugin's skill folder (`references/griller.md`), and one read just outside it refused (the
+  chantier checkout's `AGENTS.md`, outside okf-schema's clone, the planning folder and the skill
+  folder), each quoted.
 - Each refusal quoted, the host's own words: `chantier gate <cr> "git status"`, `chantier lease
   hold`, `chantier triage`, a bare `git status`, a bare `git commit`, `curl` and `Invoke-WebRequest`,
   `cat` of a file outside the three readable folders, `chantier summary set` on a sibling CR's
   folder, on `<cr>-x`, on `<cr>/../<sibling>`, and on the CR's folder followed by `--project
-  <other>`, a write in a sibling CR's folder, a read outside the project, the planning folder and
-  the plugin's skill folder, a web fetch, an MCP tool, an `Agent` call; and one read allowed in the
-  skill folder (Q25).
+  <other>`, a write in a sibling CR's folder, a web fetch, an MCP tool, an `Agent` call.
 - The run's environment: the cleared list, the nested run starting, and its `chantier` calls not
   taking the steering session's identity.
 - A first turn stopped, then a second message: which happened (resumed, or the brief sent again
@@ -628,7 +682,7 @@ Host and default matrix:
 | No host told (board started by hand) | the action refuses with the hand-started reason | test |
 | A planning surface, writer running | runs in the surface's checkout | the trial |
 | A planning surface, writer stopped | refused with the `writer:` line | test |
-| In-project planning folder | runs in the main checkout, writes `.agents/changes/<stage>/<slug>/` | test (stand-in) |
+| In-project planning folder | runs in the main checkout, writes `.agents/changes/<stage>/<slug>/` | test (stand-in, child runs 4 to 6) |
 
 ## Open questions
 
