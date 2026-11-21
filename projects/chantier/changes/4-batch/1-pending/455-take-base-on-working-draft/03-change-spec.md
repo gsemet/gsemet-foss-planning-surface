@@ -1,9 +1,11 @@
 # A stack CR starts on another CR's branch only once that CR is ready
 
-Spec v3 (2026-11-21), from `02-answers.md` take-draft-Q1 to Q5. Short name: `take-draft`. No
+Spec v4 (2026-11-21), from `02-answers.md` take-draft-Q1 to Q7. Short name: `take-draft`. No
 issue (origin: verbal; Studio's batch-06 retro, split out of `take-base-from-forge` by the Chief
 of Staff on 2026-11-20). v3 over v2: Q5 (a CR with an open dependency is on its highest open
-dependency's branch until placed) and the spec critic's fixes.
+dependency's branch until placed) and the spec critic's fixes. v4 over v3: Q6 (no `base:` line for
+a CR whose start CR ended in the record), Q7 (the merge message to batch-30's Foreman) and two
+text fixes of the spec critic.
 
 ## Goal
 
@@ -60,19 +62,30 @@ From `02-answers.md`:
    highest one's branch does not hold the others' code.
 6. **Destination (Fable advisor):** batch-30, after CR-442 and CR-438 where it can; no
    `depends.json`. Batch-30 runs this CLI live, so the new take rule applies to its later takes
-   once merged: the Chief of Staff tells the Foreman at the merge.
+   once merged: the Chief of Staff tells the Foreman at the merge. That message also says (Q7):
+   dependents already taken on a working CR above their dependency will print their dependency's
+   branch and show "not on its place"; the Foreman sends no rebase note for them until the stack
+   driver places them.
+7. **take-draft-Q6 (Fable advisor):** a CR taken, not placed, whose `start_on` owner ended in the
+   record, with a lower ready CR in `landed`: no `base:` line. Its record-alone base is
+   `start_base(d, c)`, the default branch by section 1's rule 2, equal to the real base: the base
+   comes from the record, not from the forge (section 2's second bullet).
+8. **take-draft-Q7 (Fable advisor):** batch-30's dependents already taken on a working CR above
+   their dependency, once this CR merges: the Chief of Staff tells the Foreman at the merge
+   (Decision 6's message), and no rebase note is sent for them until the stack driver places them.
+   A one-time passage for batch-30, with no code and no card change.
 
 Kept, in force (not reopened):
 
-7. **stack-Q4 (the user, 2026-11-17)**, as narrowed by Q1: one stack-driver run at the batch's end
+9. **stack-Q4 (the user, 2026-11-17)**, as narrowed by Q1: one stack-driver run at the batch's end
    owns the final order; the in-batch runs keep the stack current; the rule is for stack batches
    only.
-8. **take-base-from-forge Q1 to Q4:** `take` adds no network read; a CR with a `merged@1` journal
+10. **take-base-from-forge Q1 to Q4:** `take` adds no network read; a CR with a `merged@1` journal
    line for its recorded PR (`landed`) reads as ended for the start base; a `base:` line names it;
    with no journal line, the record is used.
-9. **take-base-from-forge Q6/Q7:** a ready CR the stack driver has not placed reads its word from
+11. **take-base-from-forge Q6/Q7:** a ready CR the stack driver has not placed reads its word from
    its recorded `pr_base`; on an open CR's branch it is ready to merge only when that CR is.
-10. **take-base-from-forge Q9:** the release CR's base is unchanged (the top CR).
+12. **take-base-from-forge Q9:** the release CR's base is unchanged (the top CR).
 
 ## Words used here
 
@@ -139,8 +152,10 @@ Kept, in force (not reopened):
   so the line would never print for a taken CR. The record-alone base becomes (all with no
   `landed`):
   - a placed CR: `start_base(d, c, repo)` (today's `first = c`, unchanged);
-  - a CR taken, not placed, whose `c.start_on` owner is in `landed`: `start_base(d, c, repo)` (the
-    record alone still holds that owner open, so it gives `start_on`);
+  - a CR taken, not placed, whose `c.start_on` owner is in `landed` or ended in the record:
+    `start_base(d, c, repo)` (an owner in `landed` that the record alone still holds open gives
+    `start_on`; an owner ended in the record gives the default branch by section 1's rule 2, so no
+    line prints: Q6);
   - any other CR: `start_base(d, as_queued, repo)`, where `as_queued` is a copy with
     `status="queued"` and `start_on=None` (what the take gives from the record alone, the
     dependency rule 3b and the release's and fix's rules included; not `start_on_for`, which
@@ -270,7 +285,7 @@ that CR `ready` where the step expects its branch.
     follows: `off_place` gives `("b-1", "CR-3")`, the row ends `(note rebase: stacked on CR-3)`,
     and `pr_base = "b-3"` gives `None`; rename it to say its highest open dependency.
   - **D** flips to `"main"` (CR-8 taken, no `start_on`: Q2).
-  - **B2**: `"b-1"` (CR-2 working with a PR above the dependency: Q5). Add **B3**, the same with
+  - **B2** flips to `"b-1"` (Q5; CR-2 working with a PR above the dependency). Add **B3**, the same with
     `cr(2, status="ready")`: `"b-1"` too (Q5: a ready CR above the dependency does not override it).
   - **B** (`after` CR-3, CR-1, no PR anywhere): `"b-3"`, unchanged (re-checked under rule 3b).
   - New rows: **working** (`[cr(1), noPr(2, status="queued")]`, 2, `"main"`); **ready**
@@ -288,11 +303,11 @@ that CR `ready` where the step expects its branch.
   **Q4-landed** (`[cr(1, status="ready"), cr(2, status="ready"), noPr(3, start_on="b-2")]`, 3,
   `{"CR-2"}`, `"b-2"`, `"main"`).
 - New, parametrized: the `base:` line of `commands.facts._landed_line(d, c, REPO, landed)` (called
-  in-process on prepared records, none placed, so no forge read), each row asserting the line
+  in-process on prepared records, none placed; the CR asked has no PR, so no forge read), each row asserting the line
   names the expected CR, or is absent:
   - **dependency:** `[noPr(1), cr(2), noPr(3, after=["CR-2"])]` (CR-3 taken), `{"CR-2"}`: names
     CR-2.
-  - **release:** `[cr(1, status="ready"), cr(2), <release CR-9 working>]`, the release asked,
+  - **release:** `[cr(1, status="ready"), cr(2), <release CR-9 working, pr=None>]`, the release asked,
     `{"CR-2"}`: names CR-2.
   - **start-on-between:** `[cr(1, status="ready"), cr(2, status="ready"), cr(3, status="ready"),
     noPr(4, start_on="b-2")]` (CR-4 taken on CR-2 before CR-3 had a PR), `{"CR-2"}`: names CR-2.
@@ -301,6 +316,8 @@ that CR `ready` where the step expects its branch.
     13-ter check 2): names CR-2.
   - **unaffected:** `[cr(1, status="ready"), cr(2, status="ready"), noPr(3, status="queued")]`,
     `{"CR-1"}`: absent.
+  - **start-on-ended (Q6):** `[cr(1, status="ready"), cr(2, status="merged"|"cancelled"), noPr(3,
+    start_on="b-2")]` (CR-3 taken on CR-2, merged or cancelled in the record), `{"CR-1"}`: absent.
 - No new test file. The Driver runs the whole suite: `test_stack_hold.py`, `test_park_shared.py`,
   `test_hold_live_shared.py`, `test_hold_live_stack.py`, `test_park_stack.py` build stack CRs and
   must stay green (most go through the out-of-order rules first, or are placed).
