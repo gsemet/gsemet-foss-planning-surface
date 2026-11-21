@@ -25,3 +25,4 @@ work/gates/
 forge-journal.jsonl
 **/work/gates/
 .lease-hold.*.run
+**/work/**/artifacts-*/
