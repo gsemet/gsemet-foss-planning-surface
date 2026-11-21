@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Heavy CI after round 1 of a CR adding visual or real-window tests",
+  "summary": "Specified: Studio's process guideline gains an Early heavy CI rule; a CR adding or changing visual, integration or stress scenarios opens its draft PR after round 1 and dispatches the heavy CI once; round 2 reads it. One open question on stack mode.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "6fe92d2246c64ad416d97fdb3342b3b5c9876a5c3ce13a87eee2edd0bf23b642",
+    "02-answers.md": "b0207a8f46482ee9aefcbbe291f5bd2ee19a482893b60824fa00491753168c26",
+    "03-change-spec.md": "28398ad2b1908b088cde878cab86a8a93a5f8512900492052fdadb9ebff10d35",
+    "intake/request.md": "6078f6a78f60da458c09c7c72ac95777d8e512fe21d379c36b91b9ccce9cc8ed"
+  },
+  "summarized": "2026-11-21T09:17:56Z"
+}
