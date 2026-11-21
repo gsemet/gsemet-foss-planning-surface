@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Requirements viewer: search by ID, full IDs in titles and breadcrumb",
+  "summary": "Specified, no open question: search finds full ID, short ID, any case, no leading zeros or a bare number, ID matches first (use case first), Enter opens; full IDs in eyebrow, tab, share title, breadcrumb and pager.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9a1e68e08217ba535ca33ce7ab042101ae3e43d5f24270d16dc7e4150bff7f3f",
+    "02-answers.md": "c1024a15098508b5761e2d359ddca7a2cc1084a2cc76eb61a8352acc9164243f",
+    "03-change-spec.md": "3d6632e102ee038bca57ebe398c581ac5f4d916f76dafe2406d78151176aa01a",
+    "intake/request.md": "c43617dece4b03b653a42d24a894c4d5435b7687ce54c98a204b4ba5c505e555"
+  },
+  "summarized": "2026-11-21T11:11:23Z"
+}
