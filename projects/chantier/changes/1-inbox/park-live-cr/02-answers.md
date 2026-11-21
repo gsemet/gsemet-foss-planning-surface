@@ -6,3 +6,6 @@ Short name: `park-live`
 2. park-live-Q2 (2026-11-21): **Who parks it.** The human decides to take a CR out. When a CR is blocked, the Foreman may deprioritize it by marking it `blocked` in the running batch. The user's words: "en mode stack sa priorité est de ne pas bloquer le reste du stack pour livrer au max un stack mergeable" (in stack mode, its priority is not to block the rest of the stack, so as to deliver as much of a mergeable stack as possible).
 3. park-live-Q3 (2026-11-21): **The stack around it.** A. The stack goes on without it: it is reordered, and the parked or blocked CR comes back on top when it resumes.
 4. park-live-Q4 (2026-11-21): **At a batch's close.** B. `close` is refused while a blocked CR is still in the batch: the user resumes it or sends it somewhere (P1, P2, trash, ready).
+5. park-live-Q6 (2026-11-21): **A blocked CR's slot.** A. It frees its slot: its Driver ends, its worktree and PR stay, and a new Driver takes it up once it is unblocked.
+6. park-live-Q7 (2026-11-21): **Who unblocks it.** A. The Foreman, once its wait is cleared (the answer recorded, or the hub's `wait-cleared@1`): it starts it again, on top of the stack.
+7. park-live-Q5 (2026-11-21): **Two ready folders.** Open: the user asks which folders exist, believing this exists already.
