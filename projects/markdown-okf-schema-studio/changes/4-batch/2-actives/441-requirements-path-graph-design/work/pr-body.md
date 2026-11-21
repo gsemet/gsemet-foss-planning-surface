@@ -96,6 +96,7 @@ Grade: **1**. Only the generated requirements site's viewer and its tests change
 - Numbered badges at every path start, a two-colour border on shared pills and a stronger scroll hint
   are not part of this change.
 - The `visual` job still takes 12 to 14 minutes of its 15 minute limit without this change's additions (its test step is the slow part); it is a separate follow-up, not changed here.
+- **UNVERIFIED:** the CI timing figures of the `visual` job and of the report step (about 90 % of its limit, 11m45 to 14m05, cancelled twice, 17 to 19 s, 43 s locally) come from the author's own measurements and logs; the durations 13m05 and 1m24 of the green run are verified.
 - At 800 px three of the six measured maps are taller than before (listed under Deliverables); the bound is the 1280 px one.
 
 ## Test plan
@@ -106,7 +107,9 @@ Grade: **1**. Only the generated requirements site's viewer and its tests change
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [x] Local gates at `d20b0bf`: `just check` pass, `just preflight` pass, `just ci-viewer-graph` pass
       (43 s), `npm run test:viewer-graph` 4 of 4 pass on the real report
+- [x] Evidence: before at `8d99cd1`, after at `d94b5ec` (carried to `d20b0bf`, the move touches no site code); twelve captures in Deliverables
 - [x] Review: approved at `d20b0bf` (round 4, the CI job split; earlier rounds approved at 5abb7af and d94b5ec)
+- [x] Verified at `d20b0bf` (map claims carried from `d94b5ec`; CI split and job durations proved at `d20b0bf`)
 - [x] CI green at `d20b0bf`: static, static-windows, visual (13m05), viewer-graph (1m24), report pass
 
 ## Internal references
