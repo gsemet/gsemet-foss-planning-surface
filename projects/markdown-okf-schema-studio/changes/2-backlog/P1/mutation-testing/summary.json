@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Mutation testing campaign on src/core: fewer tests, no holes",
+  "summary": "Specified: one-shot StrykerJS run on src/core via a node:test per-test adapter and just mutation-core; remove or merge redundant core tests, add tests for holes, keep every SwRS covered, write the campaign note for chantier. Open: TS checker vs TypeScript 7.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "0f440b445622f7dbee5501d3d178e80df408cf7be263f90e1722e5b1fd5c9ad6",
+    "02-answers.md": "1b15d54f99fe02f6cef783f028cecde7df52e1e1c5f9a420295db594d04b74d8",
+    "03-change-spec.md": "b2a0fac47c4d7667b2315a43484c83bc98fd6d38e7ad1961b4dda9074daf7e28",
+    "intake/request.md": "53ca5c70e52a7b526d2abd9545d764c18c7b230e84491d021730a32d0430b21d"
+  },
+  "summarized": "2026-11-21T09:19:56Z"
+}
