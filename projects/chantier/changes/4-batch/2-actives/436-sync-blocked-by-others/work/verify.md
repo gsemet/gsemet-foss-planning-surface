@@ -25,3 +25,14 @@ VERIFIED
 Posted PR 405 body (gh pr view 405) read against `git show c5af034`: table, helper, Changes, Known gaps match the diff; placeholders now filled with c5af034; review box "approved at c5af034 (carried from 14160a6)" proved by log note "r1 approved at 14160a65..., committed as c5af034b". No images.
 
 VERIFIED
+
+## Move c5af034 -> 9bff328 (clean restack)
+
+Head: 9bff328e1999e223638b0b26fc12b9190325b8cb
+
+- Tests at 9bff328: `PYTHONPATH=src uv run --no-sync --project <main> pytest tests/test_launch_modes.py tests/test_allow_rules.py tests/test_plugin_files.py -q` -> `51 passed in 10.23s`.
+- Base changes since touch only board files (crs.py, times.py, web client js, docs/web-board.md, board tests) per `git diff --name-only origin/main HEAD~1`; none touch launch.py, permissions.py, plugin_files.py or the cards this CR changes. Claims 2-5 carried from c5af034: patch unchanged (same patch-id), base brought no change to what they run.
+- CI at 9bff328 (`gh pr checks 405`): check ubuntu pass; macos, windows, eval-dry-run, scenario pending.
+- Description pass: pr-body.md lines 61-65 still name c5af034 (see report); Known gaps has no stacked-base/draft line.
+
+VERIFIED
