@@ -1,55 +1,56 @@
-# CR-455 debugger: T2 "preview scrolls with the replace-like diff" red in CI 44914183706
+# CR-455 debugger, round 4: T2 "Timed out waiting for the cursor in the real original side" (runs 44916057996, 44917868136)
 
-Repro: `gh workflow run ci.yml --ref chantier/batch-07/cr-455-... -f heavy=true` (job `integration`, step
-`diff-preview`). Not reproducible locally (Windows, no xvfb VS Code); diagnosis is from code plus the CI log,
-which only holds the timeout line (no focus or event trace).
+Repro: `gh workflow run ci.yml --ref chantier/batch-07/cr-455-... -f heavy=true`, job `integration`, step `diff-preview`.
+No local run is possible (no xvfb VS Code test host here); the proof below is VS Code's own code, read from the
+installed VS Code 1.147.0 (`%LOCALAPPDATA%/Programs/Microsoft VS Code/8a14f0cc1b/resources/app/out/vs/workbench/workbench.desktop.main.js`)
+plus the two CI logs.
 
-## Cause (test bug, candidate a, with a focus root cause)
+## Cause (proven, test bug): the test uses the wrong side command
 
-`src/host-vscode/activation.ts` ~l.408: the side preview is made with
-`createWebviewPanel(PANEL_VIEW_TYPE, "Studio", ViewColumn.Beside, {...})`, no `preserveFocus`, so the new
-webview group takes the workbench focus. In T2 the preview is opened AFTER the diff, then the test runs
-`cursorBottom` (diffPreview.test.ts l.100) with the focus in the webview group: it moves no text editor,
-no visible-range event fires, `lastSourceScrollLine` stays undefined/0 -> timeout. The preceding
-asserts (active editor is the virtual side, preview ready, no text tab added) all pass without proving the
-focus is back in the diff. T1 passes because there the diff is opened after the preview, so the diff's
-`vscode.diff` call leaves the focus in the diff and `cursorBottom` scrolls the real (modified) side.
-So T1 green-in-CI also proves (c) is false: diff real side -> visible-range event -> `syncEditorToPreview`
--> preview scroll works in a real window (side by side).
+`workbench.action.compareEditor.focusPrimarySide` is registered as `focusInDiffEditor(args, 1)` and
+`...focusSecondarySide` as `focusInDiffEditor(args, 0)`; the handler does:
+`case 0: getOriginalEditor().focus(); case 1: getModifiedEditor().focus()`.
+So PRIMARY = MODIFIED (right), SECONDARY = ORIGINAL (left). The test assumed primary = original (left).
 
-Secondary, by design (not the failure): `syncEditorToPreview` (scrollSync.ts l.137-147) only follows an
-editor whose `document.id === preview.documentUri` (the `file:` one), so a scroll of the virtual side never
-moves the preview directly; it works only if VS Code mirrors the scroll to the real side and fires that
-editor's `onDidChangeTextEditorVisibleRanges` (likely in side by side, UNPROVEN). (b) is not shown by any
-evidence: activation.ts l.194 forwards every visible-range event, hostEvents l.476 does not filter.
+- T2 diff = (original: real b.md file, modified: virtual `studio-diff-test`). `focusPrimarySide` focuses the
+  modified = virtual side, so `activeTextEditor.document.uri.scheme === "file"` is never true: timeout after the
+  10 s default of `waitFor` (log: step 14357 ms = ~4 s of T1/T2 setup + 10 s wait; same in r2 and r3).
+- T3 (original virtual, modified file) would also fail with the same wrong command: it waits for SCHEME after
+  `focusPrimarySide`, which gives the file side. T5 does not depend on the side. T6 (both virtual) passes only by
+  accident (modified = virtual index).
 
-## Fix (test only)
+## The webview-focus hypothesis is false
 
-In T2, after `previewOf(b.md)` and the no-tab assert, put the focus back on the diff and on the REAL side, which
-is the original (left) one, then scroll it:
-`await vscode.commands.executeCommand("workbench.action.compareEditor.focusPrimarySide")` (as T3/T5 do), wait for
-`activeTextEditor.document.uri.scheme === "file"`, then `cursorBottom`. Scrolling the real side removes the
-dependence on VS Code mirroring the virtual side's scroll. Do not use `focusFirstEditorGroup` (windowFocus.ts
-l.112 note). Same fix wanted wherever the test acts after a Studio command with the diff expected focused.
+`getActiveTextDiffEditor` iterates `[activePane, ...visibleEditorPanes]` and returns the first text diff pane, so
+the focus command works even while the preview webview holds the focus. `refocusDiff` (vscode.diff reopen) and
+`focusFirstEditorGroup` are not needed for the command to act; (round-2 note that the webview stole the focus
+was a reasonable but unneeded step; keeping `refocusDiff` is harmless, dropping it is cleaner). The
+windowFocus.ts l.112 comment (focusFirstEditorGroup adds a focus move of its own, lands on whichever group is
+first) is valid: do not use that command.
 
-## Remaining tests (read, not run)
+## Fix (test only, test/integration/diffPreview.test.ts)
 
-- T3: focus is set explicitly (focusPrimarySide, waits for the virtual side) before the command: should pass.
-- T5: `openDiff` then focusPrimarySide, then waits for the switch; `followActiveDiff` takes the modified file
-  side: should pass. Note T3's command leaves the focus in the webview (`panel.reveal()` without
-  preserveFocus, activation.ts l.397), but `vscode.diff` then reopens in the text group.
-- T6: PASSES VACUOUSLY at risk: the preview exists, so the command ends with `panel.reveal()` (focus in the
-  webview); `cursorBottom` then scrolls nothing, so "no scroll follows" would be true for the wrong reason.
-  Add the focus-back step (and, ideally, an assert that `activeTextEditor` is the diff's side) before
-  `cursorBottom`.
-- Inline layout (second loop iteration), likely failure of T2 inline: with `renderSideBySide=false` the real
-  file is the ORIGINAL side, which is not rendered as a separate editor (it is view zones in the modified
-  editor), so no visible-range event of the real file can come from scrolling; `focusPrimarySide` is also
-  not meaningful there. Either keep T2 side-by-side only (inline: only assert the preview opens and the
-  replace-like shape opens no tab) or accept that the spec's "scroll with the real file's side" cannot hold
-  for a real file on the original side in inline mode (document it as a limitation). T1 inline (real file on
-  the modified side) should pass, unproven.
-- `withLayout`'s `finally` restores `before` (undefined when unset): fine.
+1. l.112 (T2), l.143 (T6 keep either): to focus the ORIGINAL side use `workbench.action.compareEditor.focusSecondarySide`.
+   - T2: `focusSecondarySide`, wait scheme === "file", `cursorBottom` (the `refocusDiff` call before it may stay).
+   - T3 l.124: `focusSecondarySide` (original = virtual, wait SCHEME) .
+   - T5 l.133 and T6 l.143: either command (T6: `focusSecondarySide` gives virtual head, also SCHEME). Prefer
+     `focusSecondarySide` everywhere "original" is meant, and say in the comment "primary = modified".
+2. Layout robustness: `diffEditor.useInlineViewWhenSpaceIsLimited` (default true, threshold 900 px) can turn a
+   side-by-side diff inline in a small CI window; set it to `false` in `withLayout` for `sideBySide === true`
+   (and restore) so the original editor really exists. Cheap and removes one unknown.
+3. Inline T2: keep as is (no scroll assert); inline has no separate original editor, `getOriginalEditor().focus()`
+   there is not meaningful. Inline T1 (file on the modified side) should pass like side-by-side T1 (T1
+   side-by-side passed in run 44914183706); unproven in inline.
 
-## Untested here
-Everything real-window: the mirror of virtual-side scroll to the real side, inline-layout event behavior, T3/T5/T6.
+## Prediction
+
+- T2 side by side: ~80% to pass with `focusSecondarySide` (focus is then provably on the file's original editor;
+  `cursorBottom` scrolls it, the visible-range event of that real editor reaches `syncEditorToPreview`, the same
+  path T1 proved on the modified side). Residual 20%: original-side visible-range reporting in the ext host,
+  CI window size (fix 2).
+- T3 ~85%, T5 ~85% (follows the active diff, independent of the side), T6 ~85% (vacuity now excluded since
+  the cursor is in a diff editor and the check asserts the scheme).
+- Inline T1 ~75%, inline T2 (open-only asserts) ~90%.
+- Least provable in CI if it still fails after this fix: the T2 side-by-side original-side scroll assertion, and
+  inline T1 (layout-dependent). Per the fallback, drop those two first; keep side-by-side T1, T4 (manifest), T3, T5,
+  T6 (they need no scroll of the original side) and the unit tests.

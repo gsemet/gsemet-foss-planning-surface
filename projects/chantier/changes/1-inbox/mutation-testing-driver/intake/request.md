@@ -20,3 +20,6 @@ Constraints: a requirement marker never loses its coverage (the marker moves to 
 - **The Driver accompanies the people** to choose the campaign that fits the project, runs it, **fixes what is cheap** (removes or merges a redundant test, adds an obvious missing test), and **opens findings** for what is more serious, as the QA Driver does.
 - **Generalisable:** Studio runs the first trial and hands its note back; the Chief of Staff keeps from it what holds for any project (the role's card, the project interface it reads, the campaign's steps and its report), not Studio's specifics.
 - **Docs and diagrams:** the role goes into chantier's docs and its SVG diagrams, beside the QA Driver.
+
+## Studio's campaign note (2026-11-21, from Studio's Chief of Staff, as Studio's spec mt-Q6 asks)
+Studio's CR-450 (a one-shot mutation campaign on src/core, TS 7, whole-program type check, merged 2026-11-21 15:28Z) wrote its note for chantier: command, scope, how to read the report, the proposed removal rules, run time. In the planning surface: `projects/markdown-okf-schema-studio/changes/4-batch/3-done/450-mutation-testing/evidence/mutation-campaign-note.md` (81 lines); the same folder has `redundant-tests-core.md` and `holes-core.md`. Read them at this CR's grill.

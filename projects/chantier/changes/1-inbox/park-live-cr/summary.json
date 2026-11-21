@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "The Foreman parks a CR stuck on an outside wait",
-  "summary": "Spec v5: the Foreman parks a CR waiting outside (blocked, slot freed, out of the stack and series with its dependents, a series successor only if it started on it), back on top once its wait clears; close, the batch's end and the release wait for it. No open question.",
+  "summary": "Spec v6: the Foreman parks a CR waiting outside (blocked, slot freed, out of the stack and series with its dependents), back on top once its wait clears; close and the release wait for it. Dropping it with dependents: stack driver's removal, or a rebase note to their Drivers. No open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "2b281752fd8f48f3549eaad6e2fdebca244ae90086ffb0b0ea22641d7b899ede",
-    "02-answers.md": "400fc3d3d5fbe9b0ac25fd881c1c26672e8cdbbfe573d775c6abd82c1139b4d9",
-    "03-change-spec.md": "2db9912cefafebf60971674231379ae1a63191fd7775fcc1ed603227e750ae02",
+    "02-answers.md": "e58853a34388d0b16d41fdb5f628bea7d950aed3bd910085590fccc86ae8b65d",
+    "03-change-spec.md": "e411b90a540483ae27d88214d5f358b4078a6073f9008d9eaac592a917dea417",
     "intake/request.md": "bfc11074b952527c00c9443eb6e190eef128ddd8caf68fb5d312dbce15b27b11"
   },
-  "summarized": "2026-11-21T15:16:29Z"
+  "summarized": "2026-11-21T15:29:26Z"
 }

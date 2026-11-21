@@ -8,10 +8,11 @@ outside pipeline or merge) stops holding a slot and the stack. The Foreman parks
 the board. Once its wait is cleared, the Foreman takes it back, on top, before any queued CR.
 `close`, the batch's end and the release wait for it: the user resumes it or sends it out.
 
-Spec v5 (run 5). The user split the first CR in three (park-live-Q12): this CR is part (1). `order
+Spec v6 (run 6). The user split the first CR in three (park-live-Q12): this CR is part (1). `order
 hold` of a live CR is `hold-live-cr`; the `ready` drop destination and the destinations of a
-started CR are `drop-to-next-batch` (both in `1-inbox/`). v5 takes in the spec critic's run 3
-fixes (on v4) and nothing else.
+started CR are `drop-to-next-batch` (both in `1-inbox/`). v5 took in the spec critic's run 3
+fixes (on v4); v6 takes in park-live-Q16 (the drop of an apart CR that has dependents) and nothing
+else.
 
 ## Goal, in the user's terms
 
@@ -45,6 +46,7 @@ as possible.
 | Q13 (B) | P3 and P4 allowed for a started CR too. | Out of scope: `drop-to-next-batch`. |
 | Q14 (A) | No board drag of a CR out of the running batch now; an idea for later, no CR. | Out of scope |
 | Q15 (A) | A series successor already started on the parked CR waits with it, as a dependent: out of the order, its Driver goes on, it is not merged before the parked CR comes back. | Words; "Shared with hold-live-cr"; 2, 3 |
+| Q16 (A) | Dropping an apart CR that has dependents, in a series or parallel batch: the Foreman has the dependents' Drivers rebase to remove its commits (a note to each, or their next take); they go on. In a stack, the stack driver's removal stays. | "Shared with hold-live-cr" (`order drop` of an apart CR); 2; 4; 6; Evidence |
 | Entry 17 | (Superseded by entry 18: the inbox for a started CR.) | - |
 | Entry 18 | `order drop` never sends a CR out of a batch to the inbox, started or not: P1-P4, `3-ready`, the trash; a parked CR is no exception. | 6, 7, Out of scope: wherever a parked CR's drop is named, the destinations `order drop` takes (drop-to-next-batch: never the inbox; P1-P4, `3-ready`, the trash). |
 | Fable 1 | Reuse the existing `blocked` state (it holds no slot); the Foreman sets it on a live CR. | 1 |
@@ -121,7 +123,7 @@ Run 3 (v4):
 ## Shared with hold-live-cr
 
 park-live-cr and hold-live-cr (both in `1-inbox/`) share this paragraph word for word, as
-park-live-cr's specification v5 writes it; neither changes it alone. Whichever of the two CRs
+park-live-cr's specification v6 writes it; neither changes it alone. Whichever of the two CRs
 lands first records the series `start_on`, adds the helpers below to `rails.py` and moves the
 readers of `is_held` onto them; the second one widens its tests and adds no reader. Both edit the
 same functions (`stacks.py`, `rails.series_predecessor`, `rails.check_take`, `status/words.step`,
@@ -174,10 +176,20 @@ left out of the native stack, not retargeted, and named apart, never as foreign 
 
 **`order drop` of an apart CR** (`commands/orders_drop.drop`) unsets `held` or `parked`, so a
 dropped CR never reads held or parked. With no dependent, it prints today's line, `<cr> was
-held|parked: no stack driver needed`. With dependents, it names them instead, and in a stack batch
-the stack driver's removal of the dropped commits from their branches: `<cr> was held|parked;
-waiting with it: <cr>, ...[: the stack driver takes it out of their branches (\`take stack --note
-"drop: <cr> to <destination>"\`)]`, the bracketed part in a stack batch only.
+held|parked: no stack driver needed`. With dependents, it names them instead, with who takes the
+dropped commits out of their branches (park-live-Q16, hold-live-cr-Q2): `<cr> was held|parked; waiting with it:
+<cr>, ...: <tail>`, where `<tail>` is, in a stack batch, the stack driver's removal, `the stack
+driver takes it out of their branches (\`take stack --note "drop: <cr> to <destination>"\`)`, and,
+in a series or parallel batch, the Foreman's rebase note to their Drivers, `their Drivers rebase
+to take its commits out (the Foreman's note \`rebase: <cr> dropped\`)`. With `held` or `parked` unset,
+the dropped CR is no longer apart, so its dependents leave `out_of_order` (unless another apart CR
+holds them) and take their base again by the series, stack or default rule. In a series or parallel batch, the Foreman
+sends each dependent that has a Driver or a branch the note `rebase: <cr> dropped`: a working one
+as a note to its Driver (`[foreman→driver <dep>] note rebase: <cr> dropped`), one handed back ready
+or blocked by `take <dep> --note "rebase: <cr> dropped"`; a queued one needs none (its first take
+starts on its new base). Its Driver rebases its branch onto the base `take` or `handoff` names,
+leaving out the dropped CR's commits, and goes on (`driver.md`, "CR driver: re-takes"). In a stack
+batch, the stack driver's removal stays as it is.
 
 ## What changes
 
@@ -266,7 +278,7 @@ and `mode` the batch's mode, as `waits_for` takes them.
 | `commands/delivery.py`, `stack <crs>` and `_check_out_of_draft` | refuse a held CR | also refuse a parked CR (`<cr> is parked out of the stack (since <time>): it comes back with \`take\``) and a dependent (`<cr> waits with parked <p>\|held <p> (order <O-n>): it stays out of the stack until <p> is back`) |
 | `commands/forge_stack_apart.held` | held PRs to the default branch, `(held out of the stack)` | `apart` PRs; a parked one's reason reads `(parked out of the stack)` |
 | `commands/forge_stack_apart` (new `waiting`, critic run 2, fix 3) | - | the PR of a dependent of any apart CR, held or parked: left out of the native stack, not retargeted (it stays on its base by the shared rule), and named apart in the rebuild's lines and in check 2 as `#n of <cr> waits with parked <p>\|held <p>: left out of the stack`, never as a foreign PR |
-| `commands/orders_drop.drop` | unsets `held`, `was held: no stack driver needed` | "Shared with hold-live-cr", `order drop` of an apart CR: also unsets `parked`; the "no stack driver needed" line only with no dependent, else the dependents named and, in a stack batch, the stack driver's removal |
+| `commands/orders_drop.drop` | unsets `held`, `was held: no stack driver needed` | "Shared with hold-live-cr", `order drop` of an apart CR: also unsets `parked`; the "no stack driver needed" line only with no dependent, else the dependents named and, in a stack batch, the stack driver's removal, in a series or parallel batch, the Foreman's `rebase: <cr> dropped` note to their Drivers (park-live-Q16) |
 | `commands/orders_reorder.py` | `release_holds` reads `held` | no change: a parked CR stays parked when the batch leaves a stack; `reorder` keeps its chains; `series_predecessor` skips it |
 
 **The CRs that wait with it** (Fable 6, Q15) keep their status. A queued one waits without a slot,
@@ -326,8 +338,16 @@ working CR does ("A working CR placed on another", `foreman.md`): the next `take
 stack driver orders it on top, its dependents above it, as they hand back. `stack --out-of-draft`
 refuses it until then.
 
-`driver.md`, "CR driver": no change. A Driver that waits on an outside step hands back `blocked`
-with a typed `--wait`, as today; a parked CR's old Driver reads `claim lost` and stops.
+`driver.md`, "CR driver": a Driver that waits on an outside step hands back `blocked` with a
+typed `--wait`, as today; a parked CR's old Driver reads `claim lost` and stops. In "CR driver:
+re-takes", one paragraph (park-live-Q16): **a note `rebase: <cr> dropped`** (a held or parked CR
+this CR waited with was dropped out of the batch, in a series or parallel batch): rebase the branch
+onto the base `take` or `handoff` names, leaving out the dropped CR's commits (those of its branch
+that are not on that base), retarget the PR to that base if it was elsewhere, push with
+`--force-with-lease`, `ship`, and go on with the CR's work as before; a conflict is a
+`conflict-resolver` as for any rebase. Taken back ready, it is the path of a `rebase:` note, a
+conflict resolved bringing the long gate again. The `rebase:` line of "Means: a Driver started
+again" already sends a Driver there.
 
 ### 5. What `status`, the pane and the board show
 
@@ -391,6 +411,12 @@ server's protocol. No drag out of the running batch (Q14).
   shows `parked: <cr> wait cleared`: `take <cr> --note "wait cleared: <what>" --epoch <n>`, then a
   new CR Driver, before any queued CR. In a stack it joins as a working CR (section 4). No round is
   counted.
+- **Dropping a parked or held CR that has dependents** (park-live-Q16): the line `order drop`
+  prints names them. In a stack, `take stack --note "drop: <cr> to <destination>"`, as today. In a
+  series or parallel batch, send each dependent with a Driver or a branch the note `rebase: <cr>
+  dropped`, by the usual path (read `status` first: `working`, `[foreman→driver <dep>] note rebase:
+  <cr> dropped`; `ready` or `blocked`, `take <dep> --note "rebase: <cr> dropped"`); a queued one
+  needs none. They go on.
 - **The final-order take:** a parked CR and its dependents count as a held CR does (out of it), and
   a queued CR whose dependency is parked is one "whose dependency is blocked".
 - **The release** (section 7): neither the final-order take nor `take <release>` starts while a CR
@@ -422,7 +448,8 @@ server's protocol. No drag out of the running batch (Q14).
 **`routing.md`:** the Foreman → Chief of Staff row gets `parked <cr>: <waits>; …` (the line `park`
 prints, passed as it came).
 
-**`driver.md`:** section 4.
+**`driver.md`:** section 4 (the stack driver's `park:` and the return; the `rebase: <cr>
+dropped` paragraph of "CR driver: re-takes").
 
 ### 7. `close`, the batch's end and the release, while a CR is blocked
 
@@ -567,7 +594,10 @@ within its limit). A new `test_park.py`; extend `test_stack_hold.py`, `test_stac
 - **`order drop` of a parked CR** to the trash (critic run 3, fix 3): with no dependent, `parked`
   unset and the line `was parked: no stack driver needed`; with a dependent in a stack batch,
   `parked` unset and the line naming the dependent and `take stack --note "drop: <cr> to
-  <destination>"`, with no "no stack driver needed".
+  <destination>"`, with no "no stack driver needed"; with a dependent in a series batch and in a
+  parallel one (park-live-Q16, parametrized), `parked` unset and the line naming the dependent and
+  the Foreman's note `rebase: <cr> dropped`, with neither "no stack driver needed" nor `take
+  stack`; the dependent is no longer out of order and its base is its series or default base.
 - **The pane's words:** `step` reads `Parked`; `phase_text` gives `parked: waits for …` and
   `parked: wait cleared` (fix 9); `_now_next` gives the two parked pairs (open wait, cleared).
 - **`close`** (parametrized over the way back, fix 6): every other CR merged and one CR left
@@ -584,7 +614,7 @@ within its limit). A new `test_park.py`; extend `test_stack_hold.py`, `test_stac
 - **The cards** (read from the repository at the head under test): `foreman.md` names `park` and
   the `parked <cr>` line; `routing.md`'s Foreman → Chief of Staff row names `parked <cr>`;
   `chief-of-staff.md` names `wait cleared` for a parked CR and a parked CR next to the held-CR line
-  of "Holding a CR out of a stack"; `driver.md` names `park: <cr>`. Add them to the existing test
+  of "Holding a CR out of a stack"; `driver.md` names `park: <cr>` and `rebase: <cr> dropped`; `foreman.md` names `rebase: <cr> dropped`. Add them to the existing test
   that reads these cards (`test_plugin_files.py`), no new file.
 
 **Scenario** (`scenario/run_scenario.py`): a new case `park_live` in the `stack` unit, after
