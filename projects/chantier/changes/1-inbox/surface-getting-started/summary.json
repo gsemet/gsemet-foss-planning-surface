@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Getting started on a new, empty planning surface",
+  "summary": "Spec v1, no grill (delegated): a docs/getting-started-surface.md walk from an empty repo to the first open; the writer's branch from chantier.yaml surface.branch, origin/HEAD or the upstream, none set still blocks naming all three. Six open questions, written on A.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "7077bb12c8eb321e9543f715767631c1a71af78c6ef181043ee0175af29ef799",
+    "03-change-spec.md": "18a808902c738e97d9d7ead4f785e2f79547de4e3cf2aeed2060f6de2d7e1d9d",
+    "intake/request.md": "a7054d906ce0b1840ed885a8504d2282f5ac767b43156e2a62486f47117f2bfd"
+  },
+  "summarized": "2026-11-21T21:55:39Z"
+}
