@@ -7,3 +7,4 @@ board-lock-Q2 (2026-11-21, Fable advisor): **Naming the holding process: A, no s
 board-lock-Q3 (2026-11-21, Fable advisor): **Which moves get the wait and the refusal: A, every CR folder move, through `FolderStore.move`.** One place, one behaviour; a held folder blocks a batch or archive move exactly as it blocks triage.
 board-lock-Q4 (2026-11-21, Fable advisor): **Card sentence on the shell's working directory: A, one sentence in `startup-core.md`.** The proven holder was an agent's own shell, and any role can park a shell in a CR folder.
 Destination (2026-11-21, Fable advisor): batch-30; no batch-30 CR edits `store/folder.py` or `startup-core.md`, so no `depends.json`; W3 runs at a head that holds CR-429.
+Spec final (2026-11-21, the Chief of Staff): v2, board-lock-Q1..Q4 applied, one critic pass (non-behavioural fixes only); destination batch-30, no depends.json.
