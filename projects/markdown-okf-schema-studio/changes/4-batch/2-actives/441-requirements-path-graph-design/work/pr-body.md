@@ -64,7 +64,7 @@ At 1280 px all six maps are shorter. At 800 px three maps are taller than before
 - CI: the `visual` job already used about 90 % of its 15 minute limit (its healthy runs last 11m45 to
   14m05; the test step alone is 11 to 13 minutes). Putting the report and the map tests in it added
   75 to 90 s and got it cancelled twice. Nothing was hung (the map test itself takes 17 to 19 s). They
-  now run in a job of their own, about 3 minutes, in parallel; `visual` is back to what it ran before,
+  now run in a job of their own (1m24 in CI), in parallel; `visual` is back to what it ran before,
   and no timeout is raised.
 
 ## Impacts
@@ -102,7 +102,7 @@ Grade: **1**. Only the generated requirements site's viewer and its tests change
 - [x] Local gates at `d20b0bf`: `just check` pass, `just preflight` pass, `just ci-viewer-graph` pass
       (43 s), `npm run test:viewer-graph` 4 of 4 pass on the real report
 - [x] Review: approved at `d20b0bf` (round 4, the CI job split; earlier rounds approved at 5abb7af and d94b5ec)
-- [ ] CI green at `d20b0bf`: static, static-windows, visual, viewer-graph, report
+- [x] CI green at `d20b0bf`: static, static-windows, visual (13m05), viewer-graph (1m24), report pass
 
 ## Internal references
 
