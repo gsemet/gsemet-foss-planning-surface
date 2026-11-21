@@ -1,0 +1,1419 @@
+skills/chantier/scripts/cli/tests/test_access.py::test_a_cr_the_batch_does_not_hold_is_refused_with_exit_zero
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_and_push_need_a_cr_and_write_does_not
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_is_allowed_with_its_facts[ended-lease]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_is_allowed_with_its_facts[left]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_is_allowed_with_its_facts[no-lease]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_is_allowed_with_its_facts[none-set]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_is_allowed_with_its_facts[unknown]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_is_allowed_with_its_facts[unpriced]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_quotes_the_refusal_take_prints[agent]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_quotes_the_refusal_take_prints[budget]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_quotes_the_refusal_take_prints[dependency]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_quotes_the_refusal_take_prints[lease-not-confirmed]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_quotes_the_refusal_take_prints[live-lease]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_quotes_the_refusal_take_prints[merged]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_quotes_the_refusal_take_prints[no-slot]
+skills/chantier/scripts/cli/tests/test_access.py::test_claim_says_what_the_epoch_needs_and_a_dead_hold_record_stays
+skills/chantier/scripts/cli/tests/test_access.py::test_on_a_surface_claim_with_no_writer_is_refused_and_push_names_the_writer
+skills/chantier/scripts/cli/tests/test_access.py::test_push_follows_the_lease[batch-no-lease]
+skills/chantier/scripts/cli/tests/test_access.py::test_push_follows_the_lease[ended]
+skills/chantier/scripts/cli/tests/test_access.py::test_push_follows_the_lease[live]
+skills/chantier/scripts/cli/tests/test_access.py::test_push_follows_the_lease[no-lease-given]
+skills/chantier/scripts/cli/tests/test_access.py::test_push_follows_the_lease[not-confirmed]
+skills/chantier/scripts/cli/tests/test_access.py::test_push_follows_the_lease[ready]
+skills/chantier/scripts/cli/tests/test_access.py::test_push_follows_the_lease[stale]
+skills/chantier/scripts/cli/tests/test_access.py::test_the_session_line_says_who_holds_the_seat[None--session uuid-me: no seat recorded]
+skills/chantier/scripts/cli/tests/test_access.py::test_the_session_line_says_who_holds_the_seat[seat0--session uuid-me: holds the seat of proj]
+skills/chantier/scripts/cli/tests/test_access.py::test_the_session_line_says_who_holds_the_seat[seat1-copilot-session cop-1: holds the seat of proj]
+skills/chantier/scripts/cli/tests/test_access.py::test_the_session_line_says_who_holds_the_seat[seat2--session uuid-me: the seat is chief (https://x/1)]
+skills/chantier/scripts/cli/tests/test_access.py::test_the_session_line_says_who_holds_the_seat[seat3--session uuid-me: the seat is chief (unknown)]
+skills/chantier/scripts/cli/tests/test_access.py::test_the_session_line_says_who_holds_the_seat[seat5-bare-session none: the seat is chief (unknown)]
+skills/chantier/scripts/cli/tests/test_access.py::test_write_in_project_commits_nothing
+skills/chantier/scripts/cli/tests/test_access.py::test_write_on_a_surface_with_a_writer_says_how_far_it_has_pushed[entry0-]
+skills/chantier/scripts/cli/tests/test_access.py::test_write_on_a_surface_with_a_writer_says_how_far_it_has_pushed[entry1-]
+skills/chantier/scripts/cli/tests/test_access.py::test_write_on_a_surface_with_a_writer_says_how_far_it_has_pushed[entry2-; not pushed yet: 2 paths]
+skills/chantier/scripts/cli/tests/test_access.py::test_write_on_a_surface_with_a_writer_says_how_far_it_has_pushed[entry3-; not pushed yet: 3 commits]
+skills/chantier/scripts/cli/tests/test_access.py::test_write_on_a_surface_with_a_writer_says_how_far_it_has_pushed[entry4-; not pushed yet: no-upstream]
+skills/chantier/scripts/cli/tests/test_access.py::test_write_on_a_surface_with_a_writer_says_how_far_it_has_pushed[entry5-; not pushed yet: 1 commits]
+skills/chantier/scripts/cli/tests/test_access.py::test_write_on_a_surface_with_no_writer_is_refused_and_names_an_older_board
+skills/chantier/scripts/cli/tests/test_ask_readiness.py::test_readiness_key[-None]
+skills/chantier/scripts/cli/tests/test_ask_readiness.py::test_readiness_key[blocked CR-261 why-None]
+skills/chantier/scripts/cli/tests/test_ask_readiness.py::test_readiness_key[pr-in-draft cr-262 https://x on main: waits for y-key1]
+skills/chantier/scripts/cli/tests/test_ask_readiness.py::test_readiness_key[question CR-261 which?-None]
+skills/chantier/scripts/cli/tests/test_ask_readiness.py::test_readiness_key[ready-locally 261-key2]
+skills/chantier/scripts/cli/tests/test_ask_readiness.py::test_readiness_key[ready-to-merge CR-261 slug https://x gaps: a-key0]
+skills/chantier/scripts/cli/tests/test_ask_readiness.py::test_readiness_key[ready-to-merge CR-999 slug https://x-None]
+skills/chantier/scripts/cli/tests/test_ask_readiness.py::test_readiness_key[ready-to-merge-None]
+skills/chantier/scripts/cli/tests/test_ask_readiness.py::test_readiness_key[stack-ready-to-merge https://x CR-261=https://y-key7]
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_a_blocked_pause_leaves_the_end_recorded_and_cleans_nothing[note]
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_a_blocked_pause_leaves_the_end_recorded_and_cleans_nothing[stack]
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_a_merged_cr_whose_driver_is_still_held_is_kept_and_the_batch_is_paused
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_a_merged_release_crs_pr_stays_in_its_record[None]
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_a_merged_release_crs_pr_stays_in_its_record[https://example.com/pr/1]
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_a_release_crs_order_merged_and_the_drop_of_a_live_cr_pause_nothing
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_a_stack_line_marks_a_merged_release_pr_and_not_an_open_one
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_a_worktree_git_refuses_to_remove_is_kept_with_its_branch
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_a_worktree_with_a_file_held_open_is_kept_and_the_batch_is_paused
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_close_names_the_merged_crs_leftovers_beside_the_dropped_ones
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_the_end_of_the_last_cr_cleans_the_merged_crs_and_pauses_the_batch[cancel]
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_the_end_of_the_last_cr_cleans_the_merged_crs_and_pauses_the_batch[drop]
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_the_end_of_the_last_cr_cleans_the_merged_crs_and_pauses_the_batch[merged-chief]
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_the_end_of_the_last_cr_cleans_the_merged_crs_and_pauses_the_batch[merged-own]
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_the_end_of_the_last_cr_cleans_the_merged_crs_and_pauses_the_batch[released]
+skills/chantier/scripts/cli/tests/test_batch_end.py::test_the_end_of_the_last_cr_of_a_factory_batch_waits_for_the_next_ready_cr
+skills/chantier/scripts/cli/tests/test_board.py::test_a_held_port_is_refused_with_the_port_and_the_way_out
+skills/chantier/scripts/cli/tests/test_board.py::test_the_board_adds_no_path_to_an_in_project_folder
+skills/chantier/scripts/cli/tests/test_board.py::test_the_board_gives_a_surface_its_root_and_each_project_its_two_paths
+skills/chantier/scripts/cli/tests/test_board.py::test_the_board_gives_each_project_its_repository_path_and_its_origin[-]
+skills/chantier/scripts/cli/tests/test_board.py::test_the_board_gives_each_project_its_repository_path_and_its_origin[https://github.com/owner/repo.git-https://github.com/owner/repo.git]
+skills/chantier/scripts/cli/tests/test_board.py::test_the_board_gives_each_project_its_repository_path_and_its_origin[https://user:s3cret@github.com/owner/repo.git-https://github.com/owner/repo.git]
+skills/chantier/scripts/cli/tests/test_board.py::test_the_board_gives_each_project_its_repository_path_and_its_origin[ssh://git@github.com/owner/repo.git-ssh://github.com/owner/repo.git]
+skills/chantier/scripts/cli/tests/test_board.py::test_the_board_is_one_package_of_small_modules_with_no_server_of_html
+skills/chantier/scripts/cli/tests/test_board.py::test_the_frame_is_shipped_with_the_package
+skills/chantier/scripts/cli/tests/test_board.py::test_the_probe_answers_its_frozen_fields_and_every_old_route_is_unknown
+skills/chantier/scripts/cli/tests/test_board.py::test_the_probe_tells_a_board_behind_another_key_from_any_other_answer[401-nope-other]
+skills/chantier/scripts/cli/tests/test_board.py::test_the_probe_tells_a_board_behind_another_key_from_any_other_answer[401-this board needs the link with its key: ask the Chief of Staff for it-another-key]
+skills/chantier/scripts/cli/tests/test_board.py::test_the_probe_tells_a_board_behind_another_key_from_any_other_answer[404-this board needs the link with its key: ask the Chief of Staff for it-other]
+skills/chantier/scripts/cli/tests/test_board.py::test_the_web_framework_loads_only_when_the_board_serves
+skills/chantier/scripts/cli/tests/test_board_archived.py::test_local_url_is_the_loopback_link_of_a_board_on_every_address[0.0.0.0-http://127.0.0.1:8765/?k=KEY]
+skills/chantier/scripts/cli/tests/test_board_archived.py::test_local_url_is_the_loopback_link_of_a_board_on_every_address[192.168.1.20-None]
+skills/chantier/scripts/cli/tests/test_board_archived.py::test_local_url_is_the_loopback_link_of_a_board_on_every_address[::-http://[::1]:8765/?k=KEY]
+skills/chantier/scripts/cli/tests/test_board_archived.py::test_recovered_after[archives]
+skills/chantier/scripts/cli/tests/test_board_archived.py::test_recovered_after[none]
+skills/chantier/scripts/cli/tests/test_board_archived.py::test_recovered_after[record]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_a_config_event_its_model_refuses_leaves_the_save_and_names_the_skipped_line
+skills/chantier/scripts/cli/tests/test_board_config.py::test_a_dry_run_and_a_stale_hash_write_nothing_and_the_view_shows_resets_and_plans
+skills/chantier/scripts/cli/tests/test_board_config.py::test_a_save_writes_one_config_line_per_changed_key_and_a_dry_run_none[agent]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_a_save_writes_one_config_line_per_changed_key_and_a_dry_run_none[model]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_a_save_writes_one_config_line_per_changed_key_and_a_dry_run_none[parallel]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_a_save_writes_one_config_line_per_changed_key_and_a_dry_run_none[slots]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_the_configuration_is_written_or_refused_through_the_cli[both files]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_the_configuration_is_written_or_refused_through_the_cli[default]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_the_configuration_is_written_or_refused_through_the_cli[no host]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_the_configuration_is_written_or_refused_through_the_cli[other key]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_the_configuration_is_written_or_refused_through_the_cli[overridden]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_the_configuration_is_written_or_refused_through_the_cli[refused start]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_the_configuration_is_written_or_refused_through_the_cli[unknown model]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_the_configuration_is_written_or_refused_through_the_cli[write]
+skills/chantier/scripts/cli/tests/test_board_config.py::test_with_no_planning_surface_the_configuration_is_read_only
+skills/chantier/scripts/cli/tests/test_board_description.py::test_description_skips_a_frontmatter[bom]
+skills/chantier/scripts/cli/tests/test_board_description.py::test_description_skips_a_frontmatter[crlf]
+skills/chantier/scripts/cli/tests/test_board_description.py::test_description_skips_a_frontmatter[empty-frontmatter]
+skills/chantier/scripts/cli/tests/test_board_description.py::test_description_skips_a_frontmatter[frontmatter]
+skills/chantier/scripts/cli/tests/test_board_description.py::test_description_skips_a_frontmatter[no-frontmatter]
+skills/chantier/scripts/cli/tests/test_board_description.py::test_description_skips_a_frontmatter[only-frontmatter-falls-through]
+skills/chantier/scripts/cli/tests/test_board_description.py::test_description_skips_a_frontmatter[rule-lower-is-not-frontmatter]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_a_card_title_is_one_line_with_its_full_text_on_hover
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_allows[check_card-<div data-key="card-3" class="column">]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_allows[check_components-.kanban .card { flex: 0 0 290px; max-height: 100%; margin: 0 }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_allows[check_components-.tri > .card { --w: 280px; flex: 1 1 var(--w) }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_allows[check_raw-.a { --w: 12px; font-size: var(--text); /* 9px */ }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_allows[check_raw-.a { font: inherit; border-radius: var(--radius) 0; gap: var(--space-2) }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_allows[check_raw-.a { margin: calc(-1 * var(--space-2)) 0; padding: 0 auto }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_allows[check_side-.a { border-left: 0; border-right: none }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_allows[check_side-.a { border-top: 1px solid var(--line) }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_allows[check_side-.side { border-right: 1px solid var(--side-line) }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_refuses[check_card-<div class="card pi">]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_refuses[check_card-const c = `prc card ${cls}`;]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_refuses[check_card-el.className = 'card-meta']
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_refuses[check_components-.card { color: var(--ink) }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_refuses[check_components-.kanban .card-top { padding: 0 }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_refuses[check_raw-.a { border-radius: var(--space-2) }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_refuses[check_raw-.a { font-size: var(--local) }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_refuses[check_raw-.a { gap: 99%; margin: 0 auto 1.5em }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_refuses[check_raw-.a { padding: 10px }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_refuses[check_side-.a { border-left: 1px solid var(--line); border-radius: var(--radius) }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_refuses[check_side-.a { border-left: 3px solid var(--accent) }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_refuses[check_side-.a { border-width: 0 1px }]
+skills/chantier/scripts/cli/tests/test_board_design.py::test_checker_table
+skills/chantier/scripts/cli/tests/test_board_design.py::test_components
+skills/chantier/scripts/cli/tests/test_board_design.py::test_one_card
+skills/chantier/scripts/cli/tests/test_board_design.py::test_sheets
+skills/chantier/scripts/cli/tests/test_board_design.py::test_token_table
+skills/chantier/scripts/cli/tests/test_board_forge_kind.py::test_the_forge_is_told_from_the_links_first_then_from_the_origin_host[state0--gitlab]
+skills/chantier/scripts/cli/tests/test_board_forge_kind.py::test_the_forge_is_told_from_the_links_first_then_from_the_origin_host[state1--gitlab]
+skills/chantier/scripts/cli/tests/test_board_forge_kind.py::test_the_forge_is_told_from_the_links_first_then_from_the_origin_host[state2--github]
+skills/chantier/scripts/cli/tests/test_board_forge_kind.py::test_the_forge_is_told_from_the_links_first_then_from_the_origin_host[state3-git@gitlab.example.com:a/b.git-gitlab]
+skills/chantier/scripts/cli/tests/test_board_forge_kind.py::test_the_forge_is_told_from_the_links_first_then_from_the_origin_host[state4-https://github.com/a/b-github]
+skills/chantier/scripts/cli/tests/test_board_forge_kind.py::test_the_forge_is_told_from_the_links_first_then_from_the_origin_host[state5-https://gitlab.com/a/b-github]
+skills/chantier/scripts/cli/tests/test_board_forge_kind.py::test_the_forge_is_told_from_the_links_first_then_from_the_origin_host[state6-https://forge.example.com/a/b-None]
+skills/chantier/scripts/cli/tests/test_board_forge_kind.py::test_the_forge_is_told_from_the_links_first_then_from_the_origin_host[state7--None]
+skills/chantier/scripts/cli/tests/test_board_journal.py::test_a_board_event_its_model_refuses_leaves_the_write_and_names_the_skipped_line
+skills/chantier/scripts/cli/tests/test_board_journal.py::test_a_refusal_a_rescan_and_another_project_leave_no_line_here
+skills/chantier/scripts/cli/tests/test_board_journal.py::test_each_backlog_write_adds_one_board_line_to_its_projects_forge_journal
+skills/chantier/scripts/cli/tests/test_board_journal.py::test_the_new_route_files_a_title_above_the_text_and_refuses_a_paragraph_without_one
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_cr_not_ready_in_the_record_is_never_ready_now
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_failure_before_any_good_read_invents_no_row
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_forge_failure_shows_its_text_and_keeps_the_last_good_read[failure0]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_forge_failure_shows_its_text_and_keeps_the_last_good_read[failure1]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_forge_failure_shows_its_text_and_keeps_the_last_good_read[failure2]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_merge_the_record_lacks_is_signalled_once_and_a_cached_read_writes_nothing[chantier/b/cr-0-0]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_merge_the_record_lacks_is_signalled_once_and_a_cached_read_writes_nothing[main-None]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_paused_batch_is_read_as_a_running_one
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_stacked_merge_is_signalled_landed_with_its_base_once_the_base_landed[1-reads0-expected0]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_stacked_merge_is_signalled_landed_with_its_base_once_the_base_landed[1-reads1-expected1]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_stacked_merge_is_signalled_landed_with_its_base_once_the_base_landed[1-reads2-expected2]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_stacked_merge_is_signalled_landed_with_its_base_once_the_base_landed[1-reads3-expected3]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_stacked_merge_is_signalled_landed_with_its_base_once_the_base_landed[1-reads5-expected5]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_stacked_merge_is_signalled_landed_with_its_base_once_the_base_landed[1-reads7-expected7]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_stacked_merge_is_signalled_landed_with_its_base_once_the_base_landed[2-reads4-expected4]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_a_stacked_merge_is_signalled_landed_with_its_base_once_the_base_landed[2-reads6-expected6]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_all_done_is_every_pr_merged_or_closed[states0-True]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_all_done_is_every_pr_merged_or_closed[states1-True]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_all_done_is_every_pr_merged_or_closed[states2-False]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_all_done_is_every_pr_merged_or_closed[states3-False]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_only_a_merge_the_record_lacks_is_signalled[closed]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_only_a_merge_the_record_lacks_is_signalled[open]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_only_a_merge_the_record_lacks_is_signalled[recorded]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_status_names_what_it_cannot_read_and_prints_only_the_open_crs_of_its_batch
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_status_prints_the_signal_until_the_merge_is_recorded[direct]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_status_prints_the_signal_until_the_merge_is_recorded[heartbeat]
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_the_four_crs_are_read_in_one_call_and_judged_against_the_record
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_the_route_needs_the_key_and_with_no_batch_asks_no_forge
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_the_signal_file_is_local_counted_by_no_one_and_moves_the_fingerprint
+skills/chantier/scripts/cli/tests/test_board_prs.py::test_two_reads_within_ten_seconds_are_one_forge_call_and_a_new_pr_reads_again
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_a_closed_batch_answers_its_record_in_its_order_and_signals_nothing
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_a_closed_title_is_shown_without_its_change_specification_lead[CHANGE SPECIFICATION: X]
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_a_closed_title_is_shown_without_its_change_specification_lead[Change Specification: X]
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_a_merged_event_its_model_refuses_is_set_aside_and_the_page_keeps_its_rows
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_a_row_carries_the_dates_the_forge_gave
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_a_title_is_shown_without_its_change_specification_lead[Change Specification: X]
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_a_title_is_shown_without_its_change_specification_lead[X]
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_a_title_is_shown_without_its_change_specification_lead[change specification: X]
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_no_batch_or_the_running_one_is_todays_answer[None]
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_no_batch_or_the_running_one_is_todays_answer[running]
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_no_history_or_an_unknown_id_is_the_no_batch_shape_with_no_forge_call[None-None]
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_no_history_or_an_unknown_id_is_the_no_batch_shape_with_no_forge_call[batch-9-unknown batch batch-9]
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_two_batches_read_in_turn_each_call_the_forge_once_within_ten_seconds
+skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_with_no_batch_running_the_newest_closed_one_is_shown_read_once
+skills/chantier/scripts/cli/tests/test_board_prs_release.py::test_a_release_pr_merged_in_the_record_is_not_a_merge_the_record_lacks[False]
+skills/chantier/scripts/cli/tests/test_board_prs_release.py::test_a_release_pr_merged_in_the_record_is_not_a_merge_the_record_lacks[True]
+skills/chantier/scripts/cli/tests/test_board_prs_unclaimed.py::test_a_link_no_connector_claims_is_named_in_the_error_line_and_the_other_rows_are_read
+skills/chantier/scripts/cli/tests/test_board_running.py::test_a_new_board_reuses_refuses_or_starts_by_what_the_surface_already_runs[dead]
+skills/chantier/scripts/cli/tests/test_board_running.py::test_a_new_board_reuses_refuses_or_starts_by_what_the_surface_already_runs[migrate-key-only]
+skills/chantier/scripts/cli/tests/test_board_running.py::test_a_new_board_reuses_refuses_or_starts_by_what_the_surface_already_runs[migrate-live-older]
+skills/chantier/scripts/cli/tests/test_board_running.py::test_a_new_board_reuses_refuses_or_starts_by_what_the_surface_already_runs[no-record-old-pid]
+skills/chantier/scripts/cli/tests/test_board_running.py::test_a_new_board_reuses_refuses_or_starts_by_what_the_surface_already_runs[no-record-old]
+skills/chantier/scripts/cli/tests/test_board_running.py::test_a_new_board_reuses_refuses_or_starts_by_what_the_surface_already_runs[other-version]
+skills/chantier/scripts/cli/tests/test_board_running.py::test_a_new_board_reuses_refuses_or_starts_by_what_the_surface_already_runs[same]
+skills/chantier/scripts/cli/tests/test_board_running.py::test_a_new_board_reuses_refuses_or_starts_by_what_the_surface_already_runs[silent]
+skills/chantier/scripts/cli/tests/test_board_running.py::test_new_key_keeps_the_running_record_and_the_exit_removes_only_its_own
+skills/chantier/scripts/cli/tests/test_board_times.py::test_cr_times[blocked-retaken]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_cr_times[cancelled]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_cr_times[dropped]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_cr_times[handback-merged]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_cr_times[handed-back-open]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_cr_times[merged-at]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_cr_times[never-taken]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_cr_times[order-merged]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_cr_times[pr-draft-state-at]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_cr_times[retake]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_cr_times[round-no-inspector]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_priority_of[.agents/changes/3-ready/a-3-ready]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_priority_of[1-inbox/a-inbox]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_priority_of[2-backlog/P2/a-P2]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_priority_of[3-ready/a-3-ready]
+skills/chantier/scripts/cli/tests/test_board_times.py::test_priority_of[None-None]
+skills/chantier/scripts/cli/tests/test_board_ui.py::test_a_folder_is_served_by_its_files_and_types_inside_it_only
+skills/chantier/scripts/cli/tests/test_board_ui.py::test_a_ui_that_is_not_a_folder_with_an_index_is_refused_and_nothing_is_written[file]
+skills/chantier/scripts/cli/tests/test_board_ui.py::test_a_ui_that_is_not_a_folder_with_an_index_is_refused_and_nothing_is_written[missing]
+skills/chantier/scripts/cli/tests/test_board_ui.py::test_a_ui_that_is_not_a_folder_with_an_index_is_refused_and_nothing_is_written[no-index]
+skills/chantier/scripts/cli/tests/test_board_ui.py::test_the_web_client_is_outside_the_servers_package_which_names_nothing_of_it
+skills/chantier/scripts/cli/tests/test_board_ui.py::test_ui_on_a_board_already_running_is_not_applied_and_said[None]
+skills/chantier/scripts/cli/tests/test_board_ui.py::test_ui_on_a_board_already_running_is_not_applied_and_said[bad]
+skills/chantier/scripts/cli/tests/test_board_ui.py::test_ui_on_a_board_already_running_is_not_applied_and_said[folder]
+skills/chantier/scripts/cli/tests/test_board_ui.py::test_ui_on_a_board_already_running_is_not_applied_and_said[none]
+skills/chantier/scripts/cli/tests/test_board_ui.py::test_with_no_ui_the_page_is_a_404_line_and_the_api_answers[/]
+skills/chantier/scripts/cli/tests/test_board_ui.py::test_with_no_ui_the_page_is_a_404_line_and_the_api_answers[/index.html]
+skills/chantier/scripts/cli/tests/test_board_ui.py::test_with_no_ui_the_page_is_a_404_line_and_the_api_answers[/js/main.js]
+skills/chantier/scripts/cli/tests/test_board_waits.py::test_a_backlog_item_carries_the_open_waits_of_its_file
+skills/chantier/scripts/cli/tests/test_board_waits.py::test_a_batch_row_carries_the_open_waits_of_a_counted_cr_and_keeps_its_waits_field
+skills/chantier/scripts/cli/tests/test_came_back.py::test_a_cr_comes_back_to_another_batch_under_its_number_with_its_branch_and_pr
+skills/chantier/scripts/cli/tests/test_came_back.py::test_a_cr_comes_back_to_its_own_batch_as_the_same_entry[False]
+skills/chantier/scripts/cli/tests/test_came_back.py::test_a_cr_comes_back_to_its_own_batch_as_the_same_entry[True]
+skills/chantier/scripts/cli/tests/test_came_back.py::test_the_cards_name_the_way_back_of_a_moved_out_cr
+skills/chantier/scripts/cli/tests/test_came_back.py::test_triage_ready_of_a_moved_out_cr_joins_a_factory_batch_under_its_number
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_clean_rebase_onto_the_crs_below_carries_with_no_stack_mark_and_the_pr_on_main[local only]
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_clean_rebase_onto_the_crs_below_carries_with_no_stack_mark_and_the_pr_on_main[pushed]
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_clean_rebase_onto_the_crs_below_carries_with_no_stack_mark_and_the_pr_on_main[three CRs]
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_head_on_none_of_the_candidate_branches_records_no_base
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_real_change_is_refused_and_off_says_by_how_much[_added]
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_real_change_is_refused_and_off_says_by_how_much[_cancelled]
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_real_change_is_refused_and_off_says_by_how_much[_edited]
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_ship_refuses_an_out_of_draft_main_pr_that_carries_another_crs_commits[A merged]
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_ship_refuses_an_out_of_draft_main_pr_that_carries_another_crs_commits[draft on main]
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_ship_refuses_an_out_of_draft_main_pr_that_carries_another_crs_commits[on A's branch]
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_ship_refuses_an_out_of_draft_main_pr_that_carries_another_crs_commits[out of draft on main]
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_ship_with_a_base_git_cannot_read_records_the_pr_and_no_carry
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_shipping_a_head_again_logs_no_second_carry_and_no_stale_off_line
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_the_gate_records_the_branch_the_head_sits_on_in_a_restacks_window_and_ship_carries
+skills/chantier/scripts/cli/tests/test_carry_ship.py::test_the_gate_records_the_nearest_branch_of_the_batch_as_the_base
+skills/chantier/scripts/cli/tests/test_cli_runs.py::test_a_byte_order_mark_from_windows_powershell_is_read_through
+skills/chantier/scripts/cli/tests/test_cli_runs.py::test_a_direct_batch_is_recorded_shown_and_queues_added_work
+skills/chantier/scripts/cli/tests/test_cli_runs.py::test_a_foreman_batch_takes_added_work_and_a_direct_preflight_leaves_out_p2
+skills/chantier/scripts/cli/tests/test_cli_runs.py::test_init_creates_the_eight_folders_once_and_refuses_outside_a_main_checkout
+skills/chantier/scripts/cli/tests/test_cli_runs.py::test_preflight_has_no_allow_rule_check_on_copilot
+skills/chantier/scripts/cli/tests/test_cli_runs.py::test_preflight_reads_the_settings_files_for_allow_rules
+skills/chantier/scripts/cli/tests/test_cli_runs.py::test_preflight_warns_on_missing_allow_rules_and_never_fails_on_them
+skills/chantier/scripts/cli/tests/test_cli_runs.py::test_the_allow_rules_json_block_lists_exactly_what_preflight_checks
+skills/chantier/scripts/cli/tests/test_cli_runs.py::test_the_plugin_runs_with_no_setup_and_writes_only_in_the_planning_folder[claude]
+skills/chantier/scripts/cli/tests/test_cli_runs.py::test_the_plugin_runs_with_no_setup_and_writes_only_in_the_planning_folder[copilot]
+skills/chantier/scripts/cli/tests/test_cli_runs.py::test_the_seat_is_one_file_held_until_taken_over_on_purpose
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/SKILL.md-needles1]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/references/chief-of-staff.md-needles6]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/references/coder.md-needles8]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/references/concepts.md-needles5]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/references/conflict-resolver.md-needles9]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/references/debugger.md-needles10]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/references/demo-explorer.md-needles11]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/references/driver.md-needles7]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/references/inspector.md-needles12]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/references/investigator.md-needles13]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/references/review-step.md-needles14]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/references/startup-core.md-needles0]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chantier/references/verifier.md-needles15]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/chief-of-staff/SKILL.md-needles2]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/griller/SKILL.md-needles3]
+skills/chantier/scripts/cli/tests/test_cli_stop.py::test_cli_that_cannot_run_is_a_stop[skills/status/SKILL.md-needles4]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_a_carry_is_a_judged_head_and_a_later_not_verified_blocks_it
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_a_cr_has_one_spelling_and_a_passed_gate_and_a_verdict_are_read_at_a_head
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_a_ready_handback_shows_its_carried_verdict_as_a_step[None-None-steps2]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_a_ready_handback_shows_its_carried_verdict_as_a_step[None-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-steps1]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_a_ready_handback_shows_its_carried_verdict_as_a_step[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-steps0]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_a_ship_with_a_conflict_voids_every_judged_head_and_carry_before_it
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_cost_puts_the_steering_sessions_own_subagents_on_their_own_line_and_qa_on_a_driver
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_gh_reads_an_empty_reply_only_when_asked[False-ran4-not JSON]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_gh_reads_an_empty_reply_only_when_asked[True-ran0-None]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_gh_reads_an_empty_reply_only_when_asked[True-ran1-None]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_gh_reads_an_empty_reply_only_when_asked[True-ran2-expected2]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_gh_reads_an_empty_reply_only_when_asked[True-ran3-not JSON]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_gh_reads_an_empty_reply_only_when_asked[True-ran5-HTTP 404]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_git_in_a_missing_folder_is_a_refusal_naming_it
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_next_to_start_is_the_queued_cr_of_the_lowest_order_with_nothing_to_wait_for
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_phase_text_reads_the_step_of_a_working_cr_and_waits_for_the_user_on_a_blocked_one
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_eval_sandbox_builds_its_recorded_base
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_now_line_of_a_pr_in_draft_takes_the_ready_lines_clause[branch-False]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_now_line_of_a_pr_in_draft_takes_the_ready_lines_clause[branch-None]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_now_line_of_a_pr_in_draft_takes_the_ready_lines_clause[branch-True]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_now_line_of_a_pr_in_draft_takes_the_ready_lines_clause[cr-no-pr-False]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_now_line_of_a_pr_in_draft_takes_the_ready_lines_clause[cr-no-pr-None]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_now_line_of_a_pr_in_draft_takes_the_ready_lines_clause[cr-no-pr-True]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_now_line_of_a_pr_in_draft_takes_the_ready_lines_clause[cr-pr-False]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_now_line_of_a_pr_in_draft_takes_the_ready_lines_clause[cr-pr-None]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_now_line_of_a_pr_in_draft_takes_the_ready_lines_clause[cr-pr-True]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_now_line_of_a_pr_in_draft_takes_the_ready_lines_clause[none-False]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_now_line_of_a_pr_in_draft_takes_the_ready_lines_clause[none-None]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_now_line_of_a_pr_in_draft_takes_the_ready_lines_clause[none-True]
+skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_sandbox_campaigns_name_only_frozen_crs_with_hidden_tests
+skills/chantier/scripts/cli/tests/test_code_targets.py::test_files_and_functions_are_small_and_the_imports_have_no_cycle
+skills/chantier/scripts/cli/tests/test_code_targets.py::test_one_root_project_holds_the_dependencies_and_nothing_else_is_a_script
+skills/chantier/scripts/cli/tests/test_code_targets.py::test_the_start_up_imports_only_the_standard_library_and_chantier
+skills/chantier/scripts/cli/tests/test_code_targets.py::test_the_web_frame_has_small_scripts_and_both_word_files_share_their_keys
+skills/chantier/scripts/cli/tests/test_code_targets.py::test_the_web_frame_is_self_contained_and_follows_the_style_rules
+skills/chantier/scripts/cli/tests/test_connectors.py::test_a_link_is_claimed_by_its_connector_and_by_no_other[https://ghe.example/acme/demo/pull/3-https://gitlab.com/grp/sub/proj/-/merge_requests/3-github]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_a_link_is_claimed_by_its_connector_and_by_no_other[https://git.example/grp/proj/-/merge_requests/3-https://github.com/acme/demo/pull/3-gitlab]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_a_link_is_claimed_by_its_connector_and_by_no_other[https://github.com/acme/demo/pull/3-https://gitlab.com/grp/sub/proj/-/merge_requests/3-github]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_a_link_is_claimed_by_its_connector_and_by_no_other[https://gitlab.com/grp/sub/proj/-/merge_requests/3-https://github.com/acme/demo/pull/3-gitlab]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_a_link_no_connector_claims_is_not_read
+skills/chantier/scripts/cli/tests/test_connectors.py::test_a_merged_pr_says_whether_its_merge_commit_is_on_the_default_branch[node0-False-True]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_a_merged_pr_says_whether_its_merge_commit_is_on_the_default_branch[node1-False-False]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_a_merged_pr_says_whether_its_merge_commit_is_on_the_default_branch[node2-False-False]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_a_merged_pr_says_whether_its_merge_commit_is_on_the_default_branch[node3-False-None]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_a_merged_pr_says_whether_its_merge_commit_is_on_the_default_branch[node4-True-None]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_both_queries_ask_for_the_dates_and_both_states_return_them
+skills/chantier/scripts/cli/tests/test_connectors.py::test_both_queries_ask_for_the_head_commit_and_both_states_carry_it
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node0-True-False-green-True]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node1-True-True-running-False]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node10-True-False-none-False]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node11-True-False-none-False]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node12-True-True-running-False]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node2-False-False-none-True]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node3-False-False-none-True]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node4-True-True-running-False]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node5-True-False-running-False]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node6-True-False-failing-False]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node7-True-True-green-False]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node8-True-False-green-False]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_github_checks_not_started_are_being_checked_and_none_needs_the_forge_to_say_so[node9-True-False-green-False]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_gitlab_reads_the_same_words_and_never_says_none_for_an_open_mr_it_cannot_tell[node0-False-green-open]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_gitlab_reads_the_same_words_and_never_says_none_for_an_open_mr_it_cannot_tell[node1-True-running-open]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_gitlab_reads_the_same_words_and_never_says_none_for_an_open_mr_it_cannot_tell[node2-True-green-open]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_gitlab_reads_the_same_words_and_never_says_none_for_an_open_mr_it_cannot_tell[node3-False-failing-draft]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_gitlab_reads_the_same_words_and_never_says_none_for_an_open_mr_it_cannot_tell[node4-False-none-merged]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_review_is_asked_of_github_and_its_four_answers_map_to_words[APPROVED-approved]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_review_is_asked_of_github_and_its_four_answers_map_to_words[CHANGES_REQUESTED-changes-requested]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_review_is_asked_of_github_and_its_four_answers_map_to_words[None-unknown]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_review_is_asked_of_github_and_its_four_answers_map_to_words[REVIEW_REQUIRED-required]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_review_is_unproved_on_gitlab_with_the_same_query
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_argv_is_a_graphql_query_and_names_a_host_other_than_the_forges_own[connector0-https://ghe.example/acme/demo/pull/3-ghe.example-https://github.com/acme/demo/pull/3]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_argv_is_a_graphql_query_and_names_a_host_other_than_the_forges_own[connector1-https://git.example/grp/proj/-/merge_requests/3-git.example-https://gitlab.com/grp/sub/proj/-/merge_requests/3]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_batch_must_sit_in_one_repository_and_nothing_is_read_otherwise[links0]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_batch_must_sit_in_one_repository_and_nothing_is_read_otherwise[links1]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_github_query_reads_the_merge_commit_and_the_default_branch_history
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_guard_refuses_what_is_not_a_read_only_graphql_query[call0]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_guard_refuses_what_is_not_a_read_only_graphql_query[call1]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_guard_refuses_what_is_not_a_read_only_graphql_query[call2]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_guard_refuses_what_is_not_a_read_only_graphql_query[call3]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_guard_refuses_what_is_not_a_read_only_graphql_query[call4]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_guard_refuses_what_is_not_a_read_only_graphql_query[call5]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_guard_refuses_what_is_not_a_read_only_graphql_query[call6]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_places_name_one_repository_per_connector
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_query_with_no_optional_fact_is_the_one_read_before_the_connectors
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_runner_turns_every_failure_into_one_line[https://github.com/acme/demo/pull/3-gh-None-not found on PATH]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_runner_turns_every_failure_into_one_line[https://github.com/acme/demo/pull/3-gh-ran1-no answer in]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_runner_turns_every_failure_into_one_line[https://github.com/acme/demo/pull/3-gh-ran2-HTTP 401 bad credentials]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_runner_turns_every_failure_into_one_line[https://github.com/acme/demo/pull/3-gh-ran3-not JSON]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_runner_turns_every_failure_into_one_line[https://github.com/acme/demo/pull/3-gh-ran4-no such PR]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_runner_turns_every_failure_into_one_line[https://gitlab.com/grp/sub/proj/-/merge_requests/3-glab-None-not found on PATH]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_runner_turns_every_failure_into_one_line[https://gitlab.com/grp/sub/proj/-/merge_requests/3-glab-ran1-no answer in]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_runner_turns_every_failure_into_one_line[https://gitlab.com/grp/sub/proj/-/merge_requests/3-glab-ran2-HTTP 401 bad credentials]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_runner_turns_every_failure_into_one_line[https://gitlab.com/grp/sub/proj/-/merge_requests/3-glab-ran3-not JSON]
+skills/chantier/scripts/cli/tests/test_connectors.py::test_the_runner_turns_every_failure_into_one_line[https://gitlab.com/grp/sub/proj/-/merge_requests/3-glab-ran4-no such PR]
+skills/chantier/scripts/cli/tests/test_copilot_catalog.py::test_a_name_two_tables_write_differently_is_one_model_and_a_twin_pair_is_named
+skills/chantier/scripts/cli/tests/test_copilot_catalog.py::test_a_reference_identifier_no_table_names_is_in_by_its_identifier
+skills/chantier/scripts/cli/tests/test_copilot_catalog.py::test_the_admission_rules_and_their_difference_lines
+skills/chantier/scripts/cli/tests/test_copilot_catalog.py::test_the_agent_files_are_compared_with_the_catalog_and_never_written_to_it
+skills/chantier/scripts/cli/tests/test_copilot_catalog.py::test_the_committed_catalog_is_what_the_committed_tables_build
+skills/chantier/scripts/cli/tests/test_copilot_catalog.py::test_the_eval_probe_reads_only_the_last_ended_event[case0]
+skills/chantier/scripts/cli/tests/test_copilot_catalog.py::test_the_eval_probe_reads_only_the_last_ended_event[case1]
+skills/chantier/scripts/cli/tests/test_copilot_catalog.py::test_the_identifier_and_the_display_name_follow_the_one_rule[Claude Opus 4.8 (fast mode) (preview)-claude-opus-4.8-(fast-mode)-Claude Opus 4.8 (fast mode)]
+skills/chantier/scripts/cli/tests/test_copilot_catalog.py::test_the_identifier_and_the_display_name_follow_the_one_rule[Claude Sonnet 5.5-claude-sonnet-5.5-Claude Sonnet 5.5]
+skills/chantier/scripts/cli/tests/test_copilot_catalog.py::test_the_identifier_and_the_display_name_follow_the_one_rule[Claude Sonnet 5[^promo]-claude-sonnet-5-Claude Sonnet 5]
+skills/chantier/scripts/cli/tests/test_copilot_catalog.py::test_the_identifier_and_the_display_name_follow_the_one_rule[GPT-5.3-Codex-gpt-5.3-codex-GPT-5.3-Codex]
+skills/chantier/scripts/cli/tests/test_copilot_catalog.py::test_the_identifier_and_the_display_name_follow_the_one_rule[GPT-6.1 Terra-gpt-6.1-terra-GPT-6.1 Terra]
+skills/chantier/scripts/cli/tests/test_cost_copilot.py::test_a_copilot_row_keeps_its_calls_and_dollars_by_model_and_has_no_models_key
+skills/chantier/scripts/cli/tests/test_cost_copilot.py::test_a_missing_copilot_transcript_names_the_session_variable
+skills/chantier/scripts/cli/tests/test_cost_copilot.py::test_copilot_cost_lists_the_foreman_then_each_agent_type_and_attributes_by_cr
+skills/chantier/scripts/cli/tests/test_cost_copilot.py::test_copilot_cost_refuses_what_it_cannot_read
+skills/chantier/scripts/cli/tests/test_cost_copilot.py::test_uv_runs_the_usage_script_with_no_inherited_index_but_offline_and_proxy_kept
+skills/chantier/scripts/cli/tests/test_cost_reading.py::test_a_retro_critic_of_the_foreman_is_counted_on_the_foreman_own_subagents_line
+skills/chantier/scripts/cli/tests/test_cost_reading.py::test_agent_handed_back_reads_the_end_of_the_transcript[handed back]
+skills/chantier/scripts/cli/tests/test_cost_reading.py::test_agent_handed_back_reads_the_end_of_the_transcript[large]
+skills/chantier/scripts/cli/tests/test_cost_reading.py::test_agent_handed_back_reads_the_end_of_the_transcript[mid-call]
+skills/chantier/scripts/cli/tests/test_cost_reading.py::test_agent_handed_back_reads_the_end_of_the_transcript[missing]
+skills/chantier/scripts/cli/tests/test_cost_reading.py::test_agent_handed_back_reads_the_end_of_the_transcript[no tool call]
+skills/chantier/scripts/cli/tests/test_cost_reading.py::test_agent_handed_back_reads_the_end_of_the_transcript[resumed]
+skills/chantier/scripts/cli/tests/test_cost_reading.py::test_each_agent_type_has_its_line_and_explain_gives_the_cache_and_restarts
+skills/chantier/scripts/cli/tests/test_cost_reading.py::test_the_chief_lines_and_a_model_with_no_price
+skills/chantier/scripts/cli/tests/test_cost_reading.py::test_the_levels_the_pages_the_pause_and_a_relay
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_a_chief_of_staff_that_cannot_be_measured_is_null_with_its_cause_never_zero
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_models_are_by_cost_add_up_in_cents_and_the_split_counts_the_priced_calls[False]
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_models_are_by_cost_add_up_in_cents_and_the_split_counts_the_priced_calls[True]
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_split_adds_up_in_cents_with_steering_wakes_and_drivers_by_cost[rows0]
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_split_adds_up_in_cents_with_steering_wakes_and_drivers_by_cost[rows1]
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_steering_outside_the_budget_is_the_texts_whatever_the_batch_steering[read0-steering_part0-$2.50 since the batch opened (3 calls)-direct]
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_steering_outside_the_budget_is_the_texts_whatever_the_batch_steering[read0-steering_part0-$2.50 since the batch opened (3 calls)-foreman]
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_steering_outside_the_budget_is_the_texts_whatever_the_batch_steering[read1-steering_part1-$2.50 since the batch opened (3 calls)-direct]
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_steering_outside_the_budget_is_the_texts_whatever_the_batch_steering[read1-steering_part1-$2.50 since the batch opened (3 calls)-foreman]
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_steering_outside_the_budget_is_the_texts_whatever_the_batch_steering[read2-steering_part2-unknown (2 calls without a time-direct]
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_steering_outside_the_budget_is_the_texts_whatever_the_batch_steering[read2-steering_part2-unknown (2 calls without a time-foreman]
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_steering_outside_the_budget_is_the_texts_whatever_the_batch_steering[read3-None-None-direct]
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_steering_outside_the_budget_is_the_texts_whatever_the_batch_steering[read3-None-None-foreman]
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_the_text_lines_are_the_ones_printed_before_the_receipt
+skills/chantier/scripts/cli/tests/test_cost_receipt.py::test_with_no_parent_link_no_driver_line_and_an_agents_part
+skills/chantier/scripts/cli/tests/test_cost_switch.py::test_the_receipt_shows_the_steering_outside_the_budget_the_text_prints_after_a_switch
+skills/chantier/scripts/cli/tests/test_costs.py::test_a_dated_id_is_priced_by_its_model_and_the_project_prices_rank_first
+skills/chantier/scripts/cli/tests/test_costs.py::test_a_loose_use_after_the_window_does_not_move_the_calls_inside_it
+skills/chantier/scripts/cli/tests/test_costs.py::test_a_model_with_no_price_is_counted_and_named_and_never_priced
+skills/chantier/scripts/cli/tests/test_costs.py::test_a_row_keeps_its_priced_calls_and_dollars_by_model
+skills/chantier/scripts/cli/tests/test_costs.py::test_a_steering_transcript_that_claims_again_is_priced_over_each_of_its_windows
+skills/chantier/scripts/cli/tests/test_costs.py::test_a_turn_naming_the_answers_is_grill_and_a_turn_without_is_not
+skills/chantier/scripts/cli/tests/test_costs.py::test_claude_cost_deduplicates_and_prices_known_usage
+skills/chantier/scripts/cli/tests/test_costs.py::test_claude_cost_refuses_unreadable_usage[-no priced calls]
+skills/chantier/scripts/cli/tests/test_costs.py::test_claude_cost_refuses_unreadable_usage[not JSON\n-unreadable Claude transcript]
+skills/chantier/scripts/cli/tests/test_costs.py::test_claude_cost_refuses_unreadable_usage[{"type": "assistant", "message": {"model": "claude-sonnet-5-5", "usage": {"output_tokens": 1}}}\n-no message id]
+skills/chantier/scripts/cli/tests/test_costs.py::test_claude_cost_requires_main_transcript_even_if_subagents_exist
+skills/chantier/scripts/cli/tests/test_costs.py::test_claude_fable_5_2_is_priced_from_the_built_in_table
+skills/chantier/scripts/cli/tests/test_costs.py::test_in_the_steering_window_only_a_write_or_a_spec_writer_is_grill[Agent-given2-True]
+skills/chantier/scripts/cli/tests/test_costs.py::test_in_the_steering_window_only_a_write_or_a_spec_writer_is_grill[Agent-given3-True]
+skills/chantier/scripts/cli/tests/test_costs.py::test_in_the_steering_window_only_a_write_or_a_spec_writer_is_grill[Agent-given4-False]
+skills/chantier/scripts/cli/tests/test_costs.py::test_in_the_steering_window_only_a_write_or_a_spec_writer_is_grill[Edit-given0-True]
+skills/chantier/scripts/cli/tests/test_costs.py::test_in_the_steering_window_only_a_write_or_a_spec_writer_is_grill[Edit-given1-True]
+skills/chantier/scripts/cli/tests/test_costs.py::test_in_the_steering_window_only_a_write_or_a_spec_writer_is_grill[PowerShell-given6-False]
+skills/chantier/scripts/cli/tests/test_costs.py::test_in_the_steering_window_only_a_write_or_a_spec_writer_is_grill[Read-given7-False]
+skills/chantier/scripts/cli/tests/test_costs.py::test_in_the_steering_window_only_a_write_or_a_spec_writer_is_grill[Write-given5-False]
+skills/chantier/scripts/cli/tests/test_driver_prompt.py::test_a_driver_role_with_no_agent_file_is_refused_before_anything_is_recorded[cr-driver]
+skills/chantier/scripts/cli/tests/test_driver_prompt.py::test_a_driver_role_with_no_agent_file_is_refused_before_anything_is_recorded[qa-driver]
+skills/chantier/scripts/cli/tests/test_driver_prompt.py::test_a_round_prints_the_bare_worker_writes_line_and_the_template_line_holds_no_parenthesis
+skills/chantier/scripts/cli/tests/test_driver_prompt.py::test_an_old_work_gates_line_is_completed_with_the_any_depth_one
+skills/chantier/scripts/cli/tests/test_driver_prompt.py::test_the_commands_print_each_drivers_prompt_skeleton_without_a_writes_line_for_most[change]
+skills/chantier/scripts/cli/tests/test_driver_prompt.py::test_the_commands_print_each_drivers_prompt_skeleton_without_a_writes_line_for_most[qa]
+skills/chantier/scripts/cli/tests/test_driver_prompt.py::test_the_commands_print_each_drivers_prompt_skeleton_without_a_writes_line_for_most[release]
+skills/chantier/scripts/cli/tests/test_driver_prompt.py::test_the_commands_print_each_drivers_prompt_skeleton_without_a_writes_line_for_most[stack]
+skills/chantier/scripts/cli/tests/test_driver_prompt.py::test_the_drivers_prompt_table_names_each_driver_card_and_start_once[claude]
+skills/chantier/scripts/cli/tests/test_driver_prompt.py::test_the_drivers_prompt_table_names_each_driver_card_and_start_once[copilot]
+skills/chantier/scripts/cli/tests/test_driver_prompt.py::test_the_planning_folder_ignores_a_scratch_project_and_a_call_there_leaves_the_live_one_alone
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_problem_in_the_events_block_refuses_the_watcher_and_one_elsewhere_is_named
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_version_zero_line_reads_as_the_projects_and_a_newer_one_wakes_no_one
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_watcher_ends_on_the_lines_for_it_and_passes_the_others[case0]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_watcher_ends_on_the_lines_for_it_and_passes_the_others[case10]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_watcher_ends_on_the_lines_for_it_and_passes_the_others[case11]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_watcher_ends_on_the_lines_for_it_and_passes_the_others[case1]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_watcher_ends_on_the_lines_for_it_and_passes_the_others[case2]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_watcher_ends_on_the_lines_for_it_and_passes_the_others[case3]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_watcher_ends_on_the_lines_for_it_and_passes_the_others[case4]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_watcher_ends_on_the_lines_for_it_and_passes_the_others[case5]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_watcher_ends_on_the_lines_for_it_and_passes_the_others[case6]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_watcher_ends_on_the_lines_for_it_and_passes_the_others[case7]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_watcher_ends_on_the_lines_for_it_and_passes_the_others[case8]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_a_watcher_ends_on_the_lines_for_it_and_passes_the_others[case9]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_an_append_refuses_a_source_a_type_or_an_audience_of_a_wrong_form[hub-event1]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_an_append_refuses_a_source_a_type_or_an_audience_of_a_wrong_form[hub-event2]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_an_append_refuses_a_source_a_type_or_an_audience_of_a_wrong_form[hub-event3]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_an_append_refuses_a_source_a_type_or_an_audience_of_a_wrong_form[hub-event4]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_an_append_refuses_a_source_a_type_or_an_audience_of_a_wrong_form[hub-event5]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_an_append_refuses_a_source_a_type_or_an_audience_of_a_wrong_form[hub-event6]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_an_append_refuses_a_source_a_type_or_an_audience_of_a_wrong_form[nobody-event0]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_an_append_writes_a_version_two_line_for_the_project[board]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_an_append_writes_a_version_two_line_for_the_project[cli]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_an_append_writes_a_version_two_line_for_the_project[hub]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_an_append_writes_a_version_two_line_for_the_project[poller]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_an_append_writes_a_version_two_line_for_the_project[writer]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_no_role_is_named_and_the_journal_has_one_writer
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_playbook_prints_the_wake_rule_with_its_layer[case0]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_playbook_prints_the_wake_rule_with_its_layer[case1]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_playbook_prints_the_wake_rule_with_its_layer[case2]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_playbook_prints_the_wake_rule_with_its_layer[case3]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_playbook_prints_the_wake_rule_with_its_layer[case4]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_playbook_prints_the_wake_rule_with_its_layer[case5]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_card_states_the_end_rule_in_its_watcher_line_outside_the_startup_core
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_events_block_is_checked_and_its_problems_are_its_own[events: 20s\n-"events" holds its key: `wake_every:`]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_events_block_is_checked_and_its_problems_are_its_own[events:\n  buffer: 5s\n-events: unknown key "buffer": one of wake_every]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_events_block_is_checked_and_its_problems_are_its_own[events:\n  wake_every: 1.5m\n-events: "wake_every" is <whole number><s|m|h>, 20s or more, found "1.5m"]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_events_block_is_checked_and_its_problems_are_its_own[events:\n  wake_every: 19s\n-events: "wake_every" is <whole number><s|m|h>, 20s or more, found "19s"]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_events_block_is_checked_and_its_problems_are_its_own[events:\n  wake_every: 1h\n-None]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_events_block_is_checked_and_its_problems_are_its_own[events:\n  wake_every: 20s\n-None]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_events_block_is_checked_and_its_problems_are_its_own[events:\n  wake_every: 2m\n-None]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_events_block_is_checked_and_its_problems_are_its_own[events:\n  wake_every: 30\n-events: "wake_every" is <whole number><s|m|h>, 20s or more, found "30"]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_events_block_is_checked_and_its_problems_are_its_own[events:\n  wake_every: default\n-None]
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_rate_limit_keeps_a_watcher_up_for_wake_every_and_the_shipped_value_changes_nothing
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_shipped_defaults_hold_events_wake_every_and_pass_the_checks
+skills/chantier/scripts/cli/tests/test_event_audience.py::test_the_start_line_lists_the_subscription_and_a_bad_for_is_refused_with_nothing_written
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_cli_event_that_is_refused_is_a_code_fault_and_writes_nothing
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_model_fixes_the_json_types_and_the_formats_that_cannot_change[board@1-payload9-True]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_model_fixes_the_json_types_and_the_formats_that_cannot_change[checks-red@1-payload5-True]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_model_fixes_the_json_types_and_the_formats_that_cannot_change[checks-red@1-payload6-False]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_model_fixes_the_json_types_and_the_formats_that_cannot_change[checks-red@1-payload7-True]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_model_fixes_the_json_types_and_the_formats_that_cannot_change[checks-red@1-payload8-False]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_model_fixes_the_json_types_and_the_formats_that_cannot_change[config@1-payload10-True]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_model_fixes_the_json_types_and_the_formats_that_cannot_change[merged@1-payload0-True]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_model_fixes_the_json_types_and_the_formats_that_cannot_change[merged@1-payload1-False]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_model_fixes_the_json_types_and_the_formats_that_cannot_change[merged@1-payload2-False]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_model_fixes_the_json_types_and_the_formats_that_cannot_change[merged@1-payload3-True]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_model_fixes_the_json_types_and_the_formats_that_cannot_change[merged@1-payload4-True]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_a_version_one_line_and_a_version_two_line_of_one_event_are_one_event
+skills/chantier/scripts/cli/tests/test_event_types.py::test_every_published_type_appends_in_order_refuses_a_bad_payload_and_keeps_its_duplicate_rule[board@1]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_every_published_type_appends_in_order_refuses_a_bad_payload_and_keeps_its_duplicate_rule[checks-red@1]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_every_published_type_appends_in_order_refuses_a_bad_payload_and_keeps_its_duplicate_rule[config@1]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_every_published_type_appends_in_order_refuses_a_bad_payload_and_keeps_its_duplicate_rule[issue@1]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_every_published_type_appends_in_order_refuses_a_bad_payload_and_keeps_its_duplicate_rule[merged@1]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_every_published_type_appends_in_order_refuses_a_bad_payload_and_keeps_its_duplicate_rule[sync-blocked@1]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_every_published_type_appends_in_order_refuses_a_bad_payload_and_keeps_its_duplicate_rule[sync-conflict@1]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_every_published_type_appends_in_order_refuses_a_bad_payload_and_keeps_its_duplicate_rule[sync-late@1]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_every_published_type_appends_in_order_refuses_a_bad_payload_and_keeps_its_duplicate_rule[sync-resumed@1]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_every_published_type_appends_in_order_refuses_a_bad_payload_and_keeps_its_duplicate_rule[wait-cleared@1]
+skills/chantier/scripts/cli/tests/test_event_types.py::test_read_gives_effective_types_and_sets_unknown_and_refused_lines_apart
+skills/chantier/scripts/cli/tests/test_event_types.py::test_status_lines_skip_an_unknown_type_and_a_refused_payload_and_hide_nothing
+skills/chantier/scripts/cli/tests/test_event_types.py::test_the_normalized_form_ignores_the_generator_and_sees_every_published_change
+skills/chantier/scripts/cli/tests/test_event_types.py::test_the_recipe_adds_a_missing_entry_keeps_a_differing_one_and_changes_nothing_else
+skills/chantier/scripts/cli/tests/test_event_types.py::test_the_shipped_schemas_are_the_published_models_in_canonical_form
+skills/chantier/scripts/cli/tests/test_external_archive.py::test_a_released_crs_delivery_names_the_release_pr_its_merge_recorded
+skills/chantier/scripts/cli/tests/test_external_archive.py::test_an_external_project_keeps_the_archive_out_of_its_pr_unless_it_says_yes[# demo\n\n- Archive in the PR: Yes\n-True]
+skills/chantier/scripts/cli/tests/test_external_archive.py::test_an_external_project_keeps_the_archive_out_of_its_pr_unless_it_says_yes[# demo\n\n- Archive in the PR: no (the CRs live on the surface)\n-False]
+skills/chantier/scripts/cli/tests/test_external_archive.py::test_an_external_project_keeps_the_archive_out_of_its_pr_unless_it_says_yes[# demo\n\n- Archive in the PR: no\n-False]
+skills/chantier/scripts/cli/tests/test_external_archive.py::test_an_external_project_keeps_the_archive_out_of_its_pr_unless_it_says_yes[# demo\n\n- Archive in the PR: yes\n-True]
+skills/chantier/scripts/cli/tests/test_external_archive.py::test_an_external_project_keeps_the_archive_out_of_its_pr_unless_it_says_yes[# demo\n\nNothing about the archive.\n-False]
+skills/chantier/scripts/cli/tests/test_external_archive.py::test_an_external_project_keeps_the_archive_out_of_its_pr_unless_it_says_yes[None-False]
+skills/chantier/scripts/cli/tests/test_external_archive.py::test_an_external_surface_gets_the_planning_folder_and_the_project_stays_clean[False]
+skills/chantier/scripts/cli/tests/test_external_archive.py::test_an_external_surface_gets_the_planning_folder_and_the_project_stays_clean[True]
+skills/chantier/scripts/cli/tests/test_factory.py::test_a_refused_join_leaves_the_cr_in_3_ready[release]
+skills/chantier/scripts/cli/tests/test_factory.py::test_a_refused_join_leaves_the_cr_in_3_ready[slug]
+skills/chantier/scripts/cli/tests/test_factory.py::test_a_release_joining_turns_the_factory_off
+skills/chantier/scripts/cli/tests/test_factory.py::test_only_triage_ready_joins_and_in_a_stack_each_joins_on_top
+skills/chantier/scripts/cli/tests/test_factory.py::test_order_factory_switches_the_batch_and_its_brief
+skills/chantier/scripts/cli/tests/test_factory.py::test_status_says_a_factory_and_the_ready_cr_not_joined[False]
+skills/chantier/scripts/cli/tests/test_factory.py::test_status_says_a_factory_and_the_ready_cr_not_joined[True]
+skills/chantier/scripts/cli/tests/test_factory.py::test_the_board_state_carries_the_factory[False]
+skills/chantier/scripts/cli/tests/test_factory.py::test_the_board_state_carries_the_factory[True]
+skills/chantier/scripts/cli/tests/test_factory.py::test_triage_ready_joins_a_factory_batch_on_its_own[none-False]
+skills/chantier/scripts/cli/tests/test_factory.py::test_triage_ready_joins_a_factory_batch_on_its_own[paused-False]
+skills/chantier/scripts/cli/tests/test_factory.py::test_triage_ready_joins_a_factory_batch_on_its_own[paused-True]
+skills/chantier/scripts/cli/tests/test_factory.py::test_triage_ready_joins_a_factory_batch_on_its_own[plain-False]
+skills/chantier/scripts/cli/tests/test_factory.py::test_triage_ready_joins_a_factory_batch_on_its_own[running-False]
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_config_line_ends_the_watcher_and_is_told_in_its_form[down]
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_config_line_ends_the_watcher_and_is_told_in_its_form[slots-none]
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_config_line_ends_the_watcher_and_is_told_in_its_form[slots]
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_config_line_ends_the_watcher_and_is_told_in_its_form[up]
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_forge_error_lands_in_the_hub_record_not_in_the_journal
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_hub_cycle_reads_only_what_there_is_to_read_and_is_due_every_twenty_seconds
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_hub_cycle_writes_each_event_once[into another CR's branch, then landed]
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_hub_cycle_writes_each_event_once[merged into main, once]
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_hub_cycle_writes_each_event_once[red CI by head]
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_native_stack_merged_in_one_go_is_told_landed_with_its_bottom
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_refused_event_is_set_aside_and_named_the_cycle_goes_on
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_status_and_the_start_line_name_the_journal_the_hub_and_its_version
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_the_board_and_the_hub_share_the_journal_once[board]
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_the_board_and_the_hub_share_the_journal_once[hub]
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_the_hub_never_collects_the_issues_provider
+skills/chantier/scripts/cli/tests/test_forge_hub.py::test_the_start_line_names_the_hub_and_a_hub_of_another_version
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_met_wait_gives_one_line_and_an_unmet_one_none[gh approval approved]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_met_wait_gives_one_line_and_an_unmet_one_none[gh green on another head]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_met_wait_gives_one_line_and_an_unmet_one_none[gh green pipeline on the head]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_met_wait_gives_one_line_and_an_unmet_one_none[gh merge]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_met_wait_gives_one_line_and_an_unmet_one_none[gh red pipeline]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_met_wait_gives_one_line_and_an_unmet_one_none[gh review unknown]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_met_wait_gives_one_line_and_an_unmet_one_none[gl approval, unproved]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_met_wait_gives_one_line_and_an_unmet_one_none[gl green pipeline]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_met_wait_gives_one_line_and_an_unmet_one_none[gl merge]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_met_wait_is_told_once_and_one_the_forge_cannot_tell_is_named_in_the_hub_record
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_wait_on_another_repository_is_not_read_and_the_read_does_not_refuse
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_wait_the_forge_cannot_tell_is_named_with_no_line_and_leaves_when_seen_again[approval--unseen0-seen0]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_wait_the_forge_cannot_tell_is_named_with_no_line_and_leaves_when_seen_again[merge--unseen2-seen2]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_a_wait_the_forge_cannot_tell_is_named_with_no_line_and_leaves_when_seen_again[pipeline-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-unseen1-seen1]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_the_wait_of_an_ended_cr_gives_no_interest[cancelled]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_the_wait_of_an_ended_cr_gives_no_interest[merged]
+skills/chantier/scripts/cli/tests/test_forge_hub_waits.py::test_the_waits_add_no_read_one_call_per_project_and_cycle
+skills/chantier/scripts/cli/tests/test_forge_moved.py::test_a_gitlab_chain_retargets_a_moved_mr_to_the_default_branch_with_its_reason
+skills/chantier/scripts/cli/tests/test_forge_moved.py::test_forge_stack_rebuild_names_a_moved_pr_apart_and_leaves_it_on_main
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_a_failing_git_is_named_and_never_read_as_a_changed_patch
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_a_git_older_than_2_39_refuses_the_carry_and_says_so[version0-git 2.38.1 is older than 2.39]
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_a_git_older_than_2_39_refuses_the_carry_and_says_so[version1-git 2.30 is older than 2.39]
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_a_git_older_than_2_39_refuses_the_carry_and_says_so[version2-git ? is]
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_a_pass_with_no_recorded_base_does_not_carry_and_nothing_is_guessed
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_a_ref_git_cannot_read_raises
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_the_carry_compares_the_exact_patch_ids_of_the_crs_own_commits[a: CR-316, moved onto another CR's branch]
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_the_carry_compares_the_exact_patch_ids_of_the_crs_own_commits[b: a commit added]
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_the_carry_compares_the_exact_patch_ids_of_the_crs_own_commits[c: a whitespace-only change]
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_the_carry_compares_the_exact_patch_ids_of_the_crs_own_commits[d: a merge commit]
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_the_git_version_reads_as_numbers[-version3]
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_the_git_version_reads_as_numbers[git version 2.37.1 (Apple Git-137.1)-version2]
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_the_git_version_reads_as_numbers[git version 2.39.0-version1]
+skills/chantier/scripts/cli/tests/test_gate_carry.py::test_the_git_version_reads_as_numbers[git version 2.43.0.windows.1-version0]
+skills/chantier/scripts/cli/tests/test_gate_queue_order.py::test_a_queue_with_no_batch_record_keeps_the_marked_then_arrival_order
+skills/chantier/scripts/cli/tests/test_gate_queue_order.py::test_a_sharing_violation_on_a_ticket_or_a_mark_stops_no_gate
+skills/chantier/scripts/cli/tests/test_gate_queue_order.py::test_the_queue_runs_the_next_merge_then_the_moved_then_arrival[parallel: no next merge, the marked first, then arrival]
+skills/chantier/scripts/cli/tests/test_gate_queue_order.py::test_the_queue_runs_the_next_merge_then_the_moved_then_arrival[series: the same]
+skills/chantier/scripts/cli/tests/test_gate_queue_order.py::test_the_queue_runs_the_next_merge_then_the_moved_then_arrival[stack: a cancelled CR is not either]
+skills/chantier/scripts/cli/tests/test_gate_queue_order.py::test_the_queue_runs_the_next_merge_then_the_moved_then_arrival[stack: a fix CR and the release do not count]
+skills/chantier/scripts/cli/tests/test_gate_queue_order.py::test_the_queue_runs_the_next_merge_then_the_moved_then_arrival[stack: a merged CR is not the next merge]
+skills/chantier/scripts/cli/tests/test_gate_queue_order.py::test_the_queue_runs_the_next_merge_then_the_moved_then_arrival[stack: the bottom CR first, then the marked, then arrival]
+skills/chantier/scripts/cli/tests/test_gate_queue_order.py::test_the_queue_runs_the_next_merge_then_the_moved_then_arrival[stack: the marked one of the next merge stays first]
+skills/chantier/scripts/cli/tests/test_gate_refusals.py::test_a_bad_long_gate_key_is_refused_with_its_line_by_gate_playbook_and_preflight
+skills/chantier/scripts/cli/tests/test_gate_refusals.py::test_gate_stop_takes_no_command_and_gate_needs_one_and_nothing_running_is_not_an_error
+skills/chantier/scripts/cli/tests/test_gate_refusals.py::test_order_merged_refuses_and_records_nothing_when_the_stopped_gate_does_not_end
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_a_cr_waiver_names_its_follow_up_and_validates_nothing
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_a_handback_exempt_by_no_gate_says_the_rule
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_a_pass_carried_over_a_clean_rebase_names_the_head_it_came_from
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_a_stack_waiver_covers_the_lower_crs_and_the_top_validates_them
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_a_top_with_its_pass_says_it_and_what_it_validates
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_a_withdrawn_stack_waiver_keeps_its_note_for_a_cr_handed_back_under_it
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_a_withdrawn_waiver_leaves_the_cr_needing_its_gate
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_a_working_cr_in_the_gate_lock_runs_or_waits[gate queued-queued]
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_a_working_cr_in_the_gate_lock_runs_or_waits[gate running-running]
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_the_handback_event_keeps_the_waiver_it_was_handed_back_under
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_the_state_of_a_gate_read_from_the_gate_events_at_the_head[events0-none-None--]
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_the_state_of_a_gate_read_from_the_gate_events_at_the_head[events1-passed-abc1234-passed abc1234]
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_the_state_of_a_gate_read_from_the_gate_events_at_the_head[events2-failed-abc1234-failed abc1234]
+skills/chantier/scripts/cli/tests/test_gate_view.py::test_the_state_of_a_gate_read_from_the_gate_events_at_the_head[events3-none-None--]
+skills/chantier/scripts/cli/tests/test_gate_waiver_handback.py::test_a_covered_lower_cr_hands_back_with_no_gate_and_says_by_whom
+skills/chantier/scripts/cli/tests/test_gate_waiver_handback.py::test_a_cr_waiver_names_its_follow_up
+skills/chantier/scripts/cli/tests/test_gate_waiver_handback.py::test_no_gate_wins_over_a_waiver
+skills/chantier/scripts/cli/tests/test_gate_waiver_handback.py::test_the_other_checks_stay_under_a_waiver
+skills/chantier/scripts/cli/tests/test_gate_waiver_handback.py::test_the_top_of_a_waived_stack_needs_its_gate
+skills/chantier/scripts/cli/tests/test_gate_waiver_orders.py::test_a_cr_cannot_withdraw_a_waiver_of_the_stack_alone
+skills/chantier/scripts/cli/tests/test_gate_waiver_orders.py::test_a_cr_waiver_is_recorded_with_its_order_and_follow_up
+skills/chantier/scripts/cli/tests/test_gate_waiver_orders.py::test_a_cr_waiver_needs_an_existing_backlog_folder[extra0---follow-up]
+skills/chantier/scripts/cli/tests/test_gate_waiver_orders.py::test_a_cr_waiver_needs_an_existing_backlog_folder[extra1-no-such-folder]
+skills/chantier/scripts/cli/tests/test_gate_waiver_orders.py::test_a_stack_waiver_covers_all_but_the_top_and_moves_up_with_a_new_cr
+skills/chantier/scripts/cli/tests/test_gate_waiver_orders.py::test_a_stack_waiver_is_refused_outside_stack_mode[parallel]
+skills/chantier/scripts/cli/tests/test_gate_waiver_orders.py::test_a_stack_waiver_is_refused_outside_stack_mode[series]
+skills/chantier/scripts/cli/tests/test_gate_waiver_orders.py::test_a_waiver_needs_a_note_and_follow_up_goes_with_waive_alone
+skills/chantier/scripts/cli/tests/test_gate_waiver_orders.py::test_the_derived_top_is_never_covered
+skills/chantier/scripts/cli/tests/test_gate_waiver_orders.py::test_withdrawing_a_stack_waiver_clears_every_cr
+skills/chantier/scripts/cli/tests/test_hub_connectors.py::test_a_batch_in_two_repositories_is_not_read_and_the_entry_says_so
+skills/chantier/scripts/cli/tests/test_hub_connectors.py::test_a_gitlab_batch_is_read_in_one_query_and_told_as_before
+skills/chantier/scripts/cli/tests/test_hub_connectors.py::test_a_link_no_connector_claims_is_named_and_the_other_prs_are_read_and_judged
+skills/chantier/scripts/cli/tests/test_hub_connectors.py::test_a_provider_of_another_kind_is_not_called_and_makes_no_forge_call
+skills/chantier/scripts/cli/tests/test_hub_connectors.py::test_an_interest_asking_review_makes_the_one_query_carry_it_where_the_forge_proves_it[github-https://github.com/acme/alpha/pull/10]
+skills/chantier/scripts/cli/tests/test_hub_connectors.py::test_an_interest_asking_review_makes_the_one_query_carry_it_where_the_forge_proves_it[gitlab-None]
+skills/chantier/scripts/cli/tests/test_hub_connectors.py::test_two_providers_interests_on_one_repository_make_one_call
+skills/chantier/scripts/cli/tests/test_leases.py::test_a_batch_with_no_lease_needs_no_lease_and_take_gives_the_next_its_own
+skills/chantier/scripts/cli/tests/test_leases.py::test_a_clearance_before_any_agent_does_not_make_the_first_real_set_a_restart
+skills/chantier/scripts/cli/tests/test_leases.py::test_a_guarded_command_needs_the_lease_and_a_stale_one_is_lost[handback-{cr} blocked why]
+skills/chantier/scripts/cli/tests/test_leases.py::test_a_guarded_command_needs_the_lease_and_a_stale_one_is_lost[handback-{cr} ready https://example.invalid/pr/1 --no-gate x]
+skills/chantier/scripts/cli/tests/test_leases.py::test_a_guarded_command_needs_the_lease_and_a_stale_one_is_lost[round-{cr}]
+skills/chantier/scripts/cli/tests/test_leases.py::test_a_guarded_command_needs_the_lease_and_a_stale_one_is_lost[ship-{cr} https://example.invalid/pr/1]
+skills/chantier/scripts/cli/tests/test_leases.py::test_a_long_gate_a_queue_ticket_or_a_hold_keeps_an_expired_lease_live
+skills/chantier/scripts/cli/tests/test_leases.py::test_a_not_confirmed_current_lease_is_accepted_late_and_a_handback_ends_it
+skills/chantier/scripts/cli/tests/test_leases.py::test_a_qa_orders_lease_starts_with_the_order_and_a_restart_needs_it_free
+skills/chantier/scripts/cli/tests/test_leases.py::test_a_ship_of_a_cr_whose_lease_ended_needs_no_number
+skills/chantier/scripts/cli/tests/test_leases.py::test_agents_set_dash_and_a_cancel_end_a_lease_and_the_old_driver_is_told
+skills/chantier/scripts/cli/tests/test_leases.py::test_claude_close_shows_a_live_lease_beside_the_transcripts_and_it_is_no_cause
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_causes_come_from_leases_and_the_foremans_heartbeat[claude, live lease]
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_causes_come_from_leases_and_the_foremans_heartbeat[direct batch]
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_causes_come_from_leases_and_the_foremans_heartbeat[heartbeat over]
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_causes_come_from_leases_and_the_foremans_heartbeat[heartbeat under]
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_causes_come_from_leases_and_the_foremans_heartbeat[live lease]
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_causes_come_from_leases_and_the_foremans_heartbeat[no lease]
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_causes_come_from_leases_and_the_foremans_heartbeat[not confirmed]
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_reads_a_qa_orders_and_the_stack_agents_lease[live-order]
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_reads_a_qa_orders_and_the_stack_agents_lease[live-stack]
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_reads_a_qa_orders_and_the_stack_agents_lease[no lease-order]
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_reads_a_qa_orders_and_the_stack_agents_lease[no lease-stack]
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_reads_a_qa_orders_and_the_stack_agents_lease[not confirmed-order]
+skills/chantier/scripts/cli/tests/test_leases.py::test_copilot_close_reads_a_qa_orders_and_the_stack_agents_lease[not confirmed-stack]
+skills/chantier/scripts/cli/tests/test_leases.py::test_status_names_a_lease_that_is_not_confirmed_and_handoff_prints_its_line
+skills/chantier/scripts/cli/tests/test_leases.py::test_take_refuses_a_live_or_not_confirmed_lease_and_reclaim_starts_the_next
+skills/chantier/scripts/cli/tests/test_leases.py::test_the_lease_command_shows_renews_and_runs_a_command_under_it
+skills/chantier/scripts/cli/tests/test_leases.py::test_the_stack_drivers_writing_forms_need_its_lease_and_its_reading_forms_none
+skills/chantier/scripts/cli/tests/test_limits.py::test_a_put_of_both_limits_and_a_role_edit_writes_three_lines_and_status_follows_the_orders
+skills/chantier/scripts/cli/tests/test_limits.py::test_a_stale_hash_is_409_and_a_dry_run_writes_no_file_and_no_journal_line
+skills/chantier/scripts/cli/tests/test_limits.py::test_config_lines_with_the_same_values_and_time_are_two_lines
+skills/chantier/scripts/cli/tests/test_limits.py::test_open_and_the_playbook_take_the_limits_from_the_layers[--slots wins]
+skills/chantier/scripts/cli/tests/test_limits.py::test_open_and_the_playbook_take_the_limits_from_the_layers[lacking key]
+skills/chantier/scripts/cli/tests/test_limits.py::test_open_and_the_playbook_take_the_limits_from_the_layers[lacking parallel]
+skills/chantier/scripts/cli/tests/test_limits.py::test_open_and_the_playbook_take_the_limits_from_the_layers[no plugin]
+skills/chantier/scripts/cli/tests/test_limits.py::test_open_and_the_playbook_take_the_limits_from_the_layers[repository]
+skills/chantier/scripts/cli/tests/test_limits.py::test_open_and_the_playbook_take_the_limits_from_the_layers[shipped]
+skills/chantier/scripts/cli/tests/test_limits.py::test_open_and_the_playbook_take_the_limits_from_the_layers[surface project]
+skills/chantier/scripts/cli/tests/test_limits.py::test_open_and_the_playbook_take_the_limits_from_the_layers[zero, repository]
+skills/chantier/scripts/cli/tests/test_limits.py::test_open_and_the_playbook_take_the_limits_from_the_layers[zero]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_board_refuses_a_bad_limit_and_writes_nothing[bool]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_board_refuses_a_bad_limit_and_writes_nothing[float]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_board_refuses_a_bad_limit_and_writes_nothing[neg]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_board_refuses_a_bad_limit_and_writes_nothing[str]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_board_refuses_a_bad_limit_and_writes_nothing[zero-parallel]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_board_saves_a_limit_keeps_comments_journals_one_line_and_removes_it[batch.slots]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_board_saves_a_limit_keeps_comments_journals_one_line_and_removes_it[specifying.parallel]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_playbook_line_names_the_layer_the_markers_and_the_limit
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_two_limits_are_checked_like_long_gate[batch:\n  slots: -1\n-batch: "slots" is a whole number, 0 or more, found "-1"]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_two_limits_are_checked_like_long_gate[batch:\n  slots: 2.5\n-batch: "slots" is a whole number, 0 or more, found "2.5"]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_two_limits_are_checked_like_long_gate[specifying:\n  parallel: 0\n-specifying: "parallel" is a whole number, 1 or more, found "0"]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_two_limits_are_checked_like_long_gate[specifying:\n  parallel: 2\nbatch:\n  slots: 0\n-None]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_two_limits_are_checked_like_long_gate[specifying:\n  parallel: default\nbatch:\n  slots: ~\n-None]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_two_limits_are_checked_like_long_gate[specifying:\n  parallel: two\n-specifying: "parallel" is a whole number, 1 or more, found "two"]
+skills/chantier/scripts/cli/tests/test_limits.py::test_the_view_says_the_repository_overrides_and_such_a_save_journals_nothing
+skills/chantier/scripts/cli/tests/test_limits.py::test_with_no_planning_surface_a_limit_is_read_only_and_writes_nothing
+skills/chantier/scripts/cli/tests/test_limits_cells.py::test_open_with_no_planning_surface_and_no_slots_takes_the_shipped_value
+skills/chantier/scripts/cli/tests/test_limits_cells.py::test_the_board_saves_zero_slots_and_journals_it_and_open_then_refuses
+skills/chantier/scripts/cli/tests/test_limits_cells.py::test_the_board_view_shows_the_problem_when_the_shipped_file_lacks_a_limit[batch.slots]
+skills/chantier/scripts/cli/tests/test_limits_cells.py::test_the_board_view_shows_the_problem_when_the_shipped_file_lacks_a_limit[specifying.parallel]
+skills/chantier/scripts/cli/tests/test_mode_switch.py::test_a_chain_is_kept_when_the_switch_would_put_a_cr_below_its_dependency
+skills/chantier/scripts/cli/tests/test_mode_switch.py::test_leaving_a_stack_clears_every_place_in_it
+skills/chantier/scripts/cli/tests/test_mode_switch.py::test_the_same_mode_and_an_unknown_one_are_refused_and_nothing_is_written[parallel]
+skills/chantier/scripts/cli/tests/test_mode_switch.py::test_the_same_mode_and_an_unknown_one_are_refused_and_nothing_is_written[series]
+skills/chantier/scripts/cli/tests/test_mode_switch.py::test_the_same_mode_and_an_unknown_one_are_refused_and_nothing_is_written[stack]
+skills/chantier/scripts/cli/tests/test_mode_switch.py::test_to_a_stack_the_ready_cr_go_first_in_the_order_they_became_ready
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_an_order_joins_the_empty_batch_and_the_first_take_sets_it_running
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_close_of_a_batch_that_never_held_a_cr[case0]
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_close_of_a_batch_that_never_held_a_cr[case1]
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_close_of_a_batch_that_never_held_a_cr[case2]
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_close_still_refuses_a_batch_that_held_a_cr_with_no_steering_transcript
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_open_with_no_cr_is_born_paused[case0]
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_open_with_no_cr_is_born_paused[case1]
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_open_with_no_cr_is_born_paused[case2]
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_open_with_no_cr_refuses_what_needs_a_cr[flags0-order add --note <folder> --release]
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_open_with_no_cr_refuses_what_needs_a_cr[flags1-need --release]
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_open_with_no_cr_refuses_what_needs_a_cr[flags2-need --release]
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_the_board_words_of_a_batch_with_no_cr_are_shipped[en]
+skills/chantier/scripts/cli/tests/test_open_empty_batch.py::test_the_board_words_of_a_batch_with_no_cr_are_shipped[fr]
+skills/chantier/scripts/cli/tests/test_open_no_clone.py::test_open_refuses_a_project_with_no_clone[factory-configured-cell]
+skills/chantier/scripts/cli/tests/test_open_no_clone.py::test_open_refuses_a_project_with_no_clone[factory]
+skills/chantier/scripts/cli/tests/test_open_no_clone.py::test_open_refuses_a_project_with_no_clone[no-cr]
+skills/chantier/scripts/cli/tests/test_open_no_clone.py::test_preflight_names_the_missing_clone
+skills/chantier/scripts/cli/tests/test_opening_and_restore.py::test_an_opening_that_fails_names_why_and_restores_what_it_moved
+skills/chantier/scripts/cli/tests/test_opening_and_restore.py::test_open_makes_a_factory_only_with_no_cr_or_the_flag[flag]
+skills/chantier/scripts/cli/tests/test_opening_and_restore.py::test_open_makes_a_factory_only_with_no_cr_or_the_flag[no-cr]
+skills/chantier/scripts/cli/tests/test_opening_and_restore.py::test_open_makes_a_factory_only_with_no_cr_or_the_flag[plain]
+skills/chantier/scripts/cli/tests/test_opening_and_restore.py::test_open_refuses_a_release_in_a_factory
+skills/chantier/scripts/cli/tests/test_opening_and_restore.py::test_restore_puts_a_trashed_cr_back_whole_and_refuses_a_clash_or_an_archive
+skills/chantier/scripts/cli/tests/test_opening_and_restore.py::test_the_next_batch_number_is_read_from_the_records
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_drop_to_a_name_in_use_is_refused_at_the_order
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_drop_with_no_known_destination_is_refused_and_records_nothing[3-ready-1]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_drop_with_no_known_destination_is_refused_and_records_nothing[None-1]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_drop_with_no_known_destination_is_refused_and_records_nothing[P5-1]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_drop_with_no_known_destination_is_refused_and_records_nothing[ready-1]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_dropped_cr_goes_where_the_order_names_with_its_work[False-inbox]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_dropped_cr_goes_where_the_order_names_with_its_work[False-p2]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_dropped_cr_goes_where_the_order_names_with_its_work[False-trash]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_dropped_cr_goes_where_the_order_names_with_its_work[True-inbox]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_dropped_cr_goes_where_the_order_names_with_its_work[True-p2]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_dropped_cr_goes_where_the_order_names_with_its_work[True-trash]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_held_cr_dropped_is_no_longer_held
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_release_or_fix_cr_leaves_the_batch_only_to_the_trash[case0]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_release_or_fix_cr_leaves_the_batch_only_to_the_trash[case1]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_a_release_or_fix_cr_leaves_the_batch_only_to_the_trash[case2]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_cancel_with_no_drop_order_is_refused_and_changes_nothing
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_the_pr_of_a_trashed_cr_is_closed_outside_a_stack_only[case0]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_the_pr_of_a_trashed_cr_is_closed_outside_a_stack_only[case1]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_the_pr_of_a_trashed_cr_is_closed_outside_a_stack_only[case2]
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_the_status_close_and_record_tell_a_trashed_cr_from_a_moved_one
+skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_validate_reads_a_formerly_json_in_a_cr_folder_as_part_of_its_layout
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_a_provider_that_fails_is_named_and_journal_add_then_writes_nothing
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_interests_lists_the_issues_the_crs_name_and_writes_nothing
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_interests_with_no_kind_lists_the_running_batchs_prs_and_nothing_awaited_says_so
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_a_wrong_type_and_a_wrong_input[case0]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_a_wrong_type_and_a_wrong_input[case1]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_a_wrong_type_and_a_wrong_input[case2]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_a_wrong_type_and_a_wrong_input[case3]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case0]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case10]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case11]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case12]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case13]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case14]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case1]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case2]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case3]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case4]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case5]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case6]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case7]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case8]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_refuses_what_it_must_and_writes_nothing[case9]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_writes_the_event_once[False]
+skills/chantier/scripts/cli/tests/test_outside_poller.py::test_journal_add_writes_the_event_once[True]
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_a_copilot_batch_records_a_generic_start_and_take_prints_its_contract
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_a_role_starts_the_plugin_agent_a_named_one_or_a_generic_one_per_host[case0]
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_a_role_starts_the_plugin_agent_a_named_one_or_a_generic_one_per_host[case1]
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_a_role_starts_the_plugin_agent_a_named_one_or_a_generic_one_per_host[case2]
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_a_role_starts_the_plugin_agent_a_named_one_or_a_generic_one_per_host[case3]
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_a_valid_file_is_resolved_recorded_and_kept_by_the_running_batch
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_ci_beside_the_gate_is_printed_recorded_and_kept_after_the_key_is_dropped
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_ci_is_off_by_default_and_prints_nothing[beside_gate false]
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_ci_is_off_by_default_and_prints_nothing[no ci key]
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_cost_explain_says_when_a_spec_agent_leaves_the_grill_line[agent: mine\n-note0]
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_cost_explain_says_when_a_spec_agent_leaves_the_grill_line[model: sonnet\n-None]
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_open_refuses_a_bad_chantier_yaml_at_its_line_and_moves_nothing
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_playbook_and_preflight_name_the_problem_and_its_line
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_with_no_chantier_yaml_again_the_next_batch_records_nothing
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_with_no_chantier_yaml_open_records_nothing_and_take_prints_no_team
+skills/chantier/scripts/cli/tests/test_playbook_config.py::test_with_no_chantier_yaml_playbook_prints_the_plugin_agents
+skills/chantier/scripts/cli/tests/test_playbook_edit.py::test_the_config_view_carries_the_escalation_of_a_role_that_has_one_and_writes_it
+skills/chantier/scripts/cli/tests/test_playbook_edit.py::test_the_surface_file_edit_keeps_comments_and_removes_what_it_empties[hosts:\n  copilot:\n    roles:\n      coder:\n        model: default\n        agent: mine # mine\n-hosts:\n  copilot:\n    roles:\n      coder:\n        agent: mine # mine\n]
+skills/chantier/scripts/cli/tests/test_playbook_edit.py::test_the_surface_file_edit_keeps_comments_and_removes_what_it_empties[hosts:\n  copilot:\n    roles:\n      coder:\n        model: ~\n-]
+skills/chantier/scripts/cli/tests/test_playbook_edit.py::test_the_surface_file_edit_keeps_comments_and_removes_what_it_empties[start0-# top\nboard:\n  port: 8123 # port\n]
+skills/chantier/scripts/cli/tests/test_playbook_edit.py::test_the_surface_file_edit_writes_lf_onto_a_crlf_file[\xef\xbb\xbf]
+skills/chantier/scripts/cli/tests/test_playbook_edit.py::test_the_surface_file_edit_writes_lf_onto_a_crlf_file[]
+skills/chantier/scripts/cli/tests/test_playbook_escalation.py::test_a_generic_escalation_prints_the_contract_with_or_without_a_user_file[shipped]
+skills/chantier/scripts/cli/tests/test_playbook_escalation.py::test_a_generic_escalation_prints_the_contract_with_or_without_a_user_file[user]
+skills/chantier/scripts/cli/tests/test_playbook_escalation.py::test_a_user_escalation_is_on_the_team_line_and_the_recorded_map_is_kept
+skills/chantier/scripts/cli/tests/test_playbook_escalation.py::test_an_escalation_is_set_per_role_and_a_plain_default_takes_it_back
+skills/chantier/scripts/cli/tests/test_playbook_escalation.py::test_defaults_that_carry_no_escalation_print_none_on_this_host
+skills/chantier/scripts/cli/tests/test_playbook_escalation.py::test_escalation_lines_with_no_role_that_has_one
+skills/chantier/scripts/cli/tests/test_playbook_escalation.py::test_on_copilot_an_escalation_starts_generic_unless_the_role_has_the_users_agent
+skills/chantier/scripts/cli/tests/test_playbook_escalation.py::test_open_records_the_shipped_escalation_with_no_user_file
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_a_batch_opened_in_a_surface_keeps_its_configuration_when_a_surface_file_changes
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_a_model_equal_to_its_agents_is_not_passed_unless_the_agent_is_set_too
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_a_plain_default_tilde_or_null_takes_a_value_back_and_the_print_says_where[case0]
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_a_plain_default_tilde_or_null_takes_a_value_back_and_the_print_says_where[case1]
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_a_plain_default_tilde_or_null_takes_a_value_back_and_the_print_says_where[case2]
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_a_plain_default_tilde_or_null_takes_a_value_back_and_the_print_says_where[case3]
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_a_plain_default_tilde_or_null_takes_a_value_back_and_the_print_says_where[case4]
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_a_plain_default_tilde_or_null_takes_a_value_back_and_the_print_says_where[case5]
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_a_prices_entry_is_replaced_whole_and_a_reset_model_is_accepted_on_copilot
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_a_yml_file_alone_is_read_and_a_problem_names_the_file_it_is_in
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_both_file_names_in_one_place_are_refused_with_both_paths[clone]
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_both_file_names_in_one_place_are_refused_with_both_paths[project]
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_both_file_names_in_one_place_are_refused_with_both_paths[root]
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_the_layers_merge_in_order_and_each_value_names_its_layer
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_the_light_readers_see_the_board_and_long_gate_keys_of_any_layer
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_the_shipped_defaults_give_each_role_the_model_its_agent_file_declares[claude]
+skills/chantier/scripts/cli/tests/test_playbook_layers.py::test_the_shipped_defaults_give_each_role_the_model_its_agent_file_declares[copilot]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_a_wrong_timing_setting_is_refused_with_its_line[a duration of 1 minute or more0]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_a_wrong_timing_setting_is_refused_with_its_line[a duration of 1 minute or more1]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_a_wrong_timing_setting_is_refused_with_its_line[a whole number, 0 or more]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_a_wrong_timing_setting_is_refused_with_its_line[at most 60 minutes on Claude Code]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_a_wrong_timing_setting_is_refused_with_its_line[is not read by the session column]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_a_wrong_timing_setting_is_refused_with_its_line[unknown key "other"]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_a_wrong_timing_setting_is_refused_with_its_line[whole minutes on Copilot]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_the_board_view_state_and_flat_list_carry_the_timing
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_the_timing_lines_are_printed_recorded_and_kept_by_a_running_batch
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_the_timing_resolves_per_layer_strongest_first[a reset back to the shipped default]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_the_timing_resolves_per_layer_strongest_first[column above general in a layer]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_the_timing_resolves_per_layer_strongest_first[copilot general and column]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_the_timing_resolves_per_layer_strongest_first[general above the shipped column]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_the_timing_resolves_per_layer_strongest_first[not read]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_the_timing_resolves_per_layer_strongest_first[shipped]
+skills/chantier/scripts/cli/tests/test_playbook_timing.py::test_the_timing_resolves_per_layer_strongest_first[stronger general above weaker column]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_a_worker_agent_file_points_to_its_card_and_refuses_a_prompt_without_it[coder-claude]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_a_worker_agent_file_points_to_its_card_and_refuses_a_prompt_without_it[coder-copilot]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_a_worker_agent_file_points_to_its_card_and_refuses_a_prompt_without_it[conflict-resolver-claude]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_a_worker_agent_file_points_to_its_card_and_refuses_a_prompt_without_it[conflict-resolver-copilot]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_a_worker_agent_file_points_to_its_card_and_refuses_a_prompt_without_it[debugger-claude]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_a_worker_agent_file_points_to_its_card_and_refuses_a_prompt_without_it[debugger-copilot]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_a_worker_agent_file_points_to_its_card_and_refuses_a_prompt_without_it[inspector-claude]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_a_worker_agent_file_points_to_its_card_and_refuses_a_prompt_without_it[inspector-copilot]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_a_worker_agent_file_points_to_its_card_and_refuses_a_prompt_without_it[investigator-claude]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_a_worker_agent_file_points_to_its_card_and_refuses_a_prompt_without_it[investigator-copilot]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_a_worker_agent_file_points_to_its_card_and_refuses_a_prompt_without_it[verifier-claude]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_a_worker_agent_file_points_to_its_card_and_refuses_a_prompt_without_it[verifier-copilot]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[coder]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[conflict-resolver]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[cr-driver]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[debugger]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[demo-explorer]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[inspector]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[investigator]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[qa-driver]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[release-driver]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[retro-critic]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[spec-critic]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[spec-writer]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[stack-driver]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_both_hosts_give_a_role_the_same_body_and_their_own_frontmatter[verifier]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_copilot_cost_helper_declares_pypi
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_copilot_models_script_checks_each_role_on_a_fake_session[change0-ok]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_copilot_models_script_checks_each_role_on_a_fake_session[change1-MISMATCH]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_copilot_models_script_checks_each_role_on_a_fake_session[change2-not recorded]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_copilot_models_script_checks_each_role_on_a_fake_session[short-unmatched (event count)]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_each_host_has_its_reference_and_the_cards_hold_no_host_tool
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_each_host_ships_one_agent_per_role_and_nothing_else[claude]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_each_host_ships_one_agent_per_role_and_nothing_else[copilot]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_every_file_carries_the_same_version
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_every_role_has_its_section_in_its_card
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_four_skills_the_router_and_three_thin_ones_listed_by_copilot
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_manifests_agree
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_no_tracked_file_starts_with_a_utf8_byte_order_mark
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_one_launch_two_modes_one_text
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_release_scan_catches_a_uuid_after_an_underscore
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_skill_and_references_links_resolve
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_the_board_mod_is_wired_on_claude_only
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_the_model_table_names_every_model_the_agent_files_name[claude]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_the_model_table_names_every_model_the_agent_files_name[copilot]
+skills/chantier/scripts/cli/tests/test_plugin_files.py::test_the_model_table_names_no_model_twice_per_host
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_command_that_writes_refuses_a_paused_batch_by_name_and_status_reads_it
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_formerly_json_that_is_malformed_or_names_a_live_cr_refuses_the_join[live]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_formerly_json_that_is_malformed_or_names_a_live_cr_refuses_the_join[malformed]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_paused_batch_is_read_when_alone_and_named_otherwise[running0-paused0-True-no running batch: run `chantier open` first]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_paused_batch_is_read_when_alone_and_named_otherwise[running1-paused1-True-batch-18]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_paused_batch_is_read_when_alone_and_named_otherwise[running2-paused2-False-no running batch; paused: batch-18: pass `--batch batch-18`]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_paused_batch_is_read_when_alone_and_named_otherwise[running3-paused3-True-paused: batch-17, batch-18: pass `--batch <name>`]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_paused_batch_is_read_when_alone_and_named_otherwise[running4-paused4-True-batch-19]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_ready_cr_goes_back_to_a_driver_only_with_a_note_and_cancel_needs_the_epoch
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_round_with_nothing_since_and_the_round_limit_are_refused_and_more_can_be_granted
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_steering_command_without_its_number_is_refused_and_writes_nothing[argv0-foreman set <session-id> --epoch <n>]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_steering_command_without_its_number_is_refused_and_writes_nothing[argv1-foreman transcript <uuid> --epoch <n>]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_steering_command_without_its_number_is_refused_and_writes_nothing[argv2-status --stop-heartbeat --epoch <n>]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_steering_command_without_its_number_is_refused_and_writes_nothing[argv3-take CR-102 --epoch <n>]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_steering_command_without_its_number_is_refused_and_writes_nothing[argv4-take stack --epoch <n>]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_steering_command_without_its_number_is_refused_and_writes_nothing[argv5-agents set CR-101 <id>|- --epoch <n>]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_steering_command_without_its_number_is_refused_and_writes_nothing[argv6-order done O-1 --epoch <n>]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_a_steering_command_without_its_number_is_refused_and_writes_nothing[argv7-pause --epoch <n>]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_order_qa_needs_a_request_and_a_budget_and_its_folder_is_not_opened
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_phase_refuses_a_queued_cr_a_review_with_no_detail_and_a_long_detail
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_slots_zero_holds_and_a_spent_budget_stops_the_next_driver_until_it_is_raised
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_the_budget_bounds_the_rounds_and_leaves_the_round_limit_its_own_message
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_the_chief_of_staff_claiming_a_foreman_batch_makes_it_direct[host_cell0]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_the_chief_of_staff_claiming_a_foreman_batch_makes_it_direct[host_cell1]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_the_chief_of_staff_claiming_a_foreman_batch_makes_it_direct[host_cell2]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_the_release_prs_merge_go_depends_on_the_grant_alone_and_spends_no_approval[False]
+skills/chantier/scripts/cli/tests/test_rail_refusals.py::test_the_release_prs_merge_go_depends_on_the_grant_alone_and_spends_no_approval[True]
+skills/chantier/scripts/cli/tests/test_release_tag.py::test_ff_main[behind-0-words0]
+skills/chantier/scripts/cli/tests/test_release_tag.py::test_ff_main[current-0-words1]
+skills/chantier/scripts/cli/tests/test_release_tag.py::test_ff_main[dirty-1-words3]
+skills/chantier/scripts/cli/tests/test_release_tag.py::test_ff_main[diverged-1-words4]
+skills/chantier/scripts/cli/tests/test_release_tag.py::test_ff_main[other-branch-1-words2]
+skills/chantier/scripts/cli/tests/test_release_tag.py::test_ff_main[untracked-0-words5]
+skills/chantier/scripts/cli/tests/test_release_tag.py::test_ff_main_command_runs_the_shipped_script
+skills/chantier/scripts/cli/tests/test_release_tag.py::test_tag_recipe_and_release_cards
+skills/chantier/scripts/cli/tests/test_scenario_coverage.py::test_every_coverage_bullet_names_a_unit_or_a_test_that_exists
+skills/chantier/scripts/cli/tests/test_server_api.py::test_a_subscription_is_refused[board-args3-400]
+skills/chantier/scripts/cli/tests/test_server_api.py::test_a_subscription_is_refused[nope-args0-404]
+skills/chantier/scripts/cli/tests/test_server_api.py::test_a_subscription_is_refused[project-args1-404]
+skills/chantier/scripts/cli/tests/test_server_api.py::test_a_subscription_is_refused[project-args2-400]
+skills/chantier/scripts/cli/tests/test_server_api.py::test_a_topic_sends_once_then_only_on_a_change
+skills/chantier/scripts/cli/tests/test_server_api.py::test_a_topic_that_fails_unexpectedly_is_skipped_and_the_loop_goes_on
+skills/chantier/scripts/cli/tests/test_server_api.py::test_an_old_route_answers_404_even_for_a_post_a_cookie_carries
+skills/chantier/scripts/cli/tests/test_server_api.py::test_an_unknown_op_a_bad_body_an_unknown_project
+skills/chantier/scripts/cli/tests/test_server_api.py::test_clients_that_ask_the_same_share_one_reading
+skills/chantier/scripts/cli/tests/test_server_api.py::test_every_op_refuses_what_its_arguments_do_not_allow
+skills/chantier/scripts/cli/tests/test_server_api.py::test_long_polls_held_at_once_are_capped
+skills/chantier/scripts/cli/tests/test_server_api.py::test_the_key_and_the_origin
+skills/chantier/scripts/cli/tests/test_server_api.py::test_the_key_in_the_url_goes_to_a_relative_location
+skills/chantier/scripts/cli/tests/test_server_api.py::test_the_long_poll_answers_at_once_then_holds_empty
+skills/chantier/scripts/cli/tests/test_server_api.py::test_the_preflight_needs_no_key
+skills/chantier/scripts/cli/tests/test_server_api.py::test_the_prs_topic_reads_no_forge_once_every_pr_is_done
+skills/chantier/scripts/cli/tests/test_server_api.py::test_the_reads_and_the_state_rev
+skills/chantier/scripts/cli/tests/test_server_api_calls.py::test_a_change_during_the_hold_answers_the_long_poll_before_the_hold_ends
+skills/chantier/scripts/cli/tests/test_server_api_calls.py::test_a_good_call_of_every_op_answers_the_data_its_route_gave_or_the_store_holds
+skills/chantier/scripts/cli/tests/test_server_api_calls.py::test_a_write_from_each_cell_of_the_key_matrix
+skills/chantier/scripts/cli/tests/test_server_api_calls.py::test_a_write_with_no_live_writer_answers_409_and_writes_nothing
+skills/chantier/scripts/cli/tests/test_server_api_calls.py::test_the_events_topic_carries_the_journal_lines_after_its_cursor
+skills/chantier/scripts/cli/tests/test_server_api_calls.py::test_three_watchers_of_the_prs_cost_one_forge_read_per_ten_seconds
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_a_body_over_the_limit_is_refused_with_413_before_it_is_read
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_a_hello_that_is_refused_says_why_and_closes[hello0-protocol-4426]
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_a_hello_that_is_refused_says_why_and_closes[hello1-key-4401]
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_a_hello_that_is_refused_says_why_and_closes[hello2-key-4401]
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_a_hello_that_is_refused_says_why_and_closes[hello3-frame-4400]
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_a_replaced_key_closes_the_sockets_that_used_it
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_a_socket_says_hello_gets_welcome_and_watches_a_project
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_a_socket_with_no_hello_is_closed_and_a_foreign_cookie_is_refused
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_a_stopping_server_closes_each_socket_with_1001
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_a_subscription_whose_first_reading_fails_answers_500_and_frees_its_slot
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_subscriptions_are_limited_to_32_and_waiting_sockets_to_16
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_the_65th_welcomed_client_is_told_busy_and_closed_with_1013
+skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_the_welcome_names_the_ops_and_topics_and_hello_carries_the_key_when_no_header_does
+skills/chantier/scripts/cli/tests/test_server_protocol.py::test_every_op_and_topic_has_its_schema_and_its_code
+skills/chantier/scripts/cli/tests/test_server_protocol.py::test_the_shipped_schema_is_the_models_text
+skills/chantier/scripts/cli/tests/test_server_protocol.py::test_the_web_client_names_only_published_ops_and_topics_and_opens_no_socket_but_its_link
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_a_budget_above_the_real_spend_passes_the_check_and_still_dates_the_spend[fix]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_a_budget_above_the_real_spend_passes_the_check_and_still_dates_the_spend[qa]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_a_budget_above_the_real_spend_passes_the_check_and_still_dates_the_spend[release]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_a_budget_above_the_real_spend_passes_the_check_and_still_dates_the_spend[round]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_a_budget_above_the_real_spend_passes_the_check_and_still_dates_the_spend[stack]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_a_budget_above_the_real_spend_passes_the_check_and_still_dates_the_spend[take]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_a_budget_check_refreshes_the_spend_and_refuses_on_the_real_one[fix]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_a_budget_check_refreshes_the_spend_and_refuses_on_the_real_one[qa]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_a_budget_check_refreshes_the_spend_and_refuses_on_the_real_one[release]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_a_budget_check_refreshes_the_spend_and_refuses_on_the_real_one[round]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_a_budget_check_refreshes_the_spend_and_refuses_on_the_real_one[stack]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_a_budget_check_refreshes_the_spend_and_refuses_on_the_real_one[take]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_an_unreadable_spend_checks_the_last_recorded_figure_and_says_so[0.005-True]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_an_unreadable_spend_checks_the_last_recorded_figure_and_says_so[50-False]
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_no_budget_reads_no_transcript_and_leaves_the_spend_alone
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_pause_dates_the_spend_it_records
+skills/chantier/scripts/cli/tests/test_spend_check.py::test_status_says_how_old_the_spend_is_and_status_json_carries_the_time
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_a_cr_off_its_place_is_to_stack_on_the_cr_below_that_has_a_pr
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_a_cr_taken_on_a_pr_stays_on_it_and_is_on_its_place
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_a_placed_cr_keeps_the_cr_just_below_it[first]
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_a_placed_cr_keeps_the_cr_just_below_it[fourth]
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_a_placed_cr_keeps_the_cr_just_below_it[second]
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_one_function_names_the_base_of_an_unplaced_cr[A]
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_one_function_names_the_base_of_an_unplaced_cr[B2]
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_one_function_names_the_base_of_an_unplaced_cr[B]
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_one_function_names_the_base_of_an_unplaced_cr[C]
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_one_function_names_the_base_of_an_unplaced_cr[D2]
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_one_function_names_the_base_of_an_unplaced_cr[D]
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_one_function_names_the_base_of_an_unplaced_cr[F]
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_start_base_of_a_placed_cr_with_no_pr_is_the_default_branch
+skills/chantier/scripts/cli/tests/test_stack_base.py::test_take_prints_the_base_the_stack_row_shows
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_a_cr_not_placed_yet_is_to_come[fields0-True]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_a_cr_not_placed_yet_is_to_come[fields1-True]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_a_cr_not_placed_yet_is_to_come[fields2-False]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_a_cr_not_placed_yet_is_to_come[fields3-False]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_a_cr_not_placed_yet_is_to_come[fields4-True]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs0-batch0-due0]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs1-batch1-due1]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs10-batch10-due10]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs11-batch11-due11]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs12-batch12-due12]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs2-batch2-due2]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs3-batch3-due3]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs4-batch4-due4]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs5-batch5-due5]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs6-batch6-due6]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs7-batch7-due7]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs8-batch8-due8]
+skills/chantier/scripts/cli/tests/test_stack_due.py::test_the_first_stack_is_due[crs9-batch9-due9]
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_a_held_cr_is_outside_the_stack_in_every_read_of_the_record
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_a_held_cr_is_refused_by_stack_out_of_draft_and_take_but_its_draft_is_recorded
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_a_held_cr_merged_on_the_default_branch_is_recorded_merged_and_the_release_waits
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_a_held_crs_base_is_the_default_branch_even_when_it_started_on_another_cr
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_a_held_crs_waits_text_names_the_hold_and_the_way_back
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_a_placed_crs_start_on_owner_ended_falls_back_below_and_held_goes_to_default
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_forge_stack_rebuild_leaves_the_held_prs_out_on_the_default_branch
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_hold_leaves_the_cr_apart_and_unhold_puts_it_back_on_top
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_leaving_a_stack_lets_a_held_cr_go_with_a_unique_order[parallel]
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_leaving_a_stack_lets_a_held_cr_go_with_a_unique_order[series]
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_order_hold_refuses_and_writes_nothing[case0-is not a stack]
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_order_hold_refuses_and_writes_nothing[case1-is not a stack]
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_order_hold_refuses_and_writes_nothing[case2-the release CR]
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_order_hold_refuses_and_writes_nothing[case3-a fix CR]
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_order_hold_refuses_and_writes_nothing[case4-is working; only a CR handed back ready]
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_order_hold_refuses_and_writes_nothing[case5-is queued; only a CR handed back ready]
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_order_hold_refuses_and_writes_nothing[case6-is already held (order O-1)]
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_order_hold_refuses_and_writes_nothing[case7-depends on]
+skills/chantier/scripts/cli/tests/test_stack_hold.py::test_order_merged_of_a_held_cr_is_accepted_and_unsets_the_hold
+skills/chantier/scripts/cli/tests/test_stack_label.py::test_a_stack_row_label[blocked-https://example.com/pr/-False-blocked, PR out of draft]
+skills/chantier/scripts/cli/tests/test_stack_label.py::test_a_stack_row_label[queued-None-None-queued]
+skills/chantier/scripts/cli/tests/test_stack_label.py::test_a_stack_row_label[ready-None-False-ready]
+skills/chantier/scripts/cli/tests/test_stack_label.py::test_a_stack_row_label[ready-https://github.com/o/r/pull/250-False-ready, PR out of draft (#250)]
+skills/chantier/scripts/cli/tests/test_stack_label.py::test_a_stack_row_label[ready-https://github.com/o/r/pull/251-True-ready, PR draft (#251)]
+skills/chantier/scripts/cli/tests/test_stack_label.py::test_a_stack_row_label[ready-https://gitlab.com/g/p/-/merge_requests/12-None-ready, PR draft not read (!12)]
+skills/chantier/scripts/cli/tests/test_stack_label.py::test_a_stack_row_label[working-https://github.com/o/r/pull/253-True-working, PR draft (#253)]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_cr_driver_common_path_reads_at_most_the_card_budget
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_empty_action_readings_are_rejected
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_gone_from_where_it_was[Availability is not proof-paths9]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_gone_from_where_it_was[Read this short role contract at boot-paths0]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_gone_from_where_it_was[defer all other card sections-paths1]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_gone_from_where_it_was[named startup sections only-paths7]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_gone_from_where_it_was[short Startup core section-paths2]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_gone_from_where_it_was[short Startup core section-paths3]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_gone_from_where_it_was[short Startup core section-paths4]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_gone_from_where_it_was[short Startup core section-paths5]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_gone_from_where_it_was[startup sections of <skill>/references/foreman.md-paths8]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_gone_from_where_it_was[the short `Startup core` section-paths6]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[A `Note: resume: closing` reads only-path6-Startup core]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[A prompt names the card and section it expects-path2-None]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[At startup read the startup core and the startup sections-path4-None]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[At startup read the startup core; defer-path10-None]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[At startup read the startup core; defer-path11-None]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[At startup read the startup core; defer-path12-None]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[At startup read the startup core; defer-path13-None]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[At the session's start, read `session-start.md`-path7-Startup core]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[At the session's start, read `session-start.md`-path8-Startup core]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[It repeats no grant and starts no service twice.-path0-5. Reload]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[a CR's archive in its PR when the project asks-path1-4. First turn: introduce chantier]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[a host path not exercised is labelled untested-path3-None]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[named startup sections of <skill>/references/concepts.md and <skill>/references/hosts/-path5-None]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_moved_rule_is_where_it_now_lives[with `$CHANTIER` as this file defines it, nothing else of this file but its-path9-Startup core]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_reading_union_counts_lf_bytes_and_nested_sections_once
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_reload_budget_includes_additional_whole_file_readings
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_startup_manifest_measures_every_real_role_and_host[claude]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_startup_manifest_measures_every_real_role_and_host[copilot]
+skills/chantier/scripts/cli/tests/test_startup_manifest.py::test_the_rules_that_must_not_be_missed_come_first
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_a_refused_command_puts_every_move_back_through_the_store
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[abandon]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[board config]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[board edit]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[board group]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[board labels]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[board move]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[board new]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[board next batch]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[cancel]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[close]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[file]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[handback]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[init]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[open one]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[open several]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[order add fix]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[order add release]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[order add]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[order drop]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[order merged]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[order qa]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[restore]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[round]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[summary group]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[summary label]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[summary set]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[take]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[triage]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[wait add backlog]
+skills/chantier/scripts/cli/tests/test_store_command_table.py::test_the_gitignore_is_written_through_the_store_and_never_checked
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_building_a_store_creates_nothing[dedicated-branch]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_building_a_store_creates_nothing[folder]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_building_a_store_creates_nothing[surface]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_check_publish_returns[dedicated-branch]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_check_publish_returns[folder]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_check_publish_returns[surface]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_every_method_refuses_a_path_outside_the_root[dedicated-branch]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_every_method_refuses_a_path_outside_the_root[folder]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_every_method_refuses_a_path_outside_the_root[surface]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_json_and_bytes[dedicated-branch]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_json_and_bytes[folder]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_json_and_bytes[surface]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_local_files_are_declared[dedicated-branch]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_local_files_are_declared[folder]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_local_files_are_declared[surface]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_lock_is_exclusive[dedicated-branch]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_lock_is_exclusive[folder]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_lock_is_exclusive[surface]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_move_remove_and_make_folder[dedicated-branch]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_move_remove_and_make_folder[folder]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_move_remove_and_make_folder[surface]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_published_agrees_with_the_ignored_files[dedicated-branch]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_published_agrees_with_the_ignored_files[folder]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_published_agrees_with_the_ignored_files[surface]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_refuses_without_publisher[dedicated-branch]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_refuses_without_publisher[folder]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_refuses_without_publisher[surface]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_text_round_trip[dedicated-branch]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_text_round_trip[folder]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_text_round_trip[surface]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_write_config_and_config_path[dedicated-branch]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_write_config_and_config_path[folder]
+skills/chantier/scripts/cli/tests/test_store_conformance.py::test_write_config_and_config_path[surface]
+skills/chantier/scripts/cli/tests/test_summary_lint.py::test_a_late_cr_without_a_heading_is_still_late_and_no_summary_names_the_limit
+skills/chantier/scripts/cli/tests/test_summary_lint.py::test_a_missing_heading_and_a_long_title_are_gaps_that_exit_2[long title]
+skills/chantier/scripts/cli/tests/test_summary_lint.py::test_a_missing_heading_and_a_long_title_are_gaps_that_exit_2[no heading]
+skills/chantier/scripts/cli/tests/test_summary_lint.py::test_the_summary_lint_hint_is_a_path_summary_set_reads[repo]
+skills/chantier/scripts/cli/tests/test_summary_lint.py::test_the_summary_lint_hint_is_a_path_summary_set_reads[surface]
+skills/chantier/scripts/cli/tests/test_surface_batches.py::test_the_other_batches_of_the_surface_are_one_line[batches0-gamma-True-expected0]
+skills/chantier/scripts/cli/tests/test_surface_batches.py::test_the_other_batches_of_the_surface_are_one_line[batches1-alpha-True-other batches on this surface: beta batch-02 paused, steering direct (the Chief of Staff), 0 Drivers]
+skills/chantier/scripts/cli/tests/test_surface_batches.py::test_the_other_batches_of_the_surface_are_one_line[batches2-alpha-True-None]
+skills/chantier/scripts/cli/tests/test_surface_batches.py::test_the_other_batches_of_the_surface_are_one_line[batches3-gamma-False-None]
+skills/chantier/scripts/cli/tests/test_surface_batches.py::test_the_other_batches_of_the_surface_are_one_line[batches4-gamma-True-other batches on this surface: alpha: batch.json unreadable]
+skills/chantier/scripts/cli/tests/test_surface_batches.py::test_the_other_batches_of_the_surface_are_one_line[batches5-gamma-True-other batches on this surface: alpha batch-05 closing, steering Foreman, 4 Drivers]
+skills/chantier/scripts/cli/tests/test_surface_server.py::test_a_hub_entry_that_cannot_be_written_is_written_at_the_next_cycle
+skills/chantier/scripts/cli/tests/test_surface_server.py::test_one_watcher_holds_the_hub_lock_and_the_next_takes_it[live-server]
+skills/chantier/scripts/cli/tests/test_surface_server.py::test_one_watcher_holds_the_hub_lock_and_the_next_takes_it[no-server]
+skills/chantier/scripts/cli/tests/test_surface_server.py::test_the_servers_hub_loop_elects_cycles_when_due_and_lets_go
+skills/chantier/scripts/cli/tests/test_surface_server.py::test_two_writers_of_server_json_lose_neither_entry
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[abandon]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[cancel]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[close]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[file]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[handback]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[init]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[open one]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[open several]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[order add fix]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[order add release]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[order add]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[order drop]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[order merged]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[order qa]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[restore]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[round]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[summary group]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[summary label]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[summary set]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[take]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[triage]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[wait add backlog]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_write_the_writer_has_not_pushed_says_so_on_the_last_line[blocked-more2-writer: blocked: not pushed yet (staged)]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_write_the_writer_has_not_pushed_says_so_on_the_last_line[offline-more3-writer: offline: not pushed yet (1 commits)]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_write_the_writer_has_not_pushed_says_so_on_the_last_line[pending-more0-writer: pending: not pushed yet (2 commits)]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_write_the_writer_has_not_pushed_says_so_on_the_last_line[pending-more1-writer: pending: not pushed yet (0 paths)]
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_an_older_board_with_no_writer_is_named_in_the_refusal
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_in_project_mode_a_write_never_asks_for_a_writer
+skills/chantier/scripts/cli/tests/test_surface_writes.py::test_with_a_live_writer_the_same_command_goes_through
+skills/chantier/scripts/cli/tests/test_titles.py::test_a_cr_joins_with_its_plain_subject[# Change Specification: Real title]
+skills/chantier/scripts/cli/tests/test_titles.py::test_a_cr_joins_with_its_plain_subject[# change specification: Real title]
+skills/chantier/scripts/cli/tests/test_titles.py::test_a_fix_file_without_a_short_heading_is_refused_and_nothing_is_filed[# ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt\n]
+skills/chantier/scripts/cli/tests/test_titles.py::test_a_fix_file_without_a_short_heading_is_refused_and_nothing_is_filed[No heading here.\n]
+skills/chantier/scripts/cli/tests/test_titles.py::test_a_title_behind_a_frontmatter_is_found_recorded_and_shown
+skills/chantier/scripts/cli/tests/test_titles.py::test_an_old_record_is_shown_plain
+skills/chantier/scripts/cli/tests/test_titles.py::test_file_never_files_a_cr_without_a_short_title[a long --title]
+skills/chantier/scripts/cli/tests/test_titles.py::test_file_never_files_a_cr_without_a_short_title[a long heading]
+skills/chantier/scripts/cli/tests/test_titles.py::test_file_never_files_a_cr_without_a_short_title[a short heading as received]
+skills/chantier/scripts/cli/tests/test_titles.py::test_file_never_files_a_cr_without_a_short_title[a title above the text]
+skills/chantier/scripts/cli/tests/test_titles.py::test_file_never_files_a_cr_without_a_short_title[one short line]
+skills/chantier/scripts/cli/tests/test_titles.py::test_file_never_files_a_cr_without_a_short_title[several lines, no heading]
+skills/chantier/scripts/cli/tests/test_titles.py::test_idea_slug_uses_the_title_behind_a_frontmatter[first-line]
+skills/chantier/scripts/cli/tests/test_titles.py::test_idea_slug_uses_the_title_behind_a_frontmatter[frontmatter-heading]
+skills/chantier/scripts/cli/tests/test_titles.py::test_idea_slug_uses_the_title_behind_a_frontmatter[heading]
+skills/chantier/scripts/cli/tests/test_titles.py::test_markdown_title[bom]
+skills/chantier/scripts/cli/tests/test_titles.py::test_markdown_title[crlf]
+skills/chantier/scripts/cli/tests/test_titles.py::test_markdown_title[heading-after-frontmatter]
+skills/chantier/scripts/cli/tests/test_titles.py::test_markdown_title[heading-below-a-paragraph]
+skills/chantier/scripts/cli/tests/test_titles.py::test_markdown_title[no-frontmatter]
+skills/chantier/scripts/cli/tests/test_titles.py::test_markdown_title[no-heading-first-line]
+skills/chantier/scripts/cli/tests/test_titles.py::test_markdown_title[only-frontmatter]
+skills/chantier/scripts/cli/tests/test_titles.py::test_markdown_title[unclosed-fence]
+skills/chantier/scripts/cli/tests/test_titles.py::test_subject_drops_the_change_specification_lead[bom-hash]
+skills/chantier/scripts/cli/tests/test_titles.py::test_subject_drops_the_change_specification_lead[hash]
+skills/chantier/scripts/cli/tests/test_titles.py::test_subject_drops_the_change_specification_lead[lead]
+skills/chantier/scripts/cli/tests/test_titles.py::test_subject_drops_the_change_specification_lead[lower]
+skills/chantier/scripts/cli/tests/test_titles.py::test_subject_drops_the_change_specification_lead[middle]
+skills/chantier/scripts/cli/tests/test_titles.py::test_subject_drops_the_change_specification_lead[no-colon]
+skills/chantier/scripts/cli/tests/test_titles.py::test_subject_drops_the_change_specification_lead[plain]
+skills/chantier/scripts/cli/tests/test_titles.py::test_subject_drops_the_change_specification_lead[upper-blank-before-colon]
+skills/chantier/scripts/cli/tests/test_titles.py::test_the_title_limits_of_the_core_and_the_declaration_agree
+skills/chantier/scripts/cli/tests/test_transcript_end.py::test_transcript_state[cut last line]
+skills/chantier/scripts/cli/tests/test_transcript_end.py::test_transcript_state[end_turn text]
+skills/chantier/scripts/cli/tests/test_transcript_end.py::test_transcript_state[handback and its result]
+skills/chantier/scripts/cli/tests/test_transcript_end.py::test_transcript_state[missing file]
+skills/chantier/scripts/cli/tests/test_transcript_end.py::test_transcript_state[no user or assistant record]
+skills/chantier/scripts/cli/tests/test_transcript_end.py::test_transcript_state[noise after the hand-back]
+skills/chantier/scripts/cli/tests/test_transcript_end.py::test_transcript_state[null stop]
+skills/chantier/scripts/cli/tests/test_transcript_end.py::test_transcript_state[stop_sequence text]
+skills/chantier/scripts/cli/tests/test_transcript_end.py::test_transcript_state[tool call without result]
+skills/chantier/scripts/cli/tests/test_transcript_end.py::test_transcript_state[tool_use stop and nothing after]
+skills/chantier/scripts/cli/tests/test_transcript_end.py::test_transcript_state[trailing prompt]
+skills/chantier/scripts/cli/tests/test_transcript_end.py::test_transcript_state[trailing tool result]
+skills/chantier/scripts/cli/tests/test_triage_moves.py::test_triage_moves_between_the_folders_and_refuses_what_is_not_a_move
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_gap_is_shown_and_passes[broken link]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_gap_is_shown_and_passes[file in stage]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_gap_is_shown_and_passes[label]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_gap_is_shown_and_passes[link by case]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_gap_is_shown_and_passes[no request]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_gap_is_shown_and_passes[schema]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_gap_is_shown_and_passes[unknown entry]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_gap_is_shown_and_passes[waits in a batch]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[heading-4-batch/1-pending]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[heading-4-batch/2-actives]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[heading-4-batch/3-done]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[heading-5-archives]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[heading-6-trash]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[none-4-batch/1-pending]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[none-4-batch/2-actives]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[none-4-batch/3-done]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[none-5-archives]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[none-6-trash]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[summary-4-batch/1-pending]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[summary-4-batch/2-actives]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[summary-4-batch/3-done]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[summary-5-archives]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_long_title_or_a_missing_heading_is_a_gap_after_the_backlog[summary-6-trash]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_missing_or_late_summary_reads_as_summary_lint_says[False]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_missing_or_late_summary_reads_as_summary_lint_says[True]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_planning_folder_made_by_the_cli_validates_and_nothing_is_written[repo]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_planning_folder_made_by_the_cli_validates_and_nothing_is_written[surface]
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_title_of_the_limit_passes
+skills/chantier/scripts/cli/tests/test_validate.py::test_a_waits_file_of_the_backlog_is_ok
+skills/chantier/scripts/cli/tests/test_validate.py::test_an_error_comes_before_a_gap
+skills/chantier/scripts/cli/tests/test_validate.py::test_an_outside_archive_is_named_in_its_form[261120-1015-412-outside-contributions-archive-False]
+skills/chantier/scripts/cli/tests/test_validate.py::test_an_outside_archive_is_named_in_its_form[261120-1015-outside-42--True]
+skills/chantier/scripts/cli/tests/test_validate.py::test_an_outside_archive_is_named_in_its_form[261120-1015-outside-42-Fix_Typo-True]
+skills/chantier/scripts/cli/tests/test_validate.py::test_an_outside_archive_is_named_in_its_form[261120-1015-outside-42-fix-typo-False]
+skills/chantier/scripts/cli/tests/test_validate.py::test_an_outside_archive_is_named_in_its_form[261120-1015-outside-fix-typo-True]
+skills/chantier/scripts/cli/tests/test_validate.py::test_an_outside_archive_is_named_in_its_form[261120-outside-42-fix-typo-True]
+skills/chantier/scripts/cli/tests/test_validate.py::test_an_outside_archive_is_named_in_its_form[264-edit-outside-trusted-workspace-False]
+skills/chantier/scripts/cli/tests/test_validate.py::test_an_outside_archive_is_named_in_its_form[outside-42-fix-typo-True]
+skills/chantier/scripts/cli/tests/test_validate.py::test_eleven_findings_are_all_printed
+skills/chantier/scripts/cli/tests/test_validate.py::test_the_archives_and_the_trash_keep_their_format_only
+skills/chantier/scripts/cli/tests/test_validate.py::test_validate_cannot_run_on_a_surface_without_a_project
+skills/chantier/scripts/cli/tests/test_validate.py::test_validate_cannot_run_without_a_planning_folder
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[bad waits]
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[batch folder]
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[file for folder]
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[folder for file]
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[long heading]
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[long summary title]
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[nested]
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[no heading]
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[no priority]
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[not a priority]
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[priority in ready]
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[top level]
+skills/chantier/scripts/cli/tests/test_validate.py::test_what_chantier_misreads_is_an_error_and_exits_3[unreadable]
+skills/chantier/scripts/cli/tests/test_verdict_note.py::test_verified_needs_a_verify_note_naming_the_head[another commit]
+skills/chantier/scripts/cli/tests/test_verdict_note.py::test_verified_needs_a_verify_note_naming_the_head[full, indented, in backticks, trailing text]
+skills/chantier/scripts/cli/tests/test_verdict_note.py::test_verified_needs_a_verify_note_naming_the_head[no Head line]
+skills/chantier/scripts/cli/tests/test_verdict_note.py::test_verified_needs_a_verify_note_naming_the_head[no file]
+skills/chantier/scripts/cli/tests/test_verdict_note.py::test_verified_needs_a_verify_note_naming_the_head[short sha]
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_backlog_cr_keeps_its_waits_in_a_file_that_the_join_consumes
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_blocked_handback_records_its_waits_and_the_steering_session_clears_them
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_cr_with_an_open_wait_is_taken_as_any_other
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_dropped_cr_takes_its_open_waits_back_to_the_backlog
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_malformed_waits_file_refuses_the_join
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_refusing_store_refuses_a_backlog_wait_and_writes_nothing
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_wait_the_cli_cannot_record_is_refused_and_changes_nothing[args0-refusal0]
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_wait_the_cli_cannot_record_is_refused_and_changes_nothing[args1-refusal1]
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_wait_the_cli_cannot_record_is_refused_and_changes_nothing[args2-refusal2]
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_waits_file_is_checked[data0-not a JSON object]
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_waits_file_is_checked[data1-schema]
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_waits_file_is_checked[data2-type]
+skills/chantier/scripts/cli/tests/test_waits.py::test_a_waits_file_is_checked[data3-repeated]
+skills/chantier/scripts/cli/tests/test_waits.py::test_add_by_the_driver_or_the_steering_session_and_a_link_no_connector_claims
+skills/chantier/scripts/cli/tests/test_waits.py::test_status_wait_and_handoff_tell_the_open_waits_the_cleared_lines_and_what_the_forge_cannot
+skills/chantier/scripts/cli/tests/test_waits.py::test_the_board_reads_the_open_waits_of_a_backlog_folder_and_nothing_from_a_broken_file
+skills/chantier/scripts/cli/tests/test_waits.py::test_the_way_back_to_the_held_entry_keeps_its_list_and_adds_only_the_missing_ids
+skills/chantier/scripts/cli/tests/test_waits.py::test_wait_with_no_cr_lists_the_batch_then_the_backlog_and_each_form_prints
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_a_watcher_ends_twenty_seconds_after_the_last_line_that_wakes[lines0-None-running-20]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_a_watcher_ends_twenty_seconds_after_the_last_line_that_wakes[lines1-15-running-35]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_a_watcher_ends_twenty_seconds_after_the_last_line_that_wakes[lines10-None-none-20]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_a_watcher_ends_twenty_seconds_after_the_last_line_that_wakes[lines11-None-running-None]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_a_watcher_ends_twenty_seconds_after_the_last_line_that_wakes[lines2-None-running-20]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_a_watcher_ends_twenty_seconds_after_the_last_line_that_wakes[lines3-None-running-20]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_a_watcher_ends_twenty_seconds_after_the_last_line_that_wakes[lines4-None-running-None]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_a_watcher_ends_twenty_seconds_after_the_last_line_that_wakes[lines5-None-running-20]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_a_watcher_ends_twenty_seconds_after_the_last_line_that_wakes[lines6-None-running-None]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_a_watcher_ends_twenty_seconds_after_the_last_line_that_wakes[lines7-None-running-20]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_a_watcher_ends_twenty_seconds_after_the_last_line_that_wakes[lines8-None-running-20]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_a_watcher_ends_twenty_seconds_after_the_last_line_that_wakes[lines9-None-paused-20]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_an_issue_line_is_told_by_the_pull_path_and_status_holds_none
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_the_board_and_config_lines_are_never_duplicates_and_status_holds_none
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_the_pull_path_prints_the_lines_past_the_cursor_and_takes_no_lock
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_the_seat_of_another_session_ends_the_watcher_with_its_line[abc-1-None-False]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_the_seat_of_another_session_ends_the_watcher_with_its_line[abc-1-abc-1-False]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_the_seat_of_another_session_ends_the_watcher_with_its_line[abc-1-abc_1!-True]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_the_seat_of_another_session_ends_the_watcher_with_its_line[abc-1-no seat-False]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_the_seat_of_another_session_ends_the_watcher_with_its_line[abc-1-xyz-2-True]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_the_seat_of_another_session_ends_the_watcher_with_its_line[none-xyz-2-False]
+skills/chantier/scripts/cli/tests/test_watch_events.py::test_watch_refusals_and_the_pull_path
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_a_watcher_that_lost_its_lock_to_a_probe_takes_it_at_its_next_poll
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_some_outputs_print_no_line
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[open-mine]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[open-none]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[open-other]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[order-qa-mine]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[order-qa-none]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[order-qa-other]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[seat-get-mine]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[seat-get-none]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[seat-get-other]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[seat-take-mine]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[seat-take-none]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[seat-take-other]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[status-mine]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[status-none]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[status-other]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[status-paused-mine]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[status-paused-none]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[status-paused-other]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[take-mine]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[take-none]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[take-other]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[transcript-mine]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[transcript-none]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_outputs_end_with_the_line_when_no_watcher_of_this_session_runs[transcript-other]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_seat_of_another_session_gets_no_line_and_a_status_names_a_board_of_another_version
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_session_key_keeps_letters_digits_and_dashes[-none]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_session_key_keeps_letters_digits_and_dashes[a-1-a-1]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_session_key_keeps_letters_digits_and_dashes[a/../b-ab]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_ten_line_cut_keeps_the_watcher_line_last[False]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_the_ten_line_cut_keeps_the_watcher_line_last[True]
+skills/chantier/scripts/cli/tests/test_watcher_autostart.py::test_watchers_lists_the_held_locks_of_one_project
+skills/chantier/scripts/cli/tests/test_watcher_step.py::test_the_chief_of_staff_cards_carry_the_watcher_step[path0-## Startup core-texts0]
+skills/chantier/scripts/cli/tests/test_watcher_step.py::test_the_chief_of_staff_cards_carry_the_watcher_step[path1-# chantier: Chief of Staff-texts1]
+skills/chantier/scripts/cli/tests/test_watcher_step.py::test_the_chief_of_staff_cards_carry_the_watcher_step[path2-## Starting a batch-texts2]
+skills/chantier/scripts/cli/tests/test_watcher_step.py::test_the_chief_of_staff_cards_carry_the_watcher_step[path3-## Entry points-texts3]
+skills/chantier/scripts/cli/tests/test_watcher_step.py::test_the_chief_of_staff_cards_carry_the_watcher_step[path4-## Entry points-texts4]
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_p13_is_the_writer_check_and_never_fails_the_report[None-False]
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_p13_is_the_writer_check_and_never_fails_the_report[blocked-False]
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_p13_is_the_writer_check_and_never_fails_the_report[conflict-False]
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_p13_is_the_writer_check_and_never_fails_the_report[offline-False]
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_p13_is_the_writer_check_and_never_fails_the_report[pending-True]
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_p13_is_the_writer_check_and_never_fails_the_report[synced-True]
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_p13_is_the_writer_check_and_never_fails_the_report[syncing-True]
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_p13_warns_on_a_surface_rule_that_names_the_old_tool_or_a_hand_push
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_seat_carries_the_writer_line_in_a_surface_only
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_status_has_the_writer_line_and_tells_an_episode_only_while_it_lasts
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_sync_in_a_project_folder_says_chantier_commits_nothing
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_sync_now_gives_up_after_ten_seconds_and_prints_the_state
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_sync_now_wakes_the_writer_and_waits_for_the_next_cycle_end
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_sync_now_with_no_writer_is_refused_and_asks_for_nothing
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_sync_prints_the_state_line_and_each_conflicted_file
+skills/chantier/scripts/cli/tests/test_writer_commands.py::test_the_board_serves_the_writer_entry_and_its_sync_op_wakes_it
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_change_is_committed_after_the_quiet_and_pushed_in_the_c_locale
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_conflict_aborts_the_rebase_tells_it_and_ends_when_integrated
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_failed_git_step_waits_a_cycle_then_blocks_once_and_resumes
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_precondition_blocks_with_one_line_and_resumes[busy-git-busy]
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_precondition_blocks_with_one_line_and_resumes[detach-not-a-branch]
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_precondition_blocks_with_one_line_and_resumes[foreign-foreign-autosync]
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_precondition_blocks_with_one_line_and_resumes[nested-nested-repo]
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_precondition_blocks_with_one_line_and_resumes[no-upstream-no-upstream]
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_precondition_blocks_with_one_line_and_resumes[staged-staged]
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_second_loop_does_not_get_the_lock
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_stash_git_cannot_reapply_blocks_at_once_and_is_never_touched
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_an_unknown_default_branch_names_the_command_that_reads_it
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_an_unreachable_origin_is_offline_late_once_and_resumes
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_another_machines_commit_is_integrated_before_the_push
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_hand_commits_are_pushed_with_nothing_pending
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_the_final_cycle_commits_and_pushes_and_removes_the_entry
+skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_the_wake_file_runs_a_cycle_now
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_a_board_started_with_no_seat_starts_the_writer
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_a_change_still_moving_inside_the_quiet_is_committed_before_the_rebase
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_a_file_that_keeps_changing_is_committed_when_max_wait_passes
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_a_hand_commit_and_the_writers_commit_are_rebased_and_pushed_in_order
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_a_remote_hook_that_rejects_a_push_is_a_failed_step_not_a_retry
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_a_stuck_surface_is_late_once_even_while_blocked
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_an_lfs_push_that_cannot_reach_the_lfs_server_is_offline
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_one_blocked_line_per_episode_whatever_the_reason_becomes
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_only_a_moved_remote_is_a_refused_push[ ! [rejected] HEAD -> main (fetch first)-True]
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_only_a_moved_remote_is_a_refused_push[ ! [rejected] HEAD -> main (non-fast-forward)-True]
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_only_a_moved_remote_is_a_refused_push[ ! [remote rejected] HEAD -> main (pre-receive hook declined)-False]
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_only_a_moved_remote_is_a_refused_push[ ! [remote rejected] HEAD -> main (protected branch hook declined)-False]
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_only_the_plans_published_paths_are_committed
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_the_projects_checkout_folders_are_never_staged_and_any_other_repository_blocks[defaults]
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_the_projects_checkout_folders_are_never_staged_and_any_other_repository_blocks[named]
+skills/chantier/scripts/cli/tests/test_writer_edges.py::test_the_projects_checkout_folders_are_never_staged_and_any_other_repository_blocks[unnamed]
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_a_writer_thread_that_dies_leaves_a_stopped_entry_that_says_why
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_an_in_project_board_has_no_writer
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_an_older_board_with_no_writer_is_named_in_the_off_line
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_the_board_starts_the_writer_with_no_seat_and_says_so
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_the_not_pushed_note_is_for_the_states_that_hold_a_commit_back
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_the_writer_line_of_each_state[blocked]
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_the_writer_line_of_each_state[conflict]
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_the_writer_line_of_each_state[never-pushed]
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_the_writer_line_of_each_state[off]
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_the_writer_line_of_each_state[offline]
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_the_writer_line_of_each_state[pending]
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_the_writer_line_of_each_state[synced]
+skills/chantier/scripts/cli/tests/test_writer_lines.py::test_the_writer_line_of_each_state[syncing]

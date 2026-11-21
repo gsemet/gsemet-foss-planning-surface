@@ -13,7 +13,31 @@ Test setup before and after (fixtures only; the 1419 test ids are unchanged):
 | access batch, cost world, store states | built once per parallel worker (16 times) | built once per run |
 | `just test` recipe | `-n auto` | `-n auto --dist worksteal` |
 
-**UNVERIFIED:** the idle timing of `just test` (three runs, each at most 48.5 s) and the new scenario budgets: figures are added here when measured.
+Measures, 2026-11-21, Windows 11 (Ryzen 7 7800X3D, 16 logical cores), the CPU load sampled just before each run; pytest's last line, 1405 passed, 14 skipped each. None was idle, so each counts as loaded:
+
+| run | main `4ed0d56c` | CR head |
+| --- | --- | --- |
+| 1 | 77.6 s (load 35%) | 63.0 s (60%) |
+| 2 | 93.5 s (68%) | 106.8 s (16%) |
+| 3 | 73.1 s (25%) | 80.1 s (18%) |
+
+Profile (calls and setups of 0.8 s or more, summed by file), main then head: `test_carry_ship.py` 66 to 48 s, `test_writer_cycle.py` 63 to 45, `test_writer_edges.py` 40 to 28, `test_batch_end.py` 22 to 9, `test_release_tag.py` 14 to 5, `test_gate_carry.py` 14 to 4, `test_store_command_table.py` 13 to 5, `test_surface_writes.py` 11 to 2.
+
+Scenario budgets (`UNITS`): two full `just scenario` runs at the head, started at 25% and 54% load, budget = the slower of the two times plus 25 percent, rounded up to 5 s (the README's table has both runs).
+
+| unit | before | A (s) | B (s) | budget |
+| --- | ---: | ---: | ---: | ---: |
+| parallel | 260 | 279.4 | 274.4 | 350 |
+| stack | 640 | 598.1 | 531.7 | 750 |
+| release | 420 | 464.4 | 396.6 | 585 |
+| gates | 400 | 486.4 | 426.8 | 610 |
+| series-deps | 260 | 284.6 | 301.2 | 380 |
+| direct | 135 | 174.9 | 171.6 | 220 |
+| surface-board | 700 | 527.9 | 490.6 | 660 |
+| qa-driver | 115 | 182.9 | 200.1 | 255 |
+| gitlab | 75 | 72.5 | 91.8 | 115 |
+
+In run B, surface-board failed one check (284/285: "the server reads the forge once per cycle for the one project with an open PR, and no second hub reads"); alone minutes later it passed 285/285 in 424.0 s. A load-dependent flake, not a change of this CR.
 
 ## Blast radius
 
@@ -27,7 +51,8 @@ Tests, one pytest option and the scenario's budget numbers only; nothing the CLI
 
 ## Known gaps
 
-- **UNVERIFIED:** `just test` under 48.5 s on an idle machine; no idle measure yet (the machine was loaded with other work, 62 to 100 percent CPU, at every run so far: 84 to 235 s).
+- `just test` at 63.0, 106.8 and 80.1 s on a loaded machine (not idle), ceiling 48.5 s, 1405 passed and 14 skipped; main at 77.6, 93.5 and 73.1 s. No idle measure: other chantier sessions (this machine and another project's batch) shared the CPU. The profile's sum by file is in Deliverables; what is left is the writer, carry-ship and release-tag tests that run real git, which stays real. The ceiling's change, if wanted, is the user's decision in a CR of its own.
+- The nine scenario budgets rest on two non-idle runs (25% and 54% load), one with a load flake in surface-board; a quiet-machine run may justify lowering them.
 
 <details>
 <summary>Details</summary>
@@ -36,7 +61,7 @@ Tests, one pytest option and the scenario's budget numbers only; nothing the CLI
 
 - `skills/chantier/scripts/cli/tests/`: `writer_rig.py`, `conftest.py`, `store_spy.py`, `cost_world.py`, `stack_world.py` (new), and the setups of `test_access.py`, `test_batch_end.py`, `test_board_prs.py`, `test_carry_ship.py`, `test_gate_carry.py`, `test_leases.py`, `test_release_tag.py`.
 - `justfile`: `--dist worksteal`.
-- `scenario/run_scenario.py` budgets and `scenario/README.md` measured section: to come from the two idle runs.
+- `scenario/run_scenario.py` (the nine budgets) and `scenario/README.md` (the measured section).
 
 ## Impacts
 

@@ -1,0 +1,130 @@
+bringing up nodes...
+bringing up nodes...
+
+........................................................................ [  5%]
+........................................................s............... [ 10%]
+........................................................................ [ 15%]
+.........................................................s.............. [ 20%]
+........................................................................ [ 25%]
+........................................................................ [ 30%]
+........................................................................ [ 35%]
+........................................................................ [ 40%]
+........................................................................ [ 45%]
+........................................................................ [ 50%]
+........................................................................ [ 55%]
+........................................................................ [ 60%]
+........................................................................ [ 65%]
+........................................................................ [ 71%]
+.............s...ss..s..s........s..s..s............s................... [ 76%]
+...........s....s...s................................................... [ 81%]
+........................................................................ [ 86%]
+........................................................................ [ 91%]
+........................................................................ [ 96%]
+...................................................                      [100%]
+============================== slowest durations ==============================
+6.59s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_conflict_aborts_the_rebase_tells_it_and_ends_when_integrated
+5.84s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_the_gate_records_the_branch_the_head_sits_on_in_a_restacks_window_and_ship_carries
+4.94s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_shipping_a_head_again_logs_no_second_carry_and_no_stale_off_line
+4.80s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_stash_git_cannot_reapply_blocks_at_once_and_is_never_touched
+4.51s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_an_unreachable_origin_is_offline_late_once_and_resumes
+4.25s call     skills/chantier/scripts/cli/tests/test_writer_edges.py::test_an_lfs_push_that_cannot_reach_the_lfs_server_is_offline
+3.73s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_real_change_is_refused_and_off_says_by_how_much[_edited]
+3.61s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_real_change_is_refused_and_off_says_by_how_much[_added]
+3.58s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_clean_rebase_onto_the_crs_below_carries_with_no_stack_mark_and_the_pr_on_main[three CRs]
+3.23s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_failed_git_step_waits_a_cycle_then_blocks_once_and_resumes
+3.17s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_clean_rebase_onto_the_crs_below_carries_with_no_stack_mark_and_the_pr_on_main[local only]
+3.17s call     skills/chantier/scripts/cli/tests/test_writer_edges.py::test_a_change_still_moving_inside_the_quiet_is_committed_before_the_rebase
+3.16s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_another_machines_commit_is_integrated_before_the_push
+3.12s call     skills/chantier/scripts/cli/tests/test_writer_edges.py::test_a_file_that_keeps_changing_is_committed_when_max_wait_passes
+3.10s call     skills/chantier/scripts/cli/tests/test_writer_edges.py::test_the_projects_checkout_folders_are_never_staged_and_any_other_repository_blocks[defaults]
+2.98s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_clean_rebase_onto_the_crs_below_carries_with_no_stack_mark_and_the_pr_on_main[pushed]
+2.92s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_precondition_blocks_with_one_line_and_resumes[no-upstream-no-upstream]
+2.80s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_precondition_blocks_with_one_line_and_resumes[detach-not-a-branch]
+2.78s call     skills/chantier/scripts/cli/tests/test_cli_units.py::test_the_eval_sandbox_builds_its_recorded_base
+2.76s call     skills/chantier/scripts/cli/tests/test_writer_edges.py::test_a_remote_hook_that_rejects_a_push_is_a_failed_step_not_a_retry
+2.72s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_precondition_blocks_with_one_line_and_resumes[staged-staged]
+2.67s call     skills/chantier/scripts/cli/tests/test_batch_end.py::test_close_names_the_merged_crs_leftovers_beside_the_dropped_ones
+2.56s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_real_change_is_refused_and_off_says_by_how_much[_cancelled]
+2.51s call     skills/chantier/scripts/cli/tests/test_writer_edges.py::test_one_blocked_line_per_episode_whatever_the_reason_becomes
+2.44s setup    skills/chantier/scripts/cli/tests/test_access.py::test_write_on_a_surface_with_a_writer_says_how_far_it_has_pushed[entry0-]
+2.44s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_ship_refuses_an_out_of_draft_main_pr_that_carries_another_crs_commits[out of draft on main]
+2.40s call     skills/chantier/scripts/cli/tests/test_writer_edges.py::test_a_hand_commit_and_the_writers_commit_are_rebased_and_pushed_in_order
+2.38s call     skills/chantier/scripts/cli/tests/test_external_archive.py::test_an_external_surface_gets_the_planning_folder_and_the_project_stays_clean[True]
+2.38s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_head_on_none_of_the_candidate_branches_records_no_base
+2.37s call     skills/chantier/scripts/cli/tests/test_external_archive.py::test_an_external_surface_gets_the_planning_folder_and_the_project_stays_clean[False]
+2.33s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_precondition_blocks_with_one_line_and_resumes[foreign-foreign-autosync]
+2.28s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_precondition_blocks_with_one_line_and_resumes[nested-nested-repo]
+2.25s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_hand_commits_are_pushed_with_nothing_pending
+2.23s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_precondition_blocks_with_one_line_and_resumes[busy-git-busy]
+2.20s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_ship_refuses_an_out_of_draft_main_pr_that_carries_another_crs_commits[draft on main]
+2.18s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_ship_refuses_an_out_of_draft_main_pr_that_carries_another_crs_commits[A merged]
+2.15s call     skills/chantier/scripts/cli/tests/test_writer_edges.py::test_the_projects_checkout_folders_are_never_staged_and_any_other_repository_blocks[named]
+2.08s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_ship_refuses_an_out_of_draft_main_pr_that_carries_another_crs_commits[on A's branch]
+2.08s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_a_change_is_committed_after_the_quiet_and_pushed_in_the_c_locale
+2.03s call     skills/chantier/scripts/cli/tests/test_order_drop_to.py::test_the_status_close_and_record_tell_a_trashed_cr_from_a_moved_one
+2.01s call     skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[handback]
+1.98s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_the_gate_records_the_nearest_branch_of_the_batch_as_the_base
+1.93s call     skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_hub_cycle_writes_each_event_once[red CI by head]
+1.84s call     skills/chantier/scripts/cli/tests/test_external_archive.py::test_a_released_crs_delivery_names_the_release_pr_its_merge_recorded
+1.82s call     skills/chantier/scripts/cli/tests/test_writer_edges.py::test_a_stuck_surface_is_late_once_even_while_blocked
+1.76s call     skills/chantier/scripts/cli/tests/test_batch_end.py::test_the_end_of_the_last_cr_cleans_the_merged_crs_and_pauses_the_batch[merged-chief]
+1.76s call     skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[close]
+1.70s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_the_wake_file_runs_a_cycle_now
+1.68s call     skills/chantier/scripts/cli/tests/test_writer_cycle.py::test_the_final_cycle_commits_and_pushes_and_removes_the_entry
+1.64s call     skills/chantier/scripts/cli/tests/test_writer_edges.py::test_only_the_plans_published_paths_are_committed
+1.55s call     skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_hub_cycle_writes_each_event_once[into another CR's branch, then landed]
+1.55s call     skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_hub_cycle_writes_each_event_once[merged into main, once]
+1.55s call     skills/chantier/scripts/cli/tests/test_batch_end.py::test_the_end_of_the_last_cr_of_a_factory_batch_waits_for_the_next_ready_cr
+1.53s call     skills/chantier/scripts/cli/tests/test_playbook_config.py::test_open_refuses_a_bad_chantier_yaml_at_its_line_and_moves_nothing
+1.50s setup    skills/chantier/scripts/cli/tests/test_carry_ship.py::test_a_clean_rebase_onto_the_crs_below_carries_with_no_stack_mark_and_the_pr_on_main[pushed]
+1.45s call     skills/chantier/scripts/cli/tests/test_carry_ship.py::test_ship_with_a_base_git_cannot_read_records_the_pr_and_no_carry
+1.43s call     skills/chantier/scripts/cli/tests/test_writer_edges.py::test_the_projects_checkout_folders_are_never_staged_and_any_other_repository_blocks[unnamed]
+1.41s call     skills/chantier/scripts/cli/tests/test_gate_refusals.py::test_a_bad_long_gate_key_is_refused_with_its_line_by_gate_playbook_and_preflight
+1.39s setup    skills/chantier/scripts/cli/tests/test_gate_carry.py::test_the_carry_compares_the_exact_patch_ids_of_the_crs_own_commits[a: CR-316, moved onto another CR's branch]
+1.38s call     skills/chantier/scripts/cli/tests/test_release_tag.py::test_ff_main[behind-0-words0]
+1.37s call     skills/chantier/scripts/cli/tests/test_limits.py::test_a_put_of_both_limits_and_a_role_edit_writes_three_lines_and_status_follows_the_orders
+1.35s setup    skills/chantier/scripts/cli/tests/test_access.py::test_the_session_line_says_who_holds_the_seat[seat0--session uuid-me: holds the seat of proj]
+1.25s call     skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[close]
+1.23s setup    skills/chantier/scripts/cli/tests/test_cost_reading.py::test_the_levels_the_pages_the_pause_and_a_relay
+1.21s call     skills/chantier/scripts/cli/tests/test_surface_writes.py::test_a_published_write_with_no_writer_is_refused_and_changes_nothing[handback]
+1.19s call     skills/chantier/scripts/cli/tests/test_code_targets.py::test_files_and_functions_are_small_and_the_imports_have_no_cycle
+1.18s setup    skills/chantier/scripts/cli/tests/test_release_tag.py::test_ff_main[current-0-words1]
+1.16s call     skills/chantier/scripts/cli/tests/test_writer_commands.py::test_p13_warns_on_a_surface_rule_that_names_the_old_tool_or_a_hand_push
+1.11s call     skills/chantier/scripts/cli/tests/test_release_tag.py::test_ff_main[untracked-0-words5]
+1.09s call     skills/chantier/scripts/cli/tests/test_release_tag.py::test_ff_main[diverged-1-words4]
+1.04s call     skills/chantier/scripts/cli/tests/test_server_api_ws.py::test_a_socket_with_no_hello_is_closed_and_a_foreign_cookie_is_refused
+1.04s call     skills/chantier/scripts/cli/tests/test_hub_connectors.py::test_a_link_no_connector_claims_is_named_and_the_other_prs_are_read_and_judged
+1.04s call     skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_forge_error_lands_in_the_hub_record_not_in_the_journal
+1.03s call     skills/chantier/scripts/cli/tests/test_gate_carry.py::test_the_carry_compares_the_exact_patch_ids_of_the_crs_own_commits[c: a whitespace-only change]
+1.02s call     skills/chantier/scripts/cli/tests/test_came_back.py::test_a_cr_comes_back_to_another_batch_under_its_number_with_its_branch_and_pr
+1.02s call     skills/chantier/scripts/cli/tests/test_board_journal.py::test_each_backlog_write_adds_one_board_line_to_its_projects_forge_journal
+0.99s call     skills/chantier/scripts/cli/tests/test_board_config.py::test_a_save_writes_one_config_line_per_changed_key_and_a_dry_run_none[slots]
+0.99s call     skills/chantier/scripts/cli/tests/test_gate_carry.py::test_the_carry_compares_the_exact_patch_ids_of_the_crs_own_commits[d: a merge commit]
+0.99s call     skills/chantier/scripts/cli/tests/test_verdict_note.py::test_verified_needs_a_verify_note_naming_the_head[no file]
+0.99s call     skills/chantier/scripts/cli/tests/test_board_config.py::test_a_save_writes_one_config_line_per_changed_key_and_a_dry_run_none[parallel]
+0.99s call     skills/chantier/scripts/cli/tests/test_board_config.py::test_a_save_writes_one_config_line_per_changed_key_and_a_dry_run_none[agent]
+0.97s call     skills/chantier/scripts/cli/tests/test_surface_server.py::test_a_hub_entry_that_cannot_be_written_is_written_at_the_next_cycle
+0.96s setup    skills/chantier/scripts/cli/tests/test_carry_ship.py::test_the_gate_records_the_branch_the_head_sits_on_in_a_restacks_window_and_ship_carries
+0.95s call     skills/chantier/scripts/cli/tests/test_board_journal.py::test_a_refusal_a_rescan_and_another_project_leave_no_line_here
+0.94s call     skills/chantier/scripts/cli/tests/test_board_config.py::test_a_save_writes_one_config_line_per_changed_key_and_a_dry_run_none[model]
+0.93s call     skills/chantier/scripts/cli/tests/test_batch_end.py::test_the_end_of_the_last_cr_cleans_the_merged_crs_and_pauses_the_batch[merged-own]
+0.91s call     skills/chantier/scripts/cli/tests/test_cli_runs.py::test_preflight_reads_the_settings_files_for_allow_rules
+0.91s call     skills/chantier/scripts/cli/tests/test_store_command_table.py::test_every_published_write_of_a_command_is_checked_first_through_the_store[cancel]
+0.89s call     skills/chantier/scripts/cli/tests/test_gate_carry.py::test_the_carry_compares_the_exact_patch_ids_of_the_crs_own_commits[b: a commit added]
+0.88s call     skills/chantier/scripts/cli/tests/test_surface_server.py::test_the_servers_hub_loop_elects_cycles_when_due_and_lets_go
+0.88s setup    skills/chantier/scripts/cli/tests/test_board_prs_batches.py::test_no_batch_or_the_running_one_is_todays_answer[running]
+0.87s setup    skills/chantier/scripts/cli/tests/test_cost_copilot.py::test_copilot_cost_lists_the_foreman_then_each_agent_type_and_attributes_by_cr
+0.86s call     skills/chantier/scripts/cli/tests/test_hub_connectors.py::test_a_batch_in_two_repositories_is_not_read_and_the_entry_says_so
+0.86s call     skills/chantier/scripts/cli/tests/test_forge_hub.py::test_the_board_and_the_hub_share_the_journal_once[hub]
+0.84s call     skills/chantier/scripts/cli/tests/test_validate.py::test_a_planning_folder_made_by_the_cli_validates_and_nothing_is_written[surface]
+0.82s call     skills/chantier/scripts/cli/tests/test_forge_hub.py::test_a_refused_event_is_set_aside_and_named_the_cycle_goes_on
+0.82s call     skills/chantier/scripts/cli/tests/test_hub_connectors.py::test_a_gitlab_batch_is_read_in_one_query_and_told_as_before
+0.82s call     skills/chantier/scripts/cli/tests/test_batch_end.py::test_the_end_of_the_last_cr_cleans_the_merged_crs_and_pauses_the_batch[released]
+0.82s call     skills/chantier/scripts/cli/tests/test_cli_runs.py::test_the_plugin_runs_with_no_setup_and_writes_only_in_the_planning_folder[claude]
+0.81s call     skills/chantier/scripts/cli/tests/test_batch_end.py::test_the_end_of_the_last_cr_cleans_the_merged_crs_and_pauses_the_batch[cancel]
+0.81s call     skills/chantier/scripts/cli/tests/test_batch_end.py::test_a_worktree_with_a_file_held_open_is_kept_and_the_batch_is_paused
+0.80s setup    skills/chantier/scripts/cli/tests/test_board_config.py::test_the_configuration_is_written_or_refused_through_the_cli[both files]
+0.80s call     skills/chantier/scripts/cli/tests/test_forge_hub.py::test_the_board_and_the_hub_share_the_journal_once[board]
+
+(4143 durations < 0.8s hidden.)
+1405 passed, 14 skipped in 88.40s (0:01:28)

@@ -1,0 +1,9 @@
+scen1 start=01:11 load_before=25% rc=0 secs=782 unit files C:\Users\gaeta\Projets\chantier.worktrees\batch-29-CR-417\scenario\results\20261121-005835-17772
+scen2 start=01:24 load_before=54% rc=1 secs=755 error: recipe `scenario` failed on line 33 with exit code 1
+main1 start=01:25 load_before=35% rc=0 secs=79 1405 passed, 14 skipped in 77.63s (0:01:17)
+head1 start=01:26 load_before=60% rc=0 secs=64 1405 passed, 14 skipped in 63.04s (0:01:03)
+main2 start=01:28 load_before=68% rc=0 secs=94 1405 passed, 14 skipped in 93.49s (0:01:33)
+head2 start=01:30 load_before=16% rc=0 secs=108 1405 passed, 14 skipped in 106.83s (0:01:46)
+main3 start=01:31 load_before=25% rc=0 secs=75 1405 passed, 14 skipped in 73.08s (0:01:13)
+head3 start=01:32 load_before=18% rc=0 secs=82 1405 passed, 14 skipped in 80.12s (0:01:20)
+DONE
