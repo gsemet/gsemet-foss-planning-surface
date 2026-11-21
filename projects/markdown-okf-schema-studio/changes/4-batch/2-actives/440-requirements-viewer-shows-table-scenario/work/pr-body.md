@@ -24,7 +24,19 @@ flowchart LR
 - Table cells and notes are plain escaped text; `&lt;`, `&gt;`, `&amp;` and `&quot;` are decoded once before escaping, so the page shows what GitHub shows and nothing in the source becomes markup.
 - A wide table scrolls inside its card on a narrow screen.
 
-Screenshots: to come at the verified head.
+Before at `a18bcac` (left), after at `8d99cd1` (right). The first card of a behaviour page whose scenario is a table:
+
+| Before | After |
+|---|---|
+| ![Before: a table scenario card shows three empty columns, Given, When and Then](./verifier/evidence/before-block130-first-card.png) | ![After: the same card shows its table with the headers Input and Outcome](./verifier/evidence/after-block130-first-card.png) |
+
+A note line above a table, in a mixed scenario:
+
+| Before | After |
+|---|---|
+| ![Before: a mixed scenario card shows three empty columns](./verifier/evidence/before-block130-chord-card.png) | ![After: the same card shows the note paragraph above a two-row table](./verifier/evidence/after-block130-chord-card.png) |
+
+The specification calls one requirement page list-only, but its first three cards are list scenarios (same markup before and after) and its other five are table scenarios, which now show their table.
 
 ## Blast radius
 
@@ -58,14 +70,14 @@ The published requirements site shows table scenarios; no extension behaviour ch
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code: the model, page and bundle tests do not compile without `blocks` and `scenarioBody`; the home assertion compiles on the old code and fails on the old hint text)
-- [ ] Requirements: `SwRS-MDOKFSTUDIO-CORE-082` updated with two scenarios, markers in code and tests, `just requirements-update` run
-- [ ] Changelog: no user-facing change (site tooling)
-- [ ] Local gates at `<sha7>`: `just check`, `just requirements-update`, okfreq validate
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code: the model, page and bundle tests do not compile without `blocks` and `scenarioBody`; the home assertion compiles on the old code and fails on the old hint text)
+- [x] Requirements: `SwRS-MDOKFSTUDIO-CORE-082` updated with two scenarios, markers in code and tests, `just requirements-update` run
+- [x] Changelog: no user-facing change (site tooling)
+- [x] Local gates at `8d99cd1`: `just check`, `just requirements-update`, okfreq validate
+- [x] Evidence: before at `a18bcac`, after at `8d99cd1`
+- [x] Review: approved at `a18bcac` (committed as `8d99cd1`)
+- [x] Verified at `8d99cd1`
+- [x] CI green at `8d99cd1`
 
 Tests:
 
