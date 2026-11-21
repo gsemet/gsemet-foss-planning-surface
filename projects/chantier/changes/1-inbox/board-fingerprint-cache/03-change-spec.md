@@ -32,7 +32,7 @@ change, not several per 2 s.
 3. **Proof (Q4, A).** An automatic test plus a before/after measure in the PR (see Evidence).
 4. **Scope (Q6, Other).** The session watchers subscribe to the server instead of reading the
    journal themselves; only the server reads the forge (PRs, MRs, issues), and only while at least
-   one client observes. (Issues: see open question 1.)
+   one client observes. Issues: PRs and MRs only (decision 13).
 5. **The start line (Q7, A).** The server says, in one start line, how it watches:
    `board: watches the planning files`, or `board: no file notifications here; checks every 5 s`.
    The Chief of Staff passes it on.
@@ -49,6 +49,30 @@ change, not several per 2 s.
     wherever the OS offers them: inotify on Linux, FSEvents (or kqueue) on macOS,
     ReadDirectoryChangesW on Windows. The 5 s check runs only where none of them works. The
     server never walks the planning folder on a timer while notifications work.
+12. **The v1 spec's questions 3 to 8 (the Fable advisor, 2026-11-21, on the user's standing wish
+    to be asked only what affects them; settled unless the user objects).**
+    - (3) A board started by a watcher follows the session's seat (`--seat`): it stops when the
+      seat leaves, as the session's own board does.
+    - (4) Both delays are accepted: about 1 s after the last write with notifications, up to 5 s
+      where no notification works; a stream of changes that never pauses shows 5 s after its first
+      change.
+    - (5) A board started by a watcher listens as `chantier.yaml` says (board-exposure's default
+      `127.0.0.1`, or `board.host: network`), and the Chief of Staff passes on its
+      `board: listens on the local network (...)` line (board-exposure Q7): the watcher, whose
+      output the Chief of Staff reads, prints it (section 4).
+    - (6) With the watcher declined, the forge is not read: the pull path is no observer (no
+      half-observer).
+    - (7) "The server alone reads the planning files" means the live readers (the board, the
+      watchers, `chantier live`); the one-shot commands (`status`, `order`, `take`, ...) keep
+      reading the planning folder.
+    - (8) The notifications are trusted: no safety scan in the notification mode.
+      `docs/web-board.md` names network shares and WSL `/mnt` folders as a known limit (a disk
+      that accepts the watch and sends no notification: the board does not update there).
+13. **Issues (fp-cache-Q13, A).** The server reads PRs and MRs only; issues stay with the outside
+    poller (`journal add`, `issue@1`); watching issues can be its own CR later.
+14. **Consent (fp-cache-Q14, A).** One question at the session's start covers the watcher and the
+    board it starts ("I start the watcher, which starts the board if it is not running?"); yes
+    starts both, no starts neither.
 
 ## What exists today (read, not rebuilt)
 
@@ -93,7 +117,7 @@ change, not several per 2 s.
   project restarts it; once 1 s passes with no new change, the project is **settled**: the server
   computes its fingerprint once (`fingerprint()`, one walk), keeps it in `Context` (new field
   `revs: dict[str, str]`, under a lock), and wakes the push loop (below). A stream of changes that
-  never goes quiet is settled at the latest 5 s after its first change (see open question 4), so a
+  never goes quiet is settled at the latest 5 s after its first change (decision 12 (4)), so a
   Driver writing `work/` files steadily cannot freeze the board.
 - **The mode (decisions 5 and 11).** Notifications are the mode wherever `watchfiles` starts on the
   folder. When starting the notification watch raises (no backend, the OS watch limit reached,
@@ -128,9 +152,8 @@ change, not several per 2 s.
   when a project settles; `PushThread._run` waits on `wake` or `push_every_s()`, whichever first.
   The 2 s pass stays for what is not a file (the live cost's mark, the seats, the writer's state,
   the `prs` topic's forge read), and costs no walk. So a change shows about 1 s after it settles
-  with notifications (today: up to 2 s); with the check mode, up to about 5 s (see open question
-  4: the intent's "no later than today" does not hold in the check mode, which the user chose in
-  Q3).
+  with notifications (today: up to 2 s); with the check mode, up to about 5 s (decision 12 (4):
+  accepted, though later than today, the check mode being the user's choice in Q3).
 - `docs/server-api.md`, "The topics" (line ~119): "The server looks every 2 s, and only at what a
   client watches" becomes: the server is told of a change of the planning files by the system (or
   checks every 5 s where it cannot), publishes 1 s after the last change, and looks every 2 s at
@@ -173,9 +196,10 @@ change, not several per 2 s.
 - `poll(now)` stays the test seam: it takes the lines `Link` delivered since the last call (a
   queue fed by a reader thread, or `Link.items()` drained with a timeout), so tests drive it with
   no sleep, `Link` replaced by a fake.
-- **No server running (decision 8).** At its start, and whenever the link is lost and
+- **No server running (decisions 8, 12 (3)).** At its start, and whenever the link is lost and
   `server.json` names no live server, the watcher starts one: `cli_command(repo) board --seat
-  <session>` (the session the project's `seat.json` names), as a detached process:
+  <session>` (the session the project's `seat.json` names; the board then follows that seat and
+  stops when it leaves), as a detached process:
   `subprocess.Popen(..., stdin=DEVNULL, stdout=DEVNULL, stderr=DEVNULL, close_fds=True)`, with
   `start_new_session=True` on POSIX and `creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP
   | CREATE_NO_WINDOW` on Windows; never waited on, it outlives the watcher. The watcher then waits
@@ -185,16 +209,29 @@ change, not several per 2 s.
   `watch: the board did not start within 20 s: for the Chief of Staff, start it with <command>
   board --seat <id> and read its error`, and the watcher ends (exit 1). Two watchers racing to
   start one: the second `board` finds the first (its "already running" path) and exits; harmless.
-  How the session's yes covers it, the bind and the seat: open questions 2, 3 and 5.
+  When `seat.json` names no session, the watcher starts no board and ends (exit 1) with
+  `watch: no seat for <project>: the board was not started`.
+- **The board's lines the watcher passes on (decisions 5, 12 (5)).** The started board's own output
+  is discarded, so the watcher, once that board answers, prints after its start line what the
+  Chief of Staff must pass on, read from `server.json`'s `server` entry: board-exposure's `BEYOND`
+  line, word for word (`board: listens on the local network (<host>); the link holds its key: give
+  it to the user only, plain HTTP`, built from `board.command.BEYOND` with the entry's `host`), when
+  that host is not loopback (`address.is_loopback`); and the file-watch line (`WATCHES` or
+  `CHECKS`, from the entry's `files`). The link itself is not printed by the watcher: the Chief of
+  Staff gives it from `status` or `board --seat` (its "already running" path). The same lines
+  follow the start line when the watcher subscribes to a board already running.
+- **The session's yes (decision 14).** The watcher starts the board only under the session's yes
+  to the one question (section 6); a no starts neither, and the pull path runs as today.
 - **Another version's server.** It speaks protocol 1: the watcher subscribes anyway and keeps the
   `board is chantier <v>` clause of its start line (`autostart.board_clause`), now saying
   `board is chantier <v>: restart it to run this version`. A server that refuses protocol 1: the
   watcher ends with the server's sentence and the restart hint.
 - **The pull path (`watch --once --after SEQ`) and `status`.** Unchanged in this spec: one-shot
-  reads of the journal file, no process, no lock (see open question 6). The CLI's commands
-  (`status`, `order`, `take`, `driver`, `facts`, `journal add`, `autostart.not_running_line`) keep
-  reading the planning folder and the journal as today: decision 2 is about the live readers, not
-  the one-shot commands (open question 7 asks the user to confirm).
+  reads of the journal file, no process, no lock; the pull path is no observer, so with the
+  watcher declined the forge is not read (decision 12 (6)). The CLI's commands (`status`, `order`,
+  `take`, `driver`, `facts`, `journal add`, `autostart.not_running_line`) keep reading the
+  planning folder and the journal as today: decision 2 is about the live readers, not the one-shot
+  commands (decision 12 (7)).
 - `hub/watch.py`'s docstring and `hub/__init__.py`'s are rewritten to the new model (the server is
   the only hub; watchers subscribe).
 
@@ -207,6 +244,18 @@ the `a watcher` wording (`hub/lines.py`) goes.
 ### 6. Cards (both hosts read the same cards; no agent file changes)
 
 - `skills/chantier/references/session-start.md`:
+  - **One question (decision 14).** The Chief of Staff asks once, at the session's start, on the
+    `watch: not running` line of `seat take`, one question that covers the watcher and the board
+    it starts, in the user's language, in substance "I start the watcher, which starts the board
+    if it is not running?", explaining both as the two paragraphs do today (the board's persistent
+    process, its configured network exposure, its forge reads while a client is subscribed, its
+    writer that commits and pushes the plan; the watcher's background run). Yes starts both (the
+    watcher starts the board, detached, when none runs); no starts neither: the session's writes
+    to the surface are refused (as with a declined board today), merges go back to the user's
+    word and `status`'s `forge saw merged` lines, and the pull path runs at each user message. The
+    board's own "Ask before starting `$CHANTIER board --seat <own session id>`" question goes for
+    the Chief of Staff; the role table's `chief-of-staff` row (line 53) says "take the free/own
+    seat, then ask the one watcher-and-board question". A yes holds for the session, as today.
   - **The board** (line ~70): the board no longer reads the forge on a timer: "it reads the forge
     every 20 s ... (only the PRs a running batch waits for)" becomes "while a client is subscribed
     (an open board page, a session's watcher, `chantier live`), it reads the forge every 20 s ...".
@@ -214,17 +263,19 @@ the `a watcher` wording (`hub/lines.py`) goes.
     here; checks every 5 s`): pass the line on, in one line; the second means the board shows a
     change up to about 5 s late.
   - **The watcher** (lines ~105-122): the watcher subscribes to the board and starts it, detached,
-    when none runs (the question to the user says so, per open question 2); "its hub reads the
+    when none runs (the one question says so, decision 14); "its hub reads the
     forge of every project of the surface" becomes "the board reads the forge while the watcher
     is subscribed"; remove "A watcher started while the board runs is not the hub (its start line
     has no `, the hub`): the board reads the forge" and the `hub is chantier <v>` sentence; add the
     `started the board (PID <n>)` clause (say once that the board was started, with its link from
-    `status` or `board --seat`) and the `the board did not start within 20 s` line (one line to the
-    user with the printed command; no workaround).
+    `status` or `board --seat`), the `board: listens on the local network (...)` and file-watch
+    lines that may follow it (pass each on, in one line, as the board's own), the
+    `the board did not start within 20 s` line and the `no seat for <project>` line (one line to
+    the user with the printed command or reason; no workaround).
 - `skills/chantier/references/chief-of-staff.md`, **The watcher** (lines ~1386-1437): "It prints
   the project's forge events ..." keeps; add that it reads them from the board, which it starts
   when none runs; the `board:` line paragraph names the new restart wording. Row line 35 (`watch:
-  not running`): unchanged command, the yes now covering the board's start (open question 2).
+  not running`): unchanged command, the yes now covering the board's start (decision 14).
 - `skills/chantier/references/foreman.md` line ~845: "the `forge hub:` and `watch:` lines" stays
   true; no change unless the `forge hub:` wording is quoted (check at implementation).
 - `skills/chantier/references/concepts.md` line ~15: "the forge hub reads only the PRs and MRs (a
@@ -233,7 +284,7 @@ the `a watcher` wording (`hub/lines.py`) goes.
   `hosts/copilot.md` row "Run the watcher" (line 45): add that the watcher may start the board as
   a detached process, which the host does not see as a background task (it is not the watcher's
   output, decision 8). Row "The watcher when the session ends" (claude-code.md line 54): an
-  orphaned board started by a watcher ends when the seat leaves (with `--seat`, open question 3).
+  orphaned board started by a watcher ends when the seat leaves (with `--seat`, decision 12 (3)).
 
 ### 7. AGENTS.md (every sentence this CR changes)
 
@@ -270,7 +321,11 @@ by the `pyproject.toml` bullet (wheels for the three systems).
   runs ... it reads the forge, read-only, every 20 s" (line ~181): "while a page, a session's
   watcher or `chantier live` is subscribed, it reads the forge ...". Add one item: **How it sees
   changes**: the system's file notifications, else a check every 5 s, the start line naming which;
-  a change shows about 1 s after the last write. Line ~62 "The forge hub of `chantier watch`
+  a change shows about 1 s after the last write (up to 5 s in the check mode, or while writes never
+  pause). Known limit (decision 12 (8)): on a network share or a WSL `/mnt` folder (`/mnt/c`), the
+  system may accept the watch and send no notification; the board then does not update there
+  (keep the planning folder on a local disk). Add, to the same item or **Starting the board**, that
+  a session's watcher starts the board, detached, when none runs, on the session's one yes. Line ~62 "The forge hub of `chantier watch`
   writes the same lines" becomes "The forge hub (the board itself) writes the same lines".
   Line ~86 and ~167 ("a Chief of Staff whose watcher (or pull path) runs hears each write within
   about 20 s"): unchanged meaning, "reads" stays true.
@@ -288,9 +343,10 @@ by the `pyproject.toml` bullet (wheels for the three systems).
 
 ## Out of scope
 
-- The pull path and the one-shot commands' reads (unless open questions 6 or 7 say otherwise).
-- Reading issues on the forge (unless open question 1 says otherwise): the outside poller and
-  `journal add` stay as they are.
+- The pull path and the one-shot commands' reads (decision 12 (6), (7)).
+- Reading issues on the forge (decision 13): the outside poller and `journal add` stay as they
+  are; watching issues can be its own CR later.
+- A safety scan in the notification mode (decision 12 (8)).
 - The web client (`clients/web/`): no change; it already reads only the API.
 - The protocol: no new op or topic; protocol stays 1.
 - The board's bind and key (board-exposure's).
@@ -302,8 +358,9 @@ by the `pyproject.toml` bullet (wheels for the three systems).
 - The watcher reaches the server on its loopback address (`loopback_base`), so it works with the
   default `127.0.0.1` and with `board.host: network` (`0.0.0.0`).
 - The server a watcher starts is a plain `board --seat <id>`: it binds as `chantier.yaml` says
-  (default `127.0.0.1`; `network` opens it to the local network), prints board-exposure's lines,
-  which nobody reads (its output is discarded, decision 8). Open question 5.
+  (default `127.0.0.1`; `network` opens it to the local network); its own output is discarded
+  (decision 8), and the watcher prints board-exposure's `BEYOND` line for it, which the Chief of
+  Staff passes on (decision 12 (5), section 4).
 - The new start line comes after board-exposure's `on this machine:`, `BEYOND` or `NO_NETWORK`
   line, in `_announce` and in the "already running" path, in that order.
 
@@ -314,7 +371,10 @@ by the `pyproject.toml` bullet (wheels for the three systems).
 - Any system where `watchfiles` cannot start its watch (watch limit, no backend): `board: no file
   notifications here; checks every 5 s`; `files: check`.
 - A server started by hand, by the session (`board --seat`), or by a watcher (detached): the same
-  lines and mode; the watcher-started one's lines are not shown to anyone.
+  lines and mode; the watcher-started one's `BEYOND` and file-watch lines reach the Chief of Staff
+  through the watcher's output.
+- A network share or a WSL `/mnt` folder: the watch may start yet send nothing (`files: notify`,
+  no update): the known limit of `docs/web-board.md`, no test.
 - No client subscribed: no forge read (hub `idle`); one client subscribed: hub cycle every 20 s.
 - A watcher with a server running (this version or another of protocol 1): subscribes; with none:
   starts one, then subscribes.
@@ -354,7 +414,11 @@ by the `pyproject.toml` bullet (wheels for the three systems).
   takes `hub.lock`; with no live server, it calls the detached start (the `Popen` seam
   monkeypatched: the arguments hold `board --seat <id>`, `DEVNULL` for the three streams,
   `start_new_session` on POSIX or the detached flags on Windows) and prints `started the board`;
-  with the server never answering, the `did not start within 20 s` line and exit 1.
+  with the server never answering, the `did not start within 20 s` line and exit 1; with no
+  session in `seat.json`, no `Popen` and the `no seat for <project>` line; with a `server.json`
+  entry whose `host` is `0.0.0.0`, the `BEYOND` line (read from `board.command.BEYOND` as shipped)
+  follows the start line, and with `127.0.0.1` it does not; the `WATCHES` or `CHECKS` line follows
+  per `files`.
 - `just test` stays within its time budget (AGENTS.md).
 
 ### Scenario (`scenario/run_scenario.py`, the hub-and-watch steps; `scenario/README.md`)
@@ -372,7 +436,7 @@ by the `pyproject.toml` bullet (wheels for the three systems).
   the watcher's end only; the board's PRs page first: one line; with every watcher ended and no
   page, the hub goes idle (`forge hub: ... idle`) and the fake `gh` is called no more.
 - The watcher outlives nothing it should not: the board started by the watcher is still alive after
-  the watcher's end (decision 8), and stops when its seat is released (per open question 3).
+  the watcher's end (decision 8), and stops when its seat is released (decision 12 (3)).
 
 ### Before/after measure (decision 3, in the PR's Deliverables)
 
@@ -389,41 +453,6 @@ pipeline's `just scenario (ubuntu-latest)` green at the PR's head (CLI and cards
 batch's top CR runs `chantier gate` locally on Windows (AGENTS.md). No `hooks/` or `types/`
 change, so no `just mod`.
 
-## Open questions (behaviour, scope, risk)
+## Open questions
 
-1. **Issues on the forge.** Q6's words name issues ("Seul le serveur ... les PR ou les issues").
-   Today chantier reads no issue: an outside poller (the user's own program) writes `issue@1`
-   lines through `journal add`. A: this CR keeps that; the server reads PRs and MRs only (this
-   spec). B: the server also reads the issues the CRs' `issue:` lines name, and the outside poller
-   becomes unneeded (a new forge read, wider scope; AGENTS.md's planning-server-Q24 sentence
-   changes).
-2. **The user's yes.** Today the session asks once for the board and once for the watcher. The
-   watcher now starts the board (which runs the surface's writer, which commits and pushes, and
-   reads the forge). A: one question covers both ("the watcher, which starts the board if none
-   runs"); B: two questions stay, and after a no to the board the watcher does not run (the pull
-   path instead); C: two questions, and the watcher starts the board even after a no to it.
-3. **How long a board started by a watcher lives.** A: like the session's board, it follows the
-   session's seat (`--seat`) and stops when the seat leaves (this spec); a session with no seat of
-   its own starts no board and its watcher ends saying so. B: it serves until stopped by hand.
-   C: it stops after some minutes with no client subscribed.
-4. **Delays.** With notifications a change shows about 1 s after the last write (today up to
-   2 s). In the 5 s check mode, up to about 5 s (later than today, which the intent excluded but
-   Q3 chose). And a stream of changes that never pauses is shown at the latest 5 s after its first
-   change. Accept both?
-5. **Where a watcher-started board listens.** A: as `chantier.yaml` says (with
-   `board.host: network`, open to the local network, though nobody sees its start lines); B:
-   always this machine only (`--host 127.0.0.1`), the local network only through a board the
-   session starts itself.
-6. **The pull path.** With the watcher declined, `watch --once` reads the journal file at each
-   user message; no client subscribes, so the server reads no forge and no merge line comes unless
-   a page is open. A: accept (merges come from the user's word and `status`); B: `--once` also
-   needs the server and counts as an observer for a short while (then the forge is read only at
-   the user's messages).
-7. **"The server alone reads the planning files."** This spec reads it as: among the live
-   readers (the board, the watchers, `chantier live`). The CLI's one-shot commands (`status`,
-   `order`, `take`, ...) keep reading the planning folder directly. Confirm, or say which of them
-   must go through the server.
-8. **Missed notifications.** On some disks (a network share, a WSL `/mnt/c` folder) the system may
-   accept the watch yet send no notification, and the board would then never update. A: trust the
-   notifications (no timer walk, entry 13); B: in the notification mode, one extra check every
-   60 s as a safety net.
+None.
