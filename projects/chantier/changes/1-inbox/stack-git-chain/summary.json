@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "An ordered stack is checked as a git chain",
+  "summary": "Check at ship that an ordered stack's branches form a git chain; the stack-driver verifies with git merge-base before deciding no restack. From Studio batch-07. Not grilled.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "7904762c9b0fdb07b5aa4764b284d7e608b25ec898c68c6b76ad0aca3b091d27",
+    "02-answers.md": "0652008f31470d40ba703b2554b6a0e2faa0f9950f15b297dc3e73abb0a9f6ce",
+    "intake/request.md": "1b219f23fa1381fbddc414584c30928588aa4e688fd0daf4209681d25921c8c8"
+  },
+  "summarized": "2026-11-21T13:17:40Z"
+}

@@ -37,8 +37,8 @@ Grade: 1. The change is confined to the requirements viewer and its tests; a pla
 - [x] New or changed tests (they fail on the previous code)
 - [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `just check`, `just requirements-lint`, `just requirements-update` (no diff on a second run), `okfreq validate --check-links --project-root .` and `just ci-viewer-graph` (6 tests, 2 new in Chromium) passed on the round's tree; `just preflight` not yet run (the long gate follows)
-- [ ] Review
+- [x] Local gates at 4ddd1de: `just check`, `just requirements-lint`, `just requirements-update` (no diff on a second run), `okfreq validate --check-links --project-root .` and `just ci-viewer-graph` (6 tests, 2 new in Chromium) passed; `just preflight` passed (on Windows its static stage only: the visual, viewer-graph, integration, report and gallery stages are CI's)
+- [x] Review: approved at 4ddd1de
 - [ ] CI green
 
 ## Autonomous decisions
@@ -49,3 +49,5 @@ Grade: 1. The change is confined to the requirements viewer and its tests; a pla
 ## Known gaps
 
 - Scenario captures are pending the verification run.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)

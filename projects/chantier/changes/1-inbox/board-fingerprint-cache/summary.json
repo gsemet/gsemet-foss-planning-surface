@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The server watches the planning files; boards and watchers subscribe",
+  "summary": "Spec v1 written: the server reads the planning files on OS change notifications (5 s check only where none works), publishes 1 s after the last change; watchers subscribe and start the server when none runs; forge read only while a client subscribes. 8 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "30412f2917875d7361863e279243c189638a09d28122eb69d4e69f7cf9941f83",
+    "02-answers.md": "6bf448948c78f3ac74368b8e38ceef8cfc5a32eed54873edd629ee811091d291",
+    "03-change-spec.md": "85e35d9374ebe4721fadb11fd632031662ce74ffce525d79b536a834327c709d",
+    "intake/request.md": "561edc1ffc9f9bb6ad0ae8bb7aa4e66ba5b1c8dad7a48195cf83abbe950ce108"
+  },
+  "summarized": "2026-11-21T13:18:45Z"
+}

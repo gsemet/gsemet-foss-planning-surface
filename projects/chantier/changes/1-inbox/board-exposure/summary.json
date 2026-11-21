@@ -7,9 +7,9 @@
   },
   "sources": {
     "01-intent.md": "a40f1c0e3dad7ac8e9e4502dfc863f23aa520f64a1d971908fcad5b1849747e1",
-    "02-answers.md": "f70f18647299fc66cbeb3c86dc90ef6cec3aa3ae4c90878b0a596e30ea88c442",
-    "03-change-spec.md": "45bd2203afe0682902aa15ee9cd24a0b000abde6aeaaa3b3baf339471c2111cb",
+    "02-answers.md": "acfaa1b595d9fde5444de4d3728ada0efc3d2a2ef4504909b53e453fe7fb311b",
+    "03-change-spec.md": "c1b4e96708a916cfe4d7bcd8fbd5baeaf24df69995382e61347d3e7df07e5f5c",
     "intake/request.md": "790334253444e3465fe042ff25dc37047ffb72739e2cb50e07059a45fc736e8a"
   },
-  "summarized": "2026-11-21T13:14:53Z"
+  "summarized": "2026-11-21T13:18:39Z"
 }

@@ -10,3 +10,7 @@ Carried from sync-lock's spec and its critic, to grill:
 - Evidence: the shipped-text check covers the four SKILL.md sync sentences and startup-core.md's exception (critic finding 7).
 
 Depends on `sync-blocked-by-others` (the launch part) landing first.
+
+## Evidence from Studio (2026-11-21, relayed by Studio's Chief of Staff)
+
+At about 03:33Z the chantier Chief of Staff's dev-mode `uv sync` of the shared chantier checkout stopped Studio's live CR-444 `just preflight` gate (PID 29808) and its watcher; the gate was re-run (about 4 minutes). The sync rule in chief-of-staff.md (around lines 792-795 and 1104-1108) checks only the Chief of Staff's own `$CHANTIER status`, which cannot see another surface's processes on the same checkout. Studio's proposed fix: before a dev-mode sync, look for live gates and watchers of every planning surface that uses the checkout, then wait or ask the user, and never stop a gate.
