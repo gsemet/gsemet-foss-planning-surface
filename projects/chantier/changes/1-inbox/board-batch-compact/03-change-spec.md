@@ -2,7 +2,8 @@
 
 The board's Batch page loses its two full-width rows above the views. The mode band and the
 "States and arrows" line move up into the page's title row, beside `Batch ‹ batch-30 ›`. The
-four figures, the view switch and the central view start about 90 px higher. Nothing shown today
+view switch and the central view start about 90 px higher; the four figures stay where they are.
+Nothing shown today
 is removed, at desktop and at phone widths, except the legend's "hover for the legend" hint on a
 phone (760 px and below), where the two pills alone stay. This is a layout change of one page of
 the web client only. No server, protocol, CLI or card changes.
@@ -23,13 +24,14 @@ label and sentence and the legend line; the switch is not circled and follows it
 
 | Answer | Decision | Where |
 | --- | --- | --- |
-| 1 (compact) | The mode band (mode and steering, its sentence, the Stack / Series / Parallel switch) and the legend line go up into the page's top rows. The figures, the view switch and the views move up. This is the Chief of Staff's reading of the arrows, and the user may correct it. | What changes, 1 to 3 |
+| 1 (compact) | The mode band (mode and steering, its sentence, the Stack / Series / Parallel switch) and the legend line go up into the page's top rows. The view switch and the views move up; the figures (`.bhead`), already above the band, stay where they are. This is the Chief of Staff's reading of the arrows, and the user may correct it. | What changes, 1 to 3 |
 | 1 (restatement) | The explanation sentence is kept. Nothing is removed (compact-Q5 excepts the legend's hint on a phone). | What changes, 2 and 4 |
 | 1 (restatement) | The board-batch-kanban CR's toggle joins the existing view switch. This CR keeps that one switch as the first line above the views. | What changes, 3; Overlaps |
 | 2 | Destination batch-30, queued last. | Overlaps |
-| 3 | The spec's open questions go to a Fable advisor in the user's place; its answers are 4 and 5. A new open question is stated with options, A recommended, and A is built. | Open questions |
+| 3 | The spec's open questions go to a Fable advisor in the user's place; its answers are 4, 5 and 6. A new open question is stated with options, A recommended, and A is built. | Open questions |
 | 4 (compact-Q4) | Everything goes into the title row. The breadcrumb row (sticky, shared by every page, hidden on a phone) and "+ New" stay untouched. Both arrows end in the title row; the switch follows its band, at the row's right end as today. | What changes, 1; Out of scope |
 | 5 (compact-Q5) | The mode's sentence is a tooltip alone, at every width, no short form, on the legend pill's pattern (shown on hover, focus and focus-within). Every moved tip rule is rescoped under `.bmode`; the mode pill has its own show rule for `#mtip`. At 760 px and below `.bmode .lghint` is hidden and the pills stay. The mode pill gets `cursor: help`, as the legend pill. | What changes, 2, 4, 5; Evidence; Open questions |
+| 6 (compact-Q6) | Both pills get `cursor: help` (the shipped legend pill's `cursor: default` changes). | What changes, 2 and 4; Evidence |
 
 **Reading of "top rows".** Both arrows end at the title row's height (`Batch ‹ batch-30 ›`, the
 `.titlerow` of `index.html`, lines 68-72). The breadcrumb row above it is the sticky bar shared by
@@ -61,9 +63,14 @@ full. Read `DESIGN.md` first and keep it true (AGENTS.md).
 
 ### 2. The mode pill and its sentence
 
-- The mode label keeps its words, `<mode> · <steering>` (`modeWords`, `steeringFactoryWord`). It
+- The mode label keeps its words, `<mode> · <steering>` (`modeWords`, `steeringWord`). It
   becomes a pill, class `mpill`, with the colours of today's band: the `--accent-tint` fill and the
-  `--accent` text, weight 500. No new token.
+  `--accent` text, weight 500. No new token. It replaces today's `.mb` span; `.mode` and `.mb`
+  leave the markup and the sheet.
+- CR-425 (factory-redefine, `4-batch/2-actives/425-factory-redefine`) lands first and removes
+  `steeringFactoryWord` (`js/model/semantics.js`) and the `batch.no_cr_yet_factory` key and branch.
+  `batch-head.js` calls `steeringWord` as CR-425 leaves it and holds no `steeringFactoryWord`; the
+  no-CR empty state in `batch.js` is `empty(t('batch.no_cr_yet'))`, as CR-425 leaves it.
 - The sentence (`words.text`, the `mode.<mode>.text` keys) moves into a tooltip on that pill, at
   every width, with no short form and no inline copy (compact-Q5):
   - the pill gets `tabindex="0"` and `aria-describedby="mtip"`;
@@ -73,7 +80,8 @@ full. Read `DESIGN.md` first and keep it true (AGENTS.md).
     phone.
 - Both pills get `cursor: help` (compact-Q6, A: the shipped legend pill is `cursor: default`).
 - The Stack / Series / Parallel switch (`.ms`, the current mode `on`) keeps its look. It sits at
-  the right end of the title row (`margin-left: auto` inside the `flex: 1` slot). On a phone it
+  the right end of the title row (`margin-left: auto` inside the `flex: 1` slot) when the row is
+  wide enough (section 5). On a phone it
   stays hidden, as `@media (max-width: 760px) .batch .ms { display: none; }` hides it today.
 - The legend pill (`.lgpill`, `#lgtip`) and its hint (`.lghint`) keep their markup, words and
   tooltip.
@@ -86,17 +94,22 @@ full. Read `DESIGN.md` first and keep it true (AGENTS.md).
   - the live page becomes figures, then `.bwrap` (`.gcol`: `tabBar`, the panel; then `prsBlock`);
   - the closed page becomes figures, then `.bwrap.one` (`.gcol`: the deps note, `tabBar`, the
     panel);
-  - the no-CR page becomes figures, then the empty state.
+  - the no-CR page becomes figures, then the empty state (`batch.no_cr_yet`, CR-425's form).
 - The view switch (`tabBar`: Kanban, Graph, Gantt, Time cards once CR-434 has landed) is now the
-  first line of `.gcol`, right under the figures.
+  first line of `.gcol`, right under the figures, on the live page. On a closed batch the deps note
+  (when the record has one) stays first in `.gcol` and the view switch comes right after it.
+- The figures (`figures`, `recordFigures`) do not move: they were already the first thing in
+  `.batch`, above the band. What moves up, by the band's and the legend line's height (about
+  90 px at 1400 px), is the view switch and the central view below it.
 - The file's head comment and the legend's comment ("It stays on top of every tab") follow. The
   legend now sits in the title row, so it stays visible on every tab.
 
 ### 4. Style
 
-- **`css/views/batch.css`**: these rules leave the `.batch` scope for `.bmode` and keep their
-  declarations, except for the changes listed after them:
-  - `.batch .mode`, `.mb`, `.ms`, `.ms span`, `.ms span.on`;
+- **`css/views/batch.css`**: `.batch .mode` and `.batch .mb` are removed, not moved: `.bmode`
+  and `.bmode .mpill` (below) replace them. These rules leave the `.batch` scope for `.bmode` and
+  keep their declarations, except for the changes listed after them:
+  - `.ms`, `.ms span`, `.ms span.on`;
   - `.lgrow`, `.lgpill`, `.lghint`;
   - every tip rule: `.batch .tip`, `.batch .tip .k` and `.batch .tip .an` become `.bmode .tip`,
     `.bmode .tip .k` and `.bmode .tip .an`;
@@ -104,14 +117,24 @@ full. Read `DESIGN.md` first and keep it true (AGENTS.md).
     `.batch .lgpill:focus-within .tip` become `.bmode .lgpill:hover .tip`,
     `.bmode .lgpill:focus .tip` and `.bmode .lgpill:focus-within .tip`.
 
-  No `.batch .tip`, `.batch .lg*`, `.batch .mode`, `.batch .mb` or `.batch .ms` rule remains.
+  No `.batch .tip`, `.batch .lg*`, `.batch .mode`, `.batch .mb` or `.batch .ms` rule remains, and
+  no `.bmode .mode` or `.bmode .mb` rule exists. The sheet's head comment ("the mode strip, the
+  legend pill") follows: the Batch view's figures and layout, and the title row's slot.
 
   The changes:
   - `.bmode`: `display: flex; flex: 1; align-items: center; flex-wrap: wrap;` with a `space` token
     gap. It has no band fill, no padding and no bottom margin.
+  - `.bmode[hidden] { display: none; }`, in `css/batch-nav.css` beside `.batchnav[hidden]`
+    (line 9), for the same reason: `.bmode { display: flex }` in `batch.css`, loaded after
+    `css/base.css`, would beat the global `[hidden] { display: none; }` (`base.css` line 70) and
+    leave an empty slot shown on every other page.
   - `.bmode .mpill`: the legend pill's padding and radius (`--space-off-3` `--space-off-10`,
     `--radius-pill`), `--text-small`, weight 500, filled with `--accent-tint`, `--accent` text,
-    `position: relative` for its tip, `cursor: help`;
+    `position: relative` for its tip, `cursor: help`, `white-space: nowrap` (the label stays on
+    one line, as `.mb` did);
+  - `.bmode .tip` declares `white-space: normal`: the tip sits inside its pill and would otherwise
+    inherit the pill's `nowrap`. The mode's sentence and the legend's lines wrap inside the tip's
+    `max-width: 300px`;
   - the mode pill's own show rule for `#mtip`: `.bmode .mpill:hover .tip`,
     `.bmode .mpill:focus .tip`, `.bmode .mpill:focus-within .tip { display: flex; }`;
   - `.bmode .lgpill`: `cursor: default` becomes `cursor: help` (compact-Q6, A);
@@ -123,6 +146,14 @@ full. Read `DESIGN.md` first and keep it true (AGENTS.md).
   - the phone block (`@media (max-width: 760px)`): `.bmode .ms { display: none; }` (moved) and a
     new `.bmode .lghint { display: none; }`; the pills stay. The phone rule `.batch .mode
     { flex-wrap: wrap; }` goes, because `.bmode` always wraps.
+  - the tips' placement on a phone, in the same block, placement only: `.bmode` gets
+    `position: relative`, `.bmode .mpill` and `.bmode .lgpill` get `position: static`, and
+    `.bmode .tip` gets `max-width: 100%`. Each tip then anchors at the slot's left edge (its
+    `left: 0` and `top: calc(100% + 6px)` now refer to the slot) and is never wider than the slot,
+    which fills its own line under the navigator. Why: anchored at the legend pill, which sits
+    after the mode pill, `#lgtip` (up to 300 px, the `batch.arrow` line "an arrow goes from a CR
+    to the one that waits for it", `en.js` line 194) would run past a 375 px screen's right edge,
+    and `.main` has `overflow-x: hidden` (`css/shell.css` line 13), so its end would be cut off.
 - The title row's baseline alignment (`css/shell.css`, `.titlerow { align-items: baseline; }`)
   stays. The slot's pills sit on the title's line. `css/shell.css` changes only if the slot needs
   `align-self` to centre on the title, or for the tip's stacking above; any such change is
@@ -134,8 +165,8 @@ full. Read `DESIGN.md` first and keep it true (AGENTS.md).
 
 | Width | Title row after the change |
 | --- | --- |
-| Desktop (above `--phone-max`, 760 px) | `Batch ‹ batch-30 ›` · mode pill · legend pill and hint · … · switch at the right. On a narrow desktop the row wraps (`.titlerow` already has `flex-wrap: wrap`), the slot going to a second line whole. |
-| Phone (760 px and below) | The breadcrumb is hidden, as today. `Batch`, then the navigator on its own line (`.batchnav { flex-basis: 100%; }`, as today), then one line with the mode pill and the legend pill; the hint and the switch are hidden. The page has no horizontal scroll at 375 px. A tip opens on tap (focus) and stays within the screen's width (its `max-width: 300px`, anchored at the pill's left). |
+| Desktop (above `--phone-max`, 760 px) | `Batch ‹ batch-30 ›` · mode pill · legend pill and hint · … · switch at the right. On a narrower desktop the slot (`flex: 1`, so a basis of 0) does not go to a second line whole: it shrinks to the room left beside the title and the navigator, its own children wrap (`.bmode`'s `flex-wrap: wrap`), and the switch drops to a line of its own under the pills, still pushed right by its `margin-left: auto`. The slot leaves the title's line only when even its widest child no longer fits beside the title (`.titlerow`'s own `flex-wrap: wrap`). |
+| Phone (760 px and below) | The breadcrumb is hidden, as today. `Batch`, then the navigator on its own line (`.batchnav { flex-basis: 100%; }`, as today), then one line with the mode pill and the legend pill; the hint and the switch are hidden. The page has no horizontal scroll at 375 px. A tip opens on tap (focus), anchored at the slot's left edge and no wider than the slot, so it stays within the screen (section 4). |
 
 ### 6. DESIGN.md
 
@@ -147,6 +178,7 @@ full. Read `DESIGN.md` first and keep it true (AGENTS.md).
     `js/views/batch-head.js` and styled under `.bmode` (the title row is outside `.batch`);
   - no full-width band or legend line sits between the figures and the view switch;
   - on a phone the switch and the legend's hint are hidden; the two pills stay;
+  - on a phone a tip anchors at the slot's left edge, no wider than the slot, so it stays within the screen;
   - both pills show `cursor: help`;
   - no new colour, size or token.
 
@@ -161,7 +193,11 @@ full. Read `DESIGN.md` first and keep it true (AGENTS.md).
     view.
 - **Screenshots**: retake them with `just docs-screenshots`. Commit only the Batch pictures it
   changes: `docs/web-board/batch-pc.png`, `batch-phone.png`, `batch-gantt-pc.png`,
-  `batch-cards-pc.png`. CR-434 retakes none and makes the Kanban the default tab, so the script's
+  `batch-cards-pc.png`, and `panel-pc.png`: the script's `panel()` (`scripts/docs_screenshots.py`)
+  opens a CR's folder over the Batch page, and that picture (`docs/web-board.md` line 116, "A
+  CR's files") shows the page beside the panel. `panel-phone.png` is retaken in the same run and
+  committed if it changes (the Batch page showing behind the drawer); if it does not, the PR says
+  so. CR-434 retakes none and makes the Kanban the default tab, so the script's
   `batch` shot (no `t=`) then shows the Kanban: `batch-pc.png` and `batch-phone.png` carry
   CR-434's change too, and the PR says so. With the fixed clock and the fictional demo, the other
   pictures should not change. If one does, the PR names it.
@@ -203,9 +239,15 @@ This CR is built on the following as landed, and it rebases onto them:
     This CR's `just docs-screenshots` runs on top of it.
 - **CR-429** (board-fingerprint-cache, `4-batch/2-actives`). Its spec says "The web client
   (`clients/web/`): no change". There is no overlap.
-- **CR-425, CR-426, CR-428, CR-430 to CR-432**: none touches the Batch page's layout.
-  - CR-425 (factory-redefine) may change `steeringFactoryWord` or the factory words of the mode
-    label. This CR moves that call as it is, whatever it returns once CR-425 has landed.
+- **CR-426, CR-428, CR-430 to CR-432**: none touches the Batch page's layout.
+- **CR-425** (factory-redefine, `4-batch/2-actives/425-factory-redefine`). It removes
+  `steeringFactoryWord` (`js/model/semantics.js`) and its uses in `js/views/batch.js` and
+  `js/views/home-batch.js` (back to `steeringWord`), and the `batch.factory_on` and
+  `batch.no_cr_yet_factory` keys and branches. This CR rebases on it: `batch-head.js` uses
+  `steeringWord` as CR-425 leaves it, and holds no `steeringFactoryWord` and no factory branch.
+- **2-backlog/P3/board-batch-view** (not in a batch). It keeps a future tooltip on the batch mode
+  (Stack / Series / Parallel). That item will build on `.bmode`'s tip rules and the mode pill's
+  `#mtip` this CR adds. The overlap is text only: no code of this CR waits for it.
 
 ## Out of scope
 
@@ -227,14 +269,18 @@ Add one parametrized test to `tests/test_board_design.py`, beside
 `test_a_card_title_is_one_line_with_its_full_text_on_hover`. It reads the shipped files:
 
 - `index.html`'s `.titlerow` holds `id="batch-mode"`;
+- `css/batch-nav.css` holds `.bmode[hidden]` with `display: none`;
 - `js/views/batch-head.js` builds the mode pill (`mpill`, `aria-describedby="mtip"`, `id="mtip"`
   with `role="tooltip"` holding the mode's sentence), the legend pill (`lgpill`, `lgtip`) and the
-  switch (`class="ms"`);
+  switch (`class="ms"`), and contains no `steeringFactoryWord`;
 - `js/views/batch.js` no longer contains `class="mode"`, `lgrow` or `legend(`;
-- `css/views/batch.css` has no `.batch .mode`, `.batch .ms`, `.batch .lg` or `.batch .tip` rule; it
+- `css/views/batch.css` has no `.batch .mode`, `.batch .mb`, `.batch .ms`, `.batch .lg` or
+  `.batch .tip` rule and no `.bmode .mode` or `.bmode .mb` rule; `.bmode .tip` declares
+  `white-space: normal`; it
   has the three show rules (`:hover`, `:focus`, `:focus-within`) for `.bmode .mpill .tip` and for
   `.bmode .lgpill .tip`; `.bmode .mpill` and `.bmode .lgpill` both declare `cursor: help`; its
-  `max-width: 760px` block hides `.bmode .lghint` and `.bmode .ms`.
+  `max-width: 760px` block hides `.bmode .lghint` and `.bmode .ms`, sets `.bmode` to
+  `position: relative`, both pills to `position: static` and `.bmode .tip` to `max-width: 100%`.
 
 `test_sheets` and `test_components` pass unchanged on the edited sheet (tokens only, no component
 restyled). `test_token_table` passes: no token is added.
@@ -243,9 +289,9 @@ restyled). `test_token_table` passes: no token is added.
 
 - the Batch page before and after, at 1400 × 860 and at 375 × 812, from `just docs-screenshots` on
   the demo;
-- on the after picture at 1400 × 860, the tab bar's top is higher by the two rows (about 90 px).
-  The PR states the `.tabs` element's top in both runs (Playwright `bounding_box`, one-off, not
-  shipped);
+- on the after picture at 1400 × 860, the tab bar's top is higher by the two rows (about 90 px)
+  and the figures' top (`.bhead`) is unchanged. The PR states the `.tabs` and `.bhead` elements'
+  tops in both runs (Playwright `bounding_box`, one-off, not shipped);
 - at 1400 × 860, one picture with the mode pill's tip open: `#mtip` drawn above the figures'
   tiles, whole, not clipped; and the same for `#lgtip` (one picture each, or one with both open by
   hover and focus). The PR states, from the same one-off run, that each tip's box lies inside the
@@ -253,23 +299,24 @@ restyled). `test_token_table` passes: no token is added.
   returns the tip or a child of it;
 - at 375 × 812: no horizontal scroll (`document.documentElement.scrollWidth <= innerWidth`); the
   mode pill and the legend pill on one line (their `bounding_box` tops equal); the hint and the
-  switch not displayed; and the mode pill's tip, opened by focus, inside the viewport. The PR
-  states each, from the same one-off run;
-- a closed batch (`?b=` an older batch of the demo) and a batch with no CR yet, at desktop width.
-  The first shows the mode and the legend in the title row. The second shows the mode only.
+  switch not displayed; the mode pill's tip (`#mtip`) and the legend pill's tip (`#lgtip`), each
+  opened by focus, with its `bounding_box` inside the viewport (left >= 0, right <=
+  `innerWidth`). The PR states each, from the same one-off run;
+- a closed batch and a batch with no CR yet, at desktop width (one-off, not shipped):
+  - the closed batch on the demo at `?p=mobile-app&v=batch&b=batch-01`: the mode (when its record
+    has one) and the legend in the title row, then the figures, the deps note and the view switch;
+  - the batch with no CR from a scratch planning surface (a temporary folder, outside the
+    repository) where `$CHANTIER open` opened a batch and no CR was added, its board started on
+    it: the mode only in the title row, then the figures and the empty state.
 
 **Gates.** `just check`, `just eval-dry-run` (a change under the CLI's `src/`), and the pipeline's
-`just scenario` green at the PR's head (AGENTS.md). No scenario step is added: the scenario drives
+`just scenario` green at the PR's head (AGENTS.md). Queued last in batch-30, this CR is the
+stack's top: it owes the local `chantier gate` (`just scenario` on Windows) at its head while it
+is the stack's top, before the user merges; if a CR joins on top, the local run moves to it. No scenario step is added: the scenario drives
 no browser.
 
 ## Open questions
 
-None for the user (answer 3). Spec v1's two questions are settled: compact-Q4 and compact-Q5,
-carried above. One point compact-Q5 leaves open is stated here with its options; A is built.
-
-- **compact-Q6: the pills' cursor.** compact-Q5 gives the mode pill `cursor: help` "as the legend
-  pill", but the shipped `.batch .lgpill` declares `cursor: default`.
-  - **A (recommended, built):** both pills `cursor: help`, the legend pill's one declaration
-    changing from `default`. Both open a tooltip, and the advisor meant one cursor for both.
-  - B: both pills `cursor: default`, as the legend pill today.
-  - C: the mode pill `cursor: help`, the legend pill left at `default`.
+None. Spec v1's two questions are settled by compact-Q4 and compact-Q5, and spec v2's by
+compact-Q6 (A: both pills `cursor: help`), all carried above. The spec critic's run-1 findings
+raised no new question: each is applied in this v3.

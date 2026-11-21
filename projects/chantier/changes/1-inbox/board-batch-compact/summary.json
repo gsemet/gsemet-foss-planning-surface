@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Batch page: the mode and the legend move into the title row",
-  "summary": "Spec v2: mode pill (sentence as a tooltip alone), legend pill and Stack/Series/Parallel switch move into the Batch title row; tip rules rescoped under .bmode; phone hides the hint and switch. Rebases on CR-434. Batch-30, last. Q6 (pills' cursor) built as A.",
+  "summary": "Spec v3: mode pill (sentence as a tooltip alone), legend pill and Stack/Series/Parallel switch move into the Batch title row; figures stay, view switch and views move up; .bmode[hidden]; phone tips anchored in the slot; .mode/.mb removed. Rebases on CR-434 and CR-425. Batch-30, last.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "e2aa9a3705428383b4eca357649bf5e08ca2f79238298a4b2c9076163366d628",
-    "02-answers.md": "ab0955a8866a2edc0d139d6b2a15b1caaf94b13220c66f04bb048899fe885256",
-    "03-change-spec.md": "fca5de0e8617148283cf8d506563fce8dd735e6dc945fbd8cea68cf4c4219154",
+    "02-answers.md": "f803f61912b3c63a48bad1da45b7a441398f16e05781f2d4c9133998a39fa4ef",
+    "03-change-spec.md": "b2937a733216f82f644233ad3e3f994ea420c05e6122594ebfc783917f050749",
     "intake/request.md": "1b075e58a02c93c06340315df7626eaf84724e0fb6e71ce08f3682d936fd76b2"
   },
-  "summarized": "2026-11-21T17:51:04Z"
+  "summarized": "2026-11-21T17:58:54Z"
 }
