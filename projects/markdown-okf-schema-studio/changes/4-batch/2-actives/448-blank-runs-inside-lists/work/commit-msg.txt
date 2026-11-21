@@ -1,0 +1,7 @@
+feat(editor): show blank-line runs inside lists as blank-lines blocks
+
+Two or more blank lines between list items, or inside a list item, now
+show as a blank-lines block in the item, so you can select it, remove it
+or type in it. Text typed there is indented to the item and stays in it.
+
+Assisted-by: Claude:Sonnet-5.5
