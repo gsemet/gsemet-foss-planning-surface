@@ -32,3 +32,14 @@ All claims judged at d60b8b19 unless stated.
 7. PR body (as posted, matches `work/pr-body.md`): renders, matches the diff. Known gaps lacks the item of claim 6.
    CI at d60b8b19: `just check (ubuntu-latest)` and `eval-dry-run` green; macos, windows and `just scenario (ubuntu-latest)`
    not yet concluded when read (not judged here).
+
+## Re-verification at d60b8b194d3e66e4dab67133c3599889646a8ec8 (same head, PR body edited)
+
+Head: d60b8b194d3e66e4dab67133c3599889646a8ec8
+
+Command: `gh pr view 393 --json body,statusCheckRollup` at d60b8b19. Output: Known gaps now holds the bullet "No local run was made
+with the new budgets: both measuring runs ran with the old literals ...", and the flake bullet; all five checks SUCCESS
+(check ubuntu/macos/windows, scenario ubuntu, eval-dry-run). Claim 6 is now disclosed; claims 1-5 carried from the first
+judgment at the same SHA (code unchanged). Claim 7 passes.
+
+Verdict: VERIFIED
