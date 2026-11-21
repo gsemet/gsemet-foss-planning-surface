@@ -45,3 +45,16 @@ Judged at 1559e15 on the posted body (`gh pr view 402 --repo gsemet/chantier --j
 - Not re-run: suites (per brief).
 
 VERIFIED
+
+## Restack pass at 0641023
+
+Head: 06410234fcdd3afb2b4452cdf0b503b816d69471
+
+Move: clean restack onto CR-427 head 160e292. Own patch: `git diff --name-only 160e292 HEAD` lists the same 15 files as before. The base brought 40+ files (board, web client, hub, docs, `chief-of-staff.md`, `griller.md`, `scenario/run_scenario.py`), none of them the allow-rule code (`launch.py`, `permissions.py`, `allow_samples.py`, `preflight.py`).
+
+- Re-run at 0641023: `just check` -> `1613 passed, 20 skipped in 138.17s`, `release-notes ... ok`, exit 0 (log: work/gates/verifier-check-0641023.log); worktree clean after.
+- Re-run at 0641023: `pytest test_allow_rules.py test_cli_runs.py::test_the_allow_rules_json_block_lists_exactly_what_preflight_checks -q` -> `3 passed in 11.75s`.
+- Carried from 1559e15: section 1 (rule-matching trial; Claude Code behaviour, independent of the move), section 2 (preflight P10 runs: the P10 code is not in the base's changed files), section 3 (card diffs: `chief-of-staff.md` changed in the base but in other parts; the CR's patch is the same 15 files), PR body vs diff (same 15 files).
+- Description pass at 0641023: the posted body (headRefOid = the full SHA above) names `1559e15` in its Test plan for local gates, evidence, Verified and CI (lines 70-75), and its Review box carries from `c132602` without naming the restack. No `carried from 1559e15: clean restack` reason; the boxes are stale at this head.
+
+NOT VERIFIED (description only: the Test plan SHAs are the old head; code and cards judged the same as at 1559e15)
