@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Requirements viewer: search by ID, full IDs in titles and breadcrumb",
+  "summary": "Specified: the viewer search finds a requirement by full or short ID, any case, without leading zeros, exact match first and Enter opens it; full IDs in eyebrow, tab, share title, breadcrumb and pager. Three owner questions open (shared short ID, result headings, eyebrow form).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9a1e68e08217ba535ca33ce7ab042101ae3e43d5f24270d16dc7e4150bff7f3f",
+    "02-answers.md": "d0a12a72b40de85fcf003f67db9b0e26118d3b9e1bacc0b42763d50793a691ed",
+    "03-change-spec.md": "87009a66e078e33a73330066701ea8ebe43d4060c7e30f8510742325fbe19f5d",
+    "intake/request.md": "c43617dece4b03b653a42d24a894c4d5435b7687ce54c98a204b4ba5c505e555"
+  },
+  "summarized": "2026-11-21T10:43:08Z"
+}
