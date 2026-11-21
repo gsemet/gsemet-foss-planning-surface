@@ -28,6 +28,7 @@ Grade: **1**. Cards, one manifest, one test file and one scenario check; no CLI 
 
 ## Known gaps
 
+- The tests and the scenario were not run locally (CI ran them at `ca5a4a4`).
 - No real Driver has read the new cards; the three-round measure is the next batch's (a worktree's cards load only once merged into the main checkout).
 
 <details>
@@ -47,12 +48,12 @@ No visual change. Drivers read fewer card bytes per step and hand off at the clo
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
+- [ ] New or changed tests (they fail on the previous code): not run locally (quiet window); CI green at `ca5a4a4`
 - [x] Local gates at `ca5a4a4`: `just check`, `just eval-dry-run`
-- [ ] Evidence: none beyond the tests, the scenario check and the Verifier's proof
+- [x] Evidence: none beyond the tests, the scenario check and the proof of the verification (bytes measured on the shipped cards, listed in Deliverables)
 - [x] Review: approved at `ca5a4a4`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Verified at `ca5a4a4`
+- [x] CI green at `ca5a4a4`: `just check` x3, `just eval-dry-run`, `just scenario (ubuntu-latest)`
 
 ## Internal references
 
