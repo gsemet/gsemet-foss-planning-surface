@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Show blank-line runs inside lists as blank-lines blocks",
-  "summary": "Specified: in edit mode a run of 2+ blank lines between list items or inside a list item shows as CR-444's blank-lines block inside its item; same keys, removal keeps one blank line and one list. Page only. Quotes/admonitions split out. Open: indent typed text?",
+  "summary": "Specified: in edit mode a run of 2+ blank lines between list items or inside a list item shows as CR-444's blank-lines block inside its item; same keys; removal keeps one blank line and one list; a typed or pasted block is indented to the item (br-Q5). Quotes/admonitions split out.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "ffb91714500a966afcd60480c51fcd89b20f62758d2c4ba35a22a50a9654ff0e",
-    "02-answers.md": "3bffeefc1d7e3e3a64c02c1a0c6f2a380a11ef8b92310d833fad35582eeb90a6",
-    "03-change-spec.md": "1e50517192de90be7b6020b09a6c6b595cdf87fa6d92ffb850d138e704a9eb79",
+    "02-answers.md": "56eecb23431ab1e9d1569aaae1287412fe2bef355d393a48ebe5cea5ec14779a",
+    "03-change-spec.md": "e634911b9e8b1e25384b59261a45aa1f8ce753b49d072b11bdec7ad6808d9305",
     "intake/request.md": "b0073316634615e286be4ae6e0919f0ad62fcfcf8ee9c29222a9093471ab6c18"
   },
-  "summarized": "2026-11-21T09:22:23Z"
+  "summarized": "2026-11-21T09:25:37Z"
 }
