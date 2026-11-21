@@ -15,7 +15,11 @@ Help
 
 Choices: the page needs no project data (registry flag `offline`) and calls no server operation; the open topic is the address's `&h=<topic>`; Escape, the close button, a second click or Back closes it, and a close adds no history entry (the router's `closeTopic()`), so Back never reopens a closed detail; cards and detail are the board's own card component, tokens only, no picture.
 
-Screenshots of the page (English, French with a detail open, "All projects", 360 px wide) are owed: see Known gaps.
+On a phone the bottom bar holds one more item, so it scrolls sideways when its items no longer fit (`overflow-x: auto`).
+
+Screenshots of the page (English, French with a detail open, "All projects", 360 px wide):
+
+SCREENSHOTS
 
 ## Blast radius
 
@@ -29,7 +33,7 @@ Grade: 1
 
 ## Known gaps
 
-- No screenshots of the page yet, and no manual run in a browser of the open/close and history checks.
+None.
 
 <details>
 <summary>Details</summary>
@@ -39,6 +43,7 @@ Grade: 1
 - New `js/views/help.js`, `help-topics.js`, `i18n/en-help.js`, `i18n/fr-help.js`, `css/views/help.css`.
 - `registry.js` entry `help` (`offline`, no count); `host.js` draws an `offline` view with no project data; `header.js` shows a view's own title except on "All projects" Home; new `help` icon; `nav.help` words.
 - `router.js`: `&h=` topic, `topicOf`, `closeTopic()`, history state for an open detail; `store.js` `helpTopic`; `main.js` Escape closes the detail.
+- `shell.css`: the phone's bottom bar scrolls sideways (`overflow-x: auto`, items do not shrink).
 - `card.css` hover for Help cards; `DESIGN.md` section "The Help page".
 
 ## Human decisions
