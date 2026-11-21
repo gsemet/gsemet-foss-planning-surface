@@ -1,0 +1,3 @@
+pass just preflight at e962787
+log C:\Users\gaeta\Projets\gsemet-foss-planning-surface\projects\markdown-okf-schema-studio\changes\4-batch\2-actives\451-windows-longpaths-checkout\work\gates\20261121-112103.log
+done
