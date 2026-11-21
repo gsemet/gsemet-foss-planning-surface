@@ -30,6 +30,12 @@ named so the user can remove them. No new prompt in a night batch.
 - perm-bypass-Q20: when the plugin's path moves on an update, one question per update for the new
   rule is accepted, and P10 also names the stale chantier rule (pointing at an old copy) for the
   user to remove.
+- perm-bypass-Q21: a dev-mode rule is stale only when its folder no longer exists; a dev rule for
+  another checkout that still exists is left alone. In plugin mode, a rule naming any other plugin
+  path is stale.
+- perm-bypass-Q22: a plugin-form rule naming another copy of chantier is stale only in plugin mode;
+  in dev mode, plugin-form rules are left alone. The host card marks "one plugin copy per install"
+  as unproved.
 
 Q1, Q2, Q4, Q5 and Q8 to Q15 no longer apply to this CR.
 
@@ -41,7 +47,10 @@ Paths: `CLI/` is `skills/chantier/scripts/cli/src/chantier/`, `REF/` is
 ### 0. The trial first (before any code)
 
 The Driver proves, in a real Claude Code session, which rule text matches the command the agents
-type, before writing P10's rules. Setup: a scratch workspace outside the repository with only a
+type, before P10's rules ship. Order: the Driver writes section 1's functions first (they give the
+rule text P10 prints and the launch text), runs the trial with their output, and only then writes
+section 2 and the cards; when the trial picks the unquoted form, section 1's functions change and
+case a runs again with their new output. Setup: a scratch workspace outside the repository with only a
 `.claude/settings.local.json` holding the trial rules; a non-interactive session
 (`claude -p`) that loads no user-level settings (`--setting-sources local`, or the flag the host's
 `claude --help` names for it; when the host has none, the Driver stops and reports, since the
@@ -52,7 +61,7 @@ ran or was refused:
 
 | Case | Rule set | Command run | Expected |
 | --- | --- | --- | --- |
-| a | `Bash(uvx --from "<plugin root>" chantier *)` | `uvx --from "<plugin root>" chantier --skill "<skill folder>" status` | runs |
+| a | the plugin rule exactly as P10 prints it (section 1's function, filled with this plugin root) | `$CHANTIER status`, with `$CHANTIER` built as `skills/chantier/SKILL.md` defines it for the plugin mode (`uvx --from "<plugin root>" chantier --skill "<skill folder>"`), the path absolute with forward slashes | runs |
 | b | the same | `uvx --from "/elsewhere" chantier status` | refused |
 | c | `Bash(uv run --no-sync --project "<checkout>" chantier *)` | `uv run --no-sync --project "<checkout>" chantier status` | runs |
 | d | the same | `uv run --no-sync --project "<checkout>" python -c "print(1)"` | refused |
@@ -60,11 +69,17 @@ ran or was refused:
 | f | rule a | the same command with the path unquoted | recorded, no expectation |
 | g | `Bash(uvx --from <plugin root> chantier *)` (unquoted) | case a's command (quoted path) | recorded, no expectation |
 | h | rule a | `uv --version` (no rule allows it) | refused: the control of the mode |
-| i | none in the workspace; `Bash(uvx --from * chantier *)` in the user's `~/.claude/settings.json` (already there or added for the case and restored after) | `uvx --from "/elsewhere" chantier status` | refused: the control that user-level settings are not loaded |
+| i | none in the workspace; a broad chantier rule already in the user's `~/.claude/settings.json` (for instance `Bash(uvx --from * chantier *)`) | a command that rule allows and no workspace rule does, for instance `uvx --from "/elsewhere" chantier status` | refused: the control that user-level settings are not loaded |
 
 On Windows, each case also with the `PowerShell(…)` form. Paths are absolute, forward slashes, as
 `CLI/plugin_files.py` writes them.
 
+- Before case a: when the rule text P10 prints and the `$CHANTIER` text built from SKILL.md
+  write the path differently (quoting, slashes, the drive letter's case, a trailing slash), the
+  Driver stops and reports both texts to the Chief of Staff; nothing is run to make them agree.
+- When the user's `~/.claude/settings.json` holds no broad chantier rule, case i has nothing to
+  control: the Driver stops and reports (the only write `AGENTS.md` allows there is the Chief of
+  Staff's, of the rules P10 named, on the user's yes); it adds no rule for the case.
 - When h or i runs: the setup is wrong (the mode asks or allows, or the user's settings load); the
   Driver fixes the setup and runs the trial again, and stops and reports when it cannot.
 - When b or d runs: the Driver stops and reports to the Chief of Staff, with the host's exact
@@ -116,23 +131,32 @@ relies on when it changes `_forges`.
   P10 judges by matching, not by the rule's text, as it does for the samples.
 - **The replacing rule named (Q19).** Beside each broad rule, P10 names the filled real-path
   rules of this install that replace it: those recommended chantier rules (section 1's forms)
-  whose sample the broad rule lets through today (the plugin rule for the plugin sample, the dev
-  rule for the dev sample, the sync rule for the sync line), whether or not they are already in
-  the settings; those already there are marked `present`. This holds even when every sample is
+  whose sample the broad rule lets through today, counting only the samples of this install's mode
+  (in plugin mode, the plugin sample; in dev mode, the dev sample and the sync line), whether or
+  not they are already in the settings; those already there are marked `present`. A broad rule
+  that lets no sample of this mode through (in plugin mode, `uv run --no-sync --project * chantier *`
+  or `uv sync --locked --project *`; in dev mode, `uvx --from * chantier *`; the older
+  `uv run --script * *` in either mode) has no replacing rule: P10 names it with "no chantier
+  command needs it". This holds even when every sample is
   allowed (through the broad rule), so the Chief of Staff can add the replacing rules before the
   user removes the broad one, and no command meets a prompt in between.
-- **Stale rules named (Q20).** A rule in the form of a recommended chantier rule (the plugin
-  rule, a dev rule or the sync rule, with the trial's quoting) whose path is not this install's
-  and that lets no probe through is a stale chantier rule: in the plugin form, any other path
-  (one plugin copy per host install: another path is an old copy, left by an update); in the dev
-  forms, only when its path no longer holds a folder (a user may keep several checkouts). P10
-  names it with its file, for the user to remove by hand; it does not change the count of
+- **Stale rules named (Q20, Q21, Q22).** A rule in the form of a recommended chantier rule (the
+  plugin rule, a dev rule or the sync rule, with the trial's quoting) whose path is not this
+  install's and that lets no probe through is a stale chantier rule:
+  - in plugin mode, a plugin-form rule naming any other path (taken as an old copy left by an
+    update; "one plugin copy per install" is unproved, and the host card says so);
+  - in dev mode, a plugin-form rule is left alone, whatever its path (Q22);
+  - in either mode, a dev-form rule (the dev rule or the sync rule) only when its path no longer
+    holds a folder; a dev rule of another checkout that still exists is left alone (Q21).
+
+  P10 names it with its file, for the user to remove by hand; it does not change the count of
   missing commands.
 - **The P10 line.** On the "every batch" line (the report stays within ten lines,
   `MAX_OUTPUT_LINES`): when a broad rule is found, the line is a warn even when every command is
   allowed, and ends with
   `; broad rules let any command through, remove them by hand: <rule> (<file>), replaced by
-  <real-path rule>[ present]; ...`, and, when a stale rule is found (a warn too),
+  <real-path rule>[ present]; ...`, where a broad rule with no replacing rule (above) reads
+  `<rule> (<file>), no chantier command needs it`, and, when a stale rule is found (a warn too),
   `; stale chantier rules, remove them by hand: <rule> (<file>); ...`. P10 stays warn-only and
   never blocks the go. A broad rule still counts as letting its sample through (it
   does), so the count of missing commands is unchanged by it.
@@ -156,7 +180,10 @@ relies on when it changes `_forges`.
   - One line: the plugin's real path changes when the host moves the plugin's folder (an update,
     if the host's folder holds the version: unproved); the old rule then stops matching, P10 names
     the new one and the old one as stale, and the Chief of Staff asks again, one question per
-    update; the user removes the stale rule by hand.
+    update; the user removes the stale rule by hand. In plugin mode, P10 takes any other
+    plugin-form path as an old copy, on the assumption of one plugin copy per install, marked
+    unproved; in dev mode it leaves plugin-form rules alone, and names a dev rule stale only when
+    its folder is gone.
   - "Allow rules to add" (lines 834-858): the rules carry the real path, complete, no placeholder,
     as for the remote name; a path holding a `'` breaks the two command lines' quoting, and the
     Chief of Staff says so instead of giving them.
@@ -198,10 +225,12 @@ Both hosts' agent files are untouched. Copilot has no P10.
 | Claude Code, plugin mode, no chantier rule | P10 names `uvx --from "<real plugin root>" chantier *` |
 | Claude Code, plugin mode, the real-path rule set | P10 ok for that row |
 | Claude Code, plugin mode, `uvx --from * chantier *` set | sample allowed; P10 warns, naming the rule and its file as broad, and the real plugin rule that replaces it |
-| Claude Code, plugin mode, `uv run --script * *` or `uv run --locked --project * chantier *` set | P10 warns, naming it as broad |
+| Claude Code, plugin mode, `uv run --no-sync --project * chantier *`, `uv run --script * *` or `uv run --locked --project * chantier *` set | P10 warns, naming it as broad, "no chantier command needs it" |
 | Claude Code, plugin mode, the plugin rule of another plugin folder set | P10 names the new rule as missing and the old one as stale, with its file |
 | Claude Code, dev mode, no chantier rule | P10 names both dev rules with the real checkout path |
 | Claude Code, dev mode, `uv run --no-sync --project * chantier *` and `uv sync --locked --project *` set | P10 warns, naming both as broad, each with its real-path dev rule |
+| Claude Code, dev mode, `uvx --from * chantier *` set | P10 warns, naming it as broad, "no chantier command needs it" |
+| Claude Code, dev mode, the plugin rule of any plugin folder set | not named stale (Q22) |
 | Claude Code, dev mode, a dev rule whose path no longer exists | P10 names it as stale |
 | Claude Code, dev mode, a dev rule of another existing checkout | not named |
 | Claude Code on Windows | the same, each rule and probe in Bash and PowerShell forms |
@@ -217,24 +246,27 @@ Both hosts' agent files are untouched. Copilot has no P10.
     each sample, filled with one path, is matched by its rule filled with the same path.
   - in plugin mode (a skill folder whose plugin root holds no `.git`) P10 names the plugin rule
     with that root; in dev mode, the two dev rules with the checkout's root.
-  - each of `uvx --from * chantier *`, `uv run --no-sync --project * chantier *`,
-    `uv sync --locked --project *` and `uv run --locked --project * chantier *` (an older form) in
-    a settings file makes P10 warn, naming the rule, the file and the filled real-path rule that
-    replaces it (marked `present` when it is set too); the filled recommended rules alone give
+  - parametrized by mode (plugin, dev): each of `uvx --from * chantier *`,
+    `uv run --no-sync --project * chantier *`, `uv sync --locked --project *` and
+    `uv run --locked --project * chantier *` (an older form) in a settings file makes P10 warn,
+    naming the rule and the file; with the filled real-path rule that replaces it (marked
+    `present` when it is set too) only where one applies in that mode (the plugin rule for
+    `uvx --from *` in plugin mode; the dev rule and the sync rule for the two dev forms in dev
+    mode), and "no chantier command needs it" otherwise; the filled recommended rules alone give
     `P10 ok`; no probe matches a filled rule.
-  - a plugin rule with another plugin folder's path is named stale; a dev rule whose folder is
-    gone is named stale; a dev rule of another existing folder is not.
+  - in plugin mode, a plugin rule with another plugin folder's path is named stale; in dev mode,
+    the same rule is not; in either mode, a dev rule whose folder is gone is named stale, and a dev
+    rule of another existing folder is not.
 - Scenario (`scenario/run_scenario.py`, lines 975-1020): the settings it writes use the filled
   rules (P10 ok as today); one new check sets `uvx --from * chantier *`,
   `uv run --no-sync --project * chantier *` and `uv run --script * *` (an older form) in the home
-  settings and sees P10 warn naming all three, with their replacing rules, preflight exiting 0.
+  settings and sees P10 warn naming all three as broad, preflight exiting 0; it expects a
+  replacing rule only for the rule whose sample is of the mode the scenario runs in
+  (`uvx --from *` in plugin mode, `uv run --no-sync --project *` in dev mode, as the CLI's
+  `is_dev_checkout` says), and "no chantier command needs it" for the two others.
 - Gates owed (`AGENTS.md`): `just check`, `just eval-dry-run` (the CLI's `src/` changes), and the
   pipeline's `just scenario (ubuntu-latest)` job at the PR's head. No `hooks/` or `types/` change.
 
 ## Open questions for the user
 
-1. **A stale rule in dev mode.** Q20 names a rule pointing at an old copy of the plugin. In plugin
-   mode any other plugin path is taken as an old copy. In dev mode a user may keep several
-   checkouts of chantier, so this spec names a dev rule as stale only when its folder no longer
-   exists, and leaves alone a dev rule of another checkout that still exists. Is that the
-   intended scope?
+None: the grill's answers settle every point this step needs.
