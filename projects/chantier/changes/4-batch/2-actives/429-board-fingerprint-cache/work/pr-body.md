@@ -71,11 +71,12 @@ reads no forge.
 
 ### Test plan
 
-- [x] `just check` at f90c6a3
-- [x] `just eval-dry-run` at f90c6a3
-- [x] new tests at f90c6a3: settle rule, zero walks per pass, real notification backend, check
-  mode, idle stop, forge only while observed, watcher seat/server matrix, idle end
-- [ ] Review: approved at f90c6a3 (to record)
+- [x] `just check` at 15ca278
+- [x] `just eval-dry-run` at 15ca278
+- [x] new tests at 15ca278: settle rule, zero walks per pass, real notification backend, check
+  mode, idle stop, forge only while observed, watcher seat/server matrix, idle end, state
+  entries kept across a transient read error
+- [x] Review: approved at f90c6a3, the same patch rebased onto the base as 15ca278
 - [ ] Verified at the PR's head (to record)
 - [ ] CI green at the PR's head, `just scenario (ubuntu-latest)` included (to record)
 - [ ] `chantier gate` on Windows
