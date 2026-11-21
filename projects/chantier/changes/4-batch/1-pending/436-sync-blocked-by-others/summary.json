@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Dev mode only for chantier itself; other projects in plugin mode",
+  "summary": "Spec v3, batch-30 after CR-432: dev mode only when the session's project is chantier (surface: projects/chantier); others run uvx --from in plugin mode; one P10 mode helper; board, writer and hub on another project's cached build accepted (Q12). Wait part: sync-lock-wait.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9f6cfadd6993e95da4814ab6caf9191eb970c819491ee047c70fcba15203aca9",
+    "02-answers.md": "713665c18f238d148f5cbb9f61fc3191ef2d64a12d1d22d46428ac13429ae36d",
+    "03-change-spec.md": "da3450a1df73008c267c07ae6bd6ed18ad11a1d86765d0dd3a161aca91cd4824",
+    "intake/request.md": "498d6f90189d381a90840a55279a36c6a9b3d4a746e38912aa8535807b23b851"
+  },
+  "summarized": "2026-11-21T18:02:44Z"
+}

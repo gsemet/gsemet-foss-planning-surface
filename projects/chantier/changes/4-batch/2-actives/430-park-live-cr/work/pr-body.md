@@ -39,7 +39,7 @@ Grade: 2. The shared predicates and the readers of `is_held` (stack, series, del
 ## Known gaps
 
 - No screenshot of the pane from a real session (the pane's step, phase, now and next words change).
-- Extra cases for the shared definition and the batch's end are in `test_park.py` only, not spread into `test_stack_base.py` and `test_batch_end.py`.
+- The new cases live in `test_park*.py` files, not in `test_stack_base.py` and `test_batch_end.py`; an accepted `close --yes` needs a priced Foreman transcript, so a unit test asserts the refusal is gone and the `park_live` scenario covers the acceptance.
 
 <details>
 <summary>Details</summary>
@@ -68,7 +68,7 @@ The pane shows `Parked` for a parked CR; a CR waiting outside the batch no longe
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test_park.py` (12 cases), `test_came_back.py`
+- [ ] New or changed tests (they fail on the previous code): `test_park*.py`, `test_came_back.py`
 - [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`, `just scenario --unit stack` (`park_live`)
 - [ ] Evidence: none beyond the tests and the scenario
 - [ ] Review: approved at `<sha7>`
