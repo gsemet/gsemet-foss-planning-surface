@@ -1,13 +1,16 @@
-# Conflicts: rebase of CR-445 on the CR-444 branch (5 commits, finished)
+# Conflicts, CR-445 rebase on the CR-444 branch
 
-Hunks and choices (no whole side taken; no text dropped):
+Rebase finished (5/5 commits). Only one conflict, at commit fde7a6e0.
 
-1. `requirements/tiers/log.md`, "## 2026-11-21": kept both. CR-445 round-1 entry first (newest on top), then the CR-444 and CR-439 entries unchanged.
-2. `test/site/e2eGroups.test.ts` (scenario count, commit 2): kept HEAD's long description, appended ", plus 9 line marker scenarios (CR 445)", total 487 + 9 = 496.
-3. `test/visual/scenarioDefinitions1.ts` (imports, commit 2): kept both imports (DELETE_BLOCK_BAR, BLANK_LINES_BLOCK from HEAD, LINE_MARKER); the spreads merged cleanly.
-4. `.agents/glossary/common.md` (commit 3): kept HEAD's "Block selection" (with "Delete or Backspace deletes it") and "Delete block button", added CR-445's "Feature introduction", "Jump", "Line marker"; dropped CR-445's older duplicate "Block selection" line (superseded by HEAD's longer one).
-5. `test/site/e2eGroups.test.ts` (integration test count, commit 3): HEAD 34 + the open-at-line test (CR 445) = 35, description lists both.
+## CHANGELOG.md, section Unreleased
 
-No generated blocks conflicted, so `just requirements-update` was not needed. No BOM added. Nothing committed beyond the rebase, nothing pushed.
+- Base side: the CR-439 entry (requirements map). Branch side: the CR-445 entry (open at a searched line).
+- Choice: keep both. The list is in CR order, oldest first (CR-444 blank-lines entry is last), so the CR-445 entry is appended after the CR-444 entry, before `## 1.10.0`. No BOM (file starts with `# C`).
 
-Fast gate: `just check` (run in the worktree), result: pass (exit 0). Log: `check.log` in this folder.
+## Not a conflict, fixed after the rebase (uncommitted in the worktree)
+
+The base brought a bundle test (`test/site/requirementsViewer/bundle.test.ts`) that requires every `### Scenario` heading to carry a `: title`. SwRS LIFE-178..185 (this CR) used bare `### Scenario (nominal)` / `(boundary)`. Added a title to each heading in `requirements/tiers/swrs/lifecycle-sync/SwRS-MDOKFSTUDIO-LIFE-178.md` to `-185.md` (8 files, 16 lines). The Driver must commit them.
+
+## Fast gate
+
+Command as run: `just check` (in the worktree). Result: first runs failed in `unit` on "no scenario card of the requirements bundle is empty" (LIFE-178, then 179); after the heading fix, exit 0, all checks pass. Log: `check.log` in this folder.
