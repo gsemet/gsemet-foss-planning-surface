@@ -19,7 +19,25 @@ after:   Batch ‹ b › [mode] [legend] hover… ......... Stack|Series|Paralle
          [view switch]  central view
 ```
 
-Before/after pictures: **UNVERIFIED:** not yet attached (see Known gaps).
+Batch page at 1400 x 860, before (base `33d1045`) and after (head `2004e52`): the view switch's top goes from 353 px to 263 px (90 px higher); the figures' top stays at 143 px.
+
+| Before `33d1045` | After `2004e52` |
+| --- | --- |
+| ![before](./batch-pc-before.png) | ![after](./batch-pc-after.png) |
+
+At 375 x 812, before and after at the same SHAs: the two pills share one line, the hint and the switch are hidden, there is no horizontal scroll (scrollWidth 375). On a phone the figures' top moves from 155 px to 176 px, because the pills take one new line.
+
+| Before `33d1045` | After `2004e52` |
+| --- | --- |
+| ![before](./batch-phone-before.png) | ![after](./batch-phone-after.png) |
+
+Each tip opens whole above the figures' tiles at 1400 px and inside the viewport at 375 px (at `2004e52`):
+
+| Mode tip | Legend tip |
+| --- | --- |
+| ![mode tip](./batch-pc-tip-mpill-after.png) | ![legend tip](./batch-pc-tip-lgpill-after.png) |
+
+A closed batch shows the mode and the legend in the title row too: ![closed batch after](./closed-pc-after.png)
 
 ## Blast radius
 
@@ -31,8 +49,8 @@ Grade: **1**. One page of the web client (HTML slot, one new view module, one st
 
 ## Known gaps
 
-- **UNVERIFIED:** before/after pictures and the tip-stacking measurements (a tip drawn whole above the figures' tiles; no horizontal scroll at 375 px) are not yet produced.
-- The docs screenshots are not retaken yet.
+- The "about 90 px" claim and the tip checks are measured on the demo at `2004e52`, not on a live board.
+- A batch opened with no CR yet starts in parallel mode, so its title row shows that mode; the picture of it is not in this description.
 
 <details>
 <summary>Details</summary>
@@ -43,6 +61,7 @@ Grade: **1**. One page of the web client (HTML slot, one new view module, one st
 - `js/views/batch-head.js` (new): the mode pill, legend and switch moved out of `js/views/batch.js`.
 - `css/views/batch.css`, `css/batch-nav.css`: the moved rules re-scoped under `.bmode`, the pills' tip rules, the phone block.
 - `DESIGN.md`, `docs/web-board.md`: a section on the title row; the legend now sits in the title row.
+- `docs/web-board/*.png` (batch-cards-pc, batch-gantt-pc, batch-pc, batch-phone, panel-pc): the docs pictures retaken with the title row (at `2004e52`).
 - `tests/test_board_design.py`: one parametrized test reading the shipped files.
 
 ## Human decisions
@@ -58,12 +77,12 @@ The Batch page is shorter above its views; the mode sentence is a tooltip instea
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates
-- [ ] Evidence
-- [ ] Review
+- [x] New or changed tests (they fail on the previous code): `test_board_design` batch title-row test
+- [x] Local gates at `2004e52`: `just check` pass, `just eval-dry-run` pass (18 of 18), `just scenario` pass
+- [x] Evidence: before at `33d1045`, after at `2004e52`
+- [x] Review: approved at `cb58d84` (code; the head adds only the retaken docs pictures)
 - [ ] Verified
-- [ ] CI green
+- [x] CI green at `2004e52` (5 checks)
 
 ## Internal references
 
