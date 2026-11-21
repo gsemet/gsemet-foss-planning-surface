@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "A refused push climbs: Foreman, then Chief of Staff, then the user",
+  "summary": "Spec v1: a Driver's force push the host refuses goes to the Foreman, which judges and pushes; refused, the Chief of Staff pushes with no ask; refused again, one question to the user and one push on the yes. Cards, host text and the eval audit; five open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "62e3e466a111860b257ebe9debc3d95aab604dbf25c3d0cbec2e4accf0c3da17",
+    "02-answers.md": "861d733d4a980ccb33d38b85e3145309fd655a40169e0703e1f1ea201e329071",
+    "03-change-spec.md": "ef239481a6b8a44ea72c26ca0c210b749a0237c987490c30c353914fa80c2f9b",
+    "intake/request.md": "0cc1ef1b0621c29eb2acdadcab0d7f4eee3672ce3ba90d09cc7b867fad85065e"
+  },
+  "summarized": "2026-11-21T21:15:45Z"
+}
