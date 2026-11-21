@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Running batch or next batch: the factory mode removed",
-  "summary": "Specified (critic due): at grilled-enough the user picks next batch (3-ready, default) or running batch (marked via new triage --running-batch, order add once spec final = the go); board Triage last column split; open --factory and order factory removed, old records readable. 5 open questions.",
+  "summary": "Specified (rev. 2): grilled enough offers next batch (default), running batch, backlog, not yet; destination asked at every spec-writer start; triage --running-batch marks a grilled CR, order add once final; factory removed. Board lane split to board-running-batch-lane. 1 open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "fa9ac58775caa9a094316d6f34dd4852e5f742b5d1862dcc6fcaf75ce47fcefb",
-    "02-answers.md": "3cd1b188ce3c2f202e4b44287dcc92fd2617a75fd09b2dae5531b2753ff7af2e",
-    "03-change-spec.md": "f458e3ab3fffb55e869663af0a015fb361f9ce8bc9d8aba3f1c6dd62b791fa30",
+    "02-answers.md": "0fdd3e109f7089901c33b03e3b66dc1a4552f61d388ec75edcf1f28c4da76487",
+    "03-change-spec.md": "3d6789fa36892af14d0959c28b6b94e2d4e74751b90c7d97fd86075e215e6b52",
     "intake/request.md": "c2a454c9d7bf7675523a68996abe4399e4f48b0a1b4712756ca3aae5d73daa0f"
   },
-  "summarized": "2026-11-21T09:59:31Z"
+  "summarized": "2026-11-21T10:16:48Z"
 }

@@ -1,12 +1,15 @@
 {
   "schema": 1,
   "title": "Show the target-line arrow in the side preview on a jump",
-  "summary": "Inbox, not grilled: split off from open-at-line-marker (Q12).",
+  "summary": "Grilled (jm-Q1), spec written: the side preview shows CR-445's arrow and band on a jump (selection change of kind Command), never on a cursor move; 10 open questions for the owner (in-file moves, Vim, scroll place, anchor off, removal, setting...).",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
+    "01-intent.md": "5cbd2c53fe0d6b4a3e8d0885cd6187cff52815b6ba37ac864ae9d436c7ddf1c1",
+    "02-answers.md": "0c8f26c1495057b2cd7f279f3de3208c456e998e8fc87778eae97ef88f12dc8c",
+    "03-change-spec.md": "6b7f73a2bd34da47617ada6ce7789cd700ee3432a682b6542a818b8dcf1cfa12",
     "intake/request.md": "fc5dd7a3f597a80a64da7e559dbbbd62cf7b2fbd3bd60fe4a633d47b3f9bbd22"
   },
-  "summarized": "2026-11-20T22:45:15Z"
+  "summarized": "2026-11-21T10:18:04Z"
 }

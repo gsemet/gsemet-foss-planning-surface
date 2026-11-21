@@ -1,10 +1,12 @@
 # Running batch or next batch: the factory mode removed
 
-A grilled CR goes to the next batch (`3-ready`, the default) or, when a batch is open, to the
-running batch (`4-batch/1-pending/`). The choice is made when the spec-writer starts. Placing a CR
-in `1-pending` is the go, in every mode. The factory mode (`open --factory`, `order factory on|off`,
-the factory pause) is removed. The board's backlog page (Triage) splits its last column into
-"running batch" over "next batch", always.
+A CR grilled enough goes to the next batch (`3-ready`, the default) or, when a batch is open, to
+the running batch (`4-batch/1-pending/`). The user picks at "grilled enough?" and at every
+spec-writer start. Placing a CR in `1-pending` is the go, in every mode. A CR bound for the running
+batch carries a mark (`triage --running-batch`) until its specification is final, then joins by
+`order add`. The factory mode (`open --factory`, `order factory on|off`, the factory pause) is
+removed. The board's lane for the running batch is the CR `board-running-batch-lane`, filed on top
+of this one: this CR gives it the mark function it calls.
 
 ## Goal, in the user's terms
 
@@ -22,22 +24,28 @@ In English:
   - the next batch (`3-ready`), which is the default;
   - or the running batch (`4-batch/1-pending/`), when a batch is open.
 - `3-ready` always means the next batch. `4-batch/1-pending/` is the running batch.
-- On the board's backlog page, the user can place a CR in either one, in every mode (parallel,
-  series, stack): "même en mode séries ou parallel on peut avoir envie de mettre dans le batch en
-  cours" (park-live-Q8).
+- This holds in every mode (parallel, series, stack): "même en mode séries ou parallel on peut
+  avoir envie de mettre dans le batch en cours" (park-live-Q8).
 
 ## Decisions carried (02-answers.md)
 
 | Answer | Decision | Where it lands below |
 | --- | --- | --- |
 | factory-Q1 | Factory is not a mode. At the spec-writer's start the user picks the running batch (`1-pending`) or the next batch (`3-ready`). The default is the next batch. | 1, 2, 3 |
-| factory-Q2 | Placing a CR in `1-pending` is the go, in every mode. A Driver takes it when a slot frees. | 2, 3 |
-| factory-Q3 | The user chooses on the board (the backlog page's last column, always split in two) and in the grill (the "grilled enough?" question offers both). | 1, 5 |
-| factory-Q4 | With no open batch, the CR goes to `3-ready`. | 1, 2, 4 |
-| factory-Q5 | A batch's last CR leads to the ordinary pause, then the retro, then the close offer. Until the user's close, it stays the running batch, and a CR placed in `1-pending` starts it again. | 3, 4 |
+| factory-Q2 | Placing a CR in `1-pending` is the go, in every mode. A Driver takes it when a slot frees. | 1, 3 |
+| factory-Q3 | The user chooses in the grill (the "grilled enough?" question offers both) and on the board (the backlog page's last column split in two, always). The board's part is `board-running-batch-lane` (factory-Q9). | 1; Out of scope |
+| factory-Q4 | With no open batch, the CR goes to `3-ready`. | 1, 2 |
+| factory-Q5 | A batch's last CR leads to the ordinary pause, then the retro, then the close offer. Until the user's close, it stays the running batch, and a CR placed in `1-pending` starts it again. | 1, 3 |
 | factory-Q6 | `open --factory` and `order factory on/off` are removed. Old records with `factory: on` stay readable. | 4 |
-| factory-Q7 | A CR reaches `1-pending` when its specification is final (after the critic, when it runs). Until then it waits in its folder, marked for the running batch. | 2, 4 |
+| factory-Q7 | A CR reaches `1-pending` when its specification is final (after the critic, when it runs). Until then it waits in its folder, marked for the running batch. | 1, 2 |
 | factory-Q8 | Grilled enough: specify now. Spec critic: yes. | (this file) |
+| Spec critic run | Fixes 3, 5, 6, 7 (no user question): the state `written`, not `specified`, and a CR added only when no critic runs and no open question remains; the factory test file, i18n key and test lines named; the server API and protocol schema; the three `#factory-mode` links and docs-sphinx-rtd. | 1, 2, 4, 6; Out of scope |
+| factory-Q9 | Two CRs. This one keeps the factory mode's removal, the grill's destination, the running-batch mark and `status`. The board's backlog page with its last column split is `board-running-batch-lane`, on top of this one, with the former open questions 1 to 3. | Out of scope |
+| factory-Q10 | Every spec-writer start asks the destination, with the same two options, not only the closing "grilled enough?". | 1 |
+| factory-Q11 | "Grilled enough?" offers four options: next batch (recommended), running batch, back to the backlog, not yet. | 1 |
+| factory-Q12 | The mark is refused for an ungrilled CR ("grill it first"). An automatable `3-ready` CR joins at once with `order add`. | 1, 2 |
+| factory-Q13 | When the specification becomes final and `order add` is refused because a release started in the batch, the CR goes to `3-ready` and the user is told in one line. The batch closing: as factory-Q4. The writer not running: restart the server, the CR waits. | 1 |
+| factory-Q14 | `open` with no CR stays: an ordinary batch, paused, that waits for its CRs in `1-pending`. | 1, 4 |
 
 ## What changes
 
@@ -46,35 +54,60 @@ In English:
 These cards change: `skills/chantier/references/chief-of-staff.md`,
 `skills/chantier/references/griller.md` and `skills/chantier/references/concepts.md`.
 
-**The "grilled enough?" question.** It is the closing question of the full restatement ("Shared
-understanding" in `chief-of-staff.md`; the Griller follows the same rule).
+**The "grilled enough?" question** (`chief-of-staff.md`, the bullet "**"Grilled enough?"**" of
+"Asking the user: a series", and "Shared understanding"; the Griller follows the same rule). Its
+options become four, in the format of "Asking the user: a series" (factory-Q11):
 
-- **With an open batch** (running or paused, not closed), the question offers where the CR goes, in
-  the format of "Asking the user: a series":
-  - A. specify, for the next batch (`3-ready`), recommended (the default);
-  - B. specify, for the running batch `<batch-id>` (`4-batch/1-pending/`);
-  - the existing "not yet" path.
-- **With no open batch,** the question does not offer the running batch: the CR is for the next
-  batch (factory-Q4).
-- **Recording.** The answer goes into `02-answers.md` with the critic's yes or no, as today (for
-  example `Destination: next batch (3-ready).` or `Destination: running batch batch-12.`).
+- A. specify, for the next batch (`3-ready`) (recommended, the default);
+- B. specify, for the running batch `<batch-id>` (`4-batch/1-pending/`);
+- C. back to the backlog;
+- D. not yet.
+
+With no open batch (no batch, or a closed one), B is not offered and the CR is for the next batch
+(factory-Q4): the options are next batch (recommended), back to the backlog, not yet. The card's
+example `A. Specify (recommended)`, `B. Back to the backlog`, `C. Not yet` is replaced by the four
+options.
+
+**The destination at every spec-writer start** (factory-Q10). Every start of a spec-writer, by the
+Chief of Staff or a Griller, asks the destination with the same two options (next batch,
+recommended; running batch `<batch-id>`), in the same series format, when a batch is open. The
+answer A or B of "grilled enough?" is that ask for the start it triggers; a start with no such
+answer just before it (for example a CR grilled in an earlier session) asks it on its own. With no
+open batch, nothing is asked: the CR is for the next batch. See open question 1 for a next run on
+the same CR.
+
+**Recording.** The answer goes into `02-answers.md` at once, with the critic's yes or no as today,
+for example `Destination: next batch (3-ready).` or `Destination: running batch batch-12.`
+
+**The order at the start.** In `chief-of-staff.md`'s paragraph "On the user's word that a CR is
+grilled enough, write `work/specifying` ...": write `work/specifying` first, then, for the running
+batch, run `$CHANTIER triage <folder> --running-batch` (the mark, section 2), then start the
+spec-writer. A CR bound for the next batch carries no mark.
 
 **That answer is the user's word for the move.** The card keeps its rule "a CR moves to `3-ready`
-only on the user's word". The destination chosen at "grilled enough?" is that word, and for the
-running batch it is also the go (factory-Q2). Once the specification is final, after the critic
-when it runs and after its open questions have been answered and the spec rewritten (factory-Q7):
+only on the user's word". The destination chosen is that word, and for the running batch it is
+also the go (factory-Q2). The specification is final when `03-change-spec.md` is written, no
+spec-writer runs on it, its critic, when due, has run and been applied, and no open question
+remains (its answers recorded and the specification rewritten) (factory-Q7; critic fix 3). Then:
 
 - **Next batch:** the Chief of Staff, or the Griller that ran the grill, runs
   `$CHANTIER triage <folder> --ready`. No other question is asked.
 - **Running batch:** the Chief of Staff runs `$CHANTIER order add --note <folder>` and handles the
   order as usual: in Foreman mode it relays the order line to the Foreman; in direct mode it takes
   the CR when a slot frees. No other question is asked. A Griller never runs `order`; see 2.
-- **If the batch closed while the CR was being specified,** the CR goes to `3-ready` instead
-  (factory-Q4): `triage --ready`, and the user is told in one line.
+- **`order add` refused** (factory-Q13):
+  - a release has started in the batch (rule B): the CR goes to `3-ready` (`triage <folder>
+    --ready`, which clears the mark) and the user is told in one line, for example `<slug> goes
+    to the next batch: a release started in <batch>`;
+  - the batch closed while the CR was being specified: the same, as factory-Q4 (`triage --ready`,
+    one line to the user);
+  - the writer not running: the Chief of Staff restarts the server as the card already says for
+    that refusal, and the CR waits, still marked, then joins with `order add`.
 
-**The running-batch mark.** Between the spec-writer's start and the final specification, a CR bound
-for the running batch carries the mark (section 2), set at the start with
-`triage <folder> --running-batch`. A CR bound for the next batch carries no mark.
+**A `3-ready` CR for the running batch** (factory-Q12). A `3-ready` CR is never marked. When the
+user wants an automatable `3-ready` CR in the running batch, the Chief of Staff runs `order add
+--note <folder>` at once. The same holds for a `3-ready` CR with a specification: it moved there
+once final.
 
 **Text to remove from `chief-of-staff.md`:**
 
@@ -84,8 +117,8 @@ for the running batch carries the mark (section 2), set at the start with
 - "in a factory batch it joins the batch at once" in the spec-writer paragraph;
 - the plan's "**Factory.**" paragraph in "Starting a batch";
 - `--factory` in the `open` synopsis, and the sentence "with no folder it opens ... a factory batch
-  (`--release` is refused then ...)". `open` with no folder still opens a paused batch with no CR:
-  see open question 5;
+  (`--release` is refused then ...)". `open` with no folder still opens an ordinary paused batch
+  with no CR, which waits for its CRs in `1-pending` (factory-Q14): the sentence says so;
 - "(in a factory batch, by `triage --ready`)";
 - the `order factory on|off` line of the order commands' block;
 - the table row "the Foreman's `ready <batch>` at a factory batch's pause";
@@ -97,7 +130,7 @@ for the running batch carries the mark (section 2), set at the start with
 **Text to replace in `chief-of-staff.md`:**
 
 - The direct-mode rule becomes: `triage --ready` never joins the running batch. A CR joins it only
-  by `order add`, from a destination the user chose (the grill or the board).
+  by `order add`, from a destination the user chose.
 - "New work for the paused batch is `order add`" stays. Add one sentence there and in the pause's
   close offer: until the user's `close`, the paused batch is still the running batch, and a CR
   placed in `1-pending` (by `order add`) starts it again at the next `take` (factory-Q5).
@@ -110,7 +143,7 @@ for the running batch carries the mark (section 2), set at the start with
 - "`3-ready`": add that it always means the next batch.
 - "Batch lifecycle" step 1: remove the factory sentences ("A **factory** batch ... turns the
   factory off."). Keep the batch opened with no CR (paused, no cost, no retro, no close offer at
-  that pause).
+  that pause), which waits for its CRs in `1-pending` (factory-Q14).
 - Step 3: one sentence saying that a CR placed in `1-pending` before the close starts the paused
   batch again.
 
@@ -120,15 +153,22 @@ The CLI lives in `skills/chantier/scripts/cli/src/chantier/`.
 
 **New: `triage <folder> --running-batch`.** It is a fourth choice next to `--priority`, `--ready`
 and `--inbox` (exactly one of the four; `TRIAGE_USAGE` and `declare/intake.py` name it). It runs on
-the user's word, like every `triage`, and is role-free.
+the user's word, like every `triage`, and is role-free. Its work is one lifecycle function (next to
+`move_item` in `lifecycle/backlog.py`, or in `lifecycle/stages.py`), which the board's lane
+(`board-running-batch-lane`) will call: it writes the mark and touches no file under `4-batch/`.
 
-- **With an open batch,** it writes the mark `work/running-batch` in the CR's folder: one line, the
-  time and the open batch's id. It moves no folder. It prints
+- **With an open batch** and a grilled CR, it writes the mark `work/running-batch` in the CR's
+  folder: one line, the time and the open batch's id. It moves no folder. It prints
   `<slug> marked for the running batch <batch>: it joins once its specification is final (\`order add --note <folder>\`)`.
-  It accepts a folder in the inbox, `2-backlog/P1`..`P4` or `3-ready`.
-- **With no open batch** (no batch folder, or the batch is closed), it is refused with exit
+  It accepts a folder in the inbox or `2-backlog/P1`..`P4`.
+- **An ungrilled CR** (factory-Q12): a folder with neither `work/specifying` nor `03-change-spec.md`
+  (the cards write `work/specifying` before the mark, section 1). Refused with exit precondition:
+  `<slug> is not grilled: grill it first`.
+- **A `3-ready` folder** (factory-Q12): no mark. Refused with exit precondition:
+  `<slug> is in 3-ready: \`order add --note <folder>\` joins it now`.
+- **With no open batch** (no batch folder, or the batch is closed): refused with exit
   precondition: `no open batch: <slug> goes to the next batch (\`triage <folder> --ready\`)`
-  (factory-Q4; see open question 3 for the board).
+  (factory-Q4).
 - **Clearing the mark.** Any other `triage` of that folder (`--ready`, `--priority`, `--inbox`)
   removes it (the user changed the destination), and so do `abandon` and `order add` of the folder.
   `order add` moves the folder into `4-batch/1-pending/` and deletes `work/running-batch` from it.
@@ -137,24 +177,29 @@ the user's word, like every `triage`, and is role-free.
 
 **`status`** (`commands/batch_status.py`, and the no-batch path) gets one line when marked CRs
 exist:
-`running batch: <n> CRs marked, not joined: <folder> (specifying|specified), ...`. Here
-`specifying` means a `work/specifying` exists and `specified` means `03-change-spec.md` exists with
-no `work/specifying`. When a CR is `specified`, the line ends with
-`: \`order add --note <folder>\` once its specification is final`. A stale mark gets its own line:
+`running batch: <n> CRs marked, not joined: <folder> (specifying|written), ...`. Here
+`specifying` means a `work/specifying` exists and `written` means `03-change-spec.md` exists with
+no `work/specifying` (critic fix 3: `written`, not `specified`, since a written specification may
+still wait for its critic or its open questions). When a CR is `written`, the line ends with
+`: \`order add --note <folder>\` once no critic runs and no open question remains`. A stale mark
+gets its own line:
 `running batch: <folder> marked for <old-batch>, which is closed: \`triage <folder> --ready\``.
 
 **The Griller (`griller.md`).**
 
 - **Section "Never":** remove its exception "(one exception: in a factory batch your
   `triage --ready` ... records an `add` order itself ...)". A Griller never runs `order`.
+- **The grill's close and the spec-writer's start:** the four options and the destination asked at
+  every start, as section 1; the Griller runs `triage --running-batch` after writing
+  `work/specifying` for a CR bound for the running batch.
 - **Section "Telling the Chief of Staff":**
   - Remove the factory paragraph.
   - For a CR marked for the running batch, the line `[griller→chief-of-staff] <slug> specified` is
-    no longer optional. The Griller sends it once the specification is final.
+    no longer optional. The Griller sends it once the specification is final (section 1).
   - With no live Chief of Staff, the Griller tells the user. The Chief of Staff then finds the CR
     on `status`'s `running batch:` line and adds it after reading its `03-change-spec.md`.
-  - For a CR bound for the next batch, the Griller runs `triage --ready` itself once the spec is
-    final (the user's destination answer is the word).
+  - For a CR bound for the next batch, the Griller runs `triage --ready` itself once the
+    specification is final (the user's destination answer is the word).
 - **A Griller in a worktree** runs no `triage` (unchanged): the Chief of Staff places the files,
   then marks the CR or moves it to `3-ready` as the answer says.
 
@@ -199,8 +244,8 @@ no `work/specifying`. When a CR is `specified`, the line ends with
 - **Argument:** `declare/opening.py` loses the argument, so `--factory` is refused by the
   argument parser (exit usage).
 - **`commands/opening_record.py`:** loses the `args.factory` refusal with `--release`, and the
-  rule `factory=bool(args.factory or not args.items)`. An `open` with no CR no longer sets
-  anything factory.
+  rule `factory=bool(args.factory or not args.items)`. An `open` with no CR stays allowed
+  (factory-Q14): an ordinary paused batch, which sets nothing factory.
 - **`commands/opening.py`:**
   - The brief's first bullet no longer writes `Factory: on|off.` (`Steering: <s>.` alone).
   - The open line loses `, factory`.
@@ -245,88 +290,62 @@ release CR joins as in any batch.
     `types/` file changes;
   - `core/surface_batches.py`: `, factory on`;
   - `board/state.py`: the `factory` key, lines 54 and 247;
-  - the web client: `steeringFactoryWord` in `js/model/semantics.js`, its uses in
-    `js/views/batch.js` and `js/views/home-batch.js` (back to `steeringWord`), and
-    `batch.factory_on` in `js/i18n/en-batch.js` and `fr-batch.js`.
+  - the web client (read `clients/web/DESIGN.md` first and keep it true, AGENTS.md):
+    - `steeringFactoryWord` in `js/model/semantics.js`, and its uses in `js/views/batch.js` and
+      `js/views/home-batch.js` (back to `steeringWord`);
+    - the i18n keys `batch.factory_on` and `batch.no_cr_yet_factory` in `js/i18n/en-batch.js` and
+      `fr-batch.js`, and the branches `batch.factory ? 'batch.no_cr_yet_factory' :
+      'batch.no_cr_yet'` in `js/views/batch.js` (line 127) and `js/views/home-batch.js` (line
+      69), which keep `batch.no_cr_yet` alone (critic fix 5).
 
-### 5. The board: the backlog page's last column split in two (web client)
+**The server's published API** (critic fix 6). The `factory` key that `board/state.py` drops is
+named neither in `docs/server-api.md` nor in `board/api/protocol.json` (checked at this
+specification: neither file has the word), so this CR changes neither and owes no
+`just protocol-schema`. The Driver checks it again at the head: if the protocol's models change,
+it runs `just protocol-schema` and updates `docs/server-api.md`. The new `backlog.move` target and
+the items' `running_batch` key are the board's (`board-running-batch-lane`, Out of scope).
 
-Read `skills/chantier/scripts/cli/src/chantier/clients/web/DESIGN.md` first and keep it true
-(AGENTS.md).
-
-**Triage view.** In `js/views/triage.js` and `js/triage/columns.js`, the last column (today
-`3-ready`) is split horizontally, as Jira does, into two lanes of one column, built by
-`js/ui/column.js` like the Backlog column's lanes. It is always shown, in every mode, with or
-without a batch (factory-Q3).
-
-- **Top lane, "running batch" (`4-batch/1-pending/`).**
-  - **What it shows:** the open batch's CRs not yet taken (the record's queued CRs, from the state
-    the board already sends, as the Kanban reads them), and the backlog CRs marked for this batch,
-    each with its grill state (`specifying`, `specified`).
-  - **Its sub-line:** the batch's id and state (today's `triage.running` words). With no open
-    batch, it reads "no open batch: a CR goes to the next batch", and a drop there is refused with
-    the CLI's message (see open question 3).
-- **Bottom lane, "next batch" (`3-ready`).** Today's `3-ready` column: its counts, its "the next
-  batch is ready" button (`next-batch.json`) and its foot, unchanged.
-- **Drops and moves.**
-  - Dropping a backlog post-it on the top lane runs the same function as
-    `triage <folder> --running-batch`: the mark.
-  - Dropping a marked post-it on the bottom lane, or on the inbox or a priority row, runs the
-    matching `triage` move, which clears the mark.
-  - A CR already in `4-batch/1-pending/` is shown but not draggable. Taking a CR out of the batch
-    is park-live-cr's.
-  - The selection bar offers the same two targets.
-
-**Server.** In `board/write_api.py`:
-
-- `COLUMNS` adds a `running-batch` target, which calls the lifecycle function behind
-  `triage --running-batch` (no batch file is touched; the board still never edits a batch).
-- Its journal words are `<slug> → running batch <batch> (marked)`, as a `board@1` `move` line
-  (waking).
-
-In `board/backlog.py`, each item carries the mark when it has one (`running_batch: <batch-id>`),
-so the client can place it in the top lane.
-
-**The Chief of Staff on that line** (`chief-of-staff.md`, "A watcher's end" and the "rescan" row).
-A `board wrote (...) → running batch` line is the user's destination, and for the running batch
-it is the go (factory-Q2). The Chief of Staff:
-
-- reads the CR's folder;
-- if its specification is final (written, no spec-writer running, no open question left), runs
-  `order add --note <folder>` and handles the order as usual, with no further question;
-- otherwise tells the user in one line that the CR joins once its specification is final.
-
-The other `board wrote` lines keep "one line, no action".
-
-**Words.** In `js/i18n/en-*.js` and `fr-*.js`:
-
-- the two lane titles, "Running batch" / "Batch en cours" and "Next batch" / "Prochain batch";
-- the no-open-batch line;
-- `kanban.ready_sub` keeps "waits for the next batch".
-
-### 6. Docs
+### 5. Docs
 
 - **`README.md`:** the section "Factory mode" is replaced by a short section "Running batch or next
-  batch". It covers the choice at "grilled enough?" or on the board, the default (the next batch),
-  `1-pending` as the go, and the ordinary pause, retro and close.
+  batch" (anchor `#running-batch-or-next-batch`). It covers the choice at "grilled enough?" and at
+  every spec-writer start, the default (the next batch), `1-pending` as the go, and the ordinary
+  pause, retro and close.
 - **`docs/use-cases.md`, `docs/use-cases-direct.md`, `docs/use-cases-foreman.md`:** the factory
-  sentences become the same behaviour.
+  sentences become the same behaviour, and their three links `[Factory mode](../README.md#factory-mode)`
+  (`docs/use-cases.md` line 43, `docs/use-cases-direct.md` line 75, `docs/use-cases-foreman.md`
+  line 110) point to `../README.md#running-batch-or-next-batch` with the new section's name
+  (critic fix 7).
 - **`docs/batch-lifecycle-texts.md` and `docs/batch-lifecycle.svg`:**
   - Remove "a factory batch: no close offered;" and "a factory batch: `order factory off`,".
-  - "or, in a factory batch, `triage --ready`" becomes "or `order add`, from the running batch's
-    lane or the grill".
+  - "or, in a factory batch, `triage --ready`" becomes "or `order add`, from the destination the
+    user chose".
   - Keep the two files in step as the repository's checks require.
 - **`scenario/README.md`:** the factory bullet (lines 247-251) is rewritten for the new steps
   (Evidence).
-- **`docs/release-notes/2026-11-19-v0.14.0/`:** unchanged (history).
+- **`docs/release-notes/2026-11-19-v0.14.0/`:** unchanged (history; its link is pinned to the
+  `v0.14.0` tag).
 
 ## Out of scope
 
+- **The board's lane** (factory-Q9): `board-running-batch-lane` (`1-inbox/board-running-batch-lane`,
+  after this CR in its `depends.json`) holds the backlog page's last column split into "running
+  batch" over "next batch", always shown; a drop on "running batch" that calls this CR's mark
+  function (section 2); the server's `backlog.move` target and the items' `running_batch` key,
+  with `docs/server-api.md` and `just protocol-schema` (critic fix 6); the Chief of Staff's reading
+  of that drop's `board wrote` line; and the former open questions 1 to 3 (the drop and AGENTS.md's
+  "never edits a batch", the drop of a CR already specified, the drop with no open batch). This CR
+  ships the mark function and its CLI command only.
+- **docs-sphinx-rtd** (`2-backlog/P3/docs-sphinx-rtd`): its specification names the README's
+  "Factory mode" section and the `#factory-mode` anchor (its lines 60, 71, 130, 143-145, 165). It
+  must follow the renamed section "Running batch or next batch" (critic fix 7); that CR's own
+  specification is updated before it runs, not by this CR.
 - park-live-cr (`1-inbox/park-live-cr`), which depends on this CR: taking a CR out of the running
   batch, the `blocked` state, `close` refused with a blocked CR, and dragging a CR out of
   `1-pending` on the board.
 - The Kanban view, the home page's backlog block and the terminal client (`clients/tui/`): they
-  keep reading `3-ready` as the next batch.
+  keep reading `3-ready` as the next batch. The board's `grill_of` (`board/backlog.py`) keeps its
+  words.
 - The spec-writer's own card, the specifying limit (`specifying.parallel`), the spec critic's
   criterion and the `order add` rules (budget, release rule B, refusals).
 - Old release notes.
@@ -342,41 +361,50 @@ is a prepared state, named as such and paired with `status` and `close` run on i
 within its limit):
 
 - `triage --running-batch`:
-  - with an open batch, it writes `work/running-batch` with the batch id and moves nothing;
+  - with an open batch and `work/specifying` in the folder, it writes `work/running-batch` with the
+    batch id and moves nothing;
+  - with neither `work/specifying` nor `03-change-spec.md`, it is refused (exit precondition,
+    `grill it first`);
+  - on a `3-ready` folder, it is refused (exit precondition, the message names `order add`) and
+    writes no mark;
   - with no open batch, it is refused (exit precondition, the message names `triage --ready`);
   - `--ready`, `--priority`, `--inbox`, `abandon` and `order add` each clear the mark;
   - `order add` leaves no `work/running-batch` in `1-pending`;
   - a stale mark (another batch id) shows on `status`'s stale line.
-- `status` prints the `running batch: ... marked, not joined` line with `specifying`/`specified`.
+- `status` prints the `running batch: ... marked, not joined` line with `specifying`/`written`.
 - `open --factory` and `order factory on` are refused (exit usage).
-- `open` with no CR writes no `factory` key, and its brief has no `Factory:` token.
+- `open` with no CR is allowed, writes no `factory` key, and its brief has no `Factory:` token.
 - `triage --ready` with an open batch joins nothing: the batch's CRs are unchanged.
 - The last CR's end prints the ordinary `next: the retro ...` line, also for a batch opened with
   no CR.
 - A prepared `batch.json` with `"factory": true` and a done `factory` order: `status` runs and
   prints no factory word, and `close` is not refused for that order.
-- Board, `backlog.move` to `running-batch`:
-  - it writes the mark and one `board@1` `move` line;
-  - it is refused with no open batch;
-  - it touches no file under `4-batch/`.
 - The board's shipped files: `js/model/semantics.js`, `js/views/batch.js` and
-  `js/views/home-batch.js` contain no `steeringFactoryWord`, and the i18n files have no
-  `batch.factory_on`.
-- Update or remove the factory tests:
+  `js/views/home-batch.js` contain no `steeringFactoryWord` and no `batch.no_cr_yet_factory`, and
+  `js/i18n/en-batch.js` and `fr-batch.js` have neither `batch.factory_on` nor
+  `batch.no_cr_yet_factory`.
+- Update or remove the factory tests (critic fix 5):
+  - `tests/test_factory.py`: deleted; the cases that still hold (a release CR joining, `status`
+    and the files) move to the tests above or stay with the factory word removed;
+  - `test_open_empty_batch.py`, lines 191-195 of
+    `test_the_board_words_of_a_batch_with_no_cr_are_shipped`: assert that `'batch.no_cr_yet'`
+    stays and that `'batch.no_cr_yet_factory'`, `'batch.factory_on'` and `steeringFactoryWord(`
+    are gone; its other factory assertions too;
   - `test_batch_end.py::test_the_end_of_the_last_cr_of_a_factory_batch_waits_for_the_next_ready_cr`;
   - `test_came_back.py::test_triage_ready_of_a_moved_out_cr_joins_a_factory_batch_under_its_number`
     becomes `order add` of the moved-out CR getting its number back;
-  - the factory assertions of `test_open_empty_batch.py`, `test_open_no_clone.py` and
-    `test_opening_and_restore.py`;
-  - `batch_helpers.py`'s factory helper.
+  - the factory assertions of `test_open_no_clone.py` and `test_opening_and_restore.py`;
+  - `batch_helpers.py`'s factory helper (`open_factory`).
+- The docs' links: the repository's link check reads `docs/use-cases*.md` and finds
+  `#running-batch-or-next-batch` in `README.md`.
 
 **Scenario** (`scenario/run_scenario.py`):
 
 - `empty_batch` loses its factory checks. A batch opened with no CR is paused, with no `factory`
   key, no `Factory:` token and `no CR yet: \`order add ...\``.
 - `factory_batch` (16e) is replaced by a step `running_batch`:
-  1. A CR is marked with `triage --running-batch` while the batch is open, and `status` shows it
-     `specified`.
+  1. A CR with `work/specifying` is marked with `triage --running-batch` while the batch is open;
+     once its `03-change-spec.md` is written and the marker gone, `status` shows it `written`.
   2. `order add` places it in `1-pending` and clears the mark, and the steering session takes it.
   3. Its end pauses the batch with the ordinary `next:` line (retro, then close offer).
   4. A second CR placed by `order add` before the close starts it again at the next `take`.
@@ -396,21 +424,8 @@ within its limit):
 
 ## Open questions for the user
 
-1. **The board's drop on "running batch" and AGENTS.md.** AGENTS.md says the board "never edits a
-   batch". This specification has the drop write the mark only (a backlog file and a `board@1`
-   line), and the Chief of Staff then runs `order add` when the specification is final. The other
-   way, the board places the CR in `1-pending` itself, needs AGENTS.md's board exception changed.
-   Keep the mark (recommended)?
-2. **A drop of a CR already specified** (for example from `3-ready`) on "running batch". The drop
-   is the go (factory-Q2), so the Chief of Staff adds it at its next wake with no further question.
-   Confirm?
-3. **A drop on "running batch" with no open batch.** This specification refuses it with the
-   message "no open batch: it goes to the next batch". The other way: the drop moves the CR to
-   `3-ready` directly. Refuse (recommended), or move?
-4. **A refused join.** Example: a release that has started refuses `order add` (rule B), for a CR
-   marked for the running batch whose specification has just become final. Should the CR go to
-   `3-ready` with the reason told to the user (recommended), or stay marked in its folder until the
-   user decides?
-5. **`open` with no CR.** It was the factory's way in. This specification keeps it as an ordinary
-   paused batch with no CR: no retro and no close offer at that first pause, then the ordinary end
-   after its CRs. Keep it, or remove it too?
+1. **A next spec-writer run on the same CR** (after the critic's fixes, or after open questions are
+   answered). factory-Q10 says every spec-writer start asks the destination. Does a next run on a
+   CR whose destination is already recorded in `02-answers.md` ask it again, or keep the recorded
+   one and ask only when none is recorded (recommended: the destination was the user's word, and
+   a next run follows within minutes)?
