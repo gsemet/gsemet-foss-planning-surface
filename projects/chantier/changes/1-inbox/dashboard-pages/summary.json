@@ -1,12 +1,15 @@
 {
   "schema": 1,
-  "title": "Dashboard pages: productivity and spending charts per day",
-  "summary": "Owner idea, not grilled: chantier dashboard pages with Productivity, Spending and Scorers tabs (per-day charts of PR cycle times, agent runs, cost per PR, spend by source). Depends on the studio project (markdown-okf-schema-studio): not before its batch-06 is closed.",
+  "title": "Web board Dashboard page: productivity and spending by closed batch",
+  "summary": "A read-only Dashboard view (after Costs) with Productivity and Spending tabs: one point per closed batch from the records Costs already gets, range 10/20/all, gaps never zeroed, a client-drawn SVG chart component, top 10 CRs by cost. No server change. EN and FR. batch-30.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
+    "01-intent.md": "0c57e1104d6ac7457a25765525f6dcdd6b6a35ecea37d3d32fb1ae5e35eea703",
+    "02-answers.md": "ebf75748bed5756cfc0c77005ef7de3995922a45a69009c202fa37b42f6fbdfe",
+    "03-change-spec.md": "1d17f2121855ca7e8d5f1c94413951094c8411d6f4710179b72803131d21c633",
     "intake/request.md": "cfdd5e87f5514771b8e5ca0701ff0fba380b082221c0b7e42cc5f78502748671"
   },
-  "summarized": "2026-11-20T13:16:08Z"
+  "summarized": "2026-11-21T19:17:58Z"
 }

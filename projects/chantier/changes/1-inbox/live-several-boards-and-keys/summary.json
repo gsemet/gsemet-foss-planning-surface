@@ -1,12 +1,15 @@
 {
   "schema": 1,
-  "title": "live: several boards in one screen, and keys to scroll and filter",
-  "summary": "Filed 2026-11-20, not grilled: split out of live-activity-tui; several boards or surfaces in one chantier live screen, and keyboard input (scroll the flow, filter, open a CR).",
+  "title": "live: keys to scroll and filter, and up to 4 boards in one screen",
+  "summary": "Specified (Spec v1, 2026-11-21, batch-30): chantier live keeps its Rich screen and reads keys via pinned blessed: scroll the Flow (2000 lines, paused with new count), a local filter, help, q/Ctrl-C with the terminal restored; --url repeatable up to 4 boards. No server change.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
+    "01-intent.md": "0c2a23196483c074811ac71e01c01c666c5733dec62ae301ef2bd3a43508e827",
+    "02-answers.md": "8021eab6550c4fe9b627b406418c59808f53cd054ae8b862841fb981df481afd",
+    "03-change-spec.md": "8f49a3b4f14184d1d76b24c015733aeba15be984369903d0305f0afcc044951a",
     "intake/request.md": "a96de538dddf85c6680863726b40d9be553f1527b7c7955450ee7f8f26516305"
   },
-  "summarized": "2026-11-20T22:47:06Z"
+  "summarized": "2026-11-21T19:18:32Z"
 }

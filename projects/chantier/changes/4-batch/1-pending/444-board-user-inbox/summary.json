@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Web board: an Inbox page of what needs the user",
+  "summary": "Spec v2: a board view after Home, on a project and All projects: open questions, approvals asked, PRs ready to merge, blocked CRs (paused batch too), from a read-only needs_you field. Open, Snooze 1 h, Later 08:00, Discard, kept in the browser; counts, guarded opt-in notification.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "09867bad6257f3dc507216f824ac14f78f1e3fd22e327bd43e0a917cd4d268c8",
+    "02-answers.md": "609141ce0201efe0d5e81c4982a2ced8571a2478033906b673e6a993a0ea8f43",
+    "03-change-spec.md": "24fe1d1916bc6c297675ad65f47a7c3a683401e562a8ff83b033c9acf9cfd8ea",
+    "intake/request.md": "0828ee050d20ba15ca11fd7103a90e411d1f6b1969732595c34ecb89e33febe3"
+  },
+  "summarized": "2026-11-21T19:17:56Z"
+}

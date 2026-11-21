@@ -20,5 +20,5 @@
 ## Settled by the Chief of Staff (spec critic, 2026-11-21)
 
 - Tab items: nothing shown (their bodies are unmapped and edited whole).
-- Footnote label line alone (`[^b]:` then a run then the indented body): a footnote run, 4-space indent (critic F2: column 0 would turn the body into a code block). A run between two footnote definitions keeps the top-level rule, except bq-Q5.
+- Footnote label line alone (`[^b]:` then a run then the indented body): a footnote run, 4-space indent (critic F2: column 0 would turn the body into a code block). A run between two footnote definitions belongs to the footnote above (shown at its end), as bq-Q5 says: a typed `[^x]:` definition goes at the footnote list's indent (a sibling footnote); any other text takes the 4-space indent and stays in the footnote above. A run between the last footnote definition and the body after it keeps the top-level rule.
 - Critic findings F1 (equal-line order and delete target), F3 (final line break), F4 (footnote DOM order: `aboveOf` by largest line, delete target by holder), F5 (any non-container holder in the chain shows nothing), F6 (forged container line accepted as in CR-448; tab after `>` keeps columns) are fixed in the spec.

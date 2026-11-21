@@ -227,19 +227,26 @@ blocks alone.
   - The Driver finds the render step where the footnotes section is built from the definitions;
     it is in the MyST-to-HTML conversion of `src/core/render/`.
   - It is never `data-line`; it is stripped from the export like the `dd` attribute.
-- **The rule.** A footnote is not a holder, since it has no source line. A run held by no top-level
-  block is inside footnote F when both hold:
-  - F's label line is before `run.line`;
-  - the nearest top-level mapped block after the run (the one with the smallest line greater than
-    `run.endLine`) is inside F.
+- **The rule.** A footnote is not a holder, since it has no source line. Take a run held by no
+  top-level block. Let "below" be the nearest top-level mapped block after it (the one with the
+  smallest line greater than `run.endLine`), and "above" the nearest one before it (the largest
+  line less than `run.line`). Both are found by comparing lines. The run is inside footnote F in
+  two cases:
+  - **In F's body:** "below" is inside F, and F's label line is before `run.line`.
+  - **Between two footnotes (bq-Q5):** "above" is inside F, and "below" is inside another footnote
+    G whose label line is after the run. Like a run between two items (CR-448) or between two
+    definition entries, the run belongs to the footnote above.
 
-  F is then the host container, and its container line is F's label line.
+  F is then the host container, and its container line is F's label line. The first case is
+  tested first.
 - **What the rule covers.**
   - A run between two paragraphs of a footnote.
   - A run right after a label line alone (`[^b]:`, a run, then the indented body). This one shows
     at the start of F, before its first block (settled by the Chief of Staff, critic F2).
-  - A run between two footnote definitions is not inside a footnote: the label line of the next
-    one is after the run. It is a top-level run (below).
+  - A run between two footnote definitions. It shows at the end of the footnote above, after its
+    last block. Section 4 says what a block typed there becomes.
+  - A run between the last footnote definition and the body text after it is not between two
+    footnotes. It is a top-level run (below).
 - **Footnotes nested in a container.** When the run is held by a top-level block, the chain rules
   apply. A footnote definition written inside a quote, a list item or a directive has its
   paragraphs outside that container on the page, at the end of the content. So a run whose holder
@@ -251,9 +258,8 @@ the content, but its blocks' lines can sit anywhere in the source.
 - `aboveOf` picks, among the top-level body blocks that are not inside `section[data-footnotes]`,
   the one with the largest line before `run.line`. It compares lines; it never relies on the
   array's order. With none, it picks the properties section or the start, as today.
-- So a run between two footnote definitions, or between a footnote definition and the body that
-  follows it, shows in the body right after that block, where a paragraph typed there at column 0
-  renders.
+- So a run between a footnote definition and the body that follows it shows in the body, right
+  after that block, where a paragraph typed there at column 0 renders.
 - Folding: the "below" neighbour that the folded check reads is, likewise, the body block outside
   the footnotes with the smallest line after the run.
 
@@ -419,9 +425,16 @@ where they can. The input is a run `line`..`endLine`, with an optional `itemLine
          definition marker line (a term, then its definition).
 
        Any other text typed there takes the content indent.
-   - **Footnote** (`containerLine` starts, after at most three spaces, with `[^label]:`): the label
-     line's leading spaces and tabs, then four spaces. Checked on origin/main: two spaces leave the
-     footnote, four stay.
+   - **Footnote** (`containerLine` starts, after at most three spaces, with `[^label]:`):
+     - the label line's leading spaces and tabs, then four spaces. Checked on origin/main: two
+       spaces leave the footnote, four stay;
+     - except for a new footnote between two footnotes (bq-Q5): the label line's leading spaces and
+       tabs only (the footnote list's indent). That applies when both of these hold:
+       - **between two footnotes:** the line after the run is a footnote label line
+         (`[^label]:`) at the container line's column;
+       - **the typed block is a new footnote:** its first line starts with `[^label]:`.
+
+       Any other text typed there takes the four-space indent and stays in the footnote above.
    - **Any other line** is refused as stale.
 4. **The container indent** is the quote part followed by the inner indent. The line is also
    refused when it is in the frontmatter or not before the run.
@@ -431,13 +444,13 @@ place before the run and its quote markers. It does not check that the run is re
 container: a well-formed line of another container gives that line's indent. This is what CR-448
 accepts for an item line (critic F6).
 
-**Footnote definitions typed between two footnotes (bq-Q5, second half).** A run between two
-footnote definitions is a top-level run (section 2, settled by the Chief of Staff). A block typed
-there is written at column 0, so a `[^x]:` definition typed there is a sibling footnote at the
-list's indent, and any other text is a body paragraph.
-- Inside a quote or a list item, such a run is held by the quote or the item. A `[^x]:` typed
-  there gets the quote part or the item's content indent, which is that footnote list's indent.
-- No other rule is needed for it.
+**The same rule for definitions and footnotes (bq-Q5).** The owner's answer: "un terme suivi
+d'une ligne « : » devient une entrée au même niveau ; tout autre texte reste dans la définition du
+dessus. Même règle pour une note [^x]: tapée entre deux notes." So, in a run between two entries of
+a definition list, or between two footnote definitions:
+- a new entry (a term with its `:` line, or a `[^x]:` definition) is written at the list's indent,
+  as a sibling;
+- any other text takes the content indent and stays in the entry above.
 
 Examples, with "More" typed unless the row says otherwise:
 
@@ -460,6 +473,8 @@ Examples, with "More" typed unless the row says otherwise:
 | `Term`, `: d1`, blank, blank, `Other`, `: d2`, with `New`, `: dn` typed | `New`, `: dn` |
 | `[^a]: f1`, blank, blank, `    more` | `    More` |
 | `[^b]:`, blank, blank, `    body` | `    More` |
+| `[^a]: f1`, blank, blank, `[^b]: f2` | `    More` (in footnote a) |
+| `[^a]: f1`, blank, blank, `[^b]: f2`, with `[^c]: f3` typed | `[^c]: f3` (a sibling footnote) |
 
 **What is written.**
 - **Lines with text.** Each line of the block that is not blank gets the container indent before
@@ -575,7 +590,9 @@ runs inside a quote, an alert or an admonition show nothing.
     directive of section 2's list (quote directives included), a context-tag panel, a definition
     and a footnote, shown inside that container.
   - They add that a run inside a closed dropdown shows only while the dropdown is open.
-  - They add that a run between footnote definitions shows in the body after the block above it.
+  - They add that a run between two footnote definitions shows at the end of the footnote above.
+    A run between a footnote definition and the body after it shows in the body, after the body
+    block above it.
   - The "Nothing is shown" scenario drops "a quote, an alert or an admonition". It keeps a fence,
     an HTML block, a table, a tab item and every holder outside the list.
   - Add the scenarios "Runs inside quotes and containers are shown" and "A run in a closed dropdown
@@ -593,10 +610,12 @@ runs inside a quote, an alert or an admonition show nothing.
     indent.
   - It adds that inside a quote the block's blank lines and separators are copies of the run's
     first line.
-  - It adds that a new definition entry typed between two entries goes at the list's indent.
+  - It adds that a new entry typed between two entries goes at the list's indent: a term with its
+    `:` line between two definition entries, or a `[^x]:` definition between two footnotes. Any
+    other text typed there stays in the entry above.
   - It adds that the host checks the shape of the container line and refuses it as stale.
   - Add the scenarios "A block typed in a quote or a container stays in it" and "A new entry typed
-    between two definitions is a sibling entry".
+    between two definitions or two footnotes is a sibling entry".
 - **SwRS-MDOKFSTUDIO-BLOCK-269** (removal):
   - The normative text adds that a quote run keeps its first empty `>` line wherever it is, with
     the final line break kept or kept absent.
@@ -699,11 +718,14 @@ runs inside a quote, an alert or an admonition show nothing.
   - "- c" between `> - x` and `> - y` gives `> - c`.
   - "New\n: dn" between two definition entries gives `New`, `: dn`; between two paragraphs of one
     definition it gives `  New`, `  : dn`.
+  - "[^c]: f3" between two footnote definitions gives `[^c]: f3`; "More" there gives `    More`;
+    "[^c]: f3" between two paragraphs of one footnote gives `    [^c]: f3`.
   - Without `itemLine` or `containerLine`, the output for a plain run is identical to today.
 - **Rendered result.** Each insertion and paste case above applies its plan to the text and renders
   the result with `renderPreviewSource`. It asserts one top-level container (quote, alert,
   admonition, panel, quote directive, definition list or footnote) and the new block inside the
-  expected container. For the new definition entry, it asserts one `dl` with three terms.
+  expected container. For the new definition entry, it asserts one `dl` with three terms; for the new footnote, three
+  footnotes, and for "More" between two footnotes, a second paragraph in the first one.
 
 **Protocol, `test/core/protocol/pageToHost.test.ts`.** `replaceBlankRun.containerLine` is accepted
 when it is a source line below `line`. It is rejected when at or after `line`, when not an integer,
@@ -747,8 +769,11 @@ per rule; add shapes to the harness for each container.
   - A run between two paragraphs of a footnote makes one block inside the footnote `li`, and its
     message carries the footnote's label line as `containerLine`.
   - A run after a label line alone makes one block at the start of that `li`, with that label line.
-  - A run between two footnote definitions makes one block in the body, right after the body block
-    with the largest line before it, even when footnote blocks have larger lines.
+  - A run between two footnote definitions makes one block at the end of the first footnote's
+    `li`, with that footnote's label line as `containerLine`.
+  - A run between a footnote definition and the body after it makes one block in the body, right
+    after the body block with the largest line before it, even when footnote blocks have larger
+    lines.
   - A run in the body of a footnote written inside a quote makes none.
 - **Nothing shown:** a run in a fence inside a quote, in a `pre`, in a table, in a tab panel, and in
   a table inside an admonition (a non-container in the chain) makes none.
@@ -794,6 +819,8 @@ the real handlers, in LF and CR LF.
     admonition nested in a list item, a context-tag panel, an `{epigraph}`, a definition, a footnote
     and a footnote label line alone.
   - A save of "New\n: dn" between two definition entries writes a sibling entry.
+  - Between two footnote definitions, a save of "[^c]: f3" writes a sibling footnote at column 0,
+    and a save of "More" writes `    More` in the footnote above.
   - A save of "- c" with `itemLine` in a list inside a quote writes `> - c` between items and
     `>   - c` inside an item.
 - **Rendered result:** each save and paste above renders the written text with
