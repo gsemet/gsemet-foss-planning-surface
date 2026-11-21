@@ -7,3 +7,4 @@ Short name: `board-exposure`
 3. board-exposure-Q3 (2026-11-21): **The key in the sessions' output.** B. Keep printing the full URL; rely on the rotation (Q2).
 4. board-exposure-Q4 (2026-11-21): **Grilled enough.** A. Yes, specify now.
 Spec critic: yes, it changes what the user sees and does (the board's access, its URL) and a security protection.
+Spec critic run (2026-11-21), fixes that need no user, for the spec-writer's next run: (4) add README.md:231-232 and docs/web-board.md:8 to the Docs list (the board on this machine by default, the phone once opened to the network); (5) note the overlap with 2-backlog/P3/docs-sphinx-rtd (its "On a phone" section must say the phone first needs `board.host`/`--host`; the second to merge rebases the moved web-board.md). Findings 1, 2 and 3 go to the user.
