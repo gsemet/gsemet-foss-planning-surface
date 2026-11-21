@@ -5,7 +5,7 @@ but systematic mechanism that the CLI enforces (Studio's owner: "pas trop lourd 
 systématique"). Two parts carry it: a shape line at each heartbeat, and `asks` refusing a per-CR
 ready ask in a stack batch while that ask would leave another PR of the batch behind main. Two
 lighter parts back them up: a stack card the Foreman rereads at the reload, and the Chief of Staff
-checking each ask against the shape. Specification v4.
+checking each ask against the shape. Specification v5.
 
 ## Goal
 
@@ -29,7 +29,8 @@ but not as a procedure. After this CR:
   a CR truly alone may still ask alone, and so may a CR outside the stack's chain (a fix or held
   CR);
 - the stack rules live in one card that a stack batch's Foreman reads at the batch's start and
-  rereads after each compaction;
+  rereads after each compaction; the heartbeat's shape line ends with that card's path (`rules:`),
+  so a compacted Foreman, which rereads only its startup sections, is led back to it (Q16);
 - the Chief of Staff relays no readiness ask that does not fit the batch's shape: it sends it back
   and tells the user in one line.
 
@@ -82,6 +83,19 @@ but not as a procedure. After this CR:
   qualified (4); drop-to-next-batch joins 5 (5); the guard's exception is "the CR is not in
   `chain(b_data)`" (6); the `session-start.md` reload sentence is for a Chief of Staff steering in
   direct mode only (7).
+- **Critic run 3, fixes 2-5:** the shape line's `forming` test applies only while no CR of
+  `chain` is stacked, so an open stack waiting for its merge reads Q13's `next` (2, see 2); the
+  card's shape-line bullet calls the line a reminder, "The first take" and "Each later take" staying
+  the reference (3, see 3); the scenario's `early_conflict` stack case changes its check (4, see 6);
+  the landing order is known: CR-428, CR-430 and CR-431 land before this CR (5, see 5).
+- **Q16 (A, Fable advisor, rule 12):** the shape line ends
+  `rules: <skill>/references/foreman-stack.md (reread after a compaction)`, `<skill>` being
+  `skill_dir().as_posix()` as `commands/facts.py` builds its `cards:` line (line 111). The card and
+  `foreman.md` keep the rule; the line is only a pointer, keyed on the batch's mode and not on a
+  role (precedents: `commands/facts.py:111`'s `cards:` line, `commands/access.py:24`'s
+  `(driver.md)`). No startup section changes. Known limit: the line makes the card reachable after
+  a compaction; it cannot force the read. The guard of 1 stays the hard stop. See 2, 3, 6 and the
+  evidence.
 - **Rule 12:** no more questions to the user on this CR; this version leaves none open.
 
 ## The criterion (one function, three readers)
@@ -193,14 +207,17 @@ guard's refusal, Q15) and `commands/batch_status.py` (`status`).
   `status` prints one line right after the batch line (the `<batch> running steering … shape
   stack …` line):
 
-  `shape stack: next <next>; stack driver: <driver>; native stack: <native>; alone asks: <alone>`
+  `shape stack: next <next>; stack driver: <driver>; native stack: <native>; alone asks: <alone>; rules: <skill>/references/foreman-stack.md (reread after a compaction)`
 
   - `<next>` (Q11), from `next_step(b_data)`:
     - `note to the stack driver` when a stack driver is recorded (`stack_agent` set): events then
       go to it as `[foreman→stack] note …`, as the card says;
-    - else `take stack` when a take is due: `forming(b_data)` holds at least `FORMING` (2) CRs, or
-      a stacked CR of `chain` exists and a CR of `chain` that is not stacked (release aside) is
-      `ready` with a PR (a later take);
+    - else `take stack` when a take is due: while no CR of `chain` is stacked, `forming(b_data)`
+      holds at least `FORMING` (2) CRs (the first take); or a stacked CR of `chain` exists and a CR
+      of `chain` that is not stacked (release aside) is `ready` with a PR (a later take). The
+      `forming` test does not apply once a CR of `chain` is stacked (critic run 3, fix 2): an open
+      stack of two ready CRs waiting for its merge counts two in `forming`, yet has nothing to add
+      and reads the next case;
     - else, when a stacked CR of `chain` exists (the stack waits for its merge, nothing to add):
       `take stack at the next ready CR or merge` (Q13: a recorded merge is also a trigger, as
       `foreman.md`'s "Each later take" says);
@@ -210,8 +227,9 @@ guard's refusal, Q15) and `commands/batch_status.py` (`status`).
     chain that are neither release nor fix (`_alone`), `ready`, with a PR, and with every open
     dependency `ready` (`_open_after`). `stack_due` keeps its own conditions (running, no stack
     driver, no CR ever stacked) and calls `forming`; its behaviour does not change. The shape line
-    does not use "no CR ever stacked": in Studio's second wave, after the morning stack merged, it
-    reads `take stack` as soon as two second-wave CRs are ready with a PR.
+    does not use "no CR ever stacked" but "no CR of `chain` stacked" (merged CRs leave `chain`): in
+    Studio's second wave, after the morning stack merged, it reads `take stack` as soon as two
+    second-wave CRs are ready with a PR.
   - `<driver>`: the recorded `stack_agent`, else `none`.
   - `<native>`: `present (<cr>, <cr>…)` listing the CRs of `chain` that have `stacked` set,
     bottom first, else `absent`.
@@ -220,9 +238,13 @@ guard's refusal, Q15) and `commands/batch_status.py` (`status`).
     - `refused` when a stacked CR of `chain` exists or at least two CRs of `chain` have a PR;
     - `allowed for <cr> only` when exactly one CR of `chain` has a PR and none is stacked;
     - `allowed` when no CR of `chain` has a PR.
+  - `rules: <skill>/references/foreman-stack.md (reread after a compaction)` (Q16): always the
+    line's last part, the same in every state; `<skill>` is `skill_dir().as_posix()`
+    (`plugin_files.py`), as `commands/facts.py` builds its `cards:` line. The part points at the
+    card; it does not repeat the card's rule.
 
-  With nothing recorded, the line reads exactly:
-  `shape stack: next parallel until 2 ready with a PR; stack driver: none; native stack: absent; alone asks: allowed`.
+  With nothing recorded, the line reads exactly (`<skill>` filled in):
+  `shape stack: next parallel until 2 ready with a PR; stack driver: none; native stack: absent; alone asks: allowed; rules: <skill>/references/foreman-stack.md (reread after a compaction)`.
 - A plain `status` (no `--refresh`), and any batch that is not a stack, prints no such line. The
   existing `stack: take stack now: …` line (`stack_line`) is unchanged and still printed when due.
 - The line is read from the record only: no forge read and no write. "Native stack" here means what
@@ -238,7 +260,8 @@ Files: `skills/chantier/references/foreman-stack.md` (new), `foreman.md`,
   batch`. Its opening says who reads it and when:
   - the Foreman of a stack batch (a batch whose `status` line shows `shape stack`, by `--mode
     stack` or by `order mode --note stack`), and the Chief of Staff steering one in direct mode;
-  - at the batch's start, and again after each compaction;
+  - at the batch's start, and again after each compaction (the heartbeat's shape line names this
+    card's path in its `rules:` part, Q16, so a compacted Foreman finds it there);
   - at a mode switch to a stack.
 
   It holds, moved verbatim from `foreman.md` (wording kept, links adjusted, no rule changed but the
@@ -247,7 +270,7 @@ Files: `skills/chantier/references/foreman-stack.md` (new), `foreman.md`,
     to a stack by `order mode`): until the first stack is made it runs like a parallel batch …`
     through the end of "The five checks of a stack ready to merge". That span covers: the first
     take, each later take, a merge while a stack driver runs, a working CR placed on another, the
-    final-order take, a held CR, deliver by a time, `take stack` and the stack driver's lifecycle,
+    final-order take, deliver by a time, `take stack` and the stack driver's lifecycle,
     its hand-backs and the `stack-ready-to-merge` asks (partial and complete), the anomalies, a
     drop in the stack, heavy CI, the failed-check route, the gaps, inserting a CR, and the five
     checks;
@@ -295,13 +318,19 @@ Files: `skills/chantier/references/foreman-stack.md` (new), `foreman.md`,
     taken like any later take, `take stack --epoch <n>` (or `[foreman→stack] note shape: <cr>` to
     a running stack driver), then `order done`; with `parallel until 2 ready with a PR`, `order
     done` and wait (Q15);
-  - the heartbeat's `shape stack: …` line is the stack's reminder: its `next` is the step for any
-    stack event read at that wake.
+  - the heartbeat's `shape stack: …` line is the stack's reminder, not its rule: its `next` names
+    the step for any stack event read at that wake, and "The first take" and "Each later take" stay
+    the reference (as `foreman.md` says today of `stack: take stack now`, around lines 390-392:
+    "this rule stays the reference; the line only reminds it") (critic run 3, fix 3);
+  - the shape line's `rules:` part names this card's path (Q16): when this card is not in context
+    (after a compaction, or a session that has not read it in this batch), read it whole before the
+    next act on the stack.
 - **`foreman.md`** keeps:
   - **a pointer in place of the moved span**, one bullet: "A stack batch (`--mode stack`, or a
     batch switched to a stack by `order mode`): its rules are in
     [foreman-stack](foreman-stack.md). Read it whole at the batch's start and again after each
-    compaction while `status` shows `shape stack`.";
+    compaction while `status` shows `shape stack`; the heartbeat's shape line names its path
+    (`rules:`).";
   - **a pointer in place of the Stack branch** of the `order merged` bullet: "**Stack:** see
     [foreman-stack](foreman-stack.md), "After a merge".";
   - **the opening paragraph** (the line that says "and again after a compaction: reread only those
@@ -322,8 +351,9 @@ Files: `skills/chantier/references/foreman-stack.md` (new), `foreman.md`,
 - **`session-start.md`, "5. Reload"**: one sentence after "this role's startup sections only",
   limited to a Chief of Staff steering in direct mode (critic run 2, fix 7): one whose
   `$CHANTIER status` shows `shape stack` then reads the manifest's `batch:stack` readings before
-  its next act. A Foreman rereads the card through `foreman.md`'s opening paragraph (above), not
-  through this sentence. The reload's "Read only" rule is unchanged. Keep the sentence short: this
+  its next act. A Foreman is led back to the card by the shape line's `rules:` (Q16): after a
+  compaction it rereads only its startup sections, which do not hold `foreman.md`'s opening
+  paragraph. The reload's "Read only" rule is unchanged. Keep the sentence short: this
   section counts in every role's reload bytes.
 - **`chief-of-staff.md`**:
   - the direct-mode steering section ("Steering a batch yourself", which reads `foreman.md`) adds
@@ -366,23 +396,26 @@ forge (`forge-stack show`, the five checks). In direct mode the steering session
 asks the same way. (The CLI already refuses such an ask; the check catches one recorded before this
 CR or forced without a fitting order.)
 
-### 5. Cards that other ready CRs edit (critic fix 5)
+### 5. Cards that other CRs edit, landed first (critic run 1, fix 5; critic run 3, fix 5)
 
-Three CRs in `3-ready` edit text that this CR moves out of `foreman.md`:
+Three CRs edit text that this CR moves out of `foreman.md`. All three are in batch-30 and land
+before this CR, so the order is known:
 
-- **hold-live-cr**: its §8 moves "A held CR" (`foreman.md`, today inside the stack batch bullet)
-  into a bullet for every mode. If hold-live-cr lands first, "A held CR" is no longer in the moved
-  span: it stays in `foreman.md`, and this CR moves the rest. If this CR lands first, hold-live-cr
-  takes "A held CR" from `foreman-stack.md` and places its every-mode bullet in `foreman.md`.
-- **park-live-cr**: it edits inside the moved span, and its tests read `foreman.md` for
-  `rebase: <cr> dropped`.
-- **drop-to-next-batch** (critic run 2, fix 5): it edits "A drop in the stack" (`foreman.md`,
-  around line 469, inside the moved span) to list `3-ready` among the drop destinations; its card
-  test reads both cards joined.
+- **CR-431 hold-live-cr**: its §8 moves "A held CR" out of the stack batch bullet into a bullet for
+  every mode. Once it has landed, "A held CR" is no longer in the moved span: it stays in
+  `foreman.md`, where hold-live-cr left it, and this CR moves the rest (§3's list does not name
+  it).
+- **CR-430 park-live-cr**: it edits inside the moved span, and its tests read `foreman.md` for
+  `rebase: <cr> dropped`. Its edits travel with the span into `foreman-stack.md`, as it left them.
+- **CR-428 drop-to-next-batch**: it edits "A drop in the stack" (`foreman.md`, inside the moved
+  span) to list `3-ready` among the drop destinations. Its edit travels with the span into
+  `foreman-stack.md`, as it left it.
 
-Rule: whichever of the CRs lands second re-applies its edit in the card that holds the text at its
-rebase, and a test that reads moved text reads both cards (`foreman.md` and `foreman-stack.md`
-joined), so it holds whatever the landing order.
+Rule: this CR moves the span as those CRs left it, at its rebase onto them, and rewrites none of
+their text. Each of their card checks that reads text this CR moves (park-live-cr's
+`rebase: <cr> dropped`, drop-to-next-batch's "A drop in the stack" check, and any other the Driver
+finds by searching the tests for the moved phrases) is changed by this CR to read `foreman.md` and
+`foreman-stack.md` joined.
 
 ### 6. The scenario (`scenario/run_scenario.py`, `scenario/README.md`)
 
@@ -390,9 +423,18 @@ joined), so it holds whatever the landing order.
   `ready-to-merge`/`pr-in-draft`) follows the new card: in a stack batch, a ready CR of the
   stack's chain gets a per-CR `ready-to-merge` ask only when `shape_blockers` is empty for it;
   otherwise it waits for the stack. Without this change, step 13 (`stack_batch`) would hit the refusal.
+- **`early_conflict`'s stack case** (`run_scenario.py`, around lines 7700-7706: "a stack batch: no
+  merge-tree runs and no `conflict` ask is sent", which today checks that the last ask starts with
+  `ready-to-merge <second> `) changes its check with the scripted Foreman (critic run 3, fix 4): no
+  merge-tree runs, no `conflict` ask, no per-CR ask for `second`, and the stack is due (`status`
+  prints the `stack: take stack now` line, or the shape line reads `next take stack`).
 - **New checks in `stack_batch`** (step 13):
   - before any CR has a PR: `status --refresh --epoch 1` prints, as its second line,
-    `shape stack: next parallel until 2 ready with a PR; stack driver: none; native stack: absent; alone asks: allowed`;
+    `shape stack: next parallel until 2 ready with a PR; stack driver: none; native stack: absent; alone asks: allowed; rules: <skill>/references/foreman-stack.md (reread after a compaction)`,
+    with `<skill>` the scenario's skill folder (Q16);
+  - the path the `rules:` part names exists (one check, Q16);
+  - the checks below compare the part of the line before `; rules:`, and each line they read ends
+    with the same `rules:` part;
   - with one CR (`<one>`) ready with a PR and no other open PR: the line ends
     `alone asks: allowed for <one> only`, and `asks ready-to-merge <one> <pr>` is accepted;
   - once two CRs are ready with a PR: the line reads `next take stack` and `alone asks: refused`,
@@ -411,8 +453,9 @@ joined), so it holds whatever the landing order.
   with exactly one open PR, that case stays with the unit tests.
 - **One parallel step** already in the scenario (for example `lost_messages`): `status --refresh`
   there prints no `shape stack:` line. One check.
-- **`scenario/README.md`, "Coverage"**: one bullet for the guard and the shape line, with its
-  `(unit: …)` and `(test: …)` markers, as `test_scenario_coverage.py` requires.
+- **`scenario/README.md`, "Coverage"**: one bullet for the guard and the shape line, its `rules:`
+  pointer to `foreman-stack.md` included (Q16), with its `(unit: …)` and `(test: …)` markers, as
+  `test_scenario_coverage.py` requires.
 
 ## Evidence
 
@@ -439,10 +482,14 @@ joined), so it holds whatever the landing order.
     another CR's order, a done order on the CR, and a `shape:` note on the CR; refused (exit 1) on
     an ask the guard would let through. Use one in-process `asks` call on a prepared stack batch
     for the recorded text and the exit codes;
-  - `shape_line`, parametrized: the exact line with nothing recorded (above); `next take stack`
-    with two CRs ready with a PR; `next take stack` after a merged stack when two new CRs are
-    ready (no CR ever stacked is not required); `next take stack at the next ready CR or merge`
-    with an open stack and nothing to add (Q13); `alone asks: allowed for <cr> only` when the only
+  - `shape_line`, parametrized: the exact whole line with nothing recorded (above), the `rules:`
+    path included, built from `skill_dir().as_posix()` (Q16); in every row, the line ends with
+    `; rules: <skill>/references/foreman-stack.md (reread after a compaction)` and that path exists
+    in the repository at the head under test; the other rows compare the part before `; rules:`:
+    `next take stack` with two CRs ready with a PR; `next take stack` after a merged stack when two
+    new CRs are ready (no CR ever stacked is not required); `next take stack at the next ready CR or
+    merge` with an open stack and nothing to add (Q13), including an open stack of two ready
+    stacked CRs, which `forming` alone would read as a take (critic run 3, fix 2); `alone asks: allowed for <cr> only` when the only
     other open PRs are a fix CR's and a held CR's (Q12); `note to the stack driver` with a
     recorded driver; `native stack: present (…)` with merged stacked CRs left out; each
     `alone asks` value; `[]` for a parallel or series batch;
@@ -456,8 +503,9 @@ joined), so it holds whatever the landing order.
     `batch:stack`; `chief-of-staff.md` holds `shape: through the stack`, `sent back through the
     stack` and `while that CR is the only open PR of the stack`; `foreman.md` and
     `foreman-stack.md` joined no longer hold "even with CRs before it in the order still working".
-    A check on a span that hold-live-cr, park-live-cr or drop-to-next-batch also moves reads both
-    cards joined (see 5).
+    "A held CR" stays in `foreman.md` (hold-live-cr, landed first). A check on text that
+    park-live-cr or drop-to-next-batch edited inside the moved span, theirs or this CR's, reads
+    both cards joined (see 5).
 
   `test_startup_manifest.py` (377 lines) gets no new rows: its existing measurement covers the new
   action (every action reading must resolve) and the reload limit, which the `session-start.md`
@@ -487,8 +535,8 @@ joined), so it holds whatever the landing order.
 
 ## Open questions
 
-None. The spec v2's two questions are settled by Q12 and Q13, and the critic run 2's two findings
-by Q14 and Q15 (Fable advisor, rule 12).
+None. The spec v2's two questions are settled by Q12 and Q13, the critic run 2's two findings
+by Q14 and Q15, and the critic run 3's finding 1 by Q16 (Fable advisor, rule 12).
 
 Small points settled by the spec-writer (rule 12):
 
