@@ -9,7 +9,9 @@ it then comes back on top (in a series, after the CRs already started), its depe
 and is taken back before any queued CR. No release starts while a CR is held. Dropping a held CR
 that has dependents has their Drivers take its commits out of their branches.
 
-Spec v3 (run 3): takes in the spec critic's run on v2 (fixes 1 to 10, none needing the user) and
+Spec v4 (run 4): takes in the joint spec critic's run on park-live-cr v6 and this v3, its fixes 1
+to 4, 10 and 11 (5 to 9 are park-live-cr's; none needs the user); the "Shared with park-live-cr"
+section is unchanged. v3 (run 3) took in the spec critic's run on v2 (fixes 1 to 10, none needing the user) and
 hold-live-cr-Q2 (dropping a held CR that has dependents), and copies the "Shared with
 hold-live-cr" section of park-live-cr's specification v6 word for word. v2 (run 2) took in
 hold-live-cr-Q1, answers 3 and 4 and park-live-cr's critic run 2.
@@ -44,6 +46,24 @@ there and holds its own answers (hold-live-cr-Q1, Q2, entries 3 and 4).
 | Shared with park-live-cr's critic runs 2 and 3 | One `out_of_order` definition; one base rule for a dependent with several open dependencies (it replaces v1's `_nearest_open`); `apart_owner` follows the base rule's candidate; forge-stack's `waiting` covers the dependents of any apart CR; the series `start_on` recorded at the take. | "Shared with park-live-cr"; 3 |
 | hold-live-cr-Q2 (A) | Dropping a held CR that has dependents, in a series or parallel batch: the Foreman has the dependents' Drivers rebase to take its commits out (the note `rebase: <cr> dropped`); they go on. In a stack the stack driver's removal stays. | "Shared with park-live-cr" (`order drop` of an apart CR); 1b; 8; Evidence |
 | Answers 3 and 4 (from drop-to-next-batch-Q2 and the user's correction) | A held CR may be dropped to any destination `order drop` takes, on the user's decision: P1-P4, `3-ready`, the trash; never the inbox (answer 4 supersedes answer 3's "inbox included"). | Out of scope |
+
+### The joint spec critic's fixes applied here (run on park-live-cr v6 and hold-live-cr v3)
+
+1. The dependents of the CR held are worked out with the CR already held (its `held` set first), so
+   a series successor already started on it is a dependent and keeps its `start_on`: section 1; one
+   assert in the Series test.
+2. The card checks go in `test_came_back.py` (it already reads card content), not in
+   `test_plugin_files.py` (400 lines, the file-size limit); the new hold cases go in a new
+   `test_hold_live.py` if `test_stack_hold.py` (371 lines) would pass the limit: Evidence.
+3. Row 1 of the readers' table: `held_lines` does not follow `chain` (it reads `is_held`, row
+   `stacks.held_lines`): section 3.
+4. `driver.md`'s `rebase: <cr> dropped` paragraph ends with park-live-cr's last sentences, so the
+   two specifications write it word for word: section 8.
+10. The held `handback` test expects the held text only for `handback ready` with the agent still
+    recorded (the refusal sits after `live_cr`, as park-live-cr's does); the other cases are
+    refused by `live_cr`'s own text: Evidence.
+11. The mode refusal "batch … is not a stack" is gone: a ready CR outside a stack gets the new
+    ready text, at the status check's place in the refusal order: section 1.
 
 ### The spec critic's fixes applied here (run on v2)
 
@@ -174,10 +194,12 @@ The CLI lives in `skills/chantier/scripts/cli/src/chantier/`, the cards in
 
 `commands/orders_hold.py`, `hold`:
 
-- **Mode.** The refusal "batch … is not a stack" is now raised only for a `ready` CR. A working CR
-  is accepted in parallel, series and stack batches.
-- **Refusals kept, in this order:** the release CR or a fix CR (today's texts); a CR already held
-  (`<cr> is already held (order <O-n>)`).
+- **Mode.** Today's first refusal, "batch … is not a stack", is removed (joint critic, fix 11): a
+  working CR is accepted in parallel, series and stack batches, and a ready CR outside a stack gets
+  the ready text below, at the status check's place.
+- **Refusals, in this order:** the release CR or a fix CR (today's texts); a CR already held
+  (`<cr> is already held (order <O-n>)`); the status (below); for a ready CR of a stack, today's
+  dependents refusal.
 - **Status.** Accepted: `working` in any mode; `ready` in a stack only (today's rule, with today's
   dependents refusal "<x> depends on <cr>: it cannot stand in the stack without it", kept for a
   ready CR only). Any other status, and a ready CR outside a stack, is refused, exit precondition,
@@ -192,7 +214,8 @@ The CLI lives in `skills/chantier/scripts/cli/src/chantier/`, the cards in
     Driver's next leased command is `claim lost`. `held(d)` (`rails.py`) no longer counts it, so
     its slot is free at once;
   - it leaves the stack and the order as a held ready CR leaves the stack: `stacked=False`, its own
-    `start_on` unset, and every open CR whose `start_on` names the branch of the held CR or of one
+    `start_on` unset, and then (its dependents worked out with `held` already set, so that a series
+    successor already started on it is a dependent; joint critic, fix 1) every open CR whose `start_on` names the branch of the held CR or of one
     of its dependents, and that is not itself a dependent, gets its `start_on` unset (today's loop
     of `orders_hold.hold`, widened from "its branch" and moved into a shared helper in `stacks.py`
     that park-live-cr's `park` calls too; whichever lands first moves it). A dependent keeps its
@@ -274,7 +297,7 @@ candidate) with its kind (`held <p> (order <O-n>)`, or `parked <p>` once park-li
 
 | Reader | Reads | Why |
 | --- | --- | --- |
-| `stacks.chain`, `stacks.top_cr`, `stacks.next_merge` | `out_of_order` | Neither a held CR nor its dependents stand in the stack or the series' merge order (Q3, Fable 6). A ready dependent in a series is not the next merge (hold-live-cr-Q1). `stack_due` and `held_lines` follow `chain`. |
+| `stacks.chain`, `stacks.top_cr`, `stacks.next_merge` | `out_of_order` | Neither a held CR nor its dependents stand in the stack or the series' merge order (Q3, Fable 6). A ready dependent in a series is not the next merge (hold-live-cr-Q1). `stack_due` follows `chain`. |
 | `stacks.start_on_for` (called by `take`, `commands/driver.py`) | in a series batch, the branch of an open `series_predecessor` | The fact recorded at the take: the series clause of `out_of_order` reads it, never the present order (critic run v2, fix 1). |
 | `stacks._live_start`, `stacks.start_base` (the `held_owner` test) | `out_of_order` (of the owner) | A CR does not start on an out-of-order CR's branch unless it is its dependent. |
 | `stacks.start_base`, `stacks.stack_base` (the CR's own `is_held` test) | `apart` | An apart CR's base is the default branch, as a held CR's is today. |
@@ -428,7 +451,9 @@ bullet of its own, for every mode (critic run v2, fixes 5, 7, 10):
   or `handoff` names, leaving out the dropped CR's commits (those of its branch that are not on
   that base), retarget the PR to that base if it was elsewhere, push with `--force-with-lease`,
   `ship`, and go on with the CR's work as before; a conflict is a `conflict-resolver` as for any
-  rebase.
+  rebase. Taken back ready, it is the path of a `rebase:` note, a conflict resolved bringing the
+  long gate again. The `rebase:` line of "Means: a Driver started again" already sends a Driver
+  there.
 - "A CR held out of the stack" (stack driver), for a CR held from live:
   - step 2 skips each CR above that depends on the held CR (out of the stack with it: it keeps the
     held CR's commits);
@@ -498,7 +523,9 @@ Every check runs the CLI's real commands on states the CLI built (`open`, `take`
 
 **Tests** (`skills/chantier/scripts/cli/tests/`, in-process, few and parametrized, within `just
 test`'s limit). Extend `test_stack_hold.py`, `test_stack_base.py`, `test_order_drop_to.py` (the
-drop cases), and `test_rail_refusals.py` for the release:
+drop cases), and `test_rail_refusals.py` for the release. No test file passes the file-size limit
+(400 lines): `test_stack_hold.py` has 371, so the hold cases of a working CR go in a new
+`test_hold_live.py` when they would pass it (joint critic, fix 2):
 
 - **`order hold` refusals** (parametrized, nothing written): a queued CR, a blocked CR, a ready CR
   in a parallel and in a series batch (the new ready text), the release CR, a fix CR, a CR already
@@ -506,8 +533,10 @@ drop cases), and `test_rail_refusals.py` for the release:
 - **`order hold` of a working CR, in each mode** (parametrized: parallel, series, stack):
   - the CR is `blocked`, with `held` set and `blocked_reason` `held: order <O-n>`;
   - the old lease's next leased command is `claim lost`;
-  - `handback` of the held CR (with the old lease, and with none, `ready` and `blocked`) is
-    refused with the held text, the record unchanged (critic run v2, fix 2);
+  - `handback` of the held CR is refused, the record unchanged (critic run v2, fix 2): `handback
+    ready` with the agent still recorded is refused with the held text (the refusal sits after
+    `live_cr`, as park-live-cr's does); `handback blocked`, and `handback ready` after `agents set
+    <cr> -`, are refused by `live_cr`'s own text (joint critic, fix 10);
   - `held(d)` no longer counts it, and a queued CR's `take` is accepted with no change to the slots;
   - the order is pending (`applied` false) until `order done`, while a hold of a ready CR in a
     stack is applied at once (critic run v2, fix 3: the test reads `blocked` after the apply);
@@ -533,7 +562,8 @@ drop cases), and `test_rail_refusals.py` for the release:
     its `start_on` is the first's branch, it is not out of order, its base is the first's branch,
     and it is `next_merge` once the first merges and it is ready;
   - the third taken while the second was still working (its `start_on` the second's branch), then
-    the second held: the third is `out_of_order` (`apart_owner` the second), not `next_merge` even
+    the second held: the third keeps its `start_on` (the second's branch; joint critic, fix 1), is
+    `out_of_order` (`apart_owner` the second), not `next_merge` even
     once ready, reads `PR in draft`, `stack --out-of-draft <third>` is refused with `waits with
     held <second> (order <O-n>)`, its base stays the second's branch, and the fourth's predecessor
     skips both;
@@ -560,8 +590,9 @@ drop cases), and `test_rail_refusals.py` for the release:
   with it`, in a parallel batch. `step` reads `Held`, then `Unheld` after the unhold, and
   `phase_text` reads `held (order <O-n>)`, then `to take back`. The CR's view has the new `now` and
   `next` lines and `severity` red.
-- **The cards** (read from the repository at the head under test), added to `test_plugin_files.py`
-  (the test that already reads these cards; no new file): `foreman.md` names `stop hold:`,
+- **The cards** (read from the repository at the head under test), added to `test_came_back.py`
+  (it already reads card content; `test_plugin_files.py` is at the file-size limit; joint critic,
+  fix 2): `foreman.md` names `stop hold:`,
   `unhold:` and `rebase: <cr> dropped`; `driver.md` names `stop hold:`, `stopped: held` and
   `rebase: <cr> dropped`, and its `claim lost` causes name `order hold`; `chief-of-staff.md`'s
   "Holding a CR" names a live CR; `routing.md` names `stop hold:`.
@@ -599,4 +630,4 @@ value.
 ## Open questions
 
 None: hold-live-cr-Q1 closed v1's one question, hold-live-cr-Q2 the drop of a held CR with
-dependents (park-live-cr v5's risk), and the critic's run on v2 needed no user.
+dependents (park-live-cr v5's risk), and the critic's runs on v2 and v3 needed no user.

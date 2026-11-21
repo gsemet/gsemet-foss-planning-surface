@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "order hold takes a live CR in every mode",
-  "summary": "Spec v3: order hold takes a working CR in any mode: blocked, slot freed, handback refused, out of the order with its dependents (series start_on recorded at take); unhold brings it back (series: after started CRs); a drop with dependents has them rebase. Shared section from park-live-cr v6.",
+  "summary": "Spec v4: order hold takes a working CR in any mode: blocked, slot freed, handback refused, out of the order with its dependents (series start_on recorded at take, kept by a started successor); unhold brings it back; a drop with dependents has them rebase. Joint critic fixes in.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "ada3eb20a4d90f50998fe59e5d6484e5eed4e15f0cdbe08be036173872b9e40f",
-    "02-answers.md": "b54f96bafa13f4e74d78e104ed327e27a137e47e081d28e3218b610742d4ebe1",
-    "03-change-spec.md": "e5ad3110c33dff532e5e25a1088fb9c5c742f721a933eca421606f8677cc471c",
+    "02-answers.md": "2cbdcd0287c7d893bee7a30e4679b0cc4c5b35baae31b6270a5516d449ff9da4",
+    "03-change-spec.md": "9ed2660e0f22f2d8e8d13dad9f372a9395c96b156030ad1d911dacff0dfb8243",
     "intake/request.md": "e66b86adfa9de56f167ac67bdc33ed395998d225136d96f3c2d1f0b94735603e"
   },
-  "summarized": "2026-11-21T15:33:12Z"
+  "summarized": "2026-11-21T15:40:33Z"
 }
