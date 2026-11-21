@@ -28,6 +28,7 @@ Grade: 1. A batch row's `priority` key is gone from the board's published state;
 
 - The screenshots of `docs/web-board.md` are not retaken, as the specification says.
 - Not yet checked by hand on a running board (the batch graph, the Gantt, the time cards and the PRs page).
+- No CI runs on this PR while its base is the stack's branch; the pipeline runs once it is retargeted to main.
 
 <details>
 <summary>Details</summary>
@@ -52,12 +53,12 @@ Visible: a batch CR's card shows `1-pending`, `2-actives` or `3-done` in a grey 
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: none (no visual capture)
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at 6249e54: `just check` (1554 passed), `just eval-dry-run` (pass), `just scenario` pass
+- [x] Evidence: none (no visual capture)
+- [x] Review: approved at 6249e54
+- [x] Verified at 6249e54
+- [x] No CI: no check listed at 6249e54 (the PR targets another CR's branch, not main)
 
 ## Internal references
 
