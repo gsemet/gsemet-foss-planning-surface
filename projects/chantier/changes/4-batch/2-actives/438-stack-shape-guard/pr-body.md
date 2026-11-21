@@ -62,9 +62,9 @@ No visual change. Foremen of stack batches see one new heartbeat line; a refused
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`, `just scenario`
+- [ ] Local gates at `62e119c`: `just check` pass, `just eval-dry-run` pass; `just scenario` pending
 - [ ] Evidence: none planned beyond the tests and the scenario
-- [ ] Review: approved at `<sha7>`
+- [x] Review: approved at `c5af034`, carried over the rebase onto `62e119c` (patch unchanged)
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
