@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A stack batch keeps its shape after the Foreman's compactions",
+  "summary": "Filed from Studio's incident (batch-07); not grilled; core: a shape line at each heartbeat, asks refusing per-CR ready asks in a stack.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "d51c8b02e29b102e092033a13e9147481ec5527ab6e68b2a5b8e69f73681565b",
+    "02-answers.md": "469861dfb8e4d6612a259af0ebbbe987758408bf1256a22936ada01e41362ced",
+    "intake/request.md": "5eb6420bbff217ff4944b5f3a9ad503fa80423ddde509ce7eab1670a2a036b10"
+  },
+  "summarized": "2026-11-21T15:06:51Z"
+}

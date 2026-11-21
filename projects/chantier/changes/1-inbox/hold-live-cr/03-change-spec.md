@@ -3,8 +3,13 @@
 The user's `order hold` today takes only a CR handed back ready, in a stack. With this change it
 also takes a live (`working`) CR, in every mode (parallel, series, stack). The CR becomes `blocked`
 and held. Its lease ends and its slot is free at once. It leaves the stack and the series order.
-It stays in the batch, red on the board, until the user's `order unhold` releases it; it then comes
-back on top and is taken back before any queued CR. No release starts while a CR is held.
+The CRs that depend on it (a series successor already started on it included) wait with it, out
+of the order. It stays in the batch, red on the board, until the user's `order unhold` releases it;
+it then comes back on top, its dependents above it, and is taken back before any queued CR. No
+release starts while a CR is held.
+
+Spec v2 (run 2): takes in hold-live-cr-Q1 (the started series successor), answers 3 and 4 (the
+destinations of `order drop`) and the definitions shared with park-live-cr's critic run 2.
 
 ## Goal, in the user's terms
 
@@ -32,26 +37,74 @@ there.
 | Q12 (A) | Three CRs; this one does not wait for park-live-cr. | Out of scope; "Shared with park-live-cr" |
 | Critic run v1, fixes 2, 5, 6, 7, 8 | Applied below (sections 3, 4, 5, 6, 7). | 3-7 |
 | Critic, open question 2 dropped | A ready CR outside a stack holds no slot: its hold stays stack-only, as today. | 1 |
+| hold-live-cr-Q1 (A) | A series successor already started on the held CR is out of the order with it, as a dependent: its Driver goes on, it is not merged before the held CR comes back (replaces v1's "goes on as specified"). | Words; "Shared with park-live-cr"; 2, 3, 4, 8 |
+| Shared with park-live-cr's critic run 2 | One `out_of_order` definition; one base rule for a dependent with several open dependencies (it replaces v1's `_nearest_open`); forge-stack's `waiting` covers the dependents of any apart CR. | "Shared with park-live-cr"; 3 |
+| Answers 3 and 4 (from drop-to-next-batch-Q2 and the user's correction) | A held CR may be dropped to any destination `order drop` takes, on the user's decision: P1-P4, `3-ready`, the trash; never the inbox (answer 4 supersedes answer 3's "inbox included"). | Out of scope |
 
 ## Words
 
-- **Held:** a CR whose record carries `held` (the hold's order id) and that is not merged or
-  cancelled (`is_held`, unchanged). A held CR is either `ready` (held from ready, stack only, as
-  today) or `blocked` (held from live, this CR).
-- **Out of order:** a CR that is held, or an open CR whose `after` names a held CR, directly or
-  through other CRs. It is computed and never stored. It is what every reader of the stack's and
-  the series' order skips (section 3).
+- **Open:** not merged and not cancelled.
+- **Held:** a CR whose record carries `held` (the hold's order id) and that is open (`is_held`,
+  unchanged). A held CR is either `ready` (held from ready, stack only, as today) or `blocked`
+  (held from live, this CR).
+- **Apart:** an open CR that is held or parked (parked: park-live-cr): it stands outside the stack
+  and the series order, its PR on the default branch.
+- **Dependent:** an open CR that is not apart and that waits with an apart CR (its **apart
+  owner**), by the shared definition below: its `after` names an apart CR, directly or through
+  other open CRs, or (series) it is a successor already started on an apart CR or on another
+  dependent (hold-live-cr-Q1). A dependent's PR keeps its base on its dependency's branch.
+- **Out of order:** apart or a dependent. Computed on each call, never stored (Fable 6). It is what
+  every reader of the stack's and the series' order skips (section 3).
 
 ## Shared with park-live-cr
 
-park-live-cr (`1-inbox/park-live-cr`) adds the Foreman's `park` and defines the same `out_of_order`
-notion, widened to parked CRs and their dependents. Whichever of the two CRs lands first adds
-`out_of_order` and moves the readers of section 3 onto it. The second one widens its test, with no
-new reader. park-live-cr's specification v1, section 7 ("`order hold` of a live CR"), moves here.
-Its next run drops that section and points to this CR. Both CRs edit the same functions
-(`stacks.py`, `rails.series_predecessor`, `rails.check_take`, `status/words.step`,
-`status/views._now_next`). The one that lands second rebases onto the other; neither depends on the
-other.
+park-live-cr (`1-inbox/park-live-cr`) defines the same notions for parked CRs; this paragraph is
+copied from its specification v3 ("Shared with hold-live-cr"). Whichever of the two CRs lands first
+adds the helpers below to `rails.py` and moves the readers of `is_held` onto them; the second one
+widens its tests and adds no reader. Both edit the same functions (`stacks.py`,
+`rails.series_predecessor`, `rails.check_take`, `status/words.step`, `status/words.phase_text`,
+`status/views._now_next`, `commands/forge_stack_apart.py`): the one that lands second rebases onto
+the other; neither depends on the other. If this CR lands first, `is_parked(c)` reads the `parked`
+field, which no command sets yet: it is always false until park-live-cr lands. park-live-cr's
+specification v1, section 7 ("`order hold` of a live CR"), moved here.
+
+**The definition** (in `rails.py`, which `stacks.py` imports, never the reverse; `is_held` moves
+there and `stacks.py` re-exports it for its importers):
+
+- `is_held(c)`: today's (held and open). `is_parked(c)`: `parked` set and open. `apart(c)`:
+  `is_held(c) or is_parked(c)`.
+- `series_before(crs, c)`: today's `series_predecessor` body, unchanged (the nearest CR before
+  `c` in the order that is neither a release nor a fix and not cancelled; a merged one counts).
+- `out_of_order(crs, c, mode)`: false for a CR that is not open; true when `apart(c)`; true when
+  one of `c`'s open `after` CRs is `out_of_order` (so: "an open CR whose `after` names an apart CR,
+  directly or through other open CRs"); and, in a series batch only, true when `c` has left
+  `queued` (it is `working`, `ready` or `blocked`) and `series_before(crs, c)` is open and
+  `out_of_order` (Q15: the series successor already started on an apart CR, and in turn one
+  started on that successor). A queued successor is not a dependent: it is not started, and
+  `series_predecessor` gives it the CR before the out-of-order ones. The recursion ends: `after`
+  is acyclic and `series_before` goes down the order.
+- `series_predecessor(crs, c)`: the nearest CR before `c` that `series_before` would count and
+  that is not `out_of_order(crs, x, "series")`.
+- `apart_owner(crs, c, mode)`: for an apart CR, itself; for a dependent, the apart CR it waits
+  with: the first found walking its open `after` CRs in their order, then (series) its
+  `series_before`, recursively. Every message about a dependent names it with its kind: `parked
+  <p>` or `held <p> (order <O-n>)`.
+
+**The base rule** for a dependent, one rule whatever its number of open dependencies, before the
+series and stack rules of `stacks.start_base` and `stacks.stack_base`: its base is the branch of
+the **last out-of-order CR among its candidates**, the candidates being, in this order, its
+`series_before` (series batch only, when that CR is open) and then its open `after` CRs in the
+order of `after`. There is always one (that is what makes it a dependent). Why not the dependency
+highest in the stack (`_nearest_open`): a dependency still in the stack merges or is placed below,
+and the apart CR comes back on top of every open CR (section 3), so the apart CR's branch, or a
+dependent's above it, ends up holding the others' work; a base in the stack would leave the apart
+CR's commits out of the dependent's branch. An apart CR's own base is the default branch, as a held
+CR's is today.
+
+**forge-stack's `waiting`** covers the dependents of any apart CR, held or parked (section 2).
+
+The section numbers in the copied paragraph are park-live-cr's. Here, the return on top is
+section 2 and the readers, `waiting` included, are section 3.
 
 This CR depends on `factory-redefine` (`depends.json`, carried from the split). That CR rewrites the
 lines of `commands/orders.py` that this CR touches (the `applied` test of `_record_order`, and the
@@ -84,8 +137,10 @@ The CLI lives in `skills/chantier/scripts/cli/src/chantier/`, the cards in
     Driver's next command is `claim lost`. `held(d)` (`rails.py`) no longer counts it, so its slot
     is free at once;
   - in a stack it leaves the stack as a held ready CR does: `stacked=False`, its `start_on` unset,
-    and every open CR whose `start_on` is the branch of an out-of-order CR (itself or one of its
-    dependents) gets its `start_on` unset (today's loop, widened from "its branch");
+    and every open CR that is not out of order and whose `start_on` is the branch of an
+    out-of-order CR (the held CR or one of its dependents) gets its `start_on` unset (today's loop,
+    widened from "its branch"). A dependent keeps its `start_on`: its base is given by the shared
+    base rule;
   - it logs `hold` in `events.jsonl` with the order id, and `from: working`.
 - **Effect on a ready CR in a stack:** unchanged.
 - **The line**, for a working CR:
@@ -110,6 +165,11 @@ The CLI lives in `skills/chantier/scripts/cli/src/chantier/`, the cards in
   release (in a series, at the end of the series; in a parallel batch the order only sorts).
 - For a `blocked` CR (held from live): `blocked_reason` becomes `unheld: order <O-m>`. The CR stays
   `blocked`: it holds no slot until its take.
+- Its open dependents (computed before `held` is unset: `out_of_order` with this CR as their
+  `apart_owner`) then take the places above it, in the order of `chains_kept`
+  (`commands/orders_reorder.py`) over their present orders, so that no CR stands below one of its
+  `after` and a series successor stands right above it again (hold-live-cr-Q1; the same as
+  park-live-cr's return). The line then ends `; its dependents above it: <cr>, ...`.
 - The line, for that CR:
   `<cr> unheld (order <O-m>): back on top; the Foreman takes it back before any queued CR
   (\`take <cr> --note "unhold: <O-m>" --epoch <n>\`)[, then the stack driver places it]`.
@@ -119,45 +179,52 @@ The CLI lives in `skills/chantier/scripts/cli/src/chantier/`, the cards in
   (`stacks.refuse_held`); its text becomes mode-neutral:
   `<cr> is held (order <O-n>): only the user's \`order unhold <cr>\` releases it`.
 
-### 3. `out_of_order` and the readers of `is_held` (critic fix 2)
+### 3. The shared predicates and the readers of `is_held` (critic fix 2; critic run 2)
 
-`out_of_order(crs, c)` is added to `rails.py`, next to `series_predecessor`. `stacks.py` imports
-from `rails.py`, never the reverse, so `is_held` moves there too, and `stacks.py` re-exports it for
-its current importers. It is true for a held CR, and for an open CR (not merged or cancelled) whose
-`after` names an out-of-order CR (the closure, computed on each call).
+The predicates are the shared ones ("Shared with park-live-cr"): `is_held`, `is_parked`, `apart`,
+`series_before`, `out_of_order(crs, c, mode)`, `series_predecessor`, `apart_owner`, in `rails.py`
+(`stacks.py` re-exports `is_held` for its importers). `crs` is the batch's CR list and `mode` the
+batch's mode, as `waits_for` takes them.
 
-Each reader of `is_held` is named here, with what it reads after this change:
+Each reader of `is_held` is named here, with what it reads after this change. Where a reader speaks
+of a dependent, it names its apart owner (`apart_owner`) with its kind (`held <p> (order <O-n>)`,
+or `parked <p>` once park-live-cr is in):
 
 | Reader | Reads | Why |
 | --- | --- | --- |
-| `stacks.chain`, `stacks.top_cr`, `stacks.next_merge` | `out_of_order` | Neither a held CR nor its dependents stand in the stack or the series' merge order (Q3, Fable 6). |
-| `stacks._live_start`, `stacks.start_base` (the `held_owner` test) | `out_of_order` (of the owner) | A CR does not start on an out-of-order CR's branch unless it depends on it. |
-| `stacks.start_base`, `stacks.stack_base` (the CR's own `is_held` test) | `is_held` | A held CR's base is the default branch, as today. |
-| `stacks.stack_base`, `stacks.start_base`, for a dependent of a held CR | new branch | Its base is the branch of its nearest open dependency (`_nearest_open`), whatever its `stacked`. It is never the default branch. |
-| `stacks.held_lines` | `is_held` | Section 5. |
+| `stacks.chain`, `stacks.top_cr`, `stacks.next_merge` | `out_of_order` | Neither a held CR nor its dependents stand in the stack or the series' merge order (Q3, Fable 6). A ready dependent in a series is not the next merge (hold-live-cr-Q1). `stack_due` and `held_lines` follow `chain`. |
+| `stacks._live_start`, `stacks.start_base` (the `held_owner` test) | `out_of_order` (of the owner) | A CR does not start on an out-of-order CR's branch unless it is its dependent. |
+| `stacks.start_base`, `stacks.stack_base` (the CR's own `is_held` test) | `apart` | An apart CR's base is the default branch, as a held CR's is today. |
+| `stacks.start_base`, `stacks.stack_base`, for a dependent | the shared base rule | Before the series and stack rules: the branch of the last out-of-order CR among its candidates. It is never the default branch. It replaces v1's `_nearest_open`. |
+| `rails.series_predecessor` | the shared definition | Section 4. |
+| `stacks.held_lines` | `is_held` | Section 7. |
 | `stacks.refuse_held`, `stacks.held_text` | `is_held` | The hold itself and its way back. |
 | `stack_words._forge_case` (an owner held) | `out_of_order` | A PR on an out-of-order CR's branch reads `other`. |
-| `stack_words._ready_word` | `out_of_order` | A dependent of a held CR reads `PR in draft`. |
-| `stack_words.draft_waited`, `draft_clause` | `is_held` for the CR; then, for a dependent, the held CR it depends on | A dependent's clause reads `it waits on <held cr> (<pr>)`. |
-| `commands/delivery.py`, `stack <crs>` refusal | `out_of_order` | A dependent of a held CR is refused too: `<cr> is out of the stack: <held> is held (order <O-n>): \`order unhold <held>\` first`. |
-| `commands/delivery.py`, `_check_out_of_draft` | `out_of_order` | Same text. |
-| `commands/forge_stack_apart.held` | `is_held` | Only a held CR's PR is moved to the default branch. A dependent keeps its PR's base, the held CR's branch: on the default branch, its diff would show the held CR's commits. It is left out of the forge stack because `chain` leaves it out. |
+| `stack_words._ready_word` | `out_of_order` | A dependent reads `PR in draft`: it never reads ready to merge. |
+| `stack_words.draft_waited`, `draft_clause` | `is_held` for the CR; `apart_owner` for a dependent | A held CR: `held_text`, as today. A dependent with a held owner: `waits with held <p> (order <O-n>): \`order unhold <p>\``. |
+| `commands/delivery.py`, `stack <crs>` refusal and `_check_out_of_draft` | `out_of_order` | A held CR: today's refusal. A dependent is refused too: `<cr> waits with held <p> (order <O-n>): it stays out of the stack until <p> is back`. |
+| `commands/forge_stack_apart.held` | `apart` | Only an apart CR's PR is moved to the default branch, reason `(held out of the stack)` for a held one. |
+| `commands/forge_stack_apart`, new `waiting` | `out_of_order` and not `apart` | The PR of a dependent of any apart CR, held or parked: left out of the native stack, not retargeted (it keeps its base by the shared rule: on the default branch its diff would show the held CR's commits), and named apart in the rebuild's lines and in check 2 as `#n of <cr> waits with held <p>: left out of the stack` (`parked <p>` for a parked owner), never as a foreign PR. |
 | `commands/orders_drop.drop` | `is_held` | It unsets the hold, as today. |
-| `commands/orders_hold.hold`, `unhold` | `is_held` | The hold itself. |
+| `commands/orders_hold.hold`, `unhold` | `is_held`, `apart_owner` | The hold itself; the unhold's dependents (section 2). |
 | `commands/orders_reorder.release_holds` | `is_held`, and section 5 | Critic fix 6. |
 
-Every CR that depends on a held CR stays as it is (Fable 6). A queued one waits without a slot, as
-today, because `blocked` is not met in `waits_for`. A working one keeps its Driver, hands back as
-usual, and stays out of the stack until the held CR is back.
+**The CRs that wait with it** (Fable 6, hold-live-cr-Q1) keep their status. A queued one waits
+without a slot, as today, because `blocked` is not met in `waits_for`. A working one keeps its
+Driver and hands back as usual; it stays out of the stack and the series' merge order until the
+held CR is back: its PR stays a draft (`PR in draft`), it is never `next_merge`, and
+`stack --out-of-draft` refuses it. This holds for a series successor already started on the held CR
+(hold-live-cr-Q1): its Driver goes on; it is not merged before the held CR comes back.
 
-`stack_due` and the final-order take do not count an out-of-order CR, since they read `chain`.
+### 4. Series: `series_predecessor` skips out-of-order CRs (critic fix 5; hold-live-cr-Q1)
 
-### 4. Series: `series_predecessor` skips held CRs (critic fix 5)
-
-`rails.series_predecessor` skips every out-of-order CR, as it skips a cancelled one. In a series,
-the successor of a held CR no longer waits for it. Its `take` is accepted once the CR before the
-held one is met, and its base is that CR's branch (`start_base`, series branch). `board/crs.py`
-reads the same function, so it follows with no change of its own.
+`rails.series_predecessor` is the shared one: it skips every out-of-order CR, as it skips a
+cancelled one. A queued successor of a held CR (not started) is not a dependent: it no longer
+waits for the held CR, its `take` is accepted once the CR before the out-of-order ones is met, and
+its base is that CR's branch (`start_base`, series branch). A successor already started on the
+held CR (`working`, `ready` or `blocked`) is a dependent (hold-live-cr-Q1): out of the order with
+it, its base the held CR's branch by the shared base rule, and so on for a CR started on that
+successor. `board/crs.py` reads the same function, so it follows with no change of its own.
 
 ### 5. Leaving a stack keeps a live CR's hold (critic fix 6)
 
@@ -210,10 +277,13 @@ contains `step`):
     `The user's \`order unhold\`, through the Chief of Staff.`;
   - unheld: now `Unheld (order <O-m>): back on top, to take back.`, next
     `A Driver takes it back, before any queued CR.`
+- `phase_text` (`status/words.py`, the phase every surface copies), before its `waits for the
+  user` branch: a blocked held CR reads `held (order <O-n>)`; a blocked CR whose reason starts with
+  `unheld:` reads `to take back` (it waits for the Foreman, not the user).
 - `severity` is unchanged: a blocked CR is red, so a held live CR stays red in the batch, as the
   user accepted at Q11.
 
-The step and the now and next lines change what the CR board pane draws (AGENTS.md). The PR's
+The step, the phase and the now and next lines change what the CR board pane draws (AGENTS.md). The PR's
 Deliverables therefore carry one screenshot of the pane from a real Claude Code session at the PR's
 head, captioned with its seven-character SHA, with a held live CR shown. Until it is there, the
 PR's Known gaps names "no screenshot of the pane from a real session". `hooks/register.tsx` and
@@ -237,8 +307,9 @@ for every mode:
   release). Send one ask per held CR, `the release waits: <cr> is held (order <O-n>)`. A CR held
   while the release is working: let the release hand back, `note` it stale, and once the hold ends
   (the CR unheld and handed back ready, or dropped), `take <release> --note "redo: <cr> held"`.
-- The dependents of a held CR: a queued one waits; a working one goes on; neither is placed in the
-  stack until the held CR is back.
+- The dependents of a held CR (a series successor already started on it included): a queued one
+  waits; a working one goes on; none is placed in the stack or merged until the held CR is back.
+  At the unhold they stand above it (the CLI reorders them).
 
 **`driver.md`:**
 
@@ -289,9 +360,9 @@ it. It comes back on top on the user's `order unhold`, and no release starts whi
   park-live-cr. Here `close` keeps today's behaviour: a batch with a held live CR is not paused
   (`blocked` is not ended, and the hold order stays pending until `order done`), so `close` refuses
   it with "pause first".
-- The `ready` drop destination and the destinations of a started CR (P1..P4, the next batch, the
-  trash; never the inbox): drop-to-next-batch (park-live-Q12, Q13). `order drop` of a held CR keeps
-  today's destinations and behaviour (it unsets the hold).
+- The destinations `order drop` takes (drop-to-next-batch: never the inbox; P1-P4, `3-ready`, the
+  trash, on the user's decision; answers 3 and 4). `order drop` of a held CR keeps its behaviour
+  here (it unsets the hold) and takes whatever destinations drop-to-next-batch gives it.
 - The hold of a queued or blocked CR (neither is live), and of a ready CR outside a stack. A ready
   CR holds no slot, so its hold stays stack-only (the critic dropped the question).
 - Dragging a CR out of the running batch on the board (park-live-Q14: not now).
@@ -324,15 +395,26 @@ test`'s limit). Extend `test_stack_hold.py`, and `test_rail_refusals.py` for the
   held CR's branch, it reads `PR in draft`, and `stack <it>` and `stack --out-of-draft <it>` are
   refused naming the held CR. A CR that only started on its branch gets its `start_on` unset.
   `forge-stack rebuild` (the fake forge) moves only the held PR to the default branch.
-- **Series** (fix 5): with three CRs in a series and the second held while working, the third's
-  `take` is accepted once the first is ready, and its `start_base` is the first's branch.
+- **Series** (fix 5; hold-live-cr-Q1), parametrized on the third CR's status:
+  - three CRs in a series, the second held while working, the third queued: the third's `take` is
+    accepted once the first is ready, and its `start_base` is the first's branch;
+  - the third already working on the second's branch when the second is held: it is
+    `out_of_order` (`apart_owner` the second), not `next_merge` even once ready, reads `PR in
+    draft`, `stack --out-of-draft <third>` is refused with `waits with held <second> (order
+    <O-n>)`, and its base stays the second's branch;
+  - after `order unhold <second>`, the third's order is right above the second's.
+- **The base rule** (shared): a dependent whose open `after` names a CR in the stack and the held
+  CR has the held CR's branch as its base (the last out-of-order candidate), not the stack CR's.
+- **forge-stack `waiting`**: `forge-stack rebuild` and its check 2 (the fake forge) name a
+  dependent's PR `#n of <cr> waits with held <p>: left out of the stack`, not foreign, and leave its
+  base unchanged.
 - **Leaving a stack** (fix 6): `order mode parallel` on a stack with one held ready CR and one held
   live CR lets the ready one go and keeps the live one held, `blocked`, with a unique order.
 - **The release** (fix 7): `take <release>` with a held CR in the batch (a held ready CR of a
   stack, and a held live CR of a parallel batch) is refused with the new text, nothing written. A
   working release's `resume:` take is accepted.
 - **`status` and the views** (fix 8): `status` prints the `held: … was working` line with `waiting
-  with it`, in a parallel batch. `step` reads `Held`, then `Unheld` after the unhold. The CR's
+  with it`, in a parallel batch. `step` reads `Held`, then `Unheld` after the unhold, and `phase_text` reads `held (order <O-n>)`, then `to take back`. The CR's
   view has the new `now` and `next` lines and `severity` red.
 - **The cards** (read from the repository at the head under test), added to the card test that
   already reads the shipped references (`test_came_back.py`'s pattern, or the file that holds the
@@ -372,10 +454,4 @@ value.
 
 ## Open questions
 
-1. **A series successor already started on the held CR's work.** In a series, a CR starts on the
-   previous CR's branch once that CR is ready. If a ready CR is taken back to working, its
-   successor may be working on top of its commits, and then the user may hold it. This
-   specification skips the held CR as the predecessor (fix 5). The successor then keeps going with
-   the held CR's commits in its branch, and its PR's base becomes the CR before the held one. Should
-   such a successor be held out of the series order with it, like a CR that depends on it, or go on
-   as specified?
+None: hold-live-cr-Q1 closed v1's one question.
