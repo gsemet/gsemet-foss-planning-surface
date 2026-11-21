@@ -15,5 +15,5 @@ main); the Foreman relayed it and the Chief of Staff asked the user at once. The
 d'abord essayer dans ces cas au lieu de me demander."
 
 Done when the cards (driver, foreman, chief of staff, and the Claude Code host reference for the
-host's specifics) carry the ladder, each step's judgement (the push is legitimate) stays where it
-is today, and a refusal at each step is recorded with its exact text.
+host's specifics) carry the ladder, each session that pushes judges the push first (the Foreman,
+then the Chief of Staff again), and a refusal at each step is recorded with its exact text.
