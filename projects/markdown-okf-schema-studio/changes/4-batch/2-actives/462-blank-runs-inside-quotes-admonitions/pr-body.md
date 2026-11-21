@@ -18,7 +18,7 @@ flowchart LR
 
 ## Testing
 
-Core, protocol, render, export, page, session and visual tests were added or updated. The new real VS Code test (`blankLines.test.ts`) runs in the heavy CI job only.
+Core, protocol, render, export, page, session and visual tests were added or updated. The visual fixture is numbered 95 (94 is taken). The admonition half of one existing page assertion moved to a new page test file, since a run inside an admonition now shows a block. The new real VS Code test (`blankLines.test.ts`) runs in the heavy CI job only.
 
 ## Review
 
