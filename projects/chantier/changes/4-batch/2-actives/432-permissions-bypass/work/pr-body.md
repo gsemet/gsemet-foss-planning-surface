@@ -67,11 +67,11 @@ No visual change. Users see real-path rules in preflight's question and a warnin
 
 ## Test plan
 
-- [x] New or changed tests (they fail on the previous code), at `0641023` (the same patch as `1559e15`, restacked with no conflict)
-- [x] Local gates: `just check` at `0641023` (1613 passed); `just eval-dry-run` carried from `1559e15` (18 of 18, clean restack)
-- [x] Evidence: the trial of rule matching (Claude Code 2.1.326, Windows 11, `dontAsk`), results in Deliverables; preflight run for real in both modes at `1559e15` (carried over the clean restack to `0641023`)
-- [x] Review: approved at `0641023` (carried from `1559e15` and `c132602`: the patch is identical after the clean restack)
-- [x] Verified at `0641023` (claims carried from `1559e15` over the clean restack, `just check` run again)
+- [x] New or changed tests (they fail on the previous code), at `0641023` (the same patch before the clean restack)
+- [x] Local gates: `just check` at `0641023` (1613 passed); `just eval-dry-run` carried over the clean restack (18 of 18, clean restack)
+- [x] Evidence: the trial of rule matching (Claude Code 2.1.326, Windows 11, `dontAsk`), results in Deliverables; preflight run for real in both modes (carried over the clean restack)
+- [x] Review: approved at `0641023` (carried over the clean restack: the patch is identical)
+- [x] Verified at `0641023` (claims carried over the clean restack, `just check` run again)
 - [x] CI green at `0641023`: five checks pass, `just scenario (ubuntu-latest)` included
 
 ## Internal references
