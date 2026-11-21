@@ -1,0 +1,3 @@
+# Heavy CI after round 1 of a CR adding visual or real-window tests
+
+From the batch-07 retro (2026-11-21, kept by the Foreman's Fable critic): CR-439 needed 5 rounds, CR-445 6 and CR-441 4; the extra rounds were visual and integration tests red only in CI, because just preflight skips the visual, integration and report stages on Windows. Fix: for a CR that adds visual or integration tests, push after round 1 and dispatch the heavy CI (gh workflow run ci.yml --ref <branch> -f heavy=true), so these tests run early instead of at the end. Where it belongs: the project's process guideline or chantier.yaml, as the Chief of Staff and the owner choose.
