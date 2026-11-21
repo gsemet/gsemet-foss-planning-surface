@@ -1,0 +1,3 @@
+# commentModel accepts an impossible date (2026-02-30)
+
+Found by CR-450 (mutation testing campaign on src/core, spec 4.9, known issue): commentModel accepts the date 2026-02-30T10:00:00Z, against requirement SwRS-MDOKFSTUDIO-REVIEW-004. CR-450 changed no src code; a test documents the gap. Evidence: changes/4-batch/2-actives/450-mutation-testing/evidence/ (holes-core.md). Fix: reject impossible calendar dates in the comment model, with a test.
