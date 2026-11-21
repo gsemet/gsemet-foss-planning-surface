@@ -1,239 +1,272 @@
 # A stack CR starts on another CR's branch only once that CR is ready
 
-Spec v1 (2026-11-21), provisional. Short name: `take-draft`. No issue (origin: verbal; Studio's
-batch-06 retro, split out of `take-base-from-forge` by the Chief of Staff on 2026-11-20). No grill
-was held: the user delegated the night's spec questions to an advisor. **The central choice is
-open (take-draft-Q1, below).** Every section is written on its recommended option, B, as provisional
-text. If A is chosen, this CR has only Q2's part left (or nothing, if Q2 is answered no). If C is
-chosen, sections 1 to 4 are rewritten.
+Spec v2 (2026-11-21), from `02-answers.md` take-draft-Q1 to Q4. Short name: `take-draft`. No
+issue (origin: verbal; Studio's batch-06 retro, split out of `take-base-from-forge` by the Chief
+of Staff on 2026-11-20).
 
 ## Goal
 
-In a stack batch, a new CR does not start on code that still has rounds to come. Studio's CR-429 was
-given the branch of CR-424, a working CR with an open draft PR and several rounds still to come.
-The Foreman's take note had to send it to `origin/main`, and the retro counts that base as wrong.
-Under option B, `take` starts a new CR on the nearest earlier CR that has a PR only when that CR is
-handed back `ready`. Otherwise it starts the CR on the default branch. The user's stack-Q4
-(2026-11-17) is kept: one linear stack on the forge, set by the stack driver's final-order take at
-the batch's end, and never a branch with no PR as a base.
+In a stack batch, a new CR does not start on code that still has rounds to come. Studio's CR-429
+was given the branch of CR-424, a working CR with an open draft PR and several rounds still to
+come; the Foreman's take note had to send it to `origin/main`, and the retro counts that base as
+wrong. From now on `take` starts a new CR on the nearest earlier CR that has a PR only when that
+CR is handed back `ready`; otherwise on the default branch. And the base a taken CR prints is
+where its worktree and PR really sit: until the stack driver places it, a `start_on` whose owner
+is still open, else the default branch. The goals of the user's stack-Q4 (2026-11-17) hold: one
+linear stack on the forge, set by the stack driver's final-order take at the batch's end, and
+never a branch with no PR as a base.
 
-Sources: `intake/request.md`, `01-intent.md`; the user's stack-Q4
+Sources: `intake/request.md`, `01-intent.md`, `02-answers.md`; the user's stack-Q4
 (`5-archives/261117-2134-333-take-base-nearest-pr/02-answers.md`) and that CR's spec;
-`take-base-from-forge`'s Q1 to Q6 (`5-archives/261121-0330-422-take-base-from-forge/02-answers.md`),
-Q5 being the split that made this CR.
+`take-base-from-forge`'s answers (`5-archives/261121-0330-422-take-base-from-forge/02-answers.md`).
 
 ## Decisions carried
 
-There is no `02-answers.md` yet. The decisions in force, which this CR keeps:
+From `02-answers.md`:
 
-1. **stack-Q4 (the user, 2026-11-17):** one linear stack on the forge. One stack-driver run at the
-   batch's end owns the final order. A branch with no PR is never a base. The in-batch runs keep
-   the stack current. The base rule is for stack batches only.
-2. **take-base-from-forge Q1 to Q4:** `take` adds no network read. A CR with a `merged@1` journal
-   line for its recorded PR reads as ended for the start base. A `base:` line names it. With no
-   journal line, the record's base is used.
-3. **take-base-from-forge Q6/Q7:** a ready CR that the stack driver has not placed reads its word
-   from its recorded `pr_base`. On an open CR's branch, it is ready to merge only when that CR is.
-4. **take-base-from-forge Q9:** the release CR's base is unchanged (the top CR).
+1. **take-draft-Q1 (the user, 2026-11-21, on a Fable advisor's proposal: "Oui, B de Fable"):** a
+   new CR starts on an earlier CR's branch only when that CR is handed back `ready`; when the
+   nearest earlier CR with a PR is still working (or blocked), or there is none, it starts on the
+   default branch. **This narrows the user's stack-Q4 (2026-11-17, "the nearest earlier CR of the
+   batch that already has a PR") and take-base-from-forge Q5 (2026-11-20, "whatever its status
+   and draft state"), and keeps their two goals:** one linear stack set by the end run, never a
+   branch with no PR as a base. A CR that needs the code of a CR still working says so with
+   `after`; otherwise CRs start side by side on the default branch and the final-order take orders
+   them (one sentence in `concepts.md`, Stack: section 4).
+2. **take-draft-Q2 (Fable advisor):** a CR taken on the default branch stays there until the stack
+   driver places it. The printed base matches where the worktree and the PR really sit. No new
+   field: a missing `start_on` on a taken CR already means the default branch.
+3. **take-draft-Q3 (Fable advisor):** the walk stops at the first CR with a PR: when it is working
+   and a lower one is ready, the base is the default branch. Skipping down would put two branches
+   on one base, a tree stack-Q4 excludes.
+4. **take-draft-Q4 (Fable advisor):** a taken CR whose `start_on` owner has ended (merged,
+   cancelled, seen merged on the forge) prints the default branch until the stack driver places
+   it. **One rule for every taken CR not yet placed: a `start_on` whose owner is still open, else
+   the default branch.** It is Q2's reason and what `leave_stack_starts` already says for a held
+   or parked owner, and it never prints a base the worktree was not put on. v1's "unless a ready
+   CR with a PR is below it" is gone. `_landed_line`'s `base:` line is unchanged (its message and
+   when it prints; section 2 keeps it so).
+5. **Destination (Fable advisor):** batch-30, after CR-442 and CR-438 where it can. Batch-30 runs
+   this CLI live, so the new take rule applies to its later takes once merged: the Chief of Staff
+   tells the Foreman at the merge.
 
-Provisional, pending the user's (or the advisor's) answer: take-draft-Q1 = B, Q2 = yes, Q3 = no
-skip. See "Open questions".
+Kept, in force (not reopened):
+
+6. **stack-Q4 (the user, 2026-11-17)**, as narrowed by Q1: one stack-driver run at the batch's end
+   owns the final order; the in-batch runs keep the stack current; the rule is for stack batches
+   only.
+7. **take-base-from-forge Q1 to Q4:** `take` adds no network read; a CR with a `merged@1` journal
+   line for its recorded PR (`landed`) reads as ended for the start base; a `base:` line names it;
+   with no journal line, the record is used.
+8. **take-base-from-forge Q6/Q7:** a ready CR the stack driver has not placed reads its word from
+   its recorded `pr_base`; on an open CR's branch it is ready to merge only when that CR is.
+9. **take-base-from-forge Q9:** the release CR's base is unchanged (the top CR).
 
 ## Words used here
 
 - **Earlier:** a lower place in `chain` (`stacks.chain`: the open CRs in `order`, apart and
   dependent CRs left out, the release last).
-- **Has a PR:** `pr` is recorded and the CR is not in `landed` (the journal's `merged@1`).
-- **Handed back ready:** `status == "ready"`, whatever the PR's draft flag. A ready CR in a stack
-  may keep a draft PR while it waits on a CR under it.
-- **The start candidate:** walking `chain` down from the CR, the first CR that has a PR. **Under
-  B**, it is a base only when it is handed back ready. If it is `working` or `blocked`, the base is
-  the default branch. The walk does not go further down (Q3).
+- **Has a PR:** `pr` is recorded and the CR is not in `landed`.
+- **Handed back ready:** `status == "ready"`, whatever the PR's draft flag (a ready CR in a stack
+  may keep a draft PR while it waits on a CR under it).
+- **The start candidate:** walking `chain` down from the CR, the first CR that has a PR, when it is
+  handed back ready; none when that first CR is `working` or `blocked`, or there is none. The walk
+  never goes further down (Q3).
+- **Taken:** any status but `queued`. **Placed:** `stacked` is true (the stack driver's `stack`
+  named it).
+- **Open owner:** `_live_start`'s test today: the CR whose branch is `start_on` is not ended, not in
+  `landed`, not out of order.
 
 ## What changes
 
 ### 1. CLI: `skills/chantier/scripts/cli/src/chantier/stacks.py`
 
-- `_below_with_pr` stays as it is: the first CR with a PR below `c`. Add one helper beside it,
-  `_start_candidate(b_data, c, landed)`. It returns `_below_with_pr`'s result when that CR's status
-  is `ready`, and `None` otherwise (the CR is `working` or `blocked`, or there is none).
-- `start_on_for`: its stack branch returns `_start_candidate(...)`'s branch instead of
-  `_below_with_pr(...)`'s. The series branch, the `_alone`/`_open_after` guard and the parallel
-  `None` are unchanged. Its docstring says the new rule.
-- `stack_start`, rule 2: for a CR not yet taken (`queued`), use `_start_candidate` in place of
-  `_below_with_pr`. The place that the record shows for a queued CR is then the base `take` will
-  record. Keep the comparison with `_nearest_open` (an open dependency higher in `chain` still
-  wins). This rule also applies to a taken CR whose `start_on` owner has ended (rule 1 no longer
-  holds). Such a CR then reads the default branch unless a ready CR with a PR is below it. Update
-  the docstring.
-- **Q2 (provisional: yes): the start base is fixed at the first take, including the default
-  branch.** Today, a taken CR with no `start_on` (it started on the default branch) gets rule 2
-  recomputed at every read. If a CR below it later gets a PR, `handoff` prints that CR's branch
-  while the worktree and the PR sit on the default branch. Under B, this happens every time a lower
-  CR turns ready. New rule in `stack_start`: a CR that has been taken (status not `queued`), is
-  neither a fix nor a release, has no open dependency (`_open_after` empty) and has no `start_on`
-  reads the default branch until `stack` places it. No new field: today's records already mean
-  "started on the default branch" by a missing `start_on` (`start_on_for` returned `None` at the
-  take). `stack_apart.leave_stack_starts` (CR-430/CR-431, merged) already unsets `start_on` with
-  the docstring "it starts on the default branch": this rule makes the printed base agree with it.
-  A placed CR (`stacked`) keeps `stack_base`'s placed rule. A CR with an open dependency keeps
-  rule 3.
-- `stack_base` for a CR not placed goes through `stack_start` as today, so it gets both changes.
-  `ready_word` and `draft_waited` read `pr_base` first (take-base-from-forge Q6/Q7) and do not
-  change.
+- `_below_with_pr` stays as it is. Add beside it `_start_candidate(b_data, c, landed)`: the pair
+  `_below_with_pr` returns when that CR's status is `ready`, else `None`.
+- `start_on_for`, stack branch: return the branch of `_start_candidate(...)` in place of
+  `_below_with_pr(...)`'s, else `None`. The series branch, the `_alone`/`_open_after` guard and the
+  parallel `None` are unchanged. Docstring says the new rule.
+- `stack_start`: new rules, first match wins (docstring rewritten to say them):
+  1. Unchanged: `start_on` with an open owner (`_live_start`).
+  2. **New (Q2, Q4):** a CR taken and not placed, with no open dependency (`_open_after` empty):
+     the default branch. This covers a taken CR with no `start_on` (it started on the default
+     branch) and one whose `start_on` owner has ended, whatever CRs with a PR sit below it.
+  3. A CR not taken (`queued`), or taken with an open dependency: today's rules 2 and 3 with the
+     start candidate in place of `_below_with_pr` (the candidate's branch unless an open
+     dependency sits higher in `chain`; with no candidate, the nearest open dependency's branch,
+     else the default branch). For a queued CR the place the record shows is then the base `take`
+     will record.
+  4. A placed CR reaching `stack_start` (through `start_base`, `stacked` with a `start_on`) whose
+     owner has ended: today's rule 2 unchanged, with `_below_with_pr` whatever the status
+     (`tests/test_stack_hold.py::test_a_placed_crs_start_on_owner_ended_falls_back_below_and_held_goes_to_default`
+     stays green). Q4 is about CRs not yet placed.
+  `landed` reads as ended in every rule, as today.
+- `start_base`: no change (its held-owner and `after` paths stay). `stack_base` for a CR not placed
+  goes through `stack_start` as today, so it gets the new rules; a placed CR keeps its placed rule.
+- `off_place`, `to_come`: no code change; they read `stack_base(planned=True)`, so a working CR
+  taken on the default branch whose PR is on the default branch is no longer reported off its
+  place when a CR below it gets a PR.
 
 ### 2. CLI: `skills/chantier/scripts/cli/src/chantier/commands/facts.py`
 
-- `_base_of`: no change. It prints `start_base`, which now follows section 1.
-- `_landed_line`: today it compares `start_base` of a copy of the CR with `start_on=None` against
-  the real one. Under Q2, that copy of a taken CR would read the default branch, and the `base:`
-  line would never print. The recompute must use the take's rule: compare
-  `start_on_for(d, c_as_queued)` with no `landed` against `start_on_for(d, c_as_queued, landed)`,
-  where `c_as_queued` is a copy with `status="queued"` and `start_on=None`. Print the line as today
-  when the first names a CR of `landed`. Same message, same placement. The Driver chooses the
-  helper's shape.
+- `_base_of`: no change; it prints `start_base`, which follows section 1.
+- `_landed_line`: its message, its placement and when it prints stay as today. Its recompute must
+  change: today it compares `start_base` of a copy of the CR with `start_on=None` (the record
+  alone) against the real `start_base(..., landed)`. Under section 1's rule 2, that copy of a taken
+  CR reads the default branch, and the line would never print for a taken CR. Recompute the
+  record-alone base with the take's rule: `start_on_for(d, as_queued)` with no `landed` (the
+  default branch when it is `None`), where `as_queued` is a copy with `status="queued"` and
+  `start_on=None`; compare it with the real `start_base(d, c, repo, landed)`; print the line as
+  today when they differ and the first names a CR of `landed`. A placed CR keeps today's `first =
+  c`. The Driver chooses the helper's shape.
 
-### 3. CLI: `skills/chantier/scripts/cli/src/chantier/commands/driver.py` and `core/records.py`
+### 3. CLI: `commands/driver.py` and `core/records.py`
 
-- `_record_take`: no change in flow (`start_on` is recorded only at the first take, from
+- `driver.py`, `_record_take`: no change in flow (`start_on` recorded only at the first take, from
   `start_on_for`).
 - `core/records.py`, the comment on `start_on`: in a stack batch, the branch of the nearest earlier
-  CR with a PR, when that CR was handed back ready at the first take. No `start_on` on a taken
-  stack CR with no open dependency means the default branch.
+  CR with a PR, not seen merged on the forge, when that CR was handed back ready at the first take;
+  a taken stack CR with no `start_on` and no open dependency is on the default branch until the
+  stack driver places it.
 
 ### 4. Cards (`skills/chantier/references/`)
 
 - `concepts.md`, "Batch modes", **Stack** (today lines ~249-253): "on the nearest earlier CR of the
-  batch (by order) that already has a PR and whose PR the forge does not show merged … else on the
-  default branch" becomes "on the nearest earlier CR of the batch (by order) that has a PR, when
-  that CR is handed back `ready` and the forge does not show its PR merged; when that CR is still
-  working or blocked, or there is none, on the default branch". Keep "recorded at its first take (a
-  branch with no PR is never a base)". Add: a CR started on the default branch stays there until the
-  stack driver places it.
-- `concepts.md`, **Dependencies** (today lines ~360-362): the same wording in "else, in a stack, on
-  the nearest earlier CR …".
-- `foreman.md`, "The first take" (today line ~381, "`take` starts every new CR on the nearest
-  earlier CR with a PR"): "… on the nearest earlier CR with a PR once that CR is handed back
-  `ready`, else on the default branch (the CLI computes it; you choose nothing)". Keep "never
-  correct a base by a take note". **CR-438 (`stack-shape-guard`, working in batch-30)** moves these
-  stack bullets verbatim into a new `foreman-stack.md`. Edit the bullet wherever it stands at this
-  CR's rebase.
+  batch (by order) that already has a PR and whose PR the forge does not show merged (…), else on
+  the default branch, recorded at its first `take` (a branch with no PR is never a base), so its PR
+  is already on the stack" becomes "on the nearest earlier CR of the batch (by order) that has a
+  PR, when that CR is handed back `ready` and the forge does not show its PR merged (…); when that
+  CR is still working or blocked, or there is none, on the default branch; recorded at its first
+  `take` (a branch with no PR is never a base)". Drop "so its PR is already on the stack". Add two
+  sentences: "Until the stack driver places it, a taken CR stays on that start base while its
+  owner is open, else on the default branch." and "A CR that needs the code of a CR still working
+  says so with `after`; otherwise CRs start side by side on the default branch and the final-order
+  take orders them."
+- `concepts.md`, **Dependencies** (today lines ~360-362): "else, in a stack, on the nearest earlier
+  CR of the batch that has a PR and whose PR the forge does not show merged" gains "…, when that CR
+  is handed back `ready`".
+- `foreman.md`, "The first take" (today line ~381): "`take` starts every new CR on the nearest
+  earlier CR with a PR (the CLI computes it; you choose nothing)" becomes "… on the nearest earlier
+  CR with a PR once that CR is handed back `ready`, else on the default branch (the CLI computes
+  it; you choose nothing)". Keep "never correct a base by a take note". CR-438
+  (`stack-shape-guard`) moves these stack bullets verbatim into a new `foreman-stack.md`: edit the
+  bullet wherever it stands at this CR's rebase.
 - `driver.md`, CR driver (today line ~939): "the nearest earlier CR of the batch that has a PR that
-  the forge does not show merged" becomes "… that has a PR, handed back `ready`, that the forge does
-  not show merged". The rest of the paragraph is unchanged.
+  the forge does not show merged" becomes "… that has a PR, handed back `ready`, that the forge
+  does not show merged". The rest of the paragraph is unchanged.
 - `agents/`, `com.github.copilot/agents/`: no change.
 
-### 5. Scenario (`scenario/run_scenario.py`, `scenario/README.md`)
+### 5. The other readers the Driver checks
 
-- Step 13-bis (`stack_start_base`, today lines ~6756-6826), rewritten checks:
+Each reads `stack_base` or `start_base` and so sees section 1's rule; none needs a code change by
+this spec, but the Driver reads each and confirms its output still says the truth (a test or
+scenario change where it does not):
+
+- `board/crs.py`, `base_of` (the board's "on" and "why" for a CR in `chain`: a taken CR not placed
+  now shows the default branch, `why` "planned").
+- `commands/forge_stack.py:96`, `_row`'s `"base"` (`stack_base(..., planned=True)`), and its
+  `_no_bottom` (`off_place`, line ~106-114).
+- `commands/carry.py`, `head_base` (its candidates: `stack_base`, `pr_base`, the planned place, the
+  default branch, every other CR's branch), and `off_place` through `commands/facts.py`'s
+  `_off_place_tail`.
+- Also: `commands/driver.py:338` (the clean-rebase text), `commands/facts.py:211`,
+  `commands/forge_stack_gh.py:186`, `stack_words.pr_base_of` (only when no `pr_base` is recorded).
+
+### 6. Scenario (`scenario/run_scenario.py`, `scenario/README.md`)
+
+The Driver checks every scenario step that takes a stack CR on another CR's branch, and makes
+that CR `ready` where the step expects its branch.
+
+- Step 13-bis (`stack_start_base`, today lines ~6756-6826): rewritten checks; the step may add CRs
+  for the layouts (the Driver chooses them):
   1. Unchanged: no earlier CR with a PR (a later one does not count): default branch, no
      `start_on`.
   2. **Flipped:** an earlier CR `working` with a PR (a draft): the CR taken starts on the default
      branch, no `start_on`, and `handoff` prints `base origin/main`.
   3. New: the same earlier CR set `ready` (PR kept): the next CR taken records its branch and
-     `handoff` prints it.
+     `handoff` prints it (it can be the kept check "the CR right before has no PR and an earlier
+     one has").
   4. New (Q3): the nearest earlier CR with a PR is `working` and a CR below it is `ready` with a PR:
      the default branch.
   5. New: the nearest earlier CR with a PR is `blocked`: the default branch.
   6. New (Q2): the CR of check 2, taken on the default branch, still prints `base origin/main` in
      `handoff` once the CR below it is `ready` with a PR.
-  7. Kept, made ready where they need a base: the CR right before has no PR and an earlier one has
-     (now `ready`); a cancelled or merged CR is skipped; a fix and a release are unchanged; an open
-     `after` still starts on the dependency's branch; a parallel batch still starts on the default
-     branch.
-- Step 13-ter (`start_base_forge`, today lines ~6840-6895): set `a` and `z` `ready` before the takes
-  that expect their branch (checks 4 and 2). The rest is unchanged, including the `base:` line
-  checks, which now prove section 2's `_landed_line` recompute.
-- Line ~6606 ("starts on the nearest earlier CR with a PR (here the top of the ready part)"): `three`
-  is ready, so the expectation holds. Reword the label to "the nearest earlier CR handed back ready
-  with a PR".
-- `scenario/README.md` (line ~162, "a working one too"): "a ready one only; a working or blocked one
-  gives the default branch".
+  7. New (Q4): a CR taken on a ready CR's branch prints `base origin/main` once that CR is merged
+     or cancelled, even with a ready CR with a PR below it.
+  8. Kept, with the base CRs made ready: a cancelled or merged CR is skipped (the nearest ready one
+     left with a PR is the base); a fix and a release are unchanged; an open `after` still starts
+     on the dependency's branch; a parallel batch still starts on the default branch.
+- Step 13-ter (`start_base_forge`, today lines ~6841-6895): set `a` `ready` before `take b` and `z`
+  `ready` with its PR before `take d`, so checks 4 and 2 keep their expectations; the `base:` line
+  checks are unchanged and prove section 2's recompute. Add one check (Q4 with the journal): once
+  the hub saw `a` merged, and with `z` ready with a PR below, `handoff b` (taken on `a`) prints
+  `base origin/main` and the `base:` line naming `a`.
+- Step 13's checks around lines ~6580-6612 (`four` on `three`): `three` must be ready where the
+  checks expect its branch; reword the label at line ~6606 to "the nearest earlier CR handed back
+  ready with a PR".
+- `scenario/README.md` (line ~162, "a working one too"): "a ready one only; a working or blocked
+  one, or a lower ready one past it, gives the default branch, and a taken CR whose start CR has
+  ended prints the default branch".
 
-### 6. Tests (`skills/chantier/scripts/cli/tests/`)
+### 7. Tests (`skills/chantier/scripts/cli/tests/test_stack_base.py`)
 
-- No new test file: the start base is batch workflow, which belongs to `just scenario`. Fix any test
-  that asserts a stack start on a non-ready CR (grep `start_on_for`, `stack_start`, `start_base`
-  with `"stack"`). `test_hold_live_shared.py`'s series case is unaffected.
+- `STACKED`: the placed CRs `ready` (`placed(n)` gives `status="ready"`), so case A and the
+  `off_place` test keep `b-4` / `("b-1", "CR-4")`.
+- `CASES`:
+  - **D** flips to `"main"` (CR-8 taken, no `start_on`: Q2).
+  - **B2**: CR-2 working gives way to the dependency: `"b-1"`; add **B3**, the same with
+    `cr(2, status="ready")`: `"b-2"`.
+  - New rows: **working** (`[cr(1), noPr(2, status="queued")]`, 2, `"main"`); **ready**
+    (`cr(1, status="ready")`, `"b-1"`); **blocked** (`cr(1, status="blocked")`, `"main"`); **Q3**
+    (`[cr(1, status="ready"), cr(2), noPr(3, status="queued")]`, 3, `"main"`); **Q2**
+    (`[cr(1, status="ready"), cr(2, pr_base="main")]`, 2, `"main"`); **Q4-merged** and
+    **Q4-cancelled** (`[cr(1, status="ready"), cr(2, status="merged"|"cancelled"),
+    cr(3, start_on="b-2")]`, 3, `"main"`: the default branch even with a ready CR with a PR below).
+  - A, B, C, D2, F keep their expectations.
+- `LANDED`: `below`, `below-all`, `live-start-on`, `empty-set` with `cr(1, status="ready")` and
+  `cr(2, status="ready")` (same expectations); `dependency` unchanged; new **Q4-landed**
+  (`[cr(1, status="ready"), cr(2, status="ready"), noPr(3, start_on="b-2")]`, 3, `{"CR-2"}`,
+  `"b-2"`, `"main"`).
+- No new test file. The Driver runs the whole suite: `test_stack_hold.py`, `test_park_shared.py`,
+  `test_hold_live_shared.py`, `test_hold_live_stack.py`, `test_park_stack.py` build stack CRs and
+  must stay green (most go through the out-of-order rules first, or are placed).
 
 ## Overlaps in batch-30 (running)
 
-- **CR-442 `stack-git-chain`** (queued): edits `stacks.py` (`stack_base`, `stack_start` and
+- **CR-442 `stack-git-chain`** (pending): edits `stacks.py` (`stack_base`, `stack_start`,
   `start_base` gain or pass `landed`) and checks "a CR taken onto another CR's branch" through
-  `_live_start`. A CR with no live `start_on` stays unchecked. This agrees with Q2: a CR taken on
-  the default branch is never checked against a CR below. Under B, fewer CRs are taken onto another
-  CR's branch. Text conflict in `stacks.py` and `concepts.md`: whichever merges second rebases
-  onto the other and keeps both rules.
-- **CR-438 `stack-shape-guard`** (working): moves `foreman.md`'s stack rules verbatim into
+  `_live_start`; a CR with no live `start_on` stays unchecked, which agrees with Q2 and Q4. Same
+  functions as section 1: this CR goes after it and rebases onto it, keeping both rules.
+- **CR-438 `stack-shape-guard`** (working): moves `foreman.md`'s stack rules into
   `foreman-stack.md` and adds `shape_line` beside `stack_due` in `stacks.py`. Section 4's Foreman
-  edit lands in whichever file holds "The first take" at rebase. `stack_due`/`forming` (two CRs
-  ready with a PR) are not changed here.
-- **CR-430 `park-live-cr`, CR-431 `hold-live-cr`** (merged): `leave_stack_starts` unsets `start_on`
-  ("starts on the default branch"). Q2 makes the printed base agree. No code conflict.
-- **CR-443 `gate-hold-narrowing`, CR-436 `sync-blocked-by-others`** (queued, ready): touch
-  `commands/driver.py` and `commands/facts.py` in other functions (the stack driver's `lease:`
-  line, the sync callers). File-level only.
-- `commands/forge_base.py`: no batch-30 CR touches it, and this CR does not either. CR-428
-  (`drop-to-next-batch`): no overlap.
+  edit lands wherever "The first take" stands at rebase; `stack_due`/`FORMING` are not changed.
+- **CR-430 `park-live-cr`, CR-431 `hold-live-cr`** (merged): `leave_stack_starts` unsets
+  `start_on` ("starts on the default branch"); section 1's rule 2 makes the printed base agree.
+- **CR-443 `gate-hold-narrowing`, CR-436 `sync-blocked-by-others`**: touch `commands/driver.py` and
+  `commands/facts.py` in other functions; file level only.
 
 ## Out of scope
 
-- Parallel and series batches, the release's base (the top CR, take-base-from-forge Q9), a fix
-  CR's base, and the `after` rule.
-- The first take's threshold (two CRs ready with a PR), the in-batch runs, the final-order take and
-  the Ordering rule: stack-Q4 as shipped. Under B, the stack still forms bottom-up. Once one CR is
-  ready, the next CR taken starts on it.
-- A CR's start base after its first take: no re-basing by `take --note`. A CR whose start owner goes
-  back to a Driver (a new round) after the take keeps its base. The stack driver places it.
-- A recursive check that the start candidate's own base is all ready (Q3's note).
-- Any forge read in `take`; `forge-stack` commands; the board and the CR pane (no `STATUS.json`
-  field changes, so no screenshot is owed).
+- Parallel and series batches, the release's base, a fix CR's base, the `after` rule itself.
+- The first take's threshold (two CRs ready with a PR), the in-batch runs, the final-order take,
+  the Ordering rule.
+- A base passed by the Foreman at the take (Q1's option C, not chosen); re-basing by `take --note`.
+- A recursive check that the start candidate's own base is all ready.
+- Any forge read in `take`; the `forge-stack` commands; the CR pane (no `STATUS.json` field
+  changes, so no screenshot is owed).
 
 ## Evidence
 
 - `just check` green (Linux, macOS, Windows).
 - `just eval-dry-run` in the worktree (a change under the CLI's `src/`), before the first push.
-- `just scenario` green with section 5's checks: the pipeline's `just scenario (ubuntu-latest)` at
+- `just test` green within its budget, with section 7's rows; the tests call the CLI's functions
+  in-process on prepared records (no shipped file is guarded).
+- `just scenario` green with section 6's checks: the pipeline's `just scenario (ubuntu-latest)` at
   the PR's head, and locally on Windows (`chantier gate`) when this CR is on top of its batch's
   stack.
-- `just test` within its budget (no new test file).
-- No change to `hooks/` or `types/`, so no `just mod`. There is no host or default-configuration
-  dependency, so there is no matrix.
+- No change to `hooks/` or `types/`, so no `just mod`. No host or default-configuration dependency,
+  so no matrix.
 
 ## Open questions
 
-**take-draft-Q1: in a stack batch, may a new CR start on an earlier CR that is still working with
-a draft PR?**
-
-- **B (recommended): only on a CR handed back ready.** `take` starts a new CR on the nearest
-  earlier CR with a PR when that CR is `ready`. Otherwise (`working` or `blocked`) it starts the CR
-  on the default branch. Why: the code under a new CR is code a Verifier has passed, so no rebase
-  is owed at each round of the lower CR. That is the base Studio's Foreman chose by hand and the
-  retro asked for. stack-Q4's goals hold: one linear stack set at the batch's end, never a branch
-  with no PR. Once `carry-by-patch-id` is in, the final-order take's clean moves cost no new gate.
-  Real dependencies still go through `after`. Cost: CRs started in parallel on the default branch
-  may conflict at the final-order take. A CR that needs a working CR's code must say so with
-  `after`.
-- **A: keep the rule (stack-Q4 as it stands).** The nearest earlier CR with a PR, whatever its
-  state. Why: the user chose it four days ago. Each CR sees the code below it from the start, and
-  conflicts appear early. Cost: CR-429's case recurs. A CR built on a lower CR is rebased at each of
-  that CR's rounds. If the lower CR is blocked or cancelled, the upper one is moved to the default
-  branch mid-work.
-- **C: the Foreman names the base at the take** (`take <cr> --base <cr|default>`, checked by the
-  CLI against the CRs with a PR). Why: the Foreman knows which CRs have rounds to come. Cost: one
-  more judgment at every take, which compactions erode (`stack-shape-guard`'s problem).
-  take-base-from-forge Q1 rejected a base passed by the Foreman as an unchecked claim, and the
-  shape of the stack moves away from the CLI's rule.
-
-**take-draft-Q2: is a CR taken on the default branch kept there until the stack driver places it?**
-Recommended: yes (section 1). Today, `handoff` recomputes the base of such a CR and prints the
-branch of a CR below it that got a PR later, while its worktree and PR are on the default branch.
-Under B, this happens each time a lower CR turns ready. No: the printed base keeps following the
-record, as today. This question stands under A too.
-
-**take-draft-Q3: when the nearest earlier CR with a PR is working but a CR below it is ready, does
-the new CR start on the ready one or on the default branch?** Recommended: the default branch. The
-walk stops at the first CR with a PR. Starting on the lower ready CR would make the working CR and
-the new CR two branches on one base (a tree until the final-order take), and the new CR would miss
-the working CR's changes anyway. The other answer: skip working and blocked CRs down to the nearest
-ready one.
+None.
