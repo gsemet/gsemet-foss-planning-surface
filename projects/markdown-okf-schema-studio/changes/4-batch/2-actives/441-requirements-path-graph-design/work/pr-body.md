@@ -33,18 +33,56 @@ export function buildMetroMap(paths: readonly MainPath[]): MetroMap; // joined n
 export function metroSvg(model: MetroMap, paths: readonly MainPath[], fromDir: string): string;
 ```
 
-Map height in px on six real use case pages, before (base `8d99cd1e`) and after (head `d94b5ec`; the later commit only moves CI jobs, no site code), measured by the verifier on the generated report; overlaps are 0 on all twelve captures and the page never scrolls sideways at 800 px.
+Map height in px on six real use case pages, before (base `8d99cd1e`) and after (`d94b5ec`; the later commit only moves CI jobs, no site code), measured on the generated report; overlaps are 0 on all twelve captures and the page never scrolls sideways at 800 px.
 
-| Use case | 1280 px before | 1280 px after | 800 px before | 800 px after | Captures |
-| --- | --- | --- | --- | --- | --- |
-| StRS-MDOKFSTUDIO-BLOCK-003 | 1041 | 589 | 770 | 616 | [before 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-BLOCK-003-desktop.png), [after 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-BLOCK-003-desktop.png), [before 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-BLOCK-003-narrow.png), [after 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-BLOCK-003-narrow.png) |
-| StRS-MDOKFSTUDIO-FMSCHEMA-014 | 791 | 699 | 616 | 747 | [before 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-FMSCHEMA-014-desktop.png), [after 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-FMSCHEMA-014-desktop.png), [before 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-FMSCHEMA-014-narrow.png), [after 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-FMSCHEMA-014-narrow.png) |
-| StRS-MDOKFSTUDIO-BLOCK-014 | 1183 | 861 | 901 | 909 | [before 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-BLOCK-014-desktop.png), [after 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-BLOCK-014-desktop.png), [before 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-BLOCK-014-narrow.png), [after 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-BLOCK-014-narrow.png) |
-| StRS-MDOKFSTUDIO-MYST-006 | 910 | 402 | 675 | 429 | [before 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-MYST-006-desktop.png), [after 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-MYST-006-desktop.png), [before 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-MYST-006-narrow.png), [after 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-MYST-006-narrow.png) |
-| StRS-MDOKFSTUDIO-REVIEW-012 | 1582 | 858 | 1190 | 819 | [before 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-REVIEW-012-desktop.png), [after 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-REVIEW-012-desktop.png), [before 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-REVIEW-012-narrow.png), [after 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-REVIEW-012-narrow.png) |
-| StRS-MDOKFSTUDIO-MYST-009 | 949 | 770 | 731 | 812 | [before 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-MYST-009-desktop.png), [after 1280](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-MYST-009-desktop.png), [before 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/before-MYST-009-narrow.png), [after 800](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/bf652330c09832c1f2b32a1821d2051be7429a2b/after-MYST-009-narrow.png) |
+| Use case | 1280 px before | 1280 px after | 800 px before | 800 px after |
+| --- | --- | --- | --- | --- |
+| StRS-MDOKFSTUDIO-BLOCK-003 | 1041 | 589 | 770 | 616 |
+| StRS-MDOKFSTUDIO-FMSCHEMA-014 | 791 | 699 | 616 | 747 |
+| StRS-MDOKFSTUDIO-BLOCK-014 | 1183 | 861 | 901 | 909 |
+| StRS-MDOKFSTUDIO-MYST-006 | 910 | 402 | 675 | 429 |
+| StRS-MDOKFSTUDIO-REVIEW-012 | 1582 | 858 | 1190 | 819 |
+| StRS-MDOKFSTUDIO-MYST-009 | 949 | 770 | 731 | 812 |
+
+
+Before and after at 1280 px (map box only; `8d99cd1` and `d94b5ec`, the 800 px captures are kept with the evidence):
+
+| Use case | Before | After |
+| --- | --- | --- |
+| BLOCK-003 | ![before BLOCK-003](./before-BLOCK-003-desktop.png) | ![after BLOCK-003](./after-BLOCK-003-desktop.png) |
+| FMSCHEMA-014 | ![before FMSCHEMA-014](./before-FMSCHEMA-014-desktop.png) | ![after FMSCHEMA-014](./after-FMSCHEMA-014-desktop.png) |
+| BLOCK-014 | ![before BLOCK-014](./before-BLOCK-014-desktop.png) | ![after BLOCK-014](./after-BLOCK-014-desktop.png) |
+| MYST-006 | ![before MYST-006](./before-MYST-006-desktop.png) | ![after MYST-006](./after-MYST-006-desktop.png) |
+| REVIEW-012 | ![before REVIEW-012](./before-REVIEW-012-desktop.png) | ![after REVIEW-012](./after-REVIEW-012-desktop.png) |
+| MYST-009 | ![before MYST-009](./before-MYST-009-desktop.png) | ![after MYST-009](./after-MYST-009-desktop.png) |
 
 At 1280 px all six maps are shorter. At 800 px three maps are taller than before (FMSCHEMA-014 616 to 747, BLOCK-014 901 to 909, MYST-009 731 to 812): the map is drawn at its own size and scrolls inside its box instead of being squeezed, and the size bound of this change is the 1280 px one.
+
+## Blast radius
+
+Grade: **1**. Only the generated requirements site's viewer and its tests change, nothing under
+`src/`. A plain `git revert` restores the previous map.
+
+## Autonomous decisions
+
+- Third path colour comes from a site token `--p3` built on the extension's cream yellow, not a raw
+  colour, because the site takes every colour from the cream block.
+- Play gets its own new requirement (CORE-091) rather than an item of CORE-081, so its test and
+  marker stay apart.
+- Map size bound is "shorter than before at 1280 px"; at 800 px one map was already taller in the
+  prototype.
+- A missing requirements report fails the browser test in CI and skips it locally.
+
+## Known gaps
+
+- Numbered badges at every path start, a two-colour border on shared pills and a stronger scroll hint
+  are not part of this change.
+- The `visual` job still takes 12 to 14 minutes of its 15 minute limit without this change's additions (its test step is the slow part); it is a separate follow-up, not changed here.
+- **UNVERIFIED:** the CI timing figures of the `visual` job and of the report step (about 90 % of its limit, 11m45 to 14m05, cancelled twice, 17 to 19 s, 43 s locally) come from the author's own measurements and logs; the durations 13m05 and 1m24 of the green run are verified.
+- At 800 px three of the six measured maps are taller than before (listed under Deliverables); the bound is the 1280 px one.
+
+<details>
+<summary>Details</summary>
 
 ## Changes
 
@@ -71,33 +109,16 @@ At 1280 px all six maps are shorter. At 800 px three maps are taller than before
   now run in a job of their own (1m24 in CI), in parallel; `visual` is back to what it ran before,
   and no timeout is raised.
 
+## Human decisions
+
+- A state shared by two paths is one node: the paths join into it and split out of it, like the lines of a metro map, never a copy per row.
+- The map explains itself to a non-specialist in one short line and a legend: a use case is reached by one or more paths, each step is a behaviour with its own tests, and paths can share steps.
+- Every link in the map and its captions shows the full requirement ID.
+
 ## Impacts
 
 Visible on every use case page of the requirements site: a smaller, joined map and full IDs in
 link texts. Heights and captures are in Deliverables: six maps are 12 to 56 % shorter at 1280 px; three are taller at 800 px.
-
-## Blast radius
-
-Grade: **1**. Only the generated requirements site's viewer and its tests change, nothing under
-`src/`. A plain `git revert` restores the previous map.
-
-## Autonomous decisions
-
-- Third path colour comes from a site token `--p3` built on the extension's cream yellow, not a raw
-  colour, because the site takes every colour from the cream block.
-- Play gets its own new requirement (CORE-091) rather than an item of CORE-081, so its test and
-  marker stay apart.
-- Map size bound is "shorter than before at 1280 px"; at 800 px one map was already taller in the
-  prototype.
-- A missing requirements report fails the browser test in CI and skips it locally.
-
-## Known gaps
-
-- Numbered badges at every path start, a two-colour border on shared pills and a stronger scroll hint
-  are not part of this change.
-- The `visual` job still takes 12 to 14 minutes of its 15 minute limit without this change's additions (its test step is the slow part); it is a separate follow-up, not changed here.
-- **UNVERIFIED:** the CI timing figures of the `visual` job and of the report step (about 90 % of its limit, 11m45 to 14m05, cancelled twice, 17 to 19 s, 43 s locally) come from the author's own measurements and logs; the durations 13m05 and 1m24 of the green run are verified.
-- At 800 px three of the six measured maps are taller than before (listed under Deliverables); the bound is the 1280 px one.
 
 ## Test plan
 
@@ -108,10 +129,12 @@ Grade: **1**. Only the generated requirements site's viewer and its tests change
 - [x] Local gates at `d20b0bf`: `just check` pass, `just preflight` pass, `just ci-viewer-graph` pass
       (43 s), `npm run test:viewer-graph` 4 of 4 pass on the real report
 - [x] Evidence: before at `8d99cd1`, after at `d94b5ec` (carried to `d20b0bf`, the move touches no site code); twelve captures in Deliverables
-- [x] Review: approved at `d20b0bf` (round 4, the CI job split; earlier rounds approved at 5abb7af and d94b5ec)
+- [x] Review: approved at `d20b0bf` (the CI job split; earlier passes at `5abb7af` and `d94b5ec`)
 - [x] Verified at `d20b0bf` (map claims carried from `d94b5ec`; CI split and job durations proved at `d20b0bf`)
 - [x] CI green at `d20b0bf`: static, static-windows, visual (13m05), viewer-graph (1m24), report pass
 
 ## Internal references
 
 CR-441 path-graph.
+
+</details>
