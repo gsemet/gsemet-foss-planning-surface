@@ -43,6 +43,7 @@ Grade: 2. The opening path of every Markdown file changes (activation event, a t
 - The opening that triggered activation is never replaced.
 - Not run in real VS Code: the migration with real settings files, the diff views staying text, the activation-time opening, the keyboard timing of the flash, and Back/Next navigation; the unattended campaign automation was cut.
 - Small review leftovers: `docs/user/open-studio.md` does not mention the pinned-tab exception next to the "revealed at the line" sentence; an integration test waits a fixed 1.5 s to prove nothing opens; a map of recent jumps in the watcher is only pruned lazily. `test/integration/openAtLine.test.ts` compiles but was not run in the real harness. **UNVERIFIED:** diffs are never replaced in real VS Code (covered by unit tests of the policy only).
+- In a very narrow pane in edit mode, the arrow can still overlap a list item handle; no visual scenario covers that width.
 - Visual scenarios, the integration stage and the real VS Code jobs run on Linux CI only.
 
 <details>
