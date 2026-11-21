@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Side preview next to a diff: scroll, replace preview, title button",
+  "summary": "Specified: next to a VS Code text diff of a .md file, Studio previews its real file: title button on diffs, Open Preview to Side from the replace preview, the side preview switches to the diff's file and scrolls with it both ways.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a004c2404908d602533c7fe949b0c4dc4f5617ad6cd41d25e7bd35035ce03cbb",
+    "02-answers.md": "97c251c7305d4d40cb2190b34cf2efe1d05a75f8e4adb201bc70247efceeb57e",
+    "03-change-spec.md": "3a0d0a146ae2eb2d6adad60aff71bcf686f42244071dcdce3aef72150cdd5d52",
+    "intake/request.md": "610a0819b479d9f4388e48502be39e306bb5f1843c5d6005197a2d47af56455e"
+  },
+  "summarized": "2026-11-21T10:26:40Z"
+}
