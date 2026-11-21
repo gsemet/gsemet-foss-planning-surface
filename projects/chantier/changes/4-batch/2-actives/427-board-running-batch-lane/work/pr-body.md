@@ -41,9 +41,10 @@ Users see the split column on the backlog page.
 
 ## Test plan
 
-- `just check`: pass at fdc1d28.
-- `just eval-dry-run`: pass at fdc1d28.
-- `just scenario` (local long gate, includes the new running-lane step): pass at fdc1d28.
+- `just check`: pass at fd52787.
+- `just eval-dry-run`: pass at fdc1d28 (fd52787 changes one test only).
+- `just scenario` (local long gate, includes the new running-lane step): pass at fd52787.
+- CI (`gh pr checks 401`): all 5 checks pass at fd52787.
 
 ## Internal references
 

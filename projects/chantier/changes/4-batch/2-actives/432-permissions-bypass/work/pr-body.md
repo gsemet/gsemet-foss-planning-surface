@@ -35,7 +35,7 @@ Grade: 1. A preflight report and cards change; no rule is written or removed. `g
 
 ## Known gaps
 
-- Claude Code's matching is proved for the main session in `dontAsk` only; auto mode and subagents stay unproved, as the host card says.
+- Claude Code's matching is proved for the main session in `dontAsk` only; auto mode and subagents stay unproved, and so does the assumption of one plugin copy per install, as the host card says.
 - The trial ran the dev and sync rules against a scratch project standing in for the checkout, not the real checkout; the rule text and matching are the same, the folder differs.
 - The tests exercise the Bash rule forms; the PowerShell forms are covered by the code on Windows and by the trial, not by a dedicated test case.
 - `gate` and `lease hold` still run any command they are given, until a follow-up change.
@@ -67,12 +67,12 @@ No visual change. Users see real-path rules in preflight's question and a warnin
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `1559e15`: `just check` (1586 passed), `just eval-dry-run` (18 of 18)
-- [ ] Evidence: the trial of rule matching, results in Deliverables
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code), at `1559e15`
+- [x] Local gates at `1559e15`: `just check` (1586 passed), `just eval-dry-run` (18 of 18)
+- [x] Evidence: the trial of rule matching (Claude Code 2.1.326, Windows 11, `dontAsk`), results in Deliverables; preflight run for real in both modes at `1559e15`
+- [x] Review: approved at `1559e15` (carried from `c132602`: the tree is unchanged by the commit and the rebase)
+- [x] Verified at `1559e15`
+- [x] CI green at `1559e15`: five checks pass, `just scenario (ubuntu-latest)` included
 
 ## Internal references
 
