@@ -24,7 +24,7 @@ flowchart LR
 - Table cells and notes are plain escaped text; `&lt;`, `&gt;`, `&amp;` and `&quot;` are decoded once before escaping, so the page shows what GitHub shows and nothing in the source becomes markup.
 - A wide table scrolls inside its card on a narrow screen.
 
-Before at `a18bcac` (left), after at `8d99cd1` (right). The first card of a behaviour page whose scenario is a table:
+Before at `a18bcac` (left), after at `4f98264` (right; images carried from `8d99cd1`). The first card of a behaviour page whose scenario is a table:
 
 | Before | After |
 |---|---|
@@ -73,11 +73,11 @@ The published requirements site shows table scenarios; no extension behaviour ch
 - [x] New or changed tests (they fail on the previous code: the model, page and bundle tests do not compile without `blocks` and `scenarioBody`; the home assertion compiles on the old code and fails on the old hint text)
 - [x] Requirements: `SwRS-MDOKFSTUDIO-CORE-082` updated with two scenarios, markers in code and tests, `just requirements-update` run
 - [x] Changelog: no user-facing change (site tooling)
-- [x] Local gates at `8d99cd1`: `just check`, `just requirements-update`, okfreq validate
-- [x] Evidence: before at `a18bcac`, after at `8d99cd1`
-- [x] Review: approved at `a18bcac` (committed as `8d99cd1`)
-- [x] Verified at `8d99cd1`
-- [x] CI green at `8d99cd1`
+- [x] Local gates at `4f98264` (long gate `just preflight`, static stage on Windows): `just check`, `just requirements-update`, okfreq validate
+- [x] Evidence: before at `a18bcac`, after at `4f98264` (carried from `8d99cd1`)
+- [x] Review: approved at `a18bcac` (committed as `8d99cd1`); restack conflict in the requirements log reviewed at `4f98264`
+- [x] Verified at `4f98264`
+- [x] CI green at `4f98264`
 
 Tests:
 
