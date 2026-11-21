@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "gate runs only named commands; lease hold runs nothing",
-  "summary": "Specified, after CR-432: gate runs only long gates named in chantier.yaml (long_gate.commands, by name; free commands refused; chantier's own: scenario); lease hold runs nothing and keeps a lease 45 min (90 max). Three open questions for the Chief of Staff.",
+  "summary": "Specified (v2), after CR-432: gate runs only long gates named in chantier.yaml (long_gate.commands, by name; free commands refused, the refusal gives the lines; evals ship the entry); lease hold runs nothing, keeps a lease 45 min (90 max). One open question, built on A.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "3b36985e22b3ac520044ea5335d58d26dbeb1b54e2775650116cbb3ada5c4625",
-    "02-answers.md": "5cbc766c08b7796e126df1c46c32836b1026d5b0a99d943815f3037fbd160940",
-    "03-change-spec.md": "c1ff98ddf0e78a9a8f532a8819bce2194dffdc7bc5e13b112920a7fd7e7b73ef",
+    "02-answers.md": "201ec8cf23fe914488f2ed1dc01fbf5034d08c46224a90cf6d567a1bf1834e38",
+    "03-change-spec.md": "949b415ba6954d50d26a3b1960e755227e357188328d3cc58b041c5744eac5f4",
     "intake/request.md": "ba24bc665a9f54d860da43af2a47659f780db4b97e0055cf329380c3c219ea6c"
   },
-  "summarized": "2026-11-21T17:17:20Z"
+  "summarized": "2026-11-21T18:45:22Z"
 }
