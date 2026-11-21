@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Flaky previewManager join-window test (2 !== 1): tests control time instead of waiting",
+  "summary": "Spec rewritten on the real premise: the join-window test flakes when a stall closes the 250 ms shared-render window. Test-only fix with fake timers or an injectable window of the same value; the hidden-panel test is converted too; no product, SwRS or log change.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "bfcacbc8027ac7e2cc0668e2ed0277c018054619e543fc4605a17576132f0e7e",
+    "02-answers.md": "42598b2a664a5967736fe4d621bc41e942a515fb51b3727b58ddf6ee8c5741da",
+    "03-change-spec.md": "495faf7dfb1e19c390a8662478f6b2a83f6d02d20f0e4a7d1b97f71c5bd12fae",
+    "intake/request.md": "893f17d7a9f015ac2983c0d1e826ae70145fa25bc6e91f614a9e72b881b55bf7"
+  },
+  "summarized": "2026-11-21T10:12:18Z"
+}

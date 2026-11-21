@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Flaky real-window test realinput-t45: only the delimiter cell of the first column centred",
+  "summary": "Spec complete, no open question: lead cause is the Center option press routed to the workbench; adds failure traces and an on-demand-only stress entry (after sibling flaky-paste-url-drop-files), proved by 300 stress rounds.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "7e6e2aad9cf23473e8119dad09c0990dc612f8f3f86e34de9b59762709593b51",
+    "02-answers.md": "1636d587d5453435dbae14a5f55d6de307653978bcafec4302a0dc0fbd56549b",
+    "03-change-spec.md": "7b6c336efb2641d8deae46b8b285f0fd837295d43a71a08689f4a3152d9ec6ed",
+    "intake/request.md": "4acd98ef0fa8c60c11f561709788f9ceb9ad8686b5e4f624cf79c203984f9824"
+  },
+  "summarized": "2026-11-21T10:12:50Z"
+}

@@ -17,3 +17,6 @@ Spec critic run (2026-11-21): 8 findings. Fixes with no user question, for the s
 10. factory-Q10 (2026-11-21): **Every spec-writer start.** A. Yes: every spec-writer start asks the destination, the same two options, not only the closing "grilled enough?".
 11. factory-Q11 (2026-11-21): **"Back to the backlog" kept.** A. "Grilled enough?" offers four options: next batch (recommended), running batch, back to the backlog, not yet.
 12. factory-Q12 (2026-11-21): **A CR neither grilled nor specified, marked for the running batch.** A. The mark is refused for an ungrilled CR ("grill it first"); an automatable `3-ready` CR joins at once with `order add`.
+13. factory-Q14 (2026-11-21): **`open` with no CR.** A. Allowed: an ordinary batch, paused, that waits for its CRs in `1-pending`.
+14. factory-Q13 (2026-11-21): **`order add` refused at the spec's end.** Open: the user asks what a refused `order add` means and why ("Ça veut dire quoi que order add est refusé ? Pourquoi ?").
+15. factory-Q13 (2026-11-21, after the Chief of Staff explained the refusals: a release already started in the batch, the batch closing, the writer not running): **A release started when the spec becomes final.** A. The CR goes to `3-ready` and the user is told in one line. (Closing: as factory-Q4; writer not running: restart the server, the CR waits.)

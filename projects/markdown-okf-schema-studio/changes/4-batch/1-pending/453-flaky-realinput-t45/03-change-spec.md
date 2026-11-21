@@ -136,8 +136,11 @@ appends, in this order:
 - the source document: `document.version`, `document.isDirty` and `document.getText()` (the smoke
   document is short; the whole text is printed);
 - `editorState(page)` (kept from today's message);
-- `windowFocusReport(page)` (`test/integration/windowFocus.ts`): the workbench focus dump, and for
-  every frame its document id, version, request id, visibility and the page's editor trace;
+- `windowFocusReport(page)` (`test/integration/windowFocus.ts`). The suite already prints the
+  workbench focus dump at the failing step (`takeFailureFocusDump`, `realInput/run.ts` line 362,
+  the dump quoted above); what this report adds is, for every frame, its document id, version,
+  request id and visibility, and the page's editor trace, plus the VS Code window state and the
+  page's own focus;
 - `pageTraceStart`: the page's `__studioDiagnostics.startedAt()` against the scenario's clock, so
   the editor trace entries line up with the steps (as in `editorWidgets.ts`);
 - `readLandingSummary(page, frame, startedAt, startedAt)`
@@ -146,18 +149,32 @@ appends, in this order:
 
 A read that fails while the message is built (frame detached, CDP error) prints `unreadable:
 <error>` for that part and never hides the original error. The message reaches the CI log through
-the suite's existing `Real-input integration failed:` line; nothing else is added to a passing run.
+the suite's existing `Real-input integration failed:` line. Nothing else is added to a passing run,
+except the `hover recovered after re-move (CR 330)` line that `clickListOption` logs when its hover
+had to be redone (`clickRouting.ts` line 354).
 
 ### 2. Stress registration (always shipped)
 
-- `test/shared/stressPlan.ts`: add `"table-insert-slash"` to `STRESS_ON_DEMAND_SCENARIOS`, after
-  `"drop-files"`, with a comment naming this CR (on demand, as CR 425 did, because the default plan
-  is at the deadline margin that `test/build/hangWatchdog.test.ts` keeps).
-- `test/integration/realInput/run.ts`: add `"table-insert-slash": (page) =>
-  scenarioTableInsertFromSlash(page)` to `STRESS_SCENARIOS`, in the same place (the order of the
-  table must equal the lists of `stressPlan.ts`, which `runStress` asserts).
-- `test/build/stressPlan.test.ts`: the CR 425 test lists the on-demand names; extend it so
-  `table-insert-slash` is on demand in the trusted window and never in the default plan.
+The sibling CR `flaky-paste-url-drop-files` (same planning folder, `1-inbox`) moves `paste-url` and
+`drop-files` out of `STRESS_ON_DEMAND_SCENARIOS` (`test/shared/stressPlan.ts` line 93,
+`test/integration/realInput/run.ts` lines 103 to 114, `test/build/stressPlan.test.ts` lines 61 to
+69) and may delete that constant. Both CRs go in batch-07, the sibling first. This section holds
+whichever CR lands first:
+
+- `test/shared/stressPlan.ts`: the on-demand list `STRESS_ON_DEMAND_SCENARIOS` holds
+  `"table-insert-slash"`, with a comment naming this CR. The constant is kept when it exists, or
+  created again when the sibling deleted it (the default plan is at the deadline margin that
+  `test/build/hangWatchdog.test.ts` keeps, which is why the name is on demand, as CR 425 did).
+  `hostStressPlan` keeps reading it for the trusted window.
+  Owner, t45-Q2 ("t45 à la demande, 11 tours"): `table-insert-slash` runs on demand only, never in
+  the default plan, which keeps the sibling's 21 scenarios at 11 rounds; RI-T45 is proved by its own
+  dispatches (Evidence).
+- `test/integration/realInput/run.ts`: `STRESS_SCENARIOS` gets `"table-insert-slash": (page) =>
+  scenarioTableInsertFromSlash(page)`. Its key order follows the lists of `stressPlan.ts` as they
+  are at that point (default trusted names, then the on-demand names), which `runStress` asserts.
+- `test/build/stressPlan.test.ts`: a test of its own for `table-insert-slash`: it is on demand in the
+  trusted window (named in `STUDIO_STRESS_SCENARIOS`, the trusted plan runs it) and never in the
+  default plan. It does not depend on the CR 425 test, which the sibling may change or remove.
 
 ### 3. The fix, from what the traces prove
 
@@ -171,33 +188,48 @@ the suite's existing `Real-input integration failed:` line; nothing else is adde
   not, rule 12), with the SwRS work the requirements guidelines ask for
   (`requirements/guidelines/requirements.guidelines.md` and `project.guidelines.md`, "During a
   change"): the SwRS that the fix touches, `@implements_req` and `@tests_req` markers, `just
-  requirements-update`, a dated entry in `requirements/tiers/log.md`.
+  requirements-update`, a dated entry in `requirements/tiers/log.md`. A product fix that changes
+  an existing published requirement (not one that only adds an SwRS or extends one) comes back to
+  the Chief of Staff with the trace that proves the cause, before it ships.
 - **No cause proved:** sections 1, 2 and the C1 click change ship; the delivery states plainly that
   the cause is not proved, what the stress runs showed, and that the traces will name it at the next
   failure. No retry, no quarantine, no raised timeout, no sleep.
 
 ## Evidence
 
-1. **Before the fix, the traces only (sections 1 and 2, the old direct click kept):** a heavy
-   dispatch on the CR branch, `gh workflow run ci.yml --ref <branch> -f heavy=true -f
-   stress_scenarios=table-insert-slash -f stress_repeat=<N> -f gallery=false`. `N` is chosen so the
-   computed launch deadline holds (2 min plus 6 s per scenario run, at most 24 min, rule 11): the
-   Driver reads RI-T45's healthy duration from a passing run (`PASS stress ... table-insert-slash
-   (<ms> ms)`) and runs 60 rounds in total, over several dispatches when one cannot hold them. A red
-   round's message is the proof of the cause (C1, C2 or C3); the Driver copies the failing run id
-   and the trace lines that prove it into `work/`. A green 60 rounds means the race did not
-   reproduce: it is reported, not taken as a proof either way.
+Observed rate: RI-T45 failed once over the heavy runs that ran it, about 1 in 20 or more (the
+failing run 44731534776 and its green re-run; the Driver counts the heavy runs of `main` and of
+batch branches that ran RI-T45 and writes the exact count in `work/`). The rounds are sized from
+that rate: at 1 in 20, 60 rounds can easily miss the race, so each phase runs about 300 rounds.
+A dispatch of this one scenario allows up to 100 rounds (`MAX_STRESS_REPEAT`, under the 220 scenario
+runs per window of the workflow input), as long as the computed launch deadline holds (2 min plus
+6 s per scenario run, at most 24 min, rule 11): the Driver reads RI-T45's healthy duration from a
+passing round (`PASS stress ... table-insert-slash (<ms> ms)`) and lowers the rounds per dispatch
+when it does not hold, adding dispatches to keep the total.
+
+What the stress runs can show: they repeat RI-T45 alone, so they reach C1 and C3 (the press itself)
+only. C2 (a late event from RI-T44, `scenarioTableCellBold`, reaching the page during RI-T45) needs
+RI-T45 in its place after RI-T44: only the full integration job and the new traces cover it.
+
+1. **Before the fix, the traces only (sections 1 and 2, the old direct click kept):** heavy
+   dispatches on the CR branch, `gh workflow run ci.yml --ref <branch> -f heavy=true -f
+   stress_scenarios=table-insert-slash -f stress_repeat=100 -f gallery=false`, three of them (300
+   rounds), or more with fewer rounds each when the deadline asks for it. A red round's message is
+   the proof of the cause (C1 or C3); the Driver copies the failing run id and the trace lines that
+   prove it into `work/`. 300 green rounds mean the race did not reproduce: it is reported, not
+   taken as a proof either way.
 2. **A forced failure, local, not committed:** change the expected text of one `expectState` of
    RI-T45, run the scenario once in the real window, and copy the failure message into `work/`: it
    holds every part of section 1 (steps with times, host request, buffer, editor state, focus report
    with the editor trace, page trace start, landing summary). Then revert the change.
-3. **After the fix:** the same stress dispatch, 60 rounds in total, all green, on the branch head
-   that will merge. The run ids go in the delivery.
+3. **After the fix:** the same stress dispatches, 300 rounds in total, all green, on the branch
+   head that will merge. The run ids go in the delivery.
 4. **The unit checks:** `test/build/stressPlan.test.ts` passes with `table-insert-slash` on demand.
 5. **The project gates:** `just check` and `just preflight` (the static stage on Windows; CI runs
    the others), and the heavy integration job (`gh workflow run ci.yml --ref <branch> -f
    heavy=true`) green on the branch head: the full real-input suite, RI-T45 in its usual place after
-   RI-T44 (`scenarioTableCellBold`).
+   RI-T44 (`scenarioTableCellBold`). This is the only run that can show C2; a C2 failure there
+   explains itself through the traces of section 1.
 
 The stress and integration jobs run on GitHub's Ubuntu runner under `xvfb-run` (screen 2600 x 1440
 x 24), with no D-Bus session (the `dbus/bus.cc` errors of the log are normal there); a local Windows
@@ -210,10 +242,6 @@ run proves the traces' content (step 2), not the race, which only the CI runs ca
 - The other real-input scenarios, including the direct clicks of other steps that are not on a
   just-opened list option.
 - `wide-table-tab` (out of the stress plan for its own unstable click).
-- Adding `table-insert-slash` to the default stress plan (it stays on demand; see the open question).
-
-## Open questions for the owner
-
-1. Should `table-insert-slash` run in the default stress plan (every heavy run, 12 rounds) rather
-   than on demand only? The default plan is at its deadline margin (CR 425); adding it there means
-   removing or splitting another scenario, which this CR does not decide.
+- Adding `table-insert-slash` to the default stress plan (owner, t45-Q2: it stays on demand).
+- The size of the default stress plan: the sibling's 21 scenarios at 11 rounds (owner, t45-Q2),
+  set by the sibling CR, not here.
