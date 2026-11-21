@@ -1,0 +1,3 @@
+# The batch page wastes less vertical space
+
+The user (2026-11-21, a screenshot of batch-30's page with red arrows): 'il faut reduire la perte de place verticalement. pareil, met ca dans le batch a la fin'. The arrows take the mode band (Stack · Foreman and its sentence, the Stack / Series / Parallel switch) and the 'States and arrows · hover for the legend' line up into the page's top rows (the breadcrumb row and the Batch title row), so the four stat tiles and the view switch (Graph, Gantt, Time cards) sit higher and the graph starts higher.

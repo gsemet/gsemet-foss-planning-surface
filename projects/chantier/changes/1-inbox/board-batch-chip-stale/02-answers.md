@@ -5,3 +5,5 @@ Short name: `chip`
 Restatement (2026-11-21): a CR in the batch shows no priority chip in any board view that draws it as a batch CR (the batch graph first); the backlog views keep their chips.
 2. chip-Q2 (2026-11-21, the user's word): **Grilled enough, destination.** "tu peux lancer board-batch-chip-stale tout de suite dans le batch": the spec-writer, then the critic; destination batch-30 at once.
 3. chip-Q1 changed (2026-11-21, the user's words): "affiche son dossier quand meme": a batch CR's card shows its real folder in the batch (`1-pending`, `2-actives`, `3-done`) in place of the old priority chip, never `3-ready`. Replaces answer 1's "no chip".
+Spec v1 (2026-11-21): written to answer 3 (server sends `stage`, four batch views draw it, `priority_of` removed); one open question.
+4. chip-Q3 (2026-11-21, spec open question 1, settled by the Chief of Staff, the user's preference for the simple option): **The Kanban page's batch CR card.** Unchanged, out of scope: its column already shows the state. The user may reopen it.
