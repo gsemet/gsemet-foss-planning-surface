@@ -37,7 +37,7 @@ exports.activate = (ctx) => {
     vscode.window.tabGroups.onDidChangeTabs((e) => log({ ev: "tabs", opened: e.opened.map((t) => tabInfo(t, t.group)), closed: e.closed.map((t) => tabInfo(t, t.group)), changed: e.changed.map((t) => tabInfo(t, t.group)) })),
     vscode.window.onDidChangeActiveTextEditor((e) => log({ ev: "active", uri: e && e.document.uri.toString(), sel: e && [e.selection.start.line, e.selection.start.character] })),
     vscode.window.onDidChangeVisibleTextEditors((es) => log({ ev: "visible", eds: es.map((e) => ({ uri: e.document.uri.toString(), col: e.viewColumn, sel: [e.selection.start.line, e.selection.start.character] })) })),
-    vscode.window.onDidChangeTextEditorSelection((e) => log({ ev: "selection", uri: e.textEditor.document.uri.toString(), kind: e.kind, sel: e.selections.map((s) => [s.start.line, s.start.character]) })),
+    vscode.window.onDidChangeTextEditorSelection((e) => log({ ev: "selection", uri: e.textEditor.document.uri.toString(), kind: e.kind, sel: e.selections.map((s) => [s.start.line, s.start.character, s.end.line, s.end.character]) })),
   );
   let busy = false;
   const timer = setInterval(async () => {
