@@ -1,0 +1,560 @@
+{
+ "light/table-row": {
+  "line": 15,
+  "markers": 1,
+  "marker": {
+   "top": 82.3,
+   "height": 22.4
+  },
+  "target": {
+   "top": 152,
+   "height": 34.6
+  },
+  "scrollY": 244,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "light/table-row-quote": {
+  "line": 20,
+  "markers": 1,
+  "marker": {
+   "top": 81.8,
+   "height": 22.4
+  },
+  "target": {
+   "top": 171.8,
+   "height": 34.6
+  },
+  "scrollY": 366,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "light/table-row-note": {
+  "line": 26,
+  "markers": 1,
+  "marker": {
+   "top": 82,
+   "height": 22.4
+  },
+  "target": {
+   "top": 151.7,
+   "height": 34.6
+  },
+  "scrollY": 580,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "light/hidden-tab-paragraph": {
+  "line": 36,
+  "markers": 1,
+  "marker": {
+   "top": 81.5,
+   "height": 22.4
+  },
+  "target": {
+   "top": 0,
+   "height": 0
+  },
+  "scrollY": 715,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "light/hidden-tab-code": {
+  "line": 39,
+  "markers": 1,
+  "marker": {
+   "top": 81.5,
+   "height": 22.4
+  },
+  "target": {
+   "top": 0,
+   "height": 0
+  },
+  "scrollY": 715,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "light/hidden-tab-nested": {
+  "line": 48,
+  "markers": 1,
+  "marker": {
+   "top": 81.5,
+   "height": 22.4
+  },
+  "target": {
+   "top": 0,
+   "height": 0
+  },
+  "scrollY": 715,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "light/frontmatter-row": {
+  "line": 4,
+  "markers": 1,
+  "marker": {
+   "top": 20,
+   "height": 19
+  },
+  "target": {
+   "top": 123.9,
+   "height": 29.5
+  },
+  "scrollY": 20,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "light/frontmatter-list-value": {
+  "line": 6,
+  "markers": 1,
+  "marker": {
+   "top": 82.1,
+   "height": 35
+  },
+  "target": {
+   "top": -9.5,
+   "height": 59
+  },
+  "scrollY": 183,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "light/frontmatter-comment": {
+  "line": 2,
+  "markers": 1,
+  "marker": {
+   "top": 20,
+   "height": 19
+  },
+  "target": {
+   "top": 20,
+   "height": 207.3
+  },
+  "scrollY": 20,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "dark/table-row": {
+  "line": 15,
+  "markers": 1,
+  "marker": {
+   "top": 82.3,
+   "height": 22.4
+  },
+  "target": {
+   "top": 152,
+   "height": 34.6
+  },
+  "scrollY": 244,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "dark/table-row-quote": {
+  "line": 20,
+  "markers": 1,
+  "marker": {
+   "top": 81.8,
+   "height": 22.4
+  },
+  "target": {
+   "top": 171.8,
+   "height": 34.6
+  },
+  "scrollY": 366,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "dark/table-row-note": {
+  "line": 26,
+  "markers": 1,
+  "marker": {
+   "top": 82,
+   "height": 22.4
+  },
+  "target": {
+   "top": 151.7,
+   "height": 34.6
+  },
+  "scrollY": 580,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "dark/hidden-tab-paragraph": {
+  "line": 36,
+  "markers": 1,
+  "marker": {
+   "top": 81.5,
+   "height": 22.4
+  },
+  "target": {
+   "top": 0,
+   "height": 0
+  },
+  "scrollY": 715,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "dark/hidden-tab-code": {
+  "line": 39,
+  "markers": 1,
+  "marker": {
+   "top": 81.5,
+   "height": 22.4
+  },
+  "target": {
+   "top": 0,
+   "height": 0
+  },
+  "scrollY": 715,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "dark/hidden-tab-nested": {
+  "line": 48,
+  "markers": 1,
+  "marker": {
+   "top": 81.5,
+   "height": 22.4
+  },
+  "target": {
+   "top": 0,
+   "height": 0
+  },
+  "scrollY": 715,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "dark/frontmatter-row": {
+  "line": 4,
+  "markers": 1,
+  "marker": {
+   "top": 20,
+   "height": 19
+  },
+  "target": {
+   "top": 123.9,
+   "height": 29.5
+  },
+  "scrollY": 20,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "dark/frontmatter-list-value": {
+  "line": 6,
+  "markers": 1,
+  "marker": {
+   "top": 82.1,
+   "height": 35
+  },
+  "target": {
+   "top": -9.5,
+   "height": 59
+  },
+  "scrollY": 183,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ },
+ "dark/frontmatter-comment": {
+  "line": 2,
+  "markers": 1,
+  "marker": {
+   "top": 20,
+   "height": 19
+  },
+  "target": {
+   "top": 20,
+   "height": 207.3
+  },
+  "scrollY": 20,
+  "panels": [
+   {
+    "text": "First tab text.",
+    "hidden": false
+   },
+   {
+    "text": "The second tab holds a p",
+    "hidden": true
+   },
+   {
+    "text": "Inner tab text.",
+    "hidden": false
+   },
+   {
+    "text": "Nested hidden tab line.",
+    "hidden": true
+   }
+  ]
+ }
+}
