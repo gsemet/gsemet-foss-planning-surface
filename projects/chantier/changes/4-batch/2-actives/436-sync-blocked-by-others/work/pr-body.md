@@ -58,11 +58,11 @@ No visual change. Other projects' sessions get the plugin-mode allow rule, asked
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
-- [x] Local gates at c5af034: `just check` pass (1625 passed), `just eval-dry-run` pass (18 of 18), `just scenario` pass
-- [x] Evidence: no before/after capture (CLI and cards); checks in the verifier's report at c5af034
-- [x] Review: approved at c5af034 (carried from 14160a6)
-- [x] Verified at c5af034
-- [x] No CI: no check listed at c5af034 (PR is on a stacked base)
+- [x] Local gates at 9bff328: `just check` (CI, three systems), `just eval-dry-run` (CI), `just scenario` passed locally at the previous head (same patch-id, carried over a clean restack) and in CI at 9bff328
+- [x] Evidence: no before/after capture (CLI and cards); checks in the verifier's report at 9bff328
+- [x] Review: approved at 9bff328 (carried from 14160a6)
+- [x] Verified at 9bff328
+- [x] CI: gh pr checks 405 at 9bff328: just check (macos, ubuntu, windows), just eval-dry-run and just scenario (ubuntu) all pass
 
 ## Internal references
 
