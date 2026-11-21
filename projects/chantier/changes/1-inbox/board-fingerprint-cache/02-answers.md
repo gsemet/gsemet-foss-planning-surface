@@ -10,3 +10,7 @@ Short name: `fp-cache`
 7. fp-cache-Q7 (2026-11-21): **The server says how it watches.** A. One start line ("board: watches the planning files", or "board: no file notifications here; checks every 5 s"), which the Chief of Staff passes on.
 8. fp-cache-Q8 (2026-11-21): **When the board updates.** A. The server waits for 1 s with no new change, then updates the board (about 1 s after a move, never a half-done state).
 9. fp-cache-Q9 (2026-11-21): **The watchers' change, here or apart.** B. All in this CR: the session watchers subscribe to the server, and only the server reads the forge (PRs, MRs, issues) while at least one client observes.
+10. fp-cache-Q10 (2026-11-21): **No server running.** Other: "Il faut le démarrer mais le détacher de la vue du watcher". The watcher starts the server when none runs, as a detached process: it outlives the watcher and its output does not show in the watcher's.
+11. fp-cache-Q11 (2026-11-21): **Who counts as an observer.** A. Any subscribed client: an open board page, a session's watcher, `chantier live`.
+12. fp-cache-Q12 (2026-11-21, after the full restatement): **Grilled enough.** A. Yes: the spec-writer, then the critic; destination the next batch (`3-ready`), after board-exposure (same server). The CR's title is adjusted to say the server watches and the clients subscribe.
+Spec critic: yes, it changes how the sessions are woken, starts a process on its own, and touches the server's published API.

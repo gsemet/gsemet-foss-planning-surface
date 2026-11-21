@@ -45,6 +45,7 @@ in series and parallel mode too.
 | running-lane-Q11 | A marked CR whose specification is written has its own words, "spec written: joins soon". So there are three states: waiting for its spec, spec written, waiting for a slot. | 1 |
 | running-lane-Q12 | A single post-it of a group dropped on "running batch" leaves its group, as any move out of the group's column does today. | 2 |
 | running-lane-Q13 | Grilled enough. This revision, then the critic again. Destination: the next batch, with factory-redefine. | (this file) |
+| running-lane-Q14 | A marked CR moved by the board back to the inbox or a priority row: the Chief of Staff, reading the board's line, writes `Destination: back to the backlog (board)` into `02-answers.md`; the last destination written stays true (Q10). | 4 |
 | Spec critic run, fix 5 | The top half's sub-line has its own i18n key ("{batch} · {state}", both languages). The spec says whether `triage.running` and `triage.idle` are removed. | 1 |
 | Spec critic run, fix 6 | `docs/web-board.md` line 163 ("writes in the backlog only ... never in a batch") names the mark among the backlog's writes. | 5 |
 | Spec critic run, fix 7 | The scenario's no-open-batch step is dropped. The in-process test is named as its cover. | Evidence |
@@ -321,7 +322,10 @@ already inside "edits the backlog (... files and folder moves)".
     <HH:MM>)`, where the time is the line's own time `t`, in the user's local time;
   - a `board wrote (move): ...` line that moves a CR to `3-ready` (`→ 3-ready`, with or without
     `running-batch mark cleared`, including the no-open-batch drop): `Destination: next batch
-    (board)`.
+    (board)`;
+  - a `board wrote (move): ...` line that moves a marked CR to the inbox or a priority row (its
+    words end with `running-batch mark cleared`, running-lane-Q14): `Destination: back to the
+    backlog (board)`.
 
   It writes a destination only in a folder that has a `02-answers.md`, and creates none.
 - **A `board wrote (running-batch): ...` line** is the user's destination for the running batch,
@@ -346,8 +350,8 @@ already inside "edits the backlog (... files and folder moves)".
 - The other `board wrote` lines keep "one line, no tool call, no action", except the destination
   write above.
 
-**The "rescan" row** (line 48) adds: "a `running-batch` write, or a move to `3-ready`: act as at a
-watcher's end". This covers a Chief of Staff whose watcher and pull path both did not run.
+**The "rescan" row** (line 48) adds: "a `running-batch` write, a move to `3-ready`, or a move that
+clears a running-batch mark: act as at a watcher's end". This covers a Chief of Staff whose watcher and pull path both did not run.
 
 No agent file changes (the cards hold the contract; AGENTS.md).
 
@@ -475,9 +479,4 @@ batch). `scenario/README.md` lists the new checks.
 
 ## Open questions
 
-1. **A marked CR moved by the board to the inbox or a priority row.** The move clears its mark,
-   and its words say `running-batch mark cleared`. running-lane-Q10 names two destinations to
-   write ("running batch ... (board, <time>)" and "next batch (board)"), and neither fits a CR sent
-   back to the backlog. This specification writes no destination for it: `02-answers.md` keeps
-   its last destination. The other way: the Chief of Staff writes `Destination: back to the
-   backlog (board)`. Nothing (as written), or that line?
+None.

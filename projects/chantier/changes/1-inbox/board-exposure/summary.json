@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "The board stays on this machine unless asked, with a key you can rotate",
-  "summary": "The board listens on 127.0.0.1 by default; board.host: network opens it on this machine's address found at each start (no network: 127.0.0.1, said so); a fixed address only via --host; board --new-key rotates the key (done 2026-11-21); the cookie lasts 30 days.",
+  "summary": "The board listens on 127.0.0.1 by default; board.host: network binds every address, its link on the address found at each start, the 127.0.0.1 link kept (no network: 127.0.0.1, said so); a fixed address only via --host; board --new-key rotates the key (done 2026-11-21); cookie 30 days.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "a40f1c0e3dad7ac8e9e4502dfc863f23aa520f64a1d971908fcad5b1849747e1",
-    "02-answers.md": "7e53d2cb9dc2a1208e89664cd653e99984dc04614d68ec5977bbbbbf14da92ad",
-    "03-change-spec.md": "6b6144a381bb8346a147aef95b94f95a96a602e13f10855434b0e3b7c1716c9c",
+    "02-answers.md": "f70f18647299fc66cbeb3c86dc90ef6cec3aa3ae4c90878b0a596e30ea88c442",
+    "03-change-spec.md": "45bd2203afe0682902aa15ee9cd24a0b000abde6aeaaa3b3baf339471c2111cb",
     "intake/request.md": "790334253444e3465fe042ff25dc37047ffb72739e2cb50e07059a45fc736e8a"
   },
-  "summarized": "2026-11-21T13:03:49Z"
+  "summarized": "2026-11-21T13:14:53Z"
 }

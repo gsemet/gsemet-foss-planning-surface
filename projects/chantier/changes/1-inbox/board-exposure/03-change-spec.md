@@ -28,8 +28,8 @@ choice, and keeps working when the machine's address changes ("Met l'ip dynamiqu
    in Rollout as done; it is not part of this CR's work.
 6. **The network setting holds no fixed address (board-exposure-Q6).** The user's words: "Met l'ip
    dynamiquement". The `chantier.yaml` setting that opens the board to the network names no
-   address: at each start, the board finds this machine's local network address and listens
-   there. So a shared `chantier.yaml` never breaks another machine's board, and a DHCP change is
+   address: at each start, the board finds this machine's local network address and names it in
+   its link (decision 12 says where it listens). So a shared `chantier.yaml` never breaks another machine's board, and a DHCP change is
    followed at the next start. Opening stays the user's choice (decision 1). A fixed address only
    with `--host`, for one start.
 7. **Where the board says it is open to the network (board-exposure-Q7, A).** In its start lines,
@@ -46,6 +46,15 @@ choice, and keeps working when the machine's address changes ("Met l'ip dynamiqu
     network address found at start, the board starts on `127.0.0.1` and says plainly it is not
     open to the network: `board: no local network address found; on this machine only`. A restart
     opens it once the network is back.
+12. **Where the board listens with `board.host: network` (board-exposure-Q12, A).** On every
+    address (`0.0.0.0`). The main link names the address found at this start, and the
+    `on this machine: http://127.0.0.1:<port>/?k=<key>` link is kept, so the Costs page's "Copy as
+    image" works on this machine and a VPN does not hide the local network. Nothing fixed sits in
+    `chantier.yaml`. Decision 11 is unchanged: with no address found, the board binds `127.0.0.1`
+    and prints `NO_NETWORK`.
+13. **The phone after the merge (board-exposure-Q13, A).** When it restarts the board on the
+    merged version, the Chief of Staff writes `board.host: network` in
+    `projects/chantier/chantier.yaml`; Q6 and Q10 count as the user's word (see Rollout).
 
 ## What exists already (read, not to rebuild)
 
@@ -62,14 +71,17 @@ choice, and keeps working when the machine's address changes ("Met l'ip dynamiqu
   `board` checks around `config.py:273-285`).
 - `board/address.py:_default_route_address()` already finds this machine's address on the network
   of its default route (a UDP `connect` that sends nothing), and returns `127.0.0.1` when the
-  machine has no network. Today only `reachable()` uses it, for the link of an every-address bind.
+  machine has no network. Today only `reachable()` uses it, for the link of an every-address bind
+  (`url()` calls `reachable()`), so a `0.0.0.0` bind already prints its link on the found address.
 - A board bound to a non-loopback address prints, at its start, the line
   `board: listens on the local network (<host>); the link holds its key: give it to the user only,
   plain HTTP` (`board/command.py:BEYOND`, from `_announce`), and, when it listens on every address,
   the second link `on this machine: http://127.0.0.1:<port>/?k=<key>` (`address.local_url`).
 
-So decision 2's command and its invalidation need no new code; this CR changes the default, adds
-`board.host: network`, which resolves the address at each start, the cookie's life, the "already
+So decision 2's command and its invalidation need no new code, and an every-address bind already
+prints the link and the lines decision 12 asks for; this CR changes the default, adds
+`board.host: network` (an every-address bind when an address is found at this start, `127.0.0.1`
+and the `NO_NETWORK` line when none is), the cookie's life, the "already
 running" lines, the texts that describe the default, and proves the rotation in the scenario.
 
 ## What changes
@@ -79,22 +91,31 @@ running" lines, the texts that describe the default, and proves the rotation in 
 - `skills/chantier/scripts/cli/src/chantier/board/address.py`:
   - `DEFAULT_HOST` becomes `"127.0.0.1"` (port stays 8765).
   - `settings()` keeps its order: the option, else `chantier.yaml`'s `board.host`, else the
-    default. When `chantier.yaml`'s `board.host` is `network` (decision 10), it returns the
-    address `_default_route_address()` finds at this start, so the board binds that one address
-    (not `0.0.0.0`). When that call finds no network address (it gives `127.0.0.1`), the board
-    binds `127.0.0.1` and its start says so (decision 11, see `command.py` below); `settings()`
-    lets its caller tell that case apart (for instance a third returned value), so the line is
-    printed only for `network` without an address, never for the default.
+    default. When `chantier.yaml`'s `board.host` is `network` (decision 10), it calls
+    `_default_route_address()` at this start: when that call finds a non-loopback address, it
+    returns the bind host `0.0.0.0`, every address (decision 12); when it finds none (it gives
+    `127.0.0.1`), it returns `127.0.0.1` and the board's start says so (decision 11, see
+    `command.py` below). `settings()` lets its caller tell that case apart (for instance a third
+    returned value), so the `NO_NETWORK` line is printed only for `network` without an address,
+    never for the default nor for `--host 127.0.0.1`.
+  - The bind host `0.0.0.0` is what `server.json` records (`state.write_server`), as for a
+    `--host 0.0.0.0` start; no found address is stored anywhere, so each start finds it again.
   - `--host` keeps taking any address, `0.0.0.0` and `::` included, for this one start.
-  - `EVERYWHERE`, `reachable`, `local_url`, `_loopback_of` and `loopback_base` are unchanged: they
-    still serve a `--host 0.0.0.0` or `::` start, and a board bound to the found address is
-    reached by this machine's own clients on that address (`_loopback_of` returns it as is).
+  - `EVERYWHERE`, `reachable`, `url`, `local_url`, `_loopback_of` and `loopback_base` are
+    unchanged: with `network` and an address found, the board is a `0.0.0.0` bind, so `url()`
+    names the found address in the main link (through `reachable()`), `local_url()` gives the
+    `127.0.0.1` link, and this machine's own clients reach the board on `127.0.0.1`
+    (`_loopback_of`).
 - `skills/chantier/scripts/cli/src/chantier/playbook/config.py`: `BOARD_KEYS` stays
-  `("host", "port")`. The `board` checks (around lines 273-285) accept `host: network` and refuse
-  any other `host` value, every address included (`127.0.0.1` and `0.0.0.0` too), with a message
-  pointing to `--host`, for instance `board: "host" is network (this machine's local network
-  address, found at each start); a fixed address goes in --host, for one start` (decisions 6 and
-  10). `board` and `validate` report it like the other `board` problems.
+  `("host", "port")`. In `_board` (lines 270-291), the `host` key accepts the one word `network`
+  and refuses any other value, every address included (`127.0.0.1` and `0.0.0.0` too), and also
+  an empty value, a value with whitespace or a non-scalar one, all with the same message pointing
+  to `--host`, for instance `board: "host" is network (this machine's local network address,
+  found at each start); a fixed address goes in --host, for one start` (decisions 6 and 10). So
+  the shared "one address with no whitespace" branch (lines 280-284) no longer applies to `host`;
+  the `port` branch, its whitespace check and its "integer from 1 to 65535" message stay as they
+  are. A reset (`is_reset`) of `host` keeps working. `board` and `validate` report the refusal
+  like the other `board` problems.
 - `skills/chantier/scripts/cli/src/chantier/board/key.py`: the cookie's `Max-Age` becomes 30 days
   (`30 * 24 * 3600` = 2592000 s); rename the constant from `YEAR_S` to a name that says what it is
   (for instance `COOKIE_MAX_AGE_S`). `set_cookie` keeps `Path=/; HttpOnly; SameSite=Strict` and
@@ -103,7 +124,11 @@ running" lines, the texts that describe the default, and proves the rotation in 
 - `skills/chantier/scripts/cli/src/chantier/board/command.py`:
   - `_announce` is unchanged: on a loopback address it prints the one `board on <URL> over <folder>`
     line; beyond it, the `on this machine:` line when it applies and the `BEYOND` line. With
-    `board.host: network`, the link and the `BEYOND` line name the address found at this start.
+    `board.host: network` and an address found, the start prints, as a `--host 0.0.0.0` start
+    does: `board on http://<the address found at this start>:<port>/?k=<key> over <folder>`, then
+    `on this machine: http://127.0.0.1:<port>/?k=<key>`, then
+    `board: listens on the local network (0.0.0.0); the link holds its key: give it to the user
+    only, plain HTTP` (the `BEYOND` text names the bind host, as today).
   - New constant `NO_NETWORK = "board: no local network address found; on this machine only"`,
     word for word (decision 11). With `board.host: network` and no address found, the start prints
     the one `board on http://127.0.0.1:<port>/?k=<key> over <folder>` line, then `NO_NETWORK`, and
@@ -168,15 +193,17 @@ running" lines, the texts that describe the default, and proves the rotation in 
   - Line 8: "To start it, keep it on the machine and stop it" becomes "To start it, open it to the
     local network and stop it".
   - **The link**: the second line `on this machine:` is printed "when the board listens on every
-    address (`--host 0.0.0.0`)", not "(the default)". Say the cookie lasts 30 days, and that
+    address (`board.host: network`, or `--host 0.0.0.0`)", not "(the default)". Say the cookie lasts 30 days, and that
     `chantier board --new-key` replaces the key while the board runs: the old link, the cookies and
     the open pages stop working at once.
   - **The local network**: by default the board listens on `127.0.0.1`, this machine only. To reach
-    it from the phone, set `board.host: network` in `chantier.yaml`: the board finds this
-    machine's local network address at each start and listens there (a shared `chantier.yaml`
-    suits every machine, and a new address from DHCP is taken at the next start); or pass
+    it from the phone, set `board.host: network` in `chantier.yaml`: the board listens on every
+    address, finds this machine's local network address at each start and names it in its link,
+    and keeps the `on this machine:` link for this machine (a shared `chantier.yaml` suits every
+    machine, a new address from DHCP is taken at the next start, and a VPN does not hide the local
+    network); or pass
     `--host <address>` for one start (a fixed address in `chantier.yaml` is refused). The board
-    then prints `board: listens on the local network (<address>) ...`. With no network at start,
+    then prints `board: listens on the local network (...) ...`. With no network at start,
     it listens on this machine only and prints `board: no local network address found; on this
     machine only`; start it again once the network is back. Plain HTTP: keep it off networks you
     do not trust; the Windows firewall prompt appears at the first start on a network address
@@ -190,8 +217,12 @@ running" lines, the texts that describe the default, and proves the rotation in 
   default; the keys do not change).
 - `CONTRIBUTING.md` line 99 and `AGENTS.md`'s board bullet ("for the user on this machine and the
   local network") stay true (the local network is still served, on the user's ask): unchanged.
-- The web client (`clients/web/`) is not touched (decision 7): its `DESIGN.md` needs no change. The
-  Costs page's "Copy as image" already works on `127.0.0.1`.
+- The web client (`clients/web/`) is not touched (decision 7): its `DESIGN.md` needs no change.
+  The Costs page's "Copy as image" works on this machine in every case: by default the board is on
+  `127.0.0.1`; with `board.host: network` (or `--host 0.0.0.0`) it listens on every address and
+  prints the `on this machine: http://127.0.0.1:...` link, which is also where the button's
+  tooltip sends a page opened on the network address (decision 12). Only a `--host` on one LAN
+  address leaves no `127.0.0.1` link, as today.
 - **Overlap with `2-backlog/P3/docs-sphinx-rtd`.** That CR moves `docs/web-board.md` to
   `reference/web-board.md` and adds a section "On a phone". That section must say that the phone
   first needs the board opened to the network (`board.host: network` or `--host`). Whichever of
@@ -203,14 +234,14 @@ running" lines, the texts that describe the default, and proves the rotation in 
 - **The rotation (decision 5): done on 2026-11-21**, with the current version: the Chief of Staff
   stopped the board, started it again with `board --new-key` and gave the user the new link. The
   key in the 3 transcripts no longer opens the board. Not part of this CR.
-- **The phone after the merge.** The surface (`gsemet-foss-planning-surface`) has no
-  `chantier.yaml` at its root nor in `projects/chantier/`. Once this CR is merged and the board
-  restarted on the new version, the board listens on `127.0.0.1` and the phone loses it. The
-  phone's access comes back only on the user's word: the Chief of Staff sets `board.host: network`
-  in `projects/chantier/chantier.yaml` (decision 10, the chantier project only), or passes
-  `--host` for one start. Because the setting names no address, the file pushed by the surface's
+- **The phone after the merge (decision 13).** The surface (`gsemet-foss-planning-surface`) has
+  no `chantier.yaml` at its root nor in `projects/chantier/`. When it restarts the board on the
+  merged version, the Chief of Staff writes `board.host: network` in
+  `projects/chantier/chantier.yaml` (decision 10, the chantier project only), with no further
+  question: Q6 and Q10 count as the user's word. The board then keeps the phone, on the address
+  found at that start. Because the setting names no address, the file pushed by the surface's
   writer works on every machine; it opens each machine's board that reads it to its own local
-  network, which the user chooses knowingly.
+  network, which the user chose knowingly. This is a step of the rollout, not of the CR's code.
 
 ## Out of scope
 
@@ -220,8 +251,8 @@ running" lines, the texts that describe the default, and proves the rotation in 
 - Hiding or shortening the key in the printed lines and in the transcripts (decision 3, B).
 - An expiry of the key itself, or any automatic rotation: the key is stable until `--new-key`.
 - Following an address change, or the network coming back, while the board runs: the address is
-  found at each start (decisions 6 and 11); a board started before the change keeps its bind until
-  it is started again.
+  found at each start (decisions 6, 11 and 12); a board started before the change keeps its bind
+  and the link it printed until it is started again.
 - Telling the user in the web client that the board is open to the network (decision 7).
 - The board's Configuration page and `config.put`: they edit the limits and the roles only, not
   the board's address (AGENTS.md); unchanged.
@@ -233,26 +264,27 @@ running" lines, the texts that describe the default, and proves the rotation in 
 - No `--host`, no `board.host`: listens on `127.0.0.1`; prints one line `board on
   http://127.0.0.1:<port>/?k=<key> over ...`; no `on this machine:` line, no `board: listens on the
   local network` line, no `board: no local network address found` line.
-- `board.host: network` in `chantier.yaml`, no option, the machine on a network: listens on the
-  address `_default_route_address()` finds at this start; the link on that address, then the
-  `board: listens on the local network (<that address>) ...` line; no `on this machine:` line (a
-  single-address bind). `server.json` records that address.
-- The same setting, the machine's address changed since the last start: the new address, same
-  lines.
+- `board.host: network` in `chantier.yaml`, no option, the machine on a network: listens on every
+  address (`0.0.0.0`); the link on the address `_default_route_address()` finds at this start,
+  then `on this machine: http://127.0.0.1:<port>/?k=<key>`, then the
+  `board: listens on the local network (0.0.0.0) ...` line. `server.json` records `0.0.0.0`.
+- The same setting, the machine's address changed since the last start: the link on the new
+  address, same lines.
 - The same setting, the machine with no network (no default route): listens on `127.0.0.1`;
   prints the one `board on http://127.0.0.1:<port>/?k=<key> over ...` line, then
   `board: no local network address found; on this machine only`; no `BEYOND` line. A restart with
   the network back gives the case above.
-- `--host 0.0.0.0` with `board.host: network` or none: the option wins; listens on every address;
-  the link on this machine's network address, then `on this machine: http://127.0.0.1:<port>/?k=...`,
-  then the `board: listens on the local network (0.0.0.0) ...` line.
+- `--host 0.0.0.0` with `board.host: network` or none: the option wins; the same three lines as
+  `board.host: network` with an address found.
 - `--host 127.0.0.1` with `board.host: network`: the option wins; the one-line loopback case.
 - `--host <this machine's LAN address>`: the link on that address and the `board: listens on the
   local network (<address>)` line; no `on this machine:` line.
-- A fixed address in `chantier.yaml`'s `board.host` (`127.0.0.1`, `0.0.0.0`, a LAN address):
-  refused, by `board` and `validate`, with the message pointing to `--host`.
-- A second `board --seat <id>` while a network board runs: `board already running at <URL>`, the
-  `on this machine:` line when it applies, then the `board: listens on the local network` line.
+- Any `board.host` other than `network` in `chantier.yaml` (`127.0.0.1`, `0.0.0.0`, a LAN
+  address, an empty value, a value with whitespace): refused, by `board` and `validate`, with the
+  message pointing to `--host`.
+- A second `board --seat <id>` while a `board.host: network` board runs: `board already running at
+  <URL on the found address>`, `on this machine: http://127.0.0.1:...`, then the
+  `board: listens on the local network (0.0.0.0)` line.
 - Windows, Linux, macOS: the same; the Windows firewall prompt comes only with a non-loopback bind.
 
 ## Evidence
@@ -260,19 +292,24 @@ running" lines, the texts that describe the default, and proves the rotation in 
 ### Tests (`skills/chantier/scripts/cli/tests/`, in-process, few and parametrized)
 
 - `test_playbook_layers.py::test_the_light_readers_see_the_board_and_long_gate_keys_of_any_layer`:
-  its assertion `settings(repo, None, None) == ("0.0.0.0", PORT)` becomes `("127.0.0.1", PORT)`
-  (a `board.port` alone keeps the default host); if that test's layers set `board.host` to an
-  address, they set `network` or nothing instead (an address is now refused).
+  its only change is the assertion at line 221, `settings(repo, None, None) == ("0.0.0.0", PORT)`,
+  which becomes `("127.0.0.1", PORT)` (a `board.port` alone keeps the default host).
 - One parametrized test on `address.settings` (or an existing one extended), reading
   `DEFAULT_HOST` through `settings`, from the code as it ships: no option and no config gives
-  `("127.0.0.1", 8765)`; `board.host: network` gives the address `_default_route_address` returns
-  (monkeypatched to two different addresses in two cases, proving the address is found at each
-  call, not stored); `board.host: network` with `_default_route_address` monkeypatched to return
+  `("127.0.0.1", 8765)`; `board.host: network` with `_default_route_address` monkeypatched to a
+  LAN address gives the bind host `0.0.0.0`, and `url()` on it names that address (monkeypatched
+  to two different addresses in two calls, proving the address is found at each start, not
+  stored); `board.host: network` with `_default_route_address` monkeypatched to return
   `127.0.0.1` gives `127.0.0.1` and the no-network case; `--host 0.0.0.0` wins over
-  `board.host: network`; `--host 127.0.0.1` wins over it too.
-- The config check, parametrized: `board.host: 127.0.0.1`, `0.0.0.0` and a LAN address are each
-  refused with the message pointing to `--host` (prepared `chantier.yaml` files, refusal cases),
-  paired with `board.host: network` accepted.
+  `board.host: network`; `--host 127.0.0.1` wins over it too, and is not the no-network case.
+- The config check, parametrized: `board.host: 127.0.0.1`, `0.0.0.0`, a LAN address, an empty
+  value and a value with whitespace are each refused with the same message pointing to `--host`
+  (prepared `chantier.yaml` files, refusal cases), paired with `board.host: network` accepted; a
+  `board.port: "8 8"` keeps the port's own message.
+- The start lines with `board.host: network` and an address found (`_default_route_address`
+  monkeypatched to a LAN address, the bind on `0.0.0.0` with port 0): the link on that address,
+  then `on this machine: http://127.0.0.1:`, then the line starting
+  `board: listens on the local network (0.0.0.0)`; no `NO_NETWORK` line.
 - The start lines with no network: `board` with `board.host: network` and
   `_default_route_address` monkeypatched to `127.0.0.1` prints the `board on http://127.0.0.1:`
   line, then exactly `board: no local network address found; on this machine only`, and no line
@@ -291,17 +328,26 @@ running" lines, the texts that describe the default, and proves the rotation in 
   green, unchanged.
 - `just test` stays within its time budget (AGENTS.md).
 
-### Scenario (`scenario/run_scenario.py`, the board steps near step 10)
+### Scenario (`scenario/run_scenario.py`, the board steps 10 and 11, from line 3108)
 
 - New check: `board --port 0` with no `--host` and no `chantier.yaml` prints a first line
   starting `board on http://127.0.0.1:` whose link opens (`Link(head).ok`), and the board's
   recorded host in `server.json` is `127.0.0.1`.
 - New check: with `board.host: network` in the scenario surface's `chantier.yaml` and `--port 0`,
-  the first line's link is on a non-loopback address that equals the recorded host in
-  `server.json`, it opens, and the `board: listens on the local network (<that address>)` line
-  follows. (The CI runner has a network; the no-network case is proved by the tests only.)
-- New check: `board.host: 127.0.0.1` in that `chantier.yaml` is refused, with the message
-  pointing to `--host`.
+  it accepts either outcome, as the runner's network decides: (a) the first line's link is on a
+  non-loopback address and opens, `server.json` records the host `0.0.0.0`, the next line starts
+  `on this machine: http://127.0.0.1:` and its link opens too, and the line after starts
+  `board: listens on the local network (`; or (b) the first line's link is on `127.0.0.1` and
+  opens, followed by exactly the `NO_NETWORK` line. (The no-network case is proved for certain by
+  the tests.)
+- Step 11 (`# 11. chantier.yaml`, line 3124): its fixtures stop setting a fixed host, now refused.
+  Line 3128 drops the `host:` line (`board:\n  port: {other}\n`; the check that the board starts
+  on `http://127.0.0.1:{other}` still holds, from the default host). Line 3152 drops it too (the
+  check matches the "both present" line). Lines 3138 and 3148 use `host: network` instead of
+  `host: 127.0.0.1`, so the faulty key stays on line 3 and the `chantier.yaml:3: board: ` and
+  `chantier.yml:3: board: ` matches still hold. A new check in that step: `board.host: 127.0.0.1`
+  in `chantier.yaml` is refused by `playbook` and by `board` (exit 2), with the message pointing
+  to `--host`.
 - Step 10 (`--host 0.0.0.0`) stays as it is: the network case still prints its warning line.
 - New check, the revocation: with a board running, a second `chantier board --new-key` prints
   `board already running at <URL>` with a key different from the first; the first link's `?k=`
