@@ -23,3 +23,15 @@ Rules read (`$CHANTIER rules`): AGENTS.md, CONTRIBUTING.md and the listed docs; 
 - Not run by me: a Windows `chantier gate` (owed by AGENTS.md at the top of the stack), and the real-session pane screenshot (named known gap, spec section 7: absence is not a failure).
 
 Verdict: VERIFIED
+
+## Description-only pass (Head: c13260272361568a74083699ac0e85e3479b4f3d)
+
+Judged at c1326027 (`gh pr view 399 --json body,headRefOid`: headRefOid c13260272361568a74083699ac0e85e3479b4f3d; `git diff --stat origin/main...HEAD`: 31 files).
+
+- Clean: Summary, Deliverables (table), Blast radius, Autonomous decisions, Known gaps visible in order; one Details fold holding Changes, Human decisions, Impacts, Test plan, Internal references; no images.
+- Consistent with the diff: every file group in Changes (rails, stacks, stack_words, delivery, forge_stack_apart, orders*, driver, status words/views/now_next, cards, scenario, tests) is in the diff stat; no delivered change unmentioned. The Test plan boxes now name c132602 (Local gates, Review, Verified, CI), the head.
+- Review box: `$CHANTIER log CR-431`: `move bd7543a..c132602 (rebase) inspector approved at c13260272361568a74083699ac0e85e3479b4f3d`, the SHA the box cites.
+- Known gaps: pane screenshot (the one UNVERIFIED claim), Windows `chantier gate` owed on top of the stack, driver.md stop-hold note minor gap (Driver's closing note): all present; the pipeline-green bullet is reworded as asked.
+- Internal references: CR name and batch only in the last section. Role names (Driver, Drivers) appear as product terms of this change to the Driver card; "a reviewer" in the third Known gaps bullet names no role of the template as doer (minor wording, not a failure).
+
+Verdict: VERIFIED
