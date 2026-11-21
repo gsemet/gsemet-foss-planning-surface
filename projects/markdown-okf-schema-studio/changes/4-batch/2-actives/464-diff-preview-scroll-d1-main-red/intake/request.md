@@ -1,0 +1,3 @@
+# diff-preview-scroll D1 fails on main
+
+Main is red (2026-11-22): push CI on main 58b4c302 (merge of CR-460, PR #473) fails in integration at step diff-preview-scroll: 'Timed out waiting for the inline diff's editor to scroll' (step D1 added by CR-460). The same step failed in CR-463's heavy run (#474); CR-460's own heavy run passed only after a re-run. Fix: find why D1 times out (wrong wait signal, or a real scroll bug of the inline diff layout) and make it reliable; a real bug is fixed, never a skipped test. Proof: heavy CI green on several consecutive runs (ci-stress on the integration step).
