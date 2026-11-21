@@ -1,6 +1,6 @@
 ## Summary
 
-On the published requirements site, each scenario of a behaviour page is a card you click to open. When the requirement wrote its scenario as a table (`| Input | Outcome |`), the card opened on three empty columns, Given, When and Then, because the site builder only read the Given / When / Then / And lines and dropped everything else. 421 requirement files hold at least one table scenario, so a large part of the site looked empty.
+On the published requirements site, each scenario of a behaviour page is a card you click to open. When the requirement wrote its scenario as a table (`| Input | Outcome |`), the card opened on three empty columns, Given, When and Then, because the site builder only read the Given / When / Then / And lines and dropped everything else. Many requirement files write scenarios as tables, so a large part of the site looked empty.
 
 This change makes the site builder read tables, notes and mixed scenarios, so a card shows what the source says.
 

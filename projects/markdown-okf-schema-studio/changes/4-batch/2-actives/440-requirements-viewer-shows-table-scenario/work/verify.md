@@ -25,4 +25,11 @@ Claims, each judged at 8d99cd1e393fac6a7e978f442c1af80b1e5831e9:
 
 Notes: base worktree removed at the end; probes and scripts (shoot.cjs, scan*.cjs, probe-wide.cjs) are in work/verifier/.
 
+8. Description pass at 8d99cd1e393fac6a7e978f442c1af80b1e5831e9 (posted body of PR 448): structure, fold, SHA marks (a18bcac base, 8d99cd1 head), no placeholder, Review box (note r1 approved at a18bcac, committed 8d99cd1e), four images (HTTP 200, PNG, opened: captions match, no username or home folder), CI green (gh pr checks 448) all pass.
+   FAILED: Summary says "421 requirement files hold at least one table scenario": the number is in the spec only, not in verify.md or before-after.md (no command and output prove it). Narrow it or add the proof.
+
+NOT VERIFIED
+
+9. Description pass, second start, at 8d99cd1e393fac6a7e978f442c1af80b1e5831e9: the "421 files" claim is now "Many requirement files" (backed by 6 of 7 empty cards on BLOCK-130 and 5 of 8 on GFM-021, before-after.md and claim 4/5); the four images return HTTP 200 image/png; gh pr checks 448 green; structure, SHA marks and Known gaps unchanged and pass. Claim 8 failure is resolved.
+
 VERIFIED
