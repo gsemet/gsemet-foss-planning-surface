@@ -30,7 +30,7 @@ sequenceDiagram
     Host-->>Page: one text edit, one blank line on each side
 ```
 
-Before at `e0c7836`, after at `1aa7966` (carried from `8ecec6b`: the rebase left the patch unchanged).
+Before at `e0c7836`, after at `ea5c383` (carried from `8ecec6b`: the rebase left the patch unchanged).
 
 Before: nothing shows for the runs (base `e0c7836`).
 
@@ -81,11 +81,11 @@ previous behaviour.
 - [x] Requirements: SwRS BLOCK-266 to BLOCK-269 updated, markers in code and tests,
       `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [x] Local gates at `1aa7966`: `just check` pass; long gate `just preflight` pass at `8ecec6b` (carried across a clean rebase)
-- [x] Evidence: before at `e0c7836`, after at `1aa7966` (carried from `8ecec6b`)
-- [x] Review: approved at `15a0ef0`
-- [x] Verified at `1aa7966` (carried from `8ecec6b`)
-- [ ] CI green at `1aa7966`: pending (heavy run included)
+- [x] Local gates at `ea5c383`: `just check` pass; long gate `just preflight` pass at `ea5c383` (carried from `8ecec6b`)
+- [x] Evidence: before at `e0c7836`, after at `ea5c383` (carried from `8ecec6b`)
+- [x] Review: approved before the commit (patch unchanged at `ea5c383`, carried from `8ecec6b`)
+- [x] Verified at `ea5c383` (carried from `8ecec6b`)
+- [ ] CI green at `ea5c383`: pending (heavy run included; the earlier heavy run passed at `8ecec6b`, carried over clean rebases: patch unchanged by `git range-diff`)
 
 ## Known gaps
 
