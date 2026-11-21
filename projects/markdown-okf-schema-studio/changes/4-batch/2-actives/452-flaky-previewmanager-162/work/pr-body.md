@@ -49,9 +49,9 @@ No visual change; no product change. The tests no longer flake under load.
 - [ ] Changelog: No user-facing change
 - [ ] Local gates at `d0e9689` (carried from `e77cf0b`): `just check` exit 0; `just preflight` pass; compiled test file 9 pass, 0 fail; 20 parallel runs of the compiled file, 20 ok, 0 fail; no `wait(` or sleep left in the file
 - [ ] Evidence: before at `f5d1637`, after at `d0e9689`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [ ] Review: approved at `d0e9689` (carried from `078e283`)
+- [ ] Verified at `d0e9689`
+- [ ] CI green at `d0e9689`
 
 ## Internal references
 
