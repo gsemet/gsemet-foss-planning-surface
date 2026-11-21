@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "An ordered stack is checked as a git chain",
+  "summary": "In a stack or series batch, ship and stack --out-of-draft refuse (nothing recorded, no flag) a CR, the release included, lacking the recorded head of the CR below; the caller rebases; the stack driver checks with git merge-base before gh pr ready. Spec v4, no open question, batch-30.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "7904762c9b0fdb07b5aa4764b284d7e608b25ec898c68c6b76ad0aca3b091d27",
+    "02-answers.md": "f6f8b0a56e2acd1c5716538162f70f7ea6ad5585565f5e373de618a0fb64e9bf",
+    "03-change-spec.md": "2a72747715b097fa6ef9cd27b659603408859c3ad15649c60cc3063698752194",
+    "intake/request.md": "1b219f23fa1381fbddc414584c30928588aa4e688fd0daf4209681d25921c8c8"
+  },
+  "summarized": "2026-11-21T19:07:58Z"
+}

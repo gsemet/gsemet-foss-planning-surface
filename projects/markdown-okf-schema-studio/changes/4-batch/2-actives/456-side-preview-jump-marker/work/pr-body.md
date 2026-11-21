@@ -1,6 +1,6 @@
 ## Summary
 
-When a jump (a search result, Quick Open `file.md:42`, a problem, a link, Go to Line, Find, F8, Go Back) moves a text editor of a Markdown file to a line while the side preview follows that editor, the side preview now shows the Studio tab's line marker on that line: the arrow in the left margin and the light band. Moving the cursor yourself (arrow keys, a click, typing) never shows it.
+When a jump (a search result, Quick Open `file.md:42`, a problem, a link, Go to Line) moves a text editor of a Markdown file to a line while the side preview follows that editor, the side preview now shows the Studio tab's line marker on that line: the arrow in the left margin and the light band. Moving the cursor yourself (arrow keys, a click, typing) never shows it.
 
 ## Deliverables
 
@@ -19,20 +19,28 @@ flowchart LR
 - The marker stays through scrolls and cursor moves; an edit of the document or a switch to another file removes it. The side preview's own links mark their target line.
 - A search click with a replace text marks the real file's line.
 
+After a jump, at `7517dfd` (visual scenario, light theme; no before image exists, the marker did not exist at the base):
+
+![The side preview after a jump: the arrow in the left margin and the light band on the target line](./verifier/evidence/after-v13-jump-if-off-screen-light-900.png)
+
 ## Blast radius
 
-The opening watcher now reads jumps from the shared jump signal (behaviour unchanged). The pending reveal line gains a document and an age, and is posted only to a visible page showing that document within 5 s; the Studio tab's calls keep their behaviour. The reveal message gains an optional `scroll` field (absent means the previous behaviour).
+Grade: 2. The opening watcher now reads jumps from the shared jump signal (behaviour unchanged). The pending reveal line gains a document and an age, and is posted only to a visible page showing that document within 5 s; the Studio tab's calls keep their behaviour. The reveal message gains an optional `scroll` field (absent means the previous behaviour). Revert restores the previous behaviour; the new protocol field is optional.
 
 ## Autonomous decisions
 
-Settled without the owner, by the planning lead from the owner's "same as the Studio tab" and the earlier open-at-line rules (decisions 6 to 13 of the specification): every `Command` move with one selection marks; only the side preview that follows the editor marks; no setting; same-document path links with a line or fragment mark, plain anchors do not. "Same duration" is read as: in the side preview the marker keeps the Studio tab's rules and also goes on an edit of the document from the text editor or a switch to another file; scrolls and cursor moves keep it.
+Settled without the owner, from the owner's "same as the Studio tab" and the earlier open-at-line rules: every `Command` move with one selection marks; only the side preview that follows the editor marks; no setting; same-document path links with a line or fragment mark, plain anchors do not. "Same duration" is read as: in the side preview the marker keeps the Studio tab's rules and also goes on an edit of the document from the text editor or a switch to another file; scrolls and cursor moves keep it.
 
 ## Known gaps
 
-- Cursor moves by other extensions through the API (for example VSCodeVim `j`/`k`) carry the same kind as a jump and mark.
+- **UNVERIFIED:** Quick Open `file.md:42`, Go to Line, Problems, a terminal link and a Ctrl+click are not driven in the real window (no way to type into those views from a test); they are reached by `vscode.open` with a selection, the call a search click makes. Go to Symbol, Find next (F3) and Go to Next Problem (F8) are not driven; whether they mark depends on the kind VS Code reports.
+- **UNVERIFIED:** the real-window run (CI, Linux) recorded no selection change for Go Back, `cursorDown`, `cursorBottom`, Select All and an API selection, so Go Back does not mark, and "arrow keys, a click and typing never mark" is proved by unit tests of the signal, not in a real window. The VSCodeVim `j`/`k` case is not confirmed either.
+- **UNVERIFIED:** the real-window trial J6 (anchor off, caret mark on, Studio tab beside the editor, hidden preview inside and past 5 s) is a manual trial, not run.
+- **UNVERIFIED:** trials J1 to J5 and J7 ran only in the heavy CI run on Linux, never locally.
+- The real-window trial reads the marker from the host (the line the page was asked to draw), not from the page; the page's drawing is proved by the page tests and the visual scenario. Trial J5 asserts only that the last jump on the real file wins, so the marker can end on line 1 in the replace preview.
 - A user jump to the very line Studio just selected, within one second, is taken as Studio's own.
 - In the replace preview the line is the match's line number, off when an earlier replacement adds or removes lines.
-- Real-window trials J1 to J7 are not run at this stage; the table of which moves mark in `docs/user/open-studio.md` is marked as expected, to be confirmed.
+- The visual scenario exists in light only (no dark capture); no before image of a real search click was captured.
 
 <details><summary>Details</summary>
 
@@ -49,11 +57,15 @@ Owner decisions: same marker as the Studio tab, only on a jump; scroll follows t
 
 ### Impacts
 
-Visual scenario `lifecycle-sync/v13-line-marker-jump-if-off-screen-light-900` shows the side preview with the marker after a reveal with `scroll: "if-off-screen"`. Before and after screenshots of a real search click come from the real-window trial and are added to the evidence.
+Users see the Studio tab's line marker in the side preview after a jump. The screenshot in Deliverables shows the arrow and band on the target line after a reveal with `scroll: "if-off-screen"` (visual scenario `lifecycle-sync/v13-line-marker-jump-if-off-screen-light-900`). No before image of a real search click was captured.
 
 ### Test plan
 
-`just check`, `just requirements-lint`, new unit, host, protocol, page and session tests, the visual scenario, and `test/integration/sidePreviewJump.test.ts` (real window, heavy CI run).
+- [x] New or changed tests (they fail on the previous code): jump signal, editor jumps, protocol, page marker, session and host tests; `test/integration/sidePreviewJump.test.ts` (real window, heavy CI)
+- [x] Local gates at `7517dfd`: `just check` and `just preflight` pass; focused tests 112 pass; `npm run test:unit` 4648 pass, 0 fail; `just requirements-lint` exit 0
+- [x] CI at `7517dfd`: `gh pr checks 468` all pass (integration skipped on a pull request); heavy run 44937061899: static, static-windows, viewer-graph, visual, stress and integration (J1 to J5) pass, gallery pass after one re-run (first run failed on an HTTP 403 downloading `just`)
+- [x] Evidence: after at `7517dfd` (visual scenario); no before (feature absent at the base)
+- [x] Review: approved at `7517dfd` (recorded)
 
 ### Internal references
 

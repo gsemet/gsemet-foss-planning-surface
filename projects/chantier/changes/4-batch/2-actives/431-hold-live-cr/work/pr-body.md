@@ -57,11 +57,11 @@ The CR board pane shows `Held` and `Unheld` for a held live CR.
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): `test_hold_live*.py`, `test_stack_hold.py`, `test_came_back.py`
-- [x] Local gates at `c132602`: `just check` pass, `just eval-dry-run` pass (18 of 18)
+- [x] Local gates at `db75bff`: `just check` pass, `just eval-dry-run` pass (18 of 18)
 - [ ] Evidence: none beyond the tests and the scenario case
-- [x] Review: approved at `c132602`
+- [x] Review: approved at `db75bff` (restack on CR-430 inspected)
 - [x] Verified at `c132602`
-- [x] CI green at `c132602`: all 5 checks pass, `just scenario` (ubuntu-latest) included
+- [x] CI green at `db75bff`: all 5 checks pass, `just scenario` (ubuntu-latest) included
 
 ## Internal references
 

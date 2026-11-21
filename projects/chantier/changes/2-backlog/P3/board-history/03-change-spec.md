@@ -88,7 +88,7 @@ only; it never reads the forge, never runs git, writes nothing.
 
 1. The closed records: the state's `history` list (`board/state.py:_history`, already read by
    `reads.state_of`), the records whose `state` is `closed`, each CR of `crs`:
-   - with the new keys (section 1): `shipped` gives a `opened` event; `ended` gives a `release` event
+   - with the new keys (section 1): `shipped` gives an `opened` event; `ended` gives a `release` event
      when `kind` is `release` and the result is `merged`, a `merged` event for another merged CR, a
      `dropped` event for a dropped one;
    - without them (an older record): read the CR's `archive` folder's `STATUS.json` (through the
@@ -155,7 +155,7 @@ pure wheel for every system) and lock it (`uv lock`), see open question 3.
 - `next` is `null` when the period holds today or is later (Q4); `prev` is always given.
 - `days`: only the days with an event (Q15), newest first; in a day, the events newest first.
 - `totals`: the counts of the period's events by kind; `cost_usd` the sum of `cost_usd` of the
-  period's `merged`, `dropped` and `release` events (Q14: the CRs that ended; a `opened` event adds
+  period's `merged`, `dropped` and `release` events (Q14: the CRs that ended; an `opened` event adds
   nothing); `cost_partial` true when one of them has `cost_usd` `null` or a non-empty
   `cost_unpriced`. A release is counted under `releases` only, not under `merged` (open question 4);
   its cost is in `cost_usd`.
@@ -280,7 +280,7 @@ Dashboard page, and from it (open question 1); no change to the CR board pane (`
   (the batch's events are not archived). Nothing is guessed in its place (Q8).
 - A CR of an older record whose end has no recorded time (most of batch-01 to batch-20, and the
   dropped CRs of every record written before this change) is in no period; the foot line counts
-  them (Q12). Its first ship still shows as a `opened` line when its steps date it.
+  them (Q12). Its first ship still shows as an `opened` line when its steps date it.
 - A CR dropped back to the inbox or the backlog has no folder in the record: its row opens nothing.
 
 ## Overlaps in batch-30 and the UI night
