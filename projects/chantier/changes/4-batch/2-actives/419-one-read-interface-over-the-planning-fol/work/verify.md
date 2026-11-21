@@ -16,3 +16,11 @@ Move judged: rebase onto CR-418 (58df3be3) plus journal.read caller fixes (86876
 6. Long gate: CI scenario (ubuntu) green at head (claim 2); local Windows scenario is the stack top's, not this CR's.
 
 Not done: speed not re-measured by me; before/after evidence not re-captured.
+
+## Re-verification at b3fbfa3cf1501478046e4d86a6abe41f45f8ca91 (same head)
+
+Verdict: VERIFIED
+
+- Claim 3 fixed: `chantier log 419` line 30 note "approved: inspector APPROVE on the restack's caller fixes (3e22340d, rebased as 868761b; head b3fbfa3 ...)" names b3fbfa3 and 868761b; PR box matches. PASS.
+- Claim 4 fixed: `gh pr view 394` body table shows board state 0.833 -> 0.891 s (+7 %: 0.891/0.833 = 1.070), status 0.585 -> 0.590 s; `evidence/speed.md` "Re-measured at the restacked head" section gives the same figures. Driver's measure, consistent, under 10 %; not re-run by me.
+- Claims 1, 2 carried unchanged (head did not move): 1493 passed; CI 5 checks pass.

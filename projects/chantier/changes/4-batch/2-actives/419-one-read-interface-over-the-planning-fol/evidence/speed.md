@@ -51,3 +51,9 @@ component already checked for a link is not checked again; it ends with the call
   timestamp differing (the prepared folder is unchanged between the runs).
 - pytest on the touched modules: `test_store_reads`, `test_store_conformance`, `test_board`, `test_factory`,
   `test_leases`: round 2: 103 passed, 18 skipped (dedicated-branch backend). `ruff check` and `ruff format` on `store/`: clean.
+
+## Re-measured at the restacked head (b3fbfa3, base CR-418 58df3be)
+
+Same folder and machine, back to back, median of 5: `chantier status` 0.585 s before, 0.590 s head (+1 %);
+`project_state` 0.833 s before, 0.891 s head (+7 %, under the 10 % limit). Golden output: the board state JSON
+is identical; `status` text differs only by the worktree path in the `watch:` line.
