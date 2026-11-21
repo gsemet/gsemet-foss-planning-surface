@@ -98,3 +98,18 @@ Claims judged at 5e42c5f:
 - Verified box at 5e42c5f: given by this pass.
 
 VERIFIED
+
+---
+
+# Description-only pass at 7635816
+
+Head: 7635816548bf071ae97ea6de04d7cd059cf4bba7
+
+Verdict: VERIFIED (description only; code claims carried from 5e42c5f, a clean restack, see `carry` event in `$CHANTIER log CR-444`)
+
+- Description as posted (`gh pr view 453 --json body`, headRefOid 7635816548bf071ae97ea6de04d7cd059cf4bba7): sections, mermaid, code blocks, fold render; no image attached, so none shows a username or home folder.
+- Consistency: `git diff --stat 35be831c..HEAD` (57 files) matches Summary, Deliverables and Changes (blankRuns, hidden element, page blankLines, previewBlankRunDelete, replaceBlankRun, export drop, SwRS, glossary, CHANGELOG, tests, visual captures).
+- SHA marks: all `7635816 (carried from 5e42c5f)` or `e293b92` (heavy run, stated carried); log shows carry event at 7635816 with gate and verdict from 5e42c5f, and the heavy run success at e293b92.
+- CI at 7635816 (`gh pr checks 453`): static, static-windows, viewer-graph, visual, report, checks pass; integration, stress, gallery skipped (matches body).
+- Review box: log has "inspector approved at 5e42c5f" and the carry to 7635816; box cites `7635816 (carried from 5e42c5f)`: proved.
+- Known gaps: lists no screenshots, no before image, the UNVERIFIED kept-editor path, heavy run not at this head, Windows static gate only; no STALE mark; no role name outside Internal references.

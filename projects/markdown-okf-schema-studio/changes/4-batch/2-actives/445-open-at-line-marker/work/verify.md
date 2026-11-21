@@ -80,3 +80,27 @@ N5. Claims 3, 5, 7, 8 and the evidence images: carried from f61ac3a9/207a550a: t
 N6. PR description, as posted (`gh pr view 452 --json body,headRefOid,isDraft`), at 711a4dd5: VERIFIED. SHAs: 711a4dd for gate, review, verify, CI; f61ac3a only for evidence and the heavy run, both labelled historical and matching claim 4/5 and N3. Known gaps carries the UNVERIFIED diffs bullet, the narrow-pane bullet and the not-re-run-at-711a4dd integration note. No placeholder, no STALE mark; Mermaid block and fold well formed; internal references only in the folded section. Images: three uploads fetched with `gh auth token` (HTTP 200 image/png), sha256 equal to work/verifier/evidence v04, v10, v11 (opened earlier at claim 6: made-up fixture text, no username or home folder). Summary, Deliverables and Changes match the diff (claims 7, 8).
 
 Verdict: VERIFIED at 711a4dd5.
+
+---
+
+# Description-only pass at df3722061 (clean restack of 711a4dd5 onto CR-444 7635816)
+
+Head: df3722061ad5ea3f06ca047d229edcd8917682ff
+
+D1. Head: `git rev-parse HEAD` in the worktree and `gh pr view 452 --json headRefOid` both give df3722061ad5ea3f06ca047d229edcd8917682ff. `chantier log CR-445` holds a `carry` event at that head (gate_from and verdict_from 711a4dd5).
+D2. CI at df37220: `gh pr checks 452` (run 44876601900): checks, report, static, static-windows, viewer-graph, visual pass; others skipping on a PR. Matches the body's "CI green at df37220".
+D3. Heavy run claim: `gh run view 44860936230` exists (workflow_dispatch); body states it was before the rebases and not re-run at df37220. Stated honestly; Known gaps repeats it.
+D4. Rendering and consistency: body has Summary, Deliverables (Mermaid), Blast radius, Autonomous decisions, Known gaps, folded Details; no STALE mark, no placeholder. Changes list matches `git diff --stat <base>...HEAD` (90 files: openingPolicy, openingWatcher, studioPlacement, migration, introductions, lineMarker, hostToPage, links/history, requirements, docs). Known gaps carries the UNVERIFIED diffs bullet.
+D5. Images: three uploads fetched (HTTP 200, PNG 1800x2000), opened: arrow and band on a code line (light), closed dropdown unfolded (dark), edit-mode list with arrow clear of handles (dark). Made-up fixture text, no username, no home folder. They show what the body claims.
+D6. Review box: body says "Review: approved at `df37220` (carried from `711a4dd`, move re-inspected)". `chantier log CR-445` has the approved note at 711a4dd5 ("round 6 inspector APPROVE at 711a4dd5") and the earlier "move f61ac3a..207a550 ... inspector approved at 207a550". It has NO note of an inspection of the move to df37220 (the restack note only says "restack: on CR-444 7635816, head df37220"; the move is a `carry`). "move re-inspected" is stated as fact for this head with no proof in the log. FAILED: reword to "approved at 711a4dd, carried to df37220 (clean restack)" or add the re-inspection note.
+
+Verdict: NOT VERIFIED (description, D6 only; all other description claims verified).
+
+## Description-only pass 2 (head df3722061ad5ea3f06ca047d229edcd8917682ff)
+
+Head: df3722061ad5ea3f06ca047d229edcd8917682ff
+
+D7. Review box, re-read at df37220 with `gh pr view 452 --json body`: "Review: approved at `711a4dd`, carried to `df37220` (clean restack)". `chantier log CR-445` has "round 6 inspector APPROVE at 711a4dd5" and the `carry head=df37220 ... verdict_from=711a4dd` event (clean restack). The note names the SHA the box cites: proved.
+D8. Rest of the description: unchanged from pass 1 except the box and SHA wording; D1-D5 carried from pass 1 (images fetched HTTP 200 there; unauthenticated curl now gives 403, same upload URLs, body text unchanged). Test-plan lines name df37220 or carry from 711a4dd with the reason; no STALE mark; Known gaps keeps the UNVERIFIED bullet.
+
+Verdict: VERIFIED (description only)

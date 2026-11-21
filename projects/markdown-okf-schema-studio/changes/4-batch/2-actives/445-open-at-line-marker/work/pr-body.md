@@ -78,7 +78,7 @@ Users see Studio open at the searched line with the marker; Markdown opening set
 - [x] New or changed tests (they fail on the previous code): policy, watcher, migration, introductions, protocol, page marker, session navigation, host placement
 - [x] Local gates at `df37220` (carried from `711a4dd`, clean restack): `just check`, `just ci-static`, `just requirements-update`, `just requirements-lint`
 - [x] Evidence: before none (no marker at the base), after at `df37220` (carried from the earlier capture; trial logs under the work folder)
-- [x] Review: approved at `df37220` (carried from `711a4dd`, move re-inspected)
+- [x] Review: approved at `711a4dd`, carried to `df37220` (clean restack)
 - [x] Verified at `df37220` (carried from `711a4dd`)
 - [x] CI green at `df37220` (pull request checks); the heavy run with integration and stress was green before the rebases (run 44860936230), not re-run at this head
 

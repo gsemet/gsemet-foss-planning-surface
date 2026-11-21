@@ -93,3 +93,15 @@ Command: `gh pr view 451 --json body,headRefOid`; headRefOid is 726b41d5f5c821e0
 - Everything else: unchanged since pass 3 (carried from pass 3 at 726b41d: only the Review line changed). PASS.
 
 VERIFIED
+
+## Description-only pass at 35be831 (restack of 726b41d, same patch)
+
+Head: 35be831c379c18d00bfe4dfbd25c38c08755ff2e
+
+- Body read with `gh pr view 451 --json body,headRefOid`: headRefOid is 35be831c379c18d00bfe4dfbd25c38c08755ff2e; sections, table and fold render; SHA marks read `at 35be831 (carried from 726b41d)`; Known gaps lists the missing before picture, site-assemble gallery and the flake. PASS.
+- Summary, Deliverables and Changes match the diff: verified at 726b41d (VERIFIED), carried to 35be831: `$CHANTIER log CR-443` shows a `carry` event for 35be831 (same patch, verdict_from 726b41d). PASS.
+- Review box: log has `inspector approved at 726b41d` (move 78ad518..726b41d), cited as carried from 726b41d. PASS.
+- CI at 35be831: `gh pr checks 451` shows static, static-windows, visual, viewer-graph, report, checks pass; the rest skipping. PASS.
+- Images: `curl -sL` of the three user-attachments URLs returns 200 image/png (45022, 44916, 50948 bytes). Each opened: index card ("Requirements / Studio requirements"), "Feature category / MyST syntax", "Feature category / Edition palette and slash menu", each with its category colour; no username, no home path. PASS.
+
+VERIFIED
