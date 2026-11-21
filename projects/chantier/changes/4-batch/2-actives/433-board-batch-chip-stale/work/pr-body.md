@@ -13,6 +13,7 @@ after:  row.stage     (folder on disk: 1-pending | 2-actives | 3-done | null)
 
 - `stage` is read from the CR's own folder under `4-batch/`, so it says what the planning folder shows; a CR out of the batch's folders (a cancelled CR moved back to the inbox or the backlog, or no folder found) has `stage: null` and draws no chip.
 - The Batch graph node, the Gantt label, the Batch time card and the PRs page's card pass `priority: c.stage` to the same card builder; the chip uses the existing neutral `.tag` style, with no new colour or token. The Kanban's card of a batch CR is unchanged.
+- The Triage page's running-batch lane draws its pending CRs through the same card, with `priority: c.stage` (`js/triage/columns.js`), so they show `1-pending`.
 - `priority_of` and its helper are removed: nothing reads them any more.
 - No screenshot: the change is a chip's text on existing cards.
 
@@ -36,7 +37,7 @@ Grade: 1. A batch row's `priority` key is gone from the board's published state;
 
 - `board/crs.py`: `_row` drops `priority`, gains `stage` (via `stage_of`, using `lifecycle/stages.py:STATE_FOLDERS`).
 - `board/times.py`: `priority_of` and `PRIORITY_AFTER` removed.
-- `clients/web/js/views/batch-graph.js`, `batch-gantt.js`, `batch-timecards.js`, `batch-pr-card.js`: `priority: c.stage`; comments in `js/ui/card.js`, `js/ui/parts.js` follow.
+- `clients/web/js/views/batch-graph.js`, `batch-gantt.js`, `batch-timecards.js`, `batch-pr-card.js`: `priority: c.stage`, and the same in `js/triage/columns.js` (the running-batch lane); comments in `js/ui/card.js`, `js/ui/parts.js` follow.
 - `clients/web/DESIGN.md` ("One card, one column, one chip") and `docs/web-board.md` ("Batch") say the batch folder chip.
 - Tests: a parametrized server test (`test_board_waits.py`), a shipped-files check (`test_board_design.py`), `test_priority_of` removed.
 
