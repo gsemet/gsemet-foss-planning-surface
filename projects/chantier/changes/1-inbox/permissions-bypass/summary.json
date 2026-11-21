@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "chantier's allow rules name real paths, not a wildcard",
-  "summary": "Step 1 specified: P10 writes real plugin and checkout paths in chantier's allow rules and names broad rules in the user's settings for removal, after a real Claude Code trial. One open question (plugin path on update). Next: spec critic.",
+  "summary": "Step 1 respecified (critic fixes, Q19-Q20): P10 writes real paths in chantier's allow rules after a real trial; names broad rules with their real-path replacements, offered at once, and stale rules after an update. Open: stale dev-rule scope. Next: spec critic.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "b62109ff757affa55006746c68ff1f156f33bbba8fb9315e1699f184464b47a8",
-    "02-answers.md": "c3b083d62232d478dca4a0eaf1d28e0cce7e00d10e86b0f46a6ef98c880f3b8e",
-    "03-change-spec.md": "dc91994ea3971b03df3287ab51b637aeab74d00a592026fbb5161a06c0920973",
+    "02-answers.md": "1c693c8d4b1f6cc20956d834b944c91d7325a43c2520d1de48736c54b1756595",
+    "03-change-spec.md": "c8eec68062513d75e1e5651dade0922965134c8bccc1dcf29b49d068607d35a1",
     "intake/request.md": "67b9f4180faca9c272d5cb6e14319c96de6131e4f9ebaf6cd3bb2d36250fb9f4"
   },
-  "summarized": "2026-11-21T13:59:24Z"
+  "summarized": "2026-11-21T14:27:29Z"
 }
