@@ -67,9 +67,9 @@ No visual change. Developers of chantier see a `sync pending` line instead of a 
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run` (to be run at the pushed head)
+- [x] Local gates at e21be68: `just check` pass (1631 passed), `just eval-dry-run` pass (18 of 18)
 - [ ] Evidence: the check's trial by hand on a throwaway project (uv 0.13.6, Windows): in sync exit 0; version bump exit 1 "The environment is outdated"; stale `uv.lock` exit 1, and the real `uv sync --locked` fails with its lock error
-- [ ] Review: approved at `<sha7>`
+- [x] Review: approved at e21be68 (carried from c5af034, same content)
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
