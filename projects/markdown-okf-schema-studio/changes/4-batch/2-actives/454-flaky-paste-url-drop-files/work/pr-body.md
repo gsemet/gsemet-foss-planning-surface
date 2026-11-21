@@ -1,11 +1,12 @@
 ## Summary
 
-The real VS Code window step `paste-url` failed on CI several times without a related change, and `drop-files` belongs to the same family. The observed failure was a wait on a stored edit mode that commit e05f0b51 already removed; this change removes the two remaining waits on time in these scenarios, adds a failure trace to the CI log, and puts both scenarios in the default `just ci-stress` plan so a race shows up on every push to `main`.
+The real VS Code window step `paste-url` failed on CI several times without a related change, and `drop-files` belongs to the same family. The failures seen on CI were a wait on a stored edit mode that commit e05f0b51 already removed; the first runs of the new default stress plan also showed that the second CDP connection these two scenarios open reset the run's 1400x900 viewport to 1200x800, after which round 2 lost its first edit-mode clicks (a likely cause, not reproduced locally). This change removes the two remaining waits on time in these scenarios, adds a failure trace to the CI log, and puts both scenarios in the default `just ci-stress` plan so a race shows up on every push to `main`.
 
 ## Deliverables
 
 - `paste-url`: one click then a wait on the block text box, instead of a 30 s click loop with a 700 ms pause.
 - `drop-files`: a wait on the drop marker, instead of a 400 ms pause; edit mode is turned off best-effort in its `finally`, like `paste-url`.
+- Both scenarios now set the run's own viewport (`RUN_VIEWPORT`, 1400x900, in `test/integration/realWindowViewport.ts`), as `checkbox-toggle` does, instead of 1200x800 on their second connection.
 - A failure trace line per scenario: `<scenario> failed: ...` then `<scenario> failure trace: {json}` (host state, source document, frame edit mode, editor tabs, last progress marker, failures).
 - Default stress plan: 21 scenarios at 11 rounds (`DEFAULT_STRESS_REPEAT`), `paste-url` and `drop-files` last.
 
@@ -20,7 +21,7 @@ The real VS Code window step `paste-url` failed on CI several times without a re
 
 ## Impacts
 
-No product change and no visual change. The `stress` job (advisory on `main`) runs two more scenarios per round.
+No product change and no visual change. The viewport cause is unproven locally (no Chromium could run where it was diagnosed); CI runs decide. The `stress` job (advisory on `main`) runs two more scenarios per round.
 
 ## Blast radius
 
@@ -34,4 +35,5 @@ Grade: 1. Test and CI configuration only; a plain `git revert` restores the prev
 - [x] Local gates: `just check` (pass), `test_workflows.py` (81 passed), `just preflight` on Windows (static stage, pass)
 - [ ] Review
 - [ ] CI green
+- [ ] Viewport fix proof: default stress at the fixed head (round 2 `frontmatter-title` passes, `frontmatter-rename` back to about 3 s) and the narrow plan `paste-url,frontmatter-rename,frontmatter-title` at 20 rounds; the cause is a hypothesis until these run.
 - [ ] Heavy dispatch on the branch (integration and stress at 11 rounds, duration against the 24-minute deadline), focused loop of 100 rounds of both scenarios, and the forced-failure trace proof: results to be added.
