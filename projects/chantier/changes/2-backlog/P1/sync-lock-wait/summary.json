@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "A blocked uv sync names chantier's holders, waits, never kills",
-  "summary": "Spec v1: a dev-mode uv sync checks first (uv sync --check), names the .venv holders by shell, never stops or kills one (board and hub included), goes on with sync pending, retries each turn, tells the user after 3 min. Joins batch-30 after CR-436.",
+  "summary": "A sync of chantier's checkout never stops what holds its .venv: check, list holders, sync only when none, else go on with 'sync pending' and retry. After 3 min, one line and a For you item; if only its own board and watcher hold it, offer to stop them, sync and restart on the user's yes.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "7d52a38d555f69f62ed4d64625093bda6caceca3c4cc519842c1f25f8dc0724d",
-    "02-answers.md": "1fe6149f93a7ef1f517e576ef8add350f61315b219684004d5533ad99d661db5",
-    "03-change-spec.md": "8aa434fd538c1231963b3c5173b55ce6f83c0016ff59653ce883961d82a4a398",
+    "02-answers.md": "19e5c79b0c1213e0c5f1aefa8dd0e538fe46801045d3691bc4a5a27fc589eff2",
+    "03-change-spec.md": "0681f7b5f10483661c09f69723124ea27206dfb3f666212378ac9f4240176834",
     "intake/request.md": "f7e970376e87b5514d3051626a8ca9c76f6ede8618bcb732930d7a3c7b549f47"
   },
-  "summarized": "2026-11-21T18:08:02Z"
+  "summarized": "2026-11-21T18:18:23Z"
 }
