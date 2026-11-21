@@ -33,3 +33,11 @@ Claims 1 to 11: carried from 2004e52 (same head, code unchanged).
 13. PR description as posted (gh pr view 408 --json body), compared with work/pr-body.md by diff: identical except the seven image links (now user-attachments URLs, one per picture, same files as evidence/) and one trailing blank line. Sections present, fold (details) closed properly, SHAs on proofs (33d1045 / 2004e52), Internal references only inside the fold, measures (353 to 263, 143, 155 to 176, 375) match measure-*.json and before-after.md, Known gaps true, Review box cb58d84 matches the Driver note "approved at 33d1045..., committed as cb58d84f". Defect: Changes did not list the five retaken docs/web-board PNGs that git diff --stat main...HEAD shows (batch-cards-pc, batch-gantt-pc, batch-pc, batch-phone, panel-pc): a delivered change unmentioned. NOT VERIFIED at 2004e521db9acf1b8d752f0f5b7cb422d7939108. Fixed in work/pr-body.md (one Changes bullet added); the Driver reposts it (with the same image URLs) and a new description pass follows.
 
 Verdict: NOT VERIFIED (claim 13).
+
+## Second description-only pass, head 2004e521db9acf1b8d752f0f5b7cb422d7939108
+
+Claims 1 to 11: carried from 2004e52 (same head, code unchanged).
+
+14. PR description as posted (gh pr view 408 --repo gsemet/chantier --json body), diffed against work/pr-body.md: only the seven image links differ (user-attachments URLs, same pictures as evidence/) and a trailing blank line. The Changes now has the `docs/web-board/*.png` bullet naming the five retaken pictures, matching git diff --stat main...HEAD. All seven image URLs return 200 image/png (curl). Sections, fold, SHAs, Known gaps, Review box as judged in claim 13. VERIFIED at 2004e521db9acf1b8d752f0f5b7cb422d7939108.
+
+Verdict: VERIFIED (claims 1 to 11 carried, 13 fixed, 14).

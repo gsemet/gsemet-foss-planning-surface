@@ -1,19 +1,16 @@
 # Verify CR-460
 
-Head: 42d01082d2850fedfbdffd5c60f6e62d9fa668f7
+Head: 39f2419d132633ebaeacbb3ace6a9357c042765a
 
-Claims, each judged at 42d01082d2850fedfbdffd5c60f6e62d9fa668f7.
+All claims judged at 39f2419d132633ebaeacbb3ace6a9357c042765a (the 42d01082 verdict is void after the rebase and is rejudged).
 
-1. Gate pass at the head. `chantier log CR-460` line: `driver gate result=pass head=42d01082d2850fedfbdffd5c60f6e62d9fa668f7 command=just preflight run=20261121-215516-13712`. Worktree `git rev-parse HEAD` = the same SHA; `git status --short` empty.
+1. Gate pass at the head. `work/gates/20261121-230530.log` first line: `gate CR-460 branch chantier/batch-07/cr-460-side-preview-scroll-follows-only-the-rea head 39f2419d132633ebaeacbb3ace6a9357c042765a`, last line `result: pass at 39f2419d132633ebaeacbb3ace6a9357c042765a` (`just preflight`). Worktree `git rev-parse HEAD` is the same SHA; `git status --short` empty.
 
-2. Real-window tests ran and passed. `gh run view 44949474643 --json headSha,conclusion` gives headSha 42d01082d2850fedfbdffd5c60f6e62d9fa668f7, conclusion success; jobs integration and stress success. Integration job log (`gh run view 44949474643 --log --job 136984002960`, saved to work/scratch/integ.log):
-   - `STEP start: diff-preview-scroll` 21:16:05, `STEP done: diff-preview-scroll (4899 ms)` 21:16:10
-   - `Extension host test runner exit code: 0`, `ci-integration: passed`, no "skip" line in the log.
-   The step is registered in `test/integration/trusted-suite.ts` (`["diff-preview-scroll", runDiffPreviewScroll]`, in the diff). The suite logs per step, not per case; the step runs D1 (inline scroll follows) and D2 (staged-like diff, both layouts) in sequence in `test/integration/diffPreviewScroll.test.ts` (read at the head), each ending in an assert or waitFor that throws on failure; a failure would fail the step and exit code. Limit: D1 and D2 are not logged individually.
+2. Real-window tests pass at the head. `gh run view 44951690958 --json headSha,conclusion,jobs`: headSha 39f2419d..., conclusion success, jobs integration, stress, visual, static, static-windows, report, gallery all success. Log of that run: `STEP start: diff-preview-scroll` 21:59:06, `STEP done: diff-preview-scroll (5059 ms)`, `ci-integration: passed`. The step runs D1 (inline layout scroll follows) and D2 (staged-like diff opens the working-tree preview, no scroll following), which closes both gaps of 02-answers.md. Limit: the suite logs per step, not per case.
 
-3. Tests only, no behaviour change. `git diff --stat origin/main...HEAD`: only requirements markers and log, test/host/diffPreview.requirements.test.ts, test/integration/diffPreviewScroll.test.ts, trusted-suite.ts, test/shared/e2eGroups.ts, test/site/e2eGroups.test.ts; nothing under `src/`.
+3. Tests only. `git diff --stat origin/main...HEAD -- src` is empty; the 8 files are requirements markers and log, test/host/diffPreview.requirements.test.ts, test/integration/diffPreviewScroll.test.ts, trusted-suite.ts, test/shared/e2eGroups.ts, test/site/e2eGroups.test.ts. (The 42d01082..HEAD range lists src/page/runtime.ts and others only because the base moved by rebase, not from this CR.)
 
-4. PR description (posted, `gh pr view 473`, headRefOid = the head): renders with sections; Summary, Changes match the diff (D1/D2 test file, host test, trusted suite and e2e groups, requirements markers and log); no image; Deliverables "None (tests only)"; Known gaps absent and nothing unverified is claimed as fact (the real-window run is said to be heavy CI only, proved by claim 2); Internal references holds only CR ids. Unchecked boxes Review/CI green are the Driver's to tick.
+4. PR description (`gh pr view 473`, headRefOid = 39f2419d...): sections render; Summary and Changes match the diff; no image; Deliverables "None (tests only)"; no unverified claim stated as fact, so no Known gaps needed; Internal references hold CR ids only. Unticked Review and CI green boxes are the Driver's to tick.
 
 No visual deliverable, so no before/after evidence.
 

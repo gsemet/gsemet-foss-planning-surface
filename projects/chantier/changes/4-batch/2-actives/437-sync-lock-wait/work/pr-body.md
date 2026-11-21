@@ -28,11 +28,11 @@ Grade: 2. Wording of the shared skill and cards, one permission rule, and the pr
 
 ## Autonomous decisions
 
-- The detail of the wait (steps 4 to 6, "own", the yes/no handling) lives in `session-start.md` section 6 rather than in the four skill files, because each skill file is counted in the startup budget (decided after a first draft exceeded the budget).
-- Release bumps of the version in `uv.lock` meet this path: the first release after the merge is its first live proof.
+- The detail of the wait (steps 4 to 6, "own", the yes/no handling) lives in `session-start.md` section 6 rather than in the four skill files, because each skill file is counted in the startup budget.
 
 ## Known gaps
 
+- Every release bump of the version in `uv.lock` meets this path, so the first release after the merge is its first live proof.
 - The session's behaviour (checking, naming, waiting, the 3-minute message, the later offer) and the stop, sync and restart of its own board and watcher are card behaviour with no automated proof; only the shipped text and the permission rule are tested.
 - The holder listing has no allow rule and may prompt outside auto or bypass mode, rarely (after a `uv.lock` change).
 - On macOS and Linux a gate started between the listing and the sync is not caught (no os error 32 there).
@@ -52,6 +52,14 @@ Grade: 2. Wording of the shared skill and cards, one permission rule, and the pr
 - CLI: `launch.sync_check_line`, `plugin_files.sync_check_command`, the dev-mode permission sample and the preflight probe name the check rule.
 - Tests: shipped-text checks for the paragraph, section 6, the exception, host rows and status layout; byte identity of the check line across skills, command and rule; preflight cases.
 
+## Human decisions
+
+- A sync blocked by chantier's own processes (gate, watcher, board or hub, any project or surface) kills nothing: the session names the holders, goes on unsynced, and tries again at its next turn.
+- After 3 minutes the user is told, naming the holders.
+- Only the session's own board and watcher may be stopped to sync, once, on the user's yes, with the cost stated.
+- The session checks first, with its own permission rule named by the preflight, before it lists holders or syncs.
+- In a batch the wait is one item of the report that needs the user, until the user answers.
+
 ## Impacts
 
 No visual change. Developers of chantier see a `sync pending` line instead of a killed process, and one more permission rule in the dev mode.
@@ -59,7 +67,7 @@ No visual change. Developers of chantier see a `sync pending` line instead of a 
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
+- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run` (to be run at the pushed head)
 - [ ] Evidence: the check's trial by hand on a throwaway project (uv 0.13.6, Windows): in sync exit 0; version bump exit 1 "The environment is outdated"; stale `uv.lock` exit 1, and the real `uv sync --locked` fails with its lock error
 - [ ] Review: approved at `<sha7>`
 - [ ] Verified at `<sha7>`
