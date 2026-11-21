@@ -27,4 +27,4 @@ Grade: 1. One validation function; a plain `git revert` restores the previous be
 - [x] Changelog: No user-facing change (only an invalid, hand-edited file is affected)
 - [x] Local gates: `just check`, the targeted unit test, `just requirements-update`, `just requirements-lint`
 - [x] Review: inspector approved at 589c77c
-- [ ] CI green
+- [x] CI green (static, static-windows, visual, viewer-graph at 589c77c)
