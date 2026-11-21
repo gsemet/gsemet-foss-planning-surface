@@ -63,7 +63,11 @@ At 1280 px all six maps are shorter. At 800 px three maps are taller than before
   `just requirements-report-json`.
 - CI: the `visual` job already used about 90 % of its 15 minute limit (its healthy runs last 11m45 to
   14m05; the test step alone is 11 to 13 minutes). Putting the report and the map tests in it added
-  75 to 90 s and got it cancelled twice. Nothing was hung (the map test itself takes 17 to 19 s). They
+  75 to 90 s and got it cancelled twice, in the last seconds, just as the map test started. Nothing was
+  hung or waiting: `test:viewer-graph` takes 18.5 s in CI (17 s locally) in the green run, and the report it needs took 56 s in the `visual` job (59 s locally, 14 to 18 s of it
+  a status print the test does not use, 22 s a Markdown copy it does not read). The cause is the job's
+  budget: the unchanged visual test step alone takes 11 to 13 minutes. The report step is now JSON only
+  (about 23 s locally instead of 60 s), and the map tests and report
   now run in a job of their own (1m24 in CI), in parallel; `visual` is back to what it ran before,
   and no timeout is raised.
 
@@ -91,6 +95,7 @@ Grade: **1**. Only the generated requirements site's viewer and its tests change
 
 - Numbered badges at every path start, a two-colour border on shared pills and a stronger scroll hint
   are not part of this change.
+- The `visual` job still takes 12 to 14 minutes of its 15 minute limit without this change's additions (its test step is the slow part); it is a separate follow-up, not changed here.
 - At 800 px three of the six measured maps are taller than before (listed under Deliverables); the bound is the 1280 px one.
 
 ## Test plan

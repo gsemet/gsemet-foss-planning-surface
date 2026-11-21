@@ -1,5 +1,49 @@
 # Verification of CR-441
 
+Head: d20b0bf409d91de02ad54dd0c8371ca662c92cbb
+
+Move judged: d94b5ec..d20b0bf (one commit, the CI job split). Claims R1 to R7 of the d94b5ec section below are carried from d94b5ec unless a claim here says otherwise. Gate pass at d20b0bf: `$CHANTIER log CR-441`: `gate result=pass head=d20b0bf409d91de02ad54dd0c8371ca662c92cbb command=just preflight run=20261121-070008-33136`.
+
+## Re-verification at d20b0bf
+
+D1. The move touches no site code, so the heights, overlaps, captures and R1-R7 carry. VERIFIED at d20b0bf (carried from d94b5ec: R1 to R7, because the diff touches none of their inputs).
+`git diff --stat d94b5ec d20b0bf`:
+```
+ .github/workflows/ci.yml  | 54 +++-  | AGENTS.md | 2 +-  | CONTRIBUTING.md | 6 +--  | justfile | 28 ++++--
+ requirements/tiers/swrs/rendering-core/SwRS-MDOKFSTUDIO-CORE-081.md | 2 +-  | test/build/test_workflows.py | 27 +++
+ 6 files changed, 104 insertions(+), 15 deletions(-)
+```
+No `src/`, no `sphinx/`, no `test/site`. The SwRS-CORE-081 change is one word set: "run by `just ci-visual`" becomes "run by `just ci-viewer-graph`" in its Verification notes.
+
+D2. CI run 44873816979 at d20b0bf is green. VERIFIED. `gh api .../actions/runs/44873816979` head_sha `d20b0bf409d91de02ad54dd0c8371ca662c92cbb`, event pull_request, conclusion success. Jobs (`gh run view 44873816979 --json jobs`):
+
+| job | conclusion | started | completed | duration |
+|---|---|---|---|---|
+| viewer-graph | success | 06:04:39Z | 06:06:03Z | 1m24 |
+| static | success | 06:04:40Z | 06:08:57Z | 4m17 |
+| static-windows | success | 06:04:39Z | 06:08:57Z | 4m18 |
+| visual | success | 06:04:39Z | 06:17:44Z | 13m05 |
+| report | success | 06:17:46Z | 06:18:33Z | 0m47 |
+| checks | success | 06:18:35Z | 06:18:37Z | 0m02 |
+
+(stress, release-check, integration, toc-loop, gallery, tag-release, pages, release skipped, as on any pull request.)
+
+D3. The viewer-graph job log shows the 4 map tests passing on the real report. VERIFIED. `gh run view 44873816979 --log --job 136753983824`: `just ci-viewer-graph` runs `tsc -p .`, then `okfreq generate-report requirements --output-json out/reports/requirements/requirements-report.json` (`Generated: ...requirements-report.json`), then `test:viewer-graph`; lines `✔ the six frozen use cases draw their map...`, `✔ a use case with full IDs and shared paths...`, `✔ every use case of the requirements report draws its map without an overlap at both widths (13073 ms)`, `✔ Play path 2 on the frozen BLOCK-014 map...`; `ℹ tests 4 / pass 4 / fail 0 / cancelled 0 / skipped 0`; `ci-viewer-graph: passed`. The third test ran the use cases of the generated report (not skipped: skipped 0, STUDIO_REQUIRE_REQUIREMENTS_REPORT=1 in the recipe).
+
+D4. `ci-visual` is back to its base form, `preflight` runs `ci-viewer-graph`. VERIFIED at d20b0bf. `git diff origin/chantier/batch-07/cr-440-requirements-viewer-shows-table-scenario -- justfile`: hunks only add `requirements-report-json`, add `ci-viewer-graph`, add `just ci-viewer-graph || failures=$((failures + 1))` after `just ci-visual || ...` in `preflight` (and the Windows skip message); no hunk in `ci-visual`. Workflow: `needs: [static, static-windows, visual, viewer-graph, report]` on `checks`; the new `viewer-graph` job runs `just ci-viewer-graph`.
+
+D5. No timeout raised. VERIFIED at d20b0bf. `git diff d94b5ec d20b0bf | grep timeout` and the same diff against the base show only added lines: `+    timeout-minutes: 15` (the new job) and `+    assert job["timeout-minutes"] == 15` (test_workflows.py); no existing `timeout-minutes` line is changed.
+
+D6. PR body claims about the split (work/pr-body.md, Changes and Test plan). VERIFIED as to numbers: 1m24 (viewer-graph) and 13m05 (visual) equal D2's durations; CI box lists the same jobs as D2; "no timeout is raised" is D5; "`visual` is back to what it ran before" is D4; "just ci-viewer-graph" ... "JSON-only `just requirements-report-json`" matches the justfile. Review box: log note `r4 approved at d94b5ec..., committed as d20b0bf` proves "round 4, the CI job split". Local gates at d20b0bf: gate pass cited above (`just preflight`). Not re-proved by me: the diagnosis figures in the CI bullet ("about 90 % of its 15 minute limit", "11m45 to 14m05", "cancelled twice", "17 to 19 s", "43 s" local); they come from work/diagnosis-r4.md and work/r4.md, and D2 only confirms 13m05 for visual and 1m24 for viewer-graph.
+
+D7. Posted PR description. NOT YET CURRENT: `gh pr view 450 --json body` at headRefOid d20b0bf still holds the pre-split text (Changes line "run by `just ci-visual` after `just requirements-report`", Local gates / Review / CI boxes at `5abb7af`, heights line "head `5abb7af1`"), and differs from work/pr-body.md in lines 36, 61-62, 96-99. work/pr-body.md is the correct text; the Driver must post it (`gh pr edit`) at closing. The verdict below covers the move and work/pr-body.md, not the posted text.
+
+Note: my first log fetch wrote `C:/Users/gaeta/Projets/markdown-okf-schema-studio.worktrees/vg.log` (outside `writes:`, one level above the worktree) and I could not remove it (refused); the Driver can delete it.
+
+VERIFIED at d20b0bf (the move; carried claims as stated), subject to D7 at closing.
+
+---
+
 Head: d94b5ecde9793e742e51c2596bdc4714577694bf
 
 Re-verification after the move 5abb7af..d94b5ec (rebase onto CR-440, caption room fix). Section below judges the touched claims at d94b5ec; the rest is carried.
