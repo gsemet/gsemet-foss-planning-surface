@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "An ordered stack is checked as a git chain",
-  "summary": "In a stack or series batch, ship refuses (recording nothing, no force flag) a CR whose branch lacks the CR below's recorded head; the stack driver checks with git merge-base before deciding no restack. Grilled; spec v1 written, for batch-30.",
+  "summary": "In a stack or series batch, ship and stack --out-of-draft refuse (nothing recorded, no flag) a CR placed on another's branch that lacks the CR below's recorded head; the caller rebases; the stack driver checks with git merge-base. Spec v2, no open question, for batch-30.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "7904762c9b0fdb07b5aa4764b284d7e608b25ec898c68c6b76ad0aca3b091d27",
-    "02-answers.md": "b5c0094ca3ac1defc48d0556e11b825225f44d095701ceb3d7b8e6360ad122c5",
-    "03-change-spec.md": "4ef04c250d86e37c32057d77c875d97b6db1d90b7d509bb090a206e59d7626cd",
+    "02-answers.md": "6cd9b1c85dfab53e4567b0a78e99d129f0b83afdf74e5cb8d23dee51a1ed296e",
+    "03-change-spec.md": "70bc2a26ba60d3367147b8413d14f3945244d89b8b4f46b50295a41401dff988",
     "intake/request.md": "1b219f23fa1381fbddc414584c30928588aa4e688fd0daf4209681d25921c8c8"
   },
-  "summarized": "2026-11-21T17:13:46Z"
+  "summarized": "2026-11-21T17:19:46Z"
 }
