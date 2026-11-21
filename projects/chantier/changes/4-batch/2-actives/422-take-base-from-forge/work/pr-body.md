@@ -57,9 +57,9 @@ No visual change: no `STATUS.json` field and no label form changes.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates: `just check`, `just eval-dry-run`
-- [ ] Evidence: scenario stack unit
+- [x] New or changed tests (they fail on the previous code): `test_stack_base.py`, green in CI at a49d89b
+- [x] Local gates: `just check`, `just eval-dry-run`, passed before the first push
+- [x] Evidence: scenario stack unit, checks 1 to 10, `just scenario (ubuntu-latest)` green at a49d89b
 
 ## Internal references
 

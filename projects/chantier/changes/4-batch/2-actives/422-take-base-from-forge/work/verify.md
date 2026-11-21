@@ -16,4 +16,8 @@ All claims judged at a49d89ba.
 
 Not proven (needs CI result): scenario checks 1-10 and just check macOS/Windows. Known gap in PR: scenario stack unit exceeded its 640 s budget locally (1196.8 s beside just check); if CI scenario fails on the budget, the claim fails.
 
-NOT VERIFIED (pending: scenario and cross-platform CI not yet green at the head)
+
+
+Update at a49d89ba: `gh pr checks 391` shows pass for just check (ubuntu, macos, windows), just eval-dry-run, just scenario (ubuntu, 4m17s, within budget, checks 1-10 ran). Head of PR == worktree HEAD.
+
+VERIFIED
