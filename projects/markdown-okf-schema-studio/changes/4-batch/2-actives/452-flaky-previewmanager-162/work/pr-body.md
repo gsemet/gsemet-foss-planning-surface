@@ -44,8 +44,10 @@ No visual change; no product change. The tests no longer flake under load.
 
 ## Test plan
 
-- [ ] New or changed tests (the join-window test fails at the base under a 260 ms stall, passes now)
-- [ ] Local gates: `just check`, the compiled test file, 20 parallel runs
+- [ ] New or changed tests (the join-window test fails at the base under a 260 ms stall with `2 !== 1`, and passes now with a 270 ms stall)
+- [ ] Requirements: No behaviour change (SwRS text and markers unchanged)
+- [ ] Changelog: No user-facing change
+- [ ] Local gates: `just check` exit 0; compiled test file 9 pass, 0 fail; 20 parallel runs of the compiled file, 20 ok, 0 fail; no `wait(` or sleep left in the file
 - [ ] Evidence: before at `6774cd71`, after at the head
 - [ ] Review: approved at `<sha7>`
 - [ ] Verified at `<sha7>`
