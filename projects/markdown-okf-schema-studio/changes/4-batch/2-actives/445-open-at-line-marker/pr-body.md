@@ -29,11 +29,11 @@ Grade: 2. The opening path of every Markdown file changes (activation event, a t
 
 ## Autonomous decisions
 
-- The owner-reviewable decisions numbered 12 to 33 of the specification were taken by an agent under the owner's autonomy rule, not by the owner; the owner may change any at review (see Internal references).
+- The design decisions that went beyond the owner's first answers (migration reach, side preview, restored tabs, plain openings in another group, the two-setting split) were taken by an agent under the owner's autonomy rule, not by the owner; the owner may change any at review.
 - "On by default" is read as: "Open search results in Studio" on by default, "Open Markdown files in Studio" off until the migration turns it on.
-- The migration writes the new setting first, then removes the association (the specification said the reverse), so a failure never leaves the user with neither.
+- The migration writes the new setting first, then removes the association (the planned design said the reverse), so a failure never leaves the user with neither.
 - The tab-reading watcher lives in `src/host-vscode/openingWatcher.ts` and `src/host-vscode/studioPlacement.ts`, not in `openInStudio.ts` as the specification placed it.
-- Trial 2 found a usable signal, so "Open search results in Studio" stays on by default.
+- A real VS Code trial found a usable signal telling a jump from a plain reopening, so "Open search results in Studio" stays on by default.
 
 ## Known gaps
 
@@ -41,7 +41,8 @@ Grade: 2. The opening path of every Markdown file changes (activation event, a t
 - "Open as Text" on a dirty document shows a save dialog; "Open With > Text Editor" is replaced by Studio (known issues, same file).
 - The text editor shows for a brief moment before Studio takes its place.
 - The opening that triggered activation is never replaced.
-- Not run: trials 5, 6, 7 and 11 and the Back/Next part of trial 10; the unattended campaign automation was cut. `test/integration/openAtLine.test.ts` compiles but was not run in the real harness. **UNVERIFIED:** diffs are never replaced in real VS Code (covered by unit tests of the policy only).
+- Not run in real VS Code: the migration with real settings files, the diff views staying text, the activation-time opening, the keyboard timing of the flash, and Back/Next navigation; the unattended campaign automation was cut.
+- Small review leftovers: `docs/user/open-studio.md` does not mention the pinned-tab exception next to the "revealed at the line" sentence; an integration test waits a fixed 1.5 s to prove nothing opens; a map of recent jumps in the watcher is only pruned lazily. `test/integration/openAtLine.test.ts` compiles but was not run in the real harness. **UNVERIFIED:** diffs are never replaced in real VS Code (covered by unit tests of the policy only).
 - Visual scenarios, the integration stage and the real VS Code jobs run on Linux CI only.
 
 <details>
@@ -59,6 +60,8 @@ Grade: 2. The opening path of every Markdown file changes (activation event, a t
 
 - Studio decides itself to open Markdown files: the text editor opens first, then Studio takes its place at the line.
 - The marker is an arrow in the left margin with a light band, kept until a click, an edit or another line.
+- A file already open in Studio is shown by the same Studio tab, which scrolls to the new line; no new tab.
+- A feature introduction notice is shown once, never again, and can be shown again by a command.
 - A setting to open search results in Studio, on by default; diffs must not be pulled into Studio.
 
 ## Impacts
