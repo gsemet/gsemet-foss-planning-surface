@@ -45,3 +45,18 @@ Verdict: NOT VERIFIED (only the PR description claim fails; the code claims hold
 - Minor: the label reads "Blank lines (3)", the spec example reads "N blank lines"; not a claim failure.
 
 NOT VERIFIED
+
+## Description pass 2 (judged at e293b928a6b1d5ae25063225ed82396e78c98de9)
+
+Commands: `gh pr view 453 --json body,headRefOid` (head e293b928...), `gh pr checks 453`, `gh run view 44862880704`
+(success at e293b928 for integration, stress, visual, static, static-windows, report, gallery),
+`chantier log 444` (review note: "r3 inspector approved at ccf9ff75", then "r3 approved at ccf9ff75, committed as e293b928"),
+`git diff <CR-439 base>...HEAD` (57 files; CHANGELOG +1 entry; contentPatch.ts, exportContent.ts as described).
+
+- Sections in order, fold with blank lines, nothing after `</details>`: pass.
+- CR name only in Internal references: pass.
+- Changes and Impacts match the diff (names blankRuns, isCommonMarkBlank, planBlankRunRemoval, planBlankRunInsertion, hidden data-okf-blank-runs, export drop, contentPatch kept editor): pass.
+- Known gaps present: no screenshots (owner decision, accepted), no before image, UNVERIFIED kept-editor path, heavy CI note, Windows static-only gate: pass.
+- Review box cites ccf9ff7, matches the Driver note: pass. No images attached, none required by the owner's decision.
+
+VERIFIED
