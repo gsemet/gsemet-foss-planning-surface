@@ -19,7 +19,7 @@ flowchart LR
 
 Real-file rule (`src/host-vscode/diffRealFile.ts`): both sides `.md` files, the active side; one side only, that side; no `file:` side (staged, timeline), the working-tree file at that path, no scroll sync.
 
-Real-window proof: heavy CI `integration` green at 61737fd (run 44925814982) with the `diff-preview` step (T1 scroll of the real original side, replace-like diff side by side; T2 command from the real side opens no text editor; T3 original virtual side; T5 preview switches to the diff that comes to the front; T4 manifest clause).
+Real-window proof: heavy CI `integration` green at 61737fd (run 44925814982) with the `diff-preview` step (scroll of the real original side of a replace-like diff, side by side; the command from the real side opens no text editor; the command from the virtual side; the preview switching to the diff that comes to the front; the title-button manifest clause).
 
 ## Blast radius
 
@@ -27,11 +27,11 @@ Grade: 2. It touches the open-preview command, the active-editor following and t
 
 ## Autonomous decisions
 
-- The button test (T4) lives with the new diff integration suite rather than the lifecycle suite.
+- The button test lives with the new diff integration suite rather than the lifecycle suite.
 
 ## Known gaps
 
-- The staged-like diff (no `file:` side) is covered by host unit tests only (`test/host/diffPreview.requirements.test.ts`): its real-window step was dropped (it never ran green in a real window; the first CI failures hid it behind other test bugs, cause unproven).
+- The staged-like diff (no `file:` side) is covered by host unit tests only (`test/host/diffPreview.requirements.test.ts`): its real-window step was dropped. That step never ran in a real window: the earlier CI failures came from another step's diff-opening helper (a tab-count wait, fixed), and the staged-like step was removed rather than given another round; the suite's other steps run green.
 - The diff-to-preview scroll is asserted in a real window for a real file on the original side, side by side only; the inline layout (no editor of its own for the real side) is not asserted.
 - The title button itself is checked by its manifest clause, not by clicking the real menu; the palette command is exercised, not `Ctrl+K Shift+V`.
 - `onDidChangeTabs` also fires on dirty or label changes of the active diff tab; the follow is idempotent.
@@ -65,9 +65,9 @@ The button, command, following and scroll work next to text diffs of Markdown fi
 
 - [x] New or changed tests: `test/host/diffPreview.requirements.test.ts`, `test/integration/diffPreview.test.ts`, package contract test, at 61737fd
 - [x] Local gates at 61737fd: `just preflight` pass (Windows static stage; CI runs the rest)
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [x] Review: approved at 61737fd (rounds 1 to 4; r4 inspector approvals recorded)
-- [ ] Verified at `<sha7>`
+- [x] Evidence: no visual change beyond the new button; real-window proof is the heavy CI `diff-preview` step at 61737fd (run 44925814982)
+- [x] Review: approved at 61737fd
+- [x] Verified at 61737fd
 - [x] CI green at 61737fd: PR run 44925818134 and heavy run 44925814982 (visual, stress, integration, static, viewer-graph)
 
 ## Internal references
@@ -75,3 +75,5 @@ The button, command, following and scroll work next to text diffs of Markdown fi
 - CR-455 side-preview-diff-gaps.
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
