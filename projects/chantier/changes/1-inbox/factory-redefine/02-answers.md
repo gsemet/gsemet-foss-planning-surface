@@ -20,3 +20,4 @@ Spec critic run (2026-11-21): 8 findings. Fixes with no user question, for the s
 13. factory-Q14 (2026-11-21): **`open` with no CR.** A. Allowed: an ordinary batch, paused, that waits for its CRs in `1-pending`.
 14. factory-Q13 (2026-11-21): **`order add` refused at the spec's end.** Open: the user asks what a refused `order add` means and why ("Ça veut dire quoi que order add est refusé ? Pourquoi ?").
 15. factory-Q13 (2026-11-21, after the Chief of Staff explained the refusals: a release already started in the batch, the batch closing, the writer not running): **A release started when the spec becomes final.** A. The CR goes to `3-ready` and the user is told in one line. (Closing: as factory-Q4; writer not running: restart the server, the CR waits.)
+16. factory-Q15 (2026-11-21, the spec's open question 1 after run 2): **A next spec-writer run on the same CR.** A. Keep the destination already recorded in `02-answers.md`; ask only when none is recorded.

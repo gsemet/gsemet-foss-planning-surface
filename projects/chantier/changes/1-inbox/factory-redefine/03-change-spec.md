@@ -46,6 +46,7 @@ In English:
 | factory-Q12 | The mark is refused for an ungrilled CR ("grill it first"). An automatable `3-ready` CR joins at once with `order add`. | 1, 2 |
 | factory-Q13 | When the specification becomes final and `order add` is refused because a release started in the batch, the CR goes to `3-ready` and the user is told in one line. The batch closing: as factory-Q4. The writer not running: restart the server, the CR waits. | 1 |
 | factory-Q14 | `open` with no CR stays: an ordinary batch, paused, that waits for its CRs in `1-pending`. | 1, 4 |
+| factory-Q15 | A next spec-writer run on the same CR keeps the destination already recorded in `02-answers.md`; it asks only when none is recorded. | 1 |
 
 ## What changes
 
@@ -73,8 +74,9 @@ Chief of Staff or a Griller, asks the destination with the same two options (nex
 recommended; running batch `<batch-id>`), in the same series format, when a batch is open. The
 answer A or B of "grilled enough?" is that ask for the start it triggers; a start with no such
 answer just before it (for example a CR grilled in an earlier session) asks it on its own. With no
-open batch, nothing is asked: the CR is for the next batch. See open question 1 for a next run on
-the same CR.
+open batch, nothing is asked: the CR is for the next batch. A next run on the same CR (after the
+critic's fixes, or after open questions are answered) keeps the destination already recorded in
+`02-answers.md` and asks only when none is recorded (factory-Q15).
 
 **Recording.** The answer goes into `02-answers.md` at once, with the critic's yes or no as today,
 for example `Destination: next batch (3-ready).` or `Destination: running batch batch-12.`
@@ -421,11 +423,3 @@ within its limit):
 - Windows coverage by `chantier gate` per AGENTS.md when this CR is on top of its batch's stack.
 
 **No host and default matrix:** the behaviour does not depend on the host or on a configured value.
-
-## Open questions for the user
-
-1. **A next spec-writer run on the same CR** (after the critic's fixes, or after open questions are
-   answered). factory-Q10 says every spec-writer start asks the destination. Does a next run on a
-   CR whose destination is already recorded in `02-answers.md` ask it again, or keep the recorded
-   one and ask only when none is recorded (recommended: the destination was the user's word, and
-   a next run follows within minutes)?

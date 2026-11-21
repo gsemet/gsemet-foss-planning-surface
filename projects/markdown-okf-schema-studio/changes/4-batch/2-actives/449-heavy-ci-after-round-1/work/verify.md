@@ -24,3 +24,9 @@ All claims judged at 6774cd71 (worktree clean, `git rev-parse HEAD` equals the P
 10. "No visible change" evidence line: the diff is Markdown only, no `src/`, UI or test file (claim 1), so no before/after capture exists to take. OK.
 
 VERIFIED
+
+## Description-only pass at 6774cd718f9b6b0f895dbce907838346176ff177
+
+11. `gh pr view 457 --json title,body,headRefOid`: headRefOid is 6774cd718f9b6b0f895dbce907838346176ff177. The project template `.github/PULL_REQUEST_TEMPLATE.md` ranks above chantier's: its sections (Summary, Deliverables, Changes, Impacts, Blast radius, Test plan) are all present, in order, filled, plus Autonomous decisions and Known gaps ("pull-request.guidelines.md"); no fold needed with the project template. Impacts has its one line ("No visible change: process documentation only"). Blast radius has Grade 1 with reason. Autonomous decisions names the `just check` choice. Known gaps "None": no UNVERIFIED claim, no accepted failure. No internal id, no image, no STALE mark; "Driver card" names a rule the diff changes, not the doer. Summary, Deliverables and Changes match `git diff origin/main...HEAD` (one file, one new "Early heavy CI" bullet, 40 lines). Review box "approved at 6774cd7": `chantier log` has "r1 approved at 5a84db8b..., committed as 6774cd71", the committed-as SHA matches. CI box: `gh pr checks 457` shows static, static-windows, visual, viewer-graph, report, checks pass, the rest skipping, none failing. Verdict on the description: VERIFIED; the head verdict is kept.
+
+VERIFIED
