@@ -15,3 +15,11 @@ Decided by the Chief of Staff under the owner's autonomy rule (owner, 2026-11-20
 - mt-Q2 confirmed by the owner: "Local `just` target" (no CI job).
 - mt-Q4 CHANGED by the owner: redundant tests are "List only, remove nothing". The PR adds the tool, the report, the list of redundant tests (by killed mutants) and the tests for the holes that matter; no test is removed or merged in this CR. Removals wait for the owner's review of the list.
 - mt-Q7 (TypeScript 7 vs Stryker's checker, which needs the TS 5 compiler API). Owner, 2026-11-21: "Find another solution to stay on TS7. No compromise". So: no TypeScript 5 anywhere (no npm override, no second compiler), and no run that silently skips the type check. The spec finds a TS 7 path: for example a small custom Stryker checker plugin that type-checks mutants with TS 7's own compiler (its CLI or its new API), or another mutation tool that works with TS 7. Round 1 proves it on a few core files.
+
+## Owner's answers, 2026-11-21 (Fable spec critic's questions)
+
+- mt-Q8 (checker scope). Owner: "Whole program": every mutant is type-checked against the whole program, as Stryker's native checker does; cost measured in round 1. No grouping (one mutant per check).
+- mt-Q9 (static mutants). Owner: "Load-time coverage per file": the adapter reports a test file's load-time coverage as covered by each test of that file, so only those files run.
+- mt-Q10 (who decides redundancy). Owner: "Core tests, others label holes": only test/core decides redundancy (bail off); the other layers' tests then run (bail on) only on mutants core's tests did not kill, to label those holes "killed only by another layer".
+- mt-Q11 (tests that look useless because of excluded, timeout or compile-error mutants). Owner: "A 'not judged' mark": never a removal candidate on mutation data alone; the reason is shown.
+- mt-Q12 (where the real TS 7 check of the checker runs). Owner: "At the start of just mutation-core": a self-test that fails the target if it breaks; test/build keeps the pure parts only.

@@ -13,3 +13,8 @@ Decided by the Chief of Staff under the owner's autonomy rule (owner, 2026-11-20
 - br-Q1 confirmed by the owner: "Lists, then others if free" (quotes and admonitions only if the same mechanism covers them, otherwise a separate inbox item).
 - br-Q5 (a block typed in place of a blank-lines block inside a list item). Owner, 2026-11-21: "Indent to the item": the host indents the typed lines to the item's content column, so "More" stays inside the item; a line typed at the item's own level ("- c") still adds an item.
 - Quotes and admonitions split into 1-inbox/blank-runs-inside-quotes-admonitions (filed 2026-11-21).
+
+## Owner's answers, 2026-11-21 (Fable spec critic's questions)
+
+- br-Q6 (marker followed by a tab, or two markers on a line). Owner: "Compute as CommonMark": a tab runs to the next stop of 4; for `- - a` the innermost item's column; the block stays in the item; tests for both.
+- br-Q7 (`- c` typed in a run inside an item, with more content of the item after). Owner: "Nested list in the item": written at the content indent, nothing after it changes item; a sibling item is added only from a run between items.
