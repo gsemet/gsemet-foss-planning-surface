@@ -47,8 +47,8 @@ No visual change; no product change. The tests no longer flake under load.
 - [ ] New or changed tests (the join-window test fails at the base under a 260 ms stall with `2 !== 1`, and passes now with a 270 ms stall)
 - [ ] Requirements: No behaviour change (SwRS text and markers unchanged)
 - [ ] Changelog: No user-facing change
-- [ ] Local gates: `just check` exit 0; compiled test file 9 pass, 0 fail; 20 parallel runs of the compiled file, 20 ok, 0 fail; no `wait(` or sleep left in the file
-- [ ] Evidence: before at `6774cd71`, after at the head
+- [ ] Local gates at `d0e9689` (carried from `e77cf0b`): `just check` exit 0; `just preflight` pass; compiled test file 9 pass, 0 fail; 20 parallel runs of the compiled file, 20 ok, 0 fail; no `wait(` or sleep left in the file
+- [ ] Evidence: before at `f5d1637`, after at `d0e9689`
 - [ ] Review: approved at `<sha7>`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
@@ -58,3 +58,5 @@ No visual change; no product change. The tests no longer flake under load.
 CR-452 the join-window and hidden-panel tests control time instead of waiting.
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)

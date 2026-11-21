@@ -52,7 +52,7 @@ Edit-mode copy, cut and paste on a list followed by blank lines now work. No vis
 - [x] New or changed tests (they fail on the previous code): unit tests for copy and cut (LF, CR LF, lone CR), unit tests for paste, and two new real-input blocks in the block-selection scenario. One existing assertion changes on purpose: pasting after a blank line under a block used to be refused and now equals pasting after the block's last line.
 - [x] Requirements: SwRS updated, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased`
-- [x] Local gates: `just check`, `just requirements-lint`, `just requirements-update` (no diff left), `just preflight` (static stage on Windows), all passing at 150ee65
+- [x] Local gates: `just check`, `just requirements-lint`, `just requirements-update` (no diff left), `just preflight` (static stage on Windows), all passing at 15a0ef0
 - [ ] Review
 - [ ] CI green
 
