@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "A Griller started from the web board",
-  "summary": "Spec v1: a Grill button on an inbox, backlog or ready item's panel; the board server runs the user's headless claude -p as board-griller, one run per message, this machine only, writes only that CR's folder; a waking board@1 grill line. Open: Q4 (user's), built on A; 2 more, built on A.",
+  "summary": "Spec v2, no open question: a Grill button on inbox, backlog or ready items; the board server runs headless claude -p as board-griller for any key holder, one shared conversation, one turn per surface, no settings loaded, allow list only, writes that CR's folder; a waking board@1 grill line.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "b72fe5242d556e0dcc35ca51a19da6650ed1a03eef355e1f9dcdf04702ed5008",
-    "02-answers.md": "e32de3969126cc908400328ef5142fd00f5d3134ae5845bf288cb837b81c0079",
-    "03-change-spec.md": "768da97dd951379ff8875da7f9e5cb3d109962d75c3a4207e9a6ac0015abc986",
+    "02-answers.md": "c8a8a0315381398c94a8bf516f1975a2bd0814e4840da32d0b7895e88332f468",
+    "03-change-spec.md": "410877a0436dc7a3a42dffc9370de1c31ebbeeaa4d099d7b20ebc4e72cfb3433",
     "intake/request.md": "d495484b1a869fe90f525ba574f8d5ea860bb9b8932d1ae56078453455225a71"
   },
-  "summarized": "2026-11-21T19:20:02Z"
+  "summarized": "2026-11-21T21:03:40Z"
 }

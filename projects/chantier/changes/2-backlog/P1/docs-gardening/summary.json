@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Garden the docs, README and SVGs after batch-30",
-  "summary": "Specified: last CR of batch-30, on top of the stack; its Driver inventories each doc page, SVG pair and screenshot against what landed, fixes wrong SVGs and draws one only for a missing view. One open question: CONTRIBUTING.md.",
+  "summary": "Specified v2: last CR of batch-30, after all others; inventories docs, README, CONTRIBUTING's build section, eleven SVG pairs and every board picture, checks the batch CRs' own edits, adds Help to web-board.md, corrects false Help texts (gates then conditional). No open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "a8d84fac804b19a0934ac778c9970b67ad5d076f9a5f8d4f138feea7e601bf31",
-    "02-answers.md": "17df332d0d67dbbadb83591140f8837aafee885c0e2649754bcc6c19f5cea56a",
-    "03-change-spec.md": "7d765ce95f1b15d30e7daa89db329aa912c8cceae53d97ba01928cdc8a1013ff",
+    "02-answers.md": "ba71d4a9ed6a810aa4db81952c4b339729ef2b9c0e9835df248b11e48f945376",
+    "03-change-spec.md": "b8c4a550ec2117d481de676c3e5e2cb5b5e5e8aa2894a8f34eed5449b8de840f",
     "intake/request.md": "169e7f2dcb6d9abe2e58070135a9bc25a76467ba9d331b199a5570b11eee4a9e"
   },
-  "summarized": "2026-11-21T17:41:07Z"
+  "summarized": "2026-11-21T21:03:06Z"
 }

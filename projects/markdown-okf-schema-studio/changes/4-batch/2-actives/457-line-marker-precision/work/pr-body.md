@@ -61,6 +61,23 @@ flowchart LR
   LM -->|expand| FM[properties table]
 ```
 
+Before is origin/main at eb3b6ec (1.11.0), after is the head at 3778f00; each capture follows a jump to the line named, light then dark.
+
+| Case | Before | After |
+| --- | --- | --- |
+| Table row (line 15) | ![Table row (line 15) before light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-before-table-row-light.png) | ![Table row (line 15) after light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-after-table-row-light.png) |
+| dark | ![Table row (line 15) before dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-before-table-row-dark.png) | ![Table row (line 15) after dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-after-table-row-dark.png) |
+| Row of a table in a quote (line 20) | ![Row of a table in a quote (line 20) before light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-before-table-row-quote-light.png) | ![Row of a table in a quote (line 20) after light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-after-table-row-quote-light.png) |
+| dark | ![Row of a table in a quote (line 20) before dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-before-table-row-quote-dark.png) | ![Row of a table in a quote (line 20) after dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-after-table-row-quote-dark.png) |
+| Code line in a hidden tab (line 39) | ![Code line in a hidden tab (line 39) before light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-before-hidden-tab-code-light.png) | ![Code line in a hidden tab (line 39) after light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-after-hidden-tab-code-light.png) |
+| dark | ![Code line in a hidden tab (line 39) before dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-before-hidden-tab-code-dark.png) | ![Code line in a hidden tab (line 39) after dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-after-hidden-tab-code-dark.png) |
+| Nested hidden tabs (line 48) | ![Nested hidden tabs (line 48) before light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-before-hidden-tab-nested-light.png) | ![Nested hidden tabs (line 48) after light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-after-hidden-tab-nested-light.png) |
+| dark | ![Nested hidden tabs (line 48) before dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-before-hidden-tab-nested-dark.png) | ![Nested hidden tabs (line 48) after dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-after-hidden-tab-nested-dark.png) |
+| Front matter property (line 4) | ![Front matter property (line 4) before light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-before-frontmatter-row-light.png) | ![Front matter property (line 4) after light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-after-frontmatter-row-light.png) |
+| dark | ![Front matter property (line 4) before dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-before-frontmatter-row-dark.png) | ![Front matter property (line 4) after dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-after-frontmatter-row-dark.png) |
+| Front matter list property (line 6) | ![Front matter list property (line 6) before light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-before-frontmatter-list-value-light.png) | ![Front matter list property (line 6) after light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-after-frontmatter-list-value-light.png) |
+| dark | ![Front matter list property (line 6) before dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-before-frontmatter-list-value-dark.png) | ![Front matter list property (line 6) after dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/442876fc6b35da184b363359ddb3682ded5b3552/457-after-frontmatter-list-value-dark.png) |
+
 Placement order of the marker, now: block (front matter range first), target by marker line, open what hides it (unfold, tabs, properties table; only on the request), hidden check, then the box (table row, front matter row, code line on a code block itself, paragraph line, target top, block top).
 
 ```ts
@@ -102,6 +119,15 @@ None.
 ## Impacts
 
 Before and after captures, light and dark (in Deliverables), show the arrow landing on the table row, on the line inside the newly selected tab, and on the front matter property row instead of the top of the block. The before is the base `eb3b6ec` (1.11.0 plus later fixes).
+
+## Autonomous decisions
+
+- A front matter line that is no property (a fence, a comment) marks the top of the properties table rather than hiding the arrow, so a jump never leaves no marker.
+- The marker opens a collapsed properties table and selects hidden tabs only when the jump asks for it, never on a plain scroll.
+
+## Known gaps
+
+- A collapsed properties table that expands on a row line, and a sync group following a revealed tab, have no screenshot (no fixture or visual scenario covers them); the page and tab tests cover them.
 
 ## Test plan
 
