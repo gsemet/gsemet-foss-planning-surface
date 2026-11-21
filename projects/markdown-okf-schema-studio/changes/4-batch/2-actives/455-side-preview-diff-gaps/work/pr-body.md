@@ -19,7 +19,7 @@ flowchart LR
 
 Real-file rule (`src/host-vscode/diffRealFile.ts`): both sides `.md` files, the active side; one side only, that side; no `file:` side (staged, timeline), the working-tree file at that path, no scroll sync.
 
-**UNVERIFIED:** screenshots and the real-window tests (title button on a diff, replace preview, scroll in side-by-side and inline layouts) have not run yet.
+**UNVERIFIED:** screenshots and the real-window tests are still to run (a heavy CI run is in progress).
 
 ## Blast radius
 

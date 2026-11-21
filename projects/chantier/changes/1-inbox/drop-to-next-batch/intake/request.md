@@ -1,0 +1,3 @@
+# A CR taken out of a batch can go to the next batch
+
+Split from park-live-cr on the user's answer park-live-Q12 (A, 2026-11-21): `order drop` gains the destination `ready` (3-ready, the next batch); a started CR taken out of the batch can go to any backlog row (P1-P4), the next batch or the trash, never the inbox (park-live-Q1, Q13); its branch and PR are kept (draft) except for the trash, which closes its PR (Fable choice 3). The grill, the critic's fix 3 and the v1 spec are in ../park-live-cr/.

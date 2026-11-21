@@ -1,0 +1,1 @@
+Split from park-live-cr on the user's answer park-live-Q12 (A, 2026-11-21): `order hold` works on a live CR, in every batch mode: the CR becomes blocked and held, its slot is freed, and only the user's `order unhold` releases it (Fable choice 2, accepted at park-live-Q11). The grill, the critic's fixes that touch hold (2, 5, 6, 7) and the v1 spec are in ../park-live-cr/.

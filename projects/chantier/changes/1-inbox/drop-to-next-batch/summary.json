@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "A CR taken out of a batch can go to the next batch",
+  "summary": "Split from park-live-cr (Q12, Q13: P1-P4, next batch or trash, never the inbox). Grilled there; to specify.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "20939b82e70e6fa43288f809fb5ea71eac95ff248b97646e97fe43d0dbf89057",
+    "02-answers.md": "dc61287614441ec03657d78304fd8ad50e081bc711f005dead17cd15932203d4",
+    "intake/request.md": "8fa49cbcdd4f8fa908c95e16ca47ab19a406cfa4f9e5865061bb94fd1b5d6833"
+  },
+  "summarized": "2026-11-21T14:29:32Z"
+}
