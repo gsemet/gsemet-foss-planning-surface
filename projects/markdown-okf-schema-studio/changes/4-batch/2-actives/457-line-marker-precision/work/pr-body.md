@@ -12,6 +12,43 @@ Also fixed: a line near the closing front matter fence no longer jumps to the fi
 
 ## Deliverables
 
+Before at `eb3b6ec` (the base), after at `3778f00`; same fixture, same pane, same reveal request. Before, the band sits on the top of the block, the tab stays hidden, or the title row of the properties table is marked.
+
+**Table row, top level (line 15, `beta`)**
+
+| | Before `eb3b6ec` | After `3778f00` |
+| --- | --- | --- |
+| light | ![before table-row light](./verifier/evidence/before-table-row-light.png) | ![after table-row light](./verifier/evidence/after-table-row-light.png) |
+| dark | ![before table-row dark](./verifier/evidence/before-table-row-dark.png) | ![after table-row dark](./verifier/evidence/after-table-row-dark.png) |
+
+**Table row inside a quote (line 20, `second`)**
+
+| | Before `eb3b6ec` | After `3778f00` |
+| --- | --- | --- |
+| light | ![before table-row-quote light](./verifier/evidence/before-table-row-quote-light.png) | ![after table-row-quote light](./verifier/evidence/after-table-row-quote-light.png) |
+| dark | ![before table-row-quote dark](./verifier/evidence/before-table-row-quote-dark.png) | ![after table-row-quote dark](./verifier/evidence/after-table-row-quote-dark.png) |
+
+**Hidden tab, wrapped paragraph (line 36): the tab is selected, the arrow on the third source line**
+
+| | Before `eb3b6ec` | After `3778f00` |
+| --- | --- | --- |
+| light | ![before hidden-tab-paragraph light](./verifier/evidence/before-hidden-tab-paragraph-light.png) | ![after hidden-tab-paragraph light](./verifier/evidence/after-hidden-tab-paragraph-light.png) |
+| dark | ![before hidden-tab-paragraph dark](./verifier/evidence/before-hidden-tab-paragraph-dark.png) | ![after hidden-tab-paragraph dark](./verifier/evidence/after-hidden-tab-paragraph-dark.png) |
+
+**Hidden tab, code line (line 39)**
+
+| | Before `eb3b6ec` | After `3778f00` |
+| --- | --- | --- |
+| light | ![before hidden-tab-code light](./verifier/evidence/before-hidden-tab-code-light.png) | ![after hidden-tab-code light](./verifier/evidence/after-hidden-tab-code-light.png) |
+| dark | ![before hidden-tab-code dark](./verifier/evidence/before-hidden-tab-code-dark.png) | ![after hidden-tab-code dark](./verifier/evidence/after-hidden-tab-code-dark.png) |
+
+**Front matter row (line 4, `owner`)**
+
+| | Before `eb3b6ec` | After `3778f00` |
+| --- | --- | --- |
+| light | ![before frontmatter-row light](./verifier/evidence/before-frontmatter-row-light.png) | ![after frontmatter-row light](./verifier/evidence/after-frontmatter-row-light.png) |
+| dark | ![before frontmatter-row dark](./verifier/evidence/before-frontmatter-row-dark.png) | ![after frontmatter-row dark](./verifier/evidence/after-frontmatter-row-dark.png) |
+
 ```mermaid
 flowchart LR
   R[renderer: mystNode, mystTables, mystGridToctree] -->|data-okf-marker-line| P[page]
@@ -33,27 +70,54 @@ interface TabsControl {
 installTabs(document, onChange?)   // onChange after any shown-tab change
 ```
 
+## Blast radius
+
+Grade: 2. The renderer gives new attributes to tab item content and table rows (rendered HTML snapshots change) and the marker placement changes; a revert restores the previous top-of-block marker, nothing is stored.
+
+## Autonomous decisions
+
+- The closing front matter fence line, a tab panel holding a code block then a paragraph, a tab choice undone by the next content patch, and the user doc sentence about the arrow disappearing on scroll were fixed in this PR because they sat on the same placement path and gave a wrong arrow position.
+
+## Known gaps
+
+None.
+
+<details>
+<summary>Details</summary>
+
 ## Changes
 
 - Renderer: `data-okf-marker-line` / `-end-line` on content inside tab items and on every pipe table row (`mystNode.ts`, `mystTables.ts`, `mystGridToctree.ts`); the export strips them. `data-okf-frontmatter-end-line` on the properties section (`propertiesTable.ts`).
 - Page: placement in `lineMarker.ts` and `lineMarkerPlacement.ts`; `measureLineTops` moved to `lineTops.ts`; `TabsControl.reveal`, `onChange` and the later-choice rule of `apply()` in `tabs.ts`.
 - Requirements: new LIFE-192 (table row), LIFE-193 (hidden tabs), LIFE-194 (front matter row); boundary rows of LIFE-178, LIFE-179, LIFE-180, LIFE-119, MYST-098, MYST-099, FMSCHEMA-090.
 
+## Human decisions
+
+- One change for the three cases: table row, hidden tab, front matter row.
+- Once a hidden tab is shown, the arrow sits on the exact paragraph or code line inside it, as everywhere else; a click inside a tab item still edits the whole item.
+- Pipe tables inside a quote, an admonition or a list item get their row marked in this change.
+- A list table, a captioned table and a raw HTML table keep the top of their block.
+- A line that is no front matter property marks the top of the properties table, which opens (only on the request) when it was collapsed.
+
 ## Impacts
 
-To be filled with before (1.11.0) and after captures, light and dark.
-
-## Blast radius
-
-Grade: 2. The renderer gives new attributes to tab item content and table rows (rendered HTML snapshots change) and the marker placement changes; a revert restores the previous top-of-block marker, nothing is stored.
+Before and after captures, light and dark (in Deliverables), show the arrow landing on the table row, on the line inside the newly selected tab, and on the front matter property row instead of the top of the block. The before is the base `eb3b6ec` (1.11.0 plus later fixes).
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test/core/render/markerLines.test.ts`, `test/page/runtimeLineMarkerPlacement.test.ts`, `test/page/modules/tabs.test.ts`, `propertiesTable.test.ts`, `htmlExport.test.ts`, visual group `lifecycle-sync`
+- [x] New or changed tests (they fail on the previous code): `test/core/render/markerLines.test.ts`, `test/page/runtimeLineMarkerPlacement.test.ts`, `test/page/modules/tabs.test.ts`, `propertiesTable.test.ts`, `htmlExport.test.ts`, visual group `lifecycle-sync`; the 10 new visual scenarios fail on the base and pass at `3778f00`
 - [x] Requirements: SwRS added and updated, markers in code and tests, `just requirements-update`
 - [x] Changelog: one line under `## Unreleased`
-- [ ] Local gates: to be filled at ship
-- [ ] Review
-- [ ] CI green
+- [x] Local gates at `3778f00`: `just check` pass, `just preflight` pass (unit 4685 pass, visual lifecycle-sync 23 pass)
+- [x] Evidence: before at `eb3b6ec`, after at `3778f00`
+- [x] Review: approved at `3778f00` (carried from `ca81d11`)
+- [x] Verified at `3778f00`
+- [x] CI green at `3778f00`: pull request run (static, static-windows, visual, viewer-graph) and the heavy run with real VS Code windows (integration, stress, visual) all pass
+
+## Internal references
+
+CR-457 line-marker-precision.
+
+</details>
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
