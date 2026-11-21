@@ -24,4 +24,12 @@ Evidence (pictures, before-after.md, measures) is in evidence/ of the CR folder,
 
 Notes: just docs-screenshots run by mistake in the worktree changed unrelated PNGs on this machine (rendering variance); restored with git checkout -- docs/web-board, tree clean. Detached before-worktree and scratch folders removed.
 
-Verdict: NOT VERIFIED (claim 12 only; claims 1 to 11 VERIFIED).
+Verdict (first pass): NOT VERIFIED (claim 12 only; claims 1 to 11 VERIFIED).
+
+## Description-only pass, head 2004e521db9acf1b8d752f0f5b7cb422d7939108
+
+Claims 1 to 11: carried from 2004e52 (same head, code unchanged).
+
+13. PR description as posted (gh pr view 408 --json body), compared with work/pr-body.md by diff: identical except the seven image links (now user-attachments URLs, one per picture, same files as evidence/) and one trailing blank line. Sections present, fold (details) closed properly, SHAs on proofs (33d1045 / 2004e52), Internal references only inside the fold, measures (353 to 263, 143, 155 to 176, 375) match measure-*.json and before-after.md, Known gaps true, Review box cb58d84 matches the Driver note "approved at 33d1045..., committed as cb58d84f". Defect: Changes did not list the five retaken docs/web-board PNGs that git diff --stat main...HEAD shows (batch-cards-pc, batch-gantt-pc, batch-pc, batch-phone, panel-pc): a delivered change unmentioned. NOT VERIFIED at 2004e521db9acf1b8d752f0f5b7cb422d7939108. Fixed in work/pr-body.md (one Changes bullet added); the Driver reposts it (with the same image URLs) and a new description pass follows.
+
+Verdict: NOT VERIFIED (claim 13).
