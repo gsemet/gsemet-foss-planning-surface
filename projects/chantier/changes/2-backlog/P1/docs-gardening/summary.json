@@ -1,14 +1,15 @@
 {
   "schema": 1,
-  "title": "Garden the docs, README and SVGs after the 2026-11-21 changes",
-  "summary": "Filed from the user's word; P1 for the next batch; not grilled; scope set at its grill against what has merged.",
+  "title": "Garden the docs, README and SVGs after batch-30",
+  "summary": "Specified: last CR of batch-30, on top of the stack; its Driver inventories each doc page, SVG pair and screenshot against what landed, fixes wrong SVGs and draws one only for a missing view. One open question: CONTRIBUTING.md.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "a8d84fac804b19a0934ac778c9970b67ad5d076f9a5f8d4f138feea7e601bf31",
-    "02-answers.md": "700dc2f88be1e0f00313ed7370662276f275121ef8e8e90f7438964c3f3f09fb",
+    "02-answers.md": "17df332d0d67dbbadb83591140f8837aafee885c0e2649754bcc6c19f5cea56a",
+    "03-change-spec.md": "7d765ce95f1b15d30e7daa89db329aa912c8cceae53d97ba01928cdc8a1013ff",
     "intake/request.md": "169e7f2dcb6d9abe2e58070135a9bc25a76467ba9d331b199a5570b11eee4a9e"
   },
-  "summarized": "2026-11-21T15:06:51Z"
+  "summarized": "2026-11-21T17:41:07Z"
 }
