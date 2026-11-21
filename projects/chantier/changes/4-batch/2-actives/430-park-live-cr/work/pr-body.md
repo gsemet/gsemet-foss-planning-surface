@@ -68,12 +68,12 @@ The pane shows `Parked` for a parked CR; a CR waiting outside the batch no longe
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test_park*.py`, `test_came_back.py`
-- [ ] Local gates at `6fb2b35`: `just check`, `just eval-dry-run`, `just scenario --unit stack` (`park_live`)
-- [ ] Evidence: none beyond the tests and the scenario
-- [ ] Review: approved at `6fb2b35`
-- [ ] Verified at `6fb2b35`
-- [ ] CI green at `6fb2b35`
+- [x] New or changed tests (they fail on the previous code): `test_park*.py`, `test_came_back.py`
+- [x] Local gates at `6fb2b35`: `just check`, `just eval-dry-run`, `just scenario` (all units, `park_live` included)
+- [x] Evidence: none beyond the tests and the scenario
+- [x] Review: approved at `18f2ac2` (round 2), then rebased onto `3b3eba0` as `6fb2b35`; the conflicts in routing.md and the svg were resolved after the review
+- [x] Verified at `6fb2b35`
+- [x] CI green at `6fb2b35`
 
 ## Internal references
 
