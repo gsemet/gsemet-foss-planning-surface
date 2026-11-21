@@ -9,3 +9,8 @@ Decided by the Chief of Staff under the owner's autonomy rule (owner, 2026-11-20
 - mt-Q4 Shape: one PR for core: the tool, the agent read of the tests (no-assert, does-not-throw-only, near-duplicates), the removals and merges, the new tests for holes that matter, and a list of holes judged not worth a test with one line each.
 - mt-Q5 Every requirement stays covered: a removed test with @tests_req moves its marker to a test that stays and covers the same SwRS; just requirements-update shows no loss. No published requirement is removed.
 - mt-Q6 The note for chantier (command, scope, report reading, removal rules, run time) is written in the CR folder as evidence; the CoS sends it to chantier's CoS for mutation-testing-driver.
+
+## Owner's answers, 2026-11-21 (asked by the Chief of Staff)
+
+- mt-Q2 confirmed by the owner: "Local `just` target" (no CI job).
+- mt-Q4 CHANGED by the owner: redundant tests are "List only, remove nothing". The PR adds the tool, the report, the list of redundant tests (by killed mutants) and the tests for the holes that matter; no test is removed or merged in this CR. Removals wait for the owner's review of the list.

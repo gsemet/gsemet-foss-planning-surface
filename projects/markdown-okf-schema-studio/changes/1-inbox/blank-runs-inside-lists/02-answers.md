@@ -7,3 +7,7 @@ Decided by the Chief of Staff under the owner's autonomy rule (owner, 2026-11-20
 - br-Q2 Same blank-lines block as CR-444 (look, keys, Delete keeps one blank line, Enter or click writes a block in its place), shown inside the list where the run is.
 - br-Q3 Removing a run inside a list keeps the list one list (a single blank line between items stays a loose list as today); no change to the list's other text.
 - br-Q4 Markdown keeps its original format (Studio's DNA): only the removed blank lines change in the file.
+
+## Owner's answers, 2026-11-21
+
+- br-Q1 confirmed by the owner: "Lists, then others if free" (quotes and admonitions only if the same mechanism covers them, otherwise a separate inbox item).
