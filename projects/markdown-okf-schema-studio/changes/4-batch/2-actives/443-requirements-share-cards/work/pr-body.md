@@ -60,9 +60,9 @@ The index picture, the "MyST syntax" category picture and the "Edition palette a
 - [x] New or changed tests (they fail on the previous code)
 - [x] Requirements: SwRS updated, markers in code and tests, `just requirements-update`
 - [x] Changelog: No user-facing change (published site only)
-- [x] Local gates: `just check` pass, `just preflight` pass (second run, see Known gaps), `just requirements-lint` pass, all at 78ad518d
-- [x] Review: approved at 590b2c52 (round 1)
-- [x] CI green at 78ad518d
+- [x] Local gates: `just check` pass, `just preflight` pass (second run, see Known gaps), `just requirements-lint` pass, all at 726b41d
+- [x] Review: approved at 726b41d (round 1, move 78ad518..726b41d)
+- [x] CI green at 726b41d
 
 ## Internal references
 
