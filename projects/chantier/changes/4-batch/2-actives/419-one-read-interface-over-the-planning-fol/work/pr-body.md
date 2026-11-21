@@ -74,7 +74,7 @@ No visual change; developers read the planning folder through `Repo.store`.
 - [x] New or changed tests (conformance and structure tests fail on the previous code)
 - [x] Local gates at `b3fbfa3`: `just check` (its suite, 1493 passed), `just eval-dry-run` (18 of 18); `just test` added no measurable time when measured before the restack: 72.5 s at the old base, 72.6 s at the head, same machine, back to back (24 more tests)
 - [x] Evidence: speed and golden-output comparison, before at CR-418 `58df3be`, re-measured at the restacked head
-- [x] Review: approved on the same code before the restack; the restack's caller fixes approved by the inspector (commit `3e22340d`, rebased as `868761b`) and the head `b3fbfa3` differs only by an import-order line
+- [x] Review: approved on the same code before the restack; the restack's caller fixes approved by the inspector (commit `868761b`) and the head `b3fbfa3` differs only by an import-order line
 - [x] Verified at `b3fbfa3`
 - [x] CI green at `b3fbfa3` (check on three systems, eval-dry-run, scenario)
 
