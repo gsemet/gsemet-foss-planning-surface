@@ -6,3 +6,4 @@ Short name: `stack-chain`
 3. stack-chain-Q3 (2026-11-21): **Series batches too.** A. Series and stack: wherever a CR is meant to start from another.
 Restatement (2026-11-21): in a stack or series batch, each CR already stacked must start from the head of the CR below; `ship` refuses otherwise, naming both CRs; the stack driver checks with `git merge-base` before concluding no restack is needed (card line); the CLI restacks nothing (no git write) and has no flag to force past the refusal: the fix is the stack driver's restack.
 4. stack-chain-Q4 (2026-11-21, after the full restatement): **Grilled enough.** A. Yes: the spec-writer, then the critic; destination batch-30 (a stack batch, joined with `order add`).
+Spec v1 (2026-11-21): written; three open questions (who fixes a refused ship; only at ship; a CR taken on another's branch but not placed), technical: sent to a Fable advisor.
