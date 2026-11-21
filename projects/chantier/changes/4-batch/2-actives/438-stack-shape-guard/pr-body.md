@@ -34,6 +34,7 @@ Grade: **2**. The guard changes `asks` for stack batches and cards move text bet
 ## Known gaps
 
 - The scenario does not exercise the `--outside-stack` happy path (recorded text, then `order done`); the unit tests do.
+- The scenario's `early_conflict` stack check does not assert that the stack is due; the unit tests cover the criterion.
 - The shape line makes the card reachable after a compaction but cannot force the Foreman to read it; the CLI guard is the hard stop.
 
 <details>
