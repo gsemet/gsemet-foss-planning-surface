@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Batch page: the mode and the legend move into the title row",
-  "summary": "The mode band (label, sentence as a tooltip, Stack/Series/Parallel switch) and the States-and-arrows legend move into the Batch title row; figures, view switch and graph start ~90 px higher; nothing removed, desktop and phone. Batch-30, last. 2 open questions.",
+  "summary": "Spec v2: mode pill (sentence as a tooltip alone), legend pill and Stack/Series/Parallel switch move into the Batch title row; tip rules rescoped under .bmode; phone hides the hint and switch. Rebases on CR-434. Batch-30, last. Q6 (pills' cursor) built as A.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "e2aa9a3705428383b4eca357649bf5e08ca2f79238298a4b2c9076163366d628",
-    "02-answers.md": "ed8ab2b569aed3cc955ba663247a080c5c96246f81a74506527d5422d59c6582",
-    "03-change-spec.md": "75c30cd99157ce631426eda329d2a2d93ccc0f680e2b879eabbf7af93fa1c0df",
+    "02-answers.md": "ab0955a8866a2edc0d139d6b2a15b1caaf94b13220c66f04bb048899fe885256",
+    "03-change-spec.md": "fca5de0e8617148283cf8d506563fce8dd735e6dc945fbd8cea68cf4c4219154",
     "intake/request.md": "1b075e58a02c93c06340315df7626eaf84724e0fb6e71ce08f3682d936fd76b2"
   },
-  "summarized": "2026-11-21T17:38:28Z"
+  "summarized": "2026-11-21T17:51:04Z"
 }
