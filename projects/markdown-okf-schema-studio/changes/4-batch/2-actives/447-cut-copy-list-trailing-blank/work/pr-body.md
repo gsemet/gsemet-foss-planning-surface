@@ -53,8 +53,8 @@ Edit-mode copy, cut and paste on a list followed by blank lines now work. No vis
 - [x] Requirements: SwRS updated, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased`
 - [x] Local gates: `just check`, `just requirements-lint`, `just requirements-update` (no diff left), `just preflight` (static stage on Windows), all passing at 15a0ef0
-- [ ] Review
-- [ ] CI green
+- [x] Review: approved at 15a0ef0
+- [x] CI green: PR checks pass at 15a0ef0; the heavy run (real VS Code integration, stress, visual) also passes at 15a0ef0
 
 ## Internal references
 
