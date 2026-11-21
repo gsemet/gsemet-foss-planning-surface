@@ -30,7 +30,7 @@ Grade: 1. Test and CI configuration only; a plain `git revert` restores the prev
 ## Test plan
 
 - [x] New or changed tests: `test/build/realWindowTrace.test.ts`, `test/build/stressPlan.test.ts`, `test/build/hangWatchdog.test.ts`, `test/build/test_workflows.py`
-- [x] Requirements: no behaviour change; `just requirements-update` reports no change
+- [x] Requirements: no behaviour change; `just requirements-update` at 845997b reports 0 indexes and 0 projections updated and leaves the tree clean
 - [x] Changelog: no user-facing change
 - [x] Local gates: `just check` (pass), `test_workflows.py` (81 passed), `just preflight` on Windows (static stage, pass)
 - [x] Review: approved at 845997b (carried from 7eeeb33 and the viewport round: the rebase onto main changed only the requirements log context)
