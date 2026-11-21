@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Board backlog: last column split into running batch and next batch",
-  "summary": "Specified (rev. 1): Triage's last column split, running batch over next batch, always shown; a drop writes only factory-redefine's mark (or 3-ready with no open batch); backlog.move target running-batch, items' running_batch key; CoS adds on its board@1 line. 3 open questions.",
+  "summary": "Specified (rev. 2): running batch over next batch, always shown; a drop marks a grilled CR, a 3-ready drop is a journal line (AGENTS.md clause), none open goes to 3-ready; three state words; CoS writes the destination, order add when final. 1 open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "c0dcea7096094f77f09d662255461905527b2e72fd646612a96e4501b09ff6d0",
-    "02-answers.md": "215b8e574f978d1a1a7d0493ca9d4cbb61d13704e090b3bff804a52ba58480c2",
-    "03-change-spec.md": "06679c58611ac7d317bee78f21aee68a559aa86f23f940c63705263c9f39cf4c",
+    "02-answers.md": "cc0baa29d2cdf345bdfedcb9807b343412d3d77140ca9b7850fe29901d70de0f",
+    "03-change-spec.md": "adeb259a494d36ff47a4c8c600bb24ed480a9ec4db01fc42ddc2195aa6668517",
     "intake/request.md": "bbec19ef4acdf5d4f77905328de6900caa583d74c56ae5c4e95e6e7e4271991c"
   },
-  "summarized": "2026-11-21T11:42:00Z"
+  "summarized": "2026-11-21T13:03:32Z"
 }
