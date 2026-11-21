@@ -33,3 +33,24 @@ Claims 1 to 9 above: carried from 6fb2b35 (head unchanged, no move since).
 10. Review box (6fb2b35): the posted body (`gh pr view 400 --json body`) reads `Review: approved at 18f2ac2 (round 2), then rebased onto 3b3eba0 as 6fb2b35; the conflicts in routing.md and the svg were resolved after the review`. `chantier log CR-430` holds `driver note r2 inspector approved at 18f2ac2b62f429b41e5327608f86eb21e24717b1`, the SHA the box cites; the rebase and the conflict resolution are named in the box and in the note `rebased onto origin/main 3b3eba06 (routing.md and svg conflicts resolved ...)`. Proved. The box is honest that the review did not cover the rebased head; the other claims are proved above at 6fb2b35.
 
 VERIFIED
+
+## Description-only pass (head 6fb2b356b48569532a05531d583e91ace39af274)
+
+Judged at 6fb2b356 from `gh pr view 400 --json body`, `chantier log 430`, `gh pr view 400 --json statusCheckRollup`
+(5 checks SUCCESS at the head), gate log first line (`gate CR-430 ... head 6fb2b356...`).
+
+11. Boxes and SHAs: gate pass, CI, Review (18f2ac2 has an approval note), Verified: true.
+12. Known gaps: complete (pane screenshot, test file placement); no `**UNVERIFIED:**` claim without a bullet.
+13. Internal references: FAILED. The Test plan's Review line (outside Internal references) reads
+    `Review: approved at 18f2ac2 (round 2), ...`: "round" is an internal reference that the pr-template
+    rule (no round outside Internal references) forbids. Role names (Foreman, Chief of Staff, stack driver,
+    Driver) are product terms of cards the diff changes: allowed.
+
+NOT VERIFIED
+
+## Description-only pass at 6fb2b356b48569532a05531d583e91ace39af274
+
+Head: 6fb2b356b48569532a05531d583e91ace39af274
+
+- PR 400 body (`gh pr view 400 --json body`), judged at 6fb2b35 against the pr-template audit: sections in order, fold with blank lines and nothing after it, no internal reference outside Internal references (the word "round" is gone; role names are product terms of the changed cards), Deliverables has a flowchart, Changes and Impacts match `git diff --name-only 3b3eba06 HEAD` (park.py, declare/park.py, stack_apart.py, status/now_next.py, test_park*.py, test_came_back.py, cards, docs, scenario), Known gaps present. Review box: `$CHANTIER log 430` holds "r2 approved at 18f2ac2b... committed as 3b3eba06" and the box cites 18f2ac2 with the rebase to 6fb2b35.
+- Verdict: VERIFIED

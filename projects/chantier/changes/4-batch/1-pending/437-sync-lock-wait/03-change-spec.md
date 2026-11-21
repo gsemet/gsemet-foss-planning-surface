@@ -5,7 +5,8 @@ launch part (dev mode only for chantier itself), this CR is the wait part. It la
 right after CR-436 (`depends.json`: `{"after": ["sync-blocked-by-others"]}`), on CR-436's merged
 head, which sits on CR-432's (`permissions-bypass`).
 
-Spec v2 (2026-11-21): v1 with sync-wait-Q6 to Q9 and the spec critic's run-1 findings 3 to 7.
+Spec v3 (2026-11-21): v2 (sync-wait-Q6 to Q9, the spec critic's run-1 findings 3 to 7) with the spec
+critic's run-2 findings 2 to 7 and sync-wait-Q11.
 
 ## Goal
 
@@ -14,8 +15,8 @@ of chantier's, whoever runs it (a gate, a watcher, the board or hub, of any proj
 with one exception the user approves each time: the session's own board and watcher. The session
 first checks, writing nothing, whether a sync is needed; when it is and processes hold the
 checkout's `.venv`, the session names them, goes on unsynced with `sync pending`, tries again at
-its next turn, and after 3 minutes tells the user, offering to stop its own board and watcher when
-they are the only holders.
+its next turn, and after 3 minutes tells the user, offering, then or as soon as it holds, to stop
+its own board and watcher when they are the only holders.
 
 The evidence (`intake/request.md`): on 2026-11-21 at about 03:33Z the chantier Chief of Staff's
 dev-mode sync of the shared checkout stopped Studio's live CR-444 `just preflight` gate (PID 29808)
@@ -63,9 +64,19 @@ the session's own board and watcher hold `.venv`.
 - **sync-wait-Q8 (A, bounded).** After 3 minutes, when every holder is this session's own board or
   watcher, the session offers once to stop them, sync, and start them again; never while a gate
   runs, never another session's process, never without the user's yes.
-- **sync-wait-Q9 (A).** In a batch, after 3 minutes, one **For you** item `sync pending: held by
-  <holders>` in each report while pending (Notes before that); outside a batch the one chat line
-  only; `status-layout.md` keeps "nothing waits on the user" and adds this exception.
+- **sync-wait-Q9 (A, refined by Q11).** In a batch, after 3 minutes, one **For you** item `sync
+  pending: held by <holders>` in each report while pending (Notes before that), carrying the offer
+  until the user answers, and after a no the holders only, plus "a later yes still counts"; outside
+  a batch the 3-minute chat line, and at most one more, the offer line when the offer could not be
+  in it (Q11); `status-layout.md` keeps "nothing waits on the user" and adds this exception.
+- **sync-wait-Q10 (A, a fact).** On a planning surface the board is also the surface's writer; the
+  offer's cost reads: "the board and the surface's writer are off for all projects meanwhile; the
+  hub too, unless another session's watcher takes it" (spec critic run 2, finding 5: with no
+  server running, a watcher of the surface takes the hub's lock).
+- **sync-wait-Q11 (A, refines Q9).** When the own-holders condition first holds after the 3-minute
+  message, the offer is the For you item's new state in a batch, and outside a batch one more chat
+  line, the only one after step 5's; no third line; once per pending sync; it goes out at the
+  session's next turn, not on a timer.
 
 ## What changes
 
@@ -118,20 +129,38 @@ after a merge that changes `uv.lock`).
    a reload runs no `uv sync`).
 5. **3 minutes.** When the sync is still pending 3 minutes after its first try, tell the user once,
    naming the holders, that the sync waits for them (in a batch, as the **For you** item of
-   `status-layout.md`; outside a batch, one chat line); then go on as in step 4.
-6. **Your own board and watcher, on your yes.** At the first try after those 3 minutes where every
-   listed holder is this session's own board or watcher, the step-5 message also offers, once per
-   pending sync, to stop them, stating the cost: the board and the hub (on a planning surface, its
-   writer too: question 1 below) are off for all projects of the surface meanwhile.
-   "Own" is a background shell this session started and still holds, stopped
-   by the host's stop of that shell, never by `Stop-Process`, `taskkill`, `kill` or a PID; another
-   session's board is not own, even on this surface. On the user's yes: stop the watcher and the
-   board, list the holders again, sync only if none, then start the board and the watcher again
-   whatever the result (`session-start.md`'s board start, and the watcher's printed command, as
-   is); a failed sync is one line with uv's text. No offer while another holder is listed or a gate
-   runs (listed, or shown by `$CHANTIER status`). A no, or no answer: keep waiting as in step 4,
-   do not ask again each turn; a later yes from the user counts, if the conditions still hold.
-   The paragraph holds the words "on your yes" and "own board and watcher".
+   `status-layout.md`; outside a batch, one chat line, and at most one more, step 6's offer); then
+   go on as in step 4.
+6. **Your own board and watcher, on your yes.** At the first try, at or after those 3 minutes,
+   where every listed holder is this session's own board or watcher, offer, once per pending sync,
+   to stop them, stating the cost: the board and the surface's writer are off for all projects
+   meanwhile; the hub too, unless another session's watcher takes it (off a planning surface there
+   is no writer, and the cost names the board and the hub only, with the same "unless"). When that
+   holds at the 3-minute message, the offer is in that message. When it first holds later (a gate
+   held `.venv` at 3 minutes and has ended since), the offer is, in a batch, the For you item's new
+   state, and outside a batch, one more chat line, the only one after step 5's. No third line: if a
+   gate or another holder appears after the offer, say nothing more; the offer stands for a later
+   yes while the conditions hold. "First try" is a turn (step 4's next turn), not a timer: no
+   sleep, no monitor, no wake for it.
+   "Own" is the host row's evidence (section 3): own board, its command line holds `--seat <this
+   session's id>` and this session's `board --seat` did not print `board already running`; own
+   watcher, a `watch` process with this project's `--project` while this session holds a running
+   watcher task and the project's seat; anything else is not own (another session's board
+   included, even on this surface). An own process is stopped by the host's stop of the background
+   shell that holds it, never by `Stop-Process`, `taskkill`, `kill` or a PID.
+   On the user's yes: stop the watcher and the board, list the holders again, sync only if none,
+   then start the board and the watcher again whatever the result (`session-start.md`'s board
+   start, and the watcher's printed command, as is). A holder still listed after the stop is no
+   longer own (its shell is gone): it is waited on as in step 4, never killed; the board's restart
+   then meets `board already running`, passed on as is. The user's yes covers the restart: no
+   second question; the board's start lines are handled as `session-start.md` says. A failed sync
+   is one line with uv's text.
+   No offer while another holder is listed or a gate runs (listed, or shown by `$CHANTIER
+   status`). No answer: the offer stands (in a batch, the For you item keeps carrying it). A no:
+   keep waiting as in step 4, do not ask again; in a batch the For you item then names the holders
+   only, plus "a later yes still counts". A later yes from the user counts, if the conditions
+   still hold.
+   The paragraph holds the words "on your yes", "own board and watcher" and "No third line".
 
 Only the steering session syncs, never a Foreman, a Driver or a worker (unchanged). The sentence
 "Any failure of the sync or of `$CHANTIER`, in either mode, at any call, follows `startup-core.md`"
@@ -164,8 +193,10 @@ One row in each host's Tools table, "Name the holders of the checkout's environm
   macOS and Linux, the Bash tool: `ps -eo pid,ppid,args | grep -F "<plugin root>/.venv/"` (the grep
   line itself excluded). Reading: a `chantier.exe` and its child `python.exe` are one holder, named
   by the top process's PID, its subcommand (`board`, `watch`, `gate`, `status`...) and its
-  `--project` value, from its command line; the session's own board or watcher is the one whose
-  background shell it started and holds. Read-only; never `Stop-Process`, `taskkill` or `kill` on a
+  `--project` value, from its command line. "Own", by its evidence: own board = its command line
+  holds `--seat <this session's id>` and this session's `board --seat` did not print `board already
+  running`; own watcher = a `watch` process with this project's `--project` while this session
+  holds a running watcher task and the project's seat; anything else is not own. Read-only; never `Stop-Process`, `taskkill` or `kill` on a
   holder. Mark: the Windows listing exercised on 2026-11-21 by this CR's v1 spec-writer on the
   user's Windows machine (it listed a Studio board, a Studio watcher, chantier's watcher and a Studio
   command, each a `chantier.exe` with its `python.exe` child, both under `.venv\Scripts`); the macOS
@@ -226,10 +257,12 @@ stays).
   sync waits, then `sync pending: held by <holders>` when holders were named".
 - "It is not a **For you** item: nothing waits on the user" stays word for word, followed by: "but
   a sync pending more than 3 minutes: then one **For you** item, `sync pending: held by <holders>`,
-  with the offer to stop your own board and watcher when they are the only holders, or what the user
-  may stop otherwise." Then: one item, its latest state, in each Progress and Completion report while
-  the sync is pending, gone once synced, never a second chat question; outside a batch, the skill's
-  one chat line only. The rest of the paragraph (the `tracked changes` and `on <branch>` sentence)
+  with the offer to stop your own board and watcher when they are the only holders (from the
+  3-minute report, or from the first report where that holds), until the user answers; after a no,
+  the holders only, plus "a later yes still counts"; or what the user may stop otherwise." Then:
+  one item, its latest state, in each Progress and Completion report while the sync is pending,
+  gone once synced, never a second chat question; outside a batch, the skill's chat line, and its
+  one offer line when the offer could not be in it. The rest of the paragraph (the `tracked changes` and `on <branch>` sentence)
   stays.
 
 ### 5. Docs
@@ -310,7 +343,7 @@ The rule applies only in the dev mode (CR-436's); the plugin mode is untouched o
 
 | Cell | Naming the holders | Blocked sync | P10 check rule |
 | --- | --- | --- | --- |
-| Claude Code, Windows | PowerShell `Get-CimInstance` listing: exercised 2026-11-21 (spec-writer); may prompt outside auto or bypass mode | listed before syncing; os error 32 the net: step 4 | named in the dev mode, in the one P10 question |
+| Claude Code, Windows | PowerShell `Get-CimInstance` listing: exercised 2026-11-21 (spec-writer); may prompt outside auto or bypass mode | listed before syncing; os error 32 the net: step 4; the host's stop ending an own shell's `chantier.exe` and its `python.exe` child: unproved | named in the dev mode, in the one P10 question |
 | Claude Code, macOS or Linux | `ps ... grep -F`: untested; may prompt outside auto or bypass mode | listed before syncing; no os error 32, so a gate started between the listing and the sync is not caught (Known gaps) | named in the dev mode, in the one P10 question |
 | Copilot, Windows | shell tool, the same listing: untested | as for Claude Code, Windows | no P10 |
 | Copilot, macOS or Linux | shell tool, `ps`: untested | as for Claude Code, macOS or Linux | no P10 |
@@ -324,16 +357,18 @@ Checks read the shipped files from the repository as they ship, at the head unde
   beside CR-436's paragraph test), reading the four shipped SKILL.md files: the `$CHANTIER`
   paragraph holds "its mode checked once", `uv sync --locked --check --project "<plugin root>"`,
   "The environment is outdated", "never stop or kill", `sync pending: held by`, "3 minutes", "but a
-  reload", "on your yes", "own board and watcher" and the host row's name, and keeps "Any failure of
+  reload", "on your yes", "own board and watcher", "No third line", "no second question", "is no
+  longer own", "unless another session's watcher takes it" and the host row's name, and keeps "Any failure of
   the sync or of `$CHANTIER`, in either mode, at any call, follows `startup-core.md`" followed by the
   exception clause.
 - The same test reads `REF/startup-core.md` (the exception sentence is in its first paragraph,
   which still holds "report the exact error and stop"); `REF/hosts/claude-code.md` and
   `REF/hosts/copilot.md` (the row "Name the holders of the checkout's environment" with the listing
-  commands); `REF/chief-of-staff.md` (the sentence "the one exception is your own board and watcher,
+  commands, and its "Own" evidence holding `--seat <this session's id>` and `board already
+  running`); `REF/chief-of-staff.md` (the sentence "the one exception is your own board and watcher,
   on the user's yes"); and `REF/status-layout.md` (the exception sentence "but a sync pending more
-  than 3 minutes", in the paragraph that still holds "It is not a **For you** item: nothing waits
-  on the user").
+  than 3 minutes", with "until the user answers" and "a later yes still counts", in the paragraph
+  that still holds "It is not a **For you** item: nothing waits on the user").
 - Byte identity (Q6): a test in `TESTS/test_plugin_files.py` takes the check line from the shipped
   `skills/chief-of-staff/SKILL.md`, fills in `<plugin root>` with the dev cell's root, and asserts it
   equals `sync_check_command(repo)` and the command inside the rule P10 prints for it (Bash and
@@ -358,23 +393,16 @@ Checks read the shipped files from the repository as they ship, at the head unde
 - The scenario: its sandbox project is not chantier (plugin mode since CR-436), so it never syncs;
   no scenario step.
 - The PR's **Known gaps** names: the session's behaviour (checking, naming, waiting, the 3-minute
-  For you item or line) and the stop, sync and restart of its own board and watcher are card
-  behaviour with no automated proof, and every release bump (`scripts/version.py` prints
+  For you item or line, or the later offer line) and the stop, sync and restart of its own board
+  and watcher are card behaviour with no automated proof, and every release bump (`scripts/version.py` prints
   `uv.lock changed: sync pending`) meets this path, so the first release after the merge is its
   first live proof; the holder listing has no allow rule and may prompt outside auto or bypass
   mode, rarely (after a `uv.lock` change); on macOS and Linux a gate started between the listing
-  and the sync is not caught; the macOS, Linux and Copilot listings are untested.
+  and the sync is not caught; the macOS, Linux and Copilot listings are untested; whether the
+  host's stop of a background shell ends its process tree (on Windows the `chantier.exe` and its
+  `python.exe` child) is unproved (`REF/hosts/claude-code.md`, rows "Stop a background task of
+  one's own" and "Run the board", today lines 38 and 48), so a holder may stay listed after the
+  stop (step 6: waited on, never killed).
 - Gates owed (`AGENTS.md`): `just check`, `just test` within its budget, `just eval-dry-run` (the
   CLI's `src/` changes), the pipeline's `just scenario (ubuntu-latest)` job at the PR's head; as the
   top CR of batch-30 while it is, `chantier gate` locally. No `hooks/` or `types/` change.
-
-## Questions settled by the spec-writer (built as A)
-
-The user asks no questions tonight; this one is built as A and may be reversed.
-
-1. **The writer in the stop's cost.** On a planning surface the board is also the surface's writer
-   (`session-start.md`, "The board"): while it is stopped for the sync, writes to the surface are
-   refused.
-   - **A (built).** The offer's cost says it too: "the board, the hub and the surface's writer are
-     off for all projects of the surface meanwhile" (on a surface; elsewhere the board and the hub).
-   - B. The offer names the board and the hub only, as Q8's words do.

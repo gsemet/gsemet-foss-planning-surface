@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "A blocked uv sync names chantier's holders, waits, never kills",
+  "summary": "A sync of chantier's checkout never stops what holds its .venv: check, list holders, sync only when none, else go on with 'sync pending' and retry each turn. After 3 min, tell the user once; when only its own board and watcher hold it, offer once to stop, sync and restart them on the user's yes.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "7d52a38d555f69f62ed4d64625093bda6caceca3c4cc519842c1f25f8dc0724d",
+    "02-answers.md": "cef4ee35536e85783df6d640cf1084fd54b52bda09b2cf25100d2946061cf3a0",
+    "03-change-spec.md": "d9c9a109df153a9deaffdae2aa97dfbad0ab67f16bbdbf8d93827b60ce6de54e",
+    "intake/request.md": "f7e970376e87b5514d3051626a8ca9c76f6ede8618bcb732930d7a3c7b549f47"
+  },
+  "summarized": "2026-11-21T18:43:30Z"
+}
