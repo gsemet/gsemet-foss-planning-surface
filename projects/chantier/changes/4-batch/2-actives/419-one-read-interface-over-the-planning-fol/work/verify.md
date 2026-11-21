@@ -17,3 +17,12 @@ Verdict: NOT VERIFIED
 
 ## Not done
 Evidence before/after pairs not re-captured; the Driver's speed.md is the only measure.
+
+## Re-verification at eb5dbd66a823fca7335769e175b954d420cc98d0 (same head)
+
+Verdict: VERIFIED
+
+- Claim 6 fixed: `chantier log 419` note "review approved at eb5dbd6 ... committed as 23734dbb ... docstring only" names eb5dbd6. PASS.
+- Claim 5 fixed: PR body line 76 states `just test` 72.5 s at base a391c1e vs 72.6 s at head (my own run: 72.62 s). PASS.
+- Claim 7 fixed: test-plan line now cites `just check` (its suite) and `eval-dry-run`, matching the log. PASS.
+- CI at head: `gh pr checks 394`: check macos/ubuntu/windows pass, eval-dry-run pass; scenario (ubuntu) pending, listed in the PR's Known gaps as UNVERIFIED. Claims 1-4 carried unchanged (head did not move).

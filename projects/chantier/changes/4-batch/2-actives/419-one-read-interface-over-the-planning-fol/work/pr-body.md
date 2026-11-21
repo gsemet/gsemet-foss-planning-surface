@@ -53,7 +53,6 @@ Grade: **2**. Many modules of `board/`, `hub/`, `status/` and `core/` change how
 - `status`'s file count of a CR folder no longer enters a symlinked folder on Python before 3.13 (it did, through `rglob`).
 - Work-note order in `status` is by name with a plain sort: notes that differ only by case may order differently on Windows.
 - The modules outside the list (`lifecycle/`, `core/batch.py`, `gate_queue.py`, the rest of `summaries/`, `commands/`, configuration files) still read directly; the run-time proof that the board, `status` and the hub open nothing outside the store is left for a follow-up.
-- **UNVERIFIED:** the full test and scenario gates at the pushed head.
 
 <details>
 <summary>Details</summary>
@@ -76,8 +75,8 @@ No visual change; developers read the planning folder through `Repo.store`.
 - [x] Local gates at `eb5dbd6`: `just check` (its suite, 1447 passed), `just eval-dry-run`; `just test` adds no measurable time: 72.5 s at the base `a391c1e`, 72.6 s at the head, same machine, back to back (24 more tests)
 - [x] Evidence: speed and golden-output comparison, before at `a391c1e`
 - [x] Review: approved at `eb5dbd6`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Verified at `eb5dbd6`
+- [x] CI green at `eb5dbd6` (check on three systems, eval-dry-run, scenario)
 
 ## Internal references
 

@@ -8,3 +8,38 @@ T12 off/on explorer open other.md (expect Studio, top): tabs=["1:custom:markdown
   marker: {"marker":null,"attrs":null,"scrollTop":0}
   screenshot tb-matrix-01-t12-off-on-explorer.png
 T13 files on, search on
+T13 setup: Studio tab of doc.md in group 1: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+T13 plain opening from the Explorer with group 2 focused (expect new Studio tab in group 2, group 1 tab kept, no text tab): tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*","2:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:2,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":"Line 29 of doc: filler text for the paragraph number 29.\nLin","attrs":"data-line=29 data-end-line=31 dir=auto data-sphinx-source-file=c:\\Users\\gaeta\\Projets\\markdown-okf-schema-studio.worktrees\\batch-07-CR-445\\out\\trials\\tb-matrix\\","scrollTop":0}
+  screenshot tb-matrix-02-t13-plain-group2.png
+T13 before jump (group 2 focused, empty): tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+T13 jump to line 40 with group 2 focused (expect group 1 Studio revealed at 40, no new Studio tab, no text tab): tabs=["1:text:doc.md*"] visibleText=["doc.md@39,34"] dom={webviews:0,monaco:1,diff:0,dialogs:0,toasts:[]}
+  marker: "no-visible-studio"
+  screenshot tb-matrix-03-t13-jump-group2.png
+T10 files on: link from a Studio tab
+T10 Studio tab of links.md: tabs=["1:custom:markdown-okf-schema-studio.editor:links.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  link click failed TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('a[href*="other.md#"]').fir
+T10 after following a link to other.md#other-file with files on: tabs=["1:custom:markdown-okf-schema-studio.editor:links.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  marker: {"marker":null,"attrs":null,"scrollTop":0}
+  text tab events for other.md after the link: 0
+  screenshot tb-matrix-04-t10-link-files-on.png
+  nav labels in workbench dom: ["Go Back (Alt+LeftArrow)","Go Forward (Alt+RightArrow)","Next Match"]
+  frame buttons: ["Refresh preview","Toggle edit mode","Export to HTML","Show view controls","No text editor shows this file","Preview theme: Cream theme","Back","Next","Width: Margin","Fold all sections","Zoom out","Zoom in","Show table of contents","Show side-by-side changes since last commit","Hide changes since last commit","Hide comments","Fold section: Links"]
+T10 files off: link from a Studio tab
+T10 files off: Studio tab of links.md: tabs=["1:custom:markdown-okf-schema-studio.editor:links.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+  link click failed TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('a[href*="other.md#"]').fir
+T10 files off: after the link (expect a text editor for other.md that stays text): tabs=["1:custom:markdown-okf-schema-studio.editor:links.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+T3 files on: Open as Text
+T3 Studio tab of doc.md: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+T3 after Open as Text (expect text editor stays text, Studio tab closed): tabs=["1:text:doc.md*"] visibleText=["doc.md@0,0"] dom={webviews:0,monaco:1,diff:0,dialogs:0,toasts:[]}
+T3b dirty document: Open as Text
+  wedit: {"dirty":true}
+T3b Studio tab, document dirty: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*!"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:0,toasts:[]}
+T3b after Open as Text on a dirty document: tabs=["1:custom:markdown-okf-schema-studio.editor:doc.md*!","1:text:doc.md!"] visibleText=[] dom={webviews:1,monaco:0,diff:0,dialogs:1,toasts:[]}
+  doc state: {"dirty":true,"text":"PAGEEDIT # Open at line probe\n\nLine 3 of doc: filler text for the paragraph number 3.\n\nLine 5  dialogs=1
+  screenshot tb-matrix-05-t3b-open-as-text-dirty.png
+T3c Reopen Editor With > Text Editor from a Studio tab
