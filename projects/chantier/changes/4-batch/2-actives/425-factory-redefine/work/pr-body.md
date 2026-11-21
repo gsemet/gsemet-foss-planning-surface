@@ -35,7 +35,8 @@ Grade: 2
 ## Known gaps
 
 - The board's backlog lane for the running batch is not part of this PR (a separate change builds on the mark function).
-- **UNVERIFIED:** the pipeline's full scenario job and the Windows gate have not run at this head yet.
+- **UNVERIFIED:** the local Windows run of the full scenario (`chantier gate`) has not run at this head; the pipeline's scenario job passed on Linux at `66d9b1c`.
+- The local `just test` took 78 s on a busy machine, over the usual budget; this PR's own share was not measured.
 
 <details>
 <summary>Details</summary>
@@ -63,7 +64,8 @@ Users see a four-option "grilled enough?" question and no factory wording on the
 
 - [x] New or changed tests (they fail on the previous code)
 - [x] Local gates at `66d9b1c`: `just check` (1489 passed, 20 skipped), `just eval-dry-run` (18 of 18 cases)
-- [ ] Evidence: none yet
+- [x] CI at `66d9b1c`: check on Linux, macOS and Windows, eval-dry-run and scenario (Linux) all pass
+- [x] Evidence: verified at `66d9b1c` against the specification, no visual change
 
 ## Internal references
 

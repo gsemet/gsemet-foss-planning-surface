@@ -30,7 +30,7 @@ Grade: 2. The hold touches shared stack and series ordering code (`stacks.py`, `
 ## Known gaps
 
 - No screenshot of the pane from a real session.
-- The new `hold_live` scenario case has not run locally: it is covered by the pipeline's scenario job.
+- The `hold_live` scenario case ran locally on Linux-style stack unit only; the pipeline job and a Windows run at the top of the stack remain.
 
 <details>
 <summary>Details</summary>
@@ -55,7 +55,7 @@ The CR board pane shows `Held` and `Unheld` for a held live CR.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test_hold_live.py`, `test_stack_hold.py`, `test_came_back.py`
+- [ ] New or changed tests (they fail on the previous code): `test_hold_live*.py`, `test_stack_hold.py`, `test_came_back.py`
 - [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
 - [ ] Evidence: none beyond the tests and the scenario case
 - [ ] Review: approved at `<sha7>`
