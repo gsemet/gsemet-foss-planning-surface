@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Redefine the factory mode: running batch or next batch",
-  "summary": "Filed from the park-live-cr grill: 3-ready is always the next batch, 1-pending the running one; board backlog column split. Grill starting.",
+  "summary": "Grilled (Q1-Q8): no factory mode; at the spec-writer's start the user picks running batch (1-pending, once specified) or next batch (3-ready); board column split; factory commands removed. Being specified; critic: yes.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "fa9ac58775caa9a094316d6f34dd4852e5f742b5d1862dcc6fcaf75ce47fcefb",
-    "02-answers.md": "b99736673477bf0b606b5b9abc3ecb392c59bec26417d4dae39b25c6b530c0e5",
+    "02-answers.md": "3cd1b188ce3c2f202e4b44287dcc92fd2617a75fd09b2dae5531b2753ff7af2e",
     "intake/request.md": "c2a454c9d7bf7675523a68996abe4399e4f48b0a1b4712756ca3aae5d73daa0f"
   },
-  "summarized": "2026-11-21T09:46:45Z"
+  "summarized": "2026-11-21T09:54:40Z"
 }
