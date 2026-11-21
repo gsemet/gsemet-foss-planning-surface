@@ -1,5 +1,7 @@
 # Holes of src/core (CR-450, round 2, spec 4.9 and 4.10)
 
+> Status after round 3: the figures and lists below are the round-2 baseline. Round 3 added 19 test files and re-ran the real machinery on the 19 files concerned: of the 416 cluster holes, 319 are killed and 97 remain (see `r3-rerun.md`, holes before and after per cluster, and the open list). No score dropped.
+
 A hole is a mutant that no test of `test/core` kills (Survived or NoCoverage) in the core phase of the real run (sample of 51 files, 6,007 mutants). The others phase then ran the tests of the other layers on the holes' ranges: a hole one of them kills is labelled "killed only by another layer", the rest "no test kills it".
 
 ## Figures

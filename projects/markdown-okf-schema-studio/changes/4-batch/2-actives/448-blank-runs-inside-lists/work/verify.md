@@ -39,3 +39,12 @@ Sections, Deliverables, Changes and Known gaps match the diff and the known gap 
 - In the capture, the blocks of the first item are narrower than the second item's (right edge ~1487 vs ~1655 px): the floating toolbar at the top right narrows blocks beside it; the visual check on width passed.
 
 NOT VERIFIED
+
+## Description pass 2 at ea5c383fb534a683d42a5caa9dbd72a9c5390ccf: VERIFIED
+
+Head: ea5c383fb534a683d42a5caa9dbd72a9c5390ccf (supersedes the NOT VERIFIED description pass above).
+Command: `gh pr view 463 --json body,headRefOid,statusCheckRollup`. Output: headRefOid `ea5c383f...`; body names only `e0c7836`, `ea5c383`, `8ecec6b`, `15a0ef0` (all carried with a reason), no `1aa7966`, no STALE, no pending; Summary, Deliverables, Changes, Impacts match `git diff --stat e0c7836..HEAD` (48 files: blankLines.ts, blockSelectionView.ts, listItemIndent.ts, insertion.ts, sourceEdits.ts, pageToHost protocol itemLine, BLOCK-266..269, glossary, changelog, tests); Known gaps lists the undo gap, matching the above claims.
+CI: PR checks static, static-windows, visual, viewer-graph, report, checks SUCCESS (others skipped); `gh run view 44909893956` gives `success ea5c383f...`.
+Local gate: `just check` run by me at ea5c383, exit 0 (`work/verifier/check-ea5c383.log`, ends `use case diagrams: 94 StRS checked, all parse`). Long gate `just preflight` pass at 8ecec6b carried (range-diff, patch unchanged).
+Review: approved at 15a0ef0 per Driver note `r2 inspector approved at 15a0ef09...`, carried by range-diff.
+Images: five attached are those of evidence pairs at 8ecec6b (carried, patch unchanged); evidence files in `work/verifier/evidence/` were looked at in the earlier pass (no username). Attached URLs not re-downloaded.
