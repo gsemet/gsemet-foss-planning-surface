@@ -42,8 +42,8 @@ Every path below is under `skills/chantier/scripts/cli/src/chantier/` (`clients/
 - It is read from the folder on disk, never from the CR's state or its events, so it says what the
   user sees in the planning folder.
 - `board/times.py:priority_of` (and `PRIORITY_AFTER`, which only it uses) is removed, with its
-  import in `crs.py`: nothing reads it then. `tests/test_board_times.py:test_priority_of` goes with
-  it, and that file's docstring drops "and priority chip".
+  import in `crs.py`: nothing reads it then. `skills/chantier/scripts/cli/tests/test_board_times.py:test_priority_of`
+  goes with it, and that file's docstring drops "and priority chip".
 
 ### Web client (read `clients/web/DESIGN.md` first and keep it true)
 
@@ -51,10 +51,10 @@ Every path below is under `skills/chantier/scripts/cli/src/chantier/` (`clients/
   stage chip takes the priority chip's place, first in the top row, through the same `card.js`
   and `priorityChip` (no new builder, no change to `card.js`'s code). A row with `stage: null`
   draws no chip, as `topRow` already does for an empty `priority`.
-- `css/components/chip.css` gains the three classes `priorityChip` writes for them
-  (`.tag.pri-1-pending`, `.tag.pri-2-actives`, `.tag.pri-3-done`): one neutral look, the grey of a
-  plain chip from existing tokens (the `--chip` fill and its `--edge`, the ordinary ink), so a
-  stage never reads as a priority. No new token: DESIGN.md's token table is unchanged.
+- `css/components/chip.css` gets no rule for the three classes `priorityChip` writes for them
+  (`.tag.pri-1-pending`, `.tag.pri-2-actives`, `.tag.pri-3-done`): the plain `.tag` is already the
+  neutral grey chip, as for `pri-inbox`, which has no rule either, so a stage never reads as a
+  priority. No change to `chip.css`, no new token: DESIGN.md's token table is unchanged.
 - The chip's text is the folder's name as it is (`1-pending`, `2-actives`, `3-done`): data shown as
   it is (DESIGN.md "Words"), no i18n key.
 - Comments follow: `js/ui/parts.js` (the priority chip's `bucket` may also be a batch folder),
@@ -64,6 +64,14 @@ Every path below is under `skills/chantier/scripts/cli/src/chantier/` (`clients/
   (inbox, P1 to P4, 3-ready)", one sentence: a card of a CR in the batch shows in that place its
   batch folder (`1-pending`, `2-actives`, `3-done`) in a neutral grey chip, never a priority.
 
+### Docs: `docs/web-board.md`
+
+- "Batch", line 36: the sentence "A CR's top row begins with the stage it came from, a priority
+  chip (`P1` to `P4`, `Inbox` or `3-ready`) read from the batch's `add` event; a batch that did not
+  record it shows none." becomes: a CR's top row begins with the batch folder it is in
+  (`1-pending`, `2-actives` or `3-done`), in a grey chip; a CR no longer in the batch's folders, or
+  a closed batch's record, shows none. The screenshots are not retaken for it.
+
 ## Decisions carried
 
 - chip-Q1, answer 3 (replacing answer 1's "no chip"): a batch CR's card shows its real folder in
@@ -71,11 +79,12 @@ Every path below is under `skills/chantier/scripts/cli/src/chantier/` (`clients/
 - chip-Q1's restatement, as far as answer 3 leaves it: this holds in every board view that draws
   the CR as a batch CR with that chip (the batch graph first); the backlog views keep their chips.
 - chip-Q2: destination batch-30, at once.
+- chip-Q3: the Kanban page's batch CR card is unchanged, out of scope (the user may reopen it).
 
 ## Out of scope
 
-- The Kanban's card of a batch CR (`js/views/kanban-cards.js`): it has no priority chip today, so
-  there is nothing to replace; its column already names its state. See the open question.
+- The Kanban page's card of a batch CR (`js/views/kanban-cards.js`): unchanged (chip-Q3); it has
+  no priority chip today and its column already shows the state.
 - Any colour per stage, any new token, any change to the state badges, the backlog's chips, the
   `add` event's `origin` or the record.
 - CR-427's Triage "running batch" half, beyond the note below.
@@ -90,23 +99,28 @@ Every path below is under `skills/chantier/scripts/cli/src/chantier/` (`clients/
   - both edit the same DESIGN.md rule, "One card, one column, one chip" (CR-427 adds a lane
     sentence after the column's): a textual conflict on rebase only, not a dependency; no
     `depends.json`.
+- **board-batch-kanban** (1-inbox, batch-30): its Kanban of the batch's three folders reads the
+  row's `stage`, which this CR adds, for its columns; whether its cards draw the folder chip is
+  decided there, not here. Whichever lands second reads `stage` (never `priority`).
+- **board-batch-compact** (1-inbox, batch-30): no overlap in the code; a textual conflict on rebase
+  only in `docs/web-board.md`'s "Batch" section, not a dependency; no `depends.json`.
 - **CR-429 `board-fingerprint-cache`**: no overlap. It changes how and when the server reads the
   planning folder (a file watch, `board/fingerprint.py`, `board/api/`), not the rows' fields;
   `board/crs.py` and the web client are not in it.
 
 ## Evidence
 
-- Server, in-process (`tests/test_board_waits.py`'s pattern: `forge_world.World`, `write_batch`,
+- Server, in-process (`skills/chantier/scripts/cli/tests/test_board_waits.py`'s pattern: `forge_world.World`, `write_batch`,
   `cr_rows`): one parametrized test in an existing board test file, with an `add` event whose
   `origin` is `3-ready/<slug>` and a CR whose `path` is a folder in each of `4-batch/1-pending`,
   `4-batch/2-actives`, `4-batch/3-done`, one in `2-backlog/P2` (a cancelled CR moved out) and one
   with no folder on disk: `stage` is `1-pending`, `2-actives`, `3-done`, `None`, `None`, and no
   row has the key `priority`.
 - Web client, from the shipped files (read from the repository at the head under test, as
-  `tests/test_board_design.py` reads them, no prepared copy): no file under `clients/web/js/`
-  holds `c.priority`; each of the four batch views holds `priority: c.stage`;
-  `css/components/chip.css` holds a rule for each of `.tag.pri-1-pending`, `.tag.pri-2-actives`
-  and `.tag.pri-3-done`. The existing design tests (one card, components, tokens) keep passing.
+  `skills/chantier/scripts/cli/tests/test_board_design.py` reads them, no prepared copy): no file
+  under `clients/web/js/` holds `c.priority`; each of the four batch views holds
+  `priority: c.stage`; `css/components/chip.css` holds no rule for any of `.tag.pri-1-pending`,
+  `.tag.pri-2-actives` and `.tag.pri-3-done`. The existing design tests (one card, components, tokens) keep passing.
 - `just check` passes; `just eval-dry-run` in the worktree (a change under the CLI's `src/`); the
   pipeline's `just scenario (ubuntu-latest)` green at the PR's head (a CLI change).
 - By hand, on a running board with batch-30: the batch graph, the Gantt, the time cards and the
@@ -115,6 +129,4 @@ Every path below is under `skills/chantier/scripts/cli/src/chantier/` (`clients/
 
 ## Open questions
 
-1. The Kanban's card of a batch CR (`js/views/kanban-cards.js:53`) has no chip today. Should it
-   also show its batch folder chip, for one look across views, or stay as it is (its column
-   already says its state)? This spec leaves it as it is.
+None.

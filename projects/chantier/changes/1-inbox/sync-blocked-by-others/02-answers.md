@@ -14,3 +14,4 @@ Spec critic: yes, it changes how every session launches the CLI (the role cards 
 Spec critic: yes, it changes how every session launches the CLI; a second critic run after this revision.
 9. sync-lock-Q9 (2026-11-21, the v2 spec's open question 1): **The CLI's test in a surface.** A. The project folder's name (`projects/chantier`) is enough; the manifest in the project's clone is only a possible confirmation, never required.
 10. sync-lock-Q10 (2026-11-21, permissions-bypass being set aside): **The order with permissions-bypass.** C. Set this CR aside too: no critic run now; it is taken up with permissions-bypass.
+11. sync-lock (2026-11-21, the user's words): "stack+git+chain et sync lock aussi peuvent etre mis dans le batch, non?": taken up again with permissions-bypass (now CR-432 of batch-30): the critic's second run, then batch-30 after CR-432.

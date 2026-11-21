@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Batch page: the mode and the legend move into the title row",
+  "summary": "The mode band (label, sentence as a tooltip, Stack/Series/Parallel switch) and the States-and-arrows legend move into the Batch title row; figures, view switch and graph start ~90 px higher; nothing removed, desktop and phone. Batch-30, last. 2 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "e2aa9a3705428383b4eca357649bf5e08ca2f79238298a4b2c9076163366d628",
+    "02-answers.md": "ed8ab2b569aed3cc955ba663247a080c5c96246f81a74506527d5422d59c6582",
+    "03-change-spec.md": "75c30cd99157ce631426eda329d2a2d93ccc0f680e2b879eabbf7af93fa1c0df",
+    "intake/request.md": "1b075e58a02c93c06340315df7626eaf84724e0fb6e71ce08f3682d936fd76b2"
+  },
+  "summarized": "2026-11-21T17:38:28Z"
+}

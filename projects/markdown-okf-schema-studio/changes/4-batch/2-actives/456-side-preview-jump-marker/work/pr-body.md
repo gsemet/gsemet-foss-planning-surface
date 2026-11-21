@@ -25,7 +25,7 @@ The opening watcher now reads jumps from the shared jump signal (behaviour uncha
 
 ## Autonomous decisions
 
-Settled without the owner, from "same as the Studio tab": every `Command` move with one selection marks; only the side preview that follows the editor marks; no setting; same-document path links with a line or fragment mark, plain anchors do not. "Same duration" is read as: in the side preview the marker keeps the Studio tab's rules and also goes on an edit of the document from the text editor or a switch to another file; scrolls and cursor moves keep it.
+Settled without the owner, by the planning lead from the owner's "same as the Studio tab" and the earlier open-at-line rules (decisions 6 to 13 of the specification): every `Command` move with one selection marks; only the side preview that follows the editor marks; no setting; same-document path links with a line or fragment mark, plain anchors do not. "Same duration" is read as: in the side preview the marker keeps the Studio tab's rules and also goes on an edit of the document from the text editor or a switch to another file; scrolls and cursor moves keep it.
 
 ## Known gaps
 

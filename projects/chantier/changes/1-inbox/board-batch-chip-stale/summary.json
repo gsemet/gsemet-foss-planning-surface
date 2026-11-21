@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "A batch CR's card shows its batch folder, not its old 3-ready chip",
-  "summary": "Specified bug fix: batch views (graph, Gantt, time cards, PRs) draw a batch CR's real folder (1-pending, 2-actives, 3-done) in place of the stale priority chip from its add origin; backlog views keep their chips. Destination batch-30.",
+  "summary": "Specified bug fix, final: batch views (graph, Gantt, time cards, PRs) draw a batch CR's real folder (1-pending, 2-actives, 3-done) as a plain grey chip in place of the stale priority chip; server sends stage; docs updated; backlog and Kanban cards unchanged. Batch-30.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "c41dbc3f0961c6f928000d1ad08d2253a545c37cc474d92ca9f54da756f79991",
-    "02-answers.md": "efb87f1e7d47d916cc14a33dd27bc4f1d86c867bd4e7939f70af08b6dc6036e3",
-    "03-change-spec.md": "226703e507907dc93f357a887286e860a5819a9dc6264739d0f50d1424db69d8",
+    "02-answers.md": "fb7c48cae213a4dc1267d1e46db0f50515064ed44a9d40bb37d5143a8cd4c14d",
+    "03-change-spec.md": "8d3aa3f547339da3fb6e363ae0caa0fee7dfe7f05906119bf8b7f5f7188eee2b",
     "intake/request.md": "49034d77891f823bb0a9505ebba72746e423fc6295a4bdb5073f87549c431a50"
   },
-  "summarized": "2026-11-21T17:35:39Z"
+  "summarized": "2026-11-21T17:39:02Z"
 }
