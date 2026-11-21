@@ -1,4 +1,4 @@
-Head: 4ddd1ded94b3b2c4de59d6830d37af1e0aa73811
+Head: 4e05f1eebf0752cef8b9fdb3639212a27a9b9247
 
 Verified at 4ddd1ded (`git rev-parse HEAD` in the worktree, clean tree). Method: pages written by `writeViewerPages` from the compiled head over the frozen use cases with made-up titles; Chromium via playwright-core; before on origin/main 9c70477a. Output: work/verifier/after-run.log, before-run.log, evidence/*-facts.json, screenshots (all opened and looked at: made-up content only, no username or home path).
 
@@ -12,3 +12,16 @@ Verified at 4ddd1ded (`git rev-parse HEAD` in the worktree, clean tree). Method:
 8. Gate pass: gate log work/gates/20261121-141131.log first line `gate CR-458 ... head 4ddd1ded94b3b2c4de59d6830d37af1e0aa73811`, command `just preflight`; `$CHANTIER log` shows `gate result=pass head=4ddd1ded... command=just preflight`. CI note at 4ddd1de: checks, report, static, static-windows, viewer-graph, visual pass. VERIFIED.
 9. PR description (work/pr-body.md, `gh pr view 464` head 4ddd1ded). Review box `approved at 4ddd1de`: log note `r2 approved at 8abaedc4..., committed as 4ddd1ded94b3...` matches. Changes match the diff (19 files: pages.ts, searchIndex.ts, viewer.js, tests, requirements, glossary, changelog, package.json test script). I edited Known gaps and the Impacts sentence in pr-body.md (captures now exist; scope and the step 3 difference stated); the Driver must post the edited body and attach images from evidence/ (the posted body was not re-read after my edit). VERIFIED for the file, to be reposted.
 10. Not proved here: the real report's titles, the published site, and the pager at 800 px (the specification's 800 px check is the Chromium test in CI viewer-graph, green per the log).
+
+## Second verification, after the move 4ddd1ded..4e05f1ee (base: origin/main 9c70477acdc79625be4a4fbcbaa52041cbae1a6c)
+
+Judged at 4e05f1eebf0752cef8b9fdb3639212a27a9b9247 (clean tree). Old base e0c7836c, new base 9c70477a.
+
+R1. CR patch unchanged (4e05f1ee). `git range-diff e0c7836c..4ddd1ded 9c70477a..4e05f1ee` output: `1: 8abaedc4 = 1: ea529ef1 feat: find a requirement by its full ID ...` and `2: 4ddd1ded = 2: 4e05f1ee test: cover the full ID ...`. `git diff <range> | git patch-id --stable` on both ranges: `b1dd9a14093550f98c2330707a230670ea0f7b8e` for both. VERIFIED.
+R2. What the base brought (4e05f1ee). `git diff --name-only e0c7836c 9c70477a`: ci.yml, justfile, requirements/tiers/log.md, and test files under test/build, test/integration, test/session, test/shared (paste-url, drop-files, stress plan, hang watchdog, real-window trace). None under test/site/requirementsViewer or the viewer sources; the viewer proofs are not touched, re-run anyway below.
+R3. Compile and viewer tests (4e05f1ee, detached worktree at that head). `npm run compile` exit 0 (work/verifier/rebase-compile.log). `node scripts/node-test.mjs viewer "out/test/site/requirementsViewer/*.test.js"`: tests 64, pass 63, fail 0, skipped 1 (the map test that needs the real requirements report, as before; covered by CI viewer-graph) (rebase-viewer-tests.log). `STUDIO_REQUIRE_CHROMIUM=1 node scripts/node-test.mjs viewer-graph out/test/site/requirementsViewer/idLayout.browser.test.js`: pass 2, fail 0, includes "the breadcrumb, the eyebrow and the pager of the full-ID fixture stay inside the page at 1280, 800 and 390 px" (rebase-idlayout.log). VERIFIED.
+R4. Steps 1 and 3 captured again (4e05f1ee), made-up titles, no username or home path. `node capture.cjs <detached worktree> after-4e05f1e evidence/rebase <site>` (rebase-capture.log). Facts file `evidence/rebase/after-4e05f1e-facts.json` is byte-identical to the 4ddd1ded `after-facts.json` (`diff` printed nothing; the whole run, steps 1 to 6, matches). after-4e05f1e-step1-use-case.png (opened): crumbs `Areas / Block editing / StRS-MDOKFSTUDIO-BLOCK-003`, eyebrow `Use case StRS-MDOKFSTUDIO-BLOCK-003`. after-4e05f1e-step3-search.png (opened): query `StRS-MDOKFSTUDIO-BLOCK-014`, Use cases hit `StRS-MDOKFSTUDIO-BLOCK-014 Block editing`. VERIFIED.
+
+Carried from 4ddd1de: patch unchanged by the rebase: claims 1 to 7 above (the facts of R4 also re-prove them), 9 (the PR description, whose lines naming 4ddd1de are left to the Driver and must be updated to 4e05f1e), 10. Gate pass (claim 8) is at 4ddd1de only; the Driver's preflight at 4e05f1ee runs now and is not judged here.
+
+VERIFIED at 4e05f1eebf0752cef8b9fdb3639212a27a9b9247.
