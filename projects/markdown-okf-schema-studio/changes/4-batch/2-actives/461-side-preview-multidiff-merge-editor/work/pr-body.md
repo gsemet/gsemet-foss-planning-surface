@@ -49,8 +49,8 @@ No visual change; users learn from the docs that these two editors are not follo
 - [x] SwRS: LIFE-026 updated; `just requirements-update` and `just requirements-lint` pass, as part of the preflight run at afc0013.
 - [x] Changelog: No user-facing change in behaviour (documentation of an existing limit).
 - [x] Local gates: `just preflight` (static stage on Windows) passes at afc0013.
-- [ ] Review: Inspector pass pending.
-- [ ] CI green: pending.
+- [x] Review: Inspector approved at 7aa1e9b4 (rebased as afc00137); Verifier VERIFIED at afc00137.
+- [x] CI green at afc00137 (static, static-windows, viewer-graph, visual).
 
 ### Internal references
 
