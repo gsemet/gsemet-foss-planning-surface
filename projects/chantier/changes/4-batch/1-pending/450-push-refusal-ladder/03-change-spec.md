@@ -1,7 +1,11 @@
 # A refused push climbs: Foreman, then Chief of Staff, then the user
 
-Spec v3 (2026-11-21), over v2: carries push-ladder-Q11 (narrows Q10) and Q12, which close v2's two
-open questions. v2 carried push-ladder-Q3 to Q10 (Q8 revises Q5, Q10 revises Q4) and the spec
+Spec v4 (2026-11-21), over v3: no answer changes; applies the second spec critic's six
+non-behavioural fixes (the `push on the user's go` note and its J22 exemption, sections 3 and 11;
+the direct-mode "not legitimate" case and the host refusal after the user's go, section 3; the
+"not legitimate" case in the user-facing sentences, sections 6 and 10; `concepts.md` rule 8,
+section 12; the Foreman's P10 reading as `commands/permissions.py` prints it, section 2, step 3).
+v3 carried push-ladder-Q11 (narrows Q10) and Q12, which closed v2's two open questions. v2 carried push-ladder-Q3 to Q10 (Q8 revises Q5, Q10 revises Q4) and the spec
 critic's findings 4 to 8. Short name: `push-ladder`. Destination: batch-30, running
 (push-ladder-Q2), after CR-438, CR-442 and CR-443 where they overlap textually ("Overlaps in
 batch-30").
@@ -126,14 +130,23 @@ It holds, in this order:
    answer, with no hop to the Chief of Staff (in direct mode the Chief of Staff does the same).
 3. **Legitimate: the route rule first** (Claude Code; push-ladder-Q9; on Copilot, where P10 does
    not run, skip this step and go to step 4: push-ladder-Q12). Run `$CHANTIER preflight`
-   and read its P10 line for "every batch". The route rule of the form you will run (`git -C *
-   push --force-with-lease=chantier/* origin *chantier/*` for the `git -C` form, `git push
-   --force-with-lease=chantier/* origin *chantier/*` for the plain form) is present when that line
-   is `P10 ok`, or a `P10 warn` that names that rule in no `(add …)` part, the route command in no
-   `denied:` part, and no `unreadable:` file. Otherwise it is missing: push nothing, record
-   `$CHANTIER note <cr> "push not tried: route rule missing"` and send the `push` line of step 6 at
-   once. (P10 names a missing rule readably today, as `<command> (add Bash(<rule>))`, with
-   `PowerShell(<rule>)` on Windows: no new CLI output.)
+   and read its P10 line for "every batch" (the one whose text starts `every batch:`), as
+   `commands/permissions.py` (`_gap`) and `commands/preflight.py` (`_check_allow`) print it. The
+   route rule of the form you will run (`git -C * push --force-with-lease=chantier/* <remote>
+   *chantier/*` for the `git -C` form, `git push --force-with-lease=chantier/* <remote>
+   *chantier/*` for the plain form; `<remote>` is the project's remote as P10 fills it in, `origin`
+   unless the project's configuration names another) counts as present unless:
+   - that P10 line names it in an `(add …)` part, as printed: `(add Bash(<the rule>))`, or `(add
+     Bash(<the rule>), PowerShell(<the rule>))` on Windows, the rule with the project's remote
+     filled in; or
+   - that line has a `denied:` part with an entry whose shortened command could be the route form
+     you will run (P10 cuts a command of 60 characters or more to its first 57 and `...`, then
+     writes `by <the rule>`, and ` (asks)` for an ask rule): then the rule counts as missing.
+   Only the P10 line counts: the other preflight lines, the P10 line's broad or stale rules advice
+   and the preflight verdict are not yours to act on here. (An unreadable settings file needs no
+   reading of its own: a rule held only there is not found, so P10 names it in an `(add …)` part.)
+   Missing: push nothing, record `$CHANTIER note <cr> "push not tried: route rule missing"` and
+   send the `push` line of step 6 at once. (No new CLI output: P10 prints these parts today.)
 4. **Legitimate, the rule present:** first `$CHANTIER note <cr> "push judged legitimate at <local
    sha7> for <branch>: <one line: what the judgement checked>"`, then the route form, one command
    per branch. Accepted: take the CR back with `push: pushed <branch>` (the stack driver:
@@ -213,11 +226,20 @@ matching sentence goes where it now lives, and the new section links there.
     - Not legitimate (the checks pass, your judgement disagrees with the Foreman's): push nothing;
       tell the user at once, in the report's shape (the **For you:** line, no tip), naming both
       judgements: the Foreman's (its note) and yours (what you found); the CR (number and slug),
-      the branch, the expected and local shas. On the user's go, push in the route form; on their
-      no, answer `push refused <branch>: <the user's reason>`.
+      the branch, the expected and local shas. On the user's go, first `$CHANTIER note <cr> "push
+      on the user's go at <local sha7> for <branch>"`, then push in the route form; a host refusal
+      then (push-ladder-Q6): record it (`refused:` note), show the user the exact text and the
+      command, answer `push refused <branch>: <exact text>`, no second try. On their no, answer
+      `push refused <branch>: <the user's reason>`.
   - **In direct mode** (the Driver's `push` line): you are the steering session; run the check and
-    judgement, record `push judged legitimate at <sha7> for <branch>: …`, then push, no ask (the
-    route rule's P10 read of `foreman.md` is not a step for you: you push and, refused, ask).
+    judgement. Legitimate: record `push judged legitimate at <sha7> for <branch>: …`, then push, no
+    ask (the route rule's P10 read of `foreman.md` is not a step for you: you push and, refused,
+    ask). A hard check that fails: `foreman.md`'s refusal (push nothing, the take-back with `push
+    refused <branch>: <the reason>`). Not legitimate: push nothing and tell the user at once,
+    today's step 4 (the **For you:** line, the CR, the branch, the expected and local shas, what
+    the judgement found); on the user's go, the `push on the user's go` note, then the route form,
+    and a host refusal then as in the case above; on a no, `push refused <branch>: <the user's
+    reason>`.
   - Accepted: answer `pushed <branch>` (in direct mode, the CR's `take` note); the report's line
     (section 5).
   - A failed lease: today's step 5 unchanged (`push failed <branch> <git's text>`, the user told at
@@ -238,9 +260,10 @@ matching sentence goes where it now lives, and the new section links there.
     try, never another form, never a change to the permission settings. A failed lease: as above.
   - **On the user's no:** answer `push refused <branch>: <the user's reason>`.
   - **The Foreman's ask that a push is not legitimate** (push-ladder-Q6): today's step 4 in
-    substance: relay it to the user at once; on the user's go, push in the route form (a host
-    refusal then: record it, show the exact text and the command, answer `push refused <branch>:
-    <exact text>`, no second try); on a no, `push refused <branch>: <the user's reason>`.
+    substance: relay it to the user at once; on the user's go, first `$CHANTIER note <cr> "push on
+    the user's go at <local sha7> for <branch>"`, then push in the route form (a host refusal then:
+    record it, show the exact text and the command, answer `push refused <branch>: <exact text>`,
+    no second try); on a no, `push refused <branch>: <the user's reason>`.
   - "All answers go to the Foreman, never to the Driver": kept.
 - **The manifest reading (critic finding 5):** in Foreman mode the Chief of Staff's reading list
   (`startup-manifest.json`, action `chief-of-staff`) does not reach `foreman.md` today (only the
@@ -328,7 +351,7 @@ failed, stays.
 - **The alert of the first turn (~line 478):** "It then goes to the Chief of Staff, who runs a
   legitimate one without asking you" becomes "It then goes to the Foreman, then to the Chief of
   Staff, who each judge and run a legitimate one without asking you; you are asked only if both are
-  refused".
+  refused, or when a judgement finds it not legitimate".
 - CR-443 adds a sentence to the chantier rows' "Risk accepted" of the same table: a textual overlap
   only.
 
@@ -383,7 +406,8 @@ reading, not a startup one). CR-438 adds the action `batch:stack` to the same fi
 
 - **`docs/tutorial-claude-code.md`, "The classifier refused a chantier command" (~line 257):** one
   line added: "A Driver's force push the host refuses climbs on its own: the Foreman pushes it, then
-  the Chief of Staff; you are asked only when both are refused."
+  the Chief of Staff; you are asked only when both are refused, or when a judgement finds it not
+  legitimate."
 - **The same page, "The Foreman was refused an action by a classifier" (~line 261):** one clause:
   "except a Driver's force push, which goes to the Chief of Staff, not to you".
 - **`docs/hosts.md` (~line 39), the same sentence on a Foreman refused an action:** the same clause,
@@ -394,10 +418,11 @@ reading, not a startup one). CR-438 adds the action `batch:stack` to the same fi
 - **`evals/kit/audit.py` (~line 618), J22:** the exemption holds in both modes (not only `if
   direct:`) and only for a steering command that is the route form (`git [-C <path>] push
   --force-with-lease=<branch>:<sha> <remote> <sha>:refs/heads/<branch>`) **and** whose `<branch>`
-  appears in an earlier `push judged legitimate` note command (`… note <cr> "push judged legitimate
-  at <sha7> for <branch>: …"`) in the same steering transcript (critic finding 7). Any other push by
-  a steering session still fails J22: a route push with no such note, and any `--force-with-lease
-  -u` push, in either mode (today's direct-mode breadth narrowed on purpose, push-ladder-Q7). The
+  appears in an earlier note command of the same steering transcript (critic finding 7), either
+  `push judged legitimate` (`… note <cr> "push judged legitimate at <sha7> for <branch>: …"`) or,
+  on the user's go after a "not legitimate" judgement, `push on the user's go` (`… note <cr> "push
+  on the user's go at <sha7> for <branch>"`). Any other push by a steering session still fails
+  J22: a route push with neither note, and any `--force-with-lease -u` push, in either mode (today's direct-mode breadth narrowed on purpose, push-ladder-Q7). The
   preflight trial's `git -C <main checkout> push --force-with-lease -u <remote>
   chantier/preflight-trial --dry-run` is not the route form and is not exempted; the Driver checks
   that no `dry_run.py` case relies on today's breadth (the trial runs before the claim's window in
@@ -408,16 +433,25 @@ reading, not a startup one). CR-438 adds the action `batch:stack` to the same fi
     [J22]`;
   - Foreman mode: a route push with no note before it: `FAIL [J22]`;
   - direct mode: the Chief of Staff's note, then the route push: no `FAIL [J22]`;
-  - direct mode: `git push --force-with-lease -u origin chantier/...`: `FAIL [J22]`.
+  - direct mode: `git push --force-with-lease -u origin chantier/...`: `FAIL [J22]`;
+  - direct mode: the Chief of Staff's `push on the user's go` note, then the route push: no `FAIL
+    [J22]`.
   Added to `CASES`, the dispatch table and the docstring's case table.
 - **`evals/SCORECARD.md`, rows J11 and J22:** J11 says the ladder (the Driver records and sends the
   `push` line; the Foreman judges and, the route rule present, pushes; refused or not tried, the
   Chief of Staff judges again and pushes with no ask; refused, one question to the user and one push
   on the yes; each refusal recorded with its exact text); its cards column gains `routing.md` and
   `hosts/claude-code.md`. J22's exception reads "a force push it runs on a Driver's `push` line, in
-  the route form, after its `push judged legitimate` note, J11".
+  the route form, after its `push judged legitimate` or `push on the user's go` note, J11".
 
-### 12. Not touched
+### 12. `skills/chantier/references/concepts.md`, rule 8 (~lines 724-729)
+
+The route form in the push forms gains its `git -C` form, as the plain and the rewrite forms have
+theirs: "the steering session's route `git push --force-with-lease=<branch>:<expected> <remote>
+<local sha>:refs/heads/<branch>`" becomes "… `<local sha>:refs/heads/<branch>` (or the same with
+`git -C <checkout>`)". Nothing else in the rule changes.
+
+### 13. Not touched
 
 - `agents/` and `com.github.copilot/agents/`: they hold no text of this route (no "force push" or
   "push refused" there). If the Driver finds one to change, both hosts' files change together and
@@ -471,7 +505,9 @@ reading, not a startup one). CR-438 adds the action `batch:stack` to the same fi
     judged legitimate", "both judgements" and "on the user's yes";
   - `driver.md` holds "the steering session does not send it" and not "the Chief of Staff does not
     send it";
-  - `routing.md`'s Foreman → Chief of Staff row holds `pushed <branch>` and `push failed`.
+  - `routing.md`'s Foreman → Chief of Staff row holds `pushed <branch>` and `push failed`;
+  - `chief-of-staff.md` holds `push on the user's go at`;
+  - `concepts.md` holds the route form followed by "(or the same with `git -C <checkout>`)".
 - Host and default matrix (the route depends on the host and on the user's settings, not on a
   shipped default):
   - Claude Code, Foreman mode, route rule set: Driver → Foreman (documented to resolve before the
