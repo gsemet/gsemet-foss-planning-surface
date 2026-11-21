@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "A stack CR starts on another CR's branch only once that CR is ready",
-  "summary": "Spec v2: take starts a stack CR on the nearest earlier CR with a PR only when it is handed back ready, else the default branch (no skip down); a taken CR not yet placed prints its start_on while its owner is open, else the default branch.",
+  "summary": "Spec v3: take starts a stack CR on the nearest earlier CR with a PR only once it is ready, else the default branch; a CR with an open dependency is on its highest open dependency's branch until placed; a taken CR prints its live start_on, else the default branch.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "057765cd798f4d72e60497c8af3ecac028f03f04d5785927b7ced8d511971eae",
-    "02-answers.md": "7ee4580fd978b3820130e1273a12794399c3bee4fb4c7d8ac63cdbbe5c4d988a",
-    "03-change-spec.md": "baad289ff8b350d2159497d607eaee0b43692bd5276c3b863f88d99f363a341f",
+    "02-answers.md": "70b3a1f146c0a268ae08bcf7c0404da415f0954e40a1b17369db4fccb3f493f2",
+    "03-change-spec.md": "e70c2716a7b1b468b71469886b5cf5b6f2014494ad14009e7e2aace8e8b14db8",
     "intake/request.md": "c9def636f6aedf0d4ea628e755de6cab750ed741f7fa3b0fe5d577be7cc46ba5"
   },
-  "summarized": "2026-11-21T22:37:20Z"
+  "summarized": "2026-11-21T22:47:43Z"
 }
