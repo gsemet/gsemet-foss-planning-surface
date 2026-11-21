@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "gate runs only named commands; lease hold runs nothing",
+  "summary": "Specified (v4), after CR-432: gate runs only long gates named in the code repo's root chantier.yaml (long_gate.commands, by name; free command refused exit 1; surface layers ignored); lease hold runs nothing, keeps a lease 45 min (90 max, said). One open question, built on A.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3b36985e22b3ac520044ea5335d58d26dbeb1b54e2775650116cbb3ada5c4625",
+    "02-answers.md": "a8e1f6dcc796b8323467786071583396123abc9ea29e16fec0698d2bc3bde3b5",
+    "03-change-spec.md": "32bf128f290762298639e4dd6a30cde30801d7cb82eb8b943018a171353ede03",
+    "intake/request.md": "ba24bc665a9f54d860da43af2a47659f780db4b97e0055cf329380c3c219ea6c"
+  },
+  "summarized": "2026-11-21T19:11:15Z"
+}

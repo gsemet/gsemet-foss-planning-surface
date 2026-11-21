@@ -11,7 +11,7 @@ batch-30 after it: the Driver works on CR-432's merged head. Places are named by
 their function, never by a line number (CR-432 and the commits since this was written move the
 lines); section 6 names where this CR meets CR-432 and the other CRs of batch-30.
 
-Spec v3: v2 with the spec critic's eight findings applied (gate-hold-Q7 and Q8 included).
+Spec v4: v3 with the spec critic's nine findings applied (gate-hold-Q9 and Q10 included).
 
 ## Goal
 
@@ -60,15 +60,35 @@ through chantier, not against a Coder.
   `lease-late`) while nobody took the unit again.
 - gate-hold-Q7 (a Fable advisor's answer): before this CR merges, its own gates use the old free
   form, `gate <cr> "just scenario"` (the CLI runs live from the main checkout, still the old one);
-  after the merge, the refusal's `named: scenario` is enough for a running Driver, and the Chief
-  of Staff tells the live Drivers of batch-30 once. No ordering of the batch for it. Evidence,
-  "Gates owed".
+  after the merge, the refusal's `named: scenario` is enough for a running Driver, and the live
+  Drivers of batch-30 are told once: in direct mode by the Chief of Staff; in Foreman mode the
+  Chief of Staff never messages a Driver, the steering session tells them (the Foreman, on the
+  Chief of Staff's word). No ordering of the batch for it. Evidence, "Gates owed".
 - gate-hold-Q8 (a Fable advisor's answer): only the code repository's root `chantier.yaml` may
   name a gate's command. `long_gate.commands` in a planning surface's `chantier.yaml` (its root or
   the project's folder) is ignored for running, and `playbook` and `validate` say so;
   `long_gate.parallel` keeps merging across all layers. The planning surface is written by agents,
   by the board's `config.put` and by anyone who can push it, and the writer fetches it with no
-  prompt; the code repository's file is under PR review.
+  prompt; the code repository's file is under the PR review, or the user's yes until the CR that
+  commits it merges (Q10).
+- gate-hold-Q9 (a Fable advisor's answer): the 90-minute cap stays, and the spec says it: a
+  Driver that dies right after `lease hold --minutes 90` leaves its lease live up to 90 minutes,
+  with no process behind it. No new reclaim rule and no lower cap. Once the host shows the holder
+  ended, the steering session runs `agents set <unit> -`, which already ends a live lease
+  (`commands/agents.py`, `_end_live_lease`, unchanged; `REF/foreman.md`, "after an agent's
+  reported end ends its live lease"; `REF/concepts.md`, the **Lease:** entry, "**Ended** by ...
+  `agents set <unit> -` on a live lease"): the restart does not wait and needs no word of the
+  user. `--reclaim` on a live lease stays on the user's word only, for a holder the host cannot
+  show ended. Sections 3 and 5.
+- gate-hold-Q10 (a Fable advisor's answer): the `long_gate.commands` entry the Chief of Staff
+  writes on the user's yes (perm-bypass-Q9) is written in the main checkout's root
+  `chantier.yaml`, uncommitted, so gates run at once; in the same message the Chief of Staff
+  offers an inbox CR that commits it. Until that CR merges, a PR that adds or changes the root
+  `chantier.yaml` stops the fast-forward of the main checkout after a recorded merge (`git merge
+  --ff-only --no-overwrite-ignore`, `REF/foreman.md`'s fast-forward step): git refuses
+  (`untracked file in the way: chantier.yaml`, or its local-changes text), the step reports it
+  and overwrites nothing. chantier's own entry (Q14) ships committed in this CR's PR (section 4),
+  so chantier itself never meets the uncommitted state. Section 5.
 
 ## What changes
 
@@ -106,7 +126,11 @@ long_gate:
 - `$CHANTIER validate` (it reads no `chantier.yaml` today): one finding of severity `gap` (exit
   0, as gaps are) for each planning surface `chantier.yaml` (root or project folder) that holds
   `long_gate.commands`, with the same "ignored: only the code repository's root chantier.yaml
-  names a long gate's command" text.
+  names a long gate's command" text. Its descriptions name the new check, as a gap:
+  `declare/validate.py`, the command's help ("check the whole planning folder: stages, CR
+  folders, ..."); `REF/concepts.md`, the planning folder sentence "`$CHANTIER validate` checks the
+  whole planning folder (stages, CR folders, ...)"; `docs/planning-folder.md`, the paragraph
+  "`chantier validate` checks the whole planning folder and writes nothing: ...".
 - The board's Configuration page and `config.put` edit only the two limits and the roles: a save
   keeps `long_gate.commands` as it is in the file it writes, and never adds one.
 
@@ -115,7 +139,16 @@ long_gate:
 - New form: `gate <cr> <name> [<name>...]`. Each name is looked up in `long_gate.commands`; the
   gate runs their commands in the order given, as today (stop at the first failure, the queue, the
   slots, `--stop`, `--first`, the dirty-tree refusal, the moved-head rule: all unchanged).
-- Refused before anything runs or is logged:
+- `--stop` and `--first` take no name and need no entry: unchanged (`gate <cr> --stop` with no
+  `chantier.yaml` exits 0, nothing to stop). `gate <cr>` with neither a name nor `--stop` or
+  `--first` is a usage refusal, exit 1, as today; `_commands`' usage error gives the named form:
+  `gate <cr> <name> [<name>...]: the long gate's names from chantier.yaml (long_gate.commands),
+  one per argument`; `--stop` with a name: `gate <cr> --stop takes no name`, exit 1.
+- A run given names is refused before anything runs or is logged, in this order: first a problem
+  in the `long_gate` key of any layer (a bad `parallel`, a bad name or command, an unknown key),
+  exit 2 with its line, as today's `_parallel` refusal (the configuration is read and checked
+  before any name is looked up); then no entry (exit 2, below); then a word that is not a name
+  (exit 1, below):
   - a word that is not a configured name (a free command such as `"just scenario"` included),
     exit 1 (`EXIT_USAGE`):
     `gate <cr>: "<word>" is not a long gate named in chantier.yaml (long_gate.commands); named: <names>`;
@@ -133,6 +166,9 @@ long_gate:
   `handoff`, `status` and the carry logic read as before.
 - `declare/gate.py`: the positional becomes `name` ("the long gate's names from chantier.yaml's
   long_gate.commands, run in order"); the command's help says so.
+- `commands/driver_checks.py`, `_gate_missing`: the handback refusal's `(gate <cr> "<cmd>"...,
+  or --no-gate "<the project's rule>")` becomes `(gate <cr> <name>..., or --no-gate "<the
+  project's rule>")`.
 - `facts.py`, `_gate_lines`: the checklist's `gate <cr> "<cmd>" ["<cmd>"...]` becomes
   `gate <cr> <the configured names, in their order>` (for chantier: `gate CR-n scenario`), or,
   with none configured, `gate <cr> <name> (none in chantier.yaml: ask the steering session)`; the
@@ -157,6 +193,10 @@ long_gate:
   `_HOLD_NAME`, `Liveness.holds` and the text `, held by N background task(s)` are removed. A
   lease is live while it has not ended and it expires in the future or a long gate of the CR runs
   or waits. `gate_keeping` is unchanged (Q6).
+- The cap (Q9): a hold keeps the lease live up to 90 minutes with no process behind it; nothing
+  in the CLI changes for it. `agents set <unit> -` (`_end_live_lease`) already ends a live lease,
+  held or not, once the host shows its holder ended; `take --reclaim` on a live lease stays the
+  user's word.
 - The hold leftovers, each found by its text:
   - `core/files.py`, `IGNORED`: the `".lease-hold.*.run"` pattern **stays**, so a record left by
     an older version is never published;
@@ -226,6 +266,12 @@ long_gate:
     stopped for it.
   - QA driver: "run a long test as `lease O-k hold --lease <n> -- <command>`" becomes "before a
     long test, `lease O-k hold --lease <n> [--minutes N]`; 'not confirmed' past it is no failure".
+- `REF/foreman.md`, the `take` bullet's lease sentences (after "`agents set <cr>|O-k|stack -
+  --epoch <n>` after an agent's reported end ends its live lease, so the restart does not
+  wait."): one sentence (Q9): a `lease hold` keeps a lease live up to 90 minutes with no process
+  behind it; once the host shows its holder ended, that `agents set ... -` ends it with no word
+  of the user; `--reclaim` on a live lease stays the user's word, for a holder the host cannot
+  show ended.
 - `REF/verifier.md` (the sentence that starts "You run `$CHANTIER gate <cr>" and says "one
   command per argument"): the named form.
 - `REF/concepts.md`:
@@ -249,13 +295,27 @@ long_gate:
     gate by its name and the `chantier.yaml` entry holding the command; "propose the
     `long_gate:` / `parallel: <n>` lines of `chantier.yaml`" applies when `chantier.yaml` has no
     `long_gate.parallel` (a file holding only `long_gate.commands` still gets the question).
+    The offer's write, in one sentence (Q10): the entry is written in the main checkout's root
+    `chantier.yaml`, uncommitted, so gates run at once, and in the same message the Chief of Staff
+    offers an inbox CR that commits it; until that CR merges, a PR that adds or changes the root
+    `chantier.yaml` stops the fast-forward after a merge, which reports it and overwrites nothing.
   - the `chantier.yaml` example shows `commands:` under `long_gate:`, with a note that only the
     code repository's root file names commands.
+  - "Steering a batch yourself", the **Leases** bullet: the same sentence as `REF/foreman.md`'s
+    (Q9), after "`agents set <cr>|O-k|stack -` after an agent's reported end ends its live lease".
+  - the close, on Copilot (Q9): the table's row **D** ("Close the batch" while something still
+    runs), in its way out, "its lease's expiry (at most 10 minutes)" becomes "its lease's expiry
+    (at most 10 minutes, up to 90 minutes after a hold; `agents set <cr> - --epoch <n>` after its
+    reported end ends the wait)"; the **Closing** bullet's parenthesis "on Copilot, until
+    `copilot-close-end-event` lands, a held agent whose lease is live, ... refuse too" adds the
+    same "(a lease lives at most 10 minutes, up to 90 minutes after a hold; `agents set <cr> -
+    --epoch <n>` after the agent's reported end ends it)".
 - `REF/init.md`, the long gate item (the one that ends "Not asked when `chantier.yaml` already has
   `long_gate`"): the `long_gate.commands` entry is proposed too, on the same yes, for the code
   repository's root `chantier.yaml`; the test becomes "Not asked when `chantier.yaml` already has
   `long_gate.parallel`" (a `long_gate:` holding only `commands` still gets the parallel
-  question); "one command per item" stays for `AGENTS.md`.
+  question); "one command per item" stays for `AGENTS.md`. The write is the one of the Chief of
+  Staff's offer, with the same inbox CR offered (Q10).
 - `REF/hosts/claude-code.md`: the sentence CR-432 adds to the "Risk accepted" of the chantier
   rows of "Allow rules" (its text: "`gate` and `lease hold` still run the command they are given,
   until `gate-hold-narrowing`") becomes "`gate` runs only the long gates the code repository's
@@ -265,7 +325,22 @@ long_gate:
   surface's is ignored); the example shows both; the sentence "the Driver passes each as its own
   argument to `chantier gate`" speaks of names.
 - `docs/planning-folder.md`: "and the `.lease-hold.*.run` records of a running `lease hold`"
-  goes.
+  goes; the `validate` paragraph lists the new gap (section 1).
+- `docs/agents-and-models.md`, the sentence "The file's other keys are ...": "`long_gate` (how
+  many long gates may run at once, [your gates](gates.md))" becomes "`long_gate` (`parallel`: how
+  many long gates may run at once; `commands`: the long gate's names and their commands, read
+  only from the code repository's root `chantier.yaml`; [your gates](gates.md))".
+- `docs/tutorial-claude-code.md`, the paragraph after the `AGENTS.md` example ("The first line is
+  the **fast gate** ... through `chantier gate` ..."): a runnable long gate also needs its entry
+  in the code repository's root `chantier.yaml` (the example: `long_gate:` / `commands:` /
+  `tests: npm test`), which the Chief of Staff proposes with the `AGENTS.md` line and writes on
+  your yes.
+- `README.md`: the init paragraph's "It checks the long gate in `AGENTS.md` and writes the lines
+  on your yes." and the table row "our long gate is `npm test`" ("the Chief of Staff proposes the
+  exact `AGENTS.md` lines and writes them on your yes") say the same: the `AGENTS.md` line and the
+  root `chantier.yaml` entry (`long_gate.commands`) that makes the gate runnable, both proposed
+  and written on your yes; the "Your gates" link's "the long gate you declare in your
+  `AGENTS.md`" adds "and whose command `chantier.yaml` holds".
 - `scenario/README.md`: section 3a's "the lease stays live, held by 1 background task" becomes
   "the lease stays live through the hold's minutes, with no process running"; its gate texts give
   names.
@@ -306,12 +381,23 @@ Read on CR-432's merged head, by text:
   `HOLDS`. Whichever merges second rebases on the other: if CR-429 is in first, this CR also
   drops the `.lease-hold` pattern wherever CR-429 carries it (its watch's path filter, its
   tests), keeping `core/files.py`'s `IGNORED` entry; if this CR is in first, CR-429's Driver finds
-  `HOLDS` gone and drops it from its watch. The Chief of Staff tells CR-429's Driver at this CR's
-  merge.
+  `HOLDS` gone and drops it from its watch. CR-429's Driver is told at this CR's merge: by the
+  Chief of Staff in direct mode; in Foreman mode the steering session tells it (the Foreman, on
+  the Chief of Staff's word).
 - CR-436 (`4-batch/1-pending/436-sync-blocked-by-others`): it changes only the `cli_command`
   callers in `commands/driver.py`, `commands/facts.py` and `commands/orders.py`; this CR edits
   other lines of those files (the stack driver's and the QA order's `lease:` lines,
-  `_gate_lines`). Same files, no shared line.
+  `_gate_lines`). It also edits, in files this CR edits, other sentences:
+  - `AGENTS.md`: the bullet "The CLI is one Python package ..." ("in chantier's own checkout (a
+    `.git` at the plugin root)"); this CR edits the Windows coverage sentence, the no-setup bullet
+    and the `lease` exception's sentence;
+  - `REF/concepts.md`, the `$CHANTIER` entry: its first sentence ("in chantier's own checkout
+    ..."); this CR edits the same entry's long gate sentences ("The long gate is `gate <cr>"...);
+  - `TESTS/test_cli_runs.py`: its mode-parametrized P10 tests; this CR, the test that calls
+    `chantier("gate", "CR-101", "true")`;
+  - `scenario/run_scenario.py`: the sandbox project ("demo") run in plugin mode, and its P10
+    settings; this CR, the workspace's `chantier.yaml`, the gate calls and section 3a.
+  Same files, different sentences: the Driver keeps CR-436's text as merged.
 
 ### 7. The eval kit (Q4)
 
@@ -348,7 +434,9 @@ Read on CR-432's merged head, by text:
 
 | Cell | Expected |
 | --- | --- |
-| Shipped defaults only (no `long_gate.commands`) | `gate <cr> <anything>` refused, exit 2, the text giving the three lines to add; nothing logged; `playbook` prints `long gate: none named` |
+| Shipped defaults only (no `long_gate.commands`) | `gate <cr> <name>` refused, exit 2, the text giving the three lines to add; nothing logged; `playbook` prints `long gate: none named` |
+| `--stop` / `--first` with no entry | unchanged (`gate <cr> --stop` with no `chantier.yaml`: exit 0, nothing to stop) |
+| A bad `long_gate` key, `gate <cr> <name>` | refused, exit 2 with its line, before the name check |
 | `long_gate.commands.scenario` set in the code repository's root, `gate <cr> scenario` | runs the command, as today's gate |
 | Same, `gate <cr> "just scenario"` (a free command) or an unknown name | refused, exit 1, listing `scenario`; nothing logged |
 | Two names, `gate <cr> a b` | runs a then b; stops at a's failure |
@@ -366,7 +454,14 @@ Read on CR-432's merged head, by text:
     `long_gate` each give a problem with its line;
   - `gate` refuses, before any log or event, a free command and an unknown name (exit 1) and a
     project with no entry (exit 2, its text holds the three lines); with an entry, the event
-    carries the name and the command;
+    carries the name and the command; `--stop` and `--first` with no entry behave as today;
+  - the tests this breaks, kept asserting what they assert: `test_gate_refusals.py` (`GATE =
+    "python -c pass"` becomes a name; the bad long_gate key test keeps `gate <cr> <name>` with no
+    entry and still expects exit 2 with the key's line, the problem being refused before the name
+    check; its "an unknown key" case keeps `unknown key "slots"`; `gate <cr> --stop <name>` stays
+    exit 1, `gate <cr>` exit 1, `gate <cr> --stop` exit 0 with no `chantier.yaml`) and
+    `test_playbook_layers.py` (`load_long_gate(repo) == (3, [])` and `== (1, [])`: adapted to the
+    function's new return, still parallel 3 then 1 and no problem);
   - the ignored layer (Q8), one test: in an external planning surface, `long_gate.commands` in
     the surface's project folder only: `gate` is refused exit 2, `playbook` prints the "ignored"
     line, `validate` gives one gap; the same layer's `long_gate.parallel` still applies;
@@ -406,7 +501,9 @@ Read on CR-432's merged head, by text:
   stack, the local long gate. Q7: until this CR merges, the CLI that runs is the main checkout's
   old one, so this CR's own local gate is `gate <cr> "just scenario"` (the free form), and so are
   the other batch-30 Drivers'; after it merges, a Driver whose free command is refused types the
-  `scenario` the refusal names, and the Chief of Staff tells the live Drivers once. No `hooks/` or
+  `scenario` the refusal names, and the live Drivers are told once: by the Chief of Staff in
+  direct mode; in Foreman mode the Chief of Staff never messages a Driver, the steering session
+  tells them (the Foreman, on the Chief of Staff's word). No `hooks/` or
   `types/` change.
 - The PR's body: the **Before you update** paragraph (section 5), the published API change
   (`holds` gone from `project.state`'s lease object), the re-recorded `evals/kit/sandbox.json`

@@ -1,6 +1,8 @@
 # CR-431 verify
 
-Head: c13260272361568a74083699ac0e85e3479b4f3d
+Head: 9783ec5e21be9e3d4eacba3f28784387fb82b517
+
+The head is now 9783ec5; its tree is identical to db75bff's (`git diff --quiet db75bff HEAD` -> same tree, clean worktree). Every judgment below is carried from db75bff (and older heads where stated) for that reason: no file differs, so the move touched no proof. Earlier Head lines: c132602, then db75bff.
 
 Rules read (`$CHANTIER rules`): AGENTS.md, CONTRIBUTING.md and the listed docs; the gates they name are cited below.
 
