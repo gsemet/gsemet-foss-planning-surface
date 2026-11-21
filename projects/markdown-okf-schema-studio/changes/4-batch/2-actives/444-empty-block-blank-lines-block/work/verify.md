@@ -60,3 +60,41 @@ Commands: `gh pr view 453 --json body,headRefOid` (head e293b928...), `gh pr che
 - Review box cites ccf9ff7, matches the Driver note: pass. No images attached, none required by the owner's decision.
 
 VERIFIED
+
+## Re-verification after move e293b92 -> 5e42c5f (restack, conflict in requirements/tiers/log.md)
+
+Head: 5e42c5f6e5669561090d86912d8ba6f34f0fd0ba
+
+Verdict: VERIFIED
+
+Judged again at 5e42c5f6e5669561090d86912d8ba6f34f0fd0ba:
+- Gate: first line `gate CR-444 ... head 5e42c5f6e5669561090d86912d8ba6f34f0fd0ba`, last line `result: pass at 5e42c5f6...` (work/gates/20261121-062652.log).
+- Base brought changes to package.json, justfile, test/page/pinnedFont.ts (`git diff --name-only 6154eb1b 726b41d`), so claims 2-3 rerun: `npm run compile` ok; targeted suites
+  `node scripts/node-test.mjs unit "out/test/{core/mapping/blankRuns,...,page/runtimeBlankLines}.test.js"` -> `tests 160, pass 160, fail 0`.
+- CI (`gh pr checks 453`, run 44869139275): static, static-windows, visual, report, checks pass; integration, stress skipping (heavy not run).
+- Review: `chantier log` note "move e293b92..5e42c5f (conflict) inspector approved at 5e42c5f6..." (Inspector approved the move).
+- PR description (`gh pr view 453 --json body`): Known gaps present (kept-editor path, no screenshots); Review box cites ccf9ff7 as before.
+  Stale: body still names e293b92 in the "Local gates" box (line 70), the heavy-CI gap (line 46, true of that SHA) and the Review line (72); Driver updates after this pass.
+
+Carried from e293b92: claim 4 (spec wiring) and 8 (images), 5 (requirements lint): the patch is identical (range-diff approved by the Inspector), only the log.md context conflicted.
+Not proved at this head: real VS Code scenario and kept-editor path (integration/stress not run).
+
+---
+
+# Description pass at 5e42c5f (PR 453 body only)
+
+Head: 5e42c5f6e5669561090d86912d8ba6f34f0fd0ba
+
+Code claims: carried from e293b92 (the move e293b92..5e42c5f is the restack onto the CR-443 branch; the CR patch is unchanged, the Driver's note records inspector approval of the move at 5e42c5f).
+
+Claims judged at 5e42c5f:
+- Head: `gh pr view 453 --json headRefOid` = 5e42c5f6e5669561090d86912d8ba6f34f0fd0ba, same as `git rev-parse HEAD` in the worktree. Holds.
+- Long gate: gate log gates/20261121-062652.log first line `gate CR-444 ... head 5e42c5f6...`, last line `result: pass at 5e42c5f6...` (visual/integration/report/gallery skipped on Windows). The body says static stage only. Holds.
+- CI: `gh pr checks 453`: static, static-windows, visual, report pass; integration, stress, gallery skipping. Body says exactly this. Holds.
+- Heavy run carried: `gh run view 44862880704` conclusion success, headSha e293b928..., integration and stress success. Body says passed at e293b92, not run at 5e42c5f. Holds.
+- Review box: `chantier log 444`: "move e293b92..5e42c5f (conflict) inspector approved at 5e42c5f6..." matches `Review: approved at 5e42c5f`. Holds.
+- Known gaps present: no screenshots (CoS decision, not required), no before image, kept-editor path UNVERIFIED, heavy run not at head, long gate Windows only. Holds.
+- Rendering and consistency: sections, mermaid, details fold are well formed; no images attached, so none can show a username; Summary/Deliverables/Changes match the delivered feature; role names only in Internal references (CR-444). Holds.
+- Verified box at 5e42c5f: given by this pass.
+
+VERIFIED
