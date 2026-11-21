@@ -82,3 +82,5 @@ Users see Studio open at the searched line with the marker; Markdown opening set
 CR-445 "open-at-line-marker", batch-07; specification `03-change-spec.md` (decisions 12 to 33 by the Griller); notes `work/coder/r1.md` to `r4.md`.
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
