@@ -58,8 +58,14 @@ At 1280 px all six maps are shorter. At 800 px three maps are taller than before
 - Requirements: SwRS CORE-080, -081, -082, -083 updated, new CORE-091 (Play), the StRS CORE-008 links, the
   project guideline (one to three paths per use case), a dated entry in the requirements log.
 - Tests: `metroMap.test.ts`, `metroMap.browser.test.ts`, `metroShapes.ts`, updated `pages.test.ts`
-  and fixture, pinned KaTeX fonts for the layout checks; `npm run test:viewer-graph`, run by
-  `just ci-visual` after `just requirements-report`.
+  and fixture, pinned KaTeX fonts for the layout checks; `npm run test:viewer-graph`, run by the new
+  `just ci-viewer-graph` target in its own CI job (`viewer-graph`), after a JSON-only
+  `just requirements-report-json`.
+- CI: the `visual` job already used about 90 % of its 15 minute limit (its healthy runs last 11m45 to
+  14m05; the test step alone is 11 to 13 minutes). Putting the report and the map tests in it added
+  75 to 90 s and got it cancelled twice. Nothing was hung (the map test itself takes 17 to 19 s). They
+  now run in a job of their own, about 3 minutes, in parallel; `visual` is back to what it ran before,
+  and no timeout is raised.
 
 ## Impacts
 
