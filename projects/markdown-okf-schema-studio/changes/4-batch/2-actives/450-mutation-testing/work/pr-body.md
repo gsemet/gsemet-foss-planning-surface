@@ -19,7 +19,7 @@ flowchart LR
 - **An ignorer** leaves out log calls and user-facing message strings.
 - **A report reader** gives the score per `core` sub-folder and per requirement, zero-kill tests (a test that only runs at module load is not judged), a greedy redundant-test list, tests "not judged", and the holes (labelled "no test kills it" or "killed only by another layer").
 
-The campaign ran on a sample, because the full `src/core` run projects to about 23 h (over the 6 h limit set for it): 51 files, every one of the 19 `core` sub-folders, 6,007 mutants, 1,396 tests, 91 min 5 s end to end. Overall score 70.0%; 1,700 mutants (28%) do not compile (rejected by the TS 7 checker, no test run); 1,289 holes (1,254 no test kills it, 35 killed only by another layer, 2 equivalent found by reading, not proved).
+The campaign ran on a sample, because the full `src/core` run projects to about 7.4 h (0.91 s per mutant over about 29,000 mutants, over the 6 h limit set for it): 51 files, every one of the 19 `core` sub-folders, 6,007 mutants, 1,396 tests, 91 min 5 s end to end. Overall score 70.0%; 1,700 mutants (28%) do not compile (rejected by the TS 7 checker, no test run); 1,289 holes (1,254 no test kills it, 35 killed only by another layer; the 1,254 include 2 equivalents found by reading, not proved).
 
 | Result of the sampled run | Figure |
 | --- | --- |
@@ -50,11 +50,11 @@ The other sub-folders were not touched: configuration 92.9, directives 86.2, edi
 
 ## Blast radius
 
-Grade: 1. Development tooling and tests only: new files under `scripts/` and `test/`, one `justfile` target outside `check`, `ci-static` and `preflight`, three docs lines, a dev dependency and generated requirement coverage lines. No `src/` change; `git revert` restores everything.
+Grade: 1. Development tooling and tests only: new files under `scripts/` and `test/`, one `justfile` target outside `check`, `ci-static` and `preflight`, a docs paragraph and a target line, a dev dependency and generated requirement coverage lines. No `src/` change; `git revert` restores everything.
 
 ## Autonomous decisions
 
-- The full `src/core` run projects to about 23 h, over the 6 h rule, so the campaign runs on a recorded sample of files (each sub-folder represented), and the new tests were checked by a re-run on the 19 files they target.
+- The full `src/core` run projects to about 7.4 h, over the 6 h rule, so the campaign runs on a recorded sample of files (each sub-folder represented), and the new tests were checked by a re-run on the 19 files they target.
 - StrykerJS with a small `node:test` adapter for per-test coverage; the score per sub-folder and per requirement, with log calls and user-facing message strings excluded from mutation; every requirement stays covered; the note for the campaign's process is written for later reuse.
 - Accepted additions: the bail off in the `core` phase, a rule that keeps regression and boundary tests, the ignorer's rule list, a load-time zero-kill rule in the reader, unit tests of the tool, the just target with its docs lines, and no requirement change.
 - Holes outside the 25 clusters were left without a test, in the categories of Known gaps below.
@@ -64,9 +64,9 @@ Grade: 1. Development tooling and tests only: new files under `scripts/` and `te
 
 - No test is removed or merged: the redundant-test list is for the owner's later review.
 - **Known issue, not fixed (no `src/` change here):** the comment model accepts the date `2026-02-30T10:00:00Z`, because `Date.parse` rolls it over, while REVIEW-004 says a comment date is "a real instant". The new test does not include that case. To go to the backlog.
-- 97 cluster holes remain, each listed under Changes with why it is left (5 equivalent or likely equivalent by reading, 92 not worth a test now; several are killable with a second navigation-root fixture or a document ending in a lone CR).
+- 97 cluster holes remain, each listed under Changes with why it is left (6 equivalent or likely equivalent by reading, 91 not worth a test now; several are killable with a second navigation-root fixture or a document ending in a lone CR).
 - One mutant newly appears as a hole in the re-run, `previewNavigation.ts:18:24` (Regex, survived); its cause is not investigated.
-- The 872 holes outside the 25 clusters get no test, in six categories: catalogue and data-table literals (128), message and label texts (20), other string constants (137), empty `catch` blocks after a file-system error (3), regular-expression variants (112), and 472 conditions and operators that are an **unjudged residue**, not a verdict (single guards of validated input or redundant guards, to re-read if a file score stays low). The per-hole list with its category is in the evidence file named under Internal references.
+- The holes outside the 25 clusters get no test, in six categories (872 in all): catalogue and data-table literals (128), message and label texts (20), other string constants (137), empty `catch` blocks after a file-system error (3), regular-expression variants (112), and 472 conditions and operators that are an **unjudged residue**, not a verdict (single guards of validated input or redundant guards, to re-read if a file score stays low). The per-hole list with its category is in the evidence file named under Internal references.
 - Equivalent mutants are found by reading, not proved.
 - The symbolic-link test of the stem index is skipped where links cannot be made (no privilege), so that branch is covered only on machines that allow links.
 - The campaign ran on a sample (51 of the `src/core` files): the other files are not measured, and the redundant-test counts are on the sample only.
@@ -86,6 +86,7 @@ Grade: 1. Development tooling and tests only: new files under `scripts/` and `te
 
 Each line is file:line:column, mutator, status in the re-run, and why. Equivalent or likely equivalent (read, not proved):
 
+- `mapping/pastedImage.ts:44:5` ConditionalExpression (Survived): `default:` clause of the MIME switch: undefined either way.
 - `mapping/textDiff.ts:23:10` EqualityOperator (Survived): at `prefix == limit` one `charCodeAt` is NaN, so the loop stops the same way.
 - `mapping/textDiff.ts:23:10` ConditionalExpression (Survived): at `prefix == limit` one `charCodeAt` is NaN, so the loop stops the same way.
 - `mapping/textDiff.ts:25:10` EqualityOperator (Survived): guard redundant with `charCodeAt` returning NaN (read, not proven).
@@ -95,20 +96,20 @@ Each line is file:line:column, mutator, status in the re-run, and why. Equivalen
 Not worth a test now:
 
 - `frontmatter/fileLinks.ts:176:72` MethodExpression (Survived): trailing backslash variant of a Windows path; platform-specific.
-- `frontmatter/fileLinks.ts:199:8` EqualityOperator (Survived): needs two navigation roots with a link contained by one only; killable with a second-root fixture, left out.
-- `frontmatter/fileLinks.ts:199:55` ArrayDeclaration (NoCoverage): needs two navigation roots with a link contained by one only; killable with a second-root fixture, left out.
-- `frontmatter/fileLinks.ts:200:7` ArrayDeclaration (NoCoverage): needs two navigation roots with a link contained by one only; killable with a second-root fixture, left out.
+- `frontmatter/fileLinks.ts:199:8` EqualityOperator (Survived): default of the containment roots, read only for document-relative links; likely dead code (read, not proven).
+- `frontmatter/fileLinks.ts:199:55` ArrayDeclaration (NoCoverage): default of the containment roots, read only for document-relative links; likely dead code (read, not proven).
+- `frontmatter/fileLinks.ts:200:7` ArrayDeclaration (NoCoverage): default of the containment roots, read only for document-relative links; likely dead code (read, not proven).
 - `frontmatter/fileLinks.ts:204:7` ConditionalExpression (Survived): needs two navigation roots with a link contained by one only; killable with a second-root fixture, left out.
 - `frontmatter/fileLinks.ts:204:7` ConditionalExpression (Survived): needs two navigation roots with a link contained by one only; killable with a second-root fixture, left out.
 - `frontmatter/fileLinks.ts:204:7` EqualityOperator (Survived): needs two navigation roots with a link contained by one only; killable with a second-root fixture, left out.
 - `frontmatter/fileLinks.ts:206:9` MethodExpression (Survived): needs two navigation roots with a link contained by one only; killable with a second-root fixture, left out.
 - `frontmatter/fileLinks.ts:206:91` BlockStatement (Survived): needs two navigation roots with a link contained by one only; killable with a second-root fixture, left out.
-- `frontmatter/fileLinks.ts:212:9` ConditionalExpression (Survived): `realpath` fallback of a broken link; the disk cannot make one here without privileges.
-- `frontmatter/fileLinks.ts:212:42` BlockStatement (NoCoverage): `realpath` fallback of a broken link; the disk cannot make one here without privileges.
-- `frontmatter/fileLinks.ts:213:39` StringLiteral (NoCoverage): `realpath` fallback of a broken link; the disk cannot make one here without privileges.
-- `frontmatter/fileLinks.ts:215:9` ConditionalExpression (Survived): `realpath` fallback of a broken link; the disk cannot make one here without privileges.
-- `frontmatter/fileLinks.ts:215:78` BlockStatement (NoCoverage): `realpath` fallback of a broken link; the disk cannot make one here without privileges.
-- `frontmatter/fileLinks.ts:216:39` StringLiteral (NoCoverage): `realpath` fallback of a broken link; the disk cannot make one here without privileges.
+- `frontmatter/fileLinks.ts:212:9` ConditionalExpression (Survived): branch for a target that is not a regular file; killable with a directory fixture, left out.
+- `frontmatter/fileLinks.ts:212:42` BlockStatement (NoCoverage): branch for a target that is not a regular file; killable with a directory fixture, left out.
+- `frontmatter/fileLinks.ts:213:39` StringLiteral (NoCoverage): branch for a target that is not a regular file; killable with a directory fixture, left out.
+- `frontmatter/fileLinks.ts:215:9` ConditionalExpression (Survived): link escaping the navigation roots; needs a symbolic link, which cannot be made here without privileges.
+- `frontmatter/fileLinks.ts:215:78` BlockStatement (NoCoverage): link escaping the navigation roots; needs a symbolic link, which cannot be made here without privileges.
+- `frontmatter/fileLinks.ts:216:39` StringLiteral (NoCoverage): link escaping the navigation roots; needs a symbolic link, which cannot be made here without privileges.
 - `frontmatter/fileLinks.ts:218:9` ConditionalExpression (Survived): `realpath` fallback of a broken link; the disk cannot make one here without privileges.
 - `frontmatter/fileLinks.ts:218:9` ConditionalExpression (Survived): `realpath` fallback of a broken link; the disk cannot make one here without privileges.
 - `frontmatter/fileLinks.ts:218:9` EqualityOperator (Survived): `realpath` fallback of a broken link; the disk cannot make one here without privileges.
@@ -117,11 +118,10 @@ Not worth a test now:
 - `frontmatter/fileLinks.ts:224:18` BooleanLiteral (NoCoverage): `realpath` fallback of a broken link; the disk cannot make one here without privileges.
 - `mapping/pastedImage.ts:29:5` ConditionalExpression (Survived): boundary of the image-signature scan; needs a hand-built truncated header, no rule names it.
 - `mapping/pastedImage.ts:29:21` ArithmeticOperator (Survived): boundary of the image-signature scan; needs a hand-built truncated header, no rule names it.
-- `mapping/pastedImage.ts:44:5` ConditionalExpression (Survived): boundary of the image-signature scan; needs a hand-built truncated header, no rule names it.
 - `navigation/previewNavigation.ts:123:34` ConditionalExpression (Survived): single guard redundant with another guard of the same function (read, not proven).
 - `navigation/previewNavigation.ts:66:17` Regex (Survived): regular-expression variant of the heading id suffix; matches the same inputs except exotic whitespace.
-- `navigation/previewNavigation.ts:68:60` StringLiteral (Survived): regular-expression variant of the heading id suffix; matches the same inputs except exotic whitespace.
-- `navigation/previewNavigation.ts:68:66` MethodExpression (Survived): regular-expression variant of the heading id suffix; matches the same inputs except exotic whitespace.
+- `navigation/previewNavigation.ts:68:60` StringLiteral (Survived): fallback text or trim of the heading id; same ids except exotic whitespace.
+- `navigation/previewNavigation.ts:68:66` MethodExpression (Survived): fallback text or trim of the heading id; same ids except exotic whitespace.
 - `navigation/previewNavigation.ts:69:39` Regex (Survived): regular-expression variant of the heading id suffix; matches the same inputs except exotic whitespace.
 - `navigation/previewNavigation.ts:69:39` Regex (Survived): regular-expression variant of the heading id suffix; matches the same inputs except exotic whitespace.
 - `navigation/previewNavigation.ts:70:42` Regex (Survived): regular-expression variant of the heading id suffix; matches the same inputs except exotic whitespace.
@@ -130,7 +130,7 @@ Not worth a test now:
 - `myst/confLocator.ts:117:28` ArrayDeclaration (NoCoverage): fallback after an unreadable `conf.py`; platform and disk dependent.
 - `myst/confLocator.ts:117:48` ArrayDeclaration (NoCoverage): fallback after an unreadable `conf.py`; platform and disk dependent.
 - `myst/confLocator.ts:117:61` BooleanLiteral (NoCoverage): fallback after an unreadable `conf.py`; platform and disk dependent.
-- `mapping/labelRename.ts:46:9` ConditionalExpression (Survived): CR trimming of a line end; needs a document ending in a lone CR; killable, left out.
+- `mapping/labelRename.ts:46:9` ConditionalExpression (Survived): guard for a line past the end of the text; reachability not proven.
 - `mapping/labelRename.ts:51:7` ConditionalExpression (Survived): CR trimming of a line end; needs a document ending in a lone CR; killable, left out.
 - `mapping/labelRename.ts:51:7` ConditionalExpression (Survived): CR trimming of a line end; needs a document ending in a lone CR; killable, left out.
 - `mapping/labelRename.ts:51:7` EqualityOperator (Survived): CR trimming of a line end; needs a document ending in a lone CR; killable, left out.
@@ -141,11 +141,11 @@ Not worth a test now:
 - `mapping/sourceMapping.ts:44:9` ConditionalExpression (Survived): single guard redundant with another guard of the same function (read, not proven).
 - `frontmatter/stemIndex.ts:141:12` ConditionalExpression (Survived): symbolic-link branch; the link test is skipped where links cannot be made.
 - `frontmatter/stemIndex.ts:141:31` BooleanLiteral (NoCoverage): symbolic-link branch; the link test is skipped where links cannot be made.
-- `frontmatter/stemIndex.ts:143:12` ConditionalExpression (Survived): symbolic-link branch; the link test is skipped where links cannot be made.
-- `frontmatter/stemIndex.ts:161:61` StringLiteral (Survived): fallback value after a file-system error; platform and disk dependent.
+- `frontmatter/stemIndex.ts:143:12` ConditionalExpression (Survived): stem and extension check; read, not proven.
+- `frontmatter/stemIndex.ts:161:61` StringLiteral (Survived): separator of a cache key; no observable effect on the cases tests build.
 - `frontmatter/stemIndex.ts:169:13` BlockStatement (NoCoverage): fallback value after a file-system error; platform and disk dependent.
 - `frontmatter/stemIndex.ts:170:14` StringLiteral (NoCoverage): fallback value after a file-system error; platform and disk dependent.
-- `frontmatter/stemIndex.ts:172:11` StringLiteral (Survived): fallback value after a file-system error; platform and disk dependent.
+- `frontmatter/stemIndex.ts:172:11` StringLiteral (Survived): separator of a cache key; no observable effect on the cases tests build.
 - `frontmatter/sameData.ts:37:21` MethodExpression (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).
 - `frontmatter/sameData.ts:37:46` ConditionalExpression (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).
 - `frontmatter/sameData.ts:37:46` LogicalOperator (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).
@@ -168,10 +168,10 @@ Not worth a test now:
 - `frontmatter/sameData.ts:56:9` ConditionalExpression (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).
 - `frontmatter/sameData.ts:56:9` ConditionalExpression (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).
 - `frontmatter/sameData.ts:56:36` ConditionalExpression (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).
-- `frontmatter/sameData.ts:68:25` EqualityOperator (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).
-- `frontmatter/sameData.ts:68:55` BlockStatement (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).
-- `frontmatter/sameData.ts:69:11` ConditionalExpression (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).
-- `frontmatter/sameData.ts:70:11` ConditionalExpression (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).
+- `frontmatter/sameData.ts:68:25` EqualityOperator (Survived): array element loop and own-property checks; same verdict on the inputs tests build (read, not proven).
+- `frontmatter/sameData.ts:68:55` BlockStatement (Survived): array element loop and own-property checks; same verdict on the inputs tests build (read, not proven).
+- `frontmatter/sameData.ts:69:11` ConditionalExpression (Survived): array element loop and own-property checks; same verdict on the inputs tests build (read, not proven).
+- `frontmatter/sameData.ts:70:11` ConditionalExpression (Survived): array element loop and own-property checks; same verdict on the inputs tests build (read, not proven).
 - `frontmatter/sameData.ts:77:30` BlockStatement (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).
 - `frontmatter/sameData.ts:81:9` ConditionalExpression (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).
 - `frontmatter/sameData.ts:81:9` ConditionalExpression (Survived): fast path of Set/Map/byte-array comparison; the slow path reaches the same verdict for primitive members (read, not proven).

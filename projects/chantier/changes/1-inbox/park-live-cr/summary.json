@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Park a live CR that waits on an outside step",
-  "summary": "Spec v1 written: the Foreman parks a CR waiting outside (park: blocked, slot freed, out of the stack), back on top once its wait clears; order hold takes a live CR; drop gains ready; close and release refused while one is blocked. 3 open questions.",
+  "summary": "Spec v2, part 1 of the split: the Foreman parks a CR waiting outside (blocked, slot freed, out of the stack and series with its dependents), back on top once its wait clears; close, the batch's end and the release wait for it. Hold and drop moved to sibling CRs. No open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "2b281752fd8f48f3549eaad6e2fdebca244ae90086ffb0b0ea22641d7b899ede",
-    "02-answers.md": "307eb367c3f5064816a850ba6c730ca076022ecd85c28dfd8783a17e0b506b37",
-    "03-change-spec.md": "25f1cedb90ee5165ea20b0e3d2904da1aa0ec3b4ca0864d54a470d871f098f0f",
+    "02-answers.md": "83c6c3d53a5d912ea8e93a54c01d7f06ad6ddc987e9e426e05cdeb2d67628892",
+    "03-change-spec.md": "7905774634990530e48a644bcd35324a167a3c4e8fb937463d4513c470b7c17f",
     "intake/request.md": "bfc11074b952527c00c9443eb6e190eef128ddd8caf68fb5d312dbce15b27b11"
   },
-  "summarized": "2026-11-21T14:13:43Z"
+  "summarized": "2026-11-21T14:34:18Z"
 }

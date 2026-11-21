@@ -25,3 +25,13 @@ Followed by the suite's workbench focus dump. VERIFIED.
 tableInsertSlash.ts: `clickListOption(page, frame, "center", "[data-edit-action='columnAlign']")` inside `withCurrentFrame`, wrapped in `guarded`. The forced run's editor trace shows `mousedown option=center prevented=true`. VERIFIED.
 
 VERIFIED
+
+## Description pass (PR 465 body as posted, judged at 8071d217)
+Command: gh pr view 465 -R gsemet/markdown-okf-schema-studio --json body,title; git diff --stat a106fa7b..8071d217 (4 test files: stressPlan.test.ts, realInput/run.ts, tableInsertSlash.ts, shared/stressPlan.ts); `$CHANTIER log CR-453`; gh run view on the 6 stress runs.
+- Audit 1-2, 6-7, 10: sections in order, fold after Autonomous decisions holding Changes, Impacts, Test plan, Internal references; Known gaps has 3 bullets (cause unproved, no pre-fix run, landing summary read none) matching the notes; no STALE mark. OK.
+- Audit 3: title and body outside Internal references hold no CR, batch or role name. Scenario name `table-insert-slash` appears as a code identifier that exists in the diff (stress registration); accepted.
+- Audit 4-5: Deliverables has the failure message, a before/after sequenceDiagram, the on-demand registration; Changes match the diff (traces/message, clickListOption, STRESS_ON_DEMAND_SCENARIOS plus unit test). Nothing unmentioned. No images, so no username/home check applies.
+- Review box: log shows "r1 inspector approved at 845997bb..."; carry events at 01287be and 8071d21 (patch unchanged). OK.
+- Gates: log shows just preflight pass at 1d2c9a3, carried to 8071d21; `just check` pass at 8071d21 noted. Stress runs: 44912543237, 44912545451, 44912547780 completed success at head 8071d21 (44912543237 jobs: integration, stress, static, static-windows, visual, report, checks success); 44909129414, 44909131656, 44909133730 success at 1d2c9a3. PR is draft, base main, head 8071d21.
+- Claims 9 pass at 8071d21: claim 2 above.
+Description: VERIFIED at 8071d21712ab1389f6b8cc244a344497c2b4265e.
