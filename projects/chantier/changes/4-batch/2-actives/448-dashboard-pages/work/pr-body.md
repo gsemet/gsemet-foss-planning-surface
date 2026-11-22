@@ -10,22 +10,22 @@ The figures are computed on the server from the closed batch records it already 
 - Each tile is the board's figure card with a headline, a chart, a legend in words and a coverage line ("n of N batches"). A figure a record lacks is a gap (a cut line, an empty bar slot), never a zero. A chart's value is read on hover, keyboard focus and tap.
 - Words exist in English and French.
 
-Screenshots from `chantier board` run at head 20cac21 on a copy of the real planning surface (project `chantier`, 28 closed batches; the board's own "writer blocked" badge is the copy having no remote).
+Screenshots from `chantier board` run at head b1eac87 (carried from 20cac21) on a copy of the real planning surface (project `chantier`, 28 closed batches; the board's own "writer blocked" badge is the copy having no remote).
 
-![Productivity, English, last 20 batches, at 20cac21](./evidence/dashboard-productivity-en.png)
-Productivity, English, last 20 batches, at 20cac21.
+![Productivity, English, last 20 batches, at b1eac87 (carried from 20cac21)](./evidence/dashboard-productivity-en.png)
+Productivity, English, last 20 batches, at b1eac87 (carried from 20cac21).
 
-![Spending, English, by role, a batch read on hover, at 20cac21](./evidence/dashboard-spending-en-role.png)
-Spending, English, by role, with the value of batch 26 read on hover, at 20cac21.
+![Spending, English, by role, a batch read on hover, at b1eac87 (carried from 20cac21)](./evidence/dashboard-spending-en-role.png)
+Spending, English, by role, with the value of batch 26 read on hover, at b1eac87 (carried from 20cac21).
 
-![Productivity, French, at 20cac21](./evidence/dashboard-productivity-fr.png)
-Productivity, French, last 20 batches, at 20cac21.
+![Productivity, French, at b1eac87 (carried from 20cac21)](./evidence/dashboard-productivity-fr.png)
+Productivity, French, last 20 batches, at b1eac87 (carried from 20cac21).
 
-![Spending, French, by model, all batches, at 20cac21](./evidence/dashboard-spending-fr-model.png)
-Spending, French, by model, all batches, at 20cac21.
+![Spending, French, by model, all batches, at b1eac87 (carried from 20cac21)](./evidence/dashboard-spending-fr-model.png)
+Spending, French, by model, all batches, at b1eac87 (carried from 20cac21).
 
-![Productivity at 375 px, at 20cac21](./evidence/dashboard-narrow-375.png)
-Productivity at 375 px wide, at 20cac21.
+![Productivity at 375 px, at b1eac87 (carried from 20cac21)](./evidence/dashboard-narrow-375.png)
+Productivity at 375 px wide, at b1eac87 (carried from 20cac21).
 
 ```
 GET api/v1/call/dashboard.get  {project, range: "10" | "20" | "all"}
@@ -75,13 +75,13 @@ A new page for board users; nothing else changes.
 
 ## Test plan
 
-- [x] `just check` passed at 20cac21 (1654 passed, 20 skipped), and on the CI jobs for macOS, Ubuntu and Windows.
-- [x] `just eval-dry-run` passed at 9808e1d and in CI at 20cac21 (only `scenario/` changed in between).
-- [x] Browser check at phone and desktop widths, both tabs and both languages, on a copy of the real planning surface at 20cac21: screenshots above.
-- [x] Long gate: `just scenario` passed locally at 20cac21, and in CI (ubuntu-latest).
-- [x] Review: approved at `20cac21`
-- [x] Verified at `20cac21`
-- [x] CI green at `20cac21`
+- [x] `just check` passed locally at b1eac87 (1654 passed, 20 skipped); CI at b1eac87 below.
+- [x] `just eval-dry-run` passed locally at b1eac87 (18 of 18 cases).
+- [x] Browser check at phone and desktop widths, both tabs and both languages, on a copy of the real planning surface at 20cac21 (the patch is unchanged by the rebase): screenshots above.
+- [ ] Long gate: the pipeline's `just scenario (ubuntu-latest)` job at b1eac87 (it passed at 20cac21).
+- [x] Review: rebase approved at `b1eac87` (patch carried from `20cac21`)
+- [x] Verified at `b1eac87`
+- [ ] CI green at `b1eac87` (pending when posted)
 
 ## Internal references
 

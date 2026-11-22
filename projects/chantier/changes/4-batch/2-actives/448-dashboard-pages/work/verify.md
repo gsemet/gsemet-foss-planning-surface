@@ -1,6 +1,21 @@
 # Verify CR-448
 
-Head: 20cac21f5bca4712529866f961dc0f9e5a501c05
+Head: b1eac8799c415d8322ca7c849488800ece4b0b66
+
+## Move judged: rebase onto 906e5fd1 (head b1eac879, previous 20cac21f)
+
+All claims below judged at b1eac8799c415d8322ca7c849488800ece4b0b66. Claims of the earlier list that this move does not touch (screenshots, scope of figures, Costs files unchanged) are carried from 20cac21: the CR's own patch is the same apart from the conflict file and the count line.
+
+A. Dashboard behaviour at the new head. `uv run --no-sync --project . python -m pytest tests/test_board_dashboard.py tests/test_board_design.py tests/test_server_api_calls.py -q -p no:cacheprovider` (worktree, CLI folder tests): `66 passed in 9.33s`. The design test merged with main's (`test_a_batch_view_draws_the_batch_folder_chip_not_a_priority` from CR-436 and the dashboard registry/sheet-order test both present: `git diff 906e5fd1 HEAD -- .../test_board_design.py` shows only the +14 dashboard test added after main's).
+B. Ops count consistent. `python -I -c "from chantier.board.api import ops; print(len(ops.HANDLERS))"` printed `21` (main's 20 plus `dashboard.get`); `scenario/run_scenario.py:1680` and `scenario/README.md:459` say "the 21 ops"; `docs/server-api.md:84` has the `dashboard.get` row.
+C. Nothing of main lost. `git merge-base --is-ancestor 906e5fd1 HEAD` true; `git log --oneline origin/main..HEAD` lists only the two CR commits (1ed3fcef, b1eac879); `git diff 906e5fd1 HEAD --name-only` holds only dashboard/chart files, the op wiring (ops.py, protocol.py/json, server-api.md, scenario count, DESIGN.md, tokens, index.html, registry/router/store/api/i18n/icons) and two tests; no file of CR-433/CR-436 (batch-*.js, crs.py, times.py, launch.py, card.js, ...) differs from main.
+D. CI at the head (`gh pr view 420`): head `b1eac879...`; `just check (ubuntu-latest)` SUCCESS, `just eval-dry-run` SUCCESS; macOS, Windows and `just scenario (ubuntu-latest)` still pending when read.
+E. Gate pass: the log `work/gates/20261122-083233.log` opens with `gate CR-448 ... head b1eac8799c415d8322ca7c849488800ece4b0b66` but was still running (last line `waiting for the long gate of CR-439`) when read: no pass at this head yet. The CLI refuses hand-back until it passes; that is the Driver's.
+F. PR description not re-judged (not asked); only the move was.
+
+VERIFIED
+
+(Earlier judgment at 20cac21f follows.)
 
 All claims judged at 20cac21 unless said.
 
