@@ -31,7 +31,6 @@ Grade: **2**. The base rule is shared by `take`, the board's "on" column, off-pl
 
 ## Known gaps
 
-- The independent verification has not run yet at this head.
 - Lines edited in `concepts.md`, `foreman.md` and `driver.md` are longer than the files' usual wrapping.
 - Requests of the running batch already taken on a working request above their dependency will print their dependency's branch and show "not on its place" after the merge; the merge message to the batch's manager is owed.
 
@@ -45,7 +44,7 @@ Grade: **2**. The base rule is shared by `take`, the board's "on" column, off-pl
 - `core/records.py`: comment on `start_on`.
 - Cards: `concepts.md` (Stack, Dependencies), `foreman.md` (the first take), `driver.md` (CR driver).
 - Tests: `test_stack_base.py` cases flipped and added, a parametrised `base:` line test.
-- Scenario: steps 13, 13-bis, 13-ter and `scenario/README.md`.
+- Scenario: steps 13, 13-bis, 13-ter, a `stack` placement after the unhold take in `stack_hold`, and `scenario/README.md`.
 
 ## Human decisions
 
@@ -58,12 +57,12 @@ No visual change. Stack batches get different (safer) bases at `take`; the board
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: scenario gate at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `e5d656e`: `just check`, `just eval-dry-run`
+- [x] Evidence: scenario gate at `e5d656e`
+- [x] Review: approved at `e5d656e`
+- [x] Verified at `e5d656e`
+- [x] CI green at `e5d656e`
 
 ## Internal references
 
