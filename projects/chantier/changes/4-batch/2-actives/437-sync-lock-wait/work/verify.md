@@ -43,3 +43,15 @@ Move touched: hosts/claude-code.md (conflict, Every batch row), startup-core.md 
 3. Claims 2-6, 8 (skill paragraphs, session-start, chief-of-staff, uv trial by hand): carried from e21be68: files the move did not change (range-diff shows only the three card files above differing); claim 6 is a uv behaviour, independent of the base.
 4. Gates: `gh pr view 409 --json headRefOid` gives 20b7e694842421d08e5879b2e221887f923e7ce3 (pushed head = worktree head, clean). CI running in parallel, not waited for; `just check` and `just eval-dry-run` reported passed locally by the Driver (not rerun by me). Review box: the Inspector approved the move per the brief; the Driver fills the box and CI boxes at the new head (not re-judged here, description pass carried from e21be68 save that the SHA in its Test plan boxes must move to 20b7e69).
 5. Known flaky: conflicts.md notes `test_w2_a_shell_inside_the_folder_refuses_then_lets_go` failing in a full local run only, passing alone; CR-437 touches nothing near it; reported, not mine.
+
+## Description pass (posted PR #409), judged at 20b7e694842421d08e5879b2e221887f923e7ce3
+
+Head: 20b7e694842421d08e5879b2e221887f923e7ce3
+
+Verdict: NOT VERIFIED
+
+- Head and CI: `gh pr view 409 --json headRefOid` = 20b7e694842421d08e5879b2e221887f923e7ce3; `gh pr checks 409`: 5 checks pass (macos, ubuntu, windows check; eval-dry-run; scenario). True.
+- Review box: `chantier log 437` has "r1 approved at c5af034..., committed as e21be68" and "move e21be68..20b7e694 inspector approved at 20b7e694". Matches.
+- Diff vs Summary/Changes: `git diff --stat main...HEAD` lists 21 files, all named in Changes. Matches. No image, no screenshot owed.
+- FAILED: Test plan line "Local gates at 20b7e69: `just check` pass (1631 passed), `just eval-dry-run` pass (18 of 18)". The gate logs at 20b7e694 say otherwise: work/gates/check2-20b7e694.log: `1650 passed, 20 skipped`; work/gates/dry2-20b7e694.log: `dry run: 19 of 19 cases as expected`; chantier log note: "eval-dry-run: pass (19 of 19)". 1631 and 18 are the numbers at e21be68 (r1b.md), carried unchanged into a line that names 20b7e69. Fix: 1650 passed, 19 of 19.
+- The "Verified at 20b7e69" box is ticked, and an earlier verdict at this head exists (the description's other claims hold), but this pass cancels it until the numbers are fixed.
