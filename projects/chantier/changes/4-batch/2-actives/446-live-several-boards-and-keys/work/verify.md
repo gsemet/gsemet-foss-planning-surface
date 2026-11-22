@@ -26,3 +26,17 @@ VERIFIED
 11. Description pass at acb1cd3: posted body matches pr-body.md; CI all 5 jobs pass at acb1cd3 (gh pr checks 418); review note "approved ... committed as acb1cd33" in log; gate pass head acb1cd3380c5 in log; Known gaps hold each UNVERIFIED. Counts (1693 passed, 85 s) are the Driver measures, not rerun.
 
 VERIFIED
+
+## Restack at 0ae9685e (local, base 4c7a1ea0)
+
+Head: 0ae9685e0a18032c802d481f6f543d925f6d8ccb
+
+12. Move: clean rebase, the CR's patch changed (ship: commit 1 of 1 differs); base brought changes to link.py, commands/live.py, pyproject, uv.lock, test_board, test_live_link, docs/server-api.md. Judged again at 0ae9685e.
+13. Live tests: `cd skills/chantier/scripts/cli; uv run --no-sync python -m pytest tests/test_live_model.py tests/test_live_link.py tests/test_board.py -q` -> `79 passed in 11.29s` (0ae9685e). Covers claim 1 and 5-boards/twice/only refusals (tests).
+14. Refusal by the real CLI (0ae9685e): five `--url ... --once` -> `error: --url: at most 4 boards in one screen`, exit=1. Same URL twice without key -> `error: --url: the link holds no key (?k=...)...`, exit=1 (key refusal first; "given twice" asserted by the passing test).
+15. Lazy blessed (0ae9685e): `pyproject.toml:16 blessed==1.53.0`, banned list line 63 holds `"watchfiles", "blessed"`; only import `screen.py:328 from blessed import Terminal` inside a function. The merge with the base's watchfiles/tzdata lines is intact.
+16. Files touched by the CR patch at 0ae9685e: docs/boards.md, docs/server-api.md, pyproject.toml, uv.lock, tui/{model,screen,view}.py, commands/live.py, declare/live.py, three tests; no link.py (base's Refusal change is the base's). 
+17. Carried from acb1cd3: docs claim 5, claims 7-9 (UNVERIFIED, in Known gaps), evidence note; ruff not available here (`Failed to spawn: ruff`), lint left to `just check`/CI.
+18. PR body: stale SHAs only, per the Driver's note; not otherwise re-judged. CI and gate pass at the new head are not yet there (local, unpushed).
+
+VERIFIED
