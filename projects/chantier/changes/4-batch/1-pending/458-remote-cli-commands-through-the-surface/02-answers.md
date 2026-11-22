@@ -115,3 +115,12 @@ file write is `backlog.file`, private key.
 Chief of Staff's decision (critic finding 8): a `webui`-started server held open by the session's
 own watcher is named in the blocked-sync message (`PID <n> serve`, started by `webui`); the user
 stops it by hand; A's sentence is corrected.
+
+## Chief of Staff's decisions on the third critique (2026-11-22), from Q17
+
+Both follow the user's Q17 ("il faut juste qu'ils ne s'écrasent pas"):
+- A: each server's cookie is its own (name or path per server), so several boards and both keys
+  work side by side in one browser; A adds a test (B keeps it for its two keys).
+- C: a profile tells surfaces apart, not only project names: a local project is covered only when
+  it is not served by its own local surface, or when its surface is the profile's; a local command
+  that cannot pick a project still stops and asks, never goes to the profile's first project.

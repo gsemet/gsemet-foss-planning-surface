@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Two board keys: a public read-only key and a private key",
+  "summary": "Spec ready (part B): today's key stays private; read_key opens a read allow-list only, all else 403; the read key's cookie is separate and the private wins when both; X-Chantier-Access exposed in CORS; CR-449 texts say the private key.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "de9b3800fc7a20c5e747b1f748ec6b0342a223fd8e89eabbd74bb23971906f7c",
+    "03-change-spec.md": "06c43f4bf100cf3332db406b32c9178cce05a9d7a8515396388a30314c55350f",
+    "intake/request.md": "45a241b866cebc0f92e417476b8214fb0c8fa4da0bd5f1b83b086dcaa56c3903"
+  },
+  "summarized": "2026-11-22T10:51:59Z"
+}

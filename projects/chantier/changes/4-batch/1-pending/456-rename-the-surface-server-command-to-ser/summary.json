@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Rename the surface server's command to serve; add webui",
+  "summary": "Spec ready (part A): board becomes serve, webui starts serve --stop-idle; per-server cookie name so boards share a browser; a default port held by another surface takes a free port; blocked sync names a webui serve; CR-449-first renames its i18n, docs, card.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "be143de74d0f11dd4e2e93cb69925c990235a7ab6c97a5df7e9b00ae367264e6",
+    "03-change-spec.md": "ef246b8715b8304bc80055b03c50161096b275a66cdef536a1edfa9cddf27b17",
+    "intake/request.md": "b5cda4b99ae2c98e841a5b197dcc30e1fef2737e687b95f30510e455a46a243f"
+  },
+  "summarized": "2026-11-22T10:51:58Z"
+}

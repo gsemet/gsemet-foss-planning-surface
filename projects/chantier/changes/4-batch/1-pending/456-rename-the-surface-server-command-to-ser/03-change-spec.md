@@ -28,6 +28,8 @@ key and, when no server runs, starts one (Q3, Q14), with no further question: ty
    surface's server takes a free port and prints it.
 7. The Chief of Staff on finding 8: the blocked-sync message names a `webui`-started `serve`;
    the user stops it by hand.
+8. The Chief of Staff on the third critique: each server's cookie is its own, so several boards
+   work side by side in one browser.
 
 ## What changes
 
@@ -110,6 +112,16 @@ and a watcher's or `webui`'s autostart of the second surface then fails. The cha
   another surface's server only.
 - The next start of the same surface tries the default port again first (nothing is stored but
   the running record).
+- **Each server's cookie is its own** (the third critique's decision). Today `board/key.py`
+  sets one cookie, `chantier_board`, `Path=/`, for every server; a browser does not separate
+  cookies by port, so opening a second surface's board on the same host overwrites the first's,
+  which then answers 401. The cookie's name becomes per server: `chantier_board_<id>`, `<id>` the
+  first 12 hex characters of the SHA-256 of the served folder's POSIX path (stable across
+  restarts and ports, different for two surfaces); `key.COOKIE` becomes a function of the served
+  folder (`cookie_name(served)`), used by `set_cookie`, the cookie read and the exchange
+  (`board/guard.py`). A server reads only its own name and ignores the others. An old
+  `chantier_board` cookie is ignored: the user opens the printed link once more (its `?k=` sets
+  the new cookie); the start lines say nothing of it.
 
 ### 3. AGENTS.md
 
@@ -190,6 +202,11 @@ and a watcher's or `webui`'s autostart of the second surface then fails. The cha
   today's sentence. Scenario: in the `surface-board` unit, a second surface's server started on
   the same machine while the first holds the unit's default port takes another port, both answer
   `board.get` with their own keys, and the second is stopped.
+- Cookies, in-process (`tests/test_board_exposure.py` or the guard's test): two servers' contexts
+  over two served folders give two cookie names; a request carrying both cookies is let in by
+  each server with its own key, and the exchange of one server's link leaves the other's cookie
+  untouched (the `Set-Cookie` names only its own); a request with only the old `chantier_board`
+  cookie gets 401.
 - The blocked-sync step: `session-start.md`'s step 4 names a `webui`-started server `PID <n>
   serve <project> (started by webui)`, and step 5 its stop command.
 - The renamed lines are checked from the shipped constants (`test_board_running.py`,

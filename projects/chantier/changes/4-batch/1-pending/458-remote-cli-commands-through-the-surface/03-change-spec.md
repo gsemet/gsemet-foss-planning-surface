@@ -44,7 +44,9 @@ itself stay local, as today; several surfaces and projects on one machine never 
     `APPDATA` and `XDG_CONFIG_HOME`, and the eval kit sets it for its sessions and its dry run;
     (b) a profile applies only to the projects it was logged in for; (c) is part A's.
 11. Q18: `webui` under a profile prints the profile's link, starts nothing, calls no network.
-12. The Chief of Staff: `preflight` runs on the server; `login` makes the new profile the default,
+12. The Chief of Staff on the third critique: a profile tells surfaces apart (its `origin`);
+    a command that cannot pick a project stops and asks, never goes to the profile's first.
+13. The Chief of Staff: `preflight` runs on the server; `login` makes the new profile the default,
     `--no-default` stores it without; a `cli.run` counts as a client for the idle stop.
 
 ## What changes
@@ -57,18 +59,31 @@ itself stay local, as today; several surfaces and projects on one machine never 
 - File `profiles.json`, UTF-8, written atomically (a temporary file in the folder, then
   `os.replace`), mode 0600 on POSIX (it holds keys); the folder is made at the first login:
   `{"default": "<name>" | null, "profiles": {"<name>": {"url": "<base>", "key": "<key>",
-  "access": "write" | "read", "projects": ["<id>", ...], "served": "<folder>", "version": "<v>",
-  "saved": "<UTC stamp>"}}}`. `url` is the base `commands/live.from_link` returns. A file that
+  "access": "write" | "read", "projects": ["<id>", ...], "origin": "<url>" | null, "served":
+  "<folder>", "version": "<v>", "saved": "<UTC stamp>"}}}`. `origin` is the surface's identity:
+  the normalized fetch URL of the `origin` remote of the repository that holds the server's
+  planning folder (the surface's repository, or the project's in-project), as `board.get` now
+  returns it (a new field `origin` of its answer, `protocol.json` rewritten; null when that
+  repository has no `origin`). Normalized: scheme and `git@host:` forms to `host/path`, lower-case
+  host, no trailing `.git` or `/`. `url` is the base `commands/live.from_link` returns. A file that
   does not parse: `error: profiles: <path>: <reason>: fix or delete it`, exit 2, for every command
   that reads it (no silent local run).
-- **The command's project**: the `--project` given, as its last path component
-  (`projects/chantier`, an absolute folder and `chantier` all give `chantier`); else the project
-  the working folder belongs to, by the CLI's own resolution, read-only (`project_name` of the
-  repository chantier would open there); else none (outside any project).
-- **The active profile**: `--profile <name>` when given (`local`: none); else the file's
-  `default`, **only when the command's project is one of its `projects`, or when there is none**;
-  else none, and the command runs locally. So an eval's workspace, another surface's project or
-  any project the profile was not logged in for stays local with a default profile present.
+- **The command's project**, by the CLI's own resolution, read-only: the project `--project`
+  names, or the one the working folder belongs to. Its id is `project_name` of that repository
+  (or, for a `--project` that names no local folder, its last path component: `projects/chantier`
+  and `chantier` give `chantier`). Its **local surface** is the planning folder chantier would
+  open for it on this machine (an external surface's checkout, or the in-project
+  `.agents/changes/`), when one exists, with that folder's repository's normalized `origin`.
+- **The active profile** (the third critique's decision: a profile tells surfaces apart, not
+  only names): `--profile <name>` when given (`local`: none); else the file's `default`, only when
+  the command's project id is one of its `projects` **and** either the project has no local
+  surface, or its local surface's `origin` equals the profile's `origin`; else none, and the
+  command runs locally. So an eval's workspace, a project of the same name served by another
+  surface on this machine, or any project the profile was not logged in for stays local with a
+  default profile present.
+- **No project picked**: when neither `--project` nor the working folder names a project, the
+  command runs locally, as today: one that needs a project stops with its own error and asks for
+  `--project`. A profile never picks a project for it (never its first project).
   `--profile <name>` names a profile for a project outside its list: `error: --profile <name>:
   logged in for <ids>, not <id>: chantier login <link> --profile <name> --project <id>`, exit 1.
   `--profile` is a root option (`cli.py`'s `_parser`) and, like `--project`, accepted after the
@@ -88,7 +103,7 @@ itself stay local, as today; several surfaces and projects on one machine never 
   it was; with none, none is set). Logging in again under the same name replaces the profile.
   - `projects`: each `--project` (repeatable, last path component), each one of the projects
     `board.get` lists (else `error: login: --project <id>: the server serves <ids>`, exit 1);
-    none given: the server's home project, from `board.get`.
+    none given: the server's home project, from `board.get`. `origin`: `board.get`'s.
   - No `X-Chantier-Access`: `error: login: the server at <base> runs an older chantier (<v>):
     stop it and start it again (chantier serve) from this version`, exit 4.
   - 401: `error: login: the server refused the key: give the link it printed (chantier webui
@@ -127,8 +142,7 @@ itself stay local, as today; several surfaces and projects on one machine never 
     value` and `--opt=value` forms and their argparse prefixes (`--proj`, `--pro=...`, `--sk` ...:
     any token argparse would take for one of them, judged with `cli.py`'s parser), before or after
     the command;
-  - `project`: the command's project (section 1) when it is in the profile's `projects`, else the
-    profile's first project;
+  - `project`: the command's project id (section 1; a command forwards only with one);
   - `env`: only the `FORWARDED_ENV` names set in this process (`CHANTIER_BATCH`, `CHANTIER_HOST`,
     `CLAUDE_CODE_SESSION_ID`, `CLAUDE_CODE_ENTRYPOINT`, `COPILOT_AGENT_SESSION_ID`, `COPILOT_CLI`,
     `AI_AGENT`); one constant, shared with the server;
@@ -214,7 +228,8 @@ network; with none, A's behaviour, unchanged (on the server's own machine nothin
    add "and the user's profiles (`chantier login`, `logout`), in one file outside any project,
    `chantier/profiles.json` in the user's config folder (`$CHANTIER_CONFIG_HOME`, else
    `%APPDATA%` on Windows, else `$XDG_CONFIG_HOME` or `~/.config`), mode 0600; a profile applies
-   only to the projects it was logged in for".
+   only to the projects it was logged in for, and to none served by another surface on this
+   machine".
 4. Line 74, "the board itself records nothing and messages no agent, but its writer's commits of
    the planning surface's published paths (below) and its journal lines (`sync-*@1`)" gains ", and
    the commands its `cli.run` runs for a client, which record what they record when run locally".
@@ -297,8 +312,10 @@ Tests, few and parametrized, in-process:
     none; refusals parametrized (`--profile local`, 401, no answer, a malformed file: exit 2).
   - which projects (Q17 (b)), parametrized: with a default profile for `x`, a command whose
     project is `x` (by `--project`, and by the working folder) forwards; one for `y` runs locally
-    with no request; one outside any project forwards; `--profile p` for `y` exits 1 with its
-    sentence.
+    with no request; `x` whose local surface has another `origin` runs locally; `x` with
+    a local surface of the profile's `origin` forwards; a command outside any project with no
+    `--project` runs locally and stops with its own `--project` error (no request); `--profile p`
+    for `y` exits 1 with its sentence; `origin` normalization (https, `git@host:`, `.git`).
   - forwarding, the HTTP call faked: `status --batch 3 --project projects/x --profile p` sends
     `argv == ["status", "--batch", "3"]`, `project == "x"`, only `FORWARDED_ENV`; `--proj=x` and
     `--prof p` are removed too; the answer's `launch` text is replaced by the client's form; code
@@ -343,6 +360,8 @@ Host and default matrix:
 | 3 | Linux or macOS client | private default for `x` | profile in `$XDG_CONFIG_HOME` or `~/.config`; forwarded |
 | 4 | any | `CHANTIER_CONFIG_HOME` set | the profiles there, above the system's folder |
 | 5 | any client | default for `x`, command for `y` | local, no request |
+| 5b | any client | default for `x`, a local `x` of another surface | local, no request |
+| 5c | any client | default, no project picked | local; stops and asks for `--project` |
 | 6 | server machine | a default profile present | `serve`, `watch`, the child: local, no loop |
 | 7 | any | read-only | `live` and `webui` use it; every forwarded command refused, exit 1 |
 

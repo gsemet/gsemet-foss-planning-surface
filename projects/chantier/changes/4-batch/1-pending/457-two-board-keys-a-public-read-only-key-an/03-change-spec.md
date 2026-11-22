@@ -44,9 +44,16 @@ Griller included). Nobody holding today's link loses anything.
 ### 2. The access of a request
 
 - `board/api/auth.source_of`, `upgrade`, `guard.exchange`, `guard.authorised` and the
-  WebSocket's `hello` (`board/api/ws.py`) accept either key, in the header, the cookie (the
-  exchange sets the cookie to the key the link held) or `hello`, and say which: `write` for the
-  private key, `read` for the public one. A WebSocket keeps its connection's access.
+  WebSocket's `hello` (`board/api/ws.py`) accept either key, in the header, a cookie or `hello`,
+  and say which: `write` for the private key, `read` for the public one. A WebSocket keeps its
+  connection's access.
+- **The two keys never overwrite each other's cookie** (the third critique's decision): on top
+  of A's per-server cookie name `chantier_board_<id>`, the read key's cookie is
+  `chantier_board_<id>_read`; the exchange of a link sets only the cookie of the key it held. A
+  request carrying both is `write` (the private one wins), so a private tab keeps its rights
+  after the read-only link is opened in the same browser; the read-only link opened in a browser
+  that holds the private cookie therefore acts too (the same user's browser; the header
+  `X-Chantier-Access` says so). A browser holding only the read cookie stays `read`.
 - Every `/api/v1/` answer carries `X-Chantier-Access: read|write`; `auth.CORS` gains
   `Access-Control-Expose-Headers: X-Chantier-Access` (so a page served elsewhere reads it); the
   `welcome` frame gains `access: "read" | "write"` (`protocol.py`'s `Welcome`; `protocol.json`
@@ -127,7 +134,9 @@ Griller included). Nobody holding today's link loses anything.
   edit); every op of `READ_OPS` and every topic of `READ_TOPICS` answers under the read key; both
   keys pass in the header, the cookie and `hello`; the answers carry `X-Chantier-Access`, the
   CORS answers `Access-Control-Expose-Headers`, `welcome` carries `access`; a `server.json` with
-  only `key` gets a `read_key` at the start and keeps its `key`; `--new-key` replaces both; the
+  only `key` gets a `read_key` at the start and keeps its `key`; the exchange of the read link
+  sets only `chantier_board_<id>_read` and leaves the private cookie, and a request with both
+  cookies is `write`, one with the read cookie only is `read`; `--new-key` replaces both; the
   start lines and `webui` hold the `read-only:` line (`board/command.py`'s shipped constant).
 - `protocol.json`'s test passes with `welcome.access`.
 - With CR-449 under this CR: A's check of the shipped texts (cards, docs, AGENTS.md,

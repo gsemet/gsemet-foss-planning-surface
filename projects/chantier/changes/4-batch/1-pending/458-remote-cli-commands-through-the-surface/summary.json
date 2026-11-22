@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Remote CLI commands through the surface server: login, profiles, cli.run",
+  "summary": "Spec amended (part C): profiles record projects and surface origin; a local project of another surface stays local; no project picked stops and asks; cli.run child --profile local, no watch line; CHANTIER_CONFIG_HOME first; lease hold with CR-443.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "ca1fb47e33a8b918365f0b5856c43105397be937f420a9c2c4f8d593766c019a",
+    "03-change-spec.md": "be6909a04c439a403e743171277d42b8df78dc874f5984b71870bb8e33f74429",
+    "intake/request.md": "4598059113895f65670e12ae19db3b818056f5bfc24cbf71c18815861fc3abcc"
+  },
+  "summarized": "2026-11-22T10:51:59Z"
+}

@@ -30,3 +30,12 @@ Split into three stacked CRs in batch-30, before CR-447: A, the rename `board`â†
 
 When CR-449 lands first, this CR also edits CR-449's panel strings (the web client's i18n), its
 `docs/web-board.md` text and the Griller's card: "replaces both keys", "the private key".
+
+## Chief of Staff's decisions on the third critique (2026-11-22), from Q17
+
+Both follow the user's Q17 ("il faut juste qu'ils ne s'Ã©crasent pas"):
+- A: each server's cookie is its own (name or path per server), so several boards and both keys
+  work side by side in one browser; A adds a test (B keeps it for its two keys).
+- C: a profile tells surfaces apart, not only project names: a local project is covered only when
+  it is not served by its own local surface, or when its surface is the profile's; a local command
+  that cannot pick a project still stops and asks, never goes to the profile's first project.
