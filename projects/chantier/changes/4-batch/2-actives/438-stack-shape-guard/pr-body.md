@@ -61,9 +61,9 @@ No visual change. Foremen of stack batches see one new heartbeat line; a refused
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
+- [x] New or changed tests (they fail on the previous code)
 - [x] Local gates at `62e119c`: `just check`, `just eval-dry-run`, `just scenario` pass (stack unit alone 501.5 s of its 750 s budget)
-- [ ] Evidence: none planned beyond the tests and the scenario
+- [x] Evidence: none planned beyond the tests and the scenario
 - [x] Review: approved at `c5af034`, carried over the rebase onto `62e119c` (patch unchanged)
 - [x] Verified at `62e119c`
 - [x] CI green at `62e119c`: `gh pr checks 412` all 5 pass

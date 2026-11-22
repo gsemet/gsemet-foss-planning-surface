@@ -15,3 +15,24 @@ All claims judged at 62e119c (PR 412, CI green 5 checks per the brief).
 Evidence before/after: not captured (see verifier/evidence/before-after.md).
 
 VERIFIED
+
+## Description pass (PR 412 body as posted, judged at 62e119cf2986324d000f95d14ce8f2531431b920)
+
+Command: `gh pr view 412 --repo gsemet/chantier --json body` read against pr-template.md and `chantier log 438`.
+Review box (approved at c5af034, carried to 62e119c): matches the log notes (r3 inspector approved at c5af034; rebase 62e119c patch unchanged). OK.
+Sections, order, Known gaps, mermaid, fold: OK. Role names are product terms of cards changed here: OK.
+
+NOT VERIFIED:
+- Test plan "New or changed tests" is unchecked though test_stack_shape.py is added and listed under Changes; check it.
+- Test plan "Evidence: none planned beyond the tests and the scenario" is unchecked; it states the why the template allows, so check it.
+
+## Description pass (posted PR 412 body), judged at 62e119cf2986324d000f95d14ce8f2531431b920
+
+Head: 62e119cf2986324d000f95d14ce8f2531431b920
+
+- Command: `gh pr view 412 --repo gsemet/chantier --json body,headRefOid` -> headRefOid 62e119cf2986324d000f95d14ce8f2531431b920; body has Summary, Deliverables (mermaid, text block), Blast radius, Autonomous decisions, Known gaps, Details fold, all six Test plan boxes checked (the two previously unchecked now `[x]`), no images, no username or home folder.
+- Consistency: Changes list (stack_shape.py, stacks.py, rails_release.py, batch_status, cards, scenario, tests) matches the CR as proven in the earlier verify sections; Known gaps lists the three accepted gaps, no UNVERIFIED claim, no STALE mark.
+- Review box `approved at c5af034, carried over the rebase`: `$CHANTIER log 438` shows "r3 approved at c5af034bb5865f60832835e464cbb89b33b22666" -> proves it.
+- Role names are product terms of a change to those roles' cards; Internal references holds only CR-438.
+
+VERIFIED
