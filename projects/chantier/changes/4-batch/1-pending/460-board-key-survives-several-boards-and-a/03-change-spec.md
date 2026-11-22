@@ -7,7 +7,9 @@ ou sur d'autres. Il faut que ca marche", and "Met le à la fin de ce batch"). No
 CR-447 (docs gardening); it builds on CR-456 (PR #430, `serve`, `webui`, the per-server cookie
 `chantier_board_<id>` of `board/key.cookie_name`, the free port when another surface's board holds
 the default) and on CR-457 (two keys, the read key's cookie `chantier_board_<id>_read`), both
-landed before it. One Driver, at most 3 rounds. It touches the CLI's `src/` (the board server), the
+landed before it; CR-458 (`remote-cli-commands-through-the-surface-`, part C of the A→B→C stack)
+also sits below it, and this CR changes nothing it reads (the keys, the access header, the
+exchange's `303`). One Driver, at most 3 rounds. It touches the CLI's `src/` (the board server), the
 web client, the cards, the docs and the scenario: `just check` and `just eval-dry-run` before the
 first push, `just scenario (ubuntu-latest)` green before the PR. No change under `hooks/` or
 `types/`; no change to what the CR board pane draws.
@@ -70,8 +72,11 @@ Why `Lax` is safe here. What `Lax` adds over `Strict` is the cookie on a cross-s
   WebSocket, the legacy `POST`/`PUT` routes).
 - On `/api/v1/` (HTTP and the WebSocket's upgrade), `auth.source_of` counts a cookie only when
   `auth.own_origin` holds (`Sec-Fetch-Site` absent or `same-origin`, `Origin` absent or the
-  board's own): a cross-site navigation to an API address carries `Sec-Fetch-Site: cross-site` and
-  is refused 401 with the cookie present. Unchanged.
+  board's own). A cross-site navigation to an API address is refused 401, with the cookie present,
+  where the browser sends `Sec-Fetch-Site` (`cross-site`); a browser that sends none (Safari
+  before 16.4), on a navigation `GET` that sends no `Origin`, passes `own_origin`: that `GET` only
+  reads, and its answer is shown to the user alone, in the user's own tab, never to the other site
+  (same-origin policy, below). Unchanged.
 - A write from another site: `Lax` withholds the cookie from a cross-site `POST` and from a
   cross-site WebSocket handshake; `guard.refusal` (the frame's writes) and `auth.own_origin` (the
   API) refuse it again on `Sec-Fetch-Site` and `Origin`. Unchanged, two locks.
@@ -100,7 +105,9 @@ Why `Lax` is safe here. What `Lax` adds over `Strict` is the cookie on a cross-s
   the module's style constant; the reply's own header replaces `reply.HTML_POLICY`, as
   `Reply.all_headers` lets a route's header win). No script at all.
 - Its content: the title "chantier board"; the line "This board needs the link with its key."; a
-  `<form method="get">` whose action is the requested path, with one text field named `k`
+  `<form method="get">` whose action is relative, built as `guard.exchange` builds its `Location`
+  (`"./" + quote(req.path.rsplit("/", 1)[-1], safe="")`), so a proxy's path prefix is kept
+  (`docs/server-api.md`, "Behind a proxy"), with one text field named `k`
   (`autocomplete="off"`, `autocapitalize="off"`, `spellcheck="false"`, a label "Paste the key or
   the whole link"), the request's other query parameters but `k` as hidden fields (so the `303`
   lands on the same page, `?p=`, `?v=`, `transport=http` kept), and a button "Open"; then the line
@@ -113,7 +120,11 @@ Why `Lax` is safe here. What `Lax` adds over `Strict` is the cookie on a cross-s
   de ce board : le lien d'un autre board ouvre cet autre board, pas celui-ci."), else in English;
   both sets are constants of the module. Every value it repeats from the request (the path, the
   hidden fields) is HTML-escaped. A `viewport` meta so it reads on a phone.
-- The pasted text, in the exchange (`guard.exchange`, one helper `guard.pasted_key(raw)`): the
+- The pasted text, in the exchange (`guard.exchange`, one helper `guard.pasted_key(raw)`), which
+  accepts every link form `commands/live.from_link` accepts (an `http(s)` link with a host, any
+  path prefix, `k` among other parameters), read the same way (`urlsplit`, then `parse_qs`'s
+  first `k`; one shared reader when the Driver can share it without `from_link`'s refusals), and
+  never raises: the
   value of `k`, stripped of blanks; when it holds `k=` (a key never does: `secrets.token_urlsafe`
   uses only letters, digits, `-` and `_`), it is read as a link or a query
   (`urllib.parse.urlsplit`, then `parse_qs`; a text starting `?` or `k=` too) and its `k` is the
@@ -198,11 +209,17 @@ Read `clients/web/DESIGN.md` first and keep it true.
     'self'` and a `style-src` hash that matches the shipped style constant (computed from the
     module, not copied); no `<script` in the body; `Accept-Language: fr` gives the French lines; a
     query `?p=x&v=batch` gives hidden fields `p` and `v`; a query value `<script>` comes back
-    escaped; a wrong `k` on a page load gives the `wrong` line; the same requests with no
+    escaped; a request whose path sits under a proxy's prefix (`/pre/fix/index.html`, with
+    `X-Forwarded-Host`) gets a relative form action (`./index.html`), never an absolute path; a wrong `k` on a page load gives the `wrong` line; the same requests with no
     `Accept: text/html` (the probe, `/api/board`, `/api/v1/...`, `/js/main.js`) answer the `401`
     text holding `guard.NEEDS_KEY`, so `address.probe` still answers `another-key` for a board of
     another key.
-  - `key.set_cookie` holds `SameSite=Lax` and no `Strict` (read from the shipped function).
+  - `key.set_cookie` holds `SameSite=Lax` and no `Strict` (read from the shipped function): the
+    line that flips is `tests/test_board_exposure.py:123`
+    (`test_the_cookie_lasts_30_days_and_the_exchange_sets_it`, today `"SameSite=Strict" in
+    cookie`).
+  - `guard.pasted_key` accepts each link `commands/live.from_link`'s tests accept (parametrized
+    over the same links).
   - The web client, read from the repository as it ships (`clients/web/js/**/*.js`): `localStorage`
     and `sessionStorage` appear only in `core/store.js` and `api/griller.js` (today's two uses); the
     module holding the key field writes neither and sets no `document.cookie`; `notice.key`,
@@ -215,8 +232,10 @@ Read `clients/web/DESIGN.md` first and keep it true.
   - Three `SurfaceWorld`s, each built and `init`ed, their servers started on 127.0.0.1 (the first on
     the default port when free, the others taking free ports, or each on an explicit free port when
     the default is held by another program here, as `serve_and_webui` says it).
-  - Opening each server's printed link through the opener: a `303`, and the jar then holds three
-    distinct `chantier_board_<id>` cookies for 127.0.0.1, each with `SameSite=Lax`.
+  - Opening each server's printed link: the `303`, read through an opener without a redirect
+    handler sharing the same jar, whose `Set-Cookie` header holds `SameSite=Lax` (the attribute is
+    checked on the header, the jar keeping no `SameSite`); the jar then holds three distinct
+    `chantier_board_<id>` cookies for 127.0.0.1.
   - A reload of each (`GET /` through the opener) answers 200 with the page; `/api/board` through
     the opener answers 200 from each (the jar's cookie, from the own origin).
   - Two tabs of the first server: two WebSocket connections carrying the jar's `Cookie` header and
@@ -231,8 +250,8 @@ Read `clients/web/DESIGN.md` first and keep it true.
   - A fresh jar (a home-screen app's, a private tab's): `GET /` with `Accept: text/html` answers
     401 with the form; submitting it as a browser would (`GET /?k=<the whole printed link,
     URL-encoded>`) answers `303` and sets the cookie; the reload answers 200.
-  - The existing check at 16d (`/?k=<key>` answers 303 with "HttpOnly, SameSite=Strict") reads
-    `SameSite=Lax`.
+  - The existing check at 16d, `scenario/run_scenario.py:3307-3310` (`/?k=<key>` answers 303 with
+    "HttpOnly, SameSite=Strict"), flips to `SameSite=Lax`.
 - Browser evidence, labelled: the cookie jar of Python's standard library: exercised (scenario);
   `SameSite` handling by a real browser (Chromium, Firefox, iOS Safari): documented, not tested;
   iOS Safari's handling of a link opened from another app: not tested. The PR's Known gaps names

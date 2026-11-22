@@ -1,24 +1,24 @@
-# Diagnosis: serve_and_webui (CR-456)
+# CR-456 diagnosis: `serve_and_webui ran to the end` red on CI
 
-Cause: scenario/run_scenario.py `serve_and_webui` (l.2699-2703) builds `sw` and `sw2` (SurfaceWorld.build)
-but never runs `sw.chantier("init")`, so `projects/demo/changes` does not exist. Every other
-surface-board case that starts a server calls init first (e.g. outside_poller l.2769).
-`serve` then refuses: "error: board not started: no planning folder at <surface>/projects/demo/changes"
-(board/command.py check_planning). Consequences:
-- `first` BoardProc prints no start line (error on stderr) -> `Link(None).ok` False -> the case prints
-  "default port 8765 is held" (wrong guess) and skips the second-surface step.
-- `webui` finds no server, spawns `<cli> serve --stop-idle` detached (stdout/stderr devnull); it dies on
-  the same error; webui waits 20 s -> exit 4 "did not start within 20 s" (commands/webui.py:46-47).
-- Then the later steps fail; the final 10049 OSError is a follow-on of the empty link.
+Exception (reproduced): `ConnectionRefusedError` at scenario/run_scenario.py:2726
+`got1 = fetch(link.port, "/api/board", ...)`, preceded by the failed check "a second surface's server ... takes port"
+(`said`/`start` both None).
 
-Proof: fresh scratch surface without `changes/`: `uv run --no-sync --project <wt> chantier --project demo serve --port 0 --seat s`
--> "board not started: no planning folder at ...\changes". With the folder present, the exact spawned
-command (`uvx --from <wt> chantier --skill ... --project ... serve --stop-idle`) starts in about 1 s and takes a
-free port when 8765 is held (checked with CHANTIER_WRITER_TEST_TIMES set and a live-pid writer entry).
-Locally 8765 is also held by the user's real boards (netstat: pids 5276, 19868), a second, separate issue.
+Cause: `first` is started with `--seat sess-1` (line 2707-2708) but no seat is ever taken
+(`seat take sess-1`), so `seat.json` names no session. A board started with `--seat` follows its seats
+(board/seats.py) and stops itself, exit 0, at the first seat check (every SEAT_CHECK_S = 10 s) because none
+is held. On CI the step is slower (init x2, second board start + 20 s `line()` timeouts), so by 2726 `first`
+is gone: port refused. The second board (also `--seat sess-2`, never taken) likewise. Locally the branch is
+skipped (port 8765 held) and the rest finishes inside 10 s, so it passes. Also the second's 'takes port'
+line was None in the repro only because my repro forced a configured port (fallback applies to the default
+port only); that is a repro artefact, not the CI cause.
 
-Fix: in serve_and_webui, after the `build()` loop add `each.chantier("init")` for sw and sw2 (SurfaceWorld.chantier
-runs writer_up first, as outside_poller does).
-Second risk: `first` uses `--port DEFAULT_PORT` explicitly, so no election happens (command.py `_listen`: default only
-when args.port is None); if 8765 is held (a real board here, or a parallel unit on CI), it refuses and the second-surface
-step is skipped (handled, not failing). Optional: leave as is.
+Evidence: repro3.py: `serve --port F --seat sess-1` alone exits 0 within 12 s; without `--seat` it is alive
+at 12 s. (repro.py reproduces the traceback; repro2.py shows first poll 0 after 2 s+.)
+Reproduction: `uv run --no-sync --project <worktree> python work/debugger/repro3.py --seat sess-1`.
+
+Fix (minimal): in serve_and_webui drop `"--seat", "sess-1"` (line 2708) and `"--seat", "sess-2"` (2715-2716):
+nothing in the step needs a seat (later asserts want `--seat` absent only for the webui-started server).
+Alternative: `sw.chantier("seat","take","sess-1","--env","remote","--title","[remote] a","--link","l")` for each
+surface before starting, as the unit does at line ~10485.
+Not verified: the second-surface branch itself (needs the real 8765 free), so a CI run is the proof.
