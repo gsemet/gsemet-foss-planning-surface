@@ -31,7 +31,9 @@ Grade: 1. One added read-only key on the `board` topic and a new page; the other
 
 ## Known gaps
 
-- **UNVERIFIED:** the written check of the hides, the notification and the screenshots are not yet captured.
+- **UNVERIFIED:** no Node run was made: the navigation count, the tab title, the "new" mark and the browser notification are not exercised by a test.
+- **UNVERIFIED:** the written check of the hides and the screenshots are not yet captured.
+- The plain-HTTP case (no notification API in a non-secure context) is not exercised.
 - The guarded notification call is not exercised on Android Chrome.
 - `just docs-screenshots` fails at its `panel` step on a selector that predates this change; the panel, editor, new, writer, picker and selection pictures are not retaken.
 
@@ -50,6 +52,8 @@ Grade: 1. One added read-only key on the `board` topic and a new page; the other
 - Four kinds only, built from the published record: question, approval asked, ready to merge, blocked. Nothing from the forge, pipelines, events or journal lines.
 - Open is a link or the side panel and never a write; snooze, later and discard are kept in the browser, not on the server, so a hide on one device does not hide on another.
 - A CR both ready to merge and with an open approval wait shows two cards, each hidden on its own.
+- A paused batch still feeds the Inbox: its waits and blocked CRs are still what the user must act on.
+- The browser notification is off by default and asked by a button on the page; the browser's own permission prompt follows the click.
 - The hides are proved by a written check, not by a test that runs Node; a static test only checks that the pure model stays pure.
 
 ## Impacts
@@ -59,11 +63,11 @@ A new Inbox page and a count in the navigation and the tab title; no change else
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just lint`, `just test` pass; `just check`, `just eval-dry-run` pending
-- [ ] Evidence: after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [ ] Local gates at `ae76a80`: `just lint`, `just test`, `just check`, `just eval-dry-run` pass
+- [ ] Evidence: after at `ae76a80`
+- [ ] Review: approved at `ae76a80`
+- [ ] Verified at `ae76a80`
+- [ ] CI green at `ae76a80`
 
 ## Internal references
 
