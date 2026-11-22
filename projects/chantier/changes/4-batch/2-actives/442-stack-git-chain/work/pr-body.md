@@ -59,8 +59,11 @@ The questions below were answered by the advisor during the specification, not b
 ## Changes
 
 - `core/git.py`: `is_ancestor` three-way read.
-- `stacks.py`: `stack_base` takes `landed`; `chain_below` returns the CR below.
-- `commands/delivery.py`: chain check in `ship` and `stack --out-of-draft`.
+- `stack_chain.py` (new): `chain_below` returns the CR below.
+- `commands/chain_check.py` (new): the chain checks and their refusal messages.
+- `stacks.py`: `stack_base` takes `landed`.
+- `commands/delivery.py`: chain check in `ship` and `stack --out-of-draft`; `declare/delivery.py`: their help text.
+- `scenario/README.md`, `test_stack_chain.py`, `test_stack_chain_cards.py`: the scenario's description and the new tests.
 - `driver.md`, `foreman.md`: the stack driver's chain check, bottom-up ships, the refusal sentences for CR, release and stack drivers.
 - Tests, and the scenario's stacked, series and release steps made true to the chain (rebase onto the CR below before `ship`, `base=` on the stacked rounds, one more `ship` after an amend).
 
@@ -77,12 +80,12 @@ No visual change. A stacked CR must be rebased onto the CR below before `ship`.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: pending
-- [ ] Evidence: pending
-- [ ] Review: pending
-- [ ] Verified at `<sha7>`: pending
-- [ ] CI green at `<sha7>`: pending
+- [x] New or changed tests (they fail on the previous code): test_stack_chain.py, test_stack_chain_cards.py
+- [x] Local gates at `311ccf4`: just check pass (1664 passed), just eval-dry-run pass (18 of 18), just scenario pass
+- [x] Evidence: the refusal line from the scenario above; no image
+- [x] Review: inspector approved, committed as `311ccf4`
+- [x] Verified at `311ccf4`: VERIFIED
+- [x] CI green at `311ccf4`: just check (macos, ubuntu, windows), just eval-dry-run, just scenario pass
 
 ## Internal references
 
