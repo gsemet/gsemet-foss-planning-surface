@@ -39,3 +39,15 @@ Verdict: NOT VERIFIED (claim 10).
 11. Posted body re-read at d7154f8; "round" and role names gone; fold, SHAs, Review box (note "r3 approved at 9d3ff72... committed as d7154f83"), CI (`gh pr checks 424`: 5 pass), UNVERIFIED speed bullet: pass. FAIL (diff consistency): Deliverables table lists `rails.py` under "Modules moved onto the store", but `git diff --stat main...HEAD | grep -c rails` -> 0: rails.py is not changed (only listed in tests/test_store_reads.py with an exempt entry). Fix: drop it from the moved list, say it is checked and exempt. FAIL (minor, unmentioned delivered change): tests `test_gate_queue_order.py`, `test_leases.py`, `test_outside_poller.py` change in the diff and Changes names none. Minor wording: Known gaps says "as the specification asks" and "the 10 % rule" (internal rule, undefined to an outside reader). NOT VERIFIED.
 
 Verdict: NOT VERIFIED (claim 11).
+
+## Description pass (posted body of PR 424, head d7154f8397f022a56f4f3299ace5facaedec1252)
+
+Command: `gh pr view 424 --repo gsemet/chantier --json body -q .body`, judged against pr-template.md's audit.
+- Sections in order, fold with blank lines, nothing after `</details>`: ok.
+- No role name or internal reference outside Internal references: ok.
+- Changes/Deliverables vs `git diff --stat origin/main...HEAD` (30 files): rails.py not claimed as changed; the three caller tests named; ok.
+- Known gaps: one bullet per bold `**UNVERIFIED:**` claim (speed): ok. No STALE mark.
+- Review box: note `r3 approved at 9d3ff72e..., committed as d7154f83` matches `approved at 9d3ff72 (committed as d7154f8)`: ok.
+- No image attached.
+
+Verdict: VERIFIED (description).
