@@ -55,3 +55,23 @@ Verdict: NOT VERIFIED
 - Diff vs Summary/Changes: `git diff --stat main...HEAD` lists 21 files, all named in Changes. Matches. No image, no screenshot owed.
 - FAILED: Test plan line "Local gates at 20b7e69: `just check` pass (1631 passed), `just eval-dry-run` pass (18 of 18)". The gate logs at 20b7e694 say otherwise: work/gates/check2-20b7e694.log: `1650 passed, 20 skipped`; work/gates/dry2-20b7e694.log: `dry run: 19 of 19 cases as expected`; chantier log note: "eval-dry-run: pass (19 of 19)". 1631 and 18 are the numbers at e21be68 (r1b.md), carried unchanged into a line that names 20b7e69. Fix: 1650 passed, 19 of 19.
 - The "Verified at 20b7e69" box is ticked, and an earlier verdict at this head exists (the description's other claims hold), but this pass cancels it until the numbers are fixed.
+
+## Description pass 2 (posted PR #409 body, test numbers now fixed), judged at 20b7e694842421d08e5879b2e221887f923e7ce3
+
+Head: 20b7e694842421d08e5879b2e221887f923e7ce3
+
+Verdict: NOT VERIFIED
+
+- Held: `gh pr view 409 --json headRefOid,statusCheckRollup`: head 20b7e694842421d08e5879b2e221887f923e7ce3, 5 checks SUCCESS. Test plan numbers now match work/gates/check2-20b7e694.log (`1650 passed, 20 skipped`) and dry2-20b7e694.log (`dry run: 19 of 19 cases as expected`). Review box matches `chantier log` notes (c5af034 committed as e21be68; move approved at 20b7e694). Known gaps present; no image.
+- FAILED: the Deliverables bullet "worst startup 11383, worst reload 12178" is false at this head. Command at 20b7e694 (cli/): `pytest tests/test_startup_manifest.py -q -s -k measures`, `startup-bytes` lines: worst `bytes=11748`, worst `reload=12543` (limit 12544 unchanged). 11383 / 12178 are the e21be68 numbers (work/r1b.md); the base move changed them. Fix: state 11748 and 12543, or drop the figures.
+
+## Description pass 3 (posted PR #409 body, startup figures fixed), judged at 20b7e694842421d08e5879b2e221887f923e7ce3
+
+Head: 20b7e694842421d08e5879b2e221887f923e7ce3
+
+Verdict: VERIFIED
+
+- `gh pr view 409 --json headRefOid`: 20b7e694842421d08e5879b2e221887f923e7ce3; `gh pr checks 409`: macos, ubuntu, windows check, eval-dry-run, scenario all pass.
+- Startup figures: `pytest tests/test_startup_manifest.py -q -s -k measures` (cli/) at the head: max bytes 11748 (chief-of-staff, copilot), max reload 12543; limit 12544 (`STARTUP_LIMIT = 12_544` in test_startup_manifest.py, `"limit": 12544` in startup-manifest.json). The body states 12544, 11748, 12543: true.
+- Test numbers: gates/check2-20b7e694.log `1650 passed, 20 skipped`; gates/dry2-20b7e694.log `dry run: 19 of 19 cases as expected`. Body says 1650 and 19 of 19: true.
+- SHAs e21be68, 20b7e69, 0e36d1f8 resolve (`git rev-parse --short`). Review box matches the `chantier log` notes (see pass 2). Diff: 21 files (`git diff --stat main...HEAD`), all covered by Changes. Known gaps honest and present; no image, no screenshot owed. Renders: sections, one fold.

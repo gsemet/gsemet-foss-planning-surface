@@ -20,7 +20,7 @@ Choices made:
 
 - Never stop or kill a process for a sync, whoever holds the environment (gate, watcher, board or hub, any project or surface). One exception, on the user's yes: the session's own board and watcher, with the cost stated (board and surface writer off for all projects, hub too unless another session's watcher takes it).
 - The check is a new permission rule in the dev mode only (`uv sync --locked --check --project "<plugin root>"`), byte-identical in the four skills and in the rule the preflight prints.
-- Startup size: the rule in the skill files stays short, so the startup budget (12544 bytes) is unchanged (worst startup 11383, worst reload 12178).
+- Startup size: the rule in the skill files stays short, so the startup budget (12544 bytes) is unchanged (worst startup 11748, worst reload 12543).
 
 ## Blast radius
 
