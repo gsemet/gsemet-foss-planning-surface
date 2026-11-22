@@ -47,7 +47,7 @@ Grade: **1**. One check added in `once()` and a test change; a plain `git revert
 ## Known gaps
 
 - Linux and macOS were not run locally; CI covers them.
-- `just eval-dry-run`, owed for a change under the CLI's `src/`, is run before the first push.
+- The local run of the long scenario on the author's Windows machine failed one step (`webui` printing `board already running`) because another board holds the default port 8765 there; the pipeline's `just scenario (ubuntu-latest)` passes at the head.
 
 <details>
 <summary>Details</summary>
@@ -64,12 +64,12 @@ No visual change. `live --once --only <unserved id>` always exits 2 with the `--
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`
-- [ ] Evidence: 50 runs of both tests, no failure
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): the new live test fails on the base code, passes at `aa8ca7f`
+- [x] Local gates at `aa8ca7f`: `just check` pass (2141 passed, 20 skipped), `just eval-dry-run` pass (19 of 19)
+- [x] Evidence: 50 serial runs of both tests, no failure, and the folder-lock test under 8 parallel loops, failing 1 of 56 before and 0 of 56 after, at `aa8ca7f`
+- [x] Review: approved at `aa8ca7f`
+- [x] Verified at `aa8ca7f`
+- [x] CI green at `aa8ca7f`: `gh pr checks 437`, all five checks pass
 
 ## Internal references
 
