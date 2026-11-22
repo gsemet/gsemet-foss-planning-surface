@@ -58,11 +58,11 @@ No visual change. Stack batches get different (safer) bases at `take`; the board
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
-- [x] Local gates at `e5d656e`: `just check`, `just eval-dry-run`
-- [x] Evidence: scenario gate at `e5d656e`
-- [x] Review: approved at `e5d656e`
-- [x] Verified at `e5d656e`
-- [x] CI green at `e5d656e`
+- [x] Local gates at `e2d9619`: `just check`, `just eval-dry-run`
+- [x] Evidence: scenario gate at `e2d9619`
+- [x] Review: approved at `e2d9619`
+- [x] Verified at `e2d9619`
+- [x] CI green at `e2d9619`
 
 ## Internal references
 
