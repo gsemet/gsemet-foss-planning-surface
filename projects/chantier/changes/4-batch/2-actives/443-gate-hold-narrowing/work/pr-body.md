@@ -76,12 +76,12 @@ No visual change. Projects must add `long_gate.commands` to run a long gate; wai
 
 ## Test plan
 
-- [x] New or changed tests at `1353bbd` (config key, gate refusals and named run, ignored layer, hold limits, shipped files)
-- [x] Local gates at `1353bbd`: `just check` pass, `just eval-dry-run` pass (at ce00b80, scenario-only change since), `just scenario` pass
+- [x] New or changed tests at `11f98d9` (config key, gate refusals and named run, ignored layer, hold limits, shipped files)
+- [x] Local gates at `11f98d9`: `just check` pass, `just eval-dry-run` pass; `just scenario` passed at `1353bbd` and is re-run by the pipeline job
 - [x] Evidence: none beyond tests (no visual change)
-- [x] Review: approved at `1353bbd`
-- [x] Verified at `1353bbd`
-- [x] CI green at `1353bbd`
+- [x] Review: approved at `11f98d9` (restack with a conflict resolved)
+- [x] Verified at `11f98d9`
+- [ ] CI green at `11f98d9` (pending the push of the restack)
 
 ## Internal references
 

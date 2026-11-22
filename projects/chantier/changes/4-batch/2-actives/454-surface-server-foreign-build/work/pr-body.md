@@ -42,12 +42,12 @@ A dev-mode session may see one more line on `status`, the start line and `board 
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check` (1738 passed), `just eval-dry-run` (19 of 19)
-- [ ] Evidence: no visual change
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `7dd2e94`: `just check` (1744 passed), `just eval-dry-run` (19 of 19)
+- [x] Evidence: no visual change
+- [x] Review: approved at `7dd2e94` (move after a resolved conflict)
+- [x] Verified at `7dd2e94`
+- [x] CI green at `7dd2e94`
 
 ## Internal references
 
