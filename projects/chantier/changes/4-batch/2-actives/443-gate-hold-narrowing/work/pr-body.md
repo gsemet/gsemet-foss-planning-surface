@@ -76,12 +76,12 @@ No visual change. Projects must add `long_gate.commands` to run a long gate; wai
 
 ## Test plan
 
-- [ ] New or changed tests (config key, gate refusals and named run, ignored layer, hold limits, shipped files)
+- [x] New or changed tests at `1353bbd` (config key, gate refusals and named run, ignored layer, hold limits, shipped files)
 - [x] Local gates at `1353bbd`: `just check` pass, `just eval-dry-run` pass (at ce00b80, scenario-only change since), `just scenario` pass
-- [ ] Evidence: none beyond tests (no visual change)
+- [x] Evidence: none beyond tests (no visual change)
 - [x] Review: approved at `1353bbd`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Verified at `1353bbd`
+- [x] CI green at `1353bbd`
 
 ## Internal references
 
