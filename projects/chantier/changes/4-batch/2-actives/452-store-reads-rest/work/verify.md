@@ -21,3 +21,15 @@ Second pass at the same head (no move). Claims 1 to 5 carried from d7154f8 (firs
 8. Claim 7 re-judged at d7154f8. Command: `grep -rn "13 of 14\|measurably slower" <CR folder>` (excluding this file) -> no output: the sentence is deleted from `work/pr-body.md`. Known gaps now holds the 20 modules / 60 calls, the speed UNVERIFIED, the macOS cause, the unobserved push loop/watch, the docs search; no unproved fact remains. Other claims carried from d7154f8 (same head, nothing moved). `git rev-parse HEAD` = d7154f8397f022a56f4f3299ace5facaedec1252, `git status --short` empty. VERIFIED.
 
 Verdict: VERIFIED (claims 7 and 8 now pass; all others carried at d7154f8).
+
+## Fourth pass (posted description only), head d7154f8397f022a56f4f3299ace5facaedec1252
+
+9. Posted body read with `gh pr view 424 --repo gsemet/chantier --json body -q .body`, judged against pr-template.md's audit at d7154f8. Sections, order, fold (blank lines, nothing after `</details>`), Blast radius one grade, SHAs on proofs, UNVERIFIED speed claim with its Known gaps bullet, Review box vs the note "r2 approved at e4171908... committed as 9d3ff72e", and Changes vs `git diff --stat origin/main...HEAD` (30 files, listed modules match): all pass. FAIL: Known gaps bullet 2 says "no verifier re-measured it": a role name as the doer of the work outside Internal references (pr-template, "The rules", internal references bullet; the product-term exception does not apply, the PR changes no role). Fix: say "the speed was not re-measured". NOT VERIFIED.
+
+Verdict: NOT VERIFIED (claim 9).
+
+## Fifth pass (posted description only), head d7154f8397f022a56f4f3299ace5facaedec1252
+
+10. Posted body re-read (`gh pr view 424 --repo gsemet/chantier --json body -q .body`) at d7154f8. The role name is gone; sections, fold, Changes vs diff (30 files), SHAs, UNVERIFIED speed with its Known gaps bullet: pass. Review box vs note "r3 approved at 9d3ff72... committed as d7154f83": matches. FAIL: Test plan item "Review: approved at 9d3ff72 (the last round's change, committed as d7154f8)" uses "round", an internal process term, outside Internal references (pr-template audit 3 lists "round"). Fix: "(the last change, committed as d7154f8)". NOT VERIFIED.
+
+Verdict: NOT VERIFIED (claim 10).

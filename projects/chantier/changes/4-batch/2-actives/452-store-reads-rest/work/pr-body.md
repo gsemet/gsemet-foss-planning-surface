@@ -36,7 +36,7 @@ Grade: 1. Reads only; same files, same order, same output. Roll back by revertin
 ## Known gaps
 
 - 20 modules of `commands/` still read directly, 60 calls, none reached by the board, `status` or the hub, and nothing is filed for them: `opening.py` 7; `close_archive.py`, `closing.py`, `delivery.py`, `facts.py` 5 each; `gate.py`, `permissions.py` 4 each; `came_back.py`, `gate_run.py`, `intake.py`, `joining.py`, `rules.py` 3 each; `preflight.py`, `waits.py` 2 each; `driver_notes.py`, `endpause.py`, `opening_record.py`, `release.py`, `summary.py`, `validate.py` 1 each.
-- UNVERIFIED: the speed measure (board state +5.6 %, `status` +5.0 %, both within the 10 % rule) rests on the medians recorded during the work; its per-run times were not kept, so the PR cannot list every run as the specification asks, and no verifier re-measured it.
+- UNVERIFIED: the speed measure (board state +5.6 %, `status` +5.0 %, both within the 10 % rule) rests on the medians recorded during the work; its per-run times were not kept, so the PR cannot list every run as the specification asks, and it was not re-measured.
 - The macOS CI failure of 9d3ff72 was fixed by the stdlib-frame change in `tests/test_store_runtime.py`; its cause was not reproduced locally, and the macOS CI pass at d7154f8 is the only confirmation.
 - The board's push loop, its file watch and the watcher are not observed by the run-time proof.
 - `README.md`, `docs/` and the cards were searched: no sentence this PR makes false was found.
@@ -58,7 +58,7 @@ No visual change. Developers: a new direct read of the planning folder in a list
 - [x] New or changed tests (they fail on the previous code): `tests/test_store_runtime.py` (new, run-time proof) and `tests/test_store_reads.py` (extended list of modules)
 - [x] Local gates at d7154f8: `just check` pass (1635 passed, 20 skipped); `just eval-dry-run` pass at 9d3ff72 (the later commit changes a test only; 18 of 18 cases as expected); local `just scenario` pass at d7154f8
 - [x] Evidence: no before/after visual; no behaviour change. `tests/test_store_runtime.py` adds 0.91 s to `just test` (6 tests, one shared surface built once in 0.38 s). Speed, UNVERIFIED: on a planning folder of 242 backlog CRs plus a running batch, 7 alternating runs, base (e417190) then head (9d3ff72), Windows, CPU load 3 to 53 % from other processes, as recorded during the work: board state median 1.0370 s base, 1.0954 s head (+5.6 %); `status` median 0.6404 s base, 0.6721 s head (+5.0 %, about 0.6 s of it process start). The per-run times were not kept.
-- [x] Review: approved at 9d3ff72 (the last round's change, committed as d7154f8)
+- [x] Review: approved at 9d3ff72 (the last change, committed as d7154f8)
 - [x] Verified at d7154f8, speed excepted (UNVERIFIED, above)
 - [x] CI green at d7154f8: `just check` (ubuntu, macos, windows), `just eval-dry-run`, `just scenario`
 
