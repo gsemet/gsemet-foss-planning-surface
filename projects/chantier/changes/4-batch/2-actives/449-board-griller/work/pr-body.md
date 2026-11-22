@@ -21,6 +21,15 @@ client (a Grill button on a backlog item and a discussion panel) is in the last 
   the write_api refusals; `docs/server-api.md` and `docs/web-board.md` ("The board's Griller").
 - The web client: `clients/web/js/panel/griller*.js`, `js/api/griller.js`, `css/griller.css`, en/fr strings, `DESIGN.md` section.
 
+Screenshots of the web client (Chrome 157 headless, the stand-in host, made-up paths), at `eeca3f8`
+(carried from `fb80d19`, the head they were taken at):
+
+![The Grill button on a backlog item (en)](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/aaf12b783f7b970661adc4546c6548efaed2810a/projects/chantier/changes/4-batch/2-actives/449-board-griller/work/verifier/evidence/en-1-grill-button.png)
+![The discussion panel before the first message (en)](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/aaf12b783f7b970661adc4546c6548efaed2810a/projects/chantier/changes/4-batch/2-actives/449-board-griller/work/verifier/evidence/en-2-panel-notice.png)
+![One turn round-tripped, the answers file written (en)](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/aaf12b783f7b970661adc4546c6548efaed2810a/projects/chantier/changes/4-batch/2-actives/449-board-griller/work/verifier/evidence/en-3-panel-turn.png)
+![The Grill button (fr)](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/aaf12b783f7b970661adc4546c6548efaed2810a/projects/chantier/changes/4-batch/2-actives/449-board-griller/work/verifier/evidence/fr-1-grill-button.png)
+![The discussion panel (fr)](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/aaf12b783f7b970661adc4546c6548efaed2810a/projects/chantier/changes/4-batch/2-actives/449-board-griller/work/verifier/evidence/fr-2-panel-notice.png)
+
 | Host | Agent file | Role |
 | --- | --- | --- |
 | Claude Code | `agents/board-griller.md` | the board's Griller |
@@ -28,8 +37,9 @@ client (a Grill button on a backlog item and a discussion panel) is in the last 
 
 ## Blast radius
 
-Grade: 1. New files and text rows, one set entry and role-count tests updated; a `git revert`
-restores the previous behaviour.
+Grade: 2. New files (engine, API ops, web client, role files) and edits of shared code (the write
+guard, the API's op table, the manifest and docs); the engine starts a host process only on a
+user's click, and a `git revert` removes it, with no data to migrate.
 
 ## Autonomous decisions
 
@@ -42,8 +52,9 @@ restores the previous behaviour.
 
 - No real Claude Code trial: `hosts/claude-code.md` stays marked unproved.
 - Copilot is unproved, likewise.
-- No screenshot of the pane from a real session.
-- No check of the panel in a real browser yet (node smoke of the view only); the Verifier does it.
+- The panel was checked in a real browser (Chrome 157 headless) with the stand-in host only; no real Claude Code or Copilot session ran a grill.
+- In `js/i18n/en-griller.js` and `fr-griller.js`, the backticks around `{cli}`, `{model}` and `{command}` show as literal backtick characters in the page, not as code: cosmetic, left as is.
+- The Grill button reuses the `data-key` card-key attribute; the client's tests only grep the files' text.
 - CR-456 renames the server command `board` to `serve`: the `--new-key` hint strings say `board` until it lands; the command name is one constant (`BOARD_COMMAND` in `js/panel/griller-view.js`), to change when CR-456 merges.
 - The `summary set <cr> --title *` allow rule also matches a trailing `--project <other>`; to narrow
   once the real trial proves the grammar.
@@ -70,14 +81,14 @@ restores the previous behaviour.
 
 ## Impacts
 
-The board shows a Grill button on backlog items and a discussion panel.
+The board shows a Grill button on backlog items and a discussion panel; the screenshots in Deliverables show the button and the panel in English and French.
 
 ## Test plan
 
-- [ ] New or changed tests (role-count and manifest tests)
-- [ ] Local gates at `<sha7>`: `just check`
-- [ ] Evidence: none for a text-only part
-- [ ] Review: approved at `<sha7>`
+- [x] New or changed tests (engine, API, write guard, client, role-count and manifest tests)
+- [x] Local gates at `eeca3f8`: `just check` (1964 passed, 20 skipped) and `just eval-dry-run`
+- [x] Evidence: after at `fb80d19` (carried to `eeca3f8`), the screenshots above; the base has no Grill button, no before captured
+- [x] Review: approved at `3d5f28d` (carried to `eeca3f8` after the restack onto main)
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
