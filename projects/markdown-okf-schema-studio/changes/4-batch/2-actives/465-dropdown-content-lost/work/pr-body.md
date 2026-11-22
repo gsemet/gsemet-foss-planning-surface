@@ -12,7 +12,12 @@ A dropdown directive now renders as the same dropdown the admonition form (`:cla
 | `:open:` | lost | opens by default |
 | no title | lost | title "Details" |
 
-The source is never rewritten. Screenshots before/after: **UNVERIFIED:** not captured yet.
+The source is never rewritten. Screenshots at 18a2ea9 (before is the base, drawn without the Sphinx admonition CSS):
+
+| | Light | Dark |
+| --- | --- | --- |
+| Before | ![before, light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/edabe18c1a682a832369d8132edd5777e8434fdf/before-light.png) | ![before, dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/edabe18c1a682a832369d8132edd5777e8434fdf/before-dark.png) |
+| After | ![after, light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/edabe18c1a682a832369d8132edd5777e8434fdf/after-light.png) | ![after, dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/edabe18c1a682a832369d8132edd5777e8434fdf/after-dark.png) |
 
 ## Blast radius
 
@@ -41,16 +46,16 @@ Grade: **1**: one new normalizer rule for the `details` node and a range fallbac
 
 ## Impacts
 
-Dropdown content is visible and mapped in the preview; no other visual change.
+Dropdown content is visible and mapped in the preview; no other visual change. Before: three empty `<details>`; after: a closed, an `:open:` and an untitled dropdown with their bodies (see Deliverables).
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: SwRS-MDOKFSTUDIO-MYST-006 updated, markers in code and tests, `just requirements-update`
-- [ ] Changelog: one line under `## Unreleased`
-- [ ] Local gates: `just check` pass, mystFeatures unit test 47/47
-- [ ] Review
-- [ ] CI green
+- [x] New or changed tests (they fail on the previous code), pass at 18a2ea9
+- [x] Requirements: SwRS-MDOKFSTUDIO-MYST-006 updated, markers in code and tests, `just requirements-update`
+- [x] Changelog: one line under `## Unreleased`
+- [x] Local gates: `just check` and `just preflight` pass at 18a2ea9
+- [x] Review: approved at 4a1ced2 (the later commit only adds the PR number to the changelog line)
+- [x] CI green: PR checks and the heavy run at 18a2ea9
 
 ## Internal references
 
