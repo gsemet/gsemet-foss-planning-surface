@@ -1,0 +1,3 @@
+# CR board pane opens on demand; welcome message gives the entry points
+
+The CR board pane (hooks/register.tsx, skill.prompt hook) opens by itself when the chantier or chief-of-staff skill loads. It should not: a session whose folder holds no STATUS.json (a planning surface's project) shows 'No chantier status here ... STATUS.json not found'. Change: the pane opens only on the chantier-board command. The first-turn welcome of every role (router, Chief of Staff, Griller) ends with the entry points: under Claude Code, the command that opens the pane (chantier-board); the surface server's address, for the user's terminal client (chantier live); and the web board's link with its key (chantier webui). Requested by the user, 2026-11-23.
