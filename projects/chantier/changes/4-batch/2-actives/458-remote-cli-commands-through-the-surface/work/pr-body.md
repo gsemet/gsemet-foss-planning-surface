@@ -45,7 +45,6 @@ Grade: 2. New client and server paths plus a hook in `cli.main` that every comma
 
 - No remote watcher: a session working through a profile is not woken by merges, CI or board events; it reads `status` each turn.
 - A real eval under a profile is untested; the kit's isolation is checked by the dry run only.
-- No screenshot needed (no web-client change).
 
 <details>
 <summary>Details</summary>
@@ -55,6 +54,14 @@ Grade: 2. New client and server paths plus a hook in `cli.main` that every comma
 - New `clients/profiles.py` (file, folder, active-profile rule), `clients/remote.py` (the forwarding client), `commands/login.py` and `declare/remote.py` (`login`, `logout`), `board/cli_run.py` (the op), `core/origin.py`, `core/remote_wire.py`.
 - `cli.py`: the `--profile` root option and the forwarding step; `board/api` registers `cli.run` and `board.get` returns `origin`; `board/idle.py` counts a running `cli.run`; `live` and `webui` read the active profile.
 - `docs/server-api.md`, `AGENTS.md`, the Chief of Staff card's routing table, the eval kit's environment, the scenario's `remote_cli` case and the tests.
+
+## Human decisions
+
+- Every command runs remotely once logged in, batch commands included (`order`, `open`, `cancel`).
+- The private key is needed to run commands; the read-only key serves `live` and `webui` only.
+- A profile applies only to the projects it was logged in for and to the surface it names (its `origin`); a command that cannot pick a project stops and asks, never going to the profile's first.
+- No remote watcher in this change: `watch` stays local.
+- `webui` under a profile prints the profile's link and starts nothing.
 
 ## Impacts
 
