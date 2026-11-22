@@ -69,12 +69,12 @@ Users get remote commands after one `login`; developers get the `cli.run` op doc
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `tests/test_remote_cli.py`
-- [ ] Local gates: `just check`, `just eval-dry-run`, scenario case `remote_cli`
-- [ ] Evidence: none, no visual change
-- [ ] Review: pending
-- [ ] Verified: pending
-- [ ] CI green: pending
+- [x] New or changed tests (they fail on the previous code): `tests/test_remote_cli.py`
+- [x] Local gates: `just check`, `just eval-dry-run` at 6f91973 (before the first push); scenario case `remote_cli` in CI at bfdf5a2
+- [x] Evidence: none, no visual change
+- [x] Review: approved, and again after the rebase onto main at bfdf5a2
+- [x] Verified: VERIFIED at bfdf5a2
+- [x] CI green: `gh pr checks 434` at bfdf5a2: `just check` (ubuntu, macos, windows), `just scenario (ubuntu-latest)` and `just eval-dry-run` pass
 
 ## Internal references
 
