@@ -2,16 +2,486 @@
   "schema": 1,
   "batch": "batch-07",
   "number": 7,
-  "state": "running",
+  "state": "closed",
   "opened": "2026-11-20T19:31:36Z",
-  "closed": null,
-  "mode": "series",
+  "closed": "2026-11-22T09:25:11Z",
+  "mode": "stack",
   "steering": "foreman",
   "host": "claude",
-  "budget_usd": 80.0,
-  "cost_usd": null,
+  "budget_usd": 330.0,
+  "cost_usd": 236.223,
   "cost_unpriced": {},
-  "crs": [],
-  "cost_receipt": null,
-  "report": null
+  "crs": [
+    {
+      "cr": "CR-435",
+      "title": "Markdown stored LF, CRLF fixtures kept CRLF and really tested",
+      "result": "merged",
+      "archive": "5-archives/261120-2103-435-markdown-lf-crlf-fixtures",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/445",
+      "rounds": 1,
+      "cost_usd": 3.2513,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-439",
+      "title": "Empty blocks leave no blank lines, and a Delete block button",
+      "result": "merged",
+      "archive": "5-archives/261121-0724-439-empty-block-reachable",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/449",
+      "rounds": 5,
+      "cost_usd": 11.228,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-448",
+      "title": "Show blank-line runs inside lists as blank-lines blocks",
+      "result": "merged",
+      "archive": "5-archives/261121-1528-448-blank-runs-inside-lists",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/463",
+      "rounds": 2,
+      "cost_usd": 8.6004,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": [
+        "CR-447"
+      ]
+    },
+    {
+      "cr": "CR-455",
+      "title": "Side preview next to a diff: scroll, replace preview, title button",
+      "result": "merged",
+      "archive": "5-archives/261121-1708-455-side-preview-diff-gaps",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/466",
+      "rounds": 3,
+      "cost_usd": 8.5336,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-457",
+      "title": "Line marker on the table row, the hidden tab and the front matter row",
+      "result": "merged",
+      "archive": "5-archives/261121-2110-457-line-marker-precision",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/471",
+      "rounds": 2,
+      "cost_usd": 10.0114,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": [
+        "CR-456"
+      ]
+    },
+    {
+      "cr": "CR-459",
+      "title": "commentModel accepts an impossible date (2026-02-30)",
+      "result": "merged",
+      "archive": "5-archives/261121-2006-459-commentmodel-accepts-an-impossible-date",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/469",
+      "rounds": 1,
+      "cost_usd": 1.6214,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-461",
+      "title": "Side preview: multi-file diff and merge editor not supported",
+      "result": "merged",
+      "archive": "5-archives/261121-2127-461-side-preview-multidiff-merge-editor",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/470",
+      "rounds": 1,
+      "cost_usd": 4.3087,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-464",
+      "title": "diff-preview-scroll D1 fails on main",
+      "result": "merged",
+      "archive": "5-archives/261122-0718-464-diff-preview-scroll-d1-main-red",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/476",
+      "rounds": 1,
+      "cost_usd": 2.1235,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-465",
+      "title": "Dropdown content lost in the preview",
+      "result": "merged",
+      "archive": "5-archives/261122-0920-465-dropdown-content-lost",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/479",
+      "rounds": 3,
+      "cost_usd": 4.2656,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    },
+    {
+      "cr": "CR-436",
+      "title": "Block editor stuck on 'Saving Markdown...' after repeated edit/exit",
+      "result": "merged",
+      "archive": "5-archives/261120-2239-436-editor-stuck-saving",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/446",
+      "rounds": 2,
+      "cost_usd": 5.5137,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-440",
+      "title": "Requirements viewer shows table scenarios, not empty columns",
+      "result": "merged",
+      "archive": "5-archives/261121-0724-440-requirements-viewer-shows-table-scenario",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/448",
+      "rounds": 1,
+      "cost_usd": 5.0204,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-450",
+      "title": "Mutation testing campaign on `src/core`: redundant tests and holes",
+      "result": "merged",
+      "archive": "5-archives/261121-1528-450-mutation-testing",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/461",
+      "rounds": 3,
+      "cost_usd": 18.3731,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-456",
+      "title": "Show the target-line arrow in the side preview on a jump",
+      "result": "merged",
+      "archive": "5-archives/261121-1923-456-side-preview-jump-marker",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/468",
+      "rounds": 3,
+      "cost_usd": 8.0854,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": [
+        "CR-455"
+      ]
+    },
+    {
+      "cr": "CR-460",
+      "title": "Side preview scroll follows only the real-file side of a diff",
+      "result": "merged",
+      "archive": "5-archives/261121-2234-460-side-preview-diff-scroll-limits",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/473",
+      "rounds": 1,
+      "cost_usd": 2.7541,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-463",
+      "title": "Tooltip on the preview's green change bars",
+      "result": "merged",
+      "archive": "5-archives/261122-0718-463-change-bar-tooltip",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/474",
+      "rounds": 3,
+      "cost_usd": 6.8586,
+      "cost_unpriced": {},
+      "order": 2,
+      "after": []
+    },
+    {
+      "cr": "CR-437",
+      "title": "release v1.10.1",
+      "result": "dropped",
+      "archive": "6-trash/261120-2241-437-release-v1-10-1",
+      "to": "6-trash",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": 0.2928,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": [
+        "CR-436"
+      ]
+    },
+    {
+      "cr": "CR-441",
+      "title": "the use case path graph as a joined map, smaller and readable",
+      "result": "merged",
+      "archive": "5-archives/261121-0724-441-requirements-path-graph-design",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/450",
+      "rounds": 4,
+      "cost_usd": 12.9449,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": []
+    },
+    {
+      "cr": "CR-453",
+      "title": "flaky real-window test realinput-t45, \"only the delimiter cell of the first column centred\"",
+      "result": "merged",
+      "archive": "5-archives/261121-1528-453-flaky-realinput-t45",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/465",
+      "rounds": 1,
+      "cost_usd": 3.5381,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": [
+        "CR-454"
+      ]
+    },
+    {
+      "cr": "CR-462",
+      "title": "Show blank-line runs inside quotes, alerts, admonitions, definitions and footnotes",
+      "result": "merged",
+      "archive": "5-archives/261122-0718-462-blank-runs-inside-quotes-admonitions",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/475",
+      "rounds": 3,
+      "cost_usd": 12.6202,
+      "cost_unpriced": {},
+      "order": 3,
+      "after": []
+    },
+    {
+      "cr": "CR-438",
+      "title": "release v1.10.1",
+      "result": "dropped",
+      "archive": "6-trash/261120-2302-438-release-v1-10-1-b",
+      "to": "6-trash",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": 0.5436,
+      "cost_unpriced": {},
+      "order": 4,
+      "after": []
+    },
+    {
+      "cr": "CR-442",
+      "title": "Release notes highlights: text first, picture cropped",
+      "result": "merged",
+      "archive": "5-archives/261121-0724-442-relnotes-text-first-crop",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/447",
+      "rounds": 1,
+      "cost_usd": 1.9262,
+      "cost_unpriced": {},
+      "order": 4,
+      "after": []
+    },
+    {
+      "cr": "CR-443",
+      "title": "Share cards for requirement pages: one image per category",
+      "result": "merged",
+      "archive": "5-archives/261121-0724-443-requirements-share-cards",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/451",
+      "rounds": 1,
+      "cost_usd": 4.9862,
+      "cost_unpriced": {},
+      "order": 5,
+      "after": []
+    },
+    {
+      "cr": "CR-444",
+      "title": "Show blank-line runs as a reachable blank-lines block in edit mode",
+      "result": "merged",
+      "archive": "5-archives/261121-0724-444-empty-block-blank-lines-block",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/453",
+      "rounds": 3,
+      "cost_usd": 10.7419,
+      "cost_unpriced": {},
+      "order": 6,
+      "after": [
+        "CR-439"
+      ]
+    },
+    {
+      "cr": "CR-445",
+      "title": "Open Studio at a searched line and mark it with an arrow",
+      "result": "merged",
+      "archive": "5-archives/261121-0724-445-open-at-line-marker",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/452",
+      "rounds": 6,
+      "cost_usd": 23.7978,
+      "cost_unpriced": {},
+      "order": 7,
+      "after": []
+    },
+    {
+      "cr": "CR-446",
+      "title": "release v1.11.0",
+      "result": "merged",
+      "archive": "5-archives/261121-0819-446-release-v1-11-0",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/456",
+      "rounds": 1,
+      "cost_usd": 3.0422,
+      "cost_unpriced": {},
+      "order": 8,
+      "after": [
+        "CR-439",
+        "CR-440",
+        "CR-441",
+        "CR-442",
+        "CR-443",
+        "CR-444",
+        "CR-445"
+      ]
+    },
+    {
+      "cr": "CR-447",
+      "title": "Cut, copy and paste work on a list followed by blank lines",
+      "result": "merged",
+      "archive": "5-archives/261121-1228-447-cut-copy-list-trailing-blank",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/458",
+      "rounds": 3,
+      "cost_usd": 5.4344,
+      "cost_unpriced": {},
+      "order": 9,
+      "after": []
+    },
+    {
+      "cr": "CR-449",
+      "title": "Heavy CI after round 1 of a CR adding visual or real-window tests",
+      "result": "merged",
+      "archive": "5-archives/261121-1036-449-heavy-ci-after-round-1",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/457",
+      "rounds": 1,
+      "cost_usd": 1.5585,
+      "cost_unpriced": {},
+      "order": 11,
+      "after": []
+    },
+    {
+      "cr": "CR-451",
+      "title": "Windows long paths in `just dev`, no sign-off in CONTRIBUTING release",
+      "result": "merged",
+      "archive": "5-archives/261121-1125-451-windows-longpaths-checkout",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/459",
+      "rounds": 1,
+      "cost_usd": 2.9061,
+      "cost_unpriced": {},
+      "order": 13,
+      "after": []
+    },
+    {
+      "cr": "CR-452",
+      "title": "the join-window and hidden-panel tests control time instead of waiting",
+      "result": "merged",
+      "archive": "5-archives/261121-1313-452-flaky-previewmanager-162",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/462",
+      "rounds": 1,
+      "cost_usd": 2.6199,
+      "cost_unpriced": {},
+      "order": 14,
+      "after": []
+    },
+    {
+      "cr": "CR-454",
+      "title": "flaky real-window paste-url and drop-files tests",
+      "result": "merged",
+      "archive": "5-archives/261121-1337-454-flaky-paste-url-drop-files",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/460",
+      "rounds": 2,
+      "cost_usd": 5.5335,
+      "cost_unpriced": {},
+      "order": 16,
+      "after": []
+    },
+    {
+      "cr": "CR-458",
+      "title": "Requirements viewer: search by ID, full IDs in titles and breadcrumb",
+      "result": "merged",
+      "archive": "5-archives/261121-1402-458-requirements-viewer-ids",
+      "pr": "https://github.com/gsemet/markdown-okf-schema-studio/pull/464",
+      "rounds": 2,
+      "cost_usd": 7.0741,
+      "cost_unpriced": {},
+      "order": 20,
+      "after": []
+    }
+  ],
+  "cost_receipt": {
+    "steering": {
+      "label": "Foreman",
+      "usd": 33.34,
+      "calls": 1185,
+      "unpriced": {},
+      "wakes": 357,
+      "context_avg": 180138
+    },
+    "drivers": [
+      {
+        "type": "chantier:cr-driver",
+        "usd": 191.3134,
+        "calls": 7923,
+        "unpriced": {}
+      },
+      {
+        "type": "chantier:stack-driver",
+        "usd": 8.3116,
+        "calls": 476,
+        "unpriced": {}
+      },
+      {
+        "type": "chantier:release-driver",
+        "usd": 2.711,
+        "calls": 154,
+        "unpriced": {}
+      }
+    ],
+    "split": [
+      {
+        "part": "steering",
+        "usd": 33.34,
+        "calls": 1185,
+        "unpriced": {}
+      },
+      {
+        "part": "drivers",
+        "usd": 86.13,
+        "calls": 3601,
+        "unpriced": {}
+      },
+      {
+        "part": "workers",
+        "usd": 116.75,
+        "calls": 4981,
+        "unpriced": {}
+      }
+    ],
+    "models": [
+      {
+        "model": "claude-sonnet-5-5",
+        "calls": 9736,
+        "usd": 235.16,
+        "unpriced": 0
+      },
+      {
+        "model": "claude-opus-5-5",
+        "calls": 31,
+        "usd": 1.06,
+        "unpriced": 0
+      }
+    ],
+    "outside": {
+      "grill": {
+        "usd": 104.5377,
+        "calls": 1659,
+        "unpriced": {}
+      },
+      "steering": {
+        "usd": 31.682,
+        "calls": 600,
+        "unpriced": {}
+      }
+    }
+  },
+  "report": "batch-07.md"
 }
