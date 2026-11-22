@@ -237,6 +237,21 @@ of scope (docs-garden-Q4); its inventory row says why.
   emoji legend and monospace commands), comes with its `-texts.md`, and is linked from the README
   or a page of `docs/`.
 - An SVG stays hand-written, as today. No generator is added.
+- **The surface server (the user, 2026-11-22).** No diagram draws it today (`how-chantier-works`
+  draws the CLI as one box; `planning-modes` names the writer in one line), so a new SVG,
+  `docs/surface-server.svg` with its `-texts.md`, draws it, linked from `docs/web-board.md` and from
+  CONTRIBUTING.md's "How the project is built"; `how-chantier-works` gains a small server box that
+  points to it. It shows: the planning folder as the only truth (plain JSON and Markdown, edited by
+  the CLI, the agents, git and the user; no database); one process with its roles: the web board
+  and its published API (WebSocket, and HTTP as the same protocol) behind a key, the forge hub
+  (read-only forge reads, at most every 20 s, journal lines), the writer (commits, rebases and
+  pushes the surface's published paths within 5 minutes); each session's watcher reading only its
+  project's journal and waking its session; the clients (web, `chantier live`, any API client);
+  how it reads: each project's state in memory behind a fingerprint of the folder (a stat walk, no
+  file opened), the OS's change notifications (`watchfiles`), one walk once a project's files are
+  quiet 1 s (at most 5 s), only the last folders of the archives and the trash. Its words come from
+  the code at the head (`board/fingerprint.py`, `board/watch_files.py`, `hub/`, `writer/`) and
+  AGENTS.md, never from this list where they differ.
 
 ### 5. The pictures (`docs/web-board/*.png` and the other `docs/*.png`)
 
