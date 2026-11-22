@@ -4,7 +4,7 @@ On the board's Batch page, the graph of connected cards draws one arrowhead for 
 
 ## Deliverables
 
-- One arrowhead per waiting card, drawn once whatever its number of sources (2 or 7), at the middle of its left edge, whole and touching the card. The demo's `localised-receipts` card now waits for three others, in three rows and two levels, so the picture shows it.
+- One arrowhead per waiting card, drawn once whatever its number of sources (measured with three), at the middle of its left edge, whole and touching the card. The demo's `localised-receipts` card now waits for three others, in three rows and two levels, so the picture shows it.
 - On hover or focus, the lit arrows and their heads are drawn again in the accent colour in a layer above the cards. Unlit arrows stay behind the cards.
 - Each mode word of the switch on a running batch has a tooltip (hover and keyboard focus): `To switch, ask the Chief of Staff to "change the batch to series"`, or "This batch's mode." on the batch's own mode, in English and French. A closed batch has none. Clicking a mode does nothing: the board edits no batch.
 
@@ -62,12 +62,12 @@ The Batch graph's arrowheads and the lit arrows look different, and the switch s
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test_board_graph_arrows.py`
-- [ ] Local gates at `819b848`: `just check`, `just eval-dry-run`
-- [ ] Evidence: before at `9b22d87`, after at `819b848`: one head into the waiting card, its tip 0 px from the left edge's middle, its three arrows ending there; top layer with 3 arrows and 1 head in the accent; every tooltip inside the viewport; no tooltip on a closed batch; no horizontal scroll at 375 px
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): `test_board_graph_arrows.py`
+- [x] Local gates at `819b848`: `just check`, `just eval-dry-run`
+- [x] Evidence: before at `9b22d87`, after at `819b848`: one head into the waiting card, its tip 0 px from the left edge's middle, its three arrows ending there; top layer with 3 arrows and 1 head in the accent; every tooltip inside the viewport; no tooltip on a closed batch; no horizontal scroll at 375 px
+- [x] Review: approved at `9b22d87`, committed as `819b848`
+- [x] Verified at `819b848`
+- [x] CI green at `819b848`
 
 ## Internal references
 
