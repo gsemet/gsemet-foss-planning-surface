@@ -88,3 +88,30 @@ file write is `backlog.file`, private key.
 - The read-only key opens an allow-list of read ops only; every other op, present or future
   (CR-449's `griller.send`/`griller.stop` included), needs the private key.
 - A `cli.run` counts as a client for the idle stop's 30 minutes.
+
+## remote-cli-Q15..Q18 (2026-11-22, the user), from the second critique
+
+- Q15, `watch` through a profile: no remote watcher in this CR. `watch` stays local; a forwarded
+  command prints no `watch: not running` line; the PR's Known gaps and the chief-of-staff row say a
+  Chief of Staff working through a profile has no watcher (a later CR). This replaces the earlier
+  decision "`watch` refused under a profile". Answer: the recommended option.
+- Q16, `lease hold` once CR-443 is in (it only pushes the expiry ahead): forwarded like any other
+  command; refused only if CR-443 is not under C at its head. `gate` stays refused. Answer: the
+  recommended option.
+- Q17, a real eval on a machine with a default profile: "Pourquoi tu ne pourrais pas isolé
+  l'environnement ? Sur une machine donnée il peut y avoir n surfaces actives en même temps, elles
+  seront dans plusieurs projets git différent il faut juste qu'ils ne s'écrasent pas les port http
+  etc". Read by the Chief of Staff: isolate, do not refuse. (a) The eval kit isolates its sessions'
+  chantier config with a chantier-only variable (for instance `CHANTIER_CONFIG_HOME`), not
+  `APPDATA`; (b) a profile applies only to the projects it was logged in for, so several surfaces
+  and projects on one machine never send each other's commands to the wrong server (an eval's
+  workspace stays local); (c) two surfaces' servers on one machine never clash: ports, keys and
+  state stay per surface (part A: a default port already taken by another surface's server takes a
+  free port and prints it).
+- Q18, `webui` on a machine logged in to a server: prints the profile's link, with nothing
+  started and no network call; on the server's own machine nothing changes. Answer: the
+  recommended option.
+
+Chief of Staff's decision (critic finding 8): a `webui`-started server held open by the session's
+own watcher is named in the blocked-sync message (`PID <n> serve`, started by `webui`); the user
+stops it by hand; A's sentence is corrected.
