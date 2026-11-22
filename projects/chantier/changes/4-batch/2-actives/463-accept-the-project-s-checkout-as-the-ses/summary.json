@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Accept the project's checkout as the session folder beside the surface",
+  "summary": "Specified: P6 and P7 accept the surface's or the project's main checkout, P11 reads the surface, the surface is found from AGENTS.md and kept; no long gate, merge on green CI. For batch-31.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "7b92166f562faa656d1a98694cd4994d33a6bde6496c3fe95c8f28521d06b279",
+    "02-answers.md": "f43de4b455e6e1090cbc19325f2b8a4909b90debe4d54e39db3503e873d4fcc0",
+    "03-change-spec.md": "9d36a4fb60f5d9e4f520a6188eef69d9bbc8b26a3808ff28a16fb4cad9585afb",
+    "intake/request.md": "cb737ad5ded03e557c5c1f5cdeed5e20b75858ed0acdcca843a7bfc351faba0d"
+  },
+  "summarized": "2026-11-22T23:39:03Z"
+}

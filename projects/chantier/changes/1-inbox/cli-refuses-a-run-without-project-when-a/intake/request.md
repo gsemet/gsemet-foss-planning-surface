@@ -1,0 +1,3 @@
+# CLI refuses a run without --project when AGENTS.md names a surface
+
+In a checkout with no .agents/changes/ whose AGENTS.md holds the pointer line (- planning: <url>, projects/<name>), a chantier command run without --project takes the project as in-project and writes its planning .gitignore there. It should refuse with one line: this project plans in the surface at <url> (projects/<name>): pass --project <surface folder>/projects/<name>. Raised by the spec of the session-folder CR, 2026-11-23.
