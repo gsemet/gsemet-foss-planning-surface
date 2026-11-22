@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Remote CLI commands through the surface server; chantier serve",
+  "summary": "Specified: board renamed serve, webui prints the link; login stores a server profile, then every command runs on that server and returns its output; logout or --profile local runs here; AGENTS.md exceptions named; 5 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "7f86a585dc6447c954df99392db899e1b1d9f83a135de11d4ce465ff73ac595d",
+    "03-change-spec.md": "e7f3b411e4970c2118f8d4935ac3aa145cb4a0898d5d4e9d5e7adff92e1ab2c0",
+    "intake/request.md": "4598059113895f65670e12ae19db3b818056f5bfc24cbf71c18815861fc3abcc"
+  },
+  "summarized": "2026-11-22T10:07:29Z"
+}
