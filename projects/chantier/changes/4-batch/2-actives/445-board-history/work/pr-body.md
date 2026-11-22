@@ -32,7 +32,8 @@ Grade: 2. The batch close now writes four more keys into each CR of the record, 
 ## Autonomous decisions
 
 - The page's index is rebuilt when a record, an archive folder or `4-batch` changes, not when an archived `STATUS.json` is edited in place (archives do not change).
-- A CR that ended with no recorded time counts in the foot line's "no recorded end"; an unreadable archived file counts there too.
+- A CR of a closed record is read as "new" when it carries the `ended` key; older ones are read from their archived steps.
+- A CR that ended with no recorded time counts in the foot line's "no recorded end"; an unreadable archived file counts both as unreadable and, being a merged CR with no dated step, as "no recorded end".
 
 ## Known gaps
 
@@ -49,6 +50,15 @@ Grade: 2. The batch close now writes four more keys into each CR of the record, 
 - Close: `commands/close_archive.py`, `history.py` and the shared `core/cr_times.py` write `kind`, `ended`, `shipped` and `version` for each CR of the record.
 - Server: `board/history_page.py` (index and answer), `history.get` op and `history` topic, `HistoryArgs`, `protocol.json`, `docs/server-api.md`, `tzdata` in `pyproject.toml` and `uv.lock`.
 - Client: `views/history.js`, `views/history-feed.js`, router keys `hp`/`hd`, registry entry after PRs, `history` icon, `en-history.js` and `fr-history.js`, `css/views/history.css`, the `h:<CR>` opener target, `DESIGN.md` and `docs/web-board.md`.
+
+## Human decisions
+
+- The page lists and totals only: no chart, curve, median, ranking or comparison with another period.
+- Days are the browser's local day, computed on the server with `zoneinfo` and the `tzdata` wheel; weeks run Monday to Sunday.
+- A release is told only from the record's own mark, never from a tag or a forge publication.
+- A batch's close only adds keys to its record; records already written are not rewritten.
+- The cost shown is the sum of the recorded costs of the CRs that ended in the period, labelled as such; steering and grill costs are not spread over days.
+- A CR with no recorded time is in no period and is never dated from its archive folder's name.
 
 ## Impacts
 
