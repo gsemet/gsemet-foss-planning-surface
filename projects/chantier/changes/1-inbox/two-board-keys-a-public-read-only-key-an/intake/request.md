@@ -1,0 +1,3 @@
+# Two board keys: a public read-only key and a private key
+
+Split from remote-cli-commands-through-the-surface- (remote-cli-Q11, the user, 2026-11-22): part B of three stacked CRs in batch-30 before CR-447, after part A. The surface server gets a public read-only key (an allow-list of read ops) and a private key (today's key, every other op). The grill is in the parent CR's 02-answers.md (Q9, Q11, decisions).

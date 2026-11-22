@@ -66,3 +66,25 @@ a later CR.
 - `login` makes the new profile the default (the last login wins, like `gh`); `--no-default`
   stores it without.
 - A server `webui` starts stops 30 minutes after its last client, with no seat: kept.
+
+## remote-cli-Q11..Q14 (2026-11-22, the user), from the spec-critic's findings
+
+- Q11, scope: split into three stacked CRs in batch-30, before CR-447, in this order: A, the rename
+  `board`→`serve` and `webui`; B, the two keys (read-only and private); C, this CR: login,
+  profiles and the remote commands (needs B). Answer: "3 CR".
+- Q12, printed launch forms through a profile (the Driver block's `cli:`, the `watch:` line):
+  the server sends its launch form with the answer and the client replaces it with its own, so a
+  Driver started from a remote client works. Answer: the recommended option.
+- Q13, `file @<path>` through the server can copy any file of the server's user into the plan:
+  kept ("Garder": the private key is the user's).
+- Q14, `webui` starts the server when nothing runs, always, with no further yes (typing it is the
+  yes); AGENTS.md names it as a third starter of the server and hub. Answer: the recommended option.
+
+Correction of the Q9 reading: `project.file` only reads, so it is on the read side; the planning
+file write is `backlog.file`, private key.
+
+## Chief of Staff's decisions on the critic's other points (2026-11-22)
+
+- The read-only key opens an allow-list of read ops only; every other op, present or future
+  (CR-449's `griller.send`/`griller.stop` included), needs the private key.
+- A `cli.run` counts as a client for the idle stop's 30 minutes.

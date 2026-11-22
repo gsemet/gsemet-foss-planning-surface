@@ -1,0 +1,3 @@
+# Rename the surface server command to serve; add webui
+
+Split from remote-cli-commands-through-the-surface- (remote-cli-Q11, the user, 2026-11-22): part A of three stacked CRs in batch-30 before CR-447. `chantier board` becomes `chantier serve` (no alias), `chantier live` stays the TUI, `chantier webui` prints the board's link(s) and starts the server when none runs, always (Q14). The grill is in the parent CR's 02-answers.md (Q1, Q3, Q14).
