@@ -1,6 +1,6 @@
 # CR-441 verify
 
-Head: 607a628faae899b57646e513c1e3e5b2343c90ad
+Head: 91b2c1f4a8ddd4fc2a3d5be3bcbe88776cf193e7
 
 All browser claims below were judged at 819b848 by my own run: `work/scratch/vrun.py` (Playwright on the
 worktree's demo, served by `docs_screenshots.py`'s own server, scratch under `work/scratch/vw`, removed).
@@ -83,5 +83,17 @@ Head: 607a628faae899b57646e513c1e3e5b2343c90ad
   per target, none at CR-148 (cropped below); the head itself is proved by claim 1.
 - Gate/Review/CI: the gate pass and review are at 819b848; the Driver's notes for 607a628f are the Driver's to cite (CI
   at the new head not re-read by me; the PR body's SHAs must be moved to 607a628 by the Driver).
+
+VERIFIED
+
+## Light re-verify after restack onto ca0032cb, head 91b2c1f4a8ddd4fc2a3d5be3bcbe88776cf193e7
+
+- Patch unchanged: `git range-diff cdee6c82..ab4bb9fa ca0032cb..91b2c1f4` shows `1: ab4bb9fa ! 1: 91b2c1f4` with only
+  context-line differences (a hunk header in docs/web-board.md, a context line in scripts/docs_screenshots.py); no `+`/`-` line of the CR changed.
+- Pictures are the CR's: for the 7 pictures the CR changes (batch-cards-pc, batch-gantt-pc, batch-graph-pc, batch-pc, batch-phone,
+  kanban-phone, panel-pc), `git rev-parse 91b2c1f4:<f>` equals `ab4bb9fa:<f>` for each (same blob). The CSS, JS, tests of the CR also same blobs.
+- Tests at 91b2c1f4: `pytest test_board_graph_arrows.py test_board_design.py` gives `40 passed`.
+- Browser claims 1-8 and gate: carried from 819b848 / ab4bb9f: the CR's code blobs (batch-graph.js, batch-head.js, css, test) are identical; the
+  base change (CR-440 Triage fold) touches the Triage view, not the batch graph. Not re-run (no `just scenario`, per brief).
 
 VERIFIED

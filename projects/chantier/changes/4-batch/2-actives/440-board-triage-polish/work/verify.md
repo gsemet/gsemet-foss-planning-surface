@@ -96,3 +96,14 @@ NOT VERIFIED (description only: Known gaps incomplete; the browser and test clai
 Command: gh pr view 410 --json body. Sections, fold, four images at 9b22d87, Internal references only in its section: ok. Known gaps long-line fact checked with `git diff -U0 <base>...HEAD` length scan on js/ui/column.js: added lines 9 (104) and 10 (120), template lines 155 and 235: matches the description.
 
 VERIFIED
+Head: ca0032cbdb9613ddca52229fb986b6ca687600b4
+
+## Light re-verify after restack onto e2f8fdc1 (judged at ca0032cb)
+
+- CR's own patch unchanged: for both CR commits (6d7c42d2 -> 05089f6f, cdee6c82 -> ca0032cb) `diff <(git show -U0 --format= OLD -- . ':!*.png' | grep -E '^[+-][^+-]') <(same NEW)` printed no difference ("same-nonpng"). `git range-diff` marks commit 2 `!` only for hunk context lines of docs/web-board.md and DESIGN.md (base moved by CR-435).
+- Pictures are the CR's: `git diff --stat cdee6c82 ca0032cb -- 'docs/web-board/triage*.png'` is empty (the three Triage pictures byte-identical to the old head); the other pictures come from e2f8fdc1 (base retake).
+- Targeted check: `pytest tests/test_board_design.py -q` -> 38 passed.
+- Carried from 9b22d874/cdee6c8: browser steps, screenshots, test claims (the patch is unchanged). Description pass and Known gaps: carried; the pushed head will differ by SHA only.
+- Gate/CI at the new head not run by me (no `just scenario`, per brief).
+
+VERIFIED

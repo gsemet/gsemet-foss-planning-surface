@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Two board keys: a public read-only key and a private key",
-  "summary": "Spec written (part B, on A): today's key stays private; a new read_key opens an allow-list of read ops and topics only, every other op 403s; X-Chantier-Access header exposed in CORS, welcome.access; start lines add a read-only link; AGENTS.md wording vs CR-449.",
+  "summary": "Spec amended (part B): today's key stays private; read_key opens a read allow-list only, all else 403; X-Chantier-Access exposed in CORS; if CR-449 is first, its AGENTS.md, docs, card and i18n strings say the private key and replaces both keys.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "108298b0e81c9f2a898289b6c3bfee6ab3083ef3099d372b29e105bf93326570",
-    "03-change-spec.md": "4360c89614fbd23d6d764f291a818d61e97542c7ca82cc4c060beebc0ed25feb",
+    "02-answers.md": "8a6cf242a83c250e73e4eb86c4cff15f629cee092864601fe78a8b4a9107ddb6",
+    "03-change-spec.md": "c3ce5518276bbdce15c81abfeff1e0120bf216a258fc31d53b9083f11a640dfb",
     "intake/request.md": "45a241b866cebc0f92e417476b8214fb0c8fa4da0bd5f1b83b086dcaa56c3903"
   },
-  "summarized": "2026-11-22T10:36:00Z"
+  "summarized": "2026-11-22T10:48:56Z"
 }
