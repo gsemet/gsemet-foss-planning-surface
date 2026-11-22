@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Release v0.15.1",
+  "summary": "Patch release shipping the session-folder fix, autonomous overnight on the user's word: no eval, no local long gate, merge, tag and publication under a grant. Specified, for batch-31.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3d9fade314931755c1abed9f5c846755ce6391fdb4cfb2affb5b93d37616f369",
+    "02-answers.md": "85fc65379b199fc07648055188358f1a6c8febc9f995398a15ff40ab87e93981",
+    "03-change-spec.md": "b374d346c0673db3e45a987300343b5002b8138c2256430156a57f54f20b7398",
+    "intake/request.md": "9532f1c2a704e309ea197c49e50ebe9ccb3a97f2d41265b2ebc67a0159ea10c5"
+  },
+  "summarized": "2026-11-22T23:36:46Z"
+}
