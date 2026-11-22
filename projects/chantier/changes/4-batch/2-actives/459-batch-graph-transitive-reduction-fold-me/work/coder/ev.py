@@ -29,7 +29,7 @@ M = """() => { const g=document.querySelector('.gscroll'), gr=document.querySele
   all:document.querySelectorAll('svg.edges:not(.top) path[data-from]').length,
   pagew:[document.documentElement.scrollWidth, innerWidth]}; }"""
 def go(p, url, proj, extra):
-    p.goto(f"{url}?p={proj}&{extra}&lang=en"); p.wait_for_selector(".graph .node", state="attached"); ds.settle(p)
+    base=url.split("#",1)[0]; sep="&" if "?" in base else "?"; p.goto(f"{base}{sep}p={proj}&{extra}&lang=en"); p.wait_for_selector("[data-key]", state="attached"); ds.settle(p); p.wait_for_selector(".graph .node", state="attached"); ds.settle(p)
 work = Path(tempfile.mkdtemp(prefix="ev-")); proc=None
 try:
     surf = ds.make_surface(work); home = work/"home"; home.mkdir()
@@ -42,7 +42,7 @@ try:
         p.screenshot(path=str(EV/"desktop-folded.png"))
         go(p,url,"shop-api","v=batch&t=graph"); res["order_reload_same"]=p.evaluate(M)["order"]==res["folded"]["order"]
         p.hover('.node[data-id="CR-148"]'); p.wait_for_timeout(300)
-        res["hover"]={"hl":p.evaluate("()=>[...document.querySelectorAll('.node.highlight')].map(n=>n.dataset.id)"),
+        res["hover"]={"hl":p.evaluate("()=>[...document.querySelectorAll('.node.card-highlight')].map(n=>n.dataset.id)"),
          "top":p.evaluate("()=>({paths:document.querySelectorAll('svg.edges.top path[data-from]').length,heads:document.querySelectorAll('svg.edges.top path.head').length})"),
          "count":p.evaluate("()=>{const n=document.querySelector('.node[data-id=\"CR-148\"]');return [...n.querySelectorAll('[title]')].map(e=>[e.textContent.trim(),e.title])}")}
         p.screenshot(path=str(EV/"desktop-folded-hover-cr148.png"))

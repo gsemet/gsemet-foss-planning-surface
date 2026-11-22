@@ -67,10 +67,10 @@ A user types `chantier serve` where they typed `chantier board`, and `chantier w
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `cf29f3c`: `just check`, `just eval-dry-run`
 - [ ] Evidence: none (CLI rename); see Verified
-- [ ] Review: approved at `<sha7>`
+- [x] Review: approved at `cf29f3c`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 

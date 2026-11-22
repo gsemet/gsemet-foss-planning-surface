@@ -1,0 +1,213 @@
+{
+ "folded": {
+  "sw": 886,
+  "cw": 886,
+  "sh": 518,
+  "ch": 518,
+  "gh": 517.75,
+  "svgh": [
+   518
+  ],
+  "maxbottom": 487.75,
+  "order": [
+   [
+    "CR-142",
+    "CR-146",
+    "CR-144",
+    "CR-149"
+   ],
+   [
+    "CR-143",
+    "CR-147"
+   ],
+   [
+    "CR-145"
+   ],
+   [
+    "CR-148"
+   ]
+  ],
+  "chip": "1 merged",
+  "exp": "false",
+  "n141": 0,
+  "to148": 2,
+  "all": 5,
+  "pagew": [
+   1600,
+   1600
+  ]
+ },
+ "order_reload_same": true,
+ "hover": {
+  "hl": [
+   "CR-142",
+   "CR-146",
+   "CR-143",
+   "CR-145"
+  ],
+  "top": {
+   "paths": 2,
+   "heads": 1
+  },
+  "count": [
+   [
+    "waits",
+    "waits"
+   ],
+   [
+    "Email receipts are localised",
+    "Email receipts are localised"
+   ],
+   [
+    "5",
+    "Waits for CR-141, CR-142, CR-143, CR-145, CR-146"
+   ]
+  ]
+ },
+ "unfolded": {
+  "sw": 886,
+  "cw": 886,
+  "sh": 661,
+  "ch": 661,
+  "gh": 660.9375,
+  "svgh": [
+   661
+  ],
+  "maxbottom": 630.9375,
+  "order": [
+   [
+    "CR-141",
+    "CR-142",
+    "CR-146",
+    "CR-144",
+    "CR-149"
+   ],
+   [
+    "CR-143",
+    "CR-147"
+   ],
+   [
+    "CR-145"
+   ],
+   [
+    "CR-148"
+   ]
+  ],
+  "chip": "1 merged",
+  "exp": "true",
+  "n141": 1,
+  "to148": 3,
+  "all": 6,
+  "pagew": [
+   1600,
+   1600
+  ]
+ },
+ "refolded": {
+  "sw": 886,
+  "cw": 886,
+  "sh": 518,
+  "ch": 518,
+  "gh": 517.75,
+  "svgh": [
+   518
+  ],
+  "maxbottom": 487.75,
+  "order": [
+   [
+    "CR-142",
+    "CR-146",
+    "CR-144",
+    "CR-149"
+   ],
+   [
+    "CR-143",
+    "CR-147"
+   ],
+   [
+    "CR-145"
+   ],
+   [
+    "CR-148"
+   ]
+  ],
+  "chip": "1 merged",
+  "exp": "false",
+  "n141": 0,
+  "to148": 2,
+  "all": 5,
+  "pagew": [
+   1600,
+   1600
+  ]
+ },
+ "kbd_exp": "true",
+ "closed": {
+  "chip": 0,
+  "nodes": 2,
+  "m": {
+   "sw": 1286,
+   "cw": 1286,
+   "sh": 267,
+   "ch": 267,
+   "gh": 267.375,
+   "svgh": [
+    267
+   ],
+   "maxbottom": 237.375,
+   "order": [
+    [
+     "CR-31",
+     "CR-32"
+    ]
+   ],
+   "chip": null,
+   "exp": null,
+   "n141": 0,
+   "to148": 0,
+   "all": 0,
+   "pagew": [
+    1600,
+    1600
+   ]
+  }
+ },
+ "phone": {
+  "sw": 1182,
+  "cw": 383,
+  "sh": 518,
+  "ch": 518,
+  "gh": 517.75,
+  "svgh": [
+   518
+  ],
+  "maxbottom": 487.75,
+  "order": [
+   [
+    "CR-142",
+    "CR-146",
+    "CR-144",
+    "CR-149"
+   ],
+   [
+    "CR-143",
+    "CR-147"
+   ],
+   [
+    "CR-145"
+   ],
+   [
+    "CR-148"
+   ]
+  ],
+  "chip": "1 merged",
+  "exp": "false",
+  "n141": 0,
+  "to148": 2,
+  "all": 5,
+  "pagew": [
+   375,
+   375
+  ]
+ }
+}
