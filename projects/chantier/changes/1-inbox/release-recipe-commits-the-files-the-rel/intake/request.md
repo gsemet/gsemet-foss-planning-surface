@@ -1,0 +1,3 @@
+# Release recipe commits the files the release names
+
+From the batch-30 retro (CR-462, v0.15.0), the user's yes on 2026-11-22. `just release minor` commits with `-am`, which left the new evals/results/claims-v0.15.0.md untracked; the Release driver added it as a second commit, so origin/main's head was not "release: vX.Y.Z" and `just tag` stopped at check-tag (the CoS tagged main's head by hand on the user's word). The release recipe stages the new files the release names (claims table, release-notes folder), or the release Driver commits them before `just release`, so the version commit stays main's head and `just tag` passes.

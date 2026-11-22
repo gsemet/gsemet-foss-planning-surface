@@ -1,0 +1,3 @@
+# Release drafts are a worker's job, not the Release driver's
+
+From the batch-30 retro (CR-462, v0.15.0), the user's yes on 2026-11-22. The Release driver ran out of context before `just release minor`: about 140k tokens went into the release-notes and claims drafts (a 94-row claims table); a second Driver finished. The drafts (release notes, tweet, claims table) are written by a worker the Release driver starts, which hands back the files; the Driver keeps the procedure and the user's asks.
