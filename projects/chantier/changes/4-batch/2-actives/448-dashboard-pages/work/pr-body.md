@@ -78,10 +78,10 @@ A new page for board users; nothing else changes.
 - [x] `just check` passed locally at b1eac87 (1654 passed, 20 skipped); CI at b1eac87 below.
 - [x] `just eval-dry-run` passed locally at b1eac87 (18 of 18 cases).
 - [x] Browser check at phone and desktop widths, both tabs and both languages, on a copy of the real planning surface at 20cac21 (the patch is unchanged by the rebase): screenshots above.
-- [ ] Long gate: the pipeline's `just scenario (ubuntu-latest)` job at b1eac87 (it passed at 20cac21).
+- [x] Long gate: the pipeline's `just scenario (ubuntu-latest)` job green at b1eac87.
 - [x] Review: rebase approved at `b1eac87` (patch carried from `20cac21`)
 - [x] Verified at `b1eac87`
-- [ ] CI green at `b1eac87` (pending when posted)
+- [x] CI green at `b1eac87` (check x3, eval-dry-run, scenario)
 
 ## Internal references
 
