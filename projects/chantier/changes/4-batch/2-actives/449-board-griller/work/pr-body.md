@@ -16,6 +16,11 @@ server, the API and the web client that use them come in later commits of the sa
 - `AGENTS.md`: the CLI-scope and server paragraphs name the board's Griller.
 - The watcher's waking actions gain `grill`.
 
+| Host | Agent file | Role |
+| --- | --- | --- |
+| Claude Code | `agents/board-griller.md` | the board's Griller |
+| Copilot | `com.github.copilot/agents/chantier-board-griller.agent.md` | the board's Griller |
+
 ## Blast radius
 
 Grade: 1. New files and text rows, one set entry and role-count tests updated; a `git revert`
@@ -46,6 +51,14 @@ restores the previous behaviour.
 - Role files, defaults, card section, manifest and concepts rows, docs, host rows, AGENTS.md.
 - `hub/journal.py`: `WAKING_ACTIONS` includes `grill`.
 - Tests that count roles follow the new role.
+
+## Human decisions
+
+- Only the plugin's `board-griller` agent runs a grill started from the board; its model is
+  configurable like any role's.
+- The agent exists as a file on both hosts, kept identical.
+- Any holder of the server's key may start a grill from the board.
+- The Griller's shell is limited to an allow-list of four command shapes.
 
 ## Impacts
 
