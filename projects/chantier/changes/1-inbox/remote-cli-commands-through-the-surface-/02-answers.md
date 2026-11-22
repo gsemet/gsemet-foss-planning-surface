@@ -44,3 +44,25 @@ machine no login is needed: everything stays local, as today.
 Answer (the recommended option): one file in the user's config folder (`~/.config/chantier/`,
 `%APPDATA%\chantier\` on Windows), like `gh`; a named exception to AGENTS.md's rule that chantier
 writes only in the planning folder.
+
+## remote-cli-Q9 (2026-11-22, the user): keys
+
+Asked: with a profile, anyone holding the board link could run every command over plain HTTP on
+the local network; a separate key for `cli.run`, or one key? Answer: "Il faut une clé publique en
+lecture seule et une privée qui peut agir": two keys, a public one that only reads, and a private
+one that can act. Read by the Chief of Staff: the read-only key opens the reads and subscriptions
+(board view, `live`); the private key is needed for every write (backlog moves, `config.put`,
+`project.file`, `cli.run`); `webui` prints both links, the private one for the user only.
+
+## remote-cli-Q10 (2026-11-22, the user): whose machine a remote command reads
+
+Answer (the recommended option): everything runs on the server's machine (worktrees, transcripts,
+paths for `round`, `verdict`, `handback`, `cost`, `file @path`); reads on the client's machine are
+a later CR.
+
+## Chief of Staff's decisions on the writer's other open points (2026-11-22)
+
+- `watch`, `gate` and `lease … hold` refused under a profile, `preflight` on the server: kept.
+- `login` makes the new profile the default (the last login wins, like `gh`); `--no-default`
+  stores it without.
+- A server `webui` starts stops 30 minutes after its last client, with no seat: kept.
