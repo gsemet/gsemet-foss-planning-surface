@@ -1,14 +1,14 @@
 {
   "schema": 1,
-  "title": "Remote CLI commands through the surface server; chantier serve",
-  "summary": "Specified: board renamed serve; webui prints a private and a read-only link; login stores a server profile, then every command runs on that server (private key only); logout or --profile local runs here; AGENTS.md exceptions named.",
+  "title": "Remote CLI commands through the surface server: login, profiles, cli.run",
+  "summary": "Spec rewritten as part C (on B): login/logout profiles in the user config folder; commands forwarded via cli.run, run as a --profile local child on the server; serve/watch/webui never read profiles; launch form swapped client-side; idle stop counts cli.run.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "c6ede2faaedf3e1544137f72b31d7f561295ad2995623273927e542b94110e25",
-    "03-change-spec.md": "18de7dfd1fa960f09848107fb5bbfb56f67a4a8715325beb1968e537ad2e1fb9",
+    "02-answers.md": "21f32e0989e58a7a3bc0c90f51fecd3bce89b42466c6382cfae06a339ea82a9c",
+    "03-change-spec.md": "5ffb1687aeb1ec2fad4d40c54a5d76a9b3f6f79081ebe08b0e1d05279b52a0ac",
     "intake/request.md": "4598059113895f65670e12ae19db3b818056f5bfc24cbf71c18815861fc3abcc"
   },
-  "summarized": "2026-11-22T10:15:47Z"
+  "summarized": "2026-11-22T10:36:00Z"
 }

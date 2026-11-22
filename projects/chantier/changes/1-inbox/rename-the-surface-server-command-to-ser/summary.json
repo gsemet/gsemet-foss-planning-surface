@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Rename the surface server's command to serve; add webui",
+  "summary": "Spec written (part A of A-B-C, batch-30): board becomes serve with no alias, printed prefixes kept; webui prints the link and starts serve --stop-idle with no seat when none runs; AGENTS.md, cards, docs renamed; a check finds stale forms. One Driver.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "acf0b3ca26ff687e39b4910b5a47212fac3625bf959dfaed580eaa2622c1571a",
+    "03-change-spec.md": "7060e0abe9186f56546f054267d572b463562e428dbcc0b05cfdd124fb61883b",
+    "intake/request.md": "b5cda4b99ae2c98e841a5b197dcc30e1fef2737e687b95f30510e455a46a243f"
+  },
+  "summarized": "2026-11-22T10:35:59Z"
+}
