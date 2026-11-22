@@ -17,23 +17,23 @@ Choices: the page needs no project data (registry flag `offline`) and calls no s
 
 On a phone the bottom bar holds one more item, so it scrolls sideways when its items no longer fit (`overflow-x: auto`).
 
-Taken at HEAD7 from the branch's own code, on a demo project with made-up paths:
+Taken at 5569703 from the branch's own code, on a demo project with made-up paths:
 
 English, "Batch and slots" open:
 
-![Help page in English at HEAD7](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/6c8621aff1751d5b60edc765b324049021f3955a/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-en.png)
+![Help page in English at 5569703](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/970397e752219c57dda234d0f66de32d066b3011/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-en.png)
 
 French, "Grill et spécification" open:
 
-![Help page in French at HEAD7](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/6c8621aff1751d5b60edc765b324049021f3955a/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-fr-detail.png)
+![Help page in French at 5569703](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/970397e752219c57dda234d0f66de32d066b3011/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-fr-detail.png)
 
 "All projects":
 
-![Help page on All projects at HEAD7](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/6c8621aff1751d5b60edc765b324049021f3955a/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-all-projects.png)
+![Help page on All projects at 5569703](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/970397e752219c57dda234d0f66de32d066b3011/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-all-projects.png)
 
 360 px wide, the bottom bar at its start (Home, Inbox, Help...), the rest reachable by scrolling it sideways:
 
-![Help page at 360 px at HEAD7](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/6c8621aff1751d5b60edc765b324049021f3955a/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-360.png)
+![Help page at 360 px at 5569703](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/970397e752219c57dda234d0f66de32d066b3011/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-360.png)
 
 ## Blast radius
 
@@ -75,12 +75,12 @@ A new Help entry in the sidebar and bottom bar; nothing else changes visibly.
 
 ## Test plan
 
-- [x] New test `test_the_help_page_is_a_view_with_both_languages_and_real_links` in `tests/test_board_help.py` (registry, topics, word counts, links and anchors, router and `help.js` rules), passing at HEAD7
-- [x] Local gates at HEAD7: `just check`, `just eval-dry-run`
-- [x] Evidence: four screenshots at HEAD7 (Deliverables), Inbox in the sidebar and bottom bar; Help rendered in Chromium: no console error, English/French switch works, no horizontal overflow at 360 px
-- [ ] Review: approved at HEAD7 (Driver fills in the final SHA)
-- [ ] Verified at HEAD7 (Driver ticks it once verified)
-- [ ] CI green at HEAD7: check x3, eval-dry-run, scenario (ubuntu)
+- [x] New test `test_the_help_page_is_a_view_with_both_languages_and_real_links` in `tests/test_board_help.py` (registry, topics, word counts, links and anchors, router and `help.js` rules), passing at 5569703
+- [x] Local gates at 5569703: `just check`, `just eval-dry-run`
+- [x] Evidence: four screenshots at 5569703 (Deliverables), Inbox in the sidebar and bottom bar; Help rendered in Chromium: no console error, English/French switch works, no horizontal overflow at 360 px
+- [ ] Review: approved at 5569703
+- [ ] Verified at 5569703 (Driver ticks it once verified)
+- [ ] CI green at 5569703: check x3, eval-dry-run, scenario (ubuntu)
 
 ## Internal references
 

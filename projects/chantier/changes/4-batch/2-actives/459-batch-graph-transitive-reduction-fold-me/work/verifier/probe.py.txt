@@ -1,0 +1,66 @@
+import sys, json, tempfile, importlib.util
+from pathlib import Path
+root = Path(sys.argv[1]); tag = sys.argv[2]; out = Path(sys.argv[3])
+sys.path.insert(0, str(root / "scripts"))
+import docs_screenshots as d
+from playwright.sync_api import sync_playwright
+out.mkdir(parents=True, exist_ok=True)
+JS = """() => { const g=document.querySelector('.graph'); const gs=document.querySelector('.gscroll');
+ const lv=[...document.querySelectorAll('.graph .lvl')].map(l=>[...l.querySelectorAll('.node')].map(n=>n.dataset.id));
+ const svgs=[...document.querySelectorAll('.graph svg.edges')].map(s=>s.getBoundingClientRect().height);
+ const paths=[...document.querySelectorAll('svg.edges:not(.top) path[data-from]')];
+ const chip=document.querySelector('[data-fold]');
+ return {sw:gs&&gs.scrollWidth,cw:gs&&gs.clientWidth,sh:gs&&gs.scrollHeight,ch:gs&&gs.clientHeight,svgh:svgs,order:lv,
+  chip:chip&&chip.textContent.trim(),exp:chip&&chip.getAttribute('aria-expanded'),title:chip&&chip.title,
+  n141:document.querySelectorAll('.node[data-id="CR-141"]').length,
+  to148:paths.filter(p=>p.dataset.to==='CR-148').length, all:paths.length,
+  edges:paths.map(p=>p.dataset.from+'>'+p.dataset.to),
+  pagew:[document.documentElement.scrollWidth,innerWidth]}; }"""
+res = {}
+with tempfile.TemporaryDirectory() as t:
+    t = Path(t); surface = d.make_surface(t); home = t/"home"; home.mkdir()
+    proc, url = d.start_board(surface, home)
+    try:
+        with sync_playwright() as pw:
+            b = pw.chromium.launch()
+            def ctx(w,h,mobile=False):
+                c = b.new_context(viewport={"width":w,"height":h}, locale="en-US", timezone_id="UTC", color_scheme="light", reduced_motion="reduce", is_mobile=mobile, has_touch=mobile)
+                c.clock.set_fixed_time("2026-06-18T10:30:00Z")
+                c.route_web_socket("**/api/v1/ws", d.fix_board_socket)
+                c.route("**/api/v1/call/board.get", d.fix_board_call)
+                return c
+            def go(p, proj, extra):
+                d.goto(p, url, "batch&t=graph"+extra, proj)
+                p.wait_for_selector(".graph .node", state="attached"); d.settle(p)
+            c = ctx(1600,900); p = c.new_page()
+            go(p,"shop-api",""); res["folded"]=p.evaluate(JS)
+            p.screenshot(path=str(out/f"{tag}-desktop-folded.png"))
+            go(p,"shop-api",""); res["reload_order"]=p.evaluate(JS)["order"]
+            if p.query_selector("[data-fold]"):
+                p.hover('.node[data-id="CR-148"]'); p.wait_for_timeout(300)
+                res["hover"]=p.evaluate("""()=>({hl:[...document.querySelectorAll('.node.highlight')].map(n=>n.dataset.id),
+                  top:[...document.querySelectorAll('svg.edges.top path')].map(x=>x.getAttribute('class')+':'+(x.dataset.from||'')),
+                  cnt:document.querySelector('.node[data-id="CR-148"] [title^="Waits"]')?.textContent+'|'+document.querySelector('.node[data-id="CR-148"] [title^="Waits"]')?.title})""")
+                p.screenshot(path=str(out/f"{tag}-desktop-hover.png"))
+                p.mouse.move(5,5)
+                p.click("[data-fold]"); p.wait_for_timeout(400); res["unfolded"]=p.evaluate(JS)
+                p.screenshot(path=str(out/f"{tag}-desktop-unfolded.png"))
+                p.click("[data-fold]"); p.wait_for_timeout(400); res["refolded"]=p.evaluate(JS)
+                go(p,"shop-api","")
+                p.focus("[data-fold]"); p.keyboard.press("Enter"); p.wait_for_timeout(300)
+                res["kbd_enter"]=p.evaluate(JS)["exp"]
+                p.keyboard.press("Space"); p.wait_for_timeout(300)
+                res["kbd_space"]=p.evaluate(JS)["exp"]
+            c.close()
+            c = ctx(1600,900); p = c.new_page()
+            go(p,"mobile-app","&b=batch-01") if False else None
+            d.goto(p, url, "batch&t=graph&b=batch-01", "mobile-app"); d.settle(p)
+            res["closed"]=p.evaluate(JS); res["closed"]["nchip"]=p.locator("[data-fold]").count()
+            p.screenshot(path=str(out/f"{tag}-desktop-closed.png")); c.close()
+            c = ctx(375,812,True); p = c.new_page(); go(p,"shop-api","")
+            res["phone"]=p.evaluate(JS); p.screenshot(path=str(out/f"{tag}-phone.png")); c.close()
+            b.close()
+    finally:
+        d.stop(proc)
+(out/f"{tag}.json").write_text(json.dumps(res,indent=1))
+print(json.dumps(res))

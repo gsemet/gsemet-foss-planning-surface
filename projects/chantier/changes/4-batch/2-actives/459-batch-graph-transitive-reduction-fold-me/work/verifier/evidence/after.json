@@ -1,0 +1,241 @@
+{
+ "folded": {
+  "sw": 886,
+  "cw": 886,
+  "sh": 518,
+  "ch": 518,
+  "svgh": [
+   518,
+   518
+  ],
+  "order": [
+   [
+    "CR-142",
+    "CR-146",
+    "CR-144",
+    "CR-149"
+   ],
+   [
+    "CR-143",
+    "CR-147"
+   ],
+   [
+    "CR-145"
+   ],
+   [
+    "CR-148"
+   ]
+  ],
+  "chip": "1 merged",
+  "exp": "false",
+  "title": "Show the merged CRs in their levels",
+  "n141": 0,
+  "to148": 2,
+  "all": 5,
+  "edges": [
+   "CR-142>CR-143",
+   "CR-143>CR-145",
+   "CR-144>CR-147",
+   "CR-145>CR-148",
+   "CR-146>CR-148"
+  ],
+  "pagew": [
+   1600,
+   1600
+  ]
+ },
+ "reload_order": [
+  [
+   "CR-142",
+   "CR-146",
+   "CR-144",
+   "CR-149"
+  ],
+  [
+   "CR-143",
+   "CR-147"
+  ],
+  [
+   "CR-145"
+  ],
+  [
+   "CR-148"
+  ]
+ ],
+ "hover": {
+  "hl": [],
+  "top": [
+   "hl:CR-145",
+   "hl:CR-146",
+   "head hl:"
+  ],
+  "cnt": " 5|Waits for CR-141, CR-142, CR-143, CR-145, CR-146"
+ },
+ "unfolded": {
+  "sw": 886,
+  "cw": 886,
+  "sh": 661,
+  "ch": 661,
+  "svgh": [
+   661,
+   661
+  ],
+  "order": [
+   [
+    "CR-141",
+    "CR-142",
+    "CR-146",
+    "CR-144",
+    "CR-149"
+   ],
+   [
+    "CR-143",
+    "CR-147"
+   ],
+   [
+    "CR-145"
+   ],
+   [
+    "CR-148"
+   ]
+  ],
+  "chip": "1 merged",
+  "exp": "true",
+  "title": "Fold the merged CRs",
+  "n141": 1,
+  "to148": 3,
+  "all": 6,
+  "edges": [
+   "CR-142>CR-143",
+   "CR-143>CR-145",
+   "CR-144>CR-147",
+   "CR-141>CR-148",
+   "CR-145>CR-148",
+   "CR-146>CR-148"
+  ],
+  "pagew": [
+   1600,
+   1600
+  ]
+ },
+ "refolded": {
+  "sw": 886,
+  "cw": 886,
+  "sh": 518,
+  "ch": 518,
+  "svgh": [
+   518,
+   518
+  ],
+  "order": [
+   [
+    "CR-142",
+    "CR-146",
+    "CR-144",
+    "CR-149"
+   ],
+   [
+    "CR-143",
+    "CR-147"
+   ],
+   [
+    "CR-145"
+   ],
+   [
+    "CR-148"
+   ]
+  ],
+  "chip": "1 merged",
+  "exp": "false",
+  "title": "Show the merged CRs in their levels",
+  "n141": 0,
+  "to148": 2,
+  "all": 5,
+  "edges": [
+   "CR-142>CR-143",
+   "CR-143>CR-145",
+   "CR-144>CR-147",
+   "CR-145>CR-148",
+   "CR-146>CR-148"
+  ],
+  "pagew": [
+   1600,
+   1600
+  ]
+ },
+ "kbd_enter": "true",
+ "kbd_space": "false",
+ "closed": {
+  "sw": 1286,
+  "cw": 1286,
+  "sh": 267,
+  "ch": 267,
+  "svgh": [
+   267,
+   267
+  ],
+  "order": [
+   [
+    "CR-31",
+    "CR-32"
+   ]
+  ],
+  "chip": null,
+  "exp": null,
+  "title": null,
+  "n141": 0,
+  "to148": 0,
+  "all": 0,
+  "edges": [],
+  "pagew": [
+   1600,
+   1600
+  ],
+  "nchip": 0
+ },
+ "phone": {
+  "sw": 1182,
+  "cw": 383,
+  "sh": 518,
+  "ch": 518,
+  "svgh": [
+   518,
+   518
+  ],
+  "order": [
+   [
+    "CR-142",
+    "CR-146",
+    "CR-144",
+    "CR-149"
+   ],
+   [
+    "CR-143",
+    "CR-147"
+   ],
+   [
+    "CR-145"
+   ],
+   [
+    "CR-148"
+   ]
+  ],
+  "chip": "1 merged",
+  "exp": "false",
+  "title": "Show the merged CRs in their levels",
+  "n141": 0,
+  "to148": 2,
+  "all": 5,
+  "edges": [
+   "CR-142>CR-143",
+   "CR-143>CR-145",
+   "CR-144>CR-147",
+   "CR-145>CR-148",
+   "CR-146>CR-148"
+  ],
+  "pagew": [
+   375,
+   375
+  ]
+ }
+}
