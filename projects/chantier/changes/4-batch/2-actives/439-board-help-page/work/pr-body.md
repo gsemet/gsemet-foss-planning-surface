@@ -78,7 +78,7 @@ A new Help entry in the sidebar and bottom bar; nothing else changes visibly.
 - [x] Local gates at 60aacc1: `just check`, `just eval-dry-run`
 - [x] Evidence: four screenshots at 60aacc1 (Deliverables)
 - [x] Review: approved at cf99450 (rebase with a conflict resolved); the rebase onto main to 60aacc1 had no conflict
-- [ ] Verified at 60aacc1
+- [x] Verified at 60aacc1
 - [x] CI green at 60aacc1: check x3, eval-dry-run, scenario (ubuntu)
 
 ## Internal references

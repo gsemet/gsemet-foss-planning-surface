@@ -22,3 +22,13 @@ Method: a throwaway surface (fresh git repo, projects `demo` and `other`) under 
 
 - PR description is stale and unclean: Known gaps and Deliverables say the screenshots and browser run are owed, Test plan holds `<sha7>` placeholders and "Evidence: none yet", no image attached (claim 8, with the unmentioned batch title-row files in the PR's diff).
 - Evidence pictures are of e317196, not of 60aacc1 (claim 7): `help-360.png` shows the pre-fix clipped bar; retake the four at the head, with made-up paths, and attach them.
+
+## Description pass, head 60aacc1db6243b447659f32357906624bf97aaff (later pass; supersedes the NOT VERIFIED above)
+
+- Images: `curl -sI` on the four permalinks (media.githubusercontent.com, surface commit 6c8621af): help-en, help-fr-detail, help-all-projects, help-360 each `HTTP/1.1 200 OK`, `Content-Type: image/png`. Opened each: they are the retaken pictures (Help page, shop-api / planning-surface demo, path `/home/demo/...`), no real username or home path; help-360 bottom bar shows Help..Configuration, none clipped. Captions name 60aacc1.
+- No placeholder (`<sha7>`, SCREENSHOTS) left in `gh pr view 411 --json body`.
+- Test plan SHAs: `gh pr checks 411`: check macos/ubuntu/windows, eval-dry-run, scenario (ubuntu) all pass (run 44998544025). Description says CI green at 60aacc1: true.
+- Known gaps: `git log --oneline origin/main..HEAD` holds 512620ed, 62e80eea, c1b52ac6 (CR-435 title-row commits) then 98559806, 3204d55f, 60aacc1d. `git log origin/main | grep 512620ed` count 0 (main lacks them). `gh pr view 408`: OPEN, "feat(board): the Batch page's mode and legend move into the title row". `git diff --name-only origin/main...HEAD | wc -l` = 31: the explanation is true.
+- Claims vs code: carried from the earlier pass of this file (same head, code claims passed).
+
+Verdict: VERIFIED
