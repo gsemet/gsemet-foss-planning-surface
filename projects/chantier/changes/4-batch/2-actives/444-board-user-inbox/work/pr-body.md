@@ -19,7 +19,17 @@ flowchart LR
 
 - Four kinds: question, approval asked, ready to merge, blocked. An entry exists only while its fact lasts; a new occurrence is a new entry.
 - Hides (snooze, later, discard) live in the browser only, through the store; the board edits no batch and messages no agent.
-- Screenshots: **UNVERIFIED:** not attached yet (see Known gaps).
+- Screenshots at ae76a80:
+
+![A project's Inbox, desktop, four kinds, one new, count 5](./inbox-project-pc-en.png)
+
+![The empty Inbox](./inbox-empty-pc-en.png)
+
+![All projects](./inbox-all-projects-pc-en.png)
+
+![Phone, bottom-bar badge, Hidden (1) open](./inbox-phone-hidden-open-en.png)
+
+![French, hidden by Later](./inbox-french-later-pc-fr.png)
 
 ## Blast radius
 
@@ -31,9 +41,8 @@ Grade: 1. One added read-only key on the `board` topic and a new page; the other
 
 ## Known gaps
 
-- **UNVERIFIED:** no Node run was made: the navigation count, the tab title, the "new" mark and the browser notification are not exercised by a test.
-- **UNVERIFIED:** the written check of the hides and the screenshots are not yet captured.
-- The plain-HTTP case (no notification API in a non-secure context) is not exercised.
+- No Node run was made: the Verifier drove the page in Chrome (Playwright, fake clock, stubbed `Notification`); the navigation count, tab title, "new" mark and notification are verified that way, not by a test.
+- Not exercised: a real OS notification or a truly backgrounded tab, a real second browser, a real hour or 08:00 (fake clock), `wait clear` run to success.
 - The guarded notification call is not exercised on Android Chrome.
 - `just docs-screenshots` fails at its `panel` step on a selector that predates this change; the panel, editor, new, writer, picker and selection pictures are not retaken.
 
@@ -63,14 +72,16 @@ A new Inbox page and a count in the navigation and the tab title; no change else
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `ae76a80`: `just lint`, `just test`, `just check`, `just eval-dry-run` pass
-- [ ] Evidence: after at `ae76a80`
+- [x] Local gates at `ae76a80`: `just lint`, `just test`, `just check`, `just eval-dry-run` pass
+- [x] Evidence: after at `ae76a80`
 - [ ] Review: approved at `ae76a80`
-- [ ] Verified at `ae76a80`
-- [ ] CI green at `ae76a80`
+- [x] Verified at `ae76a80`
+- [x] CI green at `ae76a80`
 
 ## Internal references
 
 CR-444 board-user-inbox.
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)

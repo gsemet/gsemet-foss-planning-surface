@@ -19,7 +19,7 @@ Grade: 1. Read-only notice lines and two added fields in a JSON record; a `git r
 
 ## Autonomous decisions
 
-- The `status` line is the clause itself, with no `board:` prefix, as `board_lines` prints its other lines.
+- The `status` line is the clause itself, with no `board:` prefix, as `board_lines` prints its other lines. This departs from the spec's wording (a `board:` line).
 
 ## Known gaps
 
@@ -34,7 +34,7 @@ Grade: 1. Read-only notice lines and two added fields in a JSON record; a `git r
 - `hub/state.py`: `build_source()`, `source` in `write_server` and `hub_record`, `other_build()`, `UNKNOWN`.
 - `hub/lines.py`: the clause; `board_lines` uses it. `hub/watch.py`: start line. `board/command.py`, `board/projects.py`: the `board --seat` line.
 - Cards and docs as above; `tests/test_launch_modes.py` follows the new wording.
-- Tests: a parametrized matrix in `tests/test_watcher_autostart.py`, `board --seat` cases in `tests/test_board_running.py`.
+- Tests: a parametrized matrix (status line, start line) in `tests/test_watcher_autostart.py`, `board --seat` cases in `tests/test_board_running.py`, a record test in `tests/test_forge_hub.py`, and guards on the shipped cards' sentences in `tests/test_launch_modes.py`.
 
 ## Impacts
 
@@ -43,7 +43,7 @@ A dev-mode session may see one more line on `status`, the start line and `board 
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check` (1729 passed), `just eval-dry-run` (19 of 19)
+- [ ] Local gates at `<sha7>`: `just check` (1738 passed), `just eval-dry-run` (19 of 19)
 - [ ] Evidence: no visual change
 - [ ] Review: approved at `<sha7>`
 - [ ] Verified at `<sha7>`
