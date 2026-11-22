@@ -89,8 +89,8 @@ The board shows a Grill button on backlog items and a discussion panel; the scre
 - [x] Local gates: `just check` at `292ae73` (1964 passed, 20 skipped); `just eval-dry-run` at `eeca3f8` (the later commit touches the scenario only)
 - [x] Evidence: after at `292ae73` (carried from `fb80d19`), the screenshots above; the base has no Grill button, no before captured
 - [x] Review: approved at `292ae73` (carried from `3d5f28d`: restacked onto main, then a two-number scenario fix)
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Verified at `292ae73`
+- [x] CI green at `292ae73` (`gh pr checks 428`: check x3, eval-dry-run, scenario ubuntu)
 
 ## Internal references
 
