@@ -1,4 +1,4 @@
-Head: 4069ce4acd49006bddb9e43627dfe34aa35a4e42
+Head: e2d9619ddb586eb21b95927bf199982247ccaf65
 
 # CR-455 verification (round 4, local head 4069ce4a, restacked onto CR-439 head 870bae2e, unpushed)
 
@@ -11,5 +11,12 @@ Earlier pass at e5d656e kept in `work/verifier/verify-e5d656e.md`. The move: res
 5. Take rule (Q1, Q3), `after` (Q5), printed base where the worktree sits (Q2, Q4), `base:` line (Q6): scenario transcript `scenario/results/scenario-20261122-132428-40052.md` at 4069ce4: line 3672 (`order after` puts the base on the dependency's branch whatever ready CR sits above; `--note -` back on the nearest earlier ready CR), 3849 (starts on the nearest earlier ready CR with a PR, recorded at first take), 5809 (13-bis check 4: working with a ready one below gives the default branch), 5949 (check 5: blocked gives the default branch), 6523/6687/6733 (13-ter: `base:` line naming a, `handoff b` prints the default branch once a merged with z ready below). All `[x]`.
 6. Scope: `git diff --stat 870bae2e HEAD` touches only scenario/README.md, scenario/run_scenario.py, concepts.md, driver.md, foreman-stack.md (CR-438 moved the bullet; spec section 4 says edit it where it stands), facts.py, records.py, stacks.py, test_stack_base.py. No hooks/ or types/ change. Cards' diff read: it carries the spec's section 4 text.
 7. PR #421 description (`gh pr view 421`): clean, sections and table render, no images; Summary, Deliverables, Changes match the diff; Known gaps names the owed merge message (spec Decisions 6-8) and the long lines. It cites `e5d656e`, the remote head; judged correct for that head. After the push of 4069ce4 the Test plan SHAs must name the new head (Review box: carry from e5d656e per the round-4 clean trim, or have the review at 4069ce4); that is the Driver's step at push. Review box SHA e5d656e is not judged here against `log`.
+
+## Re-verification after a move at e2d9619 (clean rebase onto CR-449 head eeca3f87, old head 4069ce4a, old base e4199b7)
+
+8. Patch unchanged (judged at e2d9619): the Driver's `git patch-id --verbatim` per commit is identical before and after (e0e4999d5557, 8121a702924c, b1e882ae399c). `git diff --name-only e4199b7 eeca3f87` filtered on stacks|facts|records|test_stack|scenario prints nothing: the base brought no change to what claims 2 to 6 run.
+9. Stack tests at e2d9619, worktree clean, `PYTHONPATH=<worktree>/src uv run --no-sync python -m pytest tests/test_stack_base.py tests/test_stack_hold.py tests/test_park_stack.py tests/test_hold_live_stack.py tests/test_park_shared.py tests/test_hold_live_shared.py -q`: `93 passed in 9.64s` (`chantier.__file__` resolves into the worktree). The same run against the main checkout's code (no CR code): `15 failed, 78 passed`, so the new tests do exercise the CR's code and the tree builds on CR-449's code.
+10. Claims 1 (gate pass), 5 (scenario transcript): carried from 4069ce4: patch-ids identical and the base's changes touch no stack file; the long gate's CI at the new head still runs. Claim 2's full suite: carried from 4069ce4 for the same reason, stack suites re-run in 9.
+11. Claim 7, PR #421: `gh pr view 421` headRefOid is e2d9619ddb586eb21b95927bf199982247ccaf65 and its body holds no 4069ce4 (count 0); the Driver updated the SHAs. The rest of the description carried from 4069ce4.
 
 VERIFIED
