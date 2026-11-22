@@ -74,10 +74,10 @@ A new page for board users; nothing else changes.
 
 ## Test plan
 
-- [x] `just check` passed at 9808e1d (1654 passed, 20 skipped).
-- [ ] `just eval-dry-run` at 9808e1d: pending.
-- [x] Browser check on a demo copy at phone and desktop widths, both tabs: no console errors, at the working tree of 9808e1d.
-- [ ] Long gate at 9808e1d: pending.
+- [x] `just check` passed at 20cac21 (1654 passed, 20 skipped), and on the CI jobs for macOS, Ubuntu and Windows.
+- [x] `just eval-dry-run` passed at 9808e1d and in CI at 20cac21 (only `scenario/` changed in between).
+- [x] Browser check at phone and desktop widths, both tabs and both languages, on a copy of the real planning surface at 20cac21: screenshots above.
+- [x] Long gate: `just scenario` passed locally at 20cac21, and in CI (ubuntu-latest).
 
 ## Internal references
 
