@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Release v1.12.0",
+  "summary": "Minor release of everything merged since v1.11.0 and the dropdown fix (CR-465): side preview next to a diff with its target arrow, change-bar tooltip, blank-line runs in lists, quotes and containers, requirement search by full ID.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "44a403cc648ca83a98dea04460926152db6921eb528ec2347f38329a5fa7bf26",
+    "02-answers.md": "8715b7e9a69636403067400b91a23d313aadbef3b497373bec510f991e9b1cb2",
+    "03-change-spec.md": "c2441ff8a2f2208ff42ca29790e9c263eeb14c7d80b2be23e4815529bec5dc22",
+    "intake/request.md": "82f56eae1679c35d5adc078121eeeb5eb531609145f21145c884d26c5d3eab41"
+  },
+  "summarized": "2026-11-22T07:44:05Z"
+}
