@@ -1,6 +1,6 @@
 # CR-441 verify
 
-Head: 819b8480171ae1c830874d22dd41025d83e298a0
+Head: 607a628faae899b57646e513c1e3e5b2343c90ad
 
 All browser claims below were judged at 819b848 by my own run: `work/scratch/vrun.py` (Playwright on the
 worktree's demo, served by `docs_screenshots.py`'s own server, scratch under `work/scratch/vw`, removed).
@@ -64,3 +64,24 @@ VERIFIED
 - Known gaps names the closed-batch pictures gap; evidence claims match measures.md.
 
 VERIFIED (description pass)
+
+## Move 819b848 -> 607a628faae899b57646e513c1e3e5b2343c90ad (restack onto CR-440 83b3a9a0, conflict resolved)
+
+Head: 607a628faae899b57646e513c1e3e5b2343c90ad
+
+- Code and test unchanged (607a628f): `git diff 819b848~1 819b848 -- <cli>/src <cli>/tests/test_board_graph_arrows.py | git patch-id --stable`
+  and the same for `git diff 83b3a9a0 607a628f` both print `8d2a13c93fc1397eb4238b52f500bcf8576810c9`. Claims 1-10 (browser, tooltips, Gantt, closed batch,
+  phone) carried from 819b848: the product code's patch is identical; the base change (CR-440, Triage/store/watch) touches
+  none of the graph, batch-head, CSS or i18n files (`git diff --stat 83b3a9a0 607a628f` lists only the CR's own files).
+  Claim 10 rerun at 607a628f: `pytest tests/test_board_graph_arrows.py tests/test_board_design.py -q` -> `39 passed`.
+- Touched by the move: `scripts/docs_screenshots.py` (graph tab added to the shots, selector accepts the `node-open-c:` key
+  that the Graph cards carry, comment wrapped) and 7 regenerated PNGs, `docs/web-board.md` (graph picture and the two
+  paragraphs). `git diff 83b3a9a0 607a628f -- scripts docs/web-board.md` read: matches the PR's claims.
+- Pictures opened at 607a628f: `batch-graph-pc.png` (Graph tab, levels, arrows, no hover), `batch-pc.png` (Kanban default),
+  `panel-pc.png` (panel from a Kanban card, CR-145 files), `batch-phone.png` (switch hidden), `batch-gantt-pc.png`: each shows its
+  screen, legible, made-up demo data (shop-api), no username or home path. PASS. Note: the graph picture's arrowheads are single
+  per target, none at CR-148 (cropped below); the head itself is proved by claim 1.
+- Gate/Review/CI: the gate pass and review are at 819b848; the Driver's notes for 607a628f are the Driver's to cite (CI
+  at the new head not re-read by me; the PR body's SHAs must be moved to 607a628 by the Driver).
+
+VERIFIED
