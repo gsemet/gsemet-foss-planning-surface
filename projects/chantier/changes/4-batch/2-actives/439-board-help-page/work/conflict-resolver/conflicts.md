@@ -1,8 +1,6 @@
-# Conflicts (rebase onto the rewritten cr-436 base)
+# Conflicts: rebase onto origin/main (906e5fd1)
 
-- js/core/router.js (e317196e): header comment, resolve() (kept base's keptTab logic and added `topic`), apply() (kept base's `keep(place)`, added `topic`), href() (base's `t` line for the Batch view plus `viewPart(place)`). Both intents kept.
-- js/main.js: both imports kept (`batchMode`, `topicIds`).
-- tests/test_board_design.py: base's title-row tests and the CR's Help tests were both pure additions; kept both. The merged file passed 400 lines, so the Help tests moved to tests/test_board_help.py (staged, uncommitted).
-- f3de619c applied with no conflict.
+No conflicted hunk. Rebase clean (5709a66c and de120311 skipped as already applied). New HEAD 60aacc1db6243b447659f32357906624bf97aaff; old cf994501fee4b08862f5f9f7b0a96fc0000d8599.
 
 Fast gate: `just check` in the worktree: 1635 passed, 20 skipped, release-notes ok.
+Also `just eval-dry-run`: 18 of 18 cases as expected.
