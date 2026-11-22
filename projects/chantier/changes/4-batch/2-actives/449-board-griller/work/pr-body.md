@@ -21,7 +21,7 @@ client (a Grill button on a backlog item and a discussion panel) is in the last 
   the write_api refusals; `docs/server-api.md` and `docs/web-board.md` ("The board's Griller").
 - The web client: `clients/web/js/panel/griller*.js`, `js/api/griller.js`, `css/griller.css`, en/fr strings, `DESIGN.md` section.
 
-Screenshots of the web client (Chrome 157 headless, the stand-in host, made-up paths), at `eeca3f8`
+Screenshots of the web client (Chrome 157 headless, the stand-in host, made-up paths), at `292ae73`
 (carried from `fb80d19`, the head they were taken at):
 
 ![The Grill button on a backlog item (en)](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/aaf12b783f7b970661adc4546c6548efaed2810a/projects/chantier/changes/4-batch/2-actives/449-board-griller/work/verifier/evidence/en-1-grill-button.png)
@@ -86,9 +86,9 @@ The board shows a Grill button on backlog items and a discussion panel; the scre
 ## Test plan
 
 - [x] New or changed tests (engine, API, write guard, client, role-count and manifest tests)
-- [x] Local gates at `eeca3f8`: `just check` (1964 passed, 20 skipped) and `just eval-dry-run`
-- [x] Evidence: after at `eeca3f8` (carried from `fb80d19`), the screenshots above; the base has no Grill button, no before captured
-- [x] Review: approved at `eeca3f8` (carried from `3d5f28d`, restacked onto main)
+- [x] Local gates: `just check` at `292ae73` (1964 passed, 20 skipped); `just eval-dry-run` at `eeca3f8` (the later commit touches the scenario only)
+- [x] Evidence: after at `292ae73` (carried from `fb80d19`), the screenshots above; the base has no Grill button, no before captured
+- [x] Review: approved at `292ae73` (carried from `3d5f28d`: restacked onto main, then a two-number scenario fix)
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 

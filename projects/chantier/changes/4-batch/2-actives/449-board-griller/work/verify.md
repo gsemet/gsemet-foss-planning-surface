@@ -1,30 +1,19 @@
-# Verify CR-449 (Verifier pass, first at this head)
+# Verify CR-449 (description-only pass)
 
-Head: fb80d194ac27eb8f6f85bf438e2719fd94bdf62a
+Head: 292ae731965dc529fe414a7be02c27cdf4f5de8f
 
-NOT VERIFIED (the web client works; the PR description fails, see claims 5 and 6).
+VERIFIED
 
-Raw log of the browser run: work/verifier/browser-run.log. Screenshots and before-after.md: work/verifier/evidence/.
-Method at fb80d194: scratch surface (git repo, project `demo`, inbox item `idea`) under work/scratch, `chantier board --project <scratch project> --host 127.0.0.1 --port 0` from the worktree's code (PYTHONPATH on the worktree's src, `chantier.__file__` printed the worktree path) with `griller.command` replaced by tests/griller_standin.py; Chrome 157.0.8103.79 headless (`/json/version`), driven over the DevTools protocol (Runtime.evaluate, Page.captureScreenshot). Scratch, server and browser removed or stopped at the end.
+Earlier code and browser claims were judged at fb80d194 and eeca3f87 (VERIFIED at eeca3f87); they are carried
+from eeca3f87 because the only move, 292ae731, touches the scenario only (claim 1).
 
-1. Grill button on a backlog item (fb80d194): PASS. Command: open `?v=kanban&lang=en`, click the card `idea`, read the head. Output: `<button type="button" class="btn small" data-grill="" data-key="grill" aria-pressed="false" title="Grill this item with the board's Griller">Grill</button>`, enabled once the topic answered; en-1-grill-button.png shows it. (An item of the inbox; the code also offers it on P1-P4 and 3-ready, `grillable` in js/panel/griller.js.)
-2. Panel opens and a turn round-trips (fb80d194): PASS. Click Grill: the notice, shared and HTTP notes, a textarea, Send and End. Typed `my idea is a board for tiny lists`, Send: the log shows the typed text, the stand-in's answer `standin cwd=<surface folder>`, `Written: 02-answers.md`, and the tree then lists `02-answers.md 54 B` and `request.md 28 B`. End opens `End this conversation? / The conversation is forgotten for everyone; the files of the CR stay. / Cancel / End it`; End it, then the panel reopens with the notice again (no conversation). Screenshots en-2-panel-notice.png, en-3-panel-turn.png.
-3. Backticks in en-griller.js and fr-griller.js (fb80d194): they render as LITERAL backtick characters, not as code: `.gnote code` count is 0 in both languages, the `textContent` equals the `innerHTML`. Exact visible text, en: `This runs `claude` on battlestation, the machine the board runs on, with `claude-opus-5-5`, and spends the tokens of the account signed in there. Your first message is your yes.` and `... `chantier board --new-key` revokes the key.` fr: `Ceci lance `claude` sur battlestation, la machine où tourne le board, avec `claude-opus-5-5`, et dépense les jetons du compte connecté là. Votre premier message vaut accord.` and `... `chantier board --new-key` révoque la clé.` The backticks are visible in en-2 and fr-2. Cosmetic defect for the Driver's follow-up (render as code, or drop the backticks).
-4. Screenshots (fb80d194): five PNG in work/verifier/evidence/, each opened and looked at: show the button, the panel and the turn in en, the button and the panel in fr; no username and no home folder visible (text rewritten to `C:\Users\user\demo\...` before capture).
-5. PR description, consistency (fb80d194): FAIL. `gh pr view 428 --json body` equals work/pr-body.md except a trailing newline. But: "Blast radius: Grade 1. New files and text rows" and "Evidence: none for a text-only part" contradict the diff (46 files, engine `board/griller*.py`, API ops, write guard and a web client, 2330 added lines) and the five screenshots now in evidence; Known gaps still says "No check of the panel in a real browser yet ... the Verifier does it", now done (and the backtick finding is a gap to name or fix). Test plan SHAs are placeholders (not judged).
-6. PR on the forge (fb80d194): `gh pr view 428 --json baseRefName,headRefOid,isDraft` gives `main fb80d194ac27eb8f6f85bf438e2719fd94bdf62a true`; the ship record says base `chantier/batch-30/cr-439-web-board-a-help-page-of-chantier-s-conc`. The forge's base is `main`, not the CR-439 branch: the PR would show the whole stack; retarget it.
-7. Diff against the base (fb80d194): `git merge-base --is-ancestor 5569703b HEAD` true, 4 commits, 46 files; the files the Deliverables name (agents, defaults, griller.md, manifest, concepts, docs/agents-and-models.md, server-api.md, web-board.md, AGENTS.md, engine, web client files) are all in the diff. Tests at the head, with the worktree's code: `pytest test_board_griller_client.py test_board_griller_api.py test_board_griller.py` gives `37 passed`.
-8. Review (carried): `chantier log 449`: `r4 inspector approved at 3d5f28d4` and `r4 approved at 3d5f28d4 ... committed as f67402ad`; the head is then restacked (fb80d194); the patch-id carry at `ship` is the Driver's to cite, not proved here. Not run: `gate` (not the stack's top, as briefed), CI at the head.
-
----
-# Description-only pass at eeca3f87c2be21dfb18347abce13d40e876471d1
-
-Head: eeca3f87c2be21dfb18347abce13d40e876471d1
-
-VERIFIED (description only; the two unchecked Test plan boxes are placeholders, not judged).
-
-1. Body (eeca3f87): `gh pr view 428 --json baseRefName,headRefOid,isDraft` gives `main eeca3f87c2be... true`; the body's Summary, Deliverables, Changes and Blast radius (grade 2) match the 46-file diff (`git diff --name-only origin/main...HEAD`: agents, defaults, griller.md, manifest, concepts, docs, host refs, AGENTS.md, board/griller*.py, API ops, write_api, hub/journal.py, web client files, tests). Grade-1 and "no browser check" contradictions of the earlier pass are gone; Known gaps names the browser-check scope and the backtick finding.
-2. Images (eeca3f87): the five media.githubusercontent.com permalinks at surface aaf12b78 each return `200 image/png`; `git hash-object` of the local evidence PNGs equals the blob ids of `git ls-tree aaf12b78` (b5ca134d, d060fb8c, 8e5b6d83, 6cf98b97, f737f6e8). en-3-panel-turn.png opened: shows the Grill panel after a turn, made-up path `C:\Users\user\demo\...`, no username, no home folder. The others were looked at in the earlier pass (carried from fb80d194, the head the captures were taken at; the rebase onto main left the patch unchanged).
-3. Local gates claim (eeca3f87): `just check` run here: `1964 passed, 20 skipped in 113.07s`, release-notes ok; `just eval-dry-run`: `dry run: 19 of 19 cases as expected`.
-4. Review box: `chantier log 449`: `r4 inspector approved at 3d5f28d4` and `r4 approved at 3d5f28d4`; the box cites `3d5f28d` carried to eeca3f8 after restacks: the approved note matches the cited SHA.
-5. Known gaps: backtick literal display (verify.md claim 3 earlier) and the unproved Claude/Copilot items are listed; no "None".
+1. Delta eeca3f87..292ae731 (292ae731): `git diff --stat eeca3f87 292ae731` gives `scenario/README.md | 2 +-` and
+   `scenario/run_scenario.py | 6 +++---` (4 insertions, 4 deletions): the welcome check 22 ops/7 topics -> 26/8, text only.
+2. The counts are true (292ae731): `python -c "from chantier.board.api.protocol import OPS,TOPICS;print(len(OPS),len(TOPICS))"` prints `26 8`.
+3. Description at 292ae731 (`gh pr view 428 --json body`): SHA marks are the head `292ae73` or carry their reason
+   (`fb80d19` for the screenshots, `3d5f28d` for the review, `eeca3f8` for eval-dry-run, whose later commit is scenario-only).
+   Summary, Deliverables and Changes match the diff; Known gaps lists the unproved and cosmetic items, not "None".
+   The two placeholder boxes (Verified, CI green) are intentional.
+4. Images: the five PNGs exist in the planning folder's evidence and in commit aaf12b78 of the planning surface
+   (`git ls-tree aaf12b78 ...evidence/` lists all five); they were looked at in the earlier pass (made-up paths).
+5. Review box: `chantier log 449` holds `r4 inspector approved at 3d5f28d4`, the SHA the box cites as carried from.
