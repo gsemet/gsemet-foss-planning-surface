@@ -32,3 +32,15 @@ Answer: "Toutes": every CLI command, `order`, `open` and `cancel` included.
 
 Answer: batch-30, right before CR-447 docs-gardening (CR-447 waits for it; the batch's end moves
 later).
+
+## remote-cli-Q7 (2026-11-22, the user): local or remote after a login
+
+Answer (the recommended option): with an active default profile, every command goes to the
+server; `--profile local` (or `chantier logout`) runs it locally again. On the server's own
+machine no login is needed: everything stays local, as today.
+
+## remote-cli-Q8 (2026-11-22, the user): where the profiles live
+
+Answer (the recommended option): one file in the user's config folder (`~/.config/chantier/`,
+`%APPDATA%\chantier\` on Windows), like `gh`; a named exception to AGENTS.md's rule that chantier
+writes only in the planning folder.
