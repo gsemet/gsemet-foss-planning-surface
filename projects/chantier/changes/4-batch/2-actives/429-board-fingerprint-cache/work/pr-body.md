@@ -83,7 +83,7 @@ reads no forge.
   entries kept across a transient read error
 - [x] Review: approved before the rebase onto main; commits 1, 2 and 4 are exact patch matches at 5afaae4 (`git range-diff`), the two later commits touch only `scenario/run_scenario.py`
 - [x] Verified at 5afaae4, code claims (scenario change proved by CI's `just scenario`)
-- [ ] CI green at the PR's head, `just scenario (ubuntu-latest)` included (to record)
+- [x] CI green at 5afaae4, `just scenario (ubuntu-latest)` included
 - [ ] `chantier gate` on Windows
 
 ### Internal references

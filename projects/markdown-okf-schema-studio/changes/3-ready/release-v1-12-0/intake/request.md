@@ -1,0 +1,3 @@
+# Release v1.12.0
+
+Release v1.12.0: the rest of batch-07 merged since v1.11.0 (side preview next to a text diff, target line arrow in the side preview, change-bar tooltip and click-to-diff, blank-line runs inside lists, quotes and containers, marker lines on table rows, tabs and front matter, requirement search by full ID, list copy/cut/paste fix, impossible comment date refused, local mutation campaign) and CR-465 (dropdown content shown and mapped).
