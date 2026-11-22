@@ -1,6 +1,6 @@
 # Verify CR-437
 
-Head: e21be68929ed9d6136d18167c300592a51c5c1a5
+Head: 20b7e694842421d08e5879b2e221887f923e7ce3
 
 Verdict: VERIFIED
 
@@ -29,3 +29,17 @@ Not run, by design: behaviour of the sync steps (card text, a Known gap, named i
 Head: e21be68929ed9d6136d18167c300592a51c5c1a5
 
 - Command: `gh pr view 409 --json body -q .body`, against `git diff --stat c5af034 HEAD` (21 files) and pr-template.md. Sections in order (Summary, Deliverables, Blast radius, Autonomous decisions, Known gaps, then one Details fold with blank lines, nothing after it); Human decisions present; CR name and batch only in Internal references; no role name as doer; Test plan boxes name e21be68; Review box matches `chantier log` note "approved at c5af034, committed as e21be68"; names (`launch.sync_check_line`, `plugin_files.sync_check_command`, `session-start.md` section 6, startup budget 12544 / 11383 / 12178 in work/r1b.md) match the diff; no image. Known gaps cover the unproved card behaviour. Description clean and consistent: VERIFIED.
+
+## Move verification (rebase with conflict, e21be68..20b7e694), judged at 20b7e694842421d08e5879b2e221887f923e7ce3
+
+Head: 20b7e694842421d08e5879b2e221887f923e7ce3
+
+Verdict: VERIFIED
+
+Move touched: hosts/claude-code.md (conflict, Every batch row), startup-core.md (11-byte tightening), status-layout.md (context), startup-manifest; base brought 80 files (`git diff --name-only c5af034b 0e36d1f8`), among them those cards. `git range-diff c5af034b..e21be68 0e36d1f8..20b7e694` shows the row resolved as main's force-push route kept whole plus CR-437's sync wording and the `--check` rule.
+
+1. Claim 1 judged again at 20b7e694: `uv run --no-sync --project . pytest tests/test_launch_modes.py tests/test_plugin_files.py tests/test_startup_manifest.py tests/test_allow_rules.py tests/test_cli_runs.py -q` (cli/): `106 passed in 14.91s` (startup byte budget included).
+2. Conflict resolution judged again at 20b7e694: `grep -c "<<<<<<<\|>>>>>>>"` on hosts/claude-code.md gives 0; `grep -c "uv sync --locked --check --project"` gives 4 (rule, rule table, row, trial); "Name the holders" is 1 in claude-code.md and 1 in copilot.md; `sync pending` in startup-core.md 1; "but a sync pending more than 3 minutes" in status-layout.md 1.
+3. Claims 2-6, 8 (skill paragraphs, session-start, chief-of-staff, uv trial by hand): carried from e21be68: files the move did not change (range-diff shows only the three card files above differing); claim 6 is a uv behaviour, independent of the base.
+4. Gates: `gh pr view 409 --json headRefOid` gives 20b7e694842421d08e5879b2e221887f923e7ce3 (pushed head = worktree head, clean). CI running in parallel, not waited for; `just check` and `just eval-dry-run` reported passed locally by the Driver (not rerun by me). Review box: the Inspector approved the move per the brief; the Driver fills the box and CI boxes at the new head (not re-judged here, description pass carried from e21be68 save that the SHA in its Test plan boxes must move to 20b7e69).
+5. Known flaky: conflicts.md notes `test_w2_a_shell_inside_the_folder_refuses_then_lets_go` failing in a full local run only, passing alone; CR-437 touches nothing near it; reported, not mine.

@@ -38,6 +38,8 @@ Grade: 2. Wording of the shared skill and cards, one permission rule, and the pr
 - On macOS and Linux a gate started between the listing and the sync is not caught (no os error 32 there).
 - The macOS, Linux and Copilot listings are untested; the Windows listing was exercised once by hand.
 - Whether the host's stop of a background shell ends its whole process tree is unproved; a holder may stay listed after the stop and is then waited on, never killed.
+- The startup-core.md exception sentence reads as Windows-only (the os error 32 case); the POSIX case is the gap above.
+- On Windows, `test_triage_moves.py::test_w2_a_shell_inside_the_folder_refuses_then_lets_go` is a known flake; a rerun of the Windows check clears it.
 
 <details>
 <summary>Details</summary>
@@ -67,11 +69,11 @@ No visual change. Developers of chantier see a `sync pending` line instead of a 
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
-- [x] Local gates at e21be68: `just check` pass (1631 passed), `just eval-dry-run` pass (18 of 18)
-- [x] Evidence at e21be68: the check's trial by hand on a throwaway project (uv 0.13.6, Windows): in sync exit 0; version bump exit 1 "The environment is outdated"; stale `uv.lock` exit 1, and the real `uv sync --locked` fails with its lock error
-- [x] Review: approved at e21be68 (same content as the reviewed tree)
-- [x] Verified at e21be68
-- [x] CI green at e21be68 (macOS, Linux, Windows checks, eval dry run, scenario)
+- [x] Local gates at 20b7e69: `just check` pass (1631 passed), `just eval-dry-run` pass (18 of 18)
+- [x] Evidence at e21be68, carried to 20b7e69: the check's trial by hand on a throwaway project (uv 0.13.6, Windows): in sync exit 0; version bump exit 1 "The environment is outdated"; stale `uv.lock` exit 1, and the real `uv sync --locked` fails with its lock error
+- [x] Review: approved at e21be68; the rebase onto 0e36d1f8 (one resolved conflict) re-inspected and approved at 20b7e69
+- [x] Verified at 20b7e69 (the rebase move re-judged, the rest carried from e21be68)
+- [x] CI green at 20b7e69 (macOS, Linux, Windows checks, eval dry run, scenario)
 
 ## Internal references
 
