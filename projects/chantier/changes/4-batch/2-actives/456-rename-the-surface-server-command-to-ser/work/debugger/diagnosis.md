@@ -1,36 +1,24 @@
-# CR-456 surface-board scenario red: diagnosis
+# Diagnosis: serve_and_webui (CR-456)
 
-Repro: `just scenario --unit surface-board` in the worktree (needs port 8765 free for the serve_and_webui part).
-Local transcript with the exceptions: scenario/results/20261122-140741-42208/surface-board-github.md
-(CI prints only check names, not the exceptions).
+Cause: scenario/run_scenario.py `serve_and_webui` (l.2699-2703) builds `sw` and `sw2` (SurfaceWorld.build)
+but never runs `sw.chantier("init")`, so `projects/demo/changes` does not exist. Every other
+surface-board case that starts a server calls init first (e.g. outside_poller l.2769).
+`serve` then refuses: "error: board not started: no planning folder at <surface>/projects/demo/changes"
+(board/command.py check_planning). Consequences:
+- `first` BoardProc prints no start line (error on stderr) -> `Link(None).ok` False -> the case prints
+  "default port 8765 is held" (wrong guess) and skips the second-surface step.
+- `webui` finds no server, spawns `<cli> serve --stop-idle` detached (stdout/stderr devnull); it dies on
+  the same error; webui waits 20 s -> exit 4 "did not start within 20 s" (commands/webui.py:46-47).
+- Then the later steps fail; the final 10049 OSError is a follow-on of the empty link.
 
-## Cause (proven)
-CR-456 (11975a1f) changed the server's cookie to a per-server name: board/key.py
-`COOKIE_PREFIX = "chantier_board_"`, `cookie_name(served)` = prefix + 12 hex of sha256(served.as_posix());
-guard.py:40 reads the cookie under `ctx.cookie` (board/context.py:67). It updated scenario/run_scenario.py
-call sites to use `link.cookie_name` (lines 2721, 3301) but NOT the `Link` class (scenario/run_scenario.py:1657-1672):
-- no `cookie_name` attribute -> `AttributeError: 'Link' object has no attribute 'cookie_name'` (line 3301 = first
-  failure, "remote_board ran to the end"; line 2721 in serve_and_webui)
-- `Link.cookie` (line 1672) still sends `chantier_board=<key>`, a name the server no longer reads -> every
-  cookie-authenticated request of the scenario is 401 / WS close 4401 ("surface_server ran to the end:
-  ConnectionClosedError 4401"); forge_hub, external_surface and the "board write" checks cascade from it
-  (unpack of empty results, missing forge-journal.jsonl because the board write was refused).
-The server side is fine: test_serve_webui.py:137 already proves old cookie -> 401, new -> 200.
+Proof: fresh scratch surface without `changes/`: `uv run --no-sync --project <wt> chantier --project demo serve --port 0 --seat s`
+-> "board not started: no planning folder at ...\changes". With the folder present, the exact spawned
+command (`uvx --from <wt> chantier --skill ... --project ... serve --stop-idle`) starts in about 1 s and takes a
+free port when 8765 is held (checked with CHANTIER_WRITER_TEST_TIMES set and a live-pid writer entry).
+Locally 8765 is also held by the user's real boards (netstat: pids 5276, 19868), a second, separate issue.
 
-## Fix (scenario only, one place)
-In `class Link` (scenario/run_scenario.py ~1657): add
-    @property
-    def cookie_name(self): return cookie_name(Path(self.over))   # from chantier.board.key; Path(...).as_posix() matters on Windows
-    @property
-    def cookie(self): return {"Cookie": f"{self.cookie_name}={self.key}"}
-`over` is the `served` folder the start line prints (command.py:262 `over {served}`). Caveat: surface_link()
-(line ~2293) falls back to the literal "the surface" when server.json has no `server.served`; it should then
-give a real path (it reads `data["server"]["served"]`, so check that key exists in server.json).
-
-## serve_and_webui specifics (partly unproven)
-The `webui` failures ("exits 0", "already running") occur when `first` (serve --port 8765) gave no start line
-(port 8765 held; locally by another program; on CI likely a server left by an earlier failed case of the
-same unit, which crashed on the cookie bug before cleaning up). Then `webui` cold-starts `uvx --from ... serve`
-and exceeds START_S (20 s) -> exit 4. Once the cookie bug is fixed and earlier cases clean up, expect it to pass;
-if it still fails on CI, run the unit alone and read `first.line()`; consider having the scenario pass a free
-port instead of DEFAULT_PORT, or not depend on a cold uvx within 20 s. Not reproduced here (8765 is busy on this machine).
+Fix: in serve_and_webui, after the `build()` loop add `each.chantier("init")` for sw and sw2 (SurfaceWorld.chantier
+runs writer_up first, as outside_poller does).
+Second risk: `first` uses `--port DEFAULT_PORT` explicitly, so no election happens (command.py `_listen`: default only
+when args.port is None); if 8765 is held (a real board here, or a parallel unit on CI), it refuses and the second-surface
+step is skipped (handled, not failing). Optional: leave as is.
