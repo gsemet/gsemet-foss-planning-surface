@@ -21,9 +21,9 @@ Grade: 1. Test code only; a plain `git revert` restores the previous test.
 
 ## Test plan
 
-- [ ] New or changed tests (the failure is an intermittent race: the proof is the repeated heavy runs and the stress scenario, not a local red then green)
+- [x] New or changed tests (the failure is an intermittent race: the proof is the repeated heavy runs and the stress scenario, not a local red then green)
 - [ ] Requirements: No behaviour change
 - [ ] Changelog: No user-facing change
 - [ ] Local gates: `just check` pass, `just requirements-update` 0 changes
 - [ ] Review
-- [ ] CI green (heavy runs, stress on `diff-preview-scroll`)
+- [x] CI green at 7aafa2b: heavy runs 44963768100 (stress_repeat=60 on diff-preview-scroll: 60/60 passed; integration, visual success), 44963770208 and 44963772463 (integration success), PR run 44963750854 (success)
