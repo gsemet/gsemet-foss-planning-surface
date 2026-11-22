@@ -78,11 +78,11 @@ The Batch page is shorter above its views; the mode sentence is a tooltip instea
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): `test_board_title_row`
-- [x] Local gates at `6c8cd35`: `just check` pass (1634); `just eval-dry-run` pass (18 of 18) at `1fec7a0` (carried: no CLI src change since); `just scenario` pending at `6c8cd35`
+- [x] Local gates at `6c8cd35`: `just check` pass (1634); `just eval-dry-run` pass (18 of 18) at `1fec7a0` (carried: no CLI src change since); `just scenario` pass at `6c8cd35` (local gate)
 - [x] Evidence: before at `33d1045`, after at `2004e52` (carried to `6c8cd35`)
 - [x] Review: approved at `6c8cd35` (r2 inspector approved at `e499aa7`, committed as `6c8cd35`)
 - [ ] Verified
-- [ ] CI green at `6c8cd35` (pending)
+- [x] CI green at `6c8cd35` (5 checks)
 
 ## Internal references
 
