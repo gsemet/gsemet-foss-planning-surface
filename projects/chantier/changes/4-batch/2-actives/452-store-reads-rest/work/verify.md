@@ -33,3 +33,9 @@ Verdict: NOT VERIFIED (claim 9).
 10. Posted body re-read (`gh pr view 424 --repo gsemet/chantier --json body -q .body`) at d7154f8. The role name is gone; sections, fold, Changes vs diff (30 files), SHAs, UNVERIFIED speed with its Known gaps bullet: pass. Review box vs note "r3 approved at 9d3ff72... committed as d7154f83": matches. FAIL: Test plan item "Review: approved at 9d3ff72 (the last round's change, committed as d7154f8)" uses "round", an internal process term, outside Internal references (pr-template audit 3 lists "round"). Fix: "(the last change, committed as d7154f8)". NOT VERIFIED.
 
 Verdict: NOT VERIFIED (claim 10).
+
+## Sixth pass (posted description only), head d7154f8397f022a56f4f3299ace5facaedec1252
+
+11. Posted body re-read at d7154f8; "round" and role names gone; fold, SHAs, Review box (note "r3 approved at 9d3ff72... committed as d7154f83"), CI (`gh pr checks 424`: 5 pass), UNVERIFIED speed bullet: pass. FAIL (diff consistency): Deliverables table lists `rails.py` under "Modules moved onto the store", but `git diff --stat main...HEAD | grep -c rails` -> 0: rails.py is not changed (only listed in tests/test_store_reads.py with an exempt entry). Fix: drop it from the moved list, say it is checked and exempt. FAIL (minor, unmentioned delivered change): tests `test_gate_queue_order.py`, `test_leases.py`, `test_outside_poller.py` change in the diff and Changes names none. Minor wording: Known gaps says "as the specification asks" and "the 10 % rule" (internal rule, undefined to an outside reader). NOT VERIFIED.
+
+Verdict: NOT VERIFIED (claim 11).

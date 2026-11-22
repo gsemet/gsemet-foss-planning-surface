@@ -11,7 +11,7 @@ Modules moved onto the store (every direct read of the planning folder now goes 
 | `lifecycle/` (whole package) | `stages`, `layout_check`, `backlog`, `running_batch`, `links`, `moveout` |
 | `core/` | `batch.py`, `leases.py` |
 | Gate | `gate_queue.py`, `gate_slots.py` (listing and `stat`) |
-| Others | `rails.py`, `history.py`, `summaries/{sources,gaps,origin,title}.py`, `commands/crs.py` |
+| Others | `history.py`, `summaries/{sources,gaps,origin,title}.py`, `commands/crs.py` |
 
 Callers outside that list change only how they call a moved function (they pass `repo.store`).
 
@@ -20,7 +20,7 @@ The run-time proof (`tests/test_store_runtime.py`) installs an audit hook (`open
 Impactful choices:
 
 - The held gate lock file's text (`gate_slots.lock_text`, read from byte 1 because byte 0 is the OS lock) stays a direct read, an exempt entry in both the structure test and the run-time proof; its listing and `stat` go through the store.
-- Two reads of a worktree (`rails.py`, `commands/crs.py`) are reads of another place, exempt by name.
+- Two reads of a worktree (`rails.py`, `commands/crs.py`) are reads of another place, exempt by name; `rails.py` is checked by the structure test and not changed.
 - The configuration stays read by `playbook/`, not the store.
 - `Path.exists`, `is_file`, `is_dir` and `stat` raise no audit event: the run-time proof cannot see them, the static structure test covers them.
 
@@ -36,7 +36,7 @@ Grade: 1. Reads only; same files, same order, same output. Roll back by revertin
 ## Known gaps
 
 - 20 modules of `commands/` still read directly, 60 calls, none reached by the board, `status` or the hub, and nothing is filed for them: `opening.py` 7; `close_archive.py`, `closing.py`, `delivery.py`, `facts.py` 5 each; `gate.py`, `permissions.py` 4 each; `came_back.py`, `gate_run.py`, `intake.py`, `joining.py`, `rules.py` 3 each; `preflight.py`, `waits.py` 2 each; `driver_notes.py`, `endpause.py`, `opening_record.py`, `release.py`, `summary.py`, `validate.py` 1 each.
-- UNVERIFIED: the speed measure (board state +5.6 %, `status` +5.0 %, both within the 10 % rule) rests on the medians recorded during the work; its per-run times were not kept, so the PR cannot list every run as the specification asks, and it was not re-measured.
+- UNVERIFIED: the speed measure (board state +5.6 %, `status` +5.0 %, both under the 10 % slowdown limit this change set itself) rests on the medians recorded during the work; its per-run times were not kept, so the PR cannot list every run, and it was not re-measured.
 - The macOS CI failure of 9d3ff72 was fixed by the stdlib-frame change in `tests/test_store_runtime.py`; its cause was not reproduced locally, and the macOS CI pass at d7154f8 is the only confirmation.
 - The board's push loop, its file watch and the watcher are not observed by the run-time proof.
 - `README.md`, `docs/` and the cards were searched: no sentence this PR makes false was found.
@@ -46,6 +46,7 @@ Grade: 1. Reads only; same files, same order, same output. Roll back by revertin
 ## Changes
 
 - The modules above read through the store; `tests/test_store_reads.py` lists them (`lifecycle` package and the new modules) with exempt entries for reads of other places.
+- The callers' tests (`tests/test_gate_queue_order.py`, `tests/test_leases.py`, `tests/test_outside_poller.py`) follow the new signatures.
 - New `tests/test_store_runtime.py`, with one module-scoped surface shared by its cases.
 - `CONTRIBUTING.md`: the store sentence names the run-time proof and says the configuration is read by `playbook/`.
 
