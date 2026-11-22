@@ -54,3 +54,13 @@ Command: `uv run work/scratch/vrun.py <worktree> work/scratch work/verifier/evid
 - Known gaps names the closed-batch arrows. PASS. Review/Verified/CI boxes are unticked placeholders, for the Driver.
 
 VERIFIED
+
+## Description pass (posted body of PR 415), head 819b8480171ae1c830874d22dd41025d83e298a0
+
+- Command: `gh pr view 415 --repo gsemet/chantier --json body`. Sections Summary, Deliverables, Blast radius, Autonomous decisions, Known gaps, a `<details>` fold with Changes, Human decisions, Impacts, Test plan, Internal references: renders; no relative paths; no username or home folder in the text.
+- Images: five `user-attachments/assets/...` URLs, `curl -sL` each returns 200 image/png (169, 171, 166, 217, 217 kB). Images not opened, as the brief says.
+- Test plan SHAs: `gh pr checks 415`: all five jobs pass at the head; `chantier log CR-441`: "approved at 9b22d87..., committed as 819b8480" matches the box "approved at 9b22d87, committed as 819b848"; Verified at 819b848 matches the earlier verdict at this head.
+- "measured with three": evidence/measures.md, "arrows into CR-148: 3 (expected 3)", one head. Matches.
+- Known gaps names the closed-batch pictures gap; evidence claims match measures.md.
+
+VERIFIED (description pass)
