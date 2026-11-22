@@ -1,38 +1,20 @@
 # Verify CR-438
 
-Head: 62e119cf2986324d000f95d14ce8f2531431b920
+Head: e4199b7f136933e037f2c0eacbe9405cf24c6f6c
 
-All claims judged at 62e119c (PR 412, CI green 5 checks per the brief).
+Local worktree head (not pushed), clean tree. Description pass not done (PR on the forge is at an older head).
 
-1. Gate pass. `work/gates/20261122-002201.log`, first line `gate CR-438 branch chantier/batch-30/cr-438-... head 62e119cf2986324d000f95d14ce8f2531431b920`, last line `result: pass at 62e119cf2986324d000f95d14ce8f2531431b920`. `just check` and `just eval-dry-run` logs: `check-62e119c.log`, `dry-62e119c.log` (Driver's).
-2. Unit and card tests at 62e119c. Command: `uv run --no-sync --project . pytest tests/test_stack_shape.py test_stack_due.py test_startup_manifest.py test_plugin_files.py test_came_back.py test_scenario_coverage.py test_release_tag.py test_code_targets.py -q` (from skills/chantier/scripts/cli/tests). Output: `172 passed in 17.86s`. test_stack_due passes unchanged.
-3. Guard, shape line, `--outside-stack` (spec 1, 2): scenario transcript `scenario/results/scenario-20261122-010341-39044.md` at 62e119c shows: empty-state line `shape stack: next parallel until 2 ready with a PR; stack driver: none; native stack: absent; alone asks: allowed; rules: .../references/foreman-stack.md (reread after a compaction)` as the line after the batch line; `alone asks: allowed for CR-101 only`; `next take stack ... alone asks: refused`; refusal text on stderr exit 2, `refused: batch-01 is a stack and CR-101 is not alone (open: CR-102, CR-103): its readiness goes up with the stack's (next: take stack; then ...)` identical to the spec's fenced text; `--outside-stack "the user's word"` exit 1; plain `status` and a parallel batch print no shape line; `native stack`/`note to the stack driver` rows. Unit tests (claim 2) cover blockers (merged, fix, held, release), flag acceptances/refusals, Q15 rows.
-4. Cards (spec 3, 4), commands run at 62e119c in the worktree. `grep` shows: foreman-stack.md (195 lines) holds the `--outside-stack` rule (l.29), `shape: through the stack` (l.40), `The final-order take` (l.73), `The five checks of a stack ready to merge` (l.168), `A folded CR` (l.183), `again as before its first stack` and `"The first take"` in one sentence (l.16-17); foreman.md has no `A folded CR`, no `The final-order take`, no `even with CRs before it`, keeps `A held CR` (l.380) and `tag done: steering` (l.360), links `[foreman-stack](foreman-stack.md)` (l.16, 89, 377, 437, 506); startup-manifest.json l.57 `"batch:stack": ["foreman-stack.md"]`; session-start.md l.247 names `batch:stack`; chief-of-staff.md l.857 go advice with `while that CR is the only open PR of the stack`, l.1264 `... the stack's chain (the shape line's alone asks)`, l.1273-1274 `shape: through the stack` and `sent back through the stack`; test_plugin_files.py l.349 has `"foreman-stack"`. No agent file changed (`git diff HEAD~1 HEAD --stat -- agents com.github.copilot` empty).
-5. Deviation, noted not failing: criterion lives in new `stack_shape.py` rather than `stacks.py` (disclosed in the PR's Autonomous decisions); `forming` is in `stacks.py`.
-6. Review box: `Review: approved at c5af034` carried over a clean rebase; `chantier log CR-438` has the note `r3 approved at c5af034bb5865f60832835e464cbb89b33b22666`. Proved.
-7. PR description (posted, `gh pr view 412` at head 62e119cf, base chantier/batch-30/cr-437-...): renders (sections, details fold, mermaid block); Summary, Deliverables and Changes match the diff (15 files in the head commit); no images; Known gaps lists the scenario's missing `--outside-stack` happy path, the `early_conflict` stack-due assertion and the "cannot force the read" limit, all matching the diff. Note for the Driver: Test plan still says `just scenario pending` and has `<sha7>` placeholders for Verified and CI; update at ship (the gate passed at this head, claim 1).
+Claims, all judged at e4199b7:
 
-Evidence before/after: not captured (see verifier/evidence/before-after.md).
+1. Criterion `shape_blockers` (chain order; other CR's PR; stacked incl. self; fix, held, merged, cancelled ignored), refusal text, `--outside-stack` (Q14 order check, exit 1 texts, recorded text and `outside_stack` event), no refusal of other asks or non-stack modes, guard for chain CRs only.
+   Command: `uv run --no-sync --project . pytest skills/chantier/scripts/cli/tests/test_stack_shape.py skills/chantier/scripts/cli/tests/test_stack_due.py skills/chantier/scripts/cli/tests/test_plugin_files.py skills/chantier/scripts/cli/tests/test_startup_manifest.py skills/chantier/scripts/cli/tests/test_came_back.py skills/chantier/scripts/cli/tests/test_stack_chain_cards.py skills/chantier/scripts/cli/tests/test_release_tag.py skills/chantier/scripts/cli/tests/test_scenario_coverage.py -q`
+   Output: `169 passed in 17.78s`. Code read in `stack_shape.py` and `rails_release.py` matches the spec text (note: `shape_blockers`, `next_step`, `shape_line` live in the new `stack_shape.py`, not `stacks.py`; `forming` is in `stacks.py`; behaviour as specified).
+2. Shape line (exact empty-state line, `rules:` path ends every line and exists, `next` cases, `alone asks` values, none for parallel/series, `stack_due` unchanged): covered by `test_the_shape_line*` in the same run (passed), and by the scenario unit `stack`.
+3. Cards: `foreman-stack.md` holds the five checks, `--outside-stack`, `shape: through the stack`, the final-order take, "again as before its first stack" with `"The first take"` in the same sentence; `foreman.md` links it, lost "A folded CR" and the final-order take, keeps "A held CR"; manifest `batch:stack`; `session-start.md` Reload names it; `chief-of-staff.md` holds the check and both qualifiers; `foreman-stack` in test_plugin_files card list. Proof: `test_the_shipped_cards` (passed in the run above) plus greps showing each phrase at its place.
+4. Scenario: `uv run --no-sync --project . python scenario/run_scenario.py --unit stack --unit series-deps --unit qa-driver`
+   Output: `ok stack (github): 228/228 checks`, `ok series-deps (github): 77/77`, `ok qa-driver (github): 77/77` (guard, shape line, flag, early_conflict stack case, no shape line on a plain status).
+5. `just check` at this tree: passed per the Driver's brief (1924 tests); not rerun by me. `just eval-dry-run` and the pipeline's `just scenario` at the pushed head are not mine here.
 
-VERIFIED
-
-## Description pass (PR 412 body as posted, judged at 62e119cf2986324d000f95d14ce8f2531431b920)
-
-Command: `gh pr view 412 --repo gsemet/chantier --json body` read against pr-template.md and `chantier log 438`.
-Review box (approved at c5af034, carried to 62e119c): matches the log notes (r3 inspector approved at c5af034; rebase 62e119c patch unchanged). OK.
-Sections, order, Known gaps, mermaid, fold: OK. Role names are product terms of cards changed here: OK.
-
-NOT VERIFIED:
-- Test plan "New or changed tests" is unchecked though test_stack_shape.py is added and listed under Changes; check it.
-- Test plan "Evidence: none planned beyond the tests and the scenario" is unchecked; it states the why the template allows, so check it.
-
-## Description pass (posted PR 412 body), judged at 62e119cf2986324d000f95d14ce8f2531431b920
-
-Head: 62e119cf2986324d000f95d14ce8f2531431b920
-
-- Command: `gh pr view 412 --repo gsemet/chantier --json body,headRefOid` -> headRefOid 62e119cf2986324d000f95d14ce8f2531431b920; body has Summary, Deliverables (mermaid, text block), Blast radius, Autonomous decisions, Known gaps, Details fold, all six Test plan boxes checked (the two previously unchecked now `[x]`), no images, no username or home folder.
-- Consistency: Changes list (stack_shape.py, stacks.py, rails_release.py, batch_status, cards, scenario, tests) matches the CR as proven in the earlier verify sections; Known gaps lists the three accepted gaps, no UNVERIFIED claim, no STALE mark.
-- Review box `approved at c5af034, carried over the rebase`: `$CHANTIER log 438` shows "r3 approved at c5af034bb5865f60832835e464cbb89b33b22666" -> proves it.
-- Role names are product terms of a change to those roles' cards; Internal references holds only CR-438.
+Not judged: the PR description, images, the Review box (no pushed head).
 
 VERIFIED
