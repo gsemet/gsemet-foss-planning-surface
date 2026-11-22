@@ -40,12 +40,12 @@ Readers see the commands, states, roles and board views of the current release. 
 
 ## Test plan
 
-- [ ] No behaviour change; `just check` passes (links, anchors, board design tests)
-- [ ] Local gates at `<sha7>`: `just check`
-- [ ] Evidence: anchors (186 links, 0 problems), SVG parse, description equality and renders, removed-words search
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] No behaviour change; `just check` passes (links, anchors, board design tests)
+- [x] Local gates at `4c99436`: `just check` pass (2140 passed); local `just scenario` failed one step (the `webui` check) because the user's own board holds port 8765 on this machine; the pipeline's scenario passed at the head
+- [x] Evidence at `4c99436`: anchors (186 links, 0 problems), SVG parse, description equality and renders, removed-words search, a privacy pass over the pictures (no path, name, email or key)
+- [x] Review: approved at `4c99436` (reviewed at bfdf5a2, carried over a clean rebase)
+- [x] Verified at `4c99436`
+- [x] CI green at `4c99436`: all 5 checks pass
 
 ## Internal references
 
