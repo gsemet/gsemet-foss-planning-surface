@@ -12,3 +12,11 @@ ok audit-qa-prompt: the QA driver's first line passes [J1], [J2] and [J3] and sh
 ok audit-claim-call: `$C rules` in the claim's own shell call passes [J14]; the same command in an earlier call still fails it
 ok foreman-route-push: a route-form force push passes [J22] after its `push judged legitimate` or `push on the user's go` note, in both modes; with no note before it, or as `--force-with-lease -u`, it fails
 ok audit-heredoc: a here-doc's text with `git -C <main checkout>` passes [J26]; `git checkout main` and a move in a `bash <<'EOF'` still fail it
+ok other-sandbox: setup, the forge's links, the audit (exit 0) and the judge follow someone/other-sandbox; merge refuses a link to gsemet/chantier-eval-sandbox; the first line of setup and merge names the repository
+ok reset-foreign: main, a branch and a tag that do not hold the base: `reset` and `reset --yes` exit 2 (`does not hold the recorded base ...; nothing changed`), no plan, the refs unchanged
+ok reset-empty: an empty origin: `reset` and `reset --yes` exit 2, `no main on ...: publish the base first`, nothing pushed
+ok publish: the plan changes nothing; `--yes` creates someone/own-sandbox (public), pushes the base to main and writes `sandbox.local.json`; a second one, and another name, are refused (exit 2)
+ok eval-root: setup refuses a workspace outside the eval root, a missing and a malformed file (exit 2, nothing created); inside, it passes with the allow rules and no trust entry
+ok setup-prompt: the last line of setup is the `prompt` line with the runbook's path (full, real-foreman, real-direct, ticket-summary, copilot); the `set_monitor` rule is there except for ticket-summary
+(took 373 s)
+dry run: 19 of 19 cases as expected

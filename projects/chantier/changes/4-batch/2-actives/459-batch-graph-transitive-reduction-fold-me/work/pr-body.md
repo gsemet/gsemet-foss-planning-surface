@@ -4,7 +4,7 @@ On a real batch, the board's Graph tab is hard to read. Every declared wait is d
 
 This PR draws only the transitive reduction of the waits, folds the merged and cancelled CRs behind one "N merged" chip, orders the cards within each level to reduce crossings, and lets the levels share the central column's width. It touches the web client only, in English and French; the Gantt, the server, the protocol and the CLI are unchanged.
 
-This is the first of two planned rounds: the design notes, demo data, docs page and screenshots are not part of this head yet (see Known gaps).
+The design notes (`DESIGN.md`), the demo data, the `docs/web-board.md` paragraph and the committed docs picture are updated with it.
 
 ## Deliverables
 
@@ -21,7 +21,9 @@ export const orderLevels = (cols, pairs) => /* same CRs per level, reordered by 
 
 Choices made: the fold resets at each page load; cancelled CRs fold with the merged ones; the Gantt keeps every declared wait.
 
-Screenshots: none yet (see Known gaps).
+Measured in a browser (Playwright, 1600 x 900 window with the PR panel, the demo batch, `work/evidence/measures.json`): the folded graph is 518 px high against 661 px unfolded, 886 px wide in both with no sideways scroll, the chip reads "1 merged", and the levels run in the order CR-142, CR-146, CR-144, CR-149 / CR-143, CR-147 / CR-145 / CR-148, the same after a reload. Folding and unfolding again returns to 518 px; Enter on the chip unfolds it.
+
+![The batch graph, folded, with the reduced arrows](https://github.com/gsemet/chantier/blob/a2a083af9e92e5949c683fae754752999b542618/docs/web-board/batch-graph-pc.png?raw=true)
 
 ## Blast radius
 
@@ -39,10 +41,9 @@ Web client only (one model file, two views, two stylesheets, the two language fi
 
 ## Known gaps
 
-- No browser check yet: the fold toggle, the container-query badge and the fit were not exercised in a browser. **UNVERIFIED:** the levels fit the column at a 1600 x 900 window with the PR panel, with no sideways scroll.
-- No screenshot yet: the before/after pictures of the Graph tab (desktop and phone) are not attached.
-- The design notes (`DESIGN.md`), the demo data, the `docs/web-board.md` paragraph and the committed docs picture are not updated yet; they come in the second round. The board's own docs still describe the old behaviour ("each CR stays in one place for its whole life").
-- A local run of `test_board_ui.py::test_the_web_client_is_outside_the_servers_package...` failed, apparently only because the test environment (`uv run --project` on the main checkout) imports the main checkout's install rather than this worktree. **UNVERIFIED:** it passes in a clean environment.
+- No "before" picture of the base was taken: the screenshot shows the new graph only.
+- At 1400 to 1600 px wide, some cards' state badges are clipped at the card's right edge. The specification does not cover it, and a sideways scroll at 1400 px was accepted.
+- The long gate (`just scenario`) runs in CI; it was not run locally.
 
 <details>
 <summary>Details</summary>
@@ -55,6 +56,7 @@ Web client only (one model file, two views, two stylesheets, the two language fi
 - `css/views/batch-graph.css`: `.graph` gap and `min-width: min-content`; `.lvl` flex sizing and a `graph-level` container; `.gbar`; phone keeps 250px levels.
 - `css/components/chip.css`: `@container graph-level (max-width: 239px)` hides `.sbw`.
 - `js/i18n/en.js`, `js/i18n/fr.js`: keys `batch.fold_merged`, `batch.fold_cancelled`, `batch.fold_show`, `batch.fold_hide`, `batch.waits_for`; `batch.arrow` now says an implied wait is not drawn.
+- `DESIGN.md` (web client), `docs/web-board.md`, `docs/web-board/batch-graph-pc.png`, and the demo batch data (a later wait added to its last CR): the new graph described and pictured.
 - `tests/test_board_graph_arrows.py`: one new test reading the shipped files.
 
 ## Human decisions
@@ -66,21 +68,20 @@ Web client only (one model file, two views, two stylesheets, the two language fi
 
 ## Impacts
 
-On a live batch the Graph tab opens folded, with fewer arrows, ordered levels, no horizontal scroll at a wide window, and no empty canvas below. The hint line about arrows now says implied waits are not drawn. No screenshot yet (see Known gaps).
+On a live batch the Graph tab opens folded, with fewer arrows, ordered levels, no horizontal scroll at a wide window, and no empty canvas below. The hint line about arrows now says implied waits are not drawn. The docs picture shows it.
 
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): `test_the_graph_draws_the_reduction_folds_the_done_and_fits_the_column`
-- [ ] Local gates at `<sha7>`: partial run before the commit: board, sheet, component, token and design tests, 395 passed, 1 failed (environment, see Known gaps), 1 skipped; `just check` and `just eval-dry-run` not yet run
-- [ ] Evidence: none yet (no browser run, no screenshot)
-- [ ] Review: approved at `<sha7>` (none recorded yet)
-- [ ] Verified at `<sha7>` (none yet)
-- [ ] CI green at `<sha7>` (not pushed yet)
+- [x] Local gates at `a2a083a`: `just check` passed (1883 passed; one known Windows flake, `test_w2_a_shell...`, passed on rerun); `just eval-dry-run` passed
+- [x] Evidence: Playwright measures at 1600 x 900 in `work/evidence/measures.json`, and the docs picture
+- [x] Review: approved at `dce2c644` (diff), `d5ef37f3` and its lint diff (`a2a083a`)
+- [ ] Verified at `a2a083a`
+- [ ] CI green at `a2a083a`
 
 ## Internal references
 
-- CR-459 batch-graph-transitive-reduction-fold-merged-fewer-crossings (batch-30), round 1 of 2 planned.
-- Specification: `03-change-spec.md`; round notes: `work/coder/r1.md`.
-- Follow-up for round 2: DESIGN.md, `docs/demo/` data, `docs/web-board.md`, `docs/web-board/batch-graph-pc.png`, the Playwright measures and screenshots.
-
+- CR-459 batch-graph-transitive-reduction-fold-merged-fewer-crossings (batch-30), two rounds done.
+- Specification: `03-change-spec.md`; round notes: `work/coder/r1.md`, `work/coder/r2.md`; measures: `work/evidence/measures.json`.
+- Commits: `1c3a4ef7` (feature), `d5ef37f3` (docs), `a2a083af` (lint fixes).
 </details>
