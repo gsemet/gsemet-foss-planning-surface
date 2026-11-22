@@ -21,10 +21,12 @@ Grade: 2. Shared auth code of the server and its protocol (`welcome` gains a fie
 
 ## Autonomous decisions
 
-None.
+- `board.get` and the board topic's `local_url` carry the read link under the read key (`reads.for_read_key`), so a read-only client never receives the private link.
+- The `--ui` and extra serve options moved into `board/options.py`, to keep `command.py` under the file-size limit.
 
 ## Known gaps
 
+- The scenario's "board already running" first-server step was skipped on the author's machine (port 8765 held by another program); the full long gate was not run locally.
 - The web page does not hide its write controls under the read key: a refused write reaches the page as any refused write does.
 - Full `just scenario` on Windows: not run by this PR's author yet.
 
