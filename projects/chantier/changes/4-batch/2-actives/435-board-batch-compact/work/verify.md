@@ -1,61 +1,21 @@
 # CR-435 verify
 
-Head: 2004e521db9acf1b8d752f0f5b7cb422d7939108
+Head: 6c8cd35b567ad814556b15745a60eb5a1f74343a
 
-Scope: first verification. Branch is on origin/main 33d10454 (CR-425 and CR-434 not landed): the spec's
-CR-425/CR-434 parts are judged as adapted (batch-head.js calls steeringWord, no steeringFactoryWord; tab bar as main has it).
-Evidence (pictures, before-after.md, measures) is in evidence/ of the CR folder, as the prompt asked.
+Scope: re-verification after the restack (2004e52 -> 6c8cd35). The first pass is kept in work/verifier/verify-2004e52.md.log.
 
 ## Claims
 
-1. Shipped test passes. SHA 2004e521db9acf1b8d752f0f5b7cb422d7939108. Command: uv run --no-sync --project . pytest skills/chantier/scripts/cli/tests/test_board_design.py -q
-   Output: 32 passed in 0.30s. VERIFIED (that it fails on the previous code was not run: UNVERIFIED, not claimed).
-2. Gate pass at the head. Cited: work/gates/20261121-222311.log first line "gate CR-435 branch chantier/batch-30/cr-435-batch-page-the-mode-and-the-legend-move- head 2004e521db9acf1b8d752f0f5b7cb422d7939108", last line "result: pass at 2004e521db9acf1b8d752f0f5b7cb422d7939108". CI at the head (gh pr checks 408): check macos/ubuntu/windows, eval-dry-run, scenario all pass. VERIFIED.
-3. Old rules gone, new scoped. Command: grep -nE "\.batch (\.mode|\.mb|\.ms|\.lg|\.tip)|\.bmode \.(mode|mb)\b" css/views/batch.css -> no output; grep steeringFactoryWord js -> none; grep 'class="mode"|lgrow|legend(' js/views/batch.js -> none; .bmode rules present (batch.css lines 43-173, hover/focus/focus-within show rules for .mpill and .lgpill, phone block). VERIFIED at 2004e521db9acf1b8d752f0f5b7cb422d7939108.
-4. Desktop 1400x860, layout. measure-before.json / measure-after.json (measure.py): .tabs top 353 before, 263 after (90 px higher); .bhead top 143 before and after; title row 58 to 111 both. Pictures batch-pc-before/after.png opened: mode pill, legend pill and hint at the title row's line, switch at the right end, nothing between figures and tab bar. VERIFIED at 2004e521db9acf1b8d752f0f5b7cb422d7939108 (before = 33d10454).
-5. Tips at 1400x860 (hover). mpill tip box l510 t117 r810 b184, inside viewport true; lgpill tip l633 t117 r933 b344, inside true. document.elementFromPoint at the centre of the tip's part over a figures tile: mpill (527,164) returns el "tip" inTip true; lgpill (725,195) returns "k" (child) inTip true. Pictures batch-pc-tip-*-after.png opened: both tips whole above the tiles. Cursor help on both pills (measure-after.json: cur "help"). VERIFIED at 2004e521db9acf1b8d752f0f5b7cb422d7939108.
-6. Phone 375x812. scrollWidth 375 <= innerWidth 375; .mpill top 127 and .lgpill top 127 (equal); .lghint and .ms display none; mpill tip (focus) l28 r363 inside viewport, lgpill tip (focus) l28 r341 inside; elementFromPoint over a tile returns the tip or a child. Pictures batch-phone-*-after.png opened. VERIFIED at 2004e521db9acf1b8d752f0f5b7cb422d7939108.
-7. Closed batch mobile-app batch-01: slot text "Stack · Foreman / States and arrows / hover for the legend / Stack / Series / Parallel", not hidden; picture closed-pc-after.png shows title row, figures, deps note, then the view switch. VERIFIED at 2004e521db9acf1b8d752f0f5b7cb422d7939108.
-8. Batch with no CR from a scratch surface (git init, chantier init, open --remote origin --default-branch main, no order add; board started on it): slot text "Parallel · Foreman / Stack / Series / Parallel" (no legend), view shows the four figures then "Paused, no CR yet: order add joins one."; nocr-pc-after.png. VERIFIED at 2004e521db9acf1b8d752f0f5b7cb422d7939108. The scratch batch is in parallel mode (open's default), not stack.
-9. DESIGN.md section and docs/web-board.md paragraph (git diff origin/main...HEAD): DESIGN.md "A batch with no CR yet" sentence changed and "## The Batch page's title row" added with the five bullets; web-board.md says the legend pill sits in the title row on every tab and names the mode, legend and switch. VERIFIED at 2004e521db9acf1b8d752f0f5b7cb422d7939108.
-10. Docs pictures in the head commit (batch-pc, batch-phone opened): title row holds the pills, no band or legend line. Not retaken by me. VERIFIED as shown at 2004e521db9acf1b8d752f0f5b7cb422d7939108.
-11. No username or home folder visible in my captures (all opened; the board's served path is replaced by the script's fix routes; the scratch batch shows only "ncr"). Docs pictures opened: none either.
-12. PR description as posted (gh pr view 408 --json body, headRefOid 2004e521db9acf1b8d752f0f5b7cb422d7939108): NOT VERIFIED. It is the draft: it says "Before/after pictures: UNVERIFIED: not yet attached" and "The docs screenshots are not retaken yet", but the head commit retook five Batch pictures (batch-cards-pc, batch-gantt-pc, batch-pc, batch-phone, panel-pc); no pictures or measurements are in Deliverables; no SHA on proofs; the Test plan boxes and the Review box are empty; Changes lists no docs/web-board PNGs. The Driver rewrites it from evidence/ and a description-only pass follows.
+1. Title-row tests pass. SHA 6c8cd35b. Command: uv run --no-sync --project . pytest skills/chantier/scripts/cli/tests/test_board_title_row.py skills/chantier/scripts/cli/tests/test_board_design.py -q
+   Output: 40 passed in 0.18s. VERIFIED.
+2. Layout measured again at 6c8cd35b (demo board, scratch run, removed). Command: uv run --no-project --with "playwright>=1.49" python work/verifier/measure.py <worktree> after <scratch out> <scratch tmp>.
+   Output: pc: tabs top 263 (before 353, base 33d1045), figures top 143, scrollWidth 1400; tips mpill and lgpill inViewport true. phone: figures top 176, scrollWidth 375, both tips inViewport true. VERIFIED (same numbers as at 2004e52).
+3. Docs pictures retaken (diff HEAD~1 = 11 PNGs + docs_screenshots.py). Opened batch-pc.png, batch-phone.png, panel-pc.png: title row shows "Stack - Foreman" and "States and arrows" pills, hint and Stack/Series/Parallel at right on pc; phone shows both pills on one line, PRs column first as drawn; panel opens on the Kanban tab; paths are made up (shop-api), no username. VERIFIED.
+4. Long gate: work/gates/20261122-012724.log first line "gate CR-435 ... head 6c8cd35b567ad814556b15745a60eb5a1f74343a", last line "result: pass at 6c8cd35b567ad814556b15745a60eb5a1f74343a". VERIFIED.
+5. CI: gh pr view 408 statusCheckRollup at 6c8cd35b: 5 checks SUCCESS (check x3, scenario, eval-dry-run). VERIFIED.
+6. Review box "approved at 6c8cd35 (r2 inspector approved at e499aa7, committed as 6c8cd35)": $CHANTIER log has "r2 approved at e499aa7, committed as 6c8cd35". VERIFIED.
+7. PR description: Summary, Deliverables, Changes match the diff; Known gaps present; no stale marks; SHAs carried with reasons. BUT images do not resolve: gh api (Accept: application/vnd.github.full+json) repos/gsemet/chantier/pulls/408 body_html gives <img src="./batch-pc-before.png" ...> (and the 7 other images): relative paths, never attached with `gh pr edit --attach`, so they render broken on the forge. NOT VERIFIED.
 
-Notes: just docs-screenshots run by mistake in the worktree changed unrelated PNGs on this machine (rendering variance); restored with git checkout -- docs/web-board, tree clean. Detached before-worktree and scratch folders removed.
+## Verdict
 
-Verdict (first pass): NOT VERIFIED (claim 12 only; claims 1 to 11 VERIFIED).
-
-## Description-only pass, head 2004e521db9acf1b8d752f0f5b7cb422d7939108
-
-Claims 1 to 11: carried from 2004e52 (same head, code unchanged).
-
-13. PR description as posted (gh pr view 408 --json body), compared with work/pr-body.md by diff: identical except the seven image links (now user-attachments URLs, one per picture, same files as evidence/) and one trailing blank line. Sections present, fold (details) closed properly, SHAs on proofs (33d1045 / 2004e52), Internal references only inside the fold, measures (353 to 263, 143, 155 to 176, 375) match measure-*.json and before-after.md, Known gaps true, Review box cb58d84 matches the Driver note "approved at 33d1045..., committed as cb58d84f". Defect: Changes did not list the five retaken docs/web-board PNGs that git diff --stat main...HEAD shows (batch-cards-pc, batch-gantt-pc, batch-pc, batch-phone, panel-pc): a delivered change unmentioned. NOT VERIFIED at 2004e521db9acf1b8d752f0f5b7cb422d7939108. Fixed in work/pr-body.md (one Changes bullet added); the Driver reposts it (with the same image URLs) and a new description pass follows.
-
-Verdict: NOT VERIFIED (claim 13).
-
-## Second description-only pass, head 2004e521db9acf1b8d752f0f5b7cb422d7939108
-
-Claims 1 to 11: carried from 2004e52 (same head, code unchanged).
-
-14. PR description as posted (gh pr view 408 --repo gsemet/chantier --json body), diffed against work/pr-body.md: only the seven image links differ (user-attachments URLs, same pictures as evidence/) and a trailing blank line. The Changes now has the `docs/web-board/*.png` bullet naming the five retaken pictures, matching git diff --stat main...HEAD. All seven image URLs return 200 image/png (curl). Sections, fold, SHAs, Known gaps, Review box as judged in claim 13. VERIFIED at 2004e521db9acf1b8d752f0f5b7cb422d7939108.
-
-Verdict: VERIFIED (claims 1 to 11 carried, 13 fixed, 14).
-
-## Restack pass, head 1fec7a0edd14efd2ef4e98a4be407fd2a09cb29f
-
-Head: 1fec7a0edd14efd2ef4e98a4be407fd2a09cb29f
-
-Move 2004e52..1fec7a0: rebased onto CR-433 (Kanban merged), conflicts resolved (work/conflict-resolver/conflicts.md), title-row tests moved to tests/test_board_title_row.py. Judged again: tests, layout, tips, phone, closed and no-CR slot, docs pictures, description. Carried from 2004e52: claim 3 (rules scoped; the diff of batch.css, batch-head.js is the same files, tests below re-check the scoped rules), claim 9 DESIGN.md/web-board.md text (re-read in the merged diff, see 15).
-
-15. Tests at 1fec7a0: `uv run --no-sync --project . pytest skills/chantier/scripts/cli/tests/test_board_design.py skills/chantier/scripts/cli/tests/test_board_title_row.py -q` -> `40 passed in 0.68s`. `git diff --stat origin/chantier/batch-30/cr-433-... HEAD` (CR's own patch over its base) lists only DESIGN.md, batch-nav.css, batch.css, index.html, main.js, batch-head.js, batch.js, test_board_title_row.py, web-board.md and five docs PNGs. VERIFIED at 1fec7a0.
-16. Desktop 1400x860 with the merged Kanban, measured by work/verifier/measure.py at 1fec7a0 (verifier/evidence/measure-after.json, work/gates/measure-1fec7a0.log): title row top 58; #batch-mode top 90; .mpill l510 and .lgpill l632 and .lghint l766 on one line, .ms l1190 r1368 (right end); .bhead (figures) top 143; .tabs top 263 (the Kanban tab bar directly under the figures); both pills cursor help; scrollWidth 1400 = innerWidth. Pictures batch-pc-after.png opened: title row holds the two pills, hint and switch; figures then Kanban/Graph/Gantt/Time cards bar, no band or legend row between. VERIFIED at 1fec7a0 (the 90 px claim: tabs 263 vs 353 at the old base, same figures top 143; the old before is a Kanban-less base, not re-measured).
-17. Tips (hover, 1400): mpill tip box l510 t117 r810 b184, inViewport true; lgpill tip l633 t117 r933 b344, inViewport true; batch-pc-tip-mpill-after.png opened: the sentence shows whole in a tooltip over the tiles. VERIFIED at 1fec7a0.
-18. Phone 375x812: scrollWidth 375; .mpill and .lgpill top 127 both (one line); .lghint and .ms display none; tips (focus) inViewport true (l28 r363, l28 r341); batch-phone-after.png opened. The phone Kanban tab bar spans r397 (> 375) but the page's scrollWidth stays 375 (it is the tab bar's own row, CR-434's, not the title row). VERIFIED at 1fec7a0.
-19. Closed batch (mobile-app batch-01): slot text "Stack · Foreman / States and arrows / hover for the legend / Stack / Series / Parallel", hidden false; closed-pc-after.png opened: title row holds them; figures; Kanban tab selected but its panel is blank under "This batch is closed: its CRs are in 5-archives. The Graph tab shows them." That blank panel is the Kanban tab's closed-batch behaviour (CR-434), not this CR's. VERIFIED at 1fec7a0 for the slot; noted for the Driver.
-20. Docs pictures in docs/web-board/ (not retaken at the restack): batch-pc.png opened: the title row part still matches (pills, hint, switch), but the picture shows the Graph tab as default, "Inbox"/"P1".."P4" priority chips on the cards and no Kanban tab bar, which the head no longer draws (Kanban default, batch-folder chip, four tabs). batch-pc.png no longer matches the head; batch-cards-pc, batch-gantt-pc, batch-phone, panel-pc taken at the same time (before the restack) are carried as stale in the same way, not opened one by one. NOT VERIFIED as pictures of the head: retake with `just docs-screenshots`.
-21. Gate: the only gate log is work/gates/20261121-222311.log, first line names head 2004e521...; none at 1fec7a0 (the `ship` line says "no long gate passed at 1fec7a0"). CI at 1fec7a0 (gh pr checks 408): check ubuntu pass, eval-dry-run pass; check macos, check windows, scenario pending at the time of reading. Not proved at the head.
-22. Review box: `$CHANTIER log CR-435` has inspector notes only at 33d1045 (r1) and no note "approved at 1fec7a0" (the log ends with the ship line); pr-body line 83 cites cb58d84, not in the head's history. NOT VERIFIED until the Driver's note of the pass at 1fec7a0 exists and the box cites it.
-23. PR description (work/pr-body.md, the draft the Driver posts): stale at 1fec7a0. Lines to change to the new SHA 1fec7a0 (lines of pr-body.md): 22 (after head `2004e52`), 24 and 30 (table header After `2004e52`), 34 (at `2004e52`), 52 (measured at `2004e52`), 64 (docs pictures retaken ... at `2004e52`), 81 (Local gates at `2004e52`: needs a new local check/eval-dry-run/scenario at 1fec7a0), 82 (Evidence: after at `2004e52`), 83 (Review: approved at `cb58d84`: cite the 1fec7a0 pass), 85 (CI green at `2004e52`: only when the 5 checks are green at 1fec7a0). Also not true any more: line 48 (Autonomous decisions: "Built on the current main: the Kanban tab ... not in this branch": the branch is now on CR-433's Kanban, text conflicts resolved); line 65 and line 80 (tests: the title-row tests are in tests/test_board_title_row.py, plus one in test_board_design.py per the diff, not "one parametrized test" in test_board_design.py); the images of lines 25, 31, 35-39, 44 name pictures taken at 2004e52 on a Kanban-less page: replace them with the ones of verifier/evidence/ (taken at 1fec7a0) and the docs pictures with retaken ones; line 22's 90 px figure holds at 1fec7a0 (tabs 263, figures 143); phone lines (figures top 176 holds, scrollWidth 375 holds). NOT VERIFIED at 1fec7a0.
-
-Verdict: NOT VERIFIED (claims 20, 21, 22, 23). Code claims 15 to 19 VERIFIED at 1fec7a0.
+NOT VERIFIED (claim 7: the description's images are not uploaded).

@@ -23,21 +23,21 @@ Batch page at 1400 x 860, before (base `33d1045`) and after (head `6c8cd35`, mea
 
 | Before `33d1045` | After `6c8cd35` (carried from `2004e52`) |
 | --- | --- |
-| ![before](./batch-pc-before.png) | ![after](./batch-pc-after.png) |
+| ![before](../evidence/batch-pc-before.png) | ![after](../evidence/batch-pc-after.png) |
 
 At 375 x 812, before and after at the same SHAs: the two pills share one line, the hint and the switch are hidden, there is no horizontal scroll (scrollWidth 375). On a phone the figures' top moves from 155 px to 176 px, because the pills take one new line.
 
 | Before `33d1045` | After `6c8cd35` (carried from `2004e52`) |
 | --- | --- |
-| ![before](./batch-phone-before.png) | ![after](./batch-phone-after.png) |
+| ![before](../evidence/batch-phone-before.png) | ![after](../evidence/batch-phone-after.png) |
 
 Each tip opens whole above the figures' tiles at 1400 px and inside the viewport at 375 px (at `6c8cd35`, carried from `2004e52`):
 
 | Mode tip | Legend tip |
 | --- | --- |
-| ![mode tip](./batch-pc-tip-mpill-after.png) | ![legend tip](./batch-pc-tip-lgpill-after.png) |
+| ![mode tip](../evidence/batch-pc-tip-mpill-after.png) | ![legend tip](../evidence/batch-pc-tip-lgpill-after.png) |
 
-A closed batch shows the mode and the legend in the title row too: ![closed batch after](./closed-pc-after.png)
+A closed batch shows the mode and the legend in the title row too: ![closed batch after](../evidence/closed-pc-after.png)
 
 ## Blast radius
 
