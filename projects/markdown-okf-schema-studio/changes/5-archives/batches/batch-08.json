@@ -2,16 +2,92 @@
   "schema": 1,
   "batch": "batch-08",
   "number": 8,
-  "state": "running",
+  "state": "closed",
   "opened": "2026-11-22T09:27:11Z",
-  "closed": null,
+  "closed": "2026-11-22T10:41:45Z",
   "mode": "parallel",
   "steering": "direct",
   "host": "claude",
   "budget_usd": 30.0,
-  "cost_usd": null,
+  "cost_usd": 7.8107,
   "cost_unpriced": {},
-  "crs": [],
-  "cost_receipt": null,
-  "report": null
+  "crs": [
+    {
+      "cr": "CR-466",
+      "title": "release v1.12.0",
+      "result": "merged",
+      "archive": "5-archives/261122-1001-466-release-v1-12-0",
+      "pr": null,
+      "rounds": 0,
+      "cost_usd": 1.4726,
+      "cost_unpriced": {},
+      "order": 1,
+      "after": []
+    }
+  ],
+  "cost_receipt": {
+    "steering": {
+      "label": "Chief of Staff, steering the batch",
+      "usd": 6.34,
+      "calls": 130,
+      "unpriced": {},
+      "wakes": 13,
+      "context_avg": 166508
+    },
+    "drivers": [
+      {
+        "type": "chantier:release-driver",
+        "usd": 1.4726,
+        "calls": 94,
+        "unpriced": {}
+      }
+    ],
+    "split": [
+      {
+        "part": "steering",
+        "usd": 6.34,
+        "calls": 130,
+        "unpriced": {}
+      },
+      {
+        "part": "drivers",
+        "usd": 1.47,
+        "calls": 94,
+        "unpriced": {}
+      },
+      {
+        "part": "workers",
+        "usd": 0.0,
+        "calls": 0,
+        "unpriced": {}
+      }
+    ],
+    "models": [
+      {
+        "model": "claude-opus-5-5",
+        "calls": 130,
+        "usd": 6.34,
+        "unpriced": 0
+      },
+      {
+        "model": "claude-sonnet-5-5",
+        "calls": 94,
+        "usd": 1.47,
+        "unpriced": 0
+      }
+    ],
+    "outside": {
+      "grill": {
+        "usd": 0.0,
+        "calls": 0,
+        "unpriced": {}
+      },
+      "steering": {
+        "usd": 0.3886,
+        "calls": 7,
+        "unpriced": {}
+      }
+    }
+  },
+  "report": "batch-08.md"
 }

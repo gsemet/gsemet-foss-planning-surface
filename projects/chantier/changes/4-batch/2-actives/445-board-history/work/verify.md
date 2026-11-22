@@ -1,17 +1,17 @@
-# Verify CR-445 board-history (restack move)
+# Verify CR-445 board-history (restack move to fca2ce1)
 
-Head: 4c7a1ea0717129fbb926401842ce02ec7fce4dee
+Head: fca2ce1275b0a3ac90bda6a103dd8c797b026b8c
 
-Move: rebased from fe3e404 onto CR-443's local head 11f98d99; conflicts resolved in 11 files plus scenario (22 ops, 7 topics). Previous judgment (12e6f7b) is the baseline; the move touched protocol, ops, topics, docs, history page, client and scenario, so those claims are judged again at 4c7a1ea.
+Move: 4c7a1ea (base 11f98d9) to fca2ce1 (base 187d6b6); conflicts in clients/web DESIGN.md and i18n en/fr, biome import-order fix squashed. The base brought many files (docs, web client, cards), so each proof that runs the web client, protocol or docs is judged again at fca2ce1.
 
-## Claims (judged at 4c7a1ea)
+## Claims (judged at fca2ce1)
 
-1. History page server, protocol, close keys, client files, design test (spec Evidence 1-9): VERIFIED.
+1. History page server, protocol, close keys, client files, design test: VERIFIED.
    Command (worktree, skills/chantier/scripts/cli): `uv run --no-sync --project ../../../.. pytest tests/test_board_history.py tests/test_board_history_client.py tests/test_order_drop_to.py tests/test_board_design.py tests/test_server_api_calls.py -q`
-   Output: `107 passed in 29.99s`.
-2. Op and topic counts agree: protocol.json holds 22 `op.*` keys (backlog 7, board.get, config 2, costs 2, dashboard.get, history.get, journal 2, project 3, prs.get, seats.register, writer.sync) and 7 `topic.*` keys (board, costs, events, history, journal, project, prs). `scenario/run_scenario.py` line 1795 and `scenario/README.md` line 492 say "22 ops, 7 topics"; docs/server-api.md lists `history.get` and the `history` topic; no stale "21" left in docs, tests or api code (grep). VERIFIED by reading.
-3. `just check` at 4c7a1ea (worktree clean): `1808 passed, 20 skipped in 113.17s`, `release-notes ... ok`. VERIFIED.
-4. Scenario's welcome check (22 ops, 7 topics) is NOT run at this head: no gate pass exists at 4c7a1ea (last gate log 20261122-040514 is at 12e6f7b, at 21 ops). Static agreement only; the Driver owes the pipeline's scenario job and the local gate for the top CR.
-5. PR body: stale SHAs only, per the brief; not judged further. Look of the page in a browser: UNVERIFIED as before (carried from 12e6f7b, no browser tool).
+   Output: `107 passed in 26.39s`.
+2. Op and topic counts agree: `grep -c '"op\.' protocol.json` gives 22, `grep -c '"topic\.' protocol.json` gives 7; `scenario/run_scenario.py:1795` says "the 22 ops and 7 topics" and `scenario/README.md:492` "the 22 ops, the 7 topics". The only "21 ops" left are in `scenario/results/` (git-ignored old run output). VERIFIED.
+3. `just check` at fca2ce1 (worktree clean): `1835 passed, 20 skipped in 118.51s`, `release-notes: ... ok`. This covers lint, biome and the web client tests and build steps `just check` holds. VERIFIED.
+4. Scenario welcome check (22 ops, 7 topics) NOT run: `just scenario` was barred by the brief (a Windows local gate runs elsewhere). Static agreement only (claim 2); the Driver owes the pipeline's scenario job and the local gate for the top CR.
+5. Screenshots and look of the History page in a browser: UNVERIFIED (not run at this head; no browser tool; carried unjudged from 12e6f7b). PR body: not judged here.
 
-VERIFIED
+VERIFIED (claims 1-3 at fca2ce1; 4 and 5 are open gaps, not failures)
