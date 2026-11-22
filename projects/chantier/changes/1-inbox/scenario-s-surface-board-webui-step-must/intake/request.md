@@ -1,0 +1,3 @@
+# Scenario's surface-board webui step must not need port 8765 free
+
+The long gate scenario (chantier gate <cr> scenario), run locally on Windows, fails its surface-board webui step whenever the user's own web board holds port 8765: CR-458, CR-447, CR-460 and CR-461 of batch-30 all needed the user's waiver of the local Windows run for that reason alone. The user, 2026-11-22: 'Il faudra rebustifier ce test en CR apres, il faut que ce soit dynamique ou que le tests teste plusieurs ports' (make the test robust afterwards, in a CR: dynamic, or the test tries several ports). Wanted: the step passes with another chantier board already running on the machine, with no sleep, retry or skip, and still checks what it checks today. Priority: P1 for the next batch.
