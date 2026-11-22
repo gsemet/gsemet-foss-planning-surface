@@ -25,3 +25,8 @@ Split into three stacked CRs in batch-30, before CR-447: A, the rename `board`â†
 
 - The read-only key opens an allow-list of read ops only; every other op, present or future
   (CR-449's `griller.send`/`griller.stop` included), needs the private key.
+
+## Second critique, finding 7 (2026-11-22, the coordinator)
+
+When CR-449 lands first, this CR also edits CR-449's panel strings (the web client's i18n), its
+`docs/web-board.md` text and the Griller's card: "replaces both keys", "the private key".

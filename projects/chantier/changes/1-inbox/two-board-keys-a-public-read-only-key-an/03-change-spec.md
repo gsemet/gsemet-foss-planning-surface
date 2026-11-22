@@ -7,7 +7,8 @@ CRs in batch-30, on top of A (`rename-the-surface-server-command-to-ser`: it use
 `webui`), under C (`remote-cli-commands-through-the-surface-`, which reads this CR's access
 header), before CR-447. One Driver, at most 4 rounds. CLI `src/`, cards, scenario: `just check`,
 `just eval-dry-run`, `just scenario (ubuntu-latest)` before the PR. No change under `hooks/` or
-`types/`, none to the web client's files.
+`types/`, none to the web client's files but CR-449's panel strings when
+CR-449 is under it (section 4).
 
 ## Goal
 
@@ -87,8 +88,14 @@ Griller included). Nobody holding today's link loses anything.
 - CR-449 (board-griller), if merged first, adds the fourth named exception, whose text says "any
   client holding the board's key" and "every holder of the key": each becomes "the private key"
   / "every holder of the private key", and its "`chantier board --new-key` revokes the key"
-  becomes "`chantier serve --new-key` replaces both keys". If CR-449 lands after this CR, its
-  Driver writes it so (the Chief of Staff tells it). This CR adds no named exception; C adds the
+  becomes "`chantier serve --new-key` replaces both keys". The same change, in the same words,
+  goes into CR-449's other texts: `docs/web-board.md`, the Griller's card (`references/griller.md`,
+  or the card CR-449 names) and its panel's strings in the web client
+  (`clients/web/js/i18n/en-*.js` and `fr-*.js`, both languages), after reading
+  `clients/web/DESIGN.md` and keeping it true (AGENTS.md's rule for a change under the web
+  client): "the board's key" becomes "the private key", "revokes the key" becomes "replaces both
+  keys". If CR-449 lands after this CR, its Driver writes it so everywhere (the Chief of Staff
+  tells it). This CR adds no named exception; C adds the
   next one and numbers it against the text at its head (a fifth when CR-449's fourth is there).
 
 ### 5. Cards
@@ -101,7 +108,7 @@ Griller included). Nobody holding today's link loses anything.
 ## Overlaps in batch-30
 
 - CR-449: its `griller.*` ops need the private key through the allow-list, with nothing to write
-  here; its AGENTS.md text, as in section 4.
+  here; its AGENTS.md text, docs, card and panel strings, as in section 4.
 - CR-446 (live): `live --url` with a read link needs nothing of CR-446; its several `--url` each
   take either key.
 
@@ -123,6 +130,9 @@ Griller included). Nobody holding today's link loses anything.
   only `key` gets a `read_key` at the start and keeps its `key`; `--new-key` replaces both; the
   start lines and `webui` hold the `read-only:` line (`board/command.py`'s shipped constant).
 - `protocol.json`'s test passes with `welcome.access`.
+- With CR-449 under this CR: A's check of the shipped texts (cards, docs, AGENTS.md,
+  `clients/web/js/i18n/*.js`) also finds no "the board's key" and no "revokes the key", paired
+  with a prepared text holding each.
 - Scenario (`surface-board` unit, the running server): the `read-only:` line is read from the
   start lines; with its link `board.get` and a `project` subscription answer, `backlog.move` and
   `config.put` answer 403 and change no file; `live --once --url <read link>` prints the screen;

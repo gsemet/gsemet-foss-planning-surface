@@ -5,7 +5,7 @@ the parent CR `remote-cli-commands-through-the-surface-`: remote-cli-Q1, Q3, Q6,
 Chief of Staff's decision; the user said "grilled enough"). No issue. Part A of three stacked CRs
 in batch-30 (A, this one; B `two-board-keys-a-public-read-only-key-an`; C
 `remote-cli-commands-through-the-surface-`), before CR-447 docs-gardening, which documents them.
-One Driver, at most 4 rounds. It touches the CLI's `src/`, the cards and the scenario: `just
+One Driver, at most 5 rounds. It touches the CLI's `src/`, the cards and the scenario: `just
 check` and `just eval-dry-run` before the first push, `just scenario (ubuntu-latest)` green before
 the PR. No change under `hooks/` or `types/`, none to the web client's files.
 
@@ -24,6 +24,10 @@ key and, when no server runs, starts one (Q3, Q14), with no further question: ty
 4. The Chief of Staff: a server `webui` starts has no seat and stops 30 minutes after its last
    client (`--stop-idle`).
 5. Q6, Q11: batch-30, first of the stack A→B→C, before CR-447.
+6. Q17 (c): two surfaces' servers on one machine never clash; a default port held by another
+   surface's server takes a free port and prints it.
+7. The Chief of Staff on finding 8: the blocked-sync message names a `webui`-started `serve`;
+   the user stops it by hand.
 
 ## What changes
 
@@ -77,12 +81,45 @@ runs (it stops by itself 30 minutes after its last client)".
   not answer: `error: webui: <running.silent_text>`, exit 4. It asks nothing, takes no seat and
   opens no browser.
 - A server `webui` started is not the session's own (its command line holds no `--seat`): the
-  dev-mode sync's step 6 (session-start.md) does not offer to stop it; it stops by its idle rule.
+  dev-mode sync's step 6 (session-start.md) does not offer to stop it. Step 4's holders name it
+  `PID <n> serve <project> (started by webui)` (its command line: `serve --stop-idle`, no
+  `--seat`). Its idle stop does not come while the session's own watcher stays subscribed (a
+  client), so when it is still listed at step 5's 3-minute message, that message names it and
+  its stop command (`board/running.stop_command`), for the user to stop by hand; chantier never
+  stops it (the Chief of Staff's decision on the critic's finding 8).
+
+### 2b. Two surfaces' servers on one machine (Q17 (c))
+
+Keys and state are already per surface: each server's key and record live in its own
+repository's git folder (`<git dir>/chantier/server.json`), so two surfaces never share either.
+The port is the one shared thing. Today (`board/command.py` `_bind`, `_held_by`), a port in use
+refuses the start: `board not started: port 8765 on 127.0.0.1 is held by another chantier board
+(another project's key; its session printed its link): pass --port <n> (0: any free port) ...`,
+and a watcher's or `webui`'s autostart of the second surface then fails. The change:
+
+- When the port is the default (`board/address.DEFAULT_PORT`: neither `--port` nor
+  `board.port` in `chantier.yaml`) and `_held_by`'s probe finds another chantier board there
+  (another key, or a board serving another folder), the server binds port 0 (a free one) in
+  place of refusing, records the bound port in its `server.json` as today, and prints, before its
+  start line, `board: port 8765 is held by another chantier board (<its served folder>, or
+  another project's key): this one takes port <n>`. The watcher, `webui` and `live` find it
+  through its record, as today.
+- A port named by `--port` or `board.port` that is held still refuses, as today (the user chose
+  it). A default port held by a program that is not a chantier board still refuses, as today
+  (`... is in use (a board may already run there, or another program)`): the answer named
+  another surface's server only.
+- The next start of the same surface tries the default port again first (nothing is stored but
+  the running record).
 
 ### 3. AGENTS.md
 
-- "The surface server, `chantier board`:" becomes "`chantier serve`:"; every other `board` there
-  stays a word for the process.
+- "The surface server, `chantier board`:" becomes "`chantier serve`:"; the dev-mode paragraph
+  (line 175: "`status`, the watcher's start line and `board`, when the board runs another build")
+  names the command: "and `serve`"; every other `board` there stays a word for the process.
+- The surface server's sentence gains: "two surfaces' servers on one machine never clash: each
+  keeps its key and record in its own git folder, and one that finds the default port held by
+  another chantier board takes a free port and prints it (the user's answer remote-cli-Q17,
+  2026-11-22)".
 - The forge hub's starters: "started by a session's watcher, detached, when none runs and the
   session holds the seat, on the user's one yes for the watcher and the board, or by the Chief of
   Staff on a host that cannot run the watcher" gains ", or by `chantier webui` when none runs (the
@@ -123,9 +160,14 @@ runs (it stops by itself 30 minutes after its last client)".
 
 - CR-446 (live-several-boards-and-keys) edits `commands/live.py`; this CR changes one constant
   there (`NO_BOARD`): whichever lands second rebases it.
-- CR-449 (board-griller) writes `chantier board --new-key` in AGENTS.md, `docs/web-board.md` and
-  the panel's text. If it lands first, this CR renames it (the check below finds it); if it lands
-  after, its Driver writes `chantier serve --new-key` (the Chief of Staff tells it).
+- CR-449 (board-griller) writes `chantier board --new-key` in AGENTS.md, `docs/web-board.md`, the
+  Griller's card and its panel's strings (the web client's `js/i18n/` files, both languages). If
+  it lands first, this CR renames each to `chantier serve --new-key`: AGENTS.md,
+  `docs/web-board.md`, the Griller's card (`references/griller.md`, or the card CR-449 names), and
+  the panel's strings in `clients/web/js/i18n/en-*.js` and `fr-*.js`, after reading
+  `clients/web/DESIGN.md` and keeping it true (AGENTS.md's rule for a change under the web
+  client); the check below finds every one. If it lands after, its Driver writes `chantier serve
+  --new-key` everywhere (the Chief of Staff tells it).
 
 ## Out of scope
 
@@ -138,8 +180,18 @@ runs (it stops by itself 30 minutes after its last client)".
   (`skills/chantier/references/**/*.md`), the agent files of both hosts, `AGENTS.md`,
   `CONTRIBUTING.md`, `README.md`, `docs/**/*.md` but `docs/release-notes/`, `evals/README.md` and
   `scenario/README.md`, and finds none of: `$CHANTIER board`, `` `chantier board `` followed by
-  a space or a backtick, `` `board --`` (a backticked `board` with a flag). Paired with one
-  prepared text holding each form, to prove the check finds it.
+  a space or a backtick, `` `board --`` (a backticked `board` with a flag); and the web client's
+  strings (`clients/web/js/i18n/*.js`), where it finds no `chantier board -` (the command with a
+  flag; the product's title "chantier board" stays). Paired with one prepared text holding each
+  form, to prove the check finds it.
+- Two surfaces (Q17 (c)), in-process, parametrized: the default port held by a board of another
+  key, and by a board of another folder, starts on a free port with its `board: port ... takes
+  port <n>` line and records it; held by a plain socket, or a held `--port`, still refuses with
+  today's sentence. Scenario: in the `surface-board` unit, a second surface's server started on
+  the same machine while the first holds the unit's default port takes another port, both answer
+  `board.get` with their own keys, and the second is stopped.
+- The blocked-sync step: `session-start.md`'s step 4 names a `webui`-started server `PID <n>
+  serve <project> (started by webui)`, and step 5 its stop command.
 - The renamed lines are checked from the shipped constants (`test_board_running.py`,
   `test_writer_lines.py`, `test_watch_board.py`), not copies; `serve_argv` returns `serve --seat
   <s> --stop-idle`; `find_pid` finds a process whose command line holds `serve`, and one holding

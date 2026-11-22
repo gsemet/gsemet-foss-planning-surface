@@ -34,3 +34,18 @@ AGENTS.md names it as a third starter of the server and hub. Answer: the recomme
 ## Chief of Staff's decision (2026-11-22)
 
 A server `webui` starts stops 30 minutes after its last client, with no seat.
+
+## remote-cli-Q17 (2026-11-22, the user), part (c)
+
+From the second critique: "Pourquoi tu ne pourrais pas isolé l'environnement ? Sur une machine
+donnée il peut y avoir n surfaces actives en même temps, elles seront dans plusieurs projets git
+différent il faut juste qu'ils ne s'écrasent pas les port http etc". Read by the Chief of Staff,
+part (c) for this CR: two surfaces' servers on one machine never clash: ports, keys and state stay
+per surface; a default port already taken by another surface's server takes a free port and
+prints it.
+
+## Chief of Staff's decision (critic finding 8, 2026-11-22)
+
+A `webui`-started server held open by the session's own watcher is named in the blocked-sync
+message (`PID <n> serve`, started by `webui`); the user stops it by hand; this CR's sentence is
+corrected.
