@@ -14,8 +14,8 @@ Scope: re-verification after the restack (2004e52 -> 6c8cd35). The first pass is
 4. Long gate: work/gates/20261122-012724.log first line "gate CR-435 ... head 6c8cd35b567ad814556b15745a60eb5a1f74343a", last line "result: pass at 6c8cd35b567ad814556b15745a60eb5a1f74343a". VERIFIED.
 5. CI: gh pr view 408 statusCheckRollup at 6c8cd35b: 5 checks SUCCESS (check x3, scenario, eval-dry-run). VERIFIED.
 6. Review box "approved at 6c8cd35 (r2 inspector approved at e499aa7, committed as 6c8cd35)": $CHANTIER log has "r2 approved at e499aa7, committed as 6c8cd35". VERIFIED.
-7. PR description: Summary, Deliverables, Changes match the diff; Known gaps present; no stale marks; SHAs carried with reasons. BUT images do not resolve: gh api (Accept: application/vnd.github.full+json) repos/gsemet/chantier/pulls/408 body_html gives <img src="./batch-pc-before.png" ...> (and the 7 other images): relative paths, never attached with `gh pr edit --attach`, so they render broken on the forge. NOT VERIFIED.
+7. PR description, re-checked at 6c8cd35b (gh pr view 408 headRefOid = 6c8cd35b567ad814556b15745a60eb5a1f74343a). Body holds 7 github user-attachments URLs and no relative path; body_html (Accept application/vnd.github.html+json) has 7 <img src="https://private-user-images.githubusercontent.com/..."> and curl on each returns 200 image/png. Opened 3 of them (batch pc after, phone after, legend tip): they show the title row pills and legend, made-up paths (shop-api), no username. Summary, Deliverables, Changes match the diff, Known gaps present, no STALE mark; rest carried from the first pass at 6c8cd35b. VERIFIED.
 
 ## Verdict
 
-NOT VERIFIED (claim 7: the description's images are not uploaded).
+VERIFIED.
