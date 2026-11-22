@@ -35,6 +35,8 @@ restores the previous behaviour.
 - The `AGENTS.md` edit on the no-setup bullet was adapted to the base's current wording, which
   already names the forge calls, instead of the quoted text of the specification.
 
+- `startup-manifest.json` has no `actions.board-griller` key (the spec asked for one; the startup size limit forbade it and nothing reads it; `actions.grill` already lists griller.md).
+
 ## Known gaps
 
 - No real Claude Code trial: `hosts/claude-code.md` stays marked unproved.
