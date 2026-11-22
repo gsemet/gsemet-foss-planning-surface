@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Board key: several boards in one browser, a paste field, SameSite=Lax",
+  "summary": "Spec ready: scenario proves one cookie jar with 3 surfaces' boards, tabs, restarts; a page load with no key gets an HTML page with a paste field (key or whole link) via ?k=, and the client's denied notice too, nothing in web storage; cookie moves to SameSite=Lax, writes still guarded.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "03-change-spec.md": "8da1fb09b00c04c29cf2b6589a9e51345c6d5d5683321a763225cd8ba4aef64a",
+    "intake/request.md": "a2177181bf058013252a7cfd6fc3dd4d6c812dc37ec7f252ec0882528b318b9d"
+  },
+  "summarized": "2026-11-22T14:15:17Z"
+}
