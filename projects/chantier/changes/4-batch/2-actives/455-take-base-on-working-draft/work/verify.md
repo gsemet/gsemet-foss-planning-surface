@@ -1,35 +1,15 @@
-Head: e5d656ee3f7fc487796817c7075ed5fbc11e0275
+Head: 4069ce4acd49006bddb9e43627dfe34aa35a4e42
 
-# CR-455 verification (first pass, pushed head e5d656ee; PR head confirmed by `gh pr view 421 --json headRefOid`)
+# CR-455 verification (round 4, local head 4069ce4a, restacked onto CR-439 head 870bae2e, unpushed)
 
-Claims, each judged at e5d656ee:
+Earlier pass at e5d656e kept in `work/verifier/verify-e5d656e.md`. The move: restack onto 870bae2e plus round 4's trim of `stack_start`. Everything the spec claims is judged again at 4069ce4 below.
 
-1. Gate pass at this head. `work/gates/20261122-044836.log` first line: `gate CR-455 branch ... head e5d656ee3f7fc487796817c7075ed5fbc11e0275`; last line: `result: pass at e5d656ee3f7fc487796817c7075ed5fbc11e0275` (`just scenario`). Worktree status clean.
-2. Tests at head: `uv run ... python -m pytest tests/test_stack_base.py tests/test_stack_hold.py -q` in the worktree: `68 passed in 5.78s`.
-3. The new tests fail on the previous code: detached worktree of the base (311ccf4d, CR-442 branch), head's `test_stack_base.py` copied in, `PYTHONPATH=<base>/src` (checked `chantier.stacks.__file__` is the base's): `15 failed, 34 passed` (cases A, B2, B3, D, working, blocked, Q3, Q2, Q4-merged, Q4-cancelled; the highest-open-dependency off_place test; Q4-landed; the `base:` line rows start-on-between, start-on-ended). Worktree removed.
-4. Base rule of `take` (ready-only start candidate, default branch for working/blocked, walk stops at first PR, Q1/Q3): code `_start_candidate`, `start_on_for`, `stack_start` rule 3a read in the diff vs base; proved by the test rows ready/working/blocked/Q3 (claim 2) and scenario transcript `scenario/results/scenario-20261122-045630-33072.md` line 5703 (`[x] 4. ... working and a CR below it is ready ... default branch`), line 3743 (`[x] ... nearest earlier CR handed back ready with a PR ... handoff prints that branch`), line 4533 (`[x] 3.`), line 4673 (`[x] 9.`).
-5. `after` dependencies (Q5, rule 3b): scenario line 3566 (`[x] order after ... base on the dependency's branch, whatever ready CR sits above it; --note - ... back on the nearest earlier CR handed back ready`), line 5291 (`[x] 8.`), line 5000 (`[x] 9.`); tests B, B2, B3, A.
-6. Printed base where the worktree sits (Q2, Q4): scenario line 4393 (`[x] 6. ... still prints base origin/main once the CR below it is ready with a PR`), line 6627 (`[x] 4. ... handoff b ... default branch and the base: line naming a`).
-7. `base:` line (section 2, Q6): `_record_alone` in facts.py; test rows dependency, release, start-on-between, start-on-chosen-past, unaffected, start-on-ended pass (claim 2 covers test_stack_base.py in full).
-8. Scope: `git diff --stat` vs base touches only stacks.py, facts.py, records.py, concepts.md, driver.md, foreman.md, test_stack_base.py, scenario/run_scenario.py, scenario/README.md: matches spec sections 1-4, 6, 7; no hooks/ or types/ change.
-9. Cards: diff of concepts.md (Stack, Dependencies), foreman.md, driver.md carries the spec's text.
-
-PR body (work/pr-body.md draft, not yet at its final form), judged against the diff:
-- Summary, Deliverables, Changes, Blast radius match the diff; no delivered change unmentioned.
-- Test plan still has `<sha7>` placeholders and the Known gaps bullet "The independent verification has not run yet at this head" is stale once this verdict is in: the Driver must fill the SHAs (e5d656e) and drop that bullet. Not a failure of the change.
-- Known gaps' third bullet (merge message to the Foreman owed, dependents of batch-30 print their dependency's branch) matches spec Decisions 6-8; kept.
-- Review box: `$CHANTIER log CR-455` has `r2 approved at 311ccf4d..., committed as 6cff375f` and `r3 inspector approved; committed; just check and eval-dry-run pass` (03:48:23Z) with no SHA. The box `Review: approved at <sha7>` must cite 6cff375 (r2) or the r3 commit; for e5d656e the r3 note carries no SHA, so the Driver should add a note naming e5d656e (or the r3 commit it approved) before the box cites it.
-- Internal references: "CR-455 take-draft; stacked after CR-442 ... and CR-438" sits in the folded details under Internal references, allowed. PR base is CR-442's branch; CR-438 not in the base chain (spec says "where it can"): not claimed as delivered.
-- No images in the body.
-
-before/after: not a UI change; before/after is the failing-then-passing test run of claim 3 (before = base 311ccf4d, after = e5d656ee). No other evidence pair owed.
-
-VERIFIED
-
-Description pass at e5d656ee3f7fc487796817c7075ed5fbc11e0275 (posted body, `gh pr view 421 --repo gsemet/chantier --json body`):
-- Sections in template order, fold with blank lines, nothing after `</details>`, no images, no STALE mark, no placeholders: clean.
-- Test plan names e5d656e on every item; the stale "verification not run" gap is gone. Known gaps: UNVERIFIED none, matches verify.md; the owed merge message matches spec Decisions 6-8.
-- Review box: `$CHANTIER log CR-455` note "r3 inspector approved the one-line scenario change, reviewed on 6cff375f, committed as e5d656e" names e5d656e: proves the box.
-- Summary, Deliverables, Changes match the diff vs the base (stacks.py, facts.py, records.py, three cards, test_stack_base.py, scenario steps and README); CR names only under Internal references; "stack driver" is a product term of the cards this change edits.
+1. Gate pass at this head (judged at 4069ce4). `$CHANTIER gate CR-455 scenario` run by me: log `work/gates/20261122-132424.log`, first line `gate CR-455 branch chantier/batch-30/cr-455-... head 4069ce4acd49006bddb9e43627dfe34aa35a4e42`, last line `result: pass at 4069ce4acd49006bddb9e43627dfe34aa35a4e42`; the command printed `pass just scenario at 4069ce4`. Worktree clean before the run (`git status --short` empty).
+2. Whole unit suite at 4069ce4: `python -m pytest tests -q -n 4` in `skills/chantier/scripts/cli`: `1941 passed, 20 skipped in 131.88s`. The stack suites alone (test_stack_base, test_stack_hold, test_park_stack, test_hold_live_stack, test_park_shared, test_hold_live_shared): `93 passed in 9.36s`. Spec section 7's rows (A, B, B2, B3, D, working, ready, blocked, Q3, Q2, Q4-merged/cancelled, Q4-landed, the `base:` line rows) are in `test_stack_base.py` (diff 870bae2e..HEAD: +151 lines).
+3. New tests fail on the previous code: carried from e5d656e (15 failed on the base, proved there with the base's `src` on PYTHONPATH); the restack does not change test_stack_base.py's patch against its subject, and claim 2 shows them green here.
+4. Round 4 changes no behaviour: `git diff 870bae2e HEAD -- stacks.py` read: `stack_start` is `_live_start` first; not placed: `pick = dep or cand`, with `cand` only for a `queued` CR, else default (rules 2, 3a, 3b); placed: the old `below`/`dep` comparison (rule 4). This is spec section 1 rule for rule. Scenario and tests (1, 2) pass on it.
+5. Take rule (Q1, Q3), `after` (Q5), printed base where the worktree sits (Q2, Q4), `base:` line (Q6): scenario transcript `scenario/results/scenario-20261122-132428-40052.md` at 4069ce4: line 3672 (`order after` puts the base on the dependency's branch whatever ready CR sits above; `--note -` back on the nearest earlier ready CR), 3849 (starts on the nearest earlier ready CR with a PR, recorded at first take), 5809 (13-bis check 4: working with a ready one below gives the default branch), 5949 (check 5: blocked gives the default branch), 6523/6687/6733 (13-ter: `base:` line naming a, `handoff b` prints the default branch once a merged with z ready below). All `[x]`.
+6. Scope: `git diff --stat 870bae2e HEAD` touches only scenario/README.md, scenario/run_scenario.py, concepts.md, driver.md, foreman-stack.md (CR-438 moved the bullet; spec section 4 says edit it where it stands), facts.py, records.py, stacks.py, test_stack_base.py. No hooks/ or types/ change. Cards' diff read: it carries the spec's section 4 text.
+7. PR #421 description (`gh pr view 421`): clean, sections and table render, no images; Summary, Deliverables, Changes match the diff; Known gaps names the owed merge message (spec Decisions 6-8) and the long lines. It cites `e5d656e`, the remote head; judged correct for that head. After the push of 4069ce4 the Test plan SHAs must name the new head (Review box: carry from e5d656e per the round-4 clean trim, or have the review at 4069ce4); that is the Driver's step at push. Review box SHA e5d656e is not judged here against `log`.
 
 VERIFIED
