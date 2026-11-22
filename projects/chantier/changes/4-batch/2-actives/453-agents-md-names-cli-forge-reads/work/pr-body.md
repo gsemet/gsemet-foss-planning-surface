@@ -14,11 +14,11 @@ Where the rule changes, in one table:
 | `concepts.md`, `driver.md` (x2) | "The CLI reads no forge" | "The CLI reads no CI" |
 | three docstrings | "no forge command at all" | the reads and `forge-stack` named |
 
-Inventory check at the head: every hit of the spec's `rg` over the CLI's `src/` falls in a known call (`ship`'s `read_state`, the `forge_base` helpers used by `take`, `round`, `handoff`, `forge-stack`'s `gh`/`glab`, the hub's and the board's connectors) or in the non-forge list (`permissions.py`'s `gh extension list`). No new caller. Word check: no unqualified "no forge command" or "reads no forge" said of the CLI remains (`hub/watch.py`'s true docstring aside).
+Inventory check at the head: every hit of the spec's `rg` over the CLI's `src/` falls in a known call (`ship`'s `read_state`, the `forge_base` helpers used by `take`, `round`, `handoff`, `forge-stack`'s `gh`/`glab`, the hub's and the board's connectors) or in the non-forge list (`permissions.py`'s `gh extension list`). No new caller (the `rg` returned 10 files of the CLI, each in the inventory). Word check: no unqualified "no forge command" or "reads no forge" said of the CLI remains (`hub/watch.py`'s true docstring aside).
 
 ## Blast radius
 
-Text only; no command's output changes. Neighbouring `AGENTS.md` text is touched by other open changes (gate hold narrowing, board griller, board fingerprint cache); conflicts, if any, are textual.
+Text only; no command's output changes. Other open changes touch neighbouring `AGENTS.md` text; conflicts, if any, are textual.
 
 ## Autonomous decisions
 
@@ -35,6 +35,14 @@ Text only; no command's output changes. Neighbouring `AGENTS.md` text is touched
 
 `AGENTS.md`, `CONTRIBUTING.md`, `README.md`, `skills/chantier/references/concepts.md`, `skills/chantier/references/driver.md`, and the docstrings of `commands/__init__.py`, `commands/forge_base.py`, `lifecycle/moveout.py`.
 
+## Human decisions
+
+- Name the CLI's forge calls in the rules; move or change no code.
+- `forge-stack`'s forge writes are named, limited to stacks and bases.
+- The exception cites why the calls exist, "named after the fact".
+- Texts in scope: `AGENTS.md`, `CONTRIBUTING.md`, `README.md`, the cards and three docstrings.
+- No test guards the wording; a one-time inventory check stands in.
+
 ## Impacts
 
 Readers of the rules and cards now see the CLI's forge calls named.
@@ -45,6 +53,6 @@ Readers of the rules and cards now see the CLI's forge calls named.
 
 ## Internal references
 
-CR-453 `agents-md-names-cli-forge-reads`, batch-30.
+CR-453 `agents-md-names-cli-forge-reads`, batch-30. CR-429, CR-443 and CR-449 touch neighbouring `AGENTS.md` text.
 
 </details>
