@@ -10,13 +10,13 @@ while a client (a board page, a session's watcher, `chantier live`) is subscribe
 watcher no longer reads the journal or acts as the forge hub: it subscribes to the server's
 `events` topic and starts the board, detached, when none runs and its session holds the seat.
 
-Base: this PR stands on `main` (four commits directly on `e417190`); it is not stacked on the
+Base: this PR stands on `main` (six commits directly on `e5dc6952`); it is not stacked on the
 stack of #413.
 
 ## Deliverables
 
 One page open on the live surface (four projects), 60 s, measured at the base and at the head
-(before and after the change):
+(before and after the change; measured at c9c0852 plus an uncommitted tree on base 7c1d890, not re-run at 5afaae4, which differs only by the rebase and two scenario-only commits):
 
 | | base | head |
 |---|---|---|
@@ -42,6 +42,8 @@ working, and the cards that describe them. No protocol change (still 1), no web 
   surface with several projects; fixed with a test.
 
 ## Known gaps
+
+- Dependency lock: this PR adds `watchfiles` to `uv.lock`; CR-446 (#418) adds `blessed`. Whichever lands second re-runs `uv lock` and keeps both.
 
 - Windows: that a watcher-started board's writer pushes with no console window appearing is
   unproved until `chantier gate` runs there with the user at the screen.
@@ -74,13 +76,13 @@ reads no forge.
 
 ### Test plan
 
-- [x] `just check` at 15ca278
-- [x] `just eval-dry-run` at 15ca278
-- [x] new tests at 15ca278: settle rule, zero walks per pass, real notification backend, check
+- [x] `just check` at 5afaae4 (CI: macOS, Ubuntu, Windows)
+- [x] `just eval-dry-run` at 5afaae4
+- [x] new tests at 5afaae4 (11 test files, 188 passed): settle rule, zero walks per pass, real notification backend, check
   mode, idle stop, forge only while observed, watcher seat/server matrix, idle end, state
   entries kept across a transient read error
-- [x] Review: approved at 15ca278 (the same patch, reviewed before its rebase onto main)
-- [ ] Verified at the PR's head (to record)
+- [x] Review: approved before the rebase onto main; commits 1, 2 and 4 are exact patch matches at 5afaae4 (`git range-diff`), the two later commits touch only `scenario/run_scenario.py`
+- [x] Verified at 5afaae4, code claims (scenario change proved by CI's `just scenario`)
 - [ ] CI green at the PR's head, `just scenario (ubuntu-latest)` included (to record)
 - [ ] `chantier gate` on Windows
 
