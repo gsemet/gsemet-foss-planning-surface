@@ -55,10 +55,10 @@ No visual change. A user sees fewer questions about refused force pushes.
 
 - [x] New or changed tests: `test_the_cards_name_the_push_ladder`, the allow-rule tests
 - [x] Local gates at `6ac8498`: `just check` (1630 passed), `just eval-dry-run` (19 of 19 cases), `just scenario` (pass)
-- [ ] Evidence: none beyond the gates
+- [x] Evidence: none beyond the gates (no visual change)
 - [x] Review: approved at `6ac8498`
-- [ ] Verified at `6ac8498`
-- [ ] CI green at `6ac8498`
+- [x] Verified at `6ac8498`
+- [x] CI green at `6ac8498`
 
 ## Internal references
 
