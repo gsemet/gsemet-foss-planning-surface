@@ -10,10 +10,13 @@ while a client (a board page, a session's watcher, `chantier live`) is subscribe
 watcher no longer reads the journal or acts as the forge hub: it subscribes to the server's
 `events` topic and starts the board, detached, when none runs and its session holds the seat.
 
+Base: this PR stands on `main` (four commits directly on `e417190`); it is not stacked on the
+stack of #413.
+
 ## Deliverables
 
 One page open on the live surface (four projects), 60 s, measured at the base and at the head
-(base `7c1d890`, head `f90c6a3`):
+(before and after the change):
 
 | | base | head |
 |---|---|---|
@@ -76,7 +79,7 @@ reads no forge.
 - [x] new tests at 15ca278: settle rule, zero walks per pass, real notification backend, check
   mode, idle stop, forge only while observed, watcher seat/server matrix, idle end, state
   entries kept across a transient read error
-- [x] Review: approved at f90c6a3, the same patch rebased onto the base as 15ca278
+- [x] Review: approved at 15ca278 (the same patch, reviewed before its rebase onto main)
 - [ ] Verified at the PR's head (to record)
 - [ ] CI green at the PR's head, `just scenario (ubuntu-latest)` included (to record)
 - [ ] `chantier gate` on Windows
