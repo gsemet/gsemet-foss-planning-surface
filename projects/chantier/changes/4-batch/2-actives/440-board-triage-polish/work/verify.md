@@ -1,6 +1,22 @@
 # Verify: CR-440 Triage fold and writes-count explanation
 
-Head: 9b22d87490cbedbbc31b797543989ca79cc396c3
+Head: 83b3a9a0367a8bb83abab0b7a034025f2814fea9
+
+## Delta pass at 83b3a9a0 (move 9b22d874 -> 83b3a9a0: restack onto CR-435 d95695b7, conflicts resolved, 2 PNGs retaken)
+
+- Move: `git range-diff 34841dc8~1..9b22d874 d95695b7..83b3a9a0` prints `1: 34841dc8 = 1: 6ab301bb` and `2: 9b22d874 = 2: 83b3a9a0`: both CR commits' textual patches are equal; commit 2 differs only by its binary PNGs (`docs/web-board/triage-pc.png`, `triage-phone.png`, `triage-selection-phone.png`, retaken). The base changed under the proof (`git diff --stat 9b22d874 83b3a9a0`: 99 files, board server, watcher, tests), so the proofs are run again, not carried.
+- Checks the spec lists, at 83b3a9a0: `uv run --no-sync --project . python -m pytest -p no:cacheprovider -q skills/chantier/scripts/cli/tests/test_board_design.py skills/chantier/scripts/cli/tests/test_code_targets.py` -> `42 passed in 4.07s`; `git status --short` clean.
+- Browser steps 1-14, at 83b3a9a0: `uv run --script work/verifier/browser_verify.py` (same script, worktree code, demo surface in `work/scratch/v`): steps 1 to 14 each print PASS (step 2 chevron `matrix(0, -1, 1, 0, 0, 0)`, count 2->2; step 6 drops land and the row stays folded; step 10 `'P9,,{x'` -> none folded, `'P1,P4'` -> P1 and P4; steps 11/12 panel and tooltip in both languages; step 13 `--nav-height=36px`, no overflow; step 14 count 4 -> 0), no page error. Measured values equal those recorded at 9b22d874 below. Screenshots rewritten to `work/verifier/evidence/`.
+- Retaken doc images at 83b3a9a0: `docs/web-board/triage-pc.png` and `triage-phone.png` opened and looked at: Triage page, fold chevrons ahead of the P1 and P2 chips (open, pointing down), made-up project `shop-api`, no username and no home folder visible; they show the fold chevrons the commit claims. `triage-selection-phone.png` not opened (changed by 262 bytes, same retake).
+- PR #410 as posted: `gh pr view 410 --json headRefOid` = 83b3a9a0367a8bb83abab0b7a034025f2814fea9, draft. Its body is NOT refreshed: it still says "Screenshots at 9b22d87", "Local gates at 9b22d87", "Review/Verified/CI green at 9b22d87"; `gh pr checks 410` reports no checks yet at this head; `chantier log 440` shows a `ship` event with `no long gate passed at 83b3a9a`. The description is not judged clean here: the Driver refreshes it, then a description pass follows.
+
+Verdict for the behaviour at 83b3a9a0: VERIFIED. Description at 83b3a9a0: not passed (stale SHAs; gate, review and CI not yet at this head).
+
+VERIFIED
+
+---
+
+## Previous judgment (head 9b22d87490cbedbbc31b797543989ca79cc396c3, kept for reference)
 
 All claims below are judged at 9b22d874 (full SHA above), the worktree head, with the worktree's own code (`uv run --no-sync --project <worktree> chantier board`, via `scripts/docs_screenshots.py`'s `make_surface`/`start_board` helpers, imported, not run: no tracked file written). Demo surface = a copy of `docs/demo/` in a scratch folder (own git repo, own bare origin), plus two seeds: `P2/returns-policy` (a copy of P1/stock-alerts, so P2 holds two loose post-its) and the mark file `work/running-batch` (`batch-03`) in P2/saved-addresses (a CR marked for the running batch, drawn in "Running batch"). Chromium via Playwright, PC 1400x860 (English; the language toggled to French for step 12) and phone 390x844 (is_mobile, touch). The earlier head f97eb39 is the same patch before a clean rebase; it is not carried, everything is run at 9b22d874.
 
