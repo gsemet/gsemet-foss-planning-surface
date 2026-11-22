@@ -1,20 +1,18 @@
 # CR-435 verify
 
-Head: 6c8cd35b567ad814556b15745a60eb5a1f74343a
+Head: 8d7ebd6671be976eabc6aca00a795a201a6de441
 
-Scope: re-verification after the restack (2004e52 -> 6c8cd35). The first pass is kept in work/verifier/verify-2004e52.md.log.
+Scope: restack move (6c8cd35 / d95695b -> 8d7ebd6, on origin/main cb914330, conflict in test_board_design.py resolved by moving the title-row tests to test_board_title_row.py). Previous pass kept in work/verifier/verify-6c8cd35.md.log.
 
-## Claims
-
-1. Title-row tests pass. SHA 6c8cd35b. Command: uv run --no-sync --project . pytest skills/chantier/scripts/cli/tests/test_board_title_row.py skills/chantier/scripts/cli/tests/test_board_design.py -q
-   Output: 40 passed in 0.18s. VERIFIED.
-2. Layout measured again at 6c8cd35b (demo board, scratch run, removed). Command: uv run --no-project --with "playwright>=1.49" python work/verifier/measure.py <worktree> after <scratch out> <scratch tmp>.
-   Output: pc: tabs top 263 (before 353, base 33d1045), figures top 143, scrollWidth 1400; tips mpill and lgpill inViewport true. phone: figures top 176, scrollWidth 375, both tips inViewport true. VERIFIED (same numbers as at 2004e52).
-3. Docs pictures retaken (diff HEAD~1 = 11 PNGs + docs_screenshots.py). Opened batch-pc.png, batch-phone.png, panel-pc.png: title row shows "Stack - Foreman" and "States and arrows" pills, hint and Stack/Series/Parallel at right on pc; phone shows both pills on one line, PRs column first as drawn; panel opens on the Kanban tab; paths are made up (shop-api), no username. VERIFIED.
-4. Long gate: work/gates/20261122-012724.log first line "gate CR-435 ... head 6c8cd35b567ad814556b15745a60eb5a1f74343a", last line "result: pass at 6c8cd35b567ad814556b15745a60eb5a1f74343a". VERIFIED.
-5. CI: gh pr view 408 statusCheckRollup at 6c8cd35b: 5 checks SUCCESS (check x3, scenario, eval-dry-run). VERIFIED.
-6. Review box "approved at 6c8cd35 (r2 inspector approved at e499aa7, committed as 6c8cd35)": $CHANTIER log has "r2 approved at e499aa7, committed as 6c8cd35". VERIFIED.
-7. PR description, re-checked at 6c8cd35b (gh pr view 408 headRefOid = 6c8cd35b567ad814556b15745a60eb5a1f74343a). Body holds 7 github user-attachments URLs and no relative path; body_html (Accept application/vnd.github.html+json) has 7 <img src="https://private-user-images.githubusercontent.com/..."> and curl on each returns 200 image/png. Opened 3 of them (batch pc after, phone after, legend tip): they show the title row pills and legend, made-up paths (shop-api), no username. Summary, Deliverables, Changes match the diff, Known gaps present, no STALE mark; rest carried from the first pass at 6c8cd35b. VERIFIED.
+1. Title-row tests. SHA 8d7ebd66. Command: uv run --no-sync --project . pytest skills/chantier/scripts/cli/tests/test_board_title_row.py skills/chantier/scripts/cli/tests/test_board_design.py -q
+   Output: 41 passed in 0.26s. VERIFIED.
+2. Layout measured again (demo board, scratch run, removed). SHA 8d7ebd66. Command: uv run --no-project --with "playwright>=1.49" python work/verifier/measure.py <worktree> after <scratch out> <scratch tmp>.
+   Output: pc tabs top 263, figures top 143; phone figures top 176; tips inViewport true, cursor help. Same numbers as the previous pass (base 353 before). VERIFIED.
+3. Docs pictures at 8d7ebd66 (retaken after the Kanban merge). Opened batch-pc.png, batch-phone.png, panel-pc.png: title row shows "Stack - Foreman" and "States and arrows" pills, hint and Stack/Series/Parallel at right on pc; phone shows both pills on one line; Kanban is the default tab (pc) and the panel opens on it; paths made up (shop-api), no username. VERIFIED.
+4. Long gate: work/gates/20261122-094055.log first line "gate CR-435 ... head 8d7ebd6671be976eabc6aca00a795a201a6de441", last line "result: pass at 8d7ebd6671be976eabc6aca00a795a201a6de441" (run by me, `$CHANTIER gate CR-435 "just scenario"`). VERIFIED.
+5. Conflict resolution (work/conflicts.md) judged: batch.js keeps the Kanban panel map and drops modeBand/legend; the tests moved unchanged; claim 1 and 4 prove it. VERIFIED.
+6. PR body (work/pr-body.md), judged against the diff at 8d7ebd66 (git diff --stat origin/main...HEAD: the files it lists, test_board_title_row.py, 11 PNGs, docs_screenshots.py, DESIGN.md, docs/web-board.md). Summary, Deliverables, Changes match; Known gaps present; no STALE mark. Only the SHAs are stale (d95695b / 6c8cd35), to update by the Driver. Images on the forge were captured at the previous head; measures are identical (claim 2). Carried from 6c8cd35: images' content. VERIFIED.
+7. Review box: $CHANTIER log CR-435 has no note of an approved review at 8d7ebd6 or of a carry for it; the last "approved" notes name e499aa7 / 6c8cd35 and a carry to d95695b. The Driver's box must cite a note that exists for this move (the restack's conflict resolution changed the head's patch); not a failure of the code, flagged here. Not judged as a failure: the box is rewritten by the Driver after this verdict.
 
 ## Verdict
 
