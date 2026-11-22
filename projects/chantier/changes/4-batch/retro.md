@@ -16,3 +16,8 @@ Stack batch, 36 CRs merged, $292.64, no budget. Judged by the retro-critic: 4 ke
 - Flaky tests: 2-backlog/P1/two-flaky-tests-of-batch-30 (add the `[only-one]` variant to its request).
 - Stack re-sequencing: 2-backlog/P1/order-after-add-one-predecessor-without-, 2-backlog/P1/check-that-a-stack-s-branches-really-cha.
 - Dropped as unmeasured or by design: round-limit exceptions (CR-449 six, CR-456 seven, each on the user's yes), STARTUP_LIMIT headroom, `forge-stack show` stale checks, one wrong-base rebase slip.
+
+## After the retro (resumed batch: CR-461, CR-462)
+
+- The release Driver ran out of context before `just release minor` (140k tokens in the notes and claims drafts); a second Driver finished. Release drafts of 94 rows belong in a worker, not the Driver.
+- `just release minor` uses `-am`, which left `claims-v0.15.0.md` untracked; the Driver added it as a second commit, so origin/main's head was no longer "release: v0.15.0" and `just tag` stopped at check-tag. Candidate inbox item: the release recipe stages new files named by the release (or the release Driver commits them before `just release`), so the version commit stays the head.
