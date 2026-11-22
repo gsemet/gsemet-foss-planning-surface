@@ -87,8 +87,8 @@ The board shows a Grill button on backlog items and a discussion panel; the scre
 
 - [x] New or changed tests (engine, API, write guard, client, role-count and manifest tests)
 - [x] Local gates at `eeca3f8`: `just check` (1964 passed, 20 skipped) and `just eval-dry-run`
-- [x] Evidence: after at `fb80d19` (carried to `eeca3f8`), the screenshots above; the base has no Grill button, no before captured
-- [x] Review: approved at `3d5f28d` (carried to `eeca3f8` after the restack onto main)
+- [x] Evidence: after at `eeca3f8` (carried from `fb80d19`), the screenshots above; the base has no Grill button, no before captured
+- [x] Review: approved at `eeca3f8` (carried from `3d5f28d`, restacked onto main)
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
