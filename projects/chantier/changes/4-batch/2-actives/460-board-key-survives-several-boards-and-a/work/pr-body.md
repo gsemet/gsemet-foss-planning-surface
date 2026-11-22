@@ -50,11 +50,11 @@ A board with no cookie shows a paste field instead of a dead end; no other visib
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
+- [ ] Local gates at `74055b1`: `just check`, `just eval-dry-run`
 - [ ] Evidence: none (no visual capture)
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [ ] Review: approved at `74055b1`
+- [ ] Verified at `74055b1`
+- [ ] CI green at `74055b1`
 
 ## Internal references
 
