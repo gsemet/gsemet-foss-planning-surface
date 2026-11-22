@@ -17,3 +17,10 @@ Placement: batch-30 (running), before CR-447 docs-gardening; one Driver, within 
 
 There was no further grill. The Spec-writer settles the detail and lists the behaviour questions it
 left open at the end of `03-change-spec.md`, each with the option it built.
+
+## Chief of Staff's decisions on the writer's open points (2026-11-22)
+
+Option A on all six, as the spec builds, to keep the CR within 3 rounds today (the user may
+change any of them): the fold resets at each page load; cancelled CRs fold with the merged ones;
+icon-only state badge below 240px; desktop target 1600×900; hidden waits shown by the hover
+highlight and the count's tooltip; the Gantt keeps every declared wait.
