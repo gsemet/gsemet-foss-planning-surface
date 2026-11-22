@@ -1,0 +1,13 @@
+ok   batch-lifecycle
+ok   batch-modes
+ok   cr-folder-lifecycle
+ok   cr-lifecycle
+ok   cr-lifecycle-line
+ok   cr-lifecycle-simple
+ok   how-chantier-works
+ok   how-chantier-works-simple-direct
+ok   how-chantier-works-simple-foreman
+ok   planning-modes
+ok   release-driver
+ok   surface-server
+problems: 0
