@@ -13,7 +13,15 @@ On the web board's Triage page, the four priority rows of the Backlog column (P1
 lane({ fold: 'P2', folded: true, foldLabel: t('triage.unfold', { row: 'P2' }), ... })
 ```
 
-Screenshots: not yet attached.
+Screenshots at 9b22d87, from Chromium on a demo board:
+
+![Triage with the P2 row folded: its post-its are hidden, its chip, count and grill-state counts stay, the chevron points right](../evidence/triage-folded-p2-pc-en.png)
+
+![The journal panel in English: heading, then what the count is, why the Chief of Staff may not know of the writes, what to type, then the list](../evidence/journal-panel-pc-en.png)
+
+![The same panel in French](../evidence/journal-panel-pc-fr.png)
+
+![A folded row at a phone width of 390 px](../evidence/triage-folded-phone.png)
 
 ## Blast radius
 
@@ -27,8 +35,7 @@ Grade: 1
 
 ## Known gaps
 
-- No screenshot yet of the folded row, the panel (English and French) and the phone width, nor the retaken docs pictures: to be attached before the hand-back.
-- **UNVERIFIED:** the behaviour in a browser (fold, reload, drag onto a folded head, phone width) is not yet proven; the project has no JavaScript test runner.
+- A header comment in `js/ui/column.js` (line 9) is longer than 100 characters; cosmetic, the web frame's checks pass.
 
 <details>
 <summary>Details</summary>
@@ -59,12 +66,12 @@ Triage rows can be folded and the writes count is explained. Nothing else on the
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`:
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): `test_the_fold_and_the_writes_count_explanation_ship` in `tests/test_board_design.py`
+- [x] Local gates at 9b22d87: `just check` pass, `just eval-dry-run` pass (18 of 18), `just scenario` pass
+- [x] Evidence: after at 9b22d87 (a new behaviour, no before): the four screenshots above, and the 14 browser steps of the specification, all passing
+- [x] Review: approved at 9b22d87 (the patch approved at c5af034, then the conflict-resolving rebase approved at 9b22d87)
+- [x] Verified at 9b22d87
+- [x] CI green at 9b22d87
 
 ## Internal references
 
