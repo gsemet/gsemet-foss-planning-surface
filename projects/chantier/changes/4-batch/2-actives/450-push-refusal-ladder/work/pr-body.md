@@ -1,6 +1,6 @@
 ## Summary
 
-When the host refuses a Driver's legitimate force push of its own `chantier/` branch (on Claude Code, the auto-mode classifier), the user used to be asked at once. The push now climbs a ladder and reaches the user last: the Foreman judges and tries it, then the Chief of Staff judges it again and tries it, and only if the host refuses both is the user asked one question and the push made once on their yes.
+When the host refuses a Driver's legitimate force push of its own `chantier/` branch (on Claude Code, the auto-mode classifier), the user used to be asked at once. The push now climbs a ladder and reaches the user last: the Foreman (the session that steers a batch's Drivers) judges and tries it, then the Chief of Staff (the session that talks to the user) judges it again and tries it, and only if the host refuses both is the user asked one question and the push made once on their yes.
 
 ## Deliverables
 
@@ -39,6 +39,13 @@ Grade: **1**. Cards, one allow-rule sample, the eval kit and docs; a plain `git 
 - `hosts/claude-code.md`, `hosts/copilot.md`: the route rule rows, the ladder in Auto mode, the Copilot sentence.
 - `commands/allow_samples.py` and tests; `evals/kit/audit.py`, `dry_run.py`, `evals/SCORECARD.md`.
 - Docs: `docs/tutorial-claude-code.md` and `docs/hosts.md` (one clause each).
+
+## Human decisions
+
+- The ladder order is the Foreman, then the Chief of Staff without asking, then the user's yes and one push.
+- Whoever pushes judges first; the Chief of Staff judges again on the Foreman's line. A push judged not legitimate is never pushed and goes to the user, naming both judgements; a failed hard check (not this batch's branch, no long gate) is refused with no user question.
+- One new allow rule covers the `git -C` route form, since with a planning surface the steering push is always `git -C <clone>`.
+- The Foreman tries only when the route rule is present, and records `push not tried: route rule missing` otherwise; on Copilot it skips that read and tries.
 
 ## Impacts
 
