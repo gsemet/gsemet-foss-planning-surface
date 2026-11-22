@@ -8,9 +8,17 @@ On the board's Batch page, the graph of connected cards draws one arrowhead for 
 - On hover or focus, the lit arrows and their heads are drawn again in the accent colour in a layer above the cards. Unlit arrows stay behind the cards.
 - Each mode word of the switch on a running batch has a tooltip (hover and keyboard focus): `To switch, ask the Chief of Staff to "change the batch to series"`, or "This batch's mode." on the batch's own mode, in English and French. A closed batch has none. Clicking a mode does nothing: the board edits no batch.
 
-Before and after, `localised-receipts` hovered (before at `9b22d87` plus the demo change, after at `<HEAD7>`):
+Before and after, `localised-receipts` hovered (before at `9b22d87` plus the demo change, after at `819b848`):
 
-<!-- IMAGES: before-graph-cr148-hovered.png | after-graph-cr148-hovered.png | after-graph-cr146-keyboard-focus.png | after-switch-tip-series-en.png | after-switch-tip-series-fr.png, attached through the forge's CLI -->
+| Before (`9b22d87`) | After (`819b848`) |
+| --- | --- |
+| ![Before: CR hovered, lit arrow behind a card](./before-graph-cr148-hovered.png) | ![After: one head, lit arrows over the cards](./after-graph-cr148-hovered.png) |
+
+Keyboard focus on a card (after, `819b848`), and the switch's tooltip in English and French:
+
+![Focus on a card lights its arrow](./after-graph-cr146-keyboard-focus.png)
+![Series tooltip, English](./after-switch-tip-series-en.png)
+![Series tooltip, French](./after-switch-tip-series-fr.png)
 
 Design choices: no new layout, colour, size or token; no routing of arrows around cards; the Gantt keeps its own markers.
 
@@ -55,8 +63,8 @@ The Batch graph's arrowheads and the lit arrows look different, and the switch s
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): `test_board_graph_arrows.py`
-- [ ] Local gates at `<HEAD7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: before at `9b22d87`, after at `<HEAD7>`: one head into the waiting card, its tip 0 px from the left edge's middle, its three arrows ending there; top layer with 3 arrows and 1 head in the accent; every tooltip inside the viewport; no tooltip on a closed batch; no horizontal scroll at 375 px
+- [ ] Local gates at `819b848`: `just check`, `just eval-dry-run`
+- [ ] Evidence: before at `9b22d87`, after at `819b848`: one head into the waiting card, its tip 0 px from the left edge's middle, its three arrows ending there; top layer with 3 arrows and 1 head in the accent; every tooltip inside the viewport; no tooltip on a closed batch; no horizontal scroll at 375 px
 - [ ] Review: approved at `<sha7>`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
