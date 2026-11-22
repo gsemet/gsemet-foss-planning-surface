@@ -1,0 +1,58 @@
+# Verify: CR-440 Triage fold and writes-count explanation
+
+Head: 9b22d87490cbedbbc31b797543989ca79cc396c3
+
+All claims below are judged at 9b22d874 (full SHA above), the worktree head, with the worktree's own code (`uv run --no-sync --project <worktree> chantier board`, via `scripts/docs_screenshots.py`'s `make_surface`/`start_board` helpers, imported, not run: no tracked file written). Demo surface = a copy of `docs/demo/` in a scratch folder (own git repo, own bare origin), plus two seeds: `P2/returns-policy` (a copy of P1/stock-alerts, so P2 holds two loose post-its) and the mark file `work/running-batch` (`batch-03`) in P2/saved-addresses (a CR marked for the running batch, drawn in "Running batch"). Chromium via Playwright, PC 1400x860 (English; the language toggled to French for step 12) and phone 390x844 (is_mobile, touch). The earlier head f97eb39 is the same patch before a clean rebase; it is not carried, everything is run at 9b22d874.
+
+Reproduce: `uv run --script work/verifier/browser_verify.py` (raw output `work/verifier/browser-run.log`).
+
+## Checks the spec lists (command run in the worktree at 9b22d874)
+
+Command: `uv run --no-sync --project . python -m pytest -p no:cacheprovider -q skills/chantier/scripts/cli/tests/test_board_design.py skills/chantier/scripts/cli/tests/test_code_targets.py`
+Output: `42 passed in 2.71s` (includes the guard test on shipped text and the 300-line and word-key checks). `git status --short` after: clean.
+
+## In a browser (steps 1-14, 9b22d874)
+
+Each line is the script's own output for the step: PASS/FAIL then the measured values.
+
+```text
+step 1: PASS [('P1', 'true', 'Hide the P1 post-its', 'none'), ('P2', 'true', 'Hide the P2 post-its', 'none'), ('P3', 'true', 'Hide the P3 post-its', 'none'), ('P4', 'true', 'Hide the P4 post-its', 'none')]
+step 2: PASS folded=['P2'] body display=none visible postits=0 aria-expanded=false label='Show the P2 post-its' svg transform=matrix(0, -1, 1, 0, 0, 0) count 2->2 head html before='<button type="button" class="column-fold" data-key="fold-P2" aria-expanded="true" aria-label="Hide the P2 post-its"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"></path></svg></button><span class="tag pri-P2">P2</span><span class="column-count">2</span><span class=' after='<button type="button" class="column-fold" data-key="fold-P2" aria-expanded="false" aria-label="Show the P2 post-its"><svg class="svgi" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"></path></svg></button><span class="tag pri-P2">P2</span><span class="column-count">2</span><span class'
+step 3: PASS stored='P2' after reload=['P2'] mobile-app triage=['P2'] back=['P2']
+step 4: PASS after Enter=([], 'fold-P2') after Space=(['P2'], 'fold-P2')
+step 5: PASS a: P2 postits=2 bar before=(1, ['2 selected']) bar after fold=0 picked after reopen=0; b: running postits=1 loose P2=2 bar before fold=['2 selected'] after fold=['1 selected'] marked CR (saved-addresses, in Running batch) still selected=1
+step 6: PASS post-it guest-checkout P1->P2 head: lit while over=['P2']; P2 count 2->3; folded=['P2']; group api-hardening (1) from inbox onto P2: over=['P2'] count 3->4 folded=['P2']
+step 7: PASS archive-old-orders P4->P2 via selbar: P2 count 4->5 folded=['P2']
+step 8: PASS filter=checkout: folded P2 head=('1', ['P2', '1', '1']); opened P2 head=('1', ['P2', '1', '1']); visible post-its 1; folded-state heads of all rows={'P1': ('0', ['P1', '0']), 'P2': ('1', ['P2', '1', '1']), 'P3': ('0', ['P3', '0']), 'P4': ('0', ['P4', '0'])}
+step 9: PASS P3 empty=True empty text='empty: drop a post-it here'; fold -> (['P3'], ('false', 'column-lane column-empty column-folded')) (an empty row already hides its body: CSS .column-empty); open -> ([], ('true', 'column-lane column-empty')); write into folded P3 (drop from P1): over=['P3'] count 0->1, folded=['P3']
+step 10: PASS 'P9,,{x' -> folded=[]; 'P1,P4' -> folded=['P1', 'P4']; page errors=[]
+step 11: PASS tooltip(title)='Changes saved by this board since your last ‘rescan’: open to see them and what to tell the Chief of Staff.'; panel children order=['B', 'P.note', 'P.note', 'P.note', 'UL', 'DIV.row']; paragraphs=['What it counts: the changes made from this board (for example moves, new ideas, labels, groups) since you last pressed the button below. Each one is already saved in the planning folder on this machine.', 'Why tell the Chief of Staff: the board never sends it a message. A Chief of Staff session whose watcher (or pull path) runs learns of these changes by itself; one running neither does not.', 'What to do: type ‘rescan’ in the Chief of Staff’s chat; it reads the backlog again and says what moved. Then press the button below to count again from zero.']; entries=['10:30\nguest-checkout: priority P1 → P2', '10:30\nrate-limit-public-api → P2', '10:30\narchive-old-orders: priority P4 → P2', '10:30\nstock-alerts: priority P1 → P3']
+step 12: PASS html lang=fr; paragraphs=['Ce que ça compte : les changements faits depuis ce board (par exemple déplacements, nouvelles idées, labels, groupes) depuis la dernière fois que tu as appuyé sur le bouton ci-dessous. Chacun est déjà enregistré dans le dossier de planification sur cette machine.', 'Pourquoi le dire au Chief of Staff : le board ne lui envoie jamais de message. Une session Chief of Staff dont le watcher (ou le chemin de lecture) tourne apprend ces changements toute seule ; une session qui ne fait tourner ni l’un ni l’autre ne les connaît pas.', 'Quoi faire : tape « rescan » dans le chat du Chief of Staff ; il relit le backlog et dit ce qui a bougé. Puis appuie sur le bouton ci-dessous pour recompter à partir de zéro.']; tooltip='Changements enregistrés par ce board depuis ton dernier « rescan » : ouvre pour les voir et savoir quoi dire au Chief of Staff.'; chevron labels={'P1': 'Afficher les post-its de P1', 'P2': 'Masquer les post-its de P2', 'P3': 'Masquer les post-its de P3', 'P4': 'Afficher les post-its de P4'}
+step 13: PASS --nav-height=36px (36px); head height=36px; tap folds=['P2'], tap opens=[], tap folds again=['P2'], then P4 folded; panel scrollWidth/clientWidth/viewport/doc=[366, 366, 390, 390]; page errors=[]
+step 14: PASS button before='✎ 4 writes since your last ‘rescan’' after='✎ 0 writes since your last ‘rescan’'; toast=['', '● In preparation: 2 CRs in 3-ready', 'Counted from now on.']; home lines=['Written by the board', 'nothing since your last ‘rescan’']
+```
+
+Notes on the steps:
+- Step 2: the chevron svg transform `matrix(0, -1, 1, 0, 0, 0)` is the -90deg rotation (right-pointing); open rows read `none` (down). The head keeps chip, count (2 before and after) and grill-state counts; the body is `display: none`.
+- Step 5: part a was run with two loose P2 post-its selected (bar "2 selected"), fold -> no bar, reopen -> none picked. Part b: one loose P2 post-it plus the marked CR in "Running batch" ("2 selected"), fold -> bar stays with "1 selected", the marked CR still selected.
+- Step 6: the head lit (`.column-lane.over` = P2) during the drag; the post-it (guest-checkout) and a group dragged by its handle (api-hardening, from the inbox) both landed in P2 and P2 stayed folded; the count went up each time (post-it 2->3; group of 1, 3->4).
+- Step 9: demo P3 is empty; an empty row already hides its body by `.column-empty` (CSS, unchanged), so fold is shown by `column-folded`, `aria-expanded` and the chevron; a write into folded P3 (a drop from P1) raised its count 0->1 and left it folded.
+- Step 11/12: the native tooltip cannot be screenshotted; the button's `title` attribute is shown in the step's output and equals `journal.tip` in both languages. Panel children order is B, P.note x3, UL, DIV.row: no note at the bottom.
+- Step 13: head height 36px equals `--nav-height` (36px); tap folds and opens; panel `scrollWidth` equals `clientWidth` (366), no horizontal overflow.
+- Step 14: count 4 -> 0, toast "Counted from now on.", Home tile reads "nothing since your last ‘rescan’".
+
+## Screenshots (opened and looked at, 9b22d874; paths on screen are made-up or absent, no username or home folder visible in any)
+
+- Step 2: `evidence/triage-folded-p2-pc-en.png`: Triage at PC, English, P2 folded (chevron right, chip P2, count 2, grill count), P1, P3 and P4 open with chevrons down. Shows its claim.
+- Step 11: `evidence/journal-panel-pc-en.png`: panel open, heading, three note lines, list of 4 entries, buttons, no bottom note (P1 and P4 folded from step 10 behind it). Shows its claim.
+- Step 12: `evidence/journal-panel-pc-fr.png`: the same panel in French with "tu" ("tu as appuyé", "tape", "appuie"). Shows its claim.
+- Step 13: `evidence/triage-folded-phone.png`: 390 px, Backlog column scrolled into view, P2 and P4 folded with their counts, P1 and P3 open (P3 holds stock-alerts, from step 9). Shows its claim.
+- Extra: `evidence/journal-panel-phone.png`: the panel at 390 px, text wraps and reads whole (shows "nothing" in the list since the phone context had no entries after step 14's rescan).
+
+## Not judged by this note
+
+- The PR description (#410) as posted, the Review box and the pipeline gates are not part of this plan; not checked here.
+
+## Verdict
+
+VERIFIED
