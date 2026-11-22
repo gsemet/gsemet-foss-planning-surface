@@ -2,8 +2,10 @@
 
 The web board cannot yet start a Griller session on a backlog item. This PR adds the roles and
 text that part needs: a `board-griller` agent for each host, its shipped defaults, and the
-rules that tell the Chief of Staff and the Griller how a grill started from the board runs. The
-server, the API and the web client that use them come in later commits of the same PR.
+rules that tell the Chief of Staff and the Griller how a grill started from the board runs. It also adds the
+server engine that runs the Griller (a headless host process per chat, its files, its turns), the
+API ops and topic that drive it, and the write guard that refuses edits of a chat's CR. The web
+client comes in a later commit of the same PR.
 
 ## Deliverables
 
@@ -15,6 +17,8 @@ server, the API and the web client that use them come in later commits of the sa
   (`hosts/claude-code.md`, `hosts/copilot.md`, rows marked unproved) name the role.
 - `AGENTS.md`: the CLI-scope and server paragraphs name the board's Griller.
 - The watcher's waking actions gain `grill`.
+- `board/griller.py`, `griller_host.py`, `griller_files.py`: the engine; the API ops, the topic and
+  the write_api refusals; `docs/server-api.md` and `docs/web-board.md` ("The board's Griller").
 
 | Host | Agent file | Role |
 | --- | --- | --- |
@@ -36,12 +40,12 @@ restores the previous behaviour.
 - No real Claude Code trial: `hosts/claude-code.md` stays marked unproved.
 - Copilot is unproved, likewise.
 - No screenshot of the pane from a real session.
-- The `AGENTS.md` text names server, API and client behaviour that ships in the next commits of
-  this PR; until then it describes code that is not there yet.
-- `docs/agents-and-models.md` links `web-board.md#the-boards-griller`, a section a later commit
-  creates.
-- No test yet checks that the refusal text in `hosts/copilot.md` matches the engine's reason;
-  the engine comes later.
+- The `AGENTS.md` text names web client behaviour that ships in a later commit of this PR.
+- The `summary set <cr> --title *` allow rule also matches a trailing `--project <other>`; to narrow
+  once the real trial proves the grammar.
+- The Claude flags and `_claude_saved` are unproved (no real trial).
+- `just test` time against its 30 s budget is not measured.
+- No test checks that the refusal text in `hosts/copilot.md` matches the engine's reason.
 
 <details>
 <summary>Details</summary>
@@ -62,7 +66,7 @@ restores the previous behaviour.
 
 ## Impacts
 
-No visible change yet; the new role is not started by anything until the later commits.
+No visible change until the web client commit: the API ops exist but no page calls them.
 
 ## Test plan
 
@@ -76,6 +80,6 @@ No visible change yet; the new role is not started by anything until the later c
 ## Internal references
 
 CR-449 board-griller. Docs changed by this CR, for CR-447: docs/agents-and-models.md (this part),
-docs/web-board.md and docs/server-api.md (later parts).
+docs/web-board.md and docs/server-api.md.
 
 </details>
