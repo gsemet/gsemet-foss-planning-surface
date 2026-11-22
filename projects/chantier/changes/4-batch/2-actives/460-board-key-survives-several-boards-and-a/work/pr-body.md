@@ -49,12 +49,12 @@ A board with no cookie shows a paste field instead of a dead end; no other visib
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `74055b1`: `just check`, `just eval-dry-run`
-- [ ] Evidence: none (no visual capture)
-- [ ] Review: approved at `74055b1`
-- [ ] Verified at `74055b1`
-- [ ] CI green at `74055b1`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `74055b1`: `just check`, `just eval-dry-run`
+- [x] Evidence: none (no visual capture); the pipeline's `just scenario (ubuntu-latest)` ran the new several-boards step at `74055b1`
+- [x] Review: approved at `74055b1` (reviewed before the commit, committed unchanged)
+- [x] Verified at `74055b1`
+- [x] CI green at `74055b1`
 
 ## Internal references
 
