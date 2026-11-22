@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "batch": "batch-08",
+  "number": 8,
+  "state": "running",
+  "opened": "2026-11-22T09:27:11Z",
+  "closed": null,
+  "mode": "parallel",
+  "steering": "direct",
+  "host": "claude",
+  "budget_usd": 30.0,
+  "cost_usd": null,
+  "cost_unpriced": {},
+  "crs": [],
+  "cost_receipt": null,
+  "report": null
+}
