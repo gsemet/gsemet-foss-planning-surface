@@ -4,7 +4,7 @@ In a stack or series batch, a branch could be cut from the default branch while 
 
 ## Deliverables
 
-A branch that does not hold the recorded head of the CR below it is refused, naming both CRs, before any gate is paid. The line below is real, from the scenario's `ship` of a stacked CR cut from main (run at 311ccf4):
+A branch that does not hold the recorded head of the CR below it is refused, naming both CRs, before any gate is paid. The line below is real, from the scenario's `ship` of a stacked CR cut from main (run at ad2df04 (carried from 311ccf4)):
 
 ```text
 CR-103: branch not based on CR-102's head d8be1c4: rebase onto chantier/batch-01/cr-102-stack-middle, push, ship again; nothing recorded
@@ -81,11 +81,11 @@ No visual change. A stacked CR must be rebased onto the CR below before `ship`.
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): test_stack_chain.py, test_stack_chain_cards.py
-- [x] Local gates at `311ccf4`: just check pass (1664 passed), just eval-dry-run pass (18 of 18), just scenario pass
+- [x] Local gates at `ad2df04` (carried from `311ccf4`: clean restack): just check pass (1664 passed), just eval-dry-run pass (18 of 18), just scenario pass
 - [x] Evidence: the refusal line from the scenario above; no image
-- [x] Review: inspector approved, committed as `311ccf4`
-- [x] Verified at `311ccf4`: VERIFIED
-- [x] CI green at `311ccf4`: just check (macos, ubuntu, windows), just eval-dry-run, just scenario pass
+- [x] Review: inspector approved at `ad2df04` (carried from `311ccf4`: clean restack)
+- [x] Verified at `ad2df04` (carried from `311ccf4`: clean restack): VERIFIED
+- [x] CI green at `ad2df04`: just check (macos, ubuntu, windows), just eval-dry-run, just scenario pass
 
 ## Internal references
 
