@@ -45,6 +45,13 @@ Grade: 1. One added read-only key on the `board` topic and a new page; the other
 - Tests: `tests/test_board_needs.py`, `test_the_inbox_is_the_second_view_and_reads_only`.
 - Docs: `docs/web-board.md`, demo waits, `scripts/docs_screenshots.py`.
 
+## Human decisions
+
+- Four kinds only, built from the published record: question, approval asked, ready to merge, blocked. Nothing from the forge, pipelines, events or journal lines.
+- Open is a link or the side panel and never a write; snooze, later and discard are kept in the browser, not on the server, so a hide on one device does not hide on another.
+- A CR both ready to merge and with an open approval wait shows two cards, each hidden on its own.
+- The hides are proved by a written check, not by a test that runs Node; a static test only checks that the pure model stays pure.
+
 ## Impacts
 
 A new Inbox page and a count in the navigation and the tab title; no change elsewhere.

@@ -49,7 +49,10 @@ Readers of the rules and cards now see the CLI's forge calls named.
 
 ## Test plan
 
-`just check` (passes), `just eval-dry-run`, and the pipeline's `just scenario (ubuntu-latest)` at the head.
+- [x] `just check` passes (local at the rebased head; CI green on Linux, macOS, Windows at 8890418).
+- [x] `just eval-dry-run` passes (19/19, local; CI green at 8890418).
+- [x] The pipeline's `just scenario (ubuntu-latest)` is green at 8890418.
+- [x] Review: Inspector approved, committed as 8890418; Verifier VERIFIED at 8890418.
 
 ## Internal references
 
