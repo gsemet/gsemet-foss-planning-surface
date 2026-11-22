@@ -48,7 +48,6 @@ Grade: 3. Every long gate of a running batch is refused until its project holds 
 
 ## Known gaps
 
-- The long gate `scenario` runs at the PR's head: its result is in the Test plan once run.
 - Until this PR merges, the CLI that runs is the old one, so this PR's own local gate uses the free form.
 
 <details>
@@ -78,9 +77,9 @@ No visual change. Projects must add `long_gate.commands` to run a long gate; wai
 ## Test plan
 
 - [ ] New or changed tests (config key, gate refusals and named run, ignored layer, hold limits, shipped files)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`, `just scenario`
+- [x] Local gates at `1353bbd`: `just check` pass, `just eval-dry-run` pass (at ce00b80, scenario-only change since), `just scenario` pass
 - [ ] Evidence: none beyond tests (no visual change)
-- [ ] Review: approved at `<sha7>`
+- [x] Review: approved at `1353bbd`
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
