@@ -1,6 +1,6 @@
 # Before and after, CR-462
 
-Before: base 58b4c302 (detached worktree, with the fixture 95 and the v51-v53 scenario files copied in, since the base has neither). After: head bb49b02b8430ae0fb38f8f8a31bba352baca875b.
+Before: base 58b4c302 (detached worktree, with the fixture 95 and the v51-v53 scenario files copied in, since the base has neither). After: head fc7c67ac8f4225020b526976d99e1a3f0dc5a8ee (the v51-v53 images retaken at this head are byte-identical to the ones kept here; the full-page pairs are carried from bb49b02, same fixture and render).
 
 Fixture: test/visual/fixtures/95-blank-lines-in-containers.md. The spec said v44-v53; the CR's own scenarios are v51, v52, v53 (v44-v50 are CR-444/448).
 

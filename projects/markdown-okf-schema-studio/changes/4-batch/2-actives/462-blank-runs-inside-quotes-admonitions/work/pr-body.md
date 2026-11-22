@@ -22,14 +22,14 @@ Core, protocol, render, export, page, session and visual tests were added or upd
 
 ## Impacts
 
-Edit mode, full page, same fixture (95) before (base 58b4c302) and after (this head). Before, only the footnote run shows a block, placed as a top-level run. After, six blocks, each inside its container (quote, two alerts, admonition, definition, footnote).
+Edit mode, full page, same fixture (95) before (base fb5d012d) and after (head fc7c67ac). Before, only the footnote run shows a block, placed as a top-level run. After, six blocks, each inside its container (quote, two alerts, admonition, definition, footnote).
 
 | Theme | Before | After |
 | --- | --- | --- |
 | Light | ![before light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/5bc8e6bd6d503d3e53b0b06cde1c28c33986c1f5/before-edit-light.png) | ![after light](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/5bc8e6bd6d503d3e53b0b06cde1c28c33986c1f5/after-edit-light.png) |
 | Dark | ![before dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/5bc8e6bd6d503d3e53b0b06cde1c28c33986c1f5/before-edit-dark.png) | ![after dark](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/5bc8e6bd6d503d3e53b0b06cde1c28c33986c1f5/after-edit-dark.png) |
 
-Scenario captures at head: [v51 six blocks, edit mode](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/5bc8e6bd6d503d3e53b0b06cde1c28c33986c1f5/after-v51-edit-light-bar.png), [v52 reading mode shows none](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/5bc8e6bd6d503d3e53b0b06cde1c28c33986c1f5/after-v52-reading-dark.png), [v53 editor open inside the quote after typing](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/5bc8e6bd6d503d3e53b0b06cde1c28c33986c1f5/after-v53-typing-light.png).
+Scenario captures at head fc7c67ac: [v51 six blocks, edit mode](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/5bc8e6bd6d503d3e53b0b06cde1c28c33986c1f5/after-v51-edit-light-bar.png), [v52 reading mode shows none](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/5bc8e6bd6d503d3e53b0b06cde1c28c33986c1f5/after-v52-reading-dark.png), [v53 editor open inside the quote after typing](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/5bc8e6bd6d503d3e53b0b06cde1c28c33986c1f5/after-v53-typing-light.png).
 
 ## Known gaps
 
@@ -41,7 +41,8 @@ Scenario captures at head: [v51 six blocks, edit mode](https://raw.githubusercon
 
 ## Review
 
-- [ ] Inspector approved
+- [x] Inspector approved at fc7c67ac
+- [x] Verified at fc7c67ac; local gates (`just check`, `just preflight`) pass at fc7c67ac; CI and the heavy run (integration, visual) green at fc7c67ac
 
 ## Internal references
 
