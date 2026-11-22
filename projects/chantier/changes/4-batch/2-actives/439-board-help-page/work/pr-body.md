@@ -1,4 +1,4 @@
-## Summary
+﻿## Summary
 
 The web board had no place that explains chantier itself. This adds a **Help** page in the sidebar, right after Home (and the Inbox when present): two groups of cards, **Concepts** (12) and **Roles** (13), each a name and one sentence. A click or Enter opens a short detail on the same page, with one "Read more" link to the documentation on GitHub. All text ships in English and French.
 
@@ -80,7 +80,7 @@ A new Help entry in the sidebar and bottom bar; nothing else changes visibly.
 - [x] Evidence: four screenshots at 5569703 (Deliverables), Inbox in the sidebar and bottom bar; Help rendered in Chromium: no console error, English/French switch works, no horizontal overflow at 360 px
 - [x] Review: approved at 5569703
 - [x] Verified at 5569703 (browser check in Chromium included)
-- [ ] CI green at 5569703: check x3, eval-dry-run, scenario (ubuntu)
+- [x] CI green at 5569703: check x3, eval-dry-run, scenario (ubuntu)
 
 ## Internal references
 
