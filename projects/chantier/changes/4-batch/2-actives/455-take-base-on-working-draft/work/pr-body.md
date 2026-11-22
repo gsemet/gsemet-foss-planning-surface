@@ -31,8 +31,7 @@ Grade: **2**. The base rule is shared by `take`, the board's "on" column, off-pl
 
 ## Known gaps
 
-- **UNVERIFIED:** the rewritten scenario steps were only compiled before the first push; the long gate is their first run.
-- The long gate and the independent verification have not run yet at this head.
+- The independent verification has not run yet at this head.
 - Lines edited in `concepts.md`, `foreman.md` and `driver.md` are longer than the files' usual wrapping.
 - Requests of the running batch already taken on a working request above their dependency will print their dependency's branch and show "not on its place" after the merge; the merge message to the batch's manager is owed.
 

@@ -59,6 +59,7 @@ Low. One new op and three new Python modules, new client files and one component
 - `board/dashboard_records.py`, `board/dashboard_page.py`, `board/dashboard_spend.py`: pure figures over closed batch records.
 - `board/api/protocol.py`, `protocol.json`, `ops.py`, `docs/server-api.md`: the `dashboard.get` op (protocol 1 unchanged).
 - Web client: views `dashboard*.js`, `ui/chart.js`, sheets `chart.css` and `dashboard.css`, router, store, api, registry, icon, French and English words, `DESIGN.md` (Components row, `--chart-height` token, Dashboard section).
+- `scenario/README.md`, `scenario/run_scenario.py`: the welcome check counts 21 ops.
 - Tests: `test_board_dashboard.py`, `dashboard_world.py`, the every-op protocol call, and a design test on the registry order.
 
 ## Human decisions
@@ -78,6 +79,9 @@ A new page for board users; nothing else changes.
 - [x] `just eval-dry-run` passed at 9808e1d and in CI at 20cac21 (only `scenario/` changed in between).
 - [x] Browser check at phone and desktop widths, both tabs and both languages, on a copy of the real planning surface at 20cac21: screenshots above.
 - [x] Long gate: `just scenario` passed locally at 20cac21, and in CI (ubuntu-latest).
+- [x] Review: approved at `20cac21`
+- [x] Verified at `20cac21`
+- [x] CI green at `20cac21`
 
 ## Internal references
 

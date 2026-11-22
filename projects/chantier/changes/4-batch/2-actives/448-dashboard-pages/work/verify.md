@@ -15,4 +15,11 @@ All claims judged at 20cac21 unless said.
 
 Notes: the ranking and its PR links are below the fold of the screenshots and the PR names that as UNVERIFIED live (in Known gaps). Full suite at 20cac21, `python -m pytest tests -q -x`: `1654 passed, 20 skipped in 408.47s`.
 
+Description pass (later, `gh pr view 420 --json body`, head 20cac21, CI checks all pass at that head): claim 6 is withdrawn. The Test plan holds four items and lacks the template's `Review: approved at <sha7>`, `Verified at <sha7>` and `CI green at <sha7>` items (pr-template, Test plan, audit 1). Minor: Changes does not mention the `scenario/` edits (`scenario/README.md`, `scenario/run_scenario.py`) that the diff holds. Sections, fold, SHAs (20cac21), captions, Known gaps and no role name outside Internal references are otherwise right.
+
+NOT VERIFIED
+
+Description pass 2 (`gh pr view 420 --repo gsemet/chantier --json body`, head 20cac21): the Test plan now holds Review, Verified and CI green items at 20cac21 (the Review note is the Driver's note citing the r3 approve at 20cac21, `chantier log 448`); Changes names `scenario/README.md` and `scenario/run_scenario.py`. Sections, fold, captions, Known gaps (UNVERIFIED bullet present) and no role name outside Internal references are right. Claim 6 holds again.
+
 VERIFIED
+20cac21f5bca4712529866f961dc0f9e5a501c05
