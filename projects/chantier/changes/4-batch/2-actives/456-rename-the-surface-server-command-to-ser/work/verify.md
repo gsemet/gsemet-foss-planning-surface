@@ -1,19 +1,22 @@
 # Verify CR-456
 
-Head: d42b8b3cc4f38e111befac469ed1915fc1746769
+Head: 13e79acc81acbf9ded4f2632f4f16f81ba528f7e
 
-Move judged: the worktree and PR #430 head are now d42b8b3c, the prompt's f7afc81d rebased onto main a09a58bd.
-`git rev-parse d42b8b3c^{tree} f7afc81d^{tree}` -> both `20de45c2c4626b4bbc964c23d8b90ebb700cf57b`; `git range-diff` shows the 3 commits equal. Code claims 1-3 judged at d42b8b3c (same tree as f7afc81d).
+All claims judged at 13e79ac.
 
-## Claims
+1. Evidence tests pass at head. Command (in skills/chantier/scripts/cli): `uv run --no-sync python -m pytest tests/test_serve_webui.py tests/test_command_names.py tests/test_board_running.py tests/test_writer_lines.py tests/test_watch_board.py tests/test_board_exposure.py -q`
+   Output: `94 passed in 5.90s`. These cover the stale-name check with its prepared text, the renamed lines, serve_argv/find_pid (serve and board), the default-port cases, per-server cookies, and the four webui cases.
+2. `chantier board` is an invalid choice. Command: `uv run --no-sync chantier board`
+   Output: `chantier: error: argument cmd: invalid choice: 'board', maybe you meant 'order'? (choose from ... 'serve', 'webui', 'live' ...)`.
+3. No stale command form in cards/docs. Command: `git grep -nE '\$CHANTIER board|chantier board [-`a-z]' -- skills AGENTS.md README.md CONTRIBUTING.md docs ':!docs/release-notes'`
+   Output: only prose ("another chantier board"), code strings about the process, and the check's own fixtures in test_command_names.py. No command form.
+4. Blocked-sync step names a webui-started server. `git grep -n "started by webui" -- skills`: session-start.md line 324 holds `PID <n> serve <project> (started by webui)`; test_command_names.py asserts it (passes in 1).
+5. CI at head (`gh pr checks 430`): check x3 OSes, eval-dry-run and `just scenario (ubuntu-latest)` all pass. The CI log (`gh run view 45032755872 --log | grep`) shows `ok  surface-board (github): 320/320 checks`; no FAIL line from the scenario. The local Windows runs (ignored scenario/results) failed only the 5 webui checks at port 8765 (WinError 10049, boards hold it, as the PR's Known gaps says); CI total 320 vs local 319 with 314 passed, so the serve_and_webui checks pass in CI.
+6. PR description at head 13e79ac (`gh pr view 430`): headRefOid is 13e79ac; Summary, Deliverables and Changes match the file set (declare/serve.py, webui, binding.py, cookie_name, tests); Known gaps names the scenario step's local limit, which is true (claim 5). Mermaid and table render in Markdown. Review box: log line 62 (r7 inspector approved) and line 63 (`r7 committed as 13e79ac`, the round's head) back it. Note: "Local gates at 13e79ac: just check, eval-dry-run": the log notes just check at 13e79ac; eval-dry-run was last run locally earlier (scenario/ only changed since) and is green in CI at head; accepted. No images.
 
-1. Renamed lines, serve_argv, find_pid, command names, ports, cookies, webui (in-process), at d42b8b3c.
-   `uv run --no-sync --project . pytest tests/test_serve_webui.py tests/test_command_names.py tests/test_board_running.py tests/test_writer_lines.py tests/test_watch_board.py tests/test_board_exposure.py -q` -> `94 passed in 39.14s`. PASS.
-2. `chantier board` is argparse's invalid choice, at d42b8b3c: `chantier board` -> `chantier: error: argument cmd: invalid choice: 'board', maybe you meant 'order'? (choose from ... 'serve', 'webui', 'live' ...)`. PASS.
-3. session-start.md step 4 names `PID <n> serve <project> (started by webui)`; AGENTS.md names `webui` (lines 131-132, 172): grep output matched at d42b8b3c. PASS.
-4. Scenario `serve_and_webui` (surface-board unit): pipeline run https://github.com/gsemet/chantier/actions/runs/45031293669 at d42b8b3c, job `just scenario (ubuntu-latest)`: `FAIL  surface-board (github): 315/316 checks`, `FAIL surface-board (github): serve_and_webui ran to the end`, `error: recipe scenario failed on line 33`. The other units pass; check (3 OS) and eval-dry-run pass. No artifact or transcript is uploaded, so the failing line of the step is not visible in the log. FAIL. (Locally port 8765 is held by real boards, so the unit cannot prove it here.)
-5. PR description: the Test plan says `Local gates at f7afc81: just check, just eval-dry-run`; the Driver's log says eval-dry-run was not re-run at f7afc81 ("not owed beyond r4"), and the head is now d42b8b3c with no carry line. The Review box's approval note is at 399c87e2, `committed as f7afc81` (accepted by the card). The Known gaps names the local scenario limit but not that the pipeline's surface-board is red. Minor; fails with claim 4.
+VERIFIED
 
-## Verdict
+## Description pass at 13e79acc81acbf9ded4f2632f4f16f81ba528f7e
 
-NOT VERIFIED: the long gate `just scenario (ubuntu-latest)` is red at d42b8b3c on the CR's own step `serve_and_webui` (claim 4); the description's gates line overclaims (claim 5).
+Command: gh pr view 430 --json body,headRefOid; gh pr checks 430; chantier log 456.
+Output: head 13e79ac; body names 13e79ac in every box; Review box matches note "r7 committed as 13e79ac" (inspector approved d42b8b3, diff only scenario/run_scenario.py); CI all pass; Known gaps names the scenario limit; listed files exist in the diff. VERIFIED.

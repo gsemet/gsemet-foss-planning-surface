@@ -40,7 +40,7 @@ Grade: 2. The command's name changes everywhere it is written (CLI, cards, docs,
 
 ## Known gaps
 
-- The scenario's `serve_and_webui` step could not run to the end on the author's Windows machine (real boards hold port 8765, so its second-surface step and the `already running` check are skipped or fail there); its full proof is the pipeline's `surface-board` unit.
+- The scenario's `serve_and_webui` step cannot run to the end on the author's Windows machine (real boards hold port 8765); the pipeline's `surface-board` unit ran it green at `13e79ac`.
 
 <details>
 <summary>Details</summary>
@@ -69,10 +69,10 @@ A user types `chantier serve` where they typed `chantier board`, and `chantier w
 
 - [x] New or changed tests (they fail on the previous code)
 - [x] Local gates at `13e79ac`: `just check`, `just eval-dry-run`
-- [ ] Evidence: none (CLI rename); see Verified
+- [x] Evidence: none (CLI rename); see Verified
 - [x] Review: approved at `13e79ac`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Verified at `13e79ac`
+- [x] CI green at `13e79ac`
 
 ## Internal references
 
