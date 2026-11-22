@@ -9,7 +9,23 @@ The figures are computed on the server from the closed batch records it already 
 - Sidebar: Dashboard sits after Costs and before Configuration. The tab and the range ("last 10", "last 20", "all") are in the address, so a reload, a shared link and Back give the same view.
 - Each tile is the board's figure card with a headline, a chart, a legend in words and a coverage line ("n of N batches"). A figure a record lacks is a gap (a cut line, an empty bar slot), never a zero. A chart's value is read on hover, keyboard focus and tap.
 - Words exist in English and French.
-- **UNVERIFIED:** no screenshot of the page from the PR's head is attached yet.
+
+Screenshots from `chantier board` run at head 20cac21 on a copy of the real planning surface (project `chantier`, 28 closed batches; the board's own "writer blocked" badge is the copy having no remote).
+
+![Productivity, English, last 20 batches, at 20cac21](./evidence/dashboard-productivity-en.png)
+Productivity, English, last 20 batches, at 20cac21.
+
+![Spending, English, by role, a batch read on hover, at 20cac21](./evidence/dashboard-spending-en-role.png)
+Spending, English, by role, with the value of batch 26 read on hover, at 20cac21.
+
+![Productivity, French, at 20cac21](./evidence/dashboard-productivity-fr.png)
+Productivity, French, last 20 batches, at 20cac21.
+
+![Spending, French, by model, all batches, at 20cac21](./evidence/dashboard-spending-fr-model.png)
+Spending, French, by model, all batches, at 20cac21.
+
+![Productivity at 375 px, at 20cac21](./evidence/dashboard-narrow-375.png)
+Productivity at 375 px wide, at 20cac21.
 
 ```
 GET api/v1/call/dashboard.get  {project, range: "10" | "20" | "all"}
@@ -28,7 +44,10 @@ Low. One new op and three new Python modules, new client files and one component
 
 ## Known gaps
 
-- **UNVERIFIED:** no screenshot of the page from a real board on the real planning surface, and the French view, ten-point charts, the unpriced badge and the PR links of the ranking were not seen live (only checked on a demo copy).
+- **UNVERIFIED:** the ten-point charts, the unpriced badge and the PR links of the ranking were not seen live (only checked on a demo copy and in tests).
+- The whole view repaints on every push of the store, which may reset a hovered chart column.
+- The word `dashboard.calls` is defined in both languages and not used by any view yet.
+- The welcome of the server's API lists 21 ops with `dashboard.get`. Another open PR (the one adding `tzdata` to `uv.lock`) also adds an op: whichever lands second re-runs `uv lock` and recounts (22 ops once both land).
 - Batch-01 to batch-16 hold no dates and no batch cost: they show only in the change-request and rounds tiles and in the ranking.
 - A release alone records 0 rounds and lowers its batch's mean.
 - A model's colour follows the project's all-time cost order, the Costs card's follows one batch's: they may differ.
@@ -51,7 +70,7 @@ Low. One new op and three new Python modules, new client files and one component
 
 ## Impacts
 
-A new page for board users; nothing else changes. No screenshot yet (see Known gaps).
+A new page for board users; nothing else changes.
 
 ## Test plan
 
