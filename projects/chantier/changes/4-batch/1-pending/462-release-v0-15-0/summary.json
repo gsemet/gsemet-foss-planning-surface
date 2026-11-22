@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Release v0.15.0",
+  "summary": "Specified: version PR for v0.15.0 on eval run 4 alone; joins batch-30 on top, after the flaky-tests fix.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "986c1730a99f7e075a5f9fca89a7486b06e9750086780e95a7e9d2f2391447f9",
+    "02-answers.md": "dc2b5499d2437162dd5bc464914cb6948519a21d216df12583f67744ac234282",
+    "03-change-spec.md": "11ce4e6776fe6121f16405e0b0aa5d8b22531a6485dd19faea422daab90d37f7",
+    "intake/request.md": "07e8dc0b6403f57a70c59dd07b686d9503a9704a9a93bf45e1f458edf2445e3d"
+  },
+  "summarized": "2026-11-22T20:28:30Z"
+}

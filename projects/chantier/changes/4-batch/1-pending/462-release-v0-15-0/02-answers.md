@@ -7,6 +7,12 @@
    `evals/results/real-foreman-2026-11-22-run4.md` (PR #436). The claims file cites it for each
    claim that run exercised; every other claim is `scenario only` or `not exercised`.
 
+3. Q: evals/README.md asks for `full` and both quick campaigns before a release; only
+   real-foreman (run 4) ran. User, 2026-11-22: "Run 4 suffit". The PR and the claims file say
+   that `full` and real-direct did not run.
+4. Q: `main` is red (a flaky test). User, 2026-11-22: "Corriger puis release": the flaky-tests CR
+   joins batch-30 first; the version PR starts from a green `main`.
+
 ## Settled by the Chief of Staff (2026-11-22, the user prefers simple options)
 - Version: v0.15.0, minor. New behaviour since v0.14.0 and nothing that breaks a user's setup:
   the web board grows into the place to steer (Inbox, History, Dashboard, Help, batch graph and

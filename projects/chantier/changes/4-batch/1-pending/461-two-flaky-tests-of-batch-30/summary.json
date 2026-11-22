@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Two flaky tests of batch-30",
+  "summary": "Specified: make live --once's --only refusal and the w2 folder-lock test deterministic; joins batch-30 before the release.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "f71bd24fe18b9b4e744498ff7cfbabbe3da7fffb4d46473de63d72266f0cfc47",
+    "02-answers.md": "70e66304d4b563693bddd14d19cc873fb947b557ddc596e9927a3efa08fe71aa",
+    "03-change-spec.md": "cf346a480086fca3c77d2668d7c9a627aed5c5bcc8b8bf8080dfd81938d839d1",
+    "intake/request.md": "e0dcc352a73a4c8f8bebe63513efd29e79c37fd13b80c5e8ec3677f27f14faf9"
+  },
+  "summarized": "2026-11-22T20:28:31Z"
+}
