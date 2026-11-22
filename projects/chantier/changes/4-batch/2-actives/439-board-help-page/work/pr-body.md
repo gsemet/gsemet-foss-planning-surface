@@ -48,7 +48,7 @@ Grade: 1
 
 ## Known gaps
 
-- None. The stack base is CR-438's branch; this PR's own diff holds only the Help page's files (20 files).
+- None. The stack base is CR-438's branch; this PR's own diff holds only the Help page's files (19 files).
 
 <details>
 <summary>Details</summary>
@@ -78,8 +78,8 @@ A new Help entry in the sidebar and bottom bar; nothing else changes visibly.
 - [x] New test `test_the_help_page_is_a_view_with_both_languages_and_real_links` in `tests/test_board_help.py` (registry, topics, word counts, links and anchors, router and `help.js` rules), passing at 5569703
 - [x] Local gates at 5569703: `just check`, `just eval-dry-run`
 - [x] Evidence: four screenshots at 5569703 (Deliverables), Inbox in the sidebar and bottom bar; Help rendered in Chromium: no console error, English/French switch works, no horizontal overflow at 360 px
-- [ ] Review: approved at 5569703
-- [ ] Verified at 5569703 (Driver ticks it once verified)
+- [x] Review: approved at 5569703
+- [x] Verified at 5569703 (browser check in Chromium included)
 - [ ] CI green at 5569703: check x3, eval-dry-run, scenario (ubuntu)
 
 ## Internal references
