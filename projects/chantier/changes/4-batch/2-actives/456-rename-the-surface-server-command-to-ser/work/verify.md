@@ -1,20 +1,19 @@
-# Verify CR-456, at head 11975a1f91b402edd6b5a10ae4f0d14081212e93
+# Verify CR-456
 
-Head: 11975a1f91b402edd6b5a10ae4f0d14081212e93
+Head: d42b8b3cc4f38e111befac469ed1915fc1746769
 
-Move judged: conflict restack of cf29f3c (resolved files hosts/claude-code.md, hosts/copilot.md). Behaviour claims re-run at this head.
+Move judged: the worktree and PR #430 head are now d42b8b3c, the prompt's f7afc81d rebased onto main a09a58bd.
+`git rev-parse d42b8b3c^{tree} f7afc81d^{tree}` -> both `20de45c2c4626b4bbc964c23d8b90ebb700cf57b`; `git range-diff` shows the 3 commits equal. Code claims 1-3 judged at d42b8b3c (same tree as f7afc81d).
 
 ## Claims
 
-1. Renamed lines, serve_argv, find_pid, no stale command name, cookies, ports, webui (in-process), at 11975a1.
-   `uv run --locked python -m pytest tests/test_serve_webui.py tests/test_command_names.py tests/test_board_running.py tests/test_writer_lines.py tests/test_watch_board.py -q` (in skills/chantier/scripts/cli) -> `79 passed in 4.70s`. PASS.
-2. `chantier board` is argparse's invalid choice, at 11975a1.
-   `chantier board` -> `chantier: error: argument cmd: invalid choice: 'board', maybe you meant 'order'? (choose from ... 'serve', 'webui', 'live' ...)`. PASS.
-3. `webui` real exercise, at 11975a1, scratch repo under work/scratch (removed after): with no server, `chantier webui` -> `board on http://127.0.0.1:59016/?k=... over <folder>` and `board: stops by itself after 30 min with no client (webui started it)`, exit 0; the process list showed `... chantier --skill .../skills/chantier serve --stop-idle` with no `--seat`; a second `chantier webui` -> `board already running at http://127.0.0.1:59016/?k=...`, `board: watches the planning files`, idle-stop line. Server stopped by PID. PASS.
-4. Cards/docs: `grep -rn '$CHANTIER board\|chantier board ' AGENTS.md skills/chantier/references README.md CONTRIBUTING.md docs` (release-notes excluded) -> only `AGENTS.md:59` (the prose "another chantier board", not the command). hosts/claude-code.md rows 39, 49, 55, 729 name `serve`. PASS.
-5. Scenario step `serve_and_webui` (scenario/run_scenario.py:2686), `just scenario --unit surface-board --forge github` at 11975a1 (log: work/gates/scenario-surface-board.log): unit 105/125 FAIL on this machine. Its serve_and_webui steps failed because port 8765 is held on this machine by another program (the user's live board: `netstat` shows 127.0.0.1:8765 and 0.0.0.0:8765 LISTENING), so the second-surface step was skipped, and the unit's `webui` (cold `uvx --from <worktree>` start) exited 4 "did not start within 20 s"; the unit's earlier steps (remote_board, forge_hub, watcher steps, untouched by this CR's tests) fail on the same machine too. Not proved here; claim 3 is the nearest real exercise. The pipeline's ubuntu `just scenario` is the proof. NOT PROVED (not a code defect shown).
-6. PR #430 description (gh pr view 430, head 11975a1): FAILS. The Test plan says `Local gates at cf29f3c` and `Review: approved at cf29f3c`, but the head is 11975a1 after the restack (the Driver's log: restack approved at 7c3de97, amended to 11975a1; gates at 11975a1 are in the log). Known gaps still says the step "has been compiled but not run locally" without the local run's failure on this machine. NOT VERIFIED until the box and gates line name the head (or a carried-from with reason) and Known gaps is updated.
+1. Renamed lines, serve_argv, find_pid, command names, ports, cookies, webui (in-process), at d42b8b3c.
+   `uv run --no-sync --project . pytest tests/test_serve_webui.py tests/test_command_names.py tests/test_board_running.py tests/test_writer_lines.py tests/test_watch_board.py tests/test_board_exposure.py -q` -> `94 passed in 39.14s`. PASS.
+2. `chantier board` is argparse's invalid choice, at d42b8b3c: `chantier board` -> `chantier: error: argument cmd: invalid choice: 'board', maybe you meant 'order'? (choose from ... 'serve', 'webui', 'live' ...)`. PASS.
+3. session-start.md step 4 names `PID <n> serve <project> (started by webui)`; AGENTS.md names `webui` (lines 131-132, 172): grep output matched at d42b8b3c. PASS.
+4. Scenario `serve_and_webui` (surface-board unit): pipeline run https://github.com/gsemet/chantier/actions/runs/45031293669 at d42b8b3c, job `just scenario (ubuntu-latest)`: `FAIL  surface-board (github): 315/316 checks`, `FAIL surface-board (github): serve_and_webui ran to the end`, `error: recipe scenario failed on line 33`. The other units pass; check (3 OS) and eval-dry-run pass. No artifact or transcript is uploaded, so the failing line of the step is not visible in the log. FAIL. (Locally port 8765 is held by real boards, so the unit cannot prove it here.)
+5. PR description: the Test plan says `Local gates at f7afc81: just check, just eval-dry-run`; the Driver's log says eval-dry-run was not re-run at f7afc81 ("not owed beyond r4"), and the head is now d42b8b3c with no carry line. The Review box's approval note is at 399c87e2, `committed as f7afc81` (accepted by the card). The Known gaps names the local scenario limit but not that the pipeline's surface-board is red. Minor; fails with claim 4.
 
 ## Verdict
 
-NOT VERIFIED: the description is stale at the head (claim 6); the code claims 1-4 hold at 11975a1; the scenario step (5) is unproved locally and awaits the pipeline's gate.
+NOT VERIFIED: the long gate `just scenario (ubuntu-latest)` is red at d42b8b3c on the CR's own step `serve_and_webui` (claim 4); the description's gates line overclaims (claim 5).
