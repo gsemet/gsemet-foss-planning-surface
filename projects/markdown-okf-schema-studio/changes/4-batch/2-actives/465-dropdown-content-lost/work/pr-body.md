@@ -22,7 +22,7 @@ Grade: **1**: one new normalizer rule for the `details` node and a range fallbac
 
 - Reused the admonition dropdown rendering (classes, title style, block mapping) instead of new styles, so blank-run and line-marker features apply unchanged.
 - Added the default title "Details" for an untitled dropdown.
-- Added two missing `CHANGELOG.md` lines (PR #475, #469) in a separate commit, as requested.
+- Added two missing `CHANGELOG.md` lines (PR #475, #469) in their own commit, as requested.
 
 ## Known gaps
 
