@@ -5,7 +5,7 @@ text that part needs: a `board-griller` agent for each host, its shipped default
 rules that tell the Chief of Staff and the Griller how a grill started from the board runs. It also adds the
 server engine that runs the Griller (a headless host process per chat, its files, its turns), the
 API ops and topic that drive it, and the write guard that refuses edits of a chat's CR. The web
-client comes in a later commit of the same PR.
+client (a Grill button on a backlog item and a discussion panel) is in the last commit of the PR.
 
 ## Deliverables
 
@@ -19,6 +19,7 @@ client comes in a later commit of the same PR.
 - The watcher's waking actions gain `grill`.
 - `board/griller.py`, `griller_host.py`, `griller_files.py`: the engine; the API ops, the topic and
   the write_api refusals; `docs/server-api.md` and `docs/web-board.md` ("The board's Griller").
+- The web client: `clients/web/js/panel/griller*.js`, `js/api/griller.js`, `css/griller.css`, en/fr strings, `DESIGN.md` section.
 
 | Host | Agent file | Role |
 | --- | --- | --- |
@@ -42,7 +43,8 @@ restores the previous behaviour.
 - No real Claude Code trial: `hosts/claude-code.md` stays marked unproved.
 - Copilot is unproved, likewise.
 - No screenshot of the pane from a real session.
-- The `AGENTS.md` text names web client behaviour that ships in a later commit of this PR.
+- No check of the panel in a real browser yet (node smoke of the view only); the Verifier does it.
+- CR-456 renames the server command `board` to `serve`: the `--new-key` hint strings say `board` until it lands; the command name is one constant (`BOARD_COMMAND` in `js/panel/griller-view.js`), to change when CR-456 merges.
 - The `summary set <cr> --title *` allow rule also matches a trailing `--project <other>`; to narrow
   once the real trial proves the grammar.
 - The Claude flags and `_claude_saved` are unproved (no real trial).
@@ -68,7 +70,7 @@ restores the previous behaviour.
 
 ## Impacts
 
-No visible change until the web client commit: the API ops exist but no page calls them.
+The board shows a Grill button on backlog items and a discussion panel.
 
 ## Test plan
 
