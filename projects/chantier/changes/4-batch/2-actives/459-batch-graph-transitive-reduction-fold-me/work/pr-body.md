@@ -21,7 +21,7 @@ export const orderLevels = (cols, pairs) => /* same CRs per level, reordered by 
 
 Choices made: the fold resets at each page load; cancelled CRs fold with the merged ones; the Gantt keeps every declared wait.
 
-Measured in a browser (Playwright, 1600 x 900 window with the PR panel, the demo batch, `work/evidence/measures.json`): the folded graph is 518 px high against 661 px unfolded, 886 px wide in both with no sideways scroll, the chip reads "1 merged", and the levels run in the order CR-142, CR-146, CR-144, CR-149 / CR-143, CR-147 / CR-145 / CR-148, the same after a reload. Folding and unfolding again returns to 518 px; Enter on the chip unfolds it.
+Measured in a browser (Playwright, 1600 x 900 window with the PR panel, the demo batch: the folded graph is 518 px high against 661 px unfolded, 886 px wide in both with no sideways scroll, the chip reads "1 merged" and the levels hold 4, 2, 1 and 1 cards in a fixed order, the same after a reload. Folding and unfolding again returns to 518 px; Enter on the chip unfolds it.
 
 ![The batch graph, folded, with the reduced arrows](https://github.com/gsemet/chantier/blob/a2a083af9e92e5949c683fae754752999b542618/docs/web-board/batch-graph-pc.png?raw=true)
 
@@ -74,7 +74,7 @@ On a live batch the Graph tab opens folded, with fewer arrows, ordered levels, n
 
 - [ ] New or changed tests (they fail on the previous code): `test_the_graph_draws_the_reduction_folds_the_done_and_fits_the_column`
 - [x] Local gates at `a2a083a`: `just check` passed (1883 passed; one known Windows flake, `test_w2_a_shell...`, passed on rerun); `just eval-dry-run` passed
-- [x] Evidence: Playwright measures at 1600 x 900 in `work/evidence/measures.json`, and the docs picture
+- [x] Evidence: Playwright measures at 1600 x 900 (listed in Deliverables), and the docs picture
 - [x] Review: approved at `dce2c644` (diff), `d5ef37f3` and its lint diff (`a2a083a`)
 - [ ] Verified at `a2a083a`
 - [ ] CI green at `a2a083a`

@@ -44,7 +44,7 @@ Grade: **2**. The guard changes `asks` for stack batches and cards move text bet
 
 - `stack_shape.py` (new): `shape_blockers`, `next_step`, `shape_line`; `stacks.py`: `forming`.
 - `rails_release.py` and `commands/batch_status.py`: the refusal and the `--outside-stack` flag of `asks`; the shape line in `status --refresh`; `declare/batch_status.py`: flag and help.
-- Cards: new `foreman-stack.md` (the stack rules moved out of `foreman.md`, which keeps pointers), manifest action `batch:stack`, a reload sentence in `session-start.md`, and the Chief of Staff's check of each ask against the shape in `chief-of-staff.md`.
+- Cards: new `foreman-stack.md` (the stack rules moved out of `foreman.md`, which keeps pointers), manifest action `batch:stack`, a reload sentence in `session-start.md`, and the Chief of Staff's check of each ask against the shape in `chief-of-staff.md`. The startup text of `startup-core.md`, `role-core.md`, `startup-manifest.json`, `session-start.md` and `skills/chief-of-staff/SKILL.md` was trimmed to stay within the startup limit.
 - Scenario: the scripted Foreman follows the guard; new checks in the stack step; README coverage bullet.
 - Tests: `test_stack_shape.py`; card-list and joined-card reads in existing tests.
 
@@ -62,11 +62,11 @@ No visual change. Foremen of stack batches see one new heartbeat line; a refused
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
-- [x] Local gates at `62e119c`: `just check`, `just eval-dry-run`, `just scenario` pass (stack unit alone 501.5 s of its 750 s budget)
+- [x] Local gates at `e4199b7`: `just check` passes (1924 tests); `just eval-dry-run` and `just scenario` pass in the pipeline at that head (stack unit alone 501.5 s of its 750 s budget at `62e119c`)
 - [x] Evidence: none planned beyond the tests and the scenario
-- [x] Review: approved at `c5af034`, carried over the rebase onto `62e119c` (patch unchanged)
-- [x] Verified at `62e119c`
-- [x] CI green at `62e119c`: `gh pr checks 412` all 5 pass
+- [x] Review: approved at `e4199b7` (the trim round, five files incl. `skills/chief-of-staff/SKILL.md`), on the patch carried over the restack onto main
+- [x] Verified at `e4199b7`
+- [x] CI green at `e4199b7`: `gh pr checks 412` all 5 pass (`just check (ubuntu-latest)` re-run once after a flake in `test_live_link.py::test_the_refusals_of_several_boards[only-two]`, not this change's)
 
 ## Internal references
 
