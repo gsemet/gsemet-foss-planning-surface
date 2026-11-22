@@ -1,6 +1,20 @@
 # Verify: CR-440 Triage fold and writes-count explanation
 
-Head: 83b3a9a0367a8bb83abab0b7a034025f2814fea9
+Head: cdee6c829fd64e6de14eebca97fee8ab9c095518
+
+## Restack pass at cdee6c82 (move 83b3a9a0 -> cdee6c82: restack onto CR-435 local head 8d7ebd66)
+
+- Move: `git range-diff d95695b7..83b3a9a0 8d7ebd66..HEAD` prints `1: 6ab301bb ! 1: 6d7c42d2` (only context hunks differ: the DESIGN.md and test_board_design.py neighbours changed, the CR's added lines are the same) and `2: 83b3a9a0 = 2: cdee6c82`. The base changed under the proof (`git diff --stat 8d7ebd66 HEAD`: 17 files, all the CR's; `git diff --name-only d95695b7 8d7ebd66`: dashboard, board api, cards, web client), so proofs are run again.
+- Tests at cdee6c82: `uv run --no-sync --project . python -m pytest -p no:cacheprovider -q skills/chantier/scripts/cli/tests/test_board_design.py skills/chantier/scripts/cli/tests/test_code_targets.py` -> `43 passed in 2.90s`; `git status --short` clean.
+- Browser steps 1-14 at cdee6c82: `uv run --script work/verifier/browser_verify.py` (worktree code), steps 1 to 14 each print PASS (step 10 `'P9,,{x'` -> none folded, `'P1,P4'` -> P1 and P4; step 11 panel order B, P.note x3, UL, DIV.row; step 13 `--nav-height=36px`, scrollWidth 366 = clientWidth; step 14 count 4 -> 0), no page error (asyncio Proactor connection-reset noise on Windows at teardown only). Measured values equal those at 83b3a9a0 and 9b22d874.
+- Retaken doc image `docs/web-board/triage-pc.png` at cdee6c82 opened and looked at: Triage page with the Kanban tab in the nav, fold chevrons (open) ahead of the P1 and P2 chips, made-up project `shop-api`, no username, no home folder. Shows its claim. `triage-phone.png`, `triage-selection-phone.png` not opened (same retake, carried from 83b3a9a0 look).
+- PR body (work/pr-body.md): beyond the stale SHAs, Summary, Deliverables, Changes and Known gaps match the diff (same 17-file CR patch; Known gaps long-line facts carried from 9b22d874, `column.js` lines unchanged by the move per range-diff). Not found wrong.
+
+VERIFIED
+
+---
+
+## Previous judgment (head 83b3a9a0, kept for reference)
 
 ## Delta pass at 83b3a9a0 (move 9b22d874 -> 83b3a9a0: restack onto CR-435 d95695b7, conflicts resolved, 2 PNGs retaken)
 
