@@ -1,0 +1,3 @@
+# Two surface servers run at once on one port (127.0.0.1 and 0.0.0.0)
+
+Seen 2026-11-22 on Windows. The Chief of Staff stopped the board, then started 'board --host 0.0.0.0'. Three seconds earlier the session's watcher had started its own 'board --stop-idle' on 127.0.0.1. Both run: Windows lets one process bind 127.0.0.1:8765 and another 0.0.0.0:8765. The watcher's holds the writer; the network one says 'writer not started: another process holds writer.lock'. A local client reaches one server and the phone the other. Expected: one server per surface and machine; the second start refuses (or the watcher's start takes the board.host the user wants). Related: the open question of a 'board.host: network' setting, so the watcher's autostart serves the phone too.

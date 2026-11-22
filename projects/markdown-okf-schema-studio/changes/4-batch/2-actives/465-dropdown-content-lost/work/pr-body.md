@@ -26,7 +26,7 @@ Grade: **1**: one new normalizer rule for the `details` node and a range fallbac
 
 ## Known gaps
 
-- No simulated-window or visual fixture was added for this change (unit tests cover the rendering and the mapping).
+- No visual fixture baseline was added; a simulated-window page test covers the dropdown opening and its line marker. HTML export was not run separately (same `details` element as the admonition dropdown).
 
 <details>
 <summary>Details</summary>
@@ -35,6 +35,7 @@ Grade: **1**: one new normalizer rule for the `details` node and a range fallbac
 
 - `src/core/render/mystNormalize.ts`: new rule for the `details` node of the dropdown directive (admonition classes, summary as title, body kept, `open` only with `:open:`, source position properties).
 - `src/core/render/mystBlockTransforms.ts`: a bare `details` node takes the range of its directive.
+- `test/page/runtimeLineMarkerPlacement.test.ts`: real render of a dropdown directive, then a simulated window reveals a body line: the dropdown opens and one marker is drawn.
 - `test/core/render/mystFeatures.test.ts`: colon fence, backtick fence with `:open:`, untitled, body text and line mapping.
 - Requirements: SwRS-MDOKFSTUDIO-MYST-006 extended, log entry; writing skill note; `CHANGELOG.md` lines.
 
