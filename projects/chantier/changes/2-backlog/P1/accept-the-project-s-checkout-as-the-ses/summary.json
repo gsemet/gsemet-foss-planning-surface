@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Accept the project's checkout as the session folder beside the surface",
+  "summary": "Grilled on the user's word, no critic: P6 and P7 accept the project's or the surface's main checkout; the surface is found from AGENTS.md and kept. Being specified, for batch-31.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "7b92166f562faa656d1a98694cd4994d33a6bde6496c3fe95c8f28521d06b279",
+    "02-answers.md": "02595d7506b2bb0dd7cf5e7f2ba0b1b2e288cd00dc1a012cf23919993ebd5999",
+    "intake/request.md": "cb737ad5ded03e557c5c1f5cdeed5e20b75858ed0acdcca843a7bfc351faba0d"
+  },
+  "summarized": "2026-11-22T23:34:23Z"
+}
