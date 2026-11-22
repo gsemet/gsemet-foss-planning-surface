@@ -70,8 +70,8 @@ No visual change. Developers of chantier see a `sync pending` line instead of a 
 
 - [x] New or changed tests (they fail on the previous code)
 - [x] Local gates at 20b7e69: `just check` pass (1650 passed), `just eval-dry-run` pass (19 of 19)
-- [x] Evidence at e21be68, carried to 20b7e69: the check's trial by hand on a throwaway project (uv 0.13.6, Windows): in sync exit 0; version bump exit 1 "The environment is outdated"; stale `uv.lock` exit 1, and the real `uv sync --locked` fails with its lock error
-- [x] Review: approved at e21be68; the rebase onto 0e36d1f8 (one resolved conflict) re-inspected and approved at 20b7e69
+- [x] Evidence taken before the rebase, carried to 20b7e69: the check's trial by hand on a throwaway project (uv 0.13.6, Windows): in sync exit 0; version bump exit 1 "The environment is outdated"; stale `uv.lock` exit 1, and the real `uv sync --locked` fails with its lock error
+- [x] Review: approved before the rebase; the rebase onto 0e36d1f8 (one resolved conflict) re-inspected and approved at 20b7e69
 - [x] Verified at 20b7e69 (the rebase move re-judged, the rest carried from e21be68)
 - [x] CI green at 20b7e69 (macOS, Linux, Windows checks, eval dry run, scenario)
 

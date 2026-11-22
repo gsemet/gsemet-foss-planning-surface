@@ -75,3 +75,14 @@ Verdict: VERIFIED
 - Startup figures: `pytest tests/test_startup_manifest.py -q -s -k measures` (cli/) at the head: max bytes 11748 (chief-of-staff, copilot), max reload 12543; limit 12544 (`STARTUP_LIMIT = 12_544` in test_startup_manifest.py, `"limit": 12544` in startup-manifest.json). The body states 12544, 11748, 12543: true.
 - Test numbers: gates/check2-20b7e694.log `1650 passed, 20 skipped`; gates/dry2-20b7e694.log `dry run: 19 of 19 cases as expected`. Body says 1650 and 19 of 19: true.
 - SHAs e21be68, 20b7e69, 0e36d1f8 resolve (`git rev-parse --short`). Review box matches the `chantier log` notes (see pass 2). Diff: 21 files (`git diff --stat main...HEAD`), all covered by Changes. Known gaps honest and present; no image, no screenshot owed. Renders: sections, one fold.
+
+## Description pass 4 (posted PR #409 body, Test plan lines reworded), judged at 20b7e694842421d08e5879b2e221887f923e7ce3
+
+Head: 20b7e694842421d08e5879b2e221887f923e7ce3
+
+Verdict: VERIFIED
+
+- `gh pr view 409 --json headRefOid`: 20b7e694842421d08e5879b2e221887f923e7ce3; `gh pr checks 409`: macos, ubuntu, windows check, eval-dry-run, scenario all pass. `git rev-parse HEAD~1` = 0e36d1f8 (the base the body names).
+- The two reworded lines ("Evidence taken before the rebase, carried to 20b7e69", "Review: approved before the rebase; ... re-inspected and approved at 20b7e69") name no SHA outside history; their claims match claim 6 above (carried from e21be68: the rebase did not touch the check's trial by hand) and `chantier log` ("move e21be68..20b7e694 inspector approved at 20b7e694...").
+- SHAs in the body, tested with `git merge-base --is-ancestor <sha> HEAD`: 0e36d1f8 and 20b7e69 in history; e21be68 is not, and appears only once, in "Verified at 20b7e69 (... the rest carried from e21be68)", a `carried from <sha7>` reference the card accepts (the earlier judgment's SHA, claims 1-9 above).
+- Numbers unchanged and true: 1650 passed (gates/check2-20b7e694.log), 19 of 19 (gates/dry2-20b7e694.log), startup 11748 / 12543 / limit 12544 (pass 3). 21 files in the diff, all covered by Changes. Known gaps present; no image.
