@@ -17,23 +17,23 @@ Choices: the page needs no project data (registry flag `offline`) and calls no s
 
 On a phone the bottom bar holds one more item, so it scrolls sideways when its items no longer fit (`overflow-x: auto`).
 
-Taken at 60aacc1 from the branch's own code, on a demo project with made-up paths:
+Taken at HEAD7 from the branch's own code, on a demo project with made-up paths:
 
 English, "Batch and slots" open:
 
-![Help page in English at 60aacc1](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/6c8621aff1751d5b60edc765b324049021f3955a/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-en.png)
+![Help page in English at HEAD7](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/6c8621aff1751d5b60edc765b324049021f3955a/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-en.png)
 
 French, "Grill et spécification" open:
 
-![Help page in French at 60aacc1](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/6c8621aff1751d5b60edc765b324049021f3955a/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-fr-detail.png)
+![Help page in French at HEAD7](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/6c8621aff1751d5b60edc765b324049021f3955a/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-fr-detail.png)
 
 "All projects":
 
-![Help page on All projects at 60aacc1](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/6c8621aff1751d5b60edc765b324049021f3955a/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-all-projects.png)
+![Help page on All projects at HEAD7](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/6c8621aff1751d5b60edc765b324049021f3955a/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-all-projects.png)
 
-360 px wide, the bottom bar scrolled to its end, Configuration reachable:
+360 px wide, the bottom bar at its start (Home, Inbox, Help...), the rest reachable by scrolling it sideways:
 
-![Help page at 360 px at 60aacc1](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/6c8621aff1751d5b60edc765b324049021f3955a/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-360.png)
+![Help page at 360 px at HEAD7](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/6c8621aff1751d5b60edc765b324049021f3955a/projects/chantier/changes/4-batch/2-actives/439-board-help-page/evidence/help-360.png)
 
 ## Blast radius
 
@@ -43,11 +43,12 @@ Grade: 1
 
 ## Autonomous decisions
 
+- The Help page's tests live in the new `tests/test_board_help.py`, outside `test_board_design.py` (where the specification names them), to keep that file under its size limit. The restack had dropped one assertion of `test_board_design.py` (`its grill counts and its fold chevron` in DESIGN.md); it is restored.
 - `test_code_targets.py`'s origin check now accepts the documentation links of `help-topics.js` (`https://github.com/gsemet/chantier`), which the topics' links need.
 
 ## Known gaps
 
-- This branch sits on CR-435's title-row commits (PR #408, the Batch page's mode and legend in the title row), still open: the PR's file list therefore also holds `batch-head.js`, `batch.js`, `batch.css`, `batch-nav.css`, `docs/web-board.md` and its pictures, `test_board_title_row.py`. Those are #408's; they leave this diff once #408 merges.
+- None. The stack base is CR-438's branch; this PR's own diff holds only the Help page's files (20 files).
 
 <details>
 <summary>Details</summary>
@@ -55,7 +56,7 @@ Grade: 1
 ## Changes
 
 - New `js/views/help.js`, `help-topics.js`, `i18n/en-help.js`, `i18n/fr-help.js`, `css/views/help.css`.
-- `registry.js` entry `help` (`offline`, no count); `host.js` draws an `offline` view with no project data; `header.js` shows a view's own title except on "All projects" Home; new `help` icon; `nav.help` words.
+- `registry.js` entry `help` (`offline`, no count); `host.js` draws an `offline` view with no project data; new `help` icon; `nav.help` words.
 - `router.js`: `&h=` topic, `topicOf`, `closeTopic()`, history state for an open detail; `store.js` `helpTopic`; `main.js` Escape closes the detail.
 - `shell.css`: the phone's bottom bar scrolls sideways (`overflow-x: auto`, items do not shrink).
 - `card.css` hover for Help cards; `DESIGN.md` section "The Help page".
@@ -74,12 +75,12 @@ A new Help entry in the sidebar and bottom bar; nothing else changes visibly.
 
 ## Test plan
 
-- [ ] New test `test_the_help_page_is_a_view_with_both_languages_and_real_links` (registry, topics, word counts, links and anchors, router and `help.js` rules)
-- [x] Local gates at 60aacc1: `just check`, `just eval-dry-run`
-- [x] Evidence: four screenshots at 60aacc1 (Deliverables)
-- [x] Review: approved at cf99450 (rebase with a conflict resolved); the rebase onto main to 60aacc1 had no conflict
-- [x] Verified at 60aacc1
-- [x] CI green at 60aacc1: check x3, eval-dry-run, scenario (ubuntu)
+- [x] New test `test_the_help_page_is_a_view_with_both_languages_and_real_links` in `tests/test_board_help.py` (registry, topics, word counts, links and anchors, router and `help.js` rules), passing at HEAD7
+- [x] Local gates at HEAD7: `just check`, `just eval-dry-run`
+- [x] Evidence: four screenshots at HEAD7 (Deliverables), Inbox in the sidebar and bottom bar; Help rendered in Chromium: no console error, English/French switch works, no horizontal overflow at 360 px
+- [ ] Review: approved at HEAD7 (Driver fills in the final SHA)
+- [ ] Verified at HEAD7 (Driver ticks it once verified)
+- [ ] CI green at HEAD7: check x3, eval-dry-run, scenario (ubuntu)
 
 ## Internal references
 
