@@ -25,3 +25,12 @@ Head: 12e6f7bc0874291f3baa8210175b414d47145e87
 VERIFIED for the server, protocol, close keys, client files and gates at 12e6f7b. Not proven: the page's look in a browser and the HTTP timings; both are named UNVERIFIED (pr-body Known gaps carries the screenshot; the HTTP timing is not claimed in the description).
 
 VERIFIED
+
+## Description pass (posted body of PR 419, judged at 12e6f7bc0874291f3baa8210175b414d47145e87)
+
+Command: `gh pr view 419 -R gsemet/chantier --json body,headRefOid` (headRefOid = 12e6f7bc0874291f3baa8210175b414d47145e87); `gh pr view 419 --json isDraft,baseRefName,statusCheckRollup` (draft, base CR-441 branch, 5 checks SUCCESS).
+- Renders: sections, mermaid, fold present; no image (no username or home folder).
+- Summary, Deliverables, Changes match the diff and claims 1-7 above; no role name outside a product term.
+- Test plan SHAs honest: check and scenario at 12e6f7b (gate log 20261122-040514, pass); eval-dry-run at 86544ac, `git diff --stat 86544ac 12e6f7b` touches only scenario/README.md and scenario/run_scenario.py, as stated; Review box matches driver notes (r1+r2 at 819b848, r3 at 86544ac committed as 12e6f7bc); Verified and CI green at 12e6f7b match the log notes and the checks.
+- Known gaps: carries the UNVERIFIED screenshot and the month timing (3.1 s, 2.55 s, 2.2 s in state_of, same as claim 7); base-is-CR-441 draft note true.
+VERIFIED

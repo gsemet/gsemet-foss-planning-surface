@@ -40,7 +40,9 @@ Grade: 2. The batch close now writes four more keys into each CR of the record, 
 - A PR made ready (out of draft) is not shown: no record keeps that time once its batch is closed.
 - Older CRs with no recorded end are in no period; the foot line counts them.
 - A CR dropped back to the inbox or the backlog has no folder: its row opens nothing.
-- No screenshot of the page from a real browser yet; the view has no Node-run test.
+- No screenshot of the page from a real browser yet; the view has no Node-run test. Owed: day, week, month, an empty period, French and a narrow screen.
+- A month's answer took 3.1 s, then 2.55 s, in process against the real surface (about 2.2 s of it in `state_of`), so "no visible wait" for a month is UNVERIFIED.
+- This PR's base is CR-441's branch, so it stays a draft until that one lands. `pyproject.toml` and `uv.lock` add only `tzdata==2026.2`; a later lander of CR-446 or CR-448 re-runs `uv lock` and keeps both dependencies.
 
 <details>
 <summary>Details</summary>
@@ -66,12 +68,12 @@ A new "History" entry in the sidebar and the phone's bottom bar; Home, Costs and
 
 ## Test plan
 
-- [ ] New or changed tests (`test_board_history.py`, `test_board_history_client.py`, one call added in `test_server_api_calls.py`)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`, `just scenario`
-- [ ] Evidence: after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (`test_board_history.py`, `test_board_history_client.py`, one call added in `test_server_api_calls.py`)
+- [x] Local gates at `12e6f7b`: `just check` and `just scenario` pass at `12e6f7b`; `just eval-dry-run` passes at `12e6f7b` (it ran at `86544ac`, and only `scenario/` changed since)
+- [x] Evidence: after at `12e6f7b`, from the in-process month check below (no browser screenshot)
+- [x] Review: approved at `12e6f7b` (rounds 1 and 2 approved at `819b848`, round 3 approved at `86544ac` and committed as `12e6f7b`)
+- [x] Verified at `12e6f7b`
+- [x] CI green at `12e6f7b`
 
 ## Internal references
 
