@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Garden the docs, README and SVGs after batch-30",
-  "summary": "Specified v2: last CR of batch-30, after all others; inventories docs, README, CONTRIBUTING's build section, eleven SVG pairs and every board picture, checks the batch CRs' own edits, adds Help to web-board.md, corrects false Help texts (gates then conditional). No open question.",
+  "summary": "Specified v2: last CR of batch-30; inventories docs, README, CONTRIBUTING, the SVGs and board pictures, checks each batch CR's own edits (CR-459 included), adds Help to web-board.md and the surface server's SVG (docs-garden-Q7), corrects false Help texts. No open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "a8d84fac804b19a0934ac778c9970b67ad5d076f9a5f8d4f138feea7e601bf31",
-    "02-answers.md": "ba71d4a9ed6a810aa4db81952c4b339729ef2b9c0e9835df248b11e48f945376",
-    "03-change-spec.md": "b8c4a550ec2117d481de676c3e5e2cb5b5e5e8aa2894a8f34eed5449b8de840f",
+    "02-answers.md": "5697dff070112b686488dea1e3eda1756ba790a2080833eac911984b4da89952",
+    "03-change-spec.md": "45456efd11053df40d69dfb3fbbf85c6f54c9f86607e9551ff628fef40e04088",
     "intake/request.md": "169e7f2dcb6d9abe2e58070135a9bc25a76467ba9d331b199a5570b11eee4a9e"
   },
-  "summarized": "2026-11-21T21:03:06Z"
+  "summarized": "2026-11-22T11:32:27Z"
 }

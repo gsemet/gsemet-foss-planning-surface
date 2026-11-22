@@ -10,7 +10,7 @@ protocol, CLI, card or record change.
 
 The user, 2026-11-22, looking at batch-30's Graph tab (`intake/request.md`):
 
-- CR-447 declares 12 waits, and each one is drawn as a long edge across the graph, though most are
+- CR-447 declares 30 waits, and each one is drawn as a long edge across the graph, though most are
   implied by a chain (CR-447 → CR-458 → CR-457 → CR-456). Draw the transitive reduction only.
 - The merged CRs take most of the columns, while the dozen CRs in flight are what matter. Fold the
   merged ones.
@@ -30,7 +30,7 @@ rounds.
 | Point 3 | A barycentre ordering within each level, deterministic. | 1, 3 |
 | Point 4 | The levels share the central column's width, so a normal batch does not scroll sideways at desktop width with the PR column. The canvas is as tall as its tallest drawn level and no taller. | 4, 5 |
 | Placement | batch-30, before CR-447; 3 rounds. | Overlaps |
-| No further grill | The detail below is settled here. The behaviour choices made without the user are listed in Open questions, each with the option built. | Open questions |
+| No further grill | The detail below is settled here. The behaviour choices made without the user are listed in Decisions, each with the option built (A). | Decisions |
 
 ## What the code shows today
 
@@ -87,8 +87,11 @@ Gantt keeps every declared wait.
     the CR's targets in `pairs`. A CR with no target keeps its current position;
   - pass 3: pass 1 again;
   - each sort is stable: ties keep the current order, so the record's order breaks them;
-  - the order depends only on the rows and their waits, never on a state or a time. A repaint that
-    changes no wait and no fold moves no card.
+  - the order depends only on the rows drawn and their waits, never on a state or a time. A repaint
+    that changes no wait and no fold moves no card;
+  - a card's place does change when a wait is added or removed, and, while folded, when a CR merges
+    or is cancelled (it leaves the graph, and the levels and orders are computed again without it).
+    This replaces today's rule that each CR keeps one place for its whole life.
 
 ### 2. The fold of the done CRs (`js/views/batch-graph.js`)
 
@@ -102,16 +105,17 @@ Gantt keeps every declared wait.
 - A live batch with no done row, or with every row done: every row is drawn, and there is no chip.
 - A closed record (`recorded`): no fold. Every row is drawn, as today, with reduction and ordering.
 - The chip, in a bar above `.gscroll` and inside the tab panel:
-  `<div class="gbar"><button type="button" class="tag st[ off]" data-fold aria-expanded="<bool>" title="<hint>">…</button></div>`.
-  - It is the chip in its toggle form (DESIGN.md: filled when on, outlined grey `.tag.st.off`
-    when off). Folded is `off`, unfolded is on.
+  `<div class="gbar"><button type="button" class="tag st merged[ off]" data-fold aria-expanded="<bool>" title="<hint>">…</button></div>`.
+  - It is the chip in its toggle form, as the Inbox's kind filters build it (`tag st <state>[ off]`;
+    DESIGN.md: filled when on, outlined grey `.tag.st.off` when off), in the merged state's colour
+    (`.tag.st.merged`). Folded is `off`, unfolded is on.
   - Its text is `t('batch.fold_merged', { n })` ("12 merged"). When the batch holds cancelled CRs,
     it adds ` · ` and `t('batch.fold_cancelled', { n })` ("· 1 cancelled").
   - Its `title` is `t('batch.fold_show')` when folded and `t('batch.fold_hide')` when unfolded.
 - `batch.js`'s `graphTab.mount` adds `delegate(root, 'click', '[data-fold]', …)`, which calls
   `toggleFold()` then `update({})` (the store's re-render), and returns its stop with the others. A
   keyboard Enter or Space works because the chip is a `<button>`.
-- The fold is not kept across reloads (open question 1).
+- The fold is not kept across reloads (Decision 1).
 
 ### 3. The graph view (`js/views/batch-graph.js`)
 
@@ -141,8 +145,11 @@ Gantt keeps every declared wait.
   - its span gets `title="${t('batch.waits_for', { list: c.after.join(', ') })}"` ("Waits for
     CR-435, CR-438, …"), on live and recorded nodes alike;
   - so the card names every wait, drawn or not, folded or not.
-- The file's head comment gains one sentence: only the transitive reduction is drawn, done CRs are
-  folded on a live batch, and levels are ordered by a barycentre pass.
+- The file's head comment: its first sentence's "each CR in its place for its whole life (its
+  level, then the record's order)" is rewritten to say that a CR sits in its level, ordered by a
+  barycentre pass of the drawn arrows, and that its place changes when a wait changes or, while
+  folded, when a CR merges or is cancelled. One more sentence: only the transitive reduction is
+  drawn, and done CRs are folded on a live batch.
 
 ### 4. Fit to the width (`css/views/batch-graph.css`)
 
@@ -160,7 +167,7 @@ Gantt keeps every declared wait.
   - the graph scrolls sideways inside its box, and the page does not.
 - The target. At 1600 × 900 with the PR column, the demo's four levels (section 7) fit with no
   sideways scroll: about 810px of levels and gaps in about 840px. A narrower window, or a batch of
-  more levels, scrolls inside the box (open question 4).
+  more levels, scrolls inside the box (Decision 4).
 - The arrows:
   - `path()` already caps its tail at a third of the span (`Math.min(TAIL, …)`), so a 30px gap
     keeps a level tail and a whole head;
@@ -179,19 +186,19 @@ At 180px a node's top row cannot hold the folder chip, the CR tag, the badge's i
     word stays in the `title`;
   - the legend pill keeps telling each icon's state;
   - this is the chip's own sheet styling its own variant (DESIGN.md, "Components"), with no new
-    token (open question 3).
+    token (Decision 3).
 
 ### 6. Words (`js/i18n/en.js`, `js/i18n/fr.js`, beside the `batch.*` keys)
 
 | Key | en | fr |
 | --- | --- | --- |
-| `batch.fold_merged` | `{n} merged` | `{n} mergé(s)`, with `tn()` where the file pluralises counts |
-| `batch.fold_cancelled` | `{n} cancelled` | `{n} annulé(s)`, same |
+| `batch.fold_merged` | `{n} merged` | `{n} mergé(s)` |
+| `batch.fold_cancelled` | `{n} cancelled` | `{n} annulé(s)` |
 | `batch.fold_show` | `Show the merged CRs in their levels` | `Afficher les CRs mergés dans leurs niveaux` |
 | `batch.fold_hide` | `Fold the merged CRs` | `Replier les CRs mergés` |
 | `batch.waits_for` | `Waits for {list}` | `Attend {list}` |
 
-The French uses the plural form the file already uses for counts. `batch.arrow` (the legend's arrow
+The counts take the plural with `(s)` in one key, as `home.merged` does (`{n} mergé(s)`); no `tn()`. Five new keys. `batch.arrow` (the legend's arrow
 line) changes:
 
 - en: `an arrow goes from a CR to the one that waits for it; a wait already implied by a chain of arrows is not drawn`;
@@ -213,6 +220,8 @@ No other key changes.
     - the canvas is measured from zero at each draw, so it is as tall as the tallest drawn level;
     - within a level, cards follow a three-pass barycentre order of the drawn arrows, ties in record
       order, never a state or a time;
+    - a card's place changes when a wait changes or, while folded, when a CR merges or is cancelled;
+      the rule that each CR keeps one place for its whole life no longer holds;
     - on a live batch the merged and cancelled CRs are folded behind the "N merged" toggle chip
       (`.gbar`), unfolded back into today's levels, with no fold on a closed record;
     - on a level narrower than 240px the state badge shows its icon only (`graph-level`
@@ -230,21 +239,30 @@ No other key changes.
   - CR-148's count reads 5.
 - **`docs/web-board.md`**, the Batch graph paragraph:
   - the sentence "Each CR stays in one place for its whole life, merged ones included." becomes:
-    "A CR keeps its place while the batch's waits do not change. The merged and cancelled CRs are
-    folded behind a chip, "N merged", above the graph; click it to show them in their levels.";
+    "A CR keeps its place while the batch's waits do not change; it moves when a wait changes, or
+    when a CR merges or is cancelled while the merged CRs are folded. The merged and cancelled CRs
+    are folded behind a chip, "N merged", above the graph; click it to show them in their
+    levels.";
   - after the arrow sentences, add: "Only the waits that no chain of arrows already implies are
     drawn: hover a CR to light every CR it waits for, and its wait count lists them all.".
-- **Screenshots** (`scripts/docs_screenshots.py`):
-  - the phone run also takes the graph tab, so `docs/web-board/batch-graph-phone.png` is new;
-  - `batch-graph-pc.png` and every picture the demo change touches are retaken and committed, and
-    the PR names each one.
+- **Screenshots** (`scripts/docs_screenshots.py`, unchanged):
+  - `docs/web-board/batch-graph-pc.png` is retaken with `just docs-screenshots` and committed. The
+    script takes it at 1400 × 860, where the demo's four levels still scroll sideways inside the
+    box (about 690px of column for about 810px of levels); the 1600 × 900 fit is proved by the
+    one-off run (Evidence), not by this picture;
+  - no new committed picture: the phone picture is PR evidence only;
+  - the other pictures the demo change alters (batch, Kanban, panel) are not retaken here: CR-447
+    retakes them (its table names this CR's row).
 
 ## Overlaps
 
 batch-30, this CR before CR-447.
 
 - **CR-447 docs-gardening** waits for this CR. It owns the final pass on `docs/web-board.md` and the
-  batch pictures. This CR still writes its own sentences and commits the pictures it changes.
+  batch pictures. This CR writes its own sentences and commits `batch-graph-pc.png` only. Its row is
+  in CR-447's table of the batch's CRs ("What they edit themselves"): `docs/web-board.md` "Batch",
+  `batch-graph-pc.png`, `docs/demo/` (CR-148's waits), with the retake of the other pictures left
+  to CR-447.
 - **CR-439 board-help-page** and **CR-449 board-griller** (active, web client): they share
   `en.js` / `fr.js` and DESIGN.md as text only, with no shared behaviour. Whichever lands later
   rebases its lines.
@@ -286,8 +304,9 @@ CR-441's; `just test` within its limit). It reads the shipped files:
 rule lives in the chip's sheet.
 
 **Pictures and measures** (in the PR's Deliverables, each captioned with the head's
-seven-character SHA). They are taken on the demo with `just docs-screenshots`, plus a one-off
-Playwright run that is not shipped:
+seven-character SHA). They are taken on the demo by a one-off Playwright run that is not shipped
+(the committed `batch-graph-pc.png` comes from `just docs-screenshots` at 1400 × 860 and is not the
+fit's proof):
 
 - Desktop 1600 × 900, the shop-api batch's Graph tab:
   - before (the base) and after;
@@ -328,7 +347,7 @@ scenario drives no browser.
 - Round 2: DESIGN.md, the demo, the docs, the pictures and the measures.
 - Round 3: the review's fixes.
 
-## Open questions
+## Decisions (Chief of Staff, 2026-11-22, option A; the user may change any)
 
 Each one is stated with its options. A is the one built.
 

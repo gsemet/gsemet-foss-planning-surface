@@ -127,6 +127,7 @@ CRs' specifications):
 | CR-444 `board-user-inbox` | `docs/web-board.md` "### Inbox"; `inbox-pc.png`, `inbox-phone.png`; `docs/server-api.md` (`board.get`); `docs/demo/` |
 | CR-445 `board-history` | `docs/web-board.md` "History" (no picture); `docs/server-api.md` (`history.get`); `docs/planning-folder.md` |
 | CR-446 `live-several-boards-and-keys` | `docs/boards.md` "The live terminal view"; `docs/server-api.md` "A terminal client" |
+| `batch-graph-transitive-reduction-fold-me` (batch graph: reduction, fold, order, fit) | `docs/web-board.md` "Batch" (the graph paragraph); `docs/web-board/batch-graph-pc.png`; `docs/demo/` (CR-148's waits); the other batch, Kanban and panel pictures the demo change touches are left to this CR's retake |
 
 Each row is confirmed against the CR's PR, not assumed.
 

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Batch graph: transitive reduction, merged CRs folded, fewer crossings",
+  "summary": "Spec written: the batch Graph tab draws only non-implied waits, folds merged and cancelled CRs behind an N merged chip, orders levels by barycentre and fits the column width; web client only, 6 decisions taken as option A.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "f35feb390420f4279e8c98db170af45dc3e183b0599cf404aa2cc29dfe82cefc",
+    "03-change-spec.md": "b4492a4e534904ea1a76a55e2b2f05d436791446b707a033932c61dc70a2b885",
+    "intake/request.md": "85ed37e4ebff554ad844f737bc69468bae2ac749bb0e763bbf75e43e63c9a177"
+  },
+  "summarized": "2026-11-22T11:31:42Z"
+}

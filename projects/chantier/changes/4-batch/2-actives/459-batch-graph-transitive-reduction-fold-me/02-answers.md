@@ -15,8 +15,8 @@ batch") to these four points as listed:
 
 Placement: batch-30 (running), before CR-447 docs-gardening; one Driver, within 3 rounds, today.
 
-There was no further grill. The Spec-writer settles the detail and lists the behaviour questions it
-left open at the end of `03-change-spec.md`, each with the option it built.
+There was no further grill. The Spec-writer settles the detail and lists the behaviour choices it
+made at the end of `03-change-spec.md` (Decisions, option A, the user may change any).
 
 ## Chief of Staff's decisions on the writer's open points (2026-11-22)
 
