@@ -1,0 +1,1 @@
+Before: base e4171908 (not captured: the behaviour is a raw WinError 32 after 1 s, stated by the spec). After: 0ae00e3, see ../../verify.md claim 2 (text output, no image). Reproduce: hold a CR folder with a process whose working directory is inside it, run `chantier triage 1-inbox/<item> --priority P2`.

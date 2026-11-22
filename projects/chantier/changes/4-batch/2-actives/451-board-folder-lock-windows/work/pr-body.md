@@ -24,7 +24,7 @@ None.
 
 ## Known gaps
 
-- The by-hand run on a real Windows machine with the board running and its file watch (W3) is UNVERIFIED until the Verifier records it.
+- UNVERIFIED: the by-hand run on Windows with the board running and its file watch (W3, no restart of the board). The move and refusal were proven on Windows without a running board; whether the board holds a handle on a CR folder remains unproven here.
 
 <details>
 <summary>Details</summary>
@@ -42,12 +42,12 @@ A held folder no longer fails the move at once on Windows; the refusal says what
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: just check, just eval-dry-run
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `d8594e5`: just check pass, just eval-dry-run pass (18 of 18); just scenario pass at `0ae00e3`
+- [x] Evidence: on Windows at `0ae00e3`, a held folder is refused after "refused for 10 s" (11 s elapsed, nothing moved) and the same move succeeds once the holder ends
+- [x] Review: approved at `0ae00e3` (the last change is a test-only fix of an assertion that failed on Linux and macOS)
+- [x] Verified at `0ae00e3`
+- [x] CI green at `0ae00e3`
 
 ## Internal references
 
