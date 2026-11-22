@@ -53,11 +53,11 @@ No visual change. Developers: a new direct read of the planning folder in a list
 
 ## Test plan
 
-- `just check` at 9d3ff72: pass (1635 passed, 20 skipped).
+- `just check` at d7154f8 and 9d3ff72: pass (1635 passed, 20 skipped).
 - Speed, on a planning folder of 242 backlog CRs plus a running batch, 7 alternating runs base (e417190) then head (9d3ff72), Windows, CPU load 3 to 53 % from other processes: board state median 1.0370 s base, 1.0954 s head (+5.6 %); `status` median 0.6404 s base, 0.6721 s head (+5.0 %, about 0.6 s of it process start). Both within the 10 % rule.
 - Time added to `just test`: `tests/test_store_runtime.py` runs in 0.91 s (6 tests, one shared surface built once in 0.38 s).
-- `just eval-dry-run` at 9d3ff72: pass (18 of 18 cases as expected).
-- **UNVERIFIED:** `just scenario` at the pushed head.
+- `just eval-dry-run` at 9d3ff72 (the later commit changes a test only): pass (18 of 18 cases as expected).
+- CI at d7154f8: `just check` (ubuntu, macos, windows), `just eval-dry-run` and `just scenario` (ubuntu): pass. Local `just scenario` (long gate) at d7154f8: pass.
 
 ## Internal references
 
