@@ -55,8 +55,10 @@ A new page for board users; nothing else changes. No screenshot yet (see Known g
 
 ## Test plan
 
-- Lint and the board, code-targets, server and dashboard test files passed at the working tree before commit (SHA to be named at the head).
-- Browser check on a demo copy at both widths: no console errors.
+- [x] `just check` passed at 9808e1d (1654 passed, 20 skipped).
+- [ ] `just eval-dry-run` at 9808e1d: pending.
+- [x] Browser check on a demo copy at phone and desktop widths, both tabs: no console errors, at the working tree of 9808e1d.
+- [ ] Long gate at 9808e1d: pending.
 
 ## Internal references
 

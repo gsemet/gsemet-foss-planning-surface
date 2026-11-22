@@ -37,6 +37,7 @@ Grade: 1. A terminal client, no server, protocol or record change; one new depen
 ## Known gaps
 
 - Keys not tried in a real terminal on Linux, macOS and Windows; Windows key decoding (`blessed`) is unproved until then.
+- **UNVERIFIED:** a real SIGTERM on POSIX is not delivered in any test (only the handler's restore is); the several-board `--once` timeout sentence has no test.
 - The usage refusals exit 1, not the 2 the specification wrote (see Autonomous decisions).
 
 <details>
@@ -63,12 +64,12 @@ Grade: 1. A terminal client, no server, protocol or record change; one new depen
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `acb1cd3`: `just check` pass (1693 passed), `just eval-dry-run` pass (18 of 18), `just scenario` pass
+- [x] Evidence: after at `acb1cd3` (tests over two real servers; no real-terminal capture, see Known gaps)
+- [x] Review: approved at `acb1cd3`
+- [x] Verified at `acb1cd3`
+- [x] CI green at `acb1cd3`
 
 ## Internal references
 
