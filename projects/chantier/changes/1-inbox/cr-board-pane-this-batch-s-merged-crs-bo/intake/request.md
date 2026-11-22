@@ -1,0 +1,3 @@
+# CR board pane: this batch's merged CRs, board links, services and stats
+
+From the user, 2026-11-22, looking at the CR board pane (the Claude Code mod) at the end of batch-30: the pane shows 'Merged (50 of 346)' across all batches, but not the CRs merged IN the running batch, so a finished batch looks empty (0 live, nothing waiting). Wanted, to be grilled (what to show and how): the CRs merged in this batch; the web board's URLs when a board runs (the user only: they hold the key); the state of the watcher and the surface server (running or not, PID, build); a few stats of the batch. Maybe a small UI improvement of the pane with it. The pane's change follows AGENTS.md's rule: a screenshot from a real session in the PR.
