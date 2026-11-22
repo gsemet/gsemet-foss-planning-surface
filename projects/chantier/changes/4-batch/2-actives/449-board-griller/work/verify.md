@@ -15,3 +15,16 @@ Method at fb80d194: scratch surface (git repo, project `demo`, inbox item `idea`
 6. PR on the forge (fb80d194): `gh pr view 428 --json baseRefName,headRefOid,isDraft` gives `main fb80d194ac27eb8f6f85bf438e2719fd94bdf62a true`; the ship record says base `chantier/batch-30/cr-439-web-board-a-help-page-of-chantier-s-conc`. The forge's base is `main`, not the CR-439 branch: the PR would show the whole stack; retarget it.
 7. Diff against the base (fb80d194): `git merge-base --is-ancestor 5569703b HEAD` true, 4 commits, 46 files; the files the Deliverables name (agents, defaults, griller.md, manifest, concepts, docs/agents-and-models.md, server-api.md, web-board.md, AGENTS.md, engine, web client files) are all in the diff. Tests at the head, with the worktree's code: `pytest test_board_griller_client.py test_board_griller_api.py test_board_griller.py` gives `37 passed`.
 8. Review (carried): `chantier log 449`: `r4 inspector approved at 3d5f28d4` and `r4 approved at 3d5f28d4 ... committed as f67402ad`; the head is then restacked (fb80d194); the patch-id carry at `ship` is the Driver's to cite, not proved here. Not run: `gate` (not the stack's top, as briefed), CI at the head.
+
+---
+# Description-only pass at eeca3f87c2be21dfb18347abce13d40e876471d1
+
+Head: eeca3f87c2be21dfb18347abce13d40e876471d1
+
+VERIFIED (description only; the two unchecked Test plan boxes are placeholders, not judged).
+
+1. Body (eeca3f87): `gh pr view 428 --json baseRefName,headRefOid,isDraft` gives `main eeca3f87c2be... true`; the body's Summary, Deliverables, Changes and Blast radius (grade 2) match the 46-file diff (`git diff --name-only origin/main...HEAD`: agents, defaults, griller.md, manifest, concepts, docs, host refs, AGENTS.md, board/griller*.py, API ops, write_api, hub/journal.py, web client files, tests). Grade-1 and "no browser check" contradictions of the earlier pass are gone; Known gaps names the browser-check scope and the backtick finding.
+2. Images (eeca3f87): the five media.githubusercontent.com permalinks at surface aaf12b78 each return `200 image/png`; `git hash-object` of the local evidence PNGs equals the blob ids of `git ls-tree aaf12b78` (b5ca134d, d060fb8c, 8e5b6d83, 6cf98b97, f737f6e8). en-3-panel-turn.png opened: shows the Grill panel after a turn, made-up path `C:\Users\user\demo\...`, no username, no home folder. The others were looked at in the earlier pass (carried from fb80d194, the head the captures were taken at; the rebase onto main left the patch unchanged).
+3. Local gates claim (eeca3f87): `just check` run here: `1964 passed, 20 skipped in 113.07s`, release-notes ok; `just eval-dry-run`: `dry run: 19 of 19 cases as expected`.
+4. Review box: `chantier log 449`: `r4 inspector approved at 3d5f28d4` and `r4 approved at 3d5f28d4`; the box cites `3d5f28d` carried to eeca3f8 after restacks: the approved note matches the cited SHA.
+5. Known gaps: backtick literal display (verify.md claim 3 earlier) and the unproved Claude/Copilot items are listed; no "None".
