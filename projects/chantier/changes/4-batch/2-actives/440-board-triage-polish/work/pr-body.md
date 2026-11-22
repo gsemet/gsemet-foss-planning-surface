@@ -15,13 +15,13 @@ lane({ fold: 'P2', folded: true, foldLabel: t('triage.unfold', { row: 'P2' }), .
 
 Screenshots at 9b22d87, from Chromium on a demo board:
 
-![Triage with the P2 row folded: its post-its are hidden, its chip, count and grill-state counts stay, the chevron points right](../evidence/triage-folded-p2-pc-en.png)
+![Triage with the P2 row folded: its post-its are hidden, its chip, count and grill-state counts stay, the chevron points right](https://github.com/user-attachments/assets/c75cff39-38fd-40cb-a45f-6a585a2c7ec9)
 
-![The journal panel in English: heading, then what the count is, why the Chief of Staff may not know of the writes, what to type, then the list](../evidence/journal-panel-pc-en.png)
+![The journal panel in English: heading, then what the count is, why the Chief of Staff may not know of the writes, what to type, then the list](https://github.com/user-attachments/assets/8905b969-ca31-448d-bfca-45c9af842973)
 
-![The same panel in French](../evidence/journal-panel-pc-fr.png)
+![The same panel in French](https://github.com/user-attachments/assets/47c8d1e2-99b7-41ae-9955-ef769d134b5b)
 
-![A folded row at a phone width of 390 px](../evidence/triage-folded-phone.png)
+![A folded row at a phone width of 390 px](https://github.com/user-attachments/assets/36496890-06da-4493-adba-def0bcdf9b8d)
 
 ## Blast radius
 
@@ -35,7 +35,7 @@ Grade: 1
 
 ## Known gaps
 
-- A header comment in `js/ui/column.js` (line 9) is longer than 100 characters; cosmetic, the web frame's checks pass.
+- Some lines added in `js/ui/column.js` are long: two header comments (lines 9 and 10, up to 120 characters) and two template lines (155 and 235 characters). Cosmetic: the web frame's checks (Biome and the repository's tests) pass.
 
 <details>
 <summary>Details</summary>

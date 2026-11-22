@@ -49,10 +49,20 @@ Notes on the steps:
 - Step 13: `evidence/triage-folded-phone.png`: 390 px, Backlog column scrolled into view, P2 and P4 folded with their counts, P1 and P3 open (P3 holds stock-alerts, from step 9). Shows its claim.
 - Extra: `evidence/journal-panel-phone.png`: the panel at 390 px, text wraps and reads whole (shows "nothing" in the list since the phone context had no entries after step 14's rescan).
 
-## Not judged by this note
+## PR description pass (#410 as posted, judged at 9b22d874)
 
-- The PR description (#410) as posted, the Review box and the pipeline gates are not part of this plan; not checked here.
+- `gh pr view 410 --json headRefOid` = 9b22d87490cbedbbc31b797543989ca79cc396c3. Sections, order, fold (blank lines, nothing after `</details>`), Internal references only in the fold: in place.
+- Images: `curl -sL -w "%{http_code} %{content_type}"` on the four user-attachments URLs: 200 image/png each (223675, 211148, 215699, 58497 bytes). Their content matches the four captures looked at above (no username, no home folder).
+- Test plan: `gh pr checks 410`: 5 checks pass (check x3, eval-dry-run, scenario); `chantier log 440`: gate pass at 9b22d874, inspector approved at 9b22d874 (note 00:32:28Z), verdict VERIFIED at 9b22d874; test `test_the_fold_and_the_writes_count_explanation_ship` exists (test_board_design.py:365). Browser steps and 42 tests: proved above.
+- "Chief of Staff" is a product term here (the board's text names it), defined on first use: accepted.
+- FAIL, Known gaps incomplete: it names only "a header comment in `js/ui/column.js` (line 9)" over 100 characters. `git diff de120311 HEAD -U0 -- .../js/ui/column.js | grep '^+' | awk 'length>101'` shows four added lines over 100: the `fold` comment (line 9, 104), the "A lane has no dot..." comment (line 10, 120, the longest), and two code lines (the fold button template and the section template, 155 and 235 chars). The bullet leaves out line 10 and the code lines.
 
 ## Verdict
+
+NOT VERIFIED (description only: Known gaps incomplete; the browser and test claims at 9b22d874 stay as proved above)
+
+## Description pass (head 9b22d874)
+
+Command: gh pr view 410 --json body. Sections, fold, four images at 9b22d87, Internal references only in its section: ok. Known gaps long-line fact checked with `git diff -U0 <base>...HEAD` length scan on js/ui/column.js: added lines 9 (104) and 10 (120), template lines 155 and 235: matches the description.
 
 VERIFIED
