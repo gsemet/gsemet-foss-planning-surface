@@ -36,8 +36,6 @@ Low. Reads only; same files, same order, same output. Roll back by reverting the
 ## Known gaps
 
 - 20 modules of `commands/` still read directly, 60 calls, none reached by the board, `status` or the hub, and nothing is filed for them: `opening.py` 7; `close_archive.py`, `closing.py`, `delivery.py`, `facts.py` 5 each; `gate.py`, `permissions.py` 4 each; `came_back.py`, `gate_run.py`, `intake.py`, `joining.py`, `rules.py` 3 each; `preflight.py`, `waits.py` 2 each; `driver_notes.py`, `endpause.py`, `opening_record.py`, `release.py`, `summary.py`, `validate.py` 1 each.
-- **UNVERIFIED:** the speed rule (a board state and a `status` on 200+ CR folders, no more than 10 % slower than the base) is not yet timed.
-- **UNVERIFIED:** the time `tests/test_store_runtime.py` adds to `just test` is not yet stated.
 - The board's push loop, its file watch and the watcher are not observed by the run-time proof.
 - `README.md`, `docs/` and the cards were searched: no sentence this PR makes false was found.
 
@@ -55,8 +53,10 @@ No visual change. Developers: a new direct read of the planning folder in a list
 
 ## Test plan
 
-- Full test suite and `just lint`: pass in the worktree (head not committed yet).
-- **UNVERIFIED:** `just check`, `just eval-dry-run`, `just scenario` at the pushed head.
+- `just check` at 9d3ff72: pass (1635 passed, 20 skipped).
+- Speed, on a planning folder of 242 backlog CRs plus a running batch, 7 alternating runs base (e417190) then head (9d3ff72), Windows, CPU load 3 to 53 % from other processes: board state median 1.0370 s base, 1.0954 s head (+5.6 %); `status` median 0.6404 s base, 0.6721 s head (+5.0 %, about 0.6 s of it process start). Both within the 10 % rule.
+- Time added to `just test`: `tests/test_store_runtime.py` runs in 0.91 s (6 tests, one shared surface built once in 0.38 s).
+- **UNVERIFIED:** `just eval-dry-run`, `just scenario` at the pushed head.
 
 ## Internal references
 
