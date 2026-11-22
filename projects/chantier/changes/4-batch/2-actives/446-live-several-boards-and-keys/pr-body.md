@@ -65,11 +65,11 @@ Grade: 1. A terminal client, no server, protocol or record change; one new depen
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
-- [x] Local gates at `acb1cd3`: `just check` pass (1693 passed), `just eval-dry-run` pass (18 of 18), `just scenario` pass
-- [x] Evidence: after at `acb1cd3` (tests over two real servers; no real-terminal capture, see Known gaps)
-- [x] Review: approved at `acb1cd3`
-- [x] Verified at `acb1cd3`
-- [x] CI green at `acb1cd3`
+- [x] Local gates: `just check` (1693 passed) and `just eval-dry-run` (18 of 18) passed at this CR's earlier head; `just scenario` passed locally on Windows at `ccff7ef`
+- [x] Evidence: after (earlier head, carried through the restacks; tests over two real servers; no real-terminal capture, see Known gaps)
+- [x] Review: restack judged at `ccff7ef` (the patch approved earlier, carried through the restacks)
+- [x] Verified at `ccff7ef` (verdict carried through the restacks)
+- [x] CI green at `ccff7ef` (5 checks)
 
 ## Internal references
 

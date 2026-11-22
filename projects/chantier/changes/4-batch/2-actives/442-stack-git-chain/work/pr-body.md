@@ -4,7 +4,7 @@ In a stack or series batch, a branch could be cut from the default branch while 
 
 ## Deliverables
 
-A branch that does not hold the recorded head of the CR below it is refused, naming both CRs, before any gate is paid. The line below is real, from the scenario's `ship` of a stacked CR cut from main (run at ad2df04 (carried from 311ccf4)):
+A branch that does not hold the recorded head of the CR below it is refused, naming both CRs, before any gate is paid. The line below is real, from the scenario's `ship` of a stacked CR cut from main (run at an earlier head of this CR; the restack left the patch unchanged):
 
 ```text
 CR-103: branch not based on CR-102's head d8be1c4: rebase onto chantier/batch-01/cr-102-stack-middle, push, ship again; nothing recorded
@@ -81,11 +81,11 @@ No visual change. A stacked CR must be rebased onto the CR below before `ship`.
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): test_stack_chain.py, test_stack_chain_cards.py
-- [x] Local gates at `ad2df04` (carried from `311ccf4`: clean restack): just check pass (1664 passed), just eval-dry-run pass (18 of 18), just scenario pass
+- [x] Local gates, passed at this CR's earlier head and carried through the clean restack (not run again at `4c372da`; the pipeline runs them at the head): just check pass (1664 passed), just eval-dry-run pass (18 of 18), just scenario pass
 - [x] Evidence: the refusal line from the scenario above; no image
-- [x] Review: inspector approved at `ad2df04` (carried from `311ccf4`: clean restack)
-- [x] Verified at `ad2df04` (carried from `311ccf4`: clean restack): VERIFIED
-- [x] CI green at `ad2df04`: just check (macos, ubuntu, windows), just eval-dry-run, just scenario pass
+- [x] Review: restack judged at `4c372da` (the patch approved earlier by the inspector, carried through the clean restack)
+- [x] Verified at `4c372da`: VERIFIED (carried through the clean restack)
+- [x] CI green at `4c372da`: just check (macos, ubuntu, windows), just eval-dry-run, just scenario pass
 
 ## Internal references
 

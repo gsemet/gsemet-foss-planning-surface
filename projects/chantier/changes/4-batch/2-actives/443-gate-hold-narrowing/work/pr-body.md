@@ -48,6 +48,7 @@ Grade: 3. Every long gate of a running batch is refused until its project holds 
 
 ## Known gaps
 
+- Minor: `driver.md` (around line 763) lost a few words in the merge of the restack; the meaning holds.
 - Until this PR merges, the CLI that runs is the old one, so this PR's own local gate uses the free form.
 
 <details>
@@ -76,12 +77,12 @@ No visual change. Projects must add `long_gate.commands` to run a long gate; wai
 
 ## Test plan
 
-- [x] New or changed tests at `11f98d9` (config key, gate refusals and named run, ignored layer, hold limits, shipped files)
-- [x] Local gates at `11f98d9`: `just check` pass, `just eval-dry-run` pass; `just scenario` passed at `1353bbd` and is re-run by the pipeline job
+- [x] New or changed tests (config key, gate refusals and named run, ignored layer, hold limits, shipped files)
+- [x] Local gates: `just check` and `just eval-dry-run` passed at this CR's earlier heads, not run again at `187d6b6`; `just scenario` is run by the pipeline job at the head
 - [x] Evidence: none beyond tests (no visual change)
-- [x] Review: approved at `11f98d9` (restack with a conflict resolved)
-- [x] Verified at `11f98d9`
-- [ ] CI green at `11f98d9` (pending the push of the restack)
+- [x] Review: Inspector APPROVE at `187d6b6` (restack with a conflict resolved)
+- [x] Verified at `187d6b6` (Verifier: VERIFIED)
+- [x] CI green at `187d6b6` (5 checks)
 
 ## Internal references
 

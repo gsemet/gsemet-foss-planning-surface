@@ -8,17 +8,17 @@ On the board's Batch page, the graph of connected cards draws one arrowhead for 
 - On hover or focus, the lit arrows and their heads are drawn again in the accent colour in a layer above the cards. Unlit arrows stay behind the cards.
 - Each mode word of the switch on a running batch has a tooltip (hover and keyboard focus): `To switch, ask the Chief of Staff to "change the batch to series"`, or "This batch's mode." on the batch's own mode, in English and French. A closed batch has none. Clicking a mode does nothing: the board edits no batch.
 
-Before and after, `localised-receipts` hovered (before at `9b22d87` plus the demo change, after at `819b848`):
+Before and after, `localised-receipts` hovered (before at the base plus the demo change; after at an earlier head, the patch unchanged by the restacks):
 
-| Before (`9b22d87`) | After (`819b848`) |
+| Before | After |
 | --- | --- |
-| ![Before: CR hovered, lit arrow behind a card](./before-graph-cr148-hovered.png) | ![After: one head, lit arrows over the cards](./after-graph-cr148-hovered.png) |
+| ![Before: CR hovered, lit arrow behind a card](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/d91cd3e7a92099d2a800b66252a4c8792e9ee5f4/projects/chantier/changes/4-batch/2-actives/441-board-batch-view/evidence/before-graph-cr148-hovered.png) | ![After: one head, lit arrows over the cards](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/d91cd3e7a92099d2a800b66252a4c8792e9ee5f4/projects/chantier/changes/4-batch/2-actives/441-board-batch-view/evidence/after-graph-cr148-hovered.png) |
 
-Keyboard focus on a card (after, `819b848`), and the switch's tooltip in English and French:
+Keyboard focus on a card (after), and the switch's tooltip in English and French:
 
-![Focus on a card lights its arrow](./after-graph-cr146-keyboard-focus.png)
-![Series tooltip, English](./after-switch-tip-series-en.png)
-![Series tooltip, French](./after-switch-tip-series-fr.png)
+![Focus on a card lights its arrow](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/d91cd3e7a92099d2a800b66252a4c8792e9ee5f4/projects/chantier/changes/4-batch/2-actives/441-board-batch-view/evidence/after-graph-cr146-keyboard-focus.png)
+![Series tooltip, English](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/d91cd3e7a92099d2a800b66252a4c8792e9ee5f4/projects/chantier/changes/4-batch/2-actives/441-board-batch-view/evidence/after-switch-tip-series-en.png)
+![Series tooltip, French](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/d91cd3e7a92099d2a800b66252a4c8792e9ee5f4/projects/chantier/changes/4-batch/2-actives/441-board-batch-view/evidence/after-switch-tip-series-fr.png)
 
 Design choices: no new layout, colour, size or token; no routing of arrows around cards; the Gantt keeps its own markers.
 
@@ -34,6 +34,7 @@ Grade: 1. The web client's graph and switch only, plus the demo data and picture
 
 ## Known gaps
 
+- The browser claims and the pictures were taken at an earlier head of this CR and carried through the clean restacks; the Verifier's verdict at `91b2c1f` is recorded, but the pictures were not retaken.
 - None of the pictures of a closed batch's arrows: the demo's closed batches hold no dependency, so a closed batch's arrows rest on the live graph's checks and on the code both share.
 
 <details>
@@ -63,11 +64,11 @@ The Batch graph's arrowheads and the lit arrows look different, and the switch s
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): `test_board_graph_arrows.py`
-- [x] Local gates at `819b848`: `just check`, `just eval-dry-run`
-- [x] Evidence: before at `9b22d87`, after at `819b848`: one head into the waiting card, its tip 0 px from the left edge's middle, its three arrows ending there; top layer with 3 arrows and 1 head in the accent; every tooltip inside the viewport; no tooltip on a closed batch; no horizontal scroll at 375 px
-- [x] Review: approved at `9b22d87`, committed as `819b848`
-- [x] Verified at `819b848`
-- [x] CI green at `819b848`
+- [x] Local gates: `just check` and `just eval-dry-run` passed at this CR's earlier heads; not run again at `91b2c1f`; the pipeline runs them at the head
+- [x] Evidence: before at the base, after at an earlier head (browser claims carried through the clean restacks): one head into the waiting card, its tip 0 px from the left edge's middle, its three arrows ending there; top layer with 3 arrows and 1 head in the accent; every tooltip inside the viewport; no tooltip on a closed batch; no horizontal scroll at 375 px
+- [x] Review: restack judged at `91b2c1f` (the patch approved earlier, carried through the restacks)
+- [x] Verified at `91b2c1f` (verdict VERIFIED; the browser claims carried from earlier heads)
+- [x] CI green at `91b2c1f` (5 checks)
 
 ## Internal references
 

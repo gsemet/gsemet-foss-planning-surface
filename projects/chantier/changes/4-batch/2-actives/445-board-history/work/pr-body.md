@@ -37,6 +37,7 @@ Grade: 2. The batch close now writes four more keys into each CR of the record, 
 
 ## Known gaps
 
+- The Verifier did not run `just scenario` at this head (the welcome check, 22 ops and 7 topics, was judged by reading only) and did not judge the History page's look or screenshots in a browser at this head.
 - A PR made ready (out of draft) is not shown: no record keeps that time once its batch is closed.
 - Older CRs with no recorded end are in no period; the foot line counts them.
 - A CR dropped back to the inbox or the backlog has no folder: its row opens nothing.
@@ -69,11 +70,11 @@ A new "History" entry in the sidebar and the phone's bottom bar; Home, Costs and
 ## Test plan
 
 - [x] New or changed tests (`test_board_history.py`, `test_board_history_client.py`, one call added in `test_server_api_calls.py`)
-- [x] Local gates at `12e6f7b`: `just check` and `just scenario` pass at `12e6f7b`; `just eval-dry-run` passes at `12e6f7b` (it ran at `86544ac`, and only `scenario/` changed since)
-- [x] Evidence: after at `12e6f7b`, from the in-process month check below (no browser screenshot)
-- [x] Review: approved at `12e6f7b` (rounds 1 and 2 approved at `819b848`, round 3 approved at `86544ac` and committed as `12e6f7b`)
-- [x] Verified at `12e6f7b`
-- [x] CI green at `12e6f7b`
+- [x] Local gates: `just check`, `just scenario` and `just eval-dry-run` passed at this CR's earlier heads; not run again at `fca2ce1`; the pipeline runs them at the head
+- [x] Evidence: after, from the in-process month check below (no browser screenshot)
+- [x] Review: Inspector APPROVE at `fca2ce1`
+- [x] Verified at `fca2ce1` (Verifier: VERIFIED)
+- [x] CI green at `fca2ce1` (5 checks)
 
 ## Internal references
 

@@ -49,6 +49,7 @@ Grade: **1**. One page of the web client (HTML slot, one new view module, one st
 
 ## Known gaps
 
+- The browser claims were taken at an earlier head and carried through the clean restacks.
 - The "about 90 px" claim and the tip checks are measured on the demo at an earlier head, carried through the clean restacks to `e2f8fdc`, not on a live board.
 - A batch opened with no CR yet starts in parallel mode, so its title row shows that mode; the picture of it is not in this description.
 

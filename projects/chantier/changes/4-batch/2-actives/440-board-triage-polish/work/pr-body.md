@@ -13,15 +13,15 @@ On the web board's Triage page, the four priority rows of the Backlog column (P1
 lane({ fold: 'P2', folded: true, foldLabel: t('triage.unfold', { row: 'P2' }), ... })
 ```
 
-Screenshots at 9b22d87, from Chromium on a demo board:
+Screenshots taken at an earlier head (clean restacks since), from Chromium on a demo board:
 
-![Triage with the P2 row folded: its post-its are hidden, its chip, count and grill-state counts stay, the chevron points right](https://github.com/user-attachments/assets/c75cff39-38fd-40cb-a45f-6a585a2c7ec9)
+![Triage with the P2 row folded: its post-its are hidden, its chip, count and grill-state counts stay, the chevron points right](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/d91cd3e7a92099d2a800b66252a4c8792e9ee5f4/projects/chantier/changes/4-batch/2-actives/440-board-triage-polish/evidence/triage-folded-p2-pc-en.png)
 
-![The journal panel in English: heading, then what the count is, why the Chief of Staff may not know of the writes, what to type, then the list](https://github.com/user-attachments/assets/8905b969-ca31-448d-bfca-45c9af842973)
+![The journal panel in English: heading, then what the count is, why the Chief of Staff may not know of the writes, what to type, then the list](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/d91cd3e7a92099d2a800b66252a4c8792e9ee5f4/projects/chantier/changes/4-batch/2-actives/440-board-triage-polish/evidence/journal-panel-pc-en.png)
 
-![The same panel in French](https://github.com/user-attachments/assets/47c8d1e2-99b7-41ae-9955-ef769d134b5b)
+![The same panel in French](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/d91cd3e7a92099d2a800b66252a4c8792e9ee5f4/projects/chantier/changes/4-batch/2-actives/440-board-triage-polish/evidence/journal-panel-pc-fr.png)
 
-![A folded row at a phone width of 390 px](https://github.com/user-attachments/assets/36496890-06da-4493-adba-def0bcdf9b8d)
+![A folded row at a phone width of 390 px](https://media.githubusercontent.com/media/gsemet/gsemet-foss-planning-surface/d91cd3e7a92099d2a800b66252a4c8792e9ee5f4/projects/chantier/changes/4-batch/2-actives/440-board-triage-polish/evidence/triage-folded-phone.png)
 
 ## Blast radius
 
@@ -35,6 +35,7 @@ Grade: 1
 
 ## Known gaps
 
+- The browser claims and the pictures were taken at an earlier head of this CR and carried through the clean restacks; the Verifier's verdict at `ca0032c` is recorded, but the pictures were not retaken.
 - Some lines added in `js/ui/column.js` are long: two header comments (lines 9 and 10, up to 120 characters) and two template lines (155 and 235 characters). Cosmetic: the web frame's checks (Biome and the repository's tests) pass.
 
 <details>
@@ -67,11 +68,11 @@ Triage rows can be folded and the writes count is explained. Nothing else on the
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): `test_the_fold_and_the_writes_count_explanation_ship` in `tests/test_board_design.py`
-- [x] Local gates at 9b22d87: `just check` pass, `just eval-dry-run` pass (18 of 18), `just scenario` pass
-- [x] Evidence: after at 9b22d87 (a new behaviour, no before): the four screenshots above, and the 14 browser steps of the specification, all passing
-- [x] Review: approved at 9b22d87 (the patch approved at c5af034, then the conflict-resolving rebase approved at 9b22d87)
-- [x] Verified at 9b22d87
-- [x] CI green at 9b22d87
+- [x] Local gates: `just check`, `just eval-dry-run` (18 of 18) and `just scenario` passed at this CR's earlier heads; not run again at `ca0032c`; the pipeline runs them at the head
+- [x] Evidence: after, at an earlier head (a new behaviour, no before): the four screenshots above, and the 14 browser steps of the specification, all passing
+- [x] Review: restack judged at `ca0032c` (the patch approved earlier, carried through the restacks)
+- [x] Verified at `ca0032c` (verdict VERIFIED; the browser claims carried from earlier heads)
+- [x] CI green at `ca0032c` (5 checks)
 
 ## Internal references
 
