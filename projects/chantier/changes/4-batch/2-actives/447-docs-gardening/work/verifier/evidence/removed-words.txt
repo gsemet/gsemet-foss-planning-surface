@@ -1,12 +1,1 @@
-Removed-words search, round 1, worktree head + uncommitted edits.
-Terms: "factory mode", `order factory`, `0.0.0.0` as the default address, `order drop` to `1-inbox`,
-the old surface-server command name (`chantier board`, also across a line break, `board --`).
-Files: README.md, docs/*.md, docs/*-texts.md, docs/*.svg, CONTRIBUTING.md, en-help.js, fr-help.js.
-
-Hits that remain, and why they hold:
-- docs/web-board.md:205  `--host 0.0.0.0` is the explicit option that listens on every address; the default is 127.0.0.1 (same page, "The local network"). Holds.
-- docs/use-cases-foreman.md:83  `order drop --note` names the destinations (trash, 3-ready, P1..P4) and says "never the inbox": the sentence that forbids it. Holds.
-- CONTRIBUTING.md:256, docs/web-board.md:221 and :284, docs/planning-modes.md:129 and :139  prose "the board server" / "the board serves": the web board as a thing, not the command. Holds.
-
-Fixed in round 1: docs/web-board.md "uv run ... chantier\n  board" (split across lines, missed by a one-line search) is now `serve`.
-No hit in docs/*.svg, docs/*-texts.md, en-help.js or fr-help.js: nothing deferred to round 2 for these terms.
+docs/web-board.md:207:  board listens on every address (`board.host: network`, or `--host 0.0.0.0`), it prints a second line,

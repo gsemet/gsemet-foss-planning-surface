@@ -1,6 +1,6 @@
 # CR-447 garden inventory
 
-Round 1 of 3 (text half). Baseline = the last commit that touched the file before this round (from `git log -1`), or a dated reason. Verdicts: holds, fixed, new, kept, out of scope. Every picture and SVG row is "round 2".
+Rounds 1 and 2 of 3. Baseline = the last commit that touched the file before this round (from `git log -1`), or a dated reason. Verdicts: holds, fixed, new, kept, out of scope.
 Post-spec merges checked on every text row: CR-449 Griller from the board, CR-456 `serve`/`webui` rename, CR-457 public read-only key, CR-458 remote CLI (`cli.run`, `login`), CR-460 paste field and cookies, CR-459 graph.
 
 ## Text pages
@@ -28,30 +28,34 @@ Post-spec merges checked on every text row: CR-449 Griller from the board, CR-45
 
 ## Diagram pairs (round 2)
 
+Every pair passes `work/check_svgs.py` (XML parse, `<desc>` equal to the texts paragraph, visible text equal to the fenced blocks); changed ones rendered to `verifier/evidence/svg/` and looked at.
+
 | Pair | Baseline | Verdict |
 | --- | --- | --- |
-| batch-lifecycle (.svg, -texts.md) | 99fa847f 2026-11-21 | round 2 |
-| batch-modes | d6836e43 2026-11-15 | round 2 |
-| cr-folder-lifecycle | ab2e44cf 2026-11-21 | round 2: docs-garden-Q6 check: it already draws `1-pending`, `2-actives`, `3-done`; the Kanban is shown by the screenshot, no SVG change owed for it |
-| cr-lifecycle | ab2e44cf 2026-11-21 | round 2 |
-| cr-lifecycle-line | f8b33348 2026-11-14 | round 2 |
-| cr-lifecycle-simple | ab2e44cf 2026-11-21 | round 2 |
-| how-chantier-works | f7c18f1a 2026-11-20 | round 2 |
-| how-chantier-works-simple-direct | f024c3bf 2026-11-14 | round 2 |
-| how-chantier-works-simple-foreman | f024c3bf 2026-11-14 | round 2 |
-| planning-modes | 4ed0d56c 2026-11-20 | round 2 |
-| release-driver | ca3213f4 2026-11-14 | round 2 |
+| batch-lifecycle (.svg, -texts.md) | 99fa847f 2026-11-21 | fixed: the SVG was invalid XML (the `<defs>` open tag was missing); desc and texts now name the join destination (running or next batch), the 1-pending restart, and the close refusal for a parked, held or blocked CR |
+| batch-modes | d6836e43 2026-11-15 | fixed (texts only): H1 now equals the SVG title; no factory mode drawn |
+| cr-folder-lifecycle | ab2e44cf 2026-11-21 | fixed: desc drift (planning folder or external surface, archive in the PR). docs-garden-Q6 Kanban check: it already draws `1-pending`, `2-actives`, `3-done`; no SVG change owed, the Kanban is shown by the screenshot |
+| cr-lifecycle | ab2e44cf 2026-11-21 | fixed: note box for the "grilled enough?" destination choice (next batch `3-ready/` or running batch `1-pending/`); `status --refresh` with no `--epoch`; park and `order hold` in desc and paragraph |
+| cr-lifecycle-line | f8b33348 2026-11-14 | holds |
+| cr-lifecycle-simple | ab2e44cf 2026-11-21 | fixed: Backlog box says P1..P4 set by you, then next batch or running batch as you choose |
+| how-chantier-works | f7c18f1a 2026-11-20 | fixed: surface server block (board, hub, writer) pointing to surface-server.svg; spec critic text no longer clipped |
+| how-chantier-works-simple-direct | f024c3bf 2026-11-14 | holds |
+| how-chantier-works-simple-foreman | f024c3bf 2026-11-14 | holds |
+| planning-modes | 4ed0d56c 2026-11-20 | fixed (texts only): H1 equals the SVG title |
+| release-driver | ca3213f4 2026-11-14 | holds |
+| surface-server (.svg, -texts.md) | none | new: the server's jobs (board and API with two keys, forge hub, writer), how it reads (fingerprint, watchfiles, 1 s / 5 s / 5 s check), session watchers, forge, remote; words from the code and AGENTS.md; linked from README, docs/web-board.md and CONTRIBUTING.md "How the project is built" |
 | batch-pace.svg | ca3213f4 2026-11-14 | out of scope: the user said on 2026-11-07 it stays untouched, and no page links it |
-
-All eleven pairs: round 2 reads each against the removed-words list (no hit found by round 1's search) and against the post-spec merges; a new `docs/surface-server.svg` pair is a round 2 candidate.
 
 ## Pictures (round 2)
 
-| Picture | Baseline | Verdict |
-| --- | --- | --- |
-| docs/web-board/*-pc.png, *-phone.png (29 files: batch, batch-cards, batch-gantt, batch-graph, config, costs, editor, home, inbox, kanban, new, panel, picker, project, triage, triage-selection, writer) | 2026-11-17..22, see `git log` per file | round 2: retake all from the real board; Inbox, sidebar and Batch pictures are the ones the merges changed |
-| web-board/help-pc.png, help-phone.png | none | new, round 2: referenced now in docs/web-board.md (`### Help`, "On a phone"); `check_anchors.py` reports `help-pc.png` as a missing file until round 2 |
-| web-board/history-pc.png, history-phone.png | none | new, round 2: the History section has no picture (the view exists); add to the run |
-| docs/board-mod-batch.png, board-mod-batch-done.png, board-mod-batch-prs-light.png, board-mod-merged-light.png, board-mod-waiting-light.png | not touched by this CR | kept: the pane's own pictures; no change to the pane in batch-30 |
-| docs/direct-mode-session.png | not touched | kept |
-| docs/status-report-done.png | not touched | kept |
+`just docs-screenshots` run once. `panel-phone.png` came out identical (nothing to restore). Every other changed picture differs because the sidebar now has the Inbox and Help entries (or, on the phone, the bottom bar does): a real change of the view, so all are kept.
+
+| Picture | Verdict |
+| --- | --- |
+| web-board/help-pc.png, help-phone.png | new: the Help page, concept cards then role cards; linked from docs/web-board.md (cures round 1's missing-file failure) |
+| web-board/home-pc, home-phone, writer-pc, writer-phone | kept: tiny diffs, the sidebar with Inbox and Help |
+| web-board/batch-pc.png | kept: Batch page on its Kanban tab (1-pending, 2-actives, 3-done, PRs to review and in draft); README caption already says "its CRs in the Kanban tab by stage": holds. docs-garden-Q6 Kanban check: done |
+| web-board/batch-cards, batch-gantt, batch-graph, batch-phone, costs, editor, inbox, kanban, new, picker, project, triage, triage-selection, panel-pc, config (pc, phone) | kept: new sidebar (and phone bottom bar); config-pc shows the role table with the board-griller and retro-critic rows |
+| web-board/panel-phone.png | unchanged by the run (identical) |
+| web-board/history-pc.png, history-phone.png | not made: the History section has no picture in the docs; out of this CR's scope (finding for the Foreman) |
+| docs/board-mod-*.png, direct-mode-session.png, status-report-done.png | kept: not touched, the pane did not change in batch-30 |
