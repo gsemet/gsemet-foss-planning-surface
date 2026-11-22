@@ -52,12 +52,12 @@ A shareable read-only link; the printed start lines gain one line.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates: `just check`, `just eval-dry-run`
-- [ ] Evidence: after at the head
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): `test_board_read_key.py`, `test_board_exposure.py`, `test_server_api_ws.py`
+- [x] Local gates at `53a134e`: `just check` pass (2051 passed), `just eval-dry-run` pass (19 of 19)
+- [x] Evidence: after at `53a134e`, a real server on a scratch planning folder; no before (a new capability)
+- [x] Review: approved at `53a134e` (reviewed before the commit and the rebase, the patch unchanged)
+- [x] Verified at `53a134e`
+- [x] CI green at `53a134e`: check on three systems, eval-dry-run and scenario (ubuntu-latest)
 
 ## Internal references
 
