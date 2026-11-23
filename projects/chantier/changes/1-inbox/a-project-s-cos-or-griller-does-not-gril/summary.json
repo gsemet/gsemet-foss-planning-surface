@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "title": "A project's CoS or Griller does not grill another project's CR",
-  "summary": "By default a role grills only its own project's CRs; relaying into another project's inbox is allowed.",
+  "summary": "Specified, cards only: a Chief of Staff or Griller files another project's CR on the user's word but offers no grill, spec or order without the user's word for it.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "e1b717a84ddcff97839ce5bc9351c15dab2bf9d009a02e3221b0ce764f7b1bb1",
-    "02-answers.md": "56e2d1f2f1782a3cac5fc32873029c1d8dd066d3d62b157a79148e6c0b53a1fc",
+    "02-answers.md": "71b4082964eb4fabe490d83d4378708f75ffee134d3723c6565210eaee72239a",
+    "03-change-spec.md": "b2661f837560ccce9ef5ebaef5eb59a376b1e95aadd250a7eccc10b1303d29dd",
     "intake/request.md": "b068880f8cc863cf4b8c7e95cdee2989cf0175c0e2dedf609024f2c10019ff5a"
   },
-  "summarized": "2026-11-23T12:18:20Z"
+  "summarized": "2026-11-23T12:20:16Z"
 }
