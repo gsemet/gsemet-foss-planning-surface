@@ -62,12 +62,12 @@ No visual change; sessions read less at start.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check` (2193 passed, 20 skipped)
-- [ ] Evidence: no before/after screenshots (cards only)
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `79713ce`: `just check` (2193 passed, 20 skipped)
+- [x] Evidence: no before/after screenshots (cards only)
+- [x] Review: approved at `79713ce` (carried from f4c1bcc, reviewed uncommitted; committed as 79713ce)
+- [x] Verified at `79713ce`
+- [x] CI green at `79713ce`
 
 ## Internal references
 

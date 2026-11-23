@@ -1,0 +1,7 @@
+fix(render): finish Open Preview once the page shows the document
+
+Open Preview to Side, Refresh Preview and a restored panel complete
+only when the preview shows the document, not while it still reads
+"Preview pending", as in 1.12.0.
+
+Assisted-by: Claude:Sonnet-5.5
