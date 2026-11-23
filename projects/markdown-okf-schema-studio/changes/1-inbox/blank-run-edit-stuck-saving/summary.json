@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "title": "One blank-line block per line, and no save stuck on Saving",
-  "summary": "Specified: each blank line beyond the separator shows as its own block in edit mode; typing or Delete acts on that one line; the content patch closes a blank-line editor after its final save, every final save times out to a shown error, and Cancel always closes the editor.",
+  "title": "A blank-lines block's editor closes after its final save",
+  "summary": "Specified (part A of 3, closes #485): the content patch closes a blank-lines block's editor once its final save was posted, so Done no longer hangs on Saving Markdown; an autosave's re-render still keeps it open. A page test of the issue's steps fails first. Save guard, per-line blocks: other CRs.",
   "origin": {
     "kind": "github",
     "ref": "#485",
@@ -9,9 +9,9 @@
   },
   "sources": {
     "01-intent.md": "af2f7a3c355865f1b38314ac3675b8554439b4f70bdc176d478cd8eab74fda9f",
-    "02-answers.md": "c5b72333884bc98ad991a033b710c73964959e3ad7cf440c4f679cd05778fd9c",
-    "03-change-spec.md": "3689ff6b9f7a755cd0230163431a5b29ab91b441cef7728b0a8cdef05e6765ba",
+    "02-answers.md": "f7f17fb99afc8ffb37bfc88f07628642f34596e0737c6a496ccd342e139decfc",
+    "03-change-spec.md": "69e4708086c8c84a7ee961b1537e7ba4caf6a48461fb01af0fa355028ff54267",
     "intake/request.md": "f34fd54a447eb77296656fa446009f8b872f30ced3ebd696c8577dca169c2224"
   },
-  "summarized": "2026-11-23T11:12:08Z"
+  "summarized": "2026-11-23T11:29:55Z"
 }

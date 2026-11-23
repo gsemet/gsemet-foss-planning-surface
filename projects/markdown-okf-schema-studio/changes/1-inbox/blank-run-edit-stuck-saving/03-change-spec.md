@@ -1,29 +1,25 @@
-# One blank-line block per line, and no save stuck on Saving
+# A blank-lines block's editor closes after its final save
 
 issue: https://github.com/gsemet/markdown-okf-schema-studio/issues/485
 
-In edit mode, each blank line beyond the separator that Markdown needs shows as its own blank-line
-block. This replaces the one block per run of CR-444. Typing in a blank-line block saves and closes
-like any other block. No block editor can stay in "Saving Markdown…" for good: every final save ends
-in the rendered block or in an error the editor shows, and Cancel always closes the editor.
+Typing in a blank-lines block and pressing Done no longer leaves the editor on "Saving Markdown…":
+the render of its final save closes it, like the editor of any other block. This CR fixes the hang
+the issue found, on today's one-block-per-run design (CR-444), and closes the issue.
 
-Short name: `blank-save`. Destination: the running batch-09 (blank-save-Q4).
+Short name: `blank-save`. Destination: the running batch-09 (blank-save-Q4). Place in the stack:
+first of three CRs (blank-save-Q8, item 18). `save-guard-never-hangs` comes after it, then
+`blank-line-block-per-line`.
 
 ## Goal
 
 The issue: a line of text followed by 6 blank lines shows one blank-lines block (the CR-444
-design). The writer clicks it and types text. The editor shows "Saving Markdown…" and stays like
-that: the text is written and renders below, but the editor never closes, and neither Done nor
-Cancel gets the writer out.
+design). The writer clicks it, types text and presses Done. The editor shows "Saving Markdown…" and
+stays like that: the text is written and renders below, but the editor never closes, and neither
+Done nor Cancel gets the writer out.
 
-The owner's answers:
-
-- **Each blank line is a block** (blank-save-Q1, Q5). The page shows the file's blank lines one
-  for one, so the writer sees and edits lines, not one opaque run.
-- **Typing or deleting acts on that one line** (Q5, Q7).
-- **No save can hang** (Q6). The hang shows the edge case had no test (Q3). This CR adds tests for
-  the edge cases the issue lists, plus a general guard: every save ends in success or in an error
-  the editor shows, within a time limit, and Cancel always closes the editor.
+After this CR, the same steps end like any block edit: the text is written, the editor closes and
+the rendered block shows. The hang had no test (blank-save-Q3): this CR adds the page test that
+reproduces the issue's steps, and that test fails on the code before the fix.
 
 Project rules: this change follows the project's constitution (`.agents/constitution.md` in
 markdown-okf-schema-studio), its `AGENTS.md` (requirements, completion gate `just preflight`) and
@@ -32,475 +28,173 @@ the requirements guidelines named there. This specification restates none of the
 ## What exists today
 
 CR-444 (merged 2026-11-21; its folder in the planning archives is
-`5-archives/261121-0724-444-empty-block-blank-lines-block`) and the CRs built on it, CR-448 (runs
-inside lists) and CR-462 (runs inside quotes and containers), deliver:
+`5-archives/261121-0724-444-empty-block-blank-lines-block`), with CR-448 (runs inside lists) and
+CR-462 (runs inside quotes and containers), shows one blank-lines block per run of two or more
+blank lines (`installBlankLines`, `src/page/features/blankLines.ts`). A click or Enter on it opens
+an insertion editor whose state carries `replaceBlankRun: { line, endLine, itemLine?,
+containerLine? }`.
 
-- **Core.** `blankRuns` and `quoteBlankRuns` (`src/core/mapping/blankRuns.ts`) list every maximal
-  run of two or more blank lines, or of two or more empty quote lines of one shape.
-- **Render.** `blankRunsMarker` (`src/core/render/renderPipeline.ts`) appends
-  `<div hidden data-okf-blank-runs="L-E ...">` as the last element of the content.
-- **Page.**
-  - `installBlankLines` (`src/page/features/blankLines.ts`) parses that list (`parseRuns`, which
-    drops a pair with `endLine <= line`). It places one blank-lines block per run, using
-    `locateRun` and `placeInHost` (`src/page/features/blankRunHosts.ts`), and opens an insertion
-    editor with `replaceBlankRun: { line, endLine, itemLine?, containerLine? }`.
-  - `requestDeleteBlankLines` and the Ctrl/Cmd+V branch (`src/page/features/blockSelectionView.ts`)
-    post `previewBlankRunDelete` and `previewBlocksPaste` with the run.
-- **Host.**
-  - `checkBlankRun` (`src/core/mapping/blockRange.ts`) requires a maximal run of two or more
-    lines.
-  - `planBlankRunInsertion` (`src/core/mapping/insertion.ts`) replaces the whole run, with one
-    separator on each side.
-  - `planBlankRunRemoval` keeps one separator. `planBlankRunPaste` is the paste plan.
-    `blankRunIndent` (`src/core/mapping/blankRunContainer.ts`) gives the container indent.
-  - In `src/session/features/blockEdits.ts`, `handleEditOpen` and `handleEditSave` (the re-created
-    edit path) check the run, and `blankRunRegion` holds the run's text for a restore.
-- **Protocol.** `isBlankRunFields` (`src/core/protocol/pageToHost.ts`) requires
-  `endLine > line`.
-- **The editor kept across an autosave** (CR-444 fix 7). `applyContentPatch`
-  (`src/page/features/contentPatch.ts`, line 58) skips `closeBlockEdit` whenever the open editor
-  has `replaceBlankRun`, and `refresh()` in `blankLines.ts` puts that editor's block and frame back.
+CR-444 fix 7 keeps that editor open across a re-render. A re-render can drop the run the editor was
+opened from (an autosave already wrote text in its place), and the editor must not vanish under the
+writer's typing. Two places do it:
+
+- `applyContentPatch` (`src/page/features/contentPatch.ts`, the line
+  `if (!state.activeBlockEdit?.replaceBlankRun) rt.blockEditor.closeBlockEdit(false);`, under the
+  `@implements_req SwRS-MDOKFSTUDIO-BLOCK-268` comment "The editor of a blank-lines block stays
+  open") skips `closeBlockEdit` whenever the open editor has `replaceBlankRun`.
+- `refresh()` in `blankLines.ts` puts the editing block and its frame back (the `editing` and `held`
+  branch), as long as `state.activeBlockEdit?.replaceBlankRun` is set.
 
 ### Why the editor stays in "Saving Markdown…"
 
-These are read from the code. The Driver confirms them with the failing page test of the Evidence
-before fixing.
+Read from the code; the Driver confirms it with the failing page test of the Evidence before
+fixing.
 
 1. Done calls `postBlockEditSave(true)` (`src/page/features/blockEditor.ts`). It sets
    `edit.finishing = true`, shows "Saving Markdown…" and posts `previewEditSave` with
    `final: true`.
-2. The host writes the text. `completeActiveBlockEdit` (`blockEdits.ts`) then sees a revision not
-   yet rendered. It asks for a render and posts no `done`, because the content patch is what
-   closes the editor.
+2. The host writes the text. `completeActiveBlockEdit` (`src/session/features/blockEdits.ts`) sees
+   a revision not yet rendered: it asks for a render (`refreshPreviewDocument`, immediate) and posts
+   no `done: true`, because the content patch is what closes the editor (the BLOCK-263 comment
+   there).
 3. The content patch arrives. `applyContentPatch` skips `closeBlockEdit` because the editor has
-   `replaceBlankRun`, so the editor stays open with `finishing` still true.
-4. With `finishing` true, Done (`postBlockEditSave` returns early) and Cancel (`cancelBlockEdit`
-   returns early) do nothing. That is the SwRS-MDOKFSTUDIO-BLOCK-053 refusal scenario "Cancel is
-   ignored while the final save is in flight".
+   `replaceBlankRun`. `refresh()` puts the block and its frame back. The editor stays open with
+   `finishing` still true.
+4. With `finishing` true, Done does nothing (`postBlockEditSave` returns early) and Cancel does
+   nothing (`cancelBlockEdit` returns early, the SwRS-MDOKFSTUDIO-BLOCK-053 refusal scenario
+   "Cancel is ignored while the final save is in flight"). No other message comes: the editor hangs.
 
-Nothing on the page bounds the wait. Any final save whose answer never comes (no patch, no `done`,
-no error) hangs the same way, for any block.
-
-### Decisions this CR replaces
-
-| Earlier decision | Replaced by |
-| --- | --- |
-| CR-444 blank-runs-Q2: one blank-lines block per run of two or more blank lines; a single blank line at the start or the end of the body shows nothing | One blank-line block per blank line beyond the separator (blank-save-Q1, Q5). Between two blocks, N lines give N−1 blocks. At the end of the body and at the top of a file without frontmatter, every blank line is a block, a single one included. |
-| CR-444 blank-runs-Q2: an insertion editor replaces the whole run, with one separator on each side | Typed text replaces that one line. A blank line is added before or after it only when Markdown needs one (Q2 restated by Q5). |
-| CR-444 blank-runs-Q2: Delete removes the extra lines of the run and keeps one separator | Delete, Backspace or the Delete block button removes that one blank line. The hidden separator always stays (Q7). |
-| CR-444 blank-runs-Q12: Ctrl/Cmd+V pastes in place of the run | Ctrl/Cmd+V pastes in place of that one line, with the same rule as typing (follows from Q5). |
-| CR-444 fix 7: a blank-lines block's editor stays open across every re-render | It stays open across an autosave's re-render only. The render of its final save closes it, like any editor (Q6). |
-| SwRS-MDOKFSTUDIO-BLOCK-053, refusal scenario: Cancel is ignored while the final save is in flight | Cancel always closes the editor (Q6). |
-| CR-448 br-Q2 and CR-462 bq-Q1: the same blank-lines block, one per run, inside lists, quotes and containers | The same per-line block inside them (decision 1 below, to confirm). |
-
-Everything else of CR-444, CR-448 and CR-462 holds. That covers placement inside containers,
-folds, closed dropdowns, the host-only run list, the trust rule on authored attributes, the
-export, line endings, the container indent and the sibling rules.
-
-## Words
-
-- **Separator**: the one blank line between two blocks that Markdown needs. In a quote run, it is
-  the run's first empty quote line.
-- **Blank run**: unchanged. It is a maximal sequence of CommonMark blank lines (spaces and tabs
-  only, `isCommonMarkBlank`), or of empty quote lines of one shape (`emptyQuoteLine`,
-  `sameQuoteShape`), after the frontmatter. The run is now also used for a single line, where the
-  shown-line rule below needs one.
-- **Shown blank line**: a blank line of a run that gets a block. These are every line of the run
-  except its separator:
-  - Between two blocks, the frontmatter counting as a block, the separator is the run's first line,
-    so lines `L+1`..`E` show (N−1 blocks; none for a single line).
-  - At the end of the body (nothing but blank lines after it, the text of only blank lines
-    included) and at the top of a file without frontmatter, every line shows (N blocks, one for a
-    single line).
-  - In a quote run, the first line is always the separator, so lines `L+1`..`E` show.
-- **Blank-line block**: the page element that shows one shown blank line in edit mode. It replaces
-  the glossary term "Blank-lines block" (section 6).
+A `done: true` answer (`receiveBlockEditSource`, `src/page/features/blockSourceEditor.ts`) already
+closes the editor when `finishing` is true. Only the content patch path hangs.
 
 ## What changes
 
-### 1. The host lists shown blank lines (Q1, Q5)
+### 1. The content patch closes the editor of a final save
 
-- Add a pure function `shownBlankLines(text): BlankRun[]` in `src/core/mapping/blankRuns.ts`. It
-  returns, in line order, the ranges of shown blank lines of every plain run and every quote run.
-  It is built on the same scan as `blankRuns` and `quoteBlankRuns`, which now also report runs of
-  one line wherever the "Shown blank line" rule shows a single line. A range may be one line
-  (`line === endLine`). It keeps the existing rules: `splitLines` (the pseudo-line after a final
-  break is never a line), frontmatter lines excluded, LF, CR LF and lone CR alike.
-- `blankRunsMarker` writes `shownBlankLines(text)` as `L-E` pairs (`L-L` for one line). The
-  attribute, its place (last element of the content) and its export removal are unchanged.
-- One more pure helper, `blankRunAround(text, line): BlankRun | undefined` (in `blankRuns.ts`),
-  gives the maximal run (plain or quote) that holds a line. The host uses it to read the container
-  indent and the sibling rules from the whole run (section 3).
+In `applyContentPatch` (`src/page/features/contentPatch.ts`), the exception for `replaceBlankRun`
+holds only while no final save of that editor was posted:
 
-### 2. The page shows one block per shown line (Q1, Q5)
+- The open editor has `replaceBlankRun` and `finishing` is false (no final save posted, or one that
+  an error answer refused, which clears `finishing`): unchanged. The editor stays open across the
+  re-render, and `refresh()` puts its block and frame back (CR-444 fix 7).
+- The open editor has `replaceBlankRun` and `finishing` is true (Done was pressed and its final
+  save posted): the patch closes it with `closeBlockEdit(false)`, as for any block. No
+  `previewEditCancel` is posted. The `refresh()` that the patch runs (`initializeContent`) then finds
+  no editing block and drops the held one: the page shows the new render's blank-lines blocks only.
+- Any other editor: unchanged (closed by the patch).
 
-In `src/page/features/blankLines.ts`:
+The comment above that line says both halves: the editor of a blank-lines block stays open across an
+autosave's re-render, and closes on a patch once its final save was posted.
 
-- `parseRuns` accepts `endLine >= line`. It still drops malformed and overlapping pairs, and it
-  still reads only the host's last element.
-- Each range is located once (`locateRun`, unchanged: a range lies inside the same container, fold
-  or fence as its run). Then **one blank-line block per line** of the range is created, all placed
-  at that spot, in line order. Each block's run is `{ line: n, endLine: n }`, plus the
-  `itemLine`, `containerLine` and `holder` of its range.
-- The refresh's reuse key (`keyOf`) is per line, so a block whose line is unchanged keeps its
-  element across a re-render.
-- **Look** (`BLANK_LINES_BLOCK_CSS`, `src/core/preview/styles/editModeStyles.ts`, and
-  `blankLinesInContainersStyles.ts`):
-  - each block is about one line of body text high, and the blocks of one range stack with no gap,
-    so 6 blank lines read as 6 lines;
-  - the label is "Blank line", drawn from `data-okf-blank-label` as today, never in the text
-    content;
-  - the `aria-label` is "Blank line. Press Enter to write a block here.";
-  - the Delete block button, the selected look and the edit-mode-only rule are unchanged.
-- **Arrows** (`stepSelection`, BLOCK-004 and BLOCK-267): Up and Down stop on each blank-line block
-  in line order, inside lists and containers too. The other key rules of BLOCK-267 are unchanged:
-  - the block selection never starts or ends on a blank-line block;
-  - Shift+click does nothing on one;
-  - Alt+Up/Down posts nothing;
-  - Escape clears the selection;
-  - Ctrl/Cmd+C and Ctrl/Cmd+X post nothing with only a blank-line block selected;
-  - Delete and Backspace act only on a selected blank-line block, not on a focused one.
+As for any other block, a patch that arrives after Done closes the editor, even when that patch
+renders an earlier autosave and the final save is still running on the host. The host completes
+that save and renders it in a next patch. That is today's rule for every other block, now also for
+a blank-lines block.
 
-### 3. Typing or pasting in a blank-line block replaces that one line (Q5)
+Nothing else changes: the host (`blockEdits.ts`), the protocol, `blankLines.ts`, the run list, the
+look, Delete, paste and the BLOCK-053 rule that Cancel is ignored while `finishing` is true. The
+`@implements_req SwRS-MDOKFSTUDIO-BLOCK-268` marker stays on that line.
 
-- **Messages.** `replaceBlankRun` (on `previewEditOpen`, `previewEditSave`, `previewEditCancel`
-  and `previewBlocksPaste`) and `previewBlankRunDelete` keep their names and fields. Both now name
-  one line: `endLine === line`. `isBlankRunFields` and the `previewBlankRunDelete` validator
-  (`src/core/protocol/pageToHost.ts`) require `endLine === line`, in place of `endLine > line`. The
-  rule `insertAfterLine === line − 1` is unchanged.
-- **The check.** `checkBlankLine(text, line): BlockRangeRefusal | undefined` in
-  `src/core/mapping/blockRange.ts` refuses with `OUT_OF_DATE` unless `line` is a shown blank line
-  of `shownBlankLines(text)`. It replaces `checkBlankRun` at every caller:
-  - open: `handleEditOpen`;
-  - save: the re-created edit path of `handleEditSave`;
-  - paste: `planBlankRunPaste`;
-  - removal: `planBlankRunRemoval`.
+### 2. Requirements
 
-  `containerLineHolds` and `blankRunIndent` read the run from `blankRunAround(text, line)`. So the
-  item and container checks, the content indent and the sibling rules of CR-448 and CR-462 are
-  unchanged: for example, `- c` typed between two items is still written as a sibling item.
-  `checkBlankRun` is removed if no caller is left (the unused-exports check).
-- **The plan.** `planBlankRunInsertion` (`src/core/mapping/insertion.ts`) takes one line
-  (`planBlankRunInsertion(text, line, itemLine?, containerLine?)`, or `endLine === line`):
-  - **The region** is line `line` without its line break: from the start of the line to the end of
-    its text.
-  - **A separator before**: one is written only when line `line − 1` exists and is not blank. "Not
-    blank" means a block line, the frontmatter's closing line included, or, in a quote run, not an
-    empty quote line of the run's shape. In a quote run, the separator is a copy of the run's first
-    line, as today.
-  - **A separator after**: one is written only when line `line + 1` exists and is not blank, by the
-    same test.
-  - The line break of line `line` stays as it is, so the document's final line break, or its
-    absence, is kept.
-  - `insertionText` is unchanged: it drops leading blank lines, uses the document's line endings
-    and applies the container indent.
-- **Host edit** (`blockEdits.ts`). `blankRunRegion` holds the one line, `{ line, endLine: line,
-  itemLine?, containerLine?, text }`, and is still never sent to the page. The page-facing
-  `originalText` stays `""`.
-  - An empty or whitespace-only text, or Cancel after an autosave, writes that line's text back
-    byte for byte, and any separator an autosave added goes with it. Nothing else changes.
-  - Done with an empty text before any autosave makes no edit, and the editor closes (BLOCK-263).
-- **Paste** (`planBlankRunPaste`, `planBlocksPaste` in `src/core/edits/sourceEdits.ts`): Ctrl/Cmd+V
-  on a selected blank-line block writes the pasted block in place of that one line, with the same
-  separator rule.
+Follow the project's requirements guidelines: markers stay with the code, run
+`just requirements-update`, and add a dated entry in `requirements/tiers/log.md` (issue #485, the
+editor of a blank-lines block closes on the render of its final save).
 
-### 4. Removing a blank-line block removes that one line (Q7)
-
-- `planBlankRunRemoval(text, line)` (`src/core/mapping/blockRange.ts`, through `planBlankRunDelete`
-  in `src/core/edits/sourceEdits.ts`) removes line `line` and its line break, in one `TextEdit`
-  through `applyWrittenEdits`, as one undo step.
-  - When the line is the last line of the text, the removal takes the line break before it
-    instead. The text then keeps its final line break, or its absence, as `planBlankRunRemoval`
-    does today.
-  - A text of only blank lines whose last line goes becomes empty.
-- The separator is never a shown line, so it is never removed, and two blocks are never glued
-  together. In a quote run, the first empty quote line stays byte for byte.
-- The answer is unchanged: `previewBlocksResult` with `op: "delete-blank-lines"`, and a stale
-  refusal shown next to the blank-line block.
-- **Selection afterwards** (`requestDeleteBlankLines`, `blockSelectionView.ts`), in this order:
-  1. the blank-line block that now shows at the same place (the next blank line, which takes the
-     removed line's number), so repeated Delete clears the lines one by one;
-  2. else today's rule: the block that followed, the container that held the run, the block above,
-     or "Start writing".
-
-  The cut's viewport pin is unchanged.
-
-### 5. No save stays in "Saving…" (Q6)
-
-**a. The content patch closes the editor of a final save.** In `applyContentPatch`
-(`src/page/features/contentPatch.ts`, line 58), the exception for `replaceBlankRun` holds only while
-no final save of that editor was posted. Once one was posted (`finishing`, or the timed-out state
-of b), the patch closes the editor with `closeBlockEdit(false)`, as for any block. The next
-`blankLines.refresh()` then drops the held block. An autosave's re-render keeps the editor open as
-today (CR-444 fix 7).
-
-**b. Every final save ends in a bounded time.**
-
-- When `postBlockEditSave(true)` posts a final save, the page starts one timer,
-  `FINAL_SAVE_TIMEOUT_MS = 10000`, a named constant in `blockEditor.ts`. The timer is cleared when
-  the editor closes, which covers a content patch, `done: true` and Cancel, or when an error
-  answer arrives (`receiveBlockEditSource`, `src/page/features/blockSourceEditor.ts`).
-- When the timer fires with the editor still open and `finishing`:
-  - `finishing` becomes false and `lastPostedText` is cleared, as an error answer does today;
-  - the status shows "The save did not finish. Your text is kept: press Done to try again, or
-    Cancel to close the editor.";
-  - Done posts the final save again.
-- A content patch or a `done: true` that arrives after the timer still closes the editor (a).
-- This covers the block editor and the table cell editor, which share `postBlockEditSave`.
-- **Frontmatter saves** (blank-save-Q6 "every save"): a field save or a field action save that
-  posted `previewFrontmatterSave` and gets no result within the same time limit takes the existing
-  error path of `frontmatterEditor.ts` (around line 335). That path shows the error, sets `saving`
-  to false and enables the controls again. The message is the same as for the block editor, with
-  "frontmatter" in place of "Markdown". The timer lives in `frontmatterValueEditor.ts` and
-  `frontmatterEditor.ts` beside `saving = true`, and is cleared on any result.
-
-**c. Cancel always closes the editor.** `cancelBlockEdit` (`blockEditor.ts`) no longer returns
-early on `finishing`. The Cancel button and Escape always close the editor:
-
-- **No final save in flight**: unchanged (BLOCK-053). The editor posts `previewEditCancel` when an
-  autosave reached the document.
-- **A final save in flight or timed out**: the editor closes with no `previewEditCancel`. The save
-  the writer already asked for with Done goes on and completes on the host. The page stops
-  waiting for it.
-- The host edit lock is released as today when that save ends. The page's next `previewReady`
-  carries `blockEditOpen: false`.
-
-The table cell editor's Cancel (`cancelTableCellEdit`) follows the same rule.
-
-**What stands against this rule today**, and is changed in this CR:
-
-- `cancelBlockEdit` in `src/page/features/blockEditor.ts` returns early on `finishing`; that early
-  return goes.
-- The `if (edit.finishing) return;` guard at the top of `cancelTableCellEdit`
-  (`src/page/features/tableCellEditor.ts`, line 109, under the `@implements_req
-  SwRS-MDOKFSTUDIO-TABLE-025` marker) goes, so the cell editor's Cancel and Escape close it during a
-  final save too, with no `previewEditCancel` and no second final save.
-- The page test `Cancel and Escape are ignored while the final save is in flight`
-  (`test/page/blockReq.requirements.test.ts`, line 412, `@tests_req SwRS-MDOKFSTUDIO-BLOCK-053`)
-  asserts the old rule. It is rewritten to the new one (Evidence, "The save guard"), not deleted
-  and not kept as it is.
-- The verification notes of SwRS-MDOKFSTUDIO-BLOCK-053 name that test and hold the criterion
-  "cancelBlockEdit returns without a message when finishing is true". Both change (section 6).
-
-### 6. Requirements, vocabulary and docs
-
-Follow the project's requirements guidelines: IDs come from `okfreq new`, markers move with the
-code, run `just requirements-update`, and add a dated entry in `requirements/tiers/log.md`. All of
-the following are in scope `block-editing`, except TABLE-025 and the frontmatter one.
-
-- **Update SwRS-MDOKFSTUDIO-BLOCK-266**: each shown blank line shows as one blank-line block.
-  Between two blocks N lines give N−1 blocks; at the end of the body and at the top of a file
-  without frontmatter, every line is a block; this holds inside lists and containers. Its
-  scenarios get the issue's case: a line of text then 6 blank lines gives 6 blocks.
-- **Update BLOCK-267**: Up and Down stop on each blank-line block.
-- **Update BLOCK-268**:
-  - typed or pasted text replaces that one line;
-  - a separator is added only where a neighbour line is not blank;
-  - Cancel or an emptied editor restores the line;
-  - the editor stays open across an autosave's re-render and closes on the render of its final
-    save.
-- **Update BLOCK-269**: Delete removes that one line, the separator stays, and the selection goes
-  first to the blank-line block now in its place.
-- **Update BLOCK-053**: its refusal scenario "Cancel is ignored while the final save is in flight"
-  becomes "Cancel during a final save closes the editor and the save completes". Its verification
-  notes change with it:
-  - the Method line of `test/page/blockReq.requirements.test.ts` names the rewritten test (its new
-    title, for example `Cancel and Escape close the editor while the final save is in flight`);
-  - the criterion "cancelBlockEdit returns without a message when finishing is true" becomes
-    "cancelBlockEdit closes the editor without a message when finishing is true".
-- **Update TABLE-025** (scope `table-editing`) where it relies on the `finishing` guard of
-  `cancelTableCellEdit`: Escape and Cancel in a cell during a final save close the editor with no
-  message. Its verification notes name the test of "The save guard" for the table cell editor.
-- **Update BLOCK-004**: a scenario row for one stop per blank-line block.
-- **New SwRS (block-editing)**: "A block editor's final save always ends". The page shows an error
-  and enables Done and Cancel again when no answer comes within the time limit, and a late answer
-  still closes the editor.
-- **New SwRS (frontmatter-editing)**, or a scenario on the FMEDIT SwRS of the field save error,
-  whichever the requirements guidelines prefer: a frontmatter save with no result within the time
-  limit shows an error and enables the field again.
-- Approved StRS texts are not changed. If BLOCK-025's text must change, its re-approval goes to the
-  owner through the Chief of Staff.
-
-Vocabulary and docs:
-
-- `.agents/glossary/common.md`:
-  - rename "Blank-lines block" to "Blank-line block" (one per shown blank line);
-  - add "Shown blank line" and "Separator" as in "Words";
-  - in "Blank run", note that the host now lists shown lines.
-- Page text and labels use "blank-line block". Code identifiers (`installBlankLines`,
-  `.sphinx-preview-blank-lines`, `replaceBlankRun`, `previewBlankRunDelete`) may keep their names.
-- The writing skill `skills/writing-for-markdown-okf-schema-studio/` is not concerned: no rendered
-  syntax changes, and the blocks are edit-mode chrome.
+- **Update SwRS-MDOKFSTUDIO-BLOCK-268** (scope `block-editing`):
+  - Its description and normative text: "keep the editor open across an autosave re-render" becomes
+    "keep the editor open across an autosave re-render and close it on the render that follows its
+    final save".
+  - A new scenario, "Done closes the editor":
+    - GIVEN a blank-lines block's editor with typed text;
+    - WHEN the writer presses Done and the host writes the text and renders it;
+    - THEN the editor closes, "Saving Markdown…" is gone and the block shows in place of the run.
+  - Verification notes: the Method line names the new page test in
+    `test/page/runtimeBlankLines.test.ts`. The criterion "the editor of an open run survives
+    refresh()" becomes "the editor of an open run survives refresh() until its final save is
+    posted; the patch after it closes the editor".
+- No other SwRS or StRS changes. BLOCK-053 is unchanged here (its Cancel rule is the next CR's).
+- The glossary (`.agents/glossary/common.md`) and the writing skill
+  (`skills/writing-for-markdown-okf-schema-studio/`) are not concerned: no term and no rendered
+  syntax changes.
 
 ## Out of scope
 
-- Blank lines inside a block (fence, directive body edited whole, HTML block, table), in an included
-  file, in the frontmatter, in a fold or a closed dropdown: unchanged (nothing shows).
-- Collapsing blank lines on its own, on save or render: the file's format is kept.
-- Selecting several blank-line blocks at once to delete them in one step.
-- A save time limit for messages other than final block saves and frontmatter saves (block moves,
-  pastes and cuts already have their own `blocksFlight` and move timeouts).
-- Renaming code identifiers from "blank run" or "blank lines" to "blank line".
+- **The general save guard**: a time limit on every final save, a shown error when no answer comes,
+  the frontmatter save's bounded wait, and Cancel always closing the editor (blank-save-Q6, Q9, Q10,
+  Q14, Q15). It is the CR `save-guard-never-hangs`, next in the stack. Here, Cancel stays ignored
+  while a final save is in flight (BLOCK-053), and no timer is added.
+- **One block per blank line**: each blank line beyond the separator as its own block, typing and
+  Delete acting on one line, per-line blocks inside containers and after the frontmatter
+  (blank-save-Q1, Q2, Q5, Q7, Q12, Q13), with the tests of blank-line segmentation. It is the CR
+  `blank-line-block-per-line`, after `save-guard-never-hangs` in the stack.
+- The one-block-per-run design itself, its look, placement, Delete, paste and protocol: unchanged.
 - The release notes, written when the release is prepared.
 
 ## Evidence
 
-The checks read the shipped files at the head under test: the real core and render functions, the
-real page bundle and the real stylesheet module, never a prepared copy. Each check below fails on
-the code before the change (constitution, section 3).
+The checks run the shipped code at the head under test: the real page runtime, as
+`test/page/runtimeBlankLines.test.ts` drives it today, never a prepared copy. The regression test
+fails on the code before the change (constitution, section 3): the Driver runs it first on the
+unchanged code and records the failure (the editor still open, "Saving Markdown…" shown).
 
-**Core (`test/core/mapping/`):**
+**Page, the regression of the issue** (new test in `test/page/runtimeBlankLines.test.ts`, marked
+`@tests_req SwRS-MDOKFSTUDIO-BLOCK-268`), with the helpers of that file (`harnessWithRuns`,
+`setRuns`, `blankBlocks`, `sent`, `patchMessage`):
 
-- `blankRuns.test.ts`: `shownBlankLines`.
-  - Segmentation of N blank lines between two paragraphs, for N = 1, 2, 3 and 6: 0, 1, 2 and 5
-    shown lines, starting at the second blank line.
-  - The issue's text, `Text` then 6 blank lines with and without a final line break: lines 2..7,
-    6 shown.
-  - The top of a file without frontmatter: every line shows. After the frontmatter: N−1 lines.
-  - A text of only blank lines: every line shows.
-  - Quote runs: the first line is never shown.
-  - A U+00A0 line breaks a run.
-  - LF, CR LF and lone CR.
-  - `blankRunAround` returns the maximal run of a line.
-- `blockRange.test.ts`:
-  - `checkBlankLine` accepts a shown line and refuses the separator, a non-blank line and a line
-    past the end.
-  - `planBlankRunRemoval` removes one line in the middle of a run, the last line of the text with
-    and without a final break, and a line of a text of only blank lines. It never removes a
-    separator, and adds no bare LF in CR LF and no CR in LF.
-  - `planBlankRunPaste` writes in place of one line.
-- `insertion.test.ts`: `planBlankRunInsertion` on one line.
-  - The first shown line of a 3-line run between blocks adds no separator.
-  - The last shown line adds one after.
-  - The first line of a run at the end of the body adds one before.
-  - Line 1 at the top of a file adds one after.
-  - A quote run's separator is a copy of its first line.
-  - LF, CR LF and CR.
-- `blankRunContainer.test.ts`, `blankRunInList.test.ts`, `quoteBlankRuns.test.ts`, updated: a line
-  between two list items takes the sibling indent for `- c` and the content indent otherwise. A
-  line inside a quote keeps the quote markers.
+1. The issue's shape: a run at the end of the body (a run list with one run, for example `2-7`, a
+   line of text then 6 blank lines). One blank-lines block shows.
+2. Click it. The page posts `previewEditOpen` with `replaceBlankRun: { line: 2, endLine: 7 }`;
+   answer it with `previewEditSource` and `originalText: ""`.
+3. Type `Text` and press Done. The page posts `previewEditSave` with `final: true`, and the status
+   reads "Saving Markdown…".
+4. Apply the content patch of the render: a run list without that run (`setRuns` with no run of the
+   editor, then `patchMessage()`).
+5. Assert: the editor is closed (its frame is out of the page and no "Saving Markdown…" status is
+   left, checked the way the file's other close checks do), the held blank-lines block is gone (`blankBlocks` does not hold it), and no
+   `previewEditCancel` was posted. Then a click on another blank-lines block, when the patch's list
+   has one, opens a new editor: the page is not stuck.
 
-**Render and protocol:**
+Same file, one check each:
 
-- `renderPreviewSource` ends with `data-okf-blank-runs` holding the shown ranges (`7-7` for one
-  line).
-- `pageToHost.test.ts`: `replaceBlankRun` and `previewBlankRunDelete` are accepted with
-  `endLine === line` and rejected with `endLine !== line`.
+- **Done before any autosave and Done after an autosave**: both close on the patch (the test above
+  runs once with `flushTimers()` after typing, so an autosave was posted first, and once without).
+- **A run inside a list** (the `listHarness` of the file): Done then the patch closes the editor too.
+  This covers the `held` path of `refresh()` that puts a list's block back.
+- **Fix 7 kept**: the existing tests "an editor opened from a blank-lines block stays in its element
+  across a patch without that run", "an editor opened in a list item survives a patch that replaces
+  the list, and Cancel keeps the item line" and, in `runtimeBlankLinesContainers.test.ts`, "an
+  editor opened from a quote run survives a patch that replaces the quote, and Cancel keeps the
+  run" pass unchanged: an autosave's patch keeps the editor open.
+- **An error answer, then a patch**: after Done, a `previewEditSource` with an `error` clears
+  `finishing`; a following patch keeps the editor open (no final save in flight), and a second Done
+  then a patch closes it.
 
-**Session (`test/session/blankRunHost.test.ts`, `blankRunInListHost.test.ts`,
-`blankRunInContainerHost.test.ts`):**
+**Session, no change expected**: `test/session/blankRunHost.test.ts` keeps or gains the check that a
+final save of a blank-run insertion that writes text ends the host edit, asks for a render and posts
+no `done`. This is the host half of the issue's steps, and it shows why the page must close on the
+patch.
 
-- Typing in a blank-line block, with the region a single line:
-  - a final save of `Middle` writes it in place of the line with only the separators needed;
-  - an autosave then Cancel restores the line byte for byte;
-  - an empty Done writes nothing and posts `done: true`;
-  - a separator line is refused on open, and on a re-created save.
-- `previewBlankRunDelete` removes one line in one `applyWrittenEdits` call.
-- A final save of a blank-line insertion that writes text ends the host edit and asks for a render
-  (`refreshPreviewDocument`). No `done` is posted: the patch closes the editor.
+**Integration**: none added. The hang is on the page, and `test/integration/blankLines.test.ts`
+drives the host by messages and sees no page editor. Its existing write, delete and undo scenarios
+must still pass in the heavy run on the branch.
 
-**Page (`test/page/`, with the runtime bundle as `runtimeBlankLines.test.ts` does; one check per
-rule):**
+**Requirements**: `just requirements-lint` and `just requirements-update` pass, and BLOCK-268 names
+the new test.
 
-- `runtimeBlankLines.test.ts` and `runtimeBlankLinesContainers.test.ts`, updated:
-  - a list `3-4` places two blocks in line order, and `7-7` places one;
-  - Down stops on each;
-  - Enter on the second posts `previewEditOpen` with `replaceBlankRun: { line: 4, endLine: 4 }`;
-  - Delete posts `previewBlankRunDelete` for one line;
-  - after the result and the render, the selection is on the blank-line block now at that place;
-  - an authored `data-okf-blank-runs` still makes no block.
-- **The regression of the issue** (new test, for example in `runtimeBlankLines.test.ts`):
-  1. Open the editor from a blank-line block, type `Text` and press Done. "Saving Markdown…"
-     shows.
-  2. Apply a content patch whose run list no longer has that line. The editor is closed,
-     `state.activeBlockEdit` is undefined and the held block is gone.
+**Gate**: `just preflight` passes (on Windows its static stage; CI runs the others).
 
-  A second case: autosave, then a content patch without the line. The editor stays open (fix 7
-  kept).
-- **The save guard** (new file, for example `test/page/runtimeBlockEditorSaveGuard.test.ts`, with
-  fake timers):
-  - a final save with no answer for `FINAL_SAVE_TIMEOUT_MS` shows the timeout message and clears
-    `finishing`, and Done posts the final save again;
-  - a content patch after the timeout still closes the editor;
-  - Cancel and Escape during "Saving…" close the editor and post no `previewEditCancel`. This is
-    the existing test `Cancel and Escape are ignored while the final save is in flight`
-    (`test/page/blockReq.requirements.test.ts`, line 412, `@tests_req SwRS-MDOKFSTUDIO-BLOCK-053`),
-    rewritten to the new rule and renamed; it fails on the code before the change;
-  - the same for a table cell editor: Cancel and Escape during its final save close it, which fails
-    while the `edit.finishing` guard of `cancelTableCellEdit`
-    (`src/page/features/tableCellEditor.ts`, line 109) is there;
-  - Cancel with no save in flight behaves as BLOCK-053 says;
-  - all of this holds for an ordinary paragraph editor and for a table cell editor.
-- **Frontmatter**: a field save with no result for the time limit shows the error and enables the
-  control again.
+## Decisions carried
 
-**Visual (`just ci-visual`):** `test/visual/capture_blank_lines_block.py`,
-`blankLinesBlockScenarios.ts` and the fixture `92-blank-lines-block.md` are updated. The captures,
-attached to the pull request as the pull-request guideline asks:
-
-- edit mode with three blank lines between two paragraphs, showing two blank-line blocks;
-- the issue's text, with six blank-line blocks at the end of the body;
-- one block selected, with its Delete block button;
-- reading mode of the same file, with no block.
-
-**Integration (real VS Code, `test/integration/blankLines.test.ts`, the heavy run on the branch).**
-The scenario runs once in LF and once in CR LF:
-
-1. A file `Text.` followed by 6 blank lines. Edit mode shows 6 blank-line blocks.
-2. Click the first one, type `More` and press Done. Within the time limit the editor closes and
-   "Saving Markdown…" is gone. The file reads `Text.`, a blank line, `More`, then 5 blank lines
-   (the typed text replaces line 2 and adds a separator before it; lines 3 to 7 stay), with its
-   line endings and final line break kept. 5 blank-line blocks show after `More`.
-3. Three blank lines between two paragraphs: 2 blocks show. Select one with the arrows and press
-   Delete: 2 blank lines are left. One Ctrl+Z brings the third back.
-4. Click a block, type a word, wait past the autosave and press Cancel: the blank lines are back
-   byte for byte.
-
-**Save-to-patch time (measure for decision 6).** Nothing measures it today. In the integration
-run (real VS Code, LF), on the largest fixture of the visual and integration fixtures (the Driver
-names it by size), record the time from the page's final `previewEditSave` to the content patch
-that closes the editor, for an edit of one paragraph, five times. Report the slowest and the
-median next to `FINAL_SAVE_TIMEOUT_MS` in the pull request body. The value holds only when the
-slowest time is well under it (at most half); otherwise the Driver reports it, and the value goes
-back to the owner through the Chief of Staff, before the pull request is ready.
-
-**Requirements:** `just requirements-lint` and `just requirements-update` pass. The updated and new
-SwRS carry `@implements_req` / `@tests_req` markers at the code and tests above.
-
-**Gate:** `just preflight` passes (on Windows its static stage; CI runs the others).
-
-## Decided in the spec
-
-The answers leave these points open. Under the owner's autonomy rule, each is decided here as the
-option most consistent with the answers, for the Chief of Staff to check:
-
-1. **Per-line blocks also inside lists, quotes and containers.** Q1 says a run "no longer shows as
-   one blank-lines block", with no exception, and one rule everywhere keeps the arrows and Delete
-   consistent. The container indent and the sibling rules are read from the whole run, so they are
-   unchanged.
-2. **The hidden separator is the first line of a run** (the line right after the block above), and
-   in a quote run its first empty quote line, as the removal keeps today.
-3. **A separator before the typed text is added after the frontmatter's closing line**, as an
-   insertion after the properties section writes one today.
-4. **After a Delete, the selection goes to the blank-line block now in its place**, so repeated
-   Delete clears the lines one by one.
-5. **Cancel during a final save closes the editor without a cancel**, and the save the writer asked
-   for with Done completes. Reverting it would undo a Done the writer already pressed, and it could
-   race the host's write.
-6. **The time limit is 10 seconds**, one named constant for block and frontmatter saves. A late
-   answer still closes the editor, so a timeout that fires too early costs a message, not the
-   text. That 10 seconds is long enough for a slow render is **unproved**: nothing measures
-   save-to-patch time today. The nearby values are `CONTENT_PATCH_ACK_TIMEOUT_MS = 2_000` and
-   `PENDING_OVERLAY_DELAY_MS = 1_500` (`src/session/features/pageLoadState.ts`), which bound other
-   waits, not this one. The Evidence measures it ("Save-to-patch time").
-7. **The guard covers frontmatter saves too**, because Q6 says "every save".
-8. **The label is "Blank line"** with no count, since each block is one line.
-9. **Spec critic**: yes, on Fable (blank-save-Q8, owner's rule). The Chief of Staff runs it.
+- blank-save-Q8 and item 18: three CRs in one stack; this one is part A, the #485 hang fix, keeps
+  the `issue:` line and closes the issue.
+- blank-save-Q4: destination the running batch-09.
+- blank-save-Q3: the hang shows the case had no test; the regression test reproduces the issue's
+  steps and fails first.
+- blank-save-Q6, the part kept here: the test that the save of a blank-lines block's editor leaves
+  "Saving…". The general guard and the segmentation tests go to the two other CRs.
+- Spec critic (item 8): yes, on Fable; the Chief of Staff runs it.
 
 ## Open questions
 
-1. Decision 1: should the per-line blocks also apply inside lists, quotes, admonitions,
-   definitions and footnotes (CR-448, CR-462), or only to top-level runs?
-2. Decision 5: Cancel pressed while "Saving…" shows closes the editor and lets the Done save
-   complete. Is that right, or should it also try to restore the original text?
-3. Decision 6: is 10 seconds the right time limit before "The save did not finish" shows?
+None.
