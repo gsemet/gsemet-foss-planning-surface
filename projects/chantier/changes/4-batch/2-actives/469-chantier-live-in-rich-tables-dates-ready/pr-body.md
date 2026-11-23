@@ -39,6 +39,7 @@ Grade: 1. Only the read-only terminal client and its docs change; the server, it
 ## Known gaps
 
 - Not yet checked by hand in Windows Terminal (rounded boxes, colours, `t`, a click on a PR number).
+- The local Windows run of the long gate was not made (port 8765 is held by another program here); the pipeline's scenario job is green at the head.
 - The `docs/boards.md` capture is drawn from prepared events, not from a real server.
 - In the narrow right column the Ready title is cut when the state word is long (`merged, not recorded`).
 
@@ -52,6 +53,7 @@ Grade: 1. Only the read-only terminal client and its docs change; the server, it
 - `clients/tui/view.py`: the `t` key, help line and footer.
 - `commands/live.py`: `--once` height for four boxes; waits for `prs` and prints `not read` at the deadline.
 - `docs/boards.md`, `docs/server-api.md`, `scenario/README.md`.
+- `scenario/run_scenario.py`: `live_once` reads the Tasks row by its State word first, then the CR id.
 
 ## Human decisions
 
@@ -67,11 +69,11 @@ The terminal screen is redrawn as shown above; no other behaviour changes.
 ## Test plan
 
 - [ ] New or changed tests (`test_live_model.py`, `test_live_ready.py`, `test_live_link.py`)
-- [ ] Local gates: `just check` (pending at the head)
-- [ ] Evidence: capture in `docs/boards.md`
-- [ ] Review: approved at (pending)
-- [ ] Verified at (pending)
-- [ ] CI green at (pending)
+- [x] Local gates: `just check` passed at 56385da; the local long gate was not run (port 8765 is held by another program on the author's machine), the pipeline's `just scenario (ubuntu-latest)` is green at 56385da
+- [x] Evidence: capture in `docs/boards.md`
+- [x] Review: approved at 56385da
+- [x] Verified at 56385da
+- [x] CI green at 56385da: `just check` (ubuntu, macos, windows), `just eval-dry-run`, `just scenario`
 
 ## Internal references
 

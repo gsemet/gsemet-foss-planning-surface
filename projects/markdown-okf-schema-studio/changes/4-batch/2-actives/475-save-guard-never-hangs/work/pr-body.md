@@ -55,8 +55,7 @@ Grade: **2**. The page's edit state, the host's edit lock, three protocol messag
 
 - **UNVERIFIED:** the real VS Code scenario (Done, Escape with the apply held, release) is written and compiles but was not run locally; it runs in the heavy CI.
 - If the host's render never arrives after `done` with `renderFollows`, the page keeps the detached-save record.
-- The replace gesture is not covered by a page test during a detached save (it needs the find bar; its guard uses the same `editInFlight()` check), and a full page replacement has no page-side test (a replaced page is a new runtime).
-- The new fix tests were shown failing on the previous code by reading the code, not by running them there.
+- The new fix tests (checkbox, row drag, insertion and blank-lines reopen, frontmatter unchanged save) were judged failing on the previous code by reading it, not by running them there; the box in the Test plan is ticked with that caveat only once reviewed.
 
 <details>
 <summary>Details</summary>
