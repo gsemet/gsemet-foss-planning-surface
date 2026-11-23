@@ -64,6 +64,24 @@ Grade: 2. Opening behaviour and a settings migration that writes `workbench.edit
 - `toolbarReq.requirements.test.ts`: three tests about links opening Studio at the line become two: a link and Back always call `showDocument`.
 - `test/integration/openAtLine.test.ts` rewritten for the matrix; `reverse-migration-suite.ts` added.
 
+### Feature introduction test assertions (old, new)
+
+- "shows the `openInStudio` message once": now shows the test's own entry once; same assertion on count and text.
+- "stores the key before the message": key `...introductions.openInStudio` becomes `...introductions.<own id>`; same order check.
+- "nothing in a later session", "reset shows it again", "a store that cannot write": unchanged intent, own entry instead of `openInStudio`.
+- Added: the shipped list is empty and "Show Feature Introductions Again" still runs.
+
+## For the owner to read
+
+StRS LIFE-023 changes its subject: it loses "opens a Markdown file at a searched line in Studio" and now says the reader sees the line of a jump marked in the side preview and gets the raw text on request. That use case returns with a follow-up change. It was `proposed`, not approved.
+
+## Autonomous decisions
+
+- No `openWith "default"` fallback in "Open as Text": the real window gives a text tab under the association without it.
+- Removing the two undeclared setting keys needed no fallback: proved in a real window (user and workspace scope).
+- With the association, a jump on a file already open as text leaves the text tab and opens a Studio tab beside it; documented as a known limit.
+- User on and workspace off ends with Studio in that workspace too; said in the notes.
+
 ## Notes for the release notes (copy)
 
 - What was wrong (since 1.11.0) and what is fixed: the raw text is never replaced by Studio.
