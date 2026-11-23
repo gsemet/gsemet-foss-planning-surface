@@ -29,7 +29,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-CHANTIER_REF = "v0.11.0"
+CHANTIER_REF = "v0.15.1"
 CHANTIER = [
     "uvx", "--quiet", "--config-file", str(ROOT / "uv.toml"),
     "--from", f"git+https://github.com/gsemet/chantier@{CHANTIER_REF}", "chantier",
