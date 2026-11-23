@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Agents update a CR branch by rebase only",
+  "summary": "PRs chantier delivers never hold a merge commit, in a stack too: agents update a branch by local rebase (forge rebase action unproved), a GitLab fold is rebased, and ship refuses a merge commit among the CR's own commits. Cards and agent files of both hosts say it.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "95a736165fac87a37911dcf64b51a3ea4cd6b735f59a62ed925d79870c43309d",
+    "02-answers.md": "9495b2b0dc8df470c74e9bea8b4c289833089db40b4d28b3f6ed070048c42ea8",
+    "03-change-spec.md": "c0b14323fefee21fc565e0707fe8fdf842166613d65e2cdfa507fa3afb5c3128",
+    "intake/request.md": "4123e6edfc46e2b5d64697258ce08d0058e1c39ffc40822e0e6e862aeb7f9b13"
+  },
+  "summarized": "2026-11-23T12:15:27Z"
+}

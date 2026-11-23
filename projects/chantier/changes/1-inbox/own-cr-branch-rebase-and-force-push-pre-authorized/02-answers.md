@@ -8,3 +8,5 @@ Short name: `own-branch-push`
 
 Destination: running batch batch-31.
 Spec critic: yes, default model (it changes what a role may do and a permission grant).
+6. own-branch-push-Q6: **A host refusal that remains.** A. Today's single question to the user, and the push goes on their yes.
+7. own-branch-push-Q7: **A `chantier/*` branch that `handoff` ties to no CR of the batch.** A. A hard refusal with no question to the user, as today.

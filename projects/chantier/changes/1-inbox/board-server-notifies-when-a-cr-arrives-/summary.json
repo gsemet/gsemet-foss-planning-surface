@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Board server notifies when a CR arrives by pull on the surface",
+  "summary": "A CR new or moved in inbox or backlog by the writer's pull updates the board and wakes the Chief of Staff.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9bc361c2a745f4c5c839cd0b7c6808ddfa7a40b296f24fec2c3300a5818a7b8a",
+    "02-answers.md": "8d2d47d3aeba7f832e39bbc810e526fb887cac432d534257b01dcbacf1f8a2a5",
+    "intake/request.md": "e12c176804f8281eeefb08327dc3f75d508cc8d3b4792c394a7045deab9b297c"
+  },
+  "summarized": "2026-11-23T12:16:19Z"
+}

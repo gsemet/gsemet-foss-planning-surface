@@ -33,6 +33,10 @@ guard against a push to a branch that must not move):
   a push to a protected or non-chantier branch goes to the user.
 - Q4 (A): the Driver's brief names the action and its scope.
 - Q5 (A): specified for the running batch batch-31.
+- Q6 (A): a host refusal that remains (the host refuses the Chief of Staff's own push of a
+  covered branch) keeps today's single question to the user, and the push goes on their yes.
+- Q7 (A): a `chantier/*` branch that `handoff` ties to no CR of the batch stays a hard refusal
+  with no question to the user, as today.
 
 ## What changes
 
@@ -105,9 +109,9 @@ Chief of Staff, judge and run a legitimate push without the user. Changes:
     number and slug>: push <branch> <expected> <local>: not a chantier branch"` (the step 5
     channel, relayed by the Chief of Staff); in direct mode the Chief of Staff asks it directly.
     The text "the user's yes must not push such a branch" (chief-of-staff.md) goes.
-  - A chantier/* branch that `handoff` does not tie to a CR of the batch: see open question 2;
-    until answered, it stays the hard refusal `push refused <branch>: not a branch of this batch`
-    (no push, no user question), as today.
+  - A `chantier/*` branch that `handoff` ties to no CR of the batch (Q7): the hard refusal of
+    today, unchanged: push nothing, take the CR back with `push: push refused <branch>: not a
+    branch of this batch`, no hop and no user question.
 - **A protected branch.** No session reads the forge's branch protection (no `gh api` or `glab
   api` rule is added). A push the forge rejects as protected (git's remote rejection, for instance
   `protected branch hook declined` on GitHub, `You are not allowed to force push code to a
@@ -120,24 +124,31 @@ Chief of Staff, judge and run a legitimate push without the user. Changes:
 - `skills/chantier/references/chief-of-staff.md`, "A refused force push":
   - the opening sentence: a push of a covered branch (`chantier/*`, not the default, not
     protected, with a lease) is answered by you, never a question for the user; only a
-    non-chantier or default branch and a forge's protected-branch rejection reach the user;
-  - "A hard check that fails": the non-chantier and default-branch case becomes the user question
+    non-chantier or default branch, a forge's protected-branch rejection, a doubt of the
+    judgement and a host refusal of your own push (Q6) reach the user;
+  - "A hard check that fails": a branch `handoff` ties to no CR of the batch keeps today's
+    refusal (Q7); the non-chantier and default-branch case becomes the user question
     above (the CR, the branch, the shas, the exact command you would run on a yes); on the
     user's go, `$CHANTIER note <cr> "push on the user's go at <local sha7> for <branch>"`, then
     the route form once (the host may ask the user itself: no rule covers it); on a no,
     `push refused <branch>: <the user's reason>`;
   - "Not legitimate" (the checks pass, the judgement disagrees) still goes to the user, unchanged:
     it is a doubt on the work, not an authorization;
-  - "The host refuses your push": see open question 1; until answered, unchanged.
-  - The "On the yes" sentence of "The allow rules" that says "the user is asked only when the host
-    refuses you too" follows open question 1's answer.
+  - "The host refuses your push" (Q6): unchanged: record the `refused:` note, ask the user the
+    one question it names today, and on the yes run that command once, unchanged. The section
+    says that this is the one case where a covered push reaches the user: the host left no other
+    route.
+  - The "On the yes" sentence of "The allow rules" ("the user is asked only when the host refuses
+    you too") stays, as Q6 keeps it true.
 - `skills/chantier/references/driver.md`, "Means: a force push the host refuses": the list of
   "any other `push refused`" names the new reasons (`not a chantier branch`, the user's no) and
-  the forge's protected-branch rejection (handed back `blocked refused <git's text>`, to the user).
+  the forge's protected-branch rejection (handed back `blocked refused <git's text>`, to the user);
+  `not a branch of this batch` keeps its meaning (a `chantier/*` branch tied to no CR, Q7).
 - `skills/chantier/references/concepts.md`, rule 8: one sentence: rebasing a CR's own branch and
   pushing it with `--force-with-lease` (any `chantier/*` branch, never the default branch, never a
   protected one, never a plain `--force`) is chantier's normal flow, pre-authorized; only a push
-  outside it reaches the user.
+  outside it reaches the user, and a push the host refuses even to the Chief of Staff (one
+  question).
 
 ### 3. The Driver's prompt names the action and its scope
 
@@ -223,15 +234,4 @@ Before the first push: `just check`, and `just eval-dry-run` (the change is unde
 
 ## Open questions
 
-1. **The host refuses the Chief of Staff's own push of a covered branch** (with the grant set, a
-   steering session's matching allow rule is documented to pass before the classifier, so this
-   should be rare). Today the Chief of Staff then asks the user one question and pushes once on
-   the yes. Q3 says only a protected or non-chantier branch goes to the user. Which: (a) keep the
-   one question (the host left no other route; the push needs the user's word to the host), or
-   (b) no question: the Chief of Staff tells the user, as information, the exact command and the
-   host's text, answers `push refused <branch>: <text>`, and the CR waits for the user to run it
-   or allow it?
-2. **A `chantier/*` branch that `handoff` does not tie to a CR of the running batch** (no CR
-   with that branch in the record). Q1 covers any `chantier/*` branch, but the judgement needs the
-   CR's base and gate. Keep it a hard refusal with no user question (today's `not a branch of
-   this batch`), or send it to the user like a non-chantier branch?
+None: Q6 and Q7 closed the two points the first version left open.
