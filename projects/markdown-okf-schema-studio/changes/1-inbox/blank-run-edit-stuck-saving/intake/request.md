@@ -1,0 +1,3 @@
+# Editing a blank-lines block gets stuck on Saving Markdown
+
+issue: https://github.com/gsemet/markdown-okf-schema-studio/issues/485 - After a line of text and 6 empty lines, the run shows as one blank-lines block (CR-444 design). Clicking it and typing text leaves the editor stuck on 'Saving Markdown...'; the text renders below but the editor never closes; neither Done nor Cancel recovers. Issue asks tests for blank-run segmentation, editing/saving a blank-only block, and the save state always leaving Saving.
