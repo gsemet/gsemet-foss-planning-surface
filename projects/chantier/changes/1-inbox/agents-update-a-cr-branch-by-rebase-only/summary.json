@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Agents update a CR branch by rebase only",
+  "summary": "In PRs chantier delivers, never a merge commit; agents rebase, ship refuses a merge commit.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "95a736165fac87a37911dcf64b51a3ea4cd6b735f59a62ed925d79870c43309d",
+    "02-answers.md": "676e2b1a568d10146f71a97112a29740d8e7bed567e0e063c24dc0ae1c802180",
+    "intake/request.md": "4123e6edfc46e2b5d64697258ce08d0058e1c39ffc40822e0e6e862aeb7f9b13"
+  },
+  "summarized": "2026-11-23T11:58:39Z"
+}

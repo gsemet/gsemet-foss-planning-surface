@@ -4,3 +4,5 @@ Short name: `rebase-only`
 2. rebase-only-Q2: **A branch that already holds a merge commit.** A. The Driver removes it itself by a rebase, then a protected force-push of the chantier branch.
 3. rebase-only-Q3: **A stack's CR updated on the CR below.** A. Yes, rebase only, on the CR below too.
 4. rebase-only-Q4: **How a project asks for another method.** Simplified, no project key for now. The user's words: "Pour l'instant on va simplifier: dans le PR que livre Chantier, jamais de merge commit, si ça arrive on rebase." So: in the PRs chantier delivers there is never a merge commit, with no project exception; when one appears, the branch is rebased. This replaces the exception part of Q1.
+5. rebase-only-Q5: **The CLI's check.** A. `ship` refuses a branch that holds a merge commit and says to rebase.
+6. rebase-only-Q6: **Grilled enough.** A. Specify, for the running batch batch-31 (4-batch/1-pending/).
