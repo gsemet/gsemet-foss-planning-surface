@@ -9,3 +9,5 @@ Short name: `pull-arrival`
 
 Destination: running batch batch-31.
 Spec critic: yes, default model (it changes what the server does and what the user sees).
+7. pull-arrival-Q6: **A move between backlog rows.** A. Yes: a pull that moves a CR from one backlog row to another (for example P2 to P1) notifies, as a move.
+8. pull-arrival-Q7: **A CR back from `3-ready`.** A. Yes, with the mention that it comes back from `3-ready`. (A CR back from `4-batch`, the archives or the trash is for the spec to settle in line with Q3: it is the owning Chief of Staff's own doing.)
