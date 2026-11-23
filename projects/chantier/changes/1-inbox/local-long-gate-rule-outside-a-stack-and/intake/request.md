@@ -1,0 +1,3 @@
+# Local long gate rule outside a stack, and ask the batch shape at open
+
+Batch-31 (parallel) had CR-467/468/469/470 handed back --no-gate on the AGENTS.md rule that the local Windows long gate is owed by the stack top only; a parallel batch has no stack, each PR lands alone on main, so the exemption did not apply and the Chief of Staff relayed it. Fix: say in AGENTS.md and the cards what the local gate rule means in a parallel and a series batch (each PR owes it, or none), and have the Chief of Staff ask the user the batch shape at open (CRs linked or not, shared files) instead of taking parallel by default. User words 2026-11-23: I should have told you to run in stack mode.
