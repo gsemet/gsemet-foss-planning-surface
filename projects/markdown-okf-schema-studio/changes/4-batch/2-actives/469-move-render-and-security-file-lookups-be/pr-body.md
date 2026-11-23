@@ -23,7 +23,7 @@ flowchart LR
 
 ## Impacts
 
-No visual change; same conf.py, toctree expansion and allowed/refused resources.
+No visual change; same conf.py, toctree expansion and allowed/refused resources. Render time of a small fixture rose by about 3 ms (median 7.6 ms to 10.4 ms over 15 runs) because lookups are now awaited one by one.
 
 ## Blast radius
 
@@ -34,6 +34,7 @@ Grade: 2. Shared render path became async; a revert restores the previous behavi
 - [x] New or changed tests (they fail on the previous code)
 - [x] Requirements: SwRS markers updated, `just requirements-update`
 - [x] Changelog: No user-facing change
-- [x] Local gates: compile, test:unit (4955), test:security (103), check-boundaries, check, preflight static stage
-- [ ] Review
-- [ ] CI green
+- [x] Local gates at 2d7152e: `just check` pass; test:unit 4965 and test:security 106 (104 pass, 2 skipped) per the verification; CI static, static-windows, viewer-graph and visual green at the same head
+- [x] Review (inspector approved each round)
+- [x] CI green at 2d7152e (static, static-windows, viewer-graph, visual, report)
+- [x] Verified at 2d7152e

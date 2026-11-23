@@ -31,18 +31,20 @@ Grade: 2. The shared `ProcessRunner` port and node runner change (detached child
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: SwRS updated (DIAG-089), markers kept, `just requirements-update`
-- [ ] Changelog: No user-facing change
-- [ ] Local gates: `just check`
-- [ ] Review
-- [ ] CI green
+- [x] New or changed tests: the fake-runner and node-runner tests need the new port (the previous code does not accept the fake), verified at 2a19650; a before-run on the old code was not made
+- [x] Requirements: SwRS updated (DIAG-089), markers kept, `just requirements-update`
+- [x] Changelog: No user-facing change
+- [x] Local gates at 2a19650: `just check` exit 0 (unit 4963 pass, 0 fail, 21 skipped; contracts 0 fail; boundaries clean)
+- [x] Review: approved at 2a19650 (code at 116f39d, rebase conflict change at 2a19650)
+- [x] Verified at 2a19650
+- [x] CI green at 2a19650: static, static-windows, visual, viewer-graph, report pass; heavy jobs skipped on a PR
 
 ## Known gaps
 
 - The POSIX-only runner tests (process-group kill, signal) are skipped on Windows; Linux CI runs them.
 - A stdin EPIPE now shows as "PlantUML exited with code N: <stderr>" instead of the raw "write EPIPE" (the runner ignores stdin errors).
 - Windows has no process-group kill (unchanged).
+- The new tests were not run against the previous code (they need the new port, which it does not accept), and there is no before/after evidence: the change has no visible output.
 
 ## Autonomous decisions
 
