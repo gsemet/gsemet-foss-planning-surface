@@ -40,3 +40,8 @@ Short name: `acceptance-paths`
 26. acceptance-paths-Q26: **Ids never reused.** A guideline in the documentation only; okfreq checks nothing.
 27. acceptance-paths-Q27: **Keyword.** `markers.accepts`, configurable, written by `okfreq init`.
 28. acceptance-paths-Q28: **Fragment syntax.** `#` glued to the ID; only `S<n>` is a scenario fragment; anything else is ignored as today (user chose B: "# collé à l'ID, le reste ignoré"). Reading: an unknown `S<n>` (e.g. `#S9` on a target that does not declare S9) stays an error (Q5); a non-`S<n>` suffix is not a fragment. To confirm in the spec.
+29. acceptance-paths-Q29: **JSON keys.** `accepted`, `scenario_markers` (in `trace --json`), `transitions` (on a SwRS record).
+30. acceptance-paths-Q30: **`tested_in_files`.** For a SwRS that declares transitions, it lists only the files with a marker that counts.
+31. acceptance-paths-Q31: **Finding codes.** `W003` only (live StRS with no declared path); errors carry no code. No `W004`: with Q19 a fragmentless `@tests_req StRS-X` counts when nothing is declared.
+32. acceptance-paths-Q32: **W003 doc link.** The stable URL `https://okf-schema.readthedocs.io/en/stable/reference/okfreq-frontmatter.html#okfreq-declared-scenarios`.
+33. acceptance-paths-Q33: **Heading reading for W003.** Every heading under `### Main paths` up to the next `###` (or the generated links block), plus `### Scenario…` headings; the title is the text after `Path <n>:` / `Scenario:`, else the whole heading.
