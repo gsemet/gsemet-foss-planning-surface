@@ -267,11 +267,26 @@ early on `finishing`. The Cancel button and Escape always close the editor:
 
 The table cell editor's Cancel (`cancelTableCellEdit`) follows the same rule.
 
+**What stands against this rule today**, and is changed in this CR:
+
+- `cancelBlockEdit` in `src/page/features/blockEditor.ts` returns early on `finishing`; that early
+  return goes.
+- The `if (edit.finishing) return;` guard at the top of `cancelTableCellEdit`
+  (`src/page/features/tableCellEditor.ts`, line 109, under the `@implements_req
+  SwRS-MDOKFSTUDIO-TABLE-025` marker) goes, so the cell editor's Cancel and Escape close it during a
+  final save too, with no `previewEditCancel` and no second final save.
+- The page test `Cancel and Escape are ignored while the final save is in flight`
+  (`test/page/blockReq.requirements.test.ts`, line 412, `@tests_req SwRS-MDOKFSTUDIO-BLOCK-053`)
+  asserts the old rule. It is rewritten to the new one (Evidence, "The save guard"), not deleted
+  and not kept as it is.
+- The verification notes of SwRS-MDOKFSTUDIO-BLOCK-053 name that test and hold the criterion
+  "cancelBlockEdit returns without a message when finishing is true". Both change (section 6).
+
 ### 6. Requirements, vocabulary and docs
 
 Follow the project's requirements guidelines: IDs come from `okfreq new`, markers move with the
 code, run `just requirements-update`, and add a dated entry in `requirements/tiers/log.md`. All of
-the following are in scope `block-editing`, except the frontmatter one.
+the following are in scope `block-editing`, except TABLE-025 and the frontmatter one.
 
 - **Update SwRS-MDOKFSTUDIO-BLOCK-266**: each shown blank line shows as one blank-line block.
   Between two blocks N lines give N−1 blocks; at the end of the body and at the top of a file
@@ -287,7 +302,15 @@ the following are in scope `block-editing`, except the frontmatter one.
 - **Update BLOCK-269**: Delete removes that one line, the separator stays, and the selection goes
   first to the blank-line block now in its place.
 - **Update BLOCK-053**: its refusal scenario "Cancel is ignored while the final save is in flight"
-  becomes "Cancel during a final save closes the editor and the save completes".
+  becomes "Cancel during a final save closes the editor and the save completes". Its verification
+  notes change with it:
+  - the Method line of `test/page/blockReq.requirements.test.ts` names the rewritten test (its new
+    title, for example `Cancel and Escape close the editor while the final save is in flight`);
+  - the criterion "cancelBlockEdit returns without a message when finishing is true" becomes
+    "cancelBlockEdit closes the editor without a message when finishing is true".
+- **Update TABLE-025** (scope `table-editing`) where it relies on the `finishing` guard of
+  `cancelTableCellEdit`: Escape and Cancel in a cell during a final save close the editor with no
+  message. Its verification notes name the test of "The save guard" for the table cell editor.
 - **Update BLOCK-004**: a scenario row for one stop per blank-line block.
 - **New SwRS (block-editing)**: "A block editor's final save always ends". The page shows an error
   and enables Done and Cancel again when no answer comes within the time limit, and a late answer
@@ -399,7 +422,13 @@ rule):**
   - a final save with no answer for `FINAL_SAVE_TIMEOUT_MS` shows the timeout message and clears
     `finishing`, and Done posts the final save again;
   - a content patch after the timeout still closes the editor;
-  - Cancel and Escape during "Saving…" close the editor and post no `previewEditCancel`;
+  - Cancel and Escape during "Saving…" close the editor and post no `previewEditCancel`. This is
+    the existing test `Cancel and Escape are ignored while the final save is in flight`
+    (`test/page/blockReq.requirements.test.ts`, line 412, `@tests_req SwRS-MDOKFSTUDIO-BLOCK-053`),
+    rewritten to the new rule and renamed; it fails on the code before the change;
+  - the same for a table cell editor: Cancel and Escape during its final save close it, which fails
+    while the `edit.finishing` guard of `cancelTableCellEdit`
+    (`src/page/features/tableCellEditor.ts`, line 109) is there;
   - Cancel with no save in flight behaves as BLOCK-053 says;
   - all of this holds for an ordinary paragraph editor and for a table cell editor.
 - **Frontmatter**: a field save with no result for the time limit shows the error and enables the
@@ -419,12 +448,21 @@ The scenario runs once in LF and once in CR LF:
 
 1. A file `Text.` followed by 6 blank lines. Edit mode shows 6 blank-line blocks.
 2. Click the first one, type `More` and press Done. Within the time limit the editor closes and
-   "Saving Markdown…" is gone. The file reads `Text.`, a blank line, `More`, then 4 blank lines,
-   with its line endings and final line break kept.
+   "Saving Markdown…" is gone. The file reads `Text.`, a blank line, `More`, then 5 blank lines
+   (the typed text replaces line 2 and adds a separator before it; lines 3 to 7 stay), with its
+   line endings and final line break kept. 5 blank-line blocks show after `More`.
 3. Three blank lines between two paragraphs: 2 blocks show. Select one with the arrows and press
    Delete: 2 blank lines are left. One Ctrl+Z brings the third back.
 4. Click a block, type a word, wait past the autosave and press Cancel: the blank lines are back
    byte for byte.
+
+**Save-to-patch time (measure for decision 6).** Nothing measures it today. In the integration
+run (real VS Code, LF), on the largest fixture of the visual and integration fixtures (the Driver
+names it by size), record the time from the page's final `previewEditSave` to the content patch
+that closes the editor, for an edit of one paragraph, five times. Report the slowest and the
+median next to `FINAL_SAVE_TIMEOUT_MS` in the pull request body. The value holds only when the
+slowest time is well under it (at most half); otherwise the Driver reports it, and the value goes
+back to the owner through the Chief of Staff, before the pull request is ready.
 
 **Requirements:** `just requirements-lint` and `just requirements-update` pass. The updated and new
 SwRS carry `@implements_req` / `@tests_req` markers at the code and tests above.
@@ -449,8 +487,12 @@ option most consistent with the answers, for the Chief of Staff to check:
 5. **Cancel during a final save closes the editor without a cancel**, and the save the writer asked
    for with Done completes. Reverting it would undo a Done the writer already pressed, and it could
    race the host's write.
-6. **The time limit is 10 seconds**, one named constant for block and frontmatter saves. It is long
-   enough for a slow render, and a late answer still closes the editor.
+6. **The time limit is 10 seconds**, one named constant for block and frontmatter saves. A late
+   answer still closes the editor, so a timeout that fires too early costs a message, not the
+   text. That 10 seconds is long enough for a slow render is **unproved**: nothing measures
+   save-to-patch time today. The nearby values are `CONTENT_PATCH_ACK_TIMEOUT_MS = 2_000` and
+   `PENDING_OVERLAY_DELAY_MS = 1_500` (`src/session/features/pageLoadState.ts`), which bound other
+   waits, not this one. The Evidence measures it ("Save-to-patch time").
 7. **The guard covers frontmatter saves too**, because Q6 says "every save".
 8. **The label is "Blank line"** with no count, since each block is one line.
 9. **Spec critic**: yes, on Fable (blank-save-Q8, owner's rule). The Chief of Staff runs it.
