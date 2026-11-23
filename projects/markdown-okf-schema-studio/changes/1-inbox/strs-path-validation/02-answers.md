@@ -31,3 +31,10 @@ Short name: `strs-validation`
 16. strs-validation-Q16: **Destination of the idea.** A: read-only audit first (step one of the CR), then the project CR, then the okf-schema feature request (forge-neutral), backed by the CR's real figures.
 
 Griller's findings, 2026-11-23: live SwRS = 443 (of 1051), with 2549 `### Scenario` headings (3907 in all); headings vary ("Scenario: Nominal", "Scenario (boundary): ...", "Scenario: Restricted Mode"). okfreq comes from the `okf-schema>=0.17.0` package (pyproject `requirements` group), not from this repository; its config knows two markers (`implements`, `tests`), and the frontmatter schema (`requirements/tiers/_schema/base.schema.yaml`) has `additionalProperties: false` in places. 14 live StRS are `approved` (approval_lock): changing them needs the owner's recorded agreement.
+
+## Series 5, 2026-11-23
+
+17. strs-validation-Q17: **Frontmatter shape.** Not settled; owner's words: "Il faudrait trouver une formulation qui soit utilisable pour les StRS sur les paths et les SwRS sur les scénarios". One shared declaration for StRS paths and SwRS scenarios; proposal in series 6.
+18. strs-validation-Q18: **SwRS scenarios.** A: declared in the same migration (scripted from the headings); the fragment on `@tests_req` stays optional: `@tests_req SwRS-X` with no fragment still covers the whole SwRS.
+19. strs-validation-Q19: **Counters.** B, two counters (the option's wording was unclear: its meaning is confirmed in series 6).
+20. strs-validation-Q20: **Order.** B: the okf-schema feature request first; the project CR waits for okfreq to support the marker and the declarations (reverses the order of Q16 for the CR; the audit's place is confirmed in series 6).
