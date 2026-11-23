@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Local long gate by batch shape; ask the shape when a batch opens",
-  "summary": "Specified: each PR of a parallel or series batch runs the local long gate (the stack's top only in a stack), the batch's-top rule leaves the cards and AGENTS.md says it by shape; the Chief of Staff asks the shape at open with a recommendation from file overlap. Two open questions.",
+  "summary": "Specified: each covered PR of a parallel or series batch runs the local long gate, the stack's top only in a stack (docs-only top too); cards follow a per-shape rule; the Chief of Staff asks the shape at open, docs updated; waits for the dynamic-port CR, lands before CR-471.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "86f355bb78eb42fda194af499d09b8b6f0bf7f918109c17f0d420435cb9a6de3",
-    "02-answers.md": "006bf266361e320c8a6df7ce129fbecb3dce2d2972a440491c315c7425779676",
-    "03-change-spec.md": "3141128e611d45db2f3884c786feda123c1781a0504018cc5f10ace02a84de74",
+    "02-answers.md": "5309d624f7cfff2777966e0ea5e3f17e0c36d2a24f764779c3deeebad0e5dc45",
+    "03-change-spec.md": "0221498876b4f48ad6125504d2a60c0d73fd58524e5862cbc0d1d4566adda092",
     "intake/request.md": "0280c04629838ebd90d92c2307e810a2929d2e38d145ee067595b6583a755cbb"
   },
-  "summarized": "2026-11-23T17:15:22Z"
+  "summarized": "2026-11-23T18:44:17Z"
 }
