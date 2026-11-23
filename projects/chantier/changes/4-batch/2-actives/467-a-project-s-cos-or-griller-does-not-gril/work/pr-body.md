@@ -24,7 +24,7 @@ Grade: 1. Wording in three cards and five test entries; a `git revert` restores 
 
 ## Known gaps
 
-None
+- The long gate `just scenario` run locally on Windows at 0ec62a9 fails twice on one check, "`webui` on a running server prints `board already running at <link>`" (surface-board). This PR changes cards and a test list only; the same job passes on ubuntu-latest in CI at this head. Not investigated here.
 
 <details>
 <summary>Details</summary>
@@ -46,12 +46,12 @@ No visual change. Sessions of a multi-project surface stop offering to grill ano
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`:
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests: five startup-manifest entries that read the shipped cards (they fail on the previous cards)
+- [x] Local gates at `0ec62a9`: `just check` pass; `just scenario` on Windows FAIL (see Known gaps)
+- [x] Evidence: cards only, no visual change; phrases proved by the Verifier at `0ec62a9`
+- [x] Review: approved at `0ec62a9` (carried from `6aa63f2` for round 1)
+- [ ] Verified at `0ec62a9`
+- [x] CI green at `0ec62a9`: `gh pr checks 444`, every check pass
 
 ## Internal references
 
