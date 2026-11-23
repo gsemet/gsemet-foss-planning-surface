@@ -57,7 +57,7 @@ No visual change: the editor closes where it used to hang.
 
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
-- [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
+- [ ] Changelog: one user-facing line added under `## Unreleased` in `CHANGELOG.md`
 - [ ] Local gates: <!-- filled before the first push -->
 - [ ] Review
 - [ ] CI green
