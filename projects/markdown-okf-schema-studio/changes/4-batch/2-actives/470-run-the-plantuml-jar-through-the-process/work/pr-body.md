@@ -18,7 +18,7 @@ flowchart LR
 - `plantUmlRenderer.ts` spawns the jar via `processes.run` and stats via `files.stat`; new `plantUmlHost.ts` holds the structural ports (core cannot import `host-api`).
 - `session/features/plantUml.ts` picks the builtin engine when `capabilities.processes` is false.
 - `ProcessOptions` gets a bounded-output option (early kill, as the renderer had); `ProcessResult.signal` added; the node runner reports it and kills the process group on POSIX.
-- `NODE_DEBT` entry of the renderer keeps only `path`.
+- The renderer imports `../path/hostPath` and no `node:path`, so its `NODE_DEBT` entry is removed.
 - Tests on a fake `ProcessRunner` (jar run, jar missing, no processes capability) and on the node runner; DIAG-089 gains a scenario.
 
 ## Impacts
