@@ -1,0 +1,3 @@
+# session-start split: fix citation, re-read moment, move table
+
+Follow-up of CR-470 (PR 447, merged before the Fable reading findings were fixed). Fix: hosts/copilot.md:43 still cites session-start.md for the no-background-command line, now only in session-start-chief-of-staff.md (The board). The role files and titles.md say read at the start and when the role changes, the old header also said at each skill invocation: restore it. The PR table of moves does not quote each instruction first words and omits the no-seat rewording row. forges/github.md repeats PR (pull request) three times. Note: Griller card and titles.md are reached by prose only (spec Q8).
