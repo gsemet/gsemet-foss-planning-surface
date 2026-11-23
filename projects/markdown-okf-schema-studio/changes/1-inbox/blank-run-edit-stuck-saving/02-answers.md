@@ -38,5 +38,19 @@ Spec critic (Fable), 2026-11-23: 7 points, 3 fixes applied by the spec-writer wi
 13. blank-save-Q11: Owner's words: "Je ne comprends pas les new line dans le frontmatter ça ne devrait
     pas être dans le scope". The question was about blank lines in the body right after the
     frontmatter, not inside it; asked again as Q13.
+14. blank-save-Q12: **Per-line blocks everywhere** (owner, option A): inside lists, quotes,
+    admonitions, definitions and footnotes too; their indent and sibling rules stay.
+15. blank-save-Q13: **N blocks** (owner, option A): a body that holds nothing but N blank lines after
+    the frontmatter's closing `---` shows N blank-line blocks, like the end of a file. Nothing inside
+    the frontmatter changes.
+16. blank-save-Q14: **Cancel during "Saving…" closes the editor and the save goes on** (owner,
+    option A); the text is kept.
+17. blank-save-Q15: **10 seconds, checked by a measure** (owner, option A): the Driver measures
+    save-to-render time on the largest fixture and comes back through the Chief of Staff if the slowest
+    is over half the limit.
+18. The split (Q8), done by the Chief of Staff 2026-11-23: this CR keeps part A (the #485 hang fix,
+    the `issue:` line, closes the issue). Part B (general save guard: Q6, Q9, Q10, Q14, Q15) and part C
+    (one block per blank line: Q1, Q2, Q5, Q7, Q12, Q13) are filed as two CRs of their own, B after A
+    and C after B in the stack.
 
 Destination: running batch-09
