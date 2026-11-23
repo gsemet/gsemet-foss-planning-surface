@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Own CR branches: rebase and force-with-lease pre-authorized",
-  "summary": "Specified: P10 adds git rebase allow rules beside the force-with-lease ones; the Chief of Staff answers any chantier/* push itself, only non-chantier, default or protected branches and a host refusal of its own push reach the user; each Driver's prompt gets a Rewrites: scope line.",
+  "summary": "Specified: P10 adds narrow rebase allow rules naming the base; a refused rebase or force push of a chantier/* branch climbs the steering ladder, the user asked only if the host refuses the Chief of Staff; other branches are never pushed; Driver prompts get a Rewrites: line.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "8d57641b5d9a5d25f103db0ef0b8f70270acd39f4ff2a93822eed3ecf0c3ffe5",
-    "02-answers.md": "cb56c85a83685c8e1ed82e7408273d488ce49be3650ef7b835cea5121f0d15f6",
-    "03-change-spec.md": "00a49393df90e53d5971a54308b3470bb52a60a19e7ea66f0aed3b78fea09645",
+    "02-answers.md": "8a3843cb0b33cef8899a89ad4dfe971ee1ba3765bc38aed2a9a36687150bda63",
+    "03-change-spec.md": "2ea3e2d271f76458cd9dc966197ffcd8d78596859b6fbd12a8b5cf206afff0c8",
     "intake/request.md": "2ad004076306e27013cf99c4839d281ca5afb23dee5849be6f8405a30fbf4fa3"
   },
-  "summarized": "2026-11-23T12:15:55Z"
+  "summarized": "2026-11-23T12:21:22Z"
 }
