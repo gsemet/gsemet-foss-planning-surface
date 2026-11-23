@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Remove the opening watcher: the raw text stays text (1.12.1)",
+  "summary": "Specified, with 5 open questions for the owner: remove the opening watcher and its two settings so a text tab is never replaced by Studio, go back to the native editor association and restore it silently for users who had the setting on; side preview jump marker and Open as Text stay.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "971cf43d54d7da73e4aaa0239d9129d3094d3bf48fab308c5206c0db554f1d31",
+    "02-answers.md": "08a7e7867c4779f1bd9f28774e3084a0d4c3552bd9f39a1352145734cb390dfb",
+    "03-change-spec.md": "480176b48ddc86b24d348f95d31e9b5416bee7c0444c5233f4152c3b68811a9f",
+    "intake/request.md": "3dfa53dba81b990c6dd07152b0b31925a2b60cf25b43240546cd4c759ad6c938"
+  },
+  "summarized": "2026-11-23T15:01:13Z"
+}
