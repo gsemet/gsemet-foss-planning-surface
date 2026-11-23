@@ -1,0 +1,3 @@
+# Copy a selection as the exact raw Markdown under it
+
+Owner, 2026-11-23: 'quand je sélectionne du texte ça copie pas exactement le texte dessous (par exemple les triple tirets ou des tables etc). Le but c'est que du point de départ au point en dessous le texte brut y compris le formatage est conservé.' Expected: copying a selection in Studio puts on the clipboard the raw Markdown source from the source position under the selection's start to the one under its end, formatting included (thematic breaks ---, tables, and the rest). Priority P1.

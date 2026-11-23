@@ -23,3 +23,6 @@ Grilled with the owner on 2026-11-23 (bug day, batch-09).
 8. raw-text-Q8 (migration): **put the association back.** On the first activation of 1.12.1, a user
    whose `open.markdownFilesInStudio` is on gets the `*.md` → Studio entry back in
    `workbench.editorAssociations`, and the setting is removed, without a question.
+9. raw-text-Q9 (release path): **everything in 1.12.1.** The batch's release waits for CR-475 and
+   CR-476 and ships the three CRs together, later today; this CR joins batch-09's stack, released
+   with them. The release CR is `release-1-12-1`.
