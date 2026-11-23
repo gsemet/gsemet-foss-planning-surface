@@ -1,14 +1,15 @@
 {
   "schema": 1,
-  "title": "chantier live in Rich: tables, dates, Ready and Agents boxes",
-  "summary": "Rich rendering of live with local date and time, a t hotkey, an Agents box and a Ready box read from the server API.",
+  "title": "chantier live: Rich tables, local dates, Agents and Ready boxes",
+  "summary": "Specified: live drawn with Rich tables and colours, Flow lines with local date and time and a t key for time since, an Agents box of the active sessions, a Ready box of PRs read from the server's prs topic; two open questions.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "bd5a32b5c187fc30c7b9c307929dac8c61c6625f4d9b70804173db2c1d3c61c3",
-    "02-answers.md": "57dfd71a2c905172813e142847236f1be79345f6e41dbbd8b53815f154f0856d",
+    "02-answers.md": "7a10e0d06ec4c1dd65a888a480f146fd11a2dbf5f05331354ed8c218c3c21fb4",
+    "03-change-spec.md": "271c9226366ea3c57aea40fc241201d6644498646ec401fee2d0d68ffead520d",
     "intake/request.md": "868c81fc29dcef2f1752c7ed26fec6109a433543f39534f906af5c76e42a8314"
   },
-  "summarized": "2026-11-23T12:20:28Z"
+  "summarized": "2026-11-23T12:29:42Z"
 }
