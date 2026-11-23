@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "No edit stays on Saving Markdown for good",
+  "summary": "Specified, tests only: every block, cell and frontmatter save ends; Cancel and Escape close during a save, which goes on; on failure or outside change the editor keeps or regains the text, else VS Code offers Copy text; gestures wait; fixes the no-op frontmatter hang.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "db39b555e5a62aeb084a8946c1dd440ceda4e4b8278f433e66a1e33910fab7f0",
+    "02-answers.md": "a79b3886dba604a69f48dfa01a4e1b3d2c737a47994e9d48c89437847f5866ab",
+    "03-change-spec.md": "5ddb7036ce53824718ce22822442e79ec4fe9224ce8a1f373e4c3c6ee0a4db01",
+    "intake/request.md": "bd00575bdd598d8a3eec1b2e1f90d919e6dc2cc5f4be328efa31da7b6c3dd45c"
+  },
+  "summarized": "2026-11-23T13:35:06Z"
+}

@@ -4,8 +4,9 @@ Tests prove that every save of a block editor, a table cell editor or a frontmat
 in the rendered result or in a shown error. Each hang the tests find is a bug, and this CR fixes
 it. Cancel and Escape always close a block or cell editor, even while it shows "Saving
 Markdown…". The save already asked for with Done goes on, and its text is kept. If that save then
-fails, or the file changes outside the preview before it is written, the editor reopens with the
-typed text and the reason. There is no time limit, no timeout message and no retry.
+fails, or the file changes outside the preview before it is written, the editor stays open or
+reopens with the typed text and the reason. If the page cannot show it, VS Code offers to copy the
+text. There is no time limit, no timeout message and no retry.
 
 Short name: `save-guard`. Destination: the running batch-09, in its stack.
 
@@ -45,6 +46,11 @@ The owner's answers (`02-answers.md`):
 - **The other edit gestures do nothing until the save ends** (save-guard-Q15), as today while
   "Saving Markdown…" shows. These are a block move, a delete, a paste, a checkbox, a row or
   list-item drag (with its own `previewEditOpen`), a file drop and a replace.
+- **Without Cancel, an editor on "Saving…" whose file changes outside the preview stays open**
+  with the typed text and the "file changed" message, as in Q13 (save-guard-Q16).
+- **A failure the page cannot show** (the page was reloaded, so it has no record and answers
+  `reopened: false`): the host shows a VS Code message with a "Copy text" action that puts the
+  unsaved text on the clipboard; nothing is lost (save-guard-Q17).
 
 The Chief of Staff's decisions on the first specification's critic findings:
 
@@ -169,7 +175,9 @@ The host side is `src/session/features/blockEdits.ts` and the lock is
   the page editor (`releaseHostEditKeepingEditor`).
 - **Outside change.**
   - While a final save is requested or text is pending, `trackOutsideChange` returns false. The
-    caller in `hostEvents.ts` then releases the edit without writing that text, and renders.
+    caller in `hostEvents.ts` (lines 332 to 343) then releases the edit without writing that text
+    (`releaseActiveBlockEdit(session, true)`), and renders. The editor still open on "Saving…"
+    closes on the patch, and its text is lost.
   - With nothing pending, a conflicting change posts "The source block changed outside the
     preview while it was being edited. Copy your text, then reopen the block." It keeps the page
     editor open (BLOCK-191).
@@ -180,6 +188,10 @@ The host side is `src/session/features/blockEdits.ts` and the lock is
 - **Renders and reloads.** Render results wait while `pageEditorId` is set (`shouldDeferResult`,
   STAB-03). A full reload waits while `held` or `pageEditorId` is set (`shouldDeferReload`). A
   full page replacement clears `edits.active`.
+- **Notifications and clipboard.** The `HostUi` port (`src/host-api/hostUi.ts`) offers
+  `showInformation`, `showWarning` and `showError` with a message only (no action buttons), and
+  `writeClipboard`. Only `src/host-vscode/vscodeHost.ts` calls `vscode.window`; the session tests
+  use a fake `HostUi` (`test/session/blockFixture.ts`).
 - **Test hook.** `holdEditSourcesForTests` (`src/host-vscode/testHooks.ts`) holds the sources of
   opened editors back.
 
@@ -349,11 +361,12 @@ All in `blockEdits.ts`; the lock's API goes in `editLock.ts` if a method is need
   - on success, the held open is handled with its usual checks;
   - on a failure, it is refused with that same error, since the failed editor reopens.
 
-### 4. A detached save that fails, or meets an outside change, reopens its editor (Q10, Q13)
+### 4. A final save that fails or meets an outside change keeps its text on screen (Q10, Q13, Q16, Q17)
 
-The rule: the editor reopens on that block, with the text the writer typed and the reason in its
-status line. That is the state an editor is in today after a refused final save (BLOCK-216).
-Nothing is lost, and no VS Code warning is shown.
+The rule: the editor stays open, or reopens, on that block, with the text the writer typed and the
+reason in its status line. That is the state an editor is in today after a refused final save
+(BLOCK-216). Nothing is lost. No VS Code message is shown, except when the page cannot show the
+text (Q17, below).
 
 **How the page learns of it.** The host tells it with a `previewEditSource` that names the
 `editId` and carries `error` and a new optional field `unsavedText`: the final text the host did
@@ -364,13 +377,27 @@ host adds it to every error answer to a final save:
   the page's Cancel reaches the host;
 - an apply failure or rejection in `drainActiveBlockEdit`: the text being applied;
 - the drain's "source block changed" refusal: the same;
-- **an outside change while a detached edit has a final save requested or text pending**
-  (save-guard-Q13). In `hostEvents.ts`, instead of a silent release and render, the host:
-  - posts the error "The file changed outside the preview before your text was saved. Copy your
-    text, then reopen the block." with `unsavedText` (the pending or last final text);
-  - releases the host edit keeping the page editor (`releaseHostEditKeepingEditor`), as the
-    conflict path of `trackOutsideChange` does today;
-  - lets the render wait for the reopened editor.
+- an outside change while a final save is requested or text is pending (below).
+
+**An outside change while a final save waits** (save-guard-Q13 for a detached edit, Q16 for an
+editor still open on "Saving…"). In `hostEvents.ts`, instead of today's silent release and
+render, the host:
+
+- posts the error "The file changed outside the preview before your text was saved. Copy your
+  text, then reopen the block." with `unsavedText` (the pending or last final text), for the
+  edit's `editId`;
+- releases the host edit keeping the page editor (`releaseHostEditKeepingEditor`), as the
+  conflict path of `trackOutsideChange` does today, so the text is not written;
+- keeps `pageEditorId` set to that `editId` (it still is for an open editor; it is recorded again
+  for a detached one), so the render waits for the editor.
+
+For an editor still open (Q16), the page needs nothing new: it receives the error for its open
+`editId`, so today's error answer applies (BLOCK-216). The editor stays open, `finishing` becomes
+false, the text box keeps the typed text, the status shows the message, and the pending
+navigation is cleared. The page posts no `previewEditReopen` for it. From there the writer is
+where today's conflict message leaves them: a retry may meet the stale refusal, and Cancel or
+Escape closes the editor, which releases the waiting render. For a detached edit (Q13), the page
+reopens the editor as below.
 
 **The page's answer: a positive signal.** On an error answer carrying `unsavedText` for an
 `editId` it has no open editor for, the page always answers with a new page-to-host message
@@ -389,16 +416,27 @@ host adds it to every error answer to a final save:
   outside change.
 
 It also records the `editId` as `pageEditorId` again (`lock.openPageEditor`), so renders and
-reloads wait. This is also what happens when the page's `previewEditClosed` arrives after the host
+reloads wait, and it keeps the `unsavedText` it sent, keyed by that `editId`, until the page
+answers. This is also what happens when the page's `previewEditClosed` arrives after the host
 already answered that final save with an error (the Cancel crossed the error): the close does not
 detach the edit, and the host waits for `previewEditReopen`.
 
 - On `reopened: true`, the host sets `watchedPageEditorId` to that `editId`: the reopened editor
-  has `reportClose` set and reports its close like any watched editor. It then behaves as today
-  after a failure.
-- On `reopened: false`, the host closes the page editor and releases the edit
-  (`releaseActiveBlockEdit(preview, true)`), and renders. The text that was not written is not in
-  the file (see open question 2).
+  has `reportClose` set and reports its close like any watched editor. It forgets the kept text
+  and then behaves as today after a failure.
+- On `reopened: false` (save-guard-Q17), the host closes the page editor and releases the edit
+  (`releaseActiveBlockEdit(preview, true)`), and renders. It also shows a VS Code warning with a
+  **"Copy text"** action, for example "Your Markdown edit to <file name> could not be saved, and
+  the preview could not show it again: <reason>". When the writer picks "Copy text", the host
+  puts the kept `unsavedText` on the clipboard (`HostUi.writeClipboard`). Dismissing the message
+  writes nothing. The host then forgets the kept text.
+
+**The action button goes through the `HostUi` port.** `showWarning` takes no actions today. Add
+optional action labels to it, for example `showWarning(message: string, ...actions: string[]):
+PromiseLike<string | undefined>` resolving to the chosen label, implemented in
+`src/host-vscode/vscodeHost.ts` (the one place that calls `vscode.window.showWarningMessage`) and
+in every fake `HostUi` of the tests. The session code calls only the port; no `vscode` call is
+added outside `src/host-vscode`. Existing callers pass no actions and are unchanged.
 
 **The page's reopen.** On that error for `detachedSave.editId`:
 
@@ -450,12 +488,16 @@ editor opens (section 2), so the reopen never meets one.
   - The Driver first proves the hang with a failing test. If a no-op apply does fire a document
     change in the test host and the hang does not reproduce, the Driver reports it. The fix is
     then kept only if the real VS Code apply behaves as `applyWrittenEdits` says.
+- **The outside change during "Saving…" loses the typed text** (save-guard-Q16). Today the host
+  releases the edit without writing the queued text and renders, and the patch closes the editor.
+  Fixed by section 4.
 
 **Rules the new Cancel makes necessary** (no failing case exists before the change, because Cancel
 did nothing during a save; the checks fail before only because the editor does not close):
 
 - a detached edit that fails or meets an outside change gets its editor back (section 4).
   Without that, its text would be lost and its held edit would refuse every later open;
+- a failure the page cannot show offers the text through "Copy text" (section 4, Q17);
 - a detached edit always gets an answer naming its `editId`, and `onReady` does not release it
   (section 3);
 - releasing a detached edit does not clear a newer page editor's lock (section 3).
@@ -469,7 +511,7 @@ did nothing during a save; the checks fail before only because the editor does n
   render (`setStatus` replaces the page);
 - a hidden panel renders when shown (`renderIfDirty`);
 - a patch never acknowledged gives a reload (`armContentPatchFallback`);
-- an outside change releases the edit and renders;
+- an outside change gives an error answer (section 4);
 - a document switch: `forgetPage`, and the new document replaces the page;
 - the blank-lines editor's patch is closed by part A;
 - frontmatter: an error answer, a content patch or a full replacement end the field editor.
@@ -496,10 +538,11 @@ while a detached save is in flight (section 2).
   - Its assertion's intent changes because the owner changed the rule (save-guard-Q4), and the
     commit says so.
   - Its second half (Escape before any save cancels as usual) stays.
-- The host's silent release on an outside change, for a detached edit only (section 4,
-  save-guard-Q13). Any test that asserts it for that case changes with the rule and is named in
-  the commit.
+- The host's silent release and render on an outside change while a final save is requested or
+  text is pending (section 4, save-guard-Q13 and Q16). Any test that asserts it changes with the
+  rule and is named in the commit.
 - The host posts `done` only when nothing renders; for a detached edit it now always posts it.
+- `HostUi.showWarning` gains optional actions; its fakes in the tests follow.
 - Any other existing test that asserts that Cancel or Escape does nothing during "Saving…" (the
   Driver finds them with `just check`) is handled the same way, and each one is named in the
   commit.
@@ -524,9 +567,12 @@ Follow the project's requirements guidelines (IDs from `okfreq new`, markers mov
     returns without a message when finishing is true" becomes "cancelBlockEdit closes the editor
     with previewEditClosed and no previewEditCancel when finishing is true". Add the session
     tests of section 3.
-- **SwRS-MDOKFSTUDIO-BLOCK-216** (a refused open or save keeps the typed text and says why): a
-  scenario "A save that fails after Cancel, or meets a change of the file, reopens the editor with
-  the typed text and the reason". It includes the dropped clicks.
+- **SwRS-MDOKFSTUDIO-BLOCK-216** (a refused open or save keeps the typed text and says why):
+  - a scenario "A save that fails after Cancel, or meets a change of the file, reopens the editor
+    with the typed text and the reason". It includes the dropped clicks;
+  - a scenario "A change of the file while the editor saves keeps the editor open with the typed
+    text and the reason" (Q16);
+  - a scenario "A failure the preview cannot show offers the text to copy" (Q17).
 - **SwRS-MDOKFSTUDIO-TABLE-025** (table-editing): a scenario "Escape or Cancel in a cell during a
   final save closes the editor with no message". It includes a cell left earlier, a Tab-added row
   and the focus outside the cell editor. Add its test to the verification notes.
@@ -537,7 +583,10 @@ Follow the project's requirements guidelines (IDs from `okfreq new`, markers mov
   - a newer editor's lock kept;
   - a failure or an outside change keeping the page editor lock until the page confirms the
     reopen;
-  - the release on `reopened: false`.
+  - on `reopened: false`, the release and the "Copy text" message.
+
+  And a scenario "An outside change during a final save keeps the text unwritten and the editor
+  open" (Q16).
 - **New SwRS** (block-editing), title for example "Every final save of a block or cell editor
   ends": each save path listed in section 5 ends in a closed editor or a shown error. It derives
   from StRS-MDOKFSTUDIO-BLOCK-006 and depends on BLOCK-216, BLOCK-263 and BLOCK-191.
@@ -554,8 +603,8 @@ Follow the project's requirements guidelines (IDs from `okfreq new`, markers mov
     opens when it ends, and is dropped if it fails" (save-guard-Q14).
 - **StRS-MDOKFSTUDIO-BLOCK-006** (`proposed`): its wording changes with the code, with no
   re-approval. "Cancel or Escape as restoring the block" gets the nuance "or, once Done was
-  pressed, as closing the editor while the save completes, the editor coming back with the text if
-  that save cannot be written".
+  pressed, as closing the editor while the save completes; if that save cannot be written, the
+  typed text comes back in the editor, or is offered to copy".
 - **SwRS-MDOKFSTUDIO-BLOCK-047**: no change. Its boundary scenario "A second final save is
   refused while the first is in flight" stays true, because there is no retry and nothing posts
   a second final save. The first specification's changes to it are dropped.
@@ -586,8 +635,9 @@ Follow the project's requirements guidelines (IDs from `okfreq new`, markers mov
   `src/page/features/detachedSave.ts`.
 - `test/page/runtimeFrontmatterEditor.test.ts` is 1 396 lines (limit 1 500): new frontmatter tests
   go in a new file, not there.
-- `src/session/features/blockEdits.ts` (729): the detached-edit handling goes in a small module
-  beside it, for example `src/session/features/detachedEdits.ts`, if it would pass its limit.
+- `src/session/features/blockEdits.ts` (729): the detached-edit handling, the kept unsaved text
+  and the "Copy text" message go in a small module beside it, for example
+  `src/session/features/detachedEdits.ts`, if they would pass its limit.
 
 ## Out of scope
 
@@ -600,9 +650,8 @@ Follow the project's requirements guidelines (IDs from `okfreq new`, markers mov
 - An autosave that fails while the final save is queued. It ends in an error, not in "Saving…";
   pressing Done again may then meet a "source block changed" refusal. It is noted here, not
   changed.
-- An outside change while an editor is **still open** on "Saving Markdown…" (not cancelled). The
-  host releases the edit without writing the queued text, and the patch closes the editor; this
-  is today's behaviour. Q13 covers the cancelled save only (open question 1).
+- Merging the typed text into a file changed outside: the writer copies it and reopens the block,
+  as today's conflict message says.
 - The release notes, written when the release is prepared.
 
 ## Evidence
@@ -618,9 +667,10 @@ Markdown…" shows), then send one of these answers:
 
 1. a content patch: the editor is closed;
 2. `previewEditSource` `done: true`: the editor is closed;
-3. an error answer (each host refusal text of `handleEditSave`, and "VS Code could not apply the
-   Markdown edit."): the editor is open, `finishing` is false, the error shows and the text is
-   kept;
+3. an error answer (each host refusal text of `handleEditSave`, "VS Code could not apply the
+   Markdown edit.", and the "file changed outside the preview" text with `unsavedText`): the
+   editor is open, `finishing` is false, the error shows, the text is kept, and no
+   `previewEditReopen` is posted;
 4. a full page replacement: no editor;
 5. the move chord, the arrow and Tab navigation, a Tab-added row and a click on another block,
    each followed by `done` or a patch: the editor closes, and the pending navigation then opens
@@ -726,9 +776,10 @@ key rename and a field action (add and remove):
     render result of the detached save waits for it.
 - **Failure** (Q10): as in (b), with the apply failing, and in another run rejecting.
   - The page gets `previewEditSource` with the `error`, the `editId` and `unsavedText` equal to
-    the final text; no VS Code warning is shown.
+    the final text; no VS Code message is shown.
   - `pageEditorId` is that `editId` again, so a render waits.
-  - After `previewEditReopen` with `reopened: true`, `watchedPageEditorId` is that `editId`.
+  - After `previewEditReopen` with `reopened: true`, `watchedPageEditorId` is that `editId`, and
+    no VS Code message is shown.
 - **Retry after a reopen**: after that failure and the reopen, M2 from page check 15 is accepted
   against the held edit (no "stale" refusal) and written.
 - **Refusal crossing the close**: a final save refused by `handleEditSave`, then
@@ -736,17 +787,32 @@ key rename and a field action (add and remove):
   - The refusal carries `unsavedText`.
   - The close does not detach anything and does not clear `pageEditorId`.
   - After `previewEditReopen` with `reopened: true`, M2 is handled as today after a refusal.
-- **The failure meets a page with no record**: after a failure, `previewEditReopen` with
-  `reopened: false`. The edit is released, `pageEditorId` is cleared, the render runs, and a
-  later `previewEditOpen` at the rendered revision is accepted.
+- **The failure meets a page with no record** (Q17): after a failure, `previewEditReopen` with
+  `reopened: false`.
+  - The edit is released, `pageEditorId` is cleared, the render runs, and a later
+    `previewEditOpen` at the rendered revision is accepted.
+  - The fake `HostUi` records one warning that names the file and offers the "Copy text" action.
+  - When the fake picks "Copy text", `writeClipboard` receives the `unsavedText` exactly. In
+    another run it dismisses the message, and `writeClipboard` is not called.
+  - The same holds after an outside change met by `reopened: false`.
 - **Source block changed**: the drain's refusal of a detached edit carries `unsavedText`, and
   `pageEditorId` is that `editId` again.
-- **Outside change** (Q13): a detached edit with its final save queued (the apply held back). A
-  change of the document from outside the preview gives the "file changed" error with
+- **Outside change, detached** (Q13): a detached edit with its final save queued (the apply held
+  back). A change of the document from outside the preview gives the "file changed" error with
   `unsavedText`. The edit's text is not written, `pageEditorId` is that `editId`, and the render
   waits for the page's answer. Before the change: a silent release and render (this check fails).
+- **Outside change, editor still open** (Q16): the same, with no `previewEditClosed` (the page
+  editor still on "Saving…"). The page gets the "file changed" error with `unsavedText` for its
+  `editId`; the text is not written; `pageEditorId` stays that `editId` and the render waits; no
+  VS Code message is shown. After `previewEditClosed` for it, the render runs. Before the change:
+  a silent release and render, and no error (this check fails).
 - `previewEditClosed` after a `previewEditCancel` (an edit with `cancelRequested`) still restores
   the original text: the detached rule does not apply (before and after).
+
+**Host port** (the `vscodeHost.ts` adapter, in its existing unit tests if any, otherwise checked
+through the real VS Code run): `showWarning` with actions passes them to
+`vscode.window.showWarningMessage` and resolves to the chosen label; without actions it behaves
+as today.
 
 **Protocol** (the protocol tests of `hostToPage.ts` and `pageToHost.ts`):
 
@@ -793,8 +859,9 @@ Technical choices the answers leave to the specification, for the Chief of Staff
    ignoring a close.
 5. **The host sends the unsaved text** (`unsavedText` on every error answer to a final save). The
    page's record is the fallback.
-6. **The outside change (Q13) reuses today's conflict path**: an error that tells the writer to
-   copy the text, the host edit released, and the page editor kept.
+6. **The outside change (Q13, Q16) reuses today's conflict path**: an error that tells the writer
+   to copy the text, the host edit released, and the page editor kept. For an open editor the page
+   needs no change.
 7. **One `editInFlight()` helper** guards every edit gesture, for the open editor and the detached
    save alike (Q15).
 8. **H1 is fixed on the host** with `unchanged: true`, rather than by a YAML-normalising check on
@@ -802,14 +869,10 @@ Technical choices the answers leave to the specification, for the Chief of Staff
 9. **The `detached` flag applies only to an edit that is not `cancelRequested`**, so today's
    Cancel before Done (restore) is untouched.
 10. **The new texts are bounded at 20 MB**, the content patch's bound, and validated.
+11. **The "Copy text" message (Q17) is a warning through `HostUi.showWarning` with optional
+    actions**, and the host keeps the unsaved text only until the page answers
+    `previewEditReopen`. Its wording names the file and the reason.
 
 ## Open questions
 
-1. **An outside change while the editor is still open on "Saving…".** Q13 reopens a cancelled
-   save's editor when the file changes outside the preview. The same change while the writer did
-   not cancel still loses the queued text today: the editor closes on the new render. Should that
-   case also keep the editor open with the typed text and the "file changed" message?
-2. **A failure the page cannot show.** If the page was reloaded between the Cancel and a failure
-   (so it holds no record), the text that was not written is not in the file, and no editor can
-   show it. Is that acceptable for this rare case, or should the host then show the text some
-   other way (for example a VS Code message with a copy action)?
+None. Q10 to Q17 answered every behaviour question this specification raised.
