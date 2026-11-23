@@ -14,3 +14,7 @@ Verdict: VERIFIED (real-window step UNVERIFIED, stated in the PR's Known gaps)
 6. UNVERIFIED: real-VS Code step test/integration/detachedSaveWindow.ts never ran (heavy run stops at preview-smoke, also red on main). No real VS Code locally. Stated in Known gaps, so it does not alone change the verdict.
 
 No before/after images: no UI capture; before-after evidence not captured (no real window available).
+
+## Description pass at 8aeae06bb16554aa77c93c80c3da1ce3ef06c9d4
+
+Command: gh pr view 492 --json body; git diff origin/main...HEAD; chantier log 475. Result: VERIFIED. No internal reference outside the last section; proofs carry SHAs (8aeae06, 466a9c0 with the log note of the approval at 466a9c06 and the clean-rebase carry); the UNVERIFIED real-window claim, the missing changelog PR number, the render-never-arrives gap and the 44 of 95 note each have a Known gaps bullet (44 of 95 matches the Driver note of the base run); Summary, Deliverables and Changes match the diff (protocol messages, HostUi.showWarning actions, MAX_PAGE_TEXT_LENGTH shared, unchanged frontmatter answer). Minor, not failing: the test-only hook holdBlockEditAppliesForTests is not named in Changes.
