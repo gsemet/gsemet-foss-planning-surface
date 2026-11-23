@@ -20,7 +20,8 @@ No user-facing change.
 
 ## Known gaps
 
-- No node runner unit test yet for the process-group kill and `signal`.
+- The POSIX-only runner tests (process-group kill, signal) are skipped on Windows; Linux CI runs them.
+- A stdin EPIPE now shows as "PlantUML exited with code N: <stderr>" instead of the raw "write EPIPE" (the runner ignores stdin errors).
 - Windows has no process-group kill (unchanged).
 
 ## Autonomous decisions

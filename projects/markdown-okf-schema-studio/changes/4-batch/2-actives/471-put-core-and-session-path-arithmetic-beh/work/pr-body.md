@@ -49,9 +49,10 @@ Grade: 1
 - [x] New or changed tests: `hostPath.test.ts` pins the Windows semantics; no behaviour change
 - [x] Requirements: No behaviour change
 - [x] Changelog: No user-facing change
-- [x] Local gates: `just dev`, `just check`, `just requirements-update` and `just check-markers` pass; `just check-boundaries` fails as intended on a probe `node:path` import in core and in session, and passes once it is removed (details in the round notes)
-- [ ] Review
-- [ ] CI green
+- [x] Local gates at 9ccfd5e: `just check` passes (one run, exit 0); `just requirements-update` and `just check-markers` pass; `just check-boundaries` fails as intended on a probe `node:path` import in core and in session, and passes once it is removed
+- [x] Review: approved at 9ccfd5e
+- [x] Verified at 9ccfd5e: no `node:path` import left in `core` or `session` outside `hostPath.ts`; the boundary check fails on a probe import and passes without it; `hostPath.test.ts` passes
+- [x] CI green at 9ccfd5e
 
 ## Internal references
 
