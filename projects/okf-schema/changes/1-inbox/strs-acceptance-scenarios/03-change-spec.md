@@ -2,7 +2,7 @@
 
 Type: feat (okfreq, requirements, docs) · Requested 2026-11-23 by the markdown-okf-schema-studio
 Griller from the Studio owner's grill ([request](intake/request.md), [intent](01-intent.md),
-[answers](02-answers.md), Q1–Q46) · Forge-neutral (GitHub and GitLab) · One CR, one batch (Q10)
+[answers](02-answers.md), Q1–Q51) · Forge-neutral (GitHub and GitLab) · One CR, one batch (Q10)
 · Grilled enough 2026-11-23, destination `3-ready` (Q17) · Release `0.18.0`, not breaking (Q40).
 
 A new `strs_test_coverage_mode`, `linked-swrs-and-acceptance-paths` (Q24), makes `okfreq`
@@ -153,6 +153,11 @@ console scripts as subprocesses with no source checkout on the path.
 | Q44 | New marker `@simulates_req` (`markers.simulates`, written by `okfreq init`), simulated bench for a StRS path, paired with `@accepts_req`. `@tests_req` stays the SwRS marker. | Rules 3, 4 |
 | Q45 | `@tests_req StRS-X`: unchanged outside the new mode; an error naming `@simulates_req` in the new mode. The repository's 6 markers move to `@simulates_req` by script; the Studio's too, outside this CR. | Rules 4, 6, surface 5 |
 | Q46 | Document this part well; the built documentation site shows the possibilities and why. | Surface 2 |
+| Q47 | `@simulates_req` on a SwRS is an error, by the same schema mechanism as Q20 (`simulated_in_files` refused by `swrs.schema.yaml`). | Rules 4, 6 |
+| Q48 | In the new mode, a bundle whose `swrs.schema.yaml` does not refuse `accepted_in_files`/`simulated_in_files` makes `okfreq validate` fail with an error asking the project to update its bundle schema (property and 0.18.0 declaration named). No shipped default, no silent fallback. | Rules 4, 6 |
+| Q49 | In the new mode a StRS's `validation_tests` has the same files and status as its `acceptance_tests`. | Rule 8 |
+| Q50 | The checked-in example moves to the new mode with a real acceptance test of its export (`Accepted 1/1`); its README and the showcase follow. | Surface 6 |
+| Q51 | The 5 StRS main paths are the spec-writer's proposed ones; the PR lists them for the owner's review. | Surface 5 |
 
 The request's point 3 named benches "in the project's config"; Q2 replaces that. The request's
 point 2 used `@accepts_req` for both benches; Q2 and Q44 give each bench its own verb. The
@@ -288,11 +293,11 @@ a marker whose suffix is not `S<n>` (Rule 3).
 | `@tests_req SwRS-X#S<n>`, `S<n>` not declared | **error**, does not count (Q5) | **error**, does not count (Q28) |
 | `@tests_req SwRS-X` fragmentless | **error**, does not count (Q14, Q15, Q19) | covers the whole SwRS, as today (Q19) |
 | `@accepts_req SwRS-X`, any suffix | **error**, from the SwRS schema (Q20, below) | same |
-| `@simulates_req SwRS-X`, any suffix | **error**, from the SwRS schema (open question 1) | same |
+| `@simulates_req SwRS-X`, any suffix | **error**, from the SwRS schema (Q47, below) | same |
 | `@implements_req SwRS-X` | unchanged | unchanged |
 
-**How Q20 is "in the JSON Schema".** The code enforces a JSON Schema at run time in one place
-only, `validate_requirements`, on a requirement's frontmatter; `report_schema()` is never
+**How Q20 and Q47 are "in the JSON Schema".** The code enforces a JSON Schema at run time in
+one place only, `validate_requirements`, on a requirement's frontmatter; `report_schema()` is never
 checked. A marker reaches a tier schema only as a marker-derived frontmatter property, the way
 `tested_in_files` carries `@tests_req` files and is declared in `swrs.schema.yaml` with
 `x-okf-link.basename_marker: '@tests_req'`. So:
@@ -304,7 +309,8 @@ checked. A marker reaches a tier schema only as a marker-derived frontmatter pro
   '@accepts_req'` / `'@simulates_req'`, `id_marker: id`, `show_line_number: true`) whose
   description says they are derived from markers by `okfreq validate` in the new mode and never
   written.
-- `swrs.schema.yaml` (both copies) refuses them:
+- `swrs.schema.yaml` (both copies) refuses them (Q20 for `accepted_in_files`, Q47 for
+  `simulated_in_files`):
 
   ```yaml
   accepted_in_files:
@@ -320,14 +326,24 @@ checked. A marker reaches a tier schema only as a marker-derived frontmatter pro
   An error on one of these properties is reported per marker with the schema's own
   `description`: `<test file>:<line>: @accepts_req SwRS-X: Never present. @accepts_req and
   @simulates_req name a StRS main path; …` (the configured keyword is used). The rule's text
-  and its tier live in the schema; a project could relax it in its own schema.
+  and its tier live in the schema.
 - Nothing writes these properties: `update_coverage` does not generate them and keeps
   removing coverage file fields from StRS. A frontmatter that authors one is an error in the new
   mode (`<file>: accepted_in_files is derived from markers; do not author it`).
 - Outside the new mode no merge happens, so `@accepts_req SwRS-X` is accepted and counts
   nothing (Q1, Q25).
-- A bundle whose `swrs.schema.yaml` predates this change does not declare the property. What
-  okfreq does then is open question 2.
+- **A bundle whose `swrs.schema.yaml` does not refuse them** (Q48). `okfreq init` never
+  replaces schemas, so a bundle created before 0.18.0 (the Studio's) does not declare these
+  properties. In the new mode `validate_requirements` checks, for each of `accepted_in_files`
+  and `simulated_in_files`, that the SwRS tier schema as it composes it refuses the property
+  (a SwRS frontmatter carrying it with one file is refused on that property). When it does
+  not (the property is not declared, or its declaration accepts a file), `okfreq validate`
+  fails with one error per property, whether or not a marker uses it:
+  `<swrs.schema.yaml path>: accepted_in_files is not refused; mode
+  linked-swrs-and-acceptance-paths needs the okf-schema 0.18.0 declaration: update the bundle
+  schema by adding under properties:` followed by that property's declaration, exactly the
+  text `schema_text("swrs")` writes (shown above). okfreq applies no shipped declaration and
+  has no silent fallback. Outside the new mode nothing is checked (Rule 1).
 
 ### Rule 5: counters and coverage, in the new mode (Q2, Q3, Q7, Q11, Q18, Q19, Q30)
 
@@ -350,7 +366,7 @@ checked. A marker reaches a tier schema only as a marker-derived frontmatter pro
   with a counting `@tests_req SwRS-X#S<n>` (Q30). Otherwise unchanged. StRS still carries no
   file fields.
 
-### Rule 6: findings and messages (Q5, Q8, Q13, Q15, Q31–Q35, Q45)
+### Rule 6: findings and messages (Q5, Q8, Q13, Q15, Q31–Q35, Q45, Q47, Q48)
 
 In the new mode `validate_requirements` calls `marker_scan` (it does not today), so
 `okfreq validate` and `okfreq lint` fail on these errors (Q15), `okfreq status` counts them, and
@@ -368,7 +384,9 @@ Errors carry no code; the one warning is `W003` (Q31). Warnings print with or wi
   mode linked-swrs-and-acceptance-paths: write @simulates_req StRS-X#S<n> for a path walked on
   the simulated bench, or @accepts_req StRS-X#S<n> on the real bench (this marker does not
   count)`. When StRS-X declares no `scenarios:`, the suggestion is without `#S<n>`.
-- **`@accepts_req`/`@simulates_req` on a SwRS** (Q20): Rule 4's schema-driven error.
+- **`@accepts_req`/`@simulates_req` on a SwRS** (Q20, Q47): Rule 4's schema-driven error.
+- **SwRS schema that does not refuse the marker-derived properties** (Q48): Rule 4's
+  update-the-bundle-schema error, one per property.
 - **Malformed `scenarios:`**: Rule 2.
 - **`W003`, live StRS with no `scenarios:`** (Q5, Q8, Q13, Q32–Q34). Live = any lifecycle but
   `deprecated` and `superseded` (`draft` included). One finding per StRS, addressed to an
@@ -399,7 +417,7 @@ guidance (guideline, skills, docs, W003 message), not a check: `_approval_findin
 unchanged. A test proves an approved StRS that gains only `scenarios:` still validates. The
 Studio's owner has already agreed for the Studio.
 
-### Rule 8: the report (Q12, Q29, Q37, Q39, Q42, Q43)
+### Rule 8: the report (Q12, Q29, Q37, Q39, Q42, Q43, Q49)
 
 - `"format_version": 2` in `report()` and `"const": 2` in `report_schema()`, in every mode
   (Q37). The mode enums follow `STRS_TEST_COVERAGE_MODES`. Every new property is optional in the
@@ -417,8 +435,9 @@ Studio's owner has already agreed for the Studio.
   `simulated_tests` / `acceptance_tests` list the files of the **counting** `@simulates_req` /
   `@accepts_req` markers on the StRS (Q42, Q43), shaped like `validation_tests` (`status`
   `defined`/`missing`). `validation_tests` stays, required, for backward compatibility (Q42);
-  its content in the new mode is open question 3. The StRS record's `tests.files`/`count` keep
-  following `validation_tests`, as the code does today.
+  in the new mode it has the same files and the same status as `acceptance_tests` (Q49), so a
+  `@tests_req StRS-X` (an error in this mode) never appears in it. The StRS record's
+  `tests.files`/`count` keep following `validation_tests`, as the code does today.
 - New mode, per SwRS that declares transitions: `"transitions": {"tested": ["S1"], "missing":
   ["S2"]}` (Q29).
 - New mode, aggregate `stakeholder_test_coverage` gains `"paths": {"total", "tested",
@@ -575,7 +594,7 @@ Each skill must work without this repository (`tests/test_skill_resources.py`).
 - `DEFAULT_CONFIG` and the generated schemas (surface 1) are scaffold too; `okfreq init` keeps an
   existing project's files, as today.
 
-### 5. Own requirements: `requirements/` and their tests (Q21, Q35, Q45)
+### 5. Own requirements: `requirements/` and their tests (Q21, Q35, Q45, Q51)
 
 This repository switches to the new mode and is migrated for real. The project guideline
 forbids nominal evidence, so each marker goes only on a test that does what the marker says.
@@ -601,8 +620,18 @@ forbids nominal evidence, so each marker goes only on a test that does what the 
    test modules added to the `test_dirs` of their scopes.
 2. The 5 StRS (all `proposed`, so their body may change through the usual review): add a
    `### Main paths` section with `#### Path <n>: <title>` and its steps, and the matching
-   `scenarios:`. The paths are derived from each StRS's normative statement and derived SwRS;
-   the candidates are open question 5. The PR lists them for the owner.
+   `scenarios:`, derived from each StRS's normative statement (Q51):
+   - CORE-001: S1 Validate a conforming bundle; S2 Report a non-conforming bundle without
+     changing it.
+   - CORE-002: S1 Create a bundle and author a concept; S2 Normalize and index a bundle;
+     S3 Inspect bundle knowledge read-only.
+   - CORE-003: S1 Navigate declared file links; S2 Check declared file links on request.
+   - OKFKB-001: S1 Capture an immutable finding; S2 Update a knowledge base's indexes and lint;
+     S3 Propose a consolidation for human review.
+   - OKFREQ-001: S1 Set up a bundle and author linked requirements; S2 Trace markers and
+     refresh generated coverage; S3 Audit the requirements base with validate and a report.
+
+   StRS content is the owner's: the PR lists these paths for the owner's review.
 3. One acceptance test per declared path, in `tests/test_acceptance_core.py`,
    `tests/test_acceptance_okfkb.py` and `tests/test_acceptance_okfreq.py`, each walking the path
    through the installed console scripts and asserting the observable outcome, marked
@@ -641,7 +670,7 @@ forbids nominal evidence, so each marker goes only on a test that does what the 
     --check-links --project-root .`, `okfreq lint requirements --prose --check-links
     --project-root .`, `okfreq trace requirements --json`.
 
-### 6. Concrete examples: `examples/` (Q35)
+### 6. Concrete examples: `examples/` (Q35, Q50)
 
 - `examples/okfreq-examples/showcase.py`: a new step after `strict_stakeholder_coverage`, in
   the disposable project (custom `@delivers`/`@verifies` already). Add
@@ -660,17 +689,44 @@ forbids nominal evidence, so each marker goes only on a test that does what the 
   8. `Draft202012Validator(report_schema())` validates the report.
   Record `outcomes["acceptance_paths"]`; restore the earlier mode afterwards.
   `tests/test_examples.py` expects 13 outcomes.
-- The checked-in example `examples/okfreq-examples/`: migrated as open question 4 settles. In
-  any case its SwRS declare `scenarios:` (SwRS-CORE-001: S1 Export selected rows, S2 Export an
-  empty selection; SwRS-CORE-002: S1 Return a Rust CSV row, S2 Export an empty Rust row) and its
-  tests carry per-test fragments: `tests/test_export.py::test_export_rows` `#S1`,
-  `::test_export_rows_with_empty_selection` `#S2`, and the two Rust tests in
-  `tests/rust_export_test.rs`. The `refresh-okfreq-examples` recipe of the `justfile` is updated
-  so that regeneration produces this state (mode, pre-filled `scenarios:` titles replaced like
-  the body placeholders, the StRS `### Main paths` text). `dist/requirements-report*.json|md`
-  are regenerated (`format_version` 2) and reviewed.
-- `examples/okfreq-examples/README.md`: names the new showcase outcome and, if the checked-in
-  example shows a gap, why.
+- The checked-in example `examples/okfreq-examples/` moves to the new mode with a real
+  acceptance test of its export (Q50), kept small:
+  - `requirements/config.yml`: `strs_test_coverage_mode: linked-swrs-and-acceptance-paths`
+    (`markers.simulates`/`markers.accepts` come from `okfreq init`).
+  - StRS-CORE-001 declares one main path, `S1` "Export selected rows for offline review", with
+    its `### Main paths` / `#### Path 1: Export selected rows for offline review` section and
+    steps.
+  - Its SwRS declare `scenarios:` (SwRS-CORE-001: S1 Export selected rows, S2 Export an empty
+    selection; SwRS-CORE-002: S1 Return a Rust CSV row, S2 Export an empty Rust row) and its
+    tests carry per-test fragments: `tests/test_export.py::test_export_rows` `#S1`,
+    `::test_export_rows_with_empty_selection` `#S2`, and the two Rust tests in
+    `tests/rust_export_test.rs`. `test_export_rows` also carries
+    `@simulates_req StRS-CORE-001#S1` (the path walked in-process).
+  - **Real bench for the example**: the export as a user runs it, in a separate process, with
+    the report written to and read back from disk. `src/export.py` gains a small `main()` run
+    under `if __name__ == "__main__"`: `python src/export.py <rows.json> <report.csv>` reads a
+    JSON list of rows and writes them with `export_rows`. A new
+    `tests/test_acceptance_export.py::test_export_selected_rows_for_offline_review(tmp_path)`
+    writes `rows.json`, runs `src/export.py` with `sys.executable` through `subprocess` from
+    `tmp_path` (no `sys.path` insertion), then reads `report.csv` with `csv.reader` and asserts
+    the selected rows come back exactly. It is marked `# @accepts_req StRS-CORE-001#S1`.
+  - Result: StRS-CORE-001 `Tested 1/1 ✅`, `Accepted 1/1 ✅`, covered; both SwRS covered with
+    no missing transition.
+  - The `refresh-okfreq-examples` recipe of the `justfile` is updated so that regeneration
+    produces this state (mode, pre-filled `scenarios:` titles replaced like the body
+    placeholders, the StRS `### Main paths` text); its existing pytest step runs the new
+    acceptance test. `dist/requirements-report*.json|md` are regenerated (`format_version` 2)
+    and reviewed.
+- `examples/okfreq-examples/showcase.py` beyond the new step: its module docstring and the
+  comment "These markers demonstrate linkage only. Actual CSV behavior is tested in
+  tests/test_export.py…" also name `tests/test_acceptance_export.py` as the checked-in
+  example's real-bench evidence; the showcase's own `@accepts` markers stay linkage fixtures.
+- `examples/okfreq-examples/README.md`: says the example runs in the new mode; explains its
+  main path, the three test verbs it uses (`@tests_req …#S<n>` on the SwRS tests,
+  `@simulates_req` and `@accepts_req` on StRS-CORE-001) and its real bench; adds the acceptance
+  test to "Pointers" and to the sentence on executable evidence; the showcase bullet "both StRS
+  coverage policies, including a direct stakeholder validation marker" names the three modes
+  and the new acceptance-paths outcome.
 
 ### 7. Verification and packaging: `tests/`, `justfile`, `pyproject.toml`, CI
 
@@ -717,12 +773,15 @@ writes real test files with markers:
    one; printed without `prose=True`; no finding for a SwRS without `scenarios:`.
 7. Rule 2: the schema refuses `kind`, `P1`, empty title, `[]`; the code refuses duplicate ids;
    `update_coverage` preserves `scenarios:` byte for byte.
-8. Rule 4's schema mechanism: `@accepts_req SwRS-X` is an error carrying the schema
-   description; a project schema that drops the `maxItems: 0` accepts it; an authored
-   `accepted_in_files` is an error; a pre-0.18 `swrs.schema.yaml` behaves per open question 2.
+8. Rule 4's schema mechanism: `@accepts_req SwRS-X` and `@simulates_req SwRS-X` are errors
+   carrying the schema description; an authored `accepted_in_files` is an error; a
+   `swrs.schema.yaml` that does not declare the properties (pre-0.18) and one that drops the
+   `maxItems: 0` each make validation fail with one error per property naming it and giving the
+   0.18.0 declaration (Q48); the same bundles validate as today in the old modes.
 9. Rule 7: an approved StRS (approval fields present) that gains only `scenarios:` validates.
 10. Rule 8: `format_version` 2 in all three modes; new fields present in the new mode and
-    absent otherwise; `Draft202012Validator(report_schema())` validates each mode's report;
+    absent otherwise; in the new mode `validation_tests` equals `acceptance_tests` (files and
+    status, Q49); `Draft202012Validator(report_schema())` validates each mode's report;
     Markdown columns, summary line and `Missing transitions` in the new mode, unchanged table in
     the old modes.
 11. Rule 9: `create_requirement` in the new mode pre-fills `scenarios:` for SwRS (S1, S2) and
@@ -761,6 +820,9 @@ Repository and examples:
 - The new acceptance tests run on Linux and macOS in `just test` and fail if the installed
   scripts do not produce the path's outcome.
 - `tests/test_examples.py::test_okfreq_showcase_runs_in_an_empty_project` runs the new step.
+- `just refresh-okfreq-examples` runs the example's acceptance test, and the regenerated
+  `examples/okfreq-examples/dist/requirements-report.json` shows the new mode, StRS-CORE-001
+  covered with `paths {1, 1, 1}` and no error or W003 (Q50).
 - `just preflight` (style, lint, `requirements-lint`, changelog, typecheck, guideline refresh,
   tests, `refresh-all-examples`, `requirements-report`, `docs`). Review its generated diffs
   (examples, `dist/`, guideline copies, `CHANGELOG.md`) before hand-back. The commit subject is
@@ -783,7 +845,7 @@ would. Shared fixture: StRS-A with `scenarios:` S1/S2 and `#### Path` headings; 
 | D3 | `linked-swrs-and-acceptance-paths`, default markers | Validate exits 1: fragmentless `@tests_req SwRS-A`, `#S9`, `@tests_req StRS-B` (naming `@simulates_req`), `@accepts_req SwRS-A` (schema description). W003 on StRS-B. StRS-A `paths {2, 0, 1}`; StRS-B tested by the fragmentless `@simulates_req`; SwRS-A missing S1, S2. Markdown `0/2`, `1/2`, `✅ no paths`. |
 | D4 | New mode, custom `tests: '@verifies'`, `simulates: '@rehearses'`, `accepts: '@accepts'` (the showcase) | Same as D3 with the custom keywords quoted in messages. |
 | D5 | New mode, `config.yml` written before this change (no `simulates`/`accepts` keys) | Default keywords recognised; same results as D3. |
-| D6 | New mode, `swrs.schema.yaml` written before this change | `@accepts_req SwRS-A` behaves as open question 2 decides; everything else as D3. |
+| D6 | New mode, `swrs.schema.yaml` written before this change | `okfreq validate` exits 1 with one error per property (`accepted_in_files`, `simulated_in_files`) naming `swrs.schema.yaml` and giving the 0.18.0 declaration to add; no shipped declaration is applied. After the declarations are added, results as D3. In an old mode the same bundle validates as today. |
 | D7 | `strs_test_coverage_mode: unsupported` | `RequirementError` listing the three modes; `okfreq validate` exits non-zero with it. |
 
 ### Scenario steps (manual demonstration for the PR)
@@ -801,38 +863,3 @@ In a temporary directory:
    status missing; adding `@accepts_req <StRS>#S2` makes it covered.
 6. Remove `scenarios:` from the StRS: `W003` quotes both path headings and prints the block.
 7. `just docs` in okf-schema and open the two new pages and the "Declared scenarios" anchor.
-
-## Open questions
-
-Only these remain; each has a proposal the Driver applies unless the user decides otherwise.
-
-1. **`@simulates_req` on a SwRS.** Q20 covers `@accepts_req` only. Proposal: an error too, by
-   the same schema mechanism (`simulated_in_files` refused in `swrs.schema.yaml`), since the
-   simulated-bench verb names a StRS path and a SwRS test is `@tests_req`.
-2. **Q20 on a bundle whose `swrs.schema.yaml` predates 0.18.0** (`okfreq init` never replaces
-   schemas, so it does not declare `accepted_in_files`/`simulated_in_files`; the Studio is in
-   this case). Silent, or an error anyway? Proposal: when a leaf tier's schema does not declare
-   the property at all, okfreq applies the shipped declaration (the same text `schema_text`
-   writes), so every bundle gets the error; a project that declares the property in its own
-   schema decides for itself. The docs tell existing projects to add the declaration.
-3. **`validation_tests` of a StRS in the new mode** (kept "for backward compatibility", Q42).
-   Proposal: the same files and status as `acceptance_tests`, so an old consumer reading
-   `validation_tests` sees the real-bench evidence that now makes a StRS covered; a
-   `@tests_req StRS-X` (an error in this mode) never appears in it.
-4. **The checked-in example's mode** (Q35 "migrate the examples correctly"). It has no real
-   bench for its toy CSV export. Proposal: switch it to the new mode; declare one path on
-   StRS-CORE-001 ("Export selected rows for offline review"), mark `test_export_rows` with
-   `@simulates_req StRS-CORE-001#S1`, add no acceptance test, and let the report honestly show
-   `Tested 1/1 ✅`, `Accepted 0/1`, StRS not covered, explained in its README. The showcase
-   shows a complete `2/2`.
-5. **The main paths of this repository's 5 StRS** (StRS content is the owner's). Proposal,
-   from each StRS's normative statement:
-   - CORE-001: S1 Validate a conforming bundle; S2 Report a non-conforming bundle without
-     changing it.
-   - CORE-002: S1 Create a bundle and author a concept; S2 Normalize and index a bundle;
-     S3 Inspect bundle knowledge read-only.
-   - CORE-003: S1 Navigate declared file links; S2 Check declared file links on request.
-   - OKFKB-001: S1 Capture an immutable finding; S2 Update a knowledge base's indexes and lint;
-     S3 Propose a consolidation for human review.
-   - OKFREQ-001: S1 Set up a bundle and author linked requirements; S2 Trace markers and
-     refresh generated coverage; S3 Audit the requirements base with validate and a report.
