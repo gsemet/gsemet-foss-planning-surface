@@ -1,0 +1,5 @@
+# Slim session-start.md: split by role, forge-neutral, sync card
+
+Short name: `slim-session-start`. Owner's words of 2026-11-23, relayed from okf-schema.
+
+`skills/chantier/references/session-start.md` (about 29 KB, read at each session start) is split so that each role reads only what it needs. Section 1 (start checks) stays. Section 2 (the seat and the role) goes by role: one file each for the Chief of Staff, the Foreman and the Griller. Section 3 (titles) is read by those three only, not by the coder, the Driver and the other workers. Section 6 (sync the checkout) becomes its own card, read only when a sync runs (the Chief of Staff in the dev mode). The startup cards and the new files speak of "a forge"; `gh` and `glab` live in each forge's reference; the other cards' forge wording is a separate CR. Nothing is lost: a table names each moved instruction with the card and the moment where it now arrives, checked by the startup tests, and a Fable advisor reads the split. This CR goes first; `slim-the-startup-cards-of-the-three-roles` waits for it.

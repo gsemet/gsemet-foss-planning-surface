@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Slim session-start.md: split by role, forge-neutral, sync card",
+  "summary": "Split session-start.md by role, move sync to its own card, drop gh/glab from startup cards, with a no-loss table.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "438aa1a50a02a56606347c151bf5fb04d4f073906975dbb7d38068886e20489b",
+    "02-answers.md": "9fc6be382e73f3cf799199cbc4d9c1099e15c6f4ecc66db4e21dbd2050e53a1d",
+    "intake/request.md": "2a076a5aeb6396922f719788a3caa9848084cfced1c98be0cc22c46e8216024c"
+  },
+  "summarized": "2026-11-23T13:14:30Z"
+}

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Board server notifies when a CR arrives by pull on the surface",
+  "summary": "Specified: an arrived@1 line per CR new or moved into inbox or backlog by a pull, a conflict's end or another session's write; the watcher or the session-start read tells it.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9bc361c2a745f4c5c839cd0b7c6808ddfa7a40b296f24fec2c3300a5818a7b8a",
+    "02-answers.md": "bd7505727c106cfa0a27090b59b25282bb404a424bf0a2cd90f9bded78df86f6",
+    "03-change-spec.md": "33289a35b5af6abca80af5c349eba6ec5c6b34bd33da59dbce1c1b17629746e2",
+    "intake/request.md": "e12c176804f8281eeefb08327dc3f75d508cc8d3b4792c394a7045deab9b297c"
+  },
+  "summarized": "2026-11-23T13:13:42Z"
+}
