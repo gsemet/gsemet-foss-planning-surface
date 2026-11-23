@@ -25,4 +25,18 @@ Short name: `blank-save`
    and an existing design (CR-444).
 9. Grilled enough: decided by the Chief of Staff (owner's autonomy rule on rounds), 2026-11-23.
 
+Spec critic (Fable), 2026-11-23: 7 points, 3 fixes applied by the spec-writer without the owner,
+4 questions; the spec's own 3 open questions asked with them.
+
+10. blank-save-Q8: **Three CRs, one stack** (owner, option A). (A) the #485 hang fix first (closes the
+    issue), then (B) the general save guard, then (C) one block per blank line; all in batch-09's stack.
+11. blank-save-Q9: **The frontmatter time limit stops when the editor closes or an error shows**
+    (owner, option A): "Saved. Refreshing preview…" is bounded too.
+12. blank-save-Q10: **Neutral timeout message** (owner, option A): "No answer yet; your text may
+    already be saved", Done to retry, Cancel to close; a stale refusal on the retry reads as already
+    saved or changed, close the editor.
+13. blank-save-Q11: Owner's words: "Je ne comprends pas les new line dans le frontmatter ça ne devrait
+    pas être dans le scope". The question was about blank lines in the body right after the
+    frontmatter, not inside it; asked again as Q13.
+
 Destination: running batch-09
