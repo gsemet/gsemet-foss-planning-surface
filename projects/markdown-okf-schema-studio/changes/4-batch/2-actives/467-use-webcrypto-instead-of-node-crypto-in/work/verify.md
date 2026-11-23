@@ -25,3 +25,10 @@ Fetched with `gh pr view 481 --json body,title`; checked against pr-template and
 FAILED: the CR's specification `01-intent.md` has `issue: https://github.com/gsemet/markdown-okf-schema-studio/issues/413` (grep "issue:" output), so the body needs a `## Issues References` section (after Summary) with one line for the ticket (`Closes #413`, or the project's form). It is missing, and the Summary names the ticket ("Part of #413"), which the template allows only in Issues References.
 
 NOT VERIFIED
+
+## Description pass 3 at faba0c4b4d5016f5d7e4323ed8be46485d20a68a
+
+Fetched with `gh pr view 481 --json body,title`; checked against pr-template, `.agents/guidelines/pull-request.guidelines.md` and `git diff origin/main...HEAD --stat` (6 files). The pass 2 failure is fixed: `## Issues References` is present after Summary with `Part of #413`; the Summary no longer names the ticket. `Part of` instead of `Fixes` is a decision, listed under Autonomous decisions; the guideline asks for `Fixes #N` only when the change closes the issue, so it does not forbid it. Section order, fold with blank lines, no text after `</details>`, Deliverables table matching the diff, Known gaps "None" (no UNVERIFIED claim, no accepted failure), Review box (`approved at 116f39d`, committed as faba0c4, matches the driver notes in `chantier log`), no role name or `.agents/changes/` path outside Internal references, no images: all hold.
+Note, not a failure: the project's `.github/PULL_REQUEST_TEMPLATE.md` has a Changelog test-plan item that the body leaves out; the chantier template does not carry it and the change has no user-facing line.
+
+VERIFIED
