@@ -38,6 +38,7 @@ Grade: **1**. One condition in the page's content-patch handler, with tests and 
 ## Known gaps
 
 - Cancel stays ignored while a final save is in flight, and a follow-up change makes Cancel always close the editor and tests that every save path ends.
+- Not run: the new page tests against the previous code (they fail there, per the author's own run only), and a real VS Code editor run; no before/after capture.
 
 <details>
 <summary>Details</summary>
@@ -55,12 +56,12 @@ No visual change: the editor closes where it used to hang.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
-- [ ] Changelog: one user-facing line added under `## Unreleased` in `CHANGELOG.md`
+- [x] New or changed tests, passing at `466a9c0` (that they fail on the previous code is UNVERIFIED: it rests on the author's own run, not a re-run on the base)
+- [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
+- [x] Changelog: one user-facing line added under `## Unreleased` in `CHANGELOG.md`
 - [x] Local gates at `466a9c0`: `just preflight` pass (static stage; the others run in CI on Windows-skipped)
-- [x] Review: inspector approved at `466a9c0` (code approved at `73037bd`, r3 adds the PR number to the changelog line)
-- [ ] CI green
+- [x] Review: approved at `466a9c0` (code approved at `73037bd`, the last commit adds the PR number to the changelog line)
+- [x] CI green at `466a9c0`: checks, report, static, static-windows, viewer-graph and visual pass; integration and stress skipped on PRs by design
 
 ## Internal references
 
