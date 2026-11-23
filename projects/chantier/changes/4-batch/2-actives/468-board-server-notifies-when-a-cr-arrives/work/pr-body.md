@@ -31,6 +31,7 @@ Shared writer, journal and session-start code change; no data format of existing
 ## Autonomous decisions
 
 - The spec's `4-batch/<batch>/` is read as `4-batch/{1-pending,2-actives,3-done}` as the layout really is.
+- The writer arrival tests live in a new `test_writer_arrivals.py` (the existing writer cycle test file is large); helpers moved into `sync_text.py` and `arrival_mark.py`.
 - `status` now writes the git-ignored told mark when it lists arrivals (its one write).
 
 ## Known gaps
@@ -47,6 +48,14 @@ Shared writer, journal and session-start code change; no data format of existing
 - `commands/intake.py`, `commands/seat.py`, `commands/batch_status.py`, `hub/watch.py`: session lines and the told mark.
 - `hub/schemas*.py`, `schemas.json`, `core/files.py`: the new type and the ignored file.
 - Cards, AGENTS.md, docs and scenario README updated.
+
+## Human decisions
+
+- Only a CR that ends in the inbox or a backlog row is told; moves into `3-ready` or a batch tell nobody.
+- A move between the inbox and the backlog, or between backlog rows, is told as a move; a CR back from `3-ready` is told as such; restores from a batch, the archives or the trash are not told.
+- Only chantier's own session and the board notify nobody; a pull, another project's session on the same machine and a login-profile session by another session all notify.
+- A pull that ended in a conflict tells its arrivals once the conflict ends.
+- While no watcher runs, the next session start lists the untold arrivals.
 
 ## Impacts
 
