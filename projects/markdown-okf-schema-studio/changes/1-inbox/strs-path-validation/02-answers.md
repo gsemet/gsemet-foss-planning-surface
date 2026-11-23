@@ -38,3 +38,10 @@ Griller's findings, 2026-11-23: live SwRS = 443 (of 1051), with 2549 `### Scenar
 18. strs-validation-Q18: **SwRS scenarios.** A: declared in the same migration (scripted from the headings); the fragment on `@tests_req` stays optional: `@tests_req SwRS-X` with no fragment still covers the whole SwRS.
 19. strs-validation-Q19: **Counters.** B, two counters (the option's wording was unclear: its meaning is confirmed in series 6).
 20. strs-validation-Q20: **Order.** B: the okf-schema feature request first; the project CR waits for okfreq to support the marker and the declarations (reverses the order of Q16 for the CR; the audit's place is confirmed in series 6).
+
+## Series 6, 2026-11-23
+
+21. strs-validation-Q21: **One declaration.** B: one frontmatter field `scenarios:` for both tiers (StRS paths and SwRS scenarios), each with a stable short id (e.g. `S1`, never reused), no `kind`: the tier says what it is (StRS = path, SwRS = transition scenario). Fragment `#S<n>` on both markers. (Supersedes the field shape of Q13/Q17.)
+22. strs-validation-Q22: **The two counters** (Q19 restated). A: per StRS, "tested" = its paths have a test on the simulated bench, "accepted" = its paths have a test on the real VS Code bench. SwRS coverage stays okfreq's usual coverage shown on each SwRS, not recounted in the StRS. (Supersedes Q4's "tested = linked SwRS".)
+23. strs-validation-Q23: **Audit.** A: a sample audit now, in this Griller session (about 30 markers across every folder, each classified "walks a path / single-state snapshot / SwRS duplicate"), written in `experiments/`; the okf-schema request rests on it; the full sort of the 185 stays in the CR.
+24. strs-validation-Q24: **Approved StRS.** A: one agreement, recorded in the CR, for the scripted migration that declares existing paths as `scenarios:` (metadata only); any change to the normative text of an approved StRS goes back to the owner one by one. Owner's agreement for that migration: given 2026-11-23 (this answer).

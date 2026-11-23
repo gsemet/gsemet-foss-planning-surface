@@ -120,9 +120,9 @@ editor of a blank-lines block closes on the render of its final save).
 
 ## Out of scope
 
-- **The general save guard**: a time limit on every final save, a shown error when no answer comes,
-  the frontmatter save's bounded wait, and Cancel always closing the editor (blank-save-Q6, Q9, Q10,
-  Q14, Q15). It is the CR `save-guard-never-hangs`, next in the stack. Here, Cancel stays ignored
+- **The general save guard**: tests that every save ends in success or a shown error, a fix for each
+  hang they find, and Cancel always closing the editor (blank-save-Q6, Q14; the time limit was
+  dropped by the owner, save-guard-Q9). It is the CR `save-guard-never-hangs`, next in the stack. Here, Cancel stays ignored
   while a final save is in flight (BLOCK-053), and no timer is added.
 - **One block per blank line**: each blank line beyond the separator as its own block, typing and
   Delete acting on one line, per-line blocks inside containers and after the frontmatter
