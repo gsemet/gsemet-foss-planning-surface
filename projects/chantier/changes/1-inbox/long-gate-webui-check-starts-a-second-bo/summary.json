@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Board on the next free port from 8765; long gate beside the user's board",
-  "summary": "Specified for batch-31: a default board start walks 8765, 8766, ... to the first free port; the scenario's serve and webui check stop depending on 8765, so the local long gate passes on Windows while the user's board runs.",
+  "summary": "Specified for batch-31, no open question: reproduce the Windows failure first, then a default board start walks 8765, 8766, ... to the first free port and the scenario's serve and webui step stops depending on 8765.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "44df4a7b3cc56683e8d9f0b8d5e2432f841d8aec502265e5e861c09c9494ddef",
-    "02-answers.md": "3a21e703e9ce472148f4e13c2d0256f1e92b7d44fbeaf3e13977055345edb4ae",
-    "03-change-spec.md": "a7fdc2bde18ef53a086dc8130fb6fae91aa724aa17e9555107e165f1b6fb1094",
+    "02-answers.md": "af46aa22b32b416a472a8ce06ca06fb72c15634dcb0a79866a97b54cfe842bd1",
+    "03-change-spec.md": "50aea4c422be23003d5e8d6ab4df2746b6fbb9c07c6e9050847b717c0adbe6a5",
     "intake/request.md": "bd1c7827b3ec73f3dd8ec03f8e233ccde98338503eaaa87fb7a89992db927806"
   },
-  "summarized": "2026-11-23T18:47:53Z"
+  "summarized": "2026-11-23T19:02:53Z"
 }
