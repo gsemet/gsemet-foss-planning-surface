@@ -13,7 +13,7 @@ All claims judged at acc9579 (full SHA above), run in the CR worktree.
 7. Design (async on demand, shared promise, generation counter, symlink dirs not descended via `isSymbolicLink`, `inspectLinks:false` first paint untouched): read in `git diff origin/main...HEAD -- src/core/frontmatter/stemIndex.ts`; matches the PR body. PASS.
 8. Review box: `chantier log 468`: "r1 approved at 116f39d8..., committed as acc95794" matches the PR. PASS.
 9. PR description (gh pr view 482 body vs work/pr-body.md: identical but one blank line); sections match the diff (26 files: core, session, tests, requirements, dependency-cruiser); no images. CI at acc9579: static, static-windows, visual, viewer-graph, checks, report success. PASS.
-10. Real VS Code integration/stress: the heavy run 45136900510 was still in progress at verification; not proved here. Known gaps of the PR names it as run in CI. Not a failure.
+10. Real VS Code integration/stress at acc9579: `gh run view 45136900510 --json conclusion,headSha,jobs` -> conclusion success, headSha acc957944b82a2c4404a6a27bf00870d7c64d4df, integration success, stress success. PASS. Description pass at acc9579: PR 482 headRefOid matches; body equals work/pr-body.md (one blank line); Test plan SHAs and Known gaps consistent.
 11. Perf timing of the cold stem-index build: not captured (no no-user-visible change; evidence plan item optional). See verifier/evidence/before-after.md.
 
 VERIFIED

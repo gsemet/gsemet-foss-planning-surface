@@ -38,12 +38,13 @@ Grade: 2. Shared frontmatter link code and its session callers change from sync 
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
-- [ ] Changelog: No user-facing change
-- [ ] Local gates: `just check` passed at `acc9579` (exit 0, includes boundaries, unit and requirements lint)
-- [ ] Review
-- [ ] CI green
+- [x] New or changed tests (they fail on the previous code)
+- [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
+- [x] Changelog: No user-facing change
+- [x] Local gates: `just check` passed at `acc9579` (exit 0, includes boundaries, unit and requirements lint)
+- [x] Review: approved at `acc9579` (carried from review of the same tree, `116f39d`)
+- [x] Verified at `acc9579`
+- [x] CI green at `acc9579` (static, static-windows, visual, viewer-graph; heavy run with integration and stress also green)
 
 ## Autonomous decisions
 
@@ -53,7 +54,8 @@ Grade: 2. Shared frontmatter link code and its session callers change from sync 
 ## Known gaps
 
 - The dangling `.md` symlink test skips on Windows (file symlinks need a privilege); it runs on Linux CI.
-- Real VS Code integration and e2e suites were not run locally; they run in CI.
+- The cold stem-index build time was not measured before and after; the build now yields to the event loop per directory but its total time is unproven.
+- The real VS Code integration and stress jobs ran only through a manual heavy run at `acc9579` (green), not locally.
 
 ## Internal references
 
