@@ -29,3 +29,9 @@ Claim 6 revised: NOT VERIFIED at 450b878. Command: `gh pr view 440 --json body` 
 The Deliverables table's last row says Before "P6 FAIL" and After "P6 FAIL, naming both accepted folders". On the base, another repository's git dir differs from the surface's, so P7 also FAILS before; after, it is not a linked worktree, so P7 is ok. The row omits the P7 change (Before should be "P6 FAIL, P7 FAIL", After "P6 FAIL, P7 ok"). The other four rows match the base code and the diff.
 
 NOT VERIFIED
+
+## Description pass 4 (head 450b8784d7c83e87a6fb227bd32f87c213a9d356)
+
+Claim 6 revised: VERIFIED at 450b878. Command: `gh pr view 440 --json body` against `git diff origin/main` (preflight.py `_check_checkout`, repo.py `session_checkout`/`linked_text`, intake.py, permissions.py) and `pytest tests/test_session_folder.py` -> `17 passed in 32.82s`. Every Deliverables cell matches: the last row now reads Before "P6 FAIL, P7 FAIL", After "P6 FAIL (naming both), P7 ok"; the linked-worktree rows list P6 and P7 FAIL. Changes list matches the diff (the one-line EXEMPT entry in test_store_reads.py is bookkeeping for the new function, not a delivered change). Known gaps and the Review box unchanged from the earlier pass.
+
+VERIFIED
