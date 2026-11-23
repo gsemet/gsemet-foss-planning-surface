@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "okfreq: acceptance paths, declared scenarios, two StRS counters",
-  "summary": "Specified: a new coverage mode where StRS/SwRS declare scenarios: (S<n>), tests name them with #S<n>, @accepts_req marks real-bench tests and each StRS reports tested/accepted path fractions; 22 open questions with proposals.",
+  "summary": "Spec rewritten for Q1-Q46: new mode linked-swrs-and-acceptance-paths, scenarios: with #S<n>, @simulates_req/@accepts_req per StRS path, @tests_req for SwRS, Q20 via tier schema, repo/examples/docs migrated, new doc pages; 5 open questions.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "dc23165875183bad891f3ec1f81f24118c22795ebea39efee95c3409c77b78d2",
-    "02-answers.md": "41f1babe9a09a43d7fb0311118e84f0ef8dfe882493ef54595c149f6b72ef468",
-    "03-change-spec.md": "0734809b01348fc86372a7011d85950df40bbf91a25e009afe46352255c769f5",
+    "02-answers.md": "8b361bd52b06d80cbf7ea91ab8e4bf5315ed918994e885fcb0d28b19990ab9e5",
+    "03-change-spec.md": "c091c31af2f6e604a491406ae922b212977d0a52d83e6bd016aa37edd1be53a6",
     "intake/request.md": "0bb1f5ba4e7b9f56d4703ba538f0979f32809de0632b489907efc9c31d756887"
   },
-  "summarized": "2026-11-23T16:38:05Z"
+  "summarized": "2026-11-23T17:11:21Z"
 }
