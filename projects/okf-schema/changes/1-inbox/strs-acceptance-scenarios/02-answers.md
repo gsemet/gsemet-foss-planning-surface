@@ -7,3 +7,7 @@ Short name: `acceptance-paths`
 3. acceptance-paths-Q3: **Counters.** A fraction of paths per counter (e.g. tested 2/3, accepted 1/3); a StRS is "tested" (boolean) when the fraction is complete.
 4. acceptance-paths-Q4: **Direct `@tests_req StRS-X`.** In the new mode, ignored for coverage and reported as a warning.
 5. acceptance-paths-Q5: **Lint severity.** Error for an unknown `#S<n>` fragment; warning for a live StRS with no declared path.
+6. acceptance-paths-Q6: **"Tested" path.** `@tests_req StRS-X#S<n>` (same syntax as `@accepts_req`) counts the path as tested (simulated bench); without a fragment it is the Q4 case (ignored, warning).
+8. acceptance-paths-Q8: **Migration command.** None. No migration subcommand: okfreq gives a clear error message that tells agents how to declare `scenarios:` themselves.
+9. acceptance-paths-Q9: **Approved StRS.** When declaring `scenarios:` on approved StRS, edit the frontmatter only (body intact) and log it in `requirements/tiers/log.md`; the Studio owner agreement already covers a metadata-only change.
+10. acceptance-paths-Q10: **Split.** One CR, one batch.
