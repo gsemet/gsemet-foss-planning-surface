@@ -1,0 +1,1 @@
+- [project] none: the release ran as the procedure says, with no problem to report.
