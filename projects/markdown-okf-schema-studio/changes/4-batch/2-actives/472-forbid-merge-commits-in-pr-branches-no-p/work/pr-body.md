@@ -67,8 +67,8 @@ No visual change. Contributors updating a branch must rebase (the forge's rebase
 - [ ] New or changed tests (they fail on the previous code): `test/build/test_no_merge_commits.py`
 - [ ] Requirements: No behaviour change (delivery process only, no SwRS)
 - [ ] Changelog: No user-facing change
-- [x] Local gates at abce636: `just check-no-merge-commits`, pytest of the new and workflow tests (93), `just preflight` (static stage on Windows): pass
-- [x] Review: inspector approved at abce636
+- [x] Local gates at 024003d: `just check-no-merge-commits`, pytest of the new and workflow tests (93), `just preflight` (static stage on Windows): pass
+- [x] Review: inspector approved at 024003d
 - [ ] CI green
 
 ## Internal references
