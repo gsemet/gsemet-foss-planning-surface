@@ -9,3 +9,6 @@ Short name: `live-rich`
 
 Destination: running batch batch-31.
 Spec critic: yes, default model (it changes what the user sees and adds a dependency).
+7. live-rich-Q6: **Tasks' `to review` section.** A. It goes: the hand-back age moves to an `Age` column in Ready; Tasks keeps the working and blocked CRs.
+8. live-rich-Q7: **QA drivers in Agents.** A. Left out for now (the server's `project` topic does not carry them; no server or API change in this CR).
+Spec-writer's findings from the code, kept: Rich is already a dependency (no change to `pyproject.toml`, `uv.lock` or the launch); the `none` in Agents was right for the old narrow list (Drivers of working CRs), and the new list is the one of Q1; the time gap was events of an earlier day (header and Flow both in UTC), so the date is shown on every Flow line and times are local with the UTC offset in the header; Ready reads the server's existing `prs` topic.
