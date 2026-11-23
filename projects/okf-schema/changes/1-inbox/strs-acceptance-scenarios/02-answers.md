@@ -35,3 +35,8 @@ Short name: `acceptance-paths`
 21. acceptance-paths-Q21: **Own requirements of okf-schema.** Yes: the repository applies the rule to itself (declares `scenarios:` on its own StRS/SwRS and switches its mode), which enlarges the CR.
 22. acceptance-paths-Q22: **Other open questions.** The user asks to see the list of the 18 remaining open questions before deciding.
 23. acceptance-paths-Q23: **The 18 open questions.** Go through all of them, in series (the list in the spec's "Open questions", minus 2, 8, 9, 21 already settled by Q18–Q21).
+24. acceptance-paths-Q24: **Mode name.** `linked-swrs-and-acceptance-paths`.
+25. acceptance-paths-Q25: **Outside the new mode.** Silent for a malformed `scenarios:` or an unknown fragment, apart from what the bundle's own JSON Schema refuses.
+26. acceptance-paths-Q26: **Ids never reused.** A guideline in the documentation only; okfreq checks nothing.
+27. acceptance-paths-Q27: **Keyword.** `markers.accepts`, configurable, written by `okfreq init`.
+28. acceptance-paths-Q28: **Fragment syntax.** `#` glued to the ID; only `S<n>` is a scenario fragment; anything else is ignored as today (user chose B: "# collé à l'ID, le reste ignoré"). Reading: an unknown `S<n>` (e.g. `#S9` on a target that does not declare S9) stays an error (Q5); a non-`S<n>` suffix is not a fragment. To confirm in the spec.
