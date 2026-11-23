@@ -11,11 +11,13 @@
 - **Deleting** a blank-line block (Delete, Backspace or its Delete block button) removes that one
   line. The separating line always stays, so two blocks are never glued together.
 - **Saving always ends.** Every edit, of any block, ends in a saved result or in an error you can
-  read, after a time limit at most. Cancel always closes the editor.
+  read; an edit stuck on "Saving Markdown…" is a bug, and tests check every kind of save for it.
+  Cancel always closes the editor, and the save goes on.
 
 ## Limits
 
-- Blank lines inside lists, quotes and other containers are not changed here.
+- Blank lines inside lists, quotes and other containers follow the same rule, and keep their indent.
+- Nothing inside the frontmatter changes.
 - Line endings of the file are kept as they are.
 
 ## What is tested

@@ -58,7 +58,7 @@ No visual change: the editor closes where it used to hang.
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [ ] Changelog: one user-facing line added under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: <!-- filled before the first push -->
+- [ ] Local gates at `73037bd`: `just preflight` pass (static stage; the others run in CI on Windows-skipped)
 - [ ] Review
 - [ ] CI green
 
@@ -67,3 +67,5 @@ No visual change: the editor closes where it used to hang.
 CR-474 blank-save (part 1 of 3 for issue #485).
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
