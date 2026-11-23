@@ -16,3 +16,8 @@ the expected behaviour is that of 1.12.0, already approved, so there is no owner
 4. heavy-red-Q4 (scope): only this failure, plus any other heavy failure it was hiding (the steps
    after `preview-smoke` never ran), each one named in the PR. A hidden failure that needs a
    behaviour decision is reported to the Chief of Staff, not decided by the Driver.
+5. heavy-red-Q5 (spec open question, Chief of Staff, routine: no difference a reader sees): **A,
+   product.** Once H1 is proven, the open command resolves after the page is shown again, as in
+   1.12.0 (`requestDocument` waits for the session's pending show). That fixes every racing test at
+   once, allows a cheap test in `test/host/`, and adds the SwRS sentence. If H2 is proven instead, it
+   is a product regression, fixed in the product anyway.

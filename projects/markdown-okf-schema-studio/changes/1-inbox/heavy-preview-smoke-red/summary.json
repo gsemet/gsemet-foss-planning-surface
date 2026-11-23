@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Heavy CI red on main: preview-smoke reads the page before it is shown",
+  "summary": "Specified: the heavy jobs fail because the open command now resolves before the rendered page is assigned (async show of 20b12216); the Driver proves it, then fixes the product or the test and gets a green heavy run. One open question: product fix or test fix.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "c275093480903265a68d770c0399e983fa424777f49e78095ea0ba934c7c8905",
+    "02-answers.md": "0afed9062e95beb4d68b7c4ac5a21245bc78e701e73f989c7b2fb8f9ef6c3f93",
+    "03-change-spec.md": "987c81cadf851dd7fa35c087afed84bd24cfef993351f7a50464cce57fe1831c",
+    "intake/request.md": "d72fc5a8af7f1f2ae5d70a56ed6df08d62cc327e6614ee3aac743c6e9a792b1e"
+  },
+  "summarized": "2026-11-23T15:44:06Z"
+}
