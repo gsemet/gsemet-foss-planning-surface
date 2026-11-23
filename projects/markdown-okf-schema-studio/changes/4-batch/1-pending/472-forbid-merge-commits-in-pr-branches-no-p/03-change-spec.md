@@ -271,12 +271,9 @@ Only the first CI run can prove these:
 
 ## Open questions
 
-1. `fetch-depth: 0` on both static jobs and the test-merge rule (section 2, step 3) are not in
-   02-answers.md. They are what makes `<base>..HEAD` work on a GitHub pull request checkout. The
-   alternative is to check out the PR head itself (`ref: github.event.pull_request.head.sha`), which
-   would also change what every other static check runs against. That choice would also need a
-   GitHub-only expression in the workflow. This spec takes full history plus the tip rule. Confirm,
-   or choose the head checkout.
-2. Known edge of the tip rule: a branch with no commit of its own, into which the base was then
-   merged locally, looks like a forge test merge and passes. Such a branch adds nothing, so this
-   spec accepts the edge. Confirm.
+None. Answered by the owner (02-answers.md, no-merge-commits-Q4 and Q5):
+
+1. Full history with `fetch-depth: 0` on both static jobs and the tip rule (section 2, step 3;
+   section 4) are confirmed; the head checkout is not used.
+2. The edge of the tip rule (a branch with no commit of its own, the base merged in locally,
+   passes) is accepted.

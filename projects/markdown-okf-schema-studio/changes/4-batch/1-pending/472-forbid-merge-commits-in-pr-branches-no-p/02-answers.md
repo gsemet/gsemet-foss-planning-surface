@@ -10,3 +10,6 @@ Context from the owner (2026-11-23): "toujours penser générique, on va support
 Spec critic: no (small, low risk).
 Destination: running batch batch-09.
 
+4. no-merge-commits-Q4: **CI history.** A: `fetch-depth: 0` on both static jobs, and the tip rule: when HEAD is the forge's test merge (first parent an ancestor of the base), the script checks HEAD^2.
+5. no-merge-commits-Q5: **Edge case.** A: accepted (an empty branch with a local base merge passes; it adds nothing).
+
