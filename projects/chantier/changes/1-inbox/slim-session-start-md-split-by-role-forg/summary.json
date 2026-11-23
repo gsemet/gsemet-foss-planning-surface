@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "title": "Slim session-start.md: split by role, forge-neutral, sync card",
-  "summary": "Split session-start.md by role, move sync to its own card, drop gh/glab from startup cards, with a no-loss table.",
+  "summary": "Specified for batch-31: session-start.md keeps the start checks and the seat; the Chief of Staff, Griller and Foreman get their own start files, titles and the sync become their own cards, gh and glab move to forges/; a tested table of moves proves nothing is lost.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "438aa1a50a02a56606347c151bf5fb04d4f073906975dbb7d38068886e20489b",
-    "02-answers.md": "9fc6be382e73f3cf799199cbc4d9c1099e15c6f4ecc66db4e21dbd2050e53a1d",
+    "02-answers.md": "4ea27498af051eca0ea9313f64c1ab396e75873e9bd414281e842ccdecf83f6d",
+    "03-change-spec.md": "73f7d691440894fd96987c2d5379c2e53e02258c7e4b97b6673bfce6c6bf12c9",
     "intake/request.md": "2a076a5aeb6396922f719788a3caa9848084cfced1c98be0cc22c46e8216024c"
   },
-  "summarized": "2026-11-23T13:14:30Z"
+  "summarized": "2026-11-23T13:28:35Z"
 }
