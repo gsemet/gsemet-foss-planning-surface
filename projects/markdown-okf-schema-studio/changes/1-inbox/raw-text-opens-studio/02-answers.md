@@ -38,3 +38,18 @@ Grilled with the owner on 2026-11-23 (bug day, batch-09).
     said in the notes; removing an undeclared key is proved in a real window, fallback: keep both
     keys declared for one version with a `deprecationMessage`). The texts say "since 1.11.0" (fact
     from git). The 1.12.1 notes file belongs to the release CR; this PR adds the CHANGELOG line only.
+13. raw-text-Q13 (spec critic, finding 1): **accept for 1.12.1.** With the `*.md` association set, a
+    jump while the side preview is open opens a Studio tab and the side preview marks nothing. The
+    marker works without the association, and for a file already open as text if the real window
+    proves it; a known limitation and a line in the notes say so; `studio-at-searched-line` owns the
+    fix.
+14. raw-text-Q14 (spec critic, finding 8): **nothing shown** when 1.12.1 puts the association back
+    and removes the settings; only the release notes say it.
+15. Chief of Staff, routine (spec critic findings 2-7, 9): take the critic's fixes. The texts also
+    say that, with default settings, a search result or jump opens the text editor at the line again;
+    the feature-introduction tests take their own entry; the reverse migration gets a dedicated launch
+    with its own user-data directory, the workspace value in the `.code-workspace` file; the
+    real-window proof of removing an undeclared key is the Driver's first step, with the fallback's
+    consequences written; "Open as Text" under the association is unproved, with the fallback
+    `vscode.openWith(uri, "default")`; StRS LIFE-001 line 53 is amended too; the manual scenario uses
+    the VSIX built from the stack's head.
