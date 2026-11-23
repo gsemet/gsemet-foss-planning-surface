@@ -19,3 +19,5 @@ Destination: running batch batch-31.
 Spec critic: yes, on Fable (claude-fable-5-2), as the user asked for this family of CRs.
 
 
+
+14. slim-cards-Q14: **Manifest over the limit at build (37 actions, CoS reload 13,445 vs 12,544).** Option 3: free about 900 bytes elsewhere in the Chief of Staff's startup reading (the CHANTIER paragraph of skills/chief-of-staff/SKILL.md and startup-core.md), keeping every rule; the limit stays; the user's word 2026-11-23.
