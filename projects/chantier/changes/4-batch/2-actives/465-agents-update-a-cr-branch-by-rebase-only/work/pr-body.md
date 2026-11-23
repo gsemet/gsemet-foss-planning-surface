@@ -59,7 +59,7 @@ No visual change. A Driver whose branch holds a merge commit rebases it and push
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
+- [ ] Local gates at `37f0cb0`: `just check` pass, `just eval-dry-run` pass
 - [ ] Evidence: none beyond the tests
 - [ ] Review: approved at `<sha7>`
 - [ ] Verified at `<sha7>`
