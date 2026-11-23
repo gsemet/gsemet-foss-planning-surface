@@ -45,3 +45,7 @@ Short name: `acceptance-paths`
 31. acceptance-paths-Q31: **Finding codes.** `W003` only (live StRS with no declared path); errors carry no code. No `W004`: with Q19 a fragmentless `@tests_req StRS-X` counts when nothing is declared.
 32. acceptance-paths-Q32: **W003 doc link.** The stable URL `https://okf-schema.readthedocs.io/en/stable/reference/okfreq-frontmatter.html#okfreq-declared-scenarios`.
 33. acceptance-paths-Q33: **Heading reading for W003.** Every heading under `### Main paths` up to the next `###` (or the generated links block), plus `### Scenario…` headings; the title is the text after `Path <n>:` / `Scenario:`, else the whole heading.
+34. acceptance-paths-Q34: **Live StRS for W003.** Every lifecycle except `deprecated` and `superseded` (`draft` included).
+35. acceptance-paths-Q35: **SwRS with `### Scenario` headings, no `scenarios:`.** No warning, and no distinction between StRS and SwRS on this point. Instead the CR migrates correctly the okf-schema project, its examples and its documentation (user: "dans la procedure de migration que tu vas faire tu vas t'arranger dans le projet okf-schema, et dans les exemple et la doc, de tout migrer correctement"). Widens the CR together with Q21.
+36. acceptance-paths-Q36: **Approval for a `scenarios:`-only edit.** The project's owner decides; without a new approval, `approved_by`/`approved_at` stay and the log names the agreement.
+37. acceptance-paths-Q37: **Report version.** `format_version` 2 in every mode.
