@@ -64,11 +64,11 @@ No visual change. A session in the project's clone can now open a batch.
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): `test_session_folder.py`
-- [ ] Local gates at `9bb9c9b`: `just check` (2157 passed, 20 skipped), `just eval-dry-run` (19 of 19)
+- [ ] Local gates at `450b878`: `just check` (2157 passed, 20 skipped), `just eval-dry-run` (19 of 19)
 - [ ] Evidence: none; tests are the proof
-- [ ] Review: approved at `9bb9c9b`
-- [ ] Verified at `9bb9c9b`
-- [ ] CI green at `9bb9c9b`
+- [ ] Review: approved at `450b878`
+- [ ] Verified at `450b878`
+- [ ] CI green at `450b878`
 
 ## Internal references
 
