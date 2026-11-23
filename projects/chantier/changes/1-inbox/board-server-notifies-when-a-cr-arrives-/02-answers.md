@@ -5,3 +5,7 @@ Short name: `pull-arrival`
 3. pull-arrival-Q3: **Which stages notify.** Inbox and backlog only, not `3-ready`. The user's words: "Inbox et backlog. Normalement il ne peut pas y avoir 2 chief of staff actif sur le même projet (donc owner du batch)." So a CR reaching `3-ready` or `4-batch` by a pull is the owning Chief of Staff's own doing and notifies nobody.
 4. pull-arrival-Q4: **A moved CR.** A. Yes: a new CR and a CR changed of stage (between inbox and backlog) both notify.
 5. (rule from the request, no question) The server's own writes notify nobody.
+6. pull-arrival-Q5: **Grilled enough.** A. Specify, for the running batch batch-31.
+
+Destination: running batch batch-31.
+Spec critic: yes, default model (it changes what the server does and what the user sees).
