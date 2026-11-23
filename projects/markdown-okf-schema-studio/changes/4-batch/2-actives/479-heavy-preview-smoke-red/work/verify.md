@@ -1,30 +1,21 @@
-Head: 8b8651581e78e31cc4e0cca65296eef6af98ef8e
+Head: 0303eaf7aa8ef99c145efa902758671ce6db1fd1
 
-Verdict: NOT VERIFIED
+Verdict: VERIFIED (re-judged after the Review box fix)
 
-Claims (all judged at 8b86515):
+Claims (judged at 0303eaf unless carried):
 
-1. Heavy run at the head is green (acceptance 5). VERIFIED.
-   `gh run view 45238430594 --json headSha,conclusion,jobs` -> headSha 8b8651581e78e31cc4e0cca65296eef6af98ef8e,
-   conclusion success; integration, stress, visual, static, static-windows, viewer-graph, report, gallery: success.
-2. Local project gate. VERIFIED. work/gates/preflight-8b86515.log ends `ci-static: passed` and `EXIT 0`
-   (project gate is local `just preflight`, handed back with --no-gate; ship recorded "no long gate passed", expected).
-3. Fix matches spec. VERIFIED by diff (`git diff origin/main...HEAD`): `pendingShow` in rendering.ts, awaited
-   after the queue request in `requestDocument` (previewManager.ts) with `@implements_req SwRS-MDOKFSTUDIO-LIFE-003`;
-   tests in test/host/openCompletes.test.ts with `@tests_req`; no CI file touched; preview-smoke (trusted-suite.ts) untouched.
-   Not run by me: that the host tests fail on 2e2efa6c (an ad hoc `tsx --test` run here failed in the harness without
-   `just check`'s compile step, so it proves nothing; not claimed).
-4. PR #495 description, as posted at this head. NOT VERIFIED.
-   `gh pr view 495 --json body`:
-   - Known gaps still says "**UNVERIFIED:** the heavy run ... of the final head is not read yet ... At the previous head
-     (39b2232) ... integration failed later". Stale: the heavy run 45238430594 is green at 8b86515, so the claim and the
-     gap text are wrong.
-   - No heavy run number or link anywhere (spec acceptance 1 and 5 ask for the run of the proof and of the fixed head).
-   - Changes lists no round 4-6 work: the `shownRequestId`/`hasPendingShow` wait in `sendPreviewMessageForTests` is
-     described only partly, and the RI-T34 test-side waits and the counter sweep of work/r6.md
-     (test/integration/realInput/renderPatching.ts, +18 lines at 8b86515) are unmentioned.
-   - Test plan boxes are all unchecked; no Review box (`Review: approved at <sha7>`); the Driver log's approvals
-     (r6 inspector at 3a32623, committed as 8b86515) are not cited in the body.
-   - Description still reads as draft body written at 39b2232 ("PR body refresh not done" per the Driver's own 18:22 note).
-   Fix: refresh the body at 8b86515 (run link, causes, test-side waits and sweep list from r6.md, Known gaps rewritten
-   or removed, Review box), then run the description pass again.
+1. Heavy run green at the head. VERIFIED at 0303eaf.
+   `gh run view 45244689744 --json headSha,conclusion,jobs` -> headSha 0303eaf7..., conclusion success;
+   integration, stress, visual, static, static-windows, viewer-graph, report, gallery, checks: success.
+2. Local gate. carried from 8b86515: work/gates/preflight-8b86515.log EXIT 0; the move was a clean rebase on main
+   (per the brief; `git diff --stat origin/main...HEAD` shows the same 14 files, 4 commits); CI at the new head is green (claim 1).
+3. Fix matches spec. carried from 8b86515 (diff verified earlier: pendingShow in rendering.ts, awaited in previewManager.ts requestDocument; tests; no CI file touched).
+4. PR #495 body at 0303eaf (`gh pr view 495 --json body`): renders; Summary, Deliverables, Changes match the diff stat; heavy run link present; Known gaps rewritten and consistent (no stale UNVERIFIED); no images. OK, EXCEPT:
+   - FAIL: the Review box says `Review: approved at 0303eaf (round 6 inspector, rebased)`. `chantier log CR-479` has no note of an approved pass at 0303eaf
+     (approvals are at 3a32623 and "committed as 8b86515"; the 0303eaf entries are only `ship` lines; no `carry` event, `grep -i carry` finds none).
+     Rule: a Review box needs a Driver note of an approved pass at the cited SHA. Fix: cite `carried from 8b86515` (or 3a32623) after recording the carry, or have a note of the approval at 0303eaf.
+
+Re-check at 0303eaf: `gh pr view 495 --json body` line 59 now reads "Review: approved at 8b86515 (round 6 inspector APPROVE), carried over the clean rebase onto main to 0303eaf".
+`chantier log CR-479` has "r6 approved at 3a32623, committed as 8b86515" and the rebase note "inspector APPROVE of round 6 at 8b86515 carries". The earlier failure is fixed; claim 4 now VERIFIED.
+
+Re-check 2 at 0303eaf: Review box line 59 reads 'approved at 0303eaf (round 6 inspector APPROVE, carried over the clean rebase onto main)'; log note 19:20:39 records the carry to 0303eaf. VERIFIED.
