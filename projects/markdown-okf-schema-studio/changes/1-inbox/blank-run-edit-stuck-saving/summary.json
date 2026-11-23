@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "title": "Blank lines: one block per line, and the save never hangs",
+  "summary": "Issue #485. Grilled 2026-11-23: one block per extra blank line (replaces the CR-444 run block), typed text replaces that line, Delete removes one line, a general save guard and edge-case tests. Being specified for batch-09, spec critic on Fable.",
+  "origin": {
+    "kind": "github",
+    "ref": "#485",
+    "url": "https://github.com/gsemet/markdown-okf-schema-studio/issues/485"
+  },
+  "sources": {
+    "01-intent.md": "af2f7a3c355865f1b38314ac3675b8554439b4f70bdc176d478cd8eab74fda9f",
+    "02-answers.md": "c5b72333884bc98ad991a033b710c73964959e3ad7cf440c4f679cd05778fd9c",
+    "intake/request.md": "f34fd54a447eb77296656fa446009f8b872f30ced3ebd696c8577dca169c2224"
+  },
+  "summarized": "2026-11-23T11:02:41Z"
+}
