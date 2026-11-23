@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Heavy CI red on main: preview-smoke reads the page before it is shown",
+  "summary": "Specified, no open question: the Driver proves that the open command resolves before the rendered page is assigned (async show of 20b12216), makes requestDocument wait for the show, fixes the remaining test races, and gets a green heavy run.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "c275093480903265a68d770c0399e983fa424777f49e78095ea0ba934c7c8905",
+    "02-answers.md": "4cb650c79ff996fe65891038b9d2652b25a6e07d3de572f3fe4e29456a53202f",
+    "03-change-spec.md": "588f152e812eeee89c4952ba273ab937f1480d39979d5af5e8178e865d870d37",
+    "intake/request.md": "d72fc5a8af7f1f2ae5d70a56ed6df08d62cc327e6614ee3aac743c6e9a792b1e"
+  },
+  "summarized": "2026-11-23T15:47:24Z"
+}
