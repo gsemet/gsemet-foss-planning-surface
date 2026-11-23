@@ -18,7 +18,13 @@ flowchart LR
   D --> E[planBlankRunInsertion / planBlankRunRemoval]
 ```
 
-Screenshots of the new look are attached below once captured at the pushed head.
+Before (base `dcc84de`) and after (`58c9f1e`), edit mode, made-up fixture content:
+
+| Before | After |
+| --- | --- |
+| ![Before: text then three blank lines show one Blank lines (3) block](./verifier/evidence/before-v44-text-three-blank-lines-light.png) | ![After: the same document shows two Blank line blocks, the first line being the separator](./verifier/evidence/after-v44-text-three-blank-lines-light.png) |
+| ![Before: six blank lines show one Blank lines (6) block](./verifier/evidence/before-six-blank-lines-light.png) | ![After: six blank lines show six stacked Blank line blocks](./verifier/evidence/after-v54-six-blank-lines-light.png) |
+| ![Before: a one-newline document shows only Start writing](./verifier/evidence/before-v86-empty-document-light.png) | ![After: the one-newline document shows one Blank line block with Start writing below it](./verifier/evidence/after-v86-empty-document-light.png) |
 
 ## Blast radius
 
@@ -32,8 +38,8 @@ Grade: **2**. The shown-line rule is shared by the render marker, the page, the 
 
 ## Known gaps
 
-- A document made only of whitespace now shows blank-line blocks; its interaction with the "Start writing" button is not verified.
-- The real VS Code integration run and the browser captures are not run locally; they run in CI.
+- The real VS Code integration and stress runs do not run on a pull request, and they are red on the default branch for reasons outside this change (the preview smoke test and a hidden-test race); they are not proven for this change.
+- Run locally, one paragraph-editor caret check (`block-editing/v04`) failed on a page of a fixture this change does not touch; it passes in CI at this head and was not run on the base.
 
 ## Approved requirements changed
 
@@ -55,12 +61,14 @@ Edit mode only: blank lines show as one block each. Reading mode and exported ou
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: SwRS updated, markers in code and tests, `just requirements-update`
-- [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `just preflight`
-- [ ] Review
-- [ ] CI green
+- [x] New or changed tests (they fail on the previous code) at `58c9f1e`
+- [x] Requirements: SwRS updated, markers in code and tests, `just requirements-update`
+- [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
+- [x] Local gates at `58c9f1e`: `just preflight` pass
+- [x] Evidence: before at `dcc84de`, after at `58c9f1e`
+- [x] Review: approved at `58c9f1e`
+- [x] Verified at `58c9f1e`
+- [x] CI green at `58c9f1e`: static, static-windows, viewer-graph, visual, checks, report pass; integration and stress do not run on a pull request
 
 ## Internal references
 
