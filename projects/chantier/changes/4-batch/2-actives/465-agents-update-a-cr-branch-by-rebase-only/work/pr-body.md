@@ -14,7 +14,7 @@ The pull requests chantier delivers should never hold a merge commit. In a downs
 
 ```text
 CR-12: abc1234 holds a merge commit (def5678) above origin/main: chantier's PRs hold none;
-rebase onto main (git -C <worktree> rebase <base>), push with --force-with-lease, and ship again
+rebase onto main (git -C <worktree> rebase origin/main), push with --force-with-lease, and ship again
 ```
 
 Choices: the range starts at the base the head sits on (in a stack, the CR below), so a merge commit in a lower CR is that CR's refusal; no flag and no `chantier.yaml` key skips the check; the forge's rebase action is allowed but marked unproved, with a trial named.
@@ -31,6 +31,7 @@ Grade: **2**. `ship` can now refuse branches that used to be recorded, and the c
 ## Known gaps
 
 - The forge's rebase action is unproved; the card names the trial and this change does not run it.
+- The local long gate was not passed on Windows at `37f0cb0`: it failed twice on the board check "webui on a running server prints board already running" (environmental: the user's live board holds port 8765); the user waived it for this CR, and the ubuntu `just scenario` job in CI is green at the head.
 - Only `ship` checks; `gate`, `handback`, `stack --out-of-draft` and `forge-stack` keep their behaviour.
 
 <details>
@@ -58,12 +59,12 @@ No visual change. A Driver whose branch holds a merge commit rebases it and push
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `37f0cb0`: `just check` pass, `just eval-dry-run` pass
-- [ ] Evidence: none beyond the tests
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `37f0cb0`: `just check` pass, `just eval-dry-run` pass; the local long gate was waived by the user (webui board-already-running failure on Windows, environmental); CI ubuntu scenario pass
+- [x] Evidence: none beyond the tests
+- [x] Review: approved at `f4c1bcc`, committed as `37f0cb0`
+- [x] Verified at `37f0cb0`
+- [x] CI green at `37f0cb0`
 
 ## Internal references
 
