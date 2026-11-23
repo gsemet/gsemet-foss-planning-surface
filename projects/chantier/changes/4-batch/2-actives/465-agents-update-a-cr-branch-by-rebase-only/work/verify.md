@@ -17,3 +17,9 @@ VERIFIED
 Description pass at 37f0cb0 (posted body, gh pr view 442 --json body): structure, fold, Test plan SHAs, Review note (f4c1bcc, committed as 37f0cb0, in `log`), CI (all five checks SUCCESS) and Changes/Deliverables vs diff are right. One failure: Known gaps omits that the local long gate failed twice on Windows and was waived (it appears only in the Test plan); that is a knowingly shipped unproven item. Minor: the sample message shows `<base>` where the code prints `origin/main`-style `{name}`.
 
 NOT VERIFIED
+
+## Description pass (second start), judged at 37f0cb0e4fd1766cdf13ce385d39fb7d256d4130
+
+Command: gh pr view 442 --json body; gh pr diff 442 --name-only. Body renders (fold with blank lines), sections in order, Known gaps now names the waived local long gate, the unproved forge rebase and the ship-only check; sample message matches merge_check.py; Review box f4c1bcc / committed 37f0cb0 matches the driver note; no images; no internal references outside Internal references; Summary/Deliverables/Changes match the 17 files of the diff. Description: VERIFIED.
+
+VERIFIED
