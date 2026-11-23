@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "No edit stays on Saving Markdown for good",
+  "summary": "Specified: every block, cell and frontmatter final save ends within 10 s in the render or a neutral timeout message (Done or Enter retries, stale retry reads as already saved or changed); Cancel and Escape always close, the save goes on; a measure checks the limit. Three open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "37c29ee5f19847dfe9d5cf70ffb613597f4b31cde3facd86694c68c978757c11",
+    "02-answers.md": "5d58c326e10f1e9b427f25b029b7e99bd5b10f2867a686c1cb1d803d71262ea4",
+    "03-change-spec.md": "aa2487971824ada0a68ec5fb21da5be48914c36f489d4f6caff494fabe3b3b73",
+    "intake/request.md": "bd00575bdd598d8a3eec1b2e1f90d919e6dc2cc5f4be328efa31da7b6c3dd45c"
+  },
+  "summarized": "2026-11-23T11:32:50Z"
+}
