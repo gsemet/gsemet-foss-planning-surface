@@ -54,9 +54,9 @@ Grade: **2**. The page's edit state, the host's edit lock, three protocol messag
 ## Known gaps
 
 - **UNVERIFIED:** the real VS Code scenario (Done, Escape with the apply held, release) is written and compiles but was not run locally; it runs in the heavy CI.
-- Insertion-point and blank-lines editors cannot be reopened (no source-line attribute): the page answers `reopened: false` and VS Code offers "Copy text".
 - If the host's render never arrives after `done` with `renderFollows`, the page keeps the detached-save record.
-- Host tests were written after the code; only the frontmatter hang was shown failing first on the previous code.
+- The replace gesture is not covered by a page test during a detached save (it needs the find bar; its guard uses the same `editInFlight()` check), and a full page replacement has no page-side test (a replaced page is a new runtime).
+- The new fix tests were shown failing on the previous code by reading the code, not by running them there.
 
 <details>
 <summary>Details</summary>
