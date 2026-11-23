@@ -12,3 +12,6 @@ Short name: `acceptance-paths`
 9. acceptance-paths-Q9: **Approved StRS.** When declaring `scenarios:` on approved StRS, edit the frontmatter only (body intact) and log it in `requirements/tiers/log.md`; the Studio owner agreement already covers a metadata-only change.
 10. acceptance-paths-Q10: **Split.** One CR, one batch.
 7. acceptance-paths-Q7: **Fragment on a SwRS.** Counted: a SwRS with declared transitions is covered only when every transition has a test (`@tests_req SwRS-X#S<n>`). Scope and the no-fragment interaction are settled in Q11.
+11. acceptance-paths-Q11: **Scope of the transitions rule.** New mode only, for StRS and SwRS alike. A test without fragment covers all the declared paths/transitions; once `scenarios:` are declared in the frontmatter, they are mandatory (each must be covered). Possible conflict with Q4 (direct `@tests_req StRS-X` ignored) to settle in Q14.
+12. acceptance-paths-Q12: **Report.** JSON and Markdown, schema version incremented. Per StRS: `paths: {total, tested, accepted}` and the two booleans; per SwRS: tested and missing transitions; Markdown shows the two counters as columns.
+13. acceptance-paths-Q13: **Agent error message.** Detailed: names the StRS, quotes the `### Main paths` / `### Scenario` headings found, gives the `scenarios:` block to paste, and the doc link.
