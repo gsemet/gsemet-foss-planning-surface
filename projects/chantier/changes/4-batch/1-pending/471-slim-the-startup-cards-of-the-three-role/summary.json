@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Slim the startup cards of the Chief of Staff, Foreman and Driver",
+  "summary": "Specified: cut chief-of-staff.md, foreman.md and the four Drivers' driver.md by moment into small manifest actions listed in each entry card, limit kept, after slim-session-start and batch-31; reach and moved-rule tests; Fable reading by the CoS.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "85b4b11979ac4511a7a58f1112d56d9f15d756f1a8c48d1cd99ffe2a284865b1",
+    "02-answers.md": "88402aa85ff211fd3cef25db6abe58a08f0a3530d70a103360d233a699504992",
+    "03-change-spec.md": "e02c5b8d8aea0c2af2e55ee93d0975ab65253ba583719255062abef317801f8a",
+    "intake/request.md": "c38eb4d6a85b75ea769bd7c5b3afc825a9b4e1fc4c4f2a4e8a70c82f66ee1b5d"
+  },
+  "summarized": "2026-11-23T15:26:17Z"
+}
