@@ -68,13 +68,21 @@ The order of work is the user's: the Chief of Staff, then the Foreman, then the 
   ("`chief-of-staff.md`, Starting a batch" names its new place), `docs/` and
   `evals/real-direct/RUNBOOK.md`. No rule is added, none dropped; a duplicate found is said in the
   PR, not merged away.
-- **What is read at boot does not grow past the limit.** Every role reads
-  `startup-manifest.json` whole at boot, and the test holds each role's boot and reload under
-  12,544 bytes; the Chief of Staff's reload is at 12,515 today. The new actions grow the manifest:
-  the Driver measures that growth at the base before it writes the cut and follows the answer to
-  the open question 1. It never raises `limit` or `STARTUP_LIMIT` on its own.
-- **No other card is cut.** `concepts.md`, `hosts/claude-code.md` and `hosts/copilot.md` keep
-  their text and their place; how an action reads them is the open question 2.
+- **What is read at boot stays within the limit, by actions named by reference**
+  (slim-cards-Q6). Every role reads `startup-manifest.json` whole at boot, and the test holds
+  each role's boot and reload under 12,544 bytes; the Chief of Staff's reload is at 12,515 today.
+  The new actions grow the manifest, so an action's readings may name another action by
+  reference: a reading `@<action>` stands for every reading of that action, in its order (for
+  instance the shared Means lines of `stack-driver`, `qa-driver` and `release-driver` written once
+  as an action they each name). `role-core.md` gets the one sentence that says so. A reference
+  names an existing action, never itself or a cycle. The manifest's `version` becomes 3
+  (`MANIFEST_VERSION` in the test). The 12,544-byte limit stays; only what is still over once the
+  references are used may raise it, by the measured excess and no more, `limit` and
+  `STARTUP_LIMIT` changed together, the PR giving the figure and why (the boot and reload bytes
+  of the role that is over, before and after).
+- **No other card's text moves.** `concepts.md`, `hosts/claude-code.md` and `hosts/copilot.md`
+  keep their text and their place; only how the Foreman's actions read them changes (section 2,
+  slim-cards-Q7).
 
 ### 1. The Chief of Staff (`chief-of-staff.md`)
 
@@ -114,6 +122,17 @@ heartbeat). Target cut of the rest of Your means, by its bold items:
 `batch` lists `foreman.md`'s remaining text instead of the whole of today's card; `batch:stack`
 is unchanged.
 
+**The Foreman's other readings** (slim-cards-Q7). The Foreman's actions (`batch` and every
+`foreman:*`) read only its own host's card, in the `{"claude": "hosts/claude-code.md#…",
+"copilot": "hosts/copilot.md#…"}` form `startup_sections.foreman` already uses, and read
+`concepts.md` and that host card by section (`file#heading`), each action listing the sections its
+moment needs (for instance "Escalation" where a trigger arises, the host card's "Heartbeat" and
+"The Foreman's turn-end notice" in `batch`). No text moves in `concepts.md` or the host cards.
+Every section of `concepts.md` and of the host card that `batch` reads today stays listed by at
+least one Foreman action, so the reach test (section 4) covers them for the Foreman. The
+Chief of Staff's actions that name those files (`chief-of-staff`, `board`, `writer`) are
+unchanged by this point.
+
 ### 3. The Driver (`driver.md`)
 
 Already read by sections. Two changes:
@@ -143,7 +162,16 @@ Already read by sections. Two changes:
   - **Every rule is reached** (new test): for each of the three roles' cards (the entry cards and
     every new piece), every level-2 section is listed by at least one action or startup section,
     as `file#heading` or as the whole file; a card's opening counts as read with its entry card.
-    It reads the cards and the manifest from the repository as they ship.
+    It reads the cards and the manifest from the repository as they ship. For the Foreman it also
+    asserts that every section of `concepts.md` and of each host card that `batch` read whole at
+    the base is listed by at least one Foreman action, for that host.
+  - **Readings by reference** (slim-cards-Q6): `_resolve`, `_sections` and `_check_actions`
+    expand a reading `@<action>` into that action's readings before they measure or check
+    anything, so every existing assertion (the Driver actions' shape, the step lines' disjointness,
+    the boot and reload limits) runs on the expanded lists. A parametrized refusal test, on a
+    prepared copy of the shipped manifest (a broken input the shipped file cannot hold), asserts
+    that a reference to an unknown action, to itself or in a cycle fails; it is paired with the
+    check of the shipped manifest above.
   - **The moved-rule table** (new data, `MOVED_RULES`, one row per row of the PR's tables): the
     rule's first words, its old place, its new `file#heading`, its action. A parametrized test
     asserts the words are in the new section (`_text`), gone from the old place, and the new
@@ -163,13 +191,16 @@ Already read by sections. Two changes:
 
 ### 5. The Fable advisor
 
-For each role, once its cut is written, an advisor on Fable (`claude-fable-5-2`) reads the old
-card (at the base) against the new pieces, the manifest's actions and the entry card's list of
-moments, read-only, and answers: which rule now arrives too late, too early, by the wrong means
-(a link where an action is needed) or not at all, and which cut would be better. Each finding is
-fixed or answered in the PR; the advisor's verdict for each role is quoted in the PR's
-Deliverables. Who starts it and how its model is set is the open question 3. A Fable model not
-available exactly as named is a stop, never a look-alike.
+The Driver runs it (slim-cards-Q8, as slim-session-start-Q6): a read-only Inspector review
+step before the push, once per role (three runs, Chief of Staff, Foreman, Driver), on the model
+the CLI prints for the Inspector in its `team:` lines, which the project's `chantier.yaml` sets to
+`claude-fable-5-2`. The Driver does not edit `chantier.yaml`: when the `team:` lines do not print
+`claude-fable-5-2` for the Inspector, it notes the gap and hands back blocked, never running the
+review on another model. Each run reads the old card (at the base) against the new pieces, the
+manifest's actions and the entry card's list of moments, writes nothing, and answers: which rule
+now arrives too late, too early, by the wrong means (a link where an action is needed) or not at
+all, and which cut would be better. Each finding is fixed before the push or answered in the PR;
+the verdict for each role is quoted in the PR's Deliverables.
 
 ## Decisions carried
 
@@ -183,13 +214,19 @@ available exactly as named is a stop, never a look-alike.
 - slim-cards-Q4 (A): a table of every moved rule with its action, a test that each rule is
   reached by at least one action, a Fable advisor reading each role's split.
 - slim-cards-Q5 (A): specified for the running batch batch-31.
+- slim-cards-Q6 (B): an action may name another action's readings by reference; the 12,544-byte
+  limit stays, raised only by what is still over (section "Rules common to the three cuts").
+- slim-cards-Q7 (A): the Foreman's actions read only its own host's card, and `concepts.md` and
+  the host card by section, with no text moved (section 2).
+- slim-cards-Q8 (A): the Driver runs the Fable advisor as a read-only Inspector review step before
+  the push, the Inspector's model set to `claude-fable-5-2` in `chantier.yaml` (section 5).
 
 ## Out of scope
 
 - `session-start.md` and its split: the base CR's.
 - The forge wording of the cards (`gh`, `glab` beyond the startup cards): a separate CR, per
   slim-session-start-Q3.
-- Cutting `concepts.md`, the host cards, `foreman-stack.md`, `pr-template.md` or the workers'
+- Moving text in `concepts.md`, the host cards, `foreman-stack.md`, `pr-template.md` or the workers'
   cards; changing what the CLI prints (`take`, `handoff`, the Driver's prompt): that is
   `driver-context-second-cut`'s.
 - Any rule's meaning: no rule is changed, added or dropped.
@@ -203,13 +240,13 @@ available exactly as named is a stop, never a look-alike.
 - **The figures**, in the PR: each role's start reading today (above), at the base and after, in
   bytes, with the ratio; where about half is not reached, the reason, read from the figures.
   The boot and reload bytes per role (`startup-bytes` lines) before and after, with the manifest's
-  size.
+  size; if the limit was raised (slim-cards-Q6), by how much and for which role.
 - **The checks**: `just check` (the new and updated tests above) in the worktree at the rebased
   head, on Windows; CI's `just check` on Linux, macOS and Windows. The tests read the shipped
   cards and the shipped `startup-manifest.json` from the repository at the head under test; the
   only prepared texts are those already in `test_reading_union_counts_lf_bytes_and_nested_sections_once`
-  and `test_reload_budget_includes_additional_whole_file_readings` (a broken input), each paired
-  with the check on the shipped files.
+  and `test_reload_budget_includes_additional_whole_file_readings` and the new reference-refusal
+  test (each a broken input), each paired with the check on the shipped files.
 - **The long gate**: a change to the cards passes the pipeline's `just scenario (ubuntu-latest)`
   job, green at the PR's head, before the PR is ready; when this CR is on top of batch-31's stack,
   `chantier gate <cr> scenario` locally at its head (Windows coverage). No `just eval-dry-run` is
@@ -227,21 +264,4 @@ available exactly as named is a stop, never a look-alike.
 
 ## Open questions
 
-1. **The manifest's growth at boot.** Every role reads `startup-manifest.json` (4,587 bytes)
-   whole at boot, within the 12,544-byte startup limit; the Chief of Staff's reload is at 12,515
-   today, 29 bytes under. The new actions add an estimated 2 to 3 KB. Which way: (A) raise the
-   limit by the measured growth; (B) let an action name another action's readings by reference
-   (one line in `role-core.md`; the four Driver actions' shared Means lines written once), with the
-   limit kept, and (A) for what remains; (C) the actions move out of the boot reading (one
-   actions file per role, read at its first action), the manifest's format changing (version 3).
-2. **The Foreman's half.** Cutting `foreman.md` alone takes the Foreman's start reading from
-   275 KB to about 215 KB (about 78 %): the rest is `concepts.md` (72 KB) and the two host cards
-   (116 KB), read whole by `batch`. May the Foreman's actions read the host card of its own host
-   only (the `{"claude": …, "copilot": …}` form the startup sections already use) and
-   `concepts.md` and the host card by section, with no text moved in those files? Without it,
-   the PR reports about 78 % for the Foreman, not half.
-3. **Who runs the Fable advisor.** A Driver passes only the models the CLI prints in its `team:`
-   lines, and the playbook names no advisor role. Which way: (A) the Driver runs it as an
-   Inspector review step, with the user setting the Inspector's model to `claude-fable-5-2` in the
-   project's `chantier.yaml` for this batch; (B) the Chief of Staff runs it, like the spec critic,
-   on the PR's head, before the user's merge; (C) another way the user names.
+None: slim-cards-Q6 to Q8 answered the three this specification raised.

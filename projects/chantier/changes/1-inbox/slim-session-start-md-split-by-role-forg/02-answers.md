@@ -9,6 +9,11 @@
 6. slim-session-start-Q6: **Who has the split read by a Fable advisor.** A. The Driver, before the push, starts a read-only Fable Inspector.
 7. slim-session-start-Q7: **Titles rules.** A. One shared `titles.md`; the Foreman has its own row in it.
 
+8. slim-session-start-Q8: **Startup limit.** A. Keep the 12 544-byte limit; one `session-start` action and a SKILL.md sentence as short as today; the common header sends each role to its file.
+9. slim-session-start-Q9: **Role change.** A. The role-change paragraph stays in the common `session-start.md`; the rule "read the file of the role the seat gives you, again when the role changes" is written there and in the skills.
+10. slim-session-start-Q10: **Foreman file.** A. No Foreman file; the Foreman's startup does not change; `titles.md` keeps the Foreman row for the Chief of Staff (this supersedes Q4's Foreman file).
+11. slim-session-start-Q11: **Forge cards.** C. As specified: `forges/github.md` and `forges/gitlab.md`, and "Adding a connector" gains the step "add its `forges/<name>.md`"; cite `docs/forge-connectors.md`.
 Destination: running batch batch-31.
 Spec critic: yes, on Fable (claude-fable-5-2), as the user asked for this family of CRs; it changes what each role reads at start.
+
 
