@@ -1,0 +1,8 @@
+refactor: use WebCrypto instead of node:crypto in the core
+
+Comment ids and the CSP nonce now use the standard WebCrypto API, so the
+core no longer depends on a Node-only module and can run in a browser
+host. Stored comments still match: ids and text hashes keep their format
+and values.
+
+Assisted-by: Claude:Sonnet-5.5
