@@ -2,7 +2,7 @@
 
 Type: feat (okfreq, requirements, docs) · Requested 2026-11-23 by the markdown-okf-schema-studio
 Griller from the Studio owner's grill ([request](intake/request.md), [intent](01-intent.md),
-[answers](02-answers.md), Q1–Q60) · Forge-neutral (GitHub and GitLab) · One CR, one batch (Q10)
+[answers](02-answers.md), Q1–Q62) · Forge-neutral (GitHub and GitLab) · One CR, one batch (Q10)
 · Grilled enough 2026-11-23, destination `3-ready` (Q17) · Release `0.18.0`, not breaking (Q40).
 
 A new `strs_test_coverage_mode`, `linked-swrs-and-acceptance-paths` (Q24), makes `okfreq`
@@ -189,7 +189,7 @@ console scripts as subprocesses with no source checkout on the path.
 | Q47 | Superseded by Q52. | — |
 | Q48 | In the new mode, a bundle whose `swrs.schema.yaml` does not refuse `accepted_in_files` makes `okfreq validate` fail with an error asking the project to update its bundle schema (property and 0.18.0 declaration named). No shipped default, no silent fallback. | Rules 4, 6 |
 | Q49 | In the new mode a StRS's `validation_tests` has the same files and status as its `acceptance_tests`. | Rule 8 |
-| Q50 | The checked-in example moves to the new mode with a real acceptance test of its export (`Accepted 1/1`); `test_export_rows` carries `@tests_req StRS-CORE-001#S1`; its README and the showcase follow. | Surface 6 |
+| Q50 | The checked-in example moves to the new mode with a real acceptance test of its export (`Accepted 1/1`); its README and the showcase follow. Spec-writer's choice, not an answer: `test_export_rows` carries `@tests_req StRS-CORE-001#S1`. | Surface 6 |
 | Q51 | The 5 StRS main paths are the spec-writer's proposed ones; the PR lists them for the owner's review. | Surface 5 |
 | Q52 | No `@simulates_req`, no `markers.simulates`. `@tests_req` on a StRS is valid; `@accepts_req` declares a StRS's acceptance coverage. `@accepts_req` on the tests closest to the final product and `@tests_req` on others is a recommendation, not an obligation. | Rules 3, 4, surface 2 |
 | Q53 | One fragment rule for both verbs on a StRS and `@tests_req` on a SwRS: when the target declares `scenarios:`, `#S<n>` is mandatory (error otherwise; the marker does not count). | Rule 4 |
@@ -200,9 +200,11 @@ console scripts as subprocesses with no source checkout on the path.
 | Q58 | In the new mode `marker_coverage.*`, `legacy.marker_coverage.*` and each SwRS's `tests.files` hold only the markers that count. | Rule 8 |
 | Q59 | `okfreq new` pre-fills `scenarios:` in the new mode only; old-mode output byte-identical. | Rule 9 |
 | Q60 | `W004`: a live StRS with no valid `@accepts_req` marker at all; the message points to the documentation on execution cost; independent of W003. | Rule 6 |
+| Q61 | Old modes: `update-coverage` removes `tested_in_files` and `accepted_in_files` from a StRS whatever `generated_fields` says. New mode: it writes each when listed in `generated_fields` and leaves it untouched when not. | Rules 1, 5 |
+| Q62 | Keep `stakeholder_test_coverage.tests` (`@tests_req` files); the reference page states how it differs from the StRS record's `tests` (which follows `validation_tests`, the `@accepts_req` files). | Rule 8, surface 2 |
 
-The request's point 3 named benches "in the project's config"; Q2 replaces that. The request's
-point 2 used `@accepts_req` for both benches; Q52 keeps `@tests_req` for tests of a StRS and
+The request's point 3 named benches "in the project's config" and used `@accepts_req` for both
+benches; Q2 replaces the config, Q52 keeps `@tests_req` for tests of a StRS and
 `@accepts_req` for its acceptance, and Q55 replaces the benches by an execution-cost
 recommendation. The request's point 5 (migration help) became an okfreq message (Q8, Q13).
 
@@ -212,22 +214,27 @@ recommendation. The request's point 5 (migration help) became an okfreq message 
 modes" are `linked-swrs` (the shipped default) and `linked-swrs-and-validation-test`.
 "Counting" marker: a marker that Rule 4 counts (not an error).
 
-### Rule 1: activation (Q1, Q11, Q24, Q25, Q57)
+### Rule 1: activation (Q1, Q11, Q24, Q25, Q57, Q61)
 
 - `STRS_TEST_COVERAGE_MODES` gains `linked-swrs-and-acceptance-paths`;
   `STRS_TEST_COVERAGE_DESCRIPTIONS` gains: "An StRS is considered as covered when it is linked
   to at least one SwRS, every linked SwRS is test-covered (one test per declared transition),
-  and every declared main path has an acceptance test (@accepts_req). Paths with a test marker
-  are reported as tested." `load_config` and `_strs_test_coverage_mode` accept it; the refusal
-  lists the three modes.
+  and every declared main path has an acceptance test (@accepts_req) (when it declares no
+  paths, at least one @accepts_req names the StRS). Paths with a test marker are reported as
+  tested." This text is what `report()` writes in `coverage_definition.stakeholder_tests` and
+  what `write_markdown_report` prints in the note below the StRS table (both read
+  `STRS_TEST_COVERAGE_DESCRIPTIONS[mode]`, as today). `load_config` and
+  `_strs_test_coverage_mode` accept it; the refusal lists the three modes.
 - In the old modes okfreq accepts `scenarios:` and `@accepts_req` and requires and counts
-  nothing new. Coverage, generated fields and findings stay as today: `@accepts_req` counts
+  nothing new. Coverage, generated fields and findings stay as today, apart from the
+  every-mode changes below: `@accepts_req` counts
   toward nothing, `@tests_req StRS-X` (with or without suffix) is still the validation test of
   `linked-swrs-and-validation-test`, and a suffix on any marker is ignored, as today. The only
   refusals are those of the bundle's own JSON Schema on the frontmatter (Rule 2's schema
   property) (Q25). `okfreq new` is unchanged in the old modes (Rule 9).
 - **Every-mode changes**, intended, and the only ones:
-  1. `report()`'s `format_version` 2 (Q37);
+  1. `report()`'s `format_version` 2 and `report_schema()`'s `const: 2`, the new mode in its
+     mode enums, and its new optional properties (Q37, Rule 8);
   2. `marker_scan` reads `@accepts_req` (`markers.accepts`) in `test_dirs`: `okfreq trace`'s
      summary line gains `accepted: N`, and `trace --json` gains the keys `accepted` and
      `scenario_markers` (Rule 3);
@@ -235,10 +242,13 @@ modes" are `linked-swrs` (the shipped default) and `linked-swrs-and-validation-t
   4. two marker kinds configured with the same keyword is a `RequirementError` (Rule 3);
   5. `okfreq retire` is refused when an `@accepts_req` marker names the ID (Q57);
   6. `accepted_in_files` is a supported generated field that `okfreq init` lists (Rule 5); in
-     the old modes `update_coverage` writes it on no requirement and removes it from a StRS, as
-     it removes `tested_in_files` there today;
-  7. the schemas and `config.yml` that `okfreq init` writes for a new bundle (Rules 2, 3, 4, 7);
-     `okfreq init` still never replaces an existing bundle's schemas.
+     the old modes `update_coverage` writes it on no requirement and removes both
+     `tested_in_files` and `accepted_in_files` from a StRS whatever `generated_fields` says,
+     as it removes `tested_in_files` there today (Q61);
+  7. the schemas, `config.yml` and shipped guideline (`guidelines/requirements.guidelines.md`,
+     surface 4) that `okfreq init` writes (Rules 2, 3, 4, 7); `okfreq init` still never
+     replaces an existing bundle's schemas or `config.yml`, and replaces an existing installed
+     guideline only with `--force`, as today.
 - Rules 4 to 6, 8 (new fields) and 9 apply in the new mode only.
 
 ### Rule 2: the `scenarios:` frontmatter field
@@ -398,7 +408,7 @@ checked. A marker reaches a tier schema only as a marker-derived frontmatter pro
   `schema_text("swrs")` writes. okfreq applies no shipped declaration and has no silent
   fallback. Outside the new mode nothing is checked (Rule 1).
 
-### Rule 5: counters and coverage, in the new mode (Q2, Q3, Q7, Q11, Q18, Q19, Q30, Q54, Q55)
+### Rule 5: counters and coverage, in the new mode (Q2, Q3, Q7, Q11, Q18, Q19, Q30, Q54, Q55, Q61)
 
 - **StRS that declares `scenarios:`**: `total` = declared paths; `tested` = declared paths with
   at least one counting `@tests_req StRS-X#S<n>`; `accepted` = declared paths with at least
@@ -418,16 +428,20 @@ checked. A marker reaches a tier schema only as a marker-derived frontmatter pro
   any fragmentless `@tests_req SwRS-X`, as today. This status drives `tests.status`,
   `totals.tested`, the scopes' `tested`, `marker_coverage.missing_tests` and the
   `linked_swrs[].status` of its StRS. Source coverage is unchanged.
-- **Generated fields** (Q30, Q55). `SUPPORTED_GENERATED_FIELDS` and `DEFAULT_CONFIG`'s
-  `generated_fields` gain `accepted_in_files`. In the new mode `update_coverage` writes, each
-  only when listed in `generated_fields` like every generated field:
-  - on a SwRS, `tested_in_files` as today, except that a SwRS that declares transitions lists
-    only the files with a counting `@tests_req SwRS-X#S<n>` (Q30);
+- **Generated fields** (Q30, Q55, Q61). `SUPPORTED_GENERATED_FIELDS` and `DEFAULT_CONFIG`'s
+  `generated_fields` gain `accepted_in_files`. In the new mode `update_coverage` writes each of
+  these fields only when it is listed in `generated_fields`, like every generated field, and
+  leaves it untouched (an existing value stays, none is added) when it is not listed (Q61):
+  - on a SwRS, `tested_in_files` lists only the files of its counting `@tests_req` markers
+    (Rule 4): its fragmentless markers when it declares no transitions, its markers with a
+    declared `#S<n>` when it does (Q30); a rejected marker's file is not listed;
   - on a StRS, `tested_in_files` (files of its counting `@tests_req`) and `accepted_in_files`
     (files of its counting `@accepts_req`), sorted, as on a SwRS. A StRS still gets no
     `implemented_in_files`.
   These are generated-field updates like `derived_by` on a StRS today: `_approval_findings` is
-  unchanged. In the old modes a StRS gets none of the three (Rule 1).
+  unchanged. In the old modes `update_coverage` removes `implemented_in_files`,
+  `tested_in_files` and `accepted_in_files` from a StRS whatever `generated_fields` says
+  (Rule 1, Q61).
 
 ### Rule 6: findings and messages (Q5, Q8, Q13, Q15, Q31–Q35, Q48, Q53, Q56, Q60)
 
@@ -495,7 +509,7 @@ approval" (surface 4) and the frontmatter reference's "Lifecycle states" row (su
 proves an approved StRS that gains only `scenarios:` still validates. The Studio's owner has
 already agreed for the Studio.
 
-### Rule 8: the report (Q12, Q29, Q37, Q39, Q42, Q49, Q55, Q58)
+### Rule 8: the report (Q12, Q29, Q37, Q39, Q42, Q49, Q55, Q58, Q62)
 
 - `"format_version": 2` in `report()` and `"const": 2` in `report_schema()`, in every mode
   (Q37). The mode enums follow `STRS_TEST_COVERAGE_MODES`. Every new property is optional in the
@@ -511,20 +525,28 @@ already agreed for the Studio.
   ```
 
   `tests` lists the files of the **counting** `@tests_req` markers on the StRS (its generated
-  `tested_in_files`), named like the SwRS record's `tests` (Q55); `acceptance_tests` lists the
+  `tested_in_files`), named like the SwRS record's `tests` (Q55, Q62); `acceptance_tests` lists the
   files of the counting `@accepts_req` markers (its `accepted_in_files`, Q42). Both are shaped
   like `validation_tests` (`status` `defined`/`missing`). `validation_tests` stays, required,
   for backward compatibility (Q42); in the new mode it has the same files and status as
   `acceptance_tests` (Q49). The StRS record's own `tests.files`/`count` keep following
-  `validation_tests`, as the code does today.
+  `validation_tests`, as the code does today, so in the new mode they hold the `@accepts_req`
+  files, while `stakeholder_test_coverage.tests` holds the `@tests_req` files (Q62); the
+  reference page (surface 2) states this difference.
 - New mode, only counting markers (Q58): the aggregate `marker_coverage` and
-  `legacy.marker_coverage` are built from the counting markers: `tested` counts the leaf IDs
-  with at least one counting `@tests_req`, `validation_tests` maps each StRS to its
-  `acceptance_tests` files, `missing_tests` follows Rule 5; and each SwRS record's
-  `tests.files`/`count` list only the files of its counting `@tests_req` (its
-  `tested_in_files`, Q30). The rejected markers are listed only by the errors (`okfreq
-  validate`, `diagnostics.errors`). `missing_ids`, `duplicates`, `non_leaf`, `warnings` and the
-  implementation fields are unchanged.
+  `legacy.marker_coverage` are built from the counting markers: `validation_tests` maps each
+  StRS to its `acceptance_tests` files, `missing_tests` follows Rule 5, and `tested` stays what
+  it is in the code today (`len(trace["tested"])`), a **link count**: the number of leaf IDs
+  with at least one counting `@tests_req`, not the number of test-covered SwRS. So a SwRS that
+  declares S1 and S2 and has a counting marker on S1 only counts in `marker_coverage.tested`
+  and is listed in `missing_tests`; the test-covered count is `totals.tested`, as today (where
+  `marker_coverage.tested` already differs from it, e.g. by counting exempted leaves). Each SwRS
+  record's `tests.files`/`count` list only the files of its counting `@tests_req`, that is its
+  `tested_in_files` (Rule 5): fragmentless markers when it declares no transitions, markers
+  with a declared `#S<n>` when it does (Q30). The rejected markers are listed only by the
+  errors (`okfreq validate`, `diagnostics.errors`). `missing_ids`, `duplicates`, `non_leaf`,
+  `warnings` and the implementation fields are unchanged. The reference page (surface 2) says
+  that `marker_coverage.tested` is a link count and `totals.tested` the coverage count.
 - New mode, per SwRS that declares transitions: `"transitions": {"tested": ["S1"], "missing":
   ["S2"]}` (Q29).
 - New mode, aggregate `stakeholder_test_coverage` gains `"paths": {"total", "tested",
@@ -646,7 +668,11 @@ change:
     3. a StRS without `scenarios:`: a fragmentless `@tests_req` counts, no `@accepts_req`:
        `W003` printed with its block and `W004`;
   - the findings (each error, `W003`, `W004`) with their messages, and how to fix each,
-    including the update of a bundle schema written before 0.18.0 (Q48).
+    including the update of a bundle schema written before 0.18.0 (Q48);
+  - the report fields (Rule 8), stating that per StRS `stakeholder_test_coverage.tests` lists
+    the `@tests_req` files while the StRS record's own `tests` follows `validation_tests`, that
+    is the `@accepts_req` files in the new mode (Q62), and that `marker_coverage.tested` is a
+    link count while `totals.tested` is the test-covered count.
   Each example's blocks carry a `:caption:` so a test can read them (Evidence).
 - `docs/source/reference/okfreq-frontmatter.md`:
   - a "Declared scenarios" section with the label `(okfreq-declared-scenarios)=` (W003 target,
@@ -671,7 +697,10 @@ change:
   (pre-filled `scenarios:`), `generate-report` (new fields, columns, `format_version` 2),
   `retire` (blocked by `@accepts_req` markers too, Q57).
 - `docs/source/explanation/okfreq-coverage-boundaries.md`: the modes table gains a row and
-  links to the new explanation page.
+  links to the new explanation page; "SwRS test-link coverage" (today "test-link covered when
+  at least one configured `@tests_req SwRS-ID` marker is found") adds the new-mode rule: a
+  SwRS that declares `scenarios:` is test-link covered only when each declared transition has
+  a `@tests_req SwRS-ID#S<n>` marker (Rule 5).
 - `docs/source/explanation/okfreq-choices.md`: the paragraph on authored and generated fields
   names `scenarios:` (authored) and `accepted_in_files` (generated), and "The in-source and
   in-tests marker vocabulary defaults to `@implements_req` and `@tests_req`" adds
@@ -700,7 +729,11 @@ Each skill must work without this repository (`tests/test_skill_resources.py`).
   cost recommendation in one sentence.
 - `skills/okfreq/references/operations.md` (the config example and the "default StRS mode"
   bullet that names `@tests_req StRS-...`): the new mode, the three marker keys,
-  `accepted_in_files`, Rule 4 in short, and how to fix each error, `W003` and `W004`.
+  `accepted_in_files`, Rule 4 in short, and how to fix each error, `W003` and `W004`. The
+  bullet "Only the seven listed `generated_fields` are supported. … StRS never carries
+  generated source/test file arrays, even when the setting lists those fields." becomes: eight
+  supported fields (with `accepted_in_files`); a StRS never carries `implemented_in_files`,
+  and carries `tested_in_files`/`accepted_in_files` in the new mode only (Rule 5, Q61).
 - `skills/okfreq-gardening/SKILL.md` (the bullet "Add a direct validation-test…"): declaring
   `scenarios:` from existing headings (frontmatter only, `S1…` in order, never reused), Rule 7,
   adding to each existing marker the `#S<n>` of the scenario its test really exercises,
@@ -720,7 +753,9 @@ Each skill must work without this repository (`tests/test_skill_resources.py`).
   markers", the StRS test-marker sentence, "Lifecycle and approval", "Tier-specific authoring
   formats"): `scenarios:`, `#S<n>` and its one rule, the two test verbs and the cost
   recommendation, the StRS `### Main paths` format, Rule 7 (the exception for a
-  `scenarios:`-only edit in "Lifecycle and approval"). Then
+  `scenarios:`-only edit in "Lifecycle and approval"). In "While editing", the sentence "Never
+  hand-edit generated `derived_by`, `supersedes`, `implemented_in_files`, `tested_in_files`,
+  `default_owner_email`, `status` or `verified` fields" also lists `accepted_in_files`. Then
   `just refresh-requirements-guideline` regenerates
   `requirements/guidelines/requirements.guidelines.md`; neither copy is edited by hand.
 - `DEFAULT_CONFIG`, `LIFECYCLE_DESCRIPTION` and the generated schemas (surface 1) are scaffold
@@ -917,8 +952,11 @@ writes real test files with markers:
    accepted, Q54); covered needs accepted plus linked SwRS; StRS without `scenarios:` tested or
    accepted by fragmentless markers; SwRS with transitions covered only when all marked;
    `update_coverage` in the new mode writes a StRS's `tested_in_files`/`accepted_in_files` from
-   counting markers only, honours `generated_fields`, and in the old modes removes both from a
-   StRS; a SwRS's `tested_in_files` per Q30; exempted SwRS stay out.
+   counting markers only, each when listed in `generated_fields`, and leaves a field that is
+   not listed untouched (a hand-placed value stays, none is added); in the old modes it removes
+   both from a StRS even when `generated_fields` lists them (Q61); a SwRS's `tested_in_files`
+   lists only the files of its counting markers (fragmentless without transitions, declared
+   `#S<n>` with them; a rejected marker's file absent, Q30); exempted SwRS stay out.
 6. W003: body with `### Main paths` / `#### Path 1: …` / `#### Path 2: …` → headings quoted,
    block with titles, link; body with `### Scenario: …` headings; no heading → placeholder
    block; reading stops at the next `#`, `##` (e.g. `## User Need`) or `###` heading and at the
@@ -938,9 +976,14 @@ writes real test files with markers:
 9. Rule 7: an approved StRS (approval fields present) that gains only `scenarios:` validates.
 10. Rule 8: `format_version` 2 in all three modes; new fields present in the new mode and
     absent otherwise; in the new mode `validation_tests` equals `acceptance_tests` (files and
-    status, Q49) and the StRS `tests` lists its counting `@tests_req` files; Q58: a
+    status, Q49) and the StRS `tests` lists its counting `@tests_req` files while the StRS
+    record's `tests` follows `validation_tests` (Q62); the new-mode description (with "when it
+    declares no paths, at least one @accepts_req names the StRS") is in
+    `coverage_definition.stakeholder_tests` and the Markdown note; Q58: a
     fragmentless `@tests_req` on a SwRS with transitions and an undeclared fragment appear in
-    neither `marker_coverage`, `legacy.marker_coverage` nor the SwRS's `tests.files`, while the
+    neither `marker_coverage`, `legacy.marker_coverage` nor the SwRS's `tests.files`, and a SwRS
+    with a counting marker on S1 only of S1/S2 counts in `marker_coverage.tested` (link count),
+    is listed in `missing_tests` and is not in `totals.tested`, while the
     old modes' values are unchanged; `Draft202012Validator(report_schema())` validates each
     mode's report; Markdown columns, summary line and `Missing transitions` in the new mode,
     unchanged table in the old modes.
@@ -1006,11 +1049,11 @@ would. Shared fixture: StRS-A with `scenarios:` S1/S2 and `#### Path` headings; 
 
 | Cell | Configuration | Result it must show |
 |---|---|---|
-| D1 | Shipped default (`linked-swrs`, the three default markers) | `okfreq validate` 0 errors, no W003/W004; coverage equal to the same bundle without the suffixes and the `@accepts_req` lines; `@accepts_req` counts nowhere. Only the every-mode changes of Rule 1 show: `format_version` 2 with no new report fields; `okfreq trace` prints `accepted: 3` and `--json` has `accepted`/`scenario_markers`; `okfreq retire StRS-C` is refused, naming the test file; `update-coverage` writes no `tested_in_files`/`accepted_in_files` on a StRS; `okfreq new` output as today. |
+| D1 | Shipped default (`linked-swrs`, the three default markers) | `okfreq validate` 0 errors, no W003/W004; coverage equal to the same bundle without the suffixes and the `@accepts_req` lines; `@accepts_req` counts nowhere. Only the every-mode changes of Rule 1 show: `format_version` 2 with no new report fields; `okfreq trace` prints `accepted: 3` and `--json` has `accepted`/`scenario_markers`; `okfreq retire StRS-C` is refused, naming the test file; `update-coverage` removes any `tested_in_files`/`accepted_in_files` from a StRS (Q61); `okfreq new` output as today. |
 | D2 | `linked-swrs-and-validation-test` | As today: `@tests_req StRS-B` is StRS-B's validation test; `@tests_req StRS-A` and `@tests_req StRS-A#S2` are StRS-A's (suffix ignored); `@tests_req SwRS-A#S9` covers SwRS-A; `@accepts_req SwRS-A` is accepted silently and counts nothing. Every-mode changes as D1. |
 | D3 | `linked-swrs-and-acceptance-paths`, default markers | Validate exits 1: fragmentless `@tests_req StRS-A`, fragmentless `@tests_req SwRS-A`, `#S9`, `@accepts_req SwRS-A` (schema description). W003 on StRS-B and StRS-C (no `scenarios:`); W004 on StRS-B only (StRS-A and StRS-C have a counting `@accepts_req`). StRS-A `paths {2, 1, 1}` (S2 tested, S1 accepted: independent); StRS-B tested by the fragmentless `@tests_req`, not accepted; SwRS-A missing S1, S2. After `update-coverage`, StRS-A has `tested_in_files` and `accepted_in_files` = the test file. `validation_tests` = `acceptance_tests`. Markdown `1/2`, `1/2`; StRS-B `✅ no paths` / `❌ no paths`. |
 | D4 | New mode, custom `tests: '@verifies'`, `accepts: '@accepts'` (the showcase) | Same as D3 with the custom keywords quoted in messages. |
-| D5 | New mode, `config.yml` written before this change (no `accepts` key; `generated_fields` without `accepted_in_files`) | Default keyword recognised; results as D3, except that `update-coverage` writes no `accepted_in_files` (not a configured generated field). |
+| D5 | New mode, `config.yml` written before this change (no `accepts` key; `generated_fields` without `accepted_in_files`) | Default keyword recognised; results as D3, except that `update-coverage` leaves `accepted_in_files` untouched on every StRS (not a configured generated field, Q61): none is added, and a value already in a StRS's frontmatter stays as it is. |
 | D6 | New mode, `swrs.schema.yaml` written before this change | `okfreq validate` exits 1 with one error naming `accepted_in_files` and `swrs.schema.yaml` and giving the 0.18.0 declaration to add; no shipped declaration is applied. After the declaration is added, results as D3. In an old mode the same bundle validates as today. |
 | D7 | `strs_test_coverage_mode: unsupported` | `RequirementError` listing the three modes; `okfreq validate` exits non-zero with it. |
 
