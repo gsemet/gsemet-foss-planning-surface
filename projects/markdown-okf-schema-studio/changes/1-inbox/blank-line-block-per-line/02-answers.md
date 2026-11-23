@@ -27,5 +27,8 @@ critic's points 4 and 5) are this CR's starting point.
 9. blank-per-line-Q9 (spec critic, finding 6): **After Delete on a blank-line block**, the selection
    goes to the blank-line block now at that place, else the blank-line block just above it in the same
    run; when the run has none left, nothing is selected, so one more Delete removes no text.
-
+10. blank-per-line-Q10: **The proposed text of StRS BLOCK-011 is approved** as written in the spec
+    (section 5, "Proposed text of StRS-MDOKFSTUDIO-BLOCK-011"), with its path 3.
+11. blank-per-line-Q11: **BLOCK-011 becomes `approved`**, approved_by the owner, approved_at
+    2026-11-23 (it was `proposed`).
 Destination: running batch-09

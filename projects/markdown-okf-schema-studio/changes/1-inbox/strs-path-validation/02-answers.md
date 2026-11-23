@@ -15,3 +15,10 @@ Short name: `strs-validation`
 6. strs-validation-Q6: **Human steps.** A: the human act is a simulated input (e.g. "release notes approved"); the test asserts the system's gate (blocked without it, proceeds with it) and the checkable content, never a judgment. A method other than Test is a rare exception, written in the path. (Settles Q2.)
 7. strs-validation-Q7: **The 185 existing `@tests_req StRS-...` markers.** A: a read-only audit first, each marker classified (walks a path, single-state snapshot, duplicate of a SwRS test); only those that walk a path move to `@accepts_req`, the others lose their StRS marker.
 8. strs-validation-Q8: **Scope.** B: all 151 paths (owner's choice over the recommended pilot). Delivery shape asked in series 3.
+
+## Series 3, 2026-11-23
+
+9. strs-validation-Q9: **Path fragment.** B: no fragment; the marker is `@accepts_req StRS-X`, as `@tests_req` names a SwRS. Consequence for Q4 asked in series 4.
+10. strs-validation-Q10: **Delivery.** B: one CR for everything (owner's choice over the recommended split).
+11. strs-validation-Q11: **Bench.** Not settled; owner's words: "les StRS sont validés (« accepts_req ») par le vrai banc et donc ça coûte bcp plus cher à exécuter, mais est « testé » par le banc virtuel. Ça permet de faire les 2." Clarified in series 4.
+12. strs-validation-Q12: **StRS without "Main paths".** Not settled; the owner asks why they exist, gap or impossibility. Griller's finding, 2026-11-23: of 152 StRS, 58 are retired (56 superseded, 2 deprecated) and have no paths by design; 94 are live (80 proposed, 14 approved), 92 of them with "Main paths" (151 paths); 2 live StRS have none: StRS-MDOKFSTUDIO-TRUST-012 (visible text and the icon speak of the product) and StRS-MDOKFSTUDIO-TRUST-014 (built from pinned dependencies, ships what it loads). 93 live StRS already carry a direct `@tests_req StRS-...`: today almost every live StRS counts as "validated". Follow-up in series 4.

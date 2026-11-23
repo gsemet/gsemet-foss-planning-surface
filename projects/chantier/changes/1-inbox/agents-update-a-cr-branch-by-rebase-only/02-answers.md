@@ -6,3 +6,6 @@ Short name: `rebase-only`
 4. rebase-only-Q4: **How a project asks for another method.** Simplified, no project key for now. The user's words: "Pour l'instant on va simplifier: dans le PR que livre Chantier, jamais de merge commit, si ça arrive on rebase." So: in the PRs chantier delivers there is never a merge commit, with no project exception; when one appears, the branch is rebased. This replaces the exception part of Q1.
 5. rebase-only-Q5: **The CLI's check.** A. `ship` refuses a branch that holds a merge commit and says to rebase.
 6. rebase-only-Q6: **Grilled enough.** A. Specify, for the running batch batch-31 (4-batch/1-pending/).
+
+Destination: running batch batch-31.
+Spec critic: yes, default model (it changes a CLI refusal and the roles' cards).

@@ -286,12 +286,11 @@ Follow the project's requirements guidelines: markers move with the code, run
   that one blank line and the separator stays (see SwRS-MDOKFSTUDIO-BLOCK-269).
 - **BLOCK-004**: a scenario row for one stop per blank-line block.
 - Their verification notes name the tests of the Evidence.
-- **StRS-MDOKFSTUDIO-BLOCK-011** is amended (Q8), by the text below and only with the owner's
-  recorded agreement, by the "Approved requirements" rule of
-  `requirements/guidelines/project.guidelines.md`: the owner's answer is recorded in this
-  specification before the change touches the StRS, the PR body lists it under "Approved
-  requirements changed", and the agent that opens the PR requests the owner's review. No agreement:
-  the StRS is not touched, and the Driver stops and reports. StRS-MDOKFSTUDIO-BLOCK-025 (approved;
+- **StRS-MDOKFSTUDIO-BLOCK-011** is amended (Q8) by the text below, which the owner approved on
+  2026-11-23 (Q10), and becomes approved (Q11): `req_lifecycle: approved`,
+  `approved_by: gaetan@xeberon.net`, `approved_at: '2026-11-23T14:00:00+01:00'`, in the same form as
+  the other approved StRS. The PR body lists it under "Approved requirements changed", and the
+  agent that opens the PR requests the owner's review. StRS-MDOKFSTUDIO-BLOCK-025 (approved;
   edits land exactly, in one undo step, keep line endings) still holds and is not changed.
 
 #### Proposed text of StRS-MDOKFSTUDIO-BLOCK-011 (for the owner's re-approval)
@@ -516,11 +515,9 @@ the Chief of Staff to check:
    extra empty quote line is written before a blank line (spec critic).
 7. **Spec critic**: yes, on Fable (Q7, owner's rule). The Chief of Staff runs it.
 
+8. **BLOCK-011's text and lifecycle**: the owner approved the proposed text verbatim (Q10) and
+   asked that the StRS become `approved` (Q11).
+
 ## Open questions
 
-1. **BLOCK-011's lifecycle.** StRS-MDOKFSTUDIO-BLOCK-011 is `req_lifecycle: proposed` today, with
-   no `approved_by` or `approved_at` (on `origin/main` too), not `approved`. Q8 asks for the owner's
-   re-approval of the new wording. When the owner agrees to the proposed text above, does the
-   Driver also make it `approved` (`req_lifecycle: approved`, `approved_by: gaetan@xeberon.net`,
-   `approved_at` the date of the agreement), or keep it `proposed` with the agreement recorded here
-   and in the PR body? Unless the owner says otherwise, the Driver keeps it `proposed`.
+None.
