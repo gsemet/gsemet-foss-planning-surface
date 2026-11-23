@@ -11,3 +11,4 @@ Short name: `acceptance-paths`
 8. acceptance-paths-Q8: **Migration command.** None. No migration subcommand: okfreq gives a clear error message that tells agents how to declare `scenarios:` themselves.
 9. acceptance-paths-Q9: **Approved StRS.** When declaring `scenarios:` on approved StRS, edit the frontmatter only (body intact) and log it in `requirements/tiers/log.md`; the Studio owner agreement already covers a metadata-only change.
 10. acceptance-paths-Q10: **Split.** One CR, one batch.
+7. acceptance-paths-Q7: **Fragment on a SwRS.** Counted: a SwRS with declared transitions is covered only when every transition has a test (`@tests_req SwRS-X#S<n>`). Scope and the no-fragment interaction are settled in Q11.
