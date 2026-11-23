@@ -34,3 +34,4 @@ Short name: `acceptance-paths`
 20. acceptance-paths-Q20: **`@accepts_req` on a SwRS.** Error; "do it in the JSON Schema" (to be clarified: a marker is not frontmatter, see the next series).
 21. acceptance-paths-Q21: **Own requirements of okf-schema.** Yes: the repository applies the rule to itself (declares `scenarios:` on its own StRS/SwRS and switches its mode), which enlarges the CR.
 22. acceptance-paths-Q22: **Other open questions.** The user asks to see the list of the 18 remaining open questions before deciding.
+23. acceptance-paths-Q23: **The 18 open questions.** Go through all of them, in series (the list in the spec's "Open questions", minus 2, 8, 9, 21 already settled by Q18–Q21).
