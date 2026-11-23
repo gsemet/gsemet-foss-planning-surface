@@ -1,14 +1,15 @@
 {
   "schema": 1,
-  "title": "Own CR branches: rebase and force-with-lease are pre-authorized",
-  "summary": "A durable P10 grant and card rules so rebasing and force-pushing chantier/* branches never reaches the user.",
+  "title": "Own CR branches: rebase and force-with-lease pre-authorized",
+  "summary": "Specified: P10 adds git rebase allow rules beside the force-with-lease ones; the Chief of Staff answers any chantier/* push itself, only non-chantier, default or protected branches reach the user; each Driver's prompt gets a Rewrites: scope line. Two open questions.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "8d57641b5d9a5d25f103db0ef0b8f70270acd39f4ff2a93822eed3ecf0c3ffe5",
-    "02-answers.md": "22335f6351d3e9a6feb96fe7109a5055c8bd2ab62eadee6f236236e42ec70777",
+    "02-answers.md": "4e4a6b40487126c07cb3440361aa5e0259839184be8ce0142ac33094efe2bd97",
+    "03-change-spec.md": "9f7e757eba82de49ef7354d3ead5b9feb2a5e64de3866e6123e101101e711b5a",
     "intake/request.md": "2ad004076306e27013cf99c4839d281ca5afb23dee5849be6f8405a30fbf4fa3"
   },
-  "summarized": "2026-11-23T12:06:04Z"
+  "summarized": "2026-11-23T12:09:36Z"
 }

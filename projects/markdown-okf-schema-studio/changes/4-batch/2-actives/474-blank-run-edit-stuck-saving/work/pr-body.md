@@ -58,8 +58,8 @@ No visual change: the editor closes where it used to hang.
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [ ] Changelog: one user-facing line added under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates at `73037bd`: `just preflight` pass (static stage; the others run in CI on Windows-skipped)
-- [ ] Review
+- [x] Local gates at `466a9c0`: `just preflight` pass (static stage; the others run in CI on Windows-skipped)
+- [x] Review: inspector approved at `466a9c0` (code approved at `73037bd`, r3 adds the PR number to the changelog line)
 - [ ] CI green
 
 ## Internal references
