@@ -29,7 +29,7 @@ Grade: **1**. One awaited promise in the session layer; a plain `git revert` res
 
 ## Known gaps
 
-None.
+- **UNVERIFIED:** the heavy run (real VS Code) of this head is not read yet; it is the proof of the cause and the acceptance of the fix.
 
 <details><summary>Details</summary>
 
