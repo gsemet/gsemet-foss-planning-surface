@@ -9,3 +9,6 @@ Short name: `rebase-only`
 
 Destination: running batch batch-31.
 Spec critic: yes, default model (it changes a CLI refusal and the roles' cards).
+7. rebase-only-Q7: **A GitLab fold.** A. The folded CR's Driver rebases its branch onto its base, which linearizes the fold, then pushes with `--force-with-lease`, ships and judges again; the `folded:` procedure in `driver.md` says so.
+8. rebase-only-Q8: **The forge's rebase action.** A. The agents' means is the local rebase plus `--force-with-lease`; the forge's rebase action is allowed but marked unproved, with a trial named, and its commands are not stated as fact.
+Critic's other findings, applied without a question: the new check runs `git rev-list --merges` with `check=True` (a git failure is the unreadable-base refusal, `_merges` is not reused as it stands); the unit test adds the fallback lower bound and the unreadable-base cases; the scenario line goes in the `ship` item of `scenario/README.md` (near line 109).
