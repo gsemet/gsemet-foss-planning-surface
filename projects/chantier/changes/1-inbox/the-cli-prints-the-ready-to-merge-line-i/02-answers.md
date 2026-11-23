@@ -6,3 +6,7 @@
 4. ready-line-Q4: **Grilled enough.** A. Specify, for the running batch batch-31.
 
 Destination: running batch batch-31.
+
+5. ready-line-Q5: **When the clause appears.** A. For every open step (local gate not passed at its head, an open order on the CR), naming who owes it.
+6. ready-line-Q6: **Batch line and the gate rule.** A. It lists the ready CRs whose local gate is open; the per-shape rule stays in the cards.
+7. ready-line-Q7: **Reload over the byte limit.** A. A rules pointer on status's batch line (no counted bytes) instead of handing back blocked.

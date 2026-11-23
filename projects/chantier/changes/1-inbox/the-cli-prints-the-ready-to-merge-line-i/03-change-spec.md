@@ -30,6 +30,15 @@ before each report, not at a reload. The fix:
 - **ready-line-Q3 (A):** the reload of the Chief of Staff and the Foreman reads a short piece of
   rules: the report layout, the ready words, the shape rule, and who merges.
 - **ready-line-Q4 (A):** specified for the running batch, batch-31.
+- **ready-line-Q5 (A):** the "do not merge before X (who)" clause is printed for every open step
+  the record shows (a local gate not passed at the CR's head, an open order on the CR), naming who
+  owes it: its Driver, the Foreman or the Chief of Staff (section 1).
+- **ready-line-Q6 (A):** the `batch:` line lists the ready CRs whose local gate is still open; it
+  does not print the per-shape rule, which stays in the cards (section 2).
+- **ready-line-Q7 (A):** if the Chief of Staff's reload does not fit the 12,544-byte limit after
+  CR-471, `status`'s `batch:` line prints `rules: <path>/reload-rules.md (reread after a
+  compaction)`, as the stack shape line does for `foreman-stack.md`, with no counted bytes; the
+  Driver does not hand back blocked for that ("The byte limit", below).
 
 ## What changes
 
@@ -63,8 +72,8 @@ ready: <icon> <word> <CR-n> <slug> <PR link>[ do not merge: waits for <what>][ g
   after `gaps: ` in its `note`, as `driver.md` makes a Driver write it (`… gaps: <gap>; <gap>`,
   also after `; ` in a draft's text). It is copied unchanged. With no gaps, the segment is absent
   and the line says nothing about gaps.
-- `do not merge before <X> (<who>)`: one clause for each open step of the record listed below. With
-  none, the clause is absent. See open question 1 for the list.
+- `do not merge before <X> (<who>)`: one clause for each open step of the record listed below,
+  whoever owes it (ready-line-Q5). With none, the clause is absent.
   - The CR's long gate at its recorded head is not `passed`, `carried`, `exempt` or `waived`
     (`status/gate.py`'s `gate_view` state is `none`, `queued`, `running` or `failed`). Then `<X>` is
     `its local gate passes at <sha7>`. `<who>` is `its Driver` while the CR's Driver is live (an
@@ -114,12 +123,15 @@ batch: shape <shape>; slots <live>/<slots>; steering <who>; rounds <n>[ (CR-k <m
 - `local gate owed`: each CR in `ready` whose long gate at its head is open (the first clause of
   section 1's list), with its `<who>` from the same rule. With none, `none`. It is the same fact
   as the ready lines', so the two never disagree.
+- `; rules: <skill folder>/references/reload-rules.md (reread after a compaction)`: only when the
+  reload addition does not fit the byte limit (ready-line-Q7, "The byte limit" below).
 - `merges: the user`: fixed. The Chief of Staff and the Foreman never merge
   (`chief-of-staff.md`, "Never merge for the user").
 
 It shows only what the CLI holds. The CLI does not read the project's rules. Whether a project's
 rules ask a CR for a local run by shape (CR `own-gate`) stays a card's judgement over the gate's
-words. That is why the line names the CRs whose gate at their head is open, and not a rule.
+words. That is why the line names the ready CRs whose gate at their head is open, and not a rule
+(ready-line-Q6).
 
 ### 3. The cards
 
@@ -175,7 +187,12 @@ words. That is why the line names the CRs whose gate at their head is open, and 
   `test_startup_manifest.py` and `test_plugin_files.py` are at 400. Nothing is added to them.
   New checks go in new files.
 
-### Rebase on batch-31's siblings
+### Order and rebase on batch-31's siblings
+
+**This CR comes last** of the batch's CRs that touch these files: after `dynamic-port`
+(`long-gate-webui-check-starts-a-second-bo`), after `own-gate` and after CR-471 (`slim-cards`).
+It starts once those three are merged (or dropped), rebased onto that head, and its PR's base is
+the default branch at that head.
 
 CR-466 (`own-branch-push`, 2-actives), CR-471 (`slim-cards`, 2-actives, blocked on the
 12,544-byte limit) and CR `own-gate` (`local-long-gate-rule-outside-a-stack-and`, inbox, for
@@ -184,7 +201,9 @@ into pieces read by new `startup-manifest.json` actions and keeps the manifest u
 limit. CR `own-gate` rewrites the local-gate wording of the same cards, including "The words to
 the user" and the plain-ask bullet. CR-466 adds refused-rebase sections to the same three cards.
 
-This CR rebases on each of them that lands first. After the rebase, the Driver finds each place by
+`dynamic-port` changes the long gate's webui check (a second board on a free port); this CR does
+not touch that code, but the scenario step it adds sits in the same `scenario/run_scenario.py`,
+so it rebases on it too. This CR rebases on each of them as it lands. After the rebase, the Driver finds each place by
 its words ("The words to the user", "quote each gap", "again after a compaction", "5. Reload",
 "The rules of every report"), wherever CR-471 put it. It adds its sentences in the piece where the
 rule now lives, and keeps CR-471's file split, its manifest form and its moments list. If CR-471
@@ -196,8 +215,20 @@ has landed.
 (CR-471's measure). This CR adds to the counted reload only the manifest's `reload:rules` line and
 the one sentence in "5. Reload". It is measured at the rebased base and at the head
 (`startup-bytes` lines of `test_startup_manifest.py`). The limit is not raised. If the addition
-does not fit after CR-471, the Driver shortens its own sentence first. If it still does not fit,
-the Driver hands back blocked with the figures (see open question 3).
+does not fit after CR-471, the Driver shortens its own sentence first. If it still does not fit
+(ready-line-Q7), the Driver does not hand back blocked:
+
+- it drops the counted additions, first the sentence in "5. Reload", then, if still needed, the
+  manifest's `reload:rules` line;
+- `status`'s `batch:` line ends with `; rules: <skill folder>/references/reload-rules.md (reread
+  after a compaction)`, the path built as `stack_shape.shape_line` builds its `foreman-stack.md`
+  one (`skill_dir().as_posix()`). `status` is already read at every reload ("5. Reload": `seat`,
+  `status`), so the pointer reaches the Chief of Staff and the Foreman with no counted byte;
+- `foreman.md`'s opening and `reload-rules.md` stay (neither is counted); the opening names the
+  `batch:` line's `rules:` pointer instead of the action when the action was dropped;
+- the tests follow the form shipped: the shipped-files test checks the action and the sentence, or
+  the pointer on the `batch:` line (an in-process `status` check) and `foreman.md`'s mention of it;
+- the PR says which form shipped and quotes the `startup-bytes` figures that decided it.
 
 ## Out of scope
 
@@ -262,21 +293,4 @@ the Driver hands back blocked with the figures (see open question 3).
 
 ## Open questions
 
-1. **"Do not merge before X": which steps.** ready-line-Q1 names "a step owed by the Chief of
-   Staff". The CLI sees two open steps on a ready CR: its long gate not passed at its head (owed by
-   its live Driver, else the Foreman, or the Chief of Staff in direct mode), and an open order on
-   the CR (owed by the Foreman, or the Chief of Staff in direct mode). This specification prints
-   the clause for both and names who owes the step. Is that right, or should the clause appear only
-   when the owner is the Chief of Staff? And is there another step the user meant, for instance
-   the local Windows run that AGENTS.md asks before the merge, when the Chief of Staff runs it
-   itself?
-2. **Who owes the local gate on the `batch:` line.** The CLI does not read the project's rules, so
-   this line names the ready CRs whose gate at their head is open (passed, carried, exempt and
-   waived count as closed). It does not state a rule by shape ("each PR" in parallel, "the stack's
-   top" in a stack). Is that what the user wants, or should the CLI print the per-shape rule as a
-   fixed text?
-3. **If the reload addition does not fit the 12,544-byte limit after CR-471:** should this CR wait
-   for CR-471 and hand back blocked with the figures (as written here), or should the reload
-   pointer move to `status`'s `batch:` line instead? That second option would add
-   `rules: <path>/reload-rules.md (reread after a compaction)`, as the stack shape line already
-   does for `foreman-stack.md`. It costs no counted bytes, but the user asked for a reload reading.
+None: the user's answers ready-line-Q5, Q6 and Q7 settled the three questions of the first draft.

@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "status prints the ready line and the batch state; reload rules",
-  "summary": "Specified: status prints a ready line per handed-back CR (label icon, full PR link, gaps, do-not-merge, local gate) and a batch: line (shape, slots, steering, rounds, budget, gate owed, merges); a reload-rules.md is read after a compaction. Rebases on CR-466, CR-471, own-gate; 3 open questions.",
+  "summary": "Specified: status prints a ready line per handed-back CR (label icon, full PR link, gaps, do-not-merge with who owes it, local gate) and a batch: line; a reload-rules.md is read after a compaction, else a rules pointer on the batch line. Comes last, after dynamic-port, own-gate, CR-471.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "8ef6103ec85f113a80cfcd8476442987e0733c1e206d7150dcf8ebdb91b2d8f2",
-    "02-answers.md": "334f618f891968ffffcd10dac81c199186429746f87526f873f17d6687badf66",
-    "03-change-spec.md": "405508732f2e6673d0ead6bd35e0c45742f829dd31def2bac9b97e733f1ebe20",
+    "02-answers.md": "1f2bf1862055caa59939a3cf47ab85c67a1482dedccdf5f28085789337d9cbee",
+    "03-change-spec.md": "79def2ca33690354955cb662fccdccf59c2cf4c570ace03c58a1fcabf5fe563a",
     "intake/request.md": "5709fa00ea6e24eff48f2281e2a0291c81acae3cccf6acd293e392228821e94a"
   },
-  "summarized": "2026-11-23T18:39:22Z"
+  "summarized": "2026-11-23T18:56:50Z"
 }
