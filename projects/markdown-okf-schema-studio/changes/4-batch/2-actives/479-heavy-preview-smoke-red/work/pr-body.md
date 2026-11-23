@@ -29,17 +29,20 @@ Grade: **1**. One awaited promise in the session layer; a plain `git revert` res
 
 ## Known gaps
 
-- **UNVERIFIED:** the heavy run (real VS Code) of this head is not read yet; it is the proof of the cause and the acceptance of the fix.
+- **UNVERIFIED:** the heavy run (real VS Code, integration and stress) of the final head is not read yet; it is the acceptance of the fix. At the previous head (39b2232) the stress job was green (the `preview-smoke` fix holds) and integration failed later, in the untrusted suite (`commentWrite.test.ts`, "Timed out waiting for the comments file"), a failure that `preview-smoke` had hidden.
 
 <details><summary>Details</summary>
 
 ## Changes
 
+- Hidden failure, proven a test race (not a product regression; users are unaffected): the host drops a page message whose `requestId` is not the shown stage's, and the stage is set only when the show ends, after the build queue reports `ready`. Tests waited on the queue and sent with its id. `sendPreviewMessageForTests` (`src/host-vscode/testHooks.ts`) now waits for the pending shows first, as a real page posts after it was shown; `getActivePreviewForTests` exposes `shownRequestId` and `waitForCurrentPreview` requires it. This covers every test sender (comment, block move and clipboard, preview editing frontmatter saves, and others), including the same race seen in CR-477's heavy run.
+- `test/host/pageMessageWaitsForShow.test.ts`: a message sent while the show is held is applied after it; fails on the previous hook.
+
 - `src/session/features/rendering.ts`: `pendingShow`.
 - `src/session/previewManager.ts`: `requestDocument` awaits it.
 - `test/host/openCompletes.test.ts`: new test on the real activation and the fake `vscode`; its first case fails without the fix.
 - Test-side waits moved into their predicate (edit and switch races, the product is right): `previewEditing.test.ts` (renamed field in the preview; table edit stages) and `stockCoexistence.test.ts` (delayed Open With).
-- Requirements: LIFE-003 updated (a sentence in LIFE-032 and LIFE-127), log entry.
+- Requirements: LIFE-003 updated (a sentence in LIFE-032 and LIFE-127, and the test hook), log entry.
 - `CHANGELOG.md`.
 
 ## Impacts
