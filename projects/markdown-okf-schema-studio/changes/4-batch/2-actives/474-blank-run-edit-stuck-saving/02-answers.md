@@ -52,5 +52,7 @@ Spec critic (Fable), 2026-11-23: 7 points, 3 fixes applied by the spec-writer wi
     the `issue:` line, closes the issue). Part B (general save guard: Q6, Q9, Q10, Q14, Q15) and part C
     (one block per blank line: Q1, Q2, Q5, Q7, Q12, Q13) are filed as two CRs of their own, B after A
     and C after B in the stack.
+19. Spec critic for part A: no second pass (Chief of Staff, 2026-11-23): the joint critic already
+    checked the diagnosis and section 5a, and the narrowed spec adds no behaviour; a one-condition fix.
 
 Destination: running batch-09

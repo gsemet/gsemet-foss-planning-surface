@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "One blank-line block per extra blank line",
+  "summary": "Specified: in edit mode each blank line beyond the separator is its own block (N-1 between blocks, N at the end, the top and a blank-only body), inside containers too; typing replaces that line, Delete removes it. Last in the stack after the hang fix and the save guard.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "11a71a3d2690bf42acb7e3de771a28fc64069d5906ba3a2c3588ba8d4c19a7e5",
+    "02-answers.md": "5b2c9286b830d724f21631a509fe49b1801cdbff67a1090d79576b54ec04615e",
+    "03-change-spec.md": "2a641d8258653e30f235237f9bf838044d8a6f102eaaca2bfac5ebfddea04f97",
+    "intake/request.md": "50c273c8c8ef81549bfee7c7234c6601da2344de2010287ec5fd86c6679aa14c"
+  },
+  "summarized": "2026-11-23T11:30:16Z"
+}
