@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Forbid merge commits in pull request branches",
+  "summary": "Specified for batch-09: forge-neutral rebase-only rule in the pull-request guideline, and a git-only just check-no-merge-commits in ci-static (full-history checkout, forge test merge skipped); two open questions on the checkout choice and an edge case.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "ccf9aeec78621a5129bc46717efefcdad2ca779bd80ec88720c8c189ceee4c61",
+    "03-change-spec.md": "5b505e591ad76d2392bbfd6986daefbb44b856ff9a5d395b5f28b82db5c85bcd",
+    "intake/request.md": "ddcdbf3c821ddc92c4a518888123f20a602c6316a357c1c67d1875307657b755"
+  },
+  "summarized": "2026-11-23T07:50:02Z"
+}
