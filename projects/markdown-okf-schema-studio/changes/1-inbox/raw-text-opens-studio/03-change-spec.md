@@ -79,6 +79,10 @@ goes too.
 | 6 | Delivery | Two CRs; this one is the revert, released as 1.12.1 | 4.9, 6 |
 | 7 | Scope | Remove the whole watcher; both settings go; the side preview's line marker on a jump (`dfc07437`) and "Open as Text" stay | 4 |
 | 8 | Migration | On the first activation of 1.12.1, a user whose `open.markdownFilesInStudio` is on gets the `*.md` → Studio entry back in `workbench.editorAssociations`, and the setting is removed, without a question | 5 |
+| 9 | Release path | Everything in 1.12.1: this CR joins batch-09's stack and ships with CR-475 and CR-476, later today. The release CR is `release-1-12-1` | 4.9, 6 |
+| 10 | Links inside a Studio tab | Strict removal: a link, Back or Next followed inside a Studio tab opens the target in Studio at the top, without the line, as in 1.10, until `studio-at-searched-line` | 4.3, 4.5 |
+| 11 | Feature introductions | Keep the mechanism, its command "Show Feature Introductions Again" and SwRS LIFE-176, for future introductions, even if it shows nothing today | 4.3, 4.7 |
+| 12 | Routine (Chief of Staff) | Migration edges: another editor's `*.md` entry is left and the setting still removed; leftover `searchResultsInStudio` or an explicit false are removed; user on + workspace off is accepted and said in the notes; removing an undeclared key is proved in a real window, fallback: keep both keys declared for one version with a `deprecationMessage`. The texts say "since 1.11.0". The 1.12.1 notes file belongs to the release CR; this PR adds the CHANGELOG line only | 4.2, 4.9, 5, 7.3 |
 
 ## 4. What changes, area by area
 
@@ -126,7 +130,7 @@ files and must stay.
   and the category `{ section: "open", title: "Opening Files", order: 6 }`. Then run
   `just generate-settings`: `package.json` loses the group "Opening Files" and the properties
   `markdownOkfSchemaStudio.open.searchResultsInStudio` and
-  `markdownOkfSchemaStudio.open.markdownFilesInStudio`. (See open question 3 for the fallback if
+  `markdownOkfSchemaStudio.open.markdownFilesInStudio`. (See 7.3 for the fallback if
   VS Code refuses to remove a value of an undeclared key.)
 - `configuration/editorAssociationMigration.ts`: replace `removeStudioMarkdownAssociation` by its
   pure inverse (section 5.2). Keep `STUDIO_EDITOR_VIEW_TYPE`.
@@ -140,13 +144,14 @@ files and must stay.
   `host.navigation.showDocument(...)` again. Their `requestJumpMarker` calls for the side preview
   (`@implements_req LIFE-191`) stay.
 - `session/associationMigration.ts`: replaced by the reverse migration (section 5).
-- `session/featureIntroductions.ts`: `showOnce` is called nowhere in `src/`; the only use is
-  `markShown("openInStudio")` from the old migration. With the feature gone the mechanism is dead.
-  Proposed: delete it, with the command `markdown-okf-schema-studio.showFeatureIntroductionsAgain`
-  ("Show Feature Introductions Again": `package.json` `commands` and `commandPalette`,
-  registration in `activation.ts`) and SwRS LIFE-176. This removes a palette command the answers
-  do not name: open question 2. If the owner says keep, leave the file, the command and LIFE-176
-  as they are and only drop the `openInStudio` entry's use by the migration.
+- `session/featureIntroductions.ts`: kept (decision 11), with the class `FeatureIntroductions`
+  (`showOnce`, `markShown`, `resetAll`), the command
+  `markdown-okf-schema-studio.showFeatureIntroductionsAgain` ("Show Feature Introductions Again")
+  and SwRS LIFE-176. Only two things change: the migration no longer calls
+  `markShown("openInStudio")`, and the entry `openInStudio` of `FEATURE_INTRODUCTIONS` goes,
+  because its text introduces the removed feature. The list may then be empty: the mechanism
+  shows nothing today and the command still resets the marks. Keep the types and the tests
+  working with an empty list (a test uses its own entry, not `openInStudio`).
 
 ### 4.4 `package.json`
 
@@ -155,6 +160,7 @@ files and must stay.
   so their Markdown files open as text; this event is what activates the extension for them.
 - Commands: `openAsText` stays as it is (palette `when activeCustomEditorId ==
   'markdown-okf-schema-studio.editor'`, `editor/title` group `1_markdown@1`).
+  `showFeatureIntroductionsAgain` stays as it is.
 - `version` stays 1.12.0 in this CR: the version commit belongs to the release CR.
 
 ### 4.5 Resulting behaviour, in the user's terms
@@ -166,7 +172,7 @@ files and must stay.
 | "Open as Text" from a Studio tab | text editor at the top visible line, stays; the Studio tab closes | same |
 | Search result, Go to Definition, problem, link from another file (a jump with a line) | what VS Code does natively: Studio tab, at the top (the line is not shown). Known gap, owned by `studio-at-searched-line` | text editor at the line |
 | Same jump, side preview open on that file | text editor at the line and the side preview marks the line (unchanged) | same |
-| Link, Back or Next followed inside a Studio tab | the target opens as VS Code decides: Studio tab, at the top (open question 1) | text editor at the line |
+| Link, Back or Next followed inside a Studio tab | the target opens as VS Code decides: Studio tab, at the top, without the line (decision 10) | text editor at the line |
 | Diff editor, Source Control, merge editor | untouched by the extension | untouched |
 
 ### 4.6 Tests
@@ -176,8 +182,9 @@ intent of an assertion is never changed silently. Removing a test whose behaviou
 stated in the PR body, test by test.
 
 - Delete: `test/host/openingWatcher.test.ts`, `test/host/putStudioInPlace.test.ts`,
-  `test/core/navigation/openingPolicy.test.ts`, `test/core/navigation/openingPolicy.holes.test.ts`,
-  `test/session/featureIntroductions.test.ts` (only if 4.3's proposal is accepted).
+  `test/core/navigation/openingPolicy.test.ts`, `test/core/navigation/openingPolicy.holes.test.ts`.
+- Keep `test/session/featureIntroductions.test.ts`; change only what depends on the entry
+  `openInStudio`.
 - Rewrite: `test/session/associationMigration.test.ts`,
   `test/core/configuration/editorAssociationMigration.test.ts` (section 5 and 7.2).
 - Replace `test/integration/openAtLine.test.ts` (real window) by the real-window test of 7.3. Keep
@@ -186,7 +193,7 @@ stated in the PR body, test by test.
   `test/site/e2eGroups.test.ts`.
 - Amend `test/host/openAtLine.test.ts`: keep the activation tests (LIFE-001, LIFE-004), the
   setting writer tests, the "Open as Text" tests without "records the file as opened by Studio"
-  and without the registry window test; remove the LIFE-176 test (if accepted) and the three
+  and without the registry window test; keep the LIFE-176 test; remove the three
   `StudioLineRequests` tests.
 - Amend: `test/core/configuration/settingsRegistry.test.ts` (the `open` category and its two
   settings), `test/security/package-contract.test.ts` (the two properties, the command list),
@@ -212,7 +219,7 @@ never hand-edit generated fields or the Links block. A published requirement is 
 | --- | --- | --- |
 | SwRS LIFE-174 (the two settings) | proposed | archive |
 | SwRS LIFE-175 (move the association to the setting) | proposed | supersede by a new SwRS "restore the `*.md` association from the retired setting" (`okfreq new ... --lifecycle proposed`, then `okfreq supersede`); it states section 5 and carries the markers of `vscodeHost.ts` (setting writer) and of the migration |
-| SwRS LIFE-176 (feature introductions) | proposed | archive, if 4.3's proposal is accepted; otherwise unchanged |
+| SwRS LIFE-176 (feature introductions) | proposed | keep (decision 11); reword only a sentence or scenario that names the `openInStudio` introduction or the old migration |
 | SwRS LIFE-177 (Open as Text) | proposed | amend: statement, scenario and verification no longer say the text editor is recorded as opened by Studio; add "the text editor stays" (never replaced), with or without the association |
 | SwRS LIFE-181 (a requested line reaches the page) | proposed | amend to the side preview only (the scenario "a Studio tab opening for a file at line 42" goes; the verification no longer cites the `StudioLineRequests` tests). If nothing testable is left that LIFE-187..191 do not already state, archive it instead and say so in the PR body |
 | SwRS LIFE-182 (links inside Studio open in Studio at the line) | proposed | archive |
@@ -256,8 +263,8 @@ and one dated entry in `requirements/tiers/log.md`.
   on unsaved changes asks to save". Add: with the native association, a jump opens Studio at the
   top, not at the line. If the heading is renamed, update the link
   `../known-limitations.md#opening-files` in `open-studio.md`.
-- `.agents/glossary/common.md`: update "Jump" (it says the opening watcher reads it); remove
-  "Feature introduction" if the mechanism goes; remove "opening watcher" if it has an entry.
+- `.agents/glossary/common.md`: update "Jump" (it says the opening watcher reads it); keep
+  "Feature introduction"; remove "opening watcher" if it has an entry.
 - `CONTRIBUTING.md` and `skills/writing-for-markdown-okf-schema-studio/`: search for "opening
   watcher", `markdownFilesInStudio`, `searchResultsInStudio`; fix what is found. No rendered
   syntax changes, so the writing skill needs no other update.
@@ -270,19 +277,20 @@ and one dated entry in `requirements/tiers/log.md`.
   the raw text is never replaced by Studio again; the two settings are gone and VS Code's
   `workbench.editorAssociations` opens every Markdown file in Studio; a user who had
   `open.markdownFilesInStudio` on gets the association back automatically.
-- Release notes of 1.12.1: `docs/releases-notes/<date>-v1.12.1/release-notes.md` and `tweet.md`,
-  on the pattern of the patch release `docs/releases-notes/2026-11-19-v1.9.3/`. By
-  `.agents/guidelines/release-process.guidelines.md` (step 3) they go in the **version PR**, which
-  is the release CR. This CR's PR body carries the text they need, ready to copy:
+  Where it names the origin, it says "since 1.11.0" (decision 12).
+- Release notes of 1.12.1: not in this PR (decision 12). The notes file belongs to the release
+  CR `release-1-12-1`, which ships this CR with CR-475 and CR-476 (decision 9). This PR adds the
+  CHANGELOG line only. The PR body carries what the notes must say, ready to copy:
   - what was wrong (since 1.11.0) and what is fixed;
   - the two removed settings and their replacement;
   - the automatic restore, and its one visible effect: the Markdown file that is open when 1.12.1
     activates for the first time stays a text editor; the association applies from the next
     opening;
-  - what is lost until the next release: with every Markdown file in Studio, a search result opens
-    Studio at the top of the file, not at the line (to return with `studio-at-searched-line`).
-  If the Chief of Staff wants the notes file in this PR instead, that is a release-process
-  question, not a behaviour one.
+  - a user who had the setting on in the user settings and off in one workspace now gets Studio
+    in that workspace too (VS Code cannot turn an association off for one workspace);
+  - what is lost until the next release: with every Markdown file in Studio, a search result, and
+    a link followed inside Studio, open Studio at the top of the file, not at the line (to return
+    with `studio-at-searched-line`).
 - Commit: type `fix`, scope `vscode` (settings and opening are the extension's exposition); see
   `.agents/guidelines/git-commit-message.guidelines.md`.
 
@@ -310,8 +318,8 @@ there, so the next activation tries again. This is why no "migrated" mark is nee
 value is the mark, and the migration is idempotent.
 
 Also remove the state keys the old code left: `markdownOkfSchemaStudio.migrations.editorAssociation`
-(globalState and workspaceState) and, if the mechanism goes,
-`markdownOkfSchemaStudio.introductions.openInStudio`.
+(globalState and workspaceState). The key `markdownOkfSchemaStudio.introductions.openInStudio` is
+left as it is: the mechanism stays (decision 11) and a stale mark has no effect.
 
 Workspace-folder scope is not handled, as in the forward migration (`SettingScopes` has `user` and
 `workspace` only).
@@ -326,7 +334,7 @@ the value to write, or "nothing to write":
 | absent | `{ "*.md": "markdown-okf-schema-studio.editor" }` |
 | object without `*.md` | the same object plus the `*.md` entry; other entries and their order kept |
 | object with `*.md` → Studio already | nothing to write (the setting is still removed) |
-| object with `*.md` → another editor | nothing to write: the user's own choice wins (the setting is still removed). Not grilled: open question 3 |
+| object with `*.md` → another editor | nothing to write: the user's own choice wins (the setting is still removed; decision 12) |
 | legacy array form `[{ viewType, filenamePattern }]` | the array plus `{ viewType: "markdown-okf-schema-studio.editor", filenamePattern: "*.md" }`, unless a `*.md` item exists (same two rules as above) |
 | any other shape (not an object, not an array) | nothing to write, logged; the setting is kept so nothing is lost |
 
@@ -339,7 +347,7 @@ Only the pattern `*.md` is written, the same one the forward migration removed.
 | on | not set | association in user settings; setting removed |
 | not set | on | association in workspace settings; setting removed |
 | on | on | association in both; both removed |
-| on | off | association in user settings; both values removed. In that workspace Markdown now opens in Studio where it did not before: VS Code has no "off" value for an association in a narrower scope. Not grilled: open question 3 |
+| on | off | association in user settings; both values removed. In that workspace Markdown now opens in Studio where it did not before: VS Code has no "off" value for an association in a narrower scope. Accepted, and said in the release notes (decision 12) |
 | off or not set | off or not set | no association written; leftover values removed |
 | never had the feature (fresh 1.12.1 install) | | nothing written at all |
 
@@ -348,8 +356,8 @@ Only the pattern `*.md` is written, the same one the forward migration removed.
 - Opening Studio at the searched line under the native association: the P1 CR
   `studio-at-searched-line` (decision 5). Nothing of it is prepared here beyond leaving the page's
   line marker and `requestRevealLine` in place.
-- The release itself: version commit, tag, release notes files, announcement thread. A separate
-  release CR (decision 6). This CR ends with a fix PR ready to merge.
+- The release itself: version commit, tag, release notes files, announcement thread. The release
+  CR `release-1-12-1` (decisions 6, 9, 12). This CR ends with a fix PR in batch-09's stack.
 - Any new rule in the opening decision (for example "never replace an editor the user chose"): the
   mechanism is removed, not repaired.
 - Any change to the side preview marker, to the page's line marker, or to what "Open as Text"
@@ -412,8 +420,11 @@ Two points the real window must prove, because the fakes cannot:
 - `showTextDocument` in "Open as Text" gives a text editor when the association is set (it did in
   1.10 to 1.12; the watcher's registry is no longer there to protect it, so it is asserted).
 - `WorkspaceConfiguration.update("open.markdownFilesInStudio", undefined, target)` succeeds on a
-  key that `package.json` no longer declares. If VS Code refuses it, stop and report: the fallback
-  is open question 3.
+  key that `package.json` no longer declares. If VS Code refuses it, apply the decided fallback
+  (decision 12): keep the two keys declared in `package.json` for one version, each with a
+  `deprecationMessage` and no effect (the registry of 4.2 keeps them, marked deprecated; the docs
+  of 4.8 still drop them; the manifest test of 7.1 then asserts the `deprecationMessage`), and
+  say it in the PR body.
 
 Hosts: the real-window scenarios run where the `integration` job runs (Linux). The static and
 unit evidence runs on Linux and Windows (`just ci-static` on both).
@@ -433,27 +444,4 @@ unit evidence runs on Linux and Windows (`just ci-static` on both).
 
 ## 8. Open questions
 
-Points the answers leave open. The Spec-writer does not decide them; the proposal in the spec is
-marked as such.
-
-1. **Links followed inside a Studio tab.** With the native association, a link, Back or Next
-   followed inside a Studio tab opens the target in Studio at the top of the file: the target line
-   is lost (as in 1.10), until `studio-at-searched-line`. The strict removal (the brief lists
-   `studioPlacement.ts` for removal, and `showDocumentInStudio` depends on it) gives this. Confirm,
-   or ask to keep "links inside Studio open in Studio at the line" (it needs `putStudioInPlace`
-   and `StudioLineRequests` kept, and SwRS LIFE-182 and part of LIFE-181, LIFE-183).
-2. **The feature introductions mechanism.** It is dead once the feature goes (`showOnce` is never
-   called). Proposal: remove it with the palette command "Show Feature Introductions Again" and
-   SwRS LIFE-176. The answers do not name this command. Remove, or keep for a later feature?
-3. **Edges of the reverse migration**, not grilled:
-   - an existing `*.md` entry for another editor: proposal, leave it and still remove the setting;
-   - leftover values (`searchResultsInStudio`, an explicit `false`): proposal, remove them;
-   - user on and workspace off: the association cannot be turned off for one workspace; proposal,
-     accept it and say it in the release notes;
-   - if VS Code refuses to remove a value of a key that is no longer declared: fallback, keep the
-     two keys declared in `package.json` for one version with a `deprecationMessage` and no effect.
-     To decide only if the real window shows the refusal.
-4. **Wording of the release**: the feature shipped in 1.11.0, so "as in 1.11" in the brief means
-   "as in 1.10". Confirm the release texts say "since 1.11.0".
-5. **Release notes file**: by the release process it belongs to the version PR (release CR), and
-   this spec puts only the CHANGELOG line and the ready text in the fix PR. Confirm.
+None.
