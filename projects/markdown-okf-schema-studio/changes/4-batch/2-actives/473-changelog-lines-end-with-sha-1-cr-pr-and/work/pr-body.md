@@ -37,8 +37,8 @@ No user-facing change; release tooling and contributor guidelines only.
 - [x] Requirements: SwRS added, markers in code and tests, `just requirements-update`
 - [x] Changelog: No user-facing change
 - [x] Local gates: `just check`
-- [x] Review: approved, committed as d86fd91
-- [x] CI green: gh pr checks 489 at d86fd91
+- [x] Review: approved at c9712e2 (restack onto CR-472, one justfile conflict resolved; rest carried from d86fd91)
+- [ ] CI green at c9712e2
 
 ## Internal references
 

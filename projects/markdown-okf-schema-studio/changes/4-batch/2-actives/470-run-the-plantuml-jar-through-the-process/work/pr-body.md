@@ -31,13 +31,13 @@ Grade: 2. The shared `ProcessRunner` port and node runner change (detached child
 
 ## Test plan
 
-- [x] New or changed tests: the fake-runner and node-runner tests need the new port (the previous code does not accept the fake), verified at 2a19650; a before-run on the old code was not made
+- [x] New or changed tests: the fake-runner and node-runner tests need the new port (the previous code does not accept the fake), verified at 3f6d3ef; a before-run on the old code was not made
 - [x] Requirements: SwRS updated (DIAG-089), markers kept, `just requirements-update`
 - [x] Changelog: No user-facing change
-- [x] Local gates at 2a19650: `just check` exit 0 (unit 4963 pass, 0 fail, 21 skipped; contracts 0 fail; boundaries clean)
-- [x] Review: approved at 2a19650 (code at 116f39d, rebase conflict change at 2a19650)
-- [x] Verified at 2a19650
-- [x] CI green at 2a19650: static, static-windows, visual, viewer-graph, report pass; heavy jobs skipped on a PR
+- [x] Local gates at 3f6d3ef: `just check` exit 0 (run by the conflict-resolver on the restacked tree; earlier run before the restack: unit 4963 pass, 0 fail, 21 skipped)
+- [x] Review: approved at 3f6d3ef (restack onto CR-471, conflict resolved; rest carried from 2a19650)
+- [ ] Verified at 3f6d3ef
+- [ ] CI green at 3f6d3ef
 
 ## Known gaps
 
