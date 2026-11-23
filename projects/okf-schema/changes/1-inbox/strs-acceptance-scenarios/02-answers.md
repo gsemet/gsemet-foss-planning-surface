@@ -18,3 +18,4 @@ Short name: `acceptance-paths`
 14. acceptance-paths-Q14: **Marker without fragment.** If `scenarios:` are declared in the frontmatter of a StRS or SwRS, the `@accepts_req` / `@tests_req` markers targeting it must carry the fragment (`#S<n>`). This refines Q11 (a test without fragment covering everything applies only when no `scenarios:` are declared) and replaces the Q4 handling for a StRS that declares paths.
 15. acceptance-paths-Q15: **Marker without fragment severity.** Error: `okfreq validate` fails and asks for `#S<n>`; the marker does not count.
 16. acceptance-paths-Q16: **Surfaces.** All six surfaces of AGENTS.md (docs/source, skills/, scaffold data, own requirements with `requirements/tiers/log.md`, examples/, tests/CI) plus `docs/source/explanation/project-feature-coverage.md`.
+17. acceptance-paths: **Grilled enough.** Yes (2026-11-23). Destination: next batch (3-ready).
