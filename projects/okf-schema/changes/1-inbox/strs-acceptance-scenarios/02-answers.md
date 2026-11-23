@@ -49,3 +49,6 @@ Short name: `acceptance-paths`
 35. acceptance-paths-Q35: **SwRS with `### Scenario` headings, no `scenarios:`.** No warning, and no distinction between StRS and SwRS on this point. Instead the CR migrates correctly the okf-schema project, its examples and its documentation (user: "dans la procedure de migration que tu vas faire tu vas t'arranger dans le projet okf-schema, et dans les exemple et la doc, de tout migrer correctement"). Widens the CR together with Q21.
 36. acceptance-paths-Q36: **Approval for a `scenarios:`-only edit.** The project's owner decides; without a new approval, `approved_by`/`approved_at` stay and the log names the agreement.
 37. acceptance-paths-Q37: **Report version.** `format_version` 2 in every mode.
+39. acceptance-paths-Q39: **Report details.** Path totals in the aggregate and one Markdown summary line, plus a "missing transitions" column in the SwRS table.
+40. acceptance-paths-Q40: **Version and changelog.** `0.18.0`, `feat(okfreq): …`, not a breaking change.
+41. acceptance-paths-Q41: **`okfreq new`.** Yes: it pre-fills `scenarios:` from the headings of the template (the SwRS template's `### Scenario:` headings); how it applies to the StRS template to be settled in the spec.
