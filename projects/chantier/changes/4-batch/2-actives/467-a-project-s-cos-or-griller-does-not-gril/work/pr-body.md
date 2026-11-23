@@ -49,8 +49,8 @@ No visual change. Sessions of a multi-project surface stop offering to grill ano
 - [x] New or changed tests: five startup-manifest entries that read the shipped cards (they fail on the previous cards)
 - [x] Local gates at `0ec62a9`: `just check` pass; `just scenario` on Windows FAIL (see Known gaps)
 - [x] Evidence: cards only, no visual change; phrases proved by the Verifier at `0ec62a9`
-- [x] Review: approved at `0ec62a9` (carried from `6aa63f2` for round 1)
-- [ ] Verified at `0ec62a9`
+- [x] Review: approved at `6aa63f2` (round 2, the uncommitted diff reviewed on it, committed as `0ec62a9`)
+- [x] Verified at `0ec62a9`
 - [x] CI green at `0ec62a9`: `gh pr checks 444`, every check pass
 
 ## Internal references

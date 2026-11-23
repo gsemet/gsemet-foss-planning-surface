@@ -1,0 +1,3 @@
+# Opening the raw text of a Markdown file opens Studio instead
+
+Owner report (2026-11-23): 'Il y a une erreur très grave je pense liée à l'ouverture dans une ligne précise : maintenant si j'ouvre le texte brut dans VS Code ça m'ouvre l'extension immédiatement. En gros je ne peux plus ouvrir le texte brut, ce qui n'est pas du tout acceptable.' Suspected area: the opening watcher (src/host-vscode/openingWatcher.ts) with the jump signal (editorJumps.ts, jumpSignal.ts) from dfc07437 (1.12.0), and the opening policy rule that a jump is never a 'reopened as text'.
