@@ -54,3 +54,4 @@ Short name: `acceptance-paths`
 41. acceptance-paths-Q41: **`okfreq new`.** Yes: it pre-fills `scenarios:` from the headings of the template (the SwRS template's `### Scenario:` headings); how it applies to the StRS template to be settled in the spec.
 38. acceptance-paths-Q38: **StRS test-file fields.** Superseded by Q42.
 42. acceptance-paths-Q42: **Test files in the report.** A new per-StRS field `acceptance_tests` lists the `@accepts_req` files (real bench). `validation_tests` stays for backward compatibility. The files of the `@tests_req` path markers (simulated bench) need another name, not `validation_tests` (Q43). User: "acceptances_tests (backward compatibilite avec validation_tests), et il faut trouver un autre nom pour les tests de @tests_req".
+43. acceptance-paths-Q43: **Name for the `@tests_req` files field.** `simulated_tests` (per StRS, beside `acceptance_tests`, in the new mode).
