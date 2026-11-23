@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Copying a selection gives the exact raw Markdown under it",
+  "summary": "Filed and triaged P1 on 2026-11-23; not grilled.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "e425252d8263d7d09f80d0220476e1c62286af42cef0d7d4d82e6d675c9680ad"
+  },
+  "summarized": "2026-11-23T15:20:18Z"
+}

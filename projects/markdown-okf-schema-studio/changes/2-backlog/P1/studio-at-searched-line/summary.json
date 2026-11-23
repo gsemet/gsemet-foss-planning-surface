@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Open Studio at a searched line without replacing text tabs",
+  "summary": "Filed and triaged P1 on 2026-11-23, split from the revert; not grilled.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "e010af44d83598fd5bc55526018e94f5ceb975b55ba2f716686f8bf081676cb7"
+  },
+  "summarized": "2026-11-23T15:20:18Z"
+}

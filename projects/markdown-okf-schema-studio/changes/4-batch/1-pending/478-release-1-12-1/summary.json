@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Release v1.12.1: the opening-watcher revert, CR-475, CR-476",
+  "summary": "Grilled and specified; tops batch-09's stack, waits for every other CR; post-merge steps approved in advance.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "b4c3f13e3f64787b119ceecd635c35d634139bf4d65bbc68c0b259934b26a050",
+    "02-answers.md": "56194795480f8fad1afb52fd43340553b4d21fd923ffdae275854d074527211b",
+    "03-change-spec.md": "3db8c7305ecb9ff4576d48875b421513ec76fe51e00efc4f295b88568aad5697",
+    "intake/request.md": "2858087308d563bfbda7a90e32a2ad36895468dffe0795254ebde1e3cf68426e"
+  },
+  "summarized": "2026-11-23T15:20:17Z"
+}
