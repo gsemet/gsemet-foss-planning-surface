@@ -11,9 +11,9 @@ Own CR branches: a rebase of a `chantier/*` branch and its `--force-with-lease` 
 
 ## Test plan
 
-- [x] `just check` at 6ca37b7: 2173 passed
-- [x] `just eval-dry-run` at 6ca37b7: 19 of 19
-- [ ] long gate `scenario`
+- [x] `just check` at e17cd34: 2288 passed
+- [x] `just eval-dry-run` at e17cd34: 19 of 19
+- [~] long gate `scenario`: waived by the user for this CR (order O-20, 2026-11-23); CI ubuntu scenario at the head
 - [ ] Verifier
 
 ## Known gaps
@@ -21,4 +21,5 @@ Own CR branches: a rebase of a `chantier/*` branch and its `--force-with-lease` 
 - The classifier's effect on the `Rewrites:` line is unproved; the trial is recorded in `hosts/claude-code.md`, "Auto mode".
 - The `--exec`/`-x` ban is not in `driver.md` (its cr-driver reading is at its byte limit); it stays in `conflict-resolver.md`, `concepts.md` rule 8 and the `Rewrites:` text.
 - The preflight warn asserts are in `test_rebase_rules.py`, not `test_cli_runs.py` (size limits).
-- Not rebased onto CR-465 (no commits there yet); it will need a rebase once it merges.
+- Rebased onto main with CR-465's commits (conflicts in `concepts.md`, `conflict-resolver.md`, `driver.md` resolved keeping both intents).
+
