@@ -1,0 +1,3 @@
+# Board 0.15.1 refuses to start on a junction in a CR work folder
+
+chantier serve (0.15.1) exits at start with: error: path must be inside the planning folder: 4-batch/3-done/469-move-render-and-security-file-lookups-be/work/scratch/b/node_modules. That path is a Windows junction (to the project node_modules) in another project (markdown-okf-schema-studio, batch-09 CR-469) of the same surface. The 0.15.0 board ran with it for a day. A link in a CR scratch folder must not stop the board: skip or ignore links that leave the folder, in the scan, and keep the refusal for writes. Seen 2026-11-23 while restarting the board on 0.15.1; the board stays down until fixed or the junction is removed.
