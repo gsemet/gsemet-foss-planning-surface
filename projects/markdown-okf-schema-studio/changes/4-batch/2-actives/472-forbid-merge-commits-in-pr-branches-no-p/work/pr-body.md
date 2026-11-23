@@ -69,7 +69,7 @@ No visual change. Contributors updating a branch must rebase (the forge's rebase
 - [x] Changelog: No user-facing change
 - [x] Local gates: `just preflight` (static stage on Windows) before the restack and `just check` at 4802edf (rebase, patch unchanged), `just check-no-merge-commits`, pytest of the new and workflow tests (93): pass
 - [x] Review: inspector approved before the restack (carried at 4802edf, clean restack, patch ids equal)
-- [ ] CI green at 4802edf
+- [x] CI green at 4802edf
 
 ## Internal references
 

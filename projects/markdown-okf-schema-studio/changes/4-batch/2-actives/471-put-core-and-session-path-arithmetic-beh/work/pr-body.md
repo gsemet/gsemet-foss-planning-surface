@@ -51,8 +51,8 @@ Grade: 1
 - [x] Changelog: No user-facing change
 - [x] Local gates at 792ae89: `just check` passes (one run, exit 0); `just requirements-update` and `just check-markers` pass; `just check-boundaries` fails as intended on a probe `node:path` import in core and in session, and passes once it is removed
 - [x] Review: approved at 792ae89 (restack onto CR-469, conflict resolved; rest carried from 9ccfd5e)
-- [ ] Verified at 792ae89: no `node:path` import left in `core` or `session` outside `hostPath.ts`; the boundary check fails on a probe import and passes without it; `hostPath.test.ts` passes
-- [ ] CI green at 792ae89
+- [x] Verified at 792ae89: no `node:path` import left in `core` or `session` outside `hostPath.ts`; the boundary check fails on a probe import and passes without it; `hostPath.test.ts` passes
+- [x] CI green at 792ae89
 
 ## Internal references
 

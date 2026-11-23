@@ -38,7 +38,7 @@ No user-facing change; release tooling and contributor guidelines only.
 - [x] Changelog: No user-facing change
 - [x] Local gates: `just check`
 - [x] Review: approved at c9712e2 (restack onto CR-472, one justfile conflict resolved; rest carried from d86fd91)
-- [ ] CI green at c9712e2
+- [x] CI green at c9712e2
 
 ## Internal references
 
