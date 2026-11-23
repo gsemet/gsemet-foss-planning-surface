@@ -88,12 +88,12 @@ Behaviour change in the editors: Escape and Cancel close the editor during a sav
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
-- [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `just check` pass, `just preflight` (static stage on Windows) pass; to be re-run on the final head
-- [ ] Review
-- [ ] CI green
+- [x] New or changed tests; 44 of 95 new page and host tests fail on the previous `src/` (see Known gaps), at 8aeae06
+- [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update` (run by `just preflight` at 8aeae06)
+- [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
+- [x] Local gates: `just preflight` (static stage on Windows) pass at 8aeae06
+- [x] Review: approved on the same tree at 466a9c0, carried over a clean rebase to 8aeae06
+- [x] CI: `gh pr checks 492` at 8aeae06: checks, report, static, static-windows, viewer-graph, visual pass; the heavy run's real VS Code jobs fail at `preview-smoke`, as on `main`
 
 ## Internal references
 
