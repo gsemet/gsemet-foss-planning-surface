@@ -26,3 +26,15 @@ Grilled with the owner on 2026-11-23 (bug day, batch-09).
 9. raw-text-Q9 (release path): **everything in 1.12.1.** The batch's release waits for CR-475 and
    CR-476 and ships the three CRs together, later today; this CR joins batch-09's stack, released
    with them. The release CR is `release-1-12-1`.
+10. raw-text-Q10 (spec open question 1): **strict removal.** A link, Back or Next followed inside a
+    Studio tab opens the target in Studio at the top, without the line, as in 1.10, until
+    `studio-at-searched-line`.
+11. raw-text-Q11 (spec open question 2): **keep the feature introductions mechanism** and its
+    command "Show Feature Introductions Again" (and SwRS LIFE-176), for future introductions, even if
+    it shows nothing today.
+12. Chief of Staff, routine (spec open questions 3-5): the reverse migration's edges take the spec's
+    proposals (another editor's `*.md` entry is left and the setting still removed; leftover
+    `searchResultsInStudio` or an explicit false are removed; user on + workspace off is accepted and
+    said in the notes; removing an undeclared key is proved in a real window, fallback: keep both
+    keys declared for one version with a `deprecationMessage`). The texts say "since 1.11.0" (fact
+    from git). The 1.12.1 notes file belongs to the release CR; this PR adds the CHANGELOG line only.
