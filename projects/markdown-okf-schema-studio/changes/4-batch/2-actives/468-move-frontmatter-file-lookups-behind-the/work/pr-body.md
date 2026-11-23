@@ -2,7 +2,7 @@
 
 The frontmatter linked-file checks and the filename-stem index walked the disk with synchronous `fs` calls inside `src/core`, which blocks a browser-capable host (issue #413) and kept two `NODE_DEBT` entries open. They now go through an async file-system port, so the extension host is no longer blocked by a workspace walk and the core no longer imports `fs` for these two modules.
 
-Fixes #413 (first half: the frontmatter side; the `path` facade comes separately).
+Part of #413 (first half: the frontmatter side; the other half and the `path` facade come separately, so this PR does not close the issue).
 
 ## Deliverables
 
