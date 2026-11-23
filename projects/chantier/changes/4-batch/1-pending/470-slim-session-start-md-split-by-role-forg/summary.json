@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Slim session-start.md: split by role, forge-neutral, sync card",
+  "summary": "Specified for batch-31: session-start.md keeps start checks, seat and role change; one card per role (Chief of Staff, Griller), titles.md and sync-checkout.md split out; gh and glab move to forges/; 12 544-byte limit kept; a tested table of moves; Fable reading by the Chief of Staff.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "438aa1a50a02a56606347c151bf5fb04d4f073906975dbb7d38068886e20489b",
+    "02-answers.md": "2e4530d1fcf429ad53c9a2c0a0410b670b96d5112558e578684eff1417a5222d",
+    "03-change-spec.md": "258b0d6c91f6a649edfbb0400403790f93e8a92e8461f11a1f1ec16aaf187452",
+    "intake/request.md": "2a076a5aeb6396922f719788a3caa9848084cfced1c98be0cc22c46e8216024c"
+  },
+  "summarized": "2026-11-23T15:24:22Z"
+}

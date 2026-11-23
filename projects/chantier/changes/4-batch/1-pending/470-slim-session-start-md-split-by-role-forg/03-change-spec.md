@@ -18,7 +18,7 @@ written for every role at once. Each role reads only what it needs, at the momen
 - the startup cards speak of "a forge": `gh` and `glab` live in each forge's own reference.
 
 Nothing is lost: every moved instruction is named, with the card and the moment where it now
-arrives, in a table the startup tests check, and a Fable Inspector reads the split before the push.
+arrives, in a table the startup tests check, and the Chief of Staff has a Fable reading of the split on the ready PR, before the merge.
 
 This CR goes first: `slim-the-startup-cards-of-the-three-roles` waits for it (Q1). The Chief of
 Staff records that dependency; nothing in this CR's code does.
@@ -32,7 +32,9 @@ Staff records that dependency; nothing in this CR's code does.
 | Q3 forge | The startup cards speak of "a forge"; `gh` and `glab` in each forge's reference; the other cards are a separate CR | "Forge wording", "The forge cards", Out of scope |
 | Q4 readers | Each role reads only its own file; coders, Drivers, workers read neither titles nor sync; sync its own card, read only when a sync runs; section 1 unchanged | "The new layout", "Who reads what" |
 | Q5 | Specify for batch-31 | here |
-| Q6 advisor | The Driver, before the push, starts a read-only Fable Inspector | Evidence |
+| Q6 advisor | Superseded by Q13 | Evidence |
+| Q12 Griller file | Keep `session-start-griller.md`: one common card and one card per role, so each role reads less | `session-start-griller.md` |
+| Q13 Fable reading | Run by the Chief of Staff, read-only, on the ready PR before the merge (replaces Q6: the CLI does not know Fable on Claude Code and batch-31's team is frozen) | Evidence |
 | Q7 titles | One shared `titles.md`; the Foreman has its own row in it | `titles.md` |
 | Q8 limit | Keep 12 544 bytes; one `session-start` action; a SKILL.md sentence as short as today; the common header sends each role to its file | "The byte budget", "Who reads what" |
 | Q9 role change | The role-change paragraph stays in the common `session-start.md`; the rule "read the file of the role the seat gives you, again when the role changes" is written there and in the skills | `session-start.md`, the skills |
@@ -109,7 +111,7 @@ wording kept (only the forge words change, below), under level-2 headings the te
 `# Session start: the Griller`, holding the Griller's part of section 2: a Griller never starts the
 board or the watcher (the sentences of the board's and the watcher's paragraphs that name the
 Griller among those that never start them), and the lines of the board and the watcher it may meet
-are the Chief of Staff's. It is short; see open question 1.
+are the Chief of Staff's. It is short, and kept (Q12): one common card and one card per role, so each role reads less.
 
 ### `titles.md` (new)
 
@@ -321,12 +323,12 @@ Updated in place:
 - The table of moves in the PR's Deliverables, each row backed by its tests.
 - Sizes in LF bytes, quoted in the PR: `session-start.md` at the merge base and at head, each new
   file, and the `startup-bytes` lines before and after for every role in "The byte budget".
-- The Fable Inspector (Q6): before the push, the Driver starts one read-only Inspector on
-  `claude-fable-5-2`, briefed with `session-start.md` at the merge base, the new files at head and
-  the table, to report each instruction not found, changed in meaning, or now read at another
-  moment or by another role than the table says. Its report goes in the CR's `evidence/`; each
-  finding is fixed or named in the PR's Known gaps. If the Driver cannot start a worker on that
-  model, it stops and asks: no look-alike model.
+- The Fable reading (Q13), not the Driver's: once the PR is ready, before the merge, the Chief of
+  Staff runs one read-only reading on `claude-fable-5-2` of `session-start.md` at the merge base,
+  the new files at the PR's head and the table, reporting each instruction not found, changed in
+  meaning, or now read at another moment or by another role than the table says, and tells the
+  user its findings with the ready PR. The Driver's part is to leave in the PR what that reading
+  needs (the table, the merge base, the sizes). No look-alike model.
 - No host or default matrix: which file holds a text and when it is read does not depend on the
   host or on a configured value.
 
@@ -343,7 +345,4 @@ Updated in place:
 
 ## Open questions
 
-1. **The Griller's file is short.** With the role change kept in common (Q9), the Griller's own
-   part of section 2 is only that it never starts the board or the watcher, which the common
-   section's one line already says. Keep `session-start-griller.md` with those sentences (this
-   spec, after Q4), or drop it and let the Griller read the common file and `titles.md` only?
+None.

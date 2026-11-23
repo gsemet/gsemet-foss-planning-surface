@@ -10,6 +10,12 @@ The owner's request asks the grill to walk through each role's initialization in
 6. slim-cards-Q6: **Manifest over the startup limit.** B. An action may name another action's readings by reference, the 12 544-byte limit stays; raise it only for what is still over.
 7. slim-cards-Q7: **Foreman's reading.** A. The Foreman's actions read only its own host's card, and `concepts.md` and the host card by section, with no text moved.
 8. slim-cards-Q8: **Who runs the Fable advisor.** A. The Driver, as a read-only Inspector review step before the push (same as slim-session-start-Q6), the Inspector's model set to `claude-fable-5-2` in `chantier.yaml`.
+9. slim-cards-Q9: **Who runs the Fable advisor.** A. The Chief of Staff, read-only, on the ready PR before the merge, on Fable through the host's model parameter like the spec critic, once per role; findings go back as a round (supersedes Q8: the CLI does not know Fable on Claude Code and batch-31's team is frozen).
+10. slim-cards-Q10: **Manifest size.** A. The manifest stays small: each role's moments and readings live in its entry card, the limit stays (supersedes Q6's reference mechanism where it adds bytes).
+11. slim-cards-Q11: **After a compaction.** A. A role re-reads its entry action, then the action of the moment it is in; one sentence in "5. Reload" (session-start.md, via the sibling CR) and in each entry card's list.
+12. slim-cards-Q12: **Driver scope.** A. The cut covers the CR, stack, QA and release Drivers; their first reading is measured and cut by step; the P1 item `role-cards-still-too-big-for-a-driver-s-` is closed by this CR.
+13. slim-cards-Q13: **Chief of Staff host cards.** A. The Chief of Staff reads its own host's card only, whole.
 Destination: running batch batch-31.
 Spec critic: yes, on Fable (claude-fable-5-2), as the user asked for this family of CRs.
+
 

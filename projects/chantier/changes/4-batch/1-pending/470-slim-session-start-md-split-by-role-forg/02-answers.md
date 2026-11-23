@@ -15,8 +15,11 @@
 11. slim-session-start-Q11: **Forge cards.** C. As specified: `forges/github.md` and `forges/gitlab.md`, and "Adding a connector" gains the step "add its `forges/<name>.md`"; cite `docs/forge-connectors.md`.
 12. slim-session-start-Q12: **Griller file.** B. Keep `session-start-griller.md`: one common card and one card per role (the user's words: a common card and a card per role; the aim is that each role reads less).
 
+13. slim-session-start-Q13: **Fable advisor, revised.** A. Same as slim-cards-Q9: the Chief of Staff runs the read-only Fable reading on the ready PR before the merge (supersedes Q6; the Driver cannot start Fable in batch-31).
+
 Destination: running batch batch-31.
 Spec critic: yes, on Fable (claude-fable-5-2), as the user asked for this family of CRs; it changes what each role reads at start.
+
 
 
 
