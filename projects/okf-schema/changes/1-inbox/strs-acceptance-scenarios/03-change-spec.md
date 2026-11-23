@@ -535,7 +535,7 @@ transitions S1/S2, and a test file with `@accepts_req StRS-A#S1`, `@tests_req St
 | Cell | Configuration | Result it must show |
 |---|---|---|
 | D1 | Shipped default: `okfreq init` and no edit (`linked-swrs`, default markers incl. `accepts`) | `okfreq validate` 0 errors, no W003/W004, no fragment error. Coverage figures equal to what the same bundle gives with the fragments removed. `format_version` 2, no `paths`/`transitions`. `@accepts_req` counted nowhere. |
-| D2 | `strs_test_coverage_mode: linked-swrs-and-validation-test` | As today: `@tests_req StRS-B` and a `@tests_req StRS-A#S1` count as validation tests. No new finding. No `paths`. |
+| D2 | `strs_test_coverage_mode: linked-swrs-and-validation-test` | As today: `@tests_req StRS-B` counts as StRS-B's validation test, `@accepts_req StRS-A#S1` counts for nothing, and `@tests_req SwRS-A#S9` covers SwRS-A. A further step adds `@tests_req StRS-A#S1` and sees it counted as StRS-A's validation test. No new finding. No `paths`. |
 | D3 | `strs_test_coverage_mode: linked-swrs-and-acceptance-paths`, default markers | The Rule 4 table. Validate exits 1 on `SwRS-A` (fragmentless) and `#S9`. W003 on StRS-B. W004 on `@tests_req StRS-B`. StRS-A paths `{total: 2, tested: 0, accepted: 1}`. SwRS-A transitions missing S1, S2. Markdown columns `0/2`, `1/2`. |
 | D4 | The new mode with custom `markers.tests: '@verifies'`, `markers.accepts: '@accepts'` (the showcase) | The same results as D3 with the custom keywords, which the messages quote. |
 | D5 | The new mode with a `config.yml` written before this change (no `markers.accepts` key) | `@accepts_req` is recognised by default, with the same results as D3. |

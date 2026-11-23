@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "okfreq: acceptance paths, declared scenarios, two StRS counters",
+  "summary": "Specified: a new coverage mode where StRS/SwRS declare scenarios: (S<n>), tests name them with #S<n>, @accepts_req marks real-bench tests and each StRS reports tested/accepted path fractions; 22 open questions with proposals.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "dc23165875183bad891f3ec1f81f24118c22795ebea39efee95c3409c77b78d2",
+    "02-answers.md": "41f1babe9a09a43d7fb0311118e84f0ef8dfe882493ef54595c149f6b72ef468",
+    "03-change-spec.md": "0734809b01348fc86372a7011d85950df40bbf91a25e009afe46352255c769f5",
+    "intake/request.md": "0bb1f5ba4e7b9f56d4703ba538f0979f32809de0632b489907efc9c31d756887"
+  },
+  "summarized": "2026-11-23T16:38:05Z"
+}
