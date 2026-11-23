@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "No edit stays on Saving Markdown for good",
-  "summary": "Specified, tests only: every block, cell and frontmatter save path ends in the render or a shown error; fixes a no-op frontmatter save hang and the host lock after Cancel; Cancel and Escape close during a save, drop pending navigation, save goes on. Three open questions.",
+  "summary": "Specified, tests only: every block, cell and frontmatter save ends in the render or a shown error; Cancel and Escape close during a save, which goes on; if it fails the editor reopens with the text and error; fixes a no-op frontmatter hang and the host lock. One open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "db39b555e5a62aeb084a8946c1dd440ceda4e4b8278f433e66a1e33910fab7f0",
     "02-answers.md": "a79b3886dba604a69f48dfa01a4e1b3d2c737a47994e9d48c89437847f5866ab",
-    "03-change-spec.md": "ad805fc240bf92066dd5508fd55c383980fe420de7c47aa88932f999218843d0",
+    "03-change-spec.md": "8169c39f0cbde53597c2258ffec887c5ad46227e94ddf4a7acd2350d85a159d8",
     "intake/request.md": "bd00575bdd598d8a3eec1b2e1f90d919e6dc2cc5f4be328efa31da7b6c3dd45c"
   },
-  "summarized": "2026-11-23T12:12:12Z"
+  "summarized": "2026-11-23T13:13:07Z"
 }

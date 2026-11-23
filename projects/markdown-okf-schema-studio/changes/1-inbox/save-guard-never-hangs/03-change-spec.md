@@ -3,8 +3,9 @@
 Tests prove that every save of a block editor, a table cell editor or a frontmatter field ends
 in the rendered result or in a shown error. Each hang the tests find is a bug, and this CR fixes
 it. Cancel and Escape always close a block or cell editor, even while it shows "Saving
-Markdown…". The save already asked for with Done goes on, and its text is kept. There is no time
-limit, no timeout message and no retry.
+Markdown…". The save already asked for with Done goes on, and its text is kept. If that save then
+fails, the editor reopens with the typed text and the error. There is no time limit, no timeout
+message and no retry.
 
 Short name: `save-guard`. Destination: the running batch-09, in its stack.
 
@@ -31,6 +32,11 @@ The owner's answers (`02-answers.md`):
 - **Stack order** (save-guard-Q6): after `blank-run-edit-stuck-saving`, before
   `blank-line-block-per-line`.
 - **Spec critic on Fable** (save-guard-Q7): this CR changes the BLOCK-053 refusal scenario.
+- **A cancelled save that fails reopens the editor** (save-guard-Q10): on that block, with the typed
+  text and the error shown; nothing is lost, and no VS Code warning is shown.
+- **A block clicked after Cancel, before the save ends, opens when the save ends**
+  (save-guard-Q11).
+- **A frontmatter save that changes nothing closes the field with no message** (save-guard-Q12).
 
 The Chief of Staff's decisions on the first specification's critic findings:
 
@@ -80,7 +86,9 @@ The editor closes only on:
 - **a full page replacement**.
 
 An error answer keeps the editor open: `finishing` becomes false, the pending navigation and
-selection are cleared, and the error shows (SwRS-MDOKFSTUDIO-BLOCK-216).
+selection are cleared, and the error shows (SwRS-MDOKFSTUDIO-BLOCK-216). The editor keeps its
+text, and Done posts a new final save, which the host matches to its held edit or re-creates
+from the document.
 
 ### While `finishing` is true
 
@@ -118,8 +126,9 @@ The host side is `src/session/features/blockEdits.ts` and the lock is
   `preview.edits.active` is set. It refuses as stale unless the page's revision is the current
   document and stage revision (`currentPreviewDocument`). Only then does it call
   `openPageEditor`, which records `lock.pageEditorId`.
-- **`handleEditSave`** refuses mismatches with `postEditSourceError`. Otherwise it queues the
-  text, and `drainActiveBlockEdit` applies it.
+- **`handleEditSave`** refuses mismatches with `postEditSourceError`, which answers with
+  `previewEditSource` carrying the save's `editId` and `error`. Otherwise it queues the text, and
+  `drainActiveBlockEdit` applies it.
 - **Completion.** When a final save is drained, `completeActiveBlockEdit` calls
   `releaseActiveBlockEdit`. That sets `edits.active = undefined` and calls `lock.release()`,
   which clears `held` **and `pageEditorId`** and runs the queued work. Then it asks for an
@@ -132,6 +141,8 @@ The host side is `src/session/features/blockEdits.ts` and the lock is
 - **`previewEditClosed`** calls `closePageEditor(editId)`. That clears `pageEditorId` when it
   matches, and drains the queued work only when `held` is false.
 - **`handleEditCancel`** restores `originalText`.
+- **Outside change.** `trackOutsideChange` returns false while a final save is requested or text
+  is pending; the caller then releases the edit without writing it and renders (BLOCK-191).
 - **Renders.** Render results wait while `pageEditorId` is set (`shouldDeferResult`, STAB-03).
   `onReady` releases a held edit when the page reports `blockEditOpen: false`. A full page
   replacement clears `edits.active`.
@@ -169,7 +180,7 @@ changes no text.
   document switch or a full page replacement.
 - **Detached save**: a block or cell editor's final save that continues after the writer closed
   the editor with Cancel or Escape (save-guard-Q4). The page has no editor for it any more; the
-  host completes it.
+  host completes it. If it fails, the page reopens the editor (save-guard-Q10).
 
 Add "Detached save" to `.agents/glossary/common.md`.
 
@@ -206,22 +217,32 @@ goes to the edited block at once. Its quiet `pendingBlockSelection` of the same 
 set when `hasAutosavedChange`, may stay: it reselects the same block after the patch and moves
 nothing.
 
-### 2. The host ends a detached save, and the next block opens (decision 1)
+### 2. The host ends a detached save, and the next block opens (decision 1, Q11)
 
-**Page.** Add `detachedSaveEditId?: string` to the page state (`pageRuntime.ts`). It is set by
-section 1 and cleared when the detached save ends, which is any of:
+**Page.** Add one field `detachedSave?: DetachedSave` to the page state (`pageRuntime.ts`; the
+type lives outside that file if it would pass its limit). It is set by section 1 and holds what
+the page needs to reopen the editor (section 3):
+
+- the `editId`;
+- the text of the final save it posted;
+- `hasAutosavedChange`;
+- the block's lookup keys, the same ones `rememberPendingBlockNavigation` records: source line,
+  end line, block id, tag name, and for a cell the table rank, row and column.
+
+It is cleared when the detached save ends, which is any of:
 
 - a content patch;
 - a full page replacement;
-- `previewEditSource` with `done` or `error` for that `editId` (today such an answer finds no
-  editor and is dropped).
+- `previewEditSource` with `done` for that `editId` (today such an answer finds no editor and is
+  dropped);
+- `previewEditSource` with `error` for that `editId`: the failure, handled in section 3.
 
 While it is set, `openBlockEditor` does not post `previewEditOpen`. It records the target with
 `rememberPendingBlockNavigation`, the same way a click during "Saving Markdown…" does today. When
-the end arrives, the page clears the mark and calls `resumePendingBlockNavigation`.
-`initializeContent` already does this after a patch; add it for `done` and `error`. So the next
-block the writer opens after that Cancel opens once the save ended, against the new rendering.
-The open does not meet a stale page revision.
+the save ends in success (patch or `done`), the page clears the record and calls
+`resumePendingBlockNavigation`. `initializeContent` already does this after a patch; add it for
+`done`. So the next block the writer opens after that Cancel opens once the save ended, against
+the new rendering (save-guard-Q11). The open does not meet a stale page revision.
 
 This is a new gesture after the Cancel. The navigation pending at the time of the Cancel was
 dropped (section 1).
@@ -229,20 +250,15 @@ dropped (section 1).
 **Host** (`blockEdits.ts`; the lock's API in `editLock.ts` if a method is needed):
 
 - **Mark the edit detached.** `previewEditClosed` for the `editId` of `preview.edits.active`,
-  when that edit is not `cancelRequested`, marks it `detached` (a new flag on `ActiveBlockEdit`).
-  The lock's `pageEditorId` is cleared as today.
+  when that edit is not `cancelRequested` and its final save has not failed, marks it `detached`
+  (a new flag on `ActiveBlockEdit`). The lock's `pageEditorId` is cleared as today.
 - **Idle edit.** If the edit has nothing left to apply (not `applying`, no `pendingText`), it is
-  released at once with `releaseActiveBlockEdit(preview, true)`, and the document is rendered:
-  the text stays as written, with no restore. This covers an edit whose final save already
-  failed (`finalRequested = false`, error posted to the closed editor).
-- **Busy edit.** Otherwise the edit drains as today and completes with no `done`; the render
-  follows as usual.
-- **Detached failure.** An apply failure or rejection of a detached edit releases it at once:
-  `edits.active = undefined` and the host hold is freed. The error is shown as a VS Code warning,
-  through the same path `postEditSourceError` uses for a flush refusal (SwRS-MDOKFSTUDIO-BLOCK-205),
-  because the page has no editor to show it. Without this, the edit stays held for good and every
-  later open is refused with "Another Markdown block is already being edited.". This is a hang of
-  the edit lock that the new Cancel rule would create.
+  completed at once as `completeActiveBlockEdit` does: released, with no restore, and the document
+  is rendered (or `done` posted when there is nothing to render).
+- **Busy edit.** Otherwise the edit drains as today and completes with no change; the render or
+  `done` follows as usual.
+- **Detached failure.** See section 3: the host keeps the edit and tells the page, which reopens
+  the editor.
 - **Do not clear a newer page editor.** Releasing a detached edit frees only the host hold
   (`held`). If a `pageEditorId` other than the detached `editId` was recorded since, it is kept,
   and the queued render waits for that editor (STAB-03). This prevents a late completion from
@@ -250,13 +266,82 @@ dropped (section 1).
 - **An open that arrives during a detached edit.** `handleEditOpen` does not refuse a
   `previewEditOpen` with "Another Markdown block is already being edited." when the active edit
   is detached. It holds the open (at most one; a later one replaces it) until the detached edit
-  is released, then handles it with its usual checks. The page's wait (above) makes this rare; it
-  covers a message already in flight.
+  ends. On success it handles the open with its usual checks. On a failure it refuses it with the
+  usual "Another Markdown block is already being edited.", since the failed editor reopens
+  (section 3). The page's wait (above) makes this rare; it covers a message already in flight.
 
 `trackOutsideChange` and the full page replacement keep releasing a detached edit, as they do any
 active edit.
 
-### 3. Each save path ends: the hangs found by reading, and their fixes
+### 3. A detached save that fails reopens its editor (save-guard-Q10)
+
+The rule: the editor reopens on that block, with the text the writer typed and the error in its
+status line, in the state an editor is in today after a refused final save (BLOCK-216). Nothing is
+lost, and no VS Code warning is shown.
+
+**How the page learns of the failure.** Every failure of a final save already reaches the page
+as `previewEditSource` with the save's `editId` and `error`:
+
+- a refusal of `handleEditSave` (posted on receipt, often before the page's Cancel reaches the
+  host);
+- an apply failure or rejection in `drainActiveBlockEdit`;
+- the "source block changed" refusal in `drainActiveBlockEdit`.
+
+The host keeps posting these answers for a detached edit (no warning instead). Each answer to a
+**final** save also carries a new optional field `unsavedText`: the text of the final save that
+was not written (the message's text for a refusal of `handleEditSave`; the edit's text being
+applied for a drain failure). Add it to `PreviewEditSourceMessage`
+(`src/core/protocol/hostToPage.ts`) and its validator, with the same bound as the text of
+`previewEditSave`. The page fills the reopened editor with `unsavedText`. If an answer comes
+without it, the page uses the text kept in `detachedSave`.
+
+**Host lock on a failure.** The page will show the editor again, so the host treats it as still
+open:
+
+- a failed detached edit is not released by the detach. It stays as an edit is after a failure
+  today: held (`edits.active` set, `finalRequested = false`) for a drain failure, or released
+  with `releaseHostEditKeepingEditor` for the "source block changed" refusal;
+- the host records the edit's `editId` as `pageEditorId` again (`lock.openPageEditor`), so renders
+  wait for the reopened editor (STAB-03);
+- the host remembers the `editId` of its last refused or failed final save. A `previewEditClosed`
+  for that `editId` that arrives after the failure (the page's Cancel crossed the error answer)
+  does not detach anything and does not clear `pageEditorId`: the page reopens that editor. The
+  memory is cleared by the next save, open, cancel or close of another `editId`, and by a release.
+
+**Page reopen.** When `previewEditSource` with `error` arrives for `detachedSave.editId`:
+
+- the page finds the block with the same lookup as `resumePendingBlockNavigation` (block id first,
+  then source line and tag, then the table cell);
+- it reopens a block or cell editor on it **with the same `editId` and without posting
+  `previewEditOpen`**. A new internal entry of `openBlockEditor` (for example
+  `reopenFailedEdit(record, error, text)`) builds the editor as `openBlockEditor` does, then sets
+  the state that a source answer and the error answer would set today: the text box holds the
+  unsaved text, `finishing` is false, `lastPostedText` is cleared, `hasAutosavedChange` is the
+  recorded one, and the status shows the error with `hintReplaced`;
+- the caret goes to the end of the text, and the text box has the focus;
+- `detachedSave` is cleared; the navigation recorded since the Cancel (save-guard-Q11) is dropped.
+
+From there the writer is where today's BLOCK-216 leaves them: Done posts a final save with that
+`editId`, and Cancel or Escape cancels as BLOCK-053 says (`previewEditCancel` when something was
+autosaved).
+
+**Another editor at the time of the failure.**
+
+- No other **block or cell editor** can be open: while `detachedSave` is set, the page opens none
+  (section 2), and the failure is the end of that save. A block the writer clicked in the meantime
+  does not open: the failed editor takes its place. **Why**: one editor at a time (BLOCK-041), and
+  the writer's unsaved text matters more than the click; the writer clicks again.
+- A **frontmatter field editor** may be open, since `detachedSave` does not stop one. The reopen
+  then waits until that field editor closes. Its save, if any, ends (Evidence), and its close then
+  runs the reopen, with the error. **Why**: the field editor may hold its own unsaved value, and
+  closing it for the reopen could lose that value. While the reopen waits, the host keeps
+  `pageEditorId`, so no render replaces the block.
+
+**The block cannot be found.** Renders wait while the host holds the edit or `pageEditorId`, so
+the block is expected to be on the page. The Driver's tests prove it is found on each failure
+path. A path where it is not found is a bug of this CR, fixed here and named in the commit.
+
+### 4. Each save path ends: the hangs found by reading, and their fixes
 
 **Found and fixed in this CR:**
 
@@ -271,13 +356,15 @@ active edit.
   - Fix: in `handleSave`, when the planned text equals the document text, the host writes nothing
     and posts `previewFrontmatterResult` with `saved: true` and a new optional field
     `unchanged: true` (`src/core/protocol/hostToPage.ts`, with its validator). On
-    `unchanged: true`, `receiveFrontmatterResult` closes the field editor at once
-    (`closeFrontmatterEditor("unchanged save")`). That applies the deferred properties markup,
-    and `afterResult` runs.
+    `unchanged: true`, `receiveFrontmatterResult` closes the field editor at once, with no
+    message (save-guard-Q12) (`closeFrontmatterEditor("unchanged save")`). That applies the
+    deferred properties markup, and `afterResult` runs.
   - The Driver first proves the hang with a failing test. If a no-op apply does fire a document
     change in the test host and the hang does not reproduce, the Driver reports it, and the fix
     is kept only if the real VS Code apply behaves as `applyWrittenEdits` says.
-- **H2, the detached edit whose save fails** (section 2): it held the host edit for good.
+- **H2, the detached edit whose save fails.** Under the Cancel rule, the failure would reach a
+  page with no editor: the text was lost, and the host edit stayed held for good, so every later
+  open was refused with "Another Markdown block is already being edited.". Fixed by section 3.
 - **H3, the late completion that cleared a newer editor's lock** (section 2).
 
 **Read and found to end (each gets its test in the Evidence):**
@@ -297,13 +384,14 @@ active edit.
 The Driver reads these paths again on top of part A. **Any test that does not end is a new hang:
 fix it here, and name it and its cause in the commit and the PR body.**
 
-### 4. The frontmatter Escape rule is unchanged
+### 5. The frontmatter Escape rule is unchanged
 
 Escape stays ignored while a frontmatter save is in flight, and the control stays disabled
 (FMEDIT-001, FMEDIT-004). Nothing in `bindKeys`, `saveValue`, `saveKey` or
-`postFrontmatterAction` changes, except H1's handling of `unchanged: true`.
+`postFrontmatterAction` changes, except H1's handling of `unchanged: true` and the hook that runs
+a waiting block reopen when the field editor closes (section 3).
 
-### 5. What stands against these rules today, and is changed here
+### 6. What stands against these rules today, and is changed here
 
 - The early returns on `finishing` in `cancelBlockEdit`, `cancelTableCellEdit` and the cell
   editor's document-level Escape (section 1).
@@ -319,7 +407,7 @@ Escape stays ignored while a frontmatter save is in flight, and the control stay
   Driver finds them with `just check`) is handled the same way, and each one is named in the
   commit.
 
-### 6. Requirements and vocabulary
+### 7. Requirements and vocabulary
 
 Follow the project's requirements guidelines (IDs from `okfreq new`, markers move with the code,
 `just requirements-update`, a log entry).
@@ -337,24 +425,28 @@ Follow the project's requirements guidelines (IDs from `okfreq new`, markers mov
     returns without a message when finishing is true" becomes "cancelBlockEdit closes the editor
     with previewEditClosed and no previewEditCancel when finishing is true". Add the session test
     of section 2.
+- **SwRS-MDOKFSTUDIO-BLOCK-216** (a refused open or save keeps the typed text and says why): a
+  scenario "A save that fails after Cancel reopens the editor with the typed text and the error",
+  including the wait for an open field editor.
 - **SwRS-MDOKFSTUDIO-TABLE-025** (table-editing): a scenario "Escape or Cancel in a cell during a
   final save closes the editor with no message". It includes a cell left earlier, a Tab-added row
   and the focus outside the cell editor. Add its test to the verification notes.
 - **SwRS-MDOKFSTUDIO-BLOCK-191** (the host holds and ends the block edit): a scenario "The page
-  closed the editor during its final save". It covers the edit completing with no restore, a
-  failure released and shown as a warning, the open accepted after the end, and a newer editor's
-  lock kept.
+  closed the editor during its final save". It covers the edit completing with no restore, the
+  open accepted after the end, a newer editor's lock kept, and a failure keeping the edit and the
+  page editor lock for the reopened editor.
 - **New SwRS** (block-editing), title for example "Every final save of a block or cell editor
   ends":
-  - each save path listed in section 3 ends in a closed editor or a shown error;
+  - each save path listed in section 4 ends in a closed editor or a shown error;
   - it derives from StRS-MDOKFSTUDIO-BLOCK-006 and depends on BLOCK-216, BLOCK-263 and BLOCK-191.
 - **Frontmatter** (frontmatter-editing): a scenario on SwRS-MDOKFSTUDIO-FMEDIT-019 (or the
   frontmatter save SwRS the guidelines point to): "A save that changes no text closes the field
-  editor". Also a scenario stating that every frontmatter save (value, key, field action) ends in
-  a closed editor or a shown error.
+  editor with no message". Also a scenario stating that every frontmatter save (value, key, field
+  action) ends in a closed editor or a shown error.
 - **StRS-MDOKFSTUDIO-BLOCK-006** (`proposed`): its wording changes with the code, with no
   re-approval. "Cancel or Escape as restoring the block" gets the nuance "or, once Done was
-  pressed, as closing the editor while the save completes".
+  pressed, as closing the editor while the save completes, the editor coming back with the text
+  if that save fails".
 - **SwRS-MDOKFSTUDIO-BLOCK-047**: no change. Its boundary scenario "A second final save is
   refused while the first is in flight" stays true, because there is no retry and nothing posts
   a second final save. The first specification's changes to it are dropped.
@@ -365,14 +457,16 @@ Follow the project's requirements guidelines (IDs from `okfreq new`, markers mov
 ### Size limits (decision 3)
 
 - `src/page/features/pageRuntime.ts` is 793 lines (limit 800).
-  - The one new state field and its comment fit.
-  - If the Driver needs more, move a type out of the file (for example the `BlockEdit` pending
-    navigation types) rather than pass the limit.
+  - The one new state field and its comment fit; the `DetachedSave` type goes in its own small
+    module (or beside the pending-navigation types if those move out).
+  - If the Driver needs more, move a type out of the file rather than pass the limit.
+- `src/page/features/blockEditor.ts` (649) takes the Cancel change and the reopen entry. If it
+  would pass its limit, put the detached-save handling (record, end, reopen) in a new module, for
+  example `src/page/features/detachedSave.ts`.
 - `test/page/runtimeFrontmatterEditor.test.ts` is 1 396 lines (limit 1 500): new frontmatter tests
-  go in the new file below, not there.
-- `src/session/features/blockEdits.ts` (729) and `blockEditor.ts` (649) have room. If
-  `blockEdits.ts` would pass its limit, put the detached-edit handling in a small module beside
-  it.
+  go in a new file, not there.
+- `src/session/features/blockEdits.ts` (729) has room. If it would pass its limit, put the
+  detached-edit handling in a small module beside it.
 
 ## Out of scope
 
@@ -381,12 +475,15 @@ Follow the project's requirements guidelines (IDs from `okfreq new`, markers mov
 - Any time limit, timeout message, retry message, `stale` mark on host refusals, or save-to-render
   measure (save-guard-Q9).
 - Undoing a save on Cancel: the save asked for with Done is kept (save-guard-Q4).
-- The frontmatter Escape rule during a save (unchanged, section 4).
+- The frontmatter Escape rule during a save (unchanged, section 5).
 - Other messages: block moves, pastes and cuts, checkbox toggles, label renames, find and replace,
   `previewEditCancel` of an editor before Done.
 - An autosave that fails while the final save is queued. It ends in an error, not in "Saving…";
   pressing Done again may then meet a "source block changed" refusal. It is noted here, not
   changed.
+- An outside change to the file (undo, another writer) while a final save is still queued: the host
+  releases the edit without writing that text and renders (BLOCK-191, today's behaviour, with or
+  without Cancel). See open question 1.
 - The release notes, written when the release is prepared.
 
 ## Evidence
@@ -413,7 +510,8 @@ send one of these answers:
 In every run the end state is a closed editor or a shown error, never `finishing` with no answer
 pending.
 
-**Page, Cancel during a final save** (same file):
+**Page, Cancel during a final save** (same file, or a new `test/page/runtimeDetachedSave.test.ts`
+if the first passes its limit):
 
 6. Cancel, and in another run Escape in the text box, during "Saving Markdown…":
    - the editor closes and `state.activeBlockEdit` is undefined;
@@ -427,26 +525,45 @@ pending.
    a click on another block; each posts the final save. Then press Cancel. Then send a content
    patch, or `done` in another run: no editor opens, no block moves, the selection is on the
    edited block.
-9. An open after that Cancel. Double-click another block before the end: no `previewEditOpen` is
-   posted. After the patch (or `done`, or an error for the detached `editId`), one
-   `previewEditOpen` is posted for that block, with the page's new revision.
+9. An open after that Cancel (save-guard-Q11). Double-click another block before the end: no
+   `previewEditOpen` is posted. After the patch (or `done`), one `previewEditOpen` is posted for
+   that block, with the page's new revision.
 10. Cancel with no final save posted behaves as BLOCK-053 says, with and without an autosave.
 
-The rewritten test of `test/page/blockReq.requirements.test.ts` carries `@tests_req
-SwRS-MDOKFSTUDIO-BLOCK-053`, the cell checks carry `@tests_req SwRS-MDOKFSTUDIO-TABLE-025`, and the
-path checks carry the new SwRS's `@tests_req`.
+**Page, a detached save that fails** (save-guard-Q10; same file as 6 to 10). For a paragraph
+editor and a cell editor: type "new words", press Done, press Escape, then send
+`previewEditSource` with `error` and `unsavedText: "new words"` for that `editId`:
 
-**Page, frontmatter** (same new file, or a new `test/page/runtimeFrontmatterSaveEnds.test.ts`).
-For a value save, a key rename and a field action (add and remove):
+11. the editor is open again on the same block (the same cell for a cell editor), with the same
+    `editId`; no `previewEditOpen` was posted; the text box holds "new words"; the status shows
+    the error; `finishing` is false; the text box has the focus.
+12. Done then posts one `previewEditSave` with `final: true`, that `editId` and "new words".
+    Escape then cancels as BLOCK-053 says (`previewEditCancel` when an autosave had reached the
+    document, otherwise nothing).
+13. An error answer without `unsavedText`: the editor reopens with the text the page posted.
+14. A block clicked between the Cancel and the error: no `previewEditOpen` is posted, before or
+    after the error; only the failed editor reopens.
+15. A frontmatter field editor opened between the Cancel and the error: the block editor does not
+    reopen while the field editor is open; it reopens, with the text and the error, when the field
+    editor closes (after its save's content patch, and in another run after Escape).
+16. Each of these fails before the change (the error finds no editor and is dropped).
+
+The rewritten test of `test/page/blockReq.requirements.test.ts` carries `@tests_req
+SwRS-MDOKFSTUDIO-BLOCK-053`, the cell checks carry `@tests_req SwRS-MDOKFSTUDIO-TABLE-025`, the
+reopen checks carry `@tests_req SwRS-MDOKFSTUDIO-BLOCK-216`, and the path checks carry the new
+SwRS's `@tests_req`.
+
+**Page, frontmatter** (a new `test/page/runtimeFrontmatterSaveEnds.test.ts`). For a value save, a
+key rename and a field action (add and remove):
 
 - an error answer: the control is enabled, the error shows, and Escape closes;
 - `saved: true` then a content patch: the field editor is closed;
-- **H1**: `saved: true` with `unchanged: true`: the field editor is closed at once and the
-  deferred properties table is applied;
+- **H1**: `saved: true` with `unchanged: true`: the field editor is closed at once, no message
+  shows, and the deferred properties table is applied;
 - while each save is in flight, Escape does nothing and the control is disabled (the rule kept).
 
-**Host** (`test/session/`, beside `blankRunHost.test.ts`, for example a new
-`test/session/detachedSave.test.ts`):
+**Host** (`test/session/`, for example a new `test/session/detachedSave.test.ts` beside
+`blankRunHost.test.ts`):
 
 - **H1**: a `previewFrontmatterSave` whose plan leaves the text unchanged (for example a YAML text
   that serialises to the same frontmatter) gets `saved: true, unchanged: true`, and the document
@@ -460,16 +577,25 @@ For a value save, a key rename and a field action (add and remove):
   is accepted.
 - **Decision 1, (c)**: as in (b), but the `previewEditOpen` arrives before the apply resolves. It
   is not refused with "Another Markdown block is already being edited."; it is answered after the
-  detached edit is released. When that answer opens an editor, its `pageEditorId` is still set
-  after the release, and the render result of the detached save waits for it.
-- **H2**: as in (b) with the apply failing, or rejecting. The edit is released
-  (`edits.active` undefined), a warning is shown, and a later `previewEditOpen` is not refused
-  with "Another Markdown block…". This fails before the fix.
+  detached edit ends. When that answer opens an editor, its `pageEditorId` is still set after the
+  release, and the render result of the detached save waits for it.
+- **H2, apply failure** (Q10): as in (b) with the apply failing, and in another run rejecting. The
+  page gets `previewEditSource` with the `error`, the `editId` and `unsavedText` equal to the final
+  text; no VS Code warning is shown; `pageEditorId` is that `editId` again, so a render waits; a
+  following `previewEditSave` with `final: true` and that `editId` is accepted and written. This
+  fails before the fix.
+- **H2, refusal crossing the close**: a final save refused by `handleEditSave`, then
+  `previewEditClosed` for its `editId`: the refusal carries `unsavedText`; the close does not
+  clear `pageEditorId`; a following final save with that `editId` is handled as today after a
+  refusal.
+- **H2, source block changed**: the drain's "source block changed" refusal of a detached edit
+  carries `unsavedText`, and `pageEditorId` is that `editId` again.
 - `previewEditClosed` after a `previewEditCancel` (an edit with `cancelRequested`) still restores
   the original text: the detached rule does not apply.
 
 **Protocol:** the host-to-page validator accepts `previewFrontmatterResult` with
-`unchanged: true`, and refuses a non-`true` value.
+`unchanged: true` and refuses a non-`true` value. It accepts `previewEditSource` with an
+`unsavedText` string within the bound, and refuses a non-string or an over-long one.
 
 **Real VS Code** (`just ci-integration`, on the heavy run): one scenario in
 `test/integration/previewEditing.test.ts` or its real-input group. Type in a paragraph, press
@@ -485,27 +611,29 @@ new SwRS has its `@implements_req` at the code above and its `@tests_req` at eac
 
 Technical choices the answers leave to the specification, for the Chief of Staff to check:
 
-1. **The page waits for a detached save's end before it opens another block.** It reuses today's
-   pending navigation during "Saving…". The open then carries the new revision, so the host's
-   stale check passes and decision 1's "the next block opens" holds. Without the wait, the host
-   would answer an early open with "The preview is stale".
+1. **The page waits for a detached save's end before it opens another block** (save-guard-Q11).
+   It reuses today's pending navigation during "Saving…". The open then carries the new revision,
+   so the host's stale check passes and decision 1's "the next block opens" holds.
 2. **The host holds an open that arrives during a detached edit** (at most one) instead of
    refusing it, as a second line behind the page's wait.
-3. **A detached edit's failure is shown as a VS Code warning** (the flush refusal's path), since
-   the page has no editor left.
-4. **H1 is fixed on the host** with `unchanged: true`, rather than by a YAML-normalising check on
+3. **A failed detached save reopens with the same `editId` and no new `previewEditOpen`**
+   (save-guard-Q10). The host keeps its edit and records the editor as open again, so the
+   reopened editor is in exactly the state BLOCK-216 leaves today, with no stale revision and no
+   "Another Markdown block" refusal.
+4. **The host sends the unsaved text** (`unsavedText` on every error answer to a final save). The
+   page's own copy is only a fallback.
+5. **The failed editor wins over a block clicked after the Cancel** (one editor at a time); **a
+   field editor open at the failure delays the reopen until it closes**, so its own value is not
+   lost.
+6. **H1 is fixed on the host** with `unchanged: true`, rather than by a YAML-normalising check on
    the page. The host is the one place that knows the text did not change.
-5. **The `detached` flag applies only to an edit that is not `cancelRequested`**, so today's
+7. **The `detached` flag applies only to an edit that is not `cancelRequested`**, so today's
    Cancel before Done (restore) is untouched.
 
 ## Open questions
 
-1. **A cancelled save that fails.** When the writer pressed Escape during "Saving…" and that save
-   then fails, the page has no editor left. This specification shows the error as a VS Code
-   warning; the typed text is then not in the file. Is a warning enough, or should the editor
-   reopen with the typed text and the error?
-2. **Opening a block during a cancelled save.** A block opened after Cancel and before the save
-   ended opens once the save ended, a moment later. Is that delay acceptable, or should such a
-   click be ignored?
-3. **A frontmatter save that changes nothing** (H1). This specification closes the field at once,
-   with no message. Is a silent close right, or should it say "No change"?
+1. **An outside change during a cancelled save.** If the file changes outside the preview (an
+   undo, another writer) while the save the writer cancelled is still queued, the host drops that
+   text and shows the new file. It does the same today when the editor stays open on "Saving…". Is
+   that accepted, or should the typed text come back in a reopened editor, as for a failure
+   (save-guard-Q10)?
