@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "title": "Slim the startup cards of the Chief of Staff, Foreman and Driver",
-  "summary": "Cut the three big role cards by moment of need into manifest actions, measured, with a no-loss table and test.",
+  "summary": "Specified, three questions open: cut chief-of-staff.md, foreman.md and driver.md by moment into manifest actions, after slim-session-start; start reading measured, aiming at half; moved-rule tables, a reach test and a Fable advisor.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "85b4b11979ac4511a7a58f1112d56d9f15d756f1a8c48d1cd99ffe2a284865b1",
-    "02-answers.md": "25f187b642de18afc53b8ce55fca7c30fb79cb4d23fc22258c1f6475c3557ba0",
+    "02-answers.md": "e462f064c4daff6bcc5119daecde62dd53d84389395b0df04bf9dc3a3b1ff551",
+    "03-change-spec.md": "1e852bb4d141f8008f119c52ad0724917e1892004f6133d7abb499a4aa83e11f",
     "intake/request.md": "c38eb4d6a85b75ea769bd7c5b3afc825a9b4e1fc4c4f2a4e8a70c82f66ee1b5d"
   },
-  "summarized": "2026-11-23T13:25:07Z"
+  "summarized": "2026-11-23T13:29:53Z"
 }
