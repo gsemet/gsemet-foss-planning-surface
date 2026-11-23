@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "A project's CoS or Griller does not grill another project's CR",
+  "summary": "Specified, cards only: a session relays another project's CR on the user's word and stops there; only the user's word for that CR opens its grill, spec and triage.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "e1b717a84ddcff97839ce5bc9351c15dab2bf9d009a02e3221b0ce764f7b1bb1",
+    "02-answers.md": "b3ce558a50ff4ade3455fb5227ab9872349e432602347b42103a3acf61dcaba6",
+    "03-change-spec.md": "4207b730aca82f63368996b85ab9b51b3b0483285e509b7465ebbad8e461d5c5",
+    "intake/request.md": "b068880f8cc863cf4b8c7e95cdee2989cf0175c0e2dedf609024f2c10019ff5a"
+  },
+  "summarized": "2026-11-23T13:10:18Z"
+}
