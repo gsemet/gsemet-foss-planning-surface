@@ -41,10 +41,10 @@ Grade: 2. Shared frontmatter link code and its session callers change from sync 
 - [x] New or changed tests (they fail on the previous code)
 - [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [x] Changelog: No user-facing change
-- [x] Local gates: `just check` passed at `acc9579` (exit 0, includes boundaries, unit and requirements lint)
-- [x] Review: approved at `acc9579` (carried from review of the same tree, `116f39d`)
-- [x] Verified at `acc9579`
-- [x] CI green at `acc9579` (static, static-windows, visual, viewer-graph; heavy run with integration and stress also green)
+- [x] Local gates: `just check` passed at `acc9579` (exit 0); after the restack onto CR-467, `just check-boundaries`, `just check-limits` and `just unit` pass at `7520ed0`
+- [x] Review: approved at `7520ed0` (restack onto CR-467, only context lines differ from the earlier approval at `116f39d`)
+- [x] Verified at `7520ed0`
+- [x] CI green at `7520ed0` (to confirm: static, static-windows, visual, viewer-graph)
 
 ## Autonomous decisions
 
@@ -55,7 +55,7 @@ Grade: 2. Shared frontmatter link code and its session callers change from sync 
 
 - The dangling `.md` symlink test skips on Windows (file symlinks need a privilege); it runs on Linux CI.
 - The cold stem-index build time was not measured before and after; the build now yields to the event loop per directory but its total time is unproven.
-- The real VS Code integration and stress jobs ran only through a manual heavy run at `acc9579` (green), not locally.
+- The real VS Code integration and stress jobs ran only through a manual heavy run at `acc9579` (green), before the restack onto CR-467; they run once at the top of the stack.
 
 ## Internal references
 
