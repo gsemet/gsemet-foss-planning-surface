@@ -51,3 +51,4 @@ Griller's sample audit (Q23), 2026-11-23, in `experiments/02-audit-sample.md` (3
 ## Series 7, 2026-11-23
 
 25. strs-validation-Q25: **Where the okf-schema request goes.** A: a CR filed in the inbox of the surface's `okf-schema` project (marker `@accepts_req`, shared frontmatter field `scenarios:` with stable ids, fragment `#S<n>` on both markers, the two counters per StRS by bench), citing this audit; this Studio CR goes to the backlog, blocked by it. Forge-neutral; nothing posted on a tracker.
+26. strs-validation-Q26: **Grilled enough.** A: back to the backlog at P2, blocked by `okf-schema/changes/1-inbox/strs-acceptance-scenarios` (filed 2026-11-23); specified once okfreq ships the marker and `scenarios:`. Critique: yes (requirements incl. 14 approved StRS, CI with two benches, a large migration). Not for batch-09.
