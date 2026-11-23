@@ -37,7 +37,7 @@ Grade: **1**. One condition in the page's content-patch handler, with tests and 
 
 ## Known gaps
 
-- Cancel stays ignored while a final save is in flight, and no time limit is added to a final save; both are handled in separate follow-up changes.
+- Cancel stays ignored while a final save is in flight, and a follow-up change makes Cancel always close the editor and tests that every save path ends.
 
 <details>
 <summary>Details</summary>
