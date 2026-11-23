@@ -41,7 +41,7 @@ Grade: 2. Shared frontmatter link code and its session callers change from sync 
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [ ] Changelog: No user-facing change
-- [ ] Local gates: `just check` (to be filled at the head)
+- [ ] Local gates: `just check` passed at `acc9579` (exit 0, includes boundaries, unit and requirements lint)
 - [ ] Review
 - [ ] CI green
 
