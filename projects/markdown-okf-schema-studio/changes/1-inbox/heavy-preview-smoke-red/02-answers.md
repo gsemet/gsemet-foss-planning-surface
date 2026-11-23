@@ -21,3 +21,12 @@ the expected behaviour is that of 1.12.0, already approved, so there is no owner
    1.12.0 (`requestDocument` waits for the session's pending show). That fixes every racing test at
    once, allows a cheap test in `test/host/`, and adds the SwRS sentence. If H2 is proven instead, it
    is a product regression, fixed in the product anyway.
+6. heavy-red-Q6 (Chief of Staff, routine: spec-critic findings 1-6): take all six of the critic's
+   fixes:
+   - The cheap test captures the HTML when the command's promise settles, while driving the clock.
+   - The edit and switch races are hunted by grep and fixed test-side, each one listed in the PR.
+   - The real callers are named, and LIFE-003 is scoped to the first preview and to the shown
+     document again.
+   - A heavy run on a scratch branch is the default proof.
+   - The overlap with CR-477 is left to CR-477, and log/CHANGELOG conflicts keep both entries.
+   - One `## Unreleased` line.
