@@ -55,7 +55,7 @@ Grade: **2**. The page's edit state, the host's edit lock, three protocol messag
 
 - **UNVERIFIED:** the real VS Code scenario (Done, Escape with the apply held, release) is written and compiles but was not run locally; it runs in the heavy CI.
 - If the host's render never arrives after `done` with `renderFollows`, the page keeps the detached-save record.
-- The new fix tests (checkbox, row drag, insertion and blank-lines reopen, frontmatter unchanged save) were judged failing on the previous code by reading it, not by running them there; the box in the Test plan is ticked with that caveat only once reviewed.
+- The new page and host tests were run against the previous `src/`: 44 of 95 fail there (detached-save close and reopen for paragraph, cell, insertion and blank lines; frontmatter unchanged save; Escape during a cell save). The gesture-guard tests (block move, delete, paste, checkbox, row and list-item drag, file drop, replace) pass on the previous code, because it has no detached save for them to wait on; they guard the new state only. The new session test file does not compile against the previous code, so it was not run there.
 
 <details>
 <summary>Details</summary>
