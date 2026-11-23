@@ -81,7 +81,8 @@ The project guidelines name no process role (`test/build/test_guideline_isolatio
   commit item to every line of `## Unreleased`), then the changelog heading, then the amend. One
   sentence says why: the SHA-1 is known only once the line's commit is on `main`, and the release
   adds it in the version commit, so no follow-up commit on `main` is ever needed for it.
-- "The version PR on top of a stack", step 1: see open question 1; write what the owner answers.
+- "The version PR on top of a stack", step 1: `just changelog-refs origin/main --skip-missing` (see
+  "Owner's answers", 1).
 - "Release notes", "Writing": the references at the end of a changelog line are not copied into
   the notes (the section already forbids ticket numbers; name the references explicitly).
 
@@ -122,8 +123,8 @@ Behaviour:
 
   ```just
   # Add the commit of each line of ## Unreleased in CHANGELOG.md (release, before the changelog heading).
-  changelog-refs BASE="origin/main":
-      uv run --no-sync python scripts/changelog_refs.py --base "{{ BASE }}"
+  changelog-refs BASE="origin/main" *ARGS:
+      uv run --no-sync python scripts/changelog_refs.py --base "{{ BASE }}" {{ ARGS }}
   ```
 
 - `release-tests`: add `test/build/test_changelog_refs.py` to its pytest list. It is then run by
@@ -157,8 +158,8 @@ Read the requirements guideline, the okfreq baseline and `requirements/guideline
 
 ### 7. Current `## Unreleased` lines
 
-See open question 2: the lines already there use `(#475)`, `(#469)`, `(#479)` or nothing. Apply the
-owner's answer in this pull request.
+The lines already there use `(#475)`, `(#469)`, `(#479)` or nothing: rewrite them to the new
+format in this pull request (see "Owner's answers", 2).
 
 ### 8. This pull request's own CHANGELOG line
 
@@ -231,19 +232,22 @@ line endings, which test 10 covers.
   itself stays in the two guidelines (Q5).
 - The release notes drop the references (one clause in "Release notes", "Writing").
 
+## Owner's answers (former open questions)
+
+1. **The version PR on top of a stack (Q7, answer A).** The commits of the stack are not on `main`
+   when the version commit is made, and a rebase merge on GitHub rewrites every SHA-1. The script
+   gets an option `--skip-missing`: a line whose commit is not on `--base` is left without its
+   commit item (listed in the output as `skipped: <first words>`), exit 0; without the option such
+   a line still stops the script as in section 3. `just changelog-refs` passes extra arguments
+   through (`changelog-refs BASE="origin/main" *ARGS`). "The version PR on top of a stack", step 1,
+   runs `just changelog-refs origin/main --skip-missing` and says the stack's own lines ship
+   without their commit item. Add test 11: with `--skip-missing`, a line whose commit is on a side
+   branch is left unchanged, the other lines get their commit, exit 0.
+2. **The lines already in `## Unreleased` (Q8, answer A).** This pull request rewrites them to the
+   new format: `(#475)` becomes `(CR-<n> <short name>, PR #475)` (CR and issue items where the CR
+   records or the PR show them, the PR number found with `git log` on the line's commit), and a
+   line with no reference gets its group the same way. The commit item is never written by hand.
+
 ## Open questions
 
-1. **The version PR on top of a stack.** The commits of the stack are not on `main` when the
-   version commit is made, and a rebase merge on GitHub rewrites every SHA-1 (GitLab's
-   fast-forward merge keeps them). So `just changelog-refs` refuses there (its lines' commits are
-   not on `origin/main`), and a SHA taken from the branch would be wrong after the merge.
-   Recommended answer: in the stacked way, the lines of the stack's own pull requests are released
-   without their commit item (the script run with `--base origin/main` adds it to the lines already
-   on `main`, and an option `--skip-missing` leaves the others as they are, listed in its output);
-   the guideline says so in "The version PR on top of a stack". Alternative: the stacked way is not
-   used when the owner wants every SHA, and the release takes the default way (stack first).
-2. **The lines already in `## Unreleased`.** Three end with a bare `(#475)`, `(#469)`, `(#479)`,
-   the others have no reference. Recommended answer: this pull request rewrites them to the new
-   format (`(PR #475)` etc., the CR and issue items added where the CR records show them, the PR
-   number found with `git log` on the line's commit), so the next release reads one format. Without
-   it, the script appends a second group, `(#475) (commit 1a5b98b)`.
+None. Answered by the owner on 2026-11-23 (changelog-refs-Q7, Q8 in `02-answers.md`).

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "CHANGELOG lines end with their commit, CR, PR or MR and issue",
+  "summary": "Each CHANGELOG line ends with labelled references (commit, CR, PR/MR, issue), forge-neutral; a release script adds the commit SHA-1 by git blame (--skip-missing for a stack), the author adds the PR number before ready; existing Unreleased lines rewritten.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "e86dc285e244e27ef5465c08fd39f911c297f9342280844420d69b5eb664b784",
+    "03-change-spec.md": "d5ee6ed8bc12c37a4b3898cd44ecd047fc0b610daea59e8bc1174453f261caf9",
+    "intake/request.md": "84de8b3f7d8b00ad1fb3a85086e471f9053a2d01d1df6ab7dafb330b7e056a22"
+  },
+  "summarized": "2026-11-23T08:27:06Z"
+}

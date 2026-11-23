@@ -11,6 +11,13 @@ Context from the owner (2026-11-23): "toujours penser générique, on va support
 5. changelog-refs-Q5: **Where the rule lives.** A: in the project only: the pull-request guideline (CHANGELOG part) and the release-process guideline (the SHA-1 step); no chantier CR.
 
 6. changelog-refs-Q6: **Grilled enough.** A: specify, for the running batch.
+7. changelog-refs-Q7: **Version PR on top of a stack.** A: an option `--skip-missing` releases the
+   lines whose commit is not yet on main without their commit item (listed in the output); the
+   guideline says so in "The version PR on top of a stack".
+8. changelog-refs-Q8: **Lines already in `## Unreleased`.** A: this pull request rewrites them to the
+   new format (CR, PR and issue items where known), so the next release reads one format.
+Writer's choices (script and recipe names, blame of the first line, one `issue` item per issue,
+CONTRIBUTING mechanics, release notes drop the references): confirmed by the Chief of Staff.
 Spec critic: no.
 Destination: running batch batch-09.
 
