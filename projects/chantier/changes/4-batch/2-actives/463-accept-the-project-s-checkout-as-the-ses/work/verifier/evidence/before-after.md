@@ -1,0 +1,1 @@
+Head (after): 450b8784d7c83e87a6fb227bd32f87c213a9d356. Before: not captured (writes outside the worktree and CR folder refused, so the new tests could not run on the base). After: test_session_folder.py, 17 passed.

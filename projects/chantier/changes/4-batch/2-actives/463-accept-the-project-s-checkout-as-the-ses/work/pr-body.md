@@ -10,9 +10,9 @@ Session folder, before and after:
 | --- | --- | --- |
 | surface's main checkout | P6 ok, P7 ok | P6 ok, P7 ok |
 | project's clone (nested or beside the surface) | P6 FAIL, P7 FAIL ("linked worktree") | P6 ok, P7 ok |
-| linked worktree of the surface | P7 FAIL | P7 FAIL, with a message naming the surface |
-| linked worktree of the clone | P6 FAIL, P7 FAIL | P7 FAIL, with a message naming the clone |
-| another repository | P6 FAIL | P6 FAIL, naming both accepted folders |
+| linked worktree of the surface | P6 FAIL, P7 FAIL | P6 FAIL, P7 FAIL (message naming the surface) |
+| linked worktree of the clone | P6 FAIL, P7 FAIL | P6 FAIL, P7 FAIL (message naming the clone) |
+| another repository | P6 FAIL, P7 FAIL | P6 FAIL (naming both accepted folders), P7 ok |
 
 ```python
 class SessionCheckout(NamedTuple):
@@ -63,12 +63,12 @@ No visual change. A session in the project's clone can now open a batch.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test_session_folder.py`
-- [ ] Local gates at `450b878`: `just check` (2157 passed, 20 skipped), `just eval-dry-run` (19 of 19)
-- [ ] Evidence: none; tests are the proof
-- [ ] Review: approved at `450b878`
-- [ ] Verified at `450b878`
-- [ ] CI green at `450b878`
+- [x] New tests: `test_session_folder.py` (17 passed at `450b878`; UNVERIFIED: that they fail on the previous code, the before run was not captured)
+- [x] Local gates at `450b878`: `just check` (2157 passed, 20 skipped), `just eval-dry-run` (19 of 19)
+- [x] Evidence: none; tests are the proof
+- [x] Review: approved at `450b878`
+- [x] Verified at `450b878`
+- [x] CI green at `450b878`
 
 ## Internal references
 
