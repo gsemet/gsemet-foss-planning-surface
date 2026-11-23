@@ -1,6 +1,6 @@
 # Verify CR-473
 
-Head: d86fd914705b4be0e9a674a68905677a70f31064
+Head: c9712e21cc89fb34fd496bce918d2b83980fece3
 
 All claims judged at d86fd914.
 
@@ -32,3 +32,12 @@ Commands: `gh pr view 489 --json body,...`; `git diff --stat origin/main...HEAD`
 - No images; Impacts "No user-facing change" with reason; Known gaps not needed (no unverified claim): OK.
 
 VERIFIED (description)
+
+## Move d86fd914..c9712e21 (restack onto CR-472), judged at c9712e21cc89fb34fd496bce918d2b83980fece3
+
+- Touched: justfile `release-tests` line and the tests. `uv run --no-sync python -m pytest test/build/test_changelog_refs.py test/build/test_guideline_isolation.py test/build/test_no_merge_commits.py -q`: 32 passed. `grep release-tests justfile` line 213 lists both test_no_merge_commits.py and test_changelog_refs.py (both kept).
+- `git diff --stat 4802edf6 HEAD`: the same 10 files as before the move (script, tests, justfile, two guidelines, CONTRIBUTING, SwRS, log, index); worktree clean.
+- Claims 1, 3-6 (script behaviour, scenario steps, diff review): carried from d86fd91: script and its tests unchanged by the move (only the justfile test list conflicted).
+- Description (gh pr view 489): Review box "approved at c9712e2" matches log note "move d86fd91..c9712e2 (restack) inspector approved at c9712e21"; box "CI green" deliberately unticked; no images; content matches the 10-file diff.
+
+VERIFIED
