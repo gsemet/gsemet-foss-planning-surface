@@ -43,6 +43,15 @@ Grade: **2**. `ship` can now refuse branches that used to be recorded, and the c
 - The four agent descriptions, on both hosts, name the rule.
 - A parametrized unit test, a scenario check and the scenario README line.
 
+## Human decisions
+
+- No project key and no project exception: chantier's PRs never hold a merge commit, and a project that would prefer merges is not handled here.
+- A branch that already holds a merge commit is rebased by its own Driver, then pushed with `--force-with-lease`.
+- In a stack, a CR is updated on the CR below by rebase only, too.
+- `ship` refuses a branch holding a merge commit and says to rebase; no other command checks.
+- A folded GitLab CR is linearized by a rebase onto its base, then shipped and judged again.
+- The means is the local rebase plus `--force-with-lease`; the forge's rebase action is allowed but unproved.
+
 ## Impacts
 
 No visual change. A Driver whose branch holds a merge commit rebases it and pushes with `--force-with-lease` before `ship` records it.
