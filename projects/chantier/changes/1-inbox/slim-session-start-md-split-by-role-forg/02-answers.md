@@ -13,7 +13,10 @@
 9. slim-session-start-Q9: **Role change.** A. The role-change paragraph stays in the common `session-start.md`; the rule "read the file of the role the seat gives you, again when the role changes" is written there and in the skills.
 10. slim-session-start-Q10: **Foreman file.** A. No Foreman file; the Foreman's startup does not change; `titles.md` keeps the Foreman row for the Chief of Staff (this supersedes Q4's Foreman file).
 11. slim-session-start-Q11: **Forge cards.** C. As specified: `forges/github.md` and `forges/gitlab.md`, and "Adding a connector" gains the step "add its `forges/<name>.md`"; cite `docs/forge-connectors.md`.
+12. slim-session-start-Q12: **Griller file.** B. Keep `session-start-griller.md`: one common card and one card per role (the user's words: a common card and a card per role; the aim is that each role reads less).
+
 Destination: running batch batch-31.
 Spec critic: yes, on Fable (claude-fable-5-2), as the user asked for this family of CRs; it changes what each role reads at start.
+
 
 
