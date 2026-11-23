@@ -45,7 +45,7 @@ Grade: **2**. The page's edit state, the host's edit lock, three protocol messag
 
 ## Autonomous decisions
 
-- `previewEditSource` is addressed `document`, not `render` as the specification said, to match how it is routed today.
+- `previewEditSource` stays addressed to the document (as it is routed today) rather than to the render, so a pending render does not delay it.
 - `previewEditClosed` carries a `detached: true` flag, so the host tells a detach from a normal close after an error.
 - An open that arrives while a cancelled save is in flight is held at most once on the page and on the host.
 - The host releases a detached edit on `onReady` only when the page reports no block editor open; the page reports one while a detached save is in flight, so the edit is kept until its answer.
@@ -91,7 +91,7 @@ Behaviour change in the editors: Escape and Cancel close the editor during a sav
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `just check` pass, `just preflight` pending
+- [ ] Local gates: `just check` pass, `just preflight` (static stage on Windows) pass; to be re-run on the final head
 - [ ] Review
 - [ ] CI green
 
