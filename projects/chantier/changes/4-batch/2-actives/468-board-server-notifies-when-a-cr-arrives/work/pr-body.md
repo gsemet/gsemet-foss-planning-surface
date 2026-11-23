@@ -36,7 +36,7 @@ Shared writer, journal and session-start code change; no data format of existing
 
 ## Known gaps
 
-- Scenario check for the writer step added but run only by the long gate.
+- The local Windows run of the long gate is not owed by this CR (not the top of the batch); the pipeline's scenario is the gate at this head.
 
 <details>
 <summary>Details</summary>
@@ -64,11 +64,11 @@ No visual change; the board page updates through its existing file watch.
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just journal-schemas`
+- [ ] Local gates at `7eac211`: `just check`, `just journal-schemas`
 - [ ] Evidence: none beyond tests
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [ ] Review: approved at `7eac211`
+- [ ] Verified at `7eac211`
+- [ ] CI green at `7eac211`
 
 ## Internal references
 
