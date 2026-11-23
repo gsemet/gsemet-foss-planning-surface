@@ -47,3 +47,7 @@ Griller's findings, 2026-11-23: live SwRS = 443 (of 1051), with 2549 `### Scenar
 24. strs-validation-Q24: **Approved StRS.** A: one agreement, recorded in the CR, for the scripted migration that declares existing paths as `scenarios:` (metadata only); any change to the normative text of an approved StRS goes back to the owner one by one. Owner's agreement for that migration: given 2026-11-23 (this answer).
 
 Griller's sample audit (Q23), 2026-11-23, in `experiments/02-audit-sample.md` (31 of the 185 markers, 1 in 6; two rows checked again by hand): 13 walk a path (4 of them a one-step path, which is the same check as its SwRS), 1 a partial path, 6 single-state snapshots (all visual), 8 duplicate one SwRS transition (6 of them integration tests that stop after step 1), 3 other (TRUST-014 has no path; 2 test a flow that is not one of the StRS's paths). By bench: 8 of the 13 path rows run in real VS Code. Read on the 185: about 4 markers in 10 would move to `@accepts_req`, about 1 in 4 would count as "accepted"; today 93 live StRS count as validated. Simulated paths stub the host step (rows 23, 26).
+
+## Series 7, 2026-11-23
+
+25. strs-validation-Q25: **Where the okf-schema request goes.** A: a CR filed in the inbox of the surface's `okf-schema` project (marker `@accepts_req`, shared frontmatter field `scenarios:` with stable ids, fragment `#S<n>` on both markers, the two counters per StRS by bench), citing this audit; this Studio CR goes to the backlog, blocked by it. Forge-neutral; nothing posted on a tracker.
