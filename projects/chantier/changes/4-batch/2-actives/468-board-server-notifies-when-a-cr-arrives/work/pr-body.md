@@ -4,7 +4,7 @@ A change request (CR) can reach a project's inbox or backlog without the Chief o
 
 ## Deliverables
 
-- A new published journal type, `arrived@1`: `project`, `folder`, `stage`, `before`, `via` (`pull` or `session`), `upstream`. Its sentence: `surface pull brought <folder> (new in <stage> | moved from <before> | back from 3-ready); for the Chief of Staff: tell the user, act on nothing`.
+- A new published journal type, `arrived@1`: `project`, `folder`, `stage`, `before`, `via` (`pull` or `session`), `upstream`. Its sentence: `<surface pull brought | another session wrote> <folder> (new in <stage> | moved from <before> | back from 3-ready); for the Chief of Staff: tell the user, act on nothing`.
 - One pure arrivals function shared by the writer and the commands. Only CRs that end in `1-inbox` or `2-backlog/P<n>` are told; moves into `3-ready` or `4-batch`, and restores from `4-batch`, the archives or the trash, tell nobody.
 
 ```mermaid
@@ -36,7 +36,7 @@ Shared writer, journal and session-start code change; no data format of existing
 
 ## Known gaps
 
-- The local Windows run of the long gate is not owed by this CR (not the top of the batch); the pipeline's scenario is the gate at this head.
+- The local Windows run of the long gate is not owed by this CR (the local run waits for the batch's top CR, and the webui check cannot run here while another board holds its port); the pipeline's scenario passed at this head.
 
 <details>
 <summary>Details</summary>
@@ -47,7 +47,7 @@ Shared writer, journal and session-start code change; no data format of existing
 - `writer/cycle.py`, `writer/git_ops.py`: merge-base and tree reads, queued `arrived@1`, conflict-end arrivals.
 - `commands/intake.py`, `commands/seat.py`, `commands/batch_status.py`, `hub/watch.py`: session lines and the told mark.
 - `hub/schemas*.py`, `schemas.json`, `core/files.py`: the new type and the ignored file.
-- Cards, AGENTS.md, docs and scenario README updated.
+- Cards, AGENTS.md, docs and scenario README updated; `scenario/run_scenario.py` checks the pulled arrival and filters the filings' `arrived@1` lines from its other counts.
 
 ## Human decisions
 
@@ -63,12 +63,12 @@ No visual change; the board page updates through its existing file watch.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `7eac211`: `just check`, `just journal-schemas`
-- [ ] Evidence: none beyond tests
-- [ ] Review: approved at `7eac211`
-- [ ] Verified at `7eac211`
-- [ ] CI green at `7eac211`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `7eac211`: `just check`, `just eval-dry-run`
+- [x] Evidence: none beyond tests
+- [x] Review: approved at `7eac211`
+- [x] Verified at `7eac211`
+- [x] CI green at `7eac211`
 
 ## Internal references
 
