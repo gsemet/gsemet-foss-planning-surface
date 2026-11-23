@@ -2,7 +2,7 @@
 
 The core and session layers imported `node:path` in 25 files, which blocks a browser-capable build of the extension. This change puts all path arithmetic behind one module, so a later browser build swaps a single import for a posix shim. Paths behave exactly as before, Windows drive letters, backslashes and UNC paths included.
 
-Fixes #413
+Part of #413 (browser-capable host): this is the path step; the issue stays open for the maintainer to close.
 
 ## Deliverables
 
@@ -14,16 +14,25 @@ flowchart LR
   hp -.->|"browser build, later: esbuild alias"| shim["posix path shim"]
 ```
 
-- `hostPath.ts` re-exports `node:path` whole (`import path = require("node:path"); export = path;`), so `win32`, `posix`, `parse` and `sep` stay available and Node semantics are untouched.
-- dependency-cruiser: `core` and `session` import no Node built-in except through this module. `session` now has a rule forbidding every built-in (it allowed `path` before). The `NODE_DEBT` list keeps one `path` entry, `hostPath.ts`.
-
 | NODE_DEBT before | after |
 | --- | --- |
-| 6 pure-path entries, 6 entries with `path` among `fs` or `child_process` | 0 and 0: only `hostPath.ts` lists `path` |
+| 6 pure-path entries, 6 entries with `path` among `fs` or `child_process` | only `hostPath.ts` lists `path` |
+
+## Changes
+
+- New `src/core/path/hostPath.ts` (`import path = require("node:path"); export = path;`, so `win32`, `posix`, `parse` and `sep` stay available) and `test/core/path/hostPath.test.ts` (win32, UNC and drive parity).
+- 12 `core` and 13 `session` files import `hostPath` instead of `node:path` (import lines only).
+- `.dependency-cruiser.cjs`: one `path` entry left in `NODE_DEBT`; `session` gets `session-no-node-builtins`, replacing the rule that allowed `path`. `CONTRIBUTING.md` describes the module.
+
+## Impacts
+
+No visual change. Contributors import path functions from `src/core/path/hostPath`; a direct `node:path` import in `core` or `session` fails `just check-boundaries`.
 
 ## Blast radius
 
-Grade: **1**. Import lines change in 25 files and the module re-exports the same object; a plain `git revert` restores the previous state.
+Import lines change in 25 files and the module re-exports the same object; a plain `git revert` restores the previous state.
+
+Grade: 1
 
 ## Autonomous decisions
 
@@ -35,30 +44,15 @@ Grade: **1**. Import lines change in 25 files and the module re-exports the same
 
 - The browser alias itself (esbuild swap to a shim) is not built here; it is a later step of the browser-host work.
 
-<details>
-<summary>Details</summary>
-
-## Changes
-
-- New `src/core/path/hostPath.ts` and `test/core/path/hostPath.test.ts` (win32, UNC and drive parity).
-- 12 `core` and 13 `session` files import `../path/hostPath` instead of `node:path`.
-- `.dependency-cruiser.cjs`: `NODE_DEBT` and the session rule, as above; `CONTRIBUTING.md` describes the module.
-
-## Impacts
-
-No visual change. Contributors import path functions from `src/core/path/hostPath`; a direct `node:path` import in `core` or `session` fails `just check-boundaries`.
-
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): No behaviour change; `hostPath.test.ts` pins the Windows semantics
-- [ ] Requirements: No behaviour change
-- [ ] Changelog: No user-facing change
-- [ ] Local gates:
+- [x] New or changed tests: `hostPath.test.ts` pins the Windows semantics; no behaviour change
+- [x] Requirements: No behaviour change
+- [x] Changelog: No user-facing change
+- [x] Local gates: `just dev`, `just check`, `just requirements-update` and `just check-markers` pass; `just check-boundaries` fails as intended on a probe `node:path` import in core and in session, and passes once it is removed (details in the round notes)
 - [ ] Review
 - [ ] CI green
 
 ## Internal references
 
 CR-471 "Put core and session path arithmetic behind one path module", batch-09, part of the PATH_SHIM debt of #413.
-
-</details>
