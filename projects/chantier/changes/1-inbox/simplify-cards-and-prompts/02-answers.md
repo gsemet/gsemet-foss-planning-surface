@@ -28,3 +28,7 @@ Short name: `simplify-cards`
 18. simplify-cards-Q18: **Order.** A: the tools the target state needs (`help <topic>`, `next`, `msg`/`inbox`, the push subcommand, the refusals) land first, in a CR of their own (the push subcommand tried in auto mode from a Driver); then the total rewrite of all the cards in one pass; then the read-and-compare review. The program is therefore three steps (tools, total rewrite, comparison review), plus the measure of a real run and the maintenance gates (answer 9) that guard the result; the 9 children of study-fable-v2 are regrouped by the specification on that order.
 
 19. simplify-cards-Q19: **Grilled enough.** A: yes, after the corrected restatement (answers 17 and 18). Destination: next batch (3-ready). No spec-writer started: it waits for the user's word. Destination: next batch
+
+20. simplify-cards-Q20: **Go, destination, agents, split, night goal.** Owner, 2026-11-24 late, in their words: put this CR in the running batch, after the CRs that already ran; specify it with an Opus sub-agent and criticise it with a Fable sub-agent; the specification must go to the end of the rewrite, even if the CR is cut into several chained CRs; by the end of the night they want a stack with all these CRs validated and ready to merge (they go to sleep).
+Destination: running batch batch-31.
+Spec critic: yes, on Fable (it changes every role's contract and several areas at once).
