@@ -55,14 +55,16 @@ No visual change. Future release notes start with the release's kind and carry l
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`
-- [ ] Evidence: reading check (the 1.12.1 situation) at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [ ] Local gates at `6773a4d`: `just check`
+- [ ] Evidence: reading check (the 1.12.1 situation) at `6773a4d`
+- [ ] Review: approved at `6773a4d`
+- [ ] Verified at `6773a4d`
+- [ ] CI green at `6773a4d`
 
 ## Internal references
 
 CR-475 release-notes-style.
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
