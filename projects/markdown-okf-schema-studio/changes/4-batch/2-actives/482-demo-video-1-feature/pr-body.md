@@ -55,6 +55,7 @@ Grade: 1. Nothing under `src/` changes and the kit is outside the build, `just c
 ## Known gaps
 
 - macOS is not proved: no macOS machine was available; the first macOS run of the kit proves it.
+- GitHub's own view of the GIF in `docs/user/settings.md` was not opened by an agent; the LFS file resolves.
 - Motion, rhythm and the loop as watched are for the maintainer to judge; the raw screencast is about 5 fps, retimed to 30 fps, so cursor motion is stepped.
 
 <details>
@@ -82,13 +83,14 @@ The published docs page for the setting plays the clip. No change to the extensi
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test/site/siteClips.test.ts` and a guard in `test/site/siteLinks.test.ts`
-- [ ] Requirements: SwRS-MDOKFSTUDIO-CORE-095 added, markers in code and tests, `just requirements-update` and `just requirements-lint` pass
-- [ ] Changelog: one user-facing line under `## Unreleased`
-- [ ] Local gates: `just check`, site tests (16 passed), `just package`, full clip take; `just preflight` pending
-- [ ] Review: approved at (pending)
-- [ ] Verified at (pending)
-- [ ] CI green at (pending)
+- [x] New or changed tests (they fail on the previous code): `test/site/siteClips.test.ts` and a guard in `test/site/siteLinks.test.ts`
+- [x] Requirements: SwRS-MDOKFSTUDIO-CORE-095 added, markers in code and tests, `just requirements-update` and `just requirements-lint` pass
+- [x] Changelog: one user-facing line under `## Unreleased`
+- [x] Local gates at `8a916a8` (the head before the changelog number): `just preflight` (static stage on Windows) passed; site tests 16 passed; `just package`; full clip take; the later commit only adds the PR number to the changelog line
+- [x] Evidence: the clip's contact sheet and `check.json` at `8a916a8`; a heavy CI dispatch at `0f52108` passed all jobs, `gallery` (site build) included
+- [x] Review: approved at `0f52108` (carried from `8a916a8`)
+- [x] Verified at `0f52108`
+- [x] CI green at `0f52108`
 
 ## Internal references
 

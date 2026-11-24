@@ -73,3 +73,9 @@ All claims below judged at 0f52108f18ab5172ff131e0c426dd136447a3147 (worktree ba
 - Scenario motion, loop rhythm as watched, and a phone view of the MP4: the maintainer's.
 
 VERIFIED
+
+## Description pass at 0f52108f18ab5172ff131e0c426dd136447a3147
+
+PR 501 body checked: headRefOid 0f52108f18ab5172ff131e0c426dd136447a3147; diff (git diff --name-only 8a916a8 HEAD) is CHANGELOG.md only, so images pinned at 8a916a8 are unchanged at head; Summary, Deliverables, Changes match the 44-file diff (kit, clip, guideline, justfile, AGENTS, glossary, release process, settings.md, site tests, CORE-095, changelog); heavy CI run 45471740912 headSha 0f52108, all jobs success (release-check, toc-loop, tag-release, release, pages skipped); log notes: r3 approved at 8a916a8, committed as 0f52108; Known gaps list macOS and GIF view. Body renders, no username image concerns seen in description.
+
+VERIFIED
