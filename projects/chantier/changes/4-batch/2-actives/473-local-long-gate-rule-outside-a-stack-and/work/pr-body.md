@@ -17,7 +17,7 @@ Reading proof, one line per case (cards only):
 - Project rule: one that names each shape is followed as written; one that names the stack's top alone is read by shape.
 - Opening: the plan asks parallel, series or stack with a recommendation and names the shared files; `open`'s default stays parallel.
 
-Evidence at the head (outputs filled in with the final SHA at ship): `grep -rn "batch's top" skills/chantier/references/` prints nothing; `grep -n "Windows coverage" AGENTS.md` prints line 9, the rule by shape; `grep -rn -i "ask for nothing\|no flag, no word" README.md docs/` prints nothing.
+Evidence at `2693d35`: `grep -rn "batch's top" skills/chantier/references/` prints nothing; `grep -n "Windows coverage" AGENTS.md` prints line 9, the rule by shape; `grep -rn -i "ask for nothing\|no flag, no word" README.md docs/` prints nothing.
 
 ## Blast radius
 
@@ -62,3 +62,6 @@ Maintainers running batches are asked the shape and run the local gate once per 
 
 CR-473 own-gate
 </details>
+
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
