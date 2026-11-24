@@ -19,3 +19,4 @@ Relayed from markdown-okf-schema-studio's Chief of Staff, on the owner's word (2
 ## Seen again (2026-11-24)
 
 CR-483 (https://github.com/gsemet/markdown-okf-schema-studio/pull/500) merged at 18:28:15Z: no `merged@1` event either, with a watcher (`watch --after 63`) running. Two missed merges in a row; recorded by hand with `order merged`.
+CR-482 (https://github.com/gsemet/markdown-okf-schema-studio/pull/501) merged at 20:04:42Z: missed too, the third in a row.
