@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Host capabilities as data, chantier host, trial history to proofs",
+  "summary": "Child 8: host capabilities become rows in references/hosts/claude-code.json and copilot.json (means plus a proved/untested mark), a read-only chantier host [<capability>] prints them with one untested sentence, and every trial story is copied to docs/proofs/; no card edited.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "98705970ee017e2a44fe05c4be5ad8a4a49cb5be801808a84fcd86b778d4e1f0",
+    "02-answers.md": "2eba09997b0fee1700a217ca67407b4b8d700b630d6673750ca85a1832fa176a",
+    "03-change-spec.md": "94d1d4f0c6b69c0d27001d0719e0d585d1e6d77837ca5e1d4e4f11c79b1deefe",
+    "intake/request.md": "dfe2c351efa4c394ba597a11b815575529628f647c9547a32bfa088cb7c81115"
+  },
+  "summarized": "2026-11-24T23:50:35Z"
+}

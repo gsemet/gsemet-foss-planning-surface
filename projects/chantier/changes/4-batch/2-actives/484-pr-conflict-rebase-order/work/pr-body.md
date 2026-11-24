@@ -67,7 +67,7 @@ No visual change. A second `serve` start on a surface now joins instead of servi
 
 ## Test plan
 
-- [ ] New or changed tests (`test_board_claim.py`, `test_watch_confirm.py`, a real-socket bind test in `test_serve_webui.py`)
+- [x] New or changed tests (`test_board_claim.py`, `test_watch_confirm.py`, a real-socket bind test in `test_serve_webui.py`)
 - [x] Local gates at `efc69b6`: `just check` pass, `just eval-dry-run` pass (at `f980433`; the later commit changes AGENTS.md only), long gate `scenario` pass at `f980433` (carried by CI's `just scenario (ubuntu-latest)` pass at `efc69b6`)
 - [x] Review: approved at `efc69b6`
 - [x] Verified at `efc69b6` (the code is that verified at `f980433`; the later commit changes AGENTS.md only)

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC07: chantier help <topic> carries the rare cases",
+  "summary": "Specified: references/topics.json (38 topics over today's pieces), a read-only chantier help [topic] [--for role] that prints a topic whole, and help <topic> named in the lease, push, restack, handed-back and watcher lines. Two open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "be3f85e853fa26846250174f8ff67a3f3ff478c380714624e1c18889de86dc86",
+    "02-answers.md": "9a6af5cae542ccb1d4af2a938494fe30b5a9fe895af33ce40b708d31613b737d",
+    "03-change-spec.md": "0c582295b0fee56fa7fdaf19d7145f132517aeef5b76e5e31db1c1074d1709f6",
+    "intake/request.md": "1b159e5f3b987ccbb0d8cc6d34fde6c4d0d3d50896268808f8088f04fc274554"
+  },
+  "summarized": "2026-11-24T23:51:29Z"
+}

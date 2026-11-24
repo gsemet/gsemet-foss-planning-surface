@@ -30,3 +30,17 @@ Earlier judgments above cover f98043379922b2d4d3776f38880fb20a60b092d8.
    Command: `git diff f9804337 efc69b6a`. The old run-on is now three sentences: (a) two surfaces' servers never clash, each keeps its key and record in its own git folder, and one that finds the default port held on any address (connect check before the bind everywhere, exclusive bind on Windows) takes the next free port above it and prints it (remote-cli-Q17); (b) one surface has one serving process per machine: a start takes `chantier/hub.lock` for the process's life with no new file, a start that does not win it waits briefly for the winner's board and joins it (`board already running`) or refuses with the silent-board text, and a server that finds `server.json`'s `server` entry naming another live PID stops itself cleanly without writing that entry; (c) "It serves the record and the planning folder's files ..." continues as before. The misplaced "and prints it" is fixed; no fact is added or dropped.
 
 VERIFIED
+
+## Description pass, PR 462 at efc69b6afe1280128e55a3df6c9e4f946f789bb5
+
+Head: efc69b6afe1280128e55a3df6c9e4f946f789bb5
+
+- Summary, Deliverables, Changes: judged at efc69b6 against `git diff 8a960d34 HEAD --stat` (24 files; every file listed in Changes exists in the diff; step `one_board` in run_scenario.py:2988; hub.lock used in board/claim.py; connect check and SO_EXCLUSIVEADDRUSE in board/binding.py). True.
+- Scenario budget 735 -> 780: diff shows `-735,` `+780,` in run_scenario.py. True.
+- Later commit efc69b6 vs f980433: `git diff f980433 HEAD --stat` shows AGENTS.md only (3+, 2-). True.
+- CI: `gh pr checks 462` shows 5 pass at efc69b6 (check x3 OS, eval-dry-run, scenario ubuntu). True.
+- Review box: `chantier log 484` has note "r2 approved at efc69b6". True.
+- Known gaps lists macOS UNVERIFIED; no role name in the description outside Internal references (product terms only). Pass.
+- Minor, not failing: Test plan first box (new tests) is unchecked though the tests exist in the diff.
+
+VERIFIED
