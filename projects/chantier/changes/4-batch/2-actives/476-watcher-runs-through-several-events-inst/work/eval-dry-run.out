@@ -1,3 +1,6 @@
 uv run --locked python evals/kit/dry_run.py
 ok clean: audit exit 0, no failed check, [C12] with the release PR counted, [J5] x2, judge pass, pass, pass; reset, setup (run 4) and the staged batch as expected
 ok stray-merge: audit exit 1, `FAIL [C12]` names #6, the release PR #5 is not a stray
+ok reset-leftover: setup refuses (exit 2, `not at its base`, names the branch and the tag, creates nothing); `reset` plans their deletion; after `reset --yes` setup passes
+ok merge-refused: a failed and an unprefixed PR: merge exits 2 at once, `refused: ...; nothing merged`; a forever-pending PR: waits (bound patched small), then exits 2 `after waiting`; a pending-then-green PR: waits, then merges
+ok stale-lock: CI FAILURE, merge refused, audit exit 1 with `FAIL [J5]` on PR 1, judge release row `fail (uv.lock is not up to date at v0.2.0)`
