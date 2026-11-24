@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC05: Measure what roles read and do, from transcripts",
+  "summary": "Child 5 of 28, specified: new evals/kit/behaviour.py and just behaviour read local Claude transcripts into per-role results (card bytes, stumbles, S-list, detectors, regressions); fixture in evals/kit/behaviour-fixture checked by eval-dry-run; 0.15.1 baseline committed.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2b6d69d6df38cd4fa74c09baffa341c02d7cb78cd390b9bed5ccdf0801ab2954",
+    "02-answers.md": "faa241d932cdc8508e67d60d501247f5216a58245eb34e0a5e3374d06cbed2e1",
+    "03-change-spec.md": "49503f13f8a93c8780ab1c4e5fbf83987b89330a7f1ec0b5b243fc19dc448419",
+    "intake/request.md": "b2ae67e4ede2e1ced4e3ea874031a3c0aec63e3f6b68967799f123186e9101c4"
+  },
+  "summarized": "2026-11-24T23:45:39Z"
+}
