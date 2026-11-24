@@ -32,3 +32,5 @@ Short name: `simplify-cards`
 20. simplify-cards-Q20: **Go, destination, agents, split, night goal.** Owner, 2026-11-24 late, in their words: put this CR in the running batch, after the CRs that already ran; specify it with an Opus sub-agent and criticise it with a Fable sub-agent; the specification must go to the end of the rewrite, even if the CR is cut into several chained CRs; by the end of the night they want a stack with all these CRs validated and ready to merge (they go to sleep).
 Destination: running batch batch-31.
 Spec critic: yes, on Fable (it changes every role's contract and several areas at once).
+
+21. simplify-cards-Q21: **Budget and autonomy.** Owner, 2026-11-25, in their words: yes, raise the budget to $400; the plan (19 chained children, tools added little by little) suits them; do it in total autonomy, they go to sleep. Budget batch-31: $400.
