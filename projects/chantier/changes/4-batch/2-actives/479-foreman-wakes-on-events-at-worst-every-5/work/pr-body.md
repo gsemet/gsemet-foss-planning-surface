@@ -54,12 +54,12 @@ No visual change. Foreman sessions of a batch wake less on the timer and record 
 
 ## Test plan
 
-- [ ] New or changed tests (`test_watch_foreman.py`, `test_playbook_timing.py`, others)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: scenario step in the long gate
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (`test_watch_foreman.py`, `test_playbook_timing.py`, others)
+- [x] Local gates at a92dd75: `just check`, `just eval-dry-run`
+- [x] Evidence: scenario step in the long gate, passed locally at a92dd75
+- [x] Review: approved at 7dde13b (carried to a92dd75 through a rebase that resolved one conflict, re-gated)
+- [x] Verified at a92dd75
+- [ ] CI green at a92dd75
 
 ## Internal references
 
