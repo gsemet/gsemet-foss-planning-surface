@@ -17,8 +17,9 @@ quelque seconde, doit être focus sur l'action et le résultat attendu. Et on la
 en gif ou webm pour la mettre dans la doc et la publier sur tweeter par exemple."
 
 A **feature clip** is a video of a few seconds that shows one feature: the action, then its result.
-It has no title or end card, loops, and comes in three files: MP4 for X, WebM for the published
-docs site, a light GIF for the GitHub release notes and the README. This CR:
+It has no title or end card, loops, and comes in three files: MP4 for X and the published GitHub
+release, WebM for the published docs site, a light GIF for the release-note file in the repository
+and the feature's docs page (not the README, answer 11). This CR:
 
 1. turns the short-demo-01 kit (real VS Code window, CDP screencast, Remotion) into one shared,
    lighter **clip kit**, driven by a small per-clip scenario, that runs on Windows as well as
@@ -36,13 +37,18 @@ No product code changes (`src/` is not touched).
 | Q | Decision | Where it lands below |
 | --- | --- | --- |
 | feature-clip-Q1 | About 5 to 12 s, no title or end card, starts on the action, a small logo mark in a corner, loops cleanly as a GIF | 3.2, 4, 5 |
-| feature-clip-Q2 | MP4 (X, which does not take WebM), WebM (docs and site), light GIF (release notes, README) | 3.3, 2.6, 2.7 |
+| feature-clip-Q2 | MP4 (X, which does not take WebM), WebM (docs and site), light GIF (release notes, README; the README is then left out by Q11) | 3.3, 2.6, 2.7 |
 | feature-clip-Q3 | Reuse and lighten the short-demo-01 kit into one shared clip kit, driven by a small per-clip scenario; it also runs on Windows | 2.1, 3.1, 3.5 |
 | feature-clip-Q4 | One short caption (the why), key badges for the shortcuts (Ctrl+C, Ctrl+V), a drawn cursor, one zoom on the result | 3.2, 4 |
 | feature-clip-Q5 | One folder per clip under `docs/demo-video/clips/`, its scenario and its outputs in Git LFS; the release process gains a step: a visible feature may get a clip, a GIF in the release notes, the MP4 attached to the announcement post | 2.2, 2.4, 3.4 |
 | feature-clip-Q6 | `record-demo-video` closed as superseded; its useful parts (engine, capture) taken into this spec | 6 |
 | feature-clip-Q7 | In batch-09, stacked after CR-481, so the clip ships with the feature in the same release | Header, 3.1 (VSIX from the branch) |
 | 8 (Chief of Staff routine) | The first clip: `balanceEdges` on, a selection crossing an admonition's or a list's edge, Ctrl+C, Ctrl+V into a plain Markdown editor, the added delimiters visible; the caption names the setting | 4 |
+| feature-clip-Q9 | The clip's MP4 replaces the hero image in post 1 of the announcement thread and becomes its hook | 3.4 |
+| feature-clip-Q10 | A brief orange outline around the added delimiter line during the zoom on the result | 3.2, 4.3, 4.4 |
+| feature-clip-Q11 | No README change: the README keeps its presentation video; clips go to the feature's docs and the release note | 2.6, 7 |
+| 12 (Chief of Staff routine) | The key badges show the keys of the platform the clip is filmed on (Ctrl+C on Windows and Linux, ⌘C on macOS); the first clip is filmed on Windows | 3.2, 4.4, 5.3 |
+| feature-clip-Q12 | At publication the MP4 is uploaded into the GitHub release note, which plays it; the release-note file in the repository keeps the GIF; no CR for Studio rendering `<video>` | 2.6, 3.4, 7 |
 
 The older ideas of `01-intent.md` and `work/` (horizontal and vertical series, presentation,
 chapter showcase) are history and out of scope (section 7).
@@ -182,8 +188,9 @@ that image into the WebM video (2.7):
     ![A selection from inside an admonition to the next paragraph is copied with Ctrl+C and pasted with Ctrl+V: the admonition's opening line is added](../demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.gif)
   ```
 
-- Studio and GitHub show the GIF; the published site plays the WebM. Making Studio itself render
-  `<video>` is a rendered-syntax change, not this CR's (open question 3).
+- Studio and GitHub show the GIF; the published site plays the WebM. Studio does not gain a
+  `<video>` rendering, now or in a follow-up CR (answer 13). The README is not changed: it keeps its
+  presentation video (answer 11).
 
 The docs here are the `docs/` pages that `test/site/buildSite.ts` publishes on GitHub Pages: the
 project has no Sphinx documentation build (`sphinx/` is the preview's source-mapping extension).
@@ -268,9 +275,14 @@ change lands in it in the same step, re-read before each render**. Its contract:
 - fields: `Length` (seconds, 5 to 12), `Caption` (one line; `**bold**` takes the accent colour),
   `Badge <id>` (the keycap text of each `press(…, id)`, for example `Badge copy | Ctrl+C`),
   `Zoom` (the id of the one zoom and its hold, for example `result, hold to 7.6 s`), `Logo`
-  (`top right` by default), `Mark <id>` (optional, `-` for none);
+  (`top right` by default), `Mark <id>` (optional, `-` for none: a brief orange outline, during the
+  zoom, around what the feature changed, answer 10);
+- badges show the keys of the platform the clip is filmed on (answer 12): `Ctrl+C` on Windows and
+  Linux, `⌘C` on macOS. `clip.md` holds one text per badge; `storyboard.mjs` refuses a badge that
+  names the other platform's modifier (`Ctrl` in a take filmed on macOS, `⌘` or `Cmd` in one filmed
+  on Windows or Linux), read from the take's platform;
 - `storyboard.mjs` refuses a clip.md with no caption, a length outside 5 to 12 s, more than one zoom,
-  a badge id the take did not log, or a playback rate outside 0.77 to 1.3 of the filmed length
+  more than one mark, a badge id the take did not log, or a playback rate outside 0.77 to 1.3 of the filmed length
   (the short-demo pace rule).
 
 ### 3.3 Outputs and how the GIF stays light
@@ -297,7 +309,7 @@ Why the GIF stays light, and what the guideline says about it:
 - **Only changed rectangles re-encoded** (`diff_mode=rectangle`): a screen clip changes a small area
   per frame, except during the zoom.
 - **12 fps**: enough for a cursor and a paste; 30 fps in the MP4 and WebM.
-- **960 px wide** (half the master): the width of a GitHub release body and of a README column.
+- **960 px wide** (half the master): the width of a GitHub release body and of a docs page column.
   Text stays readable because the take films a window at 1280x720 logical pixels and the clip zooms
   on the result.
 - **A ladder when over budget**, stopping at the first that fits, reported in `check.json`: 10 fps,
@@ -312,17 +324,30 @@ Why the GIF stays light, and what the guideline says about it:
   (`docs/demo-video/guidelines/feature-clip-process.guidelines.md`); the maintainer decides which
   feature gets one, and the clip is made in the change of the feature or right after it, before the
   version pull request, so it ships with the feature. Its GIF is the picture of that feature's
-  highlight in the release notes (linked by file name, so the existing check of
-  `scripts/release_notes.py` and the release's asset upload take it as they take a PNG); its MP4 is
-  attached to the announcement post named by open question 1, through a `Video: <file>.mp4` line in
-  `tweet.md`, in the place of an `Image:` line (X takes one video or up to four images per post,
-  never both).
-- "Announcement thread": the `Video:` line is defined next to the `Image:` line; only the owner
-  posts and uploads.
+  highlight in `release-notes.md` (linked by file name, so the existing check of
+  `scripts/release_notes.py` and the release's asset upload take it as they take a PNG). The
+  release-note file in the repository keeps the GIF, never a video link (answer 13).
+- "Announcement thread": when the release has a clip, **its MP4 replaces the hero image in post 1**
+  and is the thread's hook (answer 9). Post 1 carries a `Video: <clip>.mp4` line instead of its
+  `Image:` line (X takes one video or up to four images per post, never both); no other post
+  changes. A release without a clip keeps the hero image in post 1. Only the owner posts and
+  uploads. The "Hero image" section says that, when the release has a clip, the hero image is still
+  made for the release folder but is not posted in the thread.
 - "The version PR body": the `rewrite` function gains
-  `-e "s#^Video: ([^ /]+\.mp4)\$#Video: [\1]($base/\1)#"`, so the owner can open the MP4 from the PR
-  page (the GIF is already covered by the `gif` alternative of the image expression).
-
+  `-e "s#^Video: ([^ /]+\.mp4)\$#Video: [\1]($base/\1)#"`, so the owner can open the MP4 from the
+  PR page (the GIF is already covered by the `gif` alternative of the image expression).
+- A **publication checklist** for a release with a clip, added to the publication step (the owner's
+  manual part):
+  1. The GitHub release is created from `release-notes.md` as today; its GIF is attached as an
+     asset and shows in the body.
+  2. In the GitHub release editor, the owner drags `<clip>.mp4` from the release folder into the
+     release body at the clip's highlight, in place of its GIF line (GitHub plays only a video
+     uploaded through its UI, not a relative `.mp4` in the repository, answer 13). The release body
+     then plays the MP4. `release-notes.md` in the repository is not changed: it keeps the GIF.
+  3. The owner opens the published release page: the video plays at the highlight, and the
+     highlight does not show both the video and the GIF.
+  4. Post 1 of the announcement thread is posted with `<clip>.mp4` attached (its `Video:` line),
+     with `poster.png` as the cover when X asks for one.
 ### 3.5 Windows and macOS
 
 The traps of the short-demo guideline all still hold. The guideline adds these, each with its rule:
@@ -400,7 +425,7 @@ VS Code's built-in text editor on that file.
 | 2.8 to 3.8 s | The cursor moves to `notes.md` and clicks in it |
 | 4.2 s | `press("ControlOrMeta+V", "paste")`: the `Ctrl+V` badge; the text appears |
 | 4.4 to 5.0 s | The one zoom, on the pasted lines in `notes.md` (at most 2x, no line cut: the editor wraps) |
-| 5.0 to 7.6 s | Hold on the result: the added `:::{important} Before you deploy` line above the copied text |
+| 5.0 to 7.6 s | Hold on the result: the added `:::{important} Before you deploy` line above the copied text. The orange outline (`mark("delimiter", rect)`, the rect of that first line in `notes.md`) fades in at 5.2 s and out at 6.8 s, brief and inside the hold (answer 10) |
 | 7.6 to 8.2 s | Zoom out; the cursor back to its frame-0 place |
 | 8.2 to 8.5 s | The last 8 frames cross-fade to frame 0, so the GIF loops without a jump |
 
@@ -412,13 +437,16 @@ action at those times within the 0.77 to 1.3 rate (3.2).
 - Caption, bottom centre, the short-demo green pill, whole from frame 0 to the end (it is the
   poster's text and the loop must not blink): proposal `**balanceEdges** on: a copy stays valid
   Markdown`. It names the setting (answer 8); the owner may reword it in `clip.md`.
-- Badges: `Ctrl+C` and `Ctrl+V`, keycaps (white, dark text, a thin border, rounded), centred just
+- Badges: `Ctrl+C` and `Ctrl+V` (the clip is filmed on Windows, answer 12), keycaps (white, dark text, a thin border, rounded), centred just
   above the caption pill, each springing in at its chord's event and fading out after 1.2 s.
 - Cursor: drawn over the footage from the logged track, with the orange ripple on each click (the
   short-demo composition's).
 - One zoom: on the result, as 4.3.
 - Logo: `images/logo.png`, 56 px, top right, 24 px from the edges, 85 % opacity, whole clip.
-- No title card, no end card, no callout, no music, no mark (open question 2).
+- Mark: the short-demo orange outline (rounded, no fill) around the added
+  `:::{important} Before you deploy` line, from 5.2 s to 6.8 s, fading in and out over 6 frames;
+  `clip.md` field `Mark delimiter | added opening line, 5.2 to 6.8 s` (answer 10).
+- No title card, no end card, no callout, no music.
 
 ### 4.5 The expected result (`verify(t)`)
 
@@ -451,7 +479,7 @@ Written by `encode`/`check` into the clip folder and committed:
 | `contact-sheet.png` | 12 frames evenly spaced across the MP4, 4x3, each 480 px wide, with its time |
 | `frames/01-selected.png` | The frame just before the `copy` chord: the selection across the admonition's edge |
 | `frames/02-pasted.png` | The frame 0.3 s after the `paste` chord: the pasted text, unzoomed |
-| `frames/03-zoomed.png` | The frame in the middle of the hold: the added opening line readable |
+| `frames/03-zoomed.png` | The frame in the middle of the hold: the added opening line readable, inside its orange outline |
 | `first-last.png` | Frame 0 and the last frame side by side: the loop seam |
 | `poster.png` | Frame 0: the X poster and the site poster |
 | `check.json` | The numbers of 5.2; no absolute path, no user name |
@@ -486,7 +514,8 @@ is off. One line per cell:
 | Windows 11 (the batch's machine) | stable, downloaded by the kit (`DEMO_CODE` unset) | on, in the profile | `just clip raw-copy-balance-edges all --vsix out/reports/package/markdown-okf-schema-studio.vsix` passes; `verify` holds the 4.5 text | E3 |
 | Windows 11 | `DEMO_CODE` set to the local install | on | `doctor` and `setup` resolve and use it | E3, one `doctor` and `setup` run with it set |
 | Windows 11 | stable | off (shipped default) | not filmed: the clip shows the setting on only (answer 8) | - |
-| macOS | stable, downloaded by the kit | on | the kit's macOS paths and chords are kept from short-demo-01 and the new code takes the macOS branch | **Not proved in this CR** (no macOS machine in the batch); the first macOS run of the kit proves it, and the PR says so |
+| Windows 11 (badges) | stable | on | the badges read `Ctrl+C`, `Ctrl+V`; `storyboard.mjs` refuses a `⌘` badge on a `win32` take | E3, plus one `render` with a `⌘C` badge text that must fail, then reverted |
+| macOS | stable, downloaded by the kit | on | the kit's macOS paths and chords are kept from short-demo-01 and the new code takes the macOS branch; a clip filmed there shows `⌘C`, `⌘V` badges (answer 12) | **Not proved in this CR** (no macOS machine in the batch); the first macOS run of the kit proves it, and the PR says so |
 
 ### 5.4 Checks and scenario steps
 
@@ -582,32 +611,18 @@ entry points (not asked), schema validation in `just check`.
 
 ## 7. Out of scope
 
-- Any change to `src/`, including Studio rendering `<video>` (open question 3), and so the writing
-  skill.
+- Any change to `src/`, and so the writing skill. Studio rendering `<video>` is not wanted, in this
+  CR or another (answer 13).
 - `docs/demo-video/short-demo-01/` and its kit: unchanged.
 - A CI job for the kit or the clip; the kit in `just check` or `just preflight`.
-- The README: the GIF format serves it (answer 2), but placing this clip there is open question 4.
-- The release notes and announcement of the release that ships CR-481: the step of 3.4 applies at
-  that release, not in this CR.
+- The README: it keeps its presentation video; clips go to the feature's docs and the release note
+  (answer 11).
+- The release notes, the GitHub release and the announcement of the release that ships CR-481: the
+  step and the publication checklist of 3.4 apply at that release, not in this CR.
 - Music, voice, title and end cards, vertical formats, the older series of `work/` (horizontal,
   vertical, presentation, chapter showcase).
 - Clips of other features.
 
 ## Open questions
 
-1. **Which announcement post carries the MP4?** X takes one video or up to four images per post,
-   and post 1 carries the hero image today. (A) When the release has a clip, its MP4 replaces the
-   hero image in post 1 (the story). (B) Post 2 (the release notes link) carries the MP4. (C) A
-   fourth post carries it. The release-process text of 3.4 waits on this one sentence.
-2. **A mark on the added delimiter?** Answer 4 lists a caption, key badges, a cursor and one zoom;
-   the short-demo identity also outlines what changed in orange. Should the first clip outline the
-   added `:::{important}` line during the hold, or stay without a mark (the spec's current reading)?
-3. **Should Studio render `<video>`?** Today a `<video>` in a docs page is dropped by Studio's
-   renderer, so the docs embed the GIF and only the site plays the WebM (2.6, 2.7). Rendering
-   `<video>` in Studio (and so in the site directly) is a rendered-syntax change with its own SwRS,
-   security review and writing-skill update: a separate CR, or not wanted?
-4. **Does this first clip go in the README now?** Answer 2 names the README as a home for GIFs; the
-   spec leaves the README untouched until the owner says where, if anywhere, the clip goes there.
-5. **Badges on a macOS take.** Answer 4 says `Ctrl+C`, `Ctrl+V`, and this clip is filmed on
-   Windows. For a later clip filmed on macOS, do the badges show the host's keys (`⌘C`, `⌘V`) or
-   always `Ctrl`? The guideline's rule for `Badge <id>` waits on this.
+None. The five questions of the first draft are settled by answers 9 to 13.
