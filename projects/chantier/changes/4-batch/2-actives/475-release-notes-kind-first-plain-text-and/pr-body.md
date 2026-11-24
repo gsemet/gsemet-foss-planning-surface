@@ -12,7 +12,7 @@ A bug-fix release's notes read like a feature release's: a revert shown as a new
 
 Reading check, a dry run of the new rules on an urgent bug-fix release that holds a revert and block-editing fixes (text only):
 
-- Subtitle (14 words): **A bug-fix release: pasting whole blocks and block editing work again**
+- Subtitle (11 words): **A bug-fix release: pasting whole blocks and block editing work again**
 - `Fixed: the cursor stays in the block you are editing.`
 - `Restored: pasting whole blocks, which 1.12.0 broke.`
 - `Known issue: undo after a paste restores the text but not the cursor position.`
