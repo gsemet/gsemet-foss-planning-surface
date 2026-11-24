@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The Foreman runs its own watcher and wakes at worst every 55 minutes",
+  "summary": "Specified: Claude Code steering wake 55m by default (Suspect follows), a Foreman watcher (watch --stream) on its batch's merge, red-CI and wait-met lines, kept on a pause; the Foreman records merges, the Chief of Staff only while that watcher is not running. After watcher-limit, CR-471.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2b8ab2d711638d71d73ce10238b9773f66baf1ef3677f71f4061d5584bd4703f",
+    "02-answers.md": "05f8c58d866464129260838362ba83ca9d11123ac0a2010f366d4b93ee4a72f7",
+    "03-change-spec.md": "06f373f28d30e373f5246cdc806671b5576a9ff3e7439221ff18e43e82ba1e86",
+    "intake/request.md": "6904b684e79cc456ed7fff735842758e3017328042a0abf248bd564fc59b8a9e"
+  },
+  "summarized": "2026-11-24T11:33:26Z"
+}

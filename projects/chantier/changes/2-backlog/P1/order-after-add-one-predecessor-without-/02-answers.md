@@ -5,3 +5,5 @@ No question asked (2026-11-24, the Fable advisor's reading; the user said to gri
 2. order-after-D2: an additive form adds or removes one predecessor.
 3. order-after-D3: a slug or a ready path of a CR of the batch is accepted, not only a CR id.
 4. order-after-D4: the refusal lists the accepted forms.
+5. order-after-Q1: **Destination.** B (not the recommended A): the running batch, batch-31.
+Destination: running batch batch-31.

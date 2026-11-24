@@ -11,9 +11,11 @@ minutes, to stay under the 1-hour cache TTL. The user chose (foreman-wake-Q1, op
 recommended A) to keep the timer, at 30 to 55 minutes on Claude Code, and to give the Foreman a
 watcher of its own that subscribes to the batch's events (a merge, a red CI, a wait met) instead of
 having the Chief of Staff relay them. AGENTS.md's rule that the watcher is the Chief of Staff's is
-rewritten.
+rewritten. In Foreman mode the Foreman records a merge the user made itself, after a forge check
+(foreman-wake-Q2, A); the Chief of Staff tells the user, and keeps recording whenever the
+Foreman's watcher does not run.
 
-## Where it stands (main at 3c29dd7c, 2026-11-24)
+## Where it stands (main at 3c29dd7c, 2026-11-24, with `watcher-limit` as specified)
 
 - **The timer.** `config/chantier.defaults.yml`, `hosts: claude: timing: steering_wake: 30m` (the
   Claude Code value is general; only the `session` column reads it, `board/state.py`
@@ -33,6 +35,16 @@ rewritten.
   the Foreman's `status --refresh` included; `foreman.md` (heartbeat item, and the closing
   paragraph's "the one exception is the Chief of Staff's watcher in direct mode") tells the Foreman
   to ignore it and to start no background task of its own.
+- **What `watcher-limit` brings, which this CR reuses.** `watch --stream`: at each block of waking
+  lines the watcher prints them and a closing `STREAM_TOLD` line (`watch: {name} told up to cursor
+  {n}; still watching (...)`) and runs on; it ends only on the seat (`SEAT`), the 2 h idle end
+  (`IDLE`, only with no batch in flight) or a link failure (`END`). `autostart.watch_command(repo,
+  n)` appends ` --stream` on Claude Code (`detect_host()` is `claude`) and not on Copilot or with no
+  host; every line that names the watcher's command carries the host's form. On Claude Code the
+  watcher runs under the `Monitor` tool, each notification starting a turn of the idle session. The
+  hub follows `batch_prs.followed_batch(repo)`: the running batch, or a paused one with a PR the
+  record holds neither merged nor cancelled ("a batch in flight"), so a paused batch's merge gives a
+  `merged@1` line and its met waits `wait-cleared@1` lines.
 - **The relay.** The hub writes `merged@1`, `checks-red@1` and `wait-cleared@1` lines (audience
   `project`). Their texts (`hub/schemas.py`): `merged_text` and `red_text` end "for the Chief of
   Staff: ...", `wait_cleared_text` already says "for the steering session". The Chief of Staff, at
@@ -41,6 +53,9 @@ rewritten.
   <head7>` (`routing.md`, Chief of Staff → Foreman); clears a met wait and takes the CR back or
   sends `order note`. The Foreman already acts on a `wait-cleared@1` line itself (`foreman.md`, the
   blocked CR with `; waits:`) and on `checks red` (a note to a live Driver).
+- **`order merged --epoch`.** `commands/orders.py` `_check_own` already lets the Foreman run
+  `order merged <cr> --epoch <n>` (its own merge); `core/batch.py` `check_epoch` refuses a stale
+  Foreman and does not look at the batch's status, so the order is accepted on a paused batch.
 - **The measure** (inbox `foreman-idle-wakes`, `experiments/foreman-cost-study.md`, Fable study of
   2026-11-21, the source of every figure here). Batch-29: Foreman $59.71 of $243.54 (25 %), 291
   wakes, 983 calls, 185k tokens of context on average. Its timer wakes: 36 heartbeats with nothing
@@ -60,16 +75,17 @@ rewritten.
 
 - `config/chantier.defaults.yml`: `hosts: claude: timing: steering_wake: 55m` (from `30m`), the
   comment above the `timing` block saying why (at worst one wake per 55 minutes, under the
-  session's 1-hour cache). A project's `chantier.yaml` still sets its own value; the CLI's bound
-  (60 minutes) does not change. Copilot's `4m` does not change.
+  session's 1-hour cache). A project's `chantier.yaml` still sets its own value. The CLI's bound
+  stays as it is: a Claude Code value over 60 minutes is refused, and no other value is refused
+  (no new refusal below 30 or above 55: foreman-wake-D3). Copilot's `4m` does not change.
 - `hosts/claude-code.md`, "Heartbeat": the default becomes 55 minutes, 3300 seconds. Row
   "Steering wake bound (60 minutes)": 55 minutes is unproved until a batch's Foreman transcript
   shows a `ScheduleWakeup` of 3300 seconds and a wake about 55 minutes later; the first batch run
   on this version is that trial, and records its date and result in the row.
-- What follows the steering wake follows it to 55 minutes with no other edit: the board's late
-  mark (`steering_wake_min`, wake plus 5 minutes) and the Foreman's **Suspect** rule ("one full
-  heartbeat interval (the steering wake, 30 minutes by default)", `foreman.md`, which becomes "55
-  minutes by default"); see question 2. The heartbeat's stop "on the first wake that sees no
+- What follows the steering wake follows it to 55 minutes: the board's late mark
+  (`steering_wake_min`, wake plus 5 minutes, no edit) and the Foreman's **Suspect** rule ("one full
+  heartbeat interval (the steering wake, 30 minutes by default)", `foreman.md`), which becomes "55
+  minutes by default" (foreman-wake-D1). The heartbeat's stop "on the first wake that sees no
   Driver of any kind run for 30 minutes or more" keeps its 30 minutes.
 - The texts that state the 30-minute default: `foreman.md` (Suspect), `docs/hosts.md` (Claude
   Desktop row), `docs/agents-and-models.md` (the timing line).
@@ -92,77 +108,103 @@ The behaviour, in the CLI (`hub/watch.py`, `hub/autostart.py`, `hub/watch_lines.
   at once with one line that says so and names the timer as the Foreman's wake until the Chief of
   Staff's watcher or board starts one. Linked, it is one more subscribed client, so the hub keeps
   reading the forge while it runs.
-- **Its end.** It wakes its session as the Chief of Staff's watcher does once `watcher-limit` has
-  landed (that CR's shape: one watcher through several events while a batch runs, waking the
-  session per event). It never ends on the seat: the seat check (`seat_moved`) does not apply to
-  it. It ends when the batch no longer records this session as its Foreman (another epoch, a
-  switch to direct mode) or the batch is closed, with one line saying which; see question 3.
-- **The `watch: not running` line.** In the Foreman's session of a running batch, `status`,
-  `take` and `order` print `watch: not running: for the Foreman, start in the background:
+- **Its form.** `watcher-limit`'s shape, unchanged: the command its lines print is
+  `watch_command`'s, so `watch --after <n> --stream` on Claude Code (one block per notification,
+  each closed by the `still watching` line, at most one per `events.wake_every`) and the plain
+  form on Copilot or with no host (ends after each block, started again from its last line).
+- **Its end.** The seat check (`seat_moved`) does not apply to it: it never ends on the seat. It
+  ends, with one line saying which, when the batch no longer records this session as its Foreman
+  (another epoch, a switch to direct mode), when the batch is closed, or on a link failure (`END`,
+  as today). While the batch is paused, with or without a Driver running, it keeps running
+  (foreman-wake-D2), so it catches the merge of a PR handed back ready, which the hub reads on a
+  paused batch with open PRs (`followed_batch`); `watcher-limit`'s 2 h idle end applies to it as to
+  the Chief of Staff's watcher (only with no batch in flight, counted from the latest of its start,
+  its last waking line and the last moment a batch was in flight), so a paused batch with no PR
+  left open lets it end 2 h later.
+- **The `watch: not running` line.** In the Foreman's session of a running or paused batch,
+  `status`, `take` and `order` print `watch: not running: for the Foreman, start in the background:
   <command>` (no pull-path clause: the Foreman has no user message to pull at), instead of the
   Chief of Staff's line. In any other session the line stays as it is.
 - **The Chief of Staff's view.** `status`, in the Chief of Staff's session of a batch in Foreman
   mode, prints whether the Foreman's watcher runs (the Foreman's session holds a watcher lock of
   the project, `lock.watchers`): `foreman watch: running` or `foreman watch: not running`.
 - **The lines' texts** (`hub/schemas.py`): `merged_text` and `red_text` say "for the steering
-  session" where they say "for the Chief of Staff", as `wait_cleared_text` already does; a red
-  line's action names a note to the CR's live Driver and nothing recorded.
+  session" where they say "for the Chief of Staff", as `wait_cleared_text` already does; the merge
+  line's action stays a forge check then `order merged <cr>`; a red line's action names a note to
+  the CR's live Driver and nothing recorded.
 
 The cards:
 
 - `foreman.md` (or the piece of it that CR-471's cut gives the heartbeat and the background-task
-  rule): the Foreman starts its watcher in the background with the command its `watch: not
-  running` line prints, as is, in the turn that arms the heartbeat (its first `take`), and again
-  after each end that asks for it; it stops it, by its id, with the heartbeat (pause, the
-  30-minute stop, the switch to direct mode). The closing paragraph's "the one exception is the
-  Chief of Staff's watcher in direct mode" names this watcher too. At its watcher's end (or wake):
-  - a `forge saw merged ... order merged <cr>` line: check it on the forge as the Chief of Staff
-    does today (`gh pr view <pr> --json state,baseRefName,mergedAt`, `glab mr view <iid>`), then
-    `order merged <cr> --epoch <n>` and what follows an `order merged` today (dependents, the
-    fast-forward); a `not landed` line: record nothing; a line the forge does not confirm: record
-    nothing and send the Chief of Staff one line (see question 1);
-  - a `forge saw checks red` line: as a `checks red` line today (a note to a live Driver, else
-    nothing);
-  - a `forge saw ... met` line: as today (`wait <cr> clear <id> --epoch <n>`, then the take-back).
-  The heartbeat item's "the `forge hub:` and `watch:` lines are the Chief of Staff's" keeps the
-  `forge hub:` line and the Chief of Staff's own `watch:` lines; the `for the Foreman` line is the
-  Foreman's.
-- `chief-of-staff.md`, "The watcher", *A watcher's end*, and the merge paragraph ("A `forge saw
-  merged: <cr> …` line ... in Foreman mode, send its line to the Foreman"): in Foreman mode, while
-  `status` shows `foreman watch: running`, the Chief of Staff tells the user the merge or the red
-  CI, records nothing and sends the Foreman nothing for these three kinds of line; with `foreman
-  watch: not running` (a host where the Foreman cannot run it, or a watcher not started), the
-  route stays today's. Direct mode is unchanged. The table row (line 31) follows.
-- `routing.md`, Chief of Staff → Foreman: the `checks red` relay is sent only while the Foreman's
-  watcher does not run.
-- `hosts/claude-code.md`: row "Run the watcher" names the Foreman's watcher (same tool, same
-  command form); its wake of an idle Foreman session is unproved, trial: a merge in a batch with
-  the Foreman's watcher running, the Foreman's transcript showing the notice, the forge check and
-  the `order merged <cr> --epoch <n>` with no message from the Chief of Staff between. Row "The
-  watcher when the session ends": a Foreman's watcher left behind ends when the batch records
-  another Foreman or closes.
+  rule):
+  - **Start and stop.** The Foreman starts its watcher in the background with the command its
+    `watch: not running` line prints, as is (no flag added), in the turn that arms the heartbeat
+    (its first `take`), and again from the last line of a watcher that ended (a line that is not
+    `still watching`). The watcher does not stop with the heartbeat: a pause or the heartbeat's
+    30-minute stop leaves it running (foreman-wake-D2); at the switch to direct mode the Foreman
+    stops it by its id (the CLI ends it too, the batch no longer recording this session). The
+    closing paragraph's "the one exception is the Chief of Staff's watcher in direct mode" names
+    this watcher too.
+  - **At each notification or end**, line by line:
+    - a `forge saw merged ... order merged <cr>` line (foreman-wake-Q2, A): check it on the forge
+      as the Chief of Staff does today (`gh pr view <pr> --json state,baseRefName,mergedAt`, `glab
+      mr view <iid>`), then run `order merged <cr> --epoch <n>` and what follows an `order merged`
+      today (dependents, the fast-forward); on a paused batch the same (no `take` needed first); a
+      `not landed` line: record nothing; a line the forge does not confirm: record nothing and send
+      the Chief of Staff one line naming the CR, the PR and what the forge showed;
+    - a `forge saw checks red` line: as a `checks red` line today (a note to a live Driver, else
+      nothing);
+    - a `forge saw ... met` line: as today (`wait <cr> clear <id> --epoch <n>`, then the
+      take-back).
+  - The heartbeat item's "the `forge hub:` and `watch:` lines are the Chief of Staff's" keeps the
+    `forge hub:` line and the Chief of Staff's own `watch:` lines; the `for the Foreman` line is
+    the Foreman's.
+- `chief-of-staff.md` (or CR-471's piece holding "The watcher" and the "While it runs" table),
+  "The watcher", *A watcher's notification or end* (`watcher-limit`'s wording), and the merge
+  paragraph ("A `forge saw merged: <cr> …` line ... in Foreman mode, send its line to the
+  Foreman"): in Foreman mode, while `status` shows `foreman watch: running`, the Chief of Staff, on
+  these three kinds of line, tells the user the merge or the red CI, records nothing and sends the
+  Foreman nothing: the Foreman records the merge. With `foreman watch: not running` (a host where
+  the Foreman cannot run it, a watcher not started or ended, no Foreman session alive), the Chief
+  of Staff still records, as today: it checks the merge on the forge, runs `order merged <cr>` and
+  sends its line to the Foreman, relays `checks red`, and clears a met wait. On a line the Foreman
+  says the forge did not confirm, the Chief of Staff checks it itself. Direct mode is unchanged. The
+  "While it runs" table row follows.
+- `routing.md`, Chief of Staff → Foreman: the merge line and the `checks red` relay are sent only
+  while the Foreman's watcher does not run; Foreman → Chief of Staff gains the one line for a merge
+  the forge does not confirm.
+- `hosts/claude-code.md`: row "Run the watcher" names the Foreman's watcher (the same `Monitor`
+  tool and command form as `watcher-limit` gives the Chief of Staff's); its wake of an idle Foreman
+  session is unproved, trial: a merge in a batch with the Foreman's watcher running, the Foreman's
+  transcript showing the notification, the forge check and the `order merged <cr> --epoch <n>`
+  with no message from the Chief of Staff between; and a merge after a pause, recorded the same
+  way. Row "The watcher when the session ends": a Foreman's watcher left behind ends when the batch
+  records another Foreman or closes, or 2 h after its batch is no longer in flight.
 - `hosts/copilot.md`: row "Run the watcher" names the Foreman's watcher under the same rule: if
   the host has no background command or its end does not start a turn, the Foreman starts none,
-  says so in one line to the Chief of Staff, and the relay stays today's. Copilot's `/every` is
-  unchanged.
+  says so in one line to the Chief of Staff, and the Chief of Staff keeps recording and relaying as
+  today. Copilot's `/every` is unchanged.
 - `session-start-chief-of-staff.md`, "The watcher", if it states that the watcher is the Chief of
   Staff's alone.
-- `docs/use-cases-foreman.md`, `docs/hosts.md`: one sentence each on the Foreman's watcher.
+- `docs/use-cases-foreman.md`, `docs/hosts.md`: one sentence each on the Foreman's watcher and who
+  records a merge.
 
 ### 3. AGENTS.md
 
-The rule's sentences as they stand at 3c29dd7c, each rewritten so that a watcher may be the Chief
-of Staff's or the batch's Foreman's (rebase onto `watcher-limit` first, which rewrites the end
-clause of the same sentence; the rewrite below applies to the text as that CR leaves it):
+The rule's sentences as `watcher-limit` leaves them (rebase onto it first: it rewrites the end
+clause and the hub's sentence of the same bullet), each rewritten so that a watcher may be the
+Chief of Staff's or the batch's Foreman's:
 
 1. "each session's watcher, run for the Chief of Staff's whole session, with or without a batch,
    subscribes to the surface server's `events` topic for its project (...)": add the Foreman's
-   watcher, run for its batch while it runs, which reads only its batch's merge, red-CI and
-   wait-met lines.
+   watcher, run by the session the batch records as its Foreman while the batch runs or is paused,
+   which reads only its batch's merge, red-CI and wait-met lines.
 2. "and starts the server, detached, when none runs and its session holds the seat": the Foreman's
    watcher starts none.
-3. "or when the project's seat is another session's": for the Foreman's watcher, when the batch no
-   longer records its session as its Foreman or closes, never on the seat.
+3. `watcher-limit`'s end clause ("it ends when the project's seat is another session's, and, while
+   no batch ... 2 h after ..."): for the Foreman's watcher, it ends when the batch no longer
+   records its session as its Foreman or closes, never on the seat, and the same 2 h end with no
+   batch in flight.
 4. "which `status`, `open`, `take`, `order` and the switch to direct mode read to print the
    `watch: not running` line": the line names whose watcher (the Chief of Staff's or the
    Foreman's), and `status` prints `foreman watch:` for the Chief of Staff.
@@ -171,10 +213,10 @@ clause of the same sentence; the rewrite below applies to the text as that CR le
    watcher carry to the Chief of Staff"): unchanged in meaning (those lines are not the Foreman's);
    checked that no wording now reads as excluding the Foreman's watcher from merges.
 6. "Its measured cost to justify it: one round trip with the user per merge and per board session
-   ("rescan")": add the Foreman's watcher's justification: the user's answer foreman-wake-Q1
-   (2026-11-22), on the cost study of `foreman-idle-wakes` (batch-29: 41 timer wakes of 291, the
-   relays of merges and red CIs by the Chief of Staff), with the gain not measured before the next
-   batch's retro.
+   ("rescan")": add the Foreman's watcher's justification: the user's answers foreman-wake-Q1
+   (2026-11-22) and Q2 (2026-11-24), on the cost study of `foreman-idle-wakes` (batch-29: 41 timer
+   wakes of 291, the relays of merges and red CIs by the Chief of Staff), with the gain not
+   measured before the next batch's retro.
 
 The forge hub's sentence ("started by a session's watcher, detached, when none runs and the
 session holds the seat") stays true and is not edited.
@@ -212,9 +254,10 @@ pieces), `routing.md`, `hosts/claude-code.md`, `hosts/copilot.md`,
 
 Overlaps:
 - **`watcher-limit`** (`2-backlog/P1/watcher-runs-through-several-events-inst`) comes first: it
-  rewrites the watcher's end (no 2 h limit while a batch runs; the seat lost always ends it), the
-  same AGENTS.md sentence, `hub/watch.py`, `chief-of-staff.md` and `hosts/claude-code.md`. This CR
-  rebases on it and gives the Foreman's watcher the same run-and-wake shape, with its own end.
+  adds `watch --stream`, the Claude Code `Monitor` form, the 2 h end only with no batch in flight,
+  the hub's read of a paused batch with open PRs (`followed_batch`), and rewrites the same
+  AGENTS.md bullet, `hub/watch.py`, `chief-of-staff.md` and `hosts/claude-code.md`. This CR rebases
+  on it and gives the Foreman's watcher the same form, with its own end.
 - **CR-471** (`slim-cards`, running) cuts `foreman.md` and `chief-of-staff.md` into pieces read by
   `startup-manifest.json` actions: the sections named here may have moved; the Driver edits them
   where they stand at its base, and a rule this CR adds to a piece is reached by an action as
@@ -225,54 +268,52 @@ Overlaps:
 
 ## Out of scope
 
-- Removing the Foreman's timer (option A); Copilot's `/every` value; the 60-minute bound.
+- Removing the Foreman's timer (option A); Copilot's `/every` value; the 60-minute bound; any new
+  refusal of a steering wake below 30 or above 55 minutes.
 - Direct mode: the Chief of Staff steers with its one watcher, unchanged.
 - The levers left paused in `foreman-idle-wakes` (above).
-- Any new forge read: the hub reads what it reads today.
+- Any new forge read: the hub reads what it reads once `watcher-limit` has landed.
 
 ## Evidence
 
-- `just check`, `just eval-dry-run` (a CLI change), and the long gate `just scenario`.
+- `just check`, `just eval-dry-run` (a CLI change), and the long gate `just scenario
+  (ubuntu-latest)` green at the PR's head.
 - Unit tests, in-process, on a prepared state:
   - `test_playbook_timing.py`: the shipped Claude Code steering wake is 55 minutes, read from
     `config/chantier.defaults.yml` as it ships (`steering_wake_min(BatchRecord(host="claude"))`);
-    a configured `30m` still wins; `90m` is still refused.
+    a configured `30m` still wins; a configured `20m` and `58m` are accepted; `90m` is still
+    refused.
   - the Foreman's watcher (session key equal to the batch's `foreman_transcript`, through
-    `watch_fakes.py`): a `merged@1`, a `checks-red@1` and a `wait-cleared@1` of its batch wake it
-    and are printed; a `board@1`, a `config@1`, an `arrived@1` and another batch's `merged@1` move
-    its cursor and print nothing; a seat naming another session does not end it; a record naming
-    another Foreman ends it with its line; with no server it starts none and ends with its line.
-  - `not_running_line`: in the Foreman's session, the `for the Foreman` line; in another session,
-    today's line; `status` in the Chief of Staff's session prints `foreman watch: running` while
-    a lock of the Foreman's session is held, `not running` otherwise.
+    `watch_fakes.py`), parametrized on the batch's status (running; paused with an open PR): a
+    `merged@1`, a `checks-red@1` and a `wait-cleared@1` of its batch wake it and are printed; a
+    `board@1`, a `config@1`, an `arrived@1` and another batch's `merged@1` move its cursor and
+    print nothing; a seat naming another session does not end it; a record naming another Foreman
+    ends it with its line; a closed batch ends it with its line; a paused batch with no PR left
+    open ends it after the (test-shortened) idle period; with no server it starts none and ends
+    with its line; with `--stream` it prints two blocks and runs on.
+  - `not_running_line`: in the Foreman's session of a running and of a paused batch, the `for the
+    Foreman` line carrying `watch_command`'s host form; in another session, today's line; `status`
+    in the Chief of Staff's session prints `foreman watch: running` while a lock of the Foreman's
+    session is held, `not running` otherwise.
   - the texts of `merged_text` and `red_text` say "for the steering session".
+  - `order merged <cr> --epoch <n>` on a paused batch with the current epoch records the merge; a
+    stale epoch is refused (`check_epoch`), as today.
 - Scenario (`scenario/run_scenario.py`, unit `surface-board`, with `README.md`): in a Foreman-mode
-  batch, a watcher started under the Foreman's session key with A's seat held by another session
-  subscribes, starts no board, and ends (or wakes, per `watcher-limit`'s shape) on A's merge with
-  the `forge saw merged ... for the steering session: order merged <cr>` line; a board write in
-  the same window is not printed by it; the Chief of Staff's `status` shows `foreman watch:
-  running` while it runs.
+  batch, a `watch --stream` watcher started under the Foreman's session key, with A's seat held by
+  another session, subscribes and starts no board; on A's merge it prints the `forge saw merged ...
+  for the steering session: order merged <cr>` block and stays alive; the step runs `order merged
+  <cr> --epoch <n>` as the Foreman and the Chief of Staff's `status` shows the merge recorded and
+  `foreman watch: running`; a board write in the same window is not printed by it; the batch is
+  then paused with one PR open, the forge shows it merged, and the watcher prints a second `forge
+  saw merged` block; a record naming another Foreman ends it with its line.
 - Host and default matrix:
   - Claude Code, shipped default: the Foreman wakes at 55 minutes (3300 s); unproved until the
     first batch's Foreman transcript shows it (row "Steering wake bound").
-  - Claude Code, configured value (`session: steering_wake: 30m`): unchanged, proved.
-  - Claude Code, the Foreman's watcher waking an idle Foreman session: unproved; trial in row "Run
-    the watcher".
-  - Copilot, shipped `4m` `/every`: unchanged; the Foreman's watcher: unproved, or none with one
-    line when the host cannot run it, and the relay stays.
+  - Claude Code, configured value (`session: steering_wake: 30m`): unchanged, proved; any other
+    value up to 60 accepted, unproved.
+  - Claude Code, the Foreman's `watch --stream` under `Monitor` waking an idle Foreman session and
+    the Foreman recording the merge: unproved; trial in row "Run the watcher".
+  - Copilot, shipped `4m` `/every`: unchanged; the Foreman's watcher in its plain form: unproved,
+    or none with one line when the host cannot run it, and the Chief of Staff records and relays.
   - Direct mode, either host: unchanged.
 - At the next batch's retro: the study's measure repeated and compared with batch-29 (above).
-
-## Open questions
-
-1. **Who records a user's merge in Foreman mode** (read here from "instead of having them
-   relayed"): the Foreman, from its watcher (forge check, then `order merged <cr> --epoch <n>`),
-   the Chief of Staff telling the user only, while the Foreman's watcher runs; or the Chief of
-   Staff keeps recording and the Foreman's watcher wakes it only for the red CI and the wait met?
-2. **The Suspect threshold** (a Driver with no activity for one heartbeat interval): does it follow
-   the steering wake to 55 minutes, or stay at 30 minutes?
-3. **The Foreman's watcher's end**: when the batch records another Foreman or closes, as written;
-   and while the batch is paused with no Driver running, does it end with the heartbeat (as
-   written) or keep running for a merge of a PR handed back ready?
-4. **"30 to 55 minutes"**: a shipped default of 55 minutes with the 60-minute bound kept, as
-   written; or should the CLI also refuse a Claude Code value below 30 or above 55?
