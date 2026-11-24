@@ -10,9 +10,9 @@ A bug-fix release's notes read like a feature release's: a revert shown as a new
 - `docs/release-process.md`: four lines of the structure list aligned (full-version title, kind-first header line, highlight heading, known issues out of "For contributors").
 - New structure test `test_release_template_card.py` over the shipped files.
 
-Reading check, a dry run of the new rules on an urgent bug-fix release that holds a revert and block-editing fixes (text only):
+Reading check, a dry run of the new rules on an urgent release that holds a revert and block-editing fixes (a restore and fixes: the subtitle names the restore first) (text only):
 
-- Subtitle (11 words): **A bug-fix release: pasting whole blocks and block editing work again**
+- Subtitle (12 words): **Restores pasting whole blocks that 1.12.0 broke, and fixes block editing**
 - `Fixed: the cursor stays in the block you are editing.`
 - `Restored: pasting whole blocks, which 1.12.0 broke.`
 - `Known issue: undo after a paste restores the text but not the cursor position.`
@@ -54,11 +54,11 @@ No visual change. Future release notes start with the release's kind and carry l
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `6773a4d`: `just check`
-- [ ] Evidence: reading check (the 1.12.1 situation) at `6773a4d`
-- [ ] Review: approved at `6773a4d`
-- [ ] Verified at `6773a4d`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `6773a4d`: `just check`
+- [x] Evidence: reading check (the 1.12.1 situation) at `6773a4d`
+- [x] Review: approved at `6773a4d`
+- [x] Verified at `6773a4d`
 - [ ] CI green at `6773a4d`
 
 ## Internal references
