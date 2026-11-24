@@ -1,6 +1,6 @@
 ## Summary
 
-The Foreman (the session that steers a running batch; the Chief of Staff is the session that talks to the user and relays events) woke on a 30-minute timer and relied on the Chief of Staff to relay each merge and red CI. Cost study of a real batch: 41 of 291 Foreman wakes were timer heartbeats, and the watcher never woke the Foreman. This change lets the Foreman run its own watcher on its batch's events, and stretches the Claude Code timer to 55 minutes (at worst one wake per 55 minutes, under the 1-hour cache).
+The Foreman (the session that steers a running batch; the Chief of Staff is the session that talks to the user and relays events) woke on a 30-minute timer and relied on the Chief of Staff to relay each merge and red CI. Cost study of a real batch (UNVERIFIED here: the figure, 41 of 291 Foreman wakes being timer heartbeats, comes from the specification and was not re-measured in this PR): the watcher never woke the Foreman. This change lets the Foreman run its own watcher on its batch's events, and stretches the Claude Code timer to 55 minutes (at worst one wake per 55 minutes, under the 1-hour cache).
 
 ## Deliverables
 
