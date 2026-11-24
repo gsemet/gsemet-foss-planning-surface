@@ -39,8 +39,7 @@ Grade: **1**. The setting is off by default, so the copy only changes for an edg
 
 ## Known gaps
 
-- The real VS Code window step (`test/integration/realInput/rawCopy.ts`) is written but not run locally (no VS Code on this machine); it runs in the heavy CI (`ci.yml` with `heavy=true`).
-- Visual scenarios other than the raw copy ones were not re-run locally.
+- Visual scenarios other than the raw copy ones were checked only by CI, not locally.
 
 <details><summary>Details</summary>
 
@@ -64,12 +63,12 @@ No visual change. The clipboard text differs only with the setting on, or for a 
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): core balancing tests, registry tests, page handler test, browser capture page
-- [ ] Requirements: SwRS added and updated, markers in code and tests, `just requirements-update`
-- [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `just preflight`
-- [ ] Review
-- [ ] CI green
+- [x] New or changed tests (they fail on the previous code) at 07aab07: core balancing tests, registry tests, page handler test, browser capture page
+- [x] Requirements: SwRS added and updated, markers in code and tests, `just requirements-update`
+- [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
+- [x] Local gates: `just preflight` (static stage on Windows) at b824913; `just check` at 07aab07
+- [x] Review at 07aab07 (review pass at b824913, then a docs-only change)
+- [x] CI green at 07aab07, including the heavy run (real VS Code window, stress)
 
 ## Internal references
 
