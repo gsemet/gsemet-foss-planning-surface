@@ -1,0 +1,16 @@
+# Verify CR-473
+
+Head: 2693d35076b5596f6285b3d389dc5680f32a2cef
+
+All claims judged at 2693d35 (worktree clean, `git rev-parse HEAD` = the head above, equals PR 449's headRefOid).
+
+1. `grep -rn "batch's top" skills/chantier/references/` prints nothing (exit 1). Also no "top for a local run" by the old wording; remaining "stack's top for a local run" at chief-of-staff.md:1340 and foreman-stack.md:119 are the stack's partial ask, unchanged by spec. VERIFIED.
+2. `grep -n "Windows coverage" AGENTS.md` -> line 9, text by shape: parallel/series each covered PR (docs-only or eval-kit-only owes none), stack top only incl. docs-only top, run moves to a CR joining on top, no run on merged result. Four required elements present; nothing else edited in AGENTS.md (diff is 9 lines in that bullet). VERIFIED.
+3. `grep -rn -i "ask for nothing\|no flag, no word" README.md docs/` prints nothing. VERIFIED.
+4. Reading proof (diff read at head): parallel/series/stack/rule-by-shape stated once in driver.md long-gate bullet; foreman.md sends a covered `--no-gate` CR back with `long gate: this CR runs <command> locally`, rebase take carries it (also in the two order-merged copies); stack keeps stack's-top note, docs-only top included; chief-of-staff.md floor, plain-ask clause quoted per CR, the "last of them" exception and "batch's top last" removed; foreman-stack.md line 94 updated. No Windows run asked after a merge. VERIFIED.
+5. Opening: chief-of-staff.md asks the shape at every opening in step 2 as a batch question with `(recommended)`, three weighing criteria, shared files named, earlier word answers it, empty batch asked, always `open --mode`; concepts.md says CLI default stays and the CoS always asks. VERIFIED.
+6. Docs coverage: README, CONTRIBUTING, use-cases-foreman, use-cases-direct, batch-modes-texts, planning-folder, batch-modes.svg updated, `open`'s default parallel kept. Extra search for "parallel is the default|(the default|unless you ask|parallel unless" over README, CONTRIBUTING, docs/*.md, cards: remaining hits are unrelated (planning mode, 3-ready, web board Kanban). VERIFIED.
+7. Gates: `gh pr checks 449`: just check (macos, ubuntu, windows), eval-dry-run, just scenario (ubuntu) all pass. Local gate log work/gates/20261124-093509.log first line `gate CR-473 ... head 2693d35076b5596f6285b3d389dc5680f32a2cef`, last line `result: pass at 2693d35076b5596f6285b3d389dc5680f32a2cef`. VERIFIED.
+8. PR description (re-read with `gh pr view 449 --json body` at 2693d35, head unchanged, worktree clean): renders; Summary/Deliverables/Changes match the diff (claims 1-6); Known gaps now says the merged result has no Windows run (accepted) and "None beyond the above", no stale local-run line, no UNVERIFIED claim exists; placeholders filled; the evidence greps are those of claims 1-3; Review box `approved at 2693d35 (reviewed at 627bd4d, committed as 2693d35)` matches `chantier log 473`: "r2 approved at 627bd4d..., committed as 2693d350"; only the Verified box is open, closed by this verdict; no images; role names are product terms of a cards change. VERIFIED.
+
+Verdict: VERIFIED at 2693d35076b5596f6285b3d389dc5680f32a2cef (claims 1-7 carried from the earlier pass at the same head, unchanged).

@@ -30,7 +30,7 @@ Grade: 2. Cards and docs only, no code; the cards steer every batch, so a wordin
 ## Known gaps
 
 - No Windows run covers the merged result; accepted, the pipeline's ubuntu job covers it.
-- The local `scenario` run is not yet at this head (see Test plan).
+- None beyond the above.
 
 <details>
 <summary>Details</summary>
@@ -51,12 +51,12 @@ Maintainers running batches are asked the shape and run the local gate once per 
 
 ## Test plan
 
-- [ ] New or changed tests: No behaviour change (cards and docs)
-- [ ] Local gates at `<sha7>`: `just check`
-- [ ] Evidence: the three greps above at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests: No behaviour change (cards and docs)
+- [x] Local gates at `2693d35`: `just check` pass; `chantier gate scenario` (`just scenario`) pass
+- [x] Evidence: the three greps above at `2693d35`
+- [x] Review: approved at `2693d35` (reviewed at 627bd4d, committed as 2693d35)
+- [x] Verified at `2693d35`
+- [x] CI green at `2693d35`
 
 ## Internal references
 
