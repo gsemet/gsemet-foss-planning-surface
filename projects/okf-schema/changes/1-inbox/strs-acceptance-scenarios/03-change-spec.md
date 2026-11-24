@@ -16,14 +16,16 @@ them with a `#S<n>` fragment, mandatory on every marker whose target declares `s
   per scenario;
 - `@accepts_req StRS-X#S<n>` (new): the acceptance test of a StRS main path (Q52).
 
-Each StRS gets two independent counters (Q54), "tested" and "accepted", and is covered when
-its linked SwRS are covered and all its paths are accepted. okfreq does not check where or how
-a test runs. The documentation recommends, without enforcing it, `@accepts_req` on the tests
-closest to the final product, which may be costly and run in the main-branch pipeline, and
-`@tests_req` on cheaper tests run on every pull or merge request; when the tests are cheap,
-`@accepts_req` goes directly on them (Q52, Q55). A warning, `W004`, flags a live StRS with no
-acceptance test (Q56, Q60). The repository applies the mode to itself, its examples and its
-documentation (Q21, Q35), and the documentation site explains the possibilities and why (Q46).
+Each StRS gets two independent counters (Q54), "tested" and "accepted". It is covered when its
+linked SwRS are covered or individually exempted, and either all its paths are accepted or the
+whole StRS has a justified acceptance waiver (U1-U2). A waiver is not acceptance evidence.
+okfreq does not check where or how a test runs. The documentation recommends, without enforcing
+it, `@accepts_req` on the tests closest to the final product, which may be costly and run in
+the main-branch pipeline, and `@tests_req` on cheaper tests run on every pull or merge request;
+when the tests are cheap, `@accepts_req` goes directly on them (Q52, Q55). A warning, `W004`,
+flags a live, non-waived StRS with no acceptance test (Q56, Q60, U1). The repository applies
+the mode to itself, its examples and its documentation (Q21, Q35), and the documentation site
+explains the possibilities and why (Q46).
 
 ## Goal, in the user's terms
 
@@ -49,13 +51,19 @@ The Studio's own migration (declaring its `scenarios:`, adding `#S<n>` fragments
 
 ## Starting point (code read on 2026-11-23)
 
-The local clone `/Users/az02065/Projects/DevTools/okf-schema` is checked out on `dev/gsemet` at
-`89b52ad` (0.16.0). Its short branch names are unreliable: a stray local branch named
-`origin/main` (`e0b2f0e`) shadows the remote-tracking branch, so `origin/main` is ambiguous,
-and the local `main` (`f7f4717`, 0.15.1) is behind. **The Driver runs `git fetch origin` and
-starts from `refs/remotes/origin/main`**, at `8f56838` (`chore: version 0.17.0`, v0.17.0),
-which contains `feat(okfreq)!: keep requirement bundles native OKF v0.2 bundles`. Everything
-below was read on `refs/remotes/origin/main`; the spec names functions, not line numbers.
+For independent implementations and a fair comparison, start each run on a separate branch
+from **`8f56838fd6b4443df602e58c36492d0e56ea34b3`** (`chore: version 0.17.0`, v0.17.0).
+This was `refs/remotes/origin/main` when the implementation began; a future fetch may advance
+that ref, so the commit, not the current ref, fixes the common starting point. Do not use
+another implementation branch, its commits, or its diff as the starting point or as instructions
+for a competing run. This document contains the common requirements and decisions; implementations
+may choose their own internal design while meeting the observable contract.
+
+At the original interview the local clone was on `dev/gsemet` at `89b52ad` (0.16.0). A local
+branch named `origin/main` shadowed the remote-tracking branch, and local `main` was behind; use
+the full commit ID rather than those short names. The baseline contains
+`feat(okfreq)!: keep requirement bundles native OKF v0.2 bundles`. Everything below describes
+that baseline unless a rule says otherwise; function names identify existing integration points.
 
 `src/okf_schema/okfreq/core.py`:
 
@@ -165,7 +173,7 @@ console scripts as subprocesses with no source checkout on the path.
 | Q15 | A missing fragment there is an error: `okfreq validate` fails, the marker does not count. | Rules 4, 6 |
 | Q16 | All six surfaces of `AGENTS.md` plus `docs/source/explanation/project-feature-coverage.md`. | Surfaces |
 | Q17 | Grilled enough; next batch. | Header |
-| Q18 | In the new mode a StRS is covered by the linked-SwRS rule plus "accepted". | Rule 5 |
+| Q18 | In the new mode a StRS is covered by the linked-SwRS rule plus "accepted"; U1 later adds a justified whole-StRS waiver as an alternative to acceptance. | Rule 5 |
 | Q19 | Same for StRS and SwRS, and for both verbs (Q53): `scenarios:` declared → a fragmentless marker is an error; not declared → fragmentless markers count. W003 stays. | Rules 4, 5 |
 | Q20 | `@accepts_req` on a SwRS is an error, enforced in the JSON Schema. | Rules 4, 6 |
 | Q21 | okf-schema applies the mode to its own requirements. | Surface 5 |
@@ -178,7 +186,7 @@ console scripts as subprocesses with no source checkout on the path.
 | Q30 | `tested_in_files` of a SwRS with transitions lists only files with a counting marker. | Rule 5 |
 | Q31 | Errors carry no code. The warnings are `W003` and, since Q56/Q60, `W004`. | Rule 6 |
 | Q32 | W003 link `https://okf-schema.readthedocs.io/en/stable/reference/okfreq-frontmatter.html#okfreq-declared-scenarios`. | Rule 6, surface 2 |
-| Q33 | Headings read for W003: every heading under `### Main paths`, plus `### Scenario…`; title after `Path <n>:` / `Scenario:`, else the whole heading. Spec's reading of Q33: reading under `### Main paths` stops at the next heading of level 1 to 3 or at the generated links block. | Rule 6 |
+| Q33 | Headings read for W003: every heading under `### Main paths`, plus `### Scenario…`; title after `Path <n>:` / `Scenario:`, else the whole heading. Reading under `### Main paths` stops at the next heading of level 1 to 3 or at the generated links block. U4 adds headings with explicit scenario IDs. | Rule 6 |
 | Q34 | Live = every lifecycle except `deprecated` and `superseded`; used by W003 and W004. | Rule 6 |
 | Q35 | No warning for a SwRS with `### Scenario` headings and no `scenarios:`; instead the CR migrates the project, its examples and its docs correctly. | Rule 6, surfaces 2, 5, 6 |
 | Q36 | Approval for a `scenarios:`-only edit: the owner decides; without new approval `approved_by`/`approved_at` stay and the log names the agreement. | Rule 7 |
@@ -195,7 +203,7 @@ console scripts as subprocesses with no source checkout on the path.
 | Q47 | Superseded by Q52. | — |
 | Q48 | In the new mode, a bundle whose `swrs.schema.yaml` does not refuse `accepted_in_files` makes `okfreq validate` fail with an error asking the project to update its bundle schema (property and 0.18.0 declaration named). No shipped default, no silent fallback. | Rules 4, 6 |
 | Q49 | In the new mode a StRS's `validation_tests` has the same files and status as its `acceptance_tests`. | Rule 8 |
-| Q50 | The checked-in example moves to the new mode with a real acceptance test of its export (`Accepted 1/1`); its README and the showcase follow. Spec-writer's choice, not an answer: `test_export_rows` carries `@tests_req StRS-CORE-001#S1`. | Surface 6 |
+| Q50 | The checked-in example moves to the new mode with a real acceptance test of its export (`Accepted 1/1`); its README and the showcase follow. Spec-writer's choice, not an answer: `test_export_rows` carries `@tests_req StRS-CORE-001#S1`. U5 adds a second, commented slow acceptance test. | Surface 6 |
 | Q51 | The 5 StRS main paths are the spec-writer's proposed ones; the PR lists them for the owner's review. | Surface 5 |
 | Q52 | No `@simulates_req`, no `markers.simulates`. `@tests_req` on a StRS is valid; `@accepts_req` declares a StRS's acceptance coverage. `@accepts_req` on the tests closest to the final product and `@tests_req` on others is a recommendation, not an obligation. | Rules 3, 4, surface 2 |
 | Q53 | One fragment rule for both verbs on a StRS and `@tests_req` on a SwRS: when the target declares `scenarios:`, `#S<n>` is mandatory (error otherwise; the marker does not count). | Rule 4 |
@@ -205,7 +213,7 @@ console scripts as subprocesses with no source checkout on the path.
 | Q57 | `@accepts_req` markers naming an ID also block `okfreq retire`, in every mode. | Rule 1, surface 1 |
 | Q58 | In the new mode `marker_coverage.*`, `legacy.marker_coverage.*` and each SwRS's `tests.files` hold only the markers that count. | Rule 8 |
 | Q59 | `okfreq new` pre-fills `scenarios:` in the new mode only; old-mode output byte-identical. | Rule 9 |
-| Q60 | `W004`: a live StRS with no valid `@accepts_req` marker at all; the message points to the documentation on execution cost; independent of W003. | Rule 6 |
+| Q60 | `W004`: a live StRS with no valid `@accepts_req` marker at all; the message points to the documentation on execution cost; independent of W003. U1 later suppresses W004 for a justified whole-StRS acceptance waiver. | Rule 6 |
 | Q61 | Old modes: `update-coverage` removes `tested_in_files` and `accepted_in_files` from a StRS whatever `generated_fields` says. New mode: it writes each when listed in `generated_fields` and leaves it untouched when not. | Rules 1, 5 |
 | Q62 | Keep `stakeholder_test_coverage.tests` (`@tests_req` files); the reference page states how it differs from the StRS record's `tests` (which follows `validation_tests`, the `@accepts_req` files). | Rule 8, surface 2 |
 
@@ -213,6 +221,26 @@ The request's point 3 named benches "in the project's config" and used `@accepts
 benches; Q2 replaces the config, Q52 keeps `@tests_req` for tests of a StRS and
 `@accepts_req` for its acceptance, and Q55 replaces the benches by an execution-cost
 recommendation. The request's point 5 (migration help) became an okfreq message (Q8, Q13).
+
+### Decisions made during implementation
+
+These later user decisions refine the interview above and take precedence over a conflicting
+earlier formulation:
+
+| Decision | User request and resulting contract | Where |
+|---|---|---|
+| U1 | Consolidation is an interactive agent skill, not a feature for which to invent a dedicated CLI command or fake automated acceptance test. The user asked for a frontmatter waiver with a reason when the requirement cannot be acceptance-tested and said it must not be counted uncovered for that reason alone. The user chose a waiver for the whole StRS, not one scenario, and asked for clear documentation of why and when to use it. | Rules 2, 5, 6, 8; surfaces 2-5 |
+| U2 | The SwRS for interactive consolidation also needs its own explicit, justified annotation exemption; a StRS waiver does not waive its children. | Rule 5; surface 5 |
+| U3 | Acceptance of file-link navigation uses the installed wheel's API from an isolated subprocess, rather than inventing a navigation command; the link-checking path still uses the installed command. | Surface 5 |
+| U4 | Scenario IDs and names should agree between frontmatter and Markdown headings. Reinforce this as authoring guidance and align the repository's existing requirements and examples; do not make heading equality a new general validation rule. IDs stay stable and are not renumbered when scenarios are reordered or removed. | Rules 6-7, 9; surfaces 2-6 |
+| U5 | Show two acceptance-test variants for the same StRS: one fast, executable test and one slow test entirely in comments, with no implementation. The commented example must not be counted as evidence. | Surface 6; Evidence |
+
+The field names and report shapes in the rules below make these decisions an explicit,
+reimplementable contract; they are design choices, not words attributed to the user. For the
+original implementation run the user also requested a GitHub pull request titled with
+`[Fusion]`, the session cost in its description, and a passing CI. Those are delivery
+instructions for that run, not product behavior or a model-independent label for every
+competing implementation.
 
 ## The rules
 
@@ -222,15 +250,12 @@ modes" are `linked-swrs` (the shipped default) and `linked-swrs-and-validation-t
 
 ### Rule 1: activation (Q1, Q11, Q24, Q25, Q57, Q61)
 
-- `STRS_TEST_COVERAGE_MODES` gains `linked-swrs-and-acceptance-paths`;
-  `STRS_TEST_COVERAGE_DESCRIPTIONS` gains: "An StRS is considered as covered when it is linked
-  to at least one SwRS, every linked SwRS is test-covered (one test per declared transition),
-  and every declared main path has an acceptance test (@accepts_req) (when it declares no
-  paths, at least one @accepts_req names the StRS). Paths with a test marker are reported as
-  tested." This text is what `report()` writes in `coverage_definition.stakeholder_tests` and
-  what `write_markdown_report` prints in the note below the StRS table (both read
-  `STRS_TEST_COVERAGE_DESCRIPTIONS[mode]`, as today). `load_config` and
-  `_strs_test_coverage_mode` accept it; the refusal lists the three modes.
+- `STRS_TEST_COVERAGE_MODES` gains `linked-swrs-and-acceptance-paths`. Its description
+  explains the linked-SwRS condition, including justified SwRS annotation exemptions; the
+  acceptance condition, including the justified whole-StRS waiver; the fragmentless fallback
+  when no paths are declared; and the separate tested counter. The same description is written
+  in `coverage_definition.stakeholder_tests` and the Markdown note below the StRS table.
+  `load_config` and `_strs_test_coverage_mode` accept the mode; the refusal lists all three.
 - In the old modes okfreq accepts `scenarios:` and `@accepts_req` and requires and counts
   nothing new. Coverage, generated fields and findings stay as today, apart from the
   every-mode changes below: `@accepts_req` counts
@@ -303,6 +328,27 @@ modes" are `linked-swrs` (the shipped default) and `linked-swrs-and-validation-t
   old modes none of these code checks runs (Q25).
 - `update_coverage` preserves the field (authored, never generated); `_render_frontmatter`
   already keeps unknown keys. A test proves it.
+
+#### Authored StRS acceptance waiver (U1)
+
+- Declare optional `acceptance_exemption` (boolean) and
+  `acceptance_exemption_reason` (string) in the generated and repository StRS schemas. If
+  `acceptance_exemption` is `true`, a reason is required and must be non-empty; in the new
+  mode validation also rejects whitespace-only reasons. Like other bundle schema checks, the
+  generated schema's type and conditional-required checks apply in every mode; existing bundle
+  schemas are not silently replaced.
+- Both fields are authored frontmatter, never generated; `update-coverage` preserves them.
+  A waiver is effective only in the new mode when the flag is true and the reason is a
+  non-blank string. A missing or false flag is not a waiver. The reason explains why automated
+  acceptance is not possible, rather than asserting that acceptance happened.
+- It applies to the complete StRS, not an individual `scenarios:` entry. It does not create an
+  acceptance marker, change `accepted` or any path count, or relax the linked-SwRS rule,
+  fragment errors, scenario declarations, or W003. Rule 5 defines its effect on coverage;
+  Rule 6 defines its effect on W004; Rule 8 defines its report.
+- Documentation says the owner reviews the exemption under the project's approval rules,
+  removes it when no longer justified, and does not use it to hide an acceptance test that
+  can be written. okfreq does not collect or verify that approval. Being slow or expensive
+  alone is not a reason to waive acceptance.
 
 ### Rule 3: markers and the fragment (Q2, Q27, Q28, Q29, Q52)
 
@@ -437,16 +483,25 @@ checked. A marker reaches a tier schema only as a marker-derived frontmatter pro
   accepted.
 - **StRS that declares none**: `paths` is `{total: 0, tested: 0, accepted: 0}`; **tested** is
   true when at least one fragmentless `@tests_req StRS-X` counts, **accepted** when at least
-  one fragmentless `@accepts_req StRS-X` counts (Q19). W003 still asks for paths, and W004
-  flags a StRS that is not accepted (Rule 6).
-- **StRS `status` `covered`** = linked-SwRS rule (at least one linked SwRS, each test-covered as
-  below) **and accepted** (Q18). "Tested" is reported beside it and does not change the status.
-  This drives the aggregate `stakeholder_test_coverage.covered` and the Markdown line.
+  one fragmentless `@accepts_req StRS-X` counts (Q19). W003 still asks for paths; W004 flags
+  the absence of a counting acceptance marker unless the StRS has a justified waiver (Rule 6).
+- **StRS `status` `covered`** = linked-SwRS rule (at least one linked SwRS, each either
+  test-covered as below or individually exempted with a non-blank `exemption_reason`) **and
+  (accepted or a justified whole-StRS acceptance waiver)** (Q18, U1-U2). "Tested" is reported
+  beside it and does not change the status. This drives aggregate
+  `stakeholder_test_coverage.covered` and the Markdown line. The waiver changes only this
+  policy decision: `accepted` and path counts still reflect actual counting markers.
 - **SwRS** (leaf, no `annotation_exemption`): with declared transitions, test-covered only when
   every declared `S<n>` has a counting `@tests_req SwRS-X#S<n>` (Q7); without, test-covered by
   any fragmentless `@tests_req SwRS-X`, as today. This status drives `tests.status`,
   `totals.tested`, the scopes' `tested`, `marker_coverage.missing_tests` and the
   `linked_swrs[].status` of its StRS. Source coverage is unchanged.
+- **SwRS annotation exemption** (U2): the existing `annotation_exemption: true` and
+  `exemption_reason` exempt that SwRS from its source and test annotation coverage. In the new
+  mode a linked SwRS with a non-blank reason satisfies its parent's linked-SwRS condition and
+  is reported as `exempt`, not `covered`; a missing or blank reason cannot satisfy it. This
+  does not waive its parent's acceptance condition. Conversely, a StRS acceptance waiver
+  neither exempts nor fabricates evidence for any SwRS. Old-mode behavior remains unchanged.
 - **Generated fields** (Q30, Q55, Q61). `SUPPORTED_GENERATED_FIELDS` and `DEFAULT_CONFIG`'s
   `generated_fields` gain `accepted_in_files`. In the new mode `update_coverage` writes each of
   these fields only when it is listed in `generated_fields`, like every generated field, and
@@ -488,19 +543,23 @@ code. Messages use the configured keywords.
      the next heading of level 1 to 3 (`#`, `##` or `###`; the StRS template has `## User Need`
      between two `###` sections) or the generated links block (`<!-- okf:links:start -->`),
      plus every `### Scenario…` heading; or says none was found;
-  3. gives the `scenarios:` block to paste, one entry per heading in order, `S1`, `S2`…, each
-     title the text after `Path <n>:` / `Scenario:`, else the whole heading text; with no
-     heading, one placeholder entry `- id: S1` / `  title: <main path title>`;
+  3. gives the `scenarios:` block to paste, one entry per heading in order. Understand legacy
+     `Path <n>:` / `Scenario:` headings and explicit `Path S<n>:` / `Scenario S<n>:` headings;
+     use the title after the prefix and preserve explicit IDs in the suggestion (U4). Assign
+     unique `S<n>` IDs without colliding with explicit IDs for other headings; with no heading,
+     use one placeholder entry `- id: S1` / `  title: <main path title>`;
   4. says to edit the frontmatter only, and on an approved StRS to log the change in the
      bundle's `tiers/log.md` (Rule 7);
   5. ends with
      `https://okf-schema.readthedocs.io/en/stable/reference/okfreq-frontmatter.html#okfreq-declared-scenarios`.
 
   The heading reader is one helper (`_scenario_headings(text)`), shared with Rule 9.
-- **`W004`, live StRS with no acceptance test** (Q56, Q60). Same "live" as W003. One finding
-  per live StRS on which no `@accepts_req` marker counts (none at all, or only rejected ones).
-  A StRS with at least one counting `@accepts_req` (even `accepted 1/3`) gets none. It is
-  independent of W003: a live StRS with no `scenarios:` and no acceptance test gets both. Text:
+- **`W004`, live StRS with no acceptance test** (Q56, Q60, U1). Same "live" as W003. One
+  finding per live StRS on which no `@accepts_req` marker counts (none at all, or only
+  rejected ones), unless it has a justified whole-StRS acceptance waiver. A StRS with at least
+  one counting `@accepts_req` (even `accepted 1/3`) gets none. It is independent of W003: a
+  non-waived live StRS with no `scenarios:` and no acceptance test gets both; a waived one
+  still gets W003. Text:
   `W004 <file>: StRS-X has no acceptance test: no @accepts_req marker that counts names it.
   Mark the test closest to the final product that walks each main path with
   @accepts_req StRS-X#S<n> (@accepts_req StRS-X while it declares no scenarios:). That test may
@@ -510,7 +569,8 @@ code. Messages use the configured keywords.
 - **No finding** for a SwRS without `scenarios:`, even with `### Scenario` headings (Q35).
 - **In the report**: `report()` keeps dropping `W…` findings from `diagnostics.errors`, as
   today. The facts behind them show in the per-StRS coverage: `paths.total` 0 (W003) and
-  `acceptance_tests.status` `missing` (W004).
+  `acceptance_tests.status` `missing` when no acceptance marker counts, including for a waived
+  StRS where W004 is suppressed.
 
 ### Rule 7: approved requirements (Q9, Q36)
 
@@ -537,6 +597,11 @@ unchanged. Two kinds of text gain this exception for an edit that only adds `sce
 A test proves an approved StRS that gains only `scenarios:` still validates. The Studio's owner
 has already agreed for the Studio.
 
+U4's heading alignment can change the body. It is not part of this frontmatter-only exception:
+for an approved requirement, obtain the owner's agreement under the normal approval rules and
+record the change; never silently alter approval fields. A waiver is also authored metadata and
+does not grant approval to edit an approved requirement.
+
 ### Rule 8: the report (Q12, Q29, Q37, Q39, Q42, Q49, Q55, Q58, Q62)
 
 - `"format_version": 2` in `report()` and `"const": 2` in `report_schema()`, in every mode
@@ -561,6 +626,13 @@ has already agreed for the Studio.
   `validation_tests`, as the code does today, so in the new mode they hold the `@accepts_req`
   files, while `stakeholder_test_coverage.tests` holds the `@tests_req` files (Q62); the
   reference page (surface 2) states this difference.
+- When a StRS has a justified acceptance waiver, include
+  `"acceptance_exemption": {"reason": "<authored reason>"}` in its
+  `stakeholder_test_coverage` (U1). Omit it otherwise. Do not change `accepted`,
+  `acceptance_tests`, `validation_tests`, or `paths.accepted`: actual markers alone determine
+  those. Include waived StRS in the aggregate path denominator and count only actual accepted
+  paths. A linked SwRS with its own justified annotation exemption has `linked_swrs[].status`
+  `exempt` (U2).
 - New mode, only counting markers (Q58): the aggregate `marker_coverage` and
   `legacy.marker_coverage` are built from the counting markers: `validation_tests` maps each
   StRS to its `acceptance_tests` files, `missing_tests` follows Rule 5, and `tested` stays what
@@ -582,12 +654,15 @@ has already agreed for the Studio.
   transition has a test marker with its fragment, or at least one test marker when none is
   declared".
 - `report_schema()`: `$defs.stakeholder_requirement_coverage` declares `paths`, `tested`,
-  `accepted`, `tests`, `acceptance_tests`; `$defs.requirement` declares `transitions`; the
-  aggregate declares `paths`.
+  `accepted`, `tests`, `acceptance_tests`, and the optional `acceptance_exemption.reason`;
+  `linked_swrs[].status` also permits `exempt`; `$defs.requirement` declares `transitions`;
+  the aggregate declares `paths`. Both waived and unwaived reports validate.
 - `write_markdown_report`, new mode only:
   - Summary gains `- StRS paths: tested <t>/<n>, accepted <a>/<n>` (Q39);
   - "By stakeholder requirement" gains `Tested` and `Accepted` columns: `2/3`, with ✅ when
-    complete; for a StRS without paths, `✅ no paths` / `❌ no paths` from the booleans;
+    complete; for a StRS without paths, `✅ no paths` / `❌ no paths` from the booleans.
+    A waived StRS's `Accepted` cell says `exempt` instead of claiming acceptance; the JSON
+    and aggregate still show the actual counts;
   - "By software requirement" gains `Missing transitions`: `S2, S3`, or `—`;
   - the note below the StRS table uses the new description.
   In the old modes the Markdown is unchanged.
@@ -598,22 +673,24 @@ In the new mode, `create_requirement` (`okfreq new`) pre-fills `scenarios:` from
 the body it writes, read with `_scenario_headings` (Rule 6), so the frontmatter and body start
 in step:
 
-- **SwRS**: `_SWRS_BODY` is unchanged; its two headings give
+- **SwRS**: its two headings are `### Scenario S1: <nominal behavior>` and
+  `### Scenario S2: <boundary or failure behavior>`; they give
   `[{id: S1, title: <nominal behavior>}, {id: S2, title: <boundary or failure behavior>}]`.
+  Apply these heading changes only in the new mode.
 - **StRS**: in the new mode, `ears_body` adds to the StRS body, after "Normative behavior", a
   section
 
   ```markdown
   ### Main paths
 
-  #### Path 1: <main path title>
+  #### Path S1: <main path title>
 
   1. <first step the stakeholder observes>
   2. <next step, up to the observable outcome>
   ```
 
-  and `scenarios:` gets `[{id: S1, title: <main path title>}]`. The author adds `#### Path 2…`
-  headings and entries as needed.
+  and `scenarios:` gets `[{id: S1, title: <main path title>}]`. The author adds
+  `#### Path S2: …` headings and matching entries as needed.
 - The placeholders are bracketed like every template placeholder, so `body_is_unfilled` and
   `W002` keep flagging an unfilled body.
 - In the old modes `okfreq new` writes byte for byte what it writes today, so their output, the
@@ -656,14 +733,19 @@ change:
     repeats one SwRS transition does not walk a stakeholder path);
   - the two verbs: `@tests_req` (a test of a requirement or of one of its scenarios) and
     `@accepts_req` (the acceptance test of a StRS main path), and the two independent counters
-    they feed, "tested" and "accepted" (Q54), and why coverage needs "accepted" (Q18);
+    they feed, "tested" and "accepted" (Q54), and why coverage normally needs "accepted"
+    (Q18), with the explicit waiver exception (U1);
   - a section **"Choosing by execution cost"**, with the label `(okfreq-execution-cost)=` (the
     W004 target): when the test closest to the final product is expensive, mark it
     `@accepts_req` and run it in the main-branch pipeline, and mark a cheaper test of the same
     path `@tests_req` and run it in the pull or merge request pipeline; when tests are cheap,
     put `@accepts_req` directly on them. This is a recommendation, not an obligation: okfreq
-    does not check where or how a test runs (Q52, Q55); `W004` only says a StRS has no
+    does not check where or how a test runs (Q52, Q55); `W004` says a non-waived StRS has no
     acceptance test at all;
+  - why and when an owner may waive acceptance for a whole StRS that cannot be
+    acceptance-tested, an interactive skill as an example, why cost alone is not sufficient,
+    how to document and later remove the reason, and why an exemption is not an accepted path
+    or a substitute for its SwRS coverage (U1-U2);
   - why a fragment: a marker must say which path it walks, so a fraction can be computed;
   - why declaring `scenarios:` makes fragments mandatory, for both verbs and both tiers: once
     paths exist, a fragmentless marker would claim every path at once (Q14, Q19, Q53), whereas
@@ -695,8 +777,12 @@ change:
        covered, its StRS not covered);
     3. a StRS without `scenarios:`: a fragmentless `@tests_req` counts, no `@accepts_req`:
        `W003` printed with its block and `W004`;
+    4. a justified whole-StRS waiver with at least one unaccepted path and a separately
+       exempted linked SwRS: the StRS may be covered by policy, but the JSON and Markdown
+       distinguish exemption from actual acceptance and the actual path count is unchanged;
   - the findings (each error, `W003`, `W004`) with their messages, and how to fix each,
-    including the update of a bundle schema written before 0.18.0 (Q48);
+    including the update of a bundle schema written before 0.18.0 (Q48), the waiver's required
+    reason and its effect on W004 but not W003;
   - the report fields (Rule 8), stating that per StRS `stakeholder_test_coverage.tests` lists
     the `@tests_req` files while the StRS record's own `tests` follows `validation_tests`, that
     is the `@accepts_req` files in the new mode (Q62), and that `marker_coverage.tested` is a
@@ -704,16 +790,22 @@ change:
     report's `validation_tests` (aggregate and per StRS) holds the `@accepts_req` files (Q49)
     while `okfreq trace --json`'s `validation_tests` keeps the raw `@tests_req` files on a
     StRS (Rule 3).
-  Each example's blocks carry a `:caption:` so a test can read them (Evidence).
+  The page also gives the waiver frontmatter, owner-review guidance, when to remove it, its
+  whole-StRS scope, the distinct SwRS annotation exemption, and the unchanged evidence
+  counters. The first three examples' blocks carry a `:caption:` so a test can read them
+  (Evidence).
 - `docs/source/reference/okfreq-frontmatter.md`:
   - a "Declared scenarios" section with the label `(okfreq-declared-scenarios)=` (W003 target,
     Q32): the field, its shape, ids never reused (Q26), StRS vs SwRS meaning, declaring it from
-    `### Main paths` / `### Scenario` headings, Rule 7, and a link to the reference page;
+    `### Main paths` / `### Scenario` headings, matching IDs and titles in frontmatter and body
+    as authoring guidance, Rule 7, and a link to the reference page;
   - "Lifecycle states": the `approved` row gains the Rule 7 exception, and so does the paragraph
     "A coding agent never approves a requirement…" below the table;
   - "Tier-specific Markdown bodies": the StRS example shows a `### Main paths` section and its
-    `scenarios:`, and the SwRS example, which shows `### Scenario:` headings, also shows its
-    `scenarios:` frontmatter;
+    `scenarios:` and matching `#### Path S1: …` headings, and the SwRS example shows matching
+    `### Scenario S1: …` headings and `scenarios:` frontmatter;
+  - document `acceptance_exemption` and `acceptance_exemption_reason` as authored StRS fields
+    distinct from a SwRS's `annotation_exemption` and `exemption_reason`;
   - "Generated and externally maintained fields": a row `accepted_in_files`, and the
     `tested_in_files` row and the paragraph "StRS intentionally has no implementation or test
     coverage fields" say a StRS carries `tested_in_files` and `accepted_in_files` in the new
@@ -777,7 +869,9 @@ Each skill must work without this repository (`tests/test_skill_resources.py`).
   `scenarios:` from existing headings (frontmatter only, `S1…` in order, never reused), Rule 7,
   adding to each existing marker the `#S<n>` of the scenario its test really exercises,
   choosing `@accepts_req` for the acceptance test of a StRS path (by what the test does and its
-  execution cost), and never inventing a test or a marker to fill a counter. The bullet "Never
+  execution cost), using a justified whole-StRS waiver only when appropriate, and never
+  inventing a test or a marker to fill a counter. Heading alignment is authoring guidance and
+  any approved-body edit follows Rule 7. The bullet "Never
   hand-edit `derived_by`, `supersedes`, `implemented_in_files`, `tested_in_files`,
   `default_owner_email`, indexes or reports" (around line 48) also lists `accepted_in_files`.
   The backlog CR
@@ -796,7 +890,11 @@ Each skill must work without this repository (`tests/test_skill_resources.py`).
   formats"): `scenarios:`, `#S<n>` and its one rule, the two test verbs and the cost
   recommendation, the StRS `### Main paths` format, Rule 7 (the exception for a
   `scenarios:`-only edit in "Lifecycle and approval", in the bullet "When the task asks you to
-  change an approved requirement…"). In "While editing", the sentence "Never
+  change an approved requirement…"). Require consistent IDs and titles in `scenarios:` and
+  corresponding `### Scenario S<n>: <title>` / `#### Path S<n>: <title>` headings as a good
+  authoring practice, not a new validator rule. IDs remain stable when scenarios are reordered
+  or removed. Explain the justified whole-StRS acceptance waiver and its distinction from
+  acceptance and from a SwRS annotation exemption (U1-U4). In "While editing", the sentence "Never
   hand-edit generated `derived_by`, `supersedes`, `implemented_in_files`, `tested_in_files`,
   `default_owner_email`, `status` or `verified` fields" also lists `accepted_in_files`. Then
   `just refresh-requirements-guideline` regenerates
@@ -810,13 +908,15 @@ This repository switches to the new mode and is migrated for real. The project g
 forbids nominal evidence, so each marker goes only on a test that does what the marker says.
 
 **Acceptance tests in this repository.** An acceptance test (`@accepts_req`) runs the product
-as a user gets it: it builds the wheel (`uv build --offline --wheel`), installs it in an
-isolated venv, and runs the installed console scripts (`okf-schema`, `okfkb`, `okfreq`) as
-subprocesses in a fresh temporary project, with no source checkout on `PYTHONPATH`, exactly as
-`test_installed_wheel_commands_install_complete_families_without_source_checkout` does. Move
-its helpers (`_build_wheel`, `_link_runtime_dependencies`, venv setup) into a shared,
-session-scoped fixture in `tests/conftest.py` (built once per pytest worker), reused by that
-test. On Windows the new tests call `pytest.skip` (that test today returns early when
+as a user gets it: build the wheel (`uv build --offline --wheel`), install it in an isolated
+venv, and exercise the installed console scripts (`okf-schema`, `okfkb`, `okfreq`) in
+subprocesses in a fresh temporary project, with no source checkout on `PYTHONPATH`, as
+`test_installed_wheel_commands_install_complete_families_without_source_checkout` does.
+The navigation path is the exception: invoke the installed wheel's Python API in an isolated
+subprocess and assert the returned file-link targets, without importing the checkout or
+inventing a navigation CLI (U3). The separate link-checking path uses the installed command.
+Share the wheel and environment setup with the existing installed-wheel test, built once per
+pytest worker. On Windows the new tests call `pytest.skip` (that test today returns early when
 `sys.platform == "win32"`, so it passes without running). They run in `just test` with the
 rest of the suite, like that test today, so this repository's CI does not change (surface 7).
 The in-process tests (`CliRunner`, API calls, `runpy`) that walk a path keep `@tests_req`.
@@ -827,7 +927,7 @@ The in-process tests (`CliRunner`, API calls, `runpy`) that walk a path keep `@t
    `markers.accepts: '@accepts_req'`; `accepted_in_files` added to `generated_fields`; the new
    acceptance test modules added to the `test_dirs` of their scopes.
 2. The 5 StRS (all `proposed`, so their body may change through the usual review): add a
-   `### Main paths` section with `#### Path <n>: <title>` and its steps, and the matching
+   `### Main paths` section with `#### Path S<n>: <title>` and its steps, and the matching
    `scenarios:`, derived from each StRS's normative statement (Q51):
    - CORE-001: S1 Validate a conforming bundle; S2 Report a non-conforming bundle without
      changing it.
@@ -840,10 +940,13 @@ The in-process tests (`CliRunner`, API calls, `runpy`) that walk a path keep `@t
      refresh generated coverage; S3 Audit the requirements base with validate and a report.
 
    StRS content is the owner's: the PR lists these paths for the owner's review.
-3. One acceptance test per declared path (13), in `tests/test_acceptance_core.py`,
-   `tests/test_acceptance_okfkb.py` and `tests/test_acceptance_okfreq.py`, each walking the path
-   through the installed console scripts and asserting the observable outcome, marked
-   `# @accepts_req StRS-OKFSCHEMA-…#S<n>`.
+3. Implement an acceptance test for each of the 12 executable paths, in
+   `tests/test_acceptance_core.py`, `tests/test_acceptance_okfkb.py` and
+   `tests/test_acceptance_okfreq.py`, using the installed interface above and asserting the
+   observable outcome, marked `# @accepts_req StRS-OKFSCHEMA-…#S<n>`. The thirteenth path,
+   OKFKB-001 S3, is interactive consolidation for human review, not a deterministic command:
+   do not invent a CLI or a marker for it. Add `acceptance_exemption: true` and an explicit
+   `acceptance_exemption_reason` to the whole `StRS-OKFSCHEMA-OKFKB-001` (U1).
 4. The 6 `@tests_req StRS-OKFSCHEMA-…` markers in `tests/` stay `@tests_req` (Q52); each gets
    the fragment of the path its test exercises (one line per path if it exercises several,
    e.g. the showcase test). Every StRS now declares paths, so a fragmentless marker would be an
@@ -854,12 +957,15 @@ The in-process tests (`CliRunner`, API calls, `runpy`) that walk a path keep `@t
    `tests/test_file_links.py::test_inspect_file_links_exposes_successes_failures_and_suffixes`
    (CORE-003), `tests/test_okfreq.py::test_report_and_cli_surface` and
    `tests/test_examples.py::test_okfreq_showcase_runs_in_an_empty_project` (OKFREQ-001).
-5. The 29 SwRS (and the new one): declare `scenarios:` from their 93 `### Scenario:`
-   headings, `S1…` in order, titles from the headings. For each scenario, put
+5. The 29 SwRS (and the new one): declare `scenarios:` from their 93 existing `### Scenario:`
+   headings, `S1…` in order, titles from the headings, and align each body heading's ID and
+   title with its frontmatter (U4). For each non-exempt scenario, put
    `# @tests_req SwRS-…#S<n>` on the test function(s) that exercise it, found among the SwRS's
    current `tested_in_files`. File-level fragmentless markers become per-test markers (they are
    errors now). A scenario with no exercising test gets a real new test; a marker never goes on
-   a test that does not exercise its scenario.
+   a test that does not exercise its scenario. For `SwRS-OKFSCHEMA-OKFKB-005`, the interactive
+   consolidation requirement, set its existing `annotation_exemption: true` and a specific
+   non-blank `exemption_reason` instead of inventing source or test markers (U2).
 6. Create one bounded SwRS, `SwRS-OKFSCHEMA-OKFREQ-015`, with `okfreq new swrs` in the new mode
    (pre-filled, Rule 9), scope `okfreq`, `--derives-from StRS-OKFSCHEMA-OKFREQ-001`,
    `--lifecycle proposed`, `--project okf-schema`. It states Rules 1 to 9 as observable
@@ -868,7 +974,8 @@ The in-process tests (`CliRunner`, API calls, `runpy`) that walk a path keep `@t
    SwRS-OKFSCHEMA-OKFREQ-002, -003, -004, -005 and -011 (retire, Q57) still hold; change one only
    where its statement became false.
 7. `requirements/tiers/_schema/base.schema.yaml` (`scenarios`; the `req_lifecycle` description
-   with the Rule 7 exception), `strs.schema.yaml` and `swrs.schema.yaml` (Rule 4).
+   with the Rule 7 exception), `strs.schema.yaml` (authored waiver and Rule 4 fields) and
+   `swrs.schema.yaml` (Rule 4).
 8. `requirements/guidelines/project.guidelines.md`: replace "This project uses
    `linked-swrs-and-validation-test`…" and "Keep the strict StRS coverage mode and direct
    validation-test evidence current" with the new mode and the definition of this repository's
@@ -876,7 +983,7 @@ The in-process tests (`CliRunner`, API calls, `runpy`) that walk a path keep `@t
 9. `requirements/tiers/log.md`: one entry under today's `## YYYY-MM-DD` heading (newest first),
    `### Acceptance paths`: the mode switch, the new SwRS, the schema changes, the declared
    paths and transitions, the fragments added to the markers, the new acceptance tests, the
-   verification result.
+   two justified exemptions, heading alignment and the verification result.
 10. `okfreq update-coverage requirements`, then `okfreq validate requirements --prose
     --check-links --project-root .`, `okfreq lint requirements --prose --check-links
     --project-root .`, `okfreq trace requirements --json`.
@@ -886,8 +993,8 @@ The in-process tests (`CliRunner`, API calls, `runpy`) that walk a path keep `@t
 - `examples/okfreq-examples/showcase.py`: a new step after `strict_stakeholder_coverage`, in
   the disposable project (custom `@delivers`/`@verifies` already). `StRS-DELIVERY-001` was
   created in `linked-swrs-and-validation-test` mode, so it has no `### Main paths`; the step
-  first writes into its body a `### Main paths` section with `#### Path 1: …` and
-  `#### Path 2: …`. It adds `markers.accepts: '@accepts'`, switches to the new mode, then
+  first writes into its body a `### Main paths` section with `#### Path S1: …` and
+  `#### Path S2: …`. It adds `markers.accepts: '@accepts'`, switches to the new mode, then
   asserts in order:
   1. W003 names `StRS-DELIVERY-001`, quotes the two `#### Path` headings, and gives the block;
      W004 names it too;
@@ -914,11 +1021,12 @@ The in-process tests (`CliRunner`, API calls, `runpy`) that walk a path keep `@t
   - `requirements/config.yml`: `strs_test_coverage_mode: linked-swrs-and-acceptance-paths`
     (`markers.accepts` and `accepted_in_files` in `generated_fields` come from `okfreq init`).
   - StRS-CORE-001 declares one main path, `S1` "Export selected rows for offline review", with
-    its `### Main paths` / `#### Path 1: Export selected rows for offline review` section and
+    its `### Main paths` / `#### Path S1: Export selected rows for offline review` section and
     steps.
   - Its SwRS declare `scenarios:` (SwRS-CORE-001: S1 Export selected rows, S2 Export an empty
     selection; SwRS-CORE-002: S1 Return a Rust CSV row, S2 Export an empty Rust row) and its
-    tests carry per-test fragments: `tests/test_export.py::test_export_rows` `#S1`,
+    `### Scenario S<n>: <title>` body headings match those IDs and titles (U4). Its tests carry
+    per-test fragments: `tests/test_export.py::test_export_rows` `#S1`,
     `::test_export_rows_with_empty_selection` `#S2`, and the two Rust tests in
     `tests/rust_export_test.rs`. `test_export_rows`, the cheap in-process test of the path,
     also carries `@tests_req StRS-CORE-001#S1`.
@@ -926,10 +1034,16 @@ The in-process tests (`CliRunner`, API calls, `runpy`) that walk a path keep `@t
     report written to and read back from disk. `src/export.py` gains a small `main()` run under
     `if __name__ == "__main__"`: `python src/export.py <rows.json> <report.csv>` reads a JSON
     list of rows and writes them with `export_rows`. A new
-    `tests/test_acceptance_export.py::test_export_selected_rows_for_offline_review(tmp_path)`
+    `tests/test_acceptance_export.py::test_fast_export_selected_rows_for_offline_review(tmp_path)`
     writes `rows.json`, runs `src/export.py` with `sys.executable` through `subprocess` from
     `tmp_path` (no `sys.path` insertion), then reads `report.csv` with `csv.reader` and asserts
     the selected rows come back exactly. It is marked `# @accepts_req StRS-CORE-001#S1`.
+  - **Its second, slow acceptance variant** (U5) names the same `StRS-CORE-001#S1`, but is
+    entirely commented out and has no implementation. Keep its illustrative marker inactive,
+    for example `# # @accepts_req StRS-CORE-001#S1`, so the scanner cannot count it. It is not
+    collected as a test and must not fabricate acceptance evidence. A focused test removes
+    the fast marker in a temporary copy and proves the commented variant does not count and
+    W004 returns.
   - Result: StRS-CORE-001 `Tested 1/1 ✅`, `Accepted 1/1 ✅`, covered, no W003 or W004; its
     generated `tested_in_files` is `tests/test_export.py` and `accepted_in_files`
     `tests/test_acceptance_export.py`; both SwRS covered with no missing transition.
@@ -941,7 +1055,8 @@ The in-process tests (`CliRunner`, API calls, `runpy`) that walk a path keep `@t
 - `examples/okfreq-examples/README.md`: says the example runs in the new mode; explains its
   main path, the two test verbs it uses (`@tests_req …#S<n>` on the SwRS tests and on
   `test_export_rows` for the StRS, `@accepts_req` on the acceptance test) and why the
-  acceptance test runs the export as a separate process; adds the acceptance test to
+  fast acceptance test runs the export as a separate process, and that the commented slow
+  variant is only a future example and not evidence; adds the acceptance test to
   "Pointers" and to the sentence on executable evidence; the showcase bullet "both StRS
   coverage policies, including a direct stakeholder validation marker" names the three modes
   and the new acceptance-paths outcome.
@@ -965,7 +1080,9 @@ existing installed-wheel test already needs there. Packaging does not change.
 - A migration subcommand (Q8); bench configuration, or any check of where a test runs (Q2,
   Q52, Q55).
 - Test-result ingestion: counters are linkage; `execution_evidence` stays `not_collected`.
-- Checking that `scenarios:` titles match the body headings, or a history of retired ids (Q26).
+- A general validator enforcing that `scenarios:` IDs or titles match body headings, or a
+  history of retired ids (Q26, U4). Project-specific checks may verify the migrated examples
+  and requirements follow the guidance.
 - Several IDs or fragments on one marker line: one marker per line, as today.
 - Any change of behavior in the old modes beyond the every-mode changes listed in Rule 1.
 
@@ -982,8 +1099,8 @@ writes real test files with markers:
    in every mode; an old `config.yml` without `accepts` gets the default; `generated_fields`
    accepts `accepted_in_files`.
 2. `okfreq init` output, read from the files written: the base schema has `scenarios` and the
-   Rule 7 exception in its `req_lifecycle` description; the strs schema declares
-   `tested_in_files` and `accepted_in_files`; the swrs schema refuses `accepted_in_files`;
+   Rule 7 exception in its `req_lifecycle` description;    the strs schema declares `tested_in_files`, `accepted_in_files` and the optional authored
+   waiver with its conditional required reason; the swrs schema refuses `accepted_in_files`;
    `config.yml` has `markers.accepts` and `accepted_in_files` in `generated_fields`.
 3. `marker_scan`: `@accepts_req` read in `test_dirs` only; fragment and line captured; custom
    keywords; `#path1`, `#S1a`, `#` read as fragmentless; `#S0` captured; two fragments of one
@@ -994,22 +1111,28 @@ writes real test files with markers:
    today's handling (`non_leaf` for a parent tier) with no finding.
 5. Rule 5: StRS fractions and booleans at `0/3`, `2/3` tested with `1/3` accepted, `3/3`; the
    counters independent both ways (a path accepted and not tested, one tested and not
-   accepted, Q54); covered needs accepted plus linked SwRS; StRS without `scenarios:` tested or
+   accepted, Q54); covered needs linked SwRS plus acceptance or a justified StRS waiver; StRS without `scenarios:` tested or
    accepted by fragmentless markers; SwRS with transitions covered only when all marked;
    `update_coverage` in the new mode writes a StRS's `tested_in_files`/`accepted_in_files` from
    counting markers only, each when listed in `generated_fields`, and leaves a field that is
    not listed untouched (a hand-placed value stays, none is added); in the old modes it removes
    both from a StRS even when `generated_fields` lists them (Q61); a SwRS's `tested_in_files`
    lists only the files of its counting markers (fragmentless without transitions, declared
-   `#S<n>` with them; a rejected marker's file absent, Q30); exempted SwRS stay out.
+   `#S<n>` with them; a rejected marker's file absent, Q30); exempted SwRS stay out. Test a
+   partial and an entirely unaccepted waived StRS, no linked SwRS, a missing linked SwRS,
+   a separately justified exempt SwRS, and a missing or blank SwRS reason. The waiver never
+   manufactures markers, booleans or path counts; old modes ignore its coverage effect.
 6. W003: body with `### Main paths` / `#### Path 1: …` / `#### Path 2: …` → headings quoted,
    block with titles, link; body with `### Scenario: …` headings; no heading → placeholder
    block; reading stops at the next `#`, `##` (e.g. `## User Need`) or `###` heading and at the
    links block; deprecated/superseded → none; draft → one; printed without `prose=True`; no
-   finding for a SwRS without `scenarios:`. W004: a live StRS with no `@accepts_req` → one,
+   finding for a SwRS without `scenarios:`. Explicit `Path S<n>:` and `Scenario S<n>:` IDs
+   survive in the suggested block, including mixed legacy headings. W004: a live StRS with no `@accepts_req` → one,
    with the cost link; with only rejected `@accepts_req` markers → one; with one counting
    `@accepts_req` (`accepted 1/3`) → none; deprecated/superseded → none; a StRS without
    `scenarios:` and without acceptance → both W003 and W004; printed without `prose=True`.
+   A justified waiver suppresses W004, not W003 or fragment errors; true with a missing,
+   empty or whitespace-only reason is invalid. `update_coverage` preserves both waiver fields.
 7. Rule 2: the schema refuses `kind`, `P1`, empty title, `[]` in every mode; in the new mode
    the code refuses duplicate ids, and in the old modes a duplicate passes; `update_coverage`
    preserves `scenarios:` byte for byte.
@@ -1031,10 +1154,12 @@ writes real test files with markers:
     is listed in `missing_tests` and is not in `totals.tested`, while the
     old modes' values are unchanged; `Draft202012Validator(report_schema())` validates each
     mode's report; Markdown columns, summary line and `Missing transitions` in the new mode,
-    unchanged table in the old modes.
+    unchanged table in the old modes. A waived report contains its reason, unchanged actual
+    acceptance and path counts, an `exempt` Markdown acceptance cell, and `exempt` for an
+    individually waived SwRS; it validates against `report_schema()`.
 11. Rule 9: `create_requirement` in the new mode pre-fills `scenarios:` for SwRS (S1, S2) and
-    StRS (S1 and the `### Main paths` section); in the old modes the output is byte-identical
-    to today's (Q59).
+    StRS (S1 and the `### Main paths` section), with IDs and titles matching both tiers' body
+    headings; in the old modes the output is byte-identical to today's (Q59).
 12. Q57: `retire_requirement` refuses a draft named only by an `@accepts_req` marker, in each
     of the three modes, naming the file, and changes nothing.
 
@@ -1069,14 +1194,20 @@ Documentation:
 Repository and examples:
 
 - `tests/test_project_contract.py::test_live_requirements_preserve_complete_real_evidence`
-  asserts the new mode, zero findings (so no fragment error, no W003, no W004), `covered ==
-  requirements` (every path accepted, every transition tested) and no `missing_tests`.
+  asserts the new mode, zero findings (so no fragment error, no W003, no W004), all 5 StRS
+  covered by the policy, 12 of 13 paths actually accepted, and no non-exempt `missing_tests`.
+  It identifies the justified StRS waiver and the independently exempted consolidation SwRS;
+  it does not claim that interactive consolidation is accepted. Verify migrated requirement
+  and example headings match their frontmatter without introducing a general validator rule.
 - The new acceptance tests run on Linux and macOS in `just test` and fail if the installed
-  scripts do not produce the path's outcome.
+  interface does not produce each executable path's outcome; the navigation test imports the
+  installed API in an isolated subprocess. No acceptance marker or dedicated CLI represents the
+  interactive consolidation path.
 - `tests/test_examples.py::test_okfreq_showcase_runs_in_an_empty_project` runs the new step.
 - `just refresh-okfreq-examples` runs the example's acceptance test, and the regenerated
   `examples/okfreq-examples/dist/requirements-report.json` shows the new mode, StRS-CORE-001
-  covered with `paths {1, 1, 1}` and no error, W003 or W004 (Q50).
+  covered with `paths {1, 1, 1}` and no error, W003 or W004 (Q50). The fast and commented slow
+  variants name the same StRS; removing the fast marker proves the slow comment is not counted.
 - `just preflight` (style, lint, `requirements-lint`, changelog, typecheck, guideline refresh,
   tests, `refresh-all-examples`, `requirements-report`, `docs`). Review its generated diffs
   (examples, `dist/`, guideline copies, `CHANGELOG.md`) before hand-back. The commit subject is
@@ -1101,14 +1232,16 @@ would. Shared fixture: StRS-A with `scenarios:` S1/S2 and `#### Path` headings; 
 | D5 | New mode, `config.yml` written before this change (no `accepts` key; `generated_fields` without `accepted_in_files`), schemas from this version (with older schemas it is D6) | Default keyword recognised; results as D3, except that `update-coverage` leaves `accepted_in_files` untouched on every StRS (not a configured generated field, Q61): none is added, and a value already in a StRS's frontmatter stays as it is. |
 | D6 | New mode, `swrs.schema.yaml` written before this change | `okfreq validate` exits 1 with one error naming `accepted_in_files` and `swrs.schema.yaml` and giving the 0.18.0 declaration to add; no shipped declaration is applied. After the declaration is added, results as D3. In an old mode the same bundle validates as today. |
 | D7 | `strs_test_coverage_mode: unsupported` | `RequirementError` listing the three modes; `okfreq validate` exits non-zero with it. |
+| D8 | New mode, StRS-A has a justified whole-StRS waiver and SwRS-A is test-covered | StRS-A is covered despite its unaccepted S2; `accepted` remains false, paths remain `{2, 1, 1}`, JSON records the waiver reason, and the Markdown acceptance cell says `exempt`. Remove all acceptance markers: W004 remains suppressed, acceptance is still false and W003 is unaffected. |
+| D9 | New mode, StRS-A waived but linked SwRS-A is not test-covered | StRS-A remains missing. A separate `annotation_exemption: true` with non-blank `exemption_reason` makes SwRS-A `exempt` and satisfies that linked-SwRS condition; an absent or blank reason does not. A StRS without any linked SwRS remains missing. |
 
 ### Scenario steps (manual demonstration for the PR)
 
 In a temporary directory:
 
 1. `okfreq init requirements`, set the new mode in `requirements/config.yml`.
-2. `okfreq new strs …`: the body has `### Main paths` / `#### Path 1: <main path title>` and the
-   frontmatter `scenarios:` S1. Replace the placeholder in both, add `#### Path 2: …` and S2.
+2. `okfreq new strs …`: the body has `### Main paths` / `#### Path S1: <main path title>` and
+   the frontmatter `scenarios:` S1. Replace the placeholder in both, add `#### Path S2: …` and S2.
    `okfreq validate requirements` prints W004 for it.
 3. `okfreq new swrs … --derives-from …`: `scenarios:` S1, S2 pre-filled.
 4. Add `# @tests_req <SwRS>` in `tests/`: `okfreq validate requirements` exits 1 and asks for
@@ -1120,3 +1253,6 @@ In a temporary directory:
    and the `#S<n>` markers on it become unknown-fragment errors.
 7. `just docs` in okf-schema and open the two new pages, the "Declared scenarios" anchor and
    the "Choosing by execution cost" anchor.
+8. In a separate fixture, waive an StRS with a justified reason, leaving a path unaccepted:
+   W004 disappears and the report says `exempt`, while the accepted fraction stays honest.
+   Remove `scenarios:` to see W003 still appears; test an independently exempted linked SwRS.
