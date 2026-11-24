@@ -44,6 +44,7 @@ Grade: 2. The `showDocument` port gains options and an outcome (all fakes update
 ## Known gaps
 
 - The probe table was measured on Windows; the Linux half ran in the heavy CI run [45444316305](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45444316305) at 9d956ea (integration, stress, visual all green); its probe lines show the same on Linux: with the association, no entry gives a selection event or a tab fragment or query (`tabUri=-/-`, `selections=none`), so no automatic line signal is built. **UNVERIFIED:** the verdict "no signal" for the Search entry and for Quick Open in the default state rests on absence of evidence: they cannot be driven reliably by command.
+- **UNVERIFIED:** the Windows probe table above (VS Code 1.147.0, Windows 11) is a local measurement and was not run again at the pushed head; the Linux CI probe lines agree on every associated row, but differ on two default rows: with the default, Go to Symbol opened nothing on Linux (text editor at 42 on Windows) and Quick Open opened nothing.
 - The `real-input` integration step times out in this Windows worktree even with the new steps removed; it passes in the Linux heavy CI run above and on main's CI, so it is a local Windows limit, not shown to come from this change.
 
 <details>
@@ -71,12 +72,14 @@ No visual change beyond the new menu entry and the marked line in Studio.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
-- [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `just check`, unit and security tests, `just requirements-update`/lint, `npm run test:integration -- --trusted-only` (open-at-line, probe and studio steps pass; `real-input` times out on this Windows worktree only, see Known gaps)
-- [ ] Review
-- [ ] CI green
+- [x] New or changed tests (they fail on the previous code)
+- [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
+- [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
+- [x] Evidence: none, no screenshots captured (probe table from the test header and CI log lines)
+- [x] Local gates at 9d956ea (carried from eb25d83: only the changelog line changed): `just check` pass, `just requirements-update`/lint, `npm run test:integration -- --trusted-only` (open-at-line, probe and studio steps pass; `real-input` times out on this Windows worktree only, see Known gaps)
+- [x] Review: approved at eb25d83 (committed as 2d64c81, rebased; the later commit 9d956ea only changes the changelog PR number)
+- [x] Verified at 9d956ea
+- [x] CI green at 9d956ea (PR checks and heavy run 45444316305)
 
 ## Internal references
 
