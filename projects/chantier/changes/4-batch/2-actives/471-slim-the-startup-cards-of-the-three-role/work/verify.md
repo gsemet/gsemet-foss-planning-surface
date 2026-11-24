@@ -1,6 +1,6 @@
 # Verify CR-471 (round 1)
 
-Head: 3be21b3e390c29d3b823b31c9b175442d26c6552
+Head: a96fd75ac3445a4e0926464c35a698ee8048f446
 
 Base: 3c29dd7c7aa6dc44961dc8f1588ab6fa4b2371b4 (= origin/main).
 
@@ -87,3 +87,18 @@ now join `foreman*.md` and `*driver*.md` with "
 I ran the 15 asserted phrases of the two checks against the joined cards at the head: all True
 (`True True True True True` and nine more `True`). PASS.
 Claims 1 to 3, 4b, 5b and 6 carried from 4a1b125: the cards, tests and manifest did not change since.
+
+## Round 5 at a96fd75ac3445a4e0926464c35a698ee8048f446 (fix round 1, Fable readings)
+
+Move: 33 files (`git diff --stat 3be21b3 HEAD`): cards, manifest, moved_rules.tsv, test_start_reading.py.
+1. Full test suite at the head: `PYTHONPATH=skills/chantier/scripts/cli/src uv run --no-sync --project <main> python -B -m pytest -q -p no:cacheprovider -n 4 skills/chantier/scripts/cli/tests`
+   output: `2405 passed, 20 skipped in 184.34s`; `git status --short` clean. PASS (includes manifest limit, split and moved-rule tests).
+2. Text moved, not lost (word multiset of removed vs added lines of `git diff 3be21b3 HEAD -- skills/chantier/references`, manifest and tsv excluded):
+   137 words net removed, nearly all pointer words (below, above, chief-of-staff.md, Your means, While) replaced by action names; the content words
+   in the list (Half-done irreversible, contributors, critic:) were found with `git grep` at HEAD in driver.md, chief-of-staff-grill.md, chief-of-staff-batch-end.md. PASS.
+3. PR description: `gh pr view 450` body equals `work/pr-body.md` (only a trailing blank line differs); it names a96fd75; Summary, figures, fix-round growth and Known gaps
+   (dropped CoS sentence, critic rule, readings not re-run) match `work/r1.md`. PASS.
+4. Long gate at a96fd75: `work/gates/20261124-122353.log` first line `gate CR-471 ... head a96fd75ac3445a4e0926464c35a698ee8048f446`; still running at this verdict, not judged here (the Driver cites its end). A pass existed at 3be21b3.
+Claims 4b, 5b of earlier rounds carried (same reasoning); claim 6 superseded by the PR body's figures, consistent with r1.md.
+
+VERIFIED at a96fd75.
