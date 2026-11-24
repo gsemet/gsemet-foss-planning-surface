@@ -1,6 +1,6 @@
 ## Summary
 
-The Foreman (the session that steers a running batch) woke on a 30-minute timer and relied on the Chief of Staff to relay each merge and red CI. Cost study of a real batch: 41 of 291 Foreman wakes were timer heartbeats, and the watcher never woke the Foreman. This change lets the Foreman run its own watcher on its batch's events, and stretches the Claude Code timer to 55 minutes (at worst one wake per 55 minutes, under the 1-hour cache).
+The Foreman (the session that steers a running batch; the Chief of Staff is the session that talks to the user and relays events) woke on a 30-minute timer and relied on the Chief of Staff to relay each merge and red CI. Cost study of a real batch: 41 of 291 Foreman wakes were timer heartbeats, and the watcher never woke the Foreman. This change lets the Foreman run its own watcher on its batch's events, and stretches the Claude Code timer to 55 minutes (at worst one wake per 55 minutes, under the 1-hour cache).
 
 ## Deliverables
 
@@ -31,6 +31,7 @@ Grade: 2. Watcher code and the cards that steer a batch change together; revert 
 
 - **UNVERIFIED:** the 55-minute wake and the Foreman's watcher waking an idle Foreman session on Claude Code are unproved; the cards name the trials for the first batch run on this version.
 - The Foreman's watcher link-failure end lines still say "for the Chief of Staff".
+- The Foreman's-watcher scenario step has not been run yet; the long gate owes it before merge.
 
 <details>
 <summary>Details</summary>
@@ -41,6 +42,11 @@ Grade: 2. Watcher code and the cards that steer a batch change together; revert 
 - `hub/watch.py`, `hub/watch_cmd.py`, `hub/autostart.py`, `hub/watch_lines.py`, `hub/schemas.py`: the Foreman's watcher, its end rules, the `not running` line, message texts "for the steering session".
 - Cards (Foreman, Chief of Staff, routing, hosts, session start), docs and AGENTS.md: who records a merge, the watcher rule.
 - Tests and scenario step for the Foreman's watcher.
+
+## Human decisions
+
+- Keep the Foreman's timer (30 to 55 minutes on Claude Code) and add a watcher of the Foreman's own, rather than remove the timer.
+- In Foreman mode the Foreman records a merge itself after checking it on the forge; the Chief of Staff tells the user and keeps recording whenever the Foreman's watcher does not run.
 
 ## Impacts
 
