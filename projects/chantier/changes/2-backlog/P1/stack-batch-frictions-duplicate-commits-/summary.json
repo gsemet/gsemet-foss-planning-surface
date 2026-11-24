@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Stack batch frictions: restack line, true bases, carry, lease commands",
+  "summary": "Specified: order merged names the owed restack, take prints the base of the CR's place, a clean restack carries, lease refusals name the exact command; one open question on ending a stale lease.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "fd9a0f6d8488fa39aac383b6d34b1c0127147b15b570ad4f95839d9ef8a51f12",
+    "02-answers.md": "ad84c18f675f846441bcf352c52035c059d415a7f8a0fd363620d0049876cf70",
+    "03-change-spec.md": "ce810ebe0ea7322201c51b6b9412d3c2e16aa40e352fc4c910a09cb73a2e6817",
+    "intake/request.md": "26ed1fd287d9ae8b86d012530f2ea5e7614ebef8c9308ef7c77c1fea9f8fdfde"
+  },
+  "summarized": "2026-11-24T11:07:40Z"
+}
