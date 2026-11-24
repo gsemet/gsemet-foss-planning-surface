@@ -1,5 +1,3 @@
-<!-- draft; SHAs filled at ship -->
-
 ## Summary
 
 The web board's menu carried a Kanban page nobody uses, an "Inbox" entry easily confused with the `1-inbox` folder, and a Help entry in the middle. The All-projects home showed no activity and no PRs, and History was per project only. This change trims the menu, dims the page behind an open panel, hides the unfinished Grill button, and makes the All-projects pages a place to follow every project at once.
@@ -11,7 +9,7 @@ The web board's menu carried a Kanban page nobody uses, an "Inbox" entry easily 
 - Grill button hidden behind one constant in `js/panel/griller.js`, off as shipped; the server's Griller is untouched.
 - All-projects home: an Open PRs block (ready to merge, red CI, working) and a Recent activity block (20 newest CR and release events), read from the record, the hub's journal and the History index; no new forge read.
 - History on All projects: the project page widened to every project, with project and type filter chips and the project's mark on each row; the `history` topic and `history.get` accept `*`.
-- Screenshots: to be added at the head.
+- Screenshots: none at this head, see Known gaps.
 
 ## Blast radius
 
@@ -26,6 +24,7 @@ Grade: 2. Mostly web client files, plus the `board` and `history` reads of the s
 ## Known gaps
 
 - No screenshots retaken yet: the docs pictures still show the old menu, and the PR's own screenshots at the head are owed.
+- UNVERIFIED: the five screenshots the change owes (All-projects home, All-projects History, menu, dimmed panel, leave dialog), real red CI from a live forge and the Grill constant switched on were not exercised.
 - Red CI stays shown until the CR's next hand-back; the hub journals no green line.
 
 <details>
@@ -50,12 +49,12 @@ The menu and the All-projects pages change; a project's pages are unchanged.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`
-- [ ] Evidence: after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `f1c0f5a`: `just check` pass, `just eval-dry-run` pass (19 of 19), `just scenario` pass
+- [x] Evidence: tests at `f1c0f5a` (no screenshots: Playwright not available)
+- [x] Review: approved at `f1c0f5a`
+- [x] Verified at `f1c0f5a`
+- [x] CI green at `f1c0f5a`
 
 ## Internal references
 
