@@ -49,3 +49,4 @@ Trial render (2026-11-24, after raw-copy-demo-Q38): the Griller filmed the new s
 
 Grilled enough (2026-11-25): the owner, "envoie tout ça dans le batch en cours, pour validation".
 Destination: running batch batch-09. Critic: yes (the kit's storyboard format, the captions and the marks change).
+42. raw-copy-demo-Q42 (2026-11-25): **The video is watchable in the PR's review.** The owner's words: "assure toi que je puisse revoir la vidéo dans la revue de la PR". The PR body shows the rendered clip inline (the GIF, embedded from the branch's committed file at the PR's head, which GitHub plays in the description) and links the MP4 (1280x720, 15 fps) and the WebM by their raw URLs at the same head, so the owner watches it without checking out the branch. Each new render pushed updates these links to the new head. The recipe gains this rule for every feature clip PR.

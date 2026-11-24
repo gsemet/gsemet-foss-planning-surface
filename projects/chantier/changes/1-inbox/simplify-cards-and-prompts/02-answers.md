@@ -34,3 +34,22 @@ Destination: running batch batch-31.
 Spec critic: yes, on Fable (it changes every role's contract and several areas at once).
 
 21. simplify-cards-Q21: **Budget and autonomy.** Owner, 2026-11-25, in their words: yes, raise the budget to $400; the plan (19 chained children, tools added little by little) suits them; do it in total autonomy, they go to sleep. Budget batch-31: $400.
+
+22. simplify-cards-Q22: **Critic's findings, settled by the Chief of Staff under the owner's word "totale autonomie" (answer 21), to confirm by the owner at wake.** Spec critic on Fable, 21 findings, `A` of each draft question taken unless said:
+- F1 A: the short prompt `brief` prints keeps the `writes:` and `worktree:` lines after its first line; the hook is unchanged; a test asserts it.
+- F2 A: child 15 split into chained CRs: new cards and topics written beside the old as files nothing loads, one CR per family (workers; Drivers; Foreman; Chief of Staff and Griller; host and shared), then one small swap CR (CLI outputs, hook message, removal of the old set, test conversion). Rule ids and `rules.json` go with the gates child. The family CRs and the swap merge as one unit.
+- F3 A: the trial is a smoke test (5 tries in the compound form, permission mode recorded); the proof is the measured refusal rate afterwards; the cards keep the refused-push route for good; one refusal in the trial is recorded and tried once alone before the program stops.
+- F4 A: a new judge in the kit (a named model), the Griller's proved headless flags, a spend cap printed first, "inferable" rows grouped, pass rule "no case 0 of 3 that the old cards passed".
+- F5 A: a rule that protects the user or the repository lives only in the floor, the role's card or a CLI/hook refusal; never in a topic alone, never "inferable"; the nevers cap gives way before such a rule.
+- F6 A: child 19 is a sandbox campaign run by the user or on their word, plugin loaded from the stack's top worktree; roles not seen are "no run", not failed; the cards children are handed back validated with the gap "real run not done".
+- F7 A: one child before the brief child rewrites the four AGENTS.md sentences (roles are data the CLI reads; the CLI advises with `next`, refuses with rails, never decides a merge or a take-back; `judge` only words the ask).
+- F8 A: `msg steering` only; prints "not delivered: no watcher subscribed" and exits non-zero when none is; no `user` or `cr:` targets.
+- F9 A: child 14 keeps `roles.yaml`, the lint and the wrapper check as a `just` target; project roles become a later CR with their own grill.
+- F10 A: briefs are written in the git folder (`chantier/briefs/…`), never published.
+- F11: children of the cards swap to the gates and the real run merge in one sitting, in order, no session started between; each carries a typed merge wait on the last.
+- F12 A: `take` never clears a recorded Driver itself; S10 keeps only `--epoch` in any position.
+- F13 A: CI step stays a reminder; proof on a throwaway PR; the Inspector checks the line quotes the user's words from `02-answers.md`.
+- F14 A: M9 split out of child 2; `next` split from `status --since` with the `state:` line; child 12 split in two.
+- F15 to F21: fixes applied (pending-items section; child 1's base is the batch's stack top when it joins; unproved claims marked; CLI lines naming removed cards switched, with a test; floor for the three roles without a wrapper; each child states the seconds it adds to `just test`; `chantier push` is the one way a Driver publishes its branch, never a retry of a refused `git push`).
+Open questions Q1-Q8 of the specification: Q1 no hook deny list in this program (filed apart); Q2 five tries as smoke test; Q3 hand-written wrappers, `roles build` as a check; Q4 the gates child freezes what the rewrite reaches, a card above its target listed in Known gaps; Q5 the owner's, handled as F6; Q6 the steering session keeps plain `git push --force-with-lease`; Q7 no new forge read, the forge's own refusal printed verbatim; Q8 nothing merges while the owner sleeps; each child presented as ready.
+Budget: $400 (answer 21).
