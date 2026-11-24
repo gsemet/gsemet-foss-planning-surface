@@ -16,9 +16,11 @@ them with a `#S<n>` fragment, mandatory on every marker whose target declares `s
   per scenario;
 - `@accepts_req StRS-X#S<n>` (new): the acceptance test of a StRS main path (Q52).
 
-Each StRS gets two independent counters (Q54), "tested" and "accepted". It is covered when its
-linked SwRS are covered or individually exempted, and either all its paths are accepted or the
-whole StRS has a justified acceptance waiver (U1-U2). A waiver is not acceptance evidence.
+Each StRS gets two independent counters (Q54), "tested" and "accepted". It is covered when it
+has linked SwRS that are all covered or individually exempted, and either its acceptance
+condition is met or the whole StRS has a justified acceptance waiver (U1-U2). Acceptance
+means all declared paths are accepted, or a fragmentless acceptance marker when no paths are
+declared. A waiver is not acceptance evidence.
 okfreq does not check where or how a test runs. The documentation recommends, without enforcing
 it, `@accepts_req` on the tests closest to the final product, which may be costly and run in
 the main-branch pipeline, and `@tests_req` on cheaper tests run on every pull or merge request;
@@ -42,7 +44,7 @@ wants `okfreq` to:
    acceptance test of a StRS main path (`@accepts_req`);
 3. report, per StRS, which fraction of its paths is tested and which is accepted;
 4. tell an agent exactly how to declare `scenarios:` when a StRS has none (no migration
-   command), and warn when a StRS has no acceptance test;
+   command), and warn when a non-waived StRS has no acceptance test;
 5. show all of this, and why, in the published documentation, explained by execution cost.
 
 The Studio's own migration (declaring its `scenarios:`, adding `#S<n>` fragments to its
@@ -251,11 +253,12 @@ modes" are `linked-swrs` (the shipped default) and `linked-swrs-and-validation-t
 ### Rule 1: activation (Q1, Q11, Q24, Q25, Q57, Q61)
 
 - `STRS_TEST_COVERAGE_MODES` gains `linked-swrs-and-acceptance-paths`. Its description
-  explains the linked-SwRS condition, including justified SwRS annotation exemptions; the
-  acceptance condition, including the justified whole-StRS waiver; the fragmentless fallback
-  when no paths are declared; and the separate tested counter. The same description is written
-  in `coverage_definition.stakeholder_tests` and the Markdown note below the StRS table.
-  `load_config` and `_strs_test_coverage_mode` accept the mode; the refusal lists all three.
+  explains the normal linked-SwRS condition; the acceptance condition, including the justified
+  whole-StRS waiver; the fragmentless fallback when no paths are declared; and the separate
+  tested counter. Rule 5 and the documentation explain the separate SwRS exemption. The same
+  mode description is written in `coverage_definition.stakeholder_tests` and the Markdown note
+  below the StRS table. `load_config` and `_strs_test_coverage_mode` accept the mode; the
+  refusal lists all three.
 - In the old modes okfreq accepts `scenarios:` and `@accepts_req` and requires and counts
   nothing new. Coverage, generated fields and findings stay as today, apart from the
   every-mode changes below: `@accepts_req` counts
@@ -777,9 +780,6 @@ change:
        covered, its StRS not covered);
     3. a StRS without `scenarios:`: a fragmentless `@tests_req` counts, no `@accepts_req`:
        `W003` printed with its block and `W004`;
-    4. a justified whole-StRS waiver with at least one unaccepted path and a separately
-       exempted linked SwRS: the StRS may be covered by policy, but the JSON and Markdown
-       distinguish exemption from actual acceptance and the actual path count is unchanged;
   - the findings (each error, `W003`, `W004`) with their messages, and how to fix each,
     including the update of a bundle schema written before 0.18.0 (Q48), the waiver's required
     reason and its effect on W004 but not W003;
@@ -791,9 +791,9 @@ change:
     while `okfreq trace --json`'s `validation_tests` keeps the raw `@tests_req` files on a
     StRS (Rule 3).
   The page also gives the waiver frontmatter, owner-review guidance, when to remove it, its
-  whole-StRS scope, the distinct SwRS annotation exemption, and the unchanged evidence
-  counters. The first three examples' blocks carry a `:caption:` so a test can read them
-  (Evidence).
+  whole-StRS scope, the distinct SwRS annotation exemption, the report's `exempt` status, and
+  the unchanged evidence counters. Each worked example's blocks carry a `:caption:` so a test
+  can read them (Evidence).
 - `docs/source/reference/okfreq-frontmatter.md`:
   - a "Declared scenarios" section with the label `(okfreq-declared-scenarios)=` (W003 target,
     Q32): the field, its shape, ids never reused (Q26), StRS vs SwRS meaning, declaring it from
@@ -879,7 +879,7 @@ Each skill must work without this repository (`tests/test_skill_resources.py`).
 - `skills/okfreq-setup/SKILL.md`: step 11 "**Mark.**" (`@implements_req` at the code,
   `@tests_req` at the test) gains: a marker carries `#S<n>` when its requirement declares
   `scenarios:`, and in the new mode each StRS main path gets an `@accepts_req` on the test
-  closest to the final product.
+  closest to the final product unless a justified whole-StRS waiver applies.
 - No skill depends on the documentation links: the W003/W004 messages and the skills carry the
   instructions.
 
@@ -1099,9 +1099,10 @@ writes real test files with markers:
    in every mode; an old `config.yml` without `accepts` gets the default; `generated_fields`
    accepts `accepted_in_files`.
 2. `okfreq init` output, read from the files written: the base schema has `scenarios` and the
-   Rule 7 exception in its `req_lifecycle` description;    the strs schema declares `tested_in_files`, `accepted_in_files` and the optional authored
-   waiver with its conditional required reason; the swrs schema refuses `accepted_in_files`;
-   `config.yml` has `markers.accepts` and `accepted_in_files` in `generated_fields`.
+   Rule 7 exception in its `req_lifecycle` description; the strs schema declares
+   `tested_in_files`, `accepted_in_files` and the optional authored waiver with its
+   conditional required reason; the swrs schema refuses `accepted_in_files`; `config.yml`
+   has `markers.accepts` and `accepted_in_files` in `generated_fields`.
 3. `marker_scan`: `@accepts_req` read in `test_dirs` only; fragment and line captured; custom
    keywords; `#path1`, `#S1a`, `#` read as fragmentless; `#S0` captured; two fragments of one
    ID in one file give two `scenario_markers`; an `@accepts_req` on an unknown ID lands in
@@ -1111,8 +1112,9 @@ writes real test files with markers:
    today's handling (`non_leaf` for a parent tier) with no finding.
 5. Rule 5: StRS fractions and booleans at `0/3`, `2/3` tested with `1/3` accepted, `3/3`; the
    counters independent both ways (a path accepted and not tested, one tested and not
-   accepted, Q54); covered needs linked SwRS plus acceptance or a justified StRS waiver; StRS without `scenarios:` tested or
-   accepted by fragmentless markers; SwRS with transitions covered only when all marked;
+   accepted, Q54); covered needs linked SwRS plus acceptance or a justified StRS waiver; StRS
+   without `scenarios:` tested or accepted by fragmentless markers; SwRS with transitions
+   covered only when all marked;
    `update_coverage` in the new mode writes a StRS's `tested_in_files`/`accepted_in_files` from
    counting markers only, each when listed in `generated_fields`, and leaves a field that is
    not listed untouched (a hand-placed value stays, none is added); in the old modes it removes
@@ -1127,8 +1129,9 @@ writes real test files with markers:
    block; reading stops at the next `#`, `##` (e.g. `## User Need`) or `###` heading and at the
    links block; deprecated/superseded → none; draft → one; printed without `prose=True`; no
    finding for a SwRS without `scenarios:`. Explicit `Path S<n>:` and `Scenario S<n>:` IDs
-   survive in the suggested block, including mixed legacy headings. W004: a live StRS with no `@accepts_req` → one,
-   with the cost link; with only rejected `@accepts_req` markers → one; with one counting
+   survive in the suggested block, including mixed legacy headings. W004: a live StRS with no
+   `@accepts_req` → one, with the cost link; with only rejected `@accepts_req` markers → one;
+   with one counting
    `@accepts_req` (`accepted 1/3`) → none; deprecated/superseded → none; a StRS without
    `scenarios:` and without acceptance → both W003 and W004; printed without `prose=True`.
    A justified waiver suppresses W004, not W003 or fragment errors; true with a missing,
@@ -1145,9 +1148,9 @@ writes real test files with markers:
 10. Rule 8: `format_version` 2 in all three modes; new fields present in the new mode and
     absent otherwise; in the new mode `validation_tests` equals `acceptance_tests` (files and
     status, Q49) and the StRS `tests` lists its counting `@tests_req` files while the StRS
-    record's `tests` follows `validation_tests` (Q62); the new-mode description (with "when it
-    declares no paths, at least one @accepts_req names the StRS") is in
-    `coverage_definition.stakeholder_tests` and the Markdown note; Q58: a
+    record's `tests` follows `validation_tests` (Q62); the new-mode description, including the
+    fragmentless fallback and StRS waiver, is in `coverage_definition.stakeholder_tests` and
+    the Markdown note; Q58: a
     fragmentless `@tests_req` on a SwRS with transitions and an undeclared fragment appear in
     neither `marker_coverage`, `legacy.marker_coverage` nor the SwRS's `tests.files`, and a SwRS
     with a counting marker on S1 only of S1/S2 counts in `marker_coverage.tested` (link count),
@@ -1232,8 +1235,8 @@ would. Shared fixture: StRS-A with `scenarios:` S1/S2 and `#### Path` headings; 
 | D5 | New mode, `config.yml` written before this change (no `accepts` key; `generated_fields` without `accepted_in_files`), schemas from this version (with older schemas it is D6) | Default keyword recognised; results as D3, except that `update-coverage` leaves `accepted_in_files` untouched on every StRS (not a configured generated field, Q61): none is added, and a value already in a StRS's frontmatter stays as it is. |
 | D6 | New mode, `swrs.schema.yaml` written before this change | `okfreq validate` exits 1 with one error naming `accepted_in_files` and `swrs.schema.yaml` and giving the 0.18.0 declaration to add; no shipped declaration is applied. After the declaration is added, results as D3. In an old mode the same bundle validates as today. |
 | D7 | `strs_test_coverage_mode: unsupported` | `RequirementError` listing the three modes; `okfreq validate` exits non-zero with it. |
-| D8 | New mode, StRS-A has a justified whole-StRS waiver and SwRS-A is test-covered | StRS-A is covered despite its unaccepted S2; `accepted` remains false, paths remain `{2, 1, 1}`, JSON records the waiver reason, and the Markdown acceptance cell says `exempt`. Remove all acceptance markers: W004 remains suppressed, acceptance is still false and W003 is unaffected. |
-| D9 | New mode, StRS-A waived but linked SwRS-A is not test-covered | StRS-A remains missing. A separate `annotation_exemption: true` with non-blank `exemption_reason` makes SwRS-A `exempt` and satisfies that linked-SwRS condition; an absent or blank reason does not. A StRS without any linked SwRS remains missing. |
+| D8 | New mode; remove invalid fixture markers, add SwRS-A tests for S1 and S2, and give StRS-A a justified whole-StRS waiver | StRS-A is covered despite its unaccepted S2; `accepted` remains false, paths remain `{2, 1, 1}`, JSON records the waiver reason, and the Markdown acceptance cell says `exempt`. Remove all acceptance markers: W004 remains suppressed, acceptance is still false and W003 is unaffected. |
+| D9 | As D8, but remove a SwRS-A transition test | StRS-A remains missing. A separate `annotation_exemption: true` with non-blank `exemption_reason` makes SwRS-A `exempt` and satisfies that linked-SwRS condition; an absent or blank reason does not. A StRS without any linked SwRS remains missing. |
 
 ### Scenario steps (manual demonstration for the PR)
 

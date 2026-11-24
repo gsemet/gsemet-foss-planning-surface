@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "okfreq: acceptance paths, declared scenarios, two StRS counters",
-  "summary": "New mode linked-swrs-and-acceptance-paths: scenarios: with #S<n> fragments on StRS and SwRS, @tests_req/@accepts_req counters, W003/W004, report v2, repo/examples/docs migrated; spec ready for the user's go.",
+  "summary": "Acceptance paths with per-scenario markers, justified StRS and SwRS waivers, aligned scenario headings, reports and documentation; a pinned baseline enables independent model implementations.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "dc23165875183bad891f3ec1f81f24118c22795ebea39efee95c3409c77b78d2",
     "02-answers.md": "239dafa1ab2372886e99b371682ef4d70ea174fb7dcce48ee61a65976bac5266",
-    "03-change-spec.md": "c4353d74fa931c5289c59685cbf4c1a78fd5137d97852ecc9e5eed803b97a9c7",
+    "03-change-spec.md": "b0847a64c8649163371fbbde55465d6f94621d10154d2c6af6741ca6142368ae",
     "intake/request.md": "0bb1f5ba4e7b9f56d4703ba538f0979f32809de0632b489907efc9c31d756887"
   },
-  "summarized": "2026-11-23T23:20:03Z"
+  "summarized": "2026-11-24T12:12:05Z"
 }
