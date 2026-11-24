@@ -17,7 +17,9 @@ The size and the frame rate become storyboard fields the kit reads: this clip is
 
 The scene changes, so the clip needs a new stage document and a new take: the selection starts
 inside an untitled admonition, in the middle of bold text, and ends inside another admonition, and
-the clip shows the characters the setting adds, the closing ones included.
+the clip shows the characters the setting adds, the closing ones included. An orange mark outlines
+each added part in turn (the opening line, the opening `**`, the closing `:::`), so the kit learns
+to show several marks in one clip.
 
 The storyboard draft, reviewed and edited by the owner, is in `work/storyboard/clip.md` of this
 folder, with the new stage in `work/storyboard/stage/`. The batch brings them into the repository,

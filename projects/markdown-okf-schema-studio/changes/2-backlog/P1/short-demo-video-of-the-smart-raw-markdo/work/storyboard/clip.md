@@ -37,7 +37,7 @@ the pictures below are still the merged take's, and the trial take replaces them
 | --- | --- |
 | Time | 0 to 4.4 s (set again by the trial take) |
 | Shot *(filmed)* | Studio in reading mode on `runbook.md` (left), the empty `notes.md` in the text editor (right). The mouse drags from "migrations", in the middle of the bold "database migrations first" inside the untitled `important` admonition, to "every worker" inside the `warning` admonition. Copy chord. The pointer moves to `notes.md` and clicks. Paste chord. |
-| Text 1 *(on screen)* | From preview, select and copy **raw Markdown** |
+| Text 1 *(on screen)* | From the preview, select and copy **raw Markdown** |
 | Badge copy *(on screen)* | Ctrl+C / ⌘C |
 | Badge paste *(on screen)* | Ctrl+V / ⌘V |
 
@@ -49,8 +49,10 @@ the pictures below are still the merged take's, and the trial take replaces them
 | --- | --- |
 | Time | 4.4 to 8.5 s (zoom held to 7.6 s, then back to the start for the loop; set again by the trial take) |
 | Shot *(filmed)* | Zoom (at most 2x) on the pasted lines in `notes.md`, the closing `:::` in view. |
-| Mark *(on screen)* | Orange outline around the added line `:::{important}`, 5.2 to 6.8 s |
-| Text 2 *(on screen)* | Partial syntax are pasted as valid Markdown |
+| Mark 1 *(on screen)* | Orange outline around the added line `:::{important}` (times set by the trial take) |
+| Mark 2 *(on screen)* | Orange outline around the added opening `**` before "migrations" |
+| Mark 3 *(on screen)* | Orange outline around the added closing `:::` |
+| Text 2 *(on screen)* | Partial syntax is pasted as valid Markdown |
 
 Expected paste, the scenario's check (added by the setting: the opening `:::{important}` line, the
 opening `**` and the last `:::`). A different paste at the trial take is a finding against the
