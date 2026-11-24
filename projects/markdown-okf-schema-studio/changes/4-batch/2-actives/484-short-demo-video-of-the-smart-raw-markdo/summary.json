@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Storyboard, two captions and several marks for the raw copy clip",
+  "summary": "Specified: the raw-copy-balance-edges clip gets an approved Markdown storyboard, two captions and three marks in turn, Ctrl+C / ⌘C badges, a new scene filmed at 1280x720 15 fps, parser tests in just check, and the recipe's review and PR-video rules with an -assets fallback.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "d40af80a38535553c8cec4aa6e0ee16af61ec0ecdf909e45a840c6438bd623f5",
+    "02-answers.md": "78519063d790f40285e5a12672b0973192d64c05cde2f2d1361e98dcb7a73594",
+    "03-change-spec.md": "d3c231715f944bf8605654500cdd9a290b4b629901b28b46ef66d83814284d8b",
+    "intake/request.md": "78891ee0dcbf3b50472b947c6967ff851354e44996fca6e310b7f38a81ba3aad"
+  },
+  "summarized": "2026-11-24T23:29:12Z"
+}

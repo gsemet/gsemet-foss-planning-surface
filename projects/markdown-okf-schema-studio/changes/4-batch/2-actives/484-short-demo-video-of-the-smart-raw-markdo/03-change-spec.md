@@ -52,6 +52,10 @@ of this CR (Q27). Q7 is revised by Q9, Q12 and Q13 by Q28, Q28's size by Q33, Q1
 | Q38 | The storyboard is approved | Storyboard |
 | Q40 | A storyboard section may hold several pictures, one per key moment (the selection, the paste, one per mark) | "Storyboard", "Kit: key frames" |
 | Q42 | The PR body shows the GIF inline from the branch's committed file at the PR's head, and links the MP4 and the WebM by their raw URLs at the same head; each new render pushed updates the links; the recipe gains this rule | "PR", "Recipe" |
+| Q43, Q44 | Seven more feature clips are planned, each its own CR depending on this one; this CR stays the raw copy clip only | "Out of scope" |
+| Q45 | The Griller decided the remaining choices alone (Q46, Q47); they are listed as its choices in the PR's "Autonomous decisions" | "PR" |
+| Q46 | If GitHub does not play the GIF in the PR body from the PR's head (Git LFS), the PR uses the PR guideline's `-assets` side branch for the GIF, MP4 and WebM and says so in the body; the owner can watch the clip from the PR page either way | "PR" |
+| Q47 | Studio's floating "Comment" button beside the page selection after the paste is kept as filmed: no extra step to clear the selection | "New take and render" |
 
 ## What changes
 
@@ -63,7 +67,9 @@ kit and clip; the local `main` may be behind: fetch first).
 Replace the merged `clip.md` (one field table) with the approved draft `work/storyboard/clip.md`,
 adapted only as follows, without changing any on-screen text, time or shot the owner approved:
 
-- Front matter: `status: draft` (the owner approves it in the PR), `date:` the day of the commit.
+- Front matter: `status: approved` (the owner approved it on 2026-11-24, Q38), `date:` the day of
+  the commit. The opening paragraph notes that the times and pictures follow the batch's take (the
+  approved texts and shots do not change); the owner still reviews the cut in the PR.
 - The opening paragraph speaks of the repository, not of the review draft: "This is the live
   storyboard. The clip is built from this file: edit any row marked *(on screen)*, save, and run
   `just clip raw-copy-balance-edges render`, then `check`. Rows marked *(filmed)* describe the take:
@@ -108,6 +114,9 @@ The storyboard format this file follows is the kit's contract, written in the re
     `unmark`), each with a comment naming what it outlines;
   - `run(t)`: the check after the paste expects the non-empty count of the 16 pasted lines (12), not "at
     least 7": `if (lines.length !== 12) throw …` with a message naming 12;
+  - `EXPECTED` is exported (`export const EXPECTED = ...`), so the storyboard test compares it with
+    the shipped `clip.md` (section 7); `scenario.mjs` keeps importing nothing, so the test can load
+    it without VS Code;
   - `verify(t)` throws when the paste differs, as the merged scenario does: `if (pasted !== EXPECTED)
     throw new Error(\`notes.md does not hold the expected text. Pasted: ${JSON.stringify(pasted)}\`)`.
     A difference is a finding against the feature (recipe, section 6), never "fixed" in the scenario.
@@ -126,6 +135,12 @@ section 7. Every refusal message starts with `clip.md:` as today.
 - Field names: a trailing italic annotation `*(on screen)*` or `*(filmed)*` is stripped before the
   name is read (`Text 1 *(on screen)*` is the field `Text 1`). Rows of every table of the file are
   read, as today; a row is attached to the section (`## ` heading) it is in.
+- Fenced code blocks (a line starting with three backticks or three tildes, up to the matching
+  closing fence) are skipped: no field and no heading is read inside them. The "Expected paste"
+  block holds a Markdown table (`| Step | Command |`, `| Migrate | ... |`) that must not become
+  fields of section 2. `parseClipText` also returns the text of the fenced block that follows the
+  line starting with "Expected paste" (`expectedPaste`, the block's lines joined with `\n`, the
+  fences excluded), or `null` when there is none.
 - `Length`: seconds, with or without a trailing ` s` (as today), 5 to 12.
 - `Size`: `<width>x<height>` at the start of the value (text after it, such as `16:9`, is ignored);
   both even integers, aspect 16:9 (width * 9 === height * 16), else a refusal. Absent: 1920x1080.
@@ -139,7 +154,9 @@ section 7. Every refusal message starts with `clip.md:` as today.
   The legacy single `Caption` row is no longer read (the only clip is migrated).
 - `Badge <id>`: as today (the keycap text of each `press(…, id)`).
 - `Zoom`: as today, `<id>, hold to <seconds> s`, one at most, wherever it is in the file.
-- `Mark <id>`: any number, each `<what>, <from> to <to> s` (the trial's `timed` reading). Refused:
+- `Mark <id>`: any number, each `<what>, <from> to <to> s` (the trial's `timed` reading). A clip
+  with no mark has no `Mark` row: the merged convention "`-` for none" is dropped (a `Mark` row whose
+  value has no readable times is refused). Refused:
   a mark that ends before it starts, marks that overlap (they are shown in turn), a mark with no
   `Zoom`, and, in `validateStory`, a mark the take did not log or a mark outside the zoom hold
   (`to > zoom.holdTo` or `from < 0`). The take may log several marks; drop "the take logged more
@@ -207,6 +224,9 @@ just clip raw-copy-balance-edges all --vsix out/reports/package/markdown-okf-sch
 - The take films the new scene of section 2 with `markdownOkfSchemaStudio.preview.rawCopy.balanceEdges`
   on, in reading mode, a CDP mouse drag from "migrations" to "every worker", `ControlOrMeta+C`, a
   click in `notes.md`, `ControlOrMeta+V`, the zoom on the pasted lines and the three marks in turn.
+- After the paste, Studio's floating "Comment" button stays beside the page selection until the
+  end and shows at the loop seam: it is kept as filmed (Q47); the scenario adds no step to clear
+  the selection, and the storyboard gains no row for it. The owner may ask otherwise at the review.
 - `verify` must pass: the paste equals the storyboard's "Expected paste" exactly. A difference stops
   the work: it is reported with the pasted text, as a finding against the feature.
 - The trial measured 9.85 s filmed, so `Length` 9.8 s gives a playback rate near 1.0. If the batch's
@@ -260,15 +280,25 @@ the text says "the maintainer" and "the agent", never a chantier role or a CR.
   new take) are explained. The refusals of `storyboard.mjs` are listed (section 3 of this spec).
 - The badge rule: badges read the combined form `Ctrl+C / ⌘C`, so one clip serves both platforms;
   a badge naming only the other platform's modifier is still refused.
+- Section 2 also drops the "`-` for none" convention of `Mark <id>`: a clip with no mark has no
+  `Mark` row.
 - Section 3: the master is rendered at the storyboard's `Size` and `Frame rate` (1920x1080 and 30
-  fps when absent), the WebM and the poster at the same; the GIF stays at 12 fps or less and 960 px
-  or less (or the master's width if smaller); "30 fps in the MP4 and WebM" becomes "the storyboard's
-  frame rate".
-- Section 6: the `check` lines name the storyboard's size and frame rate instead of 1920x1080 and
-  30 fps. Add the rule of Q42: the pull request of a clip shows the GIF inline in its body, from the
+  fps when absent), the WebM and the poster at the same. In the outputs table, the WebM row's
+  "1920x1080, 30 fps" becomes "the master's size and frame rate" and the poster row's "frame 0,
+  1920x1080" becomes "frame 0, at the master's size". The GIF stays at 12 fps or less and 960 px or
+  less (or the master's width if smaller); "30 fps in the MP4 and WebM" becomes "the storyboard's
+  frame rate"; "**960 px wide** (half the master)" becomes "**960 px wide** (half a 1920 px master;
+  the master's width when it is narrower)".
+- Section 5, the traps table, row "A window at device scale 2 ...": "the master is 1920x1080
+  whatever the scale" becomes "the master is at the storyboard's `Size` whatever the scale".
+- Section 6: "the three named frames" becomes "the named frames (`01-selected`, `02-pasted`,
+  `03-zoomed`, and one per mark)". The `check` lines name the storyboard's size and frame rate
+  instead of 1920x1080 and 30 fps. Add the rule of Q42: the pull request of a clip shows the GIF inline in its body, from the
   file committed at the PR's head, and links the MP4 and the WebM by their raw URLs at the same
   head, so the maintainer watches the clip without checking out the branch; each render pushed
-  updates the three links to the new head.
+  updates the three links to the new head. When GitHub does not play the GIF from the PR's head
+  (Git LFS), the three files go to the pull request guideline's `-assets` side branch (raw blobs,
+  "Screenshots in the PR") and the body links them there and says so (Q46).
 - The host and default matrix rule stays.
 
 ### 7. Tests and the `just` target
@@ -280,18 +310,26 @@ the text says "the maintainer" and "the agent", never a chantier role or a CR.
     and asserts: length 9.8 (or the committed value), size 1280x720, fps 15, two captions with the
     exact texts of Q36 and Q41 and times end to end from 0 to the length, badges
     `Ctrl+C / ⌘C` and `Ctrl+V / ⌘V`, zoom `result`, three marks `1`, `2`, `3` in turn inside the
-    hold;
+    hold; section 2 (`## 2. Zoom on the pasted text`) has no field `Step` and no field `Migrate`
+    (the rows of the fenced "Expected paste" block are not read);
+  - it imports `EXPECTED` from the shipped `docs/demo-video/clips/raw-copy-balance-edges/scenario.mjs`
+    and asserts it equals the `expectedPaste` that `parseClip` returns for the shipped `clip.md`
+    (the "Expected paste" fenced block), character for character;
   - it runs `validateStory` on that parsed story with a `take` object listing presses `copy` and
     `paste`, zoom `result` and marks `1` to `3`, once with `host.platform` `win32` and once `darwin`:
     both pass (the combined badges);
   - prepared texts, named in the test as refusal cases the shipped file cannot hold: a badge `⌘C`
     alone on `win32` and `Ctrl+C` alone on `darwin` (refused), a size not 16:9, a frame rate of 60,
     `Cards | opening`, two `Text` rows in one section, captions with a gap, overlapping marks, a mark
-    the take did not log, a mark outside the hold, a missing caption;
+    the take did not log, a mark outside the hold, a missing caption, a `Mark 1 | -` row;
+  - a prepared storyboard whose fenced block holds a `| Field | Content |`-shaped table: its rows
+    give no field (a prepared text, since the shipped file's block holds another table);
   - a prepared storyboard with no `Size` and no `Frame rate` gives 1920x1080 and 30.
-- `justfile`: a recipe `clip-kit-test` (`fnm exec -- node --test docs/demo-video/clip-kit/lib/`,
-  following the `clip` recipe's style, with a one-line comment), added to the `check` dependency
-  list. `AGENTS.md`'s "Main targets" line on `just check` and the "Feature clip" line mention it.
+- `justfile`: a recipe `clip-kit-test` running
+  `fnm exec -- node scripts/node-test.mjs clip-kit "docs/demo-video/clip-kit/lib/*.test.mjs"`
+  (`node --test <dir>/` fails; the helper expands the pattern itself, with no shell, and writes the
+  JUnit report to `out/reports/clip-kit/tests-clip-kit.xml`), following the `clip` recipe's style,
+  with a one-line comment, added to the `check` dependency list. `AGENTS.md`'s "Main targets" line on `just check` and the "Feature clip" line mention it.
 - These tests run in `just check`, so in the `ci-static` job (section "CI").
 - `scripts/check-file-sizes.mjs`, `check-unused-exports.mjs` and the formatters: run `just check`
   and `just format`; if a script scans the new file and fails, fix the file, not the script.
@@ -309,11 +347,18 @@ the text says "the maintainer" and "the agent", never a chantier role or a CR.
   /raw/` form resolves Git LFS; `raw.githubusercontent.com` serves the LFS pointer), and the MP4 and
   WebM linked with the same form at the same head sha. After each push of a new render, the links
   are moved to the new head with `gh pr edit <n> --body-file <file>`. Check that the GIF plays in
-  the rendered PR page (open question 1 if it does not).
+  the rendered PR page. If it does not (Q46), push the GIF, MP4 and WebM as raw blobs to the side
+  branch named after the change branch with `-assets` added, as the PR guideline's "Screenshots in
+  the PR" does, link them by their `raw.githubusercontent.com/<owner>/<repo>/<commit>/<name>` URLs,
+  and say in the body that they come from the assets branch, rendered from the head sha named
+  there. Each new render pushed refreshes them the same way. Either way the owner watches the clip
+  from the PR page.
 - "Autonomous decisions" lists the choices this spec made where the answers were silent: the field
   names `Size`, `Frame rate`, `Outputs` and the `Zoom` row added to section 2; mark ids as row
   numbers; the kit's allowed ranges (16:9, 12 to 30 fps); the parser tests in `just check`; the key
-  frame names; the alt text and glossary updates.
+  frame names; the alt text and glossary updates; the parser skipping fenced blocks and the "`-` for
+  none" convention dropped. It also lists, as the Griller's choices under Q45: the `-assets` fallback
+  for the video in the PR (Q46) and the floating "Comment" button kept as filmed (Q47).
 
 ## Out of scope
 
@@ -322,6 +367,7 @@ the text says "the maintainer" and "the agent", never a chantier role or a CR.
   macOS Cmd+C stays not proved in a real window.
 - A smoother selection: the raw screencast's rate (about 4 to 5 frames per second) is a known limit,
   written in the storyboard's review notes, not fixed here.
+- The seven other feature clips of Q43: each is its own CR, depending on this one (Q44).
 - Placing the clip in the release notes or the announcement (the 1.13.0 release CR does it).
 - Any change to the extension's code (`src/`) or to an SwRS: the kit and the clip are documentation
   tooling; no `@implements_req` or `@tests_req` marker moves. `SwRS-MDOKFSTUDIO-CORE-095` (the site
@@ -338,8 +384,8 @@ The only CI change is that `just check` runs `clip-kit-test`, inside the existin
   of prepared strings).
 - Before the push: `just check` passes on Windows (this machine), and `just clip-kit-test` alone
   passes; the output goes in the evidence. `just ci-static` on Windows.
-- Only the first CI run proves the Linux leg (path handling of the test's file location, `node
-  --test` on a directory under `fnm exec`).
+- Only the first CI run proves the Linux leg (path handling of the test's file location, the
+  quoted glob expanded by `scripts/node-test.mjs` under `fnm exec`).
 
 ## Host and default matrix
 
@@ -371,15 +417,9 @@ The storyboard parser's tests run on Windows locally and on Linux and Windows in
 4. A text-only change proves the "no new take" path: change Text 1 in `clip.md`, `just clip
    raw-copy-balance-edges render` then `check`, see the new text in a frame, revert, render again.
 5. `just preflight` passes (on Windows, its static stage).
-6. The PR body plays the GIF and links the MP4 and WebM at the head sha.
+6. The PR body plays the GIF and links the MP4 and WebM at the head sha, or, when GitHub does not
+   play it from the head, links the three files on the `-assets` branch and says so (Q46).
 
 ## Open questions
 
-1. If GitHub does not play the GIF embedded from the branch's Git LFS file at the PR's head (the
-   `github.com/<owner>/<repo>/raw/<sha>/…` form), may the agent fall back to the PR guideline's
-   assets branch (raw blobs pushed to `change-requests/<id>-<slug>-assets`), which plays the same
-   files but not from the PR's head?
-2. The trial showed Studio's floating "Comment" button staying beside the page selection after the
-   paste, until the end, visible at the loop seam. Accept it in the clip, or change the filmed action
-   to hide it (for example clear the page selection before the zoom, which adds a filmed step and
-   needs a new storyboard row)?
+None: `02-answers.md` settles every point this specification needs.
