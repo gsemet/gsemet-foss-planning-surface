@@ -20,12 +20,13 @@ Grade: **2**. Shared CLI code (`stacks.py`, carry check, leases) and two cards c
 
 ## Autonomous decisions
 
-- The carry rule counts the judged own commits as those of `g.base..g.head` that are also in `head_base..g.head`, less the ones whose patch the new base already holds. The specified `head_base..g.head` alone broke an existing case (a CR rewritten under another CR's branch).
+- The carry rule counts the judged own commits as those of `g.base..g.head` that are also in `head_base..g.head`, less the ones whose patch the new base already holds. The intersection is needed because `head_base..g.head` alone counts a CR rewritten under another CR's branch as the CR's own, which broke an existing carry case (CR judged on another CR's branch).
 - `check_merged` and `open_ids` moved from `orders_apply.py` to `orders_merged.py` to avoid an import cycle.
 
 ## Known gaps
 
 - The scenario check in `scenario/run_scenario.py` is updated but its long gate is not yet run at this head.
+- `just eval-dry-run` and the local long gate `scenario` (Windows) are pending until run at the pushed head.
 - A not confirmed lease is still ended only by `take ... --reclaim` (the specification's open question).
 
 <details>
@@ -39,6 +40,13 @@ Grade: **2**. Shared CLI code (`stacks.py`, carry check, leases) and two cards c
 - `core/leases.py`, `commands/delivery.py`: lease refusal texts.
 - `skills/chantier/references/driver-retake.md`, `foreman-stack.md`: card sentences.
 - New tests: `test_restack_line.py`, `test_place_base.py`, `test_carry_restack.py`, `test_lease_commands.py`.
+
+## Human decisions
+
+- `order merged` only prints that a restack is owed and who owes it; no new tool rebases or force-pushes for the stack.
+- `take` prints the true base, including after a reorder; the forge's own base stays visible beside it.
+- A clean restack must carry the gate and verdict: the old `off:` there is a defect of the carry code.
+- Lease refusals name the exact command; no new command is added.
 
 ## Impacts
 
