@@ -25,7 +25,7 @@ Grade: 2. Mostly web client files, plus the `board` and `history` reads of the s
 
 ## Known gaps
 
-- No screenshots retaken yet: the docs pictures still show the old menu.
+- No screenshots retaken yet: the docs pictures still show the old menu, and the PR's own screenshots at the head are owed.
 - Red CI stays shown until the CR's next hand-back; the hub journals no green line.
 
 <details>
