@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Release notes: kind-first plain text and framed images",
+  "summary": "Release-template card: kind first (feature, fix, restore, breaking, internal), one sentence per change, Fixed:/Removed:/Known issue: lines, word budgets, banned constructions, framed images, ten-question self-check; driver.md's image exception; docs/release-process.md aligns three lines.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "ea1c998b2226c76f21430b9b17ee8f46cb53d8d62ecf114d89c15d74e49ce0f6",
+    "02-answers.md": "d66cae2bb8ef9cceda8033e385626f20d790688665e8f65bbac715557a90e71c",
+    "03-change-spec.md": "5de371e5f095c3833381fc5a98bd3cc47819765ca7f716f405b0b16428d40f6c",
+    "intake/request.md": "efdc21a91a0a69da684a75b0fb6a25165ba6ec0448227c4af0c7e766830426b8"
+  },
+  "summarized": "2026-11-24T09:09:50Z"
+}

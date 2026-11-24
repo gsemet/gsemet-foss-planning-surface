@@ -1,8 +1,8 @@
 # Release notes: kind-first plain text and framed images
 
 Short name: `release-notes-style`. Destination: running batch batch-31. Repository:
-`C:/Users/gaeta/Projets/chantier`. A cards-only change (plus one structure test): no CLI code, no
-agent file, no startup manifest, no version.
+`C:/Users/gaeta/Projets/chantier`. A cards and docs change (plus one structure test): no CLI code,
+no script, no agent file, no startup manifest, no version.
 
 ## Goal
 
@@ -20,8 +20,9 @@ Driver never opens an image).
 
 This CR teaches the Release Driver, in its card, to write the notes kind first, one plain sentence
 per change, bad news on labelled lines, within word budgets, with images framed on the changed
-element, and to check the result with a ten-question self-check. The notes' structure and format
-do not change.
+element, and to check the result with a ten-question self-check. chantier's own
+`docs/release-process.md`, which ranks above the template for chantier's releases, aligns three
+lines with the card. The notes' structure and format do not change.
 
 ## Files this CR touches (for the Foreman's overlap check)
 
@@ -29,12 +30,14 @@ do not change.
 | --- | --- | --- |
 | `skills/chantier/references/release-template.md` | "The notes" and its subsections, "Visible evidence" | none known (CR-471 and CR-474 do not name it) |
 | `skills/chantier/references/driver.md` | one bullet of "Means: images and the look" (the "A Driver never opens an image file" bullet) | CR-471 (`slim-cards`) moves that section into a `driver-<moment>.md` piece read by a `driver:pr-extras` action; CR-474 also edits `driver.md`. Edit the bullet wherever it lives at the rebased head, found by its text, not its heading |
-| `skills/chantier/scripts/cli/tests/test_release_template_card.py` (new) | structure test of the two shipped cards | none |
+| `docs/release-process.md` | "Release notes", four lines of its structure list: the title (line 38), the header's "as verbs" (line 39), the highlight headings (line 47), the known issues of "For contributors" (lines 53-54) | none known (CR-471 and CR-474 do not name it) |
+| `skills/chantier/scripts/cli/tests/test_release_template_card.py` (new) | structure test of the two shipped cards and of `docs/release-process.md` | none |
 
 Not touched: `startup-manifest.json` (release-template.md stays the `release` action's reading
 only, never a startup reading: the 12,544-byte startup limit is untouched), `agents/`,
-`com.github.copilot/agents/`, the CLI, `scripts/release_notes.py`, `CONTRIBUTING.md`.
-`docs/release-process.md` is touched only if the user says so (open question 1).
+`com.github.copilot/agents/`, the CLI, `scripts/release_notes.py` (its title check asks only that
+the minor `X.Y` appear in the title, which `chantier X.Y.Z` satisfies), `CONTRIBUTING.md`, and every
+other line of `docs/release-process.md`.
 
 ## What changes
 
@@ -63,6 +66,9 @@ title item changes:
   "Restores ... that 1.12.0 broke", "A breaking release: ..."), and every highlight and line keeps
   the tone of that kind: a fix release has no "you can now" heading, a restore is never shown as
   new.
+- A release that holds several kinds: the subtitle names first the kind that comes first in this
+  order: breaking, feature, restore, fix, internal (Q11). Each highlight and line keeps the tone of
+  its own change's kind (a fix inside a feature release still starts "Fixed:").
 - When the kind the notes need does not match the version (a patch version whose content needs
   feature wording, or a minor version that ships only fixes), the notes take the tone of the real
   kind; the version PR's description says the version is probably wrong and why, and the user
@@ -106,7 +112,8 @@ title item changes:
   text at most 40 words (heading included, picture excluded).
 - The visible part (everything above the first folded section, the link line and HTML tags not
   counted) at most 120 words for a fix, restore or internal release, at most 250 for a feature
-  release. Breaking: see open question 3.
+  release, at most 250 for a breaking release (Q11). A release of several kinds takes the budget of
+  the kind its subtitle names first.
 - Over a budget, cut words, not facts: a fact that does not fit moves to a folded line.
 
 #### 1f. "Writing rules", extended into the banned constructions
@@ -165,13 +172,19 @@ form, never a Markdown image link to a file that may not exist). Replace the cro
 - When the capture is impossible: the notes go out without that image and say nothing about it;
   the version PR's Known gaps names it as `no picture for <change>: <why>` (Q5). Q2 still holds:
   the project's own capture means are tried first.
+- An image that cannot be cropped to the changed element within the bounds (900 to 1200 px wide,
+  at most 600 px high) counts as a capture impossible (Q10): no image, and the same Known gaps
+  line.
+- A release whose procedure opens no version PR has no Known gaps: the missing picture is named,
+  with the same words, in a `note` (`$CHANTIER note`) and in the Driver's hand-back report (Q12).
+  The notes still say nothing about it.
 - Nothing visible to show: no image and no sentence about it (the current "the highlight says so in
   one line" goes).
 - The Release Driver reads each image it produced before it keeps it (Q3; the sentence exists, keep
   it) and checks there: the crop shows the change, the size is within the bounds, the alt text
   matches, and the look of driver.md ("Means: images and the look") passes.
-- The current "a picture it cannot crop stays whole, and a `note` says so" goes; what replaces it is
-  open question 2.
+- The current "a picture it cannot crop stays whole, and a `note` says so" goes; the two bullets
+  above (Q10, Q12) replace it.
 
 ### 3. `driver.md`, the named exception (release-notes-style-Q3)
 
@@ -182,7 +195,26 @@ reply." gains its one named exception: the Release Driver reads each image it pr
 changes. (The look's own "open the image as an image" stays as it is.) After CR-471 lands, the
 bullet may sit in another file of the Driver's card pieces: edit it there, by its text.
 
-### 4. The decisions carried
+### 4. `docs/release-process.md`, four lines (release-notes-style-Q9, Q13)
+
+In "Release notes", the structure list, and nothing else:
+
+- Line 38, the header's title: `<h1 align="center">chantier X.Y</h1>` becomes
+  `<h1 align="center">chantier X.Y.Z</h1>` (the full version, as the card's title item).
+- Line 39, the header's list of the main changes "as verbs": it says instead that the header line
+  names the release's kind first, then the main changes in that kind's words, as the template's
+  title item says (release-notes-style-Q13).
+- Line 47, the highlight headings: `## <emoji> <what the reader can now do>` becomes a heading that
+  says the change in its kind's words, as the template's
+  [A highlight](../skills/chantier/references/release-template.md#a-highlight) says (for instance
+  `## <emoji> <the change, in its kind's words>`); the link to the template stays.
+- Lines 53-54, the folded "For contributors" section: `(tooling, tests, docs process, known
+  issues)` loses "known issues"; one sentence in the list (the Driver places it) says that a
+  user-facing known issue, a removal and a behaviour change each go on a `Known issue:`,
+  `Removed:` or `Changed:` line in the visible part, as the template's "Bad news" says. The
+  "Not exercised by an eval." bullet and its rule stay unchanged.
+
+### 5. The decisions carried
 
 - Q1 (A): only chantier's `release-template.md` (and the `driver.md` exception) change; the OKF
   repository's guideline amendment is filed into that project's inbox for its own Chief of Staff,
@@ -200,11 +232,19 @@ bullet may sit in another file of the Driver's card pieces: edit it there, by it
   (section 1a).
 - Q7 (A): the audit's budgets, as judgement in the card (section 1e).
 - Q8 (B): specified for the running batch batch-31.
+- Q9 (A): `docs/release-process.md` aligns its four lines (38, 39, 47, 53-54) with the card (Q13 adds line 39); a doc change, no script
+  change (section 4).
+- Q10 (A): an image outside the bounds counts as a capture impossible (section 2).
+- Q11 (A): mixed kinds named in the order breaking, feature, restore, fix, internal; a breaking
+  release's visible part at most 250 words (sections 1a and 1e).
+- Q12 (A): with no version PR, the missing picture goes in a `note` and the hand-back report
+  (section 2).
 
 ## Out of scope
 
 - The OKF repository's guideline and its `scripts/release_notes.py --check` (Q1, Q4), and
-  chantier's own `scripts/release_notes.py` (Q4).
+  chantier's own `scripts/release_notes.py` (Q4, Q9).
+- Every line of `docs/release-process.md` but the three of section 4.
 - The notes' structure and format (title, links, highlights, smaller changes, folded sections,
   `<sub>` line), the thread (`## The thread`) and "Where they go".
 - The CLI, the startup manifest and every other card; the agent files on both hosts.
@@ -220,17 +260,25 @@ bullet may sit in another file of the Driver's card pieces: edit it there, by it
     and the full version (`X.Y.Z`) in the title;
   - it holds `Fixed:`, `Removed:`, `Changed:`, `Known issue:`;
   - it holds the budgets (16, 20, 40, 120, 250 words) and the image bounds (900, 1200, 600 px);
+  - it holds the mixed-kinds order (`breaking, feature, restore, fix, internal`, in that order);
   - its self-check holds exactly ten numbered questions;
   - the anchors `docs/release-process.md` links still exist (`### Writing rules`, `### A
     highlight`, `## Visible evidence`);
   - "the highlight says so in one line" is gone;
+  - "a picture it cannot crop stays whole" is gone;
   - the driver card's "never opens an image file" bullet names the Release Driver's exception;
+  - `docs/release-process.md`, read as shipped: its header's `<h1 align="center">` line names
+    `chantier X.Y.Z` (and no `chantier X.Y</h1>`), and its "For contributors" item no longer lists
+    known issues (the text of that item, from `For contributors` to the end of its parenthesis,
+    holds no "known issue");
   - and one non-parametrized assertion: `release-template.md` appears in no `startup_sections`
     entry and is not `common` or `role_core` of `startup-manifest.json` (it stays an action
     reading).
   Kept fast (a file read); `just test` stays within its budget.
 - `just check` passes in the worktree at the rebased head (Linux, macOS and Windows in CI). A
-  cards-only change does not owe `just eval-dry-run`.
+  change to cards, docs and a test, with nothing under the CLI's `src/` or `evals/kit/`, does not
+  owe `just eval-dry-run`. `just check` runs `scripts/release_notes.py --check` on chantier's
+  existing notes, which the doc change does not touch.
 - The long gate: a change to the cards passes the pipeline's `just scenario (ubuntu-latest)` job,
   green at the PR's head, before its PR is merged; the local Windows run follows the batch's
   top-of-stack rule (the Foreman's call).
@@ -242,22 +290,3 @@ bullet may sit in another file of the Driver's card pieces: edit it there, by it
   1.12.1 situation of the request (a fix release with a revert and block-editing fixes) and quotes,
   in the PR, the subtitle and three lines the card now produces (a `Fixed:` line, a `Restored:`
   line, a `Known issue:` line), with the self-check's ten answers. Text only, no image.
-
-## Open questions
-
-1. **chantier's own `docs/release-process.md`.** It ranks above the template for chantier's
-   releases and contradicts the new rules in three places: highlight headings
-   `## <emoji> <what the reader can now do>` (line 47), known issues inside the folded
-   "For contributors" section (lines 53-54), and the title `<h1 align="center">chantier X.Y</h1>`
-   (minor only, line 38; `scripts/release_notes.py` checks only that the minor is in the title).
-   As it stands, chantier's own notes would keep the old faults. Does this CR align those three
-   lines with the card (a doc change, no script change), or is that a separate CR?
-2. **An image that cannot be cropped to the bounds.** The current rule keeps it whole with a
-   `note`. Under the new protocol, is it treated as "capture impossible" (Q5: no image, a Known
-   gaps line), or kept whole?
-3. **Kinds that mix, and the breaking budget.** When a release holds several kinds (a feature and
-   a breaking change, fixes and one feature), which does the subtitle name first (a proposed order:
-   breaking, feature, restore, fix, internal)? And which visible-part budget does a breaking release
-   take (Q7 names 120 for fix, restore, internal and 250 for feature)?
-4. **Q5 with no version PR.** A release whose procedure opens no version PR has no Known gaps: is
-   the missing picture named in a `note` and the hand-back report instead?

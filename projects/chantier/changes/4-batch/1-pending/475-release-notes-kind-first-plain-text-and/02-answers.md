@@ -13,3 +13,4 @@ Destination: running batch batch-31.
 10. release-notes-style-Q10: **An image outside the bounds.** A: counts as "capture impossible" (Q5): no image, a line in the version PR's Known gaps.
 11. release-notes-style-Q11: **Mixed kinds, breaking budget.** A: the subtitle names the first kind in the order breaking, feature, restore, fix, internal; a breaking release's visible part is 250 words at most.
 12. release-notes-style-Q12: **No version PR.** A: the missing picture is named in a `note` and in the hand-back report.
+13. release-notes-style-Q13: **Line 39 of docs/release-process.md.** A: this CR aligns it too: the header line names the kind first, then the main changes in that kind's words, not "as verbs".
