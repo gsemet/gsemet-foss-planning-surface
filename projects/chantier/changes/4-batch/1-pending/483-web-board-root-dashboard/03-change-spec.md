@@ -79,9 +79,10 @@ graph**, with the same series as a project's graph, whose value at each point is
 projects for that batch** (web-dashboard-Q1). The page's words (`en-dashboard.js`,
 `fr-dashboard.js`) gain only what the root page adds (below).
 
-How each figure is summed, recorded defaults (each reads "the sum of the projects per batch"):
+How each figure is summed (each reads "the sum of the projects per batch", web-dashboard-Q1, with
+Q3 and Q4 for the duration and the alignment):
 
-- **Points.** A point is a batch number. Its value sums the closed records of that number across
+- **Points** (web-dashboard-Q4, answer A). A point is a batch number. Its value sums the closed records of that number across
   every project of the surface. A project with no closed record of that number adds nothing. A point
   with no figure in any project is no point (a cut line, an empty bar slot), as today. The range
   keeps the newest batch numbers held by any project (the last 10, the last 20, or all), oldest
@@ -91,14 +92,18 @@ How each figure is summed, recorded defaults (each reads "the sum of the project
 - **Ratios are pooled** so that they stay true ratios: rounds per merged CR is the mean over the
   merged CRs of every project at that batch number, and cost per merged CR is the summed cost over
   the summed merged CRs. Headlines are computed the same way over the range.
-- **Duration** (a batch's minutes): see open question Q1, with its recorded default.
+- **Duration** (a batch's minutes, web-dashboard-Q3, answer A): each point is the mean of the
+  projects' durations at that batch number, and the headline is the median over all the projects'
+  batches in the range. Durations are not summed: two projects' batches running side by side do not
+  last the sum of the two.
 - **Models.** The Spending tab's model series are ranked by their summed cost over all the closed
   records of all projects (`board/dashboard_spend.py`'s `rank`, over the union). It keeps the
   `--m1` to `--m8` palette and "other models" beyond eight.
 - **Most expensive CRs**: the ten most expensive CRs of the range across all projects. Each row also
   shows its project's mark (as CR-482's All-projects rows do). A row opens its CR's project, as
   CR-482's All-projects rows do (`data-project`).
-- **The readout** of a point names its batch number and how many projects that point sums (for
+- **The readout** of a point names its batch number and how many projects that point covers
+  (web-dashboard-Q4) (for
   example "Batch 24, 3 projects: held 41, merged 38"), so a point that only one project holds is not
   read as a total of all. When the summed records were closed on different days, the readout shows
   no single day. The Driver may show the range of days.
@@ -147,7 +152,8 @@ topic's project line only if needed, without widening what the public key reads.
 
 ## Out of scope
 
-- Aligning the projects' batches by date (a time axis) instead of by batch number.
+- Aligning the projects' batches by date (a time axis) instead of by batch number: another CR
+  (web-dashboard-Q4).
 - One curve per project, or a choice of projects to sum (web-dashboard-Q1 chose one summed curve).
 - Any change to a project's Dashboard figures, its tiles or its words, other than the hover fix.
 - The Costs page and its protected features, the History page, and CR-482's home blocks.
@@ -169,6 +175,8 @@ as `tests/test_board_*.py` already do (the package's files read in place), never
   - batch numbers held by both projects sum their counts and costs;
   - a batch number held by one project only is that project's value, with a project count of 1;
   - rounds per merged CR and cost per merged CR are pooled ratios, not sums of ratios;
+  - a point's duration is the mean of the projects' durations at that batch number, and the
+    headline is the median over both projects' batches in the range;
   - the model rank is over both projects' records;
   - the top ten rows carry their `project`;
   - each project's own answer is unchanged;
@@ -199,13 +207,4 @@ No part of this CR depends on the host or on a configured value.
 
 ## Open questions
 
-- **Q1. The duration graph on All projects.** A batch's duration (its minutes) does not add up
-  across projects: two projects' batch 24 running side by side do not last the sum of the two. What
-  should the root graph show at each batch number? Recorded default: the mean of the projects'
-  durations at that batch number, with a headline median over all the projects' batches in the
-  range. Other choices: the longest, or drop the duration tile on All projects.
-- **Q2. Points by batch number (risk).** Batch numbers are each project's own. Batch 24 of chantier
-  and batch 24 of another project may be weeks apart, so the summed point mixes different periods,
-  and a young project only adds to the first points. The spec carries web-dashboard-Q1 as answered
-  ("the sum of the projects per batch") and only names this. Confirm that alignment by batch number
-  is wanted. A time axis, if wanted, is another CR.
+None: web-dashboard-Q3 and Q4 answered the two this spec first raised.

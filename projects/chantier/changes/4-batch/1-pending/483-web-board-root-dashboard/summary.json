@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Web board: Dashboard on All projects, chart hover band fixed",
+  "summary": "Specified for batch-31 after CR-482, no open question: chart hover band moved behind the series; Dashboard on All projects, one summed curve per graph by batch number, ratios pooled, duration the projects' mean, each point naming how many projects it covers.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "d3b66be5296301689ca06a13caffead7a868c705c1b9bec25593c0636d58563d",
+    "02-answers.md": "745dcd6a2bf8aaa31db858ba92441fd1e1d77a0a0f839667d1a8401cac7b65cb",
+    "03-change-spec.md": "6725fc2424bdfd08e96280c6fa3781c50ca99e1eca4969ac04200cabd8664274",
+    "intake/request.md": "d3b66be5296301689ca06a13caffead7a868c705c1b9bec25593c0636d58563d"
+  },
+  "summarized": "2026-11-24T18:49:49Z"
+}
