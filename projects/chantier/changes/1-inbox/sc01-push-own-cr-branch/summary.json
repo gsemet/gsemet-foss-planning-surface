@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Push a CR's own branch through the CLI: chantier push",
+  "summary": "Specified: chantier push <cr> --lease N runs git push --force-with-lease of the CR's recorded chantier/* branch from its clean worktree, lease held, no forge, never via a profile; AGENTS.md exception; 5-try auto-mode smoke trial. One open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "4ec47e084b80f012acfb84ec037207e01116a1ee71c02c11789be75f5aea0baa",
+    "02-answers.md": "952938fa2904114328de1de31ed8a664380d41201d31d546d1184007644e3b8f",
+    "03-change-spec.md": "c2569d0d640647e1f2449824f52a1eda52f50bb2456fae406ae43bd7ba42cf0f",
+    "intake/request.md": "5f9c0c231599afd7f8f103d45428fe3eda6a8bb56eda8c56fd5657064ae54b4d"
+  },
+  "summarized": "2026-11-24T23:39:00Z"
+}

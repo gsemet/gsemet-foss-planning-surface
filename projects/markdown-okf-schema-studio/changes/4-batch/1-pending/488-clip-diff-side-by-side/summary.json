@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Feature clip: diff since the last commit, then side by side",
+  "summary": "Spec written: an 11 s clip of Diff then Side-by-side on a staged Git repository, made with the clip kit of CR 484 and CR 485 and no kit change; the owner reviews it on the draft PR.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "488285cfd9e7ba95bbe7857c540b1b1894e4d91d2866515a33c9ef2132f0a9bb",
+    "02-answers.md": "dcdfdbf4310c2fa5bf165f62b64b753de05fb4ff3d5e4f2894b2d346477ba530",
+    "03-change-spec.md": "5c2dc55755bc51a613b3c373c51d1c0093dfeac48dac170e9d4c45b4a2916532",
+    "intake/request.md": "9bfc23735218a8d2816b81e446d665f7802358207ed1e470720b0fb28e2f2cc2"
+  },
+  "summarized": "2026-11-24T23:38:40Z"
+}

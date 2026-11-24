@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Feature clip: export the page to one HTML file",
+  "summary": "Specified: the export-html clip (Export in Dark, saved file opened in VS Code's Integrated Browser, tab click), no kit change, draft PR for the owner's review; if the trial cannot film that browser, the fallbacks of clip-export-Q4 apply in order.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "1ddba9d25c269d039e26e3fbcd65c7c03da4dbddb7ade755fbac1d10370b192f",
+    "02-answers.md": "f07613fddef4fcdaee0fe3022051fa606f3205031247b6547d49250499ae3772",
+    "03-change-spec.md": "76aa1d346b1bef197ddeb468f4e5feef8fd992a877a17d52228ede3b4d0be524",
+    "intake/request.md": "be5cae792cec9b4238bc7d9ee7a2766d8c127b40985fb39086e437d76d3c5bb3"
+  },
+  "summarized": "2026-11-24T23:38:16Z"
+}

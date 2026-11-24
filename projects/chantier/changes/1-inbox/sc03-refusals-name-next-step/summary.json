@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC03: Every CLI refusal names the next command (M9)",
+  "summary": "Child 3 of 28: every refusal of rails.py, rails_release.py, rails_idle.py and core/leases.py gains a backticked next command; 7 stop-now refusals allow-listed; an AST gate in test_rail_refusals.py reads the shipped files.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "d1f9f14b7facdf782fb4b6cdaf9040cca1d6d7f8f40e22dfd7d4939fe8e7f9fa",
+    "02-answers.md": "dc04591cbe2c04c09e3dcd549e4fdec5efd54c1e18abffab32a07c6e21c6a4c5",
+    "03-change-spec.md": "c1517c482718ed557d06fd18544cc186262ea6e4fc6cffd8ea498a40356aebae",
+    "intake/request.md": "38d189445df71f043cf110d3a69b240975795b4894c159d35ab005d618ad62d6"
+  },
+  "summarized": "2026-11-24T23:38:28Z"
+}
