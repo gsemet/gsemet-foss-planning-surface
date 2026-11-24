@@ -6,3 +6,5 @@ Short name: `board-mod-surface`
 4. board-mod-surface-Q4: **Critic.** No: one file, one area, no contract.
 Spec critic: no, one area (the board mod's folder search).
 Destination: running batch batch-31 (a stack: it joins on top, after the simplify-cards program's CRs are not required; it is independent, so it goes before them if the order allows).
+5. board-mod-surface-Q5: **A surface added elsewhere with `/add-dir`.** Chief of Staff decision under the owner's autonomy: not found, the pane says so in one line, no read of `permissions.additionalDirectories` (the spec's answer); the reported case (project and surface side by side) is covered. To confirm by the owner.
+Destination: running batch batch-31.

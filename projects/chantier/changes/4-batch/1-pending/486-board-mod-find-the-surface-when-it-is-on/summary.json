@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Board mod: find the surface from the project's planning pointer",
+  "summary": "Specified: with a planning: pointer in the project's AGENTS.md, the pane finds the surface above or beside the checkout by origin url and shows that project, never the own .agents/changes; one open question (settings' additionalDirectories).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "100d6019edaaaa38169c795b0398408120969dbe5b6557901e8028988223fbf3",
+    "03-change-spec.md": "e3235ad0ba670e0805bd86b49896a4315953bc8115ecf26477d3cd83dd94d0cb",
+    "intake/request.md": "1f65f4049e41b3b99f4fa3f963ba339c647fe993ff416e7bb7d6d3e33e7e9f40"
+  },
+  "summarized": "2026-11-24T23:27:12Z"
+}
