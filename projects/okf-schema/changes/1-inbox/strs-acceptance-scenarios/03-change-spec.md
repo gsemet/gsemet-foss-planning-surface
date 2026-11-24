@@ -1001,7 +1001,8 @@ The in-process tests (`CliRunner`, API calls, `runpy`) that walk a path keep `@t
   2. after pasting `scenarios:` (S1, S2) on the StRS and (S1, S2) on `SwRS-DELIVERY-001`, the
      fragmentless `@verifies SwRS-DELIVERY-001` and `@verifies StRS-DELIVERY-001` are errors
      and do not count (Q53); `@verifies SwRS-DELIVERY-002` stays fragmentless and counts, since
-     that SwRS declares no `scenarios:`;
+     that SwRS declares no `scenarios:`. Align the first SwRS's
+     `### Scenario S<n>: <title>` headings with its declared IDs and titles (U4);
   3. `#S9` is the unknown-fragment error;
   4. `@accepts StRS-DELIVERY-001#S1` alone gives accepted `1/2`, tested `0/2` (Q54), and W004
      disappears; `@verifies …#S1`/`#S2` give tested `2/2`; `@accepts …#S2` gives accepted
@@ -1206,7 +1207,8 @@ Repository and examples:
   interface does not produce each executable path's outcome; the navigation test imports the
   installed API in an isolated subprocess. No acceptance marker or dedicated CLI represents the
   interactive consolidation path.
-- `tests/test_examples.py::test_okfreq_showcase_runs_in_an_empty_project` runs the new step.
+- `tests/test_examples.py::test_okfreq_showcase_runs_in_an_empty_project` runs the new step and
+  checks the generated StRS and SwRS scenario headings against their declarations.
 - `just refresh-okfreq-examples` runs the example's acceptance test, and the regenerated
   `examples/okfreq-examples/dist/requirements-report.json` shows the new mode, StRS-CORE-001
   covered with `paths {1, 1, 1}` and no error, W003 or W004 (Q50). The fast and commented slow
