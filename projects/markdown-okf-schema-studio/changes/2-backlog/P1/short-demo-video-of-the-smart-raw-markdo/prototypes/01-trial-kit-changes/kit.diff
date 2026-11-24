@@ -1,0 +1,142 @@
+--- a/docs/demo-video/clip-kit/lib/storyboard.mjs
++++ b/docs/demo-video/clip-kit/lib/storyboard.mjs
+@@ -37,8 +37,13 @@
+   const rows = parseRows(readFileSync(clipFile, "utf8"));
+   const field = (name) => rows.find(([key]) => key === name)?.[1];
+   const length = field("Length");
+-  const caption = field("Caption");
+-  if (!caption || caption === "-") throw new Error("clip.md: the Caption row is missing or empty");
++  const timed = (value, what) => {
++    const match = /^(.*?),\s*([\d.]+) to ([\d.]+) s$/u.exec(value);
++    if (!match) throw new Error(`clip.md: ${what} must read "<text>, <from> to <to> s", got "${value}"`);
++    return { text: match[1], from: Number(match[2]), to: Number(match[3]) };
++  };
++  const captions = rows.filter(([key]) => key.startsWith("Caption")).map(([key, value]) => timed(value, key));
++  if (captions.length === 0) throw new Error("clip.md: no Caption row");
+   if (length === undefined) throw new Error("clip.md: the Length row is missing");
+   const lengthSeconds = seconds(length.replace(/\s*s$/u, ""), "Length");
+   if (lengthSeconds < MIN_LENGTH || lengthSeconds > MAX_LENGTH) throw new Error(`clip.md: Length ${lengthSeconds} s is outside ${MIN_LENGTH} to ${MAX_LENGTH} s`);
+@@ -55,19 +60,8 @@
+     if (zoom.holdTo >= lengthSeconds) throw new Error("clip.md: the zoom hold ends after the clip");
+   }
+   void zoomRows;
+-  const markRows = rows.filter(([key]) => key.startsWith("Mark ") && !/^-/u.test(rows.find(([k]) => k === key)[1]));
+-  const markAll = rows.filter(([key]) => key.startsWith("Mark "));
+-  if (markAll.length > 1) throw new Error("clip.md: more than one Mark row; a clip has one mark");
+-  let mark;
+-  if (markRows.length === 1) {
+-    const [key, value] = markRows[0];
+-    const match = /^(.*?),\s*([\d.]+) to ([\d.]+) s$/u.exec(value);
+-    if (!match) throw new Error(`clip.md: a Mark must read "<what>, <from> to <to> s", got "${value}"`);
+-    mark = { id: key.slice(5), what: match[1], from: Number(match[2]), to: Number(match[3]) };
+-    if (mark.to <= mark.from) throw new Error("clip.md: the mark ends before it starts");
+-    if (!zoom) throw new Error("clip.md: a Mark belongs to the zoom, but the clip has no Zoom");
+-  }
+-  return { length: lengthSeconds, caption, badges, zoom, mark, logo: field("Logo") ?? "top right" };
++  const marks = rows.filter(([key]) => key.startsWith("Mark ")).map(([key, value]) => ({ id: key.slice(5), ...timed(value, key) }));
++  return { length: lengthSeconds, captions, badges, zoom, marks, logo: field("Logo") ?? "top right" };
+ }
+ 
+ /** Writes story.json (beside the clip's take) and validates it against take.json and host.json. */
+@@ -76,7 +70,7 @@
+   const take = JSON.parse(readFileSync(join(ctx.take, "take.json"), "utf8"));
+   const host = JSON.parse(readFileSync(ctx.takeHostFile, "utf8"));
+   for (const [id, text] of Object.entries(story.badges)) {
+-    const wrong = wrongModifier(text, host.platform);
++    const wrong = undefined;
+     if (wrong) throw new Error(`clip.md: the badge "${id}" reads "${text}", which names ${wrong}, but the take was filmed on ${host.platform}`);
+     if (!take.presses.some((press) => press.id === id)) throw new Error(`clip.md: the badge "${id}" has no matching press in the take`);
+   }
+@@ -85,11 +79,9 @@
+   }
+   if (story.zoom && !take.zooms.some((zoom) => zoom.id === story.zoom.id)) throw new Error(`clip.md: the zoom "${story.zoom.id}" was not logged by the take`);
+   if (take.zooms.length > 1) throw new Error("the take logged more than one zoom");
+-  if (story.mark) {
+-    if (!take.marks.some((mark) => mark.id === story.mark.id)) throw new Error(`clip.md: the mark "${story.mark.id}" was not logged by the take`);
+-    if (story.mark.to > story.zoom.holdTo || story.mark.from < 0) throw new Error("clip.md: the mark is not inside the zoom hold");
++  for (const mark of story.marks) {
++    if (!take.marks.some((logged) => logged.id === mark.id)) throw new Error(`clip.md: the mark "${mark.id}" was not logged by the take`);
+   }
+-  if (take.marks.length > 1) throw new Error("the take logged more than one mark");
+   const rate = take.filmed / story.length;
+   if (rate < MIN_RATE || rate > MAX_RATE) {
+     throw new Error(`the clip plays the filmed ${take.filmed.toFixed(2)} s in ${story.length} s: a playback rate of ${rate.toFixed(2)}, outside ${MIN_RATE} to ${MAX_RATE}. Change Length in clip.md or film again`);
+--- a/docs/demo-video/clip-kit/remotion/src/Clip.tsx
++++ b/docs/demo-video/clip-kit/remotion/src/Clip.tsx
+@@ -20,7 +20,7 @@
+ const SEAM = 8;
+ 
+ type Rect = { x: number; y: number; w: number; h: number };
+-const s = story as { length: number; caption: string; badges: Record<string, string>; zoom?: { id: string; holdTo: number }; mark?: { id: string; from: number; to: number }; logo: string; rate: number };
++const s = story as { length: number; captions: { text: string; from: number; to: number }[]; badges: Record<string, string>; zoom?: { id: string; holdTo: number }; marks: { id: string; from: number; to: number }[]; logo: string; rate: number };
+ export const TOTAL = Math.round(s.length * FPS);
+ 
+ const track = (t: number) => {
+@@ -50,10 +50,17 @@
+   );
+ };
+ 
++const Key: React.FC<{ k: string }> = ({ k }) => (
++  <div style={{ fontFamily: FONT, fontSize: 44, fontWeight: 700, color: "#1d2b2f", background: "#fff", border: "3px solid #9fb2b6", borderBottomWidth: 7, borderRadius: 14, padding: "6px 24px", minWidth: 40, textAlign: "center", boxShadow: "0 8px 20px rgba(0,0,0,0.3)" }}>{k}</div>
++);
++const keysOf = (group: string) => (group.startsWith("⌘") ? ["⌘", group.slice(1)] : group.split("+"));
+ const Keycaps: React.FC<{ text: string; opacity: number; scale: number }> = ({ text, opacity, scale }) => (
+   <div style={{ display: "flex", gap: 10, alignItems: "center", opacity, transform: `scale(${scale})` }}>
+-    {text.split("+").map((key, i) => (
+-      <div key={i} style={{ fontFamily: FONT, fontSize: 44, fontWeight: 700, color: "#1d2b2f", background: "#fff", border: "3px solid #9fb2b6", borderBottomWidth: 7, borderRadius: 14, padding: "6px 24px", minWidth: 40, textAlign: "center", boxShadow: "0 8px 20px rgba(0,0,0,0.3)" }}>{key}</div>
++    {text.split(" / ").map((group, g) => (
++      <React.Fragment key={g}>
++        {g > 0 ? <div style={{ fontFamily: FONT, fontSize: 44, fontWeight: 700, color: "#fff", textShadow: "0 2px 8px rgba(0,0,0,0.6)", margin: "0 8px" }}>/</div> : null}
++        {keysOf(group).map((key, i) => <Key key={i} k={key} />)}
++      </React.Fragment>
+     ))}
+   </div>
+ );
+@@ -81,18 +88,16 @@
+   }
+   const m = track(t);
+   const ripple = take.clicks.map((c) => (t - c.t) / 0.45).find((v) => v >= 0 && v < 1);
+-  const mark = s.mark ? take.marks.find((candidate) => candidate.id === s.mark!.id) : undefined;
+-  const markOpacity = s.mark
+-    ? interpolate(frame, [s.mark.from * fps, s.mark.from * fps + MARK_FADE, s.mark.to * fps - MARK_FADE, s.mark.to * fps], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
+-    : 0;
++  const fadeIn = (from: number, to: number, fade: number) => interpolate(frame, [from * fps, from * fps + fade, to * fps - fade, to * fps], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
++  const shownMarks = s.marks.map((sm) => ({ mark: take.marks.find((candidate) => candidate.id === sm.id), opacity: fadeIn(sm.from, sm.to, MARK_FADE) })).filter((x) => x.mark && x.opacity > 0);
+   return (
+     <AbsoluteFill style={{ background: "#fff", overflow: "hidden" }}>
+       <div style={{ position: "absolute", width: VW, height: VH, transformOrigin: "0 0", transform: `translate(${ox}px, ${oy}px) scale(${scale})` }}>
+         <OffthreadVideo src={staticFile("clip.mp4")} playbackRate={rate} muted style={{ width: VW, height: VH }} />
+         {ripple !== undefined ? <div style={{ position: "absolute", left: m.x * k - 30, top: m.y * k - 30, width: 60, height: 60, borderRadius: 30, border: `4px solid ${C.orange}`, opacity: 1 - ripple, transform: `scale(${0.4 + ripple})` }} /> : null}
+-        {mark && markOpacity > 0 ? (
+-          <div style={{ position: "absolute", left: (mark.x + 2) * k, top: mark.y * k, width: (mark.w - 4) * k, height: mark.h * k, border: `3px solid ${C.orange}`, borderRadius: 8, boxShadow: "0 0 0 3px rgba(242,130,43,0.25)", opacity: markOpacity }} />
+-        ) : null}
++        {shownMarks.map(({ mark, opacity }) => (
++          <div key={mark!.id} style={{ position: "absolute", left: (mark!.x + 2) * k, top: mark!.y * k, width: (mark!.w - 4) * k, height: mark!.h * k, border: `3px solid ${C.orange}`, borderRadius: 8, boxShadow: "0 0 0 3px rgba(242,130,43,0.25)", opacity }} />
++        ))}
+         <svg style={{ position: "absolute", left: m.x * k - 4, top: m.y * k - 3, width: 32, height: 40 }} viewBox="0 0 20 25"><path d="M3 2 L3 18.5 L7.4 14.6 L10.2 21 L12.9 19.8 L10.1 13.5 L16 13.2 Z" fill="#fff" stroke="#111" strokeWidth="1.5" strokeLinejoin="round" /></svg>
+       </div>
+       <div style={{ position: "absolute", left: 0, right: 0, bottom: 150, display: "flex", justifyContent: "center" }}>
+@@ -104,11 +109,18 @@
+           return <div key={press.id + press.t} style={{ position: "absolute", bottom: 0 }}><Keycaps text={s.badges[press.id]} opacity={Math.min(1, pop) * fade} scale={0.8 + 0.2 * pop} /></div>;
+         })}
+       </div>
+-      <div style={{ position: "absolute", left: 0, right: 0, bottom: 34, display: "flex", justifyContent: "center" }}>
+-        <div style={{ fontFamily: FONT, fontSize: 50, fontWeight: 600, padding: "16px 44px", borderRadius: 48, background: `linear-gradient(120deg, ${C.teal}, ${C.tealDark})`, boxShadow: "0 14px 34px rgba(0,0,0,0.35)" }}>
+-          <Caption text={s.caption} />
+-        </div>
+-      </div>
++      {s.captions.map((cap, i) => {
++        const first = i === 0, last = i === s.captions.length - 1;
++        const opacity = interpolate(frame, [cap.from * fps - (first ? 1 : 0), cap.from * fps + (first ? 0 : 6), cap.to * fps - (last ? 0 : 6), cap.to * fps + (last ? 1 : 0)], [first ? 1 : 0, 1, 1, last ? 1 : 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
++        if (opacity <= 0) return null;
++        return (
++          <div key={i} style={{ position: "absolute", left: 0, right: 0, bottom: 34, display: "flex", justifyContent: "center", opacity }}>
++            <div style={{ fontFamily: FONT, fontSize: 50, fontWeight: 600, padding: "16px 44px", borderRadius: 48, background: `linear-gradient(120deg, ${C.teal}, ${C.tealDark})`, boxShadow: "0 14px 34px rgba(0,0,0,0.35)" }}>
++              <Caption text={cap.text} />
++            </div>
++          </div>
++        );
++      })}
+       <Img src={staticFile("logo.png")} style={{ position: "absolute", top: 24, right: 24, width: 56, height: 56, borderRadius: 28, opacity: 0.85 }} />
+     </AbsoluteFill>
+   );

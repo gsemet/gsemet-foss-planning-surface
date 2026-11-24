@@ -46,3 +46,6 @@ Trial render (2026-11-24, after raw-copy-demo-Q38): the Griller filmed the new s
 39. raw-copy-demo-Q39 (2026-11-25, unprompted): **A table and a thematic break in the copied text.** The owner's words: "dans l'exemple qui est copié, rajoute un petit tableau et un --- dans le texte copié (au milieu)". The stage document gains a small table and a `---` between the two admonitions, inside the selection, so the clip shows that they paste as their Markdown. The intro paragraph goes and the title is shortened, so the whole selection stays in view.
 40. raw-copy-demo-Q40 (2026-11-25): **One picture per key moment.** A storyboard section may hold several pictures, one per key moment (the selection and the paste; one per mark), not one per section. The owner kept this layout ("Garder une par moment").
 41. raw-copy-demo-Q41 (2026-11-25): **Caption 2 reworded.** The owner was not satisfied with "Partial syntax is pasted as valid Markdown" and wrote: "Cut-off syntax is completed on copy to ensure valid Markdown". The accent goes on "completed" (`**completed**`), as in the option the owner started from.
+
+Grilled enough (2026-11-25): the owner, "envoie tout ça dans le batch en cours, pour validation".
+Destination: running batch batch-09. Critic: yes (the kit's storyboard format, the captions and the marks change).
