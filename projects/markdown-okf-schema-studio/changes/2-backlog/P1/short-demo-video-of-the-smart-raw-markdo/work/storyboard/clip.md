@@ -35,7 +35,7 @@ on the right. It shows two texts in turn.
 | --- | --- |
 | Time | 0 to 4.4 s |
 | Shot *(filmed)* | Studio in reading mode on `runbook.md` (left), the empty `notes.md` in the text editor (right). The mouse drags from "database", inside the `important` admonition, to "old schema." in the next paragraph (0 to 2.6 s). Copy chord at 2.6 s. The pointer moves to `notes.md` and clicks. Paste chord at 4.2 s. |
-| Text 1 *(on screen)* | Copy a selection as **raw Markdown** |
+| Text 1 *(on screen)* | From preview, select and copy **raw Markdown** |
 | Badge copy *(on screen)* | Ctrl+C / ⌘C |
 | Badge paste *(on screen)* | Ctrl+V / ⌘V |
 
@@ -47,8 +47,8 @@ on the right. It shows two texts in turn.
 | --- | --- |
 | Time | 4.4 to 8.5 s (zoom held to 7.6 s, then back to the start for the loop) |
 | Shot *(filmed)* | Zoom (at most 2x) on the five pasted lines in `notes.md`. |
-| Mark *(on screen)* | Orange outline around the added line `:::{important} Before you deploy`, 5.2 to 6.8 s |
-| Text 2 *(on screen)* | **balanceEdges** on: a copy stays valid Markdown |
+| Mark *(on screen)* | Orange outline around the added line `:::{important}`, 5.2 to 6.8 s                   |
+| Text 2 *(on screen)* | Partial syntax are pasted as valid Markdown      |
 
 ## Review notes
 
