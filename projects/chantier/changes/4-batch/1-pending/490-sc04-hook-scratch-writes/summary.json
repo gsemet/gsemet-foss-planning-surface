@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC04: Let the write guard pass scratch writes",
+  "summary": "Specified (child 4 of 28): the hook's write guard passes a null device closing a substitution (/dev/null)) and writes inside the session's scratchpad, read lazily from $.session.info() (variant a, unproved on the host); hooks only, just mod owed, 0 s added to just test.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a8800fb683d4e0cae7d78b7c577e3ce7b5a4ba0976cb66b48c7f5840b049c389",
+    "02-answers.md": "9916a9a01a530e95bdc7617af26e51177da90c098c19ae9166ad7d29f4c02894",
+    "03-change-spec.md": "f5c5089460eba12a1aa93d1fa01f7fbae48d86fd76efccccd92d8b5c8c5e84fc",
+    "intake/request.md": "0e9b50b54d959048444d4b72cd60b9cb7f30c26b6a00185ca8a4213c3d363cdf"
+  },
+  "summarized": "2026-11-24T23:42:49Z"
+}

@@ -1,0 +1,22 @@
+fnm exec -- node scripts/node-test.mjs clip-kit "docs/demo-video/clip-kit/lib/*.test.mjs"
+✔ the shipped clip.md reads as the approved storyboard (0.988ms)
+✔ the rows of the fenced Expected paste block are not fields (0.2709ms)
+✔ EXPECTED in scenario.mjs is the Expected paste block of clip.md, character for character (0.0715ms)
+✔ the shipped story validates against its take on Windows and on macOS (combined badges) (0.3805ms)
+✔ a badge that names only the other platform's modifier is refused (0.5014ms)
+✔ a mark the take did not log, and a mark outside the hold, are refused (0.3472ms)
+✔ a badge with no press and a press with no badge are refused (0.1587ms)
+✔ prepared refusals: size, frame rate, cards (0.2787ms)
+✔ prepared refusals: captions (0.4331ms)
+✔ prepared refusals: marks (0.3757ms)
+✔ a clip with no mark has no Mark row (0.1627ms)
+✔ a table inside a fenced block gives no field (0.2846ms)
+✔ a storyboard with no Size and no Frame rate is 1920x1080 at 30 fps (0.1512ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 130.4153

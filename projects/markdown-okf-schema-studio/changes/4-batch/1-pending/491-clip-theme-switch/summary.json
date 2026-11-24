@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Feature clip: switch the theme in one click",
+  "summary": "Specified from the Griller's draft: one 10.5 s 1280x720 15 fps clip, Theme button Dark to White to Cream with diagram and chart redrawn, zoom and two marks; four-click fallback if the loop seam fails; draft PR until the owner approves; reuses CR-485's kit changes.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "80ea3b18ad25679901d40348526f3e7fef33adefab7c1d1a8bc809943e08a9a0",
+    "02-answers.md": "037e64eca6c2b08fb93848d21f2d8ed5a6f55418f6c265865db71c49989ddb98",
+    "03-change-spec.md": "cc1e8fea03246f18a67f4793f61953deb7c438de3ee0d1f1b7f41886cff3d5dc",
+    "intake/request.md": "55046bb74597fabccfe27dd9b5be761a24485f3adf47891ab2ab0b9222e729d9"
+  },
+  "summarized": "2026-11-24T23:43:48Z"
+}
