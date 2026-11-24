@@ -61,6 +61,7 @@ alignment cannot place snaps to its whole element instead of leaving the copy na
 | copy-edges-Q15 | A definition list, a raw HTML block, a footnote definition cut inside: balanced too (term line and `: ` marker, the HTML block's opening or closing tag, the `[^n]: ` label). | 3.9 |
 | copy-edges-Q16 | A selection entirely inside a code block in a list item, blockquote or admonition: the code text alone, the container's indentation or `> ` prefix removed from every line. | 3.5 |
 | 17 (Chief of Staff routine, critic F2-F4, F6, setting) | F6: inside one inline code span its text alone, leaving it its backticks. F2: the innermost frame in a tab item is the tab item (its panel is mapped). F3: inline math is whole, out of the inline list. F4: the base CR's tests whose values change with the setting on are listed. Off is the pure verbatim cut; Q16's prefix removal and every addition happen with the setting on only; snapping in both. | 3.3, 3.4, 3.10, E2 ("Base CR tests"), 3.1 |
+| copy-edges-Q18 | A selection entirely inside a blockquote or list item, setting on: the container's prefix is removed from every copied line, not only in a code block (the general reading of 3.2). Setting off: the verbatim cut. | 3.2, 3.5 |
 
 Carried from the base CR's critic run (copy-raw answers 14 to 18) where they touch the edges:
 
@@ -636,13 +637,3 @@ before/after (setting off, setting on) of a copy starting inside a bold word of 
 ending in a table row, and of a word copied inside a code block, the CHANGELOG line. Commit scope
 per `.agents/guidelines/git-commit-allowed-scopes.md` (`feat(vscode)` or `feat(render)`, as the
 base CR).
-
-## Open questions
-
-1. Q12 and Q16 say an inside-only code block loses its containers' indentation or `> ` prefix.
-   Written for the general reading (3.2): a selection inside any construct (a blockquote, a list
-   item, an admonition nested in a list item) copies its content with that construct's prefix
-   removed from every line after the first, so two paragraphs selected inside a blockquote paste
-   as two paragraphs, not as a paragraph followed by a blockquote. The other option: remove
-   prefixes only for a selection inside a code block (Q16 as written), and keep the verbatim
-   prefix on the later lines of other inside-only selections.

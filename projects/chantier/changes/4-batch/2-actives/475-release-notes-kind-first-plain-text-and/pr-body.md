@@ -59,7 +59,7 @@ No visual change. Future release notes start with the release's kind and carry l
 - [x] Evidence: reading check (the 1.12.1 situation) at `6773a4d`
 - [x] Review: approved at `6773a4d`
 - [x] Verified at `6773a4d`
-- [ ] CI green at `6773a4d`
+- [x] CI green at `6773a4d`
 
 ## Internal references
 

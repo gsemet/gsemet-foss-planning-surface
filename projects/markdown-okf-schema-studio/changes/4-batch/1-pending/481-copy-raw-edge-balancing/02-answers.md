@@ -31,5 +31,6 @@ Short name: `copy-edges`. These answers come from the grill of `copy-selection-r
     - F3: inline math is whole in the copy, like an image (its rendered text is not its source); take it out of 3.2's cut-and-balance list. CR-480 already treats an edge it cannot align as native copy; the Chief of Staff tells the Foreman that CR-480's whole-construct list should name inline math.
     - F4: list the CR-480 test cases whose expected values change once balancing runs with the setting on (an edge in an admonition title, an edge in a tab item's block, the unplaced alignment now snapped, the E4 table-in-admonition step), say whether each is edited in place in test/core/mapping/rawCopy.test.ts or moved to rawCopyBalance.test.ts; with the setting off they keep CR-480's values.
     - The setting off is the pure verbatim cut of CR-480; Q16's prefix removal and every delimiter addition happen with the setting on only. Snapping (line 13) applies in both.
+18. copy-edges-Q18 (2026-11-24, spec open question after Q12): **A selection entirely inside a blockquote or list item, setting on.** A. The container's prefix (`> `, list indentation) is removed from every copied line, not only inside a code block: two paragraphs selected inside a blockquote paste as two plain paragraphs. Setting off: the verbatim cut, unchanged.
 
 Destination: running batch batch-09.
