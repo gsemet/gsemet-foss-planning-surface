@@ -15,3 +15,7 @@ Relayed from markdown-okf-schema-studio's Chief of Staff, on the owner's word (2
 1. Find why the hub missed the merge of #499 (idle hub, a watcher restart that did not subscribe again, a PR the hub did not know, or something else) and fix it.
 2. A safety net: when the watcher ends on its quiet timeout, or when the hub is idle, it checks the batch's open PRs on the forge itself. A merge the journal missed is reported, not lost.
 3. `status` names a CR whose PR is merged on the forge while the journal has no `merged` event for it.
+
+## Seen again (2026-11-24)
+
+CR-483 (https://github.com/gsemet/markdown-okf-schema-studio/pull/500) merged at 18:28:15Z: no `merged@1` event either, with a watcher (`watch --after 63`) running. Two missed merges in a row; recorded by hand with `order merged`.
