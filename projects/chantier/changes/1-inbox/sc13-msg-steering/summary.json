@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC13: A Driver messages the steering session through the board",
+  "summary": "Specified: chantier msg steering <kind> <text> --cr <unit> --lease N appends a msg@1 journal line to the steering session's watcher (anomaly and blocked wake, note waits; not delivered exits 2); chantier inbox --epoch N lists and marks read. No open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "5aa7e33cdc3d3c8c3c6dc76996be745884a04c5300584a0fe9956dfec1294c8b",
+    "02-answers.md": "e11eae292736bac8203b8f98be3a779fa8f450ace9fe02b7fb3ea83f0740303a",
+    "03-change-spec.md": "aa4bc6d0abda2c3102910131b31c92d12cea5c75452d9a8a957b55021d54e390",
+    "intake/request.md": "43985cb4053a69b87e35b2f31eecc97acbac378e32f67d5e83cd79fedc6aaad7"
+  },
+  "summarized": "2026-11-24T23:58:20Z"
+}

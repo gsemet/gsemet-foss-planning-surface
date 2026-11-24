@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC10: chantier brief writes a role's whole start prompt",
+  "summary": "Child 10 of 28, specified: floor.md, chantier brief for 18 roles (brief file in the git folder, short prompt with writes/worktree lines), --cards, take/round/handoff unchanged, tests 18x2, hook case, scenario step, quiz-folder positive; 4 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "04ae1903b24c8ca3af81831736ed7d1cacf0220839cec35f54dda70482973250",
+    "02-answers.md": "4d5e2e7d8eceb0f1b3b71fd42d505b26b1c2043c9d3ac51cd7b10ec22fffcc37",
+    "03-change-spec.md": "63319e8ab00091b16870d3d8fb0107fea25cf6be045f276a1e133642a9fcbdfd",
+    "intake/request.md": "d08c0901f519132d01ff48b9f9f219682ae35a086177e043ecde73a71d0fd6ff"
+  },
+  "summarized": "2026-11-24T23:58:23Z"
+}
