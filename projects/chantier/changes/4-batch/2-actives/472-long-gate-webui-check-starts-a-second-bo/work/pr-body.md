@@ -57,7 +57,7 @@ The board's link is no longer always on 8765; the start line prints the port. No
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`, `just scenario --unit surface-board` (with a board on 8765)
+- [x] Local gates at `b9ec1d6`: `just check` pass, `just eval-dry-run` pass, `just scenario` pass (long gate, with a board on 8765)
 - [ ] Evidence: see Known gaps for the reproduction
 - [ ] Review: approved at `<sha7>`
 - [ ] Verified at `<sha7>`
