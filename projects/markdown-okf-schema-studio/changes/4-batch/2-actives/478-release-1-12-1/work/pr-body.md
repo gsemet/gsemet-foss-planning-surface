@@ -25,9 +25,9 @@ Grade: **2**: the release publishes; a revert before the tag is a plain `git rev
 - [x] New or changed tests (they fail on the previous code): none, release commit only
 - [x] Requirements: No behaviour change
 - [x] Changelog: the lines of the release moved under the 1.12.1 heading
-- [ ] Local gates: `just preflight` (static stage on Windows)
+- [x] Local gates: `just preflight` (static stage, passed)
 - [ ] Review
-- [ ] CI green, and the heavy run (`integration` and `stress`) green on this branch head
+- [x] CI green, and the heavy run (`integration` and `stress`) green on this head (run 45341630587)
 
 ---
 
