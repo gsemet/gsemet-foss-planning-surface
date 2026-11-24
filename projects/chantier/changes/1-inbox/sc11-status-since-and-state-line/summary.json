@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC11: status --since and the watcher state line",
+  "summary": "Specified: status --since <event seq> prints only changed CRs and orders, merged CRs as one count, the next sequence last, records nothing; the steering watcher told blocks gain a state: line (counts by state, slots, due count from a new due list child 12 reuses).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "7cbc73442f2456e91e89e089cc3c2e70a3806450df44850a387b057cfae61698",
+    "02-answers.md": "23f649edcb0c3688dd887b4318af90abb727dd710243fcf1d5efd7116d84868a",
+    "03-change-spec.md": "1e41ece6ed74e6ebdefefd0da1b67d21fe3b7dde6bb319d9f82265d27657d114",
+    "intake/request.md": "669e486be80ac8c7efecf64528b5f06bb2d275fd485466dcb45fc391cd9ee0c3"
+  },
+  "summarized": "2026-11-24T23:54:53Z"
+}
