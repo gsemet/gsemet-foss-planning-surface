@@ -47,7 +47,7 @@ Grade: 1. Additions to an index file that older readers ignore, and a pane redra
 ## Changes
 
 - `status/views.py`: shared merged-row builder, per-batch `merged`, `created`, `counts`.
-- `status/write.py`: `services` in `write_dashboard`; `board/address.py`: `local_url` key optional.
+- `status/write.py`: `services` in `write_dashboard`; `board/links.py` (new, holds the link helpers; `board/address.py` re-exports them): `local_url` key optional.
 - `types/index.d.ts`: the new optional fields.
 - `hooks/register.tsx`: state groups, figures line, Backlog label, Services section, links; `hooks/register.test.tsx` and `tests/test_status_index_services.py`.
 - `CONTRIBUTING.md` ("A mod") and `docs/boards.md`.
