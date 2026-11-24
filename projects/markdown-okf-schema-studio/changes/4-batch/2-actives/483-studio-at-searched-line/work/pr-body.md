@@ -18,7 +18,20 @@ flowchart LR
 
 - Command `markdown-okf-schema-studio.openInStudioAtLine` (palette on Markdown text editors, editor title menu, no default keybinding); the text tab stays.
 - A link, Back or Next to a file whose Studio tab is open in another group reveals that tab; no second tab.
-- Probe table: see the header of `test/integration/openAtLineProbe.test.ts` (4 states x 7 entries, VS Code 1.147.0, Windows 11). Verdict per entry (plain jump, Quick Open, link `#L42`, link `#heading`, Problems, Go to Symbol): **no signal** (one Studio tab at the top, no fragment, no selection event, no text editor). Search result: not drivable by command, documented. No entry (search result, Problems, link `#L42`, Quick Open) gives the custom editor a reliable line signal, so a jump under the association keeps opening Studio at the top and the command is the way to reach the line. **UNVERIFIED:** the Linux half of the probe (see Known gaps).
+- Probe (VS Code 1.147.0, Windows 11; header of `test/integration/openAtLineProbe.test.ts`). The Studio tab's URI never carries a fragment or query, VS Code gives no selection event and no text editor at resolve, so no entry has a line signal and the automatic line signal is not built:
+
+| State | Entry | Result |
+| --- | --- | --- |
+| associated, file not open | plain jump, Quick Open `file.md:42`, link `#L42`, link `#heading`, Problems, Go to Symbol | 1 Studio tab, no line signal |
+| associated, file not open | Search | commands opened nothing (not drivable) |
+| default, file not open | jump, links, Problems, Go to Symbol | text editor at 42 |
+| default, file not open | Quick Open, Search | flaky or nothing opened |
+| associated, Studio tab elsewhere | jump, Quick Open, links | second Studio tab, at the top |
+| associated, Studio tab elsewhere | Problems, Go to Symbol, Search | existing tab revealed or nothing, no line |
+| default, Studio tab elsewhere | jump, links, Problems, Go to Symbol | text editor at 42, Studio tab kept |
+| default, Studio tab elsewhere | Quick Open | second Studio tab |
+
+- Real-window rows now run (`openAtLineStudio.test.ts`): the command (associated and default, text tab stays), `#heading` link from a Studio tab, Studio Back/Next, VS Code Go Back/Go Forward, Reopen With Text Editor and `openWith default` stay text, reveal in another group with no second tab, default link opens text with history unchanged, Explorer-style open with no marker.
 
 ## Blast radius
 
@@ -26,13 +39,12 @@ Grade: 2. The `showDocument` port gains options and an outcome (all fakes update
 
 ## Autonomous decisions
 
-- The line signal of 5.1 is not built: the local probe found no reliable signal.
+- The automatic line signal is not built: the local probe found no reliable signal.
 
 ## Known gaps
 
-- The Linux half of the probe is pending (CI run); Search and some Quick Open cells cannot be driven by command.
+- Only Windows was measured; the Linux half of the probe is pending (CI run), and a signal found there would add the automatic line signal. **UNVERIFIED:** the verdict "no signal" for the Search entry and for Quick Open in the default state rests on absence of evidence: they cannot be driven reliably by command.
 - The `real-input` integration step times out in this Windows worktree even with the new steps removed; whether it also fails on a clean main is not yet shown.
-- **UNVERIFIED:** the full real-window matrix rows of the specification beyond the probe.
 
 <details>
 <summary>Details</summary>
@@ -45,6 +57,14 @@ Grade: 2. The `showDocument` port gains options and an outcome (all fakes update
 - `src/session/features/links.ts`, `history.ts`, `previewSession.ts`, `previewManager.ts`: Studio-tab flag, shared and appended history.
 - `package.json`, docs, glossary, requirements (new LIFE-196..198, amended LIFE-181, TOOLBAR-059, StRS LIFE-023).
 
+## Human decisions
+
+- No automatic replacement of a text tab by Studio, ever; raw text requests (Open as Text, Open With, Reopen With Text Editor) always give the text.
+- Proof first in a real window; with no reliable signal, an explicit command opens Studio at the line and an entry with no signal opens Studio at the top (documented limitation).
+- No default keybinding for the command; the text tab stays and Studio opens in its group.
+- Links, Back and Next inside Studio keep the line; a Studio tab already open in another group is revealed, never duplicated; its own history is kept and the move appended.
+- A link followed as text (default settings) is not recorded in Studio's history.
+
 ## Impacts
 
 No visual change beyond the new menu entry and the marked line in Studio.
@@ -54,7 +74,7 @@ No visual change beyond the new menu entry and the marked line in Studio.
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates
+- [ ] Local gates: `just check`, unit and security tests, `just requirements-update`/lint, `npm run test:integration -- --trusted-only` (open-at-line, probe and studio steps pass; `real-input` fails, see Known gaps)
 - [ ] Review
 - [ ] CI green
 
