@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Balance the edges of a raw Markdown copy",
+  "summary": "Fills copy-raw's balanceRawCut seam: a cut edge gets its inline markers, container fence lines, table header and delimiter, list marker shifted by the shallowest item, heading marker; an unplaced edge snaps to its element. Specified, stacked on copy-raw; 3 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "435b2e05a75831aec109c5483259c2be7407e1d035ce94ef38e9af180c8dbaad",
+    "02-answers.md": "11dac73e91f282279c407fb5102e1264d0fe55bf6c4c084e78c9d33dd31faf83",
+    "03-change-spec.md": "daf6ba823bf8061e2cbf4e892b1dcafac886d40ba6ccb261b88cb67fb75cecac",
+    "intake/request.md": "0e108c16a66dbbe09389dc9af7a5440fb76780ae1764c81d2b2ad7cb6db15ff2"
+  },
+  "summarized": "2026-11-24T11:43:09Z"
+}

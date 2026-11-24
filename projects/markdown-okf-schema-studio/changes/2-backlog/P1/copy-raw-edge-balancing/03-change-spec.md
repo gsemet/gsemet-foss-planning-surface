@@ -5,7 +5,7 @@ Short name: `copy-edges`. No tracker issue (origin: the owner, verbal, 2026-11-2
 `copy-selection-raw-markdown` (short name `copy-raw`, "the base CR" below): this CR's branch starts
 from the base CR's branch and needs its raw copy (the `previewSourceText` protocol, the page's copy
 handler, the selection-to-source mapping, generated content, UI chrome, scope and clipboard
-formats).
+formats). It fills the base CR's seam `balanceRawCut` (base spec, section 2.3).
 
 ## Goal
 
@@ -16,10 +16,11 @@ The base CR makes a native selection copy, as text/plain, the source between the
 the selection's start and the character under its end, verbatim. When an edge falls in the middle
 of a construct, that verbatim cut is broken Markdown: `rld** again`, an admonition's body without
 its fence, table rows without their header, a sub-item still indented under a parent that is not
-copied. This CR balances the cut: the text is still cut exactly at the character, and the
-characters that open or close what the cut went through are added, so the pasted Markdown is well
-formed and renders as the part the writer selected. A selection whose edges are clean (outside
-any construct) copies exactly what the base CR copies.
+copied, `llo` without its heading marker. This CR balances the cut: the text is still cut exactly
+at the character, and the characters that open or close what the cut went through are added, so
+the pasted Markdown is well formed and renders as the part the writer selected. An edge the base
+CR cannot place snaps to its whole element instead of leaving the copy native. A selection whose
+edges are clean (outside any construct) copies exactly what the base CR copies.
 
 ## Decisions carried from `02-answers.md`
 
@@ -36,80 +37,80 @@ any construct) copies exactly what the base CR copies.
 
 Carried from the base CR's critic run (copy-raw answers 14 to 18) where they touch the edges:
 
-- copy-raw-Q14: Ctrl+A then copy gives the whole source exactly, final newline included. An edge
-  at offset 0 or at the end of the source is clean (3.1), so balancing never changes that result.
-- copy-raw-Q15: a selection with an edge in an old-side card of the side-by-side view stays a
-  native copy (the base CR decides it before the seam); balancing never runs on it.
-- copy-raw answer 18, F5: the frames of the core tests are taken from the real core renderer's
-  output (a tab item carries no source line: `src/core/render/mystNode.ts` lines 90-97,
-  `src/core/render/mystGridToctree.ts` line 491), and the nesting grid also runs in the real
-  browser (E2, E3).
+- copy-raw-Q14: Ctrl+A then copy gives the whole source exactly, final line break included. The
+  base CR resolves those clamped edges to offset 0 and to the source's length; both are clean
+  (3.1), so balancing never changes that result.
+- copy-raw-Q15: an edge in an old-side card of the side-by-side view leaves the copy native, decided
+  by the base CR's page handler before the seam; balancing never sees it.
+- copy-raw answer 18, F5: the frames of the core tests come from the real core renderer's output
+  through the base CR's test helper (a tab item carries no source line:
+  `src/core/render/mystNode.ts` lines 90-97, `src/core/render/mystGridToctree.ts` line 491), and
+  the nesting grid also runs in the real browser (E2, E3).
 - copy-raw answer 18, F6: text/html is proved in Chromium only; this CR does not change text/html.
 
 ## 1. The seam with the base CR
 
-The base CR's pure function (`rawMarkdownForSelection` in `src/core/mapping/rawCopy.ts`, as the
-joint specification named it) resolves each edge to a source offset, then produces the verbatim
-cut `source.slice(startOffset, endOffset)` in one step. That step is the seam. This CR replaces it
-with a call to a new pure function, and changes nothing before it (scope, native cases, the
-`previewSourceText` message, the alignment of a placed edge, atomic generated content, chrome,
-text/html) nor after it (setting text/plain, `preventDefault`).
+The base CR resolves each edge in `rawMarkdownForSelection` (`src/core/mapping/rawCopy.ts`), then
+returns `balanceRawCut(cut)` of `src/core/mapping/rawCopyEdges.ts`, whose types it defines:
+`RawCut { source, lineBreak, start, end }`, each edge a `ResolvedRawEdge`, either
+`{ kind: "placed"; offset; frames }` or `{ kind: "unplaced"; frames }`, each frame a
+`ResolvedRawFrame` (`line`, `endLine`, `atomic`, and the source offsets `start` and `end` of its
+first line and of the end of its last line), outermost first. In the base CR `balanceRawCut`
+returns `undefined` when an edge is unplaced or the start is after the end, else the verbatim
+slice.
 
-```ts
-// src/core/mapping/rawCopyBalance.ts
-/** One edge of the cut, resolved by the base CR's mapping. */
-export interface RawCutEdge {
-  offset: number;                   // the source offset of the edge (UTF-16 index in `source`)
-  frames: readonly RawCopyFrame[];  // the mapped elements enclosing the edge, outermost first
-  placed: boolean;                  // false when the alignment could not place the edge (3.7)
-}
-export function balanceRawCut(source: string, start: RawCutEdge, end: RawCutEdge): string;
-```
+This CR replaces the body of `balanceRawCut` (keeping its signature and types), and adds the
+modules it calls. It changes nothing in `rawMarkdownForSelection`, the page handler
+(`src/page/features/rawCopy.ts`) or the `previewSourceText` protocol: the frames carry all it
+needs, and it reads no DOM. The doc comment of `balanceRawCut` that names this CR is replaced by
+one that states what it does.
 
-`RawCopyFrame` is the base CR's type (`line`, `endLine`, `atomic`). If the base CR names the seam,
-the frame type or the unplaceable case differently, the Driver uses the base CR's names and keeps
-the behaviour below; if the base CR's edge carries no frames past the mapping, this CR passes them
-through (the page's edge builder already reads them for the mapping). If the base CR's mapping
-returns `undefined` for an unplaceable edge (native copy), this CR changes that branch to call
-`balanceRawCut` with `placed: false` (3.7).
+The new body:
 
-`balanceRawCut` returns exactly `source.slice(start.offset, end.offset)` when both edges are clean
-(3.1). Every added character uses the document's line break (CR LF or LF, as the source's first
-line break; LF for a source without one).
+1. An `unplaced` edge is snapped first (3.7); it becomes a placed edge.
+2. A start offset after the end offset still returns `undefined` (native copy), as in the base CR.
+3. When both edges are clean (3.1), it returns `cut.source.slice(start.offset, end.offset)`,
+   exactly the base CR's result.
+4. Otherwise it moves the edges as 3.4 says (whole table rows), then returns the slice with the
+   openings of 3.2 to 3.6 before it and the closings after it. Every added line break is
+   `cut.lineBreak`.
 
 ## 2. What changes, area by area
 
 ### 2.1 Core
 
-- New `src/core/mapping/rawCopyBalance.ts`: `balanceRawCut` and the block rules (3.3 to 3.7). New
-  `src/core/mapping/rawCopyInline.ts`: the inline scan of 3.2 (the delimiters of the constructs
-  that enclose an offset inside one block's source). Both pure (no DOM, no host API, no `vscode`),
-  each under the project's file size limit (`just check`); split further if one grows.
+- `src/core/mapping/rawCopyEdges.ts` (the base CR's): the body of `balanceRawCut` as section 1
+  says; it stays a thin entry point.
+- New `src/core/mapping/rawCopyBalance.ts`: the block rules (3.3 to 3.7): the fence scan, the
+  container openings and closings, the table rows, the list shift, the heading marker, the snap.
+- New `src/core/mapping/rawCopyInline.ts`: the inline scan of 3.2 (the delimiters of the inline
+  constructs enclosing an offset inside one block's source).
+- All pure (no DOM, no host API, no `vscode`), each under the project's file size limit
+  (`just check`); split further if one grows.
 - Reuse, do not duplicate: `listItemIndentOfLine` and `startsWithListMarker` of
-  `src/core/mapping/listItemIndent.ts` for list markers and content columns,
-  `frontmatterLineCount` of `src/core/mapping/blockRange.ts` for the frontmatter, the quote-prefix
-  reading of `src/core/mapping/quoteLine.ts` where it fits.
-- `src/core/mapping/rawCopy.ts` (the base CR's): the seam calls `balanceRawCut`; its unplaceable
-  branch is changed as section 1 says.
+  `src/core/mapping/listItemIndent.ts` for list markers and content columns, the quote-prefix
+  reading of `src/core/mapping/quoteLine.ts` where it fits, `sourceRangeForLines` of
+  `src/core/mapping/sourceMapping.ts` for line ranges.
 
-### 2.2 Page
+### 2.2 Page, session, protocol
 
-No new page module. Only if the base CR's page code drops an edge's frames or turns an
-unplaceable edge into a native copy before the core call, `src/page/features/rawCopy.ts` (the base
-CR's) is changed to pass them on. Scope, native cases and chrome stay the base CR's.
+Not touched (the base CR's seam carries everything).
 
 ### 2.3 Glossary
 
 `.agents/glossary/common.md`, next to the base CR's **Raw copy** entry: add **Edge balancing**:
 the characters a raw copy adds at a cut edge so the copied Markdown stays well formed (inline
 markers, container fence lines, a table's header and delimiter rows, a list item's marker brought
-to level 0, a heading marker), `balanceRawCut` in `src/core/mapping/rawCopyBalance.ts`.
+to level 0, a heading marker), and the snapping of an edge the alignment cannot place
+(`balanceRawCut` in `src/core/mapping/rawCopyEdges.ts`, rules in
+`src/core/mapping/rawCopyBalance.ts` and `src/core/mapping/rawCopyInline.ts`).
 
 ### 2.4 Not touched
 
 The writing skill (`skills/writing-for-markdown-okf-schema-studio/`): no rendered syntax changes.
 The block selection's copy (SwRS-MDOKFSTUDIO-BLOCK-166), the code block's Copy button, the
-`previewSourceText` protocol and text/html.
+`previewSourceText` protocol, the edge resolution of the base CR (alignment, opening-line edges,
+tab items, atomic generated content, side by side, the whole document) and text/html.
 
 ## 3. Behaviour
 
@@ -119,13 +120,13 @@ The block selection's copy (SwRS-MDOKFSTUDIO-BLOCK-166), the code block's Copy b
   blocks, or in a top-level paragraph's text outside every inline construct. A clean edge adds
   nothing.
 - Otherwise the edge **cuts** the constructs that enclose it: the inline constructs of its block
-  (3.2), and the block constructs of its frames (3.3 to 3.6). Each cut construct adds its opening
-  characters before the copy (start edge) or its closing characters after it (end edge). The
-  added characters come from the source, verbatim (the same fence length, option lines, link
-  target), never rebuilt.
+  (3.2), and the block constructs of its frames and of the fence scan (3.3 to 3.6). Each cut
+  construct adds its opening characters before the copy (start edge) or its closing characters
+  after it (end edge). The added characters are read from the source, verbatim (the same fence
+  length, option lines, link target), never rebuilt.
 - Each end is balanced on its own: a construct both edges are inside (a selection within one bold
-  word, one admonition, one table) gets its opening before and its closing after; a construct the
-  selection fully covers, or whose opening and closing are both in the cut, adds nothing.
+  word, one admonition, one table) gets its opening before and its closing after; a construct
+  whose opening and closing are both in the cut adds nothing.
 - Order: before the cut, the openings outermost first (the outermost block container's opening
   line first, the innermost inline marker last, nearest the text); after the cut, the closings
   innermost first.
@@ -149,23 +150,24 @@ and the construct's delimiters on the other side are added:
 - The constructs: emphasis and strong (`*`, `_`, `**`, `__`, `***`), strikethrough (`~~`), inline
   code (its backtick run), links (opening `[`, closing `](target "title")` verbatim), reference
   links (closing `][ref]`, `][]` or `]` verbatim), autolinks (`<` … `>`), MyST roles (opening
-  ``{name}` `` plus its backtick run, closing the backtick run), inline math (`$` … `$`) and inline
+  ``{name}` `` with its backtick run, closing the backtick run), inline math (`$` … `$`) and inline
   HTML elements (the opening tag verbatim, the matching closing tag).
-- A start edge on the first content character of a construct, or an end edge after its last one,
-  gives the whole construct (`**world**`), not a cut.
-- An inline construct whose rendered text is not its source (an image, a footnote reference
-  `[^1]`, a role whose text is computed such as `{ref}`, `{numref}`, `{doc}`, a citation) is
-  atomic: an edge inside it moves before it (start edge) or after it (end edge), so it is copied
-  whole. If the base CR already does this, nothing changes.
-- An inline construct cut inside a table row gives nothing of its own: the row is copied whole
+- A start edge on the first content character of a construct, or an end edge right after its last
+  one, gives the whole construct (`**world**`).
+- An inline construct whose rendered text is not its source (an image, `[^1]`, `{ref}`…) is
+  already moved to its boundary by the base CR (base spec 3.4): it is whole in the cut and adds
+  nothing here.
+- An inline construct cut inside a table row adds nothing of its own: the row is copied whole
   (3.4).
+
+The first row is the base CR's seam case `rld** again`, whose expected value this CR changes.
 
 ### 3.3 Containers (copy-edges-Q1)
 
-A container is a mapped element whose source has an opening and, for some, a closing: a MyST
-directive or admonition in a backtick, tilde or colon fence (```` ```{note} ````, `:::{note}`),
-with its option lines (`:key: value`) or its YAML options block; a code fence (backtick, tilde, or
-a `{code-block}` / `{code}` directive); a GitHub alert (`> [!NOTE]`); a blockquote (`>`); a tab set,
+A container is a block whose source has an opening and, for some, a closing: a MyST directive or
+admonition in a backtick, tilde or colon fence (```` ```{note} ````, `:::{note}`), with its option
+lines (`:key: value`) or its YAML options block; a code fence (backtick, tilde, or a
+`{code-block}` / `{code}` directive); a GitHub alert (`> [!NOTE]`); a blockquote (`>`); a tab set,
 a tab item, a card, a grid and a grid item (all fenced directives).
 
 - Start edge inside a container that opens before it: the container's opening lines (the fence
@@ -176,23 +178,26 @@ a tab item, a card, a grid and a grid item (all fenced directives).
   verbatim) is added after the cut, on a new line. A blockquote, an alert and a list have no
   closing line. A fenced container left unclosed in the source (it runs to the end of the
   document) has none either: nothing is added.
-- An edge in a container's opening line (an admonition's title, a tab item's label): the start
-  edge moves to the start of that line, the end edge to its end, so the opening line is copied
-  whole; then the rule above applies (an end edge there adds the closing line).
+- An edge in a container's opening line: the base CR already moves it to the start (start edge)
+  or the end (end edge) of that line, so the opening line is whole in the cut. An end edge there
+  is inside the container: its closing line is added (an admonition's title alone copies as an
+  empty admonition).
 - Nested containers each add theirs: an admonition in an admonition cut at both ends gives both
   opening lines and both closing lines, each verbatim (a four-colon outer fence stays four
   colons).
 - Across containers: starting inside admonition A and ending inside admonition B adds A's opening
-  before and B's closing after; A's closing and B's opening are in the cut already.
+  before and B's closing after; A's closing and B's opening are in the cut already (they are in
+  the base CR's verbatim slice: base spec 3.2, third seam case, whose expected value this CR
+  changes).
 - A code fence inside a container is itself a container: starting in the code adds the outer
   opening lines, then the code fence's opening line, then the code from the edge; an end inside
   the code adds the code fence's closing line, then the outer closings.
-- Fenced containers are found in the source, not only from the frames: a fence scan of the source
-  (fence character, length, nesting, the matching closing fence; inside list items, at the item's
-  content column) gives every fenced container enclosing an offset, so a tab item, which carries
-  no source line in the page (copy-raw answer 18, F5), still gets its fence lines. Lists, list
-  items, tables, headings, blockquotes and alerts come from the frames and the source lines they
-  name.
+- Fenced containers are found by a fence scan of the source, not only from the frames: the scan
+  (fence character, length, nesting, the matching closing fence; inside a list item, at the item's
+  content column) gives every fenced container enclosing an offset. So a tab item, whose blocks
+  carry no source line and whose innermost frame is the tab set (base spec 3.2), still gets its
+  own fence lines. Lists, list items, tables, headings, blockquotes and alerts come from the
+  frames (their `start`, `end`, `line`, `endLine`) and the source lines they name.
 
 ### 3.4 Tables (copy-edges-Q3)
 
@@ -263,20 +268,22 @@ Applies when the start edge is inside a list item.
 ### 3.6 Headings (copy-edges-Q5)
 
 - A start edge inside an ATX heading's text adds its marker verbatim (the `#` run and the space
-  after it, with the heading's indentation): `## Hello` from "llo" copies `## llo`.
+  after it, with the heading's indentation): `## Hello` from "llo" copies `## llo` (the base CR's
+  seam case `llo`, whose expected value this CR changes).
 - A start edge inside a setext heading (`Hello` over a `===` or `---` line) adds nothing before;
-  an end edge inside it adds its underline line on a new line, verbatim, so it stays a heading.
-  (Written against an open point: open question 2.)
+  an end edge inside it adds its underline line on a new line, verbatim, so it stays a heading
+  (written against open question 2).
 - An end edge inside an ATX heading adds nothing (closing `#`s are optional).
 
 ### 3.7 An edge the alignment cannot place (copy-edges-Q6)
 
-When the base CR's alignment cannot place an edge in its innermost non-atomic mapped element (the
-rendered text has no unique match in that element's source), the edge snaps to that whole
-element: the start edge to the first character of its first source line, the end edge to the end
-of its last source line. The element is then copied whole and adds nothing of its own; the
-containers enclosing it are balanced as 3.3 to 3.6 say. The copy is never left native for this
-reason.
+An `unplaced` edge snaps to its innermost frame that is not atomic (the element whose source the
+alignment could not match): the start edge to that frame's `start`, the end edge to its `end`.
+The element is then whole in the copy and adds nothing of its own; the containers enclosing it are
+balanced as 3.3 to 3.6 say. An unplaced edge with no frame snaps to offset 0 (start) or the
+source's length (end). The copy is no longer left native for this reason: this closes the base
+CR's open question 1 in the stacked pair (until this CR merges, the base CR alone keeps the native
+copy).
 
 ## 4. Requirements (okfreq)
 
@@ -288,18 +295,22 @@ Rules: `requirements/guidelines/requirements.guidelines.md`, the okfreq baseline
   proposed`, each deriving from the StRS the base CR creates ("A reader copies a selection as the
   exact Markdown under it"), one per balancing rule (the Driver may merge two only when one test
   file proves both):
-  1. Inline balancing, atomic inline constructs, clean edges unchanged (3.1, 3.2).
+  1. Inline balancing, and clean edges unchanged (3.1, 3.2).
   2. Container opening and closing lines: nested, across containers, opening-line edges, code
-     fences inside containers, blockquote and alert prefixes, unclosed fences (3.3).
+     fences inside containers, tab items, blockquote and alert prefixes, unclosed fences (3.3).
   3. Table header and delimiter rows with whole touched rows (3.4).
   4. List item marker and the shift by the shallowest item selected (3.5).
   5. Heading marker at a cut heading (3.6).
-  6. An unplaceable edge snaps to the whole element (3.7).
-- Changed SwRS: the base CR's SwRS of the character-precise cut (and of the unplaceable edge, if
-  the base CR states one) gets one line: the verbatim cut is then balanced as the six SwRS above
-  say. They are `proposed` in the same batch: no owner approval needed. No `approved` requirement
-  is touched (none of the approved StRS covers copying a native selection); if the Driver finds
-  one, it stops and asks.
+  6. An unplaceable edge snaps to its whole element (3.7).
+- Changed SwRS, the base CR's, `proposed` in the same batch (no owner approval needed):
+  - its SwRS 2 (scope): "or when an edge cannot be placed" is removed from the native cases, with
+    a pointer to the new SwRS 6;
+  - its SwRS 3 (character-precise verbatim cut): "nothing added at the edges" becomes "the cut is
+    then balanced at its edges" with pointers to the new SwRS 1 to 5.
+  The base CR's `@implements_req` of SwRS 3 on `balanceRawCut` stays; the new SwRS get theirs at
+  their own code points.
+- No `approved` requirement is touched (none of the approved StRS covers copying a native
+  selection); if the Driver finds one, it stops and asks.
 - Markers: `@implements_req` at each rule's code point in `rawCopyBalance.ts` and
   `rawCopyInline.ts` (the inline scan, the container rule, the table rule, the list shift, the
   heading rule, the snap), `@tests_req` at each test; at most 3 IDs per marker block
@@ -309,8 +320,9 @@ Rules: `requirements/guidelines/requirements.guidelines.md`, the okfreq baseline
 
 ## 5. Out of scope
 
-- Everything the base CR owns: scope and native cases, the `previewSourceText` protocol, the
-  alignment of a placed edge, generated content and included blocks, chrome, text/html, Ctrl+A.
+- Everything the base CR owns: scope and native cases (but the unplaced one), the
+  `previewSourceText` protocol, the alignment of a placed edge, opening-line edges, tab items'
+  frames, generated content and included blocks, side by side, Ctrl+A, chrome, text/html.
 - Adding a link reference definition, a footnote definition or a label target that a copied
   construct points to.
 - Rewriting the copied Markdown beyond the added characters: no marker normalization, no reflow,
@@ -322,12 +334,13 @@ Rules: `requirements/guidelines/requirements.guidelines.md`, the okfreq baseline
 
 No host and default matrix: the change depends on neither a chantier host nor a shipped default
 versus a configured value. Balancing is pure core code; the browser and the real VS Code window
-only prove that the page's copy reaches it (E3, E4).
+prove that the page's copy reaches it (E3, E4).
 
 ### E1. Static and unit gates
 
-- `just check` passes (formatting, TypeScript, import boundaries: the new modules are `src/core`
-  and import nothing above it; file size; unused exports; markers; unit and contract tests).
+- `just check` passes (formatting, TypeScript, import boundaries: the new modules are in
+  `src/core` and import nothing above it; file size; unused exports; markers; unit and contract
+  tests).
 - `just requirements-lint` and `just requirements-update` pass, each new SwRS with a source marker
   and a test marker.
 - `just preflight` passes (on Windows the static stage; CI runs the others), constitution
@@ -336,17 +349,18 @@ only prove that the page's copy reaches it (E3, E4).
 ### E2. Core unit tests: `test/core/mapping/rawCopyBalance.test.ts`
 
 Each case is a source written in the test, the selection's start and end named as rendered
-characters, and the exact expected string. The frames are not written by hand: the test renders
-the source with `renderMyst` of `src/core/render/mystRenderer.ts` and reads the mapped elements
-(`data-line`, `data-end-line`) with the helpers of `test/core/render/dom.ts`, as
-`test/core/render/alertSourceLines.test.ts` does, then calls the base CR's mapping and
-`balanceRawCut` (copy-raw answer 18, F5). Cases, at least:
+characters, and the exact expected string. The edges are not written by hand: the test builds
+them with the base CR's helper (`test/core/mapping/rawCopyFrames.ts`, real core renderer, the
+sanitizer's `data-sphinx-source-line`, the same edge building as the page) and calls
+`rawMarkdownForSelection`, so the frames are those the page sees (copy-raw answer 18, F5). The
+base CR's seam cases in `test/core/mapping/rawCopy.test.ts` (`rld** again`, `llo`, the two
+admonitions, the unplaced edge giving `undefined`) get their balanced expected values here (the
+start-after-end case still gives `undefined`). Cases, at least:
 
 - every row of the 3.2 table, and bold inside a link cut on both sides;
 - clean edges: a selection between blocks and one in a top-level paragraph outside any construct
-  give exactly `source.slice(start, end)`; a whole-document selection (offset 0 to the end) gives
-  the source exactly, final newline included (copy-raw-Q14);
-- an inline atomic construct (`{ref}`, an image, `[^1]`) with an edge inside: copied whole;
+  give exactly the verbatim slice; the whole document (clamped edges) gives the source exactly,
+  final line break included (copy-raw-Q14);
 - an admonition in an admonition (colon fences of 4 and 3 colons): start in the inner one and end
   after both; start before both and end in the inner one; both edges in the inner one;
 - a list inside an admonition, start in the second item: the admonition's opening, the item's
@@ -361,49 +375,52 @@ the source with `renderMyst` of `src/core/render/mystRenderer.ts` and reads the 
   closing;
 - a table with the start in the header row, with the start in a body row cell's bold text, and
   with the end in the last row;
-- the two list examples of 3.5 (`m` = 0 and `m` = 2), a later item shallower than the start item
+- the two list examples of 3.5 (`m` = 0 and `m` = 2), a later item shallower than a start item
   three levels deep, an ordered list keeping its own number, a task item keeping `[x]`, a list in
   a blockquote (the shift counted after `> `);
 - a selection from inside admonition A to inside admonition B;
 - a GitHub alert and a blockquote cut at the start (`> [!NOTE]` line and `> ` prefixes);
-- an edge in an admonition's title, start and end;
+- an edge in an admonition's title: start (opening line whole) and end (closing line added);
 - a tab set with two tab items, start in the second item's paragraph: the tab set's and the tab
-  item's opening lines (the tab item has no frame);
+  item's opening lines, though the innermost frame is the tab set;
 - an unclosed colon fence, end inside it: nothing added;
 - an ATX heading cut at the start (`## llo`) and a setext heading cut at the end;
-- an unplaceable edge (rendered text absent from the element's source): snapped to the element,
-  its enclosing admonition still balanced;
+- an unplaced edge (rendered text absent from the element's source) inside an admonition: snapped
+  to the element, the admonition still balanced;
 - a CR LF document: the cut keeps CR LF and every added line uses CR LF.
 
 ### E3. Real browser: the base CR's `test/visual/capture_raw_copy.py`
 
-The base CR's capture check (its scenario file `test/visual/rawCopyScenarios.ts` and its fixture
-under `test/visual/fixtures/`) gets balancing cases; the fixture gains the constructs it lacks (an
-admonition > list > admonition nest, a tab set, a heading, a table in an admonition). The fixture
-is the repository file rendered by the real pipeline, the page runs the shipped page bundle, and
-`previewSourceText` carries the fixture's text read from the repository, as the base CR's check
-does. For each case the check sets a DOM `Range` on the rendered characters named in the case,
-dispatches the `copy` `ClipboardEvent` the base CR's check uses, and asserts the exact text/plain:
+The base CR's capture check (its scenario `test/visual/rawCopyScenarios.ts`, its fixture
+`test/visual/fixtures/97-raw-copy.md` or the number it took) gets balancing cases; the fixture
+gains the constructs it lacks (an admonition > list > admonition nest, a tab set, a heading). The
+fixture is the repository file rendered by the real pipeline, the page runs the shipped page
+bundle, and `previewSourceText` carries the fixture's text read from the repository, as the base
+CR's check does. For each case the check sets a DOM `Range` on the rendered characters named in
+the case, dispatches the base CR's `copy` `ClipboardEvent`, and asserts `defaultPrevented` and the
+exact text/plain:
 
 - `**rld**` and bold inside a link cut on both sides;
 - the nesting grid of E2 (16 cases), in the real DOM (copy-raw answer 18, F5);
 - a table row inside an admonition, from a bold word in the row;
 - the nested list example with `m` = 0;
-- a selection across two admonitions;
+- a selection across two admonitions (the base CR's verbatim case, now balanced);
 - the tab set case;
 - `## llo`;
-- a clean selection (two whole paragraphs) equal to the verbatim slice.
+- a clean selection (two whole paragraphs) equal to the verbatim slice, and the base CR's
+  `selectAll` case still giving the fixture's text exactly.
 
-Each case fails before this CR (the base CR alone gives the unbalanced cut), which is the failing
+Each balanced case fails on the base CR alone (it gives the unbalanced cut), which is the failing
 test constitution section 3 asks for.
 
 ### E4. Real VS Code window: the base CR's `test/integration/realInput/rawCopy.ts`
 
 One more step in the base CR's real-input scenario: in the opened fixture, a Range from "r" of a
-bold word inside an admonition to the middle of a table row in the same admonition, the platform
-copy chord as real input, then `vscode.env.clipboard.readText()` waited until it holds the
-admonition's opening line, `**rld**`, the rest of the line, the table's header and delimiter rows,
-the touched rows whole and the closing fence; the clipboard restored at the end. It runs in
+bold word in a paragraph inside an admonition to the middle of a row of a table in the same
+admonition, the platform copy chord as real input, then `vscode.env.clipboard.readText()` waited
+until it holds the admonition's opening line, `**rld**` and the rest of that paragraph, the lines
+up to the table, the table's header and delimiter rows (already in the cut) and the touched rows
+whole, then the admonition's closing line; the clipboard restored at the end. It runs in
 `just ci-integration` (a push to `main`, or
 `gh workflow run ci.yml --ref <branch> -f heavy=true` on the branch, which the Driver runs before
 asking for a merge).
@@ -414,7 +431,7 @@ The PR body follows `.github/PULL_REQUEST_TEMPLATE.md` and
 `.agents/guidelines/pull-request.guidelines.md`, stacked on the base CR's PR per
 `.agents/guidelines/stacked-prs.guidelines.md`: the Tests section lists the new and changed
 requirement IDs with their source and test files, a short before/after of a copy starting inside
-a bold word of an admonition's table, the CHANGELOG line. Commit scope per
+a bold word of an admonition and ending in a table row, the CHANGELOG line. Commit scope per
 `.agents/guidelines/git-commit-allowed-scopes.md` (`feat(vscode)` or `feat(render)`, as the base
 CR).
 
