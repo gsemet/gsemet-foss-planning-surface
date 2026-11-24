@@ -45,9 +45,11 @@ Grade: 2. Shared export chrome lists and the host/page protocol change; revert i
 
 ## Test plan
 
+Requirements: new `StRS-MDOKFSTUDIO-BLOCK-027` and `SwRS-MDOKFSTUDIO-BLOCK-271` to `-277`; reworded `SwRS-MDOKFSTUDIO-BLOCK-166` (refusal row) and `StRS-MDOKFSTUDIO-BLOCK-016`. Sources: `src/core/mapping/rawCopy*.ts`, `src/page/features/rawCopy.ts`, `src/session/features/rendering.ts`, `src/core/protocol/hostToPage.ts`. Tests: `test/core/mapping/rawCopy.test.ts`, `test/core/protocol/hostToPage.test.ts`, `test/session/previewSourceText.test.ts`, `test/page/runtimeRawCopy.test.ts`, `test/visual/capture_raw_copy.py` (Chromium: text/plain and text/html), `test/integration/realInput/rawCopy.ts` (real VS Code window, keyboard chord).
+
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `just check` (round 1)
+- [ ] Local gates: `just check` pass; core unit 19 tests; visual scenario `block-editing/v55-raw-copy-light-900` pass; real-window scenario `raw-copy` pass
 - [ ] Review
 - [ ] CI green

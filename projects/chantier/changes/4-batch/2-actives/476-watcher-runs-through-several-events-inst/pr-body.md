@@ -35,6 +35,7 @@ Grade: 2. The watcher, the hub's batch rule and the cards that name the watcher'
 
 - The Claude Code `Monitor` start is unproved on a real session (status "unproved" in the host reference; the trial is a batch with two merges and one watcher).
 - No streaming form on Copilot.
+- `just test` takes about 207 s on the Windows machine, above the 30 s budget AGENTS.md allows.
 
 <details>
 <summary>Details</summary>
@@ -51,11 +52,11 @@ The Chief of Staff on Claude Code gets one notification per block and no restart
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Local gates at `8f0f54d`: `just check`, `just eval-dry-run`
+- [ ] Evidence: before at `origin/main`, after at `8f0f54d`
+- [x] Review: approved at `a94085d`, committed as `8f0f54d`
+- [ ] Verified at `8f0f54d`
+- [ ] CI green at `8f0f54d`
 
 ## Internal references
 
