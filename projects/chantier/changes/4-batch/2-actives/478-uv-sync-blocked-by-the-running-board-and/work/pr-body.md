@@ -39,7 +39,8 @@ Grade: 2. Touches the board's API, `serve`, the watcher's start and the cards; r
 - `board/api/ops.py`, `protocol.json`, `idle.py`: `server.stop`.
 - `board/restart.py`, `board/command.py`, `board/options.py`, `declare/serve.py`: `--restart`.
 - `core/records.py`, `commands/seat.py`, `hub/autostart.py`, `hub/watch.py`, `hub/watch_lines.py`: seat build and the guard.
-- Cards, `AGENTS.md`, `docs/server-api.md`, scenario unit, tests.
+- `board/address.py` (`call_op`), `hub/watch_reads.py` (`checked`, moved out of `watch.py`), `commands/orders_apply.py` (an unused import removed).
+- Cards, `AGENTS.md`, `CONTRIBUTING.md`, `docs/server-api.md`, `scenario/README.md`, the scenario unit and tests.
 
 ## Impacts
 
@@ -47,12 +48,12 @@ No visual change.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `34a3034`: `just check`, `just eval-dry-run`; long gate `just scenario` at `29162b7`
+- [x] Evidence: after at `29162b7` (long gate unit surface-board, restart case); no before: new feature
+- [x] Review: approved at `29162b7`
+- [x] Verified at `29162b7`
+- [x] CI green at `29162b7`
 
 ## Internal references
 
