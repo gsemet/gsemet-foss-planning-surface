@@ -16,7 +16,8 @@ the owner sets. Its key badges read "Ctrl+C / ⌘C" and "Ctrl+V / ⌘V", whateve
 The size and the frame rate become storyboard fields the kit reads: this clip is 1280x720 at 15 fps.
 
 The scene changes, so the clip needs a new stage document and a new take: the selection starts
-inside an untitled admonition, in the middle of bold text, and ends inside another admonition, and
+inside an untitled admonition, in the middle of bold text, crosses a small table and a thematic
+break (`---`), and ends inside another admonition, and
 the clip shows the characters the setting adds, the closing ones included. An orange mark outlines
 each added part in turn (the opening line, the opening `**`, the closing `:::`), so the kit learns
 to show several marks in one clip.

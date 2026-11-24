@@ -13,7 +13,7 @@ footage of the take: changing them means a new take. Once approved, this file re
 
 The clip is one continuous shot, as merged by CR-482 (PR #501): the action on the left, then a zoom
 on the right. It shows two texts in turn. The scene is new (a new stage document and a new take).
-The pictures and times below come from the Griller's trial take and render of 2026-11-24 (a scratch
+The pictures and times below come from the Griller's trial take and render of 2026-11-25 (a scratch
 copy of the merged kit, changed for two captions, three marks and the combined badges).
 
 ## Clip
@@ -37,7 +37,7 @@ copy of the merged kit, changed for two captions, three marks and the combined b
 | Field | Content |
 | --- | --- |
 | Time | 0 to 4.4 s (drag 0.3 to 2.6 s, copy at 2.6 s, click in `notes.md` at 3.7 s, paste at 4.2 s) |
-| Shot *(filmed)* | Studio in reading mode on `runbook.md` (left), the empty `notes.md` in the text editor (right). The mouse drags from "migrations", in the middle of the bold "database migrations first" inside the untitled `important` admonition, to "every worker" inside the `warning` admonition. Copy chord. The pointer moves to `notes.md` and clicks. Paste chord. |
+| Shot *(filmed)* | Studio in reading mode on `runbook.md` (left), the empty `notes.md` in the text editor (right). The mouse drags from "migrations", in the middle of the bold "database migrations first" inside the untitled `important` admonition, across a small table, a thematic break (`---`) and a paragraph, to "every worker" inside the `warning` admonition. Copy chord. The pointer moves to `notes.md` and clicks. Paste chord. |
 | Text 1 *(on screen)* | From the preview, select and copy **raw Markdown** |
 | Badge copy *(on screen)* | Ctrl+C / ⌘C |
 | Badge paste *(on screen)* | Ctrl+V / ⌘V |
@@ -53,21 +53,29 @@ copy of the merged kit, changed for two captions, three marks and the combined b
 | Field | Content |
 | --- | --- |
 | Time | 4.4 to 9.8 s (zoom from 4.5 s, held to 8.8 s, then back to the start for the loop) |
-| Shot *(filmed)* | Zoom (at most 2x) on the pasted lines in `notes.md`, the closing `:::` in view. |
+| Shot *(filmed)* | Zoom (at most 2x) on the 16 pasted lines in `notes.md`, from the opening `:::{important}` to the closing `:::`, the table and the `---` in view. |
 | Mark 1 *(on screen)* | Orange outline around the added line `:::{important}`, 5.0 to 6.2 s |
 | Mark 2 *(on screen)* | Orange outline around the added opening `**` before "migrations", 6.2 to 7.4 s |
 | Mark 3 *(on screen)* | Orange outline around the added closing `:::`, 7.4 to 8.6 s |
 | Text 2 *(on screen)* | Partial syntax is pasted as valid Markdown |
 
 Expected paste, the scenario's check (added by the setting: the opening `:::{important}` line, the
-opening `**` and the last `:::`). The trial take pasted exactly this text.
+opening `**` and the last `:::`; the table and the `---` paste as their Markdown). The trial
+take of 2026-11-25 pasted exactly this text.
 
 ```markdown
 :::{important}
 **migrations first**, then restart the workers one at a time.
 :::
 
-The deploy script checks the migration version and refuses to start the workers on an old schema.
+| Step | Command |
+| --- | --- |
+| Migrate | `just migrate` |
+| Restart | `just restart-workers` |
+
+---
+
+The deploy script refuses to start the workers on an old schema.
 
 :::{warning}
 Never restart every worker
