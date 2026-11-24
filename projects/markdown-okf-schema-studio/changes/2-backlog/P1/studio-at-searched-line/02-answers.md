@@ -13,4 +13,10 @@ Short name: `searched-line`
 8. searched-line-Q8 (2026-11-24, spec open question 3): **Under the association, an entry with no signal.** A. Accepted: Studio opens at the top, the limitation is documented, the command is the fallback.
 9. searched-line-Q9 (2026-11-24, spec open question 4): **VS Code's Go Back / Go Forward between Studio tabs.** A. Prove it too, in a real window: Go Back returns to the Studio tab left, at its position; Go Forward redoes the jump.
 
+10. searched-line-Q10 (2026-11-24, spec critic F1): **A link to another file in a preview that does not follow the editor (TOOLBAR-059).** A. Studio tabs (the custom editor) record it; fixed previews restored by VS Code keep today's rule; TOOLBAR-059, its test (toolbarReq.requirements.test.ts:306) and the links.ts:291 comment are amended in this CR.
+11. searched-line-Q11 (2026-11-24, spec critic F2): **Back or Next to a file whose Studio tab is open in another group.** A. Reveal the existing Studio tab in its own group, at the line; proved in a real window (a row in 7.3).
+12. searched-line-Q12 (2026-11-24, spec critic F3): **A link reveals a Studio tab already open with its own history.** A. Only a Studio tab the link creates shares the source's history; an existing tab keeps its own and the move is appended to it.
+13. searched-line-Q13 (2026-11-24, spec critic F4): **Default settings, a link in a Studio tab opens the target as text.** A. Not recorded: a Studio tab records a link to another file only when the target opens in a Studio tab; the default stays as today.
+14. Chief of Staff routine (2026-11-24, spec critic F5-F6, no user question): F5 the palette clause is `resourceExtname == .md && !activeCustomEditorId`, and the title-menu placement drops "next to Open as Text" (it shows on Studio tabs only); F6 the pending line is taken whenever it is delivered, by `resolve` or to a live session, with that case in the 7.2 unit tests.
+
 Destination: next batch (3-ready).
