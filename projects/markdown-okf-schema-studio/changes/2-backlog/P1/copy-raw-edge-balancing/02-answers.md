@@ -22,4 +22,14 @@ Short name: `copy-edges`. These answers come from the grill of `copy-selection-r
     - Requirements: an SwRS for the setting (off and on), one per balancing rule with "inside only → no delimiters" and "boundary crossed → delimiters added" as explicit rows; tests cover each case with the setting off and on, nested edges included (Q7).
 13. Chief of Staff routine (2026-11-24, on Q12): snapping an edge the alignment cannot place (Q6) is placement, not a delimiter: it applies with the setting off or on.
 
+14. copy-edges-Q14 (2026-11-24, spec critic F1): **A cut list, table or heading inside a tab item (no per-block positions there).** A. The same as anywhere else: the rules read those constructs from a scan of the tab item's source lines, as the fence scan does.
+15. copy-edges-Q15 (2026-11-24, spec critic F7): **A definition list, a raw HTML block or a footnote definition cut inside.** A. Balance them too: keep the term line and the `: ` marker, add the HTML block's opening or closing tag, keep the `[^n]: ` label.
+16. copy-edges-Q16 (2026-11-24, spec critic F5): **A selection entirely inside a code block that sits in a list item, blockquote or admonition.** A. The code text alone: no fence or container lines, and the container's indentation or `> ` prefix removed from every line, so it pastes as usable code.
+17. Chief of Staff routine (2026-11-24, spec critic F2-F4, F6 and the setting):
+    - F6 is settled by Q12: a selection entirely inside one inline code span copies its text alone; a selection leaving the span gets its backticks.
+    - F2: the innermost frame in a tab item is the tab item (its panel is mapped, mystGridToctree.ts:534-541), not the tab set; reword 3.3 and E2.
+    - F3: inline math is whole in the copy, like an image (its rendered text is not its source); take it out of 3.2's cut-and-balance list. CR-480 already treats an edge it cannot align as native copy; the Chief of Staff tells the Foreman that CR-480's whole-construct list should name inline math.
+    - F4: list the CR-480 test cases whose expected values change once balancing runs with the setting on (an edge in an admonition title, an edge in a tab item's block, the unplaced alignment now snapped, the E4 table-in-admonition step), say whether each is edited in place in test/core/mapping/rawCopy.test.ts or moved to rawCopyBalance.test.ts; with the setting off they keep CR-480's values.
+    - The setting off is the pure verbatim cut of CR-480; Q16's prefix removal and every delimiter addition happen with the setting on only. Snapping (line 13) applies in both.
+
 Destination: running batch batch-09.
