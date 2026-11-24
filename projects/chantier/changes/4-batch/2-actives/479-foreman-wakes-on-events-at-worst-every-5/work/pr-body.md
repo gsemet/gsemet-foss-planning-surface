@@ -31,7 +31,7 @@ Grade: 2. Watcher code and the cards that steer a batch change together; revert 
 
 - **UNVERIFIED:** the 55-minute wake and the Foreman's watcher waking an idle Foreman session on Claude Code are unproved; the cards name the trials for the first batch run on this version.
 - The Foreman's watcher link-failure end lines still say "for the Chief of Staff".
-- The Foreman's-watcher scenario step has not been run yet; the long gate owes it before merge.
+- The Foreman's-watcher scenario step passed in the local long gate at the pushed head; the pipeline's ubuntu `scenario` job is still to be read.
 
 <details>
 <summary>Details</summary>
