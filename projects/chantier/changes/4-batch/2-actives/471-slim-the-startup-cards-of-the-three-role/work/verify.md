@@ -1,10 +1,10 @@
 # Verify CR-471 (round 1)
 
-Head: 4a1b1253682ae97457fe4505ebbb416d9cd25b94
+Head: 3be21b3e390c29d3b823b31c9b175442d26c6552
 
 Base: 3c29dd7c7aa6dc44961dc8f1588ab6fa4b2371b4 (= origin/main).
 
-Verdict: VERIFIED (round 2, see the end; round 1 claims 4 and 5 are superseded there)
+Verdict: VERIFIED at 3be21b3 (round 4 below); fa40185 was NOT VERIFIED (round 3, a broken newline literal, fixed) (round 2, see the end; round 1 claims 4 and 5 are superseded there)
 
 ## Claims judged at 4a1b125
 
@@ -67,3 +67,23 @@ Claims 1 to 3 and 6 carried from round 1: same head, no commit since.
 5b. PR body (`work/pr-body.md`, 25,501 bytes): holds the figures, boot and reload per role, manifest size, the
     three moved-rule tables, Human decisions, and Autonomous decisions names the five shortened texts. The CR Driver
     growth is in Known gaps. PASS. Open: Test plan boxes unticked and the long gate pending (the Driver's to tick).
+
+## Round 3 at fa40185c93e83f5f22864d8a0aefc12828c61ca9
+
+The move is one commit, `scenario/run_scenario.py` only (`git diff 4a1b1253 HEAD`, 5 insertions, 2 deletions).
+The two `check` calls and their assertions are untouched. But the new lines hold a raw line break inside the
+string literal: `sed -n 6520,6528p scenario/run_scenario.py | cat -A` shows `foreman = "$` then `".join(...)`.
+`python -c "import ast; ast.parse(open('scenario/run_scenario.py',encoding='utf8').read())"` gives:
+`SyntaxError: unterminated string literal (detected at line 6523)`. The scenario cannot run: FAIL.
+Claims 1 to 3, 4b, 5b, 6 are carried from 4a1b125: only that file changed and no test or card reads it
+(claim 1's test suite does not import the scenario, so it is not proof of this commit; re-run `just check` after the fix).
+
+## Round 4 at 3be21b3e390c29d3b823b31c9b175442d26c6552
+
+`git diff 4a1b1253 HEAD` is `scenario/run_scenario.py` only (3 insertions, 2 deletions): the two card reads
+now join `foreman*.md` and `*driver*.md` with "
+"; both `check` calls and their assertions are unchanged.
+`python -c "import ast; ast.parse(open('scenario/run_scenario.py',encoding='utf8').read())"` prints `parse ok`.
+I ran the 15 asserted phrases of the two checks against the joined cards at the head: all True
+(`True True True True True` and nine more `True`). PASS.
+Claims 1 to 3, 4b, 5b and 6 carried from 4a1b125: the cards, tests and manifest did not change since.
