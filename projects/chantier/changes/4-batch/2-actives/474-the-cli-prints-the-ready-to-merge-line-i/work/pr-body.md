@@ -69,11 +69,11 @@ Agents see two more kinds of `status` line; no visual change for users.
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): `test_ready_line.py`, `test_reload_rules.py`
-- [ ] Local gates at `<head7>`: `just check` pass (2459 passed); `just eval-dry-run` <result>; stack scenario unit 256/256
-- [ ] Evidence: no visual change; the `status` output above is from the code at `<head7>`
-- [ ] Review: approved at `<head7>`
-- [ ] Verified at `<head7>`
-- [ ] CI green at `<head7>`
+- [ ] Local gates at `e8d53ac`: `just check` pass (2459 passed); `just eval-dry-run` 19 of 19; stack scenario unit 256/256
+- [ ] Evidence: no visual change; the `status` output above is from the code at `e8d53ac`
+- [x] Review: approved at `e8d53ac` (carried from `a94085d`: the tree was committed unchanged)
+- [ ] Verified at `e8d53ac`
+- [ ] CI green at `e8d53ac`
 
 ## Internal references
 

@@ -19,7 +19,7 @@ flowchart LR
   H[forge hub] --> B
 ```
 
-Cost baseline: about twenty watcher restarts in one batch (batch-30), four board restarts by hand (Studio batch-09). The first batch after the merge records the watcher starts next to its merges.
+Cost baseline: about twenty watcher restarts in one batch, and four board restarts by hand in a downstream project. The first batch after the merge records the watcher starts next to its merges.
 
 ## Blast radius
 
@@ -42,7 +42,7 @@ Grade: 2. The watcher, the hub's batch rule and the cards that name the watcher'
 ## Changes
 
 - CLI: `hub/watch.py`, `hub/watch_reads.py`, `hub/watch_lines.py`, `hub/times.py`, `hub/autostart.py`, `hub/batch_prs.py` (`followed_batch`), `hub/waits.py`, `hub/lines.py`, `declare/watch.py`, `declare/interests.py`.
-- Tests, scenario step 16d, cards, `docs/web-board.md`, `AGENTS.md`.
+- Tests, the scenario's hub step, cards, `docs/web-board.md`, `AGENTS.md`.
 
 ## Impacts
 
