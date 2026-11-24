@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Rewrite the role cards: minimal boot, progressive disclosure",
-  "summary": "Grill open: the owner wants a total card rewrite (smallest cards, no behaviour lost, disclosure through --help, watcher and server state lines). A Fable study is running before the questions go on.",
+  "summary": "Program CR: rewrite the role cards on a vital minimum with progressive disclosure (help topics, next lines, board messages), 9 child CRs (real-run measure, help carrier, host card out of start first), force push via a CLI subcommand, hard maintenance gates, new cards only.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "9a1448a12554a598671e7e662b8c454a2b33c4dcb6eb082e0a3b2cb3a8cc28a1",
-    "02-answers.md": "68a3526fc9713d1d8fefb76edb6ded3ce4561e6bc5f4e00a42a76c4a8aa0f0f0",
+    "02-answers.md": "3a61a04e8e9f58b1da4fee1d493fd3e53ed6193ca10a0c1d3732842cebd2e292",
     "intake/request.md": "5188ee6d34835221a8c6ed4ffffd1d377a61cd315c2c8d78787aea5b3964cb87"
   },
-  "summarized": "2026-11-24T22:49:19Z"
+  "summarized": "2026-11-24T22:54:29Z"
 }

@@ -16,3 +16,9 @@ Short name: `simplify-cards`
 10. simplify-cards-Q10: **Rare incident rules with no CLI trigger.** A: keep each as a help topic for one release, measure which are ever read, then delete the never-read ones.
 11. simplify-cards-Q11: **`next` and the asks.** A: `next` is advice for the choice of the CR and the wording; the safety steps are refusals, not advice; the CLI words the ask to the user and the Foreman may add one sentence.
 12. simplify-cards-Q12: **Roles from outside.** A: review steps, critics and workers that write in the worktree; never a steering role (no Driver, Foreman or Chief of Staff).
+
+13. simplify-cards-Q15: **Direct mode.** A: the Chief of Staff in direct mode gets the Foreman's card and tools (`next`, the watcher).
+14. simplify-cards-Q16: **Two card sets.** C: only the new version; the old cards are removed when the new ones merge, no `cards: v1` switch (a rollback is a git revert). Consequence for the specification: no gradual coexistence, so the real-run measure and the quiz must pass before the swap, and the swap lands in one CR per family only after its proof.
+15. simplify-cards-Q14: **A common floor and the nevers per role: no decision, a principle instead.** Owner: "I do not know"; the last rewording of the question frightened them. What they want: the files must be simple to edit, modular, loading what is needed when it is needed. Whether a shared floor exists, its size and the count of nevers per role are left to the specification, to be judged against that principle (a card is one short file, a rule lives in one place, a piece is loaded at its moment).
+
+16. simplify-cards-Q13: **Untested host functions.** A: the CLI says in one sentence, when a host function is used, that it was never tried for real here; the history of the trials (dates, batches, models) leaves the cards for a proof file nobody loads.
