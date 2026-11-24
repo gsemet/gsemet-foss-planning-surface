@@ -44,7 +44,6 @@ Grade: 1. The change adds output lines to `status` and a new card; `status`'s fi
 
 - The Copilot reading of a Driver's end is unproved on a real host: the clause names the steering role by rule.
 - No `own-gate` per-shape wording exists in the cards yet, so the shape bullet of `reload-rules.md` uses the batch-start card's per-shape sentence.
-- The long gate (`just scenario`) is owed at the PR's head; the stack unit passed after the position fix, the full run is pending.
 
 <details>
 <summary>Details</summary>
@@ -68,12 +67,12 @@ Agents see two more kinds of `status` line; no visual change for users.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `test_ready_line.py`, `test_reload_rules.py`
-- [ ] Local gates at `e8d53ac`: `just check` pass (2459 passed); `just eval-dry-run` 19 of 19; stack scenario unit 256/256
-- [ ] Evidence: no visual change; the `status` output above is from the code at `e8d53ac`
+- [x] New or changed tests (they fail on the previous code): `test_ready_line.py`, `test_reload_rules.py`
+- [x] Local gates at `e8d53ac`: `just check` pass (2459 passed); `just eval-dry-run` 19 of 19; stack scenario unit 256/256
+- [x] Evidence: no visual change; the `status` output above is from the code at `e8d53ac`
 - [x] Review: approved at `e8d53ac` (carried from `a94085d`: the tree was committed unchanged)
-- [ ] Verified at `e8d53ac`
-- [ ] CI green at `e8d53ac`
+- [x] Verified at `e8d53ac`
+- [x] CI green at `e8d53ac`
 
 ## Internal references
 
