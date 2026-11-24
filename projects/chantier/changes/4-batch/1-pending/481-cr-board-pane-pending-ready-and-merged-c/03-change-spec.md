@@ -75,9 +75,10 @@ Sections and their default fold (board-pane-Q2 A): the running batch open, the r
   with a state column or one table per state, the merged group's own fold) is the Driver's,
   within this: every state of the running batch is visible with the batch section open, with no
   other fold to open.
-- **The batch's figures**, inside the batch section: a few, from the batch entry alone: the CRs
-  per state over `crs_total` (merged, cancelled included), the time since `created`, and the
-  spend per merged CR when the batch is priced. The cost, budget and spend age stay on the title
+- **The batch's figures** (board-pane-Q5 A), inside the batch section, from the batch entry
+  alone, these three and no other: the CRs per state out of `crs_total` (merged, cancelled
+  included), the time since the batch started (`created`), and the spend per merged CR when the
+  batch is priced. The cost, budget and spend age stay on the title
   line as today.
 - **Backlog** (folded): unchanged rows, `3-ready` first as today; its fold label says how many
   are in `3-ready` so a ready CR is visible folded (for example `Backlog (54, 2 ready)`).
@@ -88,12 +89,14 @@ Sections and their default fold (board-pane-Q2 A): the running batch open, the r
   `readSessionId`), with the snapshot's age from `services.at` ("as of N min ago"), since the pane
   cannot tell a live process itself. The fold's label carries the one-word state of the server and
   of this session's watcher, so it is read folded.
-- **The web board's links**, in the Services section, only when `services.server` is not null:
-  the pane reads the key from the git folder's `chantier/server.json` (the git common dir it
-  already finds with `git rev-parse`; a file read, no new process), appends `?k=<key>` to each
-  link of `services.server`, and draws them as links. Nothing it reads there is written anywhere.
-  When `server.json` cannot be read or holds no key, the links are drawn without a key and one
-  line says so.
+- **The web board's links** (board-pane-Q4 C), in the Services section, only when
+  `services.server` is not null: both links, each named, the private one (reads and acts, the
+  `key`) and the public read-only one (the `read_key`). The pane reads both keys from the git
+  folder's `chantier/server.json` (the git common dir it already finds with `git rev-parse`; a
+  file read, no new process), appends `?k=<key>` to each address of `services.server`, and draws
+  them as links. Nothing it reads there is written anywhere. When `server.json` cannot be read or
+  holds no key, the links are drawn without a key and one line says so; a file with no
+  `read_key` gives no read-only link, as `read_only_lines` does.
 - The pane still writes nothing and runs no process but `git rev-parse`; the header comment and
   CONTRIBUTING.md's "A mod" paragraph say it now also reads `server.json` for the board's key.
 
@@ -112,6 +115,10 @@ Sections and their default fold (board-pane-Q2 A): the running batch open, the r
 - board-pane-Q2 A: the running batch open (its CRs by state), the rest folded (Backlog with
   `3-ready`, Merged of all batches). Services is part of "the rest": folded.
 - board-pane-Q3 A: destination, the running batch batch-31.
+- board-pane-Q4 C: the pane shows both links, the public read-only one and the private one; the
+  PR's screenshot hides the private one.
+- board-pane-Q5 A: the batch's figures are the CRs per state out of the total, the time since
+  the batch started and the spend per merged CR.
 
 ## Out of scope
 
@@ -135,8 +142,10 @@ Sections and their default fold (board-pane-Q2 A): the running batch open, the r
   whose `merged` holds CRs, the open batch section shows the merged CRs and no empty-batch line;
   each state group appears with the batch section open and no other fold turned; Backlog,
   Merged and Services are folded by default; the Services fold shows the server's state and the
-  watcher's for this session; with a `server.json` holding a key, the link carries `?k=` and that
-  key; without it, a link without a key and the one line; an index of the older shape (no
+  watcher's for this session; with a `server.json` holding both keys, a private link carrying
+  `?k=<key>` and a read-only link carrying `?k=<read_key>`, each named; with no `read_key`, the
+  private link alone; with no readable file, links without a key and the one line; the figures
+  line shows the three figures of board-pane-Q5; an index of the older shape (no
   `merged`, `counts`, `services`) draws as today.
 - `just check` passes; `just mod` passes (a change to `hooks/` and `types/`, AGENTS.md), run by
   the Driver itself before the PR; `just eval-dry-run` (a change under the CLI's `src/`).
@@ -146,14 +155,9 @@ Sections and their default fold (board-pane-Q2 A): the running batch open, the r
   the PR's head (`claude --plugin-dir <worktree>`), captioned with the head's SHA (seven
   characters), showing the running batch's CRs by state with its merged CRs. Until it is there,
   the PR's Known gaps names it ("no screenshot of the pane from a real session"). The screenshot
-  must not show the private key: the Services fold closed, or the link's key cut from the image.
+  hides the private link (board-pane-Q4): the Services fold closed, or the private link's key
+  masked in the image; the read-only link may show.
 
 ## Open questions
 
-1. Which key does the pane's link carry: the private one (reads and acts, what `chantier webui`
-   prints first) or the public read-only one, or both links? The intake says "the user only:
-   they hold the key", which reads as the private one; but the pane is a screen the user may
-   share or screenshot (this CR's own Deliverable is a screenshot of it).
-2. The batch's figures: are "CRs per state over the total, time since the batch's start, spend
-   per merged CR" the few the user wants, or does the user name others (CI rounds, long-gate
-   runs, time to merge)?
+None: board-pane-Q4 and board-pane-Q5 closed the two of the first draft.

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "CR board pane: the batch's CRs by state, board links, services, stats",
+  "summary": "Specified, no open question: the pane shows the running batch's CRs by state with its merged CRs, three batch figures, and a folded Services section with both board links (private and read-only) and the watcher and server state.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9b31037a25be86a6cf583688d85e5257fa9490543b3ca35000648d4a96f629b3",
+    "02-answers.md": "086485e9cd8a1b2bddf136c5afac86b8dd85672ec64c2f12448f0ece9fff2b5c",
+    "03-change-spec.md": "1bc70690235f7391137c6d64ea54ca486867d5ae0de897c768e6db3717b7e415",
+    "intake/request.md": "1c70a97414bd9050db334b474bd7289e7bda324489832f04925f1bb5298728b7"
+  },
+  "summarized": "2026-11-24T15:39:03Z"
+}
