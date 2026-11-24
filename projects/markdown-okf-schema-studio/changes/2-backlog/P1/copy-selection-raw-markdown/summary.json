@@ -1,12 +1,14 @@
 {
   "schema": 1,
   "title": "Copying a selection gives the exact raw Markdown under it",
-  "summary": "Filed and triaged P1 on 2026-11-23; not grilled.",
+  "summary": "A native selection in Studio copies the raw Markdown under it, character-precise, balanced at the edges (inline markers, container fences, table header, list marker at level 0); text/plain gets Markdown, text/html the render; generated content gives its source, no UI. Grill in progress.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
+    "01-intent.md": "17a42664820b5ca00f4d13a69addacb2db432b7871f72ffa1a2dbef9cc1e2e85",
+    "02-answers.md": "44e9d0f29e9cd62d90db1a944b87ea8c0d6881829b6e59d7e56418eb129b5bc3",
     "intake/request.md": "e425252d8263d7d09f80d0220476e1c62286af42cef0d7d4d82e6d675c9680ad"
   },
-  "summarized": "2026-11-23T15:20:18Z"
+  "summarized": "2026-11-24T10:46:04Z"
 }
