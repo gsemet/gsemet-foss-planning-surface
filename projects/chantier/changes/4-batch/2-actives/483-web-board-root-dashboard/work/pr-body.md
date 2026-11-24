@@ -52,16 +52,16 @@ Grade: **1**. A change to one shared chart sheet and one read-only server answer
 
 ## Impacts
 
-All-projects users get a Dashboard menu entry and page; chart hover no longer hides the series. No screenshot yet.
+All-projects users get a Dashboard menu entry and page; chart hover no longer hides the series. No screenshot of a real board (see Known gaps).
 
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
 - [x] Local gates at `a476ded`: `just check` 2577 passed; `just eval-dry-run` 19 of 19 as expected; `just scenario` pass
-- [ ] Evidence: none yet (no Playwright)
-- [x] Review: approved at `a476ded` (reviewed at c0fb4d0 plus the round's diff, committed as a476ded)
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Evidence: no screenshot (Playwright not installed); hover fix and sums proved by tests at `a476ded`
+- [x] Review: approved at `a476ded`
+- [x] Verified at `a476ded`
+- [x] CI green at `a476ded`: `gh pr checks 460`, 5 checks pass
 
 ## Internal references
 
