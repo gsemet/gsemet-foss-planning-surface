@@ -6,3 +6,4 @@ No question asked (2026-11-24, the Fable advisor's reading; the user said to gri
 3. stack-frictions-D3: **Item 3, `off:` where `carried:` belongs after a clean restack.** A defect in `commands/carry.py`: fix it.
 4. stack-frictions-D4: **Item 4, dead Drivers' claims block `ship`.** The cards already let the steering session end a lease once the host shows the holder ended (`foreman.md`); what stays is that the refusal names the exact command. Folds in the inbox item `foreman-s-stack-lease-goes-stale-with-no`.
 Destination: next batch (3-ready): it touches the Stack driver and Foreman cards that CR-471 cuts, and `status` lines that CR-474 edits; it follows both.
+5. stack-frictions-D5 (the spec-writer's open question, default taken): `agents set <unit> -` does not also end a lease that is no longer confirmed; D4 keeps only the named commands in the refusals.
