@@ -53,12 +53,12 @@ CLI output only; no visual change.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
+- [x] New or changed tests (they fail on the previous code)
 - [x] Local gates: `just check`, `just eval-dry-run` at `f20227a`; long gate `scenario` passed locally at `91c934f`
-- [ ] Evidence: none beyond tests
+- [x] Evidence: none beyond tests
 - [x] Review: approved at `91c934f`
-- [ ] Verified at `91c934f`
-- [ ] CI green at `91c934f`
+- [x] Verified at `91c934f`
+- [x] CI green at `91c934f`
 
 ## Internal references
 

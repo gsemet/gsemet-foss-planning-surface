@@ -10,11 +10,12 @@ Head: 91c934f600c7ec7a0c69a5abfe2573d70c6b31c8
 2. Line limits (every .py at most 400 lines). Command: `wc -l stacks.py orders_apply.py leases.py`.
    Output: 387, 345, 340. PASS.
 3. Long gate. Log `work/gates/20261124-142711.log`, first line `gate CR-477 ... head 91c934f600c7ec7a0c69a5abfe2573d70c6b31c8`, last line `result: pass at 91c934f600c7ec7a0c69a5abfe2573d70c6b31c8`. PASS.
-4. PR description as posted (`gh pr view 455 --json body`, PR head 91c934f600c7ec7a0c69a5abfe2573d70c6b31c8). FAIL:
-   - Known gaps says "the long gate is not yet run at this head" and that `just eval-dry-run` and the local `scenario` are pending; the gate log above shows a pass at this head, so the text contradicts the evidence.
-   - Test plan: `Local gates at f20227a` is not the head (91c934f, which also changed `scenario/run_scenario.py`); `Review: approved at <sha7>`, `Verified at <sha7>` and `CI green at <sha7>` are unfilled placeholders.
-   - Details/Changes does not list `scenario/run_scenario.py` (changed in the diff) or `test_leases.py` / `test_stack_hold.py` (updated expected texts).
+4. PR description as posted (`gh pr view 455 --json body,headRefOid`, head 91c934f600c7ec7a0c69a5abfe2573d70c6b31c8), judged again at 91c934f. PASS:
+   - Changes lists every file of `git diff --stat origin/main...HEAD` (17 files), including `scenario/run_scenario.py`, `test_leases.py`, `test_stack_hold.py`; Summary and Deliverables match the diff.
+   - Known gaps holds the one open question; Test plan boxes filled with 91c934f (local gates at f20227a for check and eval-dry-run, scenario gate at 91c934f, matching claim 3).
+   - Review box: log note `r3 approved at f20227a..., committed as 91c934f6` (`chantier log 477`) proves it.
+   - Renders (sections, fold, code fence), no images, no role-name failure (product terms of a stack change).
 
 ## Verdict
 
-NOT VERIFIED (the code claims hold; the PR description fails: stale Known gaps, wrong gate SHA, unfilled placeholders, delivered change unmentioned).
+VERIFIED at 91c934f600c7ec7a0c69a5abfe2573d70c6b31c8.
