@@ -9,3 +9,7 @@ Short name: `release-notes-style`
 7. release-notes-style-Q7: **Word budgets.** A: the audit's figures, as judgement in the card: subtitle 16 words, item 20, highlight 40, visible part 120 (fix, restore, internal) or 250 (feature).
 8. release-notes-style-Q8: **Grilled enough.** B (not the recommended A): specify, for the running batch batch-31.
 Destination: running batch batch-31.
+9. release-notes-style-Q9: **docs/release-process.md.** A: this CR aligns its three lines with the card (highlight headings by kind, line 47; known issues out of "For contributors" into the visible part, lines 53-54; the title with the full version, line 38). A doc change, no script change.
+10. release-notes-style-Q10: **An image outside the bounds.** A: counts as "capture impossible" (Q5): no image, a line in the version PR's Known gaps.
+11. release-notes-style-Q11: **Mixed kinds, breaking budget.** A: the subtitle names the first kind in the order breaking, feature, restore, fix, internal; a breaking release's visible part is 250 words at most.
+12. release-notes-style-Q12: **No version PR.** A: the missing picture is named in a `note` and in the hand-back report.
