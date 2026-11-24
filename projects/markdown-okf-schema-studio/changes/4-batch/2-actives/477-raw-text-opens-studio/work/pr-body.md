@@ -82,6 +82,11 @@ StRS LIFE-023 changes its subject: it loses "opens a Markdown file at a searched
 - With the association, a jump on a file already open as text leaves the text tab and opens a Studio tab beside it; documented as a known limit.
 - User on and workspace off ends with Studio in that workspace too; said in the notes.
 
+## Known gaps
+
+- The changelog line of this change ends with the placeholder `PR #0`: the number is filled for the whole batch by the changelog references step of a later change of the same batch, not here.
+- With `*.md` associated with Studio, a search result or a link followed in Studio opens Studio at the top, not at the line, and a jump with the side preview open marks no line: VS Code's own opening, accepted until a follow-up change.
+
 ## Notes for the release notes (copy)
 
 - What was wrong (since 1.11.0) and what is fixed: the raw text is never replaced by Studio.
