@@ -15,3 +15,5 @@ Destination: running batch batch-31.
 9. ready-line-Q9: **Who merges under a grant.** A. `merges: the user` plus, when the record holds a grant, `under the grant: the release/fix PR (steering session)`; reload-rules.md says the same.
 10. ready-line-Q10: **The line's prefix.** A. `handed back:` (never said to the user).
 11. ready-line-Q11: **A step owed on a green CR.** A. `owed before the merge: <X> (<who>)`; the user may still merge, recorded as any merge.
+12. ready-line-Q12: **Which open orders hold a ready CR's merge.** A. Only orders not yet applied; an order the CLI applied and that waits for `order done` adds no clause.
+13. ready-line-Q13: **Who the clause names where a Driver's end is unreadable (Copilot).** A. The steering role (the Foreman, or the Chief of Staff in direct mode); the Copilot case is marked unproved.
