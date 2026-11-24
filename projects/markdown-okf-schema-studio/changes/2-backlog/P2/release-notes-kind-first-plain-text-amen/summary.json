@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Release notes: kind-first plain text, amend the guideline",
+  "summary": "In the P2 backlog, not grilled: the owner stopped the grill on 2026-11-24. Four points stay open: the shape of a patch note, script checks, the image bounds against the CR-482 clip-GIF exception, and how far to rewrite the 1.12.1 note.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "160d65a4063d49f14dea6d7fe8c2fd212e131b022401dd89f348a1628f2302e8",
+    "02-answers.md": "3b06669700706aae3797d9586b709d9321ffd8a791d6f4974e84353c6ef518b7",
+    "intake/request.md": "fad443ddc9196bf05b2a377397fe58395106fcb10343b2d389bd04d25d851aa7"
+  },
+  "summarized": "2026-11-24T15:04:43Z"
+}
