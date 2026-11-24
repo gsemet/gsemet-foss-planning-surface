@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Copy a selection as the exact raw Markdown under it",
-  "summary": "A native selection copies the raw Markdown under it, character-precise, balanced at the edges (inline markers, container fences, table header, list marker at level 0); text/plain Markdown, text/html render; generated content gives its source. Specified; 3 open questions.",
+  "summary": "A native selection copies the raw Markdown under it, cut verbatim at the exact characters (balancing is the stacked copy-raw-edge-balancing, via the balanceRawCut seam); text/plain Markdown, text/html render; generated content gives its source; Ctrl+A copies the whole source. 1 open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "17a42664820b5ca00f4d13a69addacb2db432b7871f72ffa1a2dbef9cc1e2e85",
-    "02-answers.md": "8ed66f5ac5aa597c5947ae02bba15672cf637ced838276672488537a7dcf9b90",
-    "03-change-spec.md": "846dccbcb34225745180f221b867a5209e00edaddfd3e9349090f0d269f440b1",
+    "02-answers.md": "319396694abb10dc5610c5fd02450506d724a6909a5893de6ddda6bdc8e09b4b",
+    "03-change-spec.md": "516bf7d98acaa81dac215739ecf42d8ff01b9010a99aebecaf82ee25b8397b54",
     "intake/request.md": "e425252d8263d7d09f80d0220476e1c62286af42cef0d7d4d82e6d675c9680ad"
   },
-  "summarized": "2026-11-24T11:04:35Z"
+  "summarized": "2026-11-24T11:41:09Z"
 }
