@@ -1,5 +1,12 @@
 # Demo videos, one feature each
 
+## Owner direction (2026-11-24): feature clips for the release notes
+
+The owner's words: "On a déjà une demo video de présentation mais la l'idée c'est de faire des vidéo démo direct d'une feature, que l'on pourra mettre dans la release notes. Cette CR est la préparation de ce qu'il faut faire et mise en place puis on fait 1 vidéo de la nouvelle feature copier collé intelligent avec les delimiteur. Une vidéo dure quelque seconde, doit être focus sur l'avion et le résultat attendu. Et on la converti par exemple en gif ou webm pour la mettre dans la doc et la publier sur tweeter par exemple."
+
+Intent now: a repeatable way to make a feature clip, a few seconds long, focused on the action and its expected result, converted (GIF, WebM or similar) for the docs, the release notes and X. This CR sets up the process and tooling, then makes the first clip: the smart copy-paste with delimiters (copy-raw-edge-balancing, batch-09). The short-demo-01 process and kit (docs/demo-video/) are the base; the older ideas below (horizontal and vertical series, presentation, chapter showcase) are kept as history, not this CR's scope unless the grill says so.
+
+
 Moved to P3 on 2026-11-04 by the owner, from the backlog item `demo-video` (P2), after the first
 video landed. That video, its 15, 40 and 59-second rounds and the guide are done: see archive
 `257-demo-process`.
