@@ -45,12 +45,12 @@ Terminal board only: the Flow now reads newest first, so Up and Down and Home an
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: in-process screens through `screen.plain()`; no real-terminal capture
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code), in `test_live_model.py`, `test_live_ready.py`, `test_live_panels.py`
+- [x] Local gates at `4564806`: `just check` pass, `just eval-dry-run` pass (19 of 19), long gate `scenario` pass
+- [x] Evidence at `4564806`: in-process screens through `screen.plain()`; no real-terminal capture (see Known gaps)
+- [x] Review: approved at `4564806`
+- [x] Verified at `4564806`
+- [x] CI green at `4564806`
 
 ## Internal references
 

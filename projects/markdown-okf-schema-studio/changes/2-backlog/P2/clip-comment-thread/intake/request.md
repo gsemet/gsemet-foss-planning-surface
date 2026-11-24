@@ -1,0 +1,3 @@
+# Feature clip: a comment thread on a passage
+
+The owner's words (2026-11-25, in the grill of short-demo-video-of-the-smart-raw-markdo): "maintenant qu'on a la recette tu vas faire les plans pour 6-7 clips similaires sur les features les plus intéressantes de Studio". One CR per clip, made with the clip kit and the feature clip recipe as that CR leaves them. Clip: select a sentence, add a comment; the passage is highlighted and its thread opens (Reply, Resolve), stored in .comments.json.

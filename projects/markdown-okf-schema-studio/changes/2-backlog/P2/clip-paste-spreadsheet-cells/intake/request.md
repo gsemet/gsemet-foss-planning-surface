@@ -1,0 +1,3 @@
+# Feature clip: paste spreadsheet cells into a table
+
+The owner's words (2026-11-25, in the grill of short-demo-video-of-the-smart-raw-markdo): "maintenant qu'on a la recette tu vas faire les plans pour 6-7 clips similaires sur les features les plus intéressantes de Studio". One CR per clip, made with the clip kit and the feature clip recipe as that CR leaves them. Clip: copy a block of cells from a spreadsheet, click a table cell, paste; the cells fill right and down and missing rows and columns are added.
