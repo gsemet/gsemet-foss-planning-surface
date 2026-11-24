@@ -1,0 +1,2 @@
+- [chantier] The release procedure says the tag is a main-checkout step (`just tag`) but CI's tag-release job creates it: the card's main-checkout hand-back does not apply here; document that this project's tag is made by CI.
+- [project] The version push heavy run takes about 17 minutes with `integration` last; nothing to fix, but the lease needs renewing every few minutes while waiting.
