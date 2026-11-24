@@ -2,7 +2,7 @@
 
 Short name: `feature-clip`. No tracker issue (origin: the owner, verbal, 2026-11-24). Destination:
 the running batch, batch-09, stacked after CR-481 `copy-raw-edge-balancing` (short name
-`copy-edges`, spec `changes/4-batch/1-pending/481-copy-raw-edge-balancing/03-change-spec.md`),
+`copy-edges`, spec `changes/4-batch/2-actives/481-copy-raw-edge-balancing/03-change-spec.md`),
 itself stacked on CR-480 `copy-selection-raw-markdown`. This CR's branch starts from CR-481's
 branch: the clip films CR-481's feature, which is not released yet (answer 7).
 
@@ -30,7 +30,8 @@ and the feature's docs page (not the README, answer 11). This CR:
    plain Markdown editor, the pasted text showing the added delimiter;
 4. embeds that clip in the user docs and publishes it with the site.
 
-No product code changes (`src/` is not touched).
+No product code changes (`src/` is not touched). The published docs site changes (2.7): that part
+is user-facing and gets a `feat` commit with its CHANGELOG line (answer 15, F2).
 
 ## Decisions carried from `02-answers.md`
 
@@ -49,6 +50,8 @@ No product code changes (`src/` is not touched).
 | feature-clip-Q11 | No README change: the README keeps its presentation video; clips go to the feature's docs and the release note | 2.6, 7 |
 | 12 (Chief of Staff routine) | The key badges show the keys of the platform the clip is filmed on (Ctrl+C on Windows and Linux, ⌘C on macOS); the first clip is filmed on Windows | 3.2, 4.4, 5.3 |
 | feature-clip-Q12 | At publication the MP4 is uploaded into the GitHub release note, which plays it; the release-note file in the repository keeps the GIF; no CR for Studio rendering `<video>` | 2.6, 3.4, 7 |
+| feature-clip-Q14 (spec critic F1) | A clip's GIF is not cropped: the release-process guideline gains an exception, and the zoom on the result stands in for the crop | 3.4 |
+| 15 (Chief of Staff routine, spec critic F2 to F12) | F2 the site commit is a `feat` with its CHANGELOG line; F3 the publication checklist is a new owner-only release step after step 6, step 7 amended, MP4 budget 10 MB; F4 `doctor` fails when no device scale fits, Windows work area from PowerShell, display size in `check.json`; F5 no paste selector widget; F6 reading mode in `setup(t)`, the trial names the drag-select path; F7 the clips' Markdown is not rendered by the site; F8 VS Code version pinned; F9 `.cmd` trap covers npm and npx; F10 the fade ends one frame before frame 0; F11 `clipVideos` takes a file-exists callback; F12 CR-481's path | 2.1, 2.7, 3.1, 3.3, 3.4, 3.5, 4.2, 4.3, 5.1, 5.2, 5.4 |
 
 The older ideas of `01-intent.md` and `work/` (horizontal and vertical series, presentation,
 chapter showcase) are history and out of scope (section 7).
@@ -111,10 +114,14 @@ config) and the public assets (`clip.mp4`, `images/logo.png`) into `<scratch>/re
 there, so no `node_modules` link is ever made inside the repository (no `ln -s`, which Windows
 refuses without developer mode).
 
-VS Code: `setup` downloads VS Code stable into `<scratch>/vscode/` with `downloadAndUnzipVSCode`
-of `@vscode/test-electron` (already a devDependency, used by `test/integration/run-tests.ts`), and
-installs the extension with the CLI that `resolveCliArgsFromVSCodeExecutablePath` gives. `DEMO_CODE`
-overrides the executable with a local install. The VS Code version is written in `check.json`.
+VS Code: `setup` downloads a **pinned** VS Code version into `<scratch>/vscode/<version>/` with
+`downloadAndUnzipVSCode({ version })` of `@vscode/test-electron` (already a devDependency, used by
+`test/integration/run-tests.ts`), and installs the extension with the CLI that
+`resolveCliArgsFromVSCodeExecutablePath` gives. The version is one constant, `DEFAULT_CODE_VERSION`
+in `lib/platform.mjs`, set to the current stable release when the kit is written and moved by hand
+when a clip is remade on a newer one (answer 15, F8), so two takes of the same clip film the same
+VS Code. `DEMO_CODE` overrides the executable with a local install. The VS Code version used is
+written in `check.json`.
 
 The extension: `--vsix <path>` installs a packaged VSIX; without it, the published
 `GaetanSemet.markdown-okf-schema-studio` from the Marketplace (the current guideline's rule). A clip
@@ -124,7 +131,15 @@ of a feature not yet released uses the VSIX packaged from the branch (`just pack
 `doctor` checks, and says how to fix each: Node.js 24, `ffmpeg` and `ffprobe` on `PATH` (or
 `FFMPEG` / `FFPROBE`) with the `libx264`, `libvpx-vp9` and `gif` encoders (`scoop install ffmpeg`
 on Windows, `brew install ffmpeg` on macOS), the repository's `node_modules` (`just dev`), the
-scratch folder writable, the Remotion install, the VS Code download.
+scratch folder writable, the Remotion install, the VS Code download, and the display: the primary
+display's work area must hold the take's window (1280x720 logical pixels) at one of the device
+scales of 3.5. On Windows the work area is read with a PowerShell query,
+`powershell -NoProfile -Command "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea | ConvertTo-Json"`
+(physical pixels); on macOS with
+`osascript -e 'tell application "Finder" to get bounds of window of desktop'`. When no scale fits,
+`doctor` fails and names the display it needs (a work area of at least 1920x1080 physical pixels,
+the smallest scale 1.5 times 1280x720) and the one it measured (answer 15, F4). `setup` and `take`
+run the same display check first.
 
 The kit is not part of the build, of `just check` or of `just preflight`, and has no CI job (section
 7). It lives outside `tsconfig.json` (`src/**`, `test/**` only), like `short-demo-01/kit/`; if a
@@ -200,10 +215,13 @@ project has no Sphinx documentation build (`sphinx/` is the preview's source-map
 New `test/site/siteClips.ts` (kept out of `buildSite.ts`, which is long already), called from
 `buildSite.ts`:
 
-- `clipVideos(html, sourcePage)`: in a page's rendered HTML (parse5, as `rewriteRenderedLinks`), an
-  `<img>` whose `src` resolves, from the source page, to
-  `docs/demo-video/clips/<clip>/<clip>.gif`, with `<clip>.webm` beside it in the repository, is
-  replaced by:
+- `clipVideos(html, sourcePage, fileExists)`: in a page's rendered HTML (parse5, as
+  `rewriteRenderedLinks`), an `<img>` whose `src` resolves, from the source page, to
+  `docs/demo-video/clips/<clip>/<clip>.gif`, with `<clip>.webm` beside it, is replaced by the video
+  below. `fileExists(repoRelativePath)` is the callback that says whether a file is in the
+  repository (answer 15, F11): `buildSite.ts` passes one bound to `EXTENSION_ROOT`
+  (`fs.existsSync(path.join(EXTENSION_ROOT, p))`), the unit tests pass a set of paths. The
+  replacement:
 
   ```html
   <video src="…/<clip>.webm" poster="…/poster.png" autoplay loop muted playsinline controls
@@ -220,6 +238,11 @@ New `test/site/siteClips.ts` (kept out of `buildSite.ts`, which is long already)
   files. No clips folder: nothing, no error. Called in `main()` next to the `images/` copy.
 - A CSS rule in the page stylesheet of `pageDocument`: `video { max-width: 100%; height: auto; }`,
   next to the `img` rule.
+- The clips' own Markdown is not published (answer 15, F7): `buildSite.ts` leaves
+  `docs/demo-video/clips/**/*.md` (`clip.md`, `stage/*.md`) out of the files it renders (the list
+  built from `walkMarkdown(path.join(EXTENSION_ROOT, "docs"))`), through an exported filter in
+  `siteClips.ts`, `isClipSource(repoRelativePath)`. A clip's storyboard and stage document are
+  production files, not docs pages.
 
 This is a site behaviour: a new SwRS (section 3.6 of the evidence, "Requirements").
 
@@ -238,7 +261,9 @@ just clip <name> check
   maintainer's profile; the profile settings of `short-demo-01/kit/setup.mjs` (theme, hidden
   chrome, `workbench.hover.delay` high, sash hover transparent, `editor.occurrencesHighlight` off,
   `comments.authorName` "Reviewer", `files.autoSave` afterDelay) plus the clip's settings
-  (`scenario.mjs`), plus `files.eol: "\n"`; a neutral workspace holding the clip's `stage/`.
+  (`scenario.mjs`), plus `files.eol: "\n"` and `"editor.pasteAs.showPasteSelector": "never"` (no
+  paste-options widget after a paste, answer 15, F5); a neutral workspace holding the clip's
+  `stage/`.
 - `take`: before it starts, it deletes the previous take and `clip.mp4`, so a failed take can never
   be rendered as if it were new (the short-demo trap "a cut from a failed take is not a new cut").
   It opens the window, sets the layout up **before** the screencast starts (what happens there is
@@ -256,10 +281,14 @@ just clip <name> check
 - Pacing defaults (from `record-demo-video`, Q19): cursor moves 600 to 900 ms, eased; 400 ms pause
   before a click or a chord; zoom in and out over 600 ms (20 frames at 30 fps), at most 2x.
 - A trial first (the short-demo step 6, and `record-demo-video`'s go/no-go spike): the first take of
-  a new kit or a new host proves (a) the preview webview is in the screencast frames, (b) the chord
-  reaches the page (the scenario's check passes), (c) at least 30 frames per second after retiming
-  (`prepare` prints it). If (a) fails, a `Page.captureScreenshot` loop replaces the screencast; if
-  (b) fails, `Input.dispatchKeyEvent` with its `commands` field (`copy`, `paste`) replaces the plain
+  a new kit or a new host proves (a) the preview webview is in the screencast frames, (b) the
+  selection is made the way the clip shows it, a CDP mouse drag (`Input.dispatchMouseEvent`
+  pressed, moved, released, through `selectText`) in Studio's reading mode, and the page's
+  `getSelection()` holds the expected text (answer 15, F6), (c) the chord reaches the page (the
+  scenario's check passes), (d) at least 30 frames per second after retiming (`prepare` prints
+  it). If (b) fails, stop and report: a selection made by script (`Selection.addRange`) is not what
+  the clip shows. If (a) fails, a `Page.captureScreenshot` loop replaces the screencast; if
+  (c) fails, `Input.dispatchKeyEvent` with its `commands` field (`copy`, `paste`) replaces the plain
   key press; if either still fails, stop and report. Never an OS-level screen capture or OS-level
   input.
 - A take opens a real VS Code window: it does not run while another change runs app-window tests on
@@ -292,7 +321,7 @@ Every output comes from one Remotion master (`--codec=h264 --pixel-format=yuv420
 
 | File | Settings | Budget (the `check` step fails above it) |
 | --- | --- | --- |
-| `<clip>.mp4` | the master remuxed with `-movflags +faststart`, no audio stream, H.264 `yuv420p` (what X takes) | reported, no hard budget |
+| `<clip>.mp4` | the master remuxed with `-movflags +faststart`, no audio stream, H.264 `yuv420p` (what X takes and what the GitHub release editor plays) | 10 MB (answer 15, F3); over it, the master is re-encoded at `-crf 20`, then 22, reported in `check.json`; still over: `check` fails |
 | `<clip>.webm` | VP9: `-c:v libvpx-vp9 -crf 34 -b:v 0 -row-mt 1 -deadline good -cpu-used 2 -pix_fmt yuv420p -an`, 1920x1080, 30 fps | 3 MB |
 | `<clip>.gif` | one filter graph: `fps=12,scale=960:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=128:stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle`, `-loop 0` | 3 MB |
 | `poster.png` | frame 0, 1920x1080 | - |
@@ -336,32 +365,39 @@ Why the GIF stays light, and what the guideline says about it:
 - "The version PR body": the `rewrite` function gains
   `-e "s#^Video: ([^ /]+\.mp4)\$#Video: [\1]($base/\1)#"`, so the owner can open the MP4 from the
   PR page (the GIF is already covered by the `gif` alternative of the image expression).
-- A **publication checklist** for a release with a clip, added to the publication step (the owner's
-  manual part):
-  1. The GitHub release is created from `release-notes.md` as today; its GIF is attached as an
-     asset and shows in the body.
-  2. In the GitHub release editor, the owner drags `<clip>.mp4` from the release folder into the
-     release body at the clip's highlight, in place of its GIF line (GitHub plays only a video
-     uploaded through its UI, not a relative `.mp4` in the repository, answer 13). The release body
-     then plays the MP4. `release-notes.md` in the repository is not changed: it keeps the GIF.
-  3. The owner opens the published release page: the video plays at the highlight, and the
-     highlight does not show both the video and the GIF.
-  4. Post 1 of the announcement thread is posted with `<clip>.mp4` attached (its `Video:` line),
-     with `poster.png` as the cover when X asks for one.
+- "Release notes", "Writing": the crop rule gains an exception (answer 14): **a feature clip's GIF
+  is not cropped**. It shows the whole filmed window, and the clip's one zoom on the result stands
+  in for the crop. The rest of the rule holds for every still picture.
+- "The steps of a release" gains a new **owner-only step 7, after step 6** (answer 15, F3), for a
+  release with a clip; the current step 7 (the archive) becomes step 8 and is amended:
+  - New step 7, "Publish the clip" (owner only, after the GitHub release exists and the version is
+    served):
+    1. In the GitHub release editor, the owner drags `<clip>.mp4` (at most 10 MB, 3.3) from the
+       release folder into the release body at the clip's highlight, in place of its GIF line
+       (GitHub plays only a video uploaded through its UI, not a relative `.mp4` in the repository,
+       answer 13). `release-notes.md` in the repository is not changed: it keeps the GIF.
+    2. The owner opens the published release page: the video plays at the highlight, and the
+       highlight does not show both the video and the GIF.
+    3. Post 1 of the announcement thread is posted with `<clip>.mp4` attached (its `Video:` line),
+       with `poster.png` as the cover when X asks for one.
+  - Step 8 (was 7): `04-report.md` also records, for a release with a clip, the clip's name and
+    whether step 7 was done (the release body plays the MP4, post 1 carries it), as the owner
+    reports it; the agent does not do step 7.
+  - Step 8 (was 8) becomes step 9; the other references to step numbers in the guideline follow.
 ### 3.5 Windows and macOS
 
 The traps of the short-demo guideline all still hold. The guideline adds these, each with its rule:
 
 | Trap | Rule |
 | --- | --- |
-| VS Code is installed in different places | The kit downloads VS Code stable with `@vscode/test-electron` into the scratch folder; `DEMO_CODE` overrides it |
-| The VS Code CLI is a `.cmd` on Windows | Spawn it with `shell: true` on Windows only, from `resolveCliArgsFromVSCodeExecutablePath` |
+| VS Code is installed in different places | The kit downloads the pinned `DEFAULT_CODE_VERSION` with `@vscode/test-electron` into the scratch folder; `DEMO_CODE` overrides it |
+| The VS Code CLI, `npm` and `npx` are `.cmd` files on Windows | Spawn them with `shell: true` on Windows only (the VS Code CLI from `resolveCliArgsFromVSCodeExecutablePath`, `npm` for the Remotion install, `npx remotion render`), with every argument quoted (answer 15, F9) |
 | macOS's temporary folder is long and the debugging port fails | Scratch: `CLIP_SCRATCH`, else `/private/tmp/okfclip` on macOS, else `<os.tmpdir()>/okfclip` |
 | `file://${path}` is wrong with a drive letter | `pathToFileURL(path).href` for every URI in `storage.json` |
 | `Meta+…` chords do nothing on Windows | `ControlOrMeta` in every chord; the scenario never names `Meta` or `Control` for the platform modifier |
 | Killing VS Code leaves its helpers running on Windows | `taskkill /PID <pid> /T /F` on Windows; `process.kill` on macOS |
 | A pasted file gets CRLF on Windows and the check fails | `files.eol: "\n"` in the profile |
-| A window at device scale 2 is larger than a 1080p screen | The kit sizes the window so its physical size fits the primary display's work area, at scale 2 when it fits, else the largest of 1.75 and 1.5 that fits, and writes the scale in `check.json`; the master is 1920x1080 whatever the scale |
+| A window at device scale 2 is larger than a 1080p screen | The kit sizes the window so its physical size fits the primary display's work area, at scale 2 when it fits, else the largest of 1.75 and 1.5 that fits, and writes the scale and the measured work area in `check.json`; no scale fits: `doctor` (and `setup`, `take`) fails and names the display it needs (answer 15, F4); the master is 1920x1080 whatever the scale |
 | A backslash path in the ffmpeg concat list | Forward slashes and `-safe 0` |
 | `ln -s` needs developer mode on Windows | No link: `render` copies the composition into the scratch Remotion folder |
 | Python is `python3` on macOS and absent or `py` on Windows | The kit is Node.js only |
@@ -412,7 +448,11 @@ VS Code's built-in text editor on that file.
   read when the page boots, CR-481 2.2, so it is in the profile before the window opens).
 - `setup(t)`, off camera: Studio shows `runbook.md` in one editor group, the built-in text editor
   shows the empty `notes.md` in the other, side by side, the text editor of `runbook.md` closed;
-  window 1280x720 logical pixels (3.5).
+  window 1280x720 logical pixels (3.5). Studio is in **reading mode** (answer 15, F6): `setup(t)`
+  reads `data-sphinx-preview-edit-mode` on the page's root element in the preview frame and, when
+  it is `on`, clicks the edit-mode toggle (`[data-sphinx-preview-edit-toggle]`) and waits for `off`;
+  the take fails if the attribute is not `off` when the screencast starts. In reading mode a drag
+  selects text and opens no block editor.
 - Extension: the VSIX packaged from this CR's branch (`just package`), which holds CR-480 and CR-481.
 
 ### 4.3 The action (`run(t)`), and the times of `clip.md`
@@ -427,7 +467,7 @@ VS Code's built-in text editor on that file.
 | 4.4 to 5.0 s | The one zoom, on the pasted lines in `notes.md` (at most 2x, no line cut: the editor wraps) |
 | 5.0 to 7.6 s | Hold on the result: the added `:::{important} Before you deploy` line above the copied text. The orange outline (`mark("delimiter", rect)`, the rect of that first line in `notes.md`) fades in at 5.2 s and out at 6.8 s, brief and inside the hold (answer 10) |
 | 7.6 to 8.2 s | Zoom out; the cursor back to its frame-0 place |
-| 8.2 to 8.5 s | The last 8 frames cross-fade to frame 0, so the GIF loops without a jump |
+| 8.2 to 8.5 s | The last 8 frames cross-fade towards frame 0 and end **one frame before it** (the last frame is the fade's step just short of frame 0, never a copy of it), so the loop neither jumps nor shows frame 0 twice (answer 15, F10) |
 
 Length 8.5 s (inside 5 to 12). The times are the proposal of `clip.md`; the clip plays the filmed
 action at those times within the 0.77 to 1.3 rate (3.2).
@@ -478,9 +518,9 @@ Written by `encode`/`check` into the clip folder and committed:
 | --- | --- |
 | `contact-sheet.png` | 12 frames evenly spaced across the MP4, 4x3, each 480 px wide, with its time |
 | `frames/01-selected.png` | The frame just before the `copy` chord: the selection across the admonition's edge |
-| `frames/02-pasted.png` | The frame 0.3 s after the `paste` chord: the pasted text, unzoomed |
+| `frames/02-pasted.png` | The frame 0.3 s after the `paste` chord: the pasted text, unzoomed, and no paste-options widget next to it (answer 15, F5) |
 | `frames/03-zoomed.png` | The frame in the middle of the hold: the added opening line readable, inside its orange outline |
-| `first-last.png` | Frame 0 and the last frame side by side: the loop seam |
+| `first-last.png` | Frame 0 and the last frame side by side: the loop seam. Its caption asks the maintainer to judge the fade-out as watched, which the SSIM number does not prove (answer 15, F10) |
 | `poster.png` | Frame 0: the X poster and the site poster |
 | `check.json` | The numbers of 5.2; no absolute path, no user name |
 
@@ -493,16 +533,21 @@ The pull request body shows the GIF and the contact sheet through
 `check` fails (non-zero) unless every line holds; it writes each measured value in `check.json`:
 
 - MP4: duration 5 to 12 s and equal to `clip.md`'s `Length` within one frame; 1920x1080; 30 fps;
-  `h264`, `yuv420p`; no audio stream; `faststart` (the `moov` atom before `mdat`).
+  `h264`, `yuv420p`; no audio stream; `faststart` (the `moov` atom before `mdat`); at most 10 MB
+  (answer 15, F3), with the CRF step used.
 - WebM: `vp9`, same size, fps and duration; no audio stream; at most 3 MB.
 - GIF: 960 px wide or the ladder's width, 12 fps or the ladder's, at most 3 MB, a NETSCAPE2.0 loop
   extension with a count of 0 (read from the file's bytes); the ladder step used.
 - Loop seam: SSIM between frame 0 and the last frame of the MP4 (ffmpeg `ssim` filter) at least
-  0.98.
+  0.98 and below 1.0 (the last frame is not a copy of frame 0, F10).
+- Paste widget: in `frames/02-pasted.png` and the hold frames, no paste-options widget; `take`
+  also asserts, right after the paste chord, that the workbench shows no element of the paste
+  selector widget (`.post-edit-widget`) (answer 15, F5).
 - The take: the scenario's `verify` passed (stored by `take` in the scratch take folder, read by
   `check`); frames per second after retiming at least 30; the playback rate inside 0.77 to 1.3.
-- The host: VS Code version, extension version (from the VSIX or the Marketplace), device scale,
-  platform (`win32`, `darwin`).
+- The host: VS Code version (and whether it is `DEFAULT_CODE_VERSION` or `DEMO_CODE`), extension
+  version (from the VSIX or the Marketplace), device scale, the measured display work area
+  (answer 15, F4), platform (`win32`, `darwin`); the reading mode at the start of the take.
 
 ### 5.3 Host and default matrix
 
@@ -511,11 +556,12 @@ is off. One line per cell:
 
 | Host | VS Code | Setting `balanceEdges` | Expected | Proved by |
 | --- | --- | --- | --- | --- |
-| Windows 11 (the batch's machine) | stable, downloaded by the kit (`DEMO_CODE` unset) | on, in the profile | `just clip raw-copy-balance-edges all --vsix out/reports/package/markdown-okf-schema-studio.vsix` passes; `verify` holds the 4.5 text | E3 |
+| Windows 11 (the batch's machine) | `DEFAULT_CODE_VERSION`, downloaded by the kit (`DEMO_CODE` unset) | on, in the profile | `just clip raw-copy-balance-edges all --vsix out/reports/package/markdown-okf-schema-studio.vsix` passes; `verify` holds the 4.5 text | E3 |
 | Windows 11 | `DEMO_CODE` set to the local install | on | `doctor` and `setup` resolve and use it | E3, one `doctor` and `setup` run with it set |
-| Windows 11 | stable | off (shipped default) | not filmed: the clip shows the setting on only (answer 8) | - |
-| Windows 11 (badges) | stable | on | the badges read `Ctrl+C`, `Ctrl+V`; `storyboard.mjs` refuses a `⌘` badge on a `win32` take | E3, plus one `render` with a `⌘C` badge text that must fail, then reverted |
-| macOS | stable, downloaded by the kit | on | the kit's macOS paths and chords are kept from short-demo-01 and the new code takes the macOS branch; a clip filmed there shows `⌘C`, `⌘V` badges (answer 12) | **Not proved in this CR** (no macOS machine in the batch); the first macOS run of the kit proves it, and the PR says so |
+| Windows 11 | `DEFAULT_CODE_VERSION` | off (shipped default) | not filmed: the clip shows the setting on only (answer 8) | - |
+| Windows 11, a display too small for every scale | `DEFAULT_CODE_VERSION` | on | `doctor` fails and names the display it needs and the one measured | E3: one `doctor` run with `CLIP_DISPLAY_OVERRIDE=1280x720` (a test hook of `lib/platform.mjs` that replaces the measured work area) |
+| Windows 11 (badges) | `DEFAULT_CODE_VERSION` | on | the badges read `Ctrl+C`, `Ctrl+V`; `storyboard.mjs` refuses a `⌘` badge on a `win32` take | E3, plus one `render` with a `⌘C` badge text that must fail, then reverted |
+| macOS | `DEFAULT_CODE_VERSION`, downloaded by the kit | on | the kit's macOS paths and chords are kept from short-demo-01 and the new code takes the macOS branch; a clip filmed there shows `⌘C`, `⌘V` badges (answer 12) | **Not proved in this CR** (no macOS machine in the batch); the first macOS run of the kit proves it, and the PR says so |
 
 ### 5.4 Checks and scenario steps
 
@@ -527,7 +573,7 @@ is off. One line per cell:
 - **E2. Site unit tests: new `test/site/siteClips.test.ts`**, each with `@tests_req` of the new
   SwRS:
   - `clipVideos`: an `<img>` of `docs/demo-video/clips/x/x.gif` with `x.webm` and `poster.png`
-    beside it (a temporary repository tree) becomes the `<video>` of 2.7 with every attribute, the
+    beside it becomes the `<video>` of 2.7 with every attribute, the
     alt in `aria-label`, and the `<img>` fallback inside; without `poster.png`, no `poster`; without
     `x.webm`, the `<img>` is unchanged; a GIF outside `docs/demo-video/clips/` and a GIF whose name
     is not its folder's are unchanged.
@@ -537,21 +583,30 @@ is off. One line per cell:
   - The shipped page: reads `docs/user/settings.md` from the repository at the head under test,
     renders it with `renderMyst` and runs `clipVideos` on it: the output holds the `<video>` whose
     `src` is the shipped `docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.webm`,
-    and that file, the GIF and `poster.png` exist in the repository. This test fails on the previous
+    and that file, the GIF and `poster.png` exist in the repository (the callback bound to the
+    repository root). This test fails on the previous
     code (no module, no image line), as constitution section 3 asks.
+  - `clipVideos` is given its `fileExists` callback as a set of paths in these cases, so no
+    temporary tree is needed (F11).
+  - `isClipSource`: `docs/demo-video/clips/x/clip.md` and `docs/demo-video/clips/x/stage/runbook.md`
+    are clip sources, `docs/user/settings.md` and `docs/demo-video/guidelines/x.md` are not; and
+    the list of files `buildSite.ts` renders, built from the shipped `docs/` tree, holds no path
+    under `docs/demo-video/clips/` (F7).
   - `test/site/siteLinks.test.ts` gains a guard: `rewriteLinkTarget` of
     `../demo-video/clips/x/x.webm` from `docs/user/settings.md` to `docs/user/settings.html` stays
     `../demo-video/clips/x/x.webm`.
-- **E3. The clip, on Windows** (the matrix's first two lines): `just package`, then
+- **E3. The clip, on Windows** (the Windows lines of the matrix): `just package`, then
   `just clip raw-copy-balance-edges doctor`, then
   `just clip raw-copy-balance-edges all --vsix out/reports/package/markdown-okf-schema-studio.vsix`
-  passes: the trial's three proofs (3.1), `verify` (4.5), `check` (5.2). The agent then reads every
+  passes: the trial's four proofs (3.1), reading mode at the start, `verify` (4.5), `check`
+  (5.2); the matrix's `DEMO_CODE` and small-display lines are run too. The agent then reads every
   evidence file of 5.1 and reports what it saw frame by frame, and what it did not check.
 - **E4. Site build.** `just site-assemble` locally when the host runs it (it needs the
   requirements report; on Windows it may not), else the `gallery` job of a heavy dispatch
   (`gh workflow run ci.yml --ref <branch> -f heavy=true`) builds the site with LFS objects pulled;
   either way, `out/site/docs/user/settings.html` holds the `<video>` and
-  `out/site/docs/demo-video/clips/raw-copy-balance-edges/` holds the WebM, the GIF and the poster.
+  `out/site/docs/demo-video/clips/raw-copy-balance-edges/` holds the WebM, the GIF and the poster,
+  and no `clip.html` or `stage/runbook.html` (F7).
   The CI job is unchanged (its checkout already pulls LFS objects); this is the only difference from
   the local machine that the job's run proves (Linux, a fresh checkout, LFS pulled).
 - **E5. GitHub's view.** On the pushed branch, `docs/user/settings.md` opened on github.com shows
@@ -561,10 +616,16 @@ is off. One line per cell:
   `.agents/guidelines/pull-request.guidelines.md`, stacked on CR-481's PR per
   `.agents/guidelines/stacked-prs.guidelines.md`: the GIF and the contact sheet (5.1), the MP4 link,
   the `check.json` numbers, the matrix with the macOS line marked not proved, the new SwRS with its
-  source and test files. Commits per `.agents/guidelines/git-commit-message.guidelines.md` with
-  types and no scope (`build` for the kit, the `clip` recipe and the site build; `docs` for the
-  guidelines, the glossary, `AGENTS.md`, the clip and `settings.md`). No `feat` or `fix` commit, so
-  no CHANGELOG line; the template's "No user-facing change" box is ticked.
+  source and test files. Commits per `.agents/guidelines/git-commit-message.guidelines.md`, with no
+  scope (answer 15, F2):
+  - the site change (2.7, its SwRS, its tests): `feat: play feature clips as video on the published
+    site`, with its line under `## Unreleased` of `CHANGELOG.md`, in the file's style, for example
+    "The published docs site now plays a feature clip as a looping video where a page shows its
+    GIF; the first one shows the raw copy with `balanceEdges` on" (the commit, CR and PR references
+    are added by `just changelog-refs` at the release). The template's "No user-facing change" box
+    is not ticked;
+  - `build` for the kit and the `clip` recipe;
+  - `docs` for the guidelines, the glossary, `AGENTS.md`, the clip and `settings.md`.
 
 ### 5.5 Requirements (okfreq)
 
@@ -615,6 +676,7 @@ entry points (not asked), schema validation in `just check`.
   CR or another (answer 13).
 - `docs/demo-video/short-demo-01/` and its kit: unchanged.
 - A CI job for the kit or the clip; the kit in `just check` or `just preflight`.
+- Cropping a clip's GIF for the release notes (answer 14: the zoom stands in for the crop).
 - The README: it keeps its presentation video; clips go to the feature's docs and the release note
   (answer 11).
 - The release notes, the GitHub release and the announcement of the release that ships CR-481: the

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Feature clips: a repeatable kit, then the balanced-edges copy clip",
+  "summary": "A shared Windows/macOS kit (pinned VS Code) for looping 5-12 s feature clips: MP4, WebM, light GIF in Git LFS under docs/demo-video/clips/; a release step (MP4 as post 1 hook, owner uploads it into the GitHub release); the site plays the WebM (feat); first clip: raw copy with balanceEdges on.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "8c5b4c93524a214d79cc80fe0f5f2fec3f4c4a099fddf5fee55767efa1b47602",
+    "02-answers.md": "af38f0026489f0fa44214093586ff26c1447d3c1437c804e4a96e97362874599",
+    "03-change-spec.md": "aa4aecd8d5d29e4f14c5de304c8692744649299c3ba5ca7214e1c5e67f10f5fa",
+    "intake/request.md": "f266f269b4895541e7acae752e40c0ef7cd9f10371750aa2ab33ee10f7294950"
+  },
+  "summarized": "2026-11-24T14:26:50Z"
+}
