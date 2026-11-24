@@ -3,3 +3,119 @@ uvx ruff@0.17.5 format --check skills scripts
 uvx ruff@0.17.5 check skills scripts
 All checks passed!
 uv run --locked --group dev --with mypy==1.20.0 --with types-psutil mypy
+pyproject.toml: note: unused section(s): module = ['copilot_session_usage']
+Success: no issues found in 456 source files
+uv lock --check
+Resolved 32 packages in 0.76ms
+uvx --from nodejs-wheel==24.19.0 npx --yes @biomejs/biome@2.6.7 check skills/chantier/scripts/cli/src/chantier/clients/web
+Checked 190 files in 126ms. No fixes applied.
+uv run --locked --group dev pytest -q -n auto --dist worksteal 
+bringing up nodes...
+bringing up nodes...
+
+........................................................................ [  2%]
+........................................................................ [  5%]
+........................................................................ [  8%]
+........................................................................ [ 11%]
+........................................................................ [ 14%]
+........................................................................ [ 17%]
+........................FF.FF........................................... [ 20%]
+........................................................................ [ 23%]
+........................................................................ [ 26%]
+........................................................................ [ 29%]
+........................................................................ [ 32%]
+........................................................................ [ 35%]
+........................................................................ [ 38%]
+........................................................................ [ 41%]
+........................................................................ [ 44%]
+...............................................................s..s...s. [ 47%]
+.....s..s.....s.....s..s..s..s..s...s.................s...s..ss.s...s... [ 50%]
+........................................................................ [ 53%]
+...................s.................................................... [ 56%]
+........................................................................ [ 58%]
+........................................................................ [ 61%]
+........................................................................ [ 64%]
+........................................................................ [ 67%]
+........................................................................ [ 70%]
+........................................................................ [ 73%]
+........................................................................ [ 76%]
+........................................................................ [ 79%]
+..............................s......................................... [ 82%]
+........................................................................ [ 85%]
+........................................................................ [ 88%]
+........................................................................ [ 91%]
+........................................................................ [ 94%]
+........................................................................ [ 97%]
+..................................................................       [100%]
+================================== FAILURES ===================================
+_ test_each_start_reading_stays_at_or_below_its_after_figure[chief-of-staff-claude] _
+[gw6] win32 -- Python 3.15.2 C:\Users\gaeta\Projets\chantier.worktrees\batch-31-CR-476\.venv\Scripts\python.exe
+
+role = 'chief-of-staff', host = 'claude'
+
+    @pytest.mark.parametrize(("role", "host"), AFTER)
+    def test_each_start_reading_stays_at_or_below_its_after_figure(role: str, host: str) -> None:
+        total = _start_reading(role, host)
+        print(f"start-reading role={role} host={host} bytes={total}")
+>       assert total <= AFTER[(role, host)], (role, host, total)
+E       AssertionError: ('chief-of-staff', 'claude', 199896)
+E       assert 199896 <= 198870
+
+skills\chantier\scripts\cli\tests\test_start_reading.py:70: AssertionError
+---------------------------- Captured stdout call -----------------------------
+start-reading role=chief-of-staff host=claude bytes=199896
+_ test_each_start_reading_stays_at_or_below_its_after_figure[chief-of-staff-copilot] _
+[gw6] win32 -- Python 3.15.2 C:\Users\gaeta\Projets\chantier.worktrees\batch-31-CR-476\.venv\Scripts\python.exe
+
+role = 'chief-of-staff', host = 'copilot'
+
+    @pytest.mark.parametrize(("role", "host"), AFTER)
+    def test_each_start_reading_stays_at_or_below_its_after_figure(role: str, host: str) -> None:
+        total = _start_reading(role, host)
+        print(f"start-reading role={role} host={host} bytes={total}")
+>       assert total <= AFTER[(role, host)], (role, host, total)
+E       AssertionError: ('chief-of-staff', 'copilot', 109758)
+E       assert 109758 <= 108926
+
+skills\chantier\scripts\cli\tests\test_start_reading.py:70: AssertionError
+---------------------------- Captured stdout call -----------------------------
+start-reading role=chief-of-staff host=copilot bytes=109758
+_ test_each_start_reading_stays_at_or_below_its_after_figure[foreman-claude] __
+[gw6] win32 -- Python 3.15.2 C:\Users\gaeta\Projets\chantier.worktrees\batch-31-CR-476\.venv\Scripts\python.exe
+
+role = 'foreman', host = 'claude'
+
+    @pytest.mark.parametrize(("role", "host"), AFTER)
+    def test_each_start_reading_stays_at_or_below_its_after_figure(role: str, host: str) -> None:
+        total = _start_reading(role, host)
+        print(f"start-reading role={role} host={host} bytes={total}")
+>       assert total <= AFTER[(role, host)], (role, host, total)
+E       AssertionError: ('foreman', 'claude', 88186)
+E       assert 88186 <= 87596
+
+skills\chantier\scripts\cli\tests\test_start_reading.py:70: AssertionError
+---------------------------- Captured stdout call -----------------------------
+start-reading role=foreman host=claude bytes=88186
+_ test_each_start_reading_stays_at_or_below_its_after_figure[foreman-copilot] _
+[gw6] win32 -- Python 3.15.2 C:\Users\gaeta\Projets\chantier.worktrees\batch-31-CR-476\.venv\Scripts\python.exe
+
+role = 'foreman', host = 'copilot'
+
+    @pytest.mark.parametrize(("role", "host"), AFTER)
+    def test_each_start_reading_stays_at_or_below_its_after_figure(role: str, host: str) -> None:
+        total = _start_reading(role, host)
+        print(f"start-reading role={role} host={host} bytes={total}")
+>       assert total <= AFTER[(role, host)], (role, host, total)
+E       AssertionError: ('foreman', 'copilot', 81478)
+E       assert 81478 <= 81082
+
+skills\chantier\scripts\cli\tests\test_start_reading.py:70: AssertionError
+---------------------------- Captured stdout call -----------------------------
+start-reading role=foreman host=copilot bytes=81478
+=========================== short test summary info ===========================
+FAILED skills/chantier/scripts/cli/tests/test_start_reading.py::test_each_start_reading_stays_at_or_below_its_after_figure[chief-of-staff-claude]
+FAILED skills/chantier/scripts/cli/tests/test_start_reading.py::test_each_start_reading_stays_at_or_below_its_after_figure[chief-of-staff-copilot]
+FAILED skills/chantier/scripts/cli/tests/test_start_reading.py::test_each_start_reading_stays_at_or_below_its_after_figure[foreman-claude]
+FAILED skills/chantier/scripts/cli/tests/test_start_reading.py::test_each_start_reading_stays_at_or_below_its_after_figure[foreman-copilot]
+4 failed, 2418 passed, 20 skipped in 162.43s (0:02:42)
+error: recipe `test` failed on line 29 with exit code 1
