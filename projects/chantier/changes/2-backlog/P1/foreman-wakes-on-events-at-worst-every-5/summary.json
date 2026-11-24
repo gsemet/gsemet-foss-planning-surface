@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "The Foreman runs its own watcher and wakes at worst every 55 minutes",
+  "summary": "Specified (Q1 option B): Claude Code steering wake 55m by default, a Foreman watcher on its batch's merge, red-CI and wait-met lines, AGENTS.md watcher rule rewritten. After watcher-limit and CR-471. Four open questions, the first on who records a user's merge.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2b8ab2d711638d71d73ce10238b9773f66baf1ef3677f71f4061d5584bd4703f",
+    "02-answers.md": "77e25a368d87aa0a6bf1057713f1f6625802272ec8c2e936a6908026ea3a627f",
+    "03-change-spec.md": "0fa1bcaa1265ffadba5c5b53d44788b8dd0db4dad129bc47063cc784e7a65beb",
+    "intake/request.md": "6904b684e79cc456ed7fff735842758e3017328042a0abf248bd564fc59b8a9e"
+  },
+  "summarized": "2026-11-24T11:03:51Z"
+}

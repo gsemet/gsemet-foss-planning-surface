@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Restart the board on this checkout's build, and keep it there",
+  "summary": "Specified: serve --restart stops the board cleanly (new private-key op server.stop, after the writer's last cycle) and serves on this build, on the user's yes each time; other projects' watchers start no board while a chantier dev session holds its seat. uv sync done by 56f753e6. 3 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "f3e50799d2d6e62fceeb682885c11f8aaedc868866b1a314e6310a06f0f4014f",
+    "02-answers.md": "e4ad49daebd904ed38b3ee755dc717025365be53df6762ce39006fdfa77a6d4a",
+    "03-change-spec.md": "a515dded5a3b15c80982d5c9bec79a1df9e9fa8fb86cf4c009ad07e6c85f4c23",
+    "intake/request.md": "05bed813711282ea9c986008d7f1bcc1be1cf7ad2420f8e18af0903cd46f65ce"
+  },
+  "summarized": "2026-11-24T11:03:46Z"
+}
