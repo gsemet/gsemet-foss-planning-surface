@@ -14,5 +14,6 @@ Short name: `feature-clip`.
 10. feature-clip-Q10 (spec open question 2): **Mark on the added delimiter.** A. A brief orange outline around the added delimiter line during the zoom on the result.
 11. feature-clip-Q11 (spec open question 4): **README.** A. No. The README keeps its presentation video; clips go to the feature's docs and the release note.
 12. Chief of Staff routine (spec open question 5): the key badges show the keys of the platform the clip is filmed on (Ctrl+C on Windows and Linux, ⌘C on macOS). The first clip is filmed on Windows.
+13. feature-clip-Q12 (spec open question 3, after the owner asked whether GitHub renders video in Markdown; it plays only files uploaded through its UI, not a relative `.mp4` in the repository): A. At publication, the MP4 is uploaded into the GitHub release note, which plays it natively. The release-note file in the repository keeps the GIF. No CR for Studio rendering `<video>`.
 
 Destination: running batch batch-09, after CR-481.
