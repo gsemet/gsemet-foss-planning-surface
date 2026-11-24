@@ -56,10 +56,10 @@ All-projects users get a Dashboard menu entry and page; chart hover no longer hi
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates: `just check`, `just eval-dry-run`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at `a476ded`: `just check` 2577 passed; `just eval-dry-run` 19 of 19 as expected; `just scenario` pass
 - [ ] Evidence: none yet (no Playwright)
-- [ ] Review: approved at `<sha7>`
+- [x] Review: approved at `a476ded` (reviewed at c0fb4d0 plus the round's diff, committed as a476ded)
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
