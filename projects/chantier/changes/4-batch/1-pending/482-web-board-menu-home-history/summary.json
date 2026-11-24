@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Web board: menu, detail overlay, multi-project home, History",
+  "summary": "Specified for batch-31, no open question: Kanban page removed, Inbox shown as Notifications, Help last, Grill button hidden by a client constant, page dimmed behind the panel, All-projects home with open PRs and last 20 CR events, paged History on All projects with project and type filters.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9cab0bf54cadeade0f3bd56aaf7a747c61d817ef3a619b537677015fcac49761",
+    "02-answers.md": "564b625e46ff41447bd44a77950a25a2bd103d5374be250efcc65e3be00b3392",
+    "03-change-spec.md": "5562c1d86abde703fe3a3e4e675a16b9ee40a673d241022d42111e8808d43fe3",
+    "intake/request.md": "9cab0bf54cadeade0f3bd56aaf7a747c61d817ef3a619b537677015fcac49761"
+  },
+  "summarized": "2026-11-24T15:56:30Z"
+}

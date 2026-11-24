@@ -87,17 +87,18 @@ Destination: running batch batch-31.
 - `DESIGN.md`, "The Help page": "after Home (and the Inbox)" becomes "last, after Configuration
   (after History on All projects)".
 
-### 4. The Grill button is hidden (recorded default)
+### 4. The Grill button is hidden (recorded default, web-board-Q6)
 
-- A single named switch in the web client, off as shipped, hides the detail panel's Grill button
+- A single named constant in the web client, off as shipped (web-board-Q6: turning it back on
+  takes an edit and a release; no `chantier.yaml` key), hides the detail panel's Grill button
   (`js/panel/griller.js`'s `grillAction`). With the button hidden, the discussion cannot be opened
-  from the panel. Turning the switch on brings back today's behaviour unchanged.
+  from the panel. Turning the constant on brings back today's behaviour unchanged.
 - Nothing else changes: the server's Griller (`board/griller.py`, the `griller.*` ops, the
   `griller` topic, the host checks), `js/api/griller.js`, `js/panel/griller-view.js`,
   `css/griller.css` and the words stay as they are, and so do the existing griller tests
   (`test_board_griller*.py`).
-- `DESIGN.md`, "The board's Griller", "The button": the button is hidden behind that switch, off as
-  shipped. The section names the switch.
+- `DESIGN.md`, "The board's Griller", "The button": the button is hidden behind that constant, off as
+  shipped. The section names the constant.
 - `docs/web-board.md`, "The board's Griller": says that the button is hidden for now.
 
 ### 5. The page dims behind an open detail panel (web-board-Q3)
@@ -118,7 +119,7 @@ Destination: running batch batch-31.
   the panel puts it today, and comes back to the opener when the panel closes.
 - `DESIGN.md`: a short section, "The file panel's backdrop", states these rules.
 
-### 6. The All-projects home: open PRs and recent activity (web-board-Q1, web-board-Q2)
+### 6. The All-projects home: open PRs and recent activity (web-board-Q1, Q2, Q5)
 
 The All-projects home is `js/views/overview.js`, fed by the `board` topic (`board/reads.py`'s
 `board_data`, `board/state.py`'s `project_line`). It keeps its table and cards, and gains two
@@ -140,7 +141,9 @@ blocks, laid out with the existing `block` sections as the project home lays the
   rows. The rows come from the record and the journal lines the hub already writes: no new forge
   read, and no subscription to any project's `prs` topic from this page. Red CI is only known while
   the hub runs; the block shows no red CI when the hub has not journaled one.
-- **Recent activity** (web-board-Q2, answer A): the last 20 events of all projects, newest first.
+- **Recent activity** (web-board-Q2 and Q5, answer A): the last 20 events of all projects, newest
+  first. Only the CRs' life and the releases (web-board-Q5): no round, hand-back, board, writer or
+  sync line.
   Each line shows the time, the project's mark, the event's kind (the History page's kinds and
   their chip variants: opened, merged, dropped, release), the CR and its one-line title. The events
   come from the same source as the History page below (the project's index of dated events,
@@ -157,14 +160,17 @@ blocks, laid out with the existing `block` sections as the project home lays the
   op, topic or field.
 - The project's own home (`js/views/home.js`) is unchanged.
 
-### 7. History on All projects (web-board-Q2)
+### 7. History on All projects (web-board-Q2, Q5, Q7)
 
 - `js/views/registry.js`: the `history` entry gains an overview, so History shows on All projects,
   between Notifications and Help.
 - On All projects, the page is the project's History page (`js/views/history.js`) widened to every
-  project: the same head (day, week or month, previous, next, Today), the same five figures summed
+  project, paged in the same way (web-board-Q7): the same head (day, week or month, previous, next,
+  Today), the same five figures summed
   over the projects shown, and the same day groups. Each row also shows its project's mark. The
-  figures and rows cover every event of the period, with nothing cut.
+  figures and rows cover every event of the period, with nothing cut: "complete" means every
+  event of each period (web-board-Q7), not one unpaged list. The events are the CRs' life and the
+  releases from each project's history (web-board-Q5).
 - Two filters, both made of the existing filter-toggle chips (filled when on, outlined grey when
   off, `DESIGN.md`'s chip rule):
   - **project**: one chip per project of the surface, shown on All projects only;
@@ -226,7 +232,7 @@ as `tests/test_board_*.py` already do (`_read`/`_web` of the package's files), n
 - A test that the registry has no `kanban` view, that `js/views/kanban.js` and
   `css/views/kanban.css` are gone and not linked from `index.html`, that no `go: 'kanban'` or
   `data-go="kanban"` remains, and that `batch-kanban.js` and `kanban-cards.js` are still there.
-- `tests/test_board_griller_client.py`: the switch exists in the shipped `js/panel/griller.js` and is
+- `tests/test_board_griller_client.py`: the constant exists in the shipped `js/panel/griller.js` and is
   off. With it off, `grillAction` draws no `data-grill` button. The server's Griller tests are
   unchanged and pass.
 - `tests/test_board_design.py` passes with the new colour token in both `tokens.css` and
@@ -260,25 +266,13 @@ as `tests/test_board_*.py` already do (`_read`/`_web` of the package's files), n
   This CR does not change the CR board pane of `hooks/register.tsx`, so no session-pane screenshot
   is owed.
 
-### Matrix: the Grill switch
+### Matrix: the Grill constant
 
-- Switch off (as shipped): no Grill button in any panel; the server's Griller is untouched.
-- Switch on (edited in the client): the button and the discussion behave exactly as today.
+- Constant off (as shipped): no Grill button in any panel; the server's Griller is untouched.
+- Constant on (edited in the client, then released): the button and the discussion behave exactly as today.
 
 No other part of this CR depends on the host or on a configured value.
 
 ## Open questions
 
-1. **Feed and History source.** The spec reads web-board-Q2's "the same journals" as the History
-   page's dated events: CRs opened, merged and dropped, and releases, from the closed records,
-   archived CRs and the running batch. Under that reading the feed shows no round, hand-back, board
-   write or sync line. Is that what the user meant? The alternatives are the running batches'
-   `events.jsonl` (the project home's feed, which covers running batches only, so not "all
-   events") or the projects' `forge-journal.jsonl` (the writer's, the board's and the hub's lines,
-   not the CRs' life).
-2. **The Grill switch.** The spec makes it a constant in the web client, so turning the button back
-   on takes an edit and a release. Should it be a configuration key of `chantier.yaml` instead,
-   which the user could turn on without a release?
-3. **History on All projects.** The spec keeps the project page's day, week and month paging, so
-   "complete" means every event of each period, with nothing cut. Did the user want one unpaged list
-   of every event instead?
+None: web-board-Q5, Q6 and Q7 answered the three this spec first raised.
