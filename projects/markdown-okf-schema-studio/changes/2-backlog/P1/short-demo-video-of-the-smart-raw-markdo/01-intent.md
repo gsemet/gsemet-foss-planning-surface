@@ -13,7 +13,12 @@ beat, its time, its filmed shot, its picture and its on-screen texts, and it sta
 source. The recipe gains the owner's review of the storyboard before the take and before a render.
 The clip shows two captions in turn, one during the action and one during the zoom, with texts
 the owner sets. Its key badges read "Ctrl+C / ⌘C" and "Ctrl+V / ⌘V", whatever the platform filmed.
+The size and the frame rate become storyboard fields the kit reads: this clip is 1280x720 at 15 fps.
+
+The scene changes, so the clip needs a new stage document and a new take: the selection starts
+inside an untitled admonition, in the middle of bold text, and ends inside another admonition, and
+the clip shows the characters the setting adds, the closing ones included.
 
 The storyboard draft, reviewed and edited by the owner, is in `work/storyboard/clip.md` of this
-folder. The batch brings it into the repository, changes the kit and the recipe, renders the clip
-again and opens the PR.
+folder, with the new stage in `work/storyboard/stage/`. The batch brings them into the repository,
+changes the kit and the recipe, films the new take, renders the clip again and opens the PR.
