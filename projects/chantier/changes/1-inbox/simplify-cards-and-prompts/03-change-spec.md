@@ -296,8 +296,8 @@ Study-fable-v2 section 6, regrouped (answer 18):
     worker lines of `src/plugin_files.py`), additive.
   - `hooks/register.test.tsx`: cases for both.
   - Only if open question 1 answers yes: a deny list on a segment's first words for the agents
-    the guard judges (those with a `writes:` line): `git merge` (but `--ff-only` in the main
-    checkout? no: any `git merge`), `gh pr merge`, `glab mr merge`, `git reset --hard`,
+    the guard judges (those with a `writes:` line): `git merge` (any form),
+    `gh pr merge`, `glab mr merge`, `git reset --hard`,
     `git clean`, `git stash`, `git push --force` / `-f` (plain, not `--force-with-lease`),
     `git checkout -- <files>`, `git restore`, `pkill`, `killall`, the refusal text quoting the
     floor's rule and its id. `EXEMPT` then stops exempting those segments.

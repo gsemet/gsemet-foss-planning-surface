@@ -57,7 +57,7 @@ copy of the merged kit, changed for two captions, three marks and the combined b
 | Mark 1 *(on screen)* | Orange outline around the added line `:::{important}`, 5.0 to 6.2 s |
 | Mark 2 *(on screen)* | Orange outline around the added opening `**` before "migrations", 6.2 to 7.4 s |
 | Mark 3 *(on screen)* | Orange outline around the added closing `:::`, 7.4 to 8.6 s |
-| Text 2 *(on screen)* | Partial syntax is pasted as valid Markdown |
+| Text 2 *(on screen)* | Cut-off syntax is **completed** on copy to ensure valid Markdown |
 
 Expected paste, the scenario's check (added by the setting: the opening `:::{important}` line, the
 opening `**` and the last `:::`; the table and the `---` paste as their Markdown). The trial
