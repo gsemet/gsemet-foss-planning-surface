@@ -43,8 +43,8 @@ Grade: 2. The `showDocument` port gains options and an outcome (all fakes update
 
 ## Known gaps
 
-- Only Windows was measured; the Linux half of the probe is pending (CI run), and a signal found there would add the automatic line signal. **UNVERIFIED:** the verdict "no signal" for the Search entry and for Quick Open in the default state rests on absence of evidence: they cannot be driven reliably by command.
-- The `real-input` integration step times out in this Windows worktree even with the new steps removed; whether it also fails on a clean main is not yet shown.
+- The probe table was measured on Windows; the Linux half ran in the heavy CI run [45444316305](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45444316305) at 9d956ea (integration, stress, visual all green); its probe lines show the same on Linux: with the association, no entry gives a selection event or a tab fragment or query (`tabUri=-/-`, `selections=none`), so no automatic line signal is built. **UNVERIFIED:** the verdict "no signal" for the Search entry and for Quick Open in the default state rests on absence of evidence: they cannot be driven reliably by command.
+- The `real-input` integration step times out in this Windows worktree even with the new steps removed; it passes in the Linux heavy CI run above and on main's CI, so it is a local Windows limit, not shown to come from this change.
 
 <details>
 <summary>Details</summary>
@@ -74,7 +74,7 @@ No visual change beyond the new menu entry and the marked line in Studio.
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [ ] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `just check`, unit and security tests, `just requirements-update`/lint, `npm run test:integration -- --trusted-only` (open-at-line, probe and studio steps pass; `real-input` fails, see Known gaps)
+- [ ] Local gates: `just check`, unit and security tests, `just requirements-update`/lint, `npm run test:integration -- --trusted-only` (open-at-line, probe and studio steps pass; `real-input` times out on this Windows worktree only, see Known gaps)
 - [ ] Review
 - [ ] CI green
 
