@@ -55,7 +55,7 @@ CLI output only; no visual change.
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
+- [ ] Local gates at `f20227a`: `just check`, `just eval-dry-run`
 - [ ] Evidence: none beyond tests
 - [ ] Review: approved at `<sha7>`
 - [ ] Verified at `<sha7>`

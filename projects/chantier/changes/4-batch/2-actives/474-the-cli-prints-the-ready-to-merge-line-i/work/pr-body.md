@@ -18,7 +18,12 @@ batch: shape parallel; slots 4/4; steering Foreman; rounds 3; budget $80.52 of $
 handed back: 🟢 ready to merge <id> <slug> https://github.com/<owner>/<repo>/pull/<n> | long gate <id> at <sha7>: exempt: <rule>
 ```
 
-A draft PR prints `🟤 PR in draft … | do not merge: waits for …` and a CR with no PR yet `🟣 ready locally … no PR yet`; these are covered by `tests/test_ready_line.py`, not shown above.
+The same code on a prepared batch, with a draft PR and a CR that has no PR yet:
+
+```
+handed back: 🟤 PR in draft CR-2 the-slug https://github.com/o/r/pull/12 | do not merge: waits for its turn out of draft | owed before the merge: its long gate passes at abc1234 (the Foreman) | long gate CR-2 at abc1234: not run
+handed back: 🟣 ready locally CR-3 the-slug no PR yet | owed before the merge: its long gate passes at abc1234 (the Foreman) | long gate CR-3 at abc1234: not run
+```
 
 Choices made:
 - A step still owed reads `owed before the merge: <step> (<who>)`; the user may still merge, and the merge is recorded as any other.
@@ -30,7 +35,7 @@ Grade: 1. The change adds output lines to `status` and a new card; `status`'s fi
 
 ## Autonomous decisions
 
-- The fallback form of the byte limit shipped (no manifest action, no sentence in the reload section; a `rules:` pointer on the `batch:` line), because the manifest line pushes the Chief of Staff's reload over the limit on both hosts. The specification names this fallback.
+- The fallback form of the byte limit shipped (no manifest action, no sentence in the reload section; a `rules:` pointer on the `batch:` line), because the manifest line pushes the Chief of Staff's reload over the limit on both hosts. The byte limit left no room for the manifest line.
 - The opening of `foreman.md` drops two phrases ("; defer the remaining sections", ", in a reused session too") to name the pointer and stay at the previous byte figures.
 - `stopped_agents` also asks a ready CR's agent, so the "its Driver" clause is true only while that Driver is live; otherwise the steering role is named.
 - Helpers of `batch_status.py` moved to a module of their own, with no behaviour change, to keep the file at 400 lines.
@@ -65,7 +70,7 @@ Agents see two more kinds of `status` line; no visual change for users.
 
 - [ ] New or changed tests (they fail on the previous code): `test_ready_line.py`, `test_reload_rules.py`
 - [ ] Local gates at `<head7>`: `just check` pass (2459 passed); `just eval-dry-run` <result>; stack scenario unit 256/256
-- [ ] Evidence: No visual change
+- [ ] Evidence: no visual change; the `status` output above is from the code at `<head7>`
 - [ ] Review: approved at `<head7>`
 - [ ] Verified at `<head7>`
 - [ ] CI green at `<head7>`
