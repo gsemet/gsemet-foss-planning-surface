@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "TUI: Tab zones, per-panel scroll, newest first, narrow Ago, maximize",
+  "summary": "Specified for batch-31 with no grill: chantier live gets an active panel (Flow at start) that Tab moves, the arrows and PgUp/PgDn scroll it, a key maximizes and restores it; the Flow is newest first with a narrow right-aligned Ago column.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9a994efa45ac1f9c3e8b6478f0e5e5ed99e938323b782d7db73b6f80d9a256f2",
+    "02-answers.md": "df4eb8490b80cf3df10f8fd3abe6fc862a6f2c6afc58643d6e87cd2ea2ede2be",
+    "03-change-spec.md": "896ba199a3fafde0251c675baaba47c5869688b388e0a83bc56f997c7c52fc7d",
+    "intake/request.md": "9a994efa45ac1f9c3e8b6478f0e5e5ed99e938323b782d7db73b6f80d9a256f2"
+  },
+  "summarized": "2026-11-24T22:16:25Z"
+}
