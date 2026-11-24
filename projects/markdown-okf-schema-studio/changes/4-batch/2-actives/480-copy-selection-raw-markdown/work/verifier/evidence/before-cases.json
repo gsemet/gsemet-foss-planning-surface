@@ -1,0 +1,204 @@
+[
+ {
+  "start": {
+   "text": "Intro with",
+   "at": 0,
+   "nth": 0
+  },
+  "end": {
+   "text": "second",
+   "at": "end",
+   "nth": 0
+  },
+  "browserSelectionText": "Intro with bold and a link with strong words here.\n\nName\tValue\none\tfirst\ntwo\tsecond",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ },
+ {
+  "start": {
+   "text": "bold",
+   "at": 1,
+   "nth": 0
+  },
+  "end": {
+   "text": "first",
+   "at": 3,
+   "nth": 0
+  },
+  "browserSelectionText": "old and a link with strong words here.\n\nName\tValue\none\tfir",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ },
+ {
+  "start": {
+   "text": "Intro with",
+   "at": 0,
+   "nth": 0
+  },
+  "end": {
+   "text": "second",
+   "at": "end",
+   "nth": 0
+  },
+  "browserSelectionText": "Intro with bold and a link with strong words here.\n\nName\tValue\none\tfirst\ntwo\tsecond",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ },
+ {
+  "start": {
+   "text": "second",
+   "at": "end",
+   "nth": 0
+  },
+  "end": {
+   "text": "Next body.",
+   "at": 0,
+   "nth": 0
+  },
+  "browserSelectionText": "\nOuter\n\nitem one\n\nitem two\n\ndeeper\n\nInner\n\nx = 1\ny = 22\nNext\n\n",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ },
+ {
+  "start": {
+   "text": "deeper",
+   "at": 2,
+   "nth": 0
+  },
+  "end": {
+   "text": "Next body.",
+   "at": 4,
+   "nth": 0
+  },
+  "browserSelectionText": "eper\n\nInner\n\nx = 1\ny = 22\nNext\n\nNext",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ },
+ {
+  "start": {
+   "text": "Next body.",
+   "at": 0,
+   "nth": 0
+  },
+  "end": {
+   "text": "right",
+   "at": "end",
+   "nth": 0
+  },
+  "browserSelectionText": "Next body.\n\nkey\tval\nleft\tright",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ },
+ {
+  "start": {
+   "text": "Next body.",
+   "at": 7,
+   "nth": 0
+  },
+  "end": {
+   "selector": ".myst-mermaid-diagram",
+   "at": "in-end"
+  },
+  "browserSelectionText": "dy.\n\nkey\tval\nleft\tright\n",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ },
+ {
+  "start": {
+   "selector": ".myst-mermaid-diagram",
+   "at": "in-start"
+  },
+  "end": {
+   "text": "Closing",
+   "at": 3,
+   "nth": 0
+  },
+  "browserSelectionText": "\nDiagram source\nClo",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ },
+ {
+  "start": {
+   "selector": "[data-okf-properties] th",
+   "at": "start"
+  },
+  "end": {
+   "selector": "[data-okf-properties] td",
+   "at": "end",
+   "nth": 1
+  },
+  "browserSelectionText": "Names\tValues\ntitle\nRaw copy\ntags\ncopy\nmarkdown",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ },
+ {
+  "start": {
+   "selector": "[data-okf-properties] th",
+   "at": "start"
+  },
+  "end": {
+   "text": "Intro with",
+   "at": 5,
+   "nth": 0
+  },
+  "browserSelectionText": "Names\tValues\ntitle\nRaw copy\ntags\ncopy\nmarkdown\nRaw copy\nIntro",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ },
+ {
+  "start": {
+   "text": "Intro with",
+   "at": 0,
+   "nth": 0
+  },
+  "end": {
+   "text": "Intro with",
+   "at": 4,
+   "nth": 0
+  },
+  "browserSelectionText": "Intr",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ },
+ {
+  "start": {
+   "selector": "h1",
+   "at": "end"
+  },
+  "end": {
+   "text": "second",
+   "at": "end",
+   "nth": 0
+  },
+  "browserSelectionText": "\nWords of the last commit only\n\nIntro with bold and a link with strong words here.\n\nName\tValue\none\tfirst\ntwo\tsecond",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ },
+ {
+  "start": {
+   "selector": "[data-okf-sbs-side=base]",
+   "at": "start"
+  },
+  "end": {
+   "text": "second",
+   "at": "end",
+   "nth": 0
+  },
+  "browserSelectionText": "Words of the last commit only\n\nIntro with bold and a link with strong words here.\n\nName\tValue\none\tfirst\ntwo\tsecond",
+  "defaultPrevented": false,
+  "text/plain": "",
+  "text/html": ""
+ }
+]
