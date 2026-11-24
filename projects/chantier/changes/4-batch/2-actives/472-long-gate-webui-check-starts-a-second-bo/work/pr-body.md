@@ -56,12 +56,12 @@ The board's link is no longer always on 8765; the start line prints the port. No
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
+- [x] New or changed tests: walk, held-error and end-of-walk cases in `test_serve_webui.py`, run at `b9ec1d6`
 - [x] Local gates at `b9ec1d6`: `just check` pass, `just eval-dry-run` pass, `just scenario` pass (long gate, with a board on 8765)
-- [ ] Evidence: see Known gaps for the reproduction
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Evidence at `b9ec1d6`: the walk run live against a board on 8765 and a plain socket on 8766 (board took 8767); a named `--port 8765` still refused (exit 4); the base failure did not reproduce (see Known gaps)
+- [x] Review: approved at `b9ec1d6`
+- [x] Verified at `b9ec1d6`
+- [x] CI green at `b9ec1d6`: all five checks pass
 
 ## Internal references
 
