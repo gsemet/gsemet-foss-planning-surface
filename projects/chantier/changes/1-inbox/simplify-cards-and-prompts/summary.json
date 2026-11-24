@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Rewrite the role cards: minimal boot, progressive disclosure",
+  "summary": "Grill open: the owner wants a total card rewrite (smallest cards, no behaviour lost, disclosure through --help, watcher and server state lines). A Fable study is running before the questions go on.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "9a1448a12554a598671e7e662b8c454a2b33c4dcb6eb082e0a3b2cb3a8cc28a1",
+    "02-answers.md": "dfa64e4da4e50180f0c866658570678f17a700026040abfc4eef2ef62449dd79",
+    "intake/request.md": "5188ee6d34835221a8c6ed4ffffd1d377a61cd315c2c8d78787aea5b3964cb87"
+  },
+  "summarized": "2026-11-24T21:42:33Z"
+}

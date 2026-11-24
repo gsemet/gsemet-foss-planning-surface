@@ -1,2 +1,3 @@
 Short name: `simplify-cards`
 
+1. simplify-cards-framing: **Rules of the exercise.** Owner, in their words: the cards are far too heavy and detailed, a result of dozens of runs and retros; rely on Opus 5.5 / Sonnet 5.5 inferring from a minimum; complete rewrite of the card mechanism, smallest possible cards, no behaviour lost; progressive disclosure to the fullest (`--help` on a stumble, watcher and server state lines, the board's messaging); a total overhaul is accepted if every role's boot is much lighter; simpler role cards so outsiders can bring roles. Fixed: the roles, the server (improvable), the Foreman orchestrating with its tools; the work is mostly better tools and per-role progressive disclosure. Questions Q1-Q4 withdrawn; a bold Fable study comes first.
