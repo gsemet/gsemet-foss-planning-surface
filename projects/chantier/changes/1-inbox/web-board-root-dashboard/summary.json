@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Web board: Dashboard on All projects, chart hover band fixed",
+  "summary": "Specified for batch-31 after CR-482: chart hover band moved behind the series (columns painted over the SVG with an opaque tint); Dashboard on All projects, one summed curve per graph, ratios pooled. Open: duration on All projects, alignment by batch number.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "d3b66be5296301689ca06a13caffead7a868c705c1b9bec25593c0636d58563d",
+    "02-answers.md": "ed2c5c9a5e1623b99ae587ab44f5eb661e60c011f59810b20df478b061c9ec8b",
+    "03-change-spec.md": "630d0d672f1f1aad61d19913d13dcc73533220beb0f144d279f7fb7c70571b36",
+    "intake/request.md": "d3b66be5296301689ca06a13caffead7a868c705c1b9bec25593c0636d58563d"
+  },
+  "summarized": "2026-11-24T18:30:33Z"
+}
