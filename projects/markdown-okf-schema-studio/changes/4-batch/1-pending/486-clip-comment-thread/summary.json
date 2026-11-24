@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Feature clip: a comment thread on a passage",
+  "summary": "Specified: clip comment-thread from the Griller's draft (proposal.md; select a sentence, Comment, Ctrl+Enter, click the highlight, zoom, two marks), raw-copy-demo's kit, 1280x720 15 fps; the storyboard reviewed in the draft PR after the take (Q3).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2de4a7426ca7bbf991dd524ea3ac30203ffc6d1bee463e90e038cb1b680d2027",
+    "02-answers.md": "39d7748a438ec65ff6d21c52c03d2148359e69790225b68aead73c3bad403f7e",
+    "03-change-spec.md": "bf2b0b9b4ebe914780e8142e21ae3eefb9e82c2ea9c3fc91793bacf7a6f1af40",
+    "intake/request.md": "63f532f4ac730be23ed85cda083b1d3bed99ab9e2b1ad20cc22785d189f7ea39"
+  },
+  "summarized": "2026-11-24T23:34:13Z"
+}

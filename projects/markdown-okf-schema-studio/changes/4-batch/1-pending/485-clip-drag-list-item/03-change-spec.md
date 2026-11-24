@@ -40,10 +40,18 @@ the MP4 and WebM linked at the same head).
 | Q4 | Filmed on Windows by the batch, VSIX built at the take (the branch's `src/` is `main`'s), throwaway `--extensions-dir` and profile; the drag is real input through CDP, drawn by the kit's own pointer; the owner reviews storyboard and clip in the PR; a retake after review is a follow-up of this CR | sections 4, 7 |
 | Q5 | `docs/demo-video/clips/drag-list-item/` and the docs the recipe says to link; no change to `src/` | sections 1 to 6 (and the kit gap of section 5) |
 | Q6 | The PR body embeds the clip, links the MP4 and WebM (the `raw-copy-demo` rules), states what the clip proves and what the owner judges (motion, rhythm) | section 8 |
+| clip-drag-list-Q3 | The storyboard review is the owner's, in the PR: the batch films the trial take from the storyboard draft `work/storyboard/clip.md` of this CR's folder, puts its pictures in the storyboard, renders the clip and opens the PR with the clip watchable; the PR stays a draft until the owner approves the storyboard and the clip there (the recipe's gate is moved after the take, not dropped); the deviation from the recipe's order is reported in this spec and in the PR body; a retake after the owner's review is a follow-up of this CR | "Deviation from the recipe" below, section 8, "Out of scope" |
 
-Q4 also moves the owner's storyboard review, which the recipe places before the take, to the PR:
-tonight the storyboard is written by the agent with pictures from the batch's own take, committed
-with `status: draft`, and the owner approves or corrects it in the PR.
+### Deviation from the recipe (clip-drag-list-Q3)
+
+The recipe `docs/demo-video/guidelines/feature-clip-process.guidelines.md`, a project guideline, as
+`raw-copy-demo` leaves it ("The storyboard first"), has the maintainer review and edit the
+storyboard draft before the take. This CR moves that gate after the take, by the Chief of Staff's
+decision under the owner's overnight autonomy: the batch films the trial take from the draft
+`work/storyboard/clip.md`, puts the take's pictures and times in the storyboard (committed with
+`status: draft`), renders the clip and opens the PR with the clip watchable. The owner reviews the
+storyboard and the clip in that PR, which stays a draft until the owner approves both. The gate is
+moved, not dropped; the PR body reports the deviation (section 8).
 
 ## What changes
 
@@ -291,6 +299,10 @@ So this CR changes the kit, the least the clip needs, with the raw copy clip unc
 (`check.json` lines, key frame names and outputs as before). Every refusal names the scenario or
 `clip.md`, as the kit's messages do.
 
+This CR owns these generic kit changes (the scenario `checks` and the helper `t.keyFrame`, with
+`resolveChecks`, `takeLines`, `keyFrameTimes` and their tests): the clips `diff-side-by-side` and
+`export-html` reuse them from this CR and do not write their own.
+
 - **Scenario checks.** A scenario may export `checks = { editMode, paste }`: `editMode` `"off"`
   (default) or `"on"`, `paste` `true` (default) or `false`. A pure exported function
   `resolveChecks(checks)` in `lib/check.mjs` applies the defaults and refuses another key or value
@@ -389,6 +401,12 @@ The kit's new tests run on Windows locally and on Linux and Windows in `ci-stati
   checks and `verify`) and what the owner judges (motion, rhythm, the loop as watched, the absence
   of a floating drag image, the texts and their accent); it links `clip.md` for the storyboard
   review (Q4) and says a retake after review is a follow-up of this CR.
+- The PR is opened as a draft and stays a draft until the owner approves the storyboard and the
+  clip in it (clip-drag-list-Q3); the agent does not mark it ready. Its body has a section
+  "Deviation from the recipe" that says: the recipe's storyboard review before the take was moved
+  after it, by the Chief of Staff's decision under the owner's overnight autonomy; the take was
+  filmed from the draft `work/storyboard/clip.md`; the owner's review of `clip.md` and of the clip
+  happens on this PR, before it leaves draft.
 - "Autonomous decisions": the stage text; the side preview layout (text left, Studio right); the
   gentle zoom (the kit refuses a mark without a zoom); one mark per drag, on the moved item at its
   new place; the accent words; the kit gaps of section 5 and their shape (beyond Q5's file list,
@@ -401,7 +419,8 @@ The kit's new tests run on Windows locally and on Linux and Windows in `ci-stati
 - A floating drag image (the CDP drag has none): written in the storyboard's review notes, not
   fixed.
 - A macOS or Linux take; placing the clip in release notes or the announcement (a release CR does
-  it); a retake after the owner's review (a follow-up of this CR, Q4).
+  it); a retake after the owner's review (a follow-up of this CR, Q4, clip-drag-list-Q3).
+- Marking the PR ready before the owner approves the storyboard and the clip (clip-drag-list-Q3).
 - Other kit changes than section 5 (no `drag` helper: the exposed helpers do it).
 
 ## CI
