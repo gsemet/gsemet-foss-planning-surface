@@ -48,7 +48,7 @@ Each Driver's figure counts `driver.md`'s opening. Where about half is not reach
   extras, session, matrix) and the step lists of the other Drivers.
 - **QA Driver (0.67):** its role section is short and it still needs `driver:start` and the
   specification at its first step; the four ship sections moved to `driver:ship`, read at its ship.
-- **Release Driver (0.53):** close to half; its first line keeps `driver:start` and "Release driver"
+- **Release Driver (0.54):** close to half; its first line keeps `driver:start` and "Release driver"
   with its step list.
 
 ### Boot and reload per role (limit 12,544, not raised)
@@ -203,7 +203,7 @@ Grade: **2**. Instructions now arrive by action; a rule a role fails to read at 
 
 - The Chief of Staff's sentence "chantier writes only to the planning folder (...), and a CR's archive in its PR when the project asks" is not in `skills/chief-of-staff/SKILL.md` any more (about 160 bytes; the Copilot reload has 9 bytes of room). Its twin is in `session-start.md` "4. First turn", where the user first hears it. Not restored.
 - The Foreman's critic-for-any-other-list rule stays in the pause piece, and `foreman:reference` still reads the whole host card for one section (no byte room in the manifest for a section action).
-- The CR Driver's start reading grew (1.08 of base, 25,134 to 27,122): its first action was already minimal; the specification section moved to its first step and its boot now carries the list of moments that were links before.
+- The CR Driver's start reading grew (1.08 of base, 25,134 to 27,180): its first action was already minimal; the specification section moved to its first step and its boot now carries the list of moments that were links before.
 - The Foreman's "a Driver's silence" section exists only in the Claude host card, so its action cannot name it in the one-host form; the Foreman's reference action reads the whole host card, so it is reached.
 - Independent readings of spec section 5 (slim-cards-Q9), one per role, read-only, all "fix first" with no rule lost: Chief of Staff, 334 of 334 blocks found; Foreman, 1,128 sentences, 0 lost; Drivers, 254 paragraphs, 0 lost. Their findings (CoS 1-6, Foreman 1-6, Drivers 1-8) are fixed in the fix round or answered above; the Inspector was re-run on the changed body (see Test plan). The readings are not re-run on the fixed body.
 
@@ -226,8 +226,8 @@ No visible change; roles read less at start.
 
 ## Test plan
 
-- [x] Full test suite and lint pass (2397 passed); CI `just check` green on Linux, macOS and Windows at `3be21b3`.
-- [x] Long gate `just scenario` passed locally and in CI at `3be21b3`.
+- [x] Full test suite and lint pass (2405 passed) at `a96fd75`; CI `just check` to be read green on Linux, macOS and Windows at `a96fd75`.
+- [x] Long gate `just scenario` passed at `3be21b3` before the fix round; at `a96fd75` it is running locally and in CI (result quoted by the Foreman's ready line).
 
 ## Internal references
 
