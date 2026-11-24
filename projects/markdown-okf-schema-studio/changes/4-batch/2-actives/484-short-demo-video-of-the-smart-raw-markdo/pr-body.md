@@ -6,10 +6,10 @@ The feature clip of the raw copy setting (merged earlier) is one shot with a sin
 
 The new clip (1280x720, 15 fps, silent, loops), played from the committed GIF at the head; the MP4 and WebM are linked next to it:
 
-![Raw copy clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEAD_SHA/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.gif)
+![Raw copy clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/ad3c61c9f5c1dbd0ea9278779b09e013f8aed0f3/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.gif)
 
-- [MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEAD_SHA/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.mp4)
-- [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEAD_SHA/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.webm)
+- [MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/ad3c61c9f5c1dbd0ea9278779b09e013f8aed0f3/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.mp4)
+- [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/ad3c61c9f5c1dbd0ea9278779b09e013f8aed0f3/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.webm)
 
 ```mermaid
 flowchart LR
@@ -31,9 +31,9 @@ flowchart LR
 
 Documentation tooling only: no change to `src/`. The clip in the user docs changes: before, one shot with a single caption and a single mark on a short selection; after, a selection from inside a bold text in an admonition, across a table and a thematic break, to inside another admonition, with two captions and three marks in turn.
 
-![Raw copy clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEAD_SHA/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.gif)
+![Raw copy clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/ad3c61c9f5c1dbd0ea9278779b09e013f8aed0f3/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.gif)
 
-[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEAD_SHA/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.mp4), [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEAD_SHA/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.webm)
+[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/ad3c61c9f5c1dbd0ea9278779b09e013f8aed0f3/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.mp4), [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/ad3c61c9f5c1dbd0ea9278779b09e013f8aed0f3/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.webm)
 
 ## Blast radius
 
@@ -44,7 +44,7 @@ Grade: 1. Isolated to `docs/demo-video/`, one `just` recipe and doc lines; a pla
 - [x] New or changed tests (they fail on the previous code): `storyboard.test.mjs`, 13 tests
 - [x] Requirements: no behaviour change (no `src/` change)
 - [x] Changelog: No user-facing change
-- [ ] Local gates: `just clip-kit-test` 13 of 13, `just check`, `just format`; `just preflight` pending
+- [x] Local gates: `just clip-kit-test` 13 of 13, `just check`, `just format`; `just preflight` passes (static stage on Windows)
 - [ ] Review
 - [ ] CI green
 
@@ -58,3 +58,5 @@ Grade: 1. Isolated to `docs/demo-video/`, one `just` recipe and doc lines; a pla
 - Griller's choices: the `-assets` fallback for the video if GitHub does not play the GIF from the head; the floating "Comment" button kept as filmed.
 
 Not checked: motion, rhythm and the loop as watched (stills only); macOS Cmd+C is not proved in a real window.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
