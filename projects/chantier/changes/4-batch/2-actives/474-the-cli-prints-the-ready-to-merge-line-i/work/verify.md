@@ -13,3 +13,9 @@ Claims (all at e8d53ac, worktree clean, base = origin/main a94085d):
 7. PR description (work/pr-body.md): consistent with diff, Known gaps present (Copilot unproved, no own-gate wording, long gate pending locally), no images, English. Review box carried from a94085d; not independently checked against `log` beyond the Driver's wording.
 
 Not run: the local full long gate (queued; per the brief); the Windows local scenario run is owed by AGENTS.md before ready to merge. No visual evidence due (no UI); no before/after images.
+
+## Description pass at e8d53acdc80d021eedfe7dabf396252128aef937
+- Reload bytes at e8d53ac (pytest tests/test_startup_manifest.py -s): CoS 12529 claude, 12535 copilot; Foreman 9387, 9568; equal at origin/main. Room 15 and 9 of 12544.
+- 2459 passed, 20 skipped: full pytest run at e8d53ac; eval-dry-run 19 of 19 and 3x just check, scenario: gh pr checks 452 and CI log; stack 256/256: work/gates/20261124-141017.log (head e8d53ac).
+- Line formats match status/ready_line.py; Changes match git diff origin/main HEAD (13 files); review note: approved at a94085d, committed as e8d53ac.
+- Description VERIFIED.
