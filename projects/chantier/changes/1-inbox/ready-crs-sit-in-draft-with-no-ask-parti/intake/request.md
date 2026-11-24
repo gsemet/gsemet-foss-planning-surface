@@ -1,4 +1,5 @@
-Bug: ready change requests sit in draft with no ask; partial-stack asks not supported
+# Ready CRs sit in draft with no ask; partial-stack asks unsupported
+
 
 ## Problem
 
@@ -10,4 +11,4 @@ In a stack batch, change requests that were ready (verified, CI green, rebased o
 - Drop the "alone asks: refused" wording.
 - Have `status` flag a ready change request that has no ask.
 
-chantier 0.15.1, Claude Code desktop app (Windows). From a batch retro.
+From the markdown-okf-schema-studio batch-09 retro (stack batch, 2026-11-24), chantier 0.15.1, Claude Code desktop app on Windows.
