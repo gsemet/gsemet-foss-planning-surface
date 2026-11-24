@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Watcher runs through several events instead of exiting on each",
-  "summary": "Spec written: watch --stream (printed on Claude Code, run by Monitor) tells each block and runs on; no 2 h end while a batch runs or is paused with open PRs; seat end kept; AGENTS.md sentence rewritten. One open question: hub reads of a paused batch.",
+  "summary": "Spec written: watch --stream (printed on Claude Code, run by Monitor) tells each block and runs on; no 2 h end while a batch runs or is paused with open PRs; seat end kept; the forge hub also reads a paused batch's open PRs and waits; AGENTS.md watcher and hub sentences rewritten.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "8791242837b16607d428c21a1a39c02b5478393a83f8b9188bb831466d52bcff",
-    "02-answers.md": "97660bc3435b7390407ae0cc2bd5a1e99ee21631ad1660d5a117caa076a1da01",
-    "03-change-spec.md": "e907fcd0aa6fe6a4c53dacfcc6b1f67960aea6d336bc649ce2f73740f660cced",
+    "02-answers.md": "43ed101619ea3763434c031b4740832ce351506c5700ac86ae0a03edc96c055d",
+    "03-change-spec.md": "66ad55b5f9fd76030e2404c45713486cfa9749e63c08ace7db6e9234713e2357",
     "intake/request.md": "f34e035db951fca0ea9fe9a8f2a711cfcfa455fb96ace215d01129900843caee"
   },
-  "summarized": "2026-11-24T11:02:23Z"
+  "summarized": "2026-11-24T11:20:56Z"
 }

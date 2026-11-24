@@ -1,10 +1,10 @@
 ## Summary
 
-The Chief of Staff, Foreman and Driver role cards were each read nearly whole at start, hundreds of kilobytes for the first two. Each card is now cut by moment of need: the entry card keeps its opening and a list of moments, and each piece is a new `<role>-<moment>.md` card that a `startup-manifest.json` action reads when that situation arrives. Text moves, it is not reworded; no rule is added or dropped (five duplicates were removed, each still stated elsewhere).
+The Chief of Staff, Foreman and Driver role cards were each read nearly whole at start, hundreds of kilobytes for the first two. Each card is now cut by moment of need: the entry card keeps its opening and a list of moments, and each piece is a new `<role>-<moment>.md` card that a `startup-manifest.json` action reads when that situation arrives. Text moves, it is not reworded; no rule is added or dropped (five duplicates were removed, each still stated elsewhere, and a few join words were added; see "Autonomous decisions").
 
 ## Deliverables
 
-The cards are cut by moment; the figures and every moved rule follow (old place, new file#section, action, moment). The 12,544-byte startup limit is unchanged and the highest reload is 12,511 (Chief of Staff, Copilot).
+The cards are cut by moment; the figures and every moved rule follow (old place, new file#section, action, moment). The 12,544-byte startup limit is unchanged and the highest reload is 12,535 (Chief of Staff, Copilot; 9 bytes under).
 
 Each row: the rule's first words, its old place (`card#section`; a bold item of that section when the
 words start with one; `driver.md` alone is its opening), its new `file#section`, the action that reads it, and the moment.
@@ -20,19 +20,30 @@ the specification's "today", stated a manifest of 4,537 bytes and is not re-meas
 
 | Role | Base (Claude) | After (Claude) | Ratio | Base (Copilot) | After (Copilot) | Ratio |
 |---|---|---|---|---|---|---|
-| Chief of Staff | 380,314 | 177,821 | 0.47 | 380,320 | 87,975 | 0.23 |
-| Foreman | 292,020 | 86,857 | 0.30 | 292,026 | 80,343 | 0.28 |
-| CR Driver | 25,134 | 27,122 | 1.08 | 25,200 | 27,188 | 1.08 |
-| Stack Driver | 66,302 | 32,692 | 0.49 | 66,364 | 32,754 | 0.49 |
-| QA Driver | 36,137 | 24,064 | 0.67 | 36,207 | 24,134 | 0.67 |
-| Release Driver | 47,462 | 25,391 | 0.53 | 47,522 | 25,451 | 0.54 |
+| Chief of Staff | 380,314 | 198,870 | 0.52 | 380,320 | 108,926 | 0.29 |
+| Foreman | 292,020 | 87,596 | 0.30 | 292,026 | 81,082 | 0.28 |
+| CR Driver | 25,134 | 27,180 | 1.08 | 25,200 | 27,246 | 1.08 |
+| Stack Driver | 66,302 | 34,054 | 0.51 | 66,364 | 34,116 | 0.51 |
+| QA Driver | 36,137 | 24,122 | 0.67 | 36,207 | 24,192 | 0.67 |
+| Release Driver | 47,462 | 25,806 | 0.54 | 47,522 | 25,866 | 0.55 |
+
+What the fix round (Fable readings) added to the start readings, by move: the Chief of Staff's
+any-moment rules (forge permissions, offering options and refusals, compacting, tips, the floor)
+sit in one new piece, `chief-of-staff-any.md` (19,819 bytes), read by the `chief-of-staff` entry
+action, so the Chief of Staff's start reading grew by 21,049 bytes (Claude, 177,821 to 198,870;
+Copilot 87,975 to 108,926) and its entry card by 1,023 (30,809 to 31,832); two or three smaller
+actions would cost less but need manifest bytes the reload does not have (9 bytes of room). The
+Foreman's grew by 739 (moments reworded as events, the take-back and escalation lines); the Stack
+Driver's by 1,362 (the every-take definitions and the "read `driver:ship` before a take's first
+rebase or push" line, now in `driver.md#Stack driver`), the Release Driver's by 415 (its failure
+rule, now in `driver.md#Release driver`), the CR Driver's and QA Driver's by 58.
 
 Each Driver's figure counts `driver.md`'s opening. Where about half is not reached, the reason:
 
 - **CR Driver (1.08):** its first action at the base was already its minimum (three `Means:`
   sections and "CR driver"). It now also reads `driver.md#Means: the specification` (347 bytes,
   the opening's "Specification" bullet moved there, as section 3 asks) and its boot grew by the
-  list of moments in `driver.md#Startup core` (+1,962 bytes boot: 8,519 to 10,481), which carries
+  list of moments in `driver.md#Startup core` (+2,022 bytes boot: 8,519 to 10,541), which carries
   the moments that were links before (re-takes, trouble, refusals, conflicts, hand-backs, PR
   extras, session, matrix) and the step lists of the other Drivers.
 - **QA Driver (0.67):** its role section is short and it still needs `driver:start` and the
@@ -44,20 +55,20 @@ Each Driver's figure counts `driver.md`'s opening. Where about half is not reach
 
 | Role | Boot base (Claude/Copilot) | Boot after | Reload base | Reload after |
 |---|---|---|---|---|
-| chief-of-staff | 11,636 / 11,642 | 11,684 / 11,690 | 12,527 / 12,533 | 12,505 / 12,511 |
-| status | 11,385 / 11,391 | 11,664 / 11,670 | 12,276 / 12,282 | 12,485 / 12,491 |
-| griller | 11,197 / 11,203 | 11,243 / 11,249 | 12,088 / 12,094 | 12,064 / 12,070 |
-| router | 11,135 / 11,141 | 11,557 / 11,563 | 12,026 / 12,032 | 12,378 / 12,384 |
-| foreman | 7,740 / 7,921 | 8,542 / 8,723 | 8,631 / 8,812 | 9,363 / 9,544 |
-| cr-driver (all Drivers share it) | 8,519 / 8,585 | 10,481 / 10,547 | 9,410 / 9,476 | 11,302 / 11,368 |
-| board-griller | 10,242 / 10,335 | 11,044 / 11,137 | 11,133 / 11,226 | 11,865 / 11,958 |
+| chief-of-staff | 11,636 / 11,642 | 11,708 / 11,714 | 12,527 / 12,533 | 12,529 / 12,535 |
+| status | 11,385 / 11,391 | 11,688 / 11,694 | 12,276 / 12,282 | 12,509 / 12,515 |
+| griller | 11,197 / 11,203 | 11,267 / 11,273 | 12,088 / 12,094 | 12,088 / 12,094 |
+| router | 11,135 / 11,141 | 11,581 / 11,587 | 12,026 / 12,032 | 12,402 / 12,408 |
+| foreman | 7,740 / 7,921 | 8,566 / 8,747 | 8,631 / 8,812 | 9,387 / 9,568 |
+| cr-driver (all Drivers share it) | 8,519 / 8,585 | 10,541 / 10,607 | 9,410 / 9,476 | 11,362 / 11,428 |
+| board-griller | 10,242 / 10,335 | 11,096 / 11,189 | 11,133 / 11,226 | 11,917 / 12,010 |
 
-The highest is the Chief of Staff's Copilot reload, 12,511 (33 bytes under the limit).
+The highest is the Chief of Staff's Copilot reload, 12,535 (9 bytes under the limit; 33 before the fix round).
 
 #### The manifest
 
-4,537 bytes at f4c1bccd (the specification's figure); 4,556 at the base `3c29dd7c`; 5,405 after
-(+849 at the base: 32 new actions, one short line each, the one-host form for the Chief of Staff's
+4,537 bytes at f4c1bccd (the specification's figure); 4,556 at the base `3c29dd7c`; 5,429 after
+(+873 at the base: 32 new actions, one short line each, the one-host form for the Chief of Staff's
 and the Foreman's host cards, and `@driver:start`, `@driver:ship`, `@driver:end`, `@driver:brief`
 and `@host`, each saving bytes over its readings written out).
 
@@ -65,9 +76,9 @@ and `@host`, each saving bytes over its readings written out).
 
 | Lines | Bytes | Limit |
 |---|---|---|
-| `cr-driver` | 16,641 | 18,000 |
-| `cr-driver` + `cr-driver:ship` + `cr-driver:closing` | 35,998 | 36,000 (35,972 at the base) |
-| restart + `cr-driver:closing` | 9,348 | 13,000 |
+| `cr-driver` | 16,639 | 18,000 |
+| `cr-driver` + `cr-driver:ship` + `cr-driver:closing` | 35,996 | 36,000 (35,972 at the base) |
+| restart + `cr-driver:closing` | 9,346 | 13,000 |
 | `driver.md`'s opening | 2,154 | `CR_DRIVER_OPENING_LIMIT` lowered from 2,500 to 2,154 |
 
 #### The Chief of Staff (`chief-of-staff.md`)
@@ -81,7 +92,7 @@ and `@host`, each saving bytes over its readings written out).
 | - **Closing:** `--yes` only on | chief-of-staff.md#While it runs | chief-of-staff-batch-end.md#While it runs: the pause and what follows | `chief-of-staff:batch-end` | a batch's last CR ended: the pause, the retro, a recovery |
 | - **Recovery:** a stale heartbeat | chief-of-staff.md#While it runs | chief-of-staff-batch-end.md#While it runs: the pause and what follows | `chief-of-staff:batch-end` | a batch's last CR ended: the pause, the retro, a recovery |
 | - **Putting back:** on the | chief-of-staff.md#While it runs | chief-of-staff-batch-end.md#While it runs: the pause and what follows | `chief-of-staff:batch-end` | a batch's last CR ended: the pause, the retro, a recovery |
-| At your first turn of a session | chief-of-staff.md#Forge permissions (P9) | chief-of-staff-batch-start.md#Forge permissions (P9) | `chief-of-staff:batch-start` | the user's "run them", up to the Foreman's start or `open --direct` |
+| At your first turn of a session | chief-of-staff.md#Forge permissions (P9) | chief-of-staff-any.md#Forge permissions (P9) | `chief-of-staff` | the first turn and any moment (`chief-of-staff-any.md`, read by the entry action) |
 | At step 1 of "Starting a batch", | chief-of-staff.md#The trials before the go | chief-of-staff-batch-start.md#The trials before the go | `chief-of-staff:batch-start` | the user's "run them", up to the Foreman's start or `open --direct` |
 | Only in the turn where the | chief-of-staff.md#Starting a batch | chief-of-staff-batch-start.md#Starting a batch | `chief-of-staff:batch-start` | the user's "run them", up to the Foreman's start or `open --direct` |
 | In direct mode no Foreman | chief-of-staff.md#Steering a batch yourself | chief-of-staff-direct.md#Steering a batch yourself | `chief-of-staff:direct` | steering a batch yourself (direct mode) |
@@ -98,7 +109,12 @@ and `@host`, each saving bytes over its readings written out).
 | - **Inserting a CR into a | chief-of-staff.md#While it runs | chief-of-staff-merge.md#While it runs: merging | `chief-of-staff:merge` | a PR ready to merge, a merge to record, a stack, a hold, an insert |
 | A release is a CR a Release | chief-of-staff.md#Releases | chief-of-staff-release.md#Releases | `chief-of-staff:release` | a release |
 | - **Status:** `$CHANTIER status [--notes]`, | chief-of-staff.md#While it runs | chief-of-staff-steering.md#While it runs | `chief-of-staff:steering` | a batch running: status, reports, asks, the watcher, a refused force push or rebase |
-| Before you offer the user | chief-of-staff.md#Offering options | chief-of-staff-steering.md#Offering options | `chief-of-staff:steering` | a batch running: status, reports, asks, the watcher, a refused force push or rebase |
+| Before you offer the user | chief-of-staff.md#Offering options | chief-of-staff-any.md#Offering options | `chief-of-staff` | the first turn and any moment (`chief-of-staff-any.md`, read by the entry action) |
+| - **Compacting:** once per session | chief-of-staff.md#While it runs | chief-of-staff-any.md#Compacting and tips | `chief-of-staff` | the first turn and any moment (`chief-of-staff-any.md`, read by the entry action) |
+| - **Tips:** a tip comes only at four key moments | chief-of-staff.md#While it runs | chief-of-staff-any.md#Compacting and tips | `chief-of-staff` | the first turn and any moment (`chief-of-staff-any.md`, read by the entry action) |
+| This applies the Hard rule "A refusal is said before it is met" | chief-of-staff.md#Offering options | chief-of-staff-any.md#Offering options | `chief-of-staff` | the first turn and any moment (`chief-of-staff-any.md`, read by the entry action) |
+| The least time the batch can take, counted from facts | chief-of-staff.md#Starting a batch | chief-of-staff-any.md#The floor | `chief-of-staff` | the first turn and any moment (`chief-of-staff-any.md`, read by the entry action) |
+| You ask the user for the batch's shape at every opening | chief-of-staff.md#Backlog and grill | chief-of-staff-batch-start.md#Starting a batch | `chief-of-staff:batch-start` | the user's "run them", up to the Foreman's start or `open --direct` |
 | - **conflict:** in the surface's | chief-of-staff.md#Backlog and grill | chief-of-staff-writer.md#The surface's writer | `writer` | the surface's writer (a `writer:` line); also read by `chief-of-staff:grill` |
 | - **blocked:** the way out | chief-of-staff.md#Backlog and grill | chief-of-staff-writer.md#The surface's writer | `writer` | the surface's writer (a `writer:` line); also read by `chief-of-staff:grill` |
 | - **offline, or late:** tell | chief-of-staff.md#Backlog and grill | chief-of-staff-writer.md#The surface's writer | `writer` | the surface's writer (a `writer:` line); also read by `chief-of-staff:grill` |
@@ -166,7 +182,10 @@ and `@host`, each saving bytes over its readings written out).
 | **Making the stack.** Once two | driver.md#Stack driver | stack-driver-make.md#Stack driver: making the stack | `stack-driver:make` | making the stack and its five checks |
 | **The local gate at the mergeable | driver.md#Stack driver | stack-driver-make.md#Stack driver: making the stack | `stack-driver:make` | making the stack and its five checks |
 | **The five checks,** read on | driver.md#Stack driver | stack-driver-make.md#Stack driver: the five checks | `stack-driver:make` | making the stack and its five checks |
-| The stack is what your prompt | driver.md#Stack driver | stack-driver-restack.md#Stack driver: the restack pass | `stack-driver:restack` | the restack pass |
+| The stack is what your prompt | stack-driver-restack.md#Stack driver: the restack pass | driver.md#Stack driver | `stack-driver` | the stack driver's first line (every take's definitions) |
+| The release CR is the top piece | stack-driver-restack.md#Stack driver: the restack pass | driver.md#Stack driver | `stack-driver` | the stack driver's first line (every take's definitions) |
+| A release with no PR yet is no anomaly | stack-driver-restack.md#Stack driver: the restack pass | driver.md#Stack driver | `stack-driver` | the stack driver's first line (every take's definitions) |
+| A step fails on the product | release-driver-merged.md#Release driver: after the merge | driver.md#Release driver | `release-driver` | the release Driver's first line (any step's failure) |
 
 ## Blast radius
 
@@ -176,13 +195,17 @@ Grade: **2**. Instructions now arrive by action; a rule a role fails to read at 
 
 - To fit the 12,544-byte limit (the user chose to free bytes in the startup text rather than raise it or add a second manifest), the startup text was shortened with no rule lost: five duplicates removed, each still said elsewhere (the Chief of Staff skill description's no-argument sentence; the "chantier writes only" lines of the Chief of Staff and Griller skills; `startup-core.md`'s ", never \"without it\""; the launch paragraph's "never a Foreman, a Driver or a worker"; `session-start.md` "5. Reload"'s first sentence).
 - The session-start reading takes only its own host card (also narrows the Griller's reading), to fit the limit.
-- Five duplicate sentences removed, each still said elsewhere.
+- The cut is more than five edits, said plainly: besides the five duplicates, the startup text lost `startup-core.md`'s "runs no uv sync", the "(from the session's context...)" clause, "and its assets", and `driver.md`'s opening lost the gloss "(`git`, `gh`, `glab`)" after "Git and the forge are yours" (to hold its 2,154-byte opening limit). Each is a gloss, not a rule.
+- `session-start.md` "5. Reload": its first sentence is not a duplicate (`role-core.md` says "At boot", and the reload action reads neither the host core nor the role's startup sections); its replacement widens "startup sections only" to the entry action plus the moment's action. That widening is specification Q11 and is intended.
+- Fix round 1 (Fable readings): the Chief of Staff's any-moment rules are one new piece, `chief-of-staff-any.md`, read by the `chief-of-staff` entry action (cost above). Drivers finding 1 is a text pointer ("read `driver:ship` before a take's first rebase or push") because adding `@driver:ship` to the `stack-driver` action cost 11.9 KB; Drivers 6 (`driver:trouble`, 13,350 bytes) stays: the CR Driver's ship union has 4 bytes of room.
 
 ## Known gaps
 
+- The Chief of Staff's sentence "chantier writes only to the planning folder (...), and a CR's archive in its PR when the project asks" is not in `skills/chief-of-staff/SKILL.md` any more (about 160 bytes; the Copilot reload has 9 bytes of room). Its twin is in `session-start.md` "4. First turn", where the user first hears it. Not restored.
+- The Foreman's critic-for-any-other-list rule stays in the pause piece, and `foreman:reference` still reads the whole host card for one section (no byte room in the manifest for a section action).
 - The CR Driver's start reading grew (1.08 of base, 25,134 to 27,122): its first action was already minimal; the specification section moved to its first step and its boot now carries the list of moments that were links before.
 - The Foreman's "a Driver's silence" section exists only in the Claude host card, so its action cannot name it in the one-host form; the Foreman's reference action reads the whole host card, so it is reached.
-- The independent reading of each role's split on a second model is still to run before merge.
+- Independent readings of spec section 5 (slim-cards-Q9), one per role, read-only, all "fix first" with no rule lost: Chief of Staff, 334 of 334 blocks found; Foreman, 1,128 sentences, 0 lost; Drivers, 254 paragraphs, 0 lost. Their findings (CoS 1-6, Foreman 1-6, Drivers 1-8) are fixed in the fix round or answered above; the Inspector was re-run on the changed body (see Test plan). The readings are not re-run on the fixed body.
 
 <details>
 <summary>Details</summary>
