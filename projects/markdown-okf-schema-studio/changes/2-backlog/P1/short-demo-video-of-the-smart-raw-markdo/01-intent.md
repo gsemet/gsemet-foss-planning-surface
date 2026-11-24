@@ -1,17 +1,19 @@
-# Short demo video of the smart raw Markdown copy
+# Storyboard and two captions for the raw copy feature clip
 
-Make the second short demo video of Markdown OKF-Schema Studio, `docs/demo-video/short-demo-02/`,
-about the smart copy: a selection in the preview, copied with Ctrl/Cmd+C, puts the exact raw
-Markdown under it on the clipboard (and the rendered HTML for a rich editor), in read and edit mode
-(PR https://github.com/gsemet/markdown-okf-schema-studio/pull/498), with the opt-in setting
-`markdownOkfSchemaStudio.preview.rawCopy.balanceEdges` that completes the copy at the selection's
-edges (PR https://github.com/gsemet/markdown-okf-schema-studio/pull/499).
+The raw copy feature (Ctrl+C / ⌘C on a selection copies the raw Markdown under it, PR #498) and its
+`markdownOkfSchemaStudio.preview.rawCopy.balanceEdges` setting (PR #499) already have a feature clip:
+`docs/demo-video/clips/raw-copy-balance-edges/`. CR-482 (PR #501) made it with the clip kit
+(`docs/demo-video/clip-kit/`) and the recipe `docs/demo-video/guidelines/feature-clip-process.guidelines.md`.
+The owner likes the clip as it is, one continuous shot: the copy on the left, then a zoom on the
+pasted text on the right.
 
-- The process is `docs/demo-video/guidelines/short-demo-process.guidelines.md`, with
-  `docs/demo-video/short-demo-01/` as the kit to copy; the owner decides at each gate (messages,
-  identity, scenario, storyboard, cuts, music, publication).
-- Wanted before the 1.13.0 release, which ships the feature: the release notes and the announcement
-  may use the video.
-- The recording is also a chance to see, in a real VS Code window, what is not proved yet:
-  context-menu Copy, macOS Cmd+C, paste into a rich editor, a mouse-drag selection.
-- The scenario, the length and the recording choices are settled in `02-answers.md`.
+This change gives the clip, and every later feature clip, a storyboard the owner reviews and edits
+as easily as the main video's `01-storyboard.md`. That storyboard is Markdown with a section per
+beat, its time, its filmed shot, its picture and its on-screen texts, and it stays the clip's live
+source. The recipe gains the owner's review of the storyboard before the take and before a render.
+The clip shows two captions in turn, one during the action and one during the zoom, with texts
+the owner sets. Its key badges read "Ctrl+C / ⌘C" and "Ctrl+V / ⌘V", whatever the platform filmed.
+
+The storyboard draft, reviewed and edited by the owner, is in `work/storyboard/clip.md` of this
+folder. The batch brings it into the repository, changes the kit and the recipe, renders the clip
+again and opens the PR.

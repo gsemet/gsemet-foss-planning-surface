@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Storyboard and two captions for the raw copy clip",
+  "summary": "Give the raw-copy-balance-edges feature clip an editable Markdown storyboard reviewed before the take, two captions in turn, and Ctrl+C / ⌘C badges.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "c13358a9fb4ce76aff8e75b8c71e43b6d895ac5e88752ed8a221556a0e4e7a6f",
+    "02-answers.md": "dcd780146eba71f9f6c4b0a0c05b4b72ace9850126396d33215428b5f0a4b1a1",
+    "intake/request.md": "78891ee0dcbf3b50472b947c6967ff851354e44996fca6e310b7f38a81ba3aad"
+  },
+  "summarized": "2026-11-24T22:25:40Z"
+}
