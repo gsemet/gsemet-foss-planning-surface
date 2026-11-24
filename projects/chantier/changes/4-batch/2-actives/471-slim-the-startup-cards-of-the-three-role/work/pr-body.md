@@ -203,8 +203,8 @@ No visible change; roles read less at start.
 
 ## Test plan
 
-- [ ] Full test suite and lint pass at `4a1b125` (2397 passed).
-- [ ] Long gate at the PR head: pending.
+- [x] Full test suite and lint pass (2397 passed); CI `just check` green on Linux, macOS and Windows at `3be21b3`.
+- [x] Long gate `just scenario` passed locally and in CI at `3be21b3`.
 
 ## Internal references
 
