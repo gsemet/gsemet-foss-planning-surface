@@ -9,6 +9,10 @@ subscribes again, or says it is no longer subscribed. `status` tells the cases a
 Scope (pr-conflict-Q1 A, 2026-11-24): the hub and the watcher only. The detection of PRs left in
 conflict by a merge, and the order to rebase them, belong to the separate inbox item
 `pr-conflict-detect-and-rebase-order`. Destination (pr-conflict-Q2 A): the running batch batch-31.
+A stray server stops by itself (pr-conflict-Q3 A, decided by the Chief of Staff on the user's "I
+don't know"; the user may overturn it). The hub wakes on the subscription alone (pr-conflict-Q4 A).
+The stray PID 37316 was stopped and the watcher restarted on 2026-11-24 around 20:45 UTC
+(pr-conflict-Q5 A).
 
 Base: `origin/main`. The local main checkout is behind it. `origin/main` already holds CR-476
 (the stream watcher, `--stream`, and no 2 h end while a batch is in flight), CR-478
@@ -70,9 +74,9 @@ bounded at 30 s (`store/folder.py`).
    `board/binding.py` opening `127.0.0.1:<p>` must count as "port held". Today it succeeds on
    Windows (and possibly macOS), so this test fails there before the fix.
 3. Put the evidence above (the listening table, the two command lines, the `server.json` entries
-   without keys) in the PR's Known gaps or Deliverables. If the live state differs when the Driver
-   looks (for example, someone stopped 37316), quote what was seen and the reproduction test
-   instead.
+   without keys) in the PR's Known gaps or Deliverables, quoted from this specification. PID 37316
+   was stopped by hand on 2026-11-24 around 20:45 UTC (pr-conflict-Q5), so the live state no
+   longer shows it. The reproduction tests of steps 1 and 2 are the proof at the PR's head.
 
 If the proof shows a different or an additional cause (a subscription that a live server holds
 but `observed()` does not count, a hub thread that stopped), the Driver says so to the Foreman
@@ -100,8 +104,14 @@ before fixing, with the evidence. The fix below targets the cause named above.
   `SO_REUSEADDR` does not let a specific bind share a wildcard-bound port (macOS), and closes that
   gap if it does.
 - No server serves clients while another process holds the surface's hub, so a loopback client
-  can no longer reach a process that never reads the forge. A server that finds the surface held
-  by another live server stops (see open question 1 for one that is already running).
+  can no longer reach a process that never reads the forge.
+- A stray server stops by itself (pr-conflict-Q3 A). A running server that finds it is not the
+  recorded one (`server.json`'s `server` entry names another live process) stops on its own,
+  within a bound the Driver names, after its writer's last cycle if it runs one. It does not wait
+  for a manual kill or for `--stop-idle`, since it may always have clients. It never stops the
+  recorded server and never edits that server's entry. On a stop, its clients lose their link and
+  link again to the recorded server, as the watcher rules below say. This covers a duplicate left
+  over from before the fix as well as one that appears anyway.
 
 ### The watcher reaches the server that holds the hub (`hub/watch.py`, `hub/feed.py`)
 
@@ -149,10 +159,12 @@ so that they say what is now true. Shorter sentences are fine, but no named exce
 permission, file or network use is dropped or widened. In particular:
 
 - the surface server: one serving process per planning surface and machine. A second start joins
-  the running one or refuses, and never serves. "Port held" covers any address. Keep the
+  the running one or refuses, and never serves. A server that finds it is not the recorded one
+  stops by itself. "Port held" covers any address. Keep the
   "next free port" rule (remote-cli-Q17);
-- the forge hub: it reads while a client is subscribed to the server that holds it. Add the
-  watcher-lock signal only if open question 2 is answered B;
+- the forge hub: it reads while a client is subscribed to the server that holds it. The
+  subscription stays the only signal (pr-conflict-Q4 A), so this rule is not changed on that
+  point;
 - each session's watcher: it subscribes to the recorded server's `events` topic, confirms that
   this is the server that holds the hub, links again after a restart, and ends with a line when it
   cannot. Keep CR-476's end rules;
@@ -188,6 +200,8 @@ an agent file names this; the card is where the contract lives.
     macOS and Windows;
   - the double start of step 1: one serving process, the second start prints
     "board already running" and exits;
+  - a server that finds `server.json` naming another live server stops by itself within the
+    bound, and leaves that server's entry as it was;
   - the watcher, its `Board` replaced by a fake: a link answered by a process other than the
     recorded server is not counted as linked, and the watcher relinks or ends with its line; a
     recorded server whose PID changes (restart) gets the watcher's new subscription within the
@@ -209,18 +223,9 @@ an agent file names this; the card is where the contract lives.
   (`pr-conflict-detect-and-rebase-order`).
 - The watcher's end rules of CR-476 (the 2 h end while no batch is in flight), unchanged.
 - The hub's read cadence (20 s), the forge connectors and what the hub journals.
-- Stopping the stray server that runs now (PID 37316). That is an operation for the Chief of
-  Staff or the user (stop it, and the loopback clients reach PID 29916), not part of the change.
+- Reading the watcher locks to wake the hub (pr-conflict-Q4 A: the subscription alone).
+- Stopping the stray PID 37316 of 2026-11-24: already done by hand (pr-conflict-Q5 A).
 
 ## Open questions
 
-1. A stray server that is already running when the fixed build arrives, or one that appears
-   anyway: should a server that finds the surface held by another live server, or finds itself
-   not the recorded one, stop by itself? Or does the fix only prevent new duplicates, with
-   `status` and the watcher naming any stray one for the user to stop? Recommended: it stops by
-   itself after its writer's last cycle, since it serves nothing true.
-2. The signal the hub reads on: A) the subscription stays the only signal. Once the watcher is
-   sure to reach the hub's server, a watcher that runs is a subscriber. B) also read the forge
-   while the seat holder's watcher lock (`chantier/watch-<project>/<session>.lock`) is held, even
-   with no subscription. B is what the intent first asked for, but it makes the hub read the
-   watcher locks and changes AGENTS.md's hub rule. Recommended: A, given the cause found.
+None. pr-conflict-Q3, Q4 and Q5 closed the two earlier ones and the operational point.

@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "One board per surface, and a watcher that reaches the forge hub",
+  "summary": "Specified for batch-31: two serve processes shared port 8765 on Windows, clients reached the one without the hub. Fix: one server per surface, port held on any address, a stray server stops by itself, watcher confirms and relinks to the hub's server, status names the mismatch.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3931c2a6fe5589dedda9df78d019868f51ce6486279151a7688165ed1dae95c1",
+    "02-answers.md": "e03f57ca8e828733ef37a0f6568a93190c41fa33a41f6721b7ca5168e0262313",
+    "03-change-spec.md": "818a0e6e593ca6571547550d4f6b838cda86021e156de66412a66ce832a2f5a3",
+    "intake/request.md": "b713f3e0935bc14f85dcc9fc97efa2ce71c1e7837f88bd0bf346aafaf2716bb4"
+  },
+  "summarized": "2026-11-24T21:56:39Z"
+}
