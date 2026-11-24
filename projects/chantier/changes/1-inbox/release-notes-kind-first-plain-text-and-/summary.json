@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Release notes: kind-first plain text and framed images",
+  "summary": "Teach the Release Driver to write release notes that state the release kind first, one plain sentence per change, bad news plainly, and framed images. Card only; structure and format unchanged.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "ea1c998b2226c76f21430b9b17ee8f46cb53d8d62ecf114d89c15d74e49ce0f6",
+    "02-answers.md": "06217560f315d2ee7df1e3b48f28ddf87fd384d62246b269c8d692316fdc20f2",
+    "intake/request.md": "efdc21a91a0a69da684a75b0fb6a25165ba6ec0448227c4af0c7e766830426b8"
+  },
+  "summarized": "2026-11-24T09:03:03Z"
+}
