@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Feature clip: drag a list item by its handle",
+  "summary": "Specified: a 1280x720 15 fps clip, filmed on Windows after raw-copy-demo, of two handle drags in edit mode (item, then item with sub-items) with the raw text beside; adds small kit changes (scenario checks, key frames) the clip needs.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "c844beedad90ba0aadab9e7e3649d0d34c0185e9914e26b954419f54a7edb7e9",
+    "02-answers.md": "c1fa3e7b1796dfc87e3412be31117e45d5824486f8763f3bdcf50f3b5e974478",
+    "03-change-spec.md": "edbaf981596c4569c697d7fb777c65cb06462843449d8bd9690b287f9ad1add4",
+    "intake/request.md": "7aabfe6239a086b6b5e2d49cb53c5c8bc121c4ff022aa71f1ddb363ed177e5f3"
+  },
+  "summarized": "2026-11-24T23:33:39Z"
+}
