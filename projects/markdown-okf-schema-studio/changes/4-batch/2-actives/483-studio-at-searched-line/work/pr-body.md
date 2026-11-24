@@ -18,7 +18,7 @@ flowchart LR
 
 - Command `markdown-okf-schema-studio.openInStudioAtLine` (palette on Markdown text editors, editor title menu, no default keybinding); the text tab stays.
 - A link, Back or Next to a file whose Studio tab is open in another group reveals that tab; no second tab.
-- Probe, VS Code 1.147.0 on Windows 11: no entry (search result, Problems, link `#L42`, Quick Open) gives the custom editor a reliable line signal, so a jump under the association keeps opening Studio at the top and the command is the way to reach the line. **UNVERIFIED:** the Linux half of the probe (see Known gaps).
+- Probe table: see the header of `test/integration/openAtLineProbe.test.ts` (4 states x 7 entries, VS Code 1.147.0, Windows 11). Verdict per entry (plain jump, Quick Open, link `#L42`, link `#heading`, Problems, Go to Symbol): **no signal** (one Studio tab at the top, no fragment, no selection event, no text editor). Search result: not drivable by command, documented. No entry (search result, Problems, link `#L42`, Quick Open) gives the custom editor a reliable line signal, so a jump under the association keeps opening Studio at the top and the command is the way to reach the line. **UNVERIFIED:** the Linux half of the probe (see Known gaps).
 
 ## Blast radius
 
@@ -30,7 +30,8 @@ Grade: 2. The `showDocument` port gains options and an outcome (all fakes update
 
 ## Known gaps
 
-- The Linux half of the probe is pending (CI run).
+- The Linux half of the probe is pending (CI run); Search and some Quick Open cells cannot be driven by command.
+- The `real-input` integration step times out in this Windows worktree even with the new steps removed; whether it also fails on a clean main is not yet shown.
 - **UNVERIFIED:** the full real-window matrix rows of the specification beyond the probe.
 
 <details>
