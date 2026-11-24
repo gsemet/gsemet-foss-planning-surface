@@ -1,6 +1,6 @@
 # Verify CR-484
 
-Head: f98043379922b2d4d3776f38880fb20a60b092d8
+Head: efc69b6afe1280128e55a3df6c9e4f946f789bb5
 
 All claims judged at f980433.
 
@@ -17,5 +17,16 @@ All claims judged at f980433.
 6. PR description: Summary, Deliverables and Changes match the diff (24 files; binding, claim, command, start_lines, watcher files, lines, AGENTS.md, chief-of-staff card, scenario). Known gaps names the macOS bind proof and status not probing for two servers. Test plan still holds `<to fill>` placeholders, which the Driver fills at handoff. Live evidence quoted from the specification. No images.
    VERIFIED
 7. Not run by me: the bind test on macOS and Windows (CI's `just check` matrix is green, item 3); the "fails on today's code" proof was not re-run on the base.
+
+VERIFIED
+
+## Addendum: head efc69b6afe1280128e55a3df6c9e4f946f789bb5
+
+Earlier judgments above cover f98043379922b2d4d3776f38880fb20a60b092d8.
+
+1. Only AGENTS.md changed since f9804337 (judged at efc69b6a).
+   Command: `git diff f9804337 efc69b6a --name-only` -> `AGENTS.md`; `--stat` -> `AGENTS.md | 5 +++--` (3 insertions, 2 deletions). No code, test or card file changed, so every behaviour proof above is carried from f980433 (code identical).
+2. The surface-server sentence reads correctly and says what the specification says (judged at efc69b6a).
+   Command: `git diff f9804337 efc69b6a`. The old run-on is now three sentences: (a) two surfaces' servers never clash, each keeps its key and record in its own git folder, and one that finds the default port held on any address (connect check before the bind everywhere, exclusive bind on Windows) takes the next free port above it and prints it (remote-cli-Q17); (b) one surface has one serving process per machine: a start takes `chantier/hub.lock` for the process's life with no new file, a start that does not win it waits briefly for the winner's board and joins it (`board already running`) or refuses with the silent-board text, and a server that finds `server.json`'s `server` entry naming another live PID stops itself cleanly without writing that entry; (c) "It serves the record and the planning folder's files ..." continues as before. The misplaced "and prints it" is fixed; no fact is added or dropped.
 
 VERIFIED

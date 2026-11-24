@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Feature clip: insert a card grid from the slash menu",
+  "summary": "Specified: clip slash-menu-grid from the Griller's draft (edit mode, /grid, Insert grid form defaults, Ctrl+Enter, two cards, zoom, one mark), 1280x720 15 fps; needs CR-484's kit and CR-485's checks and keyFrame; storyboard reviewed in the draft PR after the take (Q3).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "917581ef13a916f28dc6d561a31dd00ca50180355eac969e60db0cdedc3ede9c",
+    "02-answers.md": "345bbaa4e8aaa504b0b8df1b83402223b2851afb7c0aeb071ba8f8d36252c74b",
+    "03-change-spec.md": "c1ccfddc6e2598a79da8fe23378f7256cd09c4a9dcd26c1515ab62527612726f",
+    "intake/request.md": "e29db78264c67a3dc161dff2c153473a1631386563fc45d16ff6f881905cb265"
+  },
+  "summarized": "2026-11-24T23:41:25Z"
+}

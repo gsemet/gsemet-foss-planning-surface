@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Feature clip: drag a list item by its handle",
-  "summary": "Specified: a 1280x720 15 fps clip of handle drags in edit mode with the raw text beside, filmed on Windows from the storyboard draft; draft PR until the owner approves storyboard and clip; owns the generic kit changes (checks, keyFrame) other clips reuse.",
+  "summary": "Specified from the Griller's draft: one 10.5 s 1280x720 15 fps clip, a handle drag in edit mode with the raw text beside, zoom and two marks; filmed before the storyboard review, draft PR until the owner approves; owns the generic kit changes (checks, keyFrame).",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "c844beedad90ba0aadab9e7e3649d0d34c0185e9914e26b954419f54a7edb7e9",
     "02-answers.md": "c1fa3e7b1796dfc87e3412be31117e45d5824486f8763f3bdcf50f3b5e974478",
-    "03-change-spec.md": "824c76f6ff3d36ebed6fb3dff08b4174f0fbad30d3bb490e9ae7c14d47f31175",
+    "03-change-spec.md": "f9d280ea36895c0c87a3f3e8d91a0369a7d94d9aa5cce9010b9741269a8ca58f",
     "intake/request.md": "7aabfe6239a086b6b5e2d49cb53c5c8bc121c4ff022aa71f1ddb363ed177e5f3"
   },
-  "summarized": "2026-11-24T23:35:03Z"
+  "summarized": "2026-11-24T23:39:56Z"
 }

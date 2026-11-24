@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC02: Accept the CLI's near-miss argument forms",
+  "summary": "Specified (03-change-spec.md): --lease on handoff/verdict/rules/log/wait/lease, quoted phase split, take names handoff, CR path forms and short names, summary lint full form, --epoch before the command. Child 2 of simplify-cards; base child 1. 2 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "a5fe357bdc59c7ec37ae925e0c1942c211ea1f11b2da2d5601facd2f93d82798",
+    "02-answers.md": "bb7e8ecee0299aae78674583d312d290221810244bf29406ad0e6221b0114b38",
+    "03-change-spec.md": "205a4d371bada2486b270be805b333930ef75b028e74991a9e728d53ff564a01",
+    "intake/request.md": "c0c6ced43b3735a03480344d4c835444f04a3b91b2577af5b3e55a7b5aeb1108"
+  },
+  "summarized": "2026-11-24T23:41:35Z"
+}

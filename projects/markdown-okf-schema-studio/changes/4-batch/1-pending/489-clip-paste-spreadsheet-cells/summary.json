@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Feature clip: paste spreadsheet cells into a table",
+  "summary": "Specified: a 1280x720 15 fps clip, filmed on Windows in edit mode, of five tab-separated lines copied from a text editor and pasted into a Studio table cell (a column and three rows added); no kit change, reuses CR 485's edit-mode checks; draft PR for the owner's storyboard review.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3c2546dce6b0d44501ea2c1425b3671b1f8c77e1043eecba51d82d474ccee4ed",
+    "02-answers.md": "baa87d88fbd038f87ace1a8dc6b1dcb30cdc82917f6a48d99b604667eb375f74",
+    "03-change-spec.md": "eda362258bb9a789941fe2eb691bb7cce2e1d37e30f7de59d0315aef984e15fa",
+    "intake/request.md": "6069bf0dc6c2ae52785869aed1037461f5532de2ea5e04d6e5fad0d2ed38775d"
+  },
+  "summarized": "2026-11-24T23:41:24Z"
+}
