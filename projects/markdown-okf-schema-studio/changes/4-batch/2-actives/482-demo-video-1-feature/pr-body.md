@@ -6,13 +6,13 @@ Feature announcements need a few seconds of video: the action, then its result. 
 
 The first clip (8.5 s, looping), as the GIF the release notes and docs use:
 
-![Raw copy with balanceEdges on: select across an admonition's edge, Ctrl+C, Ctrl+V, the opening line is added](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/HEADSHA/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.gif)
+![Raw copy with balanceEdges on: select across an admonition's edge, Ctrl+C, Ctrl+V, the opening line is added](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/8a916a8daff0860a6f6471671f5fdfe530ef7ba1/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.gif)
 
-Its contact sheet (12 frames across the MP4), filmed at HEADSHA7:
+Its contact sheet (12 frames across the MP4), filmed at 8a916a8:
 
-![Contact sheet](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/HEADSHA/docs/demo-video/clips/raw-copy-balance-edges/contact-sheet.png)
+![Contact sheet](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/8a916a8daff0860a6f6471671f5fdfe530ef7ba1/docs/demo-video/clips/raw-copy-balance-edges/contact-sheet.png)
 
-MP4 (for X and the GitHub release): [raw-copy-balance-edges.mp4](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/HEADSHA/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.mp4)
+MP4 (for X and the GitHub release): [raw-copy-balance-edges.mp4](https://media.githubusercontent.com/media/gsemet/markdown-okf-schema-studio/8a916a8daff0860a6f6471671f5fdfe530ef7ba1/docs/demo-video/clips/raw-copy-balance-edges/raw-copy-balance-edges.mp4)
 
 A clip is one folder under `docs/demo-video/clips/<name>/` with its scenario, storyboard (`clip.md`) and outputs:
 
