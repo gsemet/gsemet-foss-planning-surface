@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "title": "Rewrite the role cards: minimal boot, progressive disclosure",
-  "summary": "Program CR: rewrite the role cards on a vital minimum with progressive disclosure (help topics, next lines, board messages), 9 child CRs (real-run measure, help carrier, host card out of start first), force push via a CLI subcommand, hard maintenance gates, new cards only.",
+  "summary": "Program CR: tools first (help topics, next, msg/inbox, push subcommand, refusals), then one total rewrite of all the cards, then a read-and-compare review; hard maintenance gates; new cards only.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "9a1448a12554a598671e7e662b8c454a2b33c4dcb6eb082e0a3b2cb3a8cc28a1",
-    "02-answers.md": "3a61a04e8e9f58b1da4fee1d493fd3e53ed6193ca10a0c1d3732842cebd2e292",
+    "02-answers.md": "fdc73bd506079d625b34b486d36321466194759acc2caa6c7b98007793a54689",
     "intake/request.md": "5188ee6d34835221a8c6ed4ffffd1d377a61cd315c2c8d78787aea5b3964cb87"
   },
-  "summarized": "2026-11-24T22:54:29Z"
+  "summarized": "2026-11-24T22:57:21Z"
 }
