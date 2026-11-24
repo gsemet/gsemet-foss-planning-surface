@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Open Studio at a searched line without replacing text tabs",
+  "summary": "Specified 2026-11-24 for 3-ready: a probe of what VS Code hands Studio under the *.md association; Studio at the line with a signal, else Open in Studio at This Line (text tab stays); Studio tabs keep line and history, reveal an open tab of the target. No open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "deac3783f9a3b383fd9b7a02d17540a843a901209387f1f61b1aaeeea0923f54",
+    "02-answers.md": "c2105fd227497debcbeda16b31c9457246fc88991c885a05a0c37c7f5b3ebb1e",
+    "03-change-spec.md": "4dc95ca24513b2373c0394af8b4b61d3ae88698d0a84071cc3cc9b758ea44076",
+    "intake/request.md": "e010af44d83598fd5bc55526018e94f5ceb975b55ba2f716686f8bf081676cb7"
+  },
+  "summarized": "2026-11-24T12:10:16Z"
+}

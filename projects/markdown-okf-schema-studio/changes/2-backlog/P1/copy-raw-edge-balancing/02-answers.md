@@ -15,4 +15,11 @@ Short name: `copy-edges`. These answers come from the grill of `copy-selection-r
 10. copy-edges-Q10 (2026-11-24, spec open question 2): **A setext heading cut at the end.** A. Add its underline line so it stays a heading.
 11. copy-edges-Q11 (2026-11-24, spec open question 3): **A selection entirely inside one code block.** A. The code text alone, no fence lines (the common case is copying a snippet to use it). A selection that leaves the code block still gets the fences per Q1.
 
+12. copy-edges-Q12 (2026-11-24, the owner on their own after Q11): **Balancing only at a broken edge, and opt-in.** The owner's words: "Mais c'est pareil pour une sélection entièrement dans un admonition: on recopie pas l'admonition. C'est que quand on casse le bordure et que le résultat risque d'être inconsistant que l'on rajoute les delimiteurs manquants. Met une option opt-in pour ça et pense à faire une req et des tests claire sur ces cas. C'est je pense une feature qui sera très appréciable". So:
+    - A selection entirely inside a container (admonition, directive, code block, table cell, list item, inline span) copies its content only, never the container's delimiters (generalises Q11).
+    - Missing delimiters (closing inline markers, container fences, table header and delimiter rows, heading marker or setext underline, list level) are added only when the selection crosses a construct's boundary, so that the cut text would otherwise be inconsistent Markdown.
+    - Adding them is opt-in: a new setting, off by default. Off, the copy is the verbatim cut of the base CR (CR-480). The setting goes through the project's settings registry and documentation.
+    - Requirements: an SwRS for the setting (off and on), one per balancing rule with "inside only → no delimiters" and "boundary crossed → delimiters added" as explicit rows; tests cover each case with the setting off and on, nested edges included (Q7).
+13. Chief of Staff routine (2026-11-24, on Q12): snapping an edge the alignment cannot place (Q6) is placement, not a delimiter: it applies with the setting off or on.
+
 Destination: running batch batch-09.

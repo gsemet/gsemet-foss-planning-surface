@@ -21,4 +21,6 @@ Short name: `searched-line`
 
 15. searched-line-Q15 (2026-11-24, spec open question after the rerun): **A link (not Back or Next) to a file whose Studio tab is open in another group.** A. Reveal that tab in its own group, at the line, the same rule as Q11: no second Studio tab.
 
+16. Chief of Staff routine (2026-11-24, reading of Q11 and Q15): the reveal rule does not depend on the `*.md` association: with default settings too, a link from a Studio tab to a file whose Studio tab is already open reveals that tab rather than opening the text.
+
 Destination: next batch (3-ready).

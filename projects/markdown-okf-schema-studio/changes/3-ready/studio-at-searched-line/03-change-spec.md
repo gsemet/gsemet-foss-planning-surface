@@ -56,6 +56,7 @@ After this change:
 | Q11 | Back or Next to a file whose Studio tab is open in another group | Reveal the existing Studio tab in its own group, at the line; proved in a real window (a row in 7.3) | 5.3, 7.3 |
 | Q12 | A link reveals a Studio tab already open with its own history | Only a Studio tab the link creates shares the source's history; an existing tab keeps its own and the move is appended to it | 5.3, 7.2, 7.3 |
 | Q13 | Default settings, a link in a Studio tab opens the target as text | Not recorded: a Studio tab records a link to another file only when the target opens in a Studio tab; the default stays as today | 5.3, 7.2, 7.3 |
+| Q15 | A link (not Back or Next) to a file whose Studio tab is open in another group | Reveal that tab in its own group, at the line, the same rule as Q11: no second Studio tab | 5.3, 7.2, 7.3 |
 | 14 | Chief of Staff routine (spec critic F5, F6) | F5: the palette clause is `resourceExtname == .md && !activeCustomEditorId`, and the title-menu placement drops "next to Open as Text" (that entry shows on Studio tabs only). F6: the pending line is taken whenever it is delivered, by `resolve` or to a live session, with that case in the 7.2 unit tests | 5.2, 5.3, 7.2 |
 
 Carried from CR-477 (still binding, `02-answers.md` of CR-477): raw-text-Q3 (an explicit request
@@ -244,9 +245,13 @@ follow the outcome.
 
 - **Link to another Markdown file** with a line (`markerLine`), an anchor (`#heading`, resolved by
   `markdownFragmentRange`) or neither (line 1):
-  - the target opens at that line. In a Studio tab (the association) the tab reveals and marks the
-    line through the pending-line hand-off of 5.2, taken whenever delivered (routine 14, F6). As a
-    text editor (no association), unchanged: the text editor at the line;
+  - the target opens at that line. When a Studio tab of the target is already open in any group,
+    that tab is revealed in its own group and receives the line, by the same host path as Back and
+    Next below (Q15, the rule of Q11): no second Studio tab of the target opens, and the outcome is
+    `"studio-existing"`. Otherwise, in a new Studio tab (the association) the tab reveals and marks
+    the line through the pending-line hand-off of 5.2, taken whenever delivered (routine 14, F6).
+    As a text editor (no association, no Studio tab of the target open), unchanged: the text editor
+    at the line;
   - history (Q10, Q12, Q13): a Studio tab records the link only when the target opens in a Studio
     tab:
     - `"studio-created"`: the source tab records the place left and the target
@@ -266,7 +271,8 @@ follow the outcome.
 - **Anchor in the same document**: unchanged (`navigateAnchor`, recorded as today).
 - **Back and Next** from a Studio tab, to a place in another file:
   - when a Studio tab of the target file is open in any group, that tab is revealed in its own
-    group (not a new tab in column One) and receives the stored line (Q11): for example the host
+    group (not a new tab in column One) and receives the stored line (Q11; links use the same path,
+    Q15): for example the host
     finds the `TabInputCustom` with `viewType` `EDITOR_VIEW_TYPE` and the target URI in
     `vscode.window.tabGroups.all` and runs `vscode.openWith(uri, EDITOR_VIEW_TYPE, { viewColumn:
     <its group> })`, then delivers the line to its live session;
@@ -305,7 +311,7 @@ reused: LIFE-182 and LIFE-183 are deprecated and stay so). All in `lifecycle-syn
 | Requirement | Action |
 | --- | --- |
 | SwRS LIFE-181 (a requested line reaches the page) | amend: from "the side preview that follows the editor" to every session that holds a requested line (the side preview, a Studio tab given a line by 5.1, 5.2 or 5.3); the 5-second window, "only once", "only to a visible page that shows that document" stay |
-| New SwRS: a link, Back or Next from a Studio tab opens the target at its line or anchor | `okfreq new ... --lifecycle proposed`, derives from StRS LIFE-023; markers on `links.ts`, `history.ts` and the host hand-off; scenarios: a pending line taken once whenever delivered (by `resolve` or to a live session), Back or Next to a file whose Studio tab is open in another group reveals that tab in its group (Q11) |
+| New SwRS: a link, Back or Next from a Studio tab opens the target at its line or anchor | `okfreq new ... --lifecycle proposed`, derives from StRS LIFE-023; markers on `links.ts`, `history.ts` and the host hand-off; scenarios: a pending line taken once whenever delivered (by `resolve` or to a live session), a link, Back or Next to a file whose Studio tab is open in another group reveals that tab in its group, no second Studio tab (Q11, Q15) |
 | New SwRS: the history of a link from a Studio tab | new, as above: recorded only when the target opens in a Studio tab (Q13); a created tab shares the source's history, an existing tab keeps its own and the move is appended to it (Q12); Back returns to the place left, Next goes forward again; VS Code's Go Back / Go Forward between the two Studio tabs (Q9) |
 | SwRS TOOLBAR-059 (scope `toolbar-navigation`) | amend (it is `proposed`, Q10): the statement says a link to another Markdown document is recorded in a preview that follows the active editor, or in a Studio tab when the target opens in a Studio tab (cite the new SwRS for the details); the refusal row "A link to second.md followed in a locked preview" becomes "followed in a fixed preview restored by VS Code (not a Studio tab)", and a row is added "followed in a Studio tab and opened as text: the history is unchanged"; verification notes updated. StRS TOOLBAR-009 lines 82-88 checked and reworded only where false |
 | New SwRS: Open in Studio at This Line | new, only when 5.2 is built: the command, its palette and title-menu entries, no default keybinding, the text tab stays and the Studio tab opens in its group, the refusal message |
@@ -357,7 +363,7 @@ and report it. After the edits: markers follow the code (at most three IDs per b
 | Back in the target Studio tab | source Studio tab at the place left (revealed in its own group when open) | as today |
 | Next in the source Studio tab after Back | target Studio tab at its line | as today |
 | VS Code Go Back after that link, then Go Forward | the Studio tab left, at its position; then the target Studio tab at its line | as today |
-| Link to a file whose Studio tab is already open with its own history | that tab at the line; its own history kept, the move appended to it | text editor at the line (unchanged) |
+| Link, Back or Next inside a Studio tab to a file whose Studio tab is already open in another group | that tab revealed in its own group at the line, no second Studio tab (Q11, Q15); for a link, its own history kept, the move appended to it (Q12) | same: the rule does not depend on the association |
 | Open as Text, Open With > Text Editor, Reopen Editor With > Text Editor | text editor, stays | text editor, stays |
 | Explorer click (no line) | Studio tab at the top, no marker | text editor |
 
@@ -393,8 +399,8 @@ from one `integration` run on Linux and one local Windows window.
   `"studio-existing"` the existing panel keeps its own history object and gains the place left and
   the target, the source records the move in its own (Q12); with `"other"` nothing is recorded in
   either (Q13); Back from the target panel hands the source line; Next hands the target line again;
-  Back or Next to a file whose Studio tab is open in another group asks the host to reveal that tab
-  (Q11, memory host records the request); the side preview's behaviour is unchanged (existing
+  a link, Back or Next to a file whose Studio tab is open in another group asks the host to reveal
+  that tab (Q11, Q15; the memory host records the request); the side preview's behaviour is unchanged (existing
   LIFE-191 tests green, assertions untouched).
 - TOOLBAR-059 (Q10): "a locked preview records anchor jumps only"
   (`test/session/toolbarReq.requirements.test.ts:306`) is amended to the new rule: a fixed preview
@@ -405,7 +411,8 @@ from one `integration` run on Linux and one local Windows window.
   reveal it; without one asks nothing; the command of 5.2 runs `vscode.openWith` with the Studio
   view type in the text editor's group and the caret's line, refuses on a non-Markdown editor and
   on a Studio tab with the message, and closes no tab (Q6); Back or Next to a file whose Studio tab
-  is in another group runs `openWith` with that group's column (Q11).
+  is in another group runs `openWith` with that group's column (Q11); a link to such a file does
+  the same, opens no new tab and reports `"studio-existing"` (Q15).
 - The manifest test also asserts: no `keybindings` entry for `openInStudioAtLine` (Q7); the palette
   `when` is exactly `resourceExtname == .md && !activeCustomEditorId` (routine 14, F5).
 - `just requirements-lint` green, `just requirements-update` leaves no diff, the log entry is there.
@@ -446,9 +453,10 @@ Cells, one line each:
   test), associated: that existing source tab, in its own group, is active and marked at the place
   left; no second Studio tab of the source opens (Q11).
 - Link from a Studio tab of `source.md` to `target.md` whose Studio tab is already open in another
-  group with its own history (a previous in-page anchor jump), associated: that tab marked at the
-  line; its Back returns first to the place left in `source.md`, then to its own earlier place
-  (Q12).
+  group with its own history (a previous in-page anchor jump), associated: that existing tab, in
+  its own group, is active and marked at the line; no second Studio tab of `target.md` opens in any
+  group (Q15); its Back returns first to the place left in `source.md`, then to its own earlier
+  place (Q12).
 - Link from a Studio tab, default (opens as text): Studio's Back and Next of the source tab stay
   as they were (Q13).
 - VS Code Go Back (`workbench.action.navigateBack`) after a link from a Studio tab of `source.md` to
@@ -497,11 +505,4 @@ the `open-at-line` row updated) and the counts in `test/site/e2eGroups.test.ts`.
 
 ## 9. Open questions
 
-1. **A link (not Back or Next) to a file whose Studio tab is open in another group.** Q11 decides
-   that Back and Next reveal the existing Studio tab in its own group. For a link followed from a
-   Studio tab, `showDocument` opens the target in column One (or the group of its text tab), so
-   under the association VS Code may open a second Studio tab of the target there instead of
-   revealing the one in another group. Should a link reveal the existing Studio tab in its group
-   too (as Back and Next do), or open where VS Code opens it today? Until answered, the Driver
-   applies Q11 to Back and Next only, and Q12's "existing tab" case covers whatever tab VS Code
-   reveals.
+None: answers Q1 to Q15 and routine line 14 settle every point.
