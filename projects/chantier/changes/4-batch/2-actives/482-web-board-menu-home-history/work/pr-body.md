@@ -36,6 +36,14 @@ Grade: 2. Mostly web client files, plus the `board` and `history` reads of the s
 - Client: registry, sidebar/bottom bar, `overview.js`, `history.js`, `history-filter.js`, `main.js` backdrop, `griller.js` constant, CSS, i18n (en, fr), DESIGN.md.
 - Server: `board/overview.py`, `reads.py`, `history_page.py`, `api/topics.py`; docs `web-board.md`, `server-api.md`.
 
+## Human decisions
+
+- The All-projects home lists the open PRs of every project's batch, in three states (ready to merge, red CI, working).
+- The recent-activity feed holds the 20 newest events and only the CRs' life and releases.
+- History on All projects is complete per period (day, week, month), not one unpaged list.
+- A click on the dimmed page asks first only when an edit holds unsaved changes.
+- The Grill button is hidden by one constant in the client, with no configuration key.
+
 ## Impacts
 
 The menu and the All-projects pages change; a project's pages are unchanged.
