@@ -25,8 +25,6 @@ Grade: **2**. Shared CLI code (`stacks.py`, carry check, leases) and two cards c
 
 ## Known gaps
 
-- The scenario check in `scenario/run_scenario.py` is updated but its long gate is not yet run at this head.
-- `just eval-dry-run` and the local long gate `scenario` (Windows) are pending until run at the pushed head.
 - A not confirmed lease is still ended only by `take ... --reclaim` (the specification's open question).
 
 <details>
@@ -38,8 +36,9 @@ Grade: **2**. Shared CLI code (`stacks.py`, carry check, leases) and two cards c
 - `commands/facts.py`, `stacks.py`, `stack_apart.py`: the place's base, `start_on` following the order.
 - `commands/crs.py`: the carry check.
 - `core/leases.py`, `commands/delivery.py`: lease refusal texts.
+- `scenario/run_scenario.py`: two checks expect the place's base for a stacked CR.
 - `skills/chantier/references/driver-retake.md`, `foreman-stack.md`: card sentences.
-- New tests: `test_restack_line.py`, `test_place_base.py`, `test_carry_restack.py`, `test_lease_commands.py`.
+- New tests: `test_restack_line.py`, `test_place_base.py`, `test_carry_restack.py`, `test_lease_commands.py`; `test_leases.py` and `test_stack_hold.py` adjusted to the new texts.
 
 ## Human decisions
 
@@ -55,11 +54,11 @@ CLI output only; no visual change.
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `f20227a`: `just check`, `just eval-dry-run`
+- [x] Local gates: `just check`, `just eval-dry-run` at `f20227a`; long gate `scenario` passed locally at `91c934f`
 - [ ] Evidence: none beyond tests
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Review: approved at `91c934f`
+- [ ] Verified at `91c934f`
+- [ ] CI green at `91c934f`
 
 ## Internal references
 
