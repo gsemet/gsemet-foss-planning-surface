@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "order after: add or remove one predecessor, name CRs by slug or path",
+  "summary": "Specified for batch-31: order after keeps --note as replace, gains --add and --remove that keep the rest of the list, accepts a CR id, folder slug or path, and its refusals list the accepted forms.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "5a8a31c15f43c05f63247e416e776d0bf4d65cc9f9320509e19d596c462fdb9c",
+    "02-answers.md": "ad62416d9e91afefa370180c5ec24d21e6c63ee641cff239493d746aeb9c4bdd",
+    "03-change-spec.md": "368a494ca5e346401dd62b100598e3612c9d8e43ef4027d493b9e59426ddfb42",
+    "intake/request.md": "710cffb9ea05d68caf7fe4ebfa5e5cbbd31f740dd37f07a168284c0081ee0cf5"
+  },
+  "summarized": "2026-11-24T11:34:35Z"
+}
