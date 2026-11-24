@@ -22,11 +22,11 @@ services: { at, server: {pid, version, source, started, host, port, url, local_u
 
 Choices: the figures are the CRs per state out of the total, the time since the batch started and the mean spend per merged CR; `services` is taken when the index is written, never by the pane, which still runs no process but `git rev-parse`; no key is ever written to the index: the pane reads the two keys from the git folder's `chantier/server.json` and draws a private and a read-only link.
 
-Evidence (text; no image, see Known gaps), before at `c155c89`, after at `007aa01`:
+Evidence (text; no image, see Known gaps), before at `c155c89`, after at `bf5fdbd`:
 
-- The new `test_status_index_services.py`: `3 failed` (`KeyError: 'services'`) at `c155c89`, `3 passed` at `007aa01`. It asserts `merged` (newest first, with cost), `created`, `counts`, `services` (server pid, url, build note; hub and writer null; watchers), `server` null with no server, and no key text nor `?k=` in the written `STATUS.json`.
-- `just mod` at `007aa01`: 94 pass, 0 fail, among them the pane tests (a batch of merged CRs shown, each state shown, the figures line, Backlog, Merged and Services folded, links with keys from `server.json`, no `server.json` gives keyless links and one line, an index of the older shape draws as before).
-- The long gate `scenario` passed at `007aa01`; CI at `007aa01`: `just check` on ubuntu, macos and windows, `just scenario` and `just eval-dry-run` all green.
+- The new `test_status_index_services.py`: `3 failed` (`KeyError: 'services'`) at `c155c89`, `3 passed` at `bf5fdbd`. It asserts `merged` (newest first, with cost), `created`, `counts`, `services` (server pid, url, build note; hub and writer null; watchers), `server` null with no server, and no key text nor `?k=` in the written `STATUS.json`.
+- `just mod` at `bf5fdbd`: 94 pass, 0 fail, among them the pane tests (a batch of merged CRs shown, each state shown, the figures line, Backlog, Merged and Services folded, links with keys from `server.json`, no `server.json` gives keyless links and one line, an index of the older shape draws as before).
+- The long gate `scenario` passed at `bf5fdbd`; CI at `bf5fdbd`: `just check` on ubuntu, macos and windows, `just scenario` and `just eval-dry-run` all green.
 
 **UNVERIFIED:** the pane as drawn in a real Claude Code session (see Known gaps).
 
@@ -72,11 +72,11 @@ The pane shows merged CRs of the running batch and a Services fold; no change to
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code)
-- [x] Local gates at `007aa01`: `just check`, `just mod`, `just eval-dry-run`
-- [x] Evidence: before at `c155c89`, after at `007aa01`
-- [x] Review: approved at `84246818`, committed as `007aa01`
-- [x] Verified at `007aa01`
-- [x] CI green at `007aa01`
+- [x] Local gates at `bf5fdbd`: `just check`, `just mod`, `just eval-dry-run`
+- [x] Evidence: before at `c155c89`, after at `bf5fdbd`
+- [x] Review: approved at `bf5fdbd` (rebase conflict reviewed)
+- [x] Verified at `bf5fdbd`
+- [x] CI green at `bf5fdbd`
 
 ## Internal references
 
