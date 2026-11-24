@@ -19,7 +19,7 @@ on the right. It shows two texts in turn.
 | Field | Content |
 | --- | --- |
 | Length | 8.5 s |
-| Format | 1920x1080 16:9, 30 fps, silent, loops; MP4 (X, release), WebM (docs site), GIF 960 px (release notes, docs page) |
+| Format *(on screen)* | 1280x720 16:9, 15 fps, silent, loops; MP4 (X, release), WebM (docs site), GIF 960 px (release notes, docs page) |
 | Cards | none |
 | Logo | top right |
 | Setting filmed | `markdownOkfSchemaStudio.preview.rawCopy.balanceEdges`: on |
