@@ -40,12 +40,14 @@ Grade: 2. Board start, port binding and the watcher's link change; revert restor
 - The surface claim reuses `hub.lock` rather than a new lock file, so no new file in the git folder.
 - Only a server of this build stops itself when it is a stray; a stray of an older build does not know the check, and the watcher's end line names it.
 - The scenario's unit budget went from 735 to 780 s for the new step.
-- The Chief of Staff's start card gets no new sentence (its startup reading is at its byte ceiling); the sentence is in the longer card.
+- The session-start card of the planning session gets no new sentence (its startup reading is at its byte ceiling); the sentence is in the longer card.
 
 ## Known gaps
 
-- **UNVERIFIED:** the macOS behaviour of the bind test (proved only by the pipeline's macOS run of `just check`).
+- **UNVERIFIED:** the macOS behaviour of the bind test, proved only by the pipeline's macOS run of `just check` (green at `efc69b6`), never run by hand.
 - `status` does not itself detect two live servers (it makes no probe); the watcher's end line and the stray's own stop line cover that.
+- A stray server of an older build does not stop itself; the watcher's end line names it.
+- The session-start card of the planning session (`session-start-chief-of-staff.md`) has no new sentence: its startup reading is at its byte ceiling.
 - No screenshot: nothing visible changes.
 
 <details>
@@ -66,10 +68,10 @@ No visual change. A second `serve` start on a surface now joins instead of servi
 ## Test plan
 
 - [ ] New or changed tests (`test_board_claim.py`, `test_watch_confirm.py`, a real-socket bind test in `test_serve_webui.py`)
-- [ ] Local gates: <to fill>
-- [ ] Review: <to fill>
-- [ ] Verified: <to fill>
-- [ ] CI green: <to fill>
+- [x] Local gates at `efc69b6`: `just check` pass, `just eval-dry-run` pass (at `f980433`; the later commit changes AGENTS.md only), long gate `scenario` pass at `f980433` (carried by CI's `just scenario (ubuntu-latest)` pass at `efc69b6`)
+- [x] Review: approved at `efc69b6`
+- [x] Verified at `efc69b6` (the code is that verified at `f980433`; the later commit changes AGENTS.md only)
+- [x] CI green at `efc69b6`: `just check` on ubuntu, macOS and Windows, `just eval-dry-run` and `just scenario` on ubuntu, all pass
 
 ## Internal references
 

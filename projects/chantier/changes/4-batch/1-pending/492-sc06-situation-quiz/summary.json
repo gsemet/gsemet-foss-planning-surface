@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC06: A cheap quiz of a role's boot on one situation",
+  "summary": "Child 6 of 28, specified: evals/kit/quiz.py and quiz_judge.py, just quiz, ~50 seed cases in evals/quiz, spend cap printed first, F4 check with --against, five dry-run cases, baseline on old cards; 4 open questions (spend, session-role model, judge model, F4 'passed').",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "fb0609a285ab4e6a6b66d083a88a368c1be28ddca23c064819e207b53312e96e",
+    "02-answers.md": "e9b30497eccd149989d933f26b5b42bce52f55e23ea78ab2174b8ace16e4c5da",
+    "03-change-spec.md": "920f5ca31680e56dc78e967d1895c64b183b2b29d9d78024493dfb8151a1ef9c",
+    "intake/request.md": "36fbff047f357275d6a6a66ece39a96c18c00b05124cb390f47f8b9513fad625"
+  },
+  "summarized": "2026-11-24T23:47:22Z"
+}
