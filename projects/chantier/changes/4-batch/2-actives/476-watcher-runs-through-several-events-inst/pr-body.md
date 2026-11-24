@@ -45,20 +45,25 @@ Grade: 2. The watcher, the hub's batch rule and the cards that name the watcher'
 - CLI: `hub/watch.py`, `hub/watch_reads.py`, `hub/watch_lines.py`, `hub/times.py`, `hub/autostart.py`, `hub/batch_prs.py` (`followed_batch`), `hub/waits.py`, `hub/lines.py`, `declare/watch.py`, `declare/interests.py`.
 - Tests, the scenario's hub step, cards, `docs/web-board.md`, `AGENTS.md`.
 
+## Human decisions
+
+- The watcher has no 2 h limit while a batch runs or is paused with open PRs; the limit stays at 2 h otherwise, and the watcher always ends when its seat is lost.
+- The forge hub also reads the open PRs of a paused batch, so a watcher kept alive during a pause sees the merge.
+
 ## Impacts
 
-The Chief of Staff on Claude Code gets one notification per block and no restart between merges; the board's `status` line shows the hub for a paused batch with open PRs.
+The Chief of Staff session (the one that tells the user about merges) on Claude Code gets one notification per block and no restart between merges; the board's `status` line shows the hub for a paused batch with open PRs.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
+- [x] New or changed tests (they fail on the previous code), at `8f0f54d`
 - [x] Local gates at `8f0f54d`: `just check`, `just eval-dry-run`
-- [ ] Evidence: before at `origin/main`, after at `8f0f54d`
+- [x] Evidence: before at `a94085d`, after at `8f0f54d` (text, no UI: `work/verifier/evidence/before-after.md`)
 - [x] Review: approved at `a94085d`, committed as `8f0f54d`
-- [ ] Verified at `8f0f54d`
-- [ ] CI green at `8f0f54d`
+- [x] Verified at `8f0f54d`
+- [x] CI green at `8f0f54d`
 
 ## Internal references
 
-CR-476 watcher-limit
+CR-476 watcher-runs-through-several-events-inst; evidence: work/verifier/evidence/before-after.md (text, stays on this machine)
 </details>
