@@ -25,7 +25,7 @@ Grade: 1. Local to the `order after` command and two lines of cards; `git revert
 
 ## Known gaps
 
-- **UNVERIFIED:** the two new scenario steps have not run yet; they are covered by the long gate before hand-back.
+None.
 
 <details>
 <summary>Details</summary>
@@ -45,11 +45,11 @@ No visual change. Operators type fewer ids; the order line shows the resulting p
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): `tests/test_order_after.py`
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: none beyond tests and the scenario
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Local gates at `b728c71`: `just check` (2426 passed), `just eval-dry-run` (19 of 19), `just scenario` pass
+- [x] Evidence: none beyond tests and the scenario, at `b728c71`
+- [x] Review: approved at `b728c71` (reviewed at a94085d, committed as b728c71)
+- [x] Verified at `b728c71`
+- [x] CI green at `b728c71`
 
 ## Internal references
 
