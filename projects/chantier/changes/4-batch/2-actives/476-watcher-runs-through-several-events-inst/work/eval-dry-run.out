@@ -1,0 +1,3 @@
+uv run --locked python evals/kit/dry_run.py
+ok clean: audit exit 0, no failed check, [C12] with the release PR counted, [J5] x2, judge pass, pass, pass; reset, setup (run 4) and the staged batch as expected
+ok stray-merge: audit exit 1, `FAIL [C12]` names #6, the release PR #5 is not a stray
