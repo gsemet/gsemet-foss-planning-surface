@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "title": "Open Studio at a searched line without replacing text tabs",
-  "summary": "Specified 2026-11-24 for 3-ready: a real-window probe of what VS Code hands Studio under the *.md association, Studio at the line where a signal exists, else the command Open in Studio at This Line; links, Back and Next in a Studio tab keep the line. Four open questions.",
+  "summary": "Specified 2026-11-24 for 3-ready: a probe of what VS Code hands Studio under the *.md association; Studio at the line with a signal, else Open in Studio at This Line (text tab stays, no keybinding); Studio tabs keep line and history (TOOLBAR-059 amended). One open question.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "deac3783f9a3b383fd9b7a02d17540a843a901209387f1f61b1aaeeea0923f54",
-    "02-answers.md": "213c506c58a6d2075fdd9374cda71ddc5d75f2b28dcd47b089971f3c0ac06f50",
-    "03-change-spec.md": "19f99eb84377faaf4b45298fdf82ae721e97ddd1b7495e34e737087b60b4d826",
+    "02-answers.md": "09af7ccfdc1575eb36dba26540bc4ec312c6d0c1d399b4e4c9070c9214ec39de",
+    "03-change-spec.md": "f2d0f418e061acce1aba6f178e13d91b4981f07a64b59b95117c8a2c7f74e3b9",
     "intake/request.md": "e010af44d83598fd5bc55526018e94f5ceb975b55ba2f716686f8bf081676cb7"
   },
-  "summarized": "2026-11-24T11:36:17Z"
+  "summarized": "2026-11-24T12:08:51Z"
 }

@@ -11,4 +11,8 @@ Short name: `copy-edges`. These answers come from the grill of `copy-selection-r
 7. copy-edges-Q7 (= copy-raw-Q9): **Requirements and edge tests.** The owner's words: "Il faut bien capturer les requirements et faire les tests au limites, exemple nested admonition avec liste etc." okfreq SwRS per balancing rule, and tests at the edges: an admonition in an admonition, a list inside an admonition, an admonition inside a list item, a selection starting or ending at each nesting level, code fences inside containers, tables inside admonitions, a cut inside nested inline markers (bold inside a link), a selection across several containers.
 8. copy-edges-Q8 (= copy-raw-Q17, 2026-11-24): **Grilled enough?** Specify, for the running batch batch-09, stacked on copy-selection-raw-markdown. Spec critic: yes (what the owner gets in the clipboard, several constructs at once; the base CR's critic already ran on the joint spec, so this run checks the split's seams).
 
+9. copy-edges-Q9 (2026-11-24, spec open question 1): **List shift and indented code.** A. The first copied item's marker line is capped at 3 columns so it stays a list item; the other lines follow Q4 (shift by the shallowest item).
+10. copy-edges-Q10 (2026-11-24, spec open question 2): **A setext heading cut at the end.** A. Add its underline line so it stays a heading.
+11. copy-edges-Q11 (2026-11-24, spec open question 3): **A selection entirely inside one code block.** A. The code text alone, no fence lines (the common case is copying a snippet to use it). A selection that leaves the code block still gets the fences per Q1.
+
 Destination: running batch batch-09.

@@ -19,4 +19,6 @@ Short name: `searched-line`
 13. searched-line-Q13 (2026-11-24, spec critic F4): **Default settings, a link in a Studio tab opens the target as text.** A. Not recorded: a Studio tab records a link to another file only when the target opens in a Studio tab; the default stays as today.
 14. Chief of Staff routine (2026-11-24, spec critic F5-F6, no user question): F5 the palette clause is `resourceExtname == .md && !activeCustomEditorId`, and the title-menu placement drops "next to Open as Text" (it shows on Studio tabs only); F6 the pending line is taken whenever it is delivered, by `resolve` or to a live session, with that case in the 7.2 unit tests.
 
+15. searched-line-Q15 (2026-11-24, spec open question after the rerun): **A link (not Back or Next) to a file whose Studio tab is open in another group.** A. Reveal that tab in its own group, at the line, the same rule as Q11: no second Studio tab.
+
 Destination: next batch (3-ready).
