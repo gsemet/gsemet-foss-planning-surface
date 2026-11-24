@@ -77,7 +77,7 @@ No visual change beyond the new menu entry and the marked line in Studio.
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [x] Evidence: none, no screenshots captured (probe table from the test header and CI log lines)
 - [x] Local gates at 9d956ea (carried from eb25d83: only the changelog line changed): `just check` pass, `just requirements-update`/lint, `npm run test:integration -- --trusted-only` (open-at-line, probe and studio steps pass; `real-input` times out on this Windows worktree only, see Known gaps)
-- [x] Review: approved at eb25d83 (committed as 2d64c81, rebased; the later commit 9d956ea only changes the changelog PR number)
+- [x] Review: approved at eb25d83 (the later commit 9d956ea only changes the changelog PR number)
 - [x] Verified at 9d956ea
 - [x] CI green at 9d956ea (PR checks and heavy run 45444316305)
 
