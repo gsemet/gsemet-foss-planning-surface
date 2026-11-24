@@ -1,19 +1,42 @@
 # Verify CR-477 raw-text
 
-Head: b54b414c4ca0ca779bae36457f3e30ef9f082ab4
+Head: 39dcfc0fcdda7846d0c6002820dd9bfe2dfd362e
 
-Verdict: NOT VERIFIED (one claim, cheap to fix).
+Verdict: VERIFIED.
 
-Claims, all judged at b54b414c:
+Claims at 39dcfc0f:
 
-1. Removed code is gone. `grep -rnE "openingWatcher|openingDecision|putStudioInPlace|showDocumentInStudio|navigatesInStudio|StudioLineRequests|StudioOpenedTextEditors|StudioClosedTabs|searchResultsInStudio|opening watcher" src test docs skills package.json requirements CONTRIBUTING.md .agents/glossary`: the hits left are the reverse migration and its tests, history sentences in docs/user (open-studio.md, settings.md), and archived or superseded requirements and the log. The files openingWatcher.ts, studioPlacement.ts, openingPolicy.ts and studioNavigation.ts appear as deleted in `git diff --stat 0303eaf7 HEAD`. PASS.
-2. Unit and host tests. `npm run compile`, then `node scripts/node-test.mjs unit "out/test/{core/configuration,session,host}/*.test.js"`: tests 569, pass 566, fail 0, skipped 3. `node scripts/node-test.mjs security "out/test/security/*.test.js"`: tests 106, pass 104, fail 0, skipped 2 (covers package-contract). PASS.
-3. Settings schema. `just check-settings`: "check-settings: passed (20 settings)". `package.json` keeps `onLanguage:markdown` and `openAsText`, and has no `open.*` property. PASS.
-4. Reverse migration, `just preflight` pass. work/gates/pf-final.log ends "ci-static: passed ... exit 0", and the Driver's note "just preflight: pass" is at b54b414c. PASS (cited, not re-run).
-5. Real window. CI run 45249949581 at head b54b414c: success. Heavy run 45249961604 at head b54b414c: success, with integration, stress, static-windows and visual green. The integration log shows "STEP done: open-at-line" with the matrix lines (jump under the association studio=1 text=0 marks=0; file already open as text studio=1 text=1; Open as Text sourceLine=64 cursor=63) and "STEP done: reverse-migration-suite". `test/integration/reverse-migration-suite.ts` asserts the user `settings.json` and the `.code-workspace` file. PASS.
-6. PR body as posted equals work/pr-body.md (diffed, SAME). It renders and is consistent with the diff (74 files: removals, studioSelections.ts rename, SwRS-195 added, tests listed). It carries no image. Its internal references line is one CR id. PASS.
-7. CHANGELOG line. It is at `## Unreleased` and has all four required points, but it ends with "PR #0" instead of "PR #493". The Foreman note says CR-478 fixes this, but the PR body has no "Known gaps" section that names it. FAIL: a failed, accepted claim has no Known gaps bullet. Fix: set "PR #493" in the line, or add a Known gaps bullet saying PR #0 is carried by CR-478.
+1. Head and tree. `git rev-parse HEAD` = 39dcfc0fcdda7846d0c6002820dd9bfe2dfd362e; `git status --short` empty. PASS.
+2. Rebase touched nothing. `git range-diff b54b414~13..b54b414 HEAD~13..HEAD`: commits shown as `=` (same patches). Claims 1 to 5 and the real-window proof of the b54b414 judgment are carried from b54b414: a clean rebase, same patch.
+3. Removed code is gone. `grep -rnE "openingWatcher|putStudioInPlace|showDocumentInStudio" src test package.json` minus migration lines: no hit. PASS.
+4. Gate. work/gates/pf2.log ends "ci-static: passed / exit 0" (local `just preflight`, Windows static stage). PASS (cited).
+5. CI at 39dcfc0f: `gh run view 45338450523` success, headSha 39dcfc0f; heavy run 45338450342 (integration, stress) success, headSha 39dcfc0f. PASS.
+6. PR description. Posted body (`gh pr view 493 --json body`) diffed against work/pr-body.md: only a trailing blank line differs. PR is draft, head 39dcfc0f. It renders, matches the diff (74 files), carries no image. Known gaps now has a bullet for the changelog `PR #0` (CHANGELOG.md line 13, filled by CR-478's references step) and for the VS Code opening limits. A declared, accepted gap, not a failure. PASS.
+7. Before/after: not applicable (no UI change, PR says "No visual change"). Review box unchecked, claims nothing.
 
-Carried: the before/after evidence is not applicable (no UI change; the PR declares "No visual change"). The Review box is unchecked, so it claims nothing.
+## Description pass at 39dcfc0fcdda7846d0c6002820dd9bfe2dfd362e
 
-Left alone: the untracked test/integration/fixtures/open-at-line-* dirs.
+Command: `gh pr view 493 --repo gsemet/markdown-okf-schema-studio --json body` read against pr-template "The audit" and `git diff --stat origin/main...HEAD` (74 files).
+
+- Sections Summary, Deliverables, Blast radius, Autonomous decisions, Known gaps visible in order; one Details fold with Changes, Impacts, Test plan, Internal references; blank lines around the fold; nothing after it. PASS.
+- Known gaps present with the `PR #0` and opening-limit bullets. PASS. No role name as doer, CR name only in Internal references. PASS.
+- SHA marks: "Verified at 39dcfc0", "CI green at 39dcfc0" match head; `gh run view 45338450342` success at 39dcfc0f. PASS.
+- Test plan lacks the `Review: approved at <sha7>` item, which both the project template (.github/PULL_REQUEST_TEMPLATE.md, "Review") and the pr-template Test plan require, and lacks the Evidence item (or its "none, no visual change" line). The earlier note "Review box unchecked" does not match the posted body: there is no box. `$CHANTIER log 477` has one approved note only, at 1390620c (r3), none at 39dcfc0. FAIL.
+
+Description verdict at 39dcfc0: NOT VERIFIED (fix: add the Review item, unchecked or citing a recorded pass, and the Evidence item to Test plan; re-post).
+
+## Description pass 2 at 39dcfc0fcdda7846d0c6002820dd9bfe2dfd362e
+
+Head: 39dcfc0fcdda7846d0c6002820dd9bfe2dfd362e
+
+Command: `gh pr view 493 --repo gsemet/markdown-okf-schema-studio --json body`, read against `.github/PULL_REQUEST_TEMPLATE.md` (the project template ranks above pr-template and is used as written: Summary, Deliverables, Changes, Impacts, Blast radius, Test plan, optional Internal references; no Details fold), and `git diff --stat origin/main...HEAD` (74 files).
+
+- Layout follows the project template; extra sections (Autonomous decisions, Known gaps, owner and release-note sections) are allowed. Renders: tables, mermaid, headings. PASS.
+- Test plan now has `Review: approved at 39dcfc0 (carried from the round-3 approval at 1390620)`. `$CHANTIER log 477` line 68: "review: approved at 39dcfc0 (carried from 1390620c, the r3 inspector approval ...)", and line 17 records the r3 approval at 1390620c. Note SHA matches the box. PASS.
+- Evidence item present: "no visual change; proof is real-window tests at 39dcfc0 (no before/after images)"; Impacts says "No visual change". PASS.
+- Summary/Changes match the diff: removed openingWatcher.ts, studioPlacement.ts, openInStudio.ts, openingPolicy.ts and its tests, settings registry entries, reverse migration in associationMigration.ts, new SwRS LIFE-195, reverse-migration-suite.ts. PASS.
+- Known gaps: PR #0 changelog placeholder and the opening limits. PASS. Role names: none; CR-477 only in Internal references. PASS.
+- SHA marks: `gh run view 45338450342` success, headSha 39dcfc0f (workflow_dispatch heavy); `gh pr checks 493` pass at the PR run for 39dcfc0f; PR headRefOid 39dcfc0f. PASS.
+- No image in the body. PASS.
+
+Description verdict at 39dcfc0: VERIFIED

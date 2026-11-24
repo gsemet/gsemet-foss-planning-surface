@@ -50,8 +50,9 @@ Grade: 2. Opening behaviour and a settings migration that writes `workbench.edit
 - [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [x] Local gates: `just check`, `just requirements-lint`, `just contracts`, `just release-tests` (205), `just release-notes-check`; reverse-migration launch and the opening test run in a real window (VS Code 1.143, Windows)
-- [ ] Review
-- [ ] CI green (the real-window `integration` job runs on dispatch with `heavy=true`)
+- [x] Evidence: no visual change; the proof is the real-window tests, run at 39dcfc0 (no before/after images)
+- [x] Review: approved at 39dcfc0 (carried from the round-3 approval at 1390620)
+- [x] CI green at 39dcfc0: PR checks pass; heavy run https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45338450342 (integration and stress) success
 
 ### Tests removed or changed, test by test
 
