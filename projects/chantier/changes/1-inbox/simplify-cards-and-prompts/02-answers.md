@@ -1,0 +1,2 @@
+Short name: `simplify-cards`
+
