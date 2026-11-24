@@ -10,5 +10,9 @@ Short name: `feature-clip`.
 6. feature-clip-Q6, the old P4 CR `record-demo-video`: A. Closed as superseded by this CR. Its useful parts (engine, capture) are taken into this spec, and it is dropped with a pointer here.
 7. feature-clip-Q7, timing of the first clip: A. In the running batch batch-09, stacked after copy-raw-edge-balancing (CR-481), so the clip ships with the feature in the same release.
 8. Chief of Staff routine (2026-11-24): the first clip shows the smart copy with the `balanceEdges` setting on: a selection crossing an admonition's or a list's edge is copied with Ctrl+C, pasted into a plain Markdown editor with Ctrl+V, and the pasted text shows the added delimiters. The caption names the setting. Grilled enough: specify now. Spec critic: yes (a new kit and a process step).
+9. feature-clip-Q9 (2026-11-24, spec open question 1): **Which announcement post carries the MP4.** B, against the recommendation: the clip replaces the hero image in post 1 and becomes the thread's hook.
+10. feature-clip-Q10 (spec open question 2): **Mark on the added delimiter.** A. A brief orange outline around the added delimiter line during the zoom on the result.
+11. feature-clip-Q11 (spec open question 4): **README.** A. No. The README keeps its presentation video; clips go to the feature's docs and the release note.
+12. Chief of Staff routine (spec open question 5): the key badges show the keys of the platform the clip is filmed on (Ctrl+C on Windows and Linux, ⌘C on macOS). The first clip is filmed on Windows.
 
 Destination: running batch batch-09, after CR-481.
