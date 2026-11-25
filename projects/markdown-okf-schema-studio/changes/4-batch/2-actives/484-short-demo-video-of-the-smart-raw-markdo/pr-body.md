@@ -23,7 +23,7 @@ flowchart LR
 
 - `clip-kit/lib/storyboard.mjs`: pure `parseClipText` and `validateStory`; fenced blocks skipped; `Size`, `Frame rate`, several `Text n` captions and several `Mark` rows, with clear `clip.md:` refusals.
 - `clip-kit/remotion/src/Clip.tsx`, `lib/encode.mjs`, `lib/check.mjs`: captions and marks in turn, combined badges, dimensions and timings scaled to the storyboard's size and frame rate, one key frame per mark.
-- `clip-kit/lib/storyboard.test.mjs` and the `just clip-kit-test` recipe, part of `just check`.
+- `clip-kit/lib/storyboard.test.mjs`, the `just clip-kit-test` recipe (it runs the new `test:clip-kit` npm script, as CI has no fnm), part of `just check`.
 - The raw copy clip: live storyboard, new stage document and scenario, new take and render.
 - The feature clip guideline (storyboard first, review rules, PR rule), the glossary, `AGENTS.md`, the alt text in `docs/user/settings.md`.
 
@@ -46,7 +46,7 @@ Grade: 1. Isolated to `docs/demo-video/`, one `just` recipe and doc lines; a pla
 - [x] Changelog: No user-facing change
 - [x] Local gates: `just clip-kit-test` 13 of 13, `just check`, `just format`; `just preflight` passes (static stage on Windows)
 - [x] Review: inspector approved, committed as f42acf7c
-- [ ] CI green
+- [x] CI green: `gh pr checks 502` at f42acf7: static, static-windows, visual, viewer-graph, checks, report pass
 
 ## Autonomous decisions
 
@@ -57,6 +57,6 @@ Grade: 1. Isolated to `docs/demo-video/`, one `just` recipe and doc lines; a pla
 - The loop seam ramp is eased in `Clip.tsx`: at 15 fps a linear ramp gave a seam SSIM of 0.9556, below the 0.98 bound.
 - Griller's choices: the `-assets` fallback for the video if GitHub does not play the GIF from the head; the floating "Comment" button kept as filmed.
 
-Not checked: motion, rhythm and the loop as watched (stills only); macOS Cmd+C is not proved in a real window.
+Not checked: motion, rhythm and the loop as watched (stills only); macOS Cmd+C is not proved in a real window; the text-only "no new take" path of the specification is UNVERIFIED (only the Coder's log exists).
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
