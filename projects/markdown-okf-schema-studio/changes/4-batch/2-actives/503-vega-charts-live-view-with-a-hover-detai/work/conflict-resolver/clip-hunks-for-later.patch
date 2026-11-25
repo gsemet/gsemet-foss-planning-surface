@@ -1,0 +1,186 @@
+CR-503 clip hunks not applied at the stack restack onto CR-502 (316f283).
+For the clip CRs that sit above CR-503. First four files from 4404b98
+(old base 3df0c86), the last one from 124a348 (on top of the fourth).
+
+diff --git a/docs/demo-video/clips/advanced-renderings-tour/clip.md b/docs/demo-video/clips/advanced-renderings-tour/clip.md
+index 8eb571f8..44e07ab3 100644
+--- a/docs/demo-video/clips/advanced-renderings-tour/clip.md
++++ b/docs/demo-video/clips/advanced-renderings-tour/clip.md
+@@ -109,7 +109,7 @@ changed):
+
+ - At the start and before each mark, all six renderings are drawn: `.myst-mermaid-diagram`,
+   `.myst-plantuml-diagram` and both `.myst-vega-diagram` blocks (`data-myst-chart-kind`
+-  `vega-lite` and `vega`) have `data-render-state="rendered"` and an image; the `.math-display`
++  `vega-lite` and `vega`) have `data-render-state="rendered"` and a drawing (an image for Mermaid and PlantUML, the live `svg` of `.myst-vega-view` for the charts); the `.math-display`
+   block holds a `.katex` element; the `.myst-svg-figure` holds an `svg`.
+ - No PlantUML block shows an error (`.myst-plantuml-error`): the built-in engine drew it, with no
+   Java and no JAR on the filming machine.
+diff --git a/docs/demo-video/clips/advanced-renderings-tour/scenario.mjs b/docs/demo-video/clips/advanced-renderings-tour/scenario.mjs
+index 9edc1422..a85b2a12 100644
+--- a/docs/demo-video/clips/advanced-renderings-tour/scenario.mjs
++++ b/docs/demo-video/clips/advanced-renderings-tour/scenario.mjs
+@@ -30,12 +30,12 @@ const THEME_TOGGLE = "[data-sphinx-preview-theme-toggle]";
+ const EDIT_TOGGLE = "[data-sphinx-preview-edit-toggle]";
+ const CONTENT = "#sphinx-myst-preview-content";
+
+-/** What each mark outlines: the drawing itself (the image, the typeset equation, the inline SVG). */
++/** What each mark outlines: the drawing itself (the image, the live chart svg, the typeset equation, the inline SVG). */
+ const DRAWINGS = {
+   1: `${MERMAID} img.myst-mermaid-image`,
+   2: `${PLANTUML} img.myst-plantuml-image`,
+-  3: `${VEGA_LITE} img.myst-vega-image`,
+-  4: `${VEGA} img.myst-vega-image`,
++  3: `${VEGA_LITE} .myst-vega-view > svg`,
++  4: `${VEGA} .myst-vega-view > svg`,
+   5: ".math-display .katex-display",
+   6: "figure.myst-svg-figure > svg",
+ };
+@@ -44,15 +44,15 @@ const DRAWINGS = {
+ async function readDrawn(frame) {
+   return frame.evaluate(
+     ([mermaid, plantuml, vegaLite, vega]) => {
+-      const block = (selector) => {
++      const block = (selector, drawing = "img") => {
+         const element = document.querySelector(selector);
+-        return element ? { state: element.getAttribute("data-render-state"), image: element.querySelector("img") !== null } : null;
++        return element ? { state: element.getAttribute("data-render-state"), image: element.querySelector(drawing) !== null } : null;
+       };
+       return {
+         mermaid: block(mermaid),
+         plantuml: block(plantuml),
+-        vegaLite: block(vegaLite),
+-        vega: block(vega),
++        vegaLite: block(vegaLite, ".myst-vega-view > svg"),
++        vega: block(vega, ".myst-vega-view > svg"),
+         katex: document.querySelector(".math-display .katex") !== null,
+         svg: document.querySelector("figure.myst-svg-figure svg") !== null,
+         plantumlErrors: document.querySelectorAll(".myst-plantuml-error").length,
+diff --git a/docs/demo-video/clips/export-html/clip.md b/docs/demo-video/clips/export-html/clip.md
+index dcb2efd0..4e206c42 100644
+--- a/docs/demo-video/clips/export-html/clip.md
++++ b/docs/demo-video/clips/export-html/clip.md
+@@ -88,9 +88,10 @@ Integrated Browser's page):
+   `src` or `href` to a local file.
+ - Its `<html>` carries `data-sphinx-preview-theme-mode="cream"` and
+   `data-sphinx-preview-width="auto"`; the wide table's wrapper keeps `data-sphinx-preview-wide`.
+-- The two Mermaid diagrams, the Vega-Lite chart and the Vega chart are embedded: four
+-  `data:image/svg+xml` images (`img.myst-mermaid-image` and `img.myst-vega-image`).
+-- In the Integrated Browser: those four images are loaded (`complete`, `naturalWidth` above 0); the
++- The two Mermaid diagrams are embedded as two `data:image/svg+xml` images (`img.myst-mermaid-image`);
++  the Vega-Lite chart and the Vega chart are embedded as two inline `.myst-vega-view > svg` (no
++  chart `img`, no hover box, no script).
++- In the Integrated Browser: the two Mermaid images are loaded (`complete`, `naturalWidth` above 0) and the two chart `svg` have a box; the
+   wide table's width equals its width in Studio within 2 px, it is wider than a paragraph, and its
+   right edge is inside the view (no sideways scroll of the page).
+ - `platform-report.md` on disk is byte for byte `stage/platform-report.md`.
+@@ -145,11 +146,11 @@ Values below are measured by the take (`check.json`, the take's notes) on Window
+   width mode" in `docs/user/toolbar.md`). The breakout is frozen in pixels, so the browser must be
+   at least as wide as Studio's view: the browser opens as a tab of the same editor group, full
+   width; the check compares the two widths.
+-- **Diagrams and charts in the file.** Mermaid and Vega render in the preview as `<img>` with a
++- **Diagrams and charts in the file.** Mermaid renders in the preview as an `<img>` with a
+   `data:` SVG source, and the export keeps a `data:` image as it is (`embedImages` in
+-  `exportContent.ts`; "Local images and the Mermaid, PlantUML and Vega diagrams are embedded").
+-  The file has no script, so nothing is drawn again in the browser: the pictures are the ones
+-  Studio drew, in the Cream colours.
++  `exportContent.ts`). A Vega chart renders as a live inline `.myst-vega-view > svg`, which the export
++  keeps as it is, with its gradients made local (`takeExportSnapshot`). The file has no script, so nothing
++  is drawn again in the browser: the pictures are the ones Studio drew, in the Cream colours.
+ - **Scrolling.** The scroll is a CDP mouse wheel at the pointer (`t.page.mouse.wheel` in Studio,
+   the browser page's `mouse.wheel` in the Integrated Browser), in small steps so it reads as a
+   smooth scroll. The kit has no scroll helper and logs no wheel event; none is needed (the
+diff --git a/docs/demo-video/clips/export-html/scenario.mjs b/docs/demo-video/clips/export-html/scenario.mjs
+index 26491ccc..e844e2dd 100644
+--- a/docs/demo-video/clips/export-html/scenario.mjs
++++ b/docs/demo-video/clips/export-html/scenario.mjs
+@@ -147,25 +147,25 @@ function breaksOut(where, measure) {
+   if (service.right > measure.inner + 0.5) throw new Error(`${where}: the Service table's right edge ${service.right} px is outside the view (${measure.inner} px)`);
+ }
+
+-/** In a preview frame: the two Mermaid and the two Vega blocks are drawn (rendered state with their image), one vega-lite and one vega. */
++/** In a preview frame: the two Mermaid and the two Vega blocks are drawn (rendered state with their drawing: an image for Mermaid, the live `.myst-vega-view > svg` for a chart), one vega-lite and one vega. */
+ const drawn = (frame) =>
+   frame.evaluate(() => {
+     const read = (selector, image) => [...document.querySelectorAll(selector)].map((block) => ({ state: block.getAttribute("data-render-state"), image: !!block.querySelector(image), kind: block.getAttribute("data-myst-chart-kind") }));
+     const mermaid = read(".myst-mermaid-diagram", "img.myst-mermaid-image");
+-    const vega = read(".myst-vega-diagram", "img.myst-vega-image");
++    const vega = read(".myst-vega-diagram", ".myst-vega-view > svg");
+     const ready = (blocks) => blocks.every((block) => block.state === "rendered" && block.image);
+     const kinds = vega.map((block) => block.kind).sort();
+     const ok = mermaid.length === 2 && vega.length === 2 && ready(mermaid) && ready(vega) && kinds[0] === "vega" && kinds[1] === "vega-lite";
+     return { ok, found: { mermaid, vega } };
+   });
+
+-/** In the browser page: the four drawings are images that loaded. */
++/** In the browser page: the two Mermaid drawings are images that loaded and the two charts are inline svg with a box. */
+ async function imagesLoaded(view) {
+   const found = await view.evaluate(() => {
+     const read = (selector) => [...document.querySelectorAll(selector)].map((image) => image.complete && image.naturalWidth > 0);
+-    return { mermaid: read("img.myst-mermaid-image"), vega: read("img.myst-vega-image") };
++    return { mermaid: read("img.myst-mermaid-image"), vega: [...document.querySelectorAll(".myst-vega-view > svg")].map((svg) => svg.getBoundingClientRect().width > 0) };
+   });
+-  if (found.mermaid.length !== 2 || found.vega.length !== 2 || ![...found.mermaid, ...found.vega].every(Boolean)) throw new Error(`the browser page does not show four loaded drawings: ${JSON.stringify(found)}`);
++  if (found.mermaid.length !== 2 || found.vega.length !== 2 || ![...found.mermaid, ...found.vega].every(Boolean)) throw new Error(`the browser page does not show two loaded Mermaid images and two chart svg: ${JSON.stringify(found)}`);
+ }
+
+ /** The distance to scroll to bring `kind` ("wide", "flow-bar" or "end") to the middle of the view, read in a frame or page. */
+@@ -185,8 +185,8 @@ const distanceTo = (target, kind) =>
+         ({ top, bottom } = wrapper.getBoundingClientRect());
+       } else {
+         const flow = content.querySelector("img.myst-mermaid-image");
+-        const bar = content.querySelector("img.myst-vega-image");
+-        if (!flow || !bar) throw new Error("no flowchart or bar chart image");
++        const bar = content.querySelector(".myst-vega-view > svg");
++        if (!flow || !bar) throw new Error("no flowchart image or bar chart svg");
+         top = flow.getBoundingClientRect().top;
+         bottom = bar.getBoundingClientRect().bottom;
+       }
+@@ -450,7 +450,7 @@ export async function run(t) {
+   await until(13.2);
+   await scrollBy(t, view, await distanceTo(view, "flow-bar"), 0.6);
+   const flow = await inWorkbench(view, area, "img.myst-mermaid-image");
+-  const bar = await inWorkbench(view, area, "img.myst-vega-image");
++  const bar = await inWorkbench(view, area, ".myst-vega-view > svg");
+   await until(14.0);
+   t.mark("2", inside(2, air(flow)));
+   await until(15.2);
+@@ -517,16 +517,18 @@ export async function verify(t) {
+     const widthMode = /<html[^>]*data-sphinx-preview-width="([^"]*)"/iu.exec(html)?.[1];
+     if (widthMode !== "auto") throw new Error(`the exported <html> carries width mode ${widthMode}, expected auto`);
+     if (!html.includes("data-sphinx-preview-wide")) throw new Error("the exported file holds no data-sphinx-preview-wide (the wide table's wrapper)");
+-    // The drawings are <img> whose src is a data: URL of the SVG.
++    // The Mermaid drawings are <img> whose src is a data: URL of the SVG; the charts are inline svg (no hover box, no script).
+     const images = [...html.matchAll(/<img\b[^>]*>/giu)].map((match) => match[0]);
+-    for (const kind of ["myst-mermaid-image", "myst-vega-image"]) {
+-      const own = images.filter((image) => new RegExp(`class="[^"]*\\b${kind}\\b`, "iu").test(image));
+-      if (own.length !== 2) throw new Error(`the exported file holds ${own.length} img.${kind}, expected 2`);
+-      for (const image of own) {
+-        const src = /\ssrc\s*=\s*"([^"]*)"/iu.exec(image)?.[1] ?? "";
+-        if (!src.startsWith("data:image/svg+xml")) throw new Error(`an img.${kind} of the exported file has the src ${src.slice(0, 40)}, expected data:image/svg+xml`);
+-      }
++    const mermaidImages = images.filter((image) => /class="[^"]*\bmyst-mermaid-image\b/iu.test(image));
++    if (mermaidImages.length !== 2) throw new Error(`the exported file holds ${mermaidImages.length} img.myst-mermaid-image, expected 2`);
++    for (const image of mermaidImages) {
++      const src = /\ssrc\s*=\s*"([^"]*)"/iu.exec(image)?.[1] ?? "";
++      if (!src.startsWith("data:image/svg+xml")) throw new Error(`an img.myst-mermaid-image of the exported file has the src ${src.slice(0, 40)}, expected data:image/svg+xml`);
+     }
++    if (/<img\b[^>]*\bmyst-vega-/iu.test(html)) throw new Error("the exported file holds a chart as an img");
++    const chartSvgs = [...html.matchAll(/<div\b[^>]*class="[^"]*\bmyst-vega-view\b[^"]*"[^>]*>\s*<svg\b/giu)];
++    if (chartSvgs.length !== 2) throw new Error(`the exported file holds ${chartSvgs.length} .myst-vega-view > svg, expected 2`);
++    if (/myst-vega-tooltip/iu.test(html)) throw new Error("the exported file holds a chart hover box");
+     const address = `http://localhost:${port}/platform-report.html`;
+     const view = t.context.pages().find((candidate) => candidate.url() === address);
+     if (!view) throw new Error(`the Integrated Browser page ${address} is gone`);
+diff --git a/docs/demo-video/clips/export-html/scenario.mjs b/docs/demo-video/clips/export-html/scenario.mjs
+index e844e2dd..7d2a0901 100644
+--- a/docs/demo-video/clips/export-html/scenario.mjs
++++ b/docs/demo-video/clips/export-html/scenario.mjs
+@@ -528,7 +528,7 @@ export async function verify(t) {
+     if (/<img\b[^>]*\bmyst-vega-/iu.test(html)) throw new Error("the exported file holds a chart as an img");
+     const chartSvgs = [...html.matchAll(/<div\b[^>]*class="[^"]*\bmyst-vega-view\b[^"]*"[^>]*>\s*<svg\b/giu)];
+     if (chartSvgs.length !== 2) throw new Error(`the exported file holds ${chartSvgs.length} .myst-vega-view > svg, expected 2`);
+-    if (/myst-vega-tooltip/iu.test(html)) throw new Error("the exported file holds a chart hover box");
++    if (/<[a-z][^>]*\bclass="[^"]*\bmyst-vega-tooltip\b/iu.test(html) || /<[a-z][^>]*\brole="tooltip"/iu.test(html)) throw new Error("the exported file holds a chart hover box");
+     const address = `http://localhost:${port}/platform-report.html`;
+     const view = t.context.pages().find((candidate) => candidate.url() === address);
+     if (!view) throw new Error(`the Integrated Browser page ${address} is gone`);

@@ -1,0 +1,8 @@
+fix(show): accept names without .md and stay inside the bundle
+
+Users can show a concept by its name, with or without .md or a leading
+slash, from any folder. A directory now gives a plain error instead of a
+traceback. Paths and symbolic links that leave the bundle are refused.
+
+Assisted-by: Claude:Sonnet-5.5
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
