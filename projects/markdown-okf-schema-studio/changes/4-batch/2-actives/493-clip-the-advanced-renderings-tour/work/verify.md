@@ -52,9 +52,10 @@ build on." For each other open clip PR (`gh pr view <n> --json headRefOid`, then
 | #521 | 12 | no | 12 s |
 | #522 | 30 | yes | 20.0 s |
 
-Six of the nine do not build on it. Their specifications read for 495, 496, 497, 498 and 499 say
-they stay within 12 s or have no `depends.json`; this CR's specification ("Base and stack") says
-only the clips longer than 12 s depend on it. "Round" is also a backlog word the outside reader
+Six of the nine do not build on it. The answers and specifications of CR-495 to CR-499 say they
+stay within 12 s or take no `depends.json` (CR-492 and 494 take none either); this CR's
+specification ("Base and stack") says only a clip longer than 12 s lists it in its
+`depends.json`. "Round" is also a backlog word the outside reader
 does not know. Fix: narrow, for instance "which the longer clips (the export and the keyboard
 navigation clips) build on".
 
