@@ -36,6 +36,8 @@ Grade: **1**. A new tool, a new `just` recipe and a dry-run case; no CLI, hook, 
 
 - **UNVERIFIED:** the host's texts (denials, wakes, "No such tool available") are not a published format; the fixture pins them as read in 0.15.1-era transcripts.
 - **UNVERIFIED:** reading `$CLAUDE_CONFIG_DIR/projects` (no run with that variable); `--projects` is proved by the dry run.
+- The baseline holds no `foreman` role and no wake shares: real Foreman prompts carry their role line after a `Task:` line, not on the first line, so the specified role rule 2 does not see them. Left as specified; a later change can widen the rule.
+- In the baseline, some card reads are grouped under the keys `references/` and `other-card` (reads that name no single card), the S-list holds a few lines that are not errors (command usage echoed in a result), and one help-by-command key is empty (a bare `--help`).
 - Copilot transcripts are not measured.
 - Detectors are regexes on commands: built from variables or here-documents they miss or over-match; rates are indicators.
 
