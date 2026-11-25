@@ -17,3 +17,15 @@ Short name: `show-raw`
 - The Python API `show_bundle` returns `ConceptDetail(frontmatter, body, trust_tier, stale)`,
   without the stored text.
 - CR 56 changes the same function and command; this item stacks on it.
+
+## 2026-11-25: grill, user's answers
+
+1. show-raw-Q1: **Standard output.** Free answer: "Pourquoi aurait on besoin de reconstruire le
+   frontmatter au lieu d’afficher juste le fichier brut". Read with answer 3 as option A, the
+   stored file as it is; to be confirmed at the restatement.
+2. show-raw-Q2: **trust and stale.** "C. Supprimer": `show` no longer prints them.
+3. show-raw-Q3: **Damaged files.** Free answer: "Affiche juste le contenu du fichier, show ne
+   valide pas". No parsing check, no warning, no failure for a file without frontmatter or with
+   invalid YAML.
+4. show-raw-Q4: **API.** "A. Champ raw (recommandé)": the result of `show_bundle` gains a field
+   with the exact stored text; the current fields do not change.
