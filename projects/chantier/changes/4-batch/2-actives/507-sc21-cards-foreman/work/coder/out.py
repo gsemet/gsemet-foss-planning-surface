@@ -9,6 +9,9 @@ def classify(f, a, b, t):
         return None
     trig, cand, dk = sg
     # protecting
+    for pf, rx, k2, home, chk in OVR:
+        if pf == f and re.search(rx, t):
+            return trig, k2, home, chk, 1.0
     for pf, (pa, pb), rx, home, chk in PROT:
         if pf == f and pa <= a <= pb and home != "none" and re.search(rx, t, re.I):
             return trig, "a", home, chk, 1.0
