@@ -1,13 +1,13 @@
-# PART 3 proofs (round 5)
+# PART 3 proofs (round 6)
 
-Worktree `<worktree>`, head `bf4e4c42` plus the uncommitted changes of rounds 4 and 5: nothing is committed, so every command runs against the working tree (the files as they will be committed), and where the specification says `HEAD` the comparison is stated. Byte counts are LF bytes (the checkout has `core.autocrlf=true`). Written by `work/r5/proofs.py`. Paths: `<worktree>` is the CR's worktree, `<surface>` the planning surface's checkout, `<planning>` its `projects/chantier` folder.
+Worktree `<worktree>`, head `bf4e4c42` plus the uncommitted changes of rounds 4 to 6: nothing is committed, so every command runs against the working tree (the files as they will be committed), and where the specification says `HEAD` the comparison is stated. Byte counts are LF bytes (the checkout has `core.autocrlf=true`). Written by `work/r6/proofs.py`. Paths: `<worktree>` is the CR's worktree, `<surface>` the planning surface's checkout, `<planning>` its `projects/chantier` folder.
 
 ## 2. Byte-identical copies
 
 `git hash-object` of the working file (the checkout's filters applied) against the blob at `bf4e4c42` under `references/`.
 
 ```text
-$ work/r5/proofs.py (proof 2)
+$ work/r6/proofs.py (proof 2)
 floor.md: cards-next 61da01e8b67f8b8eec1845172a29d2466d1cc380 | references at bf4e4c42 61da01e8b67f8b8eec1845172a29d2466d1cc380 | identical; LF content equal: True
 hosts/claude-code.json: cards-next 3f2daf7915192a790e2dc17b36d74d3cfd9a1fd0 | references at bf4e4c42 3f2daf7915192a790e2dc17b36d74d3cfd9a1fd0 | identical; LF content equal: True
 hosts/copilot.json: cards-next b4dec473e0dab53cbacd334fa29286ce3ccc2ff9 | references at bf4e4c42 b4dec473e0dab53cbacd334fa29286ce3ccc2ff9 | identical; LF content equal: True
@@ -17,7 +17,7 @@ hosts/copilot.json: cards-next b4dec473e0dab53cbacd334fa29286ce3ccc2ff9 | refere
 
 | file | today | new | target | result |
 | --- | ---: | ---: | --- | --- |
-| concepts.md | 73,286 | 18,394 | none set (open question 1) | no target |
+| concepts.md | 73,286 | 18,565 | none set (open question 1) | no target |
 | pr-template.md | 16,801 | 11,849 | none set (open question 1) | no target |
 | release-template.md | 12,155 | 6,758 | none set (open question 1) | no target |
 | status-layout.md | 17,475 | 10,992 | none set (open question 1) | no target |
@@ -31,7 +31,7 @@ hosts/copilot.json: cards-next b4dec473e0dab53cbacd334fa29286ce3ccc2ff9 | refere
 | forges/gitlab.md | 744 | 590 | unchanged or smaller (744) | within |
 | hosts/claude-code.json | 25,243 | 25,243 | byte-identical | within |
 | hosts/copilot.json | 22,372 | 22,372 | byte-identical | within |
-| hosts/claude-code.md | 109,857 | 23,160 | no byte target: Allow rules section only | no target |
+| hosts/claude-code.md | 109,857 | 23,319 | no byte target: Allow rules section only | no target |
 | hosts/copilot.md | 18,947 | none | not carried: its text is in `topics/host-*.md` | no target (file not carried) |
 | floor.md | 554 | 554 | 1,200, byte-identical | within |
 | topics/host-*.md: 33 files | part of the above | 36,066 in all, largest 1,490 | 1,500 each | within |
@@ -77,8 +77,8 @@ Role cards of the whole branch (Foreman, Chief of Staff and Griller against thei
 
 | card | references | at bf4e4c42 | new | budget | result |
 | --- | ---: | ---: | ---: | ---: | --- |
-| foreman.md | 36,927 | 3,897 | 3,999 | 4,000 | within |
-| chief-of-staff.md | 32,067 | 5,499 | 5,999 | 6,000 | within |
+| foreman.md | 36,927 | 3,897 | 3,998 | 4,000 | within |
+| chief-of-staff.md | 32,067 | 5,499 | 5,994 | 6,000 | within |
 | griller-skill.md | none | 3,290 | 3,497 | 4,000 | within |
 | griller.md | 10,757 | 1,892 | 1,925 | 2,000 | within |
 | coder.md | 4,609 | 1,417 | 1,533 | 1,500 | over by 33 |
@@ -89,11 +89,11 @@ Role cards of the whole branch (Foreman, Chief of Staff and Griller against thei
 | retro-critic.md | 2,901 | 1,492 | 1,565 | 1,500 | over by 65 |
 | spec-critic.md | 3,729 | 1,499 | 1,572 | 1,500 | over by 72 |
 | spec-writer.md | 3,254 | 1,493 | 1,667 | 1,500 | over by 167 |
-| inspector.md | 6,044 | 1,999 | 1,999 | 2,000 | within |
+| inspector.md | 6,044 | 1,999 | 2,000 | 2,000 | within |
 | verifier.md | 14,581 | 2,996 | 3,112 | 3,000 | over by 112 |
-| cr-driver.md | none | 3,280 | 3,579 | 4,096 | within |
-| stack-driver.md | none | 3,321 | 3,614 | 4,096 | within |
-| release-driver.md | none | 3,277 | 3,759 | 3,072 | over by 687 |
+| cr-driver.md | none | 3,280 | 3,749 | 4,096 | within |
+| stack-driver.md | none | 3,321 | 3,783 | 4,096 | within |
+| release-driver.md | none | 3,277 | 3,811 | 3,072 | over by 739 |
 | qa-driver.md | none | 1,337 | 1,567 | 2,048 | within |
 
 ## 4. `brief` for all 18 roles
@@ -108,24 +108,24 @@ study-fable-v2 (section 2.2) gives "boot, base / boot, new / start, new Claude".
 
 | role | unit (lease) | new: exit, bytes | old: exit, bytes | study-fable-v2 |
 | --- | --- | --- | --- | --- |
-| cr-driver | CR-507 (2) | 2, refused | 0, 66,764 | 8,519 / 10,541 / 27,180 |
+| cr-driver | CR-507 (2) | 2, refused | 0, 66,959 | 8,519 / 10,541 / 27,180 |
 | release-driver | CR-507 (2) | 2, refused | 2, refused | 8,577 / 10,599 / 25,806 |
 | stack-driver | stack (11) | 2, refused | 2, refused | 8,542 / 10,564 / 34,054 |
 | qa-driver | O-1 (1) | 2, refused | 2, refused | 8,468 / 10,490 / 24,122 |
-| coder | CR-507 | 0, 6,519 | 0, 9,595 | 8,531 / 9,357 / 13,966 |
-| conflict-resolver | CR-507 | 0, 6,480 | 0, 8,879 | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
-| debugger | CR-507 | 0, 6,267 | 0, 8,668 | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
-| inspector | CR-507 | 0, 6,985 | 0, 11,030 | 8,552 / 9,378 / 15,422 |
-| investigator | CR-507 | 0, 6,472 | 0, 8,540 | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
-| verifier | CR-507 | 0, 8,098 | 0, 19,567 | 8,556 / 9,382 / 23,963 |
+| coder | CR-507 | 0, 6,714 | 0, 9,790 | 8,531 / 9,357 / 13,966 |
+| conflict-resolver | CR-507 | 0, 6,675 | 0, 9,074 | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
+| debugger | CR-507 | 0, 6,462 | 0, 8,863 | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
+| inspector | CR-507 | 0, 7,181 | 0, 11,225 | 8,552 / 9,378 / 15,422 |
+| investigator | CR-507 | 0, 6,667 | 0, 8,735 | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
+| verifier | CR-507 | 0, 8,293 | 0, 19,762 | 8,556 / 9,382 / 23,963 |
 | spec-writer | this CR folder | 2, refused | 2, refused | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
 | spec-critic | this CR folder | 2, refused | 2, refused | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
 | board-griller | this CR folder | 2, refused | 2, refused | 10,242 / 11,096 / 19,655 |
 | retro-critic | none | 0, 2,889 | 0, 4,225 | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
 | demo-explorer | none | 0, 2,936 | 0, 4,746 | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
-| chief-of-staff | none | 0, 24,657 | 0, 22,322 | 11,636 / 11,708 / 202,396 |
+| chief-of-staff | none | 0, 24,652 | 0, 22,322 | 11,636 / 11,708 / 202,396 |
 | griller | none | 0, 6,623 | 0, 6,349 | 11,197 / 11,267 / 145,087 |
-| foreman | none | 0, 22,278 | 0, 55,206 | 7,740 / 8,566 / 91,019 |
+| foreman | none | 0, 22,277 | 0, 55,206 | 7,740 / 8,566 / 91,019 |
 
 With `--cards`, 11 of 18 roles exit 0 as specified; refused: cr-driver, release-driver, stack-driver, qa-driver, spec-writer, spec-critic, board-griller. **"Each exits 0" is not met.** The refusals, quoted:
 
@@ -154,14 +154,14 @@ Causes:
 
 ### Extra runs, not the specified ones
 
-A staging folder per Driver (`work/r5/staging/<role>/`: `driver.md` copied from `cards-next/<role>.md`, plus `floor.md`), as the sibling CR-505's evidence did; and an inbox item (`1-inbox/simplify-cards-and-prompts`, a CR folder in the specification's sense) for the folder roles.
+A staging folder per Driver (`work/r6/staging/<role>/`: `driver.md` copied from `cards-next/<role>.md`, plus `floor.md`), as the sibling CR-505's evidence did; and an inbox item (`1-inbox/simplify-cards-and-prompts`, a CR folder in the specification's sense) for the folder roles.
 
 | role | unit | new: exit, bytes | old: exit, bytes |
 | --- | --- | --- | --- |
-| cr-driver (staged) | none (role only) | 0, 7,840 | 0, 59,216 |
-| cr-driver (staged) | CR-507 (lease 2) | 0, 15,388 | 0, 66,764 |
-| release-driver (staged) | none (role only) | 0, 8,020 | 0, 59,216 |
-| stack-driver (staged) | none (role only) | 0, 7,875 | 0, 59,216 |
+| cr-driver (staged) | none (role only) | 0, 8,010 | 0, 59,216 |
+| cr-driver (staged) | CR-507 (lease 2) | 0, 15,753 | 0, 66,959 |
+| release-driver (staged) | none (role only) | 0, 8,072 | 0, 59,216 |
+| stack-driver (staged) | none (role only) | 0, 8,044 | 0, 59,216 |
 | qa-driver (staged) | none (role only) | 0, 5,828 | 0, 59,216 |
 | spec-writer | the inbox item | 0, 3,228 | 0, 4,815 |
 | spec-critic | the inbox item | 0, 3,133 | 0, 5,290 |
@@ -171,7 +171,7 @@ The Chief of Staff's and the Griller's new briefs are larger than the old ones: 
 
 ## 5. Quiz (not run)
 
-No quiz was run (the brief: `just quiz` is not run). Roles whose card changed against `bf4e4c42` (17 of 18; unchanged: inspector):
+No quiz was run (the brief: `just quiz` is not run). Roles whose card changed against `bf4e4c42` (18 of 18; unchanged: none):
 
 | role | cases under `evals/quiz/<role>/` |
 | --- | --- |
@@ -184,6 +184,7 @@ No quiz was run (the brief: `just quiz` is not run). Roles whose card changed ag
 | demo-explorer | yes: quiz owed |
 | foreman | yes: quiz owed |
 | griller | yes: quiz owed |
+| inspector | none: no quiz owed |
 | investigator | none: no quiz owed |
 | qa-driver | none: no quiz owed |
 | release-driver | yes: quiz owed |
@@ -266,10 +267,10 @@ topic files no topic reads: none
 
 ## 8. The Driver table
 
-`driver_prompt.driver_table()` reads `skill_dir()/references/concepts.md`; for the new file `skill_dir` was pointed at a staging folder holding a copy of `cards-next/concepts.md` (`work/r5/dp-stage/`).
+`driver_prompt.driver_table()` reads `skill_dir()/references/concepts.md`; for the new file `skill_dir` was pointed at a staging folder holding a copy of `cards-next/concepts.md` (`work/r6/dp-stage/`).
 
 ```text
-$ work/r5/proofs.py (proof 8)
+$ work/r6/proofs.py (proof 8)
 parser from <worktree>/skills/chantier/scripts/cli/src/chantier/driver_prompt.py
 rows, references/concepts.md: 4
 rows, cards-next/concepts.md: 4
@@ -293,7 +294,7 @@ The named test reads today's `references/hosts/claude-code.md`, which this child
 ```text
 $ pytest skills/chantier/scripts/cli/tests/test_cli_runs.py::test_the_allow_rules_json_block_lists_exactly_what_preflight_checks
 .                                                                        [100%]
-1 passed in 36.68s
+1 passed in 0.10s
 (exit 0)
 ```
 
@@ -303,7 +304,7 @@ allow-rules assertions pass on cards-next/hosts/claude-code.md: 73 rules, 52 sam
 (exit 0)
 ```
 
-`hosts/claude-code.md`: 109,857 bytes today, 23,160 new. Round 5 cut the dated trial text and stories from the kept section (the JSON block and the Capabilities table unchanged); the file before the cut is `work/r5/claude-code.before.md`, and the cut stories are already told in `docs/proofs/claude-code.md`.
+`hosts/claude-code.md`: 109,857 bytes today, 23,319 new. Round 5 cut the dated trial text and stories from the kept section; round 6 completed the Mark of lines 20 and 151 (a refusal with or without the rule set in place). Against the file before the cut (`work/r5/claude-code.before.md`): the fenced JSON block is equal; in the Allow rules table the rule cells are unchanged, the Mark cell of every row is shortened, and so are several use and risk cells; in the Capabilities table the Mark cell of all four rows changed and no other cell: lines 151, 153 and 154 lose the `(rule form)` qualifier, lines 151 and 152 their bold; line 151 also loses its batch ids, a date, the quoted refusal reason and the `foreman-refused.md` pointer (the refused routes are now named by `help refused-push` and `help refused-rebase`); lines 153 and 154 word the unproved native-stack merge more briefly. The cut stories are already told in `docs/proofs/claude-code.md`.
 
 ## 9. `just test`
 
@@ -311,7 +312,7 @@ No test is added or changed (`git diff --name-only` against the base shows nothi
 
 ## 10. Inventory and completeness table
 
-`evidence/cards-inventory-host-and-shared.md` (how the sources were walked, the rows, the manifest action table, the completeness table, the sibling-card edits with their lines), written by `work/r5/gen.py`.
+`evidence/cards-inventory-host-and-shared.md` (how the sources were walked, the rows, the manifest action table, the completeness table, the sibling-card edits with their lines), written by `work/r5/gen.py`; round 6 changed its rows with `work/r6/host_rows.py` and its sibling-card table by hand.
 
 ## 11. Unloaded
 
@@ -327,16 +328,17 @@ $ git grep --untracked -n "Read this short role contract at boot\|# chantier-age
 (no line; exit 1)
 ```
 
-## 12. Gates (round 5, on the uncommitted working tree)
+## 12. Gates (round 6, on the uncommitted working tree)
 
-- `just check` from the PowerShell tool, whose environment sets `NO_COLOR=1`: exit 1, `2 failed, 2930 passed, 20 skipped`; both failures are `test_live_ready.py::test_the_interactive_screen_links_the_pr_and_colours_the_state_words` (it expects colour codes, which rich drops under `NO_COLOR`). No file of `src/` or `tests/` is changed by this CR.
-- `just check` from the Bash tool, where `NO_COLOR` is not set, same tree: exit 0, `2932 passed, 20 skipped`.
+- `just check` from the Bash tool, `NO_COLOR` not set: exit 0, `2932 passed, 20 skipped`.
+- In round 5 the same command from the PowerShell tool, whose environment sets `NO_COLOR=1`, exited 1 on two cases of `test_live_ready.py::test_the_interactive_screen_links_the_pr_and_colours_the_state_words` (it expects colour codes, which rich drops under `NO_COLOR`); not rerun in round 6. No file of `src/` or `tests/` is changed since the base.
+- The allow-rules test, its twin on the new card, `load_topics` and the 1,500-byte limit of the new topics: run by `work/r6/proofs.py` (the sections above).
 - Not run here: `just quiz`, `just scenario (ubuntu-latest)` and the local `scenario` gate (they need the pushed head; the Driver's part).
 
 ## Known gaps
 
 - **"Each exits 0" (item 4) is not met**: cr-driver, release-driver, stack-driver, qa-driver, spec-writer, spec-critic, board-griller are refused as specified (quoted above). The four Drivers with `--cards` need `roles.yaml`'s `card` changed at the swap (child 24).
-- **Cards over budget** (Q4): `coder.md` 1,533 (over by 33; 1,417 at `bf4e4c42`); `demo-explorer.md` 1,612 (over by 112; 1,496 at `bf4e4c42`); `retro-critic.md` 1,565 (over by 65; 1,492 at `bf4e4c42`); `spec-critic.md` 1,572 (over by 72; 1,499 at `bf4e4c42`); `spec-writer.md` 1,667 (over by 167; 1,493 at `bf4e4c42`); `verifier.md` 3,112 (over by 112; 2,996 at `bf4e4c42`); `release-driver.md` 3,759 (over by 687; 3,277 at `bf4e4c42`). The bytes are rules whose home must be a card (kind a) and the pointer to `help session-shell`; a sibling card's other lines are not this child's to cut (section 1), and only the owner raises a budget. `retro-critic.md` and `spec-critic.md` are over by the pointer line alone: without it they are within, and the folder-change ban reaches them through the topic's role list only.
-- **Topics over 1,500** (Q4): 24, listed in item 3; all exist at `bf4e4c42`. This round grew `release-notes.md` and `cr-rounds.md` (a link and a pointer).
+- **Cards over budget** (Q4): `coder.md` 1,533 (over by 33; 1,417 at `bf4e4c42`); `demo-explorer.md` 1,612 (over by 112; 1,496 at `bf4e4c42`); `retro-critic.md` 1,565 (over by 65; 1,492 at `bf4e4c42`); `spec-critic.md` 1,572 (over by 72; 1,499 at `bf4e4c42`); `spec-writer.md` 1,667 (over by 167; 1,493 at `bf4e4c42`); `verifier.md` 3,112 (over by 112; 2,996 at `bf4e4c42`); `release-driver.md` 3,811 (over by 739; 3,277 at `bf4e4c42`). The bytes are rules whose home must be a card (kind a) and the pointer to `help session-shell`; a sibling card's other lines are not this child's to cut (section 1), and only the owner raises a budget. `retro-critic.md` and `spec-critic.md` are over by the pointer line alone: without it they are within, and the folder-change ban reaches them through the topic's role list only.
+- **Topics over 1,500** (Q4): 24, listed in item 3; all exist at `bf4e4c42`. Round 5 grew `release-notes.md` and `cr-rounds.md` (a link and a pointer).
 - Real run not done (child 28). Quiz not run (item 5). Copilot untested.
 - Do not merge: merges with children 19 to 28 as one unit, after child 28's campaign.

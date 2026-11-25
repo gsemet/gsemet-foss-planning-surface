@@ -1,6 +1,6 @@
 # SC21 evidence: inventory of the host and shared sources
 
-Ids (`H-nnn`) are drafts that child 26 replaces. The new files are in `skills/chantier/cards-next/`. Sources are read at the worktree's base (`git show HEAD:<path>`, head bf4e4c42); homes are read in the working tree. Built by `work/r5/gen.py` from `work/r5/h/*.hand`.
+Ids (`H-nnn`) are drafts that child 26 replaces. The new files are in `skills/chantier/cards-next/`. Sources are read at the worktree's base (`git show HEAD:<path>`, head bf4e4c42); homes are read in the working tree. Built by `work/r5/gen.py` from `work/r5/h/*.hand`; round 6 then changed rows, the closing lists and the counts with `work/r6/host_rows.py`, and the sibling-card table by hand (the `.hand` files do not hold these changes).
 
 ## How the sources were walked
 
