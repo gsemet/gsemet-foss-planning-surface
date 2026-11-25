@@ -1,0 +1,178 @@
+<h2 dir="auto">Description</h2>
+<p dir="auto">A concept verified by an actor written as OKF 0.2 allows, such as<br>
+<code class="notranslate">reference_agent/gemini-2.5-pro</code>, was read as <code class="notranslate">unverified</code> and warned W10, because every actor<br>
+needed a colon. The trust tier now follows the specification (sections 5.3 and 7): every<br>
+non-empty actor that is not <code class="notranslate">human:&lt;id&gt;</code> counts as machine.</p>
+<p dir="auto">Before is the base <code class="notranslate">2f09cef</code>, after is <code class="notranslate">7a33d92</code>.</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th><code class="notranslate">verified[].by</code></th>
+<th>Trust tier before</th>
+<th>Trust tier after</th>
+<th>W10 after</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">reference_agent/gemini-2.5-pro</code>, <code class="notranslate">langchain.agents/0.3</code></td>
+<td>unverified</td>
+<td>machine-confirmed</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code class="notranslate">process:nightly-check</code>, <code class="notranslate">bot:okf-schema</code></td>
+<td>machine-confirmed</td>
+<td>machine-confirmed</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code class="notranslate">acme.ci:nightly</code></td>
+<td>unverified</td>
+<td>machine-confirmed</td>
+<td>no</td>
+</tr>
+<tr>
+<td><code class="notranslate">alice</code></td>
+<td>unverified</td>
+<td>machine-confirmed</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code class="notranslate">human:</code> (no identifier)</td>
+<td>unverified</td>
+<td>machine-confirmed</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code class="notranslate">human:alice</code></td>
+<td>human-reviewed</td>
+<td>human-reviewed</td>
+<td>no</td>
+</tr>
+<tr>
+<td>not a string, or empty</td>
+<td>unverified</td>
+<td>unverified</td>
+<td>W10 or E9, as before</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">What changes:</p>
+<ul dir="auto">
+<li>W10 accepts <code class="notranslate">&lt;producer&gt;/&lt;version&gt;</code> and <code class="notranslate">&lt;prefix&gt;:&lt;identifier&gt;</code>, with a dot allowed in the<br>
+producer and the prefix. Its message lists the accepted forms and now prints the entry index<br>
+everywhere (it showed a literal <code class="notranslate">{i}</code>).</li>
+<li>The validation code reference, the how-to table, the packaged skills and the <code class="notranslate">okfkb</code><br>
+scaffold schema teach the OKF 0.2 forms instead of <code class="notranslate">bot:ci</code>. Existing knowledge bases keep<br>
+their own copy of the schema.</li>
+<li>Requirement <code class="notranslate">SwRS-OKFSCHEMA-CORE-006</code> gains scenario S5, with tests and a feature map row.</li>
+<li><code class="notranslate">CHANGELOG.md</code> carries the entries that <code class="notranslate">just changelog</code>, a <code class="notranslate">just preflight</code> step, generates<br>
+from the commit history: this fix and the missing <code class="notranslate">v0.18.1</code> heading.</li>
+</ul>
+<p dir="auto">Unchanged: <code class="notranslate">generated.by</code> and <code class="notranslate">sources[].author</code> are still not checked, <code class="notranslate">okfkb</code> still writes<br>
+<code class="notranslate">bot:okf-schema</code>, and the <code class="notranslate">human:</code> match stays case-sensitive.</p>
+<h3 dir="auto">Product surfaces</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>Surface</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Runtime</td>
+<td><code class="notranslate">src/okf_schema/validator.py</code></td>
+</tr>
+<tr>
+<td>Human documentation</td>
+<td>validation code reference, standalone-file how-to, feature and evidence map. <code class="notranslate">README.md</code> is unaffected: it holds no trust tier or W10 text.</td>
+</tr>
+<tr>
+<td>Agent skills</td>
+<td>packaged skills <code class="notranslate">okf-schema</code> (W10 row) and <code class="notranslate">okfkb-record-findings</code> (actor example). The bundled OKF 0.2 reference is the upstream text, left verbatim.</td>
+</tr>
+<tr>
+<td>Scaffold guidance</td>
+<td><code class="notranslate">src/okf_schema/data/kb/_schema/Base.schema.yaml</code>. The packaged knowledge base guideline already uses <code class="notranslate">human:alice</code>.</td>
+</tr>
+<tr>
+<td>Examples</td>
+<td><code class="notranslate">examples/okfkb-hw-knowledge-base/_schema/Base.schema.yaml</code>, edited by hand because no recipe refreshes it. Their <code class="notranslate">bot:okf-schema</code> actors stay valid.</td>
+</tr>
+<tr>
+<td>Requirements</td>
+<td><code class="notranslate">SwRS-OKFSCHEMA-CORE-006</code> S5 and the requirements log.</td>
+</tr>
+<tr>
+<td>Verification and packaging</td>
+<td>new tests, and two existing trust tier tests updated (one renamed with its expected tier changed, one parametrized with a stricter assertion). <code class="notranslate">pyproject.toml</code>, <code class="notranslate">justfile</code> and CI are unaffected: no file, dependency, command or job is added or moved.</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3 dir="auto">Example command</h3>
+<p dir="auto">For a file whose frontmatter has<br>
+<code class="notranslate">verified: [{by: reference_agent/gemini-2.5-pro, at: "2024-01-02T00:00:00Z"}]</code>, with a<br>
+<code class="notranslate">concept.schema.json</code> in the schemas directory:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="uv run -- okf-schema validate-md --input c.md --schemas-dir &lt;dir&gt; --strict"><pre class="notranslate"><code class="notranslate">uv run -- okf-schema validate-md --input c.md --schemas-dir &lt;dir&gt; --strict
+</code></pre></div>
+<h3 dir="auto">Validation results</h3>
+<ul dir="auto">
+<li>Example command at <code class="notranslate">7a33d92</code>: exit 0, no warning. With <code class="notranslate">by: alice</code>: exit 1, one W10 naming<br>
+<code class="notranslate">verified entry [0]</code> twice. <code class="notranslate">show_bundle(...).trust_tier</code> is <code class="notranslate">machine-confirmed</code> for both.</li>
+<li><code class="notranslate">just preflight</code> on Windows at <code class="notranslate">7a33d92</code>: pass. 1128 passed, 12 skipped, coverage 95.58%,<br>
+Sphinx build succeeded with warnings as errors.</li>
+<li><code class="notranslate">okfreq validate requirements --prose --check-links --project-root .</code> at <code class="notranslate">7a33d92</code>:<br>
+35 requirements, 0 errors, 0 warnings.</li>
+<li>A first <code class="notranslate">just preflight</code> run at <code class="notranslate">1ae8870</code> failed 8 symbolic link tests because the host<br>
+refused to create links (<code class="notranslate">WinError 1314</code>); the base <code class="notranslate">2f09cef</code> failed the same 8. Symbolic<br>
+links are now allowed on that host.</li>
+<li>CI at <code class="notranslate">7a33d92</code>: the preflight jobs on Python 3.10 to 3.13 and the macOS and Windows jobs<br>
+pass; the release tagging job is skipped, as it runs on pushes to <code class="notranslate">main</code> only.</li>
+</ul>
+<p dir="auto">Evidence status at <code class="notranslate">7a33d92</code>: marker linkage is defined for the requirement in <code class="notranslate">validator.py</code><br>
+and for S5 in the tests (<code class="notranslate">okfreq trace</code>); the marked tests were executed and passed; no<br>
+stakeholder approval is claimed, the requirement stays <code class="notranslate">proposed</code>.</p>
+<h3 dir="auto">Decisions taken by the maintainer</h3>
+<ul dir="auto">
+<li><code class="notranslate">&lt;prefix&gt;:&lt;identifier&gt;</code> stays accepted beside the specification's forms.</li>
+<li>An actor in no recognized form counts as machine-confirmed and is still warned.</li>
+<li>A dot is allowed in the producer and in the prefix.</li>
+<li><code class="notranslate">human:</code> with no identifier counts as machine-confirmed and is still warned.</li>
+</ul>
+<h3 dir="auto">Blast radius</h3>
+<p dir="auto">2 of 3: the trust tier that <code class="notranslate">show</code> and the Python API report changes for actors that read as<br>
+<code class="notranslate">unverified</code> before. A plain revert restores the previous behaviour; no data is rewritten.</p>
+<h3 dir="auto">Autonomous decisions</h3>
+<ul dir="auto">
+<li>The body of scenario S5 writes <code class="notranslate">{producer}/{version}</code> and <code class="notranslate">{prefix}:{identifier}</code> instead of<br>
+angle brackets, because the requirement prose check reads those angle-bracket words as<br>
+unfilled placeholders and warns. Docs, skills and messages keep the angle brackets.</li>
+</ul>
+<h3 dir="auto">Known gaps</h3>
+<ul dir="auto">
+<li><code class="notranslate">show_bundle</code> reports a different <code class="notranslate">trust_tier</code> for some actors without a<br>
+<code class="notranslate">.. versionchanged::</code> note in its docstring.</li>
+<li>The skill row and the validation code reference say an unrecognized actor still counts as<br>
+machine-confirmed; a <code class="notranslate">by</code> that is not a string (for example <code class="notranslate">42</code>) is warned W10 and does not<br>
+count.</li>
+</ul>
+<h2 dir="auto">Type of Change</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> Bug fix</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Incomplete task"> New feature</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Incomplete task"> Breaking change</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> Documentation update</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Incomplete task"> Refactoring</li>
+</ul>
+<h2 dir="auto">Checklist</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> I have run <code class="notranslate">just preflight</code> and all checks pass</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> I have added tests that prove my fix is effective or my feature works</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> I have updated the documentation accordingly</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" aria-label="Completed task" checked=""> My changes generate no new warnings</li>
+</ul>
+<h2 dir="auto">Related Issues</h2>
+<p dir="auto">None</p>
+<p dir="auto">🤖 Generated with <a href="https://claude.com/claude-code" rel="nofollow">Claude Code</a></p>

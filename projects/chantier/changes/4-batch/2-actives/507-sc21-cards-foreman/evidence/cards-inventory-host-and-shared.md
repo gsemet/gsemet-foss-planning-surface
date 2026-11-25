@@ -972,7 +972,7 @@ Units per source:
 | H-889 | chief-of-staff, foreman | Sync the checkout | Six steps: | sync-checkout.md:3 | b | inferable | none (inferable) |
 | H-890 | chief-of-staff, foreman | Sync the checkout | Check, writing nothing: run `uv sync --locked --check --project "<plugin root>"` (the command inside the rule P10 prints for it) and read its exit: 0 is in sync, nothing to sync, stop here; | sync-checkout.md:5 | e | card sync-checkout.md:10 | `grep -c -F 'uv sync --locked --check' sync-checkout.md` |
 | H-891 | chief-of-staff, foreman | Sync the checkout | 1 with uv's text "The environment is outdated" goes to step 2; | sync-checkout.md:5 | e | card sync-checkout.md:11 | `grep -c -F 'The environment is outdated' sync-checkout.md` |
-| H-892 | chief-of-staff, foreman | Sync the checkout | any other exit is an ordinary sync failure, handled as below, never `sync pending` (a stale `uv.lock` also gives 1 with that text, and the real sync of step 3 then fails with its lock error, handled the same way). | sync-checkout.md:5 | e | card sync-checkout.md:17 | `grep -c -F ': an ordinary failure, never' sync-checkout.md` |
+| H-892 | chief-of-staff, foreman | Sync the checkout | any other exit is an ordinary sync failure, handled as below, never `sync pending` (a stale `uv.lock` also gives 1 with that text, and the real sync of step 3 then fails with its lock error, handled the same way). | sync-checkout.md:5 | e | card sync-checkout.md:18 | `grep -c -F ': an ordinary failure, never' sync-checkout.md` |
 | H-893 | chief-of-staff, foreman | Sync the checkout | Name the holders before syncing, on every system: list the processes that hold `<plugin root>/.venv` by the host's means (its reference, row "Name the holders of the checkout's environment"). | sync-checkout.md:7 | e | card sync-checkout.md:13 | `grep -c -F 'sync pending: held by' sync-checkout.md` |
 | H-894 | chief-of-staff, foreman | Sync the checkout | With none, run `uv sync --locked --project "<plugin root>"`. | sync-checkout.md:9 | e | card sync-checkout.md:11 | `grep -c -F 'The environment is outdated' sync-checkout.md` |
 | H-895 | chief-of-staff, foreman | Sync the checkout | With any holder (a gate, a watcher, the board or hub, of any project or surface, this session's own included), or when the sync fails with os error 32 (a holder the listing missed, or one that started in between), never stop or kill a ... | sync-checkout.md:11 | a | card skills/chief-of-staff-SKILL.md:25 | `grep -c -F 's start, at a batch' skills/chief-of-staff-SKILL.md` |
@@ -990,11 +990,11 @@ Units per source:
 | H-907 | chief-of-staff | Sync the checkout | On the user's yes: stop the watcher and the board, list the holders again, sync only if none, then start the board and the watcher again whatever the result (`session-start-chief-of-staff.md`'s board start, and the watcher's printed ... | sync-checkout.md:15 | a | card chief-of-staff.md:14 | `grep -c -F 'Stopping a Foreman or a process' chief-of-staff.md` |
 | H-908 | chief-of-staff | Sync the checkout | a holder still listed after the stop is no longer own (its shell is gone): it is waited on as in step 4, never killed, and the board's restart then meets `board already running`, passed on as is. | sync-checkout.md:15 | a | card chief-of-staff.md:14 | `grep -c -F 'Stopping a Foreman or a process' chief-of-staff.md` |
 | H-909 | chief-of-staff, foreman | Sync the checkout | The yes covers the restart: no second question. | sync-checkout.md:15 | e | topic sync-offer | `help sync-offer` |
-| H-910 | chief-of-staff, foreman | Sync the checkout | A failed sync is one line with uv's text. | sync-checkout.md:15 | e | card sync-checkout.md:18 | `grep -c -F 's start a stop, else one line with uv' sync-checkout.md` |
+| H-910 | chief-of-staff, foreman | Sync the checkout | A failed sync is one line with uv's text. | sync-checkout.md:15 | e | card sync-checkout.md:19 | `grep -c -F 's start a stop, else one line with uv' sync-checkout.md` |
 | H-911 | chief-of-staff, foreman | Sync the checkout | No offer while another holder is listed or a gate runs (listed, or shown by `$CHANTIER status`). | sync-checkout.md:15 | e | topic sync-offer | `help sync-offer` |
 | H-912 | chief-of-staff, foreman | Sync the checkout | No answer: the offer stands. | sync-checkout.md:15 | e | topic sync-offer | `help sync-offer` |
 | H-913 | chief-of-staff, foreman | Sync the checkout | A no: keep waiting as in step 4, do not ask again; in a batch the **For you** item then names the holders only, plus "a later yes still counts". | sync-checkout.md:15 | e | topic sync-offer | `help sync-offer` |
-| H-914 | chief-of-staff, foreman | Sync the checkout | An ordinary sync failure is, at the session's start, `startup-core.md`'s; at a batch's start or after a merge, one line to the user with uv's text, and you go on. | sync-checkout.md:15 | e | card sync-checkout.md:18 | `grep -c -F 's start a stop, else one line with uv' sync-checkout.md` |
+| H-914 | chief-of-staff, foreman | Sync the checkout | An ordinary sync failure is, at the session's start, `startup-core.md`'s; at a batch's start or after a merge, one line to the user with uv's text, and you go on. | sync-checkout.md:15 | e | card sync-checkout.md:19 | `grep -c -F 's start a stop, else one line with uv' sync-checkout.md` |
 
 ## forges/github.md
 
@@ -2120,17 +2120,17 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-038 | concepts.md:69-70 | card foreman.md:25 | 6. `take --reclaim` a live lease without the user's word; replace a Driver but by `help lost-restart`, never on silence alone; remove a trashed, backlog or `3-ready` CR's worktree. |
 | H-043 | concepts.md:78-79 | card cr-driver.md:17 | - comment on, close or reopen an issue, or turn a PR ready on a base that is not the default branch; |
 | H-044 | concepts.md:79-81 | card chief-of-staff.md:24 | - Post on a tracker issue a text, plan or demo the user did not approve for that ticket, or one naming a CR, batch, role or cost, or let another session; close or reopen an issue by hand (`help ... |
-| H-048 | concepts.md:100-102 | card coder.md:13 | - keep CR work in a scratchpad or temp folder (whatever the host says), or secrets or personal data in a CR folder; |
-| H-049 | concepts.md:103-104 | card coder.md:13 | - keep CR work in a scratchpad or temp folder (whatever the host says), or secrets or personal data in a CR folder; |
+| H-048 | concepts.md:100-102 | card coder.md:13 | - keep CR work in a scratchpad or temp folder (whatever the host says), or secrets, personal data or large binaries other than the retained prototype (name where one is) in a CR folder; |
+| H-049 | concepts.md:103-104 | card coder.md:13 | - keep CR work in a scratchpad or temp folder (whatever the host says), or secrets, personal data or large binaries other than the retained prototype (name where one is) in a CR folder; |
 | H-057 | concepts.md:113-115 | card coder.md:13 | - keep CR work in a scratchpad or temp folder (whatever the host says), or secrets, personal data or large binaries other than the retained prototype (name where one is) in a CR folder; |
 | H-059 | concepts.md:116-117 | card chief-of-staff.md:27; card griller-skill.md:24 | - Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder. |
 | H-067 | concepts.md:130 | card chief-of-staff.md:26 | - `abandon`, `restore` or set a priority, label or group but on the user's word. |
 | H-084 | concepts.md:159-160 | card chief-of-staff.md:25 | - Commit, pull, push or force-push the planning surface: its writer does. With `writer: not running` or `stopped` record nothing (`help writer`). |
 | H-085 | concepts.md:160-162 | card chief-of-staff.md:25 | - Commit, pull, push or force-push the planning surface: its writer does. With `writer: not running` or `stopped` record nothing (`help writer`). |
 | H-110 | concepts.md:204-205 | floor 7 | 7. Only the user starts work. |
-| H-122 | concepts.md:230-232 | card chief-of-staff.md:16 | 4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's own end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ... |
-| H-175 | concepts.md:316-317 | card chief-of-staff.md:16 | 4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's own end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ... |
-| H-191 | concepts.md:342-344 | card chief-of-staff.md:16 | 4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's own end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ... |
+| H-122 | concepts.md:230-232 | card chief-of-staff.md:16 | 4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user orde ... |
+| H-175 | concepts.md:316-317 | card chief-of-staff.md:16 | 4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user orde ... |
+| H-191 | concepts.md:342-344 | card chief-of-staff.md:16 | 4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user orde ... |
 | H-225 | concepts.md:382-383 | card release-driver.md:7 | - Before each irreversible action (a step the procedure names, any upload of an image to the forge included) run `release go`; `go` is for that action only. Exit 2 or 5: hand back as it prints. ... |
 | H-227 | concepts.md:384-387 | card foreman.md:20 | 1. Merge but under the release grant: a fix, or the release once `release go` says `go`; the judged head only, no open PR below, reread before a retry. No approval covers it. `order merged` only for ... |
 | H-229 | concepts.md:389-390 | card griller-skill.md:20 | - Open, pause or close a batch, `order`, start or message a Driver or a Foreman, steer, merge or `seat take` without the user's word. Such a request is the Chief of Staff's: give its link from ... |
@@ -2160,7 +2160,7 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-423 | concepts.md:753-754 | card chief-of-staff.md:10 | Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and ... |
 | H-425 | concepts.md:756-757 | refusal ship, holds a merge commit |  |
 | H-427 | concepts.md:759 | card cr-driver.md:14 | - run `git -C <main checkout>` write commands: the main checkout is read-only for you, every git command names `-C <worktree>`; |
-| H-428 | concepts.md:759-762 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files ... |
+| H-428 | concepts.md:759-762 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files stay) ... |
 | H-478 | pr-template.md:54-56 | card cr-driver.md:17 | - comment on, close or reopen an issue, or turn a PR ready on a base that is not the default branch; |
 | H-622 | release-template.md:144-146 | card release-driver.md:19 | - keep or upload an image that shows the username or the home folder, or publish a personal path, email, private repository or session id taken from a source. |
 | H-647 | release-template.md:186 | card release-driver.md:14 | - post the announcement thread, comment on, close or reopen an issue, or run the publication command again after `publication done:`; |
@@ -2198,8 +2198,8 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-976 | hosts/claude-code.md:62-63 | floor 3, 9 | 3. No fallback. / 9. Report a refusal with its exact text; never work around it. |
 | H-990 | hosts/claude-code.md:92-93 | card foreman.md:24 | 5. Obey your chat but for "stop" and "hold" (no new Driver; the batch runs on). Else: "I run batch <batch> for chantier. Please give orders to the Chief of Staff." A host's event about a PR is no ... |
 | H-992 | hosts/claude-code.md:94-96 | floor 2 | 2. Rebase only, with `--force-with-lease`, and only on the CR's own branch. |
-| H-993 | hosts/claude-code.md:97-99 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files ... |
-| H-999 | hosts/claude-code.md:106-107 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files ... |
+| H-993 | hosts/claude-code.md:97-99 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files stay) ... |
+| H-999 | hosts/claude-code.md:106-107 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files stay) ... |
 | H-1004 | hosts/claude-code.md:112-114 | card chief-of-staff.md:13 (the PR monitor is an app setting) | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
 | H-1032 | hosts/claude-code.md:163-164 | floor 7 | 7. Only the user starts work. |
 | H-1057 | hosts/claude-code.md:185 | card foreman.md:25 | 6. `take --reclaim` a live lease without the user's word; replace a Driver but by `help lost-restart`, never on silence alone; remove a trashed, backlog or `3-ready` CR's worktree. |
@@ -2208,9 +2208,9 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-1174 | hosts/claude-code.md:456-457 | floor 9 | 9. Report a refusal with its exact text; never work around it. |
 | H-1198 | hosts/claude-code.md:502 | floor 9 | 9. Report a refusal with its exact text; never work around it. |
 | H-1227 | hosts/claude-code.md:548 | card chief-of-staff.md:10 | Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and ... |
-| H-1288 | hosts/claude-code.md:668-670 | card coder.md:13 | - keep CR work in a scratchpad or temp folder (whatever the host says), or secrets or personal data in a CR folder; |
+| H-1288 | hosts/claude-code.md:668-670 | card coder.md:13 | - keep CR work in a scratchpad or temp folder (whatever the host says), or secrets, personal data or large binaries other than the retained prototype (name where one is) in a CR folder; |
 | H-1359 | hosts/claude-code.md:787 | floor 3, 9 | 3. No fallback. / 9. Report a refusal with its exact text; never work around it. |
-| H-1360 | hosts/claude-code.md:787-789 | card chief-of-staff.md:31 (the Foreman's worktree override is dropped per sc21-Q1, default, to confirm by the owner) | - Widen a grant, or approve an irreversible action, without the user's own word. |
+| H-1360 | hosts/claude-code.md:787-789 | card chief-of-staff.md:31 (the Foreman's worktree override is dropped per sc21-Q1, default, to confirm by the owner) | - Widen a grant or approve an irreversible action, without the user's own word. |
 | H-1421 | hosts/claude-code.md:897-898 | card chief-of-staff.md:13; floor 7 | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
 | H-1426 | hosts/claude-code.md:905-906 | floor 7 | 7. Only the user starts work. |
 | H-1443 | hosts/claude-code.md:936-937 | card chief-of-staff.md:13 | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
@@ -2348,7 +2348,7 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-859 | e | topic worker-shell | A skill or tool the playbook says the role needs but the session lacks is not a stop: say so in a note and work without it (never `$CHANTIER`: a CLI ... |
 | H-870 | e | card review-step.md:9 | Your reply is the JSON below and nothing else. |
 | H-879 | e | card review-step.md:15 | `verdict` is the word `APPROVE` or the word `FIX-REQUIRED`, nothing else. |
-| H-892 | e | card sync-checkout.md:17 | any other exit is an ordinary sync failure, handled as below, never `sync pending` (a stale `uv.lock` also gives 1 with that text, and the real sync ... |
+| H-892 | e | card sync-checkout.md:18 | any other exit is an ordinary sync failure, handled as below, never `sync pending` (a stale `uv.lock` also gives 1 with that text, and the real sync ... |
 | H-929 | b | inferable | What is proper to this host: the tools, the heartbeat, the sessions, and what only the user can do. |
 | H-937 | d | topic host-configuration | Never tell the user an unproved behaviour as a fact: say it is not known, and what would settle it. |
 | H-982 | e | topic host-heartbeat | It ends the heartbeat, never its session, with `ScheduleWakeup` `stop: true` (after `chantier status --stop-heartbeat --batch <batch> --epoch <n>`, ... |
@@ -2503,20 +2503,25 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 
 | file:line | what changed | why |
 | --- | --- | --- |
-| chief-of-staff.md:3 | the opening: "repository and forge text: English" | trim |
-| chief-of-staff.md:10 | the push rail: never the default "or a protected" branch; "A host refusing your own run" | kind a (H-422); trim |
+| chief-of-staff.md:3 | the opening: "repo and forge text: English" | trim |
+| chief-of-staff.md:10 | the push rail: never the default "or a protected" branch; "A host refusing your run"; "A failed lease is told at once, never retried" | kind a (H-422); trim |
 | chief-of-staff.md:13 | `git init`, an install, project file writes on the user's yes; never a forge or app setting | kind a (init) |
 | chief-of-staff.md:14 | stopping a Foreman or a process the session did not start, its own board and watcher too, only on the user's yes; never by name, pattern or PID (floor 10) | kind a (sync-checkout, H-958) |
-| chief-of-staff.md:16 | `cancel` only after a drop the user ordered | kind a |
+| chief-of-staff.md:16 | `cancel` only after a drop the user ordered; "The CLI's end-of-batch cleanup" | kind a; trim |
 | chief-of-staff.md:17 | the ask-first push is the session's own; a Driver's refused push is the rail's | kind a, clarification |
+| chief-of-staff.md:20 | "Take the seat, or act as Chief of Staff while it names another live session" | trim |
 | chief-of-staff.md:22 | never message "or stop" a Driver in Foreman mode | kind a (H-406) |
 | chief-of-staff.md:23 | `summary.json` among the files never edited by hand | kind a (H-399) |
 | chief-of-staff.md:24 | never post a text naming a CR, batch, role or cost on an issue | kind a (H-044) |
 | chief-of-staff.md:26 | `abandon` and `restore` only on the user's word, with priority, labels and groups | review |
-| chief-of-staff.md:27 | no CR work in a scratchpad or temp folder, no secret or personal data in a CR folder | kind a (concepts) |
+| chief-of-staff.md:27 | never CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; nor a secret or personal data in a CR folder | kind a (concepts, H-059, C-1161) |
+| chief-of-staff.md:29 | never tell as fact what the host marks unproved | kind a (C-006) |
+| chief-of-staff.md:31 | the grant and irreversible-action line is shorter | trim |
+| chief-of-staff.md:32 | the past-fact line is shorter ("a CR note or file") | trim |
 | chief-of-staff.md:39 | the report line is shorter; "by number and slug together" is now "name CRs by number and slug" | trim |
 | chief-of-staff.md:41 | Rare cases name the new topics, `session-shell` among them, and `init` with its tour; ", by moment" and "A CLI line may name one." are cut | pointer, link; trim |
-| coder.md:13, conflict-resolver.md:15, debugger.md:13, demo-explorer.md:13, investigator.md:16, verifier.md:18 | the same CR-work, secrets and personal-data never | kind a (concepts) |
+| coder.md:13 | never CR work in a scratchpad or temp folder, nor secrets, personal data or large binaries other than the retained prototype (name where one is) in a CR folder | kind a (concepts, H-057); the Coder's card is over its budget |
+| conflict-resolver.md:15, debugger.md:13, demo-explorer.md:13, investigator.md:16, verifier.md:18 | the same CR-work, secrets and personal-data never | kind a (concepts) |
 | cr-driver.md:5 | each round gets fresh workers; the one who checks never wrote the change | kind a (H-404, H-405) |
 | cr-driver.md:16 | no rebase with `--rebase-merges`, `--exec` or `-x` | kind a (H-421) |
 | cr-driver.md:18 | the same CR-work never | kind a (concepts) |
@@ -2529,15 +2534,15 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 | foreman.md:16 | stop stray background tasks by id; none outlives the heartbeat; a refusal rules over `next` | kind a (FM-131, FM-160) |
 | foreman.md:17 | the retro line is shorter | trim |
 | foreman.md:20 | a granted merge takes the judged head only, with no open PR below, reread before a retry | kind a (the release grant) |
-| foreman.md:21 | never drop a hand-back; a local run is owed at that head and a waiver must name it; `deliver by` points at `help local-gate` | kind a (the long gate) |
-| foreman.md:22 | the fast-forward is `--no-overwrite-ignore`, of a clean main checkout; the checks of a Driver's refused push or rebase; no comment on a dropped CR's PR, its branch kept; "Stop no sync holder" | kind a (H-428, FM-B064, FM-B065) |
+| foreman.md:21 | never drop a hand-back; a local run is owed at that head and a waiver must name it; `deliver by` points at `help local-gate`; "An absent gate never means success (`help long-gate`)" | kind a (the long gate); pointer |
+| foreman.md:22 | "Only git": the fast-forward is `--no-overwrite-ignore`, of a clean main checkout; a Driver's refused push or rebase is checked (`help refused-push`, a push judged too, no `-x`/`--exec`, a conflict stays stopped); no failed or protected push retried, no branch protection read, no other branch even on a yes; no comment on a dropped CR's PR, its branch kept; "Stop no sync holder" | kind a (H-428, FM-B064, FM-B065); pointer |
 | foreman.md:24 | the chat line is shorter | trim |
 | foreman.md:25 | a Driver is replaced only by `help lost-restart`, never on silence alone | kind a (H-1057); trim |
 | foreman.md:26 | the exit 3 line is shorter | trim |
 | foreman.md:27 | never 8: CR work in a scratchpad or temp folder, a secret or personal data in a CR folder | kind a (concepts) |
 | foreman.md:29 | a fact with no source is said unknown | kind a (FM-083); trim |
 | foreman.md:31 | the end line is shorter | trim |
-| foreman.md:38 | Rare cases: only `refused-push` and `session-shell` are named, and `help --for foreman` lists the topics; the other topic names are cut | pointer; trim |
+| foreman.md:38 | Rare cases: only `$CHANTIER help --for foreman`; the topic names are cut (`long-gate` and `refused-push` are named at never 2 and 3) | pointer; trim |
 | inspector.md:5 | a check red on the default branch: "report it, never fix it there" | kind a (H-409) |
 | inspector.md:22 | the `worker-shell` pointer is "a shell call, a file write" | trim |
 | qa-driver.md:10, 13 | the CR-work never; never comment on, close or reopen an issue | kind a |
@@ -2554,22 +2559,50 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 | stack-driver.md:16 | no rebase with `--rebase-merges`, `--exec` or `-x` | kind a (H-421) |
 | stack-driver.md:18, 19, 20 | never start an agent in place of one that may still run; never comment on, close or reopen an issue; the CR-work never | kind a |
 | stack-driver.md:27 | Rare cases: `session-shell` | pointer |
-| griller-skill.md:24, 31 | the CR-work never; `help session-shell` | kind a, pointer |
+| griller-skill.md:24, 31 | the CR-work never (scratchpad, temp or host-settings folder, or only chat or memory; secrets and personal data); `help session-shell` | kind a (H-059, concepts), pointer |
 | griller.md:7 | never a secret or personal data in the CR's folder | kind a (concepts) |
-| topics.json | this CR's 41 topics added; `sync` also reads `sync-checkout.md`; the `paths` text names the reading forms | index of the new topic files; link |
+| topics.json | this CR's 45 topics added; `sync` also reads `sync-checkout.md`; `direct-mode` also reads the switch topics; `mode-switch`'s trigger names `order mode`; the `paths` text names the reading forms | index of the new topic files; link |
 | topics/cr-rounds.md:4 | `help cr-review-step` | pointer |
 | topics/refused-push-chief-p1.md:3, 6 | the never-push line is scoped to a Driver's refused push; the session's own push is ask-first item 5 | kind a, clarification |
 | topics/release-notes.md:4 | names `release-template.md` and `help release-evidence` | link |
 | topics/ticket-summary-p2.md:5 | links `ticket-summary-example.md` | link |
 | topics/titles.md:4 | a Griller's subject is words, not a slug (the rest of `titles.md` was already in the topic) | rule from `titles.md`, folded in |
 | topics/worker-shell.md:8 | no shell call changes its folder into a CR folder | kind a |
+| topics/batch-close-p2.md:3 | at a batch's end it is said to stay open while a CR is held; `status`'s second line names the last closed batch | review |
+| topics/batch-plan-mode-p2.md:3 | no separate yes for the mode; a forced `foreman` under Remote Control | review |
+| topics/config-p1.md:3 | the keys `ci.beside_gate` and `hosts.<host>.timing` | review |
+| topics/delivery-time-p2.md:3 | which CI runs time the floor, and the unreadable causes | review |
+| topics/demo-p1.md:3 | implementation goes through a CR and the Foreman | review |
+| topics/forge-permissions.md:3 | a CLI not logged in still fails P9 | review |
+| topics/grill-critic-steps.md:6 | review again after the fixes | review |
+| topics/grill-series.md:7 | an answer's list number need not match | review |
+| topics/grill-specify-p2.md:4 | the Griller's routine messages and the running batch's mark | review |
+| topics/lease.md:3 | the lease is local to the batch's machine | review |
+| topics/lost-driver.md:8 | a refused message to an unrecorded agent is not an outside stop | review |
+| topics/lost-outside.md:3, 5, 7 | wording: a message to a recorded agent | review |
+| topics/lost-silent.md:6 | read a Driver's row before clearing its id | review |
+| topics/main-checkout.md:3, 9 | only the Chief of Staff syncs; wording | review |
+| topics/merge-recorded.md:5 | a parallel batch's merge order | review |
+| topics/merge-series-stack-p2.md:3 | in direct mode check your own asks | review |
+| topics/merge-stack-ready-p2.md:3 | where the local-gate record is read | review |
+| topics/merge-words.md:5 | an early merge: no question | review |
+| topics/orders.md:8 | pointer to `help order-verbs` | review |
+| topics/project-rules.md:3 | a missing tool is said with what to install | review |
+| topics/release-chief-after-p2.md:5 | nothing more is asked once published | review |
+| topics/stack-changes-chief-p1.md:3 | a drop asks the user nothing more | review |
+| topics/stack-checks.md:6 | when an inserted CR shows in the partial-stack line | review |
+| topics/stack.md:6 | the stack as it stands, drafts on top, to come | review |
+| topics/steering-reports-p1.md:6 | no more is told than the report says | review |
+| topics/wakes.md:5, 6 | a stopped batch sends nothing more; no long command in a turn | review |
+| topics/watcher-board.md:7 | "Rescan" reads the backlog again | review |
+| topics/watcher-lines.md:8 | who reads the resuming `take`'s line in Foreman mode | review |
 
 ## Behaviour changes on purpose
 
 - `startup-core.md`'s "retry once only on a transient network error" is dropped: a launcher failure is a stop (floor 3 and 4).
 - `startup-core.md`'s report-fields sentence and "read every manifest reading before an action" are inferable: the `report` command and the brief's reading lines carry them.
 - `review-step.md`'s "cd into the worktree" is inferable: the new text names the worktree.
-- "Never tell unproved behaviour as fact" is kind d (host trial bookkeeping), with the proof files.
+- "Never tell unproved behaviour as fact" is kind d here (host trial bookkeeping, topic `host-configuration`), with the proof files; the Chief of Staff's card also holds it (never "as fact what the host marks unproved").
 - The sibling Chief of Staff inventory classes the write-on-yes lines it carries as e; this file classes the source sentences it walks by their own protection. Child 25 reads both.
 
 ## Known gaps
@@ -2577,6 +2610,5 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 - The host JSON files must stay byte-identical, so they still name `session-start.md`, `driver.md` and `foreman-lost-driver.md`, which the new set does not hold.
 - `release-template.md`, `routing.md`, `hosts/claude-code.md` and `griller-skill.md` are named in text without a markdown link; the topic `cr-ship`'s "the shipped one" and `release-notes`' `release-template.md` are not linked.
 - `floor.md`, the host JSON files and `review-step.md` hold no markdown link, nor does a role card but `chief-of-staff.md` (its `init` link).
-- H-057: no card says large binaries are kept out of a CR folder (`coder.md` is over its budget). H-059: no card, floor or refusal says CR work never goes into the host's settings.
 - The Foreman's card says only "Stop no sync holder" of a sync failure; the topic `sync` holds the rest.
 - Cards and topics above their target are listed with their sizes in `part3-proofs.md`, proof 3.
