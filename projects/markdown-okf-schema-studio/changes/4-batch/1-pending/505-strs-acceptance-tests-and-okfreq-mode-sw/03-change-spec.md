@@ -590,6 +590,20 @@ This section covers the released behaviour, and only what this CR relies on.
 - **B14. `src/` is out of reach.** A path or scenario that the product does not do as written is
   not fixed here (stop list).
 
+## Carried from CR-504 (ask A-16, acceptance-Q4)
+
+These two items are part of this CR's sort and of its evidence, on CR-504's head:
+
+- **D, dropped blocks:** CR-504 dropped 136 `@tests_req` fragment blocks without adding the
+  scenario or moving the marker. For each one (found by comparing the markers of CR-504's base
+  with those of its head), either move the marker to the scenario its test walks, add that
+  scenario, or record why the test proves none.
+- **E, wrong fragments:** 3 of 16 sampled fragments named the wrong scenario. Re-read every
+  `#S<n>` fragment against the test it marks, fix the wrong ones, and recompute the unmarked
+  and covered counts that CR-504's body reports.
+
+The PR body lists the corrections.
+
 ## What changes, area by area
 
 ### 1. SwRS scenario tests and prunings (Q30, Q30b, B1)

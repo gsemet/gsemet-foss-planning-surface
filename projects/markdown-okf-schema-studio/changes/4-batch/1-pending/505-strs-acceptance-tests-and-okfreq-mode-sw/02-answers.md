@@ -5,5 +5,7 @@
 
 3. acceptance-Q3 (2026-11-25, Chief of Staff, spec-critic round 1): **Every finding of `work/critic-r1.md` is applied as stated.** CORE-076 is updated by this CR (no SwRS-for-tooling exception); the job wiring docs land in commit 1; the Foreman counts rounds (one coder to Inspector cycle) and decides a partial delivery.
 
+4. acceptance-Q4 (2026-11-25, Chief of Staff, ask A-16 of CR-504): **CR-505 also repairs what CR-504 leaves as Known gaps:** (D) the 136 `@tests_req` fragment blocks dropped without adding the scenario or moving the marker, and (E) the wrong fragments (3 of 16 sampled), so every fragment is re-read against its test and the uncovered counts are recomputed.
+
 Grilled enough (2026-11-25): by the Chief of Staff, the design being already grilled in CR-504.
 Destination: running batch batch-09. Critic: yes.
