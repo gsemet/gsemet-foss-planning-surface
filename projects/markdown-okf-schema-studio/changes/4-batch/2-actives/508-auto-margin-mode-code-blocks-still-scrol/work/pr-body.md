@@ -49,11 +49,33 @@ Grade: 1
 
 ## Test plan
 
-- [x] New or changed tests (they fail on the previous code): the 1 px, border and caption unit tests fail before the fix; all 6 real-browser tests fail before it and pass after
-- [x] Requirements: SwRS updated or added, markers in code and tests, `just requirements-update`
+- [x] New or changed tests (they fail on the previous code): the unit tests of the border, the caption and the 1 px overflow, and all 6 real-browser tests
+- [x] Requirements: `SwRS-MDOKFSTUDIO-LAYOUT-023` updated (still proposed), markers in code and tests, `just requirements-update`
+  - Source: `src/page/modules/widthMode.ts`, `src/page/features/scrollCore.ts` (unchanged)
+  - Tests: `test/page/runtimePageControls.test.ts`, `test/page/codeBlockBreakout.test.ts` (new); unchanged: `test/core/preview/previewStyles.test.ts`, `test/page/diagReq.layout.requirements.test.ts`, `test/page/runtimeScroll.test.ts`, `test/page/tableBreakout.test.ts`, `test/page/widthModeScenarios.test.ts`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `npm run test:breakout` 14 passed with Chromium required; `just check` passed (unit 5221 passed, 21 skipped; pytest 205 passed); `just preflight` passed (static stage on Windows)
+- [x] Local gates: `npm run test:breakout` 14 passed with Chromium required; `just check` passed (unit 5221 passed, 21 skipped; pytest 205 passed); `just preflight` passed (static stage on Windows)
 - [ ] Review
 - [ ] CI green
+
+Unit tests of the measure, run before the fix:
+
+```text
+✖ a code block that breaks out is widened by its border too            '60px' !== '62px'
+✖ a captioned code block breaks out through its inner code             null !== ''
+✖ a code block that overflows by 1 px still breaks out, a table ...    null !== ''
+✔ the 4 cases that must not change (fits, capped, in a list, Mermaid)
+tests 7, pass 4, fail 3
+```
+
+After the fix: `tests 7, pass 7, fail 0`.
+
+In the real browser (688 px column, 1100 px pane, Auto), `box width, clientWidth/scrollWidth` of the code:
+
+| Block, line length | Before | After |
+| --- | --- | --- |
+| Numbered Python, 97 | 696 px, 694/696 | 698 px, 696/696 |
+| Plain, 100 | 688 px, 686/689 | 691 px, 689/689 |
+| Captioned, 103 | 688 px, 686/709 | 711 px, 709/709 |
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
