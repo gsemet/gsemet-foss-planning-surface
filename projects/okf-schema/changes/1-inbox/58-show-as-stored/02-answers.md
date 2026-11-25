@@ -68,3 +68,9 @@ command (and the sentence of the posted comment saying so).
     found that a concept verified by `reference_agent/gemini-2.5-pro` is read as unverified, so
     the new command would print a wrong level). "B. CR séparé": a separate fix, stacked before
     this CR in the same batch.
+
+## 2026-11-25: after the spec critic, second pass (3 findings fixed without the user; 1 question, the specification's)
+
+13. show-raw-Q13: **`trust` on a concept file that is not UTF-8.** "A. Message clair
+    (recommandé)": one error line on stderr and exit code 2, no traceback (the option's preview:
+    `Error: Concept file is not valid UTF-8:` followed by the file's path).

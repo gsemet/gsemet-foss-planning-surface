@@ -57,7 +57,7 @@ feature map) and this CR's new row sit on separate lines.
   `_ACTOR_RE` (lines 378-379). So `reference_agent/gemini-2.5-pro` and `Alice` both give
   `unverified`. Its docstring says "Only well-formed actor strings contribute to tier promotion;
   malformed entries are ignored (W10)".
-- `_validate_okf2_verified` (`validator.py:588-631`) raises E9 when `by` is falsy. It raises W10
+- `_validate_okf2_verified` (`validator.py:584-631`) raises E9 when `by` is falsy. It raises W10
   (lines 616-624) when `by` is not a string or does not match `_ACTOR_RE`. The message text is:
   `"File '{path}': verified entry [{i}] has malformed 'by' value '{by}'. Actor strings must
   follow the format '<prefix>:<identifier>' (e.g. 'human:alice', 'bot:ci'). Fix: correct the
@@ -127,7 +127,8 @@ feature map) and this CR's new row sit on separate lines.
     frontmatter mapping) and `Returns:` (one of the three tiers).
 - **W10** in `_validate_okf2_verified` (lines 616-624). The condition is unchanged
   (`not isinstance(by, str) or not _ACTOR_RE.match(by)`, now with the new pattern). Every part
-  of the message is an f-string, with this exact text:
+  of the message that interpolates (`{path}`, `{i}`, `{by}`) is an f-string. The code block below
+  is the exact text:
 
   ```python
   f"File '{path}': verified entry [{i}] has malformed 'by' value '{by}'. "
@@ -274,7 +275,9 @@ Unit tests follow `.github/guidelines/python-unittest.guidelines.md`: function t
    `test_validate_md_strict_accepts_producer_version_actor`. Use a file with `type`, `title`,
    `description`, `generated: {at: "2024-01-01T00:00:00Z", by: reference_agent/gemini-2.5-pro}`
    and `verified: [{by: reference_agent/gemini-2.5-pro, at: "2024-01-02T00:00:00Z"}]`, plus the
-   same minimal concept schema as `test_validate_md_validate_md_exits_0_for_valid_files`.
+   same minimal concept schema as `test_validate_md_validate_md_exits_0_for_valid_files`, passed
+   with `--schemas-dir`. The file writes `verified` as an inline flow list, as above: a
+   block-style `verified:` list also raises W7, so `--strict` would exit 1 even after the fix.
    `validate-md --strict` exits 0 and the output has no `W10`. On 2f09cef it exits 1 with W10:
    the intake's scenario, run through the CLI.
 4. Shipped-file check, in `tests/test_kb_scaffold.py`: add
@@ -288,9 +291,13 @@ Unit tests follow `.github/guidelines/python-unittest.guidelines.md`: function t
      repository (path from the test file's parents) and asserts the same description is
      identical.
 5. Scenario steps, run by the Driver in its worktree and reported:
-   - A scratch file `c.md` with the frontmatter of item 3:
-     `uv run -- okf-schema validate-md --input c.md --strict` exits 0 with no W10.
-   - With `by: alice`, it exits 1 and shows W10 whose message names `verified entry [0]` twice.
+   - A scratch file `c.md` with the frontmatter of item 3, `verified` written as an inline flow
+     list (a block-style list raises W7), and a scratch schemas directory `<dir>` holding the
+     same minimal concept schema as item 3 (`validate-md` requires `--schemas-dir`; without it
+     it exits 2 with "Missing option"):
+     `uv run -- okf-schema validate-md --input c.md --schemas-dir <dir> --strict` exits 0 with
+     no W10.
+   - With `by: alice`, the same command (`--schemas-dir <dir> --strict`) exits 1 and shows W10 whose message names `verified entry [0]` twice.
    - In a scratch bundle holding that concept, `show_bundle(...).trust_tier` is
      `machine-confirmed` for both actors.
 6. Checks: `okfreq update-coverage requirements`, then

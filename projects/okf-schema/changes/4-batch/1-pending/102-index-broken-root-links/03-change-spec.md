@@ -389,7 +389,7 @@ requirements` gets no new W2 from it. No `log.md` fixture needs a change.
     under the same day heading.
   - **Same batch, `trust-actor-forms`** (`1-inbox/trust-actor-forms`, stacked before CR 58) edits
     `src/okf_schema/validator.py` (`_ACTOR_RE` near line 65, `_derive_trust_tier` lines 355-384,
-    the W10 check of `_validate_okf2_verified` lines 588-631; this CR edits `validate_index` near
+    the W10 check of `_validate_okf2_verified` lines 584-631; this CR edits `validate_index` near
     line 863 and `validate_log` near line 966), `docs/source/reference/validation-codes.md` (its
     W10 section, lines 526-549; this CR edits `### W2` and "Validation Scope"),
     `requirements/tiers/log.md` (its `### Trust tier actor forms` entry under the same day
