@@ -127,8 +127,8 @@ Grade: 1
 | qa-driver.md 10, 13; release-driver.md 14, 18, 19; stack-driver.md 18-20; spec-writer.md 11 | never touch an issue, never publish private data, the temp-folder never, one agent at a time |
 | release-driver.md 7 | an image upload is irreversible; published notes use the reviewed text or stay a draft |
 | topics: cr-rounds 4, refused-push-chief-p1 3 and 6, release-notes 4, ticket-summary-p2 5, titles 4, worker-shell 8 | pointer, scoping, links, a folded rule, the folder-change ban |
-| topics, rules put back: batch-close-p2 3, batch-plan-mode-p2 3, config-p1 3, delivery-time-p2 3, demo-p1 3, forge-permissions 3, grill-critic-steps 6, grill-series 7, grill-specify-p2 4, lease 3, lost-driver 8, lost-outside 3, 5 and 7, lost-silent 6, main-checkout 3 and 9, merge-recorded 5, merge-series-stack-p2 3, merge-stack-ready-p2 3, merge-words 5, orders 8, project-rules 3, refused-push-chief-p2 3, release-chief-after-p2 5, stack-changes-chief-p1 3, stack-checks 6, stack 6, steering-reports-p1 6, wakes 5 and 6, watcher-board 7, watcher-lines 8 | a lost or misstated rule or its wording, line by line in the host and shared inventory |
-| topics.json | the new topics indexed; `sync` also reads `sync-checkout.md`; `direct-mode` also reads the mode-switch files; `mode-switch`'s trigger names `order mode` |
+| topics, rules put back: batch-close-p1 3, batch-close-p2 3 and 4, batch-plan-cut-p1 1, 3 and 4, batch-plan-cut-p2 1, 3 and 4, batch-plan-mode-p1 1 and 3, batch-plan-mode-p2 1, 3, 4 and 5, config-p1 1 and 3, config-p2 1, 3 and 4, delivery-time-p2 3 and 6, demo-p1 3, drop 4, forge-permissions-p1 1, 3, 4, 5, 6 and 8, forge-permissions-p2 1, 3 and 4, grill-critic-steps 6 and 7, grill-series 7, grill-specify-p2 4, lease 3, lost-driver 8, lost-outside 3, 5 and 7, lost-silent 6, main-checkout-p1 1 and 3, main-checkout-p2 1, 3, 4, 6, 8 and 9, merge-recorded 5 and 6, merge-series-stack-p1 5, merge-series-stack-p2 3, merge-stack-ready-p2 3, merge-words 5, mode-switch-p1 1, 3, 5, 7 and 8, mode-switch-p2 1, 3, 4, 5 and 6, orders 8, project-rules-p1 1, 3, 5 and 6, project-rules-p2 1, 3 and 4, refused-push-chief-p2 3, release-chief-after-p2 5, stack-changes-chief-p1 3, stack-checks 6, stack 6, steering-reports-p1 6, steering-reports-p2 4, status-notes-more 3 and 4, sync-offer 20, ticket-summary-p1 7, wakes 3, 4, 5, 6 and 7, watcher-board 7, watcher-events 6, watcher-lines 8 | a lost or misstated rule or its wording, line by line in the host and shared inventory |
+| topics.json | the new topics indexed; `sync` also reads `sync-checkout.md`; `direct-mode` also reads the mode-switch files; `mode-switch`'s trigger names `order mode`; the split topics list their parts; `ready-asks` serves the Foreman and the Chief of Staff |
 
 ## Known gaps
 
@@ -315,7 +315,7 @@ No visual change; nothing loads the new files.
     and `git grep -n "Read this short role contract at boot\|# chantier-agent:\|chantier board" HEAD --
     skills/chantier/cards-next` prints no line;
   - links under `cards-next/`: 22, broken 0, none into `references/`;
-  - topic index: 238 topics load, 432 readings resolve, no base name missing;
+  - topic index: 238 topics load, 447 readings resolve, no base name missing;
   - Driver table: the parser reads 4 rows from the old and the new file, equal cell for cell
 - [x] Review: approved at `03f973e` (carried from `bb6a563`)
 - [ ] Verified

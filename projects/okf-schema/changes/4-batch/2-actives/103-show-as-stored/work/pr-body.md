@@ -36,10 +36,10 @@ This pull request builds on the trust tier fix of #69.
 
 ## Checklist
 
-- [ ] I have run `just preflight` and all checks pass
+- [x] I have run `just preflight` and all checks pass
 - [x] I have added tests that prove my fix is effective or my feature works
 - [x] I have updated the documentation accordingly
-- [ ] My changes generate no new warnings
+- [x] My changes generate no new warnings
 
 ## Related Issues
 
@@ -109,9 +109,11 @@ visual change.
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates
+- [x] Local gates at `6572527` (carried from `3776ca4`): `just preflight` passed on Windows
+  (1186 passed, 12 skipped, coverage 95.62%, documentation build with warnings as errors); the
+  three requirement checks passed at `6572527`
 - [ ] Evidence
-- [ ] Review
+- [x] Review: approved at `6572527` (carried from `e161d98`)
 - [ ] Verified
 - [ ] CI green
 

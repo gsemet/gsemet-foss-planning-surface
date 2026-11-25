@@ -69,12 +69,14 @@ okf-schema validate --strict --path kb/bundle
 
 ### Validation
 
-- `just preflight` on Windows at `8537709`: pass. 1187 tests passed, 12 skipped, 96% total
+- `just preflight` on Windows at `125952d`: pass. 1236 tests passed, 12 skipped, 96% total
   coverage; it runs style, lint, requirements lint, changelog, ty, mypy, the examples refresh, the
   requirements report and the Sphinx `-W` docs build.
-- The examples refresh rewrote line endings only: no content change under `examples/`.
-- `okfreq validate requirements --prose --check-links --project-root .` at `8537709`:
-  35 requirements, 0 errors, 0 warnings.
+- The run left no content change in the checkout.
+- CI at `125952d`: `preflight` on Python 3.10 to 3.13 and macOS, 1248 tests passed each; Windows,
+  1236 passed and 12 skipped. The `tag-release` job was skipped.
+- `okfreq validate requirements --prose --check-links --project-root .` at `125952d`:
+  36 requirements, 0 errors, 0 warnings.
 
 ## Type of Change
 
@@ -94,7 +96,7 @@ okf-schema validate --strict --path kb/bundle
 ## Known gaps
 
 - The 12 acceptance tests skip on Windows, `StRS-OKFSCHEMA-CORE-002#S2` among them: they were not
-  run locally.
+  run locally. The CI Linux and macOS jobs report no skipped test.
 - `index` writes concept file names as they are, so a file such as `notes(1).md` now draws W2 on
   the generated `index.md`, which `validate --strict` fails on and `index` cannot fix.
 - `index` repairs only a summary that starts with a link. A copied `See [guide](guide.md).` is
