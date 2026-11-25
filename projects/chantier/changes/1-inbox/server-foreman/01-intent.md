@@ -1,6 +1,6 @@
 # The Foreman runs as a long task in the chantier server
 
-The user wants the Foreman detached from a session and held by the chantier server as a long-running task: a complete orchestrator that can last for days and manage several hundred agents (their words in `intake/request.md`). Not grilled yet: the goal, what runs in the server, how the user talks to it and its permissions are open.
+The user wants the Foreman detached from a session and held by the chantier server as a long-running task: a complete orchestrator that can last for days and manage several hundred agents (their words in `intake/request.md`). Parked on the user's word (2026-11-25): an idea for after the total rework (read as the cards-and-prompts rework, `simplify-cards-and-prompts`); grill stopped, not to be resumed before the user asks. So far (`02-answers.md`): the first goal is to run alone for days; the server hosts the same Foreman (a headless Claude, started again if it dies); the board and the Chief of Staff are equal ways to talk to it; legitimate operations need a way to be validated, still to be chosen. Also open: restart after a reboot, the future of the session Foreman, the hosts covered. `claude --help` (2.1.326) lists `--permission-prompts host`, by which a hosting program answers permission requests; not tried.
 
 ## What the logs show (read-only, 2026-11-25, this machine)
 
