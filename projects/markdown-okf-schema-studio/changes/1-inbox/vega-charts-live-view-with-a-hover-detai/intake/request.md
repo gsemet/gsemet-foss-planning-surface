@@ -1,0 +1,5 @@
+# Vega charts: live view with a hover detail
+
+Vega charts: live view with a hover detail (part C of the first specification of the CR "Vega charts: readable legends, hover detail, no Chart source", split by the Chief of Staff, Q11 to Q13 of its 02-answers.md).
+
+Today a chart is drawn as an img in the preview, which receives no mouse event. Draw it as a live Vega SVG view in the preview (a child div, a cache of detached views), with a themed hover box (a new chartTooltip.ts), the hover on by default for Vega-Lite only (config.mark.tooltip, removable with "tooltip": null), never added to a full Vega spec. The export HTML keeps a static picture (the live SVG's gradient references rewritten to local ids). The reference is the first specification, saved at work/first-spec.md in this folder (sections 2, 3 and 5, DIAG-009, DIAG-123's hover part, DIAG-128), and the critic's findings in the Q12 and Q13 of the first CR. It comes after the CR vega-charts-readable-legends-hover-detai in the stack.
