@@ -1,0 +1,20 @@
+CR-101 scenario steps, real runs of the package built from the worktree.
+<worktree> = the CR worktree; <disposable> = a fresh folder under work/scratch.
+Paths are absolute where the specification writes them relative to <disposable>.
+
+[9-bash-rewritten] Git Bash
+$ uv run --no-sync --project '<worktree>' -- okf-schema show --path '<disposable>/my-knowledge-base/bundle' /api/health-check
+stderr:
+Error: Concept path is outside the bundle: C:/Program Files/Git/api/health-check (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+[10-bash-no-pathconv] Git Bash
+$ MSYS_NO_PATHCONV=1 uv run --no-sync --project '<worktree>' -- okf-schema show --path '<disposable>/my-knowledge-base/bundle' /api/health-check
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+exit code: 0

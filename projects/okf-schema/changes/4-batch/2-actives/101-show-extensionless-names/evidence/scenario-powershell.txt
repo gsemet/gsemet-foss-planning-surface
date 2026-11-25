@@ -1,0 +1,76 @@
+CR-101 scenario steps, real runs of the package built from the worktree.
+<worktree> = the CR worktree; <disposable> = a fresh folder under work/scratch.
+Paths are absolute where the specification writes them relative to <disposable>.
+
+[1-init] PowerShell
+$ uv run --no-sync --project '<worktree>' -- okf-schema init '<disposable>/my-knowledge-base'
+Created OKF bundle '<disposable>/my-knowledge-base'.
+exit code: 0
+
+[2-new] PowerShell
+$ uv run --no-sync --project '<worktree>' -- okf-schema new --path '<disposable>/my-knowledge-base/bundle' --name api/health-check
+Created concept '<disposable>\my-knowledge-base\bundle\api\health-check.md'.
+exit code: 0
+
+[3-show-name] PowerShell
+$ uv run --no-sync --project '<worktree>' -- okf-schema show --path '<disposable>/my-knowledge-base/bundle' api/health-check
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+exit code: 0
+
+[4-show-slash] PowerShell
+$ uv run --no-sync --project '<worktree>' -- okf-schema show --path '<disposable>/my-knowledge-base/bundle' /api/health-check
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+exit code: 0
+
+[5-show-etc-passwd] PowerShell
+$ uv run --no-sync --project '<worktree>' -- okf-schema show --path '<disposable>/my-knowledge-base/bundle' /etc/passwd
+stderr:
+Error: Concept not found: <disposable>\my-knowledge-base\bundle\etc\passwd
+exit code: 2
+
+[6-show-directory] PowerShell
+$ uv run --no-sync --project '<worktree>' -- okf-schema show --path '<disposable>/my-knowledge-base/bundle' api
+stderr:
+Error: Concept not found: <disposable>\my-knowledge-base\bundle\api
+exit code: 2
+
+(wrote <disposable>/secret.md, which holds the text SECRET-MARKER)
+
+[7-show-parent] PowerShell
+$ uv run --no-sync --project '<worktree>' -- okf-schema show --path '<disposable>/my-knowledge-base/bundle' ../../secret
+stderr:
+Error: Concept path is outside the bundle: ../../secret (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+[8-show-backslash] PowerShell
+$ uv run --no-sync --project '<worktree>' -- okf-schema show --path '<disposable>/my-knowledge-base/bundle' \api\health-check
+stderr:
+Error: Concept path is outside the bundle: \api\health-check (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+(extra step: `new` writes an empty body, so a body line was appended to health-check.md: The service answers.)
+
+[11-show-body] PowerShell
+$ uv run --no-sync --project '<worktree>' -- okf-schema show --path '<disposable>/my-knowledge-base/bundle' api/health-check
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+
+The service answers.
+exit code: 0

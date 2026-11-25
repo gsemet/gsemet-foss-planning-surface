@@ -1,0 +1,10 @@
+Directory junction probe on this Windows host (symlinks are not permitted here).
+alias -> real; real/bundle/away -> elsewhere (outside); loop-a <-> loop-b.
+
+pass: 010#S2/S3 --path alias, name spelled through alias: shown: Concept A, files read: 1
+pass: 010#S3 --path real, name spelled through alias: shown: Concept A, files read: 1
+pass: 010#S3 --path alias, name spelled through real: shown: Concept A, files read: 1
+pass: 010#S2 file through a linked directory: outside, files read: 0
+pass: 010#S2 same, without .md: outside, files read: 0
+pass: 010#S2 the linked directory itself: outside, files read: 0
+pass: 005#S2 link loop: not found, files read: 0

@@ -1,0 +1,21 @@
+Checks on the scenario runs (scenario-powershell.txt, scenario-git-bash.txt)
+
+pass: 1 init exit 0
+pass: 2 new exit 0
+pass: 3 exit 0
+pass: 3 prints the frontmatter (the body of a new concept is empty)
+pass: 11 exit 0, frontmatter and body printed
+pass: 4 exit 0
+pass: 4 same output as 3
+pass: 5 exit 2
+pass: 5 not found, path inside the bundle
+pass: 6 exit 2
+pass: 6 not found, no traceback
+pass: 7 exit 2
+pass: 7 outside, secret not printed
+pass: 8 exit 2
+pass: 8 outside
+pass: 9 exit 2
+pass: 9 outside, rewritten path
+pass: 10 exit 0
+pass: 10 same output as 3
