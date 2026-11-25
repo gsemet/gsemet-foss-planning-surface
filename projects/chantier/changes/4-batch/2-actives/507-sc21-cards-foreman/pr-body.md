@@ -153,7 +153,8 @@ Grade: 1
 - The byte-identical host JSON still names `session-start.md`, `driver.md` and
   `foreman-lost-driver.md`; `topics/reload.md` still says to read the card again after a compaction.
 - `release-template.md`, `routing.md`, `hosts/claude-code.md` and `griller-skill.md` are named without
-  a link; `init.md` links `../assets/tour.html`, which resolves only after the swap.
+  a link; `init.md`'s link to `../assets/tour.html`, outside `cards-next/`, resolves today and after the
+  swap.
 - The Foreman's card says only "Stop no sync holder"; the `sync` topic holds the rest. A worktree
   override of the Foreman's old card is dropped, and the image-note rule depends on the hand-back's
   gaps being copied: both for the later review.
