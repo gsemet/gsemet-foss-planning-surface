@@ -4,9 +4,9 @@ A short feature clip of the Width button's Auto mode on a very wide table. A pag
 
 ## Deliverables
 
-The clip (10.6 s, 1280x720, 15 fps, a loop): [MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEADSHA/docs/demo-video/clips/wide-table-auto-width/wide-table-auto-width.mp4) and [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEADSHA/docs/demo-video/clips/wide-table-auto-width/wide-table-auto-width.webm).
+The clip (10.6 s, 1280x720, 15 fps, a loop): [MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/cb1ccf693f2ad61203981586bd4e4f198ca3c6b0/docs/demo-video/clips/wide-table-auto-width/wide-table-auto-width.mp4) and [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/cb1ccf693f2ad61203981586bd4e4f198ca3c6b0/docs/demo-video/clips/wide-table-auto-width/wide-table-auto-width.webm).
 
-![A page in Margin width shows a twelve-month table cut at the text column; one click on the Width button sets Auto and the table breaks out of the column, centred, with every month and the total, while the paragraph keeps its narrow column](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEADSHA/docs/demo-video/clips/wide-table-auto-width/wide-table-auto-width.gif)
+![A page in Margin width shows a twelve-month table cut at the text column; one click on the Width button sets Auto and the table breaks out of the column, centred, with every month and the total, while the paragraph keeps its narrow column](https://github.com/gsemet/markdown-okf-schema-studio/raw/cb1ccf693f2ad61203981586bd4e4f198ca3c6b0/docs/demo-video/clips/wide-table-auto-width/wide-table-auto-width.gif)
 
 Live storyboard for review: `docs/demo-video/clips/wide-table-auto-width/clip.md`.
 
@@ -27,9 +27,12 @@ Grade: 1. Documentation assets, test cases and one docs image; no change to `src
 
 ## Known gaps
 
-- Deviation from the feature clip process: the storyboard review moved from before the take into this pull request; the take was filmed from the drafted storyboard. A row marked *(on screen)* the maintainer changes is a render (`just clip wide-table-auto-width render`, then `check`); a row marked *(filmed)* is a retake, a follow-up.
 - Motion, rhythm and the loop as watched are not checked by the author. At 4.2 raw frames per second the jump at the click reads as a cut.
 - In the zoom frames the logo overlaps the toolbar's top row and the toolbar's last row is cut by the zoom edge; this is the kit's layout, not changed here.
+
+## Deviation from the feature clip process
+
+The storyboard review moved from before the take into this pull request; the take was filmed from the drafted storyboard, which is `docs/demo-video/clips/wide-table-auto-width/clip.md` (review it there). A row marked *(on screen)* the maintainer changes is a render (`just clip wide-table-auto-width render`, then `check`); a row marked *(filmed)* is a retake, a follow-up.
 
 <details>
 <summary>Details</summary>
@@ -48,11 +51,13 @@ No behaviour change; the user docs page on wide tables shows the clip.
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `SHA7`: `just clip-kit-test`, `just check`, `just preflight` (Windows static stage), `just clip wide-table-auto-width all`
-- [ ] Evidence: take at `SHA7` (`check.json` passed)
-- [ ] Review: approved at `SHA7`
-- [ ] Verified at `SHA7`
-- [ ] CI green at `SHA7`
+- [ ] Requirements: No behaviour change
+- [ ] Changelog: No user-facing change
+- [ ] Local gates at `cb1ccf6`: `just clip-kit-test`, `just check`, `just preflight` (Windows static stage), `just clip wide-table-auto-width all`
+- [ ] Evidence: take at `cb1ccf6` (`check.json` passed)
+- [ ] Review: approved at `cb1ccf6`
+- [ ] Verified at `cb1ccf6`
+- [ ] CI green at `cb1ccf6`
 
 ## Internal references
 
