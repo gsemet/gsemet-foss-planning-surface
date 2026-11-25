@@ -11,3 +11,11 @@ getting-started-Q6 (2026-11-21, Fable advisor): **Preflight's P11 follows the sa
 Destination (2026-11-21, Fable advisor): waits; specified and filed in `2-backlog/P3` for a batch after batch-30. The page quotes behaviour batch-30 has not merged (CR-436's plugin-mode rule), part 2 changes how the writer picks the branch while that writer publishes batch-30's surface from live code, and the user marked it "later".
 
 Spec final (2026-11-21, the Chief of Staff): v2, getting-started-Q1..Q6 applied (Fable advisor); destination 2-backlog/P3, for a batch after batch-30.
+
+# Decision (2026-11-25, the owner, in chat)
+
+"tu vas te concentrer sur livrer les CR 507 a 514 sur le rework. tu vas annuler les specs de tous les autres mais eviement pas perdre les reponses que j avais donnee en interview. Avec le rework en cours il faudra refaire la specification de tout, et on fera ca dans un batch 32."
+
+The specification is cancelled: it is kept for reference in `work/spec-before-rework.md`, and is to be written again after the rework, from these answers, for batch-32.
+
+Destination: none for now; to specify again for batch-32. Replaces the earlier destination.

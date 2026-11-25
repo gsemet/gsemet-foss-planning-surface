@@ -1,14 +1,13 @@
 {
   "schema": 1,
   "title": "Documentation rewritten as a Sphinx site on Read the Docs",
-  "summary": "Specified, after 370/374/376: docs/ becomes a Furo Sphinx site in Diataxis sections showing every image; README keeps images and a short paragraph plus link per section; release-note doc links pinned to /en/vX.Y.Z/; style guide split out; one open question.",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Docs as a Furo Sphinx site in Diataxis sections on Read the Docs; answers and draft PR 346 kept; to specify again after the rework.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "5002da8b6cf81bce5dd8e6d536638130ccd1e39f5e0d958c3daea696a21086ab",
-    "03-change-spec.md": "ebb19e14a77f63d5b560689e4b7c512d3c1cf74ed62cef213ebf73404d1a7e08",
+    "02-answers.md": "c0b41972c670229629816e77bd98d17208dcc221d148b6f275b6426d6e754313",
     "intake/request.md": "314df3d5d585282f30f1fc2e03106f2d551275dc75828877461305ba38613341"
   },
-  "summarized": "2026-11-18T18:52:27Z"
+  "summarized": "2026-11-25T22:01:06Z"
 }

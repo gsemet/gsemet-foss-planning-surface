@@ -1,0 +1,38 @@
+side: before; sources: 2f09cef3e786d1696e42b5cb305d4a55111e7725; test files: 41fcd6dbebaddff719c2a3f54f610298034d0ad6
+$ python -B -m pytest -o pythonpath=src tests/test_api.py tests/test_cli_remaining.py tests/test_edge_cases.py -k "show_bundle or show_show or parent_references" --no-cov -p no:cacheprovider -q --tb=no -rf   (in <base>)
+
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.6.0
+rootdir: <base>
+configfile: pyproject.toml
+plugins: cov-7.1.0, mock-3.15.1, xdist-3.8.0
+collected 226 items / 189 deselected / 37 selected
+
+tests\test_api.py ........F.FFFFFFFFFFFF.FFFFF.                          [ 78%]
+tests\test_cli_remaining.py ...FFFF                                      [ 97%]
+tests\test_edge_cases.py .                                               [100%]
+
+=========================== short test summary info ===========================
+FAILED tests/test_api.py::test_show_bundle_resolves_a_name_without_extension
+FAILED tests/test_api.py::test_show_bundle_reads_the_markdown_file_beside_a_directory
+FAILED tests/test_api.py::test_show_bundle_directory_without_concept_is_not_found
+FAILED tests/test_api.py::test_show_bundle_root_is_not_found[dot] - Permissio...
+FAILED tests/test_api.py::test_show_bundle_root_is_not_found[slash] - Asserti...
+FAILED tests/test_api.py::test_show_bundle_root_with_a_file_beside_it_is_outside
+FAILED tests/test_api.py::test_show_bundle_refuses_a_path_leaving_the_bundle[with_extension]
+FAILED tests/test_api.py::test_show_bundle_refuses_a_path_leaving_the_bundle[without_extension]
+FAILED tests/test_api.py::test_show_bundle_refuses_a_path_leaving_the_bundle[nothing_there]
+FAILED tests/test_api.py::test_show_bundle_absolute_disk_path_is_accepted_inside_only
+FAILED tests/test_api.py::test_show_bundle_accepts_a_disk_path_spelled_through_a_symlinked_folder
+FAILED tests/test_api.py::test_show_bundle_reads_a_leading_slash_name_from_the_bundle_root
+FAILED tests/test_api.py::test_show_bundle_keeps_the_host_meaning_of_a_leading_backslash
+FAILED tests/test_api.py::test_show_bundle_refuses_a_symlink_leaving_the_bundle[linked_file]
+FAILED tests/test_api.py::test_show_bundle_refuses_a_symlink_leaving_the_bundle[linked_file_without_extension]
+FAILED tests/test_api.py::test_show_bundle_refuses_a_symlink_leaving_the_bundle[linked_directory]
+FAILED tests/test_api.py::test_show_bundle_refuses_a_symlink_leaving_the_bundle[linked_directory_itself]
+FAILED tests/test_api.py::test_show_bundle_follows_a_symlink_staying_inside_the_bundle
+FAILED tests/test_cli_remaining.py::test_show_show_accepts_a_name_without_extension
+FAILED tests/test_cli_remaining.py::test_show_show_exits_2_on_directory_without_traceback
+FAILED tests/test_cli_remaining.py::test_show_show_exits_2_on_path_outside_the_bundle
+FAILED tests/test_cli_remaining.py::test_show_show_reads_names_from_the_bundle_root
+================ 22 failed, 15 passed, 189 deselected in 0.89s ================

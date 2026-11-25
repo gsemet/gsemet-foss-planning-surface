@@ -54,3 +54,5 @@ Destination: none for now, left aside by the owner. No `order add` without a new
 The specification is to be written again after the rework, from these answers, for batch-32.
 
 Destination: none for now; to specify again for batch-32.
+
+The cancelled specification is kept for reference in `work/spec-before-rework.md`.

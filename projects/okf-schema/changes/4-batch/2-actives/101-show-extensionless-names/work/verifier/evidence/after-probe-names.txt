@@ -1,0 +1,120 @@
+side: after; sources: 41fcd6dbebaddff719c2a3f54f610298034d0ad6
+unusual names given to show_bundle and to the show command; <probe> holds bundle/ and outside/
+
+python 3.12.10
+api file: ('batch-01-CR-101', 'src', 'okf_schema', 'api.py')
+''
+  api: FileNotFoundError: Concept not found: <probe>\bundle
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'.'
+  api: FileNotFoundError: Concept not found: <probe>\bundle
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'/'
+  api: FileNotFoundError: Concept not found: <probe>\bundle
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'//'
+  api: FileNotFoundError: Concept not found: <probe>\bundle
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'sub'
+  api: FileNotFoundError: Concept not found: <probe>\bundle\sub
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'sub/..'
+  api: FileNotFoundError: Concept not found: <probe>\bundle\sub\..
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'..'
+  api: FileNotFoundError: Concept path is outside the bundle: .. (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'../..'
+  api: FileNotFoundError: Concept path is outside the bundle: ../.. (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'concept-a/'
+  api: shown title='A'
+  cli: exit=0 exception=none files_read=2 outside_read=0
+'/concept-a'
+  api: shown title='A'
+  cli: exit=0 exception=none files_read=2 outside_read=0
+'//concept-a'
+  api: shown title='A'
+  cli: exit=0 exception=none files_read=2 outside_read=0
+'CONCEPT-A'
+  api: shown title='A'
+  cli: exit=0 exception=none files_read=2 outside_read=0
+'sub/../../outside/secret'
+  api: FileNotFoundError: Concept path is outside the bundle: sub/../../outside/secret (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'/../outside/secret'
+  api: FileNotFoundError: Concept path is outside the bundle: /../outside/secret (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'away/secret'
+  api: FileNotFoundError: Concept path is outside the bundle: away/secret (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'away/../concept-a'
+  api: shown title='A'
+  cli: exit=0 exception=none files_read=2 outside_read=0
+'away/missing'
+  api: FileNotFoundError: Concept path is outside the bundle: away/missing (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'rel-leak'
+  api: FileNotFoundError: Concept path is outside the bundle: rel-leak (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'chain'
+  api: FileNotFoundError: Concept path is outside the bundle: chain (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'dangling.md'
+  api: FileNotFoundError: Concept path is outside the bundle: dangling.md (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'dangling'
+  api: FileNotFoundError: Concept not found: <probe>\bundle\dangling
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'loop'
+  api: FileNotFoundError: Concept not found: <probe>\bundle\loop
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'loop/x'
+  api: FileNotFoundError: Concept not found: <probe>\bundle\loop\x
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'junction/secret.md'
+  api: FileNotFoundError: Concept path is outside the bundle: junction/secret.md (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'junction'
+  api: FileNotFoundError: Concept path is outside the bundle: junction (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'C:\\Use' x 166 chars
+  api: FileNotFoundError: Concept path is outside the bundle: <probe>\outside\secret.md (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'C:/Use' x 166 chars
+  api: FileNotFoundError: Concept path is outside the bundle: <probe>/outside/secret.md (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'\\\\localhost\\nosuchshare\\x'
+  api: FileNotFoundError: Concept path is outside the bundle: \\localhost\nosuchshare\x (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'//localhost/nosuchshare/x'
+  api: FileNotFoundError: Concept not found: <probe>\bundle\localhost\nosuchshare\x
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'C:concept-a'
+  api: shown title='A'
+  cli: exit=0 exception=none files_read=2 outside_read=0
+'Q:\\x'
+  api: FileNotFoundError: Concept path is outside the bundle: Q:\x (bundle: <probe>\bundle)
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'NUL'
+  api: FileNotFoundError: Concept not found: <probe>\bundle\NUL
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'CON'
+  api: FileNotFoundError: Concept not found: <probe>\bundle\CON
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'a*b'
+  api: FileNotFoundError: Concept not found: <probe>\bundle\a*b
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'a<b>'
+  api: FileNotFoundError: Concept not found: <probe>\bundle\a<b>
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'aaaaaa' x 300 chars
+  api: FileNotFoundError: Concept not found: <probe>\bundle\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ... aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+'a/a/a/' x 6000 chars
+  api: FileNotFoundError: Concept not found: <probe>\bundle\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a ... \a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a\a
+  cli: exit=2 exception=SystemExit files_read=0 outside_read=0
+
+-- link loop with pathlib
+Path.resolve() raised RuntimeError Symlink loop from '<scratch>\\probe2\\bundle\\loop'
+os.path.realpath(): <probe>\bundle\loop

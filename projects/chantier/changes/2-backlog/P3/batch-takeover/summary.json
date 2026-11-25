@@ -1,14 +1,13 @@
 {
   "schema": 1,
   "title": "Take over a batch opened on another machine",
-  "summary": "Specified: a record published at start, restart and pause (brief, notes, events, a publish counter), pause --hold, a takeover command keeping each CR's PR branch, a stale copy replaced, each publisher's own carried cost, batch-20 closed as superseded; three open questions.",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Take over a batch opened on another machine from a record published at start and pause; answers kept; to specify again after the rework.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "02-answers.md": "255a73ed04711d9e2401380fa2b4ae8dd96059bb98391bd79711fe6d099a29a0",
-    "03-change-spec.md": "7600c72f8ffb970d3a477e8a0ef14592d1b778c48e07f004ae132bb856b39593",
+    "02-answers.md": "c3f7d3f3eb4300cd15ae6e448db0611c792fa376f71f12cdae899ac0c504cc5d",
     "intake/request.md": "0bd630765f7dd1e2031344f83378f13207bdf680e84038b5190646825842789e"
   },
-  "summarized": "2026-11-16T19:54:23Z"
+  "summarized": "2026-11-25T22:01:09Z"
 }

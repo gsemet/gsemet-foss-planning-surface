@@ -1,15 +1,14 @@
 {
   "schema": 1,
   "title": "Shortcut commands to start, pause, close and add to a batch",
-  "summary": "Commands batch-start (also resumes), batch-pause, batch-close and batch-add; autonomy split to its own CR. All questions answered; spec being rewritten, then a second critic pass; for batch-31, after CR-514.",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Commands batch-start (also resumes), batch-pause, batch-close, batch-add; autonomy split off. All questions answered; to specify again after the rework from the answers.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "d96fcf9e1e48a3036381fe125a263161173971e1d555b2ec9889e3c11e3a4f4f",
-    "02-answers.md": "c27ec0ed942fa41cdedfab7b3b70abb34d23af88bf1e498690590cc9f471273e",
-    "03-change-spec.md": "c2bda69fc295f06810210b4d2cb8c2fdb32067078462dacd1c3ad33b8ff3e884",
+    "02-answers.md": "4ad58ed8ddb02836df10f74473c4b5812b91cde573d5f798d44484c744a13bb1",
     "intake/request.md": "8fcf97189bac6a545b45f5911b6583a05ce6db5ada800f41e8eff1b9851d9b2c"
   },
-  "summarized": "2026-11-25T21:53:59Z"
+  "summarized": "2026-11-25T22:01:07Z"
 }

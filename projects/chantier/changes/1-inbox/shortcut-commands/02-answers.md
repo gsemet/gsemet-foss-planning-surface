@@ -97,3 +97,5 @@ Waits between CRs that change the same lines, with `batch-start`: A, proposed af
 This CR does not join batch-31. Its specification is to be written again after the rework, from these answers, for batch-32. The rewrite under way for Answers 11 to 19 was stopped.
 
 Destination: none for now; to specify again for batch-32. Replaces the earlier destination.
+
+The cancelled specification is kept for reference in `work/spec-before-rework.md`; it holds none of Answers 11 to 19.

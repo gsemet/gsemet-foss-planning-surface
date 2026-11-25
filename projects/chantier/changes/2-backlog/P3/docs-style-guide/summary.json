@@ -1,15 +1,14 @@
 {
   "schema": 1,
   "title": "Docs style guide and anti-slop review of every page",
-  "summary": "Specified: docs/STYLE.md with rule ids and good and bad examples; every site page reviewed and fixed, one table; an AGENTS.md rule has the Inspector check changed docs pages; the guide named as a backticked path, kept out of chantier rules by a test; no open questions.",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Docs style guide and a page-by-page anti-slop review, with an AGENTS.md rule for the Inspector; draft PR 347 kept; to specify again after the rework.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "1f8ac5a2a5ebf38e62c9341282cd2da682cf60c1449eaa06ba20905234c16bbc",
-    "02-answers.md": "e07d4b3ebac0162332870e4e4413244960bb7c6f01f54e5f4f537cd72a1c8950",
-    "03-change-spec.md": "5473ffb7b9a09ca1dda4a4a38ced74af6f967ecda8d208089faadc104cf0a714",
-    "intake/request.md": "400895eea9a3edfde090730575d208054be63b193e9d20ebf02c5d7300a8115d"
+    "02-answers.md": "dea2639d582ec2ba71fe8134facaac44455646dc01051edf6d4310be184ac026",
+    "intake/request.md": "1fddf16b40865b7048847cf108d0b4cbd83845f28d2265b6ca14d727fc6b070d"
   },
-  "summarized": "2026-11-18T18:51:39Z"
+  "summarized": "2026-11-25T22:01:08Z"
 }

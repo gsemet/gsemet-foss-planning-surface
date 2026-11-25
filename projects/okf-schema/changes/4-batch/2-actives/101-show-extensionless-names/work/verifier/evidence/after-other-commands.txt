@@ -1,0 +1,48 @@
+side: after; sources: 41fcd6dbebaddff719c2a3f54f610298034d0ad6
+bundle/leak.md is a symbolic link to a file outside the bundle titled OUTSIDE-MARKER
+
+$ okf-schema init kb
+Created OKF bundle 'kb'.
+exit code: 0
+
+$ okf-schema new --path kb/bundle --name api/health-check
+Created concept 'kb\bundle\api\health-check.md'.
+exit code: 0
+
+$ okf-schema validate --path kb/bundle
+
+<others>\kb\bundle\api
+
+<others>\kb\bundle\api\health-check.md
+
+<others>\kb\bundle\leak.md
+
+Bundle is conformant (6 warning(s)).
+  WARNING [W4] No 'index.md' in directory 'api'
+  WARNING [W6] No schema found for type 'concept' in '<others>\kb\bundle\api\health-check.md'
+  WARNING [W1] Missing recommended field 'description' in '<others>\kb\bundle\api\health-check.md'
+  WARNING [W3] No provenance timestamp in '<others>\kb\bundle\api\health-check.md'. Add 'generated.at: <ISO-8601-datetime>' to the frontmatter.
+  WARNING [W6] No schema found for type 'Concept' in '<others>\kb\bundle\leak.md'
+  WARNING [W3] No provenance timestamp in '<others>\kb\bundle\leak.md'. Add 'generated.at: <ISO-8601-datetime>' to the frontmatter.
+exit code: 0
+
+$ okf-schema list --path kb/bundle
+api/health-check.md  concept  health-check
+leak.md  Concept  OUTSIDE-MARKER
+exit code: 0
+
+$ okf-schema backlinks --path kb/bundle api/health-check
+api/health-check.md ← leak.md
+exit code: 0
+
+$ okf-schema lint --path kb/bundle --check
+Would lint: <others>\kb\bundle\api\health-check.md
+Would lint: <others>\kb\bundle\index.md
+Would lint: <others>\kb\bundle\leak.md
+exit code: 1
+
+$ okf-schema index --path kb/bundle
+1 updated, 1 created, 0 unchanged, 0 skipped
+exit code: 0
+
+kb/bundle/index.md: - [OUTSIDE-MARKER](leak.md) — outside  [Concept]

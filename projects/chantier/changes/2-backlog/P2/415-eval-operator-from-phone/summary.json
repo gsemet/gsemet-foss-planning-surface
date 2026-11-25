@@ -1,13 +1,13 @@
 {
   "schema": 1,
   "title": "Start an eval's operator, and its Foreman campaigns, from the phone",
-  "summary": "Specified, critic's 9 findings in. Claude Code specifics only in a new hosts card section; evals docs host-neutral. Bootstrap start, canary check, prompt line by message; three isolation trials, a real phone trial with probe before the PR leaves draft. Owes just check, scenario.",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Start an eval's operator and its Foreman campaigns from the phone; to specify again after the rework.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
-    "03-change-spec.md": "1f6b4cc108b421fd60d852738657bb68344b051143d81e83175e57dd459379fa",
+    "02-answers.md": "fa9a5b207d3e23322595bd6ba9b457343d63e0b5dd1b4f02901b2ed1d7dfccab",
     "intake/request.md": "849194ff2887a7ac2b94a1e8f1186a14678f06a835d919f3cdad15b35bddc012"
   },
-  "summarized": "2026-11-20T22:10:30Z"
+  "summarized": "2026-11-25T22:01:06Z"
 }

@@ -10,3 +10,11 @@ test-ceiling-clean-check (2026-11-21, the Chief of Staff): **The clean check is 
 test-ceiling-study-runs (2026-11-21, the Chief of Staff): **Accepted: all five idle runs carry `--durations=30` and a junit file, the figures come from the median run; runs done before a 30-minute stop stay in the report, marked not counted.**
 
 Spec final (2026-11-21, the Chief of Staff): v2 with the study decisions; destination 2-backlog/P2, not batch-30: the Chief of Staff starts the study right after batch-30's close and main's fast-forward, then asks the user test-ceiling-Q5.
+
+# Decision (2026-11-25, the owner, in chat)
+
+"tu vas te concentrer sur livrer les CR 507 a 514 sur le rework. tu vas annuler les specs de tous les autres mais eviement pas perdre les reponses que j avais donnee en interview. Avec le rework en cours il faudra refaire la specification de tout, et on fera ca dans un batch 32."
+
+The specification is cancelled: it is kept for reference in `work/spec-before-rework.md`, and is to be written again after the rework, from these answers, for batch-32.
+
+Destination: none for now; to specify again for batch-32. Replaces the earlier destination.

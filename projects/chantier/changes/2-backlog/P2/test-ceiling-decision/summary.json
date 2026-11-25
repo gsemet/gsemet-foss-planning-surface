@@ -1,15 +1,14 @@
 {
   "schema": 1,
   "title": "Measure just test at rest, for the user's ceiling decision",
-  "summary": "Spec v2: a Chief of Staff study after batch-30 closes, no PR: five idle runs of just test in the main checkout at main's head (tracked files clean, load at most 10 % before each, 30 min wait), slowest tests, real-git share, suite without them; report in experiments/; then the ceiling choice (Q5).",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Measure just test at rest, then the owner's ceiling decision; answers Q1-Q4 kept; to specify again after the rework.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "aece99a6ed3d85730f88ec719aadf0ef24636d2f1a69036fedac2526bffa5415",
-    "02-answers.md": "a783e237851be68d5e4623efa73e2a69cc1ef2dc6cf3df414e1a3b36970c5476",
-    "03-change-spec.md": "6d4ef8bc3d87f9088dc0defdbbcdc10947d120862ee780f0617efcf938f3f493",
+    "02-answers.md": "7cdf0611943c8487120fb30fe4dea54284a1ba7bb1722080aef68158c212b61b",
     "intake/request.md": "abea5c9d5d3da5a4e5866d141ca5939caa517e88e655fee6ffca2e135ba1f0e3"
   },
-  "summarized": "2026-11-21T22:33:50Z"
+  "summarized": "2026-11-25T22:01:07Z"
 }

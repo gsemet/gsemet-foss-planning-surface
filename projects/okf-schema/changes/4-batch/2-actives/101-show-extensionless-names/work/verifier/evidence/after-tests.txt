@@ -1,0 +1,49 @@
+side: after; sources and test files: 41fcd6dbebaddff719c2a3f54f610298034d0ad6
+$ uv run --no-sync -- pytest tests/test_api.py tests/test_cli_remaining.py tests/test_edge_cases.py -k "show_bundle or show_show or parent_references" --no-cov -p no:cacheprovider -rs -v   (in <worktree>)
+
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.6.0 -- <worktree>\.venv\Scripts\python.exe
+rootdir: <worktree>
+configfile: pyproject.toml
+plugins: cov-7.1.0, mock-3.15.1, xdist-3.8.0
+collecting ... collected 226 items / 189 deselected / 37 selected
+
+tests/test_api.py::test_show_bundle_returns_concept_detail PASSED        [  2%]
+tests/test_api.py::test_show_bundle_invalid_concept_path_raises PASSED   [  5%]
+tests/test_api.py::test_show_bundle_nonexistent_bundle_raises PASSED     [  8%]
+tests/test_api.py::test_show_bundle_not_a_directory_raises PASSED        [ 10%]
+tests/test_api.py::test_show_bundle_concept_without_frontmatter PASSED   [ 13%]
+tests/test_api.py::test_show_bundle_trust_tier_unverified_for_new_concept PASSED [ 16%]
+tests/test_api.py::test_show_bundle_trust_tier_human_reviewed PASSED     [ 18%]
+tests/test_api.py::test_show_bundle_stale_concept_detected PASSED        [ 21%]
+tests/test_api.py::test_show_bundle_resolves_a_name_without_extension PASSED [ 24%]
+tests/test_api.py::test_show_bundle_prefers_the_exact_file_over_the_markdown_one PASSED [ 27%]
+tests/test_api.py::test_show_bundle_reads_the_markdown_file_beside_a_directory PASSED [ 29%]
+tests/test_api.py::test_show_bundle_directory_without_concept_is_not_found PASSED [ 32%]
+tests/test_api.py::test_show_bundle_root_is_not_found[dot] PASSED        [ 35%]
+tests/test_api.py::test_show_bundle_root_is_not_found[slash] PASSED      [ 37%]
+tests/test_api.py::test_show_bundle_root_with_a_file_beside_it_is_outside PASSED [ 40%]
+tests/test_api.py::test_show_bundle_refuses_a_path_leaving_the_bundle[with_extension] PASSED [ 43%]
+tests/test_api.py::test_show_bundle_refuses_a_path_leaving_the_bundle[without_extension] PASSED [ 45%]
+tests/test_api.py::test_show_bundle_refuses_a_path_leaving_the_bundle[nothing_there] PASSED [ 48%]
+tests/test_api.py::test_show_bundle_absolute_disk_path_is_accepted_inside_only PASSED [ 51%]
+tests/test_api.py::test_show_bundle_accepts_a_disk_path_spelled_through_a_symlinked_folder PASSED [ 54%]
+tests/test_api.py::test_show_bundle_reads_a_leading_slash_name_from_the_bundle_root PASSED [ 56%]
+tests/test_api.py::test_show_bundle_keeps_the_host_meaning_of_a_leading_backslash PASSED [ 59%]
+tests/test_api.py::test_show_bundle_accepts_parent_references_staying_inside PASSED [ 62%]
+tests/test_api.py::test_show_bundle_refuses_a_symlink_leaving_the_bundle[linked_file] PASSED [ 64%]
+tests/test_api.py::test_show_bundle_refuses_a_symlink_leaving_the_bundle[linked_file_without_extension] PASSED [ 67%]
+tests/test_api.py::test_show_bundle_refuses_a_symlink_leaving_the_bundle[linked_directory] PASSED [ 70%]
+tests/test_api.py::test_show_bundle_refuses_a_symlink_leaving_the_bundle[linked_directory_itself] PASSED [ 72%]
+tests/test_api.py::test_show_bundle_follows_a_symlink_staying_inside_the_bundle PASSED [ 75%]
+tests/test_api.py::test_show_bundle_reports_a_symlink_loop_as_not_found PASSED [ 78%]
+tests/test_cli_remaining.py::test_show_show_outputs_frontmatter_and_body PASSED [ 81%]
+tests/test_cli_remaining.py::test_show_show_exits_2_on_missing_concept PASSED [ 83%]
+tests/test_cli_remaining.py::test_show_show_exits_2_on_invalid_bundle PASSED [ 86%]
+tests/test_cli_remaining.py::test_show_show_accepts_a_name_without_extension PASSED [ 89%]
+tests/test_cli_remaining.py::test_show_show_exits_2_on_directory_without_traceback PASSED [ 91%]
+tests/test_cli_remaining.py::test_show_show_exits_2_on_path_outside_the_bundle PASSED [ 94%]
+tests/test_cli_remaining.py::test_show_show_reads_names_from_the_bundle_root PASSED [ 97%]
+tests/test_edge_cases.py::test_path_edge_cases_concept_path_with_parent_references PASSED [100%]
+
+===================== 37 passed, 189 deselected in 0.76s ======================

@@ -1,15 +1,14 @@
 {
   "schema": 1,
   "title": "Getting started on a new, empty planning surface",
-  "summary": "Spec v2, advisor answers applied: a docs/getting-started-surface.md walk from an empty repo to the first open; the surface's branch from chantier.yaml surface.branch, origin/HEAD or a same-name origin upstream, else not-a-branch naming all three fixes. For P3, after batch-30.",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Getting-started guide for an empty planning surface and how the surface's branch is found; answers kept; to specify again after the rework.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "7077bb12c8eb321e9543f715767631c1a71af78c6ef181043ee0175af29ef799",
-    "02-answers.md": "69a56a32f178167d5f64a20d71038e7f0b942851f22862b8ce49b7b6de5e873f",
-    "03-change-spec.md": "5f8025310125d357c342a00fd375d5f26c6c644eaaf190c8d7016e500c9cb9fb",
+    "02-answers.md": "953f80f44be7e88a1ed912982c998e4da02e8758d93f5d75ebe87378de80bd13",
     "intake/request.md": "a7054d906ce0b1840ed885a8504d2282f5ac767b43156e2a62486f47117f2bfd"
   },
-  "summarized": "2026-11-21T22:34:35Z"
+  "summarized": "2026-11-25T22:01:09Z"
 }

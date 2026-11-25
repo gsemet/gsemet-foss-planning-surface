@@ -62,3 +62,11 @@ writes the specification. Spec critic: yes.
 whose remaining CRs are stopped or blocked by the user; the CR keeps its existing PR branch (no
 second push of one head to two branches); the stale batch-20 record (`running` in
 `5-archives/batches`) is closed as superseded.
+
+## Decision (2026-11-25, the owner, in chat)
+
+"tu vas te concentrer sur livrer les CR 507 a 514 sur le rework. tu vas annuler les specs de tous les autres mais eviement pas perdre les reponses que j avais donnee en interview. Avec le rework en cours il faudra refaire la specification de tout, et on fera ca dans un batch 32."
+
+The specification is cancelled: it is kept for reference in `work/spec-before-rework.md`, and is to be written again after the rework, from these answers, for batch-32.
+
+Destination: none for now; to specify again for batch-32.
