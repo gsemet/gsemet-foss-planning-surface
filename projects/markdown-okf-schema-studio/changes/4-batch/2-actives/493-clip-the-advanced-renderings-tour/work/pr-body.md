@@ -1,6 +1,6 @@
 ## Summary
 
-Studio draws Mermaid, PlantUML, Vega-Lite, Vega, math and inline SVG in its preview, but nothing shows that at a glance. This adds a 16-second feature clip, "the advanced renderings tour": one design note in reading mode, in Cream, with each of the six renderings outlined in turn and named by a caption. It also lets the clip kit accept clips up to 30 seconds (it stopped at 12), which this clip needs and which the other clips of the same round build on.
+Studio draws Mermaid, PlantUML, Vega-Lite, Vega, math and inline SVG in its preview, but nothing shows that at a glance. This adds a 16-second feature clip, "the advanced renderings tour": one design note in reading mode, in Cream, with each of the six renderings outlined in turn and named by a caption. It also lets the clip kit accept clips up to 30 seconds (it stopped at 12), which this clip needs and which other longer clips can use.
 
 The owner approved the storyboard (`docs/demo-video/clips/advanced-renderings-tour/clip.md`) and an earlier cut of the clip. Charts on `main` have since become live views with text sized like the page text, so the clip was filmed again; its storyboard texts, times and six marks are the same.
 
@@ -55,7 +55,11 @@ Grade: 1
 
 ## Impacts
 
-No behaviour change in the extension; the editing page gains a clip.
+No visual change in the extension. The editing page of the user docs gains the clip (below: its "MyST rendering" entry, drawn from the page's Markdown with a plain stylesheet rather than the published theme, the clip paused on the first mark).
+
+| Before (17b779d) | After (8c6845a) |
+|---|---|
+| ![Editing page before](https://github.com/user-attachments/assets/17c2826b-915c-4ef4-bf6a-fd01ccfb2788) | ![Editing page after](https://github.com/user-attachments/assets/4699ca77-9a6f-4df0-97fc-fb6b82ec8f2a) |
 
 ## Test plan
 
@@ -65,6 +69,7 @@ No behaviour change in the extension; the editing page gains a clip.
 - [x] Local gates at 8c6845a: `just preflight` (on Windows, its static stage); the take's `all` step with its `check` passed on the same files before the commit
 - [x] Review: passed at 8c6845a
 - [x] CI green: `gh pr checks 512` at 8c6845a: static, static-windows, visual, viewer-graph, report pass
+- [x] Evidence: before at `17b779d`, after at `8c6845a`
 
 ## Internal references
 
