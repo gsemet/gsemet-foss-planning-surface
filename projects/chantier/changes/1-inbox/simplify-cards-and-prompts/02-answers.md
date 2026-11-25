@@ -58,3 +58,8 @@ Budget: $400 (answer 21).
 # Answer 23 (2026-11-25, the owner, in chat)
 
 The owner asked to group the queued children into bigger CRs. Done, in the running batch: CR-495 = children 9+10; CR-497 = 11+12+13; CR-500 = 14+15; CR-502 = 16+17+18; CR-505 = 19+20; CR-507 = 21+22+23. Children 8, 24, 25, 26, 27 and 28 stay alone (CR-494, 510 to 514). The nine absorbed CRs (496, 498, 499, 501, 503, 504, 506, 508, 509) went to 6-trash, their specs kept whole inside the survivors. Risk named: CR-507 (children 21 to 23) is the heaviest and may need a hand-back at 100k tokens. The merge rule is unchanged (19 to 28 as one unit).
+
+
+# Answer 24 (2026-11-25, the owner, in chat)
+
+Rounds: the owner granted up to 6 rounds for CR-497 and, in general, 'it must pass; I no longer want the batch blocked; sort it out'. Standing grant used by the Chief of Staff: a CR that is out of rounds on a red it did not cause by negligence gets rounds up to 6, with no question; beyond 6, ask.
