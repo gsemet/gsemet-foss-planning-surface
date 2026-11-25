@@ -15,3 +15,17 @@ All claims judged at d930238cc64eee77fe5dc0ad25c574a7231b7f5a. No clip was retak
 9. `just preflight` and `just check`: taken from the Coder's and CI's runs (static and static-windows green at the head); not rerun here.
 
 VERIFIED
+
+## Description-only pass at d930238cc64eee77fe5dc0ad25c574a7231b7f5a
+
+Command: `gh pr view 515 --repo gsemet/markdown-okf-schema-studio --json body`; links by `curl -sIL` (gif, mp4, webm at the head SHA: 200). Project template `.github/PULL_REQUEST_TEMPLATE.md` applies, with pr-template where it is silent. Clip not re-verified.
+
+Failed claims:
+1. Test plan: "Review (inspector approved at 31c9d5d ...)" names an agent role as the doer in body text (project guideline: no agent roles outside Internal references).
+2. Test plan: proofs carry no SHA (new or changed tests, Local gates), and there is no Verified at <sha7> box and no Evidence box (before/after or why none); proofs must name their 7-char SHA.
+3. The body does not end with the Claude Code attribution line; Internal references must sit just before it (pull-request.guidelines.md).
+4. Deliverables: the clip is attached by commit-SHA links (raw/<sha>/), which pr-template says is not an upload and may vanish on a restack.
+
+Passes: links resolve at the head; Known gaps present; Internal references holds CR/batch only; sections match the project template; summary matches verify.md items 1-8.
+
+NOT VERIFIED
