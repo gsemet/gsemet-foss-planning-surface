@@ -44,4 +44,4 @@ Grade: 1. Documentation, a clip folder and tests of it; a plain `git revert` res
 - [x] Changelog: No user-facing change
 - [x] Local gates: `just clip-kit-test` (37 tests), `just check` pass
 - [ ] Review
-- [ ] CI green
+- [x] CI green at 211f3a5 (static, static-windows, visual, viewer-graph, report)
