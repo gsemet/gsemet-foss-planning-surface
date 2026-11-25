@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "index: regenerating an index drops authored sections and the root intro",
+  "summary": "Filed, not grilled. okf-schema index loses a second authored section with its entries, and rewrites the root index title and introduction.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "d7e3bed4c7fdce5604f2ce0b24d8b50d4eaee024d28d4235fe89d8c99eaf23ec"
+  },
+  "summarized": "2026-11-25T21:10:45Z"
+}

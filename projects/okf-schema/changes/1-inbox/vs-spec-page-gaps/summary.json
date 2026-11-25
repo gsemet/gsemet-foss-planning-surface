@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "docs: the vs-spec page omits stricter rules and misquotes OKF 0.2",
+  "summary": "Filed, not grilled. The OKF-Schema vs spec page does not list the stricter rules (E5, E3 on log.md, E6, E7), misquotes section 4.1 and gives cross-linking the 0.1 section number.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "bc291dfb3668c46165625b74a36d0f5511ae552fe8590739fc6165c6ef27af38"
+  },
+  "summarized": "2026-11-25T21:10:42Z"
+}

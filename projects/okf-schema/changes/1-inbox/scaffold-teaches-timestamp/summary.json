@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "init: the scaffold schema teaches timestamp, not the OKF 0.2 fields",
+  "summary": "Filed, not grilled. The schema written by init declares the superseded timestamp and none of the OKF 0.2 fields; a concept made by new is warned W3 at once.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "72442b45652adca2fd70c184d75ada0919dd5740f9e5f854003d4875e900a78c"
+  },
+  "summarized": "2026-11-25T21:10:49Z"
+}

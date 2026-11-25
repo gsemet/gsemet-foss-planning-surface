@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "validate: W7 and W13 warn on the spec example; W12 message is broken",
+  "summary": "Filed, not grilled. The spec's Appendix A bundle gets W7 and W13 warnings, against the W7 docstring; the W12 message prints a literal placeholder.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "995c71a108b96471e4911eaf8d608e9a2069ff30e6a8621ceaf13de06add51f5"
+  },
+  "summarized": "2026-11-25T21:10:50Z"
+}

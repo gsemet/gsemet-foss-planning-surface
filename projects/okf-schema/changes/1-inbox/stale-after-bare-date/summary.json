@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "validate: a bare-date stale_after passes silently, read as a local day",
+  "summary": "Filed, not grilled. A stale_after without time or offset raises no format warning and is compared with the local day, so staleness depends on the timezone.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "b262d915c33dd9f6d68fb828d6ef9bfdfb8fdf27c8769487a2073ba64753011e"
+  },
+  "summarized": "2026-11-25T21:10:47Z"
+}

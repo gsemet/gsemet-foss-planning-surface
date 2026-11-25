@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "validate: generated requires at but never checks the required by",
+  "summary": "Filed, not grilled. OKF 0.2 requires generated.by; validate instead errors on a missing at (E7) and accepts a missing by. The scaffold schema has the same inversion.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "5e9b908cf4ddd5d7d0f25f7dacfbb975164b584d9bafa0c575afac636a42e3e8"
+  },
+  "summarized": "2026-11-25T21:10:40Z"
+}

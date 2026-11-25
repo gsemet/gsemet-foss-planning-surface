@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "validate: a nested log.md fails with E6, but OKF 0.2 allows it",
+  "summary": "Filed, not grilled. validate rejects a log.md below the bundle root (E6); OKF 0.2 section 9 allows one at any level.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "748b568e7b65379472ec6a9f36f0c3985a8a96a8d128f5e27424cbe055af62c0"
+  },
+  "summarized": "2026-11-25T21:10:37Z"
+}
