@@ -95,7 +95,7 @@ Others:
 
 ## StRS marker classification
 
-Every StRS marker (file, line, StRS, class, outcome), before and after the sort (`Line before` at commit e5ee7ec1, `Line now` in this PR). A marker stays only where the test walks the whole declared path (the rule is under Autonomous decisions).
+Every StRS marker (file, line, StRS, class, outcome), before and after the sort (`Line before` at commit e5ee7ec1, taken before the restack on `main`; `Line now` in this PR). A marker stays only where the test walks the whole declared path (the rule is under Autonomous decisions).
 | File | Line before | StRS | Class | Outcome | Line now |
 |---|---|---|---|---|---|
 | test/build/test_plugin_manifests.py | 93 | StRS-MDOKFSTUDIO-CORE-006 | partial path | marker removed | - |
@@ -384,7 +384,7 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
   - `SwRS-MDOKFSTUDIO-DIAG-009`, `DIAG-121`, `DIAG-123`, `LAYOUT-023`, `CORE-096` (from `main`: scenario ids and test markers only)
 - [ ] Changelog: no user-facing change
 - [ ] Local gates: `just check`, `just requirements-lint` and `just preflight` (static stage on Windows), pending at the restacked head
-- [ ] Evidence: no visual change in the extension; the requirements site is checked by its unit tests, and the verification compared it before and after in a browser at `afbb55c` (screenshots not posted)
+- [ ] Evidence: no visual change in the extension; the requirements site is checked by its unit tests, and the verification compared it before and after in a browser at `afbb55c`, before the restack on `main` (screenshots not posted)
 - [ ] Review: pending at the restacked head
 - [ ] Verified: pending
 - [ ] CI green: pending

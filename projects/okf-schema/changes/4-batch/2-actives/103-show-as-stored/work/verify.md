@@ -127,7 +127,7 @@ Not tested for real: `grep -rnE "set_blocking|O_NONBLOCK|BlockingIOError|PIPE_NO
 
 ## C7. The other Known gaps (a2723b7)
 
-`<S>/v2/s/vh/Scripts/python.exe -I gaps.py` (kept as `work/verifier/gaps.py`):
+`<S>/v2/s/vh/Scripts/python.exe -I <S>/v2/s/gaps.py` (kept as `work/verifier/gaps.py`):
 
 ```text
 show_bundle marked: {} unverified
@@ -175,10 +175,10 @@ inspector approved at a2723b7a0cdea34d9fe3601f3081b21ea424d07d`.
 - `gh pr view 73 --json body` against `work/pr-body.md`: only the final newline differs.
   `headRefOid a2723b7...`, base = CR-102's branch, draft, title = commit subject.
 - Rendered HTML (`gh api .../pulls/73`, `body_html`): all sections as headings, task boxes,
-  one `<details>` closed after Internal references. No image or `<img`; no username or home
-  path (grep exit: only `unverified` and the CR line matched the wider pattern).
-- Role names, CR name and `work/`, `evidence/` paths: grep matches lines 129-130 only
-  (Internal references).
+  one `<details>` closed after Internal references. No `<img`, username or home path (grep: no
+  match).
+- Role names, CR name and `work/`, `evidence/` paths: only in Internal references
+  (`work/pr-body.md` lines 129-130).
 - Stacked-on sentence: `gh pr view 70` -> OPEN, head `125952d...`, the base of #73;
   `gh pr view 69` -> MERGED `fix(validate): count every OKF 0.2 actor form in the trust tier`.
 - Checklist: preflight and no new warnings (C2, C3); tests and documentation in the 14 files

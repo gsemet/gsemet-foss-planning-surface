@@ -3,8 +3,8 @@
 The heavy CI run (the real VS Code `integration` job) failed intermittently on correct code. The
 trusted VS Code launch needed about 92 % of its 900 s deadline when healthy, so a slower runner
 pushed it over, and one step also failed on a frame lookup that never returned. This change runs
-the trusted suite as two launches and no longer asks anything of a frame that cannot be the Studio
-frame.
+the trusted suite as two launches, and the Studio frame lookup and the open-at-line marked-line
+count no longer ask anything but its URL of a frame that cannot be the Studio frame.
 
 ## Deliverables
 
@@ -56,10 +56,12 @@ the Studio frame times out, the message now lists every frame seen, with why eac
 
 ### What the failed frame lookup showed
 
-The uploaded report of the failed attempt (run 45706313890, attempt 2) shows
+The job log of the failed attempt (run 45706313890, attempt 2) shows
 `TIMEOUT: locator.count did not return within 10000 ms (frame )` 12.6 s into the open-at-line
-step: a bounded call hung on a frame whose URL was empty. It does not show which frame that was,
-why it had no URL, or the other frames of the window (no in-window dump was written). An earlier
+step: a bounded call hung on a frame whose URL was empty. The report that attempt uploaded
+(`e2e-integration-attempt-2`) holds only the integration manifest, the campaign file, a process
+list taken after the step ended and the screenshots of earlier launches: no in-window dump. So
+neither shows which frame it was, why it had no URL, or the other frames of the window. An earlier
 `CodeWindow: failed to load (code: -3)` line in the same run is not evidence: passing runs log it
 too. The empty-URL observation is consistent with a frame that never loaded a document.
 
@@ -74,14 +76,19 @@ CI integration run now opens one more VS Code window.
 
 ## Blast radius
 
-Grade: **1**. Test code and contributor documentation only; nothing shipped in the extension
-changes. A plain `git revert` restores the single trusted launch and the former frame lookup.
+Grade: **2**. Test code and contributor documentation only, nothing shipped in the extension
+changes, but the frame lookup is shared by most real-window steps and the launches belong to the
+CI job that releases depend on. A `git revert` restores the single trusted launch and the former
+frame lookup; it needs one heavy run to confirm.
 
 ## Autonomous decisions
 
 - The last group of steps (`edit-keys` to `workspace-disposal`) moved to part 1 rather than
   keeping a contiguous split: reading the code found no state it takes from the two steps it no
-  longer follows, and the contiguous split would leave part 2 over 600 s on a slow runner.
+  longer follows, and the contiguous split would leave part 2 over 600 s on a slow runner. One
+  difference remains: `preview-editing` leaves the preview theme dark, so `edit-keys`, `save-key`
+  and `grid-card-editor-blur` now run under the `current` theme instead (none of them asserts a
+  theme).
 - Each launch logs its name in the extension host, so a passing log also says which part ran.
 - The URL filter also covers the second frame scan of the open-at-line step; the other frame scans
   of the test suite are left as they were.
@@ -99,8 +106,9 @@ changes. A plain `git revert` restores the single trusted launch and the former 
   find in preview, table empty column, tall block scroll, preview editing helpers, render patching,
   reload and scroll-sync suites, window focus), so a frame without a document could still stall one
   of them.
-- No real-window run was made locally: the development machine runs Windows, where this suite does
-  not run. Only the CI runs exercise the two launches and the filter in a real window.
+- No real-window run of these changes was made locally: on the Windows development machine the
+  local gates skip the real VS Code stage. Only the CI runs exercise the two launches and the
+  filter in a real window.
 
 ## Test plan
 
