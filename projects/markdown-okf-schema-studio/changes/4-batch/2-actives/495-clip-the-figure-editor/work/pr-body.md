@@ -42,7 +42,7 @@ Grade: **1**. Documentation, clip files and tests only; a plain `git revert` res
 
 ## Known gaps
 
-- The 1169x660 window cuts the form: in the `form` and `filled` frames only Caption (and the start of Width) is seen filled; Align and Name lie below the bottom edge. Fixing it is a new take (a taller view or a scroll).
+- The 1169x660 window cuts the form: a wheel move scrolls the page before the `filled` frame so all four new values show, but the `form` frame still cuts the empty Width, Align and Name fields, and the page stays scrolled until the save, so the loop fade is worth a look.
 - After the save the focus returns to the figure and its Edit figure button shows; the take moves the pointer out over the scroll bar and back to hide it (a pointer move only, no field is set, hidden by the zoom).
 - Only a Windows take; macOS and Linux are not proved.
 
