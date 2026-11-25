@@ -338,7 +338,7 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
 - [ ] Evidence: none; the extension has no visible change, and the requirements site is checked by its unit tests
 - [x] Review: approved at `afbb55c`
 - [ ] Verified: pending
-- [ ] CI green: pending
+- [x] CI green at `afbb55c`
 
 ## Internal references
 
