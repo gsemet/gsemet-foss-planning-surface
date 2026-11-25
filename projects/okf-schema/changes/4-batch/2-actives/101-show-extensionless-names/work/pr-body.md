@@ -39,7 +39,7 @@ the extensionless form), the feature coverage map (its `show` entry does not cha
 
 ## Checklist
 
-- [ ] I have run `just preflight` and all checks pass
+- [x] I have run `just preflight` and all checks pass
 - [x] I have added tests that prove my fix is effective or my feature works
 - [x] I have updated the documentation accordingly
 - [ ] My changes generate no new warnings
@@ -54,7 +54,6 @@ the extensionless form), the feature coverage map (its `show` entry does not cha
 
 ## Known gaps
 
-- `just preflight` has not passed in a single run on the Windows machine used for development. In the last run, 1125 tests passed, the new symbolic link tests among them, and 4 tests that this change does not edit failed because that run kept its temporary folder inside a Git checkout; those 4 passed in an earlier run that used the system temporary folder. The requirement checks pass; the examples, report and documentation steps pass when run on their own.
 - **UNVERIFIED:** the installed-package inspection check. The acceptance tests are skipped on Windows; its new assertion needs a non-Windows run.
 - `validate`, `list`, `index`, `backlinks` and `lint` still follow symbolic links whose target is outside the bundle; this change covers `show` only.
 

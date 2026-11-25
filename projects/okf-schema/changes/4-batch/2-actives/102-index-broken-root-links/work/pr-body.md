@@ -59,6 +59,22 @@ flowchart TD
 - `index` command help: unaffected, it does not describe summaries.
 - `CHANGELOG.md`: the generated heading of the released 0.18.1 version, unrelated to this change.
 
+### Example
+
+```sh
+okf-schema index --path kb/bundle
+okf-schema validate --strict --path kb/bundle
+```
+
+### Validation
+
+- `just preflight` on Windows, on the reviewed state: pass. 1187 tests passed, 12 skipped,
+  coverage 95.68%; style, lint, requirements lint, changelog, ty, mypy, requirements report and
+  Sphinx `-W` docs pass.
+- `just refresh-all-examples` (run by preflight): no content diff under `examples/`.
+- `okfreq validate requirements --prose --check-links --project-root .`: 35 requirements,
+  0 errors, 0 warnings.
+
 ## Type of Change
 
 - [x] Bug fix
@@ -69,14 +85,24 @@ flowchart TD
 
 ## Checklist
 
-- [ ] I have run `just preflight` and all checks pass
+- [x] I have run `just preflight` and all checks pass
 - [x] I have added tests that prove my fix is effective or my feature works
 - [x] I have updated the documentation accordingly
 - [ ] My changes generate no new warnings
 
 ## Known gaps
 
-None
+- The 12 acceptance tests skip on Windows, `StRS-OKFSCHEMA-CORE-002#S2` among them: they were not
+  run locally.
+- Only a line that starts with `<!--` is skipped, so the following lines of a multi-line HTML
+  comment enter the subdirectory summary.
+- In a linked image `[![i](a.png)](b)` only the inner link is matched: the outer link is not
+  rewritten, the 120-character cut can split it, and W2 does not check it.
+- Backslashes in authored link targets are kept as written.
+- A `%00` target, and a target that looks external only once percent-decoded, are reported as
+  broken.
+- A directory holding only subdirectories gets no `index.md`, so its parent line is the generic
+  sentence. A schema with neither `x-okf-summary` nor `description` still writes an empty summary.
 
 ## Related Issues
 

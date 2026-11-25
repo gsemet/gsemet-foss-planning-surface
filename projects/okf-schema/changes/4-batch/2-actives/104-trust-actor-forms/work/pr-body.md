@@ -24,6 +24,8 @@ What changes:
   scaffold schema teach the OKF 0.2 forms instead of `bot:ci`. Existing knowledge bases keep
   their own copy of the schema.
 - Requirement `SwRS-OKFSCHEMA-CORE-006` gains scenario S5, with tests and a feature map row.
+- `CHANGELOG.md` carries the entries that `just changelog`, a `just preflight` step, generates
+  from the commit history: this fix and the missing `v0.18.1` heading.
 
 Unchanged: `generated.by` and `sources[].author` are still not checked, `okfkb` still writes
 `bot:okf-schema`, and the `human:` match stays case-sensitive.
@@ -58,9 +60,9 @@ uv run -- okf-schema validate-md --input c.md --schemas-dir <dir> --strict
 - `okfreq validate requirements --prose --check-links --project-root .`: 35 requirements,
   0 errors, 0 warnings. `okfreq update-coverage` and `okfreq lint`: pass.
 - Tests of the four changed test files and `tests/test_project_contract.py`: 295 passed.
-- `just test` on Windows: 1118 passed, 14 skipped, 8 failed, coverage 95.46%. The 8 failures
-  are symbolic link tests that this host refuses to run (`WinError 1314`), in files this change
-  does not touch; they were not rerun on the base commit.
+- A first `just preflight` on Windows failed 8 symbolic link tests because the host refused to
+  create links (`WinError 1314`); the base commit failed the same 8. Symbolic links are now
+  allowed on that host.
 
 Evidence status: marker linkage is defined for the requirement in `validator.py` and for S5 in
 the tests (`okfreq trace`); the marked tests were executed and passed; no stakeholder approval is claimed,
