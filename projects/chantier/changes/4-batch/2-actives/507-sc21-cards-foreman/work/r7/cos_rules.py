@@ -129,7 +129,8 @@ c(
 )
 c(
     "512 514 516",
-    rule(refusal("order drop (commands/orders.py:275 \"order drop <cr> --note trash|ready|P1..P4…\")")),
+    rule(refusal("order drop (commands/orders.py:275 \"order drop <cr> --note "
+                 "trash\\|ready\\|P1..P4…\")")),
 )
 c("511", rule(refusal("order drop (commands/orders_drop.py:40, already dropped)")))
 c("1324", rule(refusal("order after (commands/orders_after.py:85, the release CR)")))

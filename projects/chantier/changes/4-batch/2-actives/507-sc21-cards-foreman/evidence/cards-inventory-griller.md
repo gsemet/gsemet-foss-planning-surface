@@ -21,7 +21,7 @@ Round 3, sentence level. Ids (`G-nnn`) are drafts that child 26 replaces. The ne
 | G-003 | griller | Griller | Talk with the user in their language; repository text in English. | griller.md:5 | e | topic first-turn | help first-turn |
 | G-004 | griller | Griller | Read your host's reference with this card: [Claude Code](hosts/claude-code.md) or [Copilot](hosts/copilot.md); | griller.md:5-7 | f | duplicate: the card's pointers and `help` | none (duplicate) |
 | G-005 | griller | Griller | your seat reading is in [session-start](session-start.md), your title in [titles](titles.md). | griller.md:7-8 | e | topic titles | help titles |
-| G-006 | griller | What you do | As [chief-of-staff-grill](chief-of-staff-grill.md), "Backlog and grill", says (it is not copied here): `$CHANTIER file` (a CR is filed with a short title, at most 72 characters, the description below it; `file` refuses a request without on… | griller.md:12-21 | e | topic grill-backlog | help grill-backlog |
+| G-006 | griller | What you do | As [chief-of-staff-grill](chief-of-staff-grill.md), "Backlog and grill", says (it is not copied here): `$CHANTIER file` (a CR is filed with a short title, at most 72 characters, the description below it; `file` refuses a request without on… | griller.md:12-21 | e | topic grill-backlog; the rule it applies: card griller-skill.md:5; refusal file (lifecycle/backlog.py:70 "the request has no short title…") | help grill-backlog |
 | G-007 | griller | What you do | At "grilled enough?" and at every spec-writer start, the destination is asked as [chief-of-staff-grill.md](chief-of-staff-grill.md)'s "Asking the user: a series" and "Where the CR goes" say (next batch, recommended; running batch, when a b… | griller.md:21-23 | e | topic where-cr-goes | help where-cr-goes |
 | G-008 | griller | What you do | for a CR bound for the running batch, run `$CHANTIER triage <folder> --running-batch` after writing `work/specifying`, before the start. | griller.md:23-24 | e | topic grill-specify | help grill-specify |
 | G-009 | griller | What you do | On a CR you judge impactful, by the same criterion, you say the critic line in the restatement and start the `spec-critic` as you start the spec-writer (its first line copied unchanged from `$CHANTIER playbook`, the fixes that need no user… | griller.md:25-28 | e | topic grill-specify | help grill-specify |
@@ -32,7 +32,7 @@ Round 3, sentence level. Ids (`G-nnn`) are drafts that child 26 replaces. The ne
 | G-014 | griller | What you do | Whenever you write a covered file of a CR (`intake/*.md`, `01-intent.md`, `02-answers.md`, `03-change-spec.md`), run `$CHANTIER summary lint <the CR's folder>` before you end your turn, read what the gap names, and close it with `summary s… | griller.md:41-44 | e | topic grill-outside-pr | help grill-outside-pr |
 | G-015 | griller | What you do | A relay into another project's inbox is the exception: no `summary set` there; that project's own Chief of Staff or Griller closes it. | griller.md:44-45 | e | topic grill-critic | help grill-critic |
 | G-016 | griller | What you do | Labels and groups are the user's: you set them on the user's word only. | griller.md:45-46 | a | card griller-skill.md:22 | grep -c 'abandon' griller-skill.md |
-| G-017 | griller | What you do | You may prepare work for the Chief of Staff: a proposed grouping or order of prepared CRs, written in your reply or in the CRs' `02-answers.md` as the user's words, never a batch. | griller.md:48-49 | e | topic first-turn | help first-turn |
+| G-017 | griller | What you do | You may prepare work for the Chief of Staff: a proposed grouping or order of prepared CRs, written in your reply or in the CRs' `02-answers.md` as the user's words, never a batch. | griller.md:48-49 | e | topic first-turn; the rule it applies: card griller-skill.md:5 | help first-turn |
 | G-018 | griller | What you do | You `abandon` an inbox, backlog or `3-ready` item on the user's explicit word only, and you `restore` a `6-trash` item to the inbox on the user's word only (`restore <6-trash/item> [--slug <name>]`). | griller.md:51-53 | a | card griller-skill.md:22 | grep -c 'abandon' griller-skill.md |
 | G-019 | griller | From the files | No claim, no lock on a CR: several Grillers, or an isolated session, may work at once. | griller.md:57 | e | topic seat | help seat |
 | G-020 | griller | From the files | Re-read a CR's folder before each act on it; write each answer there at once; another session may have written since your last read. | griller.md:57-59 | e | topic first-turn | help first-turn |
@@ -59,7 +59,7 @@ Round 3, sentence level. Ids (`G-nnn`) are drafts that child 26 replaces. The ne
 | G-041 | griller | In a worktree | You open no PR or MR and commit nothing. | griller.md:141 | e | topic griller-worktree | help griller-worktree |
 | G-042 | griller | In a worktree | You read the CR folders of the main checkout; you write your files (answers, intent, specification, plan, artifacts, prototypes, experiments, evidence) in your worktree, under the same relative path they would have in the planning folder (… | griller.md:141-144 | e | topic griller-worktree | help griller-worktree |
 | G-043 | griller | In a worktree | When a piece is done, send the Chief of Staff's session one line naming the absolute paths, `[griller→chief-of-staff] files for <slug>: <path>, …`, by the host's means (its reference), and tell the user not to remove your worktree until th… | griller.md:145-147 | e | topic griller-worktree | help griller-worktree |
-| G-044 | griller | In a worktree | With no live Chief of Staff, tell the user where the files are and the same; the next Chief of Staff places them on the user's word. | griller.md:147-149 | e | topic griller-worktree | help griller-worktree |
+| G-044 | griller | In a worktree | With no live Chief of Staff, tell the user where the files are and the same; the next Chief of Staff places them on the user's word. | griller.md:147-149 | e | topic griller-worktree; the rule it applies: card griller-skill.md:25 | help griller-worktree |
 | G-045 | griller | In a worktree | Run no `summary` command there: the planning folder is the main checkout's, and the Chief of Staff refreshes the summary on placing the files. | griller.md:149-150 | e | topic griller-worktree | help griller-worktree |
 | G-046 | griller | In a worktree | For a series of questions, read the item's short name and last question reference in the `02-answers.md` of the main checkout's CR folder, and write your answers, continuing that numbering, in your worktree's `02-answers.md` under the same… | griller.md:151-153 | e | topic griller-worktree | help griller-worktree |
 | G-047 | griller | In a worktree | it goes to the Chief of Staff as above. | griller.md:153-154 | e | topic grill-series | help grill-series |
@@ -80,25 +80,28 @@ Every kind a row (12), with its home quoted: the card's line, the floor's rule o
 
 | id | source | home, quoted |
 | --- | --- | --- |
-| G-012 | griller.md:38 | card griller-skill.md:19; `griller-skill.md:19` "- Post, comment on, close or reopen a tracker issue. For a CR with an …" |
-| G-013 | griller.md:38-39 | card griller-skill.md:19; `griller-skill.md:19` "- Post, comment on, close or reopen a tracker issue. For a CR with an …" |
+| G-012 | griller.md:38 | card griller-skill.md:19; `griller-skill.md:19` "- Post, comment on, close or reopen a tracker issue. For a CR with an…" |
+| G-013 | griller.md:38-39 | card griller-skill.md:19; `griller-skill.md:19` "- Post, comment on, close or reopen a tracker issue. For a CR with an…" |
 | G-016 | griller.md:45-46 | card griller-skill.md:22; `griller-skill.md:22` "- `abandon`, `restore`, a label or a group, but on the user's word." |
 | G-018 | griller.md:51-53 | card griller-skill.md:22; `griller-skill.md:22` "- `abandon`, `restore`, a label or a group, but on the user's word." |
-| G-021 | griller.md:63 | card griller-skill.md:19; `griller-skill.md:19` "- Post, comment on, close or reopen a tracker issue. For a CR with an …" |
-| G-022 | griller.md:64-65 | card griller-skill.md:20; `griller-skill.md:20` "- Open, pause or close a batch, `order`, start or message a Driver or …" |
+| G-021 | griller.md:63 | card griller-skill.md:19; `griller-skill.md:19` "- Post, comment on, close or reopen a tracker issue. For a CR with an…" |
+| G-022 | griller.md:64-65 | card griller-skill.md:20; `griller-skill.md:20` "- Open, pause or close a batch, `order`, start or message a Driver or…" |
 | G-024 | griller.md:67-68 | card griller-skill.md:21; `griller-skill.md:21` "- Grill, specify or triage a CR of another project of the surface with…" |
 | G-025 | griller.md:68-71 | card griller-skill.md:21; `griller-skill.md:21` "- Grill, specify or triage a CR of another project of the surface with…" |
-| G-028 | griller.md:76-77 | card griller-skill.md:29; `griller-skill.md:29` "For a CR marked for the running batch, send once the specification is …" |
-| G-039 | griller.md:99-100 | card griller-skill.md:31; `griller-skill.md:31` "Reply short, in the user's language. A refusal you do not understand: …" |
-| G-040 | griller.md:139-140 | card griller-skill.md:25; `griller-skill.md:25` "- In a planning surface: commit, pull and push nothing; with `writer: …" |
+| G-028 | griller.md:76-77 | card griller-skill.md:29; `griller-skill.md:29` "For a CR marked for the running batch, send once the specification is…" |
+| G-039 | griller.md:99-100 | card griller-skill.md:31; `griller-skill.md:31` "Reply short, in the user's language. A refusal you do not understand:…" |
+| G-040 | griller.md:139-140 | card griller-skill.md:25; `griller-skill.md:25` "- In a planning surface: commit, pull and push nothing; with `writer:…" |
 | G-051 | session-start-griller.md:6-7 | card griller-skill.md:23; `griller-skill.md:23` "- Start the board or the watcher; only the Chief of Staff does." |
 
 ## Protecting-looking rows a topic carries
 
-0 rows (kind e) say never, only on the user's word or a refusal, and their sentence is carried by a topic as procedure or wording; each names, after `the rule it applies:`, the card line or the floor rule that holds the rule itself, so that the rule's protection does not rest on the topic. They are listed for child 25's review; none is kind a.
+3 rows (kind e) say never, only on the user's word or a refusal, or were listed as such by an earlier round, and their sentence is carried by a topic as procedure or wording. 3 name, after `the rule it applies:`, the card line, floor rule or CLI refusal that holds the rule itself, so that its protection does not rest on the topic; 0 hold no rule of their own and say `no rule:` and why; 0 are held by no card, floor or refusal (`gap:`). They are listed for child 25's review; none is kind a.
 
 | id | source | home |
 | --- | --- | --- |
+| G-006 | griller.md:12-21 | topic grill-backlog; the rule it applies: card griller-skill.md:5; refusal file (lifecycle/backlog.py:70 "the request has no short title…") |
+| G-017 | griller.md:48-49 | topic first-turn; the rule it applies: card griller-skill.md:5 |
+| G-044 | griller.md:147-149 | topic griller-worktree; the rule it applies: card griller-skill.md:25 |
 
 ## Inferable rows
 
@@ -114,4 +117,4 @@ Rows whose behaviour changes on purpose in this round: none for the Griller's co
 
 ## Counts
 
-52 rows: kind a 12, kind b 1, kind e 37, kind f 2; 0 protecting-looking rows carried by a topic.
+52 rows: kind a 12, kind b 1, kind e 37, kind f 2; 3 protecting-looking rows carried by a topic.
