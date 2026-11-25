@@ -31,6 +31,26 @@ const codeNeed = box - code.clientWidth + code.scrollWidth;
 
 In Auto width, code blocks a little wider than the column no longer show a scroll bar. Margin and Full width are unchanged, and so is the measure of tables, images and diagrams. No setting changes.
 
+The screenshots show that in Auto width the widened code blocks lose their scroll bar, captioned ones included, and that Margin looks the same.
+
+Auto width, a numbered Python block and the same block with a caption (688 px column):
+
+| Before (`4a47151`) | After (`09e8acf`) |
+| --- | --- |
+| ![Before, Auto: both blocks show a scroll bar](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/62364df7aaf8a35a3735dbd349915fa6e39316e9/base-auto-cream-1100.png) | ![After, Auto: both blocks are widened and show no scroll bar](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/62364df7aaf8a35a3735dbd349915fa6e39316e9/head-auto-cream-1100.png) |
+
+Margin width, same page (unchanged, the two captures are identical):
+
+| Before (`4a47151`) | After (`09e8acf`) |
+| --- | --- |
+| ![Before, Margin: both blocks keep the column and scroll](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/62364df7aaf8a35a3735dbd349915fa6e39316e9/base-margin-cream-1100.png) | ![After, Margin: both blocks keep the column and scroll](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/62364df7aaf8a35a3735dbd349915fa6e39316e9/head-margin-cream-1100.png) |
+
+A real page in the VS Code preview, Auto width:
+
+| Before (`4a47151`) | After (`09e8acf`) |
+| --- | --- |
+| ![Before, VS Code: the widened block still shows a scroll bar](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/62364df7aaf8a35a3735dbd349915fa6e39316e9/base-vscode-auto-planning-page.png) | ![After, VS Code: the block fits, no scroll bar](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/62364df7aaf8a35a3735dbd349915fa6e39316e9/head-vscode-auto-planning-page.png) |
+
 ## Blast radius
 
 The change is confined to the Auto width measure of the preview page, and only for code blocks. A plain `git revert` restores the previous behaviour.
@@ -46,19 +66,20 @@ Grade: 1
 ## Known gaps
 
 - A code block inside a list, admonition, quote, tab or card still scrolls inside its container in Auto width.
+- In a widened code block the longest line ends flush against the block's right border: the browser leaves the block's right padding out of the code's scroll width, before this change as after, so the measured width does not include it. It is left because the change keeps the block's look as it is; adding that padding to the measured width would close it.
 
 ## Test plan
 
-- [x] New or changed tests (they fail on the previous code): the unit tests of the border, the caption and the 1 px overflow, and all 6 real-browser tests
-- [x] Requirements: `SwRS-MDOKFSTUDIO-LAYOUT-023` updated (still proposed), markers in code and tests, `just requirements-update`
+- [x] New or changed tests (at `09e8acf`; they fail on the previous code, `4a47151`): the unit tests of the border, the caption and the 1 px overflow, and all 6 real-browser tests
+- [x] Requirements: `SwRS-MDOKFSTUDIO-LAYOUT-023` updated (still proposed) at `09e8acf`, markers in code and tests, `just requirements-update`
   - Source: `src/page/modules/widthMode.ts`, `src/page/features/scrollCore.ts` (unchanged)
   - Tests: `test/page/runtimePageControls.test.ts`, `test/page/codeBlockBreakout.test.ts` (new); unchanged: `test/core/preview/previewStyles.test.ts`, `test/page/diagReq.layout.requirements.test.ts`, `test/page/runtimeScroll.test.ts`, `test/page/tableBreakout.test.ts`, `test/page/widthModeScenarios.test.ts`, `test/visual/capture_layout_checks.py`, `test/visual/capture_width_scroll.py`, `test/visual/widthScrollScenarios.ts`
-- [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [x] Local gates: `npm run test:breakout` 14 passed with Chromium required; `just check` passed (unit 5221 passed, 21 skipped; pytest 205 passed); `just preflight` passed (static stage on Windows)
-- [ ] Review
-- [ ] CI green
+- [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md` at `09e8acf`
+- [x] Local gates at `09e8acf`: `npm run test:breakout` 14 passed with Chromium required; `just preflight` passed (static stage on Windows: unit 5221 passed, 21 skipped; pytest 205 passed)
+- [x] Review: approved at `09e8acf`
+- [x] CI green at `09e8acf`
 
-Unit tests of the measure, run before the fix:
+Unit tests of the measure, run before the fix (source at `4a47151`, tests at `09e8acf`):
 
 ```text
 ✖ a code block that breaks out is widened by its border too            '60px' !== '62px'
@@ -68,11 +89,11 @@ Unit tests of the measure, run before the fix:
 tests 7, pass 4, fail 3
 ```
 
-After the fix: `tests 7, pass 7, fail 0`.
+After the fix, at `09e8acf`: `tests 7, pass 7, fail 0`.
 
-In the real browser (688 px column, 1100 px pane, Auto), `box width, clientWidth/scrollWidth` of the code:
+In the real browser on Windows (688 px column, 1100 px pane, Auto), `box width, clientWidth/scrollWidth` of the code:
 
-| Block, line length | Before | After |
+| Block, line length | Before (`4a47151`) | After (`09e8acf`) |
 | --- | --- | --- |
 | Numbered Python, 97 | 696 px, 694/696 | 698 px, 696/696 |
 | Plain, 100 | 688 px, 686/689 | 691 px, 689/689 |

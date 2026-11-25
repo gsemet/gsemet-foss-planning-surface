@@ -23,3 +23,15 @@ Short name: `index-links`
   description.
 - Scan of the 27 `index.md` under `examples/`, `requirements/`, `src/`, `docs/`, `skills/`: one
   broken link, in `docs/source/index.md` (Sphinx, not a bundle).
+
+## 2026-11-25: grill, user's answers
+
+1. index-links-Q1: **Summary of a subdirectory.** Not decided yet. Free answer: "Donne moi des
+   exemples riches" (asked again with examples).
+2. index-links-Q2: **Damaged summaries already written.** "A. Recalculer (recommandé)": `index`
+   recomputes a summary only when it starts with a link broken from the root and valid from the
+   subdirectory (the bug's signature); anything else is left untouched.
+3. index-links-Q3: **W2 in index.md.** "A. Oui, W2 (recommandé)": `validate` reports broken links
+   of every `index.md` as W2, as for concepts; `--strict` then fails.
+4. index-links-Q4: **Anchor links.** "A. Corriger ici (recommandé)": in this CR, the `#...` part is
+   ignored when a link is checked, for concepts and index files.
