@@ -19,3 +19,39 @@
    - B: fixed readable sizes.
    - C: sizes that follow the page's body text size.
    Exact values and images: `work/exploration/`.
+7. vega-Q7 (2026-11-25, the Fable critic's verdict, adopted by the Griller): **The default is C, sizes that follow the page text size, with its legend raised to B's size.** The critic read all 13 images and was not told which candidate was preferred.
+   - Ranking: C's mechanism with B's legend sizes, then B, then C as drawn, then A.
+   - Why:
+     - A whispers: 10 px labels beside 14 px text, the owner's complaint, in every theme.
+     - B is the most readable as drawn.
+     - C as drawn only half-fixes the legend (11.9 px).
+     - Only C follows the `markdownOkfSchemaStudio` Markdown font-size setting and the preview zoom; B would whisper again at an 18 px body.
+   - The default, as multiples of the body font size (`getComputedStyle(document.body).fontSize`, 14 px by default, fallback 13), given to `chartThemeFrom` as `ChartTheme.fontSize`:
+     - legend labels 0.93× (13 px at 14), legend title 0.95×, legend symbol about 120 at 14 px (0.7 × label², rounded), legend row padding 0.4 × label;
+     - stroke legends (lines) get a longer, thicker swatch: `symbolStrokeWidth` 2.5, the symbol scaled to match;
+     - axis labels 0.85×, axis titles 0.95× with title padding 0.5 × label;
+     - chart title 1.15×, subtitle 0.9×;
+     - axis, legend and chart titles bold (the rotated y titles look light at 600).
+   - The same config goes to Vega-Lite and to full Vega. Exact first values and images: `work/exploration/README.md`.
+8. vega-Q8 (2026-11-25, decided by the Griller on the critic's verdict): **The hover detail is a themed box of Studio's own, not the native `title` tooltip.**
+   - The native tooltip shows after a delay, in the OS style at a fixed small size, and ignores theme and zoom: the same smallness again.
+   - The box is a small tooltip handler given to the Vega view (`tooltip` option). It is drawn in the page:
+     - page background and text colours, the chart font at the legend label size;
+     - key/value rows, muted key and strong value;
+     - a 1 px border, strengthened in dark;
+     - offset from the pointer so it does not cover the neighbouring mark.
+   - It uses no inline style attribute: CSSOM or a class only, since the CSP has no `unsafe-inline` for styles. It needs no new dependency (vega-tooltip is not one).
+   - Vega-Lite marks get `config.mark.tooltip: true`. Full Vega shows the tooltips its spec defines (Q4).
+9. vega-Q9 (2026-11-25, decided by the Griller on the critic's notes): **Two more default fixes ride in this CR, one is left out.**
+   - In: discrete x-axis labels are horizontal (`labelAngle: 0` with label overlap handling) instead of rotated.
+   - In: the subtitle takes the label colour, since the muted grey has low contrast in dark.
+   - Out: the cream gridlines are a little heavy. They come from the page border colour, a theme change, not a chart default.
+10. vega-Q10 (2026-11-25, decided by the Griller): **Requirements, docs and skill.**
+    - DIAG-123 gains the readable, page-relative sizes and the hover detail.
+    - DIAG-121 loses the Chart source section in the preview and keeps it in the export.
+    - `docs/user/charts.md` drops its "Chart source" sentence for the preview, and says how a spec's own config and `"tooltip": null` override the defaults.
+    - The writing skill gets the same two lines if it covers charts.
+    - New screenshots of the charts in `images/readme/charts-*.png`.
+
+Grilled enough (2026-11-25): by the Griller with the Fable critic's verdict, on the owner's request relayed by the Chief of Staff. Routine points decided here; the owner's one behaviour question (a default hover detail) is answered by Q4 and Q8.
+Destination: running batch batch-09, as its own CR after the clips in the stack (bug day rule: same stack). Critic: yes (Fable, on the rendered candidates, Q7).
