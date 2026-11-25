@@ -1,0 +1,127 @@
+side: after, sha: 41fcd6dbebaddff719c2a3f54f610298034d0ad6
+imported package: <worktree>\src\okf_schema\__init__.py
+
+[name]
+$ okf-schema show --path my-knowledge-base/bundle api/health-check
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+
+The service answers.
+exit code: 0
+
+[name with .md]
+$ okf-schema show --path my-knowledge-base/bundle api/health-check.md
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+
+The service answers.
+exit code: 0
+
+[leading slash]
+$ okf-schema show --path my-knowledge-base/bundle /api/health-check
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+
+The service answers.
+exit code: 0
+
+[/etc/passwd]
+$ okf-schema show --path my-knowledge-base/bundle /etc/passwd
+stderr:
+Error: Concept not found: <disposable>\my-knowledge-base\bundle\etc\passwd
+exit code: 2
+
+[directory]
+$ okf-schema show --path my-knowledge-base/bundle api
+stderr:
+Error: Concept not found: <disposable>\my-knowledge-base\bundle\api
+exit code: 2
+
+[bundle root]
+$ okf-schema show --path my-knowledge-base/bundle .
+stderr:
+Error: Concept not found: <disposable>\my-knowledge-base\bundle
+exit code: 2
+
+[parent path to outside file]
+$ okf-schema show --path my-knowledge-base/bundle ../../secret.md
+stderr:
+Error: Concept path is outside the bundle: ../../secret.md (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+[parent path without .md]
+$ okf-schema show --path my-knowledge-base/bundle ../../secret
+stderr:
+Error: Concept path is outside the bundle: ../../secret (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+[parent path, nothing there]
+$ okf-schema show --path my-knowledge-base/bundle ../../missing
+stderr:
+Error: Concept path is outside the bundle: ../../missing (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+[absolute inside]
+$ okf-schema show --path my-knowledge-base/bundle <disposable>\my-knowledge-base\bundle\api\health-check.md
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+
+The service answers.
+exit code: 0
+
+[absolute outside]
+$ okf-schema show --path my-knowledge-base/bundle <disposable>\secret.md
+stderr:
+Error: Concept path is outside the bundle: <disposable>\secret.md (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+[symlink leaving the bundle]
+$ okf-schema show --path my-knowledge-base/bundle leak.md
+stderr:
+Error: Concept path is outside the bundle: leak.md (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+[symlink leaving the bundle, no .md]
+$ okf-schema show --path my-knowledge-base/bundle leak
+stderr:
+Error: Concept path is outside the bundle: leak (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+[leading backslash]
+$ okf-schema show --path my-knowledge-base/bundle \api\health-check
+stderr:
+Error: Concept path is outside the bundle: \api\health-check (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+[dotdot staying inside]
+$ okf-schema show --path my-knowledge-base/bundle api/../api/health-check.md
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+
+The service answers.
+exit code: 0

@@ -22,3 +22,11 @@ A CR blocked twice: A, it is never dropped without the owner; it waits and the r
 # Answer 4, autonomy-Q3 (2026-11-25, the owner)
 
 When the autonomy ends: A, at the owner's next message, even a plain "status?"; the reply opens with the report and the decisions to confirm.
+
+# Decision 5 (2026-11-25, the owner, in chat)
+
+"tu vas te concentrer sur livrer les CR 507 a 514 sur le rework. tu vas annuler les specs de tous les autres mais eviement pas perdre les reponses que j avais donnee en interview. Avec le rework en cours il faudra refaire la specification de tout, et on fera ca dans un batch 32."
+
+This CR does not join batch-31. Its specification is to be written after the rework, from these answers, for batch-32.
+
+Destination: none for now; to specify for batch-32. Replaces the earlier destination.

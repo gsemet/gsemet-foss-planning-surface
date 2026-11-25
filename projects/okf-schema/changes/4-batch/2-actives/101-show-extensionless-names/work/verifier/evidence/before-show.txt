@@ -1,0 +1,126 @@
+side: before, sha: 2f09cef3e786d1696e42b5cb305d4a55111e7725
+imported package: <base>\src\okf_schema\__init__.py
+
+[name]
+$ okf-schema show --path my-knowledge-base/bundle api/health-check
+stderr:
+Error: Concept not found: <disposable>\my-knowledge-base\bundle\api\health-check
+exit code: 2
+
+[name with .md]
+$ okf-schema show --path my-knowledge-base/bundle api/health-check.md
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+
+The service answers.
+exit code: 0
+
+[leading slash]
+$ okf-schema show --path my-knowledge-base/bundle /api/health-check
+stderr:
+Error: Concept not found: C:\api\health-check
+exit code: 2
+
+[/etc/passwd]
+$ okf-schema show --path my-knowledge-base/bundle /etc/passwd
+stderr:
+Error: Concept not found: C:\etc\passwd
+exit code: 2
+
+[directory]
+$ okf-schema show --path my-knowledge-base/bundle api
+stderr:
+Traceback (most recent call last):
+  ... (frames cut) ...
+PermissionError: [Errno 13] Permission denied: '<disposable>\\my-knowledge-base\\bundle\\api'
+exit code: 1
+
+[bundle root]
+$ okf-schema show --path my-knowledge-base/bundle .
+stderr:
+Traceback (most recent call last):
+  ... (frames cut) ...
+PermissionError: [Errno 13] Permission denied: '<disposable>\\my-knowledge-base\\bundle'
+exit code: 1
+
+[parent path to outside file]
+$ okf-schema show --path my-knowledge-base/bundle ../../secret.md
+---
+{}
+---
+trust: unverified
+SECRET-MARKER
+exit code: 0
+
+[parent path without .md]
+$ okf-schema show --path my-knowledge-base/bundle ../../secret
+stderr:
+Error: Concept not found: <disposable>\my-knowledge-base\bundle\..\..\secret
+exit code: 2
+
+[parent path, nothing there]
+$ okf-schema show --path my-knowledge-base/bundle ../../missing
+stderr:
+Error: Concept not found: <disposable>\my-knowledge-base\bundle\..\..\missing
+exit code: 2
+
+[absolute inside]
+$ okf-schema show --path my-knowledge-base/bundle <disposable>\my-knowledge-base\bundle\api\health-check.md
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+
+The service answers.
+exit code: 0
+
+[absolute outside]
+$ okf-schema show --path my-knowledge-base/bundle <disposable>\secret.md
+---
+{}
+---
+trust: unverified
+SECRET-MARKER
+exit code: 0
+
+[symlink leaving the bundle]
+$ okf-schema show --path my-knowledge-base/bundle leak.md
+---
+{}
+---
+trust: unverified
+SECRET-MARKER
+exit code: 0
+
+[symlink leaving the bundle, no .md]
+$ okf-schema show --path my-knowledge-base/bundle leak
+stderr:
+Error: Concept not found: <disposable>\my-knowledge-base\bundle\leak
+exit code: 2
+
+[leading backslash]
+$ okf-schema show --path my-knowledge-base/bundle \api\health-check
+stderr:
+Error: Concept not found: C:\api\health-check
+exit code: 2
+
+[dotdot staying inside]
+$ okf-schema show --path my-knowledge-base/bundle api/../api/health-check.md
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+
+The service answers.
+exit code: 0

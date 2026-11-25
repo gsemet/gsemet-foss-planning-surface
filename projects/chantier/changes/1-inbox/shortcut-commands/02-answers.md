@@ -89,3 +89,11 @@ Waits between CRs that change the same lines, with `batch-start`: A, proposed af
 # Answer 19, shortcuts-Q18 (2026-11-25, the owner)
 
 `batch-add` typed in a Griller session: A, the Griller grills and specifies the CR, and the Chief of Staff adds it to the batch. Settles open question 5 of the specification.
+
+# Decision 20 (2026-11-25, the owner, in chat)
+
+"tu vas te concentrer sur livrer les CR 507 a 514 sur le rework. tu vas annuler les specs de tous les autres mais eviement pas perdre les reponses que j avais donnee en interview. Avec le rework en cours il faudra refaire la specification de tout, et on fera ca dans un batch 32."
+
+This CR does not join batch-31. Its specification is to be written again after the rework, from these answers, for batch-32. The rewrite under way for Answers 11 to 19 was stopped.
+
+Destination: none for now; to specify again for batch-32. Replaces the earlier destination.
