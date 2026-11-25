@@ -1,3 +1,4 @@
+head 125952dc04a949cc78810e2340ef57d9ffa6ba5e
 == step 5
 (edit) '[x](my%20file.md)' appended to api/health-check.md
 (edit) api/my file.md created
@@ -8,15 +9,21 @@ CHECK 5 validate --strict passes: ok
 == step 7b
 (edit) '[top](#top)' appended to api/health-check.md
 $ okf-schema stats --path kb/bundle
-5 files · 2 concepts · 1 type · 592 bytes
+5 files · 2 concepts · 2 types · 551 bytes
   2 links
+  Types:
+    API Endpoint 1
+    Note 1
   Health: 100% — all clear
 [exit 0]
 CHECK 7b no broken count, all clear: ok
 (edit) '[gone](missing.md#part)' appended to api/health-check.md
 $ okf-schema stats --path kb/bundle
-5 files · 2 concepts · 1 type · 617 bytes
+5 files · 2 concepts · 2 types · 576 bytes
   3 links (1 broken)
+  Types:
+    API Endpoint 1
+    Note 1
   Health: 90% — 1 broken link
 [exit 0]
 CHECK 7b one broken: ok

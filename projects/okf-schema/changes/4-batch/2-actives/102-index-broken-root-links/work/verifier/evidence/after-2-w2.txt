@@ -1,3 +1,4 @@
+head 125952dc04a949cc78810e2340ef57d9ffa6ba5e
 == step 3
 (edit) root api line set to: - [api](./api/) — [Health Check](nope.md)
 $ okf-schema validate --strict --path kb/bundle
@@ -13,13 +14,12 @@ $ okf-schema index --path kb/bundle
 [exit 0]
   root index.md: - [api](./api/) — [Health Check](nope.md)
 CHECK 3 index keeps the line: ok
-== step 4
 == step 7
 root log.md before the edit: None
 --- log.md (edited)
 # Log
 
-## 2026-11-25
+## 2026-11-26
 
 - Removed [old](deleted.md).
 

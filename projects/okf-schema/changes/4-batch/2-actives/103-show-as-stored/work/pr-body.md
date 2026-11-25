@@ -115,7 +115,8 @@ visual change.
 - [ ] Evidence
 - [x] Review: approved at `6572527` (carried from `e161d98`)
 - [ ] Verified
-- [ ] CI green
+- [x] CI green at `6572527`: Linux preflight (Python 3.10 to 3.13), Windows and macOS jobs pass;
+  the release tagging job is skipped on a pull request
 
 ## Internal references
 

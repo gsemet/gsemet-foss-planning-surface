@@ -1,3 +1,4 @@
+head 125952dc04a949cc78810e2340ef57d9ffa6ba5e
 == step 1
 $ okf-schema new --path kb/bundle --name api/health-check --type "API Endpoint" --title "Health Check"
 Created concept 'kb\bundle\api\health-check.md'.
@@ -32,11 +33,23 @@ $ okf-schema validate --strict --path kb/bundle
 
 Validation failed: 0 error(s), 2 warning(s) (strict mode).
 [exit 1]
+--- api/health-check.md after the edit
+---
+generated:
+  at: 2026-11-26T00:00:00Z
+type: API Endpoint
+title: Health Check
+description: Liveness probe.
+tags: []
+---
+
+
 (edit) the concept made by `new` gets a description and generated.at (W1, W3 above)
 $ okf-schema validate --strict --path kb/bundle
 Bundle is conformant (0 errors, 0 warnings).
 [exit 0]
 CHECK 2 validate --strict passes: ok
+== step 4
 (edit) root api line set to: - [api](./api/) — Auto-generated index for concepts in `api`.
 --- api/index.md (edited)
 # api
@@ -60,15 +73,6 @@ $ okf-schema index --path kb/bundle
 0 updated, 0 created, 2 unchanged, 0 skipped
 [exit 0]
 CHECK 4 second run all unchanged: ok
---- api/index.md after index
-# api
-
-See the [check](health-check.md) first.
-Second paragraph, in progress [draft]
-
-- [Health Check](health-check.md) — Liveness probe.  [API Endpoint]
-
-== step 5
 == step 6
 (edit) root api line set to: * [API](api/) - Les endpoints
 $ okf-schema index --path kb/bundle
