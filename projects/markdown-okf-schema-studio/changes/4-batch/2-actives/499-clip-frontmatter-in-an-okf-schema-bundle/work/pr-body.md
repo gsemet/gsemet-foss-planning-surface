@@ -50,9 +50,9 @@ The OKF page of the docs site shows the clip; the frames above show frame 0 and 
 - [x] New or changed tests (`test/site/siteClips.test.ts`, the clip kit tests) <!-- they cover the new clip -->
 - [x] Local gates at `635f1ba`: `just check` pass, `just clip-kit-test` pass (37 tests), clip render and check pass
 - [x] Evidence: the clip and its frames, taken at `635f1ba`
-- [ ] Review: approved at `635f1ba`
-- [ ] Verified at `635f1ba`
-- [ ] CI green at `635f1ba`
+- [x] Review: approved at `635f1ba`
+- [x] Verified at `635f1ba`
+- [x] CI green at `635f1ba`
 
 ## Internal references
 

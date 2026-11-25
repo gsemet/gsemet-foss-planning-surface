@@ -28,3 +28,13 @@ Review box / CI: PR checks at the head are SUCCESS (static, static-windows, visu
 - Rest of the body unchanged in substance; Summary, Deliverables and Changes still match the diff (carried from the first pass, same head).
 
 VERIFIED
+
+
+## Description pass 3 (head unchanged, 635f1ba09e6511333ac80ebe30e97678ec1fce24)
+
+- Links: GIF raw URL -> 302 then 200 image/gif 1415941; MP4, WebM, clip.md blob URLs -> 200 (curl -sIL). PASS.
+- Claims vs diff: 23 files match Changes (clip folder, docs/user/okf.md gif line, 2 kit tests, siteClips test); no src/ change. PASS.
+- Test plan: `gh pr checks 521` -> checks, report, static, static-windows, viewer-graph, visual pass at the head; `chantier log`: "r1 approved ... committed as 635f1ba0" covers Review box. Local gate counts carried from the passes above (same head). PASS.
+- Known gaps cover the unchecked motion/loop, cosmetic storyboard points, uncoloured row. PASS. PR is draft (owner's rule).
+
+VERIFIED
