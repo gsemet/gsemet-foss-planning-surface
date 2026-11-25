@@ -1,0 +1,392 @@
+{
+ "roles": [
+  "cr-driver",
+  "release-driver",
+  "stack-driver",
+  "qa-driver",
+  "coder",
+  "conflict-resolver",
+  "debugger",
+  "inspector",
+  "investigator",
+  "verifier",
+  "spec-writer",
+  "spec-critic",
+  "board-griller",
+  "retro-critic",
+  "demo-explorer",
+  "chief-of-staff",
+  "griller",
+  "foreman"
+ ],
+ "spec": {
+  "cr-driver": {
+   "new": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief cr-driver CR-507 --lease 2 --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "text": "error: brief: cannot read C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next/driver.md: No such file or directory"
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief cr-driver CR-507 --lease 2 --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-cr-driver.md",
+    "bytes": 66959
+   }
+  },
+  "release-driver": {
+   "new": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief release-driver CR-507 --lease 2 --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "text": "error: brief: cannot read C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next/driver.md: No such file or directory"
+   },
+   "old": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief release-driver CR-507 --lease 2 --batch batch-31",
+    "text": "error: brief: CR-507 is a change CR: its Driver is the cr-driver, not release-driver"
+   }
+  },
+  "stack-driver": {
+   "new": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief stack-driver stack --lease 11 --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "text": "error: brief: cannot read C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next/driver.md: No such file or directory"
+   },
+   "old": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief stack-driver stack --lease 11 --batch batch-31",
+    "text": "error: brief: lease 11 is not stack's live lease"
+   }
+  },
+  "qa-driver": {
+   "new": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief qa-driver O-1 --lease 1 --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "text": "error: brief: cannot read C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next/driver.md: No such file or directory"
+   },
+   "old": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief qa-driver O-1 --lease 1 --batch batch-31",
+    "text": "error: brief: O-1 is not an open QA order of batch-31"
+   }
+  },
+  "coder": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief coder CR-507 --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-coder.md",
+    "bytes": 6110
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief coder CR-507 --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-coder.md",
+    "bytes": 9116
+   }
+  },
+  "conflict-resolver": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief conflict-resolver CR-507 --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-conflict-resolver.md",
+    "bytes": 6675
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief conflict-resolver CR-507 --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-conflict-resolver.md",
+    "bytes": 9074
+   }
+  },
+  "debugger": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief debugger CR-507 --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-debugger.md",
+    "bytes": 6462
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief debugger CR-507 --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-debugger.md",
+    "bytes": 8863
+   }
+  },
+  "inspector": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief inspector CR-507 --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-inspector.md",
+    "bytes": 7181
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief inspector CR-507 --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-inspector.md",
+    "bytes": 11225
+   }
+  },
+  "investigator": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief investigator CR-507 --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-investigator.md",
+    "bytes": 6667
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief investigator CR-507 --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-investigator.md",
+    "bytes": 8735
+   }
+  },
+  "verifier": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief verifier CR-507 --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-verifier.md",
+    "bytes": 8293
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief verifier CR-507 --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-verifier.md",
+    "bytes": 19762
+   }
+  },
+  "spec-writer": {
+   "new": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief spec-writer C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "text": "error: brief: C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`"
+   },
+   "old": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief spec-writer C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman --batch batch-31",
+    "text": "error: brief: C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`"
+   }
+  },
+  "spec-critic": {
+   "new": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief spec-critic C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "text": "error: brief: C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`"
+   },
+   "old": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief spec-critic C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman --batch batch-31",
+    "text": "error: brief: C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`"
+   }
+  },
+  "board-griller": {
+   "new": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief board-griller C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "text": "error: brief: C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`"
+   },
+   "old": {
+    "exit": 2,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief board-griller C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman --batch batch-31",
+    "text": "error: brief: C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`"
+   }
+  },
+  "retro-critic": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief retro-critic --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-retro-critic.md",
+    "bytes": 2889
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief retro-critic --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-retro-critic.md",
+    "bytes": 4225
+   }
+  },
+  "demo-explorer": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief demo-explorer --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-demo-explorer.md",
+    "bytes": 2936
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief demo-explorer --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-demo-explorer.md",
+    "bytes": 4746
+   }
+  },
+  "chief-of-staff": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief chief-of-staff --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-chief-of-staff.md",
+    "bytes": 24657
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief chief-of-staff --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-chief-of-staff.md",
+    "bytes": 22322
+   }
+  },
+  "griller": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief griller --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-griller.md",
+    "bytes": 6650
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief griller --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-griller.md",
+    "bytes": 6349
+   }
+  },
+  "foreman": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief foreman --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-foreman.md",
+    "bytes": 22278
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief foreman --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-foreman.md",
+    "bytes": 55206
+   }
+  }
+ },
+ "drivers_staged": {
+  "cr-driver": {
+   "role-only": {
+    "new": {
+     "exit": 0,
+     "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief cr-driver --batch batch-31 --cards C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman/work/r6/staging/cr-driver",
+     "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-cr-driver.md",
+     "bytes": 8010
+    },
+    "old": {
+     "exit": 0,
+     "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief cr-driver --batch batch-31",
+     "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-cr-driver.md",
+     "bytes": 59216
+    }
+   },
+   "CR-507": {
+    "new": {
+     "exit": 0,
+     "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief cr-driver CR-507 --lease 2 --batch batch-31 --cards C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman/work/r6/staging/cr-driver",
+     "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-cr-driver.md",
+     "bytes": 15753
+    },
+    "old": {
+     "exit": 0,
+     "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief cr-driver CR-507 --lease 2 --batch batch-31",
+     "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/CR-507-cr-driver.md",
+     "bytes": 66959
+    }
+   }
+  },
+  "release-driver": {
+   "role-only": {
+    "new": {
+     "exit": 0,
+     "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief release-driver --batch batch-31 --cards C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman/work/r6/staging/release-driver",
+     "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-release-driver.md",
+     "bytes": 8072
+    },
+    "old": {
+     "exit": 0,
+     "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief release-driver --batch batch-31",
+     "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-release-driver.md",
+     "bytes": 59216
+    }
+   }
+  },
+  "stack-driver": {
+   "role-only": {
+    "new": {
+     "exit": 0,
+     "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief stack-driver --batch batch-31 --cards C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman/work/r6/staging/stack-driver",
+     "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-stack-driver.md",
+     "bytes": 8044
+    },
+    "old": {
+     "exit": 0,
+     "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief stack-driver --batch batch-31",
+     "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-stack-driver.md",
+     "bytes": 59216
+    }
+   }
+  },
+  "qa-driver": {
+   "role-only": {
+    "new": {
+     "exit": 0,
+     "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief qa-driver --batch batch-31 --cards C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman/work/r6/staging/qa-driver",
+     "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-qa-driver.md",
+     "bytes": 5828
+    },
+    "old": {
+     "exit": 0,
+     "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief qa-driver --batch batch-31",
+     "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/none-qa-driver.md",
+     "bytes": 59216
+    }
+   }
+  }
+ },
+ "inbox": {
+  "spec-writer": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief spec-writer C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/1-inbox/simplify-cards-and-prompts --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/simplify-cards-and-prompts-spec-writer.md",
+    "bytes": 3228
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief spec-writer C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/1-inbox/simplify-cards-and-prompts --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/simplify-cards-and-prompts-spec-writer.md",
+    "bytes": 4815
+   }
+  },
+  "spec-critic": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief spec-critic C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/1-inbox/simplify-cards-and-prompts --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/simplify-cards-and-prompts-spec-critic.md",
+    "bytes": 3133
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief spec-critic C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/1-inbox/simplify-cards-and-prompts --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/simplify-cards-and-prompts-spec-critic.md",
+    "bytes": 5290
+   }
+  },
+  "board-griller": {
+   "new": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief board-griller C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/1-inbox/simplify-cards-and-prompts --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/simplify-cards-and-prompts-board-griller.md",
+    "bytes": 3132
+   },
+   "old": {
+    "exit": 0,
+    "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief board-griller C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/1-inbox/simplify-cards-and-prompts --batch batch-31",
+    "file": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/.git/chantier/briefs/chantier/batch-31/simplify-cards-and-prompts-board-griller.md",
+    "bytes": 11964
+   }
+  }
+ },
+ "main_cli": {
+  "exit": 2,
+  "args": "C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier brief coder CR-507 --batch batch-31 --cards C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next",
+  "text": "warning: `VIRTUAL_ENV=.venv` does not match the project environment path `C:\\Users\\gaeta\\Projets\\chantier\\.venv` and will be ignored; use `--active` to target the active environment instead usage: chantier [-h] [--version] [--project PROJECT] [--profile PROFILE] [--skill SKILL] {preflight,init,file,triage,abandon,restore,open,order,park,foreman,seat,serve,webui,live,status,asks,agents,take,round,h"
+ }
+}

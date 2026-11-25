@@ -414,3 +414,77 @@ The rest of the paragraph is VERIFIED: outside reads now fail, `\` on Windows, G
 ### 17.2 Unchanged statements: VERIFIED, carried from section 16.2
 
 Same head, and the diff above shows no other text changed.
+
+## 18. Description pass, PR 68 as posted at 22:16:33Z: VERIFIED
+
+Judged at head `41fcd6dbebaddff719c2a3f54f610298034d0ad6`; the head has not moved, so the code
+claims, the long gate and CI are not run again. Replaces the verdicts of sections 16 and 17 on the
+description.
+
+```text
+$ gh pr view 68 --repo gsemet/okf-schema --json headRefOid,updatedAt,isDraft
+{"headRefOid":"41fcd6dbebaddff719c2a3f54f610298034d0ad6","isDraft":true,"updatedAt":"2026-11-25T22:16:33Z"}
+$ git rev-parse HEAD ; git status --porcelain ; git ls-remote origin refs/heads/chantier/batch-01/cr-101-...
+41fcd6dbebaddff719c2a3f54f610298034d0ad6   (local and pushed; status empty)
+$ diff <(userContentEdits revision 22:13:47Z, judged in section 17) <(gh pr view 68 --json body --jq .body)
+22,25c22,26
+< ... On a
+< case-insensitive file system such as macOS, an absolute path whose bundle part is spelled in
+< another letter case than the real path of `--path` is not recognized as inside the bundle and is
+< reported as not found, although such a path was read before. The command reference documents these
+---
+> ... On macOS with
+> its default case-insensitive file system, an absolute path whose bundle part is spelled in another
+> letter case than the real path of `--path` is not recognized as inside the bundle and is reported
+> as not found, although such a path was read before (established from the code, not run on macOS
+> with such a path; on Windows such a path is still read). The command reference documents these
+79a81
+> - The command reference words the letter case limit for any case-insensitive file system such as
+>   macOS, although on Windows such a path is still read. It was left because correcting the
+>   reference would move the verified commit.
+$ gh api repos/gsemet/okf-schema/pulls/68 (Accept: ...html+json) --jq .body_html
+9 h2 sections, 3 task lists, one 3-column table with 7 rows, "Fixes #56" linked, no img,
+no STALE, no UNVERIFIED
+```
+
+### 18.1 Narrowed macOS sentence: VERIFIED
+
+- Not recognized, reported as not found:
+  `git grep -A22 "def _real_path" 41fcd6d -- src/okf_schema/api.py` shows
+  `return Path(os.path.realpath(path))` and `_is_disk_path_in_bundle` comparing
+  `_real_path(folder) == bundle` (POSIX equality keeps letter case, section 17.1: `posix False`);
+  the `show_bundle` docstring rule 2 then reads the `/` name from the bundle root.
+- Read before: section 16.1, base `target = bundle / concept_path` then `target.exists()`.
+- "established from the code, not run on macOS with such a path":
+  `git grep -i -E "swapcase|\.upper\(\)|case-insensitive|letter case|casefold" 41fcd6d -- tests
+  src/okf_schema/api.py docs/source/reference/cli.md` matches only the reference (line 283) and
+  search tests (`test_api.py:1292,1323`, `test_edge_cases.py:489`, `api.py:818`): no test of
+  `show` with another letter case.
+- "on Windows such a path is still read": section 17.1 probe, same head (`clock -> '# Clock'`).
+- "The command reference documents these limits":
+  `git diff 2f09cef 41fcd6d -- docs/source/reference/cli.md`, "Limits": letter case, leading `\`,
+  Git Bash.
+
+### 18.2 New Known gaps bullet: VERIFIED
+
+Same diff: "On a case-insensitive file system such as macOS, an absolute `CONCEPT_PATH` whose
+bundle part is spelled in another case ... is not recognized"; Windows still reads it (17.1).
+Changing the reference would need a commit, which moves the head. The accepted failure of 17.1
+has this bullet; point A has Known gap 2; 16.1 is fixed in "Behaviour to know".
+
+### 18.3 Unchanged statements: VERIFIED, carried from section 16.2
+
+Same head, and the diff above shows no other text changed. Review box: `log CR-101`, note
+21:26:46 "r1 approved at 2f09cef..., committed as 41fcd6d". "Verified at 41fcd6d" holds again
+with this pass.
+
+### 18.4 Verifier anomaly (not a claim)
+
+This pass redirected the `gh api graphql` edit history (the PR body revisions) with a shell `>` to
+`C:/Users/gaeta/AppData/Local/Temp/claude/143d8cc0d12f7200/05edfd91-309f-433f-8c7f-e4569f24649b/scratchpad/edits.json`,
+outside the `writes:` folders; the redirect was not refused. The following `rm` of it was refused,
+and the file is left there, no other means tried. Exact text: "refused: a shell write to
+C:/Users/gaeta/AppData/Local/Temp/claude/143d8cc0d12f7200/05edfd91-309f-433f-8c7f-e4569f24649b/scratchpad/edits.json
+is outside the folders this agent may write in (C:/Users/gaeta/Projets/okf-schema.worktrees/batch-01-CR-101;
+C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/okf-schema/changes/4-batch/2-actives/101-show-extensionless-names);
+the shell follows the same rule as Write and Edit". No proof above depends on the file.

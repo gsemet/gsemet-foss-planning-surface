@@ -1,13 +1,13 @@
-# PART 3 proofs (rounds 6 and 7)
+# PART 3 proofs (rounds 6 to 8)
 
-Worktree `<worktree>`, head `03f973e4` plus round 7's uncommitted card edits (`foreman.md`, `chief-of-staff.md`, `griller-skill.md`, `review-step.md`, the four `skills/*-SKILL.md`; no topic). `03f973e4` holds the work of rounds 4 to 6, committed as `bb6a5639` and rebased (`git diff` between the two is empty). Comparisons stay against `bf4e4c42`, the head before round 4. Byte counts are LF bytes (the checkout has `core.autocrlf=true`). Where the specification says `HEAD` the working tree is what is compared. Written by `work/r7/proofs.py`. Paths: `<worktree>` is the CR's worktree, `<surface>` the planning surface's checkout, `<planning>` its `projects/chantier` folder.
+Worktree `<worktree>`, head `03f973e4` plus the uncommitted changes of rounds 7 and 8 (under `cards-next/`: role cards, `review-step.md`, `sync-checkout.md`, the four `skills/*-SKILL.md`, `topics.json` and topic files, 7 of them new in round 8). `03f973e4` holds the work of rounds 4 to 6, committed as `bb6a5639` and rebased (`git diff` between the two is empty). Comparisons stay against `bf4e4c42`, the head before round 4. Byte counts are LF bytes (the checkout has `core.autocrlf=true`). Where the specification says `HEAD` the working tree is what is compared. Written by `work/r8/proofs.py`. Paths: `<worktree>` is the CR's worktree, `<surface>` the planning surface's checkout, `<planning>` its `projects/chantier` folder.
 
 ## 2. Byte-identical copies
 
 `git hash-object` of the working file (the checkout's filters applied) against the blob at `bf4e4c42` under `references/`.
 
 ```text
-$ work/r7/proofs.py (proof 2)
+$ work/r8/proofs.py (proof 2)
 floor.md: cards-next 61da01e8b67f8b8eec1845172a29d2466d1cc380 | references at bf4e4c42 61da01e8b67f8b8eec1845172a29d2466d1cc380 | identical; LF content equal: True
 hosts/claude-code.json: cards-next 3f2daf7915192a790e2dc17b36d74d3cfd9a1fd0 | references at bf4e4c42 3f2daf7915192a790e2dc17b36d74d3cfd9a1fd0 | identical; LF content equal: True
 hosts/copilot.json: cards-next b4dec473e0dab53cbacd334fa29286ce3ccc2ff9 | references at bf4e4c42 b4dec473e0dab53cbacd334fa29286ce3ccc2ff9 | identical; LF content equal: True
@@ -26,7 +26,7 @@ hosts/copilot.json: cards-next b4dec473e0dab53cbacd334fa29286ce3ccc2ff9 | refere
 | routing.md | 5,016 | 4,790 | none set (open question 1) | no target |
 | init.md | 10,041 | 6,171 | none set (open question 1) | no target |
 | review-step.md | 3,950 | 1,419 | 1,500 | within |
-| sync-checkout.md | 4,801 | 1,115 | 1,500 if a topic | within |
+| sync-checkout.md | 4,801 | 1,202 | 1,500 if a topic | within |
 | forges/github.md | 739 | 587 | unchanged or smaller (739) | within |
 | forges/gitlab.md | 744 | 590 | unchanged or smaller (744) | within |
 | hosts/claude-code.json | 25,243 | 25,243 | byte-identical | within |
@@ -35,14 +35,14 @@ hosts/copilot.json: cards-next b4dec473e0dab53cbacd334fa29286ce3ccc2ff9 | refere
 | hosts/copilot.md | 18,947 | none | not carried: its text is in `topics/host-*.md` | no target (file not carried) |
 | floor.md | 554 | 554 | 1,200, byte-identical | within |
 | topics/host-*.md: 33 files | part of the above | 36,066 in all, largest 1,490 | 1,500 each | within |
-| topics/<name>.md (others): 235 files | part of the above | 273,512 in all, largest 2,845 | 1,500 each | 24 over (listed below) |
-| topics.json | 8,866 | 61,278 | none set | no target |
+| topics/<name>.md (others): 242 files | part of the above | 284,621 in all, largest 2,845 | 1,500 each | 24 over (listed below) |
+| topics.json | 8,866 | 62,641 | none set | no target |
 | skills/chantier-SKILL.md | 3,537 | 2,669 | section 6 (no byte target) | no target |
 | skills/chief-of-staff-SKILL.md | 3,664 | 2,749 | section 6 (no byte target) | no target |
 | skills/griller-SKILL.md | 3,223 | 2,311 | section 6 (no byte target) | no target |
 | skills/status-SKILL.md | 3,644 | 2,748 | section 6 (no byte target) | no target |
 
-New topic files since the base (not in `bf4e4c42`): 42, largest 1,490 bytes (host-auto-mode-steering.md); over 1,500: none.
+New topic files since the base (not in `bf4e4c42`): 49, largest 1,490 bytes (host-auto-mode-steering.md); over 1,500: none.
 
 Every topic over 1,500 (each exists at the base head of this round):
 
@@ -73,15 +73,15 @@ Every topic over 1,500 (each exists at the base head of this round):
 | topics/trouble-remote.md | 1,582 | 1,582 | 82 |
 | topics/trouble-worker.md | 2,173 | 2,173 | 673 |
 
-Role cards of the whole branch (Foreman, Chief of Staff and Griller against their budgets; the others because this round edits them). `references` is today's card at the base; the base's Chief of Staff and Griller cards are the two `SKILL.md`.
+Role cards of the whole branch (Foreman, Chief of Staff and Griller against their budgets; the others because this branch edits them). `references` is today's card at the base; the base's Chief of Staff and Griller cards are the two `SKILL.md`.
 
 | card | references | at bf4e4c42 | new | budget | result |
 | --- | ---: | ---: | ---: | ---: | --- |
-| foreman.md | 36,927 | 3,897 | 4,000 | 4,000 | within |
+| foreman.md | 36,927 | 3,897 | 3,999 | 4,000 | within |
 | chief-of-staff.md | 32,067 | 5,499 | 5,999 | 6,000 | within |
-| griller-skill.md | none | 3,290 | 3,501 | 4,000 | within |
+| griller-skill.md | none | 3,290 | 3,524 | 4,000 | within |
 | griller.md | 10,757 | 1,892 | 1,925 | 2,000 | within |
-| coder.md | 4,609 | 1,417 | 1,533 | 1,500 | over by 33 |
+| coder.md | 4,609 | 1,417 | 1,603 | 1,500 | over by 103 |
 | conflict-resolver.md | 3,893 | 1,378 | 1,494 | 1,500 | within |
 | debugger.md | 3,682 | 1,165 | 1,281 | 1,500 | within |
 | demo-explorer.md | 3,422 | 1,496 | 1,612 | 1,500 | over by 112 |
@@ -98,7 +98,7 @@ Role cards of the whole branch (Foreman, Chief of Staff and Griller against thei
 
 ## 4. `brief` for all 18 roles
 
-The new bytes of foreman, chief-of-staff and griller are round 7's (`work/r7/briefs7.py`, on the working tree); every other number is round 6's, those cards unchanged since. The Verifier's run at `03f973e4` gave the six workers the same old-new differences with absolute values 742 lower (cause not traced). Start readings and the direct-mode total: `evidence/acceptance-records.md`.
+The bytes of foreman, chief-of-staff and griller (new) and of coder (new and old) are round 8's (`work/r8/briefs8.py`, on the working tree); every other number is round 6's, those cards unchanged since. Coder's old brief is 9,116 bytes in round 8's run and was 9,790 in round 6's; the Verifier's run at `03f973e4` likewise gave the six workers lower absolute values (cause not traced). Start readings and the direct-mode total: `evidence/acceptance-records.md`.
 
 Command, from the worktree's CLI: `uv run --no-sync --project <worktree> chantier --project <planning folder of chantier> brief <role> [unit] [--lease n] --batch batch-31 [--cards <worktree>/skills/chantier/cards-next]`. The CLI of the main checkout has no `brief` command (exit 2, argparse usage), so the worktree's is the one that runs. Batch-31's host is `claude`, so every row is the Claude column; Copilot is untested.
 
@@ -114,7 +114,7 @@ study-fable-v2 (section 2.2) gives "boot, base / boot, new / start, new Claude".
 | release-driver | CR-507 (2) | 2, refused | 2, refused | 8,577 / 10,599 / 25,806 |
 | stack-driver | stack (11) | 2, refused | 2, refused | 8,542 / 10,564 / 34,054 |
 | qa-driver | O-1 (1) | 2, refused | 2, refused | 8,468 / 10,490 / 24,122 |
-| coder | CR-507 | 0, 6,714 | 0, 9,790 | 8,531 / 9,357 / 13,966 |
+| coder | CR-507 | 0, 6,110 | 0, 9,116 | 8,531 / 9,357 / 13,966 |
 | conflict-resolver | CR-507 | 0, 6,675 | 0, 9,074 | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
 | debugger | CR-507 | 0, 6,462 | 0, 8,863 | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
 | inspector | CR-507 | 0, 7,181 | 0, 11,225 | 8,552 / 9,378 / 15,422 |
@@ -126,8 +126,8 @@ study-fable-v2 (section 2.2) gives "boot, base / boot, new / start, new Claude".
 | retro-critic | none | 0, 2,889 | 0, 4,225 | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
 | demo-explorer | none | 0, 2,936 | 0, 4,746 | no own row ("Other workers": 8.2 to 8.7 KB / +826 / +826) |
 | chief-of-staff | none | 0, 24,657 | 0, 22,322 | 11,636 / 11,708 / 202,396 |
-| griller | none | 0, 6,627 | 0, 6,349 | 11,197 / 11,267 / 145,087 |
-| foreman | none | 0, 22,279 | 0, 55,206 | 7,740 / 8,566 / 91,019 |
+| griller | none | 0, 6,650 | 0, 6,349 | 11,197 / 11,267 / 145,087 |
+| foreman | none | 0, 22,278 | 0, 55,206 | 7,740 / 8,566 / 91,019 |
 
 With `--cards`, 11 of 18 roles exit 0 as specified; refused: cr-driver, release-driver, stack-driver, qa-driver, spec-writer, spec-critic, board-griller. **"Each exits 0" is not met.** The refusals, quoted:
 
@@ -196,13 +196,13 @@ No quiz was run (the brief: `just quiz` is not run). Roles whose card changed ag
 | stack-driver | yes: quiz owed |
 | verifier | yes: quiz owed |
 
-Round 7 changed the cards of the Chief of Staff, the Foreman and the Griller (and the review step and the four skill texts): their quiz is owed at the committed head. Plans only: `evidence/acceptance-records.md`.
+Rounds 7 and 8 changed the cards of the Chief of Staff, the Foreman, the Griller and the Coder, the review step, the four skill texts and topics: their quiz is owed at the committed head. Plans only: `evidence/acceptance-records.md`.
 
 Quiz case change of round 4: `evals/quiz/chief-of-staff/a8-ask-foreign-branch.json` removed, `a8-push-refused-default-branch.json` added.
 
 ## 6. Links
 
-306 `.md` and `.json` files under `cards-next/` read; fenced blocks skipped. `skills/*-SKILL.md` links resolve under section 6's mapping (`../chantier/references/` to `cards-next/`, `./` to `skills/<skill>/`); `forges/` links to `docs/` resolve from the same depth as `references/forges/`. Links: 22; broken: 0; no link points into `references/`. Outside `cards-next/`: the two `forges/` links to `docs/`, and one more the specification's wording does not name, `init.md`'s link to the shipped asset `assets/tour.html` (today's link, unchanged; it resolves from the same depth after the swap).
+313 `.md` and `.json` files under `cards-next/` read; fenced blocks skipped. `skills/*-SKILL.md` links resolve under section 6's mapping (`../chantier/references/` to `cards-next/`, `./` to `skills/<skill>/`); `forges/` links to `docs/` resolve from the same depth as `references/forges/`. Links: 22; broken: 0; no link points into `references/`. Outside `cards-next/`: the two `forges/` links to `docs/`, and one more the specification's wording does not name, `init.md`'s link to the shipped asset `assets/tour.html` (today's link, unchanged; it resolves from the same depth after the swap).
 
 | file:line | link | resolves to |
 | --- | --- | --- |
@@ -257,24 +257,24 @@ Throwaway script `work/r5/topics_check.py`, with `load_topics` from `commands/he
 
 ```text
 $ uv run --no-sync --project <worktree> python work/r5/topics_check.py
-load_topics: 234 topics loaded
-readings resolved: 415 (0 with a #heading, 27 host maps)
+load_topics: 238 topics loaded
+readings resolved: 432 (0 with a #heading, 27 host maps)
 CLI `help <word>` matches: --for, board, from, h, lease, lists, merge, of, refused-push, stack-merge, takes, topic, topics, watcher
   not topic names (prose or code): --for, from, h, lists, of, takes, topic, topics
 base names: 38; missing from cards-next: none
 roles.yaml roles: 18; topic roles outside it: none
 review_by: 37 topics, values ['0.16.0']
-topic names cited in cards-next: 182; not in topics.json: none
+topic names cited in cards-next: 185; not in topics.json: none
 topic files no topic reads: none
 (exit 0)
 ```
 
 ## 8. The Driver table
 
-`driver_prompt.driver_table()` reads `skill_dir()/references/concepts.md`; for the new file `skill_dir` was pointed at a staging folder holding a copy of `cards-next/concepts.md` (`work/r7/dp-stage/`).
+`driver_prompt.driver_table()` reads `skill_dir()/references/concepts.md`; for the new file `skill_dir` was pointed at a staging folder holding a copy of `cards-next/concepts.md` (`work/r8/dp-stage/`).
 
 ```text
-$ work/r7/proofs.py (proof 8)
+$ work/r8/proofs.py (proof 8)
 parser from <worktree>/skills/chantier/scripts/cli/src/chantier/driver_prompt.py
 rows, references/concepts.md: 4
 rows, cards-next/concepts.md: 4
@@ -298,7 +298,7 @@ The named test reads today's `references/hosts/claude-code.md`, which this child
 ```text
 $ pytest skills/chantier/scripts/cli/tests/test_cli_runs.py::test_the_allow_rules_json_block_lists_exactly_what_preflight_checks
 .                                                                        [100%]
-1 passed in 1.11s
+1 passed in 0.16s
 (exit 0)
 ```
 
@@ -316,7 +316,7 @@ No test is added or changed (`git diff --name-only` against the base shows nothi
 
 ## 10. Inventory and completeness table
 
-`evidence/cards-inventory-host-and-shared.md` (how the sources were walked, the rows, the manifest action table, the completeness table, the sibling-card edits with their lines), written by `work/r5/gen.py`; round 6 changed its rows with `work/r6/host_rows.py` and its sibling-card table by hand. Round 7 changed the rows of all four inventories after reading each protecting row's cited home (`work/r7/apply.py`, `work/r7/apply_host.py`) and added `evidence/boundaries-split.md`.
+`evidence/cards-inventory-host-and-shared.md` (how the sources were walked, the rows, the manifest action table, the completeness table, the sibling-card edits with their lines), written by `work/r5/gen.py`; round 6 changed its rows with `work/r6/host_rows.py` and its sibling-card table by hand. Round 7 changed the rows of all four inventories after reading each protecting row's cited home (`work/r7/apply.py`, `work/r7/apply_host.py`) and added `evidence/boundaries-split.md`. Round 8 read each section's rows against the cited home and re-homed those the home did not hold (`work/r8/rehome.py`, `sync.py`, `citefix.py`, `quotefix.py`), and updated the sibling-card edits (`sibling.py`, `sibling2.py`) and two boundary rows (`bounds.py`).
 
 ## 11. Unloaded
 
@@ -332,18 +332,18 @@ $ git grep --untracked -n "Read this short role contract at boot\|# chantier-age
 (no line; exit 1)
 ```
 
-## 12. Gates (round 7, on the working tree)
+## 12. Gates (round 8, on the working tree)
 
-- `just check` from the Bash tool, `NO_COLOR` not set: exit 0, `2932 passed, 20 skipped`.
+- `just check` from the Bash tool, `NO_COLOR` not set: exit 0, `2933 passed, 19 skipped`.
 - In round 5 the same command from the PowerShell tool, whose environment sets `NO_COLOR=1`, exited 1 on two cases of `test_live_ready.py::test_the_interactive_screen_links_the_pr_and_colours_the_state_words` (it expects colour codes, which rich drops under `NO_COLOR`); not rerun since. No file of `src/` or `tests/` is changed since the base.
-- The allow-rules test, its twin on the new card, `load_topics` and the 1,500-byte limit of the new topics: run by `work/r7/proofs.py` (the sections above).
+- The allow-rules test, its twin on the new card, `load_topics` and the 1,500-byte limit of the new topics: run by `work/r8/proofs.py` (the sections above).
 - Not run here: `just quiz`, `just scenario (ubuntu-latest)` and the local `scenario` gate (they need the pushed head; the Driver's part).
 
 ## Known gaps
 
 - **"Each exits 0" (item 4) is not met**: cr-driver, release-driver, stack-driver, qa-driver, spec-writer, spec-critic, board-griller are refused as specified (quoted above). The four Drivers with `--cards` need `roles.yaml`'s `card` changed at the swap (child 24).
-- **Cards over budget** (Q4): `coder.md` 1,533 (over by 33; 1,417 at `bf4e4c42`); `demo-explorer.md` 1,612 (over by 112; 1,496 at `bf4e4c42`); `retro-critic.md` 1,565 (over by 65; 1,492 at `bf4e4c42`); `spec-critic.md` 1,572 (over by 72; 1,499 at `bf4e4c42`); `spec-writer.md` 1,667 (over by 167; 1,493 at `bf4e4c42`); `verifier.md` 3,112 (over by 112; 2,996 at `bf4e4c42`); `release-driver.md` 3,811 (over by 739; 3,277 at `bf4e4c42`). The bytes are rules whose home must be a card (kind a) and the pointer to `help session-shell`; a sibling card's other lines are not this child's to cut (section 1), and only the owner raises a budget. `retro-critic.md` and `spec-critic.md` are over by the pointer line alone: without it they are within, and the folder-change ban reaches them through the topic's role list only.
+- **Cards over budget** (Q4): `coder.md` 1,603 (over by 103; 1,417 at `bf4e4c42`); `demo-explorer.md` 1,612 (over by 112; 1,496 at `bf4e4c42`); `retro-critic.md` 1,565 (over by 65; 1,492 at `bf4e4c42`); `spec-critic.md` 1,572 (over by 72; 1,499 at `bf4e4c42`); `spec-writer.md` 1,667 (over by 167; 1,493 at `bf4e4c42`); `verifier.md` 3,112 (over by 112; 2,996 at `bf4e4c42`); `release-driver.md` 3,811 (over by 739; 3,277 at `bf4e4c42`). The bytes are rules whose home must be a card (kind a) and the pointer to `help session-shell` (round 8 added the large-binaries never to `coder.md`, H-057); a sibling card's other lines are not this child's to cut (section 1), and only the owner raises a budget. `retro-critic.md` and `spec-critic.md` are over by the pointer line alone: without it they are within, and the folder-change ban reaches them through the topic's role list only.
 - **Topics over 1,500** (Q4): 24, listed in item 3; all exist at `bf4e4c42`. Round 5 grew `release-notes.md` and `cr-rounds.md` (a link and a pointer).
 - Real run not done (child 28). Quiz not run (item 5). Copilot untested.
-- Rules with no full home in the new set (the inventories' gaps): H-057 (large binaries), H-059 in part (the host's settings), FM-026, C-006, C-304, C-885; FM-B006: `judge` does not carry the image note.
+- Rules with no full home in the new set (the inventories' gaps): FM-026, C-304, C-885 in part; FM-B006: `judge` does not carry the image note.
 - Do not merge: merges with children 19 to 28 as one unit, after child 28's campaign.

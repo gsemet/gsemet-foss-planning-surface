@@ -1,6 +1,6 @@
 # Acceptance records
 
-Base: `24111e6d9920a7ff3e8f210613186dd65d802ec8` (origin/main). Head: `03f973e4f0d0756c9b5fa77ed0f888f941745dbe`, plus this round's uncommitted card edits unless a line says otherwise.
+Base: `24111e6d9920a7ff3e8f210613186dd65d802ec8` (origin/main). Head: `03f973e4f0d0756c9b5fa77ed0f888f941745dbe`, plus the uncommitted changes of rounds 7 and 8 unless a line says otherwise.
 
 ## `just test`, base and head (Part 1.7, Part 2.8, Part 3.9)
 
@@ -13,7 +13,7 @@ head 03f973e4:  2932 passed, 20 skipped in 171.16s (wall 172.6 s)
 
 0 seconds added; the difference between the two is run-to-run variation, not a speed-up.
 
-`just check` on this round's working tree (tests beside the other checks, so not a timing comparison): `2932 passed, 20 skipped in 164.86s`.
+`just check` on round 8's working tree (tests beside the other checks, so not a timing comparison): `2933 passed, 19 skipped in 222.50s`.
 
 ## Brief bytes beside the old start readings (Part 1.3, Part 2.3)
 
@@ -28,26 +28,28 @@ Old start readings, as the specification gives them (study-fable-v2; not measure
 `brief`, batch-31, host claude, today's cards (old) and `--cards <worktree>/skills/chantier/cards-next` (new), the working tree's cards. LF bytes of the brief file:
 
 ```text
-foreman | new exit 0 bytes 22279 host claude
+foreman | new exit 0 bytes 22278 host claude
 foreman | old exit 0 bytes 55206 host claude
 chief-of-staff | new exit 0 bytes 24657 host claude
 chief-of-staff | old exit 0 bytes 22322 host claude
-griller | new exit 0 bytes 6627 host claude
+griller | new exit 0 bytes 6650 host claude
 griller | old exit 0 bytes 6349 host claude
-foreman --epoch 1 | new exit 0 bytes 22279 host claude
+foreman --epoch 1 | new exit 0 bytes 22278 host claude
 foreman --epoch 1 | old exit 0 bytes 55206 host claude
+coder CR-507 | new exit 0 bytes 6110 host claude
+coder CR-507 | old exit 0 bytes 9116 host claude
 ```
 
 | reading | old | new |
 | --- | ---: | ---: |
-| `brief foreman` | 55,206 | 22,279 |
+| `brief foreman` | 55,206 | 22,278 |
 | `brief chief-of-staff` | 22,322 | 24,657 |
-| `brief griller` | 6,349 | 6,627 |
-| direct mode: `brief chief-of-staff` + `brief foreman --epoch 1` | 77,528 | 46,936 |
+| `brief griller` | 6,349 | 6,650 |
+| direct mode: `brief chief-of-staff` + `brief foreman --epoch 1` | 77,528 | 46,935 |
 
 ## `just quiz --plan` (Part 1.4, Part 2.4, Part 3.5)
 
-Plan only: `--plan` stops before any model call, so no model run and no spend. `claude-opus-5-5` is the session roles' `--model`, as the Verifier ran it. The three Driver roles cannot be planned on this set: `roles.yaml` names `driver.md`, which `cards-next/` does not hold. The session roles' plans are above the default `--max-usd 10`. `inspector`, `investigator` and `qa-driver` have no folder under `evals/quiz/`.
+Round 7's run (no case, no `roles.yaml` line changed since). Plan only: `--plan` stops before any model call, so no model run and no spend. `claude-opus-5-5` is the session roles' `--model`, as the Verifier ran it. The three Driver roles cannot be planned on this set: `roles.yaml` names `driver.md`, which `cards-next/` does not hold. The session roles' plans are above the default `--max-usd 10`. `inspector`, `investigator` and `qa-driver` have no folder under `evals/quiz/`.
 
 ```text
 $ just quiz chief-of-staff griller --model claude-opus-5-5 --plan --cards skills/chantier/cards-next
@@ -129,7 +131,7 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  evals/quiz/chief-of-staff/a8-rebase-refused-cr-branch.json      |    9 +
  skills/chantier/cards-next/chief-of-staff.md                    |   41 +++
  skills/chantier/cards-next/coder.md                             |    1 +
- skills/chantier/cards-next/concepts.md                          |  142 ++++++++++
+ skills/chantier/cards-next/concepts.md                          |  142 +++++++++
  skills/chantier/cards-next/conflict-resolver.md                 |    1 +
  skills/chantier/cards-next/cr-driver.md                         |    9 +-
  skills/chantier/cards-next/debugger.md                          |    1 +
@@ -139,9 +141,9 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/forges/gitlab.md                     |   11 +
  skills/chantier/cards-next/griller-skill.md                     |   31 ++
  skills/chantier/cards-next/griller.md                           |    4 +-
- skills/chantier/cards-next/hosts/claude-code.json               |  697 +++++++++++++++++++++++++++++++++++++++++++++
- skills/chantier/cards-next/hosts/claude-code.md                 |  158 +++++++++++
- skills/chantier/cards-next/hosts/copilot.json                   |  687 ++++++++++++++++++++++++++++++++++++++++++++
+ skills/chantier/cards-next/hosts/claude-code.json               |  697 ++++++++++++++++++++++++++++++++++++++++++++
+ skills/chantier/cards-next/hosts/claude-code.md                 |  158 ++++++++++
+ skills/chantier/cards-next/hosts/copilot.json                   |  687 +++++++++++++++++++++++++++++++++++++++++++
  skills/chantier/cards-next/init.md                              |   42 +++
  skills/chantier/cards-next/inspector.md                         |    4 +-
  skills/chantier/cards-next/investigator.md                      |    1 +
@@ -154,21 +156,21 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/routing.md                           |   36 +++
  skills/chantier/cards-next/skills/chantier-SKILL.md             |   30 ++
  skills/chantier/cards-next/skills/chief-of-staff-SKILL.md       |   35 +++
- skills/chantier/cards-next/skills/griller-SKILL.md              |   32 +++
+ skills/chantier/cards-next/skills/griller-SKILL.md              |   32 ++
  skills/chantier/cards-next/skills/status-SKILL.md               |   39 +++
  skills/chantier/cards-next/spec-critic.md                       |    2 +
  skills/chantier/cards-next/spec-writer.md                       |    4 +-
  skills/chantier/cards-next/stack-driver.md                      |   10 +-
  skills/chantier/cards-next/status-layout.md                     |   90 ++++++
- skills/chantier/cards-next/sync-checkout.md                     |   20 ++
+ skills/chantier/cards-next/sync-checkout.md                     |   21 ++
  skills/chantier/cards-next/ticket-summary-example.md            |   44 +++
- skills/chantier/cards-next/topics.json                          | 1978 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ skills/chantier/cards-next/topics.json                          | 2027 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
  skills/chantier/cards-next/topics/allow-rules-more-p1.md        |    7 +
  skills/chantier/cards-next/topics/allow-rules-more-p2.md        |    3 +
  skills/chantier/cards-next/topics/allow-rules.md                |    7 +
  skills/chantier/cards-next/topics/asks.md                       |    3 +
  skills/chantier/cards-next/topics/batch-close-p1.md             |    4 +
- skills/chantier/cards-next/topics/batch-close-p2.md             |    3 +
+ skills/chantier/cards-next/topics/batch-close-p2.md             |    4 +
  skills/chantier/cards-next/topics/batch-close-stopped-p1.md     |    7 +
  skills/chantier/cards-next/topics/batch-close-stopped-p2.md     |    4 +
  skills/chantier/cards-next/topics/batch-pause.md                |    6 +
@@ -198,11 +200,15 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/topics/demo-p2.md                    |    4 +
  skills/chantier/cards-next/topics/direct-mode-accept-p1.md      |    7 +
  skills/chantier/cards-next/topics/direct-mode-accept-p2.md      |    4 +
+ skills/chantier/cards-next/topics/direct-mode-back.md           |    7 +
  skills/chantier/cards-next/topics/direct-mode-epoch-p1.md       |    3 +
  skills/chantier/cards-next/topics/direct-mode-epoch-p2.md       |    4 +
  skills/chantier/cards-next/topics/direct-mode-p1.md             |    6 +
  skills/chantier/cards-next/topics/direct-mode-p2.md             |    6 +
  skills/chantier/cards-next/topics/direct-mode-p3.md             |    3 +
+ skills/chantier/cards-next/topics/direct-mode-switch-p1.md      |    6 +
+ skills/chantier/cards-next/topics/direct-mode-switch-p2.md      |    5 +
+ skills/chantier/cards-next/topics/direct-mode-switch-p3.md      |    6 +
  skills/chantier/cards-next/topics/driver-question.md            |    7 +
  skills/chantier/cards-next/topics/drop.md                       |    6 +
  skills/chantier/cards-next/topics/escalation.md                 |    7 +
@@ -223,13 +229,13 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/topics/grill-restate.md              |    6 +
  skills/chantier/cards-next/topics/grill-series.md               |    8 +
  skills/chantier/cards-next/topics/grill-specify-p1.md           |    7 +
- skills/chantier/cards-next/topics/grill-specify-p2.md           |    4 +
+ skills/chantier/cards-next/topics/grill-specify-p2.md           |    5 +
  skills/chantier/cards-next/topics/grill-surface.md              |    6 +
  skills/chantier/cards-next/topics/griller-cost.md               |    3 +
  skills/chantier/cards-next/topics/griller-worktree.md           |    5 +
  skills/chantier/cards-next/topics/handover.md                   |    4 +
  skills/chantier/cards-next/topics/hold.md                       |    9 +
- skills/chantier/cards-next/topics/host-allow-add-lines.md       |   16 ++
+ skills/chantier/cards-next/topics/host-allow-add-lines.md       |   16 +
  skills/chantier/cards-next/topics/host-allow-add.md             |   17 ++
  skills/chantier/cards-next/topics/host-allow-broad.md           |   17 ++
  skills/chantier/cards-next/topics/host-allow-extra.md           |    8 +
@@ -249,7 +255,7 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/topics/host-for-you-sessions.md      |   11 +
  skills/chantier/cards-next/topics/host-for-you.md               |   19 ++
  skills/chantier/cards-next/topics/host-foreman-worktree.md      |    8 +
- skills/chantier/cards-next/topics/host-heartbeat-copilot.md     |   16 ++
+ skills/chantier/cards-next/topics/host-heartbeat-copilot.md     |   16 +
  skills/chantier/cards-next/topics/host-heartbeat.md             |   17 ++
  skills/chantier/cards-next/topics/host-refused.md               |   19 ++
  skills/chantier/cards-next/topics/host-remote.md                |   20 ++
@@ -265,18 +271,19 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/topics/init-checks.md                |    8 +
  skills/chantier/cards-next/topics/init-tools.md                 |    7 +
  skills/chantier/cards-next/topics/lease-steering.md             |    7 +
+ skills/chantier/cards-next/topics/lease.md                      |    2 +-
  skills/chantier/cards-next/topics/local-gate.md                 |    8 +
  skills/chantier/cards-next/topics/long-gate-waiver.md           |    4 +
  skills/chantier/cards-next/topics/long-gate.md                  |    8 +
  skills/chantier/cards-next/topics/lost-context.md               |    5 +
- skills/chantier/cards-next/topics/lost-driver.md                |    8 +
+ skills/chantier/cards-next/topics/lost-driver.md                |    9 +
  skills/chantier/cards-next/topics/lost-outside.md               |    8 +
  skills/chantier/cards-next/topics/lost-restart.md               |    7 +
- skills/chantier/cards-next/topics/lost-silent.md                |    5 +
+ skills/chantier/cards-next/topics/lost-silent.md                |    6 +
  skills/chantier/cards-next/topics/main-checkout.md              |    9 +
  skills/chantier/cards-next/topics/merge-gaps.md                 |    6 +
  skills/chantier/cards-next/topics/merge-github.md               |    3 +
- skills/chantier/cards-next/topics/merge-recorded.md             |    5 +
+ skills/chantier/cards-next/topics/merge-recorded.md             |    6 +
  skills/chantier/cards-next/topics/merge-series-stack-p1.md      |    4 +
  skills/chantier/cards-next/topics/merge-series-stack-p2.md      |    4 +
  skills/chantier/cards-next/topics/merge-stack-gitlab.md         |    5 +
@@ -287,6 +294,8 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/topics/merge.md                      |   11 +
  skills/chantier/cards-next/topics/mode-switch.md                |    9 +
  skills/chantier/cards-next/topics/options.md                    |    7 +
+ skills/chantier/cards-next/topics/order-drop.md                 |    6 +
+ skills/chantier/cards-next/topics/order-verbs.md                |   11 +
  skills/chantier/cards-next/topics/orders-queue.md               |    5 +
  skills/chantier/cards-next/topics/orders.md                     |    8 +
  skills/chantier/cards-next/topics/park-back.md                  |    5 +
@@ -294,6 +303,7 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/topics/pr-template-own.md            |    3 +
  skills/chantier/cards-next/topics/project-rules.md              |    8 +
  skills/chantier/cards-next/topics/qa-order.md                   |    3 +
+ skills/chantier/cards-next/topics/ready-asks.md                 |    3 +
  skills/chantier/cards-next/topics/recovery.md                   |    6 +
  skills/chantier/cards-next/topics/refusals-to-say-more.md       |    6 +
  skills/chantier/cards-next/topics/refusals-to-say-p1.md         |    6 +
@@ -313,7 +323,7 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/topics/refused-rebase-run.md         |    5 +
  skills/chantier/cards-next/topics/refused-rebase.md             |    6 +
  skills/chantier/cards-next/topics/release-chief-after-p1.md     |    4 +
- skills/chantier/cards-next/topics/release-chief-after-p2.md     |    4 +
+ skills/chantier/cards-next/topics/release-chief-after-p2.md     |    5 +
  skills/chantier/cards-next/topics/release-chief-approve-p1.md   |    6 +
  skills/chantier/cards-next/topics/release-chief-approve-p2.md   |    3 +
  skills/chantier/cards-next/topics/release-chief-auto-p1.md      |    7 +
@@ -356,7 +366,7 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/topics/stack-outside.md              |    5 +
  skills/chantier/cards-next/topics/stack-run.md                  |    5 +
  skills/chantier/cards-next/topics/stack-takes.md                |    5 +
- skills/chantier/cards-next/topics/stack.md                      |    6 +
+ skills/chantier/cards-next/topics/stack.md                      |    7 +
  skills/chantier/cards-next/topics/status-notes-more.md          |    6 +
  skills/chantier/cards-next/topics/status-notes.md               |    5 +
  skills/chantier/cards-next/topics/steering-reports-p1.md        |    6 +
@@ -371,7 +381,7 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/topics/trials.md                     |    8 +
  skills/chantier/cards-next/topics/wakes-forge.md                |    6 +
  skills/chantier/cards-next/topics/wakes.md                      |    7 +
- skills/chantier/cards-next/topics/watcher-board.md              |    7 +
+ skills/chantier/cards-next/topics/watcher-board.md              |    8 +
  skills/chantier/cards-next/topics/watcher-events.md             |    8 +
  skills/chantier/cards-next/topics/watcher-lines.md              |    9 +
  skills/chantier/cards-next/topics/watcher-pull.md               |    6 +
@@ -381,5 +391,5 @@ Every path is under `skills/chantier/cards-next/` but the 9 under `evals/quiz/`.
  skills/chantier/cards-next/topics/writer-off.md                 |    5 +
  skills/chantier/cards-next/topics/writer.md                     |    9 +
  skills/chantier/cards-next/verifier.md                          |    1 +
- 263 files changed, 6080 insertions(+), 27 deletions(-)
+ 271 files changed, 6183 insertions(+), 28 deletions(-)
 ```
