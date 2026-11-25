@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC25: Read the old cards against the new; nothing important lost",
+  "summary": "Specified: one stack PR on child 24 commits docs/proofs/cards-inventory.md (every old rule with a home and a check), restores lost rules, adds quiz cases and a test; 3 open questions with defaults; merges with child 28.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "93b9a4266e53845f20983b202c4776eb5ecfeb6af7ff90f6523ecd0e96533130",
+    "02-answers.md": "20c6032712b724ad78fec2a0de6ddd88f067e155906e3402303d87a50f858693",
+    "03-change-spec.md": "c6b466587dddf02ee6f9ebcd96604b86f00dd23b6528ef312f1a0e9f1524b339",
+    "intake/request.md": "a1071e85faf14c19e2fceff8d477de9e841b4003e2f906ad24a5c42817d0ae0f"
+  },
+  "summarized": "2026-11-25T00:28:31Z"
+}
