@@ -334,9 +334,9 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
   - `SwRS-MDOKFSTUDIO-CORE-069`, `CORE-080`, `CORE-082` (viewer: `test/site/requirementsViewer/model.ts`, `home.ts`, `pages.ts`; tests `model.test.ts`, `home.test.ts`, `pages.test.ts`, `write.test.ts`)
   - `SwRS-MDOKFSTUDIO-CORE-096` (marker check: `scripts/check-marker-companions.mjs`; test `test/build/checkMarkers.test.ts`)
 - [ ] Changelog: no user-facing change
-- [ ] Local gates: pending
+- [x] Local gates at `afbb55c`: `just preflight` (static stage on Windows) and `just requirements-lint` pass
 - [ ] Evidence: none; the extension has no visible change, and the requirements site is checked by its unit tests
-- [ ] Review: pending
+- [x] Review: approved at `afbb55c`
 - [ ] Verified: pending
 - [ ] CI green: pending
 
