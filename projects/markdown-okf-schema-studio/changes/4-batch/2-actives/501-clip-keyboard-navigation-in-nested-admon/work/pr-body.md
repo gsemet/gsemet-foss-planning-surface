@@ -14,7 +14,7 @@ Clip (GIF inline; MP4 and WebM linked at the pushed head):
 
 - [MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/66b84782df697c6ed9b7ec8119c7b1064fae8ee7/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4)
 - [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/66b84782df697c6ed9b7ec8119c7b1064fae8ee7/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm)
-- Storyboard to review: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/66b84782df697c6ed9b7ec8119c7b1064fae8ee7/docs/demo-video/clips/keyboard-navigation/clip.md)
+- Storyboard to review: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/3ea161ce58f3b53cfc4121a4cd0581f3082561e6/docs/demo-video/clips/keyboard-navigation/clip.md)
 
 ## Changes
 
@@ -63,14 +63,13 @@ Grade: 1. Docs, a clip folder and tests; a `git revert` restores the previous st
 - [x] New or changed tests: storyboard, stage and checks cases in the kit tests, the site test for the page
 - [x] Requirements: no behaviour change (`just requirements-update`: no change)
 - [x] Changelog: no user-facing change
-- [x] Local gates: `just clip keyboard-navigation all` (take pass, 20.0 s, GIF 1.60 MB, loop seam SSIM 0.98998), `just clip-kit-test` (40 tests), `just check` and `just ci-static`, all at 66b8478
+- [x] Local gates: `just clip keyboard-navigation all` (take pass, 20.0 s, GIF 1.60 MB, loop seam SSIM 0.98998), `just clip-kit-test` (40 tests) and `just check` at 3ea161c; the take and `just ci-static` at 66b8478 (carried: only the clip.md note changed since)
 - [ ] Review
 - [ ] CI green
 
 ## Known gaps
 
 - Not checked by the author: motion, rhythm and the loop as watched; the owner judges them.
-- The storyboard's "Changing one word" review note still says the editor opens on the item's text; it holds the whole admonition (see the deviation above).
 - Filmed on Windows only; the `Ctrl+⌫ / ⌥⌫` badge passes the kit on Windows only.
 - Enter on a selected list item inside an admonition opens the whole admonition: shown as it behaves, not fixed here.
 
