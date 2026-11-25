@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "chore: declare the long gate in chantier.yaml",
+  "summary": "Commit the root chantier.yaml naming just preflight as the long gate.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "4630123c1332757d2210b668f31e05b0d17a6c87b24c144fd968ddd3700e6191"
+  },
+  "summarized": "2026-11-25T17:15:56Z"
+}
