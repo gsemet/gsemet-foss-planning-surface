@@ -1,6 +1,6 @@
 # PART 3 proofs (round 5)
 
-Worktree `C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507`, head `bf4e4c42` plus the uncommitted changes of rounds 4 and 5: nothing is committed, so every command runs against the working tree (the files as they will be committed), and where the specification says `HEAD` the comparison is stated. Byte counts are LF bytes (the checkout has `core.autocrlf=true`). Written by `work/r5/proofs.py`.
+Worktree `<worktree>`, head `bf4e4c42` plus the uncommitted changes of rounds 4 and 5: nothing is committed, so every command runs against the working tree (the files as they will be committed), and where the specification says `HEAD` the comparison is stated. Byte counts are LF bytes (the checkout has `core.autocrlf=true`). Written by `work/r5/proofs.py`. Paths: `<worktree>` is the CR's worktree, `<surface>` the planning surface's checkout, `<planning>` its `projects/chantier` folder.
 
 ## 2. Byte-identical copies
 
@@ -131,19 +131,19 @@ With `--cards`, 11 of 18 roles exit 0 as specified; refused: cr-driver, release-
 
 ```text
 $ brief ... (refusals)
-[cr-driver, new] exit 2: error: brief: cannot read C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next/driver.md: No such file or directory
-[release-driver, new] exit 2: error: brief: cannot read C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next/driver.md: No such file or directory
+[cr-driver, new] exit 2: error: brief: cannot read <worktree>/skills/chantier/cards-next/driver.md: No such file or directory
+[release-driver, new] exit 2: error: brief: cannot read <worktree>/skills/chantier/cards-next/driver.md: No such file or directory
 [release-driver, old] exit 2: error: brief: CR-507 is a change CR: its Driver is the cr-driver, not release-driver
-[stack-driver, new] exit 2: error: brief: cannot read C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next/driver.md: No such file or directory
+[stack-driver, new] exit 2: error: brief: cannot read <worktree>/skills/chantier/cards-next/driver.md: No such file or directory
 [stack-driver, old] exit 2: error: brief: lease 11 is not stack's live lease
-[qa-driver, new] exit 2: error: brief: cannot read C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/cards-next/driver.md: No such file or directory
+[qa-driver, new] exit 2: error: brief: cannot read <worktree>/skills/chantier/cards-next/driver.md: No such file or directory
 [qa-driver, old] exit 2: error: brief: O-1 is not an open QA order of batch-31
-[spec-writer, new] exit 2: error: brief: C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`
-[spec-writer, old] exit 2: error: brief: C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`
-[spec-critic, new] exit 2: error: brief: C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`
-[spec-critic, old] exit 2: error: brief: C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`
-[board-griller, new] exit 2: error: brief: C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`
-[board-griller, old] exit 2: error: brief: C:/Users/gaeta/Projets/gsemet-foss-planning-surface/projects/chantier/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`
+[spec-writer, new] exit 2: error: brief: <planning>/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`
+[spec-writer, old] exit 2: error: brief: <planning>/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`
+[spec-critic, new] exit 2: error: brief: <planning>/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`
+[spec-critic, old] exit 2: error: brief: <planning>/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`
+[board-griller, new] exit 2: error: brief: <planning>/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`
+[board-griller, old] exit 2: error: brief: <planning>/changes/4-batch/2-actives/507-sc21-cards-foreman is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`
 ```
 
 Causes:
@@ -270,7 +270,7 @@ topic files no topic reads: none
 
 ```text
 $ work/r5/proofs.py (proof 8)
-parser from C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/scripts/cli/src/chantier/driver_prompt.py
+parser from <worktree>/skills/chantier/scripts/cli/src/chantier/driver_prompt.py
 rows, references/concepts.md: 4
 rows, cards-next/concepts.md: 4
 equal, cell for cell: True
@@ -293,7 +293,7 @@ The named test reads today's `references/hosts/claude-code.md`, which this child
 ```text
 $ pytest skills/chantier/scripts/cli/tests/test_cli_runs.py::test_the_allow_rules_json_block_lists_exactly_what_preflight_checks
 .                                                                        [100%]
-1 passed in 0.10s
+1 passed in 36.68s
 (exit 0)
 ```
 
