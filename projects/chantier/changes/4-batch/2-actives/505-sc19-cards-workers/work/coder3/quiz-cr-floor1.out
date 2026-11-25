@@ -1,0 +1,5 @@
+uv run --locked python evals/kit/quiz.py cr-driver --cards C:/Users/gaeta/AppData/Local/Temp/claude/f81ba1603abd10b3/c095a20c-9c0e-47ff-9690-11acf58be0b6/scratchpad/stage/cr-driver --case floor-1-cr-driver-merge
+quiz.py: claude: not found on this machine
+plan: cr-driver 1 cases x 3 runs on claude-sonnet-5-5 + 3 judge calls on claude-fable-5-2: ~$1.07
+plan total: 3 runs, ~$1.07 (cap $10)
+error: recipe `quiz` failed on line 41 with exit code 1
