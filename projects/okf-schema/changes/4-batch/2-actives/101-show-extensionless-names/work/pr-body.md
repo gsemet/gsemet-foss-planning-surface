@@ -19,10 +19,11 @@ With this change, `show` and the Python API `show_bundle`:
 Behaviour to know: a script that relied on `show` reading a file outside the bundle, or through a
 symbolic link that leaves it, now gets an error. On Windows a name starting with `\` keeps its
 Windows meaning (a path from the root of the drive). Git Bash rewrites a leading `/` before
-okf-schema receives it; write the name without it, or set `MSYS_NO_PATHCONV=1`. On a
-case-insensitive file system such as macOS, an absolute path whose bundle part is spelled in
-another letter case than the real path of `--path` is not recognized as inside the bundle and is
-reported as not found, although such a path was read before. The command reference documents these
+okf-schema receives it; write the name without it, or set `MSYS_NO_PATHCONV=1`. On macOS with
+its default case-insensitive file system, an absolute path whose bundle part is spelled in another
+letter case than the real path of `--path` is not recognized as inside the bundle and is reported
+as not found, although such a path was read before (established from the code, not run on macOS
+with such a path; on Windows such a path is still read). The command reference documents these
 limits.
 
 The requirements gain `SwRS-OKFSCHEMA-CORE-010` ("Stay inside the bundle", proposed, applied to
@@ -77,6 +78,7 @@ bundle instead of not found.
 
 - `validate`, `list`, `index`, `backlinks` and `lint` still follow symbolic links whose target is outside the bundle; this change covers `show` only.
 - The requirements change log entry records a verification run made on a host that refused symbolic links; it does not mention the later full run at the same commit, which passed. It was left because changing it would move the verified commit.
+- The command reference words the letter case limit for any case-insensitive file system such as macOS, although on Windows such a path is still read. It was left because correcting the reference would move the verified commit.
 
 ## Test plan
 

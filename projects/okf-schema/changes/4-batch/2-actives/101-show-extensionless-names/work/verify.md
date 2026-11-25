@@ -2,7 +2,7 @@
 
 Head: 41fcd6dbebaddff719c2a3f54f610298034d0ad6
 
-Verdict: NOT VERIFIED (description pass on the posted text, section 16; one claim failed). Sections 1 to 13 stand.
+Verdict: NOT VERIFIED (description pass on the text posted at 22:13:47Z, section 17; one claim failed). Sections 1 to 13 stand.
 
 - Base: `2f09cef3e786d1696e42b5cb305d4a55111e7725`. PR: https://github.com/gsemet/okf-schema/pull/68.
 - Every claim below is judged at head `41fcd6dbebaddff719c2a3f54f610298034d0ad6` (written "head"). None is carried.
@@ -369,3 +369,48 @@ path of `--path` is not recognized and is reported as not found".
 | Test plan: CI green, jobs, tag-release, symlink and acceptance tests | claims 3, 4; `ci.yml:85` `if: ... github.ref == 'refs/heads/main'`; 14 symlink or link-loop tests PASSED on each of the six jobs; the 12 Windows skips are all acceptance |
 | Related Issues; Internal references | claim 14 (issue 56); the nine named files exist in `work/verifier/evidence/` |
 | Form: project template kept; no STALE, no UNVERIFIED, no image; CR name only in Internal references | posted body and `.github/pull_request_template.md` |
+
+## 17. Description pass, PR 68 as posted at 22:13:47Z: NOT VERIFIED
+
+Judged at head `41fcd6dbebaddff719c2a3f54f610298034d0ad6`; the head has not moved.
+
+```text
+$ gh pr view 68 --repo gsemet/okf-schema --json headRefOid,updatedAt,isDraft
+41fcd6dbebaddff719c2a3f54f610298034d0ad6  2026-11-25T22:13:47Z  isDraft true
+$ git rev-parse HEAD ; git ls-remote origin refs/heads/chantier/batch-01/cr-101-...
+41fcd6dbebaddff719c2a3f54f610298034d0ad6   (both; git status --porcelain: empty)
+$ diff before.md now.md      (userContentEdits: revision judged in section 16, and the newest)
+22,23c22,26   only the "Behaviour to know" paragraph: one sentence added, "these limits" rewrapped
+$ diff posted.md now.md      same
+$ gh api .../pulls/68 body_html: 9 h2, 1 table, no img, no STALE, no UNVERIFIED
+```
+
+### 17.1 FAILED: "On a case-insensitive file system such as macOS, an absolute path ... in another letter case ... is not recognized as inside the bundle and is reported as not found"
+
+The sentence covers every case-insensitive file system. On Windows (NTFS, case-insensitive) such a
+path is recognized and the concept is shown. Section 16.1 proposed this wording; it is too broad.
+
+```text
+$ uv run --no-sync -- python -B probe_case.py     (throwaway under work/scratch, removed; bundle
+  folder "mixedcasebundle", show_bundle(bundle, <parent>/MIXEDCASEBUNDLE/<name>))
+clock.md -> '# Clock'
+clock -> '# Clock'
+$ uv run --no-sync -- python -B -c "... PurePosixPath / PureWindowsPath equality of KB and kb"
+posix False
+windows True
+```
+
+The macOS case rests on the code (`_is_disk_path_in_bundle` compares real paths; POSIX equality
+keeps letter case) and the base code (`target = bundle / concept_path`, section 16.1); not run on
+macOS. A narrower wording that matches these proofs: "On macOS with its default case-insensitive
+file system, ... (on Windows such a path is still read)". The command reference
+(`docs/source/reference/cli.md`, "Limits") uses the same broad phrase "such as macOS"; the
+description repeats it faithfully. Changing the reference would move the head.
+
+The rest of the paragraph is VERIFIED: outside reads now fail, `\` on Windows, Git Bash (claims 7,
+8, 12); "documents these limits": the three bullets of "Limits" and "Errors" in
+`git diff 2f09cef 41fcd6d -- docs/source/reference/cli.md`.
+
+### 17.2 Unchanged statements: VERIFIED, carried from section 16.2
+
+Same head, and the diff above shows no other text changed.
