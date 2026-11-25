@@ -93,8 +93,8 @@ Grade: 1
 | File and line (under `cards-next/`) | Change |
 | --- | --- |
 | chief-of-staff.md 13, 14, 16, 17, 27 | writes on the user's yes; never stop a process by name or PID; `cancel` only after an ordered drop; its own push is asked first; no CR work in a temp folder, no secret in a CR folder |
-| chief-of-staff.md 41 | pointers to new topics |
-| chief-of-staff.md 10, 22, 23, 39 | the push rail covers a protected branch too; never stop a Driver; never edit `summary.json` by hand; two wording trims, one more on line 41 |
+| chief-of-staff.md 41 | pointers to new topics; on `init` or "I am new here", run `$CHANTIER init` and give the tour of `init.md` |
+| chief-of-staff.md 10, 22, 23, 39 | the push rail covers a protected branch too; never stop a Driver; never edit `summary.json` by hand; a wording trim on line 39, one more on line 41 |
 | cr-driver.md 5 and 16, stack-driver.md 5 and 16, release-driver.md 16 | fresh workers per round or move, and the checker never wrote the change (line 5); no rebase with `--rebase-merges`, `--exec` or `-x` (line 16) |
 | inspector.md 5, 22 | a check red on the default branch is reported, never fixed there; the `worker-shell` pointer shortened |
 | coder.md 13, conflict-resolver.md 15, debugger.md 13, demo-explorer.md 13, investigator.md 16, verifier.md 18, cr-driver.md 18 | the same temp-folder and secrets never |
@@ -134,9 +134,10 @@ Grade: 1
   2,030, pr-extras 1,898, pr-images 1,882, refused-push 1,544, release-merged 2,845, release-notes
   2,063, release-ship 2,306, retake-notes 1,871, retake-stack 1,818, retake 2,328, stack-changes 2,354,
   stack-hold 2,232, stack-make 1,742, stack-restack 1,832, trouble-remote 1,582, trouble-worker 2,173.
-- The Chief of Staff's "Never" list has 13 items against a cap of about 5. Two are not in the planned
-  list: "widen a grant, or approve an irreversible action, without the user's own word" and "state a
-  past fact in a brief without its source".
+- The Chief of Staff's "Never" list has 14 items against a cap of about 5. Three are not in the planned
+  list: "widen a grant, or approve an irreversible action, without the user's own word", "state a
+  past fact in a brief without its source" and the never on CR work in a temp folder and on secrets or
+  personal data in a CR folder.
 - No byte target is set for `concepts.md`, `pr-template.md`, `release-template.md`,
   `status-layout.md`, `routing.md` and `init.md`: the owner may set one before budgets are frozen.
 - The router skill runs no brief: it asks the role or behaves as the Chief of Staff.
@@ -212,7 +213,7 @@ Grade: 1
   seat, seat-handover, session-shell, session-start, session-start-surface, spec-writer-extras, stack,
   stack-asks, stack-changes, stack-changes-chief, stack-checks, stack-deliver, stack-drop, stack-ends,
   stack-gate, stack-grows, stack-hold, stack-joins, stack-make, stack-merge, stack-outside,
-  stack-record, stack-restack, stack-run, stack-takes, status-notes, status-notes-more, steering,
+  stack-record, stack-restack, stack-run, stack-takes, status-notes, steering,
   steering-messages, steering-reports, sync, sync-offer, take-back, ticket-summary,
   ticket-summary-post, titles, trials, trouble, trouble-gate, trouble-git, trouble-remote,
   trouble-worker, verifier-before-after, verifier-delta-matrix, verifier-description, verifier-images,
