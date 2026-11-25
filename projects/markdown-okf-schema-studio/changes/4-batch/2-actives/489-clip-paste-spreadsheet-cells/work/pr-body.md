@@ -36,6 +36,9 @@ Grade: **1**. Docs, a clip folder and tests only; `git revert` restores the prev
 - Draft: the storyboard and the clip await the owner's review.
 - The conditional Done click goes beyond the amended spec (above).
 - Windows only; macOS and Linux not filmed.
+- Not watched by the author: motion, rhythm, the loop as watched, the GIF and WebM played, the docs page rendering the clip (UNVERIFIED; the owner judges them).
+- Two tooltips show in the key frames ("Exit edit mode" in 01-selected, "Convert to list-table" in 02-pasted), against the recipe's "no tooltip"; left to the owner's review.
+- CI on this draft PR was still running when the body was written.
 
 <details><summary>Details</summary>
 

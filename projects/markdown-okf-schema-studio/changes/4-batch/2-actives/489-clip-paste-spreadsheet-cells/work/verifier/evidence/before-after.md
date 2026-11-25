@@ -1,0 +1,1 @@
+No before/after pair captured: the clip is new (no base counterpart) and its take cannot be redone here. After: the committed key frames and contact sheet at 612623646a0dd0441fadd3425a8bcccb683945db were looked at in place.
