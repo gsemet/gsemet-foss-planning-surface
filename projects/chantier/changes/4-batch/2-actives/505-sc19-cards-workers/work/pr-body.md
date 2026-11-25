@@ -29,7 +29,7 @@ Sizes of the Driver cards (the old shared Driver card is 54,955 bytes):
 | qa-driver | 1,337 | 2,048 |
 | release-driver | 3,277 | 3,072 |
 
-Brief sizes (the start brief an agent receives: card, floor, facts and host rows; bytes, old cards against new, `brief <role> --cards cards-next`): coder 7549 to 4357, conflict-resolver 6833 to 4318, debugger 6622 to 4105, investigator 6494 to 4310, verifier 17521 to 5936, inspector 8984 to 4939, spec-writer 4815 to 3054, spec-critic 5290 to 3060, board Griller 11964 to 2965, retro-critic 4225 to 2816, demo-explorer 4746 to 2820. Driver role-only briefs, re-measured at the head: old 59,216 each against new 7,442 (cr), 7,483 (stack), 7,439 (release), 5,499 (qa); the targets are 6, 6, 5 and 4 KB. The full table, with the study's declared boot figures, is in the change's evidence.
+Brief sizes (the start brief an agent receives: card, floor, facts and host rows; bytes, old cards against new, `brief <role> --cards cards-next`), re-measured at `5be593b` for three roles: coder 9662 to 6470, verifier 19634 to 8049, inspector 11097 to 7052. The facts block grew by 2,113 bytes on old and new alike since the first measure; the other eight were measured before that growth and are not re-measured here (**UNVERIFIED** at this head, same growth to add): conflict-resolver 6833 to 4318, debugger 6622 to 4105, investigator 6494 to 4310, spec-writer 4815 to 3054, spec-critic 5290 to 3060, board Griller 11964 to 2965, retro-critic 4225 to 2816, demo-explorer 4746 to 2820. Driver role-only briefs, re-measured at the head: old 59,216 each against new 7,442 (cr), 7,483 (stack), 7,439 (release), 5,499 (qa); the targets are 6, 6, 5 and 4 KB. The full table, with the study's declared boot figures, is in the change's evidence.
 
 Also added: a copy of `floor.md` (byte-identical to `skills/chantier/references/floor.md`), nine topic files for the first eleven roles (each at most 1,500 bytes), 45 topic files for the Drivers and their index `cards-next/topics.json`.
 
@@ -51,7 +51,7 @@ Grade: 1. Only new, unloaded files are added; `git revert` restores everything. 
 - 23 of the 45 Driver topics are over the 1,536-byte target (worst: release-merged 2,845, cr-ship 2,413, stack-changes 2,354, retake 2,328, release-ship 2,306); the full list with sizes is in the change's evidence report.
 - Driver briefs are over their boot targets (7,442, 7,483, 7,439, 5,499 against 6, 6, 5, 4 KB): the fixed host rows (3,414 bytes), the floor and the facts set the floor, and the role data file is out of scope here.
 - The brief sizes of spec-writer, spec-critic and board-griller use an inbox folder as the unit, as `brief` refuses a change in `4-batch/` for them.
-- Two forward links point at files a later part of the cards work writes: `../pr-template.md` and `../concepts.md` (2 and 4 uses). No link points into `references/`.
+- Two forward links point at files a later part of the cards work writes: `../pr-template.md` and `../concepts.md` (2 and 5 uses). No link points into `references/`.
 
 <details>
 <summary>Details</summary>
@@ -73,7 +73,7 @@ No visual change and no behaviour change: the folder is read only by `brief --ca
 - [x] New or changed tests: no behaviour change; no CLI `src/` or test file changes, so `just test` adds 0 s
 - [x] Local gates at `5be593b`: `env -u NO_COLOR just check` exit 0 (2932 passed, 20 skipped, 204 s); `just eval-dry-run` exit 0 (25 of 25 cases as expected)
 - [x] Evidence: bytes, brief sizes, links, floor comparison, reply-block diffs at `5be593b`
-- [x] Review: approved at `5be593b` (Inspector round 4 on the Driver cards, content as committed; the worker cards were approved at an earlier round with the same content)
+- [x] Review: approved at `5be593b` (Inspector round 4 approval recorded in the CR's log as a note at `5be593b`, on the Driver cards, content as committed; the worker cards were approved at an earlier round with the same content)
 - [ ] Verified at `5be593b`
 - [ ] CI green at `5be593b`
 

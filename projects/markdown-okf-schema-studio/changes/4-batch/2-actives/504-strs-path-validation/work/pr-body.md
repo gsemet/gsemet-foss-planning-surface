@@ -2,7 +2,7 @@
 
 The requirements bundle moves to okf-schema 0.18.1, which lets a requirement declare the paths or scenarios a test must name (`#S<n>`) and adds the `@accepts_req` marker for acceptance tests. This PR keeps the current StRS coverage mode and prepares the declarations: the bundle schemas and configuration, the exemption of retired requirements, and a marker check that understands the new marker and the `#S<n>` fragments.
 
-Work in progress: the scenario declarations, the marker sort and the viewer land in later commits of this PR.
+Every requirement group now declares its scenarios and paths, and every test marker names its fragment; the viewer, the justfile trace and the docs land in the last commits of this PR.
 
 ## Deliverables
 
@@ -29,14 +29,16 @@ Grade: **2**. The check script, the bundle schemas and the Python lock change; a
 
 ## Autonomous decisions
 
-- The migration script that will declare `scenarios:` is proven on a scratch copy and is not applied yet: a group can only be migrated once its markers carry the fragments.
+- A migration script, run group by group, declared `scenarios:` and renamed the headings of the 16 groups; each group commit carries its markers' fragments.
+- The `@tests_req SwRS-` fragment sweep is a keyword heuristic, not a reading of each test; 119 weak entries are listed in `evidence/r2-2a-sweep-weak.md`.
+- StRS markers in tests were sorted: kept as `@tests_req` or `@accepts_req` on a declared path, or removed when a SwRS marker already covers them; `strsTestsInIntegration` is now empty.
 - The new SwRS keeps the legacy scenario headings until the viewer reads the new ones.
 - Exemption reasons of the retired SwRS reuse one generic text per kind of retirement.
 
 ## Known gaps
 
-- The scenarios, the renamed headings, the marker sort and the viewer are not in this commit.
-- Nine test files sit at the 1500-line limit and must be split before their markers gain fragments.
+- The viewer, the justfile trace JSON, the docs and skills are not done yet (next commits).
+- The 119 weak fragment guesses are not reviewed one by one.
 
 <details>
 <summary>Details</summary>
