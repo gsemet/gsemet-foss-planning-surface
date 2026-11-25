@@ -1,4 +1,5 @@
 CR-103 scenario steps, Windows, Python 3.12.10
+Run at head a2723b7a0cdea34d9fe3601f3081b21ea424d07d.
 <S> is a disposable folder under the CR work/scratch folder.
 
 $ uv run --no-sync -- okf-schema init <S>\my-knowledge-base

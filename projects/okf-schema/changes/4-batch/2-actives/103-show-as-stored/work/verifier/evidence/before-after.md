@@ -3,6 +3,13 @@
 - Before: base `1a742d714439595753a3b0b416f9cc04183015a3`, wheel built from a detached worktree.
 - After: head `6572527608200cb688c0ae0224427e8b8bb44539`, wheel built from the CR worktree.
 - Windows, Python 3.12.10. `<probe>` is a disposable folder.
+- Carried to head `a2723b7a0cdea34d9fe3601f3081b21ea424d07d` on base
+  `125952dc04a949cc78810e2340ef57d9ffa6ba5e` (carried from 6572527): the change's patch on
+  `src`, `tests`, `docs` and the SwRS files has the same patch id, and the new base changes
+  neither the command line, the models nor the frontmatter reader (its `api.py` changes are in
+  index and statistics code, its `validator.py` changes in broken link checks). The behaviour
+  after the change was also run again at `a2723b7`:
+  `../../../evidence/scenario-run.txt`.
 
 | Pair | What it shows |
 |------|---------------|
