@@ -31,8 +31,9 @@ is no stand-in.
 | Fact this specification relies on | From | If it does not hold at the base |
 | --- | --- | --- |
 | `skills/chantier/references/` holds the swapped `cards-next/`: `cr-driver.md`, `stack-driver.md`, `release-driver.md`, `qa-driver.md`, `topics/closing.md`, `topics/lost-context.md`, `topics/host-compact.md`, `topics.json`. The old `driver.md`, `foreman-lost-driver.md` and their pieces are gone | CR-510 | Stop and say which |
+| `references/cr-driver.md` (from `cards-next/cr-driver.md`) has no general rule to hand back at the hand-back threshold. At `03f973e` it names a `context:` threshold only in its closing bullet (line 11), and `topics/closing.md` only during the closing. The old `references/driver.md` had the rule (lines 117 to 124 at `03f973e`: "At 130,000 tokens or more, record your state with `note`, then `handback <cr> blocked context: …`"). It is a rule lost in the rewrite, named here for the CRs that switch to the new cards | CR-510 (the swap), CR-511 (the old-against-new inventory, which restores what was lost) | If the base's `cr-driver.md` holds the rule (restored by CR-511), reword its figure to "the hand-back threshold" (section 6) and add none. Else add it (section 6) |
 | The CLI code named below (`context_line` in `commands/driver.py`, `playbook/limits.py`, `limits_check.py`, `board/config_api.py`, `hub/schemas.py` `LIMITS`, `clients/web/js/views/config-limits.js`) is as at `03f973e` | none of CR-510 to CR-514 touches it | Follow the code at the base and list each difference in the PR |
-| The history lint (M3) over `references/**/*.md` flags token counts (`\b\d[\d,.]*\s?k?\s?tokens?\b`). The figures `130,000 tokens` and `115,000 tokens` in the cards are either reworded by CR-512 or listed in `references/lint-allow.txt` | CR-512 section 4 | Follow what CR-512 shipped. This CR leaves no token figure in a card, so it removes every `lint-allow.txt` entry for those figures (a stale entry fails) |
+| The history lint (M3) over `references/**/*.md` flags token counts (`\b\d[\d,.]*\s?k?\s?tokens?\b`). The figures `130,000 tokens` and `115,000 tokens` in the cards are either reworded by CR-512 or listed in `references/lint-allow.txt` | CR-512 section 4 | Follow what CR-512 shipped. This CR leaves no token figure in the four Driver cards, `topics/closing.md`, `topics/lost-context.md` and `topics.json`, so it removes every `lint-allow.txt` entry for those figures (a stale entry fails). `topics/host-compact.md` keeps its measure (section 6) |
 | `references/budgets.json` freezes each card's size; `rules.json` gives rule ids `[R-nnn]` | CR-512 | Without them, the budget and id steps below fall away |
 | M6 (a PR that adds card text quotes the measure or the owner's line) and M11 (`budgets.json` changes only with the owner's approval line) | CR-513 | Same |
 | `scenario/run_scenario.py` checks the closing threshold's figure in the Driver cards (at `03f973e`: "driver.md names the 115,000-token closing threshold", line 7169, globbing `references/*driver*.md`) | CR-510 converts it to the new cards | Change that check as section 7 says, wherever it sits at the base |
@@ -62,8 +63,12 @@ is no stand-in.
 - **D2. The window stays in the agent files.** An agent's window is the `autoCompactWindow:` front
   matter of its file under `agents/`. The plugin ships it and no `chantier.yaml` sets it. This CR
   raises it in `agents/cr-driver.md`, `agents/stack-driver.md`, `agents/qa-driver.md` and
-  `agents/release-driver.md` to the value the trial proves (section 0). The other eleven agent
-  files keep 200000 (Answer 6). The list reads the window from the file of the role's agent.
+  `agents/release-driver.md` to the value the trial proves (section 0). The other agent
+  files are unchanged (Answer 6). At `03f973e`, `agents/` holds fifteen files: the four Drivers,
+  ten that carry `autoCompactWindow: 200000` (`coder`, `conflict-resolver`, `debugger`,
+  `demo-explorer`, `inspector`, `investigator`, `retro-critic`, `spec-critic`, `spec-writer`,
+  `verifier`), and `board-griller.md`, which sets no window (the host's own). The list reads the
+  window from the file of the role's agent.
 - **D3. No new command.** The list is `chantier playbook --context`, a new flag on `playbook`.
   `playbook` already lists the limits, the timing and `events.wake_every` with their layers.
   `rules` and `playbook` without the flag print a single `context:` summary line. The CLI's scope
@@ -206,10 +211,22 @@ One function (in `src/playbook/lines.py`, beside `timing_warnings`) returns the 
 - **W1**, `closing_margin` ≥ `handback`: `context: the closing margin <m> is not below the
   hand-back threshold <h>: every closing is handed off`.
 - **W2**, for each Driver role whose agent is the plugin's on Claude Code: the hand-back threshold
-  is above the role's window minus 35,000. The line: `context: <role>'s window <w> (agents/<role>.md)
-  is under the hand-back threshold <h> plus 35,000: the agent may compact before it hands back
-  (compactions were measured about 35,000 under the window)`. The 35,000 is a named constant in
-  code, with a comment that cites the measure in `docs/proofs/claude-code.md`.
+  is above the role's window minus the compaction margin, a named constant in code. The line:
+  `context: <role>'s window <w> (agents/<role>.md) is under the hand-back threshold <h> plus <margin>:
+  the agent may compact before it hands back (compactions were measured about <margin> under a
+  200000 window)`.
+- **The compaction margin: 38,000.** Its comment cites both measures of
+  `docs/proofs/claude-code.md`, section `compact` (lines 314 to 316 at `03f973e`):
+  - agents set to `autoCompactWindow: 200000` on `claude-sonnet-5-5` compacted after a last prompt
+    of 161,951 to 166,684 tokens (batch-16, batch-17): 33,316 to 38,049 under the window. 38,000
+    is the largest of these gaps, to the thousand. It is measured at a 200000 window only;
+  - sessions set to 300000 compacted near 165k to 170k, about 130,000 under the setting. That
+    points to a cap at 200,000, not to a margin, and is the case T2 tests.
+
+  **Unproved:** that the gap measured at 200000 holds at 300000. If T2 records a compaction (a
+  pass puts it above 215,000), the margin is the larger of 38,000 and 300,000 minus that
+  compaction's prompt size, and the comment cites T2's figure as well. With no compaction in T2,
+  38,000 stays, and the comment says it was measured at a 200000 window only.
 
 Where they show, never blocking:
 
@@ -238,7 +255,9 @@ An invalid key, by contrast, is still refused wherever the configuration is read
   - each key whose effective value moved appends its `config@1` line, as today.
 - **`src/hub/schemas.py`:** `LIMITS` names the two context keys too. `config_text` for a context
   key: `config changed on the board: <key> <old> -> <new>; the Drivers read it at their next
-  context line`. The `config@1` model accepts the keys.
+  context line`. The `config@1` model accepts the keys. A context `config@1` line is told and
+  never acted on: it applies live (D4), so no order follows it (the cards, section 7).
+- **`src/plugin_files.py`:** the `read_limits` docstring ("The two limits") names the four keys.
 - **i18n:** `clients/web/js/i18n/en-board.js` and `fr-board.js` gain the labels and texts for the
   two rows, in the existing key form (`config.limits.handback`, `.text`, and so on). In
   `en-help.js` and `fr-help.js`, the help paragraph that says "Two limits are set on this
@@ -250,6 +269,14 @@ Each edit replaces a figure with the threshold's name. The meaning is unchanged.
 `[R-nnn]` stays on its sentence.
 
 - **`references/cr-driver.md`:**
+  - a new bullet, before the closing one, restores the rule lost in the rewrite ("Place in the
+    chain"): "At the hand-back threshold the last `context:` line prints, `note` your state, then
+    hand back `blocked context:` (`help handback-other`)." Its source, quoted in the PR as M6
+    asks: the owner's line in Answers 2 and 6 of `02-answers.md` (Answer 2's facts, "the cards
+    hand back at 130,000"; Answer 6, "`chantier` prints the thresholds to the Drivers and the
+    cards name no figure"), and the old rule in `references/driver.md`, lines 117 to 124 at
+    `03f973e`. With `rules.json` (CR-512), it takes a new rule id `[R-nnn]`. When the base's
+    `cr-driver.md` already holds the rule (CR-511), only its figure is reworded;
   - the bullet "At 115,000 tokens on the last `context:` line, at the `VERIFIED` of the pushed head,
     hand off with `context: closing:`" becomes "At the closing threshold the last `context:` line
     prints, ...";
@@ -278,8 +305,11 @@ Each edit replaces a figure with the threshold's name. The meaning is unchanged.
 - **Budgets (CR-512):** each edited file must stay within its limit in `budgets.json`. If a file
   cannot, the Driver leaves `budgets.json` alone and the PR's Known gaps names the file and the
   bytes, for the owner's approval line (M11).
-- **The history lint:** no token figure is left in these files. Any `lint-allow.txt` entry for them
-  is removed.
+- **The history lint:** no token figure is left in the four Driver cards, `topics/closing.md`,
+  `topics/lost-context.md` and `topics.json`. Any `lint-allow.txt` entry for a figure in them is
+  removed. `topics/host-compact.md` keeps its measured figure ("165 to 170k tokens", a measure of
+  the Chief of Staff's and the Foreman's sessions, not a threshold) and whatever CR-512 gave it
+  (its `lint-allow.txt` entry); this CR removes no entry for it.
 - **Unchanged:** the Chief of Staff's compacting advice (`topics/compacting-p1.md`, above 100k
   tokens). It is not a Driver's or the Foreman's threshold (Answer 6: the other agents
   unchanged).
@@ -289,6 +319,25 @@ Each edit replaces a figure with the threshold's name. The meaning is unchanged.
 - **Agent files:** `autoCompactWindow: <the window T2 proved>` in the four Driver files of
   `agents/` (D2). The Copilot files are unchanged. Their bodies are untouched, so the two hosts'
   bodies stay identical.
+- **The cards that list the limits** (from `cards-next/`, swapped by CR-510; edited under section
+  6's rules on budgets and M6, the owner's line being Answer 3):
+  - `topics/watcher-events.md`: after "A `specifying.parallel` or role-key line: one line, no
+    action.", the context keys the same way: "A `context.handback` or `context.closing_margin`
+    line: one line, no action (it applies at the Drivers' next context line).";
+  - `topics/watcher-pull.md`: "act on its merge and two-key `config@1` lines" becomes "act on its
+    merge and limit `config@1` lines";
+  - `topics/config-p1.md`, its `Keys:` list: after `batch.slots (4 by default, 0 or more)`,
+    `context.handback` (200000 by default, 1 or more) and `context.closing_margin` (15000 by
+    default, 0 or more).
+- **`docs/server-api.md`,** the `config.get` row: "the two limits" becomes "the four limits
+  (`specifying.parallel`, `batch.slots`, `context.handback`, `context.closing_margin`)".
+- **`docs/web-board.md`,** the signal paragraph (line 70 at `03f973e`): a save that changes the
+  effective `context.handback` or `context.closing_margin` writes its `config@1` line too, told as
+  `config changed on the board: <key> <old> -> <new>; the Drivers read it at their next context
+  line`.
+- **Other places checked at `03f973e`:** the i18n help paragraphs (section 5), `AGENTS.md`
+  (below) and `plugin_files.py` (section 5). `cards-next/concepts.md` and `init.md` name
+  `batch.slots` alone, as a slot rule, not as a list of the limits: unchanged.
 - **`docs/agents-and-models.md`,** the paragraph that lists the `chantier.yaml` keys (line 102 at
   `03f973e`): `context` (`handback`, 200,000 by default; `closing_margin`, 15,000), and that
   `playbook --context` lists them with the Drivers' windows.
@@ -300,7 +349,8 @@ Each edit replaces a figure with the threshold's name. The meaning is unchanged.
 - **`docs/proofs/claude-code.md`,** "Compacting": the trial's measures, as section 0 says.
 - **`evals/kit/audit.py`:** `WINDOW = 200_000` becomes the window read per plugin agent from its
   file (`agents/<role>.md`, `autoCompactWindow`). J17 checks each agent's peak against its own
-  window.
+  window. An agent whose file sets no window (`board-griller.md`, which no batch starts) gets no
+  J17 check: no figure stands in for it (AGENTS.md: no fallback).
 - **`scenario/run_scenario.py`:**
   - the context-line check (line 6993 at `03f973e`: `out == ["ok", "context: 4240 tokens (agent
     ...)"]`) and the `not measured` checks expect the threshold suffix;
@@ -334,16 +384,20 @@ and the agent files. A text the test prepares is used only for a refusal or an i
 - **`tests/test_board_config.py`:** a `config.put` of `context.handback` writes the surface file,
   appends a `config@1` line and returns the `_limit_line`. An incoherent save is written and its
   reply carries W1. The view lists four limits.
-- **A test of the cards:** no file under `references/` matches the history lint's token-count
-  pattern in the four Driver cards and the two topics. Each of them names "closing threshold" or
+- **A test of the cards:** the history lint's token-count pattern matches nothing in the four
+  Driver cards, `topics/closing.md`, `topics/lost-context.md` and `topics.json` (read as text).
+  `topics/host-compact.md` is not among them: it keeps its measure. `cr-driver.md` holds the
+  hand-back rule of section 6. Each of them names "closing threshold" or
   "hand-back threshold" where it named a figure.
-- **A test of the agent files:** the four Driver files carry the same `autoCompactWindow`, and the
-  eleven others carry 200000.
+- **A test of the agent files:** the four Driver files carry the same `autoCompactWindow`; the ten
+  other files that set one carry 200000; `board-griller.md` sets none, and the test reads it as no
+  window, with no figure in its place.
 - **Quiz case (new),** `evals/quiz/cr-driver/context-threshold-from-cli.json`, in the format of
   CR-492's cases. The Driver's last `note` printed `context: 160000 tokens (agent a1); hand-back at
   150000, closing at 135000 [repository]; hand-back threshold reached`, and work remains. A pass:
   `note`, then `handback <cr> blocked context: ...`. A fail: going on, or citing a figure that the
-  line does not print. Its `rules` entry is the cr-driver context rule's id.
+  line does not print. It tests the hand-back rule section 6 adds to `cr-driver.md`: its `rules`
+  entry is that rule's id, and its pass cites that bullet.
 
 ## Out of scope
 
@@ -390,6 +444,10 @@ Recorded in the PR or under `<CR folder>/evidence/`, from the pushed head.
 7. **M6:** the PR quotes the owner's line in Answers 2 and 6 and the measure of item 2.
 8. **Budgets:** CR-512's tests pass. Each edited card's size is quoted before and after against its
    limit.
+9. **Known gaps of the PR** name the inbox item `1-inbox/driver-context-second-cut`. Its done line
+   (`intake/request.md`, line 16) reads "with its peak context below 115,000 tokens", a fixed
+   figure this CR turns into a setting. The Chief of Staff restates that done line against the
+   closing threshold; this CR does not edit the item.
 
 ## Gates
 

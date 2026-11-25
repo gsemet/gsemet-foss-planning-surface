@@ -54,7 +54,6 @@ the extensionless form), the feature coverage map (its `show` entry does not cha
 
 ## Known gaps
 
-- **UNVERIFIED:** the installed-package inspection check. The acceptance tests are skipped on Windows; its new assertion needs a non-Windows run.
 - `validate`, `list`, `index`, `backlinks` and `lint` still follow symbolic links whose target is outside the bundle; this change covers `show` only.
 
 ## Related Issues

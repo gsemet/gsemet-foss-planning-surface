@@ -69,3 +69,23 @@ Split: B, two CRs: this one keeps the four batch commands (`batch-start`, `batch
 # Answer 14, shortcuts-Q13 (2026-11-25, the owner)
 
 The commands and the board pane: A, record the Chief of Staff role, open no pane.
+
+# Answer 15, shortcuts-Q14 (2026-11-25, the owner)
+
+At the pause, the work already running: A, it finishes, nothing else starts. Settles the open point of Answer 12.
+
+# Answer 16, shortcuts-Q15 (2026-11-25, the owner)
+
+`batch-start` with a missing Claude Code permission rule: A, ask before starting, in one question with the budget when it is missing, then start.
+
+# Answer 17, shortcuts-Q16 (2026-11-25, the owner)
+
+`batch-add`: A, it asks "grilled enough?" before the specification is written (no destination options, the command gave it). Settles open question 2 of the specification.
+
+# Answer 18, shortcuts-Q17 (2026-11-25, the owner)
+
+Waits between CRs that change the same lines, with `batch-start`: A, proposed after the start, recorded on the owner's yes. Settles open question 4 of the specification.
+
+# Answer 19, shortcuts-Q18 (2026-11-25, the owner)
+
+`batch-add` typed in a Griller session: A, the Griller grills and specifies the CR, and the Chief of Staff adds it to the batch. Settles open question 5 of the specification.

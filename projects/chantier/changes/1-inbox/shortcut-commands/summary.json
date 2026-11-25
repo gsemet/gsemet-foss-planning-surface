@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "title": "Shortcut commands: batch-start, pause, close, add, and autonomy",
-  "summary": "Five thin slash skills on Claude Code and Copilot, each naming a help topic: batch-start (typing it is the go; asks shape and budget if missing), batch-pause, batch-close (asks before closing), batch-add (existing CR or request into the running batch), autonomy (decides, records to confirm).",
+  "title": "Shortcut commands to start, pause, close and add to a batch",
+  "summary": "Commands batch-start (also resumes), batch-pause, batch-close and batch-add; autonomy split to its own CR. All questions answered; spec being rewritten, then a second critic pass; for batch-31, after CR-514.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "d96fcf9e1e48a3036381fe125a263161173971e1d555b2ec9889e3c11e3a4f4f",
-    "02-answers.md": "07908ea8b90a38ba4d610b2b2019bf2ea80d8a50f2307b555ea57fa702a972e7",
+    "02-answers.md": "c27ec0ed942fa41cdedfab7b3b70abb34d23af88bf1e498690590cc9f471273e",
     "03-change-spec.md": "c2bda69fc295f06810210b4d2cb8c2fdb32067078462dacd1c3ad33b8ff3e884",
     "intake/request.md": "8fcf97189bac6a545b45f5911b6583a05ce6db5ada800f41e8eff1b9851d9b2c"
   },
-  "summarized": "2026-11-25T21:29:54Z"
+  "summarized": "2026-11-25T21:53:59Z"
 }
