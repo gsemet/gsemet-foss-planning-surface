@@ -34,7 +34,7 @@ The 15 approved StRS only get `approved_at` set to the time of the scripted rena
 
 ### Validation in the new coverage mode (scratch, not applied)
 
-`{'errors': 0, 'warnings': 121, 'infos': 0}`: W004 x95 (a StRS with no `@accepts_req` yet), W2 x26 (placeholder cross-links that existed before). The mode switch and the W004 are for a follow-up change.
+`{'errors': 0, 'warnings': 121, 'infos': 0}` on a scratch run that scanned no marker (a run with the markers scanned gives 0 errors and W004 x38): W004 x95 (a StRS with no `@accepts_req` yet), W2 x26 (placeholder cross-links that existed before). The mode switch and the W004 are for a follow-up change.
 
 ## Blast radius
 
@@ -50,8 +50,9 @@ Grade: **2**. The check script, the bundle schemas and the Python lock change; a
 ## Known gaps
 
 - 722 of 2617 in-force SwRS scenarios and 94 of 156 StRS paths have no marker (list in Details); a later CR writes the tests or rewords the scenarios.
-- 95 StRS have no acceptance test (W004); settled before the coverage mode moves (a follow-up change).
+- 38 StRS have no acceptance test (W004, markers scanned); settled before the coverage mode moves (a follow-up change).
 - Fragments scored good in the first pass were not re-read.
+- Not delivered, for lack of rounds: the requirements viewer cards and columns, the StRS and SwRS page content and the trace join; the `requirements-trace.json` justfile output; the writing-skill refresh and the glossary terms. Only the scenario and path ids are shown in the viewer.
 
 <details>
 <summary>Details</summary>
