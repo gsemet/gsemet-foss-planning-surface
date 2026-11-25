@@ -65,12 +65,12 @@ No visual change; a role that stumbles can read the rare case from one command.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Local gates at 64ff139: `just check`, `just eval-dry-run` (eval-dry-run at ab5099e)
+- [ ] Evidence: none captured (no visual change; the command outputs in Deliverables are the evidence)
+- [x] Review: approved at ab5099e
+- [x] Verified at 64ff139
+- [x] CI green at 64ff139
 
 ## Internal references
 
