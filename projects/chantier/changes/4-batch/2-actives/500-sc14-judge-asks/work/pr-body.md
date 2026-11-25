@@ -74,9 +74,9 @@ No visual change. The steering session gets one command to word the ready ask an
 ## Test plan
 
 - [ ] New tests (they fail on the previous code): `tests/test_judge.py`, 26 tests, 0.94 s; `tests/test_conflicts.py`, 21 cases (about 19 s alone: git setup per test); the tests ran on git 2.56.0 (Windows)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`, `just scenario --unit parallel` (parallel unit 294/294 at round 1), `just scenario --unit series-deps` (85/85 at round 2)
+- [ ] Local gates at `d05934da`: `just check`, `just eval-dry-run`, `just scenario --unit parallel` (parallel unit 294/294 at round 1), `just scenario --unit series-deps` (85/85 at round 2)
 - [ ] Evidence: none (no visual change)
-- [ ] Review: approved at `<sha7>`
+- [ ] Review: approved at `d05934da` (code unchanged since the pass)
 - [ ] Verified at `<sha7>`
 - [ ] CI green at `<sha7>`
 
