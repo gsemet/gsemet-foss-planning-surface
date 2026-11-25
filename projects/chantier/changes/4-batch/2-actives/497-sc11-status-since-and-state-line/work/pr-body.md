@@ -67,7 +67,7 @@ Developers and Drivers: new commands and lines as above; the steering watcher's 
 - [ ] New or changed tests (they fail on the previous code): the five test files above
 - [ ] Local gates at `5d96982`: `env -u NO_COLOR just check`, `just eval-dry-run`: `just check` passed (2825 passed, 20 skipped), `just eval-dry-run` passed (25 of 25 cases as expected)
 - [ ] Evidence: No before/after capture: CLI output only; the tests and the scenario carry it
-- [ ] Review: approved at `5d96982`: part 1 at e8278a9, part 2 at 7f5f944, part 3 at 5d96982
+- [x] Review: approved at `5d96982`: part 1 at e8278a9, part 2 at 7f5f944, part 3 at 5d96982
 - [ ] Verified at `5d96982`
 - [ ] CI green at `5d96982`
 

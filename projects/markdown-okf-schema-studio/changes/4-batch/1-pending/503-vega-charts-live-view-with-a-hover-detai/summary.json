@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "title": "Vega charts: live view with a hover detail",
-  "summary": "Grilled from the split of the Vega CR; for batch-09 after it and the clips, spec to write.",
+  "summary": "Spec written: charts become live Vega SVG views with a themed hover box for Vega-Lite (tooltip null turns it off), a cache of detached views, export as inline SVG with local gradients, clip selectors updated; after CR-502 in batch-09.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "1167f0ff7f4a30701ae821853d6c64a8145fb1ce7ae5c9da105cb6c479da8451",
     "02-answers.md": "3a6444260158a6888c4bddf0a0b7fc64771c5725cc8389c31daa76a851f56331",
+    "03-change-spec.md": "ed8390d82b9388d9d1eb2bc911a5c04742f61e7fe0e614d0a3af040f0a1edf3c",
     "intake/request.md": "816d5710ea81a5543511445f4baba3c3205aa66442a052aa5de0b60eab0c77b9"
   },
-  "summarized": "2026-11-25T10:00:02Z"
+  "summarized": "2026-11-25T10:07:28Z"
 }
