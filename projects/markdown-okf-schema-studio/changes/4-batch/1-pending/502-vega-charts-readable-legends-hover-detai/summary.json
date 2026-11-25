@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Vega charts: readable text, no Chart source in the preview",
+  "summary": "Spec narrowed after the split (Q11): chart text sizes follow the page text size, horizontal x labels, subtitle in the label colour; Chart source hidden in the preview, shown in the export, not found by find; the live view and hover box move to a next CR. No open questions; batch-09 after the clips.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "77412b918e9d1460da13d4168a640034f0938db21fe2cc12dc8e8fc62adc08af",
+    "02-answers.md": "0284c0d4b7c618fdda287f0cc813af28b3258198e6d5e76ecb874cafbaecda81",
+    "03-change-spec.md": "abe2ff2ae464518f11ec1ca951438c25da46f2250144bcfc5306229419cb8315",
+    "intake/request.md": "07c0cf42a4fdd4b11baa2cc94892b1f872cf158759532acb27be5a239fd8b769"
+  },
+  "summarized": "2026-11-25T10:00:17Z"
+}
