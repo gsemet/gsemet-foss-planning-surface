@@ -1,0 +1,60 @@
+# CR-504 round 2, group 2c: StRS marker sort (file:line before the sort, outcome)
+
+Same rubric as group 2a. acc = @accepts_req (a path walked in real VS Code, or a D7 StRS); rm = removed (snapshot, partial path or duplicate of a SwRS marker).
+
+| File:line | Outcome |
+|---|---|
+| test/build/test_plugin_manifests.py:93 | rm |
+| test/build/test_release.py:328 | acc:S1 |
+| test/core/render/writingSkill.test.ts:134 | rm |
+| test/integration/commentAnchors.test.ts:32 | acc:S1 |
+| test/integration/commentAnchors.test.ts:33 | rm |
+| test/integration/commentWrite.test.ts:37 | rm |
+| test/integration/commentWrite.test.ts:38 | acc:S1 |
+| test/integration/dirtySnapshots.test.ts:67 | acc:S1 |
+| test/integration/exportHtml.test.ts:51 | acc:S1 |
+| test/integration/findInPreview.test.ts:72 | acc:S1 |
+| test/integration/inlineThread.test.ts:100 | acc:S1 |
+| test/integration/lifecycle.test.ts:43 | acc:S1 |
+| test/integration/lifecycle.test.ts:44 | acc:S1 |
+| test/integration/lifecycle.test.ts:45 | rm |
+| test/integration/previewHistory.test.ts:41 | acc:S1 |
+| test/integration/previewHistory.test.ts:42 | acc:S1 |
+| test/integration/projectFeatures.test.ts:142 | acc:S1 |
+| test/integration/projectFeatures.test.ts:157 | rm |
+| test/integration/realInput/blockKeys.ts:139 | rm |
+| test/integration/realInput/blockKeys.ts:226 | acc:S2 |
+| test/integration/realInput/previewWindow.ts:200 | rm |
+| test/integration/realInput/previewWindow.ts:216 | rm |
+| test/integration/realWindowGaps.ts:100 | acc:S1 |
+| test/integration/realWindowGaps.ts:184 | acc:S1 |
+| test/integration/reload-suite.ts:112 | acc:S1 |
+| test/integration/reviewComments.test.ts:38 | acc:S1 |
+| test/integration/scroll-sync-suite.ts:273 | acc:S1 |
+| test/integration/scroll-sync-suite.ts:274 | acc:S1 |
+| test/integration/serializer.test.ts:28 | rm |
+| test/integration/serializer.test.ts:29 | rm |
+| test/integration/serializer.test.ts:30 | rm |
+| test/integration/sourceMapping.test.ts:29 | rm |
+| test/integration/stockCoexistence.test.ts:76 | rm |
+| test/integration/updateGlow.test.ts:52 | rm |
+| test/integration/workspaceDisposal.test.ts:28 | acc:S1 |
+| test/security/package-contract.test.ts:36 | rm |
+| test/site/requirementsViewer/write.test.ts:67 | acc:S1 |
+| test/visual/capture_layout_checks.py:208 | rm |
+| test/visual/releaseShowcaseScenarios.ts:15 | rm |
+| test/visual/scenarioAssertions.ts:720 | rm |
+| test/visual/scenarioDefinitions1.ts:1303 | rm |
+| test/visual/scenarioDefinitions1.ts:1318 | rm |
+| test/visual/scenarioDefinitions1.ts:273 | rm |
+| test/visual/scenarioDefinitions1.ts:67 | rm |
+| test/visual/scenarioDefinitions2.ts:1048 | rm |
+| test/visual/scenarioDefinitions2.ts:1065 | rm |
+| test/visual/scenarioDefinitions2.ts:1080 | rm |
+| test/visual/scenarioDefinitions2.ts:1095 | rm |
+| test/visual/scenarioDefinitions2.ts:1156 | rm |
+| test/visual/scenarioDefinitions2.ts:254 | rm |
+| test/visual/scenarioDefinitions2.ts:541 | rm |
+| test/visual/scenarioDefinitions2.ts:610 | rm |
+| test/visual/scenarioDefinitions2.ts:649 | rm |
+| test/visual/scenarioDefinitions2.ts:729 | rm |

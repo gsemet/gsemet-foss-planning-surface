@@ -1,0 +1,60 @@
+# CR-504 round 2, group 2b: StRS marker sort (file:line before the sort, outcome)
+
+Same rubric as group 2a. acc = @accepts_req (a path walked in real VS Code, or a D7 StRS); rm = removed (snapshot, partial path or duplicate of a SwRS marker).
+
+| File:line | Outcome |
+|---|---|
+| test/integration/blockClipboard.test.ts:82 | acc:S2 |
+| test/integration/blockClipboard.test.ts:83 | acc:S1 |
+| test/integration/blockMove.test.ts:36 | rm |
+| test/integration/blockMove.test.ts:37 | rm |
+| test/integration/editKeys.test.ts:38 | rm |
+| test/integration/editToolbarCover.test.ts:86 | rm |
+| test/integration/imagePaste.test.ts:26 | acc:S1 |
+| test/integration/imagePicker.test.ts:26 | acc:S1 |
+| test/integration/mystPickers.test.ts:8 | rm |
+| test/integration/paletteMode.test.ts:39 | acc:S1 |
+| test/integration/previewEditing.test.ts:629 | acc:S1 |
+| test/integration/realInput/blockKeys.ts:280 | acc:S2 |
+| test/integration/realInput/blockKeys.ts:347 | acc:S1 |
+| test/integration/realInput/blockKeys.ts:552 | acc:S2 |
+| test/integration/realInput/blockKeys.ts:610 | acc:S1 |
+| test/integration/realInput/blockKeys.ts:645 | acc:S1 |
+| test/integration/realInput/editorWidgets.ts:386 | acc:S1 |
+| test/integration/realInput/editorWidgets.ts:429 | acc:S1 |
+| test/integration/realInput/editorWidgets.ts:686 | rm |
+| test/integration/realInput/editorWidgets.ts:726 | rm |
+| test/integration/realInput/editorWidgets.ts:773 | acc:S1 |
+| test/integration/realInput/editorWidgets.ts:854 | acc:S1 |
+| test/integration/realInput/editorWidgets.ts:937 | acc:S1 |
+| test/integration/realInput/flushBeforeNavigate.ts:236 | acc:S2 |
+| test/integration/realInput/flushBeforeNavigate.ts:260 | rm |
+| test/integration/realInput/flushBeforeNavigate.ts:284 | rm |
+| test/integration/realInput/flushBeforeNavigate.ts:310 | rm |
+| test/integration/realInput/renderPatching.ts:533 | acc:S1 |
+| test/integration/realInput/tableEscape.ts:43 | rm |
+| test/integration/realInput/tableInsertSlash.ts:41 | acc:S1 |
+| test/integration/realInput/textEditing.ts:499 | acc:S1 |
+| test/integration/realInput/textEditing.ts:622 | acc:S1 |
+| test/integration/realInput/textEditing.ts:623 | acc:S1 |
+| test/integration/realInput/textEditing.ts:744 | rm |
+| test/integration/realWindowGaps.ts:556 | rm |
+| test/integration/realWindowGaps.ts:669 | rm |
+| test/integration/tableMoves.ts:191 | acc:S1 |
+| test/integration/tableMoves.ts:258 | acc:S1 |
+| test/integration/tableMoves.ts:304 | acc:S2 |
+| test/page/modules/alertLazyEditAction.test.ts:32 | rm |
+| test/visual/scenarioDefinitions1.ts:1240 | rm |
+| test/visual/scenarioDefinitions1.ts:1280 | rm |
+| test/visual/scenarioDefinitions1.ts:336 | rm |
+| test/visual/scenarioDefinitions1.ts:968 | rm |
+| test/visual/scenarioDefinitions2.ts:1104 | rm |
+| test/visual/scenarioDefinitions2.ts:1122 | rm |
+| test/visual/scenarioDefinitions3.ts:106 | rm |
+| test/visual/scenarioDefinitions3.ts:130 | rm |
+| test/visual/scenarioDefinitions3.ts:149 | rm |
+| test/visual/scenarioDefinitions3.ts:164 | rm |
+| test/visual/scenarioDefinitions3.ts:184 | rm |
+| test/visual/scenarioDefinitions3.ts:32 | rm |
+| test/visual/scenarioDefinitions3.ts:92 | rm |
+| test/visual/slashAdmonitionScenarios.ts:14 | rm |
