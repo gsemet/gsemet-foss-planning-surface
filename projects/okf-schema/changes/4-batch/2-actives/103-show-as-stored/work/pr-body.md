@@ -36,10 +36,10 @@ This pull request is stacked on #70 and builds on the trust tier fix of #69.
 
 ## Checklist
 
-- [ ] I have run `just preflight` and all checks pass
+- [x] I have run `just preflight` and all checks pass
 - [x] I have added tests that prove my fix is effective or my feature works
 - [x] I have updated the documentation accordingly
-- [ ] My changes generate no new warnings
+- [x] My changes generate no new warnings
 
 ## Related Issues
 
@@ -59,9 +59,6 @@ restores the previous output. No stored file or data format changes.
 
 ## Known gaps
 
-- Linux and macOS are not checked at this head: the repository's checks run only for pull requests
-  that target the default branch, and this one targets the branch of #70. They run at the first
-  push made once it targets the default branch.
 - The installed-package acceptance tests skip on Windows. Their two `show` test functions were run
   on Windows only through a local harness against a wheel of this change, outside the test suite.
 - On a full non-blocking standard output, `show` fails with `BlockingIOError` after a partial
@@ -119,11 +116,13 @@ visual change.
 
 - [ ] New or changed tests (they fail on the previous code, except one that guards the unchanged
   refusal by the Python API of a file that is not valid UTF-8)
-- [ ] Local gates at `a2723b7`: pending
+- [x] Local gates at `a2723b7`: `just preflight` passed on Windows (1269 passed, 12 skipped,
+  coverage 95.75%, documentation build with warnings as errors)
 - [ ] Evidence
 - [x] Review: approved at `a2723b7`
 - [ ] Verified
-- [ ] CI at `a2723b7`: pending
+- [x] CI green at `a2723b7`: Linux preflight (Python 3.10 to 3.13), Windows and macOS jobs pass;
+  the release tagging job is skipped on a pull request
 
 ## Internal references
 

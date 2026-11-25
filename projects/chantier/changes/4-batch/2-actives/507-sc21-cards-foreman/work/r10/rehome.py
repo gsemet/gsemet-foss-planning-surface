@@ -18,6 +18,13 @@ MOVES = {
     "C-024": ("topic pr-template-own", "help pr-template-own"),
     "H-282": ("topic long-gate", "help long-gate"),
     "H-711": ("topic status-notes-more", "help status-notes-more"),
+    "C-1031": ("topic grill-series", "help grill-series"),
+    "C-1032": ("topic grill-series", "help grill-series"),
+    "C-1033": ("topic grill-series", "help grill-series"),
+    "C-793": ("topic stack-changes-chief", "help stack-changes-chief"),
+    "C-797": ("topic stack-changes-chief", "help stack-changes-chief"),
+    "C-1152": ("topic grill-backlog", "help grill-backlog"),
+    "H-1449": ("topic host-allow-add", "help host-allow-add"),
 }
 
 
