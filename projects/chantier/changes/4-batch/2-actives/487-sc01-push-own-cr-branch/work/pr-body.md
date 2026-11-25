@@ -17,6 +17,10 @@ chantier push <cr> --lease <n> [--unit stack|O-k]
 | `take`'s Rewrites line names `git push --force-with-lease -u ...` | names `$CHANTIER push <cr> --lease <n>` (`--unit stack` for a stack's branches) |
 | `ship` "not pushed" line | also names `chantier push <cr> --lease <n>` |
 
+Owner's word for this subcommand: "a CLI subcommand ... that runs the `--force-with-lease` itself, for GitHub and for GitLab. ... say plainly that the command exists to declare that the operation is legitimate in what the Driver is doing".
+
+Test time added to `just test`: `test_push.py` (13 tests) takes 7.2 s wall under `pytest -n auto --dist worksteal` and about 57 s of serial time on this Windows machine; a full before/after of `just test` was not taken, so the 30 s budget is **UNVERIFIED** for the whole suite (it is above the 2-4 s the specification estimated).
+
 Choices: the unit that holds the lease is named (`--unit`), since lease numbers repeat across units; git's own refusal text is printed verbatim (exit 4); the lock is never held during the network push.
 
 ## Blast radius
@@ -29,6 +33,9 @@ Grade: 2. A new command and CLI output lines, plus AGENTS.md exceptions; revert 
 
 ## Known gaps
 
+- The smoke trial in auto mode (five tries in the compound form, permission mode and verdict of each) is pending: it runs once this PR's branch is pushed, and its records are added to Deliverables.
+- The local Windows scenario gate (`chantier gate <cr> scenario`) is owed only while this change is the stack's top; not yet run.
+- The whole-suite seconds added to `just test` are not measured (see Deliverables).
 - The cards (`concepts.md`, `driver.md`, `hosts/claude-code.md`) still quote the raw `git push --force-with-lease` form; later changes rewrite them.
 - The classifier's verdict on `chantier push` is unproved until the smoke trial and the later rate measure.
 
