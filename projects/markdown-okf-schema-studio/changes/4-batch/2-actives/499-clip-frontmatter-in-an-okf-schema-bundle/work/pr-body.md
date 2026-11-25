@@ -6,7 +6,7 @@ The OKF documentation page explains that Studio turns frontmatter into a propert
 
 The clip, taken in a real VS Code window with the extension's packaged build:
 
-![The OKF Schema bundle frontmatter clip](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/635f1ba09e6511333ac80ebe30e97678ec1fce24/docs/demo-video/clips/okf-schema-bundle-frontmatter/okf-schema-bundle-frontmatter.gif)
+![The OKF Schema bundle frontmatter clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/635f1ba09e6511333ac80ebe30e97678ec1fce24/docs/demo-video/clips/okf-schema-bundle-frontmatter/okf-schema-bundle-frontmatter.gif)
 
 - MP4: [okf-schema-bundle-frontmatter.mp4](https://github.com/gsemet/markdown-okf-schema-studio/blob/635f1ba09e6511333ac80ebe30e97678ec1fce24/docs/demo-video/clips/okf-schema-bundle-frontmatter/okf-schema-bundle-frontmatter.mp4)
 - WebM: [okf-schema-bundle-frontmatter.webm](https://github.com/gsemet/markdown-okf-schema-studio/blob/635f1ba09e6511333ac80ebe30e97678ec1fce24/docs/demo-video/clips/okf-schema-bundle-frontmatter/okf-schema-bundle-frontmatter.webm)
@@ -28,6 +28,7 @@ Grade: **1**. Documentation, a clip folder and tests only; a plain `git revert` 
 ## Known gaps
 
 - Motion, rhythm and the loop as watched are not checked by the author; the owner reviews them on this pull request.
+- The storyboard's picture captions for the first three frames are loose, and the Mark rows write status without code quotes; both are cosmetic and left for the owner's storyboard review.
 - A field row in error has no colour of its own (existing behaviour, not changed here).
 
 <details>
