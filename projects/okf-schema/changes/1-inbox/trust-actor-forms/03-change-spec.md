@@ -1,8 +1,8 @@
 # Trust tier: count the actor forms allowed by OKF 0.2
 
 A concept verified by `reference_agent/gemini-2.5-pro`, a form OKF 0.2 allows, must read as
-`machine-confirmed` with no W10. The trust tier counts every actor that does not start with
-`human:` as machine. W10 accepts the specification's forms. The documentation, skills and scaffold
+`machine-confirmed` with no W10. The trust tier counts every actor that is not `human:<id>` as
+machine. W10 accepts the specification's forms. The documentation, skills and scaffold
 stop teaching `bot:ci` as the model.
 
 ## Goal
@@ -19,7 +19,9 @@ After this CR:
 - `process:nightly-check`, `human:alice` and `bot:okf-schema` raise no W10 either (Q1). Only an
   actor in no recognized form, such as `alice`, is warned W10.
 - `alice` counts as machine-confirmed (Q2) and is still warned W10.
-- `human:<id>` gives `human-reviewed`, as today.
+- A dot is allowed in the producer and in the prefix: `langchain.agents/0.3` raises no W10 (Q4).
+- `human:<id>` gives `human-reviewed`, as today. `human:` with no identifier counts as
+  machine-confirmed and is still warned W10 (Q5).
 
 Code base: `origin/main` at 2f09cef (0.18.1). The line numbers below come from that commit.
 
@@ -44,6 +46,10 @@ feature map) and this CR's new row sit on separate lines.
 - trust-forms-Q2, "A. machine": an actor in no recognized form (`by: alice`) counts as
   machine-confirmed, and W10 is still shown.
 - trust-forms-Q3: specify for batch-01, stacked before the `trust` command (issue 58).
+- trust-forms-Q4, "A. Autoriser": a dot in the producer (`langchain.agents/0.3`) raises no W10.
+  The dot is allowed before `:` too.
+- trust-forms-Q5, "A. Machine": `by: "human:"` with no identifier counts as machine-confirmed, not
+  human-reviewed. W10 is still shown.
 - Fact recorded in the answers: the W10 message lacks the `f` prefix on the part holding `[{i}]`
   (`validator.py:622`). It is fixed here.
 
@@ -93,12 +99,13 @@ feature map) and this CR's new row sit on separate lines.
   ```python
   # Matches OKF 0.2 actor strings (spec section 7): <producer>/<version> such as
   # reference_agent/gemini-2.5-pro, human:<id>, process:<id>, and any <prefix>:<identifier>.
-  _ACTOR_RE = re.compile(r"^[a-zA-Z][a-zA-Z0-9_-]*[:/].+$")
+  _ACTOR_RE = re.compile(r"^[a-zA-Z][a-zA-Z0-9._-]*[:/].+$")
   ```
 
-  The `<producer>` part reuses the character class the prefix already used (see open question
-  1). `bot:okf-schema`, `human:alice`, `process:nightly-check` and
-  `reference_agent/gemini-2.5-pro` match. `alice`, `Alice`, `""` and `human:` do not.
+  The `<producer>` and `<prefix>` part is the character class the prefix already used, plus the
+  dot (Q4): a letter, then letters, digits, `.`, `_` or `-`. `bot:okf-schema`, `human:alice`,
+  `process:nightly-check`, `reference_agent/gemini-2.5-pro`, `langchain.agents/0.3` and
+  `acme.ci:nightly` match. `alice`, `Alice`, `""` and `human:` do not.
 - **`_derive_trust_tier`** (lines 355-384). The `verified` normalisation stays as it is: absent
   or empty, a bare mapping read as a one-element list, a non-list, a non-dict entry. Only the
   per-entry rule changes:
@@ -107,22 +114,23 @@ feature map) and this CR's new row sit on separate lines.
   by = entry.get("by")
   if not isinstance(by, str) or not by:
       continue  # no actor string (E9 or W10): it does not count
-  if by.startswith("human:"):
+  if by.startswith("human:") and by != "human:":
       return "human-reviewed"
   has_machine = True
   ```
 
-  - Any non-empty string that does not start with `human:` counts as machine (Q2, spec section
-    5.3), whether or not it matches `_ACTOR_RE`.
+  - Any non-empty string that is not `human:<id>` counts as machine (Q2, spec section 5.3),
+    whether or not it matches `_ACTOR_RE`.
   - A missing, empty or non-string `by` does not count: it is no actor string (spec section 2:
     "Actor: a string"). E9 or W10 reports it.
   - The `human:` prefix check is case-sensitive, as today.
-  - `human:` with nothing after it: see open question 2. The code above applies the literal rule
-    and gives `human-reviewed` (W10 is still raised because it does not match `_ACTOR_RE`).
+  - `human:` with nothing after it counts as machine, not human-reviewed (Q5). W10 is still
+    raised because it does not match `_ACTOR_RE`.
   - New docstring (Google style, per `.github/guidelines/python-module-documentation.guidelines.md`):
     summary "Derive the OKF 0.2 trust tier from `verified` entries (spec section 5.3)." Then
-    state the rule: an entry whose `by` starts with `human:` makes it `"human-reviewed"`. Any
-    other non-empty string `by`, well formed or not (W10), makes it `"machine-confirmed"`. An
+    state the rule: an entry whose `by` is `human:` followed by an identifier makes it
+    `"human-reviewed"`. Any other non-empty string `by`, well formed or not (W10), `human:` alone
+    included, makes it `"machine-confirmed"`. An
     entry without a string `by` does not count. Add `Args:` (`frontmatter`: the parsed
     frontmatter mapping) and `Returns:` (one of the three tiers).
 - **W10** in `_validate_okf2_verified` (lines 616-624). The condition is unchanged
@@ -134,7 +142,7 @@ feature map) and this CR's new row sit on separate lines.
   f"File '{path}': verified entry [{i}] has malformed 'by' value '{by}'. "
   "OKF 0.2 actors are '<producer>/<version>' (e.g. 'reference_agent/gemini-2.5-pro'), "
   "'human:<id>' or 'process:<id>'; any '<prefix>:<identifier>' is also accepted. "
-  "Only actors starting with 'human:' make the concept human-reviewed. "
+  "Only a 'human:<id>' actor makes the concept human-reviewed. "
   f"Fix: correct the 'by' value in verified entry [{i}]."
   ```
 
@@ -152,10 +160,11 @@ feature map) and this CR's new row sit on separate lines.
   - **Description**: a `verified` entry's `by` is in none of the OKF 0.2 actor forms (spec section
     7): `<producer>/<version>` for agents and tools (`reference_agent/gemini-2.5-pro`),
     `human:<id>` for a person, `process:<id>` for an automated process. okf-schema also accepts
-    any `<prefix>:<identifier>` (`bot:okf-schema`). The warning does not change the trust tier:
-    an entry whose `by` starts with `human:` makes the concept human-reviewed, and any other
-    non-empty actor, warned or not, makes it machine-confirmed. To be read as human-reviewed, the
-    actor must start with `human:`.
+    any `<prefix>:<identifier>` (`bot:okf-schema`). A dot is allowed in the producer and the
+    prefix (`langchain.agents/0.3`). The warning does not change the trust tier: an entry whose
+    `by` is `human:<id>` makes the concept human-reviewed, and any other non-empty actor, warned
+    or not, makes it machine-confirmed. To be read as human-reviewed, the actor must be `human:`
+    followed by an identifier: `human:` alone counts as machine-confirmed and is warned W10.
   - **Example**: `by: "Alice"`, commented "# no recognized form: counts as machine-confirmed".
   - **How to Fix**: `by: "human:alice"` for a person, `by: "reference_agent/gemini-2.5-pro"` for
     an agent.
@@ -204,8 +213,9 @@ feature map) and this CR's new row sit on separate lines.
     - GIVEN a concept whose `verified[].by` actor is written as `<producer>/<version>`,
       `human:<id>`, `process:<id>`, any other `<prefix>:<identifier>`, or in no recognized form
     - WHEN the concept is validated or inspected
-    - THEN an actor starting with `human:` makes it human-reviewed, any other non-empty actor
-      makes it machine-confirmed, and only an actor in no recognized form raises warning W10
+    - THEN a `human:<id>` actor makes it human-reviewed, any other non-empty actor (`human:`
+      with no identifier included) makes it machine-confirmed, and only an actor in no
+      recognized form raises warning W10
     ```
 
   - Keep the ID, UUID, other scenarios and authored metadata. Do not hand-edit the generated
@@ -215,9 +225,10 @@ feature map) and this CR's new row sit on separate lines.
 - `requirements/tiers/log.md`: under the day's `## YYYY-MM-DD` heading (one per date, newest
   first; share it with CR 58 and other batch-01 entries), add `### Trust tier actor forms`:
   - Why: OKF 0.2 sections 5.3 and 7.
-  - What: CORE-006 gained S5. Any actor not starting with `human:` counts as machine-confirmed.
-    W10 accepts `<producer>/<version>` and `<prefix>:<identifier>`, and its message now prints
-    the entry index.
+  - What: CORE-006 gained S5. Any actor that is not `human:<id>` counts as machine-confirmed
+    (`human:` alone included). W10 accepts `<producer>/<version>` and `<prefix>:<identifier>`,
+    with a dot allowed in the producer and the prefix, and its message now prints the entry
+    index.
   - Verification: the commands run.
 
 ### 7. Verification and packaging
@@ -252,15 +263,18 @@ Unit tests follow `.github/guidelines/python-unittest.guidelines.md`: function t
      - `reference_agent/gemini-2.5-pro` → `machine-confirmed`
      - `process:finance-nightly` → `machine-confirmed`
      - `bot:okf-schema` → `machine-confirmed`
+     - `langchain.agents/0.3` → `machine-confirmed` (Q4)
      - `alice` → `machine-confirmed`
+     - `human:` → `machine-confirmed` (Q5)
      - `human:ahormati` → `human-reviewed`
      - `42` (an int) → `unverified`
      - `""` → `unverified`
    - A bare mapping with `reference_agent/gemini-2.5-pro` → `machine-confirmed`.
    - `[reference_agent/gemini-2.5-pro, human:alice]` → `human-reviewed`.
    - New parametrized `test_validate_okf2_verified_accepts_okf02_actor_forms`:
-     `reference_agent/gemini-2.5-pro`, `process:nightly-check`, `human:alice` and
-     `bot:okf-schema` each give no warning and no error.
+     `reference_agent/gemini-2.5-pro`, `process:nightly-check`, `human:alice`,
+     `bot:okf-schema`, `langchain.agents/0.3` and `acme.ci:nightly` (Q4) each give no warning
+     and no error.
    - Extend `test_validate_okf2_verified_w10_malformed_actor` (or a parametrized sibling) with
      `alice`, `42` and `human:` each giving W10.
    - New `test_validate_okf2_verified_w10_message_names_entry_index`: entries
@@ -306,14 +320,3 @@ Unit tests follow `.github/guidelines/python-unittest.guidelines.md`: function t
    - After update-coverage, CORE-006 S5 has `@tests_req` markers.
    - `just refresh-all-examples` (in preflight) leaves no diff other than the hand-edited example
      schema.
-
-## Open questions
-
-1. **Grammar of `<producer>/<version>`.** The specification gives only the example
-   `reference_agent/gemini-2.5-pro`. This specification reuses the existing prefix character
-   class for `<producer>` (`[a-zA-Z][a-zA-Z0-9_-]*`, then `/` and at least one character). So
-   `my.tool/1.0` (a dot in the producer) is warned W10, though it still counts as machine. Keep
-   that, or also allow `.` in the producer?
-2. **`by: human:` with no id.** The literal rule of Q2 ("starts with `human:`") reads it as
-   human-reviewed, with W10. Spec section 5.3 names "a `human:<id>` actor". Keep human-reviewed
-   with W10, or count it as machine (still W10)?

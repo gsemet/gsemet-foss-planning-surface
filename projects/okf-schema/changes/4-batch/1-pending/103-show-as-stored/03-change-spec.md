@@ -28,11 +28,12 @@ Code base: `origin/main` at 2f09cef (0.18.1); the line numbers below are from th
   row, SwRS-OKFSCHEMA-CORE-005, SwRS-OKFSCHEMA-CORE-010, the acceptance test), this CR extends
   CR-101's text and keeps all of it. If CR-101's delivered wording or code differs from its
   specification, keep what CR-101 delivered and add this CR's part to it.
-- **CR `trust-actor-forms`** (not yet specified) makes the trust tier right for the actor forms
+- **CR `trust-actor-forms`** makes the trust tier right for the actor forms
   of OKF 0.2 (`_derive_trust_tier`, W10, their documentation). This CR does not touch the tier
   derivation (Q12): the `trust` command prints the tier `_derive_trust_tier` returns as that CR
   leaves it. Where both CRs edit SwRS-OKFSCHEMA-CORE-006 or `requirements/tiers/log.md`, keep
-  that CR's edits and add this CR's.
+  that CR's edits and add this CR's. That CR takes scenario S5 of SwRS-OKFSCHEMA-CORE-006
+  ("Count every OKF 0.2 actor form"), so this CR's new CORE-006 scenarios are S6, S7 and S8.
 
 **Neighbour CR 57 `index-broken-root-links`** (issue 57, same batch) edits some of the same
 files: `skills/okf-schema/SKILL.md` (its `index` row, line 136, right next to this CR's `show`
@@ -180,9 +181,10 @@ Q9, Q10: a new command, placed right after `show` under its own three-line comme
 def trust(ctx: click.Context, bundle_path: str, concept_path: str) -> None:
 ```
 
-- Behaviour: `detail = show_bundle(bundle_path, concept_path)` inside
-  `try`/`except (FileNotFoundError, NotADirectoryError)` that prints `Error: <message>` to stderr
-  and exits 2, as `show` does. Then:
+- Behaviour: inside one `try`, `target = _resolve_concept_file(bundle_path, concept_path)` (the
+  path the refusal of a non-UTF-8 file names), then `detail = show_bundle(bundle_path,
+  concept_path)`; `except (FileNotFoundError, NotADirectoryError)` prints `Error: <message>` to
+  stderr and exits 2, as `show` does; `except UnicodeDecodeError` is described below. Then:
 
   ```python
   click.echo(f"trust: {detail.trust_tier}")
@@ -207,15 +209,18 @@ def trust(ctx: click.Context, bundle_path: str, concept_path: str) -> None:
   frontmatter or with invalid YAML (`show_bundle` gives `{}`, hence `trust: unverified`), as
   `show` printed before. Every successful run exits 0, whatever the tier and staleness.
 - The command never writes: no file of the bundle is created or changed.
-- A file that is not valid UTF-8: `show_bundle` raises `UnicodeDecodeError` (Q11), which this
-  command does not catch, so it ends in a traceback as `show` did before this CR (open
-  question 1).
+- A file that is not valid UTF-8 (Q13): `show_bundle` raises `UnicodeDecodeError` (Q11). The
+  command catches it and writes exactly one line to standard error,
+  `Error: Concept file is not valid UTF-8: {target}` (the path `_resolve_concept_file` returned),
+  then exits 2, the way the other refusals of this command exit. No traceback, no `trust:` line on
+  standard output, no file written. `show` on the same file still prints its bytes, exit 0 (Q11).
 - Markers: `# @implements_req SwRS-OKFSCHEMA-CORE-006` inside `trust` above the `try` (it
-  carries CORE-006 S5 and S6, section 5b).
+  carries CORE-006 S6, S7 and S8, section 5b).
 - Docstring (Google style; its first line is Click's help summary): "Print a concept's trust
   tier and staleness." Then: "Prints `trust: <tier>` (`unverified`, `machine-confirmed` or
   `human-reviewed`, derived from the `verified` field) and, when `stale_after` has been reached,
-  `stale: true`. The concept is resolved as `show` resolves it. Nothing is written." `Args:` for
+  `stale: true`. The concept is resolved as `show` resolves it. A file that is not valid UTF-8
+  is refused with exit 2. Nothing is written." `Args:` for
   `ctx`, `bundle_path`, `concept_path`; `Examples:` `okf-schema trust --path bundle
   concepts/clock`.
 
@@ -226,8 +231,8 @@ Follow `src/okf_schema/data/requirements/guidelines/requirements.guidelines.md` 
 `req_lifecycle: proposed` and gets no approval. Keep `id`, `uuid`, titles and every authored
 field not named here. The guideline makes a command a scenario of the behaviour it drives, not
 a SwRS of its own: the `trust` command is a scenario of SwRS-OKFSCHEMA-CORE-006, whose S1
-already derives the trust tier and staleness when a concept is "validated or inspected"; its
-refusal is a scenario of its own, as the guideline asks (one scenario per refusal).
+already derives the trust tier and staleness when a concept is "validated or inspected"; each
+of its refusals is a scenario of its own, as the guideline asks (one scenario per refusal).
 
 #### 5a. `requirements/tiers/swrs/core/SwRS-OKFSCHEMA-CORE-005.md`
 
@@ -254,9 +259,10 @@ On top of `trust-actor-forms`'s edits, if any:
 - S2's THEN names `stale: true` as a `show` line. Replace "it is stale (W11, `stale: true`)"
   with "it is stale (W11 on validation, `stale: true` from `okf-schema trust`, `stale` true in
   the API result, `[STALE]` in `list`)". The rest of S2 does not change.
-- Add to `scenarios:` and as a body section a scenario `S5` (or the next free number if
-  `trust-actor-forms` added one; use that number in every marker below)
-  `### Scenario S5: Print a concept's trust tier and staleness`:
+- Add to `scenarios:` and as a body section a scenario `S6` (S5 is `trust-actor-forms`'s
+  "Count every OKF 0.2 actor form", which lands first; never S5 here. If that CR delivered
+  another numbering, use the next free number here and in every marker below)
+  `### Scenario S6: Print a concept's trust tier and staleness`:
   - GIVEN a concept in the bundle, with or without a `verified` field (a list or a bare
     mapping) and a `stale_after` value
   - WHEN the user runs `okf-schema trust` on it
@@ -264,9 +270,9 @@ On top of `trust-actor-forms`'s edits, if any:
     (`unverified`, `machine-confirmed` or `human-reviewed`), followed by `stale: true` only when
     the concept is stale; the command exits 0 for every tier, including `unverified`, prints no
     score, and writes no file
-- Add to `scenarios:` and as a body section, right after S5, a refusal scenario `S6` (the
-  number after S5's; use it in every marker below)
-  `### Scenario S6: Refuse to print the trust tier of a missing concept`:
+- Add to `scenarios:` and as a body section, right after S6, a refusal scenario `S7` (the
+  number after S6's; use it in every marker below)
+  `### Scenario S7: Refuse to print the trust tier of a missing concept`:
   - GIVEN a concept path that names no file in the bundle, with or without `.md`
   - WHEN the user runs `okf-schema trust` on it
   - THEN the command writes `Error: Concept not found: ...` (the message `show` gives for it,
@@ -274,6 +280,14 @@ On top of `trust-actor-forms`'s edits, if any:
     file
   A path leaving the bundle is not restated here: it is SwRS-OKFSCHEMA-CORE-010's refusal
   (section 5c).
+- Add to `scenarios:` and as a body section, right after S7, a refusal scenario `S8` (the
+  number after S7's; use it in every marker below)
+  `### Scenario S8: Refuse to print the trust tier of a file that is not valid UTF-8` (Q13):
+  - GIVEN a concept file in the bundle whose bytes are not valid UTF-8
+  - WHEN the user runs `okf-schema trust` on it
+  - THEN the command writes one line, `Error: Concept file is not valid UTF-8: <path of the
+    file>`, to standard error, with no traceback, prints no `trust:` line, exits 2 and writes no
+    file
 - Normative paragraph and frontmatter `description`, word for word the same single SHALL
   statement, so that it covers printing the tier when a concept is inspected, as S1 already
   says ("validated or inspected"): "When OKF 0.2 metadata is validated or inspected, okf-schema
@@ -285,7 +299,8 @@ On top of `trust-actor-forms`'s edits, if any:
   concept under that rule). `okfreq lint` writes the "Depends on" group of the Links section.
 - Add under `### Verification notes`, Method: "and CLI tests of the `trust` command"; Criteria:
   "`trust` prints exactly `trust: <tier>` and, when stale, `stale: true`, and changes no file;
-  a missing concept is refused with exit 2".
+  a missing concept is refused with exit 2; a file that is not valid UTF-8 is refused with one
+  `Error: Concept file is not valid UTF-8: <path>` line and exit 2".
 - Leave the title and S1, S3, S4 unchanged.
 
 #### 5c. `requirements/tiers/swrs/core/SwRS-OKFSCHEMA-CORE-010.md` (created by CR-101)
@@ -311,8 +326,9 @@ SwRS states what the code does:
 - In `requirements/tiers/log.md`, under the day's `## YYYY-MM-DD` heading (one heading per
   date, newest first; share it with the entries of CR-101, `trust-actor-forms` and CR 57 when
   they are the same day, keep all of them): CORE-005 gained S5 (show prints the stored file,
-  nothing added, no validation, any encoding); CORE-006 gained S5 (the `trust` command) and
-  S6 (its refusal of a missing concept), `depends_on` CORE-010 and a statement that covers
+  nothing added, no validation, any encoding); CORE-006 gained S6 (the `trust` command),
+  S7 (its refusal of a missing concept) and S8 (its refusal of a file that is not valid UTF-8,
+  one error line and exit 2), `depends_on` CORE-010 and a statement that covers
   inspection ("validated or inspected", deriving the trust tier and staleness), and S2 names
   `trust` instead of the removed `show` line; CORE-010 now
   covers `trust` too; the reason (`show` re-serialized the frontmatter and printed a `trust:`
@@ -344,14 +360,16 @@ SwRS states what the code does:
     unparseable (`validate` reports W16). No score.
   - Exit codes: 0 for every tier, including `unverified`, and for a file without frontmatter or
     with invalid YAML (`trust: unverified`); 2 with `Error: ...` for a missing concept or a path
-    leaving the bundle, as `show`. The command writes nothing.
+    leaving the bundle, as `show`; 2 with the single line
+    `Error: Concept file is not valid UTF-8: <path>` for a file that is not valid UTF-8 (which
+    `show` prints as is). The command writes nothing.
   - One example per case: `trust: unverified`; `trust: human-reviewed` with `stale: true`.
 - The "Exit codes" table of the page does not change.
 - `docs/source/explanation/project-feature-coverage.md:31` (OKF 0.2 staleness row): replace
   "`tests/test_api.py` covers `stale` in `list`/`show`" with "`tests/test_api.py` covers
   `stale` in `list_bundle` and `show_bundle`; `tests/test_cli_remaining.py` covers the
   `stale: true` line of `okf-schema trust`". Add a row after it: "Trust tier of one concept
-  (`okf-schema trust`)" | "SwRS-OKFSCHEMA-CORE-006 S5 and S6; `tests/test_cli_remaining.py` covers each
+  (`okf-schema trust`)" | "SwRS-OKFSCHEMA-CORE-006 S6, S7 and S8; `tests/test_cli_remaining.py` covers each
   tier, a bare `verified` mapping, staleness, refusals and that no file changes; the installed
   wheel runs it in `tests/test_acceptance_core.py`."
 - `docs/source/tutorials/getting-started.md:89` ("Inspect the document and its frontmatter")
@@ -369,7 +387,8 @@ SwRS states what the code does:
 - New row right after it (before the `index` row CR 57 edits):
   `` `trust --path <bundle> <concept>` | Print `trust: <tier>` (`unverified`,
   `machine-confirmed`, `human-reviewed`, from `verified`) and `stale: true` once `stale_after`
-  is reached; exit 0 for every tier; writes nothing ``.
+  is reached; exit 0 for every tier; a file that is not valid UTF-8 is refused (exit 2); writes
+  nothing ``.
 - Line 45 "Bundle management via CLI and Python API: init, list, show, stats, index" becomes
   "init, list, show, trust, stats, index".
 - No other skill or reference mentions the `show` command; the agent can run `trust` from the
@@ -411,7 +430,7 @@ SwRS states what the code does:
 Tests follow `.github/guidelines/python-unittest.guidelines.md`; fixtures are written in
 `tmp_path` with `write_bytes` where exact bytes matter. New `show` tests carry
 `# @tests_req SwRS-OKFSCHEMA-CORE-005#S5` (CR-101's tests keep their `#S4`), new `trust` tests
-`# @tests_req SwRS-OKFSCHEMA-CORE-006#S5` (the numbers section 5b settles), unless stated
+`# @tests_req SwRS-OKFSCHEMA-CORE-006#S6` (the numbers section 5b settles), unless stated
 otherwise.
 
 API, `tests/test_api.py` (show_bundle section, next to CR-101's tests):
@@ -473,9 +492,14 @@ docstring lists `trust` among the commands). Each test asserts `result.output` e
     same output as `concept-a.md`.
 23. `missing.md` and `missing`: exit 2, `Error: Concept not found` on stderr, no `trust:` line
     on stdout, no traceback, and no file of the bundle changed
-    (`# @tests_req SwRS-OKFSCHEMA-CORE-006#S6`, the refusal scenario of section 5b).
+    (`# @tests_req SwRS-OKFSCHEMA-CORE-006#S7`, the refusal scenario of section 5b).
     `../outside.md` with the file present beside the bundle: exit 2, `Error: Concept path is outside the bundle`
     (`# @tests_req SwRS-OKFSCHEMA-CORE-010#S1`).
+    The non-UTF-8 file of test 4 (`latin1.md`, Q13): exit 2; `result.stderr` is exactly one line,
+    `Error: Concept file is not valid UTF-8: ` followed by the file's path (it ends with
+    `latin1.md`); `result.stdout == ""`; `"Traceback"` not in the output and `result.exception`
+    is the `SystemExit` of the exit, not a `UnicodeDecodeError`; no file of the bundle changed
+    (`# @tests_req SwRS-OKFSCHEMA-CORE-006#S8`).
 24. Writes nothing: in test 19, the bundle's file contents and modification times are identical
     before and after the run.
 25. `test_defensive_error_handling_trust_exits_2_on_api_error`: patch `okf_schema.cli.show_bundle`
@@ -511,10 +535,12 @@ Scenario steps (a real run, output kept as evidence), in a disposable folder, wi
   same before and after `trust`.
 - Write `broken.md` with `---\ntitle: [unclosed\n---\nBody\n`, a `plain.md` without frontmatter
   and a `latin1.md` holding a Latin-1 byte (`printf -- '---\ntitle: caf\xe9\n---\n'`) in the
-  bundle; `show` each: exit 0, output identical to the file, empty stderr.
+  bundle; `show` each: exit 0, output identical to the file, empty stderr. Then
+  `okf-schema trust --path my-knowledge-base/bundle latin1`: exit 2, one
+  `Error: Concept file is not valid UTF-8: ...` line on stderr, no traceback, nothing on stdout.
 
-Requirement checks: after `okfreq update-coverage requirements`, CORE-005 S5 and CORE-006 S5
-and S6 have `@tests_req` markers; CORE-006 lists `src/okf_schema/cli.py`; CORE-006's Links section has
+Requirement checks: after `okfreq update-coverage requirements`, CORE-005 S5 and CORE-006 S6,
+S7 and S8 have `@tests_req` markers; CORE-006 lists `src/okf_schema/cli.py`; CORE-006's Links section has
 the "Depends on" group naming CORE-010; `okfreq trace requirements --json` shows CORE-005,
 CORE-006 and CORE-010 covered.
 
@@ -531,7 +557,5 @@ which the `cross-platform` job runs on Windows and macOS. The `trust` lines go t
 
 ## Open questions
 
-1. `okf-schema trust` on a concept file that is not valid UTF-8: `show_bundle` keeps raising
-   `UnicodeDecodeError` (Q11), so `trust` ends in a traceback, as `show` did before this CR.
-   This specification keeps that. Should `trust` instead report a plain `Error: <file> is not
-   valid UTF-8` with exit 2?
+None. Answer 13 settled the last one: `trust` on a file that is not valid UTF-8 writes one
+`Error: Concept file is not valid UTF-8: <path>` line and exits 2 (section 4, CORE-006 S8).

@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "title": "show: print the stored file; new trust command for the tier",
+  "summary": "Specified on top of CR-101 and trust-actor-forms: show writes the stored bytes (any encoding, no trust line); new okf-schema trust prints trust/stale lines, refuses non-UTF-8 (exit 2); ConceptDetail gains raw; CORE-005 S5, CORE-006 S6-S8 and wider statement, CORE-010 widened; feat, 0.19.0.",
+  "origin": {
+    "kind": "github",
+    "ref": "#58",
+    "url": "https://github.com/gsemet/okf-schema/issues/58"
+  },
+  "sources": {
+    "01-intent.md": "d00c35cfd72b47dff511266b86acd0d8675f36d63367b0893753a96dd9b6518d",
+    "02-answers.md": "ef1159c5383943c5282f6c9ce1c0c09e0228f5f789e67ec7467c3401fc25efd4",
+    "03-change-spec.md": "14b8602e629d24880a14cb728bc126a316d65478eae1e26be34f1373d64e1bf8",
+    "intake/request.md": "27e058b56ad6970397ae4ed5db8fdc3528c1d93e5fe5889aadfb26b6bb51d369"
+  },
+  "summarized": "2026-11-25T21:00:39Z"
+}

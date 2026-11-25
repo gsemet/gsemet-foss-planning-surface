@@ -101,3 +101,12 @@ behaviour findings of the critic (Q9, Q10, Q11).
 18. index-links-Q16: **`stats` counts broken links its own way** (anchored and percent-encoded links
     would stay counted as broken, with the health score penalty). "A. Corriger dans 57
     (recommandé)": `stats` uses the same check as W2: anchors ignored, paths decoded.
+
+## 2026-11-25: ticket update
+
+Asked: post `work/issue-update.md` on issue 57 (`log.md`, encoded paths, subdirectory
+spellings, `stats`). "A. Poster (recommandé)".
+
+Posted on https://github.com/gsemet/okf-schema/issues/57, 2026-11-25: comment
+https://github.com/gsemet/okf-schema/issues/57#issuecomment-7174489046; plan "none"; demo
+"none".

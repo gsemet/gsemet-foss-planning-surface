@@ -74,3 +74,12 @@ command (and the sentence of the posted comment saying so).
 13. show-raw-Q13: **`trust` on a concept file that is not UTF-8.** "A. Message clair
     (recommandé)": one error line on stderr and exit code 2, no traceback (the option's preview:
     `Error: Concept file is not valid UTF-8:` followed by the file's path).
+
+## 2026-11-25: ticket correction
+
+Asked: post `work/issue-update.md` on issue 58, the earlier comment being wrong (the `trust`
+command, release 0.19.0). "A. Poster (recommandé)".
+
+Posted on https://github.com/gsemet/okf-schema/issues/58, 2026-11-25: comment
+https://github.com/gsemet/okf-schema/issues/58#issuecomment-7174489485; plan "none"; demo
+"none".

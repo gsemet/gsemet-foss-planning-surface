@@ -13,6 +13,8 @@ head 03f973e4:  2932 passed, 20 skipped in 171.16s (wall 172.6 s)
 
 0 seconds added; the difference between the two is run-to-run variation, not a speed-up.
 
+`just check` on this round's working tree (tests beside the other checks, so not a timing comparison): `2932 passed, 20 skipped in 164.86s`.
+
 ## Brief bytes beside the old start readings (Part 1.3, Part 2.3)
 
 Old start readings, as the specification gives them (study-fable-v2; not measured again):

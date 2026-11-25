@@ -38,3 +38,10 @@ The preview of option A shown to the user: `alice` is read machine-confirmed and
 Destination: running batch batch-01.
 
 Spec critic: yes, it changes what `validate` reports and the trust tier.
+
+## 2026-11-25: after the spec critic, first pass (4 findings fixed without the user; 2 questions, the specification's)
+
+5. trust-forms-Q4: **A dot in the producer** (`langchain.agents/0.3`). "A. Autoriser
+   (recommandé)": no W10; the dot is allowed before `:` too (the option's description).
+6. trust-forms-Q5: **`by: "human:"` with no identifier.** "A. Machine (recommandé)": it counts as
+   machine-confirmed, not human-reviewed; W10 is still shown.

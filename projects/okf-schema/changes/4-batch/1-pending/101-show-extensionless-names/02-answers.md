@@ -81,3 +81,12 @@ Spec critic: yes, it changes what `show` refuses (CLI contract and public API).
     `C:/Program Files/Git/api/status` before the tool receives it (checked on this machine).
     "A. Documenter (recommandé)": one line in the command reference: write the name without `/`,
     or set `MSYS_NO_PATHCONV=1`.
+
+## 2026-11-25: ticket update
+
+Asked: post `work/issue-update.md` on issue 56 (leading `/`, Windows and Git Bash cases). "A.
+Poster (recommandé)".
+
+Posted on https://github.com/gsemet/okf-schema/issues/56, 2026-11-25: comment
+https://github.com/gsemet/okf-schema/issues/56#issuecomment-7174488614; plan "none"; demo
+"none".
