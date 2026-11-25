@@ -4,14 +4,14 @@ Studio now has a short feature clip that shows review in the page itself: a sent
 
 ## Deliverables
 
-The clip (11.3 s, silent, loops), played from this pull request's head `<HEAD7>`:
+The clip (11.3 s, silent, loops), played from this pull request's head `7a02a84`:
 
-![The comment thread clip: select a sentence, comment, save, open the thread](https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/comment-thread/comment-thread.gif)
+![The comment thread clip: select a sentence, comment, save, open the thread](https://github.com/gsemet/markdown-okf-schema-studio/raw/7a02a841ed5a119ac951e3e36b4100a4edf9bfc5/docs/demo-video/clips/comment-thread/comment-thread.gif)
 
-- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/comment-thread/comment-thread.mp4
-- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/comment-thread/comment-thread.webm
+- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/7a02a841ed5a119ac951e3e36b4100a4edf9bfc5/docs/demo-video/clips/comment-thread/comment-thread.mp4
+- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/7a02a841ed5a119ac951e3e36b4100a4edf9bfc5/docs/demo-video/clips/comment-thread/comment-thread.webm
 
-What the clip proves (the take's own check, `check.json`, at `<HEAD7>`): `proposal.comments.json` holds one thread with the filmed quote "We drop support for Node 18 in this release." and one comment by `Reviewer`, "Can we keep it one more release?", `resolved: false`; `proposal.md` is unchanged; MP4 and WebM 1280x720 at 15 fps, GIF 960 px at 12 fps, loop seam SSIM 0.99661, playback rate 1.005, reading mode off, no paste widget.
+What the clip proves (the take's own check, `check.json`, at `7a02a84`): `proposal.comments.json` holds one thread with the filmed quote "We drop support for Node 18 in this release." and one comment by `Reviewer`, "Can we keep it one more release?", `resolved: false`; `proposal.md` is unchanged; MP4 and WebM 1280x720 at 15 fps, GIF 960 px at 12 fps, loop seam SSIM 0.99661, playback rate 1.005, reading mode off, no paste widget.
 
 What the maintainer judges: motion, rhythm, the loop as watched, the two caption texts and their times, the storyboard `docs/demo-video/clips/comment-thread/clip.md`.
 
@@ -47,18 +47,18 @@ Grade: **1**. Only documentation assets and one docs page change; no source, no 
 
 ## Impacts
 
-A new demo clip and one image on the review comments page; no change to the extension's behaviour. The clip, played at `<HEAD7>`:
+A new demo clip and one image on the review comments page; no change to the extension's behaviour. The clip, played at `7a02a84`:
 
-![The comment thread clip at the pull request head](https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/comment-thread/comment-thread.gif)
+![The comment thread clip at the pull request head](https://github.com/gsemet/markdown-okf-schema-studio/raw/7a02a841ed5a119ac951e3e36b4100a4edf9bfc5/docs/demo-video/clips/comment-thread/comment-thread.gif)
 
-[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/comment-thread/comment-thread.mp4) and [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/comment-thread/comment-thread.webm) at the same head.
+[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/7a02a841ed5a119ac951e3e36b4100a4edf9bfc5/docs/demo-video/clips/comment-thread/comment-thread.mp4) and [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/7a02a841ed5a119ac951e3e36b4100a4edf9bfc5/docs/demo-video/clips/comment-thread/comment-thread.webm) at the same head.
 
 ## Test plan
 
 - [ ] New or changed tests: none, no behaviour change
 - [ ] Requirements: no behaviour change
 - [ ] Changelog: no user-facing change
-- [ ] Local gates at `<HEAD7>`: `just check`, `just ci-static`, `just clip comment-thread all --vsix …` (check.json passed)
+- [ ] Local gates at `7a02a84`: `just check`, `just ci-static`, `just clip comment-thread all --vsix …` (check.json passed)
 - [ ] Review
 - [ ] CI green
 
