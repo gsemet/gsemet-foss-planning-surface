@@ -11,3 +11,15 @@ Short name: `show-names`
   so a `../` path outside the bundle is read (`src/okf_schema/api.py:392`).
 - `backlinks_bundle` appends `.md` to a target that does not end with it
   (`src/okf_schema/api.py:841`).
+
+## 2026-11-25: grill, user's answers (the options picked)
+
+1. show-names-Q1: **Direction.** "A. Faire accepter (recommandé)": `show` accepts a concept name
+   without `.md`.
+2. show-names-Q2: **Resolution.** "A. Fichier exact, sinon .md (recommandé)": the exact path when
+   it is a file, else `<name>.md`; a directory is never a concept, so `api` resolves to `api.md`
+   even when `api/` exists.
+3. show-names-Q3: **Directory with no concept.** "A. Corriger ici (recommandé)": in this CR,
+   "Concept not found", exit code 2, no traceback.
+4. show-names-Q4: **Outside the bundle.** "A. Refuser ici (recommandé)": in this CR, an error and
+   exit code 2 for a path leaving the bundle; nothing changes for paths inside it.
