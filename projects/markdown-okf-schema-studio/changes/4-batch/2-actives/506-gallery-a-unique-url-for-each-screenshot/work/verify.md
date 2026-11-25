@@ -2,18 +2,23 @@
 
 Head: c715355c203d92df18200011749d1a73cead0ad9
 
-Verdict: NOT VERIFIED
+Verdict: VERIFIED
 
-Every product claim and the five evidence items of the specification pass at this head. The one
-failure is the PR description (claim 13); it is fixed by editing the body only, with no commit.
+Every product claim and the five evidence items of the specification pass at this head (claims 1
+to 12), and the PR description as now posted passes (claim 13, judged again in a description-only
+pass after the body was edited).
 
 - Base: `4a47151e8d055b7f096b69b1fca2d9bf9636f863` (origin/main). `<worktree>` is the CR worktree,
   `<folder>` the CR folder. Logs are under `<folder>/work/gates/`, probe scripts under
   `<folder>/work/verifier/`, captures under `<folder>/work/verifier/evidence/`.
-- Every claim below is judged at `c715355c203d92df18200011749d1a73cead0ad9`; none is carried.
+- Claims 1 to 12 were judged at `c715355c203d92df18200011749d1a73cead0ad9` by the earlier pass:
+  carried from c715355 (same head, same base, no move; the body edit touches no code or proof),
+  not run again, except the log reading of claim 12 and the checks that claim 13 cites.
 - `git rev-parse HEAD` in `<worktree>`: `c715355c203d92df18200011749d1a73cead0ad9`.
-  `git ls-remote origin "refs/heads/chantier/batch-09/cr-506*"`: the same SHA.
-  `gh pr view 526`: head the same, draft true, state OPEN.
+  `git ls-remote origin "refs/heads/chantier/batch-09/cr-506*"`: the same SHA for the change
+  branch (and `4abc9d62ba790cfb9b331dea20548900c7a0215a` for its `-assets` branch).
+  `git ls-remote origin refs/heads/main`: `4a47151e8d055b7f096b69b1fca2d9bf9636f863`.
+  `gh pr view 526`: head c715355, draft true, state OPEN.
 
 ## 1. Evidence 1: unit tests of the page and the ids (c715355c) VERIFIED
 
@@ -160,43 +165,84 @@ screenshot bytes identical.
 
 ## 12. Review box (c715355c) VERIFIED
 
-`chantier log CR-506`: `r3 inspector approved at c1037ae378629aa4455b1acf62ea9712f90e1ced
-(CHANGELOG diff)` and `r3 approved at c1037ae..., committed as c715355c...`; the body cites
-c1037ae committed as c715355.
+`chantier log CR-506` (read again in the description pass): `r3 inspector approved at
+c1037ae378629aa4455b1acf62ea9712f90e1ced (CHANGELOG diff)` and `r3 approved at
+c1037ae378629aa4455b1acf62ea9712f90e1ced, committed as
+c715355c203d92df18200011749d1a73cead0ad9`; the body cites c1037ae committed as c715355.
 
-## 13. The PR description (posted body, c715355c) NOT VERIFIED
+## 13. The PR description (posted body, c715355c) VERIFIED
 
-Checked: `gh pr view 526 --json body` equals `<folder>/work/pr-body.md`
-(`diff --strip-trailing-cr -B`, exit 0). The HTML GitHub renders (`gh api .../pulls/526`, accept
-`application/vnd.github.html+json`) has the sections, the table and the task list; the Mermaid
-block renders with the repository's mermaid and `#35;` shows as `#` (`pr-body-mermaid.png`). No
-image attached, no username or home path. No `UNVERIFIED` claim and no `STALE` mark; the project
-template has no Known gaps section and no fold.
+Judged again at c715355 on the body updated 2026-11-25T18:35:57Z (draft, head unchanged). Copy
+read: `<folder>/work/verifier/pr-body-posted-pass2.log`.
 
-Failures:
+Posted text and rendering:
 
-1. Impacts has neither the before/after nor "No visual change". The project rule
-   (`.agents/guidelines/pull-request.guidelines.md`, and the template's Impacts comment) asks for
-   screenshots of a visible change, and the guideline says the Verifier fails such a body. The
-   change is visible (the notice; the address). Fix: push the pairs of
-   `evidence/before-after.md` to the screenshot branch `<change branch>-assets` as the guideline's
-   "Screenshots in the PR" says, and link `before-viewer-next` / `after-viewer-next` and
-   `before-unknown-id` / `after-unknown-id` in Impacts, captioned before at `4a47151`, after at
-   `c715355`. Note that the yellow address strip was added by the capture script.
-2. Proofs without a SHA in Test plan. Write: "New or changed tests: at c715355; they fail on the
-   previous code (4a47151)"; "`just requirements-update` clean at c715355"; "`just
-   ci-viewer-graph` passes at c715355" in place of "passed on the same code before the commit"
-   (claims 2, 10 and 3 prove them).
-3. Delivered changes the body does not mention: the CONTRIBUTING.md paragraphs and the glossary
-   term "Capture id" (and the `ci.yml` job comment). Fix: one Changes bullet, "CONTRIBUTING and
-   the glossary describe the capture id and the link tests".
+- `gh pr view 526 --json body --jq .body | diff --strip-trailing-cr -B -
+  <folder>/work/verifier/pr-body-posted-pass2.log`: exit 0; that copy compared the same way with
+  `<folder>/work/pr-body.md`: exit 0.
+- `gh api repos/gsemet/markdown-okf-schema-studio/pulls/526 -H "Accept:
+  application/vnd.github.html+json" --jq .body_html` (`pr-body-rendered.log`): headings Summary,
+  Deliverables, Changes, Impacts, Blast radius, Autonomous decisions, Test plan (the project
+  template's sections in order, plus the project guideline's Autonomous decisions), both tables
+  (the image table holds four `<img>`), six checked task items, one Mermaid section. The project
+  template has no fold and no Known gaps section.
+- `node render-mermaid.mjs <worktree> <body copy> pr-body-mermaid-2.png`: `mermaid blocks: 1`,
+  eight messages drawn, `#35;` shows as `#`; image opened.
 
-To tidy in the same edit, not failures: "CI green" is unchecked although `gh pr checks 526` is
-green at c715355 (check it, "at c715355"); the body's hard-wrapped lines render as forced line
-breaks on GitHub (one line per paragraph or bullet avoids it).
+Images (project rule: screenshot branch, linked in Impacts):
+
+- `curl` of the four URLs at `4abc9d62ba790cfb9b331dea20548900c7a0215a`: each `http=200
+  type=image/png` (87922, 89075, 107768 and 104081 bytes).
+- `cmp` of each with `evidence/<name>.png`: identical; `git hash-object --no-filters` equals the
+  blob of `gh api .../git/trees/4abc9d6...`: before-viewer-next `ebaec18e`, after-viewer-next
+  `d9ebb2d6`, before-unknown-id `c0d03907`, after-unknown-id `a8efba2d`. They are the captures of
+  `before-after.md` (before at 4a47151, after at c715355), the SHAs the caption names.
+- All four opened: Next with the address `gallery.html` (before) and
+  `gallery.html#block-editing/r02-mod-enter-commit` (after), 24 of 610; `#nope/r99-gone` with
+  nothing said (before) and the notice above the grid (after); the yellow strip the caption
+  describes; legible; no username, no home folder path (addresses are `127.0.0.1`).
+
+Text searches on the body copy:
+
+- `grep -nEi "CR[- ]?[0-9]{2,}|batch|\bround\b|\.agents/changes|planning|<chantier role names>"`:
+  no match (exit 1).
+- `grep -nEi "<login name>|C:[\\/]Users|/home/|/Users/"`, and the login name alone: no match.
+- `grep -nE "UNVERIFIED|STALE|carried"`: no match.
+
+Consistency with the diff at c715355 (`git diff origin/main...HEAD`, `galleryPage.ts` read):
+
+- Summary and Impacts: claims 4 (base behaviour, direct load, reload), 5, 8.
+- Deliverables: the id table matches `captureId` (lines 36 to 41) and claim 1; the sequence
+  diagram matches claims 4 and 5.
+- Changes: links (claim 7), page script (lines 195 to 270, claim 5), notice (claim 6), duplicate
+  ids (`assignCaptureIds`, claim 1), module move and browser test in `viewer-graph` with its
+  comment (`package.json`, `ci.yml`), CONTRIBUTING and the glossary term. CHANGELOG and the
+  requirement are named in Test plan. No delivered change is left out.
+- Blast radius: grade 1; the diff touches no file under `src/`.
+- Autonomous decisions: claims 8 (social card), 7 and lines 240 and 248 (modified clicks and
+  arrows), 5 (close adds an entry), 10 (proposed).
+- Test plan proofs and their SHA: new tests at c715355 failing on 4a47151 (claim 2; `git diff` of
+  `gallery.test.ts` changes only the import of the two older tests); requirement and
+  `requirements-update` at c715355 (claim 10); changelog line (diff: one entry under
+  `## Unreleased`); preflight and `ci-viewer-graph` at c715355 (claims 11 and 3); review (claim
+  12); CI green at c715355 (`gh pr checks 526`: checks, report, static, static-windows,
+  viewer-graph, visual pass, the others skipping; `gh run view 45669698414`: headSha c715355,
+  conclusion success).
+- Known gaps: no `UNVERIFIED` claim, no pair `before-after.md` says was not captured (its
+  after-only files have the before already shown by `before-unknown-id.png`), no failed claim
+  accepted: nothing needs a bullet.
+
+The three failures of the earlier pass are fixed: Impacts holds the before/after, the Test plan
+proofs name their SHA, CONTRIBUTING, the glossary and the `ci.yml` comment are mentioned.
+
+Observations, not failures: the hard-wrapped source lines render as forced line breaks on GitHub;
+"sets the tab title to the capture id" is short for the title `<id> | gallery | Markdown
+OKF-Schema Studio` (claim 4); "Local gates" gives results without test counts, which the project
+template's comment suggests.
 
 ## Housekeeping
 
 The base worktree `<worktree>/out/base` was removed. `<worktree>/out/reports` and
-`<worktree>/out/site` (ignored build output) hold the artifact of run 45476952370.
+`<worktree>/out/site` (ignored build output) hold the artifact of run 45476952370. The images
+downloaded by the description pass under `work/scratch/` were removed after the comparison.
 `git status --porcelain` in `<worktree>`: empty.
