@@ -8,9 +8,9 @@ This PR is a draft until the owner approves the storyboard and the clip.
 
 18 s, 1280x720 at 15 fps, three captions in turn, one zoom with three marks in turn, no card, logo top right, a loop.
 
-![export-html clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEADSHA/docs/demo-video/clips/export-html/export-html.gif)
+![export-html clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/export-html.gif)
 
-[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEADSHA/docs/demo-video/clips/export-html/export-html.mp4), [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEADSHA/docs/demo-video/clips/export-html/export-html.webm). The live storyboard, with the pictures and measured times: [clip.md](../blob/HEADSHA/docs/demo-video/clips/export-html/clip.md).
+[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/export-html.mp4), [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/export-html.webm). The live storyboard, with the pictures and measured times: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5/docs/demo-video/clips/export-html/clip.md).
 
 What the clip proves: a real export in a real VS Code window keeps Cream, Auto width, the breakout at the same pixel width (887 px in Studio and in the browser, within 2 px) and the four drawings, with no script (the take's `run` checks and `verify`; `check.json` passed). What the owner judges: motion, rhythm, the scroll speed, the loop as watched, the texts and their accent.
 
