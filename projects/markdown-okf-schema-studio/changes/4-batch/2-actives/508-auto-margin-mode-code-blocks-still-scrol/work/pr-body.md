@@ -52,7 +52,7 @@ Grade: 1
 - [x] New or changed tests (they fail on the previous code): the unit tests of the border, the caption and the 1 px overflow, and all 6 real-browser tests
 - [x] Requirements: `SwRS-MDOKFSTUDIO-LAYOUT-023` updated (still proposed), markers in code and tests, `just requirements-update`
   - Source: `src/page/modules/widthMode.ts`, `src/page/features/scrollCore.ts` (unchanged)
-  - Tests: `test/page/runtimePageControls.test.ts`, `test/page/codeBlockBreakout.test.ts` (new); unchanged: `test/core/preview/previewStyles.test.ts`, `test/page/diagReq.layout.requirements.test.ts`, `test/page/runtimeScroll.test.ts`, `test/page/tableBreakout.test.ts`, `test/page/widthModeScenarios.test.ts`
+  - Tests: `test/page/runtimePageControls.test.ts`, `test/page/codeBlockBreakout.test.ts` (new); unchanged: `test/core/preview/previewStyles.test.ts`, `test/page/diagReq.layout.requirements.test.ts`, `test/page/runtimeScroll.test.ts`, `test/page/tableBreakout.test.ts`, `test/page/widthModeScenarios.test.ts`, `test/visual/capture_layout_checks.py`, `test/visual/capture_width_scroll.py`, `test/visual/widthScrollScenarios.ts`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [x] Local gates: `npm run test:breakout` 14 passed with Chromium required; `just check` passed (unit 5221 passed, 21 skipped; pytest 205 passed); `just preflight` passed (static stage on Windows)
 - [ ] Review
