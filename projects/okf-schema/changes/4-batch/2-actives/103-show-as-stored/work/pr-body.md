@@ -36,10 +36,10 @@ This pull request is stacked on #70 and builds on the trust tier fix of #69.
 
 ## Checklist
 
-- [x] I have run `just preflight` and all checks pass
+- [ ] I have run `just preflight` and all checks pass
 - [x] I have added tests that prove my fix is effective or my feature works
 - [x] I have updated the documentation accordingly
-- [x] My changes generate no new warnings
+- [ ] My changes generate no new warnings
 
 ## Related Issues
 
@@ -63,8 +63,8 @@ restores the previous output. No stored file or data format changes.
   on Windows only through a local harness against a wheel of this change, outside the test suite.
 - On a full non-blocking standard output, `show` fails with `BlockingIOError` after a partial
   output, as before this change. Under unbuffered output (`python -u`) it instead retries without
-  pause until every byte is written. Neither case has a test, and both were observed on Windows
-  only.
+  pause until every byte is written. A real full non-blocking output is not tested (a test covers
+  the retry with a simulated stream only), and both behaviours were observed on Windows only.
 - One acceptance sentence of the bundle containment requirement still says that "the concept is
   shown as before", although it now also covers `trust`. Only its trigger sentence was widened.
 - The docstrings of the previous concept name change still say version 0.18.2, while the release
@@ -118,7 +118,7 @@ visual change.
   refusal by the Python API of a file that is not valid UTF-8)
 - [ ] Local gates at `a2723b7`: pending
 - [ ] Evidence
-- [ ] Review: pending at `a2723b7`
+- [x] Review: approved at `a2723b7`
 - [ ] Verified
 - [ ] CI at `a2723b7`: pending
 

@@ -64,7 +64,7 @@ No behaviour change in the extension; the editing page gains a clip.
 - [x] Changelog: no user-facing change
 - [x] Local gates at 8c6845a: `just preflight` (on Windows, its static stage); the take's `all` step with its `check` passed on the same files before the commit
 - [x] Review: passed at 8c6845a
-- [ ] CI green
+- [x] CI green: `gh pr checks 512` at 8c6845a: static, static-windows, visual, viewer-graph, report pass
 
 ## Internal references
 
