@@ -34,3 +34,10 @@ Short name: `show-raw`
    `list` keeps its `[STALE]` marker and the API keeps `trust_tier` and `stale`. No new CR.
 6. show-raw-Q6: **Release.** "A. fix → 0.18.2 (recommandé)": a `fix(show): ...` commit, like
    CR 56.
+7. show-raw-Q7: **Grilled enough.** "A. batch-01 (recommandé)": specify it for the running
+   batch, stacked on 56. The restatement shown with the question carried the reading of
+   answers 1 and 3 (the stored file, byte for byte, nothing added, no validation).
+
+Destination: running batch batch-01.
+
+Spec critic: yes, it changes the output of a command and the public API.
