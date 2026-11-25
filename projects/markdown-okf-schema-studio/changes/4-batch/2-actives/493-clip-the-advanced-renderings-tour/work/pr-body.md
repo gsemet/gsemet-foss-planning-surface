@@ -8,10 +8,10 @@ The owner approved the storyboard (`docs/demo-video/clips/advanced-renderings-to
 
 The clip, taken in a real VS Code window on Windows with the extension built as a VSIX, every setting at its default (PlantUML on the built-in engine, no Java):
 
-![Renderings tour](https://github.com/gsemet/markdown-okf-schema-studio/raw/da86d6e8d995c8d4ec4d067628735bdff30e2a1e/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.gif)
+![Renderings tour](https://github.com/gsemet/markdown-okf-schema-studio/raw/8c6845a50d411d894d83c7160e52e1306548330d/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.gif)
 
-MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/da86d6e8d995c8d4ec4d067628735bdff30e2a1e/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.mp4
-WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/da86d6e8d995c8d4ec4d067628735bdff30e2a1e/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.webm
+MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/8c6845a50d411d894d83c7160e52e1306548330d/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.mp4
+WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/8c6845a50d411d894d83c7160e52e1306548330d/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.webm
 
 Left to judge by watching: motion, rhythm, six captions in 16 s, the scroll under the zoom, the loop. The take's own checks proved the six drawings are rendered (each chart as its live drawing), no PlantUML error is shown, each mark lies inside the zoom, and the file is unchanged on disk.
 
@@ -35,6 +35,7 @@ Grade: 1
 - To fit three renderings per view inside the zoom, the stage note's charts and the PlantUML sequence were made smaller than the draft (PlantUML scale 0.75 without footbox, Vega-Lite height 30, Vega height 80, SVG width 300).
 - With the larger chart text, the line chart's x axis title was removed so its mark stays above the caption, and the bar chart asks for three y ticks so its labels do not overlap.
 - The way to scroll is now tried off camera and the scroll down lasts 0.7 s instead of 0.8 s: tried during the take, it delayed the scroll and the fourth mark came in over a moving page.
+- The storyboard's picture of the zoomed page moved from its first section to its fourth, because it shows the second view.
 
 ## Known gaps
 
@@ -58,12 +59,12 @@ No behaviour change in the extension; the editing page gains a clip.
 
 ## Test plan
 
-- [x] New or changed tests (they fail on the previous code) at da86d6e: length refusals at 4.9 s and 30.1 s, 30.0 s accepted, `durationLine`, the shipped storyboard, the editing page plays the clip
+- [ ] New or changed tests (they fail on the previous code): length refusals at 4.9 s and 30.1 s, 30.0 s accepted, `durationLine`, the shipped storyboard, the editing page plays the clip
 - [x] Requirements: no behaviour change (`just requirements-update` leaves the tree unchanged)
 - [x] Changelog: no user-facing change
-- [x] Local gates at da86d6e: `just clip-kit-test` (38 tests), `just check`, `just ci-static`; the take's `all` step passed
-- [x] Review: passed at da86d6e
-- [x] CI green: `gh pr checks 512` at da86d6e: static, static-windows, visual, viewer-graph, report pass
+- [ ] Local gates: `just preflight`, and the take's `all` step with its `check`
+- [x] Review: passed at 8c6845a
+- [ ] CI green
 
 ## Internal references
 
