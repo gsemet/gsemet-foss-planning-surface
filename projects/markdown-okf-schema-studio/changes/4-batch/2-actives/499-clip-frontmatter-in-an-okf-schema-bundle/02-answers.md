@@ -9,5 +9,7 @@
 9. bundle-fm-Q9 (2026-11-25, decided by the Griller): **Kept consistent with its sibling clip-standard-okf-frontmatter: the same page and fields, the same `status` edit to `published`, the same click and save badge, the same two marks (the `status` row, then the "Status:" line), the same caption voice ("verb a **word**"), about the same length.** Only `type: note` and the `_schema/` folder are added, so what differs on screen (Description column and type icons, red row and badge, the select) is what the schema brings.
 10. bundle-fm-Q10 (2026-11-25, decided by the Griller): **12 s, inside the 12 s limit, no `depends.json`.** The story fits in two beats, so it needs no longer kit limit.
 
+11. bundle-fm-Q11 (2026-11-25, decided by the Chief of Staff, owner's word "no question"): **The trial showed the status field row is not red, only a small badge shows (`tr[data-okf-field].okf-error` has no style). The clip shows what exists: the badge-only error signal; the words "red row" are reworded in `clip.md` and `docs/user/okf.md`; the missing style is filed apart as a possible bug in the inbox; CR-499 stays in the stack.** Frame 0 still starts with the typo, and the fix clears the badge.
+
 Grilled enough (2026-11-25): by the Griller on the owner's word relayed by the Chief of Staff ("all ten in batch-09 tonight with no question").
 Destination: running batch batch-09. Critic: no (a clip following the merged kit and recipe).
