@@ -16,7 +16,7 @@ The marker check gains seven rules (the seventh, `implements-fragment`, rejects 
 | `fragment-required` | a fragmentless marker on a target that declares `scenarios:` |
 | `fragment-unexpected` | a fragment on a target with no `scenarios:` |
 | `accepts-on-swrs` | `@accepts_req` on a SwRS |
-| `accepts-placement` | `@accepts_req` outside `test/integration`, except on the StRS and files listed in the check script |
+| `accepts-placement` | `@accepts_req` outside `test/integration`; StRS CORE-007, CORE-008 and TRUST-014 may also sit under `test/build`, `test/security`, `test/site` or `test/core` |
 | `implements-fragment` | a `#S<n>` fragment on `@implements_req` |
 | `strs-tests-in-integration` | a new `@tests_req StRS-...` in `test/integration` (the baseline is now empty) |
 
@@ -24,9 +24,9 @@ Choices made:
 
 - The coverage mode is not switched here; the old mode keeps working with the new schemas.
 - The 97 retired SwRS get an explicit exemption so they declare no scenarios.
-- A new SwRS (`SwRS-MDOKFSTUDIO-CORE-096`) states the behaviour of the marker check, each rule tested by its own test; a seventh rule, `implements-fragment`, rejects a `#S<n>` on `@implements_req`.
+- A new SwRS (`SwRS-MDOKFSTUDIO-CORE-096`) states the behaviour of the marker check, each rule tested by its own test.
 - All 16 requirement groups declare `scenarios:` and carry `Scenario S<n>` / `Path S<n>` headings; each SwRS test marker is one line per scenario.
-- StRS markers in tests were sorted (table in Details): 61 became `@accepts_req` (walks in real VS Code, and the walks of CORE-007, CORE-008 and TRUST-014 outside it), 2 simulated paths, 122 removed (a snapshot, a partial path or a duplicate of a SwRS marker; the SwRS markers stay).
+- StRS markers in tests were sorted (table in Details): 61 became `@accepts_req` (walks in real VS Code, and the walks of CORE-007, CORE-008 and TRUST-014 outside it), 2 simulated paths, 122 removed (a snapshot, a partial path or a duplicate of a SwRS marker). The SwRS markers stay, except those the review of the fragments dropped because their test checks no declared scenario; that review removed the last marker of TRUST-005, TRUST-090, REVIEW-219, LIFE-169 or LIFE-170 from some `test/integration` files.
 - The mutation report reads the `#S<n>` fragments.
 - The requirements viewer reads `scenarios:` from the requirement files and joins them with the okfreq trace: home cards "StRS paths tested", "StRS paths accepted", "StRS covered" and "SwRS scenarios tested" (the "StRS with a stakeholder validation test" card is removed), area columns "Paths tested" and "Paths accepted", the tested and accepted files of each path on a use case page, and the tests of each scenario, or "missing", on a behaviour page. Without a trace the declared counts stay and the file figures read "n/a". SwRS CORE-069, CORE-080 and CORE-082 gain the scenarios for this.
 - `just requirements-report` and `just requirements-report-json` also write `out/reports/requirements/requirements-trace.json`.
@@ -35,7 +35,7 @@ Choices made:
 
 ### Approved requirements changed
 
-The 15 approved StRS only get `approved_at` set to the time of the scripted rename and, all 15, the `scenarios:` block and the renamed path headings; no normative text changed. Owner review of this PR is their re-approval: BLOCK-003, BLOCK-011, BLOCK-025, DIAG-001, DIAG-006, GFM-002, LAYOUT-001, LAYOUT-003, PALETTE-015, CORE-001, REVIEW-001, REVIEW-003, REVIEW-012, REVIEW-015, TABLE-001.
+The 15 approved StRS only get `approved_at` and `verified.at` set to the time of the scripted rename and, all 15, the `scenarios:` block and the renamed path headings; no normative text changed. Owner review of this PR is their re-approval: BLOCK-003, BLOCK-011, BLOCK-025, DIAG-001, DIAG-006, GFM-002, LAYOUT-001, LAYOUT-003, PALETTE-015, CORE-001, REVIEW-001, REVIEW-003, REVIEW-012, REVIEW-015, TABLE-001.
 
 ### Validation in the new coverage mode (scratch, not applied)
 
@@ -53,8 +53,8 @@ Grade: **2**. The check script, the bundle schemas and the Python lock change; a
 - The StRS markers' sort was carried out by an agent by the agreed classes; the re-approval of the 15 approved StRS by the review of this PR follows the owner's agreement to the scripted rename.
 - A migration script, run group by group, declared `scenarios:` and renamed the headings; each group commit carries its markers' fragments.
 - The first fragment sweep was a keyword heuristic; its 486 weak entries were then read one by one (484 decisions, two entries repeating a block already decided: 142 kept, 206 moved to the scenario really exercised, 136 dropped because the test checks no declared scenario). Fragments scored good, and 45 lines on 6 SwRS with generic scenarios, were not re-read.
-- StRS markers in tests were sorted: kept as `@tests_req` or `@accepts_req` on a declared path, or removed (a snapshot, a partial path or a duplicate of a SwRS marker; the SwRS markers stay); `strsTestsInIntegration` is now empty.
-- Exemption reasons of the retired SwRS reuse one text per kind of retirement; LIFE-174, 182-185 have their own.
+- StRS markers in tests were sorted: kept as `@tests_req` or `@accepts_req` on a declared path, or removed (a snapshot, a partial path or a duplicate of a SwRS marker); `strsTestsInIntegration` is now empty. SwRS markers go only where the fragment review found no declared scenario checked (for example TRUST-005, TRUST-090, REVIEW-219, LIFE-169, LIFE-170 in some `test/integration` files).
+- The exemption reason of a replaced SwRS names its successor with one shared text; LIFE-174 and LIFE-182 to 185, archived with no successor, each have their own reason.
 - The viewer's new behaviour is stated as new scenarios of three existing `proposed` SwRS (CORE-069, CORE-080, CORE-082), with no new SwRS.
 - `requirements/guidelines/okfreq-baseline.guidelines.md` is left as it is: it matches no okf-schema file.
 - The project guidelines state their own SwRS scenario heading, with the kind, which overrides the refreshed shared guideline.
@@ -75,7 +75,7 @@ Others:
 - `StRS-MDOKFSTUDIO-LIFE-023` shows its four paths with no tested or accepted file: no test marker names it.
 - Fragments scored good in the first pass of the sweep were not re-read.
 - The new viewer cards and pages are checked by unit tests only; the site was not looked at in a browser.
-- The paths of TRUST-012 and TRUST-014 do not start from the built VSIX, as asked.
+- The paths of TRUST-012 and TRUST-014 do not start from the built VSIX, although that was asked: their steps start from the running Studio and from a maintainer's install, because a path cites only SwRS that state what the extension does today.
 - A scenario of CORE-069 says the counts do not depend on the coverage mode, while the "StRS covered" count follows it.
 
 <details>
@@ -291,7 +291,12 @@ The per-scenario list is not inlined (it is about 800 lines); the counts above a
 - `requirements/tiers/_schema/{base,strs,swrs}.schema.yaml`: `scenarios`, `acceptance_exemption`, `tested_in_files`, `accepted_in_files`.
 - 97 retired SwRS files: `annotation_exemption` and its reason.
 - `scripts/check-marker-companions.mjs`, `scripts/marker-baseline.json`: the rules above.
-- `test/build/checkMarkers.test.ts`: seven new tests; `test/build/test_check_main_paths.py`: a `Path S1:` case.
+- `requirements/tiers/strs/`, `requirements/tiers/swrs/`: `scenarios:` blocks and `Path S<n>` / `Scenario S<n>` headings, new paths for BLOCK-027, TRUST-012 and TRUST-014, and `approved_at` and `verified.at` of the 15 approved StRS.
+- Test markers under `test/`: one `#S<n>` line per scenario on `@tests_req SwRS-...`; StRS markers moved to `@accepts_req`, kept on a path, or removed. No file under `src/` changes.
+- `scripts/mutation/report-pure.mjs`: reads markers with a `#S<n>` fragment.
+- `test/site/requirementsViewer/mainPaths.ts`, `layout.ts`: path ids read from `Path S<n>` headings and shown in the path list; scenario ids on the dots.
+- Test files split to stay under the file size limit, for example `previewStylesGutter.test.ts`, `editActionsColour.test.ts`, `runtimeTableCellEditorReveal.test.ts`, `previewEditingSchemaSteps.ts`, `capture_cell_editor_checks.py`, `capture_first_gap_checks.py` and `scenarioDefinitions3.ts`.
+- `test/build/checkMarkers.test.ts`: eight new tests; `test/build/test_check_main_paths.py`: a `Path S1:` case.
 - `requirements/tiers/swrs/rendering-core/SwRS-MDOKFSTUDIO-CORE-096.md` (new) and its regenerated StRS and index; `requirements/tiers/log.md`.
 - `test/site/requirementsViewer/` (`model.ts`, `home.ts`, `pages.ts`, `viewer.css`, their tests and fixture); SwRS CORE-069, CORE-080, CORE-082.
 - `justfile`: the trace JSON in the two report targets.
@@ -320,7 +325,7 @@ No visual change in the extension: no file of `src/` changes behaviour or UI. Co
 | StRS covered | 23 / 95 | 0 / 95 |
 | StRS with every linked SwRS `covered` | 24 | 24 |
 
-The current mode asks for a direct `@tests_req` marker on the StRS and every linked SwRS `covered`. The marker sort moved the real VS Code walks to `@accepts_req`, which this mode does not count, so only TRUST-012 keeps a direct marker, and one of its linked SwRS is exempt, which this mode reports as `missing`. The specification expected the exemption of the retired SwRS to help this figure; it does not in this mode. The follow-up change switches the mode, where `@accepts_req` counts and exempt SwRS are accepted. `just check` and `just requirements-lint` pass with this figure; only the requirements viewer reads it.
+The current mode asks for a direct `@tests_req` marker on the StRS and every linked SwRS `covered`. The marker sort moved the real VS Code walks to `@accepts_req`, which this mode does not count, so only TRUST-012 keeps a direct marker, and one of its linked SwRS is exempt, which this mode reports as `missing`. The exemption of the retired SwRS was expected to help this figure; it does not in this mode. The follow-up change switches the mode, where `@accepts_req` counts and exempt SwRS are accepted. `just check` and `just requirements-lint` pass with this figure; only the requirements viewer reads it.
 
 ## Test plan
 

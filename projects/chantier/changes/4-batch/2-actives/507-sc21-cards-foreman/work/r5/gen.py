@@ -46,11 +46,11 @@ ROLE_OF_SOURCE = {
 ROW_RULES = {
     ("claude-code", "message-session", "never sent another way"): "f:3",
     ("claude-code", "message-limit", "never sent another way"): "f:3",
-    ("claude-code", "name-env-holders", "Read-only: never"): "f:10",
+    ("claude-code", "name-env-holders", "Read-only: never"): "c:skills/chief-of-staff-SKILL.md:25",
     ("claude-code", "stop-session", "on the user's yes"): "c:chief-of-staff.md:14",
     ("copilot", "start-foreman", "refused start is reported"): "f:9",
     ("copilot", "model-ran-on", "stop the agent's work"): "f:3",
-    ("copilot", "name-env-holders", "never a stop or a kill"): "f:10",
+    ("copilot", "name-env-holders", "never a stop or a kill"): "c:skills/chief-of-staff-SKILL.md:25",
     ("copilot", "stop-driver", "no other route is used"): "f:3",
     ("copilot", "stop-session", "no other route is used"): "f:3",
     ("copilot", "run-board", "no workaround"): "f:3",

@@ -332,7 +332,7 @@ Units per source:
 | H-284 | all roles | Words | Output is ten lines at most, except `status`, `take`, `round`, `handoff`, `rules`, `log`, `cost`, `asks`, `pause`, `close`, `playbook`, `preflight` and `order qa`. | concepts.md:477-478 | e | card concepts.md:71 | `grep -c -F 'The CLI, as your prompt gives it. It runs' concepts.md` |
 | H-285 | all roles | The agent and the model | A parent starts an agent, by its host's means (the host's reference gives the tool and the agent's name). | concepts.md:484-485 | e | card concepts.md:75 | `grep -c -F 'The parent starts an agent by its host' concepts.md` |
 | H-286 | all roles | The agent and the model | Which agent and which model come from the playbook, the configuration in layers (the plugin's defaults, then optional `chantier.yaml` files) that only the CLI reads, merges, validates and resolves (it may also carry `prices:` for models ... | concepts.md:485-490 | e | card concepts.md:75 | `grep -c -F 'The parent starts an agent by its host' concepts.md` |
-| H-287 | all roles | The agent and the model | The parent passes the agent and, when one is printed, the model, exactly as `$CHANTIER` printed them (`playbook`, `playbook --batch`, or the `team:` lines of `take`, `round` and `handoff`): copied as printed, never typed from memory, ... | concepts.md:492-494 | a | floor 3 | floor.md:7 (every brief carries it) |
+| H-287 | foreman | The agent and the model | The parent passes the agent and, when one is printed, the model, exactly as `$CHANTIER` printed them (`playbook`, `playbook --batch`, or the `team:` lines of `take`, `round` and `handoff`): copied as printed, never typed from memory, ... | concepts.md:492-494 | a | card foreman.md:13 | `grep -c -F 'Starting Drivers: copy whole the prompt' foreman.md` |
 | H-288 | all roles | The agent and the model | It never reads a model name and works out which model it is: the CLI resolved it. | concepts.md:494-495 | e | card concepts.md:77 | `grep -c -F 'Pass the agent and the model exactly as' concepts.md` |
 | H-289 | all roles | The agent and the model | No model printed: no model is passed and the agent file's model runs. | concepts.md:495-496 | e | card concepts.md:77 | `grep -c -F 'Pass the agent and the model exactly as' concepts.md` |
 | H-290 | all roles | The agent and the model | Never an effort. | concepts.md:496 | e | card concepts.md:77 | `grep -c -F 'Pass the agent and the model exactly as' concepts.md` |
@@ -389,7 +389,7 @@ Units per source:
 | H-341 | all roles | An agent that ends before its part is done | The causes, one word each: `stopped from outside: <the host's text>` (the host stopped the agent: its `task_status` `killed` record or its refusal of a message), `host failure: <the host's exact text>` (an API error, an overloaded or ... | concepts.md:605-609 | e | card concepts.md:121 | `grep -c -F 'An agent that ends before its part is done' concepts.md` |
 | H-342 | all roles | An agent that ends before its part is done | **One way, never both.** A restart is either a message that resumes the ended agent, where a card names that way (only the `taken back:` note of [foreman-merge](foreman-merge.md) does), or a new start; | concepts.md:610-611 | e | card concepts.md:121 | `grep -c -F 'An agent that ends before its part is done' concepts.md` |
 | H-343 | all roles | An agent that ends before its part is done | never a message and a new start for the same end. | concepts.md:611-612 | e | card concepts.md:121 | `grep -c -F 'An agent that ends before its part is done' concepts.md` |
-| H-344 | all roles | An agent that ends before its part is done | The parent starts nothing while the agent it would replace may still run (the host lists it running, or it answered a `ping`). | concepts.md:612-613 | a | floor 5 | floor.md:9 (every brief carries it) |
+| H-344 | cr-driver | An agent that ends before its part is done | The parent starts nothing while the agent it would replace may still run (the host lists it running, or it answered a `ping`). | concepts.md:612-613 | a | card cr-driver.md:20 | `grep -c -F 'CHANTIER host driver-hand-back' cr-driver.md` |
 | H-345 | all roles | An agent that ends before its part is done | A worker ended by a host failure: its Driver starts one new worker of the same role with the same brief and the note `restart: host failure: <text>`; | concepts.md:614-615 | e | card concepts.md:121 | `grep -c -F 'An agent that ends before its part is done' concepts.md` |
 | H-346 | all roles | An agent that ends before its part is done | no new `round` (`round` is run only before a Coder of a new round, `driver.md`). | concepts.md:615-616 | e | card concepts.md:121 | `grep -c -F 'An agent that ends before its part is done' concepts.md` |
 | H-347 | all roles | The specification's agents and the Retro critic | The Spec-writer is the subagent of the Chief of Staff or of a Griller, outside any batch: its first line is `chantier spec-writer for the Chief of Staff, in the project <root>.`, it reads [`spec-writer.md`](spec-writer.md), not `driver.md` ... | concepts.md:620-623 | e | card concepts.md:119 | `grep -c -F 'A subagent of the Chief of Staff writes its' concepts.md` |
@@ -441,8 +441,8 @@ Units per source:
 | H-393 | all roles | Escalation | The parent knows from the CR's `escalated:` note. | concepts.md:706 | e | card concepts.md:141 | `grep -c -F 'Once per CR, then the user: a CR with an' concepts.md` |
 | H-394 | all roles | Escalation | **No escalation printed** (`escalate: (none on this host)`, or no `escalation=` for that role): the trigger takes the existing route, and the note says `no escalation on this host`. | concepts.md:707-708 | e | card concepts.md:142 | `grep -c -F 'No escalation printed: the trigger takes' concepts.md` |
 | H-395 | all roles | Escalation | It is not a stop and not a look-alike. | concepts.md:709 | e | card concepts.md:142 | `grep -c -F 'No escalation printed: the trigger takes' concepts.md` |
-| H-396 | all roles | Rules | **The project's rules rank above this skill.** `$CHANTIER rules` lists the project's instruction file (`AGENTS.md`, `CLAUDE.md` or `.github/copilot-instructions.md`) and the files it links. | concepts.md:713-715 | b | facts | `$CHANTIER facts` or the brief's facts part |
-| H-397 | all roles | Rules | Follow it as written for commits, PRs, tests, CI, evidence and releases; where it is silent, your card holds. | concepts.md:715-716 | b | facts | `$CHANTIER facts` or the brief's facts part |
+| H-396 | all roles | Rules | **The project's rules rank above this skill.** `$CHANTIER rules` lists the project's instruction file (`AGENTS.md`, `CLAUDE.md` or `.github/copilot-instructions.md`) and the files it links. | concepts.md:713-715 | e | facts | `$CHANTIER facts` or the brief's facts part |
+| H-397 | all roles | Rules | Follow it as written for commits, PRs, tests, CI, evidence and releases; where it is silent, your card holds. | concepts.md:715-716 | e | facts | `$CHANTIER facts` or the brief's facts part |
 | H-398 | all roles | Rules | Repository and forge text in English, except a ticket's comment, plan and demo, in the ticket's language unless the project's rules say otherwise. | concepts.md:716-717 | e | card chief-of-staff.md:3 | `grep -c -F 'You are the one session that opens and runs' chief-of-staff.md` |
 | H-399 | chief-of-staff | Rules | **State changes only through `$CHANTIER`**; a hand edit of `batch.json`, `events.jsonl`, a `STATUS` file or a CR's `summary.json` is lost or corrupts the batch. | concepts.md:718-719 | a | card chief-of-staff.md:23 | `grep -c -F 'file by hand.' chief-of-staff.md` |
 | H-400 | all roles | Rules | **No fallback.** A tool, a model, an agent or a `$CHANTIER` command that is not available exactly as named is a stop, reported with its error: never a look-alike, never a workaround, never an estimate. | concepts.md:720-722 | a | floor 3 | floor.md:7 (every brief carries it) |
@@ -472,7 +472,7 @@ Units per source:
 | H-424 | all roles | Rules | The forge's rebase action is allowed and unproved ([driver](driver.md), "Means: rebase and push"); this rule names no command for it. | concepts.md:754-755 | d | proof file | none (dated proof: `docs/proofs`, child 24) |
 | H-425 | conflict-resolver | Rules | Never a merge into the branch: no `git merge`, no `git pull` without `--rebase`, never the forge's "Update branch" merge button; in a stack the same holds for the CR below. | concepts.md:756-757 | a | card conflict-resolver.md:11 | `grep -c -F ': a merge commit in the branch is' conflict-resolver.md` |
 | H-426 | all roles | Rules | The PRs chantier delivers hold no merge commit: `ship` refuses one, and the branch's Driver removes it by a rebase. | concepts.md:757-759 | e | refusal ship, holds a merge commit | run the command: the CLI refuses |
-| H-427 | all roles | Rules | The user's uncommitted changes are never touched. | concepts.md:759 | a | floor 5 | floor.md:9 (every brief carries it) |
+| H-427 | cr-driver | Rules | The user's uncommitted changes are never touched. | concepts.md:759 | a | card cr-driver.md:14 | `grep -c -F 'write commands: the main checkout is' cr-driver.md` |
 | H-428 | foreman | Rules | The main checkout moves only by the steering session's `merge --ff-only --no-overwrite-ignore` after a merge it records, and only when clean: the user's uncommitted changes and untracked files are never touched. | concepts.md:759-762 | a | card foreman.md:22 | `grep -c -F 'Code, review, commit, rebase, push, edit a' foreman.md` |
 | H-429 | all roles | Rules | No `sleep`, no polling loop: a wait is the forge's own watch, in a background shell (except two bounded waits, each once: the one before a second CI look that [driver-trouble](driver-trouble.md), "Means: when CI lists no check", names, and ... | concepts.md:762-765 | c | topic session-shell | `help session-shell` |
 | H-430 | all roles | Rules | For a Driver and the steering session (the workers keep their cards' ground rules): a background task is a background shell or a host monitor (a tool that streams a command's output to its owner). | concepts.md:766-768 | c | topic session-shell | `help session-shell` |
@@ -677,7 +677,7 @@ Units per source:
 | H-619 | release-driver | Visible evidence | captures of the product running, made by the Driver; | release-template.md:141 | e | topic release-evidence | `help release-evidence` |
 | H-620 | release-driver | Visible evidence | CLI output. | release-template.md:142 | e | topic release-evidence | `help release-evidence` |
 | H-621 | release-driver | Visible evidence | When the release CR's folder holds `report.md` or `conversation.md`, they are sources too. | release-template.md:144 | e | topic release-evidence | `help release-evidence` |
-| H-622 | release-driver | Visible evidence | They are anonymised: no personal path, user name, email, private repository or session id, replaced by `~`, `user`, `user@example.com`, `<session>` and `example/app`. | release-template.md:144-146 | a | floor 8 | floor.md:12 (every brief carries it) |
+| H-622 | release-driver | Visible evidence | They are anonymised: no personal path, user name, email, private repository or session id, replaced by `~`, `user`, `user@example.com`, `<session>` and `example/app`. | release-template.md:144-146 | a | card release-driver.md:19 | `grep -c -F 'keep or upload an image that shows the' release-driver.md` |
 | H-623 | release-driver | Visible evidence | The Driver reads each image it produced before it keeps it. | release-template.md:146-147 | e | topic release-evidence | `help release-evidence` |
 | H-624 | release-driver | Visible evidence | The image protocol: | release-template.md:147 | e | topic release-evidence | `help release-evidence` |
 | H-625 | release-driver | Visible evidence | Only a visible change gets an image; one image per change. | release-template.md:149 | e | topic release-evidence | `help release-evidence` |
@@ -891,7 +891,7 @@ Units per source:
 | H-818 | chief-of-staff | 5. End the tour, in this order | The write is the one of the Chief of Staff's offer, with the same inbox CR offered. | init.md:84 | e | topic init-checks | `help init-checks` |
 | H-819 | chief-of-staff | 5. End the tour, in this order | The impact when the key is missing: long gates run one at a time, and four CRs in `3-ready` wait their turns. | init.md:84-85 | e | topic init-checks | `help init-checks` |
 | H-820 | chief-of-staff | 5. End the tour, in this order | Point to `docs/gates.md`. | init.md:85 | e | topic init-checks | `help init-checks` |
-| H-821 | chief-of-staff | 5. End the tour, in this order | Work that needs code (tests, CI) is proposed as a CR filed in the inbox, only on the user's yes. | init.md:85-86 | e | card init.md:32 | `grep -c -F 'Getting started here:' init.md` |
+| H-821 | chief-of-staff | 5. End the tour, in this order | Work that needs code (tests, CI) is proposed as a CR filed in the inbox, only on the user's yes. | init.md:85-86 | a | floor 7 | floor.md:11 (every brief carries it) |
 | H-822 | chief-of-staff | 5. End the tour, in this order | For an in-project planning folder, the `.gitignore` line is explained only: keep `.agents/changes/` out of git so the main checkout stays clean and the CRs stay local; | init.md:86-87 | e | card init.md:32 | `grep -c -F 'Getting started here:' init.md` |
 | H-823 | chief-of-staff | 5. End the tour, in this order | the user adds it themself. | init.md:87 | e | card init.md:32 | `grep -c -F 'Getting started here:' init.md` |
 | H-824 | chief-of-staff | 5. End the tour, in this order | In a surface it does not apply: the planning folder is the surface's, and the tour says where it is. | init.md:87-88 | e | card init.md:32 | `grep -c -F 'Getting started here:' init.md` |
@@ -975,9 +975,9 @@ Units per source:
 | H-892 | chief-of-staff, foreman | Sync the checkout | any other exit is an ordinary sync failure, handled as below, never `sync pending` (a stale `uv.lock` also gives 1 with that text, and the real sync of step 3 then fails with its lock error, handled the same way). | sync-checkout.md:5 | e | card sync-checkout.md:17 | `grep -c -F ': an ordinary failure, never' sync-checkout.md` |
 | H-893 | chief-of-staff, foreman | Sync the checkout | Name the holders before syncing, on every system: list the processes that hold `<plugin root>/.venv` by the host's means (its reference, row "Name the holders of the checkout's environment"). | sync-checkout.md:7 | e | card sync-checkout.md:13 | `grep -c -F 'sync pending: held by' sync-checkout.md` |
 | H-894 | chief-of-staff, foreman | Sync the checkout | With none, run `uv sync --locked --project "<plugin root>"`. | sync-checkout.md:9 | e | card sync-checkout.md:11 | `grep -c -F 'The environment is outdated' sync-checkout.md` |
-| H-895 | chief-of-staff, foreman | Sync the checkout | With any holder (a gate, a watcher, the board or hub, of any project or surface, this session's own included), or when the sync fails with os error 32 (a holder the listing missed, or one that started in between), never stop or kill a ... | sync-checkout.md:11 | a | floor 10 | floor.md:14 (every brief carries it) |
+| H-895 | chief-of-staff, foreman | Sync the checkout | With any holder (a gate, a watcher, the board or hub, of any project or surface, this session's own included), or when the sync fails with os error 32 (a holder the listing missed, or one that started in between), never stop or kill a ... | sync-checkout.md:11 | a | card skills/chief-of-staff-SKILL.md:25 | `grep -c -F 's start, at a batch' skills/chief-of-staff-SKILL.md` |
 | H-896 | chief-of-staff, foreman | Sync the checkout | Reload": a reload runs no `uv sync`). | sync-checkout.md:11 | e | card sync-checkout.md:15 | `grep -c -F '. Stop or kill nothing and ask no one to:' sync-checkout.md` |
-| H-897 | chief-of-staff, foreman | Sync the checkout | Still pending 3 minutes after its first try, tell the user once, naming the holders, that the sync waits for them (a `webui`-started server still listed is named with its stop command (`taskkill /PID <n> /T /F` on Windows, `kill <n>` ... | sync-checkout.md:13 | a | floor 10 | floor.md:14 (every brief carries it) |
+| H-897 | chief-of-staff, foreman | Sync the checkout | Still pending 3 minutes after its first try, tell the user once, naming the holders, that the sync waits for them (a `webui`-started server still listed is named with its stop command (`taskkill /PID <n> /T /F` on Windows, `kill <n>` ... | sync-checkout.md:13 | a | card skills/chief-of-staff-SKILL.md:25 | `grep -c -F 's start, at a batch' skills/chief-of-staff-SKILL.md` |
 | H-898 | chief-of-staff | Sync the checkout | Your own board and watcher, on your yes: at the first try, at or after those 3 minutes, where every listed holder is this session's own board or watcher, offer once per pending sync to stop them, stating the cost: the board and the ... | sync-checkout.md:15 | a | card chief-of-staff.md:14 | `grep -c -F 'Stopping a process you did not start. The' chief-of-staff.md` |
 | H-899 | chief-of-staff | Sync the checkout | When that holds at the 3-minute message, the offer is in that message; | sync-checkout.md:15 | a | card chief-of-staff.md:14 | `grep -c -F 'Stopping a process you did not start. The' chief-of-staff.md` |
 | H-900 | chief-of-staff, foreman | Sync the checkout | when it first holds later (a gate held `.venv` at 3 minutes and has ended since), the offer is, in a batch, the **For you** item's new state, and outside a batch one more chat line, the only one after step 5's. | sync-checkout.md:15 | e | topic sync-offer | `help sync-offer` |
@@ -985,10 +985,10 @@ Units per source:
 | H-902 | chief-of-staff, foreman | Sync the checkout | "First try" is a turn, not a timer: no sleep, no monitor, no wake for it. | sync-checkout.md:15 | e | topic sync-offer | `help sync-offer` |
 | H-903 | chief-of-staff, foreman | Sync the checkout | "Own" is the host row's evidence: own board, its command line holds `--seat <this session's id>` and this session's `serve --seat` did not print `board already running`; | sync-checkout.md:15 | e | topic sync-offer | `help sync-offer` |
 | H-904 | chief-of-staff, foreman | Sync the checkout | own watcher, a `watch` process with this project's `--project` while this session holds a running watcher task and the project's seat; | sync-checkout.md:15 | e | topic sync-offer | `help sync-offer` |
-| H-905 | chief-of-staff, foreman | Sync the checkout | anything else is not own (another session's board included, and a server `webui` started, whose command line holds no `--seat`: step 6 never offers to stop it). | sync-checkout.md:15 | e | topic sync-offer | `help sync-offer` |
+| H-905 | chief-of-staff | Sync the checkout | anything else is not own (another session's board included, and a server `webui` started, whose command line holds no `--seat`: step 6 never offers to stop it). | sync-checkout.md:15 | a | card chief-of-staff.md:14 | `grep -c -F 'Stopping a process you did not start. The' chief-of-staff.md` |
 | H-906 | chief-of-staff | Sync the checkout | An own process is stopped by the host's stop of the background shell that holds it, never by `Stop-Process`, `taskkill`, `kill` or a PID. | sync-checkout.md:15 | a | card chief-of-staff.md:14 | `grep -c -F 'Stopping a process you did not start. The' chief-of-staff.md` |
 | H-907 | chief-of-staff | Sync the checkout | On the user's yes: stop the watcher and the board, list the holders again, sync only if none, then start the board and the watcher again whatever the result (`session-start-chief-of-staff.md`'s board start, and the watcher's printed ... | sync-checkout.md:15 | a | card chief-of-staff.md:14 | `grep -c -F 'Stopping a process you did not start. The' chief-of-staff.md` |
-| H-908 | chief-of-staff, foreman | Sync the checkout | a holder still listed after the stop is no longer own (its shell is gone): it is waited on as in step 4, never killed, and the board's restart then meets `board already running`, passed on as is. | sync-checkout.md:15 | a | floor 10 | floor.md:14 (every brief carries it) |
+| H-908 | chief-of-staff | Sync the checkout | a holder still listed after the stop is no longer own (its shell is gone): it is waited on as in step 4, never killed, and the board's restart then meets `board already running`, passed on as is. | sync-checkout.md:15 | a | card chief-of-staff.md:14 | `grep -c -F 'Stopping a process you did not start. The' chief-of-staff.md` |
 | H-909 | chief-of-staff, foreman | Sync the checkout | The yes covers the restart: no second question. | sync-checkout.md:15 | e | topic sync-offer | `help sync-offer` |
 | H-910 | chief-of-staff, foreman | Sync the checkout | A failed sync is one line with uv's text. | sync-checkout.md:15 | e | card sync-checkout.md:18 | `grep -c -F 's start a stop, else one line with uv' sync-checkout.md` |
 | H-911 | chief-of-staff, foreman | Sync the checkout | No offer while another holder is listed or a gate runs (listed, or shown by `$CHANTIER status`). | sync-checkout.md:15 | e | topic sync-offer | `help sync-offer` |
@@ -1516,7 +1516,7 @@ Units per source:
 | H-1418 | all roles | A session on the main checkout | **Paste:** `/chantier:chief-of-staff` or `/chantier:griller`. | hosts/claude-code.md:889 | e | topic host-for-you-sessions | `help host-for-you-sessions` |
 | H-1419 | all roles | A session on the main checkout | **You should see:** the session's introduction with no start-check failure; else tell me what the session shows. | hosts/claude-code.md:890-891 | e | topic host-for-you-sessions | `help host-for-you-sessions` |
 | H-1420 | all roles | A Chief of Staff and Grillers in remote | Built on the batch-06 finding (2026-11-10: a session the user creates from the remote client lands in a worktree) and the 2026-11-20 rule (a session the Chief of Staff starts with no `cwd` lands on its main checkout), so the Chief of Staff ... | hosts/claude-code.md:895-897 | e | topic host-remote | `help host-remote` |
-| H-1421 | all roles | A Chief of Staff and Grillers in remote | Chantier explains the steps and never does them. | hosts/claude-code.md:897-898 | e | topic host-for-you | `help host-for-you` |
+| H-1421 | chief-of-staff | A Chief of Staff and Grillers in remote | Chantier explains the steps and never does them. | hosts/claude-code.md:897-898 | a | card chief-of-staff.md:13 | `grep -c -F '~/.claude/settings.json' chief-of-staff.md` |
 | H-1422 | all roles | A Chief of Staff and Grillers in remote | The path is **unproved** as a whole until followed once by hand. | hosts/claude-code.md:898 | d | proof file | none (dated proof: `docs/proofs`, child 24) |
 | H-1423 | all roles | A Chief of Staff and Grillers in remote | Start the Chief of Staff locally, in the desktop app, with no worktree and the tools allowed in auto mode (your own steps), then run `/chantier:chief-of-staff` (or `/chantier:chantier`). | hosts/claude-code.md:900-901 | e | topic host-remote | `help host-remote` |
 | H-1424 | all roles | A Chief of Staff and Grillers in remote | Put that session in remote (Remote Control). | hosts/claude-code.md:902 | e | topic host-remote | `help host-remote` |
@@ -1538,7 +1538,7 @@ Units per source:
 | H-1440 | all roles | Allow rules to add | Then start a new session: whether a running session picks up a settings change is **unproved** (see "What the docs do not say"). | hosts/claude-code.md:932-934 | e | topic host-allow-add | `help host-allow-add` |
 | H-1441 | all roles | Allow rules to add | **Paste:** that line. | hosts/claude-code.md:935 | e | topic host-allow-add | `help host-allow-add` |
 | H-1442 | all roles | Allow rules to add | It merges exactly the rules P10 named into `permissions.allow` of `~/.claude/settings.json`. | hosts/claude-code.md:935-936 | e | topic host-allow-add | `help host-allow-add` |
-| H-1443 | all roles | Allow rules to add | It creates the file and the keys when they are absent, keeps every other key and rule, adds no rule twice, and never replaces or removes anything. | hosts/claude-code.md:936-937 | e | topic host-allow-add | `help host-allow-add` |
+| H-1443 | chief-of-staff | Allow rules to add | It creates the file and the keys when they are absent, keeps every other key and rule, adds no rule twice, and never replaces or removes anything. | hosts/claude-code.md:936-937 | a | card chief-of-staff.md:13 | `grep -c -F '~/.claude/settings.json' chief-of-staff.md` |
 | H-1444 | all roles | Allow rules to add | It writes valid JSON in UTF-8 with no byte-order mark. | hosts/claude-code.md:937-938 | e | topic host-allow-add | `help host-allow-add` |
 | H-1445 | all roles | Allow rules to add | **You should see:** at the next preflight, `P10 ok`, or a P10 line that no longer names them. | hosts/claude-code.md:939 | e | topic host-allow-add | `help host-allow-add` |
 | H-1446 | all roles | Allow rules to add | The Chief of Staff fills in only the list of rules: the strings P10 named, in their table order, with the project's remote name in place of `origin` and the real path in place of `<checkout>` or `<plugin root>` (the check rule's ... | hosts/claude-code.md:941-943 | e | topic host-allow-add | `help host-allow-add` |
@@ -1707,7 +1707,7 @@ Units per source:
 | H-1574 | router | chantier: the router | Check first, writing nothing, with `uv sync --locked --check --project "<plugin root>"` (the command P10's rule holds): exit 0, in sync; | skills/chantier/SKILL.md:15 | e | card skills/chantier-SKILL.md:23 | `grep -c -F 's start, at a batch' skills/chantier-SKILL.md` |
 | H-1575 | router | chantier: the router | exit 1 with uv's "The environment is outdated", a sync to run once the holders of `<plugin root>/.venv` are named; | skills/chantier/SKILL.md:15 | e | card skills/chantier-SKILL.md:23 | `grep -c -F 's start, at a batch' skills/chantier-SKILL.md` |
 | H-1576 | router | chantier: the router | any other exit, an ordinary sync failure, never `sync pending`. | skills/chantier/SKILL.md:15 | e | card skills/chantier-SKILL.md:23 | `grep -c -F 's start, at a batch' skills/chantier-SKILL.md` |
-| H-1577 | router | chantier: the router | Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes. | skills/chantier/SKILL.md:15 | a | floor 10 | floor.md:14 (every brief carries it) |
+| H-1577 | router | chantier: the router | Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes. | skills/chantier/SKILL.md:15 | a | card skills/chantier-SKILL.md:23 | `grep -c -F 's start, at a batch' skills/chantier-SKILL.md` |
 | H-1578 | router | chantier: the router | Then `$CHANTIER` is `uv run --no-sync --project "<plugin root>" chantier`, the local code, live, with no fetch; only the steering session syncs. | skills/chantier/SKILL.md:15 | e | card skills/chantier-SKILL.md:23 | `grep -c -F 's start, at a batch' skills/chantier-SKILL.md` |
 | H-1579 | router | chantier: the router | Otherwise it is the plugin mode, a host's plugin copy or another project, even with the plugin loaded from chantier's checkout: `$CHANTIER` is `uvx --from "<plugin root>" chantier --skill "<skill folder>"`, with no fetch, and the session ... | skills/chantier/SKILL.md:15 | e | card skills/chantier-SKILL.md:21 | `grep -c -F 'made absolute, with forward slashes, quoted.' skills/chantier-SKILL.md` |
 | H-1580 | router | chantier: the router | Any failure of the sync or of `$CHANTIER`, in either mode, at any call, follows `startup-core.md`, except a sync held as above (`sync pending`). | skills/chantier/SKILL.md:15 | a | floor 4 | floor.md:8 (every brief carries it) |
@@ -1734,7 +1734,7 @@ Units per source:
 | H-1596 | chief-of-staff | chantier: Chief of Staff | Check first, writing nothing, with `uv sync --locked --check --project "<plugin root>"` (the command P10's rule holds): exit 0, in sync; | skills/chief-of-staff/SKILL.md:17 | e | card skills/chief-of-staff-SKILL.md:25 | `grep -c -F 's start, at a batch' skills/chief-of-staff-SKILL.md` |
 | H-1597 | chief-of-staff | chantier: Chief of Staff | exit 1 with uv's "The environment is outdated", a sync to run once the holders of `<plugin root>/.venv` are named; | skills/chief-of-staff/SKILL.md:17 | e | card skills/chief-of-staff-SKILL.md:25 | `grep -c -F 's start, at a batch' skills/chief-of-staff-SKILL.md` |
 | H-1598 | chief-of-staff | chantier: Chief of Staff | any other exit, an ordinary sync failure, never `sync pending`. | skills/chief-of-staff/SKILL.md:17 | e | card skills/chief-of-staff-SKILL.md:25 | `grep -c -F 's start, at a batch' skills/chief-of-staff-SKILL.md` |
-| H-1599 | chief-of-staff | chantier: Chief of Staff | Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes. | skills/chief-of-staff/SKILL.md:17 | a | floor 10 | floor.md:14 (every brief carries it) |
+| H-1599 | chief-of-staff | chantier: Chief of Staff | Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes. | skills/chief-of-staff/SKILL.md:17 | a | card skills/chief-of-staff-SKILL.md:25 | `grep -c -F 's start, at a batch' skills/chief-of-staff-SKILL.md` |
 | H-1600 | chief-of-staff | chantier: Chief of Staff | Then `$CHANTIER` is `uv run --no-sync --project "<plugin root>" chantier`, the local code, live, with no fetch; only the steering session syncs. | skills/chief-of-staff/SKILL.md:17 | e | card skills/chief-of-staff-SKILL.md:25 | `grep -c -F 's start, at a batch' skills/chief-of-staff-SKILL.md` |
 | H-1601 | chief-of-staff | chantier: Chief of Staff | Otherwise it is the plugin mode, a host's plugin copy or another project, even with the plugin loaded from chantier's checkout: `$CHANTIER` is `uvx --from "<plugin root>" chantier --skill "<skill folder>"`, with no fetch, and the session ... | skills/chief-of-staff/SKILL.md:17 | e | card skills/chief-of-staff-SKILL.md:23 | `grep -c -F 'made absolute, with forward slashes, quoted.' skills/chief-of-staff-SKILL.md` |
 | H-1602 | chief-of-staff | chantier: Chief of Staff | Any failure of the sync or of `$CHANTIER`, in either mode, at any call, follows `startup-core.md`, except a sync held as above (`sync pending`). | skills/chief-of-staff/SKILL.md:17 | a | floor 4 | floor.md:8 (every brief carries it) |
@@ -1761,7 +1761,7 @@ Units per source:
 | H-1618 | griller | chantier: Griller | Check first, writing nothing, with `uv sync --locked --check --project "<plugin root>"` (the command P10's rule holds): exit 0, in sync; | skills/griller/SKILL.md:16 | e | card skills/griller-SKILL.md:24 | `grep -c -F 's start, at a batch' skills/griller-SKILL.md` |
 | H-1619 | griller | chantier: Griller | exit 1 with uv's "The environment is outdated", a sync to run once the holders of `<plugin root>/.venv` are named; | skills/griller/SKILL.md:16 | e | card skills/griller-SKILL.md:24 | `grep -c -F 's start, at a batch' skills/griller-SKILL.md` |
 | H-1620 | griller | chantier: Griller | any other exit, an ordinary sync failure, never `sync pending`. | skills/griller/SKILL.md:16 | e | card skills/griller-SKILL.md:24 | `grep -c -F 's start, at a batch' skills/griller-SKILL.md` |
-| H-1621 | griller | chantier: Griller | Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes. | skills/griller/SKILL.md:16 | a | floor 10 | floor.md:14 (every brief carries it) |
+| H-1621 | griller | chantier: Griller | Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes. | skills/griller/SKILL.md:16 | a | card skills/griller-SKILL.md:24 | `grep -c -F 's start, at a batch' skills/griller-SKILL.md` |
 | H-1622 | griller | chantier: Griller | Then `$CHANTIER` is `uv run --no-sync --project "<plugin root>" chantier`, the local code, live, with no fetch; only the steering session syncs. | skills/griller/SKILL.md:16 | e | card skills/griller-SKILL.md:24 | `grep -c -F 's start, at a batch' skills/griller-SKILL.md` |
 | H-1623 | griller | chantier: Griller | Otherwise it is the plugin mode, a host's plugin copy or another project, even with the plugin loaded from chantier's checkout: `$CHANTIER` is `uvx --from "<plugin root>" chantier --skill "<skill folder>"`, with no fetch, and the session ... | skills/griller/SKILL.md:16 | e | card skills/griller-SKILL.md:22 | `grep -c -F 'made absolute, with forward slashes, quoted.' skills/griller-SKILL.md` |
 | H-1624 | griller | chantier: Griller | Any failure of the sync or of `$CHANTIER`, in either mode, at any call, follows `startup-core.md`, except a sync held as above (`sync pending`). | skills/griller/SKILL.md:16 | a | floor 4 | floor.md:8 (every brief carries it) |
@@ -1786,7 +1786,7 @@ Units per source:
 | H-1638 | status | chantier: status | Check first, writing nothing, with `uv sync --locked --check --project "<plugin root>"` (the command P10's rule holds): exit 0, in sync; | skills/status/SKILL.md:15 | e | card skills/status-SKILL.md:23 | `grep -c -F 's start, at a batch' skills/status-SKILL.md` |
 | H-1639 | status | chantier: status | exit 1 with uv's "The environment is outdated", a sync to run once the holders of `<plugin root>/.venv` are named; | skills/status/SKILL.md:15 | e | card skills/status-SKILL.md:23 | `grep -c -F 's start, at a batch' skills/status-SKILL.md` |
 | H-1640 | status | chantier: status | any other exit, an ordinary sync failure, never `sync pending`. | skills/status/SKILL.md:15 | e | card skills/status-SKILL.md:23 | `grep -c -F 's start, at a batch' skills/status-SKILL.md` |
-| H-1641 | status | chantier: status | Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes. | skills/status/SKILL.md:15 | a | floor 10 | floor.md:14 (every brief carries it) |
+| H-1641 | status | chantier: status | Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes. | skills/status/SKILL.md:15 | a | card skills/status-SKILL.md:23 | `grep -c -F 's start, at a batch' skills/status-SKILL.md` |
 | H-1642 | status | chantier: status | Then `$CHANTIER` is `uv run --no-sync --project "<plugin root>" chantier`, the local code, live, with no fetch; only the steering session syncs. | skills/status/SKILL.md:15 | e | card skills/status-SKILL.md:23 | `grep -c -F 's start, at a batch' skills/status-SKILL.md` |
 | H-1643 | status | chantier: status | Otherwise it is the plugin mode, a host's plugin copy or another project, even with the plugin loaded from chantier's checkout: `$CHANTIER` is `uvx --from "<plugin root>" chantier --skill "<skill folder>"`, with no fetch, and the session ... | skills/status/SKILL.md:15 | e | card skills/status-SKILL.md:21 | `grep -c -F 'made absolute, with forward slashes, quoted.' skills/status-SKILL.md` |
 | H-1644 | status | chantier: status | Any failure of the sync or of `$CHANTIER`, in either mode, at any call, follows `startup-core.md`, except a sync held as above (`sync pending`). | skills/status/SKILL.md:15 | a | floor 4 | floor.md:8 (every brief carries it) |
@@ -1850,7 +1850,7 @@ Units per source:
 | H-1692 | cr-driver | row driver-start-folder [untested] | A CR Driver starts in the folder the plugin's mod gives it, as `write-guard` says. That is its worktree, or the project's root while the worktree does not exist yet. | hosts/claude-code.json:299 | e | host row driver-start-folder | `$CHANTIER host driver-start-folder` |
 | H-1693 | cr-driver, qa-driver, release-driver, stack-driver | row stop-own-background-task [untested] | `TaskStop` with the id the start returned (`Bash` or `PowerShell` with `run_in_background: true`, or `Monitor`). The Driver agents list `TaskStop` in their tools for it. | hosts/claude-code.json:311 | e | host row stop-own-background-task | `$CHANTIER host stop-own-background-task` |
 | H-1694 | chief-of-staff, foreman | row name-env-holders [untested] | Windows, the `PowerShell` tool: `Get-CimInstance Win32_Process` filtered on an `ExecutablePath` under `<plugin root>\.venv\`, showing PIDs and `CommandLine`. macOS and Linux, the `Bash` tool: `ps -eo pid,ppid,args \| grep -F "<plugin ... | hosts/claude-code.json:326 | e | host row name-env-holders | `$CHANTIER host name-env-holders` |
-| H-1695 | foreman, chief-of-staff | row name-env-holders [untested] | Read-only: never `Stop-Process`, `taskkill` or `kill` on a holder. | hosts/claude-code.json:326 | a | floor 10 | floor.md:14 (every brief carries it) |
+| H-1695 | foreman, chief-of-staff | row name-env-holders [untested] | Read-only: never `Stop-Process`, `taskkill` or `kill` on a holder. | hosts/claude-code.json:326 | a | card skills/chief-of-staff-SKILL.md:25 | `grep -c -F 's start, at a batch' skills/chief-of-staff-SKILL.md` |
 | H-1696 | chief-of-staff | row stop-session [untested] | Whether it works from Remote Control is not recorded on this host. | hosts/claude-code.json:341 | d | host row stop-session | `$CHANTIER host stop-session` |
 | H-1697 | chief-of-staff | row stop-session [untested] | `mcp__ccd_session_mgmt__stop_session` with the session's id (a Foreman not answering, on the user's yes). | hosts/claude-code.json:341 | a | card chief-of-staff.md:14 | `grep -c -F 'Stopping a process you did not start. The' chief-of-staff.md` |
 | H-1698 | chief-of-staff | row agent-ids [proved] | The `name:` of a file in `.claude/agents/` or `~/.claude/agents/`. The plugin's own agents are `chantier:<role>`. | hosts/claude-code.json:353 | e | host row agent-ids | `$CHANTIER host agent-ids` |
@@ -1911,7 +1911,7 @@ Units per source:
 | H-1748 | cr-driver | row driver-start-folder [untested] | A Driver starts in the folder the host gives it; no mod moves it. The write guard's start folder does not apply here (see `write-guard`). | hosts/copilot.json:297 | e | host row driver-start-folder | `$CHANTIER host driver-start-folder` |
 | H-1749 | cr-driver, qa-driver, release-driver, stack-driver | row stop-own-background-task [untested] | The host's stop of a background shell, within the agent's `execute` tool set. A Driver stops its CI watch before its hand-back. | hosts/copilot.json:309 | e | host row stop-own-background-task | `$CHANTIER host stop-own-background-task` |
 | H-1750 | chief-of-staff, foreman | row name-env-holders [untested] | The same commands through the host's shell tool: on Windows `Get-CimInstance Win32_Process` under `<plugin root>\.venv\`. On macOS and Linux `ps -eo pid,ppid,args \| grep -F "<plugin root>/.venv/"`, the grep line itself excluded. Read as on ... | hosts/copilot.json:324 | e | host row name-env-holders | `$CHANTIER host name-env-holders` |
-| H-1751 | foreman, chief-of-staff | row name-env-holders [untested] | Read-only: never a stop or a kill of a holder. | hosts/copilot.json:324 | a | floor 10 | floor.md:14 (every brief carries it) |
+| H-1751 | foreman, chief-of-staff | row name-env-holders [untested] | Read-only: never a stop or a kill of a holder. | hosts/copilot.json:324 | a | card skills/chief-of-staff-SKILL.md:25 | `grep -c -F 's start, at a batch' skills/chief-of-staff-SKILL.md` |
 | H-1752 | chief-of-staff | row stop-session [untested] | Not recorded on this host: how a session stops another session. | hosts/copilot.json:339 | d | host row stop-session | `$CHANTIER host stop-session` |
 | H-1753 | chief-of-staff | row stop-session [untested] | A missing tool is reported with its text; no other route is used. | hosts/copilot.json:339 | a | floor 3 | floor.md:7 (every brief carries it) |
 | H-1754 | chief-of-staff | row agent-ids [untested] | A file in `.github/agents/` or `~/.copilot/agents/`. The plugin's own agents are `chantier-<role>`. | hosts/copilot.json:351 | e | host row agent-ids | `$CHANTIER host agent-ids` |
@@ -2065,9 +2065,9 @@ One row per file under `skills/chantier/references/` at the base, recursive, and
 | references/griller.md | chief-and-griller, workers | chief-and-griller 49, workers 18 | carried as `cards-next/griller.md`; rules in the cards griller-skill.md; split into topics first-turn, grill-backlog, grill-critic, grill-outside-pr, grill-series, grill-specify, griller-cost, griller-worktree, seat, session-start, ticket-summary, titles, where-cr-goes, writer |
 | references/host-core-claude-code.md | host-and-shared | host-and-shared 1 | not carried; removed by child 24 |
 | references/host-core-copilot.md | host-and-shared | host-and-shared 1 | not carried; removed by child 24 |
-| references/hosts/claude-code.json | host-and-shared | host-and-shared 54 | carried as `cards-next/hosts/claude-code.json`; rules in the cards chief-of-staff.md |
+| references/hosts/claude-code.json | host-and-shared | host-and-shared 54 | carried as `cards-next/hosts/claude-code.json`; rules in the cards chief-of-staff.md, skills/chief-of-staff-SKILL.md |
 | references/hosts/claude-code.md | host-and-shared | host-and-shared 524 | carried as `cards-next/hosts/claude-code.md` (Allow rules and Capabilities); rules in the cards chief-of-staff.md, coder.md, foreman.md; split into topics batch-plan-mode, griller-worktree, host-allow-add, host-allow-add-lines, host-allow-broad, host-allow-extra, host-allow-not-add, host-allow-rules, host-auto-fix, host-auto-mode, host-auto-mode-steering, host-auto-mode-trials, host-compact, host-configuration, host-driver-silence, host-for-you, host-for-you-sessions, host-foreman-worktree, host-heartbeat, host-refused, host-remote, host-reuse-foreman, host-sessions, host-sessions-more, host-surfaces, host-turn-end, host-write-guard, host-write-guard-shell, reload, worker-shell |
-| references/hosts/copilot.json | host-and-shared | host-and-shared 60 | carried as `cards-next/hosts/copilot.json` |
+| references/hosts/copilot.json | host-and-shared | host-and-shared 60 | carried as `cards-next/hosts/copilot.json`; rules in the cards skills/chief-of-staff-SKILL.md |
 | references/hosts/copilot.md | host-and-shared | host-and-shared 82 | not carried; removed by child 24; split into topics host-allow-rules, host-compact, host-configuration, host-heartbeat, host-sessions, host-sessions-more, worker-shell |
 | references/init.md | host-and-shared | host-and-shared 74 | carried as `cards-next/init.md`; rules in the cards chief-of-staff.md; split into topics init-checks, init-tools |
 | references/inspector.md | workers | workers 45 | carried as `cards-next/inspector.md`; split into topics inspector-audit, worker-shell |
@@ -2095,7 +2095,7 @@ One row per file under `skills/chantier/references/` at the base, recursive, and
 | references/startup-core.md | host-and-shared | host-and-shared 17 | not carried; removed by child 24; rules in the cards chief-of-staff.md, skills/chantier-SKILL.md; split into topics session-shell, worker-shell |
 | references/startup-manifest.json | host-and-shared | host-and-shared 0 | not carried; removed by child 24 (the manifest action table below; `roles.yaml` and `brief` replace its roles and startup lists) |
 | references/status-layout.md | host-and-shared | host-and-shared 94 | carried as `cards-next/status-layout.md`; rules in the cards chief-of-staff.md; split into topics cleanup, compacting, refused-push-chief-more, status-notes, sync-offer |
-| references/sync-checkout.md | host-and-shared | host-and-shared 28 | carried as `cards-next/sync-checkout.md`; rules in the cards chief-of-staff.md; split into topics sync-offer |
+| references/sync-checkout.md | host-and-shared | host-and-shared 28 | carried as `cards-next/sync-checkout.md`; rules in the cards chief-of-staff.md, skills/chief-of-staff-SKILL.md; split into topics sync-offer |
 | references/ticket-summary-example.md | chief-and-griller | chief-and-griller 18 | carried as `cards-next/ticket-summary-example.md`; split into topics allow-rules-more, asks, first-turn, grill-surface, lease, long-gate, lost-driver, ticket-summary, ticket-summary-post |
 | references/titles.md | chief-and-griller | chief-and-griller 17 | folded into the topic file `cards-next/topics/titles.md`; split into topics grill-critic, titles |
 | references/topics.json | host-and-shared | host-and-shared 0 | carried as `cards-next/topics.json` (rewritten: triggers and readings, no rule sentence) |
@@ -2111,7 +2111,7 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 
 ## Protecting rows and their homes
 
-134 kind-a rows, each homed in a role card or `SKILL.md` text, the floor or a refusal. The quoted line is the home's, from the working tree.
+138 kind-a rows, each homed in a role card or `SKILL.md` text, the floor or a refusal. The quoted line is the home's, from the working tree.
 
 | id | source | new home | the home line |
 | --- | --- | --- | --- |
@@ -2134,11 +2134,11 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-225 | concepts.md:382-383 | card release-driver.md:7 | - Before each irreversible action (a step the procedure names, any upload of an image to the forge included) run `release go`; `go` is for that action only. Exit 2 or 5: hand back as it prints. ... |
 | H-227 | concepts.md:384-387 | card foreman.md:20 | 1. Merge but under the release grant: a fix, or the release once `release go` says `go`. An approval never covers it. Record `order merged` only for a merge the forge shows. |
 | H-229 | concepts.md:389-390 | card griller-skill.md:20 | - Open, pause or close a batch, `order`, start or message a Driver or a Foreman, steer, merge or `seat take` without the user's word. Such a request is the Chief of Staff's: give its link from ... |
-| H-287 | concepts.md:492-494 | floor 3 | 3. No fallback. |
+| H-287 | concepts.md:492-494 | card foreman.md:13 | - Starting Drivers: copy whole the prompt `take`, `take stack` or `order qa` prints, with the agent and model `playbook --batch` names, then `agents set`. Use every free slot. |
 | H-299 | concepts.md:507-509 | floor 3 | 3. No fallback. |
 | H-301 | concepts.md:511-512 | floor 4 | 4. A CLI that cannot run is a stop. |
 | H-333 | concepts.md:584-585 | card demo-explorer.md:11 | - commit, push, comment or open a PR; |
-| H-344 | concepts.md:612-613 | floor 5 | 5. Never discard the worktree's work. |
+| H-344 | concepts.md:612-613 | card cr-driver.md:20 | - call the host's hand-back (`$CHANTIER host driver-hand-back`) before `$CHANTIER handback` is accepted, or start an agent in place of one that may still run. |
 | H-373 | concepts.md:671-673 | floor 3 | 3. No fallback. |
 | H-391 | concepts.md:704-705 | floor 7 | 7. Only the user starts work. |
 | H-399 | concepts.md:718-719 | card chief-of-staff.md:23 | - Edit `batch.json`, `events.jsonl` or a `STATUS` file by hand. |
@@ -2155,10 +2155,10 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-422 | concepts.md:751-753 | card chief-of-staff.md:10 | Rail: only a branch `handoff` ties to a CR of this batch, never the default branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push ... |
 | H-423 | concepts.md:753-754 | card chief-of-staff.md:10 | Rail: only a branch `handoff` ties to a CR of this batch, never the default branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push ... |
 | H-425 | concepts.md:756-757 | card conflict-resolver.md:11 | - merge (`git merge`, `git pull` without `--rebase`) or use `--rebase-merges`, `--exec` or `-x`: a merge commit in the branch is `ship`'s refusal; |
-| H-427 | concepts.md:759 | floor 5 | 5. Never discard the worktree's work. |
+| H-427 | concepts.md:759 | card cr-driver.md:14 | - run `git -C <main checkout>` write commands: the main checkout is read-only for you, every git command names `-C <worktree>`; |
 | H-428 | concepts.md:759-762 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the fast-forward of the main checkout after a merge you handle; removing a kept merged CR's worktree and branch ... |
 | H-478 | pr-template.md:54-56 | card cr-driver.md:17 | - comment on, close or reopen an issue, or turn a PR ready on a base that is not the default branch; |
-| H-622 | release-template.md:144-146 | floor 8 | 8. No image shows the username or the home folder. |
+| H-622 | release-template.md:144-146 | card release-driver.md:19 | - keep or upload an image that shows the username or the home folder, or publish a personal path, email, private repository or session id taken from a source. |
 | H-647 | release-template.md:186 | card release-driver.md:14 | - post the announcement thread, comment on, close or reopen an issue, or run the publication command again after `publication done:`; |
 | H-651 | release-template.md:194-196 | card release-driver.md:7 | - Before each irreversible action (a step the procedure names, any upload of an image to the forge included) run `release go`; `go` is for that action only. Exit 2 or 5: hand back as it prints. ... |
 | H-654 | release-template.md:197-198 | card release-driver.md:7 | - Before each irreversible action (a step the procedure names, any upload of an image to the forge included) run `release go`; `go` is for that action only. Exit 2 or 5: hand back as it prints. ... |
@@ -2169,6 +2169,7 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-778 | init.md:17-18 | card chief-of-staff.md:13 | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
 | H-779 | init.md:18 | card chief-of-staff.md:13 | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
 | H-808 | init.md:68-70 | card chief-of-staff.md:13 | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
+| H-821 | init.md:85-86 | floor 7 | 7. Only the user starts work. |
 | H-829 | init.md:95-96 | card chief-of-staff.md:13 | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
 | H-832 | init.md:100 | card chief-of-staff.md:13 | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
 | H-833 | init.md:101-106 | card chief-of-staff.md:13 | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
@@ -2181,13 +2182,14 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-864 | review-step.md:26 | card review-step.md:5 | Never write a file, commit, push, rebase, merge, `git stash`, stop a process by name, `sleep`, run a background shell or claim an unrun check. No fallback. Report a refusal's exact text to your ... |
 | H-865 | review-step.md:26-27 | card review-step.md:5 | Never write a file, commit, push, rebase, merge, `git stash`, stop a process by name, `sleep`, run a background shell or claim an unrun check. No fallback. Report a refusal's exact text to your ... |
 | H-866 | review-step.md:27-28 | card review-step.md:5 | Never write a file, commit, push, rebase, merge, `git stash`, stop a process by name, `sleep`, run a background shell or claim an unrun check. No fallback. Report a refusal's exact text to your ... |
-| H-895 | sync-checkout.md:11 | floor 10 | 10. Never stop a process by name or pattern; use `close --yes` only on the user's yes. |
-| H-897 | sync-checkout.md:13 | floor 10 | 10. Never stop a process by name or pattern; use `close --yes` only on the user's yes. |
+| H-895 | sync-checkout.md:11 | card skills/chief-of-staff-SKILL.md:25 | At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin ... |
+| H-897 | sync-checkout.md:13 | card skills/chief-of-staff-SKILL.md:25 | At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin ... |
 | H-898 | sync-checkout.md:15 | card chief-of-staff.md:14 | 2. Stopping a process you did not start. The board and the watcher are stopped only on the user's yes even when you started them, never by name, pattern or PID (floor 10). |
 | H-899 | sync-checkout.md:15 | card chief-of-staff.md:14 | 2. Stopping a process you did not start. The board and the watcher are stopped only on the user's yes even when you started them, never by name, pattern or PID (floor 10). |
+| H-905 | sync-checkout.md:15 | card chief-of-staff.md:14 | 2. Stopping a process you did not start. The board and the watcher are stopped only on the user's yes even when you started them, never by name, pattern or PID (floor 10). |
 | H-906 | sync-checkout.md:15 | card chief-of-staff.md:14 | 2. Stopping a process you did not start. The board and the watcher are stopped only on the user's yes even when you started them, never by name, pattern or PID (floor 10). |
 | H-907 | sync-checkout.md:15 | card chief-of-staff.md:14 | 2. Stopping a process you did not start. The board and the watcher are stopped only on the user's yes even when you started them, never by name, pattern or PID (floor 10). |
-| H-908 | sync-checkout.md:15 | floor 10 | 10. Never stop a process by name or pattern; use `close --yes` only on the user's yes. |
+| H-908 | sync-checkout.md:15 | card chief-of-staff.md:14 | 2. Stopping a process you did not start. The board and the watcher are stopped only on the user's yes even when you started them, never by name, pattern or PID (floor 10). |
 | H-958 | hosts/claude-code.md:41 | card chief-of-staff.md:14 | 2. Stopping a process you did not start. The board and the watcher are stopped only on the user's yes even when you started them, never by name, pattern or PID (floor 10). |
 | H-976 | hosts/claude-code.md:62-63 | floor 3 | 3. No fallback. |
 | H-990 | hosts/claude-code.md:92-93 | card foreman.md:24 | 5. Obey your chat but for "stop" and "hold" (no new Driver; the batch still runs). Anything else: "I run batch <batch> for chantier. Please give orders to the Chief of Staff." A host's event about a ... |
@@ -2205,7 +2207,9 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-1288 | hosts/claude-code.md:668-670 | card coder.md:13 | - keep CR work in a scratchpad or temp folder (whatever the host says), or secrets or personal data in a CR folder; |
 | H-1359 | hosts/claude-code.md:787 | floor 3 | 3. No fallback. |
 | H-1360 | hosts/claude-code.md:787-789 | card chief-of-staff.md:31 | - Widen a grant, or approve an irreversible action, without the user's own word. |
+| H-1421 | hosts/claude-code.md:897-898 | card chief-of-staff.md:13 | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
 | H-1426 | hosts/claude-code.md:905-906 | floor 7 | 7. Only the user starts work. |
+| H-1443 | hosts/claude-code.md:936-937 | card chief-of-staff.md:13 | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
 | H-1532 | hosts/copilot.md:120 | floor 9 | 9. Report a refusal with its exact text; never work around it. |
 | H-1537 | startup-core.md:4-7 | floor 4 | 4. A CLI that cannot run is a stop. |
 | H-1538 | startup-core.md:7-8 | floor 3 | 3. No fallback. |
@@ -2214,14 +2218,14 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-1546 | startup-core.md:20-22 | floor 1 | 1. Never merge without the user's word. |
 | H-1566 | reload-rules.md:8 | floor 1 | 1. Never merge without the user's word. |
 | H-1567 | reload-rules.md:8 | card foreman.md:20 | 1. Merge but under the release grant: a fix, or the release once `release go` says `go`. An approval never covers it. Record `order merged` only for a merge the forge shows. |
-| H-1577 | skills/chantier/SKILL.md:15 | floor 10 | 10. Never stop a process by name or pattern; use `close --yes` only on the user's yes. |
+| H-1577 | skills/chantier/SKILL.md:15 | card skills/chantier-SKILL.md:23 | At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin ... |
 | H-1580 | skills/chantier/SKILL.md:15 | floor 4 | 4. A CLI that cannot run is a stop. |
-| H-1599 | skills/chief-of-staff/SKILL.md:17 | floor 10 | 10. Never stop a process by name or pattern; use `close --yes` only on the user's yes. |
+| H-1599 | skills/chief-of-staff/SKILL.md:17 | card skills/chief-of-staff-SKILL.md:25 | At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin ... |
 | H-1602 | skills/chief-of-staff/SKILL.md:17 | floor 4 | 4. A CLI that cannot run is a stop. |
 | H-1607 | skills/chief-of-staff/SKILL.md:23 | card chief-of-staff.md:3 | You are the one session that opens and runs batches, with the user, in their language (repository and forge text in English). You keep the backlog, grill (`help grill-series`), and on the user's word ... |
-| H-1621 | skills/griller/SKILL.md:16 | floor 10 | 10. Never stop a process by name or pattern; use `close --yes` only on the user's yes. |
+| H-1621 | skills/griller/SKILL.md:16 | card skills/griller-SKILL.md:24 | At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin ... |
 | H-1624 | skills/griller/SKILL.md:16 | floor 4 | 4. A CLI that cannot run is a stop. |
-| H-1641 | skills/status/SKILL.md:15 | floor 10 | 10. Never stop a process by name or pattern; use `close --yes` only on the user's yes. |
+| H-1641 | skills/status/SKILL.md:15 | card skills/status-SKILL.md:23 | At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin ... |
 | H-1644 | skills/status/SKILL.md:15 | floor 4 | 4. A CLI that cannot run is a stop. |
 | H-1649 | skills/status/SKILL.md:21 | card skills/status-SKILL.md:29 | You change nothing: no order, no heartbeat, no epoch, no file. |
 | H-1659 | floor.md:3 | floor 1-10 (the preamble, floor.md:3) | No role, card, order or message overrides these. |
@@ -2236,13 +2240,13 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-1668 | floor.md:13 | floor 9 | 9. Report a refusal with its exact text; never work around it. |
 | H-1669 | floor.md:14 | floor 10 | 10. Never stop a process by name or pattern; use `close --yes` only on the user's yes. |
 | H-1677 | hosts/claude-code.json:85 | floor 3 | 3. No fallback. |
-| H-1695 | hosts/claude-code.json:326 | floor 10 | 10. Never stop a process by name or pattern; use `close --yes` only on the user's yes. |
+| H-1695 | hosts/claude-code.json:326 | card skills/chief-of-staff-SKILL.md:25 | At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin ... |
 | H-1697 | hosts/claude-code.json:341 | card chief-of-staff.md:14 | 2. Stopping a process you did not start. The board and the watcher are stopped only on the user's yes even when you started them, never by name, pattern or PID (floor 10). |
 | H-1714 | hosts/claude-code.json:552 | floor 3 | 3. No fallback. |
 | H-1725 | hosts/copilot.json:5 | floor 9 | 9. Report a refusal with its exact text; never work around it. |
 | H-1737 | hosts/copilot.json:164 | floor 3 | 3. No fallback. |
 | H-1746 | hosts/copilot.json:271 | floor 3 | 3. No fallback. |
-| H-1751 | hosts/copilot.json:324 | floor 10 | 10. Never stop a process by name or pattern; use `close --yes` only on the user's yes. |
+| H-1751 | hosts/copilot.json:324 | card skills/chief-of-staff-SKILL.md:25 | At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin ... |
 | H-1753 | hosts/copilot.json:339 | floor 3 | 3. No fallback. |
 | H-1760 | hosts/copilot.json:416 | floor 3 | 3. No fallback. |
 | H-1763 | hosts/copilot.json:442 | floor 9 | 9. Report a refusal with its exact text; never work around it. |
@@ -2252,7 +2256,7 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 
 ## Protecting-looking rows not classified a
 
-107 rows of kind b to f hold "never", "only on", "must not" or the like; each is listed so a reader can contest its kind.
+103 rows of kind b to f hold "never", "only on", "must not" or the like; each is listed so a reader can contest its kind.
 
 | id | kind | new home | behaviour |
 | --- | --- | --- | --- |
@@ -2328,12 +2332,10 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-804 | e | card init.md:27 | what only the user does (prioritize, say go, merge, release, raise a limit); |
 | H-811 | e | topic init-checks | When one is missing, propose the exact lines, for example "- Fast gate (after each change): `<cmd>`." and "- Long gate (before a pull request): ... |
 | H-814 | e | topic init-checks | on a yes, ask how many runs at once the machine carries, then propose `long_gate:` / `parallel: <n>` for `chantier.yaml`, written only on the user's ... |
-| H-821 | e | card init.md:32 | Work that needs code (tests, CI) is proposed as a CR filed in the inbox, only on the user's yes. |
 | H-859 | e | topic worker-shell | A skill or tool the playbook says the role needs but the session lacks is not a stop: say so in a note and work without it (never `$CHANTIER`: a CLI ... |
 | H-870 | e | card review-step.md:9 | Your reply is the JSON below and nothing else. |
 | H-879 | e | card review-step.md:15 | `verdict` is the word `APPROVE` or the word `FIX-REQUIRED`, nothing else. |
 | H-892 | e | card sync-checkout.md:17 | any other exit is an ordinary sync failure, handled as below, never `sync pending` (a stale `uv.lock` also gives 1 with that text, and the real sync ... |
-| H-905 | e | topic sync-offer | anything else is not own (another session's board included, and a server `webui` started, whose command line holds no `--seat`: step 6 never offers ... |
 | H-929 | b | inferable | What is proper to this host: the tools, the heartbeat, the sessions, and what only the user can do. |
 | H-937 | d | topic host-configuration | Never tell the user an unproved behaviour as a fact: say it is not known, and what would settle it. |
 | H-982 | e | topic host-heartbeat | It ends the heartbeat, never its session, with `ScheduleWakeup` `stop: true` (after `chantier status --stop-heartbeat --batch <batch> --epoch <n>`, ... |
@@ -2345,9 +2347,7 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-1322 | e | topic host-remote | From there it can start a Foreman in its own folder, and a Griller session on the user's word; a Griller in a never-merged worktree is no longer the ... |
 | H-1354 | e | host row subagent-stopped-outside | \| A background subagent is stopped from outside \| what chantier detects, and nothing else: the stop a compaction snapshot reports (the steering ... |
 | H-1372 | d | topic host-sessions-more | The seat: liveness is asked of the host (the Tools row), never read from a date. |
-| H-1421 | e | topic host-for-you | Chantier explains the steps and never does them. |
 | H-1427 | e | topic griller-worktree | or you start Griller sessions in worktrees that are never merged: they send their files to the Chief of Staff, which places them. |
-| H-1443 | e | topic host-allow-add | It creates the file and the keys when they are absent, keeps every other key and rule, adds no rule twice, and never replaces or removes anything. |
 | H-1460 | d | topic host-sessions-more | Never tell the user an unproved behaviour as a fact. |
 | H-1533 | d | topic host-sessions | Nothing else is recorded here about Copilot's sessions. |
 | H-1536 | e | card skills/chantier-SKILL.md:21 | Write `$CHANTIER` out in full, as given, in each shell call, never in a shell variable. |
@@ -2366,7 +2366,7 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 
 ## Inferable rows
 
-99 rows of kind b or homed `inferable`; none is kind a.
+97 rows of kind b or homed `inferable`; none is kind a.
 
 | id | kind | new home | source | behaviour |
 | --- | --- | --- | --- | --- |
@@ -2420,8 +2420,6 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-353 | b | card concepts.md:125 | concepts.md:634-635 | The CLI reads it, and [foreman](foreman.md) and [chief-of-staff](chief-of-staff.md) point to it. |
 | H-354 | b | card concepts.md:127 | concepts.md:637 | \| Driver \| Started after \| Card \| `writes:` \| `Team:` \| `Rewrites:` \| |
 | H-387 | b | inferable | concepts.md:696 | `cost` already shows the model of each transcript. |
-| H-396 | b | facts | concepts.md:713-715 | **The project's rules rank above this skill.** `$CHANTIER rules` lists the project's instruction file (`AGENTS.md`, `CLAUDE.md` or ... |
-| H-397 | b | facts | concepts.md:715-716 | Follow it as written for commits, PRs, tests, CI, evidence and releases; where it is silent, your card holds. |
 | H-401 | b | inferable | concepts.md:722-723 | Within what you have, judge freely: what a red check means, what a note does to a round, which CR goes next, is yours to decide and say. |
 | H-433 | b | inferable | concepts.md:770-771 | Every role holds this rule: [startup core](startup-core.md). |
 | H-440 | b | inferable | concepts.md:784 | and a task left running wakes its owner each time it reports. |
@@ -2474,6 +2472,6 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 
 1783 rows.
 
-Kinds: a 134, b 99, c 35, d 149, e 1363, f 3.
+Kinds: a 138, b 97, c 35, d 149, e 1361, f 3.
 
-Homes: card 775, topic 607, host row 186, inferable 66, floor 66, proof file 44, incidents file 19, refusal 13, facts 7.
+Homes: card 790, topic 604, host row 186, inferable 66, floor 54, proof file 44, incidents file 19, refusal 13, facts 7.

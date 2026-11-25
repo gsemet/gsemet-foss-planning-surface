@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "bundle: refuse symlinks leaving the bundle",
+  "summary": "Apply the self-contained rule to validate, list, index, backlinks and lint (split from CR 56).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "90bb43143f7ea44a05353ff5aa20de76ecf3b27707967dca47d6f33bb52592d9"
+  },
+  "summarized": "2026-11-25T18:12:03Z"
+}

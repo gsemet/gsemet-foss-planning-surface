@@ -30,3 +30,12 @@ Short name: `show-names`
    bundle stays accepted.
 7. show-names-Q7: **API error.** "A. FileNotFoundError (recommandé)": `show_bundle` raises
    `FileNotFoundError` outside the bundle too, with an explicit message.
+8. show-names-Q8: **Scope of the symlink rule.** "A. show + nouveau CR (recommandé)": this CR
+   changes `show` only; a separate CR (`bundle-outside-symlinks`) handles `validate`, `list`,
+   `index`, `backlinks` and `lint`.
+9. show-names-Q9: **Grilled enough.** "A. Pour batch-01 (recommandé)": specify it for the
+   running batch; it is not taken before the grill of 57 and 58 is over (the option's words).
+
+Destination: running batch batch-01.
+
+Spec critic: yes, it changes what `show` refuses (CLI contract and public API).

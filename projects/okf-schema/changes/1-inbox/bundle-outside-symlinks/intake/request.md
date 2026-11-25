@@ -1,0 +1,3 @@
+# bundle: refuse symlinks that leave the bundle in every command
+
+Split off from the grill of CR 56-show-extensionless-names (2026-11-25, show-names-Q5 and Q8). The user: a bundle must be self-contained per the spec, so symlinks pointing outside it are forbidden (OKF 0.2: a Knowledge Bundle is a self-contained collection). CR 56 applies this to okf-schema show only. This item applies it to the other commands: validate, list, index, backlinks and lint. From the code, not run: they walk the bundle's .md files and would follow such a link, so lint could rewrite a file outside the bundle.
