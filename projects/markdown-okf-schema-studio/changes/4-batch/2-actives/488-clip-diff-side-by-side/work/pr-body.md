@@ -2,16 +2,16 @@
 
 A short clip of the review pair of the preview toolbar: **Diff** marks the blocks changed since the last Git commit with a green bar, then **Side-by-side** turns each change into a card, the block at the last commit on the left and as it is now on the right, removed words struck through and added words underlined. One continuous shot, two captions in turn, outlines in turn, 1280x720 at 15 fps (MP4, WebM and GIF). No behaviour of the extension changes.
 
-**This pull request stays a draft until the maintainer approves the storyboard and the clip.** The storyboard review that the feature-clip guideline places before the take is done on this pull request instead: the take was made from the drafted storyboard, its pictures are in [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/<HEAD>/docs/demo-video/clips/diff-side-by-side/clip.md), and a retake after review is a follow-up.
+**This pull request stays a draft until the maintainer approves the storyboard and the clip.** The storyboard review that the feature-clip guideline places before the take is done on this pull request instead: the take was made from the drafted storyboard, its pictures are in [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/c8cebf287258742ea3fb68ddffbea4d8740ad265/docs/demo-video/clips/diff-side-by-side/clip.md), and a retake after review is a follow-up.
 
 ## Deliverables
 
 The clip (GIF inline from this pull request's head; MP4 and WebM at the same head):
 
-![Diff marks the changed blocks, then Side-by-side shows before and after](https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/diff-side-by-side/diff-side-by-side.gif)
+![Diff marks the changed blocks, then Side-by-side shows before and after](https://github.com/gsemet/markdown-okf-schema-studio/raw/c8cebf287258742ea3fb68ddffbea4d8740ad265/docs/demo-video/clips/diff-side-by-side/diff-side-by-side.gif)
 
-- [MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/diff-side-by-side/diff-side-by-side.mp4)
-- [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/diff-side-by-side/diff-side-by-side.webm)
+- [MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/c8cebf287258742ea3fb68ddffbea4d8740ad265/docs/demo-video/clips/diff-side-by-side/diff-side-by-side.mp4)
+- [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/c8cebf287258742ea3fb68ddffbea4d8740ad265/docs/demo-video/clips/diff-side-by-side/diff-side-by-side.webm)
 
 What the take proves (real VS Code window on Windows, extension built as a VSIX from this branch; `check.json`, the take's `verify`): the file is a Git work tree with one commit and an uncommitted edit; Diff puts a green bar on the changed paragraph and on the two changed list items and on nothing else; Side-by-side shows two cards (the paragraph, the list) with the words struck or underlined as the storyboard says; the file is never changed by the feature. The reviewer judges motion, rhythm, the loop as watched, the texts and their accent and the times (not checked by the take).
 

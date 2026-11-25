@@ -14,11 +14,11 @@ the feature clip process").
 
 The clip, played from the head of this branch (GIF; MP4 and WebM linked at the same head):
 
-![The slash menu opens on /grid with Grid highlighted, Enter opens the Insert grid form, Enter inserts a MyST grid, and Ctrl+Enter / ⌘Enter renders two cards](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEADSHA/docs/demo-video/clips/slash-menu-grid/slash-menu-grid.gif)
+![The slash menu opens on /grid with Grid highlighted, Enter opens the Insert grid form, Enter inserts a MyST grid, and Ctrl+Enter / ⌘Enter renders two cards](https://github.com/gsemet/markdown-okf-schema-studio/raw/d5e68210b4c9392e3faf66a561567b835dc3096a/docs/demo-video/clips/slash-menu-grid/slash-menu-grid.gif)
 
-[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEADSHA/docs/demo-video/clips/slash-menu-grid/slash-menu-grid.mp4) |
-[WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEADSHA/docs/demo-video/clips/slash-menu-grid/slash-menu-grid.webm) |
-[Storyboard (`clip.md`)](https://github.com/gsemet/markdown-okf-schema-studio/blob/HEADSHA/docs/demo-video/clips/slash-menu-grid/clip.md)
+[MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/d5e68210b4c9392e3faf66a561567b835dc3096a/docs/demo-video/clips/slash-menu-grid/slash-menu-grid.mp4) |
+[WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/d5e68210b4c9392e3faf66a561567b835dc3096a/docs/demo-video/clips/slash-menu-grid/slash-menu-grid.webm) |
+[Storyboard (`clip.md`)](https://github.com/gsemet/markdown-okf-schema-studio/blob/d5e68210b4c9392e3faf66a561567b835dc3096a/docs/demo-video/clips/slash-menu-grid/clip.md)
 
 ```text
 docs/demo-video/clips/slash-menu-grid/
@@ -96,12 +96,12 @@ No visual change to the product. The documentation page gains a looping clip, th
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Requirements: no SwRS text change; the new site test carries `@tests_req SwRS-MDOKFSTUDIO-CORE-095`; `just requirements-update` leaves the tree unchanged
-- [ ] Changelog: No user-facing change (docs and clip files only, no `feat` or `fix` commit)
-- [ ] Local gates at `HEAD7`: `just clip-kit-test`, `just check`, `just ci-static`, `just preflight`
-- [ ] Evidence: take at HEAD7 (`check.json`, key frames, contact sheet)
-- [ ] Review: approved at `NONE`
+- [x] New or changed tests (they fail on the previous code)
+- [x] Requirements: no SwRS text change; the new site test carries `@tests_req SwRS-MDOKFSTUDIO-CORE-095`; `just requirements-update` leaves the tree unchanged
+- [x] Changelog: No user-facing change (docs and clip files only, no `feat` or `fix` commit)
+- [x] Local gates at `d5e6821`: `just clip-kit-test`, `just check`, `just ci-static`, `just preflight` (all pass; preflight static stage on Windows)
+- [x] Evidence: take at d5e6821 (`check.json`, key frames, contact sheet)
+- [x] Review: approved at `d5e6821`
 - [ ] Verified at `NONE`
 - [ ] CI green at `NONE`
 
