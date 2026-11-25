@@ -44,9 +44,13 @@ Grade: 1. Docs and tests only; `git revert` restores the previous state.
 
 ## Test plan
 
-- [ ] New or changed tests (storyboard, scenario loading, site clip test)
+- [x] New or changed tests (storyboard, scenario loading, site clip test)
 - [x] Requirements: no behaviour change (added test of SwRS-MDOKFSTUDIO-CORE-095, `just requirements-update` clean)
 - [x] Changelog: no user-facing change
-- [ ] Local gates: `just clip-kit-test` (26), `just check`, `just preflight`
-- [ ] Review
-- [ ] CI green
+- [x] Local gates at 743d274: `just clip-kit-test` (26), `just check`, `just preflight` (Windows static stage) pass
+- [x] Review: inspector approved at 743d274, verified at 743d274
+- [x] CI green at 743d274: static, static-windows, visual, viewer-graph, checks, report pass
+
+## Known gaps
+
+Draft by design: the owner has not yet approved the storyboard and the clip. Motion, rhythm and the loop as watched are not judged. macOS and Linux takes are not made.
