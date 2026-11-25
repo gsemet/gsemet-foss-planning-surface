@@ -2,7 +2,9 @@
 
 Head: 5be593b7486739c435eaf3db8922ce1f0d490637
 
-Verdict: NOT VERIFIED
+Verdict: VERIFIED
+
+History: the first pass at this head was NOT VERIFIED (Review box without a round-4 note, worker brief sizes stale, concepts.md count 4 instead of 5, then eight brief sizes marked UNVERIFIED without a Known gaps bullet). The PR body was then fixed: the log has the round-4 APPROVE note at 5be593b (log line 48), concepts.md count is 5, all eleven brief sizes are measured at the head (re-run: coder 9871/6679, conflict-resolver 9155/6640, debugger 8944/6427, investigator 8816/6632, retro-critic 4225/2816, demo-explorer 4746/2820 match). Final judgment at 5be593b7486739c435eaf3db8922ce1f0d490637: all claims below hold and the Failed items are resolved.
 
 Claims judged at 5be593b (full SHA above). Base used for diffs: f08cf41f (merge-base with origin/main).
 
@@ -17,7 +19,7 @@ Claims judged at 5be593b (full SHA above). Base used for diffs: f08cf41f (merge-
 - Inventory: 374 rows (W-001..W-374), walk method stated; Known gaps content agrees with the log's gaps.
 - Spec items spot-checked in the cards: stack never "loop or script over branches", release never "undo half-done irreversible work", lead 1 wait form, background-shell wait, rules by section.
 
-## Failed
+## Failed (first pass, resolved, see History)
 1. Review box. The body says "Review: approved at 5be593b (Inspector round 4 ...)". `$CHANTIER log CR-505 --batch batch-31` (47 lines) has no note of an approved pass at 5be593b: the only approvals are "r2 inspector approved at f08cf41f" and "PART 1 approved at f08cf41f, committed as 5f1905a3"; round 3 is FIX-REQUIRED at 5f1905a3; the last events are leases (15:17:59Z). No round-4 note. By the card, a Review box without such a note is NOT VERIFIED. Fix: the Driver notes the round-4 approval with its head (or the Review line is unticked/narrowed).
 2. Worker brief sizes (minor, not alone failing). `brief <role> CR-505 --batch batch-31` at this head gives coder old 9662 / new 6470, verifier 19634 / 8049, inspector 11097 / 7052, against the body's 7549/4357, 17521/5936, 8984/4939. The difference is a constant +2113 bytes on both sides (the CR's facts block grew since the earlier run; savings identical, e.g. 3192 for coder). The body does not say these were measured earlier; re-measure at the head or say when.
 3. Forward-link count (minor). Body: "`../pr-template.md` and `../concepts.md` (2 and 4 uses)". At head: pr-template.md 2, concepts.md 5 (`grep -rn "concepts.md" skills/chantier/cards-next`: inspector-audit, spec-writer-extras, trouble-worker, verifier-delta-matrix, verifier-description). Fix to 5.
