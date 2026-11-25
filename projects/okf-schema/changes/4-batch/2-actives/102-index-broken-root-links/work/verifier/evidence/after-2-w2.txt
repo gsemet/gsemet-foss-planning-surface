@@ -1,0 +1,38 @@
+== step 3
+(edit) root api line set to: - [api](./api/) — [Health Check](nope.md)
+$ okf-schema validate --strict --path kb/bundle
+
+<project>\kb\bundle\index.md
+  WARNING [W2] Broken cross-link 'nope.md' in '<project>\kb\bundle\index.md'
+
+Validation failed: 0 error(s), 1 warning(s) (strict mode).
+[exit 1]
+CHECK 3 W2 on index.md, non-zero exit: ok
+$ okf-schema index --path kb/bundle
+1 updated, 0 created, 1 unchanged, 0 skipped
+[exit 0]
+  root index.md: - [api](./api/) — [Health Check](nope.md)
+CHECK 3 index keeps the line: ok
+== step 4
+== step 7
+root log.md before the edit: None
+--- log.md (edited)
+# Log
+
+## 2026-11-25
+
+- Removed [old](deleted.md).
+
+$ okf-schema validate --strict --path kb/bundle
+
+<project>\kb\bundle\log.md
+  WARNING [W2] Broken cross-link 'deleted.md' in '<project>\kb\bundle\log.md'
+
+Validation failed: 0 error(s), 1 warning(s) (strict mode).
+[exit 1]
+CHECK 7 W2 on log.md, non-zero exit: ok
+(edit) link removed from log.md
+$ okf-schema validate --strict --path kb/bundle
+Bundle is conformant (0 errors, 0 warnings).
+[exit 0]
+CHECK 7 validate --strict passes: ok

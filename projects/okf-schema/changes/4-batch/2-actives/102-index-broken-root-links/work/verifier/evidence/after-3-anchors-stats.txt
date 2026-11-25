@@ -1,0 +1,30 @@
+== step 5
+(edit) '[x](my%20file.md)' appended to api/health-check.md
+(edit) api/my file.md created
+$ okf-schema validate --strict --path kb/bundle
+Bundle is conformant (0 errors, 0 warnings).
+[exit 0]
+CHECK 5 validate --strict passes: ok
+== step 7b
+(edit) '[top](#top)' appended to api/health-check.md
+$ okf-schema stats --path kb/bundle
+5 files · 2 concepts · 1 type · 592 bytes
+  2 links
+  Health: 100% — all clear
+[exit 0]
+CHECK 7b no broken count, all clear: ok
+(edit) '[gone](missing.md#part)' appended to api/health-check.md
+$ okf-schema stats --path kb/bundle
+5 files · 2 concepts · 1 type · 617 bytes
+  3 links (1 broken)
+  Health: 90% — 1 broken link
+[exit 0]
+CHECK 7b one broken: ok
+$ okf-schema validate --strict --path kb/bundle
+
+<project>\kb\bundle\api\health-check.md
+  WARNING [W2] Broken cross-link 'missing.md#part' in '<project>\kb\bundle\api\health-check.md'
+
+Validation failed: 0 error(s), 1 warning(s) (strict mode).
+[exit 1]
+CHECK 7b validate names the same target: ok

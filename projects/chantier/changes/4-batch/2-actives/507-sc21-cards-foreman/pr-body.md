@@ -18,7 +18,7 @@ The base is `main`.
 | Shared | `concepts.md`, `pr-template.md`, `release-template.md`, `status-layout.md`, `routing.md`, `init.md`, `review-step.md`, `sync-checkout.md`, `ticket-summary-example.md`, `forges/` |
 | Hosts | `hosts/claude-code.json` and `copilot.json` (byte copies), `hosts/claude-code.md` (allow rules), `topics/host-*.md` |
 | Skills | `skills/{chantier,chief-of-staff,griller,status}-SKILL.md` |
-| Index | `topics.json`: 234 topics |
+| Index | `topics.json`: 238 topics |
 
 Choices made: the cards "settle alone" four refused-forge routes and ask first for the rest; direct mode
 reads the Foreman card through `brief foreman --epoch <n>` (no CLI change); a rule that protects the
@@ -37,7 +37,7 @@ Sizes (LF bytes), shared and host files, today's against new:
 | routing.md | 5,016 | 4,790 | none set |
 | init.md | 10,041 | 6,171 | none set |
 | review-step.md | 3,950 | 1,419 | 1,500, within |
-| sync-checkout.md | 4,801 | 1,115 | 1,500, within |
+| sync-checkout.md | 4,801 | 1,202 | 1,500, within |
 | forges/github.md, gitlab.md | 739, 744 | 587, 590 | not larger, within |
 | hosts/claude-code.json, copilot.json | 25,243, 22,372 | same | byte-identical |
 | hosts/claude-code.md | 109,857 | 23,319 | allow rules only, none set |
@@ -46,8 +46,8 @@ Sizes (LF bytes), shared and host files, today's against new:
 | topics/host-*.md (33 files) | part of the above | 36,066, largest 1,490 | 1,500 each, within |
 | skills: chantier, chief-of-staff, griller, status | 3,537, 3,664, 3,223, 3,644 | 2,669, 2,749, 2,311, 2,748 | none set |
 
-Role cards of this PR against their budgets: `foreman.md` 36,927 to 4,000 (4,000);
-`chief-of-staff.md` 32,067 to 5,999 (6,000); `griller-skill.md` 3,501 (4,000); `griller.md` 10,757 to
+Role cards of this PR against their budgets: `foreman.md` 36,927 to 3,999 (4,000);
+`chief-of-staff.md` 32,067 to 5,999 (6,000); `griller-skill.md` 3,524 (4,000); `griller.md` 10,757 to
 1,925 (2,000). `cr-driver.md` 3,749 and
 `stack-driver.md` 3,783 (4,096). Cards over budget are in Known gaps.
 
@@ -55,7 +55,7 @@ Role cards of this PR against their budgets: `foreman.md` 36,927 to 4,000 (4,000
 
 | Role | Today | New |
 | --- | ---: | ---: |
-| coder | 9,790 | 6,714 |
+| coder | 9,116 | 6,110 |
 | conflict-resolver | 9,074 | 6,675 |
 | debugger | 8,863 | 6,462 |
 | inspector | 11,225 | 7,181 |
@@ -64,8 +64,8 @@ Role cards of this PR against their budgets: `foreman.md` 36,927 to 4,000 (4,000
 | retro-critic | 4,225 | 2,889 |
 | demo-explorer | 4,746 | 2,936 |
 | chief-of-staff | 22,322 | 24,657 |
-| griller | 6,349 | 6,627 |
-| foreman | 55,206 | 22,279 |
+| griller | 6,349 | 6,650 |
+| foreman | 55,206 | 22,278 |
 | cr-driver, staged card, role only | 59,216 | 8,010 |
 | release-driver, staged card, role only | 59,216 | 8,072 |
 | stack-driver, staged card, role only | 59,216 | 8,044 |
@@ -73,12 +73,13 @@ Role cards of this PR against their budgets: `foreman.md` 36,927 to 4,000 (4,000
 | spec-writer, on an inbox item | 4,815 | 3,228 |
 | spec-critic, on an inbox item | 5,290 | 3,133 |
 | board-griller, on an inbox item | 11,964 | 3,132 |
-| direct mode: chief-of-staff, then `foreman --epoch 1` | 77,528 | 46,936 |
+| direct mode: chief-of-staff, then `foreman --epoch 1` | 77,528 | 46,935 |
 
-Host claude, no unit but where a row says otherwise. chief-of-staff, griller, foreman and
-direct mode: measured on the cards of this PR's last commit. The other rows: an earlier round, their cards
-unchanged since (the six workers on this change's unit; a later run at `03f973e` gave them 742 bytes less on
-both sides, same differences, cause not traced). Start readings before this change, as the
+Host claude, no unit but where a row says otherwise. coder (both sides), chief-of-staff, griller,
+foreman and direct mode: measured on the cards of this PR's last commit. The other rows: an earlier round,
+their cards unchanged since (workers on this change's unit). Today's coder brief was 9,790 in that earlier
+round and is 9,116 now; a run at `03f973e` also gave the six workers lower values on both sides (742
+bytes, same differences). Cause not traced. Start readings before this change, as the
 specification gives them (declared / measured): Foreman 91 / 144 KB, Chief of Staff 202 / 218 KB,
 Griller 145 / 36 KB.
 
@@ -96,33 +97,38 @@ Grade: 1
 - "Retry once only on a transient network error" is dropped: a launcher failure is a stop.
 - The startup report sentence, "read every manifest reading before an action" and the review step's
   "cd into the worktree" are dropped as given by the commands and the brief.
-- "Never tell unproved behaviour as fact" is filed as host-trial bookkeeping, with the proof files.
+- "Never tell unproved behaviour as fact" is filed as host-trial bookkeeping, with the proof files;
+  the Chief of Staff's card also holds it ("or as fact what the host marks unproved"). The Foreman
+  card's two notes that a Copilot path is unproved (B012, B017) are dropped as bookkeeping.
 - Lines were added to cards and topics of earlier families: rules whose home must be a card, one link
   fix or more, and pointers to `help session-shell` and `help cr-review-step` (which go beyond the
-  two permitted reasons; they keep the folder-change ban and the review step's brief reachable). Each,
-  with its line:
+  two permitted reasons; they keep the folder-change ban and the review step's brief reachable). Topic
+  lines were also edited where the new set had lost or misstated a rule of today's cards (the topic
+  row marked "rules put back" below), which goes beyond them too. Each, with its line:
 
 | File and line (under `cards-next/`) | Change |
 | --- | --- |
-| chief-of-staff.md 13, 14, 16, 24, 27 | writes on the user's yes; stopping a Foreman or a process the session did not start, its own board or watcher too, only on a yes, never by name, pattern or PID; `cancel` only after an ordered drop; no tracker text naming a CR, batch, role or cost; CR work never only in chat, memory or a temp folder, no secret or personal data in a CR folder |
+| chief-of-staff.md 13, 14, 16, 24, 27, 29 | writes on the user's yes; stopping a Foreman or a process the session did not start, its own board or watcher too, only on a yes, never by name, pattern or PID; `cancel` only after an ordered drop; no tracker text naming a CR, batch, role or cost; CR work never in a scratchpad, temp or host-settings folder, nor only in chat or memory, no secret or personal data in a CR folder; never tell as fact what the host marks unproved |
 | chief-of-staff.md 10, 17, 22, 23 | the push rail covers a protected branch too; the ask-first push is the session's own; never message or stop a Driver in Foreman mode; never edit `summary.json` by hand |
 | chief-of-staff.md 26 | `abandon` and `restore` only on the user's word, with priority, labels and groups (for the later review) |
-| chief-of-staff.md 3, 39, 41 | wording trims; pointers to new topics; on `init` or "I am new here", run `$CHANTIER init` and give the tour of `init.md` |
-| griller-skill.md 24, 31; griller.md 7 | the CR-work never (chat and memory included), a pointer, no secret in the CR folder |
+| chief-of-staff.md 3, 10, 16, 20, 31, 32, 39, 41 | wording trims for the 6,000 budget; pointers to new topics; on `init` or "I am new here", run `$CHANTIER init` and give the tour of `init.md` |
+| griller-skill.md 24, 31; griller.md 7 | the CR-work never (scratchpad, temp or host-settings folder, or only chat or memory), a pointer, no secret in the CR folder |
 | foreman.md 13, 14, 15, 16 | `gate --first` only for a critical-path CR or the user's next merge, not on a Driver's say; never switch the mode; an image note goes in the ask's added sentence; stop stray background tasks by id, none outlives the heartbeat, a refusal rules over `next` |
-| foreman.md 20, 21 | a granted merge takes the judged head only, no open PR below, reread before a retry; never drop a hand-back; a local run is owed at that head and a waiver must name it |
-| foreman.md 22 | the fast-forward is `--no-overwrite-ignore`, of a clean main checkout; the checks of a Driver's refused push or rebase; no comment on a dropped CR's PR, its branch kept; stop no sync holder |
+| foreman.md 20, 21 | a granted merge takes the judged head only, no open PR below, reread before a retry; never drop a hand-back; a local run is owed at that head and a waiver must name it; an absent gate never means success (`help long-gate`) |
+| foreman.md 22 | the fast-forward is `--no-overwrite-ignore`, of a clean main checkout; a Driver's refused push or rebase checked (`help refused-push`, a push judged too); no failed or protected push retried, no branch protection read; no comment on a dropped CR's PR, its branch kept; stop no sync holder |
 | foreman.md 25, 27, 29 | a Driver is replaced only by `help lost-restart`, never on silence alone; the CR-work, secrets and personal-data never; a past fact with no source is said unknown |
-| foreman.md 38 | Rare cases name `refused-push` and `session-shell` only; `help --for foreman` lists the topics |
+| foreman.md 38 | Rare cases: only `$CHANTIER help --for foreman`; the topic names are cut (`long-gate` and `refused-push` are named at never 2 and 3) |
 | foreman.md 3, 6-10, 17, 24, 26, 31 | wording trims for the 4,000 budget |
 | cr-driver.md 5 and 16, stack-driver.md 5 and 16, release-driver.md 16 | fresh workers per round or move, and the checker never wrote the change (line 5); no rebase with `--rebase-merges`, `--exec` or `-x` (line 16) |
 | inspector.md 5, 22 | a check red on the default branch is reported, never fixed there; the `worker-shell` pointer shortened |
-| coder.md 13, conflict-resolver.md 15, debugger.md 13, demo-explorer.md 13, investigator.md 16, verifier.md 18, cr-driver.md 18 | the same temp-folder and secrets never |
+| coder.md 13, conflict-resolver.md 15, debugger.md 13, demo-explorer.md 13, investigator.md 16, verifier.md 18, cr-driver.md 18 | the same temp-folder and secrets never; `coder.md` also large binaries other than the retained prototype |
 | cr-driver.md 20 | never start an agent in place of one that may still run |
 | cr-driver.md 26, qa-driver.md 18, release-driver.md 25, stack-driver.md 27, spec-writer.md 15, retro-critic.md 22-23, spec-critic.md 18-19 | pointers |
 | qa-driver.md 10, 13; release-driver.md 14, 18, 19; stack-driver.md 18-20; spec-writer.md 11 | never touch an issue, never publish private data, the temp-folder never, one agent at a time |
 | release-driver.md 7 | an image upload is irreversible; published notes use the reviewed text or stay a draft |
 | topics: cr-rounds 4, refused-push-chief-p1 3 and 6, release-notes 4, ticket-summary-p2 5, titles 4, worker-shell 8 | pointer, scoping, links, a folded rule, the folder-change ban |
+| topics, rules put back: batch-close-p2 3, batch-plan-mode-p2 3, config-p1 3, delivery-time-p2 3, demo-p1 3, forge-permissions 3, grill-critic-steps 6, grill-series 7, grill-specify-p2 4, lease 3, lost-driver 8, lost-outside 3, 5 and 7, lost-silent 6, main-checkout 3 and 9, merge-recorded 5, merge-series-stack-p2 3, merge-stack-ready-p2 3, merge-words 5, orders 8, project-rules 3, refused-push-chief-p2 3, release-chief-after-p2 5, stack-changes-chief-p1 3, stack-checks 6, stack 6, steering-reports-p1 6, wakes 5 and 6, watcher-board 7, watcher-lines 8 | a lost or misstated rule or its wording, line by line in the host and shared inventory |
+| topics.json | the new topics indexed; `sync` also reads `sync-checkout.md`; `direct-mode` also reads the mode-switch files; `mode-switch`'s trigger names `order mode` |
 
 ## Known gaps
 
@@ -138,8 +144,8 @@ Grade: 1
   stack-driver and verifier; the new push and ask-first cases need at least 1 of 3. Four planned cases
   are not written, as they have no rule id the loader accepts (`a8-ask-settings-json`,
   `tracker-approval`, `direct-brief-foreman`, `griller-tracker-never`).
-  This PR's last commit changed the Foreman's, the Chief of Staff's and the Griller's cards: their
-  score is owed at the final head. Plans only, no spend: chief-of-staff with griller 54 runs, about
+  The latest changes edit the Foreman's, the Chief of Staff's, the Griller's and the Coder's cards and
+  many topics: their score is owed at the final head. Plans only, no spend: chief-of-staff with griller 54 runs, about
   $25.34; foreman 33 runs, about $15.40; coder, conflict-resolver, debugger, demo-explorer and
   verifier 24 runs, about $8.51; the three Driver roles cannot be planned (`roles.yaml` names
   `driver.md`). The first two are above the default `--max-usd 10`.
@@ -147,7 +153,7 @@ Grade: 1
   because `roles.yaml` names `driver.md`, which the new set does not hold (it must change at the swap;
   the sizes above use a staged copy). spec-writer, spec-critic and board-griller are refused on a CR
   folder of a running batch, as today's cards are (the sizes above use an inbox item).
-- Cards over budget (only the owner raises a budget): coder 1,533 (+33), demo-explorer 1,612 (+112),
+- Cards over budget (only the owner raises a budget): coder 1,603 (+103), demo-explorer 1,612 (+112),
   retro-critic 1,565 (+65), spec-critic 1,572 (+72), spec-writer 1,667 (+167), verifier 3,112 (+112),
   release-driver 3,811 (+739). The first six were within before the shared-files pass.
 - 24 topics over 1,500 bytes, all from the base: ci-beside-gate 2,052, ci 1,589, closing 1,888,
@@ -167,13 +173,14 @@ Grade: 1
 - "Never fix a check red on the default branch there" is stated in `inspector.md` only, not in
   `verifier.md` or the `ci` topic; no card names the forge's "Update branch" button (the `ship`
   refusal covers it).
-- The home of each protecting row was read at its cited line. Each of the four inventories lists the
-  protecting-looking rows a topic carries, for the later review.
-- Rules, or parts of rules, held by no card, floor or refusal: large binaries are never kept in a CR
-  folder (H-057; `coder.md` is over its budget); the host's settings are never a CR's place (H-059,
-  part); never rewrite an earlier retro section (FM-026); never tell as a fact what is marked unproved
-  (C-006); a held agent that has ended with no transcript is cleared on the user's word, or once known
-  not to run (C-304, C-885).
+- The home of each protecting row was read at its cited line. Of the other rows, at least a few of
+  each inventory section were read against their home and the wrong homes corrected; not every row was
+  read. Each of the four inventories lists the protecting-looking rows a topic carries, for the later
+  review.
+- Rules, or parts of rules, held by no card, floor or refusal: never rewrite an earlier retro section
+  (FM-026); a held agent that has ended with no transcript is cleared on the user's word (C-304);
+  another session's Driver is cleared only on the user's word that it does not run (C-885, part: the
+  close refusal holds "if it is not running").
 - The allow-rules table still lists the `uvx` and `uv run` rules; the launcher's rule is stated apart,
   marked unproved (untested on Copilot).
 - The byte-identical host JSON still names `session-start.md`, `driver.md` and
@@ -215,7 +222,7 @@ Grade: 1
   board-lines, board-restart, chain, chain-conflict, checkpoints, ci, ci-beside-gate, ci-no-check,
   cleanup, closing, compacting, config, conflict-check, conflicts, conflicts-early-push,
   conflicts-local-gate, cost, cr-handback, cr-prompt, cr-proof, cr-review-step, cr-rounds, cr-ship,
-  cr-workers, delivery-time, demo, direct, direct-mode, direct-mode-accept, direct-mode-epoch,
+  cr-workers, delivery-time, demo, direct, direct-mode, direct-mode-accept, direct-mode-epoch, direct-mode-switch,
   driver-question, drop, escalation, first-turn, foreman-start, foreman-start-more, forge-permissions,
   forge-permissions-gitlab, forge-permissions-say, grill, grill-backlog, grill-critic,
   grill-critic-steps, grill-options, grill-outside-pr, grill-restate, grill-series, grill-specify,
@@ -229,8 +236,8 @@ Grade: 1
   lease, local-gate, long-gate, long-gate-waiver, lost-context, lost-driver, lost-outside,
   lost-restart, lost-silent, main-checkout, matrix, merge, merge-gaps, merge-github, merge-recorded,
   merge-series-stack, merge-stack-gitlab, merge-stack-ready, merge-under-grant, merge-words,
-  mode-switch, options, orders, orders-queue, park, park-back, pr-extras, pr-gitlab, pr-images,
-  pr-template-own, project-rules, qa-order, qa-results, ready-to-merge, recovery, refusals-to-say,
+  mode-switch, options, order-drop, order-verbs, orders, orders-queue, park, park-back, pr-extras, pr-gitlab, pr-images,
+  pr-template-own, project-rules, qa-order, qa-results, ready-asks, ready-to-merge, recovery, refusals-to-say,
   refusals-to-say-more, refused-answer, refused-forge-chain, refused-push, refused-push-answer,
   refused-push-chief, refused-push-chief-more, refused-push-gate, refused-push-judgement,
   refused-push-route, refused-push-run, refused-rebase, refused-rebase-chief, refused-rebase-run,
@@ -262,8 +269,8 @@ The labels of the specification's section 4. Rows are `FM-` rows of `cards-inven
 | B1f | yes | B007 | card:21 | `take-back` |
 | B1g | no | B008 | topic only | `orders` |
 | B1h | yes | B009, B010, B013 | card:21 (B013: topic) | `long-gate`, `local-gate` |
-| B1i | yes | B011, B012, B014 | card:21 (B012: Copilot host row) | `local-gate` |
-| B1j | yes | B015-B017, B019, B022 | card:21, card:15; `judge --local-gate` (`status/judge_words.py:33`); B017: Copilot host row, B022: topic | `local-gate` |
+| B1i | yes | B011, B012, B014 | card:21 (B012: dropped, unproved bookkeeping; no host row holds it) | `local-gate` |
+| B1j | yes | B015-B017, B019, B022 | card:21, card:15; `judge --local-gate` (`status/judge_words.py:33`); B017: dropped, unproved bookkeeping (no host row holds it), B022: topic | `local-gate` |
 | B1k | no | B020, B021 | topic; card:21 points to it | `local-gate` |
 | B1l | yes | B023 | card:21 | `long-gate` |
 | B1m | yes | B024 | card:21 ("An absent gate never means success.") | `long-gate` |
@@ -308,7 +315,7 @@ No visual change; nothing loads the new files.
     and `git grep -n "Read this short role contract at boot\|# chantier-agent:\|chantier board" HEAD --
     skills/chantier/cards-next` prints no line;
   - links under `cards-next/`: 22, broken 0, none into `references/`;
-  - topic index: 234 topics load, 415 readings resolve, no base name missing;
+  - topic index: 238 topics load, 432 readings resolve, no base name missing;
   - Driver table: the parser reads 4 rows from the old and the new file, equal cell for cell
 - [x] Review: approved at `03f973e` (carried from `bb6a563`)
 - [ ] Verified

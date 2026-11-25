@@ -1,0 +1,82 @@
+== step 1
+$ okf-schema new --path kb/bundle --name api/health-check --type "API Endpoint" --title "Health Check"
+Created concept 'kb\bundle\api\health-check.md'.
+[exit 0]
+$ okf-schema index --path kb/bundle
+0 updated, 2 created, 0 unchanged, 0 skipped
+[exit 0]
+  root index.md: - [api](./api/) — Auto-generated index for concepts in `api`.
+$ okf-schema index --path kb/bundle
+0 updated, 0 created, 2 unchanged, 0 skipped
+[exit 0]
+  root index.md: - [api](./api/) — Auto-generated index for concepts in `api`.
+CHECK 1 root line generic: ok
+CHECK 1 second run all unchanged: ok
+--- api/index.md
+# api
+
+- [Health Check](health-check.md)  [API Endpoint]
+
+== step 2
+(edit) root api line set to: - [api](./api/) — [Health Check](health-check.md)  [API Endpoint]
+$ okf-schema index --path kb/bundle
+1 updated, 0 created, 1 unchanged, 0 skipped
+[exit 0]
+  root index.md: - [api](./api/) — Auto-generated index for concepts in `api`.
+CHECK 2 line back to the generic text: ok
+$ okf-schema validate --strict --path kb/bundle
+
+<project>\kb\bundle\api\health-check.md
+  WARNING [W1] Missing recommended field 'description' in '<project>\kb\bundle\api\health-check.md'
+  WARNING [W3] No provenance timestamp in '<project>\kb\bundle\api\health-check.md'. Add 'generated.at: <ISO-8601-datetime>' to the frontmatter.
+
+Validation failed: 0 error(s), 2 warning(s) (strict mode).
+[exit 1]
+(edit) the concept made by `new` gets a description and generated.at (W1, W3 above)
+$ okf-schema validate --strict --path kb/bundle
+Bundle is conformant (0 errors, 0 warnings).
+[exit 0]
+CHECK 2 validate --strict passes: ok
+(edit) root api line set to: - [api](./api/) — Auto-generated index for concepts in `api`.
+--- api/index.md (edited)
+# api
+
+See the [check](health-check.md) first.
+
+Second paragraph, in progress [draft]
+
+- [Health Check](health-check.md) — Liveness probe.  [API Endpoint]
+
+$ okf-schema index --path kb/bundle
+2 updated, 0 created, 0 unchanged, 0 skipped
+[exit 0]
+  root index.md: - [api](./api/) — See the [check](api/health-check.md) first. Second paragraph, in progress [draft]
+CHECK 4 one line, link rewritten, [draft] kept: ok
+$ okf-schema validate --strict --path kb/bundle
+Bundle is conformant (0 errors, 0 warnings).
+[exit 0]
+CHECK 4 validate --strict passes: ok
+$ okf-schema index --path kb/bundle
+0 updated, 0 created, 2 unchanged, 0 skipped
+[exit 0]
+CHECK 4 second run all unchanged: ok
+--- api/index.md after index
+# api
+
+See the [check](health-check.md) first.
+Second paragraph, in progress [draft]
+
+- [Health Check](health-check.md) — Liveness probe.  [API Endpoint]
+
+== step 5
+== step 6
+(edit) root api line set to: * [API](api/) - Les endpoints
+$ okf-schema index --path kb/bundle
+2 updated, 0 created, 0 unchanged, 0 skipped
+[exit 0]
+  root index.md: - [api](./api/) — Les endpoints
+CHECK 6 line normalised: ok
+$ okf-schema index --path kb/bundle
+0 updated, 0 created, 2 unchanged, 0 skipped
+[exit 0]
+CHECK 6 second run all unchanged: ok
