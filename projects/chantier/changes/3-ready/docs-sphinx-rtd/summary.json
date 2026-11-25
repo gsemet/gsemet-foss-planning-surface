@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Documentation rewritten as a Sphinx site on Read the Docs",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Docs as a Furo Sphinx site in Diataxis sections on Read the Docs; answers and draft PR 346 kept; to specify again after the rework.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "93f332a8da67c9010d0cb8b424e90fe48dcde9dddcf429d1e3124eaaf988ac1d",
+    "intake/request.md": "314df3d5d585282f30f1fc2e03106f2d551275dc75828877461305ba38613341"
+  },
+  "summarized": "2026-11-25T22:09:04Z"
+}

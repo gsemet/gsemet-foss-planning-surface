@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Shortcut commands to start, pause, close and add to a batch",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Commands batch-start (also resumes), batch-pause, batch-close, batch-add; autonomy split off. All questions answered; to specify again after the rework from the answers.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "d96fcf9e1e48a3036381fe125a263161173971e1d555b2ec9889e3c11e3a4f4f",
+    "02-answers.md": "d1beb2fb4649881726b50d9679e8f10212a8928a407055b91b03984652699c4a",
+    "intake/request.md": "8fcf97189bac6a545b45f5911b6583a05ce6db5ada800f41e8eff1b9851d9b2c"
+  },
+  "summarized": "2026-11-25T22:09:01Z"
+}

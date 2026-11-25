@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Take over a batch opened on another machine",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Take over a batch opened on another machine from a record published at start and pause; answers kept; to specify again after the rework.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "02-answers.md": "98137ab43390188d1104e2e0ea11115fd781d6ed1c48d8ef627b5f2ac2041469",
+    "intake/request.md": "0bd630765f7dd1e2031344f83378f13207bdf680e84038b5190646825842789e"
+  },
+  "summarized": "2026-11-25T22:09:04Z"
+}

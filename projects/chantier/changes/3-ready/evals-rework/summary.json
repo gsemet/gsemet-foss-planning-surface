@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Rework the eval campaigns",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Rework the eval campaigns: host names, date-first reports, Copilot campaigns; answers kept; to specify again after the rework.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "42cbe4c824b8f45a46b7943608616d2696b75bc01f88baca8990d965291d8e37",
+    "02-answers.md": "050019b12e3729f39ed877a1c643e43a736627a5a64705db8e1f83cc6d4888c4",
+    "intake/request.md": "ffa07aa24522ba9b550d5e7d60099bb08252b9d045d24d5a4c04bf87ba90faeb"
+  },
+  "summarized": "2026-11-25T22:09:03Z"
+}

@@ -29,6 +29,24 @@ scaffold guidance and examples (neither runs `show`), the tutorials (their comma
 the extensionless form), the feature coverage map (its `show` entry does not change), CI,
 `justfile` and packaging.
 
+## Deliverables
+
+What `okf-schema show --path <bundle> NAME` answers, before at `2f09cef` and after at `41fcd6d`
+(Windows 11, Python 3.12.10). `leak.md` is a symbolic link in the bundle to a file outside it.
+
+| `NAME` | Before (`2f09cef`) | After (`41fcd6d`) |
+|--------|--------------------|-------------------|
+| `api/health-check`, `/api/health-check` | not found, exit 2 | concept shown, exit 0 |
+| `/etc/passwd` | not found at the drive root, exit 2 | not found inside the bundle, exit 2 |
+| `api` (a directory), `.` | `PermissionError` traceback, exit 1 | `Concept not found`, exit 2 |
+| `../../secret.md`, an absolute outside path, `leak.md` | outside file printed, exit 0 | `Concept path is outside the bundle`, exit 2 |
+| `../../secret`, `../../missing`, `leak` | not found, exit 2 | outside the bundle, exit 2 |
+| `\api\health-check` | not found at the drive root, exit 2 | outside the bundle, exit 2 |
+| a name with `.md`, an absolute inside path, `api/../api/health-check.md` | shown | shown (unchanged) |
+
+When a file `bundle.md` sits beside a bundle folder named `bundle`, `.` is refused as outside the
+bundle instead of not found.
+
 ## Type of Change
 
 - [x] Bug fix
@@ -55,7 +73,29 @@ the extensionless form), the feature coverage map (its `show` entry does not cha
 ## Known gaps
 
 - `validate`, `list`, `index`, `backlinks` and `lint` still follow symbolic links whose target is outside the bundle; this change covers `show` only.
+- The requirements change log entry records a verification run made on a host that refused symbolic links; it does not mention the later full run at the same commit, which passed. It was left because changing it would move the verified commit.
+
+## Test plan
+
+- [x] New or changed tests: with the sources at `2f09cef`, 22 of the 37 selected `show` tests fail;
+  at `41fcd6d`, all 37 pass
+- [x] Local gates at `41fcd6d`: `just preflight` passes (1129 tests passed, 12 skipped: the
+  installed-package acceptance tests, which do not run on Windows)
+- [x] Evidence: before at `2f09cef`, after at `41fcd6d`
+- [x] Review: approved at `41fcd6d`
+- [x] Verified at `41fcd6d`
+- [x] CI green at `41fcd6d`: Python 3.10 to 3.13, macOS and Windows jobs pass (the release tagging
+  job is skipped outside the default branch); the symbolic link tests run on every job, and the
+  installed-package inspection test passes on the non-Windows ones
 
 ## Related Issues
 
 Fixes #56
+
+## Internal references
+
+- CR-101 show-extensionless-names.
+- Text outputs kept with the change request, under `work/verifier/evidence/`: `before-show.txt`,
+  `after-show.txt`, `before-tests.txt`, `after-tests.txt`, `after-scenario-powershell.txt`,
+  `after-scenario-git-bash.txt`, `after-probe-names.txt`, `after-other-commands.txt`, and
+  `before-after.md`, which lists the pairs and how to reproduce them.

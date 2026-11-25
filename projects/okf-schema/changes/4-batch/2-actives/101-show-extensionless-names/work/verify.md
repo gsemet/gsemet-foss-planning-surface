@@ -45,7 +45,7 @@ $ gh run view 45707397365 --repo gsemet/okf-schema --json headSha,status,conclus
 41fcd6dbebaddff719c2a3f54f610298034d0ad6 completed success
 cross-platform (macos-latest) success; cross-platform (windows-latest) success;
 preflight (3.10), (3.11), (3.12), (3.13) success; tag-release skipped
-$ grep "passed.*in" work/ci-45707397365.log
+$ grep -n -E "=+ [0-9]+ passed.*in [0-9.]+s" work/ci-45707397365.log
 macos 1141 passed; 3.10 1141 passed; 3.11 1141 passed; windows 1129 passed, 12 skipped;
 3.12 1141 passed; 3.13 1141 passed
 $ grep test_show_bundle_(refuses_a_symlink|follows_a_symlink|accepts_a_disk_path_spelled|reports_a_symlink_loop) <log>, counted per job
@@ -116,10 +116,14 @@ The probe ran on Windows only; POSIX behaviour rests on the tests of claims 3 an
 `# @implements_req SwRS-OKFSCHEMA-CORE-010`, and `show_bundle` carries CORE-005 and keeps CORE-006:
 
 ```text
-$ grep -rn "@implements_req" src
+$ grep -rn -E "@implements_req SwRS-OKFSCHEMA-CORE-(005|006|010)" src
 src/okf_schema/api.py:135:# @implements_req SwRS-OKFSCHEMA-CORE-010
+src/okf_schema/api.py:399:# @implements_req SwRS-OKFSCHEMA-CORE-005
 src/okf_schema/api.py:437:# @implements_req SwRS-OKFSCHEMA-CORE-005
-(api.py:438: # @implements_req SwRS-OKFSCHEMA-CORE-006)
+src/okf_schema/api.py:438:# @implements_req SwRS-OKFSCHEMA-CORE-006
+src/okf_schema/cli.py:705:    # @implements_req SwRS-OKFSCHEMA-CORE-005
+src/okf_schema/validator.py:722:# @implements_req SwRS-OKFSCHEMA-CORE-006
+src/okf_schema/_internal/utils.py:210:# @implements_req SwRS-OKFSCHEMA-CORE-005
 ```
 
 ## 8. Specification scenario steps and `show --help`: VERIFIED
@@ -145,9 +149,12 @@ Specification tests 1 to 14 and the edge-case change are in the diff
 `# pragma: no cover` removed from the `show` except line in `cli.py`).
 
 ```text
-$ pytest tests/test_api.py tests/test_cli_remaining.py tests/test_edge_cases.py -k "show_bundle or show_show or parent_references" --no-cov -p no:cacheprovider
-head sources (after-tests.txt):                  37 passed, 189 deselected (symlink cases and link loop PASSED)
-base sources, head tests (before-tests.txt):     22 failed, 15 passed, 189 deselected
+Both runs: pytest tests/test_api.py tests/test_cli_remaining.py tests/test_edge_cases.py
+           -k "show_bundle or show_show or parent_references"   (full command: line 2 of each file)
+head sources, `uv run --no-sync -- pytest` (after-tests.txt):
+  37 passed, 189 deselected (symlink cases and link loop PASSED)
+base sources, head tests, `python -B -m pytest -o pythonpath=src` (before-tests.txt):
+  22 failed, 15 passed, 189 deselected
 $ uv run --no-sync -- pytest tests/test_api.py tests/test_cli_remaining.py tests/test_acceptance_core.py tests/test_edge_cases.py --no-cov -p no:cacheprovider -rs -q -k "show or path_edge_cases or inspection" -v
 43 passed, 1 skipped, 189 deselected   (skip: acceptance test, "run the installed POSIX console scripts")
 $ uv run --no-sync -- pytest --doctest-modules src/okf_schema/api.py -k "show_bundle or _require_inside_bundle" --no-cov -p no:cacheprovider -q
@@ -277,7 +284,8 @@ claim failed, so no further Known gaps bullet is owed.
 ```text
 $ gh pr view 68 --repo gsemet/okf-schema --json headRefOid,updatedAt,body
 41fcd6dbebaddff719c2a3f54f610298034d0ad6  2026-11-25T21:50:35Z
-$ git diff --no-index --ignore-space-at-eol work/pr-body.md <posted body>     (one difference, under Known gaps)
+$ diff --strip-trailing-cr work/pr-body.md <(gh pr view 68 --repo gsemet/okf-schema --json body --jq .body)
+(one added line under Known gaps, and a trailing blank line)
 +- **UNVERIFIED:** the installed-package inspection check. The acceptance tests are skipped on Windows; its new assertion needs a non-Windows run.
 ```
 

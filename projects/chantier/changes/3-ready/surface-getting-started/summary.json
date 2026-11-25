@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Getting started on a new, empty planning surface",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Getting-started guide for an empty planning surface and how the surface's branch is found; answers kept; to specify again after the rework.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "7077bb12c8eb321e9543f715767631c1a71af78c6ef181043ee0175af29ef799",
+    "02-answers.md": "f1703fb594cf997cff1e7cc837f391a434fcb87735961ba68836dff76c0cc531",
+    "intake/request.md": "a7054d906ce0b1840ed885a8504d2282f5ac767b43156e2a62486f47117f2bfd"
+  },
+  "summarized": "2026-11-25T22:09:05Z"
+}

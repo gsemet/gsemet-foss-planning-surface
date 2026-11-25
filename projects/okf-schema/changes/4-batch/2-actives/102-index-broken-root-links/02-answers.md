@@ -119,3 +119,8 @@ question is needed for either comment.
 
 Due: the pull request link on https://github.com/gsemet/okf-schema/issues/57 once the pull request
 exists, then the release announcement once the release holding it is published.
+
+Posted on https://github.com/gsemet/okf-schema/issues/57, 2026-11-25: comment
+https://github.com/gsemet/okf-schema/issues/57#issuecomment-7175983273 (`work/issue-followup.md`,
+the link to https://github.com/gsemet/okf-schema/pull/70); plan "none"; demo "none". Still due: the
+release announcement.

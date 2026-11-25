@@ -5,6 +5,8 @@ A concept verified by an actor written as OKF 0.2 allows, such as
 needed a colon. The trust tier now follows the specification (sections 5.3 and 7): every
 non-empty actor that is not `human:<id>` counts as machine.
 
+Before is the base `2f09cef`, after is `7a33d92`.
+
 | `verified[].by` | Trust tier before | Trust tier after | W10 after |
 |---|---|---|---|
 | `reference_agent/gemini-2.5-pro`, `langchain.agents/0.3` | unverified | machine-confirmed | no |
@@ -40,7 +42,7 @@ Unchanged: `generated.by` and `sources[].author` are still not checked, `okfkb` 
 | Scaffold guidance | `src/okf_schema/data/kb/_schema/Base.schema.yaml`. The packaged knowledge base guideline already uses `human:alice`. |
 | Examples | `examples/okfkb-hw-knowledge-base/_schema/Base.schema.yaml`, edited by hand because no recipe refreshes it. Their `bot:okf-schema` actors stay valid. |
 | Requirements | `SwRS-OKFSCHEMA-CORE-006` S5 and the requirements log. |
-| Verification and packaging | new tests only. `pyproject.toml`, `justfile` and CI are unaffected: no file, dependency, command or job is added or moved. |
+| Verification and packaging | new tests, and two existing trust tier tests updated (one renamed with its expected tier changed, one parametrized with a stricter assertion). `pyproject.toml`, `justfile` and CI are unaffected: no file, dependency, command or job is added or moved. |
 
 ### Example command
 
@@ -54,19 +56,21 @@ uv run -- okf-schema validate-md --input c.md --schemas-dir <dir> --strict
 
 ### Validation results
 
-- Example command: exit 0, no warning. With `by: alice`: exit 1, one W10 naming
+- Example command at `7a33d92`: exit 0, no warning. With `by: alice`: exit 1, one W10 naming
   `verified entry [0]` twice. `show_bundle(...).trust_tier` is `machine-confirmed` for both.
 - `just preflight` on Windows at `7a33d92`: pass. 1128 passed, 12 skipped, coverage 95.58%,
   Sphinx build succeeded with warnings as errors.
-- `okfreq validate requirements --prose --check-links --project-root .`: 35 requirements,
-  0 errors, 0 warnings.
-- A first run at the previous commit failed 8 symbolic link tests because the host refused to
-  create links (`WinError 1314`); the base commit failed the same 8. Symbolic links are now
-  allowed on that host.
+- `okfreq validate requirements --prose --check-links --project-root .` at `7a33d92`:
+  35 requirements, 0 errors, 0 warnings.
+- A first `just preflight` run at `1ae8870` failed 8 symbolic link tests because the host
+  refused to create links (`WinError 1314`); the base `2f09cef` failed the same 8. Symbolic
+  links are now allowed on that host.
+- CI at `7a33d92`: the preflight jobs on Python 3.10 to 3.13 and the macOS and Windows jobs
+  pass; the release tagging job is skipped, as it runs on pushes to `main` only.
 
-Evidence status: marker linkage is defined for the requirement in `validator.py` and for S5 in
-the tests (`okfreq trace`); the marked tests were executed and passed; no stakeholder approval is claimed,
-the requirement stays `proposed`.
+Evidence status at `7a33d92`: marker linkage is defined for the requirement in `validator.py`
+and for S5 in the tests (`okfreq trace`); the marked tests were executed and passed; no
+stakeholder approval is claimed, the requirement stays `proposed`.
 
 ### Decisions taken by the maintainer
 

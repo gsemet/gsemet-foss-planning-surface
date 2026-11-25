@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Docs style guide and anti-slop review of every page",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Docs style guide and a page-by-page anti-slop review, with an AGENTS.md rule for the Inspector; draft PR 347 kept; to specify again after the rework.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "1f8ac5a2a5ebf38e62c9341282cd2da682cf60c1449eaa06ba20905234c16bbc",
+    "02-answers.md": "3e54018ccf5ed28b1db041aecaeebbed94ea651e12a055e6d6d32bb681a90776",
+    "intake/request.md": "1fddf16b40865b7048847cf108d0b4cbd83845f28d2265b6ca14d727fc6b070d"
+  },
+  "summarized": "2026-11-25T22:09:03Z"
+}

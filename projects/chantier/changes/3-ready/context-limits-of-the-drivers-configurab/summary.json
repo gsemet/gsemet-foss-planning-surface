@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Drivers' context limits: 200k, configurable, listed, warned",
+  "summary": "For batch-32 (owner, 2026-11-25): spec cancelled, kept in work/. Drivers' context limits configurable and listed, with warnings. Three questions open: failed window trial, release and QA Drivers, when a change applies.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "e8175bda8f7522df72cd50c9dcda2f6ebe0a84c50066587710b783c674f09a97",
+    "02-answers.md": "912f8694cb87a765c40740a0f692a23540fdbc9481ebd0f99e16f784368bb866",
+    "intake/request.md": "891d18e54f8080d7d058f1e029e8fc3053cd1b2a30ae94d9b61dc560aa0a999e"
+  },
+  "summarized": "2026-11-25T22:09:01Z"
+}
