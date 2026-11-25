@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "title": "index: no broken links in subdirectory summaries, W2 in index.md",
-  "summary": "Specified: index takes only the subdirectory intro (links rewritten) or generic text, repairs damaged and generic summaries; validate reports W2 in every index.md, anchors ignored. Two open questions: intro extent, 120-char cut.",
+  "summary": "Specified, no open question: index takes the whole subdirectory intro on one line (links rewritten, 120-char cut never splits a link) or generic text, repairs damaged and generic summaries, keeps trailing [...]; validate reports W2 in every index.md, anchors ignored, paths percent-decoded.",
   "origin": {
     "kind": "github",
     "ref": "#57",
@@ -10,8 +10,8 @@
   "sources": {
     "01-intent.md": "8caec92a8ada33a37185491ac841441898f8e815d672ece8524b8cb1754230fb",
     "02-answers.md": "981c563f7ef241b3793ec914ee5549e933871997a7862b2fc571ba10f198013c",
-    "03-change-spec.md": "cde044fbe3024923c4db462da80fddb452c53eefa6fc976af39fdfebd2be9143",
+    "03-change-spec.md": "7c0bab3a2503c00642132304c33367649a02342313d7cbaa4db82e300e8ff6ca",
     "intake/request.md": "6f6e7bc9b3b722c666a3e0548bf1ef126138d4cc6bfe4ba605f681b522ffe43c"
   },
-  "summarized": "2026-11-25T19:48:39Z"
+  "summarized": "2026-11-25T19:51:25Z"
 }

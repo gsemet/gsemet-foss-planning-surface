@@ -1,6 +1,6 @@
 # CR-504: declared scenarios and paths with no marker
 
-Computed on the worktree after round 3. A SwRS scenario is covered by a `@tests_req <SwRS-ID>#S<n>` line; a StRS path by an `@accepts_req` or `@tests_req <StRS-ID>#S<n>` line. In-force requirements only (not exempt, not deprecated or superseded). SwRS scenarios declared: 2617, with no marker: 722. StRS paths declared: 156, with no marker: 94.
+Computed on the worktree at the end of round 6. A SwRS scenario is covered by a `@tests_req <SwRS-ID>#S<n>` line; a StRS path by an `@accepts_req` or `@tests_req <StRS-ID>#S<n>` line. In-force requirements only (not exempt, not deprecated, superseded or archived). SwRS scenarios declared: 2623, with no marker: 722. StRS paths declared: 156, with no marker: 67.
 
 Some entries come from round 3, which drops the fragment of a test that checks no declared scenario instead of guessing one; the others were uncovered before (the first pass gave `S1` when nothing matched, so the later scenarios of a SwRS were never marked). Whether each is a missing test or a scenario worded wider than any test is for the owner or a following CR.
 
@@ -737,7 +737,6 @@ Some entries come from round 3, which drops the fragment of a test that checks n
 |---|---|---|
 | StRS-MDOKFSTUDIO-BLOCK-001 | S2 | Reopen a document |
 | StRS-MDOKFSTUDIO-BLOCK-006 | S1 | Type, then finish |
-| StRS-MDOKFSTUDIO-BLOCK-011 | S2 | Start an empty document |
 | StRS-MDOKFSTUDIO-BLOCK-011 | S3 | Write on a blank line |
 | StRS-MDOKFSTUDIO-BLOCK-014 | S1 | Move a block with an arrow |
 | StRS-MDOKFSTUDIO-BLOCK-014 | S3 | Move a list item |
@@ -745,38 +744,25 @@ Some entries come from round 3, which drops the fragment of a test that checks n
 | StRS-MDOKFSTUDIO-BLOCK-027 | S1 | Copy a selection verbatim |
 | StRS-MDOKFSTUDIO-BLOCK-027 | S2 | Copy a selection that an edge cuts inside a construct |
 | StRS-MDOKFSTUDIO-CODE-001 | S1 | Read highlighted code |
-| StRS-MDOKFSTUDIO-CODE-001 | S2 | Review a diff |
-| StRS-MDOKFSTUDIO-CODE-004 | S1 | Copy a code sample |
 | StRS-MDOKFSTUDIO-CORE-001 | S1 | Edit and see the preview follow |
-| StRS-MDOKFSTUDIO-CORE-001 | S2 | Read text of any script |
 | StRS-MDOKFSTUDIO-CORE-003 | S1 | A render fails after a good one |
 | StRS-MDOKFSTUDIO-CORE-003 | S2 | A construct needs a full build |
 | StRS-MDOKFSTUDIO-CORE-006 | S1 | Install the skill and write Markdown |
 | StRS-MDOKFSTUDIO-DIAG-001 | S1 | Insert a diagram and read it |
-| StRS-MDOKFSTUDIO-DIAG-001 | S2 | Break a diagram |
-| StRS-MDOKFSTUDIO-DIAG-006 | S1 | Read a PlantUML diagram |
 | StRS-MDOKFSTUDIO-DIAG-006 | S2 | Learn why a diagram has no picture |
 | StRS-MDOKFSTUDIO-DIAG-007 | S1 | Draw with an own JAR |
 | StRS-MDOKFSTUDIO-DIAG-009 | S1 | Include a local file in a diagram |
 | StRS-MDOKFSTUDIO-DIAG-009 | S2 | Keep a diagram in a PUML file |
 | StRS-MDOKFSTUDIO-DIAG-015 | S1 | Read a chart in the page |
-| StRS-MDOKFSTUDIO-DIAG-015 | S2 | Read a drawing in the page |
 | StRS-MDOKFSTUDIO-FMEDIT-005 | S1 | Rename a key |
 | StRS-MDOKFSTUDIO-FMSCHEMA-001 | S1 | Read and fold the properties |
 | StRS-MDOKFSTUDIO-FMSCHEMA-001 | S2 | Edit the frontmatter |
-| StRS-MDOKFSTUDIO-FMSCHEMA-006 | S1 | A schema is found and loaded |
 | StRS-MDOKFSTUDIO-FMSCHEMA-006 | S2 | No schema is looked up |
-| StRS-MDOKFSTUDIO-FMSCHEMA-010 | S1 | Fields and their problems |
 | StRS-MDOKFSTUDIO-FMSCHEMA-014 | S2 | Link problems in the badge |
-| StRS-MDOKFSTUDIO-GFM-002 | S1 | Paste a link and a table |
 | StRS-MDOKFSTUDIO-GFM-002 | S2 | Alerts and raw HTML tables |
-| StRS-MDOKFSTUDIO-LAYOUT-001 | S1 | A wide table |
 | StRS-MDOKFSTUDIO-LAYOUT-001 | S2 | Long words and URLs |
 | StRS-MDOKFSTUDIO-LAYOUT-003 | S1 | Change the width mode |
-| StRS-MDOKFSTUDIO-LAYOUT-003 | S2 | Set the width in the settings |
-| StRS-MDOKFSTUDIO-LAYOUT-004 | S1 | The first element starts below the top |
 | StRS-MDOKFSTUDIO-LAYOUT-004 | S2 | The toolbar covers the first control |
-| StRS-MDOKFSTUDIO-LIFE-001 | S2 | Open as a tab |
 | StRS-MDOKFSTUDIO-LIFE-003 | S2 | Refresh on demand |
 | StRS-MDOKFSTUDIO-LIFE-005 | S2 | A dependency changes |
 | StRS-MDOKFSTUDIO-LIFE-007 | S1 | Wait for a render |
@@ -790,22 +776,14 @@ Some entries come from round 3, which drops the fragment of a test that checks n
 | StRS-MDOKFSTUDIO-LIFE-023 | S3 | Jump while the side preview is open |
 | StRS-MDOKFSTUDIO-LIFE-023 | S4 | Get the association back from the old setting |
 | StRS-MDOKFSTUDIO-MYST-005 | S1 | A construct only a build resolves |
-| StRS-MDOKFSTUDIO-MYST-005 | S2 | A fence the parser cannot build |
-| StRS-MDOKFSTUDIO-MYST-006 | S1 | A formula |
-| StRS-MDOKFSTUDIO-MYST-007 | S2 | The banner |
-| StRS-MDOKFSTUDIO-MYST-009 | S1 | Reference a label |
-| StRS-MDOKFSTUDIO-MYST-012 | S1 | A table of contents |
 | StRS-MDOKFSTUDIO-MYST-015 | S1 | An admonition |
 | StRS-MDOKFSTUDIO-MYST-015 | S2 | A pasted context tag |
-| StRS-MDOKFSTUDIO-MYST-017 | S1 | A figure |
 | StRS-MDOKFSTUDIO-MYST-017 | S2 | A table |
-| StRS-MDOKFSTUDIO-MYST-018 | S1 | Text constructs |
 | StRS-MDOKFSTUDIO-PALETTE-005 | S2 | See the palette appear softly |
 | StRS-MDOKFSTUDIO-PALETTE-007 | S2 | Colour a selection |
 | StRS-MDOKFSTUDIO-PALETTE-013 | S1 | Refer to a label of the document |
 | StRS-MDOKFSTUDIO-PALETTE-013 | S2 | Fence code in a language |
 | StRS-MDOKFSTUDIO-PALETTE-015 | S2 | Find a command by its alternative name |
-| StRS-MDOKFSTUDIO-PALETTE-018 | S2 | Paste rich text |
 | StRS-MDOKFSTUDIO-PALETTE-020 | S1 | Insert an alert |
 | StRS-MDOKFSTUDIO-PALETTE-021 | S1 | Wrap lines in an admonition |
 | StRS-MDOKFSTUDIO-REVIEW-001 | S2 | A thread comes back after an undo |
@@ -816,16 +794,11 @@ Some entries come from round 3, which drops the fragment of a test that checks n
 | StRS-MDOKFSTUDIO-TABLE-001 | S2 | Edit a cell of a quoted table |
 | StRS-MDOKFSTUDIO-TABLE-008 | S2 | Delete a row |
 | StRS-MDOKFSTUDIO-TABLE-013 | S2 | Convert the table being edited |
-| StRS-MDOKFSTUDIO-THEME-002 | S1 | Go to the next theme |
 | StRS-MDOKFSTUDIO-THEME-002 | S2 | Switch the theme when the system asks for reduced motion |
 | StRS-MDOKFSTUDIO-THEME-004 | S1 | Pick a theme and find it again |
 | StRS-MDOKFSTUDIO-TOOLBAR-001 | S1 | Collapse the toolbar and find it collapsed |
 | StRS-MDOKFSTUDIO-TOOLBAR-002 | S1 | Fold sections and keep them folded |
-| StRS-MDOKFSTUDIO-TOOLBAR-004 | S1 | Scroll and keep the section in view |
 | StRS-MDOKFSTUDIO-TOOLBAR-004 | S2 | Change the depth of the band |
-| StRS-MDOKFSTUDIO-TOOLBAR-006 | S1 | Open the table of contents and jump |
-| StRS-MDOKFSTUDIO-TOOLBAR-006 | S2 | Narrow pane |
 | StRS-MDOKFSTUDIO-TOOLBAR-011 | S2 | Follow an anchor |
-| StRS-MDOKFSTUDIO-TOOLBAR-013 | S2 | See the cursor in the preview |
 | StRS-MDOKFSTUDIO-TRUST-009 | S1 | The page asks the host to act |
 | StRS-MDOKFSTUDIO-TRUST-009 | S2 | The host answers the page |
