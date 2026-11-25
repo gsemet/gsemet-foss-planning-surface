@@ -67,14 +67,19 @@ stand-in.
   in common: who may run them, the typed-only rule, and that nothing else changes. Each
   `command-<x>` topic reads that file first, then its own file. Each shared rule is written once.
 - **D3. Typed by the user only.** Each command skill's front matter has
-  `disable-model-invocation: true`, so on Claude Code the model cannot invoke it by itself. The
-  shared topic says the same in words (P3: the go is in the user's own message of the turn), for
-  a host that ignores that key (Copilot, untested).
+  `disable-model-invocation: true`, meant to keep the model from invoking it by itself. The
+  repository holds no record of that key on either host: on Claude Code it is unproved until
+  evidence 5 measures it; on Copilot it is untested. The shared topic says the same in words (P3:
+  the go is in the user's own message of the turn), so the rule holds on a host that ignores the
+  key.
 - **D4. The launcher paragraph is copied.** Each new skill carries the same `$CHANTIER` paragraph
   as the four existing `SKILL.md` files, byte for byte, and its `chantier-version:` line. So each
   command runs on its own, on both hosts, with no skill loading another. Copilot does not record
   which tool loads another skill (`hosts/copilot.json`, `load-skill`). A test keeps the copies
-  identical.
+  identical. How the host passes the words typed after a command to a skill that names no
+  `$ARGUMENTS` is not recorded either: the `skills` row of `hosts/claude-code.json` is
+  `untested`, and `hosts/copilot.json` says how Copilot passes the arguments is not known. Evidence
+  5 measures it on Claude Code; on Copilot it stays untested.
 - **D5. The hook counts a command as the Chief of Staff.** On Claude Code, when one of the five
   skills loads, `hooks/register.tsx` records the role `chief-of-staff` and opens the CR board pane,
   just as for `/chantier:chief-of-staff`. Then a session that started with
@@ -114,8 +119,9 @@ Paths are from the repository root. `references/` is `skills/chantier/references
   - the launcher paragraph and the "Cards: ... CLI: ..." line, copied from
     `skills/chief-of-staff/SKILL.md` (D4);
   - one paragraph: "Run `$CHANTIER help command-<command>` and follow it, with the words the user
-    typed after the command." Only the host's own substitution brings in the typed words. The text
-    names no `$ARGUMENTS`, which is not recorded on Copilot.
+    typed after the command." The text names no `$ARGUMENTS`, which is recorded on neither host.
+    That the host brings the typed words to the skill is unproved (D4): evidence 5 measures it on
+    Claude Code.
 - **Nothing else.** In particular, no rule of the topic is copied here.
 
 ### 2. The topics (new): `references/topics/commands.md` and five command files
@@ -210,7 +216,10 @@ answer here instead.
 #### 2.3 `command-batch-close.md` (Answers 8 and 9)
 
 - **No batch open:** one line.
-- **A paused batch:** the close offer of `help batch-close`, at once, whatever the moment:
+- **A paused batch:** the close offer of `help batch-close`, once the Foreman's `final` (Foreman
+  mode) and the retro critic's hand-back are in, as `help batch-close` says. Before that, show the
+  Progress report and say what it waits for (the Foreman's `final`, the retro critic), and close
+  nothing. Once both are in:
   - if the Completion report and the retro offer were not given yet, give them first
     (`help batch-pause`);
   - then the check (`close --batch <b>`, no `--yes`), its bilan and what it removes;
@@ -236,11 +245,12 @@ answer here instead.
   - already in the batch: say so;
   - in `3-ready`, its specification final: `order add --note <folder>` at once, then as usual (in
     Foreman mode, relay the line to the Foreman);
-  - in the inbox or the backlog: `triage <folder> --running-batch`. Then grill the missing
-    questions (`help grill-series`), restate in full, and ask "grilled enough?" without the
-    destination options (open question 2). On the yes, start the spec-writer
-    (`help grill-specify`) and the spec critic when it is due (`help grill-critic`). Once the
-    specification is final, `order add --note <folder>`;
+  - in the inbox or the backlog: grill the missing questions (`help grill-series`), restate in
+    full, and ask "grilled enough?" without the destination options (open question 2). On the
+    yes, as `help grill-specify` says: write `work/specifying`, then
+    `triage <folder> --running-batch` (the CLI refuses it on a CR not yet grilled), then start the
+    spec-writer and the spec critic when it is due (`help grill-critic`). Once the specification
+    is final, `order add --note <folder>`;
   - in another batch, `5-archives` or `6-trash`: one line, nothing done.
 - **A request:** `file` it, with a title of at most 72 characters, then handle it as an inbox CR.
 - **No batch open** (running or paused): grill and specify the same way, but with
@@ -321,9 +331,12 @@ answer here instead.
   Topics need no other ids (CR-512's Q2).
 - **Budgets.** Each of the six new topic files gets its row in `references/budgets.json` (owner
   `topic`). Its limit is its size rounded up to the next 10 bytes, or follows whatever rule CR-512
-  shipped for a file added after the freeze. No existing limit is raised. If that rule asks for
-  the owner's approval line (M11), the PR quotes Answer 10. Until the owner gives the line, its
-  Known gaps say "budgets.json rows added for six topics: owner's approval line".
+  shipped for a file added after the freeze. No existing file's limit is raised. The six rows
+  raise the total: `sum_limit` in `budgets.json` and the constant `SUM_LIMIT` in
+  `tests/test_card_budgets.py` both grow by the sum of the six new limits, in the same commit
+  (CR-512 makes a raise touch both places). No answer in `02-answers.md` approves a budget change:
+  until the owner gives the approval line (M11), the PR's Known gaps say "budgets.json: six topic
+  rows added and sum_limit/SUM_LIMIT raised by <n> bytes: owner's approval line".
 - **The measured paths.** They do not change, because no role's card or brief names the new
   topics (D1). The Driver checks this with `test_path_within_limit`.
 
@@ -339,12 +352,14 @@ answer here instead.
 
 - `references/hosts/copilot.json`, capability `skills`: "The same four skills" becomes the same
   nine skills, named. Its `load-skill` line "The four skills are declared in
-  `.github/plugin/plugin.json`" becomes nine. A line says that `disable-model-invocation` and
-  `argument-hint` are untested on this host.
+  `.github/plugin/plugin.json`" becomes nine. A line says that `disable-model-invocation`,
+  `argument-hint` and how the typed words reach the skill are untested on this host.
 - `references/hosts/claude-code.json`, capability `skills`: one line says the five commands are
-  skills with `disable-model-invocation: true`. The user types them; the model does not invoke
-  them.
-- No `mark` and no new row change (CR-494's data).
+  skills with `disable-model-invocation: true`, meant to be typed by the user only. Whether the
+  model is kept from invoking them, whether `argument-hint` shows, and how the typed words reach
+  the skill are measured by evidence 5 only; the line claims nothing more.
+- No `mark` and no new row change (CR-494's data): the `skills` rows stay `untested` until a
+  later CR records evidence 5's measure.
 
 ### 5. The hook (`hooks/register.tsx`, D5)
 
@@ -427,7 +442,8 @@ structure, or extract the text from both shipped files.
 - A `grill-to-pending` command (Answer 6).
 - The options the research proposed and the owner did not pick: `--answers`, `--deliver`,
   `--release`, `--now`, `--end`, `--grill`.
-- Changing the Chief of Staff's or the Griller's card. Raising a frozen limit.
+- Changing the Chief of Staff's or the Griller's card. Raising an existing file's frozen limit
+  (the total `sum_limit`/`SUM_LIMIT` grows by the six new rows only, section 2.6).
 - The router's description, the `init` tour, and the commands that the research set aside
   (status, the board link, merges).
 - A version bump.
@@ -439,8 +455,8 @@ depends on a configured value against a shipped default, so there is only one co
 
 | Host | Defaults | Status and evidence |
 | --- | --- | --- |
-| Claude Code | shipped | Measured: the five in the slash menu with their hints; a model that cannot invoke them; the hook's role and pane; the real session of evidence 5; the quiz cases |
-| Copilot | shipped | The skills are listed in `.github/plugin/plugin.json`, and the tests check the files. Untested in a real Copilot session: the commands' names in its menu, `argument-hint`, and whether `disable-model-invocation` is honoured (the topic's typed-only rule stands in for it). No hook, so no role or pane is recorded |
+| Claude Code | shipped | Measured by evidence 5 (a real session at head): the five in the slash menu with their hints; a plain request that does not invoke them; the typed words reaching the skill (`/chantier:batch-start stack`); the hook's role and pane. Until evidence 5 is recorded, each of these is unproved. The hook's cases and the quiz cases are measured by evidence 4 and 6 |
+| Copilot | shipped | The skills are listed in `.github/plugin/plugin.json`, and the tests check the files. Untested in a real Copilot session: the commands' names in its menu, `argument-hint`, how the typed words reach the skill, and whether `disable-model-invocation` is honoured (the topic's typed-only rule stands in for it). No hook, so no role or pane is recorded |
 
 ## Acceptance evidence
 
@@ -459,9 +475,13 @@ Recorded in the PR or under `<CR folder>/evidence/`, from the head pushed.
    - the slash menu listing the five commands, with `batch-start`'s hint;
    - `/chantier:batch-start` typed with no words: one message asks the shape and the budget, and
      `status` shows no batch opened;
+   - `/chantier:batch-start stack` typed: one message asks the budget only, the shape taken from
+     the typed word, and `status` shows no batch opened (the typed words reach the skill);
    - `/chantier:batch-close` with no batch open: one line;
-   - a plain request ("start a batch") that does not invoke the `batch-start` skill (the model
-     cannot invoke it).
+   - a plain request ("start a batch") that does not invoke the `batch-start` skill (the measure of
+     `disable-model-invocation` on Claude Code).
+
+   A cell this session does not show stays unproved, named in the PR's Known gaps.
 
    No batch is started there; the quiz covers the start. The board pane opening after
    `/chantier:batch-start` is visible in that session.
@@ -471,8 +491,9 @@ Recorded in the PR or under `<CR folder>/evidence/`, from the head pushed.
    and says so, and the Chief of Staff runs the quiz.
 7. **M6 (CR-513).** The PR quotes the owner's line from `02-answers.md`, Answer 10, and the
    counts in `work/research-commands.md`, as the measure the card text rests on.
-8. **Budgets.** CR-512's tests pass with the six new rows. The PR quotes each row and the size it
-   froze.
+8. **Budgets.** CR-512's tests pass with the six new rows and the raised `sum_limit` and
+   `SUM_LIMIT`. The PR quotes each row and the size it froze, and the two total figures, before and
+   after.
 
 ## Gates
 
@@ -497,7 +518,8 @@ None.
 
 - **`batch-start` removes the go before a batch** (the reason for the spec critic). These guard
   it:
-  - the typed-only rule, in two places (`disable-model-invocation`, and P3 in the topic);
+  - the typed-only rule, in two places (`disable-model-invocation`, unproved until evidence 5,
+    and P3 in the topic);
   - the preflight, which still stops everything on a failure;
   - the quiz case `cmd-batch-start-go`, together with a check that a plain request does not invoke
     the skill (evidence 5).
