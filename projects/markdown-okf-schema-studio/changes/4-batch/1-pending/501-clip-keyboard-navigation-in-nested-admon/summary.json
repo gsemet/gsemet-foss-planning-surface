@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "title": "Clip: keyboard navigation in nested admonitions",
-  "summary": "Grilled; storyboard and stage ready; for batch-09, spec to write.: 20 s, after the renderings tour.",
+  "summary": "Specified: a 20 s Windows clip, eleven badged key presses (E, arrows, Enter, Esc, Ctrl+Backspace, Ctrl+Enter) editing a list item inside a note admonition; stacks on the renderings tour (30 s kit); no kit change; draft PR for the owner's review.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "2cc464c8e3f5b1ca584eafab36453ec11bae6b3f5bbeaf37ecbc5b5dd3a65afe",
     "02-answers.md": "55b8519627a77bb2107ff1b35eed1301970820c544f89261760c31bcdcf2e89f",
+    "03-change-spec.md": "316b4ec56e2c0433195a952db58dc1a6191b6e6a897ae273daa912c37bf0b160",
     "intake/request.md": "a229ea449233b5580af192ccdc3369a88daa394738e2020c055107633cd58eb6"
   },
-  "summarized": "2026-11-25T09:04:06Z"
+  "summarized": "2026-11-25T09:15:54Z"
 }

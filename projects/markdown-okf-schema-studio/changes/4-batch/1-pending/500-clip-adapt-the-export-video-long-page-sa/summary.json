@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Clip: export a long report page to HTML",
+  "summary": "Specified: rework the export-html clip in place, 18 s in three beats: a long Cream page in Auto width scrolled in Studio, exported, then the same page in the Integrated Browser with Mermaid, Vega-Lite and Vega drawn. After the renderings tour (30 s kit).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "78873feb2b077afcb9fb87e961598c185a4199c2238692cc9d02196fd7e378af",
+    "02-answers.md": "8b6d8c0f71fd24391c801223c6078028acee11ec1890e1770b1ea59b0a8e6fe3",
+    "03-change-spec.md": "93f743b09195261cb0fec4e50c00f52275016b9838f948ba0c0e55f059ebead0",
+    "intake/request.md": "ed030032df7a8d481489f3313fb27a430e2991a1a73892f8021a917eaa68f102"
+  },
+  "summarized": "2026-11-25T09:15:22Z"
+}
