@@ -53,7 +53,7 @@ No visual change. Workers stop losing turns to scratchpad and `/dev/null)` refus
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): the cases of `hooks/register.test.tsx`
-- [ ] Local gates at `<sha7>`: `just mod` (validate passed with the one missing-icon warning; test 117 pass, 0 fail, 4.29 s); `just check`; `just test` seconds added: 0 (no pytest file changes)
+- [ ] Local gates at `ff04241`: `just mod` (validate: "Validation passed with warnings", the one warning is the missing plugin icon; test: "117 pass, 0 fail, Ran 117 tests across 1 file. [4.35s]"); `just check` passed (2688 passed, 20 skipped); `just test` seconds added: 0 (no pytest file changes)
 - [ ] Evidence: none (hook behaviour, covered by the mocked cases; real session unproved)
 - [ ] Review: approved at `<sha7>`
 - [ ] Verified at `<sha7>`
