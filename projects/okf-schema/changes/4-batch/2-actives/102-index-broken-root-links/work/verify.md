@@ -248,3 +248,84 @@ The after captures were taken again at `H`; they hold no user name or home folde
   change the exit status); "validate --strict can start failing" does not make `okfreq validate`
   fail.
 - The log entry under `requirements/` still carries the older run's figures; Known gaps says so.
+
+## D. Description pass on the edited body (H) - VERIFIED
+
+Only the description was judged: head unchanged (`git rev-parse HEAD` -> H, `git status --porcelain`
+empty), base main `1a742d7`, title unchanged. C0 to C18 and the observations above are kept; C7 to
+C18 judged the body of 2026-11-25T23:12:32Z, and D1 to D7 cover the body posted at 23:26:48Z.
+
+### D1. Posted body: source and extent of the edit (H) - VERIFIED
+
+    gh pr view 70 --json body --jq .body ; diff --strip-trailing-cr with work/pr-body.md
+      -> one trailing blank line only ("146d145")
+    gh api graphql ... pullRequest(number:70).userContentEdits ; difflib of the 23:12:32Z and
+      23:26:48Z versions -> only: 16 added lines after the before/after block (caption, paragraph,
+      text block), and the third Behaviour changes bullet rewritten. Every other line is unchanged,
+      so C8 to C18 carry for it (same head, same text).
+
+### D2. Rendering, references, images (H) - VERIFIED
+
+    gh api repos/gsemet/okf-schema/pulls/70 -H "Accept: application/vnd.github.html+json" --jq .body_html
+      -> h2 Description, Type of Change, Checklist, Known gaps, Related Issues; h3 Behaviour changes,
+         Surfaces, Example, Validation; both text blocks closed, `<project>` shown literally; caption
+         and new paragraph as paragraphs; mermaid block; task lists; #57 linked
+    search of the posted body for CR and batch references, role names, STALE, UNVERIFIED, images,
+      <details>, user name and home folder paths -> no match
+    .github/pull_request_template.md: its four sections are present in its order (Known gaps added)
+
+### D3. Caption under the before/after block (H) - VERIFIED
+
+    gh issue view 57 --json state,body | grep -F "- [api](./api/)"
+      -> lines 27, 51: "- [api](./api/) — [Health Check](health-check.md)  [API Endpoint]" = "before"
+    work/verifier/evidence/after-1-summary.txt, "head 125952d...", steps 1 and 2
+      -> "- [api](./api/) — Auto-generated index for concepts in `api`." = "after"
+    "the base was not run (see Known gaps)": before-after.md says "Not captured" for every pair
+      (carried from 8537709, C18); the Known gaps bullet is posted
+
+### D4. "Two more runs at 125952d" and their block (H) - VERIFIED
+
+    after-2-w2.txt (head 125952d), step 3: root line "[Health Check](nope.md)", validate --strict
+      -> "  WARNING [W2] Broken cross-link 'nope.md' in '<project>\kb\bundle\index.md'", exit 1
+    after-3-anchors-stats.txt (head 125952d), step 7b: "[top](#top)" appended -> "2 links"; then
+      "[gone](missing.md#part)" appended -> "3 links (1 broken)", "Health: 90% — 1 broken link"
+    Run again at H, fresh git-initialised folder under work/scratch, worktree CLI
+    (okf_schema imported from <W>/src), absolute --path:
+      uv run --no-sync -- okf-schema validate --strict --path <S>/vdesc/kb/bundle
+        -> "WARNING [W2] Broken cross-link 'nope.md' in '...\kb\bundle\index.md'",
+           "Validation failed: 0 error(s), 1 warning(s) (strict mode).", exit 1
+      uv run --no-sync -- okf-schema stats --path <S>/vdesc/kb/bundle   (the three links added)
+        -> "3 links (1 broken)", "Health: 90% — 1 broken link", exit 0
+    The quoted lines are exact. The block is an excerpt of each output.
+
+### D5. Third Behaviour changes bullet (H) - VERIFIED
+
+    "every index.md and log.md, W2, --strict": checks 14, 18, 21 (C2), unchanged code
+    work/verifier/probes-125952d.log (run at H):
+      okfkb validate kb, after links to gone-index.md and gone-log.md
+        -> two W2, "Validation failed: 0 error(s), 2 warning(s) (strict mode).", exit 1
+      okfreq validate .agents/requirements, after links in tiers/index.md and tiers/log.md
+        -> "0 requirements, 0 errors, 2 warnings", two W2, exit 0
+    "still exits 0 on them": okfreq/core.py:2809-2817 _okf_findings returns each finding as
+      "<code> <path>: <message>"; okfreq/cli.py:285-305 counts those starting with "W" as warnings
+      and exits 1 only on errors; `validate` has no strict option (cli.py:227-239)
+
+### D6. Validation section, CI still as stated (H) - VERIFIED
+
+    gh run list --commit 125952d... -> one run, 45718843170, CI, completed success
+    gh pr checks 70 -> preflight 3.10-3.13, cross-platform macos-latest and windows-latest pass;
+      tag-release skipping. Test counts carried from C5, gate figures from C1 (same head).
+
+### D7. Known gaps still complete (H) - VERIFIED
+
+The thirteen bullets are unchanged (D1). before-after.md's one uncaptured item has its bullet; no
+`**UNVERIFIED:**` or STALE mark; no claim failed here; `$CHANTIER log CR-102` records no gap left
+since the 23:12:32Z body.
+
+### Observations of this pass, not failures
+
+- The quoted block drops lines of both outputs (file header and summary line; file, type counts)
+  with no "..." mark. The concept in the second run also held the percent-encoded link of step 5,
+  which is why two added links give three.
+- `okfreq validate` runs these checks on the folder of `tiers_path(root)` (`tiers/`, or the root of
+  a flat bundle): an `index.md` outside it is not checked by that command. Scope unchanged by this CR.
