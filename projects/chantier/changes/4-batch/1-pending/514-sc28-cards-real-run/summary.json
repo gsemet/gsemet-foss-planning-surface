@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC28: The real run of the new cards, measured for the merge",
+  "summary": "Specified for one Driver (child 28, top of stack on child 27): behaviour.py --against and msg count; quiz old vs new cards; budgets/pending_owner, owner lists, defaults to confirm; user-run real-foreman campaign on the top worktree; decision report for merging 19-28. 3 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "8e28344001f4495dbbf8624053d92f05214b9a0ebd9225b5684ff1712e81bf6c",
+    "02-answers.md": "a3acd008a490d991e38226b614c63ddcf3e539f4757bfdd3ec446f98f0ff6546",
+    "03-change-spec.md": "6a0ff27d5aa6d634b4e79398d98874c4d2e999bd4f206181265d25e16caad24d",
+    "intake/request.md": "567b723e3b51bf32d2ae9335e7b0c03261117c9bd648c4a35ba16bd0863ef101"
+  },
+  "summarized": "2026-11-25T00:48:28Z"
+}
