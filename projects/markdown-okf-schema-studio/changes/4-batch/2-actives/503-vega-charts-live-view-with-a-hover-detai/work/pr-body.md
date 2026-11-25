@@ -45,14 +45,14 @@ Grade: 2. Charts are drawn through a different renderer and cache; revert restor
 - [x] Local gates: `just preflight` (static stage, Windows) passes at 4404b98
 - [x] Real window: the `live-chart` scenario passes in the heavy run [45617988132](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45617988132) at 4404b98 (`PASS real-input screenshot: diagrams/r01-live-chart-hover`)
 - [x] Review: approved at 4404b98 (reviewed as the uncommitted diff on 3df0c86, committed as 4404b98); round 4 (one line of `docs/demo-video/clips/export-html/scenario.mjs`) approved, committed as 124a348
-- [x] CI green: static, static-windows, visual and viewer-graph pass at 124a348 (and at 4404b98)
+- [x] CI green: static, static-windows, visual and viewer-graph pass at 124a348 (and at 4404b98); heavy run [45625193289](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45625193289) at 124a348: live-chart scenario passes
 - [x] Clip: `just clip export-html take` (verify included) passes at 124a348 on a fresh VSIX
 
 ## Known gaps
 
 - The heavy run's `integration` job failed on a launch timeout of the trusted suite at the `diff-preview` step, which is not this change; the default branch's own heavy run [45580228461](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45580228461) failed the same way (at `lifecycle`).
 - The hover box and the chart's SVG root get their position and size through the CSSOM, which Chromium shows as a `style` attribute; no Content Security Policy violation is raised, which the `live-chart` scenario checks.
-- The `live-chart` real-window pass is the heavy run at 4404b98; the run at 124a348 is [45625193289](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45625193289) (see the result below).
+- The `live-chart` real-window pass is the heavy run at 4404b98; the heavy run [45625193289](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45625193289) at 124a348 passes it again (`PASS real-input screenshot: diagrams/r01-live-chart-hover`); its `integration` job failed again on a launch timeout of the trusted suite (step `generic-markdown`), the same class as above, and static, visual, stress and viewer-graph pass.
 
 ## Internal references
 
