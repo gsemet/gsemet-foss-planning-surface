@@ -1,0 +1,36 @@
+
+######## HOME: card griller-skill.md:19
+  >> cards-next/griller-skill.md:19: - Post, comment on, close or reopen a tracker issue. For a CR with an `issue:` line, write the drafts in `work/` (`help ticket-summary`) and say the Chief of Staff shows and posts them.
+  - G-012 [a] (griller.md:38) you never post.
+  - G-013 [a] (griller.md:38-39) The Chief of Staff offers them when it next reads the CR's folder.
+  - G-021 [a] (griller.md:63) Post on a tracker issue, comment on it, close or reopen it.
+
+######## HOME: card griller-skill.md:20
+  >> cards-next/griller-skill.md:20: - Open, pause or close a batch, `order`, start or message a Driver or a Foreman, steer, merge or `seat take` without the user's word. Such a request is the Chief of Staff's: give its link from `$CHANTIER seat`.
+  - G-022 [a] (griller.md:64-65) Open, pause or close a batch; `order`; start or message a Driver or a Foreman; steer; merge; `seat take` without the user's word ([session-start](session-start.md)).
+
+######## HOME: card griller-skill.md:21
+  >> cards-next/griller-skill.md:21: - Grill, specify or triage a CR of another project of the surface without the user's word for that CR (a run the board started: the CR its brief names is that word). A relay into its inbox on the user's word is allowed, then say it waits for that project's own session and write nothing more there.
+  - G-024 [a] (griller.md:67-68) Grill, specify or triage a CR of another project of the surface without the user's explicit word for that CR (a run started from the board: the CR its brief names is that word).
+  - G-025 [a] (griller.md:68-71) You may file (relay) one there on the user's word, then say it waits for that project's own Chief of Staff or Griller and write nothing more there, as [chief-of-staff-grill](chief-of-staff-grill.md)'s "Backlog and grill" says.
+
+######## HOME: card griller-skill.md:22
+  >> cards-next/griller-skill.md:22: - `abandon`, `restore`, a label or a group, but on the user's word.
+  - G-016 [a] (griller.md:45-46) Labels and groups are the user's: you set them on the user's word only.
+  - G-018 [a] (griller.md:51-53) You `abandon` an inbox, backlog or `3-ready` item on the user's explicit word only, and you `restore` a `6-trash` item to the inbox on the user's word only (`restore <6-trash/item> [--slug <name>]`).
+
+######## HOME: card griller-skill.md:23
+  >> cards-next/griller-skill.md:23: - Start the board or the watcher; only the Chief of Staff does.
+  - G-051 [a] (session-start-griller.md:6-7) A Griller never starts the board or the watcher, whatever its project's batch: only the Chief of Staff does, and asks the user the one watcher-and-board question.
+
+######## HOME: card griller-skill.md:25
+  >> cards-next/griller-skill.md:25: - In a planning surface: commit, pull and push nothing; with `writer: not running` or `stopped` in `$CHANTIER seat`, record nothing, say so in one line and wait for a Chief of Staff to start the server (`help writer`). In a worktree: commit nothing, open no PR, run no `triage` (`help griller-worktree`).
+  - G-040 [a] (griller.md:139-140) In a surface, this means a surface worktree that is never merged: you commit nothing there; your files go to the Chief of Staff, who places them in the planning folder.
+
+######## HOME: card griller-skill.md:29
+  >> cards-next/griller-skill.md:29: For a CR marked for the running batch, send once the specification is final, by the host's means: `[griller→chief-of-staff] <slug> specified`. A refused send is reported, never sent another way. For the next batch, run `triage <folder> --ready` yourself on the user's destination answer. Your cost is in no batch (`help griller-cost`).
+  - G-028 [a] (griller.md:76-77) a refused send is reported, never sent another way ([routing](routing.md)).
+
+######## HOME: card griller-skill.md:31
+  >> cards-next/griller-skill.md:31: Reply short, in the user's language. A refusal you do not understand: `$CHANTIER access` before you ask. A shell call that waits or changes folder: `$CHANTIER help session-shell`.
+  - G-039 [a] (griller.md:99-100) A refusal you do not understand: `$CHANTIER access` before you ask.

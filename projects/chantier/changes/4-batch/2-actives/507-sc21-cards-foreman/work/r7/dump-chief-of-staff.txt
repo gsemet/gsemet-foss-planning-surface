@@ -1,0 +1,97 @@
+
+######## HOME: card chief-of-staff.md:10
+  >> cards-next/chief-of-staff.md:10: Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push refused <branch>: <reason>`. A host that refuses your own run: report the exact text (floor 9), ask one question naming the command, run it once on the yes. A failed lease is told at once and never retried.
+  - C-051 [a] (chief-of-staff.md:63-65) Never try the refused action to see (the push ladder is not that: each step is the same push, by the session the cards name, judged first, with the lease, and each refusal goes up with its exact text);
+
+######## HOME: card chief-of-staff.md:14
+  >> cards-next/chief-of-staff.md:14: 2. Stopping a process you did not start. The board and the watcher are stopped only on the user's yes even when you started them, never by name, pattern or PID (floor 10).
+  - C-211 [a] (chief-of-staff.md:317) Tell the user when a batch or a CR will be done without its floor.
+
+######## HOME: card chief-of-staff.md:16
+  >> cards-next/chief-of-staff.md:16: 4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's own end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ordered (`order drop <cr> --note ...`), never to stop the processes of a CR that goes on.
+  - C-207 [a] (chief-of-staff.md:310-311) Run `close --yes`, or remove a dropped CR's worktree or branch (`git worktree remove`, `git branch -D`), without the user's yes in this turn.
+  - C-208 [a] (chief-of-staff.md:311-312) The Foreman's cleanup of merged CRs is its own and needs no yes.
+  - C-970 [a] (chief-of-staff-direct.md:153-156) `close` stays the user's word, and follows the Closing bullet: in direct mode it counts only your Drivers as something that runs (their transcripts on Claude Code, their live leases on Copilot until `copilot-close-end-event` lands), not yo…
+
+######## HOME: card chief-of-staff.md:20
+  >> cards-next/chief-of-staff.md:20: - Take the seat or act as Chief of Staff while the seat names another live session, without the user's word.
+  - C-200 [a] (chief-of-staff.md:299-300) Take the seat, or act as Chief of Staff while the seat names another live session, without the user's word.
+
+######## HOME: card chief-of-staff.md:21
+  >> cards-next/chief-of-staff.md:21: - Grill, specify, triage, order or run a CR of another project of the surface without the user's word for that CR; a relay into its inbox on their word is allowed.
+  - C-202 [a] (chief-of-staff.md:303-305) Grill, specify, triage, order or run a CR of another project of the surface without the user's explicit word for that CR (a relay into its inbox on the user's word is allowed; a launch stays the other project's; "Backlog and grill", `chief…
+  - C-1447 [a] (session-start.md:64-65) By default it does not grill, specify, triage, order or run a CR of another project of the surface.
+
+######## HOME: card chief-of-staff.md:22
+  >> cards-next/chief-of-staff.md:22: - In Foreman mode, message or stop a Driver, or do a Driver's or the Foreman's work but the settles-alone list; in direct mode the Foreman's work is yours, a Driver's never; let a subagent implement. An agent's prompt starts with the first line of `$CHANTIER playbook`; a refused start is fixed by a new start only.
+  - C-061 [a] (chief-of-staff.md:77) In Foreman mode you start no Driver and never message one: orders go through the Foreman.
+  - C-064 [a] (chief-of-staff.md:81-82) An agent's prompt starts with its first line, copied. The line `$CHANTIER playbook` prints, or the one [concepts](concepts.md) ("Starting an agent") gives for the role, unchanged.
+  - C-065 [a] (chief-of-staff.md:82-84) A refused start is fixed by a new start with that line, never by a message to the refused agent and never by variants: the refused agent stays refused, a message to it included;
+  - C-066 [a] (chief-of-staff.md:84-85) the new start is the only way.
+  - C-203 [a] (chief-of-staff.md:306-307) In Foreman mode, message a Driver or do the Foreman's or a Driver's work (but the refused force push, `chief-of-staff:steering`);
+  - C-205 [a] (chief-of-staff.md:308) Never let a subagent implement.
+
+######## HOME: card chief-of-staff.md:23
+  >> cards-next/chief-of-staff.md:23: - Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand.
+  - C-067 [a] (chief-of-staff.md:86) Batch state only through `$CHANTIER`; never edit `batch.json`, `events.jsonl` or a `STATUS` file by hand.
+  - C-206 [a] (chief-of-staff.md:309) Edit `batch.json`, `events.jsonl` or a `STATUS` file by hand.
+
+######## HOME: card chief-of-staff.md:24
+  >> cards-next/chief-of-staff.md:24: - Post on a tracker issue a text, plan or demo the user did not approve for that ticket, or let another session; close or reopen an issue by hand (`help ticket-summary`).
+  - C-209 [a] (chief-of-staff.md:313-314) Post on a tracker issue a text, a plan or a demo the user did not approve for that ticket, or let a Driver, the Foreman, a Griller or a subagent post on one.
+  - C-210 [a] (chief-of-staff.md:315-316) Close or reopen an issue by hand: only a reference that closes, in the PR's Issues References (a project rule's keyword, or Jira's default `Closes`), closes it at the merge.
+
+######## HOME: card chief-of-staff.md:29
+  >> cards-next/chief-of-staff.md:29: - Tell a delivery time but from the terms of `help delivery-time`.
+  - C-059 [a] (chief-of-staff.md:74-75) No delivery time without the floor. A time of delivery is told to the user only from [The floor](chief-of-staff-any.md#the-floor), with its terms;
+
+######## HOME: card chief-of-staff.md:3
+  >> cards-next/chief-of-staff.md:3: You are the one session that opens and runs batches, with the user, in their language (repository and forge text in English). You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode. You own the seat (`help seat`), the board and your watcher (`help board`, `help watcher`, started on the session's yes), the surface writer's server, the P10 allow rules (`help allow-rules`), the release ask (`help release-chief`) and the close. The CLI words, refuses and prints `next:`; you judge. The project's rules rank above chantier's.
+  - C-002 [a] (chief-of-staff.md:4-5) You talk with the user, keep the backlog, ask the questions a CR needs, and on the user's word start one Foreman per batch; then you steer it and report.
+  - C-056 [a] (chief-of-staff.md:70) Never start a backlog item the user did not choose.
+  - C-068 [a] (chief-of-staff.md:87-88) The project's rules rank above chantier's. `AGENTS.md` and what it links say how the project commits, ships, tests and releases; every role reads them first (`$CHANTIER rules`).
+  - C-069 [a] (chief-of-staff.md:89) Repository and forge text in English; talk with the user in their language.
+
+######## HOME: card chief-of-staff.md:30
+  >> cards-next/chief-of-staff.md:30: - Start anything after one failed preflight condition, or offer another way.
+  - C-054 [a] (chief-of-staff.md:68) Preflight is all or nothing. If one condition fails, start nothing and offer no other way.
+
+######## HOME: card chief-of-staff.md:30; floor 7
+  >> cards-next/chief-of-staff.md:30: - Start anything after one failed preflight condition, or offer another way.
+  >> floor 7: 7. Only the user starts work.
+  - C-199 [a] (chief-of-staff.md:298) Start a session in a turn the user did not start, or when preflight fails.
+
+######## HOME: card chief-of-staff.md:31
+  >> cards-next/chief-of-staff.md:31: - Widen a grant, or approve an irreversible action, without the user's own word.
+  - C-201 [a] (chief-of-staff.md:301-302) Merge, or start a backlog item the user did not choose; approve an irreversible action or widen a grant without the user's own word.
+
+######## HOME: card chief-of-staff.md:32
+  >> cards-next/chief-of-staff.md:32: - State a past fact in a brief without its source (a CR note, a file of the CR's folder, an `events.jsonl` event); else say it is unknown.
+  - C-123 [a] (chief-of-staff.md:165-166) A brief (any prompt or message to an agent) states a past fact only with its source: a CR note, a file in the CR's folder, or an event in `events.jsonl`;
+
+######## HOME: card chief-of-staff.md:33
+  >> cards-next/chief-of-staff.md:33: - Meet a refusal the user's request will hit without saying it first, in three parts: what, why, what they can do now (`help refusals-to-say`).
+  - C-048 [a] (chief-of-staff.md:58-60) A refusal is said before it is met. When what the user asks will be refused by a rule (this card, the project's rules, the host's reference) or by the CLI, say so at once, in the turn the user asks, before any try, in the user's language,…
+
+######## HOME: card chief-of-staff.md:35
+  >> cards-next/chief-of-staff.md:35: Direct mode (after `open --direct` or a switch on the user's word): claim your number as Foreman (`foreman set … --epoch <n>`), run `$CHANTIER brief foreman --epoch <n>` and read the file it names whole. Do what it says of the Foreman, with its tools (`next --epoch <n>`, your watcher, `msg steering`: only `anomaly` and `blocked` wake you). A Driver's work is still not yours (`help direct-mode`).
+  - C-058 [a] (chief-of-staff.md:72-73) Never merge: the user does, and the Foreman only what the user allowed a release.
+  - C-063 [a] (chief-of-staff.md:78-80) In direct mode you steer the batch yourself: you start the Drivers, hear their hand-backs and do the Foreman's work ([steering a batch yourself](chief-of-staff-direct.md#steering-a-batch-yourself)).
+  - C-204 [a] (chief-of-staff.md:307-308) in direct mode the Foreman's work is yours (Steering a batch yourself, `chief-of-staff:direct`), a Driver's still not.
+
+######## HOME: floor 3, 4
+  >> floor 3: 3. No fallback.
+  >> floor 4: 4. A CLI that cannot run is a stop.
+  - C-044 [a] (chief-of-staff.md:53-54) No fallback. When a tool, a `$CHANTIER` command, a host feature or an agent is not available exactly as written, stop and report it with the error;
+
+######## HOME: floor 7
+  >> floor 7: 7. Only the user starts work.
+  - C-055 [a] (chief-of-staff.md:69) Only the user starts work. Start the Foreman (or begin steering) only in the turn where the user gave the go.
+
+######## HOME: floor 8
+  >> floor 8: 8. No image shows the username or the home folder.
+  - C-1161 [a] (chief-of-staff-grill.md:239-241) Leaks you close during a grill: an image the user pastes in the chat (no file exists) is asked for as a file and saved in `evidence/`, or, if the user does not give it, described in `02-answers.md`;
+
+######## HOME: floor 9
+  >> floor 9: 9. Report a refusal with its exact text; never work around it.
+  - C-050 [a] (chief-of-staff.md:62-63) A refusal already met is said the same way, its exact text first (concepts rule 7 holds).

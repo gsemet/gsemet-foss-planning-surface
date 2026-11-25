@@ -1,0 +1,364 @@
+
+######## HOME: card foreman.md:13 (use every free slot); `gate --first` stays the CLI's
+  >> cards-next/foreman.md:13: - Starting Drivers: copy whole the prompt `take`, `take stack` or `order qa` prints, with the agent and model `playbook --batch` names, then `agents set`. Use every free slot.
+  - FM-071 [a] (foreman.md:236-237) Never for another reason, nor at a Driver's request alone.
+
+######## HOME: card foreman.md:14; floor 7
+  >> cards-next/foreman.md:14: - The orders, each the user's word: do their hands-on part, then `order done`.
+  >> floor 7: 7. Only the user starts work.
+  - FM-B043 [a] (foreman.md:137-139) Orders are the user's word: `status` lists them until you mark each `order done`: an `orders pending` line holds those nothing has touched yet (a note, a QA, the drop of a live CR), another line those the CLI applied, which only await your…
+
+######## HOME: card foreman.md:21
+  >> cards-next/foreman.md:21: 2. Drop or invent a gap. A gap the PR body lacks, a `no long gate` or a waiver that does not hold, or a local run owed and not passed, goes back with `take <cr> --note "<why>"`, with no ask. An absent gate never means success.
+  - FM-B004 [a] (foreman.md:68-69) A hand-back that says its PR stays a draft keeps that text in the ask.
+  - FM-B005 [a] (foreman.md:69-71) A hand-back that ends with `gaps: …` keeps it too, as the Driver wrote it (after `no long gate: <reason>` or the draft text when present): `ready-to-merge <cr> <link> gaps: …` (or `pr-in-draft …`).
+  - FM-B007 [a] (foreman.md:73-75) You invent no gap and drop none; a gap you see yourself and the body lacks sends the CR back to a Driver (`take <cr> --note "gaps: <what is missing from Known gaps>"`), with no ask.
+  - FM-B010 [a] (foreman.md:78-84) It holds when the rules say the project has no long gate, or exempt this CR (for an exemption by kind of change, such as docs only, read the PR's changed files on the forge: `gh pr diff --name-only`, `glab mr diff`), or name a pipeline job…
+  - FM-B011 [a] (foreman.md:84-86) When the rules also ask a local run on the stack's top, the stack's top handed back with `--no-gate` goes back with `take <cr> --note "long gate: the stack's top runs <command> locally"`, with no ask;
+  - FM-B014 [a] (foreman.md:88-89) In a stack, the stack's top handed back `--no-gate` by an exemption such as docs only still goes back with the stack's-top note.
+  - FM-B015 [a] (foreman.md:89-93) In a parallel or series batch, a CR that owes the local run (the rules ask it, and none exempts it, checked as the `--no-gate` check does) goes back with `take <cr> --note "long gate: this CR runs <command> locally"`, with no ask, when it…
+  - FM-B016 [a] (foreman.md:93) An exempt CR does not go back.
+  - FM-B018 [a] (foreman.md:94-95) A fix CR you merge under the grant is merged only with a passed or carried long gate at its head when it owes the local run.
+  - FM-B019 [a] (foreman.md:95-97) The `ready-to-merge` ask (or `pr-in-draft` ask) of each CR that owes the run carries the clause after its gaps: `ready-to-merge <cr> <link>[ gaps: …] local gate <cr> at <sha7>: passed`, and goes only with `passed`.
+  - FM-B020 [a] (foreman.md:97-100) At a `deliver by <time>` time (the order note, in any mode), a CR not yet passed is not sent back: its ask goes as it stands, with `local gate <cr> at <sha7>: not run` (or `failed`), after `no long gate: <reason>` when it has one;
+  - FM-B023 [a] (foreman.md:102-103) When the rules declare a long gate that covers this CR, send the CR back to a Driver with `take <cr> --note "long gate: <why the exemption does not hold>"`, with no ask.
+  - FM-B024 [a] (foreman.md:103-105) When the rules say nothing about a long gate, ask `question <cr> no long gate written down: <the Driver's reason>`; an absent gate never means success.
+  - FM-B025 [a] (foreman.md:105-108) A hand-back that says `long gate waived (O-<k>)` is checked against the recorded order (`status` lists it; the CLI wrote it on this CR on the user's word, `order waive`), not against the rules: it holds when the order is there and its scop…
+  - FM-B026 [a] (foreman.md:108-110) The ask then carries `long gate waived: validated by CR-<top>` or `long gate waived: follow-up <folder>`, as it carries `no long gate: <reason>`.
+  - FM-B027 [a] (foreman.md:110-112) A hand-back that says it with no such order on the CR goes back to its Driver with `take <cr> --note "long gate: no waiver recorded for this CR"`, with no ask.
+  - FM-B028 [a] (foreman.md:112-115) Under a rule that asks a local run, a waiver does not waive a CR's local run unless its words name that gate: read them in `status`'s order list (`O-<k> waive <cr> <note>`), or, when the order is no longer listed or its note is cut, in the…
+  - FM-B029 [a] (foreman.md:115-118) A waived CR that owes the local run whose record holds no passed or carried long gate at its head (`log <cr>`; `status` shows the CR `waived`, not its pass) goes back with `take <cr> --note "long gate: this CR runs <command> locally"` (`th…
+  - FM-B030 [a] (foreman.md:118-119) its ask then carries both `long gate waived: …` and the clause.
+  - FM-B031 [a] (foreman.md:119-120) A CR whose waiver names the gate owes no local run and its ask carries no clause.
+  - FM-222 [a] (foreman-stack.md:119-121) Under a project rule that asks the stack's top for a local run, the clause is copied from the stack driver's hand-back and is a condition of every partial ask: send it only when it says `passed`, for the `<sha7>` the ask names.
+  - FM-223 [a] (foreman-stack.md:121-122) A hand-back with no clause under the rule is a failed check: `take stack --note "local gate at the mergeable top"`.
+
+######## HOME: card foreman.md:22
+  >> cards-next/foreman.md:22: 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle; removing a kept merged CR's worktree and branch once its Driver has ended; the route push of a Driver's refused push of its own `chantier/*` branch, after the check (any other branch is never pushed, a yes included); closing a dropped CR's PR or turning it to draft, as its drop order says. Stop no sync holder.
+  - FM-248 [a] (foreman-stack.md:166) You edit no PR yourself.
+
+######## HOME: card foreman.md:22 (closing a dropped CR's PR or turning it to draft)
+  >> cards-next/foreman.md:22: 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle; removing a kept merged CR's worktree and branch once its Driver has ended; the route push of a Driver's refused push of its own `chantier/*` branch, after the check (any other branch is never pushed, a yes included); closing a dropped CR's PR or turning it to draft, as its drop order says. Stop no sync holder.
+  - FM-B056 [a] (foreman.md:169-172) and a drop order whose line ends `turn its PR to draft <link>` (a drop to the backlog or `3-ready` outside a stack, the PR out of draft; after `cancel` for a live CR) is turned by you (`gh pr ready <n> --undo`, `glab mr update <n> --draft`…
+
+######## HOME: card foreman.md:22 (your only git: `conflicts` runs `git merge-tree` alone)
+  >> cards-next/foreman.md:22: 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle; removing a kept merged CR's worktree and branch once its Driver has ended; the route push of a Driver's refused push of its own `chantier/*` branch, after the check (any other branch is never pushed, a yes included); closing a dropped CR's PR or turning it to draft, as its drop order says. Stop no sync holder.
+  - FM-485 [a] (foreman-conflict.md:34-35) What it does not do: it stops no Driver, sends no `take`, no rebase note and no message to a Driver, changes no order, and never switches the mode itself.
+
+######## HOME: card foreman.md:22; floor 5
+  >> cards-next/foreman.md:22: 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle; removing a kept merged CR's worktree and branch once its Driver has ended; the route push of a Driver's refused push of its own `chantier/*` branch, after the check (any other branch is never pushed, a yes included); closing a dropped CR's PR or turning it to draft, as its drop order says. Stop no sync holder.
+  >> floor 5: 5. Never discard the worktree's work.
+  - FM-B060 [a] (foreman.md:180-182) Your git in the main checkout has a second duty: the fast-forward after each merge you handle (with a planning surface, `git -C <clone>`), by the bullet "The main checkout after a merge" of `foreman:merge`.
+  - FM-B061 [a] (foreman.md:182-183) A third duty is the early conflict check (`foreman:conflict`), by `git merge-tree` only: it moves no ref, touches no working tree and no index, and writes only unreferenced objects.
+  - FM-B062 [a] (foreman.md:183-184) Your git moves the main checkout by the fast-forward alone, and runs no other command than these.
+
+######## HOME: card foreman.md:22; floor 5, 9
+  >> cards-next/foreman.md:22: 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle; removing a kept merged CR's worktree and branch once its Driver has ended; the route push of a Driver's refused push of its own `chantier/*` branch, after the check (any other branch is never pushed, a yes included); closing a dropped CR's PR or turning it to draft, as its drop order says. Stop no sync holder.
+  >> floor 5: 5. Never discard the worktree's work.
+  >> floor 9: 9. Report a refusal with its exact text; never work around it.
+  - FM-286 [a] (foreman-merge.md:45-46) a convenience, never a gate: a skip costs the batch nothing, asks nothing and has no workaround.
+  - FM-287 [a] (foreman-merge.md:46-47) It is yours alone (a Driver, a worker and, in Foreman mode, the Chief of Staff never do it), by git;
+  - FM-300 [a] (foreman-merge.md:63) `git status --porcelain --untracked-files=no` is not empty: do nothing.
+  - FM-302 [a] (foreman-merge.md:64-65) Untracked files are never listed, read, moved or deleted.
+  - FM-306 [a] (foreman-merge.md:68-71) Note `git rev-parse HEAD` as `<before>`, then `git merge --ff-only --no-overwrite-ignore <remote>/<default>`, only this form: never `git pull`, `reset`, `rebase`, `stash`, `clean`, `checkout`, `switch` or a merge without both flags.
+  - FM-308 [a] (foreman-merge.md:72-74) Git refuses it: do nothing more, retry nothing; `<why>` = git's reason in a few words (`diverged from <remote>/<default>`, `untracked file in the way: <path>`, or git's text).
+  - FM-309 [a] (foreman-merge.md:74-75) The host refuses the command: do nothing more, try no other way; `<why>` = `refused by the host: <exact text>`.
+  - FM-310 [a] (foreman-merge.md:75-76) `--no-overwrite-ignore` is load-bearing: without it git overwrites an ignored file the incoming commits add.
+
+######## HOME: card foreman.md:23
+  >> cards-next/foreman.md:23: 4. Commit, pull or push the planning surface: its writer does.
+  - FM-096 [a] (foreman.md:276) With a planning surface, never commit, pull or push it: its writer does.
+
+######## HOME: card foreman.md:24
+  >> cards-next/foreman.md:24: 5. Obey your chat but for "stop" and "hold" (no new Driver; the batch still runs). Anything else: "I run batch <batch> for chantier. Please give orders to the Chief of Staff." A host's event about a PR is not an order.
+  - FM-094 [a] (foreman.md:273-274) A host's event about a CR's PR (a request to fix it, or to merge the base branch in) is not an order and not the user's word;
+  - FM-095 [a] (foreman.md:274-275) your host's reference says what to do with it ([Claude Code](hosts/claude-code.md), "Auto-fix events").
+  - FM-B053 [a] (foreman.md:162-163) Your own chat obeys only "stop", "hold" (no new Driver: the batch still runs), and the user's line allowing a refused action (not for your push of a Driver's refused force push or your rebase of a Driver's refused rebase: those go to the C…
+  - FM-B054 [a] (foreman.md:163) Please give orders to the Chief of Staff."
+  - FM-B055 [a] (foreman.md:164-169) Never code, review, commit, rebase, push or edit a PR, never create a worktree. Two named exceptions (and a third, the push of a Driver's refused force push and the rebase of a Driver's refused rebase, by [A Driver's refused force push](fo…
+
+######## HOME: card foreman.md:25; floor 5
+  >> cards-next/foreman.md:25: 6. `take --reclaim` a live lease without the user's word; remove the worktree of a trashed CR or of one moved to the backlog or `3-ready`.
+  >> floor 5: 5. Never discard the worktree's work.
+  - FM-B058 [a] (foreman.md:173-177) A CR whose agent is still held, or whose worktree git refused to remove, is kept (`kept:` or `not removed:` line): remove it once its Driver has ended with `git worktree remove <path>` and `git branch -D <branch>` (from the main checkout;…
+  - FM-B059 [a] (foreman.md:177-179) A trashed CR's worktree and branch stay for the user's word at `close`; those of a CR moved to the backlog or the next batch (`3-ready`) stay, and are not offered for removal.
+
+######## HOME: card foreman.md:25; refusal take/lease (core/leases.py, exit 3)
+  >> cards-next/foreman.md:25: 6. `take --reclaim` a live lease without the user's word; remove the worktree of a trashed CR or of one moved to the backlog or `3-ready`.
+  - FM-053 [a] (foreman.md:217-218) It is refused too (exit 3) while the unit's lease is live (`--reclaim` only on the user's word, through the Chief of Staff) or not confirmed.
+  - FM-058 [a] (foreman.md:223) `--reclaim` on a live lease stays the user's word, for a holder the host cannot show ended.
+
+######## HOME: card foreman.md:26; refusal stale Foreman (core/batch.py:261: "stale Foreman: Foreman n°…; stop now")
+  >> cards-next/foreman.md:26: 7. Go on after exit 3: another Foreman owns the batch. Stop at once.
+  >> scripts/cli/src/chantier/core/batch.py:261:     """The comparison `check_epoch` makes, also on a record read with no lock (`next`): exit 3."""
+  - FM-153 [a] (foreman.md:378-380) Any other command, or any other `order` kind, refuses `--epoch` (exit 2); exit 3 means another Foreman owns the batch: stop at once.
+
+######## HOME: card foreman.md:29
+  >> cards-next/foreman.md:29: Messages: only `anomaly` and `blocked` from `msg steering` wake you; read the notes with `inbox --epoch <n>` at your next wake. Work for a CR handed back reaches a Driver only through `take <cr> --note` (`help take-back`). A brief states a past fact only with its source. Who talks to whom: `routing.md`.
+  - FM-082 [a] (foreman.md:253-254) A brief (any prompt or message to an agent) states a past fact only with its source: a CR note, a file in the CR's folder, or an event in `events.jsonl`.
+  - FM-083 [a] (foreman.md:254-255) A fact with no source is said as unknown.
+
+######## HOME: card foreman.md:29; refusal take (rails.py:250: "`--note` saying why")
+  >> cards-next/foreman.md:29: Messages: only `anomaly` and `blocked` from `msg steering` wake you; read the notes with `inbox --epoch <n>` at your next wake. Work for a CR handed back reaches a Driver only through `take <cr> --note` (`help take-back`). A brief states a past fact only with its source. Who talks to whom: `routing.md`.
+  >> scripts/cli/src/chantier/rails.py:250:             "`--note` saying why (an answer, a change, a rebase, a red check): "
+  - FM-B046 [a] (foreman.md:144-146) Work on a CR handed back ready or blocked (an order note asking for a rebase or a fix, an answer, a red check, a dependency merged) reaches a Driver only through `take <cr> --note "<why>"`: never send it as a message to the Driver that han…
+
+######## HOME: card foreman.md:7
+  >> cards-next/foreman.md:7: - `git rev-parse --git-dir --git-common-dir`: if the two differ, take no CR, claim no epoch, send `$CHANTIER asks "blocked <batch> this session is in a worktree (<path>); start the Foreman on the main checkout"`, and stop.
+  - FM-135 [a] (foreman.md:348-349) Next, after the title and before you claim your epoch: `git rev-parse --git-dir --git-common-dir`.
+  - FM-136 [a] (foreman.md:349-351) If they differ, this session is in a worktree (the surface's checkout or the project's clone both pass): take no CR, claim no epoch, and send the ask `$CHANTIER asks "blocked <batch> this session is in a worktree (<path>); start the Forema…
+  - FM-137 [a] (foreman.md:351-352) The Drivers could not leave their work and evidence in the planning folder from here.
+  - FM-138 [a] (foreman.md:352-354) Nothing in your card or the reference gets you round it; only the user's own words in your chat, for this batch alone, which you pass on to the Drivers as written and never keep as a rule.
+
+######## HOME: card foreman.md:8
+  >> cards-next/foreman.md:8: - `$CHANTIER foreman set <session id> --epoch <n>`, then `foreman transcript <uuid> --epoch <n>`; a refusal or an empty variable is a stop.
+  - FM-139 [a] (foreman.md:355-357) Then, from the repository (a session opened elsewhere sets `CHANTIER_ROOT` to it), claim your epoch: `$CHANTIER foreman set <your session id> --epoch <n>` (your host's reference says where the id is).
+  - FM-140 [a] (foreman.md:357) A refusal means another Foreman has it: stop.
+  - FM-141 [a] (foreman.md:357-358) Then `$CHANTIER foreman transcript <your session uuid> --epoch <n>`; an empty variable is a stop, never a guess.
+
+######## HOME: card foreman.md:9
+  >> cards-next/foreman.md:9: - Read the rules and `status`, then send `[foreman→chief-of-staff] ready <batch>`.
+  - FM-B008 [e] (foreman.md:75-76) An order note `evidence: <path>` (the user's screenshot of the board pane, where the project's rules ask for one) becomes `take <cr> --note "evidence: <path>"`.
+
+######## HOME: floor 1, 6; card foreman.md:20; refusal `release go` (release.py: "no approval for: …")
+  >> cards-next/foreman.md:20: 1. Merge but under the release grant: a fix, or the release once `release go` says `go`. An approval never covers it. Record `order merged` only for a merge the forge shows.
+  >> floor 1: 1. Never merge without the user's word.
+  >> floor 6: 6. An irreversible release action waits for the user.
+  - FM-317 [a] (foreman-merge.md:91-93) Merging on GitHub (a release PR or a fix PR, under the grant, after `release go` says `go`; GitLab has no native stack and `glab mr merge` stays; the route is unproved by an agent, on a Copilot host too, until a real run).
+
+######## HOME: floor 1, 6; card foreman.md:20; refusal `release go` (release.py: "no grant for: …; the user merges it")
+  >> cards-next/foreman.md:20: 1. Merge but under the release grant: a fix, or the release once `release go` says `go`. An approval never covers it. Record `order merged` only for a merge the forge shows.
+  >> floor 1: 1. Never merge without the user's word.
+  >> floor 6: 6. An irreversible release action waits for the user.
+  - FM-B033 [a] (foreman.md:121-123) A release PR is never yours to merge, except under the grant, once every other CR is merged or cancelled and its base is the default branch, after `$CHANTIER release go <cr> --note "merge <pr>"` says `go`;
+  - FM-B034 [a] (foreman.md:123-124) an approval never covers it.
+  - FM-B035 [a] (foreman.md:124-127) You merge a fix only under the grant (else it is an ordinary CR handed back), with the forge's CLI by the project's method (on GitHub, by the route of "Merging on GitHub", `foreman:merge`), then `$CHANTIER order merged <cr> --epoch <n>`, t…
+
+######## HOME: floor 1, 9; card foreman.md:20
+  >> cards-next/foreman.md:20: 1. Merge but under the release grant: a fix, or the release once `release go` says `go`. An approval never covers it. Record `order merged` only for a merge the forge shows.
+  >> floor 1: 1. Never merge without the user's word.
+  >> floor 9: 9. Report a refusal with its exact text; never work around it.
+  - FM-322 [a] (foreman-merge.md:99-100) A stack holds it and an open PR sits below it: do not merge (the asynchronous merge takes every open PR below it).
+  - FM-328 [a] (foreman-merge.md:109-110) before any later attempt read `gh pr view <pr> --json state,mergedAt`: a merged PR is recorded, never merged again.
+  - FM-329 [a] (foreman-merge.md:110-111) Anything else, or a refused call: a stop, reported with its exact text; no other route, no `gh pr merge`.
+  - FM-330 [a] (foreman-merge.md:112) The head SHA in both forms guards that the merged head is the one judged.
+
+######## HOME: floor 10
+  >> floor 10: 10. Never stop a process by name or pattern; use `close --yes` only on the user's yes.
+  - FM-131 [a] (foreman.md:342-343) Before you end it, no background task of yours is left running ([concepts](concepts.md), rule 8): stop each by its id.
+  - FM-160 [a] (foreman.md:390-391) Stop a task of yours found running at once, by its id, with the host's stop of a background task;
+
+######## HOME: floor 1; card foreman.md:20
+  >> cards-next/foreman.md:20: 1. Merge but under the release grant: a fix, or the release once `release go` says `go`. An approval never covers it. Record `order merged` only for a merge the forge shows.
+  >> floor 1: 1. Never merge without the user's word.
+  - FM-B001 [a] (foreman.md:61-65) Never merge without the user's word. An ordinary CR handed back is the ask the CLI's word names: `ready-to-merge <cr> <link>` (its PR is out of draft: the user may merge it now), `pr-in-draft <cr> <link> on <base>: waits for <what>` (a dra…
+
+######## HOME: floor 2, 9
+  >> floor 2: 2. Rebase only, with `--force-with-lease`, and only on the CR's own branch.
+  >> floor 9: 9. Report a refusal with its exact text; never work around it.
+  - FM-582 [a] (foreman-refused.md:137-139) This is a named exception to "no `git rebase`" (the early-conflict check, [foreman-conflict](foreman-conflict.md)): only this command, only in a Driver's worktree, only on such a line.
+  - FM-583 [a] (foreman-refused.md:139) The steering session resolves nothing.
+  - FM-584 [a] (foreman-refused.md:141-144) The check, a hard refusal. On `[driver <cr>→foreman] rebase <branch> <base>`: the branch is covered (as in the push's step 2: `chantier/*`, not the default branch), the CR is read from its last segment, `$CHANTIER handoff <cr>`'s `worktree…
+  - FM-585 [a] (foreman-refused.md:144-145) Else rebase nothing: take the CR back with `take <cr> --note "rebase: rebase refused <branch>: <the reason>"`.
+  - FM-586 [a] (foreman-refused.md:146-150) The rule first (Claude Code; Copilot skips it), as step 3 of the push: the P10 `every batch:` line names in an `(add …)` part, or under `denied:`, the rebase rule of the form you will run (`git -C * rebase origin/*`, `git -C * rebase chant…
+  - FM-589 [a] (foreman-refused.md:154-155) A conflict: leave the rebase stopped (no `--abort`, no resolution), take the CR back with `rebase: rebase conflict <branch> onto <base>`.
+  - FM-590 [a] (foreman-refused.md:155) Never `--exec` or `-x`.
+  - FM-593 [a] (foreman-refused.md:159-160) retry nothing, try no other form, change no permission setting.
+
+######## HOME: floor 2; card foreman.md:22
+  >> cards-next/foreman.md:22: 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle; removing a kept merged CR's worktree and branch once its Driver has ended; the route push of a Driver's refused push of its own `chantier/*` branch, after the check (any other branch is never pushed, a yes included); closing a dropped CR's PR or turning it to draft, as its drop order says. Stop no sync holder.
+  >> floor 2: 2. Rebase only, with `--force-with-lease`, and only on the CR's own branch.
+  - FM-526 [a] (foreman-refused.md:24-28) The check and the judgement. The check, a hard refusal: the branch is covered (it matches `chantier/*`, it is not the project's default branch, and the push is `--force-with-lease`, never a plain `--force`: a CR carried from an earlier bat…
+  - FM-528 [a] (foreman-refused.md:29) Else push nothing.
+  - FM-529 [a] (foreman-refused.md:29-30) A branch that is not `chantier/*`, or the default branch, is never pushed, at any step: see "Not a chantier branch" below.
+  - FM-535 [a] (foreman-refused.md:39-41) No gate pass at the local head is the Driver's slip, not a doubt: push nothing (the Driver runs the gate and sends the line again).
+  - FM-541 [a] (foreman-refused.md:50-55) The two refusals, a covered branch that `handoff` ties to no CR of this batch and no long gate passed at the local head (outside the skips): push nothing and take the CR back with `take <cr> --note "push: push refused <branch>: <the reason…
+  - FM-542 [a] (foreman-refused.md:57-58) Not a chantier branch: a branch that is not `chantier/*`, or the default branch: push nothing, ever, at any step;
+  - FM-545 [a] (foreman-refused.md:62) A user's yes does not push it.
+  - FM-558 [a] (foreman-refused.md:96-98) Not legitimate: push nothing; `$CHANTIER asks "<the CR, number and slug>: push <branch> <expected> <local> not legitimate: <what the judgement found>"` (the existing ask channel, relayed by the Chief of Staff to the user).
+
+######## HOME: floor 3; card foreman.md:22 (your only git)
+  >> cards-next/foreman.md:22: 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle; removing a kept merged CR's worktree and branch once its Driver has ended; the route push of a Driver's refused push of its own `chantier/*` branch, after the check (any other branch is never pushed, a yes included); closing a dropped CR's PR or turning it to draft, as its drop order says. Stop no sync holder.
+  >> floor 3: 3. No fallback.
+  - FM-478 [a] (foreman-conflict.md:23-25) Never fall back to another command: no trial merge in a checkout, no `git merge`, no `git rebase`, no worktree.
+
+######## HOME: floor 5
+  >> floor 5: 5. Never discard the worktree's work.
+  - FM-348 [a] (foreman-hold.md:13) Its worktree and branch stay as they are.
+
+######## HOME: floor 6, 9
+  >> floor 6: 6. An irreversible release action waits for the user.
+  >> floor 9: 9. Report a refusal with its exact text; never work around it.
+  - FM-494 [a] (foreman-release.md:8-11) The take note names the steps the user approved before the merge, from the `approvals unused:` line of `$CHANTIER handoff <release-cr>` (read it after every line of the relay): `take <release-cr> --note "merged: <pr>; approved before the m…
+  - FM-495 [a] (foreman-release.md:11-12) with no approval, the note says the steps wait for the user's word.
+  - FM-507 [a] (foreman-release.md:34-37) When it refuses (a `just tag:` line) or the host refuses the command, change nothing, try no other way and never force: send `[foreman→chief-of-staff] release <cr>: <step> refused: <the exact line>` (in direct mode you are the Chief of Sta…
+  - FM-508 [a] (foreman-release.md:37-38) The step's approval is the user's word, which the Driver checked before its hand-back: run nothing the Driver did not hand back.
+
+######## HOME: floor 8; card foreman.md:15 (the ask's line is sent unchanged)
+  >> cards-next/foreman.md:15: - The asks: `judge <cr> --epoch <n>` words one; send its line unchanged with `--record`, adding at most one sentence of your own; a `no ask:` line means none goes.
+  >> floor 8: 8. No image shows the username or the home folder.
+  - FM-B006 [a] (foreman.md:71-73) When the hand-back report or a `note` says an image that showed the user's username or home folder was uploaded and replaced, or that the user's screenshot was not uploaded for it, relay that part with the ask.
+
+######## HOME: floor 9
+  >> floor 9: 9. Report a refusal with its exact text; never work around it.
+  - FM-479 [a] (foreman-conflict.md:25-26) A command the host refuses takes the usual route (the `refused <cr> <text>` ask and its note, as in [foreman-refused](foreman-refused.md)).
+  - FM-546 [a] (foreman-refused.md:64-65) A protected branch: no session reads the forge's branch protection (no `gh api` or `glab api` rule).
+  - FM-547 [a] (foreman-refused.md:65-69) A push the forge rejects as protected (git's remote rejection: on GitHub `protected branch hook declined`; on GitLab `You are not allowed to force push code to a protected branch`, unproved) is not a failed lease: the session that ran it r…
+  - FM-564 [a] (foreman-refused.md:106-107) Retry nothing, try no other form, change no permission setting.
+  - FM-566 [a] (foreman-refused.md:109-110) A failed lease (git rejects the lease: the remote moved) or a push the forge rejects as protected (above): never retried, at any step.
+  - FM-568 [a] (foreman-refused.md:112-113) the Chief of Staff tells the user at once, with git's text (and, for a protected branch, that the branch is protected on the forge), and nobody waits for a word.
+  - FM-577 [a] (foreman-refused.md:127-129) Record each refusal once, whoever sees it: the Driver's (before its push line, [driver](driver.md)), yours (step 6, or the `push not tried` note of step 3), the Chief of Staff's;
+  - FM-578 [a] (foreman-refused.md:129) each before the next step's line.
+  - FM-595 [a] (foreman-refused.md:162-163) Record each refusal once, whoever sees it.
+
+######## HOME: host row (Copilot reference: `hosts/copilot.md`)
+  - FM-B012 [d] (foreman.md:86-87) the Copilot host's path is unproved.
+  - FM-B017 [d] (foreman.md:94) The Copilot host's path is unproved (as for the stack's top above).
+
+######## HOME: inferable
+  - FM-B039 [b] (foreman.md:131-132) A refusal you do not understand: `$CHANTIER access <cr> --epoch <n>` before you ask; it explains and changes nothing.
+  - FM-B047 [b] (foreman.md:146-148) The `take` reopens the CR to `working` and counts no round; its Driver runs `ship` at the new head, then passes the long gate and a `VERIFIED` verdict there before `handback ready`.
+
+######## HOME: next: the `judge` line (words the ask); card foreman.md:15
+  >> cards-next/foreman.md:15: - The asks: `judge <cr> --epoch <n>` words one; send its line unchanged with `--record`, adding at most one sentence of your own; a `no ask:` line means none goes.
+  - FM-B002 [e] (foreman.md:65-67) An ask's icon, when it carries one, is the CR's state at the ask, never the state it will reach (except a CR of a stack on the forge: its readiness reaches the user through the stack, [foreman-stack](foreman-stack.md));
+  - FM-B003 [e] (foreman.md:68) the user merges it and the Chief of Staff records it.
+
+######## HOME: refusal cancel (release.py:137: "cancel <cr>: no destination recorded; …")
+  >> !! no file release.py
+  - FM-B045 [a] (foreman.md:140-144) Their effect on the state is applied; what needs your hands is yours (stop a Driver, tell one, cancel a dropped live CR with `$CHANTIER cancel` (it moves the CR to the destination its drop order recorded; you never choose one, and a `cance…
+
+######## HOME: refusal check_shape (rails_release.py:178-215: "--outside-stack needs a reason \"O-<k>: <why>\" naming an open order…"); floor 7
+  >> scripts/cli/src/chantier/rails_release.py:178: def shape_refusal(d: BatchRecord, text: str) -> tuple[str, list[CrEntry]] | None:
+  >> scripts/cli/src/chantier/rails_release.py:179:     """The CR and its blockers when `text` is a per-CR `ready-to-merge` that a stack batch refuses:
+  >> scripts/cli/src/chantier/rails_release.py:180:     its CR is in the stack's chain and another CR of the chain has a PR or a stacked CR is open.
+  >> scripts/cli/src/chantier/rails_release.py:181:     None for any other ask."""
+  >> scripts/cli/src/chantier/rails_release.py:182:     words = text.split()
+  >> scripts/cli/src/chantier/rails_release.py:183:     if d.mode != "stack" or words[:1] != ["ready-to-merge"] or len(words) == 1:
+  >> scripts/cli/src/chantier/rails_release.py:184:         return None
+  >> scripts/cli/src/chantier/rails_release.py:185:     cr = normalize_cr(words[1])
+  >> scripts/cli/src/chantier/rails_release.py:186:     if cr not in [x.id for x in chain(d)]:
+  >> scripts/cli/src/chantier/rails_release.py:187:         return None
+  >> scripts/cli/src/chantier/rails_release.py:188:     blockers = shape_blockers(d, cr)
+  >> scripts/cli/src/chantier/rails_release.py:189:     return (cr, blockers) if blockers else None
+  >> scripts/cli/src/chantier/rails_release.py:190: 
+  >> scripts/cli/src/chantier/rails_release.py:191: 
+  >> scripts/cli/src/chantier/rails_release.py:192: def check_shape(d: BatchRecord, text: str, outside_stack: str | None) -> str | None:
+  >> scripts/cli/src/chantier/rails_release.py:193:     """The stack guard of `asks`: refuses (exit 2, nothing recorded) a per-CR `ready-to-merge`
+  >> scripts/cli/src/chantier/rails_release.py:194:     that would leave another PR of the stack behind main. With `outside_stack`, a reason
+  >> scripts/cli/src/chantier/rails_release.py:195:     `O-<k>: <why>` naming an open order on that CR (not a `shape:` note), lets it through and
+  >> scripts/cli/src/chantier/rails_release.py:196:     returns the reason; the flag on an ask the guard does not refuse is a usage error."""
+  >> scripts/cli/src/chantier/rails_release.py:197:     hit = shape_refusal(d, text)
+  >> scripts/cli/src/chantier/rails_release.py:198:     if outside_stack is not None:
+  >> scripts/cli/src/chantier/rails_release.py:199:         if hit is None:
+  >> scripts/cli/src/chantier/rails_release.py:200:             raise ChantierError(
+  >> scripts/cli/src/chantier/rails_release.py:201:                 "--outside-stack is only for a per-CR ready-to-merge ask that the stack guard "
+  >> scripts/cli/src/chantier/rails_release.py:202:                 'refuses; without it: `asks "<text>"`',
+  >> scripts/cli/src/chantier/rails_release.py:203:                 EXIT_USAGE,
+  >> scripts/cli/src/chantier/rails_release.py:204:             )
+  >> scripts/cli/src/chantier/rails_release.py:205:         m = re.match(r"(O-\d+): \S", outside_stack)
+  >> scripts/cli/src/chantier/rails_release.py:206:         order = next((o for o in d.orders if m and o.id == m.group(1)), None)
+  >> scripts/cli/src/chantier/rails_release.py:207:         if (
+  >> scripts/cli/src/chantier/rails_release.py:208:             order is None
+  >> scripts/cli/src/chantier/rails_release.py:209:             or order.done
+  >> scripts/cli/src/chantier/rails_release.py:210:             or order.cr != hit[0]
+  >> scripts/cli/src/chantier/rails_release.py:211:             or order.note.lstrip().startswith("shape:")
+  >> scripts/cli/src/chantier/rails_release.py:212:         ):
+  >> scripts/cli/src/chantier/rails_release.py:213:             raise ChantierError(
+  >> scripts/cli/src/chantier/rails_release.py:214:                 f'--outside-stack needs a reason "O-<k>: <why>" naming an open order on '
+  >> scripts/cli/src/chantier/rails_release.py:215:                 f"{hit[0]} that carries the user's word: "
+  >> floor 7: 7. Only the user starts work.
+  - FM-174 [a] (foreman-stack.md:29-30) `--outside-stack "<reason>"` is used only on an open order of the Chief of Staff on that CR that carries the user's word for that CR alone (not a `shape:` note).
+  - FM-176 [a] (foreman-stack.md:31-32) Ask with the flag first, then mark the order done (`order done O-<k>`): the CLI accepts only an open order.
+  - FM-177 [a] (foreman-stack.md:32-33) Never use it to get past a refusal on your own judgement.
+
+######## HOME: refusal check_slot/check_budget/check_round (rails.py:57, 222, 305); floor 9
+  >> scripts/cli/src/chantier/rails.py:57: def check_slot(d: BatchRecord, what: str) -> None:
+  >> scripts/cli/src/chantier/rails.py:222: def check_budget(d: BatchRecord) -> None:
+  >> scripts/cli/src/chantier/rails.py:305: def check_round(d: BatchRecord, c: CrEntry) -> int:
+  >> floor 9: 9. Report a refusal with its exact text; never work around it.
+  - FM-B036 [a] (foreman.md:128-129) The batch's limits are the CLI's: `take` is refused past the slots or the budget, `round` past the limit or the budget; a refusal is a fact, not an argument.
+  - FM-B037 [e] (foreman.md:129) The batch keeps the slots it opened with, whatever the board's Configuration page now says: only an `order slots` the Chief of Staff sends changes them.
+
+######## HOME: refusal epoch (core/batch.py:248: "…: the steering session's command; <n> is your number as Foreman…")
+  >> scripts/cli/src/chantier/core/batch.py:248:         raise ChantierError(
+  - FM-152 [a] (foreman.md:376-378) Each of them refuses a call without `--epoch` (exit 2), except `order merged` and `order add --fix-for`, whose form without it is the Chief of Staff's order, and `status --refresh`, which without it is the refresh before a report and recor…
+
+######## HOME: refusal pause (endpause.py:77: "every CR is merged or cancelled, not paused: …; pause once they are done")
+  >> scripts/cli/src/chantier/commands/endpause.py:77:             f"every CR is merged or cancelled, not paused: {'; '.join(causes)}; "
+  - FM-B044 [a] (foreman.md:139-140) `pause` waits for both.
+
+######## HOME: refusal shape_refusal (rails_release.py:178-215)
+  >> scripts/cli/src/chantier/rails_release.py:178: def shape_refusal(d: BatchRecord, text: str) -> tuple[str, list[CrEntry]] | None:
+  >> scripts/cli/src/chantier/rails_release.py:179:     """The CR and its blockers when `text` is a per-CR `ready-to-merge` that a stack batch refuses:
+  >> scripts/cli/src/chantier/rails_release.py:180:     its CR is in the stack's chain and another CR of the chain has a PR or a stacked CR is open.
+  >> scripts/cli/src/chantier/rails_release.py:181:     None for any other ask."""
+  >> scripts/cli/src/chantier/rails_release.py:182:     words = text.split()
+  >> scripts/cli/src/chantier/rails_release.py:183:     if d.mode != "stack" or words[:1] != ["ready-to-merge"] or len(words) == 1:
+  >> scripts/cli/src/chantier/rails_release.py:184:         return None
+  >> scripts/cli/src/chantier/rails_release.py:185:     cr = normalize_cr(words[1])
+  >> scripts/cli/src/chantier/rails_release.py:186:     if cr not in [x.id for x in chain(d)]:
+  >> scripts/cli/src/chantier/rails_release.py:187:         return None
+  >> scripts/cli/src/chantier/rails_release.py:188:     blockers = shape_blockers(d, cr)
+  >> scripts/cli/src/chantier/rails_release.py:189:     return (cr, blockers) if blockers else None
+  >> scripts/cli/src/chantier/rails_release.py:190: 
+  >> scripts/cli/src/chantier/rails_release.py:191: 
+  >> scripts/cli/src/chantier/rails_release.py:192: def check_shape(d: BatchRecord, text: str, outside_stack: str | None) -> str | None:
+  >> scripts/cli/src/chantier/rails_release.py:193:     """The stack guard of `asks`: refuses (exit 2, nothing recorded) a per-CR `ready-to-merge`
+  >> scripts/cli/src/chantier/rails_release.py:194:     that would leave another PR of the stack behind main. With `outside_stack`, a reason
+  >> scripts/cli/src/chantier/rails_release.py:195:     `O-<k>: <why>` naming an open order on that CR (not a `shape:` note), lets it through and
+  >> scripts/cli/src/chantier/rails_release.py:196:     returns the reason; the flag on an ask the guard does not refuse is a usage error."""
+  >> scripts/cli/src/chantier/rails_release.py:197:     hit = shape_refusal(d, text)
+  >> scripts/cli/src/chantier/rails_release.py:198:     if outside_stack is not None:
+  >> scripts/cli/src/chantier/rails_release.py:199:         if hit is None:
+  >> scripts/cli/src/chantier/rails_release.py:200:             raise ChantierError(
+  >> scripts/cli/src/chantier/rails_release.py:201:                 "--outside-stack is only for a per-CR ready-to-merge ask that the stack guard "
+  >> scripts/cli/src/chantier/rails_release.py:202:                 'refuses; without it: `asks "<text>"`',
+  >> scripts/cli/src/chantier/rails_release.py:203:                 EXIT_USAGE,
+  >> scripts/cli/src/chantier/rails_release.py:204:             )
+  >> scripts/cli/src/chantier/rails_release.py:205:         m = re.match(r"(O-\d+): \S", outside_stack)
+  >> scripts/cli/src/chantier/rails_release.py:206:         order = next((o for o in d.orders if m and o.id == m.group(1)), None)
+  >> scripts/cli/src/chantier/rails_release.py:207:         if (
+  >> scripts/cli/src/chantier/rails_release.py:208:             order is None
+  >> scripts/cli/src/chantier/rails_release.py:209:             or order.done
+  >> scripts/cli/src/chantier/rails_release.py:210:             or order.cr != hit[0]
+  >> scripts/cli/src/chantier/rails_release.py:211:             or order.note.lstrip().startswith("shape:")
+  >> scripts/cli/src/chantier/rails_release.py:212:         ):
+  >> scripts/cli/src/chantier/rails_release.py:213:             raise ChantierError(
+  >> scripts/cli/src/chantier/rails_release.py:214:                 f'--outside-stack needs a reason "O-<k>: <why>" naming an open order on '
+  >> scripts/cli/src/chantier/rails_release.py:215:                 f"{hit[0]} that carries the user's word: "
+  - FM-172 [a] (foreman-stack.md:23-27) While another CR of the stack has an open PR, or a stacked CR is open (`alone asks: refused` or `allowed for <other cr> only` on the shape line), a CR's readiness reaches the Chief of Staff only through the stack: no per-CR `ready-to-merge…
+
+######## HOME: refusal take (rails.py:255: "<cr> is working: a new Driver resumes it only with `--note`"; rails.py:261: "<cr> still has an agent recorded")
+  >> scripts/cli/src/chantier/rails.py:255:             f"{c.id} is working: a new Driver resumes it only with `--note` "
+  >> scripts/cli/src/chantier/rails.py:261:             f"{c.id} still has an agent recorded ({c.agent}): "
+  - FM-052 [a] (foreman.md:215-217) It is refused (exit 2) on a working CR without `--note`, and on any CR whose agent id is still recorded: `agents set <cr> - --epoch <n>` first.
+
+######## HOME: topic cleanup ("At the last CR the CLI removes the merged CRs' worktrees")
+  - FM-B057 [e] (foreman.md:172-173) The merged CRs' cleanup is the CLI's, at the end of the last CR (`cleanup:` lines).
+
+######## HOME: topic escalation (the ask goes up once)
+  - FM-B038 [e] (foreman.md:129-130) A spent budget, a round limit, a question, an approval, an infrastructure failure: the Chief of Staff hears it as an ask, once.
+
+######## HOME: topic local-gate
+  - FM-B013 [e] (foreman.md:87) The ask is then `ready-to-merge <cr> <link> no long gate: <reason>` (or `pr-in-draft …`).
+  - FM-B021 [e] (foreman.md:100) a gate still running is not stopped.
+  - FM-B022 [e] (foreman.md:100-101) With no such rule, no clause.
+
+######## HOME: topic long-gate
+  - FM-B009 [e] (foreman.md:76-78) A hand-back that says `no long gate: <reason>` (`handback --no-gate`) is checked first: read `$CHANTIER rules` and find the rule the reason quotes.
+
+######## HOME: topic long-gate-waiver
+  - FM-B032 [e] (foreman.md:120-121) Nothing about a waiver goes in a Driver's brief except what `take` prints (its `gate:` line).
+
+######## HOME: topic orders
+  - FM-B040 [e] (foreman.md:133) The rounds exception: every `order rounds` is taken.
+  - FM-B041 [e] (foreman.md:133-136) After one, when the CR holds a note starting `rounds exception:` (in `status`'s order list, or in full in `handoff <cr>` / `log <cr>`), take it with `take <cr> --note "rounds exception: <cause>"`, with no escalation, and mark that note's o…
+  - FM-B042 [e] (foreman.md:136) without such a note, `escalate: rounds`.
+
+######## HOME: topic take-back
+  - FM-B048 [e] (foreman.md:148-153) Just before you send a Driver a note that carries work (a `rebase:` first of all, an order note, an answer), read the CR's state with a plain `$CHANTIER status` (no `--refresh`, no `--epoch`: it is a check before an action, not a wake, and…
+  - FM-B049 [e] (foreman.md:153-154) `working`, the `[foreman→driver <cr>] note <text>` message.
+  - FM-B050 [e] (foreman.md:154-155) A hand-back that lands between that read and the message is caught by the Driver, who passes the note back: then take the CR back as for a CR handed back `ready`.
+  - FM-B051 [e] (foreman.md:155-157) A `blocked` CR whose Driver is still recorded may be handed back `ready` by that Driver with no `take` (a `hand-back ready … it was blocked: …` line, see the take-back list of `foreman:merge`).
+  - FM-B052 [e] (foreman.md:158-161) A `blocked` CR whose hand-back line ends `; waits: w1 approval` has typed waits (`$CHANTIER wait <cr>` lists them, `status` shows `\| waits:`): on the user's answer, or on a `wait-cleared@1` line, run `wait <cr> clear <id> --epoch <n>`, the…
