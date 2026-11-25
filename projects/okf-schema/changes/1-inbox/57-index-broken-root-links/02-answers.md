@@ -62,3 +62,21 @@ Spec critic: yes, it changes what `index` rewrites in users' files and what `val
    Posted on https://github.com/gsemet/okf-schema/issues/57, 2026-11-25: comment
    https://github.com/gsemet/okf-schema/issues/57#issuecomment-7171724924; plan "none"; demo
    "none".
+
+## 2026-11-25: questions after the specification and the spec critic
+
+Answers 10 to 13 settle the two open questions of the specification (Q10, Q12) and the three
+behaviour findings of the critic (Q9, Q10, Q11).
+
+10. index-links-Q9: **Introduction ending with `[...]`.** "A. Garder (recommandé)": the trailing
+    `[...]` is no longer removed on `./<dir>/` entries, which never get a type tag; the summary is
+    stable between runs. Side effect shown with the option: an old subdirectory line ending with
+    `[Type]` keeps it.
+11. index-links-Q10: **Part of the introduction.** "A. Toute l'intro (recommandé)": everything
+    before the first list, on one line, with no sentence splitting. This is the reading of "la
+    phrase" of answer 5.
+12. index-links-Q11: **Encoded links.** "A. Décoder (recommandé)": the path is percent-decoded
+    (`%20`, accents) before checking that it exists, in concepts and index files alike; a link
+    really broken is still reported as written.
+13. index-links-Q12: **120-character cut.** "A. Avant le lien (recommandé)": keep 120 characters;
+    when the cut would fall inside a link, cut before it and append `...`.

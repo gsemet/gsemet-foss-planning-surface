@@ -9,7 +9,7 @@ With `api/index.md` containing only a list of concepts:
 | Today | `- [api](./api/) — [Health Check](health-check.md)  [API Endpoint]` |
 | After the change | ``- [api](./api/) — Auto-generated index for concepts in `api`.`` |
 
-If `api/index.md` has an introduction before its first list, that sentence is used instead, with its relative links rewritten to work from the root.
+If `api/index.md` has an introduction before its first list, that introduction is used instead, with its relative links rewritten to work from the root.
 
 ## Behaviour
 
