@@ -6,3 +6,6 @@
 6. radio-Q6 (2026-11-25, decided by the Griller): **The stage is a short plan with one bulleted group of three options, the first preselected; the clip clicks the second.** It is the skill's own use (a plan asking the reader to decide); numbered and nested groups, the keyboard and the undo stay out to keep one idea in about 10 s.
 7. radio-Q7 (2026-11-25, decided by the Griller): **Two beats: the click, then a zoom on the raw text with two marks (the new `(x)`, then the old option now `( )`), 10.5 s.** It follows the recipe's limit and the proven drag clip's rhythm.
 8. radio-Q8 (2026-11-25, decided by the Griller): **The loop seam is the kit's return to the start, with no click back.** The change is two characters and one dot, smaller than the merged drag clip's seam; a click back would cost time and blur the story.
+
+Grilled enough (2026-11-25): by the Griller on the owner's word relayed by the Chief of Staff ("all ten in batch-09 tonight with no question").
+Destination: running batch batch-09. Critic: no (a clip following the merged kit and recipe).

@@ -57,7 +57,7 @@ pictures.
 | Time | 7.0 to 12.0 s (zoom from 7.1 s, held to 11.2 s, then back to the start for the loop) |
 | Shot *(filmed)* | Zoom (at most 2x) on the table in the text editor (right), the heading in view. |
 | Zoom | raw, hold to 11.2 s |
-| Mark 1 *(on screen)* | Orange outline around the moved row line "\| Today \| Fix the login bug \| QA \|", 7.6 to 9.1 s |
+| Mark 1 *(on screen)* | Orange outline around the whole line of the moved row (Today, Fix the login bug, QA), 7.6 to 9.1 s |
 | Mark 2 *(on screen)* | Orange outline around the first cell of every table line, the "Due" column (header, delimiter and the 4 body rows), 9.1 to 10.6 s |
 | Text 2 *(on screen)* | The **raw table** follows, each cell keeps its spacing |
 
