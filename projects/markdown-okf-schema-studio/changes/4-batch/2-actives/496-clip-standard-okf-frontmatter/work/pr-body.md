@@ -6,10 +6,10 @@ A short feature clip of what Studio does with the standard OKF frontmatter of a 
 
 Clip (11.5 s, 1280x720, 15 fps, loop):
 
-![The okf-frontmatter clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEAD_SHA/docs/demo-video/clips/okf-frontmatter/okf-frontmatter.gif)
+![The okf-frontmatter clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/39d3eb31801f1679b444e52afa9951ca2ec3daef/docs/demo-video/clips/okf-frontmatter/okf-frontmatter.gif)
 
-- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/HEAD_SHA/docs/demo-video/clips/okf-frontmatter/okf-frontmatter.mp4
-- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/HEAD_SHA/docs/demo-video/clips/okf-frontmatter/okf-frontmatter.webm
+- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/39d3eb31801f1679b444e52afa9951ca2ec3daef/docs/demo-video/clips/okf-frontmatter/okf-frontmatter.mp4
+- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/39d3eb31801f1679b444e52afa9951ca2ec3daef/docs/demo-video/clips/okf-frontmatter/okf-frontmatter.webm
 - Storyboard to review: `docs/demo-video/clips/okf-frontmatter/clip.md`
 
 The GIF is also placed on the OKF user page (`docs/user/okf.md`).
@@ -61,3 +61,5 @@ Proved by the take (`check.json` `passed: true`): a real click on a frontmatter 
 - `first-last.png` shows a faint ghost residue next to "draft" in its last frame; to judge as watched.
 - `frames/editing.png` is taken at the click: it shows the ripple, not yet the text box.
 - The status text "Saving frontmatter..." does not show in any frame.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
