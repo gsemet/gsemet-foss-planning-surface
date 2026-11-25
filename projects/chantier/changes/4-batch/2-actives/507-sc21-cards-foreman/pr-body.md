@@ -24,7 +24,7 @@ Sizes (LF bytes), shared and host files, today's against new:
 
 | File | Today | New | Target |
 | --- | ---: | ---: | --- |
-| concepts.md | 73,286 | 18,394 | none set |
+| concepts.md | 73,286 | 18,565 | none set |
 | pr-template.md | 16,801 | 11,849 | none set |
 | release-template.md | 12,155 | 6,758 | none set |
 | status-layout.md | 17,475 | 10,992 | none set |
@@ -36,15 +36,16 @@ Sizes (LF bytes), shared and host files, today's against new:
 | sync-checkout.md | 4,801 | 1,115 | 1,500, within |
 | forges/github.md, gitlab.md | 739, 744 | 587, 590 | not larger, within |
 | hosts/claude-code.json, copilot.json | 25,243, 22,372 | same | byte-identical |
-| hosts/claude-code.md | 109,857 | 23,160 | allow rules only, none set |
+| hosts/claude-code.md | 109,857 | 23,319 | allow rules only, none set |
 | hosts/copilot.md | 18,947 | none (topics) | none set |
 | floor.md | 554 | 554 | 1,200, within, byte-identical |
 | topics/host-*.md (33 files) | part of the above | 36,066, largest 1,490 | 1,500 each, within |
 | skills: chantier, chief-of-staff, griller, status | 3,537, 3,664, 3,223, 3,644 | 2,650, 2,730, 2,292, 2,729 | none set |
 
-Role cards of this PR against their budgets: `foreman.md` 36,927 to 3,999 (4,000);
-`chief-of-staff.md` 32,067 to 5,999 (6,000); `griller-skill.md` 3,497 (4,000); `griller.md` 10,757 to
-1,925 (2,000). Cards over budget are in Known gaps.
+Role cards of this PR against their budgets: `foreman.md` 36,927 to 3,998 (4,000);
+`chief-of-staff.md` 32,067 to 5,994 (6,000); `griller-skill.md` 3,497 (4,000); `griller.md` 10,757 to
+1,925 (2,000). `cr-driver.md` 3,749 and
+`stack-driver.md` 3,783 (4,096). Cards over budget are in Known gaps.
 
 `brief <role>` bytes, Claude Code, today's cards against `--cards skills/chantier/cards-next`:
 
@@ -99,6 +100,9 @@ Grade: 1
 | qa-driver.md 10, 13; release-driver.md 14, 18, 19; stack-driver.md 18-20; spec-writer.md 11 | never touch an issue, never publish private data, the temp-folder never, one agent at a time |
 | release-driver.md 7 | an image upload is irreversible; published notes use the reviewed text or stay a draft |
 | griller-skill.md 24, 31; griller.md 7 | the temp-folder never, a pointer, no secret in the CR folder |
+| foreman.md 22 | the fast-forward never overwrites an ignored file, on a clean main checkout; stop no sync holder |
+| foreman.md 27 | the temp-folder and secrets never |
+| foreman.md 38 | adds the `session-shell` pointer; six topic names leave the Rare cases line for the 4,000 budget (`help --for foreman` lists them) |
 | topics: cr-rounds 4, refused-push-chief-p1 3 and 6, release-notes 4, ticket-summary-p2 5, titles 4, worker-shell 8 | pointer, scoping, links, a folded rule, the folder-change ban |
 
 ## Known gaps
@@ -117,7 +121,7 @@ Grade: 1
   folder of a running batch, as today's cards are (the sizes above use an inbox item).
 - Cards over budget (only the owner raises a budget): coder 1,533 (+33), demo-explorer 1,612 (+112),
   retro-critic 1,565 (+65), spec-critic 1,572 (+72), spec-writer 1,667 (+167), verifier 3,112 (+112),
-  release-driver 3,759 (+687). The first six were within before the shared-files pass.
+  release-driver 3,811 (+739). The first six were within before the shared-files pass.
 - 24 topics over 1,500 bytes, all from the base: ci-beside-gate 2,052, ci 1,589, closing 1,888,
   conflicts 2,238, cr-handback 1,506, cr-rounds 2,061, cr-ship 2,413, cr-workers 1,624, handback-other
   2,030, pr-extras 1,898, pr-images 1,882, refused-push 1,544, release-merged 2,845, release-notes
@@ -131,6 +135,9 @@ Grade: 1
 - The router skill runs no brief: it asks the role or behaves as the Chief of Staff.
 - To confirm: a branch that is not a CR's own is pushed only once on a yes, and the default branch and
   its force push never.
+- "Never fix a check red on the default branch there" is stated in `inspector.md` only, not in
+  `verifier.md` or the `ci` topic; no card names the forge's "Update branch" button (the `ship`
+  refusal covers it).
 - The inventories' homes were matched by script, not read row by row; rows with protecting wording
   that a topic carries are listed for the later review.
 - The allow-rules table still lists the `uvx` and `uv run` rules; the launcher's rule is stated apart,

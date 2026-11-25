@@ -1,71 +1,75 @@
-# Verify CR-504 (CR-A), round 3
+# Verify CR-504 (CR-A)
 
-Head: 77a8d0749bbc02da7adfc5fbf58dcd037a633063
+Head: afbb55c527217ec66537dff308bbcfb5d05b25c8
 
-Worktree `markdown-okf-schema-studio.worktrees/batch-09-CR-504`, clean tree. All claims judged at 77a8d074. Specification base `4a47151e`.
+All claims judged at `afbb55c5` unless marked `carried`. Base `4a47151e8d055b7f096b69b1fca2d9bf9636f863`. `<W>` is the CR worktree, `<CR>` the CR folder, `V` is `<CR>/work/verifier`.
 
 ## Verdict: NOT VERIFIED
 
-The marker, schema, fragment, heading, approved-metadata and baseline claims hold. NOT VERIFIED because of two description failures and delivered-versus-specified gaps that the PR's Known gaps never name (details at the end).
+Six claims fail (A to F below). The two failures of the verdict at `77a8d07` (wrong new-mode figures in the body; viewer, justfile, skill refresh and glossary absent) are fixed. No coder round is left, so A, D, E and F are code or marker gaps to hand back; B and C are body gaps.
 
-## Claims that hold (all at 77a8d074)
+## Gate
 
-1. Requirements lint, old mode. `just requirements-lint` exited 0 (`lint-exit=0`). It reported `0 files would change`, `main paths: 96 StRS checked, 625 SwRS citations, all valid` and `use case diagrams: 94 StRS checked, all parse`.
-2. Config and pin.
-   - `requirements/config.yml` has `strs_test_coverage_mode: linked-swrs-and-validation-test`, `markers.accepts: '@accepts_req'`, and `accepted_in_files` in `generated_fields`.
-   - `pyproject.toml` line 10 is `requirements = ["okf-schema>=0.18.1"]`.
-   - `uv.lock` line 638-639 is `name = "okf-schema"`, `version = "0.18.1"`.
-3. Scratch new-mode validation. I copied `requirements/` to a scratch folder, set `strs_test_coverage_mode: linked-swrs-and-acceptance-paths`, and gave the scratch folder junctions to `src`, `test`, `scripts`, `sphinx`, `skills` and `docs`. Without them okfreq scans no marker.
-   - Command: `okfreq validate <scratch>/requirements --project-root <scratch> --json`.
-   - Output: exit 0, 0 errors, 64 warnings (W004 x38, W2 x26), no W003.
-   - Check-links was left out because the junctions escape the project root.
-   - The first run with `--project-root .` and no junctions gave `1227 requirements, 0 errors, 121 warnings`, W004 x95. That run scanned no marker, so it proves nothing about fragments. The PR body quotes exactly this run (see failure A).
-4. Scan of the requirement files (a script of mine, read-only, over `requirements/tiers`).
-   - 1227 requirements. 95 live StRS, 458 live non-exempt SwRS, 2 live exempt SwRS. 672 retired.
-   - `bad 0`: every live StRS and live non-exempt SwRS declares `scenarios:` whose ids and titles match their `#### Path S<n>:` or `### Scenario S<n>[ (<kind>)]:` headings one for one, with the right shape (keys `id` and `title`, `S[1-9][0-9]*`, unique).
-   - `git grep -nE '^#### Path [0-9]' requirements/tiers` finds 0 lines.
-   - No `### Scenario:` or `### Scenario (` heading in a live SwRS.
-   - TRUST-070 and TRUST-075 have `scenarios: None`.
-   - No retired requirement has `scenarios:`, and every retired SwRS has `annotation_exemption: true` and a reason.
-   - Note: 458 live non-exempt SwRS against the spec's 457, the extra one being the new SwRS-MDOKFSTUDIO-CORE-096, as D16 allows.
-5. Scan of every tracked test and source file (not trace). 5531 `@tests_req` and 62 `@accepts_req` marker lines on known IDs, with these violation counts:
-   - `@tests_req StRS` without a fragment: 0.
-   - `@tests_req StRS` under `test/integration/`: 0.
-   - `@accepts_req` outside `test/integration/` and not on a D7 StRS: 0.
-   - `@accepts_req` on a SwRS: 0.
-   - Fragmentless marker on a declaring target: 0.
-   - Undeclared fragment: 0.
-   - Fragment on a target with no `scenarios:`: 0.
-6. D5 and approved StRS.
-   - `git diff 4a47151e..HEAD` shows 97 added `annotation_exemption: true` lines on SwRS files. None of these SwRS is approved: `git grep -l '^approved_by:' HEAD -- requirements/tiers` returns 17 StRS and 0 SwRS.
-   - The 15 listed approved StRS: the diff, once headings, `scenarios:` and `approved_at` lines are filtered out, leaves only `verified.at`, set to the same new time.
-   - `approved_at` is `2026-11-25T15:37:43+01:00` on all 15. No `approved_by` line changes anywhere.
-   - The other 2 approved StRS (MYST-001, TABLE-012) are superseded and untouched.
-7. `scripts/marker-baseline.json`. `strsTestsInIntegration` is `{}`, and `blocks` only shrinks (diff shown above).
-8. `just check`: exit 0. It includes `check-markers: 10 companion file(s), 458 in-force SwRS marked, 16 files on the marker baseline` and the 8 new rule tests of `checkMarkers.test.ts`.
-9. Each new marker rule has a test that fails on the old script.
-   - I ran the compiled `checkMarkers.test.js` from the head against `git show 4a47151e:scripts/check-marker-companions.mjs`, in a scratch folder.
-   - Output: `ℹ pass 6`, `ℹ fail 8`. The 8 failures are the rule 4 tests (declared fragment; fragment required or absent; `@implements_req` never has a fragment; two fragments count as one ID), the rule 5 tests (`@accepts_req` placement; never on a SwRS; no StRS `@tests_req` under integration) and the companion-lines test.
-10. `just release-tests`: exit 0, `206 passed`. `test_check_main_paths.py` has `#### Path S1: p` cases.
-11. Viewer unit tests, `node scripts/node-test.mjs unit "out/test/site/**/*.test.js"`: exit 0, `tests 196`, `pass 195`, `fail 0` (the remaining test is skipped). Included are `a path heading carries its S<n> id, and the older heading has none` and `a scenario heading carries its S<n> id, and the older heading has none`.
-12. Uncovered counts in the PR body: my own scan finds 2617 declared SwRS scenarios with 722 unmarked and 156 StRS paths with 94 unmarked. This matches the PR.
-13. `requirements/tiers/log.md` has the dated entry for 2026-11-25 (agreements, D5, the marker sort). Verified by `git diff` on the file.
-14. Review box: `Review: approved at 77a8d07` is checked in the PR body. I did not read `$CHANTIER log` for it in this pass. Carried as the Driver's claim, not proved here.
-15. Not run here: `just preflight`. The PR body claims it. No gate log was read.
+- `<CR>/work/gates/preflight-afbb55c.log`, first line: `CR-504 preflight at afbb55c527217ec66537dff308bbcfb5d05b25c8`.
+- Last line: `preflight exit 0; requirements-lint exit 0; head afbb55c527217ec66537dff308bbcfb5d05b25c8; dirty 0`.
+- Same log: `check-markers: 10 companion file(s), 458 in-force SwRS marked, 16 files on the marker baseline`; node tests `5249 / pass 5228 / fail 0 / skipped 21`; `206 passed` (pytest); `main paths: 96 StRS checked, 625 SwRS citations, all valid`; `use case diagrams: 94 StRS checked, all parse`.
+- `$CHANTIER handoff CR-504`: `[ ] long gate passed (... none in chantier.yaml ...; none in the project's rules: handback CR-504 ready --no-gate "<rule>")`, `[ ] verdict VERIFIED`. The project gate is `just preflight` (static stage on Windows); no gate was run by this Verifier.
+
+## Claims that hold
+
+1. Head and PR. `git -C <W> status --porcelain --branch`: branch up to date with its remote, no change. `rev-parse HEAD` and `ls-remote origin <branch>`: `afbb55c5...`. `gh pr view 524`: `OPEN draft=True head=afbb55c5... title=build: declare StRS paths and SwRS scenarios on okf-schema 0.18`.
+2. CI. `gh pr checks 524`: `static`, `static-windows`, `viewer-graph`, `visual`, `report`, `checks` pass; `integration`, `stress`, `release-check`, `toc-loop`, `gallery`, `pages`, `release`, `tag-release` skipping.
+3. Review box. `$CHANTIER log CR-504`: `r5 approved at 77a8d074 (body-only re-inspection APPROVE), committed as afbb55c`.
+4. Config and pin (diff against base). Coverage mode unchanged; `markers.accepts: '@accepts_req'`; `accepted_in_files` in `generated_fields`; `okf-schema>=0.18.1`; `uv.lock` 0.18.1 (base 0.17.0). `git diff <base> <head> -- src .github package.json package-lock.json` is empty.
+5. Declarations and marker rules. `uv run --no-project --with pyyaml python -I V/scan.py <W> afbb55c5...`:
+   - `requirements 1227; live StRS 95; live SwRS 460 (non-exempt 458, exempt 2: TRUST-070, TRUST-075); retired 672`
+   - `declaration problems: 0`; `live StRS with scenarios: 95 / 95`; `live non-exempt SwRS with scenarios: 458 / 458`; `approved SwRS: []`; `retired SwRS without exemption+reason: 0`
+   - `marker lines: tests 5543, accepts 62, implements 1517`; all eight violation counts 0
+   - `SwRS scenarios 2622, unmarked 722` (per group as in the body); `StRS paths 156, unmarked 94`; `live StRS with no @accepts_req: 38`; `paths accepted 60, tests_req 2`
+   - `LIFE-023` four paths, markers `[]`; TRUST-012 S1/S2 `tests_req` in test/security; TRUST-014 S1 `accepts_req` in test/security; `live SwRS with a test marker: 460` (also at each CR commit).
+6. New-mode validation (old failure A, fixed). `sh V/newmode.sh <W> <scratch> e5ee7ec1 06b301d1 d245fc02 77a8d074 afbb55c5` (okfreq 0.18.1 on a `git archive` copy with the mode switched): 0 errors on every commit; head `errors 0 warnings 64 : W004 x38, W2 x26`.
+7. D5, approved StRS, requirement text. `V/reqdiff.py <W> <base> <head>`: one added requirement (SwRS-CORE-096); 97 retired SwRS exempted (92 superseded, 5 deprecated), none approved; the 15 approved StRS change only `approved_at` (`2026-11-25T15:37:43+01:00`), `verified.at`, `scenarios:` and heading ids; `approved_by` unchanged. Body text changes only in BLOCK-027, CORE-007 (generated link), TRUST-012, TRUST-014, CORE-069/080/082.
+8. Baseline. `strsTestsInIntegration` is empty and `blocks` only shrinks (carried from 77a8d07: `git diff 77a8d074 afbb55c5 -- scripts/marker-baseline.json` is empty).
+9. Each D10 rule has a test that fails on the old script (carried from 77a8d07: `git diff 77a8d074 afbb55c5 -- scripts/check-marker-companions.mjs test/build/checkMarkers.test.ts` is empty): compiled head test against the base script, `pass 6, fail 8`.
+10. Unit tests. `fnm exec -- node scripts/node-test.mjs unit "out/test/site/**/*.test.js" "out/test/build/checkMarkers.test.js" "out/test/build/mutationReport.test.js"`: `tests 227, pass 226, fail 0, skipped 1`.
+11. Viewer tests fail on the old code. Head viewer tests against base viewer sources in a scratch folder (`node --test` on model, home, pages, write, mainPaths): `tests 40, pass 21, fail 19`; every new test is among the failures. Mutation report: the base regex cannot match `#S<n>`, so the new `mutationReport` test fails on base (code read).
+12. Justfile, docs, skills (old failure B, fixed). `git diff <base> <head>`: both report targets write `requirements-trace.json`; CONTRIBUTING, project guidelines (D14) and the five glossary terms are there; the vendored skills and `requirements.guidelines.md` equal a fresh okfreq 0.18.1 output plus the "Studio benches" note; `log.md` has the `2026-11-25` entry.
+13. Changes beyond markers. `V/codediff.py` and `V/splitcheck.py <W> <base> <head>`: other code changes only in docs, skills, justfile, pyproject, lock, check script, baseline, scripts/mutation/report-pure.mjs, test/build, split test files and viewer files; the split files lose no assertion.
+14. Owner steps 1 to 4, on the site built at base and at head (`V/buildsite.cjs`, `V/shots.cjs`; images viewed, no username or home folder): head home cards `2/156` paths tested, `60/156` accepted, `0/95` covered, `1900/2622` scenarios; the old `23 of 95` card is gone; area columns filled for 16 areas, totals `2/156` and `60/156`; LIFE-023 shows S1 to S4 each "None" (named gap); behaviour pages list tests per scenario, 722 "missing" marks over 460 pages. Pairs: `<CR>/work/verifier/evidence/before-after.md`.
+15. Owner steps 5 and 6 and the other rules. `uv run --no-project python -I V/ownersteps.py <W> <scratch copy>`: untouched copy passes; one broken marker at a time gives `accepts-placement`, `fragment-required`, `fragment-undeclared`, `accepts-on-swrs`, `strs-tests-in-integration`.
+16. Classification table positions. `V/table.py <W> <CR>/work/pr-body.md <base> <head>`: `rows 185` (removed 122, real VS Code 58, product outside VS Code 3, simulated 2), `bad rows 0`; base 185 StRS marker lines in 62 files, head 64 in 38; the one head marker without a row is a new one (`mystBlocksWindow.ts:151`, MYST-016#S2).
+17. Impacts figures, computed from the base report and the head report and trace (`V/figures.py`, `V/figures2.py`): base 95 live, 23 covered, 24 with all linked SwRS covered; head 0 covered, 24, one direct-marker case; only the viewer reads these reports.
+18. Named gaps are true: 722/2622, 94/156, 38 (claim 5); "StRS covered" 0 of 95 (claim 14); LIFE-023 (claim 5, 14); TRUST-012 paths start from the running Studio and TRUST-014 from a maintainer's install (files read); CORE-069 S5 says counts do not depend on the mode (file read).
+19. PR body form. `V/prcheck.py V/pr524.json <CR>/work/pr-body.md <W> <base> <head>`: posted and local differ only on the CI line (posted `- [ ] CI green: pending`, local ticked); no internal reference outside "Internal references", no username or home path, no image; "No visual change in the extension" carries its reason; the Changes list matches the diff groups.
 
 ## Failures
 
-A. The PR body's new-mode validation line is wrong.
-   - It says `{'errors': 0, 'warnings': 121, 'infos': 0}: W004 x95 (a StRS with no @accepts_req yet)`.
-   - That is the run that scanned no marker (claim 3). At the head, with the markers scanned, the run gives 0 errors and W004 x38, 64 warnings.
-   - The Known gap "95 StRS have no acceptance test (W004)" is then 38.
-   - Spec check 3 asks for the summary line of the last commit's run.
+A. StRS marker sort against spec section 3, D9 and owner answers Q7 and Q28 (walk in real VS Code -> accepts; walk on the simulated bench -> `tests_req #S<n>`).
+- `experiments/02-audit-sample.md` classes 13 of 31 sampled lines "path". At the head, 8 of those 13 are removed: rows 11 TABLE-001 (`flushBeforeNavigate.ts`), 16 LIFE-014 (`serializer.test.ts`), 17 LIFE-001 (`stockCoexistence.test.ts`), 21 BLOCK-011, 23 CODE-004, 26 PALETTE-018, 29 MYST-009, 30 DIAG-001 (the last five in `test/visual`, all 5 sampled simulated walks).
+- `git grep -n -E "@(tests_req|accepts_req) StRS-MDOKFSTUDIO-(TABLE-001|LIFE-014|LIFE-001|BLOCK-011|CODE-004|PALETTE-018|MYST-009|DIAG-001)" afbb55c5 -- test` returns six `accepts_req` lines in other files or paths (PALETTE-018#S1, LIFE-001#S1, TABLE-001#S1, MYST-009#S2, BLOCK-011#S1, LIFE-014#S1), none in the audited places, none at all for CODE-004 or DIAG-001, no simulated `tests_req` for any of the eight.
+- CODE-004 S1 is walked by `check_code_copy` (`test/visual/capture_comment_checks.py:627-679`, flag in `scenarioDefinitions1.ts:451-465`); the built CODE-004 page shows "None". Only 2 simulated-path markers exist in the whole table.
+- Wider than the sample: `git grep -c -E "@(tests_req|accepts_req) StRS-" <rev> -- test/visual` counts 74 lines at the base and none at the head (exit 1). The only `@tests_req StRS` lines left anywhere are TRUST-012#S1 and #S2 in test/security (the table's 2 "simulated path" rows). LIFE-001#S2, BLOCK-011#S2, MYST-009#S1, CODE-004#S1 and DIAG-001#S2, all classed walked by the audit, have no marker at all.
+- The body's "122 removed (a snapshot, a partial path or a duplicate of a SwRS marker)" and "a walked path keeps a StRS marker" are therefore false, and no Known gap names it. The audited files are essentially unchanged since the audit.
 
-B. Delivered against specified, with no Known gap for it. `git diff 4a47151e..HEAD --stat` (excluding `requirements/tiers` and `test`) shows 8 files: CONTRIBUTING.md, pyproject.toml, config.yml, project.guidelines.md, check-marker-companions.mjs, marker-baseline.json, mutation/report-pure.mjs and uv.lock. The following parts of the specification are therefore absent, and the PR's Known gaps do not name them:
-   - Section 4 and D12, the viewer: no "StRS paths tested", "paths accepted", "StRS covered" or "SwRS scenarios tested" cards, no "Paths tested" or "Paths accepted" columns, no per-path tested and accepted files on the StRS page, no "missing" mark on the SwRS page, no trace join. `stakeholderValidated` is still in `test/site/requirementsViewer/model.ts` (lines 58 and 377). `git grep "Paths accepted\|requirements-trace" HEAD -- test/site justfile` finds nothing. The PR describes only ids in the viewer.
-   - Section 5, justfile: `requirements-report` and `requirements-report-json` do not write `requirements-trace.json`. The justfile is untouched.
-   - D13: `.agents/skills/okfreq*` and `requirements/guidelines/requirements.guidelines.md` are not refreshed from v0.18.1.
-   - Section 6: `.agents/glossary/common.md` is untouched, and CONTRIBUTING.md changes by 4 lines only (the bench convention is not shown in the diff).
-   - Owner scenario steps 1 to 4 of the specification (home cards, area table columns, LIFE-023 use case page with files, SwRS page with "missing") cannot be shown.
+B. Classification table (spec section 3: "file, line, StRS, class, outcome", class from the rubric walks a path / partial path / single-state snapshot / SwRS duplicate / other). The Class column of all 122 removed rows reads only `removed` (claim 16 output), which is the outcome, not a class. Not a Known gap.
 
-The owner or the Foreman can accept B as a deliberate split, but then the Known gaps and the Deliverables must say it, and the spec or CR-B must take it.
+C. Spec section 3: "Scenarios that no marker covers after the sweep stay declared and are listed in the PR body." The body gives counts per group only (line 281; line 285 "The per-scenario list is not inlined"; line 52 under Autonomous decisions). CR-505 `03-change-spec.md:99` takes "the list in CR-504's PR body" as its input, so that input does not exist. Not a Known gap.
+
+D. Spec section 3: a test that checks no declared scenario is read again, and either the SwRS gains the scenario or the marker moves to the SwRS the test does check. The body (line 55): "136 dropped because the test checks no declared scenario". Neither required outcome; not a Known gap. `V/lastmarker.py <W> <base> <head>`: `base (file, SwRS) pairs 1910 gone at head 68`.
+
+E. Spec section 3: "The scenario is read from the test, not guessed from the test's name." `uv run --no-project --with pyyaml python -I V/sample.py <W> afbb55c5... 504 16` over `5541` SwRS fragment lines; 3 of 16 name a scenario the test does not check:
+- `test/core/render/mathRenderer.test.ts:52` MYST-024#S8 "Sphinx-style math delimiters are typeset" on "math cannot inject trusted HTML commands or external links" (only `\href` and `\htmlStyle`).
+- `test/core/render/alertSourceLines.test.ts:150` GFM-009#S10 "Alerts inside a colon container" on the fenced-code test (the same marker at :164 sits on a list-item test).
+- `test/session/lineEndingSave.test.ts:40` BLOCK-234#S3 "A CRLF table keeps its line endings" on a test that saves a last paragraph.
+None of the three files is in `<CR>/evidence/r2-2*-sweep-weak.md` (Grep: no match), so they belong to the matches scored good and never read. The viewer's `1900/2622` and the body's `722` unmarked therefore overstate what is tested. The body names "Fragments scored good ... were not re-read" under "Others", which is not among the gaps accepted for the follow-up change, and a Grep of the CR-505 spec for a re-reading task finds none.
+
+F. Body: "A new SwRS (SwRS-MDOKFSTUDIO-CORE-096) states the behaviour of the marker check, each rule tested by its own test"; spec section 4 (the marker-check SwRS is updated for the rules). The check has the rule `implements-fragment` (`scripts/check-marker-companions.mjs:168`, listed in the body's rule table). CORE-096's normative text and its scenarios S1 to S6 never mention `@implements_req`; its test (`test/build/checkMarkers.test.ts:272-281`) is marked `CORE-096#S3` "A fragment is missing or unexpected", which describes only `fragment-required` and `fragment-unexpected`.
+
+## Observations (not counted as failures)
+
+- "Tested by" block of a scenario card has no horizontal padding (`test/site/requirementsViewer/viewer.css:242`; `after-swrs.png`).
+- The posted body still reads `CI green: pending` (CI is green, claim 2). Its "Evidence: none" and the Known gap "the site was not looked at in a browser" are overtaken by the verifier evidence: the site change is visible, so the pairs belong in Impacts.
+- "that review removed the last marker of TRUST-005, TRUST-090, REVIEW-219, LIFE-169 or LIFE-170 from some `test/integration` files" is incomplete: `lastmarker.py` shows 26 (file, SwRS) pairs, 24 SwRS, gone from `test/integration`; 11 SwRS have no `test/integration` marker left and none is named (BLOCK-053, BLOCK-216, CORE-022, CORE-043, DIAG-001, FMEDIT-024, FMSCHEMA-001, FMSCHEMA-084, PALETTE-031, PALETTE-217, THEME-001). The five named still have some.
+- Two sections in the fold come before "Changes" (classification table, uncovered counts).
+- No review request on the PR (`reviewRequests 0, reviews 0`); the owner is probably the author. "Human decisions" omits answer Q30. The 5 deprecated exemption reasons and the `log.md` entry (no own heading for the sort) differ slightly from the spec's form.
+- Write refusal met by this Verifier, nothing written, the file was then put in `<CR>/work/scratch`: `refused: .../scratchpad/cmds.py is outside the folders this agent may write in (<W>; <CR>); write there`.
