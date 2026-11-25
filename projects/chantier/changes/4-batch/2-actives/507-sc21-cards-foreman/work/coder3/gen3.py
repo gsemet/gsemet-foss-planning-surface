@@ -95,6 +95,19 @@ THEMES_C = [
  (r"preflight", "card chief-of-staff.md:29", "preflight"),
 ]
 THEMES_C = [(re.compile(a, re.I), b, c) for a, b, c in THEMES_C]
+
+THEMES_G = [
+ (r"post|comment|tracker|close or reopen|reopen", "card griller-skill.md:19", "tracker issue"),
+ (r"open, pause|pause or close|order|message a Driver|steer|seat take|start or message", "card griller-skill.md:20", "seat take"),
+ (r"another project|of the surface", "card griller-skill.md:21", "another project"),
+ (r"abandon|restore|labels? and groups|a label or a group", "card griller-skill.md:22", "abandon"),
+ (r"board or the watcher|start the board|watcher", "card griller-skill.md:23", "board or the watcher"),
+ (r"commit|pull|push|writer|worktree|triage", "card griller-skill.md:24", "writer"),
+ (r"refused send|another way", "card griller-skill.md:28", "refused send"),
+ (r"access", "card griller-skill.md:30", "access"),
+ (r"implementation detail", "card griller-skill.md:15", "implementation"),
+]
+THEMES_G = [(re.compile(a, re.I), b, c) for a, b, c in THEMES_G]
 PTR = re.compile(r"^(see|more:|read|details|the rest|for the|on that)\b", re.I)
 HOST = re.compile(r"copilot|claude code|host", re.I)
 UNPR = re.compile(r"unproved|not proved|trial", re.I)
@@ -112,6 +125,10 @@ def heading_map(fname):
 
 def parent(n):
     return n
+
+
+def FORCE_A(f, a):
+    return (f == "chief-of-staff" and (51 <= a <= 90 or 296 <= a <= 340)) or (f == "griller" and 61 <= a <= 72)
 
 
 def walk(files, role, card, skip=None):
@@ -145,8 +162,8 @@ def walk(files, role, card, skip=None):
         for n, (tw, tb) in tp_idx.items():
             s = sc(t, tw, tb)
             roles = topics[n]["roles"]
-            if role in roles:
-                s += 0.02
+            if role not in roles:
+                continue
             if s > bt:
                 bt, btn = s, n
         prot = bool(PROT.search(t))
@@ -158,6 +175,18 @@ def walk(files, role, card, skip=None):
                 kind, home, chk = "d", f"topic {btn} (the word \"unproved\" kept for GitLab only)", f"help {btn}"
             else:
                 kind, home, chk = "d", "host row (unproved bookkeeping dropped from the topic)", "none (host row owns it)"
+        elif FORCE_A(f, a) and (role == "griller" and any(rx.search(t) for rx, _, _ in THEMES_G)):
+            rx, h, ph = next((rx, h, ph) for rx, h, ph in THEMES_G if rx.search(t))
+            kind, home, chk = "a", h, f"grep -c '{ph}' griller-skill.md"
+        elif FORCE_A(f, a) and role == "chief-of-staff" and max(bc, bf) >= 0.2:
+            if bf >= bc:
+                kind, home, chk = "a", f"floor {FLOOR_L[bfn-1].split('.')[0]}", "none (floor)"
+            else:
+                ph = (re.findall(r"`([^`]{4,30})`", CL[bcn - 1]) or [re.sub(r"[^A-Za-z ]", "", CL[bcn - 1])[:24].strip()])[0]
+                kind, home, chk = "a", f"card {card}:{bcn}", f"grep -c '{ph}' {card}"
+        elif role == "griller" and STRONG.search(t) and any(rx.search(t) for rx, _, _ in THEMES_G):
+            rx, h, ph = next((rx, h, ph) for rx, h, ph in THEMES_G if rx.search(t))
+            kind, home, chk = "a", h, f"grep -c '{ph}' griller-skill.md"
         elif role == "chief-of-staff" and STRONG.search(t) and max(bc, bf) >= 0.4 and max(bc, bf) >= bt - 0.1:
             if bf >= bc:
                 kind, home, chk = "a", f"floor {FLOOR_L[bfn-1].split('.')[0]}", "none (floor)"
@@ -173,9 +202,9 @@ def walk(files, role, card, skip=None):
             else:
                 ph = (re.findall(r"`([^`]{4,30})`", CL[bcn - 1]) or [re.sub(r"[^A-Za-z ]", "", CL[bcn - 1])[:24].strip()])[0]
                 kind, home, chk = "a", f"card {card}:{bcn}", f"grep -c '{ph}' {card}"
-        elif bt >= 0.4:
+        elif bt >= 0.3:
             kind, home, chk = "e", f"topic {btn}", f"help {btn}"
-        elif max(bc, bf) >= 0.4:
+        elif max(bc, bf) >= 0.3:
             if bf > bc:
                 kind, home, chk = "e", f"floor {FLOOR_L[bfn-1].split('.')[0]}", "none (floor)"
             else:

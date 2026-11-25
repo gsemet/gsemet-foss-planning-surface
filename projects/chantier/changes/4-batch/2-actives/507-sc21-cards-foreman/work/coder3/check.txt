@@ -1,0 +1,18 @@
+uvx ruff@0.17.5 format --check skills scripts
+865 files already formatted
+uvx ruff@0.17.5 check skills scripts
+All checks passed!
+uv run --locked --group dev --with mypy==1.20.0 --with types-psutil mypy
+pyproject.toml: note: unused section(s): module = ['copilot_session_usage']
+Success: no issues found in 536 source files
+uv lock --check
+Resolved 32 packages in 0.59ms
+uvx --from nodejs-wheel==24.19.0 npx --yes @biomejs/biome@2.6.7 check skills/chantier/scripts/cli/src/chantier/clients/web
+Checked 188 files in 54ms. No fixes applied.
+uv run --locked --group dev pytest -q -n auto --dist worksteal 
+bringing up nodes...
+bringing up nodes...
+
+........................................................................ [  2%]
+........................................................................ [  4%]
+..............
