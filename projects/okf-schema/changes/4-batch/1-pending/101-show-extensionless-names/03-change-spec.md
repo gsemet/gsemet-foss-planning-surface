@@ -63,6 +63,12 @@ Resolve the concept in this order. Each step carries one decision of `02-answers
    c. Otherwise `raw = bundle / concept_path`: a relative name starts from the bundle root,
       never from the current working directory (Q15; today's behavior, kept). A Windows drive
       path outside the bundle (`C:\other\x.md`) replaces `bundle` here and is refused at step 4.
+      A name starting with `\` is read here too, unchanged (Q16): only `/` is stripped in 2b.
+      On Windows `\api\status` keeps its Windows meaning, a path from the root of the bundle's
+      drive, as today: pathlib gives `C:\api\status` for a bundle on `C:` (it is not
+      `is_absolute()`, having no drive, so 2a does not apply), and step 4 refuses it as outside
+      the bundle unless that path is inside the bundle. On POSIX `\` is an ordinary character of
+      a relative name.
    `os` is already imported by `api.py`.
 3. Candidates, in order (Q2):
    a. `raw`, when `raw.is_file()` (links followed). A directory is never a concept;
@@ -161,7 +167,8 @@ okfreq new swrs "Stay inside the bundle" \
   `agent_skill_files: [skills/okf-schema/SKILL.md]` (both change in this CR). Scenarios, in
   `scenarios:` and as `### Scenario S<n>: <title>` sections in the body:
   - `S1` "Refuse a concept path that leaves the bundle": GIVEN a concept path such as
-    `../outside.md` or `../outside`, a Windows drive path outside the bundle, or `.` with a file
+    `../outside.md` or `../outside`, a Windows drive path outside the bundle, on Windows a name
+    starting with `\` (a path from the root of the drive) outside the bundle, or `.` with a file
     `<bundle name>.md` beside the bundle, WHEN the user shows it, THEN okf-schema reports
     `Concept path is outside the bundle: <path> (bundle: <bundle>)`, exits 2 on the CLI,
     raises `FileNotFoundError` in the API, and reads nothing outside the bundle.
@@ -182,9 +189,11 @@ okfreq new swrs "Stay inside the bundle" \
   links does not change letter case, so an absolute path whose bundle part is spelled in another
   case than the real path of `--path` is not recognized; it is read from the bundle root and
   reported as not found.
-- A line in the body (Q14): a concept path starting with `/` that is not a disk path inside the
-  bundle is read from the bundle root, so on POSIX an absolute path outside the bundle is
-  searched in the bundle and never read.
+- A line in the body (Q14, Q16): a concept path starting with `/` that is not a disk path inside
+  the bundle is read from the bundle root, so on POSIX an absolute path outside the bundle is
+  searched in the bundle and never read. On Windows a concept path starting with `\` keeps its
+  Windows meaning, a path from the root of the drive, and is refused when it is outside the
+  bundle.
 - `### Verification notes`: Method: public API and CLI tests of `show`. Criteria: a path,
   Windows drive path or symlink whose real path is outside the bundle is refused without being
   read; a POSIX absolute path outside the bundle is searched in the bundle and never read; a
@@ -248,6 +257,14 @@ stays `req_lifecycle: proposed` and gets no approval.
   `/Users/me/kb`) is not recognized as inside the bundle: it is read from the bundle root and
   reported as `Error: Concept not found: ...`; spell the bundle part as its real path does, or
   pass a name from the bundle root.
+  Say (Q16) that the bundle-root reading is for a leading `/` only: on Windows a `CONCEPT_PATH`
+  starting with `\` (for example `\api\status`) is a path from the root of the drive, as
+  Windows reads it, and gets `Error: Concept path is outside the bundle: ...` unless that path
+  is inside the bundle.
+  Add one line (Q17): Git Bash on Windows rewrites an argument starting with `/` into a path under
+  its install folder before okf-schema receives it (`/api/status` becomes
+  `C:/Program Files/Git/api/status`), which is then refused as outside the bundle; write the name
+  without `/` (`api/status`), or set `MSYS_NO_PATHCONV=1`.
 - `docs/source/tutorials/getting-started.md:89` and `docs/source/tutorials/knowledge-graph.md:94`
   already use the extensionless form, and this CR makes it work. Do not change their text.
 - `README.md`: no `show` usage to update (it only mentions `stats`). Unaffected.
@@ -341,6 +358,10 @@ API, `tests/test_api.py` (next to the `show_bundle` tests near line 546):
     With `etc/notes.md` created in the bundle, `/etc/notes` reads it (#S4; portable, since no
     host has that path inside `tmp_path`). `/etc/passwd` raises `FileNotFoundError` matching
     `Concept not found` (#S4).
+7c. `\concept-a` (Q16): on Windows it raises `FileNotFoundError` matching `outside the bundle`
+    (010#S1), since it names `<drive>:\concept-a` and no `.md` is read there; on POSIX it is a
+    relative name with a `\` character and raises `FileNotFoundError` matching
+    `Concept not found` (#S2). The test picks the expected message from `os.name`, as test 7.
 8. `sub/../concept-a.md` succeeds (010#S3).
 9. A symlink file inside the bundle that points outside, and a file reached through a symlinked
    directory that points outside, both raise the outside error (010#S2). A symlink inside that
@@ -369,7 +390,10 @@ test `..` but passes `concept.md`. Make it pass `sub/../concept.md` (with `sub/`
 tests what its name says, and mark it `# @tests_req SwRS-OKFSCHEMA-CORE-010#S3`.
 
 Scenario steps (a real run, output kept as evidence), from a disposable folder with the built
-package (`uv run -- okf-schema ...` from the worktree):
+package (`uv run -- okf-schema ...` from the worktree). On Windows, run them from PowerShell or
+`cmd`, or from Git Bash with `MSYS_NO_PATHCONV=1` set: plain Git Bash rewrites the `/...`
+arguments below (Q17) and the `/api/health-check` and `/etc/passwd` steps would not show what
+they claim.
 - `okf-schema init my-knowledge-base`, then
   `okf-schema new --path my-knowledge-base/bundle --name api/health-check`, then
   `okf-schema show --path my-knowledge-base/bundle api/health-check`: exit 0, the frontmatter
@@ -382,6 +406,14 @@ package (`uv run -- okf-schema ...` from the worktree):
 - Write `secret.md` in the disposable folder, then
   `okf-schema show --path my-knowledge-base/bundle ../../secret`: exit 2,
   `Error: Concept path is outside the bundle: ...`.
+- On Windows only (Q16): `okf-schema show --path my-knowledge-base/bundle \api\health-check`
+  (from PowerShell): exit 2, `Error: Concept path is outside the bundle: ...` naming a path at the
+  root of the drive.
+- On Windows only, from Git Bash without `MSYS_NO_PATHCONV` (Q17, the documented line):
+  `okf-schema show --path my-knowledge-base/bundle /api/health-check`: exit 2,
+  `Error: Concept path is outside the bundle: C:/Program Files/Git/api/health-check ...` (the
+  Git install folder of the host); then the same command with `MSYS_NO_PATHCONV=1` set: exit 0,
+  the concept is printed.
 
 Requirement checks: after `okfreq update-coverage requirements`, SwRS-OKFSCHEMA-CORE-010 lists
 `src/okf_schema/api.py` in `implemented_in_files` and the test files above in
@@ -398,12 +430,12 @@ No host and default matrix applies: the change does not depend on the agent host
 configured value. OS differences are covered above: the directory failure looked different on
 Windows and POSIX, and `is_file()` now removes it on both; a leading `/` is never a disk path
 on Windows and is one on POSIX, so test 7 states both outcomes and tests 7b and 13b are
-portable; symlink creation needs a privilege on
+portable; a leading `\` is a drive-rooted path on Windows and an ordinary character on POSIX, so
+test 7c states both outcomes; Git Bash rewrites a leading `/` before the tool runs, which no
+test can see (`CliRunner` passes arguments as given), so the Windows scenario steps show it and
+the command reference documents it; symlink creation needs a privilege on
 Windows, so those tests skip there when it is missing and run in CI.
 
 ## Open questions
 
-1. Windows names starting with `\` (for example `\api\status`): answers 14 and 15 speak of a
-   leading `/` only. As specified, a leading `\` is not stripped: on Windows it is a
-   drive-rooted path, outside the bundle unless the bundle sits there, so it gets the "outside
-   the bundle" refusal. Should a leading `\` be read from the bundle root like `/` on Windows?
+None. The question of the leading `\` on Windows is settled by answer 16.

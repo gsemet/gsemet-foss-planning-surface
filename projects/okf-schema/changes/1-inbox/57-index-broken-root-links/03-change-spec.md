@@ -3,7 +3,7 @@
 issue: https://github.com/gsemet/okf-schema/issues/57
 
 Code described: `origin/main` 2f09cef (okf-schema 0.18.1). Decisions: `02-answers.md`
-(index-links-Q1 to Q15, answers 1 to 17).
+(index-links-Q1 to Q16, answers 1 to 18).
 
 ## Goal
 
@@ -13,6 +13,8 @@ stay the same from one run to the next, and keep an authored summary whatever th
 subdirectory link (`tables/`, `./tables/`, `./tables`). `okf-schema validate` must report broken
 links in every `index.md` and in `log.md` as W2, like it does for concepts, and must stop treating
 `page.md#part`, `#top` or a percent-encoded path to an existing file (`my%20file.md`) as broken.
+`okf-schema stats` must count broken links with that same check, so these links no longer cost
+health points (index-links-Q16).
 
 Today, with `api/index.md` holding only a list and no summary for `api` yet,
 `okf-schema index` writes in the root:
@@ -75,6 +77,14 @@ root in the issue, `a/index.md` for an entry `./b/` of `a/`), and the **subdirec
     `src/okf_schema/okfreq/core.py:2810`); W2 is not in `_OKF_IGNORED_CODES`
     (`{"W3", "W4", "W7"}`), so `okfreq validate` reports the new index and log W2 too.
     `okfkb update` reaches `index_bundle` through `update_bundle`, so it gets the index fix too.
+- `stats_bundle` (`src/okf_schema/api.py`, line 868) counts links in concept bodies only (reserved
+  `index.md`/`log.md` and files without frontmatter skipped) with its own inline regex (the same
+  pattern as `MARKDOWN_LINK_RE`): every match adds to `total_links`, and a match whose
+  `resolve_link(target, path, bundle)` is not `None` and does not exist adds to `broken_links`
+  (lines 924-928). Anchors are not removed and paths are not decoded, so `a.md#part`, `#top` and
+  `my%20file.md` (with `my file.md` present) are counted as broken. `_health_score`
+  (`src/okf_schema/cli.py`, line 816) removes 10 points per broken link (at most 30) and lists
+  `N broken link(s)`; `stats` prints `(N broken)` after the link count (line 877).
 
 ## What changes
 
@@ -265,12 +275,31 @@ ones are still skipped, with the same test as `resolve_link`):
 
 The reported target stays the target **as written** (with its encoding and its anchor): a link
 really broken, such as `missing%20x.md#part`, is reported as `missing%20x.md#part`. This applies
-to concepts, index files and `log.md` alike (W2 is the only user of `find_broken_links`). Put
-steps 1 and 2 in one small helper beside it (for example
-`_link_path_for_check(target) -> str | None`, `None` for anchor-only) and use it also for the two
-existence tests of section 2. `resolve_link` and its other callers (graph, backlinks, stats,
+to concepts, index files and `log.md` alike (W2 is the only user of `find_broken_links`; `stats`
+uses the same per-target test, section 5b). Put steps 1 and 2 in one small helper beside it (for
+example `_link_path_for_check(target) -> str | None`, `None` for anchor-only) and use it also for
+the two existence tests of section 2. `resolve_link` and its other callers (graph, backlinks,
 superseded-link rewriting) are not changed. Update the docstring of `find_broken_links` (anchors
 ignored, paths decoded, targets reported as written) and add doctests for `a.md#part` and `#top`.
+
+### 5b. `stats` counts broken links as W2 does (index-links-Q16)
+
+`stats_bundle` (`src/okf_schema/api.py`) stops using its own test for a broken link and uses the
+W2 one: anchors ignored (an anchor-only `#top` is never broken), path percent-decoded, then
+resolved and checked as in section 5. Give the per-target test one home in
+`src/okf_schema/_internal/utils.py` (for example `is_broken_link(target, source, bundle_root) ->
+bool`, external targets `False`, built on the helper of section 5), have `find_broken_links` call
+it for each target, and have `stats_bundle` call it in place of its inline
+`resolve_link(...)`/`exists()` test (lines 924-928), so the two can no longer drift. With its
+docstring and a doctest for `#top`.
+
+Unchanged: which files `stats` reads (concept bodies with frontmatter, as today; `index.md` and
+`log.md` are still not counted), `total_links` (every link match still counts, external and
+anchor-only included), the `BundleStats` fields, `_health_score` (10 points per broken link, at
+most 30) and the `stats` output format. Only the `broken_links` number changes: a bundle whose only
+"broken" links were anchored or percent-encoded links to existing files now shows no `(N broken)`
+and `Health: 100% — all clear` instead of a penalty. Update the `stats_bundle` docstring
+(broken links counted with the same check as W2). The `stats` CLI help needs no change.
 
 ### 6. Fixture carrying the bug
 
@@ -318,7 +347,8 @@ requirements` gets no new W2 from it. No `log.md` fixture needs a change.
 - **Runtime:** `src/okf_schema/api.py` (sections 1 to 3c, `index_bundle` docstring: the summary
   order, the whole introduction, the cut, repair of damaged summaries and generic text, the
   accepted subdirectory spellings), `src/okf_schema/validator.py` (section 4, `validate_index` and
-  `validate_log`), `src/okf_schema/_internal/utils.py` (section 5). CLI help of `index` in
+  `validate_log`), `src/okf_schema/_internal/utils.py` (section 5 and the shared per-target test
+  of section 5b), `stats_bundle` in `src/okf_schema/api.py` (section 5b). CLI help of `index` in
   `src/okf_schema/cli.py` (around line 798): one sentence on where subdirectory summaries come
   from, if the help describes it.
 - **Human docs:**
@@ -337,19 +367,24 @@ requirements` gets no new W2 from it. No `log.md` fixture needs a change.
     "Validation Scope", "Reserved files" lists W2 for `index.md` and `log.md`; a compatibility
     note: bundles with broken links in an index or in `log.md` (an old entry linking to a deleted
     file) get new W2, so `--strict` can start failing until `okf-schema index` or a manual fix.
+  - `docs/source/reference/cli.md`, `## okf-schema stats`: one or two sentences: broken links are
+    counted in concept bodies with the same check as W2 (`#...` anchors ignored, paths
+    percent-decoded), each costs 10 health points (at most 30); links in `index.md` and `log.md`
+    are not counted (run `validate` for those).
 - **Agent skills:** `skills/okf-schema/SKILL.md`: the `index` row (line 136) says where
   subdirectory summaries come from (the whole introduction, links rewritten, never a list entry),
   that damaged ones are repaired and that authored ones are kept whatever the spelling of the
   link; the W2 row (line 359) adds `index.md` and `log.md`, the anchor rule and the
-  percent-decoding. No new reference file.
+  percent-decoding; the `stats` row (line 137) says broken links are counted as W2 counts them
+  (anchors ignored, paths decoded). No new reference file.
 - **Neighbours touching the same files.** Whichever CR lands second rebases on the other and keeps
   both SKILL.md rows, both `cli.md` changes and both log entries (in `requirements/tiers/log.md`,
   entries of the same day share one `## YYYY-MM-DD` heading, newest first):
   - **Same batch, CR-101** (`4-batch/1-pending/101-show-extensionless-names`) edits
-    `skills/okf-schema/SKILL.md` line 135 (next to this CR's line 136),
+    `skills/okf-schema/SKILL.md` line 135 (next to this CR's lines 136 and 137),
     `docs/source/reference/cli.md` and `requirements/tiers/log.md`.
   - **CR 58** (`1-inbox/58-show-as-stored`, stacked on CR-101) edits the same
-    `skills/okf-schema/SKILL.md` line 135 `show` row (next to this CR's line 136),
+    `skills/okf-schema/SKILL.md` line 135 `show` row (next to this CR's lines 136 and 137),
     `docs/source/reference/cli.md` (section `## okf-schema show`) and `requirements/tiers/log.md`
     under the same day heading.
   - **Same batch, `trust-actor-forms`** (`1-inbox/trust-actor-forms`, stacked before CR 58) edits
@@ -382,22 +417,29 @@ requirements` gets no new W2 from it. No `log.md` fixture needs a change.
     (GIVEN an `index.md` and a `log.md` each with a broken relative link, and a concept with
     `a.md#part` and `my%20file.md` to existing files; WHEN validate runs; THEN W2 names the index
     link and the log link as written, and neither the anchored nor the encoded one).
-  - Mark the new tests `@tests_req SwRS-OKFSCHEMA-CORE-004#S3` and
-    `@tests_req SwRS-OKFSCHEMA-CORE-001#S4`. `implemented_in_files` is generated
+  - `SwRS-OKFSCHEMA-CORE-005` (inspection, statistics included): no new scenario; its `S1`
+    ("the command returns stable results derived from current bundle content") covers the
+    `stats` count of section 5b. Its `implemented_in_files` already lists
+    `src/okf_schema/_internal/utils.py`, `src/okf_schema/api.py` and `src/okf_schema/cli.py`.
+  - Mark the new tests `@tests_req SwRS-OKFSCHEMA-CORE-004#S3`,
+    `@tests_req SwRS-OKFSCHEMA-CORE-001#S4` and, for the `stats` checks (22, 23),
+    `@tests_req SwRS-OKFSCHEMA-CORE-005#S1`. `implemented_in_files` is generated
     (`requirements/config.yml` lists it in `generated_fields`): never edit it by hand. Put
     `# @implements_req SwRS-OKFSCHEMA-CORE-001` above `find_broken_links` in
     `src/okf_schema/_internal/utils.py`, so the regeneration adds that file to CORE-001. The
     rewritten summary helpers stay in `src/okf_schema/api.py`, which already carries the CORE-004
     marker on `index_bundle`; a helper placed in another file gets
     `# @implements_req SwRS-OKFSCHEMA-CORE-004` above it. Append an entry to
-    `requirements/tiers/log.md` (IDs, reason: issue 57, decisions index-links-Q1 to Q15,
-    verification). Run `okfreq lint requirements`.
+    `requirements/tiers/log.md` (IDs, CORE-005 included for `stats`; reason: issue 57,
+    decisions index-links-Q1 to Q16; verification). Run `okfreq lint requirements`.
   - Acceptance paths are unchanged; the existing `@accepts_req StRS-OKFSCHEMA-CORE-002#S2` test
     must still pass.
 - **Examples:** unaffected: no example bundle has a broken, anchored or encoded link in an index
   or a `log.md`, and none depends on the old copied line or on another spelling of a subdirectory
   entry; `just refresh-all-examples` (run by preflight) must show no diff in `examples/`. If it
-  does, review and keep it.
+  does, review and keep it. The `okf-schema stats --path examples/ai-llm-knowledge-base` line of
+  the `justfile` only prints; that bundle passes `validate --strict` today, so its concepts hold no
+  anchored or encoded link W2 would have flagged, and its broken count stays 0.
 - **Verification:** the tests below; `docs/source/explanation/project-feature-coverage.md` has no
   row on index generation or W2: leave it, and say so in the change summary.
 
@@ -409,8 +451,11 @@ requirements` gets no new W2 from it. No `log.md` fixture needs a change.
   refreshed when the subdirectory introduction changes later (also covered by the inbox item
   `index-stale-descriptions`).
 - Verifying that an anchor exists in the target.
-- Anchors and percent-decoding in `resolve_link` for graph, backlinks, stats and superseded-link
-  rewriting.
+- Anchors and percent-decoding in `resolve_link` for graph, backlinks and superseded-link
+  rewriting (`stats` is in scope, section 5b, through the shared test, not through
+  `resolve_link`).
+- Which files `stats` counts links in (concept bodies only, as today), its `total_links` count
+  and its health-score rules.
 - Processing order of `index_bundle` (root before subdirectories) and schema summary rules.
 - Concept entries of an index (their type tag handling stays as today), and summaries without the
   bug's signature.
@@ -516,6 +561,16 @@ cases a shipped file cannot hold.
     message is `Broken cross-link 'deleted.md' in '<path>'`; a link to an existing file gives no
     W2; the existing two-argument `validate_log(path, report)` tests still pass;
     `validate_bundle` on a bundle with that `log.md` reports the W2 on `log.md`.
+22. `stats_bundle` (index-links-Q16, `tests/test_api.py`): files `other.md`, `my file.md` and
+    `café.md` exist; a concept links `[a](other.md#part)`, `[t](#top)`, `[b](my%20file.md)`,
+    `[c](caf%C3%A9.md#x)`, `[d](missing.md#part)` and `[e](missing%20x.md)`: `total_links == 6`,
+    `broken_links == 2`, and `validate_bundle` on the same bundle gives exactly two W2 (the same
+    two targets), so the two counts agree. `test_stats_bundle_counts_broken_links` and
+    `test_link_edge_cases_external_links_only` (`tests/test_edge_cases.py`) still pass.
+23. `stats` CLI (`tests/test_cli_remaining.py`): a bundle whose only links are
+    `[a](other.md#part)`, `[t](#top)` and `[b](my%20file.md)` to existing files prints
+    `all clear`, no `broken link` and no `(… broken)`; `test_stats_stats_shows_broken_links_in_health`
+    still passes (`1 broken link` for `broken.md`).
 
 ### Host matrix (link rewriting, section 1.2)
 
@@ -530,6 +585,8 @@ cases a shipped file cannot hold.
 - macOS (macos-latest): same result (check 16).
 - Windows (windows-latest and the user's machine): same result (check 16). Check 16 is not
   skipped on any host: if a runner cannot create `café.md`, it fails and the Driver reports it.
+- `stats` (check 22) on each of the three hosts: `caf%C3%A9.md` is not counted as broken, same
+  rule as check 16, not skipped either.
 
 ### Scenario steps (manual, in a scratch folder, installed CLI)
 
@@ -550,6 +607,9 @@ cases a shipped file cannot hold.
    `- [api](./api/) — Les endpoints`; a second run reports every index unchanged.
 7. Add `- Removed [old](deleted.md).` under a date heading of the root `log.md` and run
    `validate --strict`: W2 on `log.md`, non-zero exit; remove the link: it passes.
+7b. With step 5's `[x](my%20file.md)` and an added `[top](#top)` in the concept, run
+   `okf-schema stats --path kb/bundle`: no `(N broken)` and `Health: 100% — all clear`; add
+   `[gone](missing.md#part)`: `(1 broken)` and `1 broken link` in the health line.
 8. `just preflight` passes; its generated diffs reviewed (no change expected under `examples/`).
 
 ## Open questions
@@ -558,4 +618,6 @@ None. Answers 10 to 13 (index-links-Q9 to Q12) settled the two questions of an e
 (extent of the introduction, 120-character cut) and the critic's findings on the trailing `[...]`
 and on encoded links; answer 14 (index-links-Q13) settled what is written when nothing is left
 after the cut (the generic text); answers 16 and 17 (index-links-Q14, index-links-Q15), from the
-OKF 0.2 compliance check, added the three subdirectory spellings and W2 in `log.md`.
+OKF 0.2 compliance check, added the three subdirectory spellings and W2 in `log.md`; answer 18
+(index-links-Q16), from the spec critic's second pass, brought `stats` into scope with the W2
+check (section 5b).

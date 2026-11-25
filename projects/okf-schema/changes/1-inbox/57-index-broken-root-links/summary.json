@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "title": "index: no broken links in subdirectory summaries, W2 in index.md",
-  "summary": "Specified, no open question: index takes the whole subdir intro (links rewritten, cut never splits a link) or generic text, repairs damaged/generic summaries, keeps [...] and tables/, ./tables spellings; validate warns W2 in index.md and log.md, anchors ignored, paths decoded.",
+  "summary": "Specified, no open question: index takes the whole subdir intro (links rewritten, cut never splits a link) or generic text, repairs damaged/generic summaries, keeps [...] and tables/ spellings; W2 in index.md and log.md; W2 and stats ignore anchors, decode paths.",
   "origin": {
     "kind": "github",
     "ref": "#57",
@@ -9,9 +9,9 @@
   },
   "sources": {
     "01-intent.md": "6d0abcbfeaa64655692442d1bf732c1f355798893b4951b746280a4fcc4802d8",
-    "02-answers.md": "a61c15440fad9dc4dbbb0c7e3ff909a6d4542b6d0e7ee083b78a5e00b9c09738",
-    "03-change-spec.md": "2d3522001b846c4679622bd94fa0766358f3f67c9eb7b208ca3ed073f5fcb421",
+    "02-answers.md": "318a1307ab51782ffe824d1148bee7836633defd5cce83d474d6ba118a633107",
+    "03-change-spec.md": "2f4d8c2fb9889196be25f14a8e0b3f0f66674cbbf44affe782571c9428775bbe",
     "intake/request.md": "6f6e7bc9b3b722c666a3e0548bf1ef126138d4cc6bfe4ba605f681b522ffe43c"
   },
-  "summarized": "2026-11-25T20:42:30Z"
+  "summarized": "2026-11-25T20:57:10Z"
 }
