@@ -45,3 +45,10 @@ Spec critic: yes, it changes what `validate` reports and the trust tier.
    (recommandé)": no W10; the dot is allowed before `:` too (the option's description).
 6. trust-forms-Q5: **`by: "human:"` with no identifier.** "A. Machine (recommandé)": it counts as
    machine-confirmed, not human-reviewed; W10 is still shown.
+
+## 2026-11-25: during the batch
+
+Asked: discard the uncommitted line of `CHANGELOG.md` left by the long gate in the worktree of this
+CR (`- **show**: accept names without .md and stay inside the bundle`), or commit it in this CR.
+"Oui, jette-la". Done the same day with `git restore CHANGELOG.md` in that worktree, by the Chief
+of Staff on this answer; nothing else was discarded.

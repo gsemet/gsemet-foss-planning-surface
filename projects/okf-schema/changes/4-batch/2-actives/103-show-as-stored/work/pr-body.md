@@ -63,6 +63,10 @@ restores the previous output. No stored file or data format changes.
   shown as before", although it now also covers `trust`. Only its trigger sentence was widened.
 - The docstrings of the previous concept name change still say version 0.18.2, while the release
   holding it is planned as 0.19.0.
+- `trust` on an unquoted impossible date such as `stale_after: 2020-02-30` ends in a traceback
+  (exit code 1), although the command line reference says an unparseable value gives no stale line.
+  The cause is in the frontmatter parser, predates this change (`list` fails too) and is left
+  unchanged here.
 
 <details>
 <summary>Details</summary>
