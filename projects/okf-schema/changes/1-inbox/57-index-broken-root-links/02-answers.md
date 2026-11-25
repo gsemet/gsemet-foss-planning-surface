@@ -95,3 +95,9 @@ behaviour findings of the critic (Q9, Q10, Q11).
 17. index-links-Q15: **Links in `log.md`.** "A. Oui, W2 (recommandé)": `validate` reports broken
     links of `log.md` as W2 too, as for concepts and index files; an old link to a deleted file is
     warned and `--strict` fails.
+
+## 2026-11-25: after the spec critic, second pass (3 findings; 2 fixed without the user, 1 asked)
+
+18. index-links-Q16: **`stats` counts broken links its own way** (anchored and percent-encoded links
+    would stay counted as broken, with the health score penalty). "A. Corriger dans 57
+    (recommandé)": `stats` uses the same check as W2: anchors ignored, paths decoded.

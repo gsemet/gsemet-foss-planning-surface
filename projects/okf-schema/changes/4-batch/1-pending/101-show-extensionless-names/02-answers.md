@@ -72,3 +72,12 @@ Spec critic: yes, it changes what `show` refuses (CLI contract and public API).
     bundle root, from any terminal folder; the "relative to the file" rule concerns links written
     in files (already applied by the tool). Answer 6 (an absolute disk path inside the bundle
     stays accepted) was not asked again and is not withdrawn.
+
+## 2026-11-25: after the spec critic, second pass (3 findings; 2 fixed without the user, 1 asked, with the specification's open question)
+
+16. show-names-Q16: **A name starting with `\` on Windows.** "A. Sens Windows (recommandé)": `\`
+    stays a path from the root of the drive, as today; the bundle-root rule is for `/` only.
+17. show-names-Q17: **Git Bash on Windows** rewrites `/api/status` into
+    `C:/Program Files/Git/api/status` before the tool receives it (checked on this machine).
+    "A. Documenter (recommandé)": one line in the command reference: write the name without `/`,
+    or set `MSYS_NO_PATHCONV=1`.
