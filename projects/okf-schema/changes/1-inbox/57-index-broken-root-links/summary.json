@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "index: broken links in root summaries",
+  "summary": "index keeps broken relative links in root index summaries and validate does not report them (issue 57).",
+  "origin": {
+    "kind": "github",
+    "ref": "#57",
+    "url": "https://github.com/gsemet/okf-schema/issues/57"
+  },
+  "sources": {
+    "01-intent.md": "c373b45bee034c88bff2c3088c6f075ce08a1c2e3fd9a9078f290c7aaad29957",
+    "intake/request.md": "6f6e7bc9b3b722c666a3e0548bf1ef126138d4cc6bfe4ba605f681b522ffe43c"
+  },
+  "summarized": "2026-11-25T16:56:00Z"
+}

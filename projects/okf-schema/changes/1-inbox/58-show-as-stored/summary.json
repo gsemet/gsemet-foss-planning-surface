@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "show: print the concept as stored",
+  "summary": "show adds a stray trust line and reformats the frontmatter instead of printing the file as stored (issue 58).",
+  "origin": {
+    "kind": "github",
+    "ref": "#58",
+    "url": "https://github.com/gsemet/okf-schema/issues/58"
+  },
+  "sources": {
+    "01-intent.md": "705c32678abadf9d79cb53198ab26fd990b0466549a858dfbd1ede335c717484",
+    "intake/request.md": "27e058b56ad6970397ae4ed5db8fdc3528c1d93e5fe5889aadfb26b6bb51d369"
+  },
+  "summarized": "2026-11-25T16:56:00Z"
+}
