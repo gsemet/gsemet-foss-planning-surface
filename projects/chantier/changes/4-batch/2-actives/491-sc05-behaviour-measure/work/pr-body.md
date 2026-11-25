@@ -59,12 +59,12 @@ No visual change. A developer can run `just behaviour` on their own machine; nev
 
 ## Test plan
 
-- [ ] New or changed tests: the `behaviour` dry-run case (fixture figures, regressions, `--since`, detectors, privacy guard, `--prune`)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: baseline run at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests: the `behaviour` dry-run case (fixture figures, regressions, `--since`, detectors, privacy guard, `--prune`), run in `just eval-dry-run` at 5374657
+- [x] Local gates at 5374657: `just check` (2688 passed, 20 skipped) and `just eval-dry-run` (20 of 20 cases), run on the same tree before the commit
+- [x] Evidence: baseline run at 5374657 (see Deliverables)
+- [x] Review: approved at 5374657
+- [x] Verified at 5374657
+- [x] CI green at 5374657 (the macOS check passed on its one re-run; its first run failed in an unrelated port-walk test)
 
 ## Internal references
 
