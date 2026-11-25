@@ -48,8 +48,6 @@ Grade: **1**. Additive: one new command, one data file and appended text on exis
 ## Known gaps
 
 - Whether a role reads a topic when a line names it is unproved: it is measured later from transcripts.
-- Only the watcher end lines' `help watcher` is asserted behaviourally; the `help board` lines are covered by the scan that every named topic exists, not by an assertion on a line.
-
 <details>
 <summary>Details</summary>
 
