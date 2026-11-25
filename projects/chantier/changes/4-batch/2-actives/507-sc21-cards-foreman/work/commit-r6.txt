@@ -1,0 +1,7 @@
+feat(cards): new shared cards, host topics and skill texts (cards-next)
+
+Add the shared cards, forge and host files, skill texts and the topic
+index under cards-next/, loaded by nothing yet, and rename the quiz case
+of a refused push of the default branch.
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
