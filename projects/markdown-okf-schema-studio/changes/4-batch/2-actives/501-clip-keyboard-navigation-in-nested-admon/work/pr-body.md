@@ -65,7 +65,7 @@ Grade: 1. Docs, a clip folder and tests; a `git revert` restores the previous st
 - [x] Changelog: no user-facing change
 - [x] Local gates: `just clip keyboard-navigation all` (take pass, 20.0 s, GIF 1.60 MB, loop seam SSIM 0.98998), `just clip-kit-test` (40 tests) and `just check` at 3ea161c; the take and `just ci-static` at 66b8478 (carried: only the clip.md note changed since)
 - [ ] Review
-- [ ] CI green
+- [x] CI green at 3ea161c (checks, static, static-windows, viewer-graph, visual, report)
 
 ## Known gaps
 
