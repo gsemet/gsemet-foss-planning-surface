@@ -18,13 +18,15 @@ chantier judge <cr> --epoch N [--local-gate] [--record ["one sentence"]]
 
 - Without `--record` nothing is written. With it, the ask is recomputed under the lock and recorded as `asks` does.
 - A blocked hand-back, or a stack CR that is not alone, gets no ask and `--record` is refused.
-- `conflicts <cr> --epoch N` runs one `git merge-tree --write-tree` per pair of ready, unconflicted-so-far changes of a parallel batch (and of chained ones), records the notes, and prints the one ask without recording it. A batch that is not parallel gets one line saying so; a git older than the form needs, or a missing ref, is refused or reported "not run".
+- `conflicts <cr> --epoch N` first checks the local git version, then runs one `git merge-tree --write-tree` for each pair of this ready change and another ready change that has a PR on the default branch (a PR base not recorded counts as the default branch). It skips chained pairs and pairs already noted, records a note for each conflict or run that could not be made, and prints the ask for the user without recording it. A batch that is not parallel gets one line saying so; a git too old for that form is refused.
 
 ```text
 chantier conflicts <cr> --epoch N
-  <pair>: conflict | clean | not run (<git's first line>)
-  ...
-  ask: <one ask naming the pairs that conflict>
+  conflicts: ... N conflict, N clean, N skipped (already noted or chained), N not run
+  <cr> x <other>: conflict in <paths>; noted
+  <cr> x <other>: clean
+  <cr> x <other>: not run: <git's first line>; noted
+  next: asks "<the ask>"
 ```
 
 - Choice: `--record` prints only the lines `asks` prints (see Autonomous decisions).
@@ -38,6 +40,9 @@ Grade: **1**. Two new commands (`judge` writes only with `--record`, through the
 - A CR that the batch does not hold exits 2 with a message naming the batch; the existing `unknown CR` form exits 1. Every refusal of `judge` thus has the one precondition code the specification lists.
 - `--record` prints only the lines `asks` prints (`[foreman→chief-of-staff] ask A-n: …`, then the supersede lines), not the `ask:` and facts lines first. The specification's output section lists `ask:` first, but its scenario step says the `--record` run's first line starts with `[foreman→`; the scenario was followed. Open question for the specification's owner.
 - `near_misses.EPOCH_COMMANDS` gained `judge`, because a test keeps that list equal to the parsers that declare `--epoch`.
+- `conflicts` checks the git version first on every call, before any other work, so an old git is refused at once.
+- A pair whose PR base is not recorded counts as on the default branch.
+- `conflicts` only prints the ask (`next: asks "..."`) and records none; the steering session sends it.
 - `conflicts` counts a pair as a conflict only when `git merge-tree` exits 1 with a tree id on its first stdout line; git also exits 1 for a missing ref, so that case is "not run" with git's first line. This widens the specification's "any other exit is not run" rule.
 - The `conflicts` handler is split in two functions to keep within the 50-line function limit enforced by a test.
 - The scenario step for `conflicts` lives in the series-deps unit, where chained batches run.
@@ -68,7 +73,7 @@ No visual change. The steering session gets one command to word the ready ask an
 
 ## Test plan
 
-- [ ] New tests (they fail on the previous code): `tests/test_judge.py`, 26 tests, 0.94 s
+- [ ] New tests (they fail on the previous code): `tests/test_judge.py`, 26 tests, 0.94 s; `tests/test_conflicts.py`, 21 cases (about 19 s alone: git setup per test); the tests ran on git 2.56.0 (Windows)
 - [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`, `just scenario --unit parallel` (parallel unit 294/294 at round 1), `just scenario --unit series-deps` (85/85 at round 2)
 - [ ] Evidence: none (no visual change)
 - [ ] Review: approved at `<sha7>`
