@@ -35,6 +35,7 @@ Grade: **1**. Only documentation assets and one docs page change; no source, no 
 - An empty `comments.authorName` (the Git user name is then shown) is not filmed, to keep personal data off screen.
 - Motion, rhythm, the loop as watched and the GIF playing in the rendered pull request page are not checked by the author. **UNVERIFIED:** that GitHub plays the Git LFS GIF inline.
 - The popover shows the date of the take (11/25/2026).
+- The contact-sheet tile at 8.475 s shows no mark although the MP4 shows mark 2 there.
 
 <details>
 <summary>Details</summary>
@@ -55,12 +56,12 @@ A new demo clip and one image on the review comments page; no change to the exte
 
 ## Test plan
 
-- [ ] New or changed tests: none, no behaviour change
-- [ ] Requirements: no behaviour change
-- [ ] Changelog: no user-facing change
-- [ ] Local gates at `7a02a84`: `just check`, `just ci-static`, `just clip comment-thread all --vsix …` (check.json passed)
-- [ ] Review
-- [ ] CI green
+- [x] New or changed tests: none, no behaviour change
+- [x] Requirements: no behaviour change
+- [x] Changelog: no user-facing change
+- [x] Local gates at `7a02a84`: `just check`, `just preflight` (static stage on Windows), `just clip comment-thread all --vsix …` (check.json passed)
+- [x] Review: Inspector approved at `f42acf7`, committed as `7a02a84`; Verifier VERIFIED at `7a02a84`
+- [x] CI green at `7a02a84` (static, static-windows, viewer-graph, visual, checks, report)
 
 ## Internal references
 
