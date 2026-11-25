@@ -52,12 +52,12 @@ No visual change. Grep of the old role wording at the base (`git grep -n -i "kno
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): `tests/test_brief.py`, hook case, scenario check
-- [ ] Local gates at `d2c55f0`: `just check`, `just eval-dry-run`, `just mod` pass; `just scenario` passed locally on the round's tree
-- [ ] Evidence: none beyond the tests above
-- [ ] Review: approved at `d2c55f0`
-- [ ] Verified at `d2c55f0`
-- [ ] CI green at `d2c55f0`
+- [x] New or changed tests (they fail on the previous code): `tests/test_brief.py`, hook case, scenario check
+- [x] Local gates at `d2c55f0`: `just check`, `just eval-dry-run`, `just mod` pass; `just scenario` passed locally on the pre-rebase tree (ac03671); at this head the pipeline's `just scenario (ubuntu-latest)` job passed
+- [x] Evidence: none beyond the tests above
+- [x] Review: approved at `ac03671` (carried to `d2c55f0`: a rebase onto main and a one-character `;` in `scenario/README.md`)
+- [x] Verified at `d2c55f0`
+- [x] CI green at `d2c55f0`
 
 ## Internal references
 
