@@ -1,0 +1,74 @@
+side: after; sources: 41fcd6dbebaddff719c2a3f54f610298034d0ad6; Windows PowerShell 5.1, in <disposable>
+Each command ran as: uv run --no-sync --project <worktree> -- okf-schema ...
+<disposable> holds my-knowledge-base/, secret.md and bundle.md (a file named like the bundle folder, beside it).
+
+PS> okf-schema show --path my-knowledge-base/bundle api/health-check
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+
+The service answers.
+
+exit code: 0
+
+PS> okf-schema show --path my-knowledge-base/bundle /api/health-check
+---
+type: concept
+title: health-check
+description: ''
+tags: []
+---
+trust: unverified
+
+The service answers.
+
+exit code: 0
+
+PS> okf-schema show --path my-knowledge-base/bundle /etc/passwd
+Error: Concept not found: <disposable>\my-knowledge-base\bundle\etc\passwd
+exit code: 2
+
+PS> okf-schema show --path my-knowledge-base/bundle api
+Error: Concept not found: <disposable>\my-knowledge-base\bundle\api
+exit code: 2
+
+PS> okf-schema show --path my-knowledge-base/bundle ../../secret
+Error: Concept path is outside the bundle: ../../secret (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+PS> okf-schema show --path my-knowledge-base/bundle \api\health-check
+Error: Concept path is outside the bundle: \api\health-check (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+PS> okf-schema show --path my-knowledge-base/bundle .
+Error: Concept path is outside the bundle: . (bundle: <disposable>\my-knowledge-base\bundle)
+exit code: 2
+
+PS> okf-schema show --help
+Usage: okf-schema show [OPTIONS] CONCEPT_PATH
+
+  Show a single concept's frontmatter and body.
+
+  .. versionchanged:: 0.18.2     Accept a concept name without ``.md`` or with
+  a leading ``/``,     and refuse a path that leaves the bundle.
+
+  The concept name starts from the bundle root (a leading ``/`` is allowed),
+  the ``.md`` extension is optional, and a path outside the bundle is refused.
+
+  Args:     ctx:         Active Click command context.     bundle_path:
+  Root directory of the bundle containing the concept.     concept_path:
+  Name of the concept from the bundle root,         or absolute disk path
+  inside the bundle.
+
+  Examples:     okf-schema show --path bundle concepts/clock.md
+
+      okf-schema show --path bundle concepts/clock
+
+Options:
+  --path DIRECTORY  Root directory of the OKF bundle.  [required]
+  -h, --help        Show this message and exit.
+exit code: 0

@@ -69,12 +69,12 @@ okf-schema validate --strict --path kb/bundle
 
 ### Validation
 
-- `just preflight` on Windows, on the reviewed state: pass. 1187 tests passed, 12 skipped,
-  coverage 95.68%; style, lint, requirements lint, changelog, ty, mypy, requirements report and
-  Sphinx `-W` docs pass.
-- `just refresh-all-examples` (run by preflight): no content diff under `examples/`.
-- `okfreq validate requirements --prose --check-links --project-root .`: 35 requirements,
-  0 errors, 0 warnings.
+- `just preflight` on Windows at `8537709`: pass. 1187 tests passed, 12 skipped, 96% total
+  coverage; it runs style, lint, requirements lint, changelog, ty, mypy, the examples refresh, the
+  requirements report and the Sphinx `-W` docs build.
+- The examples refresh rewrote line endings only: no content change under `examples/`.
+- `okfreq validate requirements --prose --check-links --project-root .` at `8537709`:
+  35 requirements, 0 errors, 0 warnings.
 
 ## Type of Change
 
