@@ -33,9 +33,9 @@ Grade: 1. Only new, unloaded files are added; `git revert` restores everything. 
 
 ## Known gaps
 
-- Real run not done: this PR merges with the later cards work as one unit, after a real campaign. Do not merge alone.
+- Real run not done (the final campaign of the cards work). Do not merge: merges with the rest of the cards work as one unit, after that campaign.
 - **UNVERIFIED:** the quiz pass rule (no case worse than the old cards). The quiz plan (24 runs, about $8.51 against a $10 cap) leaves no room to also run the old cards for the comparison, so no quiz was run.
-- The inventory is not one row per rule sentence; the later check against the old cards completes it.
+- Two forward links point at files a later part of the cards work writes: `../pr-template.md` and `../concepts.md` (2 and 4 uses). No link points into `references/`.
 
 <details>
 <summary>Details</summary>
@@ -43,7 +43,8 @@ Grade: 1. Only new, unloaded files are added; `git revert` restores everything. 
 ## Changes
 
 - `skills/chantier/cards-next/<role>.md` for the eleven roles, each within its byte budget.
-- `skills/chantier/cards-next/floor.md`, `topics/*.md`, `topics.json`.
+- `skills/chantier/cards-next/floor.md`, `topics.json` and these topics: worker-shell, verifier-scratch, verifier-description, verifier-review-box, verifier-delta-matrix, verifier-before-after, verifier-images, inspector-audit, spec-writer-extras.
+- The rule inventory (one row per rule sentence of the old cards, 374 rows) and the byte, brief-size, link and reply-block checks are kept as evidence files of the change, not in this diff.
 - No change outside `skills/chantier/cards-next/`.
 
 ## Impacts
