@@ -75,7 +75,7 @@ kit or to the recipe. A plain `git revert` restores the previous state.
 - In the zoomed pictures the top of the VS Code window (menu bar text, title) is cut at the top edge.
 - No macOS or Linux take; with the default GFM palette mode `/grid` lists Table only (not filmed, stated
   in the storyboard).
-- The clip's GIF rendering in this pull request page is checked after the push.
+- How GitHub plays the GIF on this page is for the reviewer to see (the raw URL resolves to image/gif).
 
 <details>
 <summary>Details</summary>
@@ -102,8 +102,8 @@ No visual change to the product. The documentation page gains a looping clip, th
 - [x] Local gates at `d5e6821`: `just clip-kit-test`, `just check`, `just ci-static`, `just preflight` (all pass; preflight static stage on Windows)
 - [x] Evidence: take at d5e6821 (`check.json`, key frames, contact sheet)
 - [x] Review: approved at `d5e6821`
-- [ ] Verified at `NONE`
-- [ ] CI green at `NONE`
+- [x] Verified at `d5e6821`
+- [x] CI green at `d5e6821`
 
 ## Internal references
 
