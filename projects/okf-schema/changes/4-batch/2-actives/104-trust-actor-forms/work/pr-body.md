@@ -112,3 +112,5 @@ the requirement stays `proposed`.
 ## Related Issues
 
 None
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
