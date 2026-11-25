@@ -83,3 +83,5 @@ behaviour findings of the critic (Q9, Q10, Q11).
 14. index-links-Q13: **Nothing left after the cut** (an introduction starting with a link that
     covers the cut). "A. Phrase générique (recommandé)": write the generic text instead of `...`
     alone; it is recomputed on each run like any generic text.
+15. index-links-Q13, rephrased after the user's "Je n'ai pas compris Q13 reformule": "A. Phrase
+    par défaut (recommandé)", the same decision as answer 14, confirmed.
