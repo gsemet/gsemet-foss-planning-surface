@@ -359,7 +359,7 @@ All of it in the PR, at its pushed head.
 5. **`topics.json`.** It loads with child 7's loader pointed at it: `load_topics(path)`, the
    tests' path form. Every reading exists, every role is in `roles.yaml`, and every `review_by`
    matches `X.Y.Z`.
-6. **Rule rows for child 25.** A list in the PR (and in `work/rule-rows.md` of the CR folder) of
+6. **Rule rows for child 25.** A list in the PR (and in `evidence/cards-inventory-drivers.md` of the CR folder) of
    the old rules the family covers. Each rule of `driver.md` and of the 16 pieces gets a row:
    - its source line;
    - where it went: card, topic, floor, refusal, `next:` line, `--help`, or "inferable" with its

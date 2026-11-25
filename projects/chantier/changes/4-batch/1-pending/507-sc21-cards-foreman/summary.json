@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC21: New card: the Foreman, with its topics",
+  "summary": "Specified (03-change-spec.md): the Foreman card and its topics in cards-next/, with The user's boundaries split rule by rule under F5; one open question (the worktree override). Child 21 of 28; base child 20.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "4ce6eb0d54007e0f2f6b3f33c48f213307a6e4c109475d71f563c6a6c7380e3e",
+    "02-answers.md": "b48a6f5deef52a7fd813976ae7c43f26f78259d39408465ac36bccbbbb003dd4",
+    "03-change-spec.md": "aac413bd415c337f7e594da96806153c14bbec2e14a1f4a72eca2462d1821121",
+    "intake/request.md": "e44a1c5ceba0f54566b2131b4ca2aaa10040dedb437923ed27bf60d0908054cc"
+  },
+  "summarized": "2026-11-25T00:17:27Z"
+}
