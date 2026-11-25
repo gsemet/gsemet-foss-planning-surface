@@ -234,10 +234,18 @@ No visual change; nothing loads the new files.
 
 ## Test plan
 
-- [ ] No behaviour change: no test added or changed
-- [ ] Local gates at the head: `just check`
-- [ ] Evidence: byte copies, links, topic index, Driver table, unloaded check
-- [ ] Review
+- [x] No behaviour change: no test added or changed
+- [x] Local gates at the head: `just check` at `03f973e`: 2932 passed, 20 skipped
+- [x] Evidence at `03f973e`:
+  - byte copies: `git rev-parse HEAD:<path>` gives the same blob under `cards-next/` and `references/` for
+    `floor.md` (`61da01e8`), `hosts/claude-code.json` (`3f2daf79`) and `hosts/copilot.json` (`b4dec473`);
+  - unloaded: `git grep -n cards-next HEAD -- . ':(exclude)skills/chantier/cards-next'` prints no line,
+    and `git grep -n "Read this short role contract at boot\|# chantier-agent:\|chantier board" HEAD --
+    skills/chantier/cards-next` prints no line;
+  - links under `cards-next/`: 22, broken 0, none into `references/`;
+  - topic index: 234 topics load, 415 readings resolve, no base name missing;
+  - Driver table: the parser reads 4 rows from the old and the new file, equal cell for cell
+- [x] Review: approved at `03f973e` (carried from `bb6a563`)
 - [ ] Verified
 - [ ] CI green
 
@@ -248,3 +256,5 @@ No visual change; nothing loads the new files.
   and shared, with the completeness table) and the proofs.
 
 </details>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
