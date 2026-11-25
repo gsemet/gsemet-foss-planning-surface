@@ -1,0 +1,8 @@
+feat: give each gallery screenshot its own link
+
+A reader can now open, bookmark, reload and share one screenshot of the
+published gallery. The link stays the same from one CI run to the next, Back
+and Forward step through the screenshots seen, and a link to a screenshot
+that no longer exists says so.
+
+Assisted-by: Claude:Sonnet-5.5
