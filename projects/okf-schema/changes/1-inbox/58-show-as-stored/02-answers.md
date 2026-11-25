@@ -29,3 +29,8 @@ Short name: `show-raw`
    invalid YAML.
 4. show-raw-Q4: **API.** "A. Champ raw (recommandé)": the result of `show_bundle` gains a field
    with the exact stored text; the current fields do not change.
+5. show-raw-Q5: **Trust tier no longer in any command.** "A. Accepter (recommandé)": the source
+   stays the file's `verified` field, which `show` now prints faithfully (the option's words);
+   `list` keeps its `[STALE]` marker and the API keeps `trust_tier` and `stale`. No new CR.
+6. show-raw-Q6: **Release.** "A. fix → 0.18.2 (recommandé)": a `fix(show): ...` commit, like
+   CR 56.

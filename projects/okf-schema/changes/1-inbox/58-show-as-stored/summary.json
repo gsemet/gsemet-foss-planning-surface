@@ -1,15 +1,16 @@
 {
   "schema": 1,
-  "title": "show: print the concept as stored",
-  "summary": "show adds a stray trust line and reformats the frontmatter instead of printing the file as stored (issue 58).",
+  "title": "show: print the stored file, without the trust line",
+  "summary": "show prints the file as stored, no re-serialization, no trust or stale lines; show_bundle gains the raw text",
   "origin": {
     "kind": "github",
     "ref": "#58",
     "url": "https://github.com/gsemet/okf-schema/issues/58"
   },
   "sources": {
-    "01-intent.md": "705c32678abadf9d79cb53198ab26fd990b0466549a858dfbd1ede335c717484",
+    "01-intent.md": "67aff9a703c752a006a7f47d10cdbc39a38c0a3f7d2a8ef9ec63d67989c6b942",
+    "02-answers.md": "ee9b318240caf4850cd6f416a90bf672c342b02fbaa77e195b51109727f12599",
     "intake/request.md": "27e058b56ad6970397ae4ed5db8fdc3528c1d93e5fe5889aadfb26b6bb51d369"
   },
-  "summarized": "2026-11-25T16:56:00Z"
+  "summarized": "2026-11-25T19:42:38Z"
 }

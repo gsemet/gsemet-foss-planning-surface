@@ -102,13 +102,17 @@ constant or helper instead of three literals):
 In the introduction, every link matched by `MARKDOWN_LINK_RE` (`[t](x)` and `![t](x)`) is
 rewritten so it works from the parent index's folder:
 
-- External targets (`resolve_link` returns `None`) and `/`-prefixed targets (bundle-rooted) are
+- External targets (`://` or `mailto:`, the test `resolve_link` uses) and `/`-prefixed targets (bundle-rooted) are
   kept as written.
-- A target with a path part: split at the first `#`, resolve the path part from the subdirectory
-  index (as `resolve_link` does), then write `os.path.relpath(resolved, parent_dir)`, converted to
-  `/` separators, plus the `#...` part unchanged. Example: in `api/index.md`,
+- A target with a path part: split at the first `#` and rewrite the path part **textually,
+  without resolving it**: `posixpath.normpath("<dir>/" + path)`, where `<dir>` is the subdirectory
+  index's folder relative to the parent index's folder, in `/` form (for a nested level, the same
+  join with that relative folder), plus the `#...` part unchanged. Do not use `resolve_link` or
+  `Path.resolve()` here: they follow symlinks, so a link through a symlink would be rewritten to
+  the symlink's target, possibly outside the bundle (see the inbox item `bundle-outside-symlinks`).
+  Only existence checks (section 2, W2) resolve paths. Example: in `api/index.md`,
   `[guide](guide.md#setup)` becomes `[guide](api/guide.md#setup)` in the root;
-  `[up](../README.md)` becomes `[up](README.md)`.
+  `[up](../README.md)` becomes `[up](README.md)` (`normpath("api/../README.md")`).
 - An anchor-only target `#x` (it points at the subdirectory index itself) becomes
   `<dir>/index.md#x`.
 - The link text is not changed. A link already broken from the subdirectory is rewritten the same
@@ -132,10 +136,15 @@ and goes to point c, when it has the bug's signature:
 - its path part (before `#`) does **not** exist resolved from the parent index's folder;
 - and it **does** exist resolved from `<dir>/`.
 
+This applies only to an entry that exists: `_get_immediate_subdirs_with_content` lists a
+subdirectory only when it or a descendant holds a Markdown file (`has_markdown_files`). A
+subdirectory holding only YAML schemas gets no entry at all, and its old line is dropped, as today.
+
 Any other preserved summary is left untouched (including one that starts with a link broken
 from both places, or valid from the parent; those keep their text and W2 reports the broken ones).
 The issue's `- [_schema](./_schema/) — [_base.schema.yaml](_base.schema.yaml)` has the signature
-(the file exists in `_schema/`, not at the root) and is recomputed.
+(the file exists in `_schema/`, not at the root) and is recomputed when `_schema/` holds a Markdown
+file (for example its own `index.md`); with only YAML schemas the line is dropped, as above.
 
 ### 3. Generic text recomputed (index-links-Q5)
 
@@ -192,7 +201,9 @@ bundle) is out of scope.
 - **Human docs:**
   - `docs/source/reference/cli.md`, `## okf-schema index`: the summary order of section 1, links
     rewritten from the parent index, damaged summaries and the generic text recomputed, other
-    summaries preserved; a before/after of the issue's case.
+    summaries preserved; a before/after of the issue's case; the limit that an introduction once
+    copied into a parent index is kept as authored and not refreshed when the subdirectory
+    introduction changes.
   - `docs/source/reference/validation-codes.md`: `### W2` covers concept bodies and every
     `index.md`, and ignores `#...` anchors (the anchor is not verified); in "Validation Scope",
     "Reserved files" lists W2 for `index.md`; a compatibility note: bundles with broken links in an
@@ -200,6 +211,10 @@ bundle) is out of scope.
 - **Agent skills:** `skills/okf-schema/SKILL.md`: the `index` row (line 136) says where
   subdirectory summaries come from and that damaged ones are repaired; the W2 row (line 359) adds
   `index.md` and the anchor rule. No new reference file.
+- **Same batch, CR-101** (`4-batch/1-pending/101-show-extensionless-names`) edits
+  `skills/okf-schema/SKILL.md` line 135 (next to this CR's line 136),
+  `docs/source/reference/cli.md` and `requirements/tiers/log.md`. Whichever CR lands second
+  rebases on the other and keeps both SKILL.md rows, both `cli.md` changes and both log entries.
 - **Scaffold guidance (`src/okf_schema/data/`):** unaffected; it ships no index-generation or W2
   wording (the Driver checks with a grep for `W2` and `okf-schema index` and states the result).
 - **Requirements** (`requirements/`, following both requirements guidelines):
@@ -212,9 +227,13 @@ bundle) is out of scope.
     `index.md` with a broken relative link and a concept with `a.md#part` to an existing file;
     WHEN validate runs; THEN W2 names the index link and not the anchored one).
   - Mark the new tests `@tests_req SwRS-OKFSCHEMA-CORE-004#S3` and
-    `@tests_req SwRS-OKFSCHEMA-CORE-001#S4`; add `src/okf_schema/_internal/utils.py` to
-    `implemented_in_files` of CORE-001 only through `okfreq update-coverage` if it is generated,
-    by hand only if authored (follow the guideline). Append an entry to `requirements/tiers/log.md`
+    `@tests_req SwRS-OKFSCHEMA-CORE-001#S4`. `implemented_in_files` is generated
+    (`requirements/config.yml` lists it in `generated_fields`): never edit it by hand. Put
+    `# @implements_req SwRS-OKFSCHEMA-CORE-001` above `find_broken_links` in
+    `src/okf_schema/_internal/utils.py`, so the regeneration adds that file to CORE-001. The
+    rewritten summary helpers stay in `src/okf_schema/api.py`, which already carries the CORE-004
+    marker on `index_bundle`; a helper placed in another file gets
+    `# @implements_req SwRS-OKFSCHEMA-CORE-004` above it. Append an entry to `requirements/tiers/log.md`
     (IDs, reason: issue 57, verification). Run `okfreq lint requirements`.
   - Acceptance paths are unchanged; the existing `@accepts_req StRS-OKFSCHEMA-CORE-002#S2` test
     must still pass.
@@ -228,6 +247,9 @@ bundle) is out of scope.
 
 - Concept descriptions edited after indexing are not refreshed in existing index entries
   (index-links-Q6, filed apart as `index-stale-descriptions`).
+- An introduction copied into a parent index is then preserved as authored text, and is not
+  refreshed when the subdirectory introduction changes later (also covered by the inbox item
+  `index-stale-descriptions`).
 - Verifying that an anchor exists in the target.
 - Anchors in `resolve_link` for graph, backlinks, stats and superseded-link rewriting.
 - Processing order of `index_bundle` (root before subdirectories) and schema summary rules.
@@ -255,7 +277,9 @@ cases a shipped file cannot hold.
 4. Nested level: entry `./b/` in `a/index.md` from `a/b/index.md`; links are rewritten relative
    to `a/`.
 5. Damaged summary repaired: root entry `[Health Check](health-check.md)` with the file in `api/`
-   is recomputed; the `_schema` case of the issue too.
+   is recomputed; the `_schema` case of the issue too, with `_schema/` holding
+   `_base.schema.yaml` and a Markdown file (`_schema/index.md`, list only), so that the entry
+   exists: it gets the generic text. A second case with only the YAML file: no `_schema` entry.
 6. Not damaged, kept: an authored summary without a leading link; one starting with a link valid
    from the root; one starting with a link broken from both places (kept, and W2 reports it).
 7. Generic text recomputed: root holds the generic text, an introduction is then added to
