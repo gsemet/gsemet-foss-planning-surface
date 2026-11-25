@@ -64,13 +64,17 @@ does not change).
   shows the gallery's social card.
 - The arrow keys held with Alt or Meta, and Alt with a click on a card, are left to the browser, so
   that its Back and Forward shortcuts keep working in the viewer.
+- Closing the viewer also adds a history entry, so Back after a close reopens the screenshot just
+  closed.
 - The new requirement is recorded as proposed.
 
 ## Test plan
 
 - [x] New or changed tests (they fail on the previous code): unit tests of the page and a Chromium
       test of the links
-- [x] Requirements: one SwRS added, markers in code and tests, `just requirements-update`
+- [x] Requirements: `SwRS-MDOKFSTUDIO-CORE-096` added (proposed), implemented in
+      `test/site/galleryPage.ts`, tested in `test/site/gallery.test.ts` and
+      `test/site/galleryLinks.browser.test.ts`; `just requirements-update` run
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [ ] Local gates:
 - [ ] Review
