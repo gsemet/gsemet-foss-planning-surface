@@ -16,3 +16,5 @@ Destination: running batch batch-31.
 
 2. sc10-Q1..Q4: **Defaults.** Chief of Staff under the owner's autonomy: Q1 `chief-of-staff.md` and `griller-skill.md` in a `--cards` folder; Q2 the project's name first in the brief path; Q3 briefs are never cleaned by chantier; Q4 `brief` through a profile is allowed like any other command. To confirm by the owner.
 
+
+3. Coder, round 1: took the sc10-Q1..Q4 defaults as written in 2 (Q1 `<folder>/chief-of-staff.md` and `<folder>/griller-skill.md`, Q2 `chantier/briefs/<project>/<batch>/`, Q3 never cleaned, Q4 allowed through a profile).
