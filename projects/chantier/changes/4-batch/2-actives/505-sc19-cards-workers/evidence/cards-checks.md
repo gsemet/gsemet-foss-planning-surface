@@ -8,3 +8,9 @@
 - Files added, all under `skills/chantier/cards-next/`: 11 cards, `floor.md`, `topics.json`, 9 topics. No file outside it changed.
 - Owed at the Driver's push: `git show HEAD:<path>` byte checks and `git diff --stat <base>..HEAD` (no commit here).
 - `just test` timing: no test added, 0 s added.
+
+## Round 2 additions
+
+- floor.md: `cmp` against references/floor.md, identical.
+- Trigger alignment: for each of the 9 topics in topics.json, the trigger text is a substring of every card of the topic's roles (script run in round 2: all true, 16 role checks).
+- Card and topic bytes: `cards-bytes.md`, all within budget.

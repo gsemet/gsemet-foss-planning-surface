@@ -151,7 +151,6 @@ R("demo-explorer", "the output", "For each change, a walkthrough: the setup, whe
 R("demo-explorer", "the output", "What the walkthroughs need: a fixture or a small ephemeral environment, and how to remove it", f"{f}:48", "a", "card demo-explorer.md (what they need ... and its removal)", "child 25")
 R("demo-explorer", "running the project", "How to run the project comes from its `AGENTS.md`; what it does not say is a question in your reply, not a guess", f"{f}:48-50", "a", "card demo-explorer.md (same sentence)", "child 25")
 R("demo-explorer", "the reply", "Reply with the path of `demo/demo.md` and the open questions, in at most ten lines", f"{f}:52", "a", "card demo-explorer.md (Reply: the path of `demo/demo.md` and the open questions)", "reply-blocks-diff.md")
-R("demo-explorer", "a capture shows a path", "(not in the old card) no image shows the username or home folder", "none: the old card has no such sentence", "f", "floor 8 (the quiz case floor-8-demo-explorer-capture tests it)", "quiz floor-8-demo-explorer-capture")
 
 # ---------------------------------------------------------------- spec-writer
 f = "spec-writer.md"
@@ -176,7 +175,6 @@ R("spec-writer", "the specification", "The evidence that proves it: the checks a
 R("spec-writer", "the specification", "Self-containment: a Driver needs nothing else to implement it", f"{f}:48", "a", "card spec-writer.md (self-contained)", "child 25")
 R("spec-writer", "an answer is left open", "Not yours to decide: end the specification with a list of questions, which the Chief of Staff takes to the user", f"{f}:50-51", "a", "card spec-writer.md (An open point is a question ...; Never: decide what the answers leave open)", "child 25")
 R("spec-writer", "the reply", "Reply in a few lines: the path of the specification, and the open questions if any; with spec-critic fixes, the fixes applied and those not, with why", f"{f}:55-56", "a", "card spec-writer.md (Reply: ...)", "reply-blocks-diff.md")
-R("spec-writer", "a shell call", "(not in the old card) one command per call, no leading assignment", "none: the old card has no shell rule", "b", "inferable (the card keeps none; topic worker-shell no longer lists spec-writer)", "topics.json validates")
 
 # ---------------------------------------------------------------- spec-critic
 f = "spec-critic.md"
@@ -332,7 +330,6 @@ R("board-griller", "writing", "You write only in the CR's folder (prototypes inc
 R("board-griller", "commands", "You run only these commands: `$CHANTIER rules`, `$CHANTIER access`, `$CHANTIER summary lint <the CR's folder>` and `$CHANTIER summary set <the CR's folder> ...`, and no other `chantier` command", G(128, 130), "a", "card griller.md (You run only these commands ...)", BR)
 R("board-griller", "the summary", "(the summary rule of this card holds)", G(129, 130), "f", "the rest of griller.md, which child 22 rewrites (a pointer to another section, not a rule)", "child 25")
 R("board-griller", "a tool refused by the limits", "Say it in one line; never another way", G(130, 131), "a", "card griller.md (A tool your limits refuse: say it in one line, never go another way)", BR)
-R("board-griller", "git", "(not in the old section) the new card says no git command and no message to a session", "none: the old section has \"Never\" and the server's limits", "f", "card griller.md (You never: ... run a git command or message a session); AGENTS.md says the run has none", "child 25")
 R("board-griller", "the end", "When the user has said \"grilled enough\" and the destination is recorded, end the reply with the line `[griller→board] grilled enough: <next batch|running batch>`", G(133, 134), "a", "card griller.md (same line, \"the exact line\")", "reply-blocks-diff.md")
 R("board-griller", "the cost", "Your cost is in no batch", G(136, 136), "d", "card griller.md (Your cost is in no batch) (kept: it is one line of the old section)", BR)
 
