@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC20: New cards: the CR, stack, QA and release Drivers",
+  "summary": "Specified: four Driver cards and their topics in cards-next/, with chantier push, the refused-push route and the three leads; quiz under F4 via staging folders; long gate owed; 2 open questions (brief --cards naming, release reset --hard).",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "3f64af85fdbc937897aaa4c14642ad5eb569cab8b4ef583817e17a5b7c31573e",
+    "02-answers.md": "4c001ee01a9892e4573f28e6c6f30e2a1a68c7705343668c17c5354a97dcba18",
+    "03-change-spec.md": "8bd243fa22a980607fa528e2df00f3480b330542e397fbafb60f4edec77a6bb9",
+    "intake/request.md": "4242f3a0718ae4636183480f71e6669015576d3e541e77d2adc70583fb02693b"
+  },
+  "summarized": "2026-11-25T00:14:19Z"
+}
