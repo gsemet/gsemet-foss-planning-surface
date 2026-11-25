@@ -51,7 +51,7 @@ Grade: 2. Charts are drawn through a different renderer and cache; revert restor
 
 - The heavy run's `integration` job failed on a launch timeout of the trusted suite at the `diff-preview` step, which is not this change; the default branch's own heavy run [45580228461](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45580228461) failed the same way (at `lifecycle`).
 - The hover box and the chart's SVG root get their position and size through the CSSOM, which Chromium shows as a `style` attribute; no Content Security Policy violation is raised, which the `live-chart` scenario checks.
-- The clip scenarios' real-window takes (`just clip theme-switch take`, `advanced-renderings-tour`, `export-html`) were not run by the change; only `just clip-kit-test` passes.
+- `just clip export-html take` fails at its verify step ("the exported file holds a chart hover box"): the check at `docs/demo-video/clips/export-html/scenario.mjs:531` matches `myst-vega-tooltip` in the whole file, but the export only carries the hover box CSS rules and no element. The `theme-switch` and `advanced-renderings-tour` takes pass.
 
 ## Internal references
 
