@@ -36,6 +36,20 @@ Clip (GIF inline; MP4 and WebM linked at the pushed head):
 - Home and End did not move the caret in the filmed window, so the caret goes to the item with Up (five
   times) and Right, shown as plain key presses without a badge.
 
+This pull request stays a draft until the owner approves the storyboard and the clip. What the clip proves:
+real key presses in a real VS Code window, the pointer never moving, edit mode on, the selection through
+three levels, one word changed and saved (the take's checks and the verified file). What the owner judges:
+motion, rhythm, the 20 seconds, the badges' pace, the loop as watched.
+
+## Autonomous decisions
+
+- `E` turns edit mode on, then Enter opens the editor (the request pressed `e`): to be confirmed by the owner.
+- The second Right selects the first list item, not the list.
+- The `Ctrl+⌫ / ⌥⌫` badge passes the kit on Windows only; the kit is unchanged.
+- The last scene ends in the admonition editor, with the caret moved by Up (five times) and Right, shown with no badge.
+- The key frame names, the measured times, the stage and the docs placement are the author's.
+- The take ran on its own debugging port and scratch folder, so that other clips could be filmed in parallel.
+
 ## Impacts
 
 A new clip on the editing page. No behaviour change.
@@ -56,6 +70,7 @@ Grade: 1. Docs, a clip folder and tests; a `git revert` restores the previous st
 ## Known gaps
 
 - Not checked by the author: motion, rhythm and the loop as watched; the owner judges them.
+- The storyboard's "Changing one word" review note still says the editor opens on the item's text; it holds the whole admonition (see the deviation above).
 - Filmed on Windows only; the `Ctrl+⌫ / ⌥⌫` badge passes the kit on Windows only.
 - Enter on a selected list item inside an admonition opens the whole admonition: shown as it behaves, not fixed here.
 
