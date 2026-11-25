@@ -13,6 +13,8 @@ after    the stored file, nothing added, not validated    "trust: <tier>"
                                                           "stale: true" when stale
 ```
 
+Before at `1a742d7`, after at `a2723b7`.
+
 Choices made:
 
 - `show` writes bytes: a file without frontmatter, with invalid YAML or not valid UTF-8 is
@@ -114,19 +116,23 @@ visual change.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code, except one that guards the unchanged
-  refusal by the Python API of a file that is not valid UTF-8)
+- [x] New or changed tests (they fail on the previous code, except one that guards the unchanged
+  refusal by the Python API of a file that is not valid UTF-8), at `a2723b7` (carried from
+  `6572527`)
 - [x] Local gates at `a2723b7`: `just preflight` passed on Windows (1269 passed, 12 skipped,
   coverage 95.75%, documentation build with warnings as errors)
-- [ ] Evidence
+- [x] Evidence: before at `1a742d7`, after at `a2723b7` (carried from `6572527`; the command
+  scenario was run again at `a2723b7`), as text captures only
 - [x] Review: approved at `a2723b7`
-- [ ] Verified
+- [x] Verified at `a2723b7` (the test run on the previous code and the unchanged description
+  claims carried from `6572527`)
 - [x] CI green at `a2723b7`: Linux preflight (Python 3.10 to 3.13), Windows and macOS jobs pass;
   the release tagging job is skipped on a pull request
 
 ## Internal references
 
 - CR-103 show-as-stored.
-- Work files: `work/coder/r1.md`, `evidence/scenario-run.txt`, `evidence/acceptance-windows.txt`.
+- Work files: `work/coder/r1.md`, `evidence/scenario-run.txt`, `evidence/acceptance-windows.txt`,
+  `work/verifier/evidence/before-after.md`.
 
 </details>
