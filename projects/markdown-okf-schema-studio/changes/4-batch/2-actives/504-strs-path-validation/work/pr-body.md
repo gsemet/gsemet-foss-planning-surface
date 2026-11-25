@@ -34,7 +34,7 @@ The 15 approved StRS only get `approved_at` set to the time of the scripted rena
 
 ### Validation in the new coverage mode (scratch, not applied)
 
-`{'errors': 0, 'warnings': 121, 'infos': 0}`: W004 x95 (a StRS with no `@accepts_req` yet), W2 x26 (placeholder cross-links that existed before). The mode switch and the W004 are for CR-505.
+`{'errors': 0, 'warnings': 121, 'infos': 0}`: W004 x95 (a StRS with no `@accepts_req` yet), W2 x26 (placeholder cross-links that existed before). The mode switch and the W004 are for a follow-up change.
 
 ## Blast radius
 
@@ -50,7 +50,7 @@ Grade: **2**. The check script, the bundle schemas and the Python lock change; a
 ## Known gaps
 
 - 722 of 2617 in-force SwRS scenarios and 94 of 156 StRS paths have no marker (list in Details); a later CR writes the tests or rewords the scenarios.
-- 95 StRS have no acceptance test (W004); settled before the coverage mode moves (CR-505).
+- 95 StRS have no acceptance test (W004); settled before the coverage mode moves (a follow-up change).
 - Fragments scored good in the first pass were not re-read.
 
 <details>
@@ -58,7 +58,7 @@ Grade: **2**. The check script, the bundle schemas and the Python lock change; a
 
 ## StRS marker classification
 
-See the table in the CR work folder `evidence/strs-marker-sort.md` (file, line, StRS, class, outcome), appended below.
+Every StRS marker (file, line, StRS, class, outcome), before and after the sort:
 
 | File | Line before | StRS | Class | Outcome | Line now |
 |---|---|---|---|---|---|
@@ -283,15 +283,18 @@ No visual change. Contributors see the new marker rules in `just check`.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): six of the thirteen marker-check tests fail on the old script
-- [ ] Local gates at `<sha7>`: `just check`, `just release-tests`, `just requirements-lint`
+- [ ] New or changed tests (they fail on the previous code): the marker-check tests for the new rules (fragments, `@accepts_req`, integration baseline, `implements-fragment`) fail on the old script
+- [x] Local gates at `77a8d07`: `just check`, `just requirements-lint`, `just preflight` (static stage on Windows)
 - [ ] Evidence: none for a visible change
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Review: approved at `77a8d07`
+- [ ] Verified at `77a8d07`
+- [ ] CI green at `77a8d07`
 
 ## Internal references
 
-- CR-504 strs-path-validation (batch-09), `work/coder/r1.md`, `evidence/migration-report.json`, `evidence/line-budget.md`.
+- CR-504 strs-path-validation (batch-09), `work/coder/r1.md` to `r3.md`, `evidence/`.
 
 </details>
+
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
