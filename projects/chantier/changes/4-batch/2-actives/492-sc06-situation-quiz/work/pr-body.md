@@ -61,12 +61,12 @@ No visual change. Contributors get `just quiz`; it spends model money only when 
 
 ## Test plan
 
-- [ ] No behaviour change in shipped code; the quiz plumbing is checked by the five dry-run cases
-- [ ] Local gates at `<sha7>`: `just check` and `just eval-dry-run`
-- [ ] Evidence: none: the baseline run is not done (Known gaps)
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] No behaviour change in shipped code; the quiz plumbing is checked by the five dry-run cases
+- [x] Local gates at `0a293d2`: `just check` and `just eval-dry-run`
+- [x] Evidence: none: the baseline run is not done (Known gaps)
+- [x] Review: approved at `0a293d2`
+- [x] Verified at `0a293d2`
+- [x] CI green at `0a293d2`
 
 ## Internal references
 
