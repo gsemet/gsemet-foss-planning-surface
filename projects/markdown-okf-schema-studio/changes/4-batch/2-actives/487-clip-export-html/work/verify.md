@@ -13,4 +13,22 @@ All claims judged at 743d2741f44228227f32e96bf0e2e1c5861675c6.
 
 Not claimed: the take was not retaken (by the brief).
 
-VERIFIED
+VERIFIED (code pass)
+
+## Description pass (PR 508 body as posted), judged at 743d2741f44228227f32e96bf0e2e1c5861675c6
+
+Command: `gh pr view 508 --repo gsemet/markdown-okf-schema-studio --json body,headRefOid,isDraft` -> headRefOid 743d2741f44228227f32e96bf0e2e1c5861675c6, isDraft true.
+- OK: image, MP4 and WebM links name the head SHA; sections of the project template present; Known gaps present; no CR, batch or round id in the body; Summary, Deliverables, Changes match `git diff 8197e4fd..HEAD --stat` (clip folder, 2 clip-kit tests, siteClips test, toolbar.md); Review box `approved at 743d274` matches the log notes `r2 approved at 8197e4fd..., committed as 743d2741`; `verified at 743d274` matches the verdict at that head.
+- FAIL: Test plan line "Review: inspector approved at 743d274" names an agent role (Inspector) as the doer of the work. `.agents/guidelines/pull-request.guidelines.md` line 17 forbids agent roles in the body; chantier pr-template "The rules" says the same outside Internal references. Fix: "Review: approved at 743d274".
+
+NOT VERIFIED (description)
+
+
+## Description pass 2 (posted body of PR 508, head 743d2741f44228227f32e96bf0e2e1c5861675c6)
+
+Command: gh pr view 508 --json body,headRefOid (headRefOid = 743d2741f44228227f32e96bf0e2e1c5861675c6).
+
+- OK: Review line now reads "Review: approved at 743d274, verified at 743d274"; no role name in the body. Matches log notes (r2 approved at 8197e4fd, committed as 743d2741; verdict at that head).
+- OK: image, MP4, WebM links name the head SHA; sections present; Known gaps present; Summary, Deliverables, Changes match git diff 8197e4fd 743d2741 --stat (clip folder, 2 clip-kit tests, siteClips test, toolbar.md).
+
+VERIFIED (description)

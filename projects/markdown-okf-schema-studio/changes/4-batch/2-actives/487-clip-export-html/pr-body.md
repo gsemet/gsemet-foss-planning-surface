@@ -48,7 +48,7 @@ Grade: 1. Docs and tests only; `git revert` restores the previous state.
 - [x] Requirements: no behaviour change (added test of SwRS-MDOKFSTUDIO-CORE-095, `just requirements-update` clean)
 - [x] Changelog: no user-facing change
 - [x] Local gates at 743d274: `just clip-kit-test` (26), `just check`, `just preflight` (Windows static stage) pass
-- [x] Review: inspector approved at 743d274, verified at 743d274
+- [x] Review: approved at 743d274, verified at 743d274
 - [x] CI green at 743d274: static, static-windows, visual, viewer-graph, checks, report pass
 
 ## Known gaps
