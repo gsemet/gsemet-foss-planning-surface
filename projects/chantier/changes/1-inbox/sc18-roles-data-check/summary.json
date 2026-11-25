@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC18: Role data in roles.yaml and a just roles check of the wrappers",
+  "summary": "Child 18 of 28, specified: skills/chantier/roles.yaml (18 roles), src/roles_data.py read by brief and help --for with bytes unchanged, scripts/roles_check.py and just roles (writes nothing, --write prints), test half moved; 3 open questions.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "167d9fae7b570cbf52299bbcc3d8c41b7e7ed3cfa104d990b8f1d0acd307b595",
+    "02-answers.md": "eece18a70cc0e689e2130d9781c97ad8f0c9402e2a642a54e931ffd6db11f474",
+    "03-change-spec.md": "3db1f218dfe82084e209168af1e0812333622eccdea5242f6a8e80d470fae147",
+    "intake/request.md": "7ca09f4093ec204d4465529695365bfe739d55e3466aecc7122c411218f0af6a"
+  },
+  "summarized": "2026-11-25T00:08:03Z"
+}
