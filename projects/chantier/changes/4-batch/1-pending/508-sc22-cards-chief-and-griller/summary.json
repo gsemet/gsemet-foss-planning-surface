@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "New cards: the Chief of Staff and the Griller",
+  "summary": "Specified: a 6 KB Chief of Staff card with answer 8's lists, a 4 KB Griller card holding the one grill method, topics for 233 KB of old cards, a rule inventory for child 25, quiz cases for answer 8; direct mode reads brief foreman. Two open questions, with defaults.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "583b863117963cca110e510a903da117df19ad730aec4489966504b24b313cd8",
+    "02-answers.md": "aea6cd06abd3ae30a4c672a7ca736a767da444a21417a1d179eb25595ab30ee5",
+    "03-change-spec.md": "e240d1f9b3a2320e93c3824a3765620a1967298a1ede6ed40a9a1ed4357265ce",
+    "intake/request.md": "4b8c6adaa59e4cd3d28ea5d4e9f306991632b0a09a520ea7ec6c17339938b84e"
+  },
+  "summarized": "2026-11-25T00:20:18Z"
+}
