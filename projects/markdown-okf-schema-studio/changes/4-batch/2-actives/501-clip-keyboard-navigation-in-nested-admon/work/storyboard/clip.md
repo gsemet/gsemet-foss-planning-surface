@@ -59,19 +59,19 @@ Pictures: ![Zoom on the admonition, its sentence selected](frames/sentence-selec
 | --- | --- |
 | Time | 7.8 to 12.6 s (zoom from 8.0 s; Right at 8.6 s, Down at 10.2 s, Right at 11.8 s) |
 | Shot *(filmed)* | Zoom (at most 2x) on the admonition. Right: the selection goes inside the admonition, to its sentence. Down: the selection moves to the list below the sentence, inside the admonition. Right: the selection goes inside the list, to its first item "Tag the release on Friday". |
-| Zoom | admonition, hold to 19.2 s |
+| Zoom | admonition, hold to 19.7 s |
 | Text 2 *(on screen)* | **Right** goes one level deeper |
 | Badge right *(on screen)* | → |
 
-## 3. Edit one item, save
+## 3. Change one word, save
 
-Pictures: ![The item alone in its editor](frames/item-editor.png) ![The word changed](frames/word-changed.png) ![Mark 1 on the saved item](frames/04-mark-1.png)
+Pictures: ![Enter on the item opens the whole admonition in its editor](frames/admonition-editor-2.png) ![The word changed](frames/word-changed.png) ![Mark 1 on the saved item](frames/04-mark-1.png)
 
 | Field | Content |
 | --- | --- |
-| Time | 12.6 to 20.0 s (Enter at 13.4 s, Ctrl+Backspace at 15.0 s, "Thursday" typed from 15.4 to 16.0 s, Ctrl+Enter at 16.8 s; then back to the start for the loop) |
-| Shot *(filmed)* | Enter: the first item alone opens in its editor, the caret at the end of its text. Ctrl+Backspace (Option+Backspace on macOS) deletes the last word, "Friday"; "Thursday" is typed. Ctrl/Cmd+Enter: the editor closes, the item reads "Tag the release on Thursday" and stays selected; the rest of the admonition is unchanged. |
-| Mark 1 *(on screen)* | Orange outline around the saved item, 17.4 to 19.0 s |
+| Time | 12.6 to 20.0 s (Enter at 13.4 s, caret moved from 14.6 s with no badge, Ctrl+Backspace at 16.0 s, "Thursday" typed from 16.5 to 17.1 s, Ctrl+Enter at 17.8 s; then back to the start for the loop) |
+| Shot *(filmed)* | Enter: the admonition's editor opens (the whole admonition source, caret at its end). The caret goes to the end of "Tag the release on Friday" by keyboard (Up five times, then Right to the end of the line; no badge, like the typed text). Ctrl+Backspace (Option+Backspace on macOS) deletes the last word, "Friday"; "Thursday" is typed. Ctrl/Cmd+Enter: the editor closes, the first item reads "Tag the release on Thursday"; the rest of the admonition is unchanged. |
+| Mark 1 *(on screen)* | Orange outline around the saved item, 18.3 to 19.5 s |
 | Text 3 *(on screen)* | Change a word and **save**, no mouse at all |
 | Badge delete-word *(on screen)* | Ctrl+⌫ / ⌥⌫ |
 | Badge save *(on screen)* | Ctrl+Enter / ⌘↩ |
@@ -84,14 +84,25 @@ Expected result, the scenario's check (read from the preview after each press, a
   heading, the admonition, (Enter) a block editor whose text starts with `:::{note} Before the
   release` and ends with `:::`, (Escape) no editor and the admonition, the sentence "Run these steps
   in order, one person per step.", the list, its first item.
-- After the second Enter, the block editor holds the first item only (not the whole list or the
-  whole admonition).
+- After the second Enter, the block editor holds the whole admonition source (`:::{note} Before the
+  release` to `:::`, the caret at its end): see the review note on the deviation. The caret is then
+  moved to the end of "Friday" and checked.
 - After Escape, `release-plan.md` on disk is byte for byte `stage/release-plan.md`.
-- After Ctrl/Cmd+Enter, no editor is open, the first item is selected and reads "Tag the release on
+- After Ctrl/Cmd+Enter, no editor is open, the first item reads "Tag the release on
   Thursday", and `release-plan.md` on disk (after the autosave) is `stage/release-plan.md` with
   `Friday` replaced by `Thursday`, nothing else changed.
 
 ## Review notes
+
+- **Deviation: Enter on the selected item opens the whole admonition editor.** The goal was an editor
+  holding the first item alone. In the take, Enter on the selected first item inside the `note`
+  admonition opens the editor of the whole admonition ("Lines 3-11", value from `:::{note} Before the
+  release` to `:::`), not of the item. Finding, filed apart as a possible bug against
+  SwRS-MDOKFSTUDIO-BLOCK-254; evidence/finding-enter-on-item-opens-admonition.jpg. The Chief of
+  Staff ruled (Q12): the scene ends where it works, `src/` is not changed, and the clip films the
+  behaviour as it is. Because the caret is then at the end of the whole text (after `:::`), the
+  scenario moves it to the end of "Friday" with real key presses (Up five times, then Right to the end of the line: Home and End do not move the caret in the filmed window, End jumped to the end of the whole text),
+  with no badge, like the typed word; the pointer stays unmoved and nothing is set by script.
 
 - **The `E` key and the Enter key.** The owner's request uses `e` at step 6 to open the list for
   editing. In Studio `E` alone turns edit mode on from reading mode (SwRS-MDOKFSTUDIO-LIFE-172,
@@ -140,5 +151,10 @@ Expected result, the scenario's check (read from the preview after each press, a
   owner decides on a retake (keyboard-nav-Q10).
 - **The pointer.** It never moves, so the keyboard selection ring is never hidden by a pointer move
   (`bindHover` in `editMode.ts`).
+- **The take (Windows, VS Code 1.147.0, extension 1.12.1 from the branch VSIX).** 20.0 s, 99 raw
+  screencast frames (4.9 fps) retimed to 30 fps by ffmpeg, playback rate 1.003, mp4 0.55 MB, webm
+  0.34 MB, GIF 1.60 MB at ladder step 0 (960 px, 12 fps), loop seam SSIM 0.98998 (no Escape fallback
+  needed), `check.json` passed. The badged presses are at 0.6, 2.2, 3.6, 5.2, 7.0, 8.6, 10.2, 11.8, 13.4,
+  16.0 and 17.8 s; the unbadged caret moves (Up five times, Right to the end of the line) are at 14.6 s.
 - The edit is a real change to the file: the take restores the stage before each run (the kit
   copies `stage/` into a fresh workspace).
