@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "title": "show: resolve concept names without .md",
-  "summary": "show accepts names without .md, refuses paths and symlinks leaving the bundle, and reports a directory as not found (issue 56).",
+  "title": "show: resolve concept names without .md, stay inside the bundle",
+  "summary": "Specified: show and show_bundle accept a name without .md (exact file first, else name.md), report a directory as Concept not found, and refuse paths, absolute paths and symlinks whose real path leaves the bundle (exit 2, FileNotFoundError). Issue 56.",
   "origin": {
     "kind": "github",
     "ref": "#56",
@@ -9,8 +9,9 @@
   },
   "sources": {
     "01-intent.md": "910b493c3c22cebe169f59d1e5b3ec787b66f77fd1d74ce731fefaade3afb9ea",
-    "02-answers.md": "8872c58aa126d29e0756bac72a73beb542d7e92f8c2a37678458fab4e0e21fb3",
+    "02-answers.md": "3aafb93d1618504e3d37c5a587c5a099e3062cc99badd28d9d4205a1d5f62d4d",
+    "03-change-spec.md": "4f3d48f58c862423f793bad2c80a676d022987c6335d7ec6ec6b5ac74d16b946",
     "intake/request.md": "b3db350e4c3f621ff10ebf1b4c7852ed7b52c2b1d9d6c7745dc0024fe6ac149d"
   },
-  "summarized": "2026-11-25T18:12:21Z"
+  "summarized": "2026-11-25T18:15:57Z"
 }

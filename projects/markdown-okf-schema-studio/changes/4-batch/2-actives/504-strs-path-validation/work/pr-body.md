@@ -8,7 +8,7 @@ One consequence to know before merging: in the current coverage mode the report'
 
 ## Deliverables
 
-The marker check gains seven rules (the seventh, `implements-fragment`, rejects a `#S<n>` on `@implements_req`) and a baseline for StRS markers still in integration tests:
+The marker check gains seven rules and a baseline for StRS markers still in integration tests:
 
 | Rule | What it rejects |
 | --- | --- |
