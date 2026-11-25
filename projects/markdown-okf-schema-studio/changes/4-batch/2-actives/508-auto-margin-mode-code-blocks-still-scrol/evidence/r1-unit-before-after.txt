@@ -1,0 +1,27 @@
+CR-508, round 1: unit tests of section 3 (test/page/runtimePageControls.test.ts), before and after the fix.
+
+Command (both runs, after `npm run compile`):
+node --import ./scripts/register-myst-patches.mjs --test --test-reporter=spec --test-name-pattern="code block|Mermaid figure" out/test/page/runtimePageControls.test.js
+
+BEFORE the fix (src/page/modules/widthMode.ts unchanged, base 4a47151e)
+✖ T10b: a code block that breaks out is widened by its border too
+    '60px' !== '62px'
+✖ T10b: a captioned code block breaks out through its inner code
+    null !== ''
+✖ T10b: a code block that overflows by 1 px still breaks out, a table that gains 1 px does not
+    null !== ''
+✔ T10b: a code block that fits is not marked at a fractional width
+✔ T10b: a code block wider than the available area is capped
+✔ T10b: a code block inside a list item is not measured
+✔ T10b: a Mermaid figure is not a code block
+tests 7, pass 4, fail 3
+
+AFTER the fix
+✔ T10b: a code block that breaks out is widened by its border too
+✔ T10b: a captioned code block breaks out through its inner code
+✔ T10b: a code block that overflows by 1 px still breaks out, a table that gains 1 px does not
+✔ T10b: a code block that fits is not marked at a fractional width
+✔ T10b: a code block wider than the available area is capped
+✔ T10b: a code block inside a list item is not measured
+✔ T10b: a Mermaid figure is not a code block
+tests 7, pass 7, fail 0

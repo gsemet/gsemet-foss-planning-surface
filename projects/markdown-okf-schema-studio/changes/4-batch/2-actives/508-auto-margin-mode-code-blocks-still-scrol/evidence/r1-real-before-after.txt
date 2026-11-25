@@ -1,0 +1,41 @@
+CR-508, round 1: real-browser test test/page/codeBlockBreakout.test.ts, before and after the fix (Windows, Chromium).
+
+Command (both runs, after `npm run compile`):
+env STUDIO_REQUIRE_CHROMIUM=1 node --import ./scripts/register-myst-patches.mjs --test --test-reporter=spec out/test/page/codeBlockBreakout.test.js
+
+Reading a line: "needs N" is the block's whole width measured in Margin; then the block (plain, python,
+diff, captioned + line length), its box width in px (W = marked wide, s = not marked) and the `pre`'s
+clientWidth/scrollWidth after the Auto pass. Column 688 px, pane 1100 px.
+
+BEFORE the fix (base 4a47151e): tests 6, pass 0, fail 6, skipped 0
+✖ Auto fits a code block's longest line (shipped code block settings)                     100 problems
+✖ Auto fits a code block's longest line with the dark background off                       81 problems
+✖ Auto fits a code block's longest line with line numbers off                             101 problems
+✖ Auto fits a code block's longest line with the dark background and line numbers off      82 problems
+✖ Auto neither marks nor shifts a code block that fits at a display scaling of 125 %     100 problems
+✖ Auto caps a code block at the area left of the open table of contents                    61 problems
+Examples:
+  a scroll bar stays (2 px): needs 698.0, Auto python097 696.0W 694/696
+  a block wider than the column is not marked: needs 691.0, Auto plain100 688.0s 686/689
+  a scroll bar stays (3 px): needs 691.0, Auto plain100 688.0s 686/689
+  a block wider than the column is not marked: needs 711.0, Auto captioned103 688.0s 686/709
+  not capped at the available 1068 px: needs 1097.0, Auto captioned160 688.0s 686/1095
+
+AFTER the fix: tests 6, pass 6, fail 0, skipped 0
+✔ Auto fits a code block's longest line (shipped code block settings)
+✔ Auto fits a code block's longest line with the dark background off
+✔ Auto fits a code block's longest line with line numbers off
+✔ Auto fits a code block's longest line with the dark background and line numbers off
+✔ Auto neither marks nor shifts a code block that fits at a display scaling of 125 %
+✔ Auto caps a code block at the area left of the open table of contents
+Same blocks, Auto, shipped defaults:
+  python097   698.0W 696/696   (before 696.0W 694/696)
+  plain100    691.0W 689/689   (before 688.0s 686/689)
+  captioned103 711.0W 709/709  (before 688.0s 686/709)
+  plain097    688.0s 686/686   (fits the column: not marked)
+  listed100   660.0s 658/689   (in a list item: not marked, scrolls, Known issue)
+  huge300    1068.0W 1066/2041 (capped at the available area, scrolls)
+Table of contents open: huge300 812.0W 810/2041.
+
+Both breakout files, `env STUDIO_REQUIRE_CHROMIUM=1 npm run test:breakout` after the fix:
+tests 14, pass 14, fail 0, skipped 0 (test/page/tableBreakout.test.ts is unchanged).

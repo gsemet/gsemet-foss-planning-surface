@@ -2,7 +2,9 @@
 
 The requirements bundle moves to okf-schema 0.18.1, which lets a requirement declare the paths or scenarios a test must name (`#S<n>`) and adds the `@accepts_req` marker for acceptance tests. This PR keeps the current StRS coverage mode and prepares the declarations: the bundle schemas and configuration, the exemption of retired requirements, and a marker check that understands the new marker and the `#S<n>` fragments.
 
-Every requirement group now declares its scenarios (SwRS) and paths (StRS) with stable ids `S<n>`, every test marker names its fragment, and the requirements viewer shows the ids. The coverage mode is not switched here.
+Every requirement group now declares its scenarios (SwRS) and paths (StRS) with stable ids `S<n>`, and every test marker on a declaring requirement names its fragment. The requirements viewer shows, per path and per scenario, the test files that test or accept it, with new cards and columns. The coverage mode is not switched here.
+
+One consequence to know before merging: in the current coverage mode the report's "StRS covered" figure goes from 23 of 95 on `main` to 0 of 95 until the follow-up change switches the mode (see Impacts).
 
 ## Deliverables
 
@@ -25,7 +27,10 @@ Choices made:
 - A new SwRS (`SwRS-MDOKFSTUDIO-CORE-096`) states the behaviour of the marker check, each rule tested by its own test; a seventh rule, `implements-fragment`, rejects a `#S<n>` on `@implements_req`.
 - All 16 requirement groups declare `scenarios:` and carry `Scenario S<n>` / `Path S<n>` headings; each SwRS test marker is one line per scenario.
 - StRS markers in tests were sorted (table in Details): 61 on a real VS Code path (`@accepts_req`), 2 simulated paths, 122 removed because a SwRS marker already covers them.
-- The mutation report and the requirements viewer read the `#S<n>` fragments and show the ids.
+- The mutation report reads the `#S<n>` fragments.
+- The requirements viewer reads `scenarios:` from the requirement files and joins them with the okfreq trace: home cards "StRS paths tested", "StRS paths accepted", "StRS covered" and "SwRS scenarios tested" (the "StRS with a stakeholder validation test" card is removed), area columns "Paths tested" and "Paths accepted", the tested and accepted files of each path on a use case page, and the tests of each scenario, or "missing", on a behaviour page. Without a trace the declared counts stay and the file figures read "n/a". SwRS CORE-069, CORE-080 and CORE-082 gain the scenarios for this.
+- `just requirements-report` and `just requirements-report-json` also write `out/reports/requirements/requirements-trace.json`.
+- The vendored okfreq and okfreq-gardening skills and `requirements/guidelines/requirements.guidelines.md` are refreshed from okf-schema 0.18.1; the Studio's bench convention is in a new "Benches" section of the project guidelines and in CONTRIBUTING; the glossary gains "acceptance test", "accepted", "path (StRS)", "scenario (SwRS)" and "waiver".
 - The second path of StRS TRUST-014 (diagram checks) was removed: CORE-087 and CORE-090 are build-time checks no path cites.
 
 ### Approved requirements changed
@@ -34,7 +39,7 @@ The 15 approved StRS only get `approved_at` set to the time of the scripted rena
 
 ### Validation in the new coverage mode (scratch, not applied)
 
-`{'errors': 0, 'warnings': 121, 'infos': 0}` on a scratch run that scanned no marker (a run with the markers scanned gives 0 errors and W004 x38): W004 x95 (a StRS with no `@accepts_req` yet), W2 x26 (placeholder cross-links that existed before). The mode switch and the W004 are for a follow-up change.
+A scratch copy of the bundle and of the sources, with the mode set to `linked-swrs-and-acceptance-paths`, validates with 0 errors and 64 warnings: W004 x38 (a StRS with no `@accepts_req` yet) and W2 x26 (placeholder cross-links that existed before). The mode switch and the W004 are for the follow-up change (CR-505).
 
 ## Blast radius
 
@@ -46,13 +51,25 @@ Grade: **2**. The check script, the bundle schemas and the Python lock change; a
 - The first fragment sweep was a keyword heuristic; its 486 weak entries were then read one by one (142 kept, 206 moved to the scenario really exercised, 136 dropped because the test checks no declared scenario). Fragments scored good, and 45 lines on 6 SwRS with generic scenarios, were not re-read.
 - StRS markers in tests were sorted: kept as `@tests_req` or `@accepts_req` on a declared path, or removed when a SwRS marker already covers them; `strsTestsInIntegration` is now empty.
 - Exemption reasons of the retired SwRS reuse one text per kind of retirement; LIFE-174, 182-185 have their own.
+- The viewer's new behaviour is stated as new scenarios of three existing `proposed` SwRS (CORE-069, CORE-080, CORE-082), with no new SwRS.
+- `requirements/guidelines/okfreq-baseline.guidelines.md` is left as it is: it matches no okf-schema file.
+- The project guidelines state their own SwRS scenario heading, with the kind, which overrides the refreshed shared guideline.
 
 ## Known gaps
 
-- 722 of 2617 in-force SwRS scenarios and 94 of 156 StRS paths have no marker (list in Details); a later CR writes the tests or rewords the scenarios.
-- 38 StRS have no acceptance test (W004, markers scanned); settled before the coverage mode moves (a follow-up change).
-- Fragments scored good in the first pass were not re-read.
-- Not delivered, for lack of rounds: the requirements viewer cards and columns, the StRS and SwRS page content and the trace join; the `requirements-trace.json` justfile output; the writing-skill refresh and the glossary terms. Only the scenario and path ids are shown in the viewer.
+Left for CR-505:
+
+- 722 of 2617 in-force SwRS scenarios have no scenario marker.
+- 94 of 156 StRS paths have no marker (counts per group in Details).
+- 38 StRS have no acceptance test (W004, markers scanned).
+
+Others:
+
+- "StRS covered" reads 0 of 95 in the current coverage mode (see Impacts).
+- `StRS-MDOKFSTUDIO-LIFE-023` shows its four paths with no tested or accepted file: no test marker names it.
+- Fragments scored good in the first pass of the sweep were not re-read.
+- The new viewer cards and pages are checked by unit tests only; the site was not looked at in a browser.
+- The project guidelines still say "one to three paths" per StRS (LIFE-023 declares four, as before).
 
 <details>
 <summary>Details</summary>
@@ -269,6 +286,9 @@ The per-scenario list is not inlined (it is about 800 lines); the counts above a
 - `scripts/check-marker-companions.mjs`, `scripts/marker-baseline.json`: the rules above.
 - `test/build/checkMarkers.test.ts`: seven new tests; `test/build/test_check_main_paths.py`: a `Path S1:` case.
 - `requirements/tiers/swrs/rendering-core/SwRS-MDOKFSTUDIO-CORE-096.md` (new) and its regenerated StRS and index; `requirements/tiers/log.md`.
+- `test/site/requirementsViewer/` (`model.ts`, `home.ts`, `pages.ts`, `viewer.css`, their tests and fixture); SwRS CORE-069, CORE-080, CORE-082.
+- `justfile`: the trace JSON in the two report targets.
+- `.agents/skills/okfreq/`, `.agents/skills/okfreq-gardening/`, `requirements/guidelines/requirements.guidelines.md`, `requirements/guidelines/project.guidelines.md`, `.agents/glossary/common.md`, `CONTRIBUTING.md`.
 
 ## Human decisions
 
@@ -280,20 +300,29 @@ The per-scenario list is not inlined (it is about 800 lines); the counts above a
 
 ## Impacts
 
-No visual change. Contributors see the new marker rules in `just check`.
+No change in the extension. Contributors see the new marker rules in `just check` and the new cards, columns and pages in the generated requirements site.
+
+"StRS covered", current coverage mode, live StRS:
+
+| | `main` | this PR |
+| --- | --- | --- |
+| StRS covered | 23 / 95 | 0 / 95 |
+| StRS with every linked SwRS `covered` | 24 | 24 |
+
+The current mode asks for a direct `@tests_req` marker on the StRS and every linked SwRS `covered`. The marker sort moved the real VS Code walks to `@accepts_req`, which this mode does not count, so only TRUST-012 keeps a direct marker, and one of its linked SwRS is exempt, which this mode reports as `missing`. The specification expected the exemption of the retired SwRS to help this figure; it does not in this mode. The follow-up change switches the mode, where `@accepts_req` counts and exempt SwRS are accepted. `just check` and `just requirements-lint` pass with this figure; only the requirements viewer reads it.
 
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): the marker-check tests for the new rules (fragments, `@accepts_req`, integration baseline, `implements-fragment`) fail on the old script
-- [x] Local gates at `77a8d07`: `just check`, `just requirements-lint`, `just preflight` (static stage on Windows)
+- [ ] Local gates at `77a8d07`: pending
 - [ ] Evidence: none for a visible change
-- [x] Review: approved at `77a8d07`
+- [ ] Review: pending
 - [ ] Verified at `77a8d07`
 - [ ] CI green at `77a8d07`
 
 ## Internal references
 
-- CR-504 strs-path-validation (batch-09), `work/coder/r1.md` to `r3.md`, `evidence/`.
+- CR-504 strs-path-validation (batch-09), `work/coder/r1.md` to `r4.md`, `evidence/`.
 
 </details>
 
