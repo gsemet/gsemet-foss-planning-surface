@@ -63,7 +63,7 @@ The recipe has the maintainer review the storyboard before the take. Here that r
 - [x] Changelog: no user-facing change.
 - [x] Local gates: `just clip-kit-test` (35 tests, after the rebase), `just check`, `just preflight` (Windows, static stage), `just clip theme-switch all --vsix ...` (every `check.json` line passes).
 - [ ] Review
-- [ ] CI green
+- [x] CI green at 8d4af3c (static, static-windows, viewer-graph, visual pass)
 
 ## Internal references
 
