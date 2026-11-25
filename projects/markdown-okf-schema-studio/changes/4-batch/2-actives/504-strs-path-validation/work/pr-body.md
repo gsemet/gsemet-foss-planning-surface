@@ -59,8 +59,8 @@ Grade: **2**. The check script, the bundle schemas and the Python lock change; a
 - The project guidelines state their own SwRS scenario heading, with the kind, which overrides the refreshed shared guideline.
 - Two deliveries, decided during preparation: this PR declares the paths and scenarios in the current coverage mode; the mode switch is deferred to a follow-up change.
 - No simulated walk is written for every StRS path: the viewer shows what the marker sort finds and says so. The release, site and package StRS (CORE-007, CORE-008, TRUST-014) may be accepted outside VS Code; CORE-006 stays in VS Code.
-- The Chief of Staff decided to carry two findings of the verification into the follow-up change instead of fixing them here: D, the 136 marker blocks dropped by the fragment review, and E, the wrong fragments (`test/core/render/mathRenderer.test.ts` line 52, MYST-024#S8; `test/core/render/alertSourceLines.test.ts` line 150, GFM-009#S10; `test/session/lineEndingSave.test.ts` line 40, BLOCK-234#S3; 3 of 16 sampled lines).
-- Round 7 applied the strict rule to the StRS markers (decision of the Chief of Staff, ruling A-17 option a). All 109 StRS marker lines the previous pass had kept or restored were re-read, the test against the declared path; 83 are removed and 26 stay. A marker stays only if the starting state is set up; each step is performed through the product mechanism (a stub for the user's choice in a native dialog or for the OS clipboard is accepted; an injected page message, a test hook or a faked host result is not); every state and outcome named in a step is asserted (`Option` bullets aside; for an "or", one side); a path whose only step is the page's own rendering counts when every outcome is asserted; in doubt the marker is removed.
+- Two problems found in review are left to a follow-up change instead of being fixed here: the 136 marker blocks dropped by the fragment review, and the wrong scenario fragments (both described under Known gaps).
+- The StRS markers follow a strict rule, and 26 marker lines meet it. A marker stays only if the starting state is set up; each step is performed through the product mechanism (a stub for the user's choice in a native dialog or for the OS clipboard is accepted; an injected page message, a test hook or a faked host result is not); every state and outcome named in a step is asserted (`Option` bullets aside; for an "or", one side); a path whose only step is the page's own rendering counts when every outcome is asserted; in doubt the marker is removed.
 
 ## Known gaps
 
@@ -70,19 +70,19 @@ Left for the follow-up change:
 - 133 of 156 StRS paths have no marker (list in Details).
 - 78 of 95 StRS have no acceptance test (W004, markers scanned).
 
-Carried into the follow-up change, found by the verification and not fixed here:
+Also left for the follow-up change, found in review:
 
-- Finding D: the review of the fragments dropped 136 marker blocks whose test checks no declared scenario. The specification asks to either declare the missing scenario or move the marker to the SwRS the test does check; neither was done for these blocks.
-- Finding E: some SwRS fragments name a scenario their test does not check, so the "scenarios tested" figures can overstate. 3 of 16 sampled lines are wrong: `test/core/render/mathRenderer.test.ts` line 52 (MYST-024 S8), `test/core/render/alertSourceLines.test.ts` line 150 (GFM-009 S10) and `test/session/lineEndingSave.test.ts` line 40 (BLOCK-234 S3). Fragments scored good in the first pass of the sweep, and 45 lines on 6 SwRS with generic scenarios, were not re-read.
+- The review of the fragments dropped 136 marker blocks whose test checks no declared scenario. The specification asks to either declare the missing scenario or move the marker to the SwRS the test does check; neither was done for these blocks.
+- Some SwRS fragments name a scenario their test does not check, so the "scenarios tested" figures can overstate. 3 of 16 sampled lines are wrong: `test/core/render/mathRenderer.test.ts` line 52 (MYST-024 S8), `test/core/render/alertSourceLines.test.ts` line 150 (GFM-009 S10) and `test/session/lineEndingSave.test.ts` line 40 (BLOCK-234 S3). Fragments scored good in the first pass of the sweep, and 45 lines on 6 SwRS with generic scenarios, were not re-read.
 - The dropped blocks removed the last `test/integration` marker of 11 SwRS: BLOCK-053, BLOCK-216, CORE-022, CORE-043, DIAG-001, FMEDIT-024, FMSCHEMA-001, FMSCHEMA-084, PALETTE-031, PALETTE-217 and THEME-001.
 
 Others:
 
 - "StRS covered" reads 1 of 95 in the current coverage mode (see Impacts).
 - `StRS-MDOKFSTUDIO-LIFE-023` shows its four paths with no tested or accepted file: no test marker names it.
-- The strict re-check of round 7 removed the last marker of 66 StRS paths, which are now uncovered: BLOCK 001 S1, 003 S1, 008 S2, 011 S2, 014 S2, 016 S1, 025 S2; CODE 001 S2, 004 S1; CORE 001 S2, 002 S1, 007 S1, 008 S1; DIAG 001 S2, 006 S1, 015 S2; FMEDIT 001 S1, 008 S1; FMSCHEMA 006 S1, 010 S1, 014 S1; GFM 003 S1; LAYOUT 001 S1, 004 S1; LIFE 001 S1, 003 S1, 005 S1, 014 S1, 022 S1; MYST 006 S1, 007 S1, 007 S2, 009 S1, 009 S2, 016 S1, 017 S1; PALETTE 002 S1, 005 S1, 007 S1, 015 S1, 018 S2, 019 S1; REVIEW 001 S1, 003 S1, 015 S1, 017 S1; TABLE 001 S1, 002 S1, 008 S1, 013 S1, 015 S1; THEME 002 S1, 011 S1; TOOLBAR 004 S1, 006 S1, 009 S1, 011 S1, 013 S1, 013 S2, 014 S1; TRUST 001 S1, 004 S1, 006 S1, 012 S1, 012 S2, 014 S1. None of CORE-007, CORE-008, TRUST-012 and TRUST-014 keeps a marker: their tests run outside a real VS Code and do not walk the path.
-- The audit sample of the preparation judged 13 sampled markers as walking a path. The strict rule keeps 3 and removes 10, marked "(audit row N: path)" in the table: MYST-007 S1, TABLE-015 S1, TABLE-001 S1, LIFE-014 S1, TRUST-004 S1, BLOCK-011 S2, CODE-004 S1, PALETTE-018 S1 (the path keeps another marker), MYST-009 S1, DIAG-001 S2. A test that walks only part of a path, or injects or fakes one of its steps, no longer carries its marker.
-- The requirements site was looked at in a browser by the verification at `afbb55c` only; no screenshot is posted. The "Tested by" block of a scenario card has no horizontal padding: its label and file rows touch the card border.
+- Under the strict marker rule, 66 StRS paths whose tests walk only part of them lose their last marker and are uncovered: BLOCK 001 S1, 003 S1, 008 S2, 011 S2, 014 S2, 016 S1, 025 S2; CODE 001 S2, 004 S1; CORE 001 S2, 002 S1, 007 S1, 008 S1; DIAG 001 S2, 006 S1, 015 S2; FMEDIT 001 S1, 008 S1; FMSCHEMA 006 S1, 010 S1, 014 S1; GFM 003 S1; LAYOUT 001 S1, 004 S1; LIFE 001 S1, 003 S1, 005 S1, 014 S1, 022 S1; MYST 006 S1, 007 S1, 007 S2, 009 S1, 009 S2, 016 S1, 017 S1; PALETTE 002 S1, 005 S1, 007 S1, 015 S1, 018 S2, 019 S1; REVIEW 001 S1, 003 S1, 015 S1, 017 S1; TABLE 001 S1, 002 S1, 008 S1, 013 S1, 015 S1; THEME 002 S1, 011 S1; TOOLBAR 004 S1, 006 S1, 009 S1, 011 S1, 013 S1, 013 S2, 014 S1; TRUST 001 S1, 004 S1, 006 S1, 012 S1, 012 S2, 014 S1. None of CORE-007, CORE-008, TRUST-012 and TRUST-014 keeps a marker: their tests run outside a real VS Code and do not walk the path.
+- A test that walks only part of a path, or injects or fakes one of its steps, carries no marker for it, even where it exercises most of the path (for example MYST-007 S1, TABLE-015 S1, TABLE-001 S1, LIFE-014 S1, TRUST-004 S1, BLOCK-011 S2, CODE-004 S1, MYST-009 S1 and DIAG-001 S2).
+- No screenshot of the requirements site is posted. The "Tested by" block of a scenario card has no horizontal padding: its label and file rows touch the card border.
 - The paths of TRUST-012 and TRUST-014 do not start from the built VSIX, although that was asked: their steps start from the running Studio and from a maintainer's install, because a path cites only SwRS that state what the extension does today.
 - A scenario of CORE-069 says the counts do not depend on the coverage mode, while the "StRS covered" count follows it.
 
@@ -91,8 +91,7 @@ Others:
 
 ## StRS marker classification
 
-Every StRS marker (file, line, StRS, class, outcome), before and after the sort (`Line before` at commit e5ee7ec1, `Line now` in this PR). A marker stays only where the test walks the whole declared path (the rule is under Autonomous decisions). `(audit row N: path)` marks a row of the audit sample judged a path that this rule removes.
-
+Every StRS marker (file, line, StRS, class, outcome), before and after the sort (`Line before` at commit e5ee7ec1, `Line now` in this PR). A marker stays only where the test walks the whole declared path (the rule is under Autonomous decisions).
 | File | Line before | StRS | Class | Outcome | Line now |
 |---|---|---|---|---|---|
 | test/build/test_plugin_manifests.py | 93 | StRS-MDOKFSTUDIO-CORE-006 | partial path | marker removed | - |
@@ -126,7 +125,7 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort 
 | test/integration/lifecycle.test.ts | 145 | StRS-MDOKFSTUDIO-THEME-004 | partial path | marker removed | - |
 | test/integration/mystBlocksWindow.ts | 150 | StRS-MDOKFSTUDIO-MYST-016 | partial path | marker removed | - |
 | test/integration/mystBlocksWindow.ts | 150 | StRS-MDOKFSTUDIO-MYST-016 | real VS Code path | @accepts_req #S2 | 150 |
-| test/integration/mystDiagnostics.test.ts | 47 | StRS-MDOKFSTUDIO-MYST-007 | partial path (audit row 6: path) | marker removed | - |
+| test/integration/mystDiagnostics.test.ts | 47 | StRS-MDOKFSTUDIO-MYST-007 | partial path | marker removed | - |
 | test/integration/mystPickers.test.ts | 8 | StRS-MDOKFSTUDIO-PALETTE-013 | SwRS duplicate | marker removed | - |
 | test/integration/paletteMode.test.ts | 39 | StRS-MDOKFSTUDIO-PALETTE-002 | partial path | marker removed | - |
 | test/integration/previewEditing.test.ts | 45 | StRS-MDOKFSTUDIO-FMSCHEMA-001 | SwRS duplicate | marker removed | - |
@@ -144,7 +143,7 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort 
 | test/integration/realInput/blockKeys.ts | 280 | StRS-MDOKFSTUDIO-BLOCK-014 | partial path | marker removed | - |
 | test/integration/realInput/blockKeys.ts | 346 | StRS-MDOKFSTUDIO-BLOCK-016 | partial path | marker removed | - |
 | test/integration/realInput/blockKeys.ts | 549 | StRS-MDOKFSTUDIO-BLOCK-008 | partial path | marker removed | - |
-| test/integration/realInput/blockKeys.ts | 606 | StRS-MDOKFSTUDIO-TABLE-015 | partial path (audit row 9: path) | marker removed | - |
+| test/integration/realInput/blockKeys.ts | 606 | StRS-MDOKFSTUDIO-TABLE-015 | partial path | marker removed | - |
 | test/integration/realInput/blockKeys.ts | 640 | StRS-MDOKFSTUDIO-TABLE-014 | real VS Code path | @accepts_req #S1 | 641 |
 | test/integration/realInput/editorWidgets.ts | 385 | StRS-MDOKFSTUDIO-BLOCK-008 | real VS Code path | @accepts_req #S1 | 386 |
 | test/integration/realInput/editorWidgets.ts | 427 | StRS-MDOKFSTUDIO-TABLE-001 | partial path | marker removed | - |
@@ -156,7 +155,7 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort 
 | test/integration/realInput/flushBeforeNavigate.ts | 236 | StRS-MDOKFSTUDIO-BLOCK-006 | real VS Code path | @accepts_req #S2 | 236 |
 | test/integration/realInput/flushBeforeNavigate.ts | 259 | StRS-MDOKFSTUDIO-BLOCK-006 | real VS Code path | @accepts_req #S2 | 260 |
 | test/integration/realInput/flushBeforeNavigate.ts | 283 | StRS-MDOKFSTUDIO-BLOCK-006 | real VS Code path | @accepts_req #S2 | 284 |
-| test/integration/realInput/flushBeforeNavigate.ts | 309 | StRS-MDOKFSTUDIO-TABLE-001 | partial path (audit row 11: path) | marker removed | - |
+| test/integration/realInput/flushBeforeNavigate.ts | 309 | StRS-MDOKFSTUDIO-TABLE-001 | partial path | marker removed | - |
 | test/integration/realInput/flushBeforeNavigate.ts | 402 | StRS-MDOKFSTUDIO-FMEDIT-008 | SwRS duplicate | marker removed | - |
 | test/integration/realInput/frontmatterFields.ts | 142 | StRS-MDOKFSTUDIO-FMEDIT-001 | partial path | marker removed | - |
 | test/integration/realInput/frontmatterFields.ts | 417 | StRS-MDOKFSTUDIO-FMEDIT-005 | partial path | marker removed | - |
@@ -186,7 +185,7 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort 
 | test/integration/reviewComments.test.ts | 38 | StRS-MDOKFSTUDIO-REVIEW-001 | partial path | marker removed | - |
 | test/integration/scroll-sync-suite.ts | 273 | StRS-MDOKFSTUDIO-LIFE-010 | real VS Code path | @accepts_req #S1 | 273 |
 | test/integration/scroll-sync-suite.ts | 274 | StRS-MDOKFSTUDIO-TOOLBAR-013 | partial path | marker removed | - |
-| test/integration/serializer.test.ts | 28 | StRS-MDOKFSTUDIO-LIFE-014 | partial path (audit row 16: path) | marker removed | - |
+| test/integration/serializer.test.ts | 28 | StRS-MDOKFSTUDIO-LIFE-014 | partial path | marker removed | - |
 | test/integration/serializer.test.ts | 29 | StRS-MDOKFSTUDIO-LIFE-001 | other: panel restore, no open command | marker removed | - |
 | test/integration/serializer.test.ts | 30 | StRS-MDOKFSTUDIO-LIFE-007 | partial path | marker removed | - |
 | test/integration/sourceMapping.test.ts | 29 | StRS-MDOKFSTUDIO-LIFE-010 | partial path | marker removed | - |
@@ -197,7 +196,7 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort 
 | test/integration/tableMoves.ts | 255 | StRS-MDOKFSTUDIO-TABLE-002 | partial path | marker removed | - |
 | test/integration/tableMoves.ts | 300 | StRS-MDOKFSTUDIO-TABLE-002 | real VS Code path | @accepts_req #S2 | 302 |
 | test/integration/trusted-suite.ts | 128 | StRS-MDOKFSTUDIO-TRUST-006 | partial path | marker removed | - |
-| test/integration/untrusted-suite.ts | 89 | StRS-MDOKFSTUDIO-TRUST-004 | partial path (audit row 18: path) | marker removed | - |
+| test/integration/untrusted-suite.ts | 89 | StRS-MDOKFSTUDIO-TRUST-004 | partial path | marker removed | - |
 | test/integration/untrusted-suite.ts | 154 | StRS-MDOKFSTUDIO-TRUST-001 | partial path | marker removed | - |
 | test/integration/updateGlow.test.ts | 52 | StRS-MDOKFSTUDIO-LIFE-005 | partial path | marker removed | - |
 | test/integration/workspaceDisposal.test.ts | 28 | StRS-MDOKFSTUDIO-LIFE-022 | partial path | marker removed | - |
@@ -222,7 +221,7 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort 
 | test/visual/scenarioDefinitions1.ts | 337 | StRS-MDOKFSTUDIO-PALETTE-018 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 375 | StRS-MDOKFSTUDIO-DIAG-001 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 406 | StRS-MDOKFSTUDIO-DIAG-007 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions1.ts | 452 | StRS-MDOKFSTUDIO-CODE-004 | partial path (audit row 23: path) | marker removed | - |
+| test/visual/scenarioDefinitions1.ts | 452 | StRS-MDOKFSTUDIO-CODE-004 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 638 | StRS-MDOKFSTUDIO-LAYOUT-003 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 675 | StRS-MDOKFSTUDIO-CODE-001 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 718 | StRS-MDOKFSTUDIO-CODE-001 | partial path | marker removed | - |
@@ -232,7 +231,7 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort 
 | test/visual/scenarioDefinitions1.ts | 965 | StRS-MDOKFSTUDIO-TABLE-008 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 1233 | StRS-MDOKFSTUDIO-BLOCK-003 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 1234 | StRS-MDOKFSTUDIO-LAYOUT-004 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions1.ts | 1274 | StRS-MDOKFSTUDIO-BLOCK-011 | partial path (audit row 21: path) | marker removed | - |
+| test/visual/scenarioDefinitions1.ts | 1274 | StRS-MDOKFSTUDIO-BLOCK-011 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 1301 | StRS-MDOKFSTUDIO-TOOLBAR-004 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 1315 | StRS-MDOKFSTUDIO-TOOLBAR-013 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 1385 | StRS-MDOKFSTUDIO-MYST-005 | simulated path | @tests_req #S2 | 1375 |
@@ -249,13 +248,13 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort 
 | test/visual/scenarioDefinitions2.ts | 608 | StRS-MDOKFSTUDIO-TOOLBAR-006 | simulated path | @tests_req #S2 | 605 |
 | test/visual/scenarioDefinitions2.ts | 647 | StRS-MDOKFSTUDIO-REVIEW-012 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 698 | StRS-MDOKFSTUDIO-MYST-017 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions2.ts | 699 | StRS-MDOKFSTUDIO-MYST-009 | partial path (audit row 29: path) | marker removed | - |
+| test/visual/scenarioDefinitions2.ts | 699 | StRS-MDOKFSTUDIO-MYST-009 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 728 | StRS-MDOKFSTUDIO-CORE-001 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 752 | StRS-MDOKFSTUDIO-CODE-001 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 787 | StRS-MDOKFSTUDIO-GFM-002 | simulated path | @tests_req #S1 | 780 |
 | test/visual/scenarioDefinitions2.ts | 798 | StRS-MDOKFSTUDIO-MYST-018 | simulated path | @tests_req #S1 | 791 |
 | test/visual/scenarioDefinitions2.ts | 822 | StRS-MDOKFSTUDIO-MYST-012 | simulated path | @tests_req #S1 | 813 |
-| test/visual/scenarioDefinitions2.ts | 844 | StRS-MDOKFSTUDIO-DIAG-001 | partial path (audit row 30: path) | marker removed | - |
+| test/visual/scenarioDefinitions2.ts | 844 | StRS-MDOKFSTUDIO-DIAG-001 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 857 | StRS-MDOKFSTUDIO-DIAG-006 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 858 | StRS-MDOKFSTUDIO-DIAG-007 | other: built-in engine, not the own JAR | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 900 | StRS-MDOKFSTUDIO-DIAG-009 | partial path | marker removed | - |
@@ -272,7 +271,7 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort 
 | test/visual/scenarioDefinitions2.ts | 1138 | StRS-MDOKFSTUDIO-LAYOUT-003 | simulated path | @tests_req #S2 | 1128 |
 | test/visual/scenarioDefinitions2.ts | 1153 | StRS-MDOKFSTUDIO-REVIEW-017 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 1266 | StRS-MDOKFSTUDIO-MYST-007 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions2.ts | 1330 | StRS-MDOKFSTUDIO-PALETTE-018 | partial path (audit row 26: path) | marker removed | - |
+| test/visual/scenarioDefinitions2.ts | 1330 | StRS-MDOKFSTUDIO-PALETTE-018 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 1388 | StRS-MDOKFSTUDIO-TABLE-002 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 1401 | StRS-MDOKFSTUDIO-TABLE-002 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 1424 | StRS-MDOKFSTUDIO-TABLE-002 | single-state snapshot | marker removed | - |

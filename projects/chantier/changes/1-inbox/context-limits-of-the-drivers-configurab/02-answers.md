@@ -36,3 +36,13 @@ Defaults the Chief of Staff took, accepted with the restatement: the closing thr
 Open: the exact window, set by the trial. The extra cost of a large context is not measured.
 
 Destination: running batch batch-31, after `shortcut-commands`. Spec critic: yes (it changes the Drivers' contract and the board's Configuration page).
+
+# Answer 7, context-limits-Q6 (2026-11-25, the owner)
+
+Asked: what to deliver if a Driver's window cannot be raised. Answer: "arrete on fera ca plus tard" (stop, we will do this later). The Chief of Staff reads it as: the whole CR is left aside. It does not join batch-31. Replaces the destination of Answer 6 and the "yes" of Answer 1.
+
+context-limits-Q7 (release and QA Drivers) and context-limits-Q8 (when a threshold change applies) got no answer: still open, to ask again when the CR is taken up.
+
+State of the specification: written, critic run once (8 findings), the 6 fixes applied; findings 1 (Q6) and 3 (Q7) and open question 1 (Q8) are not folded.
+
+Destination: none for now, left aside by the owner. No `order add` without a new word from the owner.
