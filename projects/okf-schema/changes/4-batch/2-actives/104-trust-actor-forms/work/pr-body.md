@@ -5,7 +5,7 @@ A concept verified by an actor written as OKF 0.2 allows, such as
 needed a colon. The trust tier now follows the specification (sections 5.3 and 7): every
 non-empty actor that is not `human:<id>` counts as machine.
 
-Before is the base `2f09cef`, after is `7a33d92`.
+Before is `41fcd6d`, the head of the pull request below this one, after is `1a03994`.
 
 | `verified[].by` | Trust tier before | Trust tier after | W10 after |
 |---|---|---|---|
@@ -26,8 +26,8 @@ What changes:
   scaffold schema teach the OKF 0.2 forms instead of `bot:ci`. Existing knowledge bases keep
   their own copy of the schema.
 - Requirement `SwRS-OKFSCHEMA-CORE-006` gains scenario S5, with tests and a feature map row.
-- `CHANGELOG.md` carries the entries that `just changelog`, a `just preflight` step, generates
-  from the commit history: this fix and the missing `v0.18.1` heading.
+- `CHANGELOG.md` gains the entry for this fix and the missing `v0.18.1` heading, both generated
+  from the commit history by `just changelog`, a `just preflight` step.
 
 Unchanged: `generated.by` and `sources[].author` are still not checked, `okfkb` still writes
 `bot:okf-schema`, and the `human:` match stays case-sensitive.
@@ -56,19 +56,19 @@ uv run -- okf-schema validate-md --input c.md --schemas-dir <dir> --strict
 
 ### Validation results
 
-- Example command at `7a33d92`: exit 0, no warning. With `by: alice`: exit 1, one W10 naming
+- Example command at `1a03994`: exit 0, no warning. With `by: alice`: exit 1, one W10 naming
   `verified entry [0]` twice. `show_bundle(...).trust_tier` is `machine-confirmed` for both.
-- `just preflight` on Windows at `7a33d92`: pass. 1128 passed, 12 skipped, coverage 95.58%,
+- `just preflight` on Windows at `1a03994`: pass. 1153 passed, 12 skipped, coverage 95.55%,
   Sphinx build succeeded with warnings as errors.
-- `okfreq validate requirements --prose --check-links --project-root .` at `7a33d92`:
-  35 requirements, 0 errors, 0 warnings.
-- A first `just preflight` run at `1ae8870` failed 8 symbolic link tests because the host
-  refused to create links (`WinError 1314`); the base `2f09cef` failed the same 8. Symbolic
-  links are now allowed on that host.
-- CI at `7a33d92`: the preflight jobs on Python 3.10 to 3.13 and the macOS and Windows jobs
+- `okfreq validate requirements --prose --check-links --project-root .` at `1a03994`:
+  36 requirements, 0 errors, 0 warnings.
+- A first `just preflight` run on an earlier state of this branch, then based on `2f09cef`,
+  failed 8 symbolic link tests because the host refused to create links (`WinError 1314`);
+  `2f09cef` itself failed the same 8. Symbolic links are now allowed on that host.
+- CI at `1a03994`: the preflight jobs on Python 3.10 to 3.13 and the macOS and Windows jobs
   pass; the release tagging job is skipped, as it runs on pushes to `main` only.
 
-Evidence status at `7a33d92`: marker linkage is defined for the requirement in `validator.py`
+Evidence status at `1a03994`: marker linkage is defined for the requirement in `validator.py`
 and for S5 in the tests (`okfreq trace`); the marked tests were executed and passed; no
 stakeholder approval is claimed, the requirement stays `proposed`.
 
@@ -93,7 +93,9 @@ stakeholder approval is claimed, the requirement stays `proposed`.
 ### Known gaps
 
 - `show_bundle` reports a different `trust_tier` for some actors without a
-  `.. versionchanged::` note in its docstring.
+  `.. versionchanged::` note about this change in its docstring.
+- `CHANGELOG.md` lacks the entry that `just changelog` generates for the `show` fix of the pull
+  request below.
 - The skill row and the validation code reference say an unrecognized actor still counts as
   machine-confirmed; a `by` that is not a string (for example `42`) is warned W10 and does not
   count.

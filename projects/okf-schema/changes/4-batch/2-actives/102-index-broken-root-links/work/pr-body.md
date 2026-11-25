@@ -42,8 +42,8 @@ flowchart TD
 ### Surfaces
 
 - Runtime: `index_bundle` and `stats_bundle` (`api.py`), `validate_index` and `validate_log`
-  (`validator.py`, `validate_log` gets an optional `bundle_root`), the new `is_broken_link` and
-  `find_broken_links` (`_internal/utils.py`).
+  (`validator.py`, `validate_log` gets an optional `bundle_root`), and in `_internal/utils.py`
+  the new `is_broken_link` and the changed `find_broken_links`, which now relies on it.
 - Human documentation: the `index` and `stats` sections of the CLI reference, and W2, the
   validation scope and a compatibility note in the validation codes reference.
 - Agent skills: the `index`, `stats` and W2 rows of `skills/okf-schema/SKILL.md`.
@@ -100,8 +100,17 @@ okf-schema validate --strict --path kb/bundle
 - `index` repairs only a summary that starts with a link. A copied `See [guide](guide.md).` is
   kept and still draws W2; the validation codes reference and the `index` row of the skill word
   this more broadly.
-- The `index`, `stats` and `validate` command docstrings carry no `versionchanged` note, and two
-  private summary helpers have no `Examples` section.
+- The `index`, `stats` and `validate` command docstrings carry no `versionchanged` note.
+- Seven new private functions have no `Examples` section: five summary helpers in `api.py` and two
+  link helpers in `_internal/utils.py`.
+- The documentation and the new docstring notes date this change to 0.19.0, while neighbouring
+  changes on the base branch say 0.18.2. The number is only right if the release that ships this
+  change is 0.19.0; the release has to settle it.
+- The log entry under `requirements/` records the `just preflight` run made before this branch was
+  moved onto its current base (1187 tests, 95.68% coverage), not the run reported below.
+- No before-and-after capture from a run of the base code: a checkout of the base failed on the
+  Windows host used (file names too long under `skills-evals/results/`). The "before" behaviour is
+  taken from the issue and from the base source.
 - Only a line that starts with `<!--` is skipped, so the following lines of a multi-line HTML
   comment enter the subdirectory summary.
 - In a linked image `[![i](a.png)](b)` only the inner link is matched: the outer link is not
