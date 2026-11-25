@@ -37,8 +37,8 @@ Grade: **1**. Documentation, clip files and tests only; a plain `git revert` res
 - [x] Requirements: no behaviour change; the new site test carries `@tests_req SwRS-MDOKFSTUDIO-CORE-095`; `just requirements-update` leaves the tree clean
 - [x] Changelog: no user-facing change
 - [x] Local gates: `just clip-kit-test` (37 tests), `just format`, `just check`, `just clip figure-editor all --vsix ...` (`check.json` passed, verify passed, 12.0 s, playback rate 0.995, loop seam SSIM 0.991)
-- [ ] Review
-- [ ] CI green
+- [x] Review (inspector approved at 31c9d5d, committed as d930238)
+- [x] CI green (static, static-windows, viewer-graph, visual at d930238; integration and stress skipped by design on a pull request)
 
 ## Known gaps
 
