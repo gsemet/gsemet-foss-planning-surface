@@ -21,7 +21,7 @@ flowchart LR
 - Per role: runs, tool calls, card bytes by card, CLI usage errors and refusals, `--help` and `help <topic>` reads, host denials, write-guard refusals, waits, tools not in the role's list, push refusals.
 - Nine detectors (`merge-by-agent`, `merge-not-ff`, `plain-force-push`, `discard-work`, `git-stash`, `stop-by-name`, `add-all`, `cd-into-changes`, `no-verify`), each with a positive and a negative example; a detector more than 5 points worse than in the previous file, or a new S-list line, is listed as a regression.
 - `--prune` prints deletion candidates and writes nothing.
-- Baseline: BASELINE_PLACEHOLDER
+- Baseline: `just behaviour --since 2026-11-17` at version 0.15.1, run on 2026-11-25 in 27.5 s over 4136 transcript files (2368 skipped), found 3652 runs of 14 roles and 484 runs of no chantier role; files `evals/results/behaviour-2026-11-25-v0.15.1.json` and `.md`. Runs / card bytes read / S-list lines per role: cr-driver 603 / 39,093,659 / 4; verifier 720 / 13,627,776 / 1; spec-writer 515 / 11,772,577 / 4; inspector 680 / 8,567,216 / 0; coder 536 / 6,538,593 / 0; stack-driver 81 / 5,260,573 / 6; spec-critic 241 / 4,979,791 / 0; chief-of-staff 6 / 3,017,281 / 45; release-driver 31 / 1,194,523 / 7; conflict-resolver 109 / 620,471 / 0; griller 10 / 630,708 / 6; investigator 45 / 337,750 / 1; retro-critic 25 / 314,984 / 0; debugger 50 / 187,012 / 0. Regressions: none (no earlier measure).
 
 ## Blast radius
 
