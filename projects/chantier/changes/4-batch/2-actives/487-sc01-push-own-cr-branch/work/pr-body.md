@@ -19,7 +19,7 @@ chantier push <cr> --lease <n> [--unit stack|O-k]
 
 Owner's word for this subcommand: "a CLI subcommand ... that runs the `--force-with-lease` itself, for GitHub and for GitLab. ... say plainly that the command exists to declare that the operation is legitimate in what the Driver is doing".
 
-Test time added to `just test`: `test_push.py` (13 tests) takes 7.2 s wall under `pytest -n auto --dist worksteal` and about 57 s of serial time on this Windows machine; a full before/after of `just test` was not taken, so the 30 s budget is **UNVERIFIED** for the whole suite (it is above the 2-4 s first estimated).
+Test time added to `just test`: `test_push.py` (13 tests) took 10.49 s wall under `pytest -n auto --dist worksteal` (8 workers, run at `096f073` on this Windows machine: `13 passed in 10.49s`); an earlier run of the file alone in one process took about 57 s. A full before/after of `just test` was not taken, so the 30 s budget is **UNVERIFIED** for the whole suite.
 
 Smoke trial (the host did not show its permission mode), five pushes of this branch at 096f073, all in the compound form `uv run --no-sync --project <worktree> chantier --project <planning> push <cr> --lease 1 --batch <batch>`; none was refused by the classifier:
 
