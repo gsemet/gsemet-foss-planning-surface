@@ -4,10 +4,10 @@ Studio already lets a reader move a table row or column by dragging its handle i
 
 ## Deliverables
 
-![Dragging the row "Fix the login bug" by its handle to the top, then the "Due" column to the first place; the raw text follows](https://github.com/gsemet/markdown-okf-schema-studio/raw/@HEAD@/docs/demo-video/clips/table-anchors/table-anchors.gif)
+![Dragging the row "Fix the login bug" by its handle to the top, then the "Due" column to the first place; the raw text follows](https://github.com/gsemet/markdown-okf-schema-studio/raw/6b54c6e6cab1481ad1ecf13a77e210afa1ccb564/docs/demo-video/clips/table-anchors/table-anchors.gif)
 
-- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/@HEAD@/docs/demo-video/clips/table-anchors/table-anchors.mp4
-- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/@HEAD@/docs/demo-video/clips/table-anchors/table-anchors.webm
+- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/6b54c6e6cab1481ad1ecf13a77e210afa1ccb564/docs/demo-video/clips/table-anchors/table-anchors.mp4
+- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/6b54c6e6cab1481ad1ecf13a77e210afa1ccb564/docs/demo-video/clips/table-anchors/table-anchors.webm
 - Storyboard to review: `docs/demo-video/clips/table-anchors/clip.md`
 
 ## Changes
@@ -29,7 +29,7 @@ Grade: 1. Docs and kit tests only; a plain `git revert` restores the previous st
 - [x] New or changed tests (storyboard, check and site tests)
 - [x] Requirements: No behaviour change (`just requirements-update` leaves nothing to change; one added test marker on `SwRS-MDOKFSTUDIO-CORE-095`)
 - [x] Changelog: No user-facing change (no `feat` or `fix` commit)
-- [ ] Local gates: `just clip-kit-test` 37 tests, `just check` pass, `just clip table-anchors all` pass (`check.json` passed: true, loop seam SSIM 0.9925, playback rate 1.004); preflight pending
+- [x] Local gates: `just clip-kit-test` 37 tests, `just check` pass, `just clip table-anchors all` pass (`check.json` passed: true, loop seam SSIM 0.9925, playback rate 1.004); preflight (static stage) pass
 - [ ] Review
 - [ ] CI green
 

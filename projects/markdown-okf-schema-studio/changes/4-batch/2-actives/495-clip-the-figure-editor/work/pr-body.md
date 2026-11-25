@@ -6,10 +6,10 @@ A feature clip of the figure editor. In edit mode the writer points at a figure,
 
 Filmed in a real VS Code window on Windows with the clip kit, one continuous shot, two captions in turn, two marks in turn, one badged save chord, 12.0 s, 1280x720 at 15 fps, a loop.
 
-![Edit a figure in one form](https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/figure-editor/figure-editor.gif)
+![Edit a figure in one form](https://github.com/gsemet/markdown-okf-schema-studio/raw/d930238cc64eee77fe5dc0ad25c574a7231b7f5a/docs/demo-video/clips/figure-editor/figure-editor.gif)
 
-- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/figure-editor/figure-editor.mp4
-- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/figure-editor/figure-editor.webm
+- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/d930238cc64eee77fe5dc0ad25c574a7231b7f5a/docs/demo-video/clips/figure-editor/figure-editor.mp4
+- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/d930238cc64eee77fe5dc0ad25c574a7231b7f5a/docs/demo-video/clips/figure-editor/figure-editor.webm
 - Storyboard: `docs/demo-video/clips/figure-editor/clip.md`
 
 What the clip proves (the take's own checks, `verify` and `check.json`): the Edit figure button opens the form filled from the directive; the keyboard fills it (Caption retyped after Ctrl/Cmd+A, Tab between fields, Align set with the `r` key, its list never opened); Enter in Name applies and keeps the `:alt:` line while adding the width, align and name lines; the save chord renders the figure at 40% floating right with its new caption and id. `harbour-guide.md` holds exactly the expected text.
