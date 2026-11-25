@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "title": "Clip: the advanced renderings tour, and clips up to 30 s",
-  "summary": "Grilled; storyboard and stage ready; for batch-09, spec to write.: 16 s; owns the kit's 12 to 30 s limit; bottom of the stack.",
+  "summary": "Specified: kit max clip length 12 to 30 s first (bottom of batch-09 stack), then a 16 s clip of six renderers (Mermaid, PlantUML, Vega-Lite, Vega, KaTeX, SVG) in one Cream note, one zoom, one scroll; draft PR for the owner's review.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "d898664d4dd16ed23198d46584df02f2948805ea586684c7dd67f235ee65ff84",
     "02-answers.md": "9f8c1badc7ec67d1b181cf2c92e419f16b35bf69749d466c1f546877d68ff4df",
+    "03-change-spec.md": "47d8b17739ee522f2016b9d0f3ed8034668e8036193691c691cf0e0d654b1582",
     "intake/request.md": "d41046ab84191128f57cb5a6924424349fe0aa14f0aa94a0bd09f607f2c9b07b"
   },
-  "summarized": "2026-11-25T09:04:01Z"
+  "summarized": "2026-11-25T09:08:16Z"
 }
