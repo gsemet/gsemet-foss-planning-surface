@@ -51,20 +51,20 @@ Role cards of this PR against their budgets: `foreman.md` 36,927 to 3,998 (4,000
 
 | Role | Today | New |
 | --- | ---: | ---: |
-| coder | 9,595 | 6,519 |
-| conflict-resolver | 8,879 | 6,480 |
-| debugger | 8,668 | 6,267 |
-| inspector | 11,030 | 6,985 |
-| investigator | 8,540 | 6,472 |
-| verifier | 19,567 | 8,098 |
+| coder | 9,790 | 6,714 |
+| conflict-resolver | 9,074 | 6,675 |
+| debugger | 8,863 | 6,462 |
+| inspector | 11,225 | 7,181 |
+| investigator | 8,735 | 6,667 |
+| verifier | 19,762 | 8,293 |
 | retro-critic | 4,225 | 2,889 |
 | demo-explorer | 4,746 | 2,936 |
-| chief-of-staff | 22,322 | 24,657 |
+| chief-of-staff | 22,322 | 24,652 |
 | griller | 6,349 | 6,623 |
-| foreman | 55,206 | 22,278 |
-| cr-driver, staged card, role only | 59,216 | 7,840 |
-| release-driver, staged card, role only | 59,216 | 8,020 |
-| stack-driver, staged card, role only | 59,216 | 7,875 |
+| foreman | 55,206 | 22,277 |
+| cr-driver, staged card, role only | 59,216 | 8,010 |
+| release-driver, staged card, role only | 59,216 | 8,072 |
+| stack-driver, staged card, role only | 59,216 | 8,044 |
 | qa-driver, staged card, role only | 59,216 | 5,828 |
 | spec-writer, on an inbox item | 4,815 | 3,228 |
 | spec-critic, on an inbox item | 5,290 | 3,133 |
@@ -94,6 +94,9 @@ Grade: 1
 | --- | --- |
 | chief-of-staff.md 13, 14, 16, 17, 27 | writes on the user's yes; never stop a process by name or PID; `cancel` only after an ordered drop; its own push is asked first; no CR work in a temp folder, no secret in a CR folder |
 | chief-of-staff.md 41 | pointers to new topics |
+| chief-of-staff.md 10, 22, 23, 39 | the push rail covers a protected branch too; never stop a Driver; never edit `summary.json` by hand; two wording trims, one more on line 41 |
+| cr-driver.md 5 and 16, stack-driver.md 5 and 16, release-driver.md 16 | fresh workers per round or move, and the checker never wrote the change (line 5); no rebase with `--rebase-merges`, `--exec` or `-x` (line 16) |
+| inspector.md 5, 22 | a check red on the default branch is reported, never fixed there; the `worker-shell` pointer shortened |
 | coder.md 13, conflict-resolver.md 15, debugger.md 13, demo-explorer.md 13, investigator.md 16, verifier.md 18, cr-driver.md 18 | the same temp-folder and secrets never |
 | cr-driver.md 20 | never start an agent in place of one that may still run |
 | cr-driver.md 26, qa-driver.md 18, release-driver.md 25, stack-driver.md 27, spec-writer.md 15, retro-critic.md 22-23, spec-critic.md 18-19 | pointers |
@@ -107,6 +110,10 @@ Grade: 1
 
 ## Known gaps
 
+- `concepts.md` (line 121) says "a cause the Foreman's card names" for a restart; the new Foreman card names
+  none: the causes are in `help lost-restart`.
+- The rule that repository text is in English is filed under `worker-shell` (`topics.json`), whose roles
+  hold no Driver and no Foreman; for those, only `pr-template.md` says it, for the PR.
 - Do not merge: this merges with children 19 to 28 of the program as one unit, after child 28's
   campaign.
 - No real run (child 28). Every Copilot claim is untested.
@@ -235,7 +242,7 @@ No visual change; nothing loads the new files.
 ## Internal references
 
 - CR-507 `sc21-cards-foreman`, with the SC22 and SC23 specifications in the same file.
-- The work folder holds the four rule inventories (Foreman, Chief of Staff, Griller, host and shared,
-  with the completeness table) and the proofs.
+- The CR's `evidence/` folder holds the four rule inventories (Foreman, Chief of Staff, Griller, host
+  and shared, with the completeness table) and the proofs.
 
 </details>
