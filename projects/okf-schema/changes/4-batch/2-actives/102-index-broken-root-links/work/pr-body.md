@@ -94,6 +94,13 @@ okf-schema validate --strict --path kb/bundle
 
 - The 12 acceptance tests skip on Windows, `StRS-OKFSCHEMA-CORE-002#S2` among them: they were not
   run locally.
+- `index` writes concept file names as they are, so a file such as `notes(1).md` now draws W2 on
+  the generated `index.md`, which `validate --strict` fails on and `index` cannot fix.
+- `index` repairs only a summary that starts with a link. A copied `See [guide](guide.md).` is
+  kept and still draws W2; the validation codes reference and the `index` row of the skill word
+  this more broadly.
+- The `index`, `stats` and `validate` command docstrings carry no `versionchanged` note, and two
+  private summary helpers have no `Examples` section.
 - Only a line that starts with `<!--` is skipped, so the following lines of a multi-line HTML
   comment enter the subdirectory summary.
 - In a linked image `[![i](a.png)](b)` only the inner link is matched: the outer link is not

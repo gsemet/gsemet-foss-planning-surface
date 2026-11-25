@@ -1,0 +1,12 @@
+fix(index): write subdirectory summaries without broken links
+
+Indexes no longer copy a link that only works from the subdirectory, and
+running index again repairs the summaries already damaged. Authored
+summaries are kept however the subdirectory link is spelled.
+
+Validation now warns (W2) about broken links in index.md and log.md, so
+strict validation can newly fail until they are fixed. Valid anchored or
+percent-encoded links are no longer reported or counted by stats.
+
+Assisted-by: Claude:Sonnet-5.5
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>

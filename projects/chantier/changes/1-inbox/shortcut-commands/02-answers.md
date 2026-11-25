@@ -53,3 +53,19 @@ Defaults the Chief of Staff took, accepted with the restatement: `batch-start` t
 When: at the end of batch-31, after CR-514; the local Windows long gate then moves to it.
 
 Destination: running batch batch-31. (From Answers 2 and 10: specified, then added with `order add` and chained after CR-514.) Spec critic: yes (the Chief of Staff judges the CR impactful: it removes the go before a batch starts and adds an unattended mode).
+
+# Answer 11, shortcuts-Q10 (2026-11-25, the owner)
+
+Split: B, two CRs: this one keeps the four batch commands (`batch-start`, `batch-pause`, `batch-close`, `batch-add`) and the shared base; `/chantier:autonomy` becomes its own CR, after this one (recommended was three CRs).
+
+# Answer 12, shortcuts-Q11 (2026-11-25, the owner)
+
+`/chantier:batch-pause`: no option taken. "je ne comprend pas. c est simple, quand un batch touche, batch-pause met en pause, quand le batch est en pause il ne fait rien. pour reprendre on fait un batch-start qui resume le batch paused". Read by the Chief of Staff ("touche" as "tourne"): on a running batch, `batch-pause` pauses it; a paused batch does nothing; `/chantier:batch-start` resumes a paused batch. Replaces open question 1 of the specification, and its rule that `batch-start` starts nothing on a paused batch. Still open: what the Drivers at work do at the pause (asked next).
+
+# Answer 13, shortcuts-Q12 (2026-11-25, the owner)
+
+`/chantier:batch-add P1` (or `ready`, `inbox`): B, list the folder's CRs and ask which, once (recommended was to add the whole folder).
+
+# Answer 14, shortcuts-Q13 (2026-11-25, the owner)
+
+The commands and the board pane: A, record the Chief of Staff role, open no pane.

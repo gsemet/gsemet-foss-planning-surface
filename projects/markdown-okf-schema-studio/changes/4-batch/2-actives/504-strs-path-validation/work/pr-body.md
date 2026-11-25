@@ -4,7 +4,7 @@ The requirements bundle moves to okf-schema 0.18.1, which lets a requirement dec
 
 Every requirement group now declares its scenarios (SwRS) and paths (StRS) with stable ids `S<n>`, and every test marker on a declaring requirement names its fragment. The requirements viewer shows, per path and per scenario, the test files that test or accept it, with new cards and columns. The coverage mode is not switched here.
 
-One consequence to know before merging: in the current coverage mode the report's "StRS covered" figure goes from 23 of 95 on `main` to 5 of 95 until the follow-up change switches the mode (see Impacts).
+One consequence to know before merging: in the current coverage mode the report's "StRS covered" figure goes from 23 of 95 on `main` to 1 of 95 until the follow-up change switches the mode (see Impacts).
 
 ## Deliverables
 
@@ -26,7 +26,7 @@ Choices made:
 - The 97 retired SwRS get an explicit exemption so they declare no scenarios.
 - A new SwRS (`SwRS-MDOKFSTUDIO-CORE-096`) states the behaviour of the marker check, each rule tested by its own test.
 - All 16 requirement groups declare `scenarios:` and carry `Scenario S<n>` / `Path S<n>` headings; each SwRS test marker is one line per scenario.
-- StRS markers in tests were sorted (table in Details, 186 rows for 185 markers): 77 rows became `@accepts_req` (walks in real VS Code, and the walks of CORE-007, CORE-008 and TRUST-014 outside it), 31 stay `@tests_req` on a walked path (simulated bench, and TRUST-012 in the security tests), 78 are removed, each with its class (partial path 35, single-state snapshot 24, SwRS duplicate 11, other 8). The SwRS markers stay, except those the review of the fragments dropped because their test checks no declared scenario (see Known gaps).
+- StRS markers in tests were sorted (table in Details, 187 rows for 185 markers): a marker stays only where the test walks the whole declared path. 19 rows are `@accepts_req` (walks in real VS Code), 7 are `@tests_req` (walks on the simulated bench), 161 are removed, each with its class (partial path 111, single-state snapshot 27, SwRS duplicate 12, other 11). The 26 kept markers cover 23 of 156 paths (17 accepted, 6 tested). The SwRS markers stay, except those the review of the fragments dropped because their test checks no declared scenario (see Known gaps).
 - The mutation report reads the `#S<n>` fragments.
 - The requirements viewer reads `scenarios:` from the requirement files and joins them with the okfreq trace: home cards "StRS paths tested", "StRS paths accepted", "StRS covered" and "SwRS scenarios tested" (the "StRS with a stakeholder validation test" card is removed), area columns "Paths tested" and "Paths accepted", the tested and accepted files of each path on a use case page, and the tests of each scenario, or "missing", on a behaviour page. Without a trace the declared counts stay and the file figures read "n/a". SwRS CORE-069, CORE-080 and CORE-082 gain the scenarios for this.
 - `just requirements-report` and `just requirements-report-json` also write `out/reports/requirements/requirements-trace.json`.
@@ -39,7 +39,7 @@ The 15 approved StRS only get `approved_at` and `verified.at` set to the time of
 
 ### Validation in the new coverage mode (scratch, not applied)
 
-A scratch copy of the bundle and of the sources, with the mode set to `linked-swrs-and-acceptance-paths`, validates with 0 errors and 61 warnings: W004 x35 (a StRS with no `@accepts_req` yet) and W2 x26 (placeholder cross-links that existed before). The mode switch and the W004 are for the follow-up change.
+A scratch copy of the bundle and of the sources, with the mode set to `linked-swrs-and-acceptance-paths`, validates with 0 errors and 104 warnings: W004 x78 (a StRS with no `@accepts_req` yet) and W2 x26 (placeholder cross-links that existed before). The mode switch and the W004 are for the follow-up change.
 
 ## Blast radius
 
@@ -52,33 +52,36 @@ Grade: **2**. The check script, the bundle schemas and the Python lock change; a
 - The StRS markers' sort was carried out by an agent by the agreed classes; the re-approval of the 15 approved StRS by the review of this PR follows the owner's agreement to the scripted rename.
 - A migration script, run group by group, declared `scenarios:` and renamed the headings; each group commit carries its markers' fragments.
 - The first fragment sweep was a keyword heuristic; its 486 weak entries were then read one by one (484 decisions, two entries repeating a block already decided: 142 kept, 206 moved to the scenario really exercised, 136 dropped because the test checks no declared scenario). Fragments scored good, and 45 lines on 6 SwRS with generic scenarios, were not re-read.
-- StRS markers in tests were sorted: kept as `@tests_req` or `@accepts_req` on a declared path, or removed (a snapshot, a partial path or a duplicate of a SwRS marker); `strsTestsInIntegration` is now empty. SwRS markers go only where the fragment review found no declared scenario checked (for example TRUST-005, TRUST-090, REVIEW-219, LIFE-169, LIFE-170 in some `test/integration` files).
+- StRS markers in tests were sorted: kept as `@tests_req` or `@accepts_req` on a declared path, or removed (a snapshot, a partial path, a duplicate of a SwRS marker, or another reason named in the table); `strsTestsInIntegration` is now empty. SwRS markers go only where the fragment review found no declared scenario checked (for example TRUST-005, TRUST-090, REVIEW-219, LIFE-169, LIFE-170 in some `test/integration` files).
 - The exemption reason of a replaced SwRS names its successor with one shared text; LIFE-174 and LIFE-182 to 185, archived with no successor, each have their own reason.
 - The viewer's new behaviour is stated as new scenarios of three existing `proposed` SwRS (CORE-069, CORE-080, CORE-082), with no new SwRS.
 - `requirements/guidelines/okfreq-baseline.guidelines.md` is left as it is: it matches no okf-schema file.
 - The project guidelines state their own SwRS scenario heading, with the kind, which overrides the refreshed shared guideline.
 - Two deliveries, decided during preparation: this PR declares the paths and scenarios in the current coverage mode; the mode switch is deferred to a follow-up change.
 - No simulated walk is written for every StRS path: the viewer shows what the marker sort finds and says so. The release, site and package StRS (CORE-007, CORE-008, TRUST-014) may be accepted outside VS Code; CORE-006 stays in VS Code.
+- The Chief of Staff decided to carry two findings of the verification into the follow-up change instead of fixing them here: D, the 136 marker blocks dropped by the fragment review, and E, the wrong fragments (`test/core/render/mathRenderer.test.ts` line 52, MYST-024#S8; `test/core/render/alertSourceLines.test.ts` line 150, GFM-009#S10; `test/session/lineEndingSave.test.ts` line 40, BLOCK-234#S3; 3 of 16 sampled lines).
+- Round 7 applied the strict rule to the StRS markers (decision of the Chief of Staff, ruling A-17 option a). All 109 StRS marker lines the previous pass had kept or restored were re-read, the test against the declared path; 83 are removed and 26 stay. A marker stays only if the starting state is set up; each step is performed through the product mechanism (a stub for the user's choice in a native dialog or for the OS clipboard is accepted; an injected page message, a test hook or a faked host result is not); every state and outcome named in a step is asserted (`Option` bullets aside; for an "or", one side); a path whose only step is the page's own rendering counts when every outcome is asserted; in doubt the marker is removed.
 
 ## Known gaps
 
 Left for the follow-up change:
 
 - 722 of 2623 in-force SwRS scenarios have no scenario marker (list in Details).
-- 67 of 156 StRS paths have no marker (list in Details).
-- 35 StRS have no acceptance test (W004, markers scanned).
+- 133 of 156 StRS paths have no marker (list in Details).
+- 78 of 95 StRS have no acceptance test (W004, markers scanned).
 
 Carried into the follow-up change, found by the verification and not fixed here:
 
-- The review of the fragments dropped 136 marker blocks whose test checks no declared scenario. The specification asks to either declare the missing scenario or move the marker to the SwRS the test does check; neither was done for these blocks.
-- Some SwRS fragments name a scenario their test does not check, so the "scenarios tested" figures can overstate. 3 of 16 sampled lines are wrong: `test/core/render/mathRenderer.test.ts` line 52 (MYST-024 S8), `test/core/render/alertSourceLines.test.ts` line 150 (GFM-009 S10) and `test/session/lineEndingSave.test.ts` line 40 (BLOCK-234 S3). Fragments scored good in the first pass of the sweep, and 45 lines on 6 SwRS with generic scenarios, were not re-read.
+- Finding D: the review of the fragments dropped 136 marker blocks whose test checks no declared scenario. The specification asks to either declare the missing scenario or move the marker to the SwRS the test does check; neither was done for these blocks.
+- Finding E: some SwRS fragments name a scenario their test does not check, so the "scenarios tested" figures can overstate. 3 of 16 sampled lines are wrong: `test/core/render/mathRenderer.test.ts` line 52 (MYST-024 S8), `test/core/render/alertSourceLines.test.ts` line 150 (GFM-009 S10) and `test/session/lineEndingSave.test.ts` line 40 (BLOCK-234 S3). Fragments scored good in the first pass of the sweep, and 45 lines on 6 SwRS with generic scenarios, were not re-read.
 - The dropped blocks removed the last `test/integration` marker of 11 SwRS: BLOCK-053, BLOCK-216, CORE-022, CORE-043, DIAG-001, FMEDIT-024, FMSCHEMA-001, FMSCHEMA-084, PALETTE-031, PALETTE-217 and THEME-001.
 
 Others:
 
-- "StRS covered" reads 5 of 95 in the current coverage mode (see Impacts).
+- "StRS covered" reads 1 of 95 in the current coverage mode (see Impacts).
 - `StRS-MDOKFSTUDIO-LIFE-023` shows its four paths with no tested or accepted file: no test marker names it.
-- Three restored StRS markers sit on walks that do not assert every step: LAYOUT-004 S1 (no check that read-mode text wraps clear of the toolbar), LIFE-005 S1 (the end result is asserted at the host, not in the page) and GFM-002 S1 (the spans and safe colours of S2 are not asserted, so S2 is not marked there).
+- The strict re-check of round 7 removed the last marker of 66 StRS paths, which are now uncovered: BLOCK 001 S1, 003 S1, 008 S2, 011 S2, 014 S2, 016 S1, 025 S2; CODE 001 S2, 004 S1; CORE 001 S2, 002 S1, 007 S1, 008 S1; DIAG 001 S2, 006 S1, 015 S2; FMEDIT 001 S1, 008 S1; FMSCHEMA 006 S1, 010 S1, 014 S1; GFM 003 S1; LAYOUT 001 S1, 004 S1; LIFE 001 S1, 003 S1, 005 S1, 014 S1, 022 S1; MYST 006 S1, 007 S1, 007 S2, 009 S1, 009 S2, 016 S1, 017 S1; PALETTE 002 S1, 005 S1, 007 S1, 015 S1, 018 S2, 019 S1; REVIEW 001 S1, 003 S1, 015 S1, 017 S1; TABLE 001 S1, 002 S1, 008 S1, 013 S1, 015 S1; THEME 002 S1, 011 S1; TOOLBAR 004 S1, 006 S1, 009 S1, 011 S1, 013 S1, 013 S2, 014 S1; TRUST 001 S1, 004 S1, 006 S1, 012 S1, 012 S2, 014 S1. None of CORE-007, CORE-008, TRUST-012 and TRUST-014 keeps a marker: their tests run outside a real VS Code and do not walk the path.
+- The audit sample of the preparation judged 13 sampled markers as walking a path. The strict rule keeps 3 and removes 10, marked "(audit row N: path)" in the table: MYST-007 S1, TABLE-015 S1, TABLE-001 S1, LIFE-014 S1, TRUST-004 S1, BLOCK-011 S2, CODE-004 S1, PALETTE-018 S1 (the path keeps another marker), MYST-009 S1, DIAG-001 S2. A test that walks only part of a path, or injects or fakes one of its steps, no longer carries its marker.
 - The requirements site was looked at in a browser by the verification at `afbb55c` only; no screenshot is posted. The "Tested by" block of a scenario card has no horizontal padding: its label and file rows touch the card border.
 - The paths of TRUST-012 and TRUST-014 do not start from the built VSIX, although that was asked: their steps start from the running Studio and from a maintainer's install, because a path cites only SwRS that state what the extension does today.
 - A scenario of CORE-069 says the counts do not depend on the coverage mode, while the "StRS covered" count follows it.
@@ -88,151 +91,152 @@ Others:
 
 ## StRS marker classification
 
-Every StRS marker (file, line, StRS, class, outcome), before and after the sort:
+Every StRS marker (file, line, StRS, class, outcome), before and after the sort (`Line before` at commit e5ee7ec1, `Line now` in this PR). A marker stays only where the test walks the whole declared path (the rule is under Autonomous decisions). `(audit row N: path)` marks a row of the audit sample judged a path that this rule removes.
 
 | File | Line before | StRS | Class | Outcome | Line now |
 |---|---|---|---|---|---|
 | test/build/test_plugin_manifests.py | 93 | StRS-MDOKFSTUDIO-CORE-006 | partial path | marker removed | - |
-| test/build/test_release.py | 322 | StRS-MDOKFSTUDIO-CORE-007 | real VS Code path | @accepts_req #S1 | 328 |
+| test/build/test_release.py | 322 | StRS-MDOKFSTUDIO-CORE-007 | partial path | marker removed | - |
 | test/core/frontmatter/diagReq.frontmatter.requirements.test.ts | 54 | StRS-MDOKFSTUDIO-FMSCHEMA-001 | SwRS duplicate | marker removed | - |
 | test/core/render/writingSkill.test.ts | 134 | StRS-MDOKFSTUDIO-CORE-006 | partial path | marker removed | - |
-| test/integration/blockClipboard.test.ts | 82 | StRS-MDOKFSTUDIO-BLOCK-025 | real VS Code path | @accepts_req #S2 | 82 |
-| test/integration/blockClipboard.test.ts | 83 | StRS-MDOKFSTUDIO-BLOCK-016 | real VS Code path | @accepts_req #S1 | 83 |
+| test/integration/blockClipboard.test.ts | 82 | StRS-MDOKFSTUDIO-BLOCK-025 | partial path | marker removed | - |
+| test/integration/blockClipboard.test.ts | 83 | StRS-MDOKFSTUDIO-BLOCK-016 | partial path | marker removed | - |
 | test/integration/blockMove.test.ts | 36 | StRS-MDOKFSTUDIO-BLOCK-025 | other: block move, not an editor edit | marker removed | - |
 | test/integration/blockMove.test.ts | 37 | StRS-MDOKFSTUDIO-BLOCK-014 | partial path | marker removed | - |
 | test/integration/blockMove.test.ts | 78 | StRS-MDOKFSTUDIO-TRUST-009 | SwRS duplicate | marker removed | - |
-| test/integration/checkboxToggle.test.ts | 66 | StRS-MDOKFSTUDIO-GFM-003 | real VS Code path | @accepts_req #S1 | 66 |
+| test/integration/checkboxToggle.test.ts | 66 | StRS-MDOKFSTUDIO-GFM-003 | partial path | marker removed | - |
 | test/integration/commentAnchors.test.ts | 32 | StRS-MDOKFSTUDIO-REVIEW-008 | real VS Code path | @accepts_req #S1 | 32 |
 | test/integration/commentAnchors.test.ts | 33 | StRS-MDOKFSTUDIO-REVIEW-001 | partial path | marker removed | - |
 | test/integration/commentWrite.test.ts | 37 | StRS-MDOKFSTUDIO-REVIEW-001 | other: writes threads, no highlight click | marker removed | - |
-| test/integration/commentWrite.test.ts | 38 | StRS-MDOKFSTUDIO-REVIEW-003 | real VS Code path | @accepts_req #S1 | 37 |
+| test/integration/commentWrite.test.ts | 38 | StRS-MDOKFSTUDIO-REVIEW-003 | partial path | marker removed | - |
 | test/integration/commentWrite.test.ts | 121 | StRS-MDOKFSTUDIO-TRUST-009 | SwRS duplicate | marker removed | - |
-| test/integration/commentWrite.test.ts | 222 | StRS-MDOKFSTUDIO-TRUST-001 | real VS Code path | @accepts_req #S1 | 225 |
-| test/integration/dirtySnapshots.test.ts | 67 | StRS-MDOKFSTUDIO-LIFE-005 | real VS Code path | @accepts_req #S1 | 67 |
+| test/integration/commentWrite.test.ts | 222 | StRS-MDOKFSTUDIO-TRUST-001 | partial path | marker removed | - |
+| test/integration/dirtySnapshots.test.ts | 67 | StRS-MDOKFSTUDIO-LIFE-005 | partial path | marker removed | - |
 | test/integration/editKeys.test.ts | 38 | StRS-MDOKFSTUDIO-BLOCK-008 | SwRS duplicate | marker removed | - |
 | test/integration/editToolbarCover.test.ts | 86 | StRS-MDOKFSTUDIO-PALETTE-005 | SwRS duplicate | marker removed | - |
-| test/integration/exportHtml.test.ts | 51 | StRS-MDOKFSTUDIO-TOOLBAR-014 | real VS Code path | @accepts_req #S1 | 51 |
+| test/integration/exportHtml.test.ts | 51 | StRS-MDOKFSTUDIO-TOOLBAR-014 | partial path | marker removed | - |
 | test/integration/findInPreview.test.ts | 72 | StRS-MDOKFSTUDIO-TOOLBAR-003 | real VS Code path | @accepts_req #S1 | 72 |
-| test/integration/imagePaste.test.ts | 26 | StRS-MDOKFSTUDIO-PALETTE-018 | real VS Code path | @accepts_req #S1 | 26 |
-| test/integration/imagePicker.test.ts | 26 | StRS-MDOKFSTUDIO-PALETTE-007 | real VS Code path | @accepts_req #S1 | 26 |
-| test/integration/inlineThread.test.ts | 100 | StRS-MDOKFSTUDIO-REVIEW-015 | real VS Code path | @accepts_req #S1 | 100 |
+| test/integration/imagePaste.test.ts | 26 | StRS-MDOKFSTUDIO-PALETTE-018 | partial path | marker removed | - |
+| test/integration/imagePicker.test.ts | 26 | StRS-MDOKFSTUDIO-PALETTE-007 | partial path | marker removed | - |
+| test/integration/inlineThread.test.ts | 100 | StRS-MDOKFSTUDIO-REVIEW-015 | partial path | marker removed | - |
 | test/integration/labelRename.test.ts | 35 | StRS-MDOKFSTUDIO-MYST-009 | partial path | marker removed | - |
-| test/integration/lifecycle.test.ts | 43 | StRS-MDOKFSTUDIO-LIFE-001 | real VS Code path | @accepts_req #S1 | 43 |
-| test/integration/lifecycle.test.ts | 44 | StRS-MDOKFSTUDIO-LIFE-003 | real VS Code path | @accepts_req #S1 | 44 |
+| test/integration/lifecycle.test.ts | 43 | StRS-MDOKFSTUDIO-LIFE-001 | partial path | marker removed | - |
+| test/integration/lifecycle.test.ts | 44 | StRS-MDOKFSTUDIO-LIFE-003 | partial path | marker removed | - |
 | test/integration/lifecycle.test.ts | 45 | StRS-MDOKFSTUDIO-LIFE-007 | single-state snapshot | marker removed | - |
 | test/integration/lifecycle.test.ts | 145 | StRS-MDOKFSTUDIO-THEME-004 | partial path | marker removed | - |
-| test/integration/mystBlocksWindow.ts | 150 | StRS-MDOKFSTUDIO-MYST-016 | real VS Code path | @accepts_req #S1 | 150 |
-| test/integration/mystDiagnostics.test.ts | 47 | StRS-MDOKFSTUDIO-MYST-007 | real VS Code path | @accepts_req #S1 | 47 |
+| test/integration/mystBlocksWindow.ts | 150 | StRS-MDOKFSTUDIO-MYST-016 | partial path | marker removed | - |
+| test/integration/mystBlocksWindow.ts | 150 | StRS-MDOKFSTUDIO-MYST-016 | real VS Code path | @accepts_req #S2 | 150 |
+| test/integration/mystDiagnostics.test.ts | 47 | StRS-MDOKFSTUDIO-MYST-007 | partial path (audit row 6: path) | marker removed | - |
 | test/integration/mystPickers.test.ts | 8 | StRS-MDOKFSTUDIO-PALETTE-013 | SwRS duplicate | marker removed | - |
-| test/integration/paletteMode.test.ts | 39 | StRS-MDOKFSTUDIO-PALETTE-002 | real VS Code path | @accepts_req #S1 | 39 |
+| test/integration/paletteMode.test.ts | 39 | StRS-MDOKFSTUDIO-PALETTE-002 | partial path | marker removed | - |
 | test/integration/previewEditing.test.ts | 45 | StRS-MDOKFSTUDIO-FMSCHEMA-001 | SwRS duplicate | marker removed | - |
-| test/integration/previewEditing.test.ts | 141 | StRS-MDOKFSTUDIO-FMSCHEMA-014 | real VS Code path | @accepts_req #S1 | 123 |
-| test/integration/previewEditing.test.ts | 638 | StRS-MDOKFSTUDIO-BLOCK-003 | real VS Code path | @accepts_req #S1 | 623 |
-| test/integration/previewEditing.test.ts | 1042 | StRS-MDOKFSTUDIO-FMSCHEMA-010 | real VS Code path (moved to previewEditingSchemaSteps.ts) | @accepts_req #S1 | 69 |
-| test/integration/previewEditing.test.ts | 1123 | StRS-MDOKFSTUDIO-FMSCHEMA-006 | real VS Code path (moved to previewEditingSchemaSteps.ts) | @accepts_req #S1 | 151 |
-| test/integration/previewHistory.test.ts | 41 | StRS-MDOKFSTUDIO-TOOLBAR-009 | real VS Code path | @accepts_req #S1 | 41 |
-| test/integration/previewHistory.test.ts | 42 | StRS-MDOKFSTUDIO-TOOLBAR-011 | real VS Code path | @accepts_req #S1 | 42 |
-| test/integration/projectFeatures.test.ts | 138 | StRS-MDOKFSTUDIO-CORE-002 | real VS Code path | @accepts_req #S1 | 136 |
+| test/integration/previewEditing.test.ts | 141 | StRS-MDOKFSTUDIO-FMSCHEMA-014 | partial path | marker removed | - |
+| test/integration/previewEditing.test.ts | 638 | StRS-MDOKFSTUDIO-BLOCK-003 | partial path | marker removed | - |
+| test/integration/previewEditing.test.ts | 1042 | StRS-MDOKFSTUDIO-FMSCHEMA-010 | partial path | marker removed | - |
+| test/integration/previewEditing.test.ts | 1123 | StRS-MDOKFSTUDIO-FMSCHEMA-006 | partial path | marker removed | - |
+| test/integration/previewHistory.test.ts | 41 | StRS-MDOKFSTUDIO-TOOLBAR-009 | partial path | marker removed | - |
+| test/integration/previewHistory.test.ts | 42 | StRS-MDOKFSTUDIO-TOOLBAR-011 | partial path | marker removed | - |
+| test/integration/projectFeatures.test.ts | 138 | StRS-MDOKFSTUDIO-CORE-002 | partial path | marker removed | - |
 | test/integration/projectFeatures.test.ts | 153 | StRS-MDOKFSTUDIO-CORE-002 | other: unreadable include refusal | marker removed | - |
 | test/integration/radioChoice.test.ts | 187 | StRS-MDOKFSTUDIO-GFM-005 | real VS Code path | @accepts_req #S1 | 187 |
 | test/integration/realInput/blockKeys.ts | 139 | StRS-MDOKFSTUDIO-REVIEW-012 | SwRS duplicate | marker removed | - |
 | test/integration/realInput/blockKeys.ts | 225 | StRS-MDOKFSTUDIO-REVIEW-012 | real VS Code path | @accepts_req #S2 | 225 |
-| test/integration/realInput/blockKeys.ts | 280 | StRS-MDOKFSTUDIO-BLOCK-014 | real VS Code path | @accepts_req #S2 | 280 |
-| test/integration/realInput/blockKeys.ts | 346 | StRS-MDOKFSTUDIO-BLOCK-016 | real VS Code path | @accepts_req #S1 | 347 |
-| test/integration/realInput/blockKeys.ts | 549 | StRS-MDOKFSTUDIO-BLOCK-008 | real VS Code path | @accepts_req #S2 | 552 |
-| test/integration/realInput/blockKeys.ts | 606 | StRS-MDOKFSTUDIO-TABLE-015 | real VS Code path | @accepts_req #S1 | 610 |
-| test/integration/realInput/blockKeys.ts | 640 | StRS-MDOKFSTUDIO-TABLE-014 | real VS Code path | @accepts_req #S1 | 645 |
+| test/integration/realInput/blockKeys.ts | 280 | StRS-MDOKFSTUDIO-BLOCK-014 | partial path | marker removed | - |
+| test/integration/realInput/blockKeys.ts | 346 | StRS-MDOKFSTUDIO-BLOCK-016 | partial path | marker removed | - |
+| test/integration/realInput/blockKeys.ts | 549 | StRS-MDOKFSTUDIO-BLOCK-008 | partial path | marker removed | - |
+| test/integration/realInput/blockKeys.ts | 606 | StRS-MDOKFSTUDIO-TABLE-015 | partial path (audit row 9: path) | marker removed | - |
+| test/integration/realInput/blockKeys.ts | 640 | StRS-MDOKFSTUDIO-TABLE-014 | real VS Code path | @accepts_req #S1 | 641 |
 | test/integration/realInput/editorWidgets.ts | 385 | StRS-MDOKFSTUDIO-BLOCK-008 | real VS Code path | @accepts_req #S1 | 386 |
-| test/integration/realInput/editorWidgets.ts | 427 | StRS-MDOKFSTUDIO-TABLE-001 | real VS Code path | @accepts_req #S1 | 429 |
-| test/integration/realInput/editorWidgets.ts | 683 | StRS-MDOKFSTUDIO-BLOCK-003 | real VS Code path | @accepts_req #S1 | 686 |
-| test/integration/realInput/editorWidgets.ts | 723 | StRS-MDOKFSTUDIO-BLOCK-003 | real VS Code path | @accepts_req #S1 | 726 |
-| test/integration/realInput/editorWidgets.ts | 770 | StRS-MDOKFSTUDIO-BLOCK-001 | real VS Code path | @accepts_req #S1 | 773 |
-| test/integration/realInput/editorWidgets.ts | 850 | StRS-MDOKFSTUDIO-TABLE-006 | real VS Code path | @accepts_req #S1 | 854 |
-| test/integration/realInput/editorWidgets.ts | 931 | StRS-MDOKFSTUDIO-TABLE-008 | real VS Code path | @accepts_req #S1 | 937 |
+| test/integration/realInput/editorWidgets.ts | 427 | StRS-MDOKFSTUDIO-TABLE-001 | partial path | marker removed | - |
+| test/integration/realInput/editorWidgets.ts | 683 | StRS-MDOKFSTUDIO-BLOCK-003 | partial path | marker removed | - |
+| test/integration/realInput/editorWidgets.ts | 723 | StRS-MDOKFSTUDIO-BLOCK-003 | partial path | marker removed | - |
+| test/integration/realInput/editorWidgets.ts | 770 | StRS-MDOKFSTUDIO-BLOCK-001 | SwRS duplicate | marker removed | - |
+| test/integration/realInput/editorWidgets.ts | 850 | StRS-MDOKFSTUDIO-TABLE-006 | real VS Code path | @accepts_req #S1 | 850 |
+| test/integration/realInput/editorWidgets.ts | 931 | StRS-MDOKFSTUDIO-TABLE-008 | partial path | marker removed | - |
 | test/integration/realInput/flushBeforeNavigate.ts | 236 | StRS-MDOKFSTUDIO-BLOCK-006 | real VS Code path | @accepts_req #S2 | 236 |
 | test/integration/realInput/flushBeforeNavigate.ts | 259 | StRS-MDOKFSTUDIO-BLOCK-006 | real VS Code path | @accepts_req #S2 | 260 |
 | test/integration/realInput/flushBeforeNavigate.ts | 283 | StRS-MDOKFSTUDIO-BLOCK-006 | real VS Code path | @accepts_req #S2 | 284 |
-| test/integration/realInput/flushBeforeNavigate.ts | 309 | StRS-MDOKFSTUDIO-TABLE-001 | real VS Code path | @accepts_req #S1 | 310 |
+| test/integration/realInput/flushBeforeNavigate.ts | 309 | StRS-MDOKFSTUDIO-TABLE-001 | partial path (audit row 11: path) | marker removed | - |
 | test/integration/realInput/flushBeforeNavigate.ts | 402 | StRS-MDOKFSTUDIO-FMEDIT-008 | SwRS duplicate | marker removed | - |
 | test/integration/realInput/frontmatterFields.ts | 142 | StRS-MDOKFSTUDIO-FMEDIT-001 | partial path | marker removed | - |
-| test/integration/realInput/frontmatterFields.ts | 417 | StRS-MDOKFSTUDIO-FMEDIT-005 | real VS Code path | @accepts_req #S2 | 417 |
-| test/integration/realInput/frontmatterFields.ts | 504 | StRS-MDOKFSTUDIO-FMEDIT-005 | real VS Code path | @accepts_req #S2 | 506 |
-| test/integration/realInput/labelRenameAboveTable.ts | 43 | StRS-MDOKFSTUDIO-MYST-009 | real VS Code path | @accepts_req #S2 | 43 |
+| test/integration/realInput/frontmatterFields.ts | 417 | StRS-MDOKFSTUDIO-FMEDIT-005 | partial path | marker removed | - |
+| test/integration/realInput/frontmatterFields.ts | 504 | StRS-MDOKFSTUDIO-FMEDIT-005 | real VS Code path | @accepts_req #S2 | 505 |
+| test/integration/realInput/labelRenameAboveTable.ts | 43 | StRS-MDOKFSTUDIO-MYST-009 | partial path | marker removed | - |
 | test/integration/realInput/previewWindow.ts | 200 | StRS-MDOKFSTUDIO-LIFE-001 | SwRS duplicate | marker removed | - |
 | test/integration/realInput/previewWindow.ts | 216 | StRS-MDOKFSTUDIO-TOOLBAR-013 | single-state snapshot | marker removed | - |
-| test/integration/realInput/previewWindow.ts | 355 | StRS-MDOKFSTUDIO-THEME-002 | real VS Code path | @accepts_req #S1 | 356 |
+| test/integration/realInput/previewWindow.ts | 355 | StRS-MDOKFSTUDIO-THEME-002 | partial path | marker removed | - |
 | test/integration/realInput/previewWindow.ts | 381 | StRS-MDOKFSTUDIO-DIAG-001 | partial path | marker removed | - |
 | test/integration/realInput/renderPatching.ts | 532 | StRS-MDOKFSTUDIO-BLOCK-011 | real VS Code path | @accepts_req #S1 | 533 |
-| test/integration/realInput/tableEscape.ts | 42 | StRS-MDOKFSTUDIO-TABLE-001 | real VS Code path | @accepts_req #S1 | 41 |
+| test/integration/realInput/tableEscape.ts | 42 | StRS-MDOKFSTUDIO-TABLE-001 | partial path | marker removed | - |
 | test/integration/realInput/tableInsertSlash.ts | 41 | StRS-MDOKFSTUDIO-TABLE-016 | real VS Code path | @accepts_req #S1 | 41 |
-| test/integration/realInput/textEditing.ts | 83 | StRS-MDOKFSTUDIO-FMEDIT-008 | real VS Code path | @accepts_req #S1 | 83 |
-| test/integration/realInput/textEditing.ts | 125 | StRS-MDOKFSTUDIO-FMEDIT-008 | real VS Code path | @accepts_req #S1 | 125 |
-| test/integration/realInput/textEditing.ts | 191 | StRS-MDOKFSTUDIO-FMEDIT-001 | real VS Code path | @accepts_req #S1 | 191 |
-| test/integration/realInput/textEditing.ts | 500 | StRS-MDOKFSTUDIO-PALETTE-015 | real VS Code path | @accepts_req #S1 | 500 |
-| test/integration/realInput/textEditing.ts | 621 | StRS-MDOKFSTUDIO-PALETTE-019 | real VS Code path | @accepts_req #S1 | 623 |
-| test/integration/realInput/textEditing.ts | 622 | StRS-MDOKFSTUDIO-PALETTE-005 | real VS Code path | @accepts_req #S1 | 624 |
+| test/integration/realInput/textEditing.ts | 83 | StRS-MDOKFSTUDIO-FMEDIT-008 | partial path | marker removed | - |
+| test/integration/realInput/textEditing.ts | 125 | StRS-MDOKFSTUDIO-FMEDIT-008 | partial path | marker removed | - |
+| test/integration/realInput/textEditing.ts | 191 | StRS-MDOKFSTUDIO-FMEDIT-001 | partial path | marker removed | - |
+| test/integration/realInput/textEditing.ts | 500 | StRS-MDOKFSTUDIO-PALETTE-015 | partial path | marker removed | - |
+| test/integration/realInput/textEditing.ts | 621 | StRS-MDOKFSTUDIO-PALETTE-019 | partial path | marker removed | - |
+| test/integration/realInput/textEditing.ts | 622 | StRS-MDOKFSTUDIO-PALETTE-005 | partial path | marker removed | - |
 | test/integration/realInput/textEditing.ts | 742 | StRS-MDOKFSTUDIO-PALETTE-007 | other: link panel | marker removed | - |
 | test/integration/realWindowGaps.ts | 100 | StRS-MDOKFSTUDIO-REVIEW-018 | real VS Code path | @accepts_req #S1 | 100 |
-| test/integration/realWindowGaps.ts | 182 | StRS-MDOKFSTUDIO-REVIEW-017 | real VS Code path | @accepts_req #S1 | 183 |
-| test/integration/realWindowGaps.ts | 556 | StRS-MDOKFSTUDIO-PALETTE-018 | real VS Code path | @accepts_req #S1 | 562 |
+| test/integration/realWindowGaps.ts | 182 | StRS-MDOKFSTUDIO-REVIEW-017 | partial path | marker removed | - |
+| test/integration/realWindowGaps.ts | 556 | StRS-MDOKFSTUDIO-PALETTE-018 | real VS Code path | @accepts_req #S1 | 561 |
 | test/integration/realWindowGaps.ts | 668 | StRS-MDOKFSTUDIO-BLOCK-001 | partial path | marker removed | - |
 | test/integration/realWindowGaps.ts | 669 | StRS-MDOKFSTUDIO-TRUST-001 | SwRS duplicate | marker removed | - |
-| test/integration/reload-suite.ts | 112 | StRS-MDOKFSTUDIO-LIFE-014 | real VS Code path | @accepts_req #S1 | 112 |
-| test/integration/reload-suite.ts | 113 | StRS-MDOKFSTUDIO-THEME-011 | real VS Code path | @accepts_req #S1 | 113 |
-| test/integration/reviewComments.test.ts | 38 | StRS-MDOKFSTUDIO-REVIEW-001 | real VS Code path | @accepts_req #S1 | 38 |
+| test/integration/reload-suite.ts | 112 | StRS-MDOKFSTUDIO-LIFE-014 | partial path | marker removed | - |
+| test/integration/reload-suite.ts | 113 | StRS-MDOKFSTUDIO-THEME-011 | partial path | marker removed | - |
+| test/integration/reviewComments.test.ts | 38 | StRS-MDOKFSTUDIO-REVIEW-001 | partial path | marker removed | - |
 | test/integration/scroll-sync-suite.ts | 273 | StRS-MDOKFSTUDIO-LIFE-010 | real VS Code path | @accepts_req #S1 | 273 |
-| test/integration/scroll-sync-suite.ts | 274 | StRS-MDOKFSTUDIO-TOOLBAR-013 | real VS Code path | @accepts_req #S1 | 274 |
-| test/integration/serializer.test.ts | 28 | StRS-MDOKFSTUDIO-LIFE-014 | real VS Code path | @accepts_req #S1 | 28 |
+| test/integration/scroll-sync-suite.ts | 274 | StRS-MDOKFSTUDIO-TOOLBAR-013 | partial path | marker removed | - |
+| test/integration/serializer.test.ts | 28 | StRS-MDOKFSTUDIO-LIFE-014 | partial path (audit row 16: path) | marker removed | - |
 | test/integration/serializer.test.ts | 29 | StRS-MDOKFSTUDIO-LIFE-001 | other: panel restore, no open command | marker removed | - |
 | test/integration/serializer.test.ts | 30 | StRS-MDOKFSTUDIO-LIFE-007 | partial path | marker removed | - |
 | test/integration/sourceMapping.test.ts | 29 | StRS-MDOKFSTUDIO-LIFE-010 | partial path | marker removed | - |
-| test/integration/standalone-suite.ts | 39 | StRS-MDOKFSTUDIO-TRUST-001 | real VS Code path | @accepts_req #S1 | 41 |
+| test/integration/standalone-suite.ts | 39 | StRS-MDOKFSTUDIO-TRUST-001 | partial path | marker removed | - |
 | test/integration/standalone-suite.ts | 40 | StRS-MDOKFSTUDIO-TRUST-004 | partial path | marker removed | - |
 | test/integration/stockCoexistence.test.ts | 76 | StRS-MDOKFSTUDIO-LIFE-001 | real VS Code path | @accepts_req #S2 | 76 |
-| test/integration/tableMoves.ts | 191 | StRS-MDOKFSTUDIO-TABLE-013 | real VS Code path | @accepts_req #S1 | 191 |
-| test/integration/tableMoves.ts | 255 | StRS-MDOKFSTUDIO-TABLE-002 | real VS Code path | @accepts_req #S1 | 258 |
-| test/integration/tableMoves.ts | 300 | StRS-MDOKFSTUDIO-TABLE-002 | real VS Code path | @accepts_req #S2 | 304 |
-| test/integration/trusted-suite.ts | 128 | StRS-MDOKFSTUDIO-TRUST-006 | real VS Code path | @accepts_req #S1 | 128 |
-| test/integration/untrusted-suite.ts | 89 | StRS-MDOKFSTUDIO-TRUST-004 | real VS Code path | @accepts_req #S1 | 89 |
-| test/integration/untrusted-suite.ts | 154 | StRS-MDOKFSTUDIO-TRUST-001 | real VS Code path | @accepts_req #S1 | 155 |
-| test/integration/updateGlow.test.ts | 52 | StRS-MDOKFSTUDIO-LIFE-005 | real VS Code path | @accepts_req #S1 | 56 |
-| test/integration/workspaceDisposal.test.ts | 28 | StRS-MDOKFSTUDIO-LIFE-022 | real VS Code path | @accepts_req #S1 | 28 |
+| test/integration/tableMoves.ts | 191 | StRS-MDOKFSTUDIO-TABLE-013 | partial path | marker removed | - |
+| test/integration/tableMoves.ts | 255 | StRS-MDOKFSTUDIO-TABLE-002 | partial path | marker removed | - |
+| test/integration/tableMoves.ts | 300 | StRS-MDOKFSTUDIO-TABLE-002 | real VS Code path | @accepts_req #S2 | 302 |
+| test/integration/trusted-suite.ts | 128 | StRS-MDOKFSTUDIO-TRUST-006 | partial path | marker removed | - |
+| test/integration/untrusted-suite.ts | 89 | StRS-MDOKFSTUDIO-TRUST-004 | partial path (audit row 18: path) | marker removed | - |
+| test/integration/untrusted-suite.ts | 154 | StRS-MDOKFSTUDIO-TRUST-001 | partial path | marker removed | - |
+| test/integration/updateGlow.test.ts | 52 | StRS-MDOKFSTUDIO-LIFE-005 | partial path | marker removed | - |
+| test/integration/workspaceDisposal.test.ts | 28 | StRS-MDOKFSTUDIO-LIFE-022 | partial path | marker removed | - |
 | test/page/modules/alertLazyEditAction.test.ts | 32 | StRS-MDOKFSTUDIO-PALETTE-020 | partial path | marker removed | - |
-| test/security/package-contract.test.ts | 20 | StRS-MDOKFSTUDIO-TRUST-012 | simulated path | @tests_req #S2 | 20 |
+| test/security/package-contract.test.ts | 20 | StRS-MDOKFSTUDIO-TRUST-012 | other: static manifest check outside VS Code | marker removed | - |
 | test/security/package-contract.test.ts | 35 | StRS-MDOKFSTUDIO-LIFE-021 | other: static manifest check | marker removed | - |
-| test/security/package-contract.test.ts | 385 | StRS-MDOKFSTUDIO-TRUST-014 | real VS Code path | @accepts_req #S1 | 388 |
-| test/security/userFacingText.test.ts | 131 | StRS-MDOKFSTUDIO-TRUST-012 | simulated path | @tests_req #S1 | 131 |
-| test/site/requirementsViewer/write.test.ts | 65 | StRS-MDOKFSTUDIO-CORE-008 | real VS Code path | @accepts_req #S1 | 61 |
+| test/security/package-contract.test.ts | 385 | StRS-MDOKFSTUDIO-TRUST-014 | other: static packaging check outside VS Code | marker removed | - |
+| test/security/userFacingText.test.ts | 131 | StRS-MDOKFSTUDIO-TRUST-012 | other: static source scan outside VS Code | marker removed | - |
+| test/site/requirementsViewer/write.test.ts | 65 | StRS-MDOKFSTUDIO-CORE-008 | partial path | marker removed | - |
 | test/visual/capture_layout_checks.py | 206 | StRS-MDOKFSTUDIO-TOOLBAR-002 | partial path | marker removed | - |
-| test/visual/mathScenarios.ts | 22 | StRS-MDOKFSTUDIO-MYST-006 | simulated path | @tests_req #S1 | 24 |
+| test/visual/mathScenarios.ts | 22 | StRS-MDOKFSTUDIO-MYST-006 | partial path | marker removed | - |
 | test/visual/releaseShowcaseScenarios.ts | 15 | StRS-MDOKFSTUDIO-CORE-001 | single-state snapshot | marker removed | - |
 | test/visual/releaseShowcaseScenarios.ts | 16 | StRS-MDOKFSTUDIO-DIAG-015 | partial path | marker removed | - |
-| test/visual/scenarioAssertions.ts | 673 | StRS-MDOKFSTUDIO-LAYOUT-004 | simulated path | @tests_req #S1 | 673 |
+| test/visual/scenarioAssertions.ts | 673 | StRS-MDOKFSTUDIO-LAYOUT-004 | partial path | marker removed | - |
 | test/visual/scenarioAssertions.ts | 720 | StRS-MDOKFSTUDIO-TOOLBAR-001 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 67 | StRS-MDOKFSTUDIO-CORE-001 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 109 | StRS-MDOKFSTUDIO-THEME-002 | single-state snapshot | marker removed | - |
-| test/visual/scenarioDefinitions1.ts | 206 | StRS-MDOKFSTUDIO-LAYOUT-001 | simulated path | @tests_req #S1 | 207 |
+| test/visual/scenarioDefinitions1.ts | 206 | StRS-MDOKFSTUDIO-LAYOUT-001 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 220 | StRS-MDOKFSTUDIO-MYST-015 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 274 | StRS-MDOKFSTUDIO-CORE-003 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 275 | StRS-MDOKFSTUDIO-MYST-005 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions1.ts | 337 | StRS-MDOKFSTUDIO-PALETTE-018 | simulated path | @tests_req #S2 | 334 |
+| test/visual/scenarioDefinitions1.ts | 337 | StRS-MDOKFSTUDIO-PALETTE-018 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 375 | StRS-MDOKFSTUDIO-DIAG-001 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 406 | StRS-MDOKFSTUDIO-DIAG-007 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions1.ts | 452 | StRS-MDOKFSTUDIO-CODE-004 | simulated path | @tests_req #S1 | 448 |
+| test/visual/scenarioDefinitions1.ts | 452 | StRS-MDOKFSTUDIO-CODE-004 | partial path (audit row 23: path) | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 638 | StRS-MDOKFSTUDIO-LAYOUT-003 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 675 | StRS-MDOKFSTUDIO-CODE-001 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions1.ts | 718 | StRS-MDOKFSTUDIO-CODE-001 | simulated path | @tests_req #S2 | 714 |
+| test/visual/scenarioDefinitions1.ts | 718 | StRS-MDOKFSTUDIO-CODE-001 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 785 | StRS-MDOKFSTUDIO-FMSCHEMA-001 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 786 | StRS-MDOKFSTUDIO-FMSCHEMA-006 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 825 | StRS-MDOKFSTUDIO-FMSCHEMA-014 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 965 | StRS-MDOKFSTUDIO-TABLE-008 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 1233 | StRS-MDOKFSTUDIO-BLOCK-003 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 1234 | StRS-MDOKFSTUDIO-LAYOUT-004 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions1.ts | 1274 | StRS-MDOKFSTUDIO-BLOCK-011 | simulated path | @tests_req #S2 | 1268 |
+| test/visual/scenarioDefinitions1.ts | 1274 | StRS-MDOKFSTUDIO-BLOCK-011 | partial path (audit row 21: path) | marker removed | - |
 | test/visual/scenarioDefinitions1.ts | 1301 | StRS-MDOKFSTUDIO-TOOLBAR-004 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions1.ts | 1315 | StRS-MDOKFSTUDIO-TOOLBAR-013 | simulated path | @tests_req #S2 | 1310 |
-| test/visual/scenarioDefinitions1.ts | 1385 | StRS-MDOKFSTUDIO-MYST-005 | simulated path | @tests_req #S2 | 1381 |
-| test/visual/scenarioDefinitions1.ts | 1402 | StRS-MDOKFSTUDIO-MYST-005 | simulated path | @tests_req #S2 | 1398 |
+| test/visual/scenarioDefinitions1.ts | 1315 | StRS-MDOKFSTUDIO-TOOLBAR-013 | partial path | marker removed | - |
+| test/visual/scenarioDefinitions1.ts | 1385 | StRS-MDOKFSTUDIO-MYST-005 | simulated path | @tests_req #S2 | 1375 |
+| test/visual/scenarioDefinitions1.ts | 1402 | StRS-MDOKFSTUDIO-MYST-005 | simulated path | @tests_req #S2 | 1392 |
 | test/visual/scenarioDefinitions2.ts | 251 | StRS-MDOKFSTUDIO-TOOLBAR-004 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 313 | StRS-MDOKFSTUDIO-FMSCHEMA-010 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 347 | StRS-MDOKFSTUDIO-FMSCHEMA-006 | single-state snapshot | marker removed | - |
@@ -241,34 +245,34 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort:
 | test/visual/scenarioDefinitions2.ts | 538 | StRS-MDOKFSTUDIO-CORE-001 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 550 | StRS-MDOKFSTUDIO-MYST-016 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 564 | StRS-MDOKFSTUDIO-FMSCHEMA-001 | single-state snapshot | marker removed | - |
-| test/visual/scenarioDefinitions2.ts | 608 | StRS-MDOKFSTUDIO-TOOLBAR-006 | simulated path | @tests_req #S1 | 605 |
-| test/visual/scenarioDefinitions2.ts | 608 | StRS-MDOKFSTUDIO-TOOLBAR-006 | simulated path | @tests_req #S2 | 606 |
+| test/visual/scenarioDefinitions2.ts | 608 | StRS-MDOKFSTUDIO-TOOLBAR-006 | partial path | marker removed | - |
+| test/visual/scenarioDefinitions2.ts | 608 | StRS-MDOKFSTUDIO-TOOLBAR-006 | simulated path | @tests_req #S2 | 605 |
 | test/visual/scenarioDefinitions2.ts | 647 | StRS-MDOKFSTUDIO-REVIEW-012 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions2.ts | 698 | StRS-MDOKFSTUDIO-MYST-017 | simulated path | @tests_req #S1 | 696 |
-| test/visual/scenarioDefinitions2.ts | 699 | StRS-MDOKFSTUDIO-MYST-009 | simulated path | @tests_req #S1 | 697 |
-| test/visual/scenarioDefinitions2.ts | 728 | StRS-MDOKFSTUDIO-CORE-001 | simulated path | @tests_req #S2 | 725 |
+| test/visual/scenarioDefinitions2.ts | 698 | StRS-MDOKFSTUDIO-MYST-017 | partial path | marker removed | - |
+| test/visual/scenarioDefinitions2.ts | 699 | StRS-MDOKFSTUDIO-MYST-009 | partial path (audit row 29: path) | marker removed | - |
+| test/visual/scenarioDefinitions2.ts | 728 | StRS-MDOKFSTUDIO-CORE-001 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 752 | StRS-MDOKFSTUDIO-CODE-001 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions2.ts | 787 | StRS-MDOKFSTUDIO-GFM-002 | simulated path | @tests_req #S1 | 784 |
-| test/visual/scenarioDefinitions2.ts | 798 | StRS-MDOKFSTUDIO-MYST-018 | simulated path | @tests_req #S1 | 795 |
-| test/visual/scenarioDefinitions2.ts | 822 | StRS-MDOKFSTUDIO-MYST-012 | simulated path | @tests_req #S1 | 817 |
-| test/visual/scenarioDefinitions2.ts | 844 | StRS-MDOKFSTUDIO-DIAG-001 | simulated path | @tests_req #S2 | 841 |
-| test/visual/scenarioDefinitions2.ts | 857 | StRS-MDOKFSTUDIO-DIAG-006 | simulated path | @tests_req #S1 | 855 |
+| test/visual/scenarioDefinitions2.ts | 787 | StRS-MDOKFSTUDIO-GFM-002 | simulated path | @tests_req #S1 | 780 |
+| test/visual/scenarioDefinitions2.ts | 798 | StRS-MDOKFSTUDIO-MYST-018 | simulated path | @tests_req #S1 | 791 |
+| test/visual/scenarioDefinitions2.ts | 822 | StRS-MDOKFSTUDIO-MYST-012 | simulated path | @tests_req #S1 | 813 |
+| test/visual/scenarioDefinitions2.ts | 844 | StRS-MDOKFSTUDIO-DIAG-001 | partial path (audit row 30: path) | marker removed | - |
+| test/visual/scenarioDefinitions2.ts | 857 | StRS-MDOKFSTUDIO-DIAG-006 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 858 | StRS-MDOKFSTUDIO-DIAG-007 | other: built-in engine, not the own JAR | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 900 | StRS-MDOKFSTUDIO-DIAG-009 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 928 | StRS-MDOKFSTUDIO-FMSCHEMA-001 | single-state snapshot | marker removed | - |
-| test/visual/scenarioDefinitions2.ts | 962 | StRS-MDOKFSTUDIO-THEME-002 | simulated path | @tests_req #S1 | 960 |
+| test/visual/scenarioDefinitions2.ts | 962 | StRS-MDOKFSTUDIO-THEME-002 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 975 | StRS-MDOKFSTUDIO-THEME-011 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 990 | StRS-MDOKFSTUDIO-THEME-004 | single-state snapshot | marker removed | - |
-| test/visual/scenarioDefinitions2.ts | 1048 | StRS-MDOKFSTUDIO-TOOLBAR-013 | simulated path | @tests_req #S2 | 1046 |
-| test/visual/scenarioDefinitions2.ts | 1064 | StRS-MDOKFSTUDIO-TOOLBAR-004 | simulated path | @tests_req #S1 | 1063 |
-| test/visual/scenarioDefinitions2.ts | 1078 | StRS-MDOKFSTUDIO-TOOLBAR-004 | simulated path | @tests_req #S1 | 1078 |
-| test/visual/scenarioDefinitions2.ts | 1092 | StRS-MDOKFSTUDIO-TOOLBAR-004 | simulated path | @tests_req #S1 | 1093 |
+| test/visual/scenarioDefinitions2.ts | 1048 | StRS-MDOKFSTUDIO-TOOLBAR-013 | partial path | marker removed | - |
+| test/visual/scenarioDefinitions2.ts | 1064 | StRS-MDOKFSTUDIO-TOOLBAR-004 | single-state snapshot | marker removed | - |
+| test/visual/scenarioDefinitions2.ts | 1078 | StRS-MDOKFSTUDIO-TOOLBAR-004 | single-state snapshot | marker removed | - |
+| test/visual/scenarioDefinitions2.ts | 1092 | StRS-MDOKFSTUDIO-TOOLBAR-004 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 1107 | StRS-MDOKFSTUDIO-BLOCK-016 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 1124 | StRS-MDOKFSTUDIO-PALETTE-015 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions2.ts | 1138 | StRS-MDOKFSTUDIO-LAYOUT-003 | simulated path | @tests_req #S2 | 1139 |
+| test/visual/scenarioDefinitions2.ts | 1138 | StRS-MDOKFSTUDIO-LAYOUT-003 | simulated path | @tests_req #S2 | 1128 |
 | test/visual/scenarioDefinitions2.ts | 1153 | StRS-MDOKFSTUDIO-REVIEW-017 | partial path | marker removed | - |
-| test/visual/scenarioDefinitions2.ts | 1266 | StRS-MDOKFSTUDIO-MYST-007 | simulated path | @tests_req #S2 | 1267 |
-| test/visual/scenarioDefinitions2.ts | 1330 | StRS-MDOKFSTUDIO-PALETTE-018 | simulated path (moved to scenarioDefinitions3.ts) | @tests_req #S1 | 32 |
+| test/visual/scenarioDefinitions2.ts | 1266 | StRS-MDOKFSTUDIO-MYST-007 | partial path | marker removed | - |
+| test/visual/scenarioDefinitions2.ts | 1330 | StRS-MDOKFSTUDIO-PALETTE-018 | partial path (audit row 26: path) | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 1388 | StRS-MDOKFSTUDIO-TABLE-002 | single-state snapshot | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 1401 | StRS-MDOKFSTUDIO-TABLE-002 | partial path | marker removed | - |
 | test/visual/scenarioDefinitions2.ts | 1424 | StRS-MDOKFSTUDIO-TABLE-002 | single-state snapshot | marker removed | - |
@@ -277,9 +281,9 @@ Every StRS marker (file, line, StRS, class, outcome), before and after the sort:
 | test/visual/scenarioDefinitions2.ts | 1475 | StRS-MDOKFSTUDIO-TABLE-002 | single-state snapshot | marker removed | - |
 | test/visual/slashAdmonitionScenarios.ts | 13 | StRS-MDOKFSTUDIO-PALETTE-021 | other: slash menu list only | marker removed | - |
 | test/visual/svgPictureScenarios.ts | 40 | StRS-MDOKFSTUDIO-DIAG-015 | partial path | marker removed | - |
-| test/visual/svgPictureScenarios.ts | 54 | StRS-MDOKFSTUDIO-DIAG-015 | simulated path | @tests_req #S2 | 54 |
+| test/visual/svgPictureScenarios.ts | 54 | StRS-MDOKFSTUDIO-DIAG-015 | partial path | marker removed | - |
 
-Totals: 186 rows; removed 78 (partial path 35, single-state snapshot 24, SwRS duplicate 11, other 8), real VS Code path 77 (`@accepts_req`), simulated path 31 (`@tests_req`). Markers now with no pre-sort counterpart: 1.
+Totals: 187 rows; removed 161 (partial path 111, single-state snapshot 27, SwRS duplicate 12, other 11), real VS Code path 19 (`@accepts_req`), simulated path 7 (`@tests_req`). MYST-016 and TOOLBAR-006 have one row per path.
 
 
 ## Declared scenarios and paths with no marker
@@ -305,24 +309,24 @@ Every declared scenario or path with no marker, per area as `<requirement number
 - TOOLBAR (44): 001 S2,S6,S7; 003 S3; 007 S4,S5; 010 S5; 018 S2,S7,S8; 025 S2,S3,S6,S8,S11; 030 S1,S3; 033 S4; 037 S2,S3,S5,S6; 040 S4,S8; 054 S1,S4,S6; 077 S6,S10; 079 S2,S8,S11; 085 S1; 094 S4; 098 S1,S3,S4,S5,S6; 117 S2; 120 S10,S11; 128 S5,S6
 - TRUST (20): 001 S2; 005 S6; 007 S3,S4; 025 S2,S4; 036 S3,S5; 052 S1,S3,S5,S6; 065 S2,S4; 074 S3; 090 S8,S10; 092 S1,S2,S4
 
-**StRS paths: 67 of 156 with no marker**
+**StRS paths: 133 of 156 with no marker**
 
-- BLOCK (8): 001 S2; 006 S1; 011 S3; 014 S1,S3; 025 S1; 027 S1,S2
-- CODE (1): 001 S1
-- CORE (4): 001 S1; 003 S1,S2; 006 S1
-- DIAG (6): 001 S1; 006 S2; 007 S1; 009 S1,S2; 015 S1
-- FMEDIT (1): 005 S1
-- FMSCHEMA (4): 001 S1,S2; 006 S2; 014 S2
-- GFM (1): 002 S2
-- LAYOUT (3): 001 S2; 003 S1; 004 S2
-- LIFE (12): 003 S2; 005 S2; 007 S1,S2; 010 S2; 014 S2; 021 S1; 022 S2; 023 S1,S2,S3,S4
-- MYST (4): 005 S1; 015 S1,S2; 017 S2
-- PALETTE (7): 005 S2; 007 S2; 013 S1,S2; 015 S2; 020 S1; 021 S1
-- REVIEW (5): 001 S2; 003 S2; 008 S2; 012 S1; 015 S2
-- TABLE (3): 001 S2; 008 S2; 013 S2
-- THEME (2): 002 S2; 004 S1
-- TOOLBAR (4): 001 S1; 002 S1; 004 S2; 011 S2
-- TRUST (2): 009 S1,S2
+- BLOCK (15): 001 S1,S2; 003 S1; 006 S1; 008 S2; 011 S2,S3; 014 S1,S2,S3; 016 S1; 025 S1,S2; 027 S1,S2
+- CODE (3): 001 S1,S2; 004 S1
+- CORE (8): 001 S1,S2; 002 S1; 003 S1,S2; 006 S1; 007 S1; 008 S1
+- DIAG (9): 001 S1,S2; 006 S1,S2; 007 S1; 009 S1,S2; 015 S1,S2
+- FMEDIT (3): 001 S1; 005 S1; 008 S1
+- FMSCHEMA (7): 001 S1,S2; 006 S1,S2; 010 S1; 014 S1,S2
+- GFM (2): 002 S2; 003 S1
+- LAYOUT (5): 001 S1,S2; 003 S1; 004 S1,S2
+- LIFE (17): 001 S1; 003 S1,S2; 005 S1,S2; 007 S1,S2; 010 S2; 014 S1,S2; 021 S1; 022 S1,S2; 023 S1,S2,S3,S4
+- MYST (11): 005 S1; 006 S1; 007 S1,S2; 009 S1,S2; 015 S1,S2; 016 S1; 017 S1,S2
+- PALETTE (13): 002 S1; 005 S1,S2; 007 S1,S2; 013 S1,S2; 015 S1,S2; 018 S2; 019 S1; 020 S1; 021 S1
+- REVIEW (9): 001 S1,S2; 003 S1,S2; 008 S2; 012 S1; 015 S1,S2; 017 S1
+- TABLE (8): 001 S1,S2; 002 S1; 008 S1,S2; 013 S1,S2; 015 S1
+- THEME (4): 002 S1,S2; 004 S1; 011 S1
+- TOOLBAR (11): 001 S1; 002 S1; 004 S1,S2; 006 S1; 009 S1; 011 S1,S2; 013 S1,S2; 014 S1
+- TRUST (8): 001 S1; 004 S1; 006 S1; 009 S1,S2; 012 S1,S2; 014 S1
 
 ## Changes
 
@@ -351,7 +355,7 @@ Every declared scenario or path with no marker, per area as `<requirement number
 - Headings are renamed to `Path S<n>:` and `Scenario S<n>:`.
 - The scripted rename of the 15 approved StRS headings is agreed.
 - Every live StRS has a path; the TRUST-012 and TRUST-014 paths were asked to start from the built VSIX.
-- StRS markers are sorted: a walked path keeps a StRS marker on that path, other StRS markers go.
+- StRS markers are sorted: `@tests_req` stays on a path an existing simulated test walks, `@accepts_req` on a path walked in real VS Code, and every other StRS marker goes (its SwRS markers stay). How strictly "walks" is read here is under Autonomous decisions and Known gaps.
 - A SwRS never declares a scenario that is not tested: agreed as the target; 722 scenarios still have no marker, and closing that gap is deferred to the follow-up change.
 
 ## Impacts
@@ -362,10 +366,10 @@ No visual change in the extension: no file of `src/` changes behaviour or UI. Co
 
 | | `main` | this PR |
 | --- | --- | --- |
-| StRS covered | 23 / 95 | 5 / 95 |
+| StRS covered | 23 / 95 | 1 / 95 |
 | StRS with every linked SwRS `covered` | 24 | 24 |
 
-The current mode asks for a direct `@tests_req` marker on the StRS and every linked SwRS `covered`. The marker sort moved the real VS Code walks to `@accepts_req`, which this mode does not count: 24 StRS keep a direct `@tests_req` marker, 24 have every linked SwRS `covered`, and 5 have both. The exemption of the retired SwRS was expected to help this figure; it does not in this mode, which reports an exempt linked SwRS as `missing`. The follow-up change switches the mode, where `@accepts_req` counts and exempt SwRS are accepted. `just check` and `just requirements-lint` pass with this figure; only the requirements viewer reads it.
+The current mode asks for a direct `@tests_req` marker on the StRS and every linked SwRS `covered`. The marker sort moved the real VS Code walks to `@accepts_req`, which this mode does not count, and removed the markers of tests that do not walk a whole path: 6 StRS keep a direct `@tests_req` marker, 24 have every linked SwRS `covered`, and 1 has both. The exemption of the retired SwRS was expected to help this figure; it does not in this mode, which reports an exempt linked SwRS as `missing`. The follow-up change switches the mode, where `@accepts_req` counts and exempt SwRS are accepted. `just check` and `just requirements-lint` pass with this figure; only the requirements viewer reads it.
 
 ## Test plan
 
@@ -382,7 +386,7 @@ The current mode asks for a direct `@tests_req` marker on the StRS and every lin
 
 ## Internal references
 
-- CR-504 strs-path-validation (batch-09), `work/coder/r1.md` to `r6.md`, `evidence/`.
+- CR-504 strs-path-validation (batch-09), `work/coder/r1.md` to `r7.md`, `evidence/`.
 - The follow-up change is CR-505; it takes the Known gaps carried into the follow-up change, the list of scenarios and paths with no marker, and the coverage-mode switch.
 
 </details>

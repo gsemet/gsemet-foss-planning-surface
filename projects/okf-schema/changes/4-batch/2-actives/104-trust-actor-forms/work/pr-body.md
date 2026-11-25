@@ -56,11 +56,11 @@ uv run -- okf-schema validate-md --input c.md --schemas-dir <dir> --strict
 
 - Example command: exit 0, no warning. With `by: alice`: exit 1, one W10 naming
   `verified entry [0]` twice. `show_bundle(...).trust_tier` is `machine-confirmed` for both.
-- `just style-check`, `just lint`, `just typecheck`, `just requirements-lint`: pass.
+- `just preflight` on Windows at `7a33d92`: pass. 1128 passed, 12 skipped, coverage 95.58%,
+  Sphinx build succeeded with warnings as errors.
 - `okfreq validate requirements --prose --check-links --project-root .`: 35 requirements,
-  0 errors, 0 warnings. `okfreq update-coverage` and `okfreq lint`: pass.
-- Tests of the four changed test files and `tests/test_project_contract.py`: 295 passed.
-- A first `just preflight` on Windows failed 8 symbolic link tests because the host refused to
+  0 errors, 0 warnings.
+- A first run at the previous commit failed 8 symbolic link tests because the host refused to
   create links (`WinError 1314`); the base commit failed the same 8. Symbolic links are now
   allowed on that host.
 
@@ -88,7 +88,6 @@ the requirement stays `proposed`.
 
 ### Known gaps
 
-- `just preflight` has not passed yet.
 - `show_bundle` reports a different `trust_tier` for some actors without a
   `.. versionchanged::` note in its docstring.
 - The skill row and the validation code reference say an unrecognized actor still counts as
@@ -105,10 +104,10 @@ the requirement stays `proposed`.
 
 ## Checklist
 
-- [ ] I have run `just preflight` and all checks pass
+- [x] I have run `just preflight` and all checks pass
 - [x] I have added tests that prove my fix is effective or my feature works
 - [x] I have updated the documentation accordingly
-- [ ] My changes generate no new warnings
+- [x] My changes generate no new warnings
 
 ## Related Issues
 
