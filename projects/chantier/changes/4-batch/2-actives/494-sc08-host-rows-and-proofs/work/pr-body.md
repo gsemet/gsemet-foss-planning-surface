@@ -26,13 +26,14 @@ Grade: 1. New files and a new read-only command; nothing existing changes behavi
 
 ## Autonomous decisions
 
-- Unknown capability exits 2 (`EXIT_PRECONDITION`, which is 2 in this CLI), as the specification's wording intends.
+- Unknown capability exits 2 (`EXIT_PRECONDITION`, which is 2 in this CLI), as the specification intends. The refusal when no host can be told keeps the exit code `detect_host` raises (1), which the test asserts.
 - The proof files and rows follow the specification's row table; any correction is named in the notes.
 
 ## Known gaps
 
-- **UNVERIFIED:** the scenario's four `host` checks have not run yet at this head (the long gate is pending).
 - `references/concepts.md` lists commands and does not name `host`: cards are out of scope for this change.
+- Two tests are weaker than the specification words: the "untested row prints the sentence" test calls the row printer in process instead of the CLI for each row (the CLI path is covered by the batch-record test and the scenario), and the batch-record test rewrites the record's host instead of opening a Copilot batch.
+- No Windows run of the long gate: this PR is not on top of its stack, so the local run is owed by the top PR; the pipeline's `scenario` passed at ac03671.
 
 <details>
 <summary>Details</summary>
@@ -49,9 +50,10 @@ No visual change. No role reads `host` yet.
 
 ## Test plan
 
-- [ ] New tests in `tests/test_host_rows.py` (they fail on the previous code)
-- [ ] Local gates: `just check` (pending at the head)
-- [ ] Evidence: none beyond the outputs above
+- [x] New tests in `tests/test_host_rows.py` (they fail on the previous code: no `host` command)
+- [x] Local gates at `ac03671`: `just check` pass, `just eval-dry-run` pass; CI at `ac03671`: all five checks pass, `scenario` included
+- [x] Review: inspector approved at `ac03671` (carried from `64ff139`, a clean rebase); Verifier VERIFIED at `ac03671`
+- [x] Evidence at `ac03671`: `host` outputs on each host, no batch (above)
 
 ## Internal references
 
