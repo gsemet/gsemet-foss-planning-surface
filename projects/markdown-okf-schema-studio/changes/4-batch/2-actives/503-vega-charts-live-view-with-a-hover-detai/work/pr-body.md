@@ -6,7 +6,11 @@ Stacked on the chart text pull request (#520).
 
 ## Deliverables
 
-Hover detail, Cream and Dark (screenshots are attached below once uploaded).
+Hover detail on the grouped bar chart, Cream and Dark, at 4404b98 (the pointer is on the first bar):
+
+| Cream | Dark |
+| --- | --- |
+| ![Hover detail on the grouped bar chart, Cream theme](./chart-hover-cream.png) | ![Hover detail on the grouped bar chart, Dark theme](./chart-hover-dark.png) |
 
 ```mermaid
 flowchart LR
@@ -38,13 +42,16 @@ Grade: 2. Charts are drawn through a different renderer and cache; revert restor
 - [x] New or changed tests (they fail on the previous code)
 - [x] Requirements: DIAG-123, DIAG-128, DIAG-009 and StRS DIAG-015 updated, markers in code and tests, `just requirements-update`
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates: `just check`, `just clip-kit-test` pass; preflight pending
-- [ ] Review
-- [ ] CI green
+- [x] Local gates: `just preflight` (static stage, Windows) passes at 4404b98
+- [x] Real window: the `live-chart` scenario passes in the heavy run [45617988132](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45617988132) at 4404b98 (`PASS real-input screenshot: diagrams/r01-live-chart-hover`)
+- [x] Review: approved at 4404b98 (reviewed as the uncommitted diff on 3df0c86, committed as 4404b98)
+- [x] CI green: static, static-windows, visual and viewer-graph pass at 4404b98
 
 ## Known gaps
 
-- The `live-chart` real-window scenario runs only in the heavy CI job, not yet run.
+- The heavy run's `integration` job failed on a launch timeout of the trusted suite at the `diff-preview` step, which is not this change; the default branch's own heavy run [45580228461](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45580228461) failed the same way (at `lifecycle`).
+- The hover box and the chart's SVG root get their position and size through the CSSOM, which Chromium shows as a `style` attribute; no Content Security Policy violation is raised, which the `live-chart` scenario checks.
+- The clip scenarios' real-window takes (`just clip theme-switch take`, `advanced-renderings-tour`, `export-html`) were not run by the change; only `just clip-kit-test` passes.
 
 ## Internal references
 
