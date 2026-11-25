@@ -36,3 +36,14 @@ NOT VERIFIED
 - Checked right: heavy run head 124a348, `PASS real-input screenshot: diagrams/r01-live-chart-hover` in the log, integration X, static,
   static-windows, visual, stress, viewer-graph pass; `gh pr checks 523` static, static-windows, visual, viewer-graph pass; run 45617988132
   head 4404b98; 45580228461 failure on main; changes list matches the file list of the diff.
+
+## Description pass 2 at 124a348dd3d168f47365b083050eee419215dde4
+
+Head: 124a348dd3d168f47365b083050eee419215dde4
+
+VERIFIED
+
+- Images: the two user-attachments URLs download and are byte-identical to evidence/chart-hover-{cream,dark}.png (cmp: same-dark, same-cream); opened as images: hover box on the first grouped bar, Cream and Dark, no username or home path.
+- Known gaps now name the `report` failure of run 45625193289 (`gh run view` shows integration, report, checks failed there; static, static-windows, visual, stress, viewer-graph success). Run 45617988132 is head 4404b98 (as the body says), 45580228461 failed on main, `gh pr checks 523` static, static-windows, visual, viewer-graph pass at the head.
+- Review box: log notes "r3 approved at 3df0c86, committed as 4404b98" and "r4 approved ... committed as 124a348". Clip claim: carried from the 124a348 pass above (export-html verify passes).
+- Minor, not failing: the report failure of run 45617988132 is not named separately; covered by the same-class integration gap.
