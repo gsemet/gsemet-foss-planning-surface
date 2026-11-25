@@ -54,11 +54,16 @@ restores the previous output. No stored file or data format changes.
 
 - The requirement scenarios of `trust` write `TIER` and `PATH` instead of angle-bracket
   placeholders, because the requirement prose check reads `<...>` as an unfilled placeholder.
+- `show` writes in a loop until every byte is out, because a single write on an unbuffered
+  standard output can take only part of the file and still end with exit code 0.
 
 ## Known gaps
 
 - The installed-package acceptance tests skip on Windows. Their two `show` test functions were run
-  on Windows through a local harness against a wheel built from this change.
+  on Windows through a local harness against a wheel built from an earlier state of this change,
+  before the output loop was added.
+- On a non-blocking standard output that is full, `show` retries without pause. This case is not
+  tested.
 - One acceptance sentence of the bundle containment requirement still says that "the concept is
   shown as before", although it now also covers `trust`. Only its trigger sentence was widened.
 - The docstrings of the previous concept name change still say version 0.18.2, while the release

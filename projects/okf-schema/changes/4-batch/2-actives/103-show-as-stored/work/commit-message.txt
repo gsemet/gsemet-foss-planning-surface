@@ -1,0 +1,14 @@
+feat(cli): print concepts as stored and add a trust command
+
+show now prints the concept file byte for byte, in any encoding, with nothing
+added: comments, quoting and line endings are kept, and the file is not
+validated.
+
+The trust tier and staleness move to the new okf-schema trust command. Scripts
+that read these lines from show must call it instead. ConceptDetail gains raw,
+the exact stored text.
+
+Closes #58
+
+Assisted-by: Claude:Sonnet-5.5
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>

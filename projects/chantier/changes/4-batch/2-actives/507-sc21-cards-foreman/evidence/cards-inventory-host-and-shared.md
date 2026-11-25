@@ -2495,7 +2495,7 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 
 Kinds: a 142, b 97, c 35, d 149, e 1357, f 3.
 
-Homes: card 793, topic 601, host row 186, inferable 66, floor 53, proof file 44, incidents file 19, refusal 14, facts 7.
+Homes: card 797, topic 597, host row 186, inferable 66, floor 53, proof file 44, incidents file 19, refusal 14, facts 7.
 
 ## Sibling-card edits
 
