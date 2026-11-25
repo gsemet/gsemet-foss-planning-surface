@@ -55,6 +55,11 @@ Resolve the concept in this order. Each step carries one decision of `02-answers
    - When no candidate is a file and `raw` is inside the bundle or is the bundle root (`.`,
      `""`, `sub/..`), raise `FileNotFoundError(f"Concept not found: {raw}")`. This keeps today's
      message. The bundle root and any other directory with no matching `.md` end here (Q3).
+   - Bundle root with a file beside it: for `.` or `""`, `raw` is the bundle itself, so the
+     `<raw>.md` candidate is `<parent>/<bundle>.md`, a file beside the bundle. When that file
+     exists, it is the target found in step 3, its real path is outside, and the first bullet
+     applies: the "outside the bundle" error, not "Concept not found". The steps stay in this
+     order, with no special case for the root. Both outcomes exit 2 and read nothing.
 5. Read the target and build the `ConceptDetail` as today. A `..` path whose real path stays
    inside the bundle (for example `sub/../concept-a.md`) works as before (Q4: nothing changes for
    paths inside).
@@ -100,8 +105,12 @@ gets no approval.
     "outside the bundle" error, exits 2 on the CLI, raises `FileNotFoundError` in the API, and
     reads nothing outside the bundle.
 - Extend S2's GIVEN to "a missing bundle, a missing concept path, or a directory".
-- Add one sentence to the normative paragraph: show resolves a concept path with or without
-  `.md` and never reads outside the bundle.
+- Leave the frontmatter `description` and the normative paragraph unchanged: they are the
+  same single SHALL statement word for word, as the requirements guideline asks. The new rule
+  goes in the scenarios (S3, S4, widened S2) and the verification notes only.
+- Add to `### Verification notes`, under Criteria: a concept path resolves with or without
+  `.md`, a directory is never shown, and a path or symlink whose real path is outside the
+  bundle is refused without reading it.
 - Then run `okfreq update-coverage requirements` (generated fields such as `tested_in_files`)
   and `okfreq lint requirements --prose --check-links --project-root .` (navigation). Do not
   edit the generated fields by hand.
@@ -135,8 +144,9 @@ gets no approval.
   Its CORE-006 row mentions `stale` in `show`, which does not change. No row added.
 - CI, `justfile`, packaging: unchanged.
 - `CHANGELOG.md` is generated from the commit messages at release. Do not edit it. The commit
-  follows `.github/guidelines/git-commit-message.guidelines.md` (a `fix(show): ...` type, with
-  the issue reference the guideline asks for).
+  follows `.github/guidelines/git-commit-message.guidelines.md` (a `fix(show): ...` subject).
+  That guideline asks for no issue reference; one, if kept, is a project choice (for example
+  a `Closes #56` trailer).
 
 ## Out of scope
 
@@ -165,7 +175,9 @@ API, `tests/test_api.py` (next to the `show_bundle` tests near line 546):
 3. With an `api/` directory and `api.md`, `api` reads `api.md` (#S3).
 4. An `api/` directory with no `api.md` raises `FileNotFoundError` matching
    `Concept not found` (#S2).
-5. `.` raises `FileNotFoundError` matching `Concept not found` (#S2).
+5. `.` raises `FileNotFoundError` matching `Concept not found` (#S2). With a file
+   `<bundle name>.md` created beside the bundle, `.` raises `FileNotFoundError` matching
+   `outside the bundle` instead, and that file is not read (#S4).
 6. `../outside.md` (the file exists beside the bundle) and `../outside` both raise
    `FileNotFoundError` matching `outside the bundle` (#S4).
 7. An absolute path to a concept inside the bundle succeeds. An absolute path to an existing
