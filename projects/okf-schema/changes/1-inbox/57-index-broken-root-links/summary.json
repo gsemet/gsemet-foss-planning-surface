@@ -1,15 +1,16 @@
 {
   "schema": 1,
   "title": "index: broken links in root summaries",
-  "summary": "index keeps broken relative links in root index summaries and validate does not report them (issue 57).",
+  "summary": "index must stop copying list lines into root summaries, repair damaged ones; validate reports W2 in index.md, anchors ignored",
   "origin": {
     "kind": "github",
     "ref": "#57",
     "url": "https://github.com/gsemet/okf-schema/issues/57"
   },
   "sources": {
-    "01-intent.md": "c373b45bee034c88bff2c3088c6f075ce08a1c2e3fd9a9078f290c7aaad29957",
+    "01-intent.md": "8caec92a8ada33a37185491ac841441898f8e815d672ece8524b8cb1754230fb",
+    "02-answers.md": "3a5018c677731d9ef97fe412e13e8b9e470690f6ea9b6fb39e37af735616d64d",
     "intake/request.md": "6f6e7bc9b3b722c666a3e0548bf1ef126138d4cc6bfe4ba605f681b522ffe43c"
   },
-  "summarized": "2026-11-25T16:56:00Z"
+  "summarized": "2026-11-25T18:58:28Z"
 }

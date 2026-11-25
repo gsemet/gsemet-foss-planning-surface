@@ -1717,12 +1717,12 @@ Every kind a row (35), with its home quoted: the card's line, the floor's rule o
 | C-056 | chief-of-staff.md:70 | card chief-of-staff.md:3; `chief-of-staff.md:3` "You are the one session that opens and runs batches, with the user, in…" |
 | C-058 | chief-of-staff.md:72-73 | card chief-of-staff.md:35; `chief-of-staff.md:35` "Direct mode (after `open --direct` or a switch on the user's word): cl…" |
 | C-059 | chief-of-staff.md:74-75 | card chief-of-staff.md:29; `chief-of-staff.md:29` "- Tell a delivery time but from the terms of `help delivery-time`." |
-| C-061 | chief-of-staff.md:77 | card chief-of-staff.md:22; `chief-of-staff.md:22` "- In Foreman mode, message a Driver or do a Driver's or the Foreman's …" |
+| C-061 | chief-of-staff.md:77 | card chief-of-staff.md:22; `chief-of-staff.md:22` "- In Foreman mode, message or stop a Driver, or do a Driver's or the …" |
 | C-063 | chief-of-staff.md:78-80 | card chief-of-staff.md:35; `chief-of-staff.md:35` "Direct mode (after `open --direct` or a switch on the user's word)…" |
-| C-064 | chief-of-staff.md:81-82 | card chief-of-staff.md:22; `chief-of-staff.md:22` "- In Foreman mode, message a Driver or do a Driver's or the Foreman's …" |
-| C-065 | chief-of-staff.md:82-84 | card chief-of-staff.md:22; `chief-of-staff.md:22` "- In Foreman mode, message a Driver or do a Driver's or the Foreman's …" |
-| C-066 | chief-of-staff.md:84-85 | card chief-of-staff.md:22; `chief-of-staff.md:22` "- In Foreman mode, message a Driver or do a Driver's or the Foreman's …" |
-| C-067 | chief-of-staff.md:86 | card chief-of-staff.md:23; `chief-of-staff.md:23` "- Edit `batch.json`, `events.jsonl` or a `STATUS` file by hand." |
+| C-064 | chief-of-staff.md:81-82 | card chief-of-staff.md:22; `chief-of-staff.md:22` "- In Foreman mode, message or stop a Driver, or do a Driver's or the …" |
+| C-065 | chief-of-staff.md:82-84 | card chief-of-staff.md:22; `chief-of-staff.md:22` "- In Foreman mode, message or stop a Driver, or do a Driver's or the …" |
+| C-066 | chief-of-staff.md:84-85 | card chief-of-staff.md:22; `chief-of-staff.md:22` "- In Foreman mode, message or stop a Driver, or do a Driver's or the …" |
+| C-067 | chief-of-staff.md:86 | card chief-of-staff.md:23; `chief-of-staff.md:23` "- Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand." |
 | C-068 | chief-of-staff.md:87-88 | card chief-of-staff.md:3; `chief-of-staff.md:3` "…The project's rules rank above chantier's." |
 | C-069 | chief-of-staff.md:89 | card chief-of-staff.md:3; `chief-of-staff.md:3` "…in their language (repository and forge text in English)… The project's rules rank above chantier's." |
 | C-123 | chief-of-staff.md:165-166 | card chief-of-staff.md:32; `chief-of-staff.md:32` "- State a past fact in a brief without its source (a CR note, a file o…" |
@@ -1730,10 +1730,10 @@ Every kind a row (35), with its home quoted: the card's line, the floor's rule o
 | C-200 | chief-of-staff.md:299-300 | card chief-of-staff.md:20; `chief-of-staff.md:20` "- Take the seat or act as Chief of Staff while the seat names another …" |
 | C-201 | chief-of-staff.md:301-302 | card chief-of-staff.md:31; `chief-of-staff.md:31` "- Widen a grant, or approve an irreversible action, without the user's…" |
 | C-202 | chief-of-staff.md:303-305 | card chief-of-staff.md:21; `chief-of-staff.md:21` "- Grill, specify, triage, order or run a CR of another project of the …" |
-| C-203 | chief-of-staff.md:306-307 | card chief-of-staff.md:22; `chief-of-staff.md:22` "- In Foreman mode, message a Driver or do a Driver's or the Foreman's …" |
+| C-203 | chief-of-staff.md:306-307 | card chief-of-staff.md:22; `chief-of-staff.md:22` "- In Foreman mode, message or stop a Driver, or do a Driver's or the …" |
 | C-204 | chief-of-staff.md:307-308 | card chief-of-staff.md:35; `chief-of-staff.md:35` "Direct mode (after `open --direct` or a switch on the user's word): cl…" |
-| C-205 | chief-of-staff.md:308 | card chief-of-staff.md:22; `chief-of-staff.md:22` "- In Foreman mode, message a Driver or do a Driver's or the Foreman's …" |
-| C-206 | chief-of-staff.md:309 | card chief-of-staff.md:23; `chief-of-staff.md:23` "- Edit `batch.json`, `events.jsonl` or a `STATUS` file by hand." |
+| C-205 | chief-of-staff.md:308 | card chief-of-staff.md:22; `chief-of-staff.md:22` "- In Foreman mode, message or stop a Driver, or do a Driver's or the …" |
+| C-206 | chief-of-staff.md:309 | card chief-of-staff.md:23; `chief-of-staff.md:23` "- Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand." |
 | C-207 | chief-of-staff.md:310-311 | card chief-of-staff.md:16; `chief-of-staff.md:16` "4. Deleting branches or folders: `close --yes`, a dropped CR's worktre…" |
 | C-208 | chief-of-staff.md:311-312 | card chief-of-staff.md:16; `chief-of-staff.md:16` "4. Deleting branches or folders: `close --yes`, a dropped CR's worktre…" |
 | C-209 | chief-of-staff.md:313-314 | card chief-of-staff.md:24; `chief-of-staff.md:24` "- Post on a tracker issue a text, plan or demo the user did not approv…" |

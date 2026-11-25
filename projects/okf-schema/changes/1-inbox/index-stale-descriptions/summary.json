@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "index: concept description changes never reach index entries",
+  "summary": "index keeps an old entry description over the concept's frontmatter description; split from issue 57",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "6c4b43c1c3d93033a40e194dcd61ed15b1ca4aa675a7fa2df6cdd91c4a1a38be"
+  },
+  "summarized": "2026-11-25T18:58:21Z"
+}

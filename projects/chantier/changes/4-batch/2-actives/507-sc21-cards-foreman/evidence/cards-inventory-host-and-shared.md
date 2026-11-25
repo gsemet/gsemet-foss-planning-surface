@@ -443,34 +443,34 @@ Units per source:
 | H-395 | all roles | Escalation | It is not a stop and not a look-alike. | concepts.md:709 | e | card concepts.md:142 | `grep -c -F 'No escalation printed: the trigger takes' concepts.md` |
 | H-396 | all roles | Rules | **The project's rules rank above this skill.** `$CHANTIER rules` lists the project's instruction file (`AGENTS.md`, `CLAUDE.md` or `.github/copilot-instructions.md`) and the files it links. | concepts.md:713-715 | e | facts | `$CHANTIER facts` or the brief's facts part |
 | H-397 | all roles | Rules | Follow it as written for commits, PRs, tests, CI, evidence and releases; where it is silent, your card holds. | concepts.md:715-716 | e | facts | `$CHANTIER facts` or the brief's facts part |
-| H-398 | all roles | Rules | Repository and forge text in English, except a ticket's comment, plan and demo, in the ticket's language unless the project's rules say otherwise. | concepts.md:716-717 | e | card chief-of-staff.md:3 | `grep -c -F 'You are the one session that opens and runs' chief-of-staff.md` |
+| H-398 | all roles | Rules | Repository and forge text in English, except a ticket's comment, plan and demo, in the ticket's language unless the project's rules say otherwise. | concepts.md:716-717 | e | topic worker-shell | `help worker-shell` |
 | H-399 | chief-of-staff | Rules | **State changes only through `$CHANTIER`**; a hand edit of `batch.json`, `events.jsonl`, a `STATUS` file or a CR's `summary.json` is lost or corrupts the batch. | concepts.md:718-719 | a | card chief-of-staff.md:23 | `grep -c -F 'file by hand.' chief-of-staff.md` |
 | H-400 | all roles | Rules | **No fallback.** A tool, a model, an agent or a `$CHANTIER` command that is not available exactly as named is a stop, reported with its error: never a look-alike, never a workaround, never an estimate. | concepts.md:720-722 | a | floor 3 | floor.md:7 (every brief carries it) |
 | H-401 | all roles | Rules | Within what you have, judge freely: what a red check means, what a note does to a round, which CR goes next, is yours to decide and say. | concepts.md:722-723 | b | inferable | none (inferable) |
 | H-402 | all roles | Rules | A skill or tool the playbook says a role needs and the session lacks is not a stop: the Chief of Staff warns the user, the role says so in a note and works without it (never `$CHANTIER`: a CLI that cannot run is a stop, `startup-core.md`), ... | concepts.md:723-725 | a | floor 4 | floor.md:8 (every brief carries it) |
-| H-403 | all roles | Rules | **Each role does only its own part.** A parent restarts a failing child once (see "An agent that ends before its part is done"); it never does the child's work. | concepts.md:726-727 | e | card chief-of-staff.md:22 | `grep -c -F 'In Foreman mode, message a Driver or do a' chief-of-staff.md` |
-| H-404 | all roles | Rules | A fresh child per round. | concepts.md:727 | e | topic cr-rounds | `help cr-rounds` |
-| H-405 | all roles | Rules | The one who checks (Inspector, Verifier, a review step) never wrote the change. | concepts.md:727-728 | e | topic cr-workers | `help cr-workers` |
-| H-406 | all roles | Rules | **Whoever owns a live agent is the only one who stops or messages it.** | concepts.md:729 | e | card chief-of-staff.md:22 | `grep -c -F 'In Foreman mode, message a Driver or do a' chief-of-staff.md` |
+| H-403 | all roles | Rules | **Each role does only its own part.** A parent restarts a failing child once (see "An agent that ends before its part is done"); it never does the child's work. | concepts.md:726-727 | e | card chief-of-staff.md:22 | `grep -c -F 'In Foreman mode, message or stop a Driver' chief-of-staff.md`; the restart: `concepts.md:121`; fresh workers: `cr-driver.md:5`, `stack-driver.md:5` |
+| H-404 | cr-driver | Rules | A fresh child per round. | concepts.md:727 | a | card cr-driver.md:5 | `grep -c -F 'Each round gets fresh workers' cr-driver.md`; a stack: `grep -c -F 'Each move gets fresh workers' stack-driver.md` |
+| H-405 | cr-driver | Rules | The one who checks (Inspector, Verifier, a review step) never wrote the change. | concepts.md:727-728 | a | card cr-driver.md:5 | `grep -c -F 'never wrote the change' cr-driver.md`; a stack: `grep -c -F 'never wrote the change' stack-driver.md`; the Verifier: `verifier.md:3` |
+| H-406 | chief-of-staff | Rules | **Whoever owns a live agent is the only one who stops or messages it.** | concepts.md:729 | a | card chief-of-staff.md:22 | `grep -c -F 'In Foreman mode, message or stop a Driver' chief-of-staff.md` |
 | H-407 | inspector | Rules | **Evidence is a command run at the pushed head, with its output** (except a matrix probe, run at the committed head before the CR's first push: [verifier](verifier.md)). | concepts.md:730-731 | a | card inspector.md:5 | `grep -c -F 'Judge at the pushed head, naming its SHA.' inspector.md` |
 | H-408 | inspector | Rules | Notes and green CI are not proof. | concepts.md:731-732 | a | card inspector.md:5 | `grep -c -F 'Judge at the pushed head, naming its SHA.' inspector.md` |
-| H-409 | all roles | Rules | A check red on the default branch is not the CR's: report it, do not fix it there. | concepts.md:732 | e | card inspector.md:5 | `grep -c -F 'Judge at the pushed head, naming its SHA.' inspector.md` |
+| H-409 | inspector | Rules | A check red on the default branch is not the CR's: report it, do not fix it there. | concepts.md:732 | a | card inspector.md:5 | `grep -c -F 'never fix it there' inspector.md` |
 | H-410 | all roles | Rules | Every judgment names the SHA it covers; after a move, what the move touched is judged again and the rest is carried, saying so. | concepts.md:733-734 | e | topic verifier-delta-matrix | `help verifier-delta-matrix` |
 | H-411 | all roles | Rules | A clean rebase that leaves the CR's patch unchanged, proved by git's exact patch-ids, recorded at `ship` (the same, commit by commit), touches no judgment; CI at the new head still runs. | concepts.md:734-735 | e | topic verifier-delta-matrix | `help verifier-delta-matrix` |
 | H-412 | all roles | Rules | **Never merge without the user's word.** The user merges the ordinary PRs. | concepts.md:736 | a | floor 1 | floor.md:5 (every brief carries it) |
 | H-413 | foreman | Rules | The Foreman alone merges, and only a release's PR or fix the user approved or granted, checked by `$CHANTIER release go`. | concepts.md:736-738 | a | card foreman.md:20 | `grep -c -F 'Merge but under the release grant: a fix,' foreman.md` |
 | H-414 | all roles | Rules | **Refusals are reported, never worked around.** A denied permission or a refusal goes to your parent with its exact text. | concepts.md:739-740 | a | floor 9 | floor.md:13 (every brief carries it) |
 | H-415 | cr-driver | Rules | **Git:** explicit paths (`git add -- <path>`, never `-A`); | concepts.md:741 | a | card cr-driver.md:16 | `grep -c -F 'or anything that discards the worktree' cr-driver.md` |
-| H-416 | all roles | Rules | a push is plain when the remote branch is an ancestor of the local one, and a rewrite (a rebase) is pushed with `--force-with-lease`; | concepts.md:741-743 | e | topic cr-ship | `help cr-ship` |
+| H-416 | all roles | Rules | a push is plain when the remote branch is an ancestor of the local one, and a rewrite (a rebase) is pushed with `--force-with-lease`; | concepts.md:741-743 | e | card cr-driver.md:15 | `grep -c -F 'publish by any way but' cr-driver.md` (`$CHANTIER push` sends one form, `--force-with-lease=<branch>:<expected>`: `commands/push.py`) |
 | H-417 | all roles | Rules | **a CR's branches must be force-pushable at all times**: the host and the forge must let a rebase through (the Chief of Staff checks both at its start). | concepts.md:743-744 | e | topic forge-permissions | `help forge-permissions` |
 | H-418 | stack-driver | Rules | The push forms, one command per branch, never a loop, a script or a chain: plain `git push -u <remote> <branch>` (or `git -C <worktree> push -u <remote> <branch>`); | concepts.md:744-746 | a | card stack-driver.md:17 | `grep -c -F 'push the moved branches with a loop or a' stack-driver.md` |
-| H-419 | all roles | Rules | after a rewrite `git push --force-with-lease -u <remote> <branch>` (or the same with `git -C <worktree>`); | concepts.md:746-747 | e | topic refused-push-route | `help refused-push-route` |
+| H-419 | all roles | Rules | after a rewrite `git push --force-with-lease -u <remote> <branch>` (or the same with `git -C <worktree>`); | concepts.md:746-747 | e | card cr-driver.md:15 | `grep -c -F 'publish by any way but' cr-driver.md` (`$CHANTIER push` sends one form, `--force-with-lease=<branch>:<expected>`: `commands/push.py`) |
 | H-420 | all roles | Rules | the steering session's route `git push --force-with-lease=<branch>:<expected> <remote> <local sha>:refs/heads/<branch>` (or the same with `git -C <checkout>`). | concepts.md:747-749 | e | topic refused-push-route | `help refused-push-route` |
-| H-421 | all roles | Rules | **A CR's branch is updated by rebase only**: a local `git rebase <base>`, never with `--rebase-merges`, `--exec` or `-x`, then the rewrite push above. | concepts.md:749-751 | a | floor 2 | floor.md:6 (every brief carries it) |
+| H-421 | cr-driver | Rules | **A CR's branch is updated by rebase only**: a local `git rebase <base>`, never with `--rebase-merges`, `--exec` or `-x`, then the rewrite push above. | concepts.md:749-751 | a | card cr-driver.md:16 | `grep -c -F 'rebase-merges' cr-driver.md`; also `stack-driver.md:16`, `release-driver.md:16`, `conflict-resolver.md:11`; rebase only: floor 2 |
 | H-422 | chief-of-staff | Rules | Rebasing a CR's own branch and pushing it with `--force-with-lease` (any `chantier/*` branch, never the default branch, never a protected one, never a plain `--force`) is chantier's normal flow, pre-authorized by the playbook; | concepts.md:751-753 | a | card chief-of-staff.md:10 | `grep -c -F 'Rail: only a branch' chief-of-staff.md` |
 | H-423 | chief-of-staff | Rules | a refused one climbs the steering ladder; a push of another branch is never run. | concepts.md:753-754 | a | card chief-of-staff.md:10 | `grep -c -F 'Rail: only a branch' chief-of-staff.md` |
 | H-424 | all roles | Rules | The forge's rebase action is allowed and unproved ([driver](driver.md), "Means: rebase and push"); this rule names no command for it. | concepts.md:754-755 | d | proof file | none (dated proof: `docs/proofs`, child 24) |
-| H-425 | conflict-resolver | Rules | Never a merge into the branch: no `git merge`, no `git pull` without `--rebase`, never the forge's "Update branch" merge button; in a stack the same holds for the CR below. | concepts.md:756-757 | a | card conflict-resolver.md:11 | `grep -c -F ': a merge commit in the branch is' conflict-resolver.md` |
+| H-425 | conflict-resolver | Rules | Never a merge into the branch: no `git merge`, no `git pull` without `--rebase`, never the forge's "Update branch" merge button; in a stack the same holds for the CR below. | concepts.md:756-757 | a | refusal ship, holds a merge commit | run the command: the CLI refuses (the ban on making one: `conflict-resolver.md:11`, `stack-driver.md:7`; no card names the forge's button) |
 | H-426 | all roles | Rules | The PRs chantier delivers hold no merge commit: `ship` refuses one, and the branch's Driver removes it by a rebase. | concepts.md:757-759 | e | refusal ship, holds a merge commit | run the command: the CLI refuses |
 | H-427 | cr-driver | Rules | The user's uncommitted changes are never touched. | concepts.md:759 | a | card cr-driver.md:14 | `grep -c -F 'write commands: the main checkout is' cr-driver.md` |
 | H-428 | foreman | Rules | The main checkout moves only by the steering session's `merge --ff-only --no-overwrite-ignore` after a merge it records, and only when clean: the user's uncommitted changes and untracked files are never touched. | concepts.md:759-762 | a | card foreman.md:22 | `grep -c -F 'Code, review, commit, rebase, push, edit a' foreman.md` |
@@ -2111,7 +2111,7 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 
 ## Protecting rows and their homes
 
-138 kind-a rows, each homed in a role card or `SKILL.md` text, the floor or a refusal. The quoted line is the home's, from the working tree.
+142 kind-a rows, each homed in a role card or `SKILL.md` text, the floor or a refusal. The quoted line is the home's, from the working tree.
 
 | id | source | new home | the home line |
 | --- | --- | --- | --- |
@@ -2141,22 +2141,26 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-344 | concepts.md:612-613 | card cr-driver.md:20 | - call the host's hand-back (`$CHANTIER host driver-hand-back`) before `$CHANTIER handback` is accepted, or start an agent in place of one that may still run. |
 | H-373 | concepts.md:671-673 | floor 3 | 3. No fallback. |
 | H-391 | concepts.md:704-705 | floor 7 | 7. Only the user starts work. |
-| H-399 | concepts.md:718-719 | card chief-of-staff.md:23 | - Edit `batch.json`, `events.jsonl` or a `STATUS` file by hand. |
+| H-399 | concepts.md:718-719 | card chief-of-staff.md:23 | - Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand. |
 | H-400 | concepts.md:720-722 | floor 3 | 3. No fallback. |
 | H-402 | concepts.md:723-725 | floor 4 | 4. A CLI that cannot run is a stop. |
-| H-407 | concepts.md:730-731 | card inspector.md:5 | Judge at the pushed head, naming its SHA. Evidence is a command run there, with its output; notes and green CI are not proof. A check red on the default branch is not the CR's. After a move (round, ... |
-| H-408 | concepts.md:731-732 | card inspector.md:5 | Judge at the pushed head, naming its SHA. Evidence is a command run there, with its output; notes and green CI are not proof. A check red on the default branch is not the CR's. After a move (round, ... |
+| H-404 | concepts.md:727 | card cr-driver.md:5 | You own git and the forge for your CR's branch, the worktree's commits, `<work folder>/pr-body.md`, your notes and the archive `take` names. You edit no project file, the shell included: every change ... |
+| H-405 | concepts.md:727-728 | card cr-driver.md:5 | You own git and the forge for your CR's branch, the worktree's commits, `<work folder>/pr-body.md`, your notes and the archive `take` names. You edit no project file, the shell included: every change ... |
+| H-406 | concepts.md:729 | card chief-of-staff.md:22 | - In Foreman mode, message or stop a Driver, or do a Driver's or the Foreman's work but the settles-alone list; in direct mode the Foreman's work is yours, a Driver's never; let a subagent implement. ... |
+| H-407 | concepts.md:730-731 | card inspector.md:5 | Judge at the pushed head, naming its SHA. Evidence is a command run there, with its output; notes and green CI are not proof. A check red on the default branch is not the CR's: report it, never fix ... |
+| H-408 | concepts.md:731-732 | card inspector.md:5 | Judge at the pushed head, naming its SHA. Evidence is a command run there, with its output; notes and green CI are not proof. A check red on the default branch is not the CR's: report it, never fix ... |
+| H-409 | concepts.md:732 | card inspector.md:5 | Judge at the pushed head, naming its SHA. Evidence is a command run there, with its output; notes and green CI are not proof. A check red on the default branch is not the CR's: report it, never fix ... |
 | H-412 | concepts.md:736 | floor 1 | 1. Never merge without the user's word. |
 | H-413 | concepts.md:736-738 | card foreman.md:20 | 1. Merge but under the release grant: a fix, or the release once `release go` says `go`. An approval never covers it. Record `order merged` only for a merge the forge shows. |
 | H-414 | concepts.md:739-740 | floor 9 | 9. Report a refusal with its exact text; never work around it. |
-| H-415 | concepts.md:741 | card cr-driver.md:16 | - run `git stash`, `git add -A`, `git add .`, a merge commit, `git reset --hard` or anything that discards the worktree's work; |
+| H-415 | concepts.md:741 | card cr-driver.md:16 | - run `git stash`, `git add -A`, `git add .`, a merge commit, a rebase with `--rebase-merges`, `--exec` or `-x`, `git reset --hard` or anything that discards the worktree's work; |
 | H-418 | concepts.md:744-746 | card stack-driver.md:17 | - push the moved branches with a loop or a script over branches: one command per branch; |
-| H-421 | concepts.md:749-751 | floor 2 | 2. Rebase only, with `--force-with-lease`, and only on the CR's own branch. |
-| H-422 | concepts.md:751-753 | card chief-of-staff.md:10 | Rail: only a branch `handoff` ties to a CR of this batch, never the default branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push ... |
-| H-423 | concepts.md:753-754 | card chief-of-staff.md:10 | Rail: only a branch `handoff` ties to a CR of this batch, never the default branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push ... |
-| H-425 | concepts.md:756-757 | card conflict-resolver.md:11 | - merge (`git merge`, `git pull` without `--rebase`) or use `--rebase-merges`, `--exec` or `-x`: a merge commit in the branch is `ship`'s refusal; |
+| H-421 | concepts.md:749-751 | card cr-driver.md:16 | - run `git stash`, `git add -A`, `git add .`, a merge commit, a rebase with `--rebase-merges`, `--exec` or `-x`, `git reset --hard` or anything that discards the worktree's work; |
+| H-422 | concepts.md:751-753 | card chief-of-staff.md:10 | Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and ... |
+| H-423 | concepts.md:753-754 | card chief-of-staff.md:10 | Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and ... |
+| H-425 | concepts.md:756-757 | refusal ship, holds a merge commit |  |
 | H-427 | concepts.md:759 | card cr-driver.md:14 | - run `git -C <main checkout>` write commands: the main checkout is read-only for you, every git command names `-C <worktree>`; |
-| H-428 | concepts.md:759-762 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the fast-forward of the main checkout after a merge you handle; removing a kept merged CR's worktree and branch ... |
+| H-428 | concepts.md:759-762 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle; removing a kept ... |
 | H-478 | pr-template.md:54-56 | card cr-driver.md:17 | - comment on, close or reopen an issue, or turn a PR ready on a base that is not the default branch; |
 | H-622 | release-template.md:144-146 | card release-driver.md:19 | - keep or upload an image that shows the username or the home folder, or publish a personal path, email, private repository or session id taken from a source. |
 | H-647 | release-template.md:186 | card release-driver.md:14 | - post the announcement thread, comment on, close or reopen an issue, or run the publication command again after `publication done:`; |
@@ -2194,8 +2198,8 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-976 | hosts/claude-code.md:62-63 | floor 3 | 3. No fallback. |
 | H-990 | hosts/claude-code.md:92-93 | card foreman.md:24 | 5. Obey your chat but for "stop" and "hold" (no new Driver; the batch still runs). Anything else: "I run batch <batch> for chantier. Please give orders to the Chief of Staff." A host's event about a ... |
 | H-992 | hosts/claude-code.md:94-96 | floor 2 | 2. Rebase only, with `--force-with-lease`, and only on the CR's own branch. |
-| H-993 | hosts/claude-code.md:97-99 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the fast-forward of the main checkout after a merge you handle; removing a kept merged CR's worktree and branch ... |
-| H-999 | hosts/claude-code.md:106-107 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the fast-forward of the main checkout after a merge you handle; removing a kept merged CR's worktree and branch ... |
+| H-993 | hosts/claude-code.md:97-99 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle; removing a kept ... |
+| H-999 | hosts/claude-code.md:106-107 | card foreman.md:22 | 3. Code, review, commit, rebase, push, edit a PR or create a worktree. Your only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle; removing a kept ... |
 | H-1004 | hosts/claude-code.md:112-114 | card chief-of-staff.md:13 | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
 | H-1032 | hosts/claude-code.md:163-164 | floor 7 | 7. Only the user starts work. |
 | H-1057 | hosts/claude-code.md:185 | card foreman.md:25 | 6. `take --reclaim` a live lease without the user's word; remove the worktree of a trashed CR or of one moved to the backlog or `3-ready`. |
@@ -2203,7 +2207,7 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-1138 | hosts/claude-code.md:309-311 | card chief-of-staff.md:13 | 1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting. |
 | H-1174 | hosts/claude-code.md:456-457 | floor 9 | 9. Report a refusal with its exact text; never work around it. |
 | H-1198 | hosts/claude-code.md:502 | floor 9 | 9. Report a refusal with its exact text; never work around it. |
-| H-1227 | hosts/claude-code.md:548 | card chief-of-staff.md:10 | Rail: only a branch `handoff` ties to a CR of this batch, never the default branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push ... |
+| H-1227 | hosts/claude-code.md:548 | card chief-of-staff.md:10 | Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and ... |
 | H-1288 | hosts/claude-code.md:668-670 | card coder.md:13 | - keep CR work in a scratchpad or temp folder (whatever the host says), or secrets or personal data in a CR folder; |
 | H-1359 | hosts/claude-code.md:787 | floor 3 | 3. No fallback. |
 | H-1360 | hosts/claude-code.md:787-789 | card chief-of-staff.md:31 | - Widen a grant, or approve an irreversible action, without the user's own word. |
@@ -2256,7 +2260,7 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 
 ## Protecting-looking rows not classified a
 
-103 rows of kind b to f hold "never", "only on", "must not" or the like; each is listed so a reader can contest its kind.
+102 rows of kind b to f hold "never", "only on", "must not" or the like; each is listed so a reader can contest its kind.
 
 | id | kind | new home | behaviour |
 | --- | --- | --- | --- |
@@ -2299,7 +2303,6 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 | H-385 | e | card concepts.md:140 | **Said, never silent.** Before it starts the escalated agent, the parent records `$CHANTIER note <cr> "escalated: <trigger>; <role> on <model as ... |
 | H-388 | e | card concepts.md:141 | **Once per CR, then the user.** A CR that holds an `escalated:` note made for that CR (its rounds' Coder, its own `debugger` or `conflict-resolver`) ... |
 | H-403 | e | card chief-of-staff.md:22 | **Each role does only its own part.** A parent restarts a failing child once (see "An agent that ends before its part is done"); it never does the ... |
-| H-405 | e | topic cr-workers | The one who checks (Inspector, Verifier, a review step) never wrote the change. |
 | H-434 | c | topic session-shell | The steering session's never changes it into a worktree either. |
 | H-438 | e | topic session-shell | The shell that runs `$CHANTIER gate` is the gate itself: it ends when the gate ends and records its result, and it is stopped only with `gate <cr> ... |
 | H-449 | c | topic session-shell | Its text is never typed, built or escaped in a shell command, in any shell, and the file is never written by the shell (a redirection, a here-string, ... |
@@ -2472,39 +2475,54 @@ Family inventory rows read: workers 374, drivers 115, foreman 670, chief-and-gri
 
 1783 rows.
 
-Kinds: a 138, b 97, c 35, d 149, e 1361, f 3.
+Kinds: a 142, b 97, c 35, d 149, e 1357, f 3.
 
-Homes: card 790, topic 604, host row 186, inferable 66, floor 54, proof file 44, incidents file 19, refusal 13, facts 7.
+Homes: card 793, topic 601, host row 186, inferable 66, floor 53, proof file 44, incidents file 19, refusal 14, facts 7.
 
 ## Sibling-card edits
 
-Changed lines, against the worktree's base `bf4e4c42`, in files another card child wrote (spec section 1 allows a kind-a rule from this child's sources, or a link fix; each goes in the PR with its line). Paths are under `skills/chantier/cards-next/`; line numbers are the files' as they will be committed.
+Every changed line, against the worktree's base `bf4e4c42` (`git diff HEAD`), of the files under `skills/chantier/cards-next/` that existed there: this CR's first two parts and the other card children's. Spec section 1 allows a kind-a rule from this child's sources, or a link fix; each goes in the PR with its line. A row marked `trim` is neither: a rewording made only so a permitted edit of the same card fits its byte budget; one marked `review` answers a review finding on a card of this CR. Line numbers are the files' as they will be committed.
 
 | file:line | what changed | why |
 | --- | --- | --- |
+| chief-of-staff.md:10 | the push rail: never the default "or a protected" branch | kind a (H-422) |
 | chief-of-staff.md:13 | `git init`, an install, project file writes on the user's yes; never a forge or app setting | kind a (init) |
 | chief-of-staff.md:14 | never by name, pattern or PID (floor 10) | kind a (sync-checkout) |
 | chief-of-staff.md:16 | `cancel` only after a drop the user ordered | kind a |
 | chief-of-staff.md:17 | the ask-first push is the session's own; a Driver's refused push is the rail's | kind a, clarification |
+| chief-of-staff.md:22 | never message "or stop" a Driver in Foreman mode | kind a (H-406) |
+| chief-of-staff.md:23 | `summary.json` among the files never edited by hand | kind a (H-399) |
 | chief-of-staff.md:27 | no CR work in a scratchpad or temp folder, no secret or personal data in a CR folder | kind a (concepts) |
-| chief-of-staff.md:41 | Rare cases name the new topics, `session-shell` among them | pointer |
+| chief-of-staff.md:39 | "by number and slug together" is now "by number and slug" | trim |
+| chief-of-staff.md:41 | Rare cases name the new topics, `session-shell` among them, and `init` with its tour; ", by moment" and "A CLI line may name one." are cut | pointer, link; trim |
 | coder.md:13, conflict-resolver.md:15, debugger.md:13, demo-explorer.md:13, investigator.md:16, verifier.md:18 | the same CR-work, secrets and personal-data never | kind a (concepts) |
-| cr-driver.md:18 | the same never | kind a (concepts) |
+| cr-driver.md:5 | each round gets fresh workers; the one who checks never wrote the change | kind a (H-404, H-405) |
+| cr-driver.md:16 | no rebase with `--rebase-merges`, `--exec` or `-x` | kind a (H-421) |
+| cr-driver.md:18 | the same CR-work never | kind a (concepts) |
 | cr-driver.md:20 | never start an agent in place of one that may still run | kind a |
 | cr-driver.md:26 | Rare cases: `cr-review-step`, `session-shell` | pointer |
+| foreman.md:22 | the Foreman's fast-forward is `--no-overwrite-ignore`, of a clean main checkout; "Stop no sync holder." | kind a (H-428; concepts, sync) |
+| foreman.md:27 | never 8: CR work in a scratchpad or temp folder, a secret or personal data in a CR folder | kind a (concepts) |
+| foreman.md:38 | Rare cases: `session-shell` added; `take-back`, `orders`, `hold`, `stack`, `lease` and `retro` no longer named there (lines 29, 10 and 31 name `take-back`, `stack` and `retro`; `help --for foreman` lists all six) | pointer; trim |
+| inspector.md:5 | a check red on the default branch: "report it, never fix it there" | kind a (H-409) |
+| inspector.md:22 | the `worker-shell` pointer is "a shell call, a file write" | trim |
 | qa-driver.md:10, 13 | the CR-work never; never comment on, close or reopen an issue | kind a |
 | qa-driver.md:18 | Rare cases: `session-shell` | pointer |
 | release-driver.md:7 | an image upload is irreversible (`release go`); published notes use the reviewed text, else stay a draft | kind a |
 | release-driver.md:14 | never comment on, close or reopen an issue | kind a |
+| release-driver.md:16 | no rebase with `--rebase-merges`, `--exec` or `-x` | kind a (H-421) |
 | release-driver.md:18, 19 | the CR-work never; never publish a personal path, email, private repository or session id taken from a source | kind a |
 | release-driver.md:25 | Rare cases: `session-shell` | pointer |
 | retro-critic.md:22-23, spec-critic.md:18-19 | `help session-shell` for a shell call that waits or changes folder | pointer |
 | spec-writer.md:11 | never a draft in a scratchpad or temp folder, nor a secret or personal data in the CR's folder | kind a (concepts) |
 | spec-writer.md:15 | `help session-shell` | pointer |
+| stack-driver.md:5 | each move gets fresh workers; the one who checks never wrote the change | kind a (H-404, H-405) |
+| stack-driver.md:16 | no rebase with `--rebase-merges`, `--exec` or `-x` | kind a (H-421) |
 | stack-driver.md:18, 19, 20 | never start an agent in place of one that may still run; never comment on, close or reopen an issue; the CR-work never | kind a |
 | stack-driver.md:27 | Rare cases: `session-shell` | pointer |
 | griller-skill.md:24, 31 | the CR-work never; `help session-shell` | kind a, pointer |
 | griller.md:7 | never a secret or personal data in the CR's folder | kind a (concepts) |
+| topics.json | this CR's 41 topics added; `sync` also reads `sync-checkout.md`; the `paths` text names the reading forms | index of the new topic files; link |
 | topics/cr-rounds.md:4 | `help cr-review-step` | pointer |
 | topics/refused-push-chief-p1.md:3, 6 | the never-push line is scoped to a Driver's refused push; the session's own push is ask-first item 5 | kind a, clarification |
 | topics/release-notes.md:4 | names `release-template.md` and `help release-evidence` | link |

@@ -35,3 +35,23 @@ Short name: `index-links`
    of every `index.md` as W2, as for concepts; `--strict` then fails.
 4. index-links-Q4: **Anchor links.** "A. Corriger ici (recommandé)": in this CR, the `#...` part is
    ignored when a link is checked, for concepts and index files.
+5. index-links-Q1, asked again with examples: "A. Intro seule (recommandé)": only the sentence
+   written before the first list of the subdirectory's `index.md`, its relative links rewritten to
+   be valid from the root; else "Auto-generated index for concepts in `<dir>`.". Never a list
+   entry or a heading. A schema summary still comes first, and a summary already written in the
+   root is still preserved (except the damaged ones of answer 2).
+
+   Fact for the specification: the existing 120-character truncation of that line could cut a
+   link in two.
+6. index-links-Q5: **Generic text.** "A. Recalculer (recommandé)": the exact generic text is not
+   treated as authored; `index` recomputes it on each run, so an introduction added later reaches
+   the root.
+7. index-links-Q6: **Stale concept descriptions.** "A. Nouveau CR (recommandé)": out of this CR,
+   filed apart (`index-stale-descriptions`).
+8. index-links-Q7: **Grilled enough.** "A. batch-01 (recommandé)": specify it for the running
+   batch; it is not taken before the grill of 58 is over (the option's words).
+
+Destination: running batch batch-01.
+
+Spec critic: yes, it changes what `index` rewrites in users' files and what `validate` reports
+(so the result of `--strict`).

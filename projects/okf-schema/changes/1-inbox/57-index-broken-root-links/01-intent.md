@@ -2,9 +2,13 @@
 
 issue: https://github.com/gsemet/okf-schema/issues/57
 
-## Intent (from the ticket, not grilled yet)
+## Intent (grilled 2026-11-25, see 02-answers.md)
 
-`okf-schema index` keeps an existing root-index summary verbatim, including relative links that
-resolve only from the subdirectory, and `okf-schema validate` does not check links in
-`index.md` files. The ticket asks for at least one of: regenerate or rebase the summary's links,
-or report W2 for broken links in `index.md`.
+`okf-schema index` itself writes broken links in the root `index.md`: without a schema or
+existing summary, it copies the first non-heading line of a subdirectory's `index.md`, list
+entries included, then preserves it forever. `okf-schema validate` checks no link in any
+`index.md`.
+
+`index` must write only the subdirectory's introduction (links rewritten from the root) or the
+generic text, recompute the damaged summaries and the generic text, and `validate` must report W2
+for broken links in index files, ignoring `#...` anchors.
