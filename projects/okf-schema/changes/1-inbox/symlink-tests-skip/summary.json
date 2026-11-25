@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "title": "Tests: skip symlink tests on hosts that cannot create symlinks",
+  "summary": "Filed, not grilled: on a Windows host without the symlink privilege, 8 tests fail the preflight gate; skip them with a message saying why. The batch-01 host was unblocked by Developer Mode.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "intake/request.md": "c77877e1186c4179251bebe5da7e45c1d366f8c3d315ee7b23161a791058a970"
+  },
+  "summarized": "2026-11-25T21:35:04Z"
+}

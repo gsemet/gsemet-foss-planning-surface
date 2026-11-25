@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "Context limits of the Drivers: configurable, 200k, one list",
+  "summary": "Drivers hand back at 200,000 tokens with a wider agent window, measured first; thresholds set in chantier.yaml and on the board; a command lists the context limits; incoherent settings warn.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "e8175bda8f7522df72cd50c9dcda2f6ebe0a84c50066587710b783c674f09a97",
+    "02-answers.md": "784f299df97a01dd321f4bba6394da5450c4ed2d747f3dcd2d88a765c3f65eea",
+    "intake/request.md": "891d18e54f8080d7d058f1e029e8fc3053cd1b2a30ae94d9b61dc560aa0a999e"
+  },
+  "summarized": "2026-11-25T21:35:06Z"
+}
