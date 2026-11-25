@@ -4,10 +4,10 @@ A feature clip of the block editor and its palette modes. In edit mode, a click 
 
 ## Deliverables
 
-GIF (inline, 12 s loop, 1280x720 source): see the head's files below. The clip is `docs/demo-video/clips/block-editor-modes/`.
+![The block editor opens in GFM mode, then switches to MyST](https://github.com/gsemet/markdown-okf-schema-studio/raw/185839681b07add2de5afe33b51b1f9f742273d9/docs/demo-video/clips/block-editor-modes/block-editor-modes.gif)
 
-- Storyboard for review: `docs/demo-video/clips/block-editor-modes/clip.md`
-- GIF, MP4 and WebM: `docs/demo-video/clips/block-editor-modes/block-editor-modes.{gif,mp4,webm}`
+- Storyboard for review: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/185839681b07add2de5afe33b51b1f9f742273d9/docs/demo-video/clips/block-editor-modes/clip.md)
+- [MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/185839681b07add2de5afe33b51b1f9f742273d9/docs/demo-video/clips/block-editor-modes/block-editor-modes.mp4) and [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/185839681b07add2de5afe33b51b1f9f742273d9/docs/demo-video/clips/block-editor-modes/block-editor-modes.webm)
 
 The take is real: a real click and real keys in a real VS Code window on Windows. Its checks show the GFM palette (9 GitHub buttons), then MyST (9 GitHub and 19 MyST buttons), the rendered alert and tip unchanged, and the file untouched. The request expected a render that changes with the mode; the code has none, so the clip films what exists.
 
