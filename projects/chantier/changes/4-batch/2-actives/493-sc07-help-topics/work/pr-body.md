@@ -11,17 +11,18 @@ $ chantier help
 topics: 38; help <topic> prints one, help --for <role> lists a role's
 lease: a `--lease` refusal, `claim lost`, a lease `not confirmed`, a wait over 3 minutes (cr-driver, stack-driver, qa-driver, release-driver, foreman, chief-of-staff)
 checkpoints: a checkpoint commit (cr-driver, stack-driver, qa-driver, release-driver)
-...
+steering-messages: a message from or to the steering session (cr-driver, stack-driver, qa-driver, release-driver)
 $ chantier help --for cr-driver
 lease: a `--lease` refusal, `claim lost`, a lease `not confirmed`, a wait over 3 minutes
 checkpoints: a checkpoint commit
-...
+steering-messages: a message from or to the steering session
 $ chantier help lease
-topic lease: a `--lease` refusal, `claim lost`, a lease `not confirmed`, a wait over 3 minutes (cr-driver, ...)
+topic lease: a `--lease` refusal, `claim lost`, a lease `not confirmed`, a wait over 3 minutes (cr-driver, stack-driver, qa-driver, release-driver, foreman, chief-of-staff)
 --- references/driver-session.md#Means: the lease ---
 ## Means: the lease
-...
 ```
+
+The new test file adds about 0.3 s to `just test` (17 tests, measured on its own on this machine, before the rest of the suite).
 
 Lines that now end with a topic name: the lease refusals (`help lease`), the push refusals (`help lease`, `help refused-push`), `restack owed:` (`help stack-merge`), the `handed back:` line (`help merge`) and nine watcher end lines (`help watcher`, `help board`).
 
@@ -40,14 +41,14 @@ Grade: **1**. Additive: one new command, one data file and appended text on exis
 
 ## Autonomous decisions
 
-- The index holds 38 topics, the rows of the specification's table (its prose says 41): the table is the list.
+- The index holds 38 topics, the rows of the table the change was specified from.
 - `load_topics` also checks that each reading's file and heading exist on both hosts, so a renamed heading fails at once.
 - The lease refusal named in the `lost` allow-list of the refusal gate now carries a topic, so its allow-list entry was removed and the allowed count lowered from 7 to 6.
 
 ## Known gaps
 
-- Whether a role reads a topic when a line names it is **UNVERIFIED**: it is measured later from transcripts.
-- The seconds the new tests add to `just test` were measured on the new test file alone, not before and after the whole suite.
+- Whether a role reads a topic when a line names it is unproved: it is measured later from transcripts.
+- Only the watcher end lines' `help watcher` is asserted behaviourally; the `help board` lines are covered by the scan that every named topic exists, not by an assertion on a line.
 
 <details>
 <summary>Details</summary>
