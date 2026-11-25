@@ -42,7 +42,8 @@ sequenceDiagram
 - When two screenshots would get the same id (two local runs of one suite), the first keeps the
   short id and the others take their full path.
 - The gallery page code moves to its own module, `test/site/galleryPage.ts`.
-- New browser test of the links, run by the `viewer-graph` CI job.
+- New browser test of the links, run by the `viewer-graph` CI job (and a comment on that job).
+- `CONTRIBUTING.md` describes the screenshot links, and the glossary gains the term "Capture id".
 
 ## Impacts
 
@@ -50,6 +51,14 @@ sequenceDiagram
 - The addresses published today keep working: `gallery.html`, the image files and the Markdown group
   pages. The order of the screenshots, the position counter and the side panel do not change.
 - The grid looks the same.
+
+Before is the base `4a47151`, after is `c715355`, both built from the same CI screenshots. The
+yellow strip at the bottom of each image prints the page address (added for the capture).
+
+| | Before | After |
+| --- | --- | --- |
+| Open a screenshot, then Next | ![before: the address stays gallery.html](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/4abc9d62ba790cfb9b331dea20548900c7a0215a/before-viewer-next.png) | ![after: the address names the screenshot](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/4abc9d62ba790cfb9b331dea20548900c7a0215a/after-viewer-next.png) |
+| Open a link to a missing screenshot | ![before: the grid, nothing said](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/4abc9d62ba790cfb9b331dea20548900c7a0215a/before-unknown-id.png) | ![after: a notice above the grid](https://raw.githubusercontent.com/gsemet/markdown-okf-schema-studio/4abc9d62ba790cfb9b331dea20548900c7a0215a/after-unknown-id.png) |
 
 ## Blast radius
 
@@ -70,15 +79,15 @@ does not change).
 
 ## Test plan
 
-- [x] New or changed tests (they fail on the previous code): unit tests of the page and a Chromium
-      test of the links
+- [x] New or changed tests (at c715355 they fail on the previous code, 4a47151): unit tests of the
+      page and a Chromium test of the links
 - [x] Requirements: `SwRS-MDOKFSTUDIO-CORE-096` added (proposed), implemented in
       `test/site/galleryPage.ts`, tested in `test/site/gallery.test.ts` and
-      `test/site/galleryLinks.browser.test.ts`; `just requirements-update` run
+      `test/site/galleryLinks.browser.test.ts`; `just requirements-update` clean at c715355
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [x] Local gates: `just preflight` passes at c715355 (static stage on Windows);
-      `just ci-viewer-graph` passed on the same code before the commit
+      `just ci-viewer-graph` passes at c715355
 - [x] Review: approved at c1037ae (last change, in the changelog), committed as c715355
-- [ ] CI green
+- [x] CI green at c715355
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
