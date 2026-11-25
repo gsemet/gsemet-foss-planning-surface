@@ -15,6 +15,9 @@ MOVES = {
     "H-089": ("topic batch-plan-show, board; card chief-of-staff.md:26 (the writer stages the surface)", None),
     "H-186": ("topic batch-pause, retro, retro-lines", "help retro"),
     "H-187": ("topic retro", "help retro"),
+    "C-024": ("topic pr-template-own", "help pr-template-own"),
+    "H-282": ("topic long-gate", "help long-gate"),
+    "H-711": ("topic status-notes-more", "help status-notes-more"),
 }
 
 

@@ -59,6 +59,9 @@ restores the previous output. No stored file or data format changes.
 
 ## Known gaps
 
+- Linux and macOS are not checked at this head: the repository's checks run only for pull requests
+  that target the default branch, and this one targets the branch of #70. They run at the first
+  push made once it targets the default branch.
 - The installed-package acceptance tests skip on Windows. Their two `show` test functions were run
   on Windows only through a local harness against a wheel of this change, outside the test suite.
 - On a full non-blocking standard output, `show` fails with `BlockingIOError` after a partial
