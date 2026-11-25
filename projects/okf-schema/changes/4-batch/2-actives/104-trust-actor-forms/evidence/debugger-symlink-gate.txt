@@ -1,0 +1,22 @@
+CR-104, long gate failure at 1ae8870: proof excerpts (2026-11-25, Windows, Python 3.13.18)
+
+pytest totals
+  gate, head 1ae8870, link creation refused   8 failed, 1118 passed, 14 skipped
+  export of base 2f09cef, refused             8 failed, 1094 passed, 14 skipped
+  export of base 2f09cef, Developer Mode on   1104 passed, 12 skipped
+  export of head 1ae8870, Developer Mode on   1128 passed, 12 skipped (coverage 95.58%)
+  CI windows-latest, base, run 45609498484    1104 passed, 12 skipped
+
+Failure signatures, gate (head) against base export
+  failed: head 8, base 8, same names: True; identical signatures: 8/8; all carry WinError 1314
+
+Host probe after the change (not elevated)
+  AppModelUnlock last written 2026-11-25T22:33:06+01:00, AllowDevelopmentWithoutDevLicense = 1
+  os.symlink file and directory: created
+  CreateSymbolicLinkW flags=0x0: refused, GetLastError=1314
+  CreateSymbolicLinkW flags=0x2: created
+
+Coverage of changed validator.py lines in the ten symlink tests (10 passed)
+  module level (_ACTOR_RE): line 66, on import
+  _derive_trust_tier body: no body line (398 is the next module-level statement)
+  _validate_okf2_verified W10 block: none

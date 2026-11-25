@@ -12,7 +12,7 @@ With this change, `show` and the Python API `show_bundle`:
 - read a name from the bundle root, with or without a leading `/`, from any terminal folder, and
   still accept an absolute disk path inside the bundle;
 - judge containment on the real path, symbolic links followed, and refuse a path that leaves the
-  bundle without reading it (**UNVERIFIED:** for symbolic links, see Known gaps);
+  bundle without reading it;
 - report every refusal as an `Error:` line with exit code 2 (`FileNotFoundError` in the API),
   never a traceback.
 
@@ -54,8 +54,8 @@ the extensionless form), the feature coverage map (its `show` entry does not cha
 
 ## Known gaps
 
-- `just preflight` does not pass on the Windows machine used for development: 8 tests that this change does not edit fail because the machine refuses to create symbolic links (WinError 1314). The three requirement checks pass there; the examples, report and documentation steps pass when run on their own.
-- **UNVERIFIED:** the symbolic link refusals and the installed-package inspection check. Their new tests were skipped on that machine; they need a run where symbolic links are permitted and a non-Windows run.
+- `just preflight` has not passed in a single run on the Windows machine used for development. In the last run, 1125 tests passed, the new symbolic link tests among them, and 4 tests that this change does not edit failed because that run kept its temporary folder inside a Git checkout; those 4 passed in an earlier run that used the system temporary folder. The requirement checks pass; the examples, report and documentation steps pass when run on their own.
+- **UNVERIFIED:** the installed-package inspection check. The acceptance tests are skipped on Windows; its new assertion needs a non-Windows run.
 - `validate`, `list`, `index`, `backlinks` and `lint` still follow symbolic links whose target is outside the bundle; this change covers `show` only.
 
 ## Related Issues

@@ -1,53 +1,66 @@
-CR-101 round 1, gates and tests on the Windows host (Python 3.12.10), 2026-11-25.
-<worktree> = the CR worktree. Nothing is committed.
+CR-101, gates and tests on the Windows host (Python 3.12.10), 2026-11-25.
+<worktree> = the CR worktree.
 
-$ uv run --no-sync --directory <worktree> -- okfreq update-coverage requirements --check
-0 files would change
+Round 2: head 41fcd6d, Windows Developer Mode enabled (symbolic links permitted).
+
+Focused run of the four test files the change touches, TEMP and TMP in <worktree>/build/tmp:
+$ pytest tests/test_api.py tests/test_cli_remaining.py tests/test_acceptance_core.py tests/test_edge_cases.py -rs --no-cov
+226 passed, 7 skipped
 exit code: 0
 
-$ uv run --no-sync --directory <worktree> -- okfreq validate requirements --prose --check-links --project-root .
-36 requirements, 0 errors, 0 warnings
-exit code: 0
+Symlink tests of this change: all 7 cases in tests/test_api.py ran and PASSED
+- test_show_bundle_accepts_a_disk_path_spelled_through_a_symlinked_folder (test 7a)
+- test_show_bundle_refuses_a_symlink_leaving_the_bundle (test 9, S2; 4 cases)
+- test_show_bundle_follows_a_symlink_staying_inside_the_bundle (test 9, S3)
+- test_show_bundle_reports_a_symlink_loop_as_not_found
 
-$ uv run --no-sync --directory <worktree> -- okfreq lint requirements --check --check-links --project-root .
-0 indexes would change
-0 requirement OKF projections would change
-exit code: 0
+The 7 skips are all of tests/test_acceptance_core.py ("Acceptance tests run the installed
+POSIX console scripts"), including test 14
+(test_inspection_reports_matching_concepts_and_changes_no_file). Its new assertion has not
+run on this host.
 
-$ uv run --no-sync --directory <worktree> -- okfreq trace requirements --json
-exit code: 0
-SwRS-OKFSCHEMA-CORE-010: implemented in src/okf_schema/api.py; tested in tests/test_api.py,
-tests/test_cli_remaining.py, tests/test_edge_cases.py; scenario markers S1, S2, S3.
-SwRS-OKFSCHEMA-CORE-005: scenario markers S1, S2, S3, S4. No warning.
-
-$ just preflight
+$ just preflight    (run once, TEMP and TMP in <worktree>/build/tmp)
 style, lint, requirements-lint, changelog, typecheck, refresh-requirements-guideline: passed
-test: 8 failed, 1112 passed, 21 skipped; coverage 95.43% (required 95%)
-FAILED tests/test_cli_core.py::test_install_skills_rejects_owned_symlink_with_click_error
-FAILED tests/test_kb_install.py::test_install_kb_rejects_owned_symbolic_link
-FAILED tests/test_kb_install.py::test_install_kb_rejects_explicit_destination_symlink_after_resolution
-FAILED tests/test_file_links.py::test_check_file_links_reports_ambiguous_and_case_sensitive_stems
-FAILED tests/test_file_links.py::test_check_file_links_rejects_absolute_and_root_escaping_targets
-FAILED tests/test_skill_installer.py::test_install_skill_family_rejects_owned_symlink_without_following_it
-FAILED tests/test_skill_installer.py::test_install_skill_family_rejects_symbolic_link_destination
-FAILED tests/test_skill_installer.py::test_install_skill_family_rechecks_destination_link_after_staging
-All 8 fail because the host refuses to create a symbolic link (WinError 1314).
-They were not run on the base commit.
+test: 4 failed, 1125 passed, 12 skipped; coverage 95.49% (required 95%)
+FAILED tests/test_file_links.py::test_check_file_links_skips_unavailable_roots_and_unresolved_stems
+FAILED tests/test_file_links.py::test_check_file_links_uses_git_root_but_not_current_working_directory
+FAILED tests/test_file_links.py::test_okfreq_cli_accepts_link_check_options
+FAILED tests/test_tutorial_okfreq.py::test_traceability_tutorial_runs_from_existing_feature_to_updated_contract
 exit code: 1
+Cause: the temporary folder of this run was inside the worktree. The three test_file_links
+tests expect no Git root above their temporary folder; the nested pytest of the tutorial test
+picked up the worktree's pytest and coverage settings. The change edits neither these tests
+nor file_links.py. All 4 passed in the round 1 run below, which used the system temporary
+folder; they were not run that way again in round 2. The 12 skips are the acceptance tests.
 
 Steps of preflight after the test step, each run on its own:
 $ just refresh-all-examples      exit code: 0
 $ just requirements-report       exit code: 0
 $ just docs                      exit code: 0
 
-Symlink tests of this change: SKIPPED on this host ("symlinks not permitted on this host"),
-7 test cases in tests/test_api.py:
-- test_show_bundle_accepts_a_disk_path_spelled_through_a_symlinked_folder
-- test_show_bundle_refuses_a_symlink_leaving_the_bundle (4 cases)
-- test_show_bundle_follows_a_symlink_staying_inside_the_bundle
-- test_show_bundle_reports_a_symlink_loop_as_not_found
-They must run in CI (cross-platform job). The directory-link cases were also exercised with
-Windows junctions, which are not symlinks: see junction-probe.txt.
+$ okfreq validate requirements --prose --check-links --project-root .
+36 requirements, 0 errors, 0 warnings
 
-Acceptance test (tests/test_acceptance_core.py, installed wheel): SKIPPED on Windows
-("Acceptance tests run the installed POSIX console scripts"). Its new assertion has not run.
+Generated changes (CHANGELOG.md; line endings only under examples/) were discarded.
+
+Round 1 (same change before its commit, symbolic links refused by the host)
+
+$ okfreq update-coverage requirements --check
+0 files would change
+exit code: 0
+
+$ okfreq lint requirements --check --check-links --project-root .
+0 indexes would change
+0 requirement OKF projections would change
+exit code: 0
+
+$ okfreq trace requirements --json
+exit code: 0
+SwRS-OKFSCHEMA-CORE-010: implemented in src/okf_schema/api.py; tested in tests/test_api.py,
+tests/test_cli_remaining.py, tests/test_edge_cases.py; scenario markers S1, S2, S3.
+SwRS-OKFSCHEMA-CORE-005: scenario markers S1, S2, S3, S4. No warning.
+
+$ just preflight
+test: 8 failed, 1112 passed, 21 skipped; coverage 95.43%
+All 8 failed because the host refused to create a symbolic link (WinError 1314).
+exit code: 1
