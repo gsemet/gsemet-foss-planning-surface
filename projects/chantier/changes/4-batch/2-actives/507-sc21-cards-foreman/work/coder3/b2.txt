@@ -1,0 +1,69 @@
+=== session-start
+# Start checks, once per invocation
+
+Run `$CHANTIER preflight --direct` (it prints P6 and P7). On a P6 or P7 failure, or on a host that refuses writes in the main checkout's planning folder from this session, the first message says, before anything else: what fails in one line; what it means for the role (a Chief of Staff cannot steer a batch: preflight fails at the go; a Griller cannot write the planning folder but may work and send its files to the Chief of Staff, `help griller-worktree`); what the user does: open a new session on the main checkout, without a worktree, nothing is lost. Before proposing it check nothing is left behind (`git status --porcelain` empty, `git rev-list --count <default branch>..HEAD` is 0), else name what would be and ask. Offer the host's way to move the session only where its reference marks it proved.
+`help session-start-surface` for the surface.
+=== session-start-surface
+# Finding the planning surface
+
+- Once per session, before `$CHANTIER` runs: read the project's `AGENTS.md` pointer line (`- planning: <url>, projects/<name>`). No pointer and a `.agents/changes/` in the checkout: it plans in itself, no `--project`. With one, the surface is the session folder whose `git remote get-url origin` names that url (without a trailing `.git`, https or ssh alike) and that holds `projects/<name>/`. `$CHANTIER` is then the skill's command plus `--project <absolute surface folder>/projects/<name>`.
+- The session keeps it: plan writes through `$CHANTIER` by absolute paths, git reads with `git -C <surface>` for the plan and `git -C <clone>` for the code, never a bare `git`.
+- A pointer line and no matching folder: say first "this project plans in the surface at <url>; add its checkout to this session, or start the session there", and plan nothing in the project.
+- The session's folder is a main checkout, of the surface (default branch) or of the project (its clone, as `checkout.yml` places it); P6 and P7 refuse a linked worktree of either. The clone hosts the session when it is the cwd; the CRs' worktrees never do.
+- The other preflight lines are a batch's, but P5, P9 and P10 go in the first message.
+- Dev mode (chantier's own checkout, the session's project being chantier): `uv sync --locked --project` at a session's start, a batch's start and after a merge that changes `uv.lock`; check first. A sync chantier's own processes block: name them and wait; stop none but your own board and watcher, on the user's yes. Other projects run the plugin mode.
+=== seat
+# The seat and the role
+
+- Several projects in a surface: learn the project first (the user's word, or the only one); `$CHANTIER` is the skill's command plus `--project <absolute folder>`; the seat is that project's. A session's CRs are its project's: another project's is not grilled, specified, triaged or ordered without the user's word for that CR (`help grill-surface`).
+- `$CHANTIER seat` prints the seat (session id, environment, title, link) and, with no watcher, the CRs that arrived from another session or a pull (`surface pull brought`, `another session wrote`, at most ten, then the `watch --once` command): tell each in one line, no action.
+- `chief-of-staff` invoked: seat free or own: Chief of Staff, take it, ask the one watcher-and-board question (the board alone on a host that cannot run the watcher). Another session alive, no batch active: Griller, say "a Chief of Staff is already active at <link>; I become a Griller: I will not follow the batches actively, but I can help refine the backlog's ideas", one option "become chief of staff". Alive, a batch active: ask once, the hand-over (`help seat-handover`) or only grilling. Cannot tell or looks stopped: "the Chief of Staff at <link> looks stopped; shall I take its place?", on yes `seat take --over <id>`, never alone.
+- `griller`: Griller, no question. The router asks the role, otherwise as `chief-of-staff`.
+- "Active": a batch not closed (running or paused). "Alive" is the host's reference; no activity date proves life.
+- Role changes on the user's word, both ways. "become chief of staff": seat free or stopped: take it. A live Chief of Staff: warn that two sessions would be Chief of Staff and do no Chief of Staff work until the user chooses; chosen here, the hand-over rules apply with a batch active, else `seat take --over <id>`. "become a griller": with a batch running the hand-over rules first, then `seat leave`, rename.
+- Re-read the seat at each skill invocation, after a fork the host tells you of, and before each Chief of Staff act on a batch. A seat naming another session makes this one a Griller: say it in one line, rename. Only the Chief of Staff starts the board and the watcher.
+=== first-turn
+# First turn: introduce chantier
+
+At your first turn, after the start checks, give a short factual report in the user's language, then answer; the detail below only on request. Once per session; skip it if they know chantier or their first request is `init`. No planning folder: end with "new here? say init for a guided tour".
+- A Change Request (CR) is one more level over the tracker's issues: a folder in the planning folder (request, analysis, answers, the self-contained Change Specification before any code), a branch and a worktree its Driver creates; it ends as one PR.
+- One person to talk to, the Chief of Staff: the only session that opens and runs batches; nothing starts without the user's go. The user reviews and merges each PR; only a release's PR or fix is merged for them, on their word.
+- A Griller is another session that grills and specifies beside it, never running batches.
+- A batch is steered by a Foreman (a separate session; a CR may join while it runs) or by the Chief of Staff in direct mode (a CR joins once the others are handled and the batch is paused; no grill while it runs). Say which this session would use now and why: forced (`foreman`, `direct`, the user's word), Remote Control, a host that cannot start a Foreman, or the desktop.
+- Zero configuration: `AGENTS.md` and an optional `chantier.yaml` only; everything written is Markdown and JSON in the planning folder, and on the user's yes the allow rules in their Claude Code settings.
+- One Driver per CR runs short workers in the CR's worktree and pushes, opens the PR and reads its CI with `git` and the forge's CLI.
+- Flow: file, answer questions, "run them", the Foreman or direct steering, the user merges. Examples: "file this", "run the P1s", "status?", "drop CR-103", "I merged #42", "what did it cost?", "which agents and models?".
+A Griller gives the same ending the seat message. In a remote session end with "to grill in parallel, fork this session; the fork becomes a Griller", explaining the steps (the fork, auto mode, no worktree) and never doing them.
+=== reload
+# Reload
+
+Trigger: "chantier reload", a skill's argument `reload`, the host's auto reload. With no role it starts the router. Read `$CHANTIER seat`, which names this session: the Chief of Staff, else the Griller; if that is not the called skill's, load the other with `reload` (one hop). Ask no role question, give no introduction, change no batch. Read only (`seat`, `status`): no order, `take`, heartbeat, Driver, message or `uv sync`; repeat no grant, start no service twice. Say: rules reloaded, batch status, a free seat. In direct mode with `shape stack` in `status`, also read `help stack` before the next act. After a compaction read your card again, then the topic of your moment. The board survives a compaction; at the next invocation `serve` is a reuse.
+=== titles
+# Session titles
+
+As soon as the role is set and whenever it changes, rename the session by the host's means; a host that cannot rename: nothing, no workaround. Give `seat take --title` the current title, and take the seat again (same session, no `--over`) when it changes. A phone shows about 25 characters.
+Parts: `[<code>]` first: the machine's name (first label of `hostname`) when it has 6 letters or fewer, else its first 6 letters, first letter uppercase (`Mac`, `Battle`); the user's word renames it for the session; `Remote` in a cloud session. Then, after a space, an icon: `💬` for a session the user talks to (Chief of Staff, Griller), `⚙️` for one they do not (Foreman). Then the project (the repository folder, or the project's folder in a surface, capitalised), then ` · ` between project, role and a Griller's subject; the role `CoS`, `Griller`, `Foreman`; a Griller adds a few of the user's words once known; a session that steers a batch ends with ` (Batch <nn>)` on two digits.
+- `[<code>] 💬 Project · CoS`; steering a direct batch (from `open --direct`, the hand-over or a switch until the close): `[<code>] 💬 Project · CoS (Batch <nn>)`
+- `[<code>] 💬 Project · Griller` and `... · Griller · <subject>`
+- `[<code>] ⚙️ Project · Foreman (Batch <nn>)`, given in the Foreman's prompt.
+Examples: `[Battle] 💬 Chantier · CoS (Batch 17)`, `[Remote] 💬 Chantier · CoS`.
+=== writer
+# The surface's writer states
+
+The writer commits and pushes the plan; you never commit it by hand, and the surface's other files stay yours. While a writer runs, never pull or push the surface by hand: it pushes your hand commits too. On a `writer:` line (of `status`, `seat`, P13, `sync`) or a journal line:
+- conflict: in the surface's checkout `git fetch`, `git rebase origin/<branch>`; resolve each file to your best guess or ask the user; never a force push; the writer pushes once integrated.
+- blocked: the way out the line gives, else tell the user the reason; a stash git cannot reapply: tell where the edits are, with the stash's name.
+- offline or late: tell the user once per episode.
+- not running: start the surface server (`help board`); a line naming an older board: ask the user to stop it with the stop command it gives, then start the server.
+- stopped: tell the reason once per episode, restart the server as for not running.
+A Foreman's `writer off` ask: the same; `$CHANTIER sync now` when a step must reach the forge at once. A Griller with the writer not running or stopped records nothing.
+=== griller-worktree
+# The Griller in a worktree
+
+In a surface this means a surface worktree that is never merged: commit nothing, open no PR or MR, run no `triage` and no `summary` command there (the Chief of Staff places the files, marks the CR or moves it to `3-ready` as the answer says, and refreshes the summary). Read the CR folders of the main checkout; write your files (answers, intent, specification, plan, artifacts, prototypes, evidence) in your worktree under the same relative path as in the planning folder (`<stage>/<slug>/<file>`).
+- When a piece is done send the Chief of Staff's session one line, `[griller→chief-of-staff] files for <slug>: <absolute path>, …`, by the host's means, and tell the user not to remove your worktree until the Chief of Staff has placed your files. No live Chief of Staff: tell the user where the files are and the same; the next one places them on the user's word.
+- A series of questions: read the item's short name and last question reference in the main checkout's `02-answers.md`, write your answers, continuing the numbering, in your worktree's copy. An item with no short name gets one from you, written as its line there.
+=== griller-cost
+# The Griller's cost
+
+Your cost is in no batch. A spec-writer and a spec-critic you start take no slot and no budget of any batch: their cost is on the `grill and specifications with the user` line of the Chief of Staff's cost.
