@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Clip: edit the standard OKF frontmatter in place",
+  "summary": "Specified: 11.5 s clip okf-frontmatter on origin/main, no schema; click the status value, type published, Ctrl+Enter; table and = this.status line update; GIF in docs/user/okf.md; draft PR for the owner's storyboard review; twin of the bundle clip.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "04a5f3552482c69938e692a8186b854c3796238005d6cbf01c3c075e749fc14d",
+    "02-answers.md": "94309ce15ff11a6d14af99006dd826363debeec63b72833e994cc1c1b3918845",
+    "03-change-spec.md": "b2bdb1e8f86bd3c7c46338b22817ee2ab38c9f7282f81f8e3be391fe8de39c65",
+    "intake/request.md": "907fa8fc19a342b3a67d97ce337bced6f1368b9cc38c16232a197248dc5d1b70"
+  },
+  "summarized": "2026-11-25T09:11:22Z"
+}

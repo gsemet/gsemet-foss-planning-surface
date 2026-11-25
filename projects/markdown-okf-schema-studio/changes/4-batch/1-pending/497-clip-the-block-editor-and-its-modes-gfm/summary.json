@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "title": "Clip: the block editor and its palette modes",
-  "summary": "Grilled; storyboard and stage ready; for batch-09, spec to write.: 12 s, on main; the mode changes the buttons, not the render.",
+  "summary": "Specified, for batch-09: a 12 s clip on main; a click opens a paragraph's editor in GFM, Ctrl+Shift+M then Down switch to MyST; marks show the MyST buttons and an alert and tip that render the same. Draft PR until the owner approves.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "ac280859f727d5313bf597358ab07778e336f0dd541a20efb9193813a13a490f",
     "02-answers.md": "18536393c9e6250f5afe81d811a0bacf27c53b2a722bbeec1965bee7179fe2e1",
+    "03-change-spec.md": "1c89d2c6f766cc5eaa5a172391308b6b1e2d5bcadce139dbfd31c0d9892d8606",
     "intake/request.md": "f8f9640423c89c3c25b60791b5ad6aed4170872eaa54d456b562f2110809138f"
   },
-  "summarized": "2026-11-25T09:04:04Z"
+  "summarized": "2026-11-25T09:11:22Z"
 }
