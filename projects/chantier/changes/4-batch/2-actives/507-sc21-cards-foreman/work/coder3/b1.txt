@@ -1,0 +1,106 @@
+=== grill-series
+# Asking the user: a series
+
+For every grill or specification question, the Chief of Staff's and the Griller's, the closing "grilled enough?" included. Not a release approval, a force-push question or "looks stopped": those keep their shapes.
+- One session grills an item at a time; the others take another item (agreed through the user, never locked).
+- One call, one item: never two CRs in the same call. A series is independent questions only, at most 5 or the host's figure.
+- Short name: read the head of the item's `02-answers.md`. With no ``Short name: `<name>` `` line, pick a few words and write that line there before the series. Keep it for the item's life. It is used only in references.
+- Reference: each question is `<short name>-Q<n>`, counting across series (read the last one in `02-answers.md` first). Never `CR250-Q3`. Elsewhere a CR is named by number and slug.
+- Text first, every time (a single question, "grilled enough?", a spec's open questions, a phone included): for each question its reference and text, two or three lines of context, the options and the reason for the recommendation. `help grill-options` for the options and the tool.
+=== grill-options
+# Series: options, the tool, the record
+
+- Options: at most 4, lettered `A.` to `D.`, each with a concrete example of what it means in use. The recommended one is `A.`, marked "(recommended)" in the user's language, in the text and the tool. The text says the tool's free answer ("Other") is there for anything else.
+- The tool then shows the same questions in the same order, each starting with its reference, and the same options with the same first words: the short mirror of the text, never other words, another order or another option.
+- No question tool on the host: the same text, ending with how to answer by reference in one message ("Q1 A, Q2 B"); a free answer is accepted.
+- Record each answer in `02-answers.md` at once, starting with its reference: `9. grill-format-Q9: **Numbering.** <the answer, with the user's words>`.
+- "Grilled enough?" follows the complete restatement, in this format. A batch open (running or paused): `A. Specify, for the next batch (3-ready) (recommended)`, `B. Specify, for the running batch <batch-id> (4-batch/1-pending/)`, `C. Back to the backlog`, `D. Not yet`. None open: A, `B. Back to the backlog`, `C. Not yet`. A or B is also the destination of `help where-cr-goes`.
+=== grill-backlog
+# Backlog commands and the grill's records
+
+- `file "<request>" [--title ...] [--slug ...]` keeps `intake/request.md`; a title of at most 72 characters is required. `triage <folder> --priority P1..P4`, `--ready` (to `3-ready`, the next batch, joins no batch), `--running-batch` (writes the mark `work/running-batch`, moves nothing; any other `triage`, `abandon` and `order add` clear it). `abandon` and `restore <6-trash/item> [--slug]` on the user's word only. `summary label|group` on the user's word only.
+- A CR waiting for the user's answer between two grills: `wait <folder> add answer --ref "<the question>" --note "<why>"`, cleared with `wait <folder> clear <id>` once the answer is in `02-answers.md`.
+- Summary sweep: `summary lint` with no folder, gaps closed with `summary set`, when you re-read the backlog (before proposing a batch, on "status?", when a Griller has finished), after placing a Griller's files, after `restore`, after `close --yes`; run it again until the first line says `no gap`.
+- Record at once, with date and words, every answer or decision about a CR (a priority, "left aside", "same batch"), before the next question. Nothing waits in the conversation.
+- Artifacts: prototypes in `prototypes/NN-<idea>/` (a new version is a new folder; the retained one is recorded as an answer). A pasted image is saved in `evidence/` or described; a kept screenshot goes in `evidence/`; web research keeps sources in `experiments/`; a plan-mode plan is written in the CR's folder; memory is never a CR's place.
+- Triage with the user: dropped, automatable (their call, with a short spec they do not review, possibly none), specified for review, or to grill again. A tracker ticket is `file`d as received, with `issue: <link>` under the title of `01-intent.md`.
+=== grill-restate
+# Shared understanding, size, the critic line
+
+- Ask "grilled enough?" only after a complete restatement in the user's language: what changes, every decision from `02-answers.md`, what is open. It ends with one line `critic: yes, <why>` or `critic: no, <why>`. A correction is an answer, recorded at once. Never decide alone that a CR is grilled enough.
+- The user may ask for or cancel the critic in the free answer ("specify, no critic"): record it. On the user's word that it is grilled enough, record `Spec critic: yes|no, <why>` with the answer.
+- Folder above 10 MB: the restatement says so and one more question asks what to do at the end (keep the retained prototype zipped in the PR's archive; keep all in the planning folder; drop the non-retained versions at `close`). Record it; the specification carries it. A folder that grows during the batch is the Driver's Known gap, and you ask at the ready.
+- Files from a Griller in a worktree (`files for <slug>: <paths>`): read them, place them in the CR's folder as received (a new item through `file @<its request>` first), tell the user the worktree may go only after, review a specification as the spec-writer's.
+=== grill-specify
+# Starting the spec-writer
+
+- The specification is the spec-writer's. On "grilled enough", write `work/specifying` (the time, the agent id once started); a CR bound for the running batch first gets `triage <folder> --running-batch`. Start the spec-writer in the background: its prompt names the card and the CR folder, its first line is the one `$CHANTIER playbook` prints, copied unchanged.
+- One spec-writer per CR while `work/specifying` exists. `specifying.parallel` (default 4) is the most CRs specified at once, read in the `limits:` line of `playbook` (`specifying <n>, markers <m>`); at the limit start none, name the CRs being specified, start when one is shown or dropped. A critic or a next run on a marked CR is not counted twice.
+- A refused first line ends that agent: replace the line with `<time> <new id> restart: refused first line`, start one new writer by copying the line, no message to the refused one. A host failure: the same, once, `restart: host failure: <text>`. Remove the marker when the last agent ends.
+- Review `03-change-spec.md` against `02-answers.md` before showing it: nothing dropped, nothing invented. Open questions go to the user; record the answers, run the writer again.
+- A release CR's or a fix's specification stays yours; judge the critic once written and say the critic line in the message that shows it, apply the fixes yourself.
+- The writer and critic take no slot or budget; their cost is on the grill line. `3-ready` keeps no priority; `triage <3-ready-folder> --priority Pn` puts it back.
+`help grill-critic` for the critic.
+=== grill-critic
+# The spec critic
+
+A fresh `spec-critic` reads the request, answers, specification and repository, and looks for a gap with the intent, an inconsistency, an unproved claim about the real world, a bundle. It never edits the specification, runs once per specification, never in a loop. A bundle is always a question, the split recommended: the parts are filed as new inbox items (`file`, each with its own title), the answer recorded, the writer's next run narrows the spec.
+- Criterion (Chief of Staff and Griller alike): it runs on a CR that, wrong, would cost most: a role's contract, the CLI's refusals, a host behaviour, what the user sees or decides, an irreversible or shared step, several areas. Not on wording, a doc or a test alone. Subject and priority decide nothing; say why in the critic line. An automatable CR with no specification gets none. An item with no `Spec critic:` line is judged by whoever starts its writer, and the line is said with the start; a final specification gets none unless asked.
+- Model: the playbook's. A user's word for another model for one run: start it through the host's model parameter; the project sets it in `chantier.yaml`. A host without it: say so, run the default, never a look-alike.
+`help grill-critic-steps` for the steps.
+=== grill-critic-steps
+# The critic's steps, after the spec-writer ends
+
+1. Review the specification against `02-answers.md`.
+2. Start one `spec-critic` in the background, first line copied from `playbook`, agent and model as it prints; the prompt names the card and the folder, nothing of the grill. `work/specifying` takes each agent's line (`<time> <agent id> <role>`) until the spec is shown. A refused start: restart once as for the writer.
+3. Sort: a finding that touches behaviour (scope, behaviour, risk) is a question; any other (a record fix, a wrong name, a dropped decision, a settled inconsistency, an unproved claim to mark) is a fix. An unproved claim a decision rests on is a question.
+4. Fixes first: run the writer once with them in its brief before the user sees anything; a fix it refuses with a reason you accept is dropped, else it is a question.
+5. Then the user: one summary line counting what is true ("critique : 10 points, 6 corrigés sans vous, 4 questions"), then the questions with the spec's own, in the series format (at most 5 per call). No question: the line, then the spec. No finding: "critique : aucun point". The full list is shown on request only.
+6. Record the answers, run the writer again, review. Run the critic again only if the answers change behaviour ("critique, 2e passage"); else the spec is final once approved.
+=== where-cr-goes
+# Where the CR goes
+
+A CR grilled enough goes to the next batch (`3-ready`, the default) or, with a batch open (running or paused), the running batch (`4-batch/1-pending/`), in every mode.
+- Asked at every spec-writer start, yours or a Griller's, with `A. Next batch (3-ready) (recommended)` and `B. Running batch <batch-id> (4-batch/1-pending/)`; the answer to "grilled enough?" is that ask. No batch open: nothing asked. A next run keeps the recorded destination. Record at once: `Destination: next batch (3-ready).` or `Destination: running batch batch-12.`
+- That answer is the user's word for the move, and for the running batch the go. The spec is final when written, no writer runs, its critic (if due) ran and was applied, no question is open. Then: next batch, `triage <folder> --ready`; running batch, `order add --note <folder>` and handle it as usual (Foreman mode: relay to the Foreman; direct: take the CR when a slot frees). A Griller never runs `order`.
+- Act on the last `Destination:` line (a board line counts). `Destination: back to the backlog (board)`: no `triage`, no `order`.
+- `order add` refused (a release started, or the batch closed): `triage <folder> --ready`, which clears the mark, and one line "<slug> goes to the next batch: <why>". Writer not running: restart the server as the refusal says; the CR waits, marked.
+- A `3-ready` CR is never marked. To put one in the running batch: `order add --note <folder>` at once.
+=== grill-surface
+# Another project's CR, the surface
+
+- In a surface with several projects, a CR of another project is that project's. A relay on the user's word: `file` with that project's `--project <absolute folder>`, for that call alone. `file`'s "grill the CR here" is not followed: say in one line it waits for that project's own session, offer no grill, spec, `triage`, batch or `order`, and write nothing more (no `01-intent.md`, no `summary set`; its own session closes the summary).
+- Only the user's word for that CR ("grill it here") lifts it, for its grill, spec and `triage` with that `--project`, never for a launch (`order add`, `open`).
+- With a planning surface: its rules win for what they say, its `AGENTS.md` first; its writer commits and pushes. A clone missing at `checkout.yml`'s path (`preflight` names it) is cloned on the user's word. Never touch the project's clone but by `git -C <clone>`. Outside contributors submit a CR by a PR on the surface, the user merges it on the forge, and it is read like any other.
+`help grill-outside-pr` for an outside PR.
+=== grill-outside-pr
+# An outside PR: archive <link>
+
+Only on the user's word "archive <link>", never offered, never from a forge read of your own.
+- Surface: read the `writer:` line first (`$CHANTIER sync`); `not running`: write nothing, say so, act as the line says. In-project: write in `.agents/changes/5-archives/`.
+- Read the PR read-only: `gh pr view <link> --json number,title,url,author,state,mergedAt,files,body`; GitLab `glab mr view <link>` (unproved). Write nothing and say why when it is not merged, or is a batch CR's (`order merged` records it), or an archive `5-archives/*-outside-<number>-*` exists.
+- Write `5-archives/<YYMMDD-HHMM>-outside-<number>-<slug>/` (UTF-8, no BOM; the merge time in UTC; the forge's number; the title as `file` slugs it, at most 40 characters) with `intake/request.md` (the description, or the title as a `# ` line) and `delivery.md`: `# Delivery`, then `- PR: <link>`, `- Author:`, `- Merged: <YYYY-MM-DDTHH:MM:SSZ>`, `- Archive in the PR: no`, then what changed in a few lines.
+- `summary lint <folder>`, then `summary set <folder> --title "<the PR's title>" --summary "<one line>"`; `sync now` publishes at once; a refused `summary set` (writer stopped) keeps the files for the next writer: tell the user. Reply `archived <link> at 5-archives/<name>/`.
+=== ticket-summary
+# Ticket summary, before posting
+
+A CR with an `issue:` line has its reporter told what was accepted before any code; with none, skip the block (say so in a line only if asked). The Griller drafts, only the Chief of Staff posts. Steps:
+1. When the user says it is grilled enough, in the turn of the spec-writer's start; offer a Griller's drafts when you next read the folder.
+2. Can chantier write to that tracker? GitHub: `gh` reaching the issue; GitLab: `glab`; Jira or other: the project's rules say, else the capability the session has (MCP tool, CLI) provided it reads the ticket. None: skip and say in one line what is missing.
+3. Read `$CHANTIER rules` for a tracker rule (access, key, closing keyword, language, template) and follow it.
+4. Draft in `work/` (UTF-8, no BOM): `issue-comment.md` (accepted or not, the scope in two to five bullets, what is left out, "No date yet; the pull request will be linked here."; no CR number, batch, round, role, cost or `.agents/changes/` path), `issue-plan.md` (the decisions for an outside reader), `issue-demo.html` only when the change is visible and imitable (self-contained, no external resource, an HTML comment and a visible line saying it imitates the result). The ticket's language, English by default.
+5. Check: the ticket named is the `issue:` line's, no private path, no internal link, no other person's data.
+6. Show and ask in one step: the texts, each part's route and tool, the ticket's link and title, each project rule followed, quoted. A yes for that ticket; record yes, edits, drop or no at once, dated. No yes, nothing posted.
+`help ticket-summary-post` for 7 to 9.
+=== ticket-summary-post
+# Ticket summary: posting
+
+7. Publish on the yes only, by the Chief of Staff only, every text from its file, never typed in a shell. Route: the tracker's issue artifacts, else attachments, else a collapsed `<details>` of the comment.
+ - GitHub: with `gh issue artifact create` in the help: `gh issue artifact create <link> work/issue-plan.md --type plan`, then `work/issue-demo.html --type embedded_html`; `gh issue artifact list <link> --json number,name,url`; put the links in the comment, then `gh issue comment <link> --body-file work/issue-comment.md`. Else collapsed sections.
+ - GitLab (unproved): `glab issue note` reading the message from a file; uploads if `glab` offers them, else collapsed sections.
+ - Jira or other (unproved): the capability's comment action fed from the file, never retyped; its attachment action if any, else a collapsed section, else the plan in the comment and no demo, said in the ask.
+ A refused or failed post: tell the user the exact text and stop; nothing retried another way; if an artifact fails, the comment is not posted.
+8. Verify: read back the comment's URL and the artifact list; say what is visible and to whom (artifacts may be hidden from the reporter).
+9. Record under the yes in `02-answers.md`: `Posted on <ticket link>, <date>: comment <url>; plan <ref>; demo <ref or none>`.
+PR follow-up: the first time you see the PR link of a CR with a recorded post, propose one line "The pull request is open: <PR link>." in the ticket's language, same ask, steps 7 to 9 (`work/issue-followup.md`); none after a declined or skipped summary. "Released in": `help release-chief`.
+Shape: the comment, the plan and the PR's `## Issues References` / `Closes #336`, the size of three short paragraphs.
