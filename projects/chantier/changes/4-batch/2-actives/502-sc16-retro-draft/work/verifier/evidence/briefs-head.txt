@@ -1,0 +1,361 @@
+claude chief-of-staff [] ep=0 exit=0 sha=81d1be3986578e3b :: 'Read <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj/.git/chantier/briefs/proj/batch-01/none-chief-of-staff.md wh'
+claude chief-of-staff [] ep=1 exit=0 sha=81d1be3986578e3b :: 'Read <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj/.git/chantier/briefs/proj/batch-01/none-chief-of-staff.md wh'
+claude chief-of-staff [CR-101] ep=0 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got 'CR-101')"
+claude chief-of-staff [CR-101] ep=1 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got 'CR-101')"
+claude chief-of-staff [stack] ep=0 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got 'stack')"
+claude chief-of-staff [stack] ep=1 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got 'stack')"
+claude chief-of-staff [O-1] ep=0 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got 'O-1')"
+claude chief-of-staff [O-1] ep=1 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got 'O-1')"
+claude chief-of-staff [crf] ep=0 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+claude chief-of-staff [crf] ep=1 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+claude griller [] ep=0 exit=0 sha=ed3b77a7e499996a :: 'Read <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj/.git/chantier/briefs/proj/batch-01/none-griller.md whole, fi'
+claude griller [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not griller'
+claude griller [CR-101] ep=0 exit=2 sha= :: "error: brief: griller has no unit: give none (got 'CR-101')"
+claude griller [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not griller'
+claude griller [stack] ep=0 exit=2 sha= :: "error: brief: griller has no unit: give none (got 'stack')"
+claude griller [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not griller'
+claude griller [O-1] ep=0 exit=2 sha= :: "error: brief: griller has no unit: give none (got 'O-1')"
+claude griller [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not griller'
+claude griller [crf] ep=0 exit=2 sha= :: "error: brief: griller has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+claude griller [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not griller'
+claude foreman [] ep=0 exit=0 sha=d4ad81564f5cf2f9 :: 'Read <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj/.git/chantier/briefs/proj/batch-01/none-foreman.md whole, fi'
+claude foreman [] ep=1 exit=0 sha=d4ad81564f5cf2f9 :: 'Read <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj/.git/chantier/briefs/proj/batch-01/none-foreman.md whole, fi'
+claude foreman [CR-101] ep=0 exit=2 sha= :: "error: brief: foreman has no unit: give none (got 'CR-101')"
+claude foreman [CR-101] ep=1 exit=2 sha= :: "error: brief: foreman has no unit: give none (got 'CR-101')"
+claude foreman [stack] ep=0 exit=2 sha= :: "error: brief: foreman has no unit: give none (got 'stack')"
+claude foreman [stack] ep=1 exit=2 sha= :: "error: brief: foreman has no unit: give none (got 'stack')"
+claude foreman [O-1] ep=0 exit=2 sha= :: "error: brief: foreman has no unit: give none (got 'O-1')"
+claude foreman [O-1] ep=1 exit=2 sha= :: "error: brief: foreman has no unit: give none (got 'O-1')"
+claude foreman [crf] ep=0 exit=2 sha= :: "error: brief: foreman has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+claude foreman [crf] ep=1 exit=2 sha= :: "error: brief: foreman has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+claude cr-driver [] ep=0 exit=0 sha=88268f4fa7ba84b5 :: 'chantier cr-driver for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratc'
+claude cr-driver [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not cr-driver'
+claude cr-driver [CR-101] ep=0 exit=2 sha= :: "error: brief: cr-driver CR-101 needs --lease <n>, the Driver's lease on its unit"
+claude cr-driver [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not cr-driver'
+claude cr-driver [stack] ep=0 exit=2 sha= :: "error: brief: cr-driver stack needs --lease <n>, the Driver's lease on its unit"
+claude cr-driver [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not cr-driver'
+claude cr-driver [O-1] ep=0 exit=2 sha= :: "error: brief: cr-driver O-1 needs --lease <n>, the Driver's lease on its unit"
+claude cr-driver [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not cr-driver'
+claude cr-driver [crf] ep=0 exit=2 sha= :: "error: brief: cr-driver <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf needs --lease <n>, the Driver's lease on i"
+claude cr-driver [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not cr-driver'
+claude release-driver [] ep=0 exit=0 sha=88268f4fa7ba84b5 :: 'chantier release-driver for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/s'
+claude release-driver [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not release-driver'
+claude release-driver [CR-101] ep=0 exit=2 sha= :: "error: brief: release-driver CR-101 needs --lease <n>, the Driver's lease on its unit"
+claude release-driver [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not release-driver'
+claude release-driver [stack] ep=0 exit=2 sha= :: "error: brief: release-driver stack needs --lease <n>, the Driver's lease on its unit"
+claude release-driver [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not release-driver'
+claude release-driver [O-1] ep=0 exit=2 sha= :: "error: brief: release-driver O-1 needs --lease <n>, the Driver's lease on its unit"
+claude release-driver [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not release-driver'
+claude release-driver [crf] ep=0 exit=2 sha= :: "error: brief: release-driver <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf needs --lease <n>, the Driver's lease"
+claude release-driver [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not release-driver'
+claude stack-driver [] ep=0 exit=0 sha=88268f4fa7ba84b5 :: 'chantier stack-driver for the stack of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/'
+claude stack-driver [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not stack-driver'
+claude stack-driver [CR-101] ep=0 exit=2 sha= :: "error: brief: stack-driver CR-101 needs --lease <n>, the Driver's lease on its unit"
+claude stack-driver [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not stack-driver'
+claude stack-driver [stack] ep=0 exit=2 sha= :: "error: brief: stack-driver stack needs --lease <n>, the Driver's lease on its unit"
+claude stack-driver [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not stack-driver'
+claude stack-driver [O-1] ep=0 exit=2 sha= :: "error: brief: stack-driver O-1 needs --lease <n>, the Driver's lease on its unit"
+claude stack-driver [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not stack-driver'
+claude stack-driver [crf] ep=0 exit=2 sha= :: "error: brief: stack-driver <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf needs --lease <n>, the Driver's lease o"
+claude stack-driver [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not stack-driver'
+claude qa-driver [] ep=0 exit=0 sha=88268f4fa7ba84b5 :: 'chantier qa-driver for <folder> of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj'
+claude qa-driver [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not qa-driver'
+claude qa-driver [CR-101] ep=0 exit=2 sha= :: "error: brief: qa-driver CR-101 needs --lease <n>, the Driver's lease on its unit"
+claude qa-driver [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not qa-driver'
+claude qa-driver [stack] ep=0 exit=2 sha= :: "error: brief: qa-driver stack needs --lease <n>, the Driver's lease on its unit"
+claude qa-driver [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not qa-driver'
+claude qa-driver [O-1] ep=0 exit=2 sha= :: "error: brief: qa-driver O-1 needs --lease <n>, the Driver's lease on its unit"
+claude qa-driver [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not qa-driver'
+claude qa-driver [crf] ep=0 exit=2 sha= :: "error: brief: qa-driver <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf needs --lease <n>, the Driver's lease on i"
+claude qa-driver [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not qa-driver'
+claude investigator [] ep=0 exit=0 sha=1cb34ae1b9f12547 :: 'chantier investigator for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scr'
+claude investigator [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not investigator'
+claude investigator [CR-101] ep=0 exit=0 sha=6488f6ca77e82368 :: 'chantier investigator for CR-101 "spec" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scra'
+claude investigator [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not investigator'
+claude investigator [stack] ep=0 exit=2 sha= :: 'error: brief: unknown CR stack in batch batch-01'
+claude investigator [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not investigator'
+claude investigator [O-1] ep=0 exit=2 sha= :: 'error: brief: unknown CR O-1 in batch batch-01'
+claude investigator [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not investigator'
+claude investigator [crf] ep=0 exit=2 sha= :: 'error: brief: unknown CR <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf in batch batch-01'
+claude investigator [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not investigator'
+claude coder [] ep=0 exit=0 sha=026cb631e9eb8f74 :: 'chantier coder for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/pr'
+claude coder [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not coder'
+claude coder [CR-101] ep=0 exit=0 sha=a54f9685c51ac984 :: 'chantier coder for CR-101 "spec" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/pro'
+claude coder [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not coder'
+claude coder [stack] ep=0 exit=2 sha= :: 'error: brief: unknown CR stack in batch batch-01'
+claude coder [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not coder'
+claude coder [O-1] ep=0 exit=2 sha= :: 'error: brief: unknown CR O-1 in batch batch-01'
+claude coder [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not coder'
+claude coder [crf] ep=0 exit=2 sha= :: 'error: brief: unknown CR <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf in batch batch-01'
+claude coder [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not coder'
+claude debugger [] ep=0 exit=0 sha=e52604aa589bfff2 :: 'chantier debugger for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch'
+claude debugger [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not debugger'
+claude debugger [CR-101] ep=0 exit=0 sha=bbeb500eedb12050 :: 'chantier debugger for CR-101 "spec" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/'
+claude debugger [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not debugger'
+claude debugger [stack] ep=0 exit=2 sha= :: 'error: brief: unknown CR stack in batch batch-01'
+claude debugger [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not debugger'
+claude debugger [O-1] ep=0 exit=2 sha= :: 'error: brief: unknown CR O-1 in batch batch-01'
+claude debugger [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not debugger'
+claude debugger [crf] ep=0 exit=2 sha= :: 'error: brief: unknown CR <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf in batch batch-01'
+claude debugger [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not debugger'
+claude conflict-resolver [] ep=0 exit=0 sha=3fb96d3481ef297c :: 'chantier conflict-resolver for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/wor'
+claude conflict-resolver [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not conflict-resolver'
+claude conflict-resolver [CR-101] ep=0 exit=0 sha=caf8d1aa2f46fc4d :: 'chantier conflict-resolver for CR-101 "spec" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work'
+claude conflict-resolver [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not conflict-resolver'
+claude conflict-resolver [stack] ep=0 exit=2 sha= :: 'error: brief: unknown CR stack in batch batch-01'
+claude conflict-resolver [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not conflict-resolver'
+claude conflict-resolver [O-1] ep=0 exit=2 sha= :: 'error: brief: unknown CR O-1 in batch batch-01'
+claude conflict-resolver [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not conflict-resolver'
+claude conflict-resolver [crf] ep=0 exit=2 sha= :: 'error: brief: unknown CR <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf in batch batch-01'
+claude conflict-resolver [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not conflict-resolver'
+claude verifier [] ep=0 exit=0 sha=5a03e4a61aef5aca :: 'chantier verifier for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch'
+claude verifier [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not verifier'
+claude verifier [CR-101] ep=0 exit=0 sha=96fa0177f3ab4c45 :: 'chantier verifier for CR-101 "spec" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/'
+claude verifier [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not verifier'
+claude verifier [stack] ep=0 exit=2 sha= :: 'error: brief: unknown CR stack in batch batch-01'
+claude verifier [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not verifier'
+claude verifier [O-1] ep=0 exit=2 sha= :: 'error: brief: unknown CR O-1 in batch batch-01'
+claude verifier [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not verifier'
+claude verifier [crf] ep=0 exit=2 sha= :: 'error: brief: unknown CR <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf in batch batch-01'
+claude verifier [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not verifier'
+claude inspector [] ep=0 exit=0 sha=15e8e6861a79f607 :: 'chantier inspector for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratc'
+claude inspector [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not inspector'
+claude inspector [CR-101] ep=0 exit=0 sha=9687cb4a95506073 :: 'chantier inspector for CR-101 "spec" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch'
+claude inspector [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not inspector'
+claude inspector [stack] ep=0 exit=2 sha= :: 'error: brief: unknown CR stack in batch batch-01'
+claude inspector [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not inspector'
+claude inspector [O-1] ep=0 exit=2 sha= :: 'error: brief: unknown CR O-1 in batch batch-01'
+claude inspector [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not inspector'
+claude inspector [crf] ep=0 exit=2 sha= :: 'error: brief: unknown CR <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf in batch batch-01'
+claude inspector [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not inspector'
+claude demo-explorer [] ep=0 exit=0 sha=4c1c7a2f70e3a9fa :: 'chantier demo-explorer for the Chief of Staff of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/wor'
+claude demo-explorer [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not demo-explorer'
+claude demo-explorer [CR-101] ep=0 exit=2 sha= :: "error: brief: demo-explorer has no unit: give none (got 'CR-101')"
+claude demo-explorer [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not demo-explorer'
+claude demo-explorer [stack] ep=0 exit=2 sha= :: "error: brief: demo-explorer has no unit: give none (got 'stack')"
+claude demo-explorer [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not demo-explorer'
+claude demo-explorer [O-1] ep=0 exit=2 sha= :: "error: brief: demo-explorer has no unit: give none (got 'O-1')"
+claude demo-explorer [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not demo-explorer'
+claude demo-explorer [crf] ep=0 exit=2 sha= :: "error: brief: demo-explorer has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+claude demo-explorer [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not demo-explorer'
+claude spec-writer [] ep=0 exit=0 sha=768b51cf66d327fa :: 'chantier spec-writer for the Chief of Staff, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj.\nRead'
+claude spec-writer [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-writer'
+claude spec-writer [CR-101] ep=0 exit=2 sha= :: 'error: brief: CR-101 is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+claude spec-writer [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-writer'
+claude spec-writer [stack] ep=0 exit=2 sha= :: 'error: brief: stack is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+claude spec-writer [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-writer'
+claude spec-writer [O-1] ep=0 exit=2 sha= :: 'error: brief: O-1 is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+claude spec-writer [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-writer'
+claude spec-writer [crf] ep=0 exit=2 sha= :: 'error: brief: <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3'
+claude spec-writer [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-writer'
+claude spec-critic [] ep=0 exit=0 sha=f51d0b5091db6e59 :: 'chantier spec-critic for the Chief of Staff, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj.\nRead'
+claude spec-critic [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-critic'
+claude spec-critic [CR-101] ep=0 exit=2 sha= :: 'error: brief: CR-101 is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+claude spec-critic [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-critic'
+claude spec-critic [stack] ep=0 exit=2 sha= :: 'error: brief: stack is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+claude spec-critic [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-critic'
+claude spec-critic [O-1] ep=0 exit=2 sha= :: 'error: brief: O-1 is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+claude spec-critic [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-critic'
+claude spec-critic [crf] ep=0 exit=2 sha= :: 'error: brief: <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3'
+claude spec-critic [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-critic'
+claude retro-critic [] ep=0 exit=0 sha=6e9e331cc759a6fb :: 'chantier retro-critic for the Chief of Staff, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj.\nRea'
+claude retro-critic [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not retro-critic'
+claude retro-critic [CR-101] ep=0 exit=2 sha= :: "error: brief: retro-critic has no unit: give none (got 'CR-101')"
+claude retro-critic [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not retro-critic'
+claude retro-critic [stack] ep=0 exit=2 sha= :: "error: brief: retro-critic has no unit: give none (got 'stack')"
+claude retro-critic [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not retro-critic'
+claude retro-critic [O-1] ep=0 exit=2 sha= :: "error: brief: retro-critic has no unit: give none (got 'O-1')"
+claude retro-critic [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not retro-critic'
+claude retro-critic [crf] ep=0 exit=2 sha= :: "error: brief: retro-critic has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+claude retro-critic [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not retro-critic'
+claude board-griller [] ep=0 exit=0 sha=1368e29fd971ede5 :: 'chantier board-griller for the board, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj.\nRead C:/Use'
+claude board-griller [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not board-griller'
+claude board-griller [CR-101] ep=0 exit=2 sha= :: 'error: brief: CR-101 is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+claude board-griller [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not board-griller'
+claude board-griller [stack] ep=0 exit=2 sha= :: 'error: brief: stack is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+claude board-griller [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not board-griller'
+claude board-griller [O-1] ep=0 exit=2 sha= :: 'error: brief: O-1 is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+claude board-griller [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not board-griller'
+claude board-griller [crf] ep=0 exit=2 sha= :: 'error: brief: <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3'
+claude board-griller [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not board-griller'
+copilot chief-of-staff [] ep=0 exit=0 sha=81d1be3986578e3b :: 'Read <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj/.git/chantier/briefs/proj/batch-01/none-chief-of-staff.md wh'
+copilot chief-of-staff [] ep=1 exit=0 sha=81d1be3986578e3b :: 'Read <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj/.git/chantier/briefs/proj/batch-01/none-chief-of-staff.md wh'
+copilot chief-of-staff [CR-101] ep=0 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got 'CR-101')"
+copilot chief-of-staff [CR-101] ep=1 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got 'CR-101')"
+copilot chief-of-staff [stack] ep=0 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got 'stack')"
+copilot chief-of-staff [stack] ep=1 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got 'stack')"
+copilot chief-of-staff [O-1] ep=0 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got 'O-1')"
+copilot chief-of-staff [O-1] ep=1 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got 'O-1')"
+copilot chief-of-staff [crf] ep=0 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+copilot chief-of-staff [crf] ep=1 exit=2 sha= :: "error: brief: chief-of-staff has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+copilot griller [] ep=0 exit=0 sha=ed3b77a7e499996a :: 'Read <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj/.git/chantier/briefs/proj/batch-01/none-griller.md whole, fi'
+copilot griller [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not griller'
+copilot griller [CR-101] ep=0 exit=2 sha= :: "error: brief: griller has no unit: give none (got 'CR-101')"
+copilot griller [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not griller'
+copilot griller [stack] ep=0 exit=2 sha= :: "error: brief: griller has no unit: give none (got 'stack')"
+copilot griller [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not griller'
+copilot griller [O-1] ep=0 exit=2 sha= :: "error: brief: griller has no unit: give none (got 'O-1')"
+copilot griller [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not griller'
+copilot griller [crf] ep=0 exit=2 sha= :: "error: brief: griller has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+copilot griller [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not griller'
+copilot foreman [] ep=0 exit=0 sha=d4ad81564f5cf2f9 :: 'Read <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj/.git/chantier/briefs/proj/batch-01/none-foreman.md whole, fi'
+copilot foreman [] ep=1 exit=0 sha=d4ad81564f5cf2f9 :: 'Read <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj/.git/chantier/briefs/proj/batch-01/none-foreman.md whole, fi'
+copilot foreman [CR-101] ep=0 exit=2 sha= :: "error: brief: foreman has no unit: give none (got 'CR-101')"
+copilot foreman [CR-101] ep=1 exit=2 sha= :: "error: brief: foreman has no unit: give none (got 'CR-101')"
+copilot foreman [stack] ep=0 exit=2 sha= :: "error: brief: foreman has no unit: give none (got 'stack')"
+copilot foreman [stack] ep=1 exit=2 sha= :: "error: brief: foreman has no unit: give none (got 'stack')"
+copilot foreman [O-1] ep=0 exit=2 sha= :: "error: brief: foreman has no unit: give none (got 'O-1')"
+copilot foreman [O-1] ep=1 exit=2 sha= :: "error: brief: foreman has no unit: give none (got 'O-1')"
+copilot foreman [crf] ep=0 exit=2 sha= :: "error: brief: foreman has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+copilot foreman [crf] ep=1 exit=2 sha= :: "error: brief: foreman has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+copilot cr-driver [] ep=0 exit=0 sha=88268f4fa7ba84b5 :: 'chantier cr-driver for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratc'
+copilot cr-driver [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not cr-driver'
+copilot cr-driver [CR-101] ep=0 exit=2 sha= :: "error: brief: cr-driver CR-101 needs --lease <n>, the Driver's lease on its unit"
+copilot cr-driver [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not cr-driver'
+copilot cr-driver [stack] ep=0 exit=2 sha= :: "error: brief: cr-driver stack needs --lease <n>, the Driver's lease on its unit"
+copilot cr-driver [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not cr-driver'
+copilot cr-driver [O-1] ep=0 exit=2 sha= :: "error: brief: cr-driver O-1 needs --lease <n>, the Driver's lease on its unit"
+copilot cr-driver [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not cr-driver'
+copilot cr-driver [crf] ep=0 exit=2 sha= :: "error: brief: cr-driver <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf needs --lease <n>, the Driver's lease on i"
+copilot cr-driver [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not cr-driver'
+copilot release-driver [] ep=0 exit=0 sha=88268f4fa7ba84b5 :: 'chantier release-driver for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/s'
+copilot release-driver [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not release-driver'
+copilot release-driver [CR-101] ep=0 exit=2 sha= :: "error: brief: release-driver CR-101 needs --lease <n>, the Driver's lease on its unit"
+copilot release-driver [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not release-driver'
+copilot release-driver [stack] ep=0 exit=2 sha= :: "error: brief: release-driver stack needs --lease <n>, the Driver's lease on its unit"
+copilot release-driver [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not release-driver'
+copilot release-driver [O-1] ep=0 exit=2 sha= :: "error: brief: release-driver O-1 needs --lease <n>, the Driver's lease on its unit"
+copilot release-driver [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not release-driver'
+copilot release-driver [crf] ep=0 exit=2 sha= :: "error: brief: release-driver <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf needs --lease <n>, the Driver's lease"
+copilot release-driver [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not release-driver'
+copilot stack-driver [] ep=0 exit=0 sha=88268f4fa7ba84b5 :: 'chantier stack-driver for the stack of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/'
+copilot stack-driver [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not stack-driver'
+copilot stack-driver [CR-101] ep=0 exit=2 sha= :: "error: brief: stack-driver CR-101 needs --lease <n>, the Driver's lease on its unit"
+copilot stack-driver [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not stack-driver'
+copilot stack-driver [stack] ep=0 exit=2 sha= :: "error: brief: stack-driver stack needs --lease <n>, the Driver's lease on its unit"
+copilot stack-driver [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not stack-driver'
+copilot stack-driver [O-1] ep=0 exit=2 sha= :: "error: brief: stack-driver O-1 needs --lease <n>, the Driver's lease on its unit"
+copilot stack-driver [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not stack-driver'
+copilot stack-driver [crf] ep=0 exit=2 sha= :: "error: brief: stack-driver <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf needs --lease <n>, the Driver's lease o"
+copilot stack-driver [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not stack-driver'
+copilot qa-driver [] ep=0 exit=0 sha=88268f4fa7ba84b5 :: 'chantier qa-driver for <folder> of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj'
+copilot qa-driver [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not qa-driver'
+copilot qa-driver [CR-101] ep=0 exit=2 sha= :: "error: brief: qa-driver CR-101 needs --lease <n>, the Driver's lease on its unit"
+copilot qa-driver [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not qa-driver'
+copilot qa-driver [stack] ep=0 exit=2 sha= :: "error: brief: qa-driver stack needs --lease <n>, the Driver's lease on its unit"
+copilot qa-driver [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not qa-driver'
+copilot qa-driver [O-1] ep=0 exit=2 sha= :: "error: brief: qa-driver O-1 needs --lease <n>, the Driver's lease on its unit"
+copilot qa-driver [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not qa-driver'
+copilot qa-driver [crf] ep=0 exit=2 sha= :: "error: brief: qa-driver <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf needs --lease <n>, the Driver's lease on i"
+copilot qa-driver [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not qa-driver'
+copilot investigator [] ep=0 exit=0 sha=1cb34ae1b9f12547 :: 'chantier investigator for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scr'
+copilot investigator [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not investigator'
+copilot investigator [CR-101] ep=0 exit=0 sha=6488f6ca77e82368 :: 'chantier investigator for CR-101 "spec" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scra'
+copilot investigator [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not investigator'
+copilot investigator [stack] ep=0 exit=2 sha= :: 'error: brief: unknown CR stack in batch batch-01'
+copilot investigator [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not investigator'
+copilot investigator [O-1] ep=0 exit=2 sha= :: 'error: brief: unknown CR O-1 in batch batch-01'
+copilot investigator [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not investigator'
+copilot investigator [crf] ep=0 exit=2 sha= :: 'error: brief: unknown CR <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf in batch batch-01'
+copilot investigator [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not investigator'
+copilot coder [] ep=0 exit=0 sha=026cb631e9eb8f74 :: 'chantier coder for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/pr'
+copilot coder [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not coder'
+copilot coder [CR-101] ep=0 exit=0 sha=a54f9685c51ac984 :: 'chantier coder for CR-101 "spec" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/pro'
+copilot coder [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not coder'
+copilot coder [stack] ep=0 exit=2 sha= :: 'error: brief: unknown CR stack in batch batch-01'
+copilot coder [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not coder'
+copilot coder [O-1] ep=0 exit=2 sha= :: 'error: brief: unknown CR O-1 in batch batch-01'
+copilot coder [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not coder'
+copilot coder [crf] ep=0 exit=2 sha= :: 'error: brief: unknown CR <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf in batch batch-01'
+copilot coder [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not coder'
+copilot debugger [] ep=0 exit=0 sha=e52604aa589bfff2 :: 'chantier debugger for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch'
+copilot debugger [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not debugger'
+copilot debugger [CR-101] ep=0 exit=0 sha=bbeb500eedb12050 :: 'chantier debugger for CR-101 "spec" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/'
+copilot debugger [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not debugger'
+copilot debugger [stack] ep=0 exit=2 sha= :: 'error: brief: unknown CR stack in batch batch-01'
+copilot debugger [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not debugger'
+copilot debugger [O-1] ep=0 exit=2 sha= :: 'error: brief: unknown CR O-1 in batch batch-01'
+copilot debugger [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not debugger'
+copilot debugger [crf] ep=0 exit=2 sha= :: 'error: brief: unknown CR <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf in batch batch-01'
+copilot debugger [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not debugger'
+copilot conflict-resolver [] ep=0 exit=0 sha=3fb96d3481ef297c :: 'chantier conflict-resolver for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/wor'
+copilot conflict-resolver [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not conflict-resolver'
+copilot conflict-resolver [CR-101] ep=0 exit=0 sha=caf8d1aa2f46fc4d :: 'chantier conflict-resolver for CR-101 "spec" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work'
+copilot conflict-resolver [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not conflict-resolver'
+copilot conflict-resolver [stack] ep=0 exit=2 sha= :: 'error: brief: unknown CR stack in batch batch-01'
+copilot conflict-resolver [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not conflict-resolver'
+copilot conflict-resolver [O-1] ep=0 exit=2 sha= :: 'error: brief: unknown CR O-1 in batch batch-01'
+copilot conflict-resolver [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not conflict-resolver'
+copilot conflict-resolver [crf] ep=0 exit=2 sha= :: 'error: brief: unknown CR <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf in batch batch-01'
+copilot conflict-resolver [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not conflict-resolver'
+copilot verifier [] ep=0 exit=0 sha=5a03e4a61aef5aca :: 'chantier verifier for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch'
+copilot verifier [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not verifier'
+copilot verifier [CR-101] ep=0 exit=0 sha=96fa0177f3ab4c45 :: 'chantier verifier for CR-101 "spec" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/'
+copilot verifier [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not verifier'
+copilot verifier [stack] ep=0 exit=2 sha= :: 'error: brief: unknown CR stack in batch batch-01'
+copilot verifier [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not verifier'
+copilot verifier [O-1] ep=0 exit=2 sha= :: 'error: brief: unknown CR O-1 in batch batch-01'
+copilot verifier [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not verifier'
+copilot verifier [crf] ep=0 exit=2 sha= :: 'error: brief: unknown CR <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf in batch batch-01'
+copilot verifier [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not verifier'
+copilot inspector [] ep=0 exit=0 sha=15e8e6861a79f607 :: 'chantier inspector for <cr> "<title>" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratc'
+copilot inspector [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not inspector'
+copilot inspector [CR-101] ep=0 exit=0 sha=9687cb4a95506073 :: 'chantier inspector for CR-101 "spec" of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch'
+copilot inspector [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not inspector'
+copilot inspector [stack] ep=0 exit=2 sha= :: 'error: brief: unknown CR stack in batch batch-01'
+copilot inspector [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not inspector'
+copilot inspector [O-1] ep=0 exit=2 sha= :: 'error: brief: unknown CR O-1 in batch batch-01'
+copilot inspector [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not inspector'
+copilot inspector [crf] ep=0 exit=2 sha= :: 'error: brief: unknown CR <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf in batch batch-01'
+copilot inspector [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not inspector'
+copilot demo-explorer [] ep=0 exit=0 sha=4c1c7a2f70e3a9fa :: 'chantier demo-explorer for the Chief of Staff of batch batch-01, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/wor'
+copilot demo-explorer [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not demo-explorer'
+copilot demo-explorer [CR-101] ep=0 exit=2 sha= :: "error: brief: demo-explorer has no unit: give none (got 'CR-101')"
+copilot demo-explorer [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not demo-explorer'
+copilot demo-explorer [stack] ep=0 exit=2 sha= :: "error: brief: demo-explorer has no unit: give none (got 'stack')"
+copilot demo-explorer [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not demo-explorer'
+copilot demo-explorer [O-1] ep=0 exit=2 sha= :: "error: brief: demo-explorer has no unit: give none (got 'O-1')"
+copilot demo-explorer [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not demo-explorer'
+copilot demo-explorer [crf] ep=0 exit=2 sha= :: "error: brief: demo-explorer has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+copilot demo-explorer [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not demo-explorer'
+copilot spec-writer [] ep=0 exit=0 sha=768b51cf66d327fa :: 'chantier spec-writer for the Chief of Staff, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj.\nRead'
+copilot spec-writer [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-writer'
+copilot spec-writer [CR-101] ep=0 exit=2 sha= :: 'error: brief: CR-101 is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+copilot spec-writer [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-writer'
+copilot spec-writer [stack] ep=0 exit=2 sha= :: 'error: brief: stack is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+copilot spec-writer [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-writer'
+copilot spec-writer [O-1] ep=0 exit=2 sha= :: 'error: brief: O-1 is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+copilot spec-writer [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-writer'
+copilot spec-writer [crf] ep=0 exit=2 sha= :: 'error: brief: <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3'
+copilot spec-writer [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-writer'
+copilot spec-critic [] ep=0 exit=0 sha=f51d0b5091db6e59 :: 'chantier spec-critic for the Chief of Staff, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj.\nRead'
+copilot spec-critic [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-critic'
+copilot spec-critic [CR-101] ep=0 exit=2 sha= :: 'error: brief: CR-101 is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+copilot spec-critic [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-critic'
+copilot spec-critic [stack] ep=0 exit=2 sha= :: 'error: brief: stack is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+copilot spec-critic [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-critic'
+copilot spec-critic [O-1] ep=0 exit=2 sha= :: 'error: brief: O-1 is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+copilot spec-critic [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-critic'
+copilot spec-critic [crf] ep=0 exit=2 sha= :: 'error: brief: <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3'
+copilot spec-critic [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not spec-critic'
+copilot retro-critic [] ep=0 exit=0 sha=6e9e331cc759a6fb :: 'chantier retro-critic for the Chief of Staff, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj.\nRea'
+copilot retro-critic [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not retro-critic'
+copilot retro-critic [CR-101] ep=0 exit=2 sha= :: "error: brief: retro-critic has no unit: give none (got 'CR-101')"
+copilot retro-critic [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not retro-critic'
+copilot retro-critic [stack] ep=0 exit=2 sha= :: "error: brief: retro-critic has no unit: give none (got 'stack')"
+copilot retro-critic [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not retro-critic'
+copilot retro-critic [O-1] ep=0 exit=2 sha= :: "error: brief: retro-critic has no unit: give none (got 'O-1')"
+copilot retro-critic [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not retro-critic'
+copilot retro-critic [crf] ep=0 exit=2 sha= :: "error: brief: retro-critic has no unit: give none (got '<surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf')"
+copilot retro-critic [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not retro-critic'
+copilot board-griller [] ep=0 exit=0 sha=1368e29fd971ede5 :: 'chantier board-griller for the board, in the project <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/proj.\nRead C:/Use'
+copilot board-griller [] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not board-griller'
+copilot board-griller [CR-101] ep=0 exit=2 sha= :: 'error: brief: CR-101 is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+copilot board-griller [CR-101] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not board-griller'
+copilot board-griller [stack] ep=0 exit=2 sha= :: 'error: brief: stack is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+copilot board-griller [stack] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not board-griller'
+copilot board-griller [O-1] ep=0 exit=2 sha= :: 'error: brief: O-1 is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3-ready: a spec role works on an item of the inbox, the backlog or `3-ready`'
+copilot board-griller [O-1] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not board-griller'
+copilot board-griller [crf] ep=0 exit=2 sha= :: 'error: brief: <surface>/projects/chantier/changes/4-batch/2-actives/502-sc16-retro-draft/work/scratch/crf is not a CR folder of 1-inbox, 2-backlog/P1..P4 or 3'
+copilot board-griller [crf] ep=1 exit=2 sha= :: 'error: brief: --epoch is for foreman and chief-of-staff only, not board-griller'
+TOTAL 360 briefs written 52

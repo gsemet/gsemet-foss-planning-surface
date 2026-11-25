@@ -49,7 +49,9 @@ Grade: 1. New commands and files only; `cost`'s output is unchanged (its top mov
 - The launcher adds about 130 to 145 ms per call on the trial machine.
 - An unfilled draft section left in `retro.md` would be archived as is at the batch's close; nothing writes one until the cards say to.
 - The draft reads only the batch's events and the spend: red CI, refused host commands and rounds past the first are left to the author.
-- Seconds added to `just test`: see the Test plan.
+- The local long gate is not run here: this PR is not the top of its chain of pull requests, and the scenario job on ubuntu is green at `f7b74e6`.
+- `help --for router`, `--for status` and an unknown name now refuse with the list of the 18 roles, as the specification asks.
+- The AGENTS.md launcher sentence reads awkwardly ("which picks the mode" can read as referring to `.venv`); left as a cosmetic defect.
 
 <details>
 <summary>Details</summary>
@@ -69,9 +71,9 @@ No visual change. Developers get `just roles`, the launcher and `retro draft`; u
 - [ ] New tests: `test_retro_draft.py`, `test_launcher.py`, `test_roles_data.py`
 - [x] Local gates at `f7b74e6`: `just check` pass (2932 passed, 20 skipped); `just eval-dry-run` pass (25 of 25)
 - [x] Evidence: launcher trial recorded above, run at `d7db74a`
-- [ ] Review: pending
-- [ ] Verified: pending
-- [ ] CI green: pending
+- [x] Review: approved per part at `2ced739` (retro draft, after its body items were fixed), `d7db74a` (launcher) and `d7db74a` for roles, committed as `f7b74e6`
+- [x] Verified at `f7b74e6`
+- [x] CI green at `f7b74e6`: `gh pr checks 484`: check on three systems, eval-dry-run and scenario (ubuntu) pass
 
 Seconds of `just test` on the same machine: 117.1 s at the base (`eb1f4d0`, 2745 tests) and 130.6 s at `f7b74e6` (2932 tests). The 187 added tests add about 13 s; the machine was noisy, and part of the figure is the chain's earlier PRs, which are in this branch's base. Alone, the new files take about 1.7 s (retro draft), 3.4 s (launcher) and 2 s (roles), measured by their authors.
 
