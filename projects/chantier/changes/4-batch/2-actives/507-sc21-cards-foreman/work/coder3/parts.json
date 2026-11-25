@@ -1,0 +1,339 @@
+{
+ "parts": {
+  "grill-backlog": [
+   "grill-backlog-p1",
+   "grill-backlog-p2"
+  ],
+  "grill-specify": [
+   "grill-specify-p1",
+   "grill-specify-p2"
+  ],
+  "ticket-summary": [
+   "ticket-summary-p1",
+   "ticket-summary-p2"
+  ],
+  "ticket-summary-post": [
+   "ticket-summary-post-p1",
+   "ticket-summary-post-p2"
+  ],
+  "session-start-surface": [
+   "session-start-surface-p1",
+   "session-start-surface-p2"
+  ],
+  "seat": [
+   "seat-p1",
+   "seat-p2"
+  ],
+  "first-turn": [
+   "first-turn-p1",
+   "first-turn-p2"
+  ],
+  "board": [
+   "board-p1",
+   "board-p2"
+  ],
+  "allow-rules-more": [
+   "allow-rules-more-p1",
+   "allow-rules-more-p2"
+  ],
+  "config": [
+   "config-p1",
+   "config-p2"
+  ],
+  "refusals-to-say": [
+   "refusals-to-say-p1",
+   "refusals-to-say-p2"
+  ],
+  "compacting": [
+   "compacting-p1",
+   "compacting-p2"
+  ],
+  "delivery-time": [
+   "delivery-time-p1",
+   "delivery-time-p2"
+  ],
+  "batch-plan-mode": [
+   "batch-plan-mode-p1",
+   "batch-plan-mode-p2"
+  ],
+  "foreman-start": [
+   "foreman-start-p1",
+   "foreman-start-p2"
+  ],
+  "steering-reports": [
+   "steering-reports-p1",
+   "steering-reports-p2"
+  ],
+  "refused-push-chief": [
+   "refused-push-chief-p1",
+   "refused-push-chief-p2"
+  ],
+  "refused-push-chief-more": [
+   "refused-push-chief-more-p1",
+   "refused-push-chief-more-p2"
+  ],
+  "merge-series-stack": [
+   "merge-series-stack-p1",
+   "merge-series-stack-p2"
+  ],
+  "merge-stack-ready": [
+   "merge-stack-ready-p1",
+   "merge-stack-ready-p2"
+  ],
+  "stack-changes-chief": [
+   "stack-changes-chief-p1",
+   "stack-changes-chief-p2"
+  ],
+  "retro-route": [
+   "retro-route-p1",
+   "retro-route-p2"
+  ],
+  "retro-route-chantier": [
+   "retro-route-chantier-p1",
+   "retro-route-chantier-p2"
+  ],
+  "batch-close": [
+   "batch-close-p1",
+   "batch-close-p2"
+  ],
+  "batch-close-stopped": [
+   "batch-close-stopped-p1",
+   "batch-close-stopped-p2"
+  ],
+  "direct-mode": [
+   "direct-mode-p1",
+   "direct-mode-p2",
+   "direct-mode-p3"
+  ],
+  "direct-mode-epoch": [
+   "direct-mode-epoch-p1",
+   "direct-mode-epoch-p2"
+  ],
+  "direct-mode-accept": [
+   "direct-mode-accept-p1",
+   "direct-mode-accept-p2"
+  ],
+  "release-chief": [
+   "release-chief-p1",
+   "release-chief-p2"
+  ],
+  "release-chief-approve": [
+   "release-chief-approve-p1",
+   "release-chief-approve-p2"
+  ],
+  "release-chief-auto": [
+   "release-chief-auto-p1",
+   "release-chief-auto-p2"
+  ],
+  "release-chief-after": [
+   "release-chief-after-p1",
+   "release-chief-after-p2"
+  ],
+  "demo": [
+   "demo-p1",
+   "demo-p2"
+  ]
+ },
+ "sizes": {
+  "grill-series": 1165,
+  "grill-options": 1218,
+  "grill-backlog-p1": 1203,
+  "grill-backlog-p2": 651,
+  "grill-restate": 1173,
+  "grill-specify-p1": 1393,
+  "grill-specify-p2": 242,
+  "grill-critic": 1276,
+  "grill-critic-steps": 1339,
+  "where-cr-goes": 1453,
+  "grill-surface": 1066,
+  "grill-outside-pr": 1281,
+  "ticket-summary-p1": 1384,
+  "ticket-summary-p2": 313,
+  "ticket-summary-post-p1": 1345,
+  "ticket-summary-post-p2": 450,
+  "session-start": 892,
+  "session-start-surface-p1": 1254,
+  "session-start-surface-p2": 400,
+  "seat-p1": 1402,
+  "seat-p2": 835,
+  "first-turn-p1": 1287,
+  "first-turn-p2": 878,
+  "reload": 766,
+  "titles": 1415,
+  "writer": 1116,
+  "griller-worktree": 1161,
+  "griller-cost": 228,
+  "board-p1": 1311,
+  "board-p2": 256,
+  "board-lines": 1464,
+  "board-restart": 1219,
+  "watcher": 1366,
+  "watcher-lines": 1399,
+  "watcher-events": 1470,
+  "watcher-board": 1239,
+  "watcher-pull": 786,
+  "remote-login": 975,
+  "allow-rules": 1286,
+  "allow-rules-more-p1": 1405,
+  "allow-rules-more-p2": 366,
+  "forge-permissions": 1444,
+  "forge-permissions-say": 761,
+  "forge-permissions-gitlab": 877,
+  "config-p1": 1402,
+  "config-p2": 785,
+  "project-rules": 1442,
+  "options": 1087,
+  "refusals-to-say-p1": 1260,
+  "refusals-to-say-p2": 500,
+  "refusals-to-say-more": 1459,
+  "compacting-p1": 1215,
+  "compacting-p2": 357,
+  "delivery-time-p1": 1448,
+  "delivery-time-p2": 540,
+  "trials": 1478,
+  "batch-plan": 1455,
+  "batch-plan-show": 1329,
+  "batch-plan-mode-p1": 1414,
+  "batch-plan-mode-p2": 813,
+  "batch-plan-cut": 1420,
+  "foreman-start-p1": 882,
+  "foreman-start-p2": 1118,
+  "foreman-start-more": 1101,
+  "steering-reports-p1": 1360,
+  "steering-reports-p2": 550,
+  "refused-push-chief-p1": 1427,
+  "refused-push-chief-p2": 380,
+  "refused-push-chief-more-p1": 1162,
+  "refused-push-chief-more-p2": 509,
+  "refused-rebase-chief": 1256,
+  "refused-forge-chain": 802,
+  "asks": 658,
+  "cost": 292,
+  "chain-conflict": 1094,
+  "rounds-exception": 836,
+  "driver-question": 1333,
+  "merge-words": 1452,
+  "merge-gaps": 1335,
+  "merge-recorded": 1074,
+  "merge-series-stack-p1": 828,
+  "merge-series-stack-p2": 1036,
+  "merge-stack-ready-p1": 1374,
+  "merge-stack-ready-p2": 816,
+  "merge-stack-gitlab": 1159,
+  "stack-changes-chief-p1": 619,
+  "stack-changes-chief-p2": 1426,
+  "batch-pause": 1235,
+  "retro-route-p1": 1071,
+  "retro-route-p2": 960,
+  "retro-route-chantier-p1": 1375,
+  "retro-route-chantier-p2": 438,
+  "batch-close-p1": 1104,
+  "batch-close-p2": 623,
+  "batch-close-stopped-p1": 1427,
+  "batch-close-stopped-p2": 301,
+  "recovery": 1301,
+  "direct-mode-p1": 1202,
+  "direct-mode-p2": 1420,
+  "direct-mode-p3": 351,
+  "direct-mode-epoch-p1": 868,
+  "direct-mode-epoch-p2": 919,
+  "direct-mode-accept-p1": 1422,
+  "direct-mode-accept-p2": 657,
+  "release-chief-p1": 1432,
+  "release-chief-p2": 1224,
+  "release-chief-approve-p1": 1161,
+  "release-chief-approve-p2": 522,
+  "release-chief-auto-p1": 1243,
+  "release-chief-auto-p2": 585,
+  "release-chief-after-p1": 1223,
+  "release-chief-after-p2": 826,
+  "seat-handover": 1336,
+  "demo-p1": 1135,
+  "demo-p2": 536,
+  "pr-template-own": 309
+ },
+ "names": [
+  "grill-series",
+  "grill-options",
+  "grill-backlog",
+  "grill-restate",
+  "grill-specify",
+  "grill-critic",
+  "grill-critic-steps",
+  "where-cr-goes",
+  "grill-surface",
+  "grill-outside-pr",
+  "ticket-summary",
+  "ticket-summary-post",
+  "session-start",
+  "session-start-surface",
+  "seat",
+  "first-turn",
+  "reload",
+  "titles",
+  "writer",
+  "griller-worktree",
+  "griller-cost",
+  "board",
+  "board-lines",
+  "board-restart",
+  "watcher",
+  "watcher-lines",
+  "watcher-events",
+  "watcher-board",
+  "watcher-pull",
+  "remote-login",
+  "allow-rules",
+  "allow-rules-more",
+  "forge-permissions",
+  "forge-permissions-say",
+  "forge-permissions-gitlab",
+  "config",
+  "project-rules",
+  "options",
+  "refusals-to-say",
+  "refusals-to-say-more",
+  "compacting",
+  "delivery-time",
+  "trials",
+  "batch-plan",
+  "batch-plan-show",
+  "batch-plan-mode",
+  "batch-plan-cut",
+  "foreman-start",
+  "foreman-start-more",
+  "steering-reports",
+  "refused-push-chief",
+  "refused-push-chief-more",
+  "refused-rebase-chief",
+  "refused-forge-chain",
+  "asks",
+  "cost",
+  "chain-conflict",
+  "rounds-exception",
+  "driver-question",
+  "merge-words",
+  "merge-gaps",
+  "merge-recorded",
+  "merge-series-stack",
+  "merge-stack-ready",
+  "merge-stack-gitlab",
+  "stack-changes-chief",
+  "batch-pause",
+  "retro-route",
+  "retro-route-chantier",
+  "batch-close",
+  "batch-close-stopped",
+  "recovery",
+  "direct-mode",
+  "direct-mode-epoch",
+  "direct-mode-accept",
+  "release-chief",
+  "release-chief-approve",
+  "release-chief-auto",
+  "release-chief-after",
+  "seat-handover",
+  "demo",
+  "pr-template-own"
+ ]
+}
