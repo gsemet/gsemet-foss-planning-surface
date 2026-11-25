@@ -60,12 +60,12 @@ No visual change. Agents' existing near-miss calls now work; canonical forms are
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`
-- [ ] Evidence: before at `<sha7>`, after at `<sha7>`
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] New or changed tests (they fail on the previous code): `tests/test_near_misses.py`, `tests/test_near_misses_help.py`
+- [x] Local gates at `b64d3c1`: `just check` pass, `just eval-dry-run` pass (19/19), long gate `scenario` pass
+- [x] Evidence: before at `096f073`, after at `b64d3c1` (command outputs, no screenshots: nothing visual changes)
+- [x] Review: approved at `b64d3c1` (carried from `b9e02b6`; the rebase left the patch unchanged)
+- [x] Verified at `b64d3c1`
+- [x] CI green at `b64d3c1` (5 of 5 checks)
 
 ## Internal references
 
