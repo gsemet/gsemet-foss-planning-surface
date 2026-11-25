@@ -1,0 +1,1380 @@
+{
+  "implemented": {
+    "SwRS-OKFSCHEMA-CORE-005": [
+      "src/okf_schema/_internal/utils.py",
+      "src/okf_schema/api.py",
+      "src/okf_schema/cli.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-003": [
+      "src/okf_schema/_internal/yaml.py",
+      "src/okf_schema/api.py",
+      "src/okf_schema/cli.py",
+      "src/okf_schema/formatter.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-001": [
+      "src/okf_schema/api.py",
+      "src/okf_schema/cli.py",
+      "src/okf_schema/schemas/__init__.py",
+      "src/okf_schema/validator.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-006": [
+      "src/okf_schema/api.py",
+      "src/okf_schema/validator.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-004": [
+      "src/okf_schema/api.py",
+      "src/okf_schema/cli.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-002": [
+      "src/okf_schema/cli.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-007": [
+      "src/okf_schema/file_links.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFKB-006": [
+      "src/okf_schema/formatter.py",
+      "src/okf_schema/validator.py",
+      "src/okf_schema/okfkb/derivations.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-009": [
+      "src/okf_schema/projection.py",
+      "src/okf_schema/validator.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-008": [
+      "src/okf_schema/validator.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFKB-001": [
+      "src/okf_schema/okfkb/cli.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFKB-002": [
+      "src/okf_schema/okfkb/cli.py",
+      "src/okf_schema/okfkb/install.py",
+      "src/okf_schema/okfkb/patterns.py",
+      "src/okf_schema/okfkb/scaffold.py",
+      "src/okf_schema/skill_installer.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFKB-003": [
+      "src/okf_schema/okfkb/cli.py",
+      "src/okf_schema/okfkb/finding.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFKB-004": [
+      "src/okf_schema/okfkb/cli.py",
+      "src/okf_schema/okfkb/navigate.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFKB-005": [
+      "skills/okfkb-distill/SKILL.md"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-001": [
+      "src/okf_schema/okfreq/cli.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-006": [
+      "src/okf_schema/okfreq/cli.py",
+      "src/okf_schema/okfreq/core.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-007": [
+      "src/okf_schema/okfreq/cli.py",
+      "src/okf_schema/okfreq/core.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-013": [
+      "src/okf_schema/okfreq/core.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-014": [
+      "src/okf_schema/okfreq/core.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-002": [
+      "src/okf_schema/okfreq/core.py",
+      "src/okf_schema/data/requirements/guidelines/requirements.guidelines.md"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-011": [
+      "src/okf_schema/okfreq/core.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-003": [
+      "src/okf_schema/okfreq/core.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-015": [
+      "src/okf_schema/okfreq/core.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-012": [
+      "src/okf_schema/okfreq/core.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-005": [
+      "src/okf_schema/okfreq/core.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-004": [
+      "src/okf_schema/okfreq/core.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-009": [
+      "src/okf_schema/okfreq/navigation.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-008": [
+      "skills/okfreq/SKILL.md",
+      "skills/okfreq-gardening/SKILL.md",
+      "examples/okfreq-examples/showcase.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-010": [
+      "skills/okfreq-setup/SKILL.md"
+    ]
+  },
+  "tested": {
+    "SwRS-OKFSCHEMA-CORE-001": [
+      "tests/test_api.py",
+      "tests/test_cli_core.py",
+      "tests/test_validator.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-005": [
+      "tests/test_api.py",
+      "tests/test_cli_remaining.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-006": [
+      "tests/test_api.py",
+      "tests/test_cli_remaining.py",
+      "tests/test_okf2_compliance.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-004": [
+      "tests/test_api.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-003": [
+      "tests/test_api.py",
+      "tests/test_cli_core.py",
+      "tests/test_formatter.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-008": [
+      "tests/test_api.py",
+      "tests/test_cli_core.py",
+      "tests/test_validator.py",
+      "tests/test_okfreq.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-002": [
+      "tests/test_cli_core.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-007": [
+      "tests/test_file_links.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-005": [
+      "tests/test_file_links.py",
+      "tests/test_okfreq.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFKB-002": [
+      "tests/test_integration.py",
+      "tests/test_kb_cli.py",
+      "tests/test_kb_install.py",
+      "tests/test_kb_scaffold.py",
+      "tests/test_skill_installer.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-008": [
+      "tests/test_examples.py",
+      "tests/test_skill_resources.py",
+      "tests/test_tutorial_okfreq.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-011": [
+      "tests/test_examples.py",
+      "tests/test_okfreq.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-012": [
+      "tests/test_examples.py",
+      "tests/test_okfreq.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-014": [
+      "tests/test_examples.py",
+      "tests/test_okfreq_projection.py"
+    ],
+    "SwRS-OKFSCHEMA-CORE-009": [
+      "tests/test_projection.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFKB-006": [
+      "tests/test_projection.py",
+      "tests/test_kb_derivations.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFKB-001": [
+      "tests/test_kb_cli.py",
+      "tests/test_kb_navigate.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFKB-003": [
+      "tests/test_kb_finding.py",
+      "tests/test_tutorial_okfkb.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFKB-004": [
+      "tests/test_kb_navigate.py",
+      "tests/test_tutorial_okfkb.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-010": [
+      "tests/test_skill_resources.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-002": [
+      "tests/test_okfreq.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-003": [
+      "tests/test_okfreq.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-004": [
+      "tests/test_okfreq.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-001": [
+      "tests/test_okfreq.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-007": [
+      "tests/test_okfreq.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-006": [
+      "tests/test_okfreq.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-013": [
+      "tests/test_okfreq.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-015": [
+      "tests/test_okfreq_acceptance_paths.py",
+      "tests/test_okfreq_acceptance_paths_cli.py",
+      "tests/test_okfreq_docs.py"
+    ],
+    "SwRS-OKFSCHEMA-OKFREQ-009": [
+      "tests/test_requirement_indexes.py"
+    ]
+  },
+  "validation_tests": {
+    "StRS-OKFSCHEMA-CORE-003": [
+      "tests/test_file_links.py"
+    ],
+    "StRS-OKFSCHEMA-CORE-002": [
+      "tests/test_integration.py"
+    ],
+    "StRS-OKFSCHEMA-CORE-001": [
+      "tests/test_integration.py"
+    ],
+    "StRS-OKFSCHEMA-OKFKB-001": [
+      "tests/test_integration.py"
+    ],
+    "StRS-OKFSCHEMA-OKFREQ-001": [
+      "tests/test_examples.py",
+      "tests/test_okfreq.py"
+    ]
+  },
+  "accepted": {
+    "StRS-OKFSCHEMA-CORE-001": [
+      "tests/test_acceptance_core.py"
+    ],
+    "StRS-OKFSCHEMA-CORE-002": [
+      "tests/test_acceptance_core.py"
+    ],
+    "StRS-OKFSCHEMA-CORE-003": [
+      "tests/test_acceptance_core.py"
+    ],
+    "StRS-OKFSCHEMA-OKFKB-001": [
+      "tests/test_acceptance_okfkb.py"
+    ],
+    "StRS-OKFSCHEMA-OKFREQ-001": [
+      "tests/test_acceptance_okfreq.py"
+    ]
+  },
+  "scenario_markers": [
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-001",
+      "fragment": "S1",
+      "file": "tests/test_api.py",
+      "line": 44
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-001",
+      "fragment": "S2",
+      "file": "tests/test_api.py",
+      "line": 52
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-005",
+      "fragment": "S1",
+      "file": "tests/test_api.py",
+      "line": 468
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-005",
+      "fragment": "S2",
+      "file": "tests/test_api.py",
+      "line": 487
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-006",
+      "fragment": "S1",
+      "file": "tests/test_api.py",
+      "line": 514
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-006",
+      "fragment": "S2",
+      "file": "tests/test_api.py",
+      "line": 531
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-006",
+      "fragment": "S5",
+      "file": "tests/test_api.py",
+      "line": 621
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-004",
+      "fragment": "S1",
+      "file": "tests/test_api.py",
+      "line": 657
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-003",
+      "fragment": "S1",
+      "file": "tests/test_api.py",
+      "line": 1500
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-003",
+      "fragment": "S2",
+      "file": "tests/test_api.py",
+      "line": 1516
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-004",
+      "fragment": "S2",
+      "file": "tests/test_api.py",
+      "line": 1664
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-008",
+      "fragment": "S1",
+      "file": "tests/test_api.py",
+      "line": 1897
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-008",
+      "fragment": "S2",
+      "file": "tests/test_api.py",
+      "line": 1898
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-002",
+      "fragment": "S1",
+      "file": "tests/test_cli_core.py",
+      "line": 176
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-002",
+      "fragment": "S2",
+      "file": "tests/test_cli_core.py",
+      "line": 212
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-001",
+      "fragment": "S1",
+      "file": "tests/test_cli_core.py",
+      "line": 383
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-001",
+      "fragment": "S2",
+      "file": "tests/test_cli_core.py",
+      "line": 392
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-001",
+      "fragment": "S3",
+      "file": "tests/test_cli_core.py",
+      "line": 402
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-008",
+      "fragment": "S1",
+      "file": "tests/test_cli_core.py",
+      "line": 480
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-008",
+      "fragment": "S2",
+      "file": "tests/test_cli_core.py",
+      "line": 491
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-003",
+      "fragment": "S1",
+      "file": "tests/test_cli_core.py",
+      "line": 528
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-003",
+      "fragment": "S2",
+      "file": "tests/test_cli_core.py",
+      "line": 563
+    },
+    {
+      "marker": "accepts",
+      "id": "StRS-OKFSCHEMA-CORE-001",
+      "fragment": "S1",
+      "file": "tests/test_acceptance_core.py",
+      "line": 79
+    },
+    {
+      "marker": "accepts",
+      "id": "StRS-OKFSCHEMA-CORE-001",
+      "fragment": "S2",
+      "file": "tests/test_acceptance_core.py",
+      "line": 98
+    },
+    {
+      "marker": "accepts",
+      "id": "StRS-OKFSCHEMA-CORE-002",
+      "fragment": "S1",
+      "file": "tests/test_acceptance_core.py",
+      "line": 121
+    },
+    {
+      "marker": "accepts",
+      "id": "StRS-OKFSCHEMA-CORE-002",
+      "fragment": "S2",
+      "file": "tests/test_acceptance_core.py",
+      "line": 152
+    },
+    {
+      "marker": "accepts",
+      "id": "StRS-OKFSCHEMA-CORE-002",
+      "fragment": "S3",
+      "file": "tests/test_acceptance_core.py",
+      "line": 209
+    },
+    {
+      "marker": "accepts",
+      "id": "StRS-OKFSCHEMA-CORE-003",
+      "fragment": "S1",
+      "file": "tests/test_acceptance_core.py",
+      "line": 287
+    },
+    {
+      "marker": "accepts",
+      "id": "StRS-OKFSCHEMA-CORE-003",
+      "fragment": "S2",
+      "file": "tests/test_acceptance_core.py",
+      "line": 343
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-005",
+      "fragment": "S1",
+      "file": "tests/test_cli_remaining.py",
+      "line": 66
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-005",
+      "fragment": "S2",
+      "file": "tests/test_cli_remaining.py",
+      "line": 93
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-006",
+      "fragment": "S5",
+      "file": "tests/test_cli_remaining.py",
+      "line": 323
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-007",
+      "fragment": "S1",
+      "file": "tests/test_file_links.py",
+      "line": 146
+    },
+    {
+      "marker": "tests",
+      "id": "StRS-OKFSCHEMA-CORE-003",
+      "fragment": "S1",
+      "file": "tests/test_file_links.py",
+      "line": 299
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-007",
+      "fragment": "S2",
+      "file": "tests/test_file_links.py",
+      "line": 752
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-007",
+      "fragment": "S3",
+      "file": "tests/test_file_links.py",
+      "line": 931
+    },
+    {
+      "marker": "tests",
+      "id": "StRS-OKFSCHEMA-CORE-003",
+      "fragment": "S2",
+      "file": "tests/test_file_links.py",
+      "line": 951
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-005",
+      "fragment": "S4",
+      "file": "tests/test_file_links.py",
+      "line": 1114
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-005",
+      "fragment": "S5",
+      "file": "tests/test_file_links.py",
+      "line": 1115
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-007",
+      "fragment": "S4",
+      "file": "tests/test_file_links.py",
+      "line": 1220
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-007",
+      "fragment": "S5",
+      "file": "tests/test_file_links.py",
+      "line": 1285
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-003",
+      "fragment": "S1",
+      "file": "tests/test_formatter.py",
+      "line": 71
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-003",
+      "fragment": "S2",
+      "file": "tests/test_formatter.py",
+      "line": 148
+    },
+    {
+      "marker": "tests",
+      "id": "StRS-OKFSCHEMA-CORE-002",
+      "fragment": "S2",
+      "file": "tests/test_integration.py",
+      "line": 141
+    },
+    {
+      "marker": "tests",
+      "id": "StRS-OKFSCHEMA-CORE-001",
+      "fragment": "S1",
+      "file": "tests/test_integration.py",
+      "line": 287
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-002",
+      "fragment": "S1",
+      "file": "tests/test_integration.py",
+      "line": 460
+    },
+    {
+      "marker": "tests",
+      "id": "StRS-OKFSCHEMA-OKFKB-001",
+      "fragment": "S2",
+      "file": "tests/test_integration.py",
+      "line": 491
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-006",
+      "fragment": "S1",
+      "file": "tests/test_okf2_compliance.py",
+      "line": 36
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-006",
+      "fragment": "S5",
+      "file": "tests/test_okf2_compliance.py",
+      "line": 48
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-006",
+      "fragment": "S2",
+      "file": "tests/test_okf2_compliance.py",
+      "line": 145
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-006",
+      "fragment": "S3",
+      "file": "tests/test_okf2_compliance.py",
+      "line": 198
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-006",
+      "fragment": "S4",
+      "file": "tests/test_okf2_compliance.py",
+      "line": 225
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-008",
+      "fragment": "S3",
+      "file": "tests/test_validator.py",
+      "line": 64
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-008",
+      "fragment": "S1",
+      "file": "tests/test_validator.py",
+      "line": 105
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-008",
+      "fragment": "S2",
+      "file": "tests/test_validator.py",
+      "line": 128
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-001",
+      "fragment": "S1",
+      "file": "tests/test_validator.py",
+      "line": 776
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-001",
+      "fragment": "S2",
+      "file": "tests/test_validator.py",
+      "line": 800
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-001",
+      "fragment": "S3",
+      "file": "tests/test_validator.py",
+      "line": 988
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-008",
+      "fragment": "S3",
+      "file": "tests/test_examples.py",
+      "line": 20
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-011",
+      "fragment": "S1",
+      "file": "tests/test_examples.py",
+      "line": 21
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-011",
+      "fragment": "S2",
+      "file": "tests/test_examples.py",
+      "line": 22
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-012",
+      "fragment": "S1",
+      "file": "tests/test_examples.py",
+      "line": 23
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-012",
+      "fragment": "S2",
+      "file": "tests/test_examples.py",
+      "line": 24
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-012",
+      "fragment": "S3",
+      "file": "tests/test_examples.py",
+      "line": 25
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-012",
+      "fragment": "S4",
+      "file": "tests/test_examples.py",
+      "line": 26
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-014",
+      "fragment": "S1",
+      "file": "tests/test_examples.py",
+      "line": 27
+    },
+    {
+      "marker": "tests",
+      "id": "StRS-OKFSCHEMA-OKFREQ-001",
+      "fragment": "S1",
+      "file": "tests/test_examples.py",
+      "line": 28
+    },
+    {
+      "marker": "tests",
+      "id": "StRS-OKFSCHEMA-OKFREQ-001",
+      "fragment": "S2",
+      "file": "tests/test_examples.py",
+      "line": 29
+    },
+    {
+      "marker": "tests",
+      "id": "StRS-OKFSCHEMA-OKFREQ-001",
+      "fragment": "S3",
+      "file": "tests/test_examples.py",
+      "line": 30
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-009",
+      "fragment": "S1",
+      "file": "tests/test_projection.py",
+      "line": 72
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-009",
+      "fragment": "S3",
+      "file": "tests/test_projection.py",
+      "line": 145
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-009",
+      "fragment": "S2",
+      "file": "tests/test_projection.py",
+      "line": 212
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-006",
+      "fragment": "S2",
+      "file": "tests/test_projection.py",
+      "line": 337
+    },
+    {
+      "marker": "accepts",
+      "id": "StRS-OKFSCHEMA-OKFKB-001",
+      "fragment": "S1",
+      "file": "tests/test_acceptance_okfkb.py",
+      "line": 58
+    },
+    {
+      "marker": "accepts",
+      "id": "StRS-OKFSCHEMA-OKFKB-001",
+      "fragment": "S2",
+      "file": "tests/test_acceptance_okfkb.py",
+      "line": 98
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-002",
+      "fragment": "S1",
+      "file": "tests/test_kb_cli.py",
+      "line": 79
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-001",
+      "fragment": "S2",
+      "file": "tests/test_kb_cli.py",
+      "line": 110
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-001",
+      "fragment": "S3",
+      "file": "tests/test_kb_cli.py",
+      "line": 264
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-001",
+      "fragment": "S4",
+      "file": "tests/test_kb_cli.py",
+      "line": 265
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-006",
+      "fragment": "S1",
+      "file": "tests/test_kb_derivations.py",
+      "line": 63
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-006",
+      "fragment": "S3",
+      "file": "tests/test_kb_derivations.py",
+      "line": 97
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-003",
+      "fragment": "S1",
+      "file": "tests/test_kb_finding.py",
+      "line": 48
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-003",
+      "fragment": "S2",
+      "file": "tests/test_kb_finding.py",
+      "line": 178
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-002",
+      "fragment": "S2",
+      "file": "tests/test_kb_install.py",
+      "line": 25
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-004",
+      "fragment": "S1",
+      "file": "tests/test_kb_navigate.py",
+      "line": 144
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-004",
+      "fragment": "S2",
+      "file": "tests/test_kb_navigate.py",
+      "line": 532
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-001",
+      "fragment": "S1",
+      "file": "tests/test_kb_navigate.py",
+      "line": 542
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-002",
+      "fragment": "S1",
+      "file": "tests/test_kb_scaffold.py",
+      "line": 50
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-002",
+      "fragment": "S2",
+      "file": "tests/test_skill_installer.py",
+      "line": 123
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-008",
+      "fragment": "S1",
+      "file": "tests/test_skill_resources.py",
+      "line": 257
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-008",
+      "fragment": "S2",
+      "file": "tests/test_skill_resources.py",
+      "line": 291
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-010",
+      "fragment": "S1",
+      "file": "tests/test_skill_resources.py",
+      "line": 311
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-010",
+      "fragment": "S2",
+      "file": "tests/test_skill_resources.py",
+      "line": 312
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-010",
+      "fragment": "S3",
+      "file": "tests/test_skill_resources.py",
+      "line": 313
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-003",
+      "fragment": "S1",
+      "file": "tests/test_tutorial_okfkb.py",
+      "line": 18
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFKB-004",
+      "fragment": "S1",
+      "file": "tests/test_tutorial_okfkb.py",
+      "line": 19
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-002",
+      "fragment": "S1",
+      "file": "tests/test_okfreq.py",
+      "line": 78
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-002",
+      "fragment": "S2",
+      "file": "tests/test_okfreq.py",
+      "line": 79
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-002",
+      "fragment": "S3",
+      "file": "tests/test_okfreq.py",
+      "line": 80
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-003",
+      "fragment": "S2",
+      "file": "tests/test_okfreq.py",
+      "line": 233
+    },
+    {
+      "marker": "tests",
+      "id": "StRS-OKFSCHEMA-OKFREQ-001",
+      "fragment": "S3",
+      "file": "tests/test_okfreq.py",
+      "line": 290
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-004",
+      "fragment": "S1",
+      "file": "tests/test_okfreq.py",
+      "line": 291
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-001",
+      "fragment": "S1",
+      "file": "tests/test_okfreq.py",
+      "line": 292
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-007",
+      "fragment": "S1",
+      "file": "tests/test_okfreq.py",
+      "line": 473
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-001",
+      "fragment": "S4",
+      "file": "tests/test_okfreq.py",
+      "line": 599
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-003",
+      "fragment": "S3",
+      "file": "tests/test_okfreq.py",
+      "line": 749
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-003",
+      "fragment": "S1",
+      "file": "tests/test_okfreq.py",
+      "line": 778
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-001",
+      "fragment": "S2",
+      "file": "tests/test_okfreq.py",
+      "line": 995
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-007",
+      "fragment": "S2",
+      "file": "tests/test_okfreq.py",
+      "line": 996
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-006",
+      "fragment": "S1",
+      "file": "tests/test_okfreq.py",
+      "line": 1103
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-006",
+      "fragment": "S2",
+      "file": "tests/test_okfreq.py",
+      "line": 1104
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-005",
+      "fragment": "S2",
+      "file": "tests/test_okfreq.py",
+      "line": 1148
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-008",
+      "fragment": "S1",
+      "file": "tests/test_okfreq.py",
+      "line": 1207
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-CORE-008",
+      "fragment": "S2",
+      "file": "tests/test_okfreq.py",
+      "line": 1208
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-002",
+      "fragment": "S4",
+      "file": "tests/test_okfreq.py",
+      "line": 1260
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-011",
+      "fragment": "S1",
+      "file": "tests/test_okfreq.py",
+      "line": 1274
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-011",
+      "fragment": "S2",
+      "file": "tests/test_okfreq.py",
+      "line": 1320
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-011",
+      "fragment": "S3",
+      "file": "tests/test_okfreq.py",
+      "line": 1377
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-012",
+      "fragment": "S1",
+      "file": "tests/test_okfreq.py",
+      "line": 1518
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-012",
+      "fragment": "S4",
+      "file": "tests/test_okfreq.py",
+      "line": 1562
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-012",
+      "fragment": "S3",
+      "file": "tests/test_okfreq.py",
+      "line": 1660
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-012",
+      "fragment": "S5",
+      "file": "tests/test_okfreq.py",
+      "line": 1701
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-012",
+      "fragment": "S2",
+      "file": "tests/test_okfreq.py",
+      "line": 1730
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-004",
+      "fragment": "S2",
+      "file": "tests/test_okfreq.py",
+      "line": 1769
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-012",
+      "fragment": "S6",
+      "file": "tests/test_okfreq.py",
+      "line": 1770
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-013",
+      "fragment": "S1",
+      "file": "tests/test_okfreq.py",
+      "line": 1863
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-013",
+      "fragment": "S4",
+      "file": "tests/test_okfreq.py",
+      "line": 1864
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-013",
+      "fragment": "S5",
+      "file": "tests/test_okfreq.py",
+      "line": 1916
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-013",
+      "fragment": "S6",
+      "file": "tests/test_okfreq.py",
+      "line": 1960
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-013",
+      "fragment": "S7",
+      "file": "tests/test_okfreq.py",
+      "line": 2012
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-013",
+      "fragment": "S2",
+      "file": "tests/test_okfreq.py",
+      "line": 2059
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-013",
+      "fragment": "S3",
+      "file": "tests/test_okfreq.py",
+      "line": 2158
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-001",
+      "fragment": "S3",
+      "file": "tests/test_okfreq.py",
+      "line": 2195
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-004",
+      "fragment": "S3",
+      "file": "tests/test_okfreq.py",
+      "line": 2211
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-005",
+      "fragment": "S1",
+      "file": "tests/test_okfreq.py",
+      "line": 2228
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-005",
+      "fragment": "S3",
+      "file": "tests/test_okfreq.py",
+      "line": 2243
+    },
+    {
+      "marker": "accepts",
+      "id": "StRS-OKFSCHEMA-OKFREQ-001",
+      "fragment": "S1",
+      "file": "tests/test_acceptance_okfreq.py",
+      "line": 96
+    },
+    {
+      "marker": "accepts",
+      "id": "StRS-OKFSCHEMA-OKFREQ-001",
+      "fragment": "S2",
+      "file": "tests/test_acceptance_okfreq.py",
+      "line": 132
+    },
+    {
+      "marker": "accepts",
+      "id": "StRS-OKFSCHEMA-OKFREQ-001",
+      "fragment": "S3",
+      "file": "tests/test_acceptance_okfreq.py",
+      "line": 180
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-015",
+      "fragment": "S5",
+      "file": "tests/test_okfreq_acceptance_paths.py",
+      "line": 352
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-015",
+      "fragment": "S2",
+      "file": "tests/test_okfreq_acceptance_paths.py",
+      "line": 363
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-015",
+      "fragment": "S3",
+      "file": "tests/test_okfreq_acceptance_paths.py",
+      "line": 434
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-015",
+      "fragment": "S6",
+      "file": "tests/test_okfreq_acceptance_paths.py",
+      "line": 517
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-015",
+      "fragment": "S1",
+      "file": "tests/test_okfreq_acceptance_paths.py",
+      "line": 567
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-015",
+      "fragment": "S4",
+      "file": "tests/test_okfreq_acceptance_paths.py",
+      "line": 724
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-015",
+      "fragment": "S3",
+      "file": "tests/test_okfreq_acceptance_paths_cli.py",
+      "line": 37
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-015",
+      "fragment": "S2",
+      "file": "tests/test_okfreq_acceptance_paths_cli.py",
+      "line": 54
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-015",
+      "fragment": "S5",
+      "file": "tests/test_okfreq_acceptance_paths_cli.py",
+      "line": 64
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-015",
+      "fragment": "S1",
+      "file": "tests/test_okfreq_acceptance_paths_cli.py",
+      "line": 72
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-015",
+      "fragment": "S4",
+      "file": "tests/test_okfreq_acceptance_paths_cli.py",
+      "line": 140
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-015",
+      "fragment": "S1",
+      "file": "tests/test_okfreq_docs.py",
+      "line": 83
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-009",
+      "fragment": "S1",
+      "file": "tests/test_requirement_indexes.py",
+      "line": 52
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-009",
+      "fragment": "S2",
+      "file": "tests/test_requirement_indexes.py",
+      "line": 53
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-009",
+      "fragment": "S3",
+      "file": "tests/test_requirement_indexes.py",
+      "line": 105
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-008",
+      "fragment": "S4",
+      "file": "tests/test_tutorial_okfreq.py",
+      "line": 27
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-014",
+      "fragment": "S1",
+      "file": "tests/test_okfreq_projection.py",
+      "line": 55
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-014",
+      "fragment": "S2",
+      "file": "tests/test_okfreq_projection.py",
+      "line": 120
+    },
+    {
+      "marker": "tests",
+      "id": "SwRS-OKFSCHEMA-OKFREQ-014",
+      "fragment": "S3",
+      "file": "tests/test_okfreq_projection.py",
+      "line": 164
+    }
+  ],
+  "duplicates": [],
+  "non_leaf": [],
+  "missing_ids": [],
+  "warnings": []
+}

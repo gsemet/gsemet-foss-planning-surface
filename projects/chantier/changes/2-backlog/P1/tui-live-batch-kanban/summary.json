@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "title": "TUI: live view with a batch kanban",
+  "summary": "A live view in the TUI: a kanban of the batch with the CRs pending, in progress, done, and with a PR ready or to review. A second point of the request is still empty. Not grilled.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "35b89ebddc9dbcb8661e5a4809b068ad55d776a0248ba2fe86124e23e71dcee7",
+    "02-answers.md": "c7e1c091a54c656adc22a5cf70b822dbd7b50fcd8b38e8352235259f83a6634c",
+    "intake/request.md": "360f481b19a6c4c53d45b383bf203a5485258906301390ef76e98dbeaf4fed3d"
+  },
+  "summarized": "2026-11-25T22:13:05Z"
+}

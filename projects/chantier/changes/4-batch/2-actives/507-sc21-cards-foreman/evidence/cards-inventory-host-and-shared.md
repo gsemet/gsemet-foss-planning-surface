@@ -2588,6 +2588,7 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 | topics/merge-words.md:5 | an early merge: no question | review |
 | topics/orders.md:8 | pointer to `help order-verbs` | review |
 | topics/project-rules.md:3 | a missing tool is said with what to install | review |
+| topics/refused-push-chief-p2.md:3 | a protected-branch rejection is handled as a failed lease and told as information | review |
 | topics/release-chief-after-p2.md:5 | nothing more is asked once published | review |
 | topics/stack-changes-chief-p1.md:3 | a drop asks the user nothing more | review |
 | topics/stack-checks.md:6 | when an inserted CR shows in the partial-stack line | review |

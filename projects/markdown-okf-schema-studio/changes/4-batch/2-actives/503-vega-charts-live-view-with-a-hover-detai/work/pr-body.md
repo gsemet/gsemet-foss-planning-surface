@@ -6,7 +6,7 @@ Stacked on the chart text pull request (#520).
 
 ## Deliverables
 
-Hover detail on the grouped bar chart, Cream and Dark (pictures taken before the restack onto the current base; the chart code is unchanged since; the pointer is on the first bar):
+Hover detail on the grouped bar chart, Cream and Dark (pictures taken at 4404b98, carried to 1f209e1: the chart code is unchanged since; the pointer is on the first bar):
 
 | Cream | Dark |
 | --- | --- |
@@ -44,7 +44,7 @@ Grade: 2. Charts are drawn through a different renderer and cache; revert restor
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
 - [x] Local gates: `just preflight` (static stage, Windows) passes at 1f209e1
 - [x] Real window: the `live-chart` scenario passes in the heavy run [45706313890](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45706313890) at 1f209e1 (`PASS real-input screenshot: diagrams/r01-live-chart-hover`)
-- [x] Review: approved before the restack; the move to 1f209e1 reviewed (one commit, clip changes left out, see Autonomous decisions)
+- [x] Review: the move to 1f209e1 approved at 1f209e1 (one commit left out with the clip changes, see Autonomous decisions)
 - [x] CI green: static, static-windows, visual, viewer-graph, checks and report pass at 1f209e1 (pull request run)
 
 ## Autonomous decisions
@@ -53,7 +53,7 @@ Grade: 2. Charts are drawn through a different renderer and cache; revert restor
 
 ## Known gaps
 
-- The `integration` job of the heavy run [45706313890](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45706313890) at 1f209e1 failed on its first attempt on a launch timeout of the trusted suite (step `diff-preview-scroll`), not this change; the default branch's own heavy run [45580228461](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45580228461) failed the same way (at `lifecycle`). Its stress and viewer-graph jobs pass.
+- The heavy run [45706313890](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45706313890) at 1f209e1 failed on both attempts in `integration`, and so in `report` and `checks`: attempt 1 on a launch timeout of the trusted suite (step `diff-preview-scroll`), attempt 2 on a `locator.count` timeout at step `open-at-line`, which passed in attempt 1. The default branch's own heavy run [45580228461](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45580228461) failed the attempt 1 way (at `lifecycle`); the cause of the attempt 2 timeout is not diagnosed. Its stress and viewer-graph jobs pass.
 - The hover box and the chart's SVG root get their position and size through the CSSOM, which Chromium shows as a `style` attribute; no Content Security Policy violation is raised, which the `live-chart` scenario checks.
 
 ## Internal references

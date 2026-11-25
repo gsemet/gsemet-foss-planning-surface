@@ -2,7 +2,7 @@
 
 Head: 41fcd6dbebaddff719c2a3f54f610298034d0ad6
 
-Verdict: VERIFIED. No claim failed. Two points for the Driver are at the end.
+Verdict: NOT VERIFIED (description pass on the posted text, section 16; one claim failed). Sections 1 to 13 stand.
 
 - Base: `2f09cef3e786d1696e42b5cb305d4a55111e7725`. PR: https://github.com/gsemet/okf-schema/pull/68.
 - Every claim below is judged at head `41fcd6dbebaddff719c2a3f54f610298034d0ad6` (written "head"). None is carried.
@@ -299,3 +299,73 @@ holds no image, matches the diff, and its one UNVERIFIED item sits in Known gaps
   would move the head.
 - B. The posted body still marks the acceptance check UNVERIFIED; claim 4 now proves it. Post
   `work/pr-body.md` (or the final body) before the description pass.
+
+## 16. Description pass, PR 68 as posted after the edit: NOT VERIFIED
+
+Replaces the judgments of sections 14 and 15 on the description, and settles point B. Judged at
+head `41fcd6dbebaddff719c2a3f54f610298034d0ad6`; the head has not moved, so sections 1 to 13 are
+the proofs cited here (code claims, gate and CI not run again).
+
+```text
+$ gh pr view 68 --repo gsemet/okf-schema --json headRefOid,updatedAt,isDraft,body
+41fcd6dbebaddff719c2a3f54f610298034d0ad6  2026-11-25T22:10:19Z  isDraft true
+$ diff --strip-trailing-cr work/pr-body.md <(gh pr view 68 --repo gsemet/okf-schema --json body --jq .body)
+101a102
+>            (one trailing blank line only)
+$ gh api repos/gsemet/okf-schema/pulls/68 -H "Accept: application/vnd.github.html+json" --jq .body_html
+9 h2 sections, 3 task lists, one 3-column table with 7 rows, "Fixes #56" linked, no image
+```
+
+### 16.1 FAILED: "still accept an absolute disk path inside the bundle"; a delivered change is unmentioned
+
+The Description states this without exception, and "Behaviour to know" and "Known gaps" are
+silent on it. On a case-insensitive file system such as macOS, an absolute path whose bundle part
+is spelled in another case than the real path of `--path` was read before and is now answered
+"Concept not found". The PR documents this itself, and the user accepted it as a limit (answer 13),
+but the description lists the other two limits of the command reference only (leading `\`, Git
+Bash), then says "The command reference documents these limits".
+
+```text
+$ git diff 2f09cef 41fcd6d -- docs/source/reference/cli.md        (section "Limits", first bullet)
++- Following links does not change letter case. On a case-insensitive file system
++  such as macOS, an absolute `CONCEPT_PATH` whose bundle part is spelled in
++  another case than the real path of `--path` (...) is not recognized as inside the bundle:
++  it is read from the bundle root and reported as `Error: Concept not found: ...`.
+$ git grep -n -A3 -F "target = bundle / concept_path" 2f09cef -- src/okf_schema/api.py
+392:    target = bundle / concept_path        (an absolute path replaces the bundle)
+393-    if not target.exists():               (true for another letter case on such a file system)
+$ grep -i case work/pr-body.md
+(no match)
+02-answers.md, 13: "the refusal of an absolute path spelled in another case than `--path` is
+accepted and written in the command reference."
+```
+
+Basis: the command reference, the base code and the head code (`_is_disk_path_in_bundle` compares
+real paths, letter case kept). Not run on macOS. A wording proved by the diff: under "Behaviour to
+know" or "Known gaps", "the command reference documents that on a case-insensitive file system
+such as macOS, an absolute path whose bundle part is spelled in another letter case than the real
+path of `--path` is not recognized and is reported as not found".
+
+### 16.2 Every other statement: VERIFIED
+
+| Posted statement | Proof |
+|------------------|-------|
+| Description, first paragraph | `before-show.txt` (base 2f09cef); tutorials: claim 12 |
+| Bullets 1, 3, 4, and the rest of bullet 2 | claims 5, 6, 7 |
+| Behaviour to know: outside reads fail; `\`; Git Bash; documented | claims 7, 8, 12 |
+| CORE-010 and CORE-005 | claim 10 |
+| Reference and skill updated; unaffected surfaces | claim 12; `grep` of `examples/` for a `show` run or `show_bundle`: no match |
+| Deliverables: intro and table rows 1 to 7 | `before-show.txt`, `after-show.txt` (SHAs, link, exit codes match each row) |
+| Deliverables: `bundle.md` beside `bundle` | `after-scenario-powershell.txt`; test `root_with_a_file_beside_it_is_outside` PASSED |
+| Type of Change; Checklist ticks | claims 2, 9, 12, 13; "no new warnings" unticked, nothing claimed |
+| Autonomous decisions (both) | claim 14 outputs, same head |
+| Known gap 1: other commands follow links | `after-other-commands.txt` |
+| Known gap 2: log entry and the later run | claim 11; gate 20261125-222650 FAIL and 20261125-224210 pass, both at 41fcd6d |
+| Test plan: 22 of 37 fail at base, 37 pass at head | `before-tests.txt` "22 failed, 15 passed"; `after-tests.txt` "37 passed" |
+| Test plan: preflight, 1129 passed, 12 skipped acceptance | gate log lines 1, 46-68 (12 SKIPPED, all `test_acceptance_*`), 2364, 2601; `tests/conftest.py:16` skips on win32 |
+| Test plan: evidence before 2f09cef, after 41fcd6d | `before-after.md` header; "Every pair of the evidence plan was captured" |
+| Test plan: Review approved at 41fcd6d | note 21:26:46 "r1 approved at 2f09cef..., committed as 41fcd6d" (`log CR-101`) |
+| Test plan: Verified at 41fcd6d | event 22:07:51 "verdict result=VERIFIED head=41fcd6d..." (cancelled by this pass until a later VERIFIED) |
+| Test plan: CI green, jobs, tag-release, symlink and acceptance tests | claims 3, 4; `ci.yml:85` `if: ... github.ref == 'refs/heads/main'`; 14 symlink or link-loop tests PASSED on each of the six jobs; the 12 Windows skips are all acceptance |
+| Related Issues; Internal references | claim 14 (issue 56); the nine named files exist in `work/verifier/evidence/` |
+| Form: project template kept; no STALE, no UNVERIFIED, no image; CR name only in Internal references | posted body and `.github/pull_request_template.md` |

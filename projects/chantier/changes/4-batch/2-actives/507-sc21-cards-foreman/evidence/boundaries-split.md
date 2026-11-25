@@ -12,8 +12,8 @@ The labels of the specification's section 4. Rows are `FM-` rows of `cards-inven
 | B1f | yes | B007 | card:21 | `take-back` |
 | B1g | no | B008 | topic only | `orders` |
 | B1h | yes | B009, B010, B013 | card:21 (B013: topic) | `long-gate`, `local-gate` |
-| B1i | yes | B011, B012, B014 | card:21 (B012: Copilot host row) | `local-gate` |
-| B1j | yes | B015-B017, B019, B022 | card:21, card:15; `judge --local-gate` (`status/judge_words.py:33`); B017: Copilot host row, B022: topic | `local-gate` |
+| B1i | yes | B011, B012, B014 | card:21 (B012: dropped, unproved bookkeeping; no host row holds it) | `local-gate` |
+| B1j | yes | B015-B017, B019, B022 | card:21, card:15; `judge --local-gate` (`status/judge_words.py:33`); B017: dropped, unproved bookkeeping (no host row holds it), B022: topic | `local-gate` |
 | B1k | no | B020, B021 | topic; card:21 points to it | `local-gate` |
 | B1l | yes | B023 | card:21 | `long-gate` |
 | B1m | yes | B024 | card:21 ("An absent gate never means success.") | `long-gate` |
