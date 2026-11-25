@@ -1,0 +1,53 @@
+CR-101 round 1, gates and tests on the Windows host (Python 3.12.10), 2026-11-25.
+<worktree> = the CR worktree. Nothing is committed.
+
+$ uv run --no-sync --directory <worktree> -- okfreq update-coverage requirements --check
+0 files would change
+exit code: 0
+
+$ uv run --no-sync --directory <worktree> -- okfreq validate requirements --prose --check-links --project-root .
+36 requirements, 0 errors, 0 warnings
+exit code: 0
+
+$ uv run --no-sync --directory <worktree> -- okfreq lint requirements --check --check-links --project-root .
+0 indexes would change
+0 requirement OKF projections would change
+exit code: 0
+
+$ uv run --no-sync --directory <worktree> -- okfreq trace requirements --json
+exit code: 0
+SwRS-OKFSCHEMA-CORE-010: implemented in src/okf_schema/api.py; tested in tests/test_api.py,
+tests/test_cli_remaining.py, tests/test_edge_cases.py; scenario markers S1, S2, S3.
+SwRS-OKFSCHEMA-CORE-005: scenario markers S1, S2, S3, S4. No warning.
+
+$ just preflight
+style, lint, requirements-lint, changelog, typecheck, refresh-requirements-guideline: passed
+test: 8 failed, 1112 passed, 21 skipped; coverage 95.43% (required 95%)
+FAILED tests/test_cli_core.py::test_install_skills_rejects_owned_symlink_with_click_error
+FAILED tests/test_kb_install.py::test_install_kb_rejects_owned_symbolic_link
+FAILED tests/test_kb_install.py::test_install_kb_rejects_explicit_destination_symlink_after_resolution
+FAILED tests/test_file_links.py::test_check_file_links_reports_ambiguous_and_case_sensitive_stems
+FAILED tests/test_file_links.py::test_check_file_links_rejects_absolute_and_root_escaping_targets
+FAILED tests/test_skill_installer.py::test_install_skill_family_rejects_owned_symlink_without_following_it
+FAILED tests/test_skill_installer.py::test_install_skill_family_rejects_symbolic_link_destination
+FAILED tests/test_skill_installer.py::test_install_skill_family_rechecks_destination_link_after_staging
+All 8 fail because the host refuses to create a symbolic link (WinError 1314).
+They were not run on the base commit.
+exit code: 1
+
+Steps of preflight after the test step, each run on its own:
+$ just refresh-all-examples      exit code: 0
+$ just requirements-report       exit code: 0
+$ just docs                      exit code: 0
+
+Symlink tests of this change: SKIPPED on this host ("symlinks not permitted on this host"),
+7 test cases in tests/test_api.py:
+- test_show_bundle_accepts_a_disk_path_spelled_through_a_symlinked_folder
+- test_show_bundle_refuses_a_symlink_leaving_the_bundle (4 cases)
+- test_show_bundle_follows_a_symlink_staying_inside_the_bundle
+- test_show_bundle_reports_a_symlink_loop_as_not_found
+They must run in CI (cross-platform job). The directory-link cases were also exercised with
+Windows junctions, which are not symlinks: see junction-probe.txt.
+
+Acceptance test (tests/test_acceptance_core.py, installed wheel): SKIPPED on Windows
+("Acceptance tests run the installed POSIX console scripts"). Its new assertion has not run.

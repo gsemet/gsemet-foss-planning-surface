@@ -1,13 +1,15 @@
 {
   "schema": 1,
-  "title": "Shortcut commands for batch start, pause, close and grill-to-pending",
-  "summary": "Direct commands for what the owner often types: batch-start (stack, parallel or series), batch-pause, batch-close, and a grill that puts the CR into the running batch. Not grilled yet.",
+  "title": "Shortcut commands: batch-start, pause, close, add, and autonomy",
+  "summary": "Five thin slash skills on Claude Code and Copilot, each naming a help topic: batch-start (typing it is the go; asks shape and budget if missing), batch-pause, batch-close (asks before closing), batch-add (existing CR or request into the running batch), autonomy (decides, records to confirm).",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "d96fcf9e1e48a3036381fe125a263161173971e1d555b2ec9889e3c11e3a4f4f",
+    "02-answers.md": "07908ea8b90a38ba4d610b2b2019bf2ea80d8a50f2307b555ea57fa702a972e7",
+    "03-change-spec.md": "8167f526d3c4c734ffc532e6ea61268348e4704f90fec4470ccd9ddfba25bc54",
     "intake/request.md": "8fcf97189bac6a545b45f5911b6583a05ce6db5ada800f41e8eff1b9851d9b2c"
   },
-  "summarized": "2026-11-25T19:54:07Z"
+  "summarized": "2026-11-25T21:23:09Z"
 }

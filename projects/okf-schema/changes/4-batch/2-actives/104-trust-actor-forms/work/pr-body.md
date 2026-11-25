@@ -62,8 +62,8 @@ uv run -- okf-schema validate-md --input c.md --schemas-dir <dir> --strict
   are symbolic link tests that this host refuses to run (`WinError 1314`), in files this change
   does not touch; they were not rerun on the base commit.
 
-Evidence status: marker linkage for S5 is defined in `validator.py` and in the tests
-(`okfreq trace`); the marked tests were executed and passed; no stakeholder approval is claimed,
+Evidence status: marker linkage is defined for the requirement in `validator.py` and for S5 in
+the tests (`okfreq trace`); the marked tests were executed and passed; no stakeholder approval is claimed,
 the requirement stays `proposed`.
 
 ### Decisions taken by the maintainer
