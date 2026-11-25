@@ -6,10 +6,10 @@ One click on the Theme button of the floating toolbar changes the whole preview,
 
 The clip (GIF below; MP4 and WebM linked at the same head):
 
-![The Theme button is clicked four times: the page, the admonition, the diagram and the chart go from Cream through the current theme, Dark and White back to Cream](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEAD_SHA/docs/demo-video/clips/theme-switch/theme-switch.gif)
+![The Theme button is clicked four times: the page, the admonition, the diagram and the chart go from Cream through the current theme, Dark and White back to Cream](https://github.com/gsemet/markdown-okf-schema-studio/raw/03becef848a495b2da776d22f9003a62779a9989/docs/demo-video/clips/theme-switch/theme-switch.gif)
 
-- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/HEAD_SHA/docs/demo-video/clips/theme-switch/theme-switch.mp4
-- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/HEAD_SHA/docs/demo-video/clips/theme-switch/theme-switch.webm
+- MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/03becef848a495b2da776d22f9003a62779a9989/docs/demo-video/clips/theme-switch/theme-switch.mp4
+- WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/03becef848a495b2da776d22f9003a62779a9989/docs/demo-video/clips/theme-switch/theme-switch.webm
 - Storyboard under review: `docs/demo-video/clips/theme-switch/clip.md`
 
 ## Impacts
