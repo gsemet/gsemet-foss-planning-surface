@@ -1,0 +1,118 @@
+[
+ {
+  "old": "| Index | `topics.json`: 234 topics |",
+  "new": "| Index | `topics.json`: 238 topics |"
+ },
+ {
+  "old": "| sync-checkout.md | 4,801 | 1,115 | 1,500, within |",
+  "new": "| sync-checkout.md | 4,801 | 1,202 | 1,500, within |"
+ },
+ {
+  "old": "`foreman.md` 36,927 to 4,000 (4,000);",
+  "new": "`foreman.md` 36,927 to 3,999 (4,000);"
+ },
+ {
+  "old": "`griller-skill.md` 3,501 (4,000);",
+  "new": "`griller-skill.md` 3,524 (4,000);"
+ },
+ {
+  "old": "| coder | 9,790 | 6,714 |",
+  "new": "| coder | 9,116 | 6,110 |"
+ },
+ {
+  "old": "| griller | 6,349 | 6,627 |",
+  "new": "| griller | 6,349 | 6,650 |"
+ },
+ {
+  "old": "| foreman | 55,206 | 22,279 |",
+  "new": "| foreman | 55,206 | 22,278 |"
+ },
+ {
+  "old": "| direct mode: chief-of-staff, then `foreman --epoch 1` | 77,528 | 46,936 |",
+  "new": "| direct mode: chief-of-staff, then `foreman --epoch 1` | 77,528 | 46,935 |"
+ },
+ {
+  "old": "Host claude, no unit but where a row says otherwise. chief-of-staff, griller, foreman and\ndirect mode: measured on the cards of this PR's last commit. The other rows: an earlier round, their cards\nunchanged since (the six workers on this change's unit; a later run at `03f973e` gave them 742 bytes less on\nboth sides, same differences, cause not traced).",
+  "new": "Host claude, no unit but where a row says otherwise. coder (both sides), chief-of-staff, griller,\nforeman and direct mode: measured on the cards of this PR's last commit. The other rows: an earlier round,\ntheir cards unchanged since (workers on this change's unit). Today's coder brief was 9,790 in that earlier\nround and is 9,116 now; a run at `03f973e` also gave the six workers lower values on both sides (742\nbytes, same differences). Cause not traced."
+ },
+ {
+  "old": "- \"Never tell unproved behaviour as fact\" is filed as host-trial bookkeeping, with the proof files.",
+  "new": "- \"Never tell unproved behaviour as fact\" is filed as host-trial bookkeeping, with the proof files;\n  the Chief of Staff's card also holds it (\"or as fact what the host marks unproved\"). The Foreman\n  card's two notes that a Copilot path is unproved (B012, B017) are dropped as bookkeeping."
+ },
+ {
+  "old": "  two permitted reasons; they keep the folder-change ban and the review step's brief reachable). Each,\n  with its line:",
+  "new": "  two permitted reasons; they keep the folder-change ban and the review step's brief reachable). Topic\n  lines were also edited where the new set had lost or misstated a rule of today's cards (the topic\n  row marked \"rules put back\" below), which goes beyond them too. Each, with its line:"
+ },
+ {
+  "old": "| chief-of-staff.md 13, 14, 16, 24, 27 | writes on the user's yes; stopping a Foreman or a process the session did not start, its own board or watcher too, only on a yes, never by name, pattern or PID; `cancel` only after an ordered drop; no tracker text naming a CR, batch, role or cost; CR work never only in chat, memory or a temp folder, no secret or personal data in a CR folder |",
+  "new": "| chief-of-staff.md 13, 14, 16, 24, 27, 29 | writes on the user's yes; stopping a Foreman or a process the session did not start, its own board or watcher too, only on a yes, never by name, pattern or PID; `cancel` only after an ordered drop; no tracker text naming a CR, batch, role or cost; CR work never in a scratchpad, temp or host-settings folder, nor only in chat or memory, no secret or personal data in a CR folder; never tell as fact what the host marks unproved |"
+ },
+ {
+  "old": "| chief-of-staff.md 3, 39, 41 | wording trims; pointers to new topics; on `init` or \"I am new here\", run `$CHANTIER init` and give the tour of `init.md` |",
+  "new": "| chief-of-staff.md 3, 10, 16, 20, 31, 32, 39, 41 | wording trims for the 6,000 budget; pointers to new topics; on `init` or \"I am new here\", run `$CHANTIER init` and give the tour of `init.md` |"
+ },
+ {
+  "old": "| griller-skill.md 24, 31; griller.md 7 | the CR-work never (chat and memory included), a pointer, no secret in the CR folder |",
+  "new": "| griller-skill.md 24, 31; griller.md 7 | the CR-work never (scratchpad, temp or host-settings folder, or only chat or memory), a pointer, no secret in the CR folder |"
+ },
+ {
+  "old": "| foreman.md 20, 21 | a granted merge takes the judged head only, no open PR below, reread before a retry; never drop a hand-back; a local run is owed at that head and a waiver must name it |",
+  "new": "| foreman.md 20, 21 | a granted merge takes the judged head only, no open PR below, reread before a retry; never drop a hand-back; a local run is owed at that head and a waiver must name it; an absent gate never means success (`help long-gate`) |"
+ },
+ {
+  "old": "| foreman.md 22 | the fast-forward is `--no-overwrite-ignore`, of a clean main checkout; the checks of a Driver's refused push or rebase; no comment on a dropped CR's PR, its branch kept; stop no sync holder |",
+  "new": "| foreman.md 22 | the fast-forward is `--no-overwrite-ignore`, of a clean main checkout; a Driver's refused push or rebase checked (`help refused-push`, a push judged too); no failed or protected push retried, no branch protection read; no comment on a dropped CR's PR, its branch kept; stop no sync holder |"
+ },
+ {
+  "old": "| foreman.md 38 | Rare cases name `refused-push` and `session-shell` only; `help --for foreman` lists the topics |",
+  "new": "| foreman.md 38 | Rare cases: only `$CHANTIER help --for foreman`; the topic names are cut (`long-gate` and `refused-push` are named at never 2 and 3) |"
+ },
+ {
+  "old": "| coder.md 13, conflict-resolver.md 15, debugger.md 13, demo-explorer.md 13, investigator.md 16, verifier.md 18, cr-driver.md 18 | the same temp-folder and secrets never |",
+  "new": "| coder.md 13, conflict-resolver.md 15, debugger.md 13, demo-explorer.md 13, investigator.md 16, verifier.md 18, cr-driver.md 18 | the same temp-folder and secrets never; `coder.md` also large binaries other than the retained prototype |"
+ },
+ {
+  "old": "| topics: cr-rounds 4, refused-push-chief-p1 3 and 6, release-notes 4, ticket-summary-p2 5, titles 4, worker-shell 8 | pointer, scoping, links, a folded rule, the folder-change ban |",
+  "new": "| topics: cr-rounds 4, refused-push-chief-p1 3 and 6, release-notes 4, ticket-summary-p2 5, titles 4, worker-shell 8 | pointer, scoping, links, a folded rule, the folder-change ban |\n| topics, rules put back: batch-close-p2 3, batch-plan-mode-p2 3, config-p1 3, delivery-time-p2 3, demo-p1 3, forge-permissions 3, grill-critic-steps 6, grill-series 7, grill-specify-p2 4, lease 3, lost-driver 8, lost-outside 3, 5 and 7, lost-silent 6, main-checkout 3 and 9, merge-recorded 5, merge-series-stack-p2 3, merge-stack-ready-p2 3, merge-words 5, orders 8, project-rules 3, refused-push-chief-p2 3, release-chief-after-p2 5, stack-changes-chief-p1 3, stack-checks 6, stack 6, steering-reports-p1 6, wakes 5 and 6, watcher-board 7, watcher-lines 8 | a lost or misstated rule or its wording, line by line in the host and shared inventory |\n| topics.json | the new topics indexed; `sync` also reads `sync-checkout.md`; `direct-mode` also reads the mode-switch files; `mode-switch`'s trigger names `order mode` |"
+ },
+ {
+  "old": "  This PR's last commit changed the Foreman's, the Chief of Staff's and the Griller's cards: their\n  score is owed at the final head.",
+  "new": "  The latest changes edit the Foreman's, the Chief of Staff's, the Griller's and the Coder's cards and\n  many topics: their score is owed at the final head."
+ },
+ {
+  "old": "- Cards over budget (only the owner raises a budget): coder 1,533 (+33),",
+  "new": "- Cards over budget (only the owner raises a budget): coder 1,603 (+103),"
+ },
+ {
+  "old": "- The home of each protecting row was read at its cited line. Each of the four inventories lists the\n  protecting-looking rows a topic carries, for the later review.",
+  "new": "- The home of each protecting row was read at its cited line. Of the other rows, at least a few of\n  each inventory section were read against their home and the wrong homes corrected; not every row was\n  read. Each of the four inventories lists the protecting-looking rows a topic carries, for the later\n  review."
+ },
+ {
+  "old": "- Rules, or parts of rules, held by no card, floor or refusal: large binaries are never kept in a CR\n  folder (H-057; `coder.md` is over its budget); the host's settings are never a CR's place (H-059,\n  part); never rewrite an earlier retro section (FM-026); never tell as a fact what is marked unproved\n  (C-006); a held agent that has ended with no transcript is cleared on the user's word, or once known\n  not to run (C-304, C-885).",
+  "new": "- Rules, or parts of rules, held by no card, floor or refusal: never rewrite an earlier retro section\n  (FM-026); a held agent that has ended with no transcript is cleared on the user's word (C-304);\n  another session's Driver is cleared only on the user's word that it does not run (C-885, part: the\n  close refusal holds \"if it is not running\")."
+ },
+ {
+  "old": "  - topic index: 234 topics load, 415 readings resolve, no base name missing;",
+  "new": "  - topic index: 238 topics load, 432 readings resolve, no base name missing;"
+ },
+ {
+  "old": "direct-mode-epoch,",
+  "new": "direct-mode-epoch, direct-mode-switch,"
+ },
+ {
+  "old": "options, orders, orders-queue,",
+  "new": "options, order-drop, order-verbs, orders, orders-queue,"
+ },
+ {
+  "old": "qa-results, ready-to-merge,",
+  "new": "qa-results, ready-asks, ready-to-merge,"
+ },
+ {
+  "old": "(B012: Copilot host row)",
+  "new": "(B012: dropped, unproved bookkeeping; no host row holds it)"
+ },
+ {
+  "old": "B017: Copilot host row,",
+  "new": "B017: dropped, unproved bookkeeping (no host row holds it),"
+ }
+]
