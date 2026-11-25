@@ -41,3 +41,10 @@ Short name: `show-raw`
 Destination: running batch batch-01.
 
 Spec critic: yes, it changes the output of a command and the public API.
+
+8. show-raw-Q8: **Ticket summary.** "A. Commentaire (recommandé)": post
+   `work/issue-comment.md` on issue 58, no plan artifact.
+
+   Posted on https://github.com/gsemet/okf-schema/issues/58, 2026-11-25: comment
+   https://github.com/gsemet/okf-schema/issues/58#issuecomment-7172912278; plan "none"; demo
+   "none".

@@ -80,3 +80,6 @@ behaviour findings of the critic (Q9, Q10, Q11).
     really broken is still reported as written.
 13. index-links-Q12: **120-character cut.** "A. Avant le lien (recommandé)": keep 120 characters;
     when the cut would fall inside a link, cut before it and append `...`.
+14. index-links-Q13: **Nothing left after the cut** (an introduction starting with a link that
+    covers the cut). "A. Phrase générique (recommandé)": write the generic text instead of `...`
+    alone; it is recomputed on each run like any generic text.

@@ -3,7 +3,7 @@
 issue: https://github.com/gsemet/okf-schema/issues/57
 
 Code described: `origin/main` 2f09cef (okf-schema 0.18.1). Decisions: `02-answers.md`
-(index-links-Q1 to Q12, answers 1 to 13).
+(index-links-Q1 to Q13, answers 1 to 14).
 
 ## Goal
 
@@ -81,7 +81,8 @@ a. Schema summary first, unchanged: when all concepts of `<dir>` share one type 
 b. Otherwise, a summary already written in the parent index is preserved, **except** the two
    cases of sections 2 and 3, which go to point c.
 c. Otherwise the **introduction** of the subdirectory index, rewritten (section 1.2) and cut
-   (section 1.3), else the generic text ``Auto-generated index for concepts in `<dir>`.``.
+   (section 1.3), else the generic text ``Auto-generated index for concepts in `<dir>`.``
+   (also when the cut leaves nothing before `...`, section 1.3).
 
 Never a list entry, never a heading.
 
@@ -140,8 +141,11 @@ in answer 5). New rule, applied to the rewritten introduction:
   or `![t](x)`) of the rewritten text, the cut moves to the start of that link. The kept text has
   its trailing whitespace removed, then `...` is appended. The result is never longer than 120
   characters and never holds part of a link.
-- Literal consequence: an introduction starting with a link that covers character 117 gives
-  `...` alone.
+- Nothing left after the cut (index-links-Q13): when the kept text is empty after its trailing
+  whitespace is removed (an introduction starting with a link that covers character 117), the
+  summary is the generic text ``Auto-generated index for concepts in `<dir>`.``, not `...` alone.
+  Being the exact generic text, it is recomputed on every run like any generic text (section 3),
+  so a shorter introduction written later reaches the parent index.
 - The schema `description` cut (point a) is unchanged: schema text is not an introduction.
 
 ### 2. Damaged summaries already written (index-links-Q2)
@@ -250,8 +254,8 @@ bundle) is out of scope.
 - **Human docs:**
   - `docs/source/reference/cli.md`, `## okf-schema index`: the summary order of section 1 (the
     whole introduction before the first list, on one line), links rewritten from the parent index,
-    the 120-character cut that never splits a link, damaged summaries and the generic text
-    recomputed, other summaries preserved exactly as written (a trailing `[...]` on a
+    the 120-character cut that never splits a link (the generic text when nothing is left before
+    the link), damaged summaries and the generic text recomputed, other summaries preserved exactly as written (a trailing `[...]` on a
     subdirectory entry included); a before/after of the issue's case; the limit that an
     introduction once copied into a parent index is kept as authored and not refreshed when the
     subdirectory introduction changes.
@@ -276,8 +280,8 @@ bundle) is out of scope.
     parent index" (GIVEN a subdirectory index with or without an introduction, and a parent entry
     that is missing, generic or damaged; WHEN index runs; THEN the summary is the whole
     introduction on one line with rewritten links, cut at 120 characters without splitting a link,
-    or the generic text; other authored summaries are kept as written; a second run changes
-    nothing). Add it to `scenarios:` and the body; IDs, UUID and other authored fields unchanged.
+    or the generic text (also when the cut leaves nothing); other authored summaries are kept as
+    written; a second run changes nothing). Add it to `scenarios:` and the body; IDs, UUID and other authored fields unchanged.
   - `SwRS-OKFSCHEMA-CORE-001`: add scenario `S4` "Report broken links in index files" (GIVEN an
     `index.md` with a broken relative link, and a concept with `a.md#part` and `my%20file.md` to
     existing files; WHEN validate runs; THEN W2 names the index link as written and neither the
@@ -290,7 +294,7 @@ bundle) is out of scope.
     rewritten summary helpers stay in `src/okf_schema/api.py`, which already carries the CORE-004
     marker on `index_bundle`; a helper placed in another file gets
     `# @implements_req SwRS-OKFSCHEMA-CORE-004` above it. Append an entry to
-    `requirements/tiers/log.md` (IDs, reason: issue 57, decisions index-links-Q1 to Q12,
+    `requirements/tiers/log.md` (IDs, reason: issue 57, decisions index-links-Q1 to Q13,
     verification). Run `okfreq lint requirements`.
   - Acceptance paths are unchanged; the existing `@accepts_req StRS-OKFSCHEMA-CORE-002#S2` test
     must still pass.
@@ -355,7 +359,13 @@ cases a shipped file cannot hold.
     `"A" * 100 + " see [guide](guide.md) and more " + "B" * 40` (in the root the link becomes
     `[guide](api/guide.md)` and spans character 117) gives `"A" * 100 + " see..."`, which holds
     no `[` or `](` and is at most 120 characters; (d) a link that ends before character 117 is
-    kept whole and the cut falls after it. The span test is done on the rewritten text.
+    kept whole and the cut falls after it; (e) nothing left after the cut (index-links-Q13): in
+    `api/index.md`, the introduction `"[" + "g" * 130 + "](guide.md) here."` (a link from
+    character 0 covering character 117) gives in the root
+    ``- [api](./api/) — Auto-generated index for concepts in `api`.``, never `...` alone; a second
+    run reports every index `unchanged`; then the introduction is shortened to `Short intro.` and
+    the next run writes `Short intro.` (the generic text was recomputed). The span test is done on
+    the rewritten text.
 11. Whole introduction (index-links-Q10): `api/index.md` = `# api`, blank, `First paragraph.`,
     `Second line of it.`, blank, `Another paragraph. With two sentences.`, blank, list: the root
     entry is `First paragraph. Second line of it. Another paragraph. With two sentences.`. A
@@ -423,6 +433,7 @@ cases a shipped file cannot hold.
 
 ## Open questions
 
-None. Answers 10 to 13 (index-links-Q9 to Q12) settled the two questions of the previous version
+None. Answers 10 to 13 (index-links-Q9 to Q12) settled the two questions of an earlier version
 (extent of the introduction, 120-character cut) and the critic's findings on the trailing `[...]`
-and on encoded links.
+and on encoded links; answer 14 (index-links-Q13) settled what is written when nothing is left
+after the cut (the generic text).

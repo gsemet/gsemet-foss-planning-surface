@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "title": "Shortcut commands for batch start, pause, close and grill-to-pending",
+  "summary": "Direct commands for what the owner often types: batch-start (stack, parallel or series), batch-pause, batch-close, and a grill that puts the CR into the running batch. Not grilled yet.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "d96fcf9e1e48a3036381fe125a263161173971e1d555b2ec9889e3c11e3a4f4f",
+    "intake/request.md": "8fcf97189bac6a545b45f5911b6583a05ce6db5ada800f41e8eff1b9851d9b2c"
+  },
+  "summarized": "2026-11-25T19:54:07Z"
+}
