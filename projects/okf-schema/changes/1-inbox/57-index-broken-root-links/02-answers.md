@@ -85,3 +85,13 @@ behaviour findings of the critic (Q9, Q10, Q11).
     alone; it is recomputed on each run like any generic text.
 15. index-links-Q13, rephrased after the user's "Je n'ai pas compris Q13 reformule": "A. Phrase
     par défaut (recommandé)", the same decision as answer 14, confirmed.
+
+## 2026-11-25: after the OKF 0.2 compliance check
+
+16. index-links-Q14: **Subdirectory entry spelled as in the specification.** "A. Ajouter à 57
+    (recommandé)": `tables/`, `./tables/` and `./tables` name the same subdirectory, and the
+    authored summary is kept (`* [Tables](tables/) - Toutes les tables` becomes
+    `- [tables](./tables/) — Toutes les tables`, the option's preview).
+17. index-links-Q15: **Links in `log.md`.** "A. Oui, W2 (recommandé)": `validate` reports broken
+    links of `log.md` as W2 too, as for concepts and index files; an old link to a deleted file is
+    warned and `--strict` fails.

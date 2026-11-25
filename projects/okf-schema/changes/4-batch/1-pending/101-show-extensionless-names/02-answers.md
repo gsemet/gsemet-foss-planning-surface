@@ -57,3 +57,18 @@ Spec critic: yes, it changes what `show` refuses (CLI contract and public API).
     documented, so it was a defect (the option's words).
 13. show-names-Q13: **macOS case.** "A. Documenter (recommandé)": the refusal of an absolute path
     spelled in another case than `--path` is accepted and written in the command reference.
+
+## 2026-11-25: after the OKF 0.2 compliance check
+
+14. show-names-Q14: **Paths starting with `/`.** Asked: OKF 0.2 section 6.1 recommends a leading
+    `/` for "from the bundle root", and the specification of this CR refuses `show /api/status`
+    as outside the bundle; accept it (a `/` path that does not point inside the bundle on disk is
+    read from the bundle root, as links are; `/etc/passwd` is then searched in the bundle and not
+    found) or document the refusal. Free answer: "C’est le seul écart à la spec. Les markdown
+    doivent être validé, et les chemin sans / ou ./ doivent être considéré comme relatif au
+    fichier en cours."
+15. show-names-Q15: **How the name given to `show` is read** (restating answer 14: `show` has no
+    "current file"). "A. Racine (recommandé)": `/api/status` and `api/status` both start from the
+    bundle root, from any terminal folder; the "relative to the file" rule concerns links written
+    in files (already applied by the tool). Answer 6 (an absolute disk path inside the bundle
+    stays accepted) was not asked again and is not withdrawn.

@@ -12,3 +12,6 @@ entries included, then preserves it forever. `okf-schema validate` checks no lin
 `index` must write only the subdirectory's introduction (links rewritten from the root) or the
 generic text, recompute the damaged summaries and the generic text, and `validate` must report W2
 for broken links in index files, ignoring `#...` anchors.
+
+Added 2026-11-25 (answers 16 and 17): a subdirectory entry spelled `tables/`, `./tables/` or
+`./tables` keeps its authored summary, and `validate` reports W2 in `log.md` too.

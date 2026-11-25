@@ -64,3 +64,7 @@ command (and the sentence of the posted comment saying so).
     0.18.2 (replaces answer 6).
 11. show-raw-Q11: **A concept file that is not UTF-8.** "A. Afficher les octets (recommandé)":
     `show` prints the file's exact bytes, exit 0; the API `show_bundle` keeps failing.
+12. show-raw-Q12: **Wrong trust tier for actor forms of the specification** (the OKF 0.2 check
+    found that a concept verified by `reference_agent/gemini-2.5-pro` is read as unverified, so
+    the new command would print a wrong level). "B. CR séparé": a separate fix, stacked before
+    this CR in the same batch.

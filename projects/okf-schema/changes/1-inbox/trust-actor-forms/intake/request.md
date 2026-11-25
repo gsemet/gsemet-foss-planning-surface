@@ -1,0 +1,3 @@
+# Trust tier: count the actor forms allowed by OKF 0.2
+
+fix(validate): a concept verified by an actor written as OKF 0.2 allows, such as reference_agent/gemini-2.5-pro, is read as unverified and warned W10, because the tool requires a colon in every actor. Per spec sections 5.3 and 7, any actor that does not start with human: counts as machine-confirmed. Split from CR 58-show-as-stored (its answer show-raw-Q12), which adds a trust command and stacks on this fix.
