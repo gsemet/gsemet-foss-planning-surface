@@ -10,11 +10,11 @@ replaced by "Thursday", and Ctrl+Enter saves. The pointer never moves. The clip 
 
 Clip (GIF inline; MP4 and WebM linked at the pushed head):
 
-![Keyboard navigation clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.gif)
+![Keyboard navigation clip](https://github.com/gsemet/markdown-okf-schema-studio/raw/66b84782df697c6ed9b7ec8119c7b1064fae8ee7/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.gif)
 
-- [MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4)
-- [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/<HEAD>/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm)
-- Storyboard to review: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/<HEAD>/docs/demo-video/clips/keyboard-navigation/clip.md)
+- [MP4](https://github.com/gsemet/markdown-okf-schema-studio/raw/66b84782df697c6ed9b7ec8119c7b1064fae8ee7/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.mp4)
+- [WebM](https://github.com/gsemet/markdown-okf-schema-studio/raw/66b84782df697c6ed9b7ec8119c7b1064fae8ee7/docs/demo-video/clips/keyboard-navigation/keyboard-navigation.webm)
+- Storyboard to review: [clip.md](https://github.com/gsemet/markdown-okf-schema-studio/blob/66b84782df697c6ed9b7ec8119c7b1064fae8ee7/docs/demo-video/clips/keyboard-navigation/clip.md)
 
 ## Changes
 
@@ -63,7 +63,7 @@ Grade: 1. Docs, a clip folder and tests; a `git revert` restores the previous st
 - [x] New or changed tests: storyboard, stage and checks cases in the kit tests, the site test for the page
 - [x] Requirements: no behaviour change (`just requirements-update`: no change)
 - [x] Changelog: no user-facing change
-- [x] Local gates: `just clip keyboard-navigation all` (take pass, 20.0 s, GIF 1.60 MB, loop seam SSIM 0.98998), `just clip-kit-test` (40 tests), `just check`
+- [x] Local gates: `just clip keyboard-navigation all` (take pass, 20.0 s, GIF 1.60 MB, loop seam SSIM 0.98998), `just clip-kit-test` (40 tests), `just check` and `just ci-static`, all at 66b8478
 - [ ] Review
 - [ ] CI green
 
