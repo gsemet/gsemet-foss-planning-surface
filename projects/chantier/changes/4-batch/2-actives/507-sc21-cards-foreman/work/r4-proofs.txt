@@ -1,0 +1,87 @@
+chantier from C:/Users/gaeta/Projets/chantier.worktrees/batch-31-CR-507/skills/chantier/scripts/cli/src/chantier/__init__.py 0.15.1
+topics loaded: 225
+readings unresolved: none
+roles in topics: ['chief-of-staff', 'coder', 'conflict-resolver', 'cr-driver', 'debugger', 'demo-explorer', 'foreman', 'griller', 'inspector', 'investigator', 'qa-driver', 'release-driver', 'spec-writer', 'stack-driver', 'verifier']
+help names without a row: [('foreman.md', 'direct')]
+topic files: 266 over 1500: 26
+   2061 ci-beside-gate.md
+   1598 ci.md
+   1901 closing.md
+   2249 conflicts.md
+   1514 cr-handback.md
+   2045 cr-rounds.md
+   2422 cr-ship.md
+   1631 cr-workers.md
+   2040 handback-other.md
+   1907 pr-extras.md
+   1891 pr-images.md
+   1504 refused-push-steering.md
+   1559 refused-push.md
+   2854 release-merged.md
+   2071 release-notes.md
+   2315 release-ship.md
+   1878 retake-notes.md
+   1826 retake-stack.md
+   2338 retake.md
+   2362 stack-changes.md
+   2240 stack-hold.md
+   1749 stack-make.md
+   1839 stack-restack.md
+   1588 trouble-remote.md
+   2180 trouble-worker.md
+   1504 verifier-delta-matrix.md
+relative links: 17 broken: none
+resolving outside cards-next: [('forges/github.md', '../../../../docs/forge-connectors.md'), ('forges/gitlab.md', '../../../../docs/forge-connectors.md'), ('init.md', '../assets/tour.html')]
+text naming references/:
+   ('skills/chantier-SKILL.md', 'rs>` (go on unsynced: [sync-checkout](../chantier/references/sync-checkout.md)).')
+   ('skills/chief-of-staff-SKILL.md', 'rs>` (go on unsynced: [sync-checkout](../chantier/references/sync-checkout.md)).')
+   ('skills/chief-of-staff-SKILL.md', 'Cards: `../chantier/references/`; CLI: `../chantier/scripts/cli/`.')
+   ('skills/griller-SKILL.md', 'rs>` (go on unsynced: [sync-checkout](../chantier/references/sync-checkout.md)).')
+   ('skills/griller-SKILL.md', 'Cards: `../chantier/references/`; CLI: `../chantier/scripts/cli/`.')
+   ('skills/status-SKILL.md', 'rs>` (go on unsynced: [sync-checkout](../chantier/references/sync-checkout.md)).')
+   ('skills/status-SKILL.md', 'Cards: `../chantier/references/`; CLI: `../chantier/scripts/cli/`.')
+   ('skills/status-SKILL.md', 'Read [status-layout](../chantier/references/status-layout.md), only for this action,')
+   ('topics/demo-p1.md', 'he prompt of "Starting an agent", a `Read <skill>/references/demo-explorer.md;` line and the rules li')
+cmp floor.md worktree bytes equal: False ; equal to HEAD LF: True
+cmp hosts/claude-code.json worktree bytes equal: True ; equal to HEAD LF: True
+cmp hosts/copilot.json worktree bytes equal: True ; equal to HEAD LF: True
+forbidden phrases checked; date/batch/CR/model matches:
+   concepts.md ['CR-142', 'CR-165', 'batch-04']
+   hosts/claude-code.json ['Fable', 'Opus', 'Sonnet', 'haiku', 'opus', 'sonnet']
+   hosts/claude-code.md ['2026-11-09', '2026-11-21', '2026-11-23', 'CR-318', 'batch-09', 'batch-15']
+   hosts/copilot.json ['Fable', 'Opus', 'Sonnet', 'opus']
+   pr-template.md ['CR-142']
+   status-layout.md ['CR-142']
+   topics/refused-push-steering.md ['CR-115', 'cr-115']
+template headings references True 
+template headings cards-next True 
+driver table equal: True rows 6
+skill chantier frontmatter True title True version True
+skill chief-of-staff frontmatter True title True version True
+skill griller frontmatter True title True version True
+skill status frontmatter True title True version True
+launcher form uv run --script "<plugin root>/skills/chantier/scripts/chantier.py"
+sizes (LF bytes): file | today | new
+   concepts.md | 73286 | 13775
+   pr-template.md | 16801 | 11849
+   release-template.md | 12155 | 6758
+   status-layout.md | 17475 | 10992
+   titles.md | 2684 | None
+   ticket-summary-example.md | 1422 | 1308
+   routing.md | 5016 | 4790
+   init.md | 10041 | 6096
+   review-step.md | 3950 | 1675
+   sync-checkout.md | 4801 | 1115
+   forges/github.md | 739 | 587
+   forges/gitlab.md | 744 | 590
+   hosts/claude-code.json | 25243 | 25243
+   hosts/copilot.json | 22372 | 22372
+   hosts/claude-code.md | 109857 | 27732
+   hosts/copilot.md | 18947 | None
+   floor.md | 554 | 554
+   topics/titles.md | 1428
+   skills/chantier-SKILL.md | 3537 | 2451
+   skills/chief-of-staff-SKILL.md | 3664 | 2531
+   skills/griller-SKILL.md | 3223 | 2093
+   skills/status-SKILL.md | 3644 | 2530
+host topics: 33 bytes 35987 max 1490
