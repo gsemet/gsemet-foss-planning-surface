@@ -34,6 +34,8 @@ Grade: 1. Documentation, clip files and tests only; `git revert` restores everyt
 
 - Motion, rhythm and the loop as watched are not checked by the take; the maintainer judges them.
 - Takes on macOS and Linux are not done.
+- The specification expected two green bars; Studio marks the innermost changed block, so the clip shows three (the paragraph, list items 2 and 3). Accepted, not fixed: see Autonomous decisions.
+- The take itself (motion, rhythm, the loop as watched) was not re-run for this review: it needs a VS Code window; it is proven only from the committed files, `check.json`, the key frames and the kit tests.
 
 ## Autonomous decisions
 
