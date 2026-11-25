@@ -12,7 +12,7 @@ M9: 36 refusals scanned in 4 files, 7 allow-listed
 
 The new gate (`tests/test_refusal_gate.py`) parses `rails.py`, `rails_release.py`, `rails_idle.py` and `core/leases.py` with `ast`, takes the command names from the CLI's own parser, and fails on a refusal with no command span that is not allow-listed, on a stale allow-list entry, and on a scan below the floor of 36.
 
-`just test` wall time, same machine: 128.54 s before, 117.52 s after (no measurable added time).
+`just test` wall time, same machine, measured by the author of the change: 128.54 s on the base (b64d3c1) and 117.52 s at the head (42da173); the gate itself runs in 0.09 s, so the gap is machine noise, not a saving or a cost.
 
 ## Blast radius
 
@@ -45,6 +45,10 @@ Roles that hit a refusal are told the command to run next. No other behaviour ch
 
 - [x] New tests fail on the previous code (the gate flags the uncompleted refusals)
 - [x] Local gates at `42da173`: `just check` (2688 passed), `just eval-dry-run` (19 of 19), `just scenario` pass
+- [x] Evidence: before at `b64d3c1`, after at `42da173`: the M9 line above, printed by `pytest -s -k M9`
+- [x] Review: approved at `42da173`
+- [x] Verified at `42da173`
+- [x] CI green at `42da173` (5 of 5 checks)
 
 ## Internal references
 
