@@ -53,11 +53,11 @@ No visual change. Grep of the old role wording at the base (`git grep -n -i "kno
 ## Test plan
 
 - [ ] New or changed tests (they fail on the previous code): `tests/test_brief.py`, hook case, scenario check
-- [ ] Local gates at `<sha7>`: `just check`, `just eval-dry-run`, `just mod` pass; `just scenario` passed locally on the round's tree
+- [ ] Local gates at `d2c55f0`: `just check`, `just eval-dry-run`, `just mod` pass; `just scenario` passed locally on the round's tree
 - [ ] Evidence: none beyond the tests above
-- [ ] Review: approved at `<sha7>`
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [ ] Review: approved at `d2c55f0`
+- [ ] Verified at `d2c55f0`
+- [ ] CI green at `d2c55f0`
 
 ## Internal references
 
