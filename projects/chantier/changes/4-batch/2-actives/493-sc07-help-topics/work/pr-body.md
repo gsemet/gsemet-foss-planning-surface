@@ -48,6 +48,7 @@ Grade: **1**. Additive: one new command, one data file and appended text on exis
 ## Known gaps
 
 - Whether a role reads a topic when a line names it is unproved: it is measured later from transcripts.
+- The whole-suite seconds of `just test` before and after were not measured: only the new test file was timed, on its own.
 <details>
 <summary>Details</summary>
 
