@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC17: one launcher that picks the mode and runs the CLI",
+  "summary": "Specified for one Driver (child 17 of 28, stack on child 16): a launcher run by uv run --script picks dev or plugin mode, runs the CLI by today's method, --sync prints sync pending itself; no card or P10 change until child 24; a real-session allow-rule trial or blocked. One open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "dad2e20fc5caed3430692d71ebc2d98e9b51e8b976a5c803911bc7eb1b56d299",
+    "02-answers.md": "66eb2c4d3c3b38f7b5545306e7c56ff873e45a541faa6ba45681da2090999272",
+    "03-change-spec.md": "29c883c0d762d90b6b7532b501ce82550413a75012b42c547fc12b0012b99087",
+    "intake/request.md": "8ec0932bd853652497c0fc7ca77680f9d07adb99db3b9aea8460da6c84851a36"
+  },
+  "summarized": "2026-11-25T00:09:39Z"
+}
