@@ -29,3 +29,17 @@ Failed claims:
 Passes: links resolve at the head; Known gaps present; Internal references holds CR/batch only; sections match the project template; summary matches verify.md items 1-8.
 
 NOT VERIFIED
+
+## Description pass 2 (PR 515 body, judged at d930238cc64eee77fe5dc0ad25c574a7231b7f5a)
+
+Head: d930238cc64eee77fe5dc0ad25c574a7231b7f5a
+
+Command: `gh pr view 515 --repo gsemet/markdown-okf-schema-studio --json body,headRefOid` (headRefOid = the head above).
+- Layout: Summary, Deliverables, Blast radius, Autonomous decisions, Known gaps visible, then one Details fold (Changes, Impacts, Test plan, Internal references), blank lines around summary and before the closing tag, attribution line last after the fold. No Issues References (no issue line), no Human decisions (none to show).
+- Internal references only in the last section (CR-495, batch-09); no role name as the doer elsewhere.
+- Images and clips are user-attachments URLs, no commit-SHA links; not re-verified (per brief).
+- Test plan boxes name d930238; Review box "approved at 31c9d5d (committed as d930238)" matches the log note "r2 approved at 31c9d5d0, committed as d930238c"; CI line matches `statusCheckRollup` (static, static-windows, viewer-graph, visual SUCCESS; integration, stress SKIPPED).
+- Changes, Blast radius and Impacts match `git diff --stat origin/main...HEAD` (clip folder, kit tests, docs/user/editing.md, test/site/siteClips.test.ts; no src change).
+- Known gaps present and filled.
+
+VERIFIED

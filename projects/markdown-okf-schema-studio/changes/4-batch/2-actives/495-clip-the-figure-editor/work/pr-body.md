@@ -58,7 +58,7 @@ No visual change to the extension. The documentation site gains a clip on the ed
 - [x] Requirements: no behaviour change; the new site test carries `@tests_req SwRS-MDOKFSTUDIO-CORE-095`; `just requirements-update` leaves the tree clean
 - [x] Changelog: no user-facing change
 - [x] Local gates at `d930238`: `just clip-kit-test` (37 tests), `just format`, `just check`, `just clip figure-editor all --vsix ...` (`check.json` passed, verify passed, 12.0 s, playback rate 0.995, loop seam SSIM 0.991)
-- [x] Review: an independent review approved the round at `31c9d5d` (committed as `d930238`)
+- [x] Review: an independent review approved the round at `d930238` (carried from `31c9d5d`)
 - [x] CI green at `d930238` (static, static-windows, viewer-graph, visual at d930238; integration and stress skipped by design on a pull request)
 - [x] Evidence: the clip itself, filmed at `d930238` (`check.json`, key frames); no before picture, as the extension does not change
 - [x] Verified at `d930238`

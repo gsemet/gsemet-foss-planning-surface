@@ -40,8 +40,8 @@ Grade: 1. Documentation and demo files only; a plain `git revert` restores the p
 - [x] Requirements: No behaviour change (`just requirements-update` leaves the tree clean)
 - [x] Changelog: No user-facing change
 - [x] Local gates: `just clip-kit-test` 39 tests pass; `just check` pass; `just preflight` (Windows static stage) pass
-- [ ] Review
-- [ ] CI green
+- [x] Review (Inspector approved at da86d6e)
+- [x] CI green (at b0e6c6d)
 
 ## Known gaps
 

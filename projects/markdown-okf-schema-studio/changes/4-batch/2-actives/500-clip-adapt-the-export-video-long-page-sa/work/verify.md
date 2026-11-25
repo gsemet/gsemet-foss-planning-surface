@@ -13,3 +13,7 @@ All claims judged at b0e6c6d9 (PR 516, draft, base chantier/batch-09/cr-493-...)
 Not run: `just check`/preflight (cited in PR body as run by the author; CI static and static-windows green at this head).
 
 VERIFIED
+
+## Description-only pass at b0e6c6d9c6d69b07d1f95724033b6c1ed9bf1df5
+
+Posted PR 516 body equals work/pr-body.md (diff: one trailing blank line only); links use b0e6c6d; PR head b0e6c6d; `gh pr checks 516`: static, static-windows, visual, viewer-graph, report, checks pass, others skipping; Review box matches log note "r2 inspector approved at da86d6e"; Known gaps as in the template. VERIFIED.
