@@ -53,3 +53,8 @@ Spec critic: yes, on Fable (it changes every role's contract and several areas a
 - F15 to F21: fixes applied (pending-items section; child 1's base is the batch's stack top when it joins; unproved claims marked; CLI lines naming removed cards switched, with a test; floor for the three roles without a wrapper; each child states the seconds it adds to `just test`; `chantier push` is the one way a Driver publishes its branch, never a retry of a refused `git push`).
 Open questions Q1-Q8 of the specification: Q1 no hook deny list in this program (filed apart); Q2 five tries as smoke test; Q3 hand-written wrappers, `roles build` as a check; Q4 the gates child freezes what the rewrite reaches, a card above its target listed in Known gaps; Q5 the owner's, handled as F6; Q6 the steering session keeps plain `git push --force-with-lease`; Q7 no new forge read, the forge's own refusal printed verbatim; Q8 nothing merges while the owner sleeps; each child presented as ready.
 Budget: $400 (answer 21).
+
+
+# Answer 23 (2026-11-25, the owner, in chat)
+
+The owner asked to group the queued children into bigger CRs. Done, in the running batch: CR-495 = children 9+10; CR-497 = 11+12+13; CR-500 = 14+15; CR-502 = 16+17+18; CR-505 = 19+20; CR-507 = 21+22+23. Children 8, 24, 25, 26, 27 and 28 stay alone (CR-494, 510 to 514). The nine absorbed CRs (496, 498, 499, 501, 503, 504, 506, 508, 509) went to 6-trash, their specs kept whole inside the survivors. Risk named: CR-507 (children 21 to 23) is the heaviest and may need a hand-back at 100k tokens. The merge rule is unchanged (19 to 28 as one unit).

@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "title": "SC09: AGENTS.md: roles are data, the CLI advises and refuses",
-  "summary": "Child 9 of 28, specified: one AGENTS.md bullet rewritten (roles read as data via brief and roles.yaml; CLI refuses with rails, advises with next, never decides a merge; judge only words the ask). Docs only, no long gate, +0 s test. Two open questions.",
+  "title": "SC09+SC10: AGENTS.md role rules and chantier brief",
+  "summary": "Children 9 and 10 in one CR: the AGENTS.md role paragraph, then brief writing a role's whole start prompt. Two parts, one PR.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "3773c61dcaceb0876061416fa05d023a07e3887532602061dd3f3ffdaf9cb5cc",
-    "02-answers.md": "f2f69e7eab88bf08d02e35e52458969dd7d26565d3254610fdaf4279fc67532b",
-    "03-change-spec.md": "2bb73cf136b42e9fc656207f1cc640116f3bc29b5e94c3c3e26ecb0cc32eefd0",
+    "02-answers.md": "fc4f3a215cdda4eac49a7fa822c0d7b1e70721eb10efcc1ca531cf689e9d57c7",
+    "03-change-spec.md": "f91c2202c8f2b4347883e9fbb488475cd26093e2ecf01ad4921e915511e9b7f6",
     "intake/request.md": "815e1596f030b789daa6da13a73e88fe0ec3d82ac60a018b764a352bf764cfdd"
   },
-  "summarized": "2026-11-24T23:48:35Z"
+  "summarized": "2026-11-25T06:13:14Z"
 }

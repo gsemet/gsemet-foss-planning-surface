@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "title": "SC16: chantier retro draft drafts the retro from the batch's events",
-  "summary": "Specified for one Driver (child 16 of 28, stack on child 15): new retro draft --epoch N lists asks, refusals, blocks, Driver restarts, red gates and cost outliers as draft points with home:, count:, why not code:; prints, or --write appends to retro.md once. Two open questions.",
+  "title": "SC16-18: retro draft, launcher, roles data check",
+  "summary": "Children 16, 17 and 18 in one CR: retro draft, one launcher, role data in roles.yaml with a just roles check. Three parts, one PR.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "7e5144619147810a59dad0a8614412442751cdee3812dacc66e53e16373a8905",
-    "02-answers.md": "6fcf9623336fe3fed4950ea24eee75edb3e50ac5c9fbba968c7d6a8e0eb24485",
-    "03-change-spec.md": "e3edaea57a220910d153bb962ef88582810d39d0c7074a438f927169d9934412",
+    "02-answers.md": "b9aea7353a6caa599a5f7bea22a33c0e225d6ff161f535e2b57f3c9cf6937b2c",
+    "03-change-spec.md": "3efd83763eb18b4b348cc002a3a0d9ec9aa3a22f193f4faffb9fe99fab14aae7",
     "intake/request.md": "70ce636b2787eb5437d89b903ffc5f3a89bc5b7f3fa0783cbd4b8e6bb9d671cf"
   },
-  "summarized": "2026-11-25T00:04:29Z"
+  "summarized": "2026-11-25T06:13:16Z"
 }
