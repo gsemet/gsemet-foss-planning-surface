@@ -13,3 +13,15 @@ Gate: `pass just scenario at b64d3c1` (work/gate.log first line, log work/gates/
    Note (not a failure): QA-order lease choice in unit_for is read in code, not exercised by a test; the spec's evidence list names only the stack case.
 
 VERIFIED
+
+## Description pass (PR 468 body), judged at b64d3c1ea0ae75b2cde814b1b01201d56a14ace0
+
+Head: b64d3c1ea0ae75b2cde814b1b01201d56a14ace0
+
+- Template audit: sections in order, fold with blank lines, nothing after `</details>`, no internal reference outside Internal references (`gh pr view 468 --json body`). Pass.
+- Test plan SHAs: every item names b64d3c1 or the carried b9e02b6. Review: `chantier log CR-488` has "r1 approved at b9e02b6..., committed as b64d3c1e". Pass.
+- `just eval-dry-run` at b64d3c1: output "dry run: 19 of 19 cases as expected" (work/gates/eval-dry-run-desc.log). Pass.
+- CI: `gh pr checks 468`: 5 of 5 pass. Gate scenario pass at b64d3c1 in the log.
+- Claims match the diff vs the CR-487 base (31 files: near_misses.py, planning_readings.py, leases.py, gaps.py, title.py, two new tests, test_validate.py).
+
+VERIFIED
