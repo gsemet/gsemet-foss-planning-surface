@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "title": "show: resolve concept names without .md, stay inside the bundle",
-  "summary": "Specified: show and show_bundle accept a name without .md (exact file first, else name.md), report a directory as Concept not found, and refuse paths, absolute paths and symlinks whose real path leaves the bundle (exit 2, FileNotFoundError). Issue 56.",
+  "summary": "Specified: show accepts names without .md (exact file first, else name.md), reports a directory as Concept not found, refuses paths and symlinks leaving the bundle (exit 2). New requirement CORE-010 'stay inside the bundle'; fix commit, release 0.18.2. Issue 56.",
   "origin": {
     "kind": "github",
     "ref": "#56",
@@ -9,9 +9,9 @@
   },
   "sources": {
     "01-intent.md": "910b493c3c22cebe169f59d1e5b3ec787b66f77fd1d74ce731fefaade3afb9ea",
-    "02-answers.md": "458f088dba1fa721454fdc8adf47a5ddeec591b7af030b1d8db32c087eeebdd9",
-    "03-change-spec.md": "2916b872b7a19e0f31ed072de253e357cac2857642b95ca682ccd3274fbe3c34",
+    "02-answers.md": "9bb7dc2767ab200a8190266b5119bae0d2ed472b1bb0be985af6518d14ef960e",
+    "03-change-spec.md": "e57758b5a311ee1f208a815bb5cb7e06f444705258a9e1ce26dcc67235895e86",
     "intake/request.md": "b3db350e4c3f621ff10ebf1b4c7852ed7b52c2b1d9d6c7745dc0024fe6ac149d"
   },
-  "summarized": "2026-11-25T18:29:18Z"
+  "summarized": "2026-11-25T19:03:47Z"
 }

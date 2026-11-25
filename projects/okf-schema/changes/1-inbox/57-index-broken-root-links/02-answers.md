@@ -55,3 +55,10 @@ Destination: running batch batch-01.
 
 Spec critic: yes, it changes what `index` rewrites in users' files and what `validate` reports
 (so the result of `--strict`).
+
+9. index-links-Q8: **Ticket summary.** "A. Commentaire (recommandé)": post
+   `work/issue-comment.md` on issue 57, no plan artifact.
+
+   Posted on https://github.com/gsemet/okf-schema/issues/57, 2026-11-25: comment
+   https://github.com/gsemet/okf-schema/issues/57#issuecomment-7171724924; plan "none"; demo
+   "none".

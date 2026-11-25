@@ -76,9 +76,16 @@ Update the `show_bundle` docstring (Google style, per
   real path is outside the bundle; `NotADirectoryError` as today.
 `docs/source/reference/api.md:137` renders this docstring through `autofunction`.
 
+Put the containment check of step 4 in one private helper of `api.py` (for example
+`_require_inside_bundle(bundle, real, concept_path)`, which raises the "outside the bundle"
+`FileNotFoundError`), so that the follow-up CR `bundle-outside-symlinks` can reuse it. That
+helper carries `# @implements_req SwRS-OKFSCHEMA-CORE-010` (the new requirement of section 3a;
+use the ID `okfreq new` prints if it differs).
+
 Keep the `# @implements_req SwRS-OKFSCHEMA-CORE-006` marker on `show_bundle`, because it still
 derives the trust tier and staleness. Add `# @implements_req SwRS-OKFSCHEMA-CORE-005` next to
-it, since this CR changes the inspection contract of CORE-005.
+it, since this CR changes the inspection contract of CORE-005 (names without `.md`, a
+directory reported as not found).
 
 ### 2. Runtime: `show` command (`src/okf_schema/cli.py`)
 
@@ -89,34 +96,94 @@ it, since this CR changes the inspection contract of CORE-005.
   existing `.md` form. Add one sentence: the `.md` extension is optional, and a path outside the
   bundle is refused. Click shows this text in `okf-schema show --help`.
 
-### 3. Requirement: `requirements/tiers/swrs/core/SwRS-OKFSCHEMA-CORE-005.md`
+### 3. Requirements
 
 Follow `src/okf_schema/data/requirements/guidelines/requirements.guidelines.md` and
-`requirements/guidelines/project.guidelines.md`. Keep the `id`, `uuid`, title, existing
-scenarios S1/S2 and the authored metadata. The document stays `req_lifecycle: proposed` and
-gets no approval.
-- Add to `scenarios:` and to the body:
-  - `S3` "Resolve a concept name without its extension": GIVEN a bundle with `api/health-check.md`
-    (and possibly an `api/` directory beside an `api.md`), WHEN the user shows `api/health-check`
-    or `api`, THEN the exact path is used when it is a file, else `<name>.md`, and a directory is
-    never shown.
-  - `S4` "Refuse a target outside the bundle": GIVEN a concept path, absolute path or symlink
-    whose real path is outside the bundle, WHEN the user shows it, THEN okf-schema reports an
-    "outside the bundle" error, exits 2 on the CLI, raises `FileNotFoundError` in the API, and
-    reads nothing outside the bundle.
+`requirements/guidelines/project.guidelines.md`. Q11: the rule "stay inside the bundle" is a
+requirement of its own, created now; CORE-005 cites it with `depends_on` and does not carry it
+(the guideline: "A rule shared by many features ... is written once and cited by
+`depends_on`"). The follow-up CR `bundle-outside-symlinks` adds the other commands to that new
+requirement rather than writing the rule again.
+
+#### 3a. New requirement "Stay inside the bundle"
+
+Create it with `okfreq new`, never by hand (the guideline forbids hand-allocated IDs and UUIDs):
+
+```console
+okfreq new swrs "Stay inside the bundle" \
+  --description "When a user shows a concept, okf-schema SHALL refuse, without reading it, a concept path whose real path, symbolic links followed, is outside the bundle." \
+  --project okf-schema --scope core \
+  --derives-from StRS-OKFSCHEMA-CORE-002 \
+  --lifecycle proposed --path requirements
+```
+
+- Expected ID: `SwRS-OKFSCHEMA-CORE-010` (CORE-009 is the highest on `origin/main` and
+  `requirements/config.yml` has no `retired_ids`). Use the ID the command prints everywhere
+  this specification says CORE-010.
+- `req_lifecycle: proposed`: it is delivered with its code. It gets no approval.
+- Parent: `StRS-OKFSCHEMA-CORE-002` "Maintain and inspect OKF bundles", the parent of CORE-005.
+- The statement covers `show` only, because only `show` behaves this way after this CR (a SwRS
+  states what the code does). The follow-up CR widens it to the other commands.
+- Complete the scaffold `okfreq new` writes. The frontmatter `description` and the normative
+  paragraph stay the same single SHALL statement, word for word. Authored fields as the other
+  core SwRS: `owner: okf-schema maintainers`, `verification_method: test`,
+  `verification_criteria: Focused regression tests and the complete project preflight pass.`;
+  plus `documentation_files: [docs/source/reference/cli.md]` and
+  `agent_skill_files: [skills/okf-schema/SKILL.md]` (both change in this CR). Scenarios, in
+  `scenarios:` and as `### Scenario S<n>: <title>` sections in the body:
+  - `S1` "Refuse a concept path that leaves the bundle": GIVEN a concept path such as
+    `../outside.md` or `../outside`, an absolute path outside the bundle, or `.` with a file
+    `<bundle name>.md` beside the bundle, WHEN the user shows it, THEN okf-schema reports
+    `Concept path is outside the bundle: <path> (bundle: <bundle>)`, exits 2 on the CLI,
+    raises `FileNotFoundError` in the API, and reads nothing outside the bundle.
+  - `S2` "Refuse a symbolic link that leaves the bundle": GIVEN a symlinked file inside the
+    bundle whose target is outside it, or a file reached through a symlinked directory that
+    points outside, WHEN the user shows it, THEN the same refusal as S1 applies and the target
+    is not read.
+  - `S3` "Keep paths that stay inside": GIVEN `sub/../concept-a.md`, an absolute path inside
+    the bundle, or a symlink inside the bundle whose target is inside, WHEN the user shows it,
+    THEN the concept is shown as before.
+- A line in the body, outside the normative paragraph: "Known issue: `validate`, `list`,
+  `index`, `backlinks` and `lint` still follow symbolic links whose target is outside the
+  bundle." This is the guideline's form for a behavior that is wrong and not fixed yet. A
+  requirement names no ticket, so the line does not name the follow-up CR.
+- A line in the body (Q13): on a case-insensitive file system such as macOS, an absolute path
+  whose bundle part is spelled in another case than `--path` is refused as outside the bundle.
+- `### Verification notes`: Method: public API and CLI tests of `show`. Criteria: a path,
+  absolute path or symlink whose real path is outside the bundle is refused without being
+  read; a `..` path, an absolute path or a symlink whose real path stays inside works.
+
+#### 3b. `requirements/tiers/swrs/core/SwRS-OKFSCHEMA-CORE-005.md`
+
+Keep the `id`, `uuid`, title, existing scenarios S1/S2 and the authored metadata. The document
+stays `req_lifecycle: proposed` and gets no approval.
+- Add `depends_on: [SwRS-OKFSCHEMA-CORE-010]` (authored field). `okfreq lint` then writes the
+  "Depends on" group of the generated Links section; never edit that section by hand.
+- Add to `scenarios:` and to the body `S3` "Resolve a concept name without its extension":
+  GIVEN a bundle with `api/health-check.md` (and possibly an `api/` directory beside an
+  `api.md`), WHEN the user shows `api/health-check` or `api`, THEN the exact path is used when
+  it is a file, else `<name>.md`, and a directory is never shown.
 - Extend S2's GIVEN to "a missing bundle, a missing concept path, or a directory".
+- No scenario of CORE-005 states the outside-bundle refusal: that rule lives in CORE-010 only.
 - Leave the frontmatter `description` and the normative paragraph unchanged: they are the
-  same single SHALL statement word for word, as the requirements guideline asks. The new rule
-  goes in the scenarios (S3, S4, widened S2) and the verification notes only.
+  same single SHALL statement word for word, as the requirements guideline asks.
 - Add to `### Verification notes`, under Criteria: a concept path resolves with or without
-  `.md`, a directory is never shown, and a path or symlink whose real path is outside the
-  bundle is refused without reading it.
-- Then run `okfreq update-coverage requirements` (generated fields such as `tested_in_files`)
-  and `okfreq lint requirements --prose --check-links --project-root .` (navigation). Do not
-  edit the generated fields by hand.
-- Append a dated entry to `requirements/tiers/log.md` (authored, newest first, keep earlier
-  entries): CORE-005 gained S3/S4 and a widened S2, with the reason (issue 56) and the
-  verification results.
+  `.md`, a directory is never shown, and the paths `show` accepts are bounded by
+  SwRS-OKFSCHEMA-CORE-010.
+
+#### 3c. Generated fields, navigation and log
+
+- Run `okfreq update-coverage requirements` (generated fields: `implemented_in_files`,
+  `tested_in_files`, `derived_by` of StRS-OKFSCHEMA-CORE-002, `status`, ...) and
+  `okfreq lint requirements --prose --check-links --project-root .` (Links sections and the
+  navigation in `requirements/tiers/index.md`, `requirements/tiers/swrs/index.md` and
+  `requirements/tiers/swrs/core/index.md`). Do not edit the generated fields by hand.
+- Append a dated entry `## YYYY-MM-DD` (the day of the change; one heading per date, newest
+  first, keep earlier entries) to `requirements/tiers/log.md`: added SwRS-OKFSCHEMA-CORE-010
+  (S1 to S3) as the shared "stay inside the bundle" rule, applied to `show` only so far;
+  CORE-005 gained S3, a widened S2 and `depends_on` CORE-010; the reason (`show` read files
+  outside the bundle and refused names without `.md`); the verification results. The entry
+  names no ticket.
 
 ### 4. Human documentation
 
@@ -125,6 +192,10 @@ gets no approval.
   `<name>.md`, a directory is never a concept), the errors (`Error: Concept not found: ...`,
   `Error: Concept path is outside the bundle: ...`, which also applies to symlinks whose target
   is outside), exit code 2, and one example for each form.
+  Add the limit (Q13): on a case-insensitive file system such as macOS, an absolute
+  `CONCEPT_PATH` whose bundle part is spelled in another case than `--path` (for example
+  `/Users/me/KB/x.md` with `--path /Users/me/kb`) is refused as outside the bundle; spell it
+  as `--path` does, or pass a bundle-relative path.
 - `docs/source/tutorials/getting-started.md:89` and `docs/source/tutorials/knowledge-graph.md:94`
   already use the extensionless form, and this CR makes it work. Do not change their text.
 - `README.md`: no `show` usage to update (it only mentions `stats`). Unaffected.
@@ -143,15 +214,25 @@ gets no approval.
 - `docs/source/explanation/project-feature-coverage.md`: it maps okfreq and project capabilities.
   Its CORE-006 row mentions `stale` in `show`, which does not change. No row added.
 - CI, `justfile`, packaging: unchanged.
-- `CHANGELOG.md` is generated from the commit messages at release. Do not edit it. The commit
-  follows `.github/guidelines/git-commit-message.guidelines.md` (a `fix(show): ...` subject).
-  That guideline asks for no issue reference; one, if kept, is a project choice (for example
+- `CHANGELOG.md` is generated from the commit messages at release. Do not edit it.
+
+### 7. Commit and release (Q12)
+
+- One plain `fix(show): ...` commit, following
+  `.github/guidelines/git-commit-message.guidelines.md`: no `!` after the type and no
+  `BREAKING CHANGE:` section. Reading outside the bundle was never documented, so refusing it
+  fixes a defect. The body may say that paths outside the bundle are now refused.
+- The release is a patch, 0.18.2, made by the project's commitizen release
+  (`version_scheme = "semver"` in `pyproject.toml`) from that `fix` commit. The Driver does not
+  bump the version and does not write a `chore: version` commit.
+- That guideline asks for no issue reference; one, if kept, is a project choice (for example
   a `Closes #56` trailer).
 
 ## Out of scope
 
 - How `validate`, `list`, `index`, `backlinks` and `lint` handle symlinks: the separate CR
-  `bundle-outside-symlinks` (Q8).
+  `bundle-outside-symlinks` (Q8), which adds those commands to SwRS-OKFSCHEMA-CORE-010 (Q11)
+  and removes its "Known issue" line.
 - The `show` output format: issue 58.
 - Any change to `backlinks_bundle`, `new` or the other commands.
 - A file inside the bundle that cannot be read (permissions, encoding): its behavior does not
@@ -160,7 +241,9 @@ gets no approval.
 ## Evidence
 
 The tests follow `.github/guidelines/python-unittest.guidelines.md`. Each new test carries
-`# @tests_req SwRS-OKFSCHEMA-CORE-005#S<n>` with the fragment. Fixtures are built in `tmp_path`.
+`# @tests_req <ID>#S<n>` with the fragment: `SwRS-OKFSCHEMA-CORE-005#S2` or `#S3` for name
+resolution and directories (written `#S<n>` below), `SwRS-OKFSCHEMA-CORE-010#S1`, `#S2` or
+`#S3` for containment (written `010#S<n>` below). Fixtures are built in `tmp_path`.
 Symlink tests create the link with `Path.symlink_to`. When that raises `OSError` (Windows
 without the symlink privilege), they call `pytest.skip("symlinks not permitted on this host")`.
 The `windows-latest` runner allows symlinks: the existing
@@ -177,15 +260,15 @@ API, `tests/test_api.py` (next to the `show_bundle` tests near line 546):
    `Concept not found` (#S2).
 5. `.` raises `FileNotFoundError` matching `Concept not found` (#S2). With a file
    `<bundle name>.md` created beside the bundle, `.` raises `FileNotFoundError` matching
-   `outside the bundle` instead, and that file is not read (#S4).
+   `outside the bundle` instead, and that file is not read (010#S1).
 6. `../outside.md` (the file exists beside the bundle) and `../outside` both raise
-   `FileNotFoundError` matching `outside the bundle` (#S4).
-7. An absolute path to a concept inside the bundle succeeds. An absolute path to an existing
-   file outside raises the outside error (#S4).
-8. `sub/../concept-a.md` succeeds (#S3, inside path unchanged).
+   `FileNotFoundError` matching `outside the bundle` (010#S1).
+7. An absolute path to an existing file outside raises the outside error (010#S1). An absolute
+   path to a concept inside the bundle succeeds (010#S3).
+8. `sub/../concept-a.md` succeeds (010#S3).
 9. A symlink file inside the bundle that points outside, and a file reached through a symlinked
-   directory that points outside, both raise the outside error. A symlink inside that points to
-   a concept inside succeeds (#S4).
+   directory that points outside, both raise the outside error (010#S2). A symlink inside that
+   points to a concept inside succeeds (010#S3).
 10. The existing tests at `tests/test_api.py:551-635` keep passing unchanged.
 
 CLI, `tests/test_cli_remaining.py` (`show` section, using `_make_bundle`):
@@ -194,7 +277,7 @@ CLI, `tests/test_cli_remaining.py` (`show` section, using `_make_bundle`):
 12. `show --path <bundle> subdir` exits 2. The output has `Error: Concept not found`, has no
     `Traceback`, and `result.exception` is a `SystemExit` (#S2).
 13. `show --path <bundle> ../outside.md` (the file exists) exits 2 with
-    `Error: Concept path is outside the bundle` (#S4).
+    `Error: Concept path is outside the bundle` (010#S1).
 
 Acceptance, `tests/test_acceptance_core.py::test_inspection_reports_matching_concepts_and_changes_no_file`
 (`@accepts_req StRS-OKFSCHEMA-CORE-002#S3`, installed wheel):
@@ -204,7 +287,7 @@ Acceptance, `tests/test_acceptance_core.py::test_inspection_reports_matching_con
 
 `tests/test_edge_cases.py::test_path_edge_cases_concept_path_with_parent_references` claims to
 test `..` but passes `concept.md`. Make it pass `sub/../concept.md` (with `sub/` created) so it
-tests what its name says.
+tests what its name says, and mark it `# @tests_req SwRS-OKFSCHEMA-CORE-010#S3`.
 
 Scenario steps (a real run, output kept as evidence), from a disposable folder with the built
 package (`uv run -- okf-schema ...` from the worktree):
@@ -218,6 +301,12 @@ package (`uv run -- okf-schema ...` from the worktree):
   `okf-schema show --path my-knowledge-base/bundle ../../secret`: exit 2,
   `Error: Concept path is outside the bundle: ...`.
 
+Requirement checks: after `okfreq update-coverage requirements`, SwRS-OKFSCHEMA-CORE-010 lists
+`src/okf_schema/api.py` in `implemented_in_files` and the test files above in
+`tested_in_files`; each of its scenarios S1 to S3 has at least one `@tests_req` marker;
+`okfreq trace requirements --json` shows it covered; CORE-005 has the "Depends on" group
+naming CORE-010 in its Links section.
+
 Gates: `okfreq update-coverage requirements --check`,
 `okfreq validate requirements --prose --check-links --project-root .`,
 `okfreq lint requirements --check --check-links --project-root .`, then `just preflight`. All
@@ -230,9 +319,5 @@ Windows, so those tests skip there when it is missing and run in CI.
 
 ## Open questions
 
-1. On macOS (a case-insensitive file system where `resolve()` does not fix the case), an
-   absolute `CONCEPT_PATH` whose bundle part is spelled in a different case from `--path` (for
-   example `/Users/me/KB/x.md` with `--path /Users/me/kb`) fails the `is_relative_to` check and
-   is refused as outside the bundle. Should this be accepted (compare with
-   `os.path.samefile` on the ancestors, more code), or is the refusal acceptable as a documented
-   limit? Proposed: accept the refusal and document it in `docs/source/reference/cli.md`.
+None. Q11 to Q13 of `02-answers.md` closed the last one (the macOS case is documented,
+sections 3a and 4).
