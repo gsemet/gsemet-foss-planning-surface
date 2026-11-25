@@ -25,7 +25,7 @@ Smoke trial (the host did not show its permission mode), five pushes of this bra
 
 | Try | Outcome |
 | --- | --- |
-| 1 | ran; a real rebase push, `b9e02b6` to `096f073` |
+| 1 | ran; a real rebase push, the pre-rebase head to `096f073` |
 | 2 to 5 | ran; no-op, "was 096f073" |
 
 Choices: the unit that holds the lease is named (`--unit`), since lease numbers repeat across units; git's own refusal text is printed verbatim (exit 4); the lock is never held during the network push.
@@ -41,7 +41,7 @@ Grade: 2. A new command and CLI output lines, plus AGENTS.md exceptions; revert 
 ## Known gaps
 
 - The smoke trial did not show its permission mode (the host does not print it to the agent), so "auto mode" is not confirmed by the trial itself.
-- The local Windows scenario gate (`chantier gate <cr> scenario`) is owed only while this change is the stack's top; ran and passed at `b9e02b6`, carried to `096f073`; a run at the head of whichever change ends up the stack's top is still owed by that change.
+- The local Windows scenario gate (`chantier gate <cr> scenario`) passed at `096f073` (carried from `b9e02b6`); it is owed again only by the change that ends up the stack's top, at its own head.
 - The whole-suite seconds added to `just test` are not measured (see Deliverables).
 - The cards (`concepts.md`, `driver.md`, `hosts/claude-code.md`) still quote the raw `git push --force-with-lease` form; later changes rewrite them.
 - The classifier's verdict on `chantier push` is unproved: five pushes passed unrefused, and the later rate measure decides.
