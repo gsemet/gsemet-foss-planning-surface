@@ -8,10 +8,10 @@ This PR is a **draft** until the owner has reviewed the storyboard (`docs/demo-v
 
 The clip, taken in a real VS Code window on Windows with the extension built as a VSIX, every setting at its default (PlantUML on the built-in engine, no Java):
 
-![Renderings tour](https://github.com/gsemet/markdown-okf-schema-studio/raw/HEADSHA/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.gif)
+![Renderings tour](https://github.com/gsemet/markdown-okf-schema-studio/raw/da86d6e8d995c8d4ec4d067628735bdff30e2a1e/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.gif)
 
-MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/HEADSHA/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.mp4
-WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/HEADSHA/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.webm
+MP4: https://github.com/gsemet/markdown-okf-schema-studio/raw/da86d6e8d995c8d4ec4d067628735bdff30e2a1e/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.mp4
+WebM: https://github.com/gsemet/markdown-okf-schema-studio/raw/da86d6e8d995c8d4ec4d067628735bdff30e2a1e/docs/demo-video/clips/advanced-renderings-tour/advanced-renderings-tour.webm
 
 What the owner judges: motion, rhythm, six captions in 16 s, the scroll under the zoom, the loop as watched. The take's own checks proved the six drawings are rendered, no PlantUML error is shown, each mark lies inside the zoom, and the file is unchanged on disk.
 
@@ -53,11 +53,11 @@ No behaviour change in the extension; the editing page gains a clip.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): length refusals at 4.9 s and 30.1 s, 30.0 s accepted, `durationLine`, the shipped storyboard, the editing page plays the clip
+- [x] New or changed tests (they fail on the previous code) at da86d6e: length refusals at 4.9 s and 30.1 s, 30.0 s accepted, `durationLine`, the shipped storyboard, the editing page plays the clip
 - [x] Requirements: no behaviour change (`just requirements-update` leaves the tree unchanged)
 - [x] Changelog: no user-facing change
-- [ ] Local gates: `just clip-kit-test` (38 tests), `just check`, `just ci-static`; the take's `all` step passed
-- [ ] Review
+- [x] Local gates at da86d6e: `just clip-kit-test` (38 tests), `just check`, `just ci-static`; the take's `all` step passed
+- [x] Review: passed at da86d6e
 - [ ] CI green
 
 ## Internal references
