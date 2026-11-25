@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC15: The early conflict check as a command",
+  "summary": "New chantier conflicts <cr> --epoch N: the Foreman's early conflict check of a parallel batch, one git merge-tree --write-tree per pair with another ready PR, a note per conflict and the ask printed; refuses on git older than 2.38; writes no ref.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "2e872745c9f65e0a57da55484b1c19ab2cb5bc056f932b7f768c816f2f8dea8d",
+    "02-answers.md": "e5cb4bcd7e74c54aa3b589f1c3e50f12472761ba2a88479647a49525b3efe83f",
+    "03-change-spec.md": "839e9691e1a1913eb2e6848dc595fd31273adf55b806e0a35f19302f577e25e7",
+    "intake/request.md": "296ed25d383630434464ea6db2ccf682a40c1b882c525bb74fdf59694e8e46b5"
+  },
+  "summarized": "2026-11-25T00:03:44Z"
+}
