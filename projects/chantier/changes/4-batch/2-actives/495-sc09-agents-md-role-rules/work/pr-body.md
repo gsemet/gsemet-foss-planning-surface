@@ -23,7 +23,7 @@ Grade: 1. A new command and a new data file; the only touched existing code is e
 - The role table is a function `roles()` rather than a tuple: the four Drivers' card and writes are read from `concepts.md` at run time, not copied.
 - Host row ids per role are a mapping of the host capability ids (Drivers: steering, start, ending, compacting, write guard; workers: ending; board Griller: none).
 - Wrapper helpers live in a new `role_wrappers.py` to keep `plugin_files.py` under the file-size limit; `brief` is added to the epoch-command list; `floor.md` gets an LF entry in `.gitattributes`.
-- Open questions Q1 to Q4 of the brief step took their proposed defaults (`--cards` naming for the two skill roles, project folder under `briefs/`, briefs never cleaned, `brief` allowed through a profile).
+- Four open choices took their proposed defaults (`--cards` naming for the two skill roles, project folder under `briefs/`, so the path is `chantier/briefs/<project>/<batch>/<unit>-<role>.md` rather than the specification's `chantier/briefs/<batch>/...`, briefs never cleaned, `brief` allowed through a profile).
 
 ## Known gaps
 
@@ -41,9 +41,14 @@ Grade: 1. A new command and a new data file; the only touched existing code is e
 - Extractions with no output change: `driver_prompt.py`, `commands/driver.py`, `commands/orders.py`, `commands/facts.py`.
 - Hook test case, scenario check and Coverage bullet, eval dry-run case `quiz-folder` made positive.
 
+## Human decisions
+
+- `next` is advice for the choice of the change and the wording; safety steps are refusals, not advice; the CLI words the ask to the user and the steering session may add one sentence.
+- One change before the brief change rewrites the four role sentences of `AGENTS.md`: roles are data the CLI reads; the CLI advises, refuses with its rails and never decides a merge or a take-back; `judge` only words the ask.
+
 ## Impacts
 
-No visual change. Documentation grep of the old role wording at the base: found only in `AGENTS.md`, `CONTRIBUTING.md`, one host reference and source docstrings, and in no test.
+No visual change. Grep of the old role wording at the base (`git grep -n -i "knows no role\|role's contract lives\|says what it refuses\|what the role judges"`): `AGENTS.md:43-46` and `:134`, `CONTRIBUTING.md:100` and `:122`, `docs/proofs/claude-code.md:361`, `references/hosts/claude-code.md:630`, docstrings in `commands/__init__.py:14`, `driver_prompt.py:149`, `plugin_files.py:174,276,385`; none under `tests/`.
 
 ## Test plan
 
