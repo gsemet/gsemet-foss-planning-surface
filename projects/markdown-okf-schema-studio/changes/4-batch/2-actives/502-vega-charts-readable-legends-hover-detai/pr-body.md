@@ -15,7 +15,7 @@ Chart text sizes, as a multiple of the body text size (14 px body shown), shared
 | Subtitle | 11, muted colour | 12.6, label colour |
 | Discrete x labels | may rotate | horizontal |
 
-- The refreshed `charts-cream.png` and `charts-dark.png` in the README show line legend swatches that are longer and thicker; filled swatches (bars) are not bloated, so `symbolStrokeWidth` stays.
+- The refreshed `charts-cream.png` and `charts-dark.png` in the README show larger legend and axis text; filled swatches (bars) are not bloated, so `symbolStrokeWidth` stays. **UNVERIFIED:** the longer, thicker line legend swatches (neither README shot has a line chart with a legend).
 - A spec's own `config` and its own mark or axis properties still win over these defaults.
 - Chart source: hidden by a preview rule, shown again (closed) by the export sheet; the find bar skips it so hidden text is never a match.
 - The chart error message is now "Unable to render the chart." followed by its reason.
@@ -32,8 +32,7 @@ Grade: 1. It touches chart config values, two CSS rules and a message; a plain r
 ## Known gaps
 
 - The find-bar check is a unit test on the find index (the chart test page has no find bar), not a Chromium test.
-- `just preflight` has not run at this point; it is the gate before the hand-back.
-- The changelog line carries a placeholder PR number until the PR exists.
+- **UNVERIFIED:** longer, thicker swatches of line legends are not shown by a screenshot (the README charts have no line legend); the keys are set and tested in the config.
 
 <details>
 <summary>Details</summary>
@@ -58,14 +57,14 @@ Charts read at paragraph size and scale with font size and zoom; no Chart source
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): config table at 14 and 18 px, fallback, own-config precedence, exact error message, Chromium sizes, horizontal labels, zoom, hidden source, export, find skip
+- [x] New or changed tests (they fail on the previous code): config table at 14 and 18 px, fallback, own-config precedence, exact error message, Chromium sizes, horizontal labels, zoom, hidden source, export, find skip
 - [x] Requirements: SwRS DIAG-121 and DIAG-123 and StRS DIAG-015 updated, `@implements_req` and `@tests_req` markers placed, `just requirements-update` run
 - [x] Changelog: one user-facing line under `## Unreleased` (PR number filled once the PR exists)
-- [ ] Local gates at `b0e6c6d`: `npm run compile`, targeted node tests, `just requirements-update`, `just check` pass (uncommitted at this time)
-- [ ] Evidence: before at `b0e6c6d`, after: README shots re-taken
-- [ ] Review: approved at `<sha7>` (not recorded yet)
-- [ ] Verified at `<sha7>`
-- [ ] CI green at `<sha7>`
+- [x] Local gates at `756d856`: `just preflight` (static stage on Windows) pass; the later commit only fills the changelog PR number
+- [x] Evidence: README shots re-taken at `756d856`
+- [x] Review: approved at `3df0c86`
+- [x] Verified at `3df0c86`
+- [x] CI green at `3df0c86`: static, static-windows, visual, viewer-graph, checks, report pass
 
 ## Internal references
 
