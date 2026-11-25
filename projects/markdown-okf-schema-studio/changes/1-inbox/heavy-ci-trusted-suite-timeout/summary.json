@@ -1,14 +1,15 @@
 {
   "schema": 1,
-  "title": "Heavy CI red: the trusted suite exceeds its launch deadline",
-  "summary": "Fix why the real VS Code CI times out on main, and get a green heavy run.",
+  "title": "Reliable heavy CI: split the trusted launch, fix the frame lookup",
+  "summary": "The trusted VS Code window runs at about 92% of its 900 s deadline, so slow runners time out. Split it into two launches, each at most 600 s, and stop the frame lookup from failing on a frame with no document.",
   "origin": {
     "kind": "verbal"
   },
   "sources": {
     "01-intent.md": "e953d821eb459ef468c2b515f9335343bb24b35a4924aa2e220884095659cdab",
-    "02-answers.md": "07e3f980af4a78a67a6ed335fb8586fb6fa7e46c9759ac86199415278357c5f5",
+    "02-answers.md": "0d6c147f191e20dca9fad84afccb2a7195f3bd92306b55280cad1b5a4d31833a",
+    "03-change-spec.md": "ab2acb733581486d2cd9f2c4bdb8392c830826bc60548765ed760bfe412da02a",
     "intake/request.md": "53ae53480a377fe3e8e2f42fcef1020da052e87e262b1eee7130735a2e5e5003"
   },
-  "summarized": "2026-11-25T22:43:39Z"
+  "summarized": "2026-11-25T22:51:04Z"
 }

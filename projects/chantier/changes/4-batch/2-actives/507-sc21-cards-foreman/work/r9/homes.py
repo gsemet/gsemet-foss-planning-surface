@@ -17,7 +17,7 @@ TARGETS = """batch-close batch-plan-mode config delivery-time demo forge-permiss
 grill-critic-steps grill-series grill-specify lease lost-driver lost-outside lost-silent
 main-checkout merge-recorded merge-series-stack merge-stack-ready merge-words orders
 project-rules refused-push-chief release-chief-after stack-changes-chief stack-checks stack
-status-notes-more steering-reports sync-offer wakes watcher-board watcher-lines
+status-notes steering-reports sync-offer wakes watcher-board watcher-lines
 direct-mode direct-mode-switch order-drop order-verbs ready-asks mode-switch drop""".split()
 
 STOP = set(
