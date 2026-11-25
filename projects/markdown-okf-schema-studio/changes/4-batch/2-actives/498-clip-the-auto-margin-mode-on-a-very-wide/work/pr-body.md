@@ -53,11 +53,11 @@ No behaviour change; the user docs page on wide tables shows the clip.
 - [ ] New or changed tests (they fail on the previous code)
 - [ ] Requirements: No behaviour change
 - [ ] Changelog: No user-facing change
-- [ ] Local gates at `cb1ccf6`: `just clip-kit-test`, `just check`, `just preflight` (Windows static stage), `just clip wide-table-auto-width all`
-- [ ] Evidence: take at `cb1ccf6` (`check.json` passed)
-- [ ] Review: approved at `cb1ccf6`
-- [ ] Verified at `cb1ccf6`
-- [ ] CI green at `cb1ccf6`
+- [x] Local gates at `cb1ccf6`: `just clip-kit-test`, `just check`, `just preflight` (Windows static stage), `just clip wide-table-auto-width all`
+- [x] Evidence: take at `cb1ccf6` (`check.json` passed)
+- [x] Review: approved at `cb1ccf6`
+- [x] Verified at `cb1ccf6` (VERIFIED, work/verify.md)
+- [x] CI green at `cb1ccf6`: `gh pr checks 519` at cb1ccf6: static, static-windows, viewer-graph, visual pass; real VS Code jobs skipped on a PR
 
 ## Internal references
 
