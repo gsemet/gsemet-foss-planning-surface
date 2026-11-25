@@ -1,0 +1,53 @@
+module: base src
+pattern: ^[a-zA-Z][a-zA-Z0-9_-]*:.+$
+by                                   tier               codes
+'reference_agent/gemini-2.5-pro'     unverified         ['W10']
+'langchain.agents/0.3'               unverified         ['W10']
+'process:nightly-check'              machine-confirmed  []
+'process:finance-nightly'            machine-confirmed  []
+'bot:okf-schema'                     machine-confirmed  []
+'acme.ci:nightly'                    unverified         ['W10']
+'alice'                              unverified         ['W10']
+'Alice'                              unverified         ['W10']
+'human:'                             unverified         ['W10']
+'human:alice'                        human-reviewed     []
+'human:ahormati'                     human-reviewed     []
+'Human:alice'                        machine-confirmed  []
+42                                   unverified         ['W10']
+0                                    unverified         ['E9']
+True                                 unverified         ['W10']
+['x']                                unverified         ['W10']
+{'a': 1}                             unverified         ['W10']
+''                                   unverified         ['E9']
+None                                 unverified         ['E9']
+no by key                            unverified
+verified absent                      unverified
+verified empty list                  unverified
+verified string                      unverified
+non-dict entry                       unverified
+bare mapping producer/version        unverified
+producer/version + human             human-reviewed
+W10 count: 1
+W10 message: File 'f.md': verified entry [1] has malformed 'by' value 'alice'. Actor strings must follow the format '<prefix>:<identifier>' (e.g. 'human:alice', 'bot:ci'). Fix: correct the 'by' value in verified entry [{i}].
+contains '{i}': True | level warnings only, errors: []
+equals specification text: False
+show_bundle trust_tier for 'reference_agent/gemini-2.5-pro': unverified
+show_bundle trust_tier for 'alice': unverified
+show_bundle trust_tier for 'human:': unverified
+show_bundle trust_tier for 'human:alice': human-reviewed
+cli show exit: 0
+trust: unverified
+--- validate-md --strict [ok] generated.by=reference_agent/gemini-2.5-pro verified.by=reference_agent/gemini-2.5-pro: exit 1
+
+<scratch>\ok\c.md
+  WARNING [W10] File '<scratch>\ok\c.md': verified entry [0] has malformed 'by' value 'reference_agent/gemini-2.5-pro'. Actor strings must follow the format '<prefix>:<identifier>' (e.g. 'human:alice', 'bot:ci'). Fix: correct the 'by' value in verified entry [{i}].
+
+Validation failed: 0 error(s), 1 warning(s) (strict mode).
+--- validate-md --strict [alice] generated.by=reference_agent/gemini-2.5-pro verified.by=alice: exit 1
+
+<scratch>\alice\c.md
+  WARNING [W10] File '<scratch>\alice\c.md': verified entry [0] has malformed 'by' value 'alice'. Actor strings must follow the format '<prefix>:<identifier>' (e.g. 'human:alice', 'bot:ci'). Fix: correct the 'by' value in verified entry [{i}].
+
+Validation failed: 0 error(s), 1 warning(s) (strict mode).
+--- validate-md --strict [unchecked] generated.by=alice verified.by=human:alice: exit 0
+All files validated successfully (0 errors, 0 warnings).

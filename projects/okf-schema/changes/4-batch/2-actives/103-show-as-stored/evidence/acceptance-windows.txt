@@ -1,0 +1,12 @@
+CR-103 acceptance tests against an installed wheel, Windows, Python 3.12.10
+
+The repository fixture `installed_product` skips on Windows (it looks for `bin/`). The
+harness `work/scratch/acceptance_windows.py` calls the unchanged test functions of
+`tests/test_acceptance_core.py` with a product whose console scripts are in `Scripts/`.
+The wheel was built from the CR worktree with `uv build --wheel` and installed in a
+fresh virtual environment. <S> is the CR work/scratch folder, <W> the CR worktree.
+
+$ uv run --no-sync -- python -X utf8 <S>/acceptance_windows.py <W> <S>/accvenv <S>/accwork
+package under test: <S>\accvenv\Lib\site-packages\okf_schema\__init__.py
+pass: test_inspection_reports_matching_concepts_and_changes_no_file
+pass: test_init_then_new_creates_a_valid_bundle_that_keeps_the_authored_concept

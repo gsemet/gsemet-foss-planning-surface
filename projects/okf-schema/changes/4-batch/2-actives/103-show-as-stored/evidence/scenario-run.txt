@@ -1,0 +1,114 @@
+CR-103 scenario steps, Windows, Python 3.12.10
+<S> is a disposable folder under the CR work/scratch folder.
+
+$ uv run --no-sync -- okf-schema init <S>\my-knowledge-base
+exit code: 0
+stdout:
+Created OKF bundle '<S>\my-knowledge-base'.
+stderr (0 bytes): 
+CHECK init exits 0: pass
+
+$ uv run --no-sync -- okf-schema new --path <S>\my-knowledge-base\bundle --name api/health-check --type "API Endpoint" --title "Health Check"
+exit code: 0
+stdout:
+Created concept '<S>\my-knowledge-base\bundle\api\health-check.md'.
+stderr (0 bytes): 
+CHECK new exits 0: pass
+
+$ uv run --no-sync -- okf-schema show --path <S>\my-knowledge-base\bundle api/health-check
+exit code: 0
+stdout (80 bytes): b"---\r\ntype: API Endpoint\r\ntitle: Health Check\r\ndescription: ''\r\ntags: []\r\n---\r\n\r\n"
+stderr (0 bytes): 
+CHECK show exits 0: pass
+CHECK show output is byte-identical to the file: pass
+CHECK show output has no trust line: pass
+
+$ uv run --no-sync -- okf-schema trust --path <S>\my-knowledge-base\bundle api/health-check
+exit code: 0
+stdout:
+trust: unverified
+stderr (0 bytes): 
+CHECK trust exits 0: pass
+CHECK trust prints exactly trust: unverified: pass
+CHECK frontmatter found in the new file: pass
+
+(edited api/health-check.md: added a flow list with a comment, verified, stale_after)
+
+$ uv run --no-sync -- okf-schema lint --path <S>\my-knowledge-base\bundle
+exit code: 0
+stdout:
+Linted: <S>\my-knowledge-base\bundle\api\health-check.md
+Linted: <S>\my-knowledge-base\bundle\index.md
+Linted 2 file(s).
+stderr (0 bytes): 
+CHECK lint exits 0: pass
+
+file after lint:
+---
+type: API Endpoint
+title: Health Check
+description: ''
+tags: []
+links: []                     # keep
+verified: {by: human:alice, at: 2026-11-25}
+stale_after: 2020-01-01
+backlinks: []
+---
+
+$ uv run --no-sync -- okf-schema show --path <S>\my-knowledge-base\bundle api/health-check
+exit code: 0
+stdout (203 bytes): b"---\r\ntype: API Endpoint\r\ntitle: Health Check\r\ndescription: ''\r\ntags: []\r\nlinks: []                     # keep\r\nverified: {by: human:alice, at: 2026-11-25}\r\nstale_after: 2020-01-01\r\nbacklinks: []\r\n---\r\n\r\n"
+stderr (0 bytes): 
+CHECK show exits 0 after the edit: pass
+CHECK show output is byte-identical to the edited file: pass
+CHECK the comment is kept: pass
+
+$ uv run --no-sync -- okf-schema trust --path <S>\my-knowledge-base\bundle api/health-check
+exit code: 0
+stdout:
+trust: human-reviewed
+stale: true
+stderr (0 bytes): 
+sha256 before trust: fbddcf2cb06e77feb041315e8eb9c0f19ac36a6985271e5ab13395da9e7f5ed5
+sha256 after trust:  fbddcf2cb06e77feb041315e8eb9c0f19ac36a6985271e5ab13395da9e7f5ed5
+CHECK trust exits 0: pass
+CHECK trust prints human-reviewed and stale: pass
+CHECK trust left the file unchanged: pass
+
+(wrote broken.md, plain.md and latin1.md in the bundle)
+
+$ uv run --no-sync -- okf-schema show --path <S>\my-knowledge-base\bundle broken
+exit code: 0
+stdout (30 bytes): b'---\ntitle: [unclosed\n---\nBody\n'
+stderr (0 bytes): 
+CHECK show broken exits 0: pass
+CHECK show broken is byte-identical to the file: pass
+CHECK show broken has empty stderr: pass
+
+$ uv run --no-sync -- okf-schema show --path <S>\my-knowledge-base\bundle plain
+exit code: 0
+stdout (25 bytes): b'# Plain\n\nNo frontmatter.\n'
+stderr (0 bytes): 
+CHECK show plain exits 0: pass
+CHECK show plain is byte-identical to the file: pass
+CHECK show plain has empty stderr: pass
+
+$ uv run --no-sync -- okf-schema show --path <S>\my-knowledge-base\bundle latin1
+exit code: 0
+stdout (20 bytes): b'---\ntitle: caf\xe9\n---\n'
+stderr (0 bytes): 
+CHECK show latin1 exits 0: pass
+CHECK show latin1 is byte-identical to the file: pass
+CHECK show latin1 has empty stderr: pass
+
+$ uv run --no-sync -- okf-schema trust --path <S>\my-knowledge-base\bundle latin1
+exit code: 2
+stdout:
+
+stderr (215 bytes): Error: Concept file is not valid UTF-8: <S>\my-knowledge-base\bundle\latin1.md
+CHECK trust latin1 exits 2: pass
+CHECK trust latin1 writes one error line: pass
+CHECK trust latin1 has no traceback: pass
+CHECK trust latin1 prints nothing on stdout: pass
+
+Result: 0 failed check(s)
