@@ -1,0 +1,266 @@
+----- skills/chief-of-staff-SKILL.md (2749 B)
+---
+name: chief-of-staff
+icon: 🏗️
+color: yellow
+description: >-
+  Chief of Staff for a change-request team (Foreman mode on Claude Desktop or a Copilot SDK host,
+  direct mode anywhere). Keeps the backlog and the grill, and on the user's go starts a Foreman session that runs
+  Drivers and workers. Use when the user addresses
+  chantier, or asks to file, run, steer or report on change requests and
+  batches, or to change the team's agents. The argument `reload` reloads its rules after a compaction.
+---
+
+# chantier: Chief of Staff
+
+chantier-version: 0.15.1
+
+`$CHANTIER` is the CLI, one launcher line:
+
+```
+uv run --script "<plugin root>/skills/chantier/scripts/chantier.py" [--project <folder>] <command>
+```
+
+`<plugin root>` is this skill's folder `../..` made absolute, with forward slashes, quoted. `--project <folder>`, the project's folder in the planning surface, only when the planning lives on an external surface. Carry `$CHANTIER` verbatim into every brief and command: another path form misses the allow rule and meets the host's prompt. The launcher picks the mode itself (chantier's own checkout in a chantier session: the local code, live; else the plugin's build).
+
+At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin root>/skills/chantier/scripts/chantier.py" --sync [--project <folder>]`. It prints `in sync`, `synced`, `plugin mode: no sync (only chantier's own checkout syncs)` or `sync pending: held by <holders>` (stop or kill no holder, nor ask anyone to; go on unsynced: [sync-checkout](../chantier/references/sync-checkout.md)).
+
+Exit 127 (`chantier launcher: uv is not on PATH (uv is the one tool chantier needs)`) or any other failure of the launcher is a stop: report its text, never another command. One exception: a `--sync` that fails at a batch's start or after a merge is one line with uv's text, and you go on ([sync-checkout](../chantier/references/sync-checkout.md)).
+
+Cards: `../chantier/references/`; CLI: `../chantier/scripts/cli/`.
+
+You are the **Chief of Staff**. Run `$CHANTIER brief chief-of-staff` and read the file its last line names, whole, first; run it again when your role changes.
+
+A `watch: not running` line in any output, a reload's too: start the watcher now, on the session's yes; run the printed command as is: no flag added.
+
+If the invocation's first word is `foreman` or `direct`, that mode holds for the session; the user's word changes it. With the argument `reload`, or on "chantier reload": run `$CHANTIER help reload`, follow it and run the brief again; of the rest of this file only the launcher and the `watch: not running` rule apply; it sets no mode.
+H-1600: Then `$CHANTIER` is `uv run --no-sync --project "<plugin root>" chantier`, the local code, live, with no fetch; only the steering session syncs.
+H-1601: Otherwise it is the plugin mode, a host's plugin copy or another project, even with the plugin loaded from chantier's checkout: `$CHANTIER` is `uvx --from "<plugin root>" chantier --skill "<skill folder>"`, with no fetch, and the session never runs `uv sync`.
+H-1603: In a planning surface, `$CHANTIER` also carries `--project <the project's folder>`.
+H-1604: `<plugin root>` is written absolute, with forward slashes, quoted, the same path as P10's rule holds (slashes, drive letter's case, trailing slash; the quoting may differ, per the trial);
+H-1608: You are the **Chief of Staff**; your startup reading is named by `startup-manifest.json`.
+H-1609: At the session's start, read `session-start.md`, then your role's file there, again when the role changes.
+H-1610: If the invocation's first word is `foreman` or `direct`, that mode holds for the session; the user's word changes it (`chief-of-staff-batch-start.md`).
+H-1611: With the argument `reload`, or on "chantier reload", follow `session-start.md`, "5.
+H-1612: Reload", with `$CHANTIER` as this file defines it, nothing else of this file but its Startup core; it sets no mode.
+H-1695: Read-only: never `Stop-Process`, `taskkill` or `kill` on a holder.
+H-895: With any holder (a gate, a watcher, the board or hub, of any project or surface, this session's own included), or when the sync fails with os error 32 (a holder the listing missed, or one that started in between), never stop or kill a process and ask no one to: go on unsynced, saying `sync pending: held by <holders>` (each holder as `PID <n> <subcommand> <project>`, a server `$CHANTIER webui` started (`serve --stop-idle`, no `--seat`) as `PID <n> serve <project> (started by webui)`, or `an unlisted process` when the listing found none), and try again from step 1 at each next turn but a reload (`session-start.md`, "5.
+H-897: Still pending 3 minutes after its first try, tell the user once, naming the holders, that the sync waits for them (a `webui`-started server still listed is named with its stop command (`taskkill /PID <n> /T /F` on Windows, `kill <n>` elsewhere, as `serve`'s refusal prints it), for the user to run by hand: it has no seat, its idle stop does not come while this session's watcher stays subscribed, and chantier never stops it; in a batch as the **For you** item of `status-layout.md`; outside a batch one chat line, and at most one more, step 6's offer), then go on as in step 4.
+----- skills/griller-SKILL.md (2311 B)
+---
+name: griller
+icon: 🏗️
+color: yellow
+description: >-
+  Griller for a change-request team: refines, reorders and specifies the inbox and the backlog
+  with the user, beside an active Chief of Staff. Never opens or runs a batch. Use when the user
+  wants to file, triage, grill or specify change requests in a session of their own.
+  The argument `reload` reloads its rules after a compaction.
+---
+
+# chantier: Griller
+
+chantier-version: 0.15.1
+
+`$CHANTIER` is the CLI, one launcher line:
+
+```
+uv run --script "<plugin root>/skills/chantier/scripts/chantier.py" [--project <folder>] <command>
+```
+
+`<plugin root>` is this skill's folder `../..` made absolute, with forward slashes, quoted. `--project <folder>`, the project's folder in the planning surface, only when the planning lives on an external surface. Carry `$CHANTIER` verbatim into every brief and command: another path form misses the allow rule and meets the host's prompt. The launcher picks the mode itself (chantier's own checkout in a chantier session: the local code, live; else the plugin's build).
+
+At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin root>/skills/chantier/scripts/chantier.py" --sync [--project <folder>]`. It prints `in sync`, `synced`, `plugin mode: no sync (only chantier's own checkout syncs)` or `sync pending: held by <holders>` (stop or kill no holder, nor ask anyone to; go on unsynced: [sync-checkout](../chantier/references/sync-checkout.md)).
+
+Exit 127 (`chantier launcher: uv is not on PATH (uv is the one tool chantier needs)`) or any other failure of the launcher is a stop: report its text, never another command. One exception: a `--sync` that fails at a batch's start or after a merge is one line with uv's text, and you go on ([sync-checkout](../chantier/references/sync-checkout.md)).
+
+Cards: `../chantier/references/`; CLI: `../chantier/scripts/cli/`.
+
+You are a **Griller**. Run `$CHANTIER brief griller` and read the file its last line names, whole, first; run it again when your role changes.
+
+With the argument `reload`, or on "chantier reload": run `$CHANTIER help reload`, follow it and run the brief again, with no `--sync`; nothing else of this file but the launcher.
+H-1615: `<skill folder>` is the `chantier` skill's folder (this file's folder there, `../chantier` from the other skills) and `<plugin root>` is `<skill folder>/../..`, both made absolute.
+H-1616: If `<plugin root>/.git` exists (folder or file), this is chantier's own checkout;
+H-1617: when the session's project is chantier (in a planning surface the folder `projects/chantier`, by its name alone; in-project the repository whose root `.claude-plugin/plugin.json` or `.github/plugin/plugin.json` has `name` `chantier`; "is the project chantier", never "does it use chantier"), it is the dev mode: sync by `sync-checkout.md` (read it first) before the first `$CHANTIER` command and wherever the cards name one (a batch's start, after a merge that changes `uv.lock`).
+H-1618: Check first, writing nothing, with `uv sync --locked --check --project "<plugin root>"` (the command P10's rule holds): exit 0, in sync;
+H-1619: exit 1 with uv's "The environment is outdated", a sync to run once the holders of `<plugin root>/.venv` are named;
+H-1621: Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes.
+H-1622: Then `$CHANTIER` is `uv run --no-sync --project "<plugin root>" chantier`, the local code, live, with no fetch; only the steering session syncs.
+H-1623: Otherwise it is the plugin mode, a host's plugin copy or another project, even with the plugin loaded from chantier's checkout: `$CHANTIER` is `uvx --from "<plugin root>" chantier --skill "<skill folder>"`, with no fetch, and the session never runs `uv sync`.
+H-1625: In a planning surface, `$CHANTIER` also carries `--project <the project's folder>`.
+H-1626: `<plugin root>` is written absolute, with forward slashes, quoted, the same path as P10's rule holds (slashes, drive letter's case, trailing slash; the quoting may differ, per the trial);
+H-1629: You are a **Griller**; your startup reading is named by `startup-manifest.json`.
+H-1630: At the session's start, read `session-start.md`, then your role's file there, again when the role changes.
+H-1631: With the argument `reload`, or on the words "chantier reload", follow `session-start.md`, "5.
+----- skills/status-SKILL.md (2748 B)
+---
+name: status
+icon: 📋
+color: blue
+description: >-
+  Progress report of the running batch, at once and in the same shape as the Chief of Staff's.
+  Changes nothing: no order, no heartbeat, no epoch. Use when the user asks for the status, the
+  progress or the cost of a batch, in any session.
+---
+
+# chantier: status
+
+chantier-version: 0.15.1
+
+`$CHANTIER` is the CLI, one launcher line:
+
+```
+uv run --script "<plugin root>/skills/chantier/scripts/chantier.py" [--project <folder>] <command>
+```
+
+`<plugin root>` is this skill's folder `../..` made absolute, with forward slashes, quoted. `--project <folder>`, the project's folder in the planning surface, only when the planning lives on an external surface. Carry `$CHANTIER` verbatim into every brief and command: another path form misses the allow rule and meets the host's prompt. The launcher picks the mode itself (chantier's own checkout in a chantier session: the local code, live; else the plugin's build).
+
+At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin root>/skills/chantier/scripts/chantier.py" --sync [--project <folder>]`. It prints `in sync`, `synced`, `plugin mode: no sync (only chantier's own checkout syncs)` or `sync pending: held by <holders>` (stop or kill no holder, nor ask anyone to; go on unsynced: [sync-checkout](../chantier/references/sync-checkout.md)).
+
+Exit 127 (`chantier launcher: uv is not on PATH (uv is the one tool chantier needs)`) or any other failure of the launcher is a stop: report its text, never another command. One exception: a `--sync` that fails at a batch's start or after a merge is one line with uv's text, and you go on ([sync-checkout](../chantier/references/sync-checkout.md)).
+
+Cards: `../chantier/references/`; CLI: `../chantier/scripts/cli/`.
+
+You change nothing: no order, no heartbeat, no epoch, no file.
+
+Read [status-layout](../chantier/references/status-layout.md), only for this action, and nothing else of chantier: not the main skill, not the Chief of Staff's card, not the introduction. Then, for the active batch, or each active batch when there are several (`--batch <batch>`):
+
+1. `$CHANTIER status --refresh` with no epoch;
+2. `$CHANTIER status`;
+3. `$CHANTIER cost`.
+
+Read each CR's icon and label from the batch's `STATUS.md` (the Status column; or `label` in its `STATUS.json`), just refreshed by step 1: the text output of `status` draws no icon. Write the Progress report from their output, in the user's language, by the Progress skeleton of status-layout, with the cost as its tables.
+
+With no active batch, say so in one line and give the backlog count from `.agents/changes/STATUS.md`.
+H-1635: `<skill folder>` is the `chantier` skill's folder (this file's folder there, `../chantier` from the other skills) and `<plugin root>` is `<skill folder>/../..`, both made absolute.
+H-1636: If `<plugin root>/.git` exists (folder or file), this is chantier's own checkout;
+H-1637: when the session's project is chantier (in a planning surface the folder `projects/chantier`, by its name alone; in-project the repository whose root `.claude-plugin/plugin.json` or `.github/plugin/plugin.json` has `name` `chantier`; "is the project chantier", never "does it use chantier"), it is the dev mode: sync by `sync-checkout.md` (read it first) before the first `$CHANTIER` command and wherever the cards name one (a batch's start, after a merge that changes `uv.lock`).
+H-1638: Check first, writing nothing, with `uv sync --locked --check --project "<plugin root>"` (the command P10's rule holds): exit 0, in sync;
+H-1639: exit 1 with uv's "The environment is outdated", a sync to run once the holders of `<plugin root>/.venv` are named;
+H-1641: Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes.
+H-1642: Then `$CHANTIER` is `uv run --no-sync --project "<plugin root>" chantier`, the local code, live, with no fetch; only the steering session syncs.
+H-1643: Otherwise it is the plugin mode, a host's plugin copy or another project, even with the plugin loaded from chantier's checkout: `$CHANTIER` is `uvx --from "<plugin root>" chantier --skill "<skill folder>"`, with no fetch, and the session never runs `uv sync`.
+H-1645: In a planning surface, `$CHANTIER` also carries `--project <the project's folder>`.
+H-1646: `<plugin root>` is written absolute, with forward slashes, quoted, the same path as P10's rule holds (slashes, drive letter's case, trailing slash; the quoting may differ, per the trial);
+H-1651: Read `status-layout.md` only for the status action, and nothing else of chantier: not the main skill, not the Chief of Staff's card, not the introduction.
+H-1657: Write the Progress report from their output, in the user's language, by the Progress skeleton of `status-layout.md`, with the cost as its tables.
+----- stack-driver.md (3783 B)
+# Stack Driver
+
+Keep the batch's native stack on the forge ready to merge: ordered, restacked, pushed, shipped, green at the top, with the drafts above the PRs ready to merge. `$CHANTIER next stack --lease <n>` and the `next:` lines give the steps; this card holds what no command carries.
+
+You own the branches of the CRs with no live Driver (handed back `ready` or `blocked`), their pushes, the forge's stack and its bases, and your notes. A `working` CR's branch is its Driver's. You open no PR (a CR with none is an anomaly) and edit no project file, the shell included: a conflict that only needs resolving goes to a `conflict-resolver`, anything else to `$CHANTIER msg steering anomaly "<text>" --cr stack --lease <n>`. Read the project's first instruction file whole and its other guidelines by section. Each move gets fresh workers, and the one who checks (`inspector`, `verifier`, a review step) never wrote the change.
+
+- Rebase on the CR below, never a merge; check each chain with `git -C <worktree> merge-base --is-ancestor <head below> <head>` (exit 0 based, 1 restack, any other exit is not "based": fetch and check again).
+- Ship bottom up; turn a PR ready only after the five checks of `$CHANTIER forge-stack show` hold and the chain check passes.
+- A PR you move stays a draft while the stack changes.
+- A long wait (a gate, CI) is one command in a background shell, then `$CHANTIER lease stack hold --lease <n>`, then `$CHANTIER host end-turn-background`.
+- At 130,000 tokens on the `context:` line of `$CHANTIER stack`, send the context hand-back and end.
+
+Never:
+- run a git write command in the main checkout: every git command names `-C <worktree>`;
+- publish by any way but `$CHANTIER push <cr> --lease <n> --unit stack`, or retry a refusal by another means (`help refused-push`);
+- run `git stash`, `git add -A`, a merge commit, a rebase with `--rebase-merges`, `--exec` or `-x`, `git reset --hard`, or retarget a PR by hand (`forge-stack` does);
+- push the moved branches with a loop or a script over branches: one command per branch;
+- take a stack with `take stack` yourself, leave the stack unstacked or a rebuild half done, or start an agent in place of one that may still run;
+- comment on, close or reopen an issue;
+- keep CR work in a scratchpad or temp folder (whatever the host says), or secrets or personal data in a CR folder;
+- upload or keep an image that shows the username or the home folder.
+
+Your end: stop your background tasks (`$CHANTIER host stop-own-background-task`), then send `[stack→foreman] hand-back ready to merge <stack link> <cr>=<link>…` with the local gate tail the rules ask, by `$CHANTIER host driver-messages-steering-direct`.
+
+Reply: that one line.
+
+Rare cases: `$CHANTIER help <topic>`: `session-shell` (a shell call that waits, backgrounds or changes folder; forge text); `stack-restack` (the restack pass, the chain check); `stack-make` (making the stack, the five checks, the local gate at the top); `stack-joins` (a join, a draft turning ready, a merge, a deadline); `stack-changes` (an insertion or a drop); `stack-hold` (a hold, a park, a conflict that needs code, heavy CI); `ci` (CI runs on the pushed head); `conflicts` (a `ship` refused, a carry, a resolved conflict, the early push); `trouble` (a worker fails, an escalation, a remote command fails, a gate to stop, a git command in the wrong place); `restart` (a `take` note `resume:`, `rebase:` or `context:`); `lease` (a `--lease` refusal, `claim lost`, a lease `not confirmed`, a wait over 3 minutes); `refused-push` (`push <cr>` exit 4, a force push or rebase the host refuses); `steering-messages` (a message from or to the steering session); `checkpoints` (a checkpoint commit); `pr-extras` (`archive: in the PR at <path>`, images, GitLab forms).
+H-418: The push forms, one command per branch, never a loop, a script or a chain: plain `git push -u <remote> <branch>` (or `git -C <worktree> push -u <remote> <branch>`);
+----- status-layout.md (10992 B)
+(large: read the file)
+H-1557: **Reports:** before a report, read `status-layout.md` whole and run `status --refresh`.
+H-664: A CR named in **Notes** or **For you** as ready to merge or in draft is written from its `handed back:` line, the prefix dropped and the ask's local run added (`chief-of-staff-merge.md`, "The words to the user").
+H-668: Say "MR" on a GitLab remote, in the column and in the text, "PR" elsewhere (you know the forge from the remote).
+H-672: `STATUS.md`, `status` and `STATUS.json` carry each CR's long gate: a "Long gate" column in the tables, one `gate` object in the JSON, the same words in each: `passed abc1234`, `carried from abc1234` (it shows from the `ship` of a restack, before any hand-back, with a "Carried" step), `queued`, `running`, `failed abc1234`, `waived → CR-k (#n)` (or `waived → follow-up <folder>`), `validates CR-a, CR-b` (the top of a waived stack), `exempt: <rule>`, `-`.
+H-678: `unknown` stays `unknown`; the spend is copied as `status` prints it (`at least $1.61` while calls are not priced), without its age (`, <n> min old`): a report runs right after `status --refresh`.
+H-681: **Notes and Cost notes are the only places for extra messages:** short lines in the user's language (explanations, warnings, tips on reading the figures).
+H-683: **Notes** holds what a 🟠 or 🔴 CR waits for and who unblocks it, a chain and its reason, a force push run for a Driver, the remaining floor and the delivery time (`chief-of-staff-any.md`, "The floor"), a slip of an hour or more with its cause, the mergeable partial stack as it stands and, when the time will not hold, the CRs of the partial stack aimed at, the main checkout's line after a merge (below).
+H-686: **For you:** always there: what the user has to review or decide, or "nothing" (only a Tips line can follow it, see below).
+H-718: **What the batch did not prove:** each CR handed back with `--no-gate` and its reason (the CR's "Long gate" step shows `exempt: <reason>`), and each CR handed back under a waiver (`order waive`) with its validating CR, or with its follow-up folder when nothing in the batch validates it (the step shows `waived (O-<k>): validated by CR-<k> (#<n>)` or `follow-up <folder>`; `carried from <sha7>` is a pass carried over a clean rebase (a `carry` event at `ship`, before the hand-back, with the "Carried" step; or the hand-back's), not a gap, and so is a verdict carried that way);
+H-723: the Retro is offered before the close, which writes `4-batch/retro.md` into `5-archives/batches/batch-NN.md` (only a Tips line can follow it, see below).
+H-725: The rows are the lines of `$CHANTIER cost`, in its order (a CR's own figure is the last field of its row in `status --refresh`, a merged CR's included, never looked up elsewhere):
+H-729: **Second table, outside the batch's spend:** the `Chief of Staff, ...` lines of that output: `steering the batch` (Foreman mode: what you spent relaying and reporting; in direct mode the line outside the budget appears too when you spent outside your claim window, before the claim or after a Foreman took over; when the only calls of that part carry no time, it says `unknown (<n> calls without a time, not placed)`), `grill and specifications with the user` (every call of a turn that writes a CR's `01-intent.md`, `02-answers.md`, `03-change-spec.md` or `work/specifying`, or starts a spec-writer or a spec critic, in your claim window, and, in the rest of the time since the batch opened, of a turn that names one; and the spec-writers' and spec critics' own calls; a turn is attributed whole), each since the batch opened, and `whole session` with its context size and its compaction count.
+H-747: A tip names only what chantier really answers, and never a command the host refuses in this session, nor what the user cannot take from where they are (the host's signal of where the user is, if it gives one).
+----- sync-checkout.md (1202 B)
+# Sync the checkout
+
+Read by the session that syncs, in the dev mode only (the skill's launcher paragraph). A sync runs
+at the session's start, at a batch's start and after a merge that changes `uv.lock`. In the plugin
+mode nothing syncs.
+
+Run the launcher with `--sync` as its first argument, before any `--project` (the skill gives the
+line); it prints one line:
+
+1. `in sync`: `uv sync --locked --check` exited 0; nothing to do.
+2. `synced`: the check said "The environment is outdated", no process held `<plugin root>/.venv`,
+   and `uv sync --locked` ran.
+3. `sync pending: held by <holders>`: a gate, watcher, board or hub (of any project, this session's
+   own included) holds the environment, or the sync failed with os error 32 (`an unlisted
+   process`). Stop or kill nothing and ask no one to: go on unsynced and try again at each next
+   turn but a reload. Judge a sync by this line, never by `$CHANTIER status` (this surface's
+   batch only).
+4. Any other failure (a stale `uv.lock`, a missing `uv`, exit 127): an ordinary failure, never
+   `sync pending`; at a session's start a stop, else one line with uv's text and you go on.
+
+Pending 3 minutes after the first try: `help sync-offer`.
+H-887: Read before the first sync of a dev-mode session, by the session that syncs (the `SKILL.md` launch paragraph says who; `$CHANTIER`'s mode is set there).
+H-890: Check, writing nothing: run `uv sync --locked --check --project "<plugin root>"` (the command inside the rule P10 prints for it) and read its exit: 0 is in sync, nothing to sync, stop here;
+H-891: 1 with uv's text "The environment is outdated" goes to step 2;
+H-892: any other exit is an ordinary sync failure, handled as below, never `sync pending` (a stale `uv.lock` also gives 1 with that text, and the real sync of step 3 then fails with its lock error, handled the same way).
+H-893: Name the holders before syncing, on every system: list the processes that hold `<plugin root>/.venv` by the host's means (its reference, row "Name the holders of the checkout's environment").
+H-894: With none, run `uv sync --locked --project "<plugin root>"`.
+H-914: An ordinary sync failure is, at the session's start, `startup-core.md`'s; at a batch's start or after a merge, one line to the user with uv's text, and you go on.
+----- ticket-summary-example.md (1308 B)
+# Ticket summary: a reference
+
+The shape and the size are the point; `help ticket-summary` says how a summary is made and posted.
+
+## The comment
+
+Thanks for the report. Accepted.
+
+What will be done:
+- The editor gets a dark theme, chosen in Settings > Appearance.
+- The choice is kept between sessions.
+- Code blocks and the schema tree follow the theme.
+
+Left out: a theme per document, and custom colours.
+
+The plan and a mock-up of the result are attached to this issue: <plan link>, <demo link>.
+No date yet; the pull request will be linked here.
+
+## The plan (plan.md)
+
+# Dark theme: the plan
+- What changes for you: a "Theme" choice (Light, Dark, System) in Settings > Appearance.
+- Limits: one theme for the whole app; printing stays light.
+- Safety: no data changes; the choice is stored with the other settings.
+- Docs: the Settings page gains a "Theme" paragraph.
+
+## The demo (demo.html), its first lines
+
+```html
+<!-- Mock-up: imitates the planned result; not the product. -->
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Dark theme, mock-up</title>
+<style>body{background:#1e1f22;color:#e6e6e6;font-family:system-ui}</style></head>
+<body><p><em>Mock-up of the planned result, not the product.</em></p>
+...
+```
+
+## The PR's section
+
+```markdown
+## Issues References
+
+Closes #336
+```
+C-1602: Modelled on a real ticket summary of 2026-11-10; its text is not kept here.
+C-1603: The shape and the size are the point: [chief-of-staff-grill](chief-of-staff-grill.md), "Ticket summary", says how it is made and posted.

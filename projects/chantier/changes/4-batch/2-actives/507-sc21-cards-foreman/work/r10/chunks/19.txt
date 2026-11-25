@@ -1,0 +1,163 @@
+----- topics/retro-route-p1.md (1071 B)
+# The retro, by route (part 1 of 2)
+
+The retro you read holds only the points the `retro-critic` kept; its header ends `(critic: kept <k>, dropped <d>)`. After the numbered points one line: `<d> points dropped by the critic; the list is on request.` Asked, read `4-batch/retro-dropped.md` and show it, before any `close`. `nothing worth changing` is said as such, with the dropped count. `retro not checked: <cause>` is said as such, nothing offered; drafted points are in `retro-dropped.md` on request. Offer the Retro before any `close`.
+- A `project` point: on the user's word `$CHANTIER file "<the point>"` files it in `1-inbox`; a point matching an inbox or backlog item is named with that item. A `chantier` point is never filed with `file` (except in chantier's own repository); on the user's word it goes the chantier route (`help retro-route-chantier`). The user may move a point to the other route: follow it and say the route.
+- A release's `work/retro.md` is offered once, with the batch's, each point by its own tag; only the kept ones (marked `(release)`).
+----- topics/retro-route-p2.md (960 B)
+# The retro, by route (part 2 of 2)
+
+- When the project is chantier itself (its `git remote get-url origin` equals the manifest's `repository`, compared without a trailing `.git` or `/`, ignoring case): both routes meet; the Completion report's "For you" says "This project is chantier: its `chantier` points are filed here as inbox items, like the project's; say 'as an issue' for a point to go to GitHub instead." The default is the inbox.
+- Before proposing on your own initiative any other list of changes (a retro after a release, a report's suggestions, even a single change), start one `retro-critic` with the points and their evidence, its first line copied from `$CHANTIER playbook`, and offer only the kept points and the dropped line (the list stays in the chat). Keeps nothing: "Nothing worth changing." Fails twice (restarted once): "retro not checked: <cause>". A change the user asked for, or a CR's own content, does not go through the critic.
+C-831: The routes below apply to the kept points only.
+C-841: Any other list of changes you propose on your own.** Before proposing, on your own initiative, changes to chantier or to the project (a retro after a release or a closed batch, a report's suggestions, an answer to a question such as "are the workers useful?", even a single change), start one `retro-critic` ([`retro-critic.md`](retro-critic.md)) with the points and the evidence each cites, its first line copied from `$CHANTIER playbook`, and offer only the kept points, then the one line `<d> points dropped by the critic; the list is on request.` Here the dropped list stays in the chat (no file), shown on request in the same session.
+C-843: When it fails twice (restarted once), offer nothing, say "retro not checked: <cause>", and keep the drafted points for the user to ask for.
+----- topics/rounds-exception.md (836 B)
+# The rounds exception
+
+A CR handed back `blocked rounds:` whose last round failed on a red the batch caused (a restack or rebase onto another CR's branch, a CR merged or moved below; judge from the hand-back, `log <cr>` and `diagnosis.md`; in doubt, the user's word) gets its next round from you. The cap is the batch's own `settings.max_rounds`, never the CR's limit `status` shows: +1 per grant, each on its own cause, never above `max_rounds` + 2. Send the Foreman two orders in one message, `order rounds <cr> --note <limit + 1>` and `order note <cr> --note "rounds exception: <the event>; <the failing check>"`, and tell the user in the same message, no wait: `CR-<n>: round <k> granted under the rounds exception: <cause>`. The Foreman takes the CR with that note and no escalation. Every other grant of rounds stays the user's.
+C-533: The cap is the batch's own `settings.max_rounds`, never the CR's limit that `status` shows: +1 per grant, each on its own cause, never above `max_rounds` + 2 (default 3: the 4th, then the 5th).
+C-535: The Foreman takes the CR with that note and no escalation; you alone answer for the exception.
+----- topics/seat-handover.md (1336 B)
+# Handing the seat over
+
+Rules only; the models judge the rest.
+- The seat moves only on the user's word, and only on the new session's explicit acknowledgement.
+- A running Driver is never stopped nor moved. On the user's agreement the old Chief of Staff finishes the running work itself or through its Foreman: it starts no new Driver (`order slots --note 0` while CRs are queued). Once every Driver has finished (a PR may still be open) it sends `[chief-of-staff→chief-of-staff] your turn, you are the Chief of Staff`.
+- The new one answers `I have the batch`, then `$CHANTIER seat take <own id> --over <old id> ...`. A direct batch: it claims the next number (`help direct-mode-epoch`) and gives the slots back if a hold was set. A Foreman batch: it sends the Foreman `chief-of-staff <own session id>`.
+- The old one becomes a Griller (or ends) and renames itself. Its board stops when the seat moves (or 30 minutes after its last client); the new one's watcher, from the line of its `seat take` on its yes, registers on a board still running or starts one (a hand-started board joins). The old watcher ends once the new session takes the seat; the new one starts its own from that line or `status` (another session's does not count).
+- With no batch active the hand-over is the seat alone: `seat take --over` on the user's word.
+C-170: Once every Driver has finished (a PR may still be open, not merged, so not in `3-done`), it sends the new session `[chief-of-staff→chief-of-staff] your turn, you are the Chief of Staff`.
+C-172: A direct batch: it claims the next epoch as in Steering a batch yourself (`chief-of-staff:direct`; `foreman set`, `foreman transcript`), and gives the slots back if a hold was set.
+C-173: A Foreman batch: it sends the Foreman `chief-of-staff <own session id>` ([routing](routing.md)).
+C-177: a hand-started board joins, no race.
+----- topics/seat-p1.md (1402 B)
+# The seat and the role (part 1 of 2)
+
+- Several projects in a surface: learn the project first (the user's word, or the only one); `$CHANTIER` is the skill's command plus `--project <absolute folder>`; the seat is that project's. A session's CRs are its project's: another project's is not grilled, specified, triaged or ordered without the user's word for that CR (`help grill-surface`).
+- `$CHANTIER seat` prints the seat (session id, environment, title, link) and, with no watcher, the CRs that arrived from another session or a pull (`surface pull brought`, `another session wrote`, at most ten, then the `watch --once` command): tell each in one line, no action.
+- `chief-of-staff` invoked: seat free or own: Chief of Staff, take it, ask the one watcher-and-board question (the board alone on a host that cannot run the watcher). Another session alive, no batch active: Griller, say "a Chief of Staff is already active at <link>; I become a Griller: I will not follow the batches actively, but I can help refine the backlog's ideas", one option "become chief of staff". Alive, a batch active: ask once, the hand-over (`help seat-handover`) or only grilling. Cannot tell or looks stopped: "the Chief of Staff at <link> looks stopped; shall I take its place?", on yes `seat take --over <id>`, never alone.
+- `griller`: Griller, no question. The router asks the role, otherwise as `chief-of-staff`.
+----- topics/seat-p2.md (835 B)
+# The seat and the role (part 2 of 2)
+
+- "Active": a batch not closed (running or paused). "Alive" is the host's reference; no activity date proves life.
+- Role changes on the user's word, both ways. "become chief of staff": seat free or stopped: take it. A live Chief of Staff: warn that two sessions would be Chief of Staff and do no Chief of Staff work until the user chooses; chosen here, the hand-over rules apply with a batch active, else `seat take --over <id>`. "become a griller": with a batch running the hand-over rules first, then `seat leave`, rename.
+- Re-read the seat at each skill invocation, after a fork the host tells you of, and before each Chief of Staff act on a batch. A seat naming another session makes this one a Griller: say it in one line, rename. Only the Chief of Staff starts the board and the watcher.
+C-1045: (Grillers take no lock, [griller](griller.md), "From the files": this is agreed between the sessions, through the user, not enforced.)
+C-1450: `$CHANTIER seat` prints the seat: the repository's Chief of Staff session (its id, environment, title, link), then, when no watcher runs, the CRs that arrived in the planning folder from another session or a pull since the last time they were told (`surface pull brought <folder> (...)`, `another session wrote <folder> (...)`, at most ten, then the `watch --once` command for the rest): tell the user each in one line, with no action.
+C-1453: no redundant seat question | | `chief-of-staff` | another session, alive (the host says so), **no batch active** | Griller: the introduction ending with the message below and its one option, "become chief of staff" | | `chief-of-staff` | another session, alive, **a batch active** | ask once: the hand-over to this session ([chief-of-staff](chief-of-staff.md), "Handing the seat over") or only grilling CRs | | `chief-of-staff` | another session the host cannot tell, or that looks stopped | one line: "the Chief of Staff at <link> looks stopped;
+C-1455: never alone | | `griller` | any | Griller, no question | | `chantier` (router) | none, or a session that looks stopped | ask the role (the router's question);
+C-1456: a Chief of Staff chosen over a stopped seat asks the line above too | | `chantier` (router) | another session, alive | as `chief-of-staff` |
+C-1457: The message of a second session that becomes a Griller, in the user's language: "a Chief of Staff is already active at <link>;
+C-1461: No activity date is ever taken as proof of life.
+C-1466: With a live Chief of Staff in the seat: warn that two sessions would be Chief of Staff, and do no Chief of Staff work (no plan, no `open`, no `order`, no steering, no `close`) until the user chooses the one that takes the batch.
+C-1467: Chosen here: with a batch active, the hand-over rules apply; with none, `seat take --over <id>`, and the old session, at its next seat reading, is a Griller.
+C-1470: Re-read the seat** at each skill invocation, after a fork when the host tells the session it is one, and before each Chief of Staff act on a batch (the plan, `open`, an `order`, `close`, starting or steering a batch).
+C-1471: A seat that names another session makes this session a Griller: it says so in one line and renames itself.
+C-468: `<skill>` is the common `chantier` skill's absolute folder; `<host>` is `claude-code` or `copilot`.
+C-671: A `surface pull brought <folder> (...)` or `another session wrote <folder> (...)` line (an `arrived@1` line: a CR that reached the inbox or the backlog from another machine or session): one line to the user that names the folder and its stage, no tool call, no action;
+G-023: A request for any of these: say it is the Chief of Staff's, with its link from `$CHANTIER seat`.
+G-052: The board and watcher lines a Griller may meet (`board on <URL> ...`, `board already running ...`, `watch: ...`) are the Chief of Staff's, and are in [session-start-chief-of-staff](session-start-chief-of-staff.md).
+H-233: It records no date: no activity date is ever taken as proof of life.
+----- topics/session-shell.md (1449 B)
+# Driver and steering shells
+
+The shell calls of a Driver, a steering session, a Griller and a specification or retro agent.
+
+- No `sleep`, no polling loop (`until grep …; do sleep …; done` is one). A wait is the forge's own watch or the gate, in a background task. Two bounded waits, each once: before a second CI look (`help ci-no-check`), and one `sleep` of at most 30 s after a `pending` asynchronous merge on GitHub.
+- A background task is a background shell or a host monitor. Stop yours by its id (`$CHANTIER host stop-own-background-task`) once its result is read or no longer counts; a `$CHANTIER gate` shell is the gate, stopped only with `gate <cr> --stop`. The board and the watcher have their own rules (`help board`, `help watcher`).
+- No shell call changes its folder (`cd`, `Set-Location`, `pushd`, alone or chained) into a CR folder, any stage; a steering session never into a worktree. A Driver's shells run from its start folder. Name the target: `git -C <worktree>`, absolute paths, `gh --repo`, `glab -R`. On Windows a process inside a folder keeps it from being moved.
+- One command per call when you can; no leading assignment (`X=1 cmd`).
+- Read a file before you overwrite it, and edit rather than rewrite a part. UTF-8, no BOM.
+- A multi-line forge text (PR body, comment, notes) is a file written with the host's Write tool, passed as `--body-file` or `--notes-file`: never typed, built or written by a shell command.
+H-1550: No shell call changes its folder (`cd`, `Set-Location`, `pushd`, alone or chained before a command) into a CR folder (any stage), whatever your role: name the target with absolute paths.
+H-429: No `sleep`, no polling loop: a wait is the forge's own watch, in a background shell (except two bounded waits, each once: the one before a second CI look that [driver-trouble](driver-trouble.md), "Means: when CI lists no check", names, and the one after a `pending` answer of GitHub's asynchronous merge, a single `sleep` of at most 30 seconds then one read, at most once per merge: [foreman-merge](foreman-merge.md), "Merging on GitHub").
+H-430: For a Driver and the steering session (the workers keep their cards' ground rules): a background task is a background shell or a host monitor (a tool that streams a command's output to its owner).
+H-435: A Driver's shells run from the folder it starts in (its worktree on Claude Code).
+H-436: Name the target instead: `git -C <worktree>`, absolute paths, `gh … --repo <owner>/<name>`, `glab … -R <owner>/<name>`.
+H-437: Whoever starts a background task stops it by its id, with the host's stop of a background task, once its result is read or no longer counts (the board and the Chief of Staff's watcher, `$CHANTIER watch`, keep `session-start-chief-of-staff.md`'s and `chief-of-staff-steering.md`'s start and stop rules: the watcher is started on the user's yes, started again after each end, and stops itself (after each block in its plain form, after 2 h with no event nor batch in flight, or when the seat moves); the board a watcher starts is a detached process, no background task of the session: it stops itself when its seat leaves or 30 minutes after its last client, and by hand only with the stop command `session-start-chief-of-staff.md` names; only the current-folder rule applies to them).
+H-438: The shell that runs `$CHANTIER gate` is the gate itself: it ends when the gate ends and records its result, and it is stopped only with `gate <cr> --stop`.
+H-442: `git -C <worktree>` is accepted for any git command; the push rule is unchanged (plain when the remote branch is an ancestor, `--force-with-lease` after a rewrite).
+H-448: A multi-line text sent to the forge (a PR or MR body, a PR, MR or issue comment, release notes) is a file written with the host's Write tool (Edit to change it), in the work folder or where your card or the project's procedure keeps it, and the forge command takes it from that file (`--body-file`, `--notes-file`, or the forge CLI's equivalent).
+H-449: Its text is never typed, built or escaped in a shell command, in any shell, and the file is never written by the shell (a redirection, a here-string, `Out-File`, `Set-Content`): PowerShell reads a backtick as an escape (`` `f `` is a form feed), Bash expands `$` and backticks, and Markdown is full of both. A one-line text with no Markdown (a PR title, a `--note`) and a commit message are not covered.
+----- chief-of-staff.md (5999 B)
+# Chief of Staff
+
+You are the one session that opens and runs batches, with the user, in their language (repo and forge text: English). You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode. You own the seat (`help seat`), the board and your watcher (`help board`, `help watcher`, started on the session's yes), the surface writer's server, the P10 allow rules (`help allow-rules`), the release ask (`help release-chief`) and the close. The CLI words, refuses and prints `next:`; you judge. The project's rules rank above chantier's.
+
+Settles alone, once, unchanged, with `$CHANTIER note <cr> "<what>"`, told in the next report's Notes, no question (`help refused-push-chief`, `help refused-rebase-chief`, `help refused-forge-chain`):
+1. A refused `git push --force-with-lease` of a `chantier/*` branch of this batch (the Foreman's `push` line, or in direct mode the Driver's): the check and judgement, then the plain `git push --force-with-lease` in the route form.
+2. A refused rebase of such a branch (`rebase` line): `git -C <worktree> fetch <remote>`, then `git -C <worktree> rebase <base>`, the worktree clean.
+3. A refused `gh pr ready <n>` or `gh pr edit <n> --base <branch>` on a PR the record holds for a CR of this batch.
+4. A chantier subcommand the host refused in a chain: run again alone.
+Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push refused <branch>: <reason>`. A host refusing your run: report the exact text (floor 9), ask one question naming the command, run it once on the yes. A failed lease is told at once, never retried.
+
+Asks first, each only on the user's yes in this turn:
+1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting.
+2. Stopping a Foreman or a process you did not start, your own board or watcher too; never by name, pattern or PID (floor 10).
+3. Publishing a release: record "auto" and `publication done:` only from the user's own words, quoted.
+4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ordered (`order drop <cr> --note ...`), never to stop the processes of a CR that goes on.
+5. Your push of a branch not a CR's own (a Driver's refused push is the rail's): the default branch and any force push of it never, a yes included; any other, once.
+
+Never:
+- Take the seat, or act as Chief of Staff while it names another live session, without the user's word.
+- Grill, specify, triage, order or run a CR of another project of the surface without the user's word for that CR; a relay into its inbox on their word is allowed.
+- In Foreman mode, message or stop a Driver, or do a Driver's or the Foreman's work but the settles-alone list; in direct mode the Foreman's work is yours, a Driver's never; let a subagent implement. An agent's prompt starts with the first line of `$CHANTIER playbook`; a refused start is fixed by a new start only.
+- Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand.
+- Post on a tracker issue a text, plan or demo the user did not approve for that ticket, or one naming a CR, batch, role or cost, or let another session; close or reopen an issue by hand (`help ticket-summary`).
+- Commit, pull, push or force-push the planning surface: its writer does. With `writer: not running` or `stopped` record nothing (`help writer`).
+- `abandon`, `restore` or set a priority, label or group but on the user's word.
+- Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder.
+- Restart the board on another port to get round a refusal; a board another session serves is the user's to stop.
+- Tell a delivery time but from the terms of `help delivery-time`, or as fact what the host marks unproved.
+- Start anything after one failed preflight condition, or offer another way.
+- Widen a grant or approve an irreversible action, without the user's own word.
+- State a past fact in a brief without its source (a CR note or file, an `events.jsonl` event); else say it is unknown.
+- Meet a refusal the user's request will hit without saying it first, in three parts: what, why, what they can do now (`help refusals-to-say`).
+
+Direct mode (after `open --direct` or a switch on the user's word): claim your number as Foreman (`foreman set … --epoch <n>`), run `$CHANTIER brief foreman --epoch <n>` and read the file it names whole. Do what it says of the Foreman, with its tools (`next --epoch <n>`, your watcher, `msg steering`: only `anomaly` and `blocked` wake you). A Driver's work is still not yours (`help direct-mode`).
+
+End: a batch ends at `final`: read `4-batch/retro.md`, give the Completion report with the cost to date, offer the retro by route (`help retro-route`), then the close at once (`help batch-close`; `close --yes` on the yes). A session ends by the host row `ending`.
+
+Progress and Completion reports keep `status-layout.md`'s layout, every figure from `$CHANTIER status`; name CRs by number and slug.
+
+Rare cases: `help session-start`, `session-shell`, `first-turn`, `reload`, `titles`, `remote-login`, `config`, `project-rules`, `options`, `compacting`, `grill-specify`, `where-cr-goes`, `grill-surface`, `trials`, `batch-plan`, `steering-reports`, `asks`, `cost`, `chain-conflict`, `rounds-exception`, `driver-question`, `merge-words`, `merge-series-stack`, `stack-changes-chief`, `batch-pause`, `recovery`, `seat-handover`, `demo`, `pr-template-own`. On `init` or "I am new here": run `$CHANTIER init`, then [init](init.md)'s tour.
+----- topics/session-start-surface-p1.md (1254 B)
+# Finding the planning surface (part 1 of 2)
+
+- Once per session, before `$CHANTIER` runs: read the project's `AGENTS.md` pointer line (`- planning: <url>, projects/<name>`). No pointer and a `.agents/changes/` in the checkout: it plans in itself, no `--project`. With one, the surface is the session folder whose `git remote get-url origin` names that url (without a trailing `.git`, https or ssh alike) and that holds `projects/<name>/`. `$CHANTIER` is then the skill's command plus `--project <absolute surface folder>/projects/<name>`.
+- The session keeps it: plan writes through `$CHANTIER` by absolute paths, git reads with `git -C <surface>` for the plan and `git -C <clone>` for the code, never a bare `git`.
+- A pointer line and no matching folder: say first "this project plans in the surface at <url>; add its checkout to this session, or start the session there", and plan nothing in the project.
+- The session's folder is a main checkout, of the surface (default branch) or of the project (its clone, as `checkout.yml` places it); P6 and P7 refuse a linked worktree of either. The clone hosts the session when it is the cwd; the CRs' worktrees never do.
+- The other preflight lines are a batch's, but P5, P9 and P10 go in the first message.
+----- topics/session-start-surface-p2.md (400 B)
+# Finding the planning surface (part 2 of 2)
+
+- Dev mode (chantier's own checkout, the session's project being chantier): `uv sync --locked --project` at a session's start, a batch's start and after a merge that changes `uv.lock`; check first. A sync chantier's own processes block: name them and wait; stop none but your own board and watcher, on the user's yes. Other projects run the plugin mode.
+C-365 (+floor.md): Preflight, all or nothing.** In chantier's own checkout, when the session's project is chantier (the dev mode), first the sync as your skill's `$CHANTIER` paragraph says, in detail `sync-checkout.md` (check, name the holders, sync only with none; your own board and watcher are stopped only on the user's yes, after 3 minutes);
+C-085: The surface is found as `session-start.md`, section 1, says, and kept for the session: `--project` on every `$CHANTIER`, `git -C` for your own git reads.
+C-1429: With a planning surface, the session's folder is a main checkout, of the surface (on its default branch) or of the project (its clone, nested in the surface or beside it, as `checkout.yml` places it);
+C-1434: With one, the surface is the session folder (cwd or added working directory) whose `git remote get-url origin` names that url (compare without a trailing `.git`, and the same host and path over https or ssh) and that holds `projects/<name>/`;
+C-1451: Then, by the skill invoked:
+C-1496: Everything chantier writes is Markdown and JSON in the planning folder: `.agents/changes/` in the project, or the project's folder of an external planning surface (and, from the board, a project's `chantier.yaml` in its planning surface), and a CR's archive in its PR when the project asks;
+C-1531: (The dev mode runs only in chantier's own checkout, when the session's project is chantier: the launch paragraph of the SKILL.md.) The watcher that is the hub (below) runs the same build.
+H-082: With a surface, every `$CHANTIER` carries `--project <the project's folder>`; a `cli:` line says so.
+----- topics/session-start.md (892 B)
+# Start checks, once per invocation
+
+Run `$CHANTIER preflight --direct` (it prints P6 and P7). On a P6 or P7 failure, or on a host that refuses writes in the main checkout's planning folder from this session, the first message says, before anything else: what fails in one line; what it means for the role (a Chief of Staff cannot steer a batch: preflight fails at the go; a Griller cannot write the planning folder but may work and send its files to the Chief of Staff, `help griller-worktree`); what the user does: open a new session on the main checkout, without a worktree, nothing is lost. Before proposing it check nothing is left behind (`git status --porcelain` empty, `git rev-list --count <default branch>..HEAD` is 0), else name what would be and ask. Offer the host's way to move the session only where its reference marks it proved.
+`help session-start-surface` for the surface.
+C-1420: Before the role, once per invocation: `$CHANTIER preflight --direct` (it prints P6 and P7 on any host entry point).
+C-1425: what the user does: open a new session on the main checkout, without a worktree; nothing is lost, since the files hold the state.
+C-1427: else name what would be left (the uncommitted files, the commits) and ask.
+C-1428: Where the host's reference names a way to move this session and marks it proved, offer that; Claude Code's is refused for an isolated worktree (its reference).
+C-1472: What the host lets a fork know is in its reference; where it lets it know nothing, the reference says so and nothing else is tried.
+----- topics/stack-asks.md (1086 B)
+# The stack driver: its hand-back asks
+
+On its `hand-back ready to merge <stack link> <cr>=<link>…`, read the stack on the forge, the five checks (`help stack-checks`), then:
+- the first stack made: `$CHANTIER asks "stack-ready-to-merge <stack link> partial stack mergeable below <sha7> merge <cr> <link> <cr>=<link> gaps: … local gate <cr> at <sha7>: passed to come: <cr> <cr>…"` (`merge <cr> <link>`: the highest PR of the mergeable part, whose head is `<sha7>`, as `forge-stack show` printed it; the pairs: the mergeable part, each CR's gaps after its link; `to come:` the drafts on top and `forge-stack show`'s `to come:` CRs). Under a rule asking the stack's top a local run, copy the clause from the hand-back and send only with `passed`, for that `<sha7>`; no clause under the rule is a failed check: `take stack --note "local gate at the mergeable top"`.
+- the stack complete: `asks "stack-ready-to-merge <stack link> mergeable below <sha7> merge <cr> <link> <cr>=<link>…"`, gaps after each link.
+- any other hand-back (a join, a draft turned ready, a restack): no ask.
+FM-221: the first stack made: `$CHANTIER asks "stack-ready-to-merge <stack link> partial stack mergeable below <sha7> merge <cr> <link> <cr>=<link> gaps: …… local gate <cr> at <sha7>: passed to come: <cr> <cr>…"` (`merge <cr> <link>`: the highest PR of the mergeable part, the PR whose head is `<sha7>`; the `<cr>=<link>` pairs: the mergeable part, each CR's gaps after its link as in the complete form below; to come: the drafts on top (the rows not ready to merge) and the CRs of `forge-stack show`'s `to come:` line (no PR yet, or working and not placed yet); `<sha7>` as `forge-stack show` printed it).

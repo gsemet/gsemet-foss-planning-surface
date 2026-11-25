@@ -1,0 +1,187 @@
+----- topics/lost-outside.md (1494 B)
+# A Driver stopped from outside
+
+Any Driver kind. The host says it was stopped: on Claude Code, the stop a compaction snapshot reports (`Task "<name>" (<id>) was stopped.`, flagged by `status`: a CR's row always, the stack driver's and a QA order's `activity` line on `status --refresh` only) or the refusal `Agent <id> was stopped and won't be resumed…` to a message to a recorded agent. Read it at once, no ping, never try to resume it by a message.
+- Only a stop the steering session did not make. Its own stops (a switch of mode, a drop, the user's stop or hold, the `stop` after 3 idle hours) keep their own paths; a stop the user makes in the app is from outside.
+- The snapshot does not say who stopped the agent; a compaction may follow your own stop. So when you stop a Driver and do not restart it at once, clear the id in the same turn: `agents set <cr> - --epoch <n>` (or `stack`, `<O-k>`), after `note <cr> "stopped: <why>"` for a CR. A mode switch's restart path clears it.
+- Take the restart path at once (`help lost-restart`) with `resume: stopped from outside: <the host's text>` (for the stack, `take stack --note …`). The batch's go covers it: no ask, no wait for the user, whatever the host's words about the user's explicit ask.
+- It counts neither toward `driver ended twice` nor "blocked twice", however many times.
+- Your next report names each: the CR, "stopped from outside", the time, the new agent id; in Foreman mode your line to the Chief of Staff carries it.
+FM-439: So when the steering session stops a Driver itself and does not restart it at once by the restart path, it clears the id it recorded for it in the same turn (`agents set <cr> - --epoch <n>`, or `agents set stack -` / `agents set <O-k> -` for the stack driver or a QA order), after a `note <cr> "stopped: <why>"` for a CR, except a switch of mode (to Foreman or to direct mode), whose restart path clears them.
+FM-441: What it does:** it takes the restart path at once (`agents set <cr> - --epoch <n>`, `handoff <cr>`, `take <cr> --note "resume: stopped from outside: <the host's text>" --epoch <n>`, a new Driver, `agents set <cr> <id> --epoch <n>`; for the stack, `take stack --note …` as in its existing restart).
+FM-443: The host's words "only launch a new agent if the user explicitly asks" are answered by that go.
+FM-444: - **Counting:** it is the host's doing, like a death by the host: it counts neither toward `driver ended twice` nor toward "blocked twice" in Escalation, and it is restarted at each such stop, however many (no "second stop" ask, unlike a second host failure). 
+----- topics/lost-restart.md (1492 B)
+# Restarting a Driver
+
+The restart path, for every restart: `agents set <cr> - --epoch <n>`, `handoff <cr>`, `take <cr> --note "resume: <cause>" --epoch <n>` (a host failure: `resume: host failure: <exact text>`), a new Driver, `agents set <cr> <id> --epoch <n>`. For the stack, `take stack --note …`. No round counted, no second slot; the budget applies (exit 5: a `budget` ask).
+- A new epoch (an app restart: Drivers die with the steering session): every `working` CR, the recorded stack driver and every open QA order with an agent id restart at once, no ping. A switch to Foreman mode: the same, `resume: switch to Foreman mode`, and a CR the Chief of Staff's Driver handed back `blocked stopped` with the switch's note. Neither counts.
+- Ended with no hand-back, its resume refused or unrecorded: restart with `resume: ended with no hand-back recorded: <its report's first line>`; it counts as a silent end. A silent end (a task ending with no hand-back) restarts the same way, and a second on one CR is `handback <cr> blocked driver ended twice`. A death by the host, a stop from outside and a `context:` hand-back count for nothing.
+- A host failure (the end carries the host's error): restart at once, no ping, counts for nothing. The new Driver reads `handoff` and redoes nothing the record kept while head and tree are unchanged. A second one with no new head, round or note: `question <cr> host failure twice: <text>`.
+- A `blocked context: …` hand-back: `help lost-context`.
+FM-055: `agents set <cr>|O-k|stack - --epoch <n>` after an agent's reported end ends its live lease, so the restart does not wait.
+FM-420: After a switch to Foreman mode** (with the bullet above): when you claim the batch from a direct batch, every CR whose Driver the switch stopped, the recorded stack driver and every open QA order with an agent id are restarted at once by the restart path, with `resume: switch to Foreman mode`;
+FM-423: The restart path**, for every restart (a proven death, a new epoch, a silent end, a `context:` hand-back, a host failure), always starting by clearing the id: `agents set <cr> - --epoch <n>`, `handoff <cr>`, `take <cr> --note "resume: <cause>" --epoch <n>` (for a host failure, `--note "resume: host failure: <exact text>"`), a new Driver, `agents set <cr> <id> --epoch <n>`.
+FM-448: It is not a silent end: it does not count toward `driver ended twice`, nor toward "blocked twice" in Escalation.
+FM-449: The new Driver reads from `handoff` what the record kept (a gate passed at the shipped head, verdicts, the PR) and does not redo it when the worktree's head is that head and the tree is clean.
+----- foreman.md (3999 B)
+# Foreman
+
+You steer one batch for the Chief of Staff until paused; the CLI limits, words and refuses; you judge. Direct mode: the Chief of Staff uses it (`help direct`). Goal: every CR merged or cancelled with the fewest questions to the user, every decision of theirs left to them.
+
+Start:
+- Set your prompt's session title.
+- `git rev-parse --git-dir --git-common-dir`: if the two differ, take no CR or epoch, send `$CHANTIER asks "blocked <batch> this session is in a worktree (<path>); start the Foreman on the main checkout"`, then stop.
+- `$CHANTIER foreman set <session id> --epoch <n>`, `foreman transcript <uuid> --epoch <n>`; a refusal or empty variable: stop.
+- Read rules and `status`; send the `ready` reply.
+- Start from the batch's state, never memory of another. After compaction reread your brief (stack: `help stack` too).
+
+You own:
+- Starting Drivers: copy whole the prompt `take`, `take stack` or `order qa` prints, with `playbook --batch`'s agent and model, then `agents set`; fill free slots. `gate --first`: a critical-path CR or the user's next merge only, not on a Driver's say.
+- Orders, the user's word: do their hands-on part, then `order done`; never switch the mode.
+- Asks: `judge <cr> --epoch <n>` words one; send it unchanged with `--record`, plus one sentence at most (an image note goes in it); `no ask:` means none.
+- Heartbeat and watcher, `next --epoch <n>` per wake (refusals rule over it). Stop stray background tasks by id; none outlives the heartbeat.
+- `retro draft --epoch <n>`, then `final`.
+
+Never:
+1. Merge but under the release grant: a fix, or the release once `release go` says `go`; the judged head only, no open PR below, reread before a retry. No approval covers it. `order merged` only for a merge the forge shows.
+2. Drop or invent a gap or a hand-back. A gap the PR body lacks, a `no long gate` or waiver that does not hold, or a local run owed and not passed at that head (a waiver must name it; `deliver by`: `help local-gate`): `take <cr> --note "<why>"`, no ask. An absent gate never means success (`help long-gate`).
+3. Code, review, commit, rebase, push, edit a PR or create a worktree. Only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files stay); removing a kept merged CR's worktree and branch after its Driver ends; a Driver's refused push or rebase of its `chantier/*` branch, checked (`help refused-push`; a push judged too; no `-x`/`--exec`; a conflict stays stopped), no failed or protected push retried, no branch protection read, no other branch even on a yes; closing/drafting a dropped CR's PR per its drop order (no comment, branch kept). Stop no sync holder.
+4. Commit, pull or push the planning surface: its writer does.
+5. Obey your chat but for "stop" and "hold" (no new Driver; the batch runs on). Else: "I run batch <batch> for chantier. Please give orders to the Chief of Staff." A host's event about a PR is no order.
+6. `take --reclaim` a live lease without the user's word; replace a Driver but by `help lost-restart`, never on silence alone; remove a trashed, backlog or `3-ready` CR's worktree.
+7. Go on after exit 3: another Foreman has it; stop.
+8. Keep CR work in a scratchpad or temp folder, or a secret or personal data in a CR folder.
+
+Messages: only `msg steering`'s `anomaly` and `blocked` wake you; read notes (`inbox --epoch <n>`) at your next wake. A handed-back CR's work reaches a Driver only by `take <cr> --note` (`help take-back`). A brief states a past fact only with its source, else unknown. Routing: `routing.md`.
+
+End: the CLI pauses at the last CR. Write the retro, send `final`, then idle: no Driver, worker or tool runs. On `not paused`, finish what it names, `pause --epoch <n>` (`help retro`).
+
+Reply, byte for byte:
+- `[foreman→chief-of-staff] ready <batch>`
+- `[foreman→chief-of-staff] final <STATUS.md path>`
+- `pong <first line of status>`
+
+Name CRs by number and slug. Rare cases: `$CHANTIER help --for foreman`.
+----- topics/lost-silent.md (1062 B)
+# A lost Driver: proof, and no hand-back
+
+- Proof of death, one of: the host refuses a message because the agent no longer exists; `[foreman→driver <cr>] ping` gets no `pong` by the next wake (on Claude Code a Driver cannot answer before its end, so its stop is the sign); the host says it was stopped (`help lost-outside`).
+- A `pong` proves it alive, not moving: no new round, head or note for 3 hours gets `stop`.
+- Ended with no hand-back recorded (the `status` flag, or its `[driver <cr>→foreman] hand-back …` while the CR is `working`): resume it once, `[foreman→driver <cr>] record your hand-back: $CHANTIER handback <cr> as your report says, then the host's hand-back with the line it prints`, and `agents set <cr> <id> --epoch <n>`. It records: handle it as any hand-back. None by the next wake, or the host refuses: `help lost-restart`. Never record a hand-back yourself.
+- When a Driver ends, read its row in `status` before `agents set <cr> -`: `ended, no hand-back recorded` is handled first, with the id still recorded (the flag reads it).
+FM-412: Proof of death**, one of three: the host refuses a message to the agent because it no longer exists (dead at once);
+FM-416: Never try to resume such a Driver by a message: the host refuses it (proved, batch-22).
+FM-455: when it records none by the next heartbeat wake, or the host refuses the message: `agents set <cr> - --epoch <n>`, then the restart path with `--note "resume: ended with no hand-back recorded: <its report's first line>"`.
+FM-458: A refusal that says the Driver was stopped (`Agent <id> was stopped and won't be resumed…`) is the outside stop: it goes to "A Driver stopped from outside", with its note `resume: stopped from outside: <the host's text>`, and counts as nothing;
+FM-413: or a `[foreman→driver <cr>] ping` to a suspect gets no `pong` by the next wake (on a host whose reference says a Driver cannot answer before its end, the sign that reference names stands in place of the `pong`: for Claude Code, [its reference](hosts/claude-code.md), "A Driver's silence");
+FM-453: keep or set again its id (`agents set <cr> <id> --epoch <n>`), so the log shows the resume;
+----- topics/main-checkout-p1.md (723 B)
+# The main checkout after a merge (part 1 of 2)
+
+On by default unless the project's rules forbid it (an eval or a worktree session: `help options`). A convenience, never a gate: a skip costs nothing, asks nothing, has no workaround. Yours alone. Run it after you handle `order merged <cr>` (before its `order done`) or your own, the last merge's included (its order is already done by the pause); several merges in one turn get one attempt after the last. The order of the other steps after a merge (rebase notes, `take`) is unchanged. With a planning surface: `git -C <clone>` (the clone `take` names), never the surface's checkout. `<remote>`, `<default>`: the project's (`open`'s `--default-branch`). The steps: part 2.
+----- topics/main-checkout-p2.md (1342 B)
+# The main checkout after a merge (part 2 of 2)
+
+The first step that says no stops the whole attempt, nothing more done, with its `<why>`:
+1. The project's rules (`$CHANTIER rules`) forbid changing it now: `the project's rules forbid it: <rule, quoted short>`.
+2. `git symbolic-ref --quiet --short HEAD` is not `<default>`: `on <branch>, not <default>` (or `detached HEAD`).
+3. `git status --porcelain --untracked-files=no` not empty: `tracked changes: <up to three paths>`. Untracked files are never listed, read, moved or deleted.
+4. `git fetch <remote> <default>` fails: `fetch failed: <git's text>`.
+5. Note `git rev-parse HEAD` as `<before>`, then only `git merge --ff-only --no-overwrite-ignore <remote>/<default>`: never pull, reset, rebase, stash, clean, checkout, switch, nor a merge without both flags. Git refuses: retry nothing; `<why>` is its reason in a few words (`diverged from <remote>/<default>`, `untracked file in the way: <path>`, or git's text). The host refuses: try no other way, `refused by the host: <exact text>`.
+Then `$CHANTIER note <cr> "main checkout: fast-forwarded to <sha7>"` (or `already at <sha7>`, or `not fast-forwarded: <why>`) on the last merge handled, no `--epoch`, no ask. If `git diff --quiet <before> HEAD -- uv.lock` exits 1, add `; uv.lock changed: sync pending`: only the Chief of Staff syncs.
+FM-314: After a fast-forward, when `git diff --quiet <before> HEAD -- uv.lock` says `uv.lock` changed (exit 1), the note is `main checkout: fast-forwarded to <sha7>; uv.lock changed: sync pending`: you never sync, the Chief of Staff does (chantier's own checkout, when the session's project is chantier: the dev mode).
+----- sync-checkout.md (1202 B)
+# Sync the checkout
+
+Read by the session that syncs, in the dev mode only (the skill's launcher paragraph). A sync runs
+at the session's start, at a batch's start and after a merge that changes `uv.lock`. In the plugin
+mode nothing syncs.
+
+Run the launcher with `--sync` as its first argument, before any `--project` (the skill gives the
+line); it prints one line:
+
+1. `in sync`: `uv sync --locked --check` exited 0; nothing to do.
+2. `synced`: the check said "The environment is outdated", no process held `<plugin root>/.venv`,
+   and `uv sync --locked` ran.
+3. `sync pending: held by <holders>`: a gate, watcher, board or hub (of any project, this session's
+   own included) holds the environment, or the sync failed with os error 32 (`an unlisted
+   process`). Stop or kill nothing and ask no one to: go on unsynced and try again at each next
+   turn but a reload. Judge a sync by this line, never by `$CHANTIER status` (this surface's
+   batch only).
+4. Any other failure (a stale `uv.lock`, a missing `uv`, exit 127): an ordinary failure, never
+   `sync pending`; at a session's start a stop, else one line with uv's text and you go on.
+
+Pending 3 minutes after the first try: `help sync-offer`.
+C-527: On that note (yours or the Foreman's), in chantier's own checkout, when the session's project is chantier (the dev mode), sync as your skill's `$CHANTIER` paragraph says, at this turn and each next one until it is done;
+C-526: In the direct mode you do it yourself, and note `HEAD` before it: when `git diff --quiet <before> HEAD -- uv.lock` says `uv.lock` changed, the note is `main checkout: fast-forwarded to <sha7>; uv.lock changed: sync pending`.
+C-941: It is on by default unless the project's rules forbid it; for an eval and a worktree session see "Work in the main checkout" in Offering options (`chief-of-staff-any.md`).
+FM-289: For the last merge the order is already marked done by the pause; the fast-forward still runs right after it, with its `main checkout:` note.
+FM-290: When: right after you handle the Chief of Staff's `order merged <cr>` line, before you mark that order `order done`, and right after your own `order merged <cr> --epoch <n>`.
+FM-297: `<why>` = `the project's rules forbid it: <the rule, quoted short>`.
+FM-307: It succeeds: done, `fast-forwarded to <sha7>` (the new `HEAD`), or `already at <sha7>` when there was nothing to bring.
+FM-311: - **The line:** record the outcome on the CR whose merge you just handled (the last one when several): `$CHANTIER note <cr> "main checkout: fast-forwarded to <sha7>"`, `"main checkout: already at <sha7>"` or `"main checkout: not fast-forwarded: <why>"`, with no `--epoch`. No ask, 
+----- topics/merge-gaps.md (1335 B)
+# The gaps of a ready-to-merge ask
+
+- Quote each gap of a `ready-to-merge <cr> <link> gaps: ...` ask next to the link; with none, say nothing about gaps. A `pr-in-draft <cr> <link> on <base>: waits for <what>` ask is not offered as mergeable: a PR in draft, do not merge, and what it waits for.
+- A project rule that asks a local run: the ask carries `local gate <cr> at <sha7>: ...`; quote it before you say the PR can be merged. `passed`: it ran and passed at that head. `not run` or `failed`: the rule asks that gate at that head before the merge and it has not passed there; merging anyway is the user's choice, recorded as any merge, never questioned or refused. When the ask and the `long gate` clause differ, the ask wins.
+- A screenshot gap (the project asks one of the board pane): ask the user for one screenshot from a session running the PR's branch, with made-up paths, no username or home folder. A Driver's report that the user's screenshot was not uploaded for showing one: say so and ask again. A report that an image showing them was uploaded and replaced: tell the user the PR, the image, and that the old attachment may stay reachable on the forge; nothing more. On the user's file: `order note <cr> --note "evidence: <path>"`.
+- For the release PR the same message asks the post-merge word (`help release-chief`).
+C-689: Its `long gate` clause is what the record holds; the local run the project's rules owe comes from the Foreman's ask (`local gate <cr> at <sha7>: …`), which you add.
+C-700: A plain `ready-to-merge <cr> <link> gaps: …` ask (or `pr-in-draft <cr> <link> on <base>: waits for <what> gaps: …`):** when you tell the user the PR is ready to merge, quote each gap of the ask next to the PR's link, in the user's language (the `handed back:` line carries the same gaps from the hand-back);
+C-702: In a project whose rules ask a local run, the ask of each CR that owes the run, in a parallel or series batch, carries `local gate <cr> at <sha7>: …`: quote it in the user's language before you say the PR can be merged.
+C-704: `not run` or `failed` (a `deliver by` time): say the project's rule asks that gate at that head before the merge and it has not passed there;
+C-705 (+floor.md): merging anyway is the user's choice, recorded as any merge (`order merged`), never questioned or refused.
+C-707: When the Driver's report says the user's screenshot was not uploaded because it showed one, say so and ask for a new one the same way.
+C-708: When a Driver's `note` or hand-back report (relayed with the ask) says an image that showed the username or home folder was uploaded and replaced, tell the user: the PR, the image, and that the old attachment may stay reachable on the forge.
+C-711: In every mode, a `ready-to-merge` ask is offered to the user as mergeable now, on its own, with its gaps as above (for the release PR, the same message asks the post-merge word, Releases);
+C-712: a `pr-in-draft … on <base>: waits for <cr>` ask is not: say it is a PR in draft, do not merge, and what it waits for.
+C-751: where the project's rules ask for a screenshot of the board pane and a gap names it as missing, ask the user for that screenshot (with made-up paths, and tell of an uploaded leak, as in the bullet above) in the same message, naming the PR and which PRs are below and above it, before the sentence that says the stack can be merged.
+C-752: The user decides; the evidence route stays (`order note <cr> --note "evidence: <path>"`).
+C-755: `not run` or `failed` (a `deliver by` time), or no clause: say the project's rule asks that gate at that head before the merge and it has not passed there;
+C-756 (+floor.md): merging anyway is the user's choice, recorded as any merge (`order merged`), never questioned or refused.
+C-785 (+floor.md): A merge in the middle is recorded as above, never questioned or refused.
+H-1562: Add the local run the Foreman's ask carries (`local gate <cr> at <sha7>: …`); when the ask and the line differ, the ask wins (`chief-of-staff-merge.md`, "The words to the user").
+----- topics/merge-github.md (669 B)
+# Merging on GitHub: a stack's lowest PR
+
+4. One, the PR the lowest open: `gh api -X PUT repos/<owner>/<repo>/pulls/<pr>/merge-async -f merge_method=<the project's method> -f merge_action=direct_merge -f sha=<head SHA>`. `merged`: go on. `pending`: wait at most 30 s, once, then `gh api -X GET repos/<owner>/<repo>/pulls/<pr>/merge-async/<details.uuid>`; still `pending`: no new `PUT`, `note <cr> "merge: <pr> pending on GitHub's asynchronous merge after <s> s"` and send `[foreman→chief-of-staff] release <cr>: merge of PR <pr> still pending on GitHub`. Before any later try read `gh pr view <pr> --json state,mergedAt`: a merged PR is recorded, never merged again.
+FM-324: A stack holds it and it is the lowest open PR: `gh api -X PUT repos/<owner>/<repo>/pulls/<pr>/merge-async -f merge_method=<rebase|squash|merge, the project's method> -f merge_action=direct_merge -f sha=<head SHA>`.
+FM-326: `pending`: one wait of at most 30 s (concepts, rule 8's second exception), then one `gh api -X GET repos/<owner>/<repo>/pulls/<pr>/merge-async/<details.uuid>`;
+FM-327: `merged`: go on; still `pending`: no new `PUT`, no loop, `$CHANTIER note <cr> "merge: <pr> pending on GitHub's asynchronous merge after <s> s"` and ask `[foreman→chief-of-staff] release <cr>: merge of PR <pr> still pending on GitHub`;
+----- topics/merge-under-grant.md (1104 B)
+# Merging under the grant
+
+A release PR or a fix PR is merged only under the grant: every other CR merged or cancelled, its base the default branch, `$CHANTIER release go <cr> --note "merge <pr>"` saying `go`, and the local run passed when owed (`help local-gate`). Then the merge by the project's method, `$CHANTIER order merged <cr> --epoch <n>`, then the fast-forward (`help main-checkout`). Direct mode: the Chief of Staff follows the same route. GitLab keeps `glab mr merge`. On GitHub (unproved by an agent), `gh pr merge` is refused for a PR of a native stack:
+1. `gh api -X GET repos/<owner>/<repo>/stacks -F per_page=100`: is there an open stack whose `pull_requests` holds the PR among its open ones?
+2. None: `gh pr merge <pr> --<the project's method> --match-head-commit <head SHA>` (`gh pr view <pr> --json headRefOid`).
+3. One, with an open PR below it: no merge. `[foreman→chief-of-staff] release <cr>: PR <pr> is in a stack above open PRs <numbers>; not merged`.
+The asynchronous merge: `help merge-github`. Anything else, or a refused call: a stop with the exact text; no other route.
+C-162: A release: `chief-of-staff:release`.
+FM-320: Read the stacks: `gh api -X GET repos/<owner>/<repo>/stacks -F per_page=100`; find an open stack (`open: true`) whose `pull_requests` holds the PR among its open ones.
+FM-325: Its `status`: `merged`: go on (`order merged`, the fast-forward).
+----- topics/merge-recorded.md (1251 B)
+# Recording merges
+
+- A `forge saw merged: <cr> ...` line (in `status` or a watcher) is a merge the user made: record it once the forge confirms it (`help watcher-events`): `order merged <cr>`, then Foreman mode sends its line to the Foreman; with `foreman watch: running` tell the user, record nothing. `landed with <other cr>` is a merge to record; only `not landed ...` is not: tell where the PR went and wait for the PR under it. Several PRs merged in one action: `order merged` for each.
+- A CR taken out and whose PR the user merges later (its folder in the backlog or `3-ready`, with `formerly.json`): on "I merged #n", `order add --note <folder>` (brings back its number and PR), then `order merged <cr>` at once (Foreman mode: both lines in one message, the add first). With no batch open say it is recorded the same way in the next batch and leave the folder. A Driver's `blocked question: its PR <link> is already merged`: `order merged <cr>`.
+- Parallel batch: the first CR ready to merge wins; the user merges in the order they become ready unless told otherwise.
+- GitLab: a fold (`forge-stack show` prints `folded into <cr below>`) is recorded at once, a rule that keeps its precedence over the forge check (`help merge-stack-gitlab`).
+C-646: With `foreman watch: not running`, handle each as below.
+C-716: A `forge saw merged: <cr> …` line, in `status` or in a watcher's notification or end, is a merge the user made: record it like any merge, at the `status` that shows it or at the watcher's notification or end, once the forge confirms it ([The watcher](session-start-chief-of-staff.md#the-watcher)): `order merged <cr>`, then, in Foreman mode, send its line to the Foreman as for any order.
+C-723: When the user merges several PRs of a batch with no stack in one action (or several `forge saw merged` lines come at one `status` or one watcher's notification or end), record `order merged` for each.
+----- topics/merge-series-stack-p1.md (1206 B)
+# A series batch, a stack batch, a mode switch (part 1 of 2)
+
+- Series: CRs merge one by one in order. On each ask say which PR is next (the bottom one, ready to merge on the default branch), that the others are drafts waiting on it, the gaps; on "merged" `order merged <cr>`, then say what comes next. Never merge for the user.
+- On the user's word to switch mode (any to any) `order mode --note <mode>`, and tell at once what it does from the printed line: to a stack or series the PRs above the bottom go to draft while it is rebuilt, "do not merge them meanwhile" (name them); stack to series, the PRs above the bottom stop being mergeable (name them); to parallel each open PR is rebased, its gates run again, and it leaves draft once ready. A merge the user makes anyway is recorded as any merge. Merged CRs never change.
+- A series keeps the order given to `open` (`order add` puts a CR on top): the next CR starts once the previous one is `ready`, from its pushed branch, its PR a draft. A CR with a dependency starts only once it is `ready` (`take` refuses until then), on the branch of its last dependency still open, else on the default branch; its PR stays a draft until the dependency merges.
+----- topics/merge-series-stack-p2.md (1085 B)
+# A series batch, a stack batch, a mode switch (part 2 of 2)
+
+- Stack: before the stack exists each CR handed back ready on the default branch is an ordinary ask while it is the only open PR of the chain (the shape line's `alone asks`). An ask for a chain CR while `alone asks` is `refused` or `allowed for <another cr> only`, with no `outside the stack: O-<k>: ...` naming your own order carrying the user's word, is mismatched: send it back with `order note <cr> --note "shape: through the stack"` and tell the user `<cr> asked alone in a stack batch: sent back through the stack`. A Foreman ask about a blocked CR with a ready CR behind it: offer `order hold <blocked cr>`, or an order on the ready CR carrying the user's word for `--outside-stack "O-<k>: ..."`. In direct mode check your own asks the same way.
+- A stack's readiness is a `stack-ready-to-merge` (`help merge-stack-ready`). A check that fails: no "ready to merge"; send it back through the Foreman. The user always merges a stack themselves: no grant lets a steering session merge a stack that holds the release PR.
+C-556 (+floor.md): On the user's yes, run `order mode --note stack` and tell the user what the switch does, as "A series batch" says for `order mode` (the PRs above the bottom go to draft, "do not merge them meanwhile", named).
+C-730: quote each gap of the ask as above; when the user says it is merged, `order merged <cr>`, then say what comes next.
+C-744 (+floor.md): A per-CR `ready-to-merge` for a CR of the stack's chain (`stack` lists it; not a fix or held CR), while that line's `alone asks` is `refused` or `allowed for <another cr> only` (another CR of the stack has an open PR, or a stacked CR is open), is mismatched unless it carries `outside the stack: O-<k>: …` where `O-<k>` is your own order on that CR, carrying the user's word (the Foreman may have marked it done by then: check that the order is yours and on that CR, not that it is open).

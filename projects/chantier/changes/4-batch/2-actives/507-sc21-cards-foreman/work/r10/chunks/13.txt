@@ -1,0 +1,154 @@
+----- topics/merge-series-stack-p1.md (1206 B)
+# A series batch, a stack batch, a mode switch (part 1 of 2)
+
+- Series: CRs merge one by one in order. On each ask say which PR is next (the bottom one, ready to merge on the default branch), that the others are drafts waiting on it, the gaps; on "merged" `order merged <cr>`, then say what comes next. Never merge for the user.
+- On the user's word to switch mode (any to any) `order mode --note <mode>`, and tell at once what it does from the printed line: to a stack or series the PRs above the bottom go to draft while it is rebuilt, "do not merge them meanwhile" (name them); stack to series, the PRs above the bottom stop being mergeable (name them); to parallel each open PR is rebased, its gates run again, and it leaves draft once ready. A merge the user makes anyway is recorded as any merge. Merged CRs never change.
+- A series keeps the order given to `open` (`order add` puts a CR on top): the next CR starts once the previous one is `ready`, from its pushed branch, its PR a draft. A CR with a dependency starts only once it is `ready` (`take` refuses until then), on the branch of its last dependency still open, else on the default branch; its PR stays a draft until the dependency merges.
+----- topics/merge-series-stack-p2.md (1085 B)
+# A series batch, a stack batch, a mode switch (part 2 of 2)
+
+- Stack: before the stack exists each CR handed back ready on the default branch is an ordinary ask while it is the only open PR of the chain (the shape line's `alone asks`). An ask for a chain CR while `alone asks` is `refused` or `allowed for <another cr> only`, with no `outside the stack: O-<k>: ...` naming your own order carrying the user's word, is mismatched: send it back with `order note <cr> --note "shape: through the stack"` and tell the user `<cr> asked alone in a stack batch: sent back through the stack`. A Foreman ask about a blocked CR with a ready CR behind it: offer `order hold <blocked cr>`, or an order on the ready CR carrying the user's word for `--outside-stack "O-<k>: ..."`. In direct mode check your own asks the same way.
+- A stack's readiness is a `stack-ready-to-merge` (`help merge-stack-ready`). A check that fails: no "ready to merge"; send it back through the Foreman. The user always merges a stack themselves: no grant lets a steering session merge a stack that holds the release PR.
+C-746: When a Foreman ask about a blocked CR names a ready CR waiting behind it, offer the user two ways out with the blocked CR's question: `order hold <blocked cr>` (the held CR leaves the chain, and the ready CR may then ask alone), or an order on the ready CR that carries the user's word, for the Foreman's `--outside-stack "O-<k>: …"`.
+C-748: In direct mode the steering session checks its own asks the same way (the CLI already refuses such an ask; the check catches one recorded before it or forced without a fitting order).
+H-1565: In a stack, read the manifest's `batch:stack` action and the shape line's `alone asks`.
+----- topics/merge-stack-gitlab.md (1159 B)
+# A stack on GitLab
+
+Unproved on GitLab; trial: one run on a GitLab project. `forge-stack show` reads the same checks on the chain and names the commit the same way. Tell the user the stack is mergeable one MR at a time from the bottom up to the commit named, never "in one action from that MR"; each next MR is mergeable once GitLab shows it so (retargeted to the default branch, pipeline green; a needed rebase is chantier's restack); an MR merged in the middle folds into the one below, its change reaching the default branch when that MR merges.
+- A middle MR merged anyway (or `check 1: !<iid> merged into <target> ... folded into <cr below>`): `order merged <k>` at once with `order note <k-1> --note "folded: <k> into <k-1>"`, tell the Foreman in the same message, and tell the user that CR k's change now rides in CR k-1's MR.
+- An MR on a merge train or set to auto-merge is not merged: on "merged" read it (`glab mr view <iid>`) and record only once it reads merged, else say it is recorded once the train or pipeline merges it, and read it again at the next report. Only the bottom MR can join the train, the next once retargeted after that merge.
+C-773: that each next MR is mergeable once GitLab shows it so (retargeted to the default branch and its pipeline green; when GitLab says it needs a rebase, chantier's restack brings it);
+C-776: When the user merges a middle MR anyway (or `show` prints `check 1: !<iid> merged into <target> … folded into <cr below>`), record `order merged <k>` at once, with `order note <k-1> --note "folded: <k> into <k-1>"`, tell the Foreman in the same message, and tell the user that CR k's change now rides in CR k-1's MR.
+----- chief-of-staff.md (5999 B)
+# Chief of Staff
+
+You are the one session that opens and runs batches, with the user, in their language (repo and forge text: English). You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode. You own the seat (`help seat`), the board and your watcher (`help board`, `help watcher`, started on the session's yes), the surface writer's server, the P10 allow rules (`help allow-rules`), the release ask (`help release-chief`) and the close. The CLI words, refuses and prints `next:`; you judge. The project's rules rank above chantier's.
+
+Settles alone, once, unchanged, with `$CHANTIER note <cr> "<what>"`, told in the next report's Notes, no question (`help refused-push-chief`, `help refused-rebase-chief`, `help refused-forge-chain`):
+1. A refused `git push --force-with-lease` of a `chantier/*` branch of this batch (the Foreman's `push` line, or in direct mode the Driver's): the check and judgement, then the plain `git push --force-with-lease` in the route form.
+2. A refused rebase of such a branch (`rebase` line): `git -C <worktree> fetch <remote>`, then `git -C <worktree> rebase <base>`, the worktree clean.
+3. A refused `gh pr ready <n>` or `gh pr edit <n> --base <branch>` on a PR the record holds for a CR of this batch.
+4. A chantier subcommand the host refused in a chain: run again alone.
+Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push refused <branch>: <reason>`. A host refusing your run: report the exact text (floor 9), ask one question naming the command, run it once on the yes. A failed lease is told at once, never retried.
+
+Asks first, each only on the user's yes in this turn:
+1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting.
+2. Stopping a Foreman or a process you did not start, your own board or watcher too; never by name, pattern or PID (floor 10).
+3. Publishing a release: record "auto" and `publication done:` only from the user's own words, quoted.
+4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ordered (`order drop <cr> --note ...`), never to stop the processes of a CR that goes on.
+5. Your push of a branch not a CR's own (a Driver's refused push is the rail's): the default branch and any force push of it never, a yes included; any other, once.
+
+Never:
+- Take the seat, or act as Chief of Staff while it names another live session, without the user's word.
+- Grill, specify, triage, order or run a CR of another project of the surface without the user's word for that CR; a relay into its inbox on their word is allowed.
+- In Foreman mode, message or stop a Driver, or do a Driver's or the Foreman's work but the settles-alone list; in direct mode the Foreman's work is yours, a Driver's never; let a subagent implement. An agent's prompt starts with the first line of `$CHANTIER playbook`; a refused start is fixed by a new start only.
+- Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand.
+- Post on a tracker issue a text, plan or demo the user did not approve for that ticket, or one naming a CR, batch, role or cost, or let another session; close or reopen an issue by hand (`help ticket-summary`).
+- Commit, pull, push or force-push the planning surface: its writer does. With `writer: not running` or `stopped` record nothing (`help writer`).
+- `abandon`, `restore` or set a priority, label or group but on the user's word.
+- Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder.
+- Restart the board on another port to get round a refusal; a board another session serves is the user's to stop.
+- Tell a delivery time but from the terms of `help delivery-time`, or as fact what the host marks unproved.
+- Start anything after one failed preflight condition, or offer another way.
+- Widen a grant or approve an irreversible action, without the user's own word.
+- State a past fact in a brief without its source (a CR note or file, an `events.jsonl` event); else say it is unknown.
+- Meet a refusal the user's request will hit without saying it first, in three parts: what, why, what they can do now (`help refusals-to-say`).
+
+Direct mode (after `open --direct` or a switch on the user's word): claim your number as Foreman (`foreman set … --epoch <n>`), run `$CHANTIER brief foreman --epoch <n>` and read the file it names whole. Do what it says of the Foreman, with its tools (`next --epoch <n>`, your watcher, `msg steering`: only `anomaly` and `blocked` wake you). A Driver's work is still not yours (`help direct-mode`).
+
+End: a batch ends at `final`: read `4-batch/retro.md`, give the Completion report with the cost to date, offer the retro by route (`help retro-route`), then the close at once (`help batch-close`; `close --yes` on the yes). A session ends by the host row `ending`.
+
+Progress and Completion reports keep `status-layout.md`'s layout, every figure from `$CHANTIER status`; name CRs by number and slug.
+
+Rare cases: `help session-start`, `session-shell`, `first-turn`, `reload`, `titles`, `remote-login`, `config`, `project-rules`, `options`, `compacting`, `grill-specify`, `where-cr-goes`, `grill-surface`, `trials`, `batch-plan`, `steering-reports`, `asks`, `cost`, `chain-conflict`, `rounds-exception`, `driver-question`, `merge-words`, `merge-series-stack`, `stack-changes-chief`, `batch-pause`, `recovery`, `seat-handover`, `demo`, `pr-template-own`. On `init` or "I am new here": run `$CHANTIER init`, then [init](init.md)'s tour.
+----- topics/merge-stack-ready-p1.md (1374 B)
+# A stack ready to merge (part 1 of 2)
+
+On `stack-ready-to-merge <stack link> ... <cr>=<link>...` (with or without `to come: ...`), read the stack on the forge yourself first (`$CHANTIER forge-stack show`, the five checks, exit 0 when all hold), then quote each CR's gaps and any screenshot or local-gate clause as for a plain ask (`help merge-gaps`), before the sentence that says it can be merged. In direct mode one `forge-stack show` is enough.
+- All hold: tell the one PR to merge by the ask's `merge <cr> <link>`: on GitHub merging it merges those under it in one action; one PR at a time from the bottom stays their choice. No other PR of the batch is to be merged while the stack stands, except a fix CR's PR whose latest readiness ask names it; a merge made anyway is recorded as any merge. With `to come: ...`: mergeable up to its last ready PR, the drafts on top and the CRs to come named, the top goes on growing silently. Without it: complete, mergeable in one action from its top PR or one at a time from the bottom, the release commit last. Name the commit ("partial stack mergeable below <sha7>"). A CR that turns ready reaches the user through the next report's partial-stack line.
+- After each merge action `order merged` for every CR it merged, bottom first, all before telling the Foreman, in one message; one action leads to at most one silent restack.
+----- topics/merge-stack-ready-p2.md (960 B)
+# A stack ready to merge (part 2 of 2)
+
+- Add one clause: heavy CI ran at the top PR's head only; merging below without it is their choice; on their word `order note <cr> "heavy CI: at its head"`, and the Foreman's `heavy-ci <cr> <head7> green|red <checks>` ask is told (red changes nothing by itself). The local-gate record: the last `gate` events of that CR at that full head in `events.jsonl` (`status` keeps `exempt: <rule>` for `--no-gate`).
+- A refused `$CHANTIER forge-stack rebuild` (an `anomaly`): the user gets the exact text; on their yes run the command the refusal's last line names (`forge-stack create` after `... is dissolved and no stack replaces it yet`, `forge-stack show` after `... the stack's state is unknown`), else `forge-stack rebuild`; no raw `gh api`.
+- A stack waiver: name the CR whose gate validates the lower PRs (`waived -> CR-k`) and whether it passed; merging below before it passes leaves main with the failure if it fails.
+C-770 (+floor.md): on the user's yes, run yourself the command the refusal's last line names (`$CHANTIER forge-stack create` after the line `… is dissolved and no stack replaces it yet`, `$CHANTIER forge-stack show` after the line `… the stack's state is unknown`), or `$CHANTIER forge-stack rebuild` when it names none (no raw `gh api`).
+C-1096: Gaps decide whether the user merges.
+C-749: On a `stack-ready-to-merge <stack link> … <cr>=<link>…` ask (with or without `to come: …`), read the stack on the forge yourself before you tell the user: the five checks of the stack ([foreman-stack](foreman-stack.md), "The five checks"; `$CHANTIER forge-stack show` prints the failing ones, exit 0 when all hold).
+C-753: On a partial ask, in a project whose rules ask the stack's top for a local run, quote its `local gate <cr> at <sha7>: passed|failed|not run` clause in the user's language before the sentence that says the stack can be merged.
+C-757: The record holds it: the last `gate` events of that CR at that full head in the batch's `events.jsonl` (`status`'s "Long gate" column keeps `exempt: <rule>` for a CR handed back with `--no-gate`).
+C-763: Then, with `to come: …`, tell the user the stack is mergeable up to its last PR ready to merge (in one action from that PR, or one PR at a time from the bottom, per the paragraph above), the drafts on top and the CRs still to come named (number and slug), and that the top goes on while they merge: it grows silently, and its state is in each report.
+C-764: The `stack-ready-to-merge` with no `to come:` says the stack is complete (when its top is the release PR, the same message asks the post-merge word, Releases): it can be merged in one action from its top PR (the link), or one PR at a time from the bottom, as they like, with the release commit last, quoting each CR's gaps of the ask in the user's language (none: say nothing about gaps).
+C-768: After each merge action of the user (one PR or several), record `order merged` for every CR it merged, bottom first, all before telling the Foreman, in one message (one action leads to one restack at most, silently: no ask follows it, and none when the whole stack merged; the release CR's merge starts the release procedure, as today).
+C-781: Under a stack waiver (`order waive stack`), the merge offer names the CR whose gate validates the lower PRs (`status` shows it: `waived → CR-k`) and whether that gate passed at its head: merging a lower PR before it passes leaves main with the failure if it fails.
+----- topics/merge-words.md (1465 B)
+# The words to the user about a merge
+
+The CLI's words, in the user's language: "ready to merge" only for a PR the user can merge now; "PR in draft" for a draft, with what it waits for; "ready locally" for done work with no PR yet. "Ready" alone is never said of a CR or PR, and "mergeable" never of a draft, whatever the forge's `mergeable` field says. An icon beside a CR is copied from `label` (🟢 ready to merge, 🟤 PR in draft, 🟣 ready locally), never judged, and is the present state; the future is said in words ("🟤 #171 CR-<n>, do not merge: it waits for its gate").
+- A draft is named with "do not merge" and what blocks it; a draft on another CR's branch is never "ready", even of its own work. A draft's icon is its CR's state from the refreshed `STATUS.md`: 🟤 only with nothing left to do, 🟡 rebasing or running CI or a Verifier, 🟠 waiting for another CR's work, 🔴 blocked.
+- "You can merge it" only after the `ready-to-merge` line (or `stack-ready-to-merge`) has reached you, never on a Driver's progress, a green CI or the forge's look. A merge before that line is recorded as any merge (`order merged <cr>`, tell the Foreman in the same message), no reproach, no question.
+- `status` prints a `handed back:` line per CR: say its icon, its full PR link, each gap, its `do not merge: waits for` text and its `owed before the merge` clauses in the user's language, never the prefix. More: `help merge-gaps`, `help merge-recorded`.
+C-697 (+floor.md): A draft says "do not merge":** every PR in draft you name to the user carries, in the user's language, "do not merge" / "ne pas merger" and what blocks it: "🟤 #174 CR-222: ne pas merger, base = branche de CR-237".
+C-713 (+floor.md): Say "you can merge" (or any equivalent) about a PR only after its `ready-to-merge` line (or the `stack-ready-to-merge` line for a stack) has reached you, never on a Driver's progress, a green CI or the PR's look on the forge.
+----- topics/merge.md (1496 B)
+# An order merged
+
+A ready CR reaches the user through `judge <cr>`; one that goes back first: `help take-back`. Parallel batch, after its ask: `help conflict-check`.
+
+On an `order merged <dependency>` (the user's or yours), every mode: each CR handed back ready as a draft PR waiting for it, with all dependencies now merged, goes back with `take <cr> --note "rebase: <dependency> merged"`; one still waiting for another open dependency is rebased onto it and stays a draft (the note says which). Then, by mode:
+- Parallel: every CR with a PR still open, by a plain `status` just before: `ready` or `blocked`, `take <cr> --note "rebase: <merged cr> merged"`; `working`, `[foreman→driver <cr>] note rebase: <merged cr> merged`. Queued: nothing.
+- Series: the CR whose predecessor merged, the same notes; it turns ready to merge on the default branch. A CR's branch moves (rebase, new round): the started CR above it gets `rebase: <cr> moved`, stays a draft, and moves the next.
+- Stack: `help stack-merge`.
+A CR that owes the local run and holds no pass at its new head gets the same `take` with `; long gate: this CR runs <command> locally` added (`help local-gate`). Then `help main-checkout`.
+
+A Driver's line `[driver <cr>→foreman] … <cr> is merged: no Driver to hand it back …` is no anomaly, no ask: read its note (`log <cr>`). If it names work still needed on the default branch, send `[foreman→chief-of-staff] merged early <cr>: left undone: <the note>`; no `take`, no restart.
+C-1308: In a series or a stack the PR opens as a draft: the follow-up is still proposed then.
+FM-265: On an `order merged <dependency>` (the user's or your own), each CR handed back ready as a PR in draft waiting for that dependency, whose dependencies are now all merged, goes back to a Driver at once: `take <cr> --note "rebase: <dependency> merged"`, then the Driver that handed it back resumed as below (it takes a slot, or waits like any queued CR when none is free).
+FM-269: - **Parallel:** every CR with a PR still open goes back to a Driver (its state is the one from the `status` read just before sending a note, [foreman](foreman.md), "Your means"): a CR handed back `ready` or `blocked` with `take <cr> --note "rebase: <merged cr> merged"` (a slot, or it waits like a queued CR when none is free; one handed back `ready` resumes its Driver as below, a `blocked` one gets a new CR Driver); a `working` one gets `[foreman→driver <cr>] note rebase: 
+FM-274: When the CR this rebase `take` goes to owes the local run (as "The user's boundaries" says) and holds no passed or carried long gate at its new head, the same `take` carries the gate note: `take <cr> --note "rebase: <merged cr> merged; long gate: this CR runs <command> locally"`;
+FM-276: - **Series:** the CR whose predecessor merged goes back to a Driver with `take <cr> --note "rebase: <cr> merged"` (or the `note` line, by the state from the `status` read just before sending a note, as in the parallel line) and turns ready to merge on the default branch. 
+FM-277: When the CR this rebase `take` goes to owes the local run (as "The user's boundaries" says) and holds no passed or carried long gate at its new head, the same `take` carries the gate note: `take <cr> --note "rebase: <merged cr> merged; long gate: this CR runs <command> locally"`;
+FM-279: Whenever a CR's branch moves (a rebase, a new round after review), the started CR above it goes back to a Driver with `--note "rebase: <cr> moved"` (or the `note` line, when it is working), and stays a draft on that branch;
+FM-282: A Driver merged under it:** a Driver's line `[driver <cr>→foreman] … <cr> is merged: no Driver to hand it back …` (with its note of what it left undone) is not an anomaly and not an ask: read the Driver's note (`log <cr>`), and when it names work still needed on the default branch, pass it to the Chief of Staff in one line (`[foreman→chief-of-staff] merged early <cr>: left undone: <the note>`), who offers it to the user as an inbox item.
+----- topics/mode-switch-p1.md (1239 B)
+# A mode switch (part 1 of 2)
+
+The Chief of Staff's `order mode --note <mode>`, any mode to any other, on the user's word; the record is already changed, in `status`. No CR already started is stopped, a merged CR never changes (its record, PR, branch and folder), a fix CR stays outside every shape.
+
+In the record, the open CRs of a series or a stack made by the switch are ordered with the CRs already handed back `ready` at the bottom, in the order they became ready, then the others in the batch's order, the chains (`after`) kept. Leaving a stack clears every CR's place in it; each open PR is then moved by its Driver on a rebase note (`rebase: mode <mode>`).
+
+Read the new order from `status`, then by target (the others: part 2).
+- To a stack: `help stack` before the first `take stack`. With two CRs or more handed back `ready` with a PR, the first `take stack` (the same `status` line names it; the stack driver orders the CRs from the record's order, rebases and pushes each PR on the one below, puts each PR it moves to draft, `forge-stack create`, turns the mergeable part ready). A `working` CR's Driver gets `[foreman→driver <cr>] note rebase: stacked on <cr below>`; the CRs not started join on top as they get their PR.
+----- topics/mode-switch-p2.md (1160 B)
+# A mode switch (part 2 of 2)
+
+- To parallel, from a stack: first `$CHANTIER forge-stack unstack` (a refusal is an `anomaly` or ask with the forge's exact text, no other means). Then each open CR with a PR gets its rebase: `ready` or `blocked`, `take <cr> --note "rebase: mode parallel"`; a `working` CR's Driver, `[foreman→driver <cr>] note rebase: mode parallel`. Queued CRs start as slots free, on the default branch.
+- To a series, from a stack: first `forge-stack unstack`; then the same rebase notes with `rebase: mode series`, bottom CR first: the bottom one is rebased on the default branch, each one above on the one below, and a PR above the bottom is a draft (a stack's mergeable part shrinks to the bottom PR).
+- A stack driver running when the batch leaves a stack: `[foreman→stack] note mode: <mode>`; it stops after the branch it is pushing (no further rebase, no `rebuild`) and hands back; then `forge-stack unstack` and the rebase notes.
+- A release CR already started when an ordered batch goes parallel: `take <release> --note "redo: mode parallel"` once the others are merged (its PR closed meanwhile, branch kept).
+
+Then `order done`.
+H-131: a running batch switches between any two modes with `order mode --note parallel|series|stack`, on the user's word, and the record changes at once: the open CRs of a series or a stack made by the switch are ordered with the CRs already handed back `ready` at the bottom, in the order they became ready, then the others in the batch's order, the chains (`after`) kept;
+H-132: leaving a stack clears every CR's place in it; each open PR is then moved by its Driver on a rebase note (`rebase: mode <mode>`), the Foreman and the stack driver acting as their cards say;
+----- topics/options.md (1087 B)
+# Offering options
+
+Before you offer an option, check where the user can take it from (the phone on Remote Control, the desktop app, a terminal); where they are comes only from the host's signal, never a guess. A signal: offer only what they can do from there; when none fits, say so and why. No signal: offer every option that fits, each with its condition in a few words. What you can do yourself (run a command, send a file) you do or say you cannot; it is not handed to a user with no shell.
+- Foreman mode: needs a Foreman session the user can see and steer, or one to reuse. Direct mode: only your own session; with a Foreman not answering, its stop needs the machine (unproved from Remote Control).
+- "Run this in a terminal", a local URL or file, a host dialog, restarting the app, reloading plugins, opening an editor: the machine only. A PR's review and merge: the forge, any device.
+- A host feature (a scheduled wake, a monitor): only if the host has it in this session; no look-alike.
+- Work in the main checkout: no eval running, a session on the main checkout; fail fast.
+C-049: why the rule exists; what the user can do now, each alternative with its condition as "Offering options" says (only what they can do from where they are).
+C-283: Each host's reference gives the condition there.
+C-284: | Option | It needs | Why | | --- | --- | --- | | Switch to Foreman mode | a Foreman session the user can see and steer, or one to reuse | the Foreman is a separate session | | Switch to direct mode | only the Chief of Staff's own session;
+C-287: use the app's own UI | | Restart the app, reload the plugins, open a file in an editor | the machine | | | Review renders, review and merge a PR | the forge, from any device | never refused | | A host feature (a scheduled wake, start a session, a monitor) | the host to have it in this session | no fallback: say it is missing, offer no look-alike | | Work in the main checkout | no eval running, a session on the main checkout | the project's rules (an eval leaves the main checkout untouched);
+----- topics/order-drop.md (1144 B)
+# Where a dropped CR goes
+
+- The user's word that takes a CR out of a batch ("drop", "take it out", "postpone", "remove from the batch") names where it goes. When it does not, ask once, in the user's language, before the order: the trash (cancelled), the next batch (`ready`, `3-ready`) or the backlog P1..P4 (postponed or handed off; the usual case for delegated work). A word that already says it needs no question ("cancel it" is the trash; "postpone it, P2" is `P2`).
+- Never choose for the user: `order drop` is refused with no `--note`. The inbox is not one of them, for any CR: a CR already planned has no reason to go back to the inbox (`--note inbox` is refused); a later move of its folder, the inbox included, is `triage` or the board on the user's word.
+- A word that only keeps a CR out of the order for now (a ready CR of a stack, or a live CR in any mode) is `order hold`, not a drop.
+- Whatever the destination, the CR keeps its work (worktree, branch, PR); only the trash closes its PR; the backlog and the next batch keep it as a draft. A CR moved to the backlog or `3-ready` keeps its number (`formerly.json` in its folder).
+C-514: The inbox is not one of them, for any CR: a CR already planned has no reason to go back to the inbox (`order drop --note inbox` is refused);

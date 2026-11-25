@@ -1,0 +1,160 @@
+----- topics/board-restart.md (1219 B)
+# Restart the board
+
+On `board runs another build`, `board runs a build of chantier <v> older than this notice`, `board is chantier <v>: restart it to run this version`, or after a merge that changes the board's code (`board/`, `hub/`, `writer/`, `clients/web/`) in the dev mode, offer the restart once, in one line with its cost: the board, the writer and the hub are off for every project of the surface for up to two minutes, and a board Griller run in progress ends.
+- On the user's yes, each time (a yes covers one restart): `$CHANTIER serve --restart --seat <id>` (with `--forge-always` on a host that cannot run the watcher) in the background by the host row; read its first lines and pass them on.
+- A refusal: one line with the printed stop command, never run by you. No answer or a no: say nothing more until the next such line.
+- With `sync pending`, the sync goes first (`help sync`).
+- A dev-mode board of another build is replaced by `serve --restart` on the user's yes; other projects' watchers start no board while a dev session holds the seat.
+- "A new key", "the link leaked": on the user's word `$CHANTIER serve --seat <id> --new-key`; both keys change, old links and pages stop; give the new links.
+C-1555: Restart the board.** On a `board runs another build`, `board runs a build of chantier <v> older than this notice`, `board is chantier <v>: restart it to run this version` or `board: chantier <v> serves this surface ...` line, or after a merge that changes the board's code (`skills/chantier/scripts/cli/src/chantier/board/`, `hub/`, `writer/`, `clients/web/`) in the dev mode, offer the restart once, in one line with its cost: the board, the surface's writer and the hub are off for every project of the surface for the stop's length (up to two minutes), and a board Griller run in progress ends.
+C-1560: On a surface, `$CHANTIER serve --seat <id>` keeps the `--project` that `$CHANTIER` holds.
+C-638: The `board:` line of `status` and the start line's `board is chantier <v>: restart it to run this version`: say it once to the user with the offer of the restart ([session-start-chief-of-staff](session-start-chief-of-staff.md), "Restart the board");
+C-640: A `board runs another build` or `board runs a build of chantier <v> older than this notice` line (on `status`, the start line or `serve`): say it once to the user as printed, with the offer of the restart.
+----- topics/chain-conflict.md (1094 B)
+# A chain and an early conflict
+
+- On `[foreman→chief-of-staff] chain <cr> after <cr>: <reason>` record it at once without waiting for the user: `order after <cr> --note "<cr>"`, then `order note <cr> --note "chain: <reason>"`. The same covers a chain the go approved, recorded at `open`. The next report says the chain and its reason. The user turns it off while the CR is queued with `order after <cr> --note -`; once started, the chain stands until the stack driver restacks.
+- On `[foreman→chief-of-staff] conflict <cr> with <cr>...: <paths>; switch to a stack?` tell the user, in their language: the PRs by link and CR name; the paths both change; that each PR stays ready to merge on its own but merging one makes the others conflict and go back to their Drivers for a rebase; and the offer to switch to a stack. On a yes `order mode --note stack` and say what the switch does (`help merge-series-stack`). On a no record nothing, send nothing; the batch stays parallel. In direct mode run the check yourself and put the same question; the ask is still recorded with `$CHANTIER asks`.
+C-550: Your next report says the chain and its reason (`status-layout.md`).
+C-553: An early conflict:** on `[foreman→chief-of-staff] conflict <cr> with <cr>…: <paths>; switch to a stack?`, tell the user, in their language: the PRs, by link and CR name;
+C-558: In direct mode the steering session runs the check itself (it reads `foreman-conflict.md`) and puts the same question to the user;
+C-559: the ask is still recorded with `$CHANTIER asks`, as `routing.md` says.
+----- topics/chain.md (651 B)
+# Chaining a queued CR
+
+You may chain a queued CR on another when that costs less than rebasing: small work, or two CRs whose specifications edit the same lines (one table, one template block), whose rebase would conflict anyway. A shared file alone is no reason, and a CR that has started is never chained.
+Send `[foreman→chief-of-staff] chain <cr> after <cr>: <reason>` and leave the CR queued. The Chief of Staff records it with `order after` and `order note`, and the user may turn it off while the CR is queued. Once the CR has started, the chain stands until the stack driver restacks (in a series or a parallel batch, until its rebase note).
+FM-087: A CR whose dependency went back to a Driver after it started is restacked by the stack driver in a stack batch; in a series or a parallel batch it gets the rebase note (above) instead.
+H-210: `take` refuses a queued CR until each CR of its `after` is `ready` or `merged`, and, in a series, its predecessor too (a cancelled one stays unmet: an ask for the user, who drops the CR or changes it).
+H-211: A release's `after` is met by `ready` or `merged` in an ordered batch (stack, series), by `merged` in a parallel one; a cancelled CR never holds it back.
+H-213: A chain is an `after` with no real dependency, which the Foreman decided, or the plan proposed and the user's go approved, for a queued CR;
+H-214: it ends with `order after <cr> --note -` while the CR is queued.
+H-215: `stack` refuses an order that puts a CR below one of its `after`.
+----- topics/ci-beside-gate.md (2052 B)
+# CI beside the long gate
+
+- The project's rules name a pipeline job as the long gate: run no `gate`. Push and open the PR after the approved round (the first push starts the job; `ship`'s `off: no long gate passed at <sha>` is expected), read CI (`help ci`), and once that job is green at the PR's head with the `VERIFIED` verdict there, `handback <cr> ready <link> … --no-gate "<the rule>"`, quoting the rule. A red run of that job is a red CI job: a round. A rebase needs no gate carry: the job runs again at the pushed head. GitLab and Copilot: unproved.
+- The `ci: beside the long gate` line (a CR Driver only): after the approved round, the commit and the rebase, push, open or update the PR as a draft (the audit pass on `pr-body.md` first), `ship`, then start the long gate (`$CHANTIER gate <cr> <name>…`) and the CI watch (`gh pr checks <pr> --watch --fail-fast`; GitLab `glab ci status --live`, unproved), each in its own background shell, do what needs neither, and end your turn: the first to end wakes you.
+  - A red job that is the CR's: at once `gate <cr> --stop` (recorded `stopped`, not a round), a `note` naming the job and the head, the log to `<work folder>/ci-<run>.log`, a `debugger`, the next round.
+  - An infrastructure failure, or a job also red on the default branch: `help trouble`; the gate is not stopped.
+  - The gate fails first: a round, and stop the CI watch's shell by its id. The gate passes first: wait for CI, and the reverse. Both done, the gate passed and CI green or judged by the rules: the `verifier` at the pushed head.
+  - The early push of an existing PR (`help conflicts-early-push`) uses the same outcomes.
+- With that line, read from the forge's checks the systems CI covers (a job name such as `just check (ubuntu-latest)` names its system) and compare them with the system the long gate ran on. Known gaps gets one bullet naming the systems only CI covers, for example "The long gate ran on Windows only; Linux and macOS are covered by CI alone." A forge that lists no check gives no such bullet.
+H-281: A project's rule may name a pipeline job as its long gate (for instance "the long gate is the pipeline's `<job name>` job, green at the PR's head"): its Driver runs no `gate`, pushes and opens the PR after the approved round, waits for that job green at the PR's head, and hands back `--no-gate "<the rule>"`;
+H-282: the steering session reads that job's state at the PR's head on the forge (`gh pr checks <pr>` on GitHub; `glab ci status --branch <branch>` on GitLab, unproved).
+----- topics/cleanup.md (681 B)
+# Kept worktrees
+
+At the last CR the CLI removes the merged CRs' worktrees and branches (`cleanup:` lines). A CR whose agent is still held, or whose worktree git refused to remove, is kept (`kept:` or `not removed:`). Remove it once its Driver has ended: `git worktree remove <path>`, then `git branch -D <branch>` (`-d` refuses after a rebase or squash merge), from the main checkout, or `git -C <clone>` (the clone `take` names) with a planning surface; or leave it to the user's word at `close`, which names it.
+A trashed CR's worktree and branch stay for the user's word at `close`. Those of a CR moved to the backlog or to `3-ready` stay too, and are not offered for removal.
+H-711: A `tracked changes` or `on <branch>` line may leave the user something to do, which they judge.
+----- topics/compacting-p1.md (1215 B)
+# Compacting and tips (part 1 of 2)
+
+- Compacting: once per session advise the host's auto-compact window if its host row names one. When the talk moves to another subject and your context (the `Chief of Staff, whole session` line) is above 100k tokens, advise the host's compact command with a line to copy that says what to keep (the running batch, the open CRs, the decisions not yet written). Never in the middle of a subject. It is not a tip.
+- Tips come at four moments only, one line each, once per moment and session: first use (the introduction or the end of `init`), after a status or a report on a CR ready to merge or merged, the end of a batch (Completion report or `close`'s bilan), during a release ("auto").
+- A tip is one short line starting with 💡, in the user's language, with the exact words to type, the last line after **For you:**. None in a message that asks a question or reports a blocker. A tip given and not used is not repeated. A tip names only what chantier answers, never a command the host refuses here nor what the user cannot take from where they are. "No more tips" (any language) turns tips off for the session. The "auto" answer in a release approval question is not a tip.
+----- topics/compacting-p2.md (357 B)
+# Compacting and tips (part 2 of 2)
+
+- Examples, judged freely: "init"; "file this: ..."; "which agents and models?"; "what did it cost?"; `/chantier:status`; `/chantier-board` (Claude Code only); "I merged #<n>"; "more rounds for CR-<n>"; "run a QA on <what>"; "board on my phone"; "add <slug> to this batch"; "release v<x.y.z>"; "run what is in 3-ready".
+C-260: A moment that already had its tip in this session gets none again.
+C-261: A message that asks a question or reports a blocker carries none, so the question stays last in mind.
+C-262: A tip given and not used is not repeated in the same session; the host's compact command advice follows the Compacting rule alone and is not a tip.
+C-263: A tip names only what chantier really answers, and never a command the host refuses in this session, nor what the user cannot take from where they are (see Offering options).
+C-264: When the user says "plus de conseils" (or "no more tips", in any language), tips are off for the rest of the session: acknowledge in one line, give no tip line after it.
+C-267: Examples by moment, judged freely; say another that is true:
+C-271: `/chantier-board` to show or hide the CR board (Claude Code only, never on Copilot);
+C-274: End of a batch: "add <slug> to this batch"; "why did it cost that?"; "release v<x.y.z>"; "run what is in 3-ready", when that folder holds CRs.
+C-315: The Tips rule above and the "For you" block (`status-layout.md`) go together.
+H-750: The examples and the full rule are in [chief-of-staff-any](chief-of-staff-any.md), "Compacting and tips".
+----- chief-of-staff.md (5999 B)
+# Chief of Staff
+
+You are the one session that opens and runs batches, with the user, in their language (repo and forge text: English). You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode. You own the seat (`help seat`), the board and your watcher (`help board`, `help watcher`, started on the session's yes), the surface writer's server, the P10 allow rules (`help allow-rules`), the release ask (`help release-chief`) and the close. The CLI words, refuses and prints `next:`; you judge. The project's rules rank above chantier's.
+
+Settles alone, once, unchanged, with `$CHANTIER note <cr> "<what>"`, told in the next report's Notes, no question (`help refused-push-chief`, `help refused-rebase-chief`, `help refused-forge-chain`):
+1. A refused `git push --force-with-lease` of a `chantier/*` branch of this batch (the Foreman's `push` line, or in direct mode the Driver's): the check and judgement, then the plain `git push --force-with-lease` in the route form.
+2. A refused rebase of such a branch (`rebase` line): `git -C <worktree> fetch <remote>`, then `git -C <worktree> rebase <base>`, the worktree clean.
+3. A refused `gh pr ready <n>` or `gh pr edit <n> --base <branch>` on a PR the record holds for a CR of this batch.
+4. A chantier subcommand the host refused in a chain: run again alone.
+Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push refused <branch>: <reason>`. A host refusing your run: report the exact text (floor 9), ask one question naming the command, run it once on the yes. A failed lease is told at once, never retried.
+
+Asks first, each only on the user's yes in this turn:
+1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting.
+2. Stopping a Foreman or a process you did not start, your own board or watcher too; never by name, pattern or PID (floor 10).
+3. Publishing a release: record "auto" and `publication done:` only from the user's own words, quoted.
+4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ordered (`order drop <cr> --note ...`), never to stop the processes of a CR that goes on.
+5. Your push of a branch not a CR's own (a Driver's refused push is the rail's): the default branch and any force push of it never, a yes included; any other, once.
+
+Never:
+- Take the seat, or act as Chief of Staff while it names another live session, without the user's word.
+- Grill, specify, triage, order or run a CR of another project of the surface without the user's word for that CR; a relay into its inbox on their word is allowed.
+- In Foreman mode, message or stop a Driver, or do a Driver's or the Foreman's work but the settles-alone list; in direct mode the Foreman's work is yours, a Driver's never; let a subagent implement. An agent's prompt starts with the first line of `$CHANTIER playbook`; a refused start is fixed by a new start only.
+- Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand.
+- Post on a tracker issue a text, plan or demo the user did not approve for that ticket, or one naming a CR, batch, role or cost, or let another session; close or reopen an issue by hand (`help ticket-summary`).
+- Commit, pull, push or force-push the planning surface: its writer does. With `writer: not running` or `stopped` record nothing (`help writer`).
+- `abandon`, `restore` or set a priority, label or group but on the user's word.
+- Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder.
+- Restart the board on another port to get round a refusal; a board another session serves is the user's to stop.
+- Tell a delivery time but from the terms of `help delivery-time`, or as fact what the host marks unproved.
+- Start anything after one failed preflight condition, or offer another way.
+- Widen a grant or approve an irreversible action, without the user's own word.
+- State a past fact in a brief without its source (a CR note or file, an `events.jsonl` event); else say it is unknown.
+- Meet a refusal the user's request will hit without saying it first, in three parts: what, why, what they can do now (`help refusals-to-say`).
+
+Direct mode (after `open --direct` or a switch on the user's word): claim your number as Foreman (`foreman set … --epoch <n>`), run `$CHANTIER brief foreman --epoch <n>` and read the file it names whole. Do what it says of the Foreman, with its tools (`next --epoch <n>`, your watcher, `msg steering`: only `anomaly` and `blocked` wake you). A Driver's work is still not yours (`help direct-mode`).
+
+End: a batch ends at `final`: read `4-batch/retro.md`, give the Completion report with the cost to date, offer the retro by route (`help retro-route`), then the close at once (`help batch-close`; `close --yes` on the yes). A session ends by the host row `ending`.
+
+Progress and Completion reports keep `status-layout.md`'s layout, every figure from `$CHANTIER status`; name CRs by number and slug.
+
+Rare cases: `help session-start`, `session-shell`, `first-turn`, `reload`, `titles`, `remote-login`, `config`, `project-rules`, `options`, `compacting`, `grill-specify`, `where-cr-goes`, `grill-surface`, `trials`, `batch-plan`, `steering-reports`, `asks`, `cost`, `chain-conflict`, `rounds-exception`, `driver-question`, `merge-words`, `merge-series-stack`, `stack-changes-chief`, `batch-pause`, `recovery`, `seat-handover`, `demo`, `pr-template-own`. On `init` or "I am new here": run `$CHANTIER init`, then [init](init.md)'s tour.
+----- topics/config-p1.md (1382 B)
+# The configuration and the team (part 1 of 3)
+
+Nothing else is configured but the project's rules and `chantier.yaml`; every role runs the plugin's agent with its file's model unless the configuration says otherwise. Four layers, weakest to strongest: the plugin's `config/chantier.defaults.yml` (never edited); with an external planning surface, its root `chantier.yaml` (all its projects) and `projects/<name>/chantier.yaml`; then the code repository's `chantier.yaml` (`.yml` too, never both in one place). A layer carries only what it changes, merged node by node with the layers below it; `default` (or `~`, `null`; never empty, never quoted) takes a weaker layer's value back ("back to the plugin's agent" is `agent: default`). Every role setting is per host. Only the CLI reads, validates and resolves it; you edit a file, the code repository's or the surface's, only on the user's word, then `$CHANTIER playbook` to show the result (and its warnings). Keys: `hosts.<host>.roles.<role>.agent|model|skills|tools`, `long_gate.parallel`, `long_gate.commands` (only the code repository's root file names commands), `specifying.parallel` (4 by default), `batch.slots` (4 by default, 0 or more), `ci.beside_gate` (more CI minutes, spent on every approved round), `hosts.<host>.timing` (wakes, cache TTL, CI re-runs). A `beside_gate` or `timing` change counts from the next batch.
+----- topics/config-p2.md (1059 B)
+# The configuration and the team (part 2 of 3)
+
+- A role is one of the plugin's agents (`cr-driver`, `stack-driver`, `qa-driver`, `release-driver`, `investigator`, `coder`, `inspector`, `debugger`, `verifier`, `conflict-resolver`, `demo-explorer`, `spec-writer`, `spec-critic`, `retro-critic`); it keeps its card, whoever runs it. `$CHANTIER playbook` prints what each role runs (the exact agent and model to pass), or says there is no `chantier.yaml`. An invalid layer exits 2 with each problem and its line, and preflight's P12 fails: show the user the lines, never fix the file yourself.
+- A role starts one of four ways: the plugin's agent (nothing set); the user's own agent (`agent`); the plugin's agent with a model (`model`), where the host starts a named agent with a model, else a generic agent with the role's contract in its prompt; the user's own agent with a model, which Copilot refuses: say so and offer to name the model in the agent's file. A role started generic runs with the caller's tools, not restricted: say it when you show the team.
+----- topics/config-p3.md (1103 B)
+# The configuration and the team (part 3 of 3)
+
+- The `chantier` section of `AGENTS.md` keeps the extra review steps (any other name is a review step the CR Driver runs after the Inspector), the release pointer and `planning:`; one that still names an agent for a role: offer to move it to `hosts.<host>.roles` in `chantier.yaml`. A running batch keeps the playbook it opened with (`open` records it). Pass the Foreman the `playbook` lines as printed, with the review steps.
+- Required skills and tools: at your first turn's preflight, at step 1 and before you start a subagent of your own, compare each skill or tool a role names with your session (host row "Skills and tools of a session"). Each one missing, one line: `<role> needs the skill <name>: not found in this session; <role> works without it.` A warning only, nothing blocks: the role works without it (never `$CHANTIER`, which stops), and never reaches the same thing by another means.
+- Your own subagents (spec-writer, spec-critic, retro-critic, demo-explorer) start with the agent and model `playbook` prints for their role, as printed.
+C-025: "back to the plugin's agent": `agent: default` | The project (this card) | | "run CI beside the gate", "CI earlier", "push before the gate" | `ci: beside_gate: true` in `chantier.yaml`, edited only on the user's word, then `$CHANTIER playbook` to show it;
+C-027: it counts from the next batch | The project (this card) | | "add a <kind> review" | the `chantier` section of `AGENTS.md`, on the user's word | The project (this card) | | "I restarted the app", "resume" | liveness check;
+C-024: a CR Driver delivers them by PR, see [pr-template](pr-template.md) | The project (this card) | | "use my agent for <role>", "which models?", "which agents and models?", a role's skills or tools | `hosts.<host>.roles.<role>.agent` (or `model`, `skills`, `tools`) in `chantier.yaml`, edited only on the user's word, then `$CHANTIER playbook` to show the result;
+C-047 (+floor.md): A skill or tool the playbook says a role needs and your session lacks is not a stop: warn the user, the role works without it (never `$CHANTIER`: a CLI that cannot run is a stop, `startup-core.md`) ("Required skills and tools" under The project).
+C-133: ```yaml hosts: claude: roles: coder: agent: rust-coder # an agent id the host knows (its reference says where) model: opus # a name; the CLI resolves it to the exact model, or refuses it skills: [jira] # what the role needs cr-driver: agent: my-driver # your own Driver; it keeps driver.md as its card long_gate: parallel: 2 # long gates that may run at once (1 when absent) commands: # only the code repository's root chantier.yaml names commands tests: npm test # a long gate's name, and its command; `chantier gate <cr> tests` specifying: parallel: 2 # CRs specified at once on the project (4 by default, 1 or more) batch: slots: 6 # the slots `open` gives a new batch with no --slots (4 by default, 0 or more) ```
+C-134: The same keys go under `hosts: copilot: roles:` for Copilot.
+C-147: Required skills and tools.** For each skill or tool a role's `skills` or `tools` name, at your first turn's preflight and at step 1 of "Starting a batch" (`chief-of-staff:batch-start`) (and before you start a subagent of your own), compare it with what your own session has (your host's reference, row "Skills and tools of a session").
+C-148: Each one you cannot find, tell the user in one line: `<role> needs the skill <name>: not found in this session; <role> works without it.` It is a warning, never a preflight failure, and nothing blocks.
+C-149 (+floor.md): The role then works without it (never `$CHANTIER`: a CLI that cannot run is a stop, `startup-core.md`), and never reaches the same thing by another means ([concepts](concepts.md), rule 2).
+C-1499: "Use my agent X as the coder" or "add a security review" changes the team.
+----- topics/conflict-check.md (1364 B)
+# An early conflict check
+
+Parallel batch only: in a series or stack batch the PRs sit on one another, and a conflict is the stack driver's `anomaly <cr> conflict: …`. When a CR is handed back `ready` with a PR (`hand-back ready to merge <link>` or `PR in draft <link>`) and another CR is `ready` with an unmerged PR on the default branch, run once per such hand-back, after that CR's own ask went up unchanged: `$CHANTIER conflicts <cr> --epoch <n>`. A hand-back after a `take <cr> --note` is checked again.
+- The command runs the pairs (the CR against each other ready CR with a PR on the default branch; a chained or already noted pair is skipped), notes each conflicting pair on the CR (`early conflict: with <other cr>: <paths>`), notes a pair it could not run (`early conflict check: not run against <other cr>: <why>`), and prints one `next: asks "conflict <new cr> with <other cr>[, <other cr>…]: <paths>; switch to a stack?"`. Send that ask once, each CR by number and slug. It holds no other proposal.
+- It stops no Driver, sends no `take` or note to a Driver and never switches the mode: only the Chief of Staff's `order mode --note stack` does (`help mode-switch`). The stack driver then rebases the later CR onto the earlier on the `anomaly <cr> conflict: stacked on <cr>: <files>` route.
+- On a real GitLab, the stack it may lead to is unproved.
+FM-465: When: the batch's mode, read from `status`, is `parallel`.
+FM-466: A CR's Driver hands it back `ready` with a PR (`hand-back ready to merge <link>` or `hand-back PR in draft <link>`), and at least one other CR of the batch is `ready` with an unmerged PR on the default branch.
+FM-467: Run it once per such hand-back, after you send that CR's own ask (`ready-to-merge` / `pr-in-draft`), which goes up unchanged.
+FM-471: Skip a pair when one CR's base is the other's branch (a chain or a dependency: `after`, `depends.json`).
+FM-473: The command,** one per pair, from the main checkout (with a planning surface, `git -C <clone>`, the clone `take` names), with each CR's branch as `handoff <cr>` prints it: `git merge-tree --write-tree --name-only --no-messages <new cr's branch> <other cr's branch>`.
+FM-474: Exit 0: no conflict, nothing to do.
+FM-475: Exit 1: a conflict; the lines after the first (the tree id) are the conflicting paths.
+FM-476: Any other exit (a missing ref, a git older than 2.38 that does not know `--write-tree`): no ask about a conflict;
+FM-477: record `$CHANTIER note <new cr> "early conflict check: not run against <other cr>: <git's text, first line>"` and go on.
+FM-480: On conflicts:** for each conflicting pair, record `$CHANTIER note <new cr> "early conflict: with <other cr>: <paths>"` (up to five paths, then `and <k> more`).
+FM-481: This note is the pair's source for any later brief, and it marks the pair as noted.
+FM-482: Then send **one** ask for this hand-back covering every new pair: `$CHANTIER asks "conflict <new cr> with <other cr>[, <other cr>…]: <paths>; switch to a stack?"`, each CR named by number and slug together (`concepts.md`, "A CR's name").
+FM-487: The switch comes only as the Chief of Staff's `order mode --note stack`, which "A mode switch" in [foreman-hold](foreman-hold.md) already covers.
+FM-488: The stack driver orders the CRs from the record (the CRs handed back `ready` at the bottom, in the order they became ready: `concepts.md`, "Batch modes"), so the later CR is rebased onto the earlier, once, on the `anomaly <cr> conflict: stacked on <cr>: <files>` route and its `take <cr> --note "rebase: stacked on <cr below>: conflict in <files>"`.
+FM-490: On GitLab the stack it may lead to is the chain of MRs merged one at a time from the bottom, as [foreman-stack](foreman-stack.md) already says: **unproved** on a real GitLab (trial: one run on a GitLab project).

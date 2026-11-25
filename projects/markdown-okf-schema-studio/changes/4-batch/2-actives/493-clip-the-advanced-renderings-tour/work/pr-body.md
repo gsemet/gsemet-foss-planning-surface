@@ -59,10 +59,10 @@ No behaviour change in the extension; the editing page gains a clip.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code): length refusals at 4.9 s and 30.1 s, 30.0 s accepted, `durationLine`, the shipped storyboard, the editing page plays the clip
+- [x] New or changed tests (they fail on the previous code), passing at 8c6845a: length refusals at 4.9 s and 30.1 s, 30.0 s accepted, `durationLine`, the shipped storyboard, the editing page plays the clip
 - [x] Requirements: no behaviour change (`just requirements-update` leaves the tree unchanged)
 - [x] Changelog: no user-facing change
-- [ ] Local gates: `just preflight`, and the take's `all` step with its `check`
+- [x] Local gates at 8c6845a: `just preflight` (on Windows, its static stage); the take's `all` step with its `check` passed on the same files before the commit
 - [x] Review: passed at 8c6845a
 - [ ] CI green
 

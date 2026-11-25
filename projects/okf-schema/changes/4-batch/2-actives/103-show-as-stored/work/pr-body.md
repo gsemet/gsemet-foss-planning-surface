@@ -24,7 +24,7 @@ Choices made:
 **Compatibility:** a script that read the `trust:` or `stale: true` lines of `show` no longer
 finds them; `okf-schema trust` prints the same two lines.
 
-This pull request builds on the trust tier fix of #69.
+This pull request is stacked on #70 and builds on the trust tier fix of #69.
 
 ## Type of Change
 
@@ -60,18 +60,24 @@ restores the previous output. No stored file or data format changes.
 ## Known gaps
 
 - The installed-package acceptance tests skip on Windows. Their two `show` test functions were run
-  on Windows through a local harness against a wheel built from an earlier state of this change,
-  before the output loop was added.
-- On a non-blocking standard output that is full, `show` retries without pause. This case is not
-  tested.
+  on Windows only through a local harness against a wheel of this change, outside the test suite.
+- On a full non-blocking standard output, `show` fails with `BlockingIOError` after a partial
+  output, as before this change. Under unbuffered output (`python -u`) it instead retries without
+  pause until every byte is written. Neither case has a test, and both were observed on Windows
+  only.
 - One acceptance sentence of the bundle containment requirement still says that "the concept is
   shown as before", although it now also covers `trust`. Only its trigger sentence was widened.
 - The docstrings of the previous concept name change still say version 0.18.2, while the release
   holding it is planned as 0.19.0.
 - `trust` on an unquoted impossible date such as `stale_after: 2020-02-30` ends in a traceback
   (exit code 1), although the command line reference says an unparseable value gives no stale line.
-  The cause is in the frontmatter parser, predates this change (`list` fails too) and is left
+  The cause is in the frontmatter parser, predates this change (`list` fails too, and other
+  invalid typed values end the same way) and is left unchanged here.
+- A concept file that starts with a byte order mark is read as having no frontmatter, so `trust`
+  answers `trust: unverified` for it. The reading is the one the Python API already had and is left
   unchanged here.
+- The requirements change log entry of this change records the test count of an earlier run. It is
+  kept as the record of that run; the current counts are those of the test plan.
 
 <details>
 <summary>Details</summary>
@@ -108,15 +114,13 @@ visual change.
 
 ## Test plan
 
-- [ ] New or changed tests (they fail on the previous code)
-- [x] Local gates at `6572527` (carried from `3776ca4`): `just preflight` passed on Windows
-  (1186 passed, 12 skipped, coverage 95.62%, documentation build with warnings as errors); the
-  three requirement checks passed at `6572527`
+- [ ] New or changed tests (they fail on the previous code, except one that guards the unchanged
+  refusal by the Python API of a file that is not valid UTF-8)
+- [ ] Local gates at `a2723b7`: pending
 - [ ] Evidence
-- [x] Review: approved at `6572527` (carried from `e161d98`)
+- [ ] Review: pending at `a2723b7`
 - [ ] Verified
-- [x] CI green at `6572527`: Linux preflight (Python 3.10 to 3.13), Windows and macOS jobs pass;
-  the release tagging job is skipped on a pull request
+- [ ] CI at `a2723b7`: pending
 
 ## Internal references
 

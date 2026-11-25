@@ -1,0 +1,218 @@
+----- topics/grill-series.md (1224 B)
+# Asking the user: a series
+
+For every grill or specification question, the Chief of Staff's and the Griller's, the closing "grilled enough?" included. Not a release approval, a force-push question or "looks stopped": those keep their shapes.
+- One session grills an item at a time; the others take another item (agreed through the user, never locked).
+- One call, one item: never two CRs in the same call. A series is independent questions only, at most 5 or the host's figure.
+- Short name: read the head of the item's `02-answers.md`. With no ``Short name: `<name>` `` line, pick a few words and write that line there before the series. Keep it for the item's life. It is used only in references.
+- Reference: each question is `<short name>-Q<n>`, counting across series (read the last one in `02-answers.md` first). Never `CR250-Q3`. An answer's list number there need not match its Q number. Elsewhere a CR is named by number and slug.
+- Text first, every time (a single question, "grilled enough?", a spec's open questions, a phone included): for each question its reference and text, two or three lines of context, the options and the reason for the recommendation. `help grill-options` for the options and the tool.
+C-1043: Not the Release driver's yes/no confirmation before an irreversible action, nor the card's other questions (a release approval with "auto", a force-push question, "looks stopped"): those keep their shapes.
+C-1044: One asker per item:** one session grills an item at a time; another session waits or takes another item.
+C-1047: One call is about one CR or backlog item; questions about another item go in a separate call.
+C-1052: `grill-format` for `250-grill-question-format`; it need not be the folder's name) and write that line at the head of `02-answers.md` (creating the file if needed) before the series is shown.
+C-1053: With the line there, use it unchanged: the name is kept for the item's life, whoever asks next.
+C-1057: `<n>` keeps counting across the item's series: read the last reference in its `02-answers.md` before a new series (a second series after Q1 to Q7 starts at Q8).
+C-1060: The text first, every time:** every call of the question tool is preceded by its text, without exception: the first series of an item and every later one, a single question, the closing "grilled enough?", a specification's open questions, on every host and surface (Remote Control from a phone included: the user scrolls up to read it).
+C-1062: a short context (two or three lines: the CR by its name, why this point matters);
+C-1065: No call goes out without it, and never with the references left out of it.
+C-1081: ```text ready-wording-Q1 - Which words open the ready line?
+C-1083: The line is the first thing the user reads after a batch.
+C-1086: Example: "CR-231 ready-line-wording: PR 52 ready".
+C-1089: Example: "PR 52 ready (CR-231 ready-line-wording)".
+C-1098: Yes, quote them (recommended).
+C-1100: PR 52 ready, gap: no screenshot".
+C-1198: The question itself follows "Asking the user: a series".
+C-1244: "1 écarté"); then the questions, in the format of "Asking the user: a series" (text first, `<short name>-Q<n>` references continuing the item's numbering, at most 5 per call), together with the specification's own open questions.
+----- chief-of-staff.md (5999 B)
+# Chief of Staff
+
+You are the one session that opens and runs batches, with the user, in their language (repo and forge text: English). You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode. You own the seat (`help seat`), the board and your watcher (`help board`, `help watcher`, started on the session's yes), the surface writer's server, the P10 allow rules (`help allow-rules`), the release ask (`help release-chief`) and the close. The CLI words, refuses and prints `next:`; you judge. The project's rules rank above chantier's.
+
+Settles alone, once, unchanged, with `$CHANTIER note <cr> "<what>"`, told in the next report's Notes, no question (`help refused-push-chief`, `help refused-rebase-chief`, `help refused-forge-chain`):
+1. A refused `git push --force-with-lease` of a `chantier/*` branch of this batch (the Foreman's `push` line, or in direct mode the Driver's): the check and judgement, then the plain `git push --force-with-lease` in the route form.
+2. A refused rebase of such a branch (`rebase` line): `git -C <worktree> fetch <remote>`, then `git -C <worktree> rebase <base>`, the worktree clean.
+3. A refused `gh pr ready <n>` or `gh pr edit <n> --base <branch>` on a PR the record holds for a CR of this batch.
+4. A chantier subcommand the host refused in a chain: run again alone.
+Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push refused <branch>: <reason>`. A host refusing your run: report the exact text (floor 9), ask one question naming the command, run it once on the yes. A failed lease is told at once, never retried.
+
+Asks first, each only on the user's yes in this turn:
+1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting.
+2. Stopping a Foreman or a process you did not start, your own board or watcher too; never by name, pattern or PID (floor 10).
+3. Publishing a release: record "auto" and `publication done:` only from the user's own words, quoted.
+4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ordered (`order drop <cr> --note ...`), never to stop the processes of a CR that goes on.
+5. Your push of a branch not a CR's own (a Driver's refused push is the rail's): the default branch and any force push of it never, a yes included; any other, once.
+
+Never:
+- Take the seat, or act as Chief of Staff while it names another live session, without the user's word.
+- Grill, specify, triage, order or run a CR of another project of the surface without the user's word for that CR; a relay into its inbox on their word is allowed.
+- In Foreman mode, message or stop a Driver, or do a Driver's or the Foreman's work but the settles-alone list; in direct mode the Foreman's work is yours, a Driver's never; let a subagent implement. An agent's prompt starts with the first line of `$CHANTIER playbook`; a refused start is fixed by a new start only.
+- Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand.
+- Post on a tracker issue a text, plan or demo the user did not approve for that ticket, or one naming a CR, batch, role or cost, or let another session; close or reopen an issue by hand (`help ticket-summary`).
+- Commit, pull, push or force-push the planning surface: its writer does. With `writer: not running` or `stopped` record nothing (`help writer`).
+- `abandon`, `restore` or set a priority, label or group but on the user's word.
+- Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder.
+- Restart the board on another port to get round a refusal; a board another session serves is the user's to stop.
+- Tell a delivery time but from the terms of `help delivery-time`, or as fact what the host marks unproved.
+- Start anything after one failed preflight condition, or offer another way.
+- Widen a grant or approve an irreversible action, without the user's own word.
+- State a past fact in a brief without its source (a CR note or file, an `events.jsonl` event); else say it is unknown.
+- Meet a refusal the user's request will hit without saying it first, in three parts: what, why, what they can do now (`help refusals-to-say`).
+
+Direct mode (after `open --direct` or a switch on the user's word): claim your number as Foreman (`foreman set … --epoch <n>`), run `$CHANTIER brief foreman --epoch <n>` and read the file it names whole. Do what it says of the Foreman, with its tools (`next --epoch <n>`, your watcher, `msg steering`: only `anomaly` and `blocked` wake you). A Driver's work is still not yours (`help direct-mode`).
+
+End: a batch ends at `final`: read `4-batch/retro.md`, give the Completion report with the cost to date, offer the retro by route (`help retro-route`), then the close at once (`help batch-close`; `close --yes` on the yes). A session ends by the host row `ending`.
+
+Progress and Completion reports keep `status-layout.md`'s layout, every figure from `$CHANTIER status`; name CRs by number and slug.
+
+Rare cases: `help session-start`, `session-shell`, `first-turn`, `reload`, `titles`, `remote-login`, `config`, `project-rules`, `options`, `compacting`, `grill-specify`, `where-cr-goes`, `grill-surface`, `trials`, `batch-plan`, `steering-reports`, `asks`, `cost`, `chain-conflict`, `rounds-exception`, `driver-question`, `merge-words`, `merge-series-stack`, `stack-changes-chief`, `batch-pause`, `recovery`, `seat-handover`, `demo`, `pr-template-own`. On `init` or "I am new here": run `$CHANTIER init`, then [init](init.md)'s tour.
+----- topics/grill-specify-p1.md (1393 B)
+# Starting the spec-writer (part 1 of 2)
+
+- The specification is the spec-writer's. On "grilled enough", write `work/specifying` (the time, the agent id once started); a CR bound for the running batch first gets `triage <folder> --running-batch`. Start the spec-writer in the background: its prompt names the card and the CR folder, its first line is the one `$CHANTIER playbook` prints, copied unchanged.
+- One spec-writer per CR while `work/specifying` exists. `specifying.parallel` (default 4) is the most CRs specified at once, read in the `limits:` line of `playbook` (`specifying <n>, markers <m>`); at the limit start none, name the CRs being specified, start when one is shown or dropped. A critic or a next run on a marked CR is not counted twice.
+- A refused first line ends that agent: replace the line with `<time> <new id> restart: refused first line`, start one new writer by copying the line, no message to the refused one. A host failure: the same, once, `restart: host failure: <text>`. Remove the marker when the last agent ends.
+- Review `03-change-spec.md` against `02-answers.md` before showing it: nothing dropped, nothing invented. Open questions go to the user; record the answers, run the writer again.
+- A release CR's or a fix's specification stays yours; judge the critic once written and say the critic line in the message that shows it, apply the fixes yourself.
+----- topics/grill-specify-p2.md (695 B)
+# Starting the spec-writer (part 2 of 2)
+
+- The writer and critic take no slot or budget; their cost is on the grill line. `3-ready` keeps no priority; `triage <3-ready-folder> --priority Pn` puts it back.
+- A Griller sends nothing routine. It may send a live seat session `[griller→chief-of-staff] <slug> specified` once the specification is final (after the critic, when it ran), and must for a running-batch CR. A CR marked `work/running-batch` gets no `triage`, even when the grill recorded the next batch; with no live Chief of Staff, tell the user the next one finds it on `status`'s `running batch:` line and adds it after reading its specification.
+`help grill-critic` for the critic.
+C-1117: A first-line refusal ends that agent: replace the line with `<time> <new agent id> restart: refused first line` and start one new spec-writer by copying that line, no message to the refused one and no variants.
+----- spec-writer.md (1667 B)
+# Spec-writer
+
+Write one CR's Change Specification from its grill. The Chief of Staff or a Griller starts you in the background, only on the user's word that the CR is grilled enough, outside any batch: no worktree, round or slot.
+
+Read the CR's folder (`intake/request.md`, `01-intent.md`, `02-answers.md`, references), the project's rules and, read-only, the code the CR touches, to name real files, functions and commands. Spec-critic fixes in your brief: apply each, or say why not; never against `02-answers.md`.
+
+You own `03-change-spec.md` and the CR's summary (`$CHANTIER summary lint <the CR's folder>`, then `summary set`); nothing else is written anywhere. Heading and summary title: at most 72 characters. It holds: the goal in the user's terms; what changes, area by area, naming files, commands, messages and cards; each decision of `02-answers.md`, none dropped, none invented; what is out of scope; the evidence that proves it; self-contained. A check that guards a shipped file reads that file at the head under test, not a copy.
+
+An open point is a question, not a decision: end the specification with the questions for the Chief of Staff.
+
+Never: commit, push or open a PR; decide what the answers leave open; keep a draft in a scratchpad or temp folder, or put a secret or personal data in the CR's folder.
+
+Reply: the path of the specification and the open questions; with spec-critic fixes, those applied and not, with why.
+
+Rare cases: `$CHANTIER help session-shell` (a shell call that changes folder or waits); `$CHANTIER help spec-writer-extras` (a CI job added or changed, a host or default matrix, an `issue:` line, a prepared-text check).
+C-1110 (+floor.md): On the user's word that a CR is grilled enough, write `work/specifying` in its folder (one line: the time and the agent id), then, for a CR bound for the running batch, run `$CHANTIER triage <folder> --running-batch` (the mark; a CR bound for the next batch carries none), then start the `spec-writer` in the background (you or a Griller starts it), at any time, a batch running or not;
+C-1109: The Change Specification is the `spec-writer`'s ([`spec-writer.md`](spec-writer.md)), not yours.
+C-1111: its prompt names the card and the CR folder, and its first line is the one `$CHANTIER playbook` prints (`spec-writer prompt, first line: …`), or the Spec-writer's line of "Starting an agent": copy the first line, unchanged.
+C-1112: The project sets how many CRs are specified at once (`specifying.parallel`, 4 unless a `chantier.yaml` or the board's Configuration page, Limits tab, says otherwise): `$CHANTIER playbook` prints it in its `limits:` line (`specifying <n>, markers <m> (<CR folders>)`), the `m` CRs being those with a `work/specifying` in the inbox, `2-backlog/P1`..`P4` or `3-ready`.
+C-1113: When `m` has reached `n` (`specifying at the limit` ends the line), start no new spec-writer: tell the user which CRs are being specified, and start that one when one of them is shown or dropped;
+C-1114: a user's `specifying.parallel` of 1 means one CR at a time.
+C-1119: Remove `work/specifying` when the (last) one ends, whatever the result.
+C-1121: Its open questions go to the user; record the answers in `02-answers.md`, then run the writer again (and see "The spec critic", below, for an impactful CR).
+C-1123: A `3-ready` CR keeps no priority: it is one flat set, the next batch's candidates (`triage <3-ready-folder> --priority Pn` puts it back in the backlog).
+C-1124: The spec-writer and the spec critic take no slot and no budget of any batch; their cost is on the `grill and specifications with the user` line.
+C-1126: the spec critic runs on them too when you judge them impactful, by the criterion below: with no grill, you judge once you have written the specification and say the critic line in the message that would show it (the user may flip it);
+C-1127: you apply the fixes yourself (step 4 below, without the spec-writer), then the user sees the summary line and the questions as step 5 says.
+C-1233: This marker is also what the `limits:` line counts, so a CR waits for its turn by the limit above, never by a marker you leave behind.
+----- topics/grill-surface.md (1066 B)
+# Another project's CR, the surface
+
+- In a surface with several projects, a CR of another project is that project's. A relay on the user's word: `file` with that project's `--project <absolute folder>`, for that call alone. `file`'s "grill the CR here" is not followed: say in one line it waits for that project's own session, offer no grill, spec, `triage`, batch or `order`, and write nothing more (no `01-intent.md`, no `summary set`; its own session closes the summary).
+- Only the user's word for that CR ("grill it here") lifts it, for its grill, spec and `triage` with that `--project`, never for a launch (`order add`, `open`).
+- With a planning surface: its rules win for what they say, its `AGENTS.md` first; its writer commits and pushes. A clone missing at `checkout.yml`'s path (`preflight` names it) is cloned on the user's word. Never touch the project's clone but by `git -C <clone>`. Outside contributors submit a CR by a PR on the surface, the user merges it on the forge, and it is read like any other.
+`help grill-outside-pr` for an outside PR.
+C-1036: `file` prints its usual `filed <folder>; write the intent and grill the CR here`, unchanged; for another project's CR its "grill the CR here" is not followed.
+C-1037: Say instead, in one line, that the CR waits for that project's own Chief of Staff or Griller; offer no grill, specification (`spec-writer`, `spec-critic`), `triage`, batch or `order` for it.
+C-1039: This is an exception to the summary rule of the paragraph above ("A CR's summary ... applies to your own writes too") for the `intake/request.md` that `file` wrote: the other project's own Chief of Staff or Griller writes the intent and closes the summary.
+C-1040: Only the user's explicit word for that CR ("grill it here") lifts the default: for that CR's whole path in this session, its grill, its specification (`spec-writer`, `spec-critic`) and its `triage`, with the skill's command and that project's `--project`.
+C-1152: A grill round with several answers is one write per CR touched.
+C-1167: With a planning surface** ([concepts](concepts.md)): the surface's own rules win for what they say, its `AGENTS.md` first; its writer commits and pushes the plan (the `writer` action).
+C-1169: Outside contributors submit a CR by a PR on the surface, which the user reviews and merges on the forge; a CR so merged into `1-inbox` or `2-backlog/P<n>` is read like any other.
+----- topics/griller-worktree.md (1161 B)
+# The Griller in a worktree
+
+In a surface this means a surface worktree that is never merged: commit nothing, open no PR or MR, run no `triage` and no `summary` command there (the Chief of Staff places the files, marks the CR or moves it to `3-ready` as the answer says, and refreshes the summary). Read the CR folders of the main checkout; write your files (answers, intent, specification, plan, artifacts, prototypes, evidence) in your worktree under the same relative path as in the planning folder (`<stage>/<slug>/<file>`).
+- When a piece is done send the Chief of Staff's session one line, `[griller→chief-of-staff] files for <slug>: <absolute path>, …`, by the host's means, and tell the user not to remove your worktree until the Chief of Staff has placed your files. No live Chief of Staff: tell the user where the files are and the same; the next one places them on the user's word.
+- A series of questions: read the item's short name and last question reference in the main checkout's `02-answers.md`, write your answers, continuing the numbering, in your worktree's copy. An item with no short name gets one from you, written as its line there.
+G-043: When a piece is done, send the Chief of Staff's session one line naming the absolute paths, `[griller→chief-of-staff] files for <slug>: <path>, …`, by the host's means (its reference), and tell the user not to remove your worktree until the Chief of Staff has placed your files.
+G-047: it goes to the Chief of Staff as above.
+----- topics/hold.md (1496 B)
+# A held CR
+
+`order hold <cr>` or `order unhold <cr>` (the user's word): a held CR is out of the slots and the order, in every mode.
+- Held while ready (stack): `take stack --note "hold <cr>"` (or `unhold <cr>`), then `order done <O-n>`.
+- Held while working: send its Driver `[foreman→driver <cr>] stop hold: <O-n>`; it answers `stopped: held; worktree clean|dirty: <files>`. Then `agents set <cr> - --epoch <n>`, in a stack `take stack --note "hold <cr>"`, `order done <O-n>`; the slot is free only then. Worktree and branch stay.
+- Dependents (`after` it; in a series, those started on it) wait with it until `order unhold` or `order drop`.
+- `order unhold` of a CR held while working: it comes back `blocked`; before any queued CR, `take <cr> --note "unhold: <O-n>" --epoch <n>`, a new Driver, no round (no free slot: wait). In a stack it joins as a working CR (`not on its place`: its Driver gets `note rebase: stacked on <cr below>`) with no `take stack --note "unhold <cr>"`.
+- A release working when a CR is held: let it hand back, `note` it stale, `take <release> --note "redo: <cr> held"`.
+- Never take a held CR. A held or parked CR and its dependents are out of the final-order take; neither it nor `take <release>` starts while one is held or parked: one ask `the release waits: <cr> is held (order O-n)` (`… is parked (<what it waits for>)`). A CR parked while the release works or is ready: once back and handed back ready, `take <release> --note "redo: <cr> back from park"`.
+C-797: to put it back, `order unhold <cr>` (it returns on top; a CR held while working comes back `blocked`, to be taken back).
+FM-344: Held while working: its Driver is still running.
+FM-350: Dependents (the open CRs whose `after` names it, and in a series those started on it) wait with it: no take for them, no release, until `order unhold <cr>` or `order drop <cr>`.
+FM-352: it resumes as a `resume:` does, with no round counted.
+FM-353: In a stack it joins as a working CR (the next `take stack` prints it `not on its place`; send its Driver `note rebase: stacked on <cr below>`): no `take stack --note "unhold <cr>"` for it (a ready CR unheld in a stack keeps that take).
+FM-358: The same for a parked CR: `the release waits: <cr> is parked (<what it waits for>)`;
+----- topics/host-allow-add-lines.md (1471 B)
+# Claude Code: the two command lines
+
+Put the rules in place of `'<rule 1>','<rule 2>'`; each line was run by hand and read back as
+`P10 ok`.
+
+Windows PowerShell 5.1 (rewrites the file as compact JSON):
+
+```powershell
+Add-Type -AssemblyName System.Web.Extensions; $r = '<rule 1>','<rule 2>'; $p = Join-Path $HOME '.claude\settings.json'; $js = New-Object System.Web.Script.Serialization.JavaScriptSerializer; $d = if (Test-Path $p) { $js.DeserializeObject([IO.File]::ReadAllText($p, [Text.Encoding]::UTF8)) } else { @{} }; if (-not $d.ContainsKey('permissions')) { $d['permissions'] = @{} }; if (-not $d['permissions'].ContainsKey('allow')) { $d['permissions']['allow'] = @() }; $a = @($d['permissions']['allow']); foreach ($x in $r) { if ($a -notcontains $x) { $a += $x } }; $d['permissions']['allow'] = $a; New-Item -ItemType Directory -Force (Split-Path $p) | Out-Null; [IO.File]::WriteAllText($p, $js.Serialize($d), (New-Object Text.UTF8Encoding $false))
+```
+
+POSIX shell (needs `uv`; two-space indent):
+
+```sh
+uv run --no-project python -c 'import json,os,sys;p=os.path.expanduser("~/.claude/settings.json");d=json.load(open(p,encoding="utf-8-sig")) if os.path.exists(p) else {};a=d.setdefault("permissions",{}).setdefault("allow",[]);a+=[r for r in dict.fromkeys(sys.argv[1:]) if r not in a];s=json.dumps(d,indent=2,ensure_ascii=False)+"\n";os.makedirs(os.path.dirname(p),exist_ok=True);open(p,"w",encoding="utf-8",newline="\n").write(s)' '<rule 1>' '<rule 2>'
+```
+----- topics/host-claude-only.md (194 B)
+# Claude Code only
+
+This topic's subject is a Claude Code feature. Copilot has none recorded here: nothing of it is
+known or tried there (unproved), so tell the user nothing about it as a fact.
+H-1449: Windows PowerShell 5.1 (the file is rewritten as compact JSON, with the same keys and values; a character such as `<` or `'` in another value of the file may come back as its `\u` escape):
+H-1451: POSIX shell (needs `uv`, which chantier needs anyway; the file is rewritten with a two-space indent):
+----- topics/host-allow-add.md (1190 B)
+# Claude Code: the allow-rules command line
+
+The Chief of Staff gives it only when the host refused its edit of `~/.claude/settings.json`, or
+that file is not JSON (P10 prints `unreadable: ...`); otherwise it adds the rules itself on the
+user's yes (`help allow-rules`). Unproved until a user followed it once.
+
+- **Where:** at the computer running Claude Desktop, not the phone, in your shell.
+- **Do:** run the one line for your shell, with the rules P10 named, then start a new session
+  (whether a running session picks up a settings change is **unproved**).
+- **Paste:** the line; it merges exactly those rules into `permissions.allow`, creating the file
+  and keys when absent, keeping every other key and rule, adding none twice, removing nothing, as
+  JSON in UTF-8 with no byte-order mark.
+- **You should see:** `P10 ok` at the next preflight, or a P10 line that no longer names them.
+
+Fill in only the list: the strings P10 named, in table order, `origin` replaced by the project's
+remote, `<checkout>` and `<plugin root>` by the real path, no placeholder. A path holding a `'`
+breaks the quoting: say so instead of giving the lines. The shell lines: `help host-allow-add-lines`.
+H-1436: Otherwise the Chief of Staff adds the rules itself, on the user's yes (`chief-of-staff.md`, "The project").
+H-1437: Unproved until a user has followed it once, like every block above.
+H-1438: **Where:** at the computer running Claude Desktop, not on the phone, in your shell (Windows PowerShell 5.1, or a POSIX shell).
+H-1446: The Chief of Staff fills in only the list of rules: the strings P10 named, in their table order, with the project's remote name in place of `origin` and the real path in place of `<checkout>` or `<plugin root>` (the check rule's `<checkout>` too), complete, no placeholder.
+----- topics/host-allow-broad.md (1265 B)
+# Claude Code: broad rules, moved paths, what the base set leaves out
+
+- A broad chantier rule, a `*` where the path belongs (`uvx --from * chantier *`,
+  `uv run --no-sync --project * chantier *`, `uv sync *`, the older `uv run --script * *`), lets any
+  command through. P10 finds each in the user's settings, names it with its file and the
+  real-path rule that replaces it, and warns even when every command is allowed. The Chief of Staff
+  offers the replacing rules at once; the user removes the broad rule by hand: chantier never
+  removes or edits a rule of the user's.
+- The plugin's real path changes when the host moves the plugin's folder (an update: **unproved**):
+  the old rule stops matching, P10 names the new rule missing and the old one stale with its file,
+  and the Chief of Staff asks once per update. In the plugin mode P10 takes any other plugin-form
+  path as an old copy (one plugin copy per install: **unproved**); in the dev mode it leaves them
+  alone and names a dev rule stale only when its folder no longer exists.
+- There is no `gh api` rule (it would allow any API write): the stack on the forge changes only by
+  `$CHANTIER forge-stack` or the `gh stack` extension.
+
+The base set and two unchecked rules: `help host-allow-extra`.
+H-1135: A broad chantier rule, a `*` where the path belongs (`uvx --from * chantier *`, `uv run --no-sync --project * chantier *`, `uv sync --locked --project *`, `uv sync *`, and the older `uv run --script * *` and `uv run --locked --project * chantier *`), lets any command through: `uvx` runs any package from any source, and the middle `*` of the `uv run` forms matches `uv run --no-sync --project . python -c ... chantier x`.
+H-1136: P10 judges by matching, finds each broad rule in your settings, names it with its file and the real-path rule that replaces it (marked `present` when it is set too), or says "no chantier command needs it";
+H-1139: The plugin's real path changes when the host moves the plugin's folder (an update, if the host's folder holds the version: **unproved**): the old rule then stops matching, P10 names the new rule as missing and the old one as stale, with its file, and the Chief of Staff asks again, one question per update;
+H-1144: The stack on the forge is changed only by `$CHANTIER forge-stack` (covered by the two `chantier` rules) or the `gh stack` extension.

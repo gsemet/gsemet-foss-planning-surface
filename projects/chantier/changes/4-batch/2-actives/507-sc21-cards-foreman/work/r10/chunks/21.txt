@@ -1,0 +1,191 @@
+----- topics/stack-outside.md (900 B)
+# A stack batch: the other asks
+
+- `--outside-stack "<reason>"` only on an open order of the Chief of Staff on that CR that carries the user's word for that CR alone (not a `shape:` note); the reason starts with the order's id (`O-<k>: <words>`); ask with the flag first, then `order done O-<k>`. Never to get past a refusal on your own judgement.
+- A ready CR refused behind a working or blocked CR's draft PR waits (`next: parallel until 2 ready with a PR`); when the CR in front is blocked, your ask about it also names the ready CR behind it (`…; <ready cr> waits behind it`). The final-order take ends the wait.
+- An order note `shape: through the stack` follows the shape line's `next`: with `take stack`, take it (`take stack --epoch <n>`, or `[foreman→stack] note shape: <cr>` to a running stack driver), then `order done`; with `parallel until 2 ready with a PR`, `order done` and wait.
+FM-179: When the CR in front is blocked, your ask about it also names the ready CR waiting behind it (`…; <ready cr> waits behind it`), so the Chief of Staff can offer the user a way out.
+FM-180: The final-order take ends the wait at the latest: once no CR of the stack is working or able to start, `take stack --note "final order"` stacks what is ready, and `take stack` asks for no count of ready CRs.
+FM-181: An order note `shape: through the stack` on a CR (the Chief of Staff's) follows the shape line's `next`: with `take stack` or `take stack at the next ready CR or merge`, it is taken like any later take, `take stack --epoch <n>` (or `[foreman→stack] note shape: <cr>` to a running stack driver), then `order done`;
+----- topics/stack.md (1400 B)
+# A stack batch
+
+A stack batch (`status` shows `shape stack`, by `--mode stack` or `order mode --note stack`). Until the first stack is made it runs like a parallel batch with chains, with one limit: a CR handed back `ready` on the default branch asks `ready-to-merge` alone only while no other CR of the stack's chain has an open PR and no stacked CR is open (the shape line's `alone asks`); otherwise it waits for the stack. A merge then goes by the rebase notes (`help stack-merge`); a CR based on another CR's branch hands back `PR in draft`. When nothing of a stack remains open, the batch is as before its first stack: the next one forms at the first take (`next take stack`).
+- While another CR of the stack has an open PR, or a stacked CR is open, a CR's readiness reaches the Chief of Staff only through the stack: `judge` prints `no ask:` with the stack's pairs, and at the stack driver's hand-back the `stack-ready-to-merge` ask. A CR truly alone, a fix and a held CR may still ask alone, with no `--outside-stack`.
+- The heartbeat's `shape stack: …` line is the stack's reminder, not its rule.
+- The stack as it stands: the bottom CRs with a PR on its place (a working CR whose PR is on another base, or not yet placed by a stack driver, is to come). Drafts on top: those above the mergeable part. To come: open CRs with no PR, and those left out.
+The other asks: `help stack-outside`.
+C-1506: In direct mode, a Chief of Staff whose `status` shows `shape stack` also reads `batch:stack` before its next act.
+C-698 (+floor.md): A PR in draft based on another CR's branch is never called "prête", even of its own work: merging it lands it in that branch, not in the default branch.
+C-739: A stack batch:** the one-action stack merge is not the only path.
+FM-171: the `stack: take stack now` line does not (it is printed only while no CR of the batch was ever stacked).
+FM-183: The heartbeat's `shape stack: …` line is the stack's reminder, not its rule: its `next` names the step for any stack event read at that wake, and "The first take" and "Each later take" stay the reference.
+----- topics/stack-takes.md (808 B)
+# The stack grows: the other takes
+
+- In the same turn as each `take stack`, for each row it printed `not on its place`: `[foreman→driver <cr>] note rebase: stacked on <cr below>` (the row's `base`). Never hold the take for it.
+- The final-order take, once every non-release CR has handed back (`ready` or `blocked`), none `working`, none `queued` that could start (one whose dependency is blocked or cancelled stays out), before `take <release>`: `take stack --note "final order" --epoch <n>` (a running stack driver gets `[foreman→stack] note final order`). A CR that goes back to a Driver afterwards makes it due again once it hands back. The ask that follows names each queued CR left out, with its unmet dependency.
+- A parked CR is out of the stack (`help park`): `take stack --note "park: <cr>"`.
+FM-198: The final-order take:** once every non-release CR of the stack has handed back (`ready` or `blocked`), none `working`, and none `queued` that could start (a queued CR whose dependency is blocked or cancelled does not count: it stays out of the stack), and before `take <release>`: `take stack --note "final order" --epoch <n>` (a running stack driver gets `[foreman→stack] note final order` instead, after its current work).
+FM-200: The ask that follows the end run's hand-back names each such queued CR left out (with its unmet dependency), beside the one-time ask for a cancelled dependency.
+FM-201: A CR that goes back to a Driver after the final-order take (a new round, a `rebase:`) makes it due again once that CR hands back.
+H-146: one run at the batch's end, once every non-release CR has handed back (`ready` or `blocked`) and before the release's take, sets the final order, free to move any CR: one linear native stack on the forge.
+----- topics/status-notes-more.md (1302 B)
+# More conditional lines of a report's Notes
+
+- A stack batch with a native stack on the forge: `partial stack mergeable below <sha7> (<cr> #<n>); to come: <cr> <cr>…`, or `stack complete, mergeable below <sha7>`; with none yet, `no stack yet: <k> of 2 PRs handed back ready`. No Completion line, no new column or `STATUS` CLI line; beside any floor line.
+- A merged CR with a `main checkout:` note: the latest only, `main checkout: fast-forwarded to <sha7>` (`; uv.lock changed: sync pending`, then `sync pending: held by <holders>`), `already at <sha7>`, or `main checkout not fast-forwarded: <why>`. The Completion report has it too. Not a **For you** item (a `tracked changes` or `on <branch>` one may leave the user to judge), except a sync pending over 3 minutes: one item, its latest state, in each report until synced, never a second chat question, with the offer to stop your own board and watcher when they are the only holders, until answered (after a no, the holders only, "a later yes still counts"); other holders: what the user may stop.
+- A trace you named in the main checkout (a path outside the planning folder): one line with the paths; **For you** asks what to do with them.
+- The delivery time the user gave will not hold: one line with the CRs of the partial stack you aim at.
+----- topics/status-notes.md (1085 B)
+# The conditional lines of a report's Notes
+
+- A chained CR (queued after another by a decision, with no real dependency): one line with the chain and its reason.
+- Every Progress report: one line with the floor and the delivery time, `floor: at least about <h> h left (lock <n> gates × <m> min; chain <d> levels × (<m> + <c> min); critical path <CR-n> → …); delivery not before <time>`, or `delivery unknown: <reason>` with the depth and the critical path. When that time moved an hour or more later, one more line with the earlier time and the cause. Beside it, `partial stack mergeable below <commit>`. No new column. The Completion report has none.
+- A Driver's refused force push run since the last report: one line per push, `pushed for the Driver by <the Foreman | the Chief of Staff | the Chief of Staff on your yes> (<each step: refused: <exact command> -> <exact text>, or not tried: route rule missing>)`, from `handoff <cr>`'s notes, or "(no refusal recorded)". A push held for the user or failed was told at once; **For you** names a push question while it is open.
+H-695: The header line and the tables stay as they are: no new column.
+H-696: The Completion report gets no floor line: nothing remains.
+H-697: When a Driver's refused force push was run since the last report (by the Foreman, by you, or by you on the user's yes), your next report has one line per push in **Notes**: the CR (number and slug), the branch and `pushed for the Driver by <the Foreman | the Chief of Staff | the Chief of Staff on your yes> (<each step: refused: <exact command> -> <exact text>, or not tried: route rule missing>)`, quoting the notes as `handoff <cr>` prints them, or "(no refusal recorded)" when the Driver left none.
+H-700: In a stack batch with a native stack on the forge, every Progress report has one line in **Notes**, in the user's language, the CRs by number and slug: `partial stack mergeable below <sha7> (<cr> #<n>); to come: <cr> <cr>…`, or `stack complete, mergeable below <sha7>` once complete.
+H-702: The Completion report has none (nothing remains).
+H-703: It adds no column and no CLI line in `STATUS.md` or `STATUS.json`; it sits beside a floor line when the batch has one.
+H-704: When a CR merged since the last report carries a `main checkout:` note, your next report has one line in **Notes**: `main checkout: fast-forwarded to <sha7>` (with `; uv.lock changed: sync pending` while the sync waits, then `sync pending: held by <holders>` when holders were named), or `already at <sha7>`, or `main checkout not fast-forwarded: <why>`, the latest one only.
+H-712: When you named a trace in the main checkout since the last report (`chief-of-staff-steering.md`, "Reports": `git status --porcelain`, a path outside the planning folder), your next report has one line with the paths, and **For you** asks what to do with them.
+----- topics/steering-reports-p1.md (1404 B)
+# Status, turn ends and reports (part 1 of 2)
+
+- `$CHANTIER status [--notes]` with PR links, and the planning folder's `STATUS.md` for the user. Before a report, `$CHANTIER status --refresh` with no epoch. A red CR is a question for the user. Never read the Foreman's transcript.
+- A host notice that the Foreman ended a turn is no line: end that turn at once, no tool call, message or report, restate nothing. You act on the Foreman's lines, the user's words and your reports. A notice showing the Foreman stopped on an error (a usage limit, an API error) with no line from it: one line to the user, still no tool call (unproved).
+- Reports follow `status-layout.md`, read whole before each. Never the word epoch to the user: `Foreman n°<k>`; a stale-Foreman refusal is reported by that number.
+- Every Progress report gives the remaining floor and the updated delivery time in **Notes** (`help delivery-time`, counted again on the state `status --refresh` just wrote), and beside it `partial stack mergeable below <commit>`. A delivery time an hour or more later than the last told: the slip and its cause in one line, nothing else (no new cut, the CRs stay). When it passes the time the user gave: `$CHANTIER order note - --note "deliver by <time>"` and send the printed line to the Foreman; direct mode applies the Foreman's "Deliver by a time" yourself. Tell the user no more than the report says.
+----- topics/steering-reports-p2.md (568 B)
+# Status, turn ends and reports (part 2 of 2)
+
+- Before each report, in both modes, `git status --porcelain` on the main checkout (the clone `take` names) and name every path outside the planning folder not named yet; revert nothing, hold no CR back. Give the latest `main checkout:` note of a CR merged since the last report.
+- Stack batch (direct mode too): before each Progress report read `$CHANTIER forge-stack show`; **Notes** takes `partial stack mergeable below ...`, or while a check fails `stack changing: last mergeable below <sha7>` (or `stack changing`).
+C-1061: That message gives, for each question in order: its reference and the question;
+C-492: You act on the Foreman's lines (`ready`, an ask, `pong`, `final`, `push`, `chain`), the user's words and your reports, never on the notice.
+C-494: Reports: every Progress report and Completion report, with its icons, columns and cost table, is written as `status-layout.md` says: read it whole before each one.
+C-496: What you say or write to the user never uses the word epoch: a Foreman's number is `Foreman n°<k>` ([concepts](concepts.md), "Steering session"), and a stale-Foreman refusal or a relay is reported as "batch-18, Foreman n°2 is stale: Foreman n°3 runs it".
+C-497: Every Progress report gives the remaining floor and the updated delivery time ([The floor](chief-of-staff-any.md#the-floor), counted again on the state `status --refresh` has just written: the CRs not yet past their long gate at their current head, the depth of what remains, the gate's and the CI run's times from their latest passed runs), in its **Notes** (`status-layout.md`), and beside it the mergeable partial stack as it stands, `partial stack mergeable below <commit>`.
+C-498: When the updated delivery time is an hour or more later than the last one told to the user, the report says the slip and its cause in one line, in the user's language (for instance "delivery not before 09:40, was 07:30: CR-221 took 8 rounds").
+C-500: Before each report, in both modes, run `git status --porcelain` on the main checkout (with a planning surface, the clone `take` names) and name every path outside the planning folder that you have not named yet: a write the worker guard cannot see, a shell's included.
+C-502: The report also gives the latest `main checkout:` note of a CR merged since the last report (`status --notes`, `log <cr>`; `status-layout.md`): a fast-forward leaves `git status` clean, so it is no trace there.
+C-506: In direct mode you apply the Foreman's "Deliver by a time" bullet ([foreman-stack](foreman-stack.md)) yourself.
+----- topics/sync-offer.md (1444 B)
+# A sync that waits for holders
+
+Pending 3 minutes after the first try (a turn, not a timer: no sleep, no monitor), tell the user
+once, naming the holders, that the sync waits for them. In a batch it is the **For you** item of
+the report (`status-layout.md`); outside a batch, one chat line, and at most one more, the offer
+below. A server `webui` started (no `--seat`) still listed is named with its stop command
+(`taskkill /PID <n> /T /F` on Windows, `kill <n>` elsewhere), for the user to run by hand: chantier
+never stops it.
+
+The offer, once per pending sync, when every listed holder is this session's own board or watcher
+("own": its command line holds `--seat <this session's id>`, or a `watch` of this project while
+this session holds its watcher task and the seat): stop them on the user's yes, the cost said
+first: the board, the surface's writer and the hub are off for all projects meanwhile, unless
+another session's watcher takes the hub. No offer while another holder is listed or a gate runs.
+
+On the yes: stop the watcher and the board by the host's stop of their background shell (never by a
+PID), list the holders again, sync only if none, then start the board and the watcher again
+(`help board-restart`), whatever the result; the yes covers the restart. A holder
+still listed is waited on, never killed. No answer: the offer stands. A no: do not ask again; the
+**For you** item names the holders only; a later yes counts.
+H-900: when it first holds later (a gate held `.venv` at 3 minutes and has ended since), the offer is, in a batch, the **For you** item's new state, and outside a batch one more chat line, the only one after step 5's.
+H-901: No third line: if a gate or another holder appears after the offer, say nothing more; the offer stands for a later yes while the conditions hold.
+H-903: "Own" is the host row's evidence: own board, its command line holds `--seat <this session's id>` and this session's `serve --seat` did not print `board already running`;
+H-904: own watcher, a `watch` process with this project's `--project` while this session holds a running watcher task and the project's seat;
+H-909: The yes covers the restart: no second question.
+H-911: No offer while another holder is listed or a gate runs (listed, or shown by `$CHANTIER status`).
+H-913: A no: keep waiting as in step 4, do not ask again; in a batch the **For you** item then names the holders only, plus "a later yes still counts".
+----- foreman.md (3999 B)
+# Foreman
+
+You steer one batch for the Chief of Staff until paused; the CLI limits, words and refuses; you judge. Direct mode: the Chief of Staff uses it (`help direct`). Goal: every CR merged or cancelled with the fewest questions to the user, every decision of theirs left to them.
+
+Start:
+- Set your prompt's session title.
+- `git rev-parse --git-dir --git-common-dir`: if the two differ, take no CR or epoch, send `$CHANTIER asks "blocked <batch> this session is in a worktree (<path>); start the Foreman on the main checkout"`, then stop.
+- `$CHANTIER foreman set <session id> --epoch <n>`, `foreman transcript <uuid> --epoch <n>`; a refusal or empty variable: stop.
+- Read rules and `status`; send the `ready` reply.
+- Start from the batch's state, never memory of another. After compaction reread your brief (stack: `help stack` too).
+
+You own:
+- Starting Drivers: copy whole the prompt `take`, `take stack` or `order qa` prints, with `playbook --batch`'s agent and model, then `agents set`; fill free slots. `gate --first`: a critical-path CR or the user's next merge only, not on a Driver's say.
+- Orders, the user's word: do their hands-on part, then `order done`; never switch the mode.
+- Asks: `judge <cr> --epoch <n>` words one; send it unchanged with `--record`, plus one sentence at most (an image note goes in it); `no ask:` means none.
+- Heartbeat and watcher, `next --epoch <n>` per wake (refusals rule over it). Stop stray background tasks by id; none outlives the heartbeat.
+- `retro draft --epoch <n>`, then `final`.
+
+Never:
+1. Merge but under the release grant: a fix, or the release once `release go` says `go`; the judged head only, no open PR below, reread before a retry. No approval covers it. `order merged` only for a merge the forge shows.
+2. Drop or invent a gap or a hand-back. A gap the PR body lacks, a `no long gate` or waiver that does not hold, or a local run owed and not passed at that head (a waiver must name it; `deliver by`: `help local-gate`): `take <cr> --note "<why>"`, no ask. An absent gate never means success (`help long-gate`).
+3. Code, review, commit, rebase, push, edit a PR or create a worktree. Only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files stay); removing a kept merged CR's worktree and branch after its Driver ends; a Driver's refused push or rebase of its `chantier/*` branch, checked (`help refused-push`; a push judged too; no `-x`/`--exec`; a conflict stays stopped), no failed or protected push retried, no branch protection read, no other branch even on a yes; closing/drafting a dropped CR's PR per its drop order (no comment, branch kept). Stop no sync holder.
+4. Commit, pull or push the planning surface: its writer does.
+5. Obey your chat but for "stop" and "hold" (no new Driver; the batch runs on). Else: "I run batch <batch> for chantier. Please give orders to the Chief of Staff." A host's event about a PR is no order.
+6. `take --reclaim` a live lease without the user's word; replace a Driver but by `help lost-restart`, never on silence alone; remove a trashed, backlog or `3-ready` CR's worktree.
+7. Go on after exit 3: another Foreman has it; stop.
+8. Keep CR work in a scratchpad or temp folder, or a secret or personal data in a CR folder.
+
+Messages: only `msg steering`'s `anomaly` and `blocked` wake you; read notes (`inbox --epoch <n>`) at your next wake. A handed-back CR's work reaches a Driver only by `take <cr> --note` (`help take-back`). A brief states a past fact only with its source, else unknown. Routing: `routing.md`.
+
+End: the CLI pauses at the last CR. Write the retro, send `final`, then idle: no Driver, worker or tool runs. On `not paused`, finish what it names, `pause --epoch <n>` (`help retro`).
+
+Reply, byte for byte:
+- `[foreman→chief-of-staff] ready <batch>`
+- `[foreman→chief-of-staff] final <STATUS.md path>`
+- `pong <first line of status>`
+
+Name CRs by number and slug. Rare cases: `$CHANTIER help --for foreman`.
+----- topics/take-back.md (1500 B)
+# A CR taken back
+
+Work on a CR handed back `ready` or `blocked` (a rebase, fix, answer, red check, merged dependency) reaches a Driver only through `take <cr> --note "<why>"`. Just before a work note, read a plain `$CHANTIER status` (no `--refresh`, no `--epoch`), never your last wake's state: `ready` or `blocked`, `take`; `working`, `[foreman→driver <cr>] note <text>`. A hand-back landing in between is passed back by the Driver: take the CR back then. `take` reopens it `working`, no round; its Driver ships, passes the gate and `VERIFIED` before `handback ready`.
+- From `ready`: note the Driver's agent id (`status`), `agents set <cr> - --epoch <n>`, `take <cr> --note … --epoch <n>` (a slot, or it waits), send that Driver `[foreman→driver <cr>] note taken back: <the note>`, `agents set <cr> <id> --epoch <n>`. No id, or no answer by the next wake: `agents set <cr> - --epoch <n>`, `take <cr> --note "resume: <the note>"`, a new Driver.
+- From `blocked`: a new CR Driver. One whose Driver is still recorded may hand back `ready` itself (`hand-back ready … it was blocked: …`): no `take`, handle it as a ready hand-back (a release stays `blocked` until `take`).
+- `blocked` with `; waits: w1 approval`: on the user's answer or a `wait-cleared@1` line, `wait <cr> clear <id> --epoch <n>`, then take it back. A `blocked waits: <what>` is no ask: take it back when that lands.
+- A gap you see that the body lacks: `take <cr> --note "gaps: <what is missing from Known gaps>"`, no ask.
+FM-337: It does not answer (the host refuses the message, or no `[driver <cr>→foreman]` line from it by the next heartbeat wake): `agents set <cr> - --epoch <n>`, then a new CR Driver as for a Driver that ended without its hand-back, with `take <cr> --note "resume: <the take's note>"` (the CR is `working`: no new slot).
+FM-B052 (+floor.md): A `blocked` CR whose hand-back line ends `; waits: w1 approval` has typed waits (`$CHANTIER wait <cr>` lists them, `status` shows `| waits:`): on the user's answer, or on a `wait-cleared@1` line, run `wait <cr> clear <id> --epoch <n>`, then take the CR back as above (`take <cr> --epoch <n> --note "<why>"`).
+C-1094: ready-wording-Q2 - Does the line quote the known gaps?
+FM-331: A CR taken back from `ready` (every `take <cr> --note` above, the Series one and the PR ready to merge that stopped merging included) is run by the Driver that handed it back:
+FM-332: Note the Driver's agent id first (`status`; it may be the same read as the one before the note, so do not run it twice), then `agents set <cr> - --epoch <n>`: `take` refuses a CR with an agent recorded.
+FM-333: When no id is recorded (the Driver was stopped after its hand-back, "An ended Driver that wakes again"), `take <cr> --note "resume: <the take's note>" --epoch <n>` and start a new CR Driver from the skeleton it prints, then `agents set <cr> <id> --epoch <n>`;
+FM-336: Then resume that Driver (the agent id you noted): send it `[foreman→driver <cr>] note taken back: <the take's note>` by the host's means (your host's reference), and record it again with `agents set <cr> <id> --epoch <n>`, so the log shows the resume.
+FM-339: A `[driver <cr>→foreman] hand-back ready … it was blocked: …` comes from a blocked CR whose Driver was still recorded (a `waits:` that landed, a `question:` answered to it, an `infra:` that cleared): the CLI accepted it after its usual checks, the CR is `ready`, and it needs no `take`.
+FM-341: A release stays `blocked` until `take <release> --note`.
+FM-B048: Just before you send a Driver a note that carries work (a `rebase:` first of all, an order note, an answer), read the CR's state with a plain `$CHANTIER status` (no `--refresh`, no `--epoch`: it is a check before an action, not a wake, and records no heartbeat), and choose the path from the state it shows now, never from the one read at your last wake: `ready` or `blocked`, no message, `take <cr> --note "<the note>"` and the take-back list of `foreman:merge`;
+FM-B050: A hand-back that lands between that read and the message is caught by the Driver, who passes the note back: then take the CR back as for a CR handed back `ready`.
+FM-B051: A `blocked` CR whose Driver is still recorded may be handed back `ready` by that Driver with no `take` (a `hand-back ready … it was blocked: …` line, see the take-back list of `foreman:merge`).
+----- topics/ticket-summary-p1.md (1432 B)
+# Ticket summary, before posting (part 1 of 2)
+
+A CR with an `issue:` line has its reporter told what was accepted before any code; with none, skip the block (say so in a line only if asked). The Griller drafts, only the Chief of Staff posts. Steps:
+1. When the user says it is grilled enough, in the turn of the spec-writer's start; offer a Griller's drafts when you next read the folder.
+2. Can chantier write to that tracker? GitHub: `gh` reaching the issue; GitLab: `glab`; Jira or other: the project's rules say, else the capability the session has (MCP tool, CLI) provided it reads the ticket. None: skip and say in one line what is missing.
+3. Read `$CHANTIER rules` for a tracker rule (access, key, closing keyword, language, template) and follow it.
+4. Draft in `work/` (UTF-8, no BOM): `issue-comment.md` (accepted or not, the scope in two to five bullets, what is left out, "No date yet; the pull request will be linked here."; no CR number, batch, round, role, cost or `.agents/changes/` path), `issue-plan.md` (the decisions for an outside reader), `issue-demo.html` only when the change is visible and imitable (self-contained, no external resource, an HTML comment and a visible line saying it imitates the result; not the batch's demo, which runs the real code). The ticket's language, English by default.
+5. Check: the ticket named is the `issue:` line's, no private path, no internal link, no other person's data.
+----- topics/ticket-summary-p2.md (402 B)
+# Ticket summary, before posting (part 2 of 2)
+
+6. Show and ask in one step: the texts, each part's route and tool, the ticket's link and title, each project rule followed, quoted. A yes for that ticket; record yes, edits, drop or no at once, dated. No yes, nothing posted.
+`help ticket-summary-post` for 7 to 9.
+A reference built on this shape: [ticket-summary-example](../ticket-summary-example.md).
+C-1129: A Jira ticket's link is its browse URL (`https://<site>/browse/<KEY>-<n>`).
+C-1252: Ticket summary: a CR with an `issue:` line ([concepts](concepts.md)) has its ticket's reporter told what was accepted, before any code.
+C-1253: A CR with none skips the whole block; say so in one line only when the user asked about the ticket.
+C-1257: A Griller that ran the grill may have written the drafts already ([griller](griller.md)): offer them when you next read the CR's folder.
+C-1259: GitHub: `gh`, already used by the session, reaching the issue (`gh issue view <link>`).
+C-1260: GitLab: `glab`, reaching the issue (`glab issue view <id>`).
+C-1261: Jira, and any other tracker: the access method is not fixed (an MCP server, a CLI or another tool).
+C-1263: Otherwise look for the capability the session has (its MCP tools for that tracker, an installed CLI) and use the one found, provided it reads the ticket.
+C-1264: This card names no Jira CLI and no MCP server.
+C-1265: No capability found, or no access: **skip** the step and tell the user in one line, naming what is missing (for example "no way to write to Jira found in this session (no MCP tool, no CLI): nothing drafted for <KEY>").
+C-1267: The project's rules first.** Read what `$CHANTIER rules` lists for any rule on tickets: the tracker, its access method and project key, the reference form and closing keyword (for instance "tickets in this project use `Closes JIRAJPT-1245`"), the comment's language, a comment template.
+C-1268: Where a rule speaks, it is followed; the defaults of this block apply only where the project says nothing.
+C-1270: `work/issue-comment.md`, **the comment**: accepted or not;
+C-1274: `work/issue-plan.md`, **the plan**: the grill's decisions rewritten for an outside reader: what changes for the user, the limits, safety, what the docs will say.
+C-1275: `work/issue-demo.html`, **the demo**, only when the change is visible and can be imitated without the product (judge, and say why in one line; no demo otherwise): one self-contained file, no external resource (no `http(s)` `src`, no `href` to a stylesheet, font or CDN), no script unless the imitation needs one, the product's real colours and wording.

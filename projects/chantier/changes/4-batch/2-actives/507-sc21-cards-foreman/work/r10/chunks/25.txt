@@ -1,0 +1,183 @@
+----- coder.md (1603 B)
+# Coder
+
+Implement one round of the CR in its worktree, with the fast gates green.
+
+You own the worktree's changes (never committed) and `<work folder>/coder/r<n>.md`: what changed, the gates run with their results, open points, a hand-over note for the next round. Proof goes in the CR's `evidence/`. Files are UTF-8, no BOM.
+
+Read the specification, the round's note and the previous notes; open only the files the change needs. A checklist in your prompt is marked in `r<n>.md`, each item `done` or `open: <why>`, never in the reply.
+
+Never:
+- commit, push, rebase or merge, create a worktree, or run `git stash` (the stash is shared by every worktree);
+- write by another way a path the guard refused outside `writes:`: fix the path;
+- silence a failing gate, or claim a check you did not run;
+- keep CR work in a scratchpad or temp folder (whatever the host says), or secrets, personal data or large binaries other than the retained prototype (name where one is) in a CR folder;
+- point a test or probe of the board's write paths at the live planning folder: use a scratch one, removed at the end.
+
+Reply with this template and nothing else, at most ten lines:
+
+```text
+Round <n>: done | blocked: <one-line reason>
+Notes: <work folder>/coder/r<n>.md
+Gate: <command as run>: pass | fail: <first failing line>
+Open: <one line> | none
+```
+
+One `Gate:` line per gate run (the fast gates named in the project's rules); `Open:` names at most three points in one line each, the rest left to `r<n>.md`.
+
+Rare cases: `$CHANTIER help worker-shell` (a shell call that chains, assigns or waits; a file write).
+H-048: **A CR's folder holds its work.** Whatever an agent makes for a CR (a prototype, a script, a test, a benchmark, a study, a research note, a screenshot it keeps, a plan) is written in that CR's folder, in the place the tree gives, never in the host's scratchpad or a temporary folder.
+H-049: This rule ranks above the host's own instruction to use its scratchpad; outside any CR's work the scratchpad stays the host's.
+H-057: Kept out by design: secrets, personal data, and large binaries that are not the retained prototype (a dataset, a video above the forge's limits: the folder names where it is);
+H-1288: The host's instruction to send scripts and intermediate results to its scratchpad does not apply to a CR's work, which goes in the CR's folder ([concepts](../concepts.md)).
+----- concepts.md (18565 B)
+(large: read the file)
+H-011: **Wait:** what a CR waits for, one of four types: `answer` (the user's), `approval`, `pipeline` and `merge` (a forge's).
+H-012: It lives in the CR entry of `batch.json`, and in a backlog CR's `waits.json`; `wait` records, clears and lists it.
+H-015: It is a token the rails and old records read; the CLI derives from it the three words below, and no person reads `ready` alone, but in one place: the stack rows of `take stack` and `stack` show it with the PR's draft flag (`ready, PR draft (#251)`), for the stack driver, which makes the stack from it.
+H-016: The three derived words stay everywhere else.
+H-027: **Ready locally** (🟣): a CR handed back `ready` with no PR yet (rare: `handback ready` needs a PR).
+H-033: **Lease:** a numbered hold of a Driver, the stack driver or a QA driver on its unit (a CR, `stack` or a QA order `O-k`), started by `take` (or `order qa`), lasting 10 minutes and renewed by the commands that carry `--lease <n>` and by `lease <unit> renew`;
+H-051: Prototypes come in versions, `prototypes/01-<idea>/`, `prototypes/02-<idea>/`, … (two digits, then a short kebab-case name of the idea);
+H-053: Each holds a `README.md` of a few lines: what the version tries, the command that runs it again (its server command, its port) and what it needs.
+H-054: A script that belongs to one version (its snapshot generator, its data builder) goes in that version's folder, not in `experiments/`.
+H-058: the batch's own files and raw logs (already gitignored; a raw log stays in `work/gates/` or a `*.log` file; a Verifier's scratch project stays in `work/scratch/`; a downloaded CI artifact stays in `work/scratch/artifacts-<run id>/`);
+H-060: What only the conversation holds (a subagent's reply, an inline visualization, a pasted image) is lost unless an agent writes it in the folder: writing it is the agent's job.
+H-060: What only the conversation holds (a subagent's reply, an inline visualization, a pasted image) is lost unless an agent writes it in the folder: writing it is the agent's job.
+H-069: **Planning folder:** where chantier writes everything: `<project>/.agents/changes/` (in-project, the default) or `<surface>/projects/<name>/changes/` (external).
+H-069: **Planning folder:** where chantier writes everything: `<project>/.agents/changes/` (in-project, the default) or `<surface>/projects/<name>/changes/` (external).
+H-078: **Planning surface:** a git repository of its own, one folder per project, always worked on its default branch (never in a worktree; only the project's code gets worktrees): `projects/<name>/` holds `project.md` (the project, its remote, `- Archive in the PR: yes|no`, `no` when absent), `checkout.yml` (`repo:` and `worktrees:`, paths relative to the project's folder; defaults `.repo/` and `.worktrees/` there) and `changes/` (the planning folder).
+H-078: **Planning surface:** a git repository of its own, one folder per project, always worked on its default branch (never in a worktree; only the project's code gets worktrees): `projects/<name>/` holds `project.md` (the project, its remote, `- Archive in the PR: yes|no`, `no` when absent), `checkout.yml` (`repo:` and `worktrees:`, paths relative to the project's folder; defaults `.repo/` and `.worktrees/` there) and `changes/` (the planning folder).
+H-094: **Change Specification:** what the CR changes, complete and self-contained: a reader with only this file knows what to do.
+H-102: **Lifecycle:** the folder moves, it is never copied: `1-inbox/` (filed) → `2-backlog/P1…P4/` (the user prioritized it) → `3-ready/` (waiting for the next batch) → `4-batch/1-pending/<number>-<slug>/` (the running batch, not started: a CR arrives by `open` or `order add`, the latter from the destination the user chose at "grilled enough?") → `2-actives/` (taken by a Driver) → `3-done/` (merged, until `close`) → `5-archives/<YYMMDD-HHMM>-<number>-<slug>/` (after `close`, the time of the merge) or, on `order drop`, `6-trash/…` (cancelled; it returns to the inbox only on the user's word, by `restore <6-trash/item> [--slug <name>]`, without its date or its batch number, and with a line `formerly CR-<n> of batch-<m>`), or `2-backlog/P<n>/<number>-<slug>/` or `3-ready/<number>-<slug>/` (taken out of the batch, keeping its number, never the inbox: `order drop` refuses it, with `formerly.json`; when that folder joins a batch, it gets its number back, and its branch and PR while its branch exists; `formerly.json` is then deleted), always with its work;
+H-107: It is not "ready to merge": a CR handed back `ready` sits in `4-batch/2-actives/`, never in `3-ready`.
+H-107: It is not "ready to merge": a CR handed back `ready` sits in `4-batch/2-actives/`, never in `3-ready`.
+H-169: A CR stands on another only by a dependency: a real one (`depends.json`) or a chain the Foreman decided, or the plan proposed and the user's go approved (`order after`).
+H-178: Its CRs are taken by Drivers on the free slots, worked, handed back, merged by the user, or dropped.
+H-190: the first `take` (or an `order qa`) sets it running again, and it pauses again at the end with the cost to date, which has grown.
+H-192: Until then, a paused batch stays paused, however long.
+H-192: Until then, a paused batch stays paused, however long.
+H-196: "Pause" names only the batch state: the hold on new Drivers (`order slots --note 0`) is called **hold**.
+H-198: The slots of a new batch are `batch.slots` (4 by default, set in a `chantier.yaml` or on the board's Configuration page; `--slots` wins at `open`);
+H-208: **Dependencies:** a CR's folder may hold `depends.json`, `{"after": ["<slug>", …]}`, written with the Chief of Staff during the grill; a slug is the folder's name without its number.
+H-209: `open` and `order add` record `after` as CR ids (a slug already merged, in `3-done` or `5-archives`, is met, not recorded; an unknown slug, a malformed file or a cycle exits 2).
+H-224: In every mode the merge of the release PR is the go for the rest of the procedure (with no release PR, the user's word, `order confirm`, once the others are merged);
+H-226: A **fix CR** is a CR the release found it needs, its `fix-<n>.md` as specification.
+H-230: Usually short: started for a few items, it ends quickly.
+H-230: Usually short: started for a few items, it ends quickly.
+H-231: The board can start one, headless, on one CR.
+H-231: The board can start one, headless, on one CR.
+H-232: **The Chief of Staff's seat:** a small file kept by the CLI, `seat.json` in the planning folder (one per project, local), that names the repository's Chief of Staff session: its session id, its transcript id, the environment, the title and the link.
+H-232: **The Chief of Staff's seat:** a small file kept by the CLI, `seat.json` in the planning folder (one per project, local), that names the repository's Chief of Staff session: its session id, its transcript id, the environment, the title and the link.
+H-241: To the user, a claim's number is the Foreman's number within its batch (`batch-18, Foreman n°2`), never the word epoch; the flag stays `--epoch`.
+H-247: **STATUS:** `STATUS.md` and `STATUS.json` in the planning folder (the index), in `4-batch/` and in each CR.
+H-251: **Step:** the Driver's `phase <cr> <phase> [detail]` records what it is doing (`coder r2`, `gate scenario`, `CI`);
+H-252: a working CR's `STATUS.json` holds it as `phase`, and the board, `chantier status` and the pane show it.
+H-257: It runs no git command that changes anything (it reads the head, the remote and the status to say what is off) and no forge command beyond `forge-stack` and the reads of `ship`, `take`, `round` and `handoff` (a PR's base, and for `ship` its draft state; they call the user's own `gh` or `glab`): the agents create the worktrees, commit, rebase, push, open, watch and merge PRs, clean up and fast-forward the main checkout after a recorded merge ([foreman](foreman.md)), with `git`, `gh` and `glab`.
+H-258: Exit codes: 0 ok, 1 usage, 2 precondition (the message says which; `handback ready` is one when the worktree's head is not the one `ship` recorded, the tree is dirty, the remote branch is not at that head, or there is no passed long gate or `VERIFIED` verdict at it; `gate` on a dirty tree is another; so are a `take` of a working CR without `--note`, a `take` of a CR whose agent id is still recorded, working or blocked, and a steering command without `--epoch` (the cards list them), and a `ship` of a branch that holds a merge commit or whose merge commits git cannot check), 3 a stale Foreman (a later Foreman n° claimed the batch), 4 external (git, a gate; a gate whose head moved during the run), 5 the budget (`take`, `round`) or the round limit (`round`).
+H-259: A CR argument takes its bare number: `165`, `CR-165` and `cr-165` are one CR.
+H-260: Heads are the full 40-character SHA in the state and the events (7 characters only for display); a head recorded short by an older version matches the full SHA it is a prefix of.
+H-261: The long gate is `gate <cr> <name> [<name>...]`: one name per argument, never a `;` or `&&` chain, each name from `long_gate.commands` in the code repository's root `chantier.yaml` (a surface's `commands` are ignored);
+H-276: The Verifier records its verdict with `verdict <cr> VERIFIED` or `verdict <cr> "NOT VERIFIED"` at the head it verified; the last verdict at a head decides.
+H-278: `handback <cr> ready` needs both at the PR's head (or carried to it over a clean rebase, proved by git with the patch-ids of the CR's own commits), committed, clean and pushed;
+H-279: `--no-gate "<the project's rule>"` waives the long gate check only, for a project whose rules declare none, exempt this CR, or name a pipeline job as the long gate, and the steering session checks it;
+H-286: Which agent and which model come from the playbook, the configuration in layers (the plugin's defaults, then optional `chantier.yaml` files) that only the CLI reads, merges, validates and resolves (it may also carry `prices:` for models the built-in table lacks, read by the CLI only when it prices, and `ci:` with `beside_gate: true`, which the CLI prints as one `ci:` line, and `hosts.<host>.timing`, which the CLI prints as `timing:` lines):
+H-303: A prompt names the card and section it expects the role to read:
+H-303: A prompt names the card and section it expects the role to read:
+H-304: ```chantier <role> for <cr> "<title>" of batch <batch>, in the project <root>. / Read <skill>/references/startup-core.md, the host core, role core, and the short startup section / named by <skill>/references/startup-manifest.json; defer ...
+H-305: `take`, `round` and `handoff` print a worker's first three lines (the first line, the `Read` line and the rules line) under `<role> prompt, opening lines:`, to copy unchanged.
+H-312: On Claude Code the plugin starts an agent whose prompt holds the `writes:` line in its first folder (a CR Driver, whose prompt also holds `worktree:`, in that worktree, or in the project's root while the worktree does not exist yet: never in its CR folder) and refuses its Write, Edit or NotebookEdit outside the folders named, and judges a Bash or PowerShell write it can see the same way;
+H-318: A refused agent answers every later message with that same answer and does nothing else, whatever the message holds (on Claude Code a message resumes an agent that ended its turn, with its context, not one the host stopped (a `killed` task), which the host refuses to resume; the refusal holds there too).
+H-334: Every file a subagent writes takes a number prefix (`04-result.md`, `04-report.md`), except a name a card fixes (`03-change-spec.md`, `delivery.md`, `STATUS.md`, `retro.md`, the `work/` files the cards name), which the probe of 2026-11-10 accepted.
+H-336: The host refuses some unprefixed names (`report`, `summary`, `findings`, `analysis`, a `.md` file) on the name alone ([host's reference](hosts/claude-code.md)): it is not the auto-mode classifier, and no allow rule fixes it.
+H-338: Each such end is restarted **once** (except a Driver stopped from outside, restarted at each such stop as `foreman-lost-driver.md`'s "A Driver stopped from outside" says, which counts toward nothing; other agents and other causes keep "once"), from the recorded state (`handoff`, `log`, the CR's notes, the worktree's commits, the folder's files), and the parent records why first: for a CR, `$CHANTIER note <cr> "restart: <cause>"`;
+H-341: The causes, one word each: `stopped from outside: <the host's text>` (the host stopped the agent: its `task_status` `killed` record or its refusal of a message), `host failure: <the host's exact text>` (an API error, an overloaded or refused service, a network error the host reports as the agent's end, not the agent's own words), `refused first line`, `reply out of format: <what is missing>`, `switch to Foreman mode`, `switch to direct mode`, plus those [foreman-lost-driver](foreman-lost-driver.md) already names (`context`, a proven death, a new epoch, a silent end).
+H-342: **One way, never both.** A restart is either a message that resumes the ended agent, where a card names that way (only the `taken back:` note of [foreman-merge](foreman-merge.md) does), or a new start;
+H-345: A worker ended by a host failure: its Driver starts one new worker of the same role with the same brief and the note `restart: host failure: <text>`;
+H-347: The Spec-writer is the subagent of the Chief of Staff or of a Griller, outside any batch: its first line is `chantier spec-writer for the Chief of Staff, in the project <root>.`, it reads [`spec-writer.md`](spec-writer.md), not `driver.md` (every role the Chief of Staff or a Driver starts reads its own card; only a Driver reads `driver.md`), and its brief gives the CR folder.
+H-349: The Spec critic is a subagent of the Chief of Staff or of a Griller too, outside any batch: it reads [`spec-critic.md`](spec-critic.md), its brief gives the CR folder, it writes nothing and takes no slot and no budget of a batch.
+H-350: The Retro critic is a subagent of the Foreman or of the Chief of Staff: it reads [`retro-critic.md`](retro-critic.md), its brief gives the points and the files that carry their evidence, it writes nothing and takes no slot.
+H-361: `Rewrites:` is printed where its column is not `none`, between `writes:` and `Steering:`, and names the rebase and the push the Driver may run and their scope (the CLI fills the worktree, the branch, the base and the project's remote from the `worktree:` line it printed, `<…>` when it printed none).
+H-366: Every path on a `writes:` line is absolute and bare (nothing after it): the CR folder as `folder:` prints it, and the archive as `<worktree>/<archive path>`.
+H-374: It happens only on one of four triggers, seen by the parent named for each.
+H-376: The Drivers never escalate: blocked twice escalates the next rounds' Coder, a failed restack its `conflict-resolver`.
+H-377: The judging agents (`inspector`, `verifier`, `investigator`, `spec-writer`, `spec-critic`, `retro-critic`, `demo-explorer`) never escalate: a new one of them runs on its own model.
+H-379: | The rounds used up: a `blocked rounds:` hand-back, whatever the round's failure (a red CI job, a gate broken after a rebase, a Verifier `NOT VERIFIED`, an Inspector `FIX-REQUIRED`) | the CR Driver hands back `blocked rounds:` as always; the round limit stays the user's (`order rounds`), except the rounds exception (the Chief of Staff grants up to two more when the batch caused the red): escalation never grants a round | once the user grants more rounds (a grant whose CR holds a `rounds exception:` note is taken with that note and does not escalate), the CR's next Driver is told `escalate: rounds` and starts the Coder of each new round on the coder's escalation model |
+H-380: | A CR blocked twice, for other reasons: two hand-backs `blocked` of the same CR that show trouble in the work: `refused`, `infra:` after its re-runs, `driver ended twice`, `stopped`, `rounds:` (never one covered by the rounds exception) and `fix:` (a `question:`, `approval:`, `merge:`, `waits:`, `budget:` never counts; a Driver stopped from outside never counts either: it is no hand-back, and it does not make `driver ended twice`), when the row above has not already escalated it | the Foreman (in direct mode the Chief of Staff), from `log <cr>` and the hand-backs | the CR's next Driver is told `take <cr> --note "escalate: blocked twice: <reasons>"` and starts the Coder of each new round on the coder's escalation model. A CR with no rounds (a release CR, a QA order's CR, whose `fix:` has no Coder to escalate): blocked twice goes straight to the user's question of "Once per CR, then the user" |
+H-381: | A red check the Debugger could not explain (its `diagnosis.md` names no cause with evidence) | the Driver that started it (CR or stack) | a new `debugger` on the same check, given the first `diagnosis.md` |
+H-382: | A conflict the resolver could not settle (other than "two product intents in conflict", which stays a question for the user) | the Driver that started it (CR or stack) | a new `conflict-resolver` on the same rebase, given the first `conflicts.md` |
+H-383: A Debugger whose explained fix fails again, and a stack driver's red check that needs code (sent as `anomaly` to the Foreman, then worked in the CR's rounds), need no row of their own: they end in the CR's hand-backs, which the first two rows count.
+H-384: A failed restack is the fourth row: the stack driver's `conflict-resolver` escalates, the stack driver keeps the batch's model.
+H-388: **Once per CR, then the user.** A CR that holds an `escalated:` note made for that CR (its rounds' Coder, its own `debugger` or `conflict-resolver`) never escalates again and never swaps back.
+H-389: An `escalated:` note written on each CR of the stack for a stack-wide escalation (the stack driver's `conflict-resolver` on a restack) does not count for it.
+H-394: **No escalation printed** (`escalate: (none on this host)`, or no `escalation=` for that role): the trigger takes the existing route, and the note says `no escalation on this host`.
+H-395: It is not a stop and not a look-alike.
+----- cr-driver.md (3749 B)
+# CR Driver
+
+Take one CR from its specification to a green PR proved at its pushed head, then hand it back. `$CHANTIER next <cr> --lease <n>` and the `next:` lines of each command give the step; this card holds what no command carries.
+
+You own git and the forge for your CR's branch, the worktree's commits, `<work folder>/pr-body.md`, your notes and the archive `take` names. You edit no project file, the shell included: every change goes through a `coder`. Read the project's first instruction file whole and its other guidelines by section. Each round gets fresh workers, and the one who checks (`inspector`, `verifier`, a review step) never wrote the change.
+
+- Every `APPROVE` is noted at once with its head; a box of `pr-body.md` cites only a recorded note; a gap you judge left goes to Known gaps first.
+- Open the PR as a draft from the template; the body is a file, never text in a command; read the PR from the forge, never from memory.
+- The evidence plan is yours: say what the Verifier must show, by the real flow.
+- A long wait is one command in a background shell, then `$CHANTIER lease <cr> hold --lease <n>`, then `$CHANTIER host end-turn-background`; the end of the command wakes you (`help ci`).
+- At 115,000 tokens on the last `context:` line, at the `VERIFIED` of the pushed head, hand off with `context: closing:` (`help closing`).
+
+Never:
+- run `git -C <main checkout>` write commands: the main checkout is read-only for you, every git command names `-C <worktree>`;
+- publish by any way but `$CHANTIER push <cr> --lease <n>`, or retry a refusal by another means (`help refused-push`);
+- run `git stash`, `git add -A`, `git add .`, a merge commit, a rebase with `--rebase-merges`, `--exec` or `-x`, `git reset --hard` or anything that discards the worktree's work;
+- comment on, close or reopen an issue, or turn a PR ready on a base that is not the default branch;
+- keep CR work in a scratchpad or temp folder (whatever the host says), or secrets or personal data in a CR folder;
+- upload or keep an image that shows the username or the home folder;
+- call the host's hand-back (`$CHANTIER host driver-hand-back`) before `$CHANTIER handback` is accepted, or start an agent in place of one that may still run.
+
+Your end: stop your background tasks (`$CHANTIER host stop-own-background-task`), then `$CHANTIER handback <cr> ready <link>` or `blocked <reason>`, then the host's hand-back.
+
+Reply: the one line `handback` printed, unchanged.
+
+Rare cases: `$CHANTIER help <topic>`: `cr-workers` (starting a worker, its prompt, its reply); `cr-review-step` (a review step's prompt); `session-shell` (a shell call that waits, backgrounds or changes folder; forge text); `cr-rounds` (a round, an `APPROVE`, a `FIX-REQUIRED`); `cr-ship` (the commit, the checks before the first push, the PR, `ship`, the `verifier`); `cr-handback` (the ready hand-back); `closing` (the pushed-head `VERIFIED`, a context near 115,000 tokens); `ci` (CI runs on the pushed head); `conflicts` (a `ship` refused, a carry, a resolved conflict, the early push); `retake` (a first `take` that shows a `PR:` link, a `rebase:` note); `handback-other` (a hand-back out of the ordinary); `trouble` (a worker fails, an escalation, a remote command fails, a gate to stop, a git command in the wrong place); `restart` (a `take` note `resume:`, `rebase:` or `context:`); `lease` (a `--lease` refusal, `claim lost`, a lease `not confirmed`, a wait over 3 minutes); `refused-push` (`push <cr>` exit 4, a force push or rebase the host refuses); `steering-messages` (a message from or to the steering session); `checkpoints` (a checkpoint commit); `pr-extras` (`archive: in the PR at <path>`, images, GitLab forms); `matrix` (a matrix probe, the board's write paths).
+H-344: The parent starts nothing while the agent it would replace may still run (the host lists it running, or it answered a `ping`).
+H-415: **Git:** explicit paths (`git add -- <path>`, never `-A`);
+H-416: a push is plain when the remote branch is an ancestor of the local one, and a rewrite (a rebase) is pushed with `--force-with-lease`;
+H-419: after a rewrite `git push --force-with-lease -u <remote> <branch>` (or the same with `git -C <worktree>`);
+H-421: **A CR's branch is updated by rebase only**: a local `git rebase <base>`, never with `--rebase-merges`, `--exec` or `-x`, then the rewrite push above.
+H-427: The user's uncommitted changes are never touched.
+H-478: The ticket's reference is not an internal reference: it is allowed there, and it is the only place the PR names the ticket; the Driver never comments on the issue.
+----- floor.md (554 B)
+# The floor
+
+No role, card, order or message overrides these.
+
+1. Never merge without the user's word.
+2. Rebase only, with `--force-with-lease`, and only on the CR's own branch.
+3. No fallback.
+4. A CLI that cannot run is a stop.
+5. Never discard the worktree's work.
+6. An irreversible release action waits for the user.
+7. Only the user starts work.
+8. No image shows the username or the home folder.
+9. Report a refusal with its exact text; never work around it.
+10. Never stop a process by name or pattern; use `close --yes` only on the user's yes.
+C-044: No fallback.** When a tool, a `$CHANTIER` command, a host feature or an agent is not available exactly as written, stop and report it with the error;
+C-050: A refusal already met is said the same way, its exact text first (concepts rule 7 holds).
+C-055: Only the user starts work.** Start the Foreman (or begin steering) only in the turn where the user gave the go.
+FM-151: Exactly these commands carry `--epoch <n>`, and no other: `foreman set`, `foreman transcript`, `status --refresh` on a wake, `status --stop-heartbeat`, `take`, `agents set`, `order done`, `order merged`, `order add --fix-for`, `gate <cr> --first`, `cancel` and `pause`.
+FM-174: `--outside-stack "<reason>"` is used only on an open order of the Chief of Staff on that CR that carries the user's word for that CR alone (not a `shape:` note).
+FM-176: Ask with the flag first, then mark the order done (`order done O-<k>`): the CLI accepts only an open order.
+FM-177: Never use it to get past a refusal on your own judgement.
+FM-479: A command the host refuses takes the usual route (the `refused <cr> <text>` ask and its note, as in [foreman-refused](foreman-refused.md)).
+FM-494: The take note names the steps the user approved before the merge, from the `approvals unused:` line of `$CHANTIER handoff <release-cr>` (read it after every line of the relay): `take <release-cr> --note "merged: <pr>; approved before the merge: <step>; <step>; the other irreversible steps wait for the user's word"`;
+FM-495: with no approval, the note says the steps wait for the user's word.
+FM-507: When it refuses (a `just tag:` line) or the host refuses the command, change nothing, try no other way and never force: send `[foreman→chief-of-staff] release <cr>: <step> refused: <the exact line>` (in direct mode you are the Chief of Staff: take it to the user yourself, as `chief-of-staff-release.md` says).
+FM-508: The step's approval is the user's word, which the Driver checked before its hand-back: run nothing the Driver did not hand back.
+FM-547: A push the forge rejects as protected (git's remote rejection: on GitHub `protected branch hook declined`; on GitLab `You are not allowed to force push code to a protected branch`, **unproved**) is not a failed lease: the session that ran it records `$CHANTIER note <cr> "push rejected by the forge <branch>: <git's text>"` and never retries it (step 7).
+FM-564: Retry nothing, try no other form, change no permission setting.
+FM-577: Record each refusal once, whoever sees it:** the Driver's (before its push line, [driver](driver.md)), yours (step 6, or the `push not tried` note of step 3), the Chief of Staff's;
+FM-578: each before the next step's line.
+FM-593: retry nothing, try no other form, change no permission setting.
+FM-595: Record each refusal once, whoever sees it.
+FM-B036: The batch's limits are the CLI's:** `take` is refused past the slots or the budget, `round` past the limit or the budget; a refusal is a fact, not an argument.
+FM-B037: The batch keeps the slots it opened with, whatever the board's Configuration page now says: only an `order slots` the Chief of Staff sends changes them.

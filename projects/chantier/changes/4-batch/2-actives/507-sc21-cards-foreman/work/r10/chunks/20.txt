@@ -1,0 +1,142 @@
+----- topics/stack-asks.md (1086 B)
+# The stack driver: its hand-back asks
+
+On its `hand-back ready to merge <stack link> <cr>=<link>…`, read the stack on the forge, the five checks (`help stack-checks`), then:
+- the first stack made: `$CHANTIER asks "stack-ready-to-merge <stack link> partial stack mergeable below <sha7> merge <cr> <link> <cr>=<link> gaps: … local gate <cr> at <sha7>: passed to come: <cr> <cr>…"` (`merge <cr> <link>`: the highest PR of the mergeable part, whose head is `<sha7>`, as `forge-stack show` printed it; the pairs: the mergeable part, each CR's gaps after its link; `to come:` the drafts on top and `forge-stack show`'s `to come:` CRs). Under a rule asking the stack's top a local run, copy the clause from the hand-back and send only with `passed`, for that `<sha7>`; no clause under the rule is a failed check: `take stack --note "local gate at the mergeable top"`.
+- the stack complete: `asks "stack-ready-to-merge <stack link> mergeable below <sha7> merge <cr> <link> <cr>=<link>…"`, gaps after each link.
+- any other hand-back (a join, a draft turned ready, a restack): no ask.
+----- topics/stack-drop.md (1370 B)
+# A drop or a heavy CI in the stack
+
+- A drop: right after it is applied, `take stack --note "drop: <cr> to <destination>"` (`6-trash`, `3-ready` or `2-backlog/P<n>`, as the order's line carries it), or `[foreman→stack] note drop: <cr> to <destination>` to a running stack driver. A held CR's drop needs no `take stack`: `order done` at once. A CR that waited with the dropped held CR (an `after`, or in a series a start on it) gets `rebase: <cr> dropped` by the usual path (`working`: a note to its Driver; `ready` or `blocked`: `take <dep> --note "rebase: <cr> dropped"`). A working CR above gets `[foreman→driver <cr>] note rebase: stacked on <cr below>, without <dropped cr>` (a plain `status` just before). An open CR whose `after` names the dropped CR: ask the Chief of Staff once, hold the take until the answer. A release above: after the hand-back, `take <release> --note "redo: <cr> dropped"`, then `take stack`. Then `order done`; the user is asked nothing. The PR of the dropped CR: `help drop`.
+- Heavy CI (the Chief of Staff's `order note <cr> "heavy CI: at its head"`): `[foreman→stack] note heavy CI: <cr>`, or `take stack --note "heavy CI: <cr>"`; a working CR's own Driver CI covers it (tell the Chief of Staff). Its hand-back `heavy CI <cr> at <head7>: green|red <checks>` goes up as `$CHANTIER asks "heavy-ci <cr> <head7> green|red <checks>"`.
+----- topics/stack-ends.md (651 B)
+# The stack driver: other ends
+
+- `hand-back blocked context: …`, or an end with no hand-back and no `activity`: no anomaly, no ask: `agents set stack - --epoch <n>`, `take stack --note "resume: <its text>" --epoch <n>`, a new stack driver on the batch's model; a failed restack is its `conflict-resolver` on the escalation model.
+- `anomaly <cr> local gate failed at <head7>: <log path>`: no ask; `take <cr> --epoch <n> --note "local gate failed at <head7>: <log path>"`; it joins at a later take.
+- `anomaly <cr> conflict: stacked on <cr>: <files>`: before the five checks, `take <cr> --note "rebase: stacked on <cr below>: conflict in <files>"`.
+----- topics/stack-run.md (904 B)
+# The stack driver
+
+You run `take stack --epoch <n>`, never the stack driver: its output goes in the stack driver's prompt, you start it, then `agents set stack <id> --epoch <n>`. The stack driver reads the stack again with `$CHANTIER stack`. `take stack` prints the stack as it stands, each CR with its base; after a partial merge what remains is another stack of the same batch, its first CR on the default branch. A fix CR is outside it; the release CR is its top; an `order add` CR goes on top. Each hand-back ends it: `agents set stack - --epoch <n>` before the next `take stack`. Steer it with `[foreman→stack] note <text>`. Its end is one native stack on the forge (on GitLab a chain of MRs checked by `forge-stack`, merged from the bottom; unproved), merged in one action from the top or one PR at a time from the bottom.
+
+Hand-backs and asks: `help stack-asks`; other ends: `help stack-ends`.
+C-1485: It keeps the backlog and asks the questions a CR needs.
+C-699: "You can merge it"** / "tu peux la merger": only for a PR ready to merge (🟢: out of draft, CI green, no conflict, on the default branch or with everything under it ready to merge).
+C-750: On any such ask, partial or complete, before you tell the user the stack is mergeable, apply the plain ask's gap rule (the bullet above) to each CR of the mergeable part: quote its gaps next to its link, in the user's language;
+FM-218: Its end is one native stack on the forge that the user merges in one action from the top PR, or one PR at a time from the bottom: made at two PRs handed back ready, grown on top as each CR gets its PR, drafts on top;
+FM-219: on GitLab, the chain of MRs checked by `forge-stack`, merged one MR at a time from the bottom (unproved; trial: one run on a GitLab project), the `<stack link>` of the asks being the top MR's link, the first take, each later take and the `stack-ready-to-merge` asks (with the commit and the `to come:` tail) the same.
+----- topics/stack-changes-chief-p1.md (646 B)
+# Changing a stack: a drop, a hold, an insert (part 1 of 2)
+
+- Dropping a CR from a stack, on the user's word: `order drop <cr> --note <destination>`; the Foreman removes it with `take stack --epoch <n> --note "drop: <cr> to <destination>"`. Tell the user its commits come out of the PRs above it, which are drafts (do not merge) until the next partial-stack line shows them ready. Trash: its PR is closed and its branch stays until `close`. Backlog or `3-ready`: its PR goes to draft, its branch and worktree stay and are not offered for removal at `close`, its folder keeps its number. A held CR: nothing to rebuild. Ask the user nothing more.
+----- topics/stack-changes-chief-p2.md (1426 B)
+# Changing a stack: a drop, a hold, an insert (part 2 of 2)
+
+- Holding a CR on the user's word to keep a live CR out for now (when unclear whether they mean held or out of the batch, ask): `order hold <cr>`; back with `order unhold <cr>` (a CR held while working returns blocked). The Foreman stops its Driver (`stop hold: <O-n>`) and in a stack takes the stack driver. CRs that wait with it wait too: name them. Name each held and each parked CR in every report with what it waits for. No release starts while one is held or parked: say so, name it, offer `order unhold <cr>` or `order drop <cr>` with the user's destination, and act on the answer only. Drop a held CR only after the hold's `order done`. Direct mode: you do the stop, `agents set <cr> -`, `order done`, and fill the freed slot only after it. A release working at the hold is let hand back, then taken again (`redo: <cr> held`).
+- Inserting a CR into a stack ready to merge, on the user's word: first and at once put to draft every PR that will sit above it (`gh pr ready --undo`, `glab mr update --draft`); a CR in the middle that goes back to its Driver for a round gets the same. Then `order add --note <folder>` and `order note` naming the place (`insert: <new cr> below <cr>`). Tell the user the stack is not mergeable until the Foreman's next `stack-ready-to-merge` and that the release notes will name the change (the release CR goes back to `redo:`).
+C-693: Wrong: "the next PR ready to merge will be 🟢 #171 CR-237" while #171 is a draft.
+C-794: A held CR: nothing to rebuild (it is already a draft on the default branch).
+C-798: The Foreman then stops its Driver (`stop hold: <O-n>`) and, in a stack, takes the stack driver (`take stack --note "hold <cr>"`), which rebuilds the stack on the forge without it.
+C-804: Name each parked CR in the batch reports too, with what it waits for, and no release starts while a CR is parked either: its way back is its wait cleared, then `take`.
+C-806: offer the user to wait for it or to send it out (`order drop <cr> --note <destination>`: the trash, `P1` to `P4`, or `3-ready`).
+C-809: In direct mode the Chief of Staff does the Foreman's part: the stop, `agents set <cr> -`, `order done`, and the freed slot filled only after it.
+----- topics/stack-changes.md (2354 B)
+# An insertion or a drop
+
+Every PR that will sit above a change goes back to draft first (`gh pr ready --undo`, `glab mr update --draft`, then `$CHANTIER stack --draft <cr>…`), before any other step.
+- Insert (`insert: <new cr> below <cr>`): order the stack with the new CR at the place named (the release stays last); rebase the new PR and each above it on the one under, push each branch (`help refused-push`), `ship` bottom up (`--conflict` by `help conflicts`), fix the body lines `ship` names; judge again what a move touched (a clean restack carries); `forge-stack rebuild`; the release PR is stale: leave it a draft and hand back, the Foreman sends it back with `redo:`; read the five checks, run the local gate at the mergeable top if its head has no pass, then after the chain check turn the PRs above ready (`stack --out-of-draft`), the release last.
+- Drop (`drop: <cr> to <destination>`: `6-trash`, `3-ready` or `2-backlog/P<n>`; none means the trash): take the dropped commits out of each CR above that has no live Driver, bottom up, in its worktree: the first above, `git -C <worktree> rebase --onto <the branch now under it, or origin/<default branch>> <the dropped CR's branch>`; each next, `rebase --onto <branch under it> <that branch's head before this take>` (the `head` `stack` printed before the first rebase). A `working` CR is skipped: its Driver does it. A conflict that only needs resolving: `conflict-resolver`; code: `help stack-hold`.
+- Push each moved branch, `ship` bottom up, judge what each move touched again (a drop carries when the CR's own commits are unchanged), heavy CI at the top (`help stack-hold`), then `forge-stack rebuild`: it names the dropped PR apart. A trashed CR: close its PR (`gh pr close <n>`, `glab mr close <n>`), no `--delete-branch`, no comment. A CR moved to the backlog or `3-ready`: its PR to a draft, no close, no comment, no rebase, no retarget by hand. Branch and worktree stay.
+- Then the local gate at the mergeable top, the chain check, the mergeable part ready (`stack --out-of-draft`); a release above stays a draft for `redo:`. A dropped CR with an open PR and nothing on its branch needs only the last two steps; with no PR, nothing.
+- `rebase: <cr> dropped` (series or parallel): rebase onto the default branch, or the `worktree:` line's branch, without the dropped CR's commits.
+H-164: the release PR stays on top and its notes name the new change (the steps are the stack driver's, in [driver](driver.md)).
+----- topics/stack-checks.md (1461 B)
+# The five checks of a stack
+
+Read the stack on the forge with `$CHANTIER forge-stack show` (one line per failed check; exit 0 when all hold; on GitLab, the chain of MRs, unproved): the stack is open; it holds every PR of the stack as it stands, and no other; in the record's order, bottom first; no PR of a CR ready to merge is a draft, and every draft sits above the PRs ready to merge; the release PR, when it is in the stack, on top.
+- One check fails: no ask. `take stack --note "<the check that failed>"` sends it back to a stack driver.
+- A CR of the stack handed back, ready to merge or in draft: no ask. Record its gaps with `$CHANTIER note <cr> "gaps: …"` (`none` when it has none) and quote them after its link in the `stack-ready-to-merge`, partial or complete.
+- The Chief of Staff's `order note` `insert: <new cr> below <cr>` makes this sequence: the PRs above the new place go to draft first (the Chief of Staff did it: check on the forge), the new CR's Driver, `take stack --note "insert: <new cr> below <cr>"` (the rebuild on the forge is `forge-stack rebuild`), the release redone (`take <release> --note "redo: <new cr> inserted"`), `take stack` again, the check, then `stack-ready-to-merge`. The new CR shows in the partial-stack line once its PR is mergeable. You edit no PR yourself.
+- A PR ready to merge that stopped merging (`gh pr view --json mergeable`, `glab mr view`) is yours to notice: send it back with `--note "rebase: …"`.
+C-159: A PR ready to merge, a merge to record, a stack, a hold, an insert: `chief-of-staff:merge`.
+FM-246: the next report's partial-stack line shows it once its PR is in the mergeable part.
+FM-250: The five checks of a stack ready to merge,** read on the forge with `$CHANTIER forge-stack show` (it prints one line per failed check and exits 0 when all hold; on GitLab, read on the chain of MRs: unproved; trial: one run on a GitLab project): the stack is open;
+H-158: **Stack ready to merge** means five checks hold on the forge (`$CHANTIER forge-stack show` prints the failing ones): the stack is open;
+----- topics/stack-deliver.md (985 B)
+# Deliver by a time, in a stack
+
+On the order note `deliver by <time>`, until the time, free slots go first to the CRs that can join the mergeable part by then: those closest to `ready` whose dependencies are already in it or ready to merge, short chains before long ones; a CR that cannot be ready by then is not started over one that can. You judge which, from each CR's state and chain. No started CR is stopped. Name the time in the stack driver's take (`take stack --note "deliver by <time>"`).
+At the time, the stack on the forge is what the user gets: if it is not complete and no ask was sent for it, send the `stack-ready-to-merge … to come: …` ask of the stack as it stands, with the local-gate clause as the hand-back gives it (`not run` or `failed` included: the time overrides the condition of `help stack-run`). Then the batch goes on toward the complete stack. In a parallel or series batch, the same note sends each owing CR's ask as it stands (`help local-gate`).
+FM-206: You judge which, from each CR's state and chain (no estimate tool).
+FM-211: In a parallel or series batch, the same order note sends the ask of each CR that owes the run as it stands at the time, with its local-gate clause (`not run` or `failed` included), as [foreman](foreman.md), "The user's boundaries" says.
+----- topics/stack-grows.md (1373 B)
+# The stack grows
+
+- The first take, once two CRs are handed back `ready` with a PR (neither depending on an open CR not ready): `take` starts each new CR with no open dependency on the nearest earlier CR with a PR once that CR is `ready`, else on the default branch, and a CR with an open dependency on its highest open dependency's branch (the CLI computes it, recorded at its first take). It leaves out a CR the journal shows merged (`forge saw merged`, not recorded yet) and prints a `base:` line naming it: pass that base unchanged, never correct a base by a note; the `order merged` stays the Chief of Staff's. While it is due, `status` prints `stack: take stack now: <crs> ...`: take it in that turn (only for the batch's first stack).
+- Each later take, one for everything that happened while no stack driver ran: a CR got its first PR, a working CR rebased onto its place, a CR was handed back `ready`, a CR the stack driver's hand-back named `to come: <cr below> not shipped at <tip7>` (once its `ship` records a new head), a merge was recorded. Events while a stack driver runs wait for its end, except a merge.
+- A merge recorded while a stack driver runs: `[foreman→stack] note merged: <cr>…` instead of a new `take stack`; while none runs, one `take stack` for what remains.
+The later steps: `help stack-takes`; `deliver by <time>`: `help stack-deliver`.
+----- topics/stack-takes.md (808 B)
+# The stack grows: the other takes
+
+- In the same turn as each `take stack`, for each row it printed `not on its place`: `[foreman→driver <cr>] note rebase: stacked on <cr below>` (the row's `base`). Never hold the take for it.
+- The final-order take, once every non-release CR has handed back (`ready` or `blocked`), none `working`, none `queued` that could start (one whose dependency is blocked or cancelled stays out), before `take <release>`: `take stack --note "final order" --epoch <n>` (a running stack driver gets `[foreman→stack] note final order`). A CR that goes back to a Driver afterwards makes it due again once it hands back. The ask that follows names each queued CR left out, with its unmet dependency.
+- A parked CR is out of the stack (`help park`): `take stack --note "park: <cr>"`.
+C-761: a PR of a draft on top, of a CR to come, or of a CR in the stack order handed back on its own is not to be merged;
+FM-185: The first take,** the moment the stack can form: as soon as two CRs are handed back `ready` with a PR (and neither depends on an open CR not ready).
+FM-186: `take` starts every new CR with no open dependency on the nearest earlier CR with a PR once that CR is handed back `ready`, else on the default branch, and a CR with an open dependency on its highest open dependency's branch (the CLI computes it; you choose nothing), recorded at its first take;
+FM-190: that line is the trigger: take it in the same turn you read it (this rule stays the reference; the line only reminds it, and only for the batch's first stack).
+FM-191: Each later take,** one for everything that happened while no stack driver ran: a CR got its first PR (`status` shows it; it joins), a working CR rebased onto its place (its `ship` reads the new base; it joins like a CR that got its first PR), a CR of the stack was handed back `ready` (it turns ready to merge once the stack driver turns its PR out of draft), a CR the stack driver's hand-back named `to come: <cr below> not shipped at <tip7>` (once `<cr below>`'s `ship` records a new head), a merge was recorded (a restack).
+H-137: a CR with a dependency starts only once that dependency is `ready` (`take` refuses it until then), on the branch of its highest dependency still open (by order), else on the default branch (see **Dependencies**), and the stack driver puts the PRs each on the previous one (`stack` marks the CRs it orders; `ship` records a stacked CR's place in the stack, and the start base for any other).
+H-140: A CR that needs the code of a CR still working says so with `after`; otherwise CRs start side by side on the default branch and the final-order take orders them.
+H-145: The stack-driver runs during the batch keep the stack current (made at two PRs ready, a CR that joins on top, a newly ready CR moved below the drafts, a restack after a merge at once, as today);
+H-212: The CR starts on the branch of its last dependency still open, in the order of `after` (in a stack, the one highest by order, whatever ready CR sits above it), else, in a stack, on the nearest earlier CR of the batch that has a PR, when that CR is handed back `ready` and the forge does not show its PR merged (a `forge saw merged` line of the journal), else on the default branch: a CR's start base and its place in the stack are two things.
+FM-235: A CR that waited with the dropped held CR (an `after`, or in a series a start on it) gets `rebase: <cr> dropped` by the usual path (`working`: a `note` to its Driver; `ready` or `blocked`: `take <dep> --note "rebase: <cr> dropped"`), to take the dropped CR's commits out of its branch.
+H-166: **A CR dropped from the stack** is removed: the PRs above go to draft first, its commits come out of the branches above (by the stack driver, or by the Driver of a working CR), its PR is closed when it goes to the trash (otherwise it goes to draft and the rebuild puts it on the default branch) and its branch kept, the stack is rebuilt without it and judged again where it changed, and a release above is redone.
+FM-230: `take <cr> --epoch <n> --note "local gate failed at <head7>: <log path>"` sends that CR to a Driver for a round;
+FM-231: it joins the mergeable part at a later take, once its gate passes;
+FM-232: `anomaly <cr> conflict: stacked on <cr>: <files>`: before the five checks, `take <cr> --note "rebase: stacked on <cr below>: conflict in <files>"` (the CR is `working`, its draft no check 4 failure; its Driver rebases, the CR turns ready to merge at a later take);
+----- topics/stack-gate.md (1176 B)
+# The local gate at the top and the hand-back
+
+- The local gate at the mergeable top: when the rules ask the stack's top a local run and the stack has drafts or CRs to come, the top of the mergeable part has passed that gate at its pushed head (`$CHANTIER gate <cr> <name>…` in its worktree, as any long gate; a head with a pass or a `carried:` is not run again; a docs-only top included). A PR that would become the new top turns out of draft only once its gate passed; a failure leaves it a draft, the previous top stands, and `[stack→foreman] anomaly <cr> local gate failed at <head7>: <the log's path>` goes before the hand-back. You change nothing for it.
+- Hand-back: `[stack→foreman] hand-back ready to merge <stack link> <cr>=<link>…[ local gate <cr> at <head7>: passed|failed|not run][ <cr> to come: <cr below> not shipped at <tip7>]…`, the gate tail on every hand-back that leaves a partial stack.
+- Lease: `lease: stack <n>` on `stack`, `stack --out-of-draft|--draft`, `forge-stack create|rebuild|unstack`. Before the local gate, `lease stack hold --lease <n> --minutes 90`, again at each wake while it runs.
+- Making the stack itself: `help stack-make`.
+----- topics/stack-make.md (1742 B)
+# Making the stack
+
+- Once two CRs are handed back ready with PRs, and the stack can form (ordered, restacked, pushed, shipped, CI green at the top), create the native stack with the means your prompt names: the `gh stack` extension, or `$CHANTIER forge-stack create` when the user declined it (it retargets the PRs whose base is not the record's, then creates the stack; never a retarget by hand). Bottom to top, CRs not handed back ready on top as drafts. A means that is not available as named is an `anomaly` with the exact text: no other means without the user's word.
+- Then, after the chain check, turn every PR of the mergeable part ready (`gh pr ready`) and record right after: `$CHANTIER stack --out-of-draft <cr>…`. On GitLab the means is always `forge-stack create` (the MRs of the mergeable part: `glab mr update <iid> --ready`, drafts on top; unproved).
+- Any later change (insertion, restack after a merge, reorder) is `forge-stack rebuild`, after the rebases and pushes. A `rebuild` refused is an `anomaly` with the exact text, except when its error ends `stack #<n> is dissolved and no stack replaces it yet: run forge-stack create`: run `create` yourself. `the stack's state is unknown: run forge-stack show` stays an `anomaly`; you may run `show` and quote it.
+- The five checks, by `$CHANTIER forge-stack show` (a line per failed check): the stack is open; holds every PR of the stack as it stands and no other; in `take stack` order; no ready-to-merge PR is a draft and every draft sits above them; the release PR, when in the stack, is on top. Drafts on top and `to come:` are no failure. On GitLab the checks read the chain (unproved).
+- Next: `help stack-gate` (the local gate at the top, the hand-back, the lease).
+H-141: As soon as two PRs are handed back ready (the moment the stack can form) the stack driver makes the native stack on the forge, once (the `gh stack` extension, or `$CHANTIER forge-stack create` when the user declined the extension);
+H-143: the PRs ready to merge come first in readiness order, a CR always above its dependencies;
+H-149: On GitHub, a chain of PRs based on each other is not a stack.
+----- topics/stack-hold.md (2232 B)
+# Hold, park, a conflict that needs code, heavy CI
+
+- `hold: <cr>` (its base is now the default branch): turn every PR above it to draft first (`stack --draft`); take its commits out of each CR above with no live Driver, bottom up (`help stack-changes`, the drop's `rebase --onto`); rebase the held branch on `origin/<default branch>`, push, `ship`; turn its PR to draft (`stack --draft <cr>`; `stack --out-of-draft` refuses a held CR); `$CHANTIER stack <cr>…` the rest (held apart), `forge-stack rebuild` (it moves the held PR to the default branch, `held out of the stack`); read the five checks, the local gate at the top if no pass, the chain check, the mergeable part ready again, the held CR never named. A held CR at the top has nothing above it.
+- `park: <cr>` (an outside wait): the same for it and its dependents (`parked out of the stack`, `waits with`). When it returns it joins on top as a working CR.
+- A CR held while working (`order hold` of a live CR; `claim lost`): skip each CR above that depends on it (it leaves with it); never rebase the held CR (its stopped Driver's work, its next Driver rebases it); its PR goes to draft and, by the rebuild, to the default branch as it stands.
+- `unhold: <cr>` from ready: it joins like a ready CR (`help stack-joins`). From live: the next `take stack` prints it `not on its place`; the Foreman sends its Driver `rebase: stacked on <cr below>`; it is ordered on top as it hands back. The final-order take orders only the CRs of `chain`.
+- A conflict that needs code, at a join or move of a CR with no live Driver: `git -C <worktree> rebase --abort`, push nothing for it, turn its PR to draft, place it on top among the drafts (the release last), go on with the rest including the `rebuild`, and before the hand-back send `[stack→foreman] anomaly <cr> conflict: stacked on <cr below>: <files>`.
+- `heavy CI: <cr>`: run the project's heavy CI at that PR's pushed head by the means its rules give (a re-run, a label, a dispatch), or only read the result when the forge ran it. Judge by `help ci`, note `CI: gh pr checks <n> at <head7>: …`, and hand back `heavy CI <cr> at <head7>: green|red <checks>`. A red result changes nothing by itself. By default once at the top.
+H-167: **A held CR** (`order hold <cr>`, a live CR in any batch mode, or a ready CR of a stack, until `order unhold <cr>`) is apart: it is out of the slots and of the order, and the CRs that wait with it wait too.
+H-168: In a stack it leaves it without being dropped: its PR goes to the default branch as a draft, the stack is rebuilt without it, and it comes back on top; no release starts while a CR is held.
+----- topics/stack-merge.md (1457 B)
+# After a merge, in a stack
+
+A choice you make per recorded merge (or group of merges recorded in one message), never fixed at the go:
+- A restack, whenever a native stack of the batch is on the forge (on GitLab a chain made by `forge-stack create` or `rebuild` and read back by `show`): once every CR one action of the user merged is recorded, one `take stack` for what remains and one stack driver, or the note `merged: <cr>…` to the one that runs. `order merged` prints `restack owed: …` when one is owed.
+- A folded CR (GitLab, unproved): on the Chief of Staff's `order merged <k>` with the note `folded: <k> into <k-1>`, the CR below goes back first, `take <k-1> --note "folded: <k> merged into its branch"` (a slot, or it waits); the restack (`take stack`) comes after its hand-back.
+- Rebase notes only before the first stack is made, the parallel rules scoped to the CRs whose base the merge changed: a `working` CR based on the merged CR's branch or the default branch gets `[foreman→driver <cr>] note rebase: <merged cr> merged`; a CR `ready` or `blocked` with a PR that no longer merges (`gh pr view --json mergeable`, `glab mr view`) or whose base was the merged CR's branch gets `take <cr> --note "rebase: <merged cr> merged"`. A PR ready to merge on the default branch that still merges cleanly is left alone.
+- Nothing of the stack left open: neither.
+Say in your next line to the Chief of Staff which you chose and why, in one clause.
+FM-194: A merge recorded while a stack driver runs: send it `[foreman→stack] note merged: <cr>…` (all the CRs one message of the Chief of Staff recorded) instead of a new `take stack`;
+FM-256: A folded CR** (GitLab): on the Chief of Staff's `order merged <k>` with the note `folded: <k> into <k-1>`, the CR below goes back to a Driver first, `take <k-1> --note "folded: <k> merged into its branch"` (a slot, or it waits like a queued CR);
+FM-258: Unproved; trial: one run on a GitLab project.
+H-172: When a stack merges only in part, what remains forms another stack in the same batch, restacked on the default branch, silently, and it goes on growing (one restack for one merge action of the user, none when the whole stack merged).

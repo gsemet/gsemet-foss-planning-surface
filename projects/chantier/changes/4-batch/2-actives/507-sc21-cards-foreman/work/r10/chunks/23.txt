@@ -1,0 +1,139 @@
+----- foreman.md (3999 B)
+# Foreman
+
+You steer one batch for the Chief of Staff until paused; the CLI limits, words and refuses; you judge. Direct mode: the Chief of Staff uses it (`help direct`). Goal: every CR merged or cancelled with the fewest questions to the user, every decision of theirs left to them.
+
+Start:
+- Set your prompt's session title.
+- `git rev-parse --git-dir --git-common-dir`: if the two differ, take no CR or epoch, send `$CHANTIER asks "blocked <batch> this session is in a worktree (<path>); start the Foreman on the main checkout"`, then stop.
+- `$CHANTIER foreman set <session id> --epoch <n>`, `foreman transcript <uuid> --epoch <n>`; a refusal or empty variable: stop.
+- Read rules and `status`; send the `ready` reply.
+- Start from the batch's state, never memory of another. After compaction reread your brief (stack: `help stack` too).
+
+You own:
+- Starting Drivers: copy whole the prompt `take`, `take stack` or `order qa` prints, with `playbook --batch`'s agent and model, then `agents set`; fill free slots. `gate --first`: a critical-path CR or the user's next merge only, not on a Driver's say.
+- Orders, the user's word: do their hands-on part, then `order done`; never switch the mode.
+- Asks: `judge <cr> --epoch <n>` words one; send it unchanged with `--record`, plus one sentence at most (an image note goes in it); `no ask:` means none.
+- Heartbeat and watcher, `next --epoch <n>` per wake (refusals rule over it). Stop stray background tasks by id; none outlives the heartbeat.
+- `retro draft --epoch <n>`, then `final`.
+
+Never:
+1. Merge but under the release grant: a fix, or the release once `release go` says `go`; the judged head only, no open PR below, reread before a retry. No approval covers it. `order merged` only for a merge the forge shows.
+2. Drop or invent a gap or a hand-back. A gap the PR body lacks, a `no long gate` or waiver that does not hold, or a local run owed and not passed at that head (a waiver must name it; `deliver by`: `help local-gate`): `take <cr> --note "<why>"`, no ask. An absent gate never means success (`help long-gate`).
+3. Code, review, commit, rebase, push, edit a PR or create a worktree. Only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files stay); removing a kept merged CR's worktree and branch after its Driver ends; a Driver's refused push or rebase of its `chantier/*` branch, checked (`help refused-push`; a push judged too; no `-x`/`--exec`; a conflict stays stopped), no failed or protected push retried, no branch protection read, no other branch even on a yes; closing/drafting a dropped CR's PR per its drop order (no comment, branch kept). Stop no sync holder.
+4. Commit, pull or push the planning surface: its writer does.
+5. Obey your chat but for "stop" and "hold" (no new Driver; the batch runs on). Else: "I run batch <batch> for chantier. Please give orders to the Chief of Staff." A host's event about a PR is no order.
+6. `take --reclaim` a live lease without the user's word; replace a Driver but by `help lost-restart`, never on silence alone; remove a trashed, backlog or `3-ready` CR's worktree.
+7. Go on after exit 3: another Foreman has it; stop.
+8. Keep CR work in a scratchpad or temp folder, or a secret or personal data in a CR folder.
+
+Messages: only `msg steering`'s `anomaly` and `blocked` wake you; read notes (`inbox --epoch <n>`) at your next wake. A handed-back CR's work reaches a Driver only by `take <cr> --note` (`help take-back`). A brief states a past fact only with its source, else unknown. Routing: `routing.md`.
+
+End: the CLI pauses at the last CR. Write the retro, send `final`, then idle: no Driver, worker or tool runs. On `not paused`, finish what it names, `pause --epoch <n>` (`help retro`).
+
+Reply, byte for byte:
+- `[foreman→chief-of-staff] ready <batch>`
+- `[foreman→chief-of-staff] final <STATUS.md path>`
+- `pong <first line of status>`
+
+Name CRs by number and slug. Rare cases: `$CHANTIER help --for foreman`.
+----- topics/wakes-forge.md (979 B)
+# What wakes you: the forge lines
+
+- `forge saw merged: <cr> <pr> … for the steering session: order merged <cr>`: check the forge first (`gh pr view <pr> --json state,baseRefName,mergedAt`, `glab mr view <iid>`), then `order merged <cr> --epoch <n>` and its follow-up (`help merge`), on a paused batch too, with no `take` first. `not landed`: record nothing. A merge the forge does not show: record nothing and send `[foreman→chief-of-staff] unconfirmed <cr> <pr>: the forge shows <state>, base <base>`.
+- `forge saw checks red: …`, or a `checks red <cr> <pr> at <head7>` line: record nothing, start no Driver. Its Driver live: send it the line as a `note`; none: nothing more.
+- `forge saw <wait type> met: …`: `wait <cr> clear <id> --epoch <n>`, then take the CR back (`help take-back`).
+- `forge saw merged` in `status`, the `forge hub:` line, `board:` and `pull path` lines, and the Chief of Staff's `watch:` lines are the Chief of Staff's: do nothing, send nothing.
+----- topics/wakes.md (1485 B)
+# What wakes you
+
+- The heartbeat: the wake that runs `chantier status --refresh --batch <batch> --epoch <n>` (`timing:` says when, the host row who arms it). With no wake arriving, stop. While the batch is paused with no CR, arm none; the turn that takes the first CR arms it.
+- Your watcher (`$CHANTIER watch`, run by your session): start it in the background with the command your `watch: not running: for the Foreman` line prints, as is, in the turn that arms the heartbeat, and again with the command of its last line whenever it ended (a last line that is not `still watching`). It outlives heartbeat and pause. On a switch to direct mode, stop it by its id. Never copy a `watch:` line (printed outside Driver prompt blocks) into a Driver's prompt.
+- End the heartbeat, never your session, right after the pause, and on the first wake that sees no Driver of any kind run for 30 minutes or more with no order undone. A batch left blocked is such a stop: send nothing more. Stop each background task of yours by its id first, then `status --stop-heartbeat --batch <batch> --epoch <n>`, then cancel the armed wake as the host row says; only then say it stopped (not yours to end: say who does).
+- Keep each turn short: never wait inside a call or run a long command, start no background task to wait for anything, change no shell's folder into a CR folder or a worktree. A turn ends when `status` shows nothing you can act on.
+Forge lines, the Chief of Staff's: `help wakes-forge`.
+FM-112: Either, in any output, `take`'s and `order qa`'s included, is printed by the CLI outside the Driver prompt block, not indented: never copy it into a Driver's prompt nor relay it with the block.
+FM-125: End the heartbeat, never your session (an idle session still receives an order), right after the pause (the CLI's or yours), and on the first wake that sees no Driver of any kind (CR, stack, QA, release) run for 30 minutes or more, whatever the wake's interval, and no order is undone: every Driver has ended, ready or blocked, for 30 minutes at least.
+FM-109: A `forge saw merged` line in `status`, the `forge hub:` line and the Chief of Staff's own `watch:` lines (the `pull path` line, another session's watcher) are the Chief of Staff's: do nothing with them, send no message about them, and they are not an undone order for ending the heartbeat.
+FM-118: `forge saw merged: <cr> <pr> ... for the steering session: order merged <cr>`: check it on the forge first (`gh pr view <pr> --json state,baseRefName,mergedAt`, `glab mr view <iid>`: merged into the base the line names), then `$CHANTIER order merged <cr> --epoch <n>` and what follows an `order merged` ([foreman-merge](foreman-merge.md)), on a paused batch too, with no `take` first.
+FM-119: A line saying `not landed`: record nothing.
+FM-120: A merge the forge does not show (`not merged`, closed, another base): record nothing and send the Chief of Staff one line, `[foreman→chief-of-staff] unconfirmed <cr> <pr>: the forge shows <state>, base <base>`, which names the CR, the PR and what the forge showed;
+FM-121: `forge saw checks red: ... for the steering session`: as a `checks red` line below;
+FM-122: `forge saw <wait type> met: ...`: as today (`wait <cr> clear <id> --epoch <n>`, then the take-back, above).
+FM-110: The line `watch: not running: for the Foreman, start in the background: <command>` is yours (**Your watcher**, below);
+FM-111: a `watch: not running: for the Chief of Staff` line is the Chief of Staff's.
+FM-113: Your watcher** (`$CHANTIER watch`, run by your session, which the batch records as its Foreman): the events of this batch wake you between two heartbeats. **
+FM-114: Start and stop:** in the background, with the command your `watch: not running: for the Foreman` line prints, as is (no flag added), in the turn that arms the heartbeat (your first `take`), and again, with the command of its last line, whenever it ended (a last line that is not `still watching`; one that says no server runs leaves the timer as your wake until the Chief of Staff's watcher or the board starts one).
+FM-127: A stack or batch blocked and not finished is such a stop: the batch stays running, the user wakes you, and its asks are recorded, so send no further line.
+FM-156: start no background task of your own to wait for anything (a file, a task's output, a Driver, CI);
+----- topics/watcher-board.md (1478 B)
+# The board's writes
+
+A `board wrote (...)` line that sets a CR's destination is written into its `02-answers.md` at once, in a folder that has one (none is created); the latest word wins:
+- `board wrote (running-batch)`: `Destination: running batch <batch> (board, <HH:MM>)`, the line's own time in the user's local time.
+- `board wrote (move)` to `3-ready` (with or without `running-batch mark cleared`): `Destination: next batch (board)`. A move of a marked CR to the inbox or a priority row: `Destination: back to the backlog (board)`.
+- A `running-batch` line is the user's go for the running batch: read the CR's folder. In `3-ready`, or with its specification final (`03-change-spec.md` written, no `work/specifying`, its critic run and applied when due, no open question): `$CHANTIER order add --note <folder>` with no further question, handle the order as usual (Foreman mode: send its line to the Foreman; direct mode: take the CR when a slot frees), tell the user `<CR-id> added to <batch> from the board`. Otherwise one line: `<slug> marked for <batch> from the board: it joins once its specification is final`; `order add` when it is.
+- "Rescan", "I updated the priorities": read the backlog again (`status`, the dashboard, `next-batch.json`) and say what moved and whether the next batch is declared ready; with a watcher or the pull path running, only when the user asks.
+- An `order add` refused: say its text. Other `board wrote` lines: one line, no tool call.
+C-043: a `running-batch` write, a move to `3-ready`, or a move that clears a running-batch mark: act as at a watcher's end | [session-start-chief-of-staff](session-start-chief-of-staff.md) |
+C-1139: The specification is final when `03-change-spec.md` is written, no spec-writer runs on it, its critic, when due, has run and been applied, and no open question remains (its answers recorded and the specification rewritten).
+C-1145: `Destination: back to the backlog (board)`, no `triage` and no `order`: the CR stays in its inbox or priority row (the user's move put it there).
+C-661: the latest word wins over a destination already there: a `board wrote (running-batch): ...` line, `Destination: running batch <batch> (board, <HH:MM>)` (the line's own time `t`, in the user's local time);
+C-662: a `board wrote (move): ...` line to `3-ready` (`→ 3-ready`, with or without `running-batch mark cleared`, the no-open-batch drop included), `Destination: next batch (board)`;
+C-663: a `board wrote (move): ...` line of a marked CR to the inbox or a priority row (its words end with `running-batch mark cleared`), `Destination: back to the backlog (board)`.
+C-664: A `board wrote (running-batch): ...` line is the user's go for the running batch (factory-Q2): after the destination, read the CR's folder (named in the line).
+C-676: A `board wrote (...)` line that sets a CR's destination is handled as at a watcher's notification or end: write the destination into the CR's `02-answers.md` (latest word wins), then, for a `running-batch` line, `order add --note <folder>` once the specification is final (at once in `3-ready`).
+H-109: From the web board the user may say "the next batch is ready": the board writes `next-batch.json` in the planning folder (the time and the slugs then in `3-ready`).
+----- topics/watcher-events.md (1499 B)
+# A watcher's notification or end
+
+Read its output, each line handled the same way.
+- `forge saw merged ... order merged <cr>`, also at the next `status`: check the forge first (`gh pr view <pr> --json state,baseRefName,mergedAt`, `glab mr view <iid>`): merged into the default branch, or for `landed with` its base's PR merged there. Then `order merged <cr>` with no word from the user (Foreman mode: send its line to the Foreman); `already merged` is harmless. Not confirmed: record nothing, tell the user what the forge shows. `not landed`: tell where the PR went, record nothing. In Foreman mode with `foreman watch: running`, merge, red-CI and met-wait lines are the Foreman's: tell the user, record nothing, send nothing; a Foreman's `unconfirmed <cr> <pr>: ...` is checked on the forge by you.
+- `forge saw checks red`: tell the user (CR, PR, head), record nothing; with `foreman watch: not running`, send the Foreman `checks red <cr> <pr> at <head7>`.
+- `config changed on the board: batch.slots <old> -> <new>`: tell the user, offer `order slots --note <new>` for the running batch, send nothing before their word. A `specifying.parallel` or role-key line: one line of a few words, no tool call, no action.
+- `tracker saw ...`: one line, record nothing. `surface pull brought` / `another session wrote`: one line naming folder and stage; the CR is not claimed, moved or grilled.
+- Then one message with what was recorded and told; when the watcher ended, start it again from its last line.
+C-669: The other `board wrote (...)` lines, or a `config changed on the board` line of a role's key (`hosts.<host>.roles...`): one line to the user that says it (a few words per event), no tool call, no action (but the destination write above).
+C-021: with `writer: not running`, write nothing | `chief-of-staff:grill` ("With a planning surface") | | a watcher's notification or end | read its output, act on each line as in [The watcher](session-start-chief-of-staff.md#the-watcher) (with `foreman watch: running`, the merge, red CI and met-wait lines are the Foreman's: tell the user, record and send nothing);
+C-626: It prints the project's forge events (`forge saw merged`, `forge saw checks red`) and what the user does in the board (`board wrote`, `config changed on the board`) and the issue events an outside poller writes (`tracker saw`; a CR a pull brought: `surface pull brought`), the events for it (the project's and this session's), which it reads from the board, subscribed (it starts the board, detached, when none runs and the seat is this session's). 20 s after the last new one for it that wakes, and no sooner than `events.wake_every` after its start or its last telling, it tells the events it gathered: in its streaming form (the printed command ends with `--stream`, on a host whose reference runs it so) it prints them, closed by its `watch: <name> told up to cursor <n>; still watching` line, and runs on;
+C-627: in its plain form it ends there.
+C-645: In Foreman mode with `foreman watch: running`, a `forge saw merged`, `forge saw checks red` or `forge saw <type> met` line is the Foreman's: tell the user, record nothing, send the Foreman nothing (it hears the line from its own watcher).
+C-647: A Foreman's `unconfirmed <cr> <pr>: …` line: check the forge yourself, as below, and tell the user.
+C-648: Direct mode is unchanged.
+C-649: A `forge saw merged … order merged <cr>` line, on this path and at the next `status`, is checked on the forge first (`gh pr view <pr> --json state,baseRefName,mergedAt`, `glab mr view <iid>` on GitLab): merged, into the default branch, or, for a `landed with` line, its base's PR merged into the default branch.
+C-650: Then `order merged <cr>` with no word from the user (Foreman mode: send its line to the Foreman, as for any order; direct mode: do what it needs yourself); `already merged` is harmless.
+C-656: Then one message to the user with what was recorded and told (the report format), and, when the watcher ended (its last line is not `still watching`), start it again from its last line.
+C-657: A `config changed on the board: batch.slots <old> -> <new>; <batch> keeps <n> until an order slots` line (also in `status`, until an `order slots` follows it): the user changed the slots on the board for the next batch, the running one keeps its own;
+C-659: A `config changed on the board: specifying.parallel ...` line is told as it stands and changes nothing in the batch; the next spec-writer start reads the new limit.
+C-717: With `foreman watch: running` (a Foreman's watcher), the Foreman hears the line itself and records it: tell the user, record nothing, send nothing;
+C-719: A line that says `landed with <other cr>` is a merge to record, like the `into <branch>` one: the hub (or the board) read the PR merged into `<other cr>`'s branch and that CR's PR on the default branch at the same time or later, or the PR's own merge on the default branch (a native stack merged in one go) (`order merged <cr>`, then the Foreman's line in Foreman mode).
+C-721: tell the user where the PR went (into `<other cr>`'s PR, not the default branch) and wait until the PR under it lands (the hub or the board then writes a second line, `landed with`);
+----- topics/watcher-lines.md (1497 B)
+# The watcher's lines
+
+Its start lines:
+- `watch: <project> from cursor <n> ...; started the board (PID <n>)`: say once, with the link from `status`. Pass on its `board:` lines. `board is chantier <v>: restart it ...`: say once with the offer (`help board-restart`). `; no board started: a chantier dev session holds its seat ...`: pass on once; it links by itself.
+- `did not start within 20 s`, `does not answer`, `refused the key`, `no seat`, `records no session transcript`, `cannot be read`, `no session key`: one line with the printed command or reason, no workaround. For the seat ones take the seat as printed only when this session is the Chief of Staff (`help seat`), then start it again.
+- `watch: no event for <name> in 2 h; ended ...` with no batch in flight: start it again at once, say nothing.
+- It ends when the seat is another session's (`the seat of <project> is another session's now`: not started again). After a notification (last line `still watching`) there is no restart; after an end, run the printed command as is.
+- `status` prints `watch: not running: ...` after `open`, `seat take`, a `take` or `order qa` that resumes a paused batch, a switch to direct, a reload: start it at once on the session's yes. Another session's watcher does not wake you. In Foreman mode the resuming `take` is the Foreman's: the line reaches you at your next `status`.
+- Its events and what to do with them: `help watcher-events`, `help watcher-board`. The pull path: `help watcher-pull`.
+C-022: a `still watching` last line needs no restart; a last line `watch: <batch> still running: …`, or `watch: no event for <name> in 2 h; ended …`, names the restart: run the printed command as is: no flag added (on the session's yes already given; nothing told to the user for the `2 h` one) | `chief-of-staff:steering` | | a `watch: not running` line in any output (`open`, `take`, `order qa`, `foreman transcript`, `status`) | start the watcher now in the background, by the host's means, on the session's yes (asked once per session, it covers the board the watcher starts): run the printed command as is: no flag added;
+C-1570: `watch: <project> from cursor <n> for ...; started the board (PID <n>)`: say once that the board was started, with its link from `status` or `serve --seat`.
+C-1573: Its `; no board started: a chantier dev session holds its seat and its build serves this surface; linking when its board runs` clause: pass it on once;
+C-1575: `watch: the board did not start within 20 s ...`, `watch: a chantier serve <v> (PID <n>) ... does not answer ...`, `watch: the board at <host>:<port> refused the key of server.json ...`, `watch: no seat for <project> ...`, `watch: the seat of <project> records no session transcript ...`, `... cannot be read ...` and `watch: this run has no session key ...`: one line to the user with the printed command or reason;
+C-628: It ends when the seat is another session's, and, while no batch is in flight (none running, none paused with a PR the record holds neither merged nor cancelled), 2 h after the latest of its start, its last event for it that wakes and the last moment a batch was in flight (the `no event for <name> in 2 h` line: start it again at once, nothing to tell the user).
+C-631: *When it starts:* whatever the batch, running, paused or none, the CLI prints `watch: not running: for the Chief of Staff, start in the background: <command>` when no watcher of this session runs (after `open`, `seat take`, `seat`, the `take` or `order qa` that sets a paused batch running, the switch to direct mode, `status` at a session start, a reload or any time).
+C-633: In Foreman mode the resuming `take` is the Foreman's, so the line reaches you at your next `status` (your next report, or the next Foreman message you act on).
+C-636: After a watcher's end: its last line `watch: <name> still running: …` (`<name>` the batch, or `<project> (no batch)`) prints the restart: run the printed command as is: no flag added.
+C-641: The watcher's `; no board started: a chantier dev session holds its seat and its build serves this surface; linking when its board runs` clause: pass it on once;
+C-643: The watcher's other lines (its `started the board (PID <n>)` clause, the board's lines it passes on, the lines of a board that does not come up or of a seat it cannot start one for): as [session-start-chief-of-staff](session-start-chief-of-staff.md), "The watcher", says.
+----- topics/watcher-pull.md (786 B)
+# The pull path
+
+When no watcher can wake this session (the host row, or the user's no), run the printed `watch --once` command (the `watch: not running` line's `after the user's no` clause, `status`'s `pull path` line, or the last output's `next` line) as is, no flag added, at the start of each turn the user's message opens.
+- Tell its `board wrote`, `tracker saw`, `surface pull brought` / `another session wrote` and role `config@1` lines as at a notification; act on its merge and two-key `config@1` lines the same way (`help watcher-events`, `help watcher-board`).
+- A line whose `seq` was already told is not told again.
+- After the user's no, merges go back to the user's word: no board reads the forge. `seat` and `status` list the arrivals not yet told when no watcher runs.
+C-673: `seat` and `status` list the arrivals not yet told when no watcher runs, and a watcher's notification or end or a `watch --once` moves the mark.
+H-088: a CR a pull brought into the inbox or the backlog is told once, as an `arrived@1` line.

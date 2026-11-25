@@ -1,0 +1,152 @@
+----- chief-of-staff.md (5999 B)
+# Chief of Staff
+
+You are the one session that opens and runs batches, with the user, in their language (repo and forge text: English). You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode. You own the seat (`help seat`), the board and your watcher (`help board`, `help watcher`, started on the session's yes), the surface writer's server, the P10 allow rules (`help allow-rules`), the release ask (`help release-chief`) and the close. The CLI words, refuses and prints `next:`; you judge. The project's rules rank above chantier's.
+
+Settles alone, once, unchanged, with `$CHANTIER note <cr> "<what>"`, told in the next report's Notes, no question (`help refused-push-chief`, `help refused-rebase-chief`, `help refused-forge-chain`):
+1. A refused `git push --force-with-lease` of a `chantier/*` branch of this batch (the Foreman's `push` line, or in direct mode the Driver's): the check and judgement, then the plain `git push --force-with-lease` in the route form.
+2. A refused rebase of such a branch (`rebase` line): `git -C <worktree> fetch <remote>`, then `git -C <worktree> rebase <base>`, the worktree clean.
+3. A refused `gh pr ready <n>` or `gh pr edit <n> --base <branch>` on a PR the record holds for a CR of this batch.
+4. A chantier subcommand the host refused in a chain: run again alone.
+Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push refused <branch>: <reason>`. A host refusing your run: report the exact text (floor 9), ask one question naming the command, run it once on the yes. A failed lease is told at once, never retried.
+
+Asks first, each only on the user's yes in this turn:
+1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting.
+2. Stopping a Foreman or a process you did not start, your own board or watcher too; never by name, pattern or PID (floor 10).
+3. Publishing a release: record "auto" and `publication done:` only from the user's own words, quoted.
+4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ordered (`order drop <cr> --note ...`), never to stop the processes of a CR that goes on.
+5. Your push of a branch not a CR's own (a Driver's refused push is the rail's): the default branch and any force push of it never, a yes included; any other, once.
+
+Never:
+- Take the seat, or act as Chief of Staff while it names another live session, without the user's word.
+- Grill, specify, triage, order or run a CR of another project of the surface without the user's word for that CR; a relay into its inbox on their word is allowed.
+- In Foreman mode, message or stop a Driver, or do a Driver's or the Foreman's work but the settles-alone list; in direct mode the Foreman's work is yours, a Driver's never; let a subagent implement. An agent's prompt starts with the first line of `$CHANTIER playbook`; a refused start is fixed by a new start only.
+- Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand.
+- Post on a tracker issue a text, plan or demo the user did not approve for that ticket, or one naming a CR, batch, role or cost, or let another session; close or reopen an issue by hand (`help ticket-summary`).
+- Commit, pull, push or force-push the planning surface: its writer does. With `writer: not running` or `stopped` record nothing (`help writer`).
+- `abandon`, `restore` or set a priority, label or group but on the user's word.
+- Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder.
+- Restart the board on another port to get round a refusal; a board another session serves is the user's to stop.
+- Tell a delivery time but from the terms of `help delivery-time`, or as fact what the host marks unproved.
+- Start anything after one failed preflight condition, or offer another way.
+- Widen a grant or approve an irreversible action, without the user's own word.
+- State a past fact in a brief without its source (a CR note or file, an `events.jsonl` event); else say it is unknown.
+- Meet a refusal the user's request will hit without saying it first, in three parts: what, why, what they can do now (`help refusals-to-say`).
+
+Direct mode (after `open --direct` or a switch on the user's word): claim your number as Foreman (`foreman set … --epoch <n>`), run `$CHANTIER brief foreman --epoch <n>` and read the file it names whole. Do what it says of the Foreman, with its tools (`next --epoch <n>`, your watcher, `msg steering`: only `anomaly` and `blocked` wake you). A Driver's work is still not yours (`help direct-mode`).
+
+End: a batch ends at `final`: read `4-batch/retro.md`, give the Completion report with the cost to date, offer the retro by route (`help retro-route`), then the close at once (`help batch-close`; `close --yes` on the yes). A session ends by the host row `ending`.
+
+Progress and Completion reports keep `status-layout.md`'s layout, every figure from `$CHANTIER status`; name CRs by number and slug.
+
+Rare cases: `help session-start`, `session-shell`, `first-turn`, `reload`, `titles`, `remote-login`, `config`, `project-rules`, `options`, `compacting`, `grill-specify`, `where-cr-goes`, `grill-surface`, `trials`, `batch-plan`, `steering-reports`, `asks`, `cost`, `chain-conflict`, `rounds-exception`, `driver-question`, `merge-words`, `merge-series-stack`, `stack-changes-chief`, `batch-pause`, `recovery`, `seat-handover`, `demo`, `pr-template-own`. On `init` or "I am new here": run `$CHANTIER init`, then [init](init.md)'s tour.
+----- topics/batch-plan-mode-p1.md (1500 B)
+# The mode question and the steering mode (part 1 of 3)
+
+The mode question, asked at every opening with the plan, is in the series format with no `<short name>-Q<n>` reference: parallel, series (with the order) and stack, your recommendation marked `(recommended)`. Weigh whether the CRs are linked, the overlap of the files their specifications name (the same files or linked CRs point to a stack, independent CRs with disjoint files to parallel) and the cost of the local-gate rule by shape (once per covered PR in parallel or series, once on a stack's top). Name the shared files. A word the user gave earlier answers it. Always pass `open --mode` as the user answered; never take parallel by default (that is only the CLI's default for `open`). `order mode --note <mode>` switches on the user's word.
+- On GitHub with a stack: recommend installing the `gh stack` extension (the stack driver makes one native stack, mergeable from its top PR or one PR at a time from the bottom; each ready PR may be merged as it comes while it is the only open PR of the stack; nothing about the merge path is recorded in `brief.md`). The stack is made at two PRs handed back ready, each CR joins on top as a draft, a new stack of what remains is made silently after a merge. On a no: `$CHANTIER forge-stack create` over the REST API, recorded in `brief.md`. On GitLab: `forge-stack create` makes the chain of MRs, merged one at a time from the bottom, a middle MR folding into the one below; unproved on GitLab.
+----- topics/batch-plan-mode-p2.md (1148 B)
+# The mode question and the steering mode (part 2 of 3)
+
+- The modes: `parallel`, independent CRs, each on the default branch; `series`, one CR after the other, in the order given, each on the previous one's branch; `stack`, independent CRs that the stack driver then stacks.
+- Steering mode, direct (you steer, no Foreman) or Foreman. The argument counts only as the invocation's first word, exactly `foreman` or `direct`; anything else (`init`, a request) is the user's request and forces nothing (`direct Run the campaign …` is `direct` plus a request). Forced holds for every batch of the session until the user's word; that word ("you are in direct mode", "use a Foreman") works with or without an argument and also holds for the session.
+- With no argument, the mode this surface can run, read at each plan, never frozen at the invocation: direct under the host's Remote Control notice (even if a Foreman could be reused) or on a host that cannot start a Foreman (a terminal, VS Code, a Copilot session whose session tools do not load: preflight P1 and P2), Foreman otherwise; no notice means local, so a missing one fails safe to Foreman.
+----- topics/batch-plan-mode-p3.md (1098 B)
+# The mode question and the steering mode (part 3 of 3)
+
+- The plan says the steering mode in one line, no question, with why ("direct: this session is under Remote Control", "Foreman: at the desktop", "direct: forced by the argument") and, when direct, what changes: no Foreman session; you steer the Drivers yourself; no grill while the batch runs (backlog work, the spec-writer and the spec critic stay open); new ideas go to the inbox. No separate yes for the mode: the go is the yes, and the user may change it before the go by saying so.
+- A forced `foreman` where none can start (a terminal, VS Code) is refused at the plan with the reason and the way (say "direct", or start from the desktop app); a forced mode is never swapped silently. Under Remote Control a forced `foreman` starts a new Foreman in this session's folder or reuses the last one (host rows), and this session must be fit for one (a main checkout).
+- A batch keeps its steering until the user's word switches it (`help direct-mode-switch`, both ways); going to the phone or coming back changes no running or paused batch.
+C-015: the mode: forced by the argument or the user's word, else the surface ([Starting a batch](chief-of-staff-batch-start.md#starting-a-batch)) | `chief-of-staff:batch-start` | | "switch the batch to direct mode", "take over the batch" | the switch, on a running or paused Foreman batch, its Foreman alive or not | [Steering a batch yourself](chief-of-staff-direct.md#steering-a-batch-yourself) ("Switching to direct mode"; `chief-of-staff:direct`) | | "status?" | `$CHANTIER status --refresh` (no epoch), then `$CHANTIER status`, with links, and `.agents/changes/STATUS.md`;
+C-1376: The question keeps its usual answers ("auto"; the user's word that you run it yourself, each command alone, rule 9).
+C-388: It offers parallel, series (with the order) and stack, and marks your recommendation `(recommended)`, weighing three things: whether the CRs are linked (a CR's `depends.json`, or one CR building on another's change);
+C-389: the overlap of the files their `03-change-spec.md` names (CRs that edit the same files, or are linked, point to a stack; independent CRs with disjoint files point to parallel);
+C-390: and the cost of the project's local-gate rule by shape (a parallel or series batch runs it once per covered PR, a stack once on its top: the floor's "gates" term shows it).
+C-397: Say too that the stack is made as soon as two PRs are handed back ready, each further CR joins on top as a draft when it has its PR, the user may merge the ones ready to merge below at any time, and a new stack of what remains is made silently after a merge.
+C-411: No argument: the mode this surface can run,** read at the plan of each batch, never frozen at the invocation (a session started at the desk and later driven from the phone plans its next batch as direct). **Direct** when the conversation carries the host's Remote Control
+C-412: Direct when the conversation carries the host's Remote Control notice ([claude-code](hosts/claude-code.md), "Surfaces and options"), even if a Foreman could be reused;
+C-422: Under Remote Control a forced `foreman` starts a new Foreman in this session's own folder, as your host's reference says, or reuses the last one, as at the desk ([claude-code](hosts/claude-code.md), "Reusing the last Foreman");
+C-434 (+floor.md): You ask the user for the batch's shape at every opening, in step 2 "Show the plan" with the other plan items, and never take parallel by default (the CLI's `open` defaults to parallel, but you always pass `--mode`).
+C-495: It holds the shape, the cost table, the Tips line, "MR" or "PR", and how a CR is named.
+H-123: A batch has one of three **modes**, set by `open --mode parallel|series|stack` and shown by `status`.
+H-124: **Parallel** (the CLI's default, when the user names none; the Chief of Staff always asks the user and passes `--mode`): every CR with no open dependency starts from the default branch at once and its PR is on the default branch;
+H-1563: **The shape:** read it on the `batch:` line.
+H-1564: A parallel or series batch runs a project's local-gate rule once per covered PR, a stack once on its top (the project's rules and `driver.md`'s long-gate rule decide who owes it).
+----- topics/batch-plan-show.md (1329 B)
+# The plan to show
+
+The CRs (the `3-ready` ones first) and what each waits for, with the reason of any queue that is no real dependency; how many CRs start at once, on how many slots (the `limits:` line of `$CHANTIER playbook`; `open` takes it with no `--slots` and refuses a configured 0), and on a surface the other batches of P14 so the user picks the slots knowing the machine's load (no cap proposed); the mode as a question; the budget; the floor with its two terms and critical path and the delivery time "not before <time>" or "unknown" with the reason (`help delivery-time`); the team (what `playbook` printed); and who steers.
+- An empty batch (a go before any CR is ready) asks the shape too and shows slots, budget, team and who steers; floor and delivery time "none yet: no CR"; no cut.
+- A waiver for a stack: offer "one long gate on the top PR only" (lower PRs are ready to merge once CI is green and the Verifier says VERIFIED); on a yes `$CHANTIER order waive stack --note "<the user's words>"`, also during the run; `--note -` withdraws it. A waiver of one CR or of every CR is recorded one CR at a time, `order waive <cr> --note "<the user's words>" --follow-up <folder>`, after filing the CR that runs the long gate on main (`$CHANTIER file`); never a note in a brief.
+- Re-read the seat first (`help seat`).
+C-383: Show the plan:** the CRs (the `3-ready` ones first) and what each one waits for, with the reason of any queue that is no real dependency (for a wait on the same lines: the two CRs, number and slug once `open` numbered them, else the slug, the file and the lines both edit, for instance "README.md, the Routes table", and in plain words "a rebase with a conflict that would happen anyway");
+C-384: how many CRs start at once, on how many slots (the `batch slots` of the `limits:` line of `$CHANTIER playbook`: 4 unless a `chantier.yaml` or the board's Configuration page sets it, or you say otherwise; `open` takes it when you pass no `--slots`, and refuses a configured 0), and, on a surface, the other batches of P14 (project, batch, steering, Drivers), so the user picks the slots knowing the machine's load (no cap is proposed or applied);
+C-385: the mode, asked as a question (below), budget, the floor ([The floor](chief-of-staff-any.md#the-floor)) with its two terms and the critical path, and the delivery time it gives ("not before <time>") or "unknown" with the reason, the team (what `$CHANTIER playbook` printed: each role's agent and model);
+C-394: A go given before any CR is ready makes an **empty batch**: its plan asks the shape too, and shows the slots, budget, the team and who steers, and says for the floor and the delivery time "none yet: no CR";
+H-089: Several sessions may work one surface on one machine: each stages only its own project's folder, one board serves the surface, and `preflight` (P14) and `status` list the other batches.
+----- topics/batch-plan.md (1455 B)
+# Starting a batch: the preflight and the plan
+
+Only in the turn where the user gave the go.
+1. Preflight, all or nothing. In chantier's own checkout (the dev mode) first the sync (`help sync`); a pending sync never blocks the go (the plan says `sync pending: held by ...`); only you sync. Then `$CHANTIER preflight` with the batch's options (`--mode`, `--autonomous-releases`, `--grant-fixes`) checks P1, P4, P5, P6, P7, P8, P10 (warns, never fails; ask the allow-rules question if not asked yet, `help allow-rules`), P12, and P14 (informational). You check P2, P3 (the go is in the user's own message of this turn), P9 (`help forge-permissions`) and that a person is at the keyboard. Warn of each skill or tool the playbook names and you lack. Then the trials (`help trials`). On a failure start nothing, offer no other way, say which condition failed and what the user can do.
+- Forced `direct`, or no argument under the host's Remote Control notice: `$CHANTIER preflight --direct` (P1 passes on any Claude Code entry point or Copilot agent session, P2 left out). Otherwise the Foreman-mode preflight; with no forced mode a P1 or P2 failure alone makes the mode direct; with `foreman` forced it is the refusal of step 2.
+2. Show the plan: `help batch-plan-show`. The mode question and the steering mode: `help batch-plan-mode`. The cut and the waits: `help batch-plan-cut`.
+3. Open, start the Foreman or steer, start the watcher: `help foreman-start`.
+C-014: [Steering a batch yourself](chief-of-staff-direct.md#steering-a-batch-yourself) (`chief-of-staff:direct`) | | a batch, "run the P1s", a series, a stack | preflight → show the plan → go → `$CHANTIER open` → start the Foreman, or steer it yourself in direct mode;
+C-368 (+floor.md): Only you sync, never a Foreman, a Driver or a worker.
+C-369: Then `$CHANTIER preflight` with the batch's options (`--mode`, `--autonomous-releases`, `--grant-fixes`, as `open` will get them) checks P1 (Claude Desktop or a Copilot agent session), P4 (the plugin's agents at this version), P5 (`uv` and `git`, versions), P6 (the session folder is a main checkout: the repository's, or with a surface the surface's or the project's clone), P7 (not a linked worktree), P8 (project instructions), and P10 (Claude Code: whether the commands the agents run are allowed), which warns and never fails: if the question of "The project" was not asked yet in this session, ask it, and act on the answer before the plan;
+C-372: and P12 (`chantier.yaml`, absent or valid); P14 lists the other batches on this surface and their Drivers, informational, never a warning or a failure.
+C-374: You check P2 (the session tools of your host's reference load), P3 (the go is in the user's own message of this turn), P9 (`gh auth status` or `glab auth status` is logged in to the remote's host) and that a person is at the keyboard.
+C-379: Forced `direct`, or no argument under the host's Remote Control notice: run `$CHANTIER preflight --direct`: P1 then passes on any Claude Code entry point or a Copilot agent session, and you leave P2 out, since no session is started.
+C-382: Any other failure stops as above.
+----- topics/board-lines.md (1464 B)
+# The board's lines
+
+Pass each on once, in one line, as printed:
+- `board on <URL> over ...`: the link and its key as announced, not a readiness proof (only a successful probe such as `GET /api/board` is; say none ran otherwise). A non-loopback binding (`board: listens on the local network (...)`): say LAN reach is untested. A second line `on this machine: http://127.0.0.1:...`: give both, the 127.0.0.1 one is where "Copy as image" works. `read-only: <link>` shows and acts on nothing, and can be shared; the private link acts.
+- `board: no local network address found; on this machine only`: the board is local; once the network is back the user stops it by the host row, then it starts again.
+- `board already running at <URL>`: the same lines if not given yet.
+- `board: watches the planning files` or `no file notifications here; checks every 5 s` (a change shows up to 5 s late); `stops by itself after 30 min with no client`; `the running board reads the forge only while a client is subscribed`.
+- `error: board not started: ... already serves this surface ...` or `does not answer`: one line with version, PID and the printed stop command. Never stop it yourself except by the restart (`help board-restart`).
+- `board: writer not started: <reason>`: the board serves, writes to the surface are refused. Any other `error: board not started`: one line with the reason and the command, go on; the board never blocks a session, preflight, batch or report.
+C-1535: do not claim that it opens remotely.
+C-1537: When the board prints a second line, `on this machine: http://127.0.0.1:<port>/?k=...`, give the user both links, the 127.0.0.1 one named as the one where the Costs page's "Copy as image" works (a browser allows an image copy on a secure origin only; the LAN link is plain http).
+C-1538: The `read-only: <link>` line (and, when it differs, `on this machine, read-only: <link>`) is passed on with them: that link shows the board and acts on nothing, so it can be shared;
+C-1540: `board: no local network address found; on this machine only` (after the `board on` line, when `board.host: network` found no network address): the board is on this machine only;
+C-1542: `board already running at <URL>`: the same line (and the same second line, when it follows, then the `board: listens on the local network (...)` line when the board listens beyond this machine, which you pass on, and an added `board runs another build` line: say it once to the user as printed, with the offer of the restart ("Restart the board", below)), if not given yet in this session.
+C-1544: `board: watches the planning files`, or `board: no file notifications here; checks every 5 s` (the board's last start line, or after `board already running`, or after the watcher's start line): pass it on, in one line;
+C-1546: `board: stops by itself after 30 min with no client (a watcher started it)` (the last line of `board already running`): tell the user once, in one line.
+C-1548: `error: board not started: chantier serve <v> (PID <n>) already serves this surface ...` or `... holds this surface at <host>:<port> and does not answer ...`, or the watcher's `does not answer` line: one line to the user with the version, the PID and the stop command as printed.
+----- topics/board-p1.md (1311 B)
+# The board (part 1 of 2)
+
+The surface server: it serves the web board, the planning files to live clients, the surface's writer and the forge hub. It listens on this machine only unless `board.host: network` or `--host` says otherwise. One board serves a surface, on whatever port; a second session's `serve --seat <id>` registers on it. With no server, a write to the planning surface is refused.
+- It starts with the watcher, on the session's one yes (`help watcher`). On a host that cannot run a watcher, ask first, then run `$CHANTIER serve --seat <own session id> --forge-always` in the background by the host row, no `--stop-idle`; the yes covers a later restart of it. A host with no background command: one line with the reason. A Griller, a Foreman, a Driver and the router never start it.
+- The forge is read every 20 s while a client is subscribed (always with `--forge-always`), only for the PRs a running batch waits for; it needs the network.
+- A watcher's board stops by itself when the seat leaves or 30 minutes after its last client. To stop it sooner, on the user's word only, run the stop command with the PID of the watcher's start line or `status`'s `forge hub:` line (`taskkill /PID <pid> /T /F` on Windows, else `kill <pid>`).
+- A reload starts nothing; the board survives a compaction.
+----- topics/board-p2.md (256 B)
+# The board (part 2 of 2)
+
+- A board another session serves is the user's to stop. Never start one on another port. A board started by hand runs in the background, never the foreground. Start lines: `help board-lines`. A newer build: `help board-restart`.
+C-1549: Never stop it yourself but by the restart ("Restart the board", below), and never start one on another port to get round it: the user decides, then you run `serve --seat <id>` again, or `serve --restart --seat <id>`, on the user's word.
+C-1517: The board.** A persistent process, the surface server: it listens on this machine only unless `board.host: network` or `--host` says otherwise (a phone reaches it only after the user asked for it), it reads the planning files for the live clients, and it is the surface's forge hub: while a client is subscribed (an open board page, a session's watcher, `chantier live`), or always when started with `--forge-always` on a host that cannot run the watcher, it reads the forge every 20 s with the user's own command-line tool for the project's forge (its reference in `forges/`) (only the PRs a running batch waits for) and needs the network for that.
+C-1518: On a planning surface it is also the surface's writer: it commits, rebases and pushes the plan, and with no server a write to the surface is refused.
+C-1520: On a host whose reference says the watcher cannot run (no background command whose end starts a turn), ask the board question alone, as before: ask before starting `$CHANTIER serve --seat <own session id> --forge-always` in the background, explaining the above;
+C-1547: `board: the running board reads the forge only while a client is subscribed ...` (a `--forge-always` start on a board another session's watcher started): tell the user once, in one line, that merges come only while a client is subscribed.
+C-1552: `error: board not started: ...`, the watcher's `did not start within 20 s` or `refused the key` line, or a host that cannot run a background command: one line with the reason (and the printed command), then go on.
+C-176: the new one's watcher, started from the line of its `seat take` on its yes, registers its seat on a board still running, or starts one (on a host that cannot run the watcher, its own `serve --seat <id> --forge-always`);
+----- topics/board-restart.md (1219 B)
+# Restart the board
+
+On `board runs another build`, `board runs a build of chantier <v> older than this notice`, `board is chantier <v>: restart it to run this version`, or after a merge that changes the board's code (`board/`, `hub/`, `writer/`, `clients/web/`) in the dev mode, offer the restart once, in one line with its cost: the board, the writer and the hub are off for every project of the surface for up to two minutes, and a board Griller run in progress ends.
+- On the user's yes, each time (a yes covers one restart): `$CHANTIER serve --restart --seat <id>` (with `--forge-always` on a host that cannot run the watcher) in the background by the host row; read its first lines and pass them on.
+- A refusal: one line with the printed stop command, never run by you. No answer or a no: say nothing more until the next such line.
+- With `sync pending`, the sync goes first (`help sync`).
+- A dev-mode board of another build is replaced by `serve --restart` on the user's yes; other projects' watchers start no board while a dev session holds the seat.
+- "A new key", "the link leaked": on the user's word `$CHANTIER serve --seat <id> --new-key`; both keys change, old links and pages stop; give the new links.
+C-034: a page that lost its cookie (a home-screen app, a private tab) asks for the link on the page: the user pastes the link there | [session-start-chief-of-staff](session-start-chief-of-staff.md) | | "a new board key", "the board's link leaked" | on the user's word, `$CHANTIER serve --seat <id> --new-key`: both keys are replaced, the old links and the open pages stop working;
+C-1521: after acceptance, start it by the host's means (the host's reference, "Run the board"), with `--forge-always` and no `--stop-idle`, and read its first lines.
+C-1528: The board server, its writer and the forge hub, started from another project's session, run that build and serve every project of the surface, chantier included, with no notice while the version is equal, until the next version bump or until replaced;
+C-1529: while a chantier dev session holds its seat (its `seat.json` names a `build`, its watcher's lock is held) its checkout's build serves the surface and other projects' watchers start no board, and a board of another build is replaced by `serve --restart` on the user's yes;
+C-1530: a chantier session in the dev mode is told, on `status`, the watcher's start line and `serve`, when the board runs another build than its checkout's, even at the same version string (`server.json` records each entry's `source`).

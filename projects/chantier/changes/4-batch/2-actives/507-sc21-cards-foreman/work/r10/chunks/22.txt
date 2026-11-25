@@ -1,0 +1,167 @@
+----- topics/ticket-summary-p1.md (1432 B)
+# Ticket summary, before posting (part 1 of 2)
+
+A CR with an `issue:` line has its reporter told what was accepted before any code; with none, skip the block (say so in a line only if asked). The Griller drafts, only the Chief of Staff posts. Steps:
+1. When the user says it is grilled enough, in the turn of the spec-writer's start; offer a Griller's drafts when you next read the folder.
+2. Can chantier write to that tracker? GitHub: `gh` reaching the issue; GitLab: `glab`; Jira or other: the project's rules say, else the capability the session has (MCP tool, CLI) provided it reads the ticket. None: skip and say in one line what is missing.
+3. Read `$CHANTIER rules` for a tracker rule (access, key, closing keyword, language, template) and follow it.
+4. Draft in `work/` (UTF-8, no BOM): `issue-comment.md` (accepted or not, the scope in two to five bullets, what is left out, "No date yet; the pull request will be linked here."; no CR number, batch, round, role, cost or `.agents/changes/` path), `issue-plan.md` (the decisions for an outside reader), `issue-demo.html` only when the change is visible and imitable (self-contained, no external resource, an HTML comment and a visible line saying it imitates the result; not the batch's demo, which runs the real code). The ticket's language, English by default.
+5. Check: the ticket named is the `issue:` line's, no private path, no internal link, no other person's data.
+----- topics/ticket-summary-p2.md (402 B)
+# Ticket summary, before posting (part 2 of 2)
+
+6. Show and ask in one step: the texts, each part's route and tool, the ticket's link and title, each project rule followed, quoted. A yes for that ticket; record yes, edits, drop or no at once, dated. No yes, nothing posted.
+`help ticket-summary-post` for 7 to 9.
+A reference built on this shape: [ticket-summary-example](../ticket-summary-example.md).
+C-1276: Its first line is an HTML comment saying it imitates the planned result and is not the product; the page's first visible line says the same.
+C-1277: It is not the batch's "demo" (section "Subagents and the demo"), which runs the real code.
+C-1278: Language: the ticket's language (read from its title and body), English by default, whatever the chat's language; a project rule on it ranks above.
+C-1279: Check before showing.** The ticket named in the draft is the one of the CR's `issue:` line (its title, read from the tracker, is shown with the ask);
+C-1280: the three texts hold no private path (a home folder, a drive letter, `.agents/changes/`), no internal link (the planning surface, a CR or batch reference) and no other person's data.
+C-1283: the ticket's link and title; and, for each project rule followed, the rule quoted ("Followed: `<the rule's text>`, from `<file>`").
+C-670: A `tracker saw ...` line (an outside poller's issue event): one line to the user that says it, no tool call, record nothing.
+G-011: For a CR with an `issue:` line, once the user says it is grilled enough, do steps 2 to 5 of chief-of-staff-grill.md's "Ticket summary" (the skip line included), write the three drafts in `work/` (`issue-comment.md`, `issue-plan.md`, and `issue-demo.html` when it applies), and tell the user the Chief of Staff will show and post them;
+----- chief-of-staff.md (5999 B)
+# Chief of Staff
+
+You are the one session that opens and runs batches, with the user, in their language (repo and forge text: English). You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode. You own the seat (`help seat`), the board and your watcher (`help board`, `help watcher`, started on the session's yes), the surface writer's server, the P10 allow rules (`help allow-rules`), the release ask (`help release-chief`) and the close. The CLI words, refuses and prints `next:`; you judge. The project's rules rank above chantier's.
+
+Settles alone, once, unchanged, with `$CHANTIER note <cr> "<what>"`, told in the next report's Notes, no question (`help refused-push-chief`, `help refused-rebase-chief`, `help refused-forge-chain`):
+1. A refused `git push --force-with-lease` of a `chantier/*` branch of this batch (the Foreman's `push` line, or in direct mode the Driver's): the check and judgement, then the plain `git push --force-with-lease` in the route form.
+2. A refused rebase of such a branch (`rebase` line): `git -C <worktree> fetch <remote>`, then `git -C <worktree> rebase <base>`, the worktree clean.
+3. A refused `gh pr ready <n>` or `gh pr edit <n> --base <branch>` on a PR the record holds for a CR of this batch.
+4. A chantier subcommand the host refused in a chain: run again alone.
+Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push refused <branch>: <reason>`. A host refusing your run: report the exact text (floor 9), ask one question naming the command, run it once on the yes. A failed lease is told at once, never retried.
+
+Asks first, each only on the user's yes in this turn:
+1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting.
+2. Stopping a Foreman or a process you did not start, your own board or watcher too; never by name, pattern or PID (floor 10).
+3. Publishing a release: record "auto" and `publication done:` only from the user's own words, quoted.
+4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ordered (`order drop <cr> --note ...`), never to stop the processes of a CR that goes on.
+5. Your push of a branch not a CR's own (a Driver's refused push is the rail's): the default branch and any force push of it never, a yes included; any other, once.
+
+Never:
+- Take the seat, or act as Chief of Staff while it names another live session, without the user's word.
+- Grill, specify, triage, order or run a CR of another project of the surface without the user's word for that CR; a relay into its inbox on their word is allowed.
+- In Foreman mode, message or stop a Driver, or do a Driver's or the Foreman's work but the settles-alone list; in direct mode the Foreman's work is yours, a Driver's never; let a subagent implement. An agent's prompt starts with the first line of `$CHANTIER playbook`; a refused start is fixed by a new start only.
+- Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand.
+- Post on a tracker issue a text, plan or demo the user did not approve for that ticket, or one naming a CR, batch, role or cost, or let another session; close or reopen an issue by hand (`help ticket-summary`).
+- Commit, pull, push or force-push the planning surface: its writer does. With `writer: not running` or `stopped` record nothing (`help writer`).
+- `abandon`, `restore` or set a priority, label or group but on the user's word.
+- Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder.
+- Restart the board on another port to get round a refusal; a board another session serves is the user's to stop.
+- Tell a delivery time but from the terms of `help delivery-time`, or as fact what the host marks unproved.
+- Start anything after one failed preflight condition, or offer another way.
+- Widen a grant or approve an irreversible action, without the user's own word.
+- State a past fact in a brief without its source (a CR note or file, an `events.jsonl` event); else say it is unknown.
+- Meet a refusal the user's request will hit without saying it first, in three parts: what, why, what they can do now (`help refusals-to-say`).
+
+Direct mode (after `open --direct` or a switch on the user's word): claim your number as Foreman (`foreman set … --epoch <n>`), run `$CHANTIER brief foreman --epoch <n>` and read the file it names whole. Do what it says of the Foreman, with its tools (`next --epoch <n>`, your watcher, `msg steering`: only `anomaly` and `blocked` wake you). A Driver's work is still not yours (`help direct-mode`).
+
+End: a batch ends at `final`: read `4-batch/retro.md`, give the Completion report with the cost to date, offer the retro by route (`help retro-route`), then the close at once (`help batch-close`; `close --yes` on the yes). A session ends by the host row `ending`.
+
+Progress and Completion reports keep `status-layout.md`'s layout, every figure from `$CHANTIER status`; name CRs by number and slug.
+
+Rare cases: `help session-start`, `session-shell`, `first-turn`, `reload`, `titles`, `remote-login`, `config`, `project-rules`, `options`, `compacting`, `grill-specify`, `where-cr-goes`, `grill-surface`, `trials`, `batch-plan`, `steering-reports`, `asks`, `cost`, `chain-conflict`, `rounds-exception`, `driver-question`, `merge-words`, `merge-series-stack`, `stack-changes-chief`, `batch-pause`, `recovery`, `seat-handover`, `demo`, `pr-template-own`. On `init` or "I am new here": run `$CHANTIER init`, then [init](init.md)'s tour.
+----- topics/ticket-summary-post-p1.md (1345 B)
+# Ticket summary: posting (part 1 of 2)
+
+7. Publish on the yes only, by the Chief of Staff only, every text from its file, never typed in a shell. Route: the tracker's issue artifacts, else attachments, else a collapsed `<details>` of the comment.
+ - GitHub: with `gh issue artifact create` in the help: `gh issue artifact create <link> work/issue-plan.md --type plan`, then `work/issue-demo.html --type embedded_html`; `gh issue artifact list <link> --json number,name,url`; put the links in the comment, then `gh issue comment <link> --body-file work/issue-comment.md`. Else collapsed sections.
+ - GitLab (unproved): `glab issue note` reading the message from a file; uploads if `glab` offers them, else collapsed sections.
+ - Jira or other (unproved): the capability's comment action fed from the file, never retyped; its attachment action if any, else a collapsed section, else the plan in the comment and no demo, said in the ask.
+ A refused or failed post: tell the user the exact text and stop; nothing retried another way; if an artifact fails, the comment is not posted.
+8. Verify: read back the comment's URL and the artifact list; say what is visible and to whom (artifacts may be hidden from the reporter).
+9. Record under the yes in `02-answers.md`: `Posted on <ticket link>, <date>: comment <url>; plan <ref>; demo <ref or none>`.
+----- topics/ticket-summary-post-p2.md (450 B)
+# Ticket summary: posting (part 2 of 2)
+
+PR follow-up: the first time you see the PR link of a CR with a recorded post, propose one line "The pull request is open: <PR link>." in the ticket's language, same ask, steps 7 to 9 (`work/issue-followup.md`); none after a declined or skipped summary. "Released in": `help release-chief`.
+Shape: the comment, the plan and the PR's `## Issues References` / `Closes #336`, the size of three short paragraphs.
+C-1288: Publish, on the yes only, by the Chief of Staff only.** Every text goes from its file, never typed in a shell command (concepts rule 9).
+C-1108: ```text AskUserQuestion ready-wording-Q1: A. Name the CR first (recommended) | B. Name the PR first | C. Count first ready-wording-Q2: A. Yes, quote them (recommended) | B. No, link the PR only ```
+C-1272: the pull request will be linked here." When the plan and the demo go as separate artifacts or attachments, one line links them (filled after they are posted, step 7).
+C-1291: - **GitHub** (unproved; trial: the eval `ticket-summary`): when `gh issue artifact --help` lists `create` (it does in gh 2.103.3, in preview, so its flags may change: read the help again), the artifacts: `gh issue artifact create <link> work/issue-plan.md --type plan`, then `gh issue artifact create <link> work/issue-demo.html --type embedded_html`; read them 
+C-1294: With a `gh` without `gh issue artifact`: collapsed sections of the comment (the plan as Markdown; the demo as a fenced `html` block).
+C-1296: GitLab (unproved; trial: a note posted from a file holding backticks, `$` and quotes, matching the file on the tracker): `glab issue note` with `glab`'s option that reads the message from a file.
+C-1298: Jira and other trackers** (unproved; same trial): the capability found in step 2 (MCP tool, CLI or other): its comment action, taking the text from the file (for a CLI, its file option; for an MCP tool, the file's content passed as is, never retyped), and its attachment action for the plan and the demo when it has one (read its help or its tool description).
+C-1301 (+floor.md): A refused or failed post is told to the user with its exact text and stops the step: the texts stay in `work/`, nothing is retried another way and no lower route is tried after a failure (concepts rule 2).
+C-1303: Verify after publishing.** Read back the comment's URL (the post prints it, or the tracker's "view" lists it) and the artifact or attachment list.
+C-1304: Tell the user, in a few lines, what is visible and to whom: for instance GitHub issue artifacts are a preview feature and may be hidden from the reporter.
+C-1305: Record in the CR's `02-answers.md`, under the yes: `Posted on <ticket link>, <date>: comment <url>; plan <artifact number or url, or "in the comment">; demo <idem, or "none">`.
+C-1306: PR follow-up.** The first time you see the PR link of a CR with an `issue:` line and a recorded post (a `status`, a hand-back, an ask, a report), propose a one-line comment for that ticket, in the ticket's language: "The pull request is open: <PR link>." Same rule as step 6 (a yes for that ticket, the answer recorded at once), steps 7 to 9 for the post (`work/issue-followup.md`).
+----- topics/titles.md (1428 B)
+# Session titles
+
+As soon as the role is set and whenever it changes, rename the session by the host's means; a host that cannot rename: nothing, no workaround. Give `seat take --title` the current title, and take the seat again (same session, no `--over`) when it changes. A phone shows about 25 characters.
+Parts: `[<code>]` first: the machine's name (first label of `hostname`) when it has 6 letters or fewer, else its first 6 letters, first letter uppercase (`Mac`, `Battle`); the user's word renames it for the session; `Remote` in a cloud session. Then, after a space, an icon: `💬` for a session the user talks to (Chief of Staff, Griller), `⚙️` for one they do not (Foreman). Then the project (the repository folder, or the project's folder in a surface, capitalised), then ` · ` between project, role and a Griller's subject; the role `CoS`, `Griller`, `Foreman`; a Griller adds a few of the user's words, not a slug, once known; a session that steers a batch ends with ` (Batch <nn>)` on two digits.
+- `[<code>] 💬 Project · CoS`; steering a direct batch (from `open --direct`, the hand-over or a switch until the close): `[<code>] 💬 Project · CoS (Batch <nn>)`
+- `[<code>] 💬 Project · Griller` and `... · Griller · <subject>`
+- `[<code>] ⚙️ Project · Foreman (Batch <nn>)`, given in the Foreman's prompt.
+Examples: `[Battle] 💬 Chantier · CoS (Batch 17)`, `[Remote] 💬 Chantier · CoS`.
+C-1587: A title tells first whether the user talks to the session, then the project and the role, with the machine's code in front: a phone shows about 25 characters of a title.
+C-1590: The machine's name (the first label of `hostname`) as it is when it has 6 letters or fewer (`Mac`), else its first 6 letters (`Battlestation` gives `Battle`), its first letter uppercase.
+C-1592: In a cloud session (the host's reference says how to tell) the code is `Remote`.
+C-1595: Batch number:** only for a session that steers a batch (the Foreman, the Chief of Staff in direct mode), last, in parentheses after a space as `(Batch <nn>)`, on two digits as in the batch's id (`(Batch 17)`).
+C-1598: Separator:** ` · ` (space, U+00B7, space) between the project, the role and a Griller's subject.
+C-1599: | Session | Title | | --- | --- | | Chief of Staff | `[<code>] 💬 Project · CoS` | | Chief of Staff steering a direct batch, from `open --direct`, the hand-over or a switch to direct mode until the batch is closed, then back to the line above | `[<code>] 💬 Project · CoS (Batch <nn>)` | | Griller | `[<code>] 💬 Project · Griller` | | Griller, once its subject is known | `[<code>] 💬 Project · Griller · <subject>` | | Foreman, given in its prompt ([chief-of-staff-batch-start](chief-of-staff-batch-start.md)) | `[<code>] ⚙️ Project · Foreman (Batch <nn>)` |
+C-1600: Examples: `[Battle] 💬 Chantier · CoS`, `[Battle] 💬 Chantier · CoS (Batch 17)`, `[Battle] 💬 Chantier · Griller`, `[Battle] 💬 Chantier · Griller · landing page`, `[Battle] ⚙️ Chantier · Foreman (Batch 17)`, `[Mac] ⚙️ Chantier · Foreman (Batch 06)`, `[Remote] 💬 Chantier · CoS`.
+C-469: `<title>` is `[<code>] ⚙️ Project · Foreman (Batch <nn>)` ([titles](titles.md), the Foreman row), `<nn>` the batch's number on two digits, e.g.
+C-470: `[Battle] ⚙️ Chantier · Foreman (Batch 17)`; a later Foreman of the same batch has the same title.
+G-005: your seat reading is in [session-start](session-start.md), your title in [titles](titles.md).
+G-050: Read by the Griller at the start of a session, after [session-start](session-start.md), together with [titles](titles.md), and again when the role changes to it.
+----- topics/trials.md (1478 B)
+# The trials before the go
+
+At step 1 of a batch, after the preflight with the batch's options: one harmless trial per used capability, run by you, each command alone, in this session's permission mode, with the user there (a command the CLI ran would be a child process the host never sees). Forms (host row "Trial before the go"):
+- every batch: the `$CHANTIER preflight` you just ran; `git -C <main checkout> push --force-with-lease -u <remote> chantier/preflight-trial --dry-run`; on GitHub `gh pr view --json number`, on GitLab `glab mr view`;
+- a stack with the extension: `gh stack view`; with `forge-stack`: the stacks API probe of P9;
+- a release on its own: `git push <remote> v0.0.0-preflight-trial --dry-run`; `gh release create` and the merge, and fixes on a grant: "no trial: P10's rule check only".
+- A trial proves the host let the command run; the command's own error (no such branch, no PR) is a pass. A denial, a prompt or a classifier refusal is a refusal, said at once with the command and the host's exact text, in the strong warning, with the rules P10 named; it never blocks the go. A pass where P10 named a missing rule: say the limits of the host row "Auto mode" (a pass proves nothing for a Driver).
+- Recorded after `open`: a section "Permission trials" in `brief.md`, one line per trial, `<capability>: <command> -> ran | refused: <exact text> | no trial: P10's rule check only`, with the P10 line. Before a batch, the result is told, not recorded.
+C-350: `git -C <main checkout> push --force-with-lease -u <remote> chantier/preflight-trial --dry-run` (the trailing `--dry-run` keeps the command under the rule's `*`);
+C-361: Each trial writes nothing: a `--dry-run` push of a branch or tag that does not exist fails on the refspec before reaching the remote.
+H-417: **a CR's branches must be force-pushable at all times**: the host and the forge must let a rebase through (the Chief of Staff checks both at its start).
+----- topics/trouble-gate.md (1421 B)
+# Stopping a long gate
+
+Stop only your own CR's running long gate, with `$CHANTIER gate <cr> --stop`, never another CR's (`cancel` is the steering session's, never a Driver's), and only when its result can no longer count: the head is about to move (a `rebase:` note, a change that needs a round), a red CI job that is the CR's, or the steering session's `stop`. Never because it is slow: a run that would still be a valid pass is worth more finished than restarted.
+- A stopped run is recorded `stopped`: not a failure, so not a round; no pass, and it voids an earlier pass at that head: run the long gate again at the head you push.
+- A gate of yours still waiting for the lock (its log says `waiting for the long gate of …`) has started no suite, and `--stop` refuses it because the lock names another CR: end the `gate` command you started, by its id. A refusal for the hour names the gate that holds the lock: report it to the steering session as it is; never read it as a stale lock.
+- The queue: the next merge's first (in a stack or series batch, the first CR of the order not merged or cancelled, a fix CR and the release CR excepted), then those the Foreman moved first, then arrival order.
+- A long gate still running at your hand-back is left to finish: the CLI records its result for the next Driver. Stop only what waits on it. When its end wakes you after your hand-back, send nothing and end your turn.
+H-264: As many long gates run at once as `chantier.yaml`'s `long_gate.parallel` says (one when absent), the others wait in this order: the next merge's first, then those moved first (`gate --first`), then arrival order.
+H-266: in a parallel batch there is none by the record.
+H-273: `gate` is refused (exit 2) only when a gate has held a slot, or its suite has run on, for over an hour; the refusal names that gate.
+H-274: `gate <cr> --stop` acts on the slot that names that CR: it stops that CR's running long gate (its suite and the slot's lock), records the run `stopped` (no pass, and the last run at a head decides) and changes nothing else;
+H-275: it refuses when the lock names another CR (exit 2) and says so when no gate runs (exit 0).
+----- topics/verifier-delta-matrix.md (1492 B)
+# Verifier: a move, a carry, a matrix probe
+
+A clean rebase that leaves the CR's patch unchanged, proved by git's exact patch-ids and recorded at `ship` (a `carry` event), touches no judgment: no Verifier is started. CI at the new head still runs.
+
+Started after a move, given the previous `verify.md` (or a `matrix-r<n>.md`, a previous judgment whose cells are carried or judged again alike): judge again each claim the move touched and each that failed; carry the others (`carried from <sha7>: <reason>`).
+- A claim is touched when the move changed a file, a behaviour or a dependency its proof exercises: the CR's patch changed (the diff or the range-diff), or the base brought changes to what the proof runs (`git diff --name-only <old base> <new base>`).
+- In doubt, judge it again. Capture again only a pair the move touched.
+
+Matrix probe: with `matrix probe` in your note, prove each cell of the matrix your prompt gives ([concepts](../concepts.md), "Words") at the committed head, not pushed.
+- Use each cell's real flow from a real state: the CLI's own commands on a scratch project (`help verifier-scratch`) or on the project's test fixtures, and no user file for a shipped-default cell. A hand-built shape proves no cell.
+- Write `<work folder>/verifier/matrix-r<n>.md`, with a `Head:` line and each cell as a claim (SHA, command, output).
+- Run no `$CHANTIER verdict` and no gate, no before and after, no PR description check. Reply with the template, `Proof:` naming that file.
+H-410: Every judgment names the SHA it covers; after a move, what the move touched is judged again and the rest is carried, saying so.
+----- topics/wakes-forge.md (979 B)
+# What wakes you: the forge lines
+
+- `forge saw merged: <cr> <pr> … for the steering session: order merged <cr>`: check the forge first (`gh pr view <pr> --json state,baseRefName,mergedAt`, `glab mr view <iid>`), then `order merged <cr> --epoch <n>` and its follow-up (`help merge`), on a paused batch too, with no `take` first. `not landed`: record nothing. A merge the forge does not show: record nothing and send `[foreman→chief-of-staff] unconfirmed <cr> <pr>: the forge shows <state>, base <base>`.
+- `forge saw checks red: …`, or a `checks red <cr> <pr> at <head7>` line: record nothing, start no Driver. Its Driver live: send it the line as a `note`; none: nothing more.
+- `forge saw <wait type> met: …`: `wait <cr> clear <id> --epoch <n>`, then take the CR back (`help take-back`).
+- `forge saw merged` in `status`, the `forge hub:` line, `board:` and `pull path` lines, and the Chief of Staff's `watch:` lines are the Chief of Staff's: do nothing, send nothing.
+----- topics/wakes.md (1485 B)
+# What wakes you
+
+- The heartbeat: the wake that runs `chantier status --refresh --batch <batch> --epoch <n>` (`timing:` says when, the host row who arms it). With no wake arriving, stop. While the batch is paused with no CR, arm none; the turn that takes the first CR arms it.
+- Your watcher (`$CHANTIER watch`, run by your session): start it in the background with the command your `watch: not running: for the Foreman` line prints, as is, in the turn that arms the heartbeat, and again with the command of its last line whenever it ended (a last line that is not `still watching`). It outlives heartbeat and pause. On a switch to direct mode, stop it by its id. Never copy a `watch:` line (printed outside Driver prompt blocks) into a Driver's prompt.
+- End the heartbeat, never your session, right after the pause, and on the first wake that sees no Driver of any kind run for 30 minutes or more with no order undone. A batch left blocked is such a stop: send nothing more. Stop each background task of yours by its id first, then `status --stop-heartbeat --batch <batch> --epoch <n>`, then cancel the armed wake as the host row says; only then say it stopped (not yours to end: say who does).
+- Keep each turn short: never wait inside a call or run a long command, start no background task to wait for anything, change no shell's folder into a CR folder or a worktree. A turn ends when `status` shows nothing you can act on.
+Forge lines, the Chief of Staff's: `help wakes-forge`.
+FM-157: the exceptions are the Chief of Staff's watcher in direct mode (`$CHANTIER watch`, [session-start-chief-of-staff](session-start-chief-of-staff.md), "The watcher"): started on the user's yes, started again after each end, it stops itself, and your own watcher (**Your watcher**, above).

@@ -1,0 +1,142 @@
+----- hosts/claude-code.md (23319 B)
+(large: read the file)
+H-1111: | `Bash(git rebase chantier/*)` and `PowerShell(…)` | the same onto a `chantier/` branch, without `-C` | a local rebase of the branch checked out (nothing is pushed by it) onto a branch of the remote or a `chantier/` branch; the trailing `*` matches any further text, so a flag added after the base passes too (`--exec` / `-x` runs any command: the cards forbid it, the rule does not enforce it) | documented (rule form); the classifier on a subagent's matching command **unproved** (the batch-23 case stands); refused with no rule set in markdown-okf-schema-studio batch-09, 2026-11-23, "Destructive or Unwanted Actions" |
+H-1112: | `Bash(git rebase --onto chantier/* *)` and `PowerShell(…)` | the same restack, without `-C` | a local rebase of the branch checked out (nothing is pushed by it) onto a branch of the remote or a `chantier/` branch; the trailing `*` matches any further text, so a flag added after the base passes too (`--exec` / `-x` runs any command: the cards forbid it, the rule does not enforce it) | documented (rule form); the classifier on a subagent's matching command **unproved** (the batch-23 case stands); refused with no rule set in markdown-okf-schema-studio batch-09, 2026-11-23, "Destructive or Unwanted Actions" |
+H-1113: | `Bash(git rebase --onto origin/* *)` and `PowerShell(…)` | the same, without `-C` | a local rebase of the branch checked out (nothing is pushed by it) onto a branch of the remote or a `chantier/` branch; the trailing `*` matches any further text, so a flag added after the base passes too (`--exec` / `-x` runs any command: the cards forbid it, the rule does not enforce it) | documented (rule form); the classifier on a subagent's matching command **unproved** (the batch-23 case stands); refused with no rule set in markdown-okf-schema-studio batch-09, 2026-11-23, "Destructive or Unwanted Actions" |
+H-1114: | `Bash(git rebase --continue)` and `PowerShell(…)` | the same, without `-C` | a local rebase of the branch checked out (nothing is pushed by it) onto a branch of the remote or a `chantier/` branch; the trailing `*` matches any further text, so a flag added after the base passes too (`--exec` / `-x` runs any command: the cards forbid it, the rule does not enforce it) | documented (rule form); the classifier on a subagent's matching command **unproved** (the batch-23 case stands); refused with no rule set in markdown-okf-schema-studio batch-09, 2026-11-23, "Destructive or Unwanted Actions" |
+H-1115: | `Bash(git rebase --abort)` and `PowerShell(…)` | the same, without `-C` | a local rebase of the branch checked out (nothing is pushed by it) onto a branch of the remote or a `chantier/` branch; the trailing `*` matches any further text, so a flag added after the base passes too (`--exec` / `-x` runs any command: the cards forbid it, the rule does not enforce it) | documented (rule form); the classifier on a subagent's matching command **unproved** (the batch-23 case stands); refused with no rule set in markdown-okf-schema-studio batch-09, 2026-11-23, "Destructive or Unwanted Actions" |
+H-1116: | `Bash(uv run --no-sync --project "<checkout>" chantier *)` and `PowerShell(…)`, `<checkout>` filled with the checkout's real path as P10 prints it | every `$CHANTIER` command in chantier's own checkout, when the session's project is chantier, the dev mode (`merge`, `ship`, `spawn`… were refused 5 times) | every chantier subcommand of the checkout at that path (`gate` runs only the long gates the code repository's `chantier.yaml` names, and `lease hold` runs nothing) | rule matching proved (main session, `dontAsk`; 2026-11-21, Claude Code 2.1.326, Windows 11); auto mode and a Driver (subagent) **unproved**: whether auto mode drops it as a "package-manager run command" is not documented (checked 2026-11-09); trial: enter auto mode with the rule set, run `$CHANTIER status`, see whether the classifier is asked |
+H-1117: | `Bash(uv sync --locked --project "<checkout>")` and `PowerShell(…)`, `<checkout>` filled the same way | the steering session's checked sync of chantier's own checkout, which waits for holders, when the session's project is chantier, at a session's or a batch's start and after a merge that changes `uv.lock` (the dev mode) | a sync of the checkout at that path, from its lockfile | rule matching proved (main session, `dontAsk`; 2026-11-21, Claude Code 2.1.326, Windows 11); auto mode and a Driver (subagent) **unproved** |
+H-1118: | `Bash(uv sync --locked --check --project "<checkout>")` and `PowerShell(…)`, `<checkout>` filled the same way | the steering session's read-only check before a sync, the dev mode: exit 0 in sync, 1 with "The environment is outdated" (the skills' `$CHANTIER` paragraph) | none: it writes nothing | rule form documented; trial by hand on a throwaway project, 2026-11-21, uv 0.13.6, Windows 11: `uv sync --locked` then `--check` gave 0; after a version bump in `pyproject.toml` and in `uv.lock`'s own package, `--check` gave 1 with "The environment is outdated"; with a stale `uv.lock` (a dependency added to `pyproject.toml` only), `--check` gave 1 with the same text and the real `uv sync --locked` failed with "The lockfile at `uv.lock` needs to be updated"; matching with the rule set, auto mode and a Driver **unproved** |
+H-1119: | `Bash(uvx --from "<plugin root>" chantier *)` and `PowerShell(…)`, `<plugin root>` filled with the plugin's real path as P10 prints it | every `$CHANTIER` command of an installed plugin, or of another project's session run from chantier's checkout, the plugin mode | every chantier subcommand of the plugin at that path (`gate` runs only the long gates the code repository's `chantier.yaml` names, and `lease hold` runs nothing); for another project run from chantier's checkout, the rule names the checkout's path and lets through every chantier subcommand of the build uv caches from it | rule matching proved (main session, `dontAsk`; 2026-11-21, Claude Code 2.1.326, Windows 11); auto mode and a Driver (subagent) **unproved**: whether auto mode drops it as a "package-manager run command" is not documented (checked 2026-11-09); trial: enter auto mode with the rule set, run `$CHANTIER status`, see whether the classifier is asked |
+H-1128: | `Bash(glab mr create*)` and `PowerShell(…)` | a Driver opens its MR on GitLab (`driver.md`: `glab mr create --draft`) | any MR on any project `glab` can reach | documented (rule form) |
+H-1134: | `SendMessage` | the Foreman and the Drivers message each other (refused twice) | any message between this session's agents and sessions | **unproved**: `SendMessage` as a rule is not documented (absent from tools-reference, checked 2026-11-09); trial: set it, enter auto mode, have the Foreman message a Driver |
+H-1167: | Every batch | always | `$CHANTIER ...` (dev, chantier's own checkout, when the session's project is chantier: `uv run --no-sync --project "<checkout>" chantier ...`, after the steering session's checked sync, which waits for holders (the skill's `$CHANTIER` paragraph); plugin: `uvx --from "<plugin root>" chantier ...`; the two placeholders filled with the real path P10 prints); a Driver's push `git push -u <remote> chantier/...` and `git -C <worktree> push -u <remote> chantier/...`; the rebase `git [-C <worktree>] rebase <base>` (and `--onto`, `--continue`, `--abort`; never `--exec`) and the force push after it `git [-C <worktree>] push --force-with-lease -u <remote> chantier/...`; the steering session's route `git [-C <checkout>] push --force-with-lease=<branch>:<sha> <remote> <sha>:refs/heads/<branch>`; on GitHub `gh pr create`, `edit` (with `--base`), `ready` (with `--undo`), `checks`, `view`, `close`, `reopen`; on GitLab `glab mr create`, `update`, `view`, `close`, `reopen`, `glab ci status`; `SendMessage` | `git push -u origin chantier/*`<br>`git -C * push -u origin chantier/*`<br>`git push --force-with-lease -u origin chantier/*`<br>`git -C * push --force-with-lease -u origin chantier/*`<br>`git push --force-with-lease=chantier/* origin *chantier/*`<br>`git -C * push --force-with-lease=chantier/* origin *chantier/*`<br>`git -C * rebase origin/*`<br>`git -C * rebase chantier/*`<br>`git -C * rebase --onto chantier/* *`<br>`git -C * rebase --onto origin/* *`<br>`git -C * rebase --continue`<br>`git -C * rebase --abort`<br>`git rebase origin/*`<br>`git rebase chantier/*`<br>`git rebase --onto chantier/* *`<br>`git rebase --onto origin/* *`<br>`git rebase --continue`<br>`git rebase --abort`<br>`uv run --no-sync --project "<checkout>" chantier *`<br>`uv sync --locked --project "<checkout>"`<br>`uv sync --locked --check --project "<checkout>"`<br>`uvx --from "<plugin root>" chantier *`<br>`gh pr create*`<br>`gh pr edit*`<br>`gh pr ready*`<br>`gh pr checks*`<br>`gh pr view*`<br>`gh pr close*`<br>`gh pr reopen*`<br>`glab mr create*`<br>`glab mr update*`<br>`glab mr view*`<br>`glab mr close*`<br>`glab mr reopen*`<br>`glab ci status*`<br>and the bare tool rule SendMessage | `$CHANTIER preflight`; `git -C <main checkout> push --force-with-lease -u <remote> chantier/preflight-trial --dry-run`; `gh pr view --json number` (GitHub) or `glab mr view` (GitLab) | documented (rule form); the `chantier` and SendMessage rules **unproved** (see the table above); a Driver's `git -C` force push was refused with its rule set (batch-23, CR-318); the stack driver's rebase and force push were refused with no rebase rule set (markdown-okf-schema-studio batch-09, 2026-11-23, "Destructive or Unwanted Actions"); a refusal climbs the ladder of `foreman-refused.md`, "A Driver's refused force push" or "A Driver's refused rebase" |
+H-1168: | A stack | `--mode stack` (or `order mode --note stack`, from any mode) | the above, plus the native stack: `gh stack ...` when the user took the `gh stack` extension, else `$CHANTIER forge-stack create\|rebuild\|show\|unstack` (covered by the `chantier` rule; it calls the stacks API itself) | `gh stack*` | `gh stack view`; with `forge-stack`, the stacks API probe of P9 | **unproved** (the rule form of an extension command) |
+H-1171: The rows "A release on its own" and "Fixes on a grant" are offered only when the user grants them: without a grant, the host's prompt and its classifier keep guarding these commands.
+----- init.md (6171 B)
+# Init: a guided tour for a newcomer
+
+The Chief of Staff reads this when the user asks for `init` ("init", "I am new here", "chantier, initialise this project"). The tour writes nothing in the project but the five empty stage folders, which `$CHANTIER init` creates, and what the user says yes to at the end. The first-turn introduction is skipped: the tour covers it.
+
+## 1. Run `$CHANTIER init`
+
+It creates the empty stage folders of the planning folder (`.agents/changes/` or, in a planning surface (`--project`), the named project's `changes/`), and the folder's `.gitignore` (`1-inbox`, `2-backlog`, `3-ready`, `4-batch/1-pending`, `4-batch/2-actives`, `4-batch/3-done`, `5-archives`, `6-trash`); it writes neither `project.md` nor `checkout.yml`, which are the user's. It says which it created and which existed.
+
+On exit 2 for no git repository, explain what chantier needs: a git repository, a remote on GitHub or GitLab, `gh` or `glab` logged in, `git` and `uv`. Offer `git init`; run it only on the user's yes, then run `init` again. Nothing else is created for the user. On exit 2 in a linked worktree, say init runs in the main checkout and stop.
+
+## 2. Read the project, lightly
+
+`$CHANTIER rules` (the instruction file and what it links), the README, the build files (`package.json`, `justfile`, `Makefile`, `pyproject.toml` and the like), the CI workflows, the tree on two levels. No code reading, no gate run.
+
+## 3. Ask once: the chat or an HTML page?
+
+The chat is the default. For a page, copy [tour.html](../assets/tour.html) to `<system temp>/chantier-tour-<project folder name>/index.html`, fill its named slots, open it (on Remote Control, send it as a file). Nothing is written in the project. The slots: the story, the three diagrams (inline SVG you generate), the two previews, money and decisions, getting started here, phrases to say, the glossary.
+
+## 4. Give the tour, in the user's language
+
+- **The thread is the story of one CR of this project,** from the request to the archive: filed in `1-inbox`, grilled with a question and its recommended answer, specified, prioritized into `2-backlog/P<n>`, put in `3-ready` for the next batch, run in a batch by the Foreman, taken by a Driver in a slot on its branch and worktree, rounds of Coder then Inspector, long gate, PR, CI, Verifier, ready to merge, the user's merge, `3-done`, then `5-archives` at `close`. The example CR is a real, small improvement you pick from what you read; its paths, branch name and gate commands are this project's.
+- **Steering.** A batch is steered by the **Foreman**, a separate session, or by you in **direct mode**: no Foreman session, you start the Drivers and hold no grill until the batch completes (filing, triage and the specification agents stay open), and a CR added while it runs is queued and taken when a slot frees (once it is paused, it takes the next grilled CRs before its first `take`). Direct mode is used where the session is under Remote Control or the host cannot start a Foreman session, or when the user forces it; the plan names it and why, the go approves it. The story follows the Foreman; one or two sentences after step 4 give direct mode, and the first diagram notes it. Present it as how chantier works, never as new.
+- **Concepts appear when they serve,** in bold. A role is first an image of the building site (chief of staff, foreman, team lead, workers), then its exact term.
+- **About ten core terms** in the story: CR, specification, batch, Chief of Staff, Foreman, Driver, slot, round, Coder, Inspector, Verifier, ready to merge. The others go to the glossary.
+- **Three diagrams, generated for this project:** who talks to whom (the user, the Chief of Staff, the Foreman, a Driver per CR, its workers; orders down, questions and hand-backs up); the five folders and what moves a CR between them; one CR over time (rounds, gate, PR, CI, Verifier, the user's merge). In the chat they are text diagrams.
+- **Two previews:** the CR's folder tree with this project's real paths, and a `status` table. Money is shown as `$…`: the tour gives no cost figure.
+- **Money and decisions:** the budget, slots (4 by default, `batch.slots`) and rounds (3 by default) as mechanics, with no figure; what only the user does (prioritize, say go, merge, release, raise a limit); "what did it cost?" gives the measured detail.
+- No comprehension check, no quiz.
+
+## 5. End the tour, in this order
+
+1. **Getting started here:** what you saw of the project's harness and what you propose to improve, each with its impact on the team when missing. A rule (a gate, the merge method, the commit convention) is proposed as the exact `AGENTS.md` text, written only on the user's yes, section by section. The checks the tour runs, each missing piece asked and fixed on the user's yes (`help init-checks`): the project's gates, preflight's P5 (`uv`, `git`) and P10 (the allow rules), P9 with the forge's rights and branch rules, the forge's tools. Work that needs code (tests, CI) is proposed as a CR filed in the inbox, only on the user's yes. For an in-project planning folder, the `.gitignore` line is explained only: keep `.agents/changes/` out of git so the main checkout stays clean and the CRs stay local; the user adds it themself. In a surface it does not apply: the planning folder is the surface's, and the tour says where it is. The example CR is offered for the inbox.
+2. **Phrases to say:** "file this: …", "make it a P1", "run the P1s", "status?", "drop CR-<n>", "I merged #<n>", "what did it cost?". The tour's end is the first-use moment of the Tips rule: these phrases stand for its tip, so add no 💡 line.
+3. **Glossary:** one line per term not in the story: stack, fast gate, long gate, Investigator, Debugger, Conflict resolver, Griller, release CR, grant, `STATUS.md`, `close`, direct mode if the story's sentences need a reminder, and any other the user will read in reports.
+
+## 6. Length
+
+About 90 lines in the chat, glossary included; under 100.
+
+## 7. Run again
+
+On a project that already has the folders the command changes nothing. Assess the improvements again and say what changed. Offer the tour; do not impose it.
+H-826: The tour runs every check a user's machine needs: preflight's P5 (`uv`, `git`) and P10 (the allow rules), P9 with the forge's rights and branch rules ("Forge permissions" of `chief-of-staff-any.md`), and the long gate above.
+----- inspector.md (2000 B)
+# Inspector
+
+Review the round's diff (the worktree against its base, untracked files included) against the project's rules, the specification and the Coder's notes. You write nothing: your reply is your output.
+
+Judge at the pushed head, naming its SHA. Evidence is a command run there, with its output; notes and green CI are not proof. A check red on the default branch is not the CR's: report it, never fix it there. After a move (round, rebase, restack, conflict resolution), judge only what it touched and say in `minor` what you carried.
+
+`blocking` holds only defects worth another round: a broken project rule, wrong behaviour, a missing test, a broken gate, a part of the specification missed. Style without a project rule is `minor`.
+- A diff touching `hooks/` needs `just mod` in the gate record, else blocking.
+- A test the specification names that guards a shipped file must be in the diff and read it as shipped, at the head under test: else blocking.
+- You cannot judge: `FIX-REQUIRED` with one blocking item saying so.
+
+Never: commit, push, rebase, merge, create a worktree or run `git stash`; claim a check you did not run; write by another way a path the guard refused.
+
+Reply with JSON only, no prose, no code fence, exactly these keys:
+
+```json
+{"verdict": "APPROVE | FIX-REQUIRED", "head": "<sha>", "blocking": ["file:line: …"], "minor": ["…"], "confidence": 0.0}
+```
+
+`verdict` is `APPROVE` or `FIX-REQUIRED`, nothing else. `head` is the full 40-character `git rev-parse HEAD` of the worktree, always present. `blocking` and `minor` are string lists (empty when nothing); `confidence` is 0 to 1. An item is one sentence of at most 300 characters, starting `file:line:` or `pr-body.md: <section>:`, stating a defect. `minor` holds at most five (the fifth: `and <n> more of the same kind`). Reply under 3,000 characters.
+
+Rare cases: `$CHANTIER help inspector-audit` (a CR's round: `pr-body.md`, a matrix, a carry); `$CHANTIER help worker-shell` (a shell call, a file write).
+H-407: **Evidence is a command run at the pushed head, with its output** (except a matrix probe, run at the committed head before the CR's first push: [verifier](verifier.md)).
+----- pr-template.md (11849 B)
+(large: read the file)
+H-458: Title and body in English, for a reader outside the team: reviewers, stakeholders, future maintainers.
+H-459: They do not know the backlog, and `.agents/changes/` is not in git (but see the archive below).
+H-460: When `take` says `archive: in the PR at <path>`, that archive folder is part of the diff: the description names it only in its Internal references section, as any `.agents/changes/` path, and the Verifier's check of the description against the diff takes it as expected, not as an unexplained file.
+H-467: A role name may appear in any section when it is a term of the project's own product: the diff changes that role's behaviour, card or agent file (as in chantier's own repository, where the roles are what the cards define).
+H-470: A file path the diff changes (for instance `skills/chantier/references/driver.md`) may be named in Changes whatever its name.
+H-472: when it has none, the section is left out entirely (no heading, no "None").
+H-473: The form of each line, the project's rules first (form, keyword, title or body, for instance `Closes JIRAJPT-1245`); where they say nothing, chantier's default:
+H-474: Jira: `Closes <KEY>-<n>` (for instance `Closes JIRAJPT-1245`);
+H-481: One exception: Human decisions is omitted, never written "None", when the CR has no decision to show: it had no grill (for instance a quick fix, or a fix CR, whose specification is a `fix-<n>.md` and which has no `02-answers.md`), or it was grilled but its answers hold no decision that shapes the change.
+H-484: A blank line after `</summary>` and before `</details>`, or the forge does not render the Markdown inside; nothing follows `</details>`.
+H-487: for an architecture, the architecture choices; for a rework or refactoring, the targets set (for instance scores to reach).
+H-488: The visuals are one kind, sometimes several, rarely all:
+H-489: a Mermaid `flowchart` of the modules or layers that change, arrows for the calls or allowed imports (about 10 nodes at most);
+H-491: a before/after tree or table (files moved or split, sizes, settings);
+H-493: a link into a commit of the CR's branch (`/blob/<sha>/`, `raw.githubusercontent.com/.../<sha>/`, GitLab's `/-/raw/<sha>/`) is not an upload: a restack drops that commit and the forge may delete it;
+H-494: a 5 to 15 line code sketch of the new interface, message or registration a contributor will reuse, with `...` for the rest.
+H-495: Only the calls, files, props and boundaries the reviewer needs, with real names checked against the diff.
+H-499: A file the forge's CLI cannot upload is named under "Internal references" (its path is under `work/`), not in the text.
+H-503: A proof carried over a move says so (`at <head7> (carried from <sha7>)`: it names the head it now stands at and the SHA it came from; only the SHA after `carried from` may lie outside the head's history, and `ship` names any other);
+H-504: a clean rebase carries every proof whose patch it left unchanged.
+H-507: it is never left as a plain fact.
+H-517: A gap is anything not done or not proven that the PR knowingly ships that way: a part of the specification not delivered;
+H-519: evidence the plan named and the Verifier could not capture (`before-after.md` says why);
+H-520: a defect a review or the Verifier reported that the Driver accepted rather than fixed, a cosmetic defect included.
+H-524: The body describes the PR as it is now, not its history: it is updated whenever the scope changes (a new round, a dropped item, a rebase that changes what the PR holds).
+H-547: The CR writes a guideline (the rules) and a template in the user's project, starting from this file and the user's wishes, at the place the agent judges right unless the user's answers name one (for instance the forge's template file, and a guideline next to the project's other rules), and links the guideline from the project's instruction file so `$CHANTIER rules` lists it: what `rules` does not reach, a Driver does not read.
+----- release-driver.md (3811 B)
+# Release Driver
+
+Run one release CR by the project's own procedure, and add nothing from habit. You never fix code and start no children: a defect becomes `<work folder>/fix-<n>.md` (a title line, then steps, expected, actual) and `$CHANTIER handback <cr> blocked fix: <one line>; <path>`. Take the initiative inside the procedure and the grant; ask for anything beyond.
+
+You own the release PR and its branch, the drafts (notes, announcement), the publication when `$CHANTIER release go <cr> --note "<the action>" --lease <n>` answers `go`, and your notes. Read the project's first instruction file whole and its other guidelines by section. `$CHANTIER phase <cr> release "<the step>"` before each step of the procedure, one call.
+
+- Before each irreversible action (a step the procedure names, any upload of an image to the forge included) run `release go`; `go` is for that action only. Exit 2 or 5: hand back as it prints. Published notes use the reviewed text; where the procedure publishes none, they stay a draft for the user.
+- A step that waits on a pipeline job is recorded with a typed wait: `handback <cr> blocked <reason> --wait pipeline[=<sha>] --lease <n>`, or, when you go on with other steps, `wait <cr> add pipeline --ref <sha> --link <PR link> --note "<text>"`. Never poll it (`help release-merged`).
+- A long wait is one command in a background shell, then `$CHANTIER lease <cr> hold --lease <n>`, then `$CHANTIER host end-turn-background`.
+- A new attempt starts on the base `take` printed, in a new worktree: never `git reset --hard` an old one.
+
+Never:
+- run a step of the procedure that runs in the main checkout (the steering session runs `just tag`): hand back `blocked waits: …`;
+- post the announcement thread, comment on, close or reopen an issue, or run the publication command again after `publication done:`;
+- publish a branch by any way but `$CHANTIER push <cr> --lease <n>`, or retry a refusal by another means (`help refused-push`);
+- run `git stash`, `git add -A`, a merge commit, a rebase with `--rebase-merges`, `--exec` or `-x`, or `git reset --hard`; every git command names `-C <worktree>`;
+- undo half-done irreversible work: `blocked question:` says what is out;
+- keep CR work in a scratchpad or temp folder (whatever the host says), or secrets or personal data in a CR folder;
+- keep or upload an image that shows the username or the home folder, or publish a personal path, email, private repository or session id taken from a source.
+
+Your end: the items of `help release-end`, in order (`release published`, the checks, `retro.md`, your background tasks stopped with `$CHANTIER host stop-own-background-task`), then `$CHANTIER handback <cr> ready <release link or tag>`, then the host's hand-back.
+
+Reply: the one line `handback` printed, unchanged.
+
+Rare cases: `$CHANTIER help <topic>`: `session-shell` (a shell call that waits, backgrounds or changes folder; forge text); `release-notes` (the notes, the drafts, the PR body); `release-ship` (the release PR, a new attempt, a fix); `release-merged` (after the release PR merged); `release-end` (the release is published); `ci` (CI runs on the pushed head); `conflicts` (a `ship` refused, a carry, a resolved conflict, the early push); `handback-other` (a hand-back out of the ordinary); `trouble` (a worker fails, an escalation, a remote command fails, a gate to stop, a git command in the wrong place); `restart` (a `take` note `resume:`, `rebase:` or `context:`); `lease` (a `--lease` refusal, `claim lost`, a lease `not confirmed`, a wait over 3 minutes); `refused-push` (`push <cr>` exit 4, a force push or rebase the host refuses); `steering-messages` (a message from or to the steering session); `checkpoints` (a checkpoint commit); `pr-extras` (`archive: in the PR at <path>`, images, GitLab forms).
+H-622: They are anonymised: no personal path, user name, email, private repository or session id, replaced by `~`, `user`, `user@example.com`, `<session>` and `example/app`.
+H-647: No agent posts: the thread is a draft for the user.
+H-651: An image shows in the body once it is on the forge (its upload is an irreversible action, `release go`), else it is named in prose.
+H-655: The images are attached with the forge's own CLI, and that is an irreversible action (`release go`).

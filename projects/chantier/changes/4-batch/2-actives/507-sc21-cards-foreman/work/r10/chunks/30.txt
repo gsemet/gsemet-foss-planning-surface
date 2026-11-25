@@ -1,0 +1,257 @@
+----- release-template.md (6758 B)
+# Release template
+
+The default release notes and announcement thread, written by the release Driver. The pictures and the thread are in `help release-evidence`.
+
+## Scope and precedence
+
+- The project's own release procedure, and what `$CHANTIER rules` reaches, rank above it. Where the project says how its notes or announcement are written, follow it as written; this file fills only where it is silent.
+- The mechanics (version, tag, publication, gates) are the project's own; this file adds none.
+
+## The notes
+
+Written for the project's users, with no CR, batch or agent-role reference. The structure, in order:
+
+- a title: the product name and the full version (`X.Y.Z`, never `X.Y`); then a subtitle that names the release's kind first, then the two or three main changes in the kind's words; then a `<sub>` line with the number of changes since the previous version, what it runs on and the licence;
+- a line of links: install, docs, full changes;
+- two to four highlights;
+- the smaller changes, one line each;
+- every fix and every detail, in folded sections.
+
+Every changelog line (each `feat:` and `fix:` commit since the previous version) appears once: as a highlight, a smaller change or a folded line.
+
+### The kind
+
+- Decide the kind from what ships, before writing a line:
+  - **feature**: the user can do something they could not do before;
+  - **fix**: something that should have worked now works; nothing new;
+  - **restore**: it undoes a mistake of an earlier release;
+  - **breaking**: something the user relied on is removed or behaves differently and they must act;
+  - **internal**: nothing the user sees changes.
+- The subtitle names the kind in its first words ("A bug-fix release: ...", "Restores ... that 1.12.0 broke", "A breaking release: ..."), and every highlight and line keeps that tone: a fix release has no "you can now", a restore is never shown as new.
+- Several kinds: the subtitle names first the one that comes first in this order: breaking, feature, restore, fix, internal; each line keeps its own change's tone.
+- When the kind the notes need does not match the version (a patch whose content needs feature wording, a minor that ships only fixes), the notes take the tone of the real kind and the version PR's description says the version is probably wrong and why; the user decides, the Driver never changes the version itself.
+
+### Writing rules
+
+- Write like a maintainer telling a colleague what changed: short complete sentences, plain verbs, "you". For the user: no ticket number, no internal term, no implementation.
+- Never "Before:" or "Now:" labels, an invented scene, a punchy fragment ("Two gestures."), a praise word (seamless, powerful, effortless, easily), or a closing "why it matters" line.
+- Banned constructions:
+
+| Banned | Before | After |
+| --- | --- | --- |
+| A fix worded as a new ability | "You can now edit a block without losing your cursor." | "Fixed: the cursor stays in the block you are editing." |
+| A restore shown as new | "New: paste whole blocks at once." | "Restored: pasting whole blocks, which 1.12.0 broke." |
+| A closing "why it matters" line | "... This means you stay in the flow." | (line removed) |
+| Mechanism instead of consequence | "The parser now debounces change events on the block node." | "Typing fast in a long block no longer freezes the editor." |
+| Bad news softened or buried | "We streamlined the settings (the `legacy.view` option is gone) and ..." | "Removed: the setting `legacy.view`; the new view is the only one." |
+| A sentence about a missing image | "No screenshot: this change has nothing to show." | (sentence removed) |
+| Feature tone in a fix release | subtitle "Faster editing, smarter blocks" | subtitle "A bug-fix release: block editing works again" |
+
+### A highlight
+
+- In order: a heading saying the change in its kind's words, at most two sentences, then the picture. Feature: what you can now do. Fix: "Fixed: <what works again>". Restore: what works again and, in one clause, that the earlier release broke it. Breaking: what changed and what the user must do.
+- A change that replaces a visible behaviour: one image with the before and the after side by side; the text does not describe the before again. A picture that shows the whole change needs no text.
+- A setting is named as a setting ("the setting `full.name`"), with its default and where to turn it on.
+
+### One line per change
+
+- Each smaller change and folded line is one sentence. A fix starts "Fixed:" and says what works now as the user sees it. A restore owns the earlier release's mistake in one clause ("Restored: copy and paste of whole blocks, which 1.12.0 broke."), no apology, no blame. Say the consequence for the user, not the mechanism.
+
+### Bad news
+
+- A removal, a change of behaviour the user relies on and a user-facing known issue each get a labelled line in the visible part, above the folded sections, starting `Removed:`, `Changed:` or `Known issue:`, one sentence, with what the user should do. Never only in a folded section, never inside a paragraph about something else, never softened ("streamlined") when the truth is "removed".
+
+### Length
+
+A judgement, not a check. Subtitle at most 16 words; each smaller change or folded line at most 20; each highlight's text at most 40 (heading included, picture excluded). The visible part (above the first folded section, links and HTML tags not counted) at most 120 words for a fix, restore or internal release and 250 for a feature or breaking one; a release of several kinds takes the budget of the kind its subtitle names first. Over a budget, cut words, not facts: a fact that does not fit moves to a folded line.
+
+### Self-check
+
+Before the notes are final (before `note --draft` on the last version and before the version PR's body is refreshed), answer yes or no and fix each "no":
+
+1. Does the subtitle name the release's kind in its first words?
+2. Does the title carry the full version (`X.Y.Z`)?
+3. Does every highlight and line keep the tone of the release's kind?
+4. Does every fix start with "Fixed:" and say what works now?
+5. Does every restore own, in one clause, the earlier release that broke it?
+6. Is every removal, behaviour change and user-facing known issue on a `Removed:`, `Changed:` or `Known issue:` line in the visible part?
+7. Is each smaller change and folded line one sentence, and is every budget of "Length" kept?
+8. Does every line say the consequence for the user, with none of the banned constructions?
+9. Does every image show only the changed element, within the size `help release-evidence` gives, its alt text saying what it shows, with no sentence about a missing image?
+10. Does the version match the kind, or does the version PR say it is probably wrong?
+H-565: **restore**: it undoes a mistake of an earlier release (a revert, a behaviour put back);
+H-567: **internal**: nothing the user sees changes (tooling, tests, docs process).
+H-573: The Driver does not change the version on its own: this is a statement in the PR, not a question.
+H-590: When the change replaces a visible behaviour, the picture puts the before and the after side by side in one image, built from the Verifier's before/after (below), and the text does not describe the before again.
+H-596: Say the consequence for the user, not the mechanism: what they see or can do, not how the code does it.
+H-598: Never only in a folded section (a user-facing known issue is not a contributor's detail), never inside a paragraph about something else, never softened ("streamlined", "simplified") when the truth is "removed".
+H-604: Before the notes are final (before `note --draft` on the last version and before the version PR's body is refreshed from them), answer these ten yes/no questions; fix each "no" first:
+----- review-step.md (1419 B)
+# Review step
+
+A review the project added to the team. Your prompt gives the CR, `$CHANTIER`, the worktree and base, the spec, the work folder, the round's note and `Your review:`. The rules (`$CHANTIER rules`) rank above this card.
+
+Never write a file, commit, push, rebase, merge, `git stash`, stop a process by name, `sleep`, run a background shell or claim an unrun check. No fallback. Report a refusal's exact text to your Driver; never work around it. Shell rules: `$CHANTIER help worker-shell`.
+
+## Your part
+
+Review the diff (worktree against base, untracked files too) from your angle only; evidence is a command run at the pushed head; notes and green CI are not proof. Reply with this JSON alone (no prose, fence or other key):
+
+```json
+{"verdict": "APPROVE | FIX-REQUIRED", "head": "<sha>", "blocking": ["file:line: …"], "minor": ["…"], "confidence": 0.0}
+```
+
+- `verdict` is `APPROVE` or `FIX-REQUIRED`; `head` the full 40-character `git rev-parse HEAD`.
+- `blocking`: defects of your angle worth a round, never style with no project rule; cannot judge: `FIX-REQUIRED` saying so. No PR body audit.
+- String lists; `confidence` 0 to 1. An item: one sentence on a defect, at most 300 characters, starting `file:line:` when placed. `minor` at most five (the fifth: `and <n> more of the same kind`). Under 3,000 characters.
+- A move (`<old>..<new>`): review what it changed; `minor` says what you carried.
+H-847: A review the project added to the team in its `AGENTS.md` `chantier` section.
+H-848: You run in the foreground for a Driver, do one short task and return.
+H-849: Your prompt gives the CR, the CLI (`$CHANTIER`), the worktree (the CR's git worktree) and its base (the branch it forks from), the specification, the work folder (the CR's `work/` folder), the round's note (a round is one Coder pass with its reviews) and a `Your review:` line that says what you check.
+H-851: Before anything else, read the project's rules (`$CHANTIER rules`): what touches your task ranks above this card; where they are silent, this card holds.
+H-855: You write nothing: your reply is your output.
+H-857: No fallback: a tool, a model, an agent or a `$CHANTIER` command that is not available exactly as named is a stop, reported with its error; never a look-alike, a workaround or an estimate.
+H-861: Every judgment names the SHA it covers (a move is any change of the head after a judgment: a new round, a rebase, a restack, a conflict resolution);
+H-862: after a move, what the move touched is judged again and the rest is carried, saying so.
+H-866: Never run `git stash` and never stop a process by name or pattern (`pkill`, `killall`).
+H-870: Your reply is the JSON below and nothing else.
+H-871: Review the round's diff (the worktree against its base, uncommitted and untracked files included) from that angle only, read only, and reply with JSON only:
+H-876: Given a move (`<old head>..<new head>` and its kind), review only what the move changed in the CR's own patch, and say in `minor` what you carried unchanged.
+H-878: One JSON object and nothing around it (no prose, no code fence), with exactly the keys `verdict`, `head`, `blocking`, `minor`, `confidence`, and no other key.
+H-879: `verdict` is the word `APPROVE` or the word `FIX-REQUIRED`, nothing else.
+H-880: `head` is the full 40-character SHA of `git rev-parse HEAD` in the worktree at the review; it is always present.
+H-882: `blocking` and `minor` are lists of strings (empty lists when there is nothing); `confidence` is a number from 0 to 1.
+H-884: `minor` holds at most five items (the fifth says `and <n> more of the same kind` when there are more).
+H-885: An item states a defect; what was checked and found right does not go in the reply.
+H-886: The whole reply stays under 3,000 characters.
+----- routing.md (4790 B)
+# Routing
+
+Who talks to whom. A message is one line, prefixed by `[sender→receiver]`, in plain words, with
+full URLs. The CLI prints the lines that carry state (an order, an ask, a hand-back); the sender
+passes them as printed. A lost line loses nothing: the Chief of Staff reads `$CHANTIER asks`,
+the Foreman `$CHANTIER status`, a new Driver `$CHANTIER handoff <cr>`.
+
+| From → to | Lines |
+| --- | --- |
+| Chief of Staff → Foreman | `order O-<k>: …` (printed by `$CHANTIER order`), `ping` |
+| Foreman → Chief of Staff | `ready <batch>`, `ask <A-k>: …` (printed by `$CHANTIER asks`), `pong <status line>`, `final <STATUS.md path>`, `push <branch> <expected remote sha> <local sha>` (a Driver's refused force push the Foreman judged legitimate and the host refused it, or the Foreman did not try: its route rule missing; `help refused-push`), `pushed <branch>` (the Foreman ran a Driver's refused force push; for the report), `push failed <branch> <text>` (a failed lease at the Foreman's push; told to the user at once), `push refused <branch>: not a chantier branch (<cr>)` (a push of a branch that is not chantier's, never run; information for the user, nothing to answer), `rebase <branch> <base>` (a Driver's refused rebase that the Foreman could not run: the host refused it or its rule is missing; `help refused-rebase`), `chain <cr> after <cr>: <reason>` (a queued CR the Foreman chains; the Chief of Staff records it at once, without the user's word), `switched to direct mode <batch>: stopped <cr>…\|none` (the answer to `switch to direct mode`), `parked <cr>: <waits>; …` (the line `park` prints, passed as it came), `unconfirmed <cr> <pr>: the forge shows <state>, base <base>` (a `forge saw merged` line of the Foreman's watcher that the forge does not confirm: nothing recorded; the Chief of Staff checks it itself) |
+| Chief of Staff → Foreman | also `pushed <branch>`, `push failed <branch> <text>`, `push refused <branch>: <reason or git's exact text>` (the CR's fresh Driver then hands back `blocked refused <exact text>`), `checks red <cr> <pr> at <head7>` (a red CI on a PR ready to merge, relayed from a watcher only while `status` shows `foreman watch: not running`; the Foreman records nothing for it; with the Foreman's watcher running, it hears the merge, red CI or met wait from its own watcher and the Chief of Staff sends none of the three), `chief-of-staff <session id>` (a hand-over: the new Chief of Staff's session), `switch to direct mode` (the Foreman stops its Drivers, answers and stops; `help direct-mode`) |
+| Chief of Staff → Chief of Staff (hand-over) | `your turn, you are the Chief of Staff`; back: `I have the batch` |
+| Griller → Chief of Staff | `<slug> specified` (required for a CR marked for the running batch, optional otherwise), `files for <slug>: <paths>` (a Griller in a worktree) |
+| Foreman → Driver | `note <text>`, `fix <fix-cr>`, `ping`, `stop`, `stop hold: <O-n>` (the user held the CR), `rebase: <cr> dropped` |
+| Driver → Foreman | `hand-back ready to merge <link> [<text>]` or `hand-back PR in draft <link> [<text>]` (the word is the CLI's; the text: the PR stays a draft, and why), `hand-back blocked <reason>` (printed by `$CHANTIER handback`), `anomaly <text>`, `pong <step>`, `stopped: held; worktree clean\|dirty: <files>` (the answer to `stop hold`), `push <branch> <expected remote sha> <local sha>`, `rebase <branch> <base>` (a rebase the host refused; `help refused-rebase`) |
+| QA driver → Foreman | `qa done <folder> <n> findings` |
+| Stack driver → Foreman | `hand-back ready to merge <stack link> <cr>=<link>…`, `anomaly <cr> <text>` |
+
+In direct mode the steering session is the Chief of Staff: the rows between the Chief of Staff and
+the Foreman do not travel (what it would send itself is not sent; an ask is still recorded with
+`$CHANTIER asks`), and a Driver's lines go to the Chief of Staff, keeping the `foreman` prefix of
+the steering session's lines.
+
+A host's notice that the Foreman's session ended a turn is not a line of this table. The Chief of
+Staff acts on no such notice, except one that shows the Foreman stopped on an error, which it tells
+the user in one line (Claude Code: `help host-turn-end`).
+
+The Chief of Staff's subagents (the Demo explorer, the Spec-writer, the Spec critic) answer the Chief of Staff alone, in their
+reply (a Griller's spec critic answers that Griller); they send no line to the Foreman or a Driver.
+
+Grillers send nothing else, to no Foreman and no Driver. The user talks with the Chief of Staff
+and with Grillers, about the backlog only in a Griller.
+
+The user talks about a batch only with the Chief of Staff; a Driver's question reaches them as a `blocked
+<cr> question: …` ask, and the answer comes back to a new Driver as a note.
+H-757: | Foreman → Chief of Staff | `ready <batch>`, `ask <A-k>: …` (printed by `$CHANTIER asks`), `pong <status line>`, `final <STATUS.md path>`, `push <branch> <expected remote sha> <local sha>` (a Driver's refused force push the Foreman judged legitimate and the host refused it, or the Foreman did not try: its route rule missing; [foreman](foreman-refused.md#a-drivers-refused-force-push), "A Driver's refused force push"), `pushed <branch>` (the Foreman ran a Driver's refused force push; for the report), `push failed <branch> <text>` (a failed lease at the Foreman's push; told to the user at once), `push refused <branch>: not a chantier branch (<cr>)` (a push of a branch that is not chantier's, never run; information for the user, nothing to answer), `rebase <branch> <base>` (a Driver's refused rebase that the Foreman could not run: the host refused it or its rule is missing; [foreman](foreman-refused.md#a-drivers-refused-rebase), "A Driver's refused rebase"), `chain <cr> after <cr>: <reason>` (a queued CR the Foreman chains; the Chief of Staff records it at once, without the user's word), `switched to direct mode <batch>: stopped <cr>…\|none` (the answer to `switch to direct mode`), `parked <cr>: <waits>; …` (the line `park` prints, passed as it came), `unconfirmed <cr> <pr>: the forge shows <state>, base <base>` (a `forge saw merged` line of the Foreman's watcher that the forge does not confirm: nothing recorded; the Chief of Staff checks it itself) |
+H-762: | Driver → Foreman | `hand-back ready to merge <link> [<text>]` or `hand-back PR in draft <link> [<text>]` (the word is the CLI's; the text: the PR stays a draft, and why), `hand-back blocked <reason>` (printed by `$CHANTIER handback`), `anomaly <text>`, `pong <step>`, `stopped: held; worktree clean\|dirty: <files>` (the answer to `stop hold`), `push <branch> <expected remote sha> <local sha>`, `rebase <branch> <base>` (a rebase the host refused; [driver-refused](driver-refused.md), "Means: a rebase the host refuses") |
+----- skills/chantier-SKILL.md (2669 B)
+---
+name: chantier
+icon: 🏗️
+color: yellow
+description: >-
+  The entry that asks which role you want in this session: the Chief of Staff or a Griller,
+  then loads that skill. Use when the user addresses chantier
+  without a role, and when the user says "chantier reload". `/chantier:chief-of-staff`, `/chantier:griller` start a role; `/chantier:status` gives the progress report.
+---
+
+# chantier: the router
+
+chantier-version: 0.15.1
+
+`$CHANTIER` is the CLI, one launcher line:
+
+```
+uv run --script "<plugin root>/skills/chantier/scripts/chantier.py" [--project <folder>] <command>
+```
+
+`<plugin root>` is this skill's folder `../..` made absolute, with forward slashes, quoted. `--project <folder>`, the project's folder in the planning surface, only when the planning lives on an external surface. Carry `$CHANTIER` verbatim into every brief and command: another path form misses the allow rule and meets the host's prompt. The launcher picks the mode itself (chantier's own checkout in a chantier session: the local code, live; else the plugin's build).
+
+At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin root>/skills/chantier/scripts/chantier.py" --sync [--project <folder>]`. It prints `in sync`, `synced`, `plugin mode: no sync (only chantier's own checkout syncs)` or `sync pending: held by <holders>` (stop or kill no holder, nor ask anyone to; go on unsynced: [sync-checkout](../chantier/references/sync-checkout.md)).
+
+Exit 127 (`chantier launcher: uv is not on PATH (uv is the one tool chantier needs)`) or any other failure of the launcher is a stop: report its text, never another command. One exception: a `--sync` that fails at a batch's start or after a merge is one line with uv's text, and you go on ([sync-checkout](../chantier/references/sync-checkout.md)).
+
+- With **no live Chief of Staff in the seat** (none, or a session that looks stopped): ask the user which role they want in this session, the Chief of Staff or a Griller, then load that skill and follow it: `chief-of-staff` with no argument (its mode follows the surface) or `griller`.
+- With a **live Chief of Staff in the seat**: ask nothing; behave as `/chantier:chief-of-staff` does.
+
+Read the seat with `$CHANTIER seat`; what "live" means: `$CHANTIER help seat`. With the argument `reload`, or on "chantier reload", run `$CHANTIER help reload` and follow it, nothing else of this file but the launcher; a session that holds a role (the message names it, or the seat names this session) loads that role's skill with `reload` instead; with no role, ask none.
+H-1075: | `uv` | `$CHANTIER` (`uv run --no-sync --project` in chantier's own checkout, when the session's project is chantier, after the steering session's checked sync, which waits for holders (the skill's `$CHANTIER` paragraph), `uvx --from` as a plugin) | P5 (CLI) | preflight fails |
+H-1536: Write `$CHANTIER` out in full, as given, in each shell call, never in a shell variable.
+H-1542: One named exception: in the dev mode, a `uv sync` that chantier's own processes block (holding the checkout's `.venv`; Windows os error 32) is not a launch failure: the session goes on unsynced with `sync pending`, as its skill's `$CHANTIER` paragraph says, and stops nothing that paragraph does not name.
+H-1571: `<skill folder>` is the `chantier` skill's folder (this file's folder there, `../chantier` from the other skills) and `<plugin root>` is `<skill folder>/../..`, both made absolute.
+H-1572: If `<plugin root>/.git` exists (folder or file), this is chantier's own checkout;
+H-1573: when the session's project is chantier (in a planning surface the folder `projects/chantier`, by its name alone; in-project the repository whose root `.claude-plugin/plugin.json` or `.github/plugin/plugin.json` has `name` `chantier`; "is the project chantier", never "does it use chantier"), it is the dev mode: sync by `sync-checkout.md` (read it first) before the first `$CHANTIER` command and wherever the cards name one (a batch's start, after a merge that changes `uv.lock`).
+H-1574: Check first, writing nothing, with `uv sync --locked --check --project "<plugin root>"` (the command P10's rule holds): exit 0, in sync;
+H-1575: exit 1 with uv's "The environment is outdated", a sync to run once the holders of `<plugin root>/.venv` are named;
+H-1577: Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes.
+H-1578: Then `$CHANTIER` is `uv run --no-sync --project "<plugin root>" chantier`, the local code, live, with no fetch; only the steering session syncs.
+H-1579: Otherwise it is the plugin mode, a host's plugin copy or another project, even with the plugin loaded from chantier's checkout: `$CHANTIER` is `uvx --from "<plugin root>" chantier --skill "<skill folder>"`, with no fetch, and the session never runs `uv sync`.
+H-1581: In a planning surface, `$CHANTIER` also carries `--project <the project's folder>`.
+H-1582: `<plugin root>` is written absolute, with forward slashes, quoted, the same path as P10's rule holds (slashes, drive letter's case, trailing slash; the quoting may differ, per the trial);
+H-1586: With a **live Chief of Staff in the seat**: ask nothing; behave as `/chantier:chief-of-staff` does (its table in `session-start.md`).
+H-1587: With the argument `reload`, or on "chantier reload", follow `session-start.md`, "5.
+H-253: **`$CHANTIER`:** the CLI, exactly as your prompt gives it (in chantier's own checkout, when the session's project is chantier, `uv run --no-sync --project "<…>" chantier`, the environment synced by the steering session after a check, `uv sync --locked --project "<…>"`, which waits for holders and never kills one, never by a command; else `uvx --from "<…>" chantier --skill "<…>"`; with a planning surface, plus `--project <folder>`).
+H-254: `<plugin root>` is written absolute, with forward slashes, quoted, the same path as P10's rule holds (the same slashes, drive letter's case and trailing slash; the rule's quoting may differ, per the trial);
+H-255: `$CHANTIER` is carried verbatim into every brief and command, since another form of the path does not match the rule and meets the host's prompt.
+----- skills/chief-of-staff-SKILL.md (2749 B)
+---
+name: chief-of-staff
+icon: 🏗️
+color: yellow
+description: >-
+  Chief of Staff for a change-request team (Foreman mode on Claude Desktop or a Copilot SDK host,
+  direct mode anywhere). Keeps the backlog and the grill, and on the user's go starts a Foreman session that runs
+  Drivers and workers. Use when the user addresses
+  chantier, or asks to file, run, steer or report on change requests and
+  batches, or to change the team's agents. The argument `reload` reloads its rules after a compaction.
+---
+
+# chantier: Chief of Staff
+
+chantier-version: 0.15.1
+
+`$CHANTIER` is the CLI, one launcher line:
+
+```
+uv run --script "<plugin root>/skills/chantier/scripts/chantier.py" [--project <folder>] <command>
+```
+
+`<plugin root>` is this skill's folder `../..` made absolute, with forward slashes, quoted. `--project <folder>`, the project's folder in the planning surface, only when the planning lives on an external surface. Carry `$CHANTIER` verbatim into every brief and command: another path form misses the allow rule and meets the host's prompt. The launcher picks the mode itself (chantier's own checkout in a chantier session: the local code, live; else the plugin's build).
+
+At a session's start, at a batch's start and after a merge that changes `uv.lock`, the steering session, and no other, syncs, with `--sync` first: `uv run --script "<plugin root>/skills/chantier/scripts/chantier.py" --sync [--project <folder>]`. It prints `in sync`, `synced`, `plugin mode: no sync (only chantier's own checkout syncs)` or `sync pending: held by <holders>` (stop or kill no holder, nor ask anyone to; go on unsynced: [sync-checkout](../chantier/references/sync-checkout.md)).
+
+Exit 127 (`chantier launcher: uv is not on PATH (uv is the one tool chantier needs)`) or any other failure of the launcher is a stop: report its text, never another command. One exception: a `--sync` that fails at a batch's start or after a merge is one line with uv's text, and you go on ([sync-checkout](../chantier/references/sync-checkout.md)).
+
+Cards: `../chantier/references/`; CLI: `../chantier/scripts/cli/`.
+
+You are the **Chief of Staff**. Run `$CHANTIER brief chief-of-staff` and read the file its last line names, whole, first; run it again when your role changes.
+
+A `watch: not running` line in any output, a reload's too: start the watcher now, on the session's yes; run the printed command as is: no flag added.
+
+If the invocation's first word is `foreman` or `direct`, that mode holds for the session; the user's word changes it. With the argument `reload`, or on "chantier reload": run `$CHANTIER help reload`, follow it and run the brief again; of the rest of this file only the launcher and the `watch: not running` rule apply; it sets no mode.
+H-1593: `<skill folder>` is the `chantier` skill's folder (this file's folder there, `../chantier` from the other skills) and `<plugin root>` is `<skill folder>/../..`, both made absolute.
+H-1594: If `<plugin root>/.git` exists (folder or file), this is chantier's own checkout;
+H-1595: when the session's project is chantier (in a planning surface the folder `projects/chantier`, by its name alone; in-project the repository whose root `.claude-plugin/plugin.json` or `.github/plugin/plugin.json` has `name` `chantier`; "is the project chantier", never "does it use chantier"), it is the dev mode: sync by `sync-checkout.md` (read it first) before the first `$CHANTIER` command and wherever the cards name one (a batch's start, after a merge that changes `uv.lock`).
+H-1596: Check first, writing nothing, with `uv sync --locked --check --project "<plugin root>"` (the command P10's rule holds): exit 0, in sync;
+H-1597: exit 1 with uv's "The environment is outdated", a sync to run once the holders of `<plugin root>/.venv` are named;
+H-1599: Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the user once after 3 minutes.

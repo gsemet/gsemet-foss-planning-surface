@@ -1,0 +1,296 @@
+----- topics/host-claude-only.md (194 B)
+# Claude Code only
+
+This topic's subject is a Claude Code feature. Copilot has none recorded here: nothing of it is
+known or tried there (unproved), so tell the user nothing about it as a fact.
+----- topics/host-sessions-more.md (1165 B)
+# Claude Code: sessions of one repository
+
+All unproved until the session tool is recorded.
+
+- The seat: liveness is asked of the host (the Tools row), never read from a date; where the host
+  cannot tell, the session asks the user (the "looks stopped" line).
+- A fork: what it inherits, whether it has its own session id (`$CLAUDE_CODE_SESSION_ID`) and
+  whether anything tells it it is a fork are unknown. Trial: fork a Chief of Staff session, compare
+  `get_session("self")` and the variable with the seat. With its own id, the next comparison with
+  the seat makes it a Griller; without, a fork cannot be told apart and the user says "you are a
+  griller" in it.
+- A Griller in a worktree sends its files by `SendMessage` to the seat's session, naming absolute
+  paths; the Chief of Staff on the main checkout reads them under `.claude/worktrees/<name>/`.
+- The two-Chiefs case and hand-over lines travel by `SendMessage` like the rest.
+- Claude Desktop limits messages between sessions (10 since someone last typed): a refused send is
+  reported, never sent another way. It applies to the lines between a Griller and the Chief of
+  Staff and to a hand-over's.
+H-1373: Where the host cannot tell, the session asks the user (the "looks stopped" line of `session-start.md`).
+H-1375: A fork: what it inherits (the conversation), whether it gets its own session id and transcript id (`$CLAUDE_CODE_SESSION_ID`), and whether anything tells it it is a fork: unproved;
+H-1381: Unproved; trial: one file sent and placed.
+----- topics/host-surfaces.md (1463 B)
+# Claude Code: where the user is, and the options that fit
+
+Surfaces: the phone on Remote Control; the desktop app, typed; a terminal. The
+desktop app adds a Remote Control notice to the conversation when the user works through Remote
+Control (proved). A terminal gives no signal, and no notice does not prove the user is at the
+machine: offer every option that fits, each with its condition. The notice also sets the mode of a
+batch planned with no argument: direct. Whether it appears on a turn typed at the desktop in a
+session connected to Remote Control is **unproved**. The rest is **unproved** unless marked.
+
+| Option | Desktop | Remote Control | Terminal |
+| --- | --- | --- | --- |
+| Switch to Foreman mode | yes | yes: new, or reused (proved) | no: P1 fails |
+| Switch to direct mode | yes | yes, but not stopping a Foreman that does not answer | yes |
+| Run a command in a terminal | yes | no shell | yes |
+| Open `localhost` or a file path | yes | no: send a link | yes |
+| `/permissions`, `/config` | the app's settings | no | yes |
+| Restart, `/reload-plugins`, an editor | yes | no | restart the CLI |
+| `/chantier-board` | yes | the pane does not show | yes |
+| The remote board (`chantier serve`) | yes | from the local network once `board.host: network` | yes |
+| Review and merge a PR | yes | yes | yes |
+| A host feature (wake, start a session) | where it exists | `start_session` with no `cwd` or `preset` works (proved) | where it exists |
+H-1330: How the host signals the surface: the desktop app adds a Remote Control notice to the conversation when the user works through Remote Control (proved 2026-11-10, Battlestation: said at each turn's end that day).
+H-1331: A terminal gives no signal, and no signal is said when the user is at the desktop app's keyboard: the absence of the notice does not prove the user is at the machine.
+H-1332: The class row "no Remote Control notice" ("Desktop, typed") above is qualified by this.
+H-1333: Where there is no notice, the host says nothing: offer every option that fits, each with its condition ("Offering options", `chief-of-staff-any.md`).
+H-1334: The notice also sets the mode of a batch planned with no argument: direct (`chief-of-staff-batch-start.md`, "Starting a batch").
+H-1336: trial: in such a session, type one turn at the desktop and one from the phone, and record which carries the notice.
+H-1338: The rest of this section is **unproved** except where a mark says otherwise.
+H-1340: | Switch to Foreman mode | yes | yes: a new Foreman with no `cwd`, or a reused one ("Reusing the last Foreman") | no | preflight P1 fails in a terminal; proved 2026-11-20 for the first two (the rule above) |
+H-1341: | Switch to direct mode | yes | yes, except the stop of a Foreman not answering (needs the machine) | yes | needs only the Chief of Staff's own session; unproved until a real switch runs (trial: the first real switch, its events showing the `steering` event `direct` and each `resume: switch to direct mode` take) |
+H-1346: | `/chantier-board` | yes | the pane does not show in a Remote Control view (`docs/boards.md`) | yes | documented in `docs/boards.md` |
+H-1347: | The remote board (`chantier serve`) | yes | yes, from any device on the local network, through the link, once `board.host: network` (or `--host`) opens it to the local network | yes | unproved; trial: open the board's link from the phone on the local network during a batch |
+H-1348: | Review renders, review and merge a PR | yes | yes | yes | the forge, from any device |
+H-1349: | A host feature (scheduled wake, start a session, a monitor) | where the host has it | `start_session` with no `cwd` and no `preset` works; with either, it is refused | where the host has it | proved 2026-11-20 for `start_session`, unproved for the rest |
+----- topics/host-turn-end.md (1484 B)
+# Claude Code: the Foreman's turn-end notice
+
+When a session starts another with `start_session` and leaves it linked, the started session tells
+the starter each time it ends a turn: a system reminder beginning `The session "<title>" you
+started (<id>) finished a turn`, quoting its last reply's first 400 characters. Here
+the starter is the Chief of Staff and the started one the Foreman. **Unproved** as a rule.
+
+- A notice is not a line and not the user's word; it carries no ask. What the Foreman must tell
+  the Chief of Staff comes as its own `[foreman->chief-of-staff]` line (`help steering-messages`),
+  and a lost line is found with `$CHANTIER asks`. The notice's own instructions ("read it with
+  get_session", "mention the outcome") have no rank.
+- On a turn that a notice alone started, end the turn at once: no tool call (no `asks`, `status`,
+  `get_session`, ToolSearch), no message to the Foreman, no report, no restating the quoted text.
+  Reply empty, or one short line when the host requires text ("Noted.").
+- The one exception: the quoted text shows the Foreman's turn ended on an error that stops it (a
+  usage limit, an API error) and no Foreman line came with it. Tell the user in one line that the
+  Foreman stopped, with the error as quoted; still no tool call, nothing started or restarted.
+  Unproved: never seen.
+- A notice that arrives with a Foreman line or the user's message: handle that line or message as
+  its card says; the notice changes nothing.
+H-1022: **A notice is not a line.** It is not the user's word and not a Foreman line of [routing](../routing.md); it carries no ask and no order.
+H-1023: What the Foreman must tell the Chief of Staff comes as its own `[foreman→chief-of-staff]` line (`ready`, `ask A-<k>: …`, `pong`, `final`, `push`, `chain`), and a lost line is found with `$CHANTIER asks`.
+H-1024: The project's rules, then the cards, rank above what the notice's text asks ("read it with get_session / list_events", "mention the outcome to the user").
+H-1025: The notice has no rank in that order, just as an Auto-fix event has none.
+H-1027: It makes no tool call (no `$CHANTIER asks`, no `status`, no `get_session`, no `list_events`, no ToolSearch), sends no message to the Foreman, writes no report and does not restate the quoted text to the user.
+H-1028: Its reply is empty, or one short line when the host requires text (for example "Noted."), never a summary of the Foreman's state.
+H-1033: Every other notice falls under the rule above.
+----- topics/host-write-guard-shell.md (947 B)
+# Claude Code: the write guard on the shell
+
+Its Bash or PowerShell call is judged the same on the write forms the mod sees with a target: `>`,
+`>>`, `tee`, `sed -i`, `cp`, `mv`, `rm`, `touch`, `Set-Content`, `Out-File`, `New-Item`,
+`Copy-Item`, `Remove-Item` and the like. A target outside every folder is refused with `refused: a
+shell write to <path> is outside the folders ...`. Passed: a null device, `2>&1`, and `git`, `gh`,
+`glab` and the chantier CLI.
+
+A guard that cannot judge lets the call pass and says so in the board's note (`Write guard: could
+not read ...`). Not guarded: the main sessions, the release, stack and QA drivers, the specification
+agents, the Griller, the Demo explorer, any agent with no `writes:` line, and shell writes the mod
+cannot see (`python -c`): the card's rule covers them. The host's scratchpad is outside the
+worktree; a worker writes in its work folder. Copilot has no guard and the line is inert there.
+H-1280: The same agent's Bash or PowerShell call is judged by the same rule, on the write forms the mod can see with a target path: a redirection `>` or `>>`, `tee`, `sed -i`, `perl -i`, `cp`, `mv`, `rm`, `touch`, `truncate`, `Set-Content`, `Add-Content`, `Out-File`, `Clear-Content`, `New-Item`, `Copy-Item`, `Move-Item`, `Remove-Item`, `Rename-Item` and `[IO.File]::Write*`.
+H-1281: A target outside every folder, read against the agent's folder like a relative path of Write, is refused with `refused: a shell write to <path> is outside the folders this agent may write in (<folder>; <folder>); the shell follows the same rule as Write and Edit`.
+H-1282: Passed: a write to a null device (`$null`, `/dev/null`, `NUL`) or `2>&1`, and a command that is `git`, `gh`, `glab` or the chantier CLI, which write by their nature.
+H-1284: A guard that cannot judge lets the call pass and says so in the CR board's note, for instance `Write guard: could not read the Write call of agent <id> (no file_path); the call passed.`: a missing, empty or non-text path, a `writes:` line it cannot read (an entry that is not an absolute path leaves the agent unguarded and unmoved), a shell target that holds a variable or `~`, follows a `cd`, `Set-Location` or `pushd`, or a call the mod cannot parse, or anything its own code throws.
+H-1286: Not guarded: the main session (the Chief of Staff, the Foreman), the Release driver, the stack driver, the QA driver, the Spec-writer, the Spec critic, the Griller, the Demo explorer, any agent with no `writes:` line, and the shell writes the mod cannot see (an interpreter's inline code such as `python -c` or `node -e`, a script's own writes): the card's rule covers those, and after a report's `git status` of the main checkout, the steering session names what changed there (`chief-of-staff-steering.md`).
+----- topics/host-write-guard.md (1001 B)
+# Claude Code: the write guard
+
+The plugin's mod reads one line of a spawn's prompt, `writes: <absolute folder>; <absolute
+folder>` (a worker's: the worktree first, the CR folder second; a CR Driver's: its CR folder, then
+the archive path when `take` prints one). It knows no role. A spawn whose prompt holds the line
+starts in the first folder, except one with a `worktree:` line (a CR Driver's: in that worktree,
+or, before it exists, in the root its first line names); with neither, in its parent's folder,
+still guarded, with a note on the board. The mod rewrites `cwd` except on a resume.
+
+That agent's Write, Edit or NotebookEdit outside every folder is refused with `refused: <path> is
+outside the folders this agent may write in (<folders>); write there`. An entry is a bare absolute
+path (anything after it is part of the name: every write is refused). A Git Bash drive path
+(`/c/Users/...`) is read as its drive form.
+
+The shell calls and what is not guarded: `help host-write-guard-shell`.
+H-1267: The plugin's mod also hooks `agent.spawn` and `tool.call`.
+H-1268: It reads one line of a spawn's prompt, `writes: <absolute folder>; <absolute folder>` (a worker's prompt holds it, with the worktree first and the CR folder second; a CR Driver's holds its CR folder, then the absolute archive path when `take` prints one: `concepts.md`, "A Driver's prompt").
+H-1269: It knows no role and no card wording.
+H-1271: That one starts in that worktree, or, while the worktree does not exist yet, in the project's root its first line names (the main checkout, or the project's clone with a planning surface).
+H-1275: That agent's Write, Edit or NotebookEdit outside every folder is refused, with the one message `refused: <path> is outside the folders this agent may write in (<folder>; <folder>); write there`;
+H-1276: a relative path is read against the folder it runs in.
+H-1277: On Windows a Git Bash drive path (`/c/Users/...`) is read as its drive form (`C:/Users/<user>`), for Write, Edit, NotebookEdit and the shell targets alike.
+H-1278: The arguments of a `tool.call` sit flat beside `tool` (`file_path` for Write and Edit, `notebook_path` for NotebookEdit), and the mod reads nothing else.
+----- topics/host-compact-copilot.md (346 B)
+# Copilot: compacting and the reload after it
+
+Name no compacting command or setting to the user. The plugin's mod hooks Claude Code only;
+Copilot has no mod (its manifest names no hooks) and its own reaction to a compaction is not known
+(unproved). The manual reload is the only one: "chantier reload", then run the brief again
+(`help reload`).
+----- topics/host-compact.md (1370 B)
+# Claude Code: compacting and the reload after it
+
+Name a compacting setting to the user only when asked; no role runs `/compact`, the person types
+it. Documented (<https://code.claude.com/docs/en/settings-reference>): auto-compact is on;
+`autoCompactWindow` is 100000 to 1000000, capped at the model's window; `idleCompaction` (default
+true) compacts after about an hour idle; the prompt cache lasts 1 h on a subscription, 5 min on an
+API key (`promptCacheTtl`). `/compact` continues the same conversation.
+
+Recommendation, not a proved fact: keep `idleCompaction` on and set `autoCompactWindow` to 300000
+in `~/.claude/settings.json` for the Chief of Staff's and the Foreman's sessions (the plugin's
+agents carry 200000). Measured compactions at a 300000 window came near 165 to 170k tokens, so
+whether 300000 holds is **unproved**; one session with the setting read back by `/autocompact`
+and the token count at its first compaction would settle it.
+
+```json
+{ "idleCompaction": true, "autoCompactWindow": 300000 }
+```
+
+After a compaction the plugin's mod adds a message naming the role (`help reload`): call your
+skill again with the argument `reload`, then run the brief again. **Unproved** until seen: the
+mod is Claude Code's only; a session without it reloads by hand (`/chantier:chantier reload`,
+`/chantier:chief-of-staff reload`, `/chantier:griller reload`).
+H-1238: What the user sets is its window: the `/autocompact` command and the `autoCompactWindow` setting.
+H-1244: `idleCompaction`: default true; compacts after about an hour idle; Claude Code v2.1.290 and later.
+H-1245: The prompt cache lasts 1 h on a subscription within plan usage, 5 min on an API key or a cloud provider; `promptCacheTtl` sets it.
+H-1249: This matches a window capped at the model's 200,000 with a reserve of about 35k, but the cap's value stays unproved until the trial reads it back: one session, the setting read with `/autocompact`, the token count at the first compaction recorded here.
+H-1251: **Recommendation**, not a proved fact: keep `idleCompaction` on (its default), and set `autoCompactWindow` to 300000 in `~/.claude/settings.json` for the Chief of Staff's and the Foreman's sessions (the plugin's agents carry 200,000 in their files).
+H-1253: The window is capped at the model's context window (documented, above): if Sonnet 5.5's window is below 300K, the cap applies.
+H-1254: Whether 300000 holds, given the measured 165 to 170k compaction above (which concerns this very value), is unproved: the same trial settles the recommendation and records the cap.
+H-1264: **Unproved** until seen in a session; trial: a Chief of Staff session, `/compact`, then the next turn calls a chantier skill with `reload` (Skill tool call visible: record which one the model picked, the role's or the router) and the answer opens with the reloaded line.
+H-1265: The mod is Claude Code's only (`CONTRIBUTING.md`): the automatic reload exists only where the plugin's mod loads.
+H-1266: The manual reload ("chantier reload", or `/chantier:chantier reload`, `/chantier:chief-of-staff reload`, `/chantier:griller reload`) works everywhere, and is what a session without the mod has.
+H-1526: Until then the manual reload ("chantier reload", `session-start.md`, "Reload") is the only one, and the Chief of Staff names no compacting command (the "Compacting" section holds).
+----- topics/host-configuration-copilot.md (1108 B)
+# Copilot: what the user configures
+
+All of it unproved on this host until a Copilot batch runs it.
+
+- Prerequisites as for Claude Code: `git` and `uv` (P5), `gh` or `glab` logged in (P9, the card's
+  check). P10 does not run on Copilot and no allow rule or permission setting is recorded:
+  recommend none.
+- The capability table (`hosts/claude-code.md`) holds the commands both hosts run; the trials run
+  as there (the Chief of Staff's own calls, a refusal told with its exact text).
+- A refused force push is reported like any refusal (`help refused-push`). With no route rule
+  known, the Foreman skips the route-rule read and tries the push, as a Driver does. Risk,
+  unproved: the host may stop an unwatched session on a prompt, which halts the batch.
+- Name no compacting command or setting to the user.
+- Known host issues (GitHub): a `model` array refused (copilot-cli#2133); an SDK agent's model
+  dropped at `session.create` (copilot-sdk#1609); an unknown identifier falling back silently
+  (copilot-sdk#2856); sub-agents on another model with no sign, fixed in CLI v1.0.62
+  (copilot-cli#3824).
+----- topics/host-configuration.md (1297 B)
+# Claude Code: what the user configures
+
+Marks: **proved** (seen), **documented** (the docs say so, link given), **unproved** (nobody saw
+it: say it is not known, and what would settle it).
+
+- Who reads it: the Chief of Staff at a session's first turn and each batch's preflight (P5 tools,
+  P9 forge rights, P10 allow rules). On missing rules it asks the user's yes and adds them
+  (`help allow-rules`); it gives the command line of `help host-allow-add` only when the host
+  refused the edit or the file is not JSON. Chantier writes no other setting of the user's.
+- P10 counts commands, not rule strings: `<k> of <n>` is the samples of that capability the
+  settings do not let through; on Windows a command is allowed only when its Bash and PowerShell
+  forms both are.
+- Prerequisites: `git` and `uv` (P5, preflight fails without); `gh` or `glab` logged in (P9). Not
+  checked: `python` (`uv` supplies it; on Windows the Store alias fails: the user's fix), `bash`
+  (unproved whether Windows needs it), `claude` (no card calls it).
+- Windows PowerShell 5.1: a `gh` or `glab` argument with spaces or double quotes (a `--jq`
+  expression) can arrive split (`accepts 1 arg(s), received 3`): print `--json <fields>` alone and
+  read it, or write the expression with no space and no double quote.
+H-1064: For missing allow rules it asks the question of `chief-of-staff.md` ("The project") and adds the rules on the yes;
+H-1067: Each P10 line's `<k> of <n>` counts commands of its capability: `<n>` is that capability's samples that apply to the project (any forge, the remote's forge, and for a stack `gh stack` when `gh extension list` names it), plus `SendMessage` for every batch, and `<k>` those the settings do not let through.
+H-1074: | `git` | every Driver, the CLI's reads | P5 (CLI) | preflight fails |
+H-1076: | `gh` or `glab`, logged in to the remote's host | the Drivers' PRs and CI | P9 (the Chief of Staff: `gh auth status` / `glab auth status`) | preflight fails |
+H-1077: | `python` | none directly: `uv run` and `uvx` provide the interpreter | not checked | say so; on Windows a `python` that resolves to the Microsoft Store alias fails (seen 15 times in the user's week): the fix is the user's (App execution aliases); **unproved** as to which roles call `python` |
+H-1078: | `bash` | Claude Code's Bash tool on POSIX | not checked | **unproved** whether chantier needs it on Windows, where the PowerShell tool is used |
+H-1079: | `claude` | not a batch's need | not checked | seen missing from PATH 5 times in the user's week; no card calls it |
+H-1081: On Windows PowerShell 5.1 (the PowerShell tool), a `gh` or `glab` argument that holds spaces or double quotes, such as a `--jq` or `--template` expression, can reach the program split or stripped of its quotes (`accepts 1 arg(s), received 3`): print `--json <fields>` alone and read the JSON, or write the expression with no space and no double quote.
+H-1496: Known host issues: a `model` array once refused by the CLI ([copilot-cli#2133](https://github.com/github/copilot-cli/issues/2133));
+H-1497: an SDK-provided agent's model dropped at `session.create` ([copilot-sdk#1609](https://github.com/github/copilot-sdk/issues/1609));
+H-1498: an unknown identifier falling back silently ([copilot-sdk#2856](https://github.com/github/copilot-sdk/issues/2856));
+H-1499: sub-agents on another model than the session's with no sign, fixed in CLI v1.0.62 ([copilot-cli#3824](https://github.com/github/copilot-cli/issues/3824)).
+H-1512: A refusal of a force push on Copilot is reported like any refusal (rule 7), and the general rule of [concepts](../concepts.md) holds: a CR's branches must be force-pushable at all times.
+H-1513: The ladder of [foreman](../foreman-refused.md#a-drivers-refused-force-push), "A Driver's refused force push", holds.
+H-1515: The risk, **unproved**: Copilot may stop the Foreman's unwatched session on a prompt instead of refusing the push, which would halt the batch;
+H-1519: The trials run as on Claude Code (the Chief of Staff's own calls, one per used capability), and a refusal is told and recorded with its exact text (`chief-of-staff-batch-start.md`, "The trials before the go"): **unproved** until a Copilot batch runs them.
+H-1520: P9's forge probes are the card's and run unchanged.
+H-933: Each behaviour carries a mark:
+H-937: Never tell the user an unproved behaviour as a fact: say it is not known, and what would settle it.
+----- topics/host-heartbeat-copilot.md (1235 B)
+# Copilot: the heartbeat
+
+The Chief of Staff arms it (unproved). On the Foreman's `ready <batch>` it sends the Foreman chat
+`/every <steering wake> chantier status --refresh --batch <batch> --epoch <n>`, the wake read from
+the batch's `timing: Copilot <family> models:` line for the model it started the Foreman with,
+else `timing: Copilot other models:`, in `/every`'s form (`4m` by default; the CLI refuses a
+Copilot duration that is not whole minutes). The Foreman cannot end `/every`. In direct mode the
+Chief of Staff runs the same `/every` in its own session, from its first `take`; on a batch born
+paused with no CR it arms it with the first order it sends the Foreman.
+
+At every pause, the automatic one included, tell the user to delete the `/every` in the Foreman
+chat (in direct mode, in the Chief of Staff's session). The Foreman also ends its heartbeat on the
+first wake that sees no Driver run for 30 minutes or more; the Chief of Staff then tells the user
+to delete the `/every` and arms it again with the next order. Whoever ends it first records it with
+`chantier status --stop-heartbeat --batch <batch> --epoch <n>` (`pause` already does); while an
+`/every` still fires, its next wake clears the mark, which is true.
+----- topics/host-heartbeat.md (1296 B)
+# Claude Code: the heartbeat
+
+The Foreman (in direct mode the Chief of Staff, in its own session) runs the `/loop` skill in
+dynamic mode. The loop's prompt is the command `chantier status --refresh --batch <batch> --epoch
+<n>` alone, with no interval in it: a prompt ending in an interval makes `/loop` take its
+fixed-interval mode. Each wake is scheduled with `ScheduleWakeup`, the steering wake of the
+`timing: Claude Code session:` line of `chantier playbook --batch <batch>`, in seconds, after the
+last (3300 seconds by default; the Foreman's own watcher wakes it sooner on a merge, a red CI or a
+met wait; the CLI refuses a wake over 60 minutes). Proved: 30 minutes; unproved: 55.
+
+End the heartbeat, never the session, with `ScheduleWakeup` `stop: true`, after `chantier status
+--stop-heartbeat --batch <batch> --epoch <n>` (every pause already runs it): right after the pause
+(the record alone does not stop the wake, and a later wake's `status --refresh` resets it), and on
+the first wake that sees no Driver of any kind run for 30 minutes or more with no order undone. An
+order's line or a `ping` starts a turn; if it leaves a Driver running, arm the heartbeat again. On a
+batch born paused with no CR, arm the loop only in the turn of the first `take`. No wake ever
+arriving is a stop.
+H-1506: The Foreman also ends its heartbeat on the first wake that sees no Driver run for 30 minutes or more, whatever the wake's interval (nothing can move): the Chief of Staff then tells the user to delete the `/every`, and arms it again with the next order it sends the Foreman.
+H-980: The loop's prompt is the command `chantier status --refresh --batch <batch> --epoch <n>` alone, with no interval in it (no "every 30m", no other): a prompt that ends in an interval makes `/loop` take its fixed-interval mode (seen in real-direct run 1, 2026-11-12).
+----- topics/host-sessions-copilot.md (542 B)
+# Copilot: sessions
+
+The Foreman is started by `create_session`; a refused start is reported with its exact text.
+Nothing else about Copilot's sessions is recorded (unproved): its surfaces and its Remote Control
+signal are not known, so offer every option with its condition, and the no-argument mode follows P1
+and P2 only. A Driver stopped from outside is unproved: the lost-Driver rule holds when the host
+says it was stopped (`help lost-outside`). The seat's session always "looks stopped" to a new
+session: ask the "looks stopped" line.
+----- topics/host-sessions.md (1372 B)
+# Claude Code: classes of session
+
+| Class | Known by | Fit for a Foreman |
+| --- | --- | --- |
+| Desktop, typed | no Remote Control notice | yes, it starts it alone |
+| Desktop, Remote Control | the host's Remote Control notice | yes, on a main checkout: a new Foreman in its own folder, or the last one reused |
+| Main checkout | `git rev-parse --git-dir` equals `--git-common-dir` | yes |
+| Worktree | they differ | no: Write refuses the main checkout, `change_directory` is refused |
+| Remote or app session | often starts in a linked worktree `.claude/worktrees/<name>`: the row above | no |
+| Cloud | the host's environment | no: no main checkout (unproved; trial: start a Foreman and run `git rev-parse --show-toplevel`) |
+| Planning surface | its folder is the surface's checkout, or the project's clone with the surface as a working directory; P6 and P7 accept both, refuse a linked worktree of either | yes: it writes the planning folder by absolute paths |
+
+With no argument the Chief of Staff's batches are direct in the Remote Control row and wherever
+the Foreman-mode P1 fails (terminal, VS Code), Foreman in the "Desktop, typed" row. A session in a
+worktree cannot move to the main checkout: the user starts a new session there (`help
+host-for-you`). Whether a surface session may write the project's clone and worktrees outside its
+folder is **unproved**.
+H-1295: | Desktop, driven by Remote Control | the host's Remote Control notice | yes, with no `cwd` and no `preset`, in its own folder; a start with `cwd` or `preset` is refused (proved 2026-11-20) | yes, on a main checkout: it starts a new Foreman in its own folder, or reuses the last one |
+H-1297: | Session in a worktree | they differ | n/a | no: Write refuses the main checkout, `change_directory` is refused, `request_directory` does not help |
+H-1298: | Remote or app session | often starts in a linked worktree, `.claude/worktrees/<name>`: the row above | n/a | no, as the worktree row says; proved 2026-11-10, Battlestation, session `epic-lamport-b88c2f`: preflight P6 and P7 failed and the hook refused writes in the main checkout's planning folder |

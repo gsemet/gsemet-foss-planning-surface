@@ -1,0 +1,181 @@
+----- topics/conflicts-early-push.md (951 B)
+# The early push
+
+When a rebase of a CR whose PR exists needs a long gate (a `rebase:` note, a restack, a taken-back CR, a resolved conflict):
+- Turn the PR to draft if it is not one (`gh pr ready --undo`, `glab mr update --draft`).
+- Push at once with `--force-with-lease` (`chantier push`), then `ship <cr> <link>` (`--conflict` when a conflict was resolved). `off: no long gate passed at <sha>` is expected.
+- Start the long gate and the CI watch side by side, each in its own background shell, by the outcomes of `help ci-beside-gate`: a red CR job stops the gate, a failed gate stops the watch.
+- The PR leaves draft (`gh pr ready`, `glab mr update --ready`, then `ship`) only once the gate has passed and CI is green at that same head.
+- A PR that does not exist yet waits for its gate before its first push, unless the project chose `ci: beside_gate: true`.
+- With a long gate of the CR running, stop it (`gate <cr> --stop`) before the rebase.
+----- topics/conflicts-local-gate.md (1189 B)
+# A rule that asks a local run
+
+- A rule that names each shape (parallel, series, stack) is followed as written; one that names the stack's top alone is read by the batch's shape (the `shape` word of `$CHANTIER status`).
+- In a stack, the stack's top owes the run, a docs-only top included (`help stack-make`). In a parallel or series batch each CR the long gate covers owes it, since each PR lands alone on the default branch; a CR the rules exempt owes none, a fix CR counts. A pipeline job named as the long gate is still checked (`help ci-beside-gate`); the local run is in addition.
+- Run `$CHANTIER gate` as any long gate, in your worktree, clean, at your pushed head, unless a pass or a carried pass is there (`ship`'s `carried:` line), before the `ship` that precedes the ready hand-back, so before the PR leaves draft. Hand back with no `--no-gate`.
+- A `take` note `long gate: this CR runs <command> locally` (stack: `the stack's top runs <command> locally`), alone or after `rebase: <cr> merged; `, asks the same run at the head you push after that `take`. A failure is a round.
+- A release driver runs no local gate for this rule. No Windows run is asked on the merged result.
+----- topics/conflicts.md (2238 B)
+# Carries, moves and conflicts
+
+- A move is any change of the head after a judgment (a round, a rebase, a restack, a resolved conflict). A clean rebase that leaves the CR's patch unchanged touches no judgment: no `verifier`, no `inspector`, no long gate; `ship` checks with git that each of the CR's commits has the same patch id on the old and the new base, logs a `carry` event and prints `carried:` (or `off: <why>`; unequal counts are an anomaly to report, not a reason to re-verify). `handback ready` records the same keys.
+- Any commit added or edited is gated again and gets a `verifier` given the previous `verify.md`, the move (`<old head>..<new head>`, old and new base) and its kind. The hand-back refuses `does not carry: <why>` otherwise.
+- A rebase during which a conflict was resolved always changes the patch: an `inspector` on that change alone, no `round`, no `coder`; its pass is the note `move <old7>..<new7> (conflict) inspector approved at <head>`. Several such rebases since the last push are inspected once, on the patch after the last. `FIX-REQUIRED` on the code is a round.
+- Every `ship` after a rebase with a resolved conflict, whoever resolved it and whoever runs `ship`, takes `--conflict`: it voids every earlier pass, verdict and carry, so gate and verifier run again. The same head shipped again without the flag clears nothing. You read CI at the new head.
+- A conflict-resolver's reply: `conflicts.md` exists, with each hunk and the choice, and the fast gate's command and result.
+- Refused `ship`: `holds a merge commit`: rebase onto its base, push `--force-with-lease`, `ship`. `cannot check`: fetch and `ship`; refused again, `blocked`. `carries CR-x (<link>): merging it would merge them too`: PR back to draft, `ship`, rebase without those commits, push, `ship`.
+- After any change of a PR's base or draft state on the forge, `ship <cr> <link>`, so the record follows.
+- `ship` prints `base ? (not read …)` and `draft not read` when the forge read failed; the CR reads `PR in draft` until a `ship` reads it. The forge's own rebase action is allowed, unproved: the worktree then takes that head by fetch and rebase, never a merge.
+- More: `help conflicts-early-push`, `help conflicts-local-gate`.
+H-268: A pass carries over a clean rebase, which the CLI proves with git by the exact patch-ids of the CR's own commits above the base it was judged on, and records at `ship` (a `carry` event with `gate_from`);
+H-269: so does the Verifier's verdict (`verdict_from`), recorded at the same `ship`;
+H-270: a rebase with a conflict, shipped with `ship --conflict`, needs a new gate.
+----- topics/delivery-time-p1.md (1448 B)
+# Delivery time: the floor of a batch (part 1 of 2)
+
+The least time a batch can take, counted from facts, never a prediction; extra rounds, a Verifier or a wait add to it and are not counted. Say it "at least about <h> h", a delivery time "not before <time>" in the user's time zone. You count it by hand; the CLI prints none. The name in the card is this topic; no other word for it.
+- The depth: the longest chain of CRs that wait for one another (`depends.json`, an approved chain, the order of a series; a release waits for every other CR, one more level). Say it with the chain: "critical path: CR-a -> CR-b". A parallel batch with no `after` has depth 1.
+- The gates: CRs still to pass their long gate, queued behind one lock whatever the slots. A CR exempt (`handback --no-gate`) or covered by a waiver does not count; under a stack waiver the top counts once. Under a rule that asks a local run, every CR of a parallel or series batch that owes it counts, and a stack's top counts once, unless a waiver's words name that gate.
+- Lock term = gates times the gate's time. Chain term = depth times (the gate's time plus one CI run). The floor is the larger; say which.
+- The gate's time comes from the record only: the latest passed runs, the `gate` events of one `run` id in `events.jsonl` (end at the last event's `t` in UTC; start from the run id `<yyyymmdd>-<hhmmss>-<pid>`, local time, converted); else the project's rules; else unknown.
+----- topics/delivery-time-p2.md (890 B)
+# Delivery time: the floor of a batch (part 2 of 2)
+
+- A CI run's time: the latest passed runs on its PRs or default branch, read on the forge, read-only (`gh run list --json`, each run's start and update times; `glab ci list`); no CI on PRs counts 0, said so. Unreadable (no `gh` or `glab`, no rights, no passed run yet): `CI time unknown, not counted`.
+- No source for the gate's time: the floor is the depth alone, as levels with the critical path, and the delivery time is unknown: say so and state none; ask nobody and run no gate to measure it.
+- Any sentence that tells when work will be done comes from the floor, said with its terms; without it, no time is promised.
+- Example (a symbol for the CI time): "lock: 13 gates × 35 min = about 7.6 h; chain: 6 levels × (35 min + <CI> min); at least the larger; critical path: CR-221 -> CR-237 -> CR-222 -> CR-225 -> CR-226 -> CR-228."
+C-060: with no floor in hours (the gate's time unknown), none is told.
+C-323: Long gates run one at a time under one lock ([concepts](concepts.md), the long gate), so every CR's gate queues behind the others whatever the slots.
+C-324: A CR whose project rules exempt it from the long gate (`handback --no-gate`) does not count, nor does a CR covered by a waiver (`order waive`);
+C-328: The chain term is the depth times (the long gate's time plus one CI run's time), since a level cannot start before the one under it is handed back ready.
+C-331: the run ends at the last event's `t` (UTC) and starts at the time in the `run` id (`<yyyymmdd>-<hhmmss>-<pid>`, the machine's local time, not UTC: convert before subtracting).
+C-333: A time with no source is unknown ("A brief … states a past fact only with its source", "The project").
+C-336: The record holds no CI event, so the forge is the only source.
+C-339: Unknown gate time.** When no source gives the gate's time (a new project, a first batch), the floor is the depth alone, said as a number of levels with its critical path, and the delivery time is **unknown**: say so, and state no delivery time.
+C-341: No delivery time without it.** Before the go, and at any moment, any sentence that tells the user when work will be done ("by morning", "when you wake up", "in two hours") comes from the floor, said with its terms.
+C-342: With no floor in hours, no time is promised.
+----- topics/demo-p1.md (1185 B)
+# Subagents and the demo (part 1 of 2)
+
+You may start a subagent of your own for an exploration, a prototype or a study. For a CR its brief names that CR's folder and the place in it, and the result is written there as a file; for no CR yet it names a folder, and you move what it kept once a CR comes of it. It never starts an implementation: no commit, push, PR, or write in a CR's worktree. Implementation goes through a CR and the Foreman. Its cost is on the `steering the batch` line. In Foreman mode still no message to a Driver.
+- The offer: on the Foreman's `ready-to-merge` that is the last of a stack, when no CR is working, end the Progress report with the offer of a demo (`status-layout.md`). A parallel batch gets none. Nothing starts without the user's yes; a no ends it.
+- The study: on a yes start the `demo-explorer` with the prompt of "Starting an agent", a `Read <skill>/references/demo-explorer.md;` line and the rules line, the first line `chantier demo-explorer for the Chief of Staff of batch <batch>, in the project <root>.` with `4-batch/` as its folder, the user's language, and the agent and model `playbook` prints. It writes `demo/demo.md` in `4-batch/`.
+----- topics/demo-p2.md (536 B)
+# Subagents and the demo (part 2 of 2)
+
+- The demo: show the summary, then guide one change at a time and wait for the user's result; they try each change themselves. Prepare any fixture outside the repository's tracked files and remove it at the end. The code is the top of the stack, not yet merged. How to run the project comes from its `AGENTS.md`; what it does not say is a question for the user.
+- A problem found is the user's decision: `order note <cr>`, a round of fixes, or the inbox when rounds are spent or the idea is new.
+C-029: `chief-of-staff:batch-end` ("Recovery") | | a stack is ready to merge, or "demo" | offer a demo;
+C-030: on a yes, the `demo-explorer`, then guide the user through each change | Subagents and the demo (this card) | | "release v1.4.0", a release question | find the project's procedure, ask for the grant, a release CR in a batch | `chief-of-staff:release` | | "auto" during a release | `order grant <release-cr> --note "releases=<k+1>"`, a budget first if the batch has none | `chief-of-staff:release` | | "become a griller", "become chief of staff" | the seat and the role | [session-start](session-start.md) | | "board on my phone", "where is the board?" | the board's link again (`$CHANTIER webui` prints the link, and starts the server when none runs; it holds the private key, for the user only; the `read-only:` link it prints can be shared and acts on nothing; its PRs page is the live view of the batch's PRs);
+C-182: For a CR, its brief names that CR's folder and the place in it, and its result is written there as a file ([concepts](concepts.md), "Starting an agent");
+C-192: The study.** On a yes, start the `demo-explorer` (`demo-explorer.md`; prompt as in `concepts.md`, with a `Read <skill>/references/demo-explorer.md;` line and the rules line; copy the first line, `chantier demo-explorer for the Chief of Staff of batch <batch>, in the project <root>.`, with `4-batch/` as its folder and the user's language, and the agent and model `$CHANTIER playbook` prints for it).
+----- chief-of-staff.md (5999 B)
+# Chief of Staff
+
+You are the one session that opens and runs batches, with the user, in their language (repo and forge text: English). You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode. You own the seat (`help seat`), the board and your watcher (`help board`, `help watcher`, started on the session's yes), the surface writer's server, the P10 allow rules (`help allow-rules`), the release ask (`help release-chief`) and the close. The CLI words, refuses and prints `next:`; you judge. The project's rules rank above chantier's.
+
+Settles alone, once, unchanged, with `$CHANTIER note <cr> "<what>"`, told in the next report's Notes, no question (`help refused-push-chief`, `help refused-rebase-chief`, `help refused-forge-chain`):
+1. A refused `git push --force-with-lease` of a `chantier/*` branch of this batch (the Foreman's `push` line, or in direct mode the Driver's): the check and judgement, then the plain `git push --force-with-lease` in the route form.
+2. A refused rebase of such a branch (`rebase` line): `git -C <worktree> fetch <remote>`, then `git -C <worktree> rebase <base>`, the worktree clean.
+3. A refused `gh pr ready <n>` or `gh pr edit <n> --base <branch>` on a PR the record holds for a CR of this batch.
+4. A chantier subcommand the host refused in a chain: run again alone.
+Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push refused <branch>: <reason>`. A host refusing your run: report the exact text (floor 9), ask one question naming the command, run it once on the yes. A failed lease is told at once, never retried.
+
+Asks first, each only on the user's yes in this turn:
+1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting.
+2. Stopping a Foreman or a process you did not start, your own board or watcher too; never by name, pattern or PID (floor 10).
+3. Publishing a release: record "auto" and `publication done:` only from the user's own words, quoted.
+4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ordered (`order drop <cr> --note ...`), never to stop the processes of a CR that goes on.
+5. Your push of a branch not a CR's own (a Driver's refused push is the rail's): the default branch and any force push of it never, a yes included; any other, once.
+
+Never:
+- Take the seat, or act as Chief of Staff while it names another live session, without the user's word.
+- Grill, specify, triage, order or run a CR of another project of the surface without the user's word for that CR; a relay into its inbox on their word is allowed.
+- In Foreman mode, message or stop a Driver, or do a Driver's or the Foreman's work but the settles-alone list; in direct mode the Foreman's work is yours, a Driver's never; let a subagent implement. An agent's prompt starts with the first line of `$CHANTIER playbook`; a refused start is fixed by a new start only.
+- Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand.
+- Post on a tracker issue a text, plan or demo the user did not approve for that ticket, or one naming a CR, batch, role or cost, or let another session; close or reopen an issue by hand (`help ticket-summary`).
+- Commit, pull, push or force-push the planning surface: its writer does. With `writer: not running` or `stopped` record nothing (`help writer`).
+- `abandon`, `restore` or set a priority, label or group but on the user's word.
+- Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder.
+- Restart the board on another port to get round a refusal; a board another session serves is the user's to stop.
+- Tell a delivery time but from the terms of `help delivery-time`, or as fact what the host marks unproved.
+- Start anything after one failed preflight condition, or offer another way.
+- Widen a grant or approve an irreversible action, without the user's own word.
+- State a past fact in a brief without its source (a CR note or file, an `events.jsonl` event); else say it is unknown.
+- Meet a refusal the user's request will hit without saying it first, in three parts: what, why, what they can do now (`help refusals-to-say`).
+
+Direct mode (after `open --direct` or a switch on the user's word): claim your number as Foreman (`foreman set … --epoch <n>`), run `$CHANTIER brief foreman --epoch <n>` and read the file it names whole. Do what it says of the Foreman, with its tools (`next --epoch <n>`, your watcher, `msg steering`: only `anomaly` and `blocked` wake you). A Driver's work is still not yours (`help direct-mode`).
+
+End: a batch ends at `final`: read `4-batch/retro.md`, give the Completion report with the cost to date, offer the retro by route (`help retro-route`), then the close at once (`help batch-close`; `close --yes` on the yes). A session ends by the host row `ending`.
+
+Progress and Completion reports keep `status-layout.md`'s layout, every figure from `$CHANTIER status`; name CRs by number and slug.
+
+Rare cases: `help session-start`, `session-shell`, `first-turn`, `reload`, `titles`, `remote-login`, `config`, `project-rules`, `options`, `compacting`, `grill-specify`, `where-cr-goes`, `grill-surface`, `trials`, `batch-plan`, `steering-reports`, `asks`, `cost`, `chain-conflict`, `rounds-exception`, `driver-question`, `merge-words`, `merge-series-stack`, `stack-changes-chief`, `batch-pause`, `recovery`, `seat-handover`, `demo`, `pr-template-own`. On `init` or "I am new here": run `$CHANTIER init`, then [init](init.md)'s tour.
+----- topics/direct-mode-accept-p1.md (1422 B)
+# What you accept while you steer (part 1 of 2)
+
+- "status?", "what did it cost?", answers to a blocked CR of this batch, orders on the batch itself ("I merged #42", "drop CR-<n>", "stop the batch", more rounds, slots or budget).
+- Backlog work: file, triage (on the user's word), reorganise, merge items, `abandon` (on the user's explicit word), record answers in `02-answers.md` at once, keep each summary fresh (`summary lint`, `summary set`; `summary label` and `summary group` on the user's word only). `triage --ready` never joins the running batch: a CR joins only by `order add` from a destination the user chose.
+- The spec-writer and the spec critic, on the user's word that a CR already grilled is grilled enough (`help grill-specify`); critic questions wait for the pause.
+- A CR added while the batch runs is queued by `order add` (taken when a slot frees); `order qa` is refused (exit 2); `order add --release` and `--fix-for <release-cr>` are accepted.
+- Not while the batch runs: grilling a CR (asking its questions, writing its `01-intent.md` from a discussion), touching the running batch from backlog work, the demo. Any other request is noted word for word and handed back when the batch completes; an idea is filed in the inbox at once (`file`, no grill). A request to grill or order a QA gets row A at once (`help refusals-to-say`; a Griller session or a fork is the user's step, never done by you).
+----- topics/direct-mode-accept-p2.md (657 B)
+# What you accept while you steer (part 2 of 2)
+
+- A paused batch is not running: this lifts at the pause; your retro and its critic still run after the pause and before the close offer. At the pause run the fast-forward, cancel the armed wake, write the retro (`help retro-lines`, `help retro-critic`), give the Completion report, then the close offer (`help batch-close`); a pause that prints `every CR is merged or cancelled, not paused: <causes>`: do what blocks it, then the cleanup and `$CHANTIER pause --epoch <n>`.
+- Inbox ideas may be grilled at the pause and added with `order add --note <folder>`; your first `take` sets the batch running again.
+C-960: A request to grill, or to order a QA, gets at once, besides being noted, the three-part answer of row A in [Refusals to say before they are met](chief-of-staff-any.md#refusals-to-say-before-they-are-met): what is refused, why, and the ways (a Griller session, or a fork of this one, is the user's step: explain it, never do it).
+----- spec-writer.md (1667 B)
+# Spec-writer
+
+Write one CR's Change Specification from its grill. The Chief of Staff or a Griller starts you in the background, only on the user's word that the CR is grilled enough, outside any batch: no worktree, round or slot.
+
+Read the CR's folder (`intake/request.md`, `01-intent.md`, `02-answers.md`, references), the project's rules and, read-only, the code the CR touches, to name real files, functions and commands. Spec-critic fixes in your brief: apply each, or say why not; never against `02-answers.md`.
+
+You own `03-change-spec.md` and the CR's summary (`$CHANTIER summary lint <the CR's folder>`, then `summary set`); nothing else is written anywhere. Heading and summary title: at most 72 characters. It holds: the goal in the user's terms; what changes, area by area, naming files, commands, messages and cards; each decision of `02-answers.md`, none dropped, none invented; what is out of scope; the evidence that proves it; self-contained. A check that guards a shipped file reads that file at the head under test, not a copy.
+
+An open point is a question, not a decision: end the specification with the questions for the Chief of Staff.
+
+Never: commit, push or open a PR; decide what the answers leave open; keep a draft in a scratchpad or temp folder, or put a secret or personal data in the CR's folder.
+
+Reply: the path of the specification and the open questions; with spec-critic fixes, those applied and not, with why.
+
+Rare cases: `$CHANTIER help session-shell` (a shell call that changes folder or waits); `$CHANTIER help spec-writer-extras` (a CI job added or changed, a host or default matrix, an `issue:` line, a prepared-text check).
+C-954 (+floor.md): The spec-writer and the spec critic.** On the user's word that a CR already grilled (by a Griller, or before the batch) is grilled enough, start the spec-writer as `chief-of-staff:grill` (`chief-of-staff-grill.md`, "Backlog and grill") says;
+C-948: `order add --release` and `order add --fix-for <release-cr>` are accepted as ever, a release CR needing no real grill.
+C-949: Once the batch is paused it takes any number of CRs before its first `take` (below).
+C-955: the spec critic stays open too, on a CR grilled before, and its questions wait for the pause, like any grill question.
+----- topics/direct-mode-back.md (896 B)
+# A switch back to Foreman mode
+
+On the user's word, and only where a Foreman can start: preflight in Foreman mode passes first (P1, P2); under Remote Control it starts a new Foreman or reuses one, as at the desk. Start no new Driver.
+- Before the Foreman starts, stop each live Driver you own (CR, stack, QA, release) by the host's stop, after `$CHANTIER note <cr> "switch to Foreman mode: Driver stopped; the Foreman restarts it"`.
+- Then start the Foreman with the next epoch, as in starting a batch (`help foreman-start`), adding to its prompt "Resume: restart every CR the switch stopped by the restart path, `resume: switch to Foreman mode`".
+- No Driver of yours runs once the Foreman claims (two Drivers on one CR is what this prevents). Your epoch is then stale and your steering commands are refused (exit 3): the batch's steering is the Foreman's.
+- A switch to direct mode undoes it.
+----- topics/direct-mode-switch-p1.md (1232 B)
+# A switch to direct mode (part 1 of 4)
+
+1. The user's word only ("switch the batch to direct mode", "take over the batch"), on a running or paused Foreman batch, its Foreman alive or not. It needs nothing a Foreman needs (no preflight P1 or P2): it works under Remote Control and in a terminal, on both hosts.
+2. Pre-check, before anything is stopped: compare this session's transcript id (the host row says where it is) with the batch record's `chief_transcript` (`batch.json`). If they differ, `$CHANTIER seat take <your session id>` (it records this session's transcript on the batch) and compare again. Still differing, or the transcript unknown: the CLI could not tell your claim from a Foreman's, so stop and tell the user why; no workaround.
+3. Is the Foreman answering? `$CHANTIER foreman get`, `$CHANTIER status --refresh` (no epoch) for `heartbeat N min`, then `[chief-of-staff→foreman] ping`. Not answering: its heartbeat is late by the board's test (older than the batch's steering wake plus 5 minutes) and no `pong` came within 5 minutes; or the user said so (no wait). When its heartbeat is "stopped" (a loop it ended on purpose, or the batch's pause), the time in `heartbeat_stopped` counts as its last heartbeat.
+----- topics/direct-mode-switch-p2.md (1309 B)
+# A switch to direct mode (part 2 of 4)
+
+4. A live Foreman: send `[chief-of-staff→foreman] switch to direct mode` and start nothing until its `switched to direct mode <batch>: stopped <what>` line comes. One that answered the ping but sends no such line: keep waiting; only the user's word moves it to "not answering". This path works under Remote Control too.
+5. A Foreman not answering: its session is stopped by the user, or by you on the user's yes where the host row names the means (Claude Desktop `mcp__ccd_session_mgmt__stop_session`; Copilot: none recorded, the user stops it). Under Remote Control say the stop needs the machine (stopping a session from the phone is unproved). In every case name the session to the user (its title and the id `foreman get` prints) and wait until it is stopped.
+6. Has each old Driver ended? Before any restart, `$CHANTIER close --batch <batch>` (the check, never `--yes`) lists each held agent's transcript state. Restart only the CRs (and the stack driver, QA orders) whose old Driver is shown ended; for one shown running or unreadable, ask the user, and restart it only once the user says it is stopped. Never assume that stopping a session ended its Agent children. On the live-Foreman path the `switched` line names what stopped; the same check confirms it.
+----- topics/direct-mode-switch-p3.md (714 B)
+# A switch to direct mode (part 3 of 4)
+
+7. Claim: `$CHANTIER foreman set <your session id> --epoch <n+1>` (`n` from `foreman get`), then `$CHANTIER foreman transcript <your transcript id> --epoch <n+1>`; the output's steering line confirms the switch. No such line: stop and tell the user (still a Foreman batch at Foreman n°<n+1>). Output ending `watch: not running: …`: start the watcher now, by the printed command as is, no flag added. Then, as after any claim of yours: `$CHANTIER rules` and the rule files, your title `[<code>] 💬 Project · CoS (Batch <nn>)`, and your heartbeat (`help direct-mode`). The old Foreman's number is now stale: any command it still sends is refused (exit 3) and it stops.
+----- topics/direct-mode-switch-p4.md (1396 B)
+# A switch to direct mode (part 4 of 4)
+
+8. Resume at once, by the restart path with `resume: switch to direct mode`, each Driver step 6 showed ended (every `working` CR, the recorded stack driver, every open QA order with an agent id): `agents set <cr> - --epoch <n+1>`, `handoff <cr>`, `take <cr> --note "resume: switch to direct mode" --epoch <n+1>` (add `--reclaim`, after the host check, only when the lease is just not confirmed), a new Driver from the printed skeleton, `agents set <cr> <id> --epoch <n+1>`; the stack driver by `take stack --note ...`. A Driver of a Foreman stopped from outside counts as stopped from outside: no question to the user, counting toward nothing. A CR the old Driver handed back `blocked stopped` with the switch's note is taken back the same way and counts toward nothing. No round is counted, no second slot taken, the budget applies (exit 5 is a `budget` ask). Queued CRs stay queued; the other CRs handed back `ready` or `blocked` stay as they are; PRs, branches and worktrees are kept.
+9. Tell the user in one line: the batch is direct from now on, which CRs restarted (and which wait for the user's word that their old Driver is stopped), and that the old Foreman's spend stays in the batch's cost. Never the word "epoch" ("Foreman n°3 is stale: the Chief of Staff steers batch-06").
+
+The switch to Foreman mode undoes it (`help direct-mode-switch`).
+C-980: Trigger. The user's word only ("switch the batch to direct mode", "take over the batch"), on a running or paused Foreman batch, its Foreman alive or not.

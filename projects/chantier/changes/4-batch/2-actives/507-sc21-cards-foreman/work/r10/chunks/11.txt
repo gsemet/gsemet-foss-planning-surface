@@ -1,0 +1,198 @@
+----- topics/host-sessions-copilot.md (542 B)
+# Copilot: sessions
+
+The Foreman is started by `create_session`; a refused start is reported with its exact text.
+Nothing else about Copilot's sessions is recorded (unproved): its surfaces and its Remote Control
+signal are not known, so offer every option with its condition, and the no-argument mode follows P1
+and P2 only. A Driver stopped from outside is unproved: the lost-Driver rule holds when the host
+says it was stopped (`help lost-outside`). The seat's session always "looks stopped" to a new
+session: ask the "looks stopped" line.
+----- topics/host-sessions.md (1372 B)
+# Claude Code: classes of session
+
+| Class | Known by | Fit for a Foreman |
+| --- | --- | --- |
+| Desktop, typed | no Remote Control notice | yes, it starts it alone |
+| Desktop, Remote Control | the host's Remote Control notice | yes, on a main checkout: a new Foreman in its own folder, or the last one reused |
+| Main checkout | `git rev-parse --git-dir` equals `--git-common-dir` | yes |
+| Worktree | they differ | no: Write refuses the main checkout, `change_directory` is refused |
+| Remote or app session | often starts in a linked worktree `.claude/worktrees/<name>`: the row above | no |
+| Cloud | the host's environment | no: no main checkout (unproved; trial: start a Foreman and run `git rev-parse --show-toplevel`) |
+| Planning surface | its folder is the surface's checkout, or the project's clone with the surface as a working directory; P6 and P7 accept both, refuse a linked worktree of either | yes: it writes the planning folder by absolute paths |
+
+With no argument the Chief of Staff's batches are direct in the Remote Control row and wherever
+the Foreman-mode P1 fails (terminal, VS Code), Foreman in the "Desktop, typed" row. A session in a
+worktree cannot move to the main checkout: the user starts a new session there (`help
+host-for-you`). Whether a surface session may write the project's clone and worktrees outside its
+folder is **unproved**.
+H-1300: | Session in a planning surface | its folder is the surface's checkout, or the project's main checkout (its clone) with the surface added as a working directory; preflight P6 and P7 accept both and refuse a linked worktree of either | n/a | yes, in both setups: the sessions run there and write the planning folder by absolute paths; a session started with no `cwd` lands there (proved 2026-11-20, the Studio's batch-07 Foreman and chantier's batch-29 Foreman). Whether the host lets it write in the project's clone and worktrees, outside its folder (`checkout.yml`), on the surface's checkout: **unproved** |
+H-1301: With no argument the Chief of Staff's batches are direct in the Remote Control row and on any entry where the Foreman-mode P1 fails (terminal, VS Code), and Foreman in the "Desktop, typed" row (`chief-of-staff-batch-start.md`, "Starting a batch").
+H-1307: So moving to the main checkout is the user's step: a new session on the main checkout, without worktree ("For you" below).
+H-1350: | Work in the main checkout | not during an eval, not from a worktree session | same | same | the classes table and the project's rules |
+H-1529: Until then the Chief of Staff offers every option, each with its condition (the "host says nothing" case of "Offering options", `chief-of-staff-any.md`).
+H-1530: With no Remote Control signal known on Copilot, the no-argument mode follows P1 and P2 only (`chief-of-staff-batch-start.md`, "Starting a batch"), unproved.
+H-1534: A Driver stopped from outside on Copilot is unproved; the card's rule (`foreman-lost-driver.md`, "A Driver stopped from outside") holds when the host says the Driver was stopped.
+----- topics/init-checks.md (1490 B)
+# The tour's checks: gates and long-gate settings
+
+- Check the project's rules declare a fast gate (after every round and before the CR's first push) and a long gate (once before the PR; `handback ready` requires it), or no long gate, or exemptions. A missing one: propose the exact lines, for example "- Fast gate (after each change): `<cmd>`." and "- Long gate (before a pull request): `<cmd>`.", one command per item, never chained with `&&` or `;`. Impact: a long gate the Driver cannot run is a `--no-gate` the steering session must question.
+- An extra pre-push line ("- Before the first push, for a change under `src/`: `<cmd>`.") only for a check too slow for every round and too important to leave to CI.
+- With a long gate declared or proposed, ask once whether it is isolated per worktree (own ports, temporary folders, services). Yes: ask how many runs at once the machine carries, and propose `long_gate:` / `parallel: <n>` for `chantier.yaml`, written only on the user's yes. No: propose `parallel: 1`. Not asked when `long_gate.parallel` is set (a `long_gate:` holding only `commands` is still asked). Impact when missing: long gates run one at a time and CRs wait their turns.
+- On the same yes, propose the `long_gate.commands` entry (a name and the gate's command) for the code repository's root `chantier.yaml`: it makes the gate runnable (`gate <cr> <name>`; `docs/gates.md`). Write it, with the inbox CR offered, as `help project-rules` says.
+
+More: `help init-tools`.
+H-809: Check the two gates in particular: whether the project's rules declare a fast gate (run after every round, and again by the Driver before the CR's first push; an extra pre-push check may be declared too) and a long gate (run once before the PR, which `handback ready` requires), or no long gate, or exemptions.
+H-819: The impact when the key is missing: long gates run one at a time, and four CRs in `3-ready` wait their turns.
+----- topics/lease-steering.md (755 B)
+# Leases, from the steering side
+
+A Driver's lease on its CR runs out when the Driver is gone; `next` names a stale one as an item. Read it before you act: a live Driver renews it with its commands.
+- A stale lease on a `working` CR whose Driver the host shows ended: `agents set <cr> - --epoch <n>`, then the lost-Driver path (`help lost-driver`).
+- `take --reclaim` only on the user's word, never on your own judgement.
+- A Driver waiting more than 3 minutes on a claim or a lease holds with `lease hold` (45 minutes by default, 90 at most); it runs nothing and keeps the lease live. Do not read a held lease as lost.
+- A `--lease` refusal or `claim lost` in a Driver's line is its own to settle with `take --reclaim`'s output; steer nothing around it.
+----- topics/lease.md (1421 B)
+# The lease
+
+Your lease on your unit (the CR, `stack`, or a QA order `O-k`) is 10 minutes, renewed by every command that carries `--lease <n>`, the number `take` or the order printed. Times in its texts are UTC. It is local to the batch's machine.
+- Renew at each wake: the next command carries `--lease <n>`, or run `lease <unit> renew --lease <n>`. Before a wait over 3 minutes (a worker's run, a test, CI), run `lease <unit> hold --lease <n> [--minutes N]` (45 minutes by default, 90 at most), and again at a wake when the wait goes on. `hold` runs nothing.
+- A long gate of yours, running or queued, keeps the lease live with no `hold`.
+- `not confirmed`: the lease ran out while you waited, a hold included. It is no failure and not "gone": your next command with the current number is accepted (the log notes `lease-late`) while nobody took the unit again; read it with `lease <unit>`. A running gate is never stopped for it.
+- `claim lost`: the steering session took the unit again or ended your lease (`cancel`, `order drop`, `order hold`, `agents set <cr> -`). Stop at once, record nothing more, tell the steering session.
+- `take --reclaim` is the steering session's, after it checked with the host that the Driver ended, or on the user's word for a live lease. A Driver never reclaims.
+- A refusal you do not understand (a write, a `take`, a push): `access <unit> --lease <n>` explains it and changes nothing.
+C-905: once the host shows its holder ended, that `agents set ... -` ends it with no word of the user;
+C-907: A refusal you do not understand.** A Griller's or a Driver's: `$CHANTIER access <cr> --epoch <n>` before you ask; it explains and changes nothing.
+C-917: The command runs every time, after the claim, whatever ran before it.
+FM-054: A `lease not confirmed since …` mark of `status` is not a Driver gone (a Driver waiting for its worker cannot renew): check with the host's means that it ended, and only then take the CR again with `take <cr> --reclaim --note "resume: lease not confirmed"` (a QA order: the restart path with `agents set O-k <id> --reclaim`; the stack: `take stack --reclaim`).
+FM-057: once the host shows its holder ended, that `agents set ... -` ends it with no word of the user;
+H-034: `lease <unit> hold` sets its expiry ahead (45 minutes, 90 at most).
+H-036: **Live** while it has not ended and it is within its 10 minutes, or a long gate of the CR runs or waits (the expiry a hold set counts as within its time).
+H-037: **Not confirmed** when it ran out with none of these: its holder may only be waiting for its worker, so it is not gone, and its holder's next command with the current number is accepted while nobody took the unit again.
+H-039: **Ended** by the hand-back, the order's end, `agents set <unit> -` on a live lease, a `--reclaim`, `cancel` or `order drop`; the old holder's next command gets `claim lost`.
+----- topics/local-gate.md (1240 B)
+# The local run
+
+Where the rules ask a local run of the long gate (`$CHANTIER rules`), a CR owes it unless a rule exempts it (checked as `help long-gate` does).
+- The stack's top handed back `--no-gate`, an exemption such as docs only included: `take <cr> --note "long gate: the stack's top runs <command> locally"`, no ask.
+- A parallel or series CR handed back ready with `--no-gate`, or whose record holds no passed or carried long gate at its head (`log <cr>`): `take <cr> --note "long gate: this CR runs <command> locally"`, no ask. An exempt CR does not go back.
+- A waived CR that owes it and holds no pass at its head (`status` shows it `waived`) goes back the same way; its ask then carries `long gate waived: …` and the clause. A fix CR you merge under the grant owes it too.
+- The ask of a CR that owes it carries, after its gaps, `local gate <cr> at <sha7>: passed`, and goes only with `passed` (`judge <cr> --local-gate` adds the clause). With no such rule, no clause.
+- At a `deliver by <time>` order note (any mode), a CR not yet passed is not sent back: its ask goes as it stands with `local gate <cr> at <sha7>: not run` (or `failed`), after `no long gate: <reason>` when it has one. A gate still running is not stopped.
+FM-B013: The ask is then `ready-to-merge <cr> <link> no long gate: <reason>` (or `pr-in-draft …`).
+----- foreman.md (3999 B)
+# Foreman
+
+You steer one batch for the Chief of Staff until paused; the CLI limits, words and refuses; you judge. Direct mode: the Chief of Staff uses it (`help direct`). Goal: every CR merged or cancelled with the fewest questions to the user, every decision of theirs left to them.
+
+Start:
+- Set your prompt's session title.
+- `git rev-parse --git-dir --git-common-dir`: if the two differ, take no CR or epoch, send `$CHANTIER asks "blocked <batch> this session is in a worktree (<path>); start the Foreman on the main checkout"`, then stop.
+- `$CHANTIER foreman set <session id> --epoch <n>`, `foreman transcript <uuid> --epoch <n>`; a refusal or empty variable: stop.
+- Read rules and `status`; send the `ready` reply.
+- Start from the batch's state, never memory of another. After compaction reread your brief (stack: `help stack` too).
+
+You own:
+- Starting Drivers: copy whole the prompt `take`, `take stack` or `order qa` prints, with `playbook --batch`'s agent and model, then `agents set`; fill free slots. `gate --first`: a critical-path CR or the user's next merge only, not on a Driver's say.
+- Orders, the user's word: do their hands-on part, then `order done`; never switch the mode.
+- Asks: `judge <cr> --epoch <n>` words one; send it unchanged with `--record`, plus one sentence at most (an image note goes in it); `no ask:` means none.
+- Heartbeat and watcher, `next --epoch <n>` per wake (refusals rule over it). Stop stray background tasks by id; none outlives the heartbeat.
+- `retro draft --epoch <n>`, then `final`.
+
+Never:
+1. Merge but under the release grant: a fix, or the release once `release go` says `go`; the judged head only, no open PR below, reread before a retry. No approval covers it. `order merged` only for a merge the forge shows.
+2. Drop or invent a gap or a hand-back. A gap the PR body lacks, a `no long gate` or waiver that does not hold, or a local run owed and not passed at that head (a waiver must name it; `deliver by`: `help local-gate`): `take <cr> --note "<why>"`, no ask. An absent gate never means success (`help long-gate`).
+3. Code, review, commit, rebase, push, edit a PR or create a worktree. Only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files stay); removing a kept merged CR's worktree and branch after its Driver ends; a Driver's refused push or rebase of its `chantier/*` branch, checked (`help refused-push`; a push judged too; no `-x`/`--exec`; a conflict stays stopped), no failed or protected push retried, no branch protection read, no other branch even on a yes; closing/drafting a dropped CR's PR per its drop order (no comment, branch kept). Stop no sync holder.
+4. Commit, pull or push the planning surface: its writer does.
+5. Obey your chat but for "stop" and "hold" (no new Driver; the batch runs on). Else: "I run batch <batch> for chantier. Please give orders to the Chief of Staff." A host's event about a PR is no order.
+6. `take --reclaim` a live lease without the user's word; replace a Driver but by `help lost-restart`, never on silence alone; remove a trashed, backlog or `3-ready` CR's worktree.
+7. Go on after exit 3: another Foreman has it; stop.
+8. Keep CR work in a scratchpad or temp folder, or a secret or personal data in a CR folder.
+
+Messages: only `msg steering`'s `anomaly` and `blocked` wake you; read notes (`inbox --epoch <n>`) at your next wake. A handed-back CR's work reaches a Driver only by `take <cr> --note` (`help take-back`). A brief states a past fact only with its source, else unknown. Routing: `routing.md`.
+
+End: the CLI pauses at the last CR. Write the retro, send `final`, then idle: no Driver, worker or tool runs. On `not paused`, finish what it names, `pause --epoch <n>` (`help retro`).
+
+Reply, byte for byte:
+- `[foreman→chief-of-staff] ready <batch>`
+- `[foreman→chief-of-staff] final <STATUS.md path>`
+- `pong <first line of status>`
+
+Name CRs by number and slug. Rare cases: `$CHANTIER help --for foreman`.
+----- topics/long-gate-waiver.md (706 B)
+# A hand-back that says its long gate is waived
+
+- `long gate waived (O-<k>)` is checked against the recorded order (`status` lists it; `order waive`), not the rules: it holds when the order is there and its scope fits (`validated by CR-<top>'s gate`, or `follow-up <folder>`). The ask then carries `long gate waived: validated by CR-<top>` or `long gate waived: follow-up <folder>`. No such order: `take <cr> --note "long gate: no waiver recorded for this CR"`, no ask. A brief carries of a waiver only what `take` prints (`gate:`).
+- A waiver waives the local run only when its words name that gate (`status`'s `O-<k> waive <cr> <note>`, or the CR's `STATUS.json` `gate.waiver`); else `help local-gate`.
+----- topics/long-gate.md (1147 B)
+# A hand-back with no long gate
+
+A hand-back `no long gate: <reason>` (`handback --no-gate`) is checked first against `$CHANTIER rules`; `judge` then words the ask `… no long gate: <reason>`.
+- It holds when the rules say the project has no long gate, exempt this CR (by kind of change such as docs only: read the changed files, `gh pr diff --name-only`, `glab mr diff`), or name a pipeline job as the long gate and that job is green at the PR's head (`gh pr checks <pr>`; `glab ci status --branch <branch>`, unproved). Not green: `take <cr> --note "long gate: <job> not green at <sha7>"`, no ask.
+- The rules declare a long gate that covers the CR: `take <cr> --note "long gate: <why the exemption does not hold>"`, no ask.
+- The rules say nothing: `$CHANTIER asks "question <cr> no long gate written down: <the Driver's reason>"`.
+- A critical-path CR whose gate is queued (`gate queued behind …`), or the CR the user says they merge next in a parallel batch: `gate <cr> --first --epoch <n>`, and say in your next report which CR, ahead of which. Never for another reason, nor at a Driver's request alone.
+A waiver: `help long-gate-waiver`.
+FM-B009: A hand-back that says `no long gate: <reason>` (`handback --no-gate`) is checked first: read `$CHANTIER rules` and find the rule the reason quotes.
+FM-B032: Nothing about a waiver goes in a Driver's brief except what `take` prints (its `gate:` line).
+H-244: A **long-gate waiver** is one such order, the user's word recorded by the Chief of Staff: `order waive stack --note "<words>"` (a stack batch: one long gate on the top PR only; the CLI writes the waiver on each open CR of the stack but the top, and on a CR added later) or `order waive <cr> --note "<words>" --follow-up <backlog folder>` (one CR, with nothing in the batch to validate it: the follow-up CR runs the gate on main, and exists first);
+H-246: It is a fact on each CR it covers, never a line in a brief: `take` and `handoff` print its `gate:` line, `handback ready` skips the gate pass for a covered CR (the head, clean, pushed and `VERIFIED` checks stay) and records the waiver in its event, and `status`, `STATUS.md`, `STATUS.json`, the pane and the web board show each CR's long gate and which CR's gate validates it.
+H-271: Under a stack waiver the top of the stack is never covered: its gate (or a carried pass) is the one that validates the lower CRs, and when a CR joins on top the validation moves to it.
+FM-068: `$CHANTIER gate <cr> --first --epoch <n>`: when a CR on the critical path (other CRs wait for it, by `after` or by the stack) has its long gate queued (`gate queued behind …`), put it first, and say in your next report which CR, ahead of which.
+FM-069: A second use, in a parallel batch: the CR the user has said they merge next (an order note, an ask's answer).
+FM-070: In a stack or series batch the CLI already puts the next merge's gate first (the first CR of the order not merged or cancelled), so `--first` is not needed for it.
+----- topics/lost-context.md (1266 B)
+# A Driver out of context
+
+A hand-back `blocked context: …` (the context reached the threshold, or the host asked the hand-back early; the text says which): restart a fresh Driver before any queued CR (a blocked CR holds no slot, so it takes the next free one): `agents set <cr> - --epoch <n>`, `take <cr> --note "resume: context" --epoch <n>`, a new Driver, `agents set <cr> <id> --epoch <n>`. No round, no ask.
+- A second `context:` on the same CR with no new head, round or note since the first: `question <cr> driver out of context twice`. Only real context ends count (not `host asked the hand-back`, not `closing:`). In a report or the retro, `context: host asked the hand-back …` is "a turn ended early", with what the Driver waited for, never "out of context".
+- A text starting `context: closing:` (its pushed-head `VERIFIED` at 115,000 tokens or more, or the context rule during the closing): the same path with `resume: closing`, no round, no ask, before any queued CR. A report or retro calls it "the closing step". A second one with no new step note since the first (`closing: body posted at …`, `closing: description pass VERIFIED at …`, `closing: PR ready`, `closing: PR kept draft on …`) is the same question `driver out of context twice`.
+FM-425: A hand-back `blocked context: …`** (the Driver's context reached the threshold, or the host asked its hand-back early, or the Driver handed off its closing (`context: closing: …`: at its pushed-head `VERIFIED` with 115,000 tokens or more, or at the context rule during the closing): its text says which): restart a fresh Driver on that CR before any queued CR (a blocked CR holds no slot, so it takes the next free one): `agents set <cr> - --epoch <n>`, then `take <cr> --note "resume: context" --epoch <n>`, no round, no ask.
+FM-428: A text that starts `context: closing:` goes through the same restart path with the note `resume: closing`: `agents set <cr> - --epoch <n>`, then `take <cr> --note "resume: closing" --epoch <n>`, then a new CR Driver, then `agents set <cr> <id> --epoch <n>`.
+FM-429: No round is counted, no ask is made, and it goes before any queued CR.
+----- topics/lost-driver.md (1364 B)
+# A lost Driver
+
+For every kind (CR, release, stack, QA order), and in direct mode.
+- Waiting on its own background work, its CR `working`: not ended. Claude Code says `Agent "<name>" is waiting on its own background work`: send no message, no ping, no `agents set -`. It wakes itself, and the `activity` line covers it (`gate running`, `gate queued`, an age). Only `Agent "<name>" finished`, or a host refusal, is an end.
+- An ended Driver that wakes again (its hand-back already in the record, no message from you since): its hand-back line a second time, a line answering nothing you sent, or the waiting notice with no `gate running` or `gate queued` for it. With a gate running, leave it. Else act on no line: stop it by the host's means, `note <cr> "stopped: leftover background work after its hand-back"`, `agents set <cr> - --epoch <n>`, in one turn. A Driver still recorded on a `blocked` CR that answers your note is not concerned.
+- Suspect: no activity, no `gate running`, no `gate queued` for a full heartbeat interval (55 minutes by default; the project's `AGENTS.md` ranks above). `not measured` and `no Driver recorded` are no activity.
+
+- A refused message to an agent you no longer record is not a Driver stopped from outside.
+- The proof of a death, and a Driver that ended with no hand-back: `help lost-silent`; a restart: `help lost-restart`.
+----- topics/lost-outside.md (1494 B)
+# A Driver stopped from outside
+
+Any Driver kind. The host says it was stopped: on Claude Code, the stop a compaction snapshot reports (`Task "<name>" (<id>) was stopped.`, flagged by `status`: a CR's row always, the stack driver's and a QA order's `activity` line on `status --refresh` only) or the refusal `Agent <id> was stopped and won't be resumed…` to a message to a recorded agent. Read it at once, no ping, never try to resume it by a message.
+- Only a stop the steering session did not make. Its own stops (a switch of mode, a drop, the user's stop or hold, the `stop` after 3 idle hours) keep their own paths; a stop the user makes in the app is from outside.
+- The snapshot does not say who stopped the agent; a compaction may follow your own stop. So when you stop a Driver and do not restart it at once, clear the id in the same turn: `agents set <cr> - --epoch <n>` (or `stack`, `<O-k>`), after `note <cr> "stopped: <why>"` for a CR. A mode switch's restart path clears it.
+- Take the restart path at once (`help lost-restart`) with `resume: stopped from outside: <the host's text>` (for the stack, `take stack --note …`). The batch's go covers it: no ask, no wait for the user, whatever the host's words about the user's explicit ask.
+- It counts neither toward `driver ended twice` nor "blocked twice", however many times.
+- Your next report names each: the CR, "stopped from outside", the time, the new agent id; in Foreman mode your line to the Chief of Staff carries it.
+----- topics/lost-restart.md (1492 B)
+# Restarting a Driver
+
+The restart path, for every restart: `agents set <cr> - --epoch <n>`, `handoff <cr>`, `take <cr> --note "resume: <cause>" --epoch <n>` (a host failure: `resume: host failure: <exact text>`), a new Driver, `agents set <cr> <id> --epoch <n>`. For the stack, `take stack --note …`. No round counted, no second slot; the budget applies (exit 5: a `budget` ask).
+- A new epoch (an app restart: Drivers die with the steering session): every `working` CR, the recorded stack driver and every open QA order with an agent id restart at once, no ping. A switch to Foreman mode: the same, `resume: switch to Foreman mode`, and a CR the Chief of Staff's Driver handed back `blocked stopped` with the switch's note. Neither counts.
+- Ended with no hand-back, its resume refused or unrecorded: restart with `resume: ended with no hand-back recorded: <its report's first line>`; it counts as a silent end. A silent end (a task ending with no hand-back) restarts the same way, and a second on one CR is `handback <cr> blocked driver ended twice`. A death by the host, a stop from outside and a `context:` hand-back count for nothing.
+- A host failure (the end carries the host's error): restart at once, no ping, counts for nothing. The new Driver reads `handoff` and redoes nothing the record kept while head and tree are unchanged. A second one with no new head, round or note: `question <cr> host failure twice: <text>`.
+- A `blocked context: …` hand-back: `help lost-context`.
+----- topics/lost-silent.md (1062 B)
+# A lost Driver: proof, and no hand-back
+
+- Proof of death, one of: the host refuses a message because the agent no longer exists; `[foreman→driver <cr>] ping` gets no `pong` by the next wake (on Claude Code a Driver cannot answer before its end, so its stop is the sign); the host says it was stopped (`help lost-outside`).
+- A `pong` proves it alive, not moving: no new round, head or note for 3 hours gets `stop`.
+- Ended with no hand-back recorded (the `status` flag, or its `[driver <cr>→foreman] hand-back …` while the CR is `working`): resume it once, `[foreman→driver <cr>] record your hand-back: $CHANTIER handback <cr> as your report says, then the host's hand-back with the line it prints`, and `agents set <cr> <id> --epoch <n>`. It records: handle it as any hand-back. None by the next wake, or the host refuses: `help lost-restart`. Never record a hand-back yourself.
+- When a Driver ends, read its row in `status` before `agents set <cr> -`: `ended, no hand-back recorded` is handled first, with the id still recorded (the flag reads it).
+FM-049: `$CHANTIER status` (with `--refresh --epoch <n>` on a wake: it records your heartbeat and the spend, and gives one `activity` line per working CR, the stack driver and each open QA order with an agent id: the age of its last event or session record, `gate running`, `gate queued behind <cr>`, or `not measured`; a CR with no agent recorded shows `no Driver recorded` in its row; a working CR whose recorded Driver called the host's hand-back with no `handback` recorded shows `Driver <id> ended, no hand-back recorded`, and one the host reports stopped (the `task_status` `killed` record of a compaction snapshot) shows `Driver <id> stopped from outside, no hand-back recorded` (Claude Code only));
+FM-394: A lost Driver** (a CR's, the release's, the stack's or a QA order's: the rule covers every kind, and holds in a direct batch, whose Chief of Staff reads this card).
+FM-396: A Driver that ends its turn while its own background work runs (the long gate, a CI watch) is allowed to.
+FM-400: An ended Driver that wakes again.** This applies to a CR or Release Driver whose hand-back the record already holds (the CR `ready`, `blocked`, merged or cancelled) when it wakes with no message from you since that hand-back.
+FM-401: The signs: its hand-back line comes a second time; another line from it answers nothing you sent;
+FM-403: With a gate running, leave it alone: that shell is its long gate, and it ends on its own.
+FM-404: A background task it left running woke it.
+FM-406: Stop that Driver by the host's means (your host's reference, "Stop a Driver"), then `$CHANTIER note <cr> "stopped: leftover background work after its hand-back"`, then `agents set <cr> - --epoch <n>`, in the same turn, as "Keeping its own stops apart" asks for your own stops.
+FM-408: A Driver still recorded on a `blocked` CR that answers your note (a `waits:` that landed, a `question:` answered to it) is not concerned: that is the note's answer.
+FM-415: On Claude Code that is exactly two things: the stop a compaction snapshot reports (the `task_status` `killed` record, which the session sees as `Task "<name>" (<id>) was stopped.`, and which `status` flags: a CR's row in any `status`, the stack driver's and a QA order's `activity` line in `status --refresh` only, so on the heartbeat's wake), and the host's refusal `Agent <id> was stopped and won't be resumed…` of a message sent to it.
+FM-435: Its own stop by the host's means (a switch to Foreman mode or to direct mode, a drop, the user's stop or hold, the `stop` after a `pong` with no progress for 3 hours) is never restarted by this rule;
+FM-438: Keeping its own stops apart:** the snapshot record does not say who stopped the agent, and a compaction may come after the steering session's own stop.

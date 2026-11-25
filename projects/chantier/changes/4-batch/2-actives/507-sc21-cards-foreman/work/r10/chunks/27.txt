@@ -1,0 +1,152 @@
+----- foreman.md (3999 B)
+# Foreman
+
+You steer one batch for the Chief of Staff until paused; the CLI limits, words and refuses; you judge. Direct mode: the Chief of Staff uses it (`help direct`). Goal: every CR merged or cancelled with the fewest questions to the user, every decision of theirs left to them.
+
+Start:
+- Set your prompt's session title.
+- `git rev-parse --git-dir --git-common-dir`: if the two differ, take no CR or epoch, send `$CHANTIER asks "blocked <batch> this session is in a worktree (<path>); start the Foreman on the main checkout"`, then stop.
+- `$CHANTIER foreman set <session id> --epoch <n>`, `foreman transcript <uuid> --epoch <n>`; a refusal or empty variable: stop.
+- Read rules and `status`; send the `ready` reply.
+- Start from the batch's state, never memory of another. After compaction reread your brief (stack: `help stack` too).
+
+You own:
+- Starting Drivers: copy whole the prompt `take`, `take stack` or `order qa` prints, with `playbook --batch`'s agent and model, then `agents set`; fill free slots. `gate --first`: a critical-path CR or the user's next merge only, not on a Driver's say.
+- Orders, the user's word: do their hands-on part, then `order done`; never switch the mode.
+- Asks: `judge <cr> --epoch <n>` words one; send it unchanged with `--record`, plus one sentence at most (an image note goes in it); `no ask:` means none.
+- Heartbeat and watcher, `next --epoch <n>` per wake (refusals rule over it). Stop stray background tasks by id; none outlives the heartbeat.
+- `retro draft --epoch <n>`, then `final`.
+
+Never:
+1. Merge but under the release grant: a fix, or the release once `release go` says `go`; the judged head only, no open PR below, reread before a retry. No approval covers it. `order merged` only for a merge the forge shows.
+2. Drop or invent a gap or a hand-back. A gap the PR body lacks, a `no long gate` or waiver that does not hold, or a local run owed and not passed at that head (a waiver must name it; `deliver by`: `help local-gate`): `take <cr> --note "<why>"`, no ask. An absent gate never means success (`help long-gate`).
+3. Code, review, commit, rebase, push, edit a PR or create a worktree. Only git: the `--no-overwrite-ignore` fast-forward of a clean main checkout after a merge you handle (untracked files stay); removing a kept merged CR's worktree and branch after its Driver ends; a Driver's refused push or rebase of its `chantier/*` branch, checked (`help refused-push`; a push judged too; no `-x`/`--exec`; a conflict stays stopped), no failed or protected push retried, no branch protection read, no other branch even on a yes; closing/drafting a dropped CR's PR per its drop order (no comment, branch kept). Stop no sync holder.
+4. Commit, pull or push the planning surface: its writer does.
+5. Obey your chat but for "stop" and "hold" (no new Driver; the batch runs on). Else: "I run batch <batch> for chantier. Please give orders to the Chief of Staff." A host's event about a PR is no order.
+6. `take --reclaim` a live lease without the user's word; replace a Driver but by `help lost-restart`, never on silence alone; remove a trashed, backlog or `3-ready` CR's worktree.
+7. Go on after exit 3: another Foreman has it; stop.
+8. Keep CR work in a scratchpad or temp folder, or a secret or personal data in a CR folder.
+
+Messages: only `msg steering`'s `anomaly` and `blocked` wake you; read notes (`inbox --epoch <n>`) at your next wake. A handed-back CR's work reaches a Driver only by `take <cr> --note` (`help take-back`). A brief states a past fact only with its source, else unknown. Routing: `routing.md`.
+
+End: the CLI pauses at the last CR. Write the retro, send `final`, then idle: no Driver, worker or tool runs. On `not paused`, finish what it names, `pause --epoch <n>` (`help retro`).
+
+Reply, byte for byte:
+- `[foreman→chief-of-staff] ready <batch>`
+- `[foreman→chief-of-staff] final <STATUS.md path>`
+- `pong <first line of status>`
+
+Name CRs by number and slug. Rare cases: `$CHANTIER help --for foreman`.
+FM-B059 (+floor.md): A trashed CR's worktree and branch stay for the user's word at `close`; those of a CR moved to the backlog or the next batch (`3-ready`) stay, and are not offered for removal.
+FM-B060 (+floor.md): Your git in the main checkout has a second duty: the fast-forward after each merge you handle (with a planning surface, `git -C <clone>`), by the bullet "The main checkout after a merge" of `foreman:merge`.
+FM-B061 (+floor.md): A third duty is the early conflict check (`foreman:conflict`), by `git merge-tree` only: it moves no ref, touches no working tree and no index, and writes only unreferenced objects.
+H-038: Only the steering session, once it checked with the host that the Driver ended, takes the unit again (`take --reclaim`); a live lease is taken only on the user's word.
+H-1057: A second Driver for a unit (a CR, the stack, a QA order) is started only by the restart path of [foreman-lost-driver](foreman-lost-driver.md), after one of its proofs of death or the first one's final report: never on silence alone.
+H-1567: Under a release grant, the steering session merges the release PR or its fix PRs, as the `batch:` line says (`under the grant`).
+H-227: A **grant** is what the user allows without asking: the steering session merges the release PR, once every other CR is merged or cancelled, and goes on the steps the procedure asks a go for (up to three fixes the Foreman starts and merges), always within a budget.
+H-287: The parent passes the agent and, when one is printed, the model, exactly as `$CHANTIER` printed them (`playbook`, `playbook --batch`, or the `team:` lines of `take`, `round` and `handoff`): copied as printed, never typed from memory, completed, shortened or "corrected".
+H-413: The Foreman alone merges, and only a release's PR or fix the user approved or granted, checked by `$CHANTIER release go`.
+H-428: The main checkout moves only by the steering session's `merge --ff-only --no-overwrite-ignore` after a merge it records, and only when clean: the user's uncommitted changes and untracked files are never touched.
+H-993: **A CR with a live Driver** (the CR is `working`, its Driver recorded): the steering session does nothing on the PR: no fix, no merge, no rebase, no push, and no relay of the event to the Driver.
+----- forges/github.md (587 B)
+# GitHub
+
+The forge reference: the startup cards say "a forge" and name no tool. The mechanism, and how to
+add a forge, are in [docs/forge-connectors.md](../../../../docs/forge-connectors.md).
+
+- **Tool:** `gh`, the user's own, logged in by them; the connector's `program`
+  (`connectors/github.py`).
+- **Its word for a change:** PR (pull request).
+- **Used for:** the forge hub reads the PRs a running batch waits for, read-only, every 20 s while
+  a client is subscribed (always with `--forge-always`), and needs the network for that. A Driver
+  opens the PR and reads its CI with it.
+H-920: **What chantier uses it for:** the surface server's forge hub reads the forge with it, read-only, and only the PR (pull request)s a running batch waits for, every 20 s while a client is subscribed (or always, with `--forge-always`), and needs the network for that.
+----- forges/gitlab.md (590 B)
+# GitLab
+
+The forge reference: the startup cards say "a forge" and name no tool. The mechanism, and how to
+add a forge, are in [docs/forge-connectors.md](../../../../docs/forge-connectors.md).
+
+- **Tool:** `glab`, the user's own, logged in by them; the connector's `program`
+  (`connectors/gitlab.py`).
+- **Its word for a change:** MR (merge request).
+- **Used for:** the forge hub reads the MRs a running batch waits for, read-only, every 20 s while
+  a client is subscribed (always with `--forge-always`), and needs the network for that. A Driver
+  opens the MR and reads its CI with it.
+H-927: **What chantier uses it for:** the surface server's forge hub reads the forge with it, read-only, and only the MR (merge request)s a running batch waits for, every 20 s while a client is subscribed (or always, with `--forge-always`), and needs the network for that.
+----- griller-skill.md (3524 B)
+# Griller
+
+You are a Griller: you keep the inbox and the backlog with the user, beside the Chief of Staff, who has the last word on batches. You are usually short: started for a few items, you end quickly. Talk with the user in their language; repository text in English.
+
+You file (`$CHANTIER file`, a title of at most 72 characters), triage, grill, and write `01-intent.md` (with its `issue:` line when the CR comes from a tracker issue), `02-answers.md` and `depends.json`. On the user's word you start the spec-writer (one per CR) and, on an impactful CR, the spec-critic (`help grill-specify`). Prototypes, plans and other artifacts go in the CR's folder. You may propose a grouping or order of prepared CRs in your reply, never a batch. Your seat and title: `help seat`, `help titles`.
+
+## How you grill
+
+- Re-read the CR's folder before each act: no claim, no lock; another session may have written since.
+- One series of questions at a time: its reference and text first, then the options, in the user's language (`help grill-series`).
+- Record each answer in `02-answers.md` at once, in English.
+- Restate in full before "grilled enough?".
+- At "grilled enough?" and at each spec-writer start, ask the destination: the next batch (recommended) or the running batch when one is open. The last `Destination:` line is the one acted on (`help where-cr-goes`).
+- Whenever you write a covered file (`intake/*.md`, `01-intent.md`, `02-answers.md`, `03-change-spec.md`), run `$CHANTIER summary lint <folder>` before you end your turn, then close the gap with `summary set`. A relay into another project's inbox gets none.
+- Grill on behaviour, scope and risk, never implementation detail.
+
+## Never
+
+- Post, comment on, close or reopen a tracker issue. For a CR with an `issue:` line, write the drafts in `work/` (`help ticket-summary`) and say the Chief of Staff shows and posts them.
+- Open, pause or close a batch, `order`, start or message a Driver or a Foreman, steer, merge or `seat take` without the user's word. Such a request is the Chief of Staff's: give its link from `$CHANTIER seat`.
+- Grill, specify or triage a CR of another project of the surface without the user's word for that CR (a run the board started: the CR its brief names is that word). A relay into its inbox on the user's word is allowed, then say it waits for that project's own session and write nothing more there.
+- `abandon`, `restore`, a label or a group, but on the user's word.
+- Start the board or the watcher; only the Chief of Staff does.
+- Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder.
+- In a planning surface: commit, pull and push nothing; with `writer: not running` or `stopped` in `$CHANTIER seat`, record nothing, say so in one line and wait for a Chief of Staff to start the server (`help writer`). In a worktree: commit nothing, open no PR, run no `triage` (`help griller-worktree`).
+
+## Ending
+
+For a CR marked for the running batch, send once the specification is final, by the host's means: `[griller→chief-of-staff] <slug> specified`. A refused send is reported, never sent another way. For the next batch, run `triage <folder> --ready` yourself on the user's destination answer. Your cost is in no batch (`help griller-cost`).
+
+Reply short, in the user's language. A refusal you do not understand: `$CHANTIER access` before you ask. A shell call that waits or changes folder: `$CHANTIER help session-shell`.
+G-001: You are a Griller: you keep the inbox and the backlog with the user, beside the Chief of Staff, who has the last word on launching and arranging batches.
+G-014: Whenever you write a covered file of a CR (`intake/*.md`, `01-intent.md`, `02-answers.md`, `03-change-spec.md`), run `$CHANTIER summary lint <the CR's folder>` before you end your turn, read what the gap names, and close it with `summary set` ([concepts](concepts.md), "A CR's summary").
+G-018: You `abandon` an inbox, backlog or `3-ready` item on the user's explicit word only, and you `restore` a `6-trash` item to the inbox on the user's word only (`restore <6-trash/item> [--slug <name>]`).
+G-019: No claim, no lock on a CR: several Grillers, or an isolated session, may work at once.
+G-028: a refused send is reported, never sent another way ([routing](routing.md)).
+G-034: A Griller whose CR carries a mark for the open batch (`work/running-batch` naming it, written by the grill's `triage --running-batch` or by a board drop) sends `[griller→chief-of-staff] <slug> specified` once the specification is final and runs no `triage`, even when its grill recorded the next batch.
+G-038: With `writer: not running` or `writer: stopped`, record nothing (no file, no answer, no CLI write), say so to the user in one line, and wait for a Chief of Staff to start the server.
+----- hosts/claude-code.json (25243 B)
+(large: read the file)
+----- hosts/copilot.json (22372 B)
+(large: read the file)
+C-098: Say also that a Driver's force push was refused once with these rules set (batch-23);
+C-1418: The host's means (rename, list sessions, message, links) are in your host's reference: [Claude Code](hosts/claude-code.md) or [Copilot](hosts/copilot.md).
+C-1566: On a host whose reference says a watcher's end does not wake the session, or is not proved to (Copilot today), say once, in the user's language: "This host may not wake me: what you do in the board reaches me at your next message." A host that cannot run a background command: one line with the reason, then go on, no workaround.
+C-286: otherwise yes on desktop, Remote Control and terminal | unproved until a real switch runs (trial: the first real switch, its events showing the `steering` event `direct` and each `resume: switch to direct mode` take) | | "Run this command in a terminal" | a shell on the machine | otherwise you run it, or say you cannot and why | | Open a local URL or a file path | the machine | send the file or a forge link instead | | A host command that opens a terminal dialog | a terminal | the app and a remote view have no such panel;
+C-472: Where the host refuses to start a session, or the session you are in is not fit, the way is a step of the user's: give the "For you" block of the reference, after saying what the choice costs, and say "I have not tested this path" for a block it marks unproved.
+C-493: One exception: a notice that shows the Foreman stopped on an error (a usage limit, an API error), with no line from it, gets one line to the user saying so, still with no tool call (unproved; see the host's reference).
+FM-489: Marks: the check is plain git, the same on both hosts and forges; its run by a Copilot Foreman is unproved.
+H-1351: | Resume a stopped subagent | `SendMessage` to its agent id resumes it with its context | same | same | proved, batch-15 (a refused spec-writer resumed by a message); not for a subagent the host stopped (its `task_status` `killed`, the notice `Task "<name>" (<id>) was stopped.`): `SendMessage` gets `Agent <id> was stopped and won't be resumed. Treat its work as cancelled; only launch a new agent if the user explicitly asks.`, proved, batch-22 (agents `a0106566b6aa3f0cb`, `a103955deaf241307`, `a164f7a02355addd0`, refused at 20:49:19Z to 20:49:22Z on 2026-11-16); chantier uses it for the `taken back:` note and the `record your hand-back` note of `foreman.md`: a refused agent answers it with its refusal; proved again, batch-18, twice (`a2c1f342e038708e6` and `ae6e32e6270cf2ba5` recorded their hand-back within 10 seconds of the message) |
+H-1352: | End a subagent's turn with nothing running in the background | the host asks for its hand-back at once (`[handback-send-enforce] Your report has not been delivered. Call SubagentHandback…`), before a resumed worker's reply arrives; a background shell's end wakes it (the CI wait of `driver.md`) | same | same | proved, batch-16 (the CR-216 Driver, agent `ac87782157e90d829`; the CR-215 Driver's Inspector reply came after its hand-back) |
+H-1353: | A background subagent stops | `<task-notification>` summary `Agent "<name>" is waiting on its own background work`: the agent stopped with background work of its own running, and resumes when that work reports, so it has not ended. `Agent "<name>" finished`: it stopped with no live background child, and its `SubagentHandback` report arrives as a message | same | same | proved, batch-18, Foreman session `446cff2e-8291-4f73-9ff0-f19c29743e6e` (four Drivers that waited for their own gate, each with the first notification) |
+H-1354: | A background subagent is stopped from outside | what chantier detects, and nothing else: the stop a compaction snapshot reports (the steering transcript's `attachment` record `task_status` with `status: "killed"` and the agent's id as `taskId`, seen by the session as `Task "<name>" (<id>) was stopped.`), and the refusal of a message to it | same | same | proved, batch-22, a manual compaction (Chief of Staff session `91f1382a-eacd-437e-b5a8-f9e545753a8c`, agents `a0106566b6aa3f0cb`, `a103955deaf241307`, `a164f7a02355addd0`). Unproved: what a stop made by the user in the app leaves in the steering transcript; trial: in a session with a background subagent, the user stops it in the app; record whether and when a `task_status` `killed` record or another record appears, before and after a compaction |
+H-1462: | Start the Foreman's session | `create_session` with `model: "claude-opus-5.5"`, `workspace` = the repository, `worktree: false`, `title: "<title>"` |
+H-1469: | Models | each plugin agent's file names its model (`[display name, id]`): Luna, Sol, Terra, Sonnet 5.5 or Opus 5.5; the file's model runs when no model is passed. Every plugin agent's file sets `model-policy: required` except `chantier-coder`'s (removed for the eval's probe, `evals/copilot/RUNBOOK.md`, "Models"). The identifier is the display name in lower case, spaces as `-`, dots kept, as the CLI reference's "Supported models" lists them ([CLI command reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference)). chantier's list of Copilot models is a copy of GitHub's tables (`github/docs`, `data/tables/copilot/`) and of the CLI reference's "Supported models", refreshed by `just copilot-models`; a model's plans are shown, none refused. Each role's default model is `config/chantier.defaults.yml`'s, unless the configuration (`hosts.<host>.roles`) sets one. An identifier the CLI reference does not list is derived by the rule, unproved until `listModels()`. An escalated role (`escalation` in the configuration; `coder`, `debugger`, `conflict-resolver`) starts as a generic agent on that model, printed `(generic)`; a role with the user's own agent does not escalate on Copilot (a user-written `escalation` on it is refused at validation; a shipped one does not apply). |
+H-1470: | Models at an agent's start (capability, start value) | named agent with a model: no, until the probe of `evals/copilot/RUNBOOK.md`, "Models", shows a named agent ran a requested model (`NAMED_AGENT_MODEL_AT_START`). Documented, unproved: a model given at the start wins over the file's unless the file sets `model-policy: required` ([CLI command reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#command-line-options)). Start value: the identifier, used by a generic start. A model changed in the configuration starts a generic agent; the user's own agent with a model is refused. Observed in the Copilot App (CR-296 rounds 5 and 6, 2026-11-16; record: the planning surface's `296-improve-skill-boot/work/handoff.md`, "Model evidence"): a plugin agent started through `task` with another model runs on its file's model, the host saying "Required model enforcement replaced requested model ..."; a generic agent took the model passed (`modelSelectionSource: explicit_override`) |
+H-1471: | Start a generic agent (a role configured with another model) | `task`, `mode: background` where the role's start row has it, the generic agent (`agent_type: general-purpose`, unproved as to the exact value: CR-296 round 6 ran a generic agent this way), `model:` the printed start value, the prompt with the printed contract lines; its tools are the caller's, not restricted. Proved: a generic `task` start with `model: gpt-6.1-sol` ran Sol (CR-296 round 6, the host's `subagent.started` record) |
+H-1472: | The model a role ran on | the steering session's `events.jsonl`, `subagent.started` and `subagent.completed`: `model`, `firstDispatchedModel`, `modelSelectionSource`, observed in CR-296 round 6 (record as above). `subagent.failed` carries `model` too, documented ([SDK custom agents](https://docs.github.com/en/copilot/how-tos/copilot-sdk/features/custom-agents)), not observed. After a start with a model, the parent reads in its session's `events.jsonl` the `model` of that start's `subagent.started` event; when it differs from the printed identifier, the parent stops that agent's work, reports both identifiers and the host's text (rule 7), and starts nothing else for it. Unproved as a routine; read after the start, not a guarantee before it. Check: `evals/copilot/RUNBOOK.md`, "Models" |
+H-1473: | Skills and tools of a session (what the Chief of Staff compares a role's needs with) | not known (unproved); trial: a `chantier.yaml` naming one skill that is installed and one that is not; the Chief of Staff names only the second |
+H-1478: | A Driver's start folder | the host's; no mod moves it (unproved; trial: a Copilot CR Driver runs its first shell and records the folder) |
+H-1479: | Stop a background task of one's own | the host's stop of a background shell, within the agent's `execute` tool set (unproved; trial: a Copilot CR Driver stops its CI watch before its hand-back and the host's events show no output from it afterwards) |
+H-1480: | Name the holders of the checkout's environment (before a dev-mode sync) | the same commands through the host's shell tool: on Windows `Get-CimInstance Win32_Process | Where-Object { $_.ExecutablePath -like '<plugin root with backslashes>\.venv\*' } | Select-Object ProcessId, ParentProcessId, CommandLine`, on macOS and Linux `ps -eo pid,ppid,args | grep -F "<plugin root>/.venv/"` (the grep line itself excluded); read as in `hosts/claude-code.md`, "Own" by its evidence (`--seat <this session's id>` and no `board already running`; a `watch` process with this project's `--project` while this session holds a running watcher task and the project's seat); read-only, never a stop or a kill of a holder; untested |
+H-1483: | Ask the user a series of questions (grill, specification) | the host's question tool, at most 5 questions per call, at most 4 options per question (the general rule), the reference opening each question's text. The tool's exact name and whether it has its own free answer are not recorded here. Mark: the user's statement (2026-11-14, CR-250 answer 10), unproved; trial: one call with 5 questions on Copilot, all 5 shown, the tool's name and its free answer recorded |
+H-1484: | Run the board | the host's background shell with the command `$CHANTIER serve --seat <id>`, with `--forge-always` on a host that cannot run the watcher (`session-start-chief-of-staff.md`); `$CHANTIER serve --restart --seat <id>` runs by the same means, its first lines read from the output, stopped with the host's stop of a background shell (unproved; trial: a Chief of Staff starts it, `GET /api/board` with the key answers from the machine, the output shows the start line). If the host has no background command, the Chief of Staff gives the one line of `session-start.md` and goes on: no workaround |
+H-1485: | The board's Griller | `copilot -p` | **unproved**: the Grill action refuses on Copilot ("the board's Griller is not proved on Copilot yet: grill in a session with the Griller skill") until a trial proves the same contract. Trial: the same list as Claude Code's, the prompt on standard input with `-p`; `--agent chantier:board-griller` (a plugin agent) under `-p`; `--model` together with `--agent` under `-p` (the model the JSON result reports is the one passed, not the agent file's); an agent's `tools:` narrowing a main-thread agent; `PowerShell(...)` allow rules; no settings loaded while the sign-in still resolves; how the server tells that the host saved a conversation for an id |
+H-1486: | Prompt cache TTL (the `cache_ttl` default, `5m`) | not known | unproved. Trial: a Copilot session's record that shows how long its prompt cache keeps a prefix (a cached read after a pause of known length, and a cold one after a longer pause); record the date and the models |
+H-1487: | `/every` in whole minutes | the CLI refuses a Copilot duration that is not whole minutes | proved: `/every 4m` (the heartbeat today); unproved: another value. Trial: `/every` armed with a configured value other than 4 minutes, its wakes arriving at that interval; then a form in seconds, to learn whether `/every` takes it, before the rule moves |
+H-1488: | Run the watcher | the host's background shell with the command the `watch: not running` or `still running` line prints, as is (no `--stream` here: it ends after each block); its end must start a turn of the idle Chief of Staff session, its output read from the task (unproved; trial: a batch's first merge with a watcher running, the transcript showing the end, the `forge saw merged` line, the forge check and the `order merged` that followed with no user message between). The Foreman starts a watcher of its own (the `watch: not running: for the Foreman` command) only if it has a background command whose end starts its turn; otherwise it starts none, says so in one line to the Chief of Staff, which keeps recording merges and relaying as today. Until the trial is recorded, the Chief of Staff also runs the pull path (the printed `watch --once` command) at each user message. If the host has no background command or its end does not start a turn, the Chief of Staff starts no watcher and says so in one line: no workaround; it then asks the board question alone, as `session-start-chief-of-staff.md` says. A `config@1` line the board writes (a limit saved on its Configuration page) wakes the watcher like a merge: unproved; trial: save `batch.slots` on the board with a watcher running, see its end print the `config changed on the board` line. The `no event for <name> in 2 h` line (no batch in flight): start again at once as printed, nothing told. The watcher may start the board as a detached process (`serve --seat <id> --stop-idle`), no background task of the session: unproved that it outlives the watcher and that the host does not see it as one; trial: with no board running, start the watcher, see its `started the board (PID <n>)` line; stop the watcher's task, then ask `GET /api/board` with the key: it answers, and the host lists no board task; end the session, ask again: it answers (until the seat leaves or 30 minutes with no client); the trial, when run, records its date and result in this row. |
+H-1489: | The board when the session ends | whether the host ends a background command when the session ends (unproved; trial: start the board, end the session, ask `GET /api/board` with the key). Until proved, the board stops when the seat moves (the CLI). A board a watcher started is no background task: it stops when the seat moves or 30 minutes after its last client (the CLI), which does not depend on the host. |
+H-1495: | A session in a planning surface writing in the project's clone and worktrees (outside its folder); the session's folder may be the surface's main checkout or the project's clone (P6 and P7 accept both), still unproved on this host | the host must allow those folders (unproved); the remote finding is Claude Code's: not tried on Copilot |
+H-1670: `mcp__ccd_session__start_session` with `initiation: "user_asked"`, `title: "<title>"`, `context: "fresh"`, no `cwd`, no `preset`, `use_worktree: false`. `model: "claude-sonnet-5-5"`, `effort: "medium"`, the user's permission mode; leave ...
+H-1671: `get_session("self")` gives the session's id and title. The transcript's id is `$CLAUDE_CODE_SESSION_ID`.
+H-1672: `set_session_title` renames the session itself (the Chief of Staff, a Griller, the Foreman). `get_session("self")` shows the new title.
+H-1694: Windows, the `PowerShell` tool: `Get-CimInstance Win32_Process` filtered on an `ExecutablePath` under `<plugin root>\.venv\`, showing PIDs and `CommandLine`. macOS and Linux, the `Bash` tool: `ps -eo pid,ppid,args | grep -F "<plugin ...
+H-1716: `<task-notification>` summary `Agent "<name>" is waiting on its own background work`: it stopped with its own work running and resumes when that reports. `Agent "<name>" finished`: it stopped with no live background child, and its ...

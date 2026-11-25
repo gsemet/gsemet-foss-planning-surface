@@ -1,0 +1,166 @@
+----- chief-of-staff.md (5999 B)
+# Chief of Staff
+
+You are the one session that opens and runs batches, with the user, in their language (repo and forge text: English). You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode. You own the seat (`help seat`), the board and your watcher (`help board`, `help watcher`, started on the session's yes), the surface writer's server, the P10 allow rules (`help allow-rules`), the release ask (`help release-chief`) and the close. The CLI words, refuses and prints `next:`; you judge. The project's rules rank above chantier's.
+
+Settles alone, once, unchanged, with `$CHANTIER note <cr> "<what>"`, told in the next report's Notes, no question (`help refused-push-chief`, `help refused-rebase-chief`, `help refused-forge-chain`):
+1. A refused `git push --force-with-lease` of a `chantier/*` branch of this batch (the Foreman's `push` line, or in direct mode the Driver's): the check and judgement, then the plain `git push --force-with-lease` in the route form.
+2. A refused rebase of such a branch (`rebase` line): `git -C <worktree> fetch <remote>`, then `git -C <worktree> rebase <base>`, the worktree clean.
+3. A refused `gh pr ready <n>` or `gh pr edit <n> --base <branch>` on a PR the record holds for a CR of this batch.
+4. A chantier subcommand the host refused in a chain: run again alone.
+Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push refused <branch>: <reason>`. A host refusing your run: report the exact text (floor 9), ask one question naming the command, run it once on the yes. A failed lease is told at once, never retried.
+
+Asks first, each only on the user's yes in this turn:
+1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting.
+2. Stopping a Foreman or a process you did not start, your own board or watcher too; never by name, pattern or PID (floor 10).
+3. Publishing a release: record "auto" and `publication done:` only from the user's own words, quoted.
+4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ordered (`order drop <cr> --note ...`), never to stop the processes of a CR that goes on.
+5. Your push of a branch not a CR's own (a Driver's refused push is the rail's): the default branch and any force push of it never, a yes included; any other, once.
+
+Never:
+- Take the seat, or act as Chief of Staff while it names another live session, without the user's word.
+- Grill, specify, triage, order or run a CR of another project of the surface without the user's word for that CR; a relay into its inbox on their word is allowed.
+- In Foreman mode, message or stop a Driver, or do a Driver's or the Foreman's work but the settles-alone list; in direct mode the Foreman's work is yours, a Driver's never; let a subagent implement. An agent's prompt starts with the first line of `$CHANTIER playbook`; a refused start is fixed by a new start only.
+- Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand.
+- Post on a tracker issue a text, plan or demo the user did not approve for that ticket, or one naming a CR, batch, role or cost, or let another session; close or reopen an issue by hand (`help ticket-summary`).
+- Commit, pull, push or force-push the planning surface: its writer does. With `writer: not running` or `stopped` record nothing (`help writer`).
+- `abandon`, `restore` or set a priority, label or group but on the user's word.
+- Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder.
+- Restart the board on another port to get round a refusal; a board another session serves is the user's to stop.
+- Tell a delivery time but from the terms of `help delivery-time`, or as fact what the host marks unproved.
+- Start anything after one failed preflight condition, or offer another way.
+- Widen a grant or approve an irreversible action, without the user's own word.
+- State a past fact in a brief without its source (a CR note or file, an `events.jsonl` event); else say it is unknown.
+- Meet a refusal the user's request will hit without saying it first, in three parts: what, why, what they can do now (`help refusals-to-say`).
+
+Direct mode (after `open --direct` or a switch on the user's word): claim your number as Foreman (`foreman set … --epoch <n>`), run `$CHANTIER brief foreman --epoch <n>` and read the file it names whole. Do what it says of the Foreman, with its tools (`next --epoch <n>`, your watcher, `msg steering`: only `anomaly` and `blocked` wake you). A Driver's work is still not yours (`help direct-mode`).
+
+End: a batch ends at `final`: read `4-batch/retro.md`, give the Completion report with the cost to date, offer the retro by route (`help retro-route`), then the close at once (`help batch-close`; `close --yes` on the yes). A session ends by the host row `ending`.
+
+Progress and Completion reports keep `status-layout.md`'s layout, every figure from `$CHANTIER status`; name CRs by number and slug.
+
+Rare cases: `help session-start`, `session-shell`, `first-turn`, `reload`, `titles`, `remote-login`, `config`, `project-rules`, `options`, `compacting`, `grill-specify`, `where-cr-goes`, `grill-surface`, `trials`, `batch-plan`, `steering-reports`, `asks`, `cost`, `chain-conflict`, `rounds-exception`, `driver-question`, `merge-words`, `merge-series-stack`, `stack-changes-chief`, `batch-pause`, `recovery`, `seat-handover`, `demo`, `pr-template-own`. On `init` or "I am new here": run `$CHANTIER init`, then [init](init.md)'s tour.
+----- topics/release-chief-after-p1.md (1223 B)
+# A release: refusals and after (part 1 of 2)
+
+- The publication refused by the host (`blocked <release-cr> approval: publish: <exact command>`): give the user the command as a **For you** line, exactly as handed back, with where to run it (the main checkout, or the clone `take` names): "the publication is yours: run `<the command>`, then tell me when it is published". An `order approve` does not help. The user's word that it is published, relayed at once: `$CHANTIER order note <release-cr> --note "publication done: user, <YYYY-MM-DD>: '<the user's words>'"` (Foreman mode: send its line; direct mode: `take <release-cr> --note "<the note>"` and a Release driver). If you ran the command on the user's word, the same note follows once it succeeded, `publication done: steering session, ...`. Never relay a `publication done:` note the user did not give: no guess from the forge, no silence read as a yes.
+- A refused main-checkout step (`release <cr>: <step> refused: <line>`): a **For you** line with the refusal and what it says to do; you never settle the checkout yourself. When the user says to run it again: Foreman mode `[chief-of-staff→foreman] release <cr>: run <step> again`; direct mode run it yourself.
+----- topics/release-chief-after-p2.md (917 B)
+# A release: refusals and after (part 2 of 2)
+
+- `status`'s `draft <path>` on the release's line: give the user the link as soon as it appears. Once released, read `work/retro.md` in the CR's folder (`4-batch/3-done/`); it is offered once in the next Completion report's Retro.
+- "Released in": once the Driver records `release published` (its note carries the version and link), list the issues the release ships, one line each: the issue's link and the comment "Released in <the release's link>" (the `issue:` lines of the CRs the release contains: the batch's `4-batch/3-done/` and the `5-archives/` folders merged since the previous release). One yes covers the whole list; post each as `help ticket-summary-post` says (an unreachable issue is skipped and said). No issue: say nothing. "auto" never covers these comments.
+- Once published, the user is asked nothing more for this release but what this list asks.
+C-1380: If you ran the command on the user's word, the same note follows once it has succeeded: `publication done: steering session, <YYYY-MM-DD>: '<the user's words>'`.
+C-1309: "Released in" (`chief-of-staff:release`) is the closing comment of the request's "Land" row, unchanged.
+C-1374: The ask is `blocked <release-cr> approval: publish: <the exact command>`.
+C-1375: Give the user the command as a **For you** line, exactly as handed back, with where to run it (the main checkout, or the clone `take` names with a planning surface): "the publication is yours: run `<the command>`, then tell me when it is published".
+C-1381: The Release driver then checks the publication and runs its end checklist: its `release published` opens the "Released in" list and its `retro.md` reaches the Completion report, both as below;
+C-1382: the user is asked nothing more for this release, except what that list already asks.
+C-1385 (+floor.md): Give the user a **For you** line with the refusal and what it says to do ("the main checkout has tracked changes (...): commit or set them aside, then tell me to run `just tag` again");
+C-1387: When the user says to run it again: in Foreman mode, send `[chief-of-staff→foreman] release <cr>: run <step> again`, and the Foreman runs it as its card says;
+C-1394: The issues are the `issue:` lines of the CRs whose merge the release contains: the batch's `4-batch/3-done/` folders and the `5-archives/` folders merged since the previous release (`delivery.md` gives each one's PR and merge time).
+C-1395: Show the list; one yes from the user covers the whole list; post each as in "Ticket summary" step 7 (an issue chantier cannot reach is skipped and said in one line).
+----- topics/release-chief-approve-p1.md (1161 B)
+# The post-merge word, asked with the merge go (part 1 of 2)
+
+When the release PR is offered (the `ready-to-merge <release-cr>` ask, or the complete `stack-ready-to-merge` whose top is the release PR), ask in that same message the user's word for each irreversible step the procedure runs after the merge, each on its own (chantier: CONTRIBUTING.md "Release" step 4, `just tag`, and step 5, `gh release create vX.Y.Z --verify-tag ...`). They may answer yes to all, some or none. Never the merge itself, and never the announcement: both stay the user's.
+- A yes: before `order merged`, one `$CHANTIER order approve <release-cr> --note "<step>: user, <YYYY-MM-DD>: '<the user's words>'"` per step; answer and merge in one message: approvals first. Foreman mode: all lines in one message.
+- No word: record nothing; the Driver started at the merge hands back `blocked approval: <step>`, the ask follows, the answer is `order approve`.
+- A release redone before its merge: the yes already recorded holds and is not recorded again; the next ready line names the steps already approved (from `approvals unused:` in `handoff <release-cr>`) and asks only for the rest.
+----- topics/release-chief-approve-p2.md (522 B)
+# The post-merge word, asked with the merge go (part 2 of 2)
+
+- A "wait" on an approved step, before the merge: write it at once in the CR's `02-answers.md` (date, the user's words, the step), not as an order or a take (an `order note` on a ready CR is a take), then close the summary gap. At `order merged <release-cr>` read that file; right after, in the same relay, one `order note <release-cr> --note "wait: <step>: user, <YYYY-MM-DD>: '<the user's words>'"` per step. A "wait" after the merge: the same note at once.
+C-1286: Record the answer at once in the CR's `02-answers.md` (yes, edits, drop or no), with the date and the user's words.
+C-1333: When: the release PR is offered to the user to merge, at the `ready-to-merge <release-cr>` ask (a parallel or series batch), or at the complete `stack-ready-to-merge` whose top is the release PR (a stack batch).
+C-1340: No word at the ready ask: nothing is recorded and today's path stays.
+C-1343: The next ready line for the version PR names the steps already approved (for example "already approved: `just tag`, `gh release create`"), read from the `approvals unused:` line of `$CHANTIER handoff <release-cr>`, and asks only for the steps with no yes yet, so the user can still say "wait".
+C-1345: It is not an order and not a take (an `order note` on a ready CR is a take, and the Driver would restart before the merge).
+C-1349: A "wait" said after the merge is recorded the same way, as an `order note ... "wait: ..."`, at once.
+----- topics/release-chief-auto-p1.md (1243 B)
+# "auto" for a release (part 1 of 2)
+
+While the release runs (from its Driver's start to `release published` or the CR's end) offer "auto" as the "during a release" tip, one line with the exact word; on an approval ask (`blocked <release-cr> approval: <action>`) the question lists "auto" beside approving that one action: part of the question, not a tip. On "auto" (the user's own word, any language):
+1. `$CHANTIER handoff <release-cr>`; read `<k>`, the releases already published, from its `grant:` line.
+2. No budget in the batch: ask for one with a recommended figure (the CLI refuses autonomy without it); send nothing before the answer. Then `$CHANTIER preflight --autonomous-releases 1`, P9's probe 5 and the release trial; ask the release-rules question still missing and act on the answer. The grant never waits for the rules: the user's word is the grant. The same for a later `order grant ... fixes=on` with `--grant-fixes`.
+3. `$CHANTIER order grant <release-cr> --note "releases=<k+1>[ budget=<usd>]"`, and record the user's word with the date in the CR's `02-answers.md`.
+4. Send the order's line to the Foreman (direct mode: act on it; a CR blocked on an approval goes back to a Driver with `--note "auto: <the grant line>"`).
+----- topics/release-chief-auto-p2.md (585 B)
+# "auto" for a release (part 2 of 2)
+
+5. Tell the user in one line what auto does (the steering session merges the release PR by the GitHub route once every other CR is merged or cancelled, and the steps the procedure asks a go for, this release only) and what stays theirs (the announcement, a fix unless granted).
+"auto" covers this release only; never an announcement, a fix's start or merge, the procedure's word (`order confirm`) or a budget raise. Under a live grant the steering session merges and no ready line goes to the user; approvals recorded before an "auto" stay whole.
+C-1372: It never covers posting an announcement, starting or merging a fix (`fixes=` unchanged), the procedure's word (`order confirm`) or a raise of the budget.
+C-1352: Approvals already recorded before an "auto" stay whole: the grant's merge go spends none, so the Driver started at the merge still sees them.
+C-1353: The post-merge steps go under the grant anyway.
+C-1360: "💡 Say "auto" to let this release merge its release PR and run the irreversible steps of the procedure without asking;
+C-1361: the announcement stays a draft for you." On an approval ask (`ask ... blocked <release-cr> approval: <action>`), the question to the user lists "auto" among its answers, beside approving that one action (`order approve`, before or after the merge; `order confirm` stays only for a procedure with no release PR): part of the question, not a tip, so it holds when tips are off.
+----- topics/release-chief-p1.md (1432 B)
+# A release, the Chief of Staff's part (part 1 of 2)
+
+A release is a CR a Release driver runs by the project's own procedure; chantier holds none. Find it in `AGENTS.md` and what it links; nothing written, or a gap, is a question for the user and an offer to write the answer in the project. A procedure silent on release notes or an announcement is no gap: the Driver follows the release template. If it has no long check on the exact head of the default branch before the version commit, ask whether to plan one and say why (per-CR gates miss what CRs break together); the user's answer rules.
+- Prepare it as any CR (`$CHANTIER file "Release v1.4.0"`, grilled: the version when the user can settle it, the scope, where the procedure is, what the user reviews). Otherwise the Release driver picks the version and says why: no confirmation. It joins the batch of the work it ships, best a stack: `--release N` at `open`, or `order add --release --note <folder>` (one per batch, default grant; `order grant` after). It waits for every other CR, later ones too (`order after` is refused on it); in an ordered batch it is prepared on top once the others are ready, in a parallel batch after the merges. Asked for in a parallel batch: explain why it cannot be prepared before the merges and recommend a stack batch for the next one (a parallel batch cannot be switched to a stack). A project rule file on the release ranks above this.
+----- topics/release-chief-p2.md (1224 B)
+# A release, the Chief of Staff's part (part 2 of 2)
+
+- When it joins, write your latest Progress report and the conversation excerpts you choose into the CR's folder as `report.md` and `conversation.md` (the Driver renders them, anonymised) and refresh them at each report until the release PR is prepared. In the filing grill ask whether a docs diagram goes in the notes; only a yes puts one in, named in the specification.
+- The user merges the release PR (the whole stack from the bottom in an ordered batch); record each merge with `order merged`; that merge starts the procedure. No release PR in the procedure: once the other CRs are merged, ask whether to run it; the yes is `$CHANTIER order confirm <release-cr> --note "<the user's word>"`. `order add` stays refused once it has started (a fix, `--fix-for`, or the next batch).
+- The grant is the user's: each irreversible action waits for their approval (`order approve`; never lets the steering session merge a release PR); ask whether they allow more and pass only what they said (`--autonomous-releases <n>`, `--grant-fixes`, both with `--budget`; later `order grant`). More: `help release-chief-approve`, `help release-chief-auto`, `help release-chief-after`.
+C-1316: Find it in `AGENTS.md` and what it links (point to it in the `chantier` section); nothing written, or a gap, is a question for the user and an offer to write the answer in the project.
+C-1319: If the procedure has no long check on the exact head of the default branch before the version commit, ask whether to plan one and say why: per-CR gates miss what CRs break together, and any check skipped on a PR goes unseen.
+C-1321 (+floor.md): The user's answer rules; chantier imposes no gate.
+C-1324: It waits for every other CR of the batch, the ones added later too (the CLI keeps its `after`; `order after` is refused on it);
+C-1329: (chantier's own release joins the batch whose work it ships, as `docs/release-process.md` says; that file ranks above this card as a project rule.) Write your latest Progress report and the conversation excerpts you choose into the release CR's folder, as `report.md` and `conversation.md` (the release Driver renders them from there, anonymised), when the release joins the batch, and refresh them at each Progress report until the Release driver has prepared the release PR.
+C-1330 (+floor.md): In the filing grill, ask whether a docs diagram should be shown in the notes; only the user's yes puts one in, named in the release CR's specification.
+C-1356: `order add` stays refused once the release has started (a fix, `--fix-for`, accepted for urgent fixes, or the next batch).
+C-296: Once started: a fix of the release (`order add --fix-for <release-cr>`) if it belongs to this release, else the next batch (filed and grilled meanwhile).
+----- topics/release-evidence.md (1405 B)
+# Release pictures
+
+One image per highlight; a change that replaces a visible behaviour shows before and after side by side, from the Verifier's before/after. Sources: the merged CRs' `evidence/` (`4-batch/3-done/`, `5-archives/`), the merged PRs' Deliverables, captures of the product running, CLI output, and the release CR folder's `report.md` or `conversation.md`, anonymised (`~`, `user`, `user@example.com`, `<session>`, `example/app`).
+
+- Only a visible change gets an image, one per change, cropped to it (never the whole window), 900 to 1200 px wide, at most 600 px high; before/after is one joined image, same region and scale. The alt text is the caption, one plain phrase.
+- No image in the sources: capture it with the project's own means before the notes are final. No capture or crop within bounds: the notes say nothing; the version PR's Known gaps (no version PR: a `note` and the hand-back report) names `no picture for <change>: <why>`.
+- Read each image before keeping it: crop, size, alt text, the look (`help pr-images`). A docs diagram only on the user's word in the grill.
+- Name an image as `<img src="...">` or in prose, never a Markdown link to a file that may not exist, the PR's body too.
+- Uploading an image (the forge's own CLI) is irreversible: `release go` first. Published notes use the reviewed text; where the procedure publishes none, they stay a draft for the user.
+----- topics/release-thread.md (402 B)
+# The announcement thread
+
+Three posts: the story (first person, a concrete moment of work the release improves, then what is different now, at most three changes, the thread's one image); the link to the release notes; one sentence (install or update, price, licence) and the install link. Organic tone: no launch words, at most two emoji, no hashtag list. No agent posts; it is a draft for the user.
+H-618: the screenshots in the merged PRs' Deliverables sections;
+H-619: captures of the product running, made by the Driver;
+H-623: The Driver reads each image it produced before it keeps it.
+H-626: Crop to the changed element (the control, the panel, the lines of output), never the whole window or page; 900 to 1200 px wide, at most 600 px high.
+H-628: The alt text is the caption: it says what the image shows, in one plain phrase; no separate caption line.
+H-629: The Driver crops with the project's own means and names no tool.
+H-630: A visible change, a fix included, whose sources hold no image: the Driver captures it itself with the project's own capture means before the notes are final.
+H-631: When the capture is impossible, or the image cannot be cropped to the changed element within the bounds (900 to 1200 px wide, at most 600 px high): the notes go out without that image and say nothing about it;
+H-634: A release whose procedure opens no version PR has no Known gaps: the missing picture is named, with the same words, in a `note` (`$CHANTIER note`) and in the Driver's hand-back report.
+H-635: The notes still say nothing about it.
+H-637: The Release Driver reads each image it produced before it keeps it and checks there: the crop shows the change, the size is within the bounds, the alt text matches, and the look of [driver](driver.md) ("Means: images and the look") passes.
+H-646: The tone is organic: no launch words ("excited to announce", "game changer"), at most two emoji, no list of hashtags.
+----- topics/release-notes.md (2063 B)
+# Release notes, drafts and the PR body
+
+- What a person reviews or edits (release notes, an announcement) goes early in the work folder, or where the procedure keeps it (a folder committed with the version), then `note --draft <path>`; read it again each time you use it, never rewrite it.
+- Notes and announcement follow the project's procedure, else the release template (`release-template.md`; images and the thread: `help release-evidence`). Their captures come from the release's batch (its `STATUS.md`, the board, CLI output) and from `report.md` and `conversation.md` in the release CR's folder when written; a docs diagram only when the specification names it. Images are anonymised before they leave the machine; each capture kept passes the look (`help pr-images`) before it is kept and before each upload (a release asset, a push of the release folder's images). The thread is never posted by an agent.
+- A version PR's body carries, under the PR's own description, a `---` rule, the release notes, a `---` rule, then the announcement thread under a heading saying it is a draft the user posts. The PR's own description stays the procedure's. A project whose procedure says where notes are reviewed is followed as written; a release with no PR keeps the drafts alone.
+- The files are the source and the body a copy: write the body from the files (`gh pr edit --body-file`, `glab mr update` with the file form, unproved there) when you open the PR, each time a draft changes, and once more just before `handback ready <pr link>`. Never copy the body back into a file. A change the user asks for is made in the file, then the body refreshed.
+- Images in the body: one already on the forge is shown from there; one not yet on the forge, or that it cannot take, is named in prose (`<file name>: <what it shows>`). The body never links a local path.
+- A whole that does not fit the forge's body limit keeps, in order, description, notes, thread, names each part left out by its path with a line saying the body is not the whole, and cuts nothing silently.
+H-648: By default the Driver writes `release-notes.md`, `tweet.md` and the images in `<work folder>/release/` and runs `note --draft` on each text, as [driver](driver.md) says.
+H-649: When the release has a version PR, the Driver also shows `release-notes.md` and then `tweet.md` in the PR's body, under the PR's own description, rendered, each after a `---` rule, the thread headed as a draft the user posts.
+H-650: The files stay the source and the body is refreshed from them before the merge, as [driver](driver.md) says.
+----- topics/release-ship.md (2306 B)
+# The release PR
+
+- Prepare it in every mode (in an ordered batch on top of the stack, its notes covering the previous release up to its own head): pass what the procedure names at the pushed head, CI green, the body refreshed from the drafts first (`help release-notes`), then `handback <cr> ready <pr link>[ draft on <base>]: waits for the merge`. No `blocked merge:`, no verifier. The release PR is the user's to merge; the steering session merges it only under the grant. A new Driver goes on from the procedure's next step once it is merged.
+- `[foreman→driver <cr>] fix <fix-cr>`: `handback blocked fix: <fix-cr> pending`.
+- A procedure with no release PR: prepare the drafts (`note --draft`), then `handback blocked waits: the other CRs' merge, then the user's word to run the release procedure` (alone: the user's word only).
+- A `ship` refused in an ordered batch: `branch not based on <top cr>'s head`: rebase onto the branch it names, push (`help refused-push`), `ship` again (`--conflict` by `help conflicts`). `<top cr>'s branch moved since its last ship`: wait for that CR's `ship`, then again. A top CR the forge shows merged: once `status` shows it merged, `ship` again.
+- Base: the one `take` printed (the top CR's branch in an ordered batch, the default branch otherwise). A new attempt (no attempt yet, `fix merged:`, or `redo: <cr> <why>`) starts on that base in a new worktree (`git -C <main checkout> worktree add`), never a `reset --hard` of the old one, then `$CHANTIER release start <cr> --lease <n>` and the procedure from its first step whatever passed before. A `redo:` rebuilds on the new base and refreshes the same PR (version commit, count, notes, captures); the drafts are read again, never rewritten.
+- The version is the specification's. None there: pick the best from what the release ships and the project's versioning rules; say why in the PR's description (with no PR, in the draft notes) and in a `note`. Never ask for it.
+- A step fails on the product: `<work folder>/fix-<n>.md` (a title line, then steps, expected, actual), then `handback blocked fix: <one line>; <path>`. On the infrastructure: one re-run (`help trouble`), then `blocked infra:`. Half-done irreversible work: stop and say exactly what is out in `blocked question:`; never undo it on your own.
+H-223: There is no version confirmation: the version is the specification's, else the Driver's choice, with its reason.

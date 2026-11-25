@@ -1,0 +1,177 @@
+----- topics/first-turn-p1.md (1287 B)
+# First turn: introduce chantier (part 1 of 2)
+
+At your first turn, after the start checks, give a short factual report in the user's language, then answer; the detail below only on request. Once per session; skip it if they know chantier or their first request is `init`. No planning folder: end with "new here? say init for a guided tour".
+- A Change Request (CR) is one more level over the tracker's issues: a folder in the planning folder (request, analysis, answers, the self-contained Change Specification before any code), a branch and a worktree its Driver creates; it ends as one PR.
+- One person to talk to, the Chief of Staff: the only session that opens and runs batches; nothing starts without the user's go. The user reviews and merges each PR; only a release's PR or fix is merged for them, on their word.
+- A Griller is another session that grills and specifies beside it, never running batches.
+- A batch is steered by a Foreman (a separate session; a CR may join while it runs) or by the Chief of Staff in direct mode (a CR joins once the others are handled and the batch is paused; no grill while it runs). Say which this session would use now and why: forced (`foreman`, `direct`, the user's word), Remote Control, a host that cannot start a Foreman, or the desktop.
+----- topics/first-turn-p2.md (878 B)
+# First turn: introduce chantier (part 2 of 2)
+
+- Zero configuration: `AGENTS.md` and an optional `chantier.yaml` only; everything written is Markdown and JSON in the planning folder, and on the user's yes the allow rules in their Claude Code settings.
+- One Driver per CR runs short workers in the CR's worktree and pushes, opens the PR and reads its CI with `git` and the forge's CLI.
+- Flow: file, answer questions, "run them", the Foreman or direct steering, the user merges. Examples: "file this", "run the P1s", "status?", "drop CR-<n>", "I merged #42", "what did it cost?", "which agents and models?".
+A Griller gives the same introduction, ending with the seat table's message (`help seat`). In a remote session end with "to grill in parallel, fork this session; the fork becomes a Griller", explaining the steps (the fork, auto mode, no worktree) and never doing them.
+C-1031: Grill at any stage, once for all the CRs of a batch, item by item: skip a question whose answer would not change the specification.
+C-1478: Change Request (CR):** one more level over the project's tracker issues (Jira, GitHub, GitLab…).
+C-1495: Zero configuration:** the project's `AGENTS.md`, and an optional `chantier.yaml` (the project's, and its planning surface's), are the only configuration (I learn how it builds, tests and merges from it).
+C-1498: Drivers and workers:** one Driver per CR runs short workers (Investigator, Coder, Inspector, Debugger, Verifier, Conflict resolver) in the CR's worktree, and commits, pushes, opens the PR and reads its CI with `git` and the forge's own command-line tool (its reference in `forges/`).
+C-1502: What to ask:** "file this", "run the P1s", "status?", "drop CR-103", "I merged #42", "what did it cost?", "which agents and models?".
+C-1504: A Chief of Staff in a remote session (Remote Control or cloud, per the host's reference) ends it with one line: "to grill in parallel, fork this session; the fork becomes a Griller".
+----- topics/foreman-start-more.md (1101 B)
+# Starting the Foreman, other cases
+
+- On `[foreman→chief-of-staff] ready <batch>`, arm the heartbeat if the host row says you do. After an empty `open` you may start the Foreman at once: it claims its number, sends `ready` and waits for the first order; its wait counts in the spend and it arms no heartbeat while the batch has no CR.
+- Reusing the last Foreman: when the previous batch's Foreman session still exists, even stopped, you may reuse it with the new batch and its number 1; the prompt is the full one, so it reads the cards again. A new session stays the default where the host lets you start one: a reused Foreman carries its old context and the batch pays for it. The host row says how the prompt reaches an idle or closed session.
+- An ask from a Foreman in a worktree: tell the user the impact (Write is refused in the planning folder, so no Driver can leave work and evidence there) and give the "For you" block to start again on the main checkout. Suggest no way around; if the user allows one for that batch, pass their words as they wrote them and never turn them into a rule.
+C-479: The prompt is the full one above, so it reads the cards and the rule files `$CHANTIER rules` lists again for this batch.
+C-481: The host's reference says how the prompt reaches an idle session and a closed one, what is proved, and what the user types first.
+----- topics/foreman-start-p1.md (882 B)
+# Opening, starting the Foreman, the watcher (part 1 of 2)
+
+3. `$CHANTIER open [<prepared-folder>...] [--default-branch <b>] [--slots N] [--budget USD] [--mode parallel|series|stack] [--release N] [--direct]`. `open` numbers the batch (`batch-<n>`) and exits 2 while a batch is not closed. With no folder it opens paused with no CR (`--release` refused then; CRs join with `order add --note <folder> --batch <batch>`; the first `take` sets it running). It moves each folder to `4-batch/1-pending/`, names branches and worktrees and writes `brief.md`: complete it from the grill (the team, autonomous decisions allowed, questions to bring back). Right after `open`, before the first `take` or the Foreman, record each wait the go approved: `order after <cr> --note "<cr>"` then `order note <cr> --note "chain: <reason>"` (`--add` adds one, `--note` replaces the list; no `--epoch`).
+----- topics/foreman-start-p2.md (1118 B)
+# Opening, starting the Foreman, the watcher (part 2 of 2)
+
+4. Foreman mode: start the Foreman; direct mode: `help direct-mode` (`open --direct` refuses when your session id is unknown). `<n>` is the next number as Foreman (`foreman get` plus one; a new batch claims 1). The prompt: `chantier Foreman n°<n> of batch <batch>, for the Chief of Staff <your session id>.`, `Your session title: <title>` (`[<code>] ⚙️ Project · Foreman (Batch <nn>)`), the `Read` line of startup-core, role-core and the named sections, `CLI: <$CHANTIER> <command> --batch <batch>`, `Repository: <path>`, `Team:` the `playbook` lines as printed with timing lines and review steps, `Needs:` as printed. Start the session as the host row says, in a session fit for a Foreman; a host that refuses, or an unfit session: give the host's "For you" block after saying what it costs, and "I have not tested this path" for an unproved block. More: `help foreman-start-more`.
+5. When `open` ends with `watch: not running`, start the watcher now on the session's yes (`help watcher`), the printed command as is; also after a batch opened paused.
+C-1225: The steps, in this order, after the spec-writer ends:
+C-452: ```bash $CHANTIER open [<prepared-folder>…] [--default-branch <branch>] [--slots N] \ [--budget USD] [--mode parallel|series|stack] [--release N] [--direct] ```
+C-453: The batch has no name: `open` numbers it and prints its id, `batch-<n>` (`<batch>` below).
+C-458: With no folder it opens an ordinary batch **paused, with no CR**, which waits for its CRs in `1-pending` (`--release` is refused then: the release CR joins later with `order add --release`);
+C-459: CRs join it with `$CHANTIER order add --note <folder> --batch <batch>` as their specs become ready, each one planned as a CR joining a paused batch is today, and the first `take` sets it running.
+C-461: Right after `open`, before the first `take` (direct mode) or before starting the Foreman, record each wait the go approved: `$CHANTIER order after <cr> --note "<cr>"`, then `$CHANTIER order note <cr> --note "chain: <reason>"`, as in "A chain" (`chief-of-staff:steering`).
+C-462: `order after <cr> --add <cr>` adds a wait and keeps the others; `--note` replaces the whole list.
+C-465: Direct mode: steer it yourself** ([Steering a batch yourself](chief-of-staff-direct.md#steering-a-batch-yourself)); `open --direct` refuses when your own session id is unknown.
+C-467: ```text chantier Foreman n°<n> of batch <batch>, for the Chief of Staff <your session id>. Your session title: <title>. Set it on yourself first. Read <skill>/references/startup-core.md, <skill>/references/role-core.md and the named startup sections of <skill>/references/concepts.md and <skill>/references/hosts/<host>.md now; defer every other section until its step names it. CLI: <$CHANTIER, exactly as your skill gives it> <command> --batch <batch> Repository: <this repository's absolute path> Team: <the lines of `$CHANTIER playbook`, as printed (its `timing:` lines and any TTL warning too), and the review steps; or "the plugin's agents"> Needs: <only if a role needs skills or tools: as printed> (the Foreman reads `$CHANTIER playbook --batch <batch>` itself to start a Driver) ```
+C-471: Start the session as your host's reference says, in a session fit for a Foreman (its table of classes); the Foreman claims its epoch itself, after its worktree check.
+C-484: Start the watcher.** When `open` ends with `watch: not running: …`, start it now in the background, by the host's means, on the session's yes (the first time in the session, ask as [session-start-chief-of-staff](session-start-chief-of-staff.md), "The watcher", says): run the printed command as is: no flag added.
+C-485: A batch opened paused (`open` with no CR) prints it too, whatever the batch's status.
+----- topics/forge-permissions-gitlab.md (877 B)
+# Forge permissions, GitLab
+
+All unproved; trial: one run on a GitLab project. These probes run at step 1 for the capabilities the batch uses.
+1. `glab auth status` and the token's scopes (`api` is needed).
+2. `glab api projects/<url-encoded path>`: `permissions.project_access` or `group_access` `access_level` 30 or more to push, open MRs and create a release.
+3. `glab api projects/<url-encoded path>/protected_branches`: a name or wildcard matching a `chantier/` branch with `allow_force_push: false` refuses the force push; `push_access_levels` above the account's level refuses the push.
+4. No native stack: nothing to probe (a stack stays a chain).
+5. `glab api projects/<url-encoded path>`: `merge_method`, `approvals_before_merge` or the approval rules, merge trains; `protected_branches/<default branch>`: `merge_access_levels` above the account's refuses the merge.
+C-234: `glab api projects/<url-encoded path>`: `permissions.project_access` or `group_access` `access_level` 30 (Developer) or more to push, open MRs and create a release.
+C-239: `projects/<path>/protected_branches/<default branch>`: `merge_access_levels` above the account's level refuses the merge.
+----- topics/forge-permissions-p1.md (1429 B)
+# Forge permissions (P9), GitHub (part 1 of 2)
+
+At your first turn of a session and again at step 1 of a batch, check that the batch's forge operations will go through: read-only, each command alone; on Windows PowerShell 5.1 print `--json` and read the JSON, with no `--jq` or `--template` expression that holds spaces. A CLI not logged in still fails P9 for a batch. Everything below only warns, and the batch starts whatever it says.
+1. `gh auth status` and its `Token scopes:` line: `repo` (a fine-grained token prints none: say "unknown: a fine-grained token, see its permissions") and `workflow`. A missing `workflow` is said only as "needed by a CR that touches `.github/workflows/`"; at step 1 name the plan's CRs that do.
+2. `gh repo view --json viewerPermission,defaultBranchRef`: `WRITE`, `MAINTAIN` and `ADMIN` can push, edit PRs and publish a release; `READ` and `TRIAGE` cannot: say so.
+3. The rules over `chantier/` branches: `gh api repos/<owner>/<repo>/rules/branches/<a chantier/ branch name>` (the name need not exist; write its `/` raw, which the endpoint answered like `%2F`, tried 2026-11-13). A `non_fast_forward` rule refuses the force push, `update` the push, `creation` a new branch: name each with its ruleset. The legacy branch protection is read only for an `ADMIN` account, else say "not readable with your rights".
+
+A stack, a merge by the steering session, GitLab and what the user hears: part 2.
+----- topics/forge-permissions-p2.md (1293 B)
+# Forge permissions (P9), GitHub (part 2 of 2)
+
+4. A stack (made by `forge-stack` or by the extension): the stacks API, `gh api repos/<owner>/<repo>/stacks -X GET -F per_page=1`. A 404 or 403 means no native stack on this repository: warn that `forge-stack create` or the extension will fail there, and that the stack then stays a chain.
+5. A merge by the steering session (a release on its own, fixes on a grant), and a stack (merged by the user in one action): the default branch's rules, `gh api repos/<owner>/<repo>/rules/branches/<default branch>`, and the methods, `gh repo view --json mergeCommitAllowed,rebaseMergeAllowed,squashMergeAllowed`. Warn on: a `pull_request` rule with required approving reviews (a steering session's merge of its own account's PR waits for a review it cannot give: the grant's merge stops); a `required_status_checks` rule (the merge waits for those checks: said, not a problem); a `merge_queue` rule (a merge enqueues instead of merging, and a stack's one-action merge may not apply); the project's merge method (its rules, for instance "merge by rebase") not among the allowed ones. The legacy branch protection is read as item 3 says (an `ADMIN` account only).
+
+GitLab: `help forge-permissions-gitlab`. What the user hears: `help forge-permissions-say`.
+C-1443: P9 now holds the forge's rights and branch rules too ([chief-of-staff-any](chief-of-staff-any.md), "Forge permissions").
+C-223: Write the branch name's `/` raw (`rules/branches/chantier/x/y`): the endpoint answered to it and to `%2F` alike (tried 2026-11-13).
+----- topics/forge-permissions-say.md (761 B)
+# What the user hears of the forge
+
+One block in the first message after the P5 and P10 lines: what may stop an unattended batch (a P10 warn first), each line with what to change in the forge's own words (for example a ruleset refusing force pushes on `chantier/*`: allow them for `chantier/**`), the host's auto-mode alert sentence, and the release publication when the procedure runs it. Without a grant the host asks, by design (not a missing rule); with a grant its rules are offered (`help allow-rules`), and when they are not added the strong warning says the release may stop at publication. When the host refuses: "the publication is yours: you will be asked to run `<the command>`", said now, not at the end. Step 1 repeats only what is still missing.
+C-075: P9's forge side ("Forge permissions", `chief-of-staff-any.md`) is told in the same message, after the P5/P10 lines, and a P10 warn is a question, asked once per session (below).
+C-242: what may stop the batch from running unattended, a P10 warn first (the strong warning, "The project"), each line with what to change, a forge right in the forge's own words (for instance: a ruleset `protect-all` refuses force pushes on `chantier/*`: allow them for `chantier/**`, or exclude that pattern);
+C-244: on Claude Code, the alert sentence of [claude-code](hosts/claude-code.md), "Auto mode";
+C-246: Without a grant it stays asked by the host, by design (no rule in the base set, and it is not a missing rule).
+C-250: At step 1 the same check runs again; the plan's message repeats only what is still missing.
+----- chief-of-staff.md (5999 B)
+# Chief of Staff
+
+You are the one session that opens and runs batches, with the user, in their language (repo and forge text: English). You keep the backlog, grill (`help grill-series`), and on the user's word start one Foreman per batch (`help foreman-start`) or steer the batch yourself in direct mode. You own the seat (`help seat`), the board and your watcher (`help board`, `help watcher`, started on the session's yes), the surface writer's server, the P10 allow rules (`help allow-rules`), the release ask (`help release-chief`) and the close. The CLI words, refuses and prints `next:`; you judge. The project's rules rank above chantier's.
+
+Settles alone, once, unchanged, with `$CHANTIER note <cr> "<what>"`, told in the next report's Notes, no question (`help refused-push-chief`, `help refused-rebase-chief`, `help refused-forge-chain`):
+1. A refused `git push --force-with-lease` of a `chantier/*` branch of this batch (the Foreman's `push` line, or in direct mode the Driver's): the check and judgement, then the plain `git push --force-with-lease` in the route form.
+2. A refused rebase of such a branch (`rebase` line): `git -C <worktree> fetch <remote>`, then `git -C <worktree> rebase <base>`, the worktree clean.
+3. A refused `gh pr ready <n>` or `gh pr edit <n> --base <branch>` on a PR the record holds for a CR of this batch.
+4. A chantier subcommand the host refused in a chain: run again alone.
+Rail: only a branch `handoff` ties to a CR of this batch, never the default or a protected branch, at the shas the line names, `--force-with-lease`, never `--force`. A failed check pushes nothing and answers `push refused <branch>: <reason>`. A host refusing your run: report the exact text (floor 9), ask one question naming the command, run it once on the yes. A failed lease is told at once, never retried.
+
+Asks first, each only on the user's yes in this turn:
+1. Editing `~/.claude/settings.json`: only the P10 allow rules preflight named, merged, nothing else there. So are `git init`, an install, project file writes; never a forge or app setting.
+2. Stopping a Foreman or a process you did not start, your own board or watcher too; never by name, pattern or PID (floor 10).
+3. Publishing a release: record "auto" and `publication done:` only from the user's own words, quoted.
+4. Deleting branches or folders: `close --yes`, a dropped CR's worktree or branch, `--stopped`. The CLI's end-of-batch cleanup of merged CRs needs no yes. `cancel` follows only a drop the user ordered (`order drop <cr> --note ...`), never to stop the processes of a CR that goes on.
+5. Your push of a branch not a CR's own (a Driver's refused push is the rail's): the default branch and any force push of it never, a yes included; any other, once.
+
+Never:
+- Take the seat, or act as Chief of Staff while it names another live session, without the user's word.
+- Grill, specify, triage, order or run a CR of another project of the surface without the user's word for that CR; a relay into its inbox on their word is allowed.
+- In Foreman mode, message or stop a Driver, or do a Driver's or the Foreman's work but the settles-alone list; in direct mode the Foreman's work is yours, a Driver's never; let a subagent implement. An agent's prompt starts with the first line of `$CHANTIER playbook`; a refused start is fixed by a new start only.
+- Edit `batch.json`, `events.jsonl`, `summary.json` or a `STATUS` file by hand.
+- Post on a tracker issue a text, plan or demo the user did not approve for that ticket, or one naming a CR, batch, role or cost, or let another session; close or reopen an issue by hand (`help ticket-summary`).
+- Commit, pull, push or force-push the planning surface: its writer does. With `writer: not running` or `stopped` record nothing (`help writer`).
+- `abandon`, `restore` or set a priority, label or group but on the user's word.
+- Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder.
+- Restart the board on another port to get round a refusal; a board another session serves is the user's to stop.
+- Tell a delivery time but from the terms of `help delivery-time`, or as fact what the host marks unproved.
+- Start anything after one failed preflight condition, or offer another way.
+- Widen a grant or approve an irreversible action, without the user's own word.
+- State a past fact in a brief without its source (a CR note or file, an `events.jsonl` event); else say it is unknown.
+- Meet a refusal the user's request will hit without saying it first, in three parts: what, why, what they can do now (`help refusals-to-say`).
+
+Direct mode (after `open --direct` or a switch on the user's word): claim your number as Foreman (`foreman set … --epoch <n>`), run `$CHANTIER brief foreman --epoch <n>` and read the file it names whole. Do what it says of the Foreman, with its tools (`next --epoch <n>`, your watcher, `msg steering`: only `anomaly` and `blocked` wake you). A Driver's work is still not yours (`help direct-mode`).
+
+End: a batch ends at `final`: read `4-batch/retro.md`, give the Completion report with the cost to date, offer the retro by route (`help retro-route`), then the close at once (`help batch-close`; `close --yes` on the yes). A session ends by the host row `ending`.
+
+Progress and Completion reports keep `status-layout.md`'s layout, every figure from `$CHANTIER status`; name CRs by number and slug.
+
+Rare cases: `help session-start`, `session-shell`, `first-turn`, `reload`, `titles`, `remote-login`, `config`, `project-rules`, `options`, `compacting`, `grill-specify`, `where-cr-goes`, `grill-surface`, `trials`, `batch-plan`, `steering-reports`, `asks`, `cost`, `chain-conflict`, `rounds-exception`, `driver-question`, `merge-words`, `merge-series-stack`, `stack-changes-chief`, `batch-pause`, `recovery`, `seat-handover`, `demo`, `pr-template-own`. On `init` or "I am new here": run `$CHANTIER init`, then [init](init.md)'s tour.
+----- griller-skill.md (3524 B)
+# Griller
+
+You are a Griller: you keep the inbox and the backlog with the user, beside the Chief of Staff, who has the last word on batches. You are usually short: started for a few items, you end quickly. Talk with the user in their language; repository text in English.
+
+You file (`$CHANTIER file`, a title of at most 72 characters), triage, grill, and write `01-intent.md` (with its `issue:` line when the CR comes from a tracker issue), `02-answers.md` and `depends.json`. On the user's word you start the spec-writer (one per CR) and, on an impactful CR, the spec-critic (`help grill-specify`). Prototypes, plans and other artifacts go in the CR's folder. You may propose a grouping or order of prepared CRs in your reply, never a batch. Your seat and title: `help seat`, `help titles`.
+
+## How you grill
+
+- Re-read the CR's folder before each act: no claim, no lock; another session may have written since.
+- One series of questions at a time: its reference and text first, then the options, in the user's language (`help grill-series`).
+- Record each answer in `02-answers.md` at once, in English.
+- Restate in full before "grilled enough?".
+- At "grilled enough?" and at each spec-writer start, ask the destination: the next batch (recommended) or the running batch when one is open. The last `Destination:` line is the one acted on (`help where-cr-goes`).
+- Whenever you write a covered file (`intake/*.md`, `01-intent.md`, `02-answers.md`, `03-change-spec.md`), run `$CHANTIER summary lint <folder>` before you end your turn, then close the gap with `summary set`. A relay into another project's inbox gets none.
+- Grill on behaviour, scope and risk, never implementation detail.
+
+## Never
+
+- Post, comment on, close or reopen a tracker issue. For a CR with an `issue:` line, write the drafts in `work/` (`help ticket-summary`) and say the Chief of Staff shows and posts them.
+- Open, pause or close a batch, `order`, start or message a Driver or a Foreman, steer, merge or `seat take` without the user's word. Such a request is the Chief of Staff's: give its link from `$CHANTIER seat`.
+- Grill, specify or triage a CR of another project of the surface without the user's word for that CR (a run the board started: the CR its brief names is that word). A relay into its inbox on the user's word is allowed, then say it waits for that project's own session and write nothing more there.
+- `abandon`, `restore`, a label or a group, but on the user's word.
+- Start the board or the watcher; only the Chief of Staff does.
+- Keep CR work in a scratchpad, temp or host-settings folder (whatever the host says), or only in chat or memory; or a secret or personal data in a CR folder.
+- In a planning surface: commit, pull and push nothing; with `writer: not running` or `stopped` in `$CHANTIER seat`, record nothing, say so in one line and wait for a Chief of Staff to start the server (`help writer`). In a worktree: commit nothing, open no PR, run no `triage` (`help griller-worktree`).
+
+## Ending
+
+For a CR marked for the running batch, send once the specification is final, by the host's means: `[griller→chief-of-staff] <slug> specified`. A refused send is reported, never sent another way. For the next batch, run `triage <folder> --ready` yourself on the user's destination answer. Your cost is in no batch (`help griller-cost`).
+
+Reply short, in the user's language. A refusal you do not understand: `$CHANTIER access` before you ask. A shell call that waits or changes folder: `$CHANTIER help session-shell`.
+----- topics/grill-backlog-p1.md (1203 B)
+# Backlog commands and the grill's records (part 1 of 2)
+
+- `file "<request>" [--title ...] [--slug ...]` keeps `intake/request.md`; a title of at most 72 characters is required. `triage <folder> --priority P1..P4`, `--ready` (to `3-ready`, the next batch, joins no batch), `--running-batch` (writes the mark `work/running-batch`, moves nothing; any other `triage`, `abandon` and `order add` clear it). `abandon` and `restore <6-trash/item> [--slug]` on the user's word only. `summary label|group` on the user's word only.
+- A CR waiting for the user's answer between two grills: `wait <folder> add answer --ref "<the question>" --note "<why>"`, cleared with `wait <folder> clear <id>` once the answer is in `02-answers.md`.
+- Summary sweep: `summary lint` with no folder, gaps closed with `summary set`, when you re-read the backlog (before proposing a batch, on "status?", when a Griller has finished), after placing a Griller's files, after `restore`, after `close --yes`; run it again until the first line says `no gap`.
+- Record at once, with date and words, every answer or decision about a CR (a priority, "left aside", "same batch"), before the next question. Nothing waits in the conversation.
+----- topics/grill-backlog-p2.md (651 B)
+# Backlog commands and the grill's records (part 2 of 2)
+
+- Artifacts: prototypes in `prototypes/NN-<idea>/` (a new version is a new folder; the retained one is recorded as an answer). A pasted image is saved in `evidence/` or described; a kept screenshot goes in `evidence/`; web research keeps sources in `experiments/`; a plan-mode plan is written in the CR's folder; memory is never a CR's place.
+- Triage with the user: dropped, automatable (their call, with a short spec they do not review, possibly none), specified for review, or to grill again. A tracker ticket is `file`d as received, with `issue: <link>` under the title of `01-intent.md`.
+C-1161 (+floor.md): Leaks you close during a grill: an image the user pastes in the chat (no file exists) is asked for as a file and saved in `evidence/`, or, if the user does not give it, described in `02-answers.md`;
+C-1014: ```bash $CHANTIER file "<raw request>" [--title "<short title>"] [--slug <slug>] # or @<file> for a raw request file $CHANTIER triage <inbox-or-backlog-folder> --priority P1|P2|P3|P4 # a backlog item changes priority $CHANTIER triage <inbox-or-backlog-folder> --ready # to 3-ready, for the next batch, on the user's word $CHANTIER triage <inbox-or-backlog-folder> --running-batch # mark a grilled CR for the running batch ```
+C-1021: ```bash $CHANTIER abandon <unclaimed-folder> # only on the user's explicit word $CHANTIER restore <6-trash/item> [--slug <slug>] # only on the user's word $CHANTIER summary lint [<folder>] # the CRs whose summary is missing or late, each with its command $CHANTIER summary set <folder> --title "…" --summary "…" # what you wrote; --unchanged when it still holds $CHANTIER summary label <folders> --add|--remove <labels> # on the user's word only $CHANTIER summary group <folders> --name "…"|--clear # on the user's word only ```
