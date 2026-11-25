@@ -60,7 +60,7 @@
 54 L89 [init.md:32 0.66] The tour runs every check a user's machine needs: preflight's P5 (`uv`, `git`) and P10 (the allow rules), P9 with the forge's rights and branch rules ("Forge permissions" of `chief-of-staff-
 55 L91 [init-tools.md:1 0.92] For each missing piece it asks and fixes it:
 56 L93 [init-tools.md:5 0.59] **The allow rules:** the Chief of Staff's question and write ([chief-of-staff](chief-of-staff.md), "The project"), and the command line of your host's "Allow rules to add" when the host refu
-57 L95 [init-tools.md:5 0.73 | chief-of-staff.md:12 0.45] The tour writes in the user's settings only the allow rules P10 named, on the user's yes, as the Chief of Staff does at a first turn.
+57 L95 [init-tools.md:5 0.73 | chief-of-staff.md:12 0.48] The tour writes in the user's settings only the allow rules P10 named, on the user's yes, as the Chief of Staff does at a first turn.
 58 L96 [init-tools.md:5 0.70] When the first turn already asked the question in this session, the tour does not ask it again: it says what P10 says now.
 59 L97 [init-tools.md:3 1.00] The tour checks the capability "every batch" only; it names the others (a stack, a release on its own, fixes on a grant) as checked at the go, and runs no trial.
 60 L100 [project-rules.md:5 0.77] **The long gate:** the exact `AGENTS.md` lines above, written on the user's yes.

@@ -17,6 +17,8 @@ SOURCES = [
     "init.md", "review-step.md", "sync-checkout.md", "forges/github.md", "forges/gitlab.md",
     "hosts/claude-code.md", "hosts/copilot.md", "startup-core.md", "role-core.md",
     "host-core-claude-code.md", "host-core-copilot.md", "reload-rules.md",
+    "skills/chantier/SKILL.md", "skills/chief-of-staff/SKILL.md", "skills/griller/SKILL.md",
+    "skills/status/SKILL.md",
 ]
 
 
@@ -76,8 +78,13 @@ def split_sentences(buf):
 
 
 def units(name: str):
-    """(first line, last line, text, trigger, form) of references/<name> at the base."""
-    lines = base_text(REFS + name).split("\n")
+    """(first line, last line, text, trigger, form) of references/<name> (or skills/...) at the base.
+
+    A SKILL.md's frontmatter gives no unit: the new text keeps it unchanged (checked apart)."""
+    lines = base_text(name if name.startswith("skills/") else REFS + name).split("\n")
+    if name.startswith("skills/") and lines[0] == "---":
+        end = lines.index("---", 1)
+        lines = [""] * (end + 1) + lines[end + 1:]
     heading = name
     out, buf = [], []
     fence = None

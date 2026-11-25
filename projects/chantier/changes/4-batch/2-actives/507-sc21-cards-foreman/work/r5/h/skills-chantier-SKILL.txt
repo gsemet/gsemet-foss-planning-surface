@@ -1,0 +1,24 @@
+## chantier: the router
+1 L13 [skills/chantier-SKILL.md:11 1.00] chantier-version: 0.15.1
+2 L15 [chief-of-staff.md:3 0.38] `$CHANTIER` is the CLI, one launch in two modes, its mode checked once at the session's start.
+3 L15 [skills/chantier-SKILL.md:21 0.47] `<skill folder>` is the `chantier` skill's folder (this file's folder there, `../chantier` from the other skills) and `<plugin root>` is `<skill folder>/../..`, both made absolute.
+4 L15 [skills/chantier-SKILL.md:19 0.52] If `<plugin root>/.git` exists (folder or file), this is chantier's own checkout;
+5 L15 [hosts/claude-code.md:34 0.38] when the session's project is chantier (in a planning surface the folder `projects/chantier`, by its name alone; in-project the repository whose root `.claude-plugin/plugin.json` or `.github
+6 L15 [hosts/claude-code.md:36 0.55] Check first, writing nothing, with `uv sync --locked --check --project "<plugin root>"` (the command P10's rule holds): exit 0, in sync;
+7 L15 [hosts/claude-code.md:36 0.50] exit 1 with uv's "The environment is outdated", a sync to run once the holders of `<plugin root>/.venv` are named;
+8 L15 [sync-checkout.md:16 0.75 | stack-driver.md:5 0.38] any other exit, an ordinary sync failure, never `sync pending`.
+9 L15 [sync-checkout.md:13 0.38] Never stop or kill a process for a sync, nor ask anyone to: with a holder, go on unsynced saying `sync pending: held by <holders>`, try again at each next turn but a reload, and tell the use
+10 L15 [skills/chantier-SKILL.md:21 0.58] Then `$CHANTIER` is `uv run --no-sync --project "<plugin root>" chantier`, the local code, live, with no fetch; only the steering session syncs.
+11 L15 [hosts/claude-code.md:36 0.48] Otherwise it is the plugin mode, a host's plugin copy or another project, even with the plugin loaded from chantier's checkout: `$CHANTIER` is `uvx --from "<plugin root>" chantier --skill "<
+12 L15 [skills/chantier-SKILL.md:23 0.35] Any failure of the sync or of `$CHANTIER`, in either mode, at any call, follows `startup-core.md`, except a sync held as above (`sync pending`).
+13 L15 [verifier-scratch.md:6 0.62 | griller.md:5 0.44] In a planning surface, `$CHANTIER` also carries `--project <the project's folder>`.
+14 L15 [skills/chantier-SKILL.md:19 0.30] `<plugin root>` is written absolute, with forward slashes, quoted, the same path as P10's rule holds (slashes, drive letter's case, trailing slash; the quoting may differ, per the trial);
+15 L15 [skills/chantier-SKILL.md:19 0.97] carry `$CHANTIER` verbatim into every brief and command: another path form misses the rule and meets the host's prompt.
+## Startup core
+16 L20 [skills/chantier-SKILL.md:25 1.00] With **no live Chief of Staff in the seat** (none, or a session that looks stopped): ask the user which role they want in this session: the Chief of Staff or a Griller.
+17 L22 [skills/chantier-SKILL.md:25 1.00] Then load that skill and follow it: `chief-of-staff` with no argument (its mode follows the surface) or `griller`.
+18 L24 [skills/chantier-SKILL.md:27 0.83] With a **live Chief of Staff in the seat**: ask nothing; behave as `/chantier:chief-of-staff` does (its table in `session-start.md`).
+19 L27 [skills/chief-of-staff-SKILL.md:33 0.86] With the argument `reload`, or on "chantier reload", follow `session-start.md`, "5.
+20 L27 [skills/chantier-SKILL.md:28 0.91] Reload", nothing else of this file; in a session that holds a role (the message names it, or the seat names this session), that role's skill loads with `reload` instead;
+21 L27 [skills/chantier-SKILL.md:28 1.00 | foreman.md:13 0.38] with no role, ask none.
+22 L29 [forges/github.md:1 0.27] The startup reading is named by `startup-manifest.json`.

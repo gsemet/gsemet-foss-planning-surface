@@ -71,7 +71,7 @@
 66 L99 [host-turn-end.md:10 0.71 | chief-of-staff.md:35 0.54] It ends the turn at once.
 67 L99 [host-auto-fix.md:11 0.53] The Driver reads its own CI and holds the branch, two writers on one branch race, and a relay spends messages against the host's limit for news the Driver already has.
 68 L102 [concepts.md:6 0.57 | stack-driver.md:3 0.54] **A CR with no live Driver** (handed back `ready` or `blocked`, waiting for the user): the event is only a signal.
-69 L103 [hosts/claude-code.md:150 0.58 | stack-driver.md:24 0.40] The steering session checks the forge itself (`gh pr checks`, `gh pr view --json mergeable`, or `glab` on GitLab).
+69 L103 [hosts/claude-code.md:150 0.58 | stack-driver.md:25 0.40] The steering session checks the forge itself (`gh pr checks`, `gh pr view --json mergeable`, or `glab` on GitLab).
 70 L104 [host-auto-fix.md:14 0.37] If the PR is really red or in conflict, it follows the card's usual route: the CR goes back to a Driver with `take <cr> --note "<why>"` ([foreman-merge](foreman-merge.md), the take-back list
 71 L106 [host-auto-fix.md:15 0.61 | verifier.md:1 0.37] It never does what the event asks itself.
 72 L107 [host-auto-fix.md:14 0.75 | foreman.md:19 0.42] If the forge shows nothing wrong, nothing is done.
@@ -137,7 +137,7 @@
 130 L185 [host-driver-silence.md:17 0.85] For the stack: `agents set stack -` only once the stack driver's report arrived or a proof of death holds.
 131 L186 [stack-merge.md:4 0.34] Seen: Studio batch-06, 2026-11-20, a second stack Driver started 25 minutes before the first one's hand-back arrived.
 ## Configuration
-132 L190 [allow-rules.md:4 0.46 | chief-of-staff.md:12 0.38] What the user configures so chantier runs on Claude Code with few interruptions. chantier never writes the user's settings in one case only: on the user's yes, the Chief of Staff adds to `~/
+132 L190 [allow-rules.md:4 0.46 | chief-of-staff.md:12 0.39] What the user configures so chantier runs on Claude Code with few interruptions. chantier never writes the user's settings in one case only: on the user's yes, the Chief of Staff adds to `~/
 133 L192 [allow-rules.md:4 0.68 | foreman.md:1 0.45] Preflight's P10 compares; the Chief of Staff asks.
 134 L193 [host-auto-mode.md:14 0.35] Marks as above; a doc-check of 2026-11-09 against <https://code.claude.com/docs> gave the **documented** lines, each with its page (`https://code.claude.com/docs/en/<page>`).
 ## Who reads it, when
@@ -360,7 +360,7 @@
 341 L630 [skills/chantier-SKILL.md:6 0.33] It knows no role and no card wording.
 342 L631 [host-write-guard.md:4 0.84] A spawn whose prompt holds the line starts in the first folder, except a spawn whose prompt also holds a `worktree:` line (a CR Driver's).
 343 L632 [hosts/claude-code.md:20 0.49] That one starts in that worktree, or, while the worktree does not exist yet, in the project's root its first line names (the main checkout, or the project's clone with a planning surface).
-344 L634 [concepts.md:119 0.41] With neither, it starts in its parent's folder, still guarded, with the board's note.
+344 L634 [host-write-guard.md:6 0.82] With neither, it starts in its parent's folder, still guarded, with the board's note.
 345 L635 [host-write-guard.md:6 0.71] The mod rewrites the spawn's `cwd`, except on a resume.
 346 L636 [row claude-code:write-guard 0.57 | chief-of-staff.md:20 0.36] The mod records its agent id with the folders.
 347 L637 [host-write-guard.md:10 0.80] That agent's Write, Edit or NotebookEdit outside every folder is refused, with the one message `refused: <path> is outside the folders this agent may write in (<folder>; <folder>); write the
@@ -478,7 +478,7 @@
 454 L822 [host-sessions-more.md:14 0.57] The two-Chiefs case and the hand-over lines travel by `SendMessage` like the rest (unproved between two sessions of the user, as the Tools row says).
 ## The "For you" block
 455 L827 [host-for-you.md:3 0.54] Whenever a step is the user's, the Chief of Staff gives one block, in the user's language, always these four parts, and says first what the choice costs when it has one:
-456 L830 [options.md:3 0.70 | demo-explorer.md:3 0.40] **Where:** the device and the app.
+456 L830 [options.md:3 0.70 | chief-of-staff.md:12 0.40] **Where:** the device and the app.
 457 L831 [host-for-you.md:3 1.00] **Do:** each choice by its label on screen, in order.
 458 L832 [host-for-you.md:3 1.00] **Paste:** the text in its own code block, complete: no placeholder left.
 459 L833 [host-for-you.md:4 0.89] **You should see:** what comes next and within how long; otherwise, say what you see.

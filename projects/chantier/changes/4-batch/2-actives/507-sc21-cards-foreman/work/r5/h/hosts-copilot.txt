@@ -73,7 +73,7 @@
 68 L97 [grill-specify-p1.md:3 0.46 | chief-of-staff.md:3 0.38] P9's forge probes are the card's and run unchanged.
 69 L99 [release-merged.md:6 0.39] The command hygiene of `concepts.md` rule 9 applies on both hosts.
 ## Compacting
-70 L103 [host-compact-copilot.md:1 1.00 | chief-of-staff.md:10 0.35] Name no compacting command or setting to the user.
+70 L103 [host-compact-copilot.md:1 1.00 | chief-of-staff.md:12 0.43] Name no compacting command or setting to the user.
 ## Reload after a compaction
 71 L107 [pr-template.md:79 0.58] Not done yet.
 72 L107 [batch-plan.md:3 0.47 | demo-explorer.md:5 0.41] This change covers Claude Code only (the user's choice, 2026-11-10).

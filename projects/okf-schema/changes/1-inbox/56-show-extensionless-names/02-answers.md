@@ -23,3 +23,10 @@ Short name: `show-names`
    "Concept not found", exit code 2, no traceback.
 4. show-names-Q4: **Outside the bundle.** "A. Refuser ici (recommandé)": in this CR, an error and
    exit code 2 for a path leaving the bundle; nothing changes for paths inside it.
+5. show-names-Q5: **Symlinks.** Free answer: "Un bundle doit être auto contenu selon la specs
+   donc on interdit les liens symbolique qui sortent". A symlink inside the bundle whose target is
+   outside it is refused (the real path is judged, links followed).
+6. show-names-Q6: **Absolute paths.** "A. Accepter (recommandé)": an absolute path inside the
+   bundle stays accepted.
+7. show-names-Q7: **API error.** "A. FileNotFoundError (recommandé)": `show_bundle` raises
+   `FileNotFoundError` outside the bundle too, with an explicit message.

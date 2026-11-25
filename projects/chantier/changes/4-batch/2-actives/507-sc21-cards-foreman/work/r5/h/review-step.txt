@@ -18,7 +18,7 @@
 17 L26 [=:5] Never commit, push, rebase or merge.
 18 L26 [inspector.md:10 0.92] Never claim a check you did not run.
 19 L26 [worker-shell.md:5 1.00 | release-driver.md:7 0.42] Run no `sleep` and no background shell.
-20 L27 [review-step.md:3 0.50 | chief-of-staff.md:14 0.41] Never run `git stash` and never stop a process by name or pattern (`pkill`, `killall`).
+20 L27 [review-step.md:3 0.50 | floor.md:12 0.41] Never run `git stash` and never stop a process by name or pattern (`pkill`, `killall`).
 21 L29 [worker-shell.md:3 1.00] One command per call when you can: a chain (`a; b`, `a && b`, a pipe) passes the host's allow rules only if every part does.
 22 L30 [worker-shell.md:5 1.00] No leading assignment before a command (`X=1 cmd`, `$w='…'; cmd`): write the value into the command itself.
 23 L32 [release-ship.md:7 0.62 | conflict-resolver.md:11 0.35] Stop when blocked and say why.
