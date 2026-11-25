@@ -48,3 +48,19 @@ Spec critic: yes, it changes the output of a command and the public API.
    Posted on https://github.com/gsemet/okf-schema/issues/58, 2026-11-25: comment
    https://github.com/gsemet/okf-schema/issues/58#issuecomment-7172912278; plan "none"; demo
    "none".
+
+## 2026-11-25: a command for the trust level
+
+Unprompted, the user: "Tu peux rajouter une commande dédiée pour afficher le niveau de
+confiance et le documenter". This replaces the part of answer 5 that left the trust tier in no
+command (and the sentence of the posted comment saying so).
+
+9. show-raw-Q9: **Shape of the command.** First answer: "Je ne sais pas, c’est l’histoire du
+   trust supprimé de la commande show". Asked again, simpler: "A. Les 2 lignes (recommandé)":
+   `okf-schema trust --path <bundle> <concept>` prints exactly what `show` added (`trust: <tier>`,
+   and `stale: true` when stale), nothing more; no listing of the whole bundle. Documented.
+10. show-raw-Q10: **Where.** "A. Dans 58 (recommandé)": same CR, one pull request, so the removal
+    and its replacement land together. It becomes a `feat`: the release is 0.19.0 instead of
+    0.18.2 (replaces answer 6).
+11. show-raw-Q11: **A concept file that is not UTF-8.** "A. Afficher les octets (recommandé)":
+    `show` prints the file's exact bytes, exit 0; the API `show_bundle` keeps failing.
