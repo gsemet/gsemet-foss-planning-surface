@@ -39,3 +39,10 @@ Short name: `show-names`
 Destination: running batch batch-01.
 
 Spec critic: yes, it changes what `show` refuses (CLI contract and public API).
+
+10. show-names-Q10: **Ticket summary.** "B. Commentaire seul": post `work/issue-comment.md` on
+    issue 56, no plan artifact.
+
+    Posted on https://github.com/gsemet/okf-schema/issues/56, 2026-11-25: comment
+    https://github.com/gsemet/okf-schema/issues/56#issuecomment-7170886026; plan "none"; demo
+    "none".
