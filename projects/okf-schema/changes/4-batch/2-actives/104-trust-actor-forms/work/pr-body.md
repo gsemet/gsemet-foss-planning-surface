@@ -5,7 +5,7 @@ A concept verified by an actor written as OKF 0.2 allows, such as
 needed a colon. The trust tier now follows the specification (sections 5.3 and 7): every
 non-empty actor that is not `human:<id>` counts as machine.
 
-Before is `41fcd6d`, the head of the pull request below this one, after is `1a03994`.
+Before is `a371f73` on `main`, after is `373fded`.
 
 | `verified[].by` | Trust tier before | Trust tier after | W10 after |
 |---|---|---|---|
@@ -56,21 +56,21 @@ uv run -- okf-schema validate-md --input c.md --schemas-dir <dir> --strict
 
 ### Validation results
 
-- Example command at `1a03994`: exit 0, no warning. With `by: alice`: exit 1, one W10 naming
+- Example command at `373fded`: exit 0, no warning. With `by: alice`: exit 1, one W10 naming
   `verified entry [0]` twice. `show_bundle(...).trust_tier` is `machine-confirmed` for both.
-- `just preflight` on Windows at `1a03994`: pass. 1153 passed, 12 skipped, coverage 95.55%,
-  Sphinx build succeeded with warnings as errors.
-- `okfreq validate requirements --prose --check-links --project-root .` at `1a03994`:
+- `just preflight` on Windows, run on these same files before the rebase onto `main`: pass. 1153
+  passed, 12 skipped, coverage 95.55%, Sphinx build succeeded with warnings as errors.
+- `okfreq validate requirements --prose --check-links --project-root .` at `373fded`:
   36 requirements, 0 errors, 0 warnings.
 - A first `just preflight` run on an earlier state of this branch, then based on `2f09cef`,
   failed 8 symbolic link tests because the host refused to create links (`WinError 1314`);
   `2f09cef` itself failed the same 8. Symbolic links are now allowed on that host.
-- CI at `1a03994`: the preflight jobs on Python 3.10 to 3.13 and the macOS and Windows jobs
+- CI at `373fded`: the preflight jobs on Python 3.10 to 3.13 and the macOS and Windows jobs
   pass; the release tagging job is skipped, as it runs on pushes to `main` only.
 
-Evidence status at `1a03994`: marker linkage is defined for the requirement in `validator.py`
-and for S5 in the tests (`okfreq trace`); the marked tests were executed and passed; no
-stakeholder approval is claimed, the requirement stays `proposed`.
+Evidence status at `373fded`: marker linkage is defined for the requirement in `validator.py`
+and for S5 in the tests; the marked tests were executed and passed on these same files before
+the rebase onto `main`; no stakeholder approval is claimed, the requirement stays `proposed`.
 
 ### Decisions taken by the maintainer
 
@@ -94,8 +94,8 @@ stakeholder approval is claimed, the requirement stays `proposed`.
 
 - `show_bundle` reports a different `trust_tier` for some actors without a
   `.. versionchanged::` note about this change in its docstring.
-- `CHANGELOG.md` lacks the entry that `just changelog` generates for the `show` fix of the pull
-  request below.
+- `CHANGELOG.md` lacks the entry that `just changelog` generates for the `show` fix already
+  merged into `main`.
 - The skill row and the validation code reference say an unrecognized actor still counts as
   machine-confirmed; a `by` that is not a string (for example `42`) is warned W10 and does not
   count.

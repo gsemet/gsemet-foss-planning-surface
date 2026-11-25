@@ -36,3 +36,8 @@ uv --directory <worktree> run --no-sync -- python -B -X utf8 <scratch>/probe.py 
 
 Tests: the head's four changed test files run against the base source give 13 failed, 305 passed;
 at the head the same files and `test_project_contract.py` give 320 passed (commands in `verify.md`).
+
+## After the move to 373fded
+
+Carried, not captured again: the base `a371f73` has the same tree as `41fcd6d` and the head
+`373fded` the same tree as `1a03994` (`git rev-parse <sha>^{tree}`, in `verify.md`, M2).

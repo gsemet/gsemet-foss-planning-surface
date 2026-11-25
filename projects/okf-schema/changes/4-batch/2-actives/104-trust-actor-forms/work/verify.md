@@ -1,367 +1,200 @@
-Head: 1a03994e7bc2fbf1595cd6528a6f3c02a35542e2
+Head: 373fded7c3c4267dd7b58a2de484928f12f35ce2
 
 # CR-104 "Trust tier: count the actor forms allowed by OKF 0.2": verification
 
-**Verdict: VERIFIED** for the code, the specification and the CR's patch at `1a03994`. The posted
-description holds facts and sentences that are stale or false at this head (section "Description
-facts at 1a03994"). By the brief they are refreshed after this verdict, so they do not fail it.
-No claim about the code or its behaviour was found false.
+**Verdict: VERIFIED** at `373fded`. The move from `1a03994` changed no file. The posted
+description changed since it was last judged and was judged again; its dated lines (8 and 59-71)
+still name old SHAs and are refreshed after this verdict (section "Facts at 373fded").
 
-Judged at `1a03994` (full SHA above). The CR's base is `41fcd6dbebaddff719c2a3f54f610298034d0ad6`
-(head of the pull request below). The earlier verification, at `7a33d92` on base `2f09cef`, is
-`verifier/verify-7a33d92.md`.
+Base: `origin/main` `a371f73c2d925f217de47e4455f7eff455e8bb24`. Previous report, `VERIFIED` at
+`1a03994` on base `41fcd6d`: `verifier/verify-1a03994.md` (full commands and outputs of the carried
+claims). No gate was run in this worktree.
 
-Placeholders: `<worktree>` is the CR's worktree, `<CR>` the CR folder, `<scratch>` a folder under
-`<CR>/work/scratch/` removed afterwards. `uv ...` means `uv --directory <worktree> run --no-sync -- ...`.
+Placeholders: `<worktree>` is the CR's worktree, `<CR>` the CR folder. `uv ...` means
+`uv --directory <worktree> run --no-sync -- ...`.
 
-## State, move, gate, CI
+## Judged at 373fded
 
-### G1. Head and tree: VERIFIED at 1a03994
+### M1. Head, tree, remote and PR: VERIFIED at 373fded
 
 ```console
 $ git rev-parse HEAD
-1a03994e7bc2fbf1595cd6528a6f3c02a35542e2
-$ gh pr view 69 -R gsemet/okf-schema --json headRefOid,isDraft
-1a03994e7bc2fbf1595cd6528a6f3c02a35542e2, draft true
-$ git merge-base 41fcd6d HEAD
-41fcd6dbebaddff719c2a3f54f610298034d0ad6
-$ git status --porcelain                  (before and after all runs)
- M CHANGELOG.md
-$ git diff --numstat                      (uncommitted, not part of the head, left as found)
-1  0  CHANGELOG.md
-$ git diff                                (extract)
-+- **show**: accept names without .md and stay inside the bundle
+373fded7c3c4267dd7b58a2de484928f12f35ce2
+$ git status --porcelain                      (at start and after the runs: no output)
+$ git ls-remote origin <CR branch> refs/heads/main
+373fded7c3c4267dd7b58a2de484928f12f35ce2   <CR branch>
+a371f73c2d925f217de47e4455f7eff455e8bb24   refs/heads/main
+$ gh pr view 69 --json headRefOid,baseRefName,isDraft,commits,files
+head 373fded, base main, draft true, commits 13c3799 + 373fded, 15 files
+$ git diff --name-status a371f73 373fded      (all 15 status M, the same 15 paths as the forge)
+CHANGELOG.md, docs (project-feature-coverage, validate-standalone-files, validation-codes),
+examples/.../Base.schema.yaml, requirements (log.md, CORE-006), skills (okf-schema,
+okfkb-record-findings), src (data/kb/_schema/Base.schema.yaml, validator.py), tests (api,
+cli_remaining, kb_scaffold, okf2_compliance)
+$ git diff --shortstat a371f73 373fded
+15 files changed, 240 insertions(+), 30 deletions(-)
 ```
 
-### G2. The move: VERIFIED at 1a03994
+The previous report's note that the forge showed 3 commits and 24 files no longer holds.
+
+### M2. The move changed no file and not the patch: VERIFIED at 373fded
 
 ```console
-$ git range-diff 2f09cef..7a33d92 41fcd6d..1a03994
-1:  1ae8870 ! 1:  ad55758 fix(validate): count every OKF 0.2 actor form in the trust tier
-      only difference: context of the requirements/tiers/log.md hunk (day heading now shared)
-2:  7a33d92 = 2:  1a03994 docs: add the trust tier fix to the changelog
-$ git diff --stat 2f09cef 41fcd6d         (what the new base brings)
-13 files: docs/source/reference/cli.md, requirements (log, StRS-CORE-002, CORE-005, CORE-010,
-index), skills/okf-schema/SKILL.md, src/okf_schema/api.py, src/okf_schema/cli.py, tests
-(acceptance_core, api, cli_remaining, edge_cases)
+$ git range-diff 41fcd6d..1a03994 a371f73..373fded
+1:  ad55758 = 1:  13c3799 fix(validate): count every OKF 0.2 actor form in the trust tier
+2:  1a03994 = 2:  373fded docs: add the trust tier fix to the changelog
+$ git show <commit> | git patch-id --verbatim        (commit by commit)
+3d23e568dc40fd13c8fe02c14757c6a5488a36e7  ad55758 and 13c3799
+5b805476c80fa928386988be7e5ec0a156b175a0  1a03994 and 373fded
+$ git rev-parse 41fcd6d^{tree} a371f73^{tree} 1a03994^{tree} 373fded^{tree}
+1bb1122f0160bfdf63bfc5c6fb12036794354e6f   (41fcd6d)
+1bb1122f0160bfdf63bfc5c6fb12036794354e6f   (a371f73)
+d9165904cb6f3cdc95488dbfc4adb02bea1cffea   (1a03994)
+d9165904cb6f3cdc95488dbfc4adb02bea1cffea   (373fded)
+$ git diff --name-only 41fcd6d a371f73 | wc -l      0
+$ git diff --name-only 1a03994 373fded | wc -l      0
+$ gh pr view 68 --json state,headRefOid,mergeCommit,mergedAt
+MERGED, head 41fcd6d, merge commit a371f73, 2026-11-25T22:43:09Z
 ```
 
-`validator.py` and `CORE-006` are not in the base change. `api.py` and `cli.py` are, so
-`show_bundle`, `show` and `validate-md` claims are judged again.
+Old and new base trees are identical, and so are old and new head trees. Every claim that rests
+on file content is carried.
 
-### G3. Long gate pass at the head: VERIFIED at 1a03994 (cited)
+### M3. Long gate: VERIFIED, carried from 1a03994
 
+Carried: same head tree and base tree (M2); `chantier handoff CR-104` shows
+`[x] long gate passed carried from 1a03994 (clean rebase onto main)`.
 `<CR>/work/gates/20261125-232725.log`:
 
 ```text
 1:    gate CR-104 branch chantier/batch-01/cr-104-trust-tier-count-the-actor-forms-allowed head 1a03994e7bc2fbf1595cd6528a6f3c02a35542e2
 2411: Required test coverage of 95% reached. Total coverage: 95.55%
 2412: 1153 passed, 12 skipped in 198.61s
-2613: uv run --no-sync -- sphinx-build -W -b html docs/source docs/_build/html
 2643: build succeeded.
 2646: result: pass at 1a03994e7bc2fbf1595cd6528a6f3c02a35542e2
-'warnings summary': 0 | 'Warning:': 0 | 'WinError 1314': 0 | lines starting 'FAILED ': 0
 ```
 
-`chantier handoff CR-104`: `[x] long gate passed (gate CR-104 preflight; ...)` at the full SHA.
-
-### G4. CI at the head: VERIFIED at 1a03994
+### M4. Example command and `show_bundle` (spec evidence 5): VERIFIED at 373fded
 
 ```console
-$ gh api repos/gsemet/okf-schema/commits/1a03994e7bc2fbf1595cd6528a6f3c02a35542e2/check-runs
-preflight (3.10) success, (3.11) success, (3.12) success, (3.13) success
-cross-platform (macos-latest) success, cross-platform (windows-latest) success
-tag-release skipped                          (head_sha 1a03994 on all seven)
-```
-
-## Specification
-
-### R1. Runtime: VERIFIED at 1a03994
-
-`probe.py` (`verifier/probe-41fcd6d.py`) on the base source and the head source; full outputs in
-`verifier/evidence/before-41fcd6d.txt` and `after-1a03994.txt`.
-
-```text
-base pattern: ^[a-zA-Z][a-zA-Z0-9_-]*:.+$
-head pattern: ^[a-zA-Z][a-zA-Z0-9._-]*[:/].+$
-by                                base tier, codes            head tier, codes
-'reference_agent/gemini-2.5-pro'  unverified [W10]            machine-confirmed []
-'langchain.agents/0.3'            unverified [W10]            machine-confirmed []
-'acme.ci:nightly'                 unverified [W10]            machine-confirmed []
-'process:nightly-check'           machine-confirmed []        machine-confirmed []
-'process:finance-nightly'         machine-confirmed []        machine-confirmed []
-'bot:okf-schema'                  machine-confirmed []        machine-confirmed []
-'alice', 'Alice', 'human:'        unverified [W10]            machine-confirmed [W10]
-'human:alice', 'human:ahormati'   human-reviewed []           human-reviewed []
-'Human:alice'                     machine-confirmed []        machine-confirmed []
-42, True, ['x'], {'a': 1}         unverified [W10]            unverified [W10]
-0, '', None                       unverified [E9]             unverified [E9]
-no by / absent / [] / str / non-dict entry   unverified       unverified
-bare mapping producer/version     unverified                  machine-confirmed
-producer/version + human          human-reviewed              human-reviewed
-W10 message, entry 1              literal [{i}], bot:ci       equals specification text: True
-```
-
-`generated.by: alice` and `sources[].author: alice` with `verified.by: human:alice`:
-`validate-md --strict` exit 0 on base and head. Markers:
-
-```console
-$ git grep -n "implements_req SwRS-OKFSCHEMA-CORE-006" 1a03994 -- src
-api.py:438, validator.py:356, :595, :736
-```
-
-### R2. Documentation, skills, scaffold, example, log: VERIFIED at 1a03994
-
-```console
-$ uv python <CR>/work/verifier/texts.py <CR>/03-change-spec.md
-ok  (13 lines: feature map row, how-to row, skill W10 row, record-findings example, shipped and
-    example schema descriptions, module docstring, W10 title, comment, both fixes, stable code,
-    log subheading); none MISSING
-day headings 2026-11-25: 1 | first heading: ## 2026-11-25
-$ git grep -n "bot:ci" 1a03994 -- . ':!tests'                      (no output, exit 1)
-$ git grep -niE "trust|W10|verified\[" 1a03994 -- README.md        (no output, exit 1)
-$ git diff --stat 41fcd6d 1a03994 -- README.md pyproject.toml justfile .github uv.lock \
-    skills/okf-schema/references src/okf_schema/okfkb src/okf_schema/data/kb/guidelines \
-    src/okf_schema/api.py src/okf_schema/cli.py                    (no output)
-$ git grep -nE "bot:okf-schema|by: human:alice" 1a03994 -- src
-.../knowledge-base.guidelines.md:55: by: human:alice
-src/okf_schema/okfkb/finding.py:106: "by": "bot:okf-schema",
-```
-
-`requirements/tiers/log.md` holds `### Trust tier actor forms` then CR-101's entry under the one
-`## 2026-11-25`. The W10 section of `validation-codes.md` and the skill row (line 367) were read at
-the head and match the specification.
-
-### R3. Requirements: VERIFIED at 1a03994
-
-```console
-$ uv okfreq update-coverage requirements --check
-0 files would change                                                  (exit 0)
-$ uv okfreq validate requirements --prose --check-links --project-root .
-36 requirements, 0 errors, 0 warnings                                 (exit 0)
-$ uv okfreq lint requirements --check --prose --check-links --project-root .
-0 indexes would change
-0 requirement OKF projections would change                            (exit 0)
-$ uv okfreq trace requirements --json       (exit 0, CORE-006)
-implemented: api.py, validator.py; tested: test_api.py, test_cli_remaining.py, test_okf2_compliance.py
-$ git grep -n "tests_req SwRS-OKFSCHEMA-CORE-006#S5" 1a03994 -- tests
-test_api.py:624, test_cli_remaining.py:380, test_okf2_compliance.py:48, :54, :74, :80, :436, :452, :469
-$ grep -nE "req_lifecycle|id: S5|Scenario S5" SwRS-OKFSCHEMA-CORE-006.md
-11 req_lifecycle: proposed; 40 - id: S5; 84 ### Scenario S5: Count every OKF 0.2 actor form
-```
-
-### R4. Tests (evidence items 1 to 4): VERIFIED at 1a03994
-
-```console
-$ uv python -B -m pytest -o addopts= -p no:cacheprovider -q --no-header tests/test_okf2_compliance.py \
-    tests/test_api.py tests/test_cli_remaining.py tests/test_kb_scaffold.py tests/test_project_contract.py
-320 passed in 11.19s
-$ ... -v (first four files) -k "actor or trust_tier or verified or shipped_base_schema"
-46 passed, 272 deselected          (every named test and case PASSED)
-$ uv python <scratch>/basetests.py <base 41fcd6d>/src     (head tests, base source)
-module under test: base src (41fcd6d)
-13 failed, 305 passed
-```
-
-The 13 failures are the renamed tier test, 4 `actor_forms` cases, the bare mapping test, 3
-`accepts_okf02_actor_forms` cases, the message index test, the `show_bundle` test, the
-`validate-md --strict` test and the shipped schema test.
-
-### R5. Scenario (evidence item 5): VERIFIED at 1a03994
-
-```console
-$ uv python -B <CR>/work/verifier/desc2/example.py <scratch>
+$ uv python -B <CR>/work/verifier/desc2/example.py <CR>/work/scratch/v373
 === by: reference_agent/gemini-2.5-pro -> exit 0
 All files validated successfully (0 errors, 0 warnings).
 W10 findings: 0 | 'verified entry [0]': 0
 show_bundle trust_tier: machine-confirmed
 === by: alice -> exit 1
-  WARNING [W10] File '<scratch>\c.md': verified entry [0] has malformed 'by' value 'alice'. OKF 0.2
-  actors are [...] Fix: correct the 'by' value in verified entry [0].
+  WARNING [W10] File '<scratch>\c.md': verified entry [0] has malformed 'by' value 'alice'. [...]
+  Fix: correct the 'by' value in verified entry [0].
 Validation failed: 0 error(s), 1 warning(s) (strict mode).
 W10 findings: 1 | 'verified entry [0]': 2
 show_bundle trust_tier: machine-confirmed
 scratch removed: True
 ```
 
-From R1's probe: `show_bundle` at head gives `machine-confirmed` for producer/version, `alice`,
-`human:` and `human-reviewed` for `human:alice`; at base `unverified` for the first three.
-`okf-schema show`: `trust: unverified` at base, `trust: machine-confirmed` at head.
-
-### R6. Examples (evidence item 6): VERIFIED at 1a03994
-
-The head's gate (G3) ran `just refresh-all-examples`; after it the only changed file is
-`CHANGELOG.md`, written by `just changelog` (G1). In the same log,
-`okf-schema validate --strict --path examples/okfkb-hw-knowledge-base/` prints
-`Bundle is conformant (0 errors, 0 warnings).`
-
-"An existing knowledge base keeps its own schema copy after `okfkb update`":
-carried from 7a33d92: the move changed nothing under `src/okf_schema/okfkb` or `examples`
-(G2 file list).
-
-## PR description, claims other than the dated ones
-
-### S1. Posted body, rendering, privacy, form: VERIFIED at 1a03994
+### M5. Requirement checks and markers: VERIFIED at 373fded
 
 ```console
-$ gh pr view 69 -R gsemet/okf-schema --json body -q .body | diff --strip-trailing-cr -B - <CR>/work/pr-body.md
-(no output, exit 0)
-rendered body_html counts: h2 4, h3 7, table 2, li 25, pre 1, checkbox 9, img 0, details 0
-grep for login name and home path forms: no match (exit 1)
-grep -niwE "driver|coder|inspector|verifier|debugger|investigator|griller|foreman|chantier|batch|round|CR|CR-[0-9]+": no match
-grep -nE "STALE|UNVERIFIED|Review:|!\[|<img|user-attachments": no match
+$ uv okfreq validate requirements --prose --check-links --project-root .
+36 requirements, 0 errors, 0 warnings                                   (exit 0)
+$ uv okfreq update-coverage requirements --check
+0 files would change                                                    (exit 0)
+$ git grep -n "implements_req SwRS-OKFSCHEMA-CORE-006" 373fded -- src
+api.py:438, validator.py:356, :595, :736
+$ git grep -c "tests_req SwRS-OKFSCHEMA-CORE-006#S5" 373fded -- tests
+test_api.py:1, test_cli_remaining.py:1, test_okf2_compliance.py:7
+$ git grep -n "req_lifecycle" 373fded -- <CORE-006>
+11:req_lifecycle: proposed
 ```
 
-Sections follow `.github/pull_request_template.md`. No image is attached.
+### M6. CHANGELOG bullet (body lines 29-30) and Known gaps bullet 2 (lines 97-98): VERIFIED at 373fded
 
-### S2. Behaviour table, "What changes" (but the CHANGELOG bullet), "Unchanged", example, decisions, blast radius: VERIFIED at 1a03994
-
-Table "Before" values hold at `41fcd6d` and "after" values at `1a03994` (R1; the two new probe
-outputs are identical to the earlier ones, `diff` prints nothing). Message and index: R1. Docs,
-skills, schema: R2. S5, tests, feature map: R2 to R4. `generated.by`, `sources[].author`,
-case-sensitive `human:`: R1. `okfkb` writes `bot:okf-schema`: R2. Example command: R5.
-Blast radius: R1, R5; the two commits are the tip above `41fcd6d` (G2), and the CR's `src` diff
-(`git diff 41fcd6d 1a03994 -- src`, read in full: `validator.py` and one schema line) adds no write.
-Decisions: carried from 7a33d92: the move changed no behaviour they name and no answer file.
-
-### S3. "Product surfaces" table (body lines 35-45): VERIFIED at 1a03994
+Both were rewritten after the previous judgment.
 
 ```console
-$ git diff --shortstat 41fcd6d 1a03994
-15 files changed, 240 insertions(+), 30 deletions(-)       (all 15 status M)
-CHANGELOG.md, docs (project-feature-coverage, validate-standalone-files, validation-codes),
-examples/.../Base.schema.yaml, requirements (log.md, CORE-006), skills (okf-schema,
-okfkb-record-findings), src (data/kb/_schema/Base.schema.yaml, validator.py), tests (api,
-cli_remaining, kb_scaffold, okf2_compliance)
-$ git diff 41fcd6d 1a03994 -- tests | grep -E "^-[^-]"
--def test_derive_trust_tier_malformed_actor_returns_unverified() -> None:
--    assert _derive_trust_tier(fm) == "unverified"
--def test_validate_okf2_verified_w10_malformed_actor(tmp_path: Path) -> None:
--    """W10: verified entry has malformed `by` actor string."""
--    _validate_okf2_verified(path, {"verified": [{"by": "Alice", "at": "2026-01-01"}]}, report)
--    assert any(f.code == "W10" for f in report.warnings)
-```
-
-Every row matches the diff: two existing tests changed, no file added or moved, `pyproject.toml`,
-`justfile` and CI untouched (R2). "No recipe refreshes" the example schema: carried from 7a33d92
-(R6).
-
-### S4. Autonomous decision (braces in S5): VERIFIED
-
-carried from 7a33d92: the move changed neither `CORE-006` nor the `okfreq` code (G2).
-
-### S5. Known gaps: VERIFIED at 1a03994, first bullet to reword (below)
-
-Bullet 1: no `versionchanged` note records the trust tier change (read `api.py:439-487`: the one
-note, `0.18.2`, is about name resolution). Bullet 2: skill row line 367 says "it still counts as
-machine-confirmed", the W10 section says the same of any non-empty actor, and `42` is warned W10
-and stays `unverified` (R1). No `UNVERIFIED` mark (S1), no uncaptured pair, no accepted failed
-claim without a bullet.
-
-### S6. Checklist and Type of Change: VERIFIED at 1a03994
-
-`just preflight` passes with no warning line (G3); tests fail on base and pass on head (R4);
-documentation updated (R2). Title `fix(validate): count every OKF 0.2 actor form in the trust
-tier`; bug fix and documentation match the diff (S3). Related Issues: `None`.
-
-## Description facts at 1a03994 (for the refresh)
-
-### Line 8
-
-"Before is the base `2f09cef`, after is `7a33d92`." **False at 1a03994**: the base is `41fcd6d`,
-the head `1a03994`. All "Before" values of the table hold at `41fcd6d`, all "after" values at
-`1a03994` (R1).
-
-### Lines 29-30, CHANGELOG bullet
-
-"`CHANGELOG.md` carries the entries that `just changelog` [...] generates from the commit history:
-this fix and the missing `v0.18.1` heading." **False at 1a03994** in its first part: the committed
-file lacks one generated entry. The two items it names are there.
-
-```console
-$ uv cz changelog --dry-run | diff --strip-trailing-cr -B - <(git show 1a03994:CHANGELOG.md)
-6d5
-< - **show**: accept names without .md and stay inside the bundle        (exit 1)
-$ git diff 41fcd6d 1a03994 -- CHANGELOG.md
-adds "- **validate**: count every OKF 0.2 actor form in the trust tier",
-"## v0.18.1 (2026-11-25)" and a "### Fix" heading (6 lines)
-$ git show 41fcd6d:CHANGELOG.md | grep -c "^## v0.18.1"
+$ git diff a371f73 373fded -- CHANGELOG.md
++- **validate**: count every OKF 0.2 actor form in the trust tier
++
++## v0.18.1 (2026-11-25)
++
++### Fix
++
+$ git show a371f73:CHANGELOG.md | grep -c "^## v0.18.1"
 0
 $ git tag --points-at 2f09cef
 v0.18.1
-$ uv cz changelog --dry-run | diff --strip-trailing-cr -B - CHANGELOG.md   (uncommitted worktree file)
+$ justfile, recipe preflight, line 29
+    just changelog                      (recipe changelog, line 120: cz changelog)
+$ uv cz changelog --dry-run | diff --strip-trailing-cr -B - <(git show 373fded:CHANGELOG.md)
+6d5
+< - **show**: accept names without .md and stay inside the bundle        (exit 1)
+```
+
+The two named additions are generated entries and are in the file. The only generated line it
+lacks is the `show` fix of PR 68, which is what Known gaps says.
+
+### M7. Posted description: rendering, privacy, form: VERIFIED at 373fded
+
+```console
+$ gh pr view 69 --json body --jq .body | diff --strip-trailing-cr -B - <CR>/work/pr-body.md
 (no output, exit 0)
+$ gh api .../pulls/69 (body_html), element count
+h2 4, h3 7, table 2, li 26 (9 + 17), pre 1, checkbox 9, img 0, details 0
+$ grep -niE "<login name>|[A-Z]:[\\/]Users|/home/|/Users/"          (no match, exit 1)
+$ grep -niwE "driver|coder|inspector|verifier|debugger|investigator|griller|foreman|chantier|batch|round|CR|CR-[0-9]+"   (no match, exit 1)
+$ grep -nE "STALE|UNVERIFIED|Review:|!\[|<img|user-attachments"      (no match, exit 1)
+$ grep "^#" .github/pull_request_template.md
+Description, Type of Change, Checklist, Related Issues   (all four in the body)
 ```
 
-The missing line is the entry of the pull request below.
+Login name and home folder's last part are the same word here. No image, no Review box.
 
-### Lines 38-45
+### M8. Known gaps complete: VERIFIED at 373fded
 
-All true at `1a03994` against `41fcd6d` (S3). 15 changed files.
+Three bullets. No `**UNVERIFIED:**` claim (M7 grep). `verifier/evidence/before-after.md` names no
+pair as not captured. The one description sentence the previous report found false and not exempt
+(the CHANGELOG sentence) is rewritten and its gap listed (M6). Bullets 1 and 3 rest on `api.py`,
+`validator.py`, the skill and the code reference, unchanged since `1a03994` (M2): carried.
 
-### Lines 59-71
+## Carried from 1a03994 (or earlier): the move changed no file (M2)
 
-| Lines | Posted | Holds at 1a03994 | Proof |
-|---|---|---|---|
-| 59-60 | example at `7a33d92`: exit 0; `alice` exit 1, one W10 naming `verified entry [0]` twice; tier `machine-confirmed` | same results; only the SHA is stale | R5 |
-| 61-62 | preflight at `7a33d92`: 1128 passed, 12 skipped, 95.58% | pass: **1153 passed, 12 skipped, 95.55%**, Sphinx `-W` succeeded | G3 |
-| 63-64 | `okfreq validate` at `7a33d92`: 35 requirements, 0, 0 | **36 requirements**, 0 errors, 0 warnings | R3 |
-| 65-67 | run at `1ae8870` failed 8, "the base `2f09cef`" the same 8; links now allowed | true as history; **`2f09cef` is no longer the base** (false word at this head) and `1ae8870` is no longer in the branch (now `ad55758`) | below |
-| 68-69 | CI at `7a33d92` | same results at `1a03994`; only the SHA is stale | G4 |
-| 71-73 | evidence status at `7a33d92` | holds: markers in `validator.py` (also `api.py:438`) and S5 in three test files, marked tests passed, `proposed` | R3, R4 |
+| Claim | Verdict | Judged at, and proof (full output in `verifier/verify-1a03994.md`) |
+|---|---|---|
+| Runtime: actor pattern, tier, W10 message, `generated.by` and `sources[].author` unchecked | VERIFIED | 1a03994, R1: `probe.py` on base and head source |
+| Docs, skills, scaffold, example schema, log heading; `README.md`, `pyproject.toml`, `justfile`, CI unaffected | VERIFIED | 1a03994, R2: `texts.py` all lines found; `git grep "bot:ci"` outside tests: no output; `git diff --stat` of the unaffected paths: no output |
+| Requirements lint and trace | VERIFIED | 1a03994, R3: `okfreq lint --check`: 0 would change; `okfreq trace`: CORE-006 implemented and tested |
+| Tests, spec evidence 1-4 | VERIFIED | 1a03994, R4: 320 passed; head tests on base source: 13 failed, 305 passed |
+| Examples, spec evidence 6; an existing knowledge base keeps its schema copy | VERIFIED | 1a03994 and 7a33d92, R6 |
+| Description: behaviour table, "What changes" other bullets, "Unchanged", blast radius | VERIFIED | 1a03994, S2 |
+| Description: decisions of the maintainer; autonomous decision (braces in S5) | VERIFIED | 7a33d92, S2 and S4 |
+| Description: "Product surfaces" table | VERIFIED | 1a03994, S3; file list and shortstat again at 373fded (M1) |
+| Description: checklist, type of change, related issues | VERIFIED | 1a03994, S6 (preflight carried, M3) |
+| Description lines 65-67: the earlier 8 symbolic link failures | VERIFIED | 1a03994, `logs.py` over the gate and base logs, files not touched by the move |
+| Before and after pairs (`41fcd6d` to `1a03994`) | VERIFIED | 1a03994; hold for `a371f73` to `373fded`, identical trees; not captured again |
+
+## CI at 373fded (reported, not a claim of the description yet)
 
 ```console
-$ uv python -B <CR>/work/verifier/logs.py <CR>/work
-gate 1ae8870: 8 failed, 1118 passed, 14 skipped; WinError 1314 lines: 8
-base 2f09cef, links refused: 8 failed, 1094 passed, 14 skipped
-base 2f09cef, links allowed: 1104 passed, 12 skipped
-same failing tests, 1ae8870 and base: True 8
-symlink probe on this host: file True | directory True
+$ gh pr checks 69 --repo gsemet/okf-schema                 (2026-11-25T22:58:21Z, exit 0)
+preflight (3.10) pass 4m2s, (3.11) pass 4m43s, (3.12) pass 2m55s, (3.13) pass 4m59s
+cross-platform (macos-latest) pass 2m18s, cross-platform (windows-latest) pass 3m55s
+tag-release skipping
+run 45716966043
+$ gh api repos/gsemet/okf-schema/commits/373fded7c3c4267dd7b58a2de484928f12f35ce2/check-runs
+head_sha 373fded on the six listed before tag-release appeared (3.13 then in progress)
 ```
 
-The base logs are tied to `2f09cef` by `<CR>/evidence/debugger-symlink-gate.txt`.
+Earlier reads in this pass showed jobs still pending (`exit 8`); at the last read none is pending
+or failed. `tag-release` is skipped: the workflow runs it on pushes to `main` only.
 
-### Known gaps
+## Facts at 373fded for the description refresh (not failed)
 
-Both facts hold (S5). Bullet 1 reads "without a `.. versionchanged::` note in its docstring":
-since the move the docstring does carry a `.. versionchanged:: 0.18.2` note, from the pull request
-below, about name resolution. The gap (no note about `trust_tier`) is real; the sentence read
-literally is now **misleading** and should say "no note about this change".
-
-### Every sentence false at 1a03994
-
-1. Line 8, "Before is the base `2f09cef`, after is `7a33d92`."
-2. Lines 29-30, "carries the entries that `just changelog` [...] generates" (one is missing).
-3. Line 66, "the base `2f09cef`" (no longer the base).
-
-Stale but not false (a dated result at an old SHA, with other numbers now): lines 61-64. Stale
-SHA only: lines 59, 68, 71.
-
-## Facts for the Driver, not failed claims
-
-- PR 69 still targets `main`, so the forge shows 3 commits and 24 files, 9 of them and one commit
-  (`41fcd6d`) from the pull request below, which the description does not mention. Judged against
-  the CR's base, as the brief says; the forge stack has to fix it.
-
-  ```console
-  $ gh pr view 69 -R gsemet/okf-schema --json files,commits
-  files: 24   commits: 3 (41fcd6d, ad55758, 1a03994)
-  ```
-- `CHANGELOG.md` stays modified and uncommitted in the worktree (G1); not touched.
-- `requirements/tiers/log.md`, "Verification" of the trust tier entry, still records the run of
-  `1ae8870` on the old base (1118 passed, 14 skipped, 8 failed): true history, not this head.
-- Own scratch folder and the detached base worktree were removed; older files in `work/scratch/`
-  were left.
-
-## Verdict not recorded by the CLI
-
-Run from the CR's worktree at `1a03994`, after this note was written:
-
-```console
-$ chantier verdict CR-104 VERIFIED --batch batch-01
-error: CR-104: the worktree has uncommitted work: a verdict binds to a head, commit first
-(exit 2)
-```
-
-The uncommitted work is the `CHANGELOG.md` line of G1, which the brief forbids restoring, staging,
-committing or changing. Nothing was worked around: no verdict is recorded at `1a03994`.
+| Body lines | Posted | At 373fded |
+|---|---|---|
+| 8 | base `41fcd6d` "the head of the pull request below this one", after `1a03994` | base `a371f73` (`main`, the merge of PR 68, same tree as `41fcd6d`), after `373fded`; all table values hold (M2) |
+| 59-60 | example at `1a03994` | run again at `373fded`: same results (M4) |
+| 61-62 | preflight at `1a03994` | not run at `373fded`; pass carried from `1a03994` after a clean rebase: 1153 passed, 12 skipped, 95.55%, Sphinx `-W` succeeded (M3) |
+| 63-64 | `okfreq validate` at `1a03994` | run again at `373fded`: 36 requirements, 0 errors, 0 warnings (M5) |
+| 65-67 | history of the first run | still true, names no SHA to change but `2f09cef` as history |
+| 68-69 | CI at `1a03994` | see "CI at 373fded" |
+| 71-73 | evidence status at `1a03994` | markers and `proposed` seen at `373fded` (M5); marked tests executed at `1a03994`, carried (M2) |
+| 97-98 (not dated) | "the `show` fix of the pull request below" | true (M6), but that pull request (#68) is now merged into `main`: the wording is dated, as on line 8 |

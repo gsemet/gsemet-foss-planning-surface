@@ -2561,42 +2561,57 @@ Every changed line, against this CR's first two parts as rebased, `fe7fbf0f` (`g
 | stack-driver.md:27 | Rare cases: `session-shell` | pointer |
 | griller-skill.md:24, 31 | the CR-work never (scratchpad, temp or host-settings folder, or only chat or memory; secrets and personal data); `help session-shell` | kind a (H-059, concepts), pointer |
 | griller.md:7 | never a secret or personal data in the CR's folder | kind a (concepts) |
-| topics.json | this CR's 45 topics added; `sync` also reads `sync-checkout.md`; `direct-mode` also reads the switch topics; `mode-switch`'s trigger names `order mode`; the `paths` text names the reading forms | index of the new topic files; link |
+| topics.json | this CR's 45 topics added; `sync` also reads `sync-checkout.md`; `direct-mode` also reads the switch topics; `mode-switch`'s trigger names `order mode`; the `paths` text names the reading forms; the split topics list their parts; `ready-asks` serves the Foreman and the Chief of Staff | index of the new topic files; link |
+| topics/batch-close-p1.md:3 | `close` does not judge a running critic, so the offer follows it | review |
+| topics/batch-close-p2.md:3, 4 | at a batch's end it is said to stay open while a CR is held; `status`'s second line names the last closed batch | review |
+| topics/batch-plan-cut-p1.md:1, 3, 4 | `batch-plan-cut.md` split in two: the night example, a chain cut after any CR, where the rest stays, the user chooses, the floor said with no time given, when `depends.json` is written and what a CR without it depends on | review |
+| topics/batch-plan-cut-p2.md:1, 3, 4 | the second part: which specifications are read, why waiting helps, a shared file alone no reason, the reason per queued CR, no threshold, the limits in both steering modes, then the go | review |
+| topics/batch-plan-mode-p1.md:1, 3 | three parts now; the question is asked at every opening, `--mode` as answered, `parallel` only the CLI's default | review |
+| topics/batch-plan-mode-p2.md:1, 3, 4, 5 | the three modes; the invocation's word and how a forced mode holds; the no-argument rule; the plan's line and the forced `foreman` moved to part 3 (no separate yes for the mode, `batch-plan-mode-p3.md`) | review |
+| topics/config-p1.md:1, 3 | three parts now; nothing else is configured, the layers' merge and `default`, the keys, `ci.beside_gate` and `hosts.<host>.timing` among them, and when a change counts | review |
+| topics/config-p2.md:1, 3, 4 | the roles by name, the four ways a role starts; the rest moved to part 3 | review |
 | topics/cr-rounds.md:4 | `help cr-review-step` | pointer |
-| topics/refused-push-chief-p1.md:3, 6 | the never-push line is scoped to a Driver's refused push; the session's own push is ask-first item 5 | kind a, clarification |
-| topics/release-notes.md:4 | names `release-template.md` and `help release-evidence` | link |
-| topics/ticket-summary-p2.md:5 | links `ticket-summary-example.md` | link |
-| topics/titles.md:4 | a Griller's subject is words, not a slug (the rest of `titles.md` was already in the topic) | rule from `titles.md`, folded in |
-| topics/worker-shell.md:8 | no shell call changes its folder into a CR folder | kind a |
-| topics/batch-close-p2.md:3 | at a batch's end it is said to stay open while a CR is held; `status`'s second line names the last closed batch | review |
-| topics/batch-plan-mode-p2.md:3 | no separate yes for the mode; a forced `foreman` under Remote Control | review |
-| topics/config-p1.md:3 | the keys `ci.beside_gate` and `hosts.<host>.timing` | review |
-| topics/delivery-time-p2.md:3 | which CI runs time the floor, and the unreadable causes | review |
+| topics/delivery-time-p2.md:3, 6 | which CI runs time the floor, the unreadable causes, the floor line's example | review |
 | topics/demo-p1.md:3 | implementation goes through a CR and the Foreman | review |
-| topics/forge-permissions.md:3 | a CLI not logged in still fails P9 | review |
-| topics/grill-critic-steps.md:6 | review again after the fixes | review |
+| topics/drop.md:4 | the draft turn comes before the order's `order done` | review |
+| topics/forge-permissions-p1.md:1, 3, 4, 5, 6, 8 | `forge-permissions.md` split in two: what P9 checks and when, a CLI not logged in still fails P9, the scopes, the permissions and the branch rules in full | review |
+| topics/forge-permissions-p2.md:1, 3, 4 | the second part: the stacks API and the default branch's rules and merge methods in full | review |
+| topics/grill-critic-steps.md:6, 7 | review again after the fixes; the full list comes from the critic's reply, written nowhere | review |
 | topics/grill-series.md:7 | an answer's list number need not match | review |
 | topics/grill-specify-p2.md:4 | the Griller's routine messages and the running batch's mark | review |
 | topics/lease.md:3 | the lease is local to the batch's machine | review |
 | topics/lost-driver.md:8 | a refused message to an unrecorded agent is not an outside stop | review |
 | topics/lost-outside.md:3, 5, 7 | wording: a message to a recorded agent | review |
 | topics/lost-silent.md:6 | read a Driver's row before clearing its id | review |
-| topics/main-checkout.md:3, 9 | only the Chief of Staff syncs; wording | review |
-| topics/merge-recorded.md:5 | a parallel batch's merge order | review |
+| topics/main-checkout-p1.md:1, 3 | `main-checkout.md` split in two: on by default, the last merge's attempt, the order of the other steps unchanged | review |
+| topics/main-checkout-p2.md:1, 3, 4, 6, 8, 9 | the second part: the steps in full; only the Chief of Staff syncs | review |
+| topics/merge-recorded.md:5, 6 | a parallel batch's merge order; a GitLab fold keeps its precedence over the forge check | review |
+| topics/merge-series-stack-p1.md:5 | a series keeps its order; when the next CR and a CR with a dependency start | review |
 | topics/merge-series-stack-p2.md:3 | in direct mode check your own asks | review |
 | topics/merge-stack-ready-p2.md:3 | where the local-gate record is read | review |
 | topics/merge-words.md:5 | an early merge: no question | review |
+| topics/mode-switch-p1.md:1, 3, 5, 7, 8 | `mode-switch.md` split in two: the switch is on the user's word, the record's new order, what the stack driver does | review |
+| topics/mode-switch-p2.md:1, 3, 4, 5, 6 | the second part: the switches out of a stack in full; the release redo closes its PR and keeps its branch | review |
 | topics/orders.md:8 | pointer to `help order-verbs` | review |
-| topics/project-rules.md:3 | a missing tool is said with what to install | review |
-| topics/refused-push-chief-p2.md:3 | a protected-branch rejection is handled as a failed lease and told as information | review |
+| topics/project-rules-p1.md:1, 3, 5, 6 | `project-rules.md` split in two: the preflight message, a missing tool said with what to install, nothing blocks the request; the no-long-gate and brief lines moved here | review |
+| topics/project-rules-p2.md:1, 3, 4 | the second part: the long gate proposed and written on the user's yes, in full | review |
+| topics/refused-push-chief-p1.md:3, 6 | the never-push line is scoped to a Driver's refused push; the session's own push is ask-first item 5 | kind a, clarification |
+| topics/refused-push-chief-p2.md:3 | a protected-branch rejection is handled as a failed lease and told as information, with git's text and what it means, never retried | review |
 | topics/release-chief-after-p2.md:5 | nothing more is asked once published | review |
+| topics/release-notes.md:4 | names `release-template.md` and `help release-evidence` | link |
 | topics/stack-changes-chief-p1.md:3 | a drop asks the user nothing more | review |
 | topics/stack-checks.md:6 | when an inserted CR shows in the partial-stack line | review |
 | topics/stack.md:6 | the stack as it stands, drafts on top, to come | review |
 | topics/steering-reports-p1.md:6 | no more is told than the report says | review |
-| topics/wakes.md:5, 6 | a stopped batch sends nothing more; no long command in a turn | review |
+| topics/steering-reports-p2.md:4 | the stack check before a Progress report holds in direct mode too | review |
+| topics/ticket-summary-p1.md:7 | the demo file is not the batch's demo | review |
+| topics/ticket-summary-p2.md:5 | links `ticket-summary-example.md` | link |
+| topics/titles.md:4 | a Griller's subject is words, not a slug (the rest of `titles.md` was already in the topic) | rule from `titles.md`, folded in |
+| topics/wakes.md:3, 4, 5, 6, 7 | a stopped batch sends nothing more, then says it stopped; no long command in a turn; the rest reworded so they fit | review; trim |
 | topics/watcher-board.md:7 | "Rescan" reads the backlog again | review |
+| topics/watcher-events.md:6 | a `specifying.parallel` or role-key line takes no tool call | review |
 | topics/watcher-lines.md:8 | who reads the resuming `take`'s line in Foreman mode | review |
+| topics/worker-shell.md:8 | no shell call changes its folder into a CR folder | kind a |
 
 ## Behaviour changes on purpose
 
