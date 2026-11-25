@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC24: Swap in the new cards; remove the old set",
+  "summary": "Specified: cards-next becomes references, old set removed, take/order qa print the brief command, workers and the Foreman start from brief, stale-name test, tests and docs converted. Two open questions with defaults.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "8bdb9984ef5b7c80006202e1ca2d0f7813b4ebd654fe9118d5065b1e893b2fc7",
+    "02-answers.md": "2870f141ea4cf0f8e8aa9d87e5f16ae1e6183d52e8f033986ea39758570c62ad",
+    "03-change-spec.md": "e30f97e2cb300fd1d3e730f462854859dadfa62fe96721a9fc6c994fa0f61fb5",
+    "intake/request.md": "728e801f4abde4e379aada5b7242511bf9f243908783a82a78de648023d90c86"
+  },
+  "summarized": "2026-11-25T00:31:08Z"
+}
