@@ -1,0 +1,21 @@
+# Answers
+
+1. vega-Q1 (2026-11-25, the owner, relayed by the Chief of Staff): **Filed from the owner's own request.** Legend text is very small. The owner asks for 2 or 3 candidate renderings judged by a Fable critic, an answer on a default hover detail, and the removal of "Chart source" in the extension's preview.
+2. vega-Q2 (2026-11-25, Chief of Staff): **Routine points are the Griller's; a behaviour choice that truly needs the owner goes to the Chief of Staff.**
+3. vega-Q3 (2026-11-25, decided by the Griller): **The sizes change in the chart config Studio gives every chart, so the author's own config still wins.** Today `chartConfig` (`src/page/modules/vegaChart.ts`) sets colours and fonts only, so every size is Vega's default: axis and legend labels 10 px, their titles 11 px, the chart title 13 px. That is far under the page text. The new sizes go in the same config, for Vega-Lite (compile config) and for full Vega (parse config). A spec that sets its own `config` or sizes keeps them.
+4. vega-Q4 (2026-11-25, decided by the Griller from the code): **A hover detail can be on by default, fully for Vega-Lite and only where the spec asks for one for full Vega, but only if the chart becomes a live drawing.**
+   - Why there is none today: `drawChart` runs the view with `renderer: "none"` and `view.toSVG()`, and `vegaPreview.ts` shows the result as an `<img>` (data URL). A picture gets no pointer events, so no tooltip of any kind can show, whatever the spec says.
+   - Vega-Lite: `config.mark.tooltip: true` (in effect `{ "content": "encoding" }`) gives every mark a tooltip of its encoded fields, with no change to the author's spec. An author's `tooltip` encoding, or `"tooltip": null`, still wins.
+   - Full Vega: a config cannot add a tooltip. Only marks whose `encode` carries a `tooltip` show one. Adding `tooltip: {signal: "datum"}` to every mark would rewrite the author's spec and show raw rows (a line mark's datum is its first point). So the default is to show the tooltips the spec defines, and add none.
+   - Handler: Vega's built-in default handler (`defaultTooltip` in vega-view) sets the `title` attribute of the drawn element, which gives a native browser tooltip. It needs no extra package (vega-tooltip is not a dependency) and no inline style, so the page's CSP is unchanged. A themed tooltip box (the critic's verdict, Q7) is the alternative, at the cost of a small handler of Studio's own.
+   - Cost: the preview draws a live Vega view (the SVG renderer into the figure) in place of the `<img>`. The PERF-07 drawing cache keys and the reuse of drawings need care. The HTML export keeps a static picture: the export takes a snapshot of the page, so it embeds the drawn SVG with no tooltip (`src/page/modules/exportSnapshot.ts`, DIAGRAM_SELECTOR).
+   - The take proves that the live SVG renderer causes no CSP violation (chartCsp test). If it does, the fallback is the native `title` handler on a canvas renderer, reported in the PR.
+5. vega-Q5 (2026-11-25, decided by the Griller): **The preview shows no Chart source section, in reading and edit mode, for a drawn chart and for a chart in error. The HTML export keeps its closed Chart source.**
+   - In the preview the source is the document: one Edit click opens it in the block editor, and the raw text is beside it. An error keeps its message and reason in place (DIAG-123).
+   - The exported file has no editor, so the closed section is the only place its reader finds the spec and the data. The export is a snapshot of the page DOM, so the section stays in the rendered HTML: the preview's styles hide it and the export shows it.
+   - Mermaid's and PlantUML's "Diagram source" are not part of this request and stay as they are.
+6. vega-Q6 (2026-11-25, decided by the Griller): **The exploration.** Three candidates were drawn by the real preview page (`test/page/chartPage.ts`, with its CSP, headless Chromium) on one showcase: a Vega-Lite line chart with a legend, a Vega-Lite grouped bar chart with a legend, and a full Vega chart with a legend. Each was drawn in Cream, light and dark, plus a hover mock for B and C.
+   - A: today's config.
+   - B: fixed readable sizes.
+   - C: sizes that follow the page's body text size.
+   Exact values and images: `work/exploration/`.
