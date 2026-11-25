@@ -67,13 +67,13 @@ No visual change. Developers get `just roles`, the launcher and `retro draft`; u
 ## Test plan
 
 - [ ] New tests: `test_retro_draft.py`, `test_launcher.py`, `test_roles_data.py`
-- [ ] Local gates at the head: `just check`, `just eval-dry-run` (to fill)
-- [ ] Evidence: launcher trial recorded above
-- [ ] Review: approved per part (to fill at the head)
-- [ ] Verified (to fill)
-- [ ] CI green (to fill)
+- [x] Local gates at `f7b74e6`: `just check` pass (2932 passed, 20 skipped); `just eval-dry-run` pass (25 of 25)
+- [x] Evidence: launcher trial recorded above, run at `d7db74a`
+- [ ] Review: pending
+- [ ] Verified: pending
+- [ ] CI green: pending
 
-Seconds added to `just test`: (to fill: before at the base, after at the head).
+Seconds of `just test` on the same machine: 117.1 s at the base (`eb1f4d0`, 2745 tests) and 130.6 s at `f7b74e6` (2932 tests). The 187 added tests add about 13 s; the machine was noisy, and part of the figure is the chain's earlier PRs, which are in this branch's base. Alone, the new files take about 1.7 s (retro draft), 3.4 s (launcher) and 2 s (roles), measured by their authors.
 
 ## Internal references
 
