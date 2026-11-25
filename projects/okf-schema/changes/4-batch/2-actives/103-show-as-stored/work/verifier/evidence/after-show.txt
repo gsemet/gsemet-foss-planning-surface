@@ -1,0 +1,55 @@
+after: okf-schema show, wheel built from 6572527608200cb688c0ae0224427e8b8bb44539, Windows
+
+$ okf-schema show --path <probe>/bundle styled
+exit code: 0
+stdout bytes: b"---\r\ntype: concept  # keep this comment\r\ntitle: 'Quoted'\r\ntags: [alpha, beta]\r\nverified: {by: human:alice, at: 2026-11-01T10:00:00Z}\r\nstale_after: 2020-01-01\r\n---\r\n\r\nBody\r\n"
+identical to the stored file: True
+stderr lines: 0
+
+$ okf-schema show --path <probe>/bundle plain
+exit code: 0
+stdout bytes: b'# Plain\n\nNo frontmatter.\n'
+identical to the stored file: True
+stderr lines: 0
+
+$ okf-schema show --path <probe>/bundle broken
+exit code: 0
+stdout bytes: b'---\ntitle: [unclosed\n---\nBody\n'
+identical to the stored file: True
+stderr lines: 0
+
+$ okf-schema show --path <probe>/bundle latin1
+exit code: 0
+stdout bytes: b'---\ntitle: caf\xe9\n---\n'
+identical to the stored file: True
+stderr lines: 0
+
+$ okf-schema show --path <probe>/bundle missing
+exit code: 2
+stdout:
+
+stderr lines: 1
+Error: Concept not found: <probe>\bundle\missing
+
+$ okf-schema show --path <probe>/bundle missing.md
+exit code: 2
+stdout:
+
+stderr lines: 1
+Error: Concept not found: <probe>\bundle\missing.md
+
+$ okf-schema show --path <probe>/bundle sub
+exit code: 2
+stdout:
+
+stderr lines: 1
+Error: Concept not found: <probe>\bundle\sub
+
+$ okf-schema show --path <probe>/bundle ../outside.md
+exit code: 2
+stdout:
+
+stderr lines: 1
+Error: Concept path is outside the bundle: ../outside.md (bundle: <probe>\bundle)
+
+bundle content and times unchanged: True

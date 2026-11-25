@@ -1,0 +1,75 @@
+before: okf-schema trust, wheel built from 1a742d714439595753a3b0b416f9cc04183015a3, Windows
+
+$ okf-schema trust --path <probe>/bundle styled
+exit code: 2
+stdout:
+
+stderr lines: 4
+Usage: okf-schema [OPTIONS] [COMMAND] [ARGS]...
+  ...
+Error: No such command 'trust'.
+
+$ okf-schema trust --path <probe>/bundle plain
+exit code: 2
+stdout:
+
+stderr lines: 4
+Usage: okf-schema [OPTIONS] [COMMAND] [ARGS]...
+  ...
+Error: No such command 'trust'.
+
+$ okf-schema trust --path <probe>/bundle broken
+exit code: 2
+stdout:
+
+stderr lines: 4
+Usage: okf-schema [OPTIONS] [COMMAND] [ARGS]...
+  ...
+Error: No such command 'trust'.
+
+$ okf-schema trust --path <probe>/bundle latin1
+exit code: 2
+stdout:
+
+stderr lines: 4
+Usage: okf-schema [OPTIONS] [COMMAND] [ARGS]...
+  ...
+Error: No such command 'trust'.
+
+$ okf-schema trust --path <probe>/bundle missing
+exit code: 2
+stdout:
+
+stderr lines: 4
+Usage: okf-schema [OPTIONS] [COMMAND] [ARGS]...
+  ...
+Error: No such command 'trust'.
+
+$ okf-schema trust --path <probe>/bundle missing.md
+exit code: 2
+stdout:
+
+stderr lines: 4
+Usage: okf-schema [OPTIONS] [COMMAND] [ARGS]...
+  ...
+Error: No such command 'trust'.
+
+$ okf-schema trust --path <probe>/bundle sub
+exit code: 2
+stdout:
+
+stderr lines: 4
+Usage: okf-schema [OPTIONS] [COMMAND] [ARGS]...
+  ...
+Error: No such command 'trust'.
+
+$ okf-schema trust --path <probe>/bundle ../outside.md
+exit code: 2
+stdout:
+
+stderr lines: 4
+Usage: okf-schema [OPTIONS] [COMMAND] [ARGS]...
+  ...
+Error: No such command 'trust'.
+
+bundle content and times unchanged: True

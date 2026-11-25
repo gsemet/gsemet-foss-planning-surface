@@ -1,0 +1,58 @@
+before: okf-schema show, wheel built from 1a742d714439595753a3b0b416f9cc04183015a3, Windows
+
+$ okf-schema show --path <probe>/bundle styled
+exit code: 0
+stdout bytes: b"---\r\ntype: concept\r\ntitle: 'Quoted'\r\ntags:\r\n- alpha\r\n- beta\r\nverified:\r\n  by: human:alice\r\n  at: '2026-11-01T10:00:00+00:00'\r\nstale_after: '2020-01-01'\r\n---\r\ntrust: human-reviewed\r\nstale: true\r\n\r\nBody\r\n\r\n"
+identical to the stored file: False
+stderr lines: 0
+
+$ okf-schema show --path <probe>/bundle plain
+exit code: 0
+stdout bytes: b'---\r\n{}\r\n---\r\ntrust: unverified\r\n# Plain\r\n\r\nNo frontmatter.\r\n\r\n'
+identical to the stored file: False
+stderr lines: 0
+
+$ okf-schema show --path <probe>/bundle broken
+exit code: 0
+stdout bytes: b'---\r\n{}\r\n---\r\ntrust: unverified\r\nBody\r\n\r\n'
+identical to the stored file: False
+stderr lines: 0
+
+$ okf-schema show --path <probe>/bundle latin1
+exit code: 1
+stdout:
+
+stderr lines: 33
+Traceback (most recent call last):
+  ...
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe9 in position 14: invalid continuation byte
+
+$ okf-schema show --path <probe>/bundle missing
+exit code: 2
+stdout:
+
+stderr lines: 1
+Error: Concept not found: <probe>\bundle\missing
+
+$ okf-schema show --path <probe>/bundle missing.md
+exit code: 2
+stdout:
+
+stderr lines: 1
+Error: Concept not found: <probe>\bundle\missing.md
+
+$ okf-schema show --path <probe>/bundle sub
+exit code: 2
+stdout:
+
+stderr lines: 1
+Error: Concept not found: <probe>\bundle\sub
+
+$ okf-schema show --path <probe>/bundle ../outside.md
+exit code: 2
+stdout:
+
+stderr lines: 1
+Error: Concept path is outside the bundle: ../outside.md (bundle: <probe>\bundle)
+
+bundle content and times unchanged: True
