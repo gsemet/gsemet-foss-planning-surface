@@ -11,3 +11,5 @@
 
 Grilled enough (2026-11-25): by the Griller on the owner's word relayed by the Chief of Staff ("all ten in batch-09 tonight with no question").
 Destination: running batch batch-09. Critic: no (a clip following the merged kit and recipe).
+
+Owner approval (2026-11-25, evening, the owner to the Chief of Staff: "Les 10 pr sont bonnes tu peux les valider"): the storyboard and the clip of this PR are approved. The rule "the PR stays a draft until the storyboard and the clip are reviewed" is met: the stack driver turns it out of draft once it is restacked and green at its place in the stack. The merge stays the owner's.

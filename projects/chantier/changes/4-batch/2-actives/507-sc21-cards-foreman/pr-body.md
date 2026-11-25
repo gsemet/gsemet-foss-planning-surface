@@ -2,8 +2,12 @@
 
 The role cards and prompts are far too heavy. This PR writes the next set of small cards, with their
 rare parts moved to help topics: the Foreman, the Chief of Staff, the Griller, the shared files, the
-host files and the four `SKILL.md` texts. Everything is under `skills/chantier/cards-next/`, which
-nothing loads until the later swap. The base is `main`.
+host files and the four `SKILL.md` texts. Everything the new set holds is under `skills/chantier/cards-next/`, which nothing loads until the
+later swap. The only files outside it are nine added quiz cases,
+`evals/quiz/chief-of-staff/a8-*.json`: `a8-ask-delete`, `a8-ask-release`, `a8-ask-stop-process`,
+`a8-chained-subcommand-refused`, `a8-gh-pr-edit-base-refused`, `a8-gh-pr-ready-refused`,
+`a8-push-refused-cr-branch`, `a8-push-refused-default-branch` and `a8-rebase-refused-cr-branch`.
+The base is `main`.
 
 ## Deliverables
 
@@ -32,7 +36,7 @@ Sizes (LF bytes), shared and host files, today's against new:
 | ticket-summary-example.md | 1,422 | 1,308 | none set |
 | routing.md | 5,016 | 4,790 | none set |
 | init.md | 10,041 | 6,171 | none set |
-| review-step.md | 3,950 | 1,385 | 1,500, within |
+| review-step.md | 3,950 | 1,419 | 1,500, within |
 | sync-checkout.md | 4,801 | 1,115 | 1,500, within |
 | forges/github.md, gitlab.md | 739, 744 | 587, 590 | not larger, within |
 | hosts/claude-code.json, copilot.json | 25,243, 22,372 | same | byte-identical |
@@ -40,10 +44,10 @@ Sizes (LF bytes), shared and host files, today's against new:
 | hosts/copilot.md | 18,947 | none (topics) | none set |
 | floor.md | 554 | 554 | 1,200, within, byte-identical |
 | topics/host-*.md (33 files) | part of the above | 36,066, largest 1,490 | 1,500 each, within |
-| skills: chantier, chief-of-staff, griller, status | 3,537, 3,664, 3,223, 3,644 | 2,650, 2,730, 2,292, 2,729 | none set |
+| skills: chantier, chief-of-staff, griller, status | 3,537, 3,664, 3,223, 3,644 | 2,669, 2,749, 2,311, 2,748 | none set |
 
-Role cards of this PR against their budgets: `foreman.md` 36,927 to 3,998 (4,000);
-`chief-of-staff.md` 32,067 to 5,994 (6,000); `griller-skill.md` 3,497 (4,000); `griller.md` 10,757 to
+Role cards of this PR against their budgets: `foreman.md` 36,927 to 4,000 (4,000);
+`chief-of-staff.md` 32,067 to 5,999 (6,000); `griller-skill.md` 3,501 (4,000); `griller.md` 10,757 to
 1,925 (2,000). `cr-driver.md` 3,749 and
 `stack-driver.md` 3,783 (4,096). Cards over budget are in Known gaps.
 
@@ -59,9 +63,9 @@ Role cards of this PR against their budgets: `foreman.md` 36,927 to 3,998 (4,000
 | verifier | 19,762 | 8,293 |
 | retro-critic | 4,225 | 2,889 |
 | demo-explorer | 4,746 | 2,936 |
-| chief-of-staff | 22,322 | 24,652 |
-| griller | 6,349 | 6,623 |
-| foreman | 55,206 | 22,277 |
+| chief-of-staff | 22,322 | 24,657 |
+| griller | 6,349 | 6,627 |
+| foreman | 55,206 | 22,279 |
 | cr-driver, staged card, role only | 59,216 | 8,010 |
 | release-driver, staged card, role only | 59,216 | 8,072 |
 | stack-driver, staged card, role only | 59,216 | 8,044 |
@@ -69,6 +73,14 @@ Role cards of this PR against their budgets: `foreman.md` 36,927 to 3,998 (4,000
 | spec-writer, on an inbox item | 4,815 | 3,228 |
 | spec-critic, on an inbox item | 5,290 | 3,133 |
 | board-griller, on an inbox item | 11,964 | 3,132 |
+| direct mode: chief-of-staff, then `foreman --epoch 1` | 77,528 | 46,936 |
+
+Host claude, no unit but where a row says otherwise. chief-of-staff, griller, foreman and
+direct mode: measured on the cards of this PR's last commit. The other rows: an earlier round, their cards
+unchanged since (the six workers on this change's unit; a later run at `03f973e` gave them 742 bytes less on
+both sides, same differences, cause not traced). Start readings before this change, as the
+specification gives them (declared / measured): Foreman 91 / 144 KB, Chief of Staff 202 / 218 KB,
+Griller 145 / 36 KB.
 
 The two new briefs that grow hold the whole new card, where today's holds a short `SKILL.md` that
 sends the session to more readings.
@@ -92,9 +104,17 @@ Grade: 1
 
 | File and line (under `cards-next/`) | Change |
 | --- | --- |
-| chief-of-staff.md 13, 14, 16, 17, 27 | writes on the user's yes; never stop a process by name or PID; `cancel` only after an ordered drop; its own push is asked first; no CR work in a temp folder, no secret in a CR folder |
-| chief-of-staff.md 41 | pointers to new topics; on `init` or "I am new here", run `$CHANTIER init` and give the tour of `init.md` |
-| chief-of-staff.md 10, 22, 23, 39 | the push rail covers a protected branch too; never stop a Driver; never edit `summary.json` by hand; a wording trim on line 39, one more on line 41 |
+| chief-of-staff.md 13, 14, 16, 24, 27 | writes on the user's yes; stopping a Foreman or a process the session did not start, its own board or watcher too, only on a yes, never by name, pattern or PID; `cancel` only after an ordered drop; no tracker text naming a CR, batch, role or cost; CR work never only in chat, memory or a temp folder, no secret or personal data in a CR folder |
+| chief-of-staff.md 10, 17, 22, 23 | the push rail covers a protected branch too; the ask-first push is the session's own; never message or stop a Driver in Foreman mode; never edit `summary.json` by hand |
+| chief-of-staff.md 26 | `abandon` and `restore` only on the user's word, with priority, labels and groups (for the later review) |
+| chief-of-staff.md 3, 39, 41 | wording trims; pointers to new topics; on `init` or "I am new here", run `$CHANTIER init` and give the tour of `init.md` |
+| griller-skill.md 24, 31; griller.md 7 | the CR-work never (chat and memory included), a pointer, no secret in the CR folder |
+| foreman.md 13, 14, 15, 16 | `gate --first` only for a critical-path CR or the user's next merge, not on a Driver's say; never switch the mode; an image note goes in the ask's added sentence; stop stray background tasks by id, none outlives the heartbeat, a refusal rules over `next` |
+| foreman.md 20, 21 | a granted merge takes the judged head only, no open PR below, reread before a retry; never drop a hand-back; a local run is owed at that head and a waiver must name it |
+| foreman.md 22 | the fast-forward is `--no-overwrite-ignore`, of a clean main checkout; the checks of a Driver's refused push or rebase; no comment on a dropped CR's PR, its branch kept; stop no sync holder |
+| foreman.md 25, 27, 29 | a Driver is replaced only by `help lost-restart`, never on silence alone; the CR-work, secrets and personal-data never; a past fact with no source is said unknown |
+| foreman.md 38 | Rare cases name `refused-push` and `session-shell` only; `help --for foreman` lists the topics |
+| foreman.md 3, 6-10, 17, 24, 26, 31 | wording trims for the 4,000 budget |
 | cr-driver.md 5 and 16, stack-driver.md 5 and 16, release-driver.md 16 | fresh workers per round or move, and the checker never wrote the change (line 5); no rebase with `--rebase-merges`, `--exec` or `-x` (line 16) |
 | inspector.md 5, 22 | a check red on the default branch is reported, never fixed there; the `worker-shell` pointer shortened |
 | coder.md 13, conflict-resolver.md 15, debugger.md 13, demo-explorer.md 13, investigator.md 16, verifier.md 18, cr-driver.md 18 | the same temp-folder and secrets never |
@@ -102,10 +122,6 @@ Grade: 1
 | cr-driver.md 26, qa-driver.md 18, release-driver.md 25, stack-driver.md 27, spec-writer.md 15, retro-critic.md 22-23, spec-critic.md 18-19 | pointers |
 | qa-driver.md 10, 13; release-driver.md 14, 18, 19; stack-driver.md 18-20; spec-writer.md 11 | never touch an issue, never publish private data, the temp-folder never, one agent at a time |
 | release-driver.md 7 | an image upload is irreversible; published notes use the reviewed text or stay a draft |
-| griller-skill.md 24, 31; griller.md 7 | the temp-folder never, a pointer, no secret in the CR folder |
-| foreman.md 22 | the fast-forward never overwrites an ignored file, on a clean main checkout; stop no sync holder |
-| foreman.md 27 | the temp-folder and secrets never |
-| foreman.md 38 | adds the `session-shell` pointer; six topic names leave the Rare cases line for the 4,000 budget (`help --for foreman` lists them) |
 | topics: cr-rounds 4, refused-push-chief-p1 3 and 6, release-notes 4, ticket-summary-p2 5, titles 4, worker-shell 8 | pointer, scoping, links, a folded rule, the folder-change ban |
 
 ## Known gaps
@@ -122,6 +138,11 @@ Grade: 1
   stack-driver and verifier; the new push and ask-first cases need at least 1 of 3. Four planned cases
   are not written, as they have no rule id the loader accepts (`a8-ask-settings-json`,
   `tracker-approval`, `direct-brief-foreman`, `griller-tracker-never`).
+  This PR's last commit changed the Foreman's, the Chief of Staff's and the Griller's cards: their
+  score is owed at the final head. Plans only, no spend: chief-of-staff with griller 54 runs, about
+  $25.34; foreman 33 runs, about $15.40; coder, conflict-resolver, debugger, demo-explorer and
+  verifier 24 runs, about $8.51; the three Driver roles cannot be planned (`roles.yaml` names
+  `driver.md`). The first two are above the default `--max-usd 10`.
 - `brief` for all 18 roles is not met: 11 of 18 exit 0 with `--cards`. The four Drivers are refused
   because `roles.yaml` names `driver.md`, which the new set does not hold (it must change at the swap;
   the sizes above use a staged copy). spec-writer, spec-critic and board-griller are refused on a CR
@@ -146,8 +167,13 @@ Grade: 1
 - "Never fix a check red on the default branch there" is stated in `inspector.md` only, not in
   `verifier.md` or the `ci` topic; no card names the forge's "Update branch" button (the `ship`
   refusal covers it).
-- The inventories' homes were matched by script, not read row by row; rows with protecting wording
-  that a topic carries are listed for the later review.
+- The home of each protecting row was read at its cited line. Each of the four inventories lists the
+  protecting-looking rows a topic carries, for the later review.
+- Rules, or parts of rules, held by no card, floor or refusal: large binaries are never kept in a CR
+  folder (H-057; `coder.md` is over its budget); the host's settings are never a CR's place (H-059,
+  part); never rewrite an earlier retro section (FM-026); never tell as a fact what is marked unproved
+  (C-006); a held agent that has ended with no transcript is cleared on the user's word, or once known
+  not to run (C-304, C-885).
 - The allow-rules table still lists the `uvx` and `uv run` rules; the launcher's rule is stated apart,
   marked unproved (untested on Copilot).
 - The byte-identical host JSON still names `session-start.md`, `driver.md` and
@@ -155,9 +181,10 @@ Grade: 1
 - `release-template.md`, `routing.md`, `hosts/claude-code.md` and `griller-skill.md` are named without
   a link; `init.md`'s link to `../assets/tour.html`, outside `cards-next/`, resolves today and after the
   swap.
-- The Foreman's card says only "Stop no sync holder"; the `sync` topic holds the rest. A worktree
-  override of the Foreman's old card is dropped, and the image-note rule depends on the hand-back's
-  gaps being copied: both for the later review.
+- The Foreman's card says only "Stop no sync holder"; the `sync` topic holds the rest.
+- The override of a Foreman's worktree stop by the user's words in its chat is dropped (a default answer, to confirm by the owner), for the later review.
+- `judge` does not carry the image note of a hand-back; the Foreman's card (line 15) puts it in the
+  ask's added sentence.
 - For the swap (child 24): set `roles.yaml`'s card for chief-of-staff (`chief-of-staff.md`), griller
   (`griller-skill.md`) and the four Drivers, and the Driver table's card cell; copy
   `cards-next/skills/<skill>-SKILL.md` to `skills/<skill>/SKILL.md` and check its
@@ -221,6 +248,44 @@ Grade: 1
   verifier-review-box, verifier-scratch, wakes, wakes-forge, watcher, watcher-board, watcher-events,
   watcher-lines, watcher-pull, where-cr-goes, worker-shell, writer, writer-off.
 
+## The user's boundaries: label to final home
+
+The labels of the specification's section 4. Rows are `FM-` rows of `cards-inventory-foreman.md`. `card:N` is `cards-next/foreman.md:N`; `floor N` is `cards-next/floor.md:N+4`; a file with no folder named here is under the CLI's `src/chantier/`.
+
+| label | protects | rows | final home | topic |
+| --- | --- | --- | --- | --- |
+| B1a | yes | B001, B003 | floor 1; card:20, card:15 (`judge` words the ask) | - |
+| B1b | no | B002 | `judge` carries no icon: the rule disappears (card:15) | - |
+| B1c | yes | B063 | refusals `check_shape`, `shape_refusal` (`rails_release.py:192`, `:178`); `judge` prints `no ask:` (`commands/judge.py:58`); card:15 | `stack` |
+| B1d | yes | B004, B005 | card:15, card:21; `judge` appends the gaps (`status/judge_words.py:99`) | - |
+| B1e | yes | B006 | floor 8; card:15. Known gap: `judge` does not carry an image note | - |
+| B1f | yes | B007 | card:21 | `take-back` |
+| B1g | no | B008 | topic only | `orders` |
+| B1h | yes | B009, B010, B013 | card:21 (B013: topic) | `long-gate`, `local-gate` |
+| B1i | yes | B011, B012, B014 | card:21 (B012: Copilot host row) | `local-gate` |
+| B1j | yes | B015-B017, B019, B022 | card:21, card:15; `judge --local-gate` (`status/judge_words.py:33`); B017: Copilot host row, B022: topic | `local-gate` |
+| B1k | no | B020, B021 | topic; card:21 points to it | `local-gate` |
+| B1l | yes | B023 | card:21 | `long-gate` |
+| B1m | yes | B024 | card:21 ("An absent gate never means success.") | `long-gate` |
+| B1n | yes | B025-B032 | card:21, card:15; `judge --local-gate` (`status/judge_words.py:33`); B032: topic | `long-gate-waiver`, `local-gate` |
+| B1o | yes | B033, B034 | floor 1, 6; card:20; refusal `release go`: "no grant for: …; the user merges it" (`commands/release.py:81`), "no approval for: …" (`:84`) | `merge-under-grant` |
+| B1p | yes | B018, B035 | floor 1, 6; card:20, card:21; refusal `check_granted_fix` (`rails_release.py:108`) | `merge-under-grant`, `main-checkout` |
+| B2 | yes | B036, B037 | refusals `check_slot`, `check_budget`, `check_round` (`rails.py:57`, `:222`, `:305`); floor 9 | - |
+| B2b | no | B038 | topic only | `escalation` |
+| B3 | no | B039 | none (inferable: the refusals name the next command) | - |
+| B4 | no | B040-B042 | topic only | `orders` |
+| B5a | yes | B043, B044 | card:14; floor 7; refusal "cannot pause <batch>: …" (`commands/closing.py:95`) | `orders` |
+| B5b | yes | B045 | refusal "cancel <cr>: no destination recorded; …" (`commands/release.py:137`) | `orders` |
+| B5c | yes | B046-B051 | card:29; refusal "<cr> is <status>: a Driver takes it back only with `--note` …" (`rails.py:249`); B047-B051: inferable or topic | `take-back` |
+| B5d | no | B052 | topic only | `take-back` |
+| B6 | yes | B053, B054 | card:24, with "stop" and "hold" only (the third case is dropped, answer 8) | - |
+| B7a | yes | B055 | card:22 | - |
+| B7b | yes (the named exception) | B056, B065 | card:22 | `drop` |
+| B7c | yes | B057-B059 | card:22, card:25; floor 5; B057: topic | `cleanup` |
+| B7d | yes | B060, B062 | card:22; floor 5 | `main-checkout` |
+| B7e | yes | B061 | `chantier conflicts` runs the check (`commands/conflicts.py`); card:22 bounds the Foreman's git; floor 5 | `conflict-check` |
+| B7f | yes | B064 | card:22 | `refused-push`, `refused-rebase` |
+
 ## Human decisions
 
 - The cards become the smallest possible, with no behaviour lost and progressive disclosure used to
@@ -253,7 +318,18 @@ No visual change; nothing loads the new files.
 
 - CR-507 `sc21-cards-foreman`, with the SC22 and SC23 specifications in the same file.
 - The CR's `evidence/` folder holds the four rule inventories (Foreman, Chief of Staff, Griller, host
-  and shared, with the completeness table) and the proofs.
+  and shared, with the completeness table), the proofs, the boundaries split
+  (`boundaries-split.md`) and the acceptance records (`acceptance-records.md`: `just test` seconds at
+  base and head, start readings beside the brief sizes, the `just quiz --plan` output, the
+  `griller.md` diff and `git diff --stat`).
+- For child 24 (specification section 7): `brief foreman` and `status --refresh` are to print, for a
+  stack batch, `shape: stack: read `$CHANTIER help stack` now and after each compaction`. Child 24
+  changes `src/stack_shape.py`'s `shape_line()`, which prints
+  `rules: {skill_dir}/references/foreman-stack.md (reread after a compaction)`, a path the swap
+  removes, and converts the tests that read the old Foreman cards: `test_came_back.py`,
+  `test_stack_shape.py`, `test_reload_rules.py`, `test_role_cards_split.py`,
+  `test_startup_manifest.py`, `test_stack_chain_cards.py`, `test_rebase_rules.py`,
+  `test_release_tag.py` and `moved_rules.tsv`.
 
 </details>
 

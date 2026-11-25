@@ -25,14 +25,24 @@ After this CR:
 
 Code base: `origin/main` at 2f09cef (0.18.1). The line numbers below come from that commit.
 
-**Stacking.** This CR lands before CR 58 `show-as-stored` (issue 58) in batch-01. CR 58 adds an
-`okf-schema trust` command that prints the tier `_derive_trust_tier` returns. CR 58 builds on this
-CR and does not touch the derivation. Both CRs edit
-`requirements/tiers/swrs/core/SwRS-OKFSCHEMA-CORE-006.md`,
-`requirements/tiers/log.md` and `docs/source/explanation/project-feature-coverage.md`. This CR
-takes scenario `S5` of CORE-006, so CR 58 uses the next free number, as its specification
-already allows. CR 58's log entry shares this CR's day heading. Its staleness row (line 31 of the
-feature map) and this CR's new row sit on separate lines.
+**Stacking.** Two batch-01 CRs edit the same files as this CR. Their edits are in other places:
+keep both sets of changes, and keep every log entry under one day heading.
+
+- CR-103, folder `4-batch/1-pending/103-show-as-stored` (issue 58). This CR lands before it.
+  CR-103 adds an `okf-schema trust` command that prints the tier `_derive_trust_tier` returns. It
+  builds on this CR and does not touch the derivation. Both CRs edit
+  `requirements/tiers/swrs/core/SwRS-OKFSCHEMA-CORE-006.md`, `requirements/tiers/log.md` and
+  `docs/source/explanation/project-feature-coverage.md`. This CR takes scenario `S5` of
+  CORE-006, so CR-103 uses the next free number, as its specification already allows. CR-103's
+  log entry shares this CR's day heading. Its staleness row (line 31 of the feature map) and this
+  CR's new row sit on separate lines.
+- CR-102, folder `4-batch/1-pending/102-index-broken-root-links` (issue 57). It edits
+  `src/okf_schema/validator.py` (`validate_index` near line 863, `validate_log` near line 966),
+  `docs/source/reference/validation-codes.md` (`### W2`, line 311, and "Validation Scope", line
+  815), the W2 row of the code table in `skills/okf-schema/SKILL.md` (line 359) and
+  `requirements/tiers/log.md` (its entry under the same day heading). This CR edits
+  `_ACTOR_RE`, `_derive_trust_tier` and the W10 check in `validator.py`, the W10 section of
+  `validation-codes.md` (lines 526-549) and the W10 row of `SKILL.md` (line 367).
 
 ## Decisions carried from `02-answers.md`
 
@@ -286,12 +296,16 @@ Unit tests follow `.github/guidelines/python-unittest.guidelines.md`: function t
    `verified: [{by: reference_agent/gemini-2.5-pro, at: '2026-01-01'}]` gives
    `show_bundle(...).trust_tier == "machine-confirmed"`.
 3. `tests/test_cli_remaining.py`, in the `validate-md` block (line 286): add
-   `test_validate_md_strict_accepts_producer_version_actor`. Use a file with `type`, `title`,
-   `description`, `generated: {at: "2024-01-01T00:00:00Z", by: reference_agent/gemini-2.5-pro}`
+   `test_validate_md_strict_accepts_producer_version_actor`. Use a file with `type: concept`,
+   `title`, `description`, `generated: {at: "2024-01-01T00:00:00Z", by: reference_agent/gemini-2.5-pro}`
    and `verified: [{by: reference_agent/gemini-2.5-pro, at: "2024-01-02T00:00:00Z"}]`, plus the
    same minimal concept schema as `test_validate_md_validate_md_exits_0_for_valid_files`, passed
-   with `--schemas-dir`. The file writes `verified` as an inline flow list, as above: a
-   block-style `verified:` list also raises W7, so `--strict` would exit 1 even after the fix.
+   with `--schemas-dir`: that test writes it as `concept.schema.json`, and schemas are keyed by
+   the file name before `.schema.json`, so the file's `type` matches it. Any other `type` raises
+   W6 "No schema found for type ...", and `--strict` would exit 1 for that reason alone; with
+   `type: concept` the exit code under `--strict` shows only whether W10 is raised. The file
+   writes `verified` as an inline flow list, as above: a block-style `verified:` list also raises
+   W7, so `--strict` would exit 1 even after the fix.
    `validate-md --strict` exits 0 and the output has no `W10`. On 2f09cef it exits 1 with W10:
    the intake's scenario, run through the CLI.
 4. Shipped-file check, in `tests/test_kb_scaffold.py`: add
@@ -305,9 +319,11 @@ Unit tests follow `.github/guidelines/python-unittest.guidelines.md`: function t
      repository (path from the test file's parents) and asserts the same description is
      identical.
 5. Scenario steps, run by the Driver in its worktree and reported:
-   - A scratch file `c.md` with the frontmatter of item 3, `verified` written as an inline flow
-     list (a block-style list raises W7), and a scratch schemas directory `<dir>` holding the
-     same minimal concept schema as item 3 (`validate-md` requires `--schemas-dir`; without it
+   - A scratch file `c.md` with the frontmatter of item 3 (`type: concept`), `verified` written
+     as an inline flow list (a block-style list raises W7), and a scratch schemas directory
+     `<dir>` holding the same minimal concept schema as item 3, named `concept.schema.json` so
+     that it matches the file's `type` (any other `type` raises W6 "No schema found" and
+     `--strict` exits 1 whatever the actor) (`validate-md` requires `--schemas-dir`; without it
      it exits 2 with "Missing option"):
      `uv run -- okf-schema validate-md --input c.md --schemas-dir <dir> --strict` exits 0 with
      no W10.
