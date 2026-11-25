@@ -25,6 +25,16 @@ Short name: `trust-forms`
 
 The preview of option A shown to the user: `alice` is read machine-confirmed and warned W10.
 
+2. trust-forms-Q1: **Actor forms no longer warned W10.** "A. Spec + préfixe:id (recommandé)":
+   the specification's forms are accepted and `prefix:id` stays accepted (the option's preview:
+   `reference_agent/gemini-2.5-pro`, `process:nightly-check`, `human:alice` and `bot:okf-schema`
+   pass; `alice` is warned W10).
+3. trust-forms-Q2: **Tier of an actor in no recognized form** (`by: alice`). "A. machine
+   (recommandé)": per the specification, every actor that does not start with `human:` counts as
+   machine-confirmed; W10 is still shown.
+4. trust-forms-Q3: **Grilled enough.** "A. Pour batch-01 (recommandé)": specify it for the
+   running batch, stacked before the `trust` command (issue 58).
+
 Destination: running batch batch-01.
 
 Spec critic: yes, it changes what `validate` reports and the trust tier.

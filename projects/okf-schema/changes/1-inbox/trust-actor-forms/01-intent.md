@@ -1,6 +1,6 @@
 # Trust tier: count the actor forms allowed by OKF 0.2
 
-## Intent
+## Intent (grilled 2026-11-25, see 02-answers.md)
 
 `okf-schema` reads a concept as `unverified`, and warns W10, when its `verified[].by` actor is
 written in a form OKF 0.2 allows but without a colon, such as
