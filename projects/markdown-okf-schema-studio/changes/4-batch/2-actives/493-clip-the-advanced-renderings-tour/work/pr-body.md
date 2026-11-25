@@ -58,7 +58,7 @@ No behaviour change in the extension; the editing page gains a clip.
 - [x] Changelog: no user-facing change
 - [x] Local gates at da86d6e: `just clip-kit-test` (38 tests), `just check`, `just ci-static`; the take's `all` step passed
 - [x] Review: passed at da86d6e
-- [ ] CI green
+- [x] CI green: `gh pr checks 512` at da86d6e: static, static-windows, visual, viewer-graph, report pass
 
 ## Internal references
 
