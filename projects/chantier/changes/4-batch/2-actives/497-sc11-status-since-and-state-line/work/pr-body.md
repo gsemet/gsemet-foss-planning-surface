@@ -10,6 +10,7 @@ Three parts, one branch. They give a steering session (the Foreman that runs a b
 
 - New commands: `next`, `msg`, `inbox`; new option `status --since <seq>`; new journal type `msg@1`.
 - New lines printed by existing commands: the watcher's `state:` line, and a `next:` line after the batch commands a Driver runs.
+- `msg` prints `not delivered: no watcher subscribed` and exits non-zero when no watcher is subscribed.
 - `AGENTS.md` names the new commands and the one `role:steering` audience value of `msg@1` as a named exception to "the CLI knows no role".
 
 What a Driver now sends and reads (shapes, abridged):
@@ -40,8 +41,8 @@ watcher wake:  state: <what is due now>                                  # one l
 ## Known gaps
 
 - `--since` takes the event sequence only, not the watcher's journal cursor (settled in the grill, to be confirmed by the owner); a cursor form is not built.
-- The scenario's new `msg` steps (section 13, surface-board unit) read right in review but their timing is proved only by the pipeline's ubuntu `scenario` job; the stack unit's local run took 742 s of its 750 s budget with two units at once (a unit over budget warns only).
-- No Windows run of the long gate: this CR is not the top of its stack (the ubuntu scenario at the head covers it).
+- The scenario's new `msg` steps (the SC13 steps of the scenario) read right in review but their timing is proved only by the pipeline's ubuntu `scenario` job; the stack unit's local run took 742 s of its 750 s budget with two units at once (a unit over budget warns only).
+- No Windows run of the long gate: this CR is not the top of its stack (CR-514 is; the ubuntu scenario at the head covers it).
 - `just test` seconds: 144.6 s on the base (2745 tests) and 130.8 s at the head (2825 tests), each run alone: no measurable increase.
 
 <details><summary>Details</summary>
