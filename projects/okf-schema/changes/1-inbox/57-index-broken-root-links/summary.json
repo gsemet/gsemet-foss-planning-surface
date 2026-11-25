@@ -1,17 +1,17 @@
 {
   "schema": 1,
   "title": "index: no broken links in subdirectory summaries, W2 in index.md",
-  "summary": "Specified, no open question: index takes the whole subdirectory intro on one line (links rewritten, 120-char cut never splits a link) or generic text, repairs damaged and generic summaries, keeps trailing [...]; validate reports W2 in every index.md, anchors ignored, paths percent-decoded.",
+  "summary": "Specified, no open question: index takes the whole subdir intro (links rewritten, cut never splits a link) or generic text, repairs damaged/generic summaries, keeps [...] and tables/, ./tables spellings; validate warns W2 in index.md and log.md, anchors ignored, paths decoded.",
   "origin": {
     "kind": "github",
     "ref": "#57",
     "url": "https://github.com/gsemet/okf-schema/issues/57"
   },
   "sources": {
-    "01-intent.md": "8caec92a8ada33a37185491ac841441898f8e815d672ece8524b8cb1754230fb",
-    "02-answers.md": "1bb1863cd5b12829acc0e2c49256da753a5ad5c89fe6e0107afa6670efa3dc83",
-    "03-change-spec.md": "42f6a6f3643b60b5cc9d5acb13748810a95b3a99eec26ceebec12f15ab9affb4",
+    "01-intent.md": "6d0abcbfeaa64655692442d1bf732c1f355798893b4951b746280a4fcc4802d8",
+    "02-answers.md": "a61c15440fad9dc4dbbb0c7e3ff909a6d4542b6d0e7ee083b78a5e00b9c09738",
+    "03-change-spec.md": "9928cc5151a282592907fda7656a23b5055e32c9d2c891299dfbf3fdc6dd89bc",
     "intake/request.md": "6f6e7bc9b3b722c666a3e0548bf1ef126138d4cc6bfe4ba605f681b522ffe43c"
   },
-  "summarized": "2026-11-25T19:55:33Z"
+  "summarized": "2026-11-25T20:31:01Z"
 }

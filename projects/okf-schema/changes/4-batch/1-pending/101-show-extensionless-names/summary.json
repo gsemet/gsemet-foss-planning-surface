@@ -1,17 +1,17 @@
 {
   "schema": 1,
   "title": "show: resolve concept names without .md, stay inside the bundle",
-  "summary": "Specified: show accepts names without .md (exact file first, else name.md), reports a directory as Concept not found, refuses paths and symlinks leaving the bundle (exit 2). New requirement CORE-010 'stay inside the bundle'; fix commit, release 0.18.2. Issue 56.",
+  "summary": "Specified: show accepts names without .md (exact file first, else name.md) and reads names from the bundle root, leading / or not (OKF 0.2); a directory is Concept not found; paths and symlinks leaving the bundle refused (exit 2). New requirement CORE-010; fix, 0.18.2. Issue 56.",
   "origin": {
     "kind": "github",
     "ref": "#56",
     "url": "https://github.com/gsemet/okf-schema/issues/56"
   },
   "sources": {
-    "01-intent.md": "910b493c3c22cebe169f59d1e5b3ec787b66f77fd1d74ce731fefaade3afb9ea",
-    "02-answers.md": "9bb7dc2767ab200a8190266b5119bae0d2ed472b1bb0be985af6518d14ef960e",
-    "03-change-spec.md": "e57758b5a311ee1f208a815bb5cb7e06f444705258a9e1ce26dcc67235895e86",
+    "01-intent.md": "a822d75a4716060a2acf7017888e9b126888d7a9e02f1b7263a0cecea90850d4",
+    "02-answers.md": "4b06bdf4628c1c8d9441485dd65935ab76b3f98b576294edaa61e2ec13cbb3ae",
+    "03-change-spec.md": "f281476cf6ef13d2034e60a9414e676152a66a345daaa6b2b9ad81a62866bb50",
     "intake/request.md": "b3db350e4c3f621ff10ebf1b4c7852ed7b52c2b1d9d6c7745dc0024fe6ac149d"
   },
-  "summarized": "2026-11-25T19:03:47Z"
+  "summarized": "2026-11-25T20:30:28Z"
 }

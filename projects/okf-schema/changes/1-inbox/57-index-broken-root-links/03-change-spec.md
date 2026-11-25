@@ -3,15 +3,16 @@
 issue: https://github.com/gsemet/okf-schema/issues/57
 
 Code described: `origin/main` 2f09cef (okf-schema 0.18.1). Decisions: `02-answers.md`
-(index-links-Q1 to Q13, answers 1 to 14).
+(index-links-Q1 to Q15, answers 1 to 17).
 
 ## Goal
 
 `okf-schema index` must stop writing broken links into the index that lists a subdirectory,
-repair the summaries it already damaged, keep the generic sentence fresh, and give summaries that
-stay the same from one run to the next. `okf-schema validate` must report broken links in every
-`index.md` as W2, like it does for concepts, and must stop treating `page.md#part`, `#top` or a
-percent-encoded path to an existing file (`my%20file.md`) as broken.
+repair the summaries it already damaged, keep the generic sentence fresh, give summaries that
+stay the same from one run to the next, and keep an authored summary whatever the spelling of its
+subdirectory link (`tables/`, `./tables/`, `./tables`). `okf-schema validate` must report broken
+links in every `index.md` and in `log.md` as W2, like it does for concepts, and must stop treating
+`page.md#part`, `#top` or a percent-encoded path to an existing file (`my%20file.md`) as broken.
 
 Today, with `api/index.md` holding only a list and no summary for `api` yet,
 `okf-schema index` writes in the root:
@@ -48,12 +49,15 @@ root in the issue, `a/index.md` for an entry `./b/` of `a/`), and the **subdirec
     list marker `- `/`* ` stripped, cut to 117 characters + `...`, else
     ``Auto-generated index for concepts in `<dir>`.`` (written in three places).
   - `_parse_existing_index` (line 1025): collects `descriptions` (link target -> summary) from
-    every `- [text](target) — summary` line, and strips a trailing `[...]` (the type tag,
+    every `- `/`* ` line matching `[text](target)`, a separator `—` or `-`, then a summary; the key
+    is the target **as written**. It strips a trailing `[...]` (the type tag,
     `re.sub(r"\s+\[[^\]]+\]\s*$", "", desc)`, line 1055) on every entry, subdirectory entries
     included, which is why a copied `[API Endpoint]` disappears on the next run.
   - `_generate_index_content` (line 1068): for a subdirectory entry, a single-type schema summary
-    wins; otherwise `preserved.get(subdir_rel, _get_subdir_description(...))` (lines 1167, 1169),
-    so any text already in the parent index is kept forever.
+    wins; otherwise `preserved.get(subdir_rel, _get_subdir_description(...))` with
+    `subdir_rel = f"./{subdir.name}/"` (lines 1167, 1169), so any text already in the parent
+    index under exactly `./<dir>/` is kept forever, and a summary written under `tables/` or
+    `./tables` (the spellings OKF 0.2 section 8 uses or allows) is not found and is lost.
 - `src/okf_schema/_internal/utils.py`
   - `resolve_link` (line 38): external targets (`://`, `mailto:`) give `None`; `/x` resolves from
     the bundle root; anything else from the source's folder. Anchors are not removed.
@@ -64,16 +68,20 @@ root in the issue, `a/index.md` for an entry `./b/` of `a/`), and the **subdirec
   - `validate_concept` (W2 at line 851): `find_broken_links(body, path, bundle_root)`, message
     `Broken cross-link '{target}' in '{path}'`.
   - `validate_index` (line 863): only E3. `validate_bundle` calls it for every `index.md`.
+  - `validate_log(path, report)` (line 966): only E3, W5 and W18 (date headings through
+    `log_heading_findings`); no link check. `validate_bundle` calls it for every `log.md`
+    (line 1086); `tests/test_validator.py` calls it with two arguments.
   - `okfreq` runs this same `validate_bundle` on its tiers folder (`_okf_findings`,
     `src/okf_schema/okfreq/core.py:2810`); W2 is not in `_OKF_IGNORED_CODES`
-    (`{"W3", "W4", "W7"}`), so `okfreq validate` reports the new index W2 too. `okfkb update`
-    reaches `index_bundle` through `update_bundle`, so it gets the index fix too.
+    (`{"W3", "W4", "W7"}`), so `okfreq validate` reports the new index and log W2 too.
+    `okfkb update` reaches `index_bundle` through `update_bundle`, so it gets the index fix too.
 
 ## What changes
 
 ### 1. Subdirectory summary source (index-links-Q1)
 
-Order, for each `./<dir>/` entry of a parent index (only point c is new; a and b stay as today):
+Order, for each `./<dir>/` entry of a parent index (only point c is new; a and b stay as today,
+except that point b finds the summary under any of the spellings of section 3c):
 
 a. Schema summary first, unchanged: when all concepts of `<dir>` share one type with a schema,
    its `x-okf-summary`, else its `description` (120-character cut as today). It replaces any
@@ -150,8 +158,8 @@ in answer 5). New rule, applied to the rewritten introduction:
 
 ### 2. Damaged summaries already written (index-links-Q2)
 
-In `_generate_index_content`, a preserved summary of a `./<dir>/` entry is **not** preserved,
-and goes to point c, when it has the bug's signature:
+In `_generate_index_content`, a preserved summary of a `./<dir>/` entry (under any spelling of
+section 3c) is **not** preserved, and goes to point c, when it has the bug's signature:
 
 - after stripping, it starts with a Markdown link `[text](target)` (or `![...](...)`);
 - `target` is relative: not external, not `/`-prefixed, not anchor-only;
@@ -186,8 +194,8 @@ from the second run (a second run reports every index `unchanged`).
 ### 3b. Trailing `[...]` kept on subdirectory entries (index-links-Q9)
 
 In `_parse_existing_index`, the trailing-`[...]` strip (line 1055) applies only to entries that
-are not subdirectory entries. A subdirectory entry is one whose target ends with `/` (the form
-`./<dir>/` that `_generate_index_content` writes); these never get a type tag, so their summary is
+are not subdirectory entries. A subdirectory entry is one whose target has one of the spellings
+of section 3c (`./<dir>/`, `<dir>/`, `./<dir>`); these never get a type tag, so their summary is
 kept exactly as written. Concept entries keep today's behaviour: the tag is stripped on parse and
 re-added from the concept's type on generation.
 
@@ -200,15 +208,48 @@ Effects:
   keeps its `[API Endpoint]` (today it is dropped on the next run). A line with the signature
   (section 2) is recomputed anyway, whatever its end.
 
-### 4. W2 in every index.md (index-links-Q3)
+### 3c. Subdirectory entry spellings (index-links-Q14)
+
+`tables/`, `./tables/` and `./tables` name the same subdirectory, and the summary written after
+any of them is kept as authored. In `_parse_existing_index`, a target is a subdirectory entry, and
+its key is normalised to `./<name>/` (the form `_generate_index_content` looks up and writes),
+when, after removing one leading `./` and one trailing `/`, what remains is a single path segment
+(no `/`, not empty) and either:
+
+- the target ends with `/` (`tables/`, `./tables/`), or
+- the target starts with `./` and the remaining segment does not end with `.md` (`./tables`; a
+  `./concept.md` target stays a concept entry, key as written, tag stripped as today).
+
+Any other target (a bare `tables`, a deeper `a/b/`, a concept `x.md`) keeps today's handling: key
+as written. The summary is then processed as any preserved summary: sections 2 and 3 apply to it
+(a damaged or generic one is recomputed), point a still replaces it when a schema summary applies,
+and its trailing `[...]` is kept (section 3b). When one parent index holds two lines for the same
+subdirectory under different spellings, the later line wins, as today for a repeated target.
+
+The parser already accepts the `* ` marker and the `-` separator, so the line of the answer's
+preview, `* [Tables](tables/) - Toutes les tables`, is rewritten by `index` as
+`- [tables](./tables/) — Toutes les tables` (link text, marker, target and separator in the form
+`_generate_index_content` writes; the summary unchanged). A second run reports that index
+`unchanged`. Update the `_parse_existing_index` docstring (subdirectory keys normalised, their
+trailing `[...]` kept).
+
+### 4. W2 in every index.md and in log.md (index-links-Q3, index-links-Q15)
 
 `validate_index` (`src/okf_schema/validator.py`) also runs
 `find_broken_links(body, path, bundle_root)` on the body of every `index.md` (root and nested;
 root frontmatter excluded, as `extract_frontmatter` already splits it) and adds, per broken target,
 `report.add_warning("W2", f"Broken cross-link '{target}' in '{path}'", path)`: same code, message
-and severity as for concepts. `validate --strict` then fails on it, as for any warning. Update its
-docstring (checks E3 and W2). `okfreq validate` and `okfkb validate` report it too, through the
-same `validate_bundle`.
+and severity as for concepts. Update its docstring (checks E3 and W2).
+
+`validate_log` does the same on the body of every `log.md` (index-links-Q15): same
+`find_broken_links` call, same W2 message and severity, after its E3, W5 and W18 checks. It gets a
+`bundle_root` parameter, passed by `validate_bundle` (`validate_log(path, report, bundle)`); give
+it the default `None`, meaning `path.parent`, so the existing two-argument calls in
+`tests/test_validator.py` keep working. Update its docstring (checks E3, W5, W18 and W2; the new
+parameter). An old log entry linking to a deleted file is warned.
+
+`validate --strict` then fails on these W2, as for any warning. `okfreq validate` and
+`okfkb validate` report them too, through the same `validate_bundle`.
 
 ### 5. Anchors ignored and paths decoded when a link is checked (index-links-Q4, index-links-Q11)
 
@@ -224,12 +265,12 @@ ones are still skipped, with the same test as `resolve_link`):
 
 The reported target stays the target **as written** (with its encoding and its anchor): a link
 really broken, such as `missing%20x.md#part`, is reported as `missing%20x.md#part`. This applies
-to concepts and index files alike (W2 is the only user of `find_broken_links`). Put steps 1 and 2
-in one small helper beside it (for example `_link_path_for_check(target) -> str | None`, `None`
-for anchor-only) and use it also for the two existence tests of section 2. `resolve_link` and its
-other callers (graph, backlinks, stats, superseded-link rewriting) are not changed. Update the
-docstring of `find_broken_links` (anchors ignored, paths decoded, targets reported as written) and
-add doctests for `a.md#part` and `#top`.
+to concepts, index files and `log.md` alike (W2 is the only user of `find_broken_links`). Put
+steps 1 and 2 in one small helper beside it (for example
+`_link_path_for_check(target) -> str | None`, `None` for anchor-only) and use it also for the two
+existence tests of section 2. `resolve_link` and its other callers (graph, backlinks, stats,
+superseded-link rewriting) are not changed. Update the docstring of `find_broken_links` (anchors
+ignored, paths decoded, targets reported as written) and add doctests for `a.md#part` and `#top`.
 
 ### 6. Fixture carrying the bug
 
@@ -244,35 +285,50 @@ in place on this fixture; with the fixed line it leaves it unchanged. A scan of 
 `skills/` found no other broken link and no anchor link; `docs/source/index.md` (Sphinx, not a
 bundle) is out of scope.
 
+A scan of every shipped `log.md` on `origin/main` (`tests/fixtures/`, `examples/`,
+`requirements/tiers/log.md`, `skills-evals/fixtures/`) found no broken link: only
+`requirements/tiers/log.md` holds links (29), all resolving from its folder, so `okfreq validate
+requirements` gets no new W2 from it. No `log.md` fixture needs a change.
+
 ## Surfaces (product maintenance guideline)
 
-- **Runtime:** `src/okf_schema/api.py` (sections 1 to 3b, `index_bundle` docstring: the summary
-  order, the whole introduction, the cut, repair of damaged summaries and generic text),
-  `src/okf_schema/validator.py` (section 4), `src/okf_schema/_internal/utils.py` (section 5). CLI
-  help of `index` in `src/okf_schema/cli.py` (around line 798): one sentence on where
-  subdirectory summaries come from, if the help describes it.
+- **Runtime:** `src/okf_schema/api.py` (sections 1 to 3c, `index_bundle` docstring: the summary
+  order, the whole introduction, the cut, repair of damaged summaries and generic text, the
+  accepted subdirectory spellings), `src/okf_schema/validator.py` (section 4, `validate_index` and
+  `validate_log`), `src/okf_schema/_internal/utils.py` (section 5). CLI help of `index` in
+  `src/okf_schema/cli.py` (around line 798): one sentence on where subdirectory summaries come
+  from, if the help describes it.
 - **Human docs:**
   - `docs/source/reference/cli.md`, `## okf-schema index`: the summary order of section 1 (the
     whole introduction before the first list, on one line), links rewritten from the parent index,
     the 120-character cut that never splits a link (the generic text when nothing is left before
-    the link), damaged summaries and the generic text recomputed, other summaries preserved exactly as written (a trailing `[...]` on a
-    subdirectory entry included); a before/after of the issue's case; the limit that an
+    the link), damaged summaries and the generic text recomputed, other summaries preserved
+    exactly as written (a trailing `[...]` on a subdirectory entry included) whatever the spelling
+    of the subdirectory link (`tables/`, `./tables/`, `./tables`; the line is rewritten in the
+    `- [tables](./tables/) — ...` form); a before/after of the issue's case; the limit that an
     introduction once copied into a parent index is kept as authored and not refreshed when the
     subdirectory introduction changes.
-  - `docs/source/reference/validation-codes.md`: `### W2` covers concept bodies and every
-    `index.md`, ignores `#...` anchors (the anchor is not verified), percent-decodes the path
-    before checking it (`%20`, accents), and reports a broken target as written; in "Validation
-    Scope", "Reserved files" lists W2 for `index.md`; a compatibility note: bundles with broken
-    links in an index get new W2, so `--strict` can start failing until `okf-schema index` or a
-    manual fix.
+  - `docs/source/reference/validation-codes.md`: `### W2` covers concept bodies, every
+    `index.md` and `log.md`, ignores `#...` anchors (the anchor is not verified), percent-decodes
+    the path before checking it (`%20`, accents), and reports a broken target as written; in
+    "Validation Scope", "Reserved files" lists W2 for `index.md` and `log.md`; a compatibility
+    note: bundles with broken links in an index or in `log.md` (an old entry linking to a deleted
+    file) get new W2, so `--strict` can start failing until `okf-schema index` or a manual fix.
 - **Agent skills:** `skills/okf-schema/SKILL.md`: the `index` row (line 136) says where
-  subdirectory summaries come from (the whole introduction, links rewritten, never a list entry)
-  and that damaged ones are repaired; the W2 row (line 359) adds `index.md`, the anchor rule and
-  the percent-decoding. No new reference file.
-- **Same batch, CR-101** (`4-batch/1-pending/101-show-extensionless-names`) edits
-  `skills/okf-schema/SKILL.md` line 135 (next to this CR's line 136),
-  `docs/source/reference/cli.md` and `requirements/tiers/log.md`. Whichever CR lands second
-  rebases on the other and keeps both SKILL.md rows, both `cli.md` changes and both log entries.
+  subdirectory summaries come from (the whole introduction, links rewritten, never a list entry),
+  that damaged ones are repaired and that authored ones are kept whatever the spelling of the
+  link; the W2 row (line 359) adds `index.md` and `log.md`, the anchor rule and the
+  percent-decoding. No new reference file.
+- **Neighbours touching the same files.** Whichever CR lands second rebases on the other and keeps
+  both SKILL.md rows, both `cli.md` changes and both log entries (in `requirements/tiers/log.md`,
+  entries of the same day share one `## YYYY-MM-DD` heading, newest first):
+  - **Same batch, CR-101** (`4-batch/1-pending/101-show-extensionless-names`) edits
+    `skills/okf-schema/SKILL.md` line 135 (next to this CR's line 136),
+    `docs/source/reference/cli.md` and `requirements/tiers/log.md`.
+  - **CR 58** (`1-inbox/58-show-as-stored`, stacked on CR-101) edits the same
+    `skills/okf-schema/SKILL.md` line 135 `show` row (next to this CR's line 136),
+    `docs/source/reference/cli.md` (section `## okf-schema show`) and `requirements/tiers/log.md`
+    under the same day heading.
 - **Scaffold guidance (`src/okf_schema/data/`):** unaffected; it ships no index-generation or W2
   wording (the Driver checks with a grep for `W2` and `okf-schema index` and states the result).
 - **Requirements** (`requirements/`, following both requirements guidelines):
@@ -281,11 +337,12 @@ bundle) is out of scope.
     that is missing, generic or damaged; WHEN index runs; THEN the summary is the whole
     introduction on one line with rewritten links, cut at 120 characters without splitting a link,
     or the generic text (also when the cut leaves nothing); other authored summaries are kept as
-    written; a second run changes nothing). Add it to `scenarios:` and the body; IDs, UUID and other authored fields unchanged.
-  - `SwRS-OKFSCHEMA-CORE-001`: add scenario `S4` "Report broken links in index files" (GIVEN an
-    `index.md` with a broken relative link, and a concept with `a.md#part` and `my%20file.md` to
-    existing files; WHEN validate runs; THEN W2 names the index link as written and neither the
-    anchored nor the encoded one).
+    written, whether the entry links `tables/`, `./tables/` or `./tables`; a second run changes
+    nothing). Add it to `scenarios:` and the body; IDs, UUID and other authored fields unchanged.
+  - `SwRS-OKFSCHEMA-CORE-001`: add scenario `S4` "Report broken links in index and log files"
+    (GIVEN an `index.md` and a `log.md` each with a broken relative link, and a concept with
+    `a.md#part` and `my%20file.md` to existing files; WHEN validate runs; THEN W2 names the index
+    link and the log link as written, and neither the anchored nor the encoded one).
   - Mark the new tests `@tests_req SwRS-OKFSCHEMA-CORE-004#S3` and
     `@tests_req SwRS-OKFSCHEMA-CORE-001#S4`. `implemented_in_files` is generated
     (`requirements/config.yml` lists it in `generated_fields`): never edit it by hand. Put
@@ -294,13 +351,14 @@ bundle) is out of scope.
     rewritten summary helpers stay in `src/okf_schema/api.py`, which already carries the CORE-004
     marker on `index_bundle`; a helper placed in another file gets
     `# @implements_req SwRS-OKFSCHEMA-CORE-004` above it. Append an entry to
-    `requirements/tiers/log.md` (IDs, reason: issue 57, decisions index-links-Q1 to Q13,
+    `requirements/tiers/log.md` (IDs, reason: issue 57, decisions index-links-Q1 to Q15,
     verification). Run `okfreq lint requirements`.
   - Acceptance paths are unchanged; the existing `@accepts_req StRS-OKFSCHEMA-CORE-002#S2` test
     must still pass.
-- **Examples:** unaffected: no example bundle has a broken, anchored or encoded link in an index,
-  and none depends on the old copied line; `just refresh-all-examples` (run by preflight) must
-  show no diff in `examples/`. If it does, review and keep it.
+- **Examples:** unaffected: no example bundle has a broken, anchored or encoded link in an index
+  or a `log.md`, and none depends on the old copied line or on another spelling of a subdirectory
+  entry; `just refresh-all-examples` (run by preflight) must show no diff in `examples/`. If it
+  does, review and keep it.
 - **Verification:** the tests below; `docs/source/explanation/project-feature-coverage.md` has no
   row on index generation or W2: leave it, and say so in the change summary.
 
@@ -317,6 +375,7 @@ bundle) is out of scope.
 - Processing order of `index_bundle` (root before subdirectories) and schema summary rules.
 - Concept entries of an index (their type tag handling stays as today), and summaries without the
   bug's signature.
+- Subdirectory spellings other than the three of section 3c (bare `tables`, deeper paths).
 - `docs/source/index.md` (Sphinx).
 
 ## Evidence
@@ -386,19 +445,38 @@ cases a shipped file cannot hold.
     `index.md` (with frontmatter); no W2 for a valid one; message format as for concepts.
 15. `tests/test_validator.py`, anchors (index-links-Q4): concept with `[a](other.md#part)` (file
     exists) and `[t](#top)`: no W2; `[a](missing.md#part)`: W2 reporting `missing.md#part`. Same
-    in an `index.md`.
+    in an `index.md` and in `log.md`.
 16. `tests/test_validator.py`, decoding (index-links-Q11): files `my file.md` and `café.md`
     exist; a concept linking `[a](my%20file.md)` and `[b](caf%C3%A9.md#x)` gets no W2;
     `[c](missing%20x.md)` gets W2 whose message names `missing%20x.md` as written. Same in an
-    `index.md`. Section 2 agrees (`tests/test_api.py`): a root entry starting with
+    `index.md` and in `log.md`. Section 2 agrees (`tests/test_api.py`): a root entry starting with
     `[a](my%20file.md)` whose file exists only in `api/` is recomputed; one whose file exists at
     the root is kept.
 17. `test_validate_bundle_valid_valid_bundle_is_conformant` passes on the shipped fixture
-    `tests/fixtures/bundle/valid/` (section 6), read from the repository as it ships.
+    `tests/fixtures/bundle/valid/` (section 6, its `index.md` and its `log.md`), read from the
+    repository as it ships.
 18. CLI (`tests/test_cli_core.py`): `okf-schema validate --strict --path <bundle>` exits non-zero
     on a bundle whose only problem is a broken link in an `index.md`, and its output contains
-    `W2`.
+    `W2`; the same on a bundle whose only problem is a broken link in `log.md`.
 19. Doctests of `find_broken_links` (`a.md#part`, `#top`) run with the suite.
+20. Subdirectory spellings (index-links-Q14): three roots, holding respectively
+    `* [Tables](tables/) - Toutes les tables`, `- [tables](./tables/) — Toutes les tables` and
+    `- [Tables](./tables) — Toutes les tables`, with `tables/` holding a concept of a type without
+    schema and an `index.md` list only; after `index_bundle`, each root holds exactly
+    `- [tables](./tables/) — Toutes les tables` once (no second line for `tables`, no generic
+    text); a second run reports every index `unchanged`. A damaged summary under `tables/`
+    (`- [tables](tables/) — [C](c.md)`, `c.md` only in `tables/`) is recomputed (section 2), and
+    the exact generic text under `./tables` is recomputed (section 3). Unit tests on
+    `_parse_existing_index`: `* [Tables](tables/) - Toutes les tables [X]` and
+    `- [t](./tables) — Toutes les tables [X]` each give
+    `{"./tables/": "Toutes les tables [X]"}`; `- [c](./c.md) — Text  [X]` gives
+    `{"./c.md": "Text"}`; `- [t](tables) — Text` gives `{"tables": "Text"}` (bare form not
+    normalised); `- [t](a/b/) — Text` gives `{"a/b/": "Text"}`.
+21. `tests/test_validator.py`, `log.md` (index-links-Q15): `validate_log(path, report, root)` on a
+    root `log.md` with `## 2026-01-01` and `- Removed [old](deleted.md).` gives one W2 whose
+    message is `Broken cross-link 'deleted.md' in '<path>'`; a link to an existing file gives no
+    W2; the existing two-argument `validate_log(path, report)` tests still pass;
+    `validate_bundle` on a bundle with that `log.md` reports the W2 on `log.md`.
 
 ### Host matrix (link rewriting, section 1.2)
 
@@ -429,11 +507,16 @@ cases a shipped file cannot hold.
    unchanged.
 5. Add `[x](my%20file.md)` to a concept and create `my file.md` beside it: `validate --strict`
    passes.
-6. `just preflight` passes; its generated diffs reviewed (no change expected under `examples/`).
+6. Replace the root `api` line with `* [API](api/) - Les endpoints`, run `index`: the line becomes
+   `- [api](./api/) — Les endpoints`; a second run reports every index unchanged.
+7. Add `- Removed [old](deleted.md).` under a date heading of the root `log.md` and run
+   `validate --strict`: W2 on `log.md`, non-zero exit; remove the link: it passes.
+8. `just preflight` passes; its generated diffs reviewed (no change expected under `examples/`).
 
 ## Open questions
 
 None. Answers 10 to 13 (index-links-Q9 to Q12) settled the two questions of an earlier version
 (extent of the introduction, 120-character cut) and the critic's findings on the trailing `[...]`
 and on encoded links; answer 14 (index-links-Q13) settled what is written when nothing is left
-after the cut (the generic text).
+after the cut (the generic text); answers 16 and 17 (index-links-Q14, index-links-Q15), from the
+OKF 0.2 compliance check, added the three subdirectory spellings and W2 in `log.md`.
