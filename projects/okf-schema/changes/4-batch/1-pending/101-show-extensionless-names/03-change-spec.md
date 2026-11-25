@@ -36,11 +36,25 @@ Resolve the concept in this order. Each step carries one decision of `02-answers
 
 1. `bundle = _resolve_bundle(bundle_path)` (no change; it is already `resolve()`d).
 2. Read the name into `raw`, the first rule that applies (Q6, Q14, Q15):
-   a. Disk path inside the bundle (Q6): when `Path(concept_path).is_absolute()` and its lexical
-      form `Path(os.path.normpath(concept_path))` (no link followed) `is_relative_to(bundle)`,
-      `raw = bundle / concept_path` (pathlib: the absolute path replaces `bundle`). The test is
-      lexical on purpose: an absolute path to a symlink inside the bundle whose target is
-      outside still reaches step 4 and gets the outside refusal (Q5).
+   a. Disk path inside the bundle (Q6): when `Path(concept_path).is_absolute()` and one of the
+      folders above it is the bundle once its links are followed, `raw = bundle / concept_path`
+      (pathlib: the absolute path replaces `bundle`). Precisely: take its lexical form
+      `lexical = Path(os.path.normpath(concept_path))` and accept when some `a` in
+      `lexical.parents` has `a.resolve() == bundle` (`bundle` is already the real path of
+      `--path`, step 1). Only the folders above the name are resolved, never the name itself.
+      This keeps two cases right:
+      - An absolute path spelled through a symlinked folder is accepted, as today: macOS
+        `/tmp/kb/x.md` (`/tmp` is a link to `/private/tmp`) or `/var/folders/...`, a symlinked
+        `--path` given in its link form or its real form while the name uses the other one. The
+        folder `/tmp/kb` resolves to the bundle, so the name is a disk path inside it. A purely
+        textual comparison with `bundle` would miss these: the name would go to 2b, be read from
+        the bundle root and be reported not found, which breaks Q6.
+      - An absolute path to a symlink inside the bundle whose target is outside is still
+        accepted here (its folder is the bundle), reaches step 4 and gets the outside refusal
+        (Q5). The same holds for a file under a symlinked folder of the bundle that points
+        outside: the bundle folder is among its parents, so 2a applies and step 4 refuses it.
+      Put this test in a private helper of `api.py` (for example
+      `_is_disk_path_in_bundle(bundle, concept_path) -> bool`).
    b. Name from the bundle root (Q14, Q15): otherwise, when `concept_path` starts with `/`,
       strip every leading `/` and `raw = bundle / <the rest>`, as a `/` link is read in OKF 0.2.
       On POSIX this also covers an absolute disk path outside the bundle: `/etc/passwd` becomes
@@ -162,9 +176,12 @@ okfreq new swrs "Stay inside the bundle" \
   `index`, `backlinks` and `lint` still follow symbolic links whose target is outside the
   bundle." This is the guideline's form for a behavior that is wrong and not fixed yet. A
   requirement names no ticket, so the line does not name the follow-up CR.
-- A line in the body (Q13, read with Q14): on a case-insensitive file system such as macOS, an
-  absolute path whose bundle part is spelled in another case than `--path` is not recognized as
-  a disk path inside the bundle; it is read from the bundle root and reported as not found.
+- A line in the body (Q13, read with Q14): an absolute concept path is recognized as a disk path
+  inside the bundle when one of its folders, symbolic links followed, is the real path of
+  `--path`, symbolic links followed. On a case-insensitive file system such as macOS, following
+  links does not change letter case, so an absolute path whose bundle part is spelled in another
+  case than the real path of `--path` is not recognized; it is read from the bundle root and
+  reported as not found.
 - A line in the body (Q14): a concept path starting with `/` that is not a disk path inside the
   bundle is read from the bundle root, so on POSIX an absolute path outside the bundle is
   searched in the bundle and never read.
@@ -222,11 +239,15 @@ stays `req_lifecycle: proposed` and gets no approval.
   is never a concept), the errors (`Error: Concept not found: ...`,
   `Error: Concept path is outside the bundle: ...`, which also applies to symlinks whose target
   is outside), exit code 2, and one example for each form.
-  Add the limit (Q13): on a case-insensitive file system such as macOS, an absolute
-  `CONCEPT_PATH` whose bundle part is spelled in another case than `--path` (for example
-  `/Users/me/KB/x.md` with `--path /Users/me/kb`) is not recognized as inside the bundle: it is
-  read from the bundle root and reported as `Error: Concept not found: ...`; spell it as
-  `--path` does, or pass a name from the bundle root.
+  Say how an absolute `CONCEPT_PATH` is recognized: it is inside the bundle when one of its
+  folders, symbolic links followed, is the real path of `--path` (links followed too), so a path
+  spelled through a symlinked folder (macOS `/tmp`, a symlinked `--path`) is accepted.
+  Add the limit (Q13): following links does not change letter case, so on a case-insensitive
+  file system such as macOS an absolute `CONCEPT_PATH` whose bundle part is spelled in another
+  case than the real path of `--path` (for example `/Users/me/KB/x.md` when that real path is
+  `/Users/me/kb`) is not recognized as inside the bundle: it is read from the bundle root and
+  reported as `Error: Concept not found: ...`; spell the bundle part as its real path does, or
+  pass a name from the bundle root.
 - `docs/source/tutorials/getting-started.md:89` and `docs/source/tutorials/knowledge-graph.md:94`
   already use the extensionless form, and this CR makes it work. Do not change their text.
 - `README.md`: no `show` usage to update (it only mentions `stats`). Unaffected.
@@ -303,6 +324,19 @@ API, `tests/test_api.py` (next to the `show_bundle` tests near line 546):
    `FileNotFoundError` and the file is not read: on Windows (a drive path) matching
    `outside the bundle` (010#S1); on POSIX (it starts with `/`) matching `Concept not found`
    (#S4). The test picks the expected message from `os.name`.
+7a. Unresolved bundle path (010#S3; pytest's `tmp_path` is already resolved, so this test makes
+    the unresolved form itself). Build `tmp_path / "real" / "bundle"` with `concept-a.md`, and
+    a directory symlink `tmp_path / "alias"` to `tmp_path / "real"`
+    (`symlink_to(..., target_is_directory=True)`; skip on `OSError` as above). Then:
+    - `show_bundle(alias / "bundle", str(alias / "bundle" / "concept-a.md"))` succeeds (a
+      symlinked `--path`, name in the same link form);
+    - `show_bundle(real / "bundle", str(alias / "bundle" / "concept-a.md"))` succeeds (name
+      spelled through a symlinked parent folder, as macOS `/tmp` does);
+    - `show_bundle(alias / "bundle", str(real / "bundle" / "concept-a.md"))` succeeds;
+    - each gives the same `ConceptDetail` as `concept-a.md`;
+    - with a symlink `real / "bundle" / "leak.md"` to a file outside the bundle,
+      `show_bundle(real / "bundle", str(alias / "bundle" / "leak.md"))` raises
+      `FileNotFoundError` matching `outside the bundle` and the target is not read (010#S2).
 7b. `/concept-a` and `/concept-a.md` give the same `ConceptDetail` as `concept-a.md` (#S4).
     With `etc/notes.md` created in the bundle, `/etc/notes` reads it (#S4; portable, since no
     host has that path inside `tmp_path`). `/etc/passwd` raises `FileNotFoundError` matching

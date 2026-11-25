@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "Trust tier: count the actor forms allowed by OKF 0.2",
+  "summary": "Specified for batch-01 before CR 58: non-human: actors count as machine-confirmed (alice too); W10 accepts <producer>/<version> and prefix:id, message index fixed; docs, skills, Base schema fixed; CORE-006 S5; fix(validate). Two open questions: producer grammar, bare human:.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "306696f78790d283cf8c382cce33d3a546c168a5a1e68854e7f0cedb78dad4f3",
+    "02-answers.md": "48ed60cde5462c3ac6f281eb881888eec5bba49028a7764a3bab3ad8164db1b9",
+    "03-change-spec.md": "e4071089785347fedb8675dcb4e2c36b7d224351d15d868bfca2dcdd38c35e48",
+    "intake/request.md": "05c321f4128d4bb11fd4ed6d9629057631132c934b7b239c0e2cc4d527df3d18"
+  },
+  "summarized": "2026-11-25T20:41:38Z"
+}

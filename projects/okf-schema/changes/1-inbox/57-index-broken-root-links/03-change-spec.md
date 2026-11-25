@@ -285,6 +285,29 @@ in place on this fixture; with the fixed line it leaves it unchanged. A scan of 
 `skills/` found no other broken link and no anchor link; `docs/source/index.md` (Sphinx, not a
 bundle) is out of scope.
 
+The scan of `skills-evals/` on `origin/main` (anchors removed, paths percent-decoded, as in
+section 5) found no anchored or encoded link and these broken ones, which the new index W2 flags
+when someone validates those folders:
+
+- `skills-evals/fixtures/bootstrap-output.backup/index.md` line 3,
+  ``- [bundle](./bundle/) — Auto-generated index for concepts in `bundle`.``: the fixture has no
+  `bundle/` folder. Nothing on `origin/main` references this fixture (no eval, test, recipe or
+  CI job; `git grep bootstrap-output.backup` finds nothing), and no check validates it. A known
+  W2, left as it is: this CR does not edit it. Running `okf-schema index` on that folder would
+  drop the line (no `bundle/` subdirectory), but no one does.
+- Recorded eval outputs under `skills-evals/results/` (agent workspaces kept as evidence of past
+  eval runs; `grade-eval.py` reads them and does not validate them):
+  `iteration-30.06.26-20.12/bootstrap-knowledge-base/with_skill/workspace/index.md` lines 3 to 5
+  (the bug's signature itself, for example `[Lithium-Ion Cell](lithium-ion-cell.md)` with the file
+  in `cells/`), `iteration-30.06.26-20.12/init-structure-trap/without_skill/workspace/bundle/cells/index.md`
+  line 4 (`cell-voltage.md`, absent) and
+  `iteration-30.06.26-22.06/fix-non-conformant-bundle/with_skill/workspace/index.md` line 6
+  (`./item.md`, absent). Known W2, left as they are: they record what an agent wrote, and editing
+  them would falsify the record.
+
+No other `index.md` under `skills-evals/` (the other fixtures, `bootstrap-output/` included, and
+results) holds a broken, anchored or encoded link.
+
 A scan of every shipped `log.md` on `origin/main` (`tests/fixtures/`, `examples/`,
 `requirements/tiers/log.md`, `skills-evals/fixtures/`) found no broken link: only
 `requirements/tiers/log.md` holds links (29), all resolving from its folder, so `okfreq validate
@@ -329,6 +352,22 @@ requirements` gets no new W2 from it. No `log.md` fixture needs a change.
     `skills/okf-schema/SKILL.md` line 135 `show` row (next to this CR's line 136),
     `docs/source/reference/cli.md` (section `## okf-schema show`) and `requirements/tiers/log.md`
     under the same day heading.
+  - **Same batch, `trust-actor-forms`** (`1-inbox/trust-actor-forms`, stacked before CR 58) edits
+    `src/okf_schema/validator.py` (`_ACTOR_RE` near line 65, `_derive_trust_tier` lines 355-384,
+    the W10 check of `_validate_okf2_verified` lines 588-631; this CR edits `validate_index` near
+    line 863 and `validate_log` near line 966), `docs/source/reference/validation-codes.md` (its
+    W10 section, lines 526-549; this CR edits `### W2` and "Validation Scope"),
+    `requirements/tiers/log.md` (its `### Trust tier actor forms` entry under the same day
+    heading) and the code table of `skills/okf-schema/SKILL.md` (its W10 row, line 367; this CR's
+    W2 row is line 359). Keep both sets of `validator.py` changes, both `validation-codes.md`
+    sections, both SKILL.md rows and both log entries.
+  - **Later neighbour, `bundle-outside-symlinks`** (`1-inbox/bundle-outside-symlinks`, not yet
+    specified) will change how `validate` and `index` walk the bundle and resolve paths
+    (symlinks leaving the bundle refused), so it is likely to touch `index_bundle` and its
+    helpers in `src/okf_schema/api.py`, `validate_bundle` in `src/okf_schema/validator.py` and
+    `resolve_link`/`find_broken_links` in `src/okf_schema/_internal/utils.py`. Same rule: the CR
+    that lands second rebases and keeps both: this CR's textual link rewrite (section 1.2, no
+    symlink resolution) and decoded existence check (section 5) stay, beside that CR's refusal.
 - **Scaffold guidance (`src/okf_schema/data/`):** unaffected; it ships no index-generation or W2
   wording (the Driver checks with a grep for `W2` and `okf-schema index` and states the result).
 - **Requirements** (`requirements/`, following both requirements guidelines):
