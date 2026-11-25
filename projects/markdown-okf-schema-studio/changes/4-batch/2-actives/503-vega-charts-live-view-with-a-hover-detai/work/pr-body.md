@@ -52,6 +52,7 @@ Grade: 2. Charts are drawn through a different renderer and cache; revert restor
 
 - The heavy run's `integration` job failed on a launch timeout of the trusted suite at the `diff-preview` step, which is not this change; the default branch's own heavy run [45580228461](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45580228461) failed the same way (at `lifecycle`).
 - The hover box and the chart's SVG root get their position and size through the CSSOM, which Chromium shows as a `style` attribute; no Content Security Policy violation is raised, which the `live-chart` scenario checks.
+- The heavy run 45625193289's `report` job also failed ("integration manifest status is failed"), a consequence of its `integration` failure.
 - The `live-chart` real-window pass is the heavy run at 4404b98; the heavy run [45625193289](https://github.com/gsemet/markdown-okf-schema-studio/actions/runs/45625193289) at 124a348 passes it again (`PASS real-input screenshot: diagrams/r01-live-chart-hover`); its `integration` job failed again on a launch timeout of the trusted suite (step `generic-markdown`), the same class as above, and static, visual, stress and viewer-graph pass.
 
 ## Internal references

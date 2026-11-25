@@ -21,3 +21,18 @@ Carried from 4404b98 (the one-line change to a clip scenario cannot touch them):
    check-only fix. 
 9. Heavy run 45625193289 at 124a348, read from the Driver's note, not re-run: live-chart PASS; integration job
    trusted-suite launch timeout, a known gap.
+
+## Description pass at 124a348dd3d168f47365b083050eee419215dde4 (posted PR 523 body alone)
+
+Head: 124a348dd3d168f47365b083050eee419215dde4
+
+NOT VERIFIED
+
+- Images: the body embeds `./chart-hover-cream.png` and `./chart-hover-dark.png` (relative paths). `gh pr view 523 --json body`
+  shows no uploaded URL; the files are not in the PR (`gh pr view 523 --json files` lists neither). They do not resolve on the forge.
+  Content of the cream capture was opened: shows the hover box on the first grouped bar, no username or home path.
+- Known gaps: the heavy run 45625193289 also has `report` failed (`just ci-report all`: "integration manifest status is failed"),
+  a consequence of the integration failure; not named in Known gaps (minor).
+- Checked right: heavy run head 124a348, `PASS real-input screenshot: diagrams/r01-live-chart-hover` in the log, integration X, static,
+  static-windows, visual, stress, viewer-graph pass; `gh pr checks 523` static, static-windows, visual, viewer-graph pass; run 45617988132
+  head 4404b98; 45580228461 failure on main; changes list matches the file list of the diff.
