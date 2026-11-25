@@ -76,8 +76,9 @@ does not change).
       `test/site/galleryPage.ts`, tested in `test/site/gallery.test.ts` and
       `test/site/galleryLinks.browser.test.ts`; `just requirements-update` run
 - [x] Changelog: one user-facing line under `## Unreleased` in `CHANGELOG.md`
-- [ ] Local gates:
-- [ ] Review
+- [x] Local gates: `just preflight` passes at c1037ae (static stage on Windows);
+      `just ci-viewer-graph` passes on the same files before the commit
+- [x] Review: approved at 4a47151 (working tree), committed as c1037ae
 - [ ] CI green
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
