@@ -1,0 +1,175 @@
+=== board
+# The board
+
+The surface server: it serves the web board, the planning files to live clients, the surface's writer and the forge hub. It listens on this machine only unless `board.host: network` or `--host` says otherwise. One board serves a surface, on whatever port; a second session's `serve --seat <id>` registers on it. With no server, a write to the planning surface is refused.
+- It starts with the watcher, on the session's one yes (`help watcher`). On a host that cannot run a watcher, ask first, then run `$CHANTIER serve --seat <own session id> --forge-always` in the background by the host row, no `--stop-idle`; the yes covers a later restart of it. A host with no background command: one line with the reason. A Griller, a Foreman, a Driver and the router never start it.
+- The forge is read every 20 s while a client is subscribed (always with `--forge-always`), only for the PRs a running batch waits for; it needs the network.
+- A watcher's board stops by itself when the seat leaves or 30 minutes after its last client. To stop it sooner, on the user's word only, run the stop command with the PID of the watcher's start line or `status`'s `forge hub:` line (`taskkill /PID <pid> /T /F` on Windows, else `kill <pid>`).
+- A reload starts nothing; the board survives a compaction.
+- A board another session serves is the user's to stop. Never start one on another port. A board started by hand runs in the background, never the foreground. Start lines: `help board-lines`. A newer build: `help board-restart`.
+=== board-lines
+# The board's lines
+
+Pass each on once, in one line, as printed:
+- `board on <URL> over ...`: the link and its key as announced, not a readiness proof (only a successful probe such as `GET /api/board` is; say none ran otherwise). A non-loopback binding (`board: listens on the local network (...)`): say LAN reach is untested. A second line `on this machine: http://127.0.0.1:...`: give both, the 127.0.0.1 one is where "Copy as image" works. `read-only: <link>` shows and acts on nothing, and can be shared; the private link acts.
+- `board: no local network address found; on this machine only`: the board is local; once the network is back the user stops it by the host row, then it starts again.
+- `board already running at <URL>`: the same lines if not given yet.
+- `board: watches the planning files` or `no file notifications here; checks every 5 s` (a change shows up to 5 s late); `stops by itself after 30 min with no client`; `the running board reads the forge only while a client is subscribed`.
+- `error: board not started: ... already serves this surface ...` or `does not answer`: one line with version, PID and the printed stop command. Never stop it yourself except by the restart (`help board-restart`).
+- `board: writer not started: <reason>`: the board serves, writes to the surface are refused. Any other `error: board not started`: one line with the reason and the command, go on; the board never blocks a session, preflight, batch or report.
+=== board-restart
+# Restart the board
+
+On `board runs another build`, `board runs a build of chantier <v> older than this notice`, `board is chantier <v>: restart it to run this version`, or after a merge that changes the board's code (`board/`, `hub/`, `writer/`, `clients/web/`) in the dev mode, offer the restart once, in one line with its cost: the board, the writer and the hub are off for every project of the surface for up to two minutes, and a board Griller run in progress ends.
+- On the user's yes, each time (a yes covers one restart): `$CHANTIER serve --restart --seat <id>` (with `--forge-always` on a host that cannot run the watcher) in the background by the host row; read its first lines and pass them on.
+- A refusal: one line with the printed stop command, never run by you. No answer or a no: say nothing more until the next such line.
+- With `sync pending`, the sync goes first (`help sync`).
+- A dev-mode board of another build is replaced by `serve --restart` on the user's yes; other projects' watchers start no board while a dev session holds the seat.
+- "A new key", "the link leaked": on the user's word `$CHANTIER serve --seat <id> --new-key`; both keys change, old links and pages stop; give the new links.
+=== watcher
+# Starting the watcher
+
+A Chief of Staff, whatever its batch (running, paused, none), asks once per session, on the `watch: not running` line, in the user's language: "I start the watcher, which starts the board if it is not running?" Explain: the watcher runs on in the background, subscribed to the board, and tells within about 20 s what the user does in the board and what the forge shows; the board (persistent, stops 30 minutes after its last client or when the seat leaves, its network exposure, its forge reads, its writer).
+- A yes starts both and holds for the session: every later start, restart, resume and switch goes on without asking, also after the board stopped by itself.
+- A no starts neither: writes to the surface are refused, merges wait for the user's word, and the pull path runs at each user message (`help watcher-pull`).
+- Start it by the host row, the printed command as is, no flag added. A host whose watcher does not wake the session: say once "This host may not wake me: what you do in the board reaches me at your next message." A host with no background command: one line, no workaround.
+- In Foreman mode the Foreman runs its own watcher with no question; `status` says `foreman watch: running` or `not running`. Never start a second watcher in the session while one runs, stop another session's, or start one after the user's no.
+=== watcher-lines
+# The watcher's lines
+
+Its start lines:
+- `watch: <project> from cursor <n> ...; started the board (PID <n>)`: say once, with the link from `status`. Pass on its `board:` lines. `board is chantier <v>: restart it ...`: say once with the offer (`help board-restart`). `; no board started: a chantier dev session holds its seat ...`: pass on once; it links by itself.
+- `did not start within 20 s`, `does not answer`, `refused the key`, `no seat`, `records no session transcript`, `cannot be read`, `no session key`: one line with the printed command or reason, no workaround. For the seat ones take the seat as printed only when this session is the Chief of Staff (`help seat`), then start it again.
+- `watch: no event for <name> in 2 h; ended ...` with no batch in flight: start it again at once, say nothing.
+- It ends when the seat is another session's (`the seat of <project> is another session's now`: not started again). After a notification (last line `still watching`) there is no restart; after an end, run the printed command as is.
+- `status` prints `watch: not running: ...` after `open`, `seat take`, a `take` or `order qa` that resumes a paused batch, a switch to direct, a reload: start it at once on the session's yes. Another session's watcher does not wake you.
+- Its events and what to do with them: `help watcher-events`, `help watcher-board`. The pull path: `help watcher-pull`.
+=== watcher-events
+# A watcher's notification or end
+
+Read its output, each line handled the same way.
+- `forge saw merged ... order merged <cr>`, also at the next `status`: check the forge first (`gh pr view <pr> --json state,baseRefName,mergedAt`, `glab mr view <iid>`): merged into the default branch, or for `landed with` its base's PR merged there. Then `order merged <cr>` with no word from the user (Foreman mode: send its line to the Foreman); `already merged` is harmless. Not confirmed: record nothing, tell the user what the forge shows. `not landed`: tell where the PR went, record nothing. In Foreman mode with `foreman watch: running`, merge, red-CI and met-wait lines are the Foreman's: tell the user, record nothing, send nothing; a Foreman's `unconfirmed <cr> <pr>: ...` is checked on the forge by you.
+- `forge saw checks red`: tell the user (CR, PR, head), record nothing; with `foreman watch: not running`, send the Foreman `checks red <cr> <pr> at <head7>`.
+- `config changed on the board: batch.slots <old> -> <new>`: tell the user, offer `order slots --note <new>` for the running batch, send nothing before their word. A `specifying.parallel` or role-key line: one line, no action.
+- `tracker saw ...`: one line, record nothing. `surface pull brought` / `another session wrote`: one line naming folder and stage; the CR is not claimed, moved or grilled.
+- Then one message with what was recorded and told; when the watcher ended, start it again from its last line.
+=== watcher-board
+# The board's writes
+
+A `board wrote (...)` line that sets a CR's destination is written into its `02-answers.md` at once, in a folder that has one (none is created); the latest word wins:
+- `board wrote (running-batch)`: `Destination: running batch <batch> (board, <HH:MM>)`, the line's own time in the user's local time.
+- `board wrote (move)` to `3-ready` (with or without `running-batch mark cleared`): `Destination: next batch (board)`. A move of a marked CR to the inbox or a priority row: `Destination: back to the backlog (board)`.
+- A `running-batch` line is the user's go for the running batch: read the CR's folder. In `3-ready`, or with its specification final (`03-change-spec.md` written, no `work/specifying`, its critic run and applied when due, no open question): `$CHANTIER order add --note <folder>` with no further question, handle the order as usual (Foreman mode: send its line to the Foreman; direct mode: take the CR when a slot frees), tell the user `<CR-id> added to <batch> from the board`. Otherwise one line: `<slug> marked for <batch> from the board: it joins once its specification is final`; `order add` when it is.
+- An `order add` refused: say its text. Other `board wrote` lines: one line, no tool call.
+=== watcher-pull
+# The pull path
+
+When no watcher can wake this session (the host row, or the user's no), run the printed `watch --once` command (the `watch: not running` line's `after the user's no` clause, `status`'s `pull path` line, or the last output's `next` line) as is, no flag added, at the start of each turn the user's message opens.
+- Tell its `board wrote`, `tracker saw`, `surface pull brought` / `another session wrote` and role `config@1` lines as at a notification; act on its merge and two-key `config@1` lines the same way (`help watcher-events`, `help watcher-board`).
+- A line whose `seq` was already told is not told again.
+- After the user's no, merges go back to the user's word: no board reads the forge. `seat` and `status` list the arrivals not yet told when no watcher runs.
+=== remote-login
+# Another machine and the board's link
+
+- "Board on my phone", "where is the board?": `$CHANTIER webui` prints the link and starts the server when none runs. It holds the private key, for the user only; the `read-only:` link can be shared. Its PRs page is the live view of the batch's PRs. To reach it from another device on the local network, on the user's word, `board.host: network` in `chantier.yaml` (or `--host` for one start), then the board started again (`help board-restart`). A page that lost its cookie asks for the link: the user pastes it.
+- "Run chantier from another machine", "log in to the board": on the other machine `chantier login <private link> [--project <id>]`; every command for that project there then runs on this server (other projects stay local). The server must listen on the local network. `--profile local` or `chantier logout` runs locally again.
+- A Chief of Staff working through a profile has no watcher: it reads `status` at each turn.
+=== allow-rules
+# The allow rules (P10, Claude Code)
+
+The one write chantier makes in the user's settings, and only on the user's yes, once per session per capability (the host row "Capabilities and their commands").
+- The question: one, in the first message after the P5 and P10 lines: "add these rules to `~/.claude/settings.json`?" It lists each rule P10 named with its real path and its risk, from the host row. A first turn covers "every batch" only; the go covers the capabilities the batch uses; a later grant its capability. The rules of "a release on its own" and "fixes on a grant" are offered only when the user granted them. Say once that the rebase rules are "rebase and force-with-lease of chantier's own branches, once per machine".
+- On the yes: add exactly those rules to `permissions.allow`, merged (never replace, remove or duplicate), creating the file or keys when absent, valid JSON. Run `$CHANTIER preflight` again and say what P10 says. Whether this running session picks it up is unproved: a session or agent started afterwards reads it.
+- Nothing else is written in any settings file: not the project's `.claude/settings.json` or `.local.json`, no deny, ask or other key. A Griller reports the P10 line and says the Chief of Staff asks.
+- More cases: `help allow-rules-more`.
+=== allow-rules-more
+# The allow rules, other cases
+
+- A broad rule (one that lets any command through): say once per session as a strong warning, with the file and "lets any command through"; offer the real-path rules P10 named beside it. The user removes it by hand; never remove or edit it.
+- A stale rule (its path no longer matches the plugin's): name it in the same question, with its file, for the user to remove by hand.
+- On a no: say once per capability what will stop. Every batch: a Driver's force push after a rebase goes Driver, Foreman, Chief of Staff; the Foreman does not try (`push not tried: route rule missing`), so the push comes to you, and an unattended batch waits at the first push that climbs to the user; a Driver's rebase may stop too. A release on its own: "the release will stop at the merge or the publication and wait for you". Fixes on a grant: "the fix's merge will wait for you". Do not ask again for that capability.
+- The strong warning: a P10 warn line or a refused trial is said first among the configuration lines, with why (the host's auto-mode classifier judges each command; in a remote session nobody may answer its prompt) and what the capability does without the rules. It never blocks the go.
+- The project's own release commands no row covers (`just tag` for chantier): "`<command>` is the project's own: no rule is offered for it; it may meet the host's prompt".
+- The host refuses the edit: say it with the exact text (floor 9), give the host row's "Allow rules to add" command for the user's shell, say it needs the user at that computer; no other file, tool or retry. A settings file that cannot be read (`unreadable: ...`): do not write it; same command after the user fixes it.
+=== forge-permissions
+# Forge permissions (P9), GitHub
+
+At the first turn and at step 1 of a batch, read-only, each command alone; on Windows PowerShell 5.1 print `--json` and read it, no `--jq` with spaces. Everything only warns.
+1. `gh auth status` and its `Token scopes:` (`repo`; a fine-grained token prints none: say "unknown: a fine-grained token, see its permissions"; `workflow` only for a CR touching `.github/workflows/`, named at step 1).
+2. `gh repo view --json viewerPermission,defaultBranchRef`: `WRITE`, `MAINTAIN`, `ADMIN` can push, edit PRs and publish; `READ`, `TRIAGE` cannot.
+3. `gh api repos/<owner>/<repo>/rules/branches/<a chantier/ branch name>` (the name need not exist, `/` raw): `non_fast_forward` refuses the force push, `update` the push, `creation` a new branch: name each with its ruleset. Legacy protection is read only for an `ADMIN` account.
+4. A stack: `gh api repos/<owner>/<repo>/stacks -X GET -F per_page=1`; a 404 or 403 means no native stack: `forge-stack create` or the extension will fail and the stack stays a chain.
+5. For a merge by the steering session or a stack: the default branch's rules and `gh repo view --json mergeCommitAllowed,rebaseMergeAllowed,squashMergeAllowed`. Warn on required approving reviews (the grant's merge stops), required status checks (said), a merge queue, and the project's merge method not allowed.
+GitLab: `help forge-permissions-gitlab`. What the user hears: `help forge-permissions-say`.
+=== forge-permissions-say
+# What the user hears of the forge
+
+One block in the first message after the P5 and P10 lines: what may stop an unattended batch (a P10 warn first), each line with what to change in the forge's own words (for example a ruleset refusing force pushes on `chantier/*`: allow them for `chantier/**`), the host's auto-mode alert sentence, and the release publication when the procedure runs it. Without a grant the host asks, by design (not a missing rule); with a grant its rules are offered (`help allow-rules`), and when they are not added the strong warning says the release may stop at publication. When the host refuses: "the publication is yours: you will be asked to run `<the command>`", said now, not at the end. Step 1 repeats only what is still missing.
+=== forge-permissions-gitlab
+# Forge permissions, GitLab
+
+All unproved; trial: one run on a GitLab project. These probes run at step 1 for the capabilities the batch uses.
+1. `glab auth status` and the token's scopes (`api` is needed).
+2. `glab api projects/<url-encoded path>`: `permissions.project_access` or `group_access` `access_level` 30 or more to push, open MRs and create a release.
+3. `glab api projects/<url-encoded path>/protected_branches`: a name or wildcard matching a `chantier/` branch with `allow_force_push: false` refuses the force push; `push_access_levels` above the account's level refuses the push.
+4. No native stack: nothing to probe (a stack stays a chain).
+5. `glab api projects/<url-encoded path>`: `merge_method`, `approvals_before_merge` or the approval rules, merge trains; `protected_branches/<default branch>`: `merge_access_levels` above the account's refuses the merge.
+=== config
+# The configuration and the team
+
+Four layers, weakest to strongest: the plugin's `config/chantier.defaults.yml` (never edited); with a planning surface, its root `chantier.yaml` and `projects/<name>/chantier.yaml`; then the code repository's `chantier.yaml` (`.yml` too, never both in one place). A layer carries only what it changes; `default` (or `~`, `null`, never quoted) takes a weaker layer's value back. Only the CLI reads, validates and resolves it; you edit a file only on the user's word. Keys: `hosts.<host>.roles.<role>.agent|model|skills`, `long_gate.parallel`, `long_gate.commands` (only the code repository's root file names commands), `specifying.parallel` (4 by default), `batch.slots` (4 by default, 0 or more).
+- A role is one of the plugin's agents; it keeps its card, whoever runs it. `$CHANTIER playbook` prints what each role runs, or says there is no `chantier.yaml`. An invalid layer exits 2 with each problem: show the lines, never fix the file yourself (P12 fails).
+- A role starts as the plugin's agent, the user's own agent, the plugin's agent with a model (where the host starts a named agent with a model, else a generic agent with the role's contract), or the user's agent with a model, which Copilot refuses: say so and offer to name the model in the agent's file. A generic role runs with the caller's tools unrestricted: say it when you show the team.
+- `AGENTS.md`'s `chantier` section keeps the review steps, the release pointer and `planning:`; one that still names an agent for a role: offer to move it to `chantier.yaml`. A running batch keeps the playbook it opened with. Pass the Foreman the `playbook` lines as printed, with the review steps.
+- Required skills and tools: at the first turn and step 1, compare each skill or tool a role names with your session (host row "Skills and tools of a session"). Missing: `<role> needs the skill <name>: not found in this session; <role> works without it.` A warning only, never `$CHANTIER`, never another means.
+- Your own subagents (spec-writer, spec-critic, retro-critic, demo-explorer) start with the agent and model `playbook` prints.
+=== project-rules
+# The project at a session's start
+
+`$CHANTIER rules` at each session's start; the project's `AGENTS.md` (else `CLAUDE.md` or `.github/copilot-instructions.md`) and what it links say how it builds, tests, ships, merges and releases. Once per session run `$CHANTIER preflight` and P9; tell the user only what P5, P9 and P10 say.
+- No long gate written down: a question to the user with your recommended answer and an offer to write it in `AGENTS.md`; an absent gate never means success.
+- A long gate in the project's rules while `playbook` prints `long gate: none named in chantier.yaml`: ask, with the exact lines proposed (a name and the rules' command), written on the user's yes in the main checkout's root `chantier.yaml`, uncommitted, with an offer of an inbox CR that commits it; until it merges, a PR changing that file stops the fast-forward after a merge, which reports it and overwrites nothing. A `playbook` line saying a surface's `long_gate.commands` is ignored: same offer.
+- "Our long gate is `<command>`": propose the `AGENTS.md` line naming it and the `chantier.yaml` entry holding the command; ask once whether it is isolated per worktree and propose `long_gate.parallel` when absent.
+- Rules saying there is no long gate, or exempting a kind of CR, or naming a pipeline job as the long gate: a Driver's `handback --no-gate` carries it and the steering session checks it.
+- A brief states a past fact only with its source.
+=== options
+# Offering options
+
+Before you offer an option, check where the user can take it from (the phone on Remote Control, the desktop app, a terminal); where they are comes only from the host's signal, never a guess. A signal: offer only what they can do from there; when none fits, say so and why. No signal: offer every option that fits, each with its condition in a few words. What you can do yourself (run a command, send a file) you do or say you cannot; it is not handed to a user with no shell.
+- Foreman mode: needs a Foreman session the user can see and steer, or one to reuse. Direct mode: only your own session; with a Foreman not answering, its stop needs the machine (unproved from Remote Control).
+- "Run this in a terminal", a local URL or file, a host dialog, restarting the app, reloading plugins, opening an editor: the machine only. A PR's review and merge: the forge, any device.
+- A host feature (a scheduled wake, a monitor): only if the host has it in this session; no look-alike.
+- Work in the main checkout: no eval running, a session on the main checkout; fail fast.
+=== refusals-to-say
+# Refusals to say before they are met
+
+When the user asks for one, say three parts at once, in their language: what is refused, why, what they can do now.
+- A. A new idea, a grill or a QA while a direct batch runs: no grill while you steer (it waits for the pause), `order qa` refused until the pause. Not refused: a CR already grilled and specified (`order add` queues it, taken when a slot frees), and filing or triaging the idea now. Ways: grill it in a Griller session (`/chantier:griller`, or a fork on Remote Control), then `order add`; or file it and grill it at the pause; or switch to Foreman mode where the host allows.
+- B. A new CR with a release CR in the batch: before the release starts, the release waits for it and the user's word on its procedure is voided; once started, `order add` is refused. Ways: add it and give the word again, or keep it for the next batch; once started, a fix (`order add --fix-for <release-cr>`) or the next batch. A batch with a release CR pauses only once the release ended.
+- C. On Claude Code, a subagent's file named `report...`, `summary...`, `findings...` or `analysis...` (`.md`) is refused by the host on the file name: no allow rule fixes it; the file takes a number prefix (`04-report.md`).
+- D. "Close the batch" while something still runs: `close` is refused while a CR is not merged or cancelled, an order is open, or a stack or held agent runs or cannot be read. Ways: wait for the agent's end and run `close` again; a held agent that ended with no transcript: `agents set <cr> - --epoch <n>` on the user's word; a CR left open: merge it or `order drop <cr> --note ...` with the user's destination. More: `help refusals-to-say-more`.
+=== refusals-to-say-more
+# Refusals to say, rows E to H
+
+- E. The word to run the release procedure while other CRs are open: `order confirm <release-cr>` is refused while another CR of the batch (fixes aside) is unmerged or the release PR is not merged; the word covers exactly what the release ships. Ways: merge or drop the open CRs, then give it; or give it with the merge go of the release PR.
+- F. A batch or `order add` with a CR that has no specification: refused (`missing Change Specification: ...; grill the CR first`), except a CR in `3-ready` with `intake/request.md` (automatable: the request is its specification). Ways: grill it and have the spec-writer write the specification (row A in direct mode), or `triage --ready` it on the user's word.
+- G. More work on a CR past its round limit (three unless granted): `round` is refused and the CR comes back blocked. Ways: read its question, then `order rounds <cr> --note <n>`, change or split the CR, or drop it. A red the batch caused (a restack, a rebase onto another CR, a CR merged or moved below) is the rounds exception: you grant the next round yourself, up to the batch's `max_rounds` + 2, and say so.
+- H. A model with no price: nothing is refused; `close` runs and the cost is a floor, as is the budget check. Add the model's price under `prices:` in `chantier.yaml` (exact model id, $/MTok) on the user's word; say it when the user picks such a model, not only when the cost report's not-priced line appears.
+=== compacting
+# Compacting and tips
+
+- Compacting: once per session advise the host's auto-compact window if its host row names one. When the talk moves to another subject and your context (the `Chief of Staff, whole session` line) is above 100k tokens, advise the host's compact command with a line to copy that says what to keep (the running batch, the open CRs, the decisions not yet written). Never in the middle of a subject. It is not a tip.
+- Tips come at four moments only, one line each, once per moment and session: first use (the introduction or the end of `init`), after a status or a report on a CR ready to merge or merged, the end of a batch (Completion report or `close`'s bilan), during a release ("auto").
+- A tip is one short line starting with 💡, in the user's language, with the exact words to type, the last line after **For you:**. None in a message that asks a question or reports a blocker. A tip given and not used is not repeated. A tip names only what chantier answers, never a command the host refuses here nor what the user cannot take from where they are. "No more tips" (any language) turns tips off for the session. The "auto" answer in a release approval question is not a tip.
+- Examples, judged freely: "init"; "file this: ..."; "which agents and models?"; "what did it cost?"; `/chantier:status`; `/chantier-board` (Claude Code only); "I merged #<n>"; "more rounds for CR-<n>"; "run a QA on <what>"; "board on my phone"; "add <slug> to this batch"; "release v<x.y.z>"; "run what is in 3-ready".
+=== delivery-time
+# Delivery time: the floor of a batch
+
+The least time a batch can take, counted from facts, never a prediction; extra rounds, a Verifier or a wait add to it and are not counted. Say it "at least about <h> h", a delivery time "not before <time>" in the user's time zone. You count it by hand; the CLI prints none. The name in the card is this topic; no other word for it.
+- The depth: the longest chain of CRs that wait for one another (`depends.json`, an approved chain, the order of a series; a release waits for every other CR, one more level). Say it with the chain: "critical path: CR-a -> CR-b". A parallel batch with no `after` has depth 1.
+- The gates: CRs still to pass their long gate, queued behind one lock whatever the slots. A CR exempt (`handback --no-gate`) or covered by a waiver does not count; under a stack waiver the top counts once. Under a rule that asks a local run, every CR of a parallel or series batch that owes it counts, and a stack's top counts once, unless a waiver's words name that gate.
+- Lock term = gates times the gate's time. Chain term = depth times (the gate's time plus one CI run). The floor is the larger; say which.
+- The gate's time comes from the record only: the latest passed runs, the `gate` events of one `run` id in `events.jsonl` (end at the last event's `t` in UTC; start from the run id `<yyyymmdd>-<hhmmss>-<pid>`, local time, converted); else the project's rules; else unknown.
+- A CI run's time comes from the forge, read-only (`gh run list --json`, `glab ci list`); no CI on PRs counts 0, said so. Unreadable: `CI time unknown, not counted`.
+- No source for the gate's time: the floor is the depth alone, as levels with the critical path, and the delivery time is unknown: say so and state none; ask nobody and run no gate to measure it.
+- Any sentence that tells when work will be done comes from the floor, said with its terms; without it, no time is promised.
