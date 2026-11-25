@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "title": "SC19: New cards: the workers, critics and review steps",
+  "summary": "Specified: child 19 of 28, on child 18's branch. Unloaded cards-next/ cards for 10 workers, critics and review steps plus the board Griller's section, within budgets, with topics and an inventory draft. Long gate owed, 0 s on just test. One open question.",
+  "origin": {
+    "kind": "verbal"
+  },
+  "sources": {
+    "01-intent.md": "cb15c83c98f9651b3a6927b600211984f2b40e04475570d2ba8fc87386ea930d",
+    "02-answers.md": "bdb299e938b2e6e530174acc5a96c2d3be31c9ba656f93f0837a51fd86b43de1",
+    "03-change-spec.md": "11748d6f0abfdcdd1c816eeb9937af0f24a54300f0337444ba48c7353002538a",
+    "intake/request.md": "615ccd5fd0d408900dad9625a1406e058f507db08b8da64ec66cf3293133064e"
+  },
+  "summarized": "2026-11-25T00:12:17Z"
+}
